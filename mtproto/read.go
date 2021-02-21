@@ -66,6 +66,9 @@ func (c *Conn) read(ctx context.Context, b *bin.Buffer) (*crypto.EncryptedMessag
 	if err := checkMessageID(c.clock.Now(), msg.MessageID); err != nil {
 		return nil, xerrors.Errorf("bad message id: %w", err)
 	}
+	if !c.messageIDBuf.Consume(msg.MessageID) {
+		return nil, xerrors.Errorf("duplicate or too low message id: %w", errRejected)
+	}
 
 	return msg, nil
 }

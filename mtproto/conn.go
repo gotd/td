@@ -50,11 +50,12 @@ type Conn struct {
 
 	// Wrappers for external world, like current time, logs or PRNG.
 	// Should be immutable.
-	clock     clock.Clock
-	rand      io.Reader
-	cipher    Cipher
-	log       *zap.Logger
-	messageID MessageIDSource
+	clock        clock.Clock
+	rand         io.Reader
+	cipher       Cipher
+	log          *zap.Logger
+	messageID    MessageIDSource
+	messageIDBuf *proto.MessageIDBuf // replay attack protection
 
 	// use session() to access authKey, salt or sessionID.
 	sessionMux sync.RWMutex
@@ -92,14 +93,15 @@ func New(addr string, opt Options) *Conn {
 	opt.setDefaults()
 
 	conn := &Conn{
-		addr:      addr,
-		transport: opt.Transport,
-		clock:     opt.Clock,
-		rand:      opt.Random,
-		cipher:    opt.Cipher,
-		log:       opt.Logger,
-		ping:      map[int64]func(){},
-		messageID: opt.MessageID,
+		addr:         addr,
+		transport:    opt.Transport,
+		clock:        opt.Clock,
+		rand:         opt.Random,
+		cipher:       opt.Cipher,
+		log:          opt.Logger,
+		ping:         map[int64]func(){},
+		messageID:    opt.MessageID,
+		messageIDBuf: proto.NewMessageIDBuf(100),
 
 		ackSendChan:  make(chan int64),
 		ackInterval:  opt.AckInterval,
