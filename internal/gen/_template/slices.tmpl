@@ -27,7 +27,7 @@ func (s {{ $f.Name }}Slice) {{ $s.Name }}ToMap() map[int]*{{ $s.Name }} {
 
 {{- end }}
 
-{{- range $mapping := $f.Mappings }}
+{{- range $mapping := $f.Mappings }}{{- if (not $mapping.Constructor) }}
 {{- if hasField (index ($f.SharedFields) ($mapping.MapperName)) ("ID") ("int") }}
 // Fill{{ $mapping.MapperName }}Map fills only {{ $mapping.MapperName }} constructors to given map.
 func (s {{ $f.Name }}Slice) Fill{{ $mapping.MapperName }}Map(to map[int]{{ template "print_mapper_type" $mapping }}) {
@@ -77,7 +77,18 @@ func (s {{ $f.Name }}Slice) {{ $method }}As{{ $mapping.MapperName }}() (v {{ tem
     return value.As{{ $mapping.MapperName }}()
 }
 {{- end }}
+
+{{- range $method := concat ("PopFirst") ("Pop") }}
+// {{ $method }}As{{ $mapping.MapperName }} returns element of slice (if exists).
+func (s *{{ $f.Name }}Slice) {{ $method }}As{{ $mapping.MapperName }}() (v {{ template "print_mapper_type" $mapping }}, ok bool) {
+    value, ok := s.{{ $method }}()
+    if !ok {
+        return
+    }
+    return value.As{{ $mapping.MapperName }}()
+}
 {{- end }}
+{{- end }}{{- end }}
 
 // First returns first element of slice (if exists).
 func (s {{ $f.Name }}Slice) First() (v {{ $f.Name }}, ok bool) {
@@ -129,4 +140,5 @@ func (s *{{ $f.Name }}Slice) Pop() (v {{ $f.Name }}, ok bool) {
 }
 
 {{- end }}
+
 {{ end }}

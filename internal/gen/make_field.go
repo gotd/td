@@ -1,6 +1,8 @@
 package gen
 
 import (
+	"strings"
+
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/tl"
@@ -49,14 +51,45 @@ type fieldDef struct {
 	Links []string
 }
 
-func (f fieldDef) EqualAsField(b fieldDef) bool {
-	return f.Name == b.Name &&
-		f.Type == b.Type &&
+type fieldPair struct {
+	L, R fieldDef
+}
+
+func (f fieldDef) String() string {
+	b := strings.Builder{}
+	b.Grow(len(f.Name) + len(f.Type) + 16)
+	b.WriteString(f.Name)
+	b.WriteByte(' ')
+
+	switch {
+	case f.Slice || f.Vector:
+		b.WriteString("[]")
+	case f.DoubleSlice || f.DoubleVector:
+		b.WriteString("[][]")
+	}
+	b.WriteString(f.Type)
+	switch {
+	case f.Conditional:
+		b.WriteString("?")
+	case f.ConditionalBool:
+		b.WriteString("?true")
+	}
+
+	return b.String()
+}
+
+func (f fieldDef) SameType(b fieldDef) bool {
+	return f.Type == b.Type &&
 		f.Func == b.Func &&
 		f.Vector == b.Vector &&
 		f.DoubleVector == b.DoubleVector &&
 		f.Slice == b.Slice &&
-		f.DoubleSlice == b.DoubleSlice &&
+		f.DoubleSlice == b.DoubleSlice
+}
+
+func (f fieldDef) EqualAsField(b fieldDef) bool {
+	return f.Name == b.Name &&
+		f.SameType(b) &&
 		f.Interface == b.Interface &&
 		f.InterfaceFunc == b.InterfaceFunc &&
 		f.Conditional == b.Conditional &&

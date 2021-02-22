@@ -19,8 +19,7 @@
 {{- else }}{{ $.Type }}
 {{- end }}{{- end }}
 
-{{ define "getter_func_type" }}
-{{- /*gotype: github.com/gotd/td/internal/gen.fieldDef*/ -}}
+{{ define "getter_func_type" }}{{- /*gotype: github.com/gotd/td/internal/gen.fieldDef*/ -}}
 Get{{$.Name}}() (value {{ template "print_type" $ }}{{ if and ($.Conditional) (not $.ConditionalBool) }}, ok bool{{ end }})
 {{- end }}
 
@@ -31,8 +30,9 @@ Get{{$.Name}}() (value {{ template "print_type" $ }}{{ if and ($.Conditional) (n
 
 {{ define "mapper_func_type" }}{{ $mapping := . -}}
 {{- /*gotype: github.com/gotd/td/internal/gen.constructorMapping*/ -}}
-As{{ $mapping.MapperName }}() ({{ template "print_mapper_type" $mapping }}, bool)
-{{- end }}
+{{- if $mapping.Fields }}As{{ $mapping.MapperName }}() {{ template "print_mapper_type" $mapping }}
+{{- else }}As{{ $mapping.MapperName }}() ({{ template "print_mapper_type" $mapping }}, bool)
+{{- end }}{{- end }}
 
 {{ define "print_links" }}
 //

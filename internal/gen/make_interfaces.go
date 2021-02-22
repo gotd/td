@@ -7,10 +7,15 @@ import (
 type constructorMapping struct {
 	// Name is go name of interface or struct.
 	Name string
+	// Constructor is go name of mapped constructor.
+	// May be empty.
+	Constructor string
 	// Concrete is flag which is true when Name address a struct, not interface.
 	Concrete bool
 	// MapperName is name of mapper which created this sub.
 	MapperName string
+	// Fields is slice of field mappings from this struct to target.
+	Fields []fieldPair
 }
 
 // interfaceDef represents generic interface, type which has multiple constructors.
@@ -31,46 +36,6 @@ type interfaceDef struct {
 	Namespace    []string
 	BaseName     string
 	URL          string
-}
-
-func commonFields(a, b []fieldDef) []fieldDef {
-	return filterFields(a, func(def fieldDef) bool {
-		for _, x := range b {
-			if x.EqualAsField(def) {
-				return true
-			}
-		}
-
-		return false
-	})
-}
-
-func intersectFields(a, b []fieldDef) []fieldDef {
-	// If a is empty, copy all from b to a.
-	if a == nil {
-		a = make([]fieldDef, len(b))
-		copy(a, b)
-	} else { // Otherwise intersect.
-		a = commonFields(a, b)
-	}
-
-	return filterFields(a, func(def fieldDef) bool {
-		// Filter bin.Flags fields.
-		return def.Type != flagsType
-	})
-}
-
-func filterFields(a []fieldDef, filter func(def fieldDef) bool) []fieldDef {
-	n := 0
-	for _, f := range a {
-		if filter(f) {
-			a[n] = f
-			n++
-		}
-	}
-	a = a[:n]
-
-	return a
 }
 
 func interfaceHasOneSuffix(suffixes ...string) func(s structDef) bool {
@@ -127,6 +92,46 @@ func makeMapping(def *interfaceDef, name string, emptyFilter func(s structDef) b
 	}
 }
 
+func (g *Generator) collectMappings(def *interfaceDef) {
+	for _, s := range g.structs {
+		// Filter constructors from same Class and empty constructors.
+		if s.Interface == def.Name || len(s.Fields) < 1 {
+			continue
+		}
+
+		for _, constructor := range def.Constructors {
+			// Filter constructors which have not similar name.
+			if !strings.Contains(s.Name, constructor.Name) {
+				continue
+			}
+
+			mapping, ok := mappableFields(constructor, s)
+			// Filter constructors which we can't fill completely.
+			if !ok {
+				continue
+			}
+			def.Mappings = append(def.Mappings, mapping)
+		}
+	}
+
+	emptyAnnotations := []struct {
+		name   string
+		filter func(s structDef) bool
+	}{
+		{"NotEmpty", interfaceHasOneSuffix("Empty")},
+		{"Modified", interfaceHasOneSuffix("NotModified")},
+		{"NotForbidden", interfaceHasOneSuffix("Forbidden")},
+		{"Full", interfaceHasOneSuffix("Empty", "NotModified", "Forbidden")},
+	}
+	for _, annotation := range emptyAnnotations {
+		// Full annotation is necessary only if there are more than two empty annotations.
+		if annotation.name == "Full" && len(def.SharedFields) <= 2 {
+			continue
+		}
+		makeMapping(def, annotation.name, annotation.filter)
+	}
+}
+
 func (g *Generator) makeInterfaces() {
 	// Make interfaces for classes.
 	for _, c := range g.classes {
@@ -151,23 +156,7 @@ func (g *Generator) makeInterfaces() {
 			def.SharedFields["Common"] = intersectFields(def.SharedFields["Common"], s.Fields)
 			def.Constructors = append(def.Constructors, s)
 		}
-
-		emptyAnnotations := []struct {
-			name   string
-			filter func(s structDef) bool
-		}{
-			{"NotEmpty", interfaceHasOneSuffix("Empty")},
-			{"Modified", interfaceHasOneSuffix("NotModified")},
-			{"NotForbidden", interfaceHasOneSuffix("Forbidden")},
-			{"Full", interfaceHasOneSuffix("Empty", "NotModified", "Forbidden")},
-		}
-		for _, annotation := range emptyAnnotations {
-			// Full annotation is necessary only if there are more than two empty annotations.
-			if annotation.name == "Full" && len(def.SharedFields) <= 2 {
-				continue
-			}
-			makeMapping(&def, annotation.name, annotation.filter)
-		}
+		g.collectMappings(&def)
 
 		g.interfaces = append(g.interfaces, def)
 		g.mappings[def.Name] = append(g.mappings[def.Name], def.Mappings...)
