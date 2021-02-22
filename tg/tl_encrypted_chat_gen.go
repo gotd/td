@@ -902,14 +902,6 @@ type EncryptedChatClass interface {
 	Zero() bool
 }
 
-// AsUpdateEncryptedChatTyping tries to map EncryptedChat to UpdateEncryptedChatTyping.
-func (e *EncryptedChat) AsUpdateEncryptedChatTyping() *UpdateEncryptedChatTyping {
-	value := new(UpdateEncryptedChatTyping)
-	value.ChatID = e.GetID()
-
-	return value
-}
-
 // AsInput tries to map EncryptedChat to InputEncryptedChat.
 func (e *EncryptedChat) AsInput() *InputEncryptedChat {
 	value := new(InputEncryptedChat)

@@ -2032,15 +2032,6 @@ type UpdatesClass interface {
 	Zero() bool
 }
 
-// AsUpdatesDifferenceEmpty tries to map Updates to UpdatesDifferenceEmpty.
-func (u *Updates) AsUpdatesDifferenceEmpty() *UpdatesDifferenceEmpty {
-	value := new(UpdatesDifferenceEmpty)
-	value.Date = u.GetDate()
-	value.Seq = u.GetSeq()
-
-	return value
-}
-
 // DecodeUpdates implements binary de-serialization for UpdatesClass.
 func DecodeUpdates(buf *bin.Buffer) (UpdatesClass, error) {
 	id, err := buf.PeekID()

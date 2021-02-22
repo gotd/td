@@ -387,24 +387,6 @@ type EncryptedMessageClass interface {
 	Zero() bool
 }
 
-// AsUpdateEncryptedMessagesRead tries to map EncryptedMessage to UpdateEncryptedMessagesRead.
-func (e *EncryptedMessage) AsUpdateEncryptedMessagesRead() *UpdateEncryptedMessagesRead {
-	value := new(UpdateEncryptedMessagesRead)
-	value.ChatID = e.GetChatID()
-	value.MaxDate = e.GetDate()
-	value.Date = e.GetDate()
-
-	return value
-}
-
-// AsMessagesSent tries to map EncryptedMessage to MessagesSentEncryptedMessage.
-func (e *EncryptedMessage) AsMessagesSent() *MessagesSentEncryptedMessage {
-	value := new(MessagesSentEncryptedMessage)
-	value.Date = e.GetDate()
-
-	return value
-}
-
 // DecodeEncryptedMessage implements binary de-serialization for EncryptedMessageClass.
 func DecodeEncryptedMessage(buf *bin.Buffer) (EncryptedMessageClass, error) {
 	id, err := buf.PeekID()

@@ -431,14 +431,6 @@ type GroupCallClass interface {
 	Zero() bool
 }
 
-// AsChannelAdminLogEventActionToggleGroupCallSetting tries to map GroupCall to ChannelAdminLogEventActionToggleGroupCallSetting.
-func (g *GroupCall) AsChannelAdminLogEventActionToggleGroupCallSetting() *ChannelAdminLogEventActionToggleGroupCallSetting {
-	value := new(ChannelAdminLogEventActionToggleGroupCallSetting)
-	value.JoinMuted = g.GetJoinMuted()
-
-	return value
-}
-
 // AsInput tries to map GroupCall to InputGroupCall.
 func (g *GroupCall) AsInput() *InputGroupCall {
 	value := new(InputGroupCall)

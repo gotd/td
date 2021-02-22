@@ -732,34 +732,6 @@ func (d *Dialog) AsInputDialogPeerFolder() *InputDialogPeerFolder {
 	return value
 }
 
-// AsDialogPeer tries to map Dialog to DialogPeer.
-func (d *Dialog) AsDialogPeer() *DialogPeer {
-	value := new(DialogPeer)
-	value.Peer = d.GetPeer()
-
-	return value
-}
-
-// AsDialogPeerFolder tries to map Dialog to DialogPeerFolder.
-func (d *Dialog) AsDialogPeerFolder() *DialogPeerFolder {
-	value := new(DialogPeerFolder)
-	if fieldValue, ok := d.GetFolderID(); ok {
-		value.FolderID = fieldValue
-	}
-
-	return value
-}
-
-// AsMessagesGetPinnedDialogsRequest tries to map Dialog to MessagesGetPinnedDialogsRequest.
-func (d *Dialog) AsMessagesGetPinnedDialogsRequest() *MessagesGetPinnedDialogsRequest {
-	value := new(MessagesGetPinnedDialogsRequest)
-	if fieldValue, ok := d.GetFolderID(); ok {
-		value.FolderID = fieldValue
-	}
-
-	return value
-}
-
 // DecodeDialog implements binary de-serialization for DialogClass.
 func DecodeDialog(buf *bin.Buffer) (DialogClass, error) {
 	id, err := buf.PeekID()

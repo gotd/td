@@ -1111,15 +1111,6 @@ type WebPageClass interface {
 	Zero() bool
 }
 
-// AsMessagesGetWebPageRequest tries to map WebPage to MessagesGetWebPageRequest.
-func (w *WebPage) AsMessagesGetWebPageRequest() *MessagesGetWebPageRequest {
-	value := new(MessagesGetWebPageRequest)
-	value.URL = w.GetURL()
-	value.Hash = w.GetHash()
-
-	return value
-}
-
 // ModifiedWebPage represents Modified subset of WebPageClass.
 type ModifiedWebPage interface {
 	bin.Encoder

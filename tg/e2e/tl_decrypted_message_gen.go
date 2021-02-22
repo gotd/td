@@ -1318,14 +1318,6 @@ type DecryptedMessageClass interface {
 	Zero() bool
 }
 
-// AsDecryptedMessageActionSetMessageTTL tries to map DecryptedMessage to DecryptedMessageActionSetMessageTTL.
-func (d *DecryptedMessage) AsDecryptedMessageActionSetMessageTTL() *DecryptedMessageActionSetMessageTTL {
-	value := new(DecryptedMessageActionSetMessageTTL)
-	value.TTLSeconds = d.GetTTL()
-
-	return value
-}
-
 // DecodeDecryptedMessage implements binary de-serialization for DecryptedMessageClass.
 func DecodeDecryptedMessage(buf *bin.Buffer) (DecryptedMessageClass, error) {
 	id, err := buf.PeekID()
