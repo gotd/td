@@ -1544,7 +1544,6 @@ type PhoneCallClass interface {
 
 	// Call ID
 	GetID() (value int64)
-
 	// AsNotEmpty tries to map PhoneCallClass to NotEmptyPhoneCall.
 	AsNotEmpty() (NotEmptyPhoneCall, bool)
 
@@ -1555,6 +1554,15 @@ type PhoneCallClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsInput tries to map PhoneCall to InputPhoneCall.
+func (p *PhoneCall) AsInput() *InputPhoneCall {
+	value := new(InputPhoneCall)
+	value.ID = p.GetID()
+	value.AccessHash = p.GetAccessHash()
+
+	return value
 }
 
 // NotEmptyPhoneCall represents NotEmpty subset of PhoneCallClass.
@@ -1577,37 +1585,37 @@ type NotEmptyPhoneCall interface {
 	Zero() bool
 }
 
-// AsNotEmpty tries to map PhoneCallClass to NotEmptyPhoneCall.
+// AsNotEmpty tries to map PhoneCallEmpty to NotEmptyPhoneCall.
 func (p *PhoneCallEmpty) AsNotEmpty() (NotEmptyPhoneCall, bool) {
 	value, ok := (PhoneCallClass(p)).(NotEmptyPhoneCall)
 	return value, ok
 }
 
-// AsNotEmpty tries to map PhoneCallClass to NotEmptyPhoneCall.
+// AsNotEmpty tries to map PhoneCallWaiting to NotEmptyPhoneCall.
 func (p *PhoneCallWaiting) AsNotEmpty() (NotEmptyPhoneCall, bool) {
 	value, ok := (PhoneCallClass(p)).(NotEmptyPhoneCall)
 	return value, ok
 }
 
-// AsNotEmpty tries to map PhoneCallClass to NotEmptyPhoneCall.
+// AsNotEmpty tries to map PhoneCallRequested to NotEmptyPhoneCall.
 func (p *PhoneCallRequested) AsNotEmpty() (NotEmptyPhoneCall, bool) {
 	value, ok := (PhoneCallClass(p)).(NotEmptyPhoneCall)
 	return value, ok
 }
 
-// AsNotEmpty tries to map PhoneCallClass to NotEmptyPhoneCall.
+// AsNotEmpty tries to map PhoneCallAccepted to NotEmptyPhoneCall.
 func (p *PhoneCallAccepted) AsNotEmpty() (NotEmptyPhoneCall, bool) {
 	value, ok := (PhoneCallClass(p)).(NotEmptyPhoneCall)
 	return value, ok
 }
 
-// AsNotEmpty tries to map PhoneCallClass to NotEmptyPhoneCall.
+// AsNotEmpty tries to map PhoneCall to NotEmptyPhoneCall.
 func (p *PhoneCall) AsNotEmpty() (NotEmptyPhoneCall, bool) {
 	value, ok := (PhoneCallClass(p)).(NotEmptyPhoneCall)
 	return value, ok
 }
 
-// AsNotEmpty tries to map PhoneCallClass to NotEmptyPhoneCall.
+// AsNotEmpty tries to map PhoneCallDiscarded to NotEmptyPhoneCall.
 func (p *PhoneCallDiscarded) AsNotEmpty() (NotEmptyPhoneCall, bool) {
 	value, ok := (PhoneCallClass(p)).(NotEmptyPhoneCall)
 	return value, ok
@@ -1727,6 +1735,24 @@ func (s PhoneCallClassSlice) FirstAsNotEmpty() (v NotEmptyPhoneCall, ok bool) {
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s PhoneCallClassSlice) LastAsNotEmpty() (v NotEmptyPhoneCall, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *PhoneCallClassSlice) PopFirstAsNotEmpty() (v NotEmptyPhoneCall, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *PhoneCallClassSlice) PopAsNotEmpty() (v NotEmptyPhoneCall, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

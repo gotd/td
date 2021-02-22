@@ -431,6 +431,23 @@ type GroupCallClass interface {
 	Zero() bool
 }
 
+// AsChannelAdminLogEventActionToggleGroupCallSetting tries to map GroupCall to ChannelAdminLogEventActionToggleGroupCallSetting.
+func (g *GroupCall) AsChannelAdminLogEventActionToggleGroupCallSetting() *ChannelAdminLogEventActionToggleGroupCallSetting {
+	value := new(ChannelAdminLogEventActionToggleGroupCallSetting)
+	value.JoinMuted = g.GetJoinMuted()
+
+	return value
+}
+
+// AsInput tries to map GroupCall to InputGroupCall.
+func (g *GroupCall) AsInput() *InputGroupCall {
+	value := new(InputGroupCall)
+	value.ID = g.GetID()
+	value.AccessHash = g.GetAccessHash()
+
+	return value
+}
+
 // DecodeGroupCall implements binary de-serialization for GroupCallClass.
 func DecodeGroupCall(buf *bin.Buffer) (GroupCallClass, error) {
 	id, err := buf.PeekID()

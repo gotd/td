@@ -227,12 +227,12 @@ type ChannelLocationClass interface {
 	Zero() bool
 }
 
-// AsNotEmpty tries to map ChannelLocationClass to ChannelLocation.
+// AsNotEmpty tries to map ChannelLocationEmpty to ChannelLocation.
 func (c *ChannelLocationEmpty) AsNotEmpty() (*ChannelLocation, bool) {
 	return nil, false
 }
 
-// AsNotEmpty tries to map ChannelLocationClass to ChannelLocation.
+// AsNotEmpty tries to map ChannelLocation to ChannelLocation.
 func (c *ChannelLocation) AsNotEmpty() (*ChannelLocation, bool) {
 	return c, true
 }
@@ -323,6 +323,24 @@ func (s ChannelLocationClassSlice) FirstAsNotEmpty() (v *ChannelLocation, ok boo
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s ChannelLocationClassSlice) LastAsNotEmpty() (v *ChannelLocation, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *ChannelLocationClassSlice) PopFirstAsNotEmpty() (v *ChannelLocation, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *ChannelLocationClassSlice) PopAsNotEmpty() (v *ChannelLocation, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

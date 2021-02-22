@@ -700,6 +700,22 @@ type PrivacyRuleClass interface {
 	Zero() bool
 }
 
+// AsInput tries to map PrivacyValueAllowChatParticipants to InputPrivacyValueAllowChatParticipants.
+func (p *PrivacyValueAllowChatParticipants) AsInput() *InputPrivacyValueAllowChatParticipants {
+	value := new(InputPrivacyValueAllowChatParticipants)
+	value.Chats = p.GetChats()
+
+	return value
+}
+
+// AsInput tries to map PrivacyValueDisallowChatParticipants to InputPrivacyValueDisallowChatParticipants.
+func (p *PrivacyValueDisallowChatParticipants) AsInput() *InputPrivacyValueDisallowChatParticipants {
+	value := new(InputPrivacyValueDisallowChatParticipants)
+	value.Chats = p.GetChats()
+
+	return value
+}
+
 // DecodePrivacyRule implements binary de-serialization for PrivacyRuleClass.
 func DecodePrivacyRule(buf *bin.Buffer) (PrivacyRuleClass, error) {
 	id, err := buf.PeekID()

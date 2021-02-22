@@ -248,12 +248,22 @@ type InputDocumentClass interface {
 	Zero() bool
 }
 
-// AsNotEmpty tries to map InputDocumentClass to InputDocument.
+// AsInputDocumentFileLocation tries to map InputDocument to InputDocumentFileLocation.
+func (i *InputDocument) AsInputDocumentFileLocation() *InputDocumentFileLocation {
+	value := new(InputDocumentFileLocation)
+	value.ID = i.GetID()
+	value.AccessHash = i.GetAccessHash()
+	value.FileReference = i.GetFileReference()
+
+	return value
+}
+
+// AsNotEmpty tries to map InputDocumentEmpty to InputDocument.
 func (i *InputDocumentEmpty) AsNotEmpty() (*InputDocument, bool) {
 	return nil, false
 }
 
-// AsNotEmpty tries to map InputDocumentClass to InputDocument.
+// AsNotEmpty tries to map InputDocument to InputDocument.
 func (i *InputDocument) AsNotEmpty() (*InputDocument, bool) {
 	return i, true
 }
@@ -344,6 +354,24 @@ func (s InputDocumentClassSlice) FirstAsNotEmpty() (v *InputDocument, ok bool) {
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s InputDocumentClassSlice) LastAsNotEmpty() (v *InputDocument, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *InputDocumentClassSlice) PopFirstAsNotEmpty() (v *InputDocument, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *InputDocumentClassSlice) PopAsNotEmpty() (v *InputDocument, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

@@ -314,6 +314,14 @@ type PeerClass interface {
 	Zero() bool
 }
 
+// AsInput tries to map PeerChat to InputPeerChat.
+func (p *PeerChat) AsInput() *InputPeerChat {
+	value := new(InputPeerChat)
+	value.ChatID = p.GetChatID()
+
+	return value
+}
+
 // DecodePeer implements binary de-serialization for PeerClass.
 func DecodePeer(buf *bin.Buffer) (PeerClass, error) {
 	id, err := buf.PeekID()

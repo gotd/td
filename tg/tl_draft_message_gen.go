@@ -430,12 +430,12 @@ type DraftMessageClass interface {
 	Zero() bool
 }
 
-// AsNotEmpty tries to map DraftMessageClass to DraftMessage.
+// AsNotEmpty tries to map DraftMessageEmpty to DraftMessage.
 func (d *DraftMessageEmpty) AsNotEmpty() (*DraftMessage, bool) {
 	return nil, false
 }
 
-// AsNotEmpty tries to map DraftMessageClass to DraftMessage.
+// AsNotEmpty tries to map DraftMessage to DraftMessage.
 func (d *DraftMessage) AsNotEmpty() (*DraftMessage, bool) {
 	return d, true
 }
@@ -526,6 +526,24 @@ func (s DraftMessageClassSlice) FirstAsNotEmpty() (v *DraftMessage, ok bool) {
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s DraftMessageClassSlice) LastAsNotEmpty() (v *DraftMessage, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *DraftMessageClassSlice) PopFirstAsNotEmpty() (v *DraftMessage, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *DraftMessageClassSlice) PopAsNotEmpty() (v *DraftMessage, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

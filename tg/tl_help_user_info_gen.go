@@ -284,12 +284,12 @@ type HelpUserInfoClass interface {
 	Zero() bool
 }
 
-// AsNotEmpty tries to map HelpUserInfoClass to HelpUserInfo.
+// AsNotEmpty tries to map HelpUserInfoEmpty to HelpUserInfo.
 func (u *HelpUserInfoEmpty) AsNotEmpty() (*HelpUserInfo, bool) {
 	return nil, false
 }
 
-// AsNotEmpty tries to map HelpUserInfoClass to HelpUserInfo.
+// AsNotEmpty tries to map HelpUserInfo to HelpUserInfo.
 func (u *HelpUserInfo) AsNotEmpty() (*HelpUserInfo, bool) {
 	return u, true
 }
@@ -380,6 +380,24 @@ func (s HelpUserInfoClassSlice) FirstAsNotEmpty() (v *HelpUserInfo, ok bool) {
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s HelpUserInfoClassSlice) LastAsNotEmpty() (v *HelpUserInfo, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *HelpUserInfoClassSlice) PopFirstAsNotEmpty() (v *HelpUserInfo, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *HelpUserInfoClassSlice) PopAsNotEmpty() (v *HelpUserInfo, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

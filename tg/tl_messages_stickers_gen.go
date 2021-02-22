@@ -244,12 +244,12 @@ type MessagesStickersClass interface {
 	Zero() bool
 }
 
-// AsModified tries to map MessagesStickersClass to MessagesStickers.
+// AsModified tries to map MessagesStickersNotModified to MessagesStickers.
 func (s *MessagesStickersNotModified) AsModified() (*MessagesStickers, bool) {
 	return nil, false
 }
 
-// AsModified tries to map MessagesStickersClass to MessagesStickers.
+// AsModified tries to map MessagesStickers to MessagesStickers.
 func (s *MessagesStickers) AsModified() (*MessagesStickers, bool) {
 	return s, true
 }
@@ -340,6 +340,24 @@ func (s MessagesStickersClassSlice) FirstAsModified() (v *MessagesStickers, ok b
 // LastAsModified returns last element of slice (if exists).
 func (s MessagesStickersClassSlice) LastAsModified() (v *MessagesStickers, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopFirstAsModified returns element of slice (if exists).
+func (s *MessagesStickersClassSlice) PopFirstAsModified() (v *MessagesStickers, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopAsModified returns element of slice (if exists).
+func (s *MessagesStickersClassSlice) PopAsModified() (v *MessagesStickers, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

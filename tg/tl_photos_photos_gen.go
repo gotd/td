@@ -353,8 +353,11 @@ type PhotosPhotosClass interface {
 
 	// List of photos
 	GetPhotos() (value []PhotoClass)
-	// List of mentioned users
+	// List of photos
+	MapPhotos() (value PhotoClassSlice) // List of mentioned users
 	GetUsers() (value []UserClass)
+	// List of mentioned users
+	MapUsers() (value UserClassSlice)
 
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.

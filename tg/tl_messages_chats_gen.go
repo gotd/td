@@ -278,6 +278,8 @@ type MessagesChatsClass interface {
 
 	// List of chats
 	GetChats() (value []ChatClass)
+	// List of chats
+	MapChats() (value ChatClassSlice)
 
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.

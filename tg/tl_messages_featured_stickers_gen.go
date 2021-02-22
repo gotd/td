@@ -308,7 +308,6 @@ type MessagesFeaturedStickersClass interface {
 
 	// Total number of featured stickers
 	GetCount() (value int)
-
 	// AsModified tries to map MessagesFeaturedStickersClass to MessagesFeaturedStickers.
 	AsModified() (*MessagesFeaturedStickers, bool)
 
@@ -321,12 +320,12 @@ type MessagesFeaturedStickersClass interface {
 	Zero() bool
 }
 
-// AsModified tries to map MessagesFeaturedStickersClass to MessagesFeaturedStickers.
+// AsModified tries to map MessagesFeaturedStickersNotModified to MessagesFeaturedStickers.
 func (f *MessagesFeaturedStickersNotModified) AsModified() (*MessagesFeaturedStickers, bool) {
 	return nil, false
 }
 
-// AsModified tries to map MessagesFeaturedStickersClass to MessagesFeaturedStickers.
+// AsModified tries to map MessagesFeaturedStickers to MessagesFeaturedStickers.
 func (f *MessagesFeaturedStickers) AsModified() (*MessagesFeaturedStickers, bool) {
 	return f, true
 }
@@ -417,6 +416,24 @@ func (s MessagesFeaturedStickersClassSlice) FirstAsModified() (v *MessagesFeatur
 // LastAsModified returns last element of slice (if exists).
 func (s MessagesFeaturedStickersClassSlice) LastAsModified() (v *MessagesFeaturedStickers, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopFirstAsModified returns element of slice (if exists).
+func (s *MessagesFeaturedStickersClassSlice) PopFirstAsModified() (v *MessagesFeaturedStickers, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopAsModified returns element of slice (if exists).
+func (s *MessagesFeaturedStickersClassSlice) PopAsModified() (v *MessagesFeaturedStickers, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

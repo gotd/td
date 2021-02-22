@@ -381,19 +381,19 @@ type NotEmptyInputChannel interface {
 	Zero() bool
 }
 
-// AsNotEmpty tries to map InputChannelClass to NotEmptyInputChannel.
+// AsNotEmpty tries to map InputChannelEmpty to NotEmptyInputChannel.
 func (i *InputChannelEmpty) AsNotEmpty() (NotEmptyInputChannel, bool) {
 	value, ok := (InputChannelClass(i)).(NotEmptyInputChannel)
 	return value, ok
 }
 
-// AsNotEmpty tries to map InputChannelClass to NotEmptyInputChannel.
+// AsNotEmpty tries to map InputChannel to NotEmptyInputChannel.
 func (i *InputChannel) AsNotEmpty() (NotEmptyInputChannel, bool) {
 	value, ok := (InputChannelClass(i)).(NotEmptyInputChannel)
 	return value, ok
 }
 
-// AsNotEmpty tries to map InputChannelClass to NotEmptyInputChannel.
+// AsNotEmpty tries to map InputChannelFromMessage to NotEmptyInputChannel.
 func (i *InputChannelFromMessage) AsNotEmpty() (NotEmptyInputChannel, bool) {
 	value, ok := (InputChannelClass(i)).(NotEmptyInputChannel)
 	return value, ok
@@ -492,6 +492,24 @@ func (s InputChannelClassSlice) FirstAsNotEmpty() (v NotEmptyInputChannel, ok bo
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s InputChannelClassSlice) LastAsNotEmpty() (v NotEmptyInputChannel, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *InputChannelClassSlice) PopFirstAsNotEmpty() (v NotEmptyInputChannel, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *InputChannelClassSlice) PopAsNotEmpty() (v NotEmptyInputChannel, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

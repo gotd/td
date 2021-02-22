@@ -297,12 +297,12 @@ type GeoPointClass interface {
 	Zero() bool
 }
 
-// AsNotEmpty tries to map GeoPointClass to GeoPoint.
+// AsNotEmpty tries to map GeoPointEmpty to GeoPoint.
 func (g *GeoPointEmpty) AsNotEmpty() (*GeoPoint, bool) {
 	return nil, false
 }
 
-// AsNotEmpty tries to map GeoPointClass to GeoPoint.
+// AsNotEmpty tries to map GeoPoint to GeoPoint.
 func (g *GeoPoint) AsNotEmpty() (*GeoPoint, bool) {
 	return g, true
 }
@@ -393,6 +393,24 @@ func (s GeoPointClassSlice) FirstAsNotEmpty() (v *GeoPoint, ok bool) {
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s GeoPointClassSlice) LastAsNotEmpty() (v *GeoPoint, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *GeoPointClassSlice) PopFirstAsNotEmpty() (v *GeoPoint, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *GeoPointClassSlice) PopAsNotEmpty() (v *GeoPoint, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

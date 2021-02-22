@@ -839,7 +839,6 @@ type UpdatesChannelDifferenceClass interface {
 	GetFinal() (value bool)
 	// Clients are supposed to refetch the channel difference after timeout seconds have elapsed
 	GetTimeout() (value int, ok bool)
-
 	// AsNotEmpty tries to map UpdatesChannelDifferenceClass to NotEmptyUpdatesChannelDifference.
 	AsNotEmpty() (NotEmptyUpdatesChannelDifference, bool)
 
@@ -876,19 +875,19 @@ type NotEmptyUpdatesChannelDifference interface {
 	Zero() bool
 }
 
-// AsNotEmpty tries to map UpdatesChannelDifferenceClass to NotEmptyUpdatesChannelDifference.
+// AsNotEmpty tries to map UpdatesChannelDifferenceEmpty to NotEmptyUpdatesChannelDifference.
 func (c *UpdatesChannelDifferenceEmpty) AsNotEmpty() (NotEmptyUpdatesChannelDifference, bool) {
 	value, ok := (UpdatesChannelDifferenceClass(c)).(NotEmptyUpdatesChannelDifference)
 	return value, ok
 }
 
-// AsNotEmpty tries to map UpdatesChannelDifferenceClass to NotEmptyUpdatesChannelDifference.
+// AsNotEmpty tries to map UpdatesChannelDifferenceTooLong to NotEmptyUpdatesChannelDifference.
 func (c *UpdatesChannelDifferenceTooLong) AsNotEmpty() (NotEmptyUpdatesChannelDifference, bool) {
 	value, ok := (UpdatesChannelDifferenceClass(c)).(NotEmptyUpdatesChannelDifference)
 	return value, ok
 }
 
-// AsNotEmpty tries to map UpdatesChannelDifferenceClass to NotEmptyUpdatesChannelDifference.
+// AsNotEmpty tries to map UpdatesChannelDifference to NotEmptyUpdatesChannelDifference.
 func (c *UpdatesChannelDifference) AsNotEmpty() (NotEmptyUpdatesChannelDifference, bool) {
 	value, ok := (UpdatesChannelDifferenceClass(c)).(NotEmptyUpdatesChannelDifference)
 	return value, ok
@@ -987,6 +986,24 @@ func (s UpdatesChannelDifferenceClassSlice) FirstAsNotEmpty() (v NotEmptyUpdates
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s UpdatesChannelDifferenceClassSlice) LastAsNotEmpty() (v NotEmptyUpdatesChannelDifference, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *UpdatesChannelDifferenceClassSlice) PopFirstAsNotEmpty() (v NotEmptyUpdatesChannelDifference, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *UpdatesChannelDifferenceClassSlice) PopAsNotEmpty() (v NotEmptyUpdatesChannelDifference, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

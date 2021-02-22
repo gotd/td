@@ -235,6 +235,14 @@ type DialogPeerClass interface {
 	Zero() bool
 }
 
+// AsInput tries to map DialogPeerFolder to InputDialogPeerFolder.
+func (d *DialogPeerFolder) AsInput() *InputDialogPeerFolder {
+	value := new(InputDialogPeerFolder)
+	value.FolderID = d.GetFolderID()
+
+	return value
+}
+
 // DecodeDialogPeer implements binary de-serialization for DialogPeerClass.
 func DecodeDialogPeer(buf *bin.Buffer) (DialogPeerClass, error) {
 	id, err := buf.PeekID()

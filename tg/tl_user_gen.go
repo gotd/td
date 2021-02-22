@@ -1079,7 +1079,6 @@ type UserClass interface {
 
 	// User identifier or 0
 	GetID() (value int)
-
 	// AsNotEmpty tries to map UserClass to User.
 	AsNotEmpty() (*User, bool)
 
@@ -1092,12 +1091,121 @@ type UserClass interface {
 	Zero() bool
 }
 
-// AsNotEmpty tries to map UserClass to User.
+// AsInputPeer tries to map User to InputPeerUser.
+func (u *User) AsInputPeer() *InputPeerUser {
+	value := new(InputPeerUser)
+	value.UserID = u.GetID()
+	if fieldValue, ok := u.GetAccessHash(); ok {
+		value.AccessHash = fieldValue
+	}
+
+	return value
+}
+
+// AsInput tries to map User to InputUser.
+func (u *User) AsInput() *InputUser {
+	value := new(InputUser)
+	value.UserID = u.GetID()
+	if fieldValue, ok := u.GetAccessHash(); ok {
+		value.AccessHash = fieldValue
+	}
+
+	return value
+}
+
+// AsPeer tries to map User to PeerUser.
+func (u *User) AsPeer() *PeerUser {
+	value := new(PeerUser)
+	value.UserID = u.GetID()
+
+	return value
+}
+
+// AsMessageActionChatDelete tries to map User to MessageActionChatDeleteUser.
+func (u *User) AsMessageActionChatDelete() *MessageActionChatDeleteUser {
+	value := new(MessageActionChatDeleteUser)
+	value.UserID = u.GetID()
+
+	return value
+}
+
+// AsUpdateUserStatus tries to map User to UpdateUserStatus.
+func (u *User) AsUpdateUserStatus() *UpdateUserStatus {
+	value := new(UpdateUserStatus)
+	value.UserID = u.GetID()
+	if fieldValue, ok := u.GetStatus(); ok {
+		value.Status = fieldValue
+	}
+
+	return value
+}
+
+// AsUpdateUserName tries to map User to UpdateUserName.
+func (u *User) AsUpdateUserName() *UpdateUserName {
+	value := new(UpdateUserName)
+	value.UserID = u.GetID()
+	if fieldValue, ok := u.GetFirstName(); ok {
+		value.FirstName = fieldValue
+	}
+
+	if fieldValue, ok := u.GetLastName(); ok {
+		value.LastName = fieldValue
+	}
+
+	if fieldValue, ok := u.GetUsername(); ok {
+		value.Username = fieldValue
+	}
+
+	return value
+}
+
+// AsUpdateUserPhone tries to map User to UpdateUserPhone.
+func (u *User) AsUpdateUserPhone() *UpdateUserPhone {
+	value := new(UpdateUserPhone)
+	value.UserID = u.GetID()
+	if fieldValue, ok := u.GetPhone(); ok {
+		value.Phone = fieldValue
+	}
+
+	return value
+}
+
+// AsAccountCheckUsernameRequest tries to map User to AccountCheckUsernameRequest.
+func (u *User) AsAccountCheckUsernameRequest() *AccountCheckUsernameRequest {
+	value := new(AccountCheckUsernameRequest)
+	if fieldValue, ok := u.GetUsername(); ok {
+		value.Username = fieldValue
+	}
+
+	return value
+}
+
+// AsAccountUpdateUsernameRequest tries to map User to AccountUpdateUsernameRequest.
+func (u *User) AsAccountUpdateUsernameRequest() *AccountUpdateUsernameRequest {
+	value := new(AccountUpdateUsernameRequest)
+	if fieldValue, ok := u.GetUsername(); ok {
+		value.Username = fieldValue
+	}
+
+	return value
+}
+
+// AsContactsResolveUsernameRequest tries to map User to ContactsResolveUsernameRequest.
+func (u *User) AsContactsResolveUsernameRequest() *ContactsResolveUsernameRequest {
+	value := new(ContactsResolveUsernameRequest)
+	if fieldValue, ok := u.GetUsername(); ok {
+		value.Username = fieldValue
+	}
+
+	return value
+}
+
+// AsNotEmpty tries to map UserEmpty to User.
 func (u *UserEmpty) AsNotEmpty() (*User, bool) {
 	return nil, false
 }
 
-// AsNotEmpty tries to map UserClass to User.
+// AsNotEmpty tries to map User to User.
 func (u *User) AsNotEmpty() (*User, bool) {
 	return u, true
 }
@@ -1242,6 +1350,24 @@ func (s UserClassSlice) FirstAsNotEmpty() (v *User, ok bool) {
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s UserClassSlice) LastAsNotEmpty() (v *User, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *UserClassSlice) PopFirstAsNotEmpty() (v *User, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *UserClassSlice) PopAsNotEmpty() (v *User, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

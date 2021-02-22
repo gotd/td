@@ -248,12 +248,22 @@ type InputPhotoClass interface {
 	Zero() bool
 }
 
-// AsNotEmpty tries to map InputPhotoClass to InputPhoto.
+// AsInputPhotoFileLocation tries to map InputPhoto to InputPhotoFileLocation.
+func (i *InputPhoto) AsInputPhotoFileLocation() *InputPhotoFileLocation {
+	value := new(InputPhotoFileLocation)
+	value.ID = i.GetID()
+	value.AccessHash = i.GetAccessHash()
+	value.FileReference = i.GetFileReference()
+
+	return value
+}
+
+// AsNotEmpty tries to map InputPhotoEmpty to InputPhoto.
 func (i *InputPhotoEmpty) AsNotEmpty() (*InputPhoto, bool) {
 	return nil, false
 }
 
-// AsNotEmpty tries to map InputPhotoClass to InputPhoto.
+// AsNotEmpty tries to map InputPhoto to InputPhoto.
 func (i *InputPhoto) AsNotEmpty() (*InputPhoto, bool) {
 	return i, true
 }
@@ -344,6 +354,24 @@ func (s InputPhotoClassSlice) FirstAsNotEmpty() (v *InputPhoto, ok bool) {
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s InputPhotoClassSlice) LastAsNotEmpty() (v *InputPhoto, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *InputPhotoClassSlice) PopFirstAsNotEmpty() (v *InputPhoto, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *InputPhotoClassSlice) PopAsNotEmpty() (v *InputPhoto, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

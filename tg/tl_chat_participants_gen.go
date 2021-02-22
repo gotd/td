@@ -336,7 +336,6 @@ type ChatParticipantsClass interface {
 
 	// Group ID
 	GetChatID() (value int)
-
 	// AsNotForbidden tries to map ChatParticipantsClass to ChatParticipants.
 	AsNotForbidden() (*ChatParticipants, bool)
 
@@ -349,12 +348,12 @@ type ChatParticipantsClass interface {
 	Zero() bool
 }
 
-// AsNotForbidden tries to map ChatParticipantsClass to ChatParticipants.
+// AsNotForbidden tries to map ChatParticipantsForbidden to ChatParticipants.
 func (c *ChatParticipantsForbidden) AsNotForbidden() (*ChatParticipants, bool) {
 	return nil, false
 }
 
-// AsNotForbidden tries to map ChatParticipantsClass to ChatParticipants.
+// AsNotForbidden tries to map ChatParticipants to ChatParticipants.
 func (c *ChatParticipants) AsNotForbidden() (*ChatParticipants, bool) {
 	return c, true
 }
@@ -445,6 +444,24 @@ func (s ChatParticipantsClassSlice) FirstAsNotForbidden() (v *ChatParticipants, 
 // LastAsNotForbidden returns last element of slice (if exists).
 func (s ChatParticipantsClassSlice) LastAsNotForbidden() (v *ChatParticipants, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotForbidden()
+}
+
+// PopFirstAsNotForbidden returns element of slice (if exists).
+func (s *ChatParticipantsClassSlice) PopFirstAsNotForbidden() (v *ChatParticipants, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotForbidden()
+}
+
+// PopAsNotForbidden returns element of slice (if exists).
+func (s *ChatParticipantsClassSlice) PopAsNotForbidden() (v *ChatParticipants, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

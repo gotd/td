@@ -542,6 +542,23 @@ type WallPaperClass interface {
 	Zero() bool
 }
 
+// AsInput tries to map WallPaper to InputWallPaper.
+func (w *WallPaper) AsInput() *InputWallPaper {
+	value := new(InputWallPaper)
+	value.ID = w.GetID()
+	value.AccessHash = w.GetAccessHash()
+
+	return value
+}
+
+// AsInputWallPaperSlug tries to map WallPaper to InputWallPaperSlug.
+func (w *WallPaper) AsInputWallPaperSlug() *InputWallPaperSlug {
+	value := new(InputWallPaperSlug)
+	value.Slug = w.GetSlug()
+
+	return value
+}
+
 // DecodeWallPaper implements binary de-serialization for WallPaperClass.
 func DecodeWallPaper(buf *bin.Buffer) (WallPaperClass, error) {
 	id, err := buf.PeekID()

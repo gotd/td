@@ -282,9 +282,7 @@ type MessagesDhConfigClass interface {
 	construct() MessagesDhConfigClass
 
 	// Random sequence of bytes of assigned length
-	GetRandom() (value []byte)
-
-	// AsModified tries to map MessagesDhConfigClass to MessagesDhConfig.
+	GetRandom() (value []byte) // AsModified tries to map MessagesDhConfigClass to MessagesDhConfig.
 	AsModified() (*MessagesDhConfig, bool)
 
 	// TypeID returns MTProto type id (CRC code).
@@ -296,12 +294,12 @@ type MessagesDhConfigClass interface {
 	Zero() bool
 }
 
-// AsModified tries to map MessagesDhConfigClass to MessagesDhConfig.
+// AsModified tries to map MessagesDhConfigNotModified to MessagesDhConfig.
 func (d *MessagesDhConfigNotModified) AsModified() (*MessagesDhConfig, bool) {
 	return nil, false
 }
 
-// AsModified tries to map MessagesDhConfigClass to MessagesDhConfig.
+// AsModified tries to map MessagesDhConfig to MessagesDhConfig.
 func (d *MessagesDhConfig) AsModified() (*MessagesDhConfig, bool) {
 	return d, true
 }
@@ -392,6 +390,24 @@ func (s MessagesDhConfigClassSlice) FirstAsModified() (v *MessagesDhConfig, ok b
 // LastAsModified returns last element of slice (if exists).
 func (s MessagesDhConfigClassSlice) LastAsModified() (v *MessagesDhConfig, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopFirstAsModified returns element of slice (if exists).
+func (s *MessagesDhConfigClassSlice) PopFirstAsModified() (v *MessagesDhConfig, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopAsModified returns element of slice (if exists).
+func (s *MessagesDhConfigClassSlice) PopAsModified() (v *MessagesDhConfig, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

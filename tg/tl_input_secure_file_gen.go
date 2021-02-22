@@ -334,6 +334,15 @@ type InputSecureFileClass interface {
 	Zero() bool
 }
 
+// AsInputSecureFileLocation tries to map InputSecureFile to InputSecureFileLocation.
+func (i *InputSecureFile) AsInputSecureFileLocation() *InputSecureFileLocation {
+	value := new(InputSecureFileLocation)
+	value.ID = i.GetID()
+	value.AccessHash = i.GetAccessHash()
+
+	return value
+}
+
 // DecodeInputSecureFile implements binary de-serialization for InputSecureFileClass.
 func DecodeInputSecureFile(buf *bin.Buffer) (InputSecureFileClass, error) {
 	id, err := buf.PeekID()

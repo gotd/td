@@ -414,11 +414,13 @@ type ContactsBlockedClass interface {
 	construct() ContactsBlockedClass
 
 	// List of blocked users
-	GetBlocked() (value []PeerBlocked)
-	// Blocked chats
+	GetBlocked() (value []PeerBlocked) // Blocked chats
 	GetChats() (value []ChatClass)
-	// List of users
+	// Blocked chats
+	MapChats() (value ChatClassSlice) // List of users
 	GetUsers() (value []UserClass)
+	// List of users
+	MapUsers() (value UserClassSlice)
 
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.

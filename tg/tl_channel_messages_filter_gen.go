@@ -255,12 +255,12 @@ type ChannelMessagesFilterClass interface {
 	Zero() bool
 }
 
-// AsNotEmpty tries to map ChannelMessagesFilterClass to ChannelMessagesFilter.
+// AsNotEmpty tries to map ChannelMessagesFilterEmpty to ChannelMessagesFilter.
 func (c *ChannelMessagesFilterEmpty) AsNotEmpty() (*ChannelMessagesFilter, bool) {
 	return nil, false
 }
 
-// AsNotEmpty tries to map ChannelMessagesFilterClass to ChannelMessagesFilter.
+// AsNotEmpty tries to map ChannelMessagesFilter to ChannelMessagesFilter.
 func (c *ChannelMessagesFilter) AsNotEmpty() (*ChannelMessagesFilter, bool) {
 	return c, true
 }
@@ -351,6 +351,24 @@ func (s ChannelMessagesFilterClassSlice) FirstAsNotEmpty() (v *ChannelMessagesFi
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s ChannelMessagesFilterClassSlice) LastAsNotEmpty() (v *ChannelMessagesFilter, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *ChannelMessagesFilterClassSlice) PopFirstAsNotEmpty() (v *ChannelMessagesFilter, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *ChannelMessagesFilterClassSlice) PopAsNotEmpty() (v *ChannelMessagesFilter, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

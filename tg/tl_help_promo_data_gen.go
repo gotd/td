@@ -440,7 +440,6 @@ type HelpPromoDataClass interface {
 
 	// Re-fetch PSA/MTProxy info after the specified number of seconds
 	GetExpires() (value int)
-
 	// AsNotEmpty tries to map HelpPromoDataClass to HelpPromoData.
 	AsNotEmpty() (*HelpPromoData, bool)
 
@@ -453,12 +452,12 @@ type HelpPromoDataClass interface {
 	Zero() bool
 }
 
-// AsNotEmpty tries to map HelpPromoDataClass to HelpPromoData.
+// AsNotEmpty tries to map HelpPromoDataEmpty to HelpPromoData.
 func (p *HelpPromoDataEmpty) AsNotEmpty() (*HelpPromoData, bool) {
 	return nil, false
 }
 
-// AsNotEmpty tries to map HelpPromoDataClass to HelpPromoData.
+// AsNotEmpty tries to map HelpPromoData to HelpPromoData.
 func (p *HelpPromoData) AsNotEmpty() (*HelpPromoData, bool) {
 	return p, true
 }
@@ -549,6 +548,24 @@ func (s HelpPromoDataClassSlice) FirstAsNotEmpty() (v *HelpPromoData, ok bool) {
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s HelpPromoDataClassSlice) LastAsNotEmpty() (v *HelpPromoData, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *HelpPromoDataClassSlice) PopFirstAsNotEmpty() (v *HelpPromoData, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *HelpPromoDataClassSlice) PopAsNotEmpty() (v *HelpPromoData, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

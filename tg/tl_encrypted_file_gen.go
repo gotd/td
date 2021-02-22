@@ -282,12 +282,30 @@ type EncryptedFileClass interface {
 	Zero() bool
 }
 
-// AsNotEmpty tries to map EncryptedFileClass to EncryptedFile.
+// AsInputEncryptedFileLocation tries to map EncryptedFile to InputEncryptedFileLocation.
+func (e *EncryptedFile) AsInputEncryptedFileLocation() *InputEncryptedFileLocation {
+	value := new(InputEncryptedFileLocation)
+	value.ID = e.GetID()
+	value.AccessHash = e.GetAccessHash()
+
+	return value
+}
+
+// AsInput tries to map EncryptedFile to InputEncryptedFile.
+func (e *EncryptedFile) AsInput() *InputEncryptedFile {
+	value := new(InputEncryptedFile)
+	value.ID = e.GetID()
+	value.AccessHash = e.GetAccessHash()
+
+	return value
+}
+
+// AsNotEmpty tries to map EncryptedFileEmpty to EncryptedFile.
 func (e *EncryptedFileEmpty) AsNotEmpty() (*EncryptedFile, bool) {
 	return nil, false
 }
 
-// AsNotEmpty tries to map EncryptedFileClass to EncryptedFile.
+// AsNotEmpty tries to map EncryptedFile to EncryptedFile.
 func (e *EncryptedFile) AsNotEmpty() (*EncryptedFile, bool) {
 	return e, true
 }
@@ -378,6 +396,24 @@ func (s EncryptedFileClassSlice) FirstAsNotEmpty() (v *EncryptedFile, ok bool) {
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s EncryptedFileClassSlice) LastAsNotEmpty() (v *EncryptedFile, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *EncryptedFileClassSlice) PopFirstAsNotEmpty() (v *EncryptedFile, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *EncryptedFileClassSlice) PopAsNotEmpty() (v *EncryptedFile, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

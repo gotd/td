@@ -514,6 +514,15 @@ type InputEncryptedFileClass interface {
 	Zero() bool
 }
 
+// AsInputEncryptedFileLocation tries to map InputEncryptedFile to InputEncryptedFileLocation.
+func (i *InputEncryptedFile) AsInputEncryptedFileLocation() *InputEncryptedFileLocation {
+	value := new(InputEncryptedFileLocation)
+	value.ID = i.GetID()
+	value.AccessHash = i.GetAccessHash()
+
+	return value
+}
+
 // NotEmptyInputEncryptedFile represents NotEmpty subset of InputEncryptedFileClass.
 type NotEmptyInputEncryptedFile interface {
 	bin.Encoder
@@ -532,25 +541,25 @@ type NotEmptyInputEncryptedFile interface {
 	Zero() bool
 }
 
-// AsNotEmpty tries to map InputEncryptedFileClass to NotEmptyInputEncryptedFile.
+// AsNotEmpty tries to map InputEncryptedFileEmpty to NotEmptyInputEncryptedFile.
 func (i *InputEncryptedFileEmpty) AsNotEmpty() (NotEmptyInputEncryptedFile, bool) {
 	value, ok := (InputEncryptedFileClass(i)).(NotEmptyInputEncryptedFile)
 	return value, ok
 }
 
-// AsNotEmpty tries to map InputEncryptedFileClass to NotEmptyInputEncryptedFile.
+// AsNotEmpty tries to map InputEncryptedFileUploaded to NotEmptyInputEncryptedFile.
 func (i *InputEncryptedFileUploaded) AsNotEmpty() (NotEmptyInputEncryptedFile, bool) {
 	value, ok := (InputEncryptedFileClass(i)).(NotEmptyInputEncryptedFile)
 	return value, ok
 }
 
-// AsNotEmpty tries to map InputEncryptedFileClass to NotEmptyInputEncryptedFile.
+// AsNotEmpty tries to map InputEncryptedFile to NotEmptyInputEncryptedFile.
 func (i *InputEncryptedFile) AsNotEmpty() (NotEmptyInputEncryptedFile, bool) {
 	value, ok := (InputEncryptedFileClass(i)).(NotEmptyInputEncryptedFile)
 	return value, ok
 }
 
-// AsNotEmpty tries to map InputEncryptedFileClass to NotEmptyInputEncryptedFile.
+// AsNotEmpty tries to map InputEncryptedFileBigUploaded to NotEmptyInputEncryptedFile.
 func (i *InputEncryptedFileBigUploaded) AsNotEmpty() (NotEmptyInputEncryptedFile, bool) {
 	value, ok := (InputEncryptedFileClass(i)).(NotEmptyInputEncryptedFile)
 	return value, ok
@@ -656,6 +665,24 @@ func (s InputEncryptedFileClassSlice) FirstAsNotEmpty() (v NotEmptyInputEncrypte
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s InputEncryptedFileClassSlice) LastAsNotEmpty() (v NotEmptyInputEncryptedFile, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *InputEncryptedFileClassSlice) PopFirstAsNotEmpty() (v NotEmptyInputEncryptedFile, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *InputEncryptedFileClassSlice) PopAsNotEmpty() (v NotEmptyInputEncryptedFile, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

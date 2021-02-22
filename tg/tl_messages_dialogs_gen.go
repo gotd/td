@@ -633,19 +633,19 @@ type ModifiedMessagesDialogs interface {
 	Zero() bool
 }
 
-// AsModified tries to map MessagesDialogsClass to ModifiedMessagesDialogs.
+// AsModified tries to map MessagesDialogs to ModifiedMessagesDialogs.
 func (d *MessagesDialogs) AsModified() (ModifiedMessagesDialogs, bool) {
 	value, ok := (MessagesDialogsClass(d)).(ModifiedMessagesDialogs)
 	return value, ok
 }
 
-// AsModified tries to map MessagesDialogsClass to ModifiedMessagesDialogs.
+// AsModified tries to map MessagesDialogsSlice to ModifiedMessagesDialogs.
 func (d *MessagesDialogsSlice) AsModified() (ModifiedMessagesDialogs, bool) {
 	value, ok := (MessagesDialogsClass(d)).(ModifiedMessagesDialogs)
 	return value, ok
 }
 
-// AsModified tries to map MessagesDialogsClass to ModifiedMessagesDialogs.
+// AsModified tries to map MessagesDialogsNotModified to ModifiedMessagesDialogs.
 func (d *MessagesDialogsNotModified) AsModified() (ModifiedMessagesDialogs, bool) {
 	value, ok := (MessagesDialogsClass(d)).(ModifiedMessagesDialogs)
 	return value, ok
@@ -744,6 +744,24 @@ func (s MessagesDialogsClassSlice) FirstAsModified() (v ModifiedMessagesDialogs,
 // LastAsModified returns last element of slice (if exists).
 func (s MessagesDialogsClassSlice) LastAsModified() (v ModifiedMessagesDialogs, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopFirstAsModified returns element of slice (if exists).
+func (s *MessagesDialogsClassSlice) PopFirstAsModified() (v ModifiedMessagesDialogs, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopAsModified returns element of slice (if exists).
+func (s *MessagesDialogsClassSlice) PopAsModified() (v ModifiedMessagesDialogs, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

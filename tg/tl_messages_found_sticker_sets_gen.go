@@ -244,12 +244,12 @@ type MessagesFoundStickerSetsClass interface {
 	Zero() bool
 }
 
-// AsModified tries to map MessagesFoundStickerSetsClass to MessagesFoundStickerSets.
+// AsModified tries to map MessagesFoundStickerSetsNotModified to MessagesFoundStickerSets.
 func (f *MessagesFoundStickerSetsNotModified) AsModified() (*MessagesFoundStickerSets, bool) {
 	return nil, false
 }
 
-// AsModified tries to map MessagesFoundStickerSetsClass to MessagesFoundStickerSets.
+// AsModified tries to map MessagesFoundStickerSets to MessagesFoundStickerSets.
 func (f *MessagesFoundStickerSets) AsModified() (*MessagesFoundStickerSets, bool) {
 	return f, true
 }
@@ -340,6 +340,24 @@ func (s MessagesFoundStickerSetsClassSlice) FirstAsModified() (v *MessagesFoundS
 // LastAsModified returns last element of slice (if exists).
 func (s MessagesFoundStickerSetsClassSlice) LastAsModified() (v *MessagesFoundStickerSets, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopFirstAsModified returns element of slice (if exists).
+func (s *MessagesFoundStickerSetsClassSlice) PopFirstAsModified() (v *MessagesFoundStickerSets, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopAsModified returns element of slice (if exists).
+func (s *MessagesFoundStickerSetsClassSlice) PopAsModified() (v *MessagesFoundStickerSets, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

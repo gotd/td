@@ -1852,7 +1852,6 @@ type ChatClass interface {
 
 	// Group identifier
 	GetID() (value int)
-
 	// AsNotEmpty tries to map ChatClass to NotEmptyChat.
 	AsNotEmpty() (NotEmptyChat, bool)
 	// AsNotForbidden tries to map ChatClass to NotForbiddenChat.
@@ -1867,6 +1866,293 @@ type ChatClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsInputPeer tries to map Chat to InputPeerChat.
+func (c *Chat) AsInputPeer() *InputPeerChat {
+	value := new(InputPeerChat)
+	value.ChatID = c.GetID()
+
+	return value
+}
+
+// AsInputPeer tries to map Channel to InputPeerChannel.
+func (c *Channel) AsInputPeer() *InputPeerChannel {
+	value := new(InputPeerChannel)
+	value.ChannelID = c.GetID()
+	if fieldValue, ok := c.GetAccessHash(); ok {
+		value.AccessHash = fieldValue
+	}
+
+	return value
+}
+
+// AsPeer tries to map Chat to PeerChat.
+func (c *Chat) AsPeer() *PeerChat {
+	value := new(PeerChat)
+	value.ChatID = c.GetID()
+
+	return value
+}
+
+// AsPeer tries to map Channel to PeerChannel.
+func (c *Channel) AsPeer() *PeerChannel {
+	value := new(PeerChannel)
+	value.ChannelID = c.GetID()
+
+	return value
+}
+
+// AsChatParticipant tries to map Chat to ChatParticipant.
+func (c *Chat) AsChatParticipant() *ChatParticipant {
+	value := new(ChatParticipant)
+	value.UserID = c.GetID()
+	value.InviterID = c.GetID()
+	value.Date = c.GetDate()
+
+	return value
+}
+
+// AsChatParticipantCreator tries to map Chat to ChatParticipantCreator.
+func (c *Chat) AsChatParticipantCreator() *ChatParticipantCreator {
+	value := new(ChatParticipantCreator)
+	value.UserID = c.GetID()
+
+	return value
+}
+
+// AsChatParticipantAdmin tries to map Chat to ChatParticipantAdmin.
+func (c *Chat) AsChatParticipantAdmin() *ChatParticipantAdmin {
+	value := new(ChatParticipantAdmin)
+	value.UserID = c.GetID()
+	value.InviterID = c.GetID()
+	value.Date = c.GetDate()
+
+	return value
+}
+
+// AsMessageActionChatEditTitle tries to map Chat to MessageActionChatEditTitle.
+func (c *Chat) AsMessageActionChatEditTitle() *MessageActionChatEditTitle {
+	value := new(MessageActionChatEditTitle)
+	value.Title = c.GetTitle()
+
+	return value
+}
+
+// AsMessageActionChatDeleteUser tries to map Chat to MessageActionChatDeleteUser.
+func (c *Chat) AsMessageActionChatDeleteUser() *MessageActionChatDeleteUser {
+	value := new(MessageActionChatDeleteUser)
+	value.UserID = c.GetID()
+
+	return value
+}
+
+// AsMessageActionChatJoinedByLink tries to map Chat to MessageActionChatJoinedByLink.
+func (c *Chat) AsMessageActionChatJoinedByLink() *MessageActionChatJoinedByLink {
+	value := new(MessageActionChatJoinedByLink)
+	value.InviterID = c.GetID()
+
+	return value
+}
+
+// AsMessageActionChannelCreate tries to map Channel to MessageActionChannelCreate.
+func (c *Channel) AsMessageActionChannelCreate() *MessageActionChannelCreate {
+	value := new(MessageActionChannelCreate)
+	value.Title = c.GetTitle()
+
+	return value
+}
+
+// AsMessageActionChatMigrateTo tries to map Chat to MessageActionChatMigrateTo.
+func (c *Chat) AsMessageActionChatMigrateTo() *MessageActionChatMigrateTo {
+	value := new(MessageActionChatMigrateTo)
+	value.ChannelID = c.GetID()
+
+	return value
+}
+
+// AsMessageActionChannelMigrateFrom tries to map Channel to MessageActionChannelMigrateFrom.
+func (c *Channel) AsMessageActionChannelMigrateFrom() *MessageActionChannelMigrateFrom {
+	value := new(MessageActionChannelMigrateFrom)
+	value.ChatID = c.GetID()
+	value.Title = c.GetTitle()
+
+	return value
+}
+
+// AsUpdateEncryptedChatTyping tries to map Chat to UpdateEncryptedChatTyping.
+func (c *Chat) AsUpdateEncryptedChatTyping() *UpdateEncryptedChatTyping {
+	value := new(UpdateEncryptedChatTyping)
+	value.ChatID = c.GetID()
+
+	return value
+}
+
+// AsUpdateChatParticipantAdd tries to map Chat to UpdateChatParticipantAdd.
+func (c *Chat) AsUpdateChatParticipantAdd() *UpdateChatParticipantAdd {
+	value := new(UpdateChatParticipantAdd)
+	value.ChatID = c.GetID()
+	value.UserID = c.GetID()
+	value.InviterID = c.GetID()
+	value.Date = c.GetDate()
+	value.Version = c.GetVersion()
+
+	return value
+}
+
+// AsUpdateChatParticipantDelete tries to map Chat to UpdateChatParticipantDelete.
+func (c *Chat) AsUpdateChatParticipantDelete() *UpdateChatParticipantDelete {
+	value := new(UpdateChatParticipantDelete)
+	value.ChatID = c.GetID()
+	value.UserID = c.GetID()
+	value.Version = c.GetVersion()
+
+	return value
+}
+
+// AsUpdate tries to map Channel to UpdateChannel.
+func (c *Channel) AsUpdate() *UpdateChannel {
+	value := new(UpdateChannel)
+	value.ChannelID = c.GetID()
+
+	return value
+}
+
+// AsUpdateReadChannelOutbox tries to map Channel to UpdateReadChannelOutbox.
+func (c *Channel) AsUpdateReadChannelOutbox() *UpdateReadChannelOutbox {
+	value := new(UpdateReadChannelOutbox)
+	value.ChannelID = c.GetID()
+	value.MaxID = c.GetID()
+
+	return value
+}
+
+// AsUpdateChannelAvailableMessages tries to map Channel to UpdateChannelAvailableMessages.
+func (c *Channel) AsUpdateChannelAvailableMessages() *UpdateChannelAvailableMessages {
+	value := new(UpdateChannelAvailableMessages)
+	value.ChannelID = c.GetID()
+	value.AvailableMinID = c.GetID()
+
+	return value
+}
+
+// AsUpdateReadChannelDiscussionOutbox tries to map Channel to UpdateReadChannelDiscussionOutbox.
+func (c *Channel) AsUpdateReadChannelDiscussionOutbox() *UpdateReadChannelDiscussionOutbox {
+	value := new(UpdateReadChannelDiscussionOutbox)
+	value.ChannelID = c.GetID()
+	value.TopMsgID = c.GetID()
+	value.ReadMaxID = c.GetID()
+
+	return value
+}
+
+// AsUpdate tries to map Chat to UpdateChat.
+func (c *Chat) AsUpdate() *UpdateChat {
+	value := new(UpdateChat)
+	value.ChatID = c.GetID()
+
+	return value
+}
+
+// AsEncrypted tries to map ChatEmpty to EncryptedChatEmpty.
+func (c *ChatEmpty) AsEncrypted() *EncryptedChatEmpty {
+	value := new(EncryptedChatEmpty)
+	value.ID = c.GetID()
+
+	return value
+}
+
+// AsEncryptedChatEmpty tries to map Chat to EncryptedChatEmpty.
+func (c *Chat) AsEncryptedChatEmpty() *EncryptedChatEmpty {
+	value := new(EncryptedChatEmpty)
+	value.ID = c.GetID()
+
+	return value
+}
+
+// AsInput tries to map Channel to InputChannel.
+func (c *Channel) AsInput() *InputChannel {
+	value := new(InputChannel)
+	value.ChannelID = c.GetID()
+	if fieldValue, ok := c.GetAccessHash(); ok {
+		value.AccessHash = fieldValue
+	}
+
+	return value
+}
+
+// AsChannelParticipant tries to map Channel to ChannelParticipant.
+func (c *Channel) AsChannelParticipant() *ChannelParticipant {
+	value := new(ChannelParticipant)
+	value.UserID = c.GetID()
+	value.Date = c.GetDate()
+
+	return value
+}
+
+// AsChannelParticipantSelf tries to map Channel to ChannelParticipantSelf.
+func (c *Channel) AsChannelParticipantSelf() *ChannelParticipantSelf {
+	value := new(ChannelParticipantSelf)
+	value.UserID = c.GetID()
+	value.InviterID = c.GetID()
+	value.Date = c.GetDate()
+
+	return value
+}
+
+// AsChannelParticipantLeft tries to map Channel to ChannelParticipantLeft.
+func (c *Channel) AsChannelParticipantLeft() *ChannelParticipantLeft {
+	value := new(ChannelParticipantLeft)
+	value.UserID = c.GetID()
+
+	return value
+}
+
+// AsChannelAdminLogEventActionDefaultBannedRights tries to map Channel to ChannelAdminLogEventActionDefaultBannedRights.
+func (c *Channel) AsChannelAdminLogEventActionDefaultBannedRights() *ChannelAdminLogEventActionDefaultBannedRights {
+	value := new(ChannelAdminLogEventActionDefaultBannedRights)
+	if fieldValue, ok := c.GetBannedRights(); ok {
+		value.PrevBannedRights = fieldValue
+	}
+
+	if fieldValue, ok := c.GetBannedRights(); ok {
+		value.NewBannedRights = fieldValue
+	}
+
+	return value
+}
+
+// AsMessagesGetFullChatRequest tries to map Chat to MessagesGetFullChatRequest.
+func (c *Chat) AsMessagesGetFullChatRequest() *MessagesGetFullChatRequest {
+	value := new(MessagesGetFullChatRequest)
+	value.ChatID = c.GetID()
+
+	return value
+}
+
+// AsMessagesEditChatTitleRequest tries to map Chat to MessagesEditChatTitleRequest.
+func (c *Chat) AsMessagesEditChatTitleRequest() *MessagesEditChatTitleRequest {
+	value := new(MessagesEditChatTitleRequest)
+	value.ChatID = c.GetID()
+	value.Title = c.GetTitle()
+
+	return value
+}
+
+// AsMessagesMigrateChatRequest tries to map Chat to MessagesMigrateChatRequest.
+func (c *Chat) AsMessagesMigrateChatRequest() *MessagesMigrateChatRequest {
+	value := new(MessagesMigrateChatRequest)
+	value.ChatID = c.GetID()
+
+	return value
+}
+
+// AsMessagesDeleteChatRequest tries to map Chat to MessagesDeleteChatRequest.
+func (c *Chat) AsMessagesDeleteChatRequest() *MessagesDeleteChatRequest {
+	value := new(MessagesDeleteChatRequest)
+	value.ChatID = c.GetID()
+
+	return value
 }
 
 // NotEmptyChat represents NotEmpty subset of ChatClass.
@@ -1889,31 +2175,31 @@ type NotEmptyChat interface {
 	Zero() bool
 }
 
-// AsNotEmpty tries to map ChatClass to NotEmptyChat.
+// AsNotEmpty tries to map ChatEmpty to NotEmptyChat.
 func (c *ChatEmpty) AsNotEmpty() (NotEmptyChat, bool) {
 	value, ok := (ChatClass(c)).(NotEmptyChat)
 	return value, ok
 }
 
-// AsNotEmpty tries to map ChatClass to NotEmptyChat.
+// AsNotEmpty tries to map Chat to NotEmptyChat.
 func (c *Chat) AsNotEmpty() (NotEmptyChat, bool) {
 	value, ok := (ChatClass(c)).(NotEmptyChat)
 	return value, ok
 }
 
-// AsNotEmpty tries to map ChatClass to NotEmptyChat.
+// AsNotEmpty tries to map ChatForbidden to NotEmptyChat.
 func (c *ChatForbidden) AsNotEmpty() (NotEmptyChat, bool) {
 	value, ok := (ChatClass(c)).(NotEmptyChat)
 	return value, ok
 }
 
-// AsNotEmpty tries to map ChatClass to NotEmptyChat.
+// AsNotEmpty tries to map Channel to NotEmptyChat.
 func (c *Channel) AsNotEmpty() (NotEmptyChat, bool) {
 	value, ok := (ChatClass(c)).(NotEmptyChat)
 	return value, ok
 }
 
-// AsNotEmpty tries to map ChatClass to NotEmptyChat.
+// AsNotEmpty tries to map ChannelForbidden to NotEmptyChat.
 func (c *ChannelForbidden) AsNotEmpty() (NotEmptyChat, bool) {
 	value, ok := (ChatClass(c)).(NotEmptyChat)
 	return value, ok
@@ -1937,31 +2223,31 @@ type NotForbiddenChat interface {
 	Zero() bool
 }
 
-// AsNotForbidden tries to map ChatClass to NotForbiddenChat.
+// AsNotForbidden tries to map ChatEmpty to NotForbiddenChat.
 func (c *ChatEmpty) AsNotForbidden() (NotForbiddenChat, bool) {
 	value, ok := (ChatClass(c)).(NotForbiddenChat)
 	return value, ok
 }
 
-// AsNotForbidden tries to map ChatClass to NotForbiddenChat.
+// AsNotForbidden tries to map Chat to NotForbiddenChat.
 func (c *Chat) AsNotForbidden() (NotForbiddenChat, bool) {
 	value, ok := (ChatClass(c)).(NotForbiddenChat)
 	return value, ok
 }
 
-// AsNotForbidden tries to map ChatClass to NotForbiddenChat.
+// AsNotForbidden tries to map ChatForbidden to NotForbiddenChat.
 func (c *ChatForbidden) AsNotForbidden() (NotForbiddenChat, bool) {
 	value, ok := (ChatClass(c)).(NotForbiddenChat)
 	return value, ok
 }
 
-// AsNotForbidden tries to map ChatClass to NotForbiddenChat.
+// AsNotForbidden tries to map Channel to NotForbiddenChat.
 func (c *Channel) AsNotForbidden() (NotForbiddenChat, bool) {
 	value, ok := (ChatClass(c)).(NotForbiddenChat)
 	return value, ok
 }
 
-// AsNotForbidden tries to map ChatClass to NotForbiddenChat.
+// AsNotForbidden tries to map ChannelForbidden to NotForbiddenChat.
 func (c *ChannelForbidden) AsNotForbidden() (NotForbiddenChat, bool) {
 	value, ok := (ChatClass(c)).(NotForbiddenChat)
 	return value, ok
@@ -2011,31 +2297,31 @@ type FullChat interface {
 	Zero() bool
 }
 
-// AsFull tries to map ChatClass to FullChat.
+// AsFull tries to map ChatEmpty to FullChat.
 func (c *ChatEmpty) AsFull() (FullChat, bool) {
 	value, ok := (ChatClass(c)).(FullChat)
 	return value, ok
 }
 
-// AsFull tries to map ChatClass to FullChat.
+// AsFull tries to map Chat to FullChat.
 func (c *Chat) AsFull() (FullChat, bool) {
 	value, ok := (ChatClass(c)).(FullChat)
 	return value, ok
 }
 
-// AsFull tries to map ChatClass to FullChat.
+// AsFull tries to map ChatForbidden to FullChat.
 func (c *ChatForbidden) AsFull() (FullChat, bool) {
 	value, ok := (ChatClass(c)).(FullChat)
 	return value, ok
 }
 
-// AsFull tries to map ChatClass to FullChat.
+// AsFull tries to map Channel to FullChat.
 func (c *Channel) AsFull() (FullChat, bool) {
 	value, ok := (ChatClass(c)).(FullChat)
 	return value, ok
 }
 
-// AsFull tries to map ChatClass to FullChat.
+// AsFull tries to map ChannelForbidden to FullChat.
 func (c *ChannelForbidden) AsFull() (FullChat, bool) {
 	value, ok := (ChatClass(c)).(FullChat)
 	return value, ok
@@ -2262,6 +2548,24 @@ func (s ChatClassSlice) LastAsNotEmpty() (v NotEmptyChat, ok bool) {
 	return value.AsNotEmpty()
 }
 
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *ChatClassSlice) PopFirstAsNotEmpty() (v NotEmptyChat, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *ChatClassSlice) PopAsNotEmpty() (v NotEmptyChat, ok bool) {
+	value, ok := s.Pop()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
 // FillNotForbiddenMap fills only NotForbidden constructors to given map.
 func (s ChatClassSlice) FillNotForbiddenMap(to map[int]NotForbiddenChat) {
 	for _, elem := range s {
@@ -2317,6 +2621,24 @@ func (s ChatClassSlice) LastAsNotForbidden() (v NotForbiddenChat, ok bool) {
 	return value.AsNotForbidden()
 }
 
+// PopFirstAsNotForbidden returns element of slice (if exists).
+func (s *ChatClassSlice) PopFirstAsNotForbidden() (v NotForbiddenChat, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotForbidden()
+}
+
+// PopAsNotForbidden returns element of slice (if exists).
+func (s *ChatClassSlice) PopAsNotForbidden() (v NotForbiddenChat, ok bool) {
+	value, ok := s.Pop()
+	if !ok {
+		return
+	}
+	return value.AsNotForbidden()
+}
+
 // FillFullMap fills only Full constructors to given map.
 func (s ChatClassSlice) FillFullMap(to map[int]FullChat) {
 	for _, elem := range s {
@@ -2366,6 +2688,24 @@ func (s ChatClassSlice) FirstAsFull() (v FullChat, ok bool) {
 // LastAsFull returns last element of slice (if exists).
 func (s ChatClassSlice) LastAsFull() (v FullChat, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsFull()
+}
+
+// PopFirstAsFull returns element of slice (if exists).
+func (s *ChatClassSlice) PopFirstAsFull() (v FullChat, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsFull()
+}
+
+// PopAsFull returns element of slice (if exists).
+func (s *ChatClassSlice) PopAsFull() (v FullChat, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

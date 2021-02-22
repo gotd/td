@@ -236,12 +236,12 @@ type HelpCountriesListClass interface {
 	Zero() bool
 }
 
-// AsModified tries to map HelpCountriesListClass to HelpCountriesList.
+// AsModified tries to map HelpCountriesListNotModified to HelpCountriesList.
 func (c *HelpCountriesListNotModified) AsModified() (*HelpCountriesList, bool) {
 	return nil, false
 }
 
-// AsModified tries to map HelpCountriesListClass to HelpCountriesList.
+// AsModified tries to map HelpCountriesList to HelpCountriesList.
 func (c *HelpCountriesList) AsModified() (*HelpCountriesList, bool) {
 	return c, true
 }
@@ -332,6 +332,24 @@ func (s HelpCountriesListClassSlice) FirstAsModified() (v *HelpCountriesList, ok
 // LastAsModified returns last element of slice (if exists).
 func (s HelpCountriesListClassSlice) LastAsModified() (v *HelpCountriesList, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopFirstAsModified returns element of slice (if exists).
+func (s *HelpCountriesListClassSlice) PopFirstAsModified() (v *HelpCountriesList, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopAsModified returns element of slice (if exists).
+func (s *HelpCountriesListClassSlice) PopAsModified() (v *HelpCountriesList, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

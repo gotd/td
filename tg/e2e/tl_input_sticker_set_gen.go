@@ -202,12 +202,12 @@ type InputStickerSetClass interface {
 	Zero() bool
 }
 
-// AsNotEmpty tries to map InputStickerSetClass to InputStickerSetShortName.
+// AsNotEmpty tries to map InputStickerSetShortName to InputStickerSetShortName.
 func (i *InputStickerSetShortName) AsNotEmpty() (*InputStickerSetShortName, bool) {
 	return i, true
 }
 
-// AsNotEmpty tries to map InputStickerSetClass to InputStickerSetShortName.
+// AsNotEmpty tries to map InputStickerSetEmpty to InputStickerSetShortName.
 func (i *InputStickerSetEmpty) AsNotEmpty() (*InputStickerSetShortName, bool) {
 	return nil, false
 }
@@ -298,6 +298,24 @@ func (s InputStickerSetClassSlice) FirstAsNotEmpty() (v *InputStickerSetShortNam
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s InputStickerSetClassSlice) LastAsNotEmpty() (v *InputStickerSetShortName, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *InputStickerSetClassSlice) PopFirstAsNotEmpty() (v *InputStickerSetShortName, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *InputStickerSetClassSlice) PopAsNotEmpty() (v *InputStickerSetShortName, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

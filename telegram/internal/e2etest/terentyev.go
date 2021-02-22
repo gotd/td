@@ -99,7 +99,7 @@ func (u User) Run(ctx context.Context) error {
 			err = client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
 				RandomID: randomID,
 				Message:  message,
-				Peer: peer.AsInputPeer(),
+				Peer:     peer.AsInputPeer(),
 			})
 			if flood, err := helpers.FloodWait(ctx, err); err != nil {
 				if flood {

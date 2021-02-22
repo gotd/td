@@ -987,25 +987,25 @@ type ModifiedMessagesMessages interface {
 	Zero() bool
 }
 
-// AsModified tries to map MessagesMessagesClass to ModifiedMessagesMessages.
+// AsModified tries to map MessagesMessages to ModifiedMessagesMessages.
 func (m *MessagesMessages) AsModified() (ModifiedMessagesMessages, bool) {
 	value, ok := (MessagesMessagesClass(m)).(ModifiedMessagesMessages)
 	return value, ok
 }
 
-// AsModified tries to map MessagesMessagesClass to ModifiedMessagesMessages.
+// AsModified tries to map MessagesMessagesSlice to ModifiedMessagesMessages.
 func (m *MessagesMessagesSlice) AsModified() (ModifiedMessagesMessages, bool) {
 	value, ok := (MessagesMessagesClass(m)).(ModifiedMessagesMessages)
 	return value, ok
 }
 
-// AsModified tries to map MessagesMessagesClass to ModifiedMessagesMessages.
+// AsModified tries to map MessagesChannelMessages to ModifiedMessagesMessages.
 func (c *MessagesChannelMessages) AsModified() (ModifiedMessagesMessages, bool) {
 	value, ok := (MessagesMessagesClass(c)).(ModifiedMessagesMessages)
 	return value, ok
 }
 
-// AsModified tries to map MessagesMessagesClass to ModifiedMessagesMessages.
+// AsModified tries to map MessagesMessagesNotModified to ModifiedMessagesMessages.
 func (m *MessagesMessagesNotModified) AsModified() (ModifiedMessagesMessages, bool) {
 	value, ok := (MessagesMessagesClass(m)).(ModifiedMessagesMessages)
 	return value, ok
@@ -1111,6 +1111,24 @@ func (s MessagesMessagesClassSlice) FirstAsModified() (v ModifiedMessagesMessage
 // LastAsModified returns last element of slice (if exists).
 func (s MessagesMessagesClassSlice) LastAsModified() (v ModifiedMessagesMessages, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopFirstAsModified returns element of slice (if exists).
+func (s *MessagesMessagesClassSlice) PopFirstAsModified() (v ModifiedMessagesMessages, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopAsModified returns element of slice (if exists).
+func (s *MessagesMessagesClassSlice) PopAsModified() (v ModifiedMessagesMessages, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

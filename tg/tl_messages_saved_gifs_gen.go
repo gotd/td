@@ -244,12 +244,12 @@ type MessagesSavedGifsClass interface {
 	Zero() bool
 }
 
-// AsModified tries to map MessagesSavedGifsClass to MessagesSavedGifs.
+// AsModified tries to map MessagesSavedGifsNotModified to MessagesSavedGifs.
 func (s *MessagesSavedGifsNotModified) AsModified() (*MessagesSavedGifs, bool) {
 	return nil, false
 }
 
-// AsModified tries to map MessagesSavedGifsClass to MessagesSavedGifs.
+// AsModified tries to map MessagesSavedGifs to MessagesSavedGifs.
 func (s *MessagesSavedGifs) AsModified() (*MessagesSavedGifs, bool) {
 	return s, true
 }
@@ -340,6 +340,24 @@ func (s MessagesSavedGifsClassSlice) FirstAsModified() (v *MessagesSavedGifs, ok
 // LastAsModified returns last element of slice (if exists).
 func (s MessagesSavedGifsClassSlice) LastAsModified() (v *MessagesSavedGifs, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopFirstAsModified returns element of slice (if exists).
+func (s *MessagesSavedGifsClassSlice) PopFirstAsModified() (v *MessagesSavedGifs, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopAsModified returns element of slice (if exists).
+func (s *MessagesSavedGifsClassSlice) PopAsModified() (v *MessagesSavedGifs, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

@@ -272,12 +272,12 @@ type ContactsContactsClass interface {
 	Zero() bool
 }
 
-// AsModified tries to map ContactsContactsClass to ContactsContacts.
+// AsModified tries to map ContactsContactsNotModified to ContactsContacts.
 func (c *ContactsContactsNotModified) AsModified() (*ContactsContacts, bool) {
 	return nil, false
 }
 
-// AsModified tries to map ContactsContactsClass to ContactsContacts.
+// AsModified tries to map ContactsContacts to ContactsContacts.
 func (c *ContactsContacts) AsModified() (*ContactsContacts, bool) {
 	return c, true
 }
@@ -368,6 +368,24 @@ func (s ContactsContactsClassSlice) FirstAsModified() (v *ContactsContacts, ok b
 // LastAsModified returns last element of slice (if exists).
 func (s ContactsContactsClassSlice) LastAsModified() (v *ContactsContacts, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopFirstAsModified returns element of slice (if exists).
+func (s *ContactsContactsClassSlice) PopFirstAsModified() (v *ContactsContacts, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopAsModified returns element of slice (if exists).
+func (s *ContactsContactsClassSlice) PopAsModified() (v *ContactsContacts, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

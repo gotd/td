@@ -244,12 +244,12 @@ type AccountWallPapersClass interface {
 	Zero() bool
 }
 
-// AsModified tries to map AccountWallPapersClass to AccountWallPapers.
+// AsModified tries to map AccountWallPapersNotModified to AccountWallPapers.
 func (w *AccountWallPapersNotModified) AsModified() (*AccountWallPapers, bool) {
 	return nil, false
 }
 
-// AsModified tries to map AccountWallPapersClass to AccountWallPapers.
+// AsModified tries to map AccountWallPapers to AccountWallPapers.
 func (w *AccountWallPapers) AsModified() (*AccountWallPapers, bool) {
 	return w, true
 }
@@ -340,6 +340,24 @@ func (s AccountWallPapersClassSlice) FirstAsModified() (v *AccountWallPapers, ok
 // LastAsModified returns last element of slice (if exists).
 func (s AccountWallPapersClassSlice) LastAsModified() (v *AccountWallPapers, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopFirstAsModified returns element of slice (if exists).
+func (s *AccountWallPapersClassSlice) PopFirstAsModified() (v *AccountWallPapers, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopAsModified returns element of slice (if exists).
+func (s *AccountWallPapersClassSlice) PopAsModified() (v *AccountWallPapers, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

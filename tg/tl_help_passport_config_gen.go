@@ -228,12 +228,12 @@ type HelpPassportConfigClass interface {
 	Zero() bool
 }
 
-// AsModified tries to map HelpPassportConfigClass to HelpPassportConfig.
+// AsModified tries to map HelpPassportConfigNotModified to HelpPassportConfig.
 func (p *HelpPassportConfigNotModified) AsModified() (*HelpPassportConfig, bool) {
 	return nil, false
 }
 
-// AsModified tries to map HelpPassportConfigClass to HelpPassportConfig.
+// AsModified tries to map HelpPassportConfig to HelpPassportConfig.
 func (p *HelpPassportConfig) AsModified() (*HelpPassportConfig, bool) {
 	return p, true
 }
@@ -324,6 +324,24 @@ func (s HelpPassportConfigClassSlice) FirstAsModified() (v *HelpPassportConfig, 
 // LastAsModified returns last element of slice (if exists).
 func (s HelpPassportConfigClassSlice) LastAsModified() (v *HelpPassportConfig, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopFirstAsModified returns element of slice (if exists).
+func (s *HelpPassportConfigClassSlice) PopFirstAsModified() (v *HelpPassportConfig, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopAsModified returns element of slice (if exists).
+func (s *HelpPassportConfigClassSlice) PopAsModified() (v *HelpPassportConfig, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

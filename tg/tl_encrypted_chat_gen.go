@@ -890,7 +890,6 @@ type EncryptedChatClass interface {
 
 	// Chat ID
 	GetID() (value int)
-
 	// AsNotEmpty tries to map EncryptedChatClass to NotEmptyEncryptedChat.
 	AsNotEmpty() (NotEmptyEncryptedChat, bool)
 
@@ -901,6 +900,23 @@ type EncryptedChatClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsUpdateEncryptedChatTyping tries to map EncryptedChat to UpdateEncryptedChatTyping.
+func (e *EncryptedChat) AsUpdateEncryptedChatTyping() *UpdateEncryptedChatTyping {
+	value := new(UpdateEncryptedChatTyping)
+	value.ChatID = e.GetID()
+
+	return value
+}
+
+// AsInput tries to map EncryptedChat to InputEncryptedChat.
+func (e *EncryptedChat) AsInput() *InputEncryptedChat {
+	value := new(InputEncryptedChat)
+	value.ChatID = e.GetID()
+	value.AccessHash = e.GetAccessHash()
+
+	return value
 }
 
 // NotEmptyEncryptedChat represents NotEmpty subset of EncryptedChatClass.
@@ -921,31 +937,31 @@ type NotEmptyEncryptedChat interface {
 	Zero() bool
 }
 
-// AsNotEmpty tries to map EncryptedChatClass to NotEmptyEncryptedChat.
+// AsNotEmpty tries to map EncryptedChatEmpty to NotEmptyEncryptedChat.
 func (e *EncryptedChatEmpty) AsNotEmpty() (NotEmptyEncryptedChat, bool) {
 	value, ok := (EncryptedChatClass(e)).(NotEmptyEncryptedChat)
 	return value, ok
 }
 
-// AsNotEmpty tries to map EncryptedChatClass to NotEmptyEncryptedChat.
+// AsNotEmpty tries to map EncryptedChatWaiting to NotEmptyEncryptedChat.
 func (e *EncryptedChatWaiting) AsNotEmpty() (NotEmptyEncryptedChat, bool) {
 	value, ok := (EncryptedChatClass(e)).(NotEmptyEncryptedChat)
 	return value, ok
 }
 
-// AsNotEmpty tries to map EncryptedChatClass to NotEmptyEncryptedChat.
+// AsNotEmpty tries to map EncryptedChatRequested to NotEmptyEncryptedChat.
 func (e *EncryptedChatRequested) AsNotEmpty() (NotEmptyEncryptedChat, bool) {
 	value, ok := (EncryptedChatClass(e)).(NotEmptyEncryptedChat)
 	return value, ok
 }
 
-// AsNotEmpty tries to map EncryptedChatClass to NotEmptyEncryptedChat.
+// AsNotEmpty tries to map EncryptedChat to NotEmptyEncryptedChat.
 func (e *EncryptedChat) AsNotEmpty() (NotEmptyEncryptedChat, bool) {
 	value, ok := (EncryptedChatClass(e)).(NotEmptyEncryptedChat)
 	return value, ok
 }
 
-// AsNotEmpty tries to map EncryptedChatClass to NotEmptyEncryptedChat.
+// AsNotEmpty tries to map EncryptedChatDiscarded to NotEmptyEncryptedChat.
 func (e *EncryptedChatDiscarded) AsNotEmpty() (NotEmptyEncryptedChat, bool) {
 	value, ok := (EncryptedChatClass(e)).(NotEmptyEncryptedChat)
 	return value, ok
@@ -1166,6 +1182,24 @@ func (s EncryptedChatClassSlice) FirstAsNotEmpty() (v NotEmptyEncryptedChat, ok 
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s EncryptedChatClassSlice) LastAsNotEmpty() (v NotEmptyEncryptedChat, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *EncryptedChatClassSlice) PopFirstAsNotEmpty() (v NotEmptyEncryptedChat, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *EncryptedChatClassSlice) PopAsNotEmpty() (v NotEmptyEncryptedChat, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

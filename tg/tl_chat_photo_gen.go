@@ -284,12 +284,12 @@ type ChatPhotoClass interface {
 	Zero() bool
 }
 
-// AsNotEmpty tries to map ChatPhotoClass to ChatPhoto.
+// AsNotEmpty tries to map ChatPhotoEmpty to ChatPhoto.
 func (c *ChatPhotoEmpty) AsNotEmpty() (*ChatPhoto, bool) {
 	return nil, false
 }
 
-// AsNotEmpty tries to map ChatPhotoClass to ChatPhoto.
+// AsNotEmpty tries to map ChatPhoto to ChatPhoto.
 func (c *ChatPhoto) AsNotEmpty() (*ChatPhoto, bool) {
 	return c, true
 }
@@ -380,6 +380,24 @@ func (s ChatPhotoClassSlice) FirstAsNotEmpty() (v *ChatPhoto, ok bool) {
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s ChatPhotoClassSlice) LastAsNotEmpty() (v *ChatPhoto, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *ChatPhotoClassSlice) PopFirstAsNotEmpty() (v *ChatPhoto, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *ChatPhotoClassSlice) PopAsNotEmpty() (v *ChatPhoto, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

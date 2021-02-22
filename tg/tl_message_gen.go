@@ -1617,7 +1617,6 @@ type MessageClass interface {
 
 	// Message identifier
 	GetID() (value int)
-
 	// AsNotEmpty tries to map MessageClass to NotEmptyMessage.
 	AsNotEmpty() (NotEmptyMessage, bool)
 
@@ -1628,6 +1627,178 @@ type MessageClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsMessageActionChatDeleteUser tries to map Message to MessageActionChatDeleteUser.
+func (m *Message) AsMessageActionChatDeleteUser() *MessageActionChatDeleteUser {
+	value := new(MessageActionChatDeleteUser)
+	value.UserID = m.GetID()
+
+	return value
+}
+
+// AsMessageActionChatJoinedByLink tries to map Message to MessageActionChatJoinedByLink.
+func (m *Message) AsMessageActionChatJoinedByLink() *MessageActionChatJoinedByLink {
+	value := new(MessageActionChatJoinedByLink)
+	value.InviterID = m.GetID()
+
+	return value
+}
+
+// AsMessageActionChatMigrateTo tries to map Message to MessageActionChatMigrateTo.
+func (m *Message) AsMessageActionChatMigrateTo() *MessageActionChatMigrateTo {
+	value := new(MessageActionChatMigrateTo)
+	value.ChannelID = m.GetID()
+
+	return value
+}
+
+// AsMessageActionCustomAction tries to map Message to MessageActionCustomAction.
+func (m *Message) AsMessageActionCustomAction() *MessageActionCustomAction {
+	value := new(MessageActionCustomAction)
+	value.Message = m.GetMessage()
+
+	return value
+}
+
+// AsUpdateEncryptedMessagesRead tries to map Message to UpdateEncryptedMessagesRead.
+func (m *Message) AsUpdateEncryptedMessagesRead() *UpdateEncryptedMessagesRead {
+	value := new(UpdateEncryptedMessagesRead)
+	value.ChatID = m.GetID()
+	value.MaxDate = m.GetDate()
+	value.Date = m.GetDate()
+
+	return value
+}
+
+// AsUpdateChannelMessageViews tries to map Message to UpdateChannelMessageViews.
+func (m *Message) AsUpdateChannelMessageViews() *UpdateChannelMessageViews {
+	value := new(UpdateChannelMessageViews)
+	value.ChannelID = m.GetID()
+	value.ID = m.GetID()
+	if fieldValue, ok := m.GetViews(); ok {
+		value.Views = fieldValue
+	}
+
+	return value
+}
+
+// AsUpdateChannelAvailableMessages tries to map Message to UpdateChannelAvailableMessages.
+func (m *Message) AsUpdateChannelAvailableMessages() *UpdateChannelAvailableMessages {
+	value := new(UpdateChannelAvailableMessages)
+	value.ChannelID = m.GetID()
+	value.AvailableMinID = m.GetID()
+
+	return value
+}
+
+// AsUpdateChannelMessageForwards tries to map Message to UpdateChannelMessageForwards.
+func (m *Message) AsUpdateChannelMessageForwards() *UpdateChannelMessageForwards {
+	value := new(UpdateChannelMessageForwards)
+	value.ChannelID = m.GetID()
+	value.ID = m.GetID()
+	if fieldValue, ok := m.GetForwards(); ok {
+		value.Forwards = fieldValue
+	}
+
+	return value
+}
+
+// AsMessagesSentEncrypted tries to map Message to MessagesSentEncryptedMessage.
+func (m *Message) AsMessagesSentEncrypted() *MessagesSentEncryptedMessage {
+	value := new(MessagesSentEncryptedMessage)
+	value.Date = m.GetDate()
+
+	return value
+}
+
+// AsMessageRange tries to map Message to MessageRange.
+func (m *Message) AsMessageRange() *MessageRange {
+	value := new(MessageRange)
+	value.MinID = m.GetID()
+	value.MaxID = m.GetID()
+
+	return value
+}
+
+// AsInputMessageID tries to map Message to InputMessageID.
+func (m *Message) AsInputMessageID() *InputMessageID {
+	value := new(InputMessageID)
+	value.ID = m.GetID()
+
+	return value
+}
+
+// AsInputMessageReplyTo tries to map Message to InputMessageReplyTo.
+func (m *Message) AsInputMessageReplyTo() *InputMessageReplyTo {
+	value := new(InputMessageReplyTo)
+	value.ID = m.GetID()
+
+	return value
+}
+
+// AsMessageUserVoteInputOption tries to map Message to MessageUserVoteInputOption.
+func (m *Message) AsMessageUserVoteInputOption() *MessageUserVoteInputOption {
+	value := new(MessageUserVoteInputOption)
+	value.UserID = m.GetID()
+	value.Date = m.GetDate()
+
+	return value
+}
+
+// AsMessageInteractionCounters tries to map Message to MessageInteractionCounters.
+func (m *Message) AsMessageInteractionCounters() *MessageInteractionCounters {
+	value := new(MessageInteractionCounters)
+	value.MsgID = m.GetID()
+	if fieldValue, ok := m.GetViews(); ok {
+		value.Views = fieldValue
+	}
+
+	if fieldValue, ok := m.GetForwards(); ok {
+		value.Forwards = fieldValue
+	}
+
+	return value
+}
+
+// AsMessagesReceivedMessagesRequest tries to map Message to MessagesReceivedMessagesRequest.
+func (m *Message) AsMessagesReceivedMessagesRequest() *MessagesReceivedMessagesRequest {
+	value := new(MessagesReceivedMessagesRequest)
+	value.MaxID = m.GetID()
+
+	return value
+}
+
+// AsMessagesGetFullChatRequest tries to map Message to MessagesGetFullChatRequest.
+func (m *Message) AsMessagesGetFullChatRequest() *MessagesGetFullChatRequest {
+	value := new(MessagesGetFullChatRequest)
+	value.ChatID = m.GetID()
+
+	return value
+}
+
+// AsMessagesMigrateChatRequest tries to map Message to MessagesMigrateChatRequest.
+func (m *Message) AsMessagesMigrateChatRequest() *MessagesMigrateChatRequest {
+	value := new(MessagesMigrateChatRequest)
+	value.ChatID = m.GetID()
+
+	return value
+}
+
+// AsMessagesGetPinnedDialogsRequest tries to map Message to MessagesGetPinnedDialogsRequest.
+func (m *Message) AsMessagesGetPinnedDialogsRequest() *MessagesGetPinnedDialogsRequest {
+	value := new(MessagesGetPinnedDialogsRequest)
+	value.FolderID = m.GetID()
+
+	return value
+}
+
+// AsMessagesDeleteChatRequest tries to map Message to MessagesDeleteChatRequest.
+func (m *Message) AsMessagesDeleteChatRequest() *MessagesDeleteChatRequest {
+	value := new(MessagesDeleteChatRequest)
+	value.ChatID = m.GetID()
+
+	return value
 }
 
 // NotEmptyMessage represents NotEmpty subset of MessageClass.
@@ -1671,19 +1842,19 @@ type NotEmptyMessage interface {
 	Zero() bool
 }
 
-// AsNotEmpty tries to map MessageClass to NotEmptyMessage.
+// AsNotEmpty tries to map MessageEmpty to NotEmptyMessage.
 func (m *MessageEmpty) AsNotEmpty() (NotEmptyMessage, bool) {
 	value, ok := (MessageClass(m)).(NotEmptyMessage)
 	return value, ok
 }
 
-// AsNotEmpty tries to map MessageClass to NotEmptyMessage.
+// AsNotEmpty tries to map Message to NotEmptyMessage.
 func (m *Message) AsNotEmpty() (NotEmptyMessage, bool) {
 	value, ok := (MessageClass(m)).(NotEmptyMessage)
 	return value, ok
 }
 
-// AsNotEmpty tries to map MessageClass to NotEmptyMessage.
+// AsNotEmpty tries to map MessageService to NotEmptyMessage.
 func (m *MessageService) AsNotEmpty() (NotEmptyMessage, bool) {
 	value, ok := (MessageClass(m)).(NotEmptyMessage)
 	return value, ok
@@ -1854,6 +2025,24 @@ func (s MessageClassSlice) FirstAsNotEmpty() (v NotEmptyMessage, ok bool) {
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s MessageClassSlice) LastAsNotEmpty() (v NotEmptyMessage, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *MessageClassSlice) PopFirstAsNotEmpty() (v NotEmptyMessage, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *MessageClassSlice) PopAsNotEmpty() (v NotEmptyMessage, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

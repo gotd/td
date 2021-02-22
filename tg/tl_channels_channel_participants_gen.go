@@ -282,12 +282,12 @@ type ChannelsChannelParticipantsClass interface {
 	Zero() bool
 }
 
-// AsModified tries to map ChannelsChannelParticipantsClass to ChannelsChannelParticipants.
+// AsModified tries to map ChannelsChannelParticipants to ChannelsChannelParticipants.
 func (c *ChannelsChannelParticipants) AsModified() (*ChannelsChannelParticipants, bool) {
 	return c, true
 }
 
-// AsModified tries to map ChannelsChannelParticipantsClass to ChannelsChannelParticipants.
+// AsModified tries to map ChannelsChannelParticipantsNotModified to ChannelsChannelParticipants.
 func (c *ChannelsChannelParticipantsNotModified) AsModified() (*ChannelsChannelParticipants, bool) {
 	return nil, false
 }
@@ -378,6 +378,24 @@ func (s ChannelsChannelParticipantsClassSlice) FirstAsModified() (v *ChannelsCha
 // LastAsModified returns last element of slice (if exists).
 func (s ChannelsChannelParticipantsClassSlice) LastAsModified() (v *ChannelsChannelParticipants, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopFirstAsModified returns element of slice (if exists).
+func (s *ChannelsChannelParticipantsClassSlice) PopFirstAsModified() (v *ChannelsChannelParticipants, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopAsModified returns element of slice (if exists).
+func (s *ChannelsChannelParticipantsClassSlice) PopAsModified() (v *ChannelsChannelParticipants, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

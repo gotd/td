@@ -404,6 +404,8 @@ type WebDocumentClass interface {
 	GetMimeType() (value string)
 	// Attributes for media types
 	GetAttributes() (value []DocumentAttributeClass)
+	// Attributes for media types
+	MapAttributes() (value DocumentAttributeClassSlice)
 
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
@@ -412,6 +414,17 @@ type WebDocumentClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsInput tries to map WebDocument to InputWebDocument.
+func (w *WebDocument) AsInput() *InputWebDocument {
+	value := new(InputWebDocument)
+	value.URL = w.GetURL()
+	value.Size = w.GetSize()
+	value.MimeType = w.GetMimeType()
+	value.Attributes = w.GetAttributes()
+
+	return value
 }
 
 // DecodeWebDocument implements binary de-serialization for WebDocumentClass.

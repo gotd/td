@@ -326,12 +326,30 @@ type SecureFileClass interface {
 	Zero() bool
 }
 
-// AsNotEmpty tries to map SecureFileClass to SecureFile.
+// AsInputSecureFileLocation tries to map SecureFile to InputSecureFileLocation.
+func (s *SecureFile) AsInputSecureFileLocation() *InputSecureFileLocation {
+	value := new(InputSecureFileLocation)
+	value.ID = s.GetID()
+	value.AccessHash = s.GetAccessHash()
+
+	return value
+}
+
+// AsInput tries to map SecureFile to InputSecureFile.
+func (s *SecureFile) AsInput() *InputSecureFile {
+	value := new(InputSecureFile)
+	value.ID = s.GetID()
+	value.AccessHash = s.GetAccessHash()
+
+	return value
+}
+
+// AsNotEmpty tries to map SecureFileEmpty to SecureFile.
 func (s *SecureFileEmpty) AsNotEmpty() (*SecureFile, bool) {
 	return nil, false
 }
 
-// AsNotEmpty tries to map SecureFileClass to SecureFile.
+// AsNotEmpty tries to map SecureFile to SecureFile.
 func (s *SecureFile) AsNotEmpty() (*SecureFile, bool) {
 	return s, true
 }
@@ -422,6 +440,24 @@ func (s SecureFileClassSlice) FirstAsNotEmpty() (v *SecureFile, ok bool) {
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s SecureFileClassSlice) LastAsNotEmpty() (v *SecureFile, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *SecureFileClassSlice) PopFirstAsNotEmpty() (v *SecureFile, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *SecureFileClassSlice) PopAsNotEmpty() (v *SecureFile, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

@@ -308,12 +308,12 @@ type HelpDeepLinkInfoClass interface {
 	Zero() bool
 }
 
-// AsNotEmpty tries to map HelpDeepLinkInfoClass to HelpDeepLinkInfo.
+// AsNotEmpty tries to map HelpDeepLinkInfoEmpty to HelpDeepLinkInfo.
 func (d *HelpDeepLinkInfoEmpty) AsNotEmpty() (*HelpDeepLinkInfo, bool) {
 	return nil, false
 }
 
-// AsNotEmpty tries to map HelpDeepLinkInfoClass to HelpDeepLinkInfo.
+// AsNotEmpty tries to map HelpDeepLinkInfo to HelpDeepLinkInfo.
 func (d *HelpDeepLinkInfo) AsNotEmpty() (*HelpDeepLinkInfo, bool) {
 	return d, true
 }
@@ -404,6 +404,24 @@ func (s HelpDeepLinkInfoClassSlice) FirstAsNotEmpty() (v *HelpDeepLinkInfo, ok b
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s HelpDeepLinkInfoClassSlice) LastAsNotEmpty() (v *HelpDeepLinkInfo, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *HelpDeepLinkInfoClassSlice) PopFirstAsNotEmpty() (v *HelpDeepLinkInfo, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *HelpDeepLinkInfoClassSlice) PopAsNotEmpty() (v *HelpDeepLinkInfo, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

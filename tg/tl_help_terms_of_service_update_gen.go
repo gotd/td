@@ -249,7 +249,6 @@ type HelpTermsOfServiceUpdateClass interface {
 	// Links:
 	//  1) https://core.telegram.org/method/help.getTermsOfServiceUpdate
 	GetExpires() (value int)
-
 	// AsNotEmpty tries to map HelpTermsOfServiceUpdateClass to HelpTermsOfServiceUpdate.
 	AsNotEmpty() (*HelpTermsOfServiceUpdate, bool)
 
@@ -262,12 +261,12 @@ type HelpTermsOfServiceUpdateClass interface {
 	Zero() bool
 }
 
-// AsNotEmpty tries to map HelpTermsOfServiceUpdateClass to HelpTermsOfServiceUpdate.
+// AsNotEmpty tries to map HelpTermsOfServiceUpdateEmpty to HelpTermsOfServiceUpdate.
 func (t *HelpTermsOfServiceUpdateEmpty) AsNotEmpty() (*HelpTermsOfServiceUpdate, bool) {
 	return nil, false
 }
 
-// AsNotEmpty tries to map HelpTermsOfServiceUpdateClass to HelpTermsOfServiceUpdate.
+// AsNotEmpty tries to map HelpTermsOfServiceUpdate to HelpTermsOfServiceUpdate.
 func (t *HelpTermsOfServiceUpdate) AsNotEmpty() (*HelpTermsOfServiceUpdate, bool) {
 	return t, true
 }
@@ -358,6 +357,24 @@ func (s HelpTermsOfServiceUpdateClassSlice) FirstAsNotEmpty() (v *HelpTermsOfSer
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s HelpTermsOfServiceUpdateClassSlice) LastAsNotEmpty() (v *HelpTermsOfServiceUpdate, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *HelpTermsOfServiceUpdateClassSlice) PopFirstAsNotEmpty() (v *HelpTermsOfServiceUpdate, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *HelpTermsOfServiceUpdateClassSlice) PopAsNotEmpty() (v *HelpTermsOfServiceUpdate, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

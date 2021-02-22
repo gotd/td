@@ -1111,6 +1111,15 @@ type WebPageClass interface {
 	Zero() bool
 }
 
+// AsMessagesGetWebPageRequest tries to map WebPage to MessagesGetWebPageRequest.
+func (w *WebPage) AsMessagesGetWebPageRequest() *MessagesGetWebPageRequest {
+	value := new(MessagesGetWebPageRequest)
+	value.URL = w.GetURL()
+	value.Hash = w.GetHash()
+
+	return value
+}
+
 // ModifiedWebPage represents Modified subset of WebPageClass.
 type ModifiedWebPage interface {
 	bin.Encoder
@@ -1129,25 +1138,25 @@ type ModifiedWebPage interface {
 	Zero() bool
 }
 
-// AsModified tries to map WebPageClass to ModifiedWebPage.
+// AsModified tries to map WebPageEmpty to ModifiedWebPage.
 func (w *WebPageEmpty) AsModified() (ModifiedWebPage, bool) {
 	value, ok := (WebPageClass(w)).(ModifiedWebPage)
 	return value, ok
 }
 
-// AsModified tries to map WebPageClass to ModifiedWebPage.
+// AsModified tries to map WebPagePending to ModifiedWebPage.
 func (w *WebPagePending) AsModified() (ModifiedWebPage, bool) {
 	value, ok := (WebPageClass(w)).(ModifiedWebPage)
 	return value, ok
 }
 
-// AsModified tries to map WebPageClass to ModifiedWebPage.
+// AsModified tries to map WebPage to ModifiedWebPage.
 func (w *WebPage) AsModified() (ModifiedWebPage, bool) {
 	value, ok := (WebPageClass(w)).(ModifiedWebPage)
 	return value, ok
 }
 
-// AsModified tries to map WebPageClass to ModifiedWebPage.
+// AsModified tries to map WebPageNotModified to ModifiedWebPage.
 func (w *WebPageNotModified) AsModified() (ModifiedWebPage, bool) {
 	value, ok := (WebPageClass(w)).(ModifiedWebPage)
 	return value, ok
@@ -1253,6 +1262,24 @@ func (s WebPageClassSlice) FirstAsModified() (v ModifiedWebPage, ok bool) {
 // LastAsModified returns last element of slice (if exists).
 func (s WebPageClassSlice) LastAsModified() (v ModifiedWebPage, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopFirstAsModified returns element of slice (if exists).
+func (s *WebPageClassSlice) PopFirstAsModified() (v ModifiedWebPage, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopAsModified returns element of slice (if exists).
+func (s *WebPageClassSlice) PopAsModified() (v ModifiedWebPage, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

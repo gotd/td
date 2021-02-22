@@ -483,7 +483,6 @@ type PhotoSizeClass interface {
 	// Links:
 	//  1) https://core.telegram.org/constructor/photoSize
 	GetType() (value string)
-
 	// AsNotEmpty tries to map PhotoSizeClass to NotEmptyPhotoSize.
 	AsNotEmpty() (NotEmptyPhotoSize, bool)
 
@@ -520,19 +519,19 @@ type NotEmptyPhotoSize interface {
 	Zero() bool
 }
 
-// AsNotEmpty tries to map PhotoSizeClass to NotEmptyPhotoSize.
+// AsNotEmpty tries to map PhotoSizeEmpty to NotEmptyPhotoSize.
 func (p *PhotoSizeEmpty) AsNotEmpty() (NotEmptyPhotoSize, bool) {
 	value, ok := (PhotoSizeClass(p)).(NotEmptyPhotoSize)
 	return value, ok
 }
 
-// AsNotEmpty tries to map PhotoSizeClass to NotEmptyPhotoSize.
+// AsNotEmpty tries to map PhotoSize to NotEmptyPhotoSize.
 func (p *PhotoSize) AsNotEmpty() (NotEmptyPhotoSize, bool) {
 	value, ok := (PhotoSizeClass(p)).(NotEmptyPhotoSize)
 	return value, ok
 }
 
-// AsNotEmpty tries to map PhotoSizeClass to NotEmptyPhotoSize.
+// AsNotEmpty tries to map PhotoCachedSize to NotEmptyPhotoSize.
 func (p *PhotoCachedSize) AsNotEmpty() (NotEmptyPhotoSize, bool) {
 	value, ok := (PhotoSizeClass(p)).(NotEmptyPhotoSize)
 	return value, ok
@@ -631,6 +630,24 @@ func (s PhotoSizeClassSlice) FirstAsNotEmpty() (v NotEmptyPhotoSize, ok bool) {
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s PhotoSizeClassSlice) LastAsNotEmpty() (v NotEmptyPhotoSize, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *PhotoSizeClassSlice) PopFirstAsNotEmpty() (v NotEmptyPhotoSize, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *PhotoSizeClassSlice) PopAsNotEmpty() (v NotEmptyPhotoSize, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

@@ -158,7 +158,7 @@ func (b EchoBot) handler(client *telegram.Client) tg.NewMessageHandler {
 					RandomID: randomID,
 					Message:  m.Message,
 					Peer: &tg.InputPeerUserFromMessage{
-						Peer: user.AsInputPeer(),
+						Peer:   user.AsInputPeer(),
 						UserID: peer.UserID,
 						MsgID:  m.ID,
 					},

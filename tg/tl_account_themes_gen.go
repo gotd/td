@@ -236,12 +236,12 @@ type AccountThemesClass interface {
 	Zero() bool
 }
 
-// AsModified tries to map AccountThemesClass to AccountThemes.
+// AsModified tries to map AccountThemesNotModified to AccountThemes.
 func (t *AccountThemesNotModified) AsModified() (*AccountThemes, bool) {
 	return nil, false
 }
 
-// AsModified tries to map AccountThemesClass to AccountThemes.
+// AsModified tries to map AccountThemes to AccountThemes.
 func (t *AccountThemes) AsModified() (*AccountThemes, bool) {
 	return t, true
 }
@@ -332,6 +332,24 @@ func (s AccountThemesClassSlice) FirstAsModified() (v *AccountThemes, ok bool) {
 // LastAsModified returns last element of slice (if exists).
 func (s AccountThemesClassSlice) LastAsModified() (v *AccountThemes, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopFirstAsModified returns element of slice (if exists).
+func (s *AccountThemesClassSlice) PopFirstAsModified() (v *AccountThemes, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopAsModified returns element of slice (if exists).
+func (s *AccountThemesClassSlice) PopAsModified() (v *AccountThemes, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

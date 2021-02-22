@@ -310,12 +310,12 @@ type UserProfilePhotoClass interface {
 	Zero() bool
 }
 
-// AsNotEmpty tries to map UserProfilePhotoClass to UserProfilePhoto.
+// AsNotEmpty tries to map UserProfilePhotoEmpty to UserProfilePhoto.
 func (u *UserProfilePhotoEmpty) AsNotEmpty() (*UserProfilePhoto, bool) {
 	return nil, false
 }
 
-// AsNotEmpty tries to map UserProfilePhotoClass to UserProfilePhoto.
+// AsNotEmpty tries to map UserProfilePhoto to UserProfilePhoto.
 func (u *UserProfilePhoto) AsNotEmpty() (*UserProfilePhoto, bool) {
 	return u, true
 }
@@ -406,6 +406,24 @@ func (s UserProfilePhotoClassSlice) FirstAsNotEmpty() (v *UserProfilePhoto, ok b
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s UserProfilePhotoClassSlice) LastAsNotEmpty() (v *UserProfilePhoto, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *UserProfilePhotoClassSlice) PopFirstAsNotEmpty() (v *UserProfilePhoto, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *UserProfilePhotoClassSlice) PopAsNotEmpty() (v *UserProfilePhoto, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}
