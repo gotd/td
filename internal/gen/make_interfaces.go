@@ -101,7 +101,7 @@ func (g *Generator) collectMappings(def *interfaceDef) {
 
 		for _, constructor := range def.Constructors {
 			// Filter constructors which have not similar name.
-			if !strings.Contains(s.Name, constructor.Name) {
+			if !strings.HasPrefix(s.Name, "Input") || !strings.Contains(s.Name, constructor.Name) {
 				continue
 			}
 
