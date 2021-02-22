@@ -17,13 +17,9 @@ func (c *Client) Self(ctx context.Context) (*tg.User, error) {
 		return nil, err
 	}
 
-	if len(users) != 1 {
-		return nil, xerrors.Errorf("bad users count: %d", len(users))
-	}
-
-	user, ok := users[0].(*tg.User)
+	user, ok := tg.UserClassSlice(users).FirstAsNotEmpty()
 	if !ok {
-		return nil, xerrors.Errorf("unexpected user type: %T", users[0])
+		return nil, xerrors.Errorf("users response count: %v", users)
 	}
 
 	return user, nil

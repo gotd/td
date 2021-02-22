@@ -73,10 +73,7 @@ func run(ctx context.Context) error {
 
 				return client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
 					Message: m.Message,
-					Peer: &tg.InputPeerUser{
-						UserID:     user.ID,
-						AccessHash: user.AccessHash,
-					},
+					Peer:    user.AsInputPeer(),
 				})
 			}
 		}

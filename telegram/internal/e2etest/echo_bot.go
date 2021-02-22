@@ -54,11 +54,7 @@ func (m *users) add(list ...tg.UserClass) {
 	m.lock.Lock()
 	defer m.lock.Unlock()
 
-	for _, u := range list {
-		if user, ok := u.(*tg.User); ok {
-			m.users[user.ID] = user
-		}
-	}
+	tg.UserClassSlice(list).FillNotEmptyMap(m.users)
 }
 
 func (m *users) get(id int) (r *tg.User) {
@@ -132,7 +128,7 @@ func (b EchoBot) handler(client *telegram.Client) tg.NewMessageHandler {
 				return xerrors.Errorf("get dialogs: %w", err)
 			}
 
-			if dlg, ok := dialogs.(interface{ GetUsers() []tg.UserClass }); ok {
+			if dlg, ok := dialogs.AsModified(); ok {
 				dialogsUsers.add(dlg.GetUsers()...)
 			}
 		}
@@ -162,10 +158,7 @@ func (b EchoBot) handler(client *telegram.Client) tg.NewMessageHandler {
 					RandomID: randomID,
 					Message:  m.Message,
 					Peer: &tg.InputPeerUserFromMessage{
-						Peer: &tg.InputPeerUser{
-							UserID:     peer.UserID,
-							AccessHash: user.AccessHash,
-						},
+						Peer: user.AsInputPeer(),
 						UserID: peer.UserID,
 						MsgID:  m.ID,
 					},
