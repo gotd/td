@@ -7,7 +7,7 @@ require (
 	github.com/dvyukov/go-fuzz v0.0.0-20201127111758-49e582c6c23d
 	github.com/elazarl/go-bindata-assetfs v1.0.1 // indirect
 	github.com/go-openapi/inflect v0.19.0
-	github.com/gotd/getdoc v0.6.0
+	github.com/gotd/getdoc v0.6.1
 	github.com/gotd/ige v0.1.5
 	github.com/gotd/neo v0.1.1
 	github.com/gotd/tl v0.3.0
