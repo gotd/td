@@ -2787,6 +2787,616 @@ var (
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionToggleGroupCallSetting{}
 )
 
+// ChannelAdminLogEventActionParticipantJoinByInvite represents TL type `channelAdminLogEventActionParticipantJoinByInvite#5cdada77`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantJoinByInvite for reference.
+type ChannelAdminLogEventActionParticipantJoinByInvite struct {
+	// Invite field of ChannelAdminLogEventActionParticipantJoinByInvite.
+	Invite ChatInviteExported `schemaname:"invite"`
+}
+
+// ChannelAdminLogEventActionParticipantJoinByInviteTypeID is TL type id of ChannelAdminLogEventActionParticipantJoinByInvite.
+const ChannelAdminLogEventActionParticipantJoinByInviteTypeID = 0x5cdada77
+
+func (c *ChannelAdminLogEventActionParticipantJoinByInvite) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Invite.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionParticipantJoinByInvite) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionParticipantJoinByInvite(nil)"
+	}
+	type Alias ChannelAdminLogEventActionParticipantJoinByInvite
+	return fmt.Sprintf("ChannelAdminLogEventActionParticipantJoinByInvite%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionParticipantJoinByInvite from given interface.
+func (c *ChannelAdminLogEventActionParticipantJoinByInvite) FillFrom(from interface {
+	GetInvite() (value ChatInviteExported)
+}) {
+	c.Invite = from.GetInvite()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionParticipantJoinByInvite) TypeID() uint32 {
+	return ChannelAdminLogEventActionParticipantJoinByInviteTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChannelAdminLogEventActionParticipantJoinByInvite) SchemaName() string {
+	return "channelAdminLogEventActionParticipantJoinByInvite"
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelAdminLogEventActionParticipantJoinByInvite) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantJoinByInvite#5cdada77 as nil")
+	}
+	b.PutID(ChannelAdminLogEventActionParticipantJoinByInviteTypeID)
+	if err := c.Invite.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionParticipantJoinByInvite#5cdada77: field invite: %w", err)
+	}
+	return nil
+}
+
+// GetInvite returns value of Invite field.
+func (c *ChannelAdminLogEventActionParticipantJoinByInvite) GetInvite() (value ChatInviteExported) {
+	return c.Invite
+}
+
+// Decode implements bin.Decoder.
+func (c *ChannelAdminLogEventActionParticipantJoinByInvite) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionParticipantJoinByInvite#5cdada77 to nil")
+	}
+	if err := b.ConsumeID(ChannelAdminLogEventActionParticipantJoinByInviteTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantJoinByInvite#5cdada77: %w", err)
+	}
+	{
+		if err := c.Invite.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantJoinByInvite#5cdada77: field invite: %w", err)
+		}
+	}
+	return nil
+}
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionParticipantJoinByInvite) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantJoinByInvite.
+var (
+	_ bin.Encoder = &ChannelAdminLogEventActionParticipantJoinByInvite{}
+	_ bin.Decoder = &ChannelAdminLogEventActionParticipantJoinByInvite{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantJoinByInvite{}
+)
+
+// ChannelAdminLogEventActionExportedInviteDelete represents TL type `channelAdminLogEventActionExportedInviteDelete#5a50fca4`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionExportedInviteDelete for reference.
+type ChannelAdminLogEventActionExportedInviteDelete struct {
+	// Invite field of ChannelAdminLogEventActionExportedInviteDelete.
+	Invite ChatInviteExported `schemaname:"invite"`
+}
+
+// ChannelAdminLogEventActionExportedInviteDeleteTypeID is TL type id of ChannelAdminLogEventActionExportedInviteDelete.
+const ChannelAdminLogEventActionExportedInviteDeleteTypeID = 0x5a50fca4
+
+func (c *ChannelAdminLogEventActionExportedInviteDelete) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Invite.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionExportedInviteDelete) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionExportedInviteDelete(nil)"
+	}
+	type Alias ChannelAdminLogEventActionExportedInviteDelete
+	return fmt.Sprintf("ChannelAdminLogEventActionExportedInviteDelete%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionExportedInviteDelete from given interface.
+func (c *ChannelAdminLogEventActionExportedInviteDelete) FillFrom(from interface {
+	GetInvite() (value ChatInviteExported)
+}) {
+	c.Invite = from.GetInvite()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionExportedInviteDelete) TypeID() uint32 {
+	return ChannelAdminLogEventActionExportedInviteDeleteTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChannelAdminLogEventActionExportedInviteDelete) SchemaName() string {
+	return "channelAdminLogEventActionExportedInviteDelete"
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelAdminLogEventActionExportedInviteDelete) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionExportedInviteDelete#5a50fca4 as nil")
+	}
+	b.PutID(ChannelAdminLogEventActionExportedInviteDeleteTypeID)
+	if err := c.Invite.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionExportedInviteDelete#5a50fca4: field invite: %w", err)
+	}
+	return nil
+}
+
+// GetInvite returns value of Invite field.
+func (c *ChannelAdminLogEventActionExportedInviteDelete) GetInvite() (value ChatInviteExported) {
+	return c.Invite
+}
+
+// Decode implements bin.Decoder.
+func (c *ChannelAdminLogEventActionExportedInviteDelete) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionExportedInviteDelete#5a50fca4 to nil")
+	}
+	if err := b.ConsumeID(ChannelAdminLogEventActionExportedInviteDeleteTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelAdminLogEventActionExportedInviteDelete#5a50fca4: %w", err)
+	}
+	{
+		if err := c.Invite.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionExportedInviteDelete#5a50fca4: field invite: %w", err)
+		}
+	}
+	return nil
+}
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionExportedInviteDelete) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionExportedInviteDelete.
+var (
+	_ bin.Encoder = &ChannelAdminLogEventActionExportedInviteDelete{}
+	_ bin.Decoder = &ChannelAdminLogEventActionExportedInviteDelete{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionExportedInviteDelete{}
+)
+
+// ChannelAdminLogEventActionExportedInviteRevoke represents TL type `channelAdminLogEventActionExportedInviteRevoke#410a134e`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionExportedInviteRevoke for reference.
+type ChannelAdminLogEventActionExportedInviteRevoke struct {
+	// Invite field of ChannelAdminLogEventActionExportedInviteRevoke.
+	Invite ChatInviteExported `schemaname:"invite"`
+}
+
+// ChannelAdminLogEventActionExportedInviteRevokeTypeID is TL type id of ChannelAdminLogEventActionExportedInviteRevoke.
+const ChannelAdminLogEventActionExportedInviteRevokeTypeID = 0x410a134e
+
+func (c *ChannelAdminLogEventActionExportedInviteRevoke) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Invite.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionExportedInviteRevoke) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionExportedInviteRevoke(nil)"
+	}
+	type Alias ChannelAdminLogEventActionExportedInviteRevoke
+	return fmt.Sprintf("ChannelAdminLogEventActionExportedInviteRevoke%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionExportedInviteRevoke from given interface.
+func (c *ChannelAdminLogEventActionExportedInviteRevoke) FillFrom(from interface {
+	GetInvite() (value ChatInviteExported)
+}) {
+	c.Invite = from.GetInvite()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionExportedInviteRevoke) TypeID() uint32 {
+	return ChannelAdminLogEventActionExportedInviteRevokeTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChannelAdminLogEventActionExportedInviteRevoke) SchemaName() string {
+	return "channelAdminLogEventActionExportedInviteRevoke"
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelAdminLogEventActionExportedInviteRevoke) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionExportedInviteRevoke#410a134e as nil")
+	}
+	b.PutID(ChannelAdminLogEventActionExportedInviteRevokeTypeID)
+	if err := c.Invite.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionExportedInviteRevoke#410a134e: field invite: %w", err)
+	}
+	return nil
+}
+
+// GetInvite returns value of Invite field.
+func (c *ChannelAdminLogEventActionExportedInviteRevoke) GetInvite() (value ChatInviteExported) {
+	return c.Invite
+}
+
+// Decode implements bin.Decoder.
+func (c *ChannelAdminLogEventActionExportedInviteRevoke) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionExportedInviteRevoke#410a134e to nil")
+	}
+	if err := b.ConsumeID(ChannelAdminLogEventActionExportedInviteRevokeTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelAdminLogEventActionExportedInviteRevoke#410a134e: %w", err)
+	}
+	{
+		if err := c.Invite.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionExportedInviteRevoke#410a134e: field invite: %w", err)
+		}
+	}
+	return nil
+}
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionExportedInviteRevoke) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionExportedInviteRevoke.
+var (
+	_ bin.Encoder = &ChannelAdminLogEventActionExportedInviteRevoke{}
+	_ bin.Decoder = &ChannelAdminLogEventActionExportedInviteRevoke{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionExportedInviteRevoke{}
+)
+
+// ChannelAdminLogEventActionExportedInviteEdit represents TL type `channelAdminLogEventActionExportedInviteEdit#e90ebb59`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionExportedInviteEdit for reference.
+type ChannelAdminLogEventActionExportedInviteEdit struct {
+	// PrevInvite field of ChannelAdminLogEventActionExportedInviteEdit.
+	PrevInvite ChatInviteExported `schemaname:"prev_invite"`
+	// NewInvite field of ChannelAdminLogEventActionExportedInviteEdit.
+	NewInvite ChatInviteExported `schemaname:"new_invite"`
+}
+
+// ChannelAdminLogEventActionExportedInviteEditTypeID is TL type id of ChannelAdminLogEventActionExportedInviteEdit.
+const ChannelAdminLogEventActionExportedInviteEditTypeID = 0xe90ebb59
+
+func (c *ChannelAdminLogEventActionExportedInviteEdit) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.PrevInvite.Zero()) {
+		return false
+	}
+	if !(c.NewInvite.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionExportedInviteEdit) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionExportedInviteEdit(nil)"
+	}
+	type Alias ChannelAdminLogEventActionExportedInviteEdit
+	return fmt.Sprintf("ChannelAdminLogEventActionExportedInviteEdit%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionExportedInviteEdit from given interface.
+func (c *ChannelAdminLogEventActionExportedInviteEdit) FillFrom(from interface {
+	GetPrevInvite() (value ChatInviteExported)
+	GetNewInvite() (value ChatInviteExported)
+}) {
+	c.PrevInvite = from.GetPrevInvite()
+	c.NewInvite = from.GetNewInvite()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionExportedInviteEdit) TypeID() uint32 {
+	return ChannelAdminLogEventActionExportedInviteEditTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChannelAdminLogEventActionExportedInviteEdit) SchemaName() string {
+	return "channelAdminLogEventActionExportedInviteEdit"
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelAdminLogEventActionExportedInviteEdit) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionExportedInviteEdit#e90ebb59 as nil")
+	}
+	b.PutID(ChannelAdminLogEventActionExportedInviteEditTypeID)
+	if err := c.PrevInvite.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionExportedInviteEdit#e90ebb59: field prev_invite: %w", err)
+	}
+	if err := c.NewInvite.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionExportedInviteEdit#e90ebb59: field new_invite: %w", err)
+	}
+	return nil
+}
+
+// GetPrevInvite returns value of PrevInvite field.
+func (c *ChannelAdminLogEventActionExportedInviteEdit) GetPrevInvite() (value ChatInviteExported) {
+	return c.PrevInvite
+}
+
+// GetNewInvite returns value of NewInvite field.
+func (c *ChannelAdminLogEventActionExportedInviteEdit) GetNewInvite() (value ChatInviteExported) {
+	return c.NewInvite
+}
+
+// Decode implements bin.Decoder.
+func (c *ChannelAdminLogEventActionExportedInviteEdit) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionExportedInviteEdit#e90ebb59 to nil")
+	}
+	if err := b.ConsumeID(ChannelAdminLogEventActionExportedInviteEditTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelAdminLogEventActionExportedInviteEdit#e90ebb59: %w", err)
+	}
+	{
+		if err := c.PrevInvite.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionExportedInviteEdit#e90ebb59: field prev_invite: %w", err)
+		}
+	}
+	{
+		if err := c.NewInvite.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionExportedInviteEdit#e90ebb59: field new_invite: %w", err)
+		}
+	}
+	return nil
+}
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionExportedInviteEdit) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionExportedInviteEdit.
+var (
+	_ bin.Encoder = &ChannelAdminLogEventActionExportedInviteEdit{}
+	_ bin.Decoder = &ChannelAdminLogEventActionExportedInviteEdit{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionExportedInviteEdit{}
+)
+
+// ChannelAdminLogEventActionParticipantVolume represents TL type `channelAdminLogEventActionParticipantVolume#3e7f6847`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantVolume for reference.
+type ChannelAdminLogEventActionParticipantVolume struct {
+	// Participant field of ChannelAdminLogEventActionParticipantVolume.
+	Participant GroupCallParticipant `schemaname:"participant"`
+}
+
+// ChannelAdminLogEventActionParticipantVolumeTypeID is TL type id of ChannelAdminLogEventActionParticipantVolume.
+const ChannelAdminLogEventActionParticipantVolumeTypeID = 0x3e7f6847
+
+func (c *ChannelAdminLogEventActionParticipantVolume) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.Participant.Zero()) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionParticipantVolume) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionParticipantVolume(nil)"
+	}
+	type Alias ChannelAdminLogEventActionParticipantVolume
+	return fmt.Sprintf("ChannelAdminLogEventActionParticipantVolume%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionParticipantVolume from given interface.
+func (c *ChannelAdminLogEventActionParticipantVolume) FillFrom(from interface {
+	GetParticipant() (value GroupCallParticipant)
+}) {
+	c.Participant = from.GetParticipant()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionParticipantVolume) TypeID() uint32 {
+	return ChannelAdminLogEventActionParticipantVolumeTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChannelAdminLogEventActionParticipantVolume) SchemaName() string {
+	return "channelAdminLogEventActionParticipantVolume"
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelAdminLogEventActionParticipantVolume) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantVolume#3e7f6847 as nil")
+	}
+	b.PutID(ChannelAdminLogEventActionParticipantVolumeTypeID)
+	if err := c.Participant.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channelAdminLogEventActionParticipantVolume#3e7f6847: field participant: %w", err)
+	}
+	return nil
+}
+
+// GetParticipant returns value of Participant field.
+func (c *ChannelAdminLogEventActionParticipantVolume) GetParticipant() (value GroupCallParticipant) {
+	return c.Participant
+}
+
+// Decode implements bin.Decoder.
+func (c *ChannelAdminLogEventActionParticipantVolume) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionParticipantVolume#3e7f6847 to nil")
+	}
+	if err := b.ConsumeID(ChannelAdminLogEventActionParticipantVolumeTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantVolume#3e7f6847: %w", err)
+	}
+	{
+		if err := c.Participant.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantVolume#3e7f6847: field participant: %w", err)
+		}
+	}
+	return nil
+}
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionParticipantVolume) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantVolume.
+var (
+	_ bin.Encoder = &ChannelAdminLogEventActionParticipantVolume{}
+	_ bin.Decoder = &ChannelAdminLogEventActionParticipantVolume{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantVolume{}
+)
+
+// ChannelAdminLogEventActionChangeHistoryTTL represents TL type `channelAdminLogEventActionChangeHistoryTTL#6e941a38`.
+//
+// See https://core.telegram.org/constructor/channelAdminLogEventActionChangeHistoryTTL for reference.
+type ChannelAdminLogEventActionChangeHistoryTTL struct {
+	// PrevValue field of ChannelAdminLogEventActionChangeHistoryTTL.
+	PrevValue int `schemaname:"prev_value"`
+	// NewValue field of ChannelAdminLogEventActionChangeHistoryTTL.
+	NewValue int `schemaname:"new_value"`
+}
+
+// ChannelAdminLogEventActionChangeHistoryTTLTypeID is TL type id of ChannelAdminLogEventActionChangeHistoryTTL.
+const ChannelAdminLogEventActionChangeHistoryTTLTypeID = 0x6e941a38
+
+func (c *ChannelAdminLogEventActionChangeHistoryTTL) Zero() bool {
+	if c == nil {
+		return true
+	}
+	if !(c.PrevValue == 0) {
+		return false
+	}
+	if !(c.NewValue == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (c *ChannelAdminLogEventActionChangeHistoryTTL) String() string {
+	if c == nil {
+		return "ChannelAdminLogEventActionChangeHistoryTTL(nil)"
+	}
+	type Alias ChannelAdminLogEventActionChangeHistoryTTL
+	return fmt.Sprintf("ChannelAdminLogEventActionChangeHistoryTTL%+v", Alias(*c))
+}
+
+// FillFrom fills ChannelAdminLogEventActionChangeHistoryTTL from given interface.
+func (c *ChannelAdminLogEventActionChangeHistoryTTL) FillFrom(from interface {
+	GetPrevValue() (value int)
+	GetNewValue() (value int)
+}) {
+	c.PrevValue = from.GetPrevValue()
+	c.NewValue = from.GetNewValue()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (c *ChannelAdminLogEventActionChangeHistoryTTL) TypeID() uint32 {
+	return ChannelAdminLogEventActionChangeHistoryTTLTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChannelAdminLogEventActionChangeHistoryTTL) SchemaName() string {
+	return "channelAdminLogEventActionChangeHistoryTTL"
+}
+
+// Encode implements bin.Encoder.
+func (c *ChannelAdminLogEventActionChangeHistoryTTL) Encode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionChangeHistoryTTL#6e941a38 as nil")
+	}
+	b.PutID(ChannelAdminLogEventActionChangeHistoryTTLTypeID)
+	b.PutInt(c.PrevValue)
+	b.PutInt(c.NewValue)
+	return nil
+}
+
+// GetPrevValue returns value of PrevValue field.
+func (c *ChannelAdminLogEventActionChangeHistoryTTL) GetPrevValue() (value int) {
+	return c.PrevValue
+}
+
+// GetNewValue returns value of NewValue field.
+func (c *ChannelAdminLogEventActionChangeHistoryTTL) GetNewValue() (value int) {
+	return c.NewValue
+}
+
+// Decode implements bin.Decoder.
+func (c *ChannelAdminLogEventActionChangeHistoryTTL) Decode(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionChangeHistoryTTL#6e941a38 to nil")
+	}
+	if err := b.ConsumeID(ChannelAdminLogEventActionChangeHistoryTTLTypeID); err != nil {
+		return fmt.Errorf("unable to decode channelAdminLogEventActionChangeHistoryTTL#6e941a38: %w", err)
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionChangeHistoryTTL#6e941a38: field prev_value: %w", err)
+		}
+		c.PrevValue = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode channelAdminLogEventActionChangeHistoryTTL#6e941a38: field new_value: %w", err)
+		}
+		c.NewValue = value
+	}
+	return nil
+}
+
+// construct implements constructor of ChannelAdminLogEventActionClass.
+func (c ChannelAdminLogEventActionChangeHistoryTTL) construct() ChannelAdminLogEventActionClass {
+	return &c
+}
+
+// Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangeHistoryTTL.
+var (
+	_ bin.Encoder = &ChannelAdminLogEventActionChangeHistoryTTL{}
+	_ bin.Decoder = &ChannelAdminLogEventActionChangeHistoryTTL{}
+
+	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangeHistoryTTL{}
+)
+
 // ChannelAdminLogEventActionClass represents ChannelAdminLogEventAction generic type.
 //
 // See https://core.telegram.org/type/ChannelAdminLogEventAction for reference.
@@ -2823,6 +3433,12 @@ var (
 //  case *tg.ChannelAdminLogEventActionParticipantMute: // channelAdminLogEventActionParticipantMute#f92424d2
 //  case *tg.ChannelAdminLogEventActionParticipantUnmute: // channelAdminLogEventActionParticipantUnmute#e64429c0
 //  case *tg.ChannelAdminLogEventActionToggleGroupCallSetting: // channelAdminLogEventActionToggleGroupCallSetting#56d6a247
+//  case *tg.ChannelAdminLogEventActionParticipantJoinByInvite: // channelAdminLogEventActionParticipantJoinByInvite#5cdada77
+//  case *tg.ChannelAdminLogEventActionExportedInviteDelete: // channelAdminLogEventActionExportedInviteDelete#5a50fca4
+//  case *tg.ChannelAdminLogEventActionExportedInviteRevoke: // channelAdminLogEventActionExportedInviteRevoke#410a134e
+//  case *tg.ChannelAdminLogEventActionExportedInviteEdit: // channelAdminLogEventActionExportedInviteEdit#e90ebb59
+//  case *tg.ChannelAdminLogEventActionParticipantVolume: // channelAdminLogEventActionParticipantVolume#3e7f6847
+//  case *tg.ChannelAdminLogEventActionChangeHistoryTTL: // channelAdminLogEventActionChangeHistoryTTL#6e941a38
 //  default: panic(v)
 //  }
 type ChannelAdminLogEventActionClass interface {
@@ -3026,6 +3642,48 @@ func DecodeChannelAdminLogEventAction(buf *bin.Buffer) (ChannelAdminLogEventActi
 	case ChannelAdminLogEventActionToggleGroupCallSettingTypeID:
 		// Decoding channelAdminLogEventActionToggleGroupCallSetting#56d6a247.
 		v := ChannelAdminLogEventActionToggleGroupCallSetting{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChannelAdminLogEventActionParticipantJoinByInviteTypeID:
+		// Decoding channelAdminLogEventActionParticipantJoinByInvite#5cdada77.
+		v := ChannelAdminLogEventActionParticipantJoinByInvite{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChannelAdminLogEventActionExportedInviteDeleteTypeID:
+		// Decoding channelAdminLogEventActionExportedInviteDelete#5a50fca4.
+		v := ChannelAdminLogEventActionExportedInviteDelete{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChannelAdminLogEventActionExportedInviteRevokeTypeID:
+		// Decoding channelAdminLogEventActionExportedInviteRevoke#410a134e.
+		v := ChannelAdminLogEventActionExportedInviteRevoke{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChannelAdminLogEventActionExportedInviteEditTypeID:
+		// Decoding channelAdminLogEventActionExportedInviteEdit#e90ebb59.
+		v := ChannelAdminLogEventActionExportedInviteEdit{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChannelAdminLogEventActionParticipantVolumeTypeID:
+		// Decoding channelAdminLogEventActionParticipantVolume#3e7f6847.
+		v := ChannelAdminLogEventActionParticipantVolume{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
+		}
+		return &v, nil
+	case ChannelAdminLogEventActionChangeHistoryTTLTypeID:
+		// Decoding channelAdminLogEventActionChangeHistoryTTL#6e941a38.
+		v := ChannelAdminLogEventActionChangeHistoryTTL{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChannelAdminLogEventActionClass: %w", err)
 		}

@@ -10600,272 +10600,6 @@ var (
 	_ UpdateClass = &UpdatePhoneCallSignalingData{}
 )
 
-// UpdateChannelParticipant represents TL type `updateChannelParticipant#65d2b464`.
-// A participant has left, joined, was banned or admined in a channel or supergroup¹.
-//
-// Links:
-//  1) https://core.telegram.org/api/channel
-//
-// See https://core.telegram.org/constructor/updateChannelParticipant for reference.
-type UpdateChannelParticipant struct {
-	// Flags, see TL conditional fields¹
-	//
-	// Links:
-	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
-	// Channel ID
-	ChannelID int `schemaname:"channel_id"`
-	// Date of the event
-	Date int `schemaname:"date"`
-	// User in question
-	UserID int `schemaname:"user_id"`
-	// Previous participant status
-	//
-	// Use SetPrevParticipant and GetPrevParticipant helpers.
-	PrevParticipant ChannelParticipantClass `schemaname:"prev_participant"`
-	// New participant status
-	//
-	// Use SetNewParticipant and GetNewParticipant helpers.
-	NewParticipant ChannelParticipantClass `schemaname:"new_participant"`
-	// PTS¹
-	//
-	// Links:
-	//  1) https://core.telegram.org/api/updates
-	Qts int `schemaname:"qts"`
-}
-
-// UpdateChannelParticipantTypeID is TL type id of UpdateChannelParticipant.
-const UpdateChannelParticipantTypeID = 0x65d2b464
-
-func (u *UpdateChannelParticipant) Zero() bool {
-	if u == nil {
-		return true
-	}
-	if !(u.Flags.Zero()) {
-		return false
-	}
-	if !(u.ChannelID == 0) {
-		return false
-	}
-	if !(u.Date == 0) {
-		return false
-	}
-	if !(u.UserID == 0) {
-		return false
-	}
-	if !(u.PrevParticipant == nil) {
-		return false
-	}
-	if !(u.NewParticipant == nil) {
-		return false
-	}
-	if !(u.Qts == 0) {
-		return false
-	}
-
-	return true
-}
-
-// String implements fmt.Stringer.
-func (u *UpdateChannelParticipant) String() string {
-	if u == nil {
-		return "UpdateChannelParticipant(nil)"
-	}
-	type Alias UpdateChannelParticipant
-	return fmt.Sprintf("UpdateChannelParticipant%+v", Alias(*u))
-}
-
-// FillFrom fills UpdateChannelParticipant from given interface.
-func (u *UpdateChannelParticipant) FillFrom(from interface {
-	GetChannelID() (value int)
-	GetDate() (value int)
-	GetUserID() (value int)
-	GetPrevParticipant() (value ChannelParticipantClass, ok bool)
-	GetNewParticipant() (value ChannelParticipantClass, ok bool)
-	GetQts() (value int)
-}) {
-	u.ChannelID = from.GetChannelID()
-	u.Date = from.GetDate()
-	u.UserID = from.GetUserID()
-	if val, ok := from.GetPrevParticipant(); ok {
-		u.PrevParticipant = val
-	}
-
-	if val, ok := from.GetNewParticipant(); ok {
-		u.NewParticipant = val
-	}
-
-	u.Qts = from.GetQts()
-}
-
-// TypeID returns MTProto type id (CRC code).
-// See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateChannelParticipant) TypeID() uint32 {
-	return UpdateChannelParticipantTypeID
-}
-
-// SchemaName returns MTProto type name.
-func (u *UpdateChannelParticipant) SchemaName() string {
-	return "updateChannelParticipant"
-}
-
-// Encode implements bin.Encoder.
-func (u *UpdateChannelParticipant) Encode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't encode updateChannelParticipant#65d2b464 as nil")
-	}
-	b.PutID(UpdateChannelParticipantTypeID)
-	if !(u.PrevParticipant == nil) {
-		u.Flags.Set(0)
-	}
-	if !(u.NewParticipant == nil) {
-		u.Flags.Set(1)
-	}
-	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateChannelParticipant#65d2b464: field flags: %w", err)
-	}
-	b.PutInt(u.ChannelID)
-	b.PutInt(u.Date)
-	b.PutInt(u.UserID)
-	if u.Flags.Has(0) {
-		if u.PrevParticipant == nil {
-			return fmt.Errorf("unable to encode updateChannelParticipant#65d2b464: field prev_participant is nil")
-		}
-		if err := u.PrevParticipant.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updateChannelParticipant#65d2b464: field prev_participant: %w", err)
-		}
-	}
-	if u.Flags.Has(1) {
-		if u.NewParticipant == nil {
-			return fmt.Errorf("unable to encode updateChannelParticipant#65d2b464: field new_participant is nil")
-		}
-		if err := u.NewParticipant.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updateChannelParticipant#65d2b464: field new_participant: %w", err)
-		}
-	}
-	b.PutInt(u.Qts)
-	return nil
-}
-
-// GetChannelID returns value of ChannelID field.
-func (u *UpdateChannelParticipant) GetChannelID() (value int) {
-	return u.ChannelID
-}
-
-// GetDate returns value of Date field.
-func (u *UpdateChannelParticipant) GetDate() (value int) {
-	return u.Date
-}
-
-// GetUserID returns value of UserID field.
-func (u *UpdateChannelParticipant) GetUserID() (value int) {
-	return u.UserID
-}
-
-// SetPrevParticipant sets value of PrevParticipant conditional field.
-func (u *UpdateChannelParticipant) SetPrevParticipant(value ChannelParticipantClass) {
-	u.Flags.Set(0)
-	u.PrevParticipant = value
-}
-
-// GetPrevParticipant returns value of PrevParticipant conditional field and
-// boolean which is true if field was set.
-func (u *UpdateChannelParticipant) GetPrevParticipant() (value ChannelParticipantClass, ok bool) {
-	if !u.Flags.Has(0) {
-		return value, false
-	}
-	return u.PrevParticipant, true
-}
-
-// SetNewParticipant sets value of NewParticipant conditional field.
-func (u *UpdateChannelParticipant) SetNewParticipant(value ChannelParticipantClass) {
-	u.Flags.Set(1)
-	u.NewParticipant = value
-}
-
-// GetNewParticipant returns value of NewParticipant conditional field and
-// boolean which is true if field was set.
-func (u *UpdateChannelParticipant) GetNewParticipant() (value ChannelParticipantClass, ok bool) {
-	if !u.Flags.Has(1) {
-		return value, false
-	}
-	return u.NewParticipant, true
-}
-
-// GetQts returns value of Qts field.
-func (u *UpdateChannelParticipant) GetQts() (value int) {
-	return u.Qts
-}
-
-// Decode implements bin.Decoder.
-func (u *UpdateChannelParticipant) Decode(b *bin.Buffer) error {
-	if u == nil {
-		return fmt.Errorf("can't decode updateChannelParticipant#65d2b464 to nil")
-	}
-	if err := b.ConsumeID(UpdateChannelParticipantTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateChannelParticipant#65d2b464: %w", err)
-	}
-	{
-		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateChannelParticipant#65d2b464: field flags: %w", err)
-		}
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateChannelParticipant#65d2b464: field channel_id: %w", err)
-		}
-		u.ChannelID = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateChannelParticipant#65d2b464: field date: %w", err)
-		}
-		u.Date = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateChannelParticipant#65d2b464: field user_id: %w", err)
-		}
-		u.UserID = value
-	}
-	if u.Flags.Has(0) {
-		value, err := DecodeChannelParticipant(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode updateChannelParticipant#65d2b464: field prev_participant: %w", err)
-		}
-		u.PrevParticipant = value
-	}
-	if u.Flags.Has(1) {
-		value, err := DecodeChannelParticipant(b)
-		if err != nil {
-			return fmt.Errorf("unable to decode updateChannelParticipant#65d2b464: field new_participant: %w", err)
-		}
-		u.NewParticipant = value
-	}
-	{
-		value, err := b.Int()
-		if err != nil {
-			return fmt.Errorf("unable to decode updateChannelParticipant#65d2b464: field qts: %w", err)
-		}
-		u.Qts = value
-	}
-	return nil
-}
-
-// construct implements constructor of UpdateClass.
-func (u UpdateChannelParticipant) construct() UpdateClass { return &u }
-
-// Ensuring interfaces in compile-time for UpdateChannelParticipant.
-var (
-	_ bin.Encoder = &UpdateChannelParticipant{}
-	_ bin.Decoder = &UpdateChannelParticipant{}
-
-	_ UpdateClass = &UpdateChannelParticipant{}
-)
-
 // UpdateChannelMessageForwards represents TL type `updateChannelMessageForwards#6e8a84df`.
 // The forward counter of a message in a channel has changed
 //
@@ -12503,6 +12237,812 @@ var (
 	_ UpdateClass = &UpdateGroupCall{}
 )
 
+// UpdatePeerHistoryTTL represents TL type `updatePeerHistoryTTL#bb9bb9a5`.
+//
+// See https://core.telegram.org/constructor/updatePeerHistoryTTL for reference.
+type UpdatePeerHistoryTTL struct {
+	// Flags field of UpdatePeerHistoryTTL.
+	Flags bin.Fields `schemaname:"flags"`
+	// Peer field of UpdatePeerHistoryTTL.
+	Peer PeerClass `schemaname:"peer"`
+	// TTLPeriod field of UpdatePeerHistoryTTL.
+	//
+	// Use SetTTLPeriod and GetTTLPeriod helpers.
+	TTLPeriod int `schemaname:"ttl_period"`
+}
+
+// UpdatePeerHistoryTTLTypeID is TL type id of UpdatePeerHistoryTTL.
+const UpdatePeerHistoryTTLTypeID = 0xbb9bb9a5
+
+func (u *UpdatePeerHistoryTTL) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.Peer == nil) {
+		return false
+	}
+	if !(u.TTLPeriod == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdatePeerHistoryTTL) String() string {
+	if u == nil {
+		return "UpdatePeerHistoryTTL(nil)"
+	}
+	type Alias UpdatePeerHistoryTTL
+	return fmt.Sprintf("UpdatePeerHistoryTTL%+v", Alias(*u))
+}
+
+// FillFrom fills UpdatePeerHistoryTTL from given interface.
+func (u *UpdatePeerHistoryTTL) FillFrom(from interface {
+	GetPeer() (value PeerClass)
+	GetTTLPeriod() (value int, ok bool)
+}) {
+	u.Peer = from.GetPeer()
+	if val, ok := from.GetTTLPeriod(); ok {
+		u.TTLPeriod = val
+	}
+
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdatePeerHistoryTTL) TypeID() uint32 {
+	return UpdatePeerHistoryTTLTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdatePeerHistoryTTL) SchemaName() string {
+	return "updatePeerHistoryTTL"
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdatePeerHistoryTTL) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updatePeerHistoryTTL#bb9bb9a5 as nil")
+	}
+	b.PutID(UpdatePeerHistoryTTLTypeID)
+	if !(u.TTLPeriod == 0) {
+		u.Flags.Set(0)
+	}
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updatePeerHistoryTTL#bb9bb9a5: field flags: %w", err)
+	}
+	if u.Peer == nil {
+		return fmt.Errorf("unable to encode updatePeerHistoryTTL#bb9bb9a5: field peer is nil")
+	}
+	if err := u.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updatePeerHistoryTTL#bb9bb9a5: field peer: %w", err)
+	}
+	if u.Flags.Has(0) {
+		b.PutInt(u.TTLPeriod)
+	}
+	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (u *UpdatePeerHistoryTTL) GetPeer() (value PeerClass) {
+	return u.Peer
+}
+
+// SetTTLPeriod sets value of TTLPeriod conditional field.
+func (u *UpdatePeerHistoryTTL) SetTTLPeriod(value int) {
+	u.Flags.Set(0)
+	u.TTLPeriod = value
+}
+
+// GetTTLPeriod returns value of TTLPeriod conditional field and
+// boolean which is true if field was set.
+func (u *UpdatePeerHistoryTTL) GetTTLPeriod() (value int, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.TTLPeriod, true
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdatePeerHistoryTTL) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updatePeerHistoryTTL#bb9bb9a5 to nil")
+	}
+	if err := b.ConsumeID(UpdatePeerHistoryTTLTypeID); err != nil {
+		return fmt.Errorf("unable to decode updatePeerHistoryTTL#bb9bb9a5: %w", err)
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updatePeerHistoryTTL#bb9bb9a5: field flags: %w", err)
+		}
+	}
+	{
+		value, err := DecodePeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updatePeerHistoryTTL#bb9bb9a5: field peer: %w", err)
+		}
+		u.Peer = value
+	}
+	if u.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updatePeerHistoryTTL#bb9bb9a5: field ttl_period: %w", err)
+		}
+		u.TTLPeriod = value
+	}
+	return nil
+}
+
+// construct implements constructor of UpdateClass.
+func (u UpdatePeerHistoryTTL) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdatePeerHistoryTTL.
+var (
+	_ bin.Encoder = &UpdatePeerHistoryTTL{}
+	_ bin.Decoder = &UpdatePeerHistoryTTL{}
+
+	_ UpdateClass = &UpdatePeerHistoryTTL{}
+)
+
+// UpdateChatParticipant represents TL type `updateChatParticipant#609a6ed4`.
+//
+// See https://core.telegram.org/constructor/updateChatParticipant for reference.
+type UpdateChatParticipant struct {
+	// Flags field of UpdateChatParticipant.
+	Flags bin.Fields `schemaname:"flags"`
+	// ChatID field of UpdateChatParticipant.
+	ChatID int `schemaname:"chat_id"`
+	// Date field of UpdateChatParticipant.
+	Date int `schemaname:"date"`
+	// UserID field of UpdateChatParticipant.
+	UserID int `schemaname:"user_id"`
+	// PrevParticipant field of UpdateChatParticipant.
+	//
+	// Use SetPrevParticipant and GetPrevParticipant helpers.
+	PrevParticipant ChatParticipantClass `schemaname:"prev_participant"`
+	// NewParticipant field of UpdateChatParticipant.
+	//
+	// Use SetNewParticipant and GetNewParticipant helpers.
+	NewParticipant ChatParticipantClass `schemaname:"new_participant"`
+	// Qts field of UpdateChatParticipant.
+	Qts int `schemaname:"qts"`
+}
+
+// UpdateChatParticipantTypeID is TL type id of UpdateChatParticipant.
+const UpdateChatParticipantTypeID = 0x609a6ed4
+
+func (u *UpdateChatParticipant) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.ChatID == 0) {
+		return false
+	}
+	if !(u.Date == 0) {
+		return false
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.PrevParticipant == nil) {
+		return false
+	}
+	if !(u.NewParticipant == nil) {
+		return false
+	}
+	if !(u.Qts == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateChatParticipant) String() string {
+	if u == nil {
+		return "UpdateChatParticipant(nil)"
+	}
+	type Alias UpdateChatParticipant
+	return fmt.Sprintf("UpdateChatParticipant%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateChatParticipant from given interface.
+func (u *UpdateChatParticipant) FillFrom(from interface {
+	GetChatID() (value int)
+	GetDate() (value int)
+	GetUserID() (value int)
+	GetPrevParticipant() (value ChatParticipantClass, ok bool)
+	GetNewParticipant() (value ChatParticipantClass, ok bool)
+	GetQts() (value int)
+}) {
+	u.ChatID = from.GetChatID()
+	u.Date = from.GetDate()
+	u.UserID = from.GetUserID()
+	if val, ok := from.GetPrevParticipant(); ok {
+		u.PrevParticipant = val
+	}
+
+	if val, ok := from.GetNewParticipant(); ok {
+		u.NewParticipant = val
+	}
+
+	u.Qts = from.GetQts()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateChatParticipant) TypeID() uint32 {
+	return UpdateChatParticipantTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateChatParticipant) SchemaName() string {
+	return "updateChatParticipant"
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateChatParticipant) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChatParticipant#609a6ed4 as nil")
+	}
+	b.PutID(UpdateChatParticipantTypeID)
+	if !(u.PrevParticipant == nil) {
+		u.Flags.Set(0)
+	}
+	if !(u.NewParticipant == nil) {
+		u.Flags.Set(1)
+	}
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateChatParticipant#609a6ed4: field flags: %w", err)
+	}
+	b.PutInt(u.ChatID)
+	b.PutInt(u.Date)
+	b.PutInt(u.UserID)
+	if u.Flags.Has(0) {
+		if u.PrevParticipant == nil {
+			return fmt.Errorf("unable to encode updateChatParticipant#609a6ed4: field prev_participant is nil")
+		}
+		if err := u.PrevParticipant.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode updateChatParticipant#609a6ed4: field prev_participant: %w", err)
+		}
+	}
+	if u.Flags.Has(1) {
+		if u.NewParticipant == nil {
+			return fmt.Errorf("unable to encode updateChatParticipant#609a6ed4: field new_participant is nil")
+		}
+		if err := u.NewParticipant.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode updateChatParticipant#609a6ed4: field new_participant: %w", err)
+		}
+	}
+	b.PutInt(u.Qts)
+	return nil
+}
+
+// GetChatID returns value of ChatID field.
+func (u *UpdateChatParticipant) GetChatID() (value int) {
+	return u.ChatID
+}
+
+// GetDate returns value of Date field.
+func (u *UpdateChatParticipant) GetDate() (value int) {
+	return u.Date
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateChatParticipant) GetUserID() (value int) {
+	return u.UserID
+}
+
+// SetPrevParticipant sets value of PrevParticipant conditional field.
+func (u *UpdateChatParticipant) SetPrevParticipant(value ChatParticipantClass) {
+	u.Flags.Set(0)
+	u.PrevParticipant = value
+}
+
+// GetPrevParticipant returns value of PrevParticipant conditional field and
+// boolean which is true if field was set.
+func (u *UpdateChatParticipant) GetPrevParticipant() (value ChatParticipantClass, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.PrevParticipant, true
+}
+
+// SetNewParticipant sets value of NewParticipant conditional field.
+func (u *UpdateChatParticipant) SetNewParticipant(value ChatParticipantClass) {
+	u.Flags.Set(1)
+	u.NewParticipant = value
+}
+
+// GetNewParticipant returns value of NewParticipant conditional field and
+// boolean which is true if field was set.
+func (u *UpdateChatParticipant) GetNewParticipant() (value ChatParticipantClass, ok bool) {
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.NewParticipant, true
+}
+
+// GetQts returns value of Qts field.
+func (u *UpdateChatParticipant) GetQts() (value int) {
+	return u.Qts
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateChatParticipant) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChatParticipant#609a6ed4 to nil")
+	}
+	if err := b.ConsumeID(UpdateChatParticipantTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChatParticipant#609a6ed4: %w", err)
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateChatParticipant#609a6ed4: field flags: %w", err)
+		}
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatParticipant#609a6ed4: field chat_id: %w", err)
+		}
+		u.ChatID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatParticipant#609a6ed4: field date: %w", err)
+		}
+		u.Date = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatParticipant#609a6ed4: field user_id: %w", err)
+		}
+		u.UserID = value
+	}
+	if u.Flags.Has(0) {
+		value, err := DecodeChatParticipant(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatParticipant#609a6ed4: field prev_participant: %w", err)
+		}
+		u.PrevParticipant = value
+	}
+	if u.Flags.Has(1) {
+		value, err := DecodeChatParticipant(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatParticipant#609a6ed4: field new_participant: %w", err)
+		}
+		u.NewParticipant = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChatParticipant#609a6ed4: field qts: %w", err)
+		}
+		u.Qts = value
+	}
+	return nil
+}
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChatParticipant) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChatParticipant.
+var (
+	_ bin.Encoder = &UpdateChatParticipant{}
+	_ bin.Decoder = &UpdateChatParticipant{}
+
+	_ UpdateClass = &UpdateChatParticipant{}
+)
+
+// UpdateChannelParticipant represents TL type `updateChannelParticipant#65d2b464`.
+// A participant has left, joined, was banned or admined in a channel or supergroup¹.
+//
+// Links:
+//  1) https://core.telegram.org/api/channel
+//
+// See https://core.telegram.org/constructor/updateChannelParticipant for reference.
+type UpdateChannelParticipant struct {
+	// Flags, see TL conditional fields¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
+	Flags bin.Fields `schemaname:"flags"`
+	// Channel ID
+	ChannelID int `schemaname:"channel_id"`
+	// Date of the event
+	Date int `schemaname:"date"`
+	// User in question
+	UserID int `schemaname:"user_id"`
+	// Previous participant status
+	//
+	// Use SetPrevParticipant and GetPrevParticipant helpers.
+	PrevParticipant ChannelParticipantClass `schemaname:"prev_participant"`
+	// New participant status
+	//
+	// Use SetNewParticipant and GetNewParticipant helpers.
+	NewParticipant ChannelParticipantClass `schemaname:"new_participant"`
+	// PTS¹
+	//
+	// Links:
+	//  1) https://core.telegram.org/api/updates
+	Qts int `schemaname:"qts"`
+}
+
+// UpdateChannelParticipantTypeID is TL type id of UpdateChannelParticipant.
+const UpdateChannelParticipantTypeID = 0x65d2b464
+
+func (u *UpdateChannelParticipant) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.Flags.Zero()) {
+		return false
+	}
+	if !(u.ChannelID == 0) {
+		return false
+	}
+	if !(u.Date == 0) {
+		return false
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.PrevParticipant == nil) {
+		return false
+	}
+	if !(u.NewParticipant == nil) {
+		return false
+	}
+	if !(u.Qts == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateChannelParticipant) String() string {
+	if u == nil {
+		return "UpdateChannelParticipant(nil)"
+	}
+	type Alias UpdateChannelParticipant
+	return fmt.Sprintf("UpdateChannelParticipant%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateChannelParticipant from given interface.
+func (u *UpdateChannelParticipant) FillFrom(from interface {
+	GetChannelID() (value int)
+	GetDate() (value int)
+	GetUserID() (value int)
+	GetPrevParticipant() (value ChannelParticipantClass, ok bool)
+	GetNewParticipant() (value ChannelParticipantClass, ok bool)
+	GetQts() (value int)
+}) {
+	u.ChannelID = from.GetChannelID()
+	u.Date = from.GetDate()
+	u.UserID = from.GetUserID()
+	if val, ok := from.GetPrevParticipant(); ok {
+		u.PrevParticipant = val
+	}
+
+	if val, ok := from.GetNewParticipant(); ok {
+		u.NewParticipant = val
+	}
+
+	u.Qts = from.GetQts()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateChannelParticipant) TypeID() uint32 {
+	return UpdateChannelParticipantTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateChannelParticipant) SchemaName() string {
+	return "updateChannelParticipant"
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateChannelParticipant) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateChannelParticipant#65d2b464 as nil")
+	}
+	b.PutID(UpdateChannelParticipantTypeID)
+	if !(u.PrevParticipant == nil) {
+		u.Flags.Set(0)
+	}
+	if !(u.NewParticipant == nil) {
+		u.Flags.Set(1)
+	}
+	if err := u.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode updateChannelParticipant#65d2b464: field flags: %w", err)
+	}
+	b.PutInt(u.ChannelID)
+	b.PutInt(u.Date)
+	b.PutInt(u.UserID)
+	if u.Flags.Has(0) {
+		if u.PrevParticipant == nil {
+			return fmt.Errorf("unable to encode updateChannelParticipant#65d2b464: field prev_participant is nil")
+		}
+		if err := u.PrevParticipant.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode updateChannelParticipant#65d2b464: field prev_participant: %w", err)
+		}
+	}
+	if u.Flags.Has(1) {
+		if u.NewParticipant == nil {
+			return fmt.Errorf("unable to encode updateChannelParticipant#65d2b464: field new_participant is nil")
+		}
+		if err := u.NewParticipant.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode updateChannelParticipant#65d2b464: field new_participant: %w", err)
+		}
+	}
+	b.PutInt(u.Qts)
+	return nil
+}
+
+// GetChannelID returns value of ChannelID field.
+func (u *UpdateChannelParticipant) GetChannelID() (value int) {
+	return u.ChannelID
+}
+
+// GetDate returns value of Date field.
+func (u *UpdateChannelParticipant) GetDate() (value int) {
+	return u.Date
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateChannelParticipant) GetUserID() (value int) {
+	return u.UserID
+}
+
+// SetPrevParticipant sets value of PrevParticipant conditional field.
+func (u *UpdateChannelParticipant) SetPrevParticipant(value ChannelParticipantClass) {
+	u.Flags.Set(0)
+	u.PrevParticipant = value
+}
+
+// GetPrevParticipant returns value of PrevParticipant conditional field and
+// boolean which is true if field was set.
+func (u *UpdateChannelParticipant) GetPrevParticipant() (value ChannelParticipantClass, ok bool) {
+	if !u.Flags.Has(0) {
+		return value, false
+	}
+	return u.PrevParticipant, true
+}
+
+// SetNewParticipant sets value of NewParticipant conditional field.
+func (u *UpdateChannelParticipant) SetNewParticipant(value ChannelParticipantClass) {
+	u.Flags.Set(1)
+	u.NewParticipant = value
+}
+
+// GetNewParticipant returns value of NewParticipant conditional field and
+// boolean which is true if field was set.
+func (u *UpdateChannelParticipant) GetNewParticipant() (value ChannelParticipantClass, ok bool) {
+	if !u.Flags.Has(1) {
+		return value, false
+	}
+	return u.NewParticipant, true
+}
+
+// GetQts returns value of Qts field.
+func (u *UpdateChannelParticipant) GetQts() (value int) {
+	return u.Qts
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateChannelParticipant) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateChannelParticipant#65d2b464 to nil")
+	}
+	if err := b.ConsumeID(UpdateChannelParticipantTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateChannelParticipant#65d2b464: %w", err)
+	}
+	{
+		if err := u.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode updateChannelParticipant#65d2b464: field flags: %w", err)
+		}
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChannelParticipant#65d2b464: field channel_id: %w", err)
+		}
+		u.ChannelID = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChannelParticipant#65d2b464: field date: %w", err)
+		}
+		u.Date = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChannelParticipant#65d2b464: field user_id: %w", err)
+		}
+		u.UserID = value
+	}
+	if u.Flags.Has(0) {
+		value, err := DecodeChannelParticipant(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChannelParticipant#65d2b464: field prev_participant: %w", err)
+		}
+		u.PrevParticipant = value
+	}
+	if u.Flags.Has(1) {
+		value, err := DecodeChannelParticipant(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChannelParticipant#65d2b464: field new_participant: %w", err)
+		}
+		u.NewParticipant = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateChannelParticipant#65d2b464: field qts: %w", err)
+		}
+		u.Qts = value
+	}
+	return nil
+}
+
+// construct implements constructor of UpdateClass.
+func (u UpdateChannelParticipant) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateChannelParticipant.
+var (
+	_ bin.Encoder = &UpdateChannelParticipant{}
+	_ bin.Decoder = &UpdateChannelParticipant{}
+
+	_ UpdateClass = &UpdateChannelParticipant{}
+)
+
+// UpdateBotStopped represents TL type `updateBotStopped#30ec6ebc`.
+//
+// See https://core.telegram.org/constructor/updateBotStopped for reference.
+type UpdateBotStopped struct {
+	// UserID field of UpdateBotStopped.
+	UserID int `schemaname:"user_id"`
+	// Stopped field of UpdateBotStopped.
+	Stopped bool `schemaname:"stopped"`
+	// Qts field of UpdateBotStopped.
+	Qts int `schemaname:"qts"`
+}
+
+// UpdateBotStoppedTypeID is TL type id of UpdateBotStopped.
+const UpdateBotStoppedTypeID = 0x30ec6ebc
+
+func (u *UpdateBotStopped) Zero() bool {
+	if u == nil {
+		return true
+	}
+	if !(u.UserID == 0) {
+		return false
+	}
+	if !(u.Stopped == false) {
+		return false
+	}
+	if !(u.Qts == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (u *UpdateBotStopped) String() string {
+	if u == nil {
+		return "UpdateBotStopped(nil)"
+	}
+	type Alias UpdateBotStopped
+	return fmt.Sprintf("UpdateBotStopped%+v", Alias(*u))
+}
+
+// FillFrom fills UpdateBotStopped from given interface.
+func (u *UpdateBotStopped) FillFrom(from interface {
+	GetUserID() (value int)
+	GetStopped() (value bool)
+	GetQts() (value int)
+}) {
+	u.UserID = from.GetUserID()
+	u.Stopped = from.GetStopped()
+	u.Qts = from.GetQts()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (u *UpdateBotStopped) TypeID() uint32 {
+	return UpdateBotStoppedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateBotStopped) SchemaName() string {
+	return "updateBotStopped"
+}
+
+// Encode implements bin.Encoder.
+func (u *UpdateBotStopped) Encode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateBotStopped#30ec6ebc as nil")
+	}
+	b.PutID(UpdateBotStoppedTypeID)
+	b.PutInt(u.UserID)
+	b.PutBool(u.Stopped)
+	b.PutInt(u.Qts)
+	return nil
+}
+
+// GetUserID returns value of UserID field.
+func (u *UpdateBotStopped) GetUserID() (value int) {
+	return u.UserID
+}
+
+// GetStopped returns value of Stopped field.
+func (u *UpdateBotStopped) GetStopped() (value bool) {
+	return u.Stopped
+}
+
+// GetQts returns value of Qts field.
+func (u *UpdateBotStopped) GetQts() (value int) {
+	return u.Qts
+}
+
+// Decode implements bin.Decoder.
+func (u *UpdateBotStopped) Decode(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateBotStopped#30ec6ebc to nil")
+	}
+	if err := b.ConsumeID(UpdateBotStoppedTypeID); err != nil {
+		return fmt.Errorf("unable to decode updateBotStopped#30ec6ebc: %w", err)
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotStopped#30ec6ebc: field user_id: %w", err)
+		}
+		u.UserID = value
+	}
+	{
+		value, err := b.Bool()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotStopped#30ec6ebc: field stopped: %w", err)
+		}
+		u.Stopped = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateBotStopped#30ec6ebc: field qts: %w", err)
+		}
+		u.Qts = value
+	}
+	return nil
+}
+
+// construct implements constructor of UpdateClass.
+func (u UpdateBotStopped) construct() UpdateClass { return &u }
+
+// Ensuring interfaces in compile-time for UpdateBotStopped.
+var (
+	_ bin.Encoder = &UpdateBotStopped{}
+	_ bin.Decoder = &UpdateBotStopped{}
+
+	_ UpdateClass = &UpdateBotStopped{}
+)
+
 // UpdateClass represents Update generic type.
 //
 // See https://core.telegram.org/type/Update for reference.
@@ -12590,7 +13130,6 @@ var (
 //  case *tg.UpdateDialogFilterOrder: // updateDialogFilterOrder#a5d72105
 //  case *tg.UpdateDialogFilters: // updateDialogFilters#3504914f
 //  case *tg.UpdatePhoneCallSignalingData: // updatePhoneCallSignalingData#2661bf09
-//  case *tg.UpdateChannelParticipant: // updateChannelParticipant#65d2b464
 //  case *tg.UpdateChannelMessageForwards: // updateChannelMessageForwards#6e8a84df
 //  case *tg.UpdateReadChannelDiscussionInbox: // updateReadChannelDiscussionInbox#1cc7de54
 //  case *tg.UpdateReadChannelDiscussionOutbox: // updateReadChannelDiscussionOutbox#4638a26c
@@ -12601,6 +13140,10 @@ var (
 //  case *tg.UpdateChat: // updateChat#1330a196
 //  case *tg.UpdateGroupCallParticipants: // updateGroupCallParticipants#f2ebdb4e
 //  case *tg.UpdateGroupCall: // updateGroupCall#a45eb99b
+//  case *tg.UpdatePeerHistoryTTL: // updatePeerHistoryTTL#bb9bb9a5
+//  case *tg.UpdateChatParticipant: // updateChatParticipant#609a6ed4
+//  case *tg.UpdateChannelParticipant: // updateChannelParticipant#65d2b464
+//  case *tg.UpdateBotStopped: // updateBotStopped#30ec6ebc
 //  default: panic(v)
 //  }
 type UpdateClass interface {
@@ -13165,13 +13708,6 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
-	case UpdateChannelParticipantTypeID:
-		// Decoding updateChannelParticipant#65d2b464.
-		v := UpdateChannelParticipant{}
-		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
-		}
-		return &v, nil
 	case UpdateChannelMessageForwardsTypeID:
 		// Decoding updateChannelMessageForwards#6e8a84df.
 		v := UpdateChannelMessageForwards{}
@@ -13238,6 +13774,34 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 	case UpdateGroupCallTypeID:
 		// Decoding updateGroupCall#a45eb99b.
 		v := UpdateGroupCall{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdatePeerHistoryTTLTypeID:
+		// Decoding updatePeerHistoryTTL#bb9bb9a5.
+		v := UpdatePeerHistoryTTL{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateChatParticipantTypeID:
+		// Decoding updateChatParticipant#609a6ed4.
+		v := UpdateChatParticipant{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateChannelParticipantTypeID:
+		// Decoding updateChannelParticipant#65d2b464.
+		v := UpdateChannelParticipant{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
+		}
+		return &v, nil
+	case UpdateBotStoppedTypeID:
+		// Decoding updateBotStopped#30ec6ebc.
+		v := UpdateBotStopped{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}

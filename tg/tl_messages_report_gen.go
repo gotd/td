@@ -18,7 +18,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 
-// MessagesReportRequest represents TL type `messages.report#bd82b658`.
+// MessagesReportRequest represents TL type `messages.report#8953ab4e`.
 // Report a message in a chat for violation of telegram's Terms of Service
 //
 // See https://core.telegram.org/method/messages.report for reference.
@@ -29,10 +29,12 @@ type MessagesReportRequest struct {
 	ID []int `schemaname:"id"`
 	// Why are these messages being reported
 	Reason ReportReasonClass `schemaname:"reason"`
+	// Message field of MessagesReportRequest.
+	Message string `schemaname:"message"`
 }
 
 // MessagesReportRequestTypeID is TL type id of MessagesReportRequest.
-const MessagesReportRequestTypeID = 0xbd82b658
+const MessagesReportRequestTypeID = 0x8953ab4e
 
 func (r *MessagesReportRequest) Zero() bool {
 	if r == nil {
@@ -45,6 +47,9 @@ func (r *MessagesReportRequest) Zero() bool {
 		return false
 	}
 	if !(r.Reason == nil) {
+		return false
+	}
+	if !(r.Message == "") {
 		return false
 	}
 
@@ -65,10 +70,12 @@ func (r *MessagesReportRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
 	GetID() (value []int)
 	GetReason() (value ReportReasonClass)
+	GetMessage() (value string)
 }) {
 	r.Peer = from.GetPeer()
 	r.ID = from.GetID()
 	r.Reason = from.GetReason()
+	r.Message = from.GetMessage()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -85,25 +92,26 @@ func (r *MessagesReportRequest) SchemaName() string {
 // Encode implements bin.Encoder.
 func (r *MessagesReportRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.report#bd82b658 as nil")
+		return fmt.Errorf("can't encode messages.report#8953ab4e as nil")
 	}
 	b.PutID(MessagesReportRequestTypeID)
 	if r.Peer == nil {
-		return fmt.Errorf("unable to encode messages.report#bd82b658: field peer is nil")
+		return fmt.Errorf("unable to encode messages.report#8953ab4e: field peer is nil")
 	}
 	if err := r.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.report#bd82b658: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.report#8953ab4e: field peer: %w", err)
 	}
 	b.PutVectorHeader(len(r.ID))
 	for _, v := range r.ID {
 		b.PutInt(v)
 	}
 	if r.Reason == nil {
-		return fmt.Errorf("unable to encode messages.report#bd82b658: field reason is nil")
+		return fmt.Errorf("unable to encode messages.report#8953ab4e: field reason is nil")
 	}
 	if err := r.Reason.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.report#bd82b658: field reason: %w", err)
+		return fmt.Errorf("unable to encode messages.report#8953ab4e: field reason: %w", err)
 	}
+	b.PutString(r.Message)
 	return nil
 }
 
@@ -122,30 +130,35 @@ func (r *MessagesReportRequest) GetReason() (value ReportReasonClass) {
 	return r.Reason
 }
 
+// GetMessage returns value of Message field.
+func (r *MessagesReportRequest) GetMessage() (value string) {
+	return r.Message
+}
+
 // Decode implements bin.Decoder.
 func (r *MessagesReportRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.report#bd82b658 to nil")
+		return fmt.Errorf("can't decode messages.report#8953ab4e to nil")
 	}
 	if err := b.ConsumeID(MessagesReportRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.report#bd82b658: %w", err)
+		return fmt.Errorf("unable to decode messages.report#8953ab4e: %w", err)
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.report#bd82b658: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.report#8953ab4e: field peer: %w", err)
 		}
 		r.Peer = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.report#bd82b658: field id: %w", err)
+			return fmt.Errorf("unable to decode messages.report#8953ab4e: field id: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode messages.report#bd82b658: field id: %w", err)
+				return fmt.Errorf("unable to decode messages.report#8953ab4e: field id: %w", err)
 			}
 			r.ID = append(r.ID, value)
 		}
@@ -153,9 +166,16 @@ func (r *MessagesReportRequest) Decode(b *bin.Buffer) error {
 	{
 		value, err := DecodeReportReason(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.report#bd82b658: field reason: %w", err)
+			return fmt.Errorf("unable to decode messages.report#8953ab4e: field reason: %w", err)
 		}
 		r.Reason = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.report#8953ab4e: field message: %w", err)
+		}
+		r.Message = value
 	}
 	return nil
 }
@@ -166,7 +186,7 @@ var (
 	_ bin.Decoder = &MessagesReportRequest{}
 )
 
-// MessagesReport invokes method messages.report#bd82b658 returning error if any.
+// MessagesReport invokes method messages.report#8953ab4e returning error if any.
 // Report a message in a chat for violation of telegram's Terms of Service
 //
 // Possible errors:

@@ -18,23 +18,47 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 
-// MessagesExportChatInviteRequest represents TL type `messages.exportChatInvite#df7534c`.
+// MessagesExportChatInviteRequest represents TL type `messages.exportChatInvite#14b9bcd7`.
 // Export an invite link for a chat
 //
 // See https://core.telegram.org/method/messages.exportChatInvite for reference.
 type MessagesExportChatInviteRequest struct {
+	// Flags field of MessagesExportChatInviteRequest.
+	Flags bin.Fields `schemaname:"flags"`
+	// LegacyRevokePermanent field of MessagesExportChatInviteRequest.
+	LegacyRevokePermanent bool `schemaname:"legacy_revoke_permanent"`
 	// Chat
 	Peer InputPeerClass `schemaname:"peer"`
+	// ExpireDate field of MessagesExportChatInviteRequest.
+	//
+	// Use SetExpireDate and GetExpireDate helpers.
+	ExpireDate int `schemaname:"expire_date"`
+	// UsageLimit field of MessagesExportChatInviteRequest.
+	//
+	// Use SetUsageLimit and GetUsageLimit helpers.
+	UsageLimit int `schemaname:"usage_limit"`
 }
 
 // MessagesExportChatInviteRequestTypeID is TL type id of MessagesExportChatInviteRequest.
-const MessagesExportChatInviteRequestTypeID = 0xdf7534c
+const MessagesExportChatInviteRequestTypeID = 0x14b9bcd7
 
 func (e *MessagesExportChatInviteRequest) Zero() bool {
 	if e == nil {
 		return true
 	}
+	if !(e.Flags.Zero()) {
+		return false
+	}
+	if !(e.LegacyRevokePermanent == false) {
+		return false
+	}
 	if !(e.Peer == nil) {
+		return false
+	}
+	if !(e.ExpireDate == 0) {
+		return false
+	}
+	if !(e.UsageLimit == 0) {
 		return false
 	}
 
@@ -52,9 +76,21 @@ func (e *MessagesExportChatInviteRequest) String() string {
 
 // FillFrom fills MessagesExportChatInviteRequest from given interface.
 func (e *MessagesExportChatInviteRequest) FillFrom(from interface {
+	GetLegacyRevokePermanent() (value bool)
 	GetPeer() (value InputPeerClass)
+	GetExpireDate() (value int, ok bool)
+	GetUsageLimit() (value int, ok bool)
 }) {
+	e.LegacyRevokePermanent = from.GetLegacyRevokePermanent()
 	e.Peer = from.GetPeer()
+	if val, ok := from.GetExpireDate(); ok {
+		e.ExpireDate = val
+	}
+
+	if val, ok := from.GetUsageLimit(); ok {
+		e.UsageLimit = val
+	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -71,16 +107,50 @@ func (e *MessagesExportChatInviteRequest) SchemaName() string {
 // Encode implements bin.Encoder.
 func (e *MessagesExportChatInviteRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode messages.exportChatInvite#df7534c as nil")
+		return fmt.Errorf("can't encode messages.exportChatInvite#14b9bcd7 as nil")
 	}
 	b.PutID(MessagesExportChatInviteRequestTypeID)
+	if !(e.LegacyRevokePermanent == false) {
+		e.Flags.Set(2)
+	}
+	if !(e.ExpireDate == 0) {
+		e.Flags.Set(0)
+	}
+	if !(e.UsageLimit == 0) {
+		e.Flags.Set(1)
+	}
+	if err := e.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messages.exportChatInvite#14b9bcd7: field flags: %w", err)
+	}
 	if e.Peer == nil {
-		return fmt.Errorf("unable to encode messages.exportChatInvite#df7534c: field peer is nil")
+		return fmt.Errorf("unable to encode messages.exportChatInvite#14b9bcd7: field peer is nil")
 	}
 	if err := e.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.exportChatInvite#df7534c: field peer: %w", err)
+		return fmt.Errorf("unable to encode messages.exportChatInvite#14b9bcd7: field peer: %w", err)
+	}
+	if e.Flags.Has(0) {
+		b.PutInt(e.ExpireDate)
+	}
+	if e.Flags.Has(1) {
+		b.PutInt(e.UsageLimit)
 	}
 	return nil
+}
+
+// SetLegacyRevokePermanent sets value of LegacyRevokePermanent conditional field.
+func (e *MessagesExportChatInviteRequest) SetLegacyRevokePermanent(value bool) {
+	if value {
+		e.Flags.Set(2)
+		e.LegacyRevokePermanent = true
+	} else {
+		e.Flags.Unset(2)
+		e.LegacyRevokePermanent = false
+	}
+}
+
+// GetLegacyRevokePermanent returns value of LegacyRevokePermanent conditional field.
+func (e *MessagesExportChatInviteRequest) GetLegacyRevokePermanent() (value bool) {
+	return e.Flags.Has(2)
 }
 
 // GetPeer returns value of Peer field.
@@ -88,20 +158,70 @@ func (e *MessagesExportChatInviteRequest) GetPeer() (value InputPeerClass) {
 	return e.Peer
 }
 
+// SetExpireDate sets value of ExpireDate conditional field.
+func (e *MessagesExportChatInviteRequest) SetExpireDate(value int) {
+	e.Flags.Set(0)
+	e.ExpireDate = value
+}
+
+// GetExpireDate returns value of ExpireDate conditional field and
+// boolean which is true if field was set.
+func (e *MessagesExportChatInviteRequest) GetExpireDate() (value int, ok bool) {
+	if !e.Flags.Has(0) {
+		return value, false
+	}
+	return e.ExpireDate, true
+}
+
+// SetUsageLimit sets value of UsageLimit conditional field.
+func (e *MessagesExportChatInviteRequest) SetUsageLimit(value int) {
+	e.Flags.Set(1)
+	e.UsageLimit = value
+}
+
+// GetUsageLimit returns value of UsageLimit conditional field and
+// boolean which is true if field was set.
+func (e *MessagesExportChatInviteRequest) GetUsageLimit() (value int, ok bool) {
+	if !e.Flags.Has(1) {
+		return value, false
+	}
+	return e.UsageLimit, true
+}
+
 // Decode implements bin.Decoder.
 func (e *MessagesExportChatInviteRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode messages.exportChatInvite#df7534c to nil")
+		return fmt.Errorf("can't decode messages.exportChatInvite#14b9bcd7 to nil")
 	}
 	if err := b.ConsumeID(MessagesExportChatInviteRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.exportChatInvite#df7534c: %w", err)
+		return fmt.Errorf("unable to decode messages.exportChatInvite#14b9bcd7: %w", err)
 	}
+	{
+		if err := e.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.exportChatInvite#14b9bcd7: field flags: %w", err)
+		}
+	}
+	e.LegacyRevokePermanent = e.Flags.Has(2)
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.exportChatInvite#df7534c: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.exportChatInvite#14b9bcd7: field peer: %w", err)
 		}
 		e.Peer = value
+	}
+	if e.Flags.Has(0) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.exportChatInvite#14b9bcd7: field expire_date: %w", err)
+		}
+		e.ExpireDate = value
+	}
+	if e.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.exportChatInvite#14b9bcd7: field usage_limit: %w", err)
+		}
+		e.UsageLimit = value
 	}
 	return nil
 }
@@ -112,7 +232,7 @@ var (
 	_ bin.Decoder = &MessagesExportChatInviteRequest{}
 )
 
-// MessagesExportChatInvite invokes method messages.exportChatInvite#df7534c returning error if any.
+// MessagesExportChatInvite invokes method messages.exportChatInvite#14b9bcd7 returning error if any.
 // Export an invite link for a chat
 //
 // Possible errors:
@@ -124,12 +244,9 @@ var (
 //
 // See https://core.telegram.org/method/messages.exportChatInvite for reference.
 // Can be used by bots.
-func (c *Client) MessagesExportChatInvite(ctx context.Context, peer InputPeerClass) (*ChatInviteExported, error) {
+func (c *Client) MessagesExportChatInvite(ctx context.Context, request *MessagesExportChatInviteRequest) (*ChatInviteExported, error) {
 	var result ChatInviteExported
 
-	request := &MessagesExportChatInviteRequest{
-		Peer: peer,
-	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

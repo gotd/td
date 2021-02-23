@@ -18,7 +18,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 
-// AccountReportPeerRequest represents TL type `account.reportPeer#ae189d5f`.
+// AccountReportPeerRequest represents TL type `account.reportPeer#c5ba3d86`.
 // Report a peer for violation of telegram's Terms of Service
 //
 // See https://core.telegram.org/method/account.reportPeer for reference.
@@ -27,10 +27,12 @@ type AccountReportPeerRequest struct {
 	Peer InputPeerClass `schemaname:"peer"`
 	// The reason why this peer is being reported
 	Reason ReportReasonClass `schemaname:"reason"`
+	// Message field of AccountReportPeerRequest.
+	Message string `schemaname:"message"`
 }
 
 // AccountReportPeerRequestTypeID is TL type id of AccountReportPeerRequest.
-const AccountReportPeerRequestTypeID = 0xae189d5f
+const AccountReportPeerRequestTypeID = 0xc5ba3d86
 
 func (r *AccountReportPeerRequest) Zero() bool {
 	if r == nil {
@@ -40,6 +42,9 @@ func (r *AccountReportPeerRequest) Zero() bool {
 		return false
 	}
 	if !(r.Reason == nil) {
+		return false
+	}
+	if !(r.Message == "") {
 		return false
 	}
 
@@ -59,9 +64,11 @@ func (r *AccountReportPeerRequest) String() string {
 func (r *AccountReportPeerRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
 	GetReason() (value ReportReasonClass)
+	GetMessage() (value string)
 }) {
 	r.Peer = from.GetPeer()
 	r.Reason = from.GetReason()
+	r.Message = from.GetMessage()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -78,21 +85,22 @@ func (r *AccountReportPeerRequest) SchemaName() string {
 // Encode implements bin.Encoder.
 func (r *AccountReportPeerRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode account.reportPeer#ae189d5f as nil")
+		return fmt.Errorf("can't encode account.reportPeer#c5ba3d86 as nil")
 	}
 	b.PutID(AccountReportPeerRequestTypeID)
 	if r.Peer == nil {
-		return fmt.Errorf("unable to encode account.reportPeer#ae189d5f: field peer is nil")
+		return fmt.Errorf("unable to encode account.reportPeer#c5ba3d86: field peer is nil")
 	}
 	if err := r.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.reportPeer#ae189d5f: field peer: %w", err)
+		return fmt.Errorf("unable to encode account.reportPeer#c5ba3d86: field peer: %w", err)
 	}
 	if r.Reason == nil {
-		return fmt.Errorf("unable to encode account.reportPeer#ae189d5f: field reason is nil")
+		return fmt.Errorf("unable to encode account.reportPeer#c5ba3d86: field reason is nil")
 	}
 	if err := r.Reason.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode account.reportPeer#ae189d5f: field reason: %w", err)
+		return fmt.Errorf("unable to encode account.reportPeer#c5ba3d86: field reason: %w", err)
 	}
+	b.PutString(r.Message)
 	return nil
 }
 
@@ -106,27 +114,39 @@ func (r *AccountReportPeerRequest) GetReason() (value ReportReasonClass) {
 	return r.Reason
 }
 
+// GetMessage returns value of Message field.
+func (r *AccountReportPeerRequest) GetMessage() (value string) {
+	return r.Message
+}
+
 // Decode implements bin.Decoder.
 func (r *AccountReportPeerRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode account.reportPeer#ae189d5f to nil")
+		return fmt.Errorf("can't decode account.reportPeer#c5ba3d86 to nil")
 	}
 	if err := b.ConsumeID(AccountReportPeerRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode account.reportPeer#ae189d5f: %w", err)
+		return fmt.Errorf("unable to decode account.reportPeer#c5ba3d86: %w", err)
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.reportPeer#ae189d5f: field peer: %w", err)
+			return fmt.Errorf("unable to decode account.reportPeer#c5ba3d86: field peer: %w", err)
 		}
 		r.Peer = value
 	}
 	{
 		value, err := DecodeReportReason(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode account.reportPeer#ae189d5f: field reason: %w", err)
+			return fmt.Errorf("unable to decode account.reportPeer#c5ba3d86: field reason: %w", err)
 		}
 		r.Reason = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode account.reportPeer#c5ba3d86: field message: %w", err)
+		}
+		r.Message = value
 	}
 	return nil
 }
@@ -137,7 +157,7 @@ var (
 	_ bin.Decoder = &AccountReportPeerRequest{}
 )
 
-// AccountReportPeer invokes method account.reportPeer#ae189d5f returning error if any.
+// AccountReportPeer invokes method account.reportPeer#c5ba3d86 returning error if any.
 // Report a peer for violation of telegram's Terms of Service
 //
 // Possible errors:

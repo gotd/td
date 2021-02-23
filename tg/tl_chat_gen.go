@@ -783,6 +783,8 @@ type Channel struct {
 	CallNotEmpty bool `schemaname:"call_not_empty"`
 	// Fake field of Channel.
 	Fake bool `schemaname:"fake"`
+	// Gigagroup field of Channel.
+	Gigagroup bool `schemaname:"gigagroup"`
 	// ID of the channel
 	ID int `schemaname:"id"`
 	// Access hash
@@ -887,6 +889,9 @@ func (c *Channel) Zero() bool {
 	if !(c.Fake == false) {
 		return false
 	}
+	if !(c.Gigagroup == false) {
+		return false
+	}
 	if !(c.ID == 0) {
 		return false
 	}
@@ -953,6 +958,7 @@ func (c *Channel) FillFrom(from interface {
 	GetCallActive() (value bool)
 	GetCallNotEmpty() (value bool)
 	GetFake() (value bool)
+	GetGigagroup() (value bool)
 	GetID() (value int)
 	GetAccessHash() (value int64, ok bool)
 	GetTitle() (value string)
@@ -981,6 +987,7 @@ func (c *Channel) FillFrom(from interface {
 	c.CallActive = from.GetCallActive()
 	c.CallNotEmpty = from.GetCallNotEmpty()
 	c.Fake = from.GetFake()
+	c.Gigagroup = from.GetGigagroup()
 	c.ID = from.GetID()
 	if val, ok := from.GetAccessHash(); ok {
 		c.AccessHash = val
@@ -1077,6 +1084,9 @@ func (c *Channel) Encode(b *bin.Buffer) error {
 	}
 	if !(c.Fake == false) {
 		c.Flags.Set(25)
+	}
+	if !(c.Gigagroup == false) {
+		c.Flags.Set(26)
 	}
 	if !(c.AccessHash == 0) {
 		c.Flags.Set(13)
@@ -1387,6 +1397,22 @@ func (c *Channel) GetFake() (value bool) {
 	return c.Flags.Has(25)
 }
 
+// SetGigagroup sets value of Gigagroup conditional field.
+func (c *Channel) SetGigagroup(value bool) {
+	if value {
+		c.Flags.Set(26)
+		c.Gigagroup = true
+	} else {
+		c.Flags.Unset(26)
+		c.Gigagroup = false
+	}
+}
+
+// GetGigagroup returns value of Gigagroup conditional field.
+func (c *Channel) GetGigagroup() (value bool) {
+	return c.Flags.Has(26)
+}
+
 // GetID returns value of ID field.
 func (c *Channel) GetID() (value int) {
 	return c.ID
@@ -1545,6 +1571,7 @@ func (c *Channel) Decode(b *bin.Buffer) error {
 	c.CallActive = c.Flags.Has(23)
 	c.CallNotEmpty = c.Flags.Has(24)
 	c.Fake = c.Flags.Has(25)
+	c.Gigagroup = c.Flags.Has(26)
 	{
 		value, err := b.Int()
 		if err != nil {
