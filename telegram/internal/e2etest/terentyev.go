@@ -56,8 +56,7 @@ func (u User) messageHandler(ctx tg.UpdateContext, update *tg.UpdateNewMessage) 
 
 	if m, ok := update.Message.(interface{ GetMessage() string }); ok {
 		u.logger.Named("dispatcher").
-			With(zap.String("message", m.GetMessage())).
-			Info("Got new message update")
+			Info("Got new message update", zap.String("message", m.GetMessage()))
 	}
 
 	msg, ok := update.Message.(*tg.Message)

@@ -114,8 +114,7 @@ func (b EchoBot) handler(client *telegram.Client) tg.NewMessageHandler {
 
 		if m, ok := update.Message.(interface{ GetMessage() string }); ok {
 			b.logger.Named("dispatcher").
-				With(zap.String("message", m.GetMessage())).
-				Info("Got new message update")
+				Info("Got new message update", zap.String("message", m.GetMessage()))
 		}
 
 		if dialogsUsers.empty() {
@@ -142,12 +141,12 @@ func (b EchoBot) handler(client *telegram.Client) tg.NewMessageHandler {
 					user = dialogsUsers.get(peer.UserID)
 				}
 
-				b.logger.With(
+				b.logger.Info("Got message",
 					zap.String("text", m.Message),
 					zap.Int("user_id", user.ID),
 					zap.String("user_first_name", user.FirstName),
 					zap.String("username", user.Username),
-				).Info("Got message")
+				)
 
 				randomID, err := client.RandInt64()
 				if err != nil {
@@ -189,10 +188,10 @@ func (b EchoBot) Run(ctx context.Context) error {
 			return xerrors.Errorf("login: %w", err)
 		}
 
-		b.logger.With(
+		b.logger.Info("Logged in",
 			zap.String("user", me.Username),
 			zap.Int("id", me.ID),
-		).Info("Logged in")
+		)
 
 		select {
 		case b.auth <- me:
