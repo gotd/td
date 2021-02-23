@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getPollResults for reference.
 type MessagesGetPollResultsRequest struct {
 	// Peer where the poll was found
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// Message ID of poll message
-	MsgID int
+	MsgID int `schemaname:"msg_id"`
 }
 
 // MessagesGetPollResultsRequestTypeID is TL type id of MessagesGetPollResultsRequest.
@@ -68,6 +68,11 @@ func (g *MessagesGetPollResultsRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetPollResultsRequest) TypeID() uint32 {
 	return MessagesGetPollResultsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *MessagesGetPollResultsRequest) SchemaName() string {
+	return "messages.getPollResults"
 }
 
 // Encode implements bin.Encoder.

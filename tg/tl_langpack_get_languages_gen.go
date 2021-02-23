@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/langpack.getLanguages for reference.
 type LangpackGetLanguagesRequest struct {
 	// Language pack
-	LangPack string
+	LangPack string `schemaname:"lang_pack"`
 }
 
 // LangpackGetLanguagesRequestTypeID is TL type id of LangpackGetLanguagesRequest.
@@ -61,6 +61,11 @@ func (g *LangpackGetLanguagesRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *LangpackGetLanguagesRequest) TypeID() uint32 {
 	return LangpackGetLanguagesRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *LangpackGetLanguagesRequest) SchemaName() string {
+	return "langpack.getLanguages"
 }
 
 // Encode implements bin.Encoder.

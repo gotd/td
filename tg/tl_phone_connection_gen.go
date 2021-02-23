@@ -24,15 +24,15 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/phoneConnection for reference.
 type PhoneConnection struct {
 	// Endpoint ID
-	ID int64
+	ID int64 `schemaname:"id"`
 	// IP address of endpoint
-	IP string
+	IP string `schemaname:"ip"`
 	// IPv6 address of endpoint
-	Ipv6 string
+	Ipv6 string `schemaname:"ipv6"`
 	// Port ID
-	Port int
+	Port int `schemaname:"port"`
 	// Our peer tag
-	PeerTag []byte
+	PeerTag []byte `schemaname:"peer_tag"`
 }
 
 // PhoneConnectionTypeID is TL type id of PhoneConnection.
@@ -89,6 +89,11 @@ func (p *PhoneConnection) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhoneConnection) TypeID() uint32 {
 	return PhoneConnectionTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PhoneConnection) SchemaName() string {
+	return "phoneConnection"
 }
 
 // Encode implements bin.Encoder.
@@ -196,23 +201,23 @@ type PhoneConnectionWebrtc struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether this is a TURN endpoint
-	Turn bool
+	Turn bool `schemaname:"turn"`
 	// Whether this is a STUN endpoint
-	Stun bool
+	Stun bool `schemaname:"stun"`
 	// Endpoint ID
-	ID int64
+	ID int64 `schemaname:"id"`
 	// IP address
-	IP string
+	IP string `schemaname:"ip"`
 	// IPv6 address
-	Ipv6 string
+	Ipv6 string `schemaname:"ipv6"`
 	// Port
-	Port int
+	Port int `schemaname:"port"`
 	// Username
-	Username string
+	Username string `schemaname:"username"`
 	// Password
-	Password string
+	Password string `schemaname:"password"`
 }
 
 // PhoneConnectionWebrtcTypeID is TL type id of PhoneConnectionWebrtc.
@@ -273,6 +278,8 @@ func (p *PhoneConnectionWebrtc) FillFrom(from interface {
 	GetUsername() (value string)
 	GetPassword() (value string)
 }) {
+	p.Turn = from.GetTurn()
+	p.Stun = from.GetStun()
 	p.ID = from.GetID()
 	p.IP = from.GetIP()
 	p.Ipv6 = from.GetIpv6()
@@ -285,6 +292,11 @@ func (p *PhoneConnectionWebrtc) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhoneConnectionWebrtc) TypeID() uint32 {
 	return PhoneConnectionWebrtcTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PhoneConnectionWebrtc) SchemaName() string {
+	return "phoneConnectionWebrtc"
 }
 
 // Encode implements bin.Encoder.
@@ -463,6 +475,16 @@ type PhoneConnectionClass interface {
 	bin.Decoder
 	construct() PhoneConnectionClass
 
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+
 	// Endpoint ID
 	GetID() (value int64)
 	// IP address of endpoint
@@ -471,14 +493,6 @@ type PhoneConnectionClass interface {
 	GetIpv6() (value string)
 	// Port ID
 	GetPort() (value int)
-
-	// TypeID returns MTProto type id (CRC code).
-	// See https://core.telegram.org/mtproto/TL-tl#remarks.
-	TypeID() uint32
-	// String implements fmt.Stringer.
-	String() string
-	// Zero returns true if current object has a zero value.
-	Zero() bool
 }
 
 // DecodePhoneConnection implements binary de-serialization for PhoneConnectionClass.

@@ -21,13 +21,13 @@ var _ = errors.Is
 // Message represents TL type `message#5bb8e511`.
 type Message struct {
 	// MsgID field of Message.
-	MsgID int64
+	MsgID int64 `schemaname:"msg_id"`
 	// Seqno field of Message.
-	Seqno int
+	Seqno int `schemaname:"seqno"`
 	// Bytes field of Message.
-	Bytes int
+	Bytes int `schemaname:"bytes"`
 	// Body field of Message.
-	Body GzipPacked
+	Body GzipPacked `schemaname:"body"`
 }
 
 // MessageTypeID is TL type id of Message.
@@ -79,6 +79,11 @@ func (m *Message) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *Message) TypeID() uint32 {
 	return MessageTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *Message) SchemaName() string {
+	return "message"
 }
 
 // Encode implements bin.Encoder.

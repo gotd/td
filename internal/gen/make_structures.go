@@ -17,15 +17,17 @@ type structDef struct {
 	Comment string
 	// Receiver name. E.g. "m" for Message.
 	Receiver string
-	// HexID is hex-encoded id, like 1ef134.
+	// HexID is hex-encoded id, like 29bacabb.
 	HexID string
 	// BufArg is name of Encode and Decode argument of bin.Buffer type
 	// that is used in those functions.
 	//
 	// Should not equal to Name.
 	BufArg string
-	// RawType is type name from TL schema.
+	// RawType is type name from TL schema, like authPassword#29bacabb.
 	RawType string
+	// RawName is type name from TL schema without HexID (CRC code), like authPassword.
+	RawName string
 
 	// Interface refers to interface of generic type.
 	Interface     string
@@ -120,6 +122,7 @@ func (g *Generator) makeStructures() error {
 			HexID:   fmt.Sprintf("%x", d.ID),
 			BufArg:  "b",
 			RawType: fmt.Sprintf("%s#%x", typeKey, d.ID),
+			RawName: typeKey,
 
 			Interface:     t.Interface,
 			InterfaceFunc: t.InterfaceFunc,

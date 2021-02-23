@@ -27,41 +27,41 @@ type PaymentsPaymentForm struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether the user can choose to save credentials.
-	CanSaveCredentials bool
+	CanSaveCredentials bool `schemaname:"can_save_credentials"`
 	// Indicates that the user can save payment credentials, but only after setting up a 2FA password¹ (currently the account doesn't have a 2FA password²)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
 	//  2) https://core.telegram.org/api/srp
-	PasswordMissing bool
+	PasswordMissing bool `schemaname:"password_missing"`
 	// Bot ID
-	BotID int
+	BotID int `schemaname:"bot_id"`
 	// Invoice
-	Invoice Invoice
+	Invoice Invoice `schemaname:"invoice"`
 	// Payment provider ID.
-	ProviderID int
+	ProviderID int `schemaname:"provider_id"`
 	// Payment form URL
-	URL string
+	URL string `schemaname:"url"`
 	// Payment provider name.One of the following:- stripe
 	//
 	// Use SetNativeProvider and GetNativeProvider helpers.
-	NativeProvider string
+	NativeProvider string `schemaname:"native_provider"`
 	// Contains information about the payment provider, if available, to support it natively without the need for opening the URL.A JSON object that can contain the following fields:- publishable_key: Stripe API publishable key- apple_pay_merchant_id: Apple Pay merchant ID- android_pay_public_key: Android Pay public key- android_pay_bgcolor: Android Pay form background color- android_pay_inverse: Whether to use the dark theme in the Android Pay form- need_country: True, if the user country must be provided,- need_zip: True, if the user ZIP/postal code must be provided,- need_cardholder_name: True, if the cardholder name must be provided
 	//
 	// Use SetNativeParams and GetNativeParams helpers.
-	NativeParams DataJSON
+	NativeParams DataJSON `schemaname:"native_params"`
 	// Saved server-side order information
 	//
 	// Use SetSavedInfo and GetSavedInfo helpers.
-	SavedInfo PaymentRequestedInfo
+	SavedInfo PaymentRequestedInfo `schemaname:"saved_info"`
 	// Contains information about saved card credentials
 	//
 	// Use SetSavedCredentials and GetSavedCredentials helpers.
-	SavedCredentials PaymentSavedCredentialsCard
+	SavedCredentials PaymentSavedCredentialsCard `schemaname:"saved_credentials"`
 	// Users
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 }
 
 // PaymentsPaymentFormTypeID is TL type id of PaymentsPaymentForm.
@@ -134,6 +134,8 @@ func (p *PaymentsPaymentForm) FillFrom(from interface {
 	GetSavedCredentials() (value PaymentSavedCredentialsCard, ok bool)
 	GetUsers() (value []UserClass)
 }) {
+	p.CanSaveCredentials = from.GetCanSaveCredentials()
+	p.PasswordMissing = from.GetPasswordMissing()
 	p.BotID = from.GetBotID()
 	p.Invoice = from.GetInvoice()
 	p.ProviderID = from.GetProviderID()
@@ -141,15 +143,19 @@ func (p *PaymentsPaymentForm) FillFrom(from interface {
 	if val, ok := from.GetNativeProvider(); ok {
 		p.NativeProvider = val
 	}
+
 	if val, ok := from.GetNativeParams(); ok {
 		p.NativeParams = val
 	}
+
 	if val, ok := from.GetSavedInfo(); ok {
 		p.SavedInfo = val
 	}
+
 	if val, ok := from.GetSavedCredentials(); ok {
 		p.SavedCredentials = val
 	}
+
 	p.Users = from.GetUsers()
 }
 
@@ -157,6 +163,11 @@ func (p *PaymentsPaymentForm) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PaymentsPaymentForm) TypeID() uint32 {
 	return PaymentsPaymentFormTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PaymentsPaymentForm) SchemaName() string {
+	return "payments.paymentForm"
 }
 
 // Encode implements bin.Encoder.

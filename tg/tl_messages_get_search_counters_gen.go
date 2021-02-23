@@ -27,9 +27,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getSearchCounters for reference.
 type MessagesGetSearchCountersRequest struct {
 	// Peer where to search
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// Search filters
-	Filters []MessagesFilterClass
+	Filters []MessagesFilterClass `schemaname:"filters"`
 }
 
 // MessagesGetSearchCountersRequestTypeID is TL type id of MessagesGetSearchCountersRequest.
@@ -71,6 +71,11 @@ func (g *MessagesGetSearchCountersRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetSearchCountersRequest) TypeID() uint32 {
 	return MessagesGetSearchCountersRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *MessagesGetSearchCountersRequest) SchemaName() string {
+	return "messages.getSearchCounters"
 }
 
 // Encode implements bin.Encoder.

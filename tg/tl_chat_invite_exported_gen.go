@@ -24,33 +24,33 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/chatInviteExported for reference.
 type ChatInviteExported struct {
 	// Flags field of ChatInviteExported.
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Revoked field of ChatInviteExported.
-	Revoked bool
+	Revoked bool `schemaname:"revoked"`
 	// Permanent field of ChatInviteExported.
-	Permanent bool
+	Permanent bool `schemaname:"permanent"`
 	// Chat invitation link
-	Link string
+	Link string `schemaname:"link"`
 	// AdminID field of ChatInviteExported.
-	AdminID int
+	AdminID int `schemaname:"admin_id"`
 	// Date field of ChatInviteExported.
-	Date int
+	Date int `schemaname:"date"`
 	// StartDate field of ChatInviteExported.
 	//
 	// Use SetStartDate and GetStartDate helpers.
-	StartDate int
+	StartDate int `schemaname:"start_date"`
 	// ExpireDate field of ChatInviteExported.
 	//
 	// Use SetExpireDate and GetExpireDate helpers.
-	ExpireDate int
+	ExpireDate int `schemaname:"expire_date"`
 	// UsageLimit field of ChatInviteExported.
 	//
 	// Use SetUsageLimit and GetUsageLimit helpers.
-	UsageLimit int
+	UsageLimit int `schemaname:"usage_limit"`
 	// Usage field of ChatInviteExported.
 	//
 	// Use SetUsage and GetUsage helpers.
-	Usage int
+	Usage int `schemaname:"usage"`
 }
 
 // ChatInviteExportedTypeID is TL type id of ChatInviteExported.
@@ -115,27 +115,38 @@ func (c *ChatInviteExported) FillFrom(from interface {
 	GetUsageLimit() (value int, ok bool)
 	GetUsage() (value int, ok bool)
 }) {
+	c.Revoked = from.GetRevoked()
+	c.Permanent = from.GetPermanent()
 	c.Link = from.GetLink()
 	c.AdminID = from.GetAdminID()
 	c.Date = from.GetDate()
 	if val, ok := from.GetStartDate(); ok {
 		c.StartDate = val
 	}
+
 	if val, ok := from.GetExpireDate(); ok {
 		c.ExpireDate = val
 	}
+
 	if val, ok := from.GetUsageLimit(); ok {
 		c.UsageLimit = val
 	}
+
 	if val, ok := from.GetUsage(); ok {
 		c.Usage = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatInviteExported) TypeID() uint32 {
 	return ChatInviteExportedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChatInviteExported) SchemaName() string {
+	return "chatInviteExported"
 }
 
 // Encode implements bin.Encoder.

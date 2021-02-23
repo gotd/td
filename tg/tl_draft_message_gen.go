@@ -27,11 +27,11 @@ type DraftMessageEmpty struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// When was the draft last updated
 	//
 	// Use SetDate and GetDate helpers.
-	Date int
+	Date int `schemaname:"date"`
 }
 
 // DraftMessageEmptyTypeID is TL type id of DraftMessageEmpty.
@@ -67,12 +67,18 @@ func (d *DraftMessageEmpty) FillFrom(from interface {
 	if val, ok := from.GetDate(); ok {
 		d.Date = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DraftMessageEmpty) TypeID() uint32 {
 	return DraftMessageEmptyTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DraftMessageEmpty) SchemaName() string {
+	return "draftMessageEmpty"
 }
 
 // Encode implements bin.Encoder.
@@ -154,24 +160,24 @@ type DraftMessage struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether no webpage preview will be generated
-	NoWebpage bool
+	NoWebpage bool `schemaname:"no_webpage"`
 	// The message this message will reply to
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
-	ReplyToMsgID int
+	ReplyToMsgID int `schemaname:"reply_to_msg_id"`
 	// The draft
-	Message string
+	Message string `schemaname:"message"`
 	// Message entities¹ for styled text.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass
+	Entities []MessageEntityClass `schemaname:"entities"`
 	// Date of last update of the draft.
-	Date int
+	Date int `schemaname:"date"`
 }
 
 // DraftMessageTypeID is TL type id of DraftMessage.
@@ -220,13 +226,16 @@ func (d *DraftMessage) FillFrom(from interface {
 	GetEntities() (value []MessageEntityClass, ok bool)
 	GetDate() (value int)
 }) {
+	d.NoWebpage = from.GetNoWebpage()
 	if val, ok := from.GetReplyToMsgID(); ok {
 		d.ReplyToMsgID = val
 	}
+
 	d.Message = from.GetMessage()
 	if val, ok := from.GetEntities(); ok {
 		d.Entities = val
 	}
+
 	d.Date = from.GetDate()
 }
 
@@ -234,6 +243,11 @@ func (d *DraftMessage) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DraftMessage) TypeID() uint32 {
 	return DraftMessageTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DraftMessage) SchemaName() string {
+	return "draftMessage"
 }
 
 // Encode implements bin.Encoder.
@@ -418,24 +432,26 @@ type DraftMessageClass interface {
 	bin.Decoder
 	construct() DraftMessageClass
 
-	// AsNotEmpty tries to map DraftMessageClass to DraftMessage.
-	AsNotEmpty() (*DraftMessage, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsNotEmpty tries to map DraftMessageClass to DraftMessage.
+	AsNotEmpty() (*DraftMessage, bool)
 }
 
-// AsNotEmpty tries to map DraftMessageClass to DraftMessage.
+// AsNotEmpty tries to map DraftMessageEmpty to DraftMessage.
 func (d *DraftMessageEmpty) AsNotEmpty() (*DraftMessage, bool) {
 	return nil, false
 }
 
-// AsNotEmpty tries to map DraftMessageClass to DraftMessage.
+// AsNotEmpty tries to map DraftMessage to DraftMessage.
 func (d *DraftMessage) AsNotEmpty() (*DraftMessage, bool) {
 	return d, true
 }
@@ -526,6 +542,24 @@ func (s DraftMessageClassSlice) FirstAsNotEmpty() (v *DraftMessage, ok bool) {
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s DraftMessageClassSlice) LastAsNotEmpty() (v *DraftMessage, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *DraftMessageClassSlice) PopFirstAsNotEmpty() (v *DraftMessage, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *DraftMessageClassSlice) PopAsNotEmpty() (v *DraftMessage, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

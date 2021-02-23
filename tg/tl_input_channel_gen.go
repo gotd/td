@@ -51,6 +51,11 @@ func (i *InputChannelEmpty) TypeID() uint32 {
 	return InputChannelEmptyTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputChannelEmpty) SchemaName() string {
+	return "inputChannelEmpty"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputChannelEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -88,12 +93,12 @@ var (
 // See https://core.telegram.org/constructor/inputChannel for reference.
 type InputChannel struct {
 	// Channel ID
-	ChannelID int
+	ChannelID int `schemaname:"channel_id"`
 	// Access hash taken from the channel¹ constructor
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channel
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 }
 
 // InputChannelTypeID is TL type id of InputChannel.
@@ -135,6 +140,11 @@ func (i *InputChannel) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputChannel) TypeID() uint32 {
 	return InputChannelTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputChannel) SchemaName() string {
+	return "inputChannel"
 }
 
 // Encode implements bin.Encoder.
@@ -203,11 +213,11 @@ var (
 // See https://core.telegram.org/constructor/inputChannelFromMessage for reference.
 type InputChannelFromMessage struct {
 	// The chat where the channel was seen
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// The message ID in the chat where the channel was seen
-	MsgID int
+	MsgID int `schemaname:"msg_id"`
 	// The channel ID
-	ChannelID int
+	ChannelID int `schemaname:"channel_id"`
 }
 
 // InputChannelFromMessageTypeID is TL type id of InputChannelFromMessage.
@@ -254,6 +264,11 @@ func (i *InputChannelFromMessage) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputChannelFromMessage) TypeID() uint32 {
 	return InputChannelFromMessageTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputChannelFromMessage) SchemaName() string {
+	return "inputChannelFromMessage"
 }
 
 // Encode implements bin.Encoder.
@@ -351,16 +366,18 @@ type InputChannelClass interface {
 	bin.Decoder
 	construct() InputChannelClass
 
-	// AsNotEmpty tries to map InputChannelClass to NotEmptyInputChannel.
-	AsNotEmpty() (NotEmptyInputChannel, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsNotEmpty tries to map InputChannelClass to NotEmptyInputChannel.
+	AsNotEmpty() (NotEmptyInputChannel, bool)
 }
 
 // NotEmptyInputChannel represents NotEmpty subset of InputChannelClass.
@@ -369,31 +386,33 @@ type NotEmptyInputChannel interface {
 	bin.Decoder
 	construct() InputChannelClass
 
-	// Channel ID
-	GetChannelID() (value int)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Channel ID
+	GetChannelID() (value int)
 }
 
-// AsNotEmpty tries to map InputChannelClass to NotEmptyInputChannel.
+// AsNotEmpty tries to map InputChannelEmpty to NotEmptyInputChannel.
 func (i *InputChannelEmpty) AsNotEmpty() (NotEmptyInputChannel, bool) {
 	value, ok := (InputChannelClass(i)).(NotEmptyInputChannel)
 	return value, ok
 }
 
-// AsNotEmpty tries to map InputChannelClass to NotEmptyInputChannel.
+// AsNotEmpty tries to map InputChannel to NotEmptyInputChannel.
 func (i *InputChannel) AsNotEmpty() (NotEmptyInputChannel, bool) {
 	value, ok := (InputChannelClass(i)).(NotEmptyInputChannel)
 	return value, ok
 }
 
-// AsNotEmpty tries to map InputChannelClass to NotEmptyInputChannel.
+// AsNotEmpty tries to map InputChannelFromMessage to NotEmptyInputChannel.
 func (i *InputChannelFromMessage) AsNotEmpty() (NotEmptyInputChannel, bool) {
 	value, ok := (InputChannelClass(i)).(NotEmptyInputChannel)
 	return value, ok
@@ -492,6 +511,24 @@ func (s InputChannelClassSlice) FirstAsNotEmpty() (v NotEmptyInputChannel, ok bo
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s InputChannelClassSlice) LastAsNotEmpty() (v NotEmptyInputChannel, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *InputChannelClassSlice) PopFirstAsNotEmpty() (v NotEmptyInputChannel, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *InputChannelClassSlice) PopAsNotEmpty() (v NotEmptyInputChannel, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

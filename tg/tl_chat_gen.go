@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/chatEmpty for reference.
 type ChatEmpty struct {
 	// Group identifier
-	ID int
+	ID int `schemaname:"id"`
 }
 
 // ChatEmptyTypeID is TL type id of ChatEmpty.
@@ -61,6 +61,11 @@ func (c *ChatEmpty) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatEmpty) TypeID() uint32 {
 	return ChatEmptyTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChatEmpty) SchemaName() string {
+	return "chatEmpty"
 }
 
 // Encode implements bin.Encoder.
@@ -116,55 +121,55 @@ type Chat struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether the current user is the creator of the group
-	Creator bool
+	Creator bool `schemaname:"creator"`
 	// Whether the current user was kicked from the group
-	Kicked bool
+	Kicked bool `schemaname:"kicked"`
 	// Whether the current user has left the group
-	Left bool
+	Left bool `schemaname:"left"`
 	// Whether the group was migrated¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Deactivated bool
+	Deactivated bool `schemaname:"deactivated"`
 	// CallActive field of Chat.
-	CallActive bool
+	CallActive bool `schemaname:"call_active"`
 	// CallNotEmpty field of Chat.
-	CallNotEmpty bool
+	CallNotEmpty bool `schemaname:"call_not_empty"`
 	// ID of the group
-	ID int
+	ID int `schemaname:"id"`
 	// Title
-	Title string
+	Title string `schemaname:"title"`
 	// Chat photo
-	Photo ChatPhotoClass
+	Photo ChatPhotoClass `schemaname:"photo"`
 	// Participant count
-	ParticipantsCount int
+	ParticipantsCount int `schemaname:"participants_count"`
 	// Date of creation of the group
-	Date int
+	Date int `schemaname:"date"`
 	// Used in basic groups to reorder updates and make sure that all of them were received.
-	Version int
+	Version int `schemaname:"version"`
 	// Means this chat was upgraded¹ to a supergroup
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	//
 	// Use SetMigratedTo and GetMigratedTo helpers.
-	MigratedTo InputChannelClass
+	MigratedTo InputChannelClass `schemaname:"migrated_to"`
 	// Admin rights¹ of the user in the group
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetAdminRights and GetAdminRights helpers.
-	AdminRights ChatAdminRights
+	AdminRights ChatAdminRights `schemaname:"admin_rights"`
 	// Default banned rights¹ of all users in the group
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetDefaultBannedRights and GetDefaultBannedRights helpers.
-	DefaultBannedRights ChatBannedRights
+	DefaultBannedRights ChatBannedRights `schemaname:"default_banned_rights"`
 }
 
 // ChatTypeID is TL type id of Chat.
@@ -253,6 +258,12 @@ func (c *Chat) FillFrom(from interface {
 	GetAdminRights() (value ChatAdminRights, ok bool)
 	GetDefaultBannedRights() (value ChatBannedRights, ok bool)
 }) {
+	c.Creator = from.GetCreator()
+	c.Kicked = from.GetKicked()
+	c.Left = from.GetLeft()
+	c.Deactivated = from.GetDeactivated()
+	c.CallActive = from.GetCallActive()
+	c.CallNotEmpty = from.GetCallNotEmpty()
 	c.ID = from.GetID()
 	c.Title = from.GetTitle()
 	c.Photo = from.GetPhoto()
@@ -262,18 +273,26 @@ func (c *Chat) FillFrom(from interface {
 	if val, ok := from.GetMigratedTo(); ok {
 		c.MigratedTo = val
 	}
+
 	if val, ok := from.GetAdminRights(); ok {
 		c.AdminRights = val
 	}
+
 	if val, ok := from.GetDefaultBannedRights(); ok {
 		c.DefaultBannedRights = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *Chat) TypeID() uint32 {
 	return ChatTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *Chat) SchemaName() string {
+	return "chat"
 }
 
 // Encode implements bin.Encoder.
@@ -613,9 +632,9 @@ var (
 // See https://core.telegram.org/constructor/chatForbidden for reference.
 type ChatForbidden struct {
 	// User identifier
-	ID int
+	ID int `schemaname:"id"`
 	// Group name
-	Title string
+	Title string `schemaname:"title"`
 }
 
 // ChatForbiddenTypeID is TL type id of ChatForbidden.
@@ -657,6 +676,11 @@ func (c *ChatForbidden) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatForbidden) TypeID() uint32 {
 	return ChatForbiddenTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChatForbidden) SchemaName() string {
+	return "chatForbidden"
 }
 
 // Encode implements bin.Encoder.
@@ -725,87 +749,87 @@ type Channel struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether the current user is the creator of this channel
-	Creator bool
+	Creator bool `schemaname:"creator"`
 	// Whether the current user has left this channel
-	Left bool
+	Left bool `schemaname:"left"`
 	// Is this a channel?
-	Broadcast bool
+	Broadcast bool `schemaname:"broadcast"`
 	// Is this channel verified by telegram?
-	Verified bool
+	Verified bool `schemaname:"verified"`
 	// Is this a supergroup?
-	Megagroup bool
+	Megagroup bool `schemaname:"megagroup"`
 	// Whether viewing/writing in this channel for a reason (see restriction_reason
-	Restricted bool
+	Restricted bool `schemaname:"restricted"`
 	// Whether signatures are enabled (channels)
-	Signatures bool
+	Signatures bool `schemaname:"signatures"`
 	// See min¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/min
-	Min bool
+	Min bool `schemaname:"min"`
 	// This channel/supergroup is probably a scam
-	Scam bool
+	Scam bool `schemaname:"scam"`
 	// Whether this channel has a private join link
-	HasLink bool
+	HasLink bool `schemaname:"has_link"`
 	// Whether this chanel has a geoposition
-	HasGeo bool
+	HasGeo bool `schemaname:"has_geo"`
 	// Whether slow mode is enabled for groups to prevent flood in chat
-	SlowmodeEnabled bool
+	SlowmodeEnabled bool `schemaname:"slowmode_enabled"`
 	// CallActive field of Channel.
-	CallActive bool
+	CallActive bool `schemaname:"call_active"`
 	// CallNotEmpty field of Channel.
-	CallNotEmpty bool
+	CallNotEmpty bool `schemaname:"call_not_empty"`
 	// Fake field of Channel.
-	Fake bool
+	Fake bool `schemaname:"fake"`
 	// ID of the channel
-	ID int
+	ID int `schemaname:"id"`
 	// Access hash
 	//
 	// Use SetAccessHash and GetAccessHash helpers.
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 	// Title
-	Title string
+	Title string `schemaname:"title"`
 	// Username
 	//
 	// Use SetUsername and GetUsername helpers.
-	Username string
+	Username string `schemaname:"username"`
 	// Profile photo
-	Photo ChatPhotoClass
+	Photo ChatPhotoClass `schemaname:"photo"`
 	// Date when the user joined the supergroup/channel, or if the user isn't a member, its creation date
-	Date int
+	Date int `schemaname:"date"`
 	// Version of the channel (always 0)
-	Version int
+	Version int `schemaname:"version"`
 	// Contains the reason why access to this channel must be restricted.
 	//
 	// Use SetRestrictionReason and GetRestrictionReason helpers.
-	RestrictionReason []RestrictionReason
+	RestrictionReason []RestrictionReason `schemaname:"restriction_reason"`
 	// Admin rights of the user in this channel (see rights¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetAdminRights and GetAdminRights helpers.
-	AdminRights ChatAdminRights
+	AdminRights ChatAdminRights `schemaname:"admin_rights"`
 	// Banned rights of the user in this channel (see rights¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetBannedRights and GetBannedRights helpers.
-	BannedRights ChatBannedRights
+	BannedRights ChatBannedRights `schemaname:"banned_rights"`
 	// Default chat rights (see rights¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetDefaultBannedRights and GetDefaultBannedRights helpers.
-	DefaultBannedRights ChatBannedRights
+	DefaultBannedRights ChatBannedRights `schemaname:"default_banned_rights"`
 	// Participant count
 	//
 	// Use SetParticipantsCount and GetParticipantsCount helpers.
-	ParticipantsCount int
+	ParticipantsCount int `schemaname:"participants_count"`
 }
 
 // ChannelTypeID is TL type id of Channel.
@@ -942,38 +966,65 @@ func (c *Channel) FillFrom(from interface {
 	GetDefaultBannedRights() (value ChatBannedRights, ok bool)
 	GetParticipantsCount() (value int, ok bool)
 }) {
+	c.Creator = from.GetCreator()
+	c.Left = from.GetLeft()
+	c.Broadcast = from.GetBroadcast()
+	c.Verified = from.GetVerified()
+	c.Megagroup = from.GetMegagroup()
+	c.Restricted = from.GetRestricted()
+	c.Signatures = from.GetSignatures()
+	c.Min = from.GetMin()
+	c.Scam = from.GetScam()
+	c.HasLink = from.GetHasLink()
+	c.HasGeo = from.GetHasGeo()
+	c.SlowmodeEnabled = from.GetSlowmodeEnabled()
+	c.CallActive = from.GetCallActive()
+	c.CallNotEmpty = from.GetCallNotEmpty()
+	c.Fake = from.GetFake()
 	c.ID = from.GetID()
 	if val, ok := from.GetAccessHash(); ok {
 		c.AccessHash = val
 	}
+
 	c.Title = from.GetTitle()
 	if val, ok := from.GetUsername(); ok {
 		c.Username = val
 	}
+
 	c.Photo = from.GetPhoto()
 	c.Date = from.GetDate()
 	c.Version = from.GetVersion()
 	if val, ok := from.GetRestrictionReason(); ok {
 		c.RestrictionReason = val
 	}
+
 	if val, ok := from.GetAdminRights(); ok {
 		c.AdminRights = val
 	}
+
 	if val, ok := from.GetBannedRights(); ok {
 		c.BannedRights = val
 	}
+
 	if val, ok := from.GetDefaultBannedRights(); ok {
 		c.DefaultBannedRights = val
 	}
+
 	if val, ok := from.GetParticipantsCount(); ok {
 		c.ParticipantsCount = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *Channel) TypeID() uint32 {
 	return ChannelTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *Channel) SchemaName() string {
+	return "channel"
 }
 
 // Encode implements bin.Encoder.
@@ -1601,21 +1652,21 @@ type ChannelForbidden struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Is this a channel
-	Broadcast bool
+	Broadcast bool `schemaname:"broadcast"`
 	// Is this a supergroup
-	Megagroup bool
+	Megagroup bool `schemaname:"megagroup"`
 	// Channel ID
-	ID int
+	ID int `schemaname:"id"`
 	// Access hash
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 	// Title
-	Title string
+	Title string `schemaname:"title"`
 	// The ban is valid until the specified date
 	//
 	// Use SetUntilDate and GetUntilDate helpers.
-	UntilDate int
+	UntilDate int `schemaname:"until_date"`
 }
 
 // ChannelForbiddenTypeID is TL type id of ChannelForbidden.
@@ -1668,18 +1719,26 @@ func (c *ChannelForbidden) FillFrom(from interface {
 	GetTitle() (value string)
 	GetUntilDate() (value int, ok bool)
 }) {
+	c.Broadcast = from.GetBroadcast()
+	c.Megagroup = from.GetMegagroup()
 	c.ID = from.GetID()
 	c.AccessHash = from.GetAccessHash()
 	c.Title = from.GetTitle()
 	if val, ok := from.GetUntilDate(); ok {
 		c.UntilDate = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelForbidden) TypeID() uint32 {
 	return ChannelForbiddenTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChannelForbidden) SchemaName() string {
+	return "channelForbidden"
 }
 
 // Encode implements bin.Encoder.
@@ -1850,23 +1909,54 @@ type ChatClass interface {
 	bin.Decoder
 	construct() ChatClass
 
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+
 	// Group identifier
 	GetID() (value int)
-
 	// AsNotEmpty tries to map ChatClass to NotEmptyChat.
 	AsNotEmpty() (NotEmptyChat, bool)
 	// AsNotForbidden tries to map ChatClass to NotForbiddenChat.
 	AsNotForbidden() (NotForbiddenChat, bool)
 	// AsFull tries to map ChatClass to FullChat.
 	AsFull() (FullChat, bool)
+}
 
-	// TypeID returns MTProto type id (CRC code).
-	// See https://core.telegram.org/mtproto/TL-tl#remarks.
-	TypeID() uint32
-	// String implements fmt.Stringer.
-	String() string
-	// Zero returns true if current object has a zero value.
-	Zero() bool
+// AsInputPeer tries to map Chat to InputPeerChat.
+func (c *Chat) AsInputPeer() *InputPeerChat {
+	value := new(InputPeerChat)
+	value.ChatID = c.GetID()
+
+	return value
+}
+
+// AsInputPeer tries to map Channel to InputPeerChannel.
+func (c *Channel) AsInputPeer() *InputPeerChannel {
+	value := new(InputPeerChannel)
+	value.ChannelID = c.GetID()
+	if fieldValue, ok := c.GetAccessHash(); ok {
+		value.AccessHash = fieldValue
+	}
+
+	return value
+}
+
+// AsInput tries to map Channel to InputChannel.
+func (c *Channel) AsInput() *InputChannel {
+	value := new(InputChannel)
+	value.ChannelID = c.GetID()
+	if fieldValue, ok := c.GetAccessHash(); ok {
+		value.AccessHash = fieldValue
+	}
+
+	return value
 }
 
 // NotEmptyChat represents NotEmpty subset of ChatClass.
@@ -1875,45 +1965,47 @@ type NotEmptyChat interface {
 	bin.Decoder
 	construct() ChatClass
 
-	// ID of the group
-	GetID() (value int)
-	// Title
-	GetTitle() (value string)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// ID of the group
+	GetID() (value int)
+	// Title
+	GetTitle() (value string)
 }
 
-// AsNotEmpty tries to map ChatClass to NotEmptyChat.
+// AsNotEmpty tries to map ChatEmpty to NotEmptyChat.
 func (c *ChatEmpty) AsNotEmpty() (NotEmptyChat, bool) {
 	value, ok := (ChatClass(c)).(NotEmptyChat)
 	return value, ok
 }
 
-// AsNotEmpty tries to map ChatClass to NotEmptyChat.
+// AsNotEmpty tries to map Chat to NotEmptyChat.
 func (c *Chat) AsNotEmpty() (NotEmptyChat, bool) {
 	value, ok := (ChatClass(c)).(NotEmptyChat)
 	return value, ok
 }
 
-// AsNotEmpty tries to map ChatClass to NotEmptyChat.
+// AsNotEmpty tries to map ChatForbidden to NotEmptyChat.
 func (c *ChatForbidden) AsNotEmpty() (NotEmptyChat, bool) {
 	value, ok := (ChatClass(c)).(NotEmptyChat)
 	return value, ok
 }
 
-// AsNotEmpty tries to map ChatClass to NotEmptyChat.
+// AsNotEmpty tries to map Channel to NotEmptyChat.
 func (c *Channel) AsNotEmpty() (NotEmptyChat, bool) {
 	value, ok := (ChatClass(c)).(NotEmptyChat)
 	return value, ok
 }
 
-// AsNotEmpty tries to map ChatClass to NotEmptyChat.
+// AsNotEmpty tries to map ChannelForbidden to NotEmptyChat.
 func (c *ChannelForbidden) AsNotEmpty() (NotEmptyChat, bool) {
 	value, ok := (ChatClass(c)).(NotEmptyChat)
 	return value, ok
@@ -1925,43 +2017,45 @@ type NotForbiddenChat interface {
 	bin.Decoder
 	construct() ChatClass
 
-	// Group identifier
-	GetID() (value int)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Group identifier
+	GetID() (value int)
 }
 
-// AsNotForbidden tries to map ChatClass to NotForbiddenChat.
+// AsNotForbidden tries to map ChatEmpty to NotForbiddenChat.
 func (c *ChatEmpty) AsNotForbidden() (NotForbiddenChat, bool) {
 	value, ok := (ChatClass(c)).(NotForbiddenChat)
 	return value, ok
 }
 
-// AsNotForbidden tries to map ChatClass to NotForbiddenChat.
+// AsNotForbidden tries to map Chat to NotForbiddenChat.
 func (c *Chat) AsNotForbidden() (NotForbiddenChat, bool) {
 	value, ok := (ChatClass(c)).(NotForbiddenChat)
 	return value, ok
 }
 
-// AsNotForbidden tries to map ChatClass to NotForbiddenChat.
+// AsNotForbidden tries to map ChatForbidden to NotForbiddenChat.
 func (c *ChatForbidden) AsNotForbidden() (NotForbiddenChat, bool) {
 	value, ok := (ChatClass(c)).(NotForbiddenChat)
 	return value, ok
 }
 
-// AsNotForbidden tries to map ChatClass to NotForbiddenChat.
+// AsNotForbidden tries to map Channel to NotForbiddenChat.
 func (c *Channel) AsNotForbidden() (NotForbiddenChat, bool) {
 	value, ok := (ChatClass(c)).(NotForbiddenChat)
 	return value, ok
 }
 
-// AsNotForbidden tries to map ChatClass to NotForbiddenChat.
+// AsNotForbidden tries to map ChannelForbidden to NotForbiddenChat.
 func (c *ChannelForbidden) AsNotForbidden() (NotForbiddenChat, bool) {
 	value, ok := (ChatClass(c)).(NotForbiddenChat)
 	return value, ok
@@ -1972,6 +2066,16 @@ type FullChat interface {
 	bin.Encoder
 	bin.Decoder
 	construct() ChatClass
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
 
 	// Whether the current user is the creator of the group
 	GetCreator() (value bool)
@@ -2001,41 +2105,33 @@ type FullChat interface {
 	// Links:
 	//  1) https://core.telegram.org/api/rights
 	GetDefaultBannedRights() (value ChatBannedRights, ok bool)
-
-	// TypeID returns MTProto type id (CRC code).
-	// See https://core.telegram.org/mtproto/TL-tl#remarks.
-	TypeID() uint32
-	// String implements fmt.Stringer.
-	String() string
-	// Zero returns true if current object has a zero value.
-	Zero() bool
 }
 
-// AsFull tries to map ChatClass to FullChat.
+// AsFull tries to map ChatEmpty to FullChat.
 func (c *ChatEmpty) AsFull() (FullChat, bool) {
 	value, ok := (ChatClass(c)).(FullChat)
 	return value, ok
 }
 
-// AsFull tries to map ChatClass to FullChat.
+// AsFull tries to map Chat to FullChat.
 func (c *Chat) AsFull() (FullChat, bool) {
 	value, ok := (ChatClass(c)).(FullChat)
 	return value, ok
 }
 
-// AsFull tries to map ChatClass to FullChat.
+// AsFull tries to map ChatForbidden to FullChat.
 func (c *ChatForbidden) AsFull() (FullChat, bool) {
 	value, ok := (ChatClass(c)).(FullChat)
 	return value, ok
 }
 
-// AsFull tries to map ChatClass to FullChat.
+// AsFull tries to map Channel to FullChat.
 func (c *Channel) AsFull() (FullChat, bool) {
 	value, ok := (ChatClass(c)).(FullChat)
 	return value, ok
 }
 
-// AsFull tries to map ChatClass to FullChat.
+// AsFull tries to map ChannelForbidden to FullChat.
 func (c *ChannelForbidden) AsFull() (FullChat, bool) {
 	value, ok := (ChatClass(c)).(FullChat)
 	return value, ok
@@ -2262,6 +2358,24 @@ func (s ChatClassSlice) LastAsNotEmpty() (v NotEmptyChat, ok bool) {
 	return value.AsNotEmpty()
 }
 
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *ChatClassSlice) PopFirstAsNotEmpty() (v NotEmptyChat, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *ChatClassSlice) PopAsNotEmpty() (v NotEmptyChat, ok bool) {
+	value, ok := s.Pop()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
 // FillNotForbiddenMap fills only NotForbidden constructors to given map.
 func (s ChatClassSlice) FillNotForbiddenMap(to map[int]NotForbiddenChat) {
 	for _, elem := range s {
@@ -2317,6 +2431,24 @@ func (s ChatClassSlice) LastAsNotForbidden() (v NotForbiddenChat, ok bool) {
 	return value.AsNotForbidden()
 }
 
+// PopFirstAsNotForbidden returns element of slice (if exists).
+func (s *ChatClassSlice) PopFirstAsNotForbidden() (v NotForbiddenChat, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotForbidden()
+}
+
+// PopAsNotForbidden returns element of slice (if exists).
+func (s *ChatClassSlice) PopAsNotForbidden() (v NotForbiddenChat, ok bool) {
+	value, ok := s.Pop()
+	if !ok {
+		return
+	}
+	return value.AsNotForbidden()
+}
+
 // FillFullMap fills only Full constructors to given map.
 func (s ChatClassSlice) FillFullMap(to map[int]FullChat) {
 	for _, elem := range s {
@@ -2366,6 +2498,24 @@ func (s ChatClassSlice) FirstAsFull() (v FullChat, ok bool) {
 // LastAsFull returns last element of slice (if exists).
 func (s ChatClassSlice) LastAsFull() (v FullChat, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsFull()
+}
+
+// PopFirstAsFull returns element of slice (if exists).
+func (s *ChatClassSlice) PopFirstAsFull() (v FullChat, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsFull()
+}
+
+// PopAsFull returns element of slice (if exists).
+func (s *ChatClassSlice) PopAsFull() (v FullChat, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

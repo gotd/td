@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/upload.file for reference.
 type UploadFile struct {
 	// File type
-	Type StorageFileTypeClass
+	Type StorageFileTypeClass `schemaname:"type"`
 	// Modification type
-	Mtime int
+	Mtime int `schemaname:"mtime"`
 	// Binary data, file content
-	Bytes []byte
+	Bytes []byte `schemaname:"bytes"`
 }
 
 // UploadFileTypeID is TL type id of UploadFile.
@@ -75,6 +75,11 @@ func (f *UploadFile) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *UploadFile) TypeID() uint32 {
 	return UploadFileTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (f *UploadFile) SchemaName() string {
+	return "upload.file"
 }
 
 // Encode implements bin.Encoder.
@@ -164,27 +169,27 @@ type UploadFileCdnRedirect struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	DCID int
+	DCID int `schemaname:"dc_id"`
 	// File token (see CDN files¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	FileToken []byte
+	FileToken []byte `schemaname:"file_token"`
 	// Encryption key (see CDN files¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	EncryptionKey []byte
+	EncryptionKey []byte `schemaname:"encryption_key"`
 	// Encryption IV (see CDN files¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	EncryptionIv []byte
+	EncryptionIv []byte `schemaname:"encryption_iv"`
 	// File hashes (see CDN files¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	FileHashes []FileHash
+	FileHashes []FileHash `schemaname:"file_hashes"`
 }
 
 // UploadFileCdnRedirectTypeID is TL type id of UploadFileCdnRedirect.
@@ -241,6 +246,11 @@ func (f *UploadFileCdnRedirect) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *UploadFileCdnRedirect) TypeID() uint32 {
 	return UploadFileCdnRedirectTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (f *UploadFileCdnRedirect) SchemaName() string {
+	return "upload.fileCdnRedirect"
 }
 
 // Encode implements bin.Encoder.
@@ -372,6 +382,8 @@ type UploadFileClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

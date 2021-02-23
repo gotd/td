@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/help.getAppUpdate for reference.
 type HelpGetAppUpdateRequest struct {
 	// Source
-	Source string
+	Source string `schemaname:"source"`
 }
 
 // HelpGetAppUpdateRequestTypeID is TL type id of HelpGetAppUpdateRequest.
@@ -61,6 +61,11 @@ func (g *HelpGetAppUpdateRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *HelpGetAppUpdateRequest) TypeID() uint32 {
 	return HelpGetAppUpdateRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *HelpGetAppUpdateRequest) SchemaName() string {
+	return "help.getAppUpdate"
 }
 
 // Encode implements bin.Encoder.

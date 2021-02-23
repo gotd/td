@@ -27,12 +27,12 @@ type MessagesAffectedMessages struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int
+	Pts int `schemaname:"pts"`
 	// Number of events that were generated¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	PtsCount int
+	PtsCount int `schemaname:"pts_count"`
 }
 
 // MessagesAffectedMessagesTypeID is TL type id of MessagesAffectedMessages.
@@ -74,6 +74,11 @@ func (a *MessagesAffectedMessages) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *MessagesAffectedMessages) TypeID() uint32 {
 	return MessagesAffectedMessagesTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (a *MessagesAffectedMessages) SchemaName() string {
+	return "messages.affectedMessages"
 }
 
 // Encode implements bin.Encoder.

@@ -27,11 +27,11 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.sendVote for reference.
 type MessagesSendVoteRequest struct {
 	// The chat where the poll was sent
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// The message ID of the poll
-	MsgID int
+	MsgID int `schemaname:"msg_id"`
 	// The options that were chosen
-	Options [][]byte
+	Options [][]byte `schemaname:"options"`
 }
 
 // MessagesSendVoteRequestTypeID is TL type id of MessagesSendVoteRequest.
@@ -78,6 +78,11 @@ func (s *MessagesSendVoteRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSendVoteRequest) TypeID() uint32 {
 	return MessagesSendVoteRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *MessagesSendVoteRequest) SchemaName() string {
+	return "messages.sendVote"
 }
 
 // Encode implements bin.Encoder.

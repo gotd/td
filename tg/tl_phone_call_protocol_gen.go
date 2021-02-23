@@ -27,15 +27,15 @@ type PhoneCallProtocol struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether to allow P2P connection to the other participant
-	UDPP2P bool
+	UDPP2P bool `schemaname:"udp_p2p"`
 	// Whether to allow connection to the other participants through the reflector servers
-	UDPReflector bool
+	UDPReflector bool `schemaname:"udp_reflector"`
 	// Minimum layer for remote libtgvoip
-	MinLayer int
+	MinLayer int `schemaname:"min_layer"`
 	// Maximum layer for remote libtgvoip
-	MaxLayer int
+	MaxLayer int `schemaname:"max_layer"`
 	// When using phone.requestCall¹ and phone.acceptCall², specify all library versions supported by the client. The server will merge and choose the best library version supported by both peers, returning only the best value in the result of the callee's phone.acceptCall³ and in the phoneCallAccepted⁴ update received by the caller.
 	//
 	// Links:
@@ -43,7 +43,7 @@ type PhoneCallProtocol struct {
 	//  2) https://core.telegram.org/method/phone.acceptCall
 	//  3) https://core.telegram.org/method/phone.acceptCall
 	//  4) https://core.telegram.org/constructor/phoneCallAccepted
-	LibraryVersions []string
+	LibraryVersions []string `schemaname:"library_versions"`
 }
 
 // PhoneCallProtocolTypeID is TL type id of PhoneCallProtocol.
@@ -92,6 +92,8 @@ func (p *PhoneCallProtocol) FillFrom(from interface {
 	GetMaxLayer() (value int)
 	GetLibraryVersions() (value []string)
 }) {
+	p.UDPP2P = from.GetUDPP2P()
+	p.UDPReflector = from.GetUDPReflector()
 	p.MinLayer = from.GetMinLayer()
 	p.MaxLayer = from.GetMaxLayer()
 	p.LibraryVersions = from.GetLibraryVersions()
@@ -101,6 +103,11 @@ func (p *PhoneCallProtocol) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhoneCallProtocol) TypeID() uint32 {
 	return PhoneCallProtocolTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PhoneCallProtocol) SchemaName() string {
+	return "phoneCallProtocol"
 }
 
 // Encode implements bin.Encoder.

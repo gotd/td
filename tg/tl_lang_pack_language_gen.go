@@ -27,34 +27,34 @@ type LangPackLanguage struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether the language pack is official
-	Official bool
+	Official bool `schemaname:"official"`
 	// Is this a localization pack for an RTL language
-	Rtl bool
+	Rtl bool `schemaname:"rtl"`
 	// Is this a beta localization pack?
-	Beta bool
+	Beta bool `schemaname:"beta"`
 	// Language name
-	Name string
+	Name string `schemaname:"name"`
 	// Language name in the language itself
-	NativeName string
+	NativeName string `schemaname:"native_name"`
 	// Language code (pack identifier)
-	LangCode string
+	LangCode string `schemaname:"lang_code"`
 	// Identifier of a base language pack; may be empty. If a string is missed in the language pack, then it should be fetched from base language pack. Unsupported in custom language packs
 	//
 	// Use SetBaseLangCode and GetBaseLangCode helpers.
-	BaseLangCode string
+	BaseLangCode string `schemaname:"base_lang_code"`
 	// A language code to be used to apply plural forms. See https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html¹ for more info
 	//
 	// Links:
 	//  1) https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html
-	PluralCode string
+	PluralCode string `schemaname:"plural_code"`
 	// Total number of non-deleted strings from the language pack
-	StringsCount int
+	StringsCount int `schemaname:"strings_count"`
 	// Total number of translated strings from the language pack
-	TranslatedCount int
+	TranslatedCount int `schemaname:"translated_count"`
 	// Link to language translation interface; empty for custom local language packs
-	TranslationsURL string
+	TranslationsURL string `schemaname:"translations_url"`
 }
 
 // LangPackLanguageTypeID is TL type id of LangPackLanguage.
@@ -127,12 +127,16 @@ func (l *LangPackLanguage) FillFrom(from interface {
 	GetTranslatedCount() (value int)
 	GetTranslationsURL() (value string)
 }) {
+	l.Official = from.GetOfficial()
+	l.Rtl = from.GetRtl()
+	l.Beta = from.GetBeta()
 	l.Name = from.GetName()
 	l.NativeName = from.GetNativeName()
 	l.LangCode = from.GetLangCode()
 	if val, ok := from.GetBaseLangCode(); ok {
 		l.BaseLangCode = val
 	}
+
 	l.PluralCode = from.GetPluralCode()
 	l.StringsCount = from.GetStringsCount()
 	l.TranslatedCount = from.GetTranslatedCount()
@@ -143,6 +147,11 @@ func (l *LangPackLanguage) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (l *LangPackLanguage) TypeID() uint32 {
 	return LangPackLanguageTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (l *LangPackLanguage) SchemaName() string {
+	return "langPackLanguage"
 }
 
 // Encode implements bin.Encoder.

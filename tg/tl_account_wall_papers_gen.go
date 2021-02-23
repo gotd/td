@@ -51,6 +51,11 @@ func (w *AccountWallPapersNotModified) TypeID() uint32 {
 	return AccountWallPapersNotModifiedTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (w *AccountWallPapersNotModified) SchemaName() string {
+	return "account.wallPapersNotModified"
+}
+
 // Encode implements bin.Encoder.
 func (w *AccountWallPapersNotModified) Encode(b *bin.Buffer) error {
 	if w == nil {
@@ -91,9 +96,9 @@ type AccountWallPapers struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int `schemaname:"hash"`
 	// Wallpapers
-	Wallpapers []WallPaperClass
+	Wallpapers []WallPaperClass `schemaname:"wallpapers"`
 }
 
 // AccountWallPapersTypeID is TL type id of AccountWallPapers.
@@ -135,6 +140,11 @@ func (w *AccountWallPapers) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *AccountWallPapers) TypeID() uint32 {
 	return AccountWallPapersTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (w *AccountWallPapers) SchemaName() string {
+	return "account.wallPapers"
 }
 
 // Encode implements bin.Encoder.
@@ -232,24 +242,26 @@ type AccountWallPapersClass interface {
 	bin.Decoder
 	construct() AccountWallPapersClass
 
-	// AsModified tries to map AccountWallPapersClass to AccountWallPapers.
-	AsModified() (*AccountWallPapers, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsModified tries to map AccountWallPapersClass to AccountWallPapers.
+	AsModified() (*AccountWallPapers, bool)
 }
 
-// AsModified tries to map AccountWallPapersClass to AccountWallPapers.
+// AsModified tries to map AccountWallPapersNotModified to AccountWallPapers.
 func (w *AccountWallPapersNotModified) AsModified() (*AccountWallPapers, bool) {
 	return nil, false
 }
 
-// AsModified tries to map AccountWallPapersClass to AccountWallPapers.
+// AsModified tries to map AccountWallPapers to AccountWallPapers.
 func (w *AccountWallPapers) AsModified() (*AccountWallPapers, bool) {
 	return w, true
 }
@@ -340,6 +352,24 @@ func (s AccountWallPapersClassSlice) FirstAsModified() (v *AccountWallPapers, ok
 // LastAsModified returns last element of slice (if exists).
 func (s AccountWallPapersClassSlice) LastAsModified() (v *AccountWallPapers, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopFirstAsModified returns element of slice (if exists).
+func (s *AccountWallPapersClassSlice) PopFirstAsModified() (v *AccountWallPapers, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopAsModified returns element of slice (if exists).
+func (s *AccountWallPapersClassSlice) PopAsModified() (v *AccountWallPapers, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

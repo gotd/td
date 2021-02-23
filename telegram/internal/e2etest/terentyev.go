@@ -2,15 +2,14 @@ package e2etest
 
 import (
 	"context"
-	"errors"
 	"time"
 
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/telegram"
+	"github.com/gotd/td/telegram/internal/helpers"
 	"github.com/gotd/td/tg"
 )
 
@@ -42,12 +41,7 @@ func (u User) resolveBotPeer(ctx context.Context, client *telegram.Client) (*tg.
 		return nil, err
 	}
 
-	users := peer.GetUsers()
-	if len(users) != 1 {
-		return nil, xerrors.Errorf("expected users field length is equal to 1, got %d", len(users))
-	}
-
-	user, ok := users[0].(*tg.User)
+	user, ok := peer.MapUsers().FirstAsNotEmpty()
 	if !ok {
 		return nil, xerrors.Errorf("unexpected peer type %T", peer.GetPeer())
 	}
@@ -62,8 +56,7 @@ func (u User) messageHandler(ctx tg.UpdateContext, update *tg.UpdateNewMessage) 
 
 	if m, ok := update.Message.(interface{ GetMessage() string }); ok {
 		u.logger.Named("dispatcher").
-			With(zap.String("message", m.GetMessage())).
-			Info("Got new message update")
+			Info("Got new message update", zap.String("message", m.GetMessage()))
 	}
 
 	msg, ok := update.Message.(*tg.Message)
@@ -105,19 +98,13 @@ func (u User) Run(ctx context.Context) error {
 			err = client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
 				RandomID: randomID,
 				Message:  message,
-				Peer: &tg.InputPeerUser{
-					UserID:     peer.ID,
-					AccessHash: peer.AccessHash,
-				},
+				Peer:     peer.AsInputPeer(),
 			})
-			if err != nil {
-				var rpcErr *mtproto.Error
-				if !errors.As(err, &rpcErr) || rpcErr.Message != "FLOOD_WAIT" {
-					return err
+			if flood, err := helpers.FloodWait(ctx, err); err != nil {
+				if flood {
+					continue
 				}
-				time.Sleep(time.Duration(rpcErr.Argument) * time.Second)
-
-				continue //
+				return err
 			}
 
 			select {

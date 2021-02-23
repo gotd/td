@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/help.dismissSuggestion for reference.
 type HelpDismissSuggestionRequest struct {
 	// Suggestion
-	Suggestion string
+	Suggestion string `schemaname:"suggestion"`
 }
 
 // HelpDismissSuggestionRequestTypeID is TL type id of HelpDismissSuggestionRequest.
@@ -61,6 +61,11 @@ func (d *HelpDismissSuggestionRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *HelpDismissSuggestionRequest) TypeID() uint32 {
 	return HelpDismissSuggestionRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *HelpDismissSuggestionRequest) SchemaName() string {
+	return "help.dismissSuggestion"
 }
 
 // Encode implements bin.Encoder.

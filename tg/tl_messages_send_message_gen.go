@@ -27,43 +27,43 @@ type MessagesSendMessageRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Set this flag to disable generation of the webpage preview
-	NoWebpage bool
+	NoWebpage bool `schemaname:"no_webpage"`
 	// Send this message silently (no notifications for the receivers)
-	Silent bool
+	Silent bool `schemaname:"silent"`
 	// Send this message as background message
-	Background bool
+	Background bool `schemaname:"background"`
 	// Clear the draft field
-	ClearDraft bool
+	ClearDraft bool `schemaname:"clear_draft"`
 	// The destination where the message will be sent
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// The message ID to which this message will reply to
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
-	ReplyToMsgID int
+	ReplyToMsgID int `schemaname:"reply_to_msg_id"`
 	// The message
-	Message string
+	Message string `schemaname:"message"`
 	// Unique client message ID required to prevent message resending
-	RandomID int64
+	RandomID int64 `schemaname:"random_id"`
 	// Reply markup for sending bot buttons
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass
+	ReplyMarkup ReplyMarkupClass `schemaname:"reply_markup"`
 	// Message entities¹ for sending styled text
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass
+	Entities []MessageEntityClass `schemaname:"entities"`
 	// Scheduled message date for scheduled messages¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/scheduled-messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
-	ScheduleDate int
+	ScheduleDate int `schemaname:"schedule_date"`
 }
 
 // MessagesSendMessageRequestTypeID is TL type id of MessagesSendMessageRequest.
@@ -136,27 +136,40 @@ func (s *MessagesSendMessageRequest) FillFrom(from interface {
 	GetEntities() (value []MessageEntityClass, ok bool)
 	GetScheduleDate() (value int, ok bool)
 }) {
+	s.NoWebpage = from.GetNoWebpage()
+	s.Silent = from.GetSilent()
+	s.Background = from.GetBackground()
+	s.ClearDraft = from.GetClearDraft()
 	s.Peer = from.GetPeer()
 	if val, ok := from.GetReplyToMsgID(); ok {
 		s.ReplyToMsgID = val
 	}
+
 	s.Message = from.GetMessage()
 	s.RandomID = from.GetRandomID()
 	if val, ok := from.GetReplyMarkup(); ok {
 		s.ReplyMarkup = val
 	}
+
 	if val, ok := from.GetEntities(); ok {
 		s.Entities = val
 	}
+
 	if val, ok := from.GetScheduleDate(); ok {
 		s.ScheduleDate = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSendMessageRequest) TypeID() uint32 {
 	return MessagesSendMessageRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *MessagesSendMessageRequest) SchemaName() string {
+	return "messages.sendMessage"
 }
 
 // Encode implements bin.Encoder.

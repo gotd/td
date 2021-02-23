@@ -27,13 +27,13 @@ type MessagesGetStatsURLRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Pass true if a URL with the dark theme must be returned
-	Dark bool
+	Dark bool `schemaname:"dark"`
 	// Chat identifier
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// Parameters from tg://statsrefresh?params=****** link
-	Params string
+	Params string `schemaname:"params"`
 }
 
 // MessagesGetStatsURLRequestTypeID is TL type id of MessagesGetStatsURLRequest.
@@ -74,6 +74,7 @@ func (g *MessagesGetStatsURLRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
 	GetParams() (value string)
 }) {
+	g.Dark = from.GetDark()
 	g.Peer = from.GetPeer()
 	g.Params = from.GetParams()
 }
@@ -82,6 +83,11 @@ func (g *MessagesGetStatsURLRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetStatsURLRequest) TypeID() uint32 {
 	return MessagesGetStatsURLRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *MessagesGetStatsURLRequest) SchemaName() string {
+	return "messages.getStatsURL"
 }
 
 // Encode implements bin.Encoder.

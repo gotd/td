@@ -27,7 +27,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/contacts.toggleTopPeers for reference.
 type ContactsToggleTopPeersRequest struct {
 	// Enable/disable
-	Enabled bool
+	Enabled bool `schemaname:"enabled"`
 }
 
 // ContactsToggleTopPeersRequestTypeID is TL type id of ContactsToggleTopPeersRequest.
@@ -64,6 +64,11 @@ func (t *ContactsToggleTopPeersRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *ContactsToggleTopPeersRequest) TypeID() uint32 {
 	return ContactsToggleTopPeersRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *ContactsToggleTopPeersRequest) SchemaName() string {
+	return "contacts.toggleTopPeers"
 }
 
 // Encode implements bin.Encoder.

@@ -54,11 +54,7 @@ func (m *users) add(list ...tg.UserClass) {
 	m.lock.Lock()
 	defer m.lock.Unlock()
 
-	for _, u := range list {
-		if user, ok := u.(*tg.User); ok {
-			m.users[user.ID] = user
-		}
-	}
+	tg.UserClassSlice(list).FillNotEmptyMap(m.users)
 }
 
 func (m *users) get(id int) (r *tg.User) {
@@ -118,8 +114,7 @@ func (b EchoBot) handler(client *telegram.Client) tg.NewMessageHandler {
 
 		if m, ok := update.Message.(interface{ GetMessage() string }); ok {
 			b.logger.Named("dispatcher").
-				With(zap.String("message", m.GetMessage())).
-				Info("Got new message update")
+				Info("Got new message update", zap.String("message", m.GetMessage()))
 		}
 
 		if dialogsUsers.empty() {
@@ -132,7 +127,7 @@ func (b EchoBot) handler(client *telegram.Client) tg.NewMessageHandler {
 				return xerrors.Errorf("get dialogs: %w", err)
 			}
 
-			if dlg, ok := dialogs.(interface{ GetUsers() []tg.UserClass }); ok {
+			if dlg, ok := dialogs.AsModified(); ok {
 				dialogsUsers.add(dlg.GetUsers()...)
 			}
 		}
@@ -146,12 +141,12 @@ func (b EchoBot) handler(client *telegram.Client) tg.NewMessageHandler {
 					user = dialogsUsers.get(peer.UserID)
 				}
 
-				b.logger.With(
+				b.logger.Info("Got message",
 					zap.String("text", m.Message),
 					zap.Int("user_id", user.ID),
 					zap.String("user_first_name", user.FirstName),
 					zap.String("username", user.Username),
-				).Info("Got message")
+				)
 
 				randomID, err := client.RandInt64()
 				if err != nil {
@@ -162,10 +157,7 @@ func (b EchoBot) handler(client *telegram.Client) tg.NewMessageHandler {
 					RandomID: randomID,
 					Message:  m.Message,
 					Peer: &tg.InputPeerUserFromMessage{
-						Peer: &tg.InputPeerUser{
-							UserID:     peer.UserID,
-							AccessHash: user.AccessHash,
-						},
+						Peer:   user.AsInputPeer(),
 						UserID: peer.UserID,
 						MsgID:  m.ID,
 					},
@@ -196,10 +188,10 @@ func (b EchoBot) Run(ctx context.Context) error {
 			return xerrors.Errorf("login: %w", err)
 		}
 
-		b.logger.With(
+		b.logger.Info("Logged in",
 			zap.String("user", me.Username),
 			zap.Int("id", me.ID),
-		).Info("Logged in")
+		)
 
 		select {
 		case b.auth <- me:

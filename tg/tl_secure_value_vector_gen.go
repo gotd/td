@@ -21,7 +21,7 @@ var _ = errors.Is
 // SecureValueVector is a box for Vector<SecureValue>
 type SecureValueVector struct {
 	// Elements of Vector<SecureValue>
-	Elems []SecureValue
+	Elems []SecureValue `schemaname:"Elems"`
 }
 
 // SecureValueVectorTypeID is TL type id of SecureValueVector.
@@ -58,6 +58,11 @@ func (vec *SecureValueVector) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *SecureValueVector) TypeID() uint32 {
 	return SecureValueVectorTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (vec *SecureValueVector) SchemaName() string {
+	return ""
 }
 
 // Encode implements bin.Encoder.

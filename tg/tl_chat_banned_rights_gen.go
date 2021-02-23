@@ -30,69 +30,69 @@ type ChatBannedRights struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// If set, does not allow a user to view messages in a supergroup/channel/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	ViewMessages bool
+	ViewMessages bool `schemaname:"view_messages"`
 	// If set, does not allow a user to send messages in a supergroup/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	SendMessages bool
+	SendMessages bool `schemaname:"send_messages"`
 	// If set, does not allow a user to send any media in a supergroup/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	SendMedia bool
+	SendMedia bool `schemaname:"send_media"`
 	// If set, does not allow a user to send stickers in a supergroup/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	SendStickers bool
+	SendStickers bool `schemaname:"send_stickers"`
 	// If set, does not allow a user to send gifs in a supergroup/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	SendGifs bool
+	SendGifs bool `schemaname:"send_gifs"`
 	// If set, does not allow a user to send games in a supergroup/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	SendGames bool
+	SendGames bool `schemaname:"send_games"`
 	// If set, does not allow a user to use inline bots in a supergroup/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	SendInline bool
+	SendInline bool `schemaname:"send_inline"`
 	// If set, does not allow a user to embed links in the messages of a supergroup/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	EmbedLinks bool
+	EmbedLinks bool `schemaname:"embed_links"`
 	// If set, does not allow a user to send stickers in a supergroup/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	SendPolls bool
+	SendPolls bool `schemaname:"send_polls"`
 	// If set, does not allow any user to change the description of a supergroup/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	ChangeInfo bool
+	ChangeInfo bool `schemaname:"change_info"`
 	// If set, does not allow any user to invite users in a supergroup/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	InviteUsers bool
+	InviteUsers bool `schemaname:"invite_users"`
 	// If set, does not allow any user to pin messages in a supergroup/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	PinMessages bool
+	PinMessages bool `schemaname:"pin_messages"`
 	// Validity of said permissions (it is considered forever any value less then 30 seconds or more then 366 days).
-	UntilDate int
+	UntilDate int `schemaname:"until_date"`
 }
 
 // ChatBannedRightsTypeID is TL type id of ChatBannedRights.
@@ -173,6 +173,18 @@ func (c *ChatBannedRights) FillFrom(from interface {
 	GetPinMessages() (value bool)
 	GetUntilDate() (value int)
 }) {
+	c.ViewMessages = from.GetViewMessages()
+	c.SendMessages = from.GetSendMessages()
+	c.SendMedia = from.GetSendMedia()
+	c.SendStickers = from.GetSendStickers()
+	c.SendGifs = from.GetSendGifs()
+	c.SendGames = from.GetSendGames()
+	c.SendInline = from.GetSendInline()
+	c.EmbedLinks = from.GetEmbedLinks()
+	c.SendPolls = from.GetSendPolls()
+	c.ChangeInfo = from.GetChangeInfo()
+	c.InviteUsers = from.GetInviteUsers()
+	c.PinMessages = from.GetPinMessages()
 	c.UntilDate = from.GetUntilDate()
 }
 
@@ -180,6 +192,11 @@ func (c *ChatBannedRights) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatBannedRights) TypeID() uint32 {
 	return ChatBannedRightsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChatBannedRights) SchemaName() string {
+	return "chatBannedRights"
 }
 
 // Encode implements bin.Encoder.

@@ -27,7 +27,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.sendVerifyEmailCode for reference.
 type AccountSendVerifyEmailCodeRequest struct {
 	// The email where to send the code
-	Email string
+	Email string `schemaname:"email"`
 }
 
 // AccountSendVerifyEmailCodeRequestTypeID is TL type id of AccountSendVerifyEmailCodeRequest.
@@ -64,6 +64,11 @@ func (s *AccountSendVerifyEmailCodeRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AccountSendVerifyEmailCodeRequest) TypeID() uint32 {
 	return AccountSendVerifyEmailCodeRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *AccountSendVerifyEmailCodeRequest) SchemaName() string {
+	return "account.sendVerifyEmailCode"
 }
 
 // Encode implements bin.Encoder.

@@ -27,13 +27,13 @@ type AccountSaveAutoDownloadSettingsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether to save settings in the low data usage preset
-	Low bool
+	Low bool `schemaname:"low"`
 	// Whether to save settings in the high data usage preset
-	High bool
+	High bool `schemaname:"high"`
 	// Media autodownload settings
-	Settings AutoDownloadSettings
+	Settings AutoDownloadSettings `schemaname:"settings"`
 }
 
 // AccountSaveAutoDownloadSettingsRequestTypeID is TL type id of AccountSaveAutoDownloadSettingsRequest.
@@ -74,6 +74,8 @@ func (s *AccountSaveAutoDownloadSettingsRequest) FillFrom(from interface {
 	GetHigh() (value bool)
 	GetSettings() (value AutoDownloadSettings)
 }) {
+	s.Low = from.GetLow()
+	s.High = from.GetHigh()
 	s.Settings = from.GetSettings()
 }
 
@@ -81,6 +83,11 @@ func (s *AccountSaveAutoDownloadSettingsRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AccountSaveAutoDownloadSettingsRequest) TypeID() uint32 {
 	return AccountSaveAutoDownloadSettingsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *AccountSaveAutoDownloadSettingsRequest) SchemaName() string {
+	return "account.saveAutoDownloadSettings"
 }
 
 // Encode implements bin.Encoder.

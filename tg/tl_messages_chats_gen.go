@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.chats for reference.
 type MessagesChats struct {
 	// List of chats
-	Chats []ChatClass
+	Chats []ChatClass `schemaname:"chats"`
 }
 
 // MessagesChatsTypeID is TL type id of MessagesChats.
@@ -61,6 +61,11 @@ func (c *MessagesChats) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *MessagesChats) TypeID() uint32 {
 	return MessagesChatsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *MessagesChats) SchemaName() string {
+	return "messages.chats"
 }
 
 // Encode implements bin.Encoder.
@@ -135,9 +140,9 @@ var (
 // See https://core.telegram.org/constructor/messages.chatsSlice for reference.
 type MessagesChatsSlice struct {
 	// Total number of results that were found server-side (not all are included in chats)
-	Count int
+	Count int `schemaname:"count"`
 	// Chats
-	Chats []ChatClass
+	Chats []ChatClass `schemaname:"chats"`
 }
 
 // MessagesChatsSliceTypeID is TL type id of MessagesChatsSlice.
@@ -179,6 +184,11 @@ func (c *MessagesChatsSlice) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *MessagesChatsSlice) TypeID() uint32 {
 	return MessagesChatsSliceTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *MessagesChatsSlice) SchemaName() string {
+	return "messages.chatsSlice"
 }
 
 // Encode implements bin.Encoder.
@@ -276,16 +286,20 @@ type MessagesChatsClass interface {
 	bin.Decoder
 	construct() MessagesChatsClass
 
-	// List of chats
-	GetChats() (value []ChatClass)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// List of chats
+	GetChats() (value []ChatClass)
+	// List of chats
+	MapChats() (value ChatClassSlice)
 }
 
 // DecodeMessagesChats implements binary de-serialization for MessagesChatsClass.

@@ -51,6 +51,11 @@ func (i *InputDocumentEmpty) TypeID() uint32 {
 	return InputDocumentEmptyTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputDocumentEmpty) SchemaName() string {
+	return "inputDocumentEmpty"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputDocumentEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -88,17 +93,17 @@ var (
 // See https://core.telegram.org/constructor/inputDocument for reference.
 type InputDocument struct {
 	// Document ID
-	ID int64
+	ID int64 `schemaname:"id"`
 	// access_hash parameter from the document¹ constructor
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/document
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 	// File reference¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/file_reference
-	FileReference []byte
+	FileReference []byte `schemaname:"file_reference"`
 }
 
 // InputDocumentTypeID is TL type id of InputDocument.
@@ -145,6 +150,11 @@ func (i *InputDocument) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputDocument) TypeID() uint32 {
 	return InputDocumentTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputDocument) SchemaName() string {
+	return "inputDocument"
 }
 
 // Encode implements bin.Encoder.
@@ -236,24 +246,36 @@ type InputDocumentClass interface {
 	bin.Decoder
 	construct() InputDocumentClass
 
-	// AsNotEmpty tries to map InputDocumentClass to InputDocument.
-	AsNotEmpty() (*InputDocument, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsNotEmpty tries to map InputDocumentClass to InputDocument.
+	AsNotEmpty() (*InputDocument, bool)
 }
 
-// AsNotEmpty tries to map InputDocumentClass to InputDocument.
+// AsInputDocumentFileLocation tries to map InputDocument to InputDocumentFileLocation.
+func (i *InputDocument) AsInputDocumentFileLocation() *InputDocumentFileLocation {
+	value := new(InputDocumentFileLocation)
+	value.ID = i.GetID()
+	value.AccessHash = i.GetAccessHash()
+	value.FileReference = i.GetFileReference()
+
+	return value
+}
+
+// AsNotEmpty tries to map InputDocumentEmpty to InputDocument.
 func (i *InputDocumentEmpty) AsNotEmpty() (*InputDocument, bool) {
 	return nil, false
 }
 
-// AsNotEmpty tries to map InputDocumentClass to InputDocument.
+// AsNotEmpty tries to map InputDocument to InputDocument.
 func (i *InputDocument) AsNotEmpty() (*InputDocument, bool) {
 	return i, true
 }
@@ -344,6 +366,24 @@ func (s InputDocumentClassSlice) FirstAsNotEmpty() (v *InputDocument, ok bool) {
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s InputDocumentClassSlice) LastAsNotEmpty() (v *InputDocument, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *InputDocumentClassSlice) PopFirstAsNotEmpty() (v *InputDocument, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *InputDocumentClassSlice) PopAsNotEmpty() (v *InputDocument, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

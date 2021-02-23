@@ -25,13 +25,13 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/maskCoords for reference.
 type MaskCoords struct {
 	// Part of the face, relative to which the mask should be placed
-	N int
+	N int `schemaname:"n"`
 	// Shift by X-axis measured in widths of the mask scaled to the face size, from left to right. (For example, -1.0 will place the mask just to the left of the default mask position)
-	X float64
+	X float64 `schemaname:"x"`
 	// Shift by Y-axis measured in widths of the mask scaled to the face size, from left to right. (For example, -1.0 will place the mask just to the left of the default mask position)
-	Y float64
+	Y float64 `schemaname:"y"`
 	// Mask scaling coefficient. (For example, 2.0 means a doubled size)
-	Zoom float64
+	Zoom float64 `schemaname:"zoom"`
 }
 
 // MaskCoordsTypeID is TL type id of MaskCoords.
@@ -83,6 +83,11 @@ func (m *MaskCoords) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MaskCoords) TypeID() uint32 {
 	return MaskCoordsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MaskCoords) SchemaName() string {
+	return "maskCoords"
 }
 
 // Encode implements bin.Encoder.

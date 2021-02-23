@@ -21,7 +21,7 @@ var _ = errors.Is
 // DialogPeerClassVector is a box for Vector<DialogPeer>
 type DialogPeerClassVector struct {
 	// Elements of Vector<DialogPeer>
-	Elems []DialogPeerClass
+	Elems []DialogPeerClass `schemaname:"Elems"`
 }
 
 // DialogPeerClassVectorTypeID is TL type id of DialogPeerClassVector.
@@ -58,6 +58,11 @@ func (vec *DialogPeerClassVector) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *DialogPeerClassVector) TypeID() uint32 {
 	return DialogPeerClassVectorTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (vec *DialogPeerClassVector) SchemaName() string {
+	return ""
 }
 
 // Encode implements bin.Encoder.

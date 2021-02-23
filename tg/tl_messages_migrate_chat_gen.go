@@ -27,7 +27,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.migrateChat for reference.
 type MessagesMigrateChatRequest struct {
 	// Legacy group to migrate
-	ChatID int
+	ChatID int `schemaname:"chat_id"`
 }
 
 // MessagesMigrateChatRequestTypeID is TL type id of MessagesMigrateChatRequest.
@@ -64,6 +64,11 @@ func (m *MessagesMigrateChatRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessagesMigrateChatRequest) TypeID() uint32 {
 	return MessagesMigrateChatRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessagesMigrateChatRequest) SchemaName() string {
+	return "messages.migrateChat"
 }
 
 // Encode implements bin.Encoder.

@@ -51,6 +51,11 @@ func (c *HelpCountriesListNotModified) TypeID() uint32 {
 	return HelpCountriesListNotModifiedTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (c *HelpCountriesListNotModified) SchemaName() string {
+	return "help.countriesListNotModified"
+}
+
 // Encode implements bin.Encoder.
 func (c *HelpCountriesListNotModified) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -88,12 +93,12 @@ var (
 // See https://core.telegram.org/constructor/help.countriesList for reference.
 type HelpCountriesList struct {
 	// Name, ISO code, localized name and phone codes/patterns of all available countries
-	Countries []HelpCountry
+	Countries []HelpCountry `schemaname:"countries"`
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int `schemaname:"hash"`
 }
 
 // HelpCountriesListTypeID is TL type id of HelpCountriesList.
@@ -135,6 +140,11 @@ func (c *HelpCountriesList) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *HelpCountriesList) TypeID() uint32 {
 	return HelpCountriesListTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *HelpCountriesList) SchemaName() string {
+	return "help.countriesList"
 }
 
 // Encode implements bin.Encoder.
@@ -224,24 +234,26 @@ type HelpCountriesListClass interface {
 	bin.Decoder
 	construct() HelpCountriesListClass
 
-	// AsModified tries to map HelpCountriesListClass to HelpCountriesList.
-	AsModified() (*HelpCountriesList, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsModified tries to map HelpCountriesListClass to HelpCountriesList.
+	AsModified() (*HelpCountriesList, bool)
 }
 
-// AsModified tries to map HelpCountriesListClass to HelpCountriesList.
+// AsModified tries to map HelpCountriesListNotModified to HelpCountriesList.
 func (c *HelpCountriesListNotModified) AsModified() (*HelpCountriesList, bool) {
 	return nil, false
 }
 
-// AsModified tries to map HelpCountriesListClass to HelpCountriesList.
+// AsModified tries to map HelpCountriesList to HelpCountriesList.
 func (c *HelpCountriesList) AsModified() (*HelpCountriesList, bool) {
 	return c, true
 }
@@ -332,6 +344,24 @@ func (s HelpCountriesListClassSlice) FirstAsModified() (v *HelpCountriesList, ok
 // LastAsModified returns last element of slice (if exists).
 func (s HelpCountriesListClassSlice) LastAsModified() (v *HelpCountriesList, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopFirstAsModified returns element of slice (if exists).
+func (s *HelpCountriesListClassSlice) PopFirstAsModified() (v *HelpCountriesList, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopAsModified returns element of slice (if exists).
+func (s *HelpCountriesListClassSlice) PopAsModified() (v *HelpCountriesList, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

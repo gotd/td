@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/highScore for reference.
 type HighScore struct {
 	// Position in highscore list
-	Pos int
+	Pos int `schemaname:"pos"`
 	// User ID
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// Score
-	Score int
+	Score int `schemaname:"score"`
 }
 
 // HighScoreTypeID is TL type id of HighScore.
@@ -75,6 +75,11 @@ func (h *HighScore) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (h *HighScore) TypeID() uint32 {
 	return HighScoreTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (h *HighScore) SchemaName() string {
+	return "highScore"
 }
 
 // Encode implements bin.Encoder.

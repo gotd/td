@@ -23,27 +23,27 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/dcOption for reference.
 type DcOption struct {
 	// Flags field of DcOption.
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Ipv6 field of DcOption.
-	Ipv6 bool
+	Ipv6 bool `schemaname:"ipv6"`
 	// MediaOnly field of DcOption.
-	MediaOnly bool
+	MediaOnly bool `schemaname:"media_only"`
 	// TcpoOnly field of DcOption.
-	TcpoOnly bool
+	TcpoOnly bool `schemaname:"tcpo_only"`
 	// CDN field of DcOption.
-	CDN bool
+	CDN bool `schemaname:"cdn"`
 	// Static field of DcOption.
-	Static bool
+	Static bool `schemaname:"static"`
 	// ID field of DcOption.
-	ID int
+	ID int `schemaname:"id"`
 	// IPAddress field of DcOption.
-	IPAddress string
+	IPAddress string `schemaname:"ip_address"`
 	// Port field of DcOption.
-	Port int
+	Port int `schemaname:"port"`
 	// Secret field of DcOption.
 	//
 	// Use SetSecret and GetSecret helpers.
-	Secret []byte
+	Secret []byte `schemaname:"secret"`
 }
 
 // DcOptionTypeID is TL type id of DcOption.
@@ -108,18 +108,29 @@ func (d *DcOption) FillFrom(from interface {
 	GetPort() (value int)
 	GetSecret() (value []byte, ok bool)
 }) {
+	d.Ipv6 = from.GetIpv6()
+	d.MediaOnly = from.GetMediaOnly()
+	d.TcpoOnly = from.GetTcpoOnly()
+	d.CDN = from.GetCDN()
+	d.Static = from.GetStatic()
 	d.ID = from.GetID()
 	d.IPAddress = from.GetIPAddress()
 	d.Port = from.GetPort()
 	if val, ok := from.GetSecret(); ok {
 		d.Secret = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DcOption) TypeID() uint32 {
 	return DcOptionTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DcOption) SchemaName() string {
+	return "dcOption"
 }
 
 // Encode implements bin.Encoder.

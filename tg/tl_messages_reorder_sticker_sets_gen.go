@@ -27,11 +27,11 @@ type MessagesReorderStickerSetsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Reorder mask stickersets
-	Masks bool
+	Masks bool `schemaname:"masks"`
 	// New stickerset order by stickerset IDs
-	Order []int64
+	Order []int64 `schemaname:"order"`
 }
 
 // MessagesReorderStickerSetsRequestTypeID is TL type id of MessagesReorderStickerSetsRequest.
@@ -68,6 +68,7 @@ func (r *MessagesReorderStickerSetsRequest) FillFrom(from interface {
 	GetMasks() (value bool)
 	GetOrder() (value []int64)
 }) {
+	r.Masks = from.GetMasks()
 	r.Order = from.GetOrder()
 }
 
@@ -75,6 +76,11 @@ func (r *MessagesReorderStickerSetsRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *MessagesReorderStickerSetsRequest) TypeID() uint32 {
 	return MessagesReorderStickerSetsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *MessagesReorderStickerSetsRequest) SchemaName() string {
+	return "messages.reorderStickerSets"
 }
 
 // Encode implements bin.Encoder.

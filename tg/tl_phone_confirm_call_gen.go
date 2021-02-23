@@ -27,16 +27,16 @@ var _ = errors.Is
 // See https://core.telegram.org/method/phone.confirmCall for reference.
 type PhoneConfirmCallRequest struct {
 	// The phone call
-	Peer InputPhoneCall
+	Peer InputPhoneCall `schemaname:"peer"`
 	// Parameter for E2E encryption key exchange »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/end-to-end/voice-calls
-	GA []byte
+	GA []byte `schemaname:"g_a"`
 	// Key fingerprint
-	KeyFingerprint int64
+	KeyFingerprint int64 `schemaname:"key_fingerprint"`
 	// Phone call settings
-	Protocol PhoneCallProtocol
+	Protocol PhoneCallProtocol `schemaname:"protocol"`
 }
 
 // PhoneConfirmCallRequestTypeID is TL type id of PhoneConfirmCallRequest.
@@ -88,6 +88,11 @@ func (c *PhoneConfirmCallRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *PhoneConfirmCallRequest) TypeID() uint32 {
 	return PhoneConfirmCallRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *PhoneConfirmCallRequest) SchemaName() string {
+	return "phone.confirmCall"
 }
 
 // Encode implements bin.Encoder.

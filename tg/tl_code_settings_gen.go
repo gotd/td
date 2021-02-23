@@ -32,19 +32,19 @@ type CodeSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether to allow phone verification via phone calls¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/auth
-	AllowFlashcall bool
+	AllowFlashcall bool `schemaname:"allow_flashcall"`
 	// Pass true if the phone number is used on the current device. Ignored if allow_flashcall is not set.
-	CurrentNumber bool
+	CurrentNumber bool `schemaname:"current_number"`
 	// If a token that will be included in eventually sent SMSs is required: required in newer versions of android, to use the android SMS receiver APIs¹
 	//
 	// Links:
 	//  1) https://developers.google.com/identity/sms-retriever/overview
-	AllowAppHash bool
+	AllowAppHash bool `schemaname:"allow_app_hash"`
 }
 
 // CodeSettingsTypeID is TL type id of CodeSettings.
@@ -85,12 +85,20 @@ func (c *CodeSettings) FillFrom(from interface {
 	GetCurrentNumber() (value bool)
 	GetAllowAppHash() (value bool)
 }) {
+	c.AllowFlashcall = from.GetAllowFlashcall()
+	c.CurrentNumber = from.GetCurrentNumber()
+	c.AllowAppHash = from.GetAllowAppHash()
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *CodeSettings) TypeID() uint32 {
 	return CodeSettingsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *CodeSettings) SchemaName() string {
+	return "codeSettings"
 }
 
 // Encode implements bin.Encoder.

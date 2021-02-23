@@ -51,6 +51,11 @@ func (s *MessagesStickerSetInstallResultSuccess) TypeID() uint32 {
 	return MessagesStickerSetInstallResultSuccessTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (s *MessagesStickerSetInstallResultSuccess) SchemaName() string {
+	return "messages.stickerSetInstallResultSuccess"
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesStickerSetInstallResultSuccess) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -90,7 +95,7 @@ var (
 // See https://core.telegram.org/constructor/messages.stickerSetInstallResultArchive for reference.
 type MessagesStickerSetInstallResultArchive struct {
 	// Archived stickersets
-	Sets []StickerSetCoveredClass
+	Sets []StickerSetCoveredClass `schemaname:"sets"`
 }
 
 // MessagesStickerSetInstallResultArchiveTypeID is TL type id of MessagesStickerSetInstallResultArchive.
@@ -127,6 +132,11 @@ func (s *MessagesStickerSetInstallResultArchive) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesStickerSetInstallResultArchive) TypeID() uint32 {
 	return MessagesStickerSetInstallResultArchiveTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *MessagesStickerSetInstallResultArchive) SchemaName() string {
+	return "messages.stickerSetInstallResultArchive"
 }
 
 // Encode implements bin.Encoder.
@@ -216,6 +226,8 @@ type MessagesStickerSetInstallResultClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

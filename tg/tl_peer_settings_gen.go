@@ -27,30 +27,30 @@ type PeerSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether we can still report the user for spam
-	ReportSpam bool
+	ReportSpam bool `schemaname:"report_spam"`
 	// Whether we can add the user as contact
-	AddContact bool
+	AddContact bool `schemaname:"add_contact"`
 	// Whether we can block the user
-	BlockContact bool
+	BlockContact bool `schemaname:"block_contact"`
 	// Whether we can share the user's contact
-	ShareContact bool
+	ShareContact bool `schemaname:"share_contact"`
 	// Whether a special exception for contacts is needed
-	NeedContactsException bool
+	NeedContactsException bool `schemaname:"need_contacts_exception"`
 	// Whether we can report a geogroup is irrelevant for this location
-	ReportGeo bool
+	ReportGeo bool `schemaname:"report_geo"`
 	// Whether this peer was automatically archived according to privacy settings¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/globalPrivacySettings
-	Autoarchived bool
+	Autoarchived bool `schemaname:"autoarchived"`
 	// InviteMembers field of PeerSettings.
-	InviteMembers bool
+	InviteMembers bool `schemaname:"invite_members"`
 	// Distance in meters between us and this peer
 	//
 	// Use SetGeoDistance and GetGeoDistance helpers.
-	GeoDistance int
+	GeoDistance int `schemaname:"geo_distance"`
 }
 
 // PeerSettingsTypeID is TL type id of PeerSettings.
@@ -115,15 +115,29 @@ func (p *PeerSettings) FillFrom(from interface {
 	GetInviteMembers() (value bool)
 	GetGeoDistance() (value int, ok bool)
 }) {
+	p.ReportSpam = from.GetReportSpam()
+	p.AddContact = from.GetAddContact()
+	p.BlockContact = from.GetBlockContact()
+	p.ShareContact = from.GetShareContact()
+	p.NeedContactsException = from.GetNeedContactsException()
+	p.ReportGeo = from.GetReportGeo()
+	p.Autoarchived = from.GetAutoarchived()
+	p.InviteMembers = from.GetInviteMembers()
 	if val, ok := from.GetGeoDistance(); ok {
 		p.GeoDistance = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PeerSettings) TypeID() uint32 {
 	return PeerSettingsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PeerSettings) SchemaName() string {
+	return "peerSettings"
 }
 
 // Encode implements bin.Encoder.

@@ -21,17 +21,17 @@ var _ = errors.Is
 // ReqDHParamsRequest represents TL type `req_DH_params#d712e4be`.
 type ReqDHParamsRequest struct {
 	// Nonce field of ReqDHParamsRequest.
-	Nonce bin.Int128
+	Nonce bin.Int128 `schemaname:"nonce"`
 	// ServerNonce field of ReqDHParamsRequest.
-	ServerNonce bin.Int128
+	ServerNonce bin.Int128 `schemaname:"server_nonce"`
 	// P field of ReqDHParamsRequest.
-	P []byte
+	P []byte `schemaname:"p"`
 	// Q field of ReqDHParamsRequest.
-	Q []byte
+	Q []byte `schemaname:"q"`
 	// PublicKeyFingerprint field of ReqDHParamsRequest.
-	PublicKeyFingerprint int64
+	PublicKeyFingerprint int64 `schemaname:"public_key_fingerprint"`
 	// EncryptedData field of ReqDHParamsRequest.
-	EncryptedData []byte
+	EncryptedData []byte `schemaname:"encrypted_data"`
 }
 
 // ReqDHParamsRequestTypeID is TL type id of ReqDHParamsRequest.
@@ -93,6 +93,11 @@ func (r *ReqDHParamsRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ReqDHParamsRequest) TypeID() uint32 {
 	return ReqDHParamsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *ReqDHParamsRequest) SchemaName() string {
+	return "req_DH_params"
 }
 
 // Encode implements bin.Encoder.

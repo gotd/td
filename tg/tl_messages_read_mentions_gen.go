@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.readMentions for reference.
 type MessagesReadMentionsRequest struct {
 	// Dialog
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 }
 
 // MessagesReadMentionsRequestTypeID is TL type id of MessagesReadMentionsRequest.
@@ -61,6 +61,11 @@ func (r *MessagesReadMentionsRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *MessagesReadMentionsRequest) TypeID() uint32 {
 	return MessagesReadMentionsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *MessagesReadMentionsRequest) SchemaName() string {
+	return "messages.readMentions"
 }
 
 // Encode implements bin.Encoder.

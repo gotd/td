@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/bots.setBotCommands for reference.
 type BotsSetBotCommandsRequest struct {
 	// Bot commands
-	Commands []BotCommand
+	Commands []BotCommand `schemaname:"commands"`
 }
 
 // BotsSetBotCommandsRequestTypeID is TL type id of BotsSetBotCommandsRequest.
@@ -61,6 +61,11 @@ func (s *BotsSetBotCommandsRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *BotsSetBotCommandsRequest) TypeID() uint32 {
 	return BotsSetBotCommandsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *BotsSetBotCommandsRequest) SchemaName() string {
+	return "bots.setBotCommands"
 }
 
 // Encode implements bin.Encoder.

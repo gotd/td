@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.deleteChat for reference.
 type MessagesDeleteChatRequest struct {
 	// ChatID field of MessagesDeleteChatRequest.
-	ChatID int
+	ChatID int `schemaname:"chat_id"`
 }
 
 // MessagesDeleteChatRequestTypeID is TL type id of MessagesDeleteChatRequest.
@@ -60,6 +60,11 @@ func (d *MessagesDeleteChatRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *MessagesDeleteChatRequest) TypeID() uint32 {
 	return MessagesDeleteChatRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *MessagesDeleteChatRequest) SchemaName() string {
+	return "messages.deleteChat"
 }
 
 // Encode implements bin.Encoder.

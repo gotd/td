@@ -27,157 +27,157 @@ type Config struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether phone calls can be used
-	PhonecallsEnabled bool
+	PhonecallsEnabled bool `schemaname:"phonecalls_enabled"`
 	// Whether the client should use P2P by default for phone calls with contacts
-	DefaultP2PContacts bool
+	DefaultP2PContacts bool `schemaname:"default_p2p_contacts"`
 	// Whether the client should preload featured stickers
-	PreloadFeaturedStickers bool
+	PreloadFeaturedStickers bool `schemaname:"preload_featured_stickers"`
 	// Whether the client should ignore phone entities¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
-	IgnorePhoneEntities bool
+	IgnorePhoneEntities bool `schemaname:"ignore_phone_entities"`
 	// Whether incoming private messages can be deleted for both participants
-	RevokePmInbox bool
+	RevokePmInbox bool `schemaname:"revoke_pm_inbox"`
 	// Indicates that telegram is probably censored by governments/ISPs in the current region
-	BlockedMode bool
+	BlockedMode bool `schemaname:"blocked_mode"`
 	// Whether pfs¹ was used
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/pfs
-	PFSEnabled bool
+	PFSEnabled bool `schemaname:"pfs_enabled"`
 	// Current date at the server
-	Date int
+	Date int `schemaname:"date"`
 	// Expiration date of this config: when it expires it'll have to be refetched using help.getConfig¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/help.getConfig
-	Expires int
+	Expires int `schemaname:"expires"`
 	// Whether we're connected to the test DCs
-	TestMode bool
+	TestMode bool `schemaname:"test_mode"`
 	// ID of the DC that returned the reply
-	ThisDC int
+	ThisDC int `schemaname:"this_dc"`
 	// DC IP list
-	DCOptions []DcOption
+	DCOptions []DcOption `schemaname:"dc_options"`
 	// Domain name for fetching encrypted DC list from DNS TXT record
-	DCTxtDomainName string
+	DCTxtDomainName string `schemaname:"dc_txt_domain_name"`
 	// Maximum member count for normal groups¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	ChatSizeMax int
+	ChatSizeMax int `schemaname:"chat_size_max"`
 	// Maximum member count for supergroups¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	MegagroupSizeMax int
+	MegagroupSizeMax int `schemaname:"megagroup_size_max"`
 	// Maximum number of messages that can be forwarded at once using messages.forwardMessages¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.forwardMessages
-	ForwardedCountMax int
+	ForwardedCountMax int `schemaname:"forwarded_count_max"`
 	// The client should update its online status¹ every N milliseconds
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/account.updateStatus
-	OnlineUpdatePeriodMs int
+	OnlineUpdatePeriodMs int `schemaname:"online_update_period_ms"`
 	// Delay before offline status needs to be sent to the server
-	OfflineBlurTimeoutMs int
+	OfflineBlurTimeoutMs int `schemaname:"offline_blur_timeout_ms"`
 	// Time without any user activity after which it should be treated offline
-	OfflineIdleTimeoutMs int
+	OfflineIdleTimeoutMs int `schemaname:"offline_idle_timeout_ms"`
 	// If we are offline, but were online from some other client in last online_cloud_timeout_ms milliseconds after we had gone offline, then delay offline notification for notify_cloud_delay_ms milliseconds.
-	OnlineCloudTimeoutMs int
+	OnlineCloudTimeoutMs int `schemaname:"online_cloud_timeout_ms"`
 	// If we are offline, but online from some other client then delay sending the offline notification for notify_cloud_delay_ms milliseconds.
-	NotifyCloudDelayMs int
+	NotifyCloudDelayMs int `schemaname:"notify_cloud_delay_ms"`
 	// If some other client is online, then delay notification for notification_default_delay_ms milliseconds
-	NotifyDefaultDelayMs int
+	NotifyDefaultDelayMs int `schemaname:"notify_default_delay_ms"`
 	// Not for client use
-	PushChatPeriodMs int
+	PushChatPeriodMs int `schemaname:"push_chat_period_ms"`
 	// Not for client use
-	PushChatLimit int
+	PushChatLimit int `schemaname:"push_chat_limit"`
 	// Maximum count of saved gifs
-	SavedGifsLimit int
+	SavedGifsLimit int `schemaname:"saved_gifs_limit"`
 	// Only messages with age smaller than the one specified can be edited
-	EditTimeLimit int
+	EditTimeLimit int `schemaname:"edit_time_limit"`
 	// Only channel/supergroup messages with age smaller than the specified can be deleted
-	RevokeTimeLimit int
+	RevokeTimeLimit int `schemaname:"revoke_time_limit"`
 	// Only private messages with age smaller than the specified can be deleted
-	RevokePmTimeLimit int
+	RevokePmTimeLimit int `schemaname:"revoke_pm_time_limit"`
 	// Exponential decay rate for computing top peer rating¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/top-rating
-	RatingEDecay int
+	RatingEDecay int `schemaname:"rating_e_decay"`
 	// Maximum number of recent stickers
-	StickersRecentLimit int
+	StickersRecentLimit int `schemaname:"stickers_recent_limit"`
 	// Maximum number of faved stickers
-	StickersFavedLimit int
+	StickersFavedLimit int `schemaname:"stickers_faved_limit"`
 	// Indicates that round videos (video notes) and voice messages sent in channels and older than the specified period must be marked as read
-	ChannelsReadMediaPeriod int
+	ChannelsReadMediaPeriod int `schemaname:"channels_read_media_period"`
 	// Temporary passport¹ sessions
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetTmpSessions and GetTmpSessions helpers.
-	TmpSessions int
+	TmpSessions int `schemaname:"tmp_sessions"`
 	// Maximum count of pinned dialogs
-	PinnedDialogsCountMax int
+	PinnedDialogsCountMax int `schemaname:"pinned_dialogs_count_max"`
 	// Maximum count of dialogs per folder
-	PinnedInfolderCountMax int
+	PinnedInfolderCountMax int `schemaname:"pinned_infolder_count_max"`
 	// Maximum allowed outgoing ring time in VoIP calls: if the user we're calling doesn't reply within the specified time (in milliseconds), we should hang up the call
-	CallReceiveTimeoutMs int
+	CallReceiveTimeoutMs int `schemaname:"call_receive_timeout_ms"`
 	// Maximum allowed incoming ring time in VoIP calls: if the current user doesn't reply within the specified time (in milliseconds), the call will be automatically refused
-	CallRingTimeoutMs int
+	CallRingTimeoutMs int `schemaname:"call_ring_timeout_ms"`
 	// VoIP connection timeout: if the instance of libtgvoip on the other side of the call doesn't connect to our instance of libtgvoip within the specified time (in milliseconds), the call must be aborted
-	CallConnectTimeoutMs int
+	CallConnectTimeoutMs int `schemaname:"call_connect_timeout_ms"`
 	// If during a VoIP call a packet isn't received for the specified period of time, the call must be aborted
-	CallPacketTimeoutMs int
+	CallPacketTimeoutMs int `schemaname:"call_packet_timeout_ms"`
 	// The domain to use to parse in-app links.For example t.me indicates that t.me/username links should parsed to @username, t.me/addsticker/name should be parsed to the appropriate stickerset and so on...
-	MeURLPrefix string
+	MeURLPrefix string `schemaname:"me_url_prefix"`
 	// URL to use to auto-update the current app
 	//
 	// Use SetAutoupdateURLPrefix and GetAutoupdateURLPrefix helpers.
-	AutoupdateURLPrefix string
+	AutoupdateURLPrefix string `schemaname:"autoupdate_url_prefix"`
 	// Username of the bot to use to search for GIFs
 	//
 	// Use SetGifSearchUsername and GetGifSearchUsername helpers.
-	GifSearchUsername string
+	GifSearchUsername string `schemaname:"gif_search_username"`
 	// Username of the bot to use to search for venues
 	//
 	// Use SetVenueSearchUsername and GetVenueSearchUsername helpers.
-	VenueSearchUsername string
+	VenueSearchUsername string `schemaname:"venue_search_username"`
 	// Username of the bot to use for image search
 	//
 	// Use SetImgSearchUsername and GetImgSearchUsername helpers.
-	ImgSearchUsername string
+	ImgSearchUsername string `schemaname:"img_search_username"`
 	// ID of the map provider to use for venues
 	//
 	// Use SetStaticMapsProvider and GetStaticMapsProvider helpers.
-	StaticMapsProvider string
+	StaticMapsProvider string `schemaname:"static_maps_provider"`
 	// Maximum length of caption (length in utf8 codepoints)
-	CaptionLengthMax int
+	CaptionLengthMax int `schemaname:"caption_length_max"`
 	// Maximum length of messages (length in utf8 codepoints)
-	MessageLengthMax int
+	MessageLengthMax int `schemaname:"message_length_max"`
 	// DC ID to use to download webfiles¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files
-	WebfileDCID int
+	WebfileDCID int `schemaname:"webfile_dc_id"`
 	// Suggested language code
 	//
 	// Use SetSuggestedLangCode and GetSuggestedLangCode helpers.
-	SuggestedLangCode string
+	SuggestedLangCode string `schemaname:"suggested_lang_code"`
 	// Language pack version
 	//
 	// Use SetLangPackVersion and GetLangPackVersion helpers.
-	LangPackVersion int
+	LangPackVersion int `schemaname:"lang_pack_version"`
 	// Basic language pack version
 	//
 	// Use SetBaseLangPackVersion and GetBaseLangPackVersion helpers.
-	BaseLangPackVersion int
+	BaseLangPackVersion int `schemaname:"base_lang_pack_version"`
 }
 
 // ConfigTypeID is TL type id of Config.
@@ -410,6 +410,13 @@ func (c *Config) FillFrom(from interface {
 	GetLangPackVersion() (value int, ok bool)
 	GetBaseLangPackVersion() (value int, ok bool)
 }) {
+	c.PhonecallsEnabled = from.GetPhonecallsEnabled()
+	c.DefaultP2PContacts = from.GetDefaultP2PContacts()
+	c.PreloadFeaturedStickers = from.GetPreloadFeaturedStickers()
+	c.IgnorePhoneEntities = from.GetIgnorePhoneEntities()
+	c.RevokePmInbox = from.GetRevokePmInbox()
+	c.BlockedMode = from.GetBlockedMode()
+	c.PFSEnabled = from.GetPFSEnabled()
 	c.Date = from.GetDate()
 	c.Expires = from.GetExpires()
 	c.TestMode = from.GetTestMode()
@@ -438,6 +445,7 @@ func (c *Config) FillFrom(from interface {
 	if val, ok := from.GetTmpSessions(); ok {
 		c.TmpSessions = val
 	}
+
 	c.PinnedDialogsCountMax = from.GetPinnedDialogsCountMax()
 	c.PinnedInfolderCountMax = from.GetPinnedInfolderCountMax()
 	c.CallReceiveTimeoutMs = from.GetCallReceiveTimeoutMs()
@@ -448,36 +456,49 @@ func (c *Config) FillFrom(from interface {
 	if val, ok := from.GetAutoupdateURLPrefix(); ok {
 		c.AutoupdateURLPrefix = val
 	}
+
 	if val, ok := from.GetGifSearchUsername(); ok {
 		c.GifSearchUsername = val
 	}
+
 	if val, ok := from.GetVenueSearchUsername(); ok {
 		c.VenueSearchUsername = val
 	}
+
 	if val, ok := from.GetImgSearchUsername(); ok {
 		c.ImgSearchUsername = val
 	}
+
 	if val, ok := from.GetStaticMapsProvider(); ok {
 		c.StaticMapsProvider = val
 	}
+
 	c.CaptionLengthMax = from.GetCaptionLengthMax()
 	c.MessageLengthMax = from.GetMessageLengthMax()
 	c.WebfileDCID = from.GetWebfileDCID()
 	if val, ok := from.GetSuggestedLangCode(); ok {
 		c.SuggestedLangCode = val
 	}
+
 	if val, ok := from.GetLangPackVersion(); ok {
 		c.LangPackVersion = val
 	}
+
 	if val, ok := from.GetBaseLangPackVersion(); ok {
 		c.BaseLangPackVersion = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *Config) TypeID() uint32 {
 	return ConfigTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *Config) SchemaName() string {
+	return "config"
 }
 
 // Encode implements bin.Encoder.

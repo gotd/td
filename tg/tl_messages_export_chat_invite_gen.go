@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.exportChatInvite for reference.
 type MessagesExportChatInviteRequest struct {
 	// Chat
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 }
 
 // MessagesExportChatInviteRequestTypeID is TL type id of MessagesExportChatInviteRequest.
@@ -61,6 +61,11 @@ func (e *MessagesExportChatInviteRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *MessagesExportChatInviteRequest) TypeID() uint32 {
 	return MessagesExportChatInviteRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *MessagesExportChatInviteRequest) SchemaName() string {
+	return "messages.exportChatInvite"
 }
 
 // Encode implements bin.Encoder.

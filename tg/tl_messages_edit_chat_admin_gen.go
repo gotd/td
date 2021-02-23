@@ -27,11 +27,11 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.editChatAdmin for reference.
 type MessagesEditChatAdminRequest struct {
 	// The ID of the group
-	ChatID int
+	ChatID int `schemaname:"chat_id"`
 	// The user to make admin
-	UserID InputUserClass
+	UserID InputUserClass `schemaname:"user_id"`
 	// Whether to make him admin
-	IsAdmin bool
+	IsAdmin bool `schemaname:"is_admin"`
 }
 
 // MessagesEditChatAdminRequestTypeID is TL type id of MessagesEditChatAdminRequest.
@@ -78,6 +78,11 @@ func (e *MessagesEditChatAdminRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *MessagesEditChatAdminRequest) TypeID() uint32 {
 	return MessagesEditChatAdminRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *MessagesEditChatAdminRequest) SchemaName() string {
+	return "messages.editChatAdmin"
 }
 
 // Encode implements bin.Encoder.

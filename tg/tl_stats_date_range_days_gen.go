@@ -27,9 +27,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/statsDateRangeDays for reference.
 type StatsDateRangeDays struct {
 	// Initial date
-	MinDate int
+	MinDate int `schemaname:"min_date"`
 	// Final date
-	MaxDate int
+	MaxDate int `schemaname:"max_date"`
 }
 
 // StatsDateRangeDaysTypeID is TL type id of StatsDateRangeDays.
@@ -71,6 +71,11 @@ func (s *StatsDateRangeDays) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StatsDateRangeDays) TypeID() uint32 {
 	return StatsDateRangeDaysTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *StatsDateRangeDays) SchemaName() string {
+	return "statsDateRangeDays"
 }
 
 // Encode implements bin.Encoder.

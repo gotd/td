@@ -27,25 +27,25 @@ type MessagesForwardMessagesRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether to send messages silently (no notification will be triggered on the destination clients)
-	Silent bool
+	Silent bool `schemaname:"silent"`
 	// Whether to send the message in background
-	Background bool
+	Background bool `schemaname:"background"`
 	// When forwarding games, whether to include your score in the game
-	WithMyScore bool
+	WithMyScore bool `schemaname:"with_my_score"`
 	// Source of messages
-	FromPeer InputPeerClass
+	FromPeer InputPeerClass `schemaname:"from_peer"`
 	// IDs of messages
-	ID []int
+	ID []int `schemaname:"id"`
 	// Random ID to prevent resending of messages
-	RandomID []int64
+	RandomID []int64 `schemaname:"random_id"`
 	// Destination peer
-	ToPeer InputPeerClass
+	ToPeer InputPeerClass `schemaname:"to_peer"`
 	// Scheduled message date for scheduled messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
-	ScheduleDate int
+	ScheduleDate int `schemaname:"schedule_date"`
 }
 
 // MessagesForwardMessagesRequestTypeID is TL type id of MessagesForwardMessagesRequest.
@@ -106,6 +106,9 @@ func (f *MessagesForwardMessagesRequest) FillFrom(from interface {
 	GetToPeer() (value InputPeerClass)
 	GetScheduleDate() (value int, ok bool)
 }) {
+	f.Silent = from.GetSilent()
+	f.Background = from.GetBackground()
+	f.WithMyScore = from.GetWithMyScore()
 	f.FromPeer = from.GetFromPeer()
 	f.ID = from.GetID()
 	f.RandomID = from.GetRandomID()
@@ -113,12 +116,18 @@ func (f *MessagesForwardMessagesRequest) FillFrom(from interface {
 	if val, ok := from.GetScheduleDate(); ok {
 		f.ScheduleDate = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *MessagesForwardMessagesRequest) TypeID() uint32 {
 	return MessagesForwardMessagesRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (f *MessagesForwardMessagesRequest) SchemaName() string {
+	return "messages.forwardMessages"
 }
 
 // Encode implements bin.Encoder.

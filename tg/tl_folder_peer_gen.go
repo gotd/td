@@ -24,12 +24,12 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/folderPeer for reference.
 type FolderPeer struct {
 	// Folder peer info
-	Peer PeerClass
+	Peer PeerClass `schemaname:"peer"`
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
-	FolderID int
+	FolderID int `schemaname:"folder_id"`
 }
 
 // FolderPeerTypeID is TL type id of FolderPeer.
@@ -71,6 +71,11 @@ func (f *FolderPeer) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *FolderPeer) TypeID() uint32 {
 	return FolderPeerTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (f *FolderPeer) SchemaName() string {
+	return "folderPeer"
 }
 
 // Encode implements bin.Encoder.

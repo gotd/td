@@ -30,12 +30,12 @@ type DialogFilterSuggested struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	Filter DialogFilter
+	Filter DialogFilter `schemaname:"filter"`
 	// Folder¹ description
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	Description string
+	Description string `schemaname:"description"`
 }
 
 // DialogFilterSuggestedTypeID is TL type id of DialogFilterSuggested.
@@ -77,6 +77,11 @@ func (d *DialogFilterSuggested) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DialogFilterSuggested) TypeID() uint32 {
 	return DialogFilterSuggestedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DialogFilterSuggested) SchemaName() string {
+	return "dialogFilterSuggested"
 }
 
 // Encode implements bin.Encoder.

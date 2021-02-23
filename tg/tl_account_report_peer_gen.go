@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.reportPeer for reference.
 type AccountReportPeerRequest struct {
 	// The peer to report
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// The reason why this peer is being reported
-	Reason ReportReasonClass
+	Reason ReportReasonClass `schemaname:"reason"`
 }
 
 // AccountReportPeerRequestTypeID is TL type id of AccountReportPeerRequest.
@@ -68,6 +68,11 @@ func (r *AccountReportPeerRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *AccountReportPeerRequest) TypeID() uint32 {
 	return AccountReportPeerRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *AccountReportPeerRequest) SchemaName() string {
+	return "account.reportPeer"
 }
 
 // Encode implements bin.Encoder.

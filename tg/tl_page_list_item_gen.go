@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/pageListItemText for reference.
 type PageListItemText struct {
 	// Text
-	Text RichTextClass
+	Text RichTextClass `schemaname:"text"`
 }
 
 // PageListItemTextTypeID is TL type id of PageListItemText.
@@ -61,6 +61,11 @@ func (p *PageListItemText) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageListItemText) TypeID() uint32 {
 	return PageListItemTextTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageListItemText) SchemaName() string {
+	return "pageListItemText"
 }
 
 // Encode implements bin.Encoder.
@@ -118,7 +123,7 @@ var (
 // See https://core.telegram.org/constructor/pageListItemBlocks for reference.
 type PageListItemBlocks struct {
 	// Blocks
-	Blocks []PageBlockClass
+	Blocks []PageBlockClass `schemaname:"blocks"`
 }
 
 // PageListItemBlocksTypeID is TL type id of PageListItemBlocks.
@@ -155,6 +160,11 @@ func (p *PageListItemBlocks) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageListItemBlocks) TypeID() uint32 {
 	return PageListItemBlocksTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageListItemBlocks) SchemaName() string {
+	return "pageListItemBlocks"
 }
 
 // Encode implements bin.Encoder.
@@ -242,6 +252,8 @@ type PageListItemClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

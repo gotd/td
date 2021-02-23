@@ -21,7 +21,7 @@ var _ = errors.Is
 // LangPackStringClassVector is a box for Vector<LangPackString>
 type LangPackStringClassVector struct {
 	// Elements of Vector<LangPackString>
-	Elems []LangPackStringClass
+	Elems []LangPackStringClass `schemaname:"Elems"`
 }
 
 // LangPackStringClassVectorTypeID is TL type id of LangPackStringClassVector.
@@ -58,6 +58,11 @@ func (vec *LangPackStringClassVector) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *LangPackStringClassVector) TypeID() uint32 {
 	return LangPackStringClassVectorTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (vec *LangPackStringClassVector) SchemaName() string {
+	return ""
 }
 
 // Encode implements bin.Encoder.

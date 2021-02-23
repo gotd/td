@@ -51,6 +51,11 @@ func (d *HelpDeepLinkInfoEmpty) TypeID() uint32 {
 	return HelpDeepLinkInfoEmptyTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (d *HelpDeepLinkInfoEmpty) SchemaName() string {
+	return "help.deepLinkInfoEmpty"
+}
+
 // Encode implements bin.Encoder.
 func (d *HelpDeepLinkInfoEmpty) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -91,18 +96,18 @@ type HelpDeepLinkInfo struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// An update of the app is required to parse this link
-	UpdateApp bool
+	UpdateApp bool `schemaname:"update_app"`
 	// Message to show to the user
-	Message string
+	Message string `schemaname:"message"`
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass
+	Entities []MessageEntityClass `schemaname:"entities"`
 }
 
 // HelpDeepLinkInfoTypeID is TL type id of HelpDeepLinkInfo.
@@ -143,16 +148,23 @@ func (d *HelpDeepLinkInfo) FillFrom(from interface {
 	GetMessage() (value string)
 	GetEntities() (value []MessageEntityClass, ok bool)
 }) {
+	d.UpdateApp = from.GetUpdateApp()
 	d.Message = from.GetMessage()
 	if val, ok := from.GetEntities(); ok {
 		d.Entities = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *HelpDeepLinkInfo) TypeID() uint32 {
 	return HelpDeepLinkInfoTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *HelpDeepLinkInfo) SchemaName() string {
+	return "help.deepLinkInfo"
 }
 
 // Encode implements bin.Encoder.
@@ -296,24 +308,26 @@ type HelpDeepLinkInfoClass interface {
 	bin.Decoder
 	construct() HelpDeepLinkInfoClass
 
-	// AsNotEmpty tries to map HelpDeepLinkInfoClass to HelpDeepLinkInfo.
-	AsNotEmpty() (*HelpDeepLinkInfo, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsNotEmpty tries to map HelpDeepLinkInfoClass to HelpDeepLinkInfo.
+	AsNotEmpty() (*HelpDeepLinkInfo, bool)
 }
 
-// AsNotEmpty tries to map HelpDeepLinkInfoClass to HelpDeepLinkInfo.
+// AsNotEmpty tries to map HelpDeepLinkInfoEmpty to HelpDeepLinkInfo.
 func (d *HelpDeepLinkInfoEmpty) AsNotEmpty() (*HelpDeepLinkInfo, bool) {
 	return nil, false
 }
 
-// AsNotEmpty tries to map HelpDeepLinkInfoClass to HelpDeepLinkInfo.
+// AsNotEmpty tries to map HelpDeepLinkInfo to HelpDeepLinkInfo.
 func (d *HelpDeepLinkInfo) AsNotEmpty() (*HelpDeepLinkInfo, bool) {
 	return d, true
 }
@@ -404,6 +418,24 @@ func (s HelpDeepLinkInfoClassSlice) FirstAsNotEmpty() (v *HelpDeepLinkInfo, ok b
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s HelpDeepLinkInfoClassSlice) LastAsNotEmpty() (v *HelpDeepLinkInfo, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *HelpDeepLinkInfoClassSlice) PopFirstAsNotEmpty() (v *HelpDeepLinkInfo, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *HelpDeepLinkInfoClassSlice) PopAsNotEmpty() (v *HelpDeepLinkInfo, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

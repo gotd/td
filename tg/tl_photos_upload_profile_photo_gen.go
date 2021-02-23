@@ -27,25 +27,25 @@ type PhotosUploadProfilePhotoRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// File saved in parts by means of upload.saveFilePart¹ method
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/upload.saveFilePart
 	//
 	// Use SetFile and GetFile helpers.
-	File InputFileClass
+	File InputFileClass `schemaname:"file"`
 	// Animated profile picture¹ video
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files#animated-profile-pictures
 	//
 	// Use SetVideo and GetVideo helpers.
-	Video InputFileClass
+	Video InputFileClass `schemaname:"video"`
 	// Floating point UNIX timestamp in seconds, indicating the frame of the video that should be used as static preview.
 	//
 	// Use SetVideoStartTs and GetVideoStartTs helpers.
-	VideoStartTs float64
+	VideoStartTs float64 `schemaname:"video_start_ts"`
 }
 
 // PhotosUploadProfilePhotoRequestTypeID is TL type id of PhotosUploadProfilePhotoRequest.
@@ -89,18 +89,26 @@ func (u *PhotosUploadProfilePhotoRequest) FillFrom(from interface {
 	if val, ok := from.GetFile(); ok {
 		u.File = val
 	}
+
 	if val, ok := from.GetVideo(); ok {
 		u.Video = val
 	}
+
 	if val, ok := from.GetVideoStartTs(); ok {
 		u.VideoStartTs = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *PhotosUploadProfilePhotoRequest) TypeID() uint32 {
 	return PhotosUploadProfilePhotoRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *PhotosUploadProfilePhotoRequest) SchemaName() string {
+	return "photos.uploadProfilePhoto"
 }
 
 // Encode implements bin.Encoder.

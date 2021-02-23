@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/users.getUsers for reference.
 type UsersGetUsersRequest struct {
 	// List of user identifiers
-	ID []InputUserClass
+	ID []InputUserClass `schemaname:"id"`
 }
 
 // UsersGetUsersRequestTypeID is TL type id of UsersGetUsersRequest.
@@ -61,6 +61,11 @@ func (g *UsersGetUsersRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *UsersGetUsersRequest) TypeID() uint32 {
 	return UsersGetUsersRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *UsersGetUsersRequest) SchemaName() string {
+	return "users.getUsers"
 }
 
 // Encode implements bin.Encoder.

@@ -21,13 +21,13 @@ var _ = errors.Is
 // MsgDetailedInfo represents TL type `msg_detailed_info#276d3ec6`.
 type MsgDetailedInfo struct {
 	// MsgID field of MsgDetailedInfo.
-	MsgID int64
+	MsgID int64 `schemaname:"msg_id"`
 	// AnswerMsgID field of MsgDetailedInfo.
-	AnswerMsgID int64
+	AnswerMsgID int64 `schemaname:"answer_msg_id"`
 	// Bytes field of MsgDetailedInfo.
-	Bytes int
+	Bytes int `schemaname:"bytes"`
 	// Status field of MsgDetailedInfo.
-	Status int
+	Status int `schemaname:"status"`
 }
 
 // MsgDetailedInfoTypeID is TL type id of MsgDetailedInfo.
@@ -79,6 +79,11 @@ func (m *MsgDetailedInfo) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MsgDetailedInfo) TypeID() uint32 {
 	return MsgDetailedInfoTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MsgDetailedInfo) SchemaName() string {
+	return "msg_detailed_info"
 }
 
 // Encode implements bin.Encoder.
@@ -167,11 +172,11 @@ var (
 // MsgNewDetailedInfo represents TL type `msg_new_detailed_info#809db6df`.
 type MsgNewDetailedInfo struct {
 	// AnswerMsgID field of MsgNewDetailedInfo.
-	AnswerMsgID int64
+	AnswerMsgID int64 `schemaname:"answer_msg_id"`
 	// Bytes field of MsgNewDetailedInfo.
-	Bytes int
+	Bytes int `schemaname:"bytes"`
 	// Status field of MsgNewDetailedInfo.
-	Status int
+	Status int `schemaname:"status"`
 }
 
 // MsgNewDetailedInfoTypeID is TL type id of MsgNewDetailedInfo.
@@ -218,6 +223,11 @@ func (m *MsgNewDetailedInfo) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MsgNewDetailedInfo) TypeID() uint32 {
 	return MsgNewDetailedInfoTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MsgNewDetailedInfo) SchemaName() string {
+	return "msg_new_detailed_info"
 }
 
 // Encode implements bin.Encoder.
@@ -307,20 +317,22 @@ type MsgDetailedInfoClass interface {
 	bin.Decoder
 	construct() MsgDetailedInfoClass
 
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+
 	// AnswerMsgID field of MsgDetailedInfo.
 	GetAnswerMsgID() (value int64)
 	// Bytes field of MsgDetailedInfo.
 	GetBytes() (value int)
 	// Status field of MsgDetailedInfo.
 	GetStatus() (value int)
-
-	// TypeID returns MTProto type id (CRC code).
-	// See https://core.telegram.org/mtproto/TL-tl#remarks.
-	TypeID() uint32
-	// String implements fmt.Stringer.
-	String() string
-	// Zero returns true if current object has a zero value.
-	Zero() bool
 }
 
 // DecodeMsgDetailedInfo implements binary de-serialization for MsgDetailedInfoClass.

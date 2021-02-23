@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/peerLocated for reference.
 type PeerLocated struct {
 	// Peer
-	Peer PeerClass
+	Peer PeerClass `schemaname:"peer"`
 	// Validity period of current data
-	Expires int
+	Expires int `schemaname:"expires"`
 	// Distance from the peer in meters
-	Distance int
+	Distance int `schemaname:"distance"`
 }
 
 // PeerLocatedTypeID is TL type id of PeerLocated.
@@ -75,6 +75,11 @@ func (p *PeerLocated) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PeerLocated) TypeID() uint32 {
 	return PeerLocatedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PeerLocated) SchemaName() string {
+	return "peerLocated"
 }
 
 // Encode implements bin.Encoder.
@@ -158,7 +163,7 @@ var (
 // See https://core.telegram.org/constructor/peerSelfLocated for reference.
 type PeerSelfLocated struct {
 	// Expiry of geolocation info for current peer
-	Expires int
+	Expires int `schemaname:"expires"`
 }
 
 // PeerSelfLocatedTypeID is TL type id of PeerSelfLocated.
@@ -195,6 +200,11 @@ func (p *PeerSelfLocated) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PeerSelfLocated) TypeID() uint32 {
 	return PeerSelfLocatedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PeerSelfLocated) SchemaName() string {
+	return "peerSelfLocated"
 }
 
 // Encode implements bin.Encoder.
@@ -260,16 +270,18 @@ type PeerLocatedClass interface {
 	bin.Decoder
 	construct() PeerLocatedClass
 
-	// Validity period of current data
-	GetExpires() (value int)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Validity period of current data
+	GetExpires() (value int)
 }
 
 // DecodePeerLocated implements binary de-serialization for PeerLocatedClass.

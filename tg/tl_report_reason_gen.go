@@ -51,6 +51,11 @@ func (i *InputReportReasonSpam) TypeID() uint32 {
 	return InputReportReasonSpamTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputReportReasonSpam) SchemaName() string {
+	return "inputReportReasonSpam"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputReportReasonSpam) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -113,6 +118,11 @@ func (i *InputReportReasonViolence) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputReportReasonViolence) TypeID() uint32 {
 	return InputReportReasonViolenceTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputReportReasonViolence) SchemaName() string {
+	return "inputReportReasonViolence"
 }
 
 // Encode implements bin.Encoder.
@@ -179,6 +189,11 @@ func (i *InputReportReasonPornography) TypeID() uint32 {
 	return InputReportReasonPornographyTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputReportReasonPornography) SchemaName() string {
+	return "inputReportReasonPornography"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputReportReasonPornography) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -243,6 +258,11 @@ func (i *InputReportReasonChildAbuse) TypeID() uint32 {
 	return InputReportReasonChildAbuseTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputReportReasonChildAbuse) SchemaName() string {
+	return "inputReportReasonChildAbuse"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputReportReasonChildAbuse) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -280,7 +300,7 @@ var (
 // See https://core.telegram.org/constructor/inputReportReasonOther for reference.
 type InputReportReasonOther struct {
 	// Other report reason
-	Text string
+	Text string `schemaname:"text"`
 }
 
 // InputReportReasonOtherTypeID is TL type id of InputReportReasonOther.
@@ -317,6 +337,11 @@ func (i *InputReportReasonOther) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputReportReasonOther) TypeID() uint32 {
 	return InputReportReasonOtherTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputReportReasonOther) SchemaName() string {
+	return "inputReportReasonOther"
 }
 
 // Encode implements bin.Encoder.
@@ -396,6 +421,11 @@ func (i *InputReportReasonCopyright) TypeID() uint32 {
 	return InputReportReasonCopyrightTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputReportReasonCopyright) SchemaName() string {
+	return "inputReportReasonCopyright"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputReportReasonCopyright) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -458,6 +488,11 @@ func (i *InputReportReasonGeoIrrelevant) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputReportReasonGeoIrrelevant) TypeID() uint32 {
 	return InputReportReasonGeoIrrelevantTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputReportReasonGeoIrrelevant) SchemaName() string {
+	return "inputReportReasonGeoIrrelevant"
 }
 
 // Encode implements bin.Encoder.
@@ -523,6 +558,11 @@ func (i *InputReportReasonFake) TypeID() uint32 {
 	return InputReportReasonFakeTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputReportReasonFake) SchemaName() string {
+	return "inputReportReasonFake"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputReportReasonFake) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -582,6 +622,8 @@ type ReportReasonClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

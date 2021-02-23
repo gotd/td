@@ -51,6 +51,11 @@ func (g *AccountGetGlobalPrivacySettingsRequest) TypeID() uint32 {
 	return AccountGetGlobalPrivacySettingsRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *AccountGetGlobalPrivacySettingsRequest) SchemaName() string {
+	return "account.getGlobalPrivacySettings"
+}
+
 // Encode implements bin.Encoder.
 func (g *AccountGetGlobalPrivacySettingsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

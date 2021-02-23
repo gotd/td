@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.deleteScheduledMessages for reference.
 type MessagesDeleteScheduledMessagesRequest struct {
 	// Peer
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// Scheduled message IDs
-	ID []int
+	ID []int `schemaname:"id"`
 }
 
 // MessagesDeleteScheduledMessagesRequestTypeID is TL type id of MessagesDeleteScheduledMessagesRequest.
@@ -68,6 +68,11 @@ func (d *MessagesDeleteScheduledMessagesRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *MessagesDeleteScheduledMessagesRequest) TypeID() uint32 {
 	return MessagesDeleteScheduledMessagesRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *MessagesDeleteScheduledMessagesRequest) SchemaName() string {
+	return "messages.deleteScheduledMessages"
 }
 
 // Encode implements bin.Encoder.

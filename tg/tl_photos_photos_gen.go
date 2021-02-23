@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/photos.photos for reference.
 type PhotosPhotos struct {
 	// List of photos
-	Photos []PhotoClass
+	Photos []PhotoClass `schemaname:"photos"`
 	// List of mentioned users
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 }
 
 // PhotosPhotosTypeID is TL type id of PhotosPhotos.
@@ -68,6 +68,11 @@ func (p *PhotosPhotos) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhotosPhotos) TypeID() uint32 {
 	return PhotosPhotosTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PhotosPhotos) SchemaName() string {
+	return "photos.photos"
 }
 
 // Encode implements bin.Encoder.
@@ -171,11 +176,11 @@ var (
 // See https://core.telegram.org/constructor/photos.photosSlice for reference.
 type PhotosPhotosSlice struct {
 	// Total number of photos
-	Count int
+	Count int `schemaname:"count"`
 	// List of photos
-	Photos []PhotoClass
+	Photos []PhotoClass `schemaname:"photos"`
 	// List of mentioned users
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 }
 
 // PhotosPhotosSliceTypeID is TL type id of PhotosPhotosSlice.
@@ -222,6 +227,11 @@ func (p *PhotosPhotosSlice) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhotosPhotosSlice) TypeID() uint32 {
 	return PhotosPhotosSliceTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PhotosPhotosSlice) SchemaName() string {
+	return "photos.photosSlice"
 }
 
 // Encode implements bin.Encoder.
@@ -351,18 +361,23 @@ type PhotosPhotosClass interface {
 	bin.Decoder
 	construct() PhotosPhotosClass
 
-	// List of photos
-	GetPhotos() (value []PhotoClass)
-	// List of mentioned users
-	GetUsers() (value []UserClass)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// List of photos
+	GetPhotos() (value []PhotoClass)
+	// List of photos
+	MapPhotos() (value PhotoClassSlice) // List of mentioned users
+	GetUsers() (value []UserClass)
+	// List of mentioned users
+	MapUsers() (value UserClassSlice)
 }
 
 // DecodePhotosPhotos implements binary de-serialization for PhotosPhotosClass.

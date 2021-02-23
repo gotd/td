@@ -50,6 +50,11 @@ func (i *InlineQueryPeerTypeSameBotPM) TypeID() uint32 {
 	return InlineQueryPeerTypeSameBotPMTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InlineQueryPeerTypeSameBotPM) SchemaName() string {
+	return "inlineQueryPeerTypeSameBotPM"
+}
+
 // Encode implements bin.Encoder.
 func (i *InlineQueryPeerTypeSameBotPM) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -111,6 +116,11 @@ func (i *InlineQueryPeerTypePM) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InlineQueryPeerTypePM) TypeID() uint32 {
 	return InlineQueryPeerTypePMTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InlineQueryPeerTypePM) SchemaName() string {
+	return "inlineQueryPeerTypePM"
 }
 
 // Encode implements bin.Encoder.
@@ -176,6 +186,11 @@ func (i *InlineQueryPeerTypeChat) TypeID() uint32 {
 	return InlineQueryPeerTypeChatTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InlineQueryPeerTypeChat) SchemaName() string {
+	return "inlineQueryPeerTypeChat"
+}
+
 // Encode implements bin.Encoder.
 func (i *InlineQueryPeerTypeChat) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -237,6 +252,11 @@ func (i *InlineQueryPeerTypeMegagroup) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InlineQueryPeerTypeMegagroup) TypeID() uint32 {
 	return InlineQueryPeerTypeMegagroupTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InlineQueryPeerTypeMegagroup) SchemaName() string {
+	return "inlineQueryPeerTypeMegagroup"
 }
 
 // Encode implements bin.Encoder.
@@ -302,6 +322,11 @@ func (i *InlineQueryPeerTypeBroadcast) TypeID() uint32 {
 	return InlineQueryPeerTypeBroadcastTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InlineQueryPeerTypeBroadcast) SchemaName() string {
+	return "inlineQueryPeerTypeBroadcast"
+}
+
 // Encode implements bin.Encoder.
 func (i *InlineQueryPeerTypeBroadcast) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -358,6 +383,8 @@ type InlineQueryPeerTypeClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

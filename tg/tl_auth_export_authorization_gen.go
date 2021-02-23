@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/auth.exportAuthorization for reference.
 type AuthExportAuthorizationRequest struct {
 	// Number of a target data-centre
-	DCID int
+	DCID int `schemaname:"dc_id"`
 }
 
 // AuthExportAuthorizationRequestTypeID is TL type id of AuthExportAuthorizationRequest.
@@ -61,6 +61,11 @@ func (e *AuthExportAuthorizationRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *AuthExportAuthorizationRequest) TypeID() uint32 {
 	return AuthExportAuthorizationRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *AuthExportAuthorizationRequest) SchemaName() string {
+	return "auth.exportAuthorization"
 }
 
 // Encode implements bin.Encoder.

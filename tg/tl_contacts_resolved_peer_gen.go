@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/contacts.resolvedPeer for reference.
 type ContactsResolvedPeer struct {
 	// The peer
-	Peer PeerClass
+	Peer PeerClass `schemaname:"peer"`
 	// Chats
-	Chats []ChatClass
+	Chats []ChatClass `schemaname:"chats"`
 	// Users
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 }
 
 // ContactsResolvedPeerTypeID is TL type id of ContactsResolvedPeer.
@@ -75,6 +75,11 @@ func (r *ContactsResolvedPeer) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ContactsResolvedPeer) TypeID() uint32 {
 	return ContactsResolvedPeerTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *ContactsResolvedPeer) SchemaName() string {
+	return "contacts.resolvedPeer"
 }
 
 // Encode implements bin.Encoder.

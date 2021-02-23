@@ -27,25 +27,25 @@ type MessagesBotResults struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether the result is a picture gallery
-	Gallery bool
+	Gallery bool `schemaname:"gallery"`
 	// Query ID
-	QueryID int64
+	QueryID int64 `schemaname:"query_id"`
 	// The next offset to use when navigating through results
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
-	NextOffset string
+	NextOffset string `schemaname:"next_offset"`
 	// Whether the bot requested the user to message him in private
 	//
 	// Use SetSwitchPm and GetSwitchPm helpers.
-	SwitchPm InlineBotSwitchPM
+	SwitchPm InlineBotSwitchPM `schemaname:"switch_pm"`
 	// The results
-	Results []BotInlineResultClass
+	Results []BotInlineResultClass `schemaname:"results"`
 	// Caching validity of the results
-	CacheTime int
+	CacheTime int `schemaname:"cache_time"`
 	// Users mentioned in the results
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 }
 
 // MessagesBotResultsTypeID is TL type id of MessagesBotResults.
@@ -102,13 +102,16 @@ func (b *MessagesBotResults) FillFrom(from interface {
 	GetCacheTime() (value int)
 	GetUsers() (value []UserClass)
 }) {
+	b.Gallery = from.GetGallery()
 	b.QueryID = from.GetQueryID()
 	if val, ok := from.GetNextOffset(); ok {
 		b.NextOffset = val
 	}
+
 	if val, ok := from.GetSwitchPm(); ok {
 		b.SwitchPm = val
 	}
+
 	b.Results = from.GetResults()
 	b.CacheTime = from.GetCacheTime()
 	b.Users = from.GetUsers()
@@ -118,6 +121,11 @@ func (b *MessagesBotResults) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *MessagesBotResults) TypeID() uint32 {
 	return MessagesBotResultsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (b *MessagesBotResults) SchemaName() string {
+	return "messages.botResults"
 }
 
 // Encode implements bin.Encoder.

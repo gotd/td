@@ -27,39 +27,39 @@ type DcOption struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether the specified IP is an IPv6 address
-	Ipv6 bool
+	Ipv6 bool `schemaname:"ipv6"`
 	// Whether this DC should only be used to download or upload files¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files
-	MediaOnly bool
+	MediaOnly bool `schemaname:"media_only"`
 	// Whether this DC only supports connection with transport obfuscation¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/mtproto-transports#transport-obfuscation
-	TcpoOnly bool
+	TcpoOnly bool `schemaname:"tcpo_only"`
 	// Whether this is a CDN DC¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	CDN bool
+	CDN bool `schemaname:"cdn"`
 	// If set, this IP should be used when connecting through a proxy
-	Static bool
+	Static bool `schemaname:"static"`
 	// DC ID
-	ID int
+	ID int `schemaname:"id"`
 	// IP address of DC
-	IPAddress string
+	IPAddress string `schemaname:"ip_address"`
 	// Port
-	Port int
+	Port int `schemaname:"port"`
 	// If the tcpo_only flag is set, specifies the secret to use when connecting using transport obfuscation¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/mtproto-transports#transport-obfuscation
 	//
 	// Use SetSecret and GetSecret helpers.
-	Secret []byte
+	Secret []byte `schemaname:"secret"`
 }
 
 // DcOptionTypeID is TL type id of DcOption.
@@ -124,18 +124,29 @@ func (d *DcOption) FillFrom(from interface {
 	GetPort() (value int)
 	GetSecret() (value []byte, ok bool)
 }) {
+	d.Ipv6 = from.GetIpv6()
+	d.MediaOnly = from.GetMediaOnly()
+	d.TcpoOnly = from.GetTcpoOnly()
+	d.CDN = from.GetCDN()
+	d.Static = from.GetStatic()
 	d.ID = from.GetID()
 	d.IPAddress = from.GetIPAddress()
 	d.Port = from.GetPort()
 	if val, ok := from.GetSecret(); ok {
 		d.Secret = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DcOption) TypeID() uint32 {
 	return DcOptionTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DcOption) SchemaName() string {
+	return "dcOption"
 }
 
 // Encode implements bin.Encoder.

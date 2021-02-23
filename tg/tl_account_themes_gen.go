@@ -51,6 +51,11 @@ func (t *AccountThemesNotModified) TypeID() uint32 {
 	return AccountThemesNotModifiedTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (t *AccountThemesNotModified) SchemaName() string {
+	return "account.themesNotModified"
+}
+
 // Encode implements bin.Encoder.
 func (t *AccountThemesNotModified) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -91,9 +96,9 @@ type AccountThemes struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int `schemaname:"hash"`
 	// Themes
-	Themes []Theme
+	Themes []Theme `schemaname:"themes"`
 }
 
 // AccountThemesTypeID is TL type id of AccountThemes.
@@ -135,6 +140,11 @@ func (t *AccountThemes) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *AccountThemes) TypeID() uint32 {
 	return AccountThemesTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *AccountThemes) SchemaName() string {
+	return "account.themes"
 }
 
 // Encode implements bin.Encoder.
@@ -224,24 +234,26 @@ type AccountThemesClass interface {
 	bin.Decoder
 	construct() AccountThemesClass
 
-	// AsModified tries to map AccountThemesClass to AccountThemes.
-	AsModified() (*AccountThemes, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsModified tries to map AccountThemesClass to AccountThemes.
+	AsModified() (*AccountThemes, bool)
 }
 
-// AsModified tries to map AccountThemesClass to AccountThemes.
+// AsModified tries to map AccountThemesNotModified to AccountThemes.
 func (t *AccountThemesNotModified) AsModified() (*AccountThemes, bool) {
 	return nil, false
 }
 
-// AsModified tries to map AccountThemesClass to AccountThemes.
+// AsModified tries to map AccountThemes to AccountThemes.
 func (t *AccountThemes) AsModified() (*AccountThemes, bool) {
 	return t, true
 }
@@ -332,6 +344,24 @@ func (s AccountThemesClassSlice) FirstAsModified() (v *AccountThemes, ok bool) {
 // LastAsModified returns last element of slice (if exists).
 func (s AccountThemesClassSlice) LastAsModified() (v *AccountThemes, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopFirstAsModified returns element of slice (if exists).
+func (s *AccountThemesClassSlice) PopFirstAsModified() (v *AccountThemes, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopAsModified returns element of slice (if exists).
+func (s *AccountThemesClassSlice) PopAsModified() (v *AccountThemes, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

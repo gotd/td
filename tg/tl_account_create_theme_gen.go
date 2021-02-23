@@ -27,19 +27,19 @@ type AccountCreateThemeRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Unique theme ID
-	Slug string
+	Slug string `schemaname:"slug"`
 	// Theme name
-	Title string
+	Title string `schemaname:"title"`
 	// Theme file
 	//
 	// Use SetDocument and GetDocument helpers.
-	Document InputDocumentClass
+	Document InputDocumentClass `schemaname:"document"`
 	// Theme settings
 	//
 	// Use SetSettings and GetSettings helpers.
-	Settings InputThemeSettings
+	Settings InputThemeSettings `schemaname:"settings"`
 }
 
 // AccountCreateThemeRequestTypeID is TL type id of AccountCreateThemeRequest.
@@ -89,15 +89,22 @@ func (c *AccountCreateThemeRequest) FillFrom(from interface {
 	if val, ok := from.GetDocument(); ok {
 		c.Document = val
 	}
+
 	if val, ok := from.GetSettings(); ok {
 		c.Settings = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *AccountCreateThemeRequest) TypeID() uint32 {
 	return AccountCreateThemeRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *AccountCreateThemeRequest) SchemaName() string {
+	return "account.createTheme"
 }
 
 // Encode implements bin.Encoder.

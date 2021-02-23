@@ -28,7 +28,7 @@ type {{ $s.Name }} struct {
 //
 // Use Set{{ $f.Name }} and Get{{ $f.Name }} helpers.
 {{- end }}
-    {{ $f.Name }} {{ template "print_type" $f }}
+    {{ $f.Name }} {{ template "print_type" $f }} `schemaname:"{{ $f.RawName }}"`
 {{- end }}
 }
 
@@ -41,6 +41,11 @@ const {{ $s.Name }}TypeID = {{ if not $s.Vector }}0x{{ $s.HexID }}{{- else -}}bi
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func ({{ $s.Receiver }} *{{ $s.Name }}) TypeID() uint32 {
     return {{ $s.Name }}TypeID
+}
+
+// SchemaName returns MTProto type name.
+func ({{ $s.Receiver }} *{{ $s.Name }}) SchemaName() string {
+    return "{{ $s.RawName }}"
 }
 
 // Encode implements bin.Encoder.
@@ -153,7 +158,7 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) {{ template "getter_func_type" $f }} {
 {{ if not $f.Slice }}
 {{- $mappings := index ($.Mappings) ($f.Type) -}}
 
-{{- range $mapping := $mappings }}
+{{- range $mapping := $mappings }}{{- if (not $mapping.Constructor) }}
 {{- /*gotype: github.com/gotd/td/internal/gen.constructorMapping*/ -}}
 // Get{{ $f.Name }}As{{ $mapping.MapperName }} returns mapped value of {{ $f.Name }} {{ if $f.Conditional }}
 {{- if not ($f.ConditionalBool) }}conditional field and
@@ -172,7 +177,7 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Get{{ $f.Name }}As{{ $mapping.MapperName
     return {{ $s.Receiver }}.{{ $f.Name }}.As{{ $mapping.MapperName }}()
     {{- end }}
 }
-{{- end }}
+{{- end }}{{- end }}
 {{- else }}{{- if $f.Interface }}
 // Map{{ $f.Name }} returns field {{ $f.Name }} wrapped in {{ $f.Type }}Slice helper.
 func ({{ $s.Receiver }} *{{ $s.Name }}) Map{{ $f.Name }}() (value {{ $f.Type }}Slice{{ if $f.Conditional }}, ok bool{{ end }}) {
@@ -369,37 +374,39 @@ func (c *Client) {{ $s.Method }}({{ template "request_params" $s }}) error {
 //  default: panic(v)
 //  }
 type {{ $f.Name }} interface {
-    bin.Encoder
-    bin.Decoder
-    construct() {{ $f.Name }}
+{{ template  "class_interface_header" $f }}
 
 {{ range $field := $f.SharedFields.Common -}}
     // {{ $field.Comment }}
-    {{- if $field.Links}}
+    {{- if $field.Links }}
         {{- template "print_links" $field.Links }}
     {{- end }}
-    {{ template "getter_func_type" $field }}
-{{ end }}
-{{ range $mapping := $f.Mappings -}}
+    {{ template "getter_func_type" $field -}}
+
+    {{- if not $field.DoubleSlice }}
+    {{- if not $field.Slice }}
+    {{- $mappings := index ($.Mappings) ($field.Type) -}}
+    {{- range $mapping := $mappings -}}
+    // {{ $field.Comment }}
+    Get{{ $field.Name }}As{{ $mapping.MapperName }}() ({{ template "print_mapper_type" $mapping }}, bool)
+    {{- end }}
+    {{ else }}{{- if $field.Interface }}
+    // {{ $field.Comment }}
+    Map{{ $field.Name }}() (value {{ $field.Type }}Slice{{ if $field.Conditional }}, ok bool{{ end }})
+    {{- end }}{{- end }}
+
+    {{- end }}
+{{- end }}
+{{- range $mapping := $f.Mappings -}}{{- if not $mapping.Constructor -}}
     // As{{ $mapping.MapperName }} tries to map {{ $f.Name }} to {{ $mapping.Name }}.
     {{ template "mapper_func_type" $mapping }}
-{{ end }}
-
-    // TypeID returns MTProto type id (CRC code).
-    // See https://core.telegram.org/mtproto/TL-tl#remarks.
-    TypeID() uint32
-    // String implements fmt.Stringer.
-    String() string
-    // Zero returns true if current object has a zero value.
-    Zero() bool
+{{ end }}{{ end }}
 }
 
 {{ range $mapping := $f.Mappings -}}{{- if not ($mapping.Concrete) }}
 // {{ $mapping.Name }} represents {{ $mapping.MapperName }} subset of {{ $f.Name }}.
 type {{ $mapping.Name }} interface {
-    bin.Encoder
-    bin.Decoder
-    construct() {{ $f.Name }}
+{{ template  "class_interface_header" $f }}
 
 {{ range $field := index ($f.SharedFields) ($mapping.MapperName) -}}{{- /*gotype: github.com/gotd/td/internal/gen.fieldDef*/ -}}
     // {{ $field.Comment }}
@@ -408,30 +415,43 @@ type {{ $mapping.Name }} interface {
     {{- end }}
     {{ template "getter_func_type" $field}}
 {{ end }}
-
-    // TypeID returns MTProto type id (CRC code).
-    // See https://core.telegram.org/mtproto/TL-tl#remarks.
-    TypeID() uint32
-    // String implements fmt.Stringer.
-    String() string
-    // Zero returns true if current object has a zero value.
-    Zero() bool
 }
 {{- end }}
 
-{{ range $s := $f.Constructors -}}
-// As{{ $mapping.MapperName }} tries to map {{ $f.Name }} to {{ $mapping.Name }}.
+{{ range $s := $f.Constructors -}}{{- if or (not $mapping.Constructor) (eq ($s.Name) ($mapping.Constructor)) }}
+// As{{ $mapping.MapperName }} tries to map {{ $s.Name }} to {{ $mapping.Name }}.
 func ({{ $s.Receiver }} *{{ $s.Name }}) {{ template "mapper_func_type" $mapping }} {
 {{- if not ($mapping.Concrete) }}
     value, ok := ({{ $f.Name }}({{ $s.Receiver }})).({{ $mapping.Name }})
     return value, ok
+{{- else }}{{- if $mapping.Fields }}
+    value := new({{ $mapping.Name }})
+    {{- range $pair := $mapping.Fields -}}
+    {{- if and ($pair.L.Conditional) (not $pair.L.ConditionalBool) }}
+    if fieldValue, ok := {{ $s.Receiver }}.Get{{ $pair.L.Name }}(); ok {
+        {{- if $pair.R.Conditional }}
+        value.Set{{ $pair.R.Name }}(fieldValue)
+        {{- else }}
+        value.{{ $pair.R.Name }} = fieldValue
+        {{- end }}
+    }
+    {{ else }}
+        {{- if $pair.R.Conditional -}}
+        value.Set{{ $pair.R.Name }}({{ $s.Receiver }}.Get{{ $pair.L.Name }}())
+        {{- else }}
+        value.{{ $pair.R.Name }} = {{ $s.Receiver }}.Get{{ $pair.L.Name }}()
+        {{- end }}
+    {{- end }}
+    {{- end }}
+
+    return value
 {{- else }}
     {{- if eq ($s.Name) ($mapping.Name) }} return {{ $s.Receiver }}, true
     {{- else }} return nil, false {{ end }}
-{{- end }}
+{{- end }}{{- end }}
 }
 {{ end }}
-{{ end }}
+{{ end }}{{ end }}
 
 // Decode{{ $f.Func }} implements binary de-serialization for {{ $f.Name }}.
 func Decode{{ $f.Func }} (buf *bin.Buffer) ({{ $f.Name }}, error) {

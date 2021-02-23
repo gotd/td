@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/jsonObjectValue for reference.
 type JsonObjectValue struct {
 	// Key
-	Key string
+	Key string `schemaname:"key"`
 	// Value
-	Value JSONValueClass
+	Value JSONValueClass `schemaname:"value"`
 }
 
 // JsonObjectValueTypeID is TL type id of JsonObjectValue.
@@ -68,6 +68,11 @@ func (j *JsonObjectValue) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (j *JsonObjectValue) TypeID() uint32 {
 	return JsonObjectValueTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (j *JsonObjectValue) SchemaName() string {
+	return "jsonObjectValue"
 }
 
 // Encode implements bin.Encoder.

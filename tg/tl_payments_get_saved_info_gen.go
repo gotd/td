@@ -51,6 +51,11 @@ func (g *PaymentsGetSavedInfoRequest) TypeID() uint32 {
 	return PaymentsGetSavedInfoRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *PaymentsGetSavedInfoRequest) SchemaName() string {
+	return "payments.getSavedInfo"
+}
+
 // Encode implements bin.Encoder.
 func (g *PaymentsGetSavedInfoRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

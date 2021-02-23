@@ -21,9 +21,9 @@ var _ = errors.Is
 // RPCError represents TL type `rpc_error#2144ca19`.
 type RPCError struct {
 	// ErrorCode field of RPCError.
-	ErrorCode int
+	ErrorCode int `schemaname:"error_code"`
 	// ErrorMessage field of RPCError.
-	ErrorMessage string
+	ErrorMessage string `schemaname:"error_message"`
 }
 
 // RPCErrorTypeID is TL type id of RPCError.
@@ -65,6 +65,11 @@ func (r *RPCError) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RPCError) TypeID() uint32 {
 	return RPCErrorTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *RPCError) SchemaName() string {
+	return "rpc_error"
 }
 
 // Encode implements bin.Encoder.

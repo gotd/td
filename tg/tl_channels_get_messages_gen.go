@@ -27,9 +27,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/channels.getMessages for reference.
 type ChannelsGetMessagesRequest struct {
 	// Channel/supergroup
-	Channel InputChannelClass
+	Channel InputChannelClass `schemaname:"channel"`
 	// IDs of messages to get
-	ID []InputMessageClass
+	ID []InputMessageClass `schemaname:"id"`
 }
 
 // ChannelsGetMessagesRequestTypeID is TL type id of ChannelsGetMessagesRequest.
@@ -71,6 +71,11 @@ func (g *ChannelsGetMessagesRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *ChannelsGetMessagesRequest) TypeID() uint32 {
 	return ChannelsGetMessagesRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *ChannelsGetMessagesRequest) SchemaName() string {
+	return "channels.getMessages"
 }
 
 // Encode implements bin.Encoder.

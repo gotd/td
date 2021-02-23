@@ -31,20 +31,20 @@ type InputSingleMedia struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// The media
-	Media InputMediaClass
+	Media InputMediaClass `schemaname:"media"`
 	// Unique client media ID required to prevent message resending
-	RandomID int64
+	RandomID int64 `schemaname:"random_id"`
 	// A caption for the media
-	Message string
+	Message string `schemaname:"message"`
 	// Message entities¹ for styled text
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass
+	Entities []MessageEntityClass `schemaname:"entities"`
 }
 
 // InputSingleMediaTypeID is TL type id of InputSingleMedia.
@@ -95,12 +95,18 @@ func (i *InputSingleMedia) FillFrom(from interface {
 	if val, ok := from.GetEntities(); ok {
 		i.Entities = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputSingleMedia) TypeID() uint32 {
 	return InputSingleMediaTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputSingleMedia) SchemaName() string {
+	return "inputSingleMedia"
 }
 
 // Encode implements bin.Encoder.

@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/inputMessageID for reference.
 type InputMessageID struct {
 	// Message ID
-	ID int
+	ID int `schemaname:"id"`
 }
 
 // InputMessageIDTypeID is TL type id of InputMessageID.
@@ -61,6 +61,11 @@ func (i *InputMessageID) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessageID) TypeID() uint32 {
 	return InputMessageIDTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputMessageID) SchemaName() string {
+	return "inputMessageID"
 }
 
 // Encode implements bin.Encoder.
@@ -113,7 +118,7 @@ var (
 // See https://core.telegram.org/constructor/inputMessageReplyTo for reference.
 type InputMessageReplyTo struct {
 	// ID of the message that replies to the message we need
-	ID int
+	ID int `schemaname:"id"`
 }
 
 // InputMessageReplyToTypeID is TL type id of InputMessageReplyTo.
@@ -150,6 +155,11 @@ func (i *InputMessageReplyTo) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessageReplyTo) TypeID() uint32 {
 	return InputMessageReplyToTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputMessageReplyTo) SchemaName() string {
+	return "inputMessageReplyTo"
 }
 
 // Encode implements bin.Encoder.
@@ -229,6 +239,11 @@ func (i *InputMessagePinned) TypeID() uint32 {
 	return InputMessagePinnedTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputMessagePinned) SchemaName() string {
+	return "inputMessagePinned"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagePinned) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -266,9 +281,9 @@ var (
 // See https://core.telegram.org/constructor/inputMessageCallbackQuery for reference.
 type InputMessageCallbackQuery struct {
 	// Message ID
-	ID int
+	ID int `schemaname:"id"`
 	// Callback query ID
-	QueryID int64
+	QueryID int64 `schemaname:"query_id"`
 }
 
 // InputMessageCallbackQueryTypeID is TL type id of InputMessageCallbackQuery.
@@ -310,6 +325,11 @@ func (i *InputMessageCallbackQuery) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessageCallbackQuery) TypeID() uint32 {
 	return InputMessageCallbackQueryTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputMessageCallbackQuery) SchemaName() string {
+	return "inputMessageCallbackQuery"
 }
 
 // Encode implements bin.Encoder.
@@ -393,6 +413,8 @@ type InputMessageClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

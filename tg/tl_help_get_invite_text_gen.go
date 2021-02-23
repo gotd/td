@@ -51,6 +51,11 @@ func (g *HelpGetInviteTextRequest) TypeID() uint32 {
 	return HelpGetInviteTextRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *HelpGetInviteTextRequest) SchemaName() string {
+	return "help.getInviteText"
+}
+
 // Encode implements bin.Encoder.
 func (g *HelpGetInviteTextRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

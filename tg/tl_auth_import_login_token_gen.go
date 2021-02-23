@@ -29,7 +29,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/auth.importLoginToken for reference.
 type AuthImportLoginTokenRequest struct {
 	// Login token
-	Token []byte
+	Token []byte `schemaname:"token"`
 }
 
 // AuthImportLoginTokenRequestTypeID is TL type id of AuthImportLoginTokenRequest.
@@ -66,6 +66,11 @@ func (i *AuthImportLoginTokenRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *AuthImportLoginTokenRequest) TypeID() uint32 {
 	return AuthImportLoginTokenRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *AuthImportLoginTokenRequest) SchemaName() string {
+	return "auth.importLoginToken"
 }
 
 // Encode implements bin.Encoder.

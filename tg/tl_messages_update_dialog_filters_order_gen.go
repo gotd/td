@@ -30,7 +30,7 @@ type MessagesUpdateDialogFiltersOrderRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	Order []int
+	Order []int `schemaname:"order"`
 }
 
 // MessagesUpdateDialogFiltersOrderRequestTypeID is TL type id of MessagesUpdateDialogFiltersOrderRequest.
@@ -67,6 +67,11 @@ func (u *MessagesUpdateDialogFiltersOrderRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *MessagesUpdateDialogFiltersOrderRequest) TypeID() uint32 {
 	return MessagesUpdateDialogFiltersOrderRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *MessagesUpdateDialogFiltersOrderRequest) SchemaName() string {
+	return "messages.updateDialogFiltersOrder"
 }
 
 // Encode implements bin.Encoder.

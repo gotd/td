@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/help.promoDataEmpty for reference.
 type HelpPromoDataEmpty struct {
 	// Re-fetch PSA/MTProxy info after the specified number of seconds
-	Expires int
+	Expires int `schemaname:"expires"`
 }
 
 // HelpPromoDataEmptyTypeID is TL type id of HelpPromoDataEmpty.
@@ -61,6 +61,11 @@ func (p *HelpPromoDataEmpty) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *HelpPromoDataEmpty) TypeID() uint32 {
 	return HelpPromoDataEmptyTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *HelpPromoDataEmpty) SchemaName() string {
+	return "help.promoDataEmpty"
 }
 
 // Encode implements bin.Encoder.
@@ -116,25 +121,25 @@ type HelpPromoData struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// MTProxy-related channel
-	Proxy bool
+	Proxy bool `schemaname:"proxy"`
 	// Expiry of PSA/MTProxy info
-	Expires int
+	Expires int `schemaname:"expires"`
 	// MTProxy/PSA peer
-	Peer PeerClass
+	Peer PeerClass `schemaname:"peer"`
 	// Chat info
-	Chats []ChatClass
+	Chats []ChatClass `schemaname:"chats"`
 	// User info
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 	// PSA type
 	//
 	// Use SetPsaType and GetPsaType helpers.
-	PsaType string
+	PsaType string `schemaname:"psa_type"`
 	// PSA message
 	//
 	// Use SetPsaMessage and GetPsaMessage helpers.
-	PsaMessage string
+	PsaMessage string `schemaname:"psa_message"`
 }
 
 // HelpPromoDataTypeID is TL type id of HelpPromoData.
@@ -191,6 +196,7 @@ func (p *HelpPromoData) FillFrom(from interface {
 	GetPsaType() (value string, ok bool)
 	GetPsaMessage() (value string, ok bool)
 }) {
+	p.Proxy = from.GetProxy()
 	p.Expires = from.GetExpires()
 	p.Peer = from.GetPeer()
 	p.Chats = from.GetChats()
@@ -198,15 +204,22 @@ func (p *HelpPromoData) FillFrom(from interface {
 	if val, ok := from.GetPsaType(); ok {
 		p.PsaType = val
 	}
+
 	if val, ok := from.GetPsaMessage(); ok {
 		p.PsaMessage = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *HelpPromoData) TypeID() uint32 {
 	return HelpPromoDataTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *HelpPromoData) SchemaName() string {
+	return "help.promoData"
 }
 
 // Encode implements bin.Encoder.
@@ -438,27 +451,28 @@ type HelpPromoDataClass interface {
 	bin.Decoder
 	construct() HelpPromoDataClass
 
-	// Re-fetch PSA/MTProxy info after the specified number of seconds
-	GetExpires() (value int)
-
-	// AsNotEmpty tries to map HelpPromoDataClass to HelpPromoData.
-	AsNotEmpty() (*HelpPromoData, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Re-fetch PSA/MTProxy info after the specified number of seconds
+	GetExpires() (value int)
+	// AsNotEmpty tries to map HelpPromoDataClass to HelpPromoData.
+	AsNotEmpty() (*HelpPromoData, bool)
 }
 
-// AsNotEmpty tries to map HelpPromoDataClass to HelpPromoData.
+// AsNotEmpty tries to map HelpPromoDataEmpty to HelpPromoData.
 func (p *HelpPromoDataEmpty) AsNotEmpty() (*HelpPromoData, bool) {
 	return nil, false
 }
 
-// AsNotEmpty tries to map HelpPromoDataClass to HelpPromoData.
+// AsNotEmpty tries to map HelpPromoData to HelpPromoData.
 func (p *HelpPromoData) AsNotEmpty() (*HelpPromoData, bool) {
 	return p, true
 }
@@ -549,6 +563,24 @@ func (s HelpPromoDataClassSlice) FirstAsNotEmpty() (v *HelpPromoData, ok bool) {
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s HelpPromoDataClassSlice) LastAsNotEmpty() (v *HelpPromoData, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *HelpPromoDataClassSlice) PopFirstAsNotEmpty() (v *HelpPromoData, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *HelpPromoDataClassSlice) PopAsNotEmpty() (v *HelpPromoData, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

@@ -15,11 +15,11 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) FillFrom(from interface{
 }) {
 {{- range $f := $s.Fields }}{{ if ne ($f.Type) ("bin.Fields") }}
     {{- /*gotype: github.com/gotd/td/internal/gen.fieldDef*/ -}}
-    {{- if $f.Conditional }}{{ if not ($f.ConditionalBool) }}
+    {{- if and ($f.Conditional) (not $f.ConditionalBool) }}
     if val, ok := from.Get{{ $f.Name }}(); ok {
         {{ $s.Receiver }}.{{ $f.Name }} = val
     }
-    {{- end }}{{ else }}
+    {{ else }}
     {{ $s.Receiver }}.{{ $f.Name }} = from.Get{{ $f.Name }}()
     {{- end }}
 {{- end }}{{- end }}

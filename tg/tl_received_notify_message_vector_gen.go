@@ -21,7 +21,7 @@ var _ = errors.Is
 // ReceivedNotifyMessageVector is a box for Vector<ReceivedNotifyMessage>
 type ReceivedNotifyMessageVector struct {
 	// Elements of Vector<ReceivedNotifyMessage>
-	Elems []ReceivedNotifyMessage
+	Elems []ReceivedNotifyMessage `schemaname:"Elems"`
 }
 
 // ReceivedNotifyMessageVectorTypeID is TL type id of ReceivedNotifyMessageVector.
@@ -58,6 +58,11 @@ func (vec *ReceivedNotifyMessageVector) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *ReceivedNotifyMessageVector) TypeID() uint32 {
 	return ReceivedNotifyMessageVectorTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (vec *ReceivedNotifyMessageVector) SchemaName() string {
+	return ""
 }
 
 // Encode implements bin.Encoder.

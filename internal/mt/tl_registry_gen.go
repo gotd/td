@@ -18,7 +18,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 
-// Types returns mapping from type ids to TL type names.
+// TypesMap returns mapping from type ids to TL type names.
 func TypesMap() map[uint32]string {
 	return map[uint32]string{
 		0x5162463:  "resPQ#5162463",
@@ -63,6 +63,54 @@ func TypesMap() map[uint32]string {
 		0xf3427b8c: "ping_delay_disconnect#f3427b8c",
 		0xe7512126: "destroy_session#e7512126",
 		0x9299359f: "http_wait#9299359f",
+	}
+}
+
+// NamesMap returns mapping from type names to TL type ids.
+func NamesMap() map[string]uint32 {
+	return map[string]uint32{
+		"resPQ":                      0x5162463,
+		"p_q_inner_data":             0x83c95aec,
+		"server_DH_params_fail":      0x79cb045d,
+		"server_DH_params_ok":        0xd0e8075c,
+		"server_DH_inner_data":       0xb5890dba,
+		"client_DH_inner_data":       0x6643b654,
+		"dh_gen_ok":                  0x3bcbf734,
+		"dh_gen_retry":               0x46dc1fb9,
+		"dh_gen_fail":                0xa69dae02,
+		"rpc_result":                 0xf35c6d01,
+		"rpc_error":                  0x2144ca19,
+		"rpc_answer_unknown":         0x5e2ad36e,
+		"rpc_answer_dropped_running": 0xcd78e586,
+		"rpc_answer_dropped":         0xa43ad8b7,
+		"future_salt":                0x949d9dc,
+		"future_salts":               0xae500895,
+		"pong":                       0x347773c5,
+		"destroy_session_ok":         0xe22045fc,
+		"destroy_session_none":       0x62d350c9,
+		"new_session_created":        0x9ec20908,
+		"message":                    0x5bb8e511,
+		"msg_copy":                   0xe06046b2,
+		"gzip_packed":                0x3072cfa1,
+		"msgs_ack":                   0x62d6b459,
+		"bad_msg_notification":       0xa7eff811,
+		"bad_server_salt":            0xedab447b,
+		"msg_resend_req":             0x7d861a08,
+		"msgs_state_req":             0xda69fb52,
+		"msgs_state_info":            0x4deb57d,
+		"msgs_all_info":              0x8cc0d131,
+		"msg_detailed_info":          0x276d3ec6,
+		"msg_new_detailed_info":      0x809db6df,
+		"req_pq":                     0x60469778,
+		"req_pq_multi":               0xbe7e8ef1,
+		"req_DH_params":              0xd712e4be,
+		"set_client_DH_params":       0xf5045f1f,
+		"rpc_drop_answer":            0x58e4a740,
+		"get_future_salts":           0xb921bd04,
+		"ping":                       0x7abe77ec,
+		"ping_delay_disconnect":      0xf3427b8c,
+		"destroy_session":            0xe7512126,
+		"http_wait":                  0x9299359f,
 	}
 }
 

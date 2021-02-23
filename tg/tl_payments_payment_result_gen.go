@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/payments.paymentResult for reference.
 type PaymentsPaymentResult struct {
 	// Info about the payment
-	Updates UpdatesClass
+	Updates UpdatesClass `schemaname:"updates"`
 }
 
 // PaymentsPaymentResultTypeID is TL type id of PaymentsPaymentResult.
@@ -61,6 +61,11 @@ func (p *PaymentsPaymentResult) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PaymentsPaymentResult) TypeID() uint32 {
 	return PaymentsPaymentResultTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PaymentsPaymentResult) SchemaName() string {
+	return "payments.paymentResult"
 }
 
 // Encode implements bin.Encoder.
@@ -118,7 +123,7 @@ var (
 // See https://core.telegram.org/constructor/payments.paymentVerificationNeeded for reference.
 type PaymentsPaymentVerificationNeeded struct {
 	// URL for additional payment credentials verification
-	URL string
+	URL string `schemaname:"url"`
 }
 
 // PaymentsPaymentVerificationNeededTypeID is TL type id of PaymentsPaymentVerificationNeeded.
@@ -155,6 +160,11 @@ func (p *PaymentsPaymentVerificationNeeded) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PaymentsPaymentVerificationNeeded) TypeID() uint32 {
 	return PaymentsPaymentVerificationNeededTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PaymentsPaymentVerificationNeeded) SchemaName() string {
+	return "payments.paymentVerificationNeeded"
 }
 
 // Encode implements bin.Encoder.
@@ -223,6 +233,8 @@ type PaymentsPaymentResultClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

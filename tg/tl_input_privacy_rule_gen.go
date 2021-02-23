@@ -51,6 +51,11 @@ func (i *InputPrivacyValueAllowContacts) TypeID() uint32 {
 	return InputPrivacyValueAllowContactsTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputPrivacyValueAllowContacts) SchemaName() string {
+	return "inputPrivacyValueAllowContacts"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPrivacyValueAllowContacts) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -115,6 +120,11 @@ func (i *InputPrivacyValueAllowAll) TypeID() uint32 {
 	return InputPrivacyValueAllowAllTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputPrivacyValueAllowAll) SchemaName() string {
+	return "inputPrivacyValueAllowAll"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPrivacyValueAllowAll) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -152,7 +162,7 @@ var (
 // See https://core.telegram.org/constructor/inputPrivacyValueAllowUsers for reference.
 type InputPrivacyValueAllowUsers struct {
 	// Allowed users
-	Users []InputUserClass
+	Users []InputUserClass `schemaname:"users"`
 }
 
 // InputPrivacyValueAllowUsersTypeID is TL type id of InputPrivacyValueAllowUsers.
@@ -189,6 +199,11 @@ func (i *InputPrivacyValueAllowUsers) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPrivacyValueAllowUsers) TypeID() uint32 {
 	return InputPrivacyValueAllowUsersTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputPrivacyValueAllowUsers) SchemaName() string {
+	return "inputPrivacyValueAllowUsers"
 }
 
 // Encode implements bin.Encoder.
@@ -287,6 +302,11 @@ func (i *InputPrivacyValueDisallowContacts) TypeID() uint32 {
 	return InputPrivacyValueDisallowContactsTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputPrivacyValueDisallowContacts) SchemaName() string {
+	return "inputPrivacyValueDisallowContacts"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPrivacyValueDisallowContacts) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -351,6 +371,11 @@ func (i *InputPrivacyValueDisallowAll) TypeID() uint32 {
 	return InputPrivacyValueDisallowAllTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputPrivacyValueDisallowAll) SchemaName() string {
+	return "inputPrivacyValueDisallowAll"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPrivacyValueDisallowAll) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -388,7 +413,7 @@ var (
 // See https://core.telegram.org/constructor/inputPrivacyValueDisallowUsers for reference.
 type InputPrivacyValueDisallowUsers struct {
 	// Users to disallow
-	Users []InputUserClass
+	Users []InputUserClass `schemaname:"users"`
 }
 
 // InputPrivacyValueDisallowUsersTypeID is TL type id of InputPrivacyValueDisallowUsers.
@@ -425,6 +450,11 @@ func (i *InputPrivacyValueDisallowUsers) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPrivacyValueDisallowUsers) TypeID() uint32 {
 	return InputPrivacyValueDisallowUsersTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputPrivacyValueDisallowUsers) SchemaName() string {
+	return "inputPrivacyValueDisallowUsers"
 }
 
 // Encode implements bin.Encoder.
@@ -496,7 +526,7 @@ var (
 // See https://core.telegram.org/constructor/inputPrivacyValueAllowChatParticipants for reference.
 type InputPrivacyValueAllowChatParticipants struct {
 	// Allowed chat IDs
-	Chats []int
+	Chats []int `schemaname:"chats"`
 }
 
 // InputPrivacyValueAllowChatParticipantsTypeID is TL type id of InputPrivacyValueAllowChatParticipants.
@@ -533,6 +563,11 @@ func (i *InputPrivacyValueAllowChatParticipants) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPrivacyValueAllowChatParticipants) TypeID() uint32 {
 	return InputPrivacyValueAllowChatParticipantsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputPrivacyValueAllowChatParticipants) SchemaName() string {
+	return "inputPrivacyValueAllowChatParticipants"
 }
 
 // Encode implements bin.Encoder.
@@ -594,7 +629,7 @@ var (
 // See https://core.telegram.org/constructor/inputPrivacyValueDisallowChatParticipants for reference.
 type InputPrivacyValueDisallowChatParticipants struct {
 	// Disallowed chat IDs
-	Chats []int
+	Chats []int `schemaname:"chats"`
 }
 
 // InputPrivacyValueDisallowChatParticipantsTypeID is TL type id of InputPrivacyValueDisallowChatParticipants.
@@ -631,6 +666,11 @@ func (i *InputPrivacyValueDisallowChatParticipants) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPrivacyValueDisallowChatParticipants) TypeID() uint32 {
 	return InputPrivacyValueDisallowChatParticipantsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputPrivacyValueDisallowChatParticipants) SchemaName() string {
+	return "inputPrivacyValueDisallowChatParticipants"
 }
 
 // Encode implements bin.Encoder.
@@ -714,6 +754,8 @@ type InputPrivacyRuleClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

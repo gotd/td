@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/photos.updateProfilePhoto for reference.
 type PhotosUpdateProfilePhotoRequest struct {
 	// Input photo
-	ID InputPhotoClass
+	ID InputPhotoClass `schemaname:"id"`
 }
 
 // PhotosUpdateProfilePhotoRequestTypeID is TL type id of PhotosUpdateProfilePhotoRequest.
@@ -61,6 +61,11 @@ func (u *PhotosUpdateProfilePhotoRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *PhotosUpdateProfilePhotoRequest) TypeID() uint32 {
 	return PhotosUpdateProfilePhotoRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *PhotosUpdateProfilePhotoRequest) SchemaName() string {
+	return "photos.updateProfilePhoto"
 }
 
 // Encode implements bin.Encoder.

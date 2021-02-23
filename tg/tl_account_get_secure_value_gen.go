@@ -28,7 +28,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.getSecureValue for reference.
 type AccountGetSecureValueRequest struct {
 	// Requested value types
-	Types []SecureValueTypeClass
+	Types []SecureValueTypeClass `schemaname:"types"`
 }
 
 // AccountGetSecureValueRequestTypeID is TL type id of AccountGetSecureValueRequest.
@@ -65,6 +65,11 @@ func (g *AccountGetSecureValueRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *AccountGetSecureValueRequest) TypeID() uint32 {
 	return AccountGetSecureValueRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *AccountGetSecureValueRequest) SchemaName() string {
+	return "account.getSecureValue"
 }
 
 // Encode implements bin.Encoder.

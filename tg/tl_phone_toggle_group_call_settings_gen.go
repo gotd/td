@@ -23,13 +23,13 @@ var _ = errors.Is
 // See https://core.telegram.org/method/phone.toggleGroupCallSettings for reference.
 type PhoneToggleGroupCallSettingsRequest struct {
 	// Flags field of PhoneToggleGroupCallSettingsRequest.
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Call field of PhoneToggleGroupCallSettingsRequest.
-	Call InputGroupCall
+	Call InputGroupCall `schemaname:"call"`
 	// JoinMuted field of PhoneToggleGroupCallSettingsRequest.
 	//
 	// Use SetJoinMuted and GetJoinMuted helpers.
-	JoinMuted bool
+	JoinMuted bool `schemaname:"join_muted"`
 }
 
 // PhoneToggleGroupCallSettingsRequestTypeID is TL type id of PhoneToggleGroupCallSettingsRequest.
@@ -70,12 +70,18 @@ func (t *PhoneToggleGroupCallSettingsRequest) FillFrom(from interface {
 	if val, ok := from.GetJoinMuted(); ok {
 		t.JoinMuted = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *PhoneToggleGroupCallSettingsRequest) TypeID() uint32 {
 	return PhoneToggleGroupCallSettingsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *PhoneToggleGroupCallSettingsRequest) SchemaName() string {
+	return "phone.toggleGroupCallSettings"
 }
 
 // Encode implements bin.Encoder.

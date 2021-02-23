@@ -51,6 +51,11 @@ func (s *MessagesSavedGifsNotModified) TypeID() uint32 {
 	return MessagesSavedGifsNotModifiedTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (s *MessagesSavedGifsNotModified) SchemaName() string {
+	return "messages.savedGifsNotModified"
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesSavedGifsNotModified) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -91,9 +96,9 @@ type MessagesSavedGifs struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int `schemaname:"hash"`
 	// List of saved gifs
-	Gifs []DocumentClass
+	Gifs []DocumentClass `schemaname:"gifs"`
 }
 
 // MessagesSavedGifsTypeID is TL type id of MessagesSavedGifs.
@@ -135,6 +140,11 @@ func (s *MessagesSavedGifs) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSavedGifs) TypeID() uint32 {
 	return MessagesSavedGifsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *MessagesSavedGifs) SchemaName() string {
+	return "messages.savedGifs"
 }
 
 // Encode implements bin.Encoder.
@@ -232,24 +242,26 @@ type MessagesSavedGifsClass interface {
 	bin.Decoder
 	construct() MessagesSavedGifsClass
 
-	// AsModified tries to map MessagesSavedGifsClass to MessagesSavedGifs.
-	AsModified() (*MessagesSavedGifs, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsModified tries to map MessagesSavedGifsClass to MessagesSavedGifs.
+	AsModified() (*MessagesSavedGifs, bool)
 }
 
-// AsModified tries to map MessagesSavedGifsClass to MessagesSavedGifs.
+// AsModified tries to map MessagesSavedGifsNotModified to MessagesSavedGifs.
 func (s *MessagesSavedGifsNotModified) AsModified() (*MessagesSavedGifs, bool) {
 	return nil, false
 }
 
-// AsModified tries to map MessagesSavedGifsClass to MessagesSavedGifs.
+// AsModified tries to map MessagesSavedGifs to MessagesSavedGifs.
 func (s *MessagesSavedGifs) AsModified() (*MessagesSavedGifs, bool) {
 	return s, true
 }
@@ -340,6 +352,24 @@ func (s MessagesSavedGifsClassSlice) FirstAsModified() (v *MessagesSavedGifs, ok
 // LastAsModified returns last element of slice (if exists).
 func (s MessagesSavedGifsClassSlice) LastAsModified() (v *MessagesSavedGifs, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopFirstAsModified returns element of slice (if exists).
+func (s *MessagesSavedGifsClassSlice) PopFirstAsModified() (v *MessagesSavedGifs, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopAsModified returns element of slice (if exists).
+func (s *MessagesSavedGifsClassSlice) PopAsModified() (v *MessagesSavedGifs, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

@@ -51,6 +51,11 @@ func (c *ChannelMessagesFilterEmpty) TypeID() uint32 {
 	return ChannelMessagesFilterEmptyTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (c *ChannelMessagesFilterEmpty) SchemaName() string {
+	return "channelMessagesFilterEmpty"
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelMessagesFilterEmpty) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -91,11 +96,11 @@ type ChannelMessagesFilter struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether to exclude new messages from the search
-	ExcludeNewMessages bool
+	ExcludeNewMessages bool `schemaname:"exclude_new_messages"`
 	// A range of messages to fetch
-	Ranges []MessageRange
+	Ranges []MessageRange `schemaname:"ranges"`
 }
 
 // ChannelMessagesFilterTypeID is TL type id of ChannelMessagesFilter.
@@ -132,6 +137,7 @@ func (c *ChannelMessagesFilter) FillFrom(from interface {
 	GetExcludeNewMessages() (value bool)
 	GetRanges() (value []MessageRange)
 }) {
+	c.ExcludeNewMessages = from.GetExcludeNewMessages()
 	c.Ranges = from.GetRanges()
 }
 
@@ -139,6 +145,11 @@ func (c *ChannelMessagesFilter) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelMessagesFilter) TypeID() uint32 {
 	return ChannelMessagesFilterTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChannelMessagesFilter) SchemaName() string {
+	return "channelMessagesFilter"
 }
 
 // Encode implements bin.Encoder.
@@ -243,24 +254,26 @@ type ChannelMessagesFilterClass interface {
 	bin.Decoder
 	construct() ChannelMessagesFilterClass
 
-	// AsNotEmpty tries to map ChannelMessagesFilterClass to ChannelMessagesFilter.
-	AsNotEmpty() (*ChannelMessagesFilter, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsNotEmpty tries to map ChannelMessagesFilterClass to ChannelMessagesFilter.
+	AsNotEmpty() (*ChannelMessagesFilter, bool)
 }
 
-// AsNotEmpty tries to map ChannelMessagesFilterClass to ChannelMessagesFilter.
+// AsNotEmpty tries to map ChannelMessagesFilterEmpty to ChannelMessagesFilter.
 func (c *ChannelMessagesFilterEmpty) AsNotEmpty() (*ChannelMessagesFilter, bool) {
 	return nil, false
 }
 
-// AsNotEmpty tries to map ChannelMessagesFilterClass to ChannelMessagesFilter.
+// AsNotEmpty tries to map ChannelMessagesFilter to ChannelMessagesFilter.
 func (c *ChannelMessagesFilter) AsNotEmpty() (*ChannelMessagesFilter, bool) {
 	return c, true
 }
@@ -351,6 +364,24 @@ func (s ChannelMessagesFilterClassSlice) FirstAsNotEmpty() (v *ChannelMessagesFi
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s ChannelMessagesFilterClassSlice) LastAsNotEmpty() (v *ChannelMessagesFilter, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *ChannelMessagesFilterClassSlice) PopFirstAsNotEmpty() (v *ChannelMessagesFilter, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *ChannelMessagesFilterClassSlice) PopAsNotEmpty() (v *ChannelMessagesFilter, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

@@ -51,6 +51,11 @@ func (g *AccountGetContentSettingsRequest) TypeID() uint32 {
 	return AccountGetContentSettingsRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *AccountGetContentSettingsRequest) SchemaName() string {
+	return "account.getContentSettings"
+}
+
 // Encode implements bin.Encoder.
 func (g *AccountGetContentSettingsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

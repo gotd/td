@@ -21,7 +21,7 @@ var _ = errors.Is
 // DialogFilterVector is a box for Vector<DialogFilter>
 type DialogFilterVector struct {
 	// Elements of Vector<DialogFilter>
-	Elems []DialogFilter
+	Elems []DialogFilter `schemaname:"Elems"`
 }
 
 // DialogFilterVectorTypeID is TL type id of DialogFilterVector.
@@ -58,6 +58,11 @@ func (vec *DialogFilterVector) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *DialogFilterVector) TypeID() uint32 {
 	return DialogFilterVectorTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (vec *DialogFilterVector) SchemaName() string {
+	return ""
 }
 
 // Encode implements bin.Encoder.

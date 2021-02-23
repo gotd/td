@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/account.takeout for reference.
 type AccountTakeout struct {
 	// Takeout ID
-	ID int64
+	ID int64 `schemaname:"id"`
 }
 
 // AccountTakeoutTypeID is TL type id of AccountTakeout.
@@ -61,6 +61,11 @@ func (t *AccountTakeout) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *AccountTakeout) TypeID() uint32 {
 	return AccountTakeoutTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *AccountTakeout) SchemaName() string {
+	return "account.takeout"
 }
 
 // Encode implements bin.Encoder.

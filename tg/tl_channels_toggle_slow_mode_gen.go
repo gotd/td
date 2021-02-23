@@ -27,9 +27,9 @@ type ChannelsToggleSlowModeRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass
+	Channel InputChannelClass `schemaname:"channel"`
 	// Users will only be able to send one message every seconds seconds, 0 to disable the limitation
-	Seconds int
+	Seconds int `schemaname:"seconds"`
 }
 
 // ChannelsToggleSlowModeRequestTypeID is TL type id of ChannelsToggleSlowModeRequest.
@@ -71,6 +71,11 @@ func (t *ChannelsToggleSlowModeRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *ChannelsToggleSlowModeRequest) TypeID() uint32 {
 	return ChannelsToggleSlowModeRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *ChannelsToggleSlowModeRequest) SchemaName() string {
+	return "channels.toggleSlowMode"
 }
 
 // Encode implements bin.Encoder.

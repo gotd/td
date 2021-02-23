@@ -51,6 +51,11 @@ func (t *TopPeerCategoryBotsPM) TypeID() uint32 {
 	return TopPeerCategoryBotsPMTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (t *TopPeerCategoryBotsPM) SchemaName() string {
+	return "topPeerCategoryBotsPM"
+}
+
 // Encode implements bin.Encoder.
 func (t *TopPeerCategoryBotsPM) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -113,6 +118,11 @@ func (t *TopPeerCategoryBotsInline) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TopPeerCategoryBotsInline) TypeID() uint32 {
 	return TopPeerCategoryBotsInlineTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *TopPeerCategoryBotsInline) SchemaName() string {
+	return "topPeerCategoryBotsInline"
 }
 
 // Encode implements bin.Encoder.
@@ -179,6 +189,11 @@ func (t *TopPeerCategoryCorrespondents) TypeID() uint32 {
 	return TopPeerCategoryCorrespondentsTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (t *TopPeerCategoryCorrespondents) SchemaName() string {
+	return "topPeerCategoryCorrespondents"
+}
+
 // Encode implements bin.Encoder.
 func (t *TopPeerCategoryCorrespondents) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -241,6 +256,11 @@ func (t *TopPeerCategoryGroups) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TopPeerCategoryGroups) TypeID() uint32 {
 	return TopPeerCategoryGroupsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *TopPeerCategoryGroups) SchemaName() string {
+	return "topPeerCategoryGroups"
 }
 
 // Encode implements bin.Encoder.
@@ -307,6 +327,11 @@ func (t *TopPeerCategoryChannels) TypeID() uint32 {
 	return TopPeerCategoryChannelsTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (t *TopPeerCategoryChannels) SchemaName() string {
+	return "topPeerCategoryChannels"
+}
+
 // Encode implements bin.Encoder.
 func (t *TopPeerCategoryChannels) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -369,6 +394,11 @@ func (t *TopPeerCategoryPhoneCalls) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TopPeerCategoryPhoneCalls) TypeID() uint32 {
 	return TopPeerCategoryPhoneCallsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *TopPeerCategoryPhoneCalls) SchemaName() string {
+	return "topPeerCategoryPhoneCalls"
 }
 
 // Encode implements bin.Encoder.
@@ -435,6 +465,11 @@ func (t *TopPeerCategoryForwardUsers) TypeID() uint32 {
 	return TopPeerCategoryForwardUsersTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (t *TopPeerCategoryForwardUsers) SchemaName() string {
+	return "topPeerCategoryForwardUsers"
+}
+
 // Encode implements bin.Encoder.
 func (t *TopPeerCategoryForwardUsers) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -499,6 +534,11 @@ func (t *TopPeerCategoryForwardChats) TypeID() uint32 {
 	return TopPeerCategoryForwardChatsTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (t *TopPeerCategoryForwardChats) SchemaName() string {
+	return "topPeerCategoryForwardChats"
+}
+
 // Encode implements bin.Encoder.
 func (t *TopPeerCategoryForwardChats) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -558,6 +598,8 @@ type TopPeerCategoryClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

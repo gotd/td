@@ -23,15 +23,15 @@ var _ = errors.Is
 // See https://core.telegram.org/method/phone.getGroupParticipants for reference.
 type PhoneGetGroupParticipantsRequest struct {
 	// Call field of PhoneGetGroupParticipantsRequest.
-	Call InputGroupCall
+	Call InputGroupCall `schemaname:"call"`
 	// Ids field of PhoneGetGroupParticipantsRequest.
-	Ids []int
+	Ids []int `schemaname:"ids"`
 	// Sources field of PhoneGetGroupParticipantsRequest.
-	Sources []int
+	Sources []int `schemaname:"sources"`
 	// Offset field of PhoneGetGroupParticipantsRequest.
-	Offset string
+	Offset string `schemaname:"offset"`
 	// Limit field of PhoneGetGroupParticipantsRequest.
-	Limit int
+	Limit int `schemaname:"limit"`
 }
 
 // PhoneGetGroupParticipantsRequestTypeID is TL type id of PhoneGetGroupParticipantsRequest.
@@ -88,6 +88,11 @@ func (g *PhoneGetGroupParticipantsRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *PhoneGetGroupParticipantsRequest) TypeID() uint32 {
 	return PhoneGetGroupParticipantsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *PhoneGetGroupParticipantsRequest) SchemaName() string {
+	return "phone.getGroupParticipants"
 }
 
 // Encode implements bin.Encoder.

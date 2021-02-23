@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/invokeAfterMsg for reference.
 type InvokeAfterMsgRequest struct {
 	// Message identifier on which a current query depends
-	MsgID int64
+	MsgID int64 `schemaname:"msg_id"`
 	// The query itself
-	Query bin.Object
+	Query bin.Object `schemaname:"query"`
 }
 
 // InvokeAfterMsgRequestTypeID is TL type id of InvokeAfterMsgRequest.
@@ -68,6 +68,11 @@ func (i *InvokeAfterMsgRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InvokeAfterMsgRequest) TypeID() uint32 {
 	return InvokeAfterMsgRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InvokeAfterMsgRequest) SchemaName() string {
+	return "invokeAfterMsg"
 }
 
 // Encode implements bin.Encoder.

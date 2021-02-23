@@ -21,7 +21,7 @@ var _ = errors.Is
 // MessageRangeVector is a box for Vector<MessageRange>
 type MessageRangeVector struct {
 	// Elements of Vector<MessageRange>
-	Elems []MessageRange
+	Elems []MessageRange `schemaname:"Elems"`
 }
 
 // MessageRangeVectorTypeID is TL type id of MessageRangeVector.
@@ -58,6 +58,11 @@ func (vec *MessageRangeVector) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *MessageRangeVector) TypeID() uint32 {
 	return MessageRangeVectorTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (vec *MessageRangeVector) SchemaName() string {
+	return ""
 }
 
 // Encode implements bin.Encoder.

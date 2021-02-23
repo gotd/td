@@ -51,6 +51,11 @@ func (c *AuthCodeTypeSms) TypeID() uint32 {
 	return AuthCodeTypeSmsTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (c *AuthCodeTypeSms) SchemaName() string {
+	return "auth.codeTypeSms"
+}
+
 // Encode implements bin.Encoder.
 func (c *AuthCodeTypeSms) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -113,6 +118,11 @@ func (c *AuthCodeTypeCall) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *AuthCodeTypeCall) TypeID() uint32 {
 	return AuthCodeTypeCallTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *AuthCodeTypeCall) SchemaName() string {
+	return "auth.codeTypeCall"
 }
 
 // Encode implements bin.Encoder.
@@ -179,6 +189,11 @@ func (c *AuthCodeTypeFlashCall) TypeID() uint32 {
 	return AuthCodeTypeFlashCallTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (c *AuthCodeTypeFlashCall) SchemaName() string {
+	return "auth.codeTypeFlashCall"
+}
+
 // Encode implements bin.Encoder.
 func (c *AuthCodeTypeFlashCall) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -233,6 +248,8 @@ type AuthCodeTypeClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

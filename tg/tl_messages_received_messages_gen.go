@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.receivedMessages for reference.
 type MessagesReceivedMessagesRequest struct {
 	// Maximum message ID available in a client.
-	MaxID int
+	MaxID int `schemaname:"max_id"`
 }
 
 // MessagesReceivedMessagesRequestTypeID is TL type id of MessagesReceivedMessagesRequest.
@@ -61,6 +61,11 @@ func (r *MessagesReceivedMessagesRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *MessagesReceivedMessagesRequest) TypeID() uint32 {
 	return MessagesReceivedMessagesRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *MessagesReceivedMessagesRequest) SchemaName() string {
+	return "messages.receivedMessages"
 }
 
 // Encode implements bin.Encoder.

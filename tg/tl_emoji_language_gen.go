@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/emojiLanguage for reference.
 type EmojiLanguage struct {
 	// Language code
-	LangCode string
+	LangCode string `schemaname:"lang_code"`
 }
 
 // EmojiLanguageTypeID is TL type id of EmojiLanguage.
@@ -61,6 +61,11 @@ func (e *EmojiLanguage) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EmojiLanguage) TypeID() uint32 {
 	return EmojiLanguageTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *EmojiLanguage) SchemaName() string {
+	return "emojiLanguage"
 }
 
 // Encode implements bin.Encoder.

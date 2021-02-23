@@ -27,9 +27,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.editChatDefaultBannedRights for reference.
 type MessagesEditChatDefaultBannedRightsRequest struct {
 	// The peer
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// The new global rights
-	BannedRights ChatBannedRights
+	BannedRights ChatBannedRights `schemaname:"banned_rights"`
 }
 
 // MessagesEditChatDefaultBannedRightsRequestTypeID is TL type id of MessagesEditChatDefaultBannedRightsRequest.
@@ -71,6 +71,11 @@ func (e *MessagesEditChatDefaultBannedRightsRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *MessagesEditChatDefaultBannedRightsRequest) TypeID() uint32 {
 	return MessagesEditChatDefaultBannedRightsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *MessagesEditChatDefaultBannedRightsRequest) SchemaName() string {
+	return "messages.editChatDefaultBannedRights"
 }
 
 // Encode implements bin.Encoder.

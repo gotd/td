@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/sendMultipleSMS for reference.
 type SendMultipleSMSRequest struct {
 	// Messages field of SendMultipleSMSRequest.
-	Messages []SMS
+	Messages []SMS `schemaname:"messages"`
 }
 
 // SendMultipleSMSRequestTypeID is TL type id of SendMultipleSMSRequest.
@@ -60,6 +60,11 @@ func (s *SendMultipleSMSRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SendMultipleSMSRequest) TypeID() uint32 {
 	return SendMultipleSMSRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SendMultipleSMSRequest) SchemaName() string {
+	return "sendMultipleSMS"
 }
 
 // Encode implements bin.Encoder.

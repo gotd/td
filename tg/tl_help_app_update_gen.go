@@ -27,28 +27,28 @@ type HelpAppUpdate struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Unskippable, the new info must be shown to the user (with a popup or something else)
-	CanNotSkip bool
+	CanNotSkip bool `schemaname:"can_not_skip"`
 	// Update ID
-	ID int
+	ID int `schemaname:"id"`
 	// New version name
-	Version string
+	Version string `schemaname:"version"`
 	// Text description of the update
-	Text string
+	Text string `schemaname:"text"`
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
-	Entities []MessageEntityClass
+	Entities []MessageEntityClass `schemaname:"entities"`
 	// Application binary
 	//
 	// Use SetDocument and GetDocument helpers.
-	Document DocumentClass
+	Document DocumentClass `schemaname:"document"`
 	// Application download URL
 	//
 	// Use SetURL and GetURL helpers.
-	URL string
+	URL string `schemaname:"url"`
 }
 
 // HelpAppUpdateTypeID is TL type id of HelpAppUpdate.
@@ -105,6 +105,7 @@ func (a *HelpAppUpdate) FillFrom(from interface {
 	GetDocument() (value DocumentClass, ok bool)
 	GetURL() (value string, ok bool)
 }) {
+	a.CanNotSkip = from.GetCanNotSkip()
 	a.ID = from.GetID()
 	a.Version = from.GetVersion()
 	a.Text = from.GetText()
@@ -112,15 +113,22 @@ func (a *HelpAppUpdate) FillFrom(from interface {
 	if val, ok := from.GetDocument(); ok {
 		a.Document = val
 	}
+
 	if val, ok := from.GetURL(); ok {
 		a.URL = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *HelpAppUpdate) TypeID() uint32 {
 	return HelpAppUpdateTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (a *HelpAppUpdate) SchemaName() string {
+	return "help.appUpdate"
 }
 
 // Encode implements bin.Encoder.
@@ -347,6 +355,11 @@ func (n *HelpNoAppUpdate) TypeID() uint32 {
 	return HelpNoAppUpdateTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (n *HelpNoAppUpdate) SchemaName() string {
+	return "help.noAppUpdate"
+}
+
 // Encode implements bin.Encoder.
 func (n *HelpNoAppUpdate) Encode(b *bin.Buffer) error {
 	if n == nil {
@@ -400,6 +413,8 @@ type HelpAppUpdateClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

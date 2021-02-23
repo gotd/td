@@ -32,13 +32,13 @@ type SecureValueErrorData struct {
 	//  4) https://core.telegram.org/constructor/secureValueTypeIdentityCard
 	//  5) https://core.telegram.org/constructor/secureValueTypeInternalPassport
 	//  6) https://core.telegram.org/constructor/secureValueTypeAddress
-	Type SecureValueTypeClass
+	Type SecureValueTypeClass `schemaname:"type"`
 	// Data hash
-	DataHash []byte
+	DataHash []byte `schemaname:"data_hash"`
 	// Name of the data field which has the error
-	Field string
+	Field string `schemaname:"field"`
 	// Error message
-	Text string
+	Text string `schemaname:"text"`
 }
 
 // SecureValueErrorDataTypeID is TL type id of SecureValueErrorData.
@@ -90,6 +90,11 @@ func (s *SecureValueErrorData) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueErrorData) TypeID() uint32 {
 	return SecureValueErrorDataTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SecureValueErrorData) SchemaName() string {
+	return "secureValueErrorData"
 }
 
 // Encode implements bin.Encoder.
@@ -192,11 +197,11 @@ type SecureValueErrorFrontSide struct {
 	//  2) https://core.telegram.org/constructor/secureValueTypeDriverLicense
 	//  3) https://core.telegram.org/constructor/secureValueTypeIdentityCard
 	//  4) https://core.telegram.org/constructor/secureValueTypeInternalPassport
-	Type SecureValueTypeClass
+	Type SecureValueTypeClass `schemaname:"type"`
 	// File hash
-	FileHash []byte
+	FileHash []byte `schemaname:"file_hash"`
 	// Error message
-	Text string
+	Text string `schemaname:"text"`
 }
 
 // SecureValueErrorFrontSideTypeID is TL type id of SecureValueErrorFrontSide.
@@ -243,6 +248,11 @@ func (s *SecureValueErrorFrontSide) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueErrorFrontSide) TypeID() uint32 {
 	return SecureValueErrorFrontSideTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SecureValueErrorFrontSide) SchemaName() string {
+	return "secureValueErrorFrontSide"
 }
 
 // Encode implements bin.Encoder.
@@ -330,11 +340,11 @@ type SecureValueErrorReverseSide struct {
 	// Links:
 	//  1) https://core.telegram.org/constructor/secureValueTypeDriverLicense
 	//  2) https://core.telegram.org/constructor/secureValueTypeIdentityCard
-	Type SecureValueTypeClass
+	Type SecureValueTypeClass `schemaname:"type"`
 	// File hash
-	FileHash []byte
+	FileHash []byte `schemaname:"file_hash"`
 	// Error message
-	Text string
+	Text string `schemaname:"text"`
 }
 
 // SecureValueErrorReverseSideTypeID is TL type id of SecureValueErrorReverseSide.
@@ -381,6 +391,11 @@ func (s *SecureValueErrorReverseSide) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueErrorReverseSide) TypeID() uint32 {
 	return SecureValueErrorReverseSideTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SecureValueErrorReverseSide) SchemaName() string {
+	return "secureValueErrorReverseSide"
 }
 
 // Encode implements bin.Encoder.
@@ -470,11 +485,11 @@ type SecureValueErrorSelfie struct {
 	//  2) https://core.telegram.org/constructor/secureValueTypeDriverLicense
 	//  3) https://core.telegram.org/constructor/secureValueTypeIdentityCard
 	//  4) https://core.telegram.org/constructor/secureValueTypeInternalPassport
-	Type SecureValueTypeClass
+	Type SecureValueTypeClass `schemaname:"type"`
 	// File hash
-	FileHash []byte
+	FileHash []byte `schemaname:"file_hash"`
 	// Error message
-	Text string
+	Text string `schemaname:"text"`
 }
 
 // SecureValueErrorSelfieTypeID is TL type id of SecureValueErrorSelfie.
@@ -521,6 +536,11 @@ func (s *SecureValueErrorSelfie) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueErrorSelfie) TypeID() uint32 {
 	return SecureValueErrorSelfieTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SecureValueErrorSelfie) SchemaName() string {
+	return "secureValueErrorSelfie"
 }
 
 // Encode implements bin.Encoder.
@@ -611,11 +631,11 @@ type SecureValueErrorFile struct {
 	//  3) https://core.telegram.org/constructor/secureValueTypeRentalAgreement
 	//  4) https://core.telegram.org/constructor/secureValueTypePassportRegistration
 	//  5) https://core.telegram.org/constructor/secureValueTypeTemporaryRegistration
-	Type SecureValueTypeClass
+	Type SecureValueTypeClass `schemaname:"type"`
 	// File hash
-	FileHash []byte
+	FileHash []byte `schemaname:"file_hash"`
 	// Error message
-	Text string
+	Text string `schemaname:"text"`
 }
 
 // SecureValueErrorFileTypeID is TL type id of SecureValueErrorFile.
@@ -662,6 +682,11 @@ func (s *SecureValueErrorFile) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueErrorFile) TypeID() uint32 {
 	return SecureValueErrorFileTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SecureValueErrorFile) SchemaName() string {
+	return "secureValueErrorFile"
 }
 
 // Encode implements bin.Encoder.
@@ -752,11 +777,11 @@ type SecureValueErrorFiles struct {
 	//  3) https://core.telegram.org/constructor/secureValueTypeRentalAgreement
 	//  4) https://core.telegram.org/constructor/secureValueTypePassportRegistration
 	//  5) https://core.telegram.org/constructor/secureValueTypeTemporaryRegistration
-	Type SecureValueTypeClass
+	Type SecureValueTypeClass `schemaname:"type"`
 	// File hash
-	FileHash [][]byte
+	FileHash [][]byte `schemaname:"file_hash"`
 	// Error message
-	Text string
+	Text string `schemaname:"text"`
 }
 
 // SecureValueErrorFilesTypeID is TL type id of SecureValueErrorFiles.
@@ -803,6 +828,11 @@ func (s *SecureValueErrorFiles) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueErrorFiles) TypeID() uint32 {
 	return SecureValueErrorFilesTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SecureValueErrorFiles) SchemaName() string {
+	return "secureValueErrorFiles"
 }
 
 // Encode implements bin.Encoder.
@@ -895,11 +925,11 @@ var (
 // See https://core.telegram.org/constructor/secureValueError for reference.
 type SecureValueError struct {
 	// Type of element which has the issue
-	Type SecureValueTypeClass
+	Type SecureValueTypeClass `schemaname:"type"`
 	// Hash
-	Hash []byte
+	Hash []byte `schemaname:"hash"`
 	// Error message
-	Text string
+	Text string `schemaname:"text"`
 }
 
 // SecureValueErrorTypeID is TL type id of SecureValueError.
@@ -946,6 +976,11 @@ func (s *SecureValueError) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueError) TypeID() uint32 {
 	return SecureValueErrorTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SecureValueError) SchemaName() string {
+	return "secureValueError"
 }
 
 // Encode implements bin.Encoder.
@@ -1041,11 +1076,11 @@ type SecureValueErrorTranslationFile struct {
 	//  8) https://core.telegram.org/constructor/secureValueTypeRentalAgreement
 	//  9) https://core.telegram.org/constructor/secureValueTypePassportRegistration
 	//  10) https://core.telegram.org/constructor/secureValueTypeTemporaryRegistration
-	Type SecureValueTypeClass
+	Type SecureValueTypeClass `schemaname:"type"`
 	// File hash
-	FileHash []byte
+	FileHash []byte `schemaname:"file_hash"`
 	// Error message
-	Text string
+	Text string `schemaname:"text"`
 }
 
 // SecureValueErrorTranslationFileTypeID is TL type id of SecureValueErrorTranslationFile.
@@ -1092,6 +1127,11 @@ func (s *SecureValueErrorTranslationFile) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueErrorTranslationFile) TypeID() uint32 {
 	return SecureValueErrorTranslationFileTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SecureValueErrorTranslationFile) SchemaName() string {
+	return "secureValueErrorTranslationFile"
 }
 
 // Encode implements bin.Encoder.
@@ -1187,11 +1227,11 @@ type SecureValueErrorTranslationFiles struct {
 	//  8) https://core.telegram.org/constructor/secureValueTypeRentalAgreement
 	//  9) https://core.telegram.org/constructor/secureValueTypePassportRegistration
 	//  10) https://core.telegram.org/constructor/secureValueTypeTemporaryRegistration
-	Type SecureValueTypeClass
+	Type SecureValueTypeClass `schemaname:"type"`
 	// Hash
-	FileHash [][]byte
+	FileHash [][]byte `schemaname:"file_hash"`
 	// Error message
-	Text string
+	Text string `schemaname:"text"`
 }
 
 // SecureValueErrorTranslationFilesTypeID is TL type id of SecureValueErrorTranslationFiles.
@@ -1238,6 +1278,11 @@ func (s *SecureValueErrorTranslationFiles) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueErrorTranslationFiles) TypeID() uint32 {
 	return SecureValueErrorTranslationFilesTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SecureValueErrorTranslationFiles) SchemaName() string {
+	return "secureValueErrorTranslationFiles"
 }
 
 // Encode implements bin.Encoder.
@@ -1350,6 +1395,16 @@ type SecureValueErrorClass interface {
 	bin.Decoder
 	construct() SecureValueErrorClass
 
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+
 	// The section of the user's Telegram Passport which has the error, one of secureValueTypePersonalDetails¹, secureValueTypePassport², secureValueTypeDriverLicense³, secureValueTypeIdentityCard⁴, secureValueTypeInternalPassport⁵, secureValueTypeAddress⁶
 	//
 	// Links:
@@ -1362,14 +1417,6 @@ type SecureValueErrorClass interface {
 	GetType() (value SecureValueTypeClass)
 	// Error message
 	GetText() (value string)
-
-	// TypeID returns MTProto type id (CRC code).
-	// See https://core.telegram.org/mtproto/TL-tl#remarks.
-	TypeID() uint32
-	// String implements fmt.Stringer.
-	String() string
-	// Zero returns true if current object has a zero value.
-	Zero() bool
 }
 
 // DecodeSecureValueError implements binary de-serialization for SecureValueErrorClass.

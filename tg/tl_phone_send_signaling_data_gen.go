@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/phone.sendSignalingData for reference.
 type PhoneSendSignalingDataRequest struct {
 	// Phone call
-	Peer InputPhoneCall
+	Peer InputPhoneCall `schemaname:"peer"`
 	// Signaling payload
-	Data []byte
+	Data []byte `schemaname:"data"`
 }
 
 // PhoneSendSignalingDataRequestTypeID is TL type id of PhoneSendSignalingDataRequest.
@@ -68,6 +68,11 @@ func (s *PhoneSendSignalingDataRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *PhoneSendSignalingDataRequest) TypeID() uint32 {
 	return PhoneSendSignalingDataRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *PhoneSendSignalingDataRequest) SchemaName() string {
+	return "phone.sendSignalingData"
 }
 
 // Encode implements bin.Encoder.

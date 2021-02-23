@@ -24,35 +24,35 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/poll for reference.
 type Poll struct {
 	// ID of the poll
-	ID int64
+	ID int64 `schemaname:"id"`
 	// Flags, see TL conditional fields¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether the poll is closed and doesn't accept any more answers
-	Closed bool
+	Closed bool `schemaname:"closed"`
 	// Whether cast votes are publicly visible to all users (non-anonymous poll)
-	PublicVoters bool
+	PublicVoters bool `schemaname:"public_voters"`
 	// Whether multiple options can be chosen as answer
-	MultipleChoice bool
+	MultipleChoice bool `schemaname:"multiple_choice"`
 	// Whether this is a quiz (with wrong and correct answers, results shown in the return type)
-	Quiz bool
+	Quiz bool `schemaname:"quiz"`
 	// The question of the poll
-	Question string
+	Question string `schemaname:"question"`
 	// The possible answers, vote using messages.sendVote¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.sendVote
-	Answers []PollAnswer
+	Answers []PollAnswer `schemaname:"answers"`
 	// Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date.
 	//
 	// Use SetClosePeriod and GetClosePeriod helpers.
-	ClosePeriod int
+	ClosePeriod int `schemaname:"close_period"`
 	// Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 seconds in the future; can't be used together with close_period.
 	//
 	// Use SetCloseDate and GetCloseDate helpers.
-	CloseDate int
+	CloseDate int `schemaname:"close_date"`
 }
 
 // PollTypeID is TL type id of Poll.
@@ -118,20 +118,31 @@ func (p *Poll) FillFrom(from interface {
 	GetCloseDate() (value int, ok bool)
 }) {
 	p.ID = from.GetID()
+	p.Closed = from.GetClosed()
+	p.PublicVoters = from.GetPublicVoters()
+	p.MultipleChoice = from.GetMultipleChoice()
+	p.Quiz = from.GetQuiz()
 	p.Question = from.GetQuestion()
 	p.Answers = from.GetAnswers()
 	if val, ok := from.GetClosePeriod(); ok {
 		p.ClosePeriod = val
 	}
+
 	if val, ok := from.GetCloseDate(); ok {
 		p.CloseDate = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *Poll) TypeID() uint32 {
 	return PollTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *Poll) SchemaName() string {
+	return "poll"
 }
 
 // Encode implements bin.Encoder.

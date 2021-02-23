@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/auth.sentCodeTypeApp for reference.
 type AuthSentCodeTypeApp struct {
 	// Length of the code in bytes
-	Length int
+	Length int `schemaname:"length"`
 }
 
 // AuthSentCodeTypeAppTypeID is TL type id of AuthSentCodeTypeApp.
@@ -61,6 +61,11 @@ func (s *AuthSentCodeTypeApp) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AuthSentCodeTypeApp) TypeID() uint32 {
 	return AuthSentCodeTypeAppTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *AuthSentCodeTypeApp) SchemaName() string {
+	return "auth.sentCodeTypeApp"
 }
 
 // Encode implements bin.Encoder.
@@ -113,7 +118,7 @@ var (
 // See https://core.telegram.org/constructor/auth.sentCodeTypeSms for reference.
 type AuthSentCodeTypeSms struct {
 	// Length of the code in bytes
-	Length int
+	Length int `schemaname:"length"`
 }
 
 // AuthSentCodeTypeSmsTypeID is TL type id of AuthSentCodeTypeSms.
@@ -150,6 +155,11 @@ func (s *AuthSentCodeTypeSms) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AuthSentCodeTypeSms) TypeID() uint32 {
 	return AuthSentCodeTypeSmsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *AuthSentCodeTypeSms) SchemaName() string {
+	return "auth.sentCodeTypeSms"
 }
 
 // Encode implements bin.Encoder.
@@ -202,7 +212,7 @@ var (
 // See https://core.telegram.org/constructor/auth.sentCodeTypeCall for reference.
 type AuthSentCodeTypeCall struct {
 	// Length of the verification code
-	Length int
+	Length int `schemaname:"length"`
 }
 
 // AuthSentCodeTypeCallTypeID is TL type id of AuthSentCodeTypeCall.
@@ -239,6 +249,11 @@ func (s *AuthSentCodeTypeCall) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AuthSentCodeTypeCall) TypeID() uint32 {
 	return AuthSentCodeTypeCallTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *AuthSentCodeTypeCall) SchemaName() string {
+	return "auth.sentCodeTypeCall"
 }
 
 // Encode implements bin.Encoder.
@@ -294,7 +309,7 @@ type AuthSentCodeTypeFlashCall struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/pattern
-	Pattern string
+	Pattern string `schemaname:"pattern"`
 }
 
 // AuthSentCodeTypeFlashCallTypeID is TL type id of AuthSentCodeTypeFlashCall.
@@ -331,6 +346,11 @@ func (s *AuthSentCodeTypeFlashCall) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AuthSentCodeTypeFlashCall) TypeID() uint32 {
 	return AuthSentCodeTypeFlashCallTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *AuthSentCodeTypeFlashCall) SchemaName() string {
+	return "auth.sentCodeTypeFlashCall"
 }
 
 // Encode implements bin.Encoder.
@@ -401,6 +421,8 @@ type AuthSentCodeTypeClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

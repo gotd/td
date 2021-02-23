@@ -27,13 +27,13 @@ type PaymentsSavedInfo struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether the user has some saved payment credentials
-	HasSavedCredentials bool
+	HasSavedCredentials bool `schemaname:"has_saved_credentials"`
 	// Saved server-side order information
 	//
 	// Use SetSavedInfo and GetSavedInfo helpers.
-	SavedInfo PaymentRequestedInfo
+	SavedInfo PaymentRequestedInfo `schemaname:"saved_info"`
 }
 
 // PaymentsSavedInfoTypeID is TL type id of PaymentsSavedInfo.
@@ -70,15 +70,22 @@ func (s *PaymentsSavedInfo) FillFrom(from interface {
 	GetHasSavedCredentials() (value bool)
 	GetSavedInfo() (value PaymentRequestedInfo, ok bool)
 }) {
+	s.HasSavedCredentials = from.GetHasSavedCredentials()
 	if val, ok := from.GetSavedInfo(); ok {
 		s.SavedInfo = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *PaymentsSavedInfo) TypeID() uint32 {
 	return PaymentsSavedInfoTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *PaymentsSavedInfo) SchemaName() string {
+	return "payments.savedInfo"
 }
 
 // Encode implements bin.Encoder.

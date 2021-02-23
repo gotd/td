@@ -24,14 +24,14 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/inputEncryptedChat for reference.
 type InputEncryptedChat struct {
 	// Chat ID
-	ChatID int
+	ChatID int `schemaname:"chat_id"`
 	// Checking sum from constructor encryptedChat¹, encryptedChatWaiting² or encryptedChatRequested³
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/encryptedChat
 	//  2) https://core.telegram.org/constructor/encryptedChatWaiting
 	//  3) https://core.telegram.org/constructor/encryptedChatRequested
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 }
 
 // InputEncryptedChatTypeID is TL type id of InputEncryptedChat.
@@ -73,6 +73,11 @@ func (i *InputEncryptedChat) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputEncryptedChat) TypeID() uint32 {
 	return InputEncryptedChatTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputEncryptedChat) SchemaName() string {
+	return "inputEncryptedChat"
 }
 
 // Encode implements bin.Encoder.

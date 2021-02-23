@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/help.hidePromoData for reference.
 type HelpHidePromoDataRequest struct {
 	// Peer to hide
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 }
 
 // HelpHidePromoDataRequestTypeID is TL type id of HelpHidePromoDataRequest.
@@ -61,6 +61,11 @@ func (h *HelpHidePromoDataRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (h *HelpHidePromoDataRequest) TypeID() uint32 {
 	return HelpHidePromoDataRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (h *HelpHidePromoDataRequest) SchemaName() string {
+	return "help.hidePromoData"
 }
 
 // Encode implements bin.Encoder.

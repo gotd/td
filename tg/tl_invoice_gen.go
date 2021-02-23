@@ -27,30 +27,30 @@ type Invoice struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Test invoice
-	Test bool
+	Test bool `schemaname:"test"`
 	// Set this flag if you require the user's full name to complete the order
-	NameRequested bool
+	NameRequested bool `schemaname:"name_requested"`
 	// Set this flag if you require the user's phone number to complete the order
-	PhoneRequested bool
+	PhoneRequested bool `schemaname:"phone_requested"`
 	// Set this flag if you require the user's email address to complete the order
-	EmailRequested bool
+	EmailRequested bool `schemaname:"email_requested"`
 	// Set this flag if you require the user's shipping address to complete the order
-	ShippingAddressRequested bool
+	ShippingAddressRequested bool `schemaname:"shipping_address_requested"`
 	// Set this flag if the final price depends on the shipping method
-	Flexible bool
+	Flexible bool `schemaname:"flexible"`
 	// Set this flag if user's phone number should be sent to provider
-	PhoneToProvider bool
+	PhoneToProvider bool `schemaname:"phone_to_provider"`
 	// Set this flag if user's email address should be sent to provider
-	EmailToProvider bool
+	EmailToProvider bool `schemaname:"email_to_provider"`
 	// Three-letter ISO 4217 currency¹ code
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments#supported-currencies
-	Currency string
+	Currency string `schemaname:"currency"`
 	// Price breakdown, a list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
-	Prices []LabeledPrice
+	Prices []LabeledPrice `schemaname:"prices"`
 }
 
 // InvoiceTypeID is TL type id of Invoice.
@@ -119,6 +119,14 @@ func (i *Invoice) FillFrom(from interface {
 	GetCurrency() (value string)
 	GetPrices() (value []LabeledPrice)
 }) {
+	i.Test = from.GetTest()
+	i.NameRequested = from.GetNameRequested()
+	i.PhoneRequested = from.GetPhoneRequested()
+	i.EmailRequested = from.GetEmailRequested()
+	i.ShippingAddressRequested = from.GetShippingAddressRequested()
+	i.Flexible = from.GetFlexible()
+	i.PhoneToProvider = from.GetPhoneToProvider()
+	i.EmailToProvider = from.GetEmailToProvider()
 	i.Currency = from.GetCurrency()
 	i.Prices = from.GetPrices()
 }
@@ -127,6 +135,11 @@ func (i *Invoice) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *Invoice) TypeID() uint32 {
 	return InvoiceTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *Invoice) SchemaName() string {
+	return "invoice"
 }
 
 // Encode implements bin.Encoder.

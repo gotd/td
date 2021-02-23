@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/help.recentMeUrls for reference.
 type HelpRecentMeUrls struct {
 	// URLs
-	Urls []RecentMeUrlClass
+	Urls []RecentMeUrlClass `schemaname:"urls"`
 	// Chats
-	Chats []ChatClass
+	Chats []ChatClass `schemaname:"chats"`
 	// Users
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 }
 
 // HelpRecentMeUrlsTypeID is TL type id of HelpRecentMeUrls.
@@ -75,6 +75,11 @@ func (r *HelpRecentMeUrls) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *HelpRecentMeUrls) TypeID() uint32 {
 	return HelpRecentMeUrlsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *HelpRecentMeUrls) SchemaName() string {
+	return "help.recentMeUrls"
 }
 
 // Encode implements bin.Encoder.

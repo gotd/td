@@ -25,10 +25,9 @@ func (c *Client) transfer(ctx context.Context, to *tg.Client, dc int) (tg.AuthAu
 		return nil, xerrors.Errorf("export to %d: %w", dc, err)
 	}
 
-	r, err := to.AuthImportAuthorization(ctx, &tg.AuthImportAuthorizationRequest{
-		ID:    auth.ID,
-		Bytes: auth.Bytes,
-	})
+	req := &tg.AuthImportAuthorizationRequest{}
+	req.FillFrom(auth)
+	r, err := to.AuthImportAuthorization(ctx, req)
 	if err != nil {
 		return nil, xerrors.Errorf("import from %d: %w", dc, err)
 	}

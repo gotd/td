@@ -55,6 +55,11 @@ func (g *AccountGetAllSecureValuesRequest) TypeID() uint32 {
 	return AccountGetAllSecureValuesRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *AccountGetAllSecureValuesRequest) SchemaName() string {
+	return "account.getAllSecureValues"
+}
+
 // Encode implements bin.Encoder.
 func (g *AccountGetAllSecureValuesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

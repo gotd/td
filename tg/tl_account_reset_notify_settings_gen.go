@@ -51,6 +51,11 @@ func (r *AccountResetNotifySettingsRequest) TypeID() uint32 {
 	return AccountResetNotifySettingsRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (r *AccountResetNotifySettingsRequest) SchemaName() string {
+	return "account.resetNotifySettings"
+}
+
 // Encode implements bin.Encoder.
 func (r *AccountResetNotifySettingsRequest) Encode(b *bin.Buffer) error {
 	if r == nil {

@@ -24,12 +24,12 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/statsGroupTopInviter for reference.
 type StatsGroupTopInviter struct {
 	// User ID
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// Number of invitations for statistics¹ period in consideration
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/stats
-	Invitations int
+	Invitations int `schemaname:"invitations"`
 }
 
 // StatsGroupTopInviterTypeID is TL type id of StatsGroupTopInviter.
@@ -71,6 +71,11 @@ func (s *StatsGroupTopInviter) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StatsGroupTopInviter) TypeID() uint32 {
 	return StatsGroupTopInviterTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *StatsGroupTopInviter) SchemaName() string {
+	return "statsGroupTopInviter"
 }
 
 // Encode implements bin.Encoder.

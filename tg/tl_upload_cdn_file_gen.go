@@ -30,7 +30,7 @@ type UploadCdnFileReuploadNeeded struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	RequestToken []byte
+	RequestToken []byte `schemaname:"request_token"`
 }
 
 // UploadCdnFileReuploadNeededTypeID is TL type id of UploadCdnFileReuploadNeeded.
@@ -67,6 +67,11 @@ func (c *UploadCdnFileReuploadNeeded) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *UploadCdnFileReuploadNeeded) TypeID() uint32 {
 	return UploadCdnFileReuploadNeededTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *UploadCdnFileReuploadNeeded) SchemaName() string {
+	return "upload.cdnFileReuploadNeeded"
 }
 
 // Encode implements bin.Encoder.
@@ -122,7 +127,7 @@ var (
 // See https://core.telegram.org/constructor/upload.cdnFile for reference.
 type UploadCdnFile struct {
 	// The data
-	Bytes []byte
+	Bytes []byte `schemaname:"bytes"`
 }
 
 // UploadCdnFileTypeID is TL type id of UploadCdnFile.
@@ -159,6 +164,11 @@ func (c *UploadCdnFile) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *UploadCdnFile) TypeID() uint32 {
 	return UploadCdnFileTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *UploadCdnFile) SchemaName() string {
+	return "upload.cdnFile"
 }
 
 // Encode implements bin.Encoder.
@@ -227,6 +237,8 @@ type UploadCdnFileClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

@@ -23,9 +23,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/phone.createGroupCall for reference.
 type PhoneCreateGroupCallRequest struct {
 	// Peer field of PhoneCreateGroupCallRequest.
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// RandomID field of PhoneCreateGroupCallRequest.
-	RandomID int
+	RandomID int `schemaname:"random_id"`
 }
 
 // PhoneCreateGroupCallRequestTypeID is TL type id of PhoneCreateGroupCallRequest.
@@ -67,6 +67,11 @@ func (c *PhoneCreateGroupCallRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *PhoneCreateGroupCallRequest) TypeID() uint32 {
 	return PhoneCreateGroupCallRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *PhoneCreateGroupCallRequest) SchemaName() string {
+	return "phone.createGroupCall"
 }
 
 // Encode implements bin.Encoder.

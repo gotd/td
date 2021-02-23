@@ -27,18 +27,18 @@ type UpdatesChannelDifferenceEmpty struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether there are more updates that must be fetched (always false)
-	Final bool
+	Final bool `schemaname:"final"`
 	// The latest PTS¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int
+	Pts int `schemaname:"pts"`
 	// Clients are supposed to refetch the channel difference after timeout seconds have elapsed
 	//
 	// Use SetTimeout and GetTimeout helpers.
-	Timeout int
+	Timeout int `schemaname:"timeout"`
 }
 
 // UpdatesChannelDifferenceEmptyTypeID is TL type id of UpdatesChannelDifferenceEmpty.
@@ -79,16 +79,23 @@ func (c *UpdatesChannelDifferenceEmpty) FillFrom(from interface {
 	GetPts() (value int)
 	GetTimeout() (value int, ok bool)
 }) {
+	c.Final = from.GetFinal()
 	c.Pts = from.GetPts()
 	if val, ok := from.GetTimeout(); ok {
 		c.Timeout = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *UpdatesChannelDifferenceEmpty) TypeID() uint32 {
 	return UpdatesChannelDifferenceEmptyTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *UpdatesChannelDifferenceEmpty) SchemaName() string {
+	return "updates.channelDifferenceEmpty"
 }
 
 // Encode implements bin.Encoder.
@@ -200,24 +207,24 @@ type UpdatesChannelDifferenceTooLong struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether there are more updates that must be fetched (always false)
-	Final bool
+	Final bool `schemaname:"final"`
 	// Clients are supposed to refetch the channel difference after timeout seconds have elapsed
 	//
 	// Use SetTimeout and GetTimeout helpers.
-	Timeout int
+	Timeout int `schemaname:"timeout"`
 	// Dialog containing the latest PTS¹ that can be used to reset the channel state
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Dialog DialogClass
+	Dialog DialogClass `schemaname:"dialog"`
 	// The latest messages
-	Messages []MessageClass
+	Messages []MessageClass `schemaname:"messages"`
 	// Chats from messages
-	Chats []ChatClass
+	Chats []ChatClass `schemaname:"chats"`
 	// Users from messages
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 }
 
 // UpdatesChannelDifferenceTooLongTypeID is TL type id of UpdatesChannelDifferenceTooLong.
@@ -270,9 +277,11 @@ func (c *UpdatesChannelDifferenceTooLong) FillFrom(from interface {
 	GetChats() (value []ChatClass)
 	GetUsers() (value []UserClass)
 }) {
+	c.Final = from.GetFinal()
 	if val, ok := from.GetTimeout(); ok {
 		c.Timeout = val
 	}
+
 	c.Dialog = from.GetDialog()
 	c.Messages = from.GetMessages()
 	c.Chats = from.GetChats()
@@ -283,6 +292,11 @@ func (c *UpdatesChannelDifferenceTooLong) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *UpdatesChannelDifferenceTooLong) TypeID() uint32 {
 	return UpdatesChannelDifferenceTooLongTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *UpdatesChannelDifferenceTooLong) SchemaName() string {
+	return "updates.channelDifferenceTooLong"
 }
 
 // Encode implements bin.Encoder.
@@ -495,26 +509,26 @@ type UpdatesChannelDifference struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether there are more updates to be fetched using getDifference, starting from the provided pts
-	Final bool
+	Final bool `schemaname:"final"`
 	// The PTS¹ from which to start getting updates the next time
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int
+	Pts int `schemaname:"pts"`
 	// Clients are supposed to refetch the channel difference after timeout seconds have elapsed
 	//
 	// Use SetTimeout and GetTimeout helpers.
-	Timeout int
+	Timeout int `schemaname:"timeout"`
 	// New messages
-	NewMessages []MessageClass
+	NewMessages []MessageClass `schemaname:"new_messages"`
 	// Other updates
-	OtherUpdates []UpdateClass
+	OtherUpdates []UpdateClass `schemaname:"other_updates"`
 	// Chats
-	Chats []ChatClass
+	Chats []ChatClass `schemaname:"chats"`
 	// Users
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 }
 
 // UpdatesChannelDifferenceTypeID is TL type id of UpdatesChannelDifference.
@@ -571,10 +585,12 @@ func (c *UpdatesChannelDifference) FillFrom(from interface {
 	GetChats() (value []ChatClass)
 	GetUsers() (value []UserClass)
 }) {
+	c.Final = from.GetFinal()
 	c.Pts = from.GetPts()
 	if val, ok := from.GetTimeout(); ok {
 		c.Timeout = val
 	}
+
 	c.NewMessages = from.GetNewMessages()
 	c.OtherUpdates = from.GetOtherUpdates()
 	c.Chats = from.GetChats()
@@ -585,6 +601,11 @@ func (c *UpdatesChannelDifference) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *UpdatesChannelDifference) TypeID() uint32 {
 	return UpdatesChannelDifferenceTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *UpdatesChannelDifference) SchemaName() string {
+	return "updates.channelDifference"
 }
 
 // Encode implements bin.Encoder.
@@ -835,21 +856,22 @@ type UpdatesChannelDifferenceClass interface {
 	bin.Decoder
 	construct() UpdatesChannelDifferenceClass
 
-	// Whether there are more updates that must be fetched (always false)
-	GetFinal() (value bool)
-	// Clients are supposed to refetch the channel difference after timeout seconds have elapsed
-	GetTimeout() (value int, ok bool)
-
-	// AsNotEmpty tries to map UpdatesChannelDifferenceClass to NotEmptyUpdatesChannelDifference.
-	AsNotEmpty() (NotEmptyUpdatesChannelDifference, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Whether there are more updates that must be fetched (always false)
+	GetFinal() (value bool)
+	// Clients are supposed to refetch the channel difference after timeout seconds have elapsed
+	GetTimeout() (value int, ok bool)
+	// AsNotEmpty tries to map UpdatesChannelDifferenceClass to NotEmptyUpdatesChannelDifference.
+	AsNotEmpty() (NotEmptyUpdatesChannelDifference, bool)
 }
 
 // NotEmptyUpdatesChannelDifference represents NotEmpty subset of UpdatesChannelDifferenceClass.
@@ -857,6 +879,16 @@ type NotEmptyUpdatesChannelDifference interface {
 	bin.Encoder
 	bin.Decoder
 	construct() UpdatesChannelDifferenceClass
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
 
 	// Whether there are more updates that must be fetched (always false)
 	GetFinal() (value bool)
@@ -866,29 +898,21 @@ type NotEmptyUpdatesChannelDifference interface {
 	GetChats() (value []ChatClass)
 	// Users from messages
 	GetUsers() (value []UserClass)
-
-	// TypeID returns MTProto type id (CRC code).
-	// See https://core.telegram.org/mtproto/TL-tl#remarks.
-	TypeID() uint32
-	// String implements fmt.Stringer.
-	String() string
-	// Zero returns true if current object has a zero value.
-	Zero() bool
 }
 
-// AsNotEmpty tries to map UpdatesChannelDifferenceClass to NotEmptyUpdatesChannelDifference.
+// AsNotEmpty tries to map UpdatesChannelDifferenceEmpty to NotEmptyUpdatesChannelDifference.
 func (c *UpdatesChannelDifferenceEmpty) AsNotEmpty() (NotEmptyUpdatesChannelDifference, bool) {
 	value, ok := (UpdatesChannelDifferenceClass(c)).(NotEmptyUpdatesChannelDifference)
 	return value, ok
 }
 
-// AsNotEmpty tries to map UpdatesChannelDifferenceClass to NotEmptyUpdatesChannelDifference.
+// AsNotEmpty tries to map UpdatesChannelDifferenceTooLong to NotEmptyUpdatesChannelDifference.
 func (c *UpdatesChannelDifferenceTooLong) AsNotEmpty() (NotEmptyUpdatesChannelDifference, bool) {
 	value, ok := (UpdatesChannelDifferenceClass(c)).(NotEmptyUpdatesChannelDifference)
 	return value, ok
 }
 
-// AsNotEmpty tries to map UpdatesChannelDifferenceClass to NotEmptyUpdatesChannelDifference.
+// AsNotEmpty tries to map UpdatesChannelDifference to NotEmptyUpdatesChannelDifference.
 func (c *UpdatesChannelDifference) AsNotEmpty() (NotEmptyUpdatesChannelDifference, bool) {
 	value, ok := (UpdatesChannelDifferenceClass(c)).(NotEmptyUpdatesChannelDifference)
 	return value, ok
@@ -987,6 +1011,24 @@ func (s UpdatesChannelDifferenceClassSlice) FirstAsNotEmpty() (v NotEmptyUpdates
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s UpdatesChannelDifferenceClassSlice) LastAsNotEmpty() (v NotEmptyUpdatesChannelDifference, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *UpdatesChannelDifferenceClassSlice) PopFirstAsNotEmpty() (v NotEmptyUpdatesChannelDifference, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *UpdatesChannelDifferenceClassSlice) PopAsNotEmpty() (v NotEmptyUpdatesChannelDifference, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

@@ -54,6 +54,11 @@ func (r *AccountResendPasswordEmailRequest) TypeID() uint32 {
 	return AccountResendPasswordEmailRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (r *AccountResendPasswordEmailRequest) SchemaName() string {
+	return "account.resendPasswordEmail"
+}
+
 // Encode implements bin.Encoder.
 func (r *AccountResendPasswordEmailRequest) Encode(b *bin.Buffer) error {
 	if r == nil {

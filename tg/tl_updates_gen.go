@@ -54,6 +54,11 @@ func (u *UpdatesTooLong) TypeID() uint32 {
 	return UpdatesTooLongTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (u *UpdatesTooLong) SchemaName() string {
+	return "updatesTooLong"
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdatesTooLong) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -94,58 +99,58 @@ type UpdateShortMessage struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether the message is outgoing
-	Out bool
+	Out bool `schemaname:"out"`
 	// Whether we were mentioned in the message
-	Mentioned bool
+	Mentioned bool `schemaname:"mentioned"`
 	// Whether there are some unread mentions in this message
-	MediaUnread bool
+	MediaUnread bool `schemaname:"media_unread"`
 	// If true, the message is a silent message, no notifications should be triggered
-	Silent bool
+	Silent bool `schemaname:"silent"`
 	// The message ID
-	ID int
+	ID int `schemaname:"id"`
 	// The ID of the sender (if outgoing will be the ID of the destination) of the message
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// The message
-	Message string
+	Message string `schemaname:"message"`
 	// PTS¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int
+	Pts int `schemaname:"pts"`
 	// PTS count¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	PtsCount int
+	PtsCount int `schemaname:"pts_count"`
 	// date¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Date int
+	Date int `schemaname:"date"`
 	// Info about a forwarded message
 	//
 	// Use SetFwdFrom and GetFwdFrom helpers.
-	FwdFrom MessageFwdHeader
+	FwdFrom MessageFwdHeader `schemaname:"fwd_from"`
 	// Info about the inline bot used to generate this message
 	//
 	// Use SetViaBotID and GetViaBotID helpers.
-	ViaBotID int
+	ViaBotID int `schemaname:"via_bot_id"`
 	// Reply and thread¹ information
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
-	ReplyTo MessageReplyHeader
+	ReplyTo MessageReplyHeader `schemaname:"reply_to"`
 	// Entities¹ for styled text
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass
+	Entities []MessageEntityClass `schemaname:"entities"`
 }
 
 // UpdateShortMessageTypeID is TL type id of UpdateShortMessage.
@@ -230,6 +235,10 @@ func (u *UpdateShortMessage) FillFrom(from interface {
 	GetReplyTo() (value MessageReplyHeader, ok bool)
 	GetEntities() (value []MessageEntityClass, ok bool)
 }) {
+	u.Out = from.GetOut()
+	u.Mentioned = from.GetMentioned()
+	u.MediaUnread = from.GetMediaUnread()
+	u.Silent = from.GetSilent()
 	u.ID = from.GetID()
 	u.UserID = from.GetUserID()
 	u.Message = from.GetMessage()
@@ -239,21 +248,30 @@ func (u *UpdateShortMessage) FillFrom(from interface {
 	if val, ok := from.GetFwdFrom(); ok {
 		u.FwdFrom = val
 	}
+
 	if val, ok := from.GetViaBotID(); ok {
 		u.ViaBotID = val
 	}
+
 	if val, ok := from.GetReplyTo(); ok {
 		u.ReplyTo = val
 	}
+
 	if val, ok := from.GetEntities(); ok {
 		u.Entities = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateShortMessage) TypeID() uint32 {
 	return UpdateShortMessageTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateShortMessage) SchemaName() string {
+	return "updateShortMessage"
 }
 
 // Encode implements bin.Encoder.
@@ -596,57 +614,57 @@ type UpdateShortChatMessage struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether the message is outgoing
-	Out bool
+	Out bool `schemaname:"out"`
 	// Whether we were mentioned in this message
-	Mentioned bool
+	Mentioned bool `schemaname:"mentioned"`
 	// Whether the message contains some unread mentions
-	MediaUnread bool
+	MediaUnread bool `schemaname:"media_unread"`
 	// If true, the message is a silent message, no notifications should be triggered
-	Silent bool
+	Silent bool `schemaname:"silent"`
 	// ID of the message
-	ID int
+	ID int `schemaname:"id"`
 	// ID of the sender of the message
-	FromID int
+	FromID int `schemaname:"from_id"`
 	// ID of the chat where the message was sent
-	ChatID int
+	ChatID int `schemaname:"chat_id"`
 	// Message
-	Message string
+	Message string `schemaname:"message"`
 	// PTS¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int
+	Pts int `schemaname:"pts"`
 	// PTS count¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	PtsCount int
+	PtsCount int `schemaname:"pts_count"`
 	// date¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Date int
+	Date int `schemaname:"date"`
 	// Info about a forwarded message
 	//
 	// Use SetFwdFrom and GetFwdFrom helpers.
-	FwdFrom MessageFwdHeader
+	FwdFrom MessageFwdHeader `schemaname:"fwd_from"`
 	// Info about the inline bot used to generate this message
 	//
 	// Use SetViaBotID and GetViaBotID helpers.
-	ViaBotID int
+	ViaBotID int `schemaname:"via_bot_id"`
 	// Reply (thread) information
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
-	ReplyTo MessageReplyHeader
+	ReplyTo MessageReplyHeader `schemaname:"reply_to"`
 	// Entities¹ for styled text
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass
+	Entities []MessageEntityClass `schemaname:"entities"`
 }
 
 // UpdateShortChatMessageTypeID is TL type id of UpdateShortChatMessage.
@@ -735,6 +753,10 @@ func (u *UpdateShortChatMessage) FillFrom(from interface {
 	GetReplyTo() (value MessageReplyHeader, ok bool)
 	GetEntities() (value []MessageEntityClass, ok bool)
 }) {
+	u.Out = from.GetOut()
+	u.Mentioned = from.GetMentioned()
+	u.MediaUnread = from.GetMediaUnread()
+	u.Silent = from.GetSilent()
 	u.ID = from.GetID()
 	u.FromID = from.GetFromID()
 	u.ChatID = from.GetChatID()
@@ -745,21 +767,30 @@ func (u *UpdateShortChatMessage) FillFrom(from interface {
 	if val, ok := from.GetFwdFrom(); ok {
 		u.FwdFrom = val
 	}
+
 	if val, ok := from.GetViaBotID(); ok {
 		u.ViaBotID = val
 	}
+
 	if val, ok := from.GetReplyTo(); ok {
 		u.ReplyTo = val
 	}
+
 	if val, ok := from.GetEntities(); ok {
 		u.Entities = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateShortChatMessage) TypeID() uint32 {
 	return UpdateShortChatMessageTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateShortChatMessage) SchemaName() string {
+	return "updateShortChatMessage"
 }
 
 // Encode implements bin.Encoder.
@@ -1112,9 +1143,9 @@ var (
 // See https://core.telegram.org/constructor/updateShort for reference.
 type UpdateShort struct {
 	// Update
-	Update UpdateClass
+	Update UpdateClass `schemaname:"update"`
 	// Date of event
-	Date int
+	Date int `schemaname:"date"`
 }
 
 // UpdateShortTypeID is TL type id of UpdateShort.
@@ -1156,6 +1187,11 @@ func (u *UpdateShort) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateShort) TypeID() uint32 {
 	return UpdateShortTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateShort) SchemaName() string {
+	return "updateShort"
 }
 
 // Encode implements bin.Encoder.
@@ -1226,17 +1262,17 @@ var (
 // See https://core.telegram.org/constructor/updatesCombined for reference.
 type UpdatesCombined struct {
 	// List of updates
-	Updates []UpdateClass
+	Updates []UpdateClass `schemaname:"updates"`
 	// List of users mentioned in updates
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 	// List of chats mentioned in updates
-	Chats []ChatClass
+	Chats []ChatClass `schemaname:"chats"`
 	// Current date
-	Date int
+	Date int `schemaname:"date"`
 	// Value seq for the earliest update in a group
-	SeqStart int
+	SeqStart int `schemaname:"seq_start"`
 	// Value seq for the latest update in a group
-	Seq int
+	Seq int `schemaname:"seq"`
 }
 
 // UpdatesCombinedTypeID is TL type id of UpdatesCombined.
@@ -1298,6 +1334,11 @@ func (u *UpdatesCombined) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatesCombined) TypeID() uint32 {
 	return UpdatesCombinedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdatesCombined) SchemaName() string {
+	return "updatesCombined"
 }
 
 // Encode implements bin.Encoder.
@@ -1471,15 +1512,15 @@ var (
 // See https://core.telegram.org/constructor/updates for reference.
 type Updates struct {
 	// Updates field of Updates.
-	Updates []UpdateClass
+	Updates []UpdateClass `schemaname:"updates"`
 	// Users field of Updates.
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 	// Chats field of Updates.
-	Chats []ChatClass
+	Chats []ChatClass `schemaname:"chats"`
 	// Date field of Updates.
-	Date int
+	Date int `schemaname:"date"`
 	// Seq field of Updates.
-	Seq int
+	Seq int `schemaname:"seq"`
 }
 
 // UpdatesTypeID is TL type id of Updates.
@@ -1536,6 +1577,11 @@ func (u *Updates) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *Updates) TypeID() uint32 {
 	return UpdatesTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *Updates) SchemaName() string {
+	return "updates"
 }
 
 // Encode implements bin.Encoder.
@@ -1700,37 +1746,37 @@ type UpdateShortSentMessage struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether the message is outgoing
-	Out bool
+	Out bool `schemaname:"out"`
 	// ID of the sent message
-	ID int
+	ID int `schemaname:"id"`
 	// PTS¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int
+	Pts int `schemaname:"pts"`
 	// PTS count¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	PtsCount int
+	PtsCount int `schemaname:"pts_count"`
 	// date¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Date int
+	Date int `schemaname:"date"`
 	// Attached media
 	//
 	// Use SetMedia and GetMedia helpers.
-	Media MessageMediaClass
+	Media MessageMediaClass `schemaname:"media"`
 	// Entities¹ for styled text
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass
+	Entities []MessageEntityClass `schemaname:"entities"`
 }
 
 // UpdateShortSentMessageTypeID is TL type id of UpdateShortSentMessage.
@@ -1787,6 +1833,7 @@ func (u *UpdateShortSentMessage) FillFrom(from interface {
 	GetMedia() (value MessageMediaClass, ok bool)
 	GetEntities() (value []MessageEntityClass, ok bool)
 }) {
+	u.Out = from.GetOut()
 	u.ID = from.GetID()
 	u.Pts = from.GetPts()
 	u.PtsCount = from.GetPtsCount()
@@ -1794,15 +1841,22 @@ func (u *UpdateShortSentMessage) FillFrom(from interface {
 	if val, ok := from.GetMedia(); ok {
 		u.Media = val
 	}
+
 	if val, ok := from.GetEntities(); ok {
 		u.Entities = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateShortSentMessage) TypeID() uint32 {
 	return UpdateShortSentMessageTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateShortSentMessage) SchemaName() string {
+	return "updateShortSentMessage"
 }
 
 // Encode implements bin.Encoder.
@@ -2026,6 +2080,8 @@ type UpdatesClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

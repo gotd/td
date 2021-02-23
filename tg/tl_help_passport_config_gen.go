@@ -51,6 +51,11 @@ func (p *HelpPassportConfigNotModified) TypeID() uint32 {
 	return HelpPassportConfigNotModifiedTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (p *HelpPassportConfigNotModified) SchemaName() string {
+	return "help.passportConfigNotModified"
+}
+
 // Encode implements bin.Encoder.
 func (p *HelpPassportConfigNotModified) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -94,9 +99,9 @@ type HelpPassportConfig struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int `schemaname:"hash"`
 	// Localization
-	CountriesLangs DataJSON
+	CountriesLangs DataJSON `schemaname:"countries_langs"`
 }
 
 // HelpPassportConfigTypeID is TL type id of HelpPassportConfig.
@@ -138,6 +143,11 @@ func (p *HelpPassportConfig) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *HelpPassportConfig) TypeID() uint32 {
 	return HelpPassportConfigTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *HelpPassportConfig) SchemaName() string {
+	return "help.passportConfig"
 }
 
 // Encode implements bin.Encoder.
@@ -216,24 +226,26 @@ type HelpPassportConfigClass interface {
 	bin.Decoder
 	construct() HelpPassportConfigClass
 
-	// AsModified tries to map HelpPassportConfigClass to HelpPassportConfig.
-	AsModified() (*HelpPassportConfig, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsModified tries to map HelpPassportConfigClass to HelpPassportConfig.
+	AsModified() (*HelpPassportConfig, bool)
 }
 
-// AsModified tries to map HelpPassportConfigClass to HelpPassportConfig.
+// AsModified tries to map HelpPassportConfigNotModified to HelpPassportConfig.
 func (p *HelpPassportConfigNotModified) AsModified() (*HelpPassportConfig, bool) {
 	return nil, false
 }
 
-// AsModified tries to map HelpPassportConfigClass to HelpPassportConfig.
+// AsModified tries to map HelpPassportConfig to HelpPassportConfig.
 func (p *HelpPassportConfig) AsModified() (*HelpPassportConfig, bool) {
 	return p, true
 }
@@ -324,6 +336,24 @@ func (s HelpPassportConfigClassSlice) FirstAsModified() (v *HelpPassportConfig, 
 // LastAsModified returns last element of slice (if exists).
 func (s HelpPassportConfigClassSlice) LastAsModified() (v *HelpPassportConfig, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopFirstAsModified returns element of slice (if exists).
+func (s *HelpPassportConfigClassSlice) PopFirstAsModified() (v *HelpPassportConfig, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopAsModified returns element of slice (if exists).
+func (s *HelpPassportConfigClassSlice) PopAsModified() (v *HelpPassportConfig, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

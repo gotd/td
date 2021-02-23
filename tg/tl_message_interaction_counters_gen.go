@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messageInteractionCounters for reference.
 type MessageInteractionCounters struct {
 	// Message ID
-	MsgID int
+	MsgID int `schemaname:"msg_id"`
 	// Views
-	Views int
+	Views int `schemaname:"views"`
 	// Number of times this message was forwarded
-	Forwards int
+	Forwards int `schemaname:"forwards"`
 }
 
 // MessageInteractionCountersTypeID is TL type id of MessageInteractionCounters.
@@ -75,6 +75,11 @@ func (m *MessageInteractionCounters) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageInteractionCounters) TypeID() uint32 {
 	return MessageInteractionCountersTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageInteractionCounters) SchemaName() string {
+	return "messageInteractionCounters"
 }
 
 // Encode implements bin.Encoder.

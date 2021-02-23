@@ -27,63 +27,63 @@ type SecureValue struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Secure passport¹ value type
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
-	Type SecureValueTypeClass
+	Type SecureValueTypeClass `schemaname:"type"`
 	// Encrypted Telegram Passport¹ element data
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetData and GetData helpers.
-	Data SecureData
+	Data SecureData `schemaname:"data"`
 	// Encrypted passport¹ file with the front side of the document
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetFrontSide and GetFrontSide helpers.
-	FrontSide SecureFileClass
+	FrontSide SecureFileClass `schemaname:"front_side"`
 	// Encrypted passport¹ file with the reverse side of the document
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetReverseSide and GetReverseSide helpers.
-	ReverseSide SecureFileClass
+	ReverseSide SecureFileClass `schemaname:"reverse_side"`
 	// Encrypted passport¹ file with a selfie of the user holding the document
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetSelfie and GetSelfie helpers.
-	Selfie SecureFileClass
+	Selfie SecureFileClass `schemaname:"selfie"`
 	// Array of encrypted passport¹ files with translated versions of the provided documents
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetTranslation and GetTranslation helpers.
-	Translation []SecureFileClass
+	Translation []SecureFileClass `schemaname:"translation"`
 	// Array of encrypted passport¹ files with photos the of the documents
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetFiles and GetFiles helpers.
-	Files []SecureFileClass
+	Files []SecureFileClass `schemaname:"files"`
 	// Plaintext verified passport¹ data
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetPlainData and GetPlainData helpers.
-	PlainData SecurePlainDataClass
+	PlainData SecurePlainDataClass `schemaname:"plain_data"`
 	// Data hash
-	Hash []byte
+	Hash []byte `schemaname:"hash"`
 }
 
 // SecureValueTypeID is TL type id of SecureValue.
@@ -152,24 +152,31 @@ func (s *SecureValue) FillFrom(from interface {
 	if val, ok := from.GetData(); ok {
 		s.Data = val
 	}
+
 	if val, ok := from.GetFrontSide(); ok {
 		s.FrontSide = val
 	}
+
 	if val, ok := from.GetReverseSide(); ok {
 		s.ReverseSide = val
 	}
+
 	if val, ok := from.GetSelfie(); ok {
 		s.Selfie = val
 	}
+
 	if val, ok := from.GetTranslation(); ok {
 		s.Translation = val
 	}
+
 	if val, ok := from.GetFiles(); ok {
 		s.Files = val
 	}
+
 	if val, ok := from.GetPlainData(); ok {
 		s.PlainData = val
 	}
+
 	s.Hash = from.GetHash()
 }
 
@@ -177,6 +184,11 @@ func (s *SecureValue) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValue) TypeID() uint32 {
 	return SecureValueTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SecureValue) SchemaName() string {
+	return "secureValue"
 }
 
 // Encode implements bin.Encoder.

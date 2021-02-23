@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/method/langpack.getStrings for reference.
 type LangpackGetStringsRequest struct {
 	// Language pack name
-	LangPack string
+	LangPack string `schemaname:"lang_pack"`
 	// Language code
-	LangCode string
+	LangCode string `schemaname:"lang_code"`
 	// Strings to get
-	Keys []string
+	Keys []string `schemaname:"keys"`
 }
 
 // LangpackGetStringsRequestTypeID is TL type id of LangpackGetStringsRequest.
@@ -75,6 +75,11 @@ func (g *LangpackGetStringsRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *LangpackGetStringsRequest) TypeID() uint32 {
 	return LangpackGetStringsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *LangpackGetStringsRequest) SchemaName() string {
+	return "langpack.getStrings"
 }
 
 // Encode implements bin.Encoder.

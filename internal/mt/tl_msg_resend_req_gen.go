@@ -21,7 +21,7 @@ var _ = errors.Is
 // MsgResendReq represents TL type `msg_resend_req#7d861a08`.
 type MsgResendReq struct {
 	// MsgIds field of MsgResendReq.
-	MsgIds []int64
+	MsgIds []int64 `schemaname:"msg_ids"`
 }
 
 // MsgResendReqTypeID is TL type id of MsgResendReq.
@@ -58,6 +58,11 @@ func (m *MsgResendReq) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MsgResendReq) TypeID() uint32 {
 	return MsgResendReqTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MsgResendReq) SchemaName() string {
+	return "msg_resend_req"
 }
 
 // Encode implements bin.Encoder.

@@ -30,15 +30,15 @@ type ChannelsExportMessageLinkRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether to include other grouped media (for albums)
-	Grouped bool
+	Grouped bool `schemaname:"grouped"`
 	// Whether to also include a thread ID, if available, inside of the link
-	Thread bool
+	Thread bool `schemaname:"thread"`
 	// Channel
-	Channel InputChannelClass
+	Channel InputChannelClass `schemaname:"channel"`
 	// Message ID
-	ID int
+	ID int `schemaname:"id"`
 }
 
 // ChannelsExportMessageLinkRequestTypeID is TL type id of ChannelsExportMessageLinkRequest.
@@ -83,6 +83,8 @@ func (e *ChannelsExportMessageLinkRequest) FillFrom(from interface {
 	GetChannel() (value InputChannelClass)
 	GetID() (value int)
 }) {
+	e.Grouped = from.GetGrouped()
+	e.Thread = from.GetThread()
 	e.Channel = from.GetChannel()
 	e.ID = from.GetID()
 }
@@ -91,6 +93,11 @@ func (e *ChannelsExportMessageLinkRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *ChannelsExportMessageLinkRequest) TypeID() uint32 {
 	return ChannelsExportMessageLinkRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *ChannelsExportMessageLinkRequest) SchemaName() string {
+	return "channels.exportMessageLink"
 }
 
 // Encode implements bin.Encoder.

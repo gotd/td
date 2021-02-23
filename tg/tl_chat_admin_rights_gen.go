@@ -30,51 +30,51 @@ type ChatAdminRights struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// If set, allows the admin to modify the description of the channel/supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	ChangeInfo bool
+	ChangeInfo bool `schemaname:"change_info"`
 	// If set, allows the admin to post messages in the channel¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	PostMessages bool
+	PostMessages bool `schemaname:"post_messages"`
 	// If set, allows the admin to also edit messages from other admins in the channel¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	EditMessages bool
+	EditMessages bool `schemaname:"edit_messages"`
 	// If set, allows the admin to also delete messages from other admins in the channel¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	DeleteMessages bool
+	DeleteMessages bool `schemaname:"delete_messages"`
 	// If set, allows the admin to ban users from the channel/supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	BanUsers bool
+	BanUsers bool `schemaname:"ban_users"`
 	// If set, allows the admin to invite users in the channel/supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	InviteUsers bool
+	InviteUsers bool `schemaname:"invite_users"`
 	// If set, allows the admin to pin messages in the channel/supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	PinMessages bool
+	PinMessages bool `schemaname:"pin_messages"`
 	// If set, allows the admin to add other admins with the same (or more limited) permissions in the channel/supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	AddAdmins bool
+	AddAdmins bool `schemaname:"add_admins"`
 	// Whether this admin is anonymous
-	Anonymous bool
+	Anonymous bool `schemaname:"anonymous"`
 	// ManageCall field of ChatAdminRights.
-	ManageCall bool
+	ManageCall bool `schemaname:"manage_call"`
 }
 
 // ChatAdminRightsTypeID is TL type id of ChatAdminRights.
@@ -143,12 +143,27 @@ func (c *ChatAdminRights) FillFrom(from interface {
 	GetAnonymous() (value bool)
 	GetManageCall() (value bool)
 }) {
+	c.ChangeInfo = from.GetChangeInfo()
+	c.PostMessages = from.GetPostMessages()
+	c.EditMessages = from.GetEditMessages()
+	c.DeleteMessages = from.GetDeleteMessages()
+	c.BanUsers = from.GetBanUsers()
+	c.InviteUsers = from.GetInviteUsers()
+	c.PinMessages = from.GetPinMessages()
+	c.AddAdmins = from.GetAddAdmins()
+	c.Anonymous = from.GetAnonymous()
+	c.ManageCall = from.GetManageCall()
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatAdminRights) TypeID() uint32 {
 	return ChatAdminRightsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChatAdminRights) SchemaName() string {
+	return "chatAdminRights"
 }
 
 // Encode implements bin.Encoder.

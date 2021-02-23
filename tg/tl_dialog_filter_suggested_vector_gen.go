@@ -21,7 +21,7 @@ var _ = errors.Is
 // DialogFilterSuggestedVector is a box for Vector<DialogFilterSuggested>
 type DialogFilterSuggestedVector struct {
 	// Elements of Vector<DialogFilterSuggested>
-	Elems []DialogFilterSuggested
+	Elems []DialogFilterSuggested `schemaname:"Elems"`
 }
 
 // DialogFilterSuggestedVectorTypeID is TL type id of DialogFilterSuggestedVector.
@@ -58,6 +58,11 @@ func (vec *DialogFilterSuggestedVector) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *DialogFilterSuggestedVector) TypeID() uint32 {
 	return DialogFilterSuggestedVectorTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (vec *DialogFilterSuggestedVector) SchemaName() string {
+	return ""
 }
 
 // Encode implements bin.Encoder.

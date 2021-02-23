@@ -27,23 +27,23 @@ type PaymentRequestedInfo struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// User's full name
 	//
 	// Use SetName and GetName helpers.
-	Name string
+	Name string `schemaname:"name"`
 	// User's phone number
 	//
 	// Use SetPhone and GetPhone helpers.
-	Phone string
+	Phone string `schemaname:"phone"`
 	// User's email address
 	//
 	// Use SetEmail and GetEmail helpers.
-	Email string
+	Email string `schemaname:"email"`
 	// User's shipping address
 	//
 	// Use SetShippingAddress and GetShippingAddress helpers.
-	ShippingAddress PostAddress
+	ShippingAddress PostAddress `schemaname:"shipping_address"`
 }
 
 // PaymentRequestedInfoTypeID is TL type id of PaymentRequestedInfo.
@@ -91,21 +91,30 @@ func (p *PaymentRequestedInfo) FillFrom(from interface {
 	if val, ok := from.GetName(); ok {
 		p.Name = val
 	}
+
 	if val, ok := from.GetPhone(); ok {
 		p.Phone = val
 	}
+
 	if val, ok := from.GetEmail(); ok {
 		p.Email = val
 	}
+
 	if val, ok := from.GetShippingAddress(); ok {
 		p.ShippingAddress = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PaymentRequestedInfo) TypeID() uint32 {
 	return PaymentRequestedInfoTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PaymentRequestedInfo) SchemaName() string {
+	return "paymentRequestedInfo"
 }
 
 // Encode implements bin.Encoder.

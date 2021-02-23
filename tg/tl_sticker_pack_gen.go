@@ -28,9 +28,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/stickerPack for reference.
 type StickerPack struct {
 	// Emoji
-	Emoticon string
+	Emoticon string `schemaname:"emoticon"`
 	// Stickers
-	Documents []int64
+	Documents []int64 `schemaname:"documents"`
 }
 
 // StickerPackTypeID is TL type id of StickerPack.
@@ -72,6 +72,11 @@ func (s *StickerPack) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StickerPack) TypeID() uint32 {
 	return StickerPackTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *StickerPack) SchemaName() string {
+	return "stickerPack"
 }
 
 // Encode implements bin.Encoder.

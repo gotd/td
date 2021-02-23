@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/theme for reference.
 type Theme struct {
 	// Name field of Theme.
-	Name string
+	Name string `schemaname:"name"`
 }
 
 // ThemeTypeID is TL type id of Theme.
@@ -60,6 +60,11 @@ func (t *Theme) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *Theme) TypeID() uint32 {
 	return ThemeTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *Theme) SchemaName() string {
+	return "theme"
 }
 
 // Encode implements bin.Encoder.

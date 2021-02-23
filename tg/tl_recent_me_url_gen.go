@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/recentMeUrlUnknown for reference.
 type RecentMeUrlUnknown struct {
 	// URL
-	URL string
+	URL string `schemaname:"url"`
 }
 
 // RecentMeUrlUnknownTypeID is TL type id of RecentMeUrlUnknown.
@@ -61,6 +61,11 @@ func (r *RecentMeUrlUnknown) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RecentMeUrlUnknown) TypeID() uint32 {
 	return RecentMeUrlUnknownTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *RecentMeUrlUnknown) SchemaName() string {
+	return "recentMeUrlUnknown"
 }
 
 // Encode implements bin.Encoder.
@@ -113,9 +118,9 @@ var (
 // See https://core.telegram.org/constructor/recentMeUrlUser for reference.
 type RecentMeUrlUser struct {
 	// URL
-	URL string
+	URL string `schemaname:"url"`
 	// User ID
-	UserID int
+	UserID int `schemaname:"user_id"`
 }
 
 // RecentMeUrlUserTypeID is TL type id of RecentMeUrlUser.
@@ -157,6 +162,11 @@ func (r *RecentMeUrlUser) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RecentMeUrlUser) TypeID() uint32 {
 	return RecentMeUrlUserTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *RecentMeUrlUser) SchemaName() string {
+	return "recentMeUrlUser"
 }
 
 // Encode implements bin.Encoder.
@@ -222,9 +232,9 @@ var (
 // See https://core.telegram.org/constructor/recentMeUrlChat for reference.
 type RecentMeUrlChat struct {
 	// t.me URL
-	URL string
+	URL string `schemaname:"url"`
 	// Chat ID
-	ChatID int
+	ChatID int `schemaname:"chat_id"`
 }
 
 // RecentMeUrlChatTypeID is TL type id of RecentMeUrlChat.
@@ -266,6 +276,11 @@ func (r *RecentMeUrlChat) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RecentMeUrlChat) TypeID() uint32 {
 	return RecentMeUrlChatTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *RecentMeUrlChat) SchemaName() string {
+	return "recentMeUrlChat"
 }
 
 // Encode implements bin.Encoder.
@@ -331,9 +346,9 @@ var (
 // See https://core.telegram.org/constructor/recentMeUrlChatInvite for reference.
 type RecentMeUrlChatInvite struct {
 	// t.me URL
-	URL string
+	URL string `schemaname:"url"`
 	// Chat invitation
-	ChatInvite ChatInviteClass
+	ChatInvite ChatInviteClass `schemaname:"chat_invite"`
 }
 
 // RecentMeUrlChatInviteTypeID is TL type id of RecentMeUrlChatInvite.
@@ -375,6 +390,11 @@ func (r *RecentMeUrlChatInvite) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RecentMeUrlChatInvite) TypeID() uint32 {
 	return RecentMeUrlChatInviteTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *RecentMeUrlChatInvite) SchemaName() string {
+	return "recentMeUrlChatInvite"
 }
 
 // Encode implements bin.Encoder.
@@ -445,9 +465,9 @@ var (
 // See https://core.telegram.org/constructor/recentMeUrlStickerSet for reference.
 type RecentMeUrlStickerSet struct {
 	// t.me URL
-	URL string
+	URL string `schemaname:"url"`
 	// Stickerset
-	Set StickerSetCoveredClass
+	Set StickerSetCoveredClass `schemaname:"set"`
 }
 
 // RecentMeUrlStickerSetTypeID is TL type id of RecentMeUrlStickerSet.
@@ -489,6 +509,11 @@ func (r *RecentMeUrlStickerSet) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RecentMeUrlStickerSet) TypeID() uint32 {
 	return RecentMeUrlStickerSetTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *RecentMeUrlStickerSet) SchemaName() string {
+	return "recentMeUrlStickerSet"
 }
 
 // Encode implements bin.Encoder.
@@ -575,16 +600,18 @@ type RecentMeUrlClass interface {
 	bin.Decoder
 	construct() RecentMeUrlClass
 
-	// URL
-	GetURL() (value string)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// URL
+	GetURL() (value string)
 }
 
 // DecodeRecentMeUrl implements binary de-serialization for RecentMeUrlClass.

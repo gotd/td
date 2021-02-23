@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getMessageEditData for reference.
 type MessagesGetMessageEditDataRequest struct {
 	// Peer where the media was sent
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// ID of message
-	ID int
+	ID int `schemaname:"id"`
 }
 
 // MessagesGetMessageEditDataRequestTypeID is TL type id of MessagesGetMessageEditDataRequest.
@@ -68,6 +68,11 @@ func (g *MessagesGetMessageEditDataRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetMessageEditDataRequest) TypeID() uint32 {
 	return MessagesGetMessageEditDataRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *MessagesGetMessageEditDataRequest) SchemaName() string {
+	return "messages.getMessageEditData"
 }
 
 // Encode implements bin.Encoder.

@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getPeerSettings for reference.
 type MessagesGetPeerSettingsRequest struct {
 	// The peer
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 }
 
 // MessagesGetPeerSettingsRequestTypeID is TL type id of MessagesGetPeerSettingsRequest.
@@ -61,6 +61,11 @@ func (g *MessagesGetPeerSettingsRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetPeerSettingsRequest) TypeID() uint32 {
 	return MessagesGetPeerSettingsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *MessagesGetPeerSettingsRequest) SchemaName() string {
+	return "messages.getPeerSettings"
 }
 
 // Encode implements bin.Encoder.

@@ -50,6 +50,11 @@ func (t *TextEntityTypeMention) TypeID() uint32 {
 	return TextEntityTypeMentionTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (t *TextEntityTypeMention) SchemaName() string {
+	return "textEntityTypeMention"
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeMention) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -111,6 +116,11 @@ func (t *TextEntityTypeHashtag) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypeHashtag) TypeID() uint32 {
 	return TextEntityTypeHashtagTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *TextEntityTypeHashtag) SchemaName() string {
+	return "textEntityTypeHashtag"
 }
 
 // Encode implements bin.Encoder.
@@ -176,6 +186,11 @@ func (t *TextEntityTypeCashtag) TypeID() uint32 {
 	return TextEntityTypeCashtagTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (t *TextEntityTypeCashtag) SchemaName() string {
+	return "textEntityTypeCashtag"
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeCashtag) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -237,6 +252,11 @@ func (t *TextEntityTypeBotCommand) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypeBotCommand) TypeID() uint32 {
 	return TextEntityTypeBotCommandTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *TextEntityTypeBotCommand) SchemaName() string {
+	return "textEntityTypeBotCommand"
 }
 
 // Encode implements bin.Encoder.
@@ -302,6 +322,11 @@ func (t *TextEntityTypeUrl) TypeID() uint32 {
 	return TextEntityTypeUrlTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (t *TextEntityTypeUrl) SchemaName() string {
+	return "textEntityTypeUrl"
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeUrl) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -363,6 +388,11 @@ func (t *TextEntityTypeEmailAddress) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypeEmailAddress) TypeID() uint32 {
 	return TextEntityTypeEmailAddressTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *TextEntityTypeEmailAddress) SchemaName() string {
+	return "textEntityTypeEmailAddress"
 }
 
 // Encode implements bin.Encoder.
@@ -428,6 +458,11 @@ func (t *TextEntityTypePhoneNumber) TypeID() uint32 {
 	return TextEntityTypePhoneNumberTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (t *TextEntityTypePhoneNumber) SchemaName() string {
+	return "textEntityTypePhoneNumber"
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntityTypePhoneNumber) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -489,6 +524,11 @@ func (t *TextEntityTypeBankCardNumber) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypeBankCardNumber) TypeID() uint32 {
 	return TextEntityTypeBankCardNumberTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *TextEntityTypeBankCardNumber) SchemaName() string {
+	return "textEntityTypeBankCardNumber"
 }
 
 // Encode implements bin.Encoder.
@@ -554,6 +594,11 @@ func (t *TextEntityTypeBold) TypeID() uint32 {
 	return TextEntityTypeBoldTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (t *TextEntityTypeBold) SchemaName() string {
+	return "textEntityTypeBold"
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeBold) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -615,6 +660,11 @@ func (t *TextEntityTypeItalic) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypeItalic) TypeID() uint32 {
 	return TextEntityTypeItalicTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *TextEntityTypeItalic) SchemaName() string {
+	return "textEntityTypeItalic"
 }
 
 // Encode implements bin.Encoder.
@@ -680,6 +730,11 @@ func (t *TextEntityTypeUnderline) TypeID() uint32 {
 	return TextEntityTypeUnderlineTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (t *TextEntityTypeUnderline) SchemaName() string {
+	return "textEntityTypeUnderline"
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeUnderline) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -741,6 +796,11 @@ func (t *TextEntityTypeStrikethrough) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypeStrikethrough) TypeID() uint32 {
 	return TextEntityTypeStrikethroughTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *TextEntityTypeStrikethrough) SchemaName() string {
+	return "textEntityTypeStrikethrough"
 }
 
 // Encode implements bin.Encoder.
@@ -806,6 +866,11 @@ func (t *TextEntityTypeCode) TypeID() uint32 {
 	return TextEntityTypeCodeTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (t *TextEntityTypeCode) SchemaName() string {
+	return "textEntityTypeCode"
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntityTypeCode) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -869,6 +934,11 @@ func (t *TextEntityTypePre) TypeID() uint32 {
 	return TextEntityTypePreTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (t *TextEntityTypePre) SchemaName() string {
+	return "textEntityTypePre"
+}
+
 // Encode implements bin.Encoder.
 func (t *TextEntityTypePre) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -905,7 +975,7 @@ var (
 // See https://localhost:80/doc/constructor/textEntityTypePreCode for reference.
 type TextEntityTypePreCode struct {
 	// Programming language of the code; as defined by the sender
-	Language string
+	Language string `schemaname:"language"`
 }
 
 // TextEntityTypePreCodeTypeID is TL type id of TextEntityTypePreCode.
@@ -942,6 +1012,11 @@ func (t *TextEntityTypePreCode) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypePreCode) TypeID() uint32 {
 	return TextEntityTypePreCodeTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *TextEntityTypePreCode) SchemaName() string {
+	return "textEntityTypePreCode"
 }
 
 // Encode implements bin.Encoder.
@@ -993,7 +1068,7 @@ var (
 // See https://localhost:80/doc/constructor/textEntityTypeTextUrl for reference.
 type TextEntityTypeTextUrl struct {
 	// HTTP or tg:// URL to be opened when the link is clicked
-	URL string
+	URL string `schemaname:"url"`
 }
 
 // TextEntityTypeTextUrlTypeID is TL type id of TextEntityTypeTextUrl.
@@ -1030,6 +1105,11 @@ func (t *TextEntityTypeTextUrl) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypeTextUrl) TypeID() uint32 {
 	return TextEntityTypeTextUrlTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *TextEntityTypeTextUrl) SchemaName() string {
+	return "textEntityTypeTextUrl"
 }
 
 // Encode implements bin.Encoder.
@@ -1081,7 +1161,7 @@ var (
 // See https://localhost:80/doc/constructor/textEntityTypeMentionName for reference.
 type TextEntityTypeMentionName struct {
 	// Identifier of the mentioned user
-	UserID int32
+	UserID int32 `schemaname:"user_id"`
 }
 
 // TextEntityTypeMentionNameTypeID is TL type id of TextEntityTypeMentionName.
@@ -1118,6 +1198,11 @@ func (t *TextEntityTypeMentionName) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypeMentionName) TypeID() uint32 {
 	return TextEntityTypeMentionNameTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *TextEntityTypeMentionName) SchemaName() string {
+	return "textEntityTypeMentionName"
 }
 
 // Encode implements bin.Encoder.
@@ -1201,6 +1286,8 @@ type TextEntityTypeClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

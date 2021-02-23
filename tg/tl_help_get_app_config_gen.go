@@ -54,6 +54,11 @@ func (g *HelpGetAppConfigRequest) TypeID() uint32 {
 	return HelpGetAppConfigRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *HelpGetAppConfigRequest) SchemaName() string {
+	return "help.getAppConfig"
+}
+
 // Encode implements bin.Encoder.
 func (g *HelpGetAppConfigRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

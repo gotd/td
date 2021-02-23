@@ -28,9 +28,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/users.setSecureValueErrors for reference.
 type UsersSetSecureValueErrorsRequest struct {
 	// The user
-	ID InputUserClass
+	ID InputUserClass `schemaname:"id"`
 	// Errors
-	Errors []SecureValueErrorClass
+	Errors []SecureValueErrorClass `schemaname:"errors"`
 }
 
 // UsersSetSecureValueErrorsRequestTypeID is TL type id of UsersSetSecureValueErrorsRequest.
@@ -72,6 +72,11 @@ func (s *UsersSetSecureValueErrorsRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *UsersSetSecureValueErrorsRequest) TypeID() uint32 {
 	return UsersSetSecureValueErrorsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *UsersSetSecureValueErrorsRequest) SchemaName() string {
+	return "users.setSecureValueErrors"
 }
 
 // Encode implements bin.Encoder.

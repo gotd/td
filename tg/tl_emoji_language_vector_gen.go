@@ -21,7 +21,7 @@ var _ = errors.Is
 // EmojiLanguageVector is a box for Vector<EmojiLanguage>
 type EmojiLanguageVector struct {
 	// Elements of Vector<EmojiLanguage>
-	Elems []EmojiLanguage
+	Elems []EmojiLanguage `schemaname:"Elems"`
 }
 
 // EmojiLanguageVectorTypeID is TL type id of EmojiLanguageVector.
@@ -58,6 +58,11 @@ func (vec *EmojiLanguageVector) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *EmojiLanguageVector) TypeID() uint32 {
 	return EmojiLanguageVectorTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (vec *EmojiLanguageVector) SchemaName() string {
+	return ""
 }
 
 // Encode implements bin.Encoder.

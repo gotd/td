@@ -23,15 +23,15 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/payments.validatedRequestedInfo for reference.
 type PaymentsValidatedRequestedInfo struct {
 	// Flags field of PaymentsValidatedRequestedInfo.
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// ID field of PaymentsValidatedRequestedInfo.
 	//
 	// Use SetID and GetID helpers.
-	ID string
+	ID string `schemaname:"id"`
 	// ShippingOptions field of PaymentsValidatedRequestedInfo.
 	//
 	// Use SetShippingOptions and GetShippingOptions helpers.
-	ShippingOptions []ShippingOption
+	ShippingOptions []ShippingOption `schemaname:"shipping_options"`
 }
 
 // PaymentsValidatedRequestedInfoTypeID is TL type id of PaymentsValidatedRequestedInfo.
@@ -71,15 +71,22 @@ func (v *PaymentsValidatedRequestedInfo) FillFrom(from interface {
 	if val, ok := from.GetID(); ok {
 		v.ID = val
 	}
+
 	if val, ok := from.GetShippingOptions(); ok {
 		v.ShippingOptions = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (v *PaymentsValidatedRequestedInfo) TypeID() uint32 {
 	return PaymentsValidatedRequestedInfoTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (v *PaymentsValidatedRequestedInfo) SchemaName() string {
+	return "payments.validatedRequestedInfo"
 }
 
 // Encode implements bin.Encoder.

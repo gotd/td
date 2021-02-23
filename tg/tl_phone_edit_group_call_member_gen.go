@@ -23,17 +23,17 @@ var _ = errors.Is
 // See https://core.telegram.org/method/phone.editGroupCallMember for reference.
 type PhoneEditGroupCallMemberRequest struct {
 	// Flags field of PhoneEditGroupCallMemberRequest.
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Muted field of PhoneEditGroupCallMemberRequest.
-	Muted bool
+	Muted bool `schemaname:"muted"`
 	// Call field of PhoneEditGroupCallMemberRequest.
-	Call InputGroupCall
+	Call InputGroupCall `schemaname:"call"`
 	// UserID field of PhoneEditGroupCallMemberRequest.
-	UserID InputUserClass
+	UserID InputUserClass `schemaname:"user_id"`
 	// Volume field of PhoneEditGroupCallMemberRequest.
 	//
 	// Use SetVolume and GetVolume helpers.
-	Volume int
+	Volume int `schemaname:"volume"`
 }
 
 // PhoneEditGroupCallMemberRequestTypeID is TL type id of PhoneEditGroupCallMemberRequest.
@@ -78,17 +78,24 @@ func (e *PhoneEditGroupCallMemberRequest) FillFrom(from interface {
 	GetUserID() (value InputUserClass)
 	GetVolume() (value int, ok bool)
 }) {
+	e.Muted = from.GetMuted()
 	e.Call = from.GetCall()
 	e.UserID = from.GetUserID()
 	if val, ok := from.GetVolume(); ok {
 		e.Volume = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *PhoneEditGroupCallMemberRequest) TypeID() uint32 {
 	return PhoneEditGroupCallMemberRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *PhoneEditGroupCallMemberRequest) SchemaName() string {
+	return "phone.editGroupCallMember"
 }
 
 // Encode implements bin.Encoder.

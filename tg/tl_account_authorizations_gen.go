@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/account.authorizations for reference.
 type AccountAuthorizations struct {
 	// Logged-in sessions
-	Authorizations []Authorization
+	Authorizations []Authorization `schemaname:"authorizations"`
 }
 
 // AccountAuthorizationsTypeID is TL type id of AccountAuthorizations.
@@ -61,6 +61,11 @@ func (a *AccountAuthorizations) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *AccountAuthorizations) TypeID() uint32 {
 	return AccountAuthorizationsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (a *AccountAuthorizations) SchemaName() string {
+	return "account.authorizations"
 }
 
 // Encode implements bin.Encoder.

@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.addChatUser for reference.
 type MessagesAddChatUserRequest struct {
 	// Chat ID
-	ChatID int
+	ChatID int `schemaname:"chat_id"`
 	// User ID to be added
-	UserID InputUserClass
+	UserID InputUserClass `schemaname:"user_id"`
 	// Number of last messages to be forwarded
-	FwdLimit int
+	FwdLimit int `schemaname:"fwd_limit"`
 }
 
 // MessagesAddChatUserRequestTypeID is TL type id of MessagesAddChatUserRequest.
@@ -75,6 +75,11 @@ func (a *MessagesAddChatUserRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *MessagesAddChatUserRequest) TypeID() uint32 {
 	return MessagesAddChatUserRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (a *MessagesAddChatUserRequest) SchemaName() string {
+	return "messages.addChatUser"
 }
 
 // Encode implements bin.Encoder.

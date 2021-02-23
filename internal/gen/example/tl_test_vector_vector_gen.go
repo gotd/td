@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/testVectorVector for reference.
 type TestVectorVector struct {
 	// Value field of TestVectorVector.
-	Value [][]string
+	Value [][]string `schemaname:"value"`
 }
 
 // TestVectorVectorTypeID is TL type id of TestVectorVector.
@@ -60,6 +60,11 @@ func (t *TestVectorVector) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TestVectorVector) TypeID() uint32 {
 	return TestVectorVectorTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *TestVectorVector) SchemaName() string {
+	return "testVectorVector"
 }
 
 // Encode implements bin.Encoder.

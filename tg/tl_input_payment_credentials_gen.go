@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/inputPaymentCredentialsSaved for reference.
 type InputPaymentCredentialsSaved struct {
 	// Credential ID
-	ID string
+	ID string `schemaname:"id"`
 	// Temporary password
-	TmpPassword []byte
+	TmpPassword []byte `schemaname:"tmp_password"`
 }
 
 // InputPaymentCredentialsSavedTypeID is TL type id of InputPaymentCredentialsSaved.
@@ -68,6 +68,11 @@ func (i *InputPaymentCredentialsSaved) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPaymentCredentialsSaved) TypeID() uint32 {
 	return InputPaymentCredentialsSavedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputPaymentCredentialsSaved) SchemaName() string {
+	return "inputPaymentCredentialsSaved"
 }
 
 // Encode implements bin.Encoder.
@@ -136,11 +141,11 @@ type InputPaymentCredentials struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Save payment credential for future use
-	Save bool
+	Save bool `schemaname:"save"`
 	// Payment credentials
-	Data DataJSON
+	Data DataJSON `schemaname:"data"`
 }
 
 // InputPaymentCredentialsTypeID is TL type id of InputPaymentCredentials.
@@ -177,6 +182,7 @@ func (i *InputPaymentCredentials) FillFrom(from interface {
 	GetSave() (value bool)
 	GetData() (value DataJSON)
 }) {
+	i.Save = from.GetSave()
 	i.Data = from.GetData()
 }
 
@@ -184,6 +190,11 @@ func (i *InputPaymentCredentials) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPaymentCredentials) TypeID() uint32 {
 	return InputPaymentCredentialsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputPaymentCredentials) SchemaName() string {
+	return "inputPaymentCredentials"
 }
 
 // Encode implements bin.Encoder.
@@ -264,7 +275,7 @@ var (
 // See https://core.telegram.org/constructor/inputPaymentCredentialsApplePay for reference.
 type InputPaymentCredentialsApplePay struct {
 	// Payment data
-	PaymentData DataJSON
+	PaymentData DataJSON `schemaname:"payment_data"`
 }
 
 // InputPaymentCredentialsApplePayTypeID is TL type id of InputPaymentCredentialsApplePay.
@@ -301,6 +312,11 @@ func (i *InputPaymentCredentialsApplePay) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPaymentCredentialsApplePay) TypeID() uint32 {
 	return InputPaymentCredentialsApplePayTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputPaymentCredentialsApplePay) SchemaName() string {
+	return "inputPaymentCredentialsApplePay"
 }
 
 // Encode implements bin.Encoder.
@@ -352,7 +368,7 @@ var (
 // See https://core.telegram.org/constructor/inputPaymentCredentialsGooglePay for reference.
 type InputPaymentCredentialsGooglePay struct {
 	// PaymentToken field of InputPaymentCredentialsGooglePay.
-	PaymentToken DataJSON
+	PaymentToken DataJSON `schemaname:"payment_token"`
 }
 
 // InputPaymentCredentialsGooglePayTypeID is TL type id of InputPaymentCredentialsGooglePay.
@@ -389,6 +405,11 @@ func (i *InputPaymentCredentialsGooglePay) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPaymentCredentialsGooglePay) TypeID() uint32 {
 	return InputPaymentCredentialsGooglePayTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputPaymentCredentialsGooglePay) SchemaName() string {
+	return "inputPaymentCredentialsGooglePay"
 }
 
 // Encode implements bin.Encoder.
@@ -459,6 +480,8 @@ type InputPaymentCredentialsClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

@@ -24,12 +24,12 @@ var _ = errors.Is
 // See https://core.telegram.org/method/help.getCountriesList for reference.
 type HelpGetCountriesListRequest struct {
 	// Language code of the current user
-	LangCode string
+	LangCode string `schemaname:"lang_code"`
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int `schemaname:"hash"`
 }
 
 // HelpGetCountriesListRequestTypeID is TL type id of HelpGetCountriesListRequest.
@@ -71,6 +71,11 @@ func (g *HelpGetCountriesListRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *HelpGetCountriesListRequest) TypeID() uint32 {
 	return HelpGetCountriesListRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *HelpGetCountriesListRequest) SchemaName() string {
+	return "help.getCountriesList"
 }
 
 // Encode implements bin.Encoder.

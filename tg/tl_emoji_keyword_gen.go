@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/emojiKeyword for reference.
 type EmojiKeyword struct {
 	// Keyword
-	Keyword string
+	Keyword string `schemaname:"keyword"`
 	// Emojis associated to keyword
-	Emoticons []string
+	Emoticons []string `schemaname:"emoticons"`
 }
 
 // EmojiKeywordTypeID is TL type id of EmojiKeyword.
@@ -68,6 +68,11 @@ func (e *EmojiKeyword) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EmojiKeyword) TypeID() uint32 {
 	return EmojiKeywordTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *EmojiKeyword) SchemaName() string {
+	return "emojiKeyword"
 }
 
 // Encode implements bin.Encoder.
@@ -142,9 +147,9 @@ var (
 // See https://core.telegram.org/constructor/emojiKeywordDeleted for reference.
 type EmojiKeywordDeleted struct {
 	// Keyword
-	Keyword string
+	Keyword string `schemaname:"keyword"`
 	// Emojis that were associated to keyword
-	Emoticons []string
+	Emoticons []string `schemaname:"emoticons"`
 }
 
 // EmojiKeywordDeletedTypeID is TL type id of EmojiKeywordDeleted.
@@ -186,6 +191,11 @@ func (e *EmojiKeywordDeleted) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EmojiKeywordDeleted) TypeID() uint32 {
 	return EmojiKeywordDeletedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *EmojiKeywordDeleted) SchemaName() string {
+	return "emojiKeywordDeleted"
 }
 
 // Encode implements bin.Encoder.
@@ -273,18 +283,20 @@ type EmojiKeywordClass interface {
 	bin.Decoder
 	construct() EmojiKeywordClass
 
-	// Keyword
-	GetKeyword() (value string)
-	// Emojis associated to keyword
-	GetEmoticons() (value []string)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Keyword
+	GetKeyword() (value string)
+	// Emojis associated to keyword
+	GetEmoticons() (value []string)
 }
 
 // DecodeEmojiKeyword implements binary de-serialization for EmojiKeywordClass.

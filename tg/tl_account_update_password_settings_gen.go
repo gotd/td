@@ -27,12 +27,12 @@ type AccountUpdatePasswordSettingsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	Password InputCheckPasswordSRPClass
+	Password InputCheckPasswordSRPClass `schemaname:"password"`
 	// The new password (see SRP¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	NewSettings AccountPasswordInputSettings
+	NewSettings AccountPasswordInputSettings `schemaname:"new_settings"`
 }
 
 // AccountUpdatePasswordSettingsRequestTypeID is TL type id of AccountUpdatePasswordSettingsRequest.
@@ -74,6 +74,11 @@ func (u *AccountUpdatePasswordSettingsRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *AccountUpdatePasswordSettingsRequest) TypeID() uint32 {
 	return AccountUpdatePasswordSettingsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *AccountUpdatePasswordSettingsRequest) SchemaName() string {
+	return "account.updatePasswordSettings"
 }
 
 // Encode implements bin.Encoder.

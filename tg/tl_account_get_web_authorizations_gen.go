@@ -54,6 +54,11 @@ func (g *AccountGetWebAuthorizationsRequest) TypeID() uint32 {
 	return AccountGetWebAuthorizationsRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *AccountGetWebAuthorizationsRequest) SchemaName() string {
+	return "account.getWebAuthorizations"
+}
+
 // Encode implements bin.Encoder.
 func (g *AccountGetWebAuthorizationsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

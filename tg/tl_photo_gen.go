@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/photoEmpty for reference.
 type PhotoEmpty struct {
 	// Photo identifier
-	ID int64
+	ID int64 `schemaname:"id"`
 }
 
 // PhotoEmptyTypeID is TL type id of PhotoEmpty.
@@ -61,6 +61,11 @@ func (p *PhotoEmpty) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhotoEmpty) TypeID() uint32 {
 	return PhotoEmptyTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PhotoEmpty) SchemaName() string {
+	return "photoEmpty"
 }
 
 // Encode implements bin.Encoder.
@@ -116,31 +121,31 @@ type Photo struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether the photo has mask stickers attached to it
-	HasStickers bool
+	HasStickers bool `schemaname:"has_stickers"`
 	// ID
-	ID int64
+	ID int64 `schemaname:"id"`
 	// Access hash
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 	// file reference¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/file_reference
-	FileReference []byte
+	FileReference []byte `schemaname:"file_reference"`
 	// Date of upload
-	Date int
+	Date int `schemaname:"date"`
 	// Available sizes for download
-	Sizes []PhotoSizeClass
+	Sizes []PhotoSizeClass `schemaname:"sizes"`
 	// For animated profiles¹, the MPEG4 videos
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files#animated-profile-pictures
 	//
 	// Use SetVideoSizes and GetVideoSizes helpers.
-	VideoSizes []VideoSize
+	VideoSizes []VideoSize `schemaname:"video_sizes"`
 	// DC ID to use for download
-	DCID int
+	DCID int `schemaname:"dc_id"`
 }
 
 // PhotoTypeID is TL type id of Photo.
@@ -201,6 +206,7 @@ func (p *Photo) FillFrom(from interface {
 	GetVideoSizes() (value []VideoSize, ok bool)
 	GetDCID() (value int)
 }) {
+	p.HasStickers = from.GetHasStickers()
 	p.ID = from.GetID()
 	p.AccessHash = from.GetAccessHash()
 	p.FileReference = from.GetFileReference()
@@ -209,6 +215,7 @@ func (p *Photo) FillFrom(from interface {
 	if val, ok := from.GetVideoSizes(); ok {
 		p.VideoSizes = val
 	}
+
 	p.DCID = from.GetDCID()
 }
 
@@ -216,6 +223,11 @@ func (p *Photo) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *Photo) TypeID() uint32 {
 	return PhotoTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *Photo) SchemaName() string {
+	return "photo"
 }
 
 // Encode implements bin.Encoder.
@@ -432,27 +444,48 @@ type PhotoClass interface {
 	bin.Decoder
 	construct() PhotoClass
 
-	// Photo identifier
-	GetID() (value int64)
-
-	// AsNotEmpty tries to map PhotoClass to Photo.
-	AsNotEmpty() (*Photo, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Photo identifier
+	GetID() (value int64)
+	// AsNotEmpty tries to map PhotoClass to Photo.
+	AsNotEmpty() (*Photo, bool)
 }
 
-// AsNotEmpty tries to map PhotoClass to Photo.
+// AsInput tries to map Photo to InputPhoto.
+func (p *Photo) AsInput() *InputPhoto {
+	value := new(InputPhoto)
+	value.ID = p.GetID()
+	value.AccessHash = p.GetAccessHash()
+	value.FileReference = p.GetFileReference()
+
+	return value
+}
+
+// AsInputPhotoFileLocation tries to map Photo to InputPhotoFileLocation.
+func (p *Photo) AsInputPhotoFileLocation() *InputPhotoFileLocation {
+	value := new(InputPhotoFileLocation)
+	value.ID = p.GetID()
+	value.AccessHash = p.GetAccessHash()
+	value.FileReference = p.GetFileReference()
+
+	return value
+}
+
+// AsNotEmpty tries to map PhotoEmpty to Photo.
 func (p *PhotoEmpty) AsNotEmpty() (*Photo, bool) {
 	return nil, false
 }
 
-// AsNotEmpty tries to map PhotoClass to Photo.
+// AsNotEmpty tries to map Photo to Photo.
 func (p *Photo) AsNotEmpty() (*Photo, bool) {
 	return p, true
 }
@@ -543,6 +576,24 @@ func (s PhotoClassSlice) FirstAsNotEmpty() (v *Photo, ok bool) {
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s PhotoClassSlice) LastAsNotEmpty() (v *Photo, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *PhotoClassSlice) PopFirstAsNotEmpty() (v *Photo, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *PhotoClassSlice) PopAsNotEmpty() (v *Photo, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

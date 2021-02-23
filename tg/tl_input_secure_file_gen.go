@@ -27,15 +27,15 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/inputSecureFileUploaded for reference.
 type InputSecureFileUploaded struct {
 	// Secure file ID
-	ID int64
+	ID int64 `schemaname:"id"`
 	// Secure file part count
-	Parts int
+	Parts int `schemaname:"parts"`
 	// MD5 hash of encrypted uploaded file, to be checked server-side
-	MD5Checksum string
+	MD5Checksum string `schemaname:"md5_checksum"`
 	// File hash
-	FileHash []byte
+	FileHash []byte `schemaname:"file_hash"`
 	// Secret
-	Secret []byte
+	Secret []byte `schemaname:"secret"`
 }
 
 // InputSecureFileUploadedTypeID is TL type id of InputSecureFileUploaded.
@@ -92,6 +92,11 @@ func (i *InputSecureFileUploaded) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputSecureFileUploaded) TypeID() uint32 {
 	return InputSecureFileUploadedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputSecureFileUploaded) SchemaName() string {
+	return "inputSecureFileUploaded"
 }
 
 // Encode implements bin.Encoder.
@@ -200,9 +205,9 @@ var (
 // See https://core.telegram.org/constructor/inputSecureFile for reference.
 type InputSecureFile struct {
 	// Secure file ID
-	ID int64
+	ID int64 `schemaname:"id"`
 	// Secure file access hash
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 }
 
 // InputSecureFileTypeID is TL type id of InputSecureFile.
@@ -244,6 +249,11 @@ func (i *InputSecureFile) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputSecureFile) TypeID() uint32 {
 	return InputSecureFileTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputSecureFile) SchemaName() string {
+	return "inputSecureFile"
 }
 
 // Encode implements bin.Encoder.
@@ -322,16 +332,27 @@ type InputSecureFileClass interface {
 	bin.Decoder
 	construct() InputSecureFileClass
 
-	// Secure file ID
-	GetID() (value int64)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Secure file ID
+	GetID() (value int64)
+}
+
+// AsInputSecureFileLocation tries to map InputSecureFile to InputSecureFileLocation.
+func (i *InputSecureFile) AsInputSecureFileLocation() *InputSecureFileLocation {
+	value := new(InputSecureFileLocation)
+	value.ID = i.GetID()
+	value.AccessHash = i.GetAccessHash()
+
+	return value
 }
 
 // DecodeInputSecureFile implements binary de-serialization for InputSecureFileClass.

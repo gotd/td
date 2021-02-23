@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/peerUser for reference.
 type PeerUser struct {
 	// User identifier
-	UserID int
+	UserID int `schemaname:"user_id"`
 }
 
 // PeerUserTypeID is TL type id of PeerUser.
@@ -61,6 +61,11 @@ func (p *PeerUser) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PeerUser) TypeID() uint32 {
 	return PeerUserTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PeerUser) SchemaName() string {
+	return "peerUser"
 }
 
 // Encode implements bin.Encoder.
@@ -113,7 +118,7 @@ var (
 // See https://core.telegram.org/constructor/peerChat for reference.
 type PeerChat struct {
 	// Group identifier
-	ChatID int
+	ChatID int `schemaname:"chat_id"`
 }
 
 // PeerChatTypeID is TL type id of PeerChat.
@@ -150,6 +155,11 @@ func (p *PeerChat) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PeerChat) TypeID() uint32 {
 	return PeerChatTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PeerChat) SchemaName() string {
+	return "peerChat"
 }
 
 // Encode implements bin.Encoder.
@@ -202,7 +212,7 @@ var (
 // See https://core.telegram.org/constructor/peerChannel for reference.
 type PeerChannel struct {
 	// Channel ID
-	ChannelID int
+	ChannelID int `schemaname:"channel_id"`
 }
 
 // PeerChannelTypeID is TL type id of PeerChannel.
@@ -239,6 +249,11 @@ func (p *PeerChannel) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PeerChannel) TypeID() uint32 {
 	return PeerChannelTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PeerChannel) SchemaName() string {
+	return "peerChannel"
 }
 
 // Encode implements bin.Encoder.
@@ -308,10 +323,20 @@ type PeerClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+}
+
+// AsInput tries to map PeerChat to InputPeerChat.
+func (p *PeerChat) AsInput() *InputPeerChat {
+	value := new(InputPeerChat)
+	value.ChatID = p.GetChatID()
+
+	return value
 }
 
 // DecodePeer implements binary de-serialization for PeerClass.

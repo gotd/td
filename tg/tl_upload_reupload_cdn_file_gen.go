@@ -27,9 +27,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/upload.reuploadCdnFile for reference.
 type UploadReuploadCdnFileRequest struct {
 	// File token
-	FileToken []byte
+	FileToken []byte `schemaname:"file_token"`
 	// Request token
-	RequestToken []byte
+	RequestToken []byte `schemaname:"request_token"`
 }
 
 // UploadReuploadCdnFileRequestTypeID is TL type id of UploadReuploadCdnFileRequest.
@@ -71,6 +71,11 @@ func (r *UploadReuploadCdnFileRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *UploadReuploadCdnFileRequest) TypeID() uint32 {
 	return UploadReuploadCdnFileRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *UploadReuploadCdnFileRequest) SchemaName() string {
+	return "upload.reuploadCdnFile"
 }
 
 // Encode implements bin.Encoder.

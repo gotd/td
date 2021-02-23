@@ -21,11 +21,11 @@ var _ = errors.Is
 // ServerDHParamsFail represents TL type `server_DH_params_fail#79cb045d`.
 type ServerDHParamsFail struct {
 	// Nonce field of ServerDHParamsFail.
-	Nonce bin.Int128
+	Nonce bin.Int128 `schemaname:"nonce"`
 	// ServerNonce field of ServerDHParamsFail.
-	ServerNonce bin.Int128
+	ServerNonce bin.Int128 `schemaname:"server_nonce"`
 	// NewNonceHash field of ServerDHParamsFail.
-	NewNonceHash bin.Int128
+	NewNonceHash bin.Int128 `schemaname:"new_nonce_hash"`
 }
 
 // ServerDHParamsFailTypeID is TL type id of ServerDHParamsFail.
@@ -72,6 +72,11 @@ func (s *ServerDHParamsFail) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *ServerDHParamsFail) TypeID() uint32 {
 	return ServerDHParamsFailTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *ServerDHParamsFail) SchemaName() string {
+	return "server_DH_params_fail"
 }
 
 // Encode implements bin.Encoder.
@@ -147,11 +152,11 @@ var (
 // ServerDHParamsOk represents TL type `server_DH_params_ok#d0e8075c`.
 type ServerDHParamsOk struct {
 	// Nonce field of ServerDHParamsOk.
-	Nonce bin.Int128
+	Nonce bin.Int128 `schemaname:"nonce"`
 	// ServerNonce field of ServerDHParamsOk.
-	ServerNonce bin.Int128
+	ServerNonce bin.Int128 `schemaname:"server_nonce"`
 	// EncryptedAnswer field of ServerDHParamsOk.
-	EncryptedAnswer []byte
+	EncryptedAnswer []byte `schemaname:"encrypted_answer"`
 }
 
 // ServerDHParamsOkTypeID is TL type id of ServerDHParamsOk.
@@ -198,6 +203,11 @@ func (s *ServerDHParamsOk) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *ServerDHParamsOk) TypeID() uint32 {
 	return ServerDHParamsOkTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *ServerDHParamsOk) SchemaName() string {
+	return "server_DH_params_ok"
 }
 
 // Encode implements bin.Encoder.
@@ -287,18 +297,20 @@ type ServerDHParamsClass interface {
 	bin.Decoder
 	construct() ServerDHParamsClass
 
-	// Nonce field of ServerDHParamsFail.
-	GetNonce() (value bin.Int128)
-	// ServerNonce field of ServerDHParamsFail.
-	GetServerNonce() (value bin.Int128)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Nonce field of ServerDHParamsFail.
+	GetNonce() (value bin.Int128)
+	// ServerNonce field of ServerDHParamsFail.
+	GetServerNonce() (value bin.Int128)
 }
 
 // DecodeServerDHParams implements binary de-serialization for ServerDHParamsClass.

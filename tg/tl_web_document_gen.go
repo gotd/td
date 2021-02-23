@@ -24,15 +24,15 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/webDocument for reference.
 type WebDocument struct {
 	// Document URL
-	URL string
+	URL string `schemaname:"url"`
 	// Access hash
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 	// File size
-	Size int
+	Size int `schemaname:"size"`
 	// MIME type
-	MimeType string
+	MimeType string `schemaname:"mime_type"`
 	// Attributes for media types
-	Attributes []DocumentAttributeClass
+	Attributes []DocumentAttributeClass `schemaname:"attributes"`
 }
 
 // WebDocumentTypeID is TL type id of WebDocument.
@@ -89,6 +89,11 @@ func (w *WebDocument) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *WebDocument) TypeID() uint32 {
 	return WebDocumentTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (w *WebDocument) SchemaName() string {
+	return "webDocument"
 }
 
 // Encode implements bin.Encoder.
@@ -215,13 +220,13 @@ var (
 // See https://core.telegram.org/constructor/webDocumentNoProxy for reference.
 type WebDocumentNoProxy struct {
 	// Document URL
-	URL string
+	URL string `schemaname:"url"`
 	// File size
-	Size int
+	Size int `schemaname:"size"`
 	// MIME type
-	MimeType string
+	MimeType string `schemaname:"mime_type"`
 	// Attributes for media types
-	Attributes []DocumentAttributeClass
+	Attributes []DocumentAttributeClass `schemaname:"attributes"`
 }
 
 // WebDocumentNoProxyTypeID is TL type id of WebDocumentNoProxy.
@@ -273,6 +278,11 @@ func (w *WebDocumentNoProxy) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *WebDocumentNoProxy) TypeID() uint32 {
 	return WebDocumentNoProxyTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (w *WebDocumentNoProxy) SchemaName() string {
+	return "webDocumentNoProxy"
 }
 
 // Encode implements bin.Encoder.
@@ -396,6 +406,16 @@ type WebDocumentClass interface {
 	bin.Decoder
 	construct() WebDocumentClass
 
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+
 	// Document URL
 	GetURL() (value string)
 	// File size
@@ -404,14 +424,19 @@ type WebDocumentClass interface {
 	GetMimeType() (value string)
 	// Attributes for media types
 	GetAttributes() (value []DocumentAttributeClass)
+	// Attributes for media types
+	MapAttributes() (value DocumentAttributeClassSlice)
+}
 
-	// TypeID returns MTProto type id (CRC code).
-	// See https://core.telegram.org/mtproto/TL-tl#remarks.
-	TypeID() uint32
-	// String implements fmt.Stringer.
-	String() string
-	// Zero returns true if current object has a zero value.
-	Zero() bool
+// AsInput tries to map WebDocument to InputWebDocument.
+func (w *WebDocument) AsInput() *InputWebDocument {
+	value := new(InputWebDocument)
+	value.URL = w.GetURL()
+	value.Size = w.GetSize()
+	value.MimeType = w.GetMimeType()
+	value.Attributes = w.GetAttributes()
+
+	return value
 }
 
 // DecodeWebDocument implements binary de-serialization for WebDocumentClass.

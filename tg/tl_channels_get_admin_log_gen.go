@@ -30,34 +30,34 @@ type ChannelsGetAdminLogRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Channel
-	Channel InputChannelClass
+	Channel InputChannelClass `schemaname:"channel"`
 	// Search query, can be empty
-	Q string
+	Q string `schemaname:"q"`
 	// Event filter
 	//
 	// Use SetEventsFilter and GetEventsFilter helpers.
-	EventsFilter ChannelAdminLogEventsFilter
+	EventsFilter ChannelAdminLogEventsFilter `schemaname:"events_filter"`
 	// Only show events from these admins
 	//
 	// Use SetAdmins and GetAdmins helpers.
-	Admins []InputUserClass
+	Admins []InputUserClass `schemaname:"admins"`
 	// Maximum ID of message to return (see pagination¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	MaxID int64
+	MaxID int64 `schemaname:"max_id"`
 	// Minimum ID of message to return (see pagination¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	MinID int64
+	MinID int64 `schemaname:"min_id"`
 	// Maximum number of results to return, see pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int
+	Limit int `schemaname:"limit"`
 }
 
 // ChannelsGetAdminLogRequestTypeID is TL type id of ChannelsGetAdminLogRequest.
@@ -119,9 +119,11 @@ func (g *ChannelsGetAdminLogRequest) FillFrom(from interface {
 	if val, ok := from.GetEventsFilter(); ok {
 		g.EventsFilter = val
 	}
+
 	if val, ok := from.GetAdmins(); ok {
 		g.Admins = val
 	}
+
 	g.MaxID = from.GetMaxID()
 	g.MinID = from.GetMinID()
 	g.Limit = from.GetLimit()
@@ -131,6 +133,11 @@ func (g *ChannelsGetAdminLogRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *ChannelsGetAdminLogRequest) TypeID() uint32 {
 	return ChannelsGetAdminLogRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *ChannelsGetAdminLogRequest) SchemaName() string {
+	return "channels.getAdminLog"
 }
 
 // Encode implements bin.Encoder.

@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/help.inviteText for reference.
 type HelpInviteText struct {
 	// Text of the message
-	Message string
+	Message string `schemaname:"message"`
 }
 
 // HelpInviteTextTypeID is TL type id of HelpInviteText.
@@ -61,6 +61,11 @@ func (i *HelpInviteText) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *HelpInviteText) TypeID() uint32 {
 	return HelpInviteTextTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *HelpInviteText) SchemaName() string {
+	return "help.inviteText"
 }
 
 // Encode implements bin.Encoder.

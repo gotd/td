@@ -51,6 +51,11 @@ func (r *AccountResetWallPapersRequest) TypeID() uint32 {
 	return AccountResetWallPapersRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (r *AccountResetWallPapersRequest) SchemaName() string {
+	return "account.resetWallPapers"
+}
+
 // Encode implements bin.Encoder.
 func (r *AccountResetWallPapersRequest) Encode(b *bin.Buffer) error {
 	if r == nil {

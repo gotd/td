@@ -27,15 +27,15 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/upload.webFile for reference.
 type UploadWebFile struct {
 	// File size
-	Size int
+	Size int `schemaname:"size"`
 	// Mime type
-	MimeType string
+	MimeType string `schemaname:"mime_type"`
 	// File type
-	FileType StorageFileTypeClass
+	FileType StorageFileTypeClass `schemaname:"file_type"`
 	// Modified time
-	Mtime int
+	Mtime int `schemaname:"mtime"`
 	// Data
-	Bytes []byte
+	Bytes []byte `schemaname:"bytes"`
 }
 
 // UploadWebFileTypeID is TL type id of UploadWebFile.
@@ -92,6 +92,11 @@ func (w *UploadWebFile) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *UploadWebFile) TypeID() uint32 {
 	return UploadWebFileTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (w *UploadWebFile) SchemaName() string {
+	return "upload.webFile"
 }
 
 // Encode implements bin.Encoder.

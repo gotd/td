@@ -30,24 +30,24 @@ type MessagesSaveDraftRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Disable generation of the webpage preview
-	NoWebpage bool
+	NoWebpage bool `schemaname:"no_webpage"`
 	// Message ID the message should reply to
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
-	ReplyToMsgID int
+	ReplyToMsgID int `schemaname:"reply_to_msg_id"`
 	// Destination of the message that should be sent
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// The draft
-	Message string
+	Message string `schemaname:"message"`
 	// Message entities¹ for styled text
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass
+	Entities []MessageEntityClass `schemaname:"entities"`
 }
 
 // MessagesSaveDraftRequestTypeID is TL type id of MessagesSaveDraftRequest.
@@ -96,20 +96,28 @@ func (s *MessagesSaveDraftRequest) FillFrom(from interface {
 	GetMessage() (value string)
 	GetEntities() (value []MessageEntityClass, ok bool)
 }) {
+	s.NoWebpage = from.GetNoWebpage()
 	if val, ok := from.GetReplyToMsgID(); ok {
 		s.ReplyToMsgID = val
 	}
+
 	s.Peer = from.GetPeer()
 	s.Message = from.GetMessage()
 	if val, ok := from.GetEntities(); ok {
 		s.Entities = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSaveDraftRequest) TypeID() uint32 {
 	return MessagesSaveDraftRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *MessagesSaveDraftRequest) SchemaName() string {
+	return "messages.saveDraft"
 }
 
 // Encode implements bin.Encoder.

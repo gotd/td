@@ -51,6 +51,11 @@ func (c *ContactsContactsNotModified) TypeID() uint32 {
 	return ContactsContactsNotModifiedTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (c *ContactsContactsNotModified) SchemaName() string {
+	return "contacts.contactsNotModified"
+}
+
 // Encode implements bin.Encoder.
 func (c *ContactsContactsNotModified) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -88,11 +93,11 @@ var (
 // See https://core.telegram.org/constructor/contacts.contacts for reference.
 type ContactsContacts struct {
 	// Contact list
-	Contacts []Contact
+	Contacts []Contact `schemaname:"contacts"`
 	// Number of contacts that were saved successfully
-	SavedCount int
+	SavedCount int `schemaname:"saved_count"`
 	// User list
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 }
 
 // ContactsContactsTypeID is TL type id of ContactsContacts.
@@ -139,6 +144,11 @@ func (c *ContactsContacts) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ContactsContacts) TypeID() uint32 {
 	return ContactsContactsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ContactsContacts) SchemaName() string {
+	return "contacts.contacts"
 }
 
 // Encode implements bin.Encoder.
@@ -260,24 +270,26 @@ type ContactsContactsClass interface {
 	bin.Decoder
 	construct() ContactsContactsClass
 
-	// AsModified tries to map ContactsContactsClass to ContactsContacts.
-	AsModified() (*ContactsContacts, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsModified tries to map ContactsContactsClass to ContactsContacts.
+	AsModified() (*ContactsContacts, bool)
 }
 
-// AsModified tries to map ContactsContactsClass to ContactsContacts.
+// AsModified tries to map ContactsContactsNotModified to ContactsContacts.
 func (c *ContactsContactsNotModified) AsModified() (*ContactsContacts, bool) {
 	return nil, false
 }
 
-// AsModified tries to map ContactsContactsClass to ContactsContacts.
+// AsModified tries to map ContactsContacts to ContactsContacts.
 func (c *ContactsContacts) AsModified() (*ContactsContacts, bool) {
 	return c, true
 }
@@ -368,6 +380,24 @@ func (s ContactsContactsClassSlice) FirstAsModified() (v *ContactsContacts, ok b
 // LastAsModified returns last element of slice (if exists).
 func (s ContactsContactsClassSlice) LastAsModified() (v *ContactsContacts, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopFirstAsModified returns element of slice (if exists).
+func (s *ContactsContactsClassSlice) PopFirstAsModified() (v *ContactsContacts, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopAsModified returns element of slice (if exists).
+func (s *ContactsContactsClassSlice) PopAsModified() (v *ContactsContacts, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

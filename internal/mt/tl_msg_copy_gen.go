@@ -21,7 +21,7 @@ var _ = errors.Is
 // MsgCopy represents TL type `msg_copy#e06046b2`.
 type MsgCopy struct {
 	// OrigMessage field of MsgCopy.
-	OrigMessage Message
+	OrigMessage Message `schemaname:"orig_message"`
 }
 
 // MsgCopyTypeID is TL type id of MsgCopy.
@@ -58,6 +58,11 @@ func (m *MsgCopy) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MsgCopy) TypeID() uint32 {
 	return MsgCopyTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MsgCopy) SchemaName() string {
+	return "msg_copy"
 }
 
 // Encode implements bin.Encoder.

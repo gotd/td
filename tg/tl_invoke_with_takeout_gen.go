@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/invokeWithTakeout for reference.
 type InvokeWithTakeoutRequest struct {
 	// Takeout session ID
-	TakeoutID int64
+	TakeoutID int64 `schemaname:"takeout_id"`
 	// Query
-	Query bin.Object
+	Query bin.Object `schemaname:"query"`
 }
 
 // InvokeWithTakeoutRequestTypeID is TL type id of InvokeWithTakeoutRequest.
@@ -68,6 +68,11 @@ func (i *InvokeWithTakeoutRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InvokeWithTakeoutRequest) TypeID() uint32 {
 	return InvokeWithTakeoutRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InvokeWithTakeoutRequest) SchemaName() string {
+	return "invokeWithTakeout"
 }
 
 // Encode implements bin.Encoder.

@@ -27,36 +27,36 @@ type AccountPasswordInputSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// The SRP algorithm¹ to use
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
 	//
 	// Use SetNewAlgo and GetNewAlgo helpers.
-	NewAlgo PasswordKdfAlgoClass
+	NewAlgo PasswordKdfAlgoClass `schemaname:"new_algo"`
 	// The computed password hash¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
 	//
 	// Use SetNewPasswordHash and GetNewPasswordHash helpers.
-	NewPasswordHash []byte
+	NewPasswordHash []byte `schemaname:"new_password_hash"`
 	// Text hint for the password
 	//
 	// Use SetHint and GetHint helpers.
-	Hint string
+	Hint string `schemaname:"hint"`
 	// Password recovery email
 	//
 	// Use SetEmail and GetEmail helpers.
-	Email string
+	Email string `schemaname:"email"`
 	// Telegram passport¹ settings
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetNewSecureSettings and GetNewSecureSettings helpers.
-	NewSecureSettings SecureSecretSettings
+	NewSecureSettings SecureSecretSettings `schemaname:"new_secure_settings"`
 }
 
 // AccountPasswordInputSettingsTypeID is TL type id of AccountPasswordInputSettings.
@@ -108,24 +108,34 @@ func (p *AccountPasswordInputSettings) FillFrom(from interface {
 	if val, ok := from.GetNewAlgo(); ok {
 		p.NewAlgo = val
 	}
+
 	if val, ok := from.GetNewPasswordHash(); ok {
 		p.NewPasswordHash = val
 	}
+
 	if val, ok := from.GetHint(); ok {
 		p.Hint = val
 	}
+
 	if val, ok := from.GetEmail(); ok {
 		p.Email = val
 	}
+
 	if val, ok := from.GetNewSecureSettings(); ok {
 		p.NewSecureSettings = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *AccountPasswordInputSettings) TypeID() uint32 {
 	return AccountPasswordInputSettingsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *AccountPasswordInputSettings) SchemaName() string {
+	return "account.passwordInputSettings"
 }
 
 // Encode implements bin.Encoder.

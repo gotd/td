@@ -30,7 +30,7 @@ type CdnConfig struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	PublicKeys []CdnPublicKey
+	PublicKeys []CdnPublicKey `schemaname:"public_keys"`
 }
 
 // CdnConfigTypeID is TL type id of CdnConfig.
@@ -67,6 +67,11 @@ func (c *CdnConfig) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *CdnConfig) TypeID() uint32 {
 	return CdnConfigTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *CdnConfig) SchemaName() string {
+	return "cdnConfig"
 }
 
 // Encode implements bin.Encoder.

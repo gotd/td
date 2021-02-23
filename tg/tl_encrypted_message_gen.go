@@ -24,18 +24,18 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/encryptedMessage for reference.
 type EncryptedMessage struct {
 	// Random message ID, assigned by the author of message
-	RandomID int64
+	RandomID int64 `schemaname:"random_id"`
 	// ID of encrypted chat
-	ChatID int
+	ChatID int `schemaname:"chat_id"`
 	// Date of sending
-	Date int
+	Date int `schemaname:"date"`
 	// TL-serialising of DecryptedMessage¹ type, encrypted with the key creatied at stage of chat initialization
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/DecryptedMessage
-	Bytes []byte
+	Bytes []byte `schemaname:"bytes"`
 	// Attached encrypted file
-	File EncryptedFileClass
+	File EncryptedFileClass `schemaname:"file"`
 }
 
 // EncryptedMessageTypeID is TL type id of EncryptedMessage.
@@ -92,6 +92,11 @@ func (e *EncryptedMessage) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EncryptedMessage) TypeID() uint32 {
 	return EncryptedMessageTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *EncryptedMessage) SchemaName() string {
+	return "encryptedMessage"
 }
 
 // Encode implements bin.Encoder.
@@ -201,16 +206,16 @@ var (
 // See https://core.telegram.org/constructor/encryptedMessageService for reference.
 type EncryptedMessageService struct {
 	// Random message ID, assigned by the author of message
-	RandomID int64
+	RandomID int64 `schemaname:"random_id"`
 	// ID of encrypted chat
-	ChatID int
+	ChatID int `schemaname:"chat_id"`
 	// Date of sending
-	Date int
+	Date int `schemaname:"date"`
 	// TL-serialising of DecryptedMessage¹ type, encrypted with the key creatied at stage of chat initialization
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/DecryptedMessage
-	Bytes []byte
+	Bytes []byte `schemaname:"bytes"`
 }
 
 // EncryptedMessageServiceTypeID is TL type id of EncryptedMessageService.
@@ -262,6 +267,11 @@ func (e *EncryptedMessageService) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EncryptedMessageService) TypeID() uint32 {
 	return EncryptedMessageServiceTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *EncryptedMessageService) SchemaName() string {
+	return "encryptedMessageService"
 }
 
 // Encode implements bin.Encoder.
@@ -366,6 +376,16 @@ type EncryptedMessageClass interface {
 	bin.Decoder
 	construct() EncryptedMessageClass
 
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+
 	// Random message ID, assigned by the author of message
 	GetRandomID() (value int64)
 	// ID of encrypted chat
@@ -377,14 +397,6 @@ type EncryptedMessageClass interface {
 	// Links:
 	//  1) https://core.telegram.org/type/DecryptedMessage
 	GetBytes() (value []byte)
-
-	// TypeID returns MTProto type id (CRC code).
-	// See https://core.telegram.org/mtproto/TL-tl#remarks.
-	TypeID() uint32
-	// String implements fmt.Stringer.
-	String() string
-	// Zero returns true if current object has a zero value.
-	Zero() bool
 }
 
 // DecodeEncryptedMessage implements binary de-serialization for EncryptedMessageClass.

@@ -27,9 +27,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/channels.getParticipant for reference.
 type ChannelsGetParticipantRequest struct {
 	// Channel/supergroup
-	Channel InputChannelClass
+	Channel InputChannelClass `schemaname:"channel"`
 	// ID of participant to get info about
-	UserID InputUserClass
+	UserID InputUserClass `schemaname:"user_id"`
 }
 
 // ChannelsGetParticipantRequestTypeID is TL type id of ChannelsGetParticipantRequest.
@@ -71,6 +71,11 @@ func (g *ChannelsGetParticipantRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *ChannelsGetParticipantRequest) TypeID() uint32 {
 	return ChannelsGetParticipantRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *ChannelsGetParticipantRequest) SchemaName() string {
+	return "channels.getParticipant"
 }
 
 // Encode implements bin.Encoder.

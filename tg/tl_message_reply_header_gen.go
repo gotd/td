@@ -30,23 +30,23 @@ type MessageReplyHeader struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// ID of message to which this message is replying
-	ReplyToMsgID int
+	ReplyToMsgID int `schemaname:"reply_to_msg_id"`
 	// For replies sent in channel discussion threads¹ of which the current user is not a member, the discussion group ID
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetReplyToPeerID and GetReplyToPeerID helpers.
-	ReplyToPeerID PeerClass
+	ReplyToPeerID PeerClass `schemaname:"reply_to_peer_id"`
 	// ID of the message that started this message thread¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetReplyToTopID and GetReplyToTopID helpers.
-	ReplyToTopID int
+	ReplyToTopID int `schemaname:"reply_to_top_id"`
 }
 
 // MessageReplyHeaderTypeID is TL type id of MessageReplyHeader.
@@ -91,15 +91,22 @@ func (m *MessageReplyHeader) FillFrom(from interface {
 	if val, ok := from.GetReplyToPeerID(); ok {
 		m.ReplyToPeerID = val
 	}
+
 	if val, ok := from.GetReplyToTopID(); ok {
 		m.ReplyToTopID = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageReplyHeader) TypeID() uint32 {
 	return MessageReplyHeaderTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageReplyHeader) SchemaName() string {
+	return "messageReplyHeader"
 }
 
 // Encode implements bin.Encoder.

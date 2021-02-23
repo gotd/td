@@ -30,31 +30,31 @@ type ChannelsCreateChannelRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether to create a channel¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Broadcast bool
+	Broadcast bool `schemaname:"broadcast"`
 	// Whether to create a supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Megagroup bool
+	Megagroup bool `schemaname:"megagroup"`
 	// ForImport field of ChannelsCreateChannelRequest.
-	ForImport bool
+	ForImport bool `schemaname:"for_import"`
 	// Channel title
-	Title string
+	Title string `schemaname:"title"`
 	// Channel description
-	About string
+	About string `schemaname:"about"`
 	// Geogroup location
 	//
 	// Use SetGeoPoint and GetGeoPoint helpers.
-	GeoPoint InputGeoPointClass
+	GeoPoint InputGeoPointClass `schemaname:"geo_point"`
 	// Geogroup address
 	//
 	// Use SetAddress and GetAddress helpers.
-	Address string
+	Address string `schemaname:"address"`
 }
 
 // ChannelsCreateChannelRequestTypeID is TL type id of ChannelsCreateChannelRequest.
@@ -111,20 +111,30 @@ func (c *ChannelsCreateChannelRequest) FillFrom(from interface {
 	GetGeoPoint() (value InputGeoPointClass, ok bool)
 	GetAddress() (value string, ok bool)
 }) {
+	c.Broadcast = from.GetBroadcast()
+	c.Megagroup = from.GetMegagroup()
+	c.ForImport = from.GetForImport()
 	c.Title = from.GetTitle()
 	c.About = from.GetAbout()
 	if val, ok := from.GetGeoPoint(); ok {
 		c.GeoPoint = val
 	}
+
 	if val, ok := from.GetAddress(); ok {
 		c.Address = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelsCreateChannelRequest) TypeID() uint32 {
 	return ChannelsCreateChannelRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChannelsCreateChannelRequest) SchemaName() string {
+	return "channels.createChannel"
 }
 
 // Encode implements bin.Encoder.

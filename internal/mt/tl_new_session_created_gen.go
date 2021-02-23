@@ -21,11 +21,11 @@ var _ = errors.Is
 // NewSessionCreated represents TL type `new_session_created#9ec20908`.
 type NewSessionCreated struct {
 	// FirstMsgID field of NewSessionCreated.
-	FirstMsgID int64
+	FirstMsgID int64 `schemaname:"first_msg_id"`
 	// UniqueID field of NewSessionCreated.
-	UniqueID int64
+	UniqueID int64 `schemaname:"unique_id"`
 	// ServerSalt field of NewSessionCreated.
-	ServerSalt int64
+	ServerSalt int64 `schemaname:"server_salt"`
 }
 
 // NewSessionCreatedTypeID is TL type id of NewSessionCreated.
@@ -72,6 +72,11 @@ func (n *NewSessionCreated) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (n *NewSessionCreated) TypeID() uint32 {
 	return NewSessionCreatedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (n *NewSessionCreated) SchemaName() string {
+	return "new_session_created"
 }
 
 // Encode implements bin.Encoder.

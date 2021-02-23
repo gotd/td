@@ -51,6 +51,11 @@ func (u *HelpUserInfoEmpty) TypeID() uint32 {
 	return HelpUserInfoEmptyTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (u *HelpUserInfoEmpty) SchemaName() string {
+	return "help.userInfoEmpty"
+}
+
 // Encode implements bin.Encoder.
 func (u *HelpUserInfoEmpty) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -88,16 +93,16 @@ var (
 // See https://core.telegram.org/constructor/help.userInfo for reference.
 type HelpUserInfo struct {
 	// Info
-	Message string
+	Message string `schemaname:"message"`
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
-	Entities []MessageEntityClass
+	Entities []MessageEntityClass `schemaname:"entities"`
 	// Author
-	Author string
+	Author string `schemaname:"author"`
 	// Date
-	Date int
+	Date int `schemaname:"date"`
 }
 
 // HelpUserInfoTypeID is TL type id of HelpUserInfo.
@@ -149,6 +154,11 @@ func (u *HelpUserInfo) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *HelpUserInfo) TypeID() uint32 {
 	return HelpUserInfoTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *HelpUserInfo) SchemaName() string {
+	return "help.userInfo"
 }
 
 // Encode implements bin.Encoder.
@@ -272,24 +282,26 @@ type HelpUserInfoClass interface {
 	bin.Decoder
 	construct() HelpUserInfoClass
 
-	// AsNotEmpty tries to map HelpUserInfoClass to HelpUserInfo.
-	AsNotEmpty() (*HelpUserInfo, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsNotEmpty tries to map HelpUserInfoClass to HelpUserInfo.
+	AsNotEmpty() (*HelpUserInfo, bool)
 }
 
-// AsNotEmpty tries to map HelpUserInfoClass to HelpUserInfo.
+// AsNotEmpty tries to map HelpUserInfoEmpty to HelpUserInfo.
 func (u *HelpUserInfoEmpty) AsNotEmpty() (*HelpUserInfo, bool) {
 	return nil, false
 }
 
-// AsNotEmpty tries to map HelpUserInfoClass to HelpUserInfo.
+// AsNotEmpty tries to map HelpUserInfo to HelpUserInfo.
 func (u *HelpUserInfo) AsNotEmpty() (*HelpUserInfo, bool) {
 	return u, true
 }
@@ -380,6 +392,24 @@ func (s HelpUserInfoClassSlice) FirstAsNotEmpty() (v *HelpUserInfo, ok bool) {
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s HelpUserInfoClassSlice) LastAsNotEmpty() (v *HelpUserInfo, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *HelpUserInfoClassSlice) PopFirstAsNotEmpty() (v *HelpUserInfo, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *HelpUserInfoClassSlice) PopAsNotEmpty() (v *HelpUserInfo, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

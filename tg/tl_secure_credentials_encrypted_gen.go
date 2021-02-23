@@ -30,17 +30,17 @@ type SecureCredentialsEncrypted struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport#decrypting-data
-	Data []byte
+	Data []byte `schemaname:"data"`
 	// Data hash for data authentication as described in decrypting data »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport#decrypting-data
-	Hash []byte
+	Hash []byte `schemaname:"hash"`
 	// Secret, encrypted with the bot's public RSA key, required for data decryption as described in decrypting data »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport#decrypting-data
-	Secret []byte
+	Secret []byte `schemaname:"secret"`
 }
 
 // SecureCredentialsEncryptedTypeID is TL type id of SecureCredentialsEncrypted.
@@ -87,6 +87,11 @@ func (s *SecureCredentialsEncrypted) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureCredentialsEncrypted) TypeID() uint32 {
 	return SecureCredentialsEncryptedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SecureCredentialsEncrypted) SchemaName() string {
+	return "secureCredentialsEncrypted"
 }
 
 // Encode implements bin.Encoder.

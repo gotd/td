@@ -24,13 +24,13 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/inputAppEvent for reference.
 type InputAppEvent struct {
 	// Client's exact timestamp for the event
-	Time float64
+	Time float64 `schemaname:"time"`
 	// Type of event
-	Type string
+	Type string `schemaname:"type"`
 	// Arbitrary numeric value for more convenient selection of certain event types, or events referring to a certain object
-	Peer int64
+	Peer int64 `schemaname:"peer"`
 	// Details of the event
-	Data JSONValueClass
+	Data JSONValueClass `schemaname:"data"`
 }
 
 // InputAppEventTypeID is TL type id of InputAppEvent.
@@ -82,6 +82,11 @@ func (i *InputAppEvent) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputAppEvent) TypeID() uint32 {
 	return InputAppEventTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputAppEvent) SchemaName() string {
+	return "inputAppEvent"
 }
 
 // Encode implements bin.Encoder.

@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://localhost:80/doc/method/send for reference.
 type SendRequest struct {
 	// Msg field of SendRequest.
-	Msg SMS
+	Msg SMS `schemaname:"msg"`
 }
 
 // SendRequestTypeID is TL type id of SendRequest.
@@ -60,6 +60,11 @@ func (s *SendRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SendRequest) TypeID() uint32 {
 	return SendRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SendRequest) SchemaName() string {
+	return "send"
 }
 
 // Encode implements bin.Encoder.

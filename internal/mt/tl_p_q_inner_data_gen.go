@@ -21,17 +21,17 @@ var _ = errors.Is
 // PQInnerData represents TL type `p_q_inner_data#83c95aec`.
 type PQInnerData struct {
 	// Pq field of PQInnerData.
-	Pq []byte
+	Pq []byte `schemaname:"pq"`
 	// P field of PQInnerData.
-	P []byte
+	P []byte `schemaname:"p"`
 	// Q field of PQInnerData.
-	Q []byte
+	Q []byte `schemaname:"q"`
 	// Nonce field of PQInnerData.
-	Nonce bin.Int128
+	Nonce bin.Int128 `schemaname:"nonce"`
 	// ServerNonce field of PQInnerData.
-	ServerNonce bin.Int128
+	ServerNonce bin.Int128 `schemaname:"server_nonce"`
 	// NewNonce field of PQInnerData.
-	NewNonce bin.Int256
+	NewNonce bin.Int256 `schemaname:"new_nonce"`
 }
 
 // PQInnerDataTypeID is TL type id of PQInnerData.
@@ -93,6 +93,11 @@ func (p *PQInnerData) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PQInnerData) TypeID() uint32 {
 	return PQInnerDataTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PQInnerData) SchemaName() string {
+	return "p_q_inner_data"
 }
 
 // Encode implements bin.Encoder.

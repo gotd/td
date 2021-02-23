@@ -27,13 +27,13 @@ type MessagesSaveRecentStickerRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether to add/remove stickers recently attached to photo or video files
-	Attached bool
+	Attached bool `schemaname:"attached"`
 	// Sticker
-	ID InputDocumentClass
+	ID InputDocumentClass `schemaname:"id"`
 	// Whether to save or unsave the sticker
-	Unsave bool
+	Unsave bool `schemaname:"unsave"`
 }
 
 // MessagesSaveRecentStickerRequestTypeID is TL type id of MessagesSaveRecentStickerRequest.
@@ -74,6 +74,7 @@ func (s *MessagesSaveRecentStickerRequest) FillFrom(from interface {
 	GetID() (value InputDocumentClass)
 	GetUnsave() (value bool)
 }) {
+	s.Attached = from.GetAttached()
 	s.ID = from.GetID()
 	s.Unsave = from.GetUnsave()
 }
@@ -82,6 +83,11 @@ func (s *MessagesSaveRecentStickerRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSaveRecentStickerRequest) TypeID() uint32 {
 	return MessagesSaveRecentStickerRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *MessagesSaveRecentStickerRequest) SchemaName() string {
+	return "messages.saveRecentSticker"
 }
 
 // Encode implements bin.Encoder.

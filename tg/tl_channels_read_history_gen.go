@@ -30,9 +30,9 @@ type ChannelsReadHistoryRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass
+	Channel InputChannelClass `schemaname:"channel"`
 	// ID of message up to which messages should be marked as read
-	MaxID int
+	MaxID int `schemaname:"max_id"`
 }
 
 // ChannelsReadHistoryRequestTypeID is TL type id of ChannelsReadHistoryRequest.
@@ -74,6 +74,11 @@ func (r *ChannelsReadHistoryRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ChannelsReadHistoryRequest) TypeID() uint32 {
 	return ChannelsReadHistoryRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *ChannelsReadHistoryRequest) SchemaName() string {
+	return "channels.readHistory"
 }
 
 // Encode implements bin.Encoder.

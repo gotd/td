@@ -51,6 +51,11 @@ func (e *EncryptedFileEmpty) TypeID() uint32 {
 	return EncryptedFileEmptyTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (e *EncryptedFileEmpty) SchemaName() string {
+	return "encryptedFileEmpty"
+}
+
 // Encode implements bin.Encoder.
 func (e *EncryptedFileEmpty) Encode(b *bin.Buffer) error {
 	if e == nil {
@@ -88,15 +93,15 @@ var (
 // See https://core.telegram.org/constructor/encryptedFile for reference.
 type EncryptedFile struct {
 	// File ID
-	ID int64
+	ID int64 `schemaname:"id"`
 	// Checking sum depending on user ID
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 	// File size in bytes
-	Size int
+	Size int `schemaname:"size"`
 	// Number of data centre
-	DCID int
+	DCID int `schemaname:"dc_id"`
 	// 32-bit fingerprint of key used for file encryption
-	KeyFingerprint int
+	KeyFingerprint int `schemaname:"key_fingerprint"`
 }
 
 // EncryptedFileTypeID is TL type id of EncryptedFile.
@@ -153,6 +158,11 @@ func (e *EncryptedFile) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EncryptedFile) TypeID() uint32 {
 	return EncryptedFileTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *EncryptedFile) SchemaName() string {
+	return "encryptedFile"
 }
 
 // Encode implements bin.Encoder.
@@ -270,24 +280,44 @@ type EncryptedFileClass interface {
 	bin.Decoder
 	construct() EncryptedFileClass
 
-	// AsNotEmpty tries to map EncryptedFileClass to EncryptedFile.
-	AsNotEmpty() (*EncryptedFile, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsNotEmpty tries to map EncryptedFileClass to EncryptedFile.
+	AsNotEmpty() (*EncryptedFile, bool)
 }
 
-// AsNotEmpty tries to map EncryptedFileClass to EncryptedFile.
+// AsInputEncryptedFileLocation tries to map EncryptedFile to InputEncryptedFileLocation.
+func (e *EncryptedFile) AsInputEncryptedFileLocation() *InputEncryptedFileLocation {
+	value := new(InputEncryptedFileLocation)
+	value.ID = e.GetID()
+	value.AccessHash = e.GetAccessHash()
+
+	return value
+}
+
+// AsInput tries to map EncryptedFile to InputEncryptedFile.
+func (e *EncryptedFile) AsInput() *InputEncryptedFile {
+	value := new(InputEncryptedFile)
+	value.ID = e.GetID()
+	value.AccessHash = e.GetAccessHash()
+
+	return value
+}
+
+// AsNotEmpty tries to map EncryptedFileEmpty to EncryptedFile.
 func (e *EncryptedFileEmpty) AsNotEmpty() (*EncryptedFile, bool) {
 	return nil, false
 }
 
-// AsNotEmpty tries to map EncryptedFileClass to EncryptedFile.
+// AsNotEmpty tries to map EncryptedFile to EncryptedFile.
 func (e *EncryptedFile) AsNotEmpty() (*EncryptedFile, bool) {
 	return e, true
 }
@@ -378,6 +408,24 @@ func (s EncryptedFileClassSlice) FirstAsNotEmpty() (v *EncryptedFile, ok bool) {
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s EncryptedFileClassSlice) LastAsNotEmpty() (v *EncryptedFile, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *EncryptedFileClassSlice) PopFirstAsNotEmpty() (v *EncryptedFile, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *EncryptedFileClassSlice) PopAsNotEmpty() (v *EncryptedFile, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

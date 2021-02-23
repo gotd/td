@@ -27,39 +27,39 @@ type MessagesEditMessageRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Disable webpage preview
-	NoWebpage bool
+	NoWebpage bool `schemaname:"no_webpage"`
 	// Where was the message sent
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// ID of the message to edit
-	ID int
+	ID int `schemaname:"id"`
 	// New message
 	//
 	// Use SetMessage and GetMessage helpers.
-	Message string
+	Message string `schemaname:"message"`
 	// New attached media
 	//
 	// Use SetMedia and GetMedia helpers.
-	Media InputMediaClass
+	Media InputMediaClass `schemaname:"media"`
 	// Reply markup for inline keyboards
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass
+	ReplyMarkup ReplyMarkupClass `schemaname:"reply_markup"`
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass
+	Entities []MessageEntityClass `schemaname:"entities"`
 	// Scheduled message date for scheduled messages¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/scheduled-messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
-	ScheduleDate int
+	ScheduleDate int `schemaname:"schedule_date"`
 }
 
 // MessagesEditMessageRequestTypeID is TL type id of MessagesEditMessageRequest.
@@ -120,29 +120,40 @@ func (e *MessagesEditMessageRequest) FillFrom(from interface {
 	GetEntities() (value []MessageEntityClass, ok bool)
 	GetScheduleDate() (value int, ok bool)
 }) {
+	e.NoWebpage = from.GetNoWebpage()
 	e.Peer = from.GetPeer()
 	e.ID = from.GetID()
 	if val, ok := from.GetMessage(); ok {
 		e.Message = val
 	}
+
 	if val, ok := from.GetMedia(); ok {
 		e.Media = val
 	}
+
 	if val, ok := from.GetReplyMarkup(); ok {
 		e.ReplyMarkup = val
 	}
+
 	if val, ok := from.GetEntities(); ok {
 		e.Entities = val
 	}
+
 	if val, ok := from.GetScheduleDate(); ok {
 		e.ScheduleDate = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *MessagesEditMessageRequest) TypeID() uint32 {
 	return MessagesEditMessageRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *MessagesEditMessageRequest) SchemaName() string {
+	return "messages.editMessage"
 }
 
 // Encode implements bin.Encoder.

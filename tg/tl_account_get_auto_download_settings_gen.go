@@ -51,6 +51,11 @@ func (g *AccountGetAutoDownloadSettingsRequest) TypeID() uint32 {
 	return AccountGetAutoDownloadSettingsRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *AccountGetAutoDownloadSettingsRequest) SchemaName() string {
+	return "account.getAutoDownloadSettings"
+}
+
 // Encode implements bin.Encoder.
 func (g *AccountGetAutoDownloadSettingsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

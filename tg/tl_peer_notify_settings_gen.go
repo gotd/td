@@ -27,23 +27,23 @@ type PeerNotifySettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Display text in notifications
 	//
 	// Use SetShowPreviews and GetShowPreviews helpers.
-	ShowPreviews bool
+	ShowPreviews bool `schemaname:"show_previews"`
 	// Mute peer?
 	//
 	// Use SetSilent and GetSilent helpers.
-	Silent bool
+	Silent bool `schemaname:"silent"`
 	// Mute all notifications until this date
 	//
 	// Use SetMuteUntil and GetMuteUntil helpers.
-	MuteUntil int
+	MuteUntil int `schemaname:"mute_until"`
 	// Audio file name for notifications
 	//
 	// Use SetSound and GetSound helpers.
-	Sound string
+	Sound string `schemaname:"sound"`
 }
 
 // PeerNotifySettingsTypeID is TL type id of PeerNotifySettings.
@@ -91,21 +91,30 @@ func (p *PeerNotifySettings) FillFrom(from interface {
 	if val, ok := from.GetShowPreviews(); ok {
 		p.ShowPreviews = val
 	}
+
 	if val, ok := from.GetSilent(); ok {
 		p.Silent = val
 	}
+
 	if val, ok := from.GetMuteUntil(); ok {
 		p.MuteUntil = val
 	}
+
 	if val, ok := from.GetSound(); ok {
 		p.Sound = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PeerNotifySettings) TypeID() uint32 {
 	return PeerNotifySettingsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PeerNotifySettings) SchemaName() string {
+	return "peerNotifySettings"
 }
 
 // Encode implements bin.Encoder.

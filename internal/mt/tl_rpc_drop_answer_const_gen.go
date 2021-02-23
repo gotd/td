@@ -21,7 +21,7 @@ var _ = errors.Is
 // RPCDropAnswerRequest represents TL type `rpc_drop_answer#58e4a740`.
 type RPCDropAnswerRequest struct {
 	// ReqMsgID field of RPCDropAnswerRequest.
-	ReqMsgID int64
+	ReqMsgID int64 `schemaname:"req_msg_id"`
 }
 
 // RPCDropAnswerRequestTypeID is TL type id of RPCDropAnswerRequest.
@@ -58,6 +58,11 @@ func (r *RPCDropAnswerRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RPCDropAnswerRequest) TypeID() uint32 {
 	return RPCDropAnswerRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *RPCDropAnswerRequest) SchemaName() string {
+	return "rpc_drop_answer"
 }
 
 // Encode implements bin.Encoder.

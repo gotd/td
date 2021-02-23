@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/statsURL for reference.
 type StatsURL struct {
 	// Chat statistics
-	URL string
+	URL string `schemaname:"url"`
 }
 
 // StatsURLTypeID is TL type id of StatsURL.
@@ -61,6 +61,11 @@ func (s *StatsURL) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StatsURL) TypeID() uint32 {
 	return StatsURLTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *StatsURL) SchemaName() string {
+	return "statsURL"
 }
 
 // Encode implements bin.Encoder.

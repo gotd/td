@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/help.supportName for reference.
 type HelpSupportName struct {
 	// Localized name
-	Name string
+	Name string `schemaname:"name"`
 }
 
 // HelpSupportNameTypeID is TL type id of HelpSupportName.
@@ -61,6 +61,11 @@ func (s *HelpSupportName) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *HelpSupportName) TypeID() uint32 {
 	return HelpSupportNameTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *HelpSupportName) SchemaName() string {
+	return "help.supportName"
 }
 
 // Encode implements bin.Encoder.

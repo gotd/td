@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/userEmpty for reference.
 type UserEmpty struct {
 	// User identifier or 0
-	ID int
+	ID int `schemaname:"id"`
 }
 
 // UserEmptyTypeID is TL type id of UserEmpty.
@@ -61,6 +61,11 @@ func (u *UserEmpty) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UserEmpty) TypeID() uint32 {
 	return UserEmptyTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UserEmpty) SchemaName() string {
+	return "userEmpty"
 }
 
 // Encode implements bin.Encoder.
@@ -116,89 +121,89 @@ type User struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether this user indicates the currently logged in user
-	Self bool
+	Self bool `schemaname:"self"`
 	// Whether this user is a contact
-	Contact bool
+	Contact bool `schemaname:"contact"`
 	// Whether this user is a mutual contact
-	MutualContact bool
+	MutualContact bool `schemaname:"mutual_contact"`
 	// Whether the account of this user was deleted
-	Deleted bool
+	Deleted bool `schemaname:"deleted"`
 	// Is this user a bot?
-	Bot bool
+	Bot bool `schemaname:"bot"`
 	// Can the bot see all messages in groups?
-	BotChatHistory bool
+	BotChatHistory bool `schemaname:"bot_chat_history"`
 	// Can the bot be added to groups?
-	BotNochats bool
+	BotNochats bool `schemaname:"bot_nochats"`
 	// Whether this user is verified
-	Verified bool
+	Verified bool `schemaname:"verified"`
 	// Access to this user must be restricted for the reason specified in restriction_reason
-	Restricted bool
+	Restricted bool `schemaname:"restricted"`
 	// See min¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/min
-	Min bool
+	Min bool `schemaname:"min"`
 	// Whether the bot can request our geolocation in inline mode
-	BotInlineGeo bool
+	BotInlineGeo bool `schemaname:"bot_inline_geo"`
 	// Whether this is an official support user
-	Support bool
+	Support bool `schemaname:"support"`
 	// This may be a scam user
-	Scam bool
+	Scam bool `schemaname:"scam"`
 	// If set, the profile picture for this user should be refetched
-	ApplyMinPhoto bool
+	ApplyMinPhoto bool `schemaname:"apply_min_photo"`
 	// Fake field of User.
-	Fake bool
+	Fake bool `schemaname:"fake"`
 	// ID of the user
-	ID int
+	ID int `schemaname:"id"`
 	// Access hash of the user
 	//
 	// Use SetAccessHash and GetAccessHash helpers.
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 	// First name
 	//
 	// Use SetFirstName and GetFirstName helpers.
-	FirstName string
+	FirstName string `schemaname:"first_name"`
 	// Last name
 	//
 	// Use SetLastName and GetLastName helpers.
-	LastName string
+	LastName string `schemaname:"last_name"`
 	// Username
 	//
 	// Use SetUsername and GetUsername helpers.
-	Username string
+	Username string `schemaname:"username"`
 	// Phone number
 	//
 	// Use SetPhone and GetPhone helpers.
-	Phone string
+	Phone string `schemaname:"phone"`
 	// Profile picture of user
 	//
 	// Use SetPhoto and GetPhoto helpers.
-	Photo UserProfilePhotoClass
+	Photo UserProfilePhotoClass `schemaname:"photo"`
 	// Online status of user
 	//
 	// Use SetStatus and GetStatus helpers.
-	Status UserStatusClass
+	Status UserStatusClass `schemaname:"status"`
 	// Version of the bot_info field in userFull¹, incremented every time it changes
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/userFull
 	//
 	// Use SetBotInfoVersion and GetBotInfoVersion helpers.
-	BotInfoVersion int
+	BotInfoVersion int `schemaname:"bot_info_version"`
 	// Contains the reason why access to this user must be restricted.
 	//
 	// Use SetRestrictionReason and GetRestrictionReason helpers.
-	RestrictionReason []RestrictionReason
+	RestrictionReason []RestrictionReason `schemaname:"restriction_reason"`
 	// Inline placeholder for this inline bot
 	//
 	// Use SetBotInlinePlaceholder and GetBotInlinePlaceholder helpers.
-	BotInlinePlaceholder string
+	BotInlinePlaceholder string `schemaname:"bot_inline_placeholder"`
 	// Language code of the user
 	//
 	// Use SetLangCode and GetLangCode helpers.
-	LangCode string
+	LangCode string `schemaname:"lang_code"`
 }
 
 // UserTypeID is TL type id of User.
@@ -335,46 +340,77 @@ func (u *User) FillFrom(from interface {
 	GetBotInlinePlaceholder() (value string, ok bool)
 	GetLangCode() (value string, ok bool)
 }) {
+	u.Self = from.GetSelf()
+	u.Contact = from.GetContact()
+	u.MutualContact = from.GetMutualContact()
+	u.Deleted = from.GetDeleted()
+	u.Bot = from.GetBot()
+	u.BotChatHistory = from.GetBotChatHistory()
+	u.BotNochats = from.GetBotNochats()
+	u.Verified = from.GetVerified()
+	u.Restricted = from.GetRestricted()
+	u.Min = from.GetMin()
+	u.BotInlineGeo = from.GetBotInlineGeo()
+	u.Support = from.GetSupport()
+	u.Scam = from.GetScam()
+	u.ApplyMinPhoto = from.GetApplyMinPhoto()
+	u.Fake = from.GetFake()
 	u.ID = from.GetID()
 	if val, ok := from.GetAccessHash(); ok {
 		u.AccessHash = val
 	}
+
 	if val, ok := from.GetFirstName(); ok {
 		u.FirstName = val
 	}
+
 	if val, ok := from.GetLastName(); ok {
 		u.LastName = val
 	}
+
 	if val, ok := from.GetUsername(); ok {
 		u.Username = val
 	}
+
 	if val, ok := from.GetPhone(); ok {
 		u.Phone = val
 	}
+
 	if val, ok := from.GetPhoto(); ok {
 		u.Photo = val
 	}
+
 	if val, ok := from.GetStatus(); ok {
 		u.Status = val
 	}
+
 	if val, ok := from.GetBotInfoVersion(); ok {
 		u.BotInfoVersion = val
 	}
+
 	if val, ok := from.GetRestrictionReason(); ok {
 		u.RestrictionReason = val
 	}
+
 	if val, ok := from.GetBotInlinePlaceholder(); ok {
 		u.BotInlinePlaceholder = val
 	}
+
 	if val, ok := from.GetLangCode(); ok {
 		u.LangCode = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *User) TypeID() uint32 {
 	return UserTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *User) SchemaName() string {
+	return "user"
 }
 
 // Encode implements bin.Encoder.
@@ -1077,27 +1113,50 @@ type UserClass interface {
 	bin.Decoder
 	construct() UserClass
 
-	// User identifier or 0
-	GetID() (value int)
-
-	// AsNotEmpty tries to map UserClass to User.
-	AsNotEmpty() (*User, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// User identifier or 0
+	GetID() (value int)
+	// AsNotEmpty tries to map UserClass to User.
+	AsNotEmpty() (*User, bool)
 }
 
-// AsNotEmpty tries to map UserClass to User.
+// AsInputPeer tries to map User to InputPeerUser.
+func (u *User) AsInputPeer() *InputPeerUser {
+	value := new(InputPeerUser)
+	value.UserID = u.GetID()
+	if fieldValue, ok := u.GetAccessHash(); ok {
+		value.AccessHash = fieldValue
+	}
+
+	return value
+}
+
+// AsInput tries to map User to InputUser.
+func (u *User) AsInput() *InputUser {
+	value := new(InputUser)
+	value.UserID = u.GetID()
+	if fieldValue, ok := u.GetAccessHash(); ok {
+		value.AccessHash = fieldValue
+	}
+
+	return value
+}
+
+// AsNotEmpty tries to map UserEmpty to User.
 func (u *UserEmpty) AsNotEmpty() (*User, bool) {
 	return nil, false
 }
 
-// AsNotEmpty tries to map UserClass to User.
+// AsNotEmpty tries to map User to User.
 func (u *User) AsNotEmpty() (*User, bool) {
 	return u, true
 }
@@ -1242,6 +1301,24 @@ func (s UserClassSlice) FirstAsNotEmpty() (v *User, ok bool) {
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s UserClassSlice) LastAsNotEmpty() (v *User, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *UserClassSlice) PopFirstAsNotEmpty() (v *User, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *UserClassSlice) PopAsNotEmpty() (v *User, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

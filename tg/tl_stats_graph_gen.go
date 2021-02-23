@@ -28,7 +28,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/statsGraphAsync for reference.
 type StatsGraphAsync struct {
 	// Token to use for fetching the async graph
-	Token string
+	Token string `schemaname:"token"`
 }
 
 // StatsGraphAsyncTypeID is TL type id of StatsGraphAsync.
@@ -65,6 +65,11 @@ func (s *StatsGraphAsync) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StatsGraphAsync) TypeID() uint32 {
 	return StatsGraphAsyncTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *StatsGraphAsync) SchemaName() string {
+	return "statsGraphAsync"
 }
 
 // Encode implements bin.Encoder.
@@ -120,7 +125,7 @@ var (
 // See https://core.telegram.org/constructor/statsGraphError for reference.
 type StatsGraphError struct {
 	// The error
-	Error string
+	Error string `schemaname:"error"`
 }
 
 // StatsGraphErrorTypeID is TL type id of StatsGraphError.
@@ -157,6 +162,11 @@ func (s *StatsGraphError) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StatsGraphError) TypeID() uint32 {
 	return StatsGraphErrorTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *StatsGraphError) SchemaName() string {
+	return "statsGraphError"
 }
 
 // Encode implements bin.Encoder.
@@ -215,13 +225,13 @@ type StatsGraph struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Statistics data
-	JSON DataJSON
+	JSON DataJSON `schemaname:"json"`
 	// Zoom token
 	//
 	// Use SetZoomToken and GetZoomToken helpers.
-	ZoomToken string
+	ZoomToken string `schemaname:"zoom_token"`
 }
 
 // StatsGraphTypeID is TL type id of StatsGraph.
@@ -262,12 +272,18 @@ func (s *StatsGraph) FillFrom(from interface {
 	if val, ok := from.GetZoomToken(); ok {
 		s.ZoomToken = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StatsGraph) TypeID() uint32 {
 	return StatsGraphTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *StatsGraph) SchemaName() string {
+	return "statsGraph"
 }
 
 // Encode implements bin.Encoder.
@@ -373,6 +389,8 @@ type StatsGraphClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

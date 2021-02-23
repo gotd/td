@@ -21,7 +21,7 @@ var _ = errors.Is
 // GzipPacked represents TL type `gzip_packed#3072cfa1`.
 type GzipPacked struct {
 	// PackedData field of GzipPacked.
-	PackedData []byte
+	PackedData []byte `schemaname:"packed_data"`
 }
 
 // GzipPackedTypeID is TL type id of GzipPacked.
@@ -58,6 +58,11 @@ func (g *GzipPacked) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *GzipPacked) TypeID() uint32 {
 	return GzipPackedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *GzipPacked) SchemaName() string {
+	return "gzip_packed"
 }
 
 // Encode implements bin.Encoder.

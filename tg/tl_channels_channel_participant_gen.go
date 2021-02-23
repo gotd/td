@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/channels.channelParticipant for reference.
 type ChannelsChannelParticipant struct {
 	// The channel participant
-	Participant ChannelParticipantClass
+	Participant ChannelParticipantClass `schemaname:"participant"`
 	// Users
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 }
 
 // ChannelsChannelParticipantTypeID is TL type id of ChannelsChannelParticipant.
@@ -68,6 +68,11 @@ func (c *ChannelsChannelParticipant) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelsChannelParticipant) TypeID() uint32 {
 	return ChannelsChannelParticipantTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChannelsChannelParticipant) SchemaName() string {
+	return "channels.channelParticipant"
 }
 
 // Encode implements bin.Encoder.

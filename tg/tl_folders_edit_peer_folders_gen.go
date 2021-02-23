@@ -27,7 +27,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/folders.editPeerFolders for reference.
 type FoldersEditPeerFoldersRequest struct {
 	// New peer list
-	FolderPeers []InputFolderPeer
+	FolderPeers []InputFolderPeer `schemaname:"folder_peers"`
 }
 
 // FoldersEditPeerFoldersRequestTypeID is TL type id of FoldersEditPeerFoldersRequest.
@@ -64,6 +64,11 @@ func (e *FoldersEditPeerFoldersRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *FoldersEditPeerFoldersRequest) TypeID() uint32 {
 	return FoldersEditPeerFoldersRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *FoldersEditPeerFoldersRequest) SchemaName() string {
+	return "folders.editPeerFolders"
 }
 
 // Encode implements bin.Encoder.

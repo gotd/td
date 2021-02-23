@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/documentEmpty for reference.
 type DocumentEmpty struct {
 	// Document ID or 0
-	ID int64
+	ID int64 `schemaname:"id"`
 }
 
 // DocumentEmptyTypeID is TL type id of DocumentEmpty.
@@ -61,6 +61,11 @@ func (d *DocumentEmpty) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DocumentEmpty) TypeID() uint32 {
 	return DocumentEmptyTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DocumentEmpty) SchemaName() string {
+	return "documentEmpty"
 }
 
 // Encode implements bin.Encoder.
@@ -116,34 +121,34 @@ type Document struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Document ID
-	ID int64
+	ID int64 `schemaname:"id"`
 	// Check sum, dependant on document ID
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 	// File reference¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/file_reference
-	FileReference []byte
+	FileReference []byte `schemaname:"file_reference"`
 	// Creation date
-	Date int
+	Date int `schemaname:"date"`
 	// MIME type
-	MimeType string
+	MimeType string `schemaname:"mime_type"`
 	// Size
-	Size int
+	Size int `schemaname:"size"`
 	// Thumbnails
 	//
 	// Use SetThumbs and GetThumbs helpers.
-	Thumbs []PhotoSizeClass
+	Thumbs []PhotoSizeClass `schemaname:"thumbs"`
 	// Video thumbnails
 	//
 	// Use SetVideoThumbs and GetVideoThumbs helpers.
-	VideoThumbs []VideoSize
+	VideoThumbs []VideoSize `schemaname:"video_thumbs"`
 	// DC ID
-	DCID int
+	DCID int `schemaname:"dc_id"`
 	// Attributes
-	Attributes []DocumentAttributeClass
+	Attributes []DocumentAttributeClass `schemaname:"attributes"`
 }
 
 // DocumentTypeID is TL type id of Document.
@@ -221,9 +226,11 @@ func (d *Document) FillFrom(from interface {
 	if val, ok := from.GetThumbs(); ok {
 		d.Thumbs = val
 	}
+
 	if val, ok := from.GetVideoThumbs(); ok {
 		d.VideoThumbs = val
 	}
+
 	d.DCID = from.GetDCID()
 	d.Attributes = from.GetAttributes()
 }
@@ -232,6 +239,11 @@ func (d *Document) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *Document) TypeID() uint32 {
 	return DocumentTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *Document) SchemaName() string {
+	return "document"
 }
 
 // Encode implements bin.Encoder.
@@ -504,27 +516,48 @@ type DocumentClass interface {
 	bin.Decoder
 	construct() DocumentClass
 
-	// Document ID or 0
-	GetID() (value int64)
-
-	// AsNotEmpty tries to map DocumentClass to Document.
-	AsNotEmpty() (*Document, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Document ID or 0
+	GetID() (value int64)
+	// AsNotEmpty tries to map DocumentClass to Document.
+	AsNotEmpty() (*Document, bool)
 }
 
-// AsNotEmpty tries to map DocumentClass to Document.
+// AsInputDocumentFileLocation tries to map Document to InputDocumentFileLocation.
+func (d *Document) AsInputDocumentFileLocation() *InputDocumentFileLocation {
+	value := new(InputDocumentFileLocation)
+	value.ID = d.GetID()
+	value.AccessHash = d.GetAccessHash()
+	value.FileReference = d.GetFileReference()
+
+	return value
+}
+
+// AsInput tries to map Document to InputDocument.
+func (d *Document) AsInput() *InputDocument {
+	value := new(InputDocument)
+	value.ID = d.GetID()
+	value.AccessHash = d.GetAccessHash()
+	value.FileReference = d.GetFileReference()
+
+	return value
+}
+
+// AsNotEmpty tries to map DocumentEmpty to Document.
 func (d *DocumentEmpty) AsNotEmpty() (*Document, bool) {
 	return nil, false
 }
 
-// AsNotEmpty tries to map DocumentClass to Document.
+// AsNotEmpty tries to map Document to Document.
 func (d *Document) AsNotEmpty() (*Document, bool) {
 	return d, true
 }
@@ -615,6 +648,24 @@ func (s DocumentClassSlice) FirstAsNotEmpty() (v *Document, ok bool) {
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s DocumentClassSlice) LastAsNotEmpty() (v *Document, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *DocumentClassSlice) PopFirstAsNotEmpty() (v *Document, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *DocumentClassSlice) PopAsNotEmpty() (v *Document, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

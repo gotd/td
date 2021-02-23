@@ -30,9 +30,9 @@ type AccountSendConfirmPhoneCodeRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/account-deletion
-	Hash string
+	Hash string `schemaname:"hash"`
 	// Phone code settings
-	Settings CodeSettings
+	Settings CodeSettings `schemaname:"settings"`
 }
 
 // AccountSendConfirmPhoneCodeRequestTypeID is TL type id of AccountSendConfirmPhoneCodeRequest.
@@ -74,6 +74,11 @@ func (s *AccountSendConfirmPhoneCodeRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AccountSendConfirmPhoneCodeRequest) TypeID() uint32 {
 	return AccountSendConfirmPhoneCodeRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *AccountSendConfirmPhoneCodeRequest) SchemaName() string {
+	return "account.sendConfirmPhoneCode"
 }
 
 // Encode implements bin.Encoder.

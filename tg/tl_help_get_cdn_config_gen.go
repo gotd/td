@@ -54,6 +54,11 @@ func (g *HelpGetCdnConfigRequest) TypeID() uint32 {
 	return HelpGetCdnConfigRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *HelpGetCdnConfigRequest) SchemaName() string {
+	return "help.getCdnConfig"
+}
+
 // Encode implements bin.Encoder.
 func (g *HelpGetCdnConfigRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

@@ -27,23 +27,23 @@ type MessagesBotCallbackAnswer struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether an alert should be shown to the user instead of a toast notification
-	Alert bool
+	Alert bool `schemaname:"alert"`
 	// Whether an URL is present
-	HasURL bool
+	HasURL bool `schemaname:"has_url"`
 	// Whether to show games in WebView or in native UI.
-	NativeUI bool
+	NativeUI bool `schemaname:"native_ui"`
 	// Alert to show
 	//
 	// Use SetMessage and GetMessage helpers.
-	Message string
+	Message string `schemaname:"message"`
 	// URL to open
 	//
 	// Use SetURL and GetURL helpers.
-	URL string
+	URL string `schemaname:"url"`
 	// For how long should this answer be cached
-	CacheTime int
+	CacheTime int `schemaname:"cache_time"`
 }
 
 // MessagesBotCallbackAnswerTypeID is TL type id of MessagesBotCallbackAnswer.
@@ -96,12 +96,17 @@ func (b *MessagesBotCallbackAnswer) FillFrom(from interface {
 	GetURL() (value string, ok bool)
 	GetCacheTime() (value int)
 }) {
+	b.Alert = from.GetAlert()
+	b.HasURL = from.GetHasURL()
+	b.NativeUI = from.GetNativeUI()
 	if val, ok := from.GetMessage(); ok {
 		b.Message = val
 	}
+
 	if val, ok := from.GetURL(); ok {
 		b.URL = val
 	}
+
 	b.CacheTime = from.GetCacheTime()
 }
 
@@ -109,6 +114,11 @@ func (b *MessagesBotCallbackAnswer) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *MessagesBotCallbackAnswer) TypeID() uint32 {
 	return MessagesBotCallbackAnswerTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (b *MessagesBotCallbackAnswer) SchemaName() string {
+	return "messages.botCallbackAnswer"
 }
 
 // Encode implements bin.Encoder.

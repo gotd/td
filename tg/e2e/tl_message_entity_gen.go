@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messageEntityUnknown for reference.
 type MessageEntityUnknown struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int
+	Offset int `schemaname:"offset"`
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int
+	Length int `schemaname:"length"`
 }
 
 // MessageEntityUnknownTypeID is TL type id of MessageEntityUnknown.
@@ -68,6 +68,11 @@ func (m *MessageEntityUnknown) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityUnknown) TypeID() uint32 {
 	return MessageEntityUnknownTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageEntityUnknown) SchemaName() string {
+	return "messageEntityUnknown"
 }
 
 // Encode implements bin.Encoder.
@@ -136,9 +141,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityMention for reference.
 type MessageEntityMention struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int
+	Offset int `schemaname:"offset"`
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int
+	Length int `schemaname:"length"`
 }
 
 // MessageEntityMentionTypeID is TL type id of MessageEntityMention.
@@ -180,6 +185,11 @@ func (m *MessageEntityMention) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityMention) TypeID() uint32 {
 	return MessageEntityMentionTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageEntityMention) SchemaName() string {
+	return "messageEntityMention"
 }
 
 // Encode implements bin.Encoder.
@@ -245,9 +255,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityHashtag for reference.
 type MessageEntityHashtag struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int
+	Offset int `schemaname:"offset"`
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int
+	Length int `schemaname:"length"`
 }
 
 // MessageEntityHashtagTypeID is TL type id of MessageEntityHashtag.
@@ -289,6 +299,11 @@ func (m *MessageEntityHashtag) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityHashtag) TypeID() uint32 {
 	return MessageEntityHashtagTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageEntityHashtag) SchemaName() string {
+	return "messageEntityHashtag"
 }
 
 // Encode implements bin.Encoder.
@@ -354,9 +369,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityBotCommand for reference.
 type MessageEntityBotCommand struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int
+	Offset int `schemaname:"offset"`
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int
+	Length int `schemaname:"length"`
 }
 
 // MessageEntityBotCommandTypeID is TL type id of MessageEntityBotCommand.
@@ -398,6 +413,11 @@ func (m *MessageEntityBotCommand) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityBotCommand) TypeID() uint32 {
 	return MessageEntityBotCommandTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageEntityBotCommand) SchemaName() string {
+	return "messageEntityBotCommand"
 }
 
 // Encode implements bin.Encoder.
@@ -468,9 +488,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityUrl for reference.
 type MessageEntityUrl struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int
+	Offset int `schemaname:"offset"`
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int
+	Length int `schemaname:"length"`
 }
 
 // MessageEntityUrlTypeID is TL type id of MessageEntityUrl.
@@ -512,6 +532,11 @@ func (m *MessageEntityUrl) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityUrl) TypeID() uint32 {
 	return MessageEntityUrlTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageEntityUrl) SchemaName() string {
+	return "messageEntityUrl"
 }
 
 // Encode implements bin.Encoder.
@@ -580,9 +605,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityEmail for reference.
 type MessageEntityEmail struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int
+	Offset int `schemaname:"offset"`
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int
+	Length int `schemaname:"length"`
 }
 
 // MessageEntityEmailTypeID is TL type id of MessageEntityEmail.
@@ -624,6 +649,11 @@ func (m *MessageEntityEmail) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityEmail) TypeID() uint32 {
 	return MessageEntityEmailTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageEntityEmail) SchemaName() string {
+	return "messageEntityEmail"
 }
 
 // Encode implements bin.Encoder.
@@ -689,9 +719,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityBold for reference.
 type MessageEntityBold struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int
+	Offset int `schemaname:"offset"`
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int
+	Length int `schemaname:"length"`
 }
 
 // MessageEntityBoldTypeID is TL type id of MessageEntityBold.
@@ -733,6 +763,11 @@ func (m *MessageEntityBold) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityBold) TypeID() uint32 {
 	return MessageEntityBoldTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageEntityBold) SchemaName() string {
+	return "messageEntityBold"
 }
 
 // Encode implements bin.Encoder.
@@ -798,9 +833,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityItalic for reference.
 type MessageEntityItalic struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int
+	Offset int `schemaname:"offset"`
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int
+	Length int `schemaname:"length"`
 }
 
 // MessageEntityItalicTypeID is TL type id of MessageEntityItalic.
@@ -842,6 +877,11 @@ func (m *MessageEntityItalic) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityItalic) TypeID() uint32 {
 	return MessageEntityItalicTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageEntityItalic) SchemaName() string {
+	return "messageEntityItalic"
 }
 
 // Encode implements bin.Encoder.
@@ -907,9 +947,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityCode for reference.
 type MessageEntityCode struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int
+	Offset int `schemaname:"offset"`
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int
+	Length int `schemaname:"length"`
 }
 
 // MessageEntityCodeTypeID is TL type id of MessageEntityCode.
@@ -951,6 +991,11 @@ func (m *MessageEntityCode) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityCode) TypeID() uint32 {
 	return MessageEntityCodeTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageEntityCode) SchemaName() string {
+	return "messageEntityCode"
 }
 
 // Encode implements bin.Encoder.
@@ -1016,11 +1061,11 @@ var (
 // See https://core.telegram.org/constructor/messageEntityPre for reference.
 type MessageEntityPre struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int
+	Offset int `schemaname:"offset"`
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int
+	Length int `schemaname:"length"`
 	// Programming language of the code
-	Language string
+	Language string `schemaname:"language"`
 }
 
 // MessageEntityPreTypeID is TL type id of MessageEntityPre.
@@ -1067,6 +1112,11 @@ func (m *MessageEntityPre) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityPre) TypeID() uint32 {
 	return MessageEntityPreTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageEntityPre) SchemaName() string {
+	return "messageEntityPre"
 }
 
 // Encode implements bin.Encoder.
@@ -1150,11 +1200,11 @@ var (
 // See https://core.telegram.org/constructor/messageEntityTextUrl for reference.
 type MessageEntityTextUrl struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int
+	Offset int `schemaname:"offset"`
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int
+	Length int `schemaname:"length"`
 	// The actual URL
-	URL string
+	URL string `schemaname:"url"`
 }
 
 // MessageEntityTextUrlTypeID is TL type id of MessageEntityTextUrl.
@@ -1201,6 +1251,11 @@ func (m *MessageEntityTextUrl) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityTextUrl) TypeID() uint32 {
 	return MessageEntityTextUrlTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageEntityTextUrl) SchemaName() string {
+	return "messageEntityTextUrl"
 }
 
 // Encode implements bin.Encoder.
@@ -1283,11 +1338,11 @@ var (
 // See https://core.telegram.org/constructor/messageEntityMentionName for reference.
 type MessageEntityMentionName struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int
+	Offset int `schemaname:"offset"`
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int
+	Length int `schemaname:"length"`
 	// Identifier of the user that was mentioned
-	UserID int
+	UserID int `schemaname:"user_id"`
 }
 
 // MessageEntityMentionNameTypeID is TL type id of MessageEntityMentionName.
@@ -1334,6 +1389,11 @@ func (m *MessageEntityMentionName) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityMentionName) TypeID() uint32 {
 	return MessageEntityMentionNameTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageEntityMentionName) SchemaName() string {
+	return "messageEntityMentionName"
 }
 
 // Encode implements bin.Encoder.
@@ -1412,9 +1472,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityPhone for reference.
 type MessageEntityPhone struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int
+	Offset int `schemaname:"offset"`
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int
+	Length int `schemaname:"length"`
 }
 
 // MessageEntityPhoneTypeID is TL type id of MessageEntityPhone.
@@ -1456,6 +1516,11 @@ func (m *MessageEntityPhone) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityPhone) TypeID() uint32 {
 	return MessageEntityPhoneTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageEntityPhone) SchemaName() string {
+	return "messageEntityPhone"
 }
 
 // Encode implements bin.Encoder.
@@ -1521,9 +1586,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityCashtag for reference.
 type MessageEntityCashtag struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int
+	Offset int `schemaname:"offset"`
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int
+	Length int `schemaname:"length"`
 }
 
 // MessageEntityCashtagTypeID is TL type id of MessageEntityCashtag.
@@ -1565,6 +1630,11 @@ func (m *MessageEntityCashtag) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityCashtag) TypeID() uint32 {
 	return MessageEntityCashtagTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageEntityCashtag) SchemaName() string {
+	return "messageEntityCashtag"
 }
 
 // Encode implements bin.Encoder.
@@ -1630,9 +1700,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityBankCard for reference.
 type MessageEntityBankCard struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int
+	Offset int `schemaname:"offset"`
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int
+	Length int `schemaname:"length"`
 }
 
 // MessageEntityBankCardTypeID is TL type id of MessageEntityBankCard.
@@ -1674,6 +1744,11 @@ func (m *MessageEntityBankCard) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityBankCard) TypeID() uint32 {
 	return MessageEntityBankCardTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageEntityBankCard) SchemaName() string {
+	return "messageEntityBankCard"
 }
 
 // Encode implements bin.Encoder.
@@ -1739,9 +1814,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityUnderline for reference.
 type MessageEntityUnderline struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int
+	Offset int `schemaname:"offset"`
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int
+	Length int `schemaname:"length"`
 }
 
 // MessageEntityUnderlineTypeID is TL type id of MessageEntityUnderline.
@@ -1783,6 +1858,11 @@ func (m *MessageEntityUnderline) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityUnderline) TypeID() uint32 {
 	return MessageEntityUnderlineTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageEntityUnderline) SchemaName() string {
+	return "messageEntityUnderline"
 }
 
 // Encode implements bin.Encoder.
@@ -1848,9 +1928,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityStrike for reference.
 type MessageEntityStrike struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int
+	Offset int `schemaname:"offset"`
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int
+	Length int `schemaname:"length"`
 }
 
 // MessageEntityStrikeTypeID is TL type id of MessageEntityStrike.
@@ -1892,6 +1972,11 @@ func (m *MessageEntityStrike) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityStrike) TypeID() uint32 {
 	return MessageEntityStrikeTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageEntityStrike) SchemaName() string {
+	return "messageEntityStrike"
 }
 
 // Encode implements bin.Encoder.
@@ -1957,9 +2042,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityBlockquote for reference.
 type MessageEntityBlockquote struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int
+	Offset int `schemaname:"offset"`
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int
+	Length int `schemaname:"length"`
 }
 
 // MessageEntityBlockquoteTypeID is TL type id of MessageEntityBlockquote.
@@ -2001,6 +2086,11 @@ func (m *MessageEntityBlockquote) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityBlockquote) TypeID() uint32 {
 	return MessageEntityBlockquoteTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageEntityBlockquote) SchemaName() string {
+	return "messageEntityBlockquote"
 }
 
 // Encode implements bin.Encoder.
@@ -2095,18 +2185,20 @@ type MessageEntityClass interface {
 	bin.Decoder
 	construct() MessageEntityClass
 
-	// Offset of message entity within message (in UTF-8 codepoints)
-	GetOffset() (value int)
-	// Length of message entity within message (in UTF-8 codepoints)
-	GetLength() (value int)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Offset of message entity within message (in UTF-8 codepoints)
+	GetOffset() (value int)
+	// Length of message entity within message (in UTF-8 codepoints)
+	GetLength() (value int)
 }
 
 // DecodeMessageEntity implements binary de-serialization for MessageEntityClass.

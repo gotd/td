@@ -24,12 +24,12 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/pollAnswer for reference.
 type PollAnswer struct {
 	// Textual representation of the answer
-	Text string
+	Text string `schemaname:"text"`
 	// The param that has to be passed to messages.sendVote¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.sendVote
-	Option []byte
+	Option []byte `schemaname:"option"`
 }
 
 // PollAnswerTypeID is TL type id of PollAnswer.
@@ -71,6 +71,11 @@ func (p *PollAnswer) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PollAnswer) TypeID() uint32 {
 	return PollAnswerTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PollAnswer) SchemaName() string {
+	return "pollAnswer"
 }
 
 // Encode implements bin.Encoder.

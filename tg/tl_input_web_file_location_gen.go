@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/inputWebFileLocation for reference.
 type InputWebFileLocation struct {
 	// HTTP URL of file
-	URL string
+	URL string `schemaname:"url"`
 	// Access hash
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 }
 
 // InputWebFileLocationTypeID is TL type id of InputWebFileLocation.
@@ -68,6 +68,11 @@ func (i *InputWebFileLocation) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputWebFileLocation) TypeID() uint32 {
 	return InputWebFileLocationTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputWebFileLocation) SchemaName() string {
+	return "inputWebFileLocation"
 }
 
 // Encode implements bin.Encoder.
@@ -133,17 +138,17 @@ var (
 // See https://core.telegram.org/constructor/inputWebFileGeoPointLocation for reference.
 type InputWebFileGeoPointLocation struct {
 	// Geolocation
-	GeoPoint InputGeoPointClass
+	GeoPoint InputGeoPointClass `schemaname:"geo_point"`
 	// Access hash
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 	// Map width in pixels before applying scale; 16-1024
-	W int
+	W int `schemaname:"w"`
 	// Map height in pixels before applying scale; 16-1024
-	H int
+	H int `schemaname:"h"`
 	// Map zoom level; 13-20
-	Zoom int
+	Zoom int `schemaname:"zoom"`
 	// Map scale; 1-3
-	Scale int
+	Scale int `schemaname:"scale"`
 }
 
 // InputWebFileGeoPointLocationTypeID is TL type id of InputWebFileGeoPointLocation.
@@ -205,6 +210,11 @@ func (i *InputWebFileGeoPointLocation) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputWebFileGeoPointLocation) TypeID() uint32 {
 	return InputWebFileGeoPointLocationTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputWebFileGeoPointLocation) SchemaName() string {
+	return "inputWebFileGeoPointLocation"
 }
 
 // Encode implements bin.Encoder.
@@ -340,16 +350,18 @@ type InputWebFileLocationClass interface {
 	bin.Decoder
 	construct() InputWebFileLocationClass
 
-	// Access hash
-	GetAccessHash() (value int64)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Access hash
+	GetAccessHash() (value int64)
 }
 
 // DecodeInputWebFileLocation implements binary de-serialization for InputWebFileLocationClass.

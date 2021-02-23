@@ -30,13 +30,13 @@ type MessagesSearchCounter struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// If set, the results may be inexact
-	Inexact bool
+	Inexact bool `schemaname:"inexact"`
 	// Provided message filter
-	Filter MessagesFilterClass
+	Filter MessagesFilterClass `schemaname:"filter"`
 	// Number of results that were found server-side
-	Count int
+	Count int `schemaname:"count"`
 }
 
 // MessagesSearchCounterTypeID is TL type id of MessagesSearchCounter.
@@ -77,6 +77,7 @@ func (s *MessagesSearchCounter) FillFrom(from interface {
 	GetFilter() (value MessagesFilterClass)
 	GetCount() (value int)
 }) {
+	s.Inexact = from.GetInexact()
 	s.Filter = from.GetFilter()
 	s.Count = from.GetCount()
 }
@@ -85,6 +86,11 @@ func (s *MessagesSearchCounter) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSearchCounter) TypeID() uint32 {
 	return MessagesSearchCounterTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *MessagesSearchCounter) SchemaName() string {
+	return "messages.searchCounter"
 }
 
 // Encode implements bin.Encoder.

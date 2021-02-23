@@ -30,31 +30,31 @@ type Page struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Indicates that not full page preview is available to the client and it will need to fetch full Instant View from the server using messages.getWebPagePreview¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.getWebPagePreview
-	Part bool
+	Part bool `schemaname:"part"`
 	// Whether the page contains RTL text
-	Rtl bool
+	Rtl bool `schemaname:"rtl"`
 	// Whether this is an IV v2¹ page
 	//
 	// Links:
 	//  1) https://instantview.telegram.org/docs#what-39s-new-in-2-0
-	V2 bool
+	V2 bool `schemaname:"v2"`
 	// Original page HTTP URL
-	URL string
+	URL string `schemaname:"url"`
 	// Page elements (like with HTML elements, only as TL constructors)
-	Blocks []PageBlockClass
+	Blocks []PageBlockClass `schemaname:"blocks"`
 	// Photos in page
-	Photos []PhotoClass
+	Photos []PhotoClass `schemaname:"photos"`
 	// Media in page
-	Documents []DocumentClass
+	Documents []DocumentClass `schemaname:"documents"`
 	// Viewcount
 	//
 	// Use SetViews and GetViews helpers.
-	Views int
+	Views int `schemaname:"views"`
 }
 
 // PageTypeID is TL type id of Page.
@@ -115,6 +115,9 @@ func (p *Page) FillFrom(from interface {
 	GetDocuments() (value []DocumentClass)
 	GetViews() (value int, ok bool)
 }) {
+	p.Part = from.GetPart()
+	p.Rtl = from.GetRtl()
+	p.V2 = from.GetV2()
 	p.URL = from.GetURL()
 	p.Blocks = from.GetBlocks()
 	p.Photos = from.GetPhotos()
@@ -122,12 +125,18 @@ func (p *Page) FillFrom(from interface {
 	if val, ok := from.GetViews(); ok {
 		p.Views = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *Page) TypeID() uint32 {
 	return PageTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *Page) SchemaName() string {
+	return "page"
 }
 
 // Encode implements bin.Encoder.

@@ -27,7 +27,7 @@ type PhotoSizeEmpty struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/photoSize
-	Type string
+	Type string `schemaname:"type"`
 }
 
 // PhotoSizeEmptyTypeID is TL type id of PhotoSizeEmpty.
@@ -64,6 +64,11 @@ func (p *PhotoSizeEmpty) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhotoSizeEmpty) TypeID() uint32 {
 	return PhotoSizeEmptyTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PhotoSizeEmpty) SchemaName() string {
+	return "photoSizeEmpty"
 }
 
 // Encode implements bin.Encoder.
@@ -116,15 +121,15 @@ var (
 // See https://core.telegram.org/constructor/photoSize for reference.
 type PhotoSize struct {
 	// Thumbnail type
-	Type string
+	Type string `schemaname:"type"`
 	// File location
-	Location FileLocationClass
+	Location FileLocationClass `schemaname:"location"`
 	// Image width
-	W int
+	W int `schemaname:"w"`
 	// Image height
-	H int
+	H int `schemaname:"h"`
 	// File size
-	Size int
+	Size int `schemaname:"size"`
 }
 
 // PhotoSizeTypeID is TL type id of PhotoSize.
@@ -181,6 +186,11 @@ func (p *PhotoSize) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhotoSize) TypeID() uint32 {
 	return PhotoSizeTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PhotoSize) SchemaName() string {
+	return "photoSize"
 }
 
 // Encode implements bin.Encoder.
@@ -290,15 +300,15 @@ var (
 // See https://core.telegram.org/constructor/photoCachedSize for reference.
 type PhotoCachedSize struct {
 	// Thumbnail type
-	Type string
+	Type string `schemaname:"type"`
 	// File location
-	Location FileLocationClass
+	Location FileLocationClass `schemaname:"location"`
 	// Image width
-	W int
+	W int `schemaname:"w"`
 	// Image height
-	H int
+	H int `schemaname:"h"`
 	// Binary data, file content
-	Bytes []byte
+	Bytes []byte `schemaname:"bytes"`
 }
 
 // PhotoCachedSizeTypeID is TL type id of PhotoCachedSize.
@@ -355,6 +365,11 @@ func (p *PhotoCachedSize) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhotoCachedSize) TypeID() uint32 {
 	return PhotoCachedSizeTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PhotoCachedSize) SchemaName() string {
+	return "photoCachedSize"
 }
 
 // Encode implements bin.Encoder.
@@ -478,22 +493,23 @@ type PhotoSizeClass interface {
 	bin.Decoder
 	construct() PhotoSizeClass
 
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+
 	// Thumbnail type (see. photoSize¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/photoSize
 	GetType() (value string)
-
 	// AsNotEmpty tries to map PhotoSizeClass to NotEmptyPhotoSize.
 	AsNotEmpty() (NotEmptyPhotoSize, bool)
-
-	// TypeID returns MTProto type id (CRC code).
-	// See https://core.telegram.org/mtproto/TL-tl#remarks.
-	TypeID() uint32
-	// String implements fmt.Stringer.
-	String() string
-	// Zero returns true if current object has a zero value.
-	Zero() bool
 }
 
 // NotEmptyPhotoSize represents NotEmpty subset of PhotoSizeClass.
@@ -501,6 +517,16 @@ type NotEmptyPhotoSize interface {
 	bin.Encoder
 	bin.Decoder
 	construct() PhotoSizeClass
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
 
 	// Thumbnail type
 	GetType() (value string)
@@ -510,29 +536,21 @@ type NotEmptyPhotoSize interface {
 	GetW() (value int)
 	// Image height
 	GetH() (value int)
-
-	// TypeID returns MTProto type id (CRC code).
-	// See https://core.telegram.org/mtproto/TL-tl#remarks.
-	TypeID() uint32
-	// String implements fmt.Stringer.
-	String() string
-	// Zero returns true if current object has a zero value.
-	Zero() bool
 }
 
-// AsNotEmpty tries to map PhotoSizeClass to NotEmptyPhotoSize.
+// AsNotEmpty tries to map PhotoSizeEmpty to NotEmptyPhotoSize.
 func (p *PhotoSizeEmpty) AsNotEmpty() (NotEmptyPhotoSize, bool) {
 	value, ok := (PhotoSizeClass(p)).(NotEmptyPhotoSize)
 	return value, ok
 }
 
-// AsNotEmpty tries to map PhotoSizeClass to NotEmptyPhotoSize.
+// AsNotEmpty tries to map PhotoSize to NotEmptyPhotoSize.
 func (p *PhotoSize) AsNotEmpty() (NotEmptyPhotoSize, bool) {
 	value, ok := (PhotoSizeClass(p)).(NotEmptyPhotoSize)
 	return value, ok
 }
 
-// AsNotEmpty tries to map PhotoSizeClass to NotEmptyPhotoSize.
+// AsNotEmpty tries to map PhotoCachedSize to NotEmptyPhotoSize.
 func (p *PhotoCachedSize) AsNotEmpty() (NotEmptyPhotoSize, bool) {
 	value, ok := (PhotoSizeClass(p)).(NotEmptyPhotoSize)
 	return value, ok
@@ -631,6 +649,24 @@ func (s PhotoSizeClassSlice) FirstAsNotEmpty() (v NotEmptyPhotoSize, ok bool) {
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s PhotoSizeClassSlice) LastAsNotEmpty() (v NotEmptyPhotoSize, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *PhotoSizeClassSlice) PopFirstAsNotEmpty() (v NotEmptyPhotoSize, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *PhotoSizeClassSlice) PopAsNotEmpty() (v NotEmptyPhotoSize, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

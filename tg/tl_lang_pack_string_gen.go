@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/langPackString for reference.
 type LangPackString struct {
 	// Language key
-	Key string
+	Key string `schemaname:"key"`
 	// Value
-	Value string
+	Value string `schemaname:"value"`
 }
 
 // LangPackStringTypeID is TL type id of LangPackString.
@@ -68,6 +68,11 @@ func (l *LangPackString) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (l *LangPackString) TypeID() uint32 {
 	return LangPackStringTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (l *LangPackString) SchemaName() string {
+	return "langPackString"
 }
 
 // Encode implements bin.Encoder.
@@ -139,31 +144,31 @@ type LangPackStringPluralized struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Localization key
-	Key string
+	Key string `schemaname:"key"`
 	// Value for zero objects
 	//
 	// Use SetZeroValue and GetZeroValue helpers.
-	ZeroValue string
+	ZeroValue string `schemaname:"zero_value"`
 	// Value for one object
 	//
 	// Use SetOneValue and GetOneValue helpers.
-	OneValue string
+	OneValue string `schemaname:"one_value"`
 	// Value for two objects
 	//
 	// Use SetTwoValue and GetTwoValue helpers.
-	TwoValue string
+	TwoValue string `schemaname:"two_value"`
 	// Value for a few objects
 	//
 	// Use SetFewValue and GetFewValue helpers.
-	FewValue string
+	FewValue string `schemaname:"few_value"`
 	// Value for many objects
 	//
 	// Use SetManyValue and GetManyValue helpers.
-	ManyValue string
+	ManyValue string `schemaname:"many_value"`
 	// Default value
-	OtherValue string
+	OtherValue string `schemaname:"other_value"`
 }
 
 // LangPackStringPluralizedTypeID is TL type id of LangPackStringPluralized.
@@ -224,18 +229,23 @@ func (l *LangPackStringPluralized) FillFrom(from interface {
 	if val, ok := from.GetZeroValue(); ok {
 		l.ZeroValue = val
 	}
+
 	if val, ok := from.GetOneValue(); ok {
 		l.OneValue = val
 	}
+
 	if val, ok := from.GetTwoValue(); ok {
 		l.TwoValue = val
 	}
+
 	if val, ok := from.GetFewValue(); ok {
 		l.FewValue = val
 	}
+
 	if val, ok := from.GetManyValue(); ok {
 		l.ManyValue = val
 	}
+
 	l.OtherValue = from.GetOtherValue()
 }
 
@@ -243,6 +253,11 @@ func (l *LangPackStringPluralized) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (l *LangPackStringPluralized) TypeID() uint32 {
 	return LangPackStringPluralizedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (l *LangPackStringPluralized) SchemaName() string {
+	return "langPackStringPluralized"
 }
 
 // Encode implements bin.Encoder.
@@ -456,7 +471,7 @@ var (
 // See https://core.telegram.org/constructor/langPackStringDeleted for reference.
 type LangPackStringDeleted struct {
 	// Localization key
-	Key string
+	Key string `schemaname:"key"`
 }
 
 // LangPackStringDeletedTypeID is TL type id of LangPackStringDeleted.
@@ -493,6 +508,11 @@ func (l *LangPackStringDeleted) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (l *LangPackStringDeleted) TypeID() uint32 {
 	return LangPackStringDeletedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (l *LangPackStringDeleted) SchemaName() string {
+	return "langPackStringDeleted"
 }
 
 // Encode implements bin.Encoder.
@@ -559,16 +579,18 @@ type LangPackStringClass interface {
 	bin.Decoder
 	construct() LangPackStringClass
 
-	// Language key
-	GetKey() (value string)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Language key
+	GetKey() (value string)
 }
 
 // DecodeLangPackString implements binary de-serialization for LangPackStringClass.

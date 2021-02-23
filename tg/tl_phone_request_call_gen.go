@@ -27,20 +27,20 @@ type PhoneRequestCallRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether to start a video call
-	Video bool
+	Video bool `schemaname:"video"`
 	// Destination of the phone call
-	UserID InputUserClass
+	UserID InputUserClass `schemaname:"user_id"`
 	// Random ID to avoid resending the same object
-	RandomID int
+	RandomID int `schemaname:"random_id"`
 	// Parameter for E2E encryption key exchange »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/end-to-end/voice-calls
-	GAHash []byte
+	GAHash []byte `schemaname:"g_a_hash"`
 	// Phone call settings
-	Protocol PhoneCallProtocol
+	Protocol PhoneCallProtocol `schemaname:"protocol"`
 }
 
 // PhoneRequestCallRequestTypeID is TL type id of PhoneRequestCallRequest.
@@ -89,6 +89,7 @@ func (r *PhoneRequestCallRequest) FillFrom(from interface {
 	GetGAHash() (value []byte)
 	GetProtocol() (value PhoneCallProtocol)
 }) {
+	r.Video = from.GetVideo()
 	r.UserID = from.GetUserID()
 	r.RandomID = from.GetRandomID()
 	r.GAHash = from.GetGAHash()
@@ -99,6 +100,11 @@ func (r *PhoneRequestCallRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *PhoneRequestCallRequest) TypeID() uint32 {
 	return PhoneRequestCallRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *PhoneRequestCallRequest) SchemaName() string {
+	return "phone.requestCall"
 }
 
 // Encode implements bin.Encoder.

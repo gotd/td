@@ -30,21 +30,21 @@ type MessagesSetTypingRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Target user or group
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// Thread ID¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
-	TopMsgID int
+	TopMsgID int `schemaname:"top_msg_id"`
 	// Type of actionParameter added in Layer 17¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/layers#layer-17
-	Action SendMessageActionClass
+	Action SendMessageActionClass `schemaname:"action"`
 }
 
 // MessagesSetTypingRequestTypeID is TL type id of MessagesSetTypingRequest.
@@ -89,6 +89,7 @@ func (s *MessagesSetTypingRequest) FillFrom(from interface {
 	if val, ok := from.GetTopMsgID(); ok {
 		s.TopMsgID = val
 	}
+
 	s.Action = from.GetAction()
 }
 
@@ -96,6 +97,11 @@ func (s *MessagesSetTypingRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSetTypingRequest) TypeID() uint32 {
 	return MessagesSetTypingRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *MessagesSetTypingRequest) SchemaName() string {
+	return "messages.setTyping"
 }
 
 // Encode implements bin.Encoder.

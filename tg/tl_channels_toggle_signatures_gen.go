@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/channels.toggleSignatures for reference.
 type ChannelsToggleSignaturesRequest struct {
 	// Channel
-	Channel InputChannelClass
+	Channel InputChannelClass `schemaname:"channel"`
 	// Value
-	Enabled bool
+	Enabled bool `schemaname:"enabled"`
 }
 
 // ChannelsToggleSignaturesRequestTypeID is TL type id of ChannelsToggleSignaturesRequest.
@@ -68,6 +68,11 @@ func (t *ChannelsToggleSignaturesRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *ChannelsToggleSignaturesRequest) TypeID() uint32 {
 	return ChannelsToggleSignaturesRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *ChannelsToggleSignaturesRequest) SchemaName() string {
+	return "channels.toggleSignatures"
 }
 
 // Encode implements bin.Encoder.

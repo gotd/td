@@ -24,14 +24,14 @@ var _ = errors.Is
 // See https://core.telegram.org/method/channels.editCreator for reference.
 type ChannelsEditCreatorRequest struct {
 	// Channel
-	Channel InputChannelClass
+	Channel InputChannelClass `schemaname:"channel"`
 	// New channel owner
-	UserID InputUserClass
+	UserID InputUserClass `schemaname:"user_id"`
 	// 2FA password¹ of account
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	Password InputCheckPasswordSRPClass
+	Password InputCheckPasswordSRPClass `schemaname:"password"`
 }
 
 // ChannelsEditCreatorRequestTypeID is TL type id of ChannelsEditCreatorRequest.
@@ -78,6 +78,11 @@ func (e *ChannelsEditCreatorRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *ChannelsEditCreatorRequest) TypeID() uint32 {
 	return ChannelsEditCreatorRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *ChannelsEditCreatorRequest) SchemaName() string {
+	return "channels.editCreator"
 }
 
 // Encode implements bin.Encoder.

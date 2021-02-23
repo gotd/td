@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getGameHighScores for reference.
 type MessagesGetGameHighScoresRequest struct {
 	// Where was the game sent
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// ID of message with game media attachment
-	ID int
+	ID int `schemaname:"id"`
 	// Get high scores made by a certain user
-	UserID InputUserClass
+	UserID InputUserClass `schemaname:"user_id"`
 }
 
 // MessagesGetGameHighScoresRequestTypeID is TL type id of MessagesGetGameHighScoresRequest.
@@ -75,6 +75,11 @@ func (g *MessagesGetGameHighScoresRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetGameHighScoresRequest) TypeID() uint32 {
 	return MessagesGetGameHighScoresRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *MessagesGetGameHighScoresRequest) SchemaName() string {
+	return "messages.getGameHighScores"
 }
 
 // Encode implements bin.Encoder.

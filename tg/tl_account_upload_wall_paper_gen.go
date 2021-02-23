@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.uploadWallPaper for reference.
 type AccountUploadWallPaperRequest struct {
 	// The JPG/PNG wallpaper
-	File InputFileClass
+	File InputFileClass `schemaname:"file"`
 	// MIME type of uploaded wallpaper
-	MimeType string
+	MimeType string `schemaname:"mime_type"`
 	// Wallpaper settings
-	Settings WallPaperSettings
+	Settings WallPaperSettings `schemaname:"settings"`
 }
 
 // AccountUploadWallPaperRequestTypeID is TL type id of AccountUploadWallPaperRequest.
@@ -75,6 +75,11 @@ func (u *AccountUploadWallPaperRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *AccountUploadWallPaperRequest) TypeID() uint32 {
 	return AccountUploadWallPaperRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *AccountUploadWallPaperRequest) SchemaName() string {
+	return "account.uploadWallPaper"
 }
 
 // Encode implements bin.Encoder.

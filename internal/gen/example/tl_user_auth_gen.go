@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/user.auth for reference.
 type UserAuth struct {
 	// Foo field of UserAuth.
-	Foo string
+	Foo string `schemaname:"foo"`
 }
 
 // UserAuthTypeID is TL type id of UserAuth.
@@ -60,6 +60,11 @@ func (a *UserAuth) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *UserAuth) TypeID() uint32 {
 	return UserAuthTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (a *UserAuth) SchemaName() string {
+	return "user.auth"
 }
 
 // Encode implements bin.Encoder.
@@ -111,7 +116,7 @@ var (
 // See https://localhost:80/doc/constructor/user.authPassword for reference.
 type UserAuthPassword struct {
 	// Pwd field of UserAuthPassword.
-	Pwd string
+	Pwd string `schemaname:"pwd"`
 }
 
 // UserAuthPasswordTypeID is TL type id of UserAuthPassword.
@@ -148,6 +153,11 @@ func (a *UserAuthPassword) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *UserAuthPassword) TypeID() uint32 {
 	return UserAuthPasswordTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (a *UserAuthPassword) SchemaName() string {
+	return "user.authPassword"
 }
 
 // Encode implements bin.Encoder.
@@ -216,6 +226,8 @@ type UserAuthClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

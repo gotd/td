@@ -27,11 +27,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/updateNewMessage for reference.
 type UpdateNewMessage struct {
 	// Message
-	Message MessageClass
+	Message MessageClass `schemaname:"message"`
 	// New quantity of actions in a message box
-	Pts int
+	Pts int `schemaname:"pts"`
 	// Number of generated events
-	PtsCount int
+	PtsCount int `schemaname:"pts_count"`
 }
 
 // UpdateNewMessageTypeID is TL type id of UpdateNewMessage.
@@ -78,6 +78,11 @@ func (u *UpdateNewMessage) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateNewMessage) TypeID() uint32 {
 	return UpdateNewMessageTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateNewMessage) SchemaName() string {
+	return "updateNewMessage"
 }
 
 // Encode implements bin.Encoder.
@@ -164,9 +169,9 @@ type UpdateMessageID struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/Message
-	ID int
+	ID int `schemaname:"id"`
 	// Previuosly transferred client random_id identifier
-	RandomID int64
+	RandomID int64 `schemaname:"random_id"`
 }
 
 // UpdateMessageIDTypeID is TL type id of UpdateMessageID.
@@ -208,6 +213,11 @@ func (u *UpdateMessageID) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateMessageID) TypeID() uint32 {
 	return UpdateMessageIDTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateMessageID) SchemaName() string {
+	return "updateMessageID"
 }
 
 // Encode implements bin.Encoder.
@@ -273,14 +283,14 @@ var (
 // See https://core.telegram.org/constructor/updateDeleteMessages for reference.
 type UpdateDeleteMessages struct {
 	// List of identifiers of deleted messages
-	Messages []int
+	Messages []int `schemaname:"messages"`
 	// New quality of actions in a message box
-	Pts int
+	Pts int `schemaname:"pts"`
 	// Number of generated events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	PtsCount int
+	PtsCount int `schemaname:"pts_count"`
 }
 
 // UpdateDeleteMessagesTypeID is TL type id of UpdateDeleteMessages.
@@ -327,6 +337,11 @@ func (u *UpdateDeleteMessages) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateDeleteMessages) TypeID() uint32 {
 	return UpdateDeleteMessagesTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateDeleteMessages) SchemaName() string {
+	return "updateDeleteMessages"
 }
 
 // Encode implements bin.Encoder.
@@ -414,12 +429,12 @@ var (
 // See https://core.telegram.org/constructor/updateUserTyping for reference.
 type UpdateUserTyping struct {
 	// User id
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// Action typeParam added in Layer 17¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/layers#layer-17
-	Action SendMessageActionClass
+	Action SendMessageActionClass `schemaname:"action"`
 }
 
 // UpdateUserTypingTypeID is TL type id of UpdateUserTyping.
@@ -461,6 +476,11 @@ func (u *UpdateUserTyping) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateUserTyping) TypeID() uint32 {
 	return UpdateUserTypingTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateUserTyping) SchemaName() string {
+	return "updateUserTyping"
 }
 
 // Encode implements bin.Encoder.
@@ -531,14 +551,14 @@ var (
 // See https://core.telegram.org/constructor/updateChatUserTyping for reference.
 type UpdateChatUserTyping struct {
 	// Group id
-	ChatID int
+	ChatID int `schemaname:"chat_id"`
 	// User id
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// Type of actionParameter added in Layer 17¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/layers#layer-17
-	Action SendMessageActionClass
+	Action SendMessageActionClass `schemaname:"action"`
 }
 
 // UpdateChatUserTypingTypeID is TL type id of UpdateChatUserTyping.
@@ -585,6 +605,11 @@ func (u *UpdateChatUserTyping) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChatUserTyping) TypeID() uint32 {
 	return UpdateChatUserTypingTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateChatUserTyping) SchemaName() string {
+	return "updateChatUserTyping"
 }
 
 // Encode implements bin.Encoder.
@@ -668,7 +693,7 @@ var (
 // See https://core.telegram.org/constructor/updateChatParticipants for reference.
 type UpdateChatParticipants struct {
 	// Updated chat participants
-	Participants ChatParticipantsClass
+	Participants ChatParticipantsClass `schemaname:"participants"`
 }
 
 // UpdateChatParticipantsTypeID is TL type id of UpdateChatParticipants.
@@ -705,6 +730,11 @@ func (u *UpdateChatParticipants) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChatParticipants) TypeID() uint32 {
 	return UpdateChatParticipantsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateChatParticipants) SchemaName() string {
+	return "updateChatParticipants"
 }
 
 // Encode implements bin.Encoder.
@@ -762,9 +792,9 @@ var (
 // See https://core.telegram.org/constructor/updateUserStatus for reference.
 type UpdateUserStatus struct {
 	// User identifier
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// New status
-	Status UserStatusClass
+	Status UserStatusClass `schemaname:"status"`
 }
 
 // UpdateUserStatusTypeID is TL type id of UpdateUserStatus.
@@ -806,6 +836,11 @@ func (u *UpdateUserStatus) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateUserStatus) TypeID() uint32 {
 	return UpdateUserStatusTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateUserStatus) SchemaName() string {
+	return "updateUserStatus"
 }
 
 // Encode implements bin.Encoder.
@@ -876,22 +911,22 @@ var (
 // See https://core.telegram.org/constructor/updateUserName for reference.
 type UpdateUserName struct {
 	// User identifier
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// New first name. Corresponds to the new value of real_first_name field of the userFull¹ constructor.
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/userFull
-	FirstName string
+	FirstName string `schemaname:"first_name"`
 	// New last name. Corresponds to the new value of real_last_name field of the userFull¹ constructor.
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/userFull
-	LastName string
+	LastName string `schemaname:"last_name"`
 	// New username.Parameter added in Layer 18¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/layers#layer-18
-	Username string
+	Username string `schemaname:"username"`
 }
 
 // UpdateUserNameTypeID is TL type id of UpdateUserName.
@@ -943,6 +978,11 @@ func (u *UpdateUserName) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateUserName) TypeID() uint32 {
 	return UpdateUserNameTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateUserName) SchemaName() string {
+	return "updateUserName"
 }
 
 // Encode implements bin.Encoder.
@@ -1034,16 +1074,16 @@ var (
 // See https://core.telegram.org/constructor/updateUserPhoto for reference.
 type UpdateUserPhoto struct {
 	// User identifier
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// Date of photo update.
-	Date int
+	Date int `schemaname:"date"`
 	// New profile photo
-	Photo UserProfilePhotoClass
+	Photo UserProfilePhotoClass `schemaname:"photo"`
 	// (boolTrue¹), if one of the previously used photos is set a profile photo.
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/boolTrue
-	Previous bool
+	Previous bool `schemaname:"previous"`
 }
 
 // UpdateUserPhotoTypeID is TL type id of UpdateUserPhoto.
@@ -1095,6 +1135,11 @@ func (u *UpdateUserPhoto) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateUserPhoto) TypeID() uint32 {
 	return UpdateUserPhotoTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateUserPhoto) SchemaName() string {
+	return "updateUserPhoto"
 }
 
 // Encode implements bin.Encoder.
@@ -1191,9 +1236,9 @@ var (
 // See https://core.telegram.org/constructor/updateNewEncryptedMessage for reference.
 type UpdateNewEncryptedMessage struct {
 	// Message
-	Message EncryptedMessageClass
+	Message EncryptedMessageClass `schemaname:"message"`
 	// New qts value
-	Qts int
+	Qts int `schemaname:"qts"`
 }
 
 // UpdateNewEncryptedMessageTypeID is TL type id of UpdateNewEncryptedMessage.
@@ -1235,6 +1280,11 @@ func (u *UpdateNewEncryptedMessage) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateNewEncryptedMessage) TypeID() uint32 {
 	return UpdateNewEncryptedMessageTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateNewEncryptedMessage) SchemaName() string {
+	return "updateNewEncryptedMessage"
 }
 
 // Encode implements bin.Encoder.
@@ -1305,7 +1355,7 @@ var (
 // See https://core.telegram.org/constructor/updateEncryptedChatTyping for reference.
 type UpdateEncryptedChatTyping struct {
 	// Chat ID
-	ChatID int
+	ChatID int `schemaname:"chat_id"`
 }
 
 // UpdateEncryptedChatTypingTypeID is TL type id of UpdateEncryptedChatTyping.
@@ -1342,6 +1392,11 @@ func (u *UpdateEncryptedChatTyping) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateEncryptedChatTyping) TypeID() uint32 {
 	return UpdateEncryptedChatTypingTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateEncryptedChatTyping) SchemaName() string {
+	return "updateEncryptedChatTyping"
 }
 
 // Encode implements bin.Encoder.
@@ -1394,9 +1449,9 @@ var (
 // See https://core.telegram.org/constructor/updateEncryption for reference.
 type UpdateEncryption struct {
 	// Encrypted chat
-	Chat EncryptedChatClass
+	Chat EncryptedChatClass `schemaname:"chat"`
 	// Date of change
-	Date int
+	Date int `schemaname:"date"`
 }
 
 // UpdateEncryptionTypeID is TL type id of UpdateEncryption.
@@ -1438,6 +1493,11 @@ func (u *UpdateEncryption) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateEncryption) TypeID() uint32 {
 	return UpdateEncryptionTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateEncryption) SchemaName() string {
+	return "updateEncryption"
 }
 
 // Encode implements bin.Encoder.
@@ -1508,11 +1568,11 @@ var (
 // See https://core.telegram.org/constructor/updateEncryptedMessagesRead for reference.
 type UpdateEncryptedMessagesRead struct {
 	// Chat ID
-	ChatID int
+	ChatID int `schemaname:"chat_id"`
 	// Maximum value of data for read messages
-	MaxDate int
+	MaxDate int `schemaname:"max_date"`
 	// Time when messages were read
-	Date int
+	Date int `schemaname:"date"`
 }
 
 // UpdateEncryptedMessagesReadTypeID is TL type id of UpdateEncryptedMessagesRead.
@@ -1559,6 +1619,11 @@ func (u *UpdateEncryptedMessagesRead) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateEncryptedMessagesRead) TypeID() uint32 {
 	return UpdateEncryptedMessagesReadTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateEncryptedMessagesRead) SchemaName() string {
+	return "updateEncryptedMessagesRead"
 }
 
 // Encode implements bin.Encoder.
@@ -1637,15 +1702,15 @@ var (
 // See https://core.telegram.org/constructor/updateChatParticipantAdd for reference.
 type UpdateChatParticipantAdd struct {
 	// Group ID
-	ChatID int
+	ChatID int `schemaname:"chat_id"`
 	// ID of the new member
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// ID of the user, who added member to the group
-	InviterID int
+	InviterID int `schemaname:"inviter_id"`
 	// When was the participant added
-	Date int
+	Date int `schemaname:"date"`
 	// Chat version number
-	Version int
+	Version int `schemaname:"version"`
 }
 
 // UpdateChatParticipantAddTypeID is TL type id of UpdateChatParticipantAdd.
@@ -1702,6 +1767,11 @@ func (u *UpdateChatParticipantAdd) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChatParticipantAdd) TypeID() uint32 {
 	return UpdateChatParticipantAddTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateChatParticipantAdd) SchemaName() string {
+	return "updateChatParticipantAdd"
 }
 
 // Encode implements bin.Encoder.
@@ -1806,11 +1876,11 @@ var (
 // See https://core.telegram.org/constructor/updateChatParticipantDelete for reference.
 type UpdateChatParticipantDelete struct {
 	// Group ID
-	ChatID int
+	ChatID int `schemaname:"chat_id"`
 	// ID of the user
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// Used in basic groups to reorder updates and make sure that all of them was received.
-	Version int
+	Version int `schemaname:"version"`
 }
 
 // UpdateChatParticipantDeleteTypeID is TL type id of UpdateChatParticipantDelete.
@@ -1857,6 +1927,11 @@ func (u *UpdateChatParticipantDelete) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChatParticipantDelete) TypeID() uint32 {
 	return UpdateChatParticipantDeleteTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateChatParticipantDelete) SchemaName() string {
+	return "updateChatParticipantDelete"
 }
 
 // Encode implements bin.Encoder.
@@ -1935,7 +2010,7 @@ var (
 // See https://core.telegram.org/constructor/updateDcOptions for reference.
 type UpdateDcOptions struct {
 	// New connection options
-	DCOptions []DcOption
+	DCOptions []DcOption `schemaname:"dc_options"`
 }
 
 // UpdateDcOptionsTypeID is TL type id of UpdateDcOptions.
@@ -1972,6 +2047,11 @@ func (u *UpdateDcOptions) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateDcOptions) TypeID() uint32 {
 	return UpdateDcOptionsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateDcOptions) SchemaName() string {
+	return "updateDcOptions"
 }
 
 // Encode implements bin.Encoder.
@@ -2035,9 +2115,9 @@ var (
 // See https://core.telegram.org/constructor/updateNotifySettings for reference.
 type UpdateNotifySettings struct {
 	// Nofication source
-	Peer NotifyPeerClass
+	Peer NotifyPeerClass `schemaname:"peer"`
 	// New notification settings
-	NotifySettings PeerNotifySettings
+	NotifySettings PeerNotifySettings `schemaname:"notify_settings"`
 }
 
 // UpdateNotifySettingsTypeID is TL type id of UpdateNotifySettings.
@@ -2079,6 +2159,11 @@ func (u *UpdateNotifySettings) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateNotifySettings) TypeID() uint32 {
 	return UpdateNotifySettingsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateNotifySettings) SchemaName() string {
+	return "updateNotifySettings"
 }
 
 // Encode implements bin.Encoder.
@@ -2153,27 +2238,27 @@ type UpdateServiceNotification struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// (boolTrue) if the message must be displayed in a popup.
-	Popup bool
+	Popup bool `schemaname:"popup"`
 	// When was the notification receivedThe message must also be stored locally as part of the message history with the user id 777000 (Telegram Notifications).
 	//
 	// Use SetInboxDate and GetInboxDate helpers.
-	InboxDate int
+	InboxDate int `schemaname:"inbox_date"`
 	// String, identical in format and contents to the type¹ field in API errors. Describes type of service message. It is acceptable to ignore repeated messages of the same type within a short period of time (15 minutes).
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/errors#error-type
-	Type string
+	Type string `schemaname:"type"`
 	// Message text
-	Message string
+	Message string `schemaname:"message"`
 	// Media content (optional)
-	Media MessageMediaClass
+	Media MessageMediaClass `schemaname:"media"`
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
-	Entities []MessageEntityClass
+	Entities []MessageEntityClass `schemaname:"entities"`
 }
 
 // UpdateServiceNotificationTypeID is TL type id of UpdateServiceNotification.
@@ -2226,9 +2311,11 @@ func (u *UpdateServiceNotification) FillFrom(from interface {
 	GetMedia() (value MessageMediaClass)
 	GetEntities() (value []MessageEntityClass)
 }) {
+	u.Popup = from.GetPopup()
 	if val, ok := from.GetInboxDate(); ok {
 		u.InboxDate = val
 	}
+
 	u.Type = from.GetType()
 	u.Message = from.GetMessage()
 	u.Media = from.GetMedia()
@@ -2239,6 +2326,11 @@ func (u *UpdateServiceNotification) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateServiceNotification) TypeID() uint32 {
 	return UpdateServiceNotificationTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateServiceNotification) SchemaName() string {
+	return "updateServiceNotification"
 }
 
 // Encode implements bin.Encoder.
@@ -2410,9 +2502,9 @@ var (
 // See https://core.telegram.org/constructor/updatePrivacy for reference.
 type UpdatePrivacy struct {
 	// Peers to which the privacy rules apply
-	Key PrivacyKeyClass
+	Key PrivacyKeyClass `schemaname:"key"`
 	// New privacy rules
-	Rules []PrivacyRuleClass
+	Rules []PrivacyRuleClass `schemaname:"rules"`
 }
 
 // UpdatePrivacyTypeID is TL type id of UpdatePrivacy.
@@ -2454,6 +2546,11 @@ func (u *UpdatePrivacy) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePrivacy) TypeID() uint32 {
 	return UpdatePrivacyTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdatePrivacy) SchemaName() string {
+	return "updatePrivacy"
 }
 
 // Encode implements bin.Encoder.
@@ -2543,9 +2640,9 @@ var (
 // See https://core.telegram.org/constructor/updateUserPhone for reference.
 type UpdateUserPhone struct {
 	// User ID
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// New phone number
-	Phone string
+	Phone string `schemaname:"phone"`
 }
 
 // UpdateUserPhoneTypeID is TL type id of UpdateUserPhone.
@@ -2587,6 +2684,11 @@ func (u *UpdateUserPhone) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateUserPhone) TypeID() uint32 {
 	return UpdateUserPhoneTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateUserPhone) SchemaName() string {
+	return "updateUserPhone"
 }
 
 // Encode implements bin.Encoder.
@@ -2655,30 +2757,30 @@ type UpdateReadHistoryInbox struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int
+	FolderID int `schemaname:"folder_id"`
 	// Peer
-	Peer PeerClass
+	Peer PeerClass `schemaname:"peer"`
 	// Maximum ID of messages read
-	MaxID int
+	MaxID int `schemaname:"max_id"`
 	// Number of messages that are still unread
-	StillUnreadCount int
+	StillUnreadCount int `schemaname:"still_unread_count"`
 	// Event count after generation¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int
+	Pts int `schemaname:"pts"`
 	// Number of events that were generated¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	PtsCount int
+	PtsCount int `schemaname:"pts_count"`
 }
 
 // UpdateReadHistoryInboxTypeID is TL type id of UpdateReadHistoryInbox.
@@ -2734,6 +2836,7 @@ func (u *UpdateReadHistoryInbox) FillFrom(from interface {
 	if val, ok := from.GetFolderID(); ok {
 		u.FolderID = val
 	}
+
 	u.Peer = from.GetPeer()
 	u.MaxID = from.GetMaxID()
 	u.StillUnreadCount = from.GetStillUnreadCount()
@@ -2745,6 +2848,11 @@ func (u *UpdateReadHistoryInbox) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateReadHistoryInbox) TypeID() uint32 {
 	return UpdateReadHistoryInboxTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateReadHistoryInbox) SchemaName() string {
+	return "updateReadHistoryInbox"
 }
 
 // Encode implements bin.Encoder.
@@ -2890,19 +2998,19 @@ var (
 // See https://core.telegram.org/constructor/updateReadHistoryOutbox for reference.
 type UpdateReadHistoryOutbox struct {
 	// Peer
-	Peer PeerClass
+	Peer PeerClass `schemaname:"peer"`
 	// Maximum ID of read outgoing messages
-	MaxID int
+	MaxID int `schemaname:"max_id"`
 	// Event count after generation¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int
+	Pts int `schemaname:"pts"`
 	// Number of events that were generated¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	PtsCount int
+	PtsCount int `schemaname:"pts_count"`
 }
 
 // UpdateReadHistoryOutboxTypeID is TL type id of UpdateReadHistoryOutbox.
@@ -2954,6 +3062,11 @@ func (u *UpdateReadHistoryOutbox) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateReadHistoryOutbox) TypeID() uint32 {
 	return UpdateReadHistoryOutboxTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateReadHistoryOutbox) SchemaName() string {
+	return "updateReadHistoryOutbox"
 }
 
 // Encode implements bin.Encoder.
@@ -3053,17 +3166,17 @@ var (
 // See https://core.telegram.org/constructor/updateWebPage for reference.
 type UpdateWebPage struct {
 	// Webpage preview
-	Webpage WebPageClass
+	Webpage WebPageClass `schemaname:"webpage"`
 	// Event count after generation¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int
+	Pts int `schemaname:"pts"`
 	// Number of events that were generated¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	PtsCount int
+	PtsCount int `schemaname:"pts_count"`
 }
 
 // UpdateWebPageTypeID is TL type id of UpdateWebPage.
@@ -3110,6 +3223,11 @@ func (u *UpdateWebPage) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateWebPage) TypeID() uint32 {
 	return UpdateWebPageTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateWebPage) SchemaName() string {
+	return "updateWebPage"
 }
 
 // Encode implements bin.Encoder.
@@ -3196,17 +3314,17 @@ var (
 // See https://core.telegram.org/constructor/updateReadMessagesContents for reference.
 type UpdateReadMessagesContents struct {
 	// IDs of read messages
-	Messages []int
+	Messages []int `schemaname:"messages"`
 	// Event count after generation¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int
+	Pts int `schemaname:"pts"`
 	// Number of events that were generated¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	PtsCount int
+	PtsCount int `schemaname:"pts_count"`
 }
 
 // UpdateReadMessagesContentsTypeID is TL type id of UpdateReadMessagesContents.
@@ -3253,6 +3371,11 @@ func (u *UpdateReadMessagesContents) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateReadMessagesContents) TypeID() uint32 {
 	return UpdateReadMessagesContentsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateReadMessagesContents) SchemaName() string {
+	return "updateReadMessagesContents"
 }
 
 // Encode implements bin.Encoder.
@@ -3344,16 +3467,16 @@ type UpdateChannelTooLong struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// The channel
-	ChannelID int
+	ChannelID int `schemaname:"channel_id"`
 	// The PTS¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
 	//
 	// Use SetPts and GetPts helpers.
-	Pts int
+	Pts int `schemaname:"pts"`
 }
 
 // UpdateChannelTooLongTypeID is TL type id of UpdateChannelTooLong.
@@ -3394,12 +3517,18 @@ func (u *UpdateChannelTooLong) FillFrom(from interface {
 	if val, ok := from.GetPts(); ok {
 		u.Pts = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChannelTooLong) TypeID() uint32 {
 	return UpdateChannelTooLongTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateChannelTooLong) SchemaName() string {
+	return "updateChannelTooLong"
 }
 
 // Encode implements bin.Encoder.
@@ -3488,7 +3617,7 @@ var (
 // See https://core.telegram.org/constructor/updateChannel for reference.
 type UpdateChannel struct {
 	// Channel ID
-	ChannelID int
+	ChannelID int `schemaname:"channel_id"`
 }
 
 // UpdateChannelTypeID is TL type id of UpdateChannel.
@@ -3525,6 +3654,11 @@ func (u *UpdateChannel) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChannel) TypeID() uint32 {
 	return UpdateChannelTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateChannel) SchemaName() string {
+	return "updateChannel"
 }
 
 // Encode implements bin.Encoder.
@@ -3580,17 +3714,17 @@ var (
 // See https://core.telegram.org/constructor/updateNewChannelMessage for reference.
 type UpdateNewChannelMessage struct {
 	// New message
-	Message MessageClass
+	Message MessageClass `schemaname:"message"`
 	// Event count after generation¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int
+	Pts int `schemaname:"pts"`
 	// Number of events that were generated¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	PtsCount int
+	PtsCount int `schemaname:"pts_count"`
 }
 
 // UpdateNewChannelMessageTypeID is TL type id of UpdateNewChannelMessage.
@@ -3637,6 +3771,11 @@ func (u *UpdateNewChannelMessage) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateNewChannelMessage) TypeID() uint32 {
 	return UpdateNewChannelMessageTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateNewChannelMessage) SchemaName() string {
+	return "updateNewChannelMessage"
 }
 
 // Encode implements bin.Encoder.
@@ -3726,25 +3865,25 @@ type UpdateReadChannelInbox struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int
+	FolderID int `schemaname:"folder_id"`
 	// Channel/supergroup ID
-	ChannelID int
+	ChannelID int `schemaname:"channel_id"`
 	// Position up to which all incoming messages are read.
-	MaxID int
+	MaxID int `schemaname:"max_id"`
 	// Count of messages weren't read yet
-	StillUnreadCount int
+	StillUnreadCount int `schemaname:"still_unread_count"`
 	// Event count after generation¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int
+	Pts int `schemaname:"pts"`
 }
 
 // UpdateReadChannelInboxTypeID is TL type id of UpdateReadChannelInbox.
@@ -3796,6 +3935,7 @@ func (u *UpdateReadChannelInbox) FillFrom(from interface {
 	if val, ok := from.GetFolderID(); ok {
 		u.FolderID = val
 	}
+
 	u.ChannelID = from.GetChannelID()
 	u.MaxID = from.GetMaxID()
 	u.StillUnreadCount = from.GetStillUnreadCount()
@@ -3806,6 +3946,11 @@ func (u *UpdateReadChannelInbox) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateReadChannelInbox) TypeID() uint32 {
 	return UpdateReadChannelInboxTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateReadChannelInbox) SchemaName() string {
+	return "updateReadChannelInbox"
 }
 
 // Encode implements bin.Encoder.
@@ -3936,19 +4081,19 @@ var (
 // See https://core.telegram.org/constructor/updateDeleteChannelMessages for reference.
 type UpdateDeleteChannelMessages struct {
 	// Channel ID
-	ChannelID int
+	ChannelID int `schemaname:"channel_id"`
 	// IDs of messages that were deleted
-	Messages []int
+	Messages []int `schemaname:"messages"`
 	// Event count after generation¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int
+	Pts int `schemaname:"pts"`
 	// Number of events that were generated¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	PtsCount int
+	PtsCount int `schemaname:"pts_count"`
 }
 
 // UpdateDeleteChannelMessagesTypeID is TL type id of UpdateDeleteChannelMessages.
@@ -4000,6 +4145,11 @@ func (u *UpdateDeleteChannelMessages) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateDeleteChannelMessages) TypeID() uint32 {
 	return UpdateDeleteChannelMessagesTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateDeleteChannelMessages) SchemaName() string {
+	return "updateDeleteChannelMessages"
 }
 
 // Encode implements bin.Encoder.
@@ -4100,11 +4250,11 @@ var (
 // See https://core.telegram.org/constructor/updateChannelMessageViews for reference.
 type UpdateChannelMessageViews struct {
 	// Channel ID
-	ChannelID int
+	ChannelID int `schemaname:"channel_id"`
 	// ID of the message
-	ID int
+	ID int `schemaname:"id"`
 	// New view counter
-	Views int
+	Views int `schemaname:"views"`
 }
 
 // UpdateChannelMessageViewsTypeID is TL type id of UpdateChannelMessageViews.
@@ -4151,6 +4301,11 @@ func (u *UpdateChannelMessageViews) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChannelMessageViews) TypeID() uint32 {
 	return UpdateChannelMessageViewsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateChannelMessageViews) SchemaName() string {
+	return "updateChannelMessageViews"
 }
 
 // Encode implements bin.Encoder.
@@ -4232,13 +4387,13 @@ var (
 // See https://core.telegram.org/constructor/updateChatParticipantAdmin for reference.
 type UpdateChatParticipantAdmin struct {
 	// Chat ID
-	ChatID int
+	ChatID int `schemaname:"chat_id"`
 	// ID of the (de)admined user
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// Whether the user was rendered admin
-	IsAdmin bool
+	IsAdmin bool `schemaname:"is_admin"`
 	// Used in basic groups to reorder updates and make sure that all of them was received.
-	Version int
+	Version int `schemaname:"version"`
 }
 
 // UpdateChatParticipantAdminTypeID is TL type id of UpdateChatParticipantAdmin.
@@ -4290,6 +4445,11 @@ func (u *UpdateChatParticipantAdmin) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChatParticipantAdmin) TypeID() uint32 {
 	return UpdateChatParticipantAdminTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateChatParticipantAdmin) SchemaName() string {
+	return "updateChatParticipantAdmin"
 }
 
 // Encode implements bin.Encoder.
@@ -4381,7 +4541,7 @@ var (
 // See https://core.telegram.org/constructor/updateNewStickerSet for reference.
 type UpdateNewStickerSet struct {
 	// The installed stickerset
-	Stickerset MessagesStickerSet
+	Stickerset MessagesStickerSet `schemaname:"stickerset"`
 }
 
 // UpdateNewStickerSetTypeID is TL type id of UpdateNewStickerSet.
@@ -4418,6 +4578,11 @@ func (u *UpdateNewStickerSet) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateNewStickerSet) TypeID() uint32 {
 	return UpdateNewStickerSetTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateNewStickerSet) SchemaName() string {
+	return "updateNewStickerSet"
 }
 
 // Encode implements bin.Encoder.
@@ -4473,11 +4638,11 @@ type UpdateStickerSetsOrder struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether the updated stickers are mask stickers
-	Masks bool
+	Masks bool `schemaname:"masks"`
 	// New sticker order by sticker ID
-	Order []int64
+	Order []int64 `schemaname:"order"`
 }
 
 // UpdateStickerSetsOrderTypeID is TL type id of UpdateStickerSetsOrder.
@@ -4514,6 +4679,7 @@ func (u *UpdateStickerSetsOrder) FillFrom(from interface {
 	GetMasks() (value bool)
 	GetOrder() (value []int64)
 }) {
+	u.Masks = from.GetMasks()
 	u.Order = from.GetOrder()
 }
 
@@ -4521,6 +4687,11 @@ func (u *UpdateStickerSetsOrder) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateStickerSetsOrder) TypeID() uint32 {
 	return UpdateStickerSetsOrderTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateStickerSetsOrder) SchemaName() string {
+	return "updateStickerSetsOrder"
 }
 
 // Encode implements bin.Encoder.
@@ -4640,6 +4811,11 @@ func (u *UpdateStickerSets) TypeID() uint32 {
 	return UpdateStickerSetsTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (u *UpdateStickerSets) SchemaName() string {
+	return "updateStickerSets"
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateStickerSets) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -4707,6 +4883,11 @@ func (u *UpdateSavedGifs) TypeID() uint32 {
 	return UpdateSavedGifsTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (u *UpdateSavedGifs) SchemaName() string {
+	return "updateSavedGifs"
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateSavedGifs) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -4747,23 +4928,23 @@ type UpdateBotInlineQuery struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Query ID
-	QueryID int64
+	QueryID int64 `schemaname:"query_id"`
 	// User that sent the query
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// Text of query
-	Query string
+	Query string `schemaname:"query"`
 	// Attached geolocation
 	//
 	// Use SetGeo and GetGeo helpers.
-	Geo GeoPointClass
+	Geo GeoPointClass `schemaname:"geo"`
 	// PeerType field of UpdateBotInlineQuery.
 	//
 	// Use SetPeerType and GetPeerType helpers.
-	PeerType InlineQueryPeerTypeClass
+	PeerType InlineQueryPeerTypeClass `schemaname:"peer_type"`
 	// Offset to navigate through results
-	Offset string
+	Offset string `schemaname:"offset"`
 }
 
 // UpdateBotInlineQueryTypeID is TL type id of UpdateBotInlineQuery.
@@ -4822,9 +5003,11 @@ func (u *UpdateBotInlineQuery) FillFrom(from interface {
 	if val, ok := from.GetGeo(); ok {
 		u.Geo = val
 	}
+
 	if val, ok := from.GetPeerType(); ok {
 		u.PeerType = val
 	}
+
 	u.Offset = from.GetOffset()
 }
 
@@ -4832,6 +5015,11 @@ func (u *UpdateBotInlineQuery) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateBotInlineQuery) TypeID() uint32 {
 	return UpdateBotInlineQueryTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateBotInlineQuery) SchemaName() string {
+	return "updateBotInlineQuery"
 }
 
 // Encode implements bin.Encoder.
@@ -5003,21 +5191,21 @@ type UpdateBotInlineSend struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// The user that chose the result
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// The query that was used to obtain the result
-	Query string
+	Query string `schemaname:"query"`
 	// Optional. Sender location, only for bots that require user location
 	//
 	// Use SetGeo and GetGeo helpers.
-	Geo GeoPointClass
+	Geo GeoPointClass `schemaname:"geo"`
 	// The unique identifier for the result that was chosen
-	ID string
+	ID string `schemaname:"id"`
 	// Identifier of the sent inline message. Available only if there is an inline keyboard attached to the message. Will be also received in callback queries and can be used to edit the message.
 	//
 	// Use SetMsgID and GetMsgID helpers.
-	MsgID InputBotInlineMessageID
+	MsgID InputBotInlineMessageID `schemaname:"msg_id"`
 }
 
 // UpdateBotInlineSendTypeID is TL type id of UpdateBotInlineSend.
@@ -5071,16 +5259,23 @@ func (u *UpdateBotInlineSend) FillFrom(from interface {
 	if val, ok := from.GetGeo(); ok {
 		u.Geo = val
 	}
+
 	u.ID = from.GetID()
 	if val, ok := from.GetMsgID(); ok {
 		u.MsgID = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateBotInlineSend) TypeID() uint32 {
 	return UpdateBotInlineSendTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateBotInlineSend) SchemaName() string {
+	return "updateBotInlineSend"
 }
 
 // Encode implements bin.Encoder.
@@ -5231,17 +5426,17 @@ var (
 // See https://core.telegram.org/constructor/updateEditChannelMessage for reference.
 type UpdateEditChannelMessage struct {
 	// The new message
-	Message MessageClass
+	Message MessageClass `schemaname:"message"`
 	// Event count after generation¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int
+	Pts int `schemaname:"pts"`
 	// Number of events that were generated¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	PtsCount int
+	PtsCount int `schemaname:"pts_count"`
 }
 
 // UpdateEditChannelMessageTypeID is TL type id of UpdateEditChannelMessage.
@@ -5288,6 +5483,11 @@ func (u *UpdateEditChannelMessage) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateEditChannelMessage) TypeID() uint32 {
 	return UpdateEditChannelMessageTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateEditChannelMessage) SchemaName() string {
+	return "updateEditChannelMessage"
 }
 
 // Encode implements bin.Encoder.
@@ -5374,25 +5574,25 @@ type UpdateBotCallbackQuery struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Query ID
-	QueryID int64
+	QueryID int64 `schemaname:"query_id"`
 	// ID of the user that pressed the button
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// Chat where the inline keyboard was sent
-	Peer PeerClass
+	Peer PeerClass `schemaname:"peer"`
 	// Message ID
-	MsgID int
+	MsgID int `schemaname:"msg_id"`
 	// Global identifier, uniquely corresponding to the chat to which the message with the callback button was sent. Useful for high scores in games.
-	ChatInstance int64
+	ChatInstance int64 `schemaname:"chat_instance"`
 	// Callback data
 	//
 	// Use SetData and GetData helpers.
-	Data []byte
+	Data []byte `schemaname:"data"`
 	// Short name of a Game to be returned, serves as the unique identifier for the game
 	//
 	// Use SetGameShortName and GetGameShortName helpers.
-	GameShortName string
+	GameShortName string `schemaname:"game_short_name"`
 }
 
 // UpdateBotCallbackQueryTypeID is TL type id of UpdateBotCallbackQuery.
@@ -5457,15 +5657,22 @@ func (u *UpdateBotCallbackQuery) FillFrom(from interface {
 	if val, ok := from.GetData(); ok {
 		u.Data = val
 	}
+
 	if val, ok := from.GetGameShortName(); ok {
 		u.GameShortName = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateBotCallbackQuery) TypeID() uint32 {
 	return UpdateBotCallbackQueryTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateBotCallbackQuery) SchemaName() string {
+	return "updateBotCallbackQuery"
 }
 
 // Encode implements bin.Encoder.
@@ -5639,17 +5846,17 @@ var (
 // See https://core.telegram.org/constructor/updateEditMessage for reference.
 type UpdateEditMessage struct {
 	// The new edited message
-	Message MessageClass
+	Message MessageClass `schemaname:"message"`
 	// PTS¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int
+	Pts int `schemaname:"pts"`
 	// PTS count¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	PtsCount int
+	PtsCount int `schemaname:"pts_count"`
 }
 
 // UpdateEditMessageTypeID is TL type id of UpdateEditMessage.
@@ -5696,6 +5903,11 @@ func (u *UpdateEditMessage) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateEditMessage) TypeID() uint32 {
 	return UpdateEditMessageTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateEditMessage) SchemaName() string {
+	return "updateEditMessage"
 }
 
 // Encode implements bin.Encoder.
@@ -5782,23 +5994,23 @@ type UpdateInlineBotCallbackQuery struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Query ID
-	QueryID int64
+	QueryID int64 `schemaname:"query_id"`
 	// ID of the user that pressed the button
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// ID of the inline message with the button
-	MsgID InputBotInlineMessageID
+	MsgID InputBotInlineMessageID `schemaname:"msg_id"`
 	// Global identifier, uniquely corresponding to the chat to which the message with the callback button was sent. Useful for high scores in games.
-	ChatInstance int64
+	ChatInstance int64 `schemaname:"chat_instance"`
 	// Data associated with the callback button. Be aware that a bad client can send arbitrary data in this field.
 	//
 	// Use SetData and GetData helpers.
-	Data []byte
+	Data []byte `schemaname:"data"`
 	// Short name of a Game to be returned, serves as the unique identifier for the game
 	//
 	// Use SetGameShortName and GetGameShortName helpers.
-	GameShortName string
+	GameShortName string `schemaname:"game_short_name"`
 }
 
 // UpdateInlineBotCallbackQueryTypeID is TL type id of UpdateInlineBotCallbackQuery.
@@ -5858,15 +6070,22 @@ func (u *UpdateInlineBotCallbackQuery) FillFrom(from interface {
 	if val, ok := from.GetData(); ok {
 		u.Data = val
 	}
+
 	if val, ok := from.GetGameShortName(); ok {
 		u.GameShortName = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateInlineBotCallbackQuery) TypeID() uint32 {
 	return UpdateInlineBotCallbackQueryTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateInlineBotCallbackQuery) SchemaName() string {
+	return "updateInlineBotCallbackQuery"
 }
 
 // Encode implements bin.Encoder.
@@ -6025,9 +6244,9 @@ var (
 // See https://core.telegram.org/constructor/updateReadChannelOutbox for reference.
 type UpdateReadChannelOutbox struct {
 	// Channel/supergroup ID
-	ChannelID int
+	ChannelID int `schemaname:"channel_id"`
 	// Position up to which all outgoing messages are read.
-	MaxID int
+	MaxID int `schemaname:"max_id"`
 }
 
 // UpdateReadChannelOutboxTypeID is TL type id of UpdateReadChannelOutbox.
@@ -6069,6 +6288,11 @@ func (u *UpdateReadChannelOutbox) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateReadChannelOutbox) TypeID() uint32 {
 	return UpdateReadChannelOutboxTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateReadChannelOutbox) SchemaName() string {
+	return "updateReadChannelOutbox"
 }
 
 // Encode implements bin.Encoder.
@@ -6137,9 +6361,9 @@ var (
 // See https://core.telegram.org/constructor/updateDraftMessage for reference.
 type UpdateDraftMessage struct {
 	// The peer to which the draft is associated
-	Peer PeerClass
+	Peer PeerClass `schemaname:"peer"`
 	// The draft
-	Draft DraftMessageClass
+	Draft DraftMessageClass `schemaname:"draft"`
 }
 
 // UpdateDraftMessageTypeID is TL type id of UpdateDraftMessage.
@@ -6181,6 +6405,11 @@ func (u *UpdateDraftMessage) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateDraftMessage) TypeID() uint32 {
 	return UpdateDraftMessageTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateDraftMessage) SchemaName() string {
+	return "updateDraftMessage"
 }
 
 // Encode implements bin.Encoder.
@@ -6283,6 +6512,11 @@ func (u *UpdateReadFeaturedStickers) TypeID() uint32 {
 	return UpdateReadFeaturedStickersTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (u *UpdateReadFeaturedStickers) SchemaName() string {
+	return "updateReadFeaturedStickers"
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateReadFeaturedStickers) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -6345,6 +6579,11 @@ func (u *UpdateRecentStickers) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateRecentStickers) TypeID() uint32 {
 	return UpdateRecentStickersTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateRecentStickers) SchemaName() string {
+	return "updateRecentStickers"
 }
 
 // Encode implements bin.Encoder.
@@ -6412,6 +6651,11 @@ func (u *UpdateConfig) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateConfig) TypeID() uint32 {
 	return UpdateConfigTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateConfig) SchemaName() string {
+	return "updateConfig"
 }
 
 // Encode implements bin.Encoder.
@@ -6482,6 +6726,11 @@ func (u *UpdatePtsChanged) TypeID() uint32 {
 	return UpdatePtsChangedTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (u *UpdatePtsChanged) SchemaName() string {
+	return "updatePtsChanged"
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdatePtsChanged) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -6525,19 +6774,19 @@ type UpdateChannelWebPage struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	ChannelID int
+	ChannelID int `schemaname:"channel_id"`
 	// Generated webpage preview
-	Webpage WebPageClass
+	Webpage WebPageClass `schemaname:"webpage"`
 	// Event count after generation¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int
+	Pts int `schemaname:"pts"`
 	// Number of events that were generated¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	PtsCount int
+	PtsCount int `schemaname:"pts_count"`
 }
 
 // UpdateChannelWebPageTypeID is TL type id of UpdateChannelWebPage.
@@ -6589,6 +6838,11 @@ func (u *UpdateChannelWebPage) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChannelWebPage) TypeID() uint32 {
 	return UpdateChannelWebPageTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateChannelWebPage) SchemaName() string {
+	return "updateChannelWebPage"
 }
 
 // Encode implements bin.Encoder.
@@ -6688,18 +6942,18 @@ type UpdateDialogPinned struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether the dialog was pinned
-	Pinned bool
+	Pinned bool `schemaname:"pinned"`
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int
+	FolderID int `schemaname:"folder_id"`
 	// The dialog
-	Peer DialogPeerClass
+	Peer DialogPeerClass `schemaname:"peer"`
 }
 
 // UpdateDialogPinnedTypeID is TL type id of UpdateDialogPinned.
@@ -6740,9 +6994,11 @@ func (u *UpdateDialogPinned) FillFrom(from interface {
 	GetFolderID() (value int, ok bool)
 	GetPeer() (value DialogPeerClass)
 }) {
+	u.Pinned = from.GetPinned()
 	if val, ok := from.GetFolderID(); ok {
 		u.FolderID = val
 	}
+
 	u.Peer = from.GetPeer()
 }
 
@@ -6750,6 +7006,11 @@ func (u *UpdateDialogPinned) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateDialogPinned) TypeID() uint32 {
 	return UpdateDialogPinnedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateDialogPinned) SchemaName() string {
+	return "updateDialogPinned"
 }
 
 // Encode implements bin.Encoder.
@@ -6866,18 +7127,18 @@ type UpdatePinnedDialogs struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int
+	FolderID int `schemaname:"folder_id"`
 	// New order of pinned dialogs
 	//
 	// Use SetOrder and GetOrder helpers.
-	Order []DialogPeerClass
+	Order []DialogPeerClass `schemaname:"order"`
 }
 
 // UpdatePinnedDialogsTypeID is TL type id of UpdatePinnedDialogs.
@@ -6917,15 +7178,22 @@ func (u *UpdatePinnedDialogs) FillFrom(from interface {
 	if val, ok := from.GetFolderID(); ok {
 		u.FolderID = val
 	}
+
 	if val, ok := from.GetOrder(); ok {
 		u.Order = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePinnedDialogs) TypeID() uint32 {
 	return UpdatePinnedDialogsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdatePinnedDialogs) SchemaName() string {
+	return "updatePinnedDialogs"
 }
 
 // Encode implements bin.Encoder.
@@ -7051,7 +7319,7 @@ var (
 // See https://core.telegram.org/constructor/updateBotWebhookJSON for reference.
 type UpdateBotWebhookJSON struct {
 	// The event
-	Data DataJSON
+	Data DataJSON `schemaname:"data"`
 }
 
 // UpdateBotWebhookJSONTypeID is TL type id of UpdateBotWebhookJSON.
@@ -7088,6 +7356,11 @@ func (u *UpdateBotWebhookJSON) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateBotWebhookJSON) TypeID() uint32 {
 	return UpdateBotWebhookJSONTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateBotWebhookJSON) SchemaName() string {
+	return "updateBotWebhookJSON"
 }
 
 // Encode implements bin.Encoder.
@@ -7140,11 +7413,11 @@ var (
 // See https://core.telegram.org/constructor/updateBotWebhookJSONQuery for reference.
 type UpdateBotWebhookJSONQuery struct {
 	// Query identifier
-	QueryID int64
+	QueryID int64 `schemaname:"query_id"`
 	// Query data
-	Data DataJSON
+	Data DataJSON `schemaname:"data"`
 	// Query timeout
-	Timeout int
+	Timeout int `schemaname:"timeout"`
 }
 
 // UpdateBotWebhookJSONQueryTypeID is TL type id of UpdateBotWebhookJSONQuery.
@@ -7191,6 +7464,11 @@ func (u *UpdateBotWebhookJSONQuery) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateBotWebhookJSONQuery) TypeID() uint32 {
 	return UpdateBotWebhookJSONQueryTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateBotWebhookJSONQuery) SchemaName() string {
+	return "updateBotWebhookJSONQuery"
 }
 
 // Encode implements bin.Encoder.
@@ -7269,13 +7547,13 @@ var (
 // See https://core.telegram.org/constructor/updateBotShippingQuery for reference.
 type UpdateBotShippingQuery struct {
 	// Unique query identifier
-	QueryID int64
+	QueryID int64 `schemaname:"query_id"`
 	// User who sent the query
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// Bot specified invoice payload
-	Payload []byte
+	Payload []byte `schemaname:"payload"`
 	// User specified shipping address
-	ShippingAddress PostAddress
+	ShippingAddress PostAddress `schemaname:"shipping_address"`
 }
 
 // UpdateBotShippingQueryTypeID is TL type id of UpdateBotShippingQuery.
@@ -7327,6 +7605,11 @@ func (u *UpdateBotShippingQuery) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateBotShippingQuery) TypeID() uint32 {
 	return UpdateBotShippingQueryTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateBotShippingQuery) SchemaName() string {
+	return "updateBotShippingQuery"
 }
 
 // Encode implements bin.Encoder.
@@ -7421,31 +7704,31 @@ type UpdateBotPrecheckoutQuery struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Unique query identifier
-	QueryID int64
+	QueryID int64 `schemaname:"query_id"`
 	// User who sent the query
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// Bot specified invoice payload
-	Payload []byte
+	Payload []byte `schemaname:"payload"`
 	// Order info provided by the user
 	//
 	// Use SetInfo and GetInfo helpers.
-	Info PaymentRequestedInfo
+	Info PaymentRequestedInfo `schemaname:"info"`
 	// Identifier of the shipping option chosen by the user
 	//
 	// Use SetShippingOptionID and GetShippingOptionID helpers.
-	ShippingOptionID string
+	ShippingOptionID string `schemaname:"shipping_option_id"`
 	// Three-letter ISO 4217 currency¹ code
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments#supported-currencies
-	Currency string
+	Currency string `schemaname:"currency"`
 	// Total amount in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json¹, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments/currencies.json
-	TotalAmount int64
+	TotalAmount int64 `schemaname:"total_amount"`
 }
 
 // UpdateBotPrecheckoutQueryTypeID is TL type id of UpdateBotPrecheckoutQuery.
@@ -7508,9 +7791,11 @@ func (u *UpdateBotPrecheckoutQuery) FillFrom(from interface {
 	if val, ok := from.GetInfo(); ok {
 		u.Info = val
 	}
+
 	if val, ok := from.GetShippingOptionID(); ok {
 		u.ShippingOptionID = val
 	}
+
 	u.Currency = from.GetCurrency()
 	u.TotalAmount = from.GetTotalAmount()
 }
@@ -7519,6 +7804,11 @@ func (u *UpdateBotPrecheckoutQuery) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateBotPrecheckoutQuery) TypeID() uint32 {
 	return UpdateBotPrecheckoutQueryTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateBotPrecheckoutQuery) SchemaName() string {
+	return "updateBotPrecheckoutQuery"
 }
 
 // Encode implements bin.Encoder.
@@ -7687,7 +7977,7 @@ var (
 // See https://core.telegram.org/constructor/updatePhoneCall for reference.
 type UpdatePhoneCall struct {
 	// Phone call
-	PhoneCall PhoneCallClass
+	PhoneCall PhoneCallClass `schemaname:"phone_call"`
 }
 
 // UpdatePhoneCallTypeID is TL type id of UpdatePhoneCall.
@@ -7724,6 +8014,11 @@ func (u *UpdatePhoneCall) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePhoneCall) TypeID() uint32 {
 	return UpdatePhoneCallTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdatePhoneCall) SchemaName() string {
+	return "updatePhoneCall"
 }
 
 // Encode implements bin.Encoder.
@@ -7784,7 +8079,7 @@ var (
 // See https://core.telegram.org/constructor/updateLangPackTooLong for reference.
 type UpdateLangPackTooLong struct {
 	// Language code
-	LangCode string
+	LangCode string `schemaname:"lang_code"`
 }
 
 // UpdateLangPackTooLongTypeID is TL type id of UpdateLangPackTooLong.
@@ -7821,6 +8116,11 @@ func (u *UpdateLangPackTooLong) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateLangPackTooLong) TypeID() uint32 {
 	return UpdateLangPackTooLongTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateLangPackTooLong) SchemaName() string {
+	return "updateLangPackTooLong"
 }
 
 // Encode implements bin.Encoder.
@@ -7873,7 +8173,7 @@ var (
 // See https://core.telegram.org/constructor/updateLangPack for reference.
 type UpdateLangPack struct {
 	// Changed strings
-	Difference LangPackDifference
+	Difference LangPackDifference `schemaname:"difference"`
 }
 
 // UpdateLangPackTypeID is TL type id of UpdateLangPack.
@@ -7910,6 +8210,11 @@ func (u *UpdateLangPack) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateLangPack) TypeID() uint32 {
 	return UpdateLangPackTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateLangPack) SchemaName() string {
+	return "updateLangPack"
 }
 
 // Encode implements bin.Encoder.
@@ -7992,6 +8297,11 @@ func (u *UpdateFavedStickers) TypeID() uint32 {
 	return UpdateFavedStickersTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (u *UpdateFavedStickers) SchemaName() string {
+	return "updateFavedStickers"
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateFavedStickers) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -8035,9 +8345,9 @@ type UpdateChannelReadMessagesContents struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	ChannelID int
+	ChannelID int `schemaname:"channel_id"`
 	// IDs of messages that were read
-	Messages []int
+	Messages []int `schemaname:"messages"`
 }
 
 // UpdateChannelReadMessagesContentsTypeID is TL type id of UpdateChannelReadMessagesContents.
@@ -8079,6 +8389,11 @@ func (u *UpdateChannelReadMessagesContents) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChannelReadMessagesContents) TypeID() uint32 {
 	return UpdateChannelReadMessagesContentsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateChannelReadMessagesContents) SchemaName() string {
+	return "updateChannelReadMessagesContents"
 }
 
 // Encode implements bin.Encoder.
@@ -8180,6 +8495,11 @@ func (u *UpdateContactsReset) TypeID() uint32 {
 	return UpdateContactsResetTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (u *UpdateContactsReset) SchemaName() string {
+	return "updateContactsReset"
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateContactsReset) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -8220,9 +8540,9 @@ var (
 // See https://core.telegram.org/constructor/updateChannelAvailableMessages for reference.
 type UpdateChannelAvailableMessages struct {
 	// Channel/supergroup ID
-	ChannelID int
+	ChannelID int `schemaname:"channel_id"`
 	// Identifier of a maximum unavailable message in a channel due to hidden history.
-	AvailableMinID int
+	AvailableMinID int `schemaname:"available_min_id"`
 }
 
 // UpdateChannelAvailableMessagesTypeID is TL type id of UpdateChannelAvailableMessages.
@@ -8264,6 +8584,11 @@ func (u *UpdateChannelAvailableMessages) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChannelAvailableMessages) TypeID() uint32 {
 	return UpdateChannelAvailableMessagesTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateChannelAvailableMessages) SchemaName() string {
+	return "updateChannelAvailableMessages"
 }
 
 // Encode implements bin.Encoder.
@@ -8332,11 +8657,11 @@ type UpdateDialogUnreadMark struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Was the chat marked or unmarked as read
-	Unread bool
+	Unread bool `schemaname:"unread"`
 	// The dialog
-	Peer DialogPeerClass
+	Peer DialogPeerClass `schemaname:"peer"`
 }
 
 // UpdateDialogUnreadMarkTypeID is TL type id of UpdateDialogUnreadMark.
@@ -8373,6 +8698,7 @@ func (u *UpdateDialogUnreadMark) FillFrom(from interface {
 	GetUnread() (value bool)
 	GetPeer() (value DialogPeerClass)
 }) {
+	u.Unread = from.GetUnread()
 	u.Peer = from.GetPeer()
 }
 
@@ -8380,6 +8706,11 @@ func (u *UpdateDialogUnreadMark) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateDialogUnreadMark) TypeID() uint32 {
 	return UpdateDialogUnreadMarkTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateDialogUnreadMark) SchemaName() string {
+	return "updateDialogUnreadMark"
 }
 
 // Encode implements bin.Encoder.
@@ -8468,15 +8799,15 @@ type UpdateMessagePoll struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Poll ID
-	PollID int64
+	PollID int64 `schemaname:"poll_id"`
 	// If the server knows the client hasn't cached this poll yet, the poll itself
 	//
 	// Use SetPoll and GetPoll helpers.
-	Poll Poll
+	Poll Poll `schemaname:"poll"`
 	// New poll results
-	Results PollResults
+	Results PollResults `schemaname:"results"`
 }
 
 // UpdateMessagePollTypeID is TL type id of UpdateMessagePoll.
@@ -8521,6 +8852,7 @@ func (u *UpdateMessagePoll) FillFrom(from interface {
 	if val, ok := from.GetPoll(); ok {
 		u.Poll = val
 	}
+
 	u.Results = from.GetResults()
 }
 
@@ -8528,6 +8860,11 @@ func (u *UpdateMessagePoll) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateMessagePoll) TypeID() uint32 {
 	return UpdateMessagePollTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateMessagePoll) SchemaName() string {
+	return "updateMessagePoll"
 }
 
 // Encode implements bin.Encoder.
@@ -8632,11 +8969,11 @@ var (
 // See https://core.telegram.org/constructor/updateChatDefaultBannedRights for reference.
 type UpdateChatDefaultBannedRights struct {
 	// The chat
-	Peer PeerClass
+	Peer PeerClass `schemaname:"peer"`
 	// New default banned rights
-	DefaultBannedRights ChatBannedRights
+	DefaultBannedRights ChatBannedRights `schemaname:"default_banned_rights"`
 	// Version
-	Version int
+	Version int `schemaname:"version"`
 }
 
 // UpdateChatDefaultBannedRightsTypeID is TL type id of UpdateChatDefaultBannedRights.
@@ -8683,6 +9020,11 @@ func (u *UpdateChatDefaultBannedRights) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChatDefaultBannedRights) TypeID() uint32 {
 	return UpdateChatDefaultBannedRightsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateChatDefaultBannedRights) SchemaName() string {
+	return "updateChatDefaultBannedRights"
 }
 
 // Encode implements bin.Encoder.
@@ -8769,17 +9111,17 @@ var (
 // See https://core.telegram.org/constructor/updateFolderPeers for reference.
 type UpdateFolderPeers struct {
 	// New peer list
-	FolderPeers []FolderPeer
+	FolderPeers []FolderPeer `schemaname:"folder_peers"`
 	// Event count after generation¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int
+	Pts int `schemaname:"pts"`
 	// Number of events that were generated¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	PtsCount int
+	PtsCount int `schemaname:"pts_count"`
 }
 
 // UpdateFolderPeersTypeID is TL type id of UpdateFolderPeers.
@@ -8826,6 +9168,11 @@ func (u *UpdateFolderPeers) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateFolderPeers) TypeID() uint32 {
 	return UpdateFolderPeersTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateFolderPeers) SchemaName() string {
+	return "updateFolderPeers"
 }
 
 // Encode implements bin.Encoder.
@@ -8915,9 +9262,9 @@ var (
 // See https://core.telegram.org/constructor/updatePeerSettings for reference.
 type UpdatePeerSettings struct {
 	// The peer
-	Peer PeerClass
+	Peer PeerClass `schemaname:"peer"`
 	// Associated peer settings
-	Settings PeerSettings
+	Settings PeerSettings `schemaname:"settings"`
 }
 
 // UpdatePeerSettingsTypeID is TL type id of UpdatePeerSettings.
@@ -8959,6 +9306,11 @@ func (u *UpdatePeerSettings) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePeerSettings) TypeID() uint32 {
 	return UpdatePeerSettingsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdatePeerSettings) SchemaName() string {
+	return "updatePeerSettings"
 }
 
 // Encode implements bin.Encoder.
@@ -9029,7 +9381,7 @@ var (
 // See https://core.telegram.org/constructor/updatePeerLocated for reference.
 type UpdatePeerLocated struct {
 	// Geolocated peer list update
-	Peers []PeerLocatedClass
+	Peers []PeerLocatedClass `schemaname:"peers"`
 }
 
 // UpdatePeerLocatedTypeID is TL type id of UpdatePeerLocated.
@@ -9066,6 +9418,11 @@ func (u *UpdatePeerLocated) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePeerLocated) TypeID() uint32 {
 	return UpdatePeerLocatedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdatePeerLocated) SchemaName() string {
+	return "updatePeerLocated"
 }
 
 // Encode implements bin.Encoder.
@@ -9140,7 +9497,7 @@ var (
 // See https://core.telegram.org/constructor/updateNewScheduledMessage for reference.
 type UpdateNewScheduledMessage struct {
 	// Message
-	Message MessageClass
+	Message MessageClass `schemaname:"message"`
 }
 
 // UpdateNewScheduledMessageTypeID is TL type id of UpdateNewScheduledMessage.
@@ -9177,6 +9534,11 @@ func (u *UpdateNewScheduledMessage) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateNewScheduledMessage) TypeID() uint32 {
 	return UpdateNewScheduledMessageTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateNewScheduledMessage) SchemaName() string {
+	return "updateNewScheduledMessage"
 }
 
 // Encode implements bin.Encoder.
@@ -9237,9 +9599,9 @@ var (
 // See https://core.telegram.org/constructor/updateDeleteScheduledMessages for reference.
 type UpdateDeleteScheduledMessages struct {
 	// Peer
-	Peer PeerClass
+	Peer PeerClass `schemaname:"peer"`
 	// Deleted scheduled messages
-	Messages []int
+	Messages []int `schemaname:"messages"`
 }
 
 // UpdateDeleteScheduledMessagesTypeID is TL type id of UpdateDeleteScheduledMessages.
@@ -9281,6 +9643,11 @@ func (u *UpdateDeleteScheduledMessages) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateDeleteScheduledMessages) TypeID() uint32 {
 	return UpdateDeleteScheduledMessagesTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateDeleteScheduledMessages) SchemaName() string {
+	return "updateDeleteScheduledMessages"
 }
 
 // Encode implements bin.Encoder.
@@ -9360,7 +9727,7 @@ var (
 // See https://core.telegram.org/constructor/updateTheme for reference.
 type UpdateTheme struct {
 	// Theme
-	Theme Theme
+	Theme Theme `schemaname:"theme"`
 }
 
 // UpdateThemeTypeID is TL type id of UpdateTheme.
@@ -9397,6 +9764,11 @@ func (u *UpdateTheme) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateTheme) TypeID() uint32 {
 	return UpdateThemeTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateTheme) SchemaName() string {
+	return "updateTheme"
 }
 
 // Encode implements bin.Encoder.
@@ -9449,9 +9821,9 @@ var (
 // See https://core.telegram.org/constructor/updateGeoLiveViewed for reference.
 type UpdateGeoLiveViewed struct {
 	// The user that viewed the live geoposition
-	Peer PeerClass
+	Peer PeerClass `schemaname:"peer"`
 	// Message ID of geoposition message
-	MsgID int
+	MsgID int `schemaname:"msg_id"`
 }
 
 // UpdateGeoLiveViewedTypeID is TL type id of UpdateGeoLiveViewed.
@@ -9493,6 +9865,11 @@ func (u *UpdateGeoLiveViewed) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateGeoLiveViewed) TypeID() uint32 {
 	return UpdateGeoLiveViewedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateGeoLiveViewed) SchemaName() string {
+	return "updateGeoLiveViewed"
 }
 
 // Encode implements bin.Encoder.
@@ -9590,6 +9967,11 @@ func (u *UpdateLoginToken) TypeID() uint32 {
 	return UpdateLoginTokenTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (u *UpdateLoginToken) SchemaName() string {
+	return "updateLoginToken"
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateLoginToken) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -9627,11 +10009,11 @@ var (
 // See https://core.telegram.org/constructor/updateMessagePollVote for reference.
 type UpdateMessagePollVote struct {
 	// Poll ID
-	PollID int64
+	PollID int64 `schemaname:"poll_id"`
 	// User ID
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// Chosen option(s)
-	Options [][]byte
+	Options [][]byte `schemaname:"options"`
 }
 
 // UpdateMessagePollVoteTypeID is TL type id of UpdateMessagePollVote.
@@ -9678,6 +10060,11 @@ func (u *UpdateMessagePollVote) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateMessagePollVote) TypeID() uint32 {
 	return UpdateMessagePollVoteTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateMessagePollVote) SchemaName() string {
+	return "updateMessagePollVote"
 }
 
 // Encode implements bin.Encoder.
@@ -9771,19 +10158,19 @@ type UpdateDialogFilter struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Folder¹ ID
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	ID int
+	ID int `schemaname:"id"`
 	// Folder¹ info
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
 	//
 	// Use SetFilter and GetFilter helpers.
-	Filter DialogFilter
+	Filter DialogFilter `schemaname:"filter"`
 }
 
 // UpdateDialogFilterTypeID is TL type id of UpdateDialogFilter.
@@ -9824,12 +10211,18 @@ func (u *UpdateDialogFilter) FillFrom(from interface {
 	if val, ok := from.GetFilter(); ok {
 		u.Filter = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateDialogFilter) TypeID() uint32 {
 	return UpdateDialogFilterTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateDialogFilter) SchemaName() string {
+	return "updateDialogFilter"
 }
 
 // Encode implements bin.Encoder.
@@ -9924,7 +10317,7 @@ type UpdateDialogFilterOrder struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	Order []int
+	Order []int `schemaname:"order"`
 }
 
 // UpdateDialogFilterOrderTypeID is TL type id of UpdateDialogFilterOrder.
@@ -9961,6 +10354,11 @@ func (u *UpdateDialogFilterOrder) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateDialogFilterOrder) TypeID() uint32 {
 	return UpdateDialogFilterOrderTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateDialogFilterOrder) SchemaName() string {
+	return "updateDialogFilterOrder"
 }
 
 // Encode implements bin.Encoder.
@@ -10052,6 +10450,11 @@ func (u *UpdateDialogFilters) TypeID() uint32 {
 	return UpdateDialogFiltersTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (u *UpdateDialogFilters) SchemaName() string {
+	return "updateDialogFilters"
+}
+
 // Encode implements bin.Encoder.
 func (u *UpdateDialogFilters) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -10089,9 +10492,9 @@ var (
 // See https://core.telegram.org/constructor/updatePhoneCallSignalingData for reference.
 type UpdatePhoneCallSignalingData struct {
 	// Phone call ID
-	PhoneCallID int64
+	PhoneCallID int64 `schemaname:"phone_call_id"`
 	// Signaling payload
-	Data []byte
+	Data []byte `schemaname:"data"`
 }
 
 // UpdatePhoneCallSignalingDataTypeID is TL type id of UpdatePhoneCallSignalingData.
@@ -10133,6 +10536,11 @@ func (u *UpdatePhoneCallSignalingData) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePhoneCallSignalingData) TypeID() uint32 {
 	return UpdatePhoneCallSignalingDataTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdatePhoneCallSignalingData) SchemaName() string {
+	return "updatePhoneCallSignalingData"
 }
 
 // Encode implements bin.Encoder.
@@ -10204,26 +10612,26 @@ type UpdateChannelParticipant struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Channel ID
-	ChannelID int
+	ChannelID int `schemaname:"channel_id"`
 	// Date of the event
-	Date int
+	Date int `schemaname:"date"`
 	// User in question
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// Previous participant status
 	//
 	// Use SetPrevParticipant and GetPrevParticipant helpers.
-	PrevParticipant ChannelParticipantClass
+	PrevParticipant ChannelParticipantClass `schemaname:"prev_participant"`
 	// New participant status
 	//
 	// Use SetNewParticipant and GetNewParticipant helpers.
-	NewParticipant ChannelParticipantClass
+	NewParticipant ChannelParticipantClass `schemaname:"new_participant"`
 	// PTS¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Qts int
+	Qts int `schemaname:"qts"`
 }
 
 // UpdateChannelParticipantTypeID is TL type id of UpdateChannelParticipant.
@@ -10282,9 +10690,11 @@ func (u *UpdateChannelParticipant) FillFrom(from interface {
 	if val, ok := from.GetPrevParticipant(); ok {
 		u.PrevParticipant = val
 	}
+
 	if val, ok := from.GetNewParticipant(); ok {
 		u.NewParticipant = val
 	}
+
 	u.Qts = from.GetQts()
 }
 
@@ -10292,6 +10702,11 @@ func (u *UpdateChannelParticipant) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChannelParticipant) TypeID() uint32 {
 	return UpdateChannelParticipantTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateChannelParticipant) SchemaName() string {
+	return "updateChannelParticipant"
 }
 
 // Encode implements bin.Encoder.
@@ -10457,11 +10872,11 @@ var (
 // See https://core.telegram.org/constructor/updateChannelMessageForwards for reference.
 type UpdateChannelMessageForwards struct {
 	// Channel ID
-	ChannelID int
+	ChannelID int `schemaname:"channel_id"`
 	// ID of the message
-	ID int
+	ID int `schemaname:"id"`
 	// New forward counter
-	Forwards int
+	Forwards int `schemaname:"forwards"`
 }
 
 // UpdateChannelMessageForwardsTypeID is TL type id of UpdateChannelMessageForwards.
@@ -10508,6 +10923,11 @@ func (u *UpdateChannelMessageForwards) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChannelMessageForwards) TypeID() uint32 {
 	return UpdateChannelMessageForwardsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateChannelMessageForwards) SchemaName() string {
+	return "updateChannelMessageForwards"
 }
 
 // Encode implements bin.Encoder.
@@ -10592,22 +11012,22 @@ type UpdateReadChannelDiscussionInbox struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Discussion group ID¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	ChannelID int
+	ChannelID int `schemaname:"channel_id"`
 	// ID of the group message that started the thread¹ (message in linked discussion group)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
-	TopMsgID int
+	TopMsgID int `schemaname:"top_msg_id"`
 	// Message ID of latest read incoming message for this thread¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
-	ReadMaxID int
+	ReadMaxID int `schemaname:"read_max_id"`
 	// If set, contains the ID of the channel¹ that contains the post that started the comment thread² in the discussion group (channel_id)
 	//
 	// Links:
@@ -10615,14 +11035,14 @@ type UpdateReadChannelDiscussionInbox struct {
 	//  2) https://core.telegram.org/api/threads
 	//
 	// Use SetBroadcastID and GetBroadcastID helpers.
-	BroadcastID int
+	BroadcastID int `schemaname:"broadcast_id"`
 	// If set, contains the ID of the channel post that started the the comment thread¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetBroadcastPost and GetBroadcastPost helpers.
-	BroadcastPost int
+	BroadcastPost int `schemaname:"broadcast_post"`
 }
 
 // UpdateReadChannelDiscussionInboxTypeID is TL type id of UpdateReadChannelDiscussionInbox.
@@ -10677,15 +11097,22 @@ func (u *UpdateReadChannelDiscussionInbox) FillFrom(from interface {
 	if val, ok := from.GetBroadcastID(); ok {
 		u.BroadcastID = val
 	}
+
 	if val, ok := from.GetBroadcastPost(); ok {
 		u.BroadcastPost = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateReadChannelDiscussionInbox) TypeID() uint32 {
 	return UpdateReadChannelDiscussionInboxTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateReadChannelDiscussionInbox) SchemaName() string {
+	return "updateReadChannelDiscussionInbox"
 }
 
 // Encode implements bin.Encoder.
@@ -10834,17 +11261,17 @@ type UpdateReadChannelDiscussionOutbox struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	ChannelID int
+	ChannelID int `schemaname:"channel_id"`
 	// ID of the group message that started the thread¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
-	TopMsgID int
+	TopMsgID int `schemaname:"top_msg_id"`
 	// Message ID of latest read outgoing message for this thread¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
-	ReadMaxID int
+	ReadMaxID int `schemaname:"read_max_id"`
 }
 
 // UpdateReadChannelDiscussionOutboxTypeID is TL type id of UpdateReadChannelDiscussionOutbox.
@@ -10891,6 +11318,11 @@ func (u *UpdateReadChannelDiscussionOutbox) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateReadChannelDiscussionOutbox) TypeID() uint32 {
 	return UpdateReadChannelDiscussionOutboxTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateReadChannelDiscussionOutbox) SchemaName() string {
+	return "updateReadChannelDiscussionOutbox"
 }
 
 // Encode implements bin.Encoder.
@@ -10969,9 +11401,9 @@ var (
 // See https://core.telegram.org/constructor/updatePeerBlocked for reference.
 type UpdatePeerBlocked struct {
 	// The blocked peer
-	PeerID PeerClass
+	PeerID PeerClass `schemaname:"peer_id"`
 	// Whether the peer was blocked or unblocked
-	Blocked bool
+	Blocked bool `schemaname:"blocked"`
 }
 
 // UpdatePeerBlockedTypeID is TL type id of UpdatePeerBlocked.
@@ -11013,6 +11445,11 @@ func (u *UpdatePeerBlocked) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePeerBlocked) TypeID() uint32 {
 	return UpdatePeerBlockedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdatePeerBlocked) SchemaName() string {
+	return "updatePeerBlocked"
 }
 
 // Encode implements bin.Encoder.
@@ -11090,20 +11527,20 @@ type UpdateChannelUserTyping struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Channel ID
-	ChannelID int
+	ChannelID int `schemaname:"channel_id"`
 	// Thread ID¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
-	TopMsgID int
+	TopMsgID int `schemaname:"top_msg_id"`
 	// User ID
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// Whether the user is typing, sending a media or doing something else
-	Action SendMessageActionClass
+	Action SendMessageActionClass `schemaname:"action"`
 }
 
 // UpdateChannelUserTypingTypeID is TL type id of UpdateChannelUserTyping.
@@ -11152,6 +11589,7 @@ func (u *UpdateChannelUserTyping) FillFrom(from interface {
 	if val, ok := from.GetTopMsgID(); ok {
 		u.TopMsgID = val
 	}
+
 	u.UserID = from.GetUserID()
 	u.Action = from.GetAction()
 }
@@ -11160,6 +11598,11 @@ func (u *UpdateChannelUserTyping) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChannelUserTyping) TypeID() uint32 {
 	return UpdateChannelUserTypingTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateChannelUserTyping) SchemaName() string {
+	return "updateChannelUserTyping"
 }
 
 // Encode implements bin.Encoder.
@@ -11282,23 +11725,23 @@ type UpdatePinnedMessages struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether the messages were pinned or unpinned
-	Pinned bool
+	Pinned bool `schemaname:"pinned"`
 	// Peer
-	Peer PeerClass
+	Peer PeerClass `schemaname:"peer"`
 	// Message IDs
-	Messages []int
+	Messages []int `schemaname:"messages"`
 	// Event count after generation¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int
+	Pts int `schemaname:"pts"`
 	// Number of events that were generated¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	PtsCount int
+	PtsCount int `schemaname:"pts_count"`
 }
 
 // UpdatePinnedMessagesTypeID is TL type id of UpdatePinnedMessages.
@@ -11347,6 +11790,7 @@ func (u *UpdatePinnedMessages) FillFrom(from interface {
 	GetPts() (value int)
 	GetPtsCount() (value int)
 }) {
+	u.Pinned = from.GetPinned()
 	u.Peer = from.GetPeer()
 	u.Messages = from.GetMessages()
 	u.Pts = from.GetPts()
@@ -11357,6 +11801,11 @@ func (u *UpdatePinnedMessages) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePinnedMessages) TypeID() uint32 {
 	return UpdatePinnedMessagesTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdatePinnedMessages) SchemaName() string {
+	return "updatePinnedMessages"
 }
 
 // Encode implements bin.Encoder.
@@ -11496,23 +11945,23 @@ type UpdatePinnedChannelMessages struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether the messages were pinned or unpinned
-	Pinned bool
+	Pinned bool `schemaname:"pinned"`
 	// Channel ID
-	ChannelID int
+	ChannelID int `schemaname:"channel_id"`
 	// Messages
-	Messages []int
+	Messages []int `schemaname:"messages"`
 	// Event count after generation¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int
+	Pts int `schemaname:"pts"`
 	// Number of events that were generated¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	PtsCount int
+	PtsCount int `schemaname:"pts_count"`
 }
 
 // UpdatePinnedChannelMessagesTypeID is TL type id of UpdatePinnedChannelMessages.
@@ -11561,6 +12010,7 @@ func (u *UpdatePinnedChannelMessages) FillFrom(from interface {
 	GetPts() (value int)
 	GetPtsCount() (value int)
 }) {
+	u.Pinned = from.GetPinned()
 	u.ChannelID = from.GetChannelID()
 	u.Messages = from.GetMessages()
 	u.Pts = from.GetPts()
@@ -11571,6 +12021,11 @@ func (u *UpdatePinnedChannelMessages) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePinnedChannelMessages) TypeID() uint32 {
 	return UpdatePinnedChannelMessagesTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdatePinnedChannelMessages) SchemaName() string {
+	return "updatePinnedChannelMessages"
 }
 
 // Encode implements bin.Encoder.
@@ -11698,7 +12153,7 @@ var (
 // See https://core.telegram.org/constructor/updateChat for reference.
 type UpdateChat struct {
 	// ChatID field of UpdateChat.
-	ChatID int
+	ChatID int `schemaname:"chat_id"`
 }
 
 // UpdateChatTypeID is TL type id of UpdateChat.
@@ -11735,6 +12190,11 @@ func (u *UpdateChat) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChat) TypeID() uint32 {
 	return UpdateChatTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateChat) SchemaName() string {
+	return "updateChat"
 }
 
 // Encode implements bin.Encoder.
@@ -11786,11 +12246,11 @@ var (
 // See https://core.telegram.org/constructor/updateGroupCallParticipants for reference.
 type UpdateGroupCallParticipants struct {
 	// Call field of UpdateGroupCallParticipants.
-	Call InputGroupCall
+	Call InputGroupCall `schemaname:"call"`
 	// Participants field of UpdateGroupCallParticipants.
-	Participants []GroupCallParticipant
+	Participants []GroupCallParticipant `schemaname:"participants"`
 	// Version field of UpdateGroupCallParticipants.
-	Version int
+	Version int `schemaname:"version"`
 }
 
 // UpdateGroupCallParticipantsTypeID is TL type id of UpdateGroupCallParticipants.
@@ -11837,6 +12297,11 @@ func (u *UpdateGroupCallParticipants) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateGroupCallParticipants) TypeID() uint32 {
 	return UpdateGroupCallParticipantsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateGroupCallParticipants) SchemaName() string {
+	return "updateGroupCallParticipants"
 }
 
 // Encode implements bin.Encoder.
@@ -11925,9 +12390,9 @@ var (
 // See https://core.telegram.org/constructor/updateGroupCall for reference.
 type UpdateGroupCall struct {
 	// ChatID field of UpdateGroupCall.
-	ChatID int
+	ChatID int `schemaname:"chat_id"`
 	// Call field of UpdateGroupCall.
-	Call GroupCallClass
+	Call GroupCallClass `schemaname:"call"`
 }
 
 // UpdateGroupCallTypeID is TL type id of UpdateGroupCall.
@@ -11969,6 +12434,11 @@ func (u *UpdateGroupCall) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateGroupCall) TypeID() uint32 {
 	return UpdateGroupCallTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UpdateGroupCall) SchemaName() string {
+	return "updateGroupCall"
 }
 
 // Encode implements bin.Encoder.
@@ -12141,6 +12611,8 @@ type UpdateClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

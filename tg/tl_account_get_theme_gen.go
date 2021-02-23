@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.getTheme for reference.
 type AccountGetThemeRequest struct {
 	// Theme format, a string that identifies the theming engines supported by the client
-	Format string
+	Format string `schemaname:"format"`
 	// Theme
-	Theme InputThemeClass
+	Theme InputThemeClass `schemaname:"theme"`
 	// Document ID
-	DocumentID int64
+	DocumentID int64 `schemaname:"document_id"`
 }
 
 // AccountGetThemeRequestTypeID is TL type id of AccountGetThemeRequest.
@@ -75,6 +75,11 @@ func (g *AccountGetThemeRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *AccountGetThemeRequest) TypeID() uint32 {
 	return AccountGetThemeRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *AccountGetThemeRequest) SchemaName() string {
+	return "account.getTheme"
 }
 
 // Encode implements bin.Encoder.

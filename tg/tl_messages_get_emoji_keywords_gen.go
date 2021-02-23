@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getEmojiKeywords for reference.
 type MessagesGetEmojiKeywordsRequest struct {
 	// Language code
-	LangCode string
+	LangCode string `schemaname:"lang_code"`
 }
 
 // MessagesGetEmojiKeywordsRequestTypeID is TL type id of MessagesGetEmojiKeywordsRequest.
@@ -61,6 +61,11 @@ func (g *MessagesGetEmojiKeywordsRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetEmojiKeywordsRequest) TypeID() uint32 {
 	return MessagesGetEmojiKeywordsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *MessagesGetEmojiKeywordsRequest) SchemaName() string {
+	return "messages.getEmojiKeywords"
 }
 
 // Encode implements bin.Encoder.

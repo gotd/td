@@ -27,23 +27,23 @@ type AutoDownloadSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Disable automatic media downloads?
-	Disabled bool
+	Disabled bool `schemaname:"disabled"`
 	// Whether to preload the first seconds of videos larger than the specified limit
-	VideoPreloadLarge bool
+	VideoPreloadLarge bool `schemaname:"video_preload_large"`
 	// Whether to preload the next audio track when you're listening to music
-	AudioPreloadNext bool
+	AudioPreloadNext bool `schemaname:"audio_preload_next"`
 	// Whether to enable data saving mode in phone calls
-	PhonecallsLessData bool
+	PhonecallsLessData bool `schemaname:"phonecalls_less_data"`
 	// Maximum size of photos to preload
-	PhotoSizeMax int
+	PhotoSizeMax int `schemaname:"photo_size_max"`
 	// Maximum size of videos to preload
-	VideoSizeMax int
+	VideoSizeMax int `schemaname:"video_size_max"`
 	// Maximum size of other files to preload
-	FileSizeMax int
+	FileSizeMax int `schemaname:"file_size_max"`
 	// Maximum suggested bitrate for uploading videos
-	VideoUploadMaxbitrate int
+	VideoUploadMaxbitrate int `schemaname:"video_upload_maxbitrate"`
 }
 
 // AutoDownloadSettingsTypeID is TL type id of AutoDownloadSettings.
@@ -104,6 +104,10 @@ func (a *AutoDownloadSettings) FillFrom(from interface {
 	GetFileSizeMax() (value int)
 	GetVideoUploadMaxbitrate() (value int)
 }) {
+	a.Disabled = from.GetDisabled()
+	a.VideoPreloadLarge = from.GetVideoPreloadLarge()
+	a.AudioPreloadNext = from.GetAudioPreloadNext()
+	a.PhonecallsLessData = from.GetPhonecallsLessData()
 	a.PhotoSizeMax = from.GetPhotoSizeMax()
 	a.VideoSizeMax = from.GetVideoSizeMax()
 	a.FileSizeMax = from.GetFileSizeMax()
@@ -114,6 +118,11 @@ func (a *AutoDownloadSettings) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *AutoDownloadSettings) TypeID() uint32 {
 	return AutoDownloadSettingsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (a *AutoDownloadSettings) SchemaName() string {
+	return "autoDownloadSettings"
 }
 
 // Encode implements bin.Encoder.

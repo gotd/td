@@ -30,28 +30,28 @@ type AccountAuthorizationForm struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Required Telegram Passport¹ documents
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
-	RequiredTypes []SecureRequiredTypeClass
+	RequiredTypes []SecureRequiredTypeClass `schemaname:"required_types"`
 	// Already submitted Telegram Passport¹ documents
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
-	Values []SecureValue
+	Values []SecureValue `schemaname:"values"`
 	// Telegram Passport¹ errors
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
-	Errors []SecureValueErrorClass
+	Errors []SecureValueErrorClass `schemaname:"errors"`
 	// Info about the bot to which the form will be submitted
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 	// URL of the service's privacy policy
 	//
 	// Use SetPrivacyPolicyURL and GetPrivacyPolicyURL helpers.
-	PrivacyPolicyURL string
+	PrivacyPolicyURL string `schemaname:"privacy_policy_url"`
 }
 
 // AccountAuthorizationFormTypeID is TL type id of AccountAuthorizationForm.
@@ -107,12 +107,18 @@ func (a *AccountAuthorizationForm) FillFrom(from interface {
 	if val, ok := from.GetPrivacyPolicyURL(); ok {
 		a.PrivacyPolicyURL = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *AccountAuthorizationForm) TypeID() uint32 {
 	return AccountAuthorizationFormTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (a *AccountAuthorizationForm) SchemaName() string {
+	return "account.authorizationForm"
 }
 
 // Encode implements bin.Encoder.

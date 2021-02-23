@@ -51,6 +51,11 @@ func (p *PageBlockUnsupported) TypeID() uint32 {
 	return PageBlockUnsupportedTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (p *PageBlockUnsupported) SchemaName() string {
+	return "pageBlockUnsupported"
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockUnsupported) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -88,7 +93,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockTitle for reference.
 type PageBlockTitle struct {
 	// Title
-	Text RichTextClass
+	Text RichTextClass `schemaname:"text"`
 }
 
 // PageBlockTitleTypeID is TL type id of PageBlockTitle.
@@ -125,6 +130,11 @@ func (p *PageBlockTitle) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockTitle) TypeID() uint32 {
 	return PageBlockTitleTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockTitle) SchemaName() string {
+	return "pageBlockTitle"
 }
 
 // Encode implements bin.Encoder.
@@ -182,7 +192,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockSubtitle for reference.
 type PageBlockSubtitle struct {
 	// Text
-	Text RichTextClass
+	Text RichTextClass `schemaname:"text"`
 }
 
 // PageBlockSubtitleTypeID is TL type id of PageBlockSubtitle.
@@ -219,6 +229,11 @@ func (p *PageBlockSubtitle) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockSubtitle) TypeID() uint32 {
 	return PageBlockSubtitleTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockSubtitle) SchemaName() string {
+	return "pageBlockSubtitle"
 }
 
 // Encode implements bin.Encoder.
@@ -276,9 +291,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockAuthorDate for reference.
 type PageBlockAuthorDate struct {
 	// Author name
-	Author RichTextClass
+	Author RichTextClass `schemaname:"author"`
 	// Date of pubblication
-	PublishedDate int
+	PublishedDate int `schemaname:"published_date"`
 }
 
 // PageBlockAuthorDateTypeID is TL type id of PageBlockAuthorDate.
@@ -320,6 +335,11 @@ func (p *PageBlockAuthorDate) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockAuthorDate) TypeID() uint32 {
 	return PageBlockAuthorDateTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockAuthorDate) SchemaName() string {
+	return "pageBlockAuthorDate"
 }
 
 // Encode implements bin.Encoder.
@@ -390,7 +410,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockHeader for reference.
 type PageBlockHeader struct {
 	// Contents
-	Text RichTextClass
+	Text RichTextClass `schemaname:"text"`
 }
 
 // PageBlockHeaderTypeID is TL type id of PageBlockHeader.
@@ -427,6 +447,11 @@ func (p *PageBlockHeader) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockHeader) TypeID() uint32 {
 	return PageBlockHeaderTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockHeader) SchemaName() string {
+	return "pageBlockHeader"
 }
 
 // Encode implements bin.Encoder.
@@ -484,7 +509,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockSubheader for reference.
 type PageBlockSubheader struct {
 	// Subheader
-	Text RichTextClass
+	Text RichTextClass `schemaname:"text"`
 }
 
 // PageBlockSubheaderTypeID is TL type id of PageBlockSubheader.
@@ -521,6 +546,11 @@ func (p *PageBlockSubheader) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockSubheader) TypeID() uint32 {
 	return PageBlockSubheaderTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockSubheader) SchemaName() string {
+	return "pageBlockSubheader"
 }
 
 // Encode implements bin.Encoder.
@@ -578,7 +608,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockParagraph for reference.
 type PageBlockParagraph struct {
 	// Text
-	Text RichTextClass
+	Text RichTextClass `schemaname:"text"`
 }
 
 // PageBlockParagraphTypeID is TL type id of PageBlockParagraph.
@@ -615,6 +645,11 @@ func (p *PageBlockParagraph) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockParagraph) TypeID() uint32 {
 	return PageBlockParagraphTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockParagraph) SchemaName() string {
+	return "pageBlockParagraph"
 }
 
 // Encode implements bin.Encoder.
@@ -672,9 +707,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockPreformatted for reference.
 type PageBlockPreformatted struct {
 	// Text
-	Text RichTextClass
+	Text RichTextClass `schemaname:"text"`
 	// Programming language of preformatted text
-	Language string
+	Language string `schemaname:"language"`
 }
 
 // PageBlockPreformattedTypeID is TL type id of PageBlockPreformatted.
@@ -716,6 +751,11 @@ func (p *PageBlockPreformatted) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockPreformatted) TypeID() uint32 {
 	return PageBlockPreformattedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockPreformatted) SchemaName() string {
+	return "pageBlockPreformatted"
 }
 
 // Encode implements bin.Encoder.
@@ -786,7 +826,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockFooter for reference.
 type PageBlockFooter struct {
 	// Contents
-	Text RichTextClass
+	Text RichTextClass `schemaname:"text"`
 }
 
 // PageBlockFooterTypeID is TL type id of PageBlockFooter.
@@ -823,6 +863,11 @@ func (p *PageBlockFooter) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockFooter) TypeID() uint32 {
 	return PageBlockFooterTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockFooter) SchemaName() string {
+	return "pageBlockFooter"
 }
 
 // Encode implements bin.Encoder.
@@ -907,6 +952,11 @@ func (p *PageBlockDivider) TypeID() uint32 {
 	return PageBlockDividerTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (p *PageBlockDivider) SchemaName() string {
+	return "pageBlockDivider"
+}
+
 // Encode implements bin.Encoder.
 func (p *PageBlockDivider) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -944,7 +994,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockAnchor for reference.
 type PageBlockAnchor struct {
 	// Name of target section
-	Name string
+	Name string `schemaname:"name"`
 }
 
 // PageBlockAnchorTypeID is TL type id of PageBlockAnchor.
@@ -981,6 +1031,11 @@ func (p *PageBlockAnchor) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockAnchor) TypeID() uint32 {
 	return PageBlockAnchorTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockAnchor) SchemaName() string {
+	return "pageBlockAnchor"
 }
 
 // Encode implements bin.Encoder.
@@ -1033,7 +1088,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockList for reference.
 type PageBlockList struct {
 	// List of blocks in an IV page
-	Items []PageListItemClass
+	Items []PageListItemClass `schemaname:"items"`
 }
 
 // PageBlockListTypeID is TL type id of PageBlockList.
@@ -1070,6 +1125,11 @@ func (p *PageBlockList) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockList) TypeID() uint32 {
 	return PageBlockListTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockList) SchemaName() string {
+	return "pageBlockList"
 }
 
 // Encode implements bin.Encoder.
@@ -1141,9 +1201,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockBlockquote for reference.
 type PageBlockBlockquote struct {
 	// Quote contents
-	Text RichTextClass
+	Text RichTextClass `schemaname:"text"`
 	// Caption
-	Caption RichTextClass
+	Caption RichTextClass `schemaname:"caption"`
 }
 
 // PageBlockBlockquoteTypeID is TL type id of PageBlockBlockquote.
@@ -1185,6 +1245,11 @@ func (p *PageBlockBlockquote) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockBlockquote) TypeID() uint32 {
 	return PageBlockBlockquoteTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockBlockquote) SchemaName() string {
+	return "pageBlockBlockquote"
 }
 
 // Encode implements bin.Encoder.
@@ -1260,9 +1325,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockPullquote for reference.
 type PageBlockPullquote struct {
 	// Text
-	Text RichTextClass
+	Text RichTextClass `schemaname:"text"`
 	// Caption
-	Caption RichTextClass
+	Caption RichTextClass `schemaname:"caption"`
 }
 
 // PageBlockPullquoteTypeID is TL type id of PageBlockPullquote.
@@ -1304,6 +1369,11 @@ func (p *PageBlockPullquote) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockPullquote) TypeID() uint32 {
 	return PageBlockPullquoteTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockPullquote) SchemaName() string {
+	return "pageBlockPullquote"
 }
 
 // Encode implements bin.Encoder.
@@ -1382,19 +1452,19 @@ type PageBlockPhoto struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Photo ID
-	PhotoID int64
+	PhotoID int64 `schemaname:"photo_id"`
 	// Caption
-	Caption PageCaption
+	Caption PageCaption `schemaname:"caption"`
 	// HTTP URL of page the photo leads to when clicked
 	//
 	// Use SetURL and GetURL helpers.
-	URL string
+	URL string `schemaname:"url"`
 	// ID of preview of the page the photo leads to when clicked
 	//
 	// Use SetWebpageID and GetWebpageID helpers.
-	WebpageID int64
+	WebpageID int64 `schemaname:"webpage_id"`
 }
 
 // PageBlockPhotoTypeID is TL type id of PageBlockPhoto.
@@ -1444,15 +1514,22 @@ func (p *PageBlockPhoto) FillFrom(from interface {
 	if val, ok := from.GetURL(); ok {
 		p.URL = val
 	}
+
 	if val, ok := from.GetWebpageID(); ok {
 		p.WebpageID = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockPhoto) TypeID() uint32 {
 	return PageBlockPhotoTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockPhoto) SchemaName() string {
+	return "pageBlockPhoto"
 }
 
 // Encode implements bin.Encoder.
@@ -1585,15 +1662,15 @@ type PageBlockVideo struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether the video is set to autoplay
-	Autoplay bool
+	Autoplay bool `schemaname:"autoplay"`
 	// Whether the video is set to loop
-	Loop bool
+	Loop bool `schemaname:"loop"`
 	// Video ID
-	VideoID int64
+	VideoID int64 `schemaname:"video_id"`
 	// Caption
-	Caption PageCaption
+	Caption PageCaption `schemaname:"caption"`
 }
 
 // PageBlockVideoTypeID is TL type id of PageBlockVideo.
@@ -1638,6 +1715,8 @@ func (p *PageBlockVideo) FillFrom(from interface {
 	GetVideoID() (value int64)
 	GetCaption() (value PageCaption)
 }) {
+	p.Autoplay = from.GetAutoplay()
+	p.Loop = from.GetLoop()
 	p.VideoID = from.GetVideoID()
 	p.Caption = from.GetCaption()
 }
@@ -1646,6 +1725,11 @@ func (p *PageBlockVideo) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockVideo) TypeID() uint32 {
 	return PageBlockVideoTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockVideo) SchemaName() string {
+	return "pageBlockVideo"
 }
 
 // Encode implements bin.Encoder.
@@ -1759,7 +1843,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockCover for reference.
 type PageBlockCover struct {
 	// Cover
-	Cover PageBlockClass
+	Cover PageBlockClass `schemaname:"cover"`
 }
 
 // PageBlockCoverTypeID is TL type id of PageBlockCover.
@@ -1796,6 +1880,11 @@ func (p *PageBlockCover) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockCover) TypeID() uint32 {
 	return PageBlockCoverTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockCover) SchemaName() string {
+	return "pageBlockCover"
 }
 
 // Encode implements bin.Encoder.
@@ -1856,33 +1945,33 @@ type PageBlockEmbed struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether the block should be full width
-	FullWidth bool
+	FullWidth bool `schemaname:"full_width"`
 	// Whether scrolling should be allowed
-	AllowScrolling bool
+	AllowScrolling bool `schemaname:"allow_scrolling"`
 	// Web page URL, if available
 	//
 	// Use SetURL and GetURL helpers.
-	URL string
+	URL string `schemaname:"url"`
 	// HTML-markup of the embedded page
 	//
 	// Use SetHTML and GetHTML helpers.
-	HTML string
+	HTML string `schemaname:"html"`
 	// Poster photo, if available
 	//
 	// Use SetPosterPhotoID and GetPosterPhotoID helpers.
-	PosterPhotoID int64
+	PosterPhotoID int64 `schemaname:"poster_photo_id"`
 	// Block width, if known
 	//
 	// Use SetW and GetW helpers.
-	W int
+	W int `schemaname:"w"`
 	// Block height, if known
 	//
 	// Use SetH and GetH helpers.
-	H int
+	H int `schemaname:"h"`
 	// Caption
-	Caption PageCaption
+	Caption PageCaption `schemaname:"caption"`
 }
 
 // PageBlockEmbedTypeID is TL type id of PageBlockEmbed.
@@ -1943,21 +2032,28 @@ func (p *PageBlockEmbed) FillFrom(from interface {
 	GetH() (value int, ok bool)
 	GetCaption() (value PageCaption)
 }) {
+	p.FullWidth = from.GetFullWidth()
+	p.AllowScrolling = from.GetAllowScrolling()
 	if val, ok := from.GetURL(); ok {
 		p.URL = val
 	}
+
 	if val, ok := from.GetHTML(); ok {
 		p.HTML = val
 	}
+
 	if val, ok := from.GetPosterPhotoID(); ok {
 		p.PosterPhotoID = val
 	}
+
 	if val, ok := from.GetW(); ok {
 		p.W = val
 	}
+
 	if val, ok := from.GetH(); ok {
 		p.H = val
 	}
+
 	p.Caption = from.GetCaption()
 }
 
@@ -1965,6 +2061,11 @@ func (p *PageBlockEmbed) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockEmbed) TypeID() uint32 {
 	return PageBlockEmbedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockEmbed) SchemaName() string {
+	return "pageBlockEmbed"
 }
 
 // Encode implements bin.Encoder.
@@ -2205,19 +2306,19 @@ var (
 // See https://core.telegram.org/constructor/pageBlockEmbedPost for reference.
 type PageBlockEmbedPost struct {
 	// Web page URL
-	URL string
+	URL string `schemaname:"url"`
 	// ID of generated webpage preview
-	WebpageID int64
+	WebpageID int64 `schemaname:"webpage_id"`
 	// ID of the author's photo
-	AuthorPhotoID int64
+	AuthorPhotoID int64 `schemaname:"author_photo_id"`
 	// Author name
-	Author string
+	Author string `schemaname:"author"`
 	// Creation date
-	Date int
+	Date int `schemaname:"date"`
 	// Post contents
-	Blocks []PageBlockClass
+	Blocks []PageBlockClass `schemaname:"blocks"`
 	// Caption
-	Caption PageCaption
+	Caption PageCaption `schemaname:"caption"`
 }
 
 // PageBlockEmbedPostTypeID is TL type id of PageBlockEmbedPost.
@@ -2284,6 +2385,11 @@ func (p *PageBlockEmbedPost) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockEmbedPost) TypeID() uint32 {
 	return PageBlockEmbedPostTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockEmbedPost) SchemaName() string {
+	return "pageBlockEmbedPost"
 }
 
 // Encode implements bin.Encoder.
@@ -2433,9 +2539,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockCollage for reference.
 type PageBlockCollage struct {
 	// Media elements
-	Items []PageBlockClass
+	Items []PageBlockClass `schemaname:"items"`
 	// Caption
-	Caption PageCaption
+	Caption PageCaption `schemaname:"caption"`
 }
 
 // PageBlockCollageTypeID is TL type id of PageBlockCollage.
@@ -2477,6 +2583,11 @@ func (p *PageBlockCollage) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockCollage) TypeID() uint32 {
 	return PageBlockCollageTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockCollage) SchemaName() string {
+	return "pageBlockCollage"
 }
 
 // Encode implements bin.Encoder.
@@ -2561,9 +2672,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockSlideshow for reference.
 type PageBlockSlideshow struct {
 	// Slideshow items
-	Items []PageBlockClass
+	Items []PageBlockClass `schemaname:"items"`
 	// Caption
-	Caption PageCaption
+	Caption PageCaption `schemaname:"caption"`
 }
 
 // PageBlockSlideshowTypeID is TL type id of PageBlockSlideshow.
@@ -2605,6 +2716,11 @@ func (p *PageBlockSlideshow) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockSlideshow) TypeID() uint32 {
 	return PageBlockSlideshowTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockSlideshow) SchemaName() string {
+	return "pageBlockSlideshow"
 }
 
 // Encode implements bin.Encoder.
@@ -2689,7 +2805,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockChannel for reference.
 type PageBlockChannel struct {
 	// The channel/supergroup/chat
-	Channel ChatClass
+	Channel ChatClass `schemaname:"channel"`
 }
 
 // PageBlockChannelTypeID is TL type id of PageBlockChannel.
@@ -2726,6 +2842,11 @@ func (p *PageBlockChannel) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockChannel) TypeID() uint32 {
 	return PageBlockChannelTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockChannel) SchemaName() string {
+	return "pageBlockChannel"
 }
 
 // Encode implements bin.Encoder.
@@ -2786,9 +2907,9 @@ type PageBlockAudio struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/page
-	AudioID int64
+	AudioID int64 `schemaname:"audio_id"`
 	// Audio caption
-	Caption PageCaption
+	Caption PageCaption `schemaname:"caption"`
 }
 
 // PageBlockAudioTypeID is TL type id of PageBlockAudio.
@@ -2830,6 +2951,11 @@ func (p *PageBlockAudio) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockAudio) TypeID() uint32 {
 	return PageBlockAudioTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockAudio) SchemaName() string {
+	return "pageBlockAudio"
 }
 
 // Encode implements bin.Encoder.
@@ -2895,7 +3021,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockKicker for reference.
 type PageBlockKicker struct {
 	// Contents
-	Text RichTextClass
+	Text RichTextClass `schemaname:"text"`
 }
 
 // PageBlockKickerTypeID is TL type id of PageBlockKicker.
@@ -2932,6 +3058,11 @@ func (p *PageBlockKicker) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockKicker) TypeID() uint32 {
 	return PageBlockKickerTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockKicker) SchemaName() string {
+	return "pageBlockKicker"
 }
 
 // Encode implements bin.Encoder.
@@ -2992,15 +3123,15 @@ type PageBlockTable struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Does the table have a visible border?
-	Bordered bool
+	Bordered bool `schemaname:"bordered"`
 	// Is the table striped?
-	Striped bool
+	Striped bool `schemaname:"striped"`
 	// Title
-	Title RichTextClass
+	Title RichTextClass `schemaname:"title"`
 	// Table rows
-	Rows []PageTableRow
+	Rows []PageTableRow `schemaname:"rows"`
 }
 
 // PageBlockTableTypeID is TL type id of PageBlockTable.
@@ -3045,6 +3176,8 @@ func (p *PageBlockTable) FillFrom(from interface {
 	GetTitle() (value RichTextClass)
 	GetRows() (value []PageTableRow)
 }) {
+	p.Bordered = from.GetBordered()
+	p.Striped = from.GetStriped()
 	p.Title = from.GetTitle()
 	p.Rows = from.GetRows()
 }
@@ -3053,6 +3186,11 @@ func (p *PageBlockTable) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockTable) TypeID() uint32 {
 	return PageBlockTableTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockTable) SchemaName() string {
+	return "pageBlockTable"
 }
 
 // Encode implements bin.Encoder.
@@ -3182,7 +3320,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockOrderedList for reference.
 type PageBlockOrderedList struct {
 	// List items
-	Items []PageListOrderedItemClass
+	Items []PageListOrderedItemClass `schemaname:"items"`
 }
 
 // PageBlockOrderedListTypeID is TL type id of PageBlockOrderedList.
@@ -3219,6 +3357,11 @@ func (p *PageBlockOrderedList) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockOrderedList) TypeID() uint32 {
 	return PageBlockOrderedListTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockOrderedList) SchemaName() string {
+	return "pageBlockOrderedList"
 }
 
 // Encode implements bin.Encoder.
@@ -3293,13 +3436,13 @@ type PageBlockDetails struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether the block is open by default
-	Open bool
+	Open bool `schemaname:"open"`
 	// Block contents
-	Blocks []PageBlockClass
+	Blocks []PageBlockClass `schemaname:"blocks"`
 	// Always visible heading for the block
-	Title RichTextClass
+	Title RichTextClass `schemaname:"title"`
 }
 
 // PageBlockDetailsTypeID is TL type id of PageBlockDetails.
@@ -3340,6 +3483,7 @@ func (p *PageBlockDetails) FillFrom(from interface {
 	GetBlocks() (value []PageBlockClass)
 	GetTitle() (value RichTextClass)
 }) {
+	p.Open = from.GetOpen()
 	p.Blocks = from.GetBlocks()
 	p.Title = from.GetTitle()
 }
@@ -3348,6 +3492,11 @@ func (p *PageBlockDetails) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockDetails) TypeID() uint32 {
 	return PageBlockDetailsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockDetails) SchemaName() string {
+	return "pageBlockDetails"
 }
 
 // Encode implements bin.Encoder.
@@ -3465,9 +3614,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockRelatedArticles for reference.
 type PageBlockRelatedArticles struct {
 	// Title
-	Title RichTextClass
+	Title RichTextClass `schemaname:"title"`
 	// Related articles
-	Articles []PageRelatedArticle
+	Articles []PageRelatedArticle `schemaname:"articles"`
 }
 
 // PageBlockRelatedArticlesTypeID is TL type id of PageBlockRelatedArticles.
@@ -3509,6 +3658,11 @@ func (p *PageBlockRelatedArticles) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockRelatedArticles) TypeID() uint32 {
 	return PageBlockRelatedArticlesTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockRelatedArticles) SchemaName() string {
+	return "pageBlockRelatedArticles"
 }
 
 // Encode implements bin.Encoder.
@@ -3590,15 +3744,15 @@ var (
 // See https://core.telegram.org/constructor/pageBlockMap for reference.
 type PageBlockMap struct {
 	// Location of the map center
-	Geo GeoPointClass
+	Geo GeoPointClass `schemaname:"geo"`
 	// Map zoom level; 13-20
-	Zoom int
+	Zoom int `schemaname:"zoom"`
 	// Map width in pixels before applying scale; 16-102
-	W int
+	W int `schemaname:"w"`
 	// Map height in pixels before applying scale; 16-1024
-	H int
+	H int `schemaname:"h"`
 	// Caption
-	Caption PageCaption
+	Caption PageCaption `schemaname:"caption"`
 }
 
 // PageBlockMapTypeID is TL type id of PageBlockMap.
@@ -3655,6 +3809,11 @@ func (p *PageBlockMap) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockMap) TypeID() uint32 {
 	return PageBlockMapTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageBlockMap) SchemaName() string {
+	return "pageBlockMap"
 }
 
 // Encode implements bin.Encoder.
@@ -3807,6 +3966,8 @@ type PageBlockClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

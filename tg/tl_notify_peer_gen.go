@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/notifyPeer for reference.
 type NotifyPeer struct {
 	// user or group
-	Peer PeerClass
+	Peer PeerClass `schemaname:"peer"`
 }
 
 // NotifyPeerTypeID is TL type id of NotifyPeer.
@@ -61,6 +61,11 @@ func (n *NotifyPeer) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (n *NotifyPeer) TypeID() uint32 {
 	return NotifyPeerTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (n *NotifyPeer) SchemaName() string {
+	return "notifyPeer"
 }
 
 // Encode implements bin.Encoder.
@@ -145,6 +150,11 @@ func (n *NotifyUsers) TypeID() uint32 {
 	return NotifyUsersTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (n *NotifyUsers) SchemaName() string {
+	return "notifyUsers"
+}
+
 // Encode implements bin.Encoder.
 func (n *NotifyUsers) Encode(b *bin.Buffer) error {
 	if n == nil {
@@ -207,6 +217,11 @@ func (n *NotifyChats) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (n *NotifyChats) TypeID() uint32 {
 	return NotifyChatsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (n *NotifyChats) SchemaName() string {
+	return "notifyChats"
 }
 
 // Encode implements bin.Encoder.
@@ -273,6 +288,11 @@ func (n *NotifyBroadcasts) TypeID() uint32 {
 	return NotifyBroadcastsTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (n *NotifyBroadcasts) SchemaName() string {
+	return "notifyBroadcasts"
+}
+
 // Encode implements bin.Encoder.
 func (n *NotifyBroadcasts) Encode(b *bin.Buffer) error {
 	if n == nil {
@@ -328,6 +348,8 @@ type NotifyPeerClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

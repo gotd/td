@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.setGlobalPrivacySettings for reference.
 type AccountSetGlobalPrivacySettingsRequest struct {
 	// Global privacy settings
-	Settings GlobalPrivacySettings
+	Settings GlobalPrivacySettings `schemaname:"settings"`
 }
 
 // AccountSetGlobalPrivacySettingsRequestTypeID is TL type id of AccountSetGlobalPrivacySettingsRequest.
@@ -61,6 +61,11 @@ func (s *AccountSetGlobalPrivacySettingsRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AccountSetGlobalPrivacySettingsRequest) TypeID() uint32 {
 	return AccountSetGlobalPrivacySettingsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *AccountSetGlobalPrivacySettingsRequest) SchemaName() string {
+	return "account.setGlobalPrivacySettings"
 }
 
 // Encode implements bin.Encoder.

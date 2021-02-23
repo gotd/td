@@ -12,6 +12,7 @@ func Funcs() template.FuncMap {
 		"trim":       strings.TrimSpace,
 		"lower":      strings.ToLower,
 		"trimPrefix": strings.TrimPrefix,
+		"trimSuffix": strings.TrimSuffix,
 		"hasPrefix":  strings.HasPrefix,
 		"hasSuffix":  strings.HasSuffix,
 		"hasField": func(fields []fieldDef, name, typ string) bool {

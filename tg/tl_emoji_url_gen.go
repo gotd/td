@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/emojiURL for reference.
 type EmojiURL struct {
 	// An HTTP URL which can be used to automatically log in into translation platform and suggest new emoji replacements. The URL will be valid for 30 seconds after generation
-	URL string
+	URL string `schemaname:"url"`
 }
 
 // EmojiURLTypeID is TL type id of EmojiURL.
@@ -61,6 +61,11 @@ func (e *EmojiURL) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EmojiURL) TypeID() uint32 {
 	return EmojiURLTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *EmojiURL) SchemaName() string {
+	return "emojiURL"
 }
 
 // Encode implements bin.Encoder.

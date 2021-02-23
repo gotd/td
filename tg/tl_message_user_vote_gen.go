@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messageUserVote for reference.
 type MessageUserVote struct {
 	// User ID
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// The option chosen by the user
-	Option []byte
+	Option []byte `schemaname:"option"`
 	// When did the user cast the vote
-	Date int
+	Date int `schemaname:"date"`
 }
 
 // MessageUserVoteTypeID is TL type id of MessageUserVote.
@@ -75,6 +75,11 @@ func (m *MessageUserVote) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageUserVote) TypeID() uint32 {
 	return MessageUserVoteTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageUserVote) SchemaName() string {
+	return "messageUserVote"
 }
 
 // Encode implements bin.Encoder.
@@ -156,9 +161,9 @@ var (
 // See https://core.telegram.org/constructor/messageUserVoteInputOption for reference.
 type MessageUserVoteInputOption struct {
 	// The user that voted for the queried option
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// When did the user cast the vote
-	Date int
+	Date int `schemaname:"date"`
 }
 
 // MessageUserVoteInputOptionTypeID is TL type id of MessageUserVoteInputOption.
@@ -200,6 +205,11 @@ func (m *MessageUserVoteInputOption) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageUserVoteInputOption) TypeID() uint32 {
 	return MessageUserVoteInputOptionTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageUserVoteInputOption) SchemaName() string {
+	return "messageUserVoteInputOption"
 }
 
 // Encode implements bin.Encoder.
@@ -265,11 +275,11 @@ var (
 // See https://core.telegram.org/constructor/messageUserVoteMultiple for reference.
 type MessageUserVoteMultiple struct {
 	// User ID
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// Options chosen by the user
-	Options [][]byte
+	Options [][]byte `schemaname:"options"`
 	// When did the user cast their votes
-	Date int
+	Date int `schemaname:"date"`
 }
 
 // MessageUserVoteMultipleTypeID is TL type id of MessageUserVoteMultiple.
@@ -316,6 +326,11 @@ func (m *MessageUserVoteMultiple) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageUserVoteMultiple) TypeID() uint32 {
 	return MessageUserVoteMultipleTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageUserVoteMultiple) SchemaName() string {
+	return "messageUserVoteMultiple"
 }
 
 // Encode implements bin.Encoder.
@@ -417,18 +432,20 @@ type MessageUserVoteClass interface {
 	bin.Decoder
 	construct() MessageUserVoteClass
 
-	// User ID
-	GetUserID() (value int)
-	// When did the user cast the vote
-	GetDate() (value int)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// User ID
+	GetUserID() (value int)
+	// When did the user cast the vote
+	GetDate() (value int)
 }
 
 // DecodeMessageUserVote implements binary de-serialization for MessageUserVoteClass.

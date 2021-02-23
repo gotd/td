@@ -27,12 +27,12 @@ var _ = errors.Is
 // See https://core.telegram.org/method/auth.resendCode for reference.
 type AuthResendCodeRequest struct {
 	// The phone number
-	PhoneNumber string
+	PhoneNumber string `schemaname:"phone_number"`
 	// The phone code hash obtained from auth.sendCode¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/auth.sendCode
-	PhoneCodeHash string
+	PhoneCodeHash string `schemaname:"phone_code_hash"`
 }
 
 // AuthResendCodeRequestTypeID is TL type id of AuthResendCodeRequest.
@@ -74,6 +74,11 @@ func (r *AuthResendCodeRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *AuthResendCodeRequest) TypeID() uint32 {
 	return AuthResendCodeRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *AuthResendCodeRequest) SchemaName() string {
+	return "auth.resendCode"
 }
 
 // Encode implements bin.Encoder.

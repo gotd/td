@@ -27,13 +27,13 @@ type InputWebDocument struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files
-	URL string
+	URL string `schemaname:"url"`
 	// Remote file size
-	Size int
+	Size int `schemaname:"size"`
 	// Mime type
-	MimeType string
+	MimeType string `schemaname:"mime_type"`
 	// Attributes for media types
-	Attributes []DocumentAttributeClass
+	Attributes []DocumentAttributeClass `schemaname:"attributes"`
 }
 
 // InputWebDocumentTypeID is TL type id of InputWebDocument.
@@ -85,6 +85,11 @@ func (i *InputWebDocument) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputWebDocument) TypeID() uint32 {
 	return InputWebDocumentTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputWebDocument) SchemaName() string {
+	return "inputWebDocument"
 }
 
 // Encode implements bin.Encoder.

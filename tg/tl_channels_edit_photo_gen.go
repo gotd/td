@@ -27,9 +27,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/channels.editPhoto for reference.
 type ChannelsEditPhotoRequest struct {
 	// Channel/supergroup whose photo should be edited
-	Channel InputChannelClass
+	Channel InputChannelClass `schemaname:"channel"`
 	// New photo
-	Photo InputChatPhotoClass
+	Photo InputChatPhotoClass `schemaname:"photo"`
 }
 
 // ChannelsEditPhotoRequestTypeID is TL type id of ChannelsEditPhotoRequest.
@@ -71,6 +71,11 @@ func (e *ChannelsEditPhotoRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *ChannelsEditPhotoRequest) TypeID() uint32 {
 	return ChannelsEditPhotoRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *ChannelsEditPhotoRequest) SchemaName() string {
+	return "channels.editPhoto"
 }
 
 // Encode implements bin.Encoder.

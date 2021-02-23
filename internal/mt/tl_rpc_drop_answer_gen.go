@@ -48,6 +48,11 @@ func (r *RPCAnswerUnknown) TypeID() uint32 {
 	return RPCAnswerUnknownTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (r *RPCAnswerUnknown) SchemaName() string {
+	return "rpc_answer_unknown"
+}
+
 // Encode implements bin.Encoder.
 func (r *RPCAnswerUnknown) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -109,6 +114,11 @@ func (r *RPCAnswerDroppedRunning) TypeID() uint32 {
 	return RPCAnswerDroppedRunningTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (r *RPCAnswerDroppedRunning) SchemaName() string {
+	return "rpc_answer_dropped_running"
+}
+
 // Encode implements bin.Encoder.
 func (r *RPCAnswerDroppedRunning) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -143,11 +153,11 @@ var (
 // RPCAnswerDropped represents TL type `rpc_answer_dropped#a43ad8b7`.
 type RPCAnswerDropped struct {
 	// MsgID field of RPCAnswerDropped.
-	MsgID int64
+	MsgID int64 `schemaname:"msg_id"`
 	// SeqNo field of RPCAnswerDropped.
-	SeqNo int
+	SeqNo int `schemaname:"seq_no"`
 	// Bytes field of RPCAnswerDropped.
-	Bytes int
+	Bytes int `schemaname:"bytes"`
 }
 
 // RPCAnswerDroppedTypeID is TL type id of RPCAnswerDropped.
@@ -194,6 +204,11 @@ func (r *RPCAnswerDropped) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RPCAnswerDropped) TypeID() uint32 {
 	return RPCAnswerDroppedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *RPCAnswerDropped) SchemaName() string {
+	return "rpc_answer_dropped"
 }
 
 // Encode implements bin.Encoder.
@@ -287,6 +302,8 @@ type RpcDropAnswerClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

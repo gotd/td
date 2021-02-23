@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/chatInviteAlready for reference.
 type ChatInviteAlready struct {
 	// The chat connected to the invite
-	Chat ChatClass
+	Chat ChatClass `schemaname:"chat"`
 }
 
 // ChatInviteAlreadyTypeID is TL type id of ChatInviteAlready.
@@ -61,6 +61,11 @@ func (c *ChatInviteAlready) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatInviteAlready) TypeID() uint32 {
 	return ChatInviteAlreadyTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChatInviteAlready) SchemaName() string {
+	return "chatInviteAlready"
 }
 
 // Encode implements bin.Encoder.
@@ -121,38 +126,38 @@ type ChatInvite struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether this is a channel/supergroup¹ or a normal group²
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	//  2) https://core.telegram.org/api/channel
-	Channel bool
+	Channel bool `schemaname:"channel"`
 	// Whether this is a channel¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Broadcast bool
+	Broadcast bool `schemaname:"broadcast"`
 	// Whether this is a public channel/supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Public bool
+	Public bool `schemaname:"public"`
 	// Whether this is a supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Megagroup bool
+	Megagroup bool `schemaname:"megagroup"`
 	// Chat/supergroup/channel title
-	Title string
+	Title string `schemaname:"title"`
 	// Chat/supergroup/channel photo
-	Photo PhotoClass
+	Photo PhotoClass `schemaname:"photo"`
 	// Participant count
-	ParticipantsCount int
+	ParticipantsCount int `schemaname:"participants_count"`
 	// A few of the participants that are in the group
 	//
 	// Use SetParticipants and GetParticipants helpers.
-	Participants []UserClass
+	Participants []UserClass `schemaname:"participants"`
 }
 
 // ChatInviteTypeID is TL type id of ChatInvite.
@@ -213,18 +218,28 @@ func (c *ChatInvite) FillFrom(from interface {
 	GetParticipantsCount() (value int)
 	GetParticipants() (value []UserClass, ok bool)
 }) {
+	c.Channel = from.GetChannel()
+	c.Broadcast = from.GetBroadcast()
+	c.Public = from.GetPublic()
+	c.Megagroup = from.GetMegagroup()
 	c.Title = from.GetTitle()
 	c.Photo = from.GetPhoto()
 	c.ParticipantsCount = from.GetParticipantsCount()
 	if val, ok := from.GetParticipants(); ok {
 		c.Participants = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatInvite) TypeID() uint32 {
 	return ChatInviteTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChatInvite) SchemaName() string {
+	return "chatInvite"
 }
 
 // Encode implements bin.Encoder.
@@ -446,9 +461,9 @@ var (
 // See https://core.telegram.org/constructor/chatInvitePeek for reference.
 type ChatInvitePeek struct {
 	// Chat information
-	Chat ChatClass
+	Chat ChatClass `schemaname:"chat"`
 	// Read-only anonymous access to this group will be revoked at this date
-	Expires int
+	Expires int `schemaname:"expires"`
 }
 
 // ChatInvitePeekTypeID is TL type id of ChatInvitePeek.
@@ -490,6 +505,11 @@ func (c *ChatInvitePeek) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatInvitePeek) TypeID() uint32 {
 	return ChatInvitePeekTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChatInvitePeek) SchemaName() string {
+	return "chatInvitePeek"
 }
 
 // Encode implements bin.Encoder.
@@ -577,6 +597,8 @@ type ChatInviteClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

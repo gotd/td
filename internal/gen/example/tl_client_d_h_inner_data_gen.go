@@ -23,13 +23,13 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/client_DH_inner_data for reference.
 type ClientDHInnerData struct {
 	// Nonce field of ClientDHInnerData.
-	Nonce bin.Int128
+	Nonce bin.Int128 `schemaname:"nonce"`
 	// ServerNonce field of ClientDHInnerData.
-	ServerNonce bin.Int128
+	ServerNonce bin.Int128 `schemaname:"server_nonce"`
 	// RetryID field of ClientDHInnerData.
-	RetryID int64
+	RetryID int64 `schemaname:"retry_id"`
 	// GB field of ClientDHInnerData.
-	GB string
+	GB string `schemaname:"g_b"`
 }
 
 // ClientDHInnerDataTypeID is TL type id of ClientDHInnerData.
@@ -81,6 +81,11 @@ func (c *ClientDHInnerData) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ClientDHInnerData) TypeID() uint32 {
 	return ClientDHInnerDataTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ClientDHInnerData) SchemaName() string {
+	return "client_DH_inner_data"
 }
 
 // Encode implements bin.Encoder.

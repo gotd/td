@@ -21,11 +21,11 @@ var _ = errors.Is
 // FutureSalt represents TL type `future_salt#949d9dc`.
 type FutureSalt struct {
 	// ValidSince field of FutureSalt.
-	ValidSince int
+	ValidSince int `schemaname:"valid_since"`
 	// ValidUntil field of FutureSalt.
-	ValidUntil int
+	ValidUntil int `schemaname:"valid_until"`
 	// Salt field of FutureSalt.
-	Salt int64
+	Salt int64 `schemaname:"salt"`
 }
 
 // FutureSaltTypeID is TL type id of FutureSalt.
@@ -72,6 +72,11 @@ func (f *FutureSalt) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *FutureSalt) TypeID() uint32 {
 	return FutureSaltTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (f *FutureSalt) SchemaName() string {
+	return "future_salt"
 }
 
 // Encode implements bin.Encoder.

@@ -30,25 +30,25 @@ type AccountRegisterDeviceRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Avoid receiving (silent and invisible background) notifications. Useful to save battery.
-	NoMuted bool
+	NoMuted bool `schemaname:"no_muted"`
 	// Device token type.Possible values:1 - APNS (device token for apple push)2 - FCM (firebase token for google firebase)3 - MPNS (channel URI for microsoft push)4 - Simple push (endpoint for firefox's simple push API)5 - Ubuntu phone (token for ubuntu push)6 - Blackberry (token for blackberry push)7 - Unused8 - WNS (windows push)9 - APNS VoIP (token for apple push VoIP)10 - Web push (web push, see below)11 - MPNS VoIP (token for microsoft push VoIP)12 - Tizen (token for tizen push)For 10 web push, the token must be a JSON-encoded object containing the keys described in PUSH updates¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/push-updates
-	TokenType int
+	TokenType int `schemaname:"token_type"`
 	// Device token
-	Token string
+	Token string `schemaname:"token"`
 	// If (boolTrue)¹ is transmitted, a sandbox-certificate will be used during transmission.
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/boolTrue
-	AppSandbox bool
+	AppSandbox bool `schemaname:"app_sandbox"`
 	// For FCM and APNS VoIP, optional encryption key used to encrypt push notifications
-	Secret []byte
+	Secret []byte `schemaname:"secret"`
 	// List of user identifiers of other users currently using the client
-	OtherUids []int
+	OtherUids []int `schemaname:"other_uids"`
 }
 
 // AccountRegisterDeviceRequestTypeID is TL type id of AccountRegisterDeviceRequest.
@@ -101,6 +101,7 @@ func (r *AccountRegisterDeviceRequest) FillFrom(from interface {
 	GetSecret() (value []byte)
 	GetOtherUids() (value []int)
 }) {
+	r.NoMuted = from.GetNoMuted()
 	r.TokenType = from.GetTokenType()
 	r.Token = from.GetToken()
 	r.AppSandbox = from.GetAppSandbox()
@@ -112,6 +113,11 @@ func (r *AccountRegisterDeviceRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *AccountRegisterDeviceRequest) TypeID() uint32 {
 	return AccountRegisterDeviceRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *AccountRegisterDeviceRequest) SchemaName() string {
+	return "account.registerDevice"
 }
 
 // Encode implements bin.Encoder.

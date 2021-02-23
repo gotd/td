@@ -27,15 +27,15 @@ type WebPageAttributeTheme struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Theme files
 	//
 	// Use SetDocuments and GetDocuments helpers.
-	Documents []DocumentClass
+	Documents []DocumentClass `schemaname:"documents"`
 	// Theme settings
 	//
 	// Use SetSettings and GetSettings helpers.
-	Settings ThemeSettings
+	Settings ThemeSettings `schemaname:"settings"`
 }
 
 // WebPageAttributeThemeTypeID is TL type id of WebPageAttributeTheme.
@@ -75,15 +75,22 @@ func (w *WebPageAttributeTheme) FillFrom(from interface {
 	if val, ok := from.GetDocuments(); ok {
 		w.Documents = val
 	}
+
 	if val, ok := from.GetSettings(); ok {
 		w.Settings = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *WebPageAttributeTheme) TypeID() uint32 {
 	return WebPageAttributeThemeTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (w *WebPageAttributeTheme) SchemaName() string {
+	return "webPageAttributeTheme"
 }
 
 // Encode implements bin.Encoder.

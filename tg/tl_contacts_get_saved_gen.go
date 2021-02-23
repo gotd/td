@@ -51,6 +51,11 @@ func (g *ContactsGetSavedRequest) TypeID() uint32 {
 	return ContactsGetSavedRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *ContactsGetSavedRequest) SchemaName() string {
+	return "contacts.getSaved"
+}
+
 // Encode implements bin.Encoder.
 func (g *ContactsGetSavedRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

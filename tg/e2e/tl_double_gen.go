@@ -50,6 +50,11 @@ func (d *Double) TypeID() uint32 {
 	return DoubleTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (d *Double) SchemaName() string {
+	return "double"
+}
+
 // Encode implements bin.Encoder.
 func (d *Double) Encode(b *bin.Buffer) error {
 	if d == nil {

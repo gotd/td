@@ -27,19 +27,19 @@ type MessagesGetInlineBotResultsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// The bot to query
-	Bot InputUserClass
+	Bot InputUserClass `schemaname:"bot"`
 	// The currently opened chat
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// The geolocation, if requested
 	//
 	// Use SetGeoPoint and GetGeoPoint helpers.
-	GeoPoint InputGeoPointClass
+	GeoPoint InputGeoPointClass `schemaname:"geo_point"`
 	// The query
-	Query string
+	Query string `schemaname:"query"`
 	// The offset within the results, will be passed directly as-is to the bot.
-	Offset string
+	Offset string `schemaname:"offset"`
 }
 
 // MessagesGetInlineBotResultsRequestTypeID is TL type id of MessagesGetInlineBotResultsRequest.
@@ -93,6 +93,7 @@ func (g *MessagesGetInlineBotResultsRequest) FillFrom(from interface {
 	if val, ok := from.GetGeoPoint(); ok {
 		g.GeoPoint = val
 	}
+
 	g.Query = from.GetQuery()
 	g.Offset = from.GetOffset()
 }
@@ -101,6 +102,11 @@ func (g *MessagesGetInlineBotResultsRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetInlineBotResultsRequest) TypeID() uint32 {
 	return MessagesGetInlineBotResultsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *MessagesGetInlineBotResultsRequest) SchemaName() string {
+	return "messages.getInlineBotResults"
 }
 
 // Encode implements bin.Encoder.

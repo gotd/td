@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/chatParticipant for reference.
 type ChatParticipant struct {
 	// Member user ID
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// ID of the user that added the member to the group
-	InviterID int
+	InviterID int `schemaname:"inviter_id"`
 	// Date added to the group
-	Date int
+	Date int `schemaname:"date"`
 }
 
 // ChatParticipantTypeID is TL type id of ChatParticipant.
@@ -75,6 +75,11 @@ func (c *ChatParticipant) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatParticipant) TypeID() uint32 {
 	return ChatParticipantTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChatParticipant) SchemaName() string {
+	return "chatParticipant"
 }
 
 // Encode implements bin.Encoder.
@@ -153,7 +158,7 @@ var (
 // See https://core.telegram.org/constructor/chatParticipantCreator for reference.
 type ChatParticipantCreator struct {
 	// ID of the user that created the group
-	UserID int
+	UserID int `schemaname:"user_id"`
 }
 
 // ChatParticipantCreatorTypeID is TL type id of ChatParticipantCreator.
@@ -190,6 +195,11 @@ func (c *ChatParticipantCreator) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatParticipantCreator) TypeID() uint32 {
 	return ChatParticipantCreatorTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChatParticipantCreator) SchemaName() string {
+	return "chatParticipantCreator"
 }
 
 // Encode implements bin.Encoder.
@@ -242,11 +252,11 @@ var (
 // See https://core.telegram.org/constructor/chatParticipantAdmin for reference.
 type ChatParticipantAdmin struct {
 	// ID of a group member that is admin
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// ID of the user that added the member to the group
-	InviterID int
+	InviterID int `schemaname:"inviter_id"`
 	// Date when the user was added
-	Date int
+	Date int `schemaname:"date"`
 }
 
 // ChatParticipantAdminTypeID is TL type id of ChatParticipantAdmin.
@@ -293,6 +303,11 @@ func (c *ChatParticipantAdmin) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatParticipantAdmin) TypeID() uint32 {
 	return ChatParticipantAdminTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChatParticipantAdmin) SchemaName() string {
+	return "chatParticipantAdmin"
 }
 
 // Encode implements bin.Encoder.
@@ -385,16 +400,18 @@ type ChatParticipantClass interface {
 	bin.Decoder
 	construct() ChatParticipantClass
 
-	// Member user ID
-	GetUserID() (value int)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Member user ID
+	GetUserID() (value int)
 }
 
 // DecodeChatParticipant implements binary de-serialization for ChatParticipantClass.

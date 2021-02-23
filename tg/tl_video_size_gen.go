@@ -30,21 +30,21 @@ type VideoSize struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// u for animated profile pictures, and v for trimmed and downscaled video previews
-	Type string
+	Type string `schemaname:"type"`
 	// File location
-	Location FileLocationToBeDeprecated
+	Location FileLocationToBeDeprecated `schemaname:"location"`
 	// Video width
-	W int
+	W int `schemaname:"w"`
 	// Video height
-	H int
+	H int `schemaname:"h"`
 	// File size
-	Size int
+	Size int `schemaname:"size"`
 	// Timestamp that should be shown as static preview to the user (seconds)
 	//
 	// Use SetVideoStartTs and GetVideoStartTs helpers.
-	VideoStartTs float64
+	VideoStartTs float64 `schemaname:"video_start_ts"`
 }
 
 // VideoSizeTypeID is TL type id of VideoSize.
@@ -105,12 +105,18 @@ func (v *VideoSize) FillFrom(from interface {
 	if val, ok := from.GetVideoStartTs(); ok {
 		v.VideoStartTs = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (v *VideoSize) TypeID() uint32 {
 	return VideoSizeTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (v *VideoSize) SchemaName() string {
+	return "videoSize"
 }
 
 // Encode implements bin.Encoder.

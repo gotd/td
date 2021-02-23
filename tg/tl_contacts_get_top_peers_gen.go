@@ -27,38 +27,38 @@ type ContactsGetTopPeersRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Users we've chatted most frequently with
-	Correspondents bool
+	Correspondents bool `schemaname:"correspondents"`
 	// Most used bots
-	BotsPm bool
+	BotsPm bool `schemaname:"bots_pm"`
 	// Most used inline bots
-	BotsInline bool
+	BotsInline bool `schemaname:"bots_inline"`
 	// Most frequently called users
-	PhoneCalls bool
+	PhoneCalls bool `schemaname:"phone_calls"`
 	// Users to which the users often forwards messages to
-	ForwardUsers bool
+	ForwardUsers bool `schemaname:"forward_users"`
 	// Chats to which the users often forwards messages to
-	ForwardChats bool
+	ForwardChats bool `schemaname:"forward_chats"`
 	// Often-opened groups and supergroups
-	Groups bool
+	Groups bool `schemaname:"groups"`
 	// Most frequently visited channels
-	Channels bool
+	Channels bool `schemaname:"channels"`
 	// Offset for pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Offset int
+	Offset int `schemaname:"offset"`
 	// Maximum number of results to return, see pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int
+	Limit int `schemaname:"limit"`
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int `schemaname:"hash"`
 }
 
 // ContactsGetTopPeersRequestTypeID is TL type id of ContactsGetTopPeersRequest.
@@ -131,6 +131,14 @@ func (g *ContactsGetTopPeersRequest) FillFrom(from interface {
 	GetLimit() (value int)
 	GetHash() (value int)
 }) {
+	g.Correspondents = from.GetCorrespondents()
+	g.BotsPm = from.GetBotsPm()
+	g.BotsInline = from.GetBotsInline()
+	g.PhoneCalls = from.GetPhoneCalls()
+	g.ForwardUsers = from.GetForwardUsers()
+	g.ForwardChats = from.GetForwardChats()
+	g.Groups = from.GetGroups()
+	g.Channels = from.GetChannels()
 	g.Offset = from.GetOffset()
 	g.Limit = from.GetLimit()
 	g.Hash = from.GetHash()
@@ -140,6 +148,11 @@ func (g *ContactsGetTopPeersRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *ContactsGetTopPeersRequest) TypeID() uint32 {
 	return ContactsGetTopPeersRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *ContactsGetTopPeersRequest) SchemaName() string {
+	return "contacts.getTopPeers"
 }
 
 // Encode implements bin.Encoder.

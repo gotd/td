@@ -51,6 +51,11 @@ func (s *MessagesStickersNotModified) TypeID() uint32 {
 	return MessagesStickersNotModifiedTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (s *MessagesStickersNotModified) SchemaName() string {
+	return "messages.stickersNotModified"
+}
+
 // Encode implements bin.Encoder.
 func (s *MessagesStickersNotModified) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -91,9 +96,9 @@ type MessagesStickers struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int `schemaname:"hash"`
 	// Stickers
-	Stickers []DocumentClass
+	Stickers []DocumentClass `schemaname:"stickers"`
 }
 
 // MessagesStickersTypeID is TL type id of MessagesStickers.
@@ -135,6 +140,11 @@ func (s *MessagesStickers) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesStickers) TypeID() uint32 {
 	return MessagesStickersTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *MessagesStickers) SchemaName() string {
+	return "messages.stickers"
 }
 
 // Encode implements bin.Encoder.
@@ -232,24 +242,26 @@ type MessagesStickersClass interface {
 	bin.Decoder
 	construct() MessagesStickersClass
 
-	// AsModified tries to map MessagesStickersClass to MessagesStickers.
-	AsModified() (*MessagesStickers, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsModified tries to map MessagesStickersClass to MessagesStickers.
+	AsModified() (*MessagesStickers, bool)
 }
 
-// AsModified tries to map MessagesStickersClass to MessagesStickers.
+// AsModified tries to map MessagesStickersNotModified to MessagesStickers.
 func (s *MessagesStickersNotModified) AsModified() (*MessagesStickers, bool) {
 	return nil, false
 }
 
-// AsModified tries to map MessagesStickersClass to MessagesStickers.
+// AsModified tries to map MessagesStickers to MessagesStickers.
 func (s *MessagesStickers) AsModified() (*MessagesStickers, bool) {
 	return s, true
 }
@@ -340,6 +352,24 @@ func (s MessagesStickersClassSlice) FirstAsModified() (v *MessagesStickers, ok b
 // LastAsModified returns last element of slice (if exists).
 func (s MessagesStickersClassSlice) LastAsModified() (v *MessagesStickers, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopFirstAsModified returns element of slice (if exists).
+func (s *MessagesStickersClassSlice) PopFirstAsModified() (v *MessagesStickers, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopAsModified returns element of slice (if exists).
+func (s *MessagesStickersClassSlice) PopAsModified() (v *MessagesStickers, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

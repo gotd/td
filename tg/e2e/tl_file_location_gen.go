@@ -23,11 +23,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/fileLocationUnavailable for reference.
 type FileLocationUnavailable struct {
 	// VolumeID field of FileLocationUnavailable.
-	VolumeID int64
+	VolumeID int64 `schemaname:"volume_id"`
 	// LocalID field of FileLocationUnavailable.
-	LocalID int
+	LocalID int `schemaname:"local_id"`
 	// Secret field of FileLocationUnavailable.
-	Secret int64
+	Secret int64 `schemaname:"secret"`
 }
 
 // FileLocationUnavailableTypeID is TL type id of FileLocationUnavailable.
@@ -74,6 +74,11 @@ func (f *FileLocationUnavailable) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *FileLocationUnavailable) TypeID() uint32 {
 	return FileLocationUnavailableTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (f *FileLocationUnavailable) SchemaName() string {
+	return "fileLocationUnavailable"
 }
 
 // Encode implements bin.Encoder.
@@ -151,13 +156,13 @@ var (
 // See https://core.telegram.org/constructor/fileLocation for reference.
 type FileLocation struct {
 	// DCID field of FileLocation.
-	DCID int
+	DCID int `schemaname:"dc_id"`
 	// VolumeID field of FileLocation.
-	VolumeID int64
+	VolumeID int64 `schemaname:"volume_id"`
 	// LocalID field of FileLocation.
-	LocalID int
+	LocalID int `schemaname:"local_id"`
 	// Secret field of FileLocation.
-	Secret int64
+	Secret int64 `schemaname:"secret"`
 }
 
 // FileLocationTypeID is TL type id of FileLocation.
@@ -209,6 +214,11 @@ func (f *FileLocation) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *FileLocation) TypeID() uint32 {
 	return FileLocationTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (f *FileLocation) SchemaName() string {
+	return "fileLocation"
 }
 
 // Encode implements bin.Encoder.
@@ -313,20 +323,34 @@ type FileLocationClass interface {
 	bin.Decoder
 	construct() FileLocationClass
 
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+
 	// VolumeID field of FileLocationUnavailable.
 	GetVolumeID() (value int64)
 	// LocalID field of FileLocationUnavailable.
 	GetLocalID() (value int)
 	// Secret field of FileLocationUnavailable.
 	GetSecret() (value int64)
+	// AsAvailable tries to map FileLocationClass to FileLocation.
+	AsAvailable() (*FileLocation, bool)
+}
 
-	// TypeID returns MTProto type id (CRC code).
-	// See https://core.telegram.org/mtproto/TL-tl#remarks.
-	TypeID() uint32
-	// String implements fmt.Stringer.
-	String() string
-	// Zero returns true if current object has a zero value.
-	Zero() bool
+// AsAvailable tries to map FileLocationUnavailable to FileLocation.
+func (f *FileLocationUnavailable) AsAvailable() (*FileLocation, bool) {
+	return nil, false
+}
+
+// AsAvailable tries to map FileLocation to FileLocation.
+func (f *FileLocation) AsAvailable() (*FileLocation, bool) {
+	return f, true
 }
 
 // DecodeFileLocation implements binary de-serialization for FileLocationClass.
@@ -383,6 +407,61 @@ func (b *FileLocationBox) Encode(buf *bin.Buffer) error {
 
 // FileLocationClassSlice is adapter for slice of FileLocationClass.
 type FileLocationClassSlice []FileLocationClass
+
+// AppendOnlyAvailable appends only Available constructors to
+// given slice.
+func (s FileLocationClassSlice) AppendOnlyAvailable(to []*FileLocation) []*FileLocation {
+	for _, elem := range s {
+		value, ok := elem.AsAvailable()
+		if !ok {
+			continue
+		}
+		to = append(to, value)
+	}
+
+	return to
+}
+
+// AsAvailable returns copy with only Available constructors.
+func (s FileLocationClassSlice) AsAvailable() (to []*FileLocation) {
+	return s.AppendOnlyAvailable(to)
+}
+
+// FirstAsAvailable returns first element of slice (if exists).
+func (s FileLocationClassSlice) FirstAsAvailable() (v *FileLocation, ok bool) {
+	value, ok := s.First()
+	if !ok {
+		return
+	}
+	return value.AsAvailable()
+}
+
+// LastAsAvailable returns last element of slice (if exists).
+func (s FileLocationClassSlice) LastAsAvailable() (v *FileLocation, ok bool) {
+	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsAvailable()
+}
+
+// PopFirstAsAvailable returns element of slice (if exists).
+func (s *FileLocationClassSlice) PopFirstAsAvailable() (v *FileLocation, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsAvailable()
+}
+
+// PopAsAvailable returns element of slice (if exists).
+func (s *FileLocationClassSlice) PopAsAvailable() (v *FileLocation, ok bool) {
+	value, ok := s.Pop()
+	if !ok {
+		return
+	}
+	return value.AsAvailable()
+}
 
 // First returns first element of slice (if exists).
 func (s FileLocationClassSlice) First() (v FileLocationClass, ok bool) {

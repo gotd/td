@@ -27,32 +27,32 @@ type AccountInitTakeoutSessionRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether to export contacts
-	Contacts bool
+	Contacts bool `schemaname:"contacts"`
 	// Whether to export messages in private chats
-	MessageUsers bool
+	MessageUsers bool `schemaname:"message_users"`
 	// Whether to export messages in legacy groups¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	MessageChats bool
+	MessageChats bool `schemaname:"message_chats"`
 	// Whether to export messages in supergroups¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	MessageMegagroups bool
+	MessageMegagroups bool `schemaname:"message_megagroups"`
 	// Whether to export messages in channels¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	MessageChannels bool
+	MessageChannels bool `schemaname:"message_channels"`
 	// Whether to export files
-	Files bool
+	Files bool `schemaname:"files"`
 	// Maximum size of files to export
 	//
 	// Use SetFileMaxSize and GetFileMaxSize helpers.
-	FileMaxSize int
+	FileMaxSize int `schemaname:"file_max_size"`
 }
 
 // AccountInitTakeoutSessionRequestTypeID is TL type id of AccountInitTakeoutSessionRequest.
@@ -109,15 +109,27 @@ func (i *AccountInitTakeoutSessionRequest) FillFrom(from interface {
 	GetFiles() (value bool)
 	GetFileMaxSize() (value int, ok bool)
 }) {
+	i.Contacts = from.GetContacts()
+	i.MessageUsers = from.GetMessageUsers()
+	i.MessageChats = from.GetMessageChats()
+	i.MessageMegagroups = from.GetMessageMegagroups()
+	i.MessageChannels = from.GetMessageChannels()
+	i.Files = from.GetFiles()
 	if val, ok := from.GetFileMaxSize(); ok {
 		i.FileMaxSize = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *AccountInitTakeoutSessionRequest) TypeID() uint32 {
 	return AccountInitTakeoutSessionRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *AccountInitTakeoutSessionRequest) SchemaName() string {
+	return "account.initTakeoutSession"
 }
 
 // Encode implements bin.Encoder.

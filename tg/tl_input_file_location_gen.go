@@ -24,16 +24,16 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/inputFileLocation for reference.
 type InputFileLocation struct {
 	// Server volume
-	VolumeID int64
+	VolumeID int64 `schemaname:"volume_id"`
 	// File identifier
-	LocalID int
+	LocalID int `schemaname:"local_id"`
 	// Check sum to access the file
-	Secret int64
+	Secret int64 `schemaname:"secret"`
 	// File reference¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/file_reference
-	FileReference []byte
+	FileReference []byte `schemaname:"file_reference"`
 }
 
 // InputFileLocationTypeID is TL type id of InputFileLocation.
@@ -85,6 +85,11 @@ func (i *InputFileLocation) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputFileLocation) TypeID() uint32 {
 	return InputFileLocationTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputFileLocation) SchemaName() string {
+	return "inputFileLocation"
 }
 
 // Encode implements bin.Encoder.
@@ -179,12 +184,12 @@ type InputEncryptedFileLocation struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/encryptedFile
-	ID int64
+	ID int64 `schemaname:"id"`
 	// Checksum, access_hash parameter value from encryptedFile¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/encryptedFile
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 }
 
 // InputEncryptedFileLocationTypeID is TL type id of InputEncryptedFileLocation.
@@ -226,6 +231,11 @@ func (i *InputEncryptedFileLocation) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputEncryptedFileLocation) TypeID() uint32 {
 	return InputEncryptedFileLocationTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputEncryptedFileLocation) SchemaName() string {
+	return "inputEncryptedFileLocation"
 }
 
 // Encode implements bin.Encoder.
@@ -291,19 +301,19 @@ var (
 // See https://core.telegram.org/constructor/inputDocumentFileLocation for reference.
 type InputDocumentFileLocation struct {
 	// Document ID
-	ID int64
+	ID int64 `schemaname:"id"`
 	// access_hash parameter from the document¹ constructor
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/document
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 	// File reference¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/file_reference
-	FileReference []byte
+	FileReference []byte `schemaname:"file_reference"`
 	// Thumbnail size to download the thumbnail
-	ThumbSize string
+	ThumbSize string `schemaname:"thumb_size"`
 }
 
 // InputDocumentFileLocationTypeID is TL type id of InputDocumentFileLocation.
@@ -355,6 +365,11 @@ func (i *InputDocumentFileLocation) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputDocumentFileLocation) TypeID() uint32 {
 	return InputDocumentFileLocationTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputDocumentFileLocation) SchemaName() string {
+	return "inputDocumentFileLocation"
 }
 
 // Encode implements bin.Encoder.
@@ -452,12 +467,12 @@ type InputSecureFileLocation struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/secureFile
-	ID int64
+	ID int64 `schemaname:"id"`
 	// Checksum, access_hash parameter value from secureFile¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/secureFile
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 }
 
 // InputSecureFileLocationTypeID is TL type id of InputSecureFileLocation.
@@ -499,6 +514,11 @@ func (i *InputSecureFileLocation) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputSecureFileLocation) TypeID() uint32 {
 	return InputSecureFileLocationTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputSecureFileLocation) SchemaName() string {
+	return "inputSecureFileLocation"
 }
 
 // Encode implements bin.Encoder.
@@ -591,6 +611,11 @@ func (i *InputTakeoutFileLocation) TypeID() uint32 {
 	return InputTakeoutFileLocationTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputTakeoutFileLocation) SchemaName() string {
+	return "inputTakeoutFileLocation"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputTakeoutFileLocation) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -634,23 +659,23 @@ type InputPhotoFileLocation struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/photo
-	ID int64
+	ID int64 `schemaname:"id"`
 	// Photo's access hash, obtained from the photo¹ object
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/photo
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 	// File reference¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/file_reference
-	FileReference []byte
+	FileReference []byte `schemaname:"file_reference"`
 	// The PhotoSize¹ to download: must be set to the type field of the desired PhotoSize object of the photo²
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/PhotoSize
 	//  2) https://core.telegram.org/constructor/photo
-	ThumbSize string
+	ThumbSize string `schemaname:"thumb_size"`
 }
 
 // InputPhotoFileLocationTypeID is TL type id of InputPhotoFileLocation.
@@ -702,6 +727,11 @@ func (i *InputPhotoFileLocation) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPhotoFileLocation) TypeID() uint32 {
 	return InputPhotoFileLocationTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputPhotoFileLocation) SchemaName() string {
+	return "inputPhotoFileLocation"
 }
 
 // Encode implements bin.Encoder.
@@ -793,17 +823,17 @@ var (
 // See https://core.telegram.org/constructor/inputPhotoLegacyFileLocation for reference.
 type InputPhotoLegacyFileLocation struct {
 	// Photo ID
-	ID int64
+	ID int64 `schemaname:"id"`
 	// Access hash
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 	// File reference
-	FileReference []byte
+	FileReference []byte `schemaname:"file_reference"`
 	// Volume ID
-	VolumeID int64
+	VolumeID int64 `schemaname:"volume_id"`
 	// Local ID
-	LocalID int
+	LocalID int `schemaname:"local_id"`
 	// Secret
-	Secret int64
+	Secret int64 `schemaname:"secret"`
 }
 
 // InputPhotoLegacyFileLocationTypeID is TL type id of InputPhotoLegacyFileLocation.
@@ -865,6 +895,11 @@ func (i *InputPhotoLegacyFileLocation) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPhotoLegacyFileLocation) TypeID() uint32 {
 	return InputPhotoLegacyFileLocationTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputPhotoLegacyFileLocation) SchemaName() string {
+	return "inputPhotoLegacyFileLocation"
 }
 
 // Encode implements bin.Encoder.
@@ -985,21 +1020,21 @@ type InputPeerPhotoFileLocation struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether to download the high-quality version of the picture
-	Big bool
+	Big bool `schemaname:"big"`
 	// The peer whose profile picture should be downloaded
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// Volume ID from FileLocation¹ met in the profile photo container.
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/FileLocation
-	VolumeID int64
+	VolumeID int64 `schemaname:"volume_id"`
 	// Local ID from FileLocation¹ met in the profile photo container.
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/FileLocation
-	LocalID int
+	LocalID int `schemaname:"local_id"`
 }
 
 // InputPeerPhotoFileLocationTypeID is TL type id of InputPeerPhotoFileLocation.
@@ -1044,6 +1079,7 @@ func (i *InputPeerPhotoFileLocation) FillFrom(from interface {
 	GetVolumeID() (value int64)
 	GetLocalID() (value int)
 }) {
+	i.Big = from.GetBig()
 	i.Peer = from.GetPeer()
 	i.VolumeID = from.GetVolumeID()
 	i.LocalID = from.GetLocalID()
@@ -1053,6 +1089,11 @@ func (i *InputPeerPhotoFileLocation) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPeerPhotoFileLocation) TypeID() uint32 {
 	return InputPeerPhotoFileLocationTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputPeerPhotoFileLocation) SchemaName() string {
+	return "inputPeerPhotoFileLocation"
 }
 
 // Encode implements bin.Encoder.
@@ -1167,11 +1208,11 @@ var (
 // See https://core.telegram.org/constructor/inputStickerSetThumb for reference.
 type InputStickerSetThumb struct {
 	// Sticker set
-	Stickerset InputStickerSetClass
+	Stickerset InputStickerSetClass `schemaname:"stickerset"`
 	// Volume ID
-	VolumeID int64
+	VolumeID int64 `schemaname:"volume_id"`
 	// Local ID
-	LocalID int
+	LocalID int `schemaname:"local_id"`
 }
 
 // InputStickerSetThumbTypeID is TL type id of InputStickerSetThumb.
@@ -1218,6 +1259,11 @@ func (i *InputStickerSetThumb) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputStickerSetThumb) TypeID() uint32 {
 	return InputStickerSetThumbTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputStickerSetThumb) SchemaName() string {
+	return "inputStickerSetThumb"
 }
 
 // Encode implements bin.Encoder.
@@ -1324,6 +1370,8 @@ type InputFileLocationClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

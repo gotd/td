@@ -51,6 +51,11 @@ func (i *InputGeoPointEmpty) TypeID() uint32 {
 	return InputGeoPointEmptyTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputGeoPointEmpty) SchemaName() string {
+	return "inputGeoPointEmpty"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputGeoPointEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -91,15 +96,15 @@ type InputGeoPoint struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Latitide
-	Lat float64
+	Lat float64 `schemaname:"lat"`
 	// Longtitude
-	Long float64
+	Long float64 `schemaname:"long"`
 	// The estimated horizontal accuracy of the location, in meters; as defined by the sender.
 	//
 	// Use SetAccuracyRadius and GetAccuracyRadius helpers.
-	AccuracyRadius int
+	AccuracyRadius int `schemaname:"accuracy_radius"`
 }
 
 // InputGeoPointTypeID is TL type id of InputGeoPoint.
@@ -145,12 +150,18 @@ func (i *InputGeoPoint) FillFrom(from interface {
 	if val, ok := from.GetAccuracyRadius(); ok {
 		i.AccuracyRadius = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputGeoPoint) TypeID() uint32 {
 	return InputGeoPointTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputGeoPoint) SchemaName() string {
+	return "inputGeoPoint"
 }
 
 // Encode implements bin.Encoder.
@@ -265,24 +276,26 @@ type InputGeoPointClass interface {
 	bin.Decoder
 	construct() InputGeoPointClass
 
-	// AsNotEmpty tries to map InputGeoPointClass to InputGeoPoint.
-	AsNotEmpty() (*InputGeoPoint, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsNotEmpty tries to map InputGeoPointClass to InputGeoPoint.
+	AsNotEmpty() (*InputGeoPoint, bool)
 }
 
-// AsNotEmpty tries to map InputGeoPointClass to InputGeoPoint.
+// AsNotEmpty tries to map InputGeoPointEmpty to InputGeoPoint.
 func (i *InputGeoPointEmpty) AsNotEmpty() (*InputGeoPoint, bool) {
 	return nil, false
 }
 
-// AsNotEmpty tries to map InputGeoPointClass to InputGeoPoint.
+// AsNotEmpty tries to map InputGeoPoint to InputGeoPoint.
 func (i *InputGeoPoint) AsNotEmpty() (*InputGeoPoint, bool) {
 	return i, true
 }
@@ -373,6 +386,24 @@ func (s InputGeoPointClassSlice) FirstAsNotEmpty() (v *InputGeoPoint, ok bool) {
 // LastAsNotEmpty returns last element of slice (if exists).
 func (s InputGeoPointClassSlice) LastAsNotEmpty() (v *InputGeoPoint, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopFirstAsNotEmpty returns element of slice (if exists).
+func (s *InputGeoPointClassSlice) PopFirstAsNotEmpty() (v *InputGeoPoint, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsNotEmpty()
+}
+
+// PopAsNotEmpty returns element of slice (if exists).
+func (s *InputGeoPointClassSlice) PopAsNotEmpty() (v *InputGeoPoint, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

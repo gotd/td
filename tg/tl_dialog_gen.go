@@ -27,46 +27,46 @@ type Dialog struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Is the dialog pinned
-	Pinned bool
+	Pinned bool `schemaname:"pinned"`
 	// Whether the chat was manually marked as unread
-	UnreadMark bool
+	UnreadMark bool `schemaname:"unread_mark"`
 	// The chat
-	Peer PeerClass
+	Peer PeerClass `schemaname:"peer"`
 	// The latest message ID
-	TopMessage int
+	TopMessage int `schemaname:"top_message"`
 	// Position up to which all incoming messages are read.
-	ReadInboxMaxID int
+	ReadInboxMaxID int `schemaname:"read_inbox_max_id"`
 	// Position up to which all outgoing messages are read.
-	ReadOutboxMaxID int
+	ReadOutboxMaxID int `schemaname:"read_outbox_max_id"`
 	// Number of unread messages
-	UnreadCount int
+	UnreadCount int `schemaname:"unread_count"`
 	// Number of unread mentions¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/mentions
-	UnreadMentionsCount int
+	UnreadMentionsCount int `schemaname:"unread_mentions_count"`
 	// Notification settings
-	NotifySettings PeerNotifySettings
+	NotifySettings PeerNotifySettings `schemaname:"notify_settings"`
 	// PTS¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
 	//
 	// Use SetPts and GetPts helpers.
-	Pts int
+	Pts int `schemaname:"pts"`
 	// Message draft
 	//
 	// Use SetDraft and GetDraft helpers.
-	Draft DraftMessageClass
+	Draft DraftMessageClass `schemaname:"draft"`
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int
+	FolderID int `schemaname:"folder_id"`
 }
 
 // DialogTypeID is TL type id of Dialog.
@@ -143,6 +143,8 @@ func (d *Dialog) FillFrom(from interface {
 	GetDraft() (value DraftMessageClass, ok bool)
 	GetFolderID() (value int, ok bool)
 }) {
+	d.Pinned = from.GetPinned()
+	d.UnreadMark = from.GetUnreadMark()
 	d.Peer = from.GetPeer()
 	d.TopMessage = from.GetTopMessage()
 	d.ReadInboxMaxID = from.GetReadInboxMaxID()
@@ -153,18 +155,26 @@ func (d *Dialog) FillFrom(from interface {
 	if val, ok := from.GetPts(); ok {
 		d.Pts = val
 	}
+
 	if val, ok := from.GetDraft(); ok {
 		d.Draft = val
 	}
+
 	if val, ok := from.GetFolderID(); ok {
 		d.FolderID = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *Dialog) TypeID() uint32 {
 	return DialogTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *Dialog) SchemaName() string {
+	return "dialog"
 }
 
 // Encode implements bin.Encoder.
@@ -440,23 +450,23 @@ type DialogFolder struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Is this folder pinned
-	Pinned bool
+	Pinned bool `schemaname:"pinned"`
 	// The folder
-	Folder Folder
+	Folder Folder `schemaname:"folder"`
 	// Peer in folder
-	Peer PeerClass
+	Peer PeerClass `schemaname:"peer"`
 	// Latest message ID of dialog
-	TopMessage int
+	TopMessage int `schemaname:"top_message"`
 	// Number of unread muted peers in folder
-	UnreadMutedPeersCount int
+	UnreadMutedPeersCount int `schemaname:"unread_muted_peers_count"`
 	// Number of unread unmuted peers in folder
-	UnreadUnmutedPeersCount int
+	UnreadUnmutedPeersCount int `schemaname:"unread_unmuted_peers_count"`
 	// Number of unread messages from muted peers in folder
-	UnreadMutedMessagesCount int
+	UnreadMutedMessagesCount int `schemaname:"unread_muted_messages_count"`
 	// Number of unread messages from unmuted peers in folder
-	UnreadUnmutedMessagesCount int
+	UnreadUnmutedMessagesCount int `schemaname:"unread_unmuted_messages_count"`
 }
 
 // DialogFolderTypeID is TL type id of DialogFolder.
@@ -517,6 +527,7 @@ func (d *DialogFolder) FillFrom(from interface {
 	GetUnreadMutedMessagesCount() (value int)
 	GetUnreadUnmutedMessagesCount() (value int)
 }) {
+	d.Pinned = from.GetPinned()
 	d.Folder = from.GetFolder()
 	d.Peer = from.GetPeer()
 	d.TopMessage = from.GetTopMessage()
@@ -530,6 +541,11 @@ func (d *DialogFolder) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DialogFolder) TypeID() uint32 {
 	return DialogFolderTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DialogFolder) SchemaName() string {
+	return "dialogFolder"
 }
 
 // Encode implements bin.Encoder.
@@ -706,20 +722,32 @@ type DialogClass interface {
 	bin.Decoder
 	construct() DialogClass
 
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+
 	// Is the dialog pinned
 	GetPinned() (value bool)
 	// The chat
 	GetPeer() (value PeerClass)
 	// The latest message ID
 	GetTopMessage() (value int)
+}
 
-	// TypeID returns MTProto type id (CRC code).
-	// See https://core.telegram.org/mtproto/TL-tl#remarks.
-	TypeID() uint32
-	// String implements fmt.Stringer.
-	String() string
-	// Zero returns true if current object has a zero value.
-	Zero() bool
+// AsInputDialogPeerFolder tries to map Dialog to InputDialogPeerFolder.
+func (d *Dialog) AsInputDialogPeerFolder() *InputDialogPeerFolder {
+	value := new(InputDialogPeerFolder)
+	if fieldValue, ok := d.GetFolderID(); ok {
+		value.FolderID = fieldValue
+	}
+
+	return value
 }
 
 // DecodeDialog implements binary de-serialization for DialogClass.

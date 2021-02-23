@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.historyImport for reference.
 type MessagesHistoryImport struct {
 	// ID field of MessagesHistoryImport.
-	ID int64
+	ID int64 `schemaname:"id"`
 }
 
 // MessagesHistoryImportTypeID is TL type id of MessagesHistoryImport.
@@ -60,6 +60,11 @@ func (h *MessagesHistoryImport) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (h *MessagesHistoryImport) TypeID() uint32 {
 	return MessagesHistoryImportTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (h *MessagesHistoryImport) SchemaName() string {
+	return "messages.historyImport"
 }
 
 // Encode implements bin.Encoder.

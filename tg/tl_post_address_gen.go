@@ -24,17 +24,17 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/postAddress for reference.
 type PostAddress struct {
 	// First line for the address
-	StreetLine1 string
+	StreetLine1 string `schemaname:"street_line1"`
 	// Second line for the address
-	StreetLine2 string
+	StreetLine2 string `schemaname:"street_line2"`
 	// City
-	City string
+	City string `schemaname:"city"`
 	// State, if applicable (empty otherwise)
-	State string
+	State string `schemaname:"state"`
 	// ISO 3166-1 alpha-2 country code
-	CountryIso2 string
+	CountryIso2 string `schemaname:"country_iso2"`
 	// Address post code
-	PostCode string
+	PostCode string `schemaname:"post_code"`
 }
 
 // PostAddressTypeID is TL type id of PostAddress.
@@ -96,6 +96,11 @@ func (p *PostAddress) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PostAddress) TypeID() uint32 {
 	return PostAddressTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PostAddress) SchemaName() string {
+	return "postAddress"
 }
 
 // Encode implements bin.Encoder.

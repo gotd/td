@@ -51,6 +51,11 @@ func (g *AccountGetAccountTTLRequest) TypeID() uint32 {
 	return AccountGetAccountTTLRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *AccountGetAccountTTLRequest) SchemaName() string {
+	return "account.getAccountTTL"
+}
+
 // Encode implements bin.Encoder.
 func (g *AccountGetAccountTTLRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

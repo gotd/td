@@ -51,6 +51,11 @@ func (c *ChannelParticipantsRecent) TypeID() uint32 {
 	return ChannelParticipantsRecentTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (c *ChannelParticipantsRecent) SchemaName() string {
+	return "channelParticipantsRecent"
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantsRecent) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -115,6 +120,11 @@ func (c *ChannelParticipantsAdmins) TypeID() uint32 {
 	return ChannelParticipantsAdminsTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (c *ChannelParticipantsAdmins) SchemaName() string {
+	return "channelParticipantsAdmins"
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantsAdmins) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -152,7 +162,7 @@ var (
 // See https://core.telegram.org/constructor/channelParticipantsKicked for reference.
 type ChannelParticipantsKicked struct {
 	// Optional filter for searching kicked participants by name (otherwise empty)
-	Q string
+	Q string `schemaname:"q"`
 }
 
 // ChannelParticipantsKickedTypeID is TL type id of ChannelParticipantsKicked.
@@ -189,6 +199,11 @@ func (c *ChannelParticipantsKicked) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelParticipantsKicked) TypeID() uint32 {
 	return ChannelParticipantsKickedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChannelParticipantsKicked) SchemaName() string {
+	return "channelParticipantsKicked"
 }
 
 // Encode implements bin.Encoder.
@@ -268,6 +283,11 @@ func (c *ChannelParticipantsBots) TypeID() uint32 {
 	return ChannelParticipantsBotsTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (c *ChannelParticipantsBots) SchemaName() string {
+	return "channelParticipantsBots"
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantsBots) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -305,7 +325,7 @@ var (
 // See https://core.telegram.org/constructor/channelParticipantsBanned for reference.
 type ChannelParticipantsBanned struct {
 	// Optional filter for searching banned participants by name (otherwise empty)
-	Q string
+	Q string `schemaname:"q"`
 }
 
 // ChannelParticipantsBannedTypeID is TL type id of ChannelParticipantsBanned.
@@ -342,6 +362,11 @@ func (c *ChannelParticipantsBanned) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelParticipantsBanned) TypeID() uint32 {
 	return ChannelParticipantsBannedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChannelParticipantsBanned) SchemaName() string {
+	return "channelParticipantsBanned"
 }
 
 // Encode implements bin.Encoder.
@@ -394,7 +419,7 @@ var (
 // See https://core.telegram.org/constructor/channelParticipantsSearch for reference.
 type ChannelParticipantsSearch struct {
 	// Search query
-	Q string
+	Q string `schemaname:"q"`
 }
 
 // ChannelParticipantsSearchTypeID is TL type id of ChannelParticipantsSearch.
@@ -431,6 +456,11 @@ func (c *ChannelParticipantsSearch) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelParticipantsSearch) TypeID() uint32 {
 	return ChannelParticipantsSearchTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChannelParticipantsSearch) SchemaName() string {
+	return "channelParticipantsSearch"
 }
 
 // Encode implements bin.Encoder.
@@ -483,7 +513,7 @@ var (
 // See https://core.telegram.org/constructor/channelParticipantsContacts for reference.
 type ChannelParticipantsContacts struct {
 	// Optional search query for searching contact participants by name
-	Q string
+	Q string `schemaname:"q"`
 }
 
 // ChannelParticipantsContactsTypeID is TL type id of ChannelParticipantsContacts.
@@ -520,6 +550,11 @@ func (c *ChannelParticipantsContacts) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelParticipantsContacts) TypeID() uint32 {
 	return ChannelParticipantsContactsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChannelParticipantsContacts) SchemaName() string {
+	return "channelParticipantsContacts"
 }
 
 // Encode implements bin.Encoder.
@@ -580,18 +615,18 @@ type ChannelParticipantsMentions struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Filter by user name or username
 	//
 	// Use SetQ and GetQ helpers.
-	Q string
+	Q string `schemaname:"q"`
 	// Look only for users that posted in this thread¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
-	TopMsgID int
+	TopMsgID int `schemaname:"top_msg_id"`
 }
 
 // ChannelParticipantsMentionsTypeID is TL type id of ChannelParticipantsMentions.
@@ -631,15 +666,22 @@ func (c *ChannelParticipantsMentions) FillFrom(from interface {
 	if val, ok := from.GetQ(); ok {
 		c.Q = val
 	}
+
 	if val, ok := from.GetTopMsgID(); ok {
 		c.TopMsgID = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelParticipantsMentions) TypeID() uint32 {
 	return ChannelParticipantsMentionsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChannelParticipantsMentions) SchemaName() string {
+	return "channelParticipantsMentions"
 }
 
 // Encode implements bin.Encoder.
@@ -765,6 +807,8 @@ type ChannelParticipantsFilterClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

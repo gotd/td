@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/stats.messageStats for reference.
 type StatsMessageStats struct {
 	// Message view graph
-	ViewsGraph StatsGraphClass
+	ViewsGraph StatsGraphClass `schemaname:"views_graph"`
 }
 
 // StatsMessageStatsTypeID is TL type id of StatsMessageStats.
@@ -61,6 +61,11 @@ func (m *StatsMessageStats) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *StatsMessageStats) TypeID() uint32 {
 	return StatsMessageStatsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *StatsMessageStats) SchemaName() string {
+	return "stats.messageStats"
 }
 
 // Encode implements bin.Encoder.

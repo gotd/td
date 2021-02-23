@@ -27,11 +27,11 @@ var _ = errors.Is
 // See https://core.telegram.org/method/upload.getCdnFile for reference.
 type UploadGetCdnFileRequest struct {
 	// File token
-	FileToken []byte
+	FileToken []byte `schemaname:"file_token"`
 	// Offset of chunk to download
-	Offset int
+	Offset int `schemaname:"offset"`
 	// Length of chunk to download
-	Limit int
+	Limit int `schemaname:"limit"`
 }
 
 // UploadGetCdnFileRequestTypeID is TL type id of UploadGetCdnFileRequest.
@@ -78,6 +78,11 @@ func (g *UploadGetCdnFileRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *UploadGetCdnFileRequest) TypeID() uint32 {
 	return UploadGetCdnFileRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *UploadGetCdnFileRequest) SchemaName() string {
+	return "upload.getCdnFile"
 }
 
 // Encode implements bin.Encoder.

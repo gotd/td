@@ -51,6 +51,11 @@ func (g *MessagesGetDialogUnreadMarksRequest) TypeID() uint32 {
 	return MessagesGetDialogUnreadMarksRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *MessagesGetDialogUnreadMarksRequest) SchemaName() string {
+	return "messages.getDialogUnreadMarks"
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetDialogUnreadMarksRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

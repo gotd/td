@@ -51,6 +51,11 @@ func (g *PhoneGetCallConfigRequest) TypeID() uint32 {
 	return PhoneGetCallConfigRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *PhoneGetCallConfigRequest) SchemaName() string {
+	return "phone.getCallConfig"
+}
+
 // Encode implements bin.Encoder.
 func (g *PhoneGetCallConfigRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

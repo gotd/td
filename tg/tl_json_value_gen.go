@@ -51,6 +51,11 @@ func (j *JsonNull) TypeID() uint32 {
 	return JsonNullTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (j *JsonNull) SchemaName() string {
+	return "jsonNull"
+}
+
 // Encode implements bin.Encoder.
 func (j *JsonNull) Encode(b *bin.Buffer) error {
 	if j == nil {
@@ -88,7 +93,7 @@ var (
 // See https://core.telegram.org/constructor/jsonBool for reference.
 type JsonBool struct {
 	// Value
-	Value bool
+	Value bool `schemaname:"value"`
 }
 
 // JsonBoolTypeID is TL type id of JsonBool.
@@ -125,6 +130,11 @@ func (j *JsonBool) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (j *JsonBool) TypeID() uint32 {
 	return JsonBoolTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (j *JsonBool) SchemaName() string {
+	return "jsonBool"
 }
 
 // Encode implements bin.Encoder.
@@ -177,7 +187,7 @@ var (
 // See https://core.telegram.org/constructor/jsonNumber for reference.
 type JsonNumber struct {
 	// Value
-	Value float64
+	Value float64 `schemaname:"value"`
 }
 
 // JsonNumberTypeID is TL type id of JsonNumber.
@@ -214,6 +224,11 @@ func (j *JsonNumber) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (j *JsonNumber) TypeID() uint32 {
 	return JsonNumberTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (j *JsonNumber) SchemaName() string {
+	return "jsonNumber"
 }
 
 // Encode implements bin.Encoder.
@@ -266,7 +281,7 @@ var (
 // See https://core.telegram.org/constructor/jsonString for reference.
 type JsonString struct {
 	// Value
-	Value string
+	Value string `schemaname:"value"`
 }
 
 // JsonStringTypeID is TL type id of JsonString.
@@ -303,6 +318,11 @@ func (j *JsonString) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (j *JsonString) TypeID() uint32 {
 	return JsonStringTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (j *JsonString) SchemaName() string {
+	return "jsonString"
 }
 
 // Encode implements bin.Encoder.
@@ -355,7 +375,7 @@ var (
 // See https://core.telegram.org/constructor/jsonArray for reference.
 type JsonArray struct {
 	// JSON values
-	Value []JSONValueClass
+	Value []JSONValueClass `schemaname:"value"`
 }
 
 // JsonArrayTypeID is TL type id of JsonArray.
@@ -392,6 +412,11 @@ func (j *JsonArray) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (j *JsonArray) TypeID() uint32 {
 	return JsonArrayTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (j *JsonArray) SchemaName() string {
+	return "jsonArray"
 }
 
 // Encode implements bin.Encoder.
@@ -463,7 +488,7 @@ var (
 // See https://core.telegram.org/constructor/jsonObject for reference.
 type JsonObject struct {
 	// Values
-	Value []JsonObjectValue
+	Value []JsonObjectValue `schemaname:"value"`
 }
 
 // JsonObjectTypeID is TL type id of JsonObject.
@@ -500,6 +525,11 @@ func (j *JsonObject) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (j *JsonObject) TypeID() uint32 {
 	return JsonObjectTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (j *JsonObject) SchemaName() string {
+	return "jsonObject"
 }
 
 // Encode implements bin.Encoder.
@@ -583,6 +613,8 @@ type JSONValueClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

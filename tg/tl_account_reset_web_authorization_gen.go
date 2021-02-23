@@ -30,7 +30,7 @@ type AccountResetWebAuthorizationRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/webAuthorization
-	Hash int64
+	Hash int64 `schemaname:"hash"`
 }
 
 // AccountResetWebAuthorizationRequestTypeID is TL type id of AccountResetWebAuthorizationRequest.
@@ -67,6 +67,11 @@ func (r *AccountResetWebAuthorizationRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *AccountResetWebAuthorizationRequest) TypeID() uint32 {
 	return AccountResetWebAuthorizationRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *AccountResetWebAuthorizationRequest) SchemaName() string {
+	return "account.resetWebAuthorization"
 }
 
 // Encode implements bin.Encoder.

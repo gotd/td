@@ -51,6 +51,11 @@ func (i *InputUserEmpty) TypeID() uint32 {
 	return InputUserEmptyTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputUserEmpty) SchemaName() string {
+	return "inputUserEmpty"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputUserEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -115,6 +120,11 @@ func (i *InputUserSelf) TypeID() uint32 {
 	return InputUserSelfTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputUserSelf) SchemaName() string {
+	return "inputUserSelf"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputUserSelf) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -152,12 +162,12 @@ var (
 // See https://core.telegram.org/constructor/inputUser for reference.
 type InputUser struct {
 	// User identifier
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// access_hash value from the user¹ constructor
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/user
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 }
 
 // InputUserTypeID is TL type id of InputUser.
@@ -199,6 +209,11 @@ func (i *InputUser) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputUser) TypeID() uint32 {
 	return InputUserTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputUser) SchemaName() string {
+	return "inputUser"
 }
 
 // Encode implements bin.Encoder.
@@ -267,11 +282,11 @@ var (
 // See https://core.telegram.org/constructor/inputUserFromMessage for reference.
 type InputUserFromMessage struct {
 	// The chat where the user was seen
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// The message ID
-	MsgID int
+	MsgID int `schemaname:"msg_id"`
 	// The identifier of the user that was seen
-	UserID int
+	UserID int `schemaname:"user_id"`
 }
 
 // InputUserFromMessageTypeID is TL type id of InputUserFromMessage.
@@ -318,6 +333,11 @@ func (i *InputUserFromMessage) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputUserFromMessage) TypeID() uint32 {
 	return InputUserFromMessageTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputUserFromMessage) SchemaName() string {
+	return "inputUserFromMessage"
 }
 
 // Encode implements bin.Encoder.
@@ -419,6 +439,8 @@ type InputUserClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

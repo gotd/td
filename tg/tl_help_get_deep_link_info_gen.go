@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/help.getDeepLinkInfo for reference.
 type HelpGetDeepLinkInfoRequest struct {
 	// Path in t.me/path
-	Path string
+	Path string `schemaname:"path"`
 }
 
 // HelpGetDeepLinkInfoRequestTypeID is TL type id of HelpGetDeepLinkInfoRequest.
@@ -61,6 +61,11 @@ func (g *HelpGetDeepLinkInfoRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *HelpGetDeepLinkInfoRequest) TypeID() uint32 {
 	return HelpGetDeepLinkInfoRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *HelpGetDeepLinkInfoRequest) SchemaName() string {
+	return "help.getDeepLinkInfo"
 }
 
 // Encode implements bin.Encoder.

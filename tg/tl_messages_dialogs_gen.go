@@ -24,13 +24,13 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.dialogs for reference.
 type MessagesDialogs struct {
 	// List of chats
-	Dialogs []DialogClass
+	Dialogs []DialogClass `schemaname:"dialogs"`
 	// List of last messages from each chat
-	Messages []MessageClass
+	Messages []MessageClass `schemaname:"messages"`
 	// List of groups mentioned in the chats
-	Chats []ChatClass
+	Chats []ChatClass `schemaname:"chats"`
 	// List of users mentioned in messages and groups
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 }
 
 // MessagesDialogsTypeID is TL type id of MessagesDialogs.
@@ -82,6 +82,11 @@ func (d *MessagesDialogs) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *MessagesDialogs) TypeID() uint32 {
 	return MessagesDialogsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *MessagesDialogs) SchemaName() string {
+	return "messages.dialogs"
 }
 
 // Encode implements bin.Encoder.
@@ -249,15 +254,15 @@ var (
 // See https://core.telegram.org/constructor/messages.dialogsSlice for reference.
 type MessagesDialogsSlice struct {
 	// Total number of dialogs
-	Count int
+	Count int `schemaname:"count"`
 	// List of dialogs
-	Dialogs []DialogClass
+	Dialogs []DialogClass `schemaname:"dialogs"`
 	// List of last messages from dialogs
-	Messages []MessageClass
+	Messages []MessageClass `schemaname:"messages"`
 	// List of chats mentioned in dialogs
-	Chats []ChatClass
+	Chats []ChatClass `schemaname:"chats"`
 	// List of users mentioned in messages and chats
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 }
 
 // MessagesDialogsSliceTypeID is TL type id of MessagesDialogsSlice.
@@ -314,6 +319,11 @@ func (d *MessagesDialogsSlice) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *MessagesDialogsSlice) TypeID() uint32 {
 	return MessagesDialogsSliceTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *MessagesDialogsSlice) SchemaName() string {
+	return "messages.dialogsSlice"
 }
 
 // Encode implements bin.Encoder.
@@ -494,7 +504,7 @@ var (
 // See https://core.telegram.org/constructor/messages.dialogsNotModified for reference.
 type MessagesDialogsNotModified struct {
 	// Number of dialogs found server-side by the query
-	Count int
+	Count int `schemaname:"count"`
 }
 
 // MessagesDialogsNotModifiedTypeID is TL type id of MessagesDialogsNotModified.
@@ -531,6 +541,11 @@ func (d *MessagesDialogsNotModified) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *MessagesDialogsNotModified) TypeID() uint32 {
 	return MessagesDialogsNotModifiedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *MessagesDialogsNotModified) SchemaName() string {
+	return "messages.dialogsNotModified"
 }
 
 // Encode implements bin.Encoder.
@@ -597,16 +612,18 @@ type MessagesDialogsClass interface {
 	bin.Decoder
 	construct() MessagesDialogsClass
 
-	// AsModified tries to map MessagesDialogsClass to ModifiedMessagesDialogs.
-	AsModified() (ModifiedMessagesDialogs, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsModified tries to map MessagesDialogsClass to ModifiedMessagesDialogs.
+	AsModified() (ModifiedMessagesDialogs, bool)
 }
 
 // ModifiedMessagesDialogs represents Modified subset of MessagesDialogsClass.
@@ -614,6 +631,16 @@ type ModifiedMessagesDialogs interface {
 	bin.Encoder
 	bin.Decoder
 	construct() MessagesDialogsClass
+
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
 
 	// List of chats
 	GetDialogs() (value []DialogClass)
@@ -623,29 +650,21 @@ type ModifiedMessagesDialogs interface {
 	GetChats() (value []ChatClass)
 	// List of users mentioned in messages and groups
 	GetUsers() (value []UserClass)
-
-	// TypeID returns MTProto type id (CRC code).
-	// See https://core.telegram.org/mtproto/TL-tl#remarks.
-	TypeID() uint32
-	// String implements fmt.Stringer.
-	String() string
-	// Zero returns true if current object has a zero value.
-	Zero() bool
 }
 
-// AsModified tries to map MessagesDialogsClass to ModifiedMessagesDialogs.
+// AsModified tries to map MessagesDialogs to ModifiedMessagesDialogs.
 func (d *MessagesDialogs) AsModified() (ModifiedMessagesDialogs, bool) {
 	value, ok := (MessagesDialogsClass(d)).(ModifiedMessagesDialogs)
 	return value, ok
 }
 
-// AsModified tries to map MessagesDialogsClass to ModifiedMessagesDialogs.
+// AsModified tries to map MessagesDialogsSlice to ModifiedMessagesDialogs.
 func (d *MessagesDialogsSlice) AsModified() (ModifiedMessagesDialogs, bool) {
 	value, ok := (MessagesDialogsClass(d)).(ModifiedMessagesDialogs)
 	return value, ok
 }
 
-// AsModified tries to map MessagesDialogsClass to ModifiedMessagesDialogs.
+// AsModified tries to map MessagesDialogsNotModified to ModifiedMessagesDialogs.
 func (d *MessagesDialogsNotModified) AsModified() (ModifiedMessagesDialogs, bool) {
 	value, ok := (MessagesDialogsClass(d)).(ModifiedMessagesDialogs)
 	return value, ok
@@ -744,6 +763,24 @@ func (s MessagesDialogsClassSlice) FirstAsModified() (v ModifiedMessagesDialogs,
 // LastAsModified returns last element of slice (if exists).
 func (s MessagesDialogsClassSlice) LastAsModified() (v ModifiedMessagesDialogs, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopFirstAsModified returns element of slice (if exists).
+func (s *MessagesDialogsClassSlice) PopFirstAsModified() (v ModifiedMessagesDialogs, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopAsModified returns element of slice (if exists).
+func (s *MessagesDialogsClassSlice) PopAsModified() (v ModifiedMessagesDialogs, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

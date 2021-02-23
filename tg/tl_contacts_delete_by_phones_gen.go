@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/contacts.deleteByPhones for reference.
 type ContactsDeleteByPhonesRequest struct {
 	// Phone numbers
-	Phones []string
+	Phones []string `schemaname:"phones"`
 }
 
 // ContactsDeleteByPhonesRequestTypeID is TL type id of ContactsDeleteByPhonesRequest.
@@ -61,6 +61,11 @@ func (d *ContactsDeleteByPhonesRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *ContactsDeleteByPhonesRequest) TypeID() uint32 {
 	return ContactsDeleteByPhonesRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *ContactsDeleteByPhonesRequest) SchemaName() string {
+	return "contacts.deleteByPhones"
 }
 
 // Encode implements bin.Encoder.

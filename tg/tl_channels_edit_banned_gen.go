@@ -30,11 +30,11 @@ type ChannelsEditBannedRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass
+	Channel InputChannelClass `schemaname:"channel"`
 	// The ID of the user whose banned rights should be modified
-	UserID InputUserClass
+	UserID InputUserClass `schemaname:"user_id"`
 	// The banned rights
-	BannedRights ChatBannedRights
+	BannedRights ChatBannedRights `schemaname:"banned_rights"`
 }
 
 // ChannelsEditBannedRequestTypeID is TL type id of ChannelsEditBannedRequest.
@@ -81,6 +81,11 @@ func (e *ChannelsEditBannedRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *ChannelsEditBannedRequest) TypeID() uint32 {
 	return ChannelsEditBannedRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *ChannelsEditBannedRequest) SchemaName() string {
+	return "channels.editBanned"
 }
 
 // Encode implements bin.Encoder.

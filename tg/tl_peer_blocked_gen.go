@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/peerBlocked for reference.
 type PeerBlocked struct {
 	// Peer ID
-	PeerID PeerClass
+	PeerID PeerClass `schemaname:"peer_id"`
 	// When was the peer blocked
-	Date int
+	Date int `schemaname:"date"`
 }
 
 // PeerBlockedTypeID is TL type id of PeerBlocked.
@@ -68,6 +68,11 @@ func (p *PeerBlocked) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PeerBlocked) TypeID() uint32 {
 	return PeerBlockedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PeerBlocked) SchemaName() string {
+	return "peerBlocked"
 }
 
 // Encode implements bin.Encoder.

@@ -24,12 +24,12 @@ var _ = errors.Is
 // See https://core.telegram.org/method/auth.cancelCode for reference.
 type AuthCancelCodeRequest struct {
 	// Phone number
-	PhoneNumber string
+	PhoneNumber string `schemaname:"phone_number"`
 	// Phone code hash from auth.sendCode¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/auth.sendCode
-	PhoneCodeHash string
+	PhoneCodeHash string `schemaname:"phone_code_hash"`
 }
 
 // AuthCancelCodeRequestTypeID is TL type id of AuthCancelCodeRequest.
@@ -71,6 +71,11 @@ func (c *AuthCancelCodeRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *AuthCancelCodeRequest) TypeID() uint32 {
 	return AuthCancelCodeRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *AuthCancelCodeRequest) SchemaName() string {
+	return "auth.cancelCode"
 }
 
 // Encode implements bin.Encoder.

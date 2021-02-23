@@ -21,7 +21,7 @@ var _ = errors.Is
 // SavedPhoneContactVector is a box for Vector<SavedContact>
 type SavedPhoneContactVector struct {
 	// Elements of Vector<SavedContact>
-	Elems []SavedPhoneContact
+	Elems []SavedPhoneContact `schemaname:"Elems"`
 }
 
 // SavedPhoneContactVectorTypeID is TL type id of SavedPhoneContactVector.
@@ -58,6 +58,11 @@ func (vec *SavedPhoneContactVector) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *SavedPhoneContactVector) TypeID() uint32 {
 	return SavedPhoneContactVectorTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (vec *SavedPhoneContactVector) SchemaName() string {
+	return ""
 }
 
 // Encode implements bin.Encoder.

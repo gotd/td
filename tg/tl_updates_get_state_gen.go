@@ -51,6 +51,11 @@ func (g *UpdatesGetStateRequest) TypeID() uint32 {
 	return UpdatesGetStateRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *UpdatesGetStateRequest) SchemaName() string {
+	return "updates.getState"
+}
+
 // Encode implements bin.Encoder.
 func (g *UpdatesGetStateRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

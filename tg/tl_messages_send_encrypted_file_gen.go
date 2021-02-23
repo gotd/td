@@ -27,20 +27,20 @@ type MessagesSendEncryptedFileRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether to send the file without triggering a notification
-	Silent bool
+	Silent bool `schemaname:"silent"`
 	// Secret chat ID
-	Peer InputEncryptedChat
+	Peer InputEncryptedChat `schemaname:"peer"`
 	// Unique client message ID necessary to prevent message resending
-	RandomID int64
+	RandomID int64 `schemaname:"random_id"`
 	// TL-serialization of DecryptedMessage¹ type, encrypted with a key generated during chat initialization
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/DecryptedMessage
-	Data []byte
+	Data []byte `schemaname:"data"`
 	// File attachment for the secret chat
-	File InputEncryptedFileClass
+	File InputEncryptedFileClass `schemaname:"file"`
 }
 
 // MessagesSendEncryptedFileRequestTypeID is TL type id of MessagesSendEncryptedFileRequest.
@@ -89,6 +89,7 @@ func (s *MessagesSendEncryptedFileRequest) FillFrom(from interface {
 	GetData() (value []byte)
 	GetFile() (value InputEncryptedFileClass)
 }) {
+	s.Silent = from.GetSilent()
 	s.Peer = from.GetPeer()
 	s.RandomID = from.GetRandomID()
 	s.Data = from.GetData()
@@ -99,6 +100,11 @@ func (s *MessagesSendEncryptedFileRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSendEncryptedFileRequest) TypeID() uint32 {
 	return MessagesSendEncryptedFileRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *MessagesSendEncryptedFileRequest) SchemaName() string {
+	return "messages.sendEncryptedFile"
 }
 
 // Encode implements bin.Encoder.

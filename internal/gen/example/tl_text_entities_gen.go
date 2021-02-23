@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/textEntities for reference.
 type TextEntities struct {
 	// List of text entities
-	Entities []TextEntity
+	Entities []TextEntity `schemaname:"entities"`
 }
 
 // TextEntitiesTypeID is TL type id of TextEntities.
@@ -60,6 +60,11 @@ func (t *TextEntities) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntities) TypeID() uint32 {
 	return TextEntitiesTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *TextEntities) SchemaName() string {
+	return "textEntities"
 }
 
 // Encode implements bin.Encoder.

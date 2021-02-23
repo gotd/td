@@ -27,11 +27,11 @@ type MessagesMarkDialogUnreadRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Mark as unread/read
-	Unread bool
+	Unread bool `schemaname:"unread"`
 	// Dialog
-	Peer InputDialogPeerClass
+	Peer InputDialogPeerClass `schemaname:"peer"`
 }
 
 // MessagesMarkDialogUnreadRequestTypeID is TL type id of MessagesMarkDialogUnreadRequest.
@@ -68,6 +68,7 @@ func (m *MessagesMarkDialogUnreadRequest) FillFrom(from interface {
 	GetUnread() (value bool)
 	GetPeer() (value InputDialogPeerClass)
 }) {
+	m.Unread = from.GetUnread()
 	m.Peer = from.GetPeer()
 }
 
@@ -75,6 +76,11 @@ func (m *MessagesMarkDialogUnreadRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessagesMarkDialogUnreadRequest) TypeID() uint32 {
 	return MessagesMarkDialogUnreadRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessagesMarkDialogUnreadRequest) SchemaName() string {
+	return "messages.markDialogUnread"
 }
 
 // Encode implements bin.Encoder.

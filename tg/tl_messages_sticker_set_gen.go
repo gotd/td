@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.stickerSet for reference.
 type MessagesStickerSet struct {
 	// The stickerset
-	Set StickerSet
+	Set StickerSet `schemaname:"set"`
 	// Emoji info for stickers
-	Packs []StickerPack
+	Packs []StickerPack `schemaname:"packs"`
 	// Stickers in stickerset
-	Documents []DocumentClass
+	Documents []DocumentClass `schemaname:"documents"`
 }
 
 // MessagesStickerSetTypeID is TL type id of MessagesStickerSet.
@@ -75,6 +75,11 @@ func (s *MessagesStickerSet) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesStickerSet) TypeID() uint32 {
 	return MessagesStickerSetTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *MessagesStickerSet) SchemaName() string {
+	return "messages.stickerSet"
 }
 
 // Encode implements bin.Encoder.

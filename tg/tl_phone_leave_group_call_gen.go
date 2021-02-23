@@ -23,9 +23,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/phone.leaveGroupCall for reference.
 type PhoneLeaveGroupCallRequest struct {
 	// Call field of PhoneLeaveGroupCallRequest.
-	Call InputGroupCall
+	Call InputGroupCall `schemaname:"call"`
 	// Source field of PhoneLeaveGroupCallRequest.
-	Source int
+	Source int `schemaname:"source"`
 }
 
 // PhoneLeaveGroupCallRequestTypeID is TL type id of PhoneLeaveGroupCallRequest.
@@ -67,6 +67,11 @@ func (l *PhoneLeaveGroupCallRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (l *PhoneLeaveGroupCallRequest) TypeID() uint32 {
 	return PhoneLeaveGroupCallRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (l *PhoneLeaveGroupCallRequest) SchemaName() string {
+	return "phone.leaveGroupCall"
 }
 
 // Encode implements bin.Encoder.

@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/inputWallPaper for reference.
 type InputWallPaper struct {
 	// Wallpaper ID
-	ID int64
+	ID int64 `schemaname:"id"`
 	// Access hash
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 }
 
 // InputWallPaperTypeID is TL type id of InputWallPaper.
@@ -68,6 +68,11 @@ func (i *InputWallPaper) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputWallPaper) TypeID() uint32 {
 	return InputWallPaperTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputWallPaper) SchemaName() string {
+	return "inputWallPaper"
 }
 
 // Encode implements bin.Encoder.
@@ -133,7 +138,7 @@ var (
 // See https://core.telegram.org/constructor/inputWallPaperSlug for reference.
 type InputWallPaperSlug struct {
 	// Unique wallpaper ID
-	Slug string
+	Slug string `schemaname:"slug"`
 }
 
 // InputWallPaperSlugTypeID is TL type id of InputWallPaperSlug.
@@ -170,6 +175,11 @@ func (i *InputWallPaperSlug) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputWallPaperSlug) TypeID() uint32 {
 	return InputWallPaperSlugTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputWallPaperSlug) SchemaName() string {
+	return "inputWallPaperSlug"
 }
 
 // Encode implements bin.Encoder.
@@ -249,6 +259,11 @@ func (i *InputWallPaperNoFile) TypeID() uint32 {
 	return InputWallPaperNoFileTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputWallPaperNoFile) SchemaName() string {
+	return "inputWallPaperNoFile"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputWallPaperNoFile) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -303,6 +318,8 @@ type InputWallPaperClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

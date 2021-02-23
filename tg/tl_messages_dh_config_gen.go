@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.dhConfigNotModified for reference.
 type MessagesDhConfigNotModified struct {
 	// Random sequence of bytes of assigned length
-	Random []byte
+	Random []byte `schemaname:"random"`
 }
 
 // MessagesDhConfigNotModifiedTypeID is TL type id of MessagesDhConfigNotModified.
@@ -61,6 +61,11 @@ func (d *MessagesDhConfigNotModified) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *MessagesDhConfigNotModified) TypeID() uint32 {
 	return MessagesDhConfigNotModifiedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *MessagesDhConfigNotModified) SchemaName() string {
+	return "messages.dhConfigNotModified"
 }
 
 // Encode implements bin.Encoder.
@@ -116,16 +121,16 @@ type MessagesDhConfig struct {
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
-	G int
+	G int `schemaname:"g"`
 	// New value primitive root, see Wikipedia¹
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
-	P []byte
+	P []byte `schemaname:"p"`
 	// Vestion of set of parameters
-	Version int
+	Version int `schemaname:"version"`
 	// Random sequence of bytes of assigned length
-	Random []byte
+	Random []byte `schemaname:"random"`
 }
 
 // MessagesDhConfigTypeID is TL type id of MessagesDhConfig.
@@ -177,6 +182,11 @@ func (d *MessagesDhConfig) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *MessagesDhConfig) TypeID() uint32 {
 	return MessagesDhConfigTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *MessagesDhConfig) SchemaName() string {
+	return "messages.dhConfig"
 }
 
 // Encode implements bin.Encoder.
@@ -281,27 +291,27 @@ type MessagesDhConfigClass interface {
 	bin.Decoder
 	construct() MessagesDhConfigClass
 
-	// Random sequence of bytes of assigned length
-	GetRandom() (value []byte)
-
-	// AsModified tries to map MessagesDhConfigClass to MessagesDhConfig.
-	AsModified() (*MessagesDhConfig, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Random sequence of bytes of assigned length
+	GetRandom() (value []byte) // AsModified tries to map MessagesDhConfigClass to MessagesDhConfig.
+	AsModified() (*MessagesDhConfig, bool)
 }
 
-// AsModified tries to map MessagesDhConfigClass to MessagesDhConfig.
+// AsModified tries to map MessagesDhConfigNotModified to MessagesDhConfig.
 func (d *MessagesDhConfigNotModified) AsModified() (*MessagesDhConfig, bool) {
 	return nil, false
 }
 
-// AsModified tries to map MessagesDhConfigClass to MessagesDhConfig.
+// AsModified tries to map MessagesDhConfig to MessagesDhConfig.
 func (d *MessagesDhConfig) AsModified() (*MessagesDhConfig, bool) {
 	return d, true
 }
@@ -392,6 +402,24 @@ func (s MessagesDhConfigClassSlice) FirstAsModified() (v *MessagesDhConfig, ok b
 // LastAsModified returns last element of slice (if exists).
 func (s MessagesDhConfigClassSlice) LastAsModified() (v *MessagesDhConfig, ok bool) {
 	value, ok := s.Last()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopFirstAsModified returns element of slice (if exists).
+func (s *MessagesDhConfigClassSlice) PopFirstAsModified() (v *MessagesDhConfig, ok bool) {
+	value, ok := s.PopFirst()
+	if !ok {
+		return
+	}
+	return value.AsModified()
+}
+
+// PopAsModified returns element of slice (if exists).
+func (s *MessagesDhConfigClassSlice) PopAsModified() (v *MessagesDhConfig, ok bool) {
+	value, ok := s.Pop()
 	if !ok {
 		return
 	}

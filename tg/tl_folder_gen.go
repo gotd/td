@@ -27,21 +27,21 @@ type Folder struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Automatically add new channels to this folder
-	AutofillNewBroadcasts bool
+	AutofillNewBroadcasts bool `schemaname:"autofill_new_broadcasts"`
 	// Automatically add joined new public supergroups to this folder
-	AutofillPublicGroups bool
+	AutofillPublicGroups bool `schemaname:"autofill_public_groups"`
 	// Automatically add new private chats to this folder
-	AutofillNewCorrespondents bool
+	AutofillNewCorrespondents bool `schemaname:"autofill_new_correspondents"`
 	// Folder ID
-	ID int
+	ID int `schemaname:"id"`
 	// Folder title
-	Title string
+	Title string `schemaname:"title"`
 	// Folder picture
 	//
 	// Use SetPhoto and GetPhoto helpers.
-	Photo ChatPhotoClass
+	Photo ChatPhotoClass `schemaname:"photo"`
 }
 
 // FolderTypeID is TL type id of Folder.
@@ -94,17 +94,26 @@ func (f *Folder) FillFrom(from interface {
 	GetTitle() (value string)
 	GetPhoto() (value ChatPhotoClass, ok bool)
 }) {
+	f.AutofillNewBroadcasts = from.GetAutofillNewBroadcasts()
+	f.AutofillPublicGroups = from.GetAutofillPublicGroups()
+	f.AutofillNewCorrespondents = from.GetAutofillNewCorrespondents()
 	f.ID = from.GetID()
 	f.Title = from.GetTitle()
 	if val, ok := from.GetPhoto(); ok {
 		f.Photo = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *Folder) TypeID() uint32 {
 	return FolderTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (f *Folder) SchemaName() string {
+	return "folder"
 }
 
 // Encode implements bin.Encoder.

@@ -24,18 +24,18 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.peerDialogs for reference.
 type MessagesPeerDialogs struct {
 	// Dialog info
-	Dialogs []DialogClass
+	Dialogs []DialogClass `schemaname:"dialogs"`
 	// Messages mentioned in dialog info
-	Messages []MessageClass
+	Messages []MessageClass `schemaname:"messages"`
 	// Chats
-	Chats []ChatClass
+	Chats []ChatClass `schemaname:"chats"`
 	// Users
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 	// Current update state of dialog¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	State UpdatesState
+	State UpdatesState `schemaname:"state"`
 }
 
 // MessagesPeerDialogsTypeID is TL type id of MessagesPeerDialogs.
@@ -92,6 +92,11 @@ func (p *MessagesPeerDialogs) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *MessagesPeerDialogs) TypeID() uint32 {
 	return MessagesPeerDialogsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *MessagesPeerDialogs) SchemaName() string {
+	return "messages.peerDialogs"
 }
 
 // Encode implements bin.Encoder.
