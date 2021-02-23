@@ -294,24 +294,19 @@ var (
 	_ ReportReasonClass = &InputReportReasonChildAbuse{}
 )
 
-// InputReportReasonOther represents TL type `inputReportReasonOther#e1746d0a`.
+// InputReportReasonOther represents TL type `inputReportReasonOther#c1e4a2b1`.
 // Other
 //
 // See https://core.telegram.org/constructor/inputReportReasonOther for reference.
 type InputReportReasonOther struct {
-	// Other report reason
-	Text string `schemaname:"text"`
 }
 
 // InputReportReasonOtherTypeID is TL type id of InputReportReasonOther.
-const InputReportReasonOtherTypeID = 0xe1746d0a
+const InputReportReasonOtherTypeID = 0xc1e4a2b1
 
 func (i *InputReportReasonOther) Zero() bool {
 	if i == nil {
 		return true
-	}
-	if !(i.Text == "") {
-		return false
 	}
 
 	return true
@@ -324,13 +319,6 @@ func (i *InputReportReasonOther) String() string {
 	}
 	type Alias InputReportReasonOther
 	return fmt.Sprintf("InputReportReasonOther%+v", Alias(*i))
-}
-
-// FillFrom fills InputReportReasonOther from given interface.
-func (i *InputReportReasonOther) FillFrom(from interface {
-	GetText() (value string)
-}) {
-	i.Text = from.GetText()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -347,32 +335,19 @@ func (i *InputReportReasonOther) SchemaName() string {
 // Encode implements bin.Encoder.
 func (i *InputReportReasonOther) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode inputReportReasonOther#e1746d0a as nil")
+		return fmt.Errorf("can't encode inputReportReasonOther#c1e4a2b1 as nil")
 	}
 	b.PutID(InputReportReasonOtherTypeID)
-	b.PutString(i.Text)
 	return nil
-}
-
-// GetText returns value of Text field.
-func (i *InputReportReasonOther) GetText() (value string) {
-	return i.Text
 }
 
 // Decode implements bin.Decoder.
 func (i *InputReportReasonOther) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode inputReportReasonOther#e1746d0a to nil")
+		return fmt.Errorf("can't decode inputReportReasonOther#c1e4a2b1 to nil")
 	}
 	if err := b.ConsumeID(InputReportReasonOtherTypeID); err != nil {
-		return fmt.Errorf("unable to decode inputReportReasonOther#e1746d0a: %w", err)
-	}
-	{
-		value, err := b.String()
-		if err != nil {
-			return fmt.Errorf("unable to decode inputReportReasonOther#e1746d0a: field text: %w", err)
-		}
-		i.Text = value
+		return fmt.Errorf("unable to decode inputReportReasonOther#c1e4a2b1: %w", err)
 	}
 	return nil
 }
@@ -608,7 +583,7 @@ var (
 //  case *tg.InputReportReasonViolence: // inputReportReasonViolence#1e22c78d
 //  case *tg.InputReportReasonPornography: // inputReportReasonPornography#2e59d922
 //  case *tg.InputReportReasonChildAbuse: // inputReportReasonChildAbuse#adf44ee3
-//  case *tg.InputReportReasonOther: // inputReportReasonOther#e1746d0a
+//  case *tg.InputReportReasonOther: // inputReportReasonOther#c1e4a2b1
 //  case *tg.InputReportReasonCopyright: // inputReportReasonCopyright#9b89f93a
 //  case *tg.InputReportReasonGeoIrrelevant: // inputReportReasonGeoIrrelevant#dbd4feed
 //  case *tg.InputReportReasonFake: // inputReportReasonFake#f5ddd6e7
@@ -666,7 +641,7 @@ func DecodeReportReason(buf *bin.Buffer) (ReportReasonClass, error) {
 		}
 		return &v, nil
 	case InputReportReasonOtherTypeID:
-		// Decoding inputReportReasonOther#e1746d0a.
+		// Decoding inputReportReasonOther#c1e4a2b1.
 		v := InputReportReasonOther{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ReportReasonClass: %w", err)

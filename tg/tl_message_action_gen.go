@@ -2909,6 +2909,99 @@ var (
 	_ MessageActionClass = &MessageActionInviteToGroupCall{}
 )
 
+// MessageActionSetMessagesTTL represents TL type `messageActionSetMessagesTTL#aa1afbfd`.
+//
+// See https://core.telegram.org/constructor/messageActionSetMessagesTTL for reference.
+type MessageActionSetMessagesTTL struct {
+	// Period field of MessageActionSetMessagesTTL.
+	Period int `schemaname:"period"`
+}
+
+// MessageActionSetMessagesTTLTypeID is TL type id of MessageActionSetMessagesTTL.
+const MessageActionSetMessagesTTLTypeID = 0xaa1afbfd
+
+func (m *MessageActionSetMessagesTTL) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Period == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionSetMessagesTTL) String() string {
+	if m == nil {
+		return "MessageActionSetMessagesTTL(nil)"
+	}
+	type Alias MessageActionSetMessagesTTL
+	return fmt.Sprintf("MessageActionSetMessagesTTL%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionSetMessagesTTL from given interface.
+func (m *MessageActionSetMessagesTTL) FillFrom(from interface {
+	GetPeriod() (value int)
+}) {
+	m.Period = from.GetPeriod()
+}
+
+// TypeID returns MTProto type id (CRC code).
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (m *MessageActionSetMessagesTTL) TypeID() uint32 {
+	return MessageActionSetMessagesTTLTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageActionSetMessagesTTL) SchemaName() string {
+	return "messageActionSetMessagesTTL"
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionSetMessagesTTL) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionSetMessagesTTL#aa1afbfd as nil")
+	}
+	b.PutID(MessageActionSetMessagesTTLTypeID)
+	b.PutInt(m.Period)
+	return nil
+}
+
+// GetPeriod returns value of Period field.
+func (m *MessageActionSetMessagesTTL) GetPeriod() (value int) {
+	return m.Period
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionSetMessagesTTL) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionSetMessagesTTL#aa1afbfd to nil")
+	}
+	if err := b.ConsumeID(MessageActionSetMessagesTTLTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionSetMessagesTTL#aa1afbfd: %w", err)
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionSetMessagesTTL#aa1afbfd: field period: %w", err)
+		}
+		m.Period = value
+	}
+	return nil
+}
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionSetMessagesTTL) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionSetMessagesTTL.
+var (
+	_ bin.Encoder = &MessageActionSetMessagesTTL{}
+	_ bin.Decoder = &MessageActionSetMessagesTTL{}
+
+	_ MessageActionClass = &MessageActionSetMessagesTTL{}
+)
+
 // MessageActionClass represents MessageAction generic type.
 //
 // See https://core.telegram.org/type/MessageAction for reference.
@@ -2945,6 +3038,7 @@ var (
 //  case *tg.MessageActionGeoProximityReached: // messageActionGeoProximityReached#98e0d697
 //  case *tg.MessageActionGroupCall: // messageActionGroupCall#7a0d7f42
 //  case *tg.MessageActionInviteToGroupCall: // messageActionInviteToGroupCall#76b9f11a
+//  case *tg.MessageActionSetMessagesTTL: // messageActionSetMessagesTTL#aa1afbfd
 //  default: panic(v)
 //  }
 type MessageActionClass interface {
@@ -3148,6 +3242,13 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 	case MessageActionInviteToGroupCallTypeID:
 		// Decoding messageActionInviteToGroupCall#76b9f11a.
 		v := MessageActionInviteToGroupCall{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionSetMessagesTTLTypeID:
+		// Decoding messageActionSetMessagesTTL#aa1afbfd.
+		v := MessageActionSetMessagesTTL{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
 		}

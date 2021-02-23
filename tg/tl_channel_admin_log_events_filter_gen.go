@@ -109,6 +109,8 @@ type ChannelAdminLogEventsFilter struct {
 	Delete bool `schemaname:"delete"`
 	// GroupCall field of ChannelAdminLogEventsFilter.
 	GroupCall bool `schemaname:"group_call"`
+	// Invites field of ChannelAdminLogEventsFilter.
+	Invites bool `schemaname:"invites"`
 }
 
 // ChannelAdminLogEventsFilterTypeID is TL type id of ChannelAdminLogEventsFilter.
@@ -166,6 +168,9 @@ func (c *ChannelAdminLogEventsFilter) Zero() bool {
 	if !(c.GroupCall == false) {
 		return false
 	}
+	if !(c.Invites == false) {
+		return false
+	}
 
 	return true
 }
@@ -196,6 +201,7 @@ func (c *ChannelAdminLogEventsFilter) FillFrom(from interface {
 	GetEdit() (value bool)
 	GetDelete() (value bool)
 	GetGroupCall() (value bool)
+	GetInvites() (value bool)
 }) {
 	c.Join = from.GetJoin()
 	c.Leave = from.GetLeave()
@@ -212,6 +218,7 @@ func (c *ChannelAdminLogEventsFilter) FillFrom(from interface {
 	c.Edit = from.GetEdit()
 	c.Delete = from.GetDelete()
 	c.GroupCall = from.GetGroupCall()
+	c.Invites = from.GetInvites()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -275,6 +282,9 @@ func (c *ChannelAdminLogEventsFilter) Encode(b *bin.Buffer) error {
 	}
 	if !(c.GroupCall == false) {
 		c.Flags.Set(14)
+	}
+	if !(c.Invites == false) {
+		c.Flags.Set(15)
 	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventsFilter#ea107ae4: field flags: %w", err)
@@ -522,6 +532,22 @@ func (c *ChannelAdminLogEventsFilter) GetGroupCall() (value bool) {
 	return c.Flags.Has(14)
 }
 
+// SetInvites sets value of Invites conditional field.
+func (c *ChannelAdminLogEventsFilter) SetInvites(value bool) {
+	if value {
+		c.Flags.Set(15)
+		c.Invites = true
+	} else {
+		c.Flags.Unset(15)
+		c.Invites = false
+	}
+}
+
+// GetInvites returns value of Invites conditional field.
+func (c *ChannelAdminLogEventsFilter) GetInvites() (value bool) {
+	return c.Flags.Has(15)
+}
+
 // Decode implements bin.Decoder.
 func (c *ChannelAdminLogEventsFilter) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -550,6 +576,7 @@ func (c *ChannelAdminLogEventsFilter) Decode(b *bin.Buffer) error {
 	c.Edit = c.Flags.Has(12)
 	c.Delete = c.Flags.Has(13)
 	c.GroupCall = c.Flags.Has(14)
+	c.Invites = c.Flags.Has(15)
 	return nil
 }
 

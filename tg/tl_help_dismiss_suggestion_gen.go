@@ -18,21 +18,26 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 
-// HelpDismissSuggestionRequest represents TL type `help.dismissSuggestion#77fa99f`.
+// HelpDismissSuggestionRequest represents TL type `help.dismissSuggestion#f50dbaa1`.
 // Dismiss a suggestion
 //
 // See https://core.telegram.org/method/help.dismissSuggestion for reference.
 type HelpDismissSuggestionRequest struct {
+	// Peer field of HelpDismissSuggestionRequest.
+	Peer InputPeerClass `schemaname:"peer"`
 	// Suggestion
 	Suggestion string `schemaname:"suggestion"`
 }
 
 // HelpDismissSuggestionRequestTypeID is TL type id of HelpDismissSuggestionRequest.
-const HelpDismissSuggestionRequestTypeID = 0x77fa99f
+const HelpDismissSuggestionRequestTypeID = 0xf50dbaa1
 
 func (d *HelpDismissSuggestionRequest) Zero() bool {
 	if d == nil {
 		return true
+	}
+	if !(d.Peer == nil) {
+		return false
 	}
 	if !(d.Suggestion == "") {
 		return false
@@ -52,8 +57,10 @@ func (d *HelpDismissSuggestionRequest) String() string {
 
 // FillFrom fills HelpDismissSuggestionRequest from given interface.
 func (d *HelpDismissSuggestionRequest) FillFrom(from interface {
+	GetPeer() (value InputPeerClass)
 	GetSuggestion() (value string)
 }) {
+	d.Peer = from.GetPeer()
 	d.Suggestion = from.GetSuggestion()
 }
 
@@ -71,11 +78,22 @@ func (d *HelpDismissSuggestionRequest) SchemaName() string {
 // Encode implements bin.Encoder.
 func (d *HelpDismissSuggestionRequest) Encode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't encode help.dismissSuggestion#77fa99f as nil")
+		return fmt.Errorf("can't encode help.dismissSuggestion#f50dbaa1 as nil")
 	}
 	b.PutID(HelpDismissSuggestionRequestTypeID)
+	if d.Peer == nil {
+		return fmt.Errorf("unable to encode help.dismissSuggestion#f50dbaa1: field peer is nil")
+	}
+	if err := d.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode help.dismissSuggestion#f50dbaa1: field peer: %w", err)
+	}
 	b.PutString(d.Suggestion)
 	return nil
+}
+
+// GetPeer returns value of Peer field.
+func (d *HelpDismissSuggestionRequest) GetPeer() (value InputPeerClass) {
+	return d.Peer
 }
 
 // GetSuggestion returns value of Suggestion field.
@@ -86,15 +104,22 @@ func (d *HelpDismissSuggestionRequest) GetSuggestion() (value string) {
 // Decode implements bin.Decoder.
 func (d *HelpDismissSuggestionRequest) Decode(b *bin.Buffer) error {
 	if d == nil {
-		return fmt.Errorf("can't decode help.dismissSuggestion#77fa99f to nil")
+		return fmt.Errorf("can't decode help.dismissSuggestion#f50dbaa1 to nil")
 	}
 	if err := b.ConsumeID(HelpDismissSuggestionRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode help.dismissSuggestion#77fa99f: %w", err)
+		return fmt.Errorf("unable to decode help.dismissSuggestion#f50dbaa1: %w", err)
+	}
+	{
+		value, err := DecodeInputPeer(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode help.dismissSuggestion#f50dbaa1: field peer: %w", err)
+		}
+		d.Peer = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode help.dismissSuggestion#77fa99f: field suggestion: %w", err)
+			return fmt.Errorf("unable to decode help.dismissSuggestion#f50dbaa1: field suggestion: %w", err)
 		}
 		d.Suggestion = value
 	}
@@ -107,17 +132,14 @@ var (
 	_ bin.Decoder = &HelpDismissSuggestionRequest{}
 )
 
-// HelpDismissSuggestion invokes method help.dismissSuggestion#77fa99f returning error if any.
+// HelpDismissSuggestion invokes method help.dismissSuggestion#f50dbaa1 returning error if any.
 // Dismiss a suggestion
 //
 // See https://core.telegram.org/method/help.dismissSuggestion for reference.
 // Can be used by bots.
-func (c *Client) HelpDismissSuggestion(ctx context.Context, suggestion string) (bool, error) {
+func (c *Client) HelpDismissSuggestion(ctx context.Context, request *HelpDismissSuggestionRequest) (bool, error) {
 	var result BoolBox
 
-	request := &HelpDismissSuggestionRequest{
-		Suggestion: suggestion,
-	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return false, err
 	}

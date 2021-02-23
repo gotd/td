@@ -90,7 +90,7 @@ var (
 	_ UpdatesClass = &UpdatesTooLong{}
 )
 
-// UpdateShortMessage represents TL type `updateShortMessage#2296d2c8`.
+// UpdateShortMessage represents TL type `updateShortMessage#faeff833`.
 // Info about a message sent to (received from) another user
 //
 // See https://core.telegram.org/constructor/updateShortMessage for reference.
@@ -151,10 +151,14 @@ type UpdateShortMessage struct {
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass `schemaname:"entities"`
+	// TTLPeriod field of UpdateShortMessage.
+	//
+	// Use SetTTLPeriod and GetTTLPeriod helpers.
+	TTLPeriod int `schemaname:"ttl_period"`
 }
 
 // UpdateShortMessageTypeID is TL type id of UpdateShortMessage.
-const UpdateShortMessageTypeID = 0x2296d2c8
+const UpdateShortMessageTypeID = 0xfaeff833
 
 func (u *UpdateShortMessage) Zero() bool {
 	if u == nil {
@@ -205,6 +209,9 @@ func (u *UpdateShortMessage) Zero() bool {
 	if !(u.Entities == nil) {
 		return false
 	}
+	if !(u.TTLPeriod == 0) {
+		return false
+	}
 
 	return true
 }
@@ -234,6 +241,7 @@ func (u *UpdateShortMessage) FillFrom(from interface {
 	GetViaBotID() (value int, ok bool)
 	GetReplyTo() (value MessageReplyHeader, ok bool)
 	GetEntities() (value []MessageEntityClass, ok bool)
+	GetTTLPeriod() (value int, ok bool)
 }) {
 	u.Out = from.GetOut()
 	u.Mentioned = from.GetMentioned()
@@ -261,6 +269,10 @@ func (u *UpdateShortMessage) FillFrom(from interface {
 		u.Entities = val
 	}
 
+	if val, ok := from.GetTTLPeriod(); ok {
+		u.TTLPeriod = val
+	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -277,7 +289,7 @@ func (u *UpdateShortMessage) SchemaName() string {
 // Encode implements bin.Encoder.
 func (u *UpdateShortMessage) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateShortMessage#2296d2c8 as nil")
+		return fmt.Errorf("can't encode updateShortMessage#faeff833 as nil")
 	}
 	b.PutID(UpdateShortMessageTypeID)
 	if !(u.Out == false) {
@@ -304,8 +316,11 @@ func (u *UpdateShortMessage) Encode(b *bin.Buffer) error {
 	if !(u.Entities == nil) {
 		u.Flags.Set(7)
 	}
+	if !(u.TTLPeriod == 0) {
+		u.Flags.Set(25)
+	}
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateShortMessage#2296d2c8: field flags: %w", err)
+		return fmt.Errorf("unable to encode updateShortMessage#faeff833: field flags: %w", err)
 	}
 	b.PutInt(u.ID)
 	b.PutInt(u.UserID)
@@ -315,7 +330,7 @@ func (u *UpdateShortMessage) Encode(b *bin.Buffer) error {
 	b.PutInt(u.Date)
 	if u.Flags.Has(2) {
 		if err := u.FwdFrom.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updateShortMessage#2296d2c8: field fwd_from: %w", err)
+			return fmt.Errorf("unable to encode updateShortMessage#faeff833: field fwd_from: %w", err)
 		}
 	}
 	if u.Flags.Has(11) {
@@ -323,19 +338,22 @@ func (u *UpdateShortMessage) Encode(b *bin.Buffer) error {
 	}
 	if u.Flags.Has(3) {
 		if err := u.ReplyTo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updateShortMessage#2296d2c8: field reply_to: %w", err)
+			return fmt.Errorf("unable to encode updateShortMessage#faeff833: field reply_to: %w", err)
 		}
 	}
 	if u.Flags.Has(7) {
 		b.PutVectorHeader(len(u.Entities))
 		for idx, v := range u.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode updateShortMessage#2296d2c8: field entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode updateShortMessage#faeff833: field entities element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode updateShortMessage#2296d2c8: field entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode updateShortMessage#faeff833: field entities element with index %d: %w", idx, err)
 			}
 		}
+	}
+	if u.Flags.Has(25) {
+		b.PutInt(u.TTLPeriod)
 	}
 	return nil
 }
@@ -502,17 +520,32 @@ func (u *UpdateShortMessage) MapEntities() (value MessageEntityClassSlice, ok bo
 	return MessageEntityClassSlice(u.Entities), true
 }
 
+// SetTTLPeriod sets value of TTLPeriod conditional field.
+func (u *UpdateShortMessage) SetTTLPeriod(value int) {
+	u.Flags.Set(25)
+	u.TTLPeriod = value
+}
+
+// GetTTLPeriod returns value of TTLPeriod conditional field and
+// boolean which is true if field was set.
+func (u *UpdateShortMessage) GetTTLPeriod() (value int, ok bool) {
+	if !u.Flags.Has(25) {
+		return value, false
+	}
+	return u.TTLPeriod, true
+}
+
 // Decode implements bin.Decoder.
 func (u *UpdateShortMessage) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateShortMessage#2296d2c8 to nil")
+		return fmt.Errorf("can't decode updateShortMessage#faeff833 to nil")
 	}
 	if err := b.ConsumeID(UpdateShortMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateShortMessage#2296d2c8: %w", err)
+		return fmt.Errorf("unable to decode updateShortMessage#faeff833: %w", err)
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#2296d2c8: field flags: %w", err)
+			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field flags: %w", err)
 		}
 	}
 	u.Out = u.Flags.Has(1)
@@ -522,74 +555,81 @@ func (u *UpdateShortMessage) Decode(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#2296d2c8: field id: %w", err)
+			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field id: %w", err)
 		}
 		u.ID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#2296d2c8: field user_id: %w", err)
+			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field user_id: %w", err)
 		}
 		u.UserID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#2296d2c8: field message: %w", err)
+			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field message: %w", err)
 		}
 		u.Message = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#2296d2c8: field pts: %w", err)
+			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field pts: %w", err)
 		}
 		u.Pts = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#2296d2c8: field pts_count: %w", err)
+			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field pts_count: %w", err)
 		}
 		u.PtsCount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#2296d2c8: field date: %w", err)
+			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field date: %w", err)
 		}
 		u.Date = value
 	}
 	if u.Flags.Has(2) {
 		if err := u.FwdFrom.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#2296d2c8: field fwd_from: %w", err)
+			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field fwd_from: %w", err)
 		}
 	}
 	if u.Flags.Has(11) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#2296d2c8: field via_bot_id: %w", err)
+			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field via_bot_id: %w", err)
 		}
 		u.ViaBotID = value
 	}
 	if u.Flags.Has(3) {
 		if err := u.ReplyTo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#2296d2c8: field reply_to: %w", err)
+			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field reply_to: %w", err)
 		}
 	}
 	if u.Flags.Has(7) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortMessage#2296d2c8: field entities: %w", err)
+			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field entities: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updateShortMessage#2296d2c8: field entities: %w", err)
+				return fmt.Errorf("unable to decode updateShortMessage#faeff833: field entities: %w", err)
 			}
 			u.Entities = append(u.Entities, value)
 		}
+	}
+	if u.Flags.Has(25) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field ttl_period: %w", err)
+		}
+		u.TTLPeriod = value
 	}
 	return nil
 }
@@ -605,7 +645,7 @@ var (
 	_ UpdatesClass = &UpdateShortMessage{}
 )
 
-// UpdateShortChatMessage represents TL type `updateShortChatMessage#402d5dbb`.
+// UpdateShortChatMessage represents TL type `updateShortChatMessage#1157b858`.
 // Shortened constructor containing info on one new incoming text message from a chat
 //
 // See https://core.telegram.org/constructor/updateShortChatMessage for reference.
@@ -665,10 +705,14 @@ type UpdateShortChatMessage struct {
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass `schemaname:"entities"`
+	// TTLPeriod field of UpdateShortChatMessage.
+	//
+	// Use SetTTLPeriod and GetTTLPeriod helpers.
+	TTLPeriod int `schemaname:"ttl_period"`
 }
 
 // UpdateShortChatMessageTypeID is TL type id of UpdateShortChatMessage.
-const UpdateShortChatMessageTypeID = 0x402d5dbb
+const UpdateShortChatMessageTypeID = 0x1157b858
 
 func (u *UpdateShortChatMessage) Zero() bool {
 	if u == nil {
@@ -722,6 +766,9 @@ func (u *UpdateShortChatMessage) Zero() bool {
 	if !(u.Entities == nil) {
 		return false
 	}
+	if !(u.TTLPeriod == 0) {
+		return false
+	}
 
 	return true
 }
@@ -752,6 +799,7 @@ func (u *UpdateShortChatMessage) FillFrom(from interface {
 	GetViaBotID() (value int, ok bool)
 	GetReplyTo() (value MessageReplyHeader, ok bool)
 	GetEntities() (value []MessageEntityClass, ok bool)
+	GetTTLPeriod() (value int, ok bool)
 }) {
 	u.Out = from.GetOut()
 	u.Mentioned = from.GetMentioned()
@@ -780,6 +828,10 @@ func (u *UpdateShortChatMessage) FillFrom(from interface {
 		u.Entities = val
 	}
 
+	if val, ok := from.GetTTLPeriod(); ok {
+		u.TTLPeriod = val
+	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -796,7 +848,7 @@ func (u *UpdateShortChatMessage) SchemaName() string {
 // Encode implements bin.Encoder.
 func (u *UpdateShortChatMessage) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateShortChatMessage#402d5dbb as nil")
+		return fmt.Errorf("can't encode updateShortChatMessage#1157b858 as nil")
 	}
 	b.PutID(UpdateShortChatMessageTypeID)
 	if !(u.Out == false) {
@@ -823,8 +875,11 @@ func (u *UpdateShortChatMessage) Encode(b *bin.Buffer) error {
 	if !(u.Entities == nil) {
 		u.Flags.Set(7)
 	}
+	if !(u.TTLPeriod == 0) {
+		u.Flags.Set(25)
+	}
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateShortChatMessage#402d5dbb: field flags: %w", err)
+		return fmt.Errorf("unable to encode updateShortChatMessage#1157b858: field flags: %w", err)
 	}
 	b.PutInt(u.ID)
 	b.PutInt(u.FromID)
@@ -835,7 +890,7 @@ func (u *UpdateShortChatMessage) Encode(b *bin.Buffer) error {
 	b.PutInt(u.Date)
 	if u.Flags.Has(2) {
 		if err := u.FwdFrom.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updateShortChatMessage#402d5dbb: field fwd_from: %w", err)
+			return fmt.Errorf("unable to encode updateShortChatMessage#1157b858: field fwd_from: %w", err)
 		}
 	}
 	if u.Flags.Has(11) {
@@ -843,19 +898,22 @@ func (u *UpdateShortChatMessage) Encode(b *bin.Buffer) error {
 	}
 	if u.Flags.Has(3) {
 		if err := u.ReplyTo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updateShortChatMessage#402d5dbb: field reply_to: %w", err)
+			return fmt.Errorf("unable to encode updateShortChatMessage#1157b858: field reply_to: %w", err)
 		}
 	}
 	if u.Flags.Has(7) {
 		b.PutVectorHeader(len(u.Entities))
 		for idx, v := range u.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode updateShortChatMessage#402d5dbb: field entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode updateShortChatMessage#1157b858: field entities element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode updateShortChatMessage#402d5dbb: field entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode updateShortChatMessage#1157b858: field entities element with index %d: %w", idx, err)
 			}
 		}
+	}
+	if u.Flags.Has(25) {
+		b.PutInt(u.TTLPeriod)
 	}
 	return nil
 }
@@ -1027,17 +1085,32 @@ func (u *UpdateShortChatMessage) MapEntities() (value MessageEntityClassSlice, o
 	return MessageEntityClassSlice(u.Entities), true
 }
 
+// SetTTLPeriod sets value of TTLPeriod conditional field.
+func (u *UpdateShortChatMessage) SetTTLPeriod(value int) {
+	u.Flags.Set(25)
+	u.TTLPeriod = value
+}
+
+// GetTTLPeriod returns value of TTLPeriod conditional field and
+// boolean which is true if field was set.
+func (u *UpdateShortChatMessage) GetTTLPeriod() (value int, ok bool) {
+	if !u.Flags.Has(25) {
+		return value, false
+	}
+	return u.TTLPeriod, true
+}
+
 // Decode implements bin.Decoder.
 func (u *UpdateShortChatMessage) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateShortChatMessage#402d5dbb to nil")
+		return fmt.Errorf("can't decode updateShortChatMessage#1157b858 to nil")
 	}
 	if err := b.ConsumeID(UpdateShortChatMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateShortChatMessage#402d5dbb: %w", err)
+		return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: %w", err)
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#402d5dbb: field flags: %w", err)
+			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field flags: %w", err)
 		}
 	}
 	u.Out = u.Flags.Has(1)
@@ -1047,81 +1120,88 @@ func (u *UpdateShortChatMessage) Decode(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#402d5dbb: field id: %w", err)
+			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field id: %w", err)
 		}
 		u.ID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#402d5dbb: field from_id: %w", err)
+			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field from_id: %w", err)
 		}
 		u.FromID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#402d5dbb: field chat_id: %w", err)
+			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field chat_id: %w", err)
 		}
 		u.ChatID = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#402d5dbb: field message: %w", err)
+			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field message: %w", err)
 		}
 		u.Message = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#402d5dbb: field pts: %w", err)
+			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field pts: %w", err)
 		}
 		u.Pts = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#402d5dbb: field pts_count: %w", err)
+			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field pts_count: %w", err)
 		}
 		u.PtsCount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#402d5dbb: field date: %w", err)
+			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field date: %w", err)
 		}
 		u.Date = value
 	}
 	if u.Flags.Has(2) {
 		if err := u.FwdFrom.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#402d5dbb: field fwd_from: %w", err)
+			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field fwd_from: %w", err)
 		}
 	}
 	if u.Flags.Has(11) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#402d5dbb: field via_bot_id: %w", err)
+			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field via_bot_id: %w", err)
 		}
 		u.ViaBotID = value
 	}
 	if u.Flags.Has(3) {
 		if err := u.ReplyTo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#402d5dbb: field reply_to: %w", err)
+			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field reply_to: %w", err)
 		}
 	}
 	if u.Flags.Has(7) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortChatMessage#402d5dbb: field entities: %w", err)
+			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field entities: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updateShortChatMessage#402d5dbb: field entities: %w", err)
+				return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field entities: %w", err)
 			}
 			u.Entities = append(u.Entities, value)
 		}
+	}
+	if u.Flags.Has(25) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field ttl_period: %w", err)
+		}
+		u.TTLPeriod = value
 	}
 	return nil
 }
@@ -1737,7 +1817,7 @@ var (
 	_ UpdatesClass = &Updates{}
 )
 
-// UpdateShortSentMessage represents TL type `updateShortSentMessage#11f1331c`.
+// UpdateShortSentMessage represents TL type `updateShortSentMessage#9015e101`.
 // Shortened constructor containing info on one outgoing message to a contact (the destination chat has to be extracted from the method call that returned this object).
 //
 // See https://core.telegram.org/constructor/updateShortSentMessage for reference.
@@ -1777,10 +1857,14 @@ type UpdateShortSentMessage struct {
 	//
 	// Use SetEntities and GetEntities helpers.
 	Entities []MessageEntityClass `schemaname:"entities"`
+	// TTLPeriod field of UpdateShortSentMessage.
+	//
+	// Use SetTTLPeriod and GetTTLPeriod helpers.
+	TTLPeriod int `schemaname:"ttl_period"`
 }
 
 // UpdateShortSentMessageTypeID is TL type id of UpdateShortSentMessage.
-const UpdateShortSentMessageTypeID = 0x11f1331c
+const UpdateShortSentMessageTypeID = 0x9015e101
 
 func (u *UpdateShortSentMessage) Zero() bool {
 	if u == nil {
@@ -1810,6 +1894,9 @@ func (u *UpdateShortSentMessage) Zero() bool {
 	if !(u.Entities == nil) {
 		return false
 	}
+	if !(u.TTLPeriod == 0) {
+		return false
+	}
 
 	return true
 }
@@ -1832,6 +1919,7 @@ func (u *UpdateShortSentMessage) FillFrom(from interface {
 	GetDate() (value int)
 	GetMedia() (value MessageMediaClass, ok bool)
 	GetEntities() (value []MessageEntityClass, ok bool)
+	GetTTLPeriod() (value int, ok bool)
 }) {
 	u.Out = from.GetOut()
 	u.ID = from.GetID()
@@ -1844,6 +1932,10 @@ func (u *UpdateShortSentMessage) FillFrom(from interface {
 
 	if val, ok := from.GetEntities(); ok {
 		u.Entities = val
+	}
+
+	if val, ok := from.GetTTLPeriod(); ok {
+		u.TTLPeriod = val
 	}
 
 }
@@ -1862,7 +1954,7 @@ func (u *UpdateShortSentMessage) SchemaName() string {
 // Encode implements bin.Encoder.
 func (u *UpdateShortSentMessage) Encode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't encode updateShortSentMessage#11f1331c as nil")
+		return fmt.Errorf("can't encode updateShortSentMessage#9015e101 as nil")
 	}
 	b.PutID(UpdateShortSentMessageTypeID)
 	if !(u.Out == false) {
@@ -1874,8 +1966,11 @@ func (u *UpdateShortSentMessage) Encode(b *bin.Buffer) error {
 	if !(u.Entities == nil) {
 		u.Flags.Set(7)
 	}
+	if !(u.TTLPeriod == 0) {
+		u.Flags.Set(25)
+	}
 	if err := u.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode updateShortSentMessage#11f1331c: field flags: %w", err)
+		return fmt.Errorf("unable to encode updateShortSentMessage#9015e101: field flags: %w", err)
 	}
 	b.PutInt(u.ID)
 	b.PutInt(u.Pts)
@@ -1883,22 +1978,25 @@ func (u *UpdateShortSentMessage) Encode(b *bin.Buffer) error {
 	b.PutInt(u.Date)
 	if u.Flags.Has(9) {
 		if u.Media == nil {
-			return fmt.Errorf("unable to encode updateShortSentMessage#11f1331c: field media is nil")
+			return fmt.Errorf("unable to encode updateShortSentMessage#9015e101: field media is nil")
 		}
 		if err := u.Media.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode updateShortSentMessage#11f1331c: field media: %w", err)
+			return fmt.Errorf("unable to encode updateShortSentMessage#9015e101: field media: %w", err)
 		}
 	}
 	if u.Flags.Has(7) {
 		b.PutVectorHeader(len(u.Entities))
 		for idx, v := range u.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode updateShortSentMessage#11f1331c: field entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode updateShortSentMessage#9015e101: field entities element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode updateShortSentMessage#11f1331c: field entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode updateShortSentMessage#9015e101: field entities element with index %d: %w", idx, err)
 			}
 		}
+	}
+	if u.Flags.Has(25) {
+		b.PutInt(u.TTLPeriod)
 	}
 	return nil
 }
@@ -1977,67 +2075,89 @@ func (u *UpdateShortSentMessage) MapEntities() (value MessageEntityClassSlice, o
 	return MessageEntityClassSlice(u.Entities), true
 }
 
+// SetTTLPeriod sets value of TTLPeriod conditional field.
+func (u *UpdateShortSentMessage) SetTTLPeriod(value int) {
+	u.Flags.Set(25)
+	u.TTLPeriod = value
+}
+
+// GetTTLPeriod returns value of TTLPeriod conditional field and
+// boolean which is true if field was set.
+func (u *UpdateShortSentMessage) GetTTLPeriod() (value int, ok bool) {
+	if !u.Flags.Has(25) {
+		return value, false
+	}
+	return u.TTLPeriod, true
+}
+
 // Decode implements bin.Decoder.
 func (u *UpdateShortSentMessage) Decode(b *bin.Buffer) error {
 	if u == nil {
-		return fmt.Errorf("can't decode updateShortSentMessage#11f1331c to nil")
+		return fmt.Errorf("can't decode updateShortSentMessage#9015e101 to nil")
 	}
 	if err := b.ConsumeID(UpdateShortSentMessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode updateShortSentMessage#11f1331c: %w", err)
+		return fmt.Errorf("unable to decode updateShortSentMessage#9015e101: %w", err)
 	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode updateShortSentMessage#11f1331c: field flags: %w", err)
+			return fmt.Errorf("unable to decode updateShortSentMessage#9015e101: field flags: %w", err)
 		}
 	}
 	u.Out = u.Flags.Has(1)
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortSentMessage#11f1331c: field id: %w", err)
+			return fmt.Errorf("unable to decode updateShortSentMessage#9015e101: field id: %w", err)
 		}
 		u.ID = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortSentMessage#11f1331c: field pts: %w", err)
+			return fmt.Errorf("unable to decode updateShortSentMessage#9015e101: field pts: %w", err)
 		}
 		u.Pts = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortSentMessage#11f1331c: field pts_count: %w", err)
+			return fmt.Errorf("unable to decode updateShortSentMessage#9015e101: field pts_count: %w", err)
 		}
 		u.PtsCount = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortSentMessage#11f1331c: field date: %w", err)
+			return fmt.Errorf("unable to decode updateShortSentMessage#9015e101: field date: %w", err)
 		}
 		u.Date = value
 	}
 	if u.Flags.Has(9) {
 		value, err := DecodeMessageMedia(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortSentMessage#11f1331c: field media: %w", err)
+			return fmt.Errorf("unable to decode updateShortSentMessage#9015e101: field media: %w", err)
 		}
 		u.Media = value
 	}
 	if u.Flags.Has(7) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode updateShortSentMessage#11f1331c: field entities: %w", err)
+			return fmt.Errorf("unable to decode updateShortSentMessage#9015e101: field entities: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode updateShortSentMessage#11f1331c: field entities: %w", err)
+				return fmt.Errorf("unable to decode updateShortSentMessage#9015e101: field entities: %w", err)
 			}
 			u.Entities = append(u.Entities, value)
 		}
+	}
+	if u.Flags.Has(25) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode updateShortSentMessage#9015e101: field ttl_period: %w", err)
+		}
+		u.TTLPeriod = value
 	}
 	return nil
 }
@@ -2064,12 +2184,12 @@ var (
 //  }
 //  switch v := g.(type) {
 //  case *tg.UpdatesTooLong: // updatesTooLong#e317af7e
-//  case *tg.UpdateShortMessage: // updateShortMessage#2296d2c8
-//  case *tg.UpdateShortChatMessage: // updateShortChatMessage#402d5dbb
+//  case *tg.UpdateShortMessage: // updateShortMessage#faeff833
+//  case *tg.UpdateShortChatMessage: // updateShortChatMessage#1157b858
 //  case *tg.UpdateShort: // updateShort#78d4dec1
 //  case *tg.UpdatesCombined: // updatesCombined#725b04c3
 //  case *tg.Updates: // updates#74ae4240
-//  case *tg.UpdateShortSentMessage: // updateShortSentMessage#11f1331c
+//  case *tg.UpdateShortSentMessage: // updateShortSentMessage#9015e101
 //  default: panic(v)
 //  }
 type UpdatesClass interface {
@@ -2103,14 +2223,14 @@ func DecodeUpdates(buf *bin.Buffer) (UpdatesClass, error) {
 		}
 		return &v, nil
 	case UpdateShortMessageTypeID:
-		// Decoding updateShortMessage#2296d2c8.
+		// Decoding updateShortMessage#faeff833.
 		v := UpdateShortMessage{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdatesClass: %w", err)
 		}
 		return &v, nil
 	case UpdateShortChatMessageTypeID:
-		// Decoding updateShortChatMessage#402d5dbb.
+		// Decoding updateShortChatMessage#1157b858.
 		v := UpdateShortChatMessage{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdatesClass: %w", err)
@@ -2138,7 +2258,7 @@ func DecodeUpdates(buf *bin.Buffer) (UpdatesClass, error) {
 		}
 		return &v, nil
 	case UpdateShortSentMessageTypeID:
-		// Decoding updateShortSentMessage#11f1331c.
+		// Decoding updateShortSentMessage#9015e101.
 		v := UpdateShortSentMessage{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdatesClass: %w", err)

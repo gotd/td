@@ -170,7 +170,7 @@ var (
 	_ MessageClass = &MessageEmpty{}
 )
 
-// Message represents TL type `message#58ae39c9`.
+// Message represents TL type `message#bce383d2`.
 // A message
 //
 // See https://core.telegram.org/constructor/message for reference.
@@ -281,10 +281,14 @@ type Message struct {
 	//
 	// Use SetRestrictionReason and GetRestrictionReason helpers.
 	RestrictionReason []RestrictionReason `schemaname:"restriction_reason"`
+	// TTLPeriod field of Message.
+	//
+	// Use SetTTLPeriod and GetTTLPeriod helpers.
+	TTLPeriod int `schemaname:"ttl_period"`
 }
 
 // MessageTypeID is TL type id of Message.
-const MessageTypeID = 0x58ae39c9
+const MessageTypeID = 0xbce383d2
 
 func (m *Message) Zero() bool {
 	if m == nil {
@@ -374,6 +378,9 @@ func (m *Message) Zero() bool {
 	if !(m.RestrictionReason == nil) {
 		return false
 	}
+	if !(m.TTLPeriod == 0) {
+		return false
+	}
 
 	return true
 }
@@ -416,6 +423,7 @@ func (m *Message) FillFrom(from interface {
 	GetPostAuthor() (value string, ok bool)
 	GetGroupedID() (value int64, ok bool)
 	GetRestrictionReason() (value []RestrictionReason, ok bool)
+	GetTTLPeriod() (value int, ok bool)
 }) {
 	m.Out = from.GetOut()
 	m.Mentioned = from.GetMentioned()
@@ -486,6 +494,10 @@ func (m *Message) FillFrom(from interface {
 		m.RestrictionReason = val
 	}
 
+	if val, ok := from.GetTTLPeriod(); ok {
+		m.TTLPeriod = val
+	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -502,7 +514,7 @@ func (m *Message) SchemaName() string {
 // Encode implements bin.Encoder.
 func (m *Message) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode message#58ae39c9 as nil")
+		return fmt.Errorf("can't encode message#bce383d2 as nil")
 	}
 	b.PutID(MessageTypeID)
 	if !(m.Out == false) {
@@ -574,27 +586,30 @@ func (m *Message) Encode(b *bin.Buffer) error {
 	if !(m.RestrictionReason == nil) {
 		m.Flags.Set(22)
 	}
+	if !(m.TTLPeriod == 0) {
+		m.Flags.Set(25)
+	}
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#58ae39c9: field flags: %w", err)
+		return fmt.Errorf("unable to encode message#bce383d2: field flags: %w", err)
 	}
 	b.PutInt(m.ID)
 	if m.Flags.Has(8) {
 		if m.FromID == nil {
-			return fmt.Errorf("unable to encode message#58ae39c9: field from_id is nil")
+			return fmt.Errorf("unable to encode message#bce383d2: field from_id is nil")
 		}
 		if err := m.FromID.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode message#58ae39c9: field from_id: %w", err)
+			return fmt.Errorf("unable to encode message#bce383d2: field from_id: %w", err)
 		}
 	}
 	if m.PeerID == nil {
-		return fmt.Errorf("unable to encode message#58ae39c9: field peer_id is nil")
+		return fmt.Errorf("unable to encode message#bce383d2: field peer_id is nil")
 	}
 	if err := m.PeerID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode message#58ae39c9: field peer_id: %w", err)
+		return fmt.Errorf("unable to encode message#bce383d2: field peer_id: %w", err)
 	}
 	if m.Flags.Has(2) {
 		if err := m.FwdFrom.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode message#58ae39c9: field fwd_from: %w", err)
+			return fmt.Errorf("unable to encode message#bce383d2: field fwd_from: %w", err)
 		}
 	}
 	if m.Flags.Has(11) {
@@ -602,35 +617,35 @@ func (m *Message) Encode(b *bin.Buffer) error {
 	}
 	if m.Flags.Has(3) {
 		if err := m.ReplyTo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode message#58ae39c9: field reply_to: %w", err)
+			return fmt.Errorf("unable to encode message#bce383d2: field reply_to: %w", err)
 		}
 	}
 	b.PutInt(m.Date)
 	b.PutString(m.Message)
 	if m.Flags.Has(9) {
 		if m.Media == nil {
-			return fmt.Errorf("unable to encode message#58ae39c9: field media is nil")
+			return fmt.Errorf("unable to encode message#bce383d2: field media is nil")
 		}
 		if err := m.Media.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode message#58ae39c9: field media: %w", err)
+			return fmt.Errorf("unable to encode message#bce383d2: field media: %w", err)
 		}
 	}
 	if m.Flags.Has(6) {
 		if m.ReplyMarkup == nil {
-			return fmt.Errorf("unable to encode message#58ae39c9: field reply_markup is nil")
+			return fmt.Errorf("unable to encode message#bce383d2: field reply_markup is nil")
 		}
 		if err := m.ReplyMarkup.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode message#58ae39c9: field reply_markup: %w", err)
+			return fmt.Errorf("unable to encode message#bce383d2: field reply_markup: %w", err)
 		}
 	}
 	if m.Flags.Has(7) {
 		b.PutVectorHeader(len(m.Entities))
 		for idx, v := range m.Entities {
 			if v == nil {
-				return fmt.Errorf("unable to encode message#58ae39c9: field entities element with index %d is nil", idx)
+				return fmt.Errorf("unable to encode message#bce383d2: field entities element with index %d is nil", idx)
 			}
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode message#58ae39c9: field entities element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode message#bce383d2: field entities element with index %d: %w", idx, err)
 			}
 		}
 	}
@@ -642,7 +657,7 @@ func (m *Message) Encode(b *bin.Buffer) error {
 	}
 	if m.Flags.Has(23) {
 		if err := m.Replies.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode message#58ae39c9: field replies: %w", err)
+			return fmt.Errorf("unable to encode message#bce383d2: field replies: %w", err)
 		}
 	}
 	if m.Flags.Has(15) {
@@ -658,9 +673,12 @@ func (m *Message) Encode(b *bin.Buffer) error {
 		b.PutVectorHeader(len(m.RestrictionReason))
 		for idx, v := range m.RestrictionReason {
 			if err := v.Encode(b); err != nil {
-				return fmt.Errorf("unable to encode message#58ae39c9: field restriction_reason element with index %d: %w", idx, err)
+				return fmt.Errorf("unable to encode message#bce383d2: field restriction_reason element with index %d: %w", idx, err)
 			}
 		}
+	}
+	if m.Flags.Has(25) {
+		b.PutInt(m.TTLPeriod)
 	}
 	return nil
 }
@@ -1047,17 +1065,32 @@ func (m *Message) GetRestrictionReason() (value []RestrictionReason, ok bool) {
 	return m.RestrictionReason, true
 }
 
+// SetTTLPeriod sets value of TTLPeriod conditional field.
+func (m *Message) SetTTLPeriod(value int) {
+	m.Flags.Set(25)
+	m.TTLPeriod = value
+}
+
+// GetTTLPeriod returns value of TTLPeriod conditional field and
+// boolean which is true if field was set.
+func (m *Message) GetTTLPeriod() (value int, ok bool) {
+	if !m.Flags.Has(25) {
+		return value, false
+	}
+	return m.TTLPeriod, true
+}
+
 // Decode implements bin.Decoder.
 func (m *Message) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode message#58ae39c9 to nil")
+		return fmt.Errorf("can't decode message#bce383d2 to nil")
 	}
 	if err := b.ConsumeID(MessageTypeID); err != nil {
-		return fmt.Errorf("unable to decode message#58ae39c9: %w", err)
+		return fmt.Errorf("unable to decode message#bce383d2: %w", err)
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode message#58ae39c9: field flags: %w", err)
+			return fmt.Errorf("unable to decode message#bce383d2: field flags: %w", err)
 		}
 	}
 	m.Out = m.Flags.Has(1)
@@ -1072,78 +1105,78 @@ func (m *Message) Decode(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#58ae39c9: field id: %w", err)
+			return fmt.Errorf("unable to decode message#bce383d2: field id: %w", err)
 		}
 		m.ID = value
 	}
 	if m.Flags.Has(8) {
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode message#58ae39c9: field from_id: %w", err)
+			return fmt.Errorf("unable to decode message#bce383d2: field from_id: %w", err)
 		}
 		m.FromID = value
 	}
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode message#58ae39c9: field peer_id: %w", err)
+			return fmt.Errorf("unable to decode message#bce383d2: field peer_id: %w", err)
 		}
 		m.PeerID = value
 	}
 	if m.Flags.Has(2) {
 		if err := m.FwdFrom.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode message#58ae39c9: field fwd_from: %w", err)
+			return fmt.Errorf("unable to decode message#bce383d2: field fwd_from: %w", err)
 		}
 	}
 	if m.Flags.Has(11) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#58ae39c9: field via_bot_id: %w", err)
+			return fmt.Errorf("unable to decode message#bce383d2: field via_bot_id: %w", err)
 		}
 		m.ViaBotID = value
 	}
 	if m.Flags.Has(3) {
 		if err := m.ReplyTo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode message#58ae39c9: field reply_to: %w", err)
+			return fmt.Errorf("unable to decode message#bce383d2: field reply_to: %w", err)
 		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#58ae39c9: field date: %w", err)
+			return fmt.Errorf("unable to decode message#bce383d2: field date: %w", err)
 		}
 		m.Date = value
 	}
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#58ae39c9: field message: %w", err)
+			return fmt.Errorf("unable to decode message#bce383d2: field message: %w", err)
 		}
 		m.Message = value
 	}
 	if m.Flags.Has(9) {
 		value, err := DecodeMessageMedia(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode message#58ae39c9: field media: %w", err)
+			return fmt.Errorf("unable to decode message#bce383d2: field media: %w", err)
 		}
 		m.Media = value
 	}
 	if m.Flags.Has(6) {
 		value, err := DecodeReplyMarkup(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode message#58ae39c9: field reply_markup: %w", err)
+			return fmt.Errorf("unable to decode message#bce383d2: field reply_markup: %w", err)
 		}
 		m.ReplyMarkup = value
 	}
 	if m.Flags.Has(7) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#58ae39c9: field entities: %w", err)
+			return fmt.Errorf("unable to decode message#bce383d2: field entities: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeMessageEntity(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode message#58ae39c9: field entities: %w", err)
+				return fmt.Errorf("unable to decode message#bce383d2: field entities: %w", err)
 			}
 			m.Entities = append(m.Entities, value)
 		}
@@ -1151,55 +1184,62 @@ func (m *Message) Decode(b *bin.Buffer) error {
 	if m.Flags.Has(10) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#58ae39c9: field views: %w", err)
+			return fmt.Errorf("unable to decode message#bce383d2: field views: %w", err)
 		}
 		m.Views = value
 	}
 	if m.Flags.Has(10) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#58ae39c9: field forwards: %w", err)
+			return fmt.Errorf("unable to decode message#bce383d2: field forwards: %w", err)
 		}
 		m.Forwards = value
 	}
 	if m.Flags.Has(23) {
 		if err := m.Replies.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode message#58ae39c9: field replies: %w", err)
+			return fmt.Errorf("unable to decode message#bce383d2: field replies: %w", err)
 		}
 	}
 	if m.Flags.Has(15) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#58ae39c9: field edit_date: %w", err)
+			return fmt.Errorf("unable to decode message#bce383d2: field edit_date: %w", err)
 		}
 		m.EditDate = value
 	}
 	if m.Flags.Has(16) {
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#58ae39c9: field post_author: %w", err)
+			return fmt.Errorf("unable to decode message#bce383d2: field post_author: %w", err)
 		}
 		m.PostAuthor = value
 	}
 	if m.Flags.Has(17) {
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#58ae39c9: field grouped_id: %w", err)
+			return fmt.Errorf("unable to decode message#bce383d2: field grouped_id: %w", err)
 		}
 		m.GroupedID = value
 	}
 	if m.Flags.Has(22) {
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode message#58ae39c9: field restriction_reason: %w", err)
+			return fmt.Errorf("unable to decode message#bce383d2: field restriction_reason: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value RestrictionReason
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode message#58ae39c9: field restriction_reason: %w", err)
+				return fmt.Errorf("unable to decode message#bce383d2: field restriction_reason: %w", err)
 			}
 			m.RestrictionReason = append(m.RestrictionReason, value)
 		}
+	}
+	if m.Flags.Has(25) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode message#bce383d2: field ttl_period: %w", err)
+		}
+		m.TTLPeriod = value
 	}
 	return nil
 }
@@ -1215,7 +1255,7 @@ var (
 	_ MessageClass = &Message{}
 )
 
-// MessageService represents TL type `messageService#286fa604`.
+// MessageService represents TL type `messageService#2b085862`.
 // Indicates a service message
 //
 // See https://core.telegram.org/constructor/messageService for reference.
@@ -1253,10 +1293,14 @@ type MessageService struct {
 	Date int `schemaname:"date"`
 	// Event connected with the service message
 	Action MessageActionClass `schemaname:"action"`
+	// TTLPeriod field of MessageService.
+	//
+	// Use SetTTLPeriod and GetTTLPeriod helpers.
+	TTLPeriod int `schemaname:"ttl_period"`
 }
 
 // MessageServiceTypeID is TL type id of MessageService.
-const MessageServiceTypeID = 0x286fa604
+const MessageServiceTypeID = 0x2b085862
 
 func (m *MessageService) Zero() bool {
 	if m == nil {
@@ -1301,6 +1345,9 @@ func (m *MessageService) Zero() bool {
 	if !(m.Action == nil) {
 		return false
 	}
+	if !(m.TTLPeriod == 0) {
+		return false
+	}
 
 	return true
 }
@@ -1328,6 +1375,7 @@ func (m *MessageService) FillFrom(from interface {
 	GetReplyTo() (value MessageReplyHeader, ok bool)
 	GetDate() (value int)
 	GetAction() (value MessageActionClass)
+	GetTTLPeriod() (value int, ok bool)
 }) {
 	m.Out = from.GetOut()
 	m.Mentioned = from.GetMentioned()
@@ -1347,6 +1395,10 @@ func (m *MessageService) FillFrom(from interface {
 
 	m.Date = from.GetDate()
 	m.Action = from.GetAction()
+	if val, ok := from.GetTTLPeriod(); ok {
+		m.TTLPeriod = val
+	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -1363,7 +1415,7 @@ func (m *MessageService) SchemaName() string {
 // Encode implements bin.Encoder.
 func (m *MessageService) Encode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't encode messageService#286fa604 as nil")
+		return fmt.Errorf("can't encode messageService#2b085862 as nil")
 	}
 	b.PutID(MessageServiceTypeID)
 	if !(m.Out == false) {
@@ -1390,35 +1442,41 @@ func (m *MessageService) Encode(b *bin.Buffer) error {
 	if !(m.ReplyTo.Zero()) {
 		m.Flags.Set(3)
 	}
+	if !(m.TTLPeriod == 0) {
+		m.Flags.Set(25)
+	}
 	if err := m.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageService#286fa604: field flags: %w", err)
+		return fmt.Errorf("unable to encode messageService#2b085862: field flags: %w", err)
 	}
 	b.PutInt(m.ID)
 	if m.Flags.Has(8) {
 		if m.FromID == nil {
-			return fmt.Errorf("unable to encode messageService#286fa604: field from_id is nil")
+			return fmt.Errorf("unable to encode messageService#2b085862: field from_id is nil")
 		}
 		if err := m.FromID.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messageService#286fa604: field from_id: %w", err)
+			return fmt.Errorf("unable to encode messageService#2b085862: field from_id: %w", err)
 		}
 	}
 	if m.PeerID == nil {
-		return fmt.Errorf("unable to encode messageService#286fa604: field peer_id is nil")
+		return fmt.Errorf("unable to encode messageService#2b085862: field peer_id is nil")
 	}
 	if err := m.PeerID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageService#286fa604: field peer_id: %w", err)
+		return fmt.Errorf("unable to encode messageService#2b085862: field peer_id: %w", err)
 	}
 	if m.Flags.Has(3) {
 		if err := m.ReplyTo.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode messageService#286fa604: field reply_to: %w", err)
+			return fmt.Errorf("unable to encode messageService#2b085862: field reply_to: %w", err)
 		}
 	}
 	b.PutInt(m.Date)
 	if m.Action == nil {
-		return fmt.Errorf("unable to encode messageService#286fa604: field action is nil")
+		return fmt.Errorf("unable to encode messageService#2b085862: field action is nil")
 	}
 	if err := m.Action.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messageService#286fa604: field action: %w", err)
+		return fmt.Errorf("unable to encode messageService#2b085862: field action: %w", err)
+	}
+	if m.Flags.Has(25) {
+		b.PutInt(m.TTLPeriod)
 	}
 	return nil
 }
@@ -1569,17 +1627,32 @@ func (m *MessageService) GetAction() (value MessageActionClass) {
 	return m.Action
 }
 
+// SetTTLPeriod sets value of TTLPeriod conditional field.
+func (m *MessageService) SetTTLPeriod(value int) {
+	m.Flags.Set(25)
+	m.TTLPeriod = value
+}
+
+// GetTTLPeriod returns value of TTLPeriod conditional field and
+// boolean which is true if field was set.
+func (m *MessageService) GetTTLPeriod() (value int, ok bool) {
+	if !m.Flags.Has(25) {
+		return value, false
+	}
+	return m.TTLPeriod, true
+}
+
 // Decode implements bin.Decoder.
 func (m *MessageService) Decode(b *bin.Buffer) error {
 	if m == nil {
-		return fmt.Errorf("can't decode messageService#286fa604 to nil")
+		return fmt.Errorf("can't decode messageService#2b085862 to nil")
 	}
 	if err := b.ConsumeID(MessageServiceTypeID); err != nil {
-		return fmt.Errorf("unable to decode messageService#286fa604: %w", err)
+		return fmt.Errorf("unable to decode messageService#2b085862: %w", err)
 	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageService#286fa604: field flags: %w", err)
+			return fmt.Errorf("unable to decode messageService#2b085862: field flags: %w", err)
 		}
 	}
 	m.Out = m.Flags.Has(1)
@@ -1591,42 +1664,49 @@ func (m *MessageService) Decode(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageService#286fa604: field id: %w", err)
+			return fmt.Errorf("unable to decode messageService#2b085862: field id: %w", err)
 		}
 		m.ID = value
 	}
 	if m.Flags.Has(8) {
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageService#286fa604: field from_id: %w", err)
+			return fmt.Errorf("unable to decode messageService#2b085862: field from_id: %w", err)
 		}
 		m.FromID = value
 	}
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageService#286fa604: field peer_id: %w", err)
+			return fmt.Errorf("unable to decode messageService#2b085862: field peer_id: %w", err)
 		}
 		m.PeerID = value
 	}
 	if m.Flags.Has(3) {
 		if err := m.ReplyTo.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode messageService#286fa604: field reply_to: %w", err)
+			return fmt.Errorf("unable to decode messageService#2b085862: field reply_to: %w", err)
 		}
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messageService#286fa604: field date: %w", err)
+			return fmt.Errorf("unable to decode messageService#2b085862: field date: %w", err)
 		}
 		m.Date = value
 	}
 	{
 		value, err := DecodeMessageAction(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messageService#286fa604: field action: %w", err)
+			return fmt.Errorf("unable to decode messageService#2b085862: field action: %w", err)
 		}
 		m.Action = value
+	}
+	if m.Flags.Has(25) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageService#2b085862: field ttl_period: %w", err)
+		}
+		m.TTLPeriod = value
 	}
 	return nil
 }
@@ -1653,8 +1733,8 @@ var (
 //  }
 //  switch v := g.(type) {
 //  case *tg.MessageEmpty: // messageEmpty#90a6ca84
-//  case *tg.Message: // message#58ae39c9
-//  case *tg.MessageService: // messageService#286fa604
+//  case *tg.Message: // message#bce383d2
+//  case *tg.MessageService: // messageService#2b085862
 //  default: panic(v)
 //  }
 type MessageClass interface {
@@ -1735,6 +1815,8 @@ type NotEmptyMessage interface {
 	GetReplyTo() (value MessageReplyHeader, ok bool)
 	// Date of the message
 	GetDate() (value int)
+	// TTLPeriod field of Message.
+	GetTTLPeriod() (value int, ok bool)
 }
 
 // AsNotEmpty tries to map MessageEmpty to NotEmptyMessage.
@@ -1770,14 +1852,14 @@ func DecodeMessage(buf *bin.Buffer) (MessageClass, error) {
 		}
 		return &v, nil
 	case MessageTypeID:
-		// Decoding message#58ae39c9.
+		// Decoding message#bce383d2.
 		v := Message{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageClass: %w", err)
 		}
 		return &v, nil
 	case MessageServiceTypeID:
-		// Decoding messageService#286fa604.
+		// Decoding messageService#2b085862.
 		v := MessageService{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageClass: %w", err)

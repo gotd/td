@@ -75,6 +75,8 @@ type ChatAdminRights struct {
 	Anonymous bool `schemaname:"anonymous"`
 	// ManageCall field of ChatAdminRights.
 	ManageCall bool `schemaname:"manage_call"`
+	// Other field of ChatAdminRights.
+	Other bool `schemaname:"other"`
 }
 
 // ChatAdminRightsTypeID is TL type id of ChatAdminRights.
@@ -117,6 +119,9 @@ func (c *ChatAdminRights) Zero() bool {
 	if !(c.ManageCall == false) {
 		return false
 	}
+	if !(c.Other == false) {
+		return false
+	}
 
 	return true
 }
@@ -142,6 +147,7 @@ func (c *ChatAdminRights) FillFrom(from interface {
 	GetAddAdmins() (value bool)
 	GetAnonymous() (value bool)
 	GetManageCall() (value bool)
+	GetOther() (value bool)
 }) {
 	c.ChangeInfo = from.GetChangeInfo()
 	c.PostMessages = from.GetPostMessages()
@@ -153,6 +159,7 @@ func (c *ChatAdminRights) FillFrom(from interface {
 	c.AddAdmins = from.GetAddAdmins()
 	c.Anonymous = from.GetAnonymous()
 	c.ManageCall = from.GetManageCall()
+	c.Other = from.GetOther()
 }
 
 // TypeID returns MTProto type id (CRC code).
@@ -201,6 +208,9 @@ func (c *ChatAdminRights) Encode(b *bin.Buffer) error {
 	}
 	if !(c.ManageCall == false) {
 		c.Flags.Set(11)
+	}
+	if !(c.Other == false) {
+		c.Flags.Set(12)
 	}
 	if err := c.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode chatAdminRights#5fb224d5: field flags: %w", err)
@@ -368,6 +378,22 @@ func (c *ChatAdminRights) GetManageCall() (value bool) {
 	return c.Flags.Has(11)
 }
 
+// SetOther sets value of Other conditional field.
+func (c *ChatAdminRights) SetOther(value bool) {
+	if value {
+		c.Flags.Set(12)
+		c.Other = true
+	} else {
+		c.Flags.Unset(12)
+		c.Other = false
+	}
+}
+
+// GetOther returns value of Other conditional field.
+func (c *ChatAdminRights) GetOther() (value bool) {
+	return c.Flags.Has(12)
+}
+
 // Decode implements bin.Decoder.
 func (c *ChatAdminRights) Decode(b *bin.Buffer) error {
 	if c == nil {
@@ -391,6 +417,7 @@ func (c *ChatAdminRights) Decode(b *bin.Buffer) error {
 	c.AddAdmins = c.Flags.Has(9)
 	c.Anonymous = c.Flags.Has(10)
 	c.ManageCall = c.Flags.Has(11)
+	c.Other = c.Flags.Has(12)
 	return nil
 }
 

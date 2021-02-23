@@ -551,12 +551,6 @@ func (u UpdateDispatcher) dispatch(uctx UpdateContext, update UpdateClass) error
 				return err
 			}
 		}
-	case *UpdateChannelParticipant:
-		if handler, ok := u.handlers[UpdateChannelParticipantTypeID]; ok {
-			if err := handler(uctx, update); err != nil {
-				return err
-			}
-		}
 	case *UpdateChannelMessageForwards:
 		if handler, ok := u.handlers[UpdateChannelMessageForwardsTypeID]; ok {
 			if err := handler(uctx, update); err != nil {
@@ -613,6 +607,30 @@ func (u UpdateDispatcher) dispatch(uctx UpdateContext, update UpdateClass) error
 		}
 	case *UpdateGroupCall:
 		if handler, ok := u.handlers[UpdateGroupCallTypeID]; ok {
+			if err := handler(uctx, update); err != nil {
+				return err
+			}
+		}
+	case *UpdatePeerHistoryTTL:
+		if handler, ok := u.handlers[UpdatePeerHistoryTTLTypeID]; ok {
+			if err := handler(uctx, update); err != nil {
+				return err
+			}
+		}
+	case *UpdateChatParticipant:
+		if handler, ok := u.handlers[UpdateChatParticipantTypeID]; ok {
+			if err := handler(uctx, update); err != nil {
+				return err
+			}
+		}
+	case *UpdateChannelParticipant:
+		if handler, ok := u.handlers[UpdateChannelParticipantTypeID]; ok {
+			if err := handler(uctx, update); err != nil {
+				return err
+			}
+		}
+	case *UpdateBotStopped:
+		if handler, ok := u.handlers[UpdateBotStoppedTypeID]; ok {
 			if err := handler(uctx, update); err != nil {
 				return err
 			}
@@ -1392,16 +1410,6 @@ func (u UpdateDispatcher) OnPhoneCallSignalingData(handler PhoneCallSignalingDat
 	}
 }
 
-// ChannelParticipantHandler is a ChannelParticipant event handler.
-type ChannelParticipantHandler func(ctx UpdateContext, update *UpdateChannelParticipant) error
-
-// OnChannelParticipant sets ChannelParticipant handler.
-func (u UpdateDispatcher) OnChannelParticipant(handler ChannelParticipantHandler) {
-	u.handlers[UpdateChannelParticipantTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateChannelParticipant))
-	}
-}
-
 // ChannelMessageForwardsHandler is a ChannelMessageForwards event handler.
 type ChannelMessageForwardsHandler func(ctx UpdateContext, update *UpdateChannelMessageForwards) error
 
@@ -1499,5 +1507,45 @@ type GroupCallHandler func(ctx UpdateContext, update *UpdateGroupCall) error
 func (u UpdateDispatcher) OnGroupCall(handler GroupCallHandler) {
 	u.handlers[UpdateGroupCallTypeID] = func(ctx UpdateContext, update UpdateClass) error {
 		return handler(ctx, update.(*UpdateGroupCall))
+	}
+}
+
+// PeerHistoryTTLHandler is a PeerHistoryTTL event handler.
+type PeerHistoryTTLHandler func(ctx UpdateContext, update *UpdatePeerHistoryTTL) error
+
+// OnPeerHistoryTTL sets PeerHistoryTTL handler.
+func (u UpdateDispatcher) OnPeerHistoryTTL(handler PeerHistoryTTLHandler) {
+	u.handlers[UpdatePeerHistoryTTLTypeID] = func(ctx UpdateContext, update UpdateClass) error {
+		return handler(ctx, update.(*UpdatePeerHistoryTTL))
+	}
+}
+
+// ChatParticipantHandler is a ChatParticipant event handler.
+type ChatParticipantHandler func(ctx UpdateContext, update *UpdateChatParticipant) error
+
+// OnChatParticipant sets ChatParticipant handler.
+func (u UpdateDispatcher) OnChatParticipant(handler ChatParticipantHandler) {
+	u.handlers[UpdateChatParticipantTypeID] = func(ctx UpdateContext, update UpdateClass) error {
+		return handler(ctx, update.(*UpdateChatParticipant))
+	}
+}
+
+// ChannelParticipantHandler is a ChannelParticipant event handler.
+type ChannelParticipantHandler func(ctx UpdateContext, update *UpdateChannelParticipant) error
+
+// OnChannelParticipant sets ChannelParticipant handler.
+func (u UpdateDispatcher) OnChannelParticipant(handler ChannelParticipantHandler) {
+	u.handlers[UpdateChannelParticipantTypeID] = func(ctx UpdateContext, update UpdateClass) error {
+		return handler(ctx, update.(*UpdateChannelParticipant))
+	}
+}
+
+// BotStoppedHandler is a BotStopped event handler.
+type BotStoppedHandler func(ctx UpdateContext, update *UpdateBotStopped) error
+
+// OnBotStopped sets BotStopped handler.
+func (u UpdateDispatcher) OnBotStopped(handler BotStoppedHandler) {
+	u.handlers[UpdateBotStoppedTypeID] = func(ctx UpdateContext, update UpdateClass) error {
+		return handler(ctx, update.(*UpdateBotStopped))
 	}
 }
