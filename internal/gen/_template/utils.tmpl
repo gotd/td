@@ -49,3 +49,20 @@ Get{{$.Name}}() (value {{ template "print_type" $ }}{{ if and ($.Conditional) (n
 //  {{ $err.Code }} {{ $err.Type }}: {{ $err.Description }}
 {{- end }}
 {{- end }}
+
+{{ define "class_interface_header" }}{{ $f := . }}
+{{- /*gotype: github.com/gotd/td/internal/gen.interfaceDef*/ -}}
+    bin.Encoder
+    bin.Decoder
+    construct() {{ $f.Name }}
+
+    // TypeID returns MTProto type id (CRC code).
+    // See https://core.telegram.org/mtproto/TL-tl#remarks.
+    TypeID() uint32
+    // SchemaName returns MTProto type name.
+    SchemaName() string
+    // String implements fmt.Stringer.
+    String() string
+    // Zero returns true if current object has a zero value.
+    Zero() bool
+{{- end }}

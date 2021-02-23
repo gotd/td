@@ -28,7 +28,7 @@ type {{ $s.Name }} struct {
 //
 // Use Set{{ $f.Name }} and Get{{ $f.Name }} helpers.
 {{- end }}
-    {{ $f.Name }} {{ template "print_type" $f }}
+    {{ $f.Name }} {{ template "print_type" $f }} `schemaname:"{{ $f.RawName }}"`
 {{- end }}
 }
 
@@ -41,6 +41,11 @@ const {{ $s.Name }}TypeID = {{ if not $s.Vector }}0x{{ $s.HexID }}{{- else -}}bi
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func ({{ $s.Receiver }} *{{ $s.Name }}) TypeID() uint32 {
     return {{ $s.Name }}TypeID
+}
+
+// SchemaName returns MTProto type name.
+func ({{ $s.Receiver }} *{{ $s.Name }}) SchemaName() string {
+    return "{{ $s.RawName }}"
 }
 
 // Encode implements bin.Encoder.
@@ -369,9 +374,7 @@ func (c *Client) {{ $s.Method }}({{ template "request_params" $s }}) error {
 //  default: panic(v)
 //  }
 type {{ $f.Name }} interface {
-    bin.Encoder
-    bin.Decoder
-    construct() {{ $f.Name }}
+{{ template  "class_interface_header" $f }}
 
 {{ range $field := $f.SharedFields.Common -}}
     // {{ $field.Comment }}
@@ -398,22 +401,12 @@ type {{ $f.Name }} interface {
     // As{{ $mapping.MapperName }} tries to map {{ $f.Name }} to {{ $mapping.Name }}.
     {{ template "mapper_func_type" $mapping }}
 {{ end }}{{ end }}
-
-    // TypeID returns MTProto type id (CRC code).
-    // See https://core.telegram.org/mtproto/TL-tl#remarks.
-    TypeID() uint32
-    // String implements fmt.Stringer.
-    String() string
-    // Zero returns true if current object has a zero value.
-    Zero() bool
 }
 
 {{ range $mapping := $f.Mappings -}}{{- if not ($mapping.Concrete) }}
 // {{ $mapping.Name }} represents {{ $mapping.MapperName }} subset of {{ $f.Name }}.
 type {{ $mapping.Name }} interface {
-    bin.Encoder
-    bin.Decoder
-    construct() {{ $f.Name }}
+{{ template  "class_interface_header" $f }}
 
 {{ range $field := index ($f.SharedFields) ($mapping.MapperName) -}}{{- /*gotype: github.com/gotd/td/internal/gen.fieldDef*/ -}}
     // {{ $field.Comment }}
@@ -422,14 +415,6 @@ type {{ $mapping.Name }} interface {
     {{- end }}
     {{ template "getter_func_type" $field}}
 {{ end }}
-
-    // TypeID returns MTProto type id (CRC code).
-    // See https://core.telegram.org/mtproto/TL-tl#remarks.
-    TypeID() uint32
-    // String implements fmt.Stringer.
-    String() string
-    // Zero returns true if current object has a zero value.
-    Zero() bool
 }
 {{- end }}
 

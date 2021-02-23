@@ -120,6 +120,7 @@ func (g *Generator) collectMappings(def *interfaceDef) {
 	}{
 		{"NotEmpty", interfaceHasOneSuffix("Empty")},
 		{"Modified", interfaceHasOneSuffix("NotModified")},
+		{"Available", interfaceHasOneSuffix("Unavailable")},
 		{"NotForbidden", interfaceHasOneSuffix("Forbidden")},
 		{"Full", interfaceHasOneSuffix("Empty", "NotModified", "Forbidden")},
 	}
