@@ -27,29 +27,29 @@ type PageTableCell struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Is this element part of the column header
-	Header bool
+	Header bool `schemaname:"header"`
 	// Horizontally centered block
-	AlignCenter bool
+	AlignCenter bool `schemaname:"align_center"`
 	// Right-aligned block
-	AlignRight bool
+	AlignRight bool `schemaname:"align_right"`
 	// Vertically centered block
-	ValignMiddle bool
+	ValignMiddle bool `schemaname:"valign_middle"`
 	// Block vertically-alligned to the bottom
-	ValignBottom bool
+	ValignBottom bool `schemaname:"valign_bottom"`
 	// Content
 	//
 	// Use SetText and GetText helpers.
-	Text RichTextClass
+	Text RichTextClass `schemaname:"text"`
 	// For how many columns should this cell extend
 	//
 	// Use SetColspan and GetColspan helpers.
-	Colspan int
+	Colspan int `schemaname:"colspan"`
 	// For how many rows should this cell extend
 	//
 	// Use SetRowspan and GetRowspan helpers.
-	Rowspan int
+	Rowspan int `schemaname:"rowspan"`
 }
 
 // PageTableCellTypeID is TL type id of PageTableCell.
@@ -110,21 +110,34 @@ func (p *PageTableCell) FillFrom(from interface {
 	GetColspan() (value int, ok bool)
 	GetRowspan() (value int, ok bool)
 }) {
+	p.Header = from.GetHeader()
+	p.AlignCenter = from.GetAlignCenter()
+	p.AlignRight = from.GetAlignRight()
+	p.ValignMiddle = from.GetValignMiddle()
+	p.ValignBottom = from.GetValignBottom()
 	if val, ok := from.GetText(); ok {
 		p.Text = val
 	}
+
 	if val, ok := from.GetColspan(); ok {
 		p.Colspan = val
 	}
+
 	if val, ok := from.GetRowspan(); ok {
 		p.Rowspan = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageTableCell) TypeID() uint32 {
 	return PageTableCellTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageTableCell) SchemaName() string {
+	return "pageTableCell"
 }
 
 // Encode implements bin.Encoder.

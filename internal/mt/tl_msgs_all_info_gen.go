@@ -21,9 +21,9 @@ var _ = errors.Is
 // MsgsAllInfo represents TL type `msgs_all_info#8cc0d131`.
 type MsgsAllInfo struct {
 	// MsgIds field of MsgsAllInfo.
-	MsgIds []int64
+	MsgIds []int64 `schemaname:"msg_ids"`
 	// Info field of MsgsAllInfo.
-	Info []byte
+	Info []byte `schemaname:"info"`
 }
 
 // MsgsAllInfoTypeID is TL type id of MsgsAllInfo.
@@ -65,6 +65,11 @@ func (m *MsgsAllInfo) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MsgsAllInfo) TypeID() uint32 {
 	return MsgsAllInfoTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MsgsAllInfo) SchemaName() string {
+	return "msgs_all_info"
 }
 
 // Encode implements bin.Encoder.

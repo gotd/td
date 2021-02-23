@@ -21,17 +21,17 @@ var _ = errors.Is
 // ServerDHInnerData represents TL type `server_DH_inner_data#b5890dba`.
 type ServerDHInnerData struct {
 	// Nonce field of ServerDHInnerData.
-	Nonce bin.Int128
+	Nonce bin.Int128 `schemaname:"nonce"`
 	// ServerNonce field of ServerDHInnerData.
-	ServerNonce bin.Int128
+	ServerNonce bin.Int128 `schemaname:"server_nonce"`
 	// G field of ServerDHInnerData.
-	G int
+	G int `schemaname:"g"`
 	// DhPrime field of ServerDHInnerData.
-	DhPrime []byte
+	DhPrime []byte `schemaname:"dh_prime"`
 	// GA field of ServerDHInnerData.
-	GA []byte
+	GA []byte `schemaname:"g_a"`
 	// ServerTime field of ServerDHInnerData.
-	ServerTime int
+	ServerTime int `schemaname:"server_time"`
 }
 
 // ServerDHInnerDataTypeID is TL type id of ServerDHInnerData.
@@ -93,6 +93,11 @@ func (s *ServerDHInnerData) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *ServerDHInnerData) TypeID() uint32 {
 	return ServerDHInnerDataTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *ServerDHInnerData) SchemaName() string {
+	return "server_DH_inner_data"
 }
 
 // Encode implements bin.Encoder.

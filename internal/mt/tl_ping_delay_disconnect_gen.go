@@ -21,9 +21,9 @@ var _ = errors.Is
 // PingDelayDisconnectRequest represents TL type `ping_delay_disconnect#f3427b8c`.
 type PingDelayDisconnectRequest struct {
 	// PingID field of PingDelayDisconnectRequest.
-	PingID int64
+	PingID int64 `schemaname:"ping_id"`
 	// DisconnectDelay field of PingDelayDisconnectRequest.
-	DisconnectDelay int
+	DisconnectDelay int `schemaname:"disconnect_delay"`
 }
 
 // PingDelayDisconnectRequestTypeID is TL type id of PingDelayDisconnectRequest.
@@ -65,6 +65,11 @@ func (p *PingDelayDisconnectRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PingDelayDisconnectRequest) TypeID() uint32 {
 	return PingDelayDisconnectRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PingDelayDisconnectRequest) SchemaName() string {
+	return "ping_delay_disconnect"
 }
 
 // Encode implements bin.Encoder.

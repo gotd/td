@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/channels.channelParticipants for reference.
 type ChannelsChannelParticipants struct {
 	// Total number of participants that correspond to the given query
-	Count int
+	Count int `schemaname:"count"`
 	// Participants
-	Participants []ChannelParticipantClass
+	Participants []ChannelParticipantClass `schemaname:"participants"`
 	// Users mentioned in participant info
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 }
 
 // ChannelsChannelParticipantsTypeID is TL type id of ChannelsChannelParticipants.
@@ -75,6 +75,11 @@ func (c *ChannelsChannelParticipants) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelsChannelParticipants) TypeID() uint32 {
 	return ChannelsChannelParticipantsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChannelsChannelParticipants) SchemaName() string {
+	return "channels.channelParticipants"
 }
 
 // Encode implements bin.Encoder.
@@ -218,6 +223,11 @@ func (c *ChannelsChannelParticipantsNotModified) TypeID() uint32 {
 	return ChannelsChannelParticipantsNotModifiedTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (c *ChannelsChannelParticipantsNotModified) SchemaName() string {
+	return "channels.channelParticipantsNotModified"
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelsChannelParticipantsNotModified) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -270,16 +280,18 @@ type ChannelsChannelParticipantsClass interface {
 	bin.Decoder
 	construct() ChannelsChannelParticipantsClass
 
-	// AsModified tries to map ChannelsChannelParticipantsClass to ChannelsChannelParticipants.
-	AsModified() (*ChannelsChannelParticipants, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsModified tries to map ChannelsChannelParticipantsClass to ChannelsChannelParticipants.
+	AsModified() (*ChannelsChannelParticipants, bool)
 }
 
 // AsModified tries to map ChannelsChannelParticipants to ChannelsChannelParticipants.

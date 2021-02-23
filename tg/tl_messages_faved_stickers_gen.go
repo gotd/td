@@ -51,6 +51,11 @@ func (f *MessagesFavedStickersNotModified) TypeID() uint32 {
 	return MessagesFavedStickersNotModifiedTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (f *MessagesFavedStickersNotModified) SchemaName() string {
+	return "messages.favedStickersNotModified"
+}
+
 // Encode implements bin.Encoder.
 func (f *MessagesFavedStickersNotModified) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -91,11 +96,11 @@ type MessagesFavedStickers struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int `schemaname:"hash"`
 	// Emojis associated to stickers
-	Packs []StickerPack
+	Packs []StickerPack `schemaname:"packs"`
 	// Favorited stickers
-	Stickers []DocumentClass
+	Stickers []DocumentClass `schemaname:"stickers"`
 }
 
 // MessagesFavedStickersTypeID is TL type id of MessagesFavedStickers.
@@ -142,6 +147,11 @@ func (f *MessagesFavedStickers) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *MessagesFavedStickers) TypeID() uint32 {
 	return MessagesFavedStickersTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (f *MessagesFavedStickers) SchemaName() string {
+	return "messages.favedStickers"
 }
 
 // Encode implements bin.Encoder.
@@ -263,16 +273,18 @@ type MessagesFavedStickersClass interface {
 	bin.Decoder
 	construct() MessagesFavedStickersClass
 
-	// AsModified tries to map MessagesFavedStickersClass to MessagesFavedStickers.
-	AsModified() (*MessagesFavedStickers, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsModified tries to map MessagesFavedStickersClass to MessagesFavedStickers.
+	AsModified() (*MessagesFavedStickers, bool)
 }
 
 // AsModified tries to map MessagesFavedStickersNotModified to MessagesFavedStickers.

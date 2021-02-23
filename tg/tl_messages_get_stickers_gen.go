@@ -24,12 +24,12 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getStickers for reference.
 type MessagesGetStickersRequest struct {
 	// The emoji
-	Emoticon string
+	Emoticon string `schemaname:"emoticon"`
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int `schemaname:"hash"`
 }
 
 // MessagesGetStickersRequestTypeID is TL type id of MessagesGetStickersRequest.
@@ -71,6 +71,11 @@ func (g *MessagesGetStickersRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetStickersRequest) TypeID() uint32 {
 	return MessagesGetStickersRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *MessagesGetStickersRequest) SchemaName() string {
+	return "messages.getStickers"
 }
 
 // Encode implements bin.Encoder.

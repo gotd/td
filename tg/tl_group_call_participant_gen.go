@@ -23,37 +23,37 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/groupCallParticipant for reference.
 type GroupCallParticipant struct {
 	// Flags field of GroupCallParticipant.
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Muted field of GroupCallParticipant.
-	Muted bool
+	Muted bool `schemaname:"muted"`
 	// Left field of GroupCallParticipant.
-	Left bool
+	Left bool `schemaname:"left"`
 	// CanSelfUnmute field of GroupCallParticipant.
-	CanSelfUnmute bool
+	CanSelfUnmute bool `schemaname:"can_self_unmute"`
 	// JustJoined field of GroupCallParticipant.
-	JustJoined bool
+	JustJoined bool `schemaname:"just_joined"`
 	// Versioned field of GroupCallParticipant.
-	Versioned bool
+	Versioned bool `schemaname:"versioned"`
 	// Min field of GroupCallParticipant.
-	Min bool
+	Min bool `schemaname:"min"`
 	// MutedByYou field of GroupCallParticipant.
-	MutedByYou bool
+	MutedByYou bool `schemaname:"muted_by_you"`
 	// VolumeByAdmin field of GroupCallParticipant.
-	VolumeByAdmin bool
+	VolumeByAdmin bool `schemaname:"volume_by_admin"`
 	// UserID field of GroupCallParticipant.
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// Date field of GroupCallParticipant.
-	Date int
+	Date int `schemaname:"date"`
 	// ActiveDate field of GroupCallParticipant.
 	//
 	// Use SetActiveDate and GetActiveDate helpers.
-	ActiveDate int
+	ActiveDate int `schemaname:"active_date"`
 	// Source field of GroupCallParticipant.
-	Source int
+	Source int `schemaname:"source"`
 	// Volume field of GroupCallParticipant.
 	//
 	// Use SetVolume and GetVolume helpers.
-	Volume int
+	Volume int `schemaname:"volume"`
 }
 
 // GroupCallParticipantTypeID is TL type id of GroupCallParticipant.
@@ -134,21 +134,36 @@ func (g *GroupCallParticipant) FillFrom(from interface {
 	GetSource() (value int)
 	GetVolume() (value int, ok bool)
 }) {
+	g.Muted = from.GetMuted()
+	g.Left = from.GetLeft()
+	g.CanSelfUnmute = from.GetCanSelfUnmute()
+	g.JustJoined = from.GetJustJoined()
+	g.Versioned = from.GetVersioned()
+	g.Min = from.GetMin()
+	g.MutedByYou = from.GetMutedByYou()
+	g.VolumeByAdmin = from.GetVolumeByAdmin()
 	g.UserID = from.GetUserID()
 	g.Date = from.GetDate()
 	if val, ok := from.GetActiveDate(); ok {
 		g.ActiveDate = val
 	}
+
 	g.Source = from.GetSource()
 	if val, ok := from.GetVolume(); ok {
 		g.Volume = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *GroupCallParticipant) TypeID() uint32 {
 	return GroupCallParticipantTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *GroupCallParticipant) SchemaName() string {
+	return "groupCallParticipant"
 }
 
 // Encode implements bin.Encoder.

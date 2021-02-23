@@ -59,6 +59,11 @@ func (g *ChannelsGetGroupsForDiscussionRequest) TypeID() uint32 {
 	return ChannelsGetGroupsForDiscussionRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *ChannelsGetGroupsForDiscussionRequest) SchemaName() string {
+	return "channels.getGroupsForDiscussion"
+}
+
 // Encode implements bin.Encoder.
 func (g *ChannelsGetGroupsForDiscussionRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

@@ -28,7 +28,7 @@ type AccountUpdateStatusRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/constructor/boolTrue
 	//  2) https://core.telegram.org/constructor/userStatusOffline
-	Offline bool
+	Offline bool `schemaname:"offline"`
 }
 
 // AccountUpdateStatusRequestTypeID is TL type id of AccountUpdateStatusRequest.
@@ -65,6 +65,11 @@ func (u *AccountUpdateStatusRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *AccountUpdateStatusRequest) TypeID() uint32 {
 	return AccountUpdateStatusRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *AccountUpdateStatusRequest) SchemaName() string {
+	return "account.updateStatus"
 }
 
 // Encode implements bin.Encoder.

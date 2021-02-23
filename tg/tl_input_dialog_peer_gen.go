@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/inputDialogPeer for reference.
 type InputDialogPeer struct {
 	// Peer
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 }
 
 // InputDialogPeerTypeID is TL type id of InputDialogPeer.
@@ -61,6 +61,11 @@ func (i *InputDialogPeer) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputDialogPeer) TypeID() uint32 {
 	return InputDialogPeerTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputDialogPeer) SchemaName() string {
+	return "inputDialogPeer"
 }
 
 // Encode implements bin.Encoder.
@@ -124,7 +129,7 @@ type InputDialogPeerFolder struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
-	FolderID int
+	FolderID int `schemaname:"folder_id"`
 }
 
 // InputDialogPeerFolderTypeID is TL type id of InputDialogPeerFolder.
@@ -161,6 +166,11 @@ func (i *InputDialogPeerFolder) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputDialogPeerFolder) TypeID() uint32 {
 	return InputDialogPeerFolderTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputDialogPeerFolder) SchemaName() string {
+	return "inputDialogPeerFolder"
 }
 
 // Encode implements bin.Encoder.
@@ -229,6 +239,8 @@ type InputDialogPeerClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

@@ -51,6 +51,11 @@ func (t *ContactsTopPeersNotModified) TypeID() uint32 {
 	return ContactsTopPeersNotModifiedTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (t *ContactsTopPeersNotModified) SchemaName() string {
+	return "contacts.topPeersNotModified"
+}
+
 // Encode implements bin.Encoder.
 func (t *ContactsTopPeersNotModified) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -88,11 +93,11 @@ var (
 // See https://core.telegram.org/constructor/contacts.topPeers for reference.
 type ContactsTopPeers struct {
 	// Top peers by top peer category
-	Categories []TopPeerCategoryPeers
+	Categories []TopPeerCategoryPeers `schemaname:"categories"`
 	// Chats
-	Chats []ChatClass
+	Chats []ChatClass `schemaname:"chats"`
 	// Users
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 }
 
 // ContactsTopPeersTypeID is TL type id of ContactsTopPeers.
@@ -139,6 +144,11 @@ func (t *ContactsTopPeers) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *ContactsTopPeers) TypeID() uint32 {
 	return ContactsTopPeersTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *ContactsTopPeers) SchemaName() string {
+	return "contacts.topPeers"
 }
 
 // Encode implements bin.Encoder.
@@ -293,6 +303,11 @@ func (t *ContactsTopPeersDisabled) TypeID() uint32 {
 	return ContactsTopPeersDisabledTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (t *ContactsTopPeersDisabled) SchemaName() string {
+	return "contacts.topPeersDisabled"
+}
+
 // Encode implements bin.Encoder.
 func (t *ContactsTopPeersDisabled) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -347,6 +362,8 @@ type ContactsTopPeersClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

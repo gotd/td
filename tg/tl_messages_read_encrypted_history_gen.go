@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.readEncryptedHistory for reference.
 type MessagesReadEncryptedHistoryRequest struct {
 	// Secret chat ID
-	Peer InputEncryptedChat
+	Peer InputEncryptedChat `schemaname:"peer"`
 	// Maximum date value for received messages in history
-	MaxDate int
+	MaxDate int `schemaname:"max_date"`
 }
 
 // MessagesReadEncryptedHistoryRequestTypeID is TL type id of MessagesReadEncryptedHistoryRequest.
@@ -68,6 +68,11 @@ func (r *MessagesReadEncryptedHistoryRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *MessagesReadEncryptedHistoryRequest) TypeID() uint32 {
 	return MessagesReadEncryptedHistoryRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *MessagesReadEncryptedHistoryRequest) SchemaName() string {
+	return "messages.readEncryptedHistory"
 }
 
 // Encode implements bin.Encoder.

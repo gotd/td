@@ -24,16 +24,16 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/contacts.importedContacts for reference.
 type ContactsImportedContacts struct {
 	// List of succesfully imported contacts
-	Imported []ImportedContact
+	Imported []ImportedContact `schemaname:"imported"`
 	// Popular contacts
-	PopularInvites []PopularContact
+	PopularInvites []PopularContact `schemaname:"popular_invites"`
 	// List of contact ids that could not be imported due to system limitation and will need to be imported at a later date.Parameter added in Layer 13¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/layers#layer-13
-	RetryContacts []int64
+	RetryContacts []int64 `schemaname:"retry_contacts"`
 	// List of users
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 }
 
 // ContactsImportedContactsTypeID is TL type id of ContactsImportedContacts.
@@ -85,6 +85,11 @@ func (i *ContactsImportedContacts) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *ContactsImportedContacts) TypeID() uint32 {
 	return ContactsImportedContactsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *ContactsImportedContacts) SchemaName() string {
+	return "contacts.importedContacts"
 }
 
 // Encode implements bin.Encoder.

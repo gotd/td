@@ -27,15 +27,15 @@ type PhoneSetCallRatingRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether the user decided on their own initiative to rate the call
-	UserInitiative bool
+	UserInitiative bool `schemaname:"user_initiative"`
 	// The call to rate
-	Peer InputPhoneCall
+	Peer InputPhoneCall `schemaname:"peer"`
 	// Rating in 1-5 stars
-	Rating int
+	Rating int `schemaname:"rating"`
 	// An additional comment
-	Comment string
+	Comment string `schemaname:"comment"`
 }
 
 // PhoneSetCallRatingRequestTypeID is TL type id of PhoneSetCallRatingRequest.
@@ -80,6 +80,7 @@ func (s *PhoneSetCallRatingRequest) FillFrom(from interface {
 	GetRating() (value int)
 	GetComment() (value string)
 }) {
+	s.UserInitiative = from.GetUserInitiative()
 	s.Peer = from.GetPeer()
 	s.Rating = from.GetRating()
 	s.Comment = from.GetComment()
@@ -89,6 +90,11 @@ func (s *PhoneSetCallRatingRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *PhoneSetCallRatingRequest) TypeID() uint32 {
 	return PhoneSetCallRatingRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *PhoneSetCallRatingRequest) SchemaName() string {
+	return "phone.setCallRating"
 }
 
 // Encode implements bin.Encoder.

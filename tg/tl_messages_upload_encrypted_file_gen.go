@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.uploadEncryptedFile for reference.
 type MessagesUploadEncryptedFileRequest struct {
 	// The secret chat to associate the file to
-	Peer InputEncryptedChat
+	Peer InputEncryptedChat `schemaname:"peer"`
 	// The file
-	File InputEncryptedFileClass
+	File InputEncryptedFileClass `schemaname:"file"`
 }
 
 // MessagesUploadEncryptedFileRequestTypeID is TL type id of MessagesUploadEncryptedFileRequest.
@@ -68,6 +68,11 @@ func (u *MessagesUploadEncryptedFileRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *MessagesUploadEncryptedFileRequest) TypeID() uint32 {
 	return MessagesUploadEncryptedFileRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *MessagesUploadEncryptedFileRequest) SchemaName() string {
+	return "messages.uploadEncryptedFile"
 }
 
 // Encode implements bin.Encoder.

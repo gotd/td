@@ -27,9 +27,9 @@ type MessagesGetDhConfigRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/messages.dhConfig
-	Version int
+	Version int `schemaname:"version"`
 	// Length of the required random sequence
-	RandomLength int
+	RandomLength int `schemaname:"random_length"`
 }
 
 // MessagesGetDhConfigRequestTypeID is TL type id of MessagesGetDhConfigRequest.
@@ -71,6 +71,11 @@ func (g *MessagesGetDhConfigRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetDhConfigRequest) TypeID() uint32 {
 	return MessagesGetDhConfigRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *MessagesGetDhConfigRequest) SchemaName() string {
+	return "messages.getDhConfig"
 }
 
 // Encode implements bin.Encoder.

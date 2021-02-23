@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/paymentSavedCredentialsCard for reference.
 type PaymentSavedCredentialsCard struct {
 	// Card ID
-	ID string
+	ID string `schemaname:"id"`
 	// Title
-	Title string
+	Title string `schemaname:"title"`
 }
 
 // PaymentSavedCredentialsCardTypeID is TL type id of PaymentSavedCredentialsCard.
@@ -68,6 +68,11 @@ func (p *PaymentSavedCredentialsCard) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PaymentSavedCredentialsCard) TypeID() uint32 {
 	return PaymentSavedCredentialsCardTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PaymentSavedCredentialsCard) SchemaName() string {
+	return "paymentSavedCredentialsCard"
 }
 
 // Encode implements bin.Encoder.

@@ -54,6 +54,11 @@ func (g *MessagesGetSuggestedDialogFiltersRequest) TypeID() uint32 {
 	return MessagesGetSuggestedDialogFiltersRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *MessagesGetSuggestedDialogFiltersRequest) SchemaName() string {
+	return "messages.getSuggestedDialogFilters"
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetSuggestedDialogFiltersRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

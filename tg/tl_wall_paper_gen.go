@@ -24,30 +24,30 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/wallPaper for reference.
 type WallPaper struct {
 	// Identifier
-	ID int64
+	ID int64 `schemaname:"id"`
 	// Flags, see TL conditional fields¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Creator of the wallpaper
-	Creator bool
+	Creator bool `schemaname:"creator"`
 	// Whether this is the default wallpaper
-	Default bool
+	Default bool `schemaname:"default"`
 	// Pattern
-	Pattern bool
+	Pattern bool `schemaname:"pattern"`
 	// Dark mode
-	Dark bool
+	Dark bool `schemaname:"dark"`
 	// Access hash
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 	// Unique wallpaper ID
-	Slug string
+	Slug string `schemaname:"slug"`
 	// The actual wallpaper
-	Document DocumentClass
+	Document DocumentClass `schemaname:"document"`
 	// Wallpaper settings
 	//
 	// Use SetSettings and GetSettings helpers.
-	Settings WallPaperSettings
+	Settings WallPaperSettings `schemaname:"settings"`
 }
 
 // WallPaperTypeID is TL type id of WallPaper.
@@ -113,18 +113,28 @@ func (w *WallPaper) FillFrom(from interface {
 	GetSettings() (value WallPaperSettings, ok bool)
 }) {
 	w.ID = from.GetID()
+	w.Creator = from.GetCreator()
+	w.Default = from.GetDefault()
+	w.Pattern = from.GetPattern()
+	w.Dark = from.GetDark()
 	w.AccessHash = from.GetAccessHash()
 	w.Slug = from.GetSlug()
 	w.Document = from.GetDocument()
 	if val, ok := from.GetSettings(); ok {
 		w.Settings = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *WallPaper) TypeID() uint32 {
 	return WallPaperTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (w *WallPaper) SchemaName() string {
+	return "wallPaper"
 }
 
 // Encode implements bin.Encoder.
@@ -340,15 +350,15 @@ type WallPaperNoFile struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether this is the default wallpaper
-	Default bool
+	Default bool `schemaname:"default"`
 	// Dark mode
-	Dark bool
+	Dark bool `schemaname:"dark"`
 	// Wallpaper settings
 	//
 	// Use SetSettings and GetSettings helpers.
-	Settings WallPaperSettings
+	Settings WallPaperSettings `schemaname:"settings"`
 }
 
 // WallPaperNoFileTypeID is TL type id of WallPaperNoFile.
@@ -389,15 +399,23 @@ func (w *WallPaperNoFile) FillFrom(from interface {
 	GetDark() (value bool)
 	GetSettings() (value WallPaperSettings, ok bool)
 }) {
+	w.Default = from.GetDefault()
+	w.Dark = from.GetDark()
 	if val, ok := from.GetSettings(); ok {
 		w.Settings = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *WallPaperNoFile) TypeID() uint32 {
 	return WallPaperNoFileTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (w *WallPaperNoFile) SchemaName() string {
+	return "wallPaperNoFile"
 }
 
 // Encode implements bin.Encoder.
@@ -526,20 +544,22 @@ type WallPaperClass interface {
 	bin.Decoder
 	construct() WallPaperClass
 
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+
 	// Whether this is the default wallpaper
 	GetDefault() (value bool)
 	// Dark mode
 	GetDark() (value bool)
 	// Wallpaper settings
 	GetSettings() (value WallPaperSettings, ok bool)
-
-	// TypeID returns MTProto type id (CRC code).
-	// See https://core.telegram.org/mtproto/TL-tl#remarks.
-	TypeID() uint32
-	// String implements fmt.Stringer.
-	String() string
-	// Zero returns true if current object has a zero value.
-	Zero() bool
 }
 
 // AsInput tries to map WallPaper to InputWallPaper.

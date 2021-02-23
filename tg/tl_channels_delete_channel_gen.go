@@ -30,7 +30,7 @@ type ChannelsDeleteChannelRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass
+	Channel InputChannelClass `schemaname:"channel"`
 }
 
 // ChannelsDeleteChannelRequestTypeID is TL type id of ChannelsDeleteChannelRequest.
@@ -67,6 +67,11 @@ func (d *ChannelsDeleteChannelRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *ChannelsDeleteChannelRequest) TypeID() uint32 {
 	return ChannelsDeleteChannelRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *ChannelsDeleteChannelRequest) SchemaName() string {
+	return "channels.deleteChannel"
 }
 
 // Encode implements bin.Encoder.

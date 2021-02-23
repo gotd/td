@@ -50,6 +50,11 @@ func (d *TestDummyFunctionRequest) TypeID() uint32 {
 	return TestDummyFunctionRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (d *TestDummyFunctionRequest) SchemaName() string {
+	return "test.dummyFunction"
+}
+
 // Encode implements bin.Encoder.
 func (d *TestDummyFunctionRequest) Encode(b *bin.Buffer) error {
 	if d == nil {

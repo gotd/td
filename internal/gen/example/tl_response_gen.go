@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/responseID for reference.
 type ResponseID struct {
 	// ID field of ResponseID.
-	ID int32
+	ID int32 `schemaname:"id"`
 }
 
 // ResponseIDTypeID is TL type id of ResponseID.
@@ -60,6 +60,11 @@ func (r *ResponseID) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ResponseID) TypeID() uint32 {
 	return ResponseIDTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *ResponseID) SchemaName() string {
+	return "responseID"
 }
 
 // Encode implements bin.Encoder.
@@ -111,7 +116,7 @@ var (
 // See https://localhost:80/doc/constructor/responseText for reference.
 type ResponseText struct {
 	// Text field of ResponseText.
-	Text string
+	Text string `schemaname:"text"`
 }
 
 // ResponseTextTypeID is TL type id of ResponseText.
@@ -148,6 +153,11 @@ func (r *ResponseText) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ResponseText) TypeID() uint32 {
 	return ResponseTextTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *ResponseText) SchemaName() string {
+	return "responseText"
 }
 
 // Encode implements bin.Encoder.
@@ -216,6 +226,8 @@ type ResponseClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

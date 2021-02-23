@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/bankCardOpenUrl for reference.
 type BankCardOpenUrl struct {
 	// Info URL
-	URL string
+	URL string `schemaname:"url"`
 	// Bank name
-	Name string
+	Name string `schemaname:"name"`
 }
 
 // BankCardOpenUrlTypeID is TL type id of BankCardOpenUrl.
@@ -68,6 +68,11 @@ func (b *BankCardOpenUrl) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *BankCardOpenUrl) TypeID() uint32 {
 	return BankCardOpenUrlTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (b *BankCardOpenUrl) SchemaName() string {
+	return "bankCardOpenUrl"
 }
 
 // Encode implements bin.Encoder.

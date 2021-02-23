@@ -21,9 +21,9 @@ var _ = errors.Is
 // MsgsStateInfo represents TL type `msgs_state_info#4deb57d`.
 type MsgsStateInfo struct {
 	// ReqMsgID field of MsgsStateInfo.
-	ReqMsgID int64
+	ReqMsgID int64 `schemaname:"req_msg_id"`
 	// Info field of MsgsStateInfo.
-	Info []byte
+	Info []byte `schemaname:"info"`
 }
 
 // MsgsStateInfoTypeID is TL type id of MsgsStateInfo.
@@ -65,6 +65,11 @@ func (m *MsgsStateInfo) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MsgsStateInfo) TypeID() uint32 {
 	return MsgsStateInfoTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MsgsStateInfo) SchemaName() string {
+	return "msgs_state_info"
 }
 
 // Encode implements bin.Encoder.

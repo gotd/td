@@ -51,6 +51,11 @@ func (u *UserStatusEmpty) TypeID() uint32 {
 	return UserStatusEmptyTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (u *UserStatusEmpty) SchemaName() string {
+	return "userStatusEmpty"
+}
+
 // Encode implements bin.Encoder.
 func (u *UserStatusEmpty) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -88,7 +93,7 @@ var (
 // See https://core.telegram.org/constructor/userStatusOnline for reference.
 type UserStatusOnline struct {
 	// Time to expiration of the current online status
-	Expires int
+	Expires int `schemaname:"expires"`
 }
 
 // UserStatusOnlineTypeID is TL type id of UserStatusOnline.
@@ -125,6 +130,11 @@ func (u *UserStatusOnline) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UserStatusOnline) TypeID() uint32 {
 	return UserStatusOnlineTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UserStatusOnline) SchemaName() string {
+	return "userStatusOnline"
 }
 
 // Encode implements bin.Encoder.
@@ -177,7 +187,7 @@ var (
 // See https://core.telegram.org/constructor/userStatusOffline for reference.
 type UserStatusOffline struct {
 	// Time the user was last seen online
-	WasOnline int
+	WasOnline int `schemaname:"was_online"`
 }
 
 // UserStatusOfflineTypeID is TL type id of UserStatusOffline.
@@ -214,6 +224,11 @@ func (u *UserStatusOffline) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UserStatusOffline) TypeID() uint32 {
 	return UserStatusOfflineTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UserStatusOffline) SchemaName() string {
+	return "userStatusOffline"
 }
 
 // Encode implements bin.Encoder.
@@ -293,6 +308,11 @@ func (u *UserStatusRecently) TypeID() uint32 {
 	return UserStatusRecentlyTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (u *UserStatusRecently) SchemaName() string {
+	return "userStatusRecently"
+}
+
 // Encode implements bin.Encoder.
 func (u *UserStatusRecently) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -355,6 +375,11 @@ func (u *UserStatusLastWeek) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UserStatusLastWeek) TypeID() uint32 {
 	return UserStatusLastWeekTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UserStatusLastWeek) SchemaName() string {
+	return "userStatusLastWeek"
 }
 
 // Encode implements bin.Encoder.
@@ -421,6 +446,11 @@ func (u *UserStatusLastMonth) TypeID() uint32 {
 	return UserStatusLastMonthTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (u *UserStatusLastMonth) SchemaName() string {
+	return "userStatusLastMonth"
+}
+
 // Encode implements bin.Encoder.
 func (u *UserStatusLastMonth) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -478,6 +508,8 @@ type UserStatusClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

@@ -21,7 +21,7 @@ var _ = errors.Is
 // MsgsAck represents TL type `msgs_ack#62d6b459`.
 type MsgsAck struct {
 	// MsgIds field of MsgsAck.
-	MsgIds []int64
+	MsgIds []int64 `schemaname:"msg_ids"`
 }
 
 // MsgsAckTypeID is TL type id of MsgsAck.
@@ -58,6 +58,11 @@ func (m *MsgsAck) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MsgsAck) TypeID() uint32 {
 	return MsgsAckTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MsgsAck) SchemaName() string {
+	return "msgs_ack"
 }
 
 // Encode implements bin.Encoder.

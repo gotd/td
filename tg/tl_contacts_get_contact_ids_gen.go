@@ -27,7 +27,7 @@ type ContactsGetContactIDsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int `schemaname:"hash"`
 }
 
 // ContactsGetContactIDsRequestTypeID is TL type id of ContactsGetContactIDsRequest.
@@ -64,6 +64,11 @@ func (g *ContactsGetContactIDsRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *ContactsGetContactIDsRequest) TypeID() uint32 {
 	return ContactsGetContactIDsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *ContactsGetContactIDsRequest) SchemaName() string {
+	return "contacts.getContactIDs"
 }
 
 // Encode implements bin.Encoder.

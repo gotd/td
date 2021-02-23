@@ -27,38 +27,38 @@ type MessagesGetDialogsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Exclude pinned dialogs
-	ExcludePinned bool
+	ExcludePinned bool `schemaname:"exclude_pinned"`
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int
+	FolderID int `schemaname:"folder_id"`
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetDate int
+	OffsetDate int `schemaname:"offset_date"`
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetID int
+	OffsetID int `schemaname:"offset_id"`
 	// Offset peer for pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetPeer InputPeerClass
+	OffsetPeer InputPeerClass `schemaname:"offset_peer"`
 	// Number of list elements to be returned
-	Limit int
+	Limit int `schemaname:"limit"`
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int `schemaname:"hash"`
 }
 
 // MessagesGetDialogsRequestTypeID is TL type id of MessagesGetDialogsRequest.
@@ -115,9 +115,11 @@ func (g *MessagesGetDialogsRequest) FillFrom(from interface {
 	GetLimit() (value int)
 	GetHash() (value int)
 }) {
+	g.ExcludePinned = from.GetExcludePinned()
 	if val, ok := from.GetFolderID(); ok {
 		g.FolderID = val
 	}
+
 	g.OffsetDate = from.GetOffsetDate()
 	g.OffsetID = from.GetOffsetID()
 	g.OffsetPeer = from.GetOffsetPeer()
@@ -129,6 +131,11 @@ func (g *MessagesGetDialogsRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetDialogsRequest) TypeID() uint32 {
 	return MessagesGetDialogsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *MessagesGetDialogsRequest) SchemaName() string {
+	return "messages.getDialogs"
 }
 
 // Encode implements bin.Encoder.

@@ -24,14 +24,14 @@ var _ = errors.Is
 // See https://core.telegram.org/method/phone.acceptCall for reference.
 type PhoneAcceptCallRequest struct {
 	// The call to accept
-	Peer InputPhoneCall
+	Peer InputPhoneCall `schemaname:"peer"`
 	// Parameter for E2E encryption key exchange »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/end-to-end/voice-calls
-	GB []byte
+	GB []byte `schemaname:"g_b"`
 	// Phone call settings
-	Protocol PhoneCallProtocol
+	Protocol PhoneCallProtocol `schemaname:"protocol"`
 }
 
 // PhoneAcceptCallRequestTypeID is TL type id of PhoneAcceptCallRequest.
@@ -78,6 +78,11 @@ func (a *PhoneAcceptCallRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *PhoneAcceptCallRequest) TypeID() uint32 {
 	return PhoneAcceptCallRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (a *PhoneAcceptCallRequest) SchemaName() string {
+	return "phone.acceptCall"
 }
 
 // Encode implements bin.Encoder.

@@ -24,17 +24,17 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getOldFeaturedStickers for reference.
 type MessagesGetOldFeaturedStickersRequest struct {
 	// Offset
-	Offset int
+	Offset int `schemaname:"offset"`
 	// Maximum number of results to return, see pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int
+	Limit int `schemaname:"limit"`
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int `schemaname:"hash"`
 }
 
 // MessagesGetOldFeaturedStickersRequestTypeID is TL type id of MessagesGetOldFeaturedStickersRequest.
@@ -81,6 +81,11 @@ func (g *MessagesGetOldFeaturedStickersRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetOldFeaturedStickersRequest) TypeID() uint32 {
 	return MessagesGetOldFeaturedStickersRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *MessagesGetOldFeaturedStickersRequest) SchemaName() string {
+	return "messages.getOldFeaturedStickers"
 }
 
 // Encode implements bin.Encoder.

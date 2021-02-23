@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/channels.updateUsername for reference.
 type ChannelsUpdateUsernameRequest struct {
 	// Channel
-	Channel InputChannelClass
+	Channel InputChannelClass `schemaname:"channel"`
 	// New username
-	Username string
+	Username string `schemaname:"username"`
 }
 
 // ChannelsUpdateUsernameRequestTypeID is TL type id of ChannelsUpdateUsernameRequest.
@@ -68,6 +68,11 @@ func (u *ChannelsUpdateUsernameRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *ChannelsUpdateUsernameRequest) TypeID() uint32 {
 	return ChannelsUpdateUsernameRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *ChannelsUpdateUsernameRequest) SchemaName() string {
+	return "channels.updateUsername"
 }
 
 // Encode implements bin.Encoder.

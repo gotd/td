@@ -27,39 +27,39 @@ type MessageFwdHeader struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Imported field of MessageFwdHeader.
-	Imported bool
+	Imported bool `schemaname:"imported"`
 	// The ID of the user that originally sent the message
 	//
 	// Use SetFromID and GetFromID helpers.
-	FromID PeerClass
+	FromID PeerClass `schemaname:"from_id"`
 	// The name of the user that originally sent the message
 	//
 	// Use SetFromName and GetFromName helpers.
-	FromName string
+	FromName string `schemaname:"from_name"`
 	// When was the message originally sent
-	Date int
+	Date int `schemaname:"date"`
 	// ID of the channel message that was forwarded
 	//
 	// Use SetChannelPost and GetChannelPost helpers.
-	ChannelPost int
+	ChannelPost int `schemaname:"channel_post"`
 	// For channels and if signatures are enabled, author of the channel message
 	//
 	// Use SetPostAuthor and GetPostAuthor helpers.
-	PostAuthor string
+	PostAuthor string `schemaname:"post_author"`
 	// Only for messages forwarded to the current user (inputPeerSelf), full info about the user/channel that originally sent the message
 	//
 	// Use SetSavedFromPeer and GetSavedFromPeer helpers.
-	SavedFromPeer PeerClass
+	SavedFromPeer PeerClass `schemaname:"saved_from_peer"`
 	// Only for messages forwarded to the current user (inputPeerSelf), ID of the message that was forwarded from the original user/channel
 	//
 	// Use SetSavedFromMsgID and GetSavedFromMsgID helpers.
-	SavedFromMsgID int
+	SavedFromMsgID int `schemaname:"saved_from_msg_id"`
 	// PSA type
 	//
 	// Use SetPsaType and GetPsaType helpers.
-	PsaType string
+	PsaType string `schemaname:"psa_type"`
 }
 
 // MessageFwdHeaderTypeID is TL type id of MessageFwdHeader.
@@ -124,34 +124,47 @@ func (m *MessageFwdHeader) FillFrom(from interface {
 	GetSavedFromMsgID() (value int, ok bool)
 	GetPsaType() (value string, ok bool)
 }) {
+	m.Imported = from.GetImported()
 	if val, ok := from.GetFromID(); ok {
 		m.FromID = val
 	}
+
 	if val, ok := from.GetFromName(); ok {
 		m.FromName = val
 	}
+
 	m.Date = from.GetDate()
 	if val, ok := from.GetChannelPost(); ok {
 		m.ChannelPost = val
 	}
+
 	if val, ok := from.GetPostAuthor(); ok {
 		m.PostAuthor = val
 	}
+
 	if val, ok := from.GetSavedFromPeer(); ok {
 		m.SavedFromPeer = val
 	}
+
 	if val, ok := from.GetSavedFromMsgID(); ok {
 		m.SavedFromMsgID = val
 	}
+
 	if val, ok := from.GetPsaType(); ok {
 		m.PsaType = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageFwdHeader) TypeID() uint32 {
 	return MessageFwdHeaderTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageFwdHeader) SchemaName() string {
+	return "messageFwdHeader"
 }
 
 // Encode implements bin.Encoder.

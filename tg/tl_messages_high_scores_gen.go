@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.highScores for reference.
 type MessagesHighScores struct {
 	// Highscores
-	Scores []HighScore
+	Scores []HighScore `schemaname:"scores"`
 	// Users, associated to the highscores
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 }
 
 // MessagesHighScoresTypeID is TL type id of MessagesHighScores.
@@ -68,6 +68,11 @@ func (h *MessagesHighScores) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (h *MessagesHighScores) TypeID() uint32 {
 	return MessagesHighScoresTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (h *MessagesHighScores) SchemaName() string {
+	return "messages.highScores"
 }
 
 // Encode implements bin.Encoder.

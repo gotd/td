@@ -51,6 +51,11 @@ func (g *MessagesGetSplitRangesRequest) TypeID() uint32 {
 	return MessagesGetSplitRangesRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *MessagesGetSplitRangesRequest) SchemaName() string {
+	return "messages.getSplitRanges"
+}
+
 // Encode implements bin.Encoder.
 func (g *MessagesGetSplitRangesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

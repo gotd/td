@@ -27,27 +27,27 @@ type AccountUpdateThemeRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Theme format, a string that identifies the theming engines supported by the client
-	Format string
+	Format string `schemaname:"format"`
 	// Theme to update
-	Theme InputThemeClass
+	Theme InputThemeClass `schemaname:"theme"`
 	// Unique theme ID
 	//
 	// Use SetSlug and GetSlug helpers.
-	Slug string
+	Slug string `schemaname:"slug"`
 	// Theme name
 	//
 	// Use SetTitle and GetTitle helpers.
-	Title string
+	Title string `schemaname:"title"`
 	// Theme file
 	//
 	// Use SetDocument and GetDocument helpers.
-	Document InputDocumentClass
+	Document InputDocumentClass `schemaname:"document"`
 	// Theme settings
 	//
 	// Use SetSettings and GetSettings helpers.
-	Settings InputThemeSettings
+	Settings InputThemeSettings `schemaname:"settings"`
 }
 
 // AccountUpdateThemeRequestTypeID is TL type id of AccountUpdateThemeRequest.
@@ -105,21 +105,30 @@ func (u *AccountUpdateThemeRequest) FillFrom(from interface {
 	if val, ok := from.GetSlug(); ok {
 		u.Slug = val
 	}
+
 	if val, ok := from.GetTitle(); ok {
 		u.Title = val
 	}
+
 	if val, ok := from.GetDocument(); ok {
 		u.Document = val
 	}
+
 	if val, ok := from.GetSettings(); ok {
 		u.Settings = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *AccountUpdateThemeRequest) TypeID() uint32 {
 	return AccountUpdateThemeRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *AccountUpdateThemeRequest) SchemaName() string {
+	return "account.updateTheme"
 }
 
 // Encode implements bin.Encoder.

@@ -27,37 +27,37 @@ type PaymentsPaymentReceipt struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Date of generation
-	Date int
+	Date int `schemaname:"date"`
 	// Bot ID
-	BotID int
+	BotID int `schemaname:"bot_id"`
 	// Invoice
-	Invoice Invoice
+	Invoice Invoice `schemaname:"invoice"`
 	// Provider ID
-	ProviderID int
+	ProviderID int `schemaname:"provider_id"`
 	// Info
 	//
 	// Use SetInfo and GetInfo helpers.
-	Info PaymentRequestedInfo
+	Info PaymentRequestedInfo `schemaname:"info"`
 	// Selected shipping option
 	//
 	// Use SetShipping and GetShipping helpers.
-	Shipping ShippingOption
+	Shipping ShippingOption `schemaname:"shipping"`
 	// Three-letter ISO 4217 currency¹ code
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments#supported-currencies
-	Currency string
+	Currency string `schemaname:"currency"`
 	// Total amount in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json¹, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments/currencies.json
-	TotalAmount int64
+	TotalAmount int64 `schemaname:"total_amount"`
 	// Payment credential name
-	CredentialsTitle string
+	CredentialsTitle string `schemaname:"credentials_title"`
 	// Users
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 }
 
 // PaymentsPaymentReceiptTypeID is TL type id of PaymentsPaymentReceipt.
@@ -133,9 +133,11 @@ func (p *PaymentsPaymentReceipt) FillFrom(from interface {
 	if val, ok := from.GetInfo(); ok {
 		p.Info = val
 	}
+
 	if val, ok := from.GetShipping(); ok {
 		p.Shipping = val
 	}
+
 	p.Currency = from.GetCurrency()
 	p.TotalAmount = from.GetTotalAmount()
 	p.CredentialsTitle = from.GetCredentialsTitle()
@@ -146,6 +148,11 @@ func (p *PaymentsPaymentReceipt) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PaymentsPaymentReceipt) TypeID() uint32 {
 	return PaymentsPaymentReceiptTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PaymentsPaymentReceipt) SchemaName() string {
+	return "payments.paymentReceipt"
 }
 
 // Encode implements bin.Encoder.

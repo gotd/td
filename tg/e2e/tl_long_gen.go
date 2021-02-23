@@ -50,6 +50,11 @@ func (l *Long) TypeID() uint32 {
 	return LongTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (l *Long) SchemaName() string {
+	return "long"
+}
+
 // Encode implements bin.Encoder.
 func (l *Long) Encode(b *bin.Buffer) error {
 	if l == nil {

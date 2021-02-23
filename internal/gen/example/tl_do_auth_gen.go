@@ -50,6 +50,11 @@ func (d *DoAuthRequest) TypeID() uint32 {
 	return DoAuthRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (d *DoAuthRequest) SchemaName() string {
+	return "doAuth"
+}
+
 // Encode implements bin.Encoder.
 func (d *DoAuthRequest) Encode(b *bin.Buffer) error {
 	if d == nil {

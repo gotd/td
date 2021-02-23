@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/statsAbsValueAndPrev for reference.
 type StatsAbsValueAndPrev struct {
 	// Current value
-	Current float64
+	Current float64 `schemaname:"current"`
 	// Previous value
-	Previous float64
+	Previous float64 `schemaname:"previous"`
 }
 
 // StatsAbsValueAndPrevTypeID is TL type id of StatsAbsValueAndPrev.
@@ -68,6 +68,11 @@ func (s *StatsAbsValueAndPrev) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StatsAbsValueAndPrev) TypeID() uint32 {
 	return StatsAbsValueAndPrevTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *StatsAbsValueAndPrev) SchemaName() string {
+	return "statsAbsValueAndPrev"
 }
 
 // Encode implements bin.Encoder.

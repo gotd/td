@@ -51,6 +51,11 @@ func (b *BaseThemeClassic) TypeID() uint32 {
 	return BaseThemeClassicTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (b *BaseThemeClassic) SchemaName() string {
+	return "baseThemeClassic"
+}
+
 // Encode implements bin.Encoder.
 func (b *BaseThemeClassic) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -113,6 +118,11 @@ func (b *BaseThemeDay) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *BaseThemeDay) TypeID() uint32 {
 	return BaseThemeDayTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (b *BaseThemeDay) SchemaName() string {
+	return "baseThemeDay"
 }
 
 // Encode implements bin.Encoder.
@@ -179,6 +189,11 @@ func (b *BaseThemeNight) TypeID() uint32 {
 	return BaseThemeNightTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (b *BaseThemeNight) SchemaName() string {
+	return "baseThemeNight"
+}
+
 // Encode implements bin.Encoder.
 func (b *BaseThemeNight) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -241,6 +256,11 @@ func (b *BaseThemeTinted) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *BaseThemeTinted) TypeID() uint32 {
 	return BaseThemeTintedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (b *BaseThemeTinted) SchemaName() string {
+	return "baseThemeTinted"
 }
 
 // Encode implements bin.Encoder.
@@ -307,6 +327,11 @@ func (b *BaseThemeArctic) TypeID() uint32 {
 	return BaseThemeArcticTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (b *BaseThemeArctic) SchemaName() string {
+	return "baseThemeArctic"
+}
+
 // Encode implements bin.Encoder.
 func (b *BaseThemeArctic) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -363,6 +388,8 @@ type BaseThemeClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

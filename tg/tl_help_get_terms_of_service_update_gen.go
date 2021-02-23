@@ -51,6 +51,11 @@ func (g *HelpGetTermsOfServiceUpdateRequest) TypeID() uint32 {
 	return HelpGetTermsOfServiceUpdateRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *HelpGetTermsOfServiceUpdateRequest) SchemaName() string {
+	return "help.getTermsOfServiceUpdate"
+}
+
 // Encode implements bin.Encoder.
 func (g *HelpGetTermsOfServiceUpdateRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

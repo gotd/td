@@ -21,7 +21,7 @@ var _ = errors.Is
 // StickerSetCoveredClassVector is a box for Vector<StickerSetCovered>
 type StickerSetCoveredClassVector struct {
 	// Elements of Vector<StickerSetCovered>
-	Elems []StickerSetCoveredClass
+	Elems []StickerSetCoveredClass `schemaname:"Elems"`
 }
 
 // StickerSetCoveredClassVectorTypeID is TL type id of StickerSetCoveredClassVector.
@@ -58,6 +58,11 @@ func (vec *StickerSetCoveredClassVector) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *StickerSetCoveredClassVector) TypeID() uint32 {
 	return StickerSetCoveredClassVectorTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (vec *StickerSetCoveredClassVector) SchemaName() string {
+	return ""
 }
 
 // Encode implements bin.Encoder.

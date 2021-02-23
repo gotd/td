@@ -21,11 +21,11 @@ var _ = errors.Is
 // BadMsgNotification represents TL type `bad_msg_notification#a7eff811`.
 type BadMsgNotification struct {
 	// BadMsgID field of BadMsgNotification.
-	BadMsgID int64
+	BadMsgID int64 `schemaname:"bad_msg_id"`
 	// BadMsgSeqno field of BadMsgNotification.
-	BadMsgSeqno int
+	BadMsgSeqno int `schemaname:"bad_msg_seqno"`
 	// ErrorCode field of BadMsgNotification.
-	ErrorCode int
+	ErrorCode int `schemaname:"error_code"`
 }
 
 // BadMsgNotificationTypeID is TL type id of BadMsgNotification.
@@ -72,6 +72,11 @@ func (b *BadMsgNotification) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *BadMsgNotification) TypeID() uint32 {
 	return BadMsgNotificationTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (b *BadMsgNotification) SchemaName() string {
+	return "bad_msg_notification"
 }
 
 // Encode implements bin.Encoder.
@@ -147,13 +152,13 @@ var (
 // BadServerSalt represents TL type `bad_server_salt#edab447b`.
 type BadServerSalt struct {
 	// BadMsgID field of BadServerSalt.
-	BadMsgID int64
+	BadMsgID int64 `schemaname:"bad_msg_id"`
 	// BadMsgSeqno field of BadServerSalt.
-	BadMsgSeqno int
+	BadMsgSeqno int `schemaname:"bad_msg_seqno"`
 	// ErrorCode field of BadServerSalt.
-	ErrorCode int
+	ErrorCode int `schemaname:"error_code"`
 	// NewServerSalt field of BadServerSalt.
-	NewServerSalt int64
+	NewServerSalt int64 `schemaname:"new_server_salt"`
 }
 
 // BadServerSaltTypeID is TL type id of BadServerSalt.
@@ -205,6 +210,11 @@ func (b *BadServerSalt) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *BadServerSalt) TypeID() uint32 {
 	return BadServerSaltTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (b *BadServerSalt) SchemaName() string {
+	return "bad_server_salt"
 }
 
 // Encode implements bin.Encoder.
@@ -307,20 +317,22 @@ type BadMsgNotificationClass interface {
 	bin.Decoder
 	construct() BadMsgNotificationClass
 
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+
 	// BadMsgID field of BadMsgNotification.
 	GetBadMsgID() (value int64)
 	// BadMsgSeqno field of BadMsgNotification.
 	GetBadMsgSeqno() (value int)
 	// ErrorCode field of BadMsgNotification.
 	GetErrorCode() (value int)
-
-	// TypeID returns MTProto type id (CRC code).
-	// See https://core.telegram.org/mtproto/TL-tl#remarks.
-	TypeID() uint32
-	// String implements fmt.Stringer.
-	String() string
-	// Zero returns true if current object has a zero value.
-	Zero() bool
 }
 
 // DecodeBadMsgNotification implements binary de-serialization for BadMsgNotificationClass.

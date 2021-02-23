@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.faveSticker for reference.
 type MessagesFaveStickerRequest struct {
 	// Sticker to mark as favorite
-	ID InputDocumentClass
+	ID InputDocumentClass `schemaname:"id"`
 	// Unfavorite
-	Unfave bool
+	Unfave bool `schemaname:"unfave"`
 }
 
 // MessagesFaveStickerRequestTypeID is TL type id of MessagesFaveStickerRequest.
@@ -68,6 +68,11 @@ func (f *MessagesFaveStickerRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *MessagesFaveStickerRequest) TypeID() uint32 {
 	return MessagesFaveStickerRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (f *MessagesFaveStickerRequest) SchemaName() string {
+	return "messages.faveSticker"
 }
 
 // Encode implements bin.Encoder.

@@ -27,30 +27,30 @@ type MessagesEditInlineBotMessageRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Disable webpage preview
-	NoWebpage bool
+	NoWebpage bool `schemaname:"no_webpage"`
 	// Sent inline message ID
-	ID InputBotInlineMessageID
+	ID InputBotInlineMessageID `schemaname:"id"`
 	// Message
 	//
 	// Use SetMessage and GetMessage helpers.
-	Message string
+	Message string `schemaname:"message"`
 	// Media
 	//
 	// Use SetMedia and GetMedia helpers.
-	Media InputMediaClass
+	Media InputMediaClass `schemaname:"media"`
 	// Reply markup for inline keyboards
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass
+	ReplyMarkup ReplyMarkupClass `schemaname:"reply_markup"`
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass
+	Entities []MessageEntityClass `schemaname:"entities"`
 }
 
 // MessagesEditInlineBotMessageRequestTypeID is TL type id of MessagesEditInlineBotMessageRequest.
@@ -103,25 +103,35 @@ func (e *MessagesEditInlineBotMessageRequest) FillFrom(from interface {
 	GetReplyMarkup() (value ReplyMarkupClass, ok bool)
 	GetEntities() (value []MessageEntityClass, ok bool)
 }) {
+	e.NoWebpage = from.GetNoWebpage()
 	e.ID = from.GetID()
 	if val, ok := from.GetMessage(); ok {
 		e.Message = val
 	}
+
 	if val, ok := from.GetMedia(); ok {
 		e.Media = val
 	}
+
 	if val, ok := from.GetReplyMarkup(); ok {
 		e.ReplyMarkup = val
 	}
+
 	if val, ok := from.GetEntities(); ok {
 		e.Entities = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *MessagesEditInlineBotMessageRequest) TypeID() uint32 {
 	return MessagesEditInlineBotMessageRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *MessagesEditInlineBotMessageRequest) SchemaName() string {
+	return "messages.editInlineBotMessage"
 }
 
 // Encode implements bin.Encoder.

@@ -27,42 +27,42 @@ type MessagesSearchGlobalRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int
+	FolderID int `schemaname:"folder_id"`
 	// Query
-	Q string
+	Q string `schemaname:"q"`
 	// Global search filter
-	Filter MessagesFilterClass
+	Filter MessagesFilterClass `schemaname:"filter"`
 	// If a positive value was specified, the method will return only messages with date bigger than min_date
-	MinDate int
+	MinDate int `schemaname:"min_date"`
 	// If a positive value was transferred, the method will return only messages with date smaller than max_date
-	MaxDate int
+	MaxDate int `schemaname:"max_date"`
 	// Initially 0, then set to the next_rate parameter of messages.messagesSlice¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/messages.messagesSlice
-	OffsetRate int
+	OffsetRate int `schemaname:"offset_rate"`
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetPeer InputPeerClass
+	OffsetPeer InputPeerClass `schemaname:"offset_peer"`
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetID int
+	OffsetID int `schemaname:"offset_id"`
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int
+	Limit int `schemaname:"limit"`
 }
 
 // MessagesSearchGlobalRequestTypeID is TL type id of MessagesSearchGlobalRequest.
@@ -130,6 +130,7 @@ func (s *MessagesSearchGlobalRequest) FillFrom(from interface {
 	if val, ok := from.GetFolderID(); ok {
 		s.FolderID = val
 	}
+
 	s.Q = from.GetQ()
 	s.Filter = from.GetFilter()
 	s.MinDate = from.GetMinDate()
@@ -144,6 +145,11 @@ func (s *MessagesSearchGlobalRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSearchGlobalRequest) TypeID() uint32 {
 	return MessagesSearchGlobalRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *MessagesSearchGlobalRequest) SchemaName() string {
+	return "messages.searchGlobal"
 }
 
 // Encode implements bin.Encoder.

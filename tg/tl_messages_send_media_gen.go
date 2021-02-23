@@ -27,43 +27,43 @@ type MessagesSendMediaRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Send message silently (no notification should be triggered)
-	Silent bool
+	Silent bool `schemaname:"silent"`
 	// Send message in background
-	Background bool
+	Background bool `schemaname:"background"`
 	// Clear the draft
-	ClearDraft bool
+	ClearDraft bool `schemaname:"clear_draft"`
 	// Destination
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// Message ID to which this message should reply to
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
-	ReplyToMsgID int
+	ReplyToMsgID int `schemaname:"reply_to_msg_id"`
 	// Attached media
-	Media InputMediaClass
+	Media InputMediaClass `schemaname:"media"`
 	// Caption
-	Message string
+	Message string `schemaname:"message"`
 	// Random ID to avoid resending the same message
-	RandomID int64
+	RandomID int64 `schemaname:"random_id"`
 	// Reply markup for bot keyboards
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass
+	ReplyMarkup ReplyMarkupClass `schemaname:"reply_markup"`
 	// Message entities¹ for styled text
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass
+	Entities []MessageEntityClass `schemaname:"entities"`
 	// Scheduled message date for scheduled messages¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/scheduled-messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
-	ScheduleDate int
+	ScheduleDate int `schemaname:"schedule_date"`
 }
 
 // MessagesSendMediaRequestTypeID is TL type id of MessagesSendMediaRequest.
@@ -136,28 +136,40 @@ func (s *MessagesSendMediaRequest) FillFrom(from interface {
 	GetEntities() (value []MessageEntityClass, ok bool)
 	GetScheduleDate() (value int, ok bool)
 }) {
+	s.Silent = from.GetSilent()
+	s.Background = from.GetBackground()
+	s.ClearDraft = from.GetClearDraft()
 	s.Peer = from.GetPeer()
 	if val, ok := from.GetReplyToMsgID(); ok {
 		s.ReplyToMsgID = val
 	}
+
 	s.Media = from.GetMedia()
 	s.Message = from.GetMessage()
 	s.RandomID = from.GetRandomID()
 	if val, ok := from.GetReplyMarkup(); ok {
 		s.ReplyMarkup = val
 	}
+
 	if val, ok := from.GetEntities(); ok {
 		s.Entities = val
 	}
+
 	if val, ok := from.GetScheduleDate(); ok {
 		s.ScheduleDate = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSendMediaRequest) TypeID() uint32 {
 	return MessagesSendMediaRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *MessagesSendMediaRequest) SchemaName() string {
+	return "messages.sendMedia"
 }
 
 // Encode implements bin.Encoder.

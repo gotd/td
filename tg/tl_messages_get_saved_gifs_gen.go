@@ -27,7 +27,7 @@ type MessagesGetSavedGifsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int `schemaname:"hash"`
 }
 
 // MessagesGetSavedGifsRequestTypeID is TL type id of MessagesGetSavedGifsRequest.
@@ -64,6 +64,11 @@ func (g *MessagesGetSavedGifsRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetSavedGifsRequest) TypeID() uint32 {
 	return MessagesGetSavedGifsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *MessagesGetSavedGifsRequest) SchemaName() string {
+	return "messages.getSavedGifs"
 }
 
 // Encode implements bin.Encoder.

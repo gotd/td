@@ -51,6 +51,11 @@ func (p *PrivacyValueAllowContacts) TypeID() uint32 {
 	return PrivacyValueAllowContactsTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (p *PrivacyValueAllowContacts) SchemaName() string {
+	return "privacyValueAllowContacts"
+}
+
 // Encode implements bin.Encoder.
 func (p *PrivacyValueAllowContacts) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -115,6 +120,11 @@ func (p *PrivacyValueAllowAll) TypeID() uint32 {
 	return PrivacyValueAllowAllTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (p *PrivacyValueAllowAll) SchemaName() string {
+	return "privacyValueAllowAll"
+}
+
 // Encode implements bin.Encoder.
 func (p *PrivacyValueAllowAll) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -152,7 +162,7 @@ var (
 // See https://core.telegram.org/constructor/privacyValueAllowUsers for reference.
 type PrivacyValueAllowUsers struct {
 	// Allowed users
-	Users []int
+	Users []int `schemaname:"users"`
 }
 
 // PrivacyValueAllowUsersTypeID is TL type id of PrivacyValueAllowUsers.
@@ -189,6 +199,11 @@ func (p *PrivacyValueAllowUsers) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PrivacyValueAllowUsers) TypeID() uint32 {
 	return PrivacyValueAllowUsersTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PrivacyValueAllowUsers) SchemaName() string {
+	return "privacyValueAllowUsers"
 }
 
 // Encode implements bin.Encoder.
@@ -277,6 +292,11 @@ func (p *PrivacyValueDisallowContacts) TypeID() uint32 {
 	return PrivacyValueDisallowContactsTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (p *PrivacyValueDisallowContacts) SchemaName() string {
+	return "privacyValueDisallowContacts"
+}
+
 // Encode implements bin.Encoder.
 func (p *PrivacyValueDisallowContacts) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -341,6 +361,11 @@ func (p *PrivacyValueDisallowAll) TypeID() uint32 {
 	return PrivacyValueDisallowAllTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (p *PrivacyValueDisallowAll) SchemaName() string {
+	return "privacyValueDisallowAll"
+}
+
 // Encode implements bin.Encoder.
 func (p *PrivacyValueDisallowAll) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -378,7 +403,7 @@ var (
 // See https://core.telegram.org/constructor/privacyValueDisallowUsers for reference.
 type PrivacyValueDisallowUsers struct {
 	// Disallowed users
-	Users []int
+	Users []int `schemaname:"users"`
 }
 
 // PrivacyValueDisallowUsersTypeID is TL type id of PrivacyValueDisallowUsers.
@@ -415,6 +440,11 @@ func (p *PrivacyValueDisallowUsers) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PrivacyValueDisallowUsers) TypeID() uint32 {
 	return PrivacyValueDisallowUsersTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PrivacyValueDisallowUsers) SchemaName() string {
+	return "privacyValueDisallowUsers"
 }
 
 // Encode implements bin.Encoder.
@@ -476,7 +506,7 @@ var (
 // See https://core.telegram.org/constructor/privacyValueAllowChatParticipants for reference.
 type PrivacyValueAllowChatParticipants struct {
 	// Allowed chats
-	Chats []int
+	Chats []int `schemaname:"chats"`
 }
 
 // PrivacyValueAllowChatParticipantsTypeID is TL type id of PrivacyValueAllowChatParticipants.
@@ -513,6 +543,11 @@ func (p *PrivacyValueAllowChatParticipants) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PrivacyValueAllowChatParticipants) TypeID() uint32 {
 	return PrivacyValueAllowChatParticipantsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PrivacyValueAllowChatParticipants) SchemaName() string {
+	return "privacyValueAllowChatParticipants"
 }
 
 // Encode implements bin.Encoder.
@@ -574,7 +609,7 @@ var (
 // See https://core.telegram.org/constructor/privacyValueDisallowChatParticipants for reference.
 type PrivacyValueDisallowChatParticipants struct {
 	// Disallowed chats
-	Chats []int
+	Chats []int `schemaname:"chats"`
 }
 
 // PrivacyValueDisallowChatParticipantsTypeID is TL type id of PrivacyValueDisallowChatParticipants.
@@ -611,6 +646,11 @@ func (p *PrivacyValueDisallowChatParticipants) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PrivacyValueDisallowChatParticipants) TypeID() uint32 {
 	return PrivacyValueDisallowChatParticipantsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PrivacyValueDisallowChatParticipants) SchemaName() string {
+	return "privacyValueDisallowChatParticipants"
 }
 
 // Encode implements bin.Encoder.
@@ -694,6 +734,8 @@ type PrivacyRuleClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

@@ -24,19 +24,19 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/updates.state for reference.
 type UpdatesState struct {
 	// Number of events occured in a text box
-	Pts int
+	Pts int `schemaname:"pts"`
 	// Position in a sequence of updates in secret chats. For further detailes refer to article secret chats¹Parameter was added in eigth layer².
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/end-to-end
 	//  2) https://core.telegram.org/api/layers#layer-8
-	Qts int
+	Qts int `schemaname:"qts"`
 	// Date of condition
-	Date int
+	Date int `schemaname:"date"`
 	// Number of sent updates
-	Seq int
+	Seq int `schemaname:"seq"`
 	// Number of unread messages
-	UnreadCount int
+	UnreadCount int `schemaname:"unread_count"`
 }
 
 // UpdatesStateTypeID is TL type id of UpdatesState.
@@ -93,6 +93,11 @@ func (s *UpdatesState) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *UpdatesState) TypeID() uint32 {
 	return UpdatesStateTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *UpdatesState) SchemaName() string {
+	return "updates.state"
 }
 
 // Encode implements bin.Encoder.

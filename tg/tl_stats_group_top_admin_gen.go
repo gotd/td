@@ -24,22 +24,22 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/statsGroupTopAdmin for reference.
 type StatsGroupTopAdmin struct {
 	// User ID
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// Number of deleted messages for statistics¹ period in consideration
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/stats
-	Deleted int
+	Deleted int `schemaname:"deleted"`
 	// Number of kicked users for statistics¹ period in consideration
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/stats
-	Kicked int
+	Kicked int `schemaname:"kicked"`
 	// Number of banned users for statistics¹ period in consideration
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/stats
-	Banned int
+	Banned int `schemaname:"banned"`
 }
 
 // StatsGroupTopAdminTypeID is TL type id of StatsGroupTopAdmin.
@@ -91,6 +91,11 @@ func (s *StatsGroupTopAdmin) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StatsGroupTopAdmin) TypeID() uint32 {
 	return StatsGroupTopAdminTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *StatsGroupTopAdmin) SchemaName() string {
+	return "statsGroupTopAdmin"
 }
 
 // Encode implements bin.Encoder.

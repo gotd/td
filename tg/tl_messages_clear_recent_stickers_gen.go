@@ -27,9 +27,9 @@ type MessagesClearRecentStickersRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Set this flag to clear the list of stickers recently attached to photo or video files
-	Attached bool
+	Attached bool `schemaname:"attached"`
 }
 
 // MessagesClearRecentStickersRequestTypeID is TL type id of MessagesClearRecentStickersRequest.
@@ -62,12 +62,18 @@ func (c *MessagesClearRecentStickersRequest) String() string {
 func (c *MessagesClearRecentStickersRequest) FillFrom(from interface {
 	GetAttached() (value bool)
 }) {
+	c.Attached = from.GetAttached()
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *MessagesClearRecentStickersRequest) TypeID() uint32 {
 	return MessagesClearRecentStickersRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *MessagesClearRecentStickersRequest) SchemaName() string {
+	return "messages.clearRecentStickers"
 }
 
 // Encode implements bin.Encoder.

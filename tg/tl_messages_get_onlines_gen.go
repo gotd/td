@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getOnlines for reference.
 type MessagesGetOnlinesRequest struct {
 	// The chat
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 }
 
 // MessagesGetOnlinesRequestTypeID is TL type id of MessagesGetOnlinesRequest.
@@ -61,6 +61,11 @@ func (g *MessagesGetOnlinesRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetOnlinesRequest) TypeID() uint32 {
 	return MessagesGetOnlinesRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *MessagesGetOnlinesRequest) SchemaName() string {
+	return "messages.getOnlines"
 }
 
 // Encode implements bin.Encoder.

@@ -27,13 +27,13 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/inputPhoneContact for reference.
 type InputPhoneContact struct {
 	// User identifier on the client
-	ClientID int64
+	ClientID int64 `schemaname:"client_id"`
 	// Phone number
-	Phone string
+	Phone string `schemaname:"phone"`
 	// Contact's first name
-	FirstName string
+	FirstName string `schemaname:"first_name"`
 	// Contact's last name
-	LastName string
+	LastName string `schemaname:"last_name"`
 }
 
 // InputPhoneContactTypeID is TL type id of InputPhoneContact.
@@ -85,6 +85,11 @@ func (i *InputPhoneContact) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPhoneContact) TypeID() uint32 {
 	return InputPhoneContactTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputPhoneContact) SchemaName() string {
+	return "inputPhoneContact"
 }
 
 // Encode implements bin.Encoder.

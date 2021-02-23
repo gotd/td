@@ -51,6 +51,11 @@ func (c *ChatPhotoEmpty) TypeID() uint32 {
 	return ChatPhotoEmptyTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (c *ChatPhotoEmpty) SchemaName() string {
+	return "chatPhotoEmpty"
+}
+
 // Encode implements bin.Encoder.
 func (c *ChatPhotoEmpty) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -91,15 +96,15 @@ type ChatPhoto struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether the user has an animated profile picture
-	HasVideo bool
+	HasVideo bool `schemaname:"has_video"`
 	// Location of the file corresponding to the small thumbnail for group profile photo
-	PhotoSmall FileLocationToBeDeprecated
+	PhotoSmall FileLocationToBeDeprecated `schemaname:"photo_small"`
 	// Location of the file corresponding to the small thumbnail for group profile photo
-	PhotoBig FileLocationToBeDeprecated
+	PhotoBig FileLocationToBeDeprecated `schemaname:"photo_big"`
 	// DC where this photo is stored
-	DCID int
+	DCID int `schemaname:"dc_id"`
 }
 
 // ChatPhotoTypeID is TL type id of ChatPhoto.
@@ -144,6 +149,7 @@ func (c *ChatPhoto) FillFrom(from interface {
 	GetPhotoBig() (value FileLocationToBeDeprecated)
 	GetDCID() (value int)
 }) {
+	c.HasVideo = from.GetHasVideo()
 	c.PhotoSmall = from.GetPhotoSmall()
 	c.PhotoBig = from.GetPhotoBig()
 	c.DCID = from.GetDCID()
@@ -153,6 +159,11 @@ func (c *ChatPhoto) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatPhoto) TypeID() uint32 {
 	return ChatPhotoTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChatPhoto) SchemaName() string {
+	return "chatPhoto"
 }
 
 // Encode implements bin.Encoder.
@@ -272,16 +283,18 @@ type ChatPhotoClass interface {
 	bin.Decoder
 	construct() ChatPhotoClass
 
-	// AsNotEmpty tries to map ChatPhotoClass to ChatPhoto.
-	AsNotEmpty() (*ChatPhoto, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsNotEmpty tries to map ChatPhotoClass to ChatPhoto.
+	AsNotEmpty() (*ChatPhoto, bool)
 }
 
 // AsNotEmpty tries to map ChatPhotoEmpty to ChatPhoto.

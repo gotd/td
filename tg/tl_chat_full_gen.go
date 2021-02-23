@@ -27,52 +27,52 @@ type ChatFull struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Can we change the username of this chat
-	CanSetUsername bool
+	CanSetUsername bool `schemaname:"can_set_username"`
 	// Whether scheduled messages¹ are available
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/scheduled-messages
-	HasScheduled bool
+	HasScheduled bool `schemaname:"has_scheduled"`
 	// ID of the chat
-	ID int
+	ID int `schemaname:"id"`
 	// About string for this chat
-	About string
+	About string `schemaname:"about"`
 	// Participant list
-	Participants ChatParticipantsClass
+	Participants ChatParticipantsClass `schemaname:"participants"`
 	// Chat photo
 	//
 	// Use SetChatPhoto and GetChatPhoto helpers.
-	ChatPhoto PhotoClass
+	ChatPhoto PhotoClass `schemaname:"chat_photo"`
 	// Notification settings
-	NotifySettings PeerNotifySettings
+	NotifySettings PeerNotifySettings `schemaname:"notify_settings"`
 	// Chat invite
 	//
 	// Use SetExportedInvite and GetExportedInvite helpers.
-	ExportedInvite ChatInviteExported
+	ExportedInvite ChatInviteExported `schemaname:"exported_invite"`
 	// Info about bots that are in this chat
 	//
 	// Use SetBotInfo and GetBotInfo helpers.
-	BotInfo []BotInfo
+	BotInfo []BotInfo `schemaname:"bot_info"`
 	// Message ID of the last pinned message¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/pin
 	//
 	// Use SetPinnedMsgID and GetPinnedMsgID helpers.
-	PinnedMsgID int
+	PinnedMsgID int `schemaname:"pinned_msg_id"`
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int
+	FolderID int `schemaname:"folder_id"`
 	// Call field of ChatFull.
 	//
 	// Use SetCall and GetCall helpers.
-	Call InputGroupCall
+	Call InputGroupCall `schemaname:"call"`
 }
 
 // ChatFullTypeID is TL type id of ChatFull.
@@ -149,34 +149,47 @@ func (c *ChatFull) FillFrom(from interface {
 	GetFolderID() (value int, ok bool)
 	GetCall() (value InputGroupCall, ok bool)
 }) {
+	c.CanSetUsername = from.GetCanSetUsername()
+	c.HasScheduled = from.GetHasScheduled()
 	c.ID = from.GetID()
 	c.About = from.GetAbout()
 	c.Participants = from.GetParticipants()
 	if val, ok := from.GetChatPhoto(); ok {
 		c.ChatPhoto = val
 	}
+
 	c.NotifySettings = from.GetNotifySettings()
 	if val, ok := from.GetExportedInvite(); ok {
 		c.ExportedInvite = val
 	}
+
 	if val, ok := from.GetBotInfo(); ok {
 		c.BotInfo = val
 	}
+
 	if val, ok := from.GetPinnedMsgID(); ok {
 		c.PinnedMsgID = val
 	}
+
 	if val, ok := from.GetFolderID(); ok {
 		c.FolderID = val
 	}
+
 	if val, ok := from.GetCall(); ok {
 		c.Call = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatFull) TypeID() uint32 {
 	return ChatFullTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChatFull) SchemaName() string {
+	return "chatFull"
 }
 
 // Encode implements bin.Encoder.
@@ -511,146 +524,146 @@ type ChannelFull struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Can we vew the participant list?
-	CanViewParticipants bool
+	CanViewParticipants bool `schemaname:"can_view_participants"`
 	// Can we set the channel's username?
-	CanSetUsername bool
+	CanSetUsername bool `schemaname:"can_set_username"`
 	// Can we associate¹ a stickerpack to the supergroup?
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/channels.setStickers
-	CanSetStickers bool
+	CanSetStickers bool `schemaname:"can_set_stickers"`
 	// Is the history before we joined hidden to us?
-	HiddenPrehistory bool
+	HiddenPrehistory bool `schemaname:"hidden_prehistory"`
 	// Can we set the geolocation of this group (for geogroups)
-	CanSetLocation bool
+	CanSetLocation bool `schemaname:"can_set_location"`
 	// Whether scheduled messages are available
-	HasScheduled bool
+	HasScheduled bool `schemaname:"has_scheduled"`
 	// Can the user view channel/supergroup statistics¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/stats
-	CanViewStats bool
+	CanViewStats bool `schemaname:"can_view_stats"`
 	// Whether any anonymous admin of this supergroup was blocked: if set, you won't receive messages from anonymous group admins in discussion replies via @replies¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/discussion
-	Blocked bool
+	Blocked bool `schemaname:"blocked"`
 	// ID of the channel
-	ID int
+	ID int `schemaname:"id"`
 	// Info about the channel
-	About string
+	About string `schemaname:"about"`
 	// Number of participants of the channel
 	//
 	// Use SetParticipantsCount and GetParticipantsCount helpers.
-	ParticipantsCount int
+	ParticipantsCount int `schemaname:"participants_count"`
 	// Number of channel admins
 	//
 	// Use SetAdminsCount and GetAdminsCount helpers.
-	AdminsCount int
+	AdminsCount int `schemaname:"admins_count"`
 	// Number of users kicked¹ from the channel
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetKickedCount and GetKickedCount helpers.
-	KickedCount int
+	KickedCount int `schemaname:"kicked_count"`
 	// Number of users banned¹ from the channel
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetBannedCount and GetBannedCount helpers.
-	BannedCount int
+	BannedCount int `schemaname:"banned_count"`
 	// Number of users currently online
 	//
 	// Use SetOnlineCount and GetOnlineCount helpers.
-	OnlineCount int
+	OnlineCount int `schemaname:"online_count"`
 	// Position up to which all incoming messages are read.
-	ReadInboxMaxID int
+	ReadInboxMaxID int `schemaname:"read_inbox_max_id"`
 	// Position up to which all outgoing messages are read.
-	ReadOutboxMaxID int
+	ReadOutboxMaxID int `schemaname:"read_outbox_max_id"`
 	// Count of unread messages
-	UnreadCount int
+	UnreadCount int `schemaname:"unread_count"`
 	// Channel picture
-	ChatPhoto PhotoClass
+	ChatPhoto PhotoClass `schemaname:"chat_photo"`
 	// Notification settings
-	NotifySettings PeerNotifySettings
+	NotifySettings PeerNotifySettings `schemaname:"notify_settings"`
 	// Invite link
 	//
 	// Use SetExportedInvite and GetExportedInvite helpers.
-	ExportedInvite ChatInviteExported
+	ExportedInvite ChatInviteExported `schemaname:"exported_invite"`
 	// Info about bots in the channel/supergrup
-	BotInfo []BotInfo
+	BotInfo []BotInfo `schemaname:"bot_info"`
 	// The chat ID from which this group was migrated¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	//
 	// Use SetMigratedFromChatID and GetMigratedFromChatID helpers.
-	MigratedFromChatID int
+	MigratedFromChatID int `schemaname:"migrated_from_chat_id"`
 	// The message ID in the original chat at which this group was migrated¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	//
 	// Use SetMigratedFromMaxID and GetMigratedFromMaxID helpers.
-	MigratedFromMaxID int
+	MigratedFromMaxID int `schemaname:"migrated_from_max_id"`
 	// Message ID of the last pinned message¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/pin
 	//
 	// Use SetPinnedMsgID and GetPinnedMsgID helpers.
-	PinnedMsgID int
+	PinnedMsgID int `schemaname:"pinned_msg_id"`
 	// Associated stickerset
 	//
 	// Use SetStickerset and GetStickerset helpers.
-	Stickerset StickerSet
+	Stickerset StickerSet `schemaname:"stickerset"`
 	// Identifier of a maximum unavailable message in a channel due to hidden history.
 	//
 	// Use SetAvailableMinID and GetAvailableMinID helpers.
-	AvailableMinID int
+	AvailableMinID int `schemaname:"available_min_id"`
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int
+	FolderID int `schemaname:"folder_id"`
 	// ID of the linked discussion chat¹ for channels
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/discussion
 	//
 	// Use SetLinkedChatID and GetLinkedChatID helpers.
-	LinkedChatID int
+	LinkedChatID int `schemaname:"linked_chat_id"`
 	// Location of the geogroup
 	//
 	// Use SetLocation and GetLocation helpers.
-	Location ChannelLocationClass
+	Location ChannelLocationClass `schemaname:"location"`
 	// If specified, users in supergroups will only be able to send one message every slowmode_seconds seconds
 	//
 	// Use SetSlowmodeSeconds and GetSlowmodeSeconds helpers.
-	SlowmodeSeconds int
+	SlowmodeSeconds int `schemaname:"slowmode_seconds"`
 	// Indicates when the user will be allowed to send another message in the supergroup (unixdate)
 	//
 	// Use SetSlowmodeNextSendDate and GetSlowmodeNextSendDate helpers.
-	SlowmodeNextSendDate int
+	SlowmodeNextSendDate int `schemaname:"slowmode_next_send_date"`
 	// If set, specifies the DC to use for fetching channel statistics
 	//
 	// Use SetStatsDC and GetStatsDC helpers.
-	StatsDC int
+	StatsDC int `schemaname:"stats_dc"`
 	// Latest PTS¹ for this channel
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int
+	Pts int `schemaname:"pts"`
 	// Call field of ChannelFull.
 	//
 	// Use SetCall and GetCall helpers.
-	Call InputGroupCall
+	Call InputGroupCall `schemaname:"call"`
 }
 
 // ChannelFullTypeID is TL type id of ChannelFull.
@@ -819,23 +832,36 @@ func (c *ChannelFull) FillFrom(from interface {
 	GetPts() (value int)
 	GetCall() (value InputGroupCall, ok bool)
 }) {
+	c.CanViewParticipants = from.GetCanViewParticipants()
+	c.CanSetUsername = from.GetCanSetUsername()
+	c.CanSetStickers = from.GetCanSetStickers()
+	c.HiddenPrehistory = from.GetHiddenPrehistory()
+	c.CanSetLocation = from.GetCanSetLocation()
+	c.HasScheduled = from.GetHasScheduled()
+	c.CanViewStats = from.GetCanViewStats()
+	c.Blocked = from.GetBlocked()
 	c.ID = from.GetID()
 	c.About = from.GetAbout()
 	if val, ok := from.GetParticipantsCount(); ok {
 		c.ParticipantsCount = val
 	}
+
 	if val, ok := from.GetAdminsCount(); ok {
 		c.AdminsCount = val
 	}
+
 	if val, ok := from.GetKickedCount(); ok {
 		c.KickedCount = val
 	}
+
 	if val, ok := from.GetBannedCount(); ok {
 		c.BannedCount = val
 	}
+
 	if val, ok := from.GetOnlineCount(); ok {
 		c.OnlineCount = val
 	}
+
 	c.ReadInboxMaxID = from.GetReadInboxMaxID()
 	c.ReadOutboxMaxID = from.GetReadOutboxMaxID()
 	c.UnreadCount = from.GetUnreadCount()
@@ -844,50 +870,68 @@ func (c *ChannelFull) FillFrom(from interface {
 	if val, ok := from.GetExportedInvite(); ok {
 		c.ExportedInvite = val
 	}
+
 	c.BotInfo = from.GetBotInfo()
 	if val, ok := from.GetMigratedFromChatID(); ok {
 		c.MigratedFromChatID = val
 	}
+
 	if val, ok := from.GetMigratedFromMaxID(); ok {
 		c.MigratedFromMaxID = val
 	}
+
 	if val, ok := from.GetPinnedMsgID(); ok {
 		c.PinnedMsgID = val
 	}
+
 	if val, ok := from.GetStickerset(); ok {
 		c.Stickerset = val
 	}
+
 	if val, ok := from.GetAvailableMinID(); ok {
 		c.AvailableMinID = val
 	}
+
 	if val, ok := from.GetFolderID(); ok {
 		c.FolderID = val
 	}
+
 	if val, ok := from.GetLinkedChatID(); ok {
 		c.LinkedChatID = val
 	}
+
 	if val, ok := from.GetLocation(); ok {
 		c.Location = val
 	}
+
 	if val, ok := from.GetSlowmodeSeconds(); ok {
 		c.SlowmodeSeconds = val
 	}
+
 	if val, ok := from.GetSlowmodeNextSendDate(); ok {
 		c.SlowmodeNextSendDate = val
 	}
+
 	if val, ok := from.GetStatsDC(); ok {
 		c.StatsDC = val
 	}
+
 	c.Pts = from.GetPts()
 	if val, ok := from.GetCall(); ok {
 		c.Call = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelFull) TypeID() uint32 {
 	return ChannelFullTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChannelFull) SchemaName() string {
+	return "channelFull"
 }
 
 // Encode implements bin.Encoder.
@@ -1750,6 +1794,16 @@ type ChatFullClass interface {
 	bin.Decoder
 	construct() ChatFullClass
 
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+
 	// Can we change the username of this chat
 	GetCanSetUsername() (value bool)
 	// Whether scheduled messages¹ are available
@@ -1777,14 +1831,6 @@ type ChatFullClass interface {
 	GetFolderID() (value int, ok bool)
 	// Call field of ChatFull.
 	GetCall() (value InputGroupCall, ok bool)
-
-	// TypeID returns MTProto type id (CRC code).
-	// See https://core.telegram.org/mtproto/TL-tl#remarks.
-	TypeID() uint32
-	// String implements fmt.Stringer.
-	String() string
-	// Zero returns true if current object has a zero value.
-	Zero() bool
 }
 
 // DecodeChatFull implements binary de-serialization for ChatFullClass.

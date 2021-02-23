@@ -27,31 +27,31 @@ type PageRelatedArticle struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// URL of article
-	URL string
+	URL string `schemaname:"url"`
 	// Webpage ID of generated IV preview
-	WebpageID int64
+	WebpageID int64 `schemaname:"webpage_id"`
 	// Title
 	//
 	// Use SetTitle and GetTitle helpers.
-	Title string
+	Title string `schemaname:"title"`
 	// Description
 	//
 	// Use SetDescription and GetDescription helpers.
-	Description string
+	Description string `schemaname:"description"`
 	// ID of preview photo
 	//
 	// Use SetPhotoID and GetPhotoID helpers.
-	PhotoID int64
+	PhotoID int64 `schemaname:"photo_id"`
 	// Author name
 	//
 	// Use SetAuthor and GetAuthor helpers.
-	Author string
+	Author string `schemaname:"author"`
 	// Date of pubblication
 	//
 	// Use SetPublishedDate and GetPublishedDate helpers.
-	PublishedDate int
+	PublishedDate int `schemaname:"published_date"`
 }
 
 // PageRelatedArticleTypeID is TL type id of PageRelatedArticle.
@@ -113,24 +113,34 @@ func (p *PageRelatedArticle) FillFrom(from interface {
 	if val, ok := from.GetTitle(); ok {
 		p.Title = val
 	}
+
 	if val, ok := from.GetDescription(); ok {
 		p.Description = val
 	}
+
 	if val, ok := from.GetPhotoID(); ok {
 		p.PhotoID = val
 	}
+
 	if val, ok := from.GetAuthor(); ok {
 		p.Author = val
 	}
+
 	if val, ok := from.GetPublishedDate(); ok {
 		p.PublishedDate = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageRelatedArticle) TypeID() uint32 {
 	return PageRelatedArticleTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageRelatedArticle) SchemaName() string {
+	return "pageRelatedArticle"
 }
 
 // Encode implements bin.Encoder.

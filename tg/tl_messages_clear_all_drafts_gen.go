@@ -54,6 +54,11 @@ func (c *MessagesClearAllDraftsRequest) TypeID() uint32 {
 	return MessagesClearAllDraftsRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (c *MessagesClearAllDraftsRequest) SchemaName() string {
+	return "messages.clearAllDrafts"
+}
+
 // Encode implements bin.Encoder.
 func (c *MessagesClearAllDraftsRequest) Encode(b *bin.Buffer) error {
 	if c == nil {

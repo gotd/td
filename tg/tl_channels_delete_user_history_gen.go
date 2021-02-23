@@ -30,9 +30,9 @@ type ChannelsDeleteUserHistoryRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass
+	Channel InputChannelClass `schemaname:"channel"`
 	// User whose messages should be deleted
-	UserID InputUserClass
+	UserID InputUserClass `schemaname:"user_id"`
 }
 
 // ChannelsDeleteUserHistoryRequestTypeID is TL type id of ChannelsDeleteUserHistoryRequest.
@@ -74,6 +74,11 @@ func (d *ChannelsDeleteUserHistoryRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *ChannelsDeleteUserHistoryRequest) TypeID() uint32 {
 	return ChannelsDeleteUserHistoryRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *ChannelsDeleteUserHistoryRequest) SchemaName() string {
+	return "channels.deleteUserHistory"
 }
 
 // Encode implements bin.Encoder.

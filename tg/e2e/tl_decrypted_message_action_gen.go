@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/decryptedMessageActionSetMessageTTL for reference.
 type DecryptedMessageActionSetMessageTTL struct {
 	// TTLSeconds field of DecryptedMessageActionSetMessageTTL.
-	TTLSeconds int
+	TTLSeconds int `schemaname:"ttl_seconds"`
 }
 
 // DecryptedMessageActionSetMessageTTLTypeID is TL type id of DecryptedMessageActionSetMessageTTL.
@@ -60,6 +60,11 @@ func (d *DecryptedMessageActionSetMessageTTL) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionSetMessageTTL) TypeID() uint32 {
 	return DecryptedMessageActionSetMessageTTLTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageActionSetMessageTTL) SchemaName() string {
+	return "decryptedMessageActionSetMessageTTL"
 }
 
 // Encode implements bin.Encoder.
@@ -111,7 +116,7 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionReadMessages for reference.
 type DecryptedMessageActionReadMessages struct {
 	// RandomIds field of DecryptedMessageActionReadMessages.
-	RandomIds []int64
+	RandomIds []int64 `schemaname:"random_ids"`
 }
 
 // DecryptedMessageActionReadMessagesTypeID is TL type id of DecryptedMessageActionReadMessages.
@@ -148,6 +153,11 @@ func (d *DecryptedMessageActionReadMessages) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionReadMessages) TypeID() uint32 {
 	return DecryptedMessageActionReadMessagesTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageActionReadMessages) SchemaName() string {
+	return "decryptedMessageActionReadMessages"
 }
 
 // Encode implements bin.Encoder.
@@ -208,7 +218,7 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionDeleteMessages for reference.
 type DecryptedMessageActionDeleteMessages struct {
 	// RandomIds field of DecryptedMessageActionDeleteMessages.
-	RandomIds []int64
+	RandomIds []int64 `schemaname:"random_ids"`
 }
 
 // DecryptedMessageActionDeleteMessagesTypeID is TL type id of DecryptedMessageActionDeleteMessages.
@@ -245,6 +255,11 @@ func (d *DecryptedMessageActionDeleteMessages) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionDeleteMessages) TypeID() uint32 {
 	return DecryptedMessageActionDeleteMessagesTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageActionDeleteMessages) SchemaName() string {
+	return "decryptedMessageActionDeleteMessages"
 }
 
 // Encode implements bin.Encoder.
@@ -305,7 +320,7 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionScreenshotMessages for reference.
 type DecryptedMessageActionScreenshotMessages struct {
 	// RandomIds field of DecryptedMessageActionScreenshotMessages.
-	RandomIds []int64
+	RandomIds []int64 `schemaname:"random_ids"`
 }
 
 // DecryptedMessageActionScreenshotMessagesTypeID is TL type id of DecryptedMessageActionScreenshotMessages.
@@ -342,6 +357,11 @@ func (d *DecryptedMessageActionScreenshotMessages) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionScreenshotMessages) TypeID() uint32 {
 	return DecryptedMessageActionScreenshotMessagesTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageActionScreenshotMessages) SchemaName() string {
+	return "decryptedMessageActionScreenshotMessages"
 }
 
 // Encode implements bin.Encoder.
@@ -429,6 +449,11 @@ func (d *DecryptedMessageActionFlushHistory) TypeID() uint32 {
 	return DecryptedMessageActionFlushHistoryTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageActionFlushHistory) SchemaName() string {
+	return "decryptedMessageActionFlushHistory"
+}
+
 // Encode implements bin.Encoder.
 func (d *DecryptedMessageActionFlushHistory) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -465,9 +490,9 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionResend for reference.
 type DecryptedMessageActionResend struct {
 	// StartSeqNo field of DecryptedMessageActionResend.
-	StartSeqNo int
+	StartSeqNo int `schemaname:"start_seq_no"`
 	// EndSeqNo field of DecryptedMessageActionResend.
-	EndSeqNo int
+	EndSeqNo int `schemaname:"end_seq_no"`
 }
 
 // DecryptedMessageActionResendTypeID is TL type id of DecryptedMessageActionResend.
@@ -509,6 +534,11 @@ func (d *DecryptedMessageActionResend) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionResend) TypeID() uint32 {
 	return DecryptedMessageActionResendTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageActionResend) SchemaName() string {
+	return "decryptedMessageActionResend"
 }
 
 // Encode implements bin.Encoder.
@@ -573,7 +603,7 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionNotifyLayer for reference.
 type DecryptedMessageActionNotifyLayer struct {
 	// Layer field of DecryptedMessageActionNotifyLayer.
-	Layer int
+	Layer int `schemaname:"layer"`
 }
 
 // DecryptedMessageActionNotifyLayerTypeID is TL type id of DecryptedMessageActionNotifyLayer.
@@ -610,6 +640,11 @@ func (d *DecryptedMessageActionNotifyLayer) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionNotifyLayer) TypeID() uint32 {
 	return DecryptedMessageActionNotifyLayerTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageActionNotifyLayer) SchemaName() string {
+	return "decryptedMessageActionNotifyLayer"
 }
 
 // Encode implements bin.Encoder.
@@ -661,7 +696,7 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionTyping for reference.
 type DecryptedMessageActionTyping struct {
 	// Action field of DecryptedMessageActionTyping.
-	Action SendMessageActionClass
+	Action SendMessageActionClass `schemaname:"action"`
 }
 
 // DecryptedMessageActionTypingTypeID is TL type id of DecryptedMessageActionTyping.
@@ -698,6 +733,11 @@ func (d *DecryptedMessageActionTyping) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionTyping) TypeID() uint32 {
 	return DecryptedMessageActionTypingTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageActionTyping) SchemaName() string {
+	return "decryptedMessageActionTyping"
 }
 
 // Encode implements bin.Encoder.
@@ -754,9 +794,9 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionRequestKey for reference.
 type DecryptedMessageActionRequestKey struct {
 	// ExchangeID field of DecryptedMessageActionRequestKey.
-	ExchangeID int64
+	ExchangeID int64 `schemaname:"exchange_id"`
 	// GA field of DecryptedMessageActionRequestKey.
-	GA []byte
+	GA []byte `schemaname:"g_a"`
 }
 
 // DecryptedMessageActionRequestKeyTypeID is TL type id of DecryptedMessageActionRequestKey.
@@ -798,6 +838,11 @@ func (d *DecryptedMessageActionRequestKey) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionRequestKey) TypeID() uint32 {
 	return DecryptedMessageActionRequestKeyTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageActionRequestKey) SchemaName() string {
+	return "decryptedMessageActionRequestKey"
 }
 
 // Encode implements bin.Encoder.
@@ -862,11 +907,11 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionAcceptKey for reference.
 type DecryptedMessageActionAcceptKey struct {
 	// ExchangeID field of DecryptedMessageActionAcceptKey.
-	ExchangeID int64
+	ExchangeID int64 `schemaname:"exchange_id"`
 	// GB field of DecryptedMessageActionAcceptKey.
-	GB []byte
+	GB []byte `schemaname:"g_b"`
 	// KeyFingerprint field of DecryptedMessageActionAcceptKey.
-	KeyFingerprint int64
+	KeyFingerprint int64 `schemaname:"key_fingerprint"`
 }
 
 // DecryptedMessageActionAcceptKeyTypeID is TL type id of DecryptedMessageActionAcceptKey.
@@ -913,6 +958,11 @@ func (d *DecryptedMessageActionAcceptKey) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionAcceptKey) TypeID() uint32 {
 	return DecryptedMessageActionAcceptKeyTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageActionAcceptKey) SchemaName() string {
+	return "decryptedMessageActionAcceptKey"
 }
 
 // Encode implements bin.Encoder.
@@ -990,7 +1040,7 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionAbortKey for reference.
 type DecryptedMessageActionAbortKey struct {
 	// ExchangeID field of DecryptedMessageActionAbortKey.
-	ExchangeID int64
+	ExchangeID int64 `schemaname:"exchange_id"`
 }
 
 // DecryptedMessageActionAbortKeyTypeID is TL type id of DecryptedMessageActionAbortKey.
@@ -1027,6 +1077,11 @@ func (d *DecryptedMessageActionAbortKey) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionAbortKey) TypeID() uint32 {
 	return DecryptedMessageActionAbortKeyTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageActionAbortKey) SchemaName() string {
+	return "decryptedMessageActionAbortKey"
 }
 
 // Encode implements bin.Encoder.
@@ -1078,9 +1133,9 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionCommitKey for reference.
 type DecryptedMessageActionCommitKey struct {
 	// ExchangeID field of DecryptedMessageActionCommitKey.
-	ExchangeID int64
+	ExchangeID int64 `schemaname:"exchange_id"`
 	// KeyFingerprint field of DecryptedMessageActionCommitKey.
-	KeyFingerprint int64
+	KeyFingerprint int64 `schemaname:"key_fingerprint"`
 }
 
 // DecryptedMessageActionCommitKeyTypeID is TL type id of DecryptedMessageActionCommitKey.
@@ -1122,6 +1177,11 @@ func (d *DecryptedMessageActionCommitKey) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionCommitKey) TypeID() uint32 {
 	return DecryptedMessageActionCommitKeyTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageActionCommitKey) SchemaName() string {
+	return "decryptedMessageActionCommitKey"
 }
 
 // Encode implements bin.Encoder.
@@ -1213,6 +1273,11 @@ func (d *DecryptedMessageActionNoop) TypeID() uint32 {
 	return DecryptedMessageActionNoopTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageActionNoop) SchemaName() string {
+	return "decryptedMessageActionNoop"
+}
+
 // Encode implements bin.Encoder.
 func (d *DecryptedMessageActionNoop) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -1277,6 +1342,8 @@ type DecryptedMessageActionClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

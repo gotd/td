@@ -27,16 +27,16 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.startBot for reference.
 type MessagesStartBotRequest struct {
 	// The bot
-	Bot InputUserClass
+	Bot InputUserClass `schemaname:"bot"`
 	// The chat where to start the bot, can be the bot's private chat or a group
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// Random ID to avoid resending the same message
-	RandomID int64
+	RandomID int64 `schemaname:"random_id"`
 	// Deep linking parameter¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots#deep-linking
-	StartParam string
+	StartParam string `schemaname:"start_param"`
 }
 
 // MessagesStartBotRequestTypeID is TL type id of MessagesStartBotRequest.
@@ -88,6 +88,11 @@ func (s *MessagesStartBotRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesStartBotRequest) TypeID() uint32 {
 	return MessagesStartBotRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *MessagesStartBotRequest) SchemaName() string {
+	return "messages.startBot"
 }
 
 // Encode implements bin.Encoder.

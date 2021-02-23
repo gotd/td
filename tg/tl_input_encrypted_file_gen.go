@@ -51,6 +51,11 @@ func (i *InputEncryptedFileEmpty) TypeID() uint32 {
 	return InputEncryptedFileEmptyTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputEncryptedFileEmpty) SchemaName() string {
+	return "inputEncryptedFileEmpty"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputEncryptedFileEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -88,16 +93,16 @@ var (
 // See https://core.telegram.org/constructor/inputEncryptedFileUploaded for reference.
 type InputEncryptedFileUploaded struct {
 	// Random file ID created by clien
-	ID int64
+	ID int64 `schemaname:"id"`
 	// Number of saved parts
-	Parts int
+	Parts int `schemaname:"parts"`
 	// In case md5-HASH¹ of the (already encrypted) file was transmitted, file content will be checked prior to use
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/MD5
-	MD5Checksum string
+	MD5Checksum string `schemaname:"md5_checksum"`
 	// 32-bit fingerprint of the key used to encrypt a file
-	KeyFingerprint int
+	KeyFingerprint int `schemaname:"key_fingerprint"`
 }
 
 // InputEncryptedFileUploadedTypeID is TL type id of InputEncryptedFileUploaded.
@@ -149,6 +154,11 @@ func (i *InputEncryptedFileUploaded) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputEncryptedFileUploaded) TypeID() uint32 {
 	return InputEncryptedFileUploadedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputEncryptedFileUploaded) SchemaName() string {
+	return "inputEncryptedFileUploaded"
 }
 
 // Encode implements bin.Encoder.
@@ -243,12 +253,12 @@ type InputEncryptedFile struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/encryptedFile
-	ID int64
+	ID int64 `schemaname:"id"`
 	// Checking sum, value of access_hash parameter from encryptedFile¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/encryptedFile
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 }
 
 // InputEncryptedFileTypeID is TL type id of InputEncryptedFile.
@@ -290,6 +300,11 @@ func (i *InputEncryptedFile) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputEncryptedFile) TypeID() uint32 {
 	return InputEncryptedFileTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputEncryptedFile) SchemaName() string {
+	return "inputEncryptedFile"
 }
 
 // Encode implements bin.Encoder.
@@ -358,11 +373,11 @@ var (
 // See https://core.telegram.org/constructor/inputEncryptedFileBigUploaded for reference.
 type InputEncryptedFileBigUploaded struct {
 	// Random file id, created by the client
-	ID int64
+	ID int64 `schemaname:"id"`
 	// Number of saved parts
-	Parts int
+	Parts int `schemaname:"parts"`
 	// 32-bit imprint of the key used to encrypt the file
-	KeyFingerprint int
+	KeyFingerprint int `schemaname:"key_fingerprint"`
 }
 
 // InputEncryptedFileBigUploadedTypeID is TL type id of InputEncryptedFileBigUploaded.
@@ -409,6 +424,11 @@ func (i *InputEncryptedFileBigUploaded) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputEncryptedFileBigUploaded) TypeID() uint32 {
 	return InputEncryptedFileBigUploadedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputEncryptedFileBigUploaded) SchemaName() string {
+	return "inputEncryptedFileBigUploaded"
 }
 
 // Encode implements bin.Encoder.
@@ -502,16 +522,18 @@ type InputEncryptedFileClass interface {
 	bin.Decoder
 	construct() InputEncryptedFileClass
 
-	// AsNotEmpty tries to map InputEncryptedFileClass to NotEmptyInputEncryptedFile.
-	AsNotEmpty() (NotEmptyInputEncryptedFile, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsNotEmpty tries to map InputEncryptedFileClass to NotEmptyInputEncryptedFile.
+	AsNotEmpty() (NotEmptyInputEncryptedFile, bool)
 }
 
 // AsInputEncryptedFileLocation tries to map InputEncryptedFile to InputEncryptedFileLocation.
@@ -529,16 +551,18 @@ type NotEmptyInputEncryptedFile interface {
 	bin.Decoder
 	construct() InputEncryptedFileClass
 
-	// Random file ID created by clien
-	GetID() (value int64)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Random file ID created by clien
+	GetID() (value int64)
 }
 
 // AsNotEmpty tries to map InputEncryptedFileEmpty to NotEmptyInputEncryptedFile.

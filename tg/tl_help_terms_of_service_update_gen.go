@@ -27,7 +27,7 @@ type HelpTermsOfServiceUpdateEmpty struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/help.getTermsOfServiceUpdate
-	Expires int
+	Expires int `schemaname:"expires"`
 }
 
 // HelpTermsOfServiceUpdateEmptyTypeID is TL type id of HelpTermsOfServiceUpdateEmpty.
@@ -64,6 +64,11 @@ func (t *HelpTermsOfServiceUpdateEmpty) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *HelpTermsOfServiceUpdateEmpty) TypeID() uint32 {
 	return HelpTermsOfServiceUpdateEmptyTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *HelpTermsOfServiceUpdateEmpty) SchemaName() string {
+	return "help.termsOfServiceUpdateEmpty"
 }
 
 // Encode implements bin.Encoder.
@@ -122,9 +127,9 @@ type HelpTermsOfServiceUpdate struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/help.getTermsOfServiceUpdate
-	Expires int
+	Expires int `schemaname:"expires"`
 	// New terms of service
-	TermsOfService HelpTermsOfService
+	TermsOfService HelpTermsOfService `schemaname:"terms_of_service"`
 }
 
 // HelpTermsOfServiceUpdateTypeID is TL type id of HelpTermsOfServiceUpdate.
@@ -166,6 +171,11 @@ func (t *HelpTermsOfServiceUpdate) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *HelpTermsOfServiceUpdate) TypeID() uint32 {
 	return HelpTermsOfServiceUpdateTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *HelpTermsOfServiceUpdate) SchemaName() string {
+	return "help.termsOfServiceUpdate"
 }
 
 // Encode implements bin.Encoder.
@@ -244,6 +254,16 @@ type HelpTermsOfServiceUpdateClass interface {
 	bin.Decoder
 	construct() HelpTermsOfServiceUpdateClass
 
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+
 	// New TOS updates will have to be queried using help.getTermsOfServiceUpdate¹ in expires seconds
 	//
 	// Links:
@@ -251,14 +271,6 @@ type HelpTermsOfServiceUpdateClass interface {
 	GetExpires() (value int)
 	// AsNotEmpty tries to map HelpTermsOfServiceUpdateClass to HelpTermsOfServiceUpdate.
 	AsNotEmpty() (*HelpTermsOfServiceUpdate, bool)
-
-	// TypeID returns MTProto type id (CRC code).
-	// See https://core.telegram.org/mtproto/TL-tl#remarks.
-	TypeID() uint32
-	// String implements fmt.Stringer.
-	String() string
-	// Zero returns true if current object has a zero value.
-	Zero() bool
 }
 
 // AsNotEmpty tries to map HelpTermsOfServiceUpdateEmpty to HelpTermsOfServiceUpdate.

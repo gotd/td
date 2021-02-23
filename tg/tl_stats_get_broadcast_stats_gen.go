@@ -30,11 +30,11 @@ type StatsGetBroadcastStatsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether to enable dark theme for graph colors
-	Dark bool
+	Dark bool `schemaname:"dark"`
 	// The channel
-	Channel InputChannelClass
+	Channel InputChannelClass `schemaname:"channel"`
 }
 
 // StatsGetBroadcastStatsRequestTypeID is TL type id of StatsGetBroadcastStatsRequest.
@@ -71,6 +71,7 @@ func (g *StatsGetBroadcastStatsRequest) FillFrom(from interface {
 	GetDark() (value bool)
 	GetChannel() (value InputChannelClass)
 }) {
+	g.Dark = from.GetDark()
 	g.Channel = from.GetChannel()
 }
 
@@ -78,6 +79,11 @@ func (g *StatsGetBroadcastStatsRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *StatsGetBroadcastStatsRequest) TypeID() uint32 {
 	return StatsGetBroadcastStatsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *StatsGetBroadcastStatsRequest) SchemaName() string {
+	return "stats.getBroadcastStats"
 }
 
 // Encode implements bin.Encoder.

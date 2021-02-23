@@ -27,7 +27,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.resetAuthorization for reference.
 type AccountResetAuthorizationRequest struct {
 	// Session hash
-	Hash int64
+	Hash int64 `schemaname:"hash"`
 }
 
 // AccountResetAuthorizationRequestTypeID is TL type id of AccountResetAuthorizationRequest.
@@ -64,6 +64,11 @@ func (r *AccountResetAuthorizationRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *AccountResetAuthorizationRequest) TypeID() uint32 {
 	return AccountResetAuthorizationRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *AccountResetAuthorizationRequest) SchemaName() string {
+	return "account.resetAuthorization"
 }
 
 // Encode implements bin.Encoder.

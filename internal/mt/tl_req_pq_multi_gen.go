@@ -21,7 +21,7 @@ var _ = errors.Is
 // ReqPqMultiRequest represents TL type `req_pq_multi#be7e8ef1`.
 type ReqPqMultiRequest struct {
 	// Nonce field of ReqPqMultiRequest.
-	Nonce bin.Int128
+	Nonce bin.Int128 `schemaname:"nonce"`
 }
 
 // ReqPqMultiRequestTypeID is TL type id of ReqPqMultiRequest.
@@ -58,6 +58,11 @@ func (r *ReqPqMultiRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ReqPqMultiRequest) TypeID() uint32 {
 	return ReqPqMultiRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *ReqPqMultiRequest) SchemaName() string {
+	return "req_pq_multi"
 }
 
 // Encode implements bin.Encoder.

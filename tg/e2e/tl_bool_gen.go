@@ -51,6 +51,11 @@ func (b *BoolFalse) TypeID() uint32 {
 	return BoolFalseTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (b *BoolFalse) SchemaName() string {
+	return "boolFalse"
+}
+
 // Encode implements bin.Encoder.
 func (b *BoolFalse) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -115,6 +120,11 @@ func (b *BoolTrue) TypeID() uint32 {
 	return BoolTrueTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (b *BoolTrue) SchemaName() string {
+	return "boolTrue"
+}
+
 // Encode implements bin.Encoder.
 func (b *BoolTrue) Encode(buf *bin.Buffer) error {
 	if b == nil {
@@ -168,6 +178,8 @@ type BoolClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

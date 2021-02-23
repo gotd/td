@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/paymentCharge for reference.
 type PaymentCharge struct {
 	// Telegram payment identifier
-	ID string
+	ID string `schemaname:"id"`
 	// Provider payment identifier
-	ProviderChargeID string
+	ProviderChargeID string `schemaname:"provider_charge_id"`
 }
 
 // PaymentChargeTypeID is TL type id of PaymentCharge.
@@ -68,6 +68,11 @@ func (p *PaymentCharge) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PaymentCharge) TypeID() uint32 {
 	return PaymentChargeTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PaymentCharge) SchemaName() string {
+	return "paymentCharge"
 }
 
 // Encode implements bin.Encoder.

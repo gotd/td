@@ -27,15 +27,15 @@ type MessagesGetPollVotesRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Chat where the poll was sent
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// Message ID
-	ID int
+	ID int `schemaname:"id"`
 	// Get only results for the specified poll option
 	//
 	// Use SetOption and GetOption helpers.
-	Option []byte
+	Option []byte `schemaname:"option"`
 	// Offset for results, taken from the next_offset field of messages.votesList¹, initially an empty string. Note: if no more results are available, the method call will return an empty next_offset; thus, avoid providing the next_offset returned in messages.votesList² if it is empty, to avoid an infinite loop.
 	//
 	// Links:
@@ -43,9 +43,9 @@ type MessagesGetPollVotesRequest struct {
 	//  2) https://core.telegram.org/constructor/messages.votesList
 	//
 	// Use SetOffset and GetOffset helpers.
-	Offset string
+	Offset string `schemaname:"offset"`
 	// Number of results to return
-	Limit int
+	Limit int `schemaname:"limit"`
 }
 
 // MessagesGetPollVotesRequestTypeID is TL type id of MessagesGetPollVotesRequest.
@@ -99,9 +99,11 @@ func (g *MessagesGetPollVotesRequest) FillFrom(from interface {
 	if val, ok := from.GetOption(); ok {
 		g.Option = val
 	}
+
 	if val, ok := from.GetOffset(); ok {
 		g.Offset = val
 	}
+
 	g.Limit = from.GetLimit()
 }
 
@@ -109,6 +111,11 @@ func (g *MessagesGetPollVotesRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetPollVotesRequest) TypeID() uint32 {
 	return MessagesGetPollVotesRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *MessagesGetPollVotesRequest) SchemaName() string {
+	return "messages.getPollVotes"
 }
 
 // Encode implements bin.Encoder.

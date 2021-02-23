@@ -51,6 +51,11 @@ func (i *InputChatPhotoEmpty) TypeID() uint32 {
 	return InputChatPhotoEmptyTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputChatPhotoEmpty) SchemaName() string {
+	return "inputChatPhotoEmpty"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputChatPhotoEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -91,22 +96,22 @@ type InputChatUploadedPhoto struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// File saved in parts using the method upload.saveFilePart¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/upload.saveFilePart
 	//
 	// Use SetFile and GetFile helpers.
-	File InputFileClass
+	File InputFileClass `schemaname:"file"`
 	// Square video for animated profile picture
 	//
 	// Use SetVideo and GetVideo helpers.
-	Video InputFileClass
+	Video InputFileClass `schemaname:"video"`
 	// Timestamp that should be shown as static preview to the user (seconds)
 	//
 	// Use SetVideoStartTs and GetVideoStartTs helpers.
-	VideoStartTs float64
+	VideoStartTs float64 `schemaname:"video_start_ts"`
 }
 
 // InputChatUploadedPhotoTypeID is TL type id of InputChatUploadedPhoto.
@@ -150,18 +155,26 @@ func (i *InputChatUploadedPhoto) FillFrom(from interface {
 	if val, ok := from.GetFile(); ok {
 		i.File = val
 	}
+
 	if val, ok := from.GetVideo(); ok {
 		i.Video = val
 	}
+
 	if val, ok := from.GetVideoStartTs(); ok {
 		i.VideoStartTs = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputChatUploadedPhoto) TypeID() uint32 {
 	return InputChatUploadedPhotoTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputChatUploadedPhoto) SchemaName() string {
+	return "inputChatUploadedPhoto"
 }
 
 // Encode implements bin.Encoder.
@@ -303,7 +316,7 @@ var (
 // See https://core.telegram.org/constructor/inputChatPhoto for reference.
 type InputChatPhoto struct {
 	// Existing photo
-	ID InputPhotoClass
+	ID InputPhotoClass `schemaname:"id"`
 }
 
 // InputChatPhotoTypeID is TL type id of InputChatPhoto.
@@ -340,6 +353,11 @@ func (i *InputChatPhoto) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputChatPhoto) TypeID() uint32 {
 	return InputChatPhotoTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputChatPhoto) SchemaName() string {
+	return "inputChatPhoto"
 }
 
 // Encode implements bin.Encoder.
@@ -414,6 +432,8 @@ type InputChatPhotoClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

@@ -21,7 +21,7 @@ var _ = errors.Is
 // FileHashVector is a box for Vector<FileHash>
 type FileHashVector struct {
 	// Elements of Vector<FileHash>
-	Elems []FileHash
+	Elems []FileHash `schemaname:"Elems"`
 }
 
 // FileHashVectorTypeID is TL type id of FileHashVector.
@@ -58,6 +58,11 @@ func (vec *FileHashVector) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *FileHashVector) TypeID() uint32 {
 	return FileHashVectorTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (vec *FileHashVector) SchemaName() string {
+	return ""
 }
 
 // Encode implements bin.Encoder.

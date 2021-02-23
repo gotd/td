@@ -51,6 +51,11 @@ func (g *HelpGetNearestDcRequest) TypeID() uint32 {
 	return HelpGetNearestDcRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *HelpGetNearestDcRequest) SchemaName() string {
+	return "help.getNearestDc"
+}
+
 // Encode implements bin.Encoder.
 func (g *HelpGetNearestDcRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

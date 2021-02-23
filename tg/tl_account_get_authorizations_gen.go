@@ -51,6 +51,11 @@ func (g *AccountGetAuthorizationsRequest) TypeID() uint32 {
 	return AccountGetAuthorizationsRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *AccountGetAuthorizationsRequest) SchemaName() string {
+	return "account.getAuthorizations"
+}
+
 // Encode implements bin.Encoder.
 func (g *AccountGetAuthorizationsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

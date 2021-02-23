@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/accountDaysTTL for reference.
 type AccountDaysTTL struct {
 	// This account will self-destruct in the specified number of days
-	Days int
+	Days int `schemaname:"days"`
 }
 
 // AccountDaysTTLTypeID is TL type id of AccountDaysTTL.
@@ -61,6 +61,11 @@ func (a *AccountDaysTTL) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *AccountDaysTTL) TypeID() uint32 {
 	return AccountDaysTTLTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (a *AccountDaysTTL) SchemaName() string {
+	return "accountDaysTTL"
 }
 
 // Encode implements bin.Encoder.

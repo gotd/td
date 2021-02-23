@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/testString for reference.
 type TestString struct {
 	// String
-	Value string
+	Value string `schemaname:"value"`
 }
 
 // TestStringTypeID is TL type id of TestString.
@@ -60,6 +60,11 @@ func (t *TestString) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TestString) TypeID() uint32 {
 	return TestStringTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *TestString) SchemaName() string {
+	return "testString"
 }
 
 // Encode implements bin.Encoder.

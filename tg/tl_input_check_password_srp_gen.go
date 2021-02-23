@@ -51,6 +51,11 @@ func (i *InputCheckPasswordEmpty) TypeID() uint32 {
 	return InputCheckPasswordEmptyTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputCheckPasswordEmpty) SchemaName() string {
+	return "inputCheckPasswordEmpty"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputCheckPasswordEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -94,17 +99,17 @@ type InputCheckPasswordSRP struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	SRPID int64
+	SRPID int64 `schemaname:"srp_id"`
 	// A parameter (see SRP¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	A []byte
+	A []byte `schemaname:"A"`
 	// M1 parameter (see SRP¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	M1 []byte
+	M1 []byte `schemaname:"M1"`
 }
 
 // InputCheckPasswordSRPTypeID is TL type id of InputCheckPasswordSRP.
@@ -151,6 +156,11 @@ func (i *InputCheckPasswordSRP) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputCheckPasswordSRP) TypeID() uint32 {
 	return InputCheckPasswordSRPTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputCheckPasswordSRP) SchemaName() string {
+	return "inputCheckPasswordSRP"
 }
 
 // Encode implements bin.Encoder.
@@ -242,16 +252,18 @@ type InputCheckPasswordSRPClass interface {
 	bin.Decoder
 	construct() InputCheckPasswordSRPClass
 
-	// AsNotEmpty tries to map InputCheckPasswordSRPClass to InputCheckPasswordSRP.
-	AsNotEmpty() (*InputCheckPasswordSRP, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsNotEmpty tries to map InputCheckPasswordSRPClass to InputCheckPasswordSRP.
+	AsNotEmpty() (*InputCheckPasswordSRP, bool)
 }
 
 // AsNotEmpty tries to map InputCheckPasswordEmpty to InputCheckPasswordSRP.

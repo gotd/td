@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.getNotifySettings for reference.
 type AccountGetNotifySettingsRequest struct {
 	// Notification source
-	Peer InputNotifyPeerClass
+	Peer InputNotifyPeerClass `schemaname:"peer"`
 }
 
 // AccountGetNotifySettingsRequestTypeID is TL type id of AccountGetNotifySettingsRequest.
@@ -61,6 +61,11 @@ func (g *AccountGetNotifySettingsRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *AccountGetNotifySettingsRequest) TypeID() uint32 {
 	return AccountGetNotifySettingsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *AccountGetNotifySettingsRequest) SchemaName() string {
+	return "account.getNotifySettings"
 }
 
 // Encode implements bin.Encoder.

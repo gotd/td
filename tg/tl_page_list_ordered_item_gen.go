@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/pageListOrderedItemText for reference.
 type PageListOrderedItemText struct {
 	// Number of element within ordered list
-	Num string
+	Num string `schemaname:"num"`
 	// Text
-	Text RichTextClass
+	Text RichTextClass `schemaname:"text"`
 }
 
 // PageListOrderedItemTextTypeID is TL type id of PageListOrderedItemText.
@@ -68,6 +68,11 @@ func (p *PageListOrderedItemText) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageListOrderedItemText) TypeID() uint32 {
 	return PageListOrderedItemTextTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageListOrderedItemText) SchemaName() string {
+	return "pageListOrderedItemText"
 }
 
 // Encode implements bin.Encoder.
@@ -141,9 +146,9 @@ var (
 // See https://core.telegram.org/constructor/pageListOrderedItemBlocks for reference.
 type PageListOrderedItemBlocks struct {
 	// Number of element within ordered list
-	Num string
+	Num string `schemaname:"num"`
 	// Item contents
-	Blocks []PageBlockClass
+	Blocks []PageBlockClass `schemaname:"blocks"`
 }
 
 // PageListOrderedItemBlocksTypeID is TL type id of PageListOrderedItemBlocks.
@@ -185,6 +190,11 @@ func (p *PageListOrderedItemBlocks) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageListOrderedItemBlocks) TypeID() uint32 {
 	return PageListOrderedItemBlocksTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageListOrderedItemBlocks) SchemaName() string {
+	return "pageListOrderedItemBlocks"
 }
 
 // Encode implements bin.Encoder.
@@ -282,16 +292,18 @@ type PageListOrderedItemClass interface {
 	bin.Decoder
 	construct() PageListOrderedItemClass
 
-	// Number of element within ordered list
-	GetNum() (value string)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Number of element within ordered list
+	GetNum() (value string)
 }
 
 // DecodePageListOrderedItem implements binary de-serialization for PageListOrderedItemClass.

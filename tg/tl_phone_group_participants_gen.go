@@ -23,15 +23,15 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/phone.groupParticipants for reference.
 type PhoneGroupParticipants struct {
 	// Count field of PhoneGroupParticipants.
-	Count int
+	Count int `schemaname:"count"`
 	// Participants field of PhoneGroupParticipants.
-	Participants []GroupCallParticipant
+	Participants []GroupCallParticipant `schemaname:"participants"`
 	// NextOffset field of PhoneGroupParticipants.
-	NextOffset string
+	NextOffset string `schemaname:"next_offset"`
 	// Users field of PhoneGroupParticipants.
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 	// Version field of PhoneGroupParticipants.
-	Version int
+	Version int `schemaname:"version"`
 }
 
 // PhoneGroupParticipantsTypeID is TL type id of PhoneGroupParticipants.
@@ -88,6 +88,11 @@ func (g *PhoneGroupParticipants) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *PhoneGroupParticipants) TypeID() uint32 {
 	return PhoneGroupParticipantsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *PhoneGroupParticipants) SchemaName() string {
+	return "phone.groupParticipants"
 }
 
 // Encode implements bin.Encoder.

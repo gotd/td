@@ -23,11 +23,11 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/textEntity for reference.
 type TextEntity struct {
 	// Offset of the entity, in UTF-16 code units
-	Offset int32
+	Offset int32 `schemaname:"offset"`
 	// Length of the entity, in UTF-16 code units
-	Length int32
+	Length int32 `schemaname:"length"`
 	// Type of the entity
-	Type TextEntityTypeClass
+	Type TextEntityTypeClass `schemaname:"type"`
 }
 
 // TextEntityTypeID is TL type id of TextEntity.
@@ -74,6 +74,11 @@ func (t *TextEntity) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntity) TypeID() uint32 {
 	return TextEntityTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *TextEntity) SchemaName() string {
+	return "textEntity"
 }
 
 // Encode implements bin.Encoder.

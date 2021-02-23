@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/documentAttributeImageSize for reference.
 type DocumentAttributeImageSize struct {
 	// Width of image
-	W int
+	W int `schemaname:"w"`
 	// Height of image
-	H int
+	H int `schemaname:"h"`
 }
 
 // DocumentAttributeImageSizeTypeID is TL type id of DocumentAttributeImageSize.
@@ -68,6 +68,11 @@ func (d *DocumentAttributeImageSize) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DocumentAttributeImageSize) TypeID() uint32 {
 	return DocumentAttributeImageSizeTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DocumentAttributeImageSize) SchemaName() string {
+	return "documentAttributeImageSize"
 }
 
 // Encode implements bin.Encoder.
@@ -160,6 +165,11 @@ func (d *DocumentAttributeAnimated) TypeID() uint32 {
 	return DocumentAttributeAnimatedTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (d *DocumentAttributeAnimated) SchemaName() string {
+	return "documentAttributeAnimated"
+}
+
 // Encode implements bin.Encoder.
 func (d *DocumentAttributeAnimated) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -223,6 +233,11 @@ func (d *DocumentAttributeSticker23) TypeID() uint32 {
 	return DocumentAttributeSticker23TypeID
 }
 
+// SchemaName returns MTProto type name.
+func (d *DocumentAttributeSticker23) SchemaName() string {
+	return "documentAttributeSticker23"
+}
+
 // Encode implements bin.Encoder.
 func (d *DocumentAttributeSticker23) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -260,11 +275,11 @@ var (
 // See https://core.telegram.org/constructor/documentAttributeVideo for reference.
 type DocumentAttributeVideo struct {
 	// Duration in seconds
-	Duration int
+	Duration int `schemaname:"duration"`
 	// Video width
-	W int
+	W int `schemaname:"w"`
 	// Video height
-	H int
+	H int `schemaname:"h"`
 }
 
 // DocumentAttributeVideoTypeID is TL type id of DocumentAttributeVideo.
@@ -311,6 +326,11 @@ func (d *DocumentAttributeVideo) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DocumentAttributeVideo) TypeID() uint32 {
 	return DocumentAttributeVideoTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DocumentAttributeVideo) SchemaName() string {
+	return "documentAttributeVideo"
 }
 
 // Encode implements bin.Encoder.
@@ -388,7 +408,7 @@ var (
 // See https://core.telegram.org/constructor/documentAttributeAudio23 for reference.
 type DocumentAttributeAudio23 struct {
 	// Duration field of DocumentAttributeAudio23.
-	Duration int
+	Duration int `schemaname:"duration"`
 }
 
 // DocumentAttributeAudio23TypeID is TL type id of DocumentAttributeAudio23.
@@ -425,6 +445,11 @@ func (d *DocumentAttributeAudio23) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DocumentAttributeAudio23) TypeID() uint32 {
 	return DocumentAttributeAudio23TypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DocumentAttributeAudio23) SchemaName() string {
+	return "documentAttributeAudio23"
 }
 
 // Encode implements bin.Encoder.
@@ -477,7 +502,7 @@ var (
 // See https://core.telegram.org/constructor/documentAttributeFilename for reference.
 type DocumentAttributeFilename struct {
 	// The file name
-	FileName string
+	FileName string `schemaname:"file_name"`
 }
 
 // DocumentAttributeFilenameTypeID is TL type id of DocumentAttributeFilename.
@@ -514,6 +539,11 @@ func (d *DocumentAttributeFilename) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DocumentAttributeFilename) TypeID() uint32 {
 	return DocumentAttributeFilenameTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DocumentAttributeFilename) SchemaName() string {
+	return "documentAttributeFilename"
 }
 
 // Encode implements bin.Encoder.
@@ -565,11 +595,11 @@ var (
 // See https://core.telegram.org/constructor/documentAttributeAudio45 for reference.
 type DocumentAttributeAudio45 struct {
 	// Duration field of DocumentAttributeAudio45.
-	Duration int
+	Duration int `schemaname:"duration"`
 	// Title field of DocumentAttributeAudio45.
-	Title string
+	Title string `schemaname:"title"`
 	// Performer field of DocumentAttributeAudio45.
-	Performer string
+	Performer string `schemaname:"performer"`
 }
 
 // DocumentAttributeAudio45TypeID is TL type id of DocumentAttributeAudio45.
@@ -616,6 +646,11 @@ func (d *DocumentAttributeAudio45) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DocumentAttributeAudio45) TypeID() uint32 {
 	return DocumentAttributeAudio45TypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DocumentAttributeAudio45) SchemaName() string {
+	return "documentAttributeAudio45"
 }
 
 // Encode implements bin.Encoder.
@@ -694,9 +729,9 @@ var (
 // See https://core.telegram.org/constructor/documentAttributeSticker for reference.
 type DocumentAttributeSticker struct {
 	// Alternative emoji representation of sticker
-	Alt string
+	Alt string `schemaname:"alt"`
 	// Associated stickerset
-	Stickerset InputStickerSetClass
+	Stickerset InputStickerSetClass `schemaname:"stickerset"`
 }
 
 // DocumentAttributeStickerTypeID is TL type id of DocumentAttributeSticker.
@@ -738,6 +773,11 @@ func (d *DocumentAttributeSticker) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DocumentAttributeSticker) TypeID() uint32 {
 	return DocumentAttributeStickerTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DocumentAttributeSticker) SchemaName() string {
+	return "documentAttributeSticker"
 }
 
 // Encode implements bin.Encoder.
@@ -811,23 +851,23 @@ type DocumentAttributeAudio struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether this is a voice message
-	Voice bool
+	Voice bool `schemaname:"voice"`
 	// Duration in seconds
-	Duration int
+	Duration int `schemaname:"duration"`
 	// Name of song
 	//
 	// Use SetTitle and GetTitle helpers.
-	Title string
+	Title string `schemaname:"title"`
 	// Performer
 	//
 	// Use SetPerformer and GetPerformer helpers.
-	Performer string
+	Performer string `schemaname:"performer"`
 	// Waveform
 	//
 	// Use SetWaveform and GetWaveform helpers.
-	Waveform []byte
+	Waveform []byte `schemaname:"waveform"`
 }
 
 // DocumentAttributeAudioTypeID is TL type id of DocumentAttributeAudio.
@@ -876,22 +916,31 @@ func (d *DocumentAttributeAudio) FillFrom(from interface {
 	GetPerformer() (value string, ok bool)
 	GetWaveform() (value []byte, ok bool)
 }) {
+	d.Voice = from.GetVoice()
 	d.Duration = from.GetDuration()
 	if val, ok := from.GetTitle(); ok {
 		d.Title = val
 	}
+
 	if val, ok := from.GetPerformer(); ok {
 		d.Performer = val
 	}
+
 	if val, ok := from.GetWaveform(); ok {
 		d.Waveform = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DocumentAttributeAudio) TypeID() uint32 {
 	return DocumentAttributeAudioTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DocumentAttributeAudio) SchemaName() string {
+	return "documentAttributeAudio"
 }
 
 // Encode implements bin.Encoder.
@@ -1055,15 +1104,15 @@ var (
 // See https://core.telegram.org/constructor/documentAttributeVideo66 for reference.
 type DocumentAttributeVideo66 struct {
 	// Flags field of DocumentAttributeVideo66.
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// RoundMessage field of DocumentAttributeVideo66.
-	RoundMessage bool
+	RoundMessage bool `schemaname:"round_message"`
 	// Duration field of DocumentAttributeVideo66.
-	Duration int
+	Duration int `schemaname:"duration"`
 	// W field of DocumentAttributeVideo66.
-	W int
+	W int `schemaname:"w"`
 	// H field of DocumentAttributeVideo66.
-	H int
+	H int `schemaname:"h"`
 }
 
 // DocumentAttributeVideo66TypeID is TL type id of DocumentAttributeVideo66.
@@ -1108,6 +1157,7 @@ func (d *DocumentAttributeVideo66) FillFrom(from interface {
 	GetW() (value int)
 	GetH() (value int)
 }) {
+	d.RoundMessage = from.GetRoundMessage()
 	d.Duration = from.GetDuration()
 	d.W = from.GetW()
 	d.H = from.GetH()
@@ -1117,6 +1167,11 @@ func (d *DocumentAttributeVideo66) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DocumentAttributeVideo66) TypeID() uint32 {
 	return DocumentAttributeVideo66TypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DocumentAttributeVideo66) SchemaName() string {
+	return "documentAttributeVideo66"
 }
 
 // Encode implements bin.Encoder.
@@ -1247,6 +1302,8 @@ type DocumentAttributeClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

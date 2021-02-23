@@ -51,6 +51,11 @@ func (d *HelpDeepLinkInfoEmpty) TypeID() uint32 {
 	return HelpDeepLinkInfoEmptyTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (d *HelpDeepLinkInfoEmpty) SchemaName() string {
+	return "help.deepLinkInfoEmpty"
+}
+
 // Encode implements bin.Encoder.
 func (d *HelpDeepLinkInfoEmpty) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -91,18 +96,18 @@ type HelpDeepLinkInfo struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// An update of the app is required to parse this link
-	UpdateApp bool
+	UpdateApp bool `schemaname:"update_app"`
 	// Message to show to the user
-	Message string
+	Message string `schemaname:"message"`
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass
+	Entities []MessageEntityClass `schemaname:"entities"`
 }
 
 // HelpDeepLinkInfoTypeID is TL type id of HelpDeepLinkInfo.
@@ -143,16 +148,23 @@ func (d *HelpDeepLinkInfo) FillFrom(from interface {
 	GetMessage() (value string)
 	GetEntities() (value []MessageEntityClass, ok bool)
 }) {
+	d.UpdateApp = from.GetUpdateApp()
 	d.Message = from.GetMessage()
 	if val, ok := from.GetEntities(); ok {
 		d.Entities = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *HelpDeepLinkInfo) TypeID() uint32 {
 	return HelpDeepLinkInfoTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *HelpDeepLinkInfo) SchemaName() string {
+	return "help.deepLinkInfo"
 }
 
 // Encode implements bin.Encoder.
@@ -296,16 +308,18 @@ type HelpDeepLinkInfoClass interface {
 	bin.Decoder
 	construct() HelpDeepLinkInfoClass
 
-	// AsNotEmpty tries to map HelpDeepLinkInfoClass to HelpDeepLinkInfo.
-	AsNotEmpty() (*HelpDeepLinkInfo, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsNotEmpty tries to map HelpDeepLinkInfoClass to HelpDeepLinkInfo.
+	AsNotEmpty() (*HelpDeepLinkInfo, bool)
 }
 
 // AsNotEmpty tries to map HelpDeepLinkInfoEmpty to HelpDeepLinkInfo.

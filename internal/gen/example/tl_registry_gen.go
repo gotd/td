@@ -18,7 +18,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 
-// Types returns mapping from type ids to TL type names.
+// TypesMap returns mapping from type ids to TL type names.
 func TypesMap() map[uint32]string {
 	return map[uint32]string{
 		0x5cb934fa: "int32#5cb934fa",
@@ -83,6 +83,74 @@ func TypesMap() map[uint32]string {
 		0xdf18e5ca: "sendMultipleSMS#df18e5ca",
 		0xfd2f6687: "doAuth#fd2f6687",
 		0xd4785939: "echoVector#d4785939",
+	}
+}
+
+// NamesMap returns mapping from type names to TL type ids.
+func NamesMap() map[string]uint32 {
+	return map[string]uint32{
+		"int32":                        0x5cb934fa,
+		"string":                       0xb5286e24,
+		"false":                        0xbc799737,
+		"true":                         0x997275b5,
+		"bytes":                        0xe937bb82,
+		"error":                        0x14feebbc,
+		"ok":                           0xd4edbe69,
+		"message":                      0xec200d96,
+		"sms":                          0xed8bebfe,
+		"responseID":                   0x85d7fd8b,
+		"responseText":                 0xcb0244f2,
+		"bigMessage":                   0x7490dcc5,
+		"noMessage":                    0xee6324c4,
+		"targetsMessage":               0xcc6136f1,
+		"update":                       0xb03e2ef8,
+		"getUpdatesResp":               0x2b4b45c,
+		"fieldsMessage":                0x947225b5,
+		"bytesMessage":                 0xf990a67d,
+		"textEntityTypeMention":        0x37b3df65,
+		"textEntityTypeHashtag":        0xc2f7a2dd,
+		"textEntityTypeCashtag":        0x48e4374b,
+		"textEntityTypeBotCommand":     0xbb652bb3,
+		"textEntityTypeUrl":            0xb1c0d47c,
+		"textEntityTypeEmailAddress":   0x54f81821,
+		"textEntityTypePhoneNumber":    0xbad9aa2a,
+		"textEntityTypeBankCardNumber": 0x6513910,
+		"textEntityTypeBold":           0xbcc0e1b0,
+		"textEntityTypeItalic":         0xf8f3965d,
+		"textEntityTypeUnderline":      0x2f39cf92,
+		"textEntityTypeStrikethrough":  0x394fc4fa,
+		"textEntityTypeCode":           0xc5e9c94a,
+		"textEntityTypePre":            0x62491c8e,
+		"textEntityTypePreCode":        0xc7a77aab,
+		"textEntityTypeTextUrl":        0x1a912463,
+		"textEntityTypeMentionName":    0xd0d2685d,
+		"textEntity":                   0x8bab99a8,
+		"textEntities":                 0xcf89c258,
+		"testInt":                      0xddbd2c09,
+		"testString":                   0xfe56688c,
+		"testBytes":                    0xa422c4de,
+		"testVectorInt":                0xdf9eb113,
+		"testVectorIntObject":          0xf152999b,
+		"testVectorString":             0x5d6f85bc,
+		"testVectorStringObject":       0xe5ecc0d,
+		"testVectorBytes":              0xa590fb25,
+		"testVectorVector":             0x69e8846c,
+		"client_DH_inner_data":         0x6643b654,
+		"dcOption":                     0x18b7a10d,
+		"config":                       0x330b4067,
+		"invokeWithLayer":              0xda9b0d0d,
+		"auth":                         0xf8bb4a38,
+		"authPassword":                 0x29bacabb,
+		"user.auth":                    0xf4815592,
+		"user.authPassword":            0x5981e317,
+		"theme":                        0x28f1114,
+		"account.themesNotModified":    0xf41eb622,
+		"account.themes":               0x7f676421,
+		"ping":                         0xce73048f,
+		"send":                         0xf74488a,
+		"sendMultipleSMS":              0xdf18e5ca,
+		"doAuth":                       0xfd2f6687,
+		"echoVector":                   0xd4785939,
 	}
 }
 

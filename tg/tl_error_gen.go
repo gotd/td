@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/error for reference.
 type Error struct {
 	// Error code
-	Code int
+	Code int `schemaname:"code"`
 	// Message
-	Text string
+	Text string `schemaname:"text"`
 }
 
 // ErrorTypeID is TL type id of Error.
@@ -68,6 +68,11 @@ func (e *Error) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *Error) TypeID() uint32 {
 	return ErrorTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *Error) SchemaName() string {
+	return "error"
 }
 
 // Encode implements bin.Encoder.

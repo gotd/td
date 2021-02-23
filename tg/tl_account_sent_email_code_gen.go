@@ -27,9 +27,9 @@ type AccountSentEmailCode struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/pattern
-	EmailPattern string
+	EmailPattern string `schemaname:"email_pattern"`
 	// The length of the verification code
-	Length int
+	Length int `schemaname:"length"`
 }
 
 // AccountSentEmailCodeTypeID is TL type id of AccountSentEmailCode.
@@ -71,6 +71,11 @@ func (s *AccountSentEmailCode) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AccountSentEmailCode) TypeID() uint32 {
 	return AccountSentEmailCodeTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *AccountSentEmailCode) SchemaName() string {
+	return "account.sentEmailCode"
 }
 
 // Encode implements bin.Encoder.

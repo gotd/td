@@ -27,35 +27,35 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/stats.broadcastStats for reference.
 type StatsBroadcastStats struct {
 	// Period in consideration
-	Period StatsDateRangeDays
+	Period StatsDateRangeDays `schemaname:"period"`
 	// Follower count change for period in consideration
-	Followers StatsAbsValueAndPrev
+	Followers StatsAbsValueAndPrev `schemaname:"followers"`
 	// total_viewcount/postcount, for posts posted during the period in consideration (views_per_post). Note that in this case, current refers to the period in consideration (min_date till max_date), and prev refers to the previous period ((min_date - (max_date - min_date)) till min_date).
-	ViewsPerPost StatsAbsValueAndPrev
+	ViewsPerPost StatsAbsValueAndPrev `schemaname:"views_per_post"`
 	// total_viewcount/postcount, for posts posted during the period in consideration (views_per_post). Note that in this case, current refers to the period in consideration (min_date till max_date), and prev refers to the previous period ((min_date - (max_date - min_date)) till min_date)
-	SharesPerPost StatsAbsValueAndPrev
+	SharesPerPost StatsAbsValueAndPrev `schemaname:"shares_per_post"`
 	// Percentage of subscribers with enabled notifications
-	EnabledNotifications StatsPercentValue
+	EnabledNotifications StatsPercentValue `schemaname:"enabled_notifications"`
 	// Channel growth graph (absolute subscriber count)
-	GrowthGraph StatsGraphClass
+	GrowthGraph StatsGraphClass `schemaname:"growth_graph"`
 	// Followers growth graph (relative subscriber count)
-	FollowersGraph StatsGraphClass
+	FollowersGraph StatsGraphClass `schemaname:"followers_graph"`
 	// Muted users graph (relative)
-	MuteGraph StatsGraphClass
+	MuteGraph StatsGraphClass `schemaname:"mute_graph"`
 	// Views per hour graph (absolute)
-	TopHoursGraph StatsGraphClass
+	TopHoursGraph StatsGraphClass `schemaname:"top_hours_graph"`
 	// Interactions graph (absolute)
-	InteractionsGraph StatsGraphClass
+	InteractionsGraph StatsGraphClass `schemaname:"interactions_graph"`
 	// IV interactions graph (absolute)
-	IvInteractionsGraph StatsGraphClass
+	IvInteractionsGraph StatsGraphClass `schemaname:"iv_interactions_graph"`
 	// Views by source graph (absolute)
-	ViewsBySourceGraph StatsGraphClass
+	ViewsBySourceGraph StatsGraphClass `schemaname:"views_by_source_graph"`
 	// New followers by source graph (absolute)
-	NewFollowersBySourceGraph StatsGraphClass
+	NewFollowersBySourceGraph StatsGraphClass `schemaname:"new_followers_by_source_graph"`
 	// Subscriber language graph (piechart)
-	LanguagesGraph StatsGraphClass
+	LanguagesGraph StatsGraphClass `schemaname:"languages_graph"`
 	// Recent message interactions
-	RecentMessageInteractions []MessageInteractionCounters
+	RecentMessageInteractions []MessageInteractionCounters `schemaname:"recent_message_interactions"`
 }
 
 // StatsBroadcastStatsTypeID is TL type id of StatsBroadcastStats.
@@ -162,6 +162,11 @@ func (b *StatsBroadcastStats) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *StatsBroadcastStats) TypeID() uint32 {
 	return StatsBroadcastStatsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (b *StatsBroadcastStats) SchemaName() string {
+	return "stats.broadcastStats"
 }
 
 // Encode implements bin.Encoder.

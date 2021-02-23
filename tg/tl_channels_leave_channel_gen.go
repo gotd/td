@@ -30,7 +30,7 @@ type ChannelsLeaveChannelRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass
+	Channel InputChannelClass `schemaname:"channel"`
 }
 
 // ChannelsLeaveChannelRequestTypeID is TL type id of ChannelsLeaveChannelRequest.
@@ -67,6 +67,11 @@ func (l *ChannelsLeaveChannelRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (l *ChannelsLeaveChannelRequest) TypeID() uint32 {
 	return ChannelsLeaveChannelRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (l *ChannelsLeaveChannelRequest) SchemaName() string {
+	return "channels.leaveChannel"
 }
 
 // Encode implements bin.Encoder.

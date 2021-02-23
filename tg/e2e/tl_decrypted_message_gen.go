@@ -23,13 +23,13 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/decryptedMessage8 for reference.
 type DecryptedMessage8 struct {
 	// RandomID field of DecryptedMessage8.
-	RandomID int64
+	RandomID int64 `schemaname:"random_id"`
 	// RandomBytes field of DecryptedMessage8.
-	RandomBytes []byte
+	RandomBytes []byte `schemaname:"random_bytes"`
 	// Message field of DecryptedMessage8.
-	Message string
+	Message string `schemaname:"message"`
 	// Media field of DecryptedMessage8.
-	Media DecryptedMessageMediaClass
+	Media DecryptedMessageMediaClass `schemaname:"media"`
 }
 
 // DecryptedMessage8TypeID is TL type id of DecryptedMessage8.
@@ -81,6 +81,11 @@ func (d *DecryptedMessage8) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessage8) TypeID() uint32 {
 	return DecryptedMessage8TypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessage8) SchemaName() string {
+	return "decryptedMessage8"
 }
 
 // Encode implements bin.Encoder.
@@ -176,11 +181,11 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageService8 for reference.
 type DecryptedMessageService8 struct {
 	// RandomID field of DecryptedMessageService8.
-	RandomID int64
+	RandomID int64 `schemaname:"random_id"`
 	// RandomBytes field of DecryptedMessageService8.
-	RandomBytes []byte
+	RandomBytes []byte `schemaname:"random_bytes"`
 	// Action field of DecryptedMessageService8.
-	Action DecryptedMessageActionClass
+	Action DecryptedMessageActionClass `schemaname:"action"`
 }
 
 // DecryptedMessageService8TypeID is TL type id of DecryptedMessageService8.
@@ -227,6 +232,11 @@ func (d *DecryptedMessageService8) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageService8) TypeID() uint32 {
 	return DecryptedMessageService8TypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageService8) SchemaName() string {
+	return "decryptedMessageService8"
 }
 
 // Encode implements bin.Encoder.
@@ -309,13 +319,13 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessage23 for reference.
 type DecryptedMessage23 struct {
 	// RandomID field of DecryptedMessage23.
-	RandomID int64
+	RandomID int64 `schemaname:"random_id"`
 	// TTL field of DecryptedMessage23.
-	TTL int
+	TTL int `schemaname:"ttl"`
 	// Message field of DecryptedMessage23.
-	Message string
+	Message string `schemaname:"message"`
 	// Media field of DecryptedMessage23.
-	Media DecryptedMessageMediaClass
+	Media DecryptedMessageMediaClass `schemaname:"media"`
 }
 
 // DecryptedMessage23TypeID is TL type id of DecryptedMessage23.
@@ -367,6 +377,11 @@ func (d *DecryptedMessage23) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessage23) TypeID() uint32 {
 	return DecryptedMessage23TypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessage23) SchemaName() string {
+	return "decryptedMessage23"
 }
 
 // Encode implements bin.Encoder.
@@ -462,9 +477,9 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageService for reference.
 type DecryptedMessageService struct {
 	// RandomID field of DecryptedMessageService.
-	RandomID int64
+	RandomID int64 `schemaname:"random_id"`
 	// Action field of DecryptedMessageService.
-	Action DecryptedMessageActionClass
+	Action DecryptedMessageActionClass `schemaname:"action"`
 }
 
 // DecryptedMessageServiceTypeID is TL type id of DecryptedMessageService.
@@ -506,6 +521,11 @@ func (d *DecryptedMessageService) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageService) TypeID() uint32 {
 	return DecryptedMessageServiceTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageService) SchemaName() string {
+	return "decryptedMessageService"
 }
 
 // Encode implements bin.Encoder.
@@ -575,29 +595,29 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessage46 for reference.
 type DecryptedMessage46 struct {
 	// Flags field of DecryptedMessage46.
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// RandomID field of DecryptedMessage46.
-	RandomID int64
+	RandomID int64 `schemaname:"random_id"`
 	// TTL field of DecryptedMessage46.
-	TTL int
+	TTL int `schemaname:"ttl"`
 	// Message field of DecryptedMessage46.
-	Message string
+	Message string `schemaname:"message"`
 	// Media field of DecryptedMessage46.
 	//
 	// Use SetMedia and GetMedia helpers.
-	Media DecryptedMessageMediaClass
+	Media DecryptedMessageMediaClass `schemaname:"media"`
 	// Entities field of DecryptedMessage46.
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass
+	Entities []MessageEntityClass `schemaname:"entities"`
 	// ViaBotName field of DecryptedMessage46.
 	//
 	// Use SetViaBotName and GetViaBotName helpers.
-	ViaBotName string
+	ViaBotName string `schemaname:"via_bot_name"`
 	// ReplyToRandomID field of DecryptedMessage46.
 	//
 	// Use SetReplyToRandomID and GetReplyToRandomID helpers.
-	ReplyToRandomID int64
+	ReplyToRandomID int64 `schemaname:"reply_to_random_id"`
 }
 
 // DecryptedMessage46TypeID is TL type id of DecryptedMessage46.
@@ -660,21 +680,30 @@ func (d *DecryptedMessage46) FillFrom(from interface {
 	if val, ok := from.GetMedia(); ok {
 		d.Media = val
 	}
+
 	if val, ok := from.GetEntities(); ok {
 		d.Entities = val
 	}
+
 	if val, ok := from.GetViaBotName(); ok {
 		d.ViaBotName = val
 	}
+
 	if val, ok := from.GetReplyToRandomID(); ok {
 		d.ReplyToRandomID = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessage46) TypeID() uint32 {
 	return DecryptedMessage46TypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessage46) SchemaName() string {
+	return "decryptedMessage46"
 }
 
 // Encode implements bin.Encoder.
@@ -899,35 +928,35 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessage for reference.
 type DecryptedMessage struct {
 	// Flags field of DecryptedMessage.
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Silent field of DecryptedMessage.
-	Silent bool
+	Silent bool `schemaname:"silent"`
 	// RandomID field of DecryptedMessage.
-	RandomID int64
+	RandomID int64 `schemaname:"random_id"`
 	// TTL field of DecryptedMessage.
-	TTL int
+	TTL int `schemaname:"ttl"`
 	// Message field of DecryptedMessage.
-	Message string
+	Message string `schemaname:"message"`
 	// Media field of DecryptedMessage.
 	//
 	// Use SetMedia and GetMedia helpers.
-	Media DecryptedMessageMediaClass
+	Media DecryptedMessageMediaClass `schemaname:"media"`
 	// Entities field of DecryptedMessage.
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass
+	Entities []MessageEntityClass `schemaname:"entities"`
 	// ViaBotName field of DecryptedMessage.
 	//
 	// Use SetViaBotName and GetViaBotName helpers.
-	ViaBotName string
+	ViaBotName string `schemaname:"via_bot_name"`
 	// ReplyToRandomID field of DecryptedMessage.
 	//
 	// Use SetReplyToRandomID and GetReplyToRandomID helpers.
-	ReplyToRandomID int64
+	ReplyToRandomID int64 `schemaname:"reply_to_random_id"`
 	// GroupedID field of DecryptedMessage.
 	//
 	// Use SetGroupedID and GetGroupedID helpers.
-	GroupedID int64
+	GroupedID int64 `schemaname:"grouped_id"`
 }
 
 // DecryptedMessageTypeID is TL type id of DecryptedMessage.
@@ -992,30 +1021,41 @@ func (d *DecryptedMessage) FillFrom(from interface {
 	GetReplyToRandomID() (value int64, ok bool)
 	GetGroupedID() (value int64, ok bool)
 }) {
+	d.Silent = from.GetSilent()
 	d.RandomID = from.GetRandomID()
 	d.TTL = from.GetTTL()
 	d.Message = from.GetMessage()
 	if val, ok := from.GetMedia(); ok {
 		d.Media = val
 	}
+
 	if val, ok := from.GetEntities(); ok {
 		d.Entities = val
 	}
+
 	if val, ok := from.GetViaBotName(); ok {
 		d.ViaBotName = val
 	}
+
 	if val, ok := from.GetReplyToRandomID(); ok {
 		d.ReplyToRandomID = val
 	}
+
 	if val, ok := from.GetGroupedID(); ok {
 		d.GroupedID = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessage) TypeID() uint32 {
 	return DecryptedMessageTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessage) SchemaName() string {
+	return "decryptedMessage"
 }
 
 // Encode implements bin.Encoder.
@@ -1306,16 +1346,18 @@ type DecryptedMessageClass interface {
 	bin.Decoder
 	construct() DecryptedMessageClass
 
-	// RandomID field of DecryptedMessage8.
-	GetRandomID() (value int64)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// RandomID field of DecryptedMessage8.
+	GetRandomID() (value int64)
 }
 
 // DecodeDecryptedMessage implements binary de-serialization for DecryptedMessageClass.

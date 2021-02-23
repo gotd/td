@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/stickers.removeStickerFromSet for reference.
 type StickersRemoveStickerFromSetRequest struct {
 	// The sticker to remove
-	Sticker InputDocumentClass
+	Sticker InputDocumentClass `schemaname:"sticker"`
 }
 
 // StickersRemoveStickerFromSetRequestTypeID is TL type id of StickersRemoveStickerFromSetRequest.
@@ -61,6 +61,11 @@ func (r *StickersRemoveStickerFromSetRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *StickersRemoveStickerFromSetRequest) TypeID() uint32 {
 	return StickersRemoveStickerFromSetRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *StickersRemoveStickerFromSetRequest) SchemaName() string {
+	return "stickers.removeStickerFromSet"
 }
 
 // Encode implements bin.Encoder.

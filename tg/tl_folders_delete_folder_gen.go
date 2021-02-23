@@ -30,7 +30,7 @@ type FoldersDeleteFolderRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
-	FolderID int
+	FolderID int `schemaname:"folder_id"`
 }
 
 // FoldersDeleteFolderRequestTypeID is TL type id of FoldersDeleteFolderRequest.
@@ -67,6 +67,11 @@ func (d *FoldersDeleteFolderRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *FoldersDeleteFolderRequest) TypeID() uint32 {
 	return FoldersDeleteFolderRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *FoldersDeleteFolderRequest) SchemaName() string {
+	return "folders.deleteFolder"
 }
 
 // Encode implements bin.Encoder.

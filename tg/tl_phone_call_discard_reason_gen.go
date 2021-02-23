@@ -51,6 +51,11 @@ func (p *PhoneCallDiscardReasonMissed) TypeID() uint32 {
 	return PhoneCallDiscardReasonMissedTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (p *PhoneCallDiscardReasonMissed) SchemaName() string {
+	return "phoneCallDiscardReasonMissed"
+}
+
 // Encode implements bin.Encoder.
 func (p *PhoneCallDiscardReasonMissed) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -113,6 +118,11 @@ func (p *PhoneCallDiscardReasonDisconnect) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhoneCallDiscardReasonDisconnect) TypeID() uint32 {
 	return PhoneCallDiscardReasonDisconnectTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PhoneCallDiscardReasonDisconnect) SchemaName() string {
+	return "phoneCallDiscardReasonDisconnect"
 }
 
 // Encode implements bin.Encoder.
@@ -179,6 +189,11 @@ func (p *PhoneCallDiscardReasonHangup) TypeID() uint32 {
 	return PhoneCallDiscardReasonHangupTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (p *PhoneCallDiscardReasonHangup) SchemaName() string {
+	return "phoneCallDiscardReasonHangup"
+}
+
 // Encode implements bin.Encoder.
 func (p *PhoneCallDiscardReasonHangup) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -243,6 +258,11 @@ func (p *PhoneCallDiscardReasonBusy) TypeID() uint32 {
 	return PhoneCallDiscardReasonBusyTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (p *PhoneCallDiscardReasonBusy) SchemaName() string {
+	return "phoneCallDiscardReasonBusy"
+}
+
 // Encode implements bin.Encoder.
 func (p *PhoneCallDiscardReasonBusy) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -298,6 +318,8 @@ type PhoneCallDiscardReasonClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

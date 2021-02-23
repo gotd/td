@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://localhost:80/doc/method/echoVector for reference.
 type EchoVectorRequest struct {
 	// Ids field of EchoVectorRequest.
-	Ids []int
+	Ids []int `schemaname:"ids"`
 }
 
 // EchoVectorRequestTypeID is TL type id of EchoVectorRequest.
@@ -60,6 +60,11 @@ func (e *EchoVectorRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EchoVectorRequest) TypeID() uint32 {
 	return EchoVectorRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *EchoVectorRequest) SchemaName() string {
+	return "echoVector"
 }
 
 // Encode implements bin.Encoder.

@@ -27,13 +27,13 @@ type ChatParticipantsForbidden struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Group ID
-	ChatID int
+	ChatID int `schemaname:"chat_id"`
 	// Info about the group membership of the current user
 	//
 	// Use SetSelfParticipant and GetSelfParticipant helpers.
-	SelfParticipant ChatParticipantClass
+	SelfParticipant ChatParticipantClass `schemaname:"self_participant"`
 }
 
 // ChatParticipantsForbiddenTypeID is TL type id of ChatParticipantsForbidden.
@@ -74,12 +74,18 @@ func (c *ChatParticipantsForbidden) FillFrom(from interface {
 	if val, ok := from.GetSelfParticipant(); ok {
 		c.SelfParticipant = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatParticipantsForbidden) TypeID() uint32 {
 	return ChatParticipantsForbiddenTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChatParticipantsForbidden) SchemaName() string {
+	return "chatParticipantsForbidden"
 }
 
 // Encode implements bin.Encoder.
@@ -173,11 +179,11 @@ var (
 // See https://core.telegram.org/constructor/chatParticipants for reference.
 type ChatParticipants struct {
 	// Group identifier
-	ChatID int
+	ChatID int `schemaname:"chat_id"`
 	// List of group members
-	Participants []ChatParticipantClass
+	Participants []ChatParticipantClass `schemaname:"participants"`
 	// Group version number
-	Version int
+	Version int `schemaname:"version"`
 }
 
 // ChatParticipantsTypeID is TL type id of ChatParticipants.
@@ -224,6 +230,11 @@ func (c *ChatParticipants) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatParticipants) TypeID() uint32 {
 	return ChatParticipantsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChatParticipants) SchemaName() string {
+	return "chatParticipants"
 }
 
 // Encode implements bin.Encoder.
@@ -334,18 +345,20 @@ type ChatParticipantsClass interface {
 	bin.Decoder
 	construct() ChatParticipantsClass
 
-	// Group ID
-	GetChatID() (value int)
-	// AsNotForbidden tries to map ChatParticipantsClass to ChatParticipants.
-	AsNotForbidden() (*ChatParticipants, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Group ID
+	GetChatID() (value int)
+	// AsNotForbidden tries to map ChatParticipantsClass to ChatParticipants.
+	AsNotForbidden() (*ChatParticipants, bool)
 }
 
 // AsNotForbidden tries to map ChatParticipantsForbidden to ChatParticipants.

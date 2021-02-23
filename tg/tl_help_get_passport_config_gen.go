@@ -30,7 +30,7 @@ type HelpGetPassportConfigRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int `schemaname:"hash"`
 }
 
 // HelpGetPassportConfigRequestTypeID is TL type id of HelpGetPassportConfigRequest.
@@ -67,6 +67,11 @@ func (g *HelpGetPassportConfigRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *HelpGetPassportConfigRequest) TypeID() uint32 {
 	return HelpGetPassportConfigRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *HelpGetPassportConfigRequest) SchemaName() string {
+	return "help.getPassportConfig"
 }
 
 // Encode implements bin.Encoder.

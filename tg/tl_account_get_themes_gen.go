@@ -24,12 +24,12 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.getThemes for reference.
 type AccountGetThemesRequest struct {
 	// Theme format, a string that identifies the theming engines supported by the client
-	Format string
+	Format string `schemaname:"format"`
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int `schemaname:"hash"`
 }
 
 // AccountGetThemesRequestTypeID is TL type id of AccountGetThemesRequest.
@@ -71,6 +71,11 @@ func (g *AccountGetThemesRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *AccountGetThemesRequest) TypeID() uint32 {
 	return AccountGetThemesRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *AccountGetThemesRequest) SchemaName() string {
+	return "account.getThemes"
 }
 
 // Encode implements bin.Encoder.

@@ -30,38 +30,38 @@ type MessageReplies struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether this constructor contains information about the comment section of a channel post, or a simple message thread¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
-	Comments bool
+	Comments bool `schemaname:"comments"`
 	// Contains the total number of replies in this thread or comment section.
-	Replies int
+	Replies int `schemaname:"replies"`
 	// PTS¹ of the message that started this thread.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	RepliesPts int
+	RepliesPts int `schemaname:"replies_pts"`
 	// For channel post comments, contains information about the last few comment posters for a specific thread, to show a small list of commenter profile pictures in client previews.
 	//
 	// Use SetRecentRepliers and GetRecentRepliers helpers.
-	RecentRepliers []PeerClass
+	RecentRepliers []PeerClass `schemaname:"recent_repliers"`
 	// For channel post comments, contains the ID of the associated discussion supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/discussion
 	//
 	// Use SetChannelID and GetChannelID helpers.
-	ChannelID int
+	ChannelID int `schemaname:"channel_id"`
 	// ID of the latest message in this thread or comment section.
 	//
 	// Use SetMaxID and GetMaxID helpers.
-	MaxID int
+	MaxID int `schemaname:"max_id"`
 	// Contains the ID of the latest read message in this thread or comment section.
 	//
 	// Use SetReadMaxID and GetReadMaxID helpers.
-	ReadMaxID int
+	ReadMaxID int `schemaname:"read_max_id"`
 }
 
 // MessageRepliesTypeID is TL type id of MessageReplies.
@@ -118,26 +118,36 @@ func (m *MessageReplies) FillFrom(from interface {
 	GetMaxID() (value int, ok bool)
 	GetReadMaxID() (value int, ok bool)
 }) {
+	m.Comments = from.GetComments()
 	m.Replies = from.GetReplies()
 	m.RepliesPts = from.GetRepliesPts()
 	if val, ok := from.GetRecentRepliers(); ok {
 		m.RecentRepliers = val
 	}
+
 	if val, ok := from.GetChannelID(); ok {
 		m.ChannelID = val
 	}
+
 	if val, ok := from.GetMaxID(); ok {
 		m.MaxID = val
 	}
+
 	if val, ok := from.GetReadMaxID(); ok {
 		m.ReadMaxID = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageReplies) TypeID() uint32 {
 	return MessageRepliesTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageReplies) SchemaName() string {
+	return "messageReplies"
 }
 
 // Encode implements bin.Encoder.

@@ -21,9 +21,9 @@ var _ = errors.Is
 // RPCResult represents TL type `rpc_result#f35c6d01`.
 type RPCResult struct {
 	// ReqMsgID field of RPCResult.
-	ReqMsgID int64
+	ReqMsgID int64 `schemaname:"req_msg_id"`
 	// Result field of RPCResult.
-	Result GzipPacked
+	Result GzipPacked `schemaname:"result"`
 }
 
 // RPCResultTypeID is TL type id of RPCResult.
@@ -65,6 +65,11 @@ func (r *RPCResult) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RPCResult) TypeID() uint32 {
 	return RPCResultTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *RPCResult) SchemaName() string {
+	return "rpc_result"
 }
 
 // Encode implements bin.Encoder.

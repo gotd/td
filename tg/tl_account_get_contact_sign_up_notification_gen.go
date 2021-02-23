@@ -51,6 +51,11 @@ func (g *AccountGetContactSignUpNotificationRequest) TypeID() uint32 {
 	return AccountGetContactSignUpNotificationRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *AccountGetContactSignUpNotificationRequest) SchemaName() string {
+	return "account.getContactSignUpNotification"
+}
+
 // Encode implements bin.Encoder.
 func (g *AccountGetContactSignUpNotificationRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

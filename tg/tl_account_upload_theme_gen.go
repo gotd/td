@@ -27,20 +27,20 @@ type AccountUploadThemeRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Theme file uploaded as described in files »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files
-	File InputFileClass
+	File InputFileClass `schemaname:"file"`
 	// Thumbnail
 	//
 	// Use SetThumb and GetThumb helpers.
-	Thumb InputFileClass
+	Thumb InputFileClass `schemaname:"thumb"`
 	// File name
-	FileName string
+	FileName string `schemaname:"file_name"`
 	// MIME type, must be application/x-tgtheme-{format}, where format depends on the client
-	MimeType string
+	MimeType string `schemaname:"mime_type"`
 }
 
 // AccountUploadThemeRequestTypeID is TL type id of AccountUploadThemeRequest.
@@ -89,6 +89,7 @@ func (u *AccountUploadThemeRequest) FillFrom(from interface {
 	if val, ok := from.GetThumb(); ok {
 		u.Thumb = val
 	}
+
 	u.FileName = from.GetFileName()
 	u.MimeType = from.GetMimeType()
 }
@@ -97,6 +98,11 @@ func (u *AccountUploadThemeRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *AccountUploadThemeRequest) TypeID() uint32 {
 	return AccountUploadThemeRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *AccountUploadThemeRequest) SchemaName() string {
+	return "account.uploadTheme"
 }
 
 // Encode implements bin.Encoder.

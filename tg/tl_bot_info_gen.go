@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/botInfo for reference.
 type BotInfo struct {
 	// ID of the bot
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// Description of the bot
-	Description string
+	Description string `schemaname:"description"`
 	// Bot commands that can be used in the chat
-	Commands []BotCommand
+	Commands []BotCommand `schemaname:"commands"`
 }
 
 // BotInfoTypeID is TL type id of BotInfo.
@@ -75,6 +75,11 @@ func (b *BotInfo) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *BotInfo) TypeID() uint32 {
 	return BotInfoTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (b *BotInfo) SchemaName() string {
+	return "botInfo"
 }
 
 // Encode implements bin.Encoder.

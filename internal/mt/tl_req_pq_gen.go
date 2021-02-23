@@ -21,7 +21,7 @@ var _ = errors.Is
 // ReqPqRequest represents TL type `req_pq#60469778`.
 type ReqPqRequest struct {
 	// Nonce field of ReqPqRequest.
-	Nonce bin.Int128
+	Nonce bin.Int128 `schemaname:"nonce"`
 }
 
 // ReqPqRequestTypeID is TL type id of ReqPqRequest.
@@ -58,6 +58,11 @@ func (r *ReqPqRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ReqPqRequest) TypeID() uint32 {
 	return ReqPqRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *ReqPqRequest) SchemaName() string {
+	return "req_pq"
 }
 
 // Encode implements bin.Encoder.

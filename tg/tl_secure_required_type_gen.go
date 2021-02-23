@@ -27,15 +27,15 @@ type SecureRequiredType struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Native names
-	NativeNames bool
+	NativeNames bool `schemaname:"native_names"`
 	// Is a selfie required
-	SelfieRequired bool
+	SelfieRequired bool `schemaname:"selfie_required"`
 	// Is a translation required
-	TranslationRequired bool
+	TranslationRequired bool `schemaname:"translation_required"`
 	// Secure value type
-	Type SecureValueTypeClass
+	Type SecureValueTypeClass `schemaname:"type"`
 }
 
 // SecureRequiredTypeTypeID is TL type id of SecureRequiredType.
@@ -80,6 +80,9 @@ func (s *SecureRequiredType) FillFrom(from interface {
 	GetTranslationRequired() (value bool)
 	GetType() (value SecureValueTypeClass)
 }) {
+	s.NativeNames = from.GetNativeNames()
+	s.SelfieRequired = from.GetSelfieRequired()
+	s.TranslationRequired = from.GetTranslationRequired()
 	s.Type = from.GetType()
 }
 
@@ -87,6 +90,11 @@ func (s *SecureRequiredType) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureRequiredType) TypeID() uint32 {
 	return SecureRequiredTypeTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SecureRequiredType) SchemaName() string {
+	return "secureRequiredType"
 }
 
 // Encode implements bin.Encoder.
@@ -212,7 +220,7 @@ var (
 // See https://core.telegram.org/constructor/secureRequiredTypeOneOf for reference.
 type SecureRequiredTypeOneOf struct {
 	// Secure required value types
-	Types []SecureRequiredTypeClass
+	Types []SecureRequiredTypeClass `schemaname:"types"`
 }
 
 // SecureRequiredTypeOneOfTypeID is TL type id of SecureRequiredTypeOneOf.
@@ -249,6 +257,11 @@ func (s *SecureRequiredTypeOneOf) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureRequiredTypeOneOf) TypeID() uint32 {
 	return SecureRequiredTypeOneOfTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SecureRequiredTypeOneOf) SchemaName() string {
+	return "secureRequiredTypeOneOf"
 }
 
 // Encode implements bin.Encoder.
@@ -336,6 +349,8 @@ type SecureRequiredTypeClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

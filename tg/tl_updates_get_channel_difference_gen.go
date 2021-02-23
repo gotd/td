@@ -27,20 +27,20 @@ type UpdatesGetChannelDifferenceRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Set to true to skip some possibly unneeded updates and reduce server-side load
-	Force bool
+	Force bool `schemaname:"force"`
 	// The channel
-	Channel InputChannelClass
+	Channel InputChannelClass `schemaname:"channel"`
 	// Messsage filter
-	Filter ChannelMessagesFilterClass
+	Filter ChannelMessagesFilterClass `schemaname:"filter"`
 	// Persistent timestamp (see updates¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int
+	Pts int `schemaname:"pts"`
 	// How many updates to fetch, max 100000Ordinary (non-bot) users are supposed to pass 10-100
-	Limit int
+	Limit int `schemaname:"limit"`
 }
 
 // UpdatesGetChannelDifferenceRequestTypeID is TL type id of UpdatesGetChannelDifferenceRequest.
@@ -89,6 +89,7 @@ func (g *UpdatesGetChannelDifferenceRequest) FillFrom(from interface {
 	GetPts() (value int)
 	GetLimit() (value int)
 }) {
+	g.Force = from.GetForce()
 	g.Channel = from.GetChannel()
 	g.Filter = from.GetFilter()
 	g.Pts = from.GetPts()
@@ -99,6 +100,11 @@ func (g *UpdatesGetChannelDifferenceRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *UpdatesGetChannelDifferenceRequest) TypeID() uint32 {
 	return UpdatesGetChannelDifferenceRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *UpdatesGetChannelDifferenceRequest) SchemaName() string {
+	return "updates.getChannelDifference"
 }
 
 // Encode implements bin.Encoder.

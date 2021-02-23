@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/popularContact for reference.
 type PopularContact struct {
 	// Contact identifier
-	ClientID int64
+	ClientID int64 `schemaname:"client_id"`
 	// How many people imported this contact
-	Importers int
+	Importers int `schemaname:"importers"`
 }
 
 // PopularContactTypeID is TL type id of PopularContact.
@@ -68,6 +68,11 @@ func (p *PopularContact) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PopularContact) TypeID() uint32 {
 	return PopularContactTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PopularContact) SchemaName() string {
+	return "popularContact"
 }
 
 // Encode implements bin.Encoder.

@@ -24,22 +24,22 @@ var _ = errors.Is
 // See https://core.telegram.org/method/auth.importBotAuthorization for reference.
 type AuthImportBotAuthorizationRequest struct {
 	// Reserved for future use
-	Flags int
+	Flags int `schemaname:"flags"`
 	// Application identifier (see. App configuration¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/myapp
-	APIID int
+	APIID int `schemaname:"api_id"`
 	// Application identifier hash (see. App configuration¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/myapp
-	APIHash string
+	APIHash string `schemaname:"api_hash"`
 	// Bot token (see bots¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots
-	BotAuthToken string
+	BotAuthToken string `schemaname:"bot_auth_token"`
 }
 
 // AuthImportBotAuthorizationRequestTypeID is TL type id of AuthImportBotAuthorizationRequest.
@@ -91,6 +91,11 @@ func (i *AuthImportBotAuthorizationRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *AuthImportBotAuthorizationRequest) TypeID() uint32 {
 	return AuthImportBotAuthorizationRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *AuthImportBotAuthorizationRequest) SchemaName() string {
+	return "auth.importBotAuthorization"
 }
 
 // Encode implements bin.Encoder.

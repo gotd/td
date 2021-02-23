@@ -27,22 +27,22 @@ type MessageViews struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Viewcount of message
 	//
 	// Use SetViews and GetViews helpers.
-	Views int
+	Views int `schemaname:"views"`
 	// Forward count of message
 	//
 	// Use SetForwards and GetForwards helpers.
-	Forwards int
+	Forwards int `schemaname:"forwards"`
 	// Reply and thread¹ information of message
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetReplies and GetReplies helpers.
-	Replies MessageReplies
+	Replies MessageReplies `schemaname:"replies"`
 }
 
 // MessageViewsTypeID is TL type id of MessageViews.
@@ -86,18 +86,26 @@ func (m *MessageViews) FillFrom(from interface {
 	if val, ok := from.GetViews(); ok {
 		m.Views = val
 	}
+
 	if val, ok := from.GetForwards(); ok {
 		m.Forwards = val
 	}
+
 	if val, ok := from.GetReplies(); ok {
 		m.Replies = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageViews) TypeID() uint32 {
 	return MessageViewsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *MessageViews) SchemaName() string {
+	return "messageViews"
 }
 
 // Encode implements bin.Encoder.

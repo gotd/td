@@ -31,9 +31,9 @@ type MessagesGetDiscussionMessageRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// Message ID
-	MsgID int
+	MsgID int `schemaname:"msg_id"`
 }
 
 // MessagesGetDiscussionMessageRequestTypeID is TL type id of MessagesGetDiscussionMessageRequest.
@@ -75,6 +75,11 @@ func (g *MessagesGetDiscussionMessageRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetDiscussionMessageRequest) TypeID() uint32 {
 	return MessagesGetDiscussionMessageRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *MessagesGetDiscussionMessageRequest) SchemaName() string {
+	return "messages.getDiscussionMessage"
 }
 
 // Encode implements bin.Encoder.

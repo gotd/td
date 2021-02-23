@@ -27,9 +27,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.sendVerifyPhoneCode for reference.
 type AccountSendVerifyPhoneCodeRequest struct {
 	// The phone number to verify
-	PhoneNumber string
+	PhoneNumber string `schemaname:"phone_number"`
 	// Phone code settings
-	Settings CodeSettings
+	Settings CodeSettings `schemaname:"settings"`
 }
 
 // AccountSendVerifyPhoneCodeRequestTypeID is TL type id of AccountSendVerifyPhoneCodeRequest.
@@ -71,6 +71,11 @@ func (s *AccountSendVerifyPhoneCodeRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AccountSendVerifyPhoneCodeRequest) TypeID() uint32 {
 	return AccountSendVerifyPhoneCodeRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *AccountSendVerifyPhoneCodeRequest) SchemaName() string {
+	return "account.sendVerifyPhoneCode"
 }
 
 // Encode implements bin.Encoder.

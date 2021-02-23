@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.featuredStickersNotModified for reference.
 type MessagesFeaturedStickersNotModified struct {
 	// Total number of featured stickers
-	Count int
+	Count int `schemaname:"count"`
 }
 
 // MessagesFeaturedStickersNotModifiedTypeID is TL type id of MessagesFeaturedStickersNotModified.
@@ -61,6 +61,11 @@ func (f *MessagesFeaturedStickersNotModified) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *MessagesFeaturedStickersNotModified) TypeID() uint32 {
 	return MessagesFeaturedStickersNotModifiedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (f *MessagesFeaturedStickersNotModified) SchemaName() string {
+	return "messages.featuredStickersNotModified"
 }
 
 // Encode implements bin.Encoder.
@@ -116,13 +121,13 @@ type MessagesFeaturedStickers struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int `schemaname:"hash"`
 	// Total number of featured stickers
-	Count int
+	Count int `schemaname:"count"`
 	// Featured stickersets
-	Sets []StickerSetCoveredClass
+	Sets []StickerSetCoveredClass `schemaname:"sets"`
 	// IDs of new featured stickersets
-	Unread []int64
+	Unread []int64 `schemaname:"unread"`
 }
 
 // MessagesFeaturedStickersTypeID is TL type id of MessagesFeaturedStickers.
@@ -174,6 +179,11 @@ func (f *MessagesFeaturedStickers) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *MessagesFeaturedStickers) TypeID() uint32 {
 	return MessagesFeaturedStickersTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (f *MessagesFeaturedStickers) SchemaName() string {
+	return "messages.featuredStickers"
 }
 
 // Encode implements bin.Encoder.
@@ -306,18 +316,20 @@ type MessagesFeaturedStickersClass interface {
 	bin.Decoder
 	construct() MessagesFeaturedStickersClass
 
-	// Total number of featured stickers
-	GetCount() (value int)
-	// AsModified tries to map MessagesFeaturedStickersClass to MessagesFeaturedStickers.
-	AsModified() (*MessagesFeaturedStickers, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Total number of featured stickers
+	GetCount() (value int)
+	// AsModified tries to map MessagesFeaturedStickersClass to MessagesFeaturedStickers.
+	AsModified() (*MessagesFeaturedStickers, bool)
 }
 
 // AsModified tries to map MessagesFeaturedStickersNotModified to MessagesFeaturedStickers.

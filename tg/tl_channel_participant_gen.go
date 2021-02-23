@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/channelParticipant for reference.
 type ChannelParticipant struct {
 	// Pariticipant user ID
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// Date joined
-	Date int
+	Date int `schemaname:"date"`
 }
 
 // ChannelParticipantTypeID is TL type id of ChannelParticipant.
@@ -68,6 +68,11 @@ func (c *ChannelParticipant) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelParticipant) TypeID() uint32 {
 	return ChannelParticipantTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChannelParticipant) SchemaName() string {
+	return "channelParticipant"
 }
 
 // Encode implements bin.Encoder.
@@ -133,11 +138,11 @@ var (
 // See https://core.telegram.org/constructor/channelParticipantSelf for reference.
 type ChannelParticipantSelf struct {
 	// User ID
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// User that invited me to the channel/supergroup
-	InviterID int
+	InviterID int `schemaname:"inviter_id"`
 	// When did I join the channel/supergroup
-	Date int
+	Date int `schemaname:"date"`
 }
 
 // ChannelParticipantSelfTypeID is TL type id of ChannelParticipantSelf.
@@ -184,6 +189,11 @@ func (c *ChannelParticipantSelf) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelParticipantSelf) TypeID() uint32 {
 	return ChannelParticipantSelfTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChannelParticipantSelf) SchemaName() string {
+	return "channelParticipantSelf"
 }
 
 // Encode implements bin.Encoder.
@@ -265,15 +275,15 @@ type ChannelParticipantCreator struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// User ID
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// Creator admin rights
-	AdminRights ChatAdminRights
+	AdminRights ChatAdminRights `schemaname:"admin_rights"`
 	// The role (rank) of the group creator in the group: just an arbitrary string, admin by default
 	//
 	// Use SetRank and GetRank helpers.
-	Rank string
+	Rank string `schemaname:"rank"`
 }
 
 // ChannelParticipantCreatorTypeID is TL type id of ChannelParticipantCreator.
@@ -319,12 +329,18 @@ func (c *ChannelParticipantCreator) FillFrom(from interface {
 	if val, ok := from.GetRank(); ok {
 		c.Rank = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelParticipantCreator) TypeID() uint32 {
 	return ChannelParticipantCreatorTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChannelParticipantCreator) SchemaName() string {
+	return "channelParticipantCreator"
 }
 
 // Encode implements bin.Encoder.
@@ -429,30 +445,30 @@ type ChannelParticipantAdmin struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Can this admin promote other admins with the same permissions?
-	CanEdit bool
+	CanEdit bool `schemaname:"can_edit"`
 	// Is this the current user
-	Self bool
+	Self bool `schemaname:"self"`
 	// Admin user ID
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// User that invited the admin to the channel/group
 	//
 	// Use SetInviterID and GetInviterID helpers.
-	InviterID int
+	InviterID int `schemaname:"inviter_id"`
 	// User that promoted the user to admin
-	PromotedBy int
+	PromotedBy int `schemaname:"promoted_by"`
 	// When did the user join
-	Date int
+	Date int `schemaname:"date"`
 	// Admin rights¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
-	AdminRights ChatAdminRights
+	AdminRights ChatAdminRights `schemaname:"admin_rights"`
 	// The role (rank) of the admin in the group: just an arbitrary string, admin by default
 	//
 	// Use SetRank and GetRank helpers.
-	Rank string
+	Rank string `schemaname:"rank"`
 }
 
 // ChannelParticipantAdminTypeID is TL type id of ChannelParticipantAdmin.
@@ -513,22 +529,31 @@ func (c *ChannelParticipantAdmin) FillFrom(from interface {
 	GetAdminRights() (value ChatAdminRights)
 	GetRank() (value string, ok bool)
 }) {
+	c.CanEdit = from.GetCanEdit()
+	c.Self = from.GetSelf()
 	c.UserID = from.GetUserID()
 	if val, ok := from.GetInviterID(); ok {
 		c.InviterID = val
 	}
+
 	c.PromotedBy = from.GetPromotedBy()
 	c.Date = from.GetDate()
 	c.AdminRights = from.GetAdminRights()
 	if val, ok := from.GetRank(); ok {
 		c.Rank = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelParticipantAdmin) TypeID() uint32 {
 	return ChannelParticipantAdminTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChannelParticipantAdmin) SchemaName() string {
+	return "channelParticipantAdmin"
 }
 
 // Encode implements bin.Encoder.
@@ -727,20 +752,20 @@ type ChannelParticipantBanned struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether the user has left the group
-	Left bool
+	Left bool `schemaname:"left"`
 	// User ID
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// User was kicked by the specified admin
-	KickedBy int
+	KickedBy int `schemaname:"kicked_by"`
 	// When did the user join the group
-	Date int
+	Date int `schemaname:"date"`
 	// Banned rights¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
-	BannedRights ChatBannedRights
+	BannedRights ChatBannedRights `schemaname:"banned_rights"`
 }
 
 // ChannelParticipantBannedTypeID is TL type id of ChannelParticipantBanned.
@@ -789,6 +814,7 @@ func (c *ChannelParticipantBanned) FillFrom(from interface {
 	GetDate() (value int)
 	GetBannedRights() (value ChatBannedRights)
 }) {
+	c.Left = from.GetLeft()
 	c.UserID = from.GetUserID()
 	c.KickedBy = from.GetKickedBy()
 	c.Date = from.GetDate()
@@ -799,6 +825,11 @@ func (c *ChannelParticipantBanned) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelParticipantBanned) TypeID() uint32 {
 	return ChannelParticipantBannedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChannelParticipantBanned) SchemaName() string {
+	return "channelParticipantBanned"
 }
 
 // Encode implements bin.Encoder.
@@ -918,7 +949,7 @@ var (
 // See https://core.telegram.org/constructor/channelParticipantLeft for reference.
 type ChannelParticipantLeft struct {
 	// User ID
-	UserID int
+	UserID int `schemaname:"user_id"`
 }
 
 // ChannelParticipantLeftTypeID is TL type id of ChannelParticipantLeft.
@@ -955,6 +986,11 @@ func (c *ChannelParticipantLeft) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelParticipantLeft) TypeID() uint32 {
 	return ChannelParticipantLeftTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChannelParticipantLeft) SchemaName() string {
+	return "channelParticipantLeft"
 }
 
 // Encode implements bin.Encoder.
@@ -1024,16 +1060,18 @@ type ChannelParticipantClass interface {
 	bin.Decoder
 	construct() ChannelParticipantClass
 
-	// Pariticipant user ID
-	GetUserID() (value int)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Pariticipant user ID
+	GetUserID() (value int)
 }
 
 // DecodeChannelParticipant implements binary de-serialization for ChannelParticipantClass.

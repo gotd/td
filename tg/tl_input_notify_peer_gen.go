@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/inputNotifyPeer for reference.
 type InputNotifyPeer struct {
 	// User or group
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 }
 
 // InputNotifyPeerTypeID is TL type id of InputNotifyPeer.
@@ -61,6 +61,11 @@ func (i *InputNotifyPeer) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputNotifyPeer) TypeID() uint32 {
 	return InputNotifyPeerTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputNotifyPeer) SchemaName() string {
+	return "inputNotifyPeer"
 }
 
 // Encode implements bin.Encoder.
@@ -145,6 +150,11 @@ func (i *InputNotifyUsers) TypeID() uint32 {
 	return InputNotifyUsersTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputNotifyUsers) SchemaName() string {
+	return "inputNotifyUsers"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputNotifyUsers) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -207,6 +217,11 @@ func (i *InputNotifyChats) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputNotifyChats) TypeID() uint32 {
 	return InputNotifyChatsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputNotifyChats) SchemaName() string {
+	return "inputNotifyChats"
 }
 
 // Encode implements bin.Encoder.
@@ -276,6 +291,11 @@ func (i *InputNotifyBroadcasts) TypeID() uint32 {
 	return InputNotifyBroadcastsTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputNotifyBroadcasts) SchemaName() string {
+	return "inputNotifyBroadcasts"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputNotifyBroadcasts) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -331,6 +351,8 @@ type InputNotifyPeerClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

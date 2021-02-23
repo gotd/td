@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/webPageEmpty for reference.
 type WebPageEmpty struct {
 	// Preview ID
-	ID int64
+	ID int64 `schemaname:"id"`
 }
 
 // WebPageEmptyTypeID is TL type id of WebPageEmpty.
@@ -61,6 +61,11 @@ func (w *WebPageEmpty) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *WebPageEmpty) TypeID() uint32 {
 	return WebPageEmptyTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (w *WebPageEmpty) SchemaName() string {
+	return "webPageEmpty"
 }
 
 // Encode implements bin.Encoder.
@@ -113,9 +118,9 @@ var (
 // See https://core.telegram.org/constructor/webPagePending for reference.
 type WebPagePending struct {
 	// ID of preview
-	ID int64
+	ID int64 `schemaname:"id"`
 	// When was the processing started
-	Date int
+	Date int `schemaname:"date"`
 }
 
 // WebPagePendingTypeID is TL type id of WebPagePending.
@@ -157,6 +162,11 @@ func (w *WebPagePending) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *WebPagePending) TypeID() uint32 {
 	return WebPagePendingTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (w *WebPagePending) SchemaName() string {
+	return "webPagePending"
 }
 
 // Encode implements bin.Encoder.
@@ -225,77 +235,77 @@ type WebPage struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Preview ID
-	ID int64
+	ID int64 `schemaname:"id"`
 	// URL of previewed webpage
-	URL string
+	URL string `schemaname:"url"`
 	// Webpage URL to be displayed to the user
-	DisplayURL string
+	DisplayURL string `schemaname:"display_url"`
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int `schemaname:"hash"`
 	// Type of the web page. Can be: article, photo, audio, video, document, profile, app, or something else
 	//
 	// Use SetType and GetType helpers.
-	Type string
+	Type string `schemaname:"type"`
 	// Short name of the site (e.g., Google Docs, App Store)
 	//
 	// Use SetSiteName and GetSiteName helpers.
-	SiteName string
+	SiteName string `schemaname:"site_name"`
 	// Title of the content
 	//
 	// Use SetTitle and GetTitle helpers.
-	Title string
+	Title string `schemaname:"title"`
 	// Content description
 	//
 	// Use SetDescription and GetDescription helpers.
-	Description string
+	Description string `schemaname:"description"`
 	// Image representing the content
 	//
 	// Use SetPhoto and GetPhoto helpers.
-	Photo PhotoClass
+	Photo PhotoClass `schemaname:"photo"`
 	// URL to show in the embedded preview
 	//
 	// Use SetEmbedURL and GetEmbedURL helpers.
-	EmbedURL string
+	EmbedURL string `schemaname:"embed_url"`
 	// MIME type of the embedded preview, (e.g., text/html or video/mp4)
 	//
 	// Use SetEmbedType and GetEmbedType helpers.
-	EmbedType string
+	EmbedType string `schemaname:"embed_type"`
 	// Width of the embedded preview
 	//
 	// Use SetEmbedWidth and GetEmbedWidth helpers.
-	EmbedWidth int
+	EmbedWidth int `schemaname:"embed_width"`
 	// Height of the embedded preview
 	//
 	// Use SetEmbedHeight and GetEmbedHeight helpers.
-	EmbedHeight int
+	EmbedHeight int `schemaname:"embed_height"`
 	// Duration of the content, in seconds
 	//
 	// Use SetDuration and GetDuration helpers.
-	Duration int
+	Duration int `schemaname:"duration"`
 	// Author of the content
 	//
 	// Use SetAuthor and GetAuthor helpers.
-	Author string
+	Author string `schemaname:"author"`
 	// Preview of the content as a media file
 	//
 	// Use SetDocument and GetDocument helpers.
-	Document DocumentClass
+	Document DocumentClass `schemaname:"document"`
 	// Page contents in instant view¹ format
 	//
 	// Links:
 	//  1) https://instantview.telegram.org
 	//
 	// Use SetCachedPage and GetCachedPage helpers.
-	CachedPage Page
+	CachedPage Page `schemaname:"cached_page"`
 	// Webpage attributes
 	//
 	// Use SetAttributes and GetAttributes helpers.
-	Attributes []WebPageAttributeTheme
+	Attributes []WebPageAttributeTheme `schemaname:"attributes"`
 }
 
 // WebPageTypeID is TL type id of WebPage.
@@ -403,51 +413,70 @@ func (w *WebPage) FillFrom(from interface {
 	if val, ok := from.GetType(); ok {
 		w.Type = val
 	}
+
 	if val, ok := from.GetSiteName(); ok {
 		w.SiteName = val
 	}
+
 	if val, ok := from.GetTitle(); ok {
 		w.Title = val
 	}
+
 	if val, ok := from.GetDescription(); ok {
 		w.Description = val
 	}
+
 	if val, ok := from.GetPhoto(); ok {
 		w.Photo = val
 	}
+
 	if val, ok := from.GetEmbedURL(); ok {
 		w.EmbedURL = val
 	}
+
 	if val, ok := from.GetEmbedType(); ok {
 		w.EmbedType = val
 	}
+
 	if val, ok := from.GetEmbedWidth(); ok {
 		w.EmbedWidth = val
 	}
+
 	if val, ok := from.GetEmbedHeight(); ok {
 		w.EmbedHeight = val
 	}
+
 	if val, ok := from.GetDuration(); ok {
 		w.Duration = val
 	}
+
 	if val, ok := from.GetAuthor(); ok {
 		w.Author = val
 	}
+
 	if val, ok := from.GetDocument(); ok {
 		w.Document = val
 	}
+
 	if val, ok := from.GetCachedPage(); ok {
 		w.CachedPage = val
 	}
+
 	if val, ok := from.GetAttributes(); ok {
 		w.Attributes = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *WebPage) TypeID() uint32 {
 	return WebPageTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (w *WebPage) SchemaName() string {
+	return "webPage"
 }
 
 // Encode implements bin.Encoder.
@@ -963,11 +992,11 @@ type WebPageNotModified struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Page view count
 	//
 	// Use SetCachedPageViews and GetCachedPageViews helpers.
-	CachedPageViews int
+	CachedPageViews int `schemaname:"cached_page_views"`
 }
 
 // WebPageNotModifiedTypeID is TL type id of WebPageNotModified.
@@ -1003,12 +1032,18 @@ func (w *WebPageNotModified) FillFrom(from interface {
 	if val, ok := from.GetCachedPageViews(); ok {
 		w.CachedPageViews = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *WebPageNotModified) TypeID() uint32 {
 	return WebPageNotModifiedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (w *WebPageNotModified) SchemaName() string {
+	return "webPageNotModified"
 }
 
 // Encode implements bin.Encoder.
@@ -1099,16 +1134,18 @@ type WebPageClass interface {
 	bin.Decoder
 	construct() WebPageClass
 
-	// AsModified tries to map WebPageClass to ModifiedWebPage.
-	AsModified() (ModifiedWebPage, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsModified tries to map WebPageClass to ModifiedWebPage.
+	AsModified() (ModifiedWebPage, bool)
 }
 
 // ModifiedWebPage represents Modified subset of WebPageClass.
@@ -1117,16 +1154,18 @@ type ModifiedWebPage interface {
 	bin.Decoder
 	construct() WebPageClass
 
-	// Preview ID
-	GetID() (value int64)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Preview ID
+	GetID() (value int64)
 }
 
 // AsModified tries to map WebPageEmpty to ModifiedWebPage.

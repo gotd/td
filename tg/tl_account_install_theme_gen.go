@@ -27,17 +27,17 @@ type AccountInstallThemeRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether to install the dark version
-	Dark bool
+	Dark bool `schemaname:"dark"`
 	// Theme format, a string that identifies the theming engines supported by the client
 	//
 	// Use SetFormat and GetFormat helpers.
-	Format string
+	Format string `schemaname:"format"`
 	// Theme to install
 	//
 	// Use SetTheme and GetTheme helpers.
-	Theme InputThemeClass
+	Theme InputThemeClass `schemaname:"theme"`
 }
 
 // AccountInstallThemeRequestTypeID is TL type id of AccountInstallThemeRequest.
@@ -78,18 +78,26 @@ func (i *AccountInstallThemeRequest) FillFrom(from interface {
 	GetFormat() (value string, ok bool)
 	GetTheme() (value InputThemeClass, ok bool)
 }) {
+	i.Dark = from.GetDark()
 	if val, ok := from.GetFormat(); ok {
 		i.Format = val
 	}
+
 	if val, ok := from.GetTheme(); ok {
 		i.Theme = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *AccountInstallThemeRequest) TypeID() uint32 {
 	return AccountInstallThemeRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *AccountInstallThemeRequest) SchemaName() string {
+	return "account.installTheme"
 }
 
 // Encode implements bin.Encoder.

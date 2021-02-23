@@ -27,16 +27,16 @@ type MessagesGetWebPagePreviewRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Message from which to extract the preview
-	Message string
+	Message string `schemaname:"message"`
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass
+	Entities []MessageEntityClass `schemaname:"entities"`
 }
 
 // MessagesGetWebPagePreviewRequestTypeID is TL type id of MessagesGetWebPagePreviewRequest.
@@ -77,12 +77,18 @@ func (g *MessagesGetWebPagePreviewRequest) FillFrom(from interface {
 	if val, ok := from.GetEntities(); ok {
 		g.Entities = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetWebPagePreviewRequest) TypeID() uint32 {
 	return MessagesGetWebPagePreviewRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *MessagesGetWebPagePreviewRequest) SchemaName() string {
+	return "messages.getWebPagePreview"
 }
 
 // Encode implements bin.Encoder.

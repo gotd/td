@@ -51,6 +51,11 @@ func (l *AuthLogOutRequest) TypeID() uint32 {
 	return AuthLogOutRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (l *AuthLogOutRequest) SchemaName() string {
+	return "auth.logOut"
+}
+
 // Encode implements bin.Encoder.
 func (l *AuthLogOutRequest) Encode(b *bin.Buffer) error {
 	if l == nil {

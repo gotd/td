@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.checkHistoryImport for reference.
 type MessagesCheckHistoryImportRequest struct {
 	// ImportHead field of MessagesCheckHistoryImportRequest.
-	ImportHead string
+	ImportHead string `schemaname:"import_head"`
 }
 
 // MessagesCheckHistoryImportRequestTypeID is TL type id of MessagesCheckHistoryImportRequest.
@@ -60,6 +60,11 @@ func (c *MessagesCheckHistoryImportRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *MessagesCheckHistoryImportRequest) TypeID() uint32 {
 	return MessagesCheckHistoryImportRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *MessagesCheckHistoryImportRequest) SchemaName() string {
+	return "messages.checkHistoryImport"
 }
 
 // Encode implements bin.Encoder.

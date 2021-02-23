@@ -27,9 +27,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/contacts.resetTopPeerRating for reference.
 type ContactsResetTopPeerRatingRequest struct {
 	// Top peer category
-	Category TopPeerCategoryClass
+	Category TopPeerCategoryClass `schemaname:"category"`
 	// Peer whose rating should be reset
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 }
 
 // ContactsResetTopPeerRatingRequestTypeID is TL type id of ContactsResetTopPeerRatingRequest.
@@ -71,6 +71,11 @@ func (r *ContactsResetTopPeerRatingRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ContactsResetTopPeerRatingRequest) TypeID() uint32 {
 	return ContactsResetTopPeerRatingRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *ContactsResetTopPeerRatingRequest) SchemaName() string {
+	return "contacts.resetTopPeerRating"
 }
 
 // Encode implements bin.Encoder.

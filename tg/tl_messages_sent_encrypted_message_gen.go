@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.sentEncryptedMessage for reference.
 type MessagesSentEncryptedMessage struct {
 	// Date of sending
-	Date int
+	Date int `schemaname:"date"`
 }
 
 // MessagesSentEncryptedMessageTypeID is TL type id of MessagesSentEncryptedMessage.
@@ -61,6 +61,11 @@ func (s *MessagesSentEncryptedMessage) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSentEncryptedMessage) TypeID() uint32 {
 	return MessagesSentEncryptedMessageTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *MessagesSentEncryptedMessage) SchemaName() string {
+	return "messages.sentEncryptedMessage"
 }
 
 // Encode implements bin.Encoder.
@@ -113,9 +118,9 @@ var (
 // See https://core.telegram.org/constructor/messages.sentEncryptedFile for reference.
 type MessagesSentEncryptedFile struct {
 	// Sending date
-	Date int
+	Date int `schemaname:"date"`
 	// Attached file
-	File EncryptedFileClass
+	File EncryptedFileClass `schemaname:"file"`
 }
 
 // MessagesSentEncryptedFileTypeID is TL type id of MessagesSentEncryptedFile.
@@ -157,6 +162,11 @@ func (s *MessagesSentEncryptedFile) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSentEncryptedFile) TypeID() uint32 {
 	return MessagesSentEncryptedFileTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *MessagesSentEncryptedFile) SchemaName() string {
+	return "messages.sentEncryptedFile"
 }
 
 // Encode implements bin.Encoder.
@@ -240,16 +250,18 @@ type MessagesSentEncryptedMessageClass interface {
 	bin.Decoder
 	construct() MessagesSentEncryptedMessageClass
 
-	// Date of sending
-	GetDate() (value int)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Date of sending
+	GetDate() (value int)
 }
 
 // DecodeMessagesSentEncryptedMessage implements binary de-serialization for MessagesSentEncryptedMessageClass.

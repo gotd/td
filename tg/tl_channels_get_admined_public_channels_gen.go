@@ -32,9 +32,9 @@ type ChannelsGetAdminedPublicChannelsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Get geogroups
-	ByLocation bool
+	ByLocation bool `schemaname:"by_location"`
 	// If set and the user has reached the limit of owned public channels/supergroups/geogroups¹, instead of returning the channel list one of the specified errors² will be returned.Useful to check if a new public channel can indeed be created, even before asking the user to enter a channel username to use in channels.checkUsername³/channels.updateUsername⁴.
 	//
 	// Links:
@@ -42,7 +42,7 @@ type ChannelsGetAdminedPublicChannelsRequest struct {
 	//  2) https://core.telegram.org#possible-errors
 	//  3) https://core.telegram.org/method/channels.checkUsername
 	//  4) https://core.telegram.org/method/channels.updateUsername
-	CheckLimit bool
+	CheckLimit bool `schemaname:"check_limit"`
 }
 
 // ChannelsGetAdminedPublicChannelsRequestTypeID is TL type id of ChannelsGetAdminedPublicChannelsRequest.
@@ -79,12 +79,19 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) FillFrom(from interface {
 	GetByLocation() (value bool)
 	GetCheckLimit() (value bool)
 }) {
+	g.ByLocation = from.GetByLocation()
+	g.CheckLimit = from.GetCheckLimit()
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *ChannelsGetAdminedPublicChannelsRequest) TypeID() uint32 {
 	return ChannelsGetAdminedPublicChannelsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *ChannelsGetAdminedPublicChannelsRequest) SchemaName() string {
+	return "channels.getAdminedPublicChannels"
 }
 
 // Encode implements bin.Encoder.

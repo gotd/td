@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/method/upload.saveFilePart for reference.
 type UploadSaveFilePartRequest struct {
 	// Random file identifier created by the client
-	FileID int64
+	FileID int64 `schemaname:"file_id"`
 	// Numerical order of a part
-	FilePart int
+	FilePart int `schemaname:"file_part"`
 	// Binary data, contend of a part
-	Bytes []byte
+	Bytes []byte `schemaname:"bytes"`
 }
 
 // UploadSaveFilePartRequestTypeID is TL type id of UploadSaveFilePartRequest.
@@ -75,6 +75,11 @@ func (s *UploadSaveFilePartRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *UploadSaveFilePartRequest) TypeID() uint32 {
 	return UploadSaveFilePartRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *UploadSaveFilePartRequest) SchemaName() string {
+	return "upload.saveFilePart"
 }
 
 // Encode implements bin.Encoder.

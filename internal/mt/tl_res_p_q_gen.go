@@ -21,13 +21,13 @@ var _ = errors.Is
 // ResPQ represents TL type `resPQ#5162463`.
 type ResPQ struct {
 	// Nonce field of ResPQ.
-	Nonce bin.Int128
+	Nonce bin.Int128 `schemaname:"nonce"`
 	// ServerNonce field of ResPQ.
-	ServerNonce bin.Int128
+	ServerNonce bin.Int128 `schemaname:"server_nonce"`
 	// Pq field of ResPQ.
-	Pq []byte
+	Pq []byte `schemaname:"pq"`
 	// ServerPublicKeyFingerprints field of ResPQ.
-	ServerPublicKeyFingerprints []int64
+	ServerPublicKeyFingerprints []int64 `schemaname:"server_public_key_fingerprints"`
 }
 
 // ResPQTypeID is TL type id of ResPQ.
@@ -79,6 +79,11 @@ func (r *ResPQ) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ResPQ) TypeID() uint32 {
 	return ResPQTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *ResPQ) SchemaName() string {
+	return "resPQ"
 }
 
 // Encode implements bin.Encoder.

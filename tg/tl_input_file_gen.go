@@ -27,16 +27,16 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/inputFile for reference.
 type InputFile struct {
 	// Random file identifier created by the client
-	ID int64
+	ID int64 `schemaname:"id"`
 	// Number of parts saved
-	Parts int
+	Parts int `schemaname:"parts"`
 	// Full name of the file
-	Name string
+	Name string `schemaname:"name"`
 	// In case the file's md5-hash¹ was passed, contents of the file will be checked prior to use
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/MD5#MD5_hashes
-	MD5Checksum string
+	MD5Checksum string `schemaname:"md5_checksum"`
 }
 
 // InputFileTypeID is TL type id of InputFile.
@@ -88,6 +88,11 @@ func (i *InputFile) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputFile) TypeID() uint32 {
 	return InputFileTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputFile) SchemaName() string {
+	return "inputFile"
 }
 
 // Encode implements bin.Encoder.
@@ -182,11 +187,11 @@ var (
 // See https://core.telegram.org/constructor/inputFileBig for reference.
 type InputFileBig struct {
 	// Random file id, created by the client
-	ID int64
+	ID int64 `schemaname:"id"`
 	// Number of parts saved
-	Parts int
+	Parts int `schemaname:"parts"`
 	// Full file name
-	Name string
+	Name string `schemaname:"name"`
 }
 
 // InputFileBigTypeID is TL type id of InputFileBig.
@@ -233,6 +238,11 @@ func (i *InputFileBig) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputFileBig) TypeID() uint32 {
 	return InputFileBigTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputFileBig) SchemaName() string {
+	return "inputFileBig"
 }
 
 // Encode implements bin.Encoder.
@@ -324,20 +334,22 @@ type InputFileClass interface {
 	bin.Decoder
 	construct() InputFileClass
 
+	// TypeID returns MTProto type id (CRC code).
+	// See https://core.telegram.org/mtproto/TL-tl#remarks.
+	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
+	// String implements fmt.Stringer.
+	String() string
+	// Zero returns true if current object has a zero value.
+	Zero() bool
+
 	// Random file identifier created by the client
 	GetID() (value int64)
 	// Number of parts saved
 	GetParts() (value int)
 	// Full name of the file
 	GetName() (value string)
-
-	// TypeID returns MTProto type id (CRC code).
-	// See https://core.telegram.org/mtproto/TL-tl#remarks.
-	TypeID() uint32
-	// String implements fmt.Stringer.
-	String() string
-	// Zero returns true if current object has a zero value.
-	Zero() bool
 }
 
 // DecodeInputFile implements binary de-serialization for InputFileClass.

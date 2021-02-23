@@ -51,6 +51,11 @@ func (g *HelpGetConfigRequest) TypeID() uint32 {
 	return HelpGetConfigRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *HelpGetConfigRequest) SchemaName() string {
+	return "help.getConfig"
+}
+
 // Encode implements bin.Encoder.
 func (g *HelpGetConfigRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

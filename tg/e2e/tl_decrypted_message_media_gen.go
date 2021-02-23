@@ -50,6 +50,11 @@ func (d *DecryptedMessageMediaEmpty) TypeID() uint32 {
 	return DecryptedMessageMediaEmptyTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageMediaEmpty) SchemaName() string {
+	return "decryptedMessageMediaEmpty"
+}
+
 // Encode implements bin.Encoder.
 func (d *DecryptedMessageMediaEmpty) Encode(b *bin.Buffer) error {
 	if d == nil {
@@ -86,21 +91,21 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaPhoto23 for reference.
 type DecryptedMessageMediaPhoto23 struct {
 	// Thumb field of DecryptedMessageMediaPhoto23.
-	Thumb []byte
+	Thumb []byte `schemaname:"thumb"`
 	// ThumbW field of DecryptedMessageMediaPhoto23.
-	ThumbW int
+	ThumbW int `schemaname:"thumb_w"`
 	// ThumbH field of DecryptedMessageMediaPhoto23.
-	ThumbH int
+	ThumbH int `schemaname:"thumb_h"`
 	// W field of DecryptedMessageMediaPhoto23.
-	W int
+	W int `schemaname:"w"`
 	// H field of DecryptedMessageMediaPhoto23.
-	H int
+	H int `schemaname:"h"`
 	// Size field of DecryptedMessageMediaPhoto23.
-	Size int
+	Size int `schemaname:"size"`
 	// Key field of DecryptedMessageMediaPhoto23.
-	Key []byte
+	Key []byte `schemaname:"key"`
 	// Iv field of DecryptedMessageMediaPhoto23.
-	Iv []byte
+	Iv []byte `schemaname:"iv"`
 }
 
 // DecryptedMessageMediaPhoto23TypeID is TL type id of DecryptedMessageMediaPhoto23.
@@ -172,6 +177,11 @@ func (d *DecryptedMessageMediaPhoto23) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaPhoto23) TypeID() uint32 {
 	return DecryptedMessageMediaPhoto23TypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageMediaPhoto23) SchemaName() string {
+	return "decryptedMessageMediaPhoto23"
 }
 
 // Encode implements bin.Encoder.
@@ -314,23 +324,23 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaVideo8 for reference.
 type DecryptedMessageMediaVideo8 struct {
 	// Thumb field of DecryptedMessageMediaVideo8.
-	Thumb []byte
+	Thumb []byte `schemaname:"thumb"`
 	// ThumbW field of DecryptedMessageMediaVideo8.
-	ThumbW int
+	ThumbW int `schemaname:"thumb_w"`
 	// ThumbH field of DecryptedMessageMediaVideo8.
-	ThumbH int
+	ThumbH int `schemaname:"thumb_h"`
 	// Duration field of DecryptedMessageMediaVideo8.
-	Duration int
+	Duration int `schemaname:"duration"`
 	// W field of DecryptedMessageMediaVideo8.
-	W int
+	W int `schemaname:"w"`
 	// H field of DecryptedMessageMediaVideo8.
-	H int
+	H int `schemaname:"h"`
 	// Size field of DecryptedMessageMediaVideo8.
-	Size int
+	Size int `schemaname:"size"`
 	// Key field of DecryptedMessageMediaVideo8.
-	Key []byte
+	Key []byte `schemaname:"key"`
 	// Iv field of DecryptedMessageMediaVideo8.
-	Iv []byte
+	Iv []byte `schemaname:"iv"`
 }
 
 // DecryptedMessageMediaVideo8TypeID is TL type id of DecryptedMessageMediaVideo8.
@@ -407,6 +417,11 @@ func (d *DecryptedMessageMediaVideo8) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaVideo8) TypeID() uint32 {
 	return DecryptedMessageMediaVideo8TypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageMediaVideo8) SchemaName() string {
+	return "decryptedMessageMediaVideo8"
 }
 
 // Encode implements bin.Encoder.
@@ -562,9 +577,9 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaGeoPoint for reference.
 type DecryptedMessageMediaGeoPoint struct {
 	// Lat field of DecryptedMessageMediaGeoPoint.
-	Lat float64
+	Lat float64 `schemaname:"lat"`
 	// Long field of DecryptedMessageMediaGeoPoint.
-	Long float64
+	Long float64 `schemaname:"long"`
 }
 
 // DecryptedMessageMediaGeoPointTypeID is TL type id of DecryptedMessageMediaGeoPoint.
@@ -606,6 +621,11 @@ func (d *DecryptedMessageMediaGeoPoint) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaGeoPoint) TypeID() uint32 {
 	return DecryptedMessageMediaGeoPointTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageMediaGeoPoint) SchemaName() string {
+	return "decryptedMessageMediaGeoPoint"
 }
 
 // Encode implements bin.Encoder.
@@ -670,13 +690,13 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaContact for reference.
 type DecryptedMessageMediaContact struct {
 	// PhoneNumber field of DecryptedMessageMediaContact.
-	PhoneNumber string
+	PhoneNumber string `schemaname:"phone_number"`
 	// FirstName field of DecryptedMessageMediaContact.
-	FirstName string
+	FirstName string `schemaname:"first_name"`
 	// LastName field of DecryptedMessageMediaContact.
-	LastName string
+	LastName string `schemaname:"last_name"`
 	// UserID field of DecryptedMessageMediaContact.
-	UserID int
+	UserID int `schemaname:"user_id"`
 }
 
 // DecryptedMessageMediaContactTypeID is TL type id of DecryptedMessageMediaContact.
@@ -728,6 +748,11 @@ func (d *DecryptedMessageMediaContact) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaContact) TypeID() uint32 {
 	return DecryptedMessageMediaContactTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageMediaContact) SchemaName() string {
+	return "decryptedMessageMediaContact"
 }
 
 // Encode implements bin.Encoder.
@@ -818,21 +843,21 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaDocument23 for reference.
 type DecryptedMessageMediaDocument23 struct {
 	// Thumb field of DecryptedMessageMediaDocument23.
-	Thumb []byte
+	Thumb []byte `schemaname:"thumb"`
 	// ThumbW field of DecryptedMessageMediaDocument23.
-	ThumbW int
+	ThumbW int `schemaname:"thumb_w"`
 	// ThumbH field of DecryptedMessageMediaDocument23.
-	ThumbH int
+	ThumbH int `schemaname:"thumb_h"`
 	// FileName field of DecryptedMessageMediaDocument23.
-	FileName string
+	FileName string `schemaname:"file_name"`
 	// MimeType field of DecryptedMessageMediaDocument23.
-	MimeType string
+	MimeType string `schemaname:"mime_type"`
 	// Size field of DecryptedMessageMediaDocument23.
-	Size int
+	Size int `schemaname:"size"`
 	// Key field of DecryptedMessageMediaDocument23.
-	Key []byte
+	Key []byte `schemaname:"key"`
 	// Iv field of DecryptedMessageMediaDocument23.
-	Iv []byte
+	Iv []byte `schemaname:"iv"`
 }
 
 // DecryptedMessageMediaDocument23TypeID is TL type id of DecryptedMessageMediaDocument23.
@@ -904,6 +929,11 @@ func (d *DecryptedMessageMediaDocument23) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaDocument23) TypeID() uint32 {
 	return DecryptedMessageMediaDocument23TypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageMediaDocument23) SchemaName() string {
+	return "decryptedMessageMediaDocument23"
 }
 
 // Encode implements bin.Encoder.
@@ -1046,13 +1076,13 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaAudio8 for reference.
 type DecryptedMessageMediaAudio8 struct {
 	// Duration field of DecryptedMessageMediaAudio8.
-	Duration int
+	Duration int `schemaname:"duration"`
 	// Size field of DecryptedMessageMediaAudio8.
-	Size int
+	Size int `schemaname:"size"`
 	// Key field of DecryptedMessageMediaAudio8.
-	Key []byte
+	Key []byte `schemaname:"key"`
 	// Iv field of DecryptedMessageMediaAudio8.
-	Iv []byte
+	Iv []byte `schemaname:"iv"`
 }
 
 // DecryptedMessageMediaAudio8TypeID is TL type id of DecryptedMessageMediaAudio8.
@@ -1104,6 +1134,11 @@ func (d *DecryptedMessageMediaAudio8) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaAudio8) TypeID() uint32 {
 	return DecryptedMessageMediaAudio8TypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageMediaAudio8) SchemaName() string {
+	return "decryptedMessageMediaAudio8"
 }
 
 // Encode implements bin.Encoder.
@@ -1194,25 +1229,25 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaVideo23 for reference.
 type DecryptedMessageMediaVideo23 struct {
 	// Thumb field of DecryptedMessageMediaVideo23.
-	Thumb []byte
+	Thumb []byte `schemaname:"thumb"`
 	// ThumbW field of DecryptedMessageMediaVideo23.
-	ThumbW int
+	ThumbW int `schemaname:"thumb_w"`
 	// ThumbH field of DecryptedMessageMediaVideo23.
-	ThumbH int
+	ThumbH int `schemaname:"thumb_h"`
 	// Duration field of DecryptedMessageMediaVideo23.
-	Duration int
+	Duration int `schemaname:"duration"`
 	// MimeType field of DecryptedMessageMediaVideo23.
-	MimeType string
+	MimeType string `schemaname:"mime_type"`
 	// W field of DecryptedMessageMediaVideo23.
-	W int
+	W int `schemaname:"w"`
 	// H field of DecryptedMessageMediaVideo23.
-	H int
+	H int `schemaname:"h"`
 	// Size field of DecryptedMessageMediaVideo23.
-	Size int
+	Size int `schemaname:"size"`
 	// Key field of DecryptedMessageMediaVideo23.
-	Key []byte
+	Key []byte `schemaname:"key"`
 	// Iv field of DecryptedMessageMediaVideo23.
-	Iv []byte
+	Iv []byte `schemaname:"iv"`
 }
 
 // DecryptedMessageMediaVideo23TypeID is TL type id of DecryptedMessageMediaVideo23.
@@ -1294,6 +1329,11 @@ func (d *DecryptedMessageMediaVideo23) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaVideo23) TypeID() uint32 {
 	return DecryptedMessageMediaVideo23TypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageMediaVideo23) SchemaName() string {
+	return "decryptedMessageMediaVideo23"
 }
 
 // Encode implements bin.Encoder.
@@ -1462,15 +1502,15 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaAudio for reference.
 type DecryptedMessageMediaAudio struct {
 	// Duration field of DecryptedMessageMediaAudio.
-	Duration int
+	Duration int `schemaname:"duration"`
 	// MimeType field of DecryptedMessageMediaAudio.
-	MimeType string
+	MimeType string `schemaname:"mime_type"`
 	// Size field of DecryptedMessageMediaAudio.
-	Size int
+	Size int `schemaname:"size"`
 	// Key field of DecryptedMessageMediaAudio.
-	Key []byte
+	Key []byte `schemaname:"key"`
 	// Iv field of DecryptedMessageMediaAudio.
-	Iv []byte
+	Iv []byte `schemaname:"iv"`
 }
 
 // DecryptedMessageMediaAudioTypeID is TL type id of DecryptedMessageMediaAudio.
@@ -1527,6 +1567,11 @@ func (d *DecryptedMessageMediaAudio) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaAudio) TypeID() uint32 {
 	return DecryptedMessageMediaAudioTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageMediaAudio) SchemaName() string {
+	return "decryptedMessageMediaAudio"
 }
 
 // Encode implements bin.Encoder.
@@ -1630,21 +1675,21 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaExternalDocument for reference.
 type DecryptedMessageMediaExternalDocument struct {
 	// ID field of DecryptedMessageMediaExternalDocument.
-	ID int64
+	ID int64 `schemaname:"id"`
 	// AccessHash field of DecryptedMessageMediaExternalDocument.
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 	// Date field of DecryptedMessageMediaExternalDocument.
-	Date int
+	Date int `schemaname:"date"`
 	// MimeType field of DecryptedMessageMediaExternalDocument.
-	MimeType string
+	MimeType string `schemaname:"mime_type"`
 	// Size field of DecryptedMessageMediaExternalDocument.
-	Size int
+	Size int `schemaname:"size"`
 	// Thumb field of DecryptedMessageMediaExternalDocument.
-	Thumb PhotoSizeClass
+	Thumb PhotoSizeClass `schemaname:"thumb"`
 	// DCID field of DecryptedMessageMediaExternalDocument.
-	DCID int
+	DCID int `schemaname:"dc_id"`
 	// Attributes field of DecryptedMessageMediaExternalDocument.
-	Attributes []DocumentAttributeClass
+	Attributes []DocumentAttributeClass `schemaname:"attributes"`
 }
 
 // DecryptedMessageMediaExternalDocumentTypeID is TL type id of DecryptedMessageMediaExternalDocument.
@@ -1716,6 +1761,11 @@ func (d *DecryptedMessageMediaExternalDocument) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaExternalDocument) TypeID() uint32 {
 	return DecryptedMessageMediaExternalDocumentTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageMediaExternalDocument) SchemaName() string {
+	return "decryptedMessageMediaExternalDocument"
 }
 
 // Encode implements bin.Encoder.
@@ -1882,23 +1932,23 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaPhoto for reference.
 type DecryptedMessageMediaPhoto struct {
 	// Thumb field of DecryptedMessageMediaPhoto.
-	Thumb []byte
+	Thumb []byte `schemaname:"thumb"`
 	// ThumbW field of DecryptedMessageMediaPhoto.
-	ThumbW int
+	ThumbW int `schemaname:"thumb_w"`
 	// ThumbH field of DecryptedMessageMediaPhoto.
-	ThumbH int
+	ThumbH int `schemaname:"thumb_h"`
 	// W field of DecryptedMessageMediaPhoto.
-	W int
+	W int `schemaname:"w"`
 	// H field of DecryptedMessageMediaPhoto.
-	H int
+	H int `schemaname:"h"`
 	// Size field of DecryptedMessageMediaPhoto.
-	Size int
+	Size int `schemaname:"size"`
 	// Key field of DecryptedMessageMediaPhoto.
-	Key []byte
+	Key []byte `schemaname:"key"`
 	// Iv field of DecryptedMessageMediaPhoto.
-	Iv []byte
+	Iv []byte `schemaname:"iv"`
 	// Caption field of DecryptedMessageMediaPhoto.
-	Caption string
+	Caption string `schemaname:"caption"`
 }
 
 // DecryptedMessageMediaPhotoTypeID is TL type id of DecryptedMessageMediaPhoto.
@@ -1975,6 +2025,11 @@ func (d *DecryptedMessageMediaPhoto) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaPhoto) TypeID() uint32 {
 	return DecryptedMessageMediaPhotoTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageMediaPhoto) SchemaName() string {
+	return "decryptedMessageMediaPhoto"
 }
 
 // Encode implements bin.Encoder.
@@ -2130,27 +2185,27 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaVideo for reference.
 type DecryptedMessageMediaVideo struct {
 	// Thumb field of DecryptedMessageMediaVideo.
-	Thumb []byte
+	Thumb []byte `schemaname:"thumb"`
 	// ThumbW field of DecryptedMessageMediaVideo.
-	ThumbW int
+	ThumbW int `schemaname:"thumb_w"`
 	// ThumbH field of DecryptedMessageMediaVideo.
-	ThumbH int
+	ThumbH int `schemaname:"thumb_h"`
 	// Duration field of DecryptedMessageMediaVideo.
-	Duration int
+	Duration int `schemaname:"duration"`
 	// MimeType field of DecryptedMessageMediaVideo.
-	MimeType string
+	MimeType string `schemaname:"mime_type"`
 	// W field of DecryptedMessageMediaVideo.
-	W int
+	W int `schemaname:"w"`
 	// H field of DecryptedMessageMediaVideo.
-	H int
+	H int `schemaname:"h"`
 	// Size field of DecryptedMessageMediaVideo.
-	Size int
+	Size int `schemaname:"size"`
 	// Key field of DecryptedMessageMediaVideo.
-	Key []byte
+	Key []byte `schemaname:"key"`
 	// Iv field of DecryptedMessageMediaVideo.
-	Iv []byte
+	Iv []byte `schemaname:"iv"`
 	// Caption field of DecryptedMessageMediaVideo.
-	Caption string
+	Caption string `schemaname:"caption"`
 }
 
 // DecryptedMessageMediaVideoTypeID is TL type id of DecryptedMessageMediaVideo.
@@ -2237,6 +2292,11 @@ func (d *DecryptedMessageMediaVideo) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaVideo) TypeID() uint32 {
 	return DecryptedMessageMediaVideoTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageMediaVideo) SchemaName() string {
+	return "decryptedMessageMediaVideo"
 }
 
 // Encode implements bin.Encoder.
@@ -2418,23 +2478,23 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaDocument for reference.
 type DecryptedMessageMediaDocument struct {
 	// Thumb field of DecryptedMessageMediaDocument.
-	Thumb []byte
+	Thumb []byte `schemaname:"thumb"`
 	// ThumbW field of DecryptedMessageMediaDocument.
-	ThumbW int
+	ThumbW int `schemaname:"thumb_w"`
 	// ThumbH field of DecryptedMessageMediaDocument.
-	ThumbH int
+	ThumbH int `schemaname:"thumb_h"`
 	// MimeType field of DecryptedMessageMediaDocument.
-	MimeType string
+	MimeType string `schemaname:"mime_type"`
 	// Size field of DecryptedMessageMediaDocument.
-	Size int
+	Size int `schemaname:"size"`
 	// Key field of DecryptedMessageMediaDocument.
-	Key []byte
+	Key []byte `schemaname:"key"`
 	// Iv field of DecryptedMessageMediaDocument.
-	Iv []byte
+	Iv []byte `schemaname:"iv"`
 	// Attributes field of DecryptedMessageMediaDocument.
-	Attributes []DocumentAttributeClass
+	Attributes []DocumentAttributeClass `schemaname:"attributes"`
 	// Caption field of DecryptedMessageMediaDocument.
-	Caption string
+	Caption string `schemaname:"caption"`
 }
 
 // DecryptedMessageMediaDocumentTypeID is TL type id of DecryptedMessageMediaDocument.
@@ -2511,6 +2571,11 @@ func (d *DecryptedMessageMediaDocument) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaDocument) TypeID() uint32 {
 	return DecryptedMessageMediaDocumentTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageMediaDocument) SchemaName() string {
+	return "decryptedMessageMediaDocument"
 }
 
 // Encode implements bin.Encoder.
@@ -2685,17 +2750,17 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaVenue for reference.
 type DecryptedMessageMediaVenue struct {
 	// Lat field of DecryptedMessageMediaVenue.
-	Lat float64
+	Lat float64 `schemaname:"lat"`
 	// Long field of DecryptedMessageMediaVenue.
-	Long float64
+	Long float64 `schemaname:"long"`
 	// Title field of DecryptedMessageMediaVenue.
-	Title string
+	Title string `schemaname:"title"`
 	// Address field of DecryptedMessageMediaVenue.
-	Address string
+	Address string `schemaname:"address"`
 	// Provider field of DecryptedMessageMediaVenue.
-	Provider string
+	Provider string `schemaname:"provider"`
 	// VenueID field of DecryptedMessageMediaVenue.
-	VenueID string
+	VenueID string `schemaname:"venue_id"`
 }
 
 // DecryptedMessageMediaVenueTypeID is TL type id of DecryptedMessageMediaVenue.
@@ -2757,6 +2822,11 @@ func (d *DecryptedMessageMediaVenue) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaVenue) TypeID() uint32 {
 	return DecryptedMessageMediaVenueTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageMediaVenue) SchemaName() string {
+	return "decryptedMessageMediaVenue"
 }
 
 // Encode implements bin.Encoder.
@@ -2873,7 +2943,7 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaWebPage for reference.
 type DecryptedMessageMediaWebPage struct {
 	// URL field of DecryptedMessageMediaWebPage.
-	URL string
+	URL string `schemaname:"url"`
 }
 
 // DecryptedMessageMediaWebPageTypeID is TL type id of DecryptedMessageMediaWebPage.
@@ -2910,6 +2980,11 @@ func (d *DecryptedMessageMediaWebPage) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaWebPage) TypeID() uint32 {
 	return DecryptedMessageMediaWebPageTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DecryptedMessageMediaWebPage) SchemaName() string {
+	return "decryptedMessageMediaWebPage"
 }
 
 // Encode implements bin.Encoder.
@@ -2991,6 +3066,8 @@ type DecryptedMessageMediaClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

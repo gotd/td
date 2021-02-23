@@ -27,27 +27,27 @@ type WallPaperSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// If set, the wallpaper must be downscaled to fit in 450x450 square and then box-blurred with radius 12
-	Blur bool
+	Blur bool `schemaname:"blur"`
 	// If set, the background needs to be slightly moved when device is rotated
-	Motion bool
+	Motion bool `schemaname:"motion"`
 	// If set, a PNG pattern is to be combined with the color chosen by the user: the main color of the background in RGB24 format
 	//
 	// Use SetBackgroundColor and GetBackgroundColor helpers.
-	BackgroundColor int
+	BackgroundColor int `schemaname:"background_color"`
 	// If set, a PNG pattern is to be combined with the first and second background colors (RGB24 format) in a top-bottom gradient
 	//
 	// Use SetSecondBackgroundColor and GetSecondBackgroundColor helpers.
-	SecondBackgroundColor int
+	SecondBackgroundColor int `schemaname:"second_background_color"`
 	// Intensity of the pattern when it is shown above the main background color, 0-100
 	//
 	// Use SetIntensity and GetIntensity helpers.
-	Intensity int
+	Intensity int `schemaname:"intensity"`
 	// Clockwise rotation angle of the gradient, in degrees; 0-359. Should be always divisible by 45
 	//
 	// Use SetRotation and GetRotation helpers.
-	Rotation int
+	Rotation int `schemaname:"rotation"`
 }
 
 // WallPaperSettingsTypeID is TL type id of WallPaperSettings.
@@ -100,24 +100,35 @@ func (w *WallPaperSettings) FillFrom(from interface {
 	GetIntensity() (value int, ok bool)
 	GetRotation() (value int, ok bool)
 }) {
+	w.Blur = from.GetBlur()
+	w.Motion = from.GetMotion()
 	if val, ok := from.GetBackgroundColor(); ok {
 		w.BackgroundColor = val
 	}
+
 	if val, ok := from.GetSecondBackgroundColor(); ok {
 		w.SecondBackgroundColor = val
 	}
+
 	if val, ok := from.GetIntensity(); ok {
 		w.Intensity = val
 	}
+
 	if val, ok := from.GetRotation(); ok {
 		w.Rotation = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *WallPaperSettings) TypeID() uint32 {
 	return WallPaperSettingsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (w *WallPaperSettings) SchemaName() string {
+	return "wallPaperSettings"
 }
 
 // Encode implements bin.Encoder.

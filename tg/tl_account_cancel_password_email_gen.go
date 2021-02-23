@@ -54,6 +54,11 @@ func (c *AccountCancelPasswordEmailRequest) TypeID() uint32 {
 	return AccountCancelPasswordEmailRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (c *AccountCancelPasswordEmailRequest) SchemaName() string {
+	return "account.cancelPasswordEmail"
+}
+
 // Encode implements bin.Encoder.
 func (c *AccountCancelPasswordEmailRequest) Encode(b *bin.Buffer) error {
 	if c == nil {

@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/bots.sendCustomRequest for reference.
 type BotsSendCustomRequestRequest struct {
 	// The method name
-	CustomMethod string
+	CustomMethod string `schemaname:"custom_method"`
 	// JSON-serialized method parameters
-	Params DataJSON
+	Params DataJSON `schemaname:"params"`
 }
 
 // BotsSendCustomRequestRequestTypeID is TL type id of BotsSendCustomRequestRequest.
@@ -68,6 +68,11 @@ func (s *BotsSendCustomRequestRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *BotsSendCustomRequestRequest) TypeID() uint32 {
 	return BotsSendCustomRequestRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *BotsSendCustomRequestRequest) SchemaName() string {
+	return "bots.sendCustomRequest"
 }
 
 // Encode implements bin.Encoder.

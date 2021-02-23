@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/account.webAuthorizations for reference.
 type AccountWebAuthorizations struct {
 	// Web authorization list
-	Authorizations []WebAuthorization
+	Authorizations []WebAuthorization `schemaname:"authorizations"`
 	// Users
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 }
 
 // AccountWebAuthorizationsTypeID is TL type id of AccountWebAuthorizations.
@@ -68,6 +68,11 @@ func (w *AccountWebAuthorizations) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *AccountWebAuthorizations) TypeID() uint32 {
 	return AccountWebAuthorizationsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (w *AccountWebAuthorizations) SchemaName() string {
+	return "account.webAuthorizations"
 }
 
 // Encode implements bin.Encoder.

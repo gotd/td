@@ -27,36 +27,36 @@ type PollResults struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Similar to min¹ objects, used for poll constructors that are the same for all users so they don't have option chosen by the current user (you can use messages.getPollResults² to get the full poll results).
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/min
 	//  2) https://core.telegram.org/method/messages.getPollResults
-	Min bool
+	Min bool `schemaname:"min"`
 	// Poll results
 	//
 	// Use SetResults and GetResults helpers.
-	Results []PollAnswerVoters
+	Results []PollAnswerVoters `schemaname:"results"`
 	// Total number of people that voted in the poll
 	//
 	// Use SetTotalVoters and GetTotalVoters helpers.
-	TotalVoters int
+	TotalVoters int `schemaname:"total_voters"`
 	// IDs of the last users that recently voted in the poll
 	//
 	// Use SetRecentVoters and GetRecentVoters helpers.
-	RecentVoters []int
+	RecentVoters []int `schemaname:"recent_voters"`
 	// Explanation of quiz solution
 	//
 	// Use SetSolution and GetSolution helpers.
-	Solution string
+	Solution string `schemaname:"solution"`
 	// Message entities for styled text in quiz solution¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetSolutionEntities and GetSolutionEntities helpers.
-	SolutionEntities []MessageEntityClass
+	SolutionEntities []MessageEntityClass `schemaname:"solution_entities"`
 }
 
 // PollResultsTypeID is TL type id of PollResults.
@@ -109,27 +109,38 @@ func (p *PollResults) FillFrom(from interface {
 	GetSolution() (value string, ok bool)
 	GetSolutionEntities() (value []MessageEntityClass, ok bool)
 }) {
+	p.Min = from.GetMin()
 	if val, ok := from.GetResults(); ok {
 		p.Results = val
 	}
+
 	if val, ok := from.GetTotalVoters(); ok {
 		p.TotalVoters = val
 	}
+
 	if val, ok := from.GetRecentVoters(); ok {
 		p.RecentVoters = val
 	}
+
 	if val, ok := from.GetSolution(); ok {
 		p.Solution = val
 	}
+
 	if val, ok := from.GetSolutionEntities(); ok {
 		p.SolutionEntities = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PollResults) TypeID() uint32 {
 	return PollResultsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PollResults) SchemaName() string {
+	return "pollResults"
 }
 
 // Encode implements bin.Encoder.

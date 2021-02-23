@@ -27,12 +27,12 @@ type InputGameID struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/Game
-	ID int64
+	ID int64 `schemaname:"id"`
 	// access hash from Game¹ constructor
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/Game
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 }
 
 // InputGameIDTypeID is TL type id of InputGameID.
@@ -74,6 +74,11 @@ func (i *InputGameID) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputGameID) TypeID() uint32 {
 	return InputGameIDTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputGameID) SchemaName() string {
+	return "inputGameID"
 }
 
 // Encode implements bin.Encoder.
@@ -139,9 +144,9 @@ var (
 // See https://core.telegram.org/constructor/inputGameShortName for reference.
 type InputGameShortName struct {
 	// The bot that provides the game
-	BotID InputUserClass
+	BotID InputUserClass `schemaname:"bot_id"`
 	// The game's short name
-	ShortName string
+	ShortName string `schemaname:"short_name"`
 }
 
 // InputGameShortNameTypeID is TL type id of InputGameShortName.
@@ -183,6 +188,11 @@ func (i *InputGameShortName) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputGameShortName) TypeID() uint32 {
 	return InputGameShortNameTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputGameShortName) SchemaName() string {
+	return "inputGameShortName"
 }
 
 // Encode implements bin.Encoder.
@@ -269,6 +279,8 @@ type InputGameClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

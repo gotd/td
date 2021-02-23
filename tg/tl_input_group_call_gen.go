@@ -23,9 +23,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/inputGroupCall for reference.
 type InputGroupCall struct {
 	// ID field of InputGroupCall.
-	ID int64
+	ID int64 `schemaname:"id"`
 	// AccessHash field of InputGroupCall.
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 }
 
 // InputGroupCallTypeID is TL type id of InputGroupCall.
@@ -67,6 +67,11 @@ func (i *InputGroupCall) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputGroupCall) TypeID() uint32 {
 	return InputGroupCallTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputGroupCall) SchemaName() string {
+	return "inputGroupCall"
 }
 
 // Encode implements bin.Encoder.

@@ -27,11 +27,11 @@ type ChannelsEditLocationRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass
+	Channel InputChannelClass `schemaname:"channel"`
 	// New geolocation
-	GeoPoint InputGeoPointClass
+	GeoPoint InputGeoPointClass `schemaname:"geo_point"`
 	// Address string
-	Address string
+	Address string `schemaname:"address"`
 }
 
 // ChannelsEditLocationRequestTypeID is TL type id of ChannelsEditLocationRequest.
@@ -78,6 +78,11 @@ func (e *ChannelsEditLocationRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *ChannelsEditLocationRequest) TypeID() uint32 {
 	return ChannelsEditLocationRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *ChannelsEditLocationRequest) SchemaName() string {
+	return "channels.editLocation"
 }
 
 // Encode implements bin.Encoder.

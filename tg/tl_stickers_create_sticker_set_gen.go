@@ -27,23 +27,23 @@ type StickersCreateStickerSetRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether this is a mask stickerset
-	Masks bool
+	Masks bool `schemaname:"masks"`
 	// Whether this is an animated stickerset
-	Animated bool
+	Animated bool `schemaname:"animated"`
 	// Stickerset owner
-	UserID InputUserClass
+	UserID InputUserClass `schemaname:"user_id"`
 	// Stickerset name, 1-64 chars
-	Title string
+	Title string `schemaname:"title"`
 	// Sticker set name. Can contain only English letters, digits and underscores. Must end with "by" ( is case insensitive); 1-64 characters
-	ShortName string
+	ShortName string `schemaname:"short_name"`
 	// Thumbnail
 	//
 	// Use SetThumb and GetThumb helpers.
-	Thumb InputDocumentClass
+	Thumb InputDocumentClass `schemaname:"thumb"`
 	// Stickers
-	Stickers []InputStickerSetItem
+	Stickers []InputStickerSetItem `schemaname:"stickers"`
 }
 
 // StickersCreateStickerSetRequestTypeID is TL type id of StickersCreateStickerSetRequest.
@@ -100,12 +100,15 @@ func (c *StickersCreateStickerSetRequest) FillFrom(from interface {
 	GetThumb() (value InputDocumentClass, ok bool)
 	GetStickers() (value []InputStickerSetItem)
 }) {
+	c.Masks = from.GetMasks()
+	c.Animated = from.GetAnimated()
 	c.UserID = from.GetUserID()
 	c.Title = from.GetTitle()
 	c.ShortName = from.GetShortName()
 	if val, ok := from.GetThumb(); ok {
 		c.Thumb = val
 	}
+
 	c.Stickers = from.GetStickers()
 }
 
@@ -113,6 +116,11 @@ func (c *StickersCreateStickerSetRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *StickersCreateStickerSetRequest) TypeID() uint32 {
 	return StickersCreateStickerSetRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *StickersCreateStickerSetRequest) SchemaName() string {
+	return "stickers.createStickerSet"
 }
 
 // Encode implements bin.Encoder.

@@ -55,6 +55,11 @@ func (r *AuthRequestPasswordRecoveryRequest) TypeID() uint32 {
 	return AuthRequestPasswordRecoveryRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (r *AuthRequestPasswordRecoveryRequest) SchemaName() string {
+	return "auth.requestPasswordRecovery"
+}
+
 // Encode implements bin.Encoder.
 func (r *AuthRequestPasswordRecoveryRequest) Encode(b *bin.Buffer) error {
 	if r == nil {

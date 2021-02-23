@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/updates.differenceEmpty for reference.
 type UpdatesDifferenceEmpty struct {
 	// Current date
-	Date int
+	Date int `schemaname:"date"`
 	// Number of sent updates
-	Seq int
+	Seq int `schemaname:"seq"`
 }
 
 // UpdatesDifferenceEmptyTypeID is TL type id of UpdatesDifferenceEmpty.
@@ -68,6 +68,11 @@ func (d *UpdatesDifferenceEmpty) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *UpdatesDifferenceEmpty) TypeID() uint32 {
 	return UpdatesDifferenceEmptyTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *UpdatesDifferenceEmpty) SchemaName() string {
+	return "updates.differenceEmpty"
 }
 
 // Encode implements bin.Encoder.
@@ -133,17 +138,17 @@ var (
 // See https://core.telegram.org/constructor/updates.difference for reference.
 type UpdatesDifference struct {
 	// List of new messages
-	NewMessages []MessageClass
+	NewMessages []MessageClass `schemaname:"new_messages"`
 	// List of new encrypted secret chat messages
-	NewEncryptedMessages []EncryptedMessageClass
+	NewEncryptedMessages []EncryptedMessageClass `schemaname:"new_encrypted_messages"`
 	// List of updates
-	OtherUpdates []UpdateClass
+	OtherUpdates []UpdateClass `schemaname:"other_updates"`
 	// List of chats mentioned in events
-	Chats []ChatClass
+	Chats []ChatClass `schemaname:"chats"`
 	// List of users mentioned in events
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 	// Current state
-	State UpdatesState
+	State UpdatesState `schemaname:"state"`
 }
 
 // UpdatesDifferenceTypeID is TL type id of UpdatesDifference.
@@ -205,6 +210,11 @@ func (d *UpdatesDifference) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *UpdatesDifference) TypeID() uint32 {
 	return UpdatesDifferenceTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *UpdatesDifference) SchemaName() string {
+	return "updates.difference"
 }
 
 // Encode implements bin.Encoder.
@@ -417,20 +427,20 @@ var (
 // See https://core.telegram.org/constructor/updates.differenceSlice for reference.
 type UpdatesDifferenceSlice struct {
 	// List of new messgaes
-	NewMessages []MessageClass
+	NewMessages []MessageClass `schemaname:"new_messages"`
 	// New messages from the encrypted event sequence¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	NewEncryptedMessages []EncryptedMessageClass
+	NewEncryptedMessages []EncryptedMessageClass `schemaname:"new_encrypted_messages"`
 	// List of updates
-	OtherUpdates []UpdateClass
+	OtherUpdates []UpdateClass `schemaname:"other_updates"`
 	// List of chats mentioned in events
-	Chats []ChatClass
+	Chats []ChatClass `schemaname:"chats"`
 	// List of users mentioned in events
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 	// Intermediary state
-	IntermediateState UpdatesState
+	IntermediateState UpdatesState `schemaname:"intermediate_state"`
 }
 
 // UpdatesDifferenceSliceTypeID is TL type id of UpdatesDifferenceSlice.
@@ -492,6 +502,11 @@ func (d *UpdatesDifferenceSlice) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *UpdatesDifferenceSlice) TypeID() uint32 {
 	return UpdatesDifferenceSliceTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *UpdatesDifferenceSlice) SchemaName() string {
+	return "updates.differenceSlice"
 }
 
 // Encode implements bin.Encoder.
@@ -707,7 +722,7 @@ var (
 // See https://core.telegram.org/constructor/updates.differenceTooLong for reference.
 type UpdatesDifferenceTooLong struct {
 	// The new state to use.
-	Pts int
+	Pts int `schemaname:"pts"`
 }
 
 // UpdatesDifferenceTooLongTypeID is TL type id of UpdatesDifferenceTooLong.
@@ -744,6 +759,11 @@ func (d *UpdatesDifferenceTooLong) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *UpdatesDifferenceTooLong) TypeID() uint32 {
 	return UpdatesDifferenceTooLongTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *UpdatesDifferenceTooLong) SchemaName() string {
+	return "updates.differenceTooLong"
 }
 
 // Encode implements bin.Encoder.
@@ -814,6 +834,8 @@ type UpdatesDifferenceClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

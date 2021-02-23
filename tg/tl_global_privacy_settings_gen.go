@@ -27,11 +27,11 @@ type GlobalPrivacySettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether to archive and mute new chats from non-contacts
 	//
 	// Use SetArchiveAndMuteNewNoncontactPeers and GetArchiveAndMuteNewNoncontactPeers helpers.
-	ArchiveAndMuteNewNoncontactPeers bool
+	ArchiveAndMuteNewNoncontactPeers bool `schemaname:"archive_and_mute_new_noncontact_peers"`
 }
 
 // GlobalPrivacySettingsTypeID is TL type id of GlobalPrivacySettings.
@@ -67,12 +67,18 @@ func (g *GlobalPrivacySettings) FillFrom(from interface {
 	if val, ok := from.GetArchiveAndMuteNewNoncontactPeers(); ok {
 		g.ArchiveAndMuteNewNoncontactPeers = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *GlobalPrivacySettings) TypeID() uint32 {
 	return GlobalPrivacySettingsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *GlobalPrivacySettings) SchemaName() string {
+	return "globalPrivacySettings"
 }
 
 // Encode implements bin.Encoder.

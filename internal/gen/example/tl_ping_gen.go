@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/ping for reference.
 type PingRequest struct {
 	// ID field of PingRequest.
-	ID int32
+	ID int32 `schemaname:"id"`
 }
 
 // PingRequestTypeID is TL type id of PingRequest.
@@ -60,6 +60,11 @@ func (p *PingRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PingRequest) TypeID() uint32 {
 	return PingRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PingRequest) SchemaName() string {
+	return "ping"
 }
 
 // Encode implements bin.Encoder.

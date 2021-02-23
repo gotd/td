@@ -30,16 +30,16 @@ type UrlAuthResultRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether the bot would like to send messages to the user
-	RequestWriteAccess bool
+	RequestWriteAccess bool `schemaname:"request_write_access"`
 	// Username of a bot, which will be used for user authorization. If not specified, the current bot's username will be assumed. The url's domain must be the same as the domain linked with the bot. See Linking your domain to the bot¹ for more details.
 	//
 	// Links:
 	//  1) https://core.telegram.org/widgets/login#linking-your-domain-to-the-bot
-	Bot UserClass
+	Bot UserClass `schemaname:"bot"`
 	// The domain name of the website on which the user will log in.
-	Domain string
+	Domain string `schemaname:"domain"`
 }
 
 // UrlAuthResultRequestTypeID is TL type id of UrlAuthResultRequest.
@@ -80,6 +80,7 @@ func (u *UrlAuthResultRequest) FillFrom(from interface {
 	GetBot() (value UserClass)
 	GetDomain() (value string)
 }) {
+	u.RequestWriteAccess = from.GetRequestWriteAccess()
 	u.Bot = from.GetBot()
 	u.Domain = from.GetDomain()
 }
@@ -88,6 +89,11 @@ func (u *UrlAuthResultRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UrlAuthResultRequest) TypeID() uint32 {
 	return UrlAuthResultRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UrlAuthResultRequest) SchemaName() string {
+	return "urlAuthResultRequest"
 }
 
 // Encode implements bin.Encoder.
@@ -189,7 +195,7 @@ var (
 // See https://core.telegram.org/constructor/urlAuthResultAccepted for reference.
 type UrlAuthResultAccepted struct {
 	// The URL name of the website on which the user has logged in.
-	URL string
+	URL string `schemaname:"url"`
 }
 
 // UrlAuthResultAcceptedTypeID is TL type id of UrlAuthResultAccepted.
@@ -226,6 +232,11 @@ func (u *UrlAuthResultAccepted) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UrlAuthResultAccepted) TypeID() uint32 {
 	return UrlAuthResultAcceptedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UrlAuthResultAccepted) SchemaName() string {
+	return "urlAuthResultAccepted"
 }
 
 // Encode implements bin.Encoder.
@@ -308,6 +319,11 @@ func (u *UrlAuthResultDefault) TypeID() uint32 {
 	return UrlAuthResultDefaultTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (u *UrlAuthResultDefault) SchemaName() string {
+	return "urlAuthResultDefault"
+}
+
 // Encode implements bin.Encoder.
 func (u *UrlAuthResultDefault) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -362,6 +378,8 @@ type UrlAuthResultClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

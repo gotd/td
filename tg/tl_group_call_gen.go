@@ -23,11 +23,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/groupCallDiscarded for reference.
 type GroupCallDiscarded struct {
 	// ID field of GroupCallDiscarded.
-	ID int64
+	ID int64 `schemaname:"id"`
 	// AccessHash field of GroupCallDiscarded.
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 	// Duration field of GroupCallDiscarded.
-	Duration int
+	Duration int `schemaname:"duration"`
 }
 
 // GroupCallDiscardedTypeID is TL type id of GroupCallDiscarded.
@@ -74,6 +74,11 @@ func (g *GroupCallDiscarded) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *GroupCallDiscarded) TypeID() uint32 {
 	return GroupCallDiscardedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *GroupCallDiscarded) SchemaName() string {
+	return "groupCallDiscarded"
 }
 
 // Encode implements bin.Encoder.
@@ -151,23 +156,23 @@ var (
 // See https://core.telegram.org/constructor/groupCall for reference.
 type GroupCall struct {
 	// Flags field of GroupCall.
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// JoinMuted field of GroupCall.
-	JoinMuted bool
+	JoinMuted bool `schemaname:"join_muted"`
 	// CanChangeJoinMuted field of GroupCall.
-	CanChangeJoinMuted bool
+	CanChangeJoinMuted bool `schemaname:"can_change_join_muted"`
 	// ID field of GroupCall.
-	ID int64
+	ID int64 `schemaname:"id"`
 	// AccessHash field of GroupCall.
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 	// ParticipantsCount field of GroupCall.
-	ParticipantsCount int
+	ParticipantsCount int `schemaname:"participants_count"`
 	// Params field of GroupCall.
 	//
 	// Use SetParams and GetParams helpers.
-	Params DataJSON
+	Params DataJSON `schemaname:"params"`
 	// Version field of GroupCall.
-	Version int
+	Version int `schemaname:"version"`
 }
 
 // GroupCallTypeID is TL type id of GroupCall.
@@ -224,12 +229,15 @@ func (g *GroupCall) FillFrom(from interface {
 	GetParams() (value DataJSON, ok bool)
 	GetVersion() (value int)
 }) {
+	g.JoinMuted = from.GetJoinMuted()
+	g.CanChangeJoinMuted = from.GetCanChangeJoinMuted()
 	g.ID = from.GetID()
 	g.AccessHash = from.GetAccessHash()
 	g.ParticipantsCount = from.GetParticipantsCount()
 	if val, ok := from.GetParams(); ok {
 		g.Params = val
 	}
+
 	g.Version = from.GetVersion()
 }
 
@@ -237,6 +245,11 @@ func (g *GroupCall) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *GroupCall) TypeID() uint32 {
 	return GroupCallTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *GroupCall) SchemaName() string {
+	return "groupCall"
 }
 
 // Encode implements bin.Encoder.
@@ -417,18 +430,20 @@ type GroupCallClass interface {
 	bin.Decoder
 	construct() GroupCallClass
 
-	// ID field of GroupCallDiscarded.
-	GetID() (value int64)
-	// AccessHash field of GroupCallDiscarded.
-	GetAccessHash() (value int64)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// ID field of GroupCallDiscarded.
+	GetID() (value int64)
+	// AccessHash field of GroupCallDiscarded.
+	GetAccessHash() (value int64)
 }
 
 // AsInput tries to map GroupCall to InputGroupCall.

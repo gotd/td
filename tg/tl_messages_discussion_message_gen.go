@@ -30,34 +30,34 @@ type MessagesDiscussionMessage struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Discussion messages
-	Messages []MessageClass
+	Messages []MessageClass `schemaname:"messages"`
 	// Message ID of latest reply in this thread¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetMaxID and GetMaxID helpers.
-	MaxID int
+	MaxID int `schemaname:"max_id"`
 	// Message ID of latest read incoming message in this thread¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetReadInboxMaxID and GetReadInboxMaxID helpers.
-	ReadInboxMaxID int
+	ReadInboxMaxID int `schemaname:"read_inbox_max_id"`
 	// Message ID of latest read outgoing message in this thread¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetReadOutboxMaxID and GetReadOutboxMaxID helpers.
-	ReadOutboxMaxID int
+	ReadOutboxMaxID int `schemaname:"read_outbox_max_id"`
 	// Chats mentioned in constructor
-	Chats []ChatClass
+	Chats []ChatClass `schemaname:"chats"`
 	// Users mentioned in constructor
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 }
 
 // MessagesDiscussionMessageTypeID is TL type id of MessagesDiscussionMessage.
@@ -114,12 +114,15 @@ func (d *MessagesDiscussionMessage) FillFrom(from interface {
 	if val, ok := from.GetMaxID(); ok {
 		d.MaxID = val
 	}
+
 	if val, ok := from.GetReadInboxMaxID(); ok {
 		d.ReadInboxMaxID = val
 	}
+
 	if val, ok := from.GetReadOutboxMaxID(); ok {
 		d.ReadOutboxMaxID = val
 	}
+
 	d.Chats = from.GetChats()
 	d.Users = from.GetUsers()
 }
@@ -128,6 +131,11 @@ func (d *MessagesDiscussionMessage) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *MessagesDiscussionMessage) TypeID() uint32 {
 	return MessagesDiscussionMessageTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *MessagesDiscussionMessage) SchemaName() string {
+	return "messages.discussionMessage"
 }
 
 // Encode implements bin.Encoder.

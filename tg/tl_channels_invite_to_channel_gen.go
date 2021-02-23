@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/channels.inviteToChannel for reference.
 type ChannelsInviteToChannelRequest struct {
 	// Channel/supergroup
-	Channel InputChannelClass
+	Channel InputChannelClass `schemaname:"channel"`
 	// Users to invite
-	Users []InputUserClass
+	Users []InputUserClass `schemaname:"users"`
 }
 
 // ChannelsInviteToChannelRequestTypeID is TL type id of ChannelsInviteToChannelRequest.
@@ -68,6 +68,11 @@ func (i *ChannelsInviteToChannelRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *ChannelsInviteToChannelRequest) TypeID() uint32 {
 	return ChannelsInviteToChannelRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *ChannelsInviteToChannelRequest) SchemaName() string {
+	return "channels.inviteToChannel"
 }
 
 // Encode implements bin.Encoder.

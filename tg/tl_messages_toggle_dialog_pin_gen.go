@@ -27,11 +27,11 @@ type MessagesToggleDialogPinRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether to pin or unpin the dialog
-	Pinned bool
+	Pinned bool `schemaname:"pinned"`
 	// The dialog to pin
-	Peer InputDialogPeerClass
+	Peer InputDialogPeerClass `schemaname:"peer"`
 }
 
 // MessagesToggleDialogPinRequestTypeID is TL type id of MessagesToggleDialogPinRequest.
@@ -68,6 +68,7 @@ func (t *MessagesToggleDialogPinRequest) FillFrom(from interface {
 	GetPinned() (value bool)
 	GetPeer() (value InputDialogPeerClass)
 }) {
+	t.Pinned = from.GetPinned()
 	t.Peer = from.GetPeer()
 }
 
@@ -75,6 +76,11 @@ func (t *MessagesToggleDialogPinRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *MessagesToggleDialogPinRequest) TypeID() uint32 {
 	return MessagesToggleDialogPinRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *MessagesToggleDialogPinRequest) SchemaName() string {
+	return "messages.toggleDialogPin"
 }
 
 // Encode implements bin.Encoder.

@@ -27,39 +27,39 @@ type StickerSet struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether this stickerset was archived (due to too many saved stickers in the current account)
-	Archived bool
+	Archived bool `schemaname:"archived"`
 	// Is this stickerset official
-	Official bool
+	Official bool `schemaname:"official"`
 	// Is this a mask stickerset
-	Masks bool
+	Masks bool `schemaname:"masks"`
 	// Is this an animated stickerpack
-	Animated bool
+	Animated bool `schemaname:"animated"`
 	// When was this stickerset installed
 	//
 	// Use SetInstalledDate and GetInstalledDate helpers.
-	InstalledDate int
+	InstalledDate int `schemaname:"installed_date"`
 	// ID of the stickerset
-	ID int64
+	ID int64 `schemaname:"id"`
 	// Access hash of stickerset
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 	// Title of stickerset
-	Title string
+	Title string `schemaname:"title"`
 	// Short name of stickerset to use in tg://addstickers?set=short_name
-	ShortName string
+	ShortName string `schemaname:"short_name"`
 	// Thumbs field of StickerSet.
 	//
 	// Use SetThumbs and GetThumbs helpers.
-	Thumbs []PhotoSizeClass
+	Thumbs []PhotoSizeClass `schemaname:"thumbs"`
 	// DC ID of thumbnail
 	//
 	// Use SetThumbDCID and GetThumbDCID helpers.
-	ThumbDCID int
+	ThumbDCID int `schemaname:"thumb_dc_id"`
 	// Number of stickers in pack
-	Count int
+	Count int `schemaname:"count"`
 	// Hash
-	Hash int
+	Hash int `schemaname:"hash"`
 }
 
 // StickerSetTypeID is TL type id of StickerSet.
@@ -140,9 +140,14 @@ func (s *StickerSet) FillFrom(from interface {
 	GetCount() (value int)
 	GetHash() (value int)
 }) {
+	s.Archived = from.GetArchived()
+	s.Official = from.GetOfficial()
+	s.Masks = from.GetMasks()
+	s.Animated = from.GetAnimated()
 	if val, ok := from.GetInstalledDate(); ok {
 		s.InstalledDate = val
 	}
+
 	s.ID = from.GetID()
 	s.AccessHash = from.GetAccessHash()
 	s.Title = from.GetTitle()
@@ -150,9 +155,11 @@ func (s *StickerSet) FillFrom(from interface {
 	if val, ok := from.GetThumbs(); ok {
 		s.Thumbs = val
 	}
+
 	if val, ok := from.GetThumbDCID(); ok {
 		s.ThumbDCID = val
 	}
+
 	s.Count = from.GetCount()
 	s.Hash = from.GetHash()
 }
@@ -161,6 +168,11 @@ func (s *StickerSet) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StickerSet) TypeID() uint32 {
 	return StickerSetTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *StickerSet) SchemaName() string {
+	return "stickerSet"
 }
 
 // Encode implements bin.Encoder.

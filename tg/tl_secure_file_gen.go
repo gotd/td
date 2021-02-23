@@ -51,6 +51,11 @@ func (s *SecureFileEmpty) TypeID() uint32 {
 	return SecureFileEmptyTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (s *SecureFileEmpty) SchemaName() string {
+	return "secureFileEmpty"
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureFileEmpty) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -92,19 +97,19 @@ var (
 // See https://core.telegram.org/constructor/secureFile for reference.
 type SecureFile struct {
 	// ID
-	ID int64
+	ID int64 `schemaname:"id"`
 	// Access hash
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 	// File size
-	Size int
+	Size int `schemaname:"size"`
 	// DC ID
-	DCID int
+	DCID int `schemaname:"dc_id"`
 	// Date of upload
-	Date int
+	Date int `schemaname:"date"`
 	// File hash
-	FileHash []byte
+	FileHash []byte `schemaname:"file_hash"`
 	// Secret
-	Secret []byte
+	Secret []byte `schemaname:"secret"`
 }
 
 // SecureFileTypeID is TL type id of SecureFile.
@@ -171,6 +176,11 @@ func (s *SecureFile) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureFile) TypeID() uint32 {
 	return SecureFileTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SecureFile) SchemaName() string {
+	return "secureFile"
 }
 
 // Encode implements bin.Encoder.
@@ -314,16 +324,18 @@ type SecureFileClass interface {
 	bin.Decoder
 	construct() SecureFileClass
 
-	// AsNotEmpty tries to map SecureFileClass to SecureFile.
-	AsNotEmpty() (*SecureFile, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsNotEmpty tries to map SecureFileClass to SecureFile.
+	AsNotEmpty() (*SecureFile, bool)
 }
 
 // AsInputSecureFileLocation tries to map SecureFile to InputSecureFileLocation.

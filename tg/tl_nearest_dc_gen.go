@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/nearestDc for reference.
 type NearestDc struct {
 	// Country code determined by geo-ip
-	Country string
+	Country string `schemaname:"country"`
 	// Number of current data centre
-	ThisDC int
+	ThisDC int `schemaname:"this_dc"`
 	// Number of nearest data centre
-	NearestDC int
+	NearestDC int `schemaname:"nearest_dc"`
 }
 
 // NearestDcTypeID is TL type id of NearestDc.
@@ -75,6 +75,11 @@ func (n *NearestDc) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (n *NearestDc) TypeID() uint32 {
 	return NearestDcTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (n *NearestDc) SchemaName() string {
+	return "nearestDc"
 }
 
 // Encode implements bin.Encoder.

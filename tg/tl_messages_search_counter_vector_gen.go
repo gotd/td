@@ -21,7 +21,7 @@ var _ = errors.Is
 // MessagesSearchCounterVector is a box for Vector<messages.SearchCounter>
 type MessagesSearchCounterVector struct {
 	// Elements of Vector<messages.SearchCounter>
-	Elems []MessagesSearchCounter
+	Elems []MessagesSearchCounter `schemaname:"Elems"`
 }
 
 // MessagesSearchCounterVectorTypeID is TL type id of MessagesSearchCounterVector.
@@ -58,6 +58,11 @@ func (vec *MessagesSearchCounterVector) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *MessagesSearchCounterVector) TypeID() uint32 {
 	return MessagesSearchCounterVectorTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (vec *MessagesSearchCounterVector) SchemaName() string {
+	return ""
 }
 
 // Encode implements bin.Encoder.

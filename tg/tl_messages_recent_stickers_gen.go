@@ -51,6 +51,11 @@ func (r *MessagesRecentStickersNotModified) TypeID() uint32 {
 	return MessagesRecentStickersNotModifiedTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (r *MessagesRecentStickersNotModified) SchemaName() string {
+	return "messages.recentStickersNotModified"
+}
+
 // Encode implements bin.Encoder.
 func (r *MessagesRecentStickersNotModified) Encode(b *bin.Buffer) error {
 	if r == nil {
@@ -91,13 +96,13 @@ type MessagesRecentStickers struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int `schemaname:"hash"`
 	// Emojis associated to stickers
-	Packs []StickerPack
+	Packs []StickerPack `schemaname:"packs"`
 	// Recent stickers
-	Stickers []DocumentClass
+	Stickers []DocumentClass `schemaname:"stickers"`
 	// When was each sticker last used
-	Dates []int
+	Dates []int `schemaname:"dates"`
 }
 
 // MessagesRecentStickersTypeID is TL type id of MessagesRecentStickers.
@@ -149,6 +154,11 @@ func (r *MessagesRecentStickers) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *MessagesRecentStickers) TypeID() uint32 {
 	return MessagesRecentStickersTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *MessagesRecentStickers) SchemaName() string {
+	return "messages.recentStickers"
 }
 
 // Encode implements bin.Encoder.
@@ -292,16 +302,18 @@ type MessagesRecentStickersClass interface {
 	bin.Decoder
 	construct() MessagesRecentStickersClass
 
-	// AsModified tries to map MessagesRecentStickersClass to MessagesRecentStickers.
-	AsModified() (*MessagesRecentStickers, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsModified tries to map MessagesRecentStickersClass to MessagesRecentStickers.
+	AsModified() (*MessagesRecentStickers, bool)
 }
 
 // AsModified tries to map MessagesRecentStickersNotModified to MessagesRecentStickers.

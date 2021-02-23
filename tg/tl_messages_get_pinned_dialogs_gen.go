@@ -27,7 +27,7 @@ type MessagesGetPinnedDialogsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
-	FolderID int
+	FolderID int `schemaname:"folder_id"`
 }
 
 // MessagesGetPinnedDialogsRequestTypeID is TL type id of MessagesGetPinnedDialogsRequest.
@@ -64,6 +64,11 @@ func (g *MessagesGetPinnedDialogsRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetPinnedDialogsRequest) TypeID() uint32 {
 	return MessagesGetPinnedDialogsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *MessagesGetPinnedDialogsRequest) SchemaName() string {
+	return "messages.getPinnedDialogs"
 }
 
 // Encode implements bin.Encoder.

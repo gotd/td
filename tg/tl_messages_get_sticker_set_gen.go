@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getStickerSet for reference.
 type MessagesGetStickerSetRequest struct {
 	// Stickerset
-	Stickerset InputStickerSetClass
+	Stickerset InputStickerSetClass `schemaname:"stickerset"`
 }
 
 // MessagesGetStickerSetRequestTypeID is TL type id of MessagesGetStickerSetRequest.
@@ -61,6 +61,11 @@ func (g *MessagesGetStickerSetRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetStickerSetRequest) TypeID() uint32 {
 	return MessagesGetStickerSetRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *MessagesGetStickerSetRequest) SchemaName() string {
+	return "messages.getStickerSet"
 }
 
 // Encode implements bin.Encoder.

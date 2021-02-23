@@ -51,6 +51,11 @@ func (c *ChannelLocationEmpty) TypeID() uint32 {
 	return ChannelLocationEmptyTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (c *ChannelLocationEmpty) SchemaName() string {
+	return "channelLocationEmpty"
+}
+
 // Encode implements bin.Encoder.
 func (c *ChannelLocationEmpty) Encode(b *bin.Buffer) error {
 	if c == nil {
@@ -88,9 +93,9 @@ var (
 // See https://core.telegram.org/constructor/channelLocation for reference.
 type ChannelLocation struct {
 	// Geographical location of supergrup
-	GeoPoint GeoPointClass
+	GeoPoint GeoPointClass `schemaname:"geo_point"`
 	// Textual description of the address
-	Address string
+	Address string `schemaname:"address"`
 }
 
 // ChannelLocationTypeID is TL type id of ChannelLocation.
@@ -132,6 +137,11 @@ func (c *ChannelLocation) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelLocation) TypeID() uint32 {
 	return ChannelLocationTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChannelLocation) SchemaName() string {
+	return "channelLocation"
 }
 
 // Encode implements bin.Encoder.
@@ -215,16 +225,18 @@ type ChannelLocationClass interface {
 	bin.Decoder
 	construct() ChannelLocationClass
 
-	// AsNotEmpty tries to map ChannelLocationClass to ChannelLocation.
-	AsNotEmpty() (*ChannelLocation, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsNotEmpty tries to map ChannelLocationClass to ChannelLocation.
+	AsNotEmpty() (*ChannelLocation, bool)
 }
 
 // AsNotEmpty tries to map ChannelLocationEmpty to ChannelLocation.

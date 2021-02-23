@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/auth for reference.
 type Auth struct {
 	// Name field of Auth.
-	Name string
+	Name string `schemaname:"name"`
 }
 
 // AuthTypeID is TL type id of Auth.
@@ -60,6 +60,11 @@ func (a *Auth) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *Auth) TypeID() uint32 {
 	return AuthTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (a *Auth) SchemaName() string {
+	return "auth"
 }
 
 // Encode implements bin.Encoder.
@@ -111,9 +116,9 @@ var (
 // See https://localhost:80/doc/constructor/authPassword for reference.
 type AuthPassword struct {
 	// Name field of AuthPassword.
-	Name string
+	Name string `schemaname:"name"`
 	// Password field of AuthPassword.
-	Password string
+	Password string `schemaname:"password"`
 }
 
 // AuthPasswordTypeID is TL type id of AuthPassword.
@@ -155,6 +160,11 @@ func (a *AuthPassword) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *AuthPassword) TypeID() uint32 {
 	return AuthPasswordTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (a *AuthPassword) SchemaName() string {
+	return "authPassword"
 }
 
 // Encode implements bin.Encoder.
@@ -233,16 +243,18 @@ type AuthClass interface {
 	bin.Decoder
 	construct() AuthClass
 
-	// Name field of Auth.
-	GetName() (value string)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Name field of Auth.
+	GetName() (value string)
 }
 
 // DecodeAuth implements binary de-serialization for AuthClass.

@@ -27,34 +27,34 @@ type InitConnectionRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Application identifier (see. App configuration¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/myapp
-	APIID int
+	APIID int `schemaname:"api_id"`
 	// Device model
-	DeviceModel string
+	DeviceModel string `schemaname:"device_model"`
 	// Operation system version
-	SystemVersion string
+	SystemVersion string `schemaname:"system_version"`
 	// Application version
-	AppVersion string
+	AppVersion string `schemaname:"app_version"`
 	// Code for the language used on the device's OS, ISO 639-1 standard
-	SystemLangCode string
+	SystemLangCode string `schemaname:"system_lang_code"`
 	// Language pack to use
-	LangPack string
+	LangPack string `schemaname:"lang_pack"`
 	// Code for the language used on the client, ISO 639-1 standard
-	LangCode string
+	LangCode string `schemaname:"lang_code"`
 	// Info about an MTProto proxy
 	//
 	// Use SetProxy and GetProxy helpers.
-	Proxy InputClientProxy
+	Proxy InputClientProxy `schemaname:"proxy"`
 	// Additional initConnection parameters. For now, only the tz_offset field is supported, for specifying timezone offset in seconds.
 	//
 	// Use SetParams and GetParams helpers.
-	Params JSONValueClass
+	Params JSONValueClass `schemaname:"params"`
 	// The query itself
-	Query bin.Object
+	Query bin.Object `schemaname:"query"`
 }
 
 // InitConnectionRequestTypeID is TL type id of InitConnectionRequest.
@@ -133,9 +133,11 @@ func (i *InitConnectionRequest) FillFrom(from interface {
 	if val, ok := from.GetProxy(); ok {
 		i.Proxy = val
 	}
+
 	if val, ok := from.GetParams(); ok {
 		i.Params = val
 	}
+
 	i.Query = from.GetQuery()
 }
 
@@ -143,6 +145,11 @@ func (i *InitConnectionRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InitConnectionRequest) TypeID() uint32 {
 	return InitConnectionRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InitConnectionRequest) SchemaName() string {
+	return "initConnection"
 }
 
 // Encode implements bin.Encoder.

@@ -27,29 +27,29 @@ type Theme struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether the current user is the creator of this theme
-	Creator bool
+	Creator bool `schemaname:"creator"`
 	// Whether this is the default theme
-	Default bool
+	Default bool `schemaname:"default"`
 	// Theme ID
-	ID int64
+	ID int64 `schemaname:"id"`
 	// Theme access hash
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 	// Unique theme ID
-	Slug string
+	Slug string `schemaname:"slug"`
 	// Theme name
-	Title string
+	Title string `schemaname:"title"`
 	// Theme
 	//
 	// Use SetDocument and GetDocument helpers.
-	Document DocumentClass
+	Document DocumentClass `schemaname:"document"`
 	// Theme settings
 	//
 	// Use SetSettings and GetSettings helpers.
-	Settings ThemeSettings
+	Settings ThemeSettings `schemaname:"settings"`
 	// Installation count
-	InstallsCount int
+	InstallsCount int `schemaname:"installs_count"`
 }
 
 // ThemeTypeID is TL type id of Theme.
@@ -114,6 +114,8 @@ func (t *Theme) FillFrom(from interface {
 	GetSettings() (value ThemeSettings, ok bool)
 	GetInstallsCount() (value int)
 }) {
+	t.Creator = from.GetCreator()
+	t.Default = from.GetDefault()
 	t.ID = from.GetID()
 	t.AccessHash = from.GetAccessHash()
 	t.Slug = from.GetSlug()
@@ -121,9 +123,11 @@ func (t *Theme) FillFrom(from interface {
 	if val, ok := from.GetDocument(); ok {
 		t.Document = val
 	}
+
 	if val, ok := from.GetSettings(); ok {
 		t.Settings = val
 	}
+
 	t.InstallsCount = from.GetInstallsCount()
 }
 
@@ -131,6 +135,11 @@ func (t *Theme) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *Theme) TypeID() uint32 {
 	return ThemeTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *Theme) SchemaName() string {
+	return "theme"
 }
 
 // Encode implements bin.Encoder.

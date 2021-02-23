@@ -27,7 +27,7 @@ type MessagesGetAllStickersRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int `schemaname:"hash"`
 }
 
 // MessagesGetAllStickersRequestTypeID is TL type id of MessagesGetAllStickersRequest.
@@ -64,6 +64,11 @@ func (g *MessagesGetAllStickersRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetAllStickersRequest) TypeID() uint32 {
 	return MessagesGetAllStickersRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *MessagesGetAllStickersRequest) SchemaName() string {
+	return "messages.getAllStickers"
 }
 
 // Encode implements bin.Encoder.

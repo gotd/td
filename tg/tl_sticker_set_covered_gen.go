@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/stickerSetCovered for reference.
 type StickerSetCovered struct {
 	// Stickerset
-	Set StickerSet
+	Set StickerSet `schemaname:"set"`
 	// Preview
-	Cover DocumentClass
+	Cover DocumentClass `schemaname:"cover"`
 }
 
 // StickerSetCoveredTypeID is TL type id of StickerSetCovered.
@@ -68,6 +68,11 @@ func (s *StickerSetCovered) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StickerSetCovered) TypeID() uint32 {
 	return StickerSetCoveredTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *StickerSetCovered) SchemaName() string {
+	return "stickerSetCovered"
 }
 
 // Encode implements bin.Encoder.
@@ -138,9 +143,9 @@ var (
 // See https://core.telegram.org/constructor/stickerSetMultiCovered for reference.
 type StickerSetMultiCovered struct {
 	// Stickerset
-	Set StickerSet
+	Set StickerSet `schemaname:"set"`
 	// Preview stickers
-	Covers []DocumentClass
+	Covers []DocumentClass `schemaname:"covers"`
 }
 
 // StickerSetMultiCoveredTypeID is TL type id of StickerSetMultiCovered.
@@ -182,6 +187,11 @@ func (s *StickerSetMultiCovered) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StickerSetMultiCovered) TypeID() uint32 {
 	return StickerSetMultiCoveredTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *StickerSetMultiCovered) SchemaName() string {
+	return "stickerSetMultiCovered"
 }
 
 // Encode implements bin.Encoder.
@@ -279,16 +289,18 @@ type StickerSetCoveredClass interface {
 	bin.Decoder
 	construct() StickerSetCoveredClass
 
-	// Stickerset
-	GetSet() (value StickerSet)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Stickerset
+	GetSet() (value StickerSet)
 }
 
 // DecodeStickerSetCovered implements binary de-serialization for StickerSetCoveredClass.

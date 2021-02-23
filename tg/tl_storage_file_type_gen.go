@@ -51,6 +51,11 @@ func (f *StorageFileUnknown) TypeID() uint32 {
 	return StorageFileUnknownTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (f *StorageFileUnknown) SchemaName() string {
+	return "storage.fileUnknown"
+}
+
 // Encode implements bin.Encoder.
 func (f *StorageFileUnknown) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -113,6 +118,11 @@ func (f *StorageFilePartial) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *StorageFilePartial) TypeID() uint32 {
 	return StorageFilePartialTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (f *StorageFilePartial) SchemaName() string {
+	return "storage.filePartial"
 }
 
 // Encode implements bin.Encoder.
@@ -179,6 +189,11 @@ func (f *StorageFileJpeg) TypeID() uint32 {
 	return StorageFileJpegTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (f *StorageFileJpeg) SchemaName() string {
+	return "storage.fileJpeg"
+}
+
 // Encode implements bin.Encoder.
 func (f *StorageFileJpeg) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -241,6 +256,11 @@ func (f *StorageFileGif) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *StorageFileGif) TypeID() uint32 {
 	return StorageFileGifTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (f *StorageFileGif) SchemaName() string {
+	return "storage.fileGif"
 }
 
 // Encode implements bin.Encoder.
@@ -307,6 +327,11 @@ func (f *StorageFilePng) TypeID() uint32 {
 	return StorageFilePngTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (f *StorageFilePng) SchemaName() string {
+	return "storage.filePng"
+}
+
 // Encode implements bin.Encoder.
 func (f *StorageFilePng) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -369,6 +394,11 @@ func (f *StorageFilePdf) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *StorageFilePdf) TypeID() uint32 {
 	return StorageFilePdfTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (f *StorageFilePdf) SchemaName() string {
+	return "storage.filePdf"
 }
 
 // Encode implements bin.Encoder.
@@ -435,6 +465,11 @@ func (f *StorageFileMp3) TypeID() uint32 {
 	return StorageFileMp3TypeID
 }
 
+// SchemaName returns MTProto type name.
+func (f *StorageFileMp3) SchemaName() string {
+	return "storage.fileMp3"
+}
+
 // Encode implements bin.Encoder.
 func (f *StorageFileMp3) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -497,6 +532,11 @@ func (f *StorageFileMov) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *StorageFileMov) TypeID() uint32 {
 	return StorageFileMovTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (f *StorageFileMov) SchemaName() string {
+	return "storage.fileMov"
 }
 
 // Encode implements bin.Encoder.
@@ -563,6 +603,11 @@ func (f *StorageFileMp4) TypeID() uint32 {
 	return StorageFileMp4TypeID
 }
 
+// SchemaName returns MTProto type name.
+func (f *StorageFileMp4) SchemaName() string {
+	return "storage.fileMp4"
+}
+
 // Encode implements bin.Encoder.
 func (f *StorageFileMp4) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -627,6 +672,11 @@ func (f *StorageFileWebp) TypeID() uint32 {
 	return StorageFileWebpTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (f *StorageFileWebp) SchemaName() string {
+	return "storage.fileWebp"
+}
+
 // Encode implements bin.Encoder.
 func (f *StorageFileWebp) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -688,6 +738,8 @@ type StorageFileTypeClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

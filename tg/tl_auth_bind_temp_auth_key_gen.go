@@ -28,22 +28,22 @@ var _ = errors.Is
 // See https://core.telegram.org/method/auth.bindTempAuthKey for reference.
 type AuthBindTempAuthKeyRequest struct {
 	// Permanent auth_key_id to bind to
-	PermAuthKeyID int64
+	PermAuthKeyID int64 `schemaname:"perm_auth_key_id"`
 	// Random long from Binding message contents¹
 	//
 	// Links:
 	//  1) https://core.telegram.org#binding-message-contents
-	Nonce int64
+	Nonce int64 `schemaname:"nonce"`
 	// Unix timestamp to invalidate temporary key, see Binding message contents¹
 	//
 	// Links:
 	//  1) https://core.telegram.org#binding-message-contents
-	ExpiresAt int
+	ExpiresAt int `schemaname:"expires_at"`
 	// See Generating encrypted_message¹
 	//
 	// Links:
 	//  1) https://core.telegram.org#generating-encrypted-message
-	EncryptedMessage []byte
+	EncryptedMessage []byte `schemaname:"encrypted_message"`
 }
 
 // AuthBindTempAuthKeyRequestTypeID is TL type id of AuthBindTempAuthKeyRequest.
@@ -95,6 +95,11 @@ func (b *AuthBindTempAuthKeyRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *AuthBindTempAuthKeyRequest) TypeID() uint32 {
 	return AuthBindTempAuthKeyRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (b *AuthBindTempAuthKeyRequest) SchemaName() string {
+	return "auth.bindTempAuthKey"
 }
 
 // Encode implements bin.Encoder.

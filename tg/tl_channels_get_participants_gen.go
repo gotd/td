@@ -27,24 +27,24 @@ var _ = errors.Is
 // See https://core.telegram.org/method/channels.getParticipants for reference.
 type ChannelsGetParticipantsRequest struct {
 	// Channel
-	Channel InputChannelClass
+	Channel InputChannelClass `schemaname:"channel"`
 	// Which participant types to fetch
-	Filter ChannelParticipantsFilterClass
+	Filter ChannelParticipantsFilterClass `schemaname:"filter"`
 	// Offset¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Offset int
+	Offset int `schemaname:"offset"`
 	// Limit¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int
+	Limit int `schemaname:"limit"`
 	// Hash¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Hash int
+	Hash int `schemaname:"hash"`
 }
 
 // ChannelsGetParticipantsRequestTypeID is TL type id of ChannelsGetParticipantsRequest.
@@ -101,6 +101,11 @@ func (g *ChannelsGetParticipantsRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *ChannelsGetParticipantsRequest) TypeID() uint32 {
 	return ChannelsGetParticipantsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *ChannelsGetParticipantsRequest) SchemaName() string {
+	return "channels.getParticipants"
 }
 
 // Encode implements bin.Encoder.

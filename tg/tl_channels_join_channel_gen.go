@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/channels.joinChannel for reference.
 type ChannelsJoinChannelRequest struct {
 	// Channel/supergroup to join
-	Channel InputChannelClass
+	Channel InputChannelClass `schemaname:"channel"`
 }
 
 // ChannelsJoinChannelRequestTypeID is TL type id of ChannelsJoinChannelRequest.
@@ -61,6 +61,11 @@ func (j *ChannelsJoinChannelRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (j *ChannelsJoinChannelRequest) TypeID() uint32 {
 	return ChannelsJoinChannelRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (j *ChannelsJoinChannelRequest) SchemaName() string {
+	return "channels.joinChannel"
 }
 
 // Encode implements bin.Encoder.

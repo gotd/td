@@ -51,6 +51,11 @@ func (f *MessagesFoundStickerSetsNotModified) TypeID() uint32 {
 	return MessagesFoundStickerSetsNotModifiedTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (f *MessagesFoundStickerSetsNotModified) SchemaName() string {
+	return "messages.foundStickerSetsNotModified"
+}
+
 // Encode implements bin.Encoder.
 func (f *MessagesFoundStickerSetsNotModified) Encode(b *bin.Buffer) error {
 	if f == nil {
@@ -91,9 +96,9 @@ type MessagesFoundStickerSets struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int `schemaname:"hash"`
 	// Found stickersets
-	Sets []StickerSetCoveredClass
+	Sets []StickerSetCoveredClass `schemaname:"sets"`
 }
 
 // MessagesFoundStickerSetsTypeID is TL type id of MessagesFoundStickerSets.
@@ -135,6 +140,11 @@ func (f *MessagesFoundStickerSets) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *MessagesFoundStickerSets) TypeID() uint32 {
 	return MessagesFoundStickerSetsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (f *MessagesFoundStickerSets) SchemaName() string {
+	return "messages.foundStickerSets"
 }
 
 // Encode implements bin.Encoder.
@@ -232,16 +242,18 @@ type MessagesFoundStickerSetsClass interface {
 	bin.Decoder
 	construct() MessagesFoundStickerSetsClass
 
-	// AsModified tries to map MessagesFoundStickerSetsClass to MessagesFoundStickerSets.
-	AsModified() (*MessagesFoundStickerSets, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsModified tries to map MessagesFoundStickerSetsClass to MessagesFoundStickerSets.
+	AsModified() (*MessagesFoundStickerSets, bool)
 }
 
 // AsModified tries to map MessagesFoundStickerSetsNotModified to MessagesFoundStickerSets.

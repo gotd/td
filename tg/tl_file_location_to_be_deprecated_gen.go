@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/fileLocationToBeDeprecated for reference.
 type FileLocationToBeDeprecated struct {
 	// Volume ID
-	VolumeID int64
+	VolumeID int64 `schemaname:"volume_id"`
 	// Local ID
-	LocalID int
+	LocalID int `schemaname:"local_id"`
 }
 
 // FileLocationToBeDeprecatedTypeID is TL type id of FileLocationToBeDeprecated.
@@ -68,6 +68,11 @@ func (f *FileLocationToBeDeprecated) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *FileLocationToBeDeprecated) TypeID() uint32 {
 	return FileLocationToBeDeprecatedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (f *FileLocationToBeDeprecated) SchemaName() string {
+	return "fileLocationToBeDeprecated"
 }
 
 // Encode implements bin.Encoder.

@@ -51,6 +51,11 @@ func (g *AccountGetPasswordRequest) TypeID() uint32 {
 	return AccountGetPasswordRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *AccountGetPasswordRequest) SchemaName() string {
+	return "account.getPassword"
+}
+
 // Encode implements bin.Encoder.
 func (g *AccountGetPasswordRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

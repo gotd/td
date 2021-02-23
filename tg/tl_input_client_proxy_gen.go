@@ -27,9 +27,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/inputClientProxy for reference.
 type InputClientProxy struct {
 	// Proxy address
-	Address string
+	Address string `schemaname:"address"`
 	// Proxy port
-	Port int
+	Port int `schemaname:"port"`
 }
 
 // InputClientProxyTypeID is TL type id of InputClientProxy.
@@ -71,6 +71,11 @@ func (i *InputClientProxy) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputClientProxy) TypeID() uint32 {
 	return InputClientProxyTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputClientProxy) SchemaName() string {
+	return "inputClientProxy"
 }
 
 // Encode implements bin.Encoder.

@@ -27,9 +27,9 @@ type ReplyKeyboardHide struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Use this flag if you want to remove the keyboard for specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply (has reply_to_message_id), sender of the original message.Example: A user votes in a poll, bot returns confirmation message in reply to the vote and removes the keyboard for that user, while still showing the keyboard with poll options to users who haven't voted yet
-	Selective bool
+	Selective bool `schemaname:"selective"`
 }
 
 // ReplyKeyboardHideTypeID is TL type id of ReplyKeyboardHide.
@@ -62,12 +62,18 @@ func (r *ReplyKeyboardHide) String() string {
 func (r *ReplyKeyboardHide) FillFrom(from interface {
 	GetSelective() (value bool)
 }) {
+	r.Selective = from.GetSelective()
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ReplyKeyboardHide) TypeID() uint32 {
 	return ReplyKeyboardHideTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *ReplyKeyboardHide) SchemaName() string {
+	return "replyKeyboardHide"
 }
 
 // Encode implements bin.Encoder.
@@ -138,11 +144,11 @@ type ReplyKeyboardForceReply struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Requests clients to hide the keyboard as soon as it's been used. The keyboard will still be available, but clients will automatically display the usual letter-keyboard in the chat – the user can press a special button in the input field to see the custom keyboard again.
-	SingleUse bool
+	SingleUse bool `schemaname:"single_use"`
 	// Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply (has reply_to_message_id), sender of the original message. Example: A user requests to change the bot‘s language, bot replies to the request with a keyboard to select the new language. Other users in the group don’t see the keyboard.
-	Selective bool
+	Selective bool `schemaname:"selective"`
 }
 
 // ReplyKeyboardForceReplyTypeID is TL type id of ReplyKeyboardForceReply.
@@ -179,12 +185,19 @@ func (r *ReplyKeyboardForceReply) FillFrom(from interface {
 	GetSingleUse() (value bool)
 	GetSelective() (value bool)
 }) {
+	r.SingleUse = from.GetSingleUse()
+	r.Selective = from.GetSelective()
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ReplyKeyboardForceReply) TypeID() uint32 {
 	return ReplyKeyboardForceReplyTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *ReplyKeyboardForceReply) SchemaName() string {
+	return "replyKeyboardForceReply"
 }
 
 // Encode implements bin.Encoder.
@@ -275,15 +288,15 @@ type ReplyKeyboardMarkup struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Requests clients to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons). If not set, the custom keyboard is always of the same height as the app's standard keyboard.
-	Resize bool
+	Resize bool `schemaname:"resize"`
 	// Requests clients to hide the keyboard as soon as it's been used. The keyboard will still be available, but clients will automatically display the usual letter-keyboard in the chat – the user can press a special button in the input field to see the custom keyboard again.
-	SingleUse bool
+	SingleUse bool `schemaname:"single_use"`
 	// Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply (has reply_to_message_id), sender of the original message.Example: A user requests to change the bot‘s language, bot replies to the request with a keyboard to select the new language. Other users in the group don’t see the keyboard.
-	Selective bool
+	Selective bool `schemaname:"selective"`
 	// Button row
-	Rows []KeyboardButtonRow
+	Rows []KeyboardButtonRow `schemaname:"rows"`
 }
 
 // ReplyKeyboardMarkupTypeID is TL type id of ReplyKeyboardMarkup.
@@ -328,6 +341,9 @@ func (r *ReplyKeyboardMarkup) FillFrom(from interface {
 	GetSelective() (value bool)
 	GetRows() (value []KeyboardButtonRow)
 }) {
+	r.Resize = from.GetResize()
+	r.SingleUse = from.GetSingleUse()
+	r.Selective = from.GetSelective()
 	r.Rows = from.GetRows()
 }
 
@@ -335,6 +351,11 @@ func (r *ReplyKeyboardMarkup) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ReplyKeyboardMarkup) TypeID() uint32 {
 	return ReplyKeyboardMarkupTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *ReplyKeyboardMarkup) SchemaName() string {
+	return "replyKeyboardMarkup"
 }
 
 // Encode implements bin.Encoder.
@@ -466,7 +487,7 @@ var (
 // See https://core.telegram.org/constructor/replyInlineMarkup for reference.
 type ReplyInlineMarkup struct {
 	// Bot or inline keyboard rows
-	Rows []KeyboardButtonRow
+	Rows []KeyboardButtonRow `schemaname:"rows"`
 }
 
 // ReplyInlineMarkupTypeID is TL type id of ReplyInlineMarkup.
@@ -503,6 +524,11 @@ func (r *ReplyInlineMarkup) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ReplyInlineMarkup) TypeID() uint32 {
 	return ReplyInlineMarkupTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *ReplyInlineMarkup) SchemaName() string {
+	return "replyInlineMarkup"
 }
 
 // Encode implements bin.Encoder.
@@ -584,6 +610,8 @@ type ReplyMarkupClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

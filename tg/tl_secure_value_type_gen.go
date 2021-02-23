@@ -51,6 +51,11 @@ func (s *SecureValueTypePersonalDetails) TypeID() uint32 {
 	return SecureValueTypePersonalDetailsTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (s *SecureValueTypePersonalDetails) SchemaName() string {
+	return "secureValueTypePersonalDetails"
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueTypePersonalDetails) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -113,6 +118,11 @@ func (s *SecureValueTypePassport) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueTypePassport) TypeID() uint32 {
 	return SecureValueTypePassportTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SecureValueTypePassport) SchemaName() string {
+	return "secureValueTypePassport"
 }
 
 // Encode implements bin.Encoder.
@@ -179,6 +189,11 @@ func (s *SecureValueTypeDriverLicense) TypeID() uint32 {
 	return SecureValueTypeDriverLicenseTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (s *SecureValueTypeDriverLicense) SchemaName() string {
+	return "secureValueTypeDriverLicense"
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueTypeDriverLicense) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -241,6 +256,11 @@ func (s *SecureValueTypeIdentityCard) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueTypeIdentityCard) TypeID() uint32 {
 	return SecureValueTypeIdentityCardTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SecureValueTypeIdentityCard) SchemaName() string {
+	return "secureValueTypeIdentityCard"
 }
 
 // Encode implements bin.Encoder.
@@ -310,6 +330,11 @@ func (s *SecureValueTypeInternalPassport) TypeID() uint32 {
 	return SecureValueTypeInternalPassportTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (s *SecureValueTypeInternalPassport) SchemaName() string {
+	return "secureValueTypeInternalPassport"
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueTypeInternalPassport) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -372,6 +397,11 @@ func (s *SecureValueTypeAddress) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueTypeAddress) TypeID() uint32 {
 	return SecureValueTypeAddressTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SecureValueTypeAddress) SchemaName() string {
+	return "secureValueTypeAddress"
 }
 
 // Encode implements bin.Encoder.
@@ -438,6 +468,11 @@ func (s *SecureValueTypeUtilityBill) TypeID() uint32 {
 	return SecureValueTypeUtilityBillTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (s *SecureValueTypeUtilityBill) SchemaName() string {
+	return "secureValueTypeUtilityBill"
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueTypeUtilityBill) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -502,6 +537,11 @@ func (s *SecureValueTypeBankStatement) TypeID() uint32 {
 	return SecureValueTypeBankStatementTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (s *SecureValueTypeBankStatement) SchemaName() string {
+	return "secureValueTypeBankStatement"
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueTypeBankStatement) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -564,6 +604,11 @@ func (s *SecureValueTypeRentalAgreement) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueTypeRentalAgreement) TypeID() uint32 {
 	return SecureValueTypeRentalAgreementTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SecureValueTypeRentalAgreement) SchemaName() string {
+	return "secureValueTypeRentalAgreement"
 }
 
 // Encode implements bin.Encoder.
@@ -633,6 +678,11 @@ func (s *SecureValueTypePassportRegistration) TypeID() uint32 {
 	return SecureValueTypePassportRegistrationTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (s *SecureValueTypePassportRegistration) SchemaName() string {
+	return "secureValueTypePassportRegistration"
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueTypePassportRegistration) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -695,6 +745,11 @@ func (s *SecureValueTypeTemporaryRegistration) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueTypeTemporaryRegistration) TypeID() uint32 {
 	return SecureValueTypeTemporaryRegistrationTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SecureValueTypeTemporaryRegistration) SchemaName() string {
+	return "secureValueTypeTemporaryRegistration"
 }
 
 // Encode implements bin.Encoder.
@@ -761,6 +816,11 @@ func (s *SecureValueTypePhone) TypeID() uint32 {
 	return SecureValueTypePhoneTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (s *SecureValueTypePhone) SchemaName() string {
+	return "secureValueTypePhone"
+}
+
 // Encode implements bin.Encoder.
 func (s *SecureValueTypePhone) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -823,6 +883,11 @@ func (s *SecureValueTypeEmail) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueTypeEmail) TypeID() uint32 {
 	return SecureValueTypeEmailTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SecureValueTypeEmail) SchemaName() string {
+	return "secureValueTypeEmail"
 }
 
 // Encode implements bin.Encoder.
@@ -889,6 +954,8 @@ type SecureValueTypeClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

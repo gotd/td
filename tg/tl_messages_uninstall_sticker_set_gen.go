@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.uninstallStickerSet for reference.
 type MessagesUninstallStickerSetRequest struct {
 	// The stickerset to uninstall
-	Stickerset InputStickerSetClass
+	Stickerset InputStickerSetClass `schemaname:"stickerset"`
 }
 
 // MessagesUninstallStickerSetRequestTypeID is TL type id of MessagesUninstallStickerSetRequest.
@@ -61,6 +61,11 @@ func (u *MessagesUninstallStickerSetRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *MessagesUninstallStickerSetRequest) TypeID() uint32 {
 	return MessagesUninstallStickerSetRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *MessagesUninstallStickerSetRequest) SchemaName() string {
+	return "messages.uninstallStickerSet"
 }
 
 // Encode implements bin.Encoder.

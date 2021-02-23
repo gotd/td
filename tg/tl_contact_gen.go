@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/contact for reference.
 type Contact struct {
 	// User identifier
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// Current user is in the user's contact list
-	Mutual bool
+	Mutual bool `schemaname:"mutual"`
 }
 
 // ContactTypeID is TL type id of Contact.
@@ -68,6 +68,11 @@ func (c *Contact) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *Contact) TypeID() uint32 {
 	return ContactTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *Contact) SchemaName() string {
+	return "contact"
 }
 
 // Encode implements bin.Encoder.

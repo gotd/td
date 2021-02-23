@@ -28,9 +28,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/statsPercentValue for reference.
 type StatsPercentValue struct {
 	// Partial value
-	Part float64
+	Part float64 `schemaname:"part"`
 	// Total value
-	Total float64
+	Total float64 `schemaname:"total"`
 }
 
 // StatsPercentValueTypeID is TL type id of StatsPercentValue.
@@ -72,6 +72,11 @@ func (s *StatsPercentValue) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StatsPercentValue) TypeID() uint32 {
 	return StatsPercentValueTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *StatsPercentValue) SchemaName() string {
+	return "statsPercentValue"
 }
 
 // Encode implements bin.Encoder.

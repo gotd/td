@@ -24,17 +24,17 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getRecentLocations for reference.
 type MessagesGetRecentLocationsRequest struct {
 	// User
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// Maximum number of results to return, see pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int
+	Limit int `schemaname:"limit"`
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int `schemaname:"hash"`
 }
 
 // MessagesGetRecentLocationsRequestTypeID is TL type id of MessagesGetRecentLocationsRequest.
@@ -81,6 +81,11 @@ func (g *MessagesGetRecentLocationsRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetRecentLocationsRequest) TypeID() uint32 {
 	return MessagesGetRecentLocationsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *MessagesGetRecentLocationsRequest) SchemaName() string {
+	return "messages.getRecentLocations"
 }
 
 // Encode implements bin.Encoder.

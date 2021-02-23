@@ -27,12 +27,12 @@ var _ = errors.Is
 // See https://core.telegram.org/method/channels.setDiscussionGroup for reference.
 type ChannelsSetDiscussionGroupRequest struct {
 	// Channel
-	Broadcast InputChannelClass
+	Broadcast InputChannelClass `schemaname:"broadcast"`
 	// Discussion group¹ to associate to the channel
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/discussion
-	Group InputChannelClass
+	Group InputChannelClass `schemaname:"group"`
 }
 
 // ChannelsSetDiscussionGroupRequestTypeID is TL type id of ChannelsSetDiscussionGroupRequest.
@@ -74,6 +74,11 @@ func (s *ChannelsSetDiscussionGroupRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *ChannelsSetDiscussionGroupRequest) TypeID() uint32 {
 	return ChannelsSetDiscussionGroupRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *ChannelsSetDiscussionGroupRequest) SchemaName() string {
+	return "channels.setDiscussionGroup"
 }
 
 // Encode implements bin.Encoder.

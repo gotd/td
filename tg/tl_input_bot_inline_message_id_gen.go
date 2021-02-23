@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/inputBotInlineMessageID for reference.
 type InputBotInlineMessageID struct {
 	// DC ID to use when working with this inline message
-	DCID int
+	DCID int `schemaname:"dc_id"`
 	// ID of message
-	ID int64
+	ID int64 `schemaname:"id"`
 	// Access hash of message
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 }
 
 // InputBotInlineMessageIDTypeID is TL type id of InputBotInlineMessageID.
@@ -75,6 +75,11 @@ func (i *InputBotInlineMessageID) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputBotInlineMessageID) TypeID() uint32 {
 	return InputBotInlineMessageIDTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputBotInlineMessageID) SchemaName() string {
+	return "inputBotInlineMessageID"
 }
 
 // Encode implements bin.Encoder.

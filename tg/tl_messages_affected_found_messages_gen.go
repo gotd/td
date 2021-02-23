@@ -23,13 +23,13 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.affectedFoundMessages for reference.
 type MessagesAffectedFoundMessages struct {
 	// Pts field of MessagesAffectedFoundMessages.
-	Pts int
+	Pts int `schemaname:"pts"`
 	// PtsCount field of MessagesAffectedFoundMessages.
-	PtsCount int
+	PtsCount int `schemaname:"pts_count"`
 	// Offset field of MessagesAffectedFoundMessages.
-	Offset int
+	Offset int `schemaname:"offset"`
 	// Messages field of MessagesAffectedFoundMessages.
-	Messages []int
+	Messages []int `schemaname:"messages"`
 }
 
 // MessagesAffectedFoundMessagesTypeID is TL type id of MessagesAffectedFoundMessages.
@@ -81,6 +81,11 @@ func (a *MessagesAffectedFoundMessages) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *MessagesAffectedFoundMessages) TypeID() uint32 {
 	return MessagesAffectedFoundMessagesTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (a *MessagesAffectedFoundMessages) SchemaName() string {
+	return "messages.affectedFoundMessages"
 }
 
 // Encode implements bin.Encoder.

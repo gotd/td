@@ -27,18 +27,18 @@ type MessagesSendEncryptedRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Send encrypted message without a notification
-	Silent bool
+	Silent bool `schemaname:"silent"`
 	// Secret chat ID
-	Peer InputEncryptedChat
+	Peer InputEncryptedChat `schemaname:"peer"`
 	// Unique client message ID, necessary to avoid message resending
-	RandomID int64
+	RandomID int64 `schemaname:"random_id"`
 	// TL-serialization of DecryptedMessage¹ type, encrypted with a key that was created during chat initialization
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/DecryptedMessage
-	Data []byte
+	Data []byte `schemaname:"data"`
 }
 
 // MessagesSendEncryptedRequestTypeID is TL type id of MessagesSendEncryptedRequest.
@@ -83,6 +83,7 @@ func (s *MessagesSendEncryptedRequest) FillFrom(from interface {
 	GetRandomID() (value int64)
 	GetData() (value []byte)
 }) {
+	s.Silent = from.GetSilent()
 	s.Peer = from.GetPeer()
 	s.RandomID = from.GetRandomID()
 	s.Data = from.GetData()
@@ -92,6 +93,11 @@ func (s *MessagesSendEncryptedRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSendEncryptedRequest) TypeID() uint32 {
 	return MessagesSendEncryptedRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *MessagesSendEncryptedRequest) SchemaName() string {
+	return "messages.sendEncrypted"
 }
 
 // Encode implements bin.Encoder.

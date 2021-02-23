@@ -24,13 +24,13 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/savedPhoneContact for reference.
 type SavedPhoneContact struct {
 	// Phone number
-	Phone string
+	Phone string `schemaname:"phone"`
 	// First name
-	FirstName string
+	FirstName string `schemaname:"first_name"`
 	// Last name
-	LastName string
+	LastName string `schemaname:"last_name"`
 	// Date added
-	Date int
+	Date int `schemaname:"date"`
 }
 
 // SavedPhoneContactTypeID is TL type id of SavedPhoneContact.
@@ -82,6 +82,11 @@ func (s *SavedPhoneContact) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SavedPhoneContact) TypeID() uint32 {
 	return SavedPhoneContactTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SavedPhoneContact) SchemaName() string {
+	return "savedPhoneContact"
 }
 
 // Encode implements bin.Encoder.

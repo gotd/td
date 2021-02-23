@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/contactStatus for reference.
 type ContactStatus struct {
 	// User identifier
-	UserID int
+	UserID int `schemaname:"user_id"`
 	// Online status
-	Status UserStatusClass
+	Status UserStatusClass `schemaname:"status"`
 }
 
 // ContactStatusTypeID is TL type id of ContactStatus.
@@ -68,6 +68,11 @@ func (c *ContactStatus) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ContactStatus) TypeID() uint32 {
 	return ContactStatusTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ContactStatus) SchemaName() string {
+	return "contactStatus"
 }
 
 // Encode implements bin.Encoder.

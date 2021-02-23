@@ -21,7 +21,7 @@ var _ = errors.Is
 // WallPaperClassVector is a box for Vector<WallPaper>
 type WallPaperClassVector struct {
 	// Elements of Vector<WallPaper>
-	Elems []WallPaperClass
+	Elems []WallPaperClass `schemaname:"Elems"`
 }
 
 // WallPaperClassVectorTypeID is TL type id of WallPaperClassVector.
@@ -58,6 +58,11 @@ func (vec *WallPaperClassVector) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *WallPaperClassVector) TypeID() uint32 {
 	return WallPaperClassVectorTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (vec *WallPaperClassVector) SchemaName() string {
+	return ""
 }
 
 // Encode implements bin.Encoder.

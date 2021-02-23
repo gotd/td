@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/pageTableRow for reference.
 type PageTableRow struct {
 	// Table cells
-	Cells []PageTableCell
+	Cells []PageTableCell `schemaname:"cells"`
 }
 
 // PageTableRowTypeID is TL type id of PageTableRow.
@@ -61,6 +61,11 @@ func (p *PageTableRow) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageTableRow) TypeID() uint32 {
 	return PageTableRowTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PageTableRow) SchemaName() string {
+	return "pageTableRow"
 }
 
 // Encode implements bin.Encoder.

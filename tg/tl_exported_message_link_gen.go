@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/exportedMessageLink for reference.
 type ExportedMessageLink struct {
 	// URL
-	Link string
+	Link string `schemaname:"link"`
 	// Embed code
-	HTML string
+	HTML string `schemaname:"html"`
 }
 
 // ExportedMessageLinkTypeID is TL type id of ExportedMessageLink.
@@ -68,6 +68,11 @@ func (e *ExportedMessageLink) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *ExportedMessageLink) TypeID() uint32 {
 	return ExportedMessageLinkTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *ExportedMessageLink) SchemaName() string {
+	return "exportedMessageLink"
 }
 
 // Encode implements bin.Encoder.

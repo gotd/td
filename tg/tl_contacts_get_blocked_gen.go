@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/contacts.getBlocked for reference.
 type ContactsGetBlockedRequest struct {
 	// The number of list elements to be skipped
-	Offset int
+	Offset int `schemaname:"offset"`
 	// The number of list elements to be returned
-	Limit int
+	Limit int `schemaname:"limit"`
 }
 
 // ContactsGetBlockedRequestTypeID is TL type id of ContactsGetBlockedRequest.
@@ -68,6 +68,11 @@ func (g *ContactsGetBlockedRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *ContactsGetBlockedRequest) TypeID() uint32 {
 	return ContactsGetBlockedRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *ContactsGetBlockedRequest) SchemaName() string {
+	return "contacts.getBlocked"
 }
 
 // Encode implements bin.Encoder.

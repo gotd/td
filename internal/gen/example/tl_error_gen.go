@@ -23,11 +23,11 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/error for reference.
 type Error struct {
 	// Error code; subject to future changes. If the error code is 406, the error message must not be processed in any way and must not be displayed to the user
-	Code int32
+	Code int32 `schemaname:"code"`
 	// Error message; subject to future changes
-	Message string
+	Message string `schemaname:"message"`
 	// Temporary field of Error.
-	Temporary bool
+	Temporary bool `schemaname:"temporary"`
 }
 
 // ErrorTypeID is TL type id of Error.
@@ -74,6 +74,11 @@ func (e *Error) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *Error) TypeID() uint32 {
 	return ErrorTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *Error) SchemaName() string {
+	return "error"
 }
 
 // Encode implements bin.Encoder.

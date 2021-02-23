@@ -51,6 +51,11 @@ func (t *AccountThemesNotModified) TypeID() uint32 {
 	return AccountThemesNotModifiedTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (t *AccountThemesNotModified) SchemaName() string {
+	return "account.themesNotModified"
+}
+
 // Encode implements bin.Encoder.
 func (t *AccountThemesNotModified) Encode(b *bin.Buffer) error {
 	if t == nil {
@@ -91,9 +96,9 @@ type AccountThemes struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int `schemaname:"hash"`
 	// Themes
-	Themes []Theme
+	Themes []Theme `schemaname:"themes"`
 }
 
 // AccountThemesTypeID is TL type id of AccountThemes.
@@ -135,6 +140,11 @@ func (t *AccountThemes) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *AccountThemes) TypeID() uint32 {
 	return AccountThemesTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (t *AccountThemes) SchemaName() string {
+	return "account.themes"
 }
 
 // Encode implements bin.Encoder.
@@ -224,16 +234,18 @@ type AccountThemesClass interface {
 	bin.Decoder
 	construct() AccountThemesClass
 
-	// AsModified tries to map AccountThemesClass to AccountThemes.
-	AsModified() (*AccountThemes, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsModified tries to map AccountThemesClass to AccountThemes.
+	AsModified() (*AccountThemes, bool)
 }
 
 // AsModified tries to map AccountThemesNotModified to AccountThemes.

@@ -51,6 +51,11 @@ func (i *InputPhotoEmpty) TypeID() uint32 {
 	return InputPhotoEmptyTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputPhotoEmpty) SchemaName() string {
+	return "inputPhotoEmpty"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputPhotoEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -88,17 +93,17 @@ var (
 // See https://core.telegram.org/constructor/inputPhoto for reference.
 type InputPhoto struct {
 	// Photo identifier
-	ID int64
+	ID int64 `schemaname:"id"`
 	// access_hash value from the photo¹ constructor
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/photo
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 	// File reference¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/file_reference
-	FileReference []byte
+	FileReference []byte `schemaname:"file_reference"`
 }
 
 // InputPhotoTypeID is TL type id of InputPhoto.
@@ -145,6 +150,11 @@ func (i *InputPhoto) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPhoto) TypeID() uint32 {
 	return InputPhotoTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputPhoto) SchemaName() string {
+	return "inputPhoto"
 }
 
 // Encode implements bin.Encoder.
@@ -236,16 +246,18 @@ type InputPhotoClass interface {
 	bin.Decoder
 	construct() InputPhotoClass
 
-	// AsNotEmpty tries to map InputPhotoClass to InputPhoto.
-	AsNotEmpty() (*InputPhoto, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsNotEmpty tries to map InputPhotoClass to InputPhoto.
+	AsNotEmpty() (*InputPhoto, bool)
 }
 
 // AsInputPhotoFileLocation tries to map InputPhoto to InputPhotoFileLocation.

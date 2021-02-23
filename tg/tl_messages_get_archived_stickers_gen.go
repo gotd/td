@@ -27,19 +27,19 @@ type MessagesGetArchivedStickersRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Get mask stickers
-	Masks bool
+	Masks bool `schemaname:"masks"`
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetID int64
+	OffsetID int64 `schemaname:"offset_id"`
 	// Maximum number of results to return, see pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int
+	Limit int `schemaname:"limit"`
 }
 
 // MessagesGetArchivedStickersRequestTypeID is TL type id of MessagesGetArchivedStickersRequest.
@@ -80,6 +80,7 @@ func (g *MessagesGetArchivedStickersRequest) FillFrom(from interface {
 	GetOffsetID() (value int64)
 	GetLimit() (value int)
 }) {
+	g.Masks = from.GetMasks()
 	g.OffsetID = from.GetOffsetID()
 	g.Limit = from.GetLimit()
 }
@@ -88,6 +89,11 @@ func (g *MessagesGetArchivedStickersRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetArchivedStickersRequest) TypeID() uint32 {
 	return MessagesGetArchivedStickersRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *MessagesGetArchivedStickersRequest) SchemaName() string {
+	return "messages.getArchivedStickers"
 }
 
 // Encode implements bin.Encoder.

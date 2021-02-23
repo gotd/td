@@ -51,6 +51,11 @@ func (g *GeoPointEmpty) TypeID() uint32 {
 	return GeoPointEmptyTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *GeoPointEmpty) SchemaName() string {
+	return "geoPointEmpty"
+}
+
 // Encode implements bin.Encoder.
 func (g *GeoPointEmpty) Encode(b *bin.Buffer) error {
 	if g == nil {
@@ -91,17 +96,17 @@ type GeoPoint struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Longtitude
-	Long float64
+	Long float64 `schemaname:"long"`
 	// Latitude
-	Lat float64
+	Lat float64 `schemaname:"lat"`
 	// Access hash
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 	// The estimated horizontal accuracy of the location, in meters; as defined by the sender.
 	//
 	// Use SetAccuracyRadius and GetAccuracyRadius helpers.
-	AccuracyRadius int
+	AccuracyRadius int `schemaname:"accuracy_radius"`
 }
 
 // GeoPointTypeID is TL type id of GeoPoint.
@@ -152,12 +157,18 @@ func (g *GeoPoint) FillFrom(from interface {
 	if val, ok := from.GetAccuracyRadius(); ok {
 		g.AccuracyRadius = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *GeoPoint) TypeID() uint32 {
 	return GeoPointTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *GeoPoint) SchemaName() string {
+	return "geoPoint"
 }
 
 // Encode implements bin.Encoder.
@@ -285,16 +296,18 @@ type GeoPointClass interface {
 	bin.Decoder
 	construct() GeoPointClass
 
-	// AsNotEmpty tries to map GeoPointClass to GeoPoint.
-	AsNotEmpty() (*GeoPoint, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsNotEmpty tries to map GeoPointClass to GeoPoint.
+	AsNotEmpty() (*GeoPoint, bool)
 }
 
 // AsNotEmpty tries to map GeoPointEmpty to GeoPoint.

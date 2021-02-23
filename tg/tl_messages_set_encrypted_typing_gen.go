@@ -24,13 +24,13 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.setEncryptedTyping for reference.
 type MessagesSetEncryptedTypingRequest struct {
 	// Secret chat ID
-	Peer InputEncryptedChat
+	Peer InputEncryptedChat `schemaname:"peer"`
 	// Typing.Possible values:(boolTrue)¹, if the user started typing and more than 5 seconds have passed since the last request(boolFalse)², if the user stopped typing
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/boolTrue
 	//  2) https://core.telegram.org/constructor/boolFalse
-	Typing bool
+	Typing bool `schemaname:"typing"`
 }
 
 // MessagesSetEncryptedTypingRequestTypeID is TL type id of MessagesSetEncryptedTypingRequest.
@@ -72,6 +72,11 @@ func (s *MessagesSetEncryptedTypingRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSetEncryptedTypingRequest) TypeID() uint32 {
 	return MessagesSetEncryptedTypingRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *MessagesSetEncryptedTypingRequest) SchemaName() string {
+	return "messages.setEncryptedTyping"
 }
 
 // Encode implements bin.Encoder.

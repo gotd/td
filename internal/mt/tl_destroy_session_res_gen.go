@@ -21,7 +21,7 @@ var _ = errors.Is
 // DestroySessionOk represents TL type `destroy_session_ok#e22045fc`.
 type DestroySessionOk struct {
 	// SessionID field of DestroySessionOk.
-	SessionID int64
+	SessionID int64 `schemaname:"session_id"`
 }
 
 // DestroySessionOkTypeID is TL type id of DestroySessionOk.
@@ -58,6 +58,11 @@ func (d *DestroySessionOk) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DestroySessionOk) TypeID() uint32 {
 	return DestroySessionOkTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DestroySessionOk) SchemaName() string {
+	return "destroy_session_ok"
 }
 
 // Encode implements bin.Encoder.
@@ -107,7 +112,7 @@ var (
 // DestroySessionNone represents TL type `destroy_session_none#62d350c9`.
 type DestroySessionNone struct {
 	// SessionID field of DestroySessionNone.
-	SessionID int64
+	SessionID int64 `schemaname:"session_id"`
 }
 
 // DestroySessionNoneTypeID is TL type id of DestroySessionNone.
@@ -144,6 +149,11 @@ func (d *DestroySessionNone) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DestroySessionNone) TypeID() uint32 {
 	return DestroySessionNoneTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DestroySessionNone) SchemaName() string {
+	return "destroy_session_none"
 }
 
 // Encode implements bin.Encoder.
@@ -207,16 +217,18 @@ type DestroySessionResClass interface {
 	bin.Decoder
 	construct() DestroySessionResClass
 
-	// SessionID field of DestroySessionOk.
-	GetSessionID() (value int64)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// SessionID field of DestroySessionOk.
+	GetSessionID() (value int64)
 }
 
 // DecodeDestroySessionRes implements binary de-serialization for DestroySessionResClass.

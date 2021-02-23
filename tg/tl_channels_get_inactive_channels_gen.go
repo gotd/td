@@ -51,6 +51,11 @@ func (g *ChannelsGetInactiveChannelsRequest) TypeID() uint32 {
 	return ChannelsGetInactiveChannelsRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *ChannelsGetInactiveChannelsRequest) SchemaName() string {
+	return "channels.getInactiveChannels"
+}
+
 // Encode implements bin.Encoder.
 func (g *ChannelsGetInactiveChannelsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

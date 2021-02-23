@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/secureValueHash for reference.
 type SecureValueHash struct {
 	// Secure value type
-	Type SecureValueTypeClass
+	Type SecureValueTypeClass `schemaname:"type"`
 	// Hash
-	Hash []byte
+	Hash []byte `schemaname:"hash"`
 }
 
 // SecureValueHashTypeID is TL type id of SecureValueHash.
@@ -68,6 +68,11 @@ func (s *SecureValueHash) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueHash) TypeID() uint32 {
 	return SecureValueHashTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SecureValueHash) SchemaName() string {
+	return "secureValueHash"
 }
 
 // Encode implements bin.Encoder.

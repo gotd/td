@@ -54,6 +54,11 @@ func (t *True) TypeID() uint32 {
 	return TrueTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (t *True) SchemaName() string {
+	return "true"
+}
+
 // Encode implements bin.Encoder.
 func (t *True) Encode(b *bin.Buffer) error {
 	if t == nil {

@@ -27,52 +27,52 @@ type ChannelAdminLogEventsFilter struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Join events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantJoin
-	Join bool
+	Join bool `schemaname:"join"`
 	// Leave events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantLeave
-	Leave bool
+	Leave bool `schemaname:"leave"`
 	// Invite events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantInvite
-	Invite bool
+	Invite bool `schemaname:"invite"`
 	// Ban events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan
-	Ban bool
+	Ban bool `schemaname:"ban"`
 	// Unban events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan
-	Unban bool
+	Unban bool `schemaname:"unban"`
 	// Kick events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan
-	Kick bool
+	Kick bool `schemaname:"kick"`
 	// Unkick events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan
-	Unkick bool
+	Unkick bool `schemaname:"unkick"`
 	// Admin promotion events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleAdmin
-	Promote bool
+	Promote bool `schemaname:"promote"`
 	// Admin demotion events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleAdmin
-	Demote bool
+	Demote bool `schemaname:"demote"`
 	// Info change events (when about¹, linked chat², location³, photo⁴, stickerset⁵, title⁶ or username⁷ data of a channel gets modified)
 	//
 	// Links:
@@ -83,7 +83,7 @@ type ChannelAdminLogEventsFilter struct {
 	//  5) https://core.telegram.org/constructor/channelAdminLogEventActionChangeStickerSet
 	//  6) https://core.telegram.org/constructor/channelAdminLogEventActionChangeTitle
 	//  7) https://core.telegram.org/constructor/channelAdminLogEventActionChangeUsername
-	Info bool
+	Info bool `schemaname:"info"`
 	// Settings change events (invites¹, hidden prehistory², signatures³, default banned rights⁴)
 	//
 	// Links:
@@ -91,24 +91,24 @@ type ChannelAdminLogEventsFilter struct {
 	//  2) https://core.telegram.org/constructor/channelAdminLogEventActionTogglePreHistoryHidden
 	//  3) https://core.telegram.org/constructor/channelAdminLogEventActionToggleSignatures
 	//  4) https://core.telegram.org/constructor/channelAdminLogEventActionDefaultBannedRights
-	Settings bool
+	Settings bool `schemaname:"settings"`
 	// Message pin events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionUpdatePinned
-	Pinned bool
+	Pinned bool `schemaname:"pinned"`
 	// Message edit events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionEditMessage
-	Edit bool
+	Edit bool `schemaname:"edit"`
 	// Message deletion events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionDeleteMessage
-	Delete bool
+	Delete bool `schemaname:"delete"`
 	// GroupCall field of ChannelAdminLogEventsFilter.
-	GroupCall bool
+	GroupCall bool `schemaname:"group_call"`
 }
 
 // ChannelAdminLogEventsFilterTypeID is TL type id of ChannelAdminLogEventsFilter.
@@ -197,12 +197,32 @@ func (c *ChannelAdminLogEventsFilter) FillFrom(from interface {
 	GetDelete() (value bool)
 	GetGroupCall() (value bool)
 }) {
+	c.Join = from.GetJoin()
+	c.Leave = from.GetLeave()
+	c.Invite = from.GetInvite()
+	c.Ban = from.GetBan()
+	c.Unban = from.GetUnban()
+	c.Kick = from.GetKick()
+	c.Unkick = from.GetUnkick()
+	c.Promote = from.GetPromote()
+	c.Demote = from.GetDemote()
+	c.Info = from.GetInfo()
+	c.Settings = from.GetSettings()
+	c.Pinned = from.GetPinned()
+	c.Edit = from.GetEdit()
+	c.Delete = from.GetDelete()
+	c.GroupCall = from.GetGroupCall()
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventsFilter) TypeID() uint32 {
 	return ChannelAdminLogEventsFilterTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *ChannelAdminLogEventsFilter) SchemaName() string {
+	return "channelAdminLogEventsFilter"
 }
 
 // Encode implements bin.Encoder.

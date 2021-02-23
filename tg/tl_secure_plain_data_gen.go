@@ -28,7 +28,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/securePlainPhone for reference.
 type SecurePlainPhone struct {
 	// Phone number
-	Phone string
+	Phone string `schemaname:"phone"`
 }
 
 // SecurePlainPhoneTypeID is TL type id of SecurePlainPhone.
@@ -65,6 +65,11 @@ func (s *SecurePlainPhone) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecurePlainPhone) TypeID() uint32 {
 	return SecurePlainPhoneTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SecurePlainPhone) SchemaName() string {
+	return "securePlainPhone"
 }
 
 // Encode implements bin.Encoder.
@@ -121,7 +126,7 @@ var (
 // See https://core.telegram.org/constructor/securePlainEmail for reference.
 type SecurePlainEmail struct {
 	// Email address
-	Email string
+	Email string `schemaname:"email"`
 }
 
 // SecurePlainEmailTypeID is TL type id of SecurePlainEmail.
@@ -158,6 +163,11 @@ func (s *SecurePlainEmail) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecurePlainEmail) TypeID() uint32 {
 	return SecurePlainEmailTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SecurePlainEmail) SchemaName() string {
+	return "securePlainEmail"
 }
 
 // Encode implements bin.Encoder.
@@ -226,6 +236,8 @@ type SecurePlainDataClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

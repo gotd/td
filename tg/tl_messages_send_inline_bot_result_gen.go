@@ -30,43 +30,43 @@ type MessagesSendInlineBotResultRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether to send the message silently (no notification will be triggered on the other client)
-	Silent bool
+	Silent bool `schemaname:"silent"`
 	// Whether to send the message in background
-	Background bool
+	Background bool `schemaname:"background"`
 	// Whether to clear the draft¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/drafts
-	ClearDraft bool
+	ClearDraft bool `schemaname:"clear_draft"`
 	// Whether to hide the via @botname in the resulting message (only for bot usernames encountered in the config¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/config
-	HideVia bool
+	HideVia bool `schemaname:"hide_via"`
 	// Destination
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// ID of the message this message should reply to
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
-	ReplyToMsgID int
+	ReplyToMsgID int `schemaname:"reply_to_msg_id"`
 	// Random ID to avoid resending the same query
-	RandomID int64
+	RandomID int64 `schemaname:"random_id"`
 	// Query ID from messages.getInlineBotResults¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.getInlineBotResults
-	QueryID int64
+	QueryID int64 `schemaname:"query_id"`
 	// Result ID from messages.getInlineBotResults¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.getInlineBotResults
-	ID string
+	ID string `schemaname:"id"`
 	// Scheduled message date for scheduled messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
-	ScheduleDate int
+	ScheduleDate int `schemaname:"schedule_date"`
 }
 
 // MessagesSendInlineBotResultRequestTypeID is TL type id of MessagesSendInlineBotResultRequest.
@@ -135,22 +135,33 @@ func (s *MessagesSendInlineBotResultRequest) FillFrom(from interface {
 	GetID() (value string)
 	GetScheduleDate() (value int, ok bool)
 }) {
+	s.Silent = from.GetSilent()
+	s.Background = from.GetBackground()
+	s.ClearDraft = from.GetClearDraft()
+	s.HideVia = from.GetHideVia()
 	s.Peer = from.GetPeer()
 	if val, ok := from.GetReplyToMsgID(); ok {
 		s.ReplyToMsgID = val
 	}
+
 	s.RandomID = from.GetRandomID()
 	s.QueryID = from.GetQueryID()
 	s.ID = from.GetID()
 	if val, ok := from.GetScheduleDate(); ok {
 		s.ScheduleDate = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSendInlineBotResultRequest) TypeID() uint32 {
 	return MessagesSendInlineBotResultRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *MessagesSendInlineBotResultRequest) SchemaName() string {
+	return "messages.sendInlineBotResult"
 }
 
 // Encode implements bin.Encoder.

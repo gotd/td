@@ -27,39 +27,39 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/stats.megagroupStats for reference.
 type StatsMegagroupStats struct {
 	// Period in consideration
-	Period StatsDateRangeDays
+	Period StatsDateRangeDays `schemaname:"period"`
 	// Member count change for period in consideration
-	Members StatsAbsValueAndPrev
+	Members StatsAbsValueAndPrev `schemaname:"members"`
 	// Message number change for period in consideration
-	Messages StatsAbsValueAndPrev
+	Messages StatsAbsValueAndPrev `schemaname:"messages"`
 	// Number of users that viewed messages, for range in consideration
-	Viewers StatsAbsValueAndPrev
+	Viewers StatsAbsValueAndPrev `schemaname:"viewers"`
 	// Number of users that posted messages, for range in consideration
-	Posters StatsAbsValueAndPrev
+	Posters StatsAbsValueAndPrev `schemaname:"posters"`
 	// Supergroup growth graph (absolute subscriber count)
-	GrowthGraph StatsGraphClass
+	GrowthGraph StatsGraphClass `schemaname:"growth_graph"`
 	// Members growth (relative subscriber count)
-	MembersGraph StatsGraphClass
+	MembersGraph StatsGraphClass `schemaname:"members_graph"`
 	// New members by source graph
-	NewMembersBySourceGraph StatsGraphClass
+	NewMembersBySourceGraph StatsGraphClass `schemaname:"new_members_by_source_graph"`
 	// Subscriber language graph (piechart)
-	LanguagesGraph StatsGraphClass
+	LanguagesGraph StatsGraphClass `schemaname:"languages_graph"`
 	// Message activity graph (stacked bar graph, message type)
-	MessagesGraph StatsGraphClass
+	MessagesGraph StatsGraphClass `schemaname:"messages_graph"`
 	// Group activity graph (deleted, modified messages, blocked users)
-	ActionsGraph StatsGraphClass
+	ActionsGraph StatsGraphClass `schemaname:"actions_graph"`
 	// Activity per hour graph (absolute)
-	TopHoursGraph StatsGraphClass
+	TopHoursGraph StatsGraphClass `schemaname:"top_hours_graph"`
 	// Activity per day of week graph (absolute)
-	WeekdaysGraph StatsGraphClass
+	WeekdaysGraph StatsGraphClass `schemaname:"weekdays_graph"`
 	// Info about most active group members
-	TopPosters []StatsGroupTopPoster
+	TopPosters []StatsGroupTopPoster `schemaname:"top_posters"`
 	// Info about most active group admins
-	TopAdmins []StatsGroupTopAdmin
+	TopAdmins []StatsGroupTopAdmin `schemaname:"top_admins"`
 	// Info about most active group inviters
-	TopInviters []StatsGroupTopInviter
+	TopInviters []StatsGroupTopInviter `schemaname:"top_inviters"`
 	// Info about users mentioned in statistics
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 }
 
 // StatsMegagroupStatsTypeID is TL type id of StatsMegagroupStats.
@@ -176,6 +176,11 @@ func (m *StatsMegagroupStats) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *StatsMegagroupStats) TypeID() uint32 {
 	return StatsMegagroupStatsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (m *StatsMegagroupStats) SchemaName() string {
+	return "stats.megagroupStats"
 }
 
 // Encode implements bin.Encoder.

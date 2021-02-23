@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/channels.adminLogResults for reference.
 type ChannelsAdminLogResults struct {
 	// Admin log events
-	Events []ChannelAdminLogEvent
+	Events []ChannelAdminLogEvent `schemaname:"events"`
 	// Chats mentioned in events
-	Chats []ChatClass
+	Chats []ChatClass `schemaname:"chats"`
 	// Users mentioned in events
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 }
 
 // ChannelsAdminLogResultsTypeID is TL type id of ChannelsAdminLogResults.
@@ -75,6 +75,11 @@ func (a *ChannelsAdminLogResults) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *ChannelsAdminLogResults) TypeID() uint32 {
 	return ChannelsAdminLogResultsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (a *ChannelsAdminLogResults) SchemaName() string {
+	return "channels.adminLogResults"
 }
 
 // Encode implements bin.Encoder.

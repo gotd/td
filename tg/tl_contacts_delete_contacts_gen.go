@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/contacts.deleteContacts for reference.
 type ContactsDeleteContactsRequest struct {
 	// User ID list
-	ID []InputUserClass
+	ID []InputUserClass `schemaname:"id"`
 }
 
 // ContactsDeleteContactsRequestTypeID is TL type id of ContactsDeleteContactsRequest.
@@ -61,6 +61,11 @@ func (d *ContactsDeleteContactsRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *ContactsDeleteContactsRequest) TypeID() uint32 {
 	return ContactsDeleteContactsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *ContactsDeleteContactsRequest) SchemaName() string {
+	return "contacts.deleteContacts"
 }
 
 // Encode implements bin.Encoder.

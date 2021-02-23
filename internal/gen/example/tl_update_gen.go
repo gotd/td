@@ -23,9 +23,9 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/update for reference.
 type Update struct {
 	// Msg field of Update.
-	Msg AbstractMessageClass
+	Msg AbstractMessageClass `schemaname:"msg"`
 	// Delay field of Update.
-	Delay int32
+	Delay int32 `schemaname:"delay"`
 }
 
 // UpdateTypeID is TL type id of Update.
@@ -67,6 +67,11 @@ func (u *Update) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *Update) TypeID() uint32 {
 	return UpdateTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *Update) SchemaName() string {
+	return "update"
 }
 
 // Encode implements bin.Encoder.

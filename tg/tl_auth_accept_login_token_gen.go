@@ -32,7 +32,7 @@ type AuthAcceptLoginTokenRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/qr-login
-	Token []byte
+	Token []byte `schemaname:"token"`
 }
 
 // AuthAcceptLoginTokenRequestTypeID is TL type id of AuthAcceptLoginTokenRequest.
@@ -69,6 +69,11 @@ func (a *AuthAcceptLoginTokenRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *AuthAcceptLoginTokenRequest) TypeID() uint32 {
 	return AuthAcceptLoginTokenRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (a *AuthAcceptLoginTokenRequest) SchemaName() string {
+	return "auth.acceptLoginToken"
 }
 
 // Encode implements bin.Encoder.

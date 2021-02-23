@@ -21,7 +21,7 @@ var _ = errors.Is
 // UserClassVector is a box for Vector<User>
 type UserClassVector struct {
 	// Elements of Vector<User>
-	Elems []UserClass
+	Elems []UserClass `schemaname:"Elems"`
 }
 
 // UserClassVectorTypeID is TL type id of UserClassVector.
@@ -58,6 +58,11 @@ func (vec *UserClassVector) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *UserClassVector) TypeID() uint32 {
 	return UserClassVectorTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (vec *UserClassVector) SchemaName() string {
+	return ""
 }
 
 // Encode implements bin.Encoder.

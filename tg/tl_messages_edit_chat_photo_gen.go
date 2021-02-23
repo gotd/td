@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.editChatPhoto for reference.
 type MessagesEditChatPhotoRequest struct {
 	// Chat ID
-	ChatID int
+	ChatID int `schemaname:"chat_id"`
 	// Photo to be set
-	Photo InputChatPhotoClass
+	Photo InputChatPhotoClass `schemaname:"photo"`
 }
 
 // MessagesEditChatPhotoRequestTypeID is TL type id of MessagesEditChatPhotoRequest.
@@ -68,6 +68,11 @@ func (e *MessagesEditChatPhotoRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *MessagesEditChatPhotoRequest) TypeID() uint32 {
 	return MessagesEditChatPhotoRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *MessagesEditChatPhotoRequest) SchemaName() string {
+	return "messages.editChatPhoto"
 }
 
 // Encode implements bin.Encoder.

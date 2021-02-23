@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/bots.answerWebhookJSONQuery for reference.
 type BotsAnswerWebhookJSONQueryRequest struct {
 	// Identifier of a custom query
-	QueryID int64
+	QueryID int64 `schemaname:"query_id"`
 	// JSON-serialized answer to the query
-	Data DataJSON
+	Data DataJSON `schemaname:"data"`
 }
 
 // BotsAnswerWebhookJSONQueryRequestTypeID is TL type id of BotsAnswerWebhookJSONQueryRequest.
@@ -68,6 +68,11 @@ func (a *BotsAnswerWebhookJSONQueryRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *BotsAnswerWebhookJSONQueryRequest) TypeID() uint32 {
 	return BotsAnswerWebhookJSONQueryRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (a *BotsAnswerWebhookJSONQueryRequest) SchemaName() string {
+	return "bots.answerWebhookJSONQuery"
 }
 
 // Encode implements bin.Encoder.

@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/getUpdatesResp for reference.
 type GetUpdatesResp struct {
 	// Updates field of GetUpdatesResp.
-	Updates []AbstractMessageClass
+	Updates []AbstractMessageClass `schemaname:"updates"`
 }
 
 // GetUpdatesRespTypeID is TL type id of GetUpdatesResp.
@@ -60,6 +60,11 @@ func (g *GetUpdatesResp) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *GetUpdatesResp) TypeID() uint32 {
 	return GetUpdatesRespTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *GetUpdatesResp) SchemaName() string {
+	return "getUpdatesResp"
 }
 
 // Encode implements bin.Encoder.

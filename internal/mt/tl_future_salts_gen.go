@@ -21,11 +21,11 @@ var _ = errors.Is
 // FutureSalts represents TL type `future_salts#ae500895`.
 type FutureSalts struct {
 	// ReqMsgID field of FutureSalts.
-	ReqMsgID int64
+	ReqMsgID int64 `schemaname:"req_msg_id"`
 	// Now field of FutureSalts.
-	Now int
+	Now int `schemaname:"now"`
 	// Salts field of FutureSalts.
-	Salts []FutureSalt
+	Salts []FutureSalt `schemaname:"salts"`
 }
 
 // FutureSaltsTypeID is TL type id of FutureSalts.
@@ -72,6 +72,11 @@ func (f *FutureSalts) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *FutureSalts) TypeID() uint32 {
 	return FutureSaltsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (f *FutureSalts) SchemaName() string {
+	return "future_salts"
 }
 
 // Encode implements bin.Encoder.

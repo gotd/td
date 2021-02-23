@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.installStickerSet for reference.
 type MessagesInstallStickerSetRequest struct {
 	// Stickerset to install
-	Stickerset InputStickerSetClass
+	Stickerset InputStickerSetClass `schemaname:"stickerset"`
 	// Whether to archive stickerset
-	Archived bool
+	Archived bool `schemaname:"archived"`
 }
 
 // MessagesInstallStickerSetRequestTypeID is TL type id of MessagesInstallStickerSetRequest.
@@ -68,6 +68,11 @@ func (i *MessagesInstallStickerSetRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *MessagesInstallStickerSetRequest) TypeID() uint32 {
 	return MessagesInstallStickerSetRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *MessagesInstallStickerSetRequest) SchemaName() string {
+	return "messages.installStickerSet"
 }
 
 // Encode implements bin.Encoder.

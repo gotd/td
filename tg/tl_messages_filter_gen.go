@@ -51,6 +51,11 @@ func (i *InputMessagesFilterEmpty) TypeID() uint32 {
 	return InputMessagesFilterEmptyTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputMessagesFilterEmpty) SchemaName() string {
+	return "inputMessagesFilterEmpty"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -113,6 +118,11 @@ func (i *InputMessagesFilterPhotos) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagesFilterPhotos) TypeID() uint32 {
 	return InputMessagesFilterPhotosTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputMessagesFilterPhotos) SchemaName() string {
+	return "inputMessagesFilterPhotos"
 }
 
 // Encode implements bin.Encoder.
@@ -179,6 +189,11 @@ func (i *InputMessagesFilterVideo) TypeID() uint32 {
 	return InputMessagesFilterVideoTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputMessagesFilterVideo) SchemaName() string {
+	return "inputMessagesFilterVideo"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterVideo) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -241,6 +256,11 @@ func (i *InputMessagesFilterPhotoVideo) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagesFilterPhotoVideo) TypeID() uint32 {
 	return InputMessagesFilterPhotoVideoTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputMessagesFilterPhotoVideo) SchemaName() string {
+	return "inputMessagesFilterPhotoVideo"
 }
 
 // Encode implements bin.Encoder.
@@ -307,6 +327,11 @@ func (i *InputMessagesFilterDocument) TypeID() uint32 {
 	return InputMessagesFilterDocumentTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputMessagesFilterDocument) SchemaName() string {
+	return "inputMessagesFilterDocument"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterDocument) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -369,6 +394,11 @@ func (i *InputMessagesFilterUrl) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagesFilterUrl) TypeID() uint32 {
 	return InputMessagesFilterUrlTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputMessagesFilterUrl) SchemaName() string {
+	return "inputMessagesFilterUrl"
 }
 
 // Encode implements bin.Encoder.
@@ -435,6 +465,11 @@ func (i *InputMessagesFilterGif) TypeID() uint32 {
 	return InputMessagesFilterGifTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputMessagesFilterGif) SchemaName() string {
+	return "inputMessagesFilterGif"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterGif) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -497,6 +532,11 @@ func (i *InputMessagesFilterVoice) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagesFilterVoice) TypeID() uint32 {
 	return InputMessagesFilterVoiceTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputMessagesFilterVoice) SchemaName() string {
+	return "inputMessagesFilterVoice"
 }
 
 // Encode implements bin.Encoder.
@@ -563,6 +603,11 @@ func (i *InputMessagesFilterMusic) TypeID() uint32 {
 	return InputMessagesFilterMusicTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputMessagesFilterMusic) SchemaName() string {
+	return "inputMessagesFilterMusic"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterMusic) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -627,6 +672,11 @@ func (i *InputMessagesFilterChatPhotos) TypeID() uint32 {
 	return InputMessagesFilterChatPhotosTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputMessagesFilterChatPhotos) SchemaName() string {
+	return "inputMessagesFilterChatPhotos"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterChatPhotos) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -667,9 +717,9 @@ type InputMessagesFilterPhoneCalls struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Return only missed phone calls
-	Missed bool
+	Missed bool `schemaname:"missed"`
 }
 
 // InputMessagesFilterPhoneCallsTypeID is TL type id of InputMessagesFilterPhoneCalls.
@@ -702,12 +752,18 @@ func (i *InputMessagesFilterPhoneCalls) String() string {
 func (i *InputMessagesFilterPhoneCalls) FillFrom(from interface {
 	GetMissed() (value bool)
 }) {
+	i.Missed = from.GetMissed()
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagesFilterPhoneCalls) TypeID() uint32 {
 	return InputMessagesFilterPhoneCallsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputMessagesFilterPhoneCalls) SchemaName() string {
+	return "inputMessagesFilterPhoneCalls"
 }
 
 // Encode implements bin.Encoder.
@@ -802,6 +858,11 @@ func (i *InputMessagesFilterRoundVoice) TypeID() uint32 {
 	return InputMessagesFilterRoundVoiceTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputMessagesFilterRoundVoice) SchemaName() string {
+	return "inputMessagesFilterRoundVoice"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterRoundVoice) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -864,6 +925,11 @@ func (i *InputMessagesFilterRoundVideo) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagesFilterRoundVideo) TypeID() uint32 {
 	return InputMessagesFilterRoundVideoTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputMessagesFilterRoundVideo) SchemaName() string {
+	return "inputMessagesFilterRoundVideo"
 }
 
 // Encode implements bin.Encoder.
@@ -933,6 +999,11 @@ func (i *InputMessagesFilterMyMentions) TypeID() uint32 {
 	return InputMessagesFilterMyMentionsTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputMessagesFilterMyMentions) SchemaName() string {
+	return "inputMessagesFilterMyMentions"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterMyMentions) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -995,6 +1066,11 @@ func (i *InputMessagesFilterGeo) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagesFilterGeo) TypeID() uint32 {
 	return InputMessagesFilterGeoTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputMessagesFilterGeo) SchemaName() string {
+	return "inputMessagesFilterGeo"
 }
 
 // Encode implements bin.Encoder.
@@ -1061,6 +1137,11 @@ func (i *InputMessagesFilterContacts) TypeID() uint32 {
 	return InputMessagesFilterContactsTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputMessagesFilterContacts) SchemaName() string {
+	return "inputMessagesFilterContacts"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputMessagesFilterContacts) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -1123,6 +1204,11 @@ func (i *InputMessagesFilterPinned) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagesFilterPinned) TypeID() uint32 {
 	return InputMessagesFilterPinnedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputMessagesFilterPinned) SchemaName() string {
+	return "inputMessagesFilterPinned"
 }
 
 // Encode implements bin.Encoder.
@@ -1193,6 +1279,8 @@ type MessagesFilterClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

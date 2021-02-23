@@ -51,6 +51,11 @@ func (g *HelpGetPromoDataRequest) TypeID() uint32 {
 	return HelpGetPromoDataRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *HelpGetPromoDataRequest) SchemaName() string {
+	return "help.getPromoData"
+}
+
 // Encode implements bin.Encoder.
 func (g *HelpGetPromoDataRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

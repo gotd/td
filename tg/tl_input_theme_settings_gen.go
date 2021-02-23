@@ -27,27 +27,27 @@ type InputThemeSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Default theme on which this theme is based
-	BaseTheme BaseThemeClass
+	BaseTheme BaseThemeClass `schemaname:"base_theme"`
 	// Accent color, RGB24 format
-	AccentColor int
+	AccentColor int `schemaname:"accent_color"`
 	// Message gradient color (top), RGB24 format
 	//
 	// Use SetMessageTopColor and GetMessageTopColor helpers.
-	MessageTopColor int
+	MessageTopColor int `schemaname:"message_top_color"`
 	// Message gradient color (bottom), RGB24 format
 	//
 	// Use SetMessageBottomColor and GetMessageBottomColor helpers.
-	MessageBottomColor int
+	MessageBottomColor int `schemaname:"message_bottom_color"`
 	// Wallpaper
 	//
 	// Use SetWallpaper and GetWallpaper helpers.
-	Wallpaper InputWallPaperClass
+	Wallpaper InputWallPaperClass `schemaname:"wallpaper"`
 	// Wallpaper settings
 	//
 	// Use SetWallpaperSettings and GetWallpaperSettings helpers.
-	WallpaperSettings WallPaperSettings
+	WallpaperSettings WallPaperSettings `schemaname:"wallpaper_settings"`
 }
 
 // InputThemeSettingsTypeID is TL type id of InputThemeSettings.
@@ -105,21 +105,30 @@ func (i *InputThemeSettings) FillFrom(from interface {
 	if val, ok := from.GetMessageTopColor(); ok {
 		i.MessageTopColor = val
 	}
+
 	if val, ok := from.GetMessageBottomColor(); ok {
 		i.MessageBottomColor = val
 	}
+
 	if val, ok := from.GetWallpaper(); ok {
 		i.Wallpaper = val
 	}
+
 	if val, ok := from.GetWallpaperSettings(); ok {
 		i.WallpaperSettings = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputThemeSettings) TypeID() uint32 {
 	return InputThemeSettingsTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputThemeSettings) SchemaName() string {
+	return "inputThemeSettings"
 }
 
 // Encode implements bin.Encoder.

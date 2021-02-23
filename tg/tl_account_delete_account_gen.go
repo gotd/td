@@ -27,7 +27,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.deleteAccount for reference.
 type AccountDeleteAccountRequest struct {
 	// Why is the account being deleted, can be empty
-	Reason string
+	Reason string `schemaname:"reason"`
 }
 
 // AccountDeleteAccountRequestTypeID is TL type id of AccountDeleteAccountRequest.
@@ -64,6 +64,11 @@ func (d *AccountDeleteAccountRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *AccountDeleteAccountRequest) TypeID() uint32 {
 	return AccountDeleteAccountRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *AccountDeleteAccountRequest) SchemaName() string {
+	return "account.deleteAccount"
 }
 
 // Encode implements bin.Encoder.

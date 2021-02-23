@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/dataJSON for reference.
 type DataJSON struct {
 	// JSON-encoded object
-	Data string
+	Data string `schemaname:"data"`
 }
 
 // DataJSONTypeID is TL type id of DataJSON.
@@ -61,6 +61,11 @@ func (d *DataJSON) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DataJSON) TypeID() uint32 {
 	return DataJSONTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (d *DataJSON) SchemaName() string {
+	return "dataJSON"
 }
 
 // Encode implements bin.Encoder.

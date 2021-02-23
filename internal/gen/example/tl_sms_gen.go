@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/sms for reference.
 type SMS struct {
 	// Text field of SMS.
-	Text string
+	Text string `schemaname:"text"`
 }
 
 // SMSTypeID is TL type id of SMS.
@@ -60,6 +60,11 @@ func (s *SMS) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SMS) TypeID() uint32 {
 	return SMSTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SMS) SchemaName() string {
+	return "sms"
 }
 
 // Encode implements bin.Encoder.

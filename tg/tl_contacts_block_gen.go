@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/contacts.block for reference.
 type ContactsBlockRequest struct {
 	// User ID
-	ID InputPeerClass
+	ID InputPeerClass `schemaname:"id"`
 }
 
 // ContactsBlockRequestTypeID is TL type id of ContactsBlockRequest.
@@ -61,6 +61,11 @@ func (b *ContactsBlockRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *ContactsBlockRequest) TypeID() uint32 {
 	return ContactsBlockRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (b *ContactsBlockRequest) SchemaName() string {
+	return "contacts.block"
 }
 
 // Encode implements bin.Encoder.

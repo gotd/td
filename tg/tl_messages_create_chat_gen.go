@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.createChat for reference.
 type MessagesCreateChatRequest struct {
 	// List of user IDs to be invited
-	Users []InputUserClass
+	Users []InputUserClass `schemaname:"users"`
 	// Chat name
-	Title string
+	Title string `schemaname:"title"`
 }
 
 // MessagesCreateChatRequestTypeID is TL type id of MessagesCreateChatRequest.
@@ -68,6 +68,11 @@ func (c *MessagesCreateChatRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *MessagesCreateChatRequest) TypeID() uint32 {
 	return MessagesCreateChatRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *MessagesCreateChatRequest) SchemaName() string {
+	return "messages.createChat"
 }
 
 // Encode implements bin.Encoder.

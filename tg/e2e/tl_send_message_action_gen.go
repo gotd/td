@@ -51,6 +51,11 @@ func (s *SendMessageTypingAction) TypeID() uint32 {
 	return SendMessageTypingActionTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (s *SendMessageTypingAction) SchemaName() string {
+	return "sendMessageTypingAction"
+}
+
 // Encode implements bin.Encoder.
 func (s *SendMessageTypingAction) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -113,6 +118,11 @@ func (s *SendMessageCancelAction) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SendMessageCancelAction) TypeID() uint32 {
 	return SendMessageCancelActionTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SendMessageCancelAction) SchemaName() string {
+	return "sendMessageCancelAction"
 }
 
 // Encode implements bin.Encoder.
@@ -179,6 +189,11 @@ func (s *SendMessageRecordVideoAction) TypeID() uint32 {
 	return SendMessageRecordVideoActionTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (s *SendMessageRecordVideoAction) SchemaName() string {
+	return "sendMessageRecordVideoAction"
+}
+
 // Encode implements bin.Encoder.
 func (s *SendMessageRecordVideoAction) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -241,6 +256,11 @@ func (s *SendMessageUploadVideoAction) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SendMessageUploadVideoAction) TypeID() uint32 {
 	return SendMessageUploadVideoActionTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SendMessageUploadVideoAction) SchemaName() string {
+	return "sendMessageUploadVideoAction"
 }
 
 // Encode implements bin.Encoder.
@@ -307,6 +327,11 @@ func (s *SendMessageRecordAudioAction) TypeID() uint32 {
 	return SendMessageRecordAudioActionTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (s *SendMessageRecordAudioAction) SchemaName() string {
+	return "sendMessageRecordAudioAction"
+}
+
 // Encode implements bin.Encoder.
 func (s *SendMessageRecordAudioAction) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -369,6 +394,11 @@ func (s *SendMessageUploadAudioAction) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SendMessageUploadAudioAction) TypeID() uint32 {
 	return SendMessageUploadAudioActionTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SendMessageUploadAudioAction) SchemaName() string {
+	return "sendMessageUploadAudioAction"
 }
 
 // Encode implements bin.Encoder.
@@ -435,6 +465,11 @@ func (s *SendMessageUploadPhotoAction) TypeID() uint32 {
 	return SendMessageUploadPhotoActionTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (s *SendMessageUploadPhotoAction) SchemaName() string {
+	return "sendMessageUploadPhotoAction"
+}
+
 // Encode implements bin.Encoder.
 func (s *SendMessageUploadPhotoAction) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -497,6 +532,11 @@ func (s *SendMessageUploadDocumentAction) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SendMessageUploadDocumentAction) TypeID() uint32 {
 	return SendMessageUploadDocumentActionTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SendMessageUploadDocumentAction) SchemaName() string {
+	return "sendMessageUploadDocumentAction"
 }
 
 // Encode implements bin.Encoder.
@@ -563,6 +603,11 @@ func (s *SendMessageGeoLocationAction) TypeID() uint32 {
 	return SendMessageGeoLocationActionTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (s *SendMessageGeoLocationAction) SchemaName() string {
+	return "sendMessageGeoLocationAction"
+}
+
 // Encode implements bin.Encoder.
 func (s *SendMessageGeoLocationAction) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -625,6 +670,11 @@ func (s *SendMessageChooseContactAction) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SendMessageChooseContactAction) TypeID() uint32 {
 	return SendMessageChooseContactActionTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SendMessageChooseContactAction) SchemaName() string {
+	return "sendMessageChooseContactAction"
 }
 
 // Encode implements bin.Encoder.
@@ -691,6 +741,11 @@ func (s *SendMessageRecordRoundAction) TypeID() uint32 {
 	return SendMessageRecordRoundActionTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (s *SendMessageRecordRoundAction) SchemaName() string {
+	return "sendMessageRecordRoundAction"
+}
+
 // Encode implements bin.Encoder.
 func (s *SendMessageRecordRoundAction) Encode(b *bin.Buffer) error {
 	if s == nil {
@@ -753,6 +808,11 @@ func (s *SendMessageUploadRoundAction) String() string {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SendMessageUploadRoundAction) TypeID() uint32 {
 	return SendMessageUploadRoundActionTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SendMessageUploadRoundAction) SchemaName() string {
+	return "sendMessageUploadRoundAction"
 }
 
 // Encode implements bin.Encoder.
@@ -818,6 +878,8 @@ type SendMessageActionClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

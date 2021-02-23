@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/encryptedChatEmpty for reference.
 type EncryptedChatEmpty struct {
 	// Chat ID
-	ID int
+	ID int `schemaname:"id"`
 }
 
 // EncryptedChatEmptyTypeID is TL type id of EncryptedChatEmpty.
@@ -61,6 +61,11 @@ func (e *EncryptedChatEmpty) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EncryptedChatEmpty) TypeID() uint32 {
 	return EncryptedChatEmptyTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *EncryptedChatEmpty) SchemaName() string {
+	return "encryptedChatEmpty"
 }
 
 // Encode implements bin.Encoder.
@@ -113,15 +118,15 @@ var (
 // See https://core.telegram.org/constructor/encryptedChatWaiting for reference.
 type EncryptedChatWaiting struct {
 	// Chat ID
-	ID int
+	ID int `schemaname:"id"`
 	// Checking sum depending on user ID
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 	// Date of chat creation
-	Date int
+	Date int `schemaname:"date"`
 	// Chat creator ID
-	AdminID int
+	AdminID int `schemaname:"admin_id"`
 	// ID of second chat participant
-	ParticipantID int
+	ParticipantID int `schemaname:"participant_id"`
 }
 
 // EncryptedChatWaitingTypeID is TL type id of EncryptedChatWaiting.
@@ -178,6 +183,11 @@ func (e *EncryptedChatWaiting) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EncryptedChatWaiting) TypeID() uint32 {
 	return EncryptedChatWaitingTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *EncryptedChatWaiting) SchemaName() string {
+	return "encryptedChatWaiting"
 }
 
 // Encode implements bin.Encoder.
@@ -285,29 +295,29 @@ type EncryptedChatRequested struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int
+	FolderID int `schemaname:"folder_id"`
 	// Chat ID
-	ID int
+	ID int `schemaname:"id"`
 	// Check sum depending on user ID
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 	// Chat creation date
-	Date int
+	Date int `schemaname:"date"`
 	// Chat creator ID
-	AdminID int
+	AdminID int `schemaname:"admin_id"`
 	// ID of second chat participant
-	ParticipantID int
+	ParticipantID int `schemaname:"participant_id"`
 	// A = g ^ a mod p, see Wikipedia¹
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
-	GA []byte
+	GA []byte `schemaname:"g_a"`
 }
 
 // EncryptedChatRequestedTypeID is TL type id of EncryptedChatRequested.
@@ -367,6 +377,7 @@ func (e *EncryptedChatRequested) FillFrom(from interface {
 	if val, ok := from.GetFolderID(); ok {
 		e.FolderID = val
 	}
+
 	e.ID = from.GetID()
 	e.AccessHash = from.GetAccessHash()
 	e.Date = from.GetDate()
@@ -379,6 +390,11 @@ func (e *EncryptedChatRequested) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EncryptedChatRequested) TypeID() uint32 {
 	return EncryptedChatRequestedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *EncryptedChatRequested) SchemaName() string {
+	return "encryptedChatRequested"
 }
 
 // Encode implements bin.Encoder.
@@ -532,22 +548,22 @@ var (
 // See https://core.telegram.org/constructor/encryptedChat for reference.
 type EncryptedChat struct {
 	// Chat ID
-	ID int
+	ID int `schemaname:"id"`
 	// Check sum dependant on the user ID
-	AccessHash int64
+	AccessHash int64 `schemaname:"access_hash"`
 	// Date chat was created
-	Date int
+	Date int `schemaname:"date"`
 	// Chat creator ID
-	AdminID int
+	AdminID int `schemaname:"admin_id"`
 	// ID of the second chat participant
-	ParticipantID int
+	ParticipantID int `schemaname:"participant_id"`
 	// B = g ^ b mod p, if the currently authorized user is the chat's creator,or A = g ^ a mod p otherwiseSee Wikipedia¹ for more info
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
-	GAOrB []byte
+	GAOrB []byte `schemaname:"g_a_or_b"`
 	// 64-bit fingerprint of received key
-	KeyFingerprint int64
+	KeyFingerprint int64 `schemaname:"key_fingerprint"`
 }
 
 // EncryptedChatTypeID is TL type id of EncryptedChat.
@@ -614,6 +630,11 @@ func (e *EncryptedChat) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EncryptedChat) TypeID() uint32 {
 	return EncryptedChatTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *EncryptedChat) SchemaName() string {
+	return "encryptedChat"
 }
 
 // Encode implements bin.Encoder.
@@ -744,11 +765,11 @@ var (
 // See https://core.telegram.org/constructor/encryptedChatDiscarded for reference.
 type EncryptedChatDiscarded struct {
 	// Flags field of EncryptedChatDiscarded.
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// HistoryDeleted field of EncryptedChatDiscarded.
-	HistoryDeleted bool
+	HistoryDeleted bool `schemaname:"history_deleted"`
 	// Chat ID
-	ID int
+	ID int `schemaname:"id"`
 }
 
 // EncryptedChatDiscardedTypeID is TL type id of EncryptedChatDiscarded.
@@ -785,6 +806,7 @@ func (e *EncryptedChatDiscarded) FillFrom(from interface {
 	GetHistoryDeleted() (value bool)
 	GetID() (value int)
 }) {
+	e.HistoryDeleted = from.GetHistoryDeleted()
 	e.ID = from.GetID()
 }
 
@@ -792,6 +814,11 @@ func (e *EncryptedChatDiscarded) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EncryptedChatDiscarded) TypeID() uint32 {
 	return EncryptedChatDiscardedTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (e *EncryptedChatDiscarded) SchemaName() string {
+	return "encryptedChatDiscarded"
 }
 
 // Encode implements bin.Encoder.
@@ -888,18 +915,20 @@ type EncryptedChatClass interface {
 	bin.Decoder
 	construct() EncryptedChatClass
 
-	// Chat ID
-	GetID() (value int)
-	// AsNotEmpty tries to map EncryptedChatClass to NotEmptyEncryptedChat.
-	AsNotEmpty() (NotEmptyEncryptedChat, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Chat ID
+	GetID() (value int)
+	// AsNotEmpty tries to map EncryptedChatClass to NotEmptyEncryptedChat.
+	AsNotEmpty() (NotEmptyEncryptedChat, bool)
 }
 
 // AsInput tries to map EncryptedChat to InputEncryptedChat.
@@ -917,16 +946,18 @@ type NotEmptyEncryptedChat interface {
 	bin.Decoder
 	construct() EncryptedChatClass
 
-	// Chat ID
-	GetID() (value int)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// Chat ID
+	GetID() (value int)
 }
 
 // AsNotEmpty tries to map EncryptedChatEmpty to NotEmptyEncryptedChat.

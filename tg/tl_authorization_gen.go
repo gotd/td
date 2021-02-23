@@ -27,40 +27,40 @@ type Authorization struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether this is the current session
-	Current bool
+	Current bool `schemaname:"current"`
 	// Whether the session is from an official app
-	OfficialApp bool
+	OfficialApp bool `schemaname:"official_app"`
 	// Whether the session is still waiting for a 2FA password
-	PasswordPending bool
+	PasswordPending bool `schemaname:"password_pending"`
 	// Identifier
-	Hash int64
+	Hash int64 `schemaname:"hash"`
 	// Device model
-	DeviceModel string
+	DeviceModel string `schemaname:"device_model"`
 	// Platform
-	Platform string
+	Platform string `schemaname:"platform"`
 	// System version
-	SystemVersion string
+	SystemVersion string `schemaname:"system_version"`
 	// API ID¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/obtaining_api_id
-	APIID int
+	APIID int `schemaname:"api_id"`
 	// App name
-	AppName string
+	AppName string `schemaname:"app_name"`
 	// App version
-	AppVersion string
+	AppVersion string `schemaname:"app_version"`
 	// When was the session created
-	DateCreated int
+	DateCreated int `schemaname:"date_created"`
 	// When was the session last active
-	DateActive int
+	DateActive int `schemaname:"date_active"`
 	// Last known IP
-	IP string
+	IP string `schemaname:"ip"`
 	// Country determined from IP
-	Country string
+	Country string `schemaname:"country"`
 	// Region determined from IP
-	Region string
+	Region string `schemaname:"region"`
 }
 
 // AuthorizationTypeID is TL type id of Authorization.
@@ -149,6 +149,9 @@ func (a *Authorization) FillFrom(from interface {
 	GetCountry() (value string)
 	GetRegion() (value string)
 }) {
+	a.Current = from.GetCurrent()
+	a.OfficialApp = from.GetOfficialApp()
+	a.PasswordPending = from.GetPasswordPending()
 	a.Hash = from.GetHash()
 	a.DeviceModel = from.GetDeviceModel()
 	a.Platform = from.GetPlatform()
@@ -167,6 +170,11 @@ func (a *Authorization) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *Authorization) TypeID() uint32 {
 	return AuthorizationTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (a *Authorization) SchemaName() string {
+	return "authorization"
 }
 
 // Encode implements bin.Encoder.

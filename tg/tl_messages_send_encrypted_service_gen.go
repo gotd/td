@@ -24,14 +24,14 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.sendEncryptedService for reference.
 type MessagesSendEncryptedServiceRequest struct {
 	// Secret chat ID
-	Peer InputEncryptedChat
+	Peer InputEncryptedChat `schemaname:"peer"`
 	// Unique client message ID required to prevent message resending
-	RandomID int64
+	RandomID int64 `schemaname:"random_id"`
 	// TL-serialization of  DecryptedMessage¹ type, encrypted with a key generated during chat initialization
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/DecryptedMessage
-	Data []byte
+	Data []byte `schemaname:"data"`
 }
 
 // MessagesSendEncryptedServiceRequestTypeID is TL type id of MessagesSendEncryptedServiceRequest.
@@ -78,6 +78,11 @@ func (s *MessagesSendEncryptedServiceRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSendEncryptedServiceRequest) TypeID() uint32 {
 	return MessagesSendEncryptedServiceRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *MessagesSendEncryptedServiceRequest) SchemaName() string {
+	return "messages.sendEncryptedService"
 }
 
 // Encode implements bin.Encoder.

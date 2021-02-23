@@ -51,6 +51,11 @@ func (u *UserProfilePhotoEmpty) TypeID() uint32 {
 	return UserProfilePhotoEmptyTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (u *UserProfilePhotoEmpty) SchemaName() string {
+	return "userProfilePhotoEmpty"
+}
+
 // Encode implements bin.Encoder.
 func (u *UserProfilePhotoEmpty) Encode(b *bin.Buffer) error {
 	if u == nil {
@@ -91,23 +96,23 @@ type UserProfilePhoto struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether an animated profile picture¹ is available for this user
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files#animated-profile-pictures
-	HasVideo bool
+	HasVideo bool `schemaname:"has_video"`
 	// Identifier of the respective photoParameter added in Layer 2¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/layers#layer-2
-	PhotoID int64
+	PhotoID int64 `schemaname:"photo_id"`
 	// Location of the file, corresponding to the small profile photo thumbnail
-	PhotoSmall FileLocationToBeDeprecated
+	PhotoSmall FileLocationToBeDeprecated `schemaname:"photo_small"`
 	// Location of the file, corresponding to the big profile photo thumbnail
-	PhotoBig FileLocationToBeDeprecated
+	PhotoBig FileLocationToBeDeprecated `schemaname:"photo_big"`
 	// DC ID where the photo is stored
-	DCID int
+	DCID int `schemaname:"dc_id"`
 }
 
 // UserProfilePhotoTypeID is TL type id of UserProfilePhoto.
@@ -156,6 +161,7 @@ func (u *UserProfilePhoto) FillFrom(from interface {
 	GetPhotoBig() (value FileLocationToBeDeprecated)
 	GetDCID() (value int)
 }) {
+	u.HasVideo = from.GetHasVideo()
 	u.PhotoID = from.GetPhotoID()
 	u.PhotoSmall = from.GetPhotoSmall()
 	u.PhotoBig = from.GetPhotoBig()
@@ -166,6 +172,11 @@ func (u *UserProfilePhoto) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UserProfilePhoto) TypeID() uint32 {
 	return UserProfilePhotoTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (u *UserProfilePhoto) SchemaName() string {
+	return "userProfilePhoto"
 }
 
 // Encode implements bin.Encoder.
@@ -298,16 +309,18 @@ type UserProfilePhotoClass interface {
 	bin.Decoder
 	construct() UserProfilePhotoClass
 
-	// AsNotEmpty tries to map UserProfilePhotoClass to UserProfilePhoto.
-	AsNotEmpty() (*UserProfilePhoto, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsNotEmpty tries to map UserProfilePhotoClass to UserProfilePhoto.
+	AsNotEmpty() (*UserProfilePhoto, bool)
 }
 
 // AsNotEmpty tries to map UserProfilePhotoEmpty to UserProfilePhoto.

@@ -51,6 +51,11 @@ func (g *HelpGetSupportRequest) TypeID() uint32 {
 	return HelpGetSupportRequestTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (g *HelpGetSupportRequest) SchemaName() string {
+	return "help.getSupport"
+}
+
 // Encode implements bin.Encoder.
 func (g *HelpGetSupportRequest) Encode(b *bin.Buffer) error {
 	if g == nil {

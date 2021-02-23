@@ -30,28 +30,28 @@ type MessagesSendMultiMediaRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Whether to send the album silently (no notification triggered)
-	Silent bool
+	Silent bool `schemaname:"silent"`
 	// Send in background?
-	Background bool
+	Background bool `schemaname:"background"`
 	// Whether to clear drafts¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/drafts
-	ClearDraft bool
+	ClearDraft bool `schemaname:"clear_draft"`
 	// The destination chat
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// The message to reply to
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
-	ReplyToMsgID int
+	ReplyToMsgID int `schemaname:"reply_to_msg_id"`
 	// The medias to send
-	MultiMedia []InputSingleMedia
+	MultiMedia []InputSingleMedia `schemaname:"multi_media"`
 	// Scheduled message date for scheduled messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
-	ScheduleDate int
+	ScheduleDate int `schemaname:"schedule_date"`
 }
 
 // MessagesSendMultiMediaRequestTypeID is TL type id of MessagesSendMultiMediaRequest.
@@ -108,20 +108,30 @@ func (s *MessagesSendMultiMediaRequest) FillFrom(from interface {
 	GetMultiMedia() (value []InputSingleMedia)
 	GetScheduleDate() (value int, ok bool)
 }) {
+	s.Silent = from.GetSilent()
+	s.Background = from.GetBackground()
+	s.ClearDraft = from.GetClearDraft()
 	s.Peer = from.GetPeer()
 	if val, ok := from.GetReplyToMsgID(); ok {
 		s.ReplyToMsgID = val
 	}
+
 	s.MultiMedia = from.GetMultiMedia()
 	if val, ok := from.GetScheduleDate(); ok {
 		s.ScheduleDate = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSendMultiMediaRequest) TypeID() uint32 {
 	return MessagesSendMultiMediaRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *MessagesSendMultiMediaRequest) SchemaName() string {
+	return "messages.sendMultiMedia"
 }
 
 // Encode implements bin.Encoder.

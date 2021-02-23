@@ -27,9 +27,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/upload.getCdnFileHashes for reference.
 type UploadGetCdnFileHashesRequest struct {
 	// File
-	FileToken []byte
+	FileToken []byte `schemaname:"file_token"`
 	// Offset from which to start getting hashes
-	Offset int
+	Offset int `schemaname:"offset"`
 }
 
 // UploadGetCdnFileHashesRequestTypeID is TL type id of UploadGetCdnFileHashesRequest.
@@ -71,6 +71,11 @@ func (g *UploadGetCdnFileHashesRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *UploadGetCdnFileHashesRequest) TypeID() uint32 {
 	return UploadGetCdnFileHashesRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *UploadGetCdnFileHashesRequest) SchemaName() string {
+	return "upload.getCdnFileHashes"
 }
 
 // Encode implements bin.Encoder.

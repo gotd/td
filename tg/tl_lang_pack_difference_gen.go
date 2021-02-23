@@ -24,13 +24,13 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/langPackDifference for reference.
 type LangPackDifference struct {
 	// Language code
-	LangCode string
+	LangCode string `schemaname:"lang_code"`
 	// Previous version number
-	FromVersion int
+	FromVersion int `schemaname:"from_version"`
 	// New version number
-	Version int
+	Version int `schemaname:"version"`
 	// Localized strings
-	Strings []LangPackStringClass
+	Strings []LangPackStringClass `schemaname:"strings"`
 }
 
 // LangPackDifferenceTypeID is TL type id of LangPackDifference.
@@ -82,6 +82,11 @@ func (l *LangPackDifference) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (l *LangPackDifference) TypeID() uint32 {
 	return LangPackDifferenceTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (l *LangPackDifference) SchemaName() string {
+	return "langPackDifference"
 }
 
 // Encode implements bin.Encoder.

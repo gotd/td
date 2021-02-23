@@ -21,11 +21,11 @@ var _ = errors.Is
 // SetClientDHParamsRequest represents TL type `set_client_DH_params#f5045f1f`.
 type SetClientDHParamsRequest struct {
 	// Nonce field of SetClientDHParamsRequest.
-	Nonce bin.Int128
+	Nonce bin.Int128 `schemaname:"nonce"`
 	// ServerNonce field of SetClientDHParamsRequest.
-	ServerNonce bin.Int128
+	ServerNonce bin.Int128 `schemaname:"server_nonce"`
 	// EncryptedData field of SetClientDHParamsRequest.
-	EncryptedData []byte
+	EncryptedData []byte `schemaname:"encrypted_data"`
 }
 
 // SetClientDHParamsRequestTypeID is TL type id of SetClientDHParamsRequest.
@@ -72,6 +72,11 @@ func (s *SetClientDHParamsRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SetClientDHParamsRequest) TypeID() uint32 {
 	return SetClientDHParamsRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (s *SetClientDHParamsRequest) SchemaName() string {
+	return "set_client_DH_params"
 }
 
 // Encode implements bin.Encoder.

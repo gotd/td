@@ -51,6 +51,11 @@ func (p *PasswordKdfAlgoUnknown) TypeID() uint32 {
 	return PasswordKdfAlgoUnknownTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (p *PasswordKdfAlgoUnknown) SchemaName() string {
+	return "passwordKdfAlgoUnknown"
+}
+
 // Encode implements bin.Encoder.
 func (p *PasswordKdfAlgoUnknown) Encode(b *bin.Buffer) error {
 	if p == nil {
@@ -94,22 +99,22 @@ type PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	Salt1 []byte
+	Salt1 []byte `schemaname:"salt1"`
 	// One of two salts used by the derivation function (see SRP 2FA login¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	Salt2 []byte
+	Salt2 []byte `schemaname:"salt2"`
 	// Base (see SRP 2FA login¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	G int
+	G int `schemaname:"g"`
 	// 2048-bit modulus (see SRP 2FA login¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	P []byte
+	P []byte `schemaname:"p"`
 }
 
 // PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPowTypeID is TL type id of PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow.
@@ -161,6 +166,11 @@ func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) Fill
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) TypeID() uint32 {
 	return PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPowTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) SchemaName() string {
+	return "passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow"
 }
 
 // Encode implements bin.Encoder.
@@ -270,6 +280,8 @@ type PasswordKdfAlgoClass interface {
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

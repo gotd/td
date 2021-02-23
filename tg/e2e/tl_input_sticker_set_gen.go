@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/inputStickerSetShortName for reference.
 type InputStickerSetShortName struct {
 	// From tg://addstickers?set=short_name
-	ShortName string
+	ShortName string `schemaname:"short_name"`
 }
 
 // InputStickerSetShortNameTypeID is TL type id of InputStickerSetShortName.
@@ -61,6 +61,11 @@ func (i *InputStickerSetShortName) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputStickerSetShortName) TypeID() uint32 {
 	return InputStickerSetShortNameTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (i *InputStickerSetShortName) SchemaName() string {
+	return "inputStickerSetShortName"
 }
 
 // Encode implements bin.Encoder.
@@ -140,6 +145,11 @@ func (i *InputStickerSetEmpty) TypeID() uint32 {
 	return InputStickerSetEmptyTypeID
 }
 
+// SchemaName returns MTProto type name.
+func (i *InputStickerSetEmpty) SchemaName() string {
+	return "inputStickerSetEmpty"
+}
+
 // Encode implements bin.Encoder.
 func (i *InputStickerSetEmpty) Encode(b *bin.Buffer) error {
 	if i == nil {
@@ -190,16 +200,18 @@ type InputStickerSetClass interface {
 	bin.Decoder
 	construct() InputStickerSetClass
 
-	// AsNotEmpty tries to map InputStickerSetClass to InputStickerSetShortName.
-	AsNotEmpty() (*InputStickerSetShortName, bool)
-
 	// TypeID returns MTProto type id (CRC code).
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
+	// SchemaName returns MTProto type name.
+	SchemaName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
+
+	// AsNotEmpty tries to map InputStickerSetClass to InputStickerSetShortName.
+	AsNotEmpty() (*InputStickerSetShortName, bool)
 }
 
 // AsNotEmpty tries to map InputStickerSetShortName to InputStickerSetShortName.

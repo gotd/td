@@ -24,38 +24,38 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getReplies for reference.
 type MessagesGetRepliesRequest struct {
 	// Peer
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// Message ID
-	MsgID int
+	MsgID int `schemaname:"msg_id"`
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetID int
+	OffsetID int `schemaname:"offset_id"`
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetDate int
+	OffsetDate int `schemaname:"offset_date"`
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	AddOffset int
+	AddOffset int `schemaname:"add_offset"`
 	// Maximum number of results to return, see pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int
+	Limit int `schemaname:"limit"`
 	// If a positive value was transferred, the method will return only messages with ID smaller than max_id
-	MaxID int
+	MaxID int `schemaname:"max_id"`
 	// If a positive value was transferred, the method will return only messages with ID bigger than min_id
-	MinID int
+	MinID int `schemaname:"min_id"`
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int
+	Hash int `schemaname:"hash"`
 }
 
 // MessagesGetRepliesRequestTypeID is TL type id of MessagesGetRepliesRequest.
@@ -132,6 +132,11 @@ func (g *MessagesGetRepliesRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetRepliesRequest) TypeID() uint32 {
 	return MessagesGetRepliesRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (g *MessagesGetRepliesRequest) SchemaName() string {
+	return "messages.getReplies"
 }
 
 // Encode implements bin.Encoder.

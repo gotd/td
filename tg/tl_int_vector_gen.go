@@ -21,7 +21,7 @@ var _ = errors.Is
 // IntVector is a box for Vector<int>
 type IntVector struct {
 	// Elements of Vector<int>
-	Elems []int
+	Elems []int `schemaname:"Elems"`
 }
 
 // IntVectorTypeID is TL type id of IntVector.
@@ -58,6 +58,11 @@ func (vec *IntVector) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *IntVector) TypeID() uint32 {
 	return IntVectorTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (vec *IntVector) SchemaName() string {
+	return ""
 }
 
 // Encode implements bin.Encoder.

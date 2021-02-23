@@ -27,23 +27,23 @@ type MessagesVotesList struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields
+	Flags bin.Fields `schemaname:"flags"`
 	// Total number of votes for all options (or only for the chosen option, if provided to messages.getPollVotes¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.getPollVotes
-	Count int
+	Count int `schemaname:"count"`
 	// Vote info for each user
-	Votes []MessageUserVoteClass
+	Votes []MessageUserVoteClass `schemaname:"votes"`
 	// Info about users that voted in the poll
-	Users []UserClass
+	Users []UserClass `schemaname:"users"`
 	// Offset to use with the next messages.getPollVotes¹ request, empty string if no more results are available.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.getPollVotes
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
-	NextOffset string
+	NextOffset string `schemaname:"next_offset"`
 }
 
 // MessagesVotesListTypeID is TL type id of MessagesVotesList.
@@ -94,12 +94,18 @@ func (v *MessagesVotesList) FillFrom(from interface {
 	if val, ok := from.GetNextOffset(); ok {
 		v.NextOffset = val
 	}
+
 }
 
 // TypeID returns MTProto type id (CRC code).
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (v *MessagesVotesList) TypeID() uint32 {
 	return MessagesVotesListTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (v *MessagesVotesList) SchemaName() string {
+	return "messages.votesList"
 }
 
 // Encode implements bin.Encoder.

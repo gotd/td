@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/stickers.addStickerToSet for reference.
 type StickersAddStickerToSetRequest struct {
 	// The stickerset
-	Stickerset InputStickerSetClass
+	Stickerset InputStickerSetClass `schemaname:"stickerset"`
 	// The sticker
-	Sticker InputStickerSetItem
+	Sticker InputStickerSetItem `schemaname:"sticker"`
 }
 
 // StickersAddStickerToSetRequestTypeID is TL type id of StickersAddStickerToSetRequest.
@@ -68,6 +68,11 @@ func (a *StickersAddStickerToSetRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *StickersAddStickerToSetRequest) TypeID() uint32 {
 	return StickersAddStickerToSetRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (a *StickersAddStickerToSetRequest) SchemaName() string {
+	return "stickers.addStickerToSet"
 }
 
 // Encode implements bin.Encoder.

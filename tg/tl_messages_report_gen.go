@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.report for reference.
 type MessagesReportRequest struct {
 	// Peer
-	Peer InputPeerClass
+	Peer InputPeerClass `schemaname:"peer"`
 	// IDs of messages to report
-	ID []int
+	ID []int `schemaname:"id"`
 	// Why are these messages being reported
-	Reason ReportReasonClass
+	Reason ReportReasonClass `schemaname:"reason"`
 }
 
 // MessagesReportRequestTypeID is TL type id of MessagesReportRequest.
@@ -75,6 +75,11 @@ func (r *MessagesReportRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *MessagesReportRequest) TypeID() uint32 {
 	return MessagesReportRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (r *MessagesReportRequest) SchemaName() string {
+	return "messages.report"
 }
 
 // Encode implements bin.Encoder.

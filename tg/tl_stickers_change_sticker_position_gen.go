@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/stickers.changeStickerPosition for reference.
 type StickersChangeStickerPositionRequest struct {
 	// The sticker
-	Sticker InputDocumentClass
+	Sticker InputDocumentClass `schemaname:"sticker"`
 	// The new position of the sticker, zero-based
-	Position int
+	Position int `schemaname:"position"`
 }
 
 // StickersChangeStickerPositionRequestTypeID is TL type id of StickersChangeStickerPositionRequest.
@@ -68,6 +68,11 @@ func (c *StickersChangeStickerPositionRequest) FillFrom(from interface {
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *StickersChangeStickerPositionRequest) TypeID() uint32 {
 	return StickersChangeStickerPositionRequestTypeID
+}
+
+// SchemaName returns MTProto type name.
+func (c *StickersChangeStickerPositionRequest) SchemaName() string {
+	return "stickers.changeStickerPosition"
 }
 
 // Encode implements bin.Encoder.
