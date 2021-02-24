@@ -45,7 +45,8 @@ func (g *AccountGetAutoDownloadSettingsRequest) String() string {
 	return fmt.Sprintf("AccountGetAutoDownloadSettingsRequest%+v", Alias(*g))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *AccountGetAutoDownloadSettingsRequest) TypeID() uint32 {
 	return AccountGetAutoDownloadSettingsRequestTypeID

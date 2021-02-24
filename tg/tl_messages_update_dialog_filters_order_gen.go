@@ -63,7 +63,8 @@ func (u *MessagesUpdateDialogFiltersOrderRequest) FillFrom(from interface {
 	u.Order = from.GetOrder()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *MessagesUpdateDialogFiltersOrderRequest) TypeID() uint32 {
 	return MessagesUpdateDialogFiltersOrderRequestTypeID

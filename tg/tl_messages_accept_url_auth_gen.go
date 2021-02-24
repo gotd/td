@@ -89,7 +89,8 @@ func (a *MessagesAcceptUrlAuthRequest) FillFrom(from interface {
 	a.ButtonID = from.GetButtonID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *MessagesAcceptUrlAuthRequest) TypeID() uint32 {
 	return MessagesAcceptUrlAuthRequestTypeID

@@ -62,7 +62,8 @@ func (g *HelpGetAppChangelogRequest) FillFrom(from interface {
 	g.PrevAppVersion = from.GetPrevAppVersion()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *HelpGetAppChangelogRequest) TypeID() uint32 {
 	return HelpGetAppChangelogRequestTypeID

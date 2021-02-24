@@ -98,7 +98,8 @@ func (m *MessageReplyHeader) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageReplyHeader) TypeID() uint32 {
 	return MessageReplyHeaderTypeID

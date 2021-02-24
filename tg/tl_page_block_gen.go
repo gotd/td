@@ -45,7 +45,8 @@ func (p *PageBlockUnsupported) String() string {
 	return fmt.Sprintf("PageBlockUnsupported%+v", Alias(*p))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockUnsupported) TypeID() uint32 {
 	return PageBlockUnsupportedTypeID
@@ -126,7 +127,8 @@ func (p *PageBlockTitle) FillFrom(from interface {
 	p.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockTitle) TypeID() uint32 {
 	return PageBlockTitleTypeID
@@ -225,7 +227,8 @@ func (p *PageBlockSubtitle) FillFrom(from interface {
 	p.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockSubtitle) TypeID() uint32 {
 	return PageBlockSubtitleTypeID
@@ -331,7 +334,8 @@ func (p *PageBlockAuthorDate) FillFrom(from interface {
 	p.PublishedDate = from.GetPublishedDate()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockAuthorDate) TypeID() uint32 {
 	return PageBlockAuthorDateTypeID
@@ -443,7 +447,8 @@ func (p *PageBlockHeader) FillFrom(from interface {
 	p.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockHeader) TypeID() uint32 {
 	return PageBlockHeaderTypeID
@@ -542,7 +547,8 @@ func (p *PageBlockSubheader) FillFrom(from interface {
 	p.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockSubheader) TypeID() uint32 {
 	return PageBlockSubheaderTypeID
@@ -641,7 +647,8 @@ func (p *PageBlockParagraph) FillFrom(from interface {
 	p.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockParagraph) TypeID() uint32 {
 	return PageBlockParagraphTypeID
@@ -747,7 +754,8 @@ func (p *PageBlockPreformatted) FillFrom(from interface {
 	p.Language = from.GetLanguage()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockPreformatted) TypeID() uint32 {
 	return PageBlockPreformattedTypeID
@@ -859,7 +867,8 @@ func (p *PageBlockFooter) FillFrom(from interface {
 	p.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockFooter) TypeID() uint32 {
 	return PageBlockFooterTypeID
@@ -946,7 +955,8 @@ func (p *PageBlockDivider) String() string {
 	return fmt.Sprintf("PageBlockDivider%+v", Alias(*p))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockDivider) TypeID() uint32 {
 	return PageBlockDividerTypeID
@@ -1027,7 +1037,8 @@ func (p *PageBlockAnchor) FillFrom(from interface {
 	p.Name = from.GetName()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockAnchor) TypeID() uint32 {
 	return PageBlockAnchorTypeID
@@ -1121,7 +1132,8 @@ func (p *PageBlockList) FillFrom(from interface {
 	p.Items = from.GetItems()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockList) TypeID() uint32 {
 	return PageBlockListTypeID
@@ -1241,7 +1253,8 @@ func (p *PageBlockBlockquote) FillFrom(from interface {
 	p.Caption = from.GetCaption()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockBlockquote) TypeID() uint32 {
 	return PageBlockBlockquoteTypeID
@@ -1365,7 +1378,8 @@ func (p *PageBlockPullquote) FillFrom(from interface {
 	p.Caption = from.GetCaption()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockPullquote) TypeID() uint32 {
 	return PageBlockPullquoteTypeID
@@ -1521,7 +1535,8 @@ func (p *PageBlockPhoto) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockPhoto) TypeID() uint32 {
 	return PageBlockPhotoTypeID
@@ -1721,7 +1736,8 @@ func (p *PageBlockVideo) FillFrom(from interface {
 	p.Caption = from.GetCaption()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockVideo) TypeID() uint32 {
 	return PageBlockVideoTypeID
@@ -1876,7 +1892,8 @@ func (p *PageBlockCover) FillFrom(from interface {
 	p.Cover = from.GetCover()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockCover) TypeID() uint32 {
 	return PageBlockCoverTypeID
@@ -2057,7 +2074,8 @@ func (p *PageBlockEmbed) FillFrom(from interface {
 	p.Caption = from.GetCaption()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockEmbed) TypeID() uint32 {
 	return PageBlockEmbedTypeID
@@ -2381,7 +2399,8 @@ func (p *PageBlockEmbedPost) FillFrom(from interface {
 	p.Caption = from.GetCaption()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockEmbedPost) TypeID() uint32 {
 	return PageBlockEmbedPostTypeID
@@ -2579,7 +2598,8 @@ func (p *PageBlockCollage) FillFrom(from interface {
 	p.Caption = from.GetCaption()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockCollage) TypeID() uint32 {
 	return PageBlockCollageTypeID
@@ -2712,7 +2732,8 @@ func (p *PageBlockSlideshow) FillFrom(from interface {
 	p.Caption = from.GetCaption()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockSlideshow) TypeID() uint32 {
 	return PageBlockSlideshowTypeID
@@ -2838,7 +2859,8 @@ func (p *PageBlockChannel) FillFrom(from interface {
 	p.Channel = from.GetChannel()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockChannel) TypeID() uint32 {
 	return PageBlockChannelTypeID
@@ -2947,7 +2969,8 @@ func (p *PageBlockAudio) FillFrom(from interface {
 	p.Caption = from.GetCaption()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockAudio) TypeID() uint32 {
 	return PageBlockAudioTypeID
@@ -3054,7 +3077,8 @@ func (p *PageBlockKicker) FillFrom(from interface {
 	p.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockKicker) TypeID() uint32 {
 	return PageBlockKickerTypeID
@@ -3182,7 +3206,8 @@ func (p *PageBlockTable) FillFrom(from interface {
 	p.Rows = from.GetRows()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockTable) TypeID() uint32 {
 	return PageBlockTableTypeID
@@ -3353,7 +3378,8 @@ func (p *PageBlockOrderedList) FillFrom(from interface {
 	p.Items = from.GetItems()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockOrderedList) TypeID() uint32 {
 	return PageBlockOrderedListTypeID
@@ -3488,7 +3514,8 @@ func (p *PageBlockDetails) FillFrom(from interface {
 	p.Title = from.GetTitle()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockDetails) TypeID() uint32 {
 	return PageBlockDetailsTypeID
@@ -3654,7 +3681,8 @@ func (p *PageBlockRelatedArticles) FillFrom(from interface {
 	p.Articles = from.GetArticles()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockRelatedArticles) TypeID() uint32 {
 	return PageBlockRelatedArticlesTypeID
@@ -3805,7 +3833,8 @@ func (p *PageBlockMap) FillFrom(from interface {
 	p.Caption = from.GetCaption()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageBlockMap) TypeID() uint32 {
 	return PageBlockMapTypeID
@@ -3964,6 +3993,7 @@ type PageBlockClass interface {
 	construct() PageBlockClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

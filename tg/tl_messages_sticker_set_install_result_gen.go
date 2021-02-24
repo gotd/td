@@ -45,7 +45,8 @@ func (s *MessagesStickerSetInstallResultSuccess) String() string {
 	return fmt.Sprintf("MessagesStickerSetInstallResultSuccess%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesStickerSetInstallResultSuccess) TypeID() uint32 {
 	return MessagesStickerSetInstallResultSuccessTypeID
@@ -128,7 +129,8 @@ func (s *MessagesStickerSetInstallResultArchive) FillFrom(from interface {
 	s.Sets = from.GetSets()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesStickerSetInstallResultArchive) TypeID() uint32 {
 	return MessagesStickerSetInstallResultArchiveTypeID
@@ -224,6 +226,7 @@ type MessagesStickerSetInstallResultClass interface {
 	construct() MessagesStickerSetInstallResultClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

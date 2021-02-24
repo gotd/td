@@ -45,7 +45,8 @@ func (t *TopPeerCategoryBotsPM) String() string {
 	return fmt.Sprintf("TopPeerCategoryBotsPM%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TopPeerCategoryBotsPM) TypeID() uint32 {
 	return TopPeerCategoryBotsPMTypeID
@@ -114,7 +115,8 @@ func (t *TopPeerCategoryBotsInline) String() string {
 	return fmt.Sprintf("TopPeerCategoryBotsInline%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TopPeerCategoryBotsInline) TypeID() uint32 {
 	return TopPeerCategoryBotsInlineTypeID
@@ -183,7 +185,8 @@ func (t *TopPeerCategoryCorrespondents) String() string {
 	return fmt.Sprintf("TopPeerCategoryCorrespondents%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TopPeerCategoryCorrespondents) TypeID() uint32 {
 	return TopPeerCategoryCorrespondentsTypeID
@@ -252,7 +255,8 @@ func (t *TopPeerCategoryGroups) String() string {
 	return fmt.Sprintf("TopPeerCategoryGroups%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TopPeerCategoryGroups) TypeID() uint32 {
 	return TopPeerCategoryGroupsTypeID
@@ -321,7 +325,8 @@ func (t *TopPeerCategoryChannels) String() string {
 	return fmt.Sprintf("TopPeerCategoryChannels%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TopPeerCategoryChannels) TypeID() uint32 {
 	return TopPeerCategoryChannelsTypeID
@@ -390,7 +395,8 @@ func (t *TopPeerCategoryPhoneCalls) String() string {
 	return fmt.Sprintf("TopPeerCategoryPhoneCalls%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TopPeerCategoryPhoneCalls) TypeID() uint32 {
 	return TopPeerCategoryPhoneCallsTypeID
@@ -459,7 +465,8 @@ func (t *TopPeerCategoryForwardUsers) String() string {
 	return fmt.Sprintf("TopPeerCategoryForwardUsers%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TopPeerCategoryForwardUsers) TypeID() uint32 {
 	return TopPeerCategoryForwardUsersTypeID
@@ -528,7 +535,8 @@ func (t *TopPeerCategoryForwardChats) String() string {
 	return fmt.Sprintf("TopPeerCategoryForwardChats%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TopPeerCategoryForwardChats) TypeID() uint32 {
 	return TopPeerCategoryForwardChatsTypeID
@@ -596,6 +604,7 @@ type TopPeerCategoryClass interface {
 	construct() TopPeerCategoryClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

@@ -60,7 +60,8 @@ func (g *MessagesGetAllStickersRequest) FillFrom(from interface {
 	g.Hash = from.GetHash()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetAllStickersRequest) TypeID() uint32 {
 	return MessagesGetAllStickersRequestTypeID

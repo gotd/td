@@ -88,7 +88,8 @@ func (i *InputSecureFileUploaded) FillFrom(from interface {
 	i.Secret = from.GetSecret()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputSecureFileUploaded) TypeID() uint32 {
 	return InputSecureFileUploadedTypeID
@@ -245,7 +246,8 @@ func (i *InputSecureFile) FillFrom(from interface {
 	i.AccessHash = from.GetAccessHash()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputSecureFile) TypeID() uint32 {
 	return InputSecureFileTypeID
@@ -333,6 +335,7 @@ type InputSecureFileClass interface {
 	construct() InputSecureFileClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

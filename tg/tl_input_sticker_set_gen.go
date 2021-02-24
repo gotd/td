@@ -45,7 +45,8 @@ func (i *InputStickerSetEmpty) String() string {
 	return fmt.Sprintf("InputStickerSetEmpty%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputStickerSetEmpty) TypeID() uint32 {
 	return InputStickerSetEmptyTypeID
@@ -133,7 +134,8 @@ func (i *InputStickerSetID) FillFrom(from interface {
 	i.AccessHash = from.GetAccessHash()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputStickerSetID) TypeID() uint32 {
 	return InputStickerSetIDTypeID
@@ -240,7 +242,8 @@ func (i *InputStickerSetShortName) FillFrom(from interface {
 	i.ShortName = from.GetShortName()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputStickerSetShortName) TypeID() uint32 {
 	return InputStickerSetShortNameTypeID
@@ -322,7 +325,8 @@ func (i *InputStickerSetAnimatedEmoji) String() string {
 	return fmt.Sprintf("InputStickerSetAnimatedEmoji%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputStickerSetAnimatedEmoji) TypeID() uint32 {
 	return InputStickerSetAnimatedEmojiTypeID
@@ -406,7 +410,8 @@ func (i *InputStickerSetDice) FillFrom(from interface {
 	i.Emoticon = from.GetEmoticon()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputStickerSetDice) TypeID() uint32 {
 	return InputStickerSetDiceTypeID
@@ -484,6 +489,7 @@ type InputStickerSetClass interface {
 	construct() InputStickerSetClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

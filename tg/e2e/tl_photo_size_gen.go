@@ -60,7 +60,8 @@ func (p *PhotoSizeEmpty) FillFrom(from interface {
 	p.Type = from.GetType()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhotoSizeEmpty) TypeID() uint32 {
 	return PhotoSizeEmptyTypeID
@@ -182,7 +183,8 @@ func (p *PhotoSize) FillFrom(from interface {
 	p.Size = from.GetSize()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhotoSize) TypeID() uint32 {
 	return PhotoSizeTypeID
@@ -361,7 +363,8 @@ func (p *PhotoCachedSize) FillFrom(from interface {
 	p.Bytes = from.GetBytes()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhotoCachedSize) TypeID() uint32 {
 	return PhotoCachedSizeTypeID
@@ -494,6 +497,7 @@ type PhotoSizeClass interface {
 	construct() PhotoSizeClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.
@@ -519,6 +523,7 @@ type NotEmptyPhotoSize interface {
 	construct() PhotoSizeClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

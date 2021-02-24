@@ -64,7 +64,8 @@ func (p *PageListOrderedItemText) FillFrom(from interface {
 	p.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageListOrderedItemText) TypeID() uint32 {
 	return PageListOrderedItemTextTypeID
@@ -186,7 +187,8 @@ func (p *PageListOrderedItemBlocks) FillFrom(from interface {
 	p.Blocks = from.GetBlocks()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PageListOrderedItemBlocks) TypeID() uint32 {
 	return PageListOrderedItemBlocksTypeID
@@ -293,6 +295,7 @@ type PageListOrderedItemClass interface {
 	construct() PageListOrderedItemClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

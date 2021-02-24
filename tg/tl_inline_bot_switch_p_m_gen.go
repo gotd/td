@@ -64,7 +64,8 @@ func (i *InlineBotSwitchPM) FillFrom(from interface {
 	i.StartParam = from.GetStartParam()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InlineBotSwitchPM) TypeID() uint32 {
 	return InlineBotSwitchPMTypeID

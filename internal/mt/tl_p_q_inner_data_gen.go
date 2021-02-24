@@ -89,7 +89,8 @@ func (p *PQInnerData) FillFrom(from interface {
 	p.NewNonce = from.GetNewNonce()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PQInnerData) TypeID() uint32 {
 	return PQInnerDataTypeID

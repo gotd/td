@@ -57,7 +57,8 @@ func (p *PaymentsPaymentResult) FillFrom(from interface {
 	p.Updates = from.GetUpdates()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PaymentsPaymentResult) TypeID() uint32 {
 	return PaymentsPaymentResultTypeID
@@ -156,7 +157,8 @@ func (p *PaymentsPaymentVerificationNeeded) FillFrom(from interface {
 	p.URL = from.GetURL()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PaymentsPaymentVerificationNeeded) TypeID() uint32 {
 	return PaymentsPaymentVerificationNeededTypeID
@@ -231,6 +233,7 @@ type PaymentsPaymentResultClass interface {
 	construct() PaymentsPaymentResultClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

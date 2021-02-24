@@ -45,7 +45,8 @@ func (i *InputCheckPasswordEmpty) String() string {
 	return fmt.Sprintf("InputCheckPasswordEmpty%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputCheckPasswordEmpty) TypeID() uint32 {
 	return InputCheckPasswordEmptyTypeID
@@ -152,7 +153,8 @@ func (i *InputCheckPasswordSRP) FillFrom(from interface {
 	i.M1 = from.GetM1()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputCheckPasswordSRP) TypeID() uint32 {
 	return InputCheckPasswordSRPTypeID
@@ -253,6 +255,7 @@ type InputCheckPasswordSRPClass interface {
 	construct() InputCheckPasswordSRPClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

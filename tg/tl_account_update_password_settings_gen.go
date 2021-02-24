@@ -70,7 +70,8 @@ func (u *AccountUpdatePasswordSettingsRequest) FillFrom(from interface {
 	u.NewSettings = from.GetNewSettings()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *AccountUpdatePasswordSettingsRequest) TypeID() uint32 {
 	return AccountUpdatePasswordSettingsRequestTypeID

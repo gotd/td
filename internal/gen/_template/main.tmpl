@@ -37,7 +37,8 @@ const {{ $s.Name }}TypeID = {{ if not $s.Vector }}0x{{ $s.HexID }}{{- else -}}bi
 
 {{ template "generate_helpers" $s }}
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func ({{ $s.Receiver }} *{{ $s.Name }}) TypeID() uint32 {
     return {{ $s.Name }}TypeID

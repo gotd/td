@@ -61,7 +61,8 @@ func (s *SecurePlainPhone) FillFrom(from interface {
 	s.Phone = from.GetPhone()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecurePlainPhone) TypeID() uint32 {
 	return SecurePlainPhoneTypeID
@@ -159,7 +160,8 @@ func (s *SecurePlainEmail) FillFrom(from interface {
 	s.Email = from.GetEmail()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecurePlainEmail) TypeID() uint32 {
 	return SecurePlainEmailTypeID
@@ -234,6 +236,7 @@ type SecurePlainDataClass interface {
 	construct() SecurePlainDataClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

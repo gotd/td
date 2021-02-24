@@ -57,7 +57,8 @@ func (k *KeyboardButtonRow) FillFrom(from interface {
 	k.Buttons = from.GetButtons()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (k *KeyboardButtonRow) TypeID() uint32 {
 	return KeyboardButtonRowTypeID

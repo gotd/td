@@ -61,7 +61,8 @@ func (m *MsgsStateInfo) FillFrom(from interface {
 	m.Info = from.GetInfo()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MsgsStateInfo) TypeID() uint32 {
 	return MsgsStateInfoTypeID

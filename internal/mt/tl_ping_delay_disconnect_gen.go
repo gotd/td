@@ -61,7 +61,8 @@ func (p *PingDelayDisconnectRequest) FillFrom(from interface {
 	p.DisconnectDelay = from.GetDisconnectDelay()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PingDelayDisconnectRequest) TypeID() uint32 {
 	return PingDelayDisconnectRequestTypeID

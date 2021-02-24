@@ -45,7 +45,8 @@ func (g *UpdatesGetStateRequest) String() string {
 	return fmt.Sprintf("UpdatesGetStateRequest%+v", Alias(*g))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *UpdatesGetStateRequest) TypeID() uint32 {
 	return UpdatesGetStateRequestTypeID

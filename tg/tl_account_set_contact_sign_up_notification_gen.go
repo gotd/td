@@ -57,7 +57,8 @@ func (s *AccountSetContactSignUpNotificationRequest) FillFrom(from interface {
 	s.Silent = from.GetSilent()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AccountSetContactSignUpNotificationRequest) TypeID() uint32 {
 	return AccountSetContactSignUpNotificationRequestTypeID

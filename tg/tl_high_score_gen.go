@@ -71,7 +71,8 @@ func (h *HighScore) FillFrom(from interface {
 	h.Score = from.GetScore()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (h *HighScore) TypeID() uint32 {
 	return HighScoreTypeID

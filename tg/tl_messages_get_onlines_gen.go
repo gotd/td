@@ -57,7 +57,8 @@ func (g *MessagesGetOnlinesRequest) FillFrom(from interface {
 	g.Peer = from.GetPeer()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetOnlinesRequest) TypeID() uint32 {
 	return MessagesGetOnlinesRequestTypeID

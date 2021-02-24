@@ -64,7 +64,8 @@ func (g *MessagesGetPollResultsRequest) FillFrom(from interface {
 	g.MsgID = from.GetMsgID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetPollResultsRequest) TypeID() uint32 {
 	return MessagesGetPollResultsRequestTypeID

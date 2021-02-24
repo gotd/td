@@ -57,7 +57,8 @@ func (e *EncryptedChatEmpty) FillFrom(from interface {
 	e.ID = from.GetID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EncryptedChatEmpty) TypeID() uint32 {
 	return EncryptedChatEmptyTypeID
@@ -179,7 +180,8 @@ func (e *EncryptedChatWaiting) FillFrom(from interface {
 	e.ParticipantID = from.GetParticipantID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EncryptedChatWaiting) TypeID() uint32 {
 	return EncryptedChatWaitingTypeID
@@ -386,7 +388,8 @@ func (e *EncryptedChatRequested) FillFrom(from interface {
 	e.GA = from.GetGA()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EncryptedChatRequested) TypeID() uint32 {
 	return EncryptedChatRequestedTypeID
@@ -626,7 +629,8 @@ func (e *EncryptedChat) FillFrom(from interface {
 	e.KeyFingerprint = from.GetKeyFingerprint()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EncryptedChat) TypeID() uint32 {
 	return EncryptedChatTypeID
@@ -810,7 +814,8 @@ func (e *EncryptedChatDiscarded) FillFrom(from interface {
 	e.ID = from.GetID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EncryptedChatDiscarded) TypeID() uint32 {
 	return EncryptedChatDiscardedTypeID
@@ -916,6 +921,7 @@ type EncryptedChatClass interface {
 	construct() EncryptedChatClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.
@@ -947,6 +953,7 @@ type NotEmptyEncryptedChat interface {
 	construct() EncryptedChatClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

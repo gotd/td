@@ -86,7 +86,8 @@ func (s *SecureRequiredType) FillFrom(from interface {
 	s.Type = from.GetType()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureRequiredType) TypeID() uint32 {
 	return SecureRequiredTypeTypeID
@@ -253,7 +254,8 @@ func (s *SecureRequiredTypeOneOf) FillFrom(from interface {
 	s.Types = from.GetTypes()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureRequiredTypeOneOf) TypeID() uint32 {
 	return SecureRequiredTypeOneOfTypeID
@@ -347,6 +349,7 @@ type SecureRequiredTypeClass interface {
 	construct() SecureRequiredTypeClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

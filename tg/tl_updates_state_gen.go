@@ -89,7 +89,8 @@ func (s *UpdatesState) FillFrom(from interface {
 	s.UnreadCount = from.GetUnreadCount()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *UpdatesState) TypeID() uint32 {
 	return UpdatesStateTypeID

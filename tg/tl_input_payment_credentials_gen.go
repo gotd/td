@@ -64,7 +64,8 @@ func (i *InputPaymentCredentialsSaved) FillFrom(from interface {
 	i.TmpPassword = from.GetTmpPassword()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPaymentCredentialsSaved) TypeID() uint32 {
 	return InputPaymentCredentialsSavedTypeID
@@ -186,7 +187,8 @@ func (i *InputPaymentCredentials) FillFrom(from interface {
 	i.Data = from.GetData()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPaymentCredentials) TypeID() uint32 {
 	return InputPaymentCredentialsTypeID
@@ -308,7 +310,8 @@ func (i *InputPaymentCredentialsApplePay) FillFrom(from interface {
 	i.PaymentData = from.GetPaymentData()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPaymentCredentialsApplePay) TypeID() uint32 {
 	return InputPaymentCredentialsApplePayTypeID
@@ -401,7 +404,8 @@ func (i *InputPaymentCredentialsGooglePay) FillFrom(from interface {
 	i.PaymentToken = from.GetPaymentToken()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPaymentCredentialsGooglePay) TypeID() uint32 {
 	return InputPaymentCredentialsGooglePayTypeID
@@ -478,6 +482,7 @@ type InputPaymentCredentialsClass interface {
 	construct() InputPaymentCredentialsClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

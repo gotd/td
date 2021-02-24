@@ -74,7 +74,8 @@ func (g *UploadGetCdnFileRequest) FillFrom(from interface {
 	g.Limit = from.GetLimit()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *UploadGetCdnFileRequest) TypeID() uint32 {
 	return UploadGetCdnFileRequestTypeID

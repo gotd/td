@@ -56,7 +56,8 @@ func (g *MessagesGetAdminsWithInvitesRequest) FillFrom(from interface {
 	g.Peer = from.GetPeer()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetAdminsWithInvitesRequest) TypeID() uint32 {
 	return MessagesGetAdminsWithInvitesRequestTypeID

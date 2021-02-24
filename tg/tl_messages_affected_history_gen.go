@@ -71,7 +71,8 @@ func (a *MessagesAffectedHistory) FillFrom(from interface {
 	a.Offset = from.GetOffset()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *MessagesAffectedHistory) TypeID() uint32 {
 	return MessagesAffectedHistoryTypeID

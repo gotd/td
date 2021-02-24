@@ -74,7 +74,8 @@ func (a *PhoneAcceptCallRequest) FillFrom(from interface {
 	a.Protocol = from.GetProtocol()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *PhoneAcceptCallRequest) TypeID() uint32 {
 	return PhoneAcceptCallRequestTypeID

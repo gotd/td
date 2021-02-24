@@ -54,7 +54,8 @@ func (vec *SecureValueVector) FillFrom(from interface {
 	vec.Elems = from.GetElems()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *SecureValueVector) TypeID() uint32 {
 	return SecureValueVectorTypeID

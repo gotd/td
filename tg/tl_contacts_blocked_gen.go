@@ -71,7 +71,8 @@ func (b *ContactsBlocked) FillFrom(from interface {
 	b.Users = from.GetUsers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *ContactsBlocked) TypeID() uint32 {
 	return ContactsBlockedTypeID
@@ -261,7 +262,8 @@ func (b *ContactsBlockedSlice) FillFrom(from interface {
 	b.Users = from.GetUsers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *ContactsBlockedSlice) TypeID() uint32 {
 	return ContactsBlockedSliceTypeID
@@ -424,6 +426,7 @@ type ContactsBlockedClass interface {
 	construct() ContactsBlockedClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

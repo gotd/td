@@ -75,7 +75,8 @@ func (m *MsgDetailedInfo) FillFrom(from interface {
 	m.Status = from.GetStatus()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MsgDetailedInfo) TypeID() uint32 {
 	return MsgDetailedInfoTypeID
@@ -219,7 +220,8 @@ func (m *MsgNewDetailedInfo) FillFrom(from interface {
 	m.Status = from.GetStatus()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MsgNewDetailedInfo) TypeID() uint32 {
 	return MsgNewDetailedInfoTypeID
@@ -318,6 +320,7 @@ type MsgDetailedInfoClass interface {
 	construct() MsgDetailedInfoClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

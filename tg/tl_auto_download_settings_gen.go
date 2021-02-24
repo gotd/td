@@ -114,7 +114,8 @@ func (a *AutoDownloadSettings) FillFrom(from interface {
 	a.VideoUploadMaxbitrate = from.GetVideoUploadMaxbitrate()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *AutoDownloadSettings) TypeID() uint32 {
 	return AutoDownloadSettingsTypeID

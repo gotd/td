@@ -68,7 +68,8 @@ func (s *SetClientDHParamsRequest) FillFrom(from interface {
 	s.EncryptedData = from.GetEncryptedData()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SetClientDHParamsRequest) TypeID() uint32 {
 	return SetClientDHParamsRequestTypeID

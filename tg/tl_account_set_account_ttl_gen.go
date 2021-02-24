@@ -57,7 +57,8 @@ func (s *AccountSetAccountTTLRequest) FillFrom(from interface {
 	s.TTL = from.GetTTL()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AccountSetAccountTTLRequest) TypeID() uint32 {
 	return AccountSetAccountTTLRequestTypeID

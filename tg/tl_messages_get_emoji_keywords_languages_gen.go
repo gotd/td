@@ -57,7 +57,8 @@ func (g *MessagesGetEmojiKeywordsLanguagesRequest) FillFrom(from interface {
 	g.LangCodes = from.GetLangCodes()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetEmojiKeywordsLanguagesRequest) TypeID() uint32 {
 	return MessagesGetEmojiKeywordsLanguagesRequestTypeID

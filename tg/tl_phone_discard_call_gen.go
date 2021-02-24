@@ -93,7 +93,8 @@ func (d *PhoneDiscardCallRequest) FillFrom(from interface {
 	d.ConnectionID = from.GetConnectionID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *PhoneDiscardCallRequest) TypeID() uint32 {
 	return PhoneDiscardCallRequestTypeID

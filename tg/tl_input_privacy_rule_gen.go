@@ -45,7 +45,8 @@ func (i *InputPrivacyValueAllowContacts) String() string {
 	return fmt.Sprintf("InputPrivacyValueAllowContacts%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPrivacyValueAllowContacts) TypeID() uint32 {
 	return InputPrivacyValueAllowContactsTypeID
@@ -114,7 +115,8 @@ func (i *InputPrivacyValueAllowAll) String() string {
 	return fmt.Sprintf("InputPrivacyValueAllowAll%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPrivacyValueAllowAll) TypeID() uint32 {
 	return InputPrivacyValueAllowAllTypeID
@@ -195,7 +197,8 @@ func (i *InputPrivacyValueAllowUsers) FillFrom(from interface {
 	i.Users = from.GetUsers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPrivacyValueAllowUsers) TypeID() uint32 {
 	return InputPrivacyValueAllowUsersTypeID
@@ -296,7 +299,8 @@ func (i *InputPrivacyValueDisallowContacts) String() string {
 	return fmt.Sprintf("InputPrivacyValueDisallowContacts%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPrivacyValueDisallowContacts) TypeID() uint32 {
 	return InputPrivacyValueDisallowContactsTypeID
@@ -365,7 +369,8 @@ func (i *InputPrivacyValueDisallowAll) String() string {
 	return fmt.Sprintf("InputPrivacyValueDisallowAll%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPrivacyValueDisallowAll) TypeID() uint32 {
 	return InputPrivacyValueDisallowAllTypeID
@@ -446,7 +451,8 @@ func (i *InputPrivacyValueDisallowUsers) FillFrom(from interface {
 	i.Users = from.GetUsers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPrivacyValueDisallowUsers) TypeID() uint32 {
 	return InputPrivacyValueDisallowUsersTypeID
@@ -559,7 +565,8 @@ func (i *InputPrivacyValueAllowChatParticipants) FillFrom(from interface {
 	i.Chats = from.GetChats()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPrivacyValueAllowChatParticipants) TypeID() uint32 {
 	return InputPrivacyValueAllowChatParticipantsTypeID
@@ -662,7 +669,8 @@ func (i *InputPrivacyValueDisallowChatParticipants) FillFrom(from interface {
 	i.Chats = from.GetChats()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPrivacyValueDisallowChatParticipants) TypeID() uint32 {
 	return InputPrivacyValueDisallowChatParticipantsTypeID
@@ -752,6 +760,7 @@ type InputPrivacyRuleClass interface {
 	construct() InputPrivacyRuleClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

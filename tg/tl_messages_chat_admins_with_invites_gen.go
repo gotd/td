@@ -63,7 +63,8 @@ func (c *MessagesChatAdminsWithInvites) FillFrom(from interface {
 	c.Users = from.GetUsers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *MessagesChatAdminsWithInvites) TypeID() uint32 {
 	return MessagesChatAdminsWithInvitesTypeID

@@ -67,7 +67,8 @@ func (t *TopPeer) FillFrom(from interface {
 	t.Rating = from.GetRating()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TopPeer) TypeID() uint32 {
 	return TopPeerTypeID

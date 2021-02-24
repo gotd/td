@@ -71,7 +71,8 @@ func (s *ShippingOption) FillFrom(from interface {
 	s.Prices = from.GetPrices()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *ShippingOption) TypeID() uint32 {
 	return ShippingOptionTypeID

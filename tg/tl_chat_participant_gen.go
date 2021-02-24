@@ -71,7 +71,8 @@ func (c *ChatParticipant) FillFrom(from interface {
 	c.Date = from.GetDate()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatParticipant) TypeID() uint32 {
 	return ChatParticipantTypeID
@@ -191,7 +192,8 @@ func (c *ChatParticipantCreator) FillFrom(from interface {
 	c.UserID = from.GetUserID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatParticipantCreator) TypeID() uint32 {
 	return ChatParticipantCreatorTypeID
@@ -299,7 +301,8 @@ func (c *ChatParticipantAdmin) FillFrom(from interface {
 	c.Date = from.GetDate()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatParticipantAdmin) TypeID() uint32 {
 	return ChatParticipantAdminTypeID
@@ -401,6 +404,7 @@ type ChatParticipantClass interface {
 	construct() ChatParticipantClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

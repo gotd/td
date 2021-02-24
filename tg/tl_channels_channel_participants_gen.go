@@ -71,7 +71,8 @@ func (c *ChannelsChannelParticipants) FillFrom(from interface {
 	c.Users = from.GetUsers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelsChannelParticipants) TypeID() uint32 {
 	return ChannelsChannelParticipantsTypeID
@@ -217,7 +218,8 @@ func (c *ChannelsChannelParticipantsNotModified) String() string {
 	return fmt.Sprintf("ChannelsChannelParticipantsNotModified%+v", Alias(*c))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelsChannelParticipantsNotModified) TypeID() uint32 {
 	return ChannelsChannelParticipantsNotModifiedTypeID
@@ -281,6 +283,7 @@ type ChannelsChannelParticipantsClass interface {
 	construct() ChannelsChannelParticipantsClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

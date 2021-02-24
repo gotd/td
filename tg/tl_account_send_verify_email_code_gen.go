@@ -60,7 +60,8 @@ func (s *AccountSendVerifyEmailCodeRequest) FillFrom(from interface {
 	s.Email = from.GetEmail()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AccountSendVerifyEmailCodeRequest) TypeID() uint32 {
 	return AccountSendVerifyEmailCodeRequestTypeID

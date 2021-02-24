@@ -89,7 +89,8 @@ func (s *ServerDHInnerData) FillFrom(from interface {
 	s.ServerTime = from.GetServerTime()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *ServerDHInnerData) TypeID() uint32 {
 	return ServerDHInnerDataTypeID

@@ -64,7 +64,8 @@ func (i *InvokeAfterMsgRequest) FillFrom(from interface {
 	i.Query = from.GetQuery()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InvokeAfterMsgRequest) TypeID() uint32 {
 	return InvokeAfterMsgRequestTypeID

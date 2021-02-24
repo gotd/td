@@ -71,7 +71,8 @@ func (s *MessagesStickerSet) FillFrom(from interface {
 	s.Documents = from.GetDocuments()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesStickerSet) TypeID() uint32 {
 	return MessagesStickerSetTypeID

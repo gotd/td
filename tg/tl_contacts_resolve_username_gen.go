@@ -57,7 +57,8 @@ func (r *ContactsResolveUsernameRequest) FillFrom(from interface {
 	r.Username = from.GetUsername()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ContactsResolveUsernameRequest) TypeID() uint32 {
 	return ContactsResolveUsernameRequestTypeID

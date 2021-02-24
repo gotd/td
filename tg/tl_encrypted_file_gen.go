@@ -45,7 +45,8 @@ func (e *EncryptedFileEmpty) String() string {
 	return fmt.Sprintf("EncryptedFileEmpty%+v", Alias(*e))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EncryptedFileEmpty) TypeID() uint32 {
 	return EncryptedFileEmptyTypeID
@@ -154,7 +155,8 @@ func (e *EncryptedFile) FillFrom(from interface {
 	e.KeyFingerprint = from.GetKeyFingerprint()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EncryptedFile) TypeID() uint32 {
 	return EncryptedFileTypeID
@@ -281,6 +283,7 @@ type EncryptedFileClass interface {
 	construct() EncryptedFileClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

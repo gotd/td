@@ -85,7 +85,8 @@ func (p *PhoneConnection) FillFrom(from interface {
 	p.PeerTag = from.GetPeerTag()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhoneConnection) TypeID() uint32 {
 	return PhoneConnectionTypeID
@@ -288,7 +289,8 @@ func (p *PhoneConnectionWebrtc) FillFrom(from interface {
 	p.Password = from.GetPassword()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhoneConnectionWebrtc) TypeID() uint32 {
 	return PhoneConnectionWebrtcTypeID
@@ -476,6 +478,7 @@ type PhoneConnectionClass interface {
 	construct() PhoneConnectionClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

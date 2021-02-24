@@ -68,7 +68,8 @@ func (b *BadMsgNotification) FillFrom(from interface {
 	b.ErrorCode = from.GetErrorCode()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *BadMsgNotification) TypeID() uint32 {
 	return BadMsgNotificationTypeID
@@ -206,7 +207,8 @@ func (b *BadServerSalt) FillFrom(from interface {
 	b.NewServerSalt = from.GetNewServerSalt()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *BadServerSalt) TypeID() uint32 {
 	return BadServerSaltTypeID
@@ -318,6 +320,7 @@ type BadMsgNotificationClass interface {
 	construct() BadMsgNotificationClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

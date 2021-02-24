@@ -45,7 +45,8 @@ func (u *UserStatusEmpty) String() string {
 	return fmt.Sprintf("UserStatusEmpty%+v", Alias(*u))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UserStatusEmpty) TypeID() uint32 {
 	return UserStatusEmptyTypeID
@@ -126,7 +127,8 @@ func (u *UserStatusOnline) FillFrom(from interface {
 	u.Expires = from.GetExpires()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UserStatusOnline) TypeID() uint32 {
 	return UserStatusOnlineTypeID
@@ -220,7 +222,8 @@ func (u *UserStatusOffline) FillFrom(from interface {
 	u.WasOnline = from.GetWasOnline()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UserStatusOffline) TypeID() uint32 {
 	return UserStatusOfflineTypeID
@@ -302,7 +305,8 @@ func (u *UserStatusRecently) String() string {
 	return fmt.Sprintf("UserStatusRecently%+v", Alias(*u))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UserStatusRecently) TypeID() uint32 {
 	return UserStatusRecentlyTypeID
@@ -371,7 +375,8 @@ func (u *UserStatusLastWeek) String() string {
 	return fmt.Sprintf("UserStatusLastWeek%+v", Alias(*u))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UserStatusLastWeek) TypeID() uint32 {
 	return UserStatusLastWeekTypeID
@@ -440,7 +445,8 @@ func (u *UserStatusLastMonth) String() string {
 	return fmt.Sprintf("UserStatusLastMonth%+v", Alias(*u))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UserStatusLastMonth) TypeID() uint32 {
 	return UserStatusLastMonthTypeID
@@ -506,6 +512,7 @@ type UserStatusClass interface {
 	construct() UserStatusClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

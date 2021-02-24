@@ -61,7 +61,8 @@ func (s *StatsGraphAsync) FillFrom(from interface {
 	s.Token = from.GetToken()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StatsGraphAsync) TypeID() uint32 {
 	return StatsGraphAsyncTypeID
@@ -158,7 +159,8 @@ func (s *StatsGraphError) FillFrom(from interface {
 	s.Error = from.GetError()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StatsGraphError) TypeID() uint32 {
 	return StatsGraphErrorTypeID
@@ -275,7 +277,8 @@ func (s *StatsGraph) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StatsGraph) TypeID() uint32 {
 	return StatsGraphTypeID
@@ -387,6 +390,7 @@ type StatsGraphClass interface {
 	construct() StatsGraphClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

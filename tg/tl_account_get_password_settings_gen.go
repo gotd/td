@@ -63,7 +63,8 @@ func (g *AccountGetPasswordSettingsRequest) FillFrom(from interface {
 	g.Password = from.GetPassword()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *AccountGetPasswordSettingsRequest) TypeID() uint32 {
 	return AccountGetPasswordSettingsRequestTypeID

@@ -132,7 +132,8 @@ func (p *PollResults) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PollResults) TypeID() uint32 {
 	return PollResultsTypeID

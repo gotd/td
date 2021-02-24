@@ -45,7 +45,8 @@ func (c *AuthCodeTypeSms) String() string {
 	return fmt.Sprintf("AuthCodeTypeSms%+v", Alias(*c))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *AuthCodeTypeSms) TypeID() uint32 {
 	return AuthCodeTypeSmsTypeID
@@ -114,7 +115,8 @@ func (c *AuthCodeTypeCall) String() string {
 	return fmt.Sprintf("AuthCodeTypeCall%+v", Alias(*c))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *AuthCodeTypeCall) TypeID() uint32 {
 	return AuthCodeTypeCallTypeID
@@ -183,7 +185,8 @@ func (c *AuthCodeTypeFlashCall) String() string {
 	return fmt.Sprintf("AuthCodeTypeFlashCall%+v", Alias(*c))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *AuthCodeTypeFlashCall) TypeID() uint32 {
 	return AuthCodeTypeFlashCallTypeID
@@ -246,6 +249,7 @@ type AuthCodeTypeClass interface {
 	construct() AuthCodeTypeClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

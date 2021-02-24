@@ -61,7 +61,8 @@ func (r *AuthRecoverPasswordRequest) FillFrom(from interface {
 	r.Code = from.GetCode()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *AuthRecoverPasswordRequest) TypeID() uint32 {
 	return AuthRecoverPasswordRequestTypeID

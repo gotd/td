@@ -48,7 +48,8 @@ func (g *MessagesGetSuggestedDialogFiltersRequest) String() string {
 	return fmt.Sprintf("MessagesGetSuggestedDialogFiltersRequest%+v", Alias(*g))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetSuggestedDialogFiltersRequest) TypeID() uint32 {
 	return MessagesGetSuggestedDialogFiltersRequestTypeID

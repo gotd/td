@@ -85,7 +85,8 @@ func (u *UrlAuthResultRequest) FillFrom(from interface {
 	u.Domain = from.GetDomain()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UrlAuthResultRequest) TypeID() uint32 {
 	return UrlAuthResultRequestTypeID
@@ -228,7 +229,8 @@ func (u *UrlAuthResultAccepted) FillFrom(from interface {
 	u.URL = from.GetURL()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UrlAuthResultAccepted) TypeID() uint32 {
 	return UrlAuthResultAcceptedTypeID
@@ -313,7 +315,8 @@ func (u *UrlAuthResultDefault) String() string {
 	return fmt.Sprintf("UrlAuthResultDefault%+v", Alias(*u))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UrlAuthResultDefault) TypeID() uint32 {
 	return UrlAuthResultDefaultTypeID
@@ -376,6 +379,7 @@ type UrlAuthResultClass interface {
 	construct() UrlAuthResultClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

@@ -64,7 +64,8 @@ func (g *AccountGetTmpPasswordRequest) FillFrom(from interface {
 	g.Period = from.GetPeriod()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *AccountGetTmpPasswordRequest) TypeID() uint32 {
 	return AccountGetTmpPasswordRequestTypeID

@@ -63,7 +63,8 @@ func (e *MessagesExportedChatInvite) FillFrom(from interface {
 	e.Users = from.GetUsers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *MessagesExportedChatInvite) TypeID() uint32 {
 	return MessagesExportedChatInviteTypeID
@@ -202,7 +203,8 @@ func (e *MessagesExportedChatInviteReplaced) FillFrom(from interface {
 	e.Users = from.GetUsers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *MessagesExportedChatInviteReplaced) TypeID() uint32 {
 	return MessagesExportedChatInviteReplacedTypeID
@@ -322,6 +324,7 @@ type MessagesExportedChatInviteClass interface {
 	construct() MessagesExportedChatInviteClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

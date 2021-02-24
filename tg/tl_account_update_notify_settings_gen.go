@@ -64,7 +64,8 @@ func (u *AccountUpdateNotifySettingsRequest) FillFrom(from interface {
 	u.Settings = from.GetSettings()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *AccountUpdateNotifySettingsRequest) TypeID() uint32 {
 	return AccountUpdateNotifySettingsRequestTypeID

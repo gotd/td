@@ -71,7 +71,8 @@ func (n *NearestDc) FillFrom(from interface {
 	n.NearestDC = from.GetNearestDC()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (n *NearestDc) TypeID() uint32 {
 	return NearestDcTypeID

@@ -72,7 +72,8 @@ func (r *RestrictionReason) FillFrom(from interface {
 	r.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RestrictionReason) TypeID() uint32 {
 	return RestrictionReasonTypeID

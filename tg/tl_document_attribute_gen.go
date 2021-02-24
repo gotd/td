@@ -64,7 +64,8 @@ func (d *DocumentAttributeImageSize) FillFrom(from interface {
 	d.H = from.GetH()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DocumentAttributeImageSize) TypeID() uint32 {
 	return DocumentAttributeImageSizeTypeID
@@ -159,7 +160,8 @@ func (d *DocumentAttributeAnimated) String() string {
 	return fmt.Sprintf("DocumentAttributeAnimated%+v", Alias(*d))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DocumentAttributeAnimated) TypeID() uint32 {
 	return DocumentAttributeAnimatedTypeID
@@ -274,7 +276,8 @@ func (d *DocumentAttributeSticker) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DocumentAttributeSticker) TypeID() uint32 {
 	return DocumentAttributeStickerTypeID
@@ -478,7 +481,8 @@ func (d *DocumentAttributeVideo) FillFrom(from interface {
 	d.H = from.GetH()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DocumentAttributeVideo) TypeID() uint32 {
 	return DocumentAttributeVideoTypeID
@@ -697,7 +701,8 @@ func (d *DocumentAttributeAudio) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DocumentAttributeAudio) TypeID() uint32 {
 	return DocumentAttributeAudioTypeID
@@ -903,7 +908,8 @@ func (d *DocumentAttributeFilename) FillFrom(from interface {
 	d.FileName = from.GetFileName()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DocumentAttributeFilename) TypeID() uint32 {
 	return DocumentAttributeFilenameTypeID
@@ -985,7 +991,8 @@ func (d *DocumentAttributeHasStickers) String() string {
 	return fmt.Sprintf("DocumentAttributeHasStickers%+v", Alias(*d))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DocumentAttributeHasStickers) TypeID() uint32 {
 	return DocumentAttributeHasStickersTypeID
@@ -1052,6 +1059,7 @@ type DocumentAttributeClass interface {
 	construct() DocumentAttributeClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

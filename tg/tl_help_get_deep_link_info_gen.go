@@ -57,7 +57,8 @@ func (g *HelpGetDeepLinkInfoRequest) FillFrom(from interface {
 	g.Path = from.GetPath()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *HelpGetDeepLinkInfoRequest) TypeID() uint32 {
 	return HelpGetDeepLinkInfoRequestTypeID

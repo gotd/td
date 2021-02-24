@@ -45,7 +45,8 @@ func (s *MessagesSavedGifsNotModified) String() string {
 	return fmt.Sprintf("MessagesSavedGifsNotModified%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSavedGifsNotModified) TypeID() uint32 {
 	return MessagesSavedGifsNotModifiedTypeID
@@ -136,7 +137,8 @@ func (s *MessagesSavedGifs) FillFrom(from interface {
 	s.Gifs = from.GetGifs()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSavedGifs) TypeID() uint32 {
 	return MessagesSavedGifsTypeID
@@ -243,6 +245,7 @@ type MessagesSavedGifsClass interface {
 	construct() MessagesSavedGifsClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

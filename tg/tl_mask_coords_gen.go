@@ -79,7 +79,8 @@ func (m *MaskCoords) FillFrom(from interface {
 	m.Zoom = from.GetZoom()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MaskCoords) TypeID() uint32 {
 	return MaskCoordsTypeID

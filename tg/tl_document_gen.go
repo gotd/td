@@ -57,7 +57,8 @@ func (d *DocumentEmpty) FillFrom(from interface {
 	d.ID = from.GetID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DocumentEmpty) TypeID() uint32 {
 	return DocumentEmptyTypeID
@@ -235,7 +236,8 @@ func (d *Document) FillFrom(from interface {
 	d.Attributes = from.GetAttributes()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *Document) TypeID() uint32 {
 	return DocumentTypeID
@@ -517,6 +519,7 @@ type DocumentClass interface {
 	construct() DocumentClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

@@ -57,7 +57,8 @@ func (i *InputStickeredMediaPhoto) FillFrom(from interface {
 	i.ID = from.GetID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputStickeredMediaPhoto) TypeID() uint32 {
 	return InputStickeredMediaPhotoTypeID
@@ -156,7 +157,8 @@ func (i *InputStickeredMediaDocument) FillFrom(from interface {
 	i.ID = from.GetID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputStickeredMediaDocument) TypeID() uint32 {
 	return InputStickeredMediaDocumentTypeID
@@ -236,6 +238,7 @@ type InputStickeredMediaClass interface {
 	construct() InputStickeredMediaClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

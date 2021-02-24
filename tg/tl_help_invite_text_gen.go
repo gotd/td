@@ -57,7 +57,8 @@ func (i *HelpInviteText) FillFrom(from interface {
 	i.Message = from.GetMessage()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *HelpInviteText) TypeID() uint32 {
 	return HelpInviteTextTypeID

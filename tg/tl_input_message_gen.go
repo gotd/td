@@ -57,7 +57,8 @@ func (i *InputMessageID) FillFrom(from interface {
 	i.ID = from.GetID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessageID) TypeID() uint32 {
 	return InputMessageIDTypeID
@@ -151,7 +152,8 @@ func (i *InputMessageReplyTo) FillFrom(from interface {
 	i.ID = from.GetID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessageReplyTo) TypeID() uint32 {
 	return InputMessageReplyToTypeID
@@ -233,7 +235,8 @@ func (i *InputMessagePinned) String() string {
 	return fmt.Sprintf("InputMessagePinned%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagePinned) TypeID() uint32 {
 	return InputMessagePinnedTypeID
@@ -321,7 +324,8 @@ func (i *InputMessageCallbackQuery) FillFrom(from interface {
 	i.QueryID = from.GetQueryID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessageCallbackQuery) TypeID() uint32 {
 	return InputMessageCallbackQueryTypeID
@@ -411,6 +415,7 @@ type InputMessageClass interface {
 	construct() InputMessageClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

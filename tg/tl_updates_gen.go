@@ -48,7 +48,8 @@ func (u *UpdatesTooLong) String() string {
 	return fmt.Sprintf("UpdatesTooLong%+v", Alias(*u))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatesTooLong) TypeID() uint32 {
 	return UpdatesTooLongTypeID
@@ -275,7 +276,8 @@ func (u *UpdateShortMessage) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateShortMessage) TypeID() uint32 {
 	return UpdateShortMessageTypeID
@@ -834,7 +836,8 @@ func (u *UpdateShortChatMessage) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateShortChatMessage) TypeID() uint32 {
 	return UpdateShortChatMessageTypeID
@@ -1263,7 +1266,8 @@ func (u *UpdateShort) FillFrom(from interface {
 	u.Date = from.GetDate()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateShort) TypeID() uint32 {
 	return UpdateShortTypeID
@@ -1410,7 +1414,8 @@ func (u *UpdatesCombined) FillFrom(from interface {
 	u.Seq = from.GetSeq()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatesCombined) TypeID() uint32 {
 	return UpdatesCombinedTypeID
@@ -1653,7 +1658,8 @@ func (u *Updates) FillFrom(from interface {
 	u.Seq = from.GetSeq()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *Updates) TypeID() uint32 {
 	return UpdatesTypeID
@@ -1940,7 +1946,8 @@ func (u *UpdateShortSentMessage) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateShortSentMessage) TypeID() uint32 {
 	return UpdateShortSentMessageTypeID
@@ -2198,6 +2205,7 @@ type UpdatesClass interface {
 	construct() UpdatesClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

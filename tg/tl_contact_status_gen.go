@@ -64,7 +64,8 @@ func (c *ContactStatus) FillFrom(from interface {
 	c.Status = from.GetStatus()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ContactStatus) TypeID() uint32 {
 	return ContactStatusTypeID

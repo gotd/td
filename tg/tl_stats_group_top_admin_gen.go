@@ -87,7 +87,8 @@ func (s *StatsGroupTopAdmin) FillFrom(from interface {
 	s.Banned = from.GetBanned()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StatsGroupTopAdmin) TypeID() uint32 {
 	return StatsGroupTopAdminTypeID

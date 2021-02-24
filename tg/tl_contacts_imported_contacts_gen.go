@@ -81,7 +81,8 @@ func (i *ContactsImportedContacts) FillFrom(from interface {
 	i.Users = from.GetUsers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *ContactsImportedContacts) TypeID() uint32 {
 	return ContactsImportedContactsTypeID

@@ -88,7 +88,8 @@ func (e *EncryptedMessage) FillFrom(from interface {
 	e.File = from.GetFile()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EncryptedMessage) TypeID() uint32 {
 	return EncryptedMessageTypeID
@@ -263,7 +264,8 @@ func (e *EncryptedMessageService) FillFrom(from interface {
 	e.Bytes = from.GetBytes()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EncryptedMessageService) TypeID() uint32 {
 	return EncryptedMessageServiceTypeID
@@ -377,6 +379,7 @@ type EncryptedMessageClass interface {
 	construct() EncryptedMessageClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

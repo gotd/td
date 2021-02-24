@@ -77,7 +77,8 @@ func (d *DecryptedMessage8) FillFrom(from interface {
 	d.Media = from.GetMedia()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessage8) TypeID() uint32 {
 	return DecryptedMessage8TypeID
@@ -228,7 +229,8 @@ func (d *DecryptedMessageService8) FillFrom(from interface {
 	d.Action = from.GetAction()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageService8) TypeID() uint32 {
 	return DecryptedMessageService8TypeID
@@ -373,7 +375,8 @@ func (d *DecryptedMessage23) FillFrom(from interface {
 	d.Media = from.GetMedia()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessage23) TypeID() uint32 {
 	return DecryptedMessage23TypeID
@@ -517,7 +520,8 @@ func (d *DecryptedMessageService) FillFrom(from interface {
 	d.Action = from.GetAction()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageService) TypeID() uint32 {
 	return DecryptedMessageServiceTypeID
@@ -695,7 +699,8 @@ func (d *DecryptedMessage46) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessage46) TypeID() uint32 {
 	return DecryptedMessage46TypeID
@@ -1047,7 +1052,8 @@ func (d *DecryptedMessage) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessage) TypeID() uint32 {
 	return DecryptedMessageTypeID
@@ -1347,6 +1353,7 @@ type DecryptedMessageClass interface {
 	construct() DecryptedMessageClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

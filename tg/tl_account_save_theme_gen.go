@@ -64,7 +64,8 @@ func (s *AccountSaveThemeRequest) FillFrom(from interface {
 	s.Unsave = from.GetUnsave()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AccountSaveThemeRequest) TypeID() uint32 {
 	return AccountSaveThemeRequestTypeID

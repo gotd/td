@@ -54,7 +54,8 @@ func (r *RPCDropAnswerRequest) FillFrom(from interface {
 	r.ReqMsgID = from.GetReqMsgID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RPCDropAnswerRequest) TypeID() uint32 {
 	return RPCDropAnswerRequestTypeID

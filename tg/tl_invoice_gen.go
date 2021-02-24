@@ -131,7 +131,8 @@ func (i *Invoice) FillFrom(from interface {
 	i.Prices = from.GetPrices()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *Invoice) TypeID() uint32 {
 	return InvoiceTypeID

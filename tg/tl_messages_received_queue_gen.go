@@ -57,7 +57,8 @@ func (r *MessagesReceivedQueueRequest) FillFrom(from interface {
 	r.MaxQts = from.GetMaxQts()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *MessagesReceivedQueueRequest) TypeID() uint32 {
 	return MessagesReceivedQueueRequestTypeID

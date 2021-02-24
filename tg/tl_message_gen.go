@@ -74,7 +74,8 @@ func (m *MessageEmpty) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEmpty) TypeID() uint32 {
 	return MessageEmptyTypeID
@@ -500,7 +501,8 @@ func (m *Message) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *Message) TypeID() uint32 {
 	return MessageTypeID
@@ -1401,7 +1403,8 @@ func (m *MessageService) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageService) TypeID() uint32 {
 	return MessageServiceTypeID
@@ -1743,6 +1746,7 @@ type MessageClass interface {
 	construct() MessageClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.
@@ -1781,6 +1785,7 @@ type NotEmptyMessage interface {
 	construct() MessageClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

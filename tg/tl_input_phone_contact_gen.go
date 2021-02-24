@@ -81,7 +81,8 @@ func (i *InputPhoneContact) FillFrom(from interface {
 	i.LastName = from.GetLastName()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPhoneContact) TypeID() uint32 {
 	return InputPhoneContactTypeID

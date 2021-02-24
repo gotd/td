@@ -57,7 +57,8 @@ func (d *MessagesDhConfigNotModified) FillFrom(from interface {
 	d.Random = from.GetRandom()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *MessagesDhConfigNotModified) TypeID() uint32 {
 	return MessagesDhConfigNotModifiedTypeID
@@ -178,7 +179,8 @@ func (d *MessagesDhConfig) FillFrom(from interface {
 	d.Random = from.GetRandom()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *MessagesDhConfig) TypeID() uint32 {
 	return MessagesDhConfigTypeID
@@ -292,6 +294,7 @@ type MessagesDhConfigClass interface {
 	construct() MessagesDhConfigClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

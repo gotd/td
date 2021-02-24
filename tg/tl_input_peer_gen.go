@@ -45,7 +45,8 @@ func (i *InputPeerEmpty) String() string {
 	return fmt.Sprintf("InputPeerEmpty%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPeerEmpty) TypeID() uint32 {
 	return InputPeerEmptyTypeID
@@ -114,7 +115,8 @@ func (i *InputPeerSelf) String() string {
 	return fmt.Sprintf("InputPeerSelf%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPeerSelf) TypeID() uint32 {
 	return InputPeerSelfTypeID
@@ -195,7 +197,8 @@ func (i *InputPeerChat) FillFrom(from interface {
 	i.ChatID = from.GetChatID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPeerChat) TypeID() uint32 {
 	return InputPeerChatTypeID
@@ -299,7 +302,8 @@ func (i *InputPeerUser) FillFrom(from interface {
 	i.AccessHash = from.GetAccessHash()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPeerUser) TypeID() uint32 {
 	return InputPeerUserTypeID
@@ -416,7 +420,8 @@ func (i *InputPeerChannel) FillFrom(from interface {
 	i.AccessHash = from.GetAccessHash()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPeerChannel) TypeID() uint32 {
 	return InputPeerChannelTypeID
@@ -540,7 +545,8 @@ func (i *InputPeerUserFromMessage) FillFrom(from interface {
 	i.UserID = from.GetUserID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPeerUserFromMessage) TypeID() uint32 {
 	return InputPeerUserFromMessageTypeID
@@ -682,7 +688,8 @@ func (i *InputPeerChannelFromMessage) FillFrom(from interface {
 	i.ChannelID = from.GetChannelID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPeerChannelFromMessage) TypeID() uint32 {
 	return InputPeerChannelFromMessageTypeID
@@ -793,6 +800,7 @@ type InputPeerClass interface {
 	construct() InputPeerClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

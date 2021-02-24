@@ -68,7 +68,8 @@ func (s *StatsPercentValue) FillFrom(from interface {
 	s.Total = from.GetTotal()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StatsPercentValue) TypeID() uint32 {
 	return StatsPercentValueTypeID

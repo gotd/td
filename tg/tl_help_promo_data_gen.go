@@ -57,7 +57,8 @@ func (p *HelpPromoDataEmpty) FillFrom(from interface {
 	p.Expires = from.GetExpires()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *HelpPromoDataEmpty) TypeID() uint32 {
 	return HelpPromoDataEmptyTypeID
@@ -211,7 +212,8 @@ func (p *HelpPromoData) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *HelpPromoData) TypeID() uint32 {
 	return HelpPromoDataTypeID
@@ -452,6 +454,7 @@ type HelpPromoDataClass interface {
 	construct() HelpPromoDataClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

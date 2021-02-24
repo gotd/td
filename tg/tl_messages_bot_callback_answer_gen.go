@@ -110,7 +110,8 @@ func (b *MessagesBotCallbackAnswer) FillFrom(from interface {
 	b.CacheTime = from.GetCacheTime()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *MessagesBotCallbackAnswer) TypeID() uint32 {
 	return MessagesBotCallbackAnswerTypeID

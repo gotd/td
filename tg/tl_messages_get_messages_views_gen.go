@@ -74,7 +74,8 @@ func (g *MessagesGetMessagesViewsRequest) FillFrom(from interface {
 	g.Increment = from.GetIncrement()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetMessagesViewsRequest) TypeID() uint32 {
 	return MessagesGetMessagesViewsRequestTypeID

@@ -45,7 +45,8 @@ func (m *MessageActionEmpty) String() string {
 	return fmt.Sprintf("MessageActionEmpty%+v", Alias(*m))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionEmpty) TypeID() uint32 {
 	return MessageActionEmptyTypeID
@@ -133,7 +134,8 @@ func (m *MessageActionChatCreate) FillFrom(from interface {
 	m.Users = from.GetUsers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionChatCreate) TypeID() uint32 {
 	return MessageActionChatCreateTypeID
@@ -249,7 +251,8 @@ func (m *MessageActionChatEditTitle) FillFrom(from interface {
 	m.Title = from.GetTitle()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionChatEditTitle) TypeID() uint32 {
 	return MessageActionChatEditTitleTypeID
@@ -343,7 +346,8 @@ func (m *MessageActionChatEditPhoto) FillFrom(from interface {
 	m.Photo = from.GetPhoto()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionChatEditPhoto) TypeID() uint32 {
 	return MessageActionChatEditPhotoTypeID
@@ -430,7 +434,8 @@ func (m *MessageActionChatDeletePhoto) String() string {
 	return fmt.Sprintf("MessageActionChatDeletePhoto%+v", Alias(*m))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionChatDeletePhoto) TypeID() uint32 {
 	return MessageActionChatDeletePhotoTypeID
@@ -511,7 +516,8 @@ func (m *MessageActionChatAddUser) FillFrom(from interface {
 	m.Users = from.GetUsers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionChatAddUser) TypeID() uint32 {
 	return MessageActionChatAddUserTypeID
@@ -614,7 +620,8 @@ func (m *MessageActionChatDeleteUser) FillFrom(from interface {
 	m.UserID = from.GetUserID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionChatDeleteUser) TypeID() uint32 {
 	return MessageActionChatDeleteUserTypeID
@@ -708,7 +715,8 @@ func (m *MessageActionChatJoinedByLink) FillFrom(from interface {
 	m.InviterID = from.GetInviterID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionChatJoinedByLink) TypeID() uint32 {
 	return MessageActionChatJoinedByLinkTypeID
@@ -802,7 +810,8 @@ func (m *MessageActionChannelCreate) FillFrom(from interface {
 	m.Title = from.GetTitle()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionChannelCreate) TypeID() uint32 {
 	return MessageActionChannelCreateTypeID
@@ -899,7 +908,8 @@ func (m *MessageActionChatMigrateTo) FillFrom(from interface {
 	m.ChannelID = from.GetChannelID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionChatMigrateTo) TypeID() uint32 {
 	return MessageActionChatMigrateToTypeID
@@ -1003,7 +1013,8 @@ func (m *MessageActionChannelMigrateFrom) FillFrom(from interface {
 	m.ChatID = from.GetChatID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionChannelMigrateFrom) TypeID() uint32 {
 	return MessageActionChannelMigrateFromTypeID
@@ -1098,7 +1109,8 @@ func (m *MessageActionPinMessage) String() string {
 	return fmt.Sprintf("MessageActionPinMessage%+v", Alias(*m))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionPinMessage) TypeID() uint32 {
 	return MessageActionPinMessageTypeID
@@ -1167,7 +1179,8 @@ func (m *MessageActionHistoryClear) String() string {
 	return fmt.Sprintf("MessageActionHistoryClear%+v", Alias(*m))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionHistoryClear) TypeID() uint32 {
 	return MessageActionHistoryClearTypeID
@@ -1255,7 +1268,8 @@ func (m *MessageActionGameScore) FillFrom(from interface {
 	m.Score = from.GetScore()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionGameScore) TypeID() uint32 {
 	return MessageActionGameScoreTypeID
@@ -1421,7 +1435,8 @@ func (m *MessageActionPaymentSentMe) FillFrom(from interface {
 	m.Charge = from.GetCharge()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionPaymentSentMe) TypeID() uint32 {
 	return MessageActionPaymentSentMeTypeID
@@ -1631,7 +1646,8 @@ func (m *MessageActionPaymentSent) FillFrom(from interface {
 	m.TotalAmount = from.GetTotalAmount()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionPaymentSent) TypeID() uint32 {
 	return MessageActionPaymentSentTypeID
@@ -1777,7 +1793,8 @@ func (m *MessageActionPhoneCall) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionPhoneCall) TypeID() uint32 {
 	return MessageActionPhoneCallTypeID
@@ -1948,7 +1965,8 @@ func (m *MessageActionScreenshotTaken) String() string {
 	return fmt.Sprintf("MessageActionScreenshotTaken%+v", Alias(*m))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionScreenshotTaken) TypeID() uint32 {
 	return MessageActionScreenshotTakenTypeID
@@ -2029,7 +2047,8 @@ func (m *MessageActionCustomAction) FillFrom(from interface {
 	m.Message = from.GetMessage()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionCustomAction) TypeID() uint32 {
 	return MessageActionCustomActionTypeID
@@ -2126,7 +2145,8 @@ func (m *MessageActionBotAllowed) FillFrom(from interface {
 	m.Domain = from.GetDomain()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionBotAllowed) TypeID() uint32 {
 	return MessageActionBotAllowedTypeID
@@ -2230,7 +2250,8 @@ func (m *MessageActionSecureValuesSentMe) FillFrom(from interface {
 	m.Credentials = from.GetCredentials()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionSecureValuesSentMe) TypeID() uint32 {
 	return MessageActionSecureValuesSentMeTypeID
@@ -2351,7 +2372,8 @@ func (m *MessageActionSecureValuesSent) FillFrom(from interface {
 	m.Types = from.GetTypes()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionSecureValuesSent) TypeID() uint32 {
 	return MessageActionSecureValuesSentTypeID
@@ -2452,7 +2474,8 @@ func (m *MessageActionContactSignUp) String() string {
 	return fmt.Sprintf("MessageActionContactSignUp%+v", Alias(*m))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionContactSignUp) TypeID() uint32 {
 	return MessageActionContactSignUpTypeID
@@ -2550,7 +2573,8 @@ func (m *MessageActionGeoProximityReached) FillFrom(from interface {
 	m.Distance = from.GetDistance()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionGeoProximityReached) TypeID() uint32 {
 	return MessageActionGeoProximityReachedTypeID
@@ -2696,7 +2720,8 @@ func (m *MessageActionGroupCall) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionGroupCall) TypeID() uint32 {
 	return MessageActionGroupCallTypeID
@@ -2832,7 +2857,8 @@ func (m *MessageActionInviteToGroupCall) FillFrom(from interface {
 	m.Users = from.GetUsers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionInviteToGroupCall) TypeID() uint32 {
 	return MessageActionInviteToGroupCallTypeID
@@ -2947,7 +2973,8 @@ func (m *MessageActionSetMessagesTTL) FillFrom(from interface {
 	m.Period = from.GetPeriod()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageActionSetMessagesTTL) TypeID() uint32 {
 	return MessageActionSetMessagesTTLTypeID
@@ -3047,6 +3074,7 @@ type MessageActionClass interface {
 	construct() MessageActionClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

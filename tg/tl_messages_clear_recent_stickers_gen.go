@@ -65,7 +65,8 @@ func (c *MessagesClearRecentStickersRequest) FillFrom(from interface {
 	c.Attached = from.GetAttached()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *MessagesClearRecentStickersRequest) TypeID() uint32 {
 	return MessagesClearRecentStickersRequestTypeID

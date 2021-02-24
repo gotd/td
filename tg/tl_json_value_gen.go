@@ -45,7 +45,8 @@ func (j *JsonNull) String() string {
 	return fmt.Sprintf("JsonNull%+v", Alias(*j))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (j *JsonNull) TypeID() uint32 {
 	return JsonNullTypeID
@@ -126,7 +127,8 @@ func (j *JsonBool) FillFrom(from interface {
 	j.Value = from.GetValue()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (j *JsonBool) TypeID() uint32 {
 	return JsonBoolTypeID
@@ -220,7 +222,8 @@ func (j *JsonNumber) FillFrom(from interface {
 	j.Value = from.GetValue()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (j *JsonNumber) TypeID() uint32 {
 	return JsonNumberTypeID
@@ -314,7 +317,8 @@ func (j *JsonString) FillFrom(from interface {
 	j.Value = from.GetValue()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (j *JsonString) TypeID() uint32 {
 	return JsonStringTypeID
@@ -408,7 +412,8 @@ func (j *JsonArray) FillFrom(from interface {
 	j.Value = from.GetValue()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (j *JsonArray) TypeID() uint32 {
 	return JsonArrayTypeID
@@ -521,7 +526,8 @@ func (j *JsonObject) FillFrom(from interface {
 	j.Value = from.GetValue()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (j *JsonObject) TypeID() uint32 {
 	return JsonObjectTypeID
@@ -611,6 +617,7 @@ type JSONValueClass interface {
 	construct() JSONValueClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

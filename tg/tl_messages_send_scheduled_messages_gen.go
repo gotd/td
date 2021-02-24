@@ -64,7 +64,8 @@ func (s *MessagesSendScheduledMessagesRequest) FillFrom(from interface {
 	s.ID = from.GetID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSendScheduledMessagesRequest) TypeID() uint32 {
 	return MessagesSendScheduledMessagesRequestTypeID

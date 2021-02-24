@@ -94,7 +94,8 @@ func (u *AccountUploadThemeRequest) FillFrom(from interface {
 	u.MimeType = from.GetMimeType()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *AccountUploadThemeRequest) TypeID() uint32 {
 	return AccountUploadThemeRequestTypeID

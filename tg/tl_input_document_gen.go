@@ -45,7 +45,8 @@ func (i *InputDocumentEmpty) String() string {
 	return fmt.Sprintf("InputDocumentEmpty%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputDocumentEmpty) TypeID() uint32 {
 	return InputDocumentEmptyTypeID
@@ -146,7 +147,8 @@ func (i *InputDocument) FillFrom(from interface {
 	i.FileReference = from.GetFileReference()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputDocument) TypeID() uint32 {
 	return InputDocumentTypeID
@@ -247,6 +249,7 @@ type InputDocumentClass interface {
 	construct() InputDocumentClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

@@ -45,7 +45,8 @@ func (i *InputMessagesFilterEmpty) String() string {
 	return fmt.Sprintf("InputMessagesFilterEmpty%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagesFilterEmpty) TypeID() uint32 {
 	return InputMessagesFilterEmptyTypeID
@@ -114,7 +115,8 @@ func (i *InputMessagesFilterPhotos) String() string {
 	return fmt.Sprintf("InputMessagesFilterPhotos%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagesFilterPhotos) TypeID() uint32 {
 	return InputMessagesFilterPhotosTypeID
@@ -183,7 +185,8 @@ func (i *InputMessagesFilterVideo) String() string {
 	return fmt.Sprintf("InputMessagesFilterVideo%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagesFilterVideo) TypeID() uint32 {
 	return InputMessagesFilterVideoTypeID
@@ -252,7 +255,8 @@ func (i *InputMessagesFilterPhotoVideo) String() string {
 	return fmt.Sprintf("InputMessagesFilterPhotoVideo%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagesFilterPhotoVideo) TypeID() uint32 {
 	return InputMessagesFilterPhotoVideoTypeID
@@ -321,7 +325,8 @@ func (i *InputMessagesFilterDocument) String() string {
 	return fmt.Sprintf("InputMessagesFilterDocument%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagesFilterDocument) TypeID() uint32 {
 	return InputMessagesFilterDocumentTypeID
@@ -390,7 +395,8 @@ func (i *InputMessagesFilterUrl) String() string {
 	return fmt.Sprintf("InputMessagesFilterUrl%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagesFilterUrl) TypeID() uint32 {
 	return InputMessagesFilterUrlTypeID
@@ -459,7 +465,8 @@ func (i *InputMessagesFilterGif) String() string {
 	return fmt.Sprintf("InputMessagesFilterGif%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagesFilterGif) TypeID() uint32 {
 	return InputMessagesFilterGifTypeID
@@ -528,7 +535,8 @@ func (i *InputMessagesFilterVoice) String() string {
 	return fmt.Sprintf("InputMessagesFilterVoice%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagesFilterVoice) TypeID() uint32 {
 	return InputMessagesFilterVoiceTypeID
@@ -597,7 +605,8 @@ func (i *InputMessagesFilterMusic) String() string {
 	return fmt.Sprintf("InputMessagesFilterMusic%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagesFilterMusic) TypeID() uint32 {
 	return InputMessagesFilterMusicTypeID
@@ -666,7 +675,8 @@ func (i *InputMessagesFilterChatPhotos) String() string {
 	return fmt.Sprintf("InputMessagesFilterChatPhotos%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagesFilterChatPhotos) TypeID() uint32 {
 	return InputMessagesFilterChatPhotosTypeID
@@ -755,7 +765,8 @@ func (i *InputMessagesFilterPhoneCalls) FillFrom(from interface {
 	i.Missed = from.GetMissed()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagesFilterPhoneCalls) TypeID() uint32 {
 	return InputMessagesFilterPhoneCallsTypeID
@@ -852,7 +863,8 @@ func (i *InputMessagesFilterRoundVoice) String() string {
 	return fmt.Sprintf("InputMessagesFilterRoundVoice%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagesFilterRoundVoice) TypeID() uint32 {
 	return InputMessagesFilterRoundVoiceTypeID
@@ -921,7 +933,8 @@ func (i *InputMessagesFilterRoundVideo) String() string {
 	return fmt.Sprintf("InputMessagesFilterRoundVideo%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagesFilterRoundVideo) TypeID() uint32 {
 	return InputMessagesFilterRoundVideoTypeID
@@ -993,7 +1006,8 @@ func (i *InputMessagesFilterMyMentions) String() string {
 	return fmt.Sprintf("InputMessagesFilterMyMentions%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagesFilterMyMentions) TypeID() uint32 {
 	return InputMessagesFilterMyMentionsTypeID
@@ -1062,7 +1076,8 @@ func (i *InputMessagesFilterGeo) String() string {
 	return fmt.Sprintf("InputMessagesFilterGeo%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagesFilterGeo) TypeID() uint32 {
 	return InputMessagesFilterGeoTypeID
@@ -1131,7 +1146,8 @@ func (i *InputMessagesFilterContacts) String() string {
 	return fmt.Sprintf("InputMessagesFilterContacts%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagesFilterContacts) TypeID() uint32 {
 	return InputMessagesFilterContactsTypeID
@@ -1200,7 +1216,8 @@ func (i *InputMessagesFilterPinned) String() string {
 	return fmt.Sprintf("InputMessagesFilterPinned%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMessagesFilterPinned) TypeID() uint32 {
 	return InputMessagesFilterPinnedTypeID
@@ -1277,6 +1294,7 @@ type MessagesFilterClass interface {
 	construct() MessagesFilterClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

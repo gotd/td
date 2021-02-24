@@ -74,7 +74,8 @@ func (u *UpdateNewMessage) FillFrom(from interface {
 	u.PtsCount = from.GetPtsCount()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateNewMessage) TypeID() uint32 {
 	return UpdateNewMessageTypeID
@@ -209,7 +210,8 @@ func (u *UpdateMessageID) FillFrom(from interface {
 	u.RandomID = from.GetRandomID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateMessageID) TypeID() uint32 {
 	return UpdateMessageIDTypeID
@@ -333,7 +335,8 @@ func (u *UpdateDeleteMessages) FillFrom(from interface {
 	u.PtsCount = from.GetPtsCount()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateDeleteMessages) TypeID() uint32 {
 	return UpdateDeleteMessagesTypeID
@@ -472,7 +475,8 @@ func (u *UpdateUserTyping) FillFrom(from interface {
 	u.Action = from.GetAction()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateUserTyping) TypeID() uint32 {
 	return UpdateUserTypingTypeID
@@ -601,7 +605,8 @@ func (u *UpdateChatUserTyping) FillFrom(from interface {
 	u.Action = from.GetAction()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChatUserTyping) TypeID() uint32 {
 	return UpdateChatUserTypingTypeID
@@ -726,7 +731,8 @@ func (u *UpdateChatParticipants) FillFrom(from interface {
 	u.Participants = from.GetParticipants()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChatParticipants) TypeID() uint32 {
 	return UpdateChatParticipantsTypeID
@@ -832,7 +838,8 @@ func (u *UpdateUserStatus) FillFrom(from interface {
 	u.Status = from.GetStatus()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateUserStatus) TypeID() uint32 {
 	return UpdateUserStatusTypeID
@@ -974,7 +981,8 @@ func (u *UpdateUserName) FillFrom(from interface {
 	u.Username = from.GetUsername()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateUserName) TypeID() uint32 {
 	return UpdateUserNameTypeID
@@ -1131,7 +1139,8 @@ func (u *UpdateUserPhoto) FillFrom(from interface {
 	u.Previous = from.GetPrevious()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateUserPhoto) TypeID() uint32 {
 	return UpdateUserPhotoTypeID
@@ -1276,7 +1285,8 @@ func (u *UpdateNewEncryptedMessage) FillFrom(from interface {
 	u.Qts = from.GetQts()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateNewEncryptedMessage) TypeID() uint32 {
 	return UpdateNewEncryptedMessageTypeID
@@ -1388,7 +1398,8 @@ func (u *UpdateEncryptedChatTyping) FillFrom(from interface {
 	u.ChatID = from.GetChatID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateEncryptedChatTyping) TypeID() uint32 {
 	return UpdateEncryptedChatTypingTypeID
@@ -1489,7 +1500,8 @@ func (u *UpdateEncryption) FillFrom(from interface {
 	u.Date = from.GetDate()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateEncryption) TypeID() uint32 {
 	return UpdateEncryptionTypeID
@@ -1615,7 +1627,8 @@ func (u *UpdateEncryptedMessagesRead) FillFrom(from interface {
 	u.Date = from.GetDate()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateEncryptedMessagesRead) TypeID() uint32 {
 	return UpdateEncryptedMessagesReadTypeID
@@ -1763,7 +1776,8 @@ func (u *UpdateChatParticipantAdd) FillFrom(from interface {
 	u.Version = from.GetVersion()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChatParticipantAdd) TypeID() uint32 {
 	return UpdateChatParticipantAddTypeID
@@ -1923,7 +1937,8 @@ func (u *UpdateChatParticipantDelete) FillFrom(from interface {
 	u.Version = from.GetVersion()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChatParticipantDelete) TypeID() uint32 {
 	return UpdateChatParticipantDeleteTypeID
@@ -2043,7 +2058,8 @@ func (u *UpdateDcOptions) FillFrom(from interface {
 	u.DCOptions = from.GetDCOptions()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateDcOptions) TypeID() uint32 {
 	return UpdateDcOptionsTypeID
@@ -2155,7 +2171,8 @@ func (u *UpdateNotifySettings) FillFrom(from interface {
 	u.NotifySettings = from.GetNotifySettings()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateNotifySettings) TypeID() uint32 {
 	return UpdateNotifySettingsTypeID
@@ -2322,7 +2339,8 @@ func (u *UpdateServiceNotification) FillFrom(from interface {
 	u.Entities = from.GetEntities()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateServiceNotification) TypeID() uint32 {
 	return UpdateServiceNotificationTypeID
@@ -2542,7 +2560,8 @@ func (u *UpdatePrivacy) FillFrom(from interface {
 	u.Rules = from.GetRules()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePrivacy) TypeID() uint32 {
 	return UpdatePrivacyTypeID
@@ -2680,7 +2699,8 @@ func (u *UpdateUserPhone) FillFrom(from interface {
 	u.Phone = from.GetPhone()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateUserPhone) TypeID() uint32 {
 	return UpdateUserPhoneTypeID
@@ -2844,7 +2864,8 @@ func (u *UpdateReadHistoryInbox) FillFrom(from interface {
 	u.PtsCount = from.GetPtsCount()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateReadHistoryInbox) TypeID() uint32 {
 	return UpdateReadHistoryInboxTypeID
@@ -3058,7 +3079,8 @@ func (u *UpdateReadHistoryOutbox) FillFrom(from interface {
 	u.PtsCount = from.GetPtsCount()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateReadHistoryOutbox) TypeID() uint32 {
 	return UpdateReadHistoryOutboxTypeID
@@ -3219,7 +3241,8 @@ func (u *UpdateWebPage) FillFrom(from interface {
 	u.PtsCount = from.GetPtsCount()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateWebPage) TypeID() uint32 {
 	return UpdateWebPageTypeID
@@ -3367,7 +3390,8 @@ func (u *UpdateReadMessagesContents) FillFrom(from interface {
 	u.PtsCount = from.GetPtsCount()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateReadMessagesContents) TypeID() uint32 {
 	return UpdateReadMessagesContentsTypeID
@@ -3520,7 +3544,8 @@ func (u *UpdateChannelTooLong) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChannelTooLong) TypeID() uint32 {
 	return UpdateChannelTooLongTypeID
@@ -3650,7 +3675,8 @@ func (u *UpdateChannel) FillFrom(from interface {
 	u.ChannelID = from.GetChannelID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChannel) TypeID() uint32 {
 	return UpdateChannelTypeID
@@ -3767,7 +3793,8 @@ func (u *UpdateNewChannelMessage) FillFrom(from interface {
 	u.PtsCount = from.GetPtsCount()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateNewChannelMessage) TypeID() uint32 {
 	return UpdateNewChannelMessageTypeID
@@ -3942,7 +3969,8 @@ func (u *UpdateReadChannelInbox) FillFrom(from interface {
 	u.Pts = from.GetPts()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateReadChannelInbox) TypeID() uint32 {
 	return UpdateReadChannelInboxTypeID
@@ -4141,7 +4169,8 @@ func (u *UpdateDeleteChannelMessages) FillFrom(from interface {
 	u.PtsCount = from.GetPtsCount()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateDeleteChannelMessages) TypeID() uint32 {
 	return UpdateDeleteChannelMessagesTypeID
@@ -4297,7 +4326,8 @@ func (u *UpdateChannelMessageViews) FillFrom(from interface {
 	u.Views = from.GetViews()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChannelMessageViews) TypeID() uint32 {
 	return UpdateChannelMessageViewsTypeID
@@ -4441,7 +4471,8 @@ func (u *UpdateChatParticipantAdmin) FillFrom(from interface {
 	u.Version = from.GetVersion()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChatParticipantAdmin) TypeID() uint32 {
 	return UpdateChatParticipantAdminTypeID
@@ -4574,7 +4605,8 @@ func (u *UpdateNewStickerSet) FillFrom(from interface {
 	u.Stickerset = from.GetStickerset()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateNewStickerSet) TypeID() uint32 {
 	return UpdateNewStickerSetTypeID
@@ -4683,7 +4715,8 @@ func (u *UpdateStickerSetsOrder) FillFrom(from interface {
 	u.Order = from.GetOrder()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateStickerSetsOrder) TypeID() uint32 {
 	return UpdateStickerSetsOrderTypeID
@@ -4805,7 +4838,8 @@ func (u *UpdateStickerSets) String() string {
 	return fmt.Sprintf("UpdateStickerSets%+v", Alias(*u))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateStickerSets) TypeID() uint32 {
 	return UpdateStickerSetsTypeID
@@ -4877,7 +4911,8 @@ func (u *UpdateSavedGifs) String() string {
 	return fmt.Sprintf("UpdateSavedGifs%+v", Alias(*u))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateSavedGifs) TypeID() uint32 {
 	return UpdateSavedGifsTypeID
@@ -5011,7 +5046,8 @@ func (u *UpdateBotInlineQuery) FillFrom(from interface {
 	u.Offset = from.GetOffset()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateBotInlineQuery) TypeID() uint32 {
 	return UpdateBotInlineQueryTypeID
@@ -5267,7 +5303,8 @@ func (u *UpdateBotInlineSend) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateBotInlineSend) TypeID() uint32 {
 	return UpdateBotInlineSendTypeID
@@ -5479,7 +5516,8 @@ func (u *UpdateEditChannelMessage) FillFrom(from interface {
 	u.PtsCount = from.GetPtsCount()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateEditChannelMessage) TypeID() uint32 {
 	return UpdateEditChannelMessageTypeID
@@ -5664,7 +5702,8 @@ func (u *UpdateBotCallbackQuery) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateBotCallbackQuery) TypeID() uint32 {
 	return UpdateBotCallbackQueryTypeID
@@ -5899,7 +5938,8 @@ func (u *UpdateEditMessage) FillFrom(from interface {
 	u.PtsCount = from.GetPtsCount()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateEditMessage) TypeID() uint32 {
 	return UpdateEditMessageTypeID
@@ -6077,7 +6117,8 @@ func (u *UpdateInlineBotCallbackQuery) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateInlineBotCallbackQuery) TypeID() uint32 {
 	return UpdateInlineBotCallbackQueryTypeID
@@ -6284,7 +6325,8 @@ func (u *UpdateReadChannelOutbox) FillFrom(from interface {
 	u.MaxID = from.GetMaxID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateReadChannelOutbox) TypeID() uint32 {
 	return UpdateReadChannelOutboxTypeID
@@ -6401,7 +6443,8 @@ func (u *UpdateDraftMessage) FillFrom(from interface {
 	u.Draft = from.GetDraft()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateDraftMessage) TypeID() uint32 {
 	return UpdateDraftMessageTypeID
@@ -6506,7 +6549,8 @@ func (u *UpdateReadFeaturedStickers) String() string {
 	return fmt.Sprintf("UpdateReadFeaturedStickers%+v", Alias(*u))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateReadFeaturedStickers) TypeID() uint32 {
 	return UpdateReadFeaturedStickersTypeID
@@ -6575,7 +6619,8 @@ func (u *UpdateRecentStickers) String() string {
 	return fmt.Sprintf("UpdateRecentStickers%+v", Alias(*u))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateRecentStickers) TypeID() uint32 {
 	return UpdateRecentStickersTypeID
@@ -6647,7 +6692,8 @@ func (u *UpdateConfig) String() string {
 	return fmt.Sprintf("UpdateConfig%+v", Alias(*u))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateConfig) TypeID() uint32 {
 	return UpdateConfigTypeID
@@ -6720,7 +6766,8 @@ func (u *UpdatePtsChanged) String() string {
 	return fmt.Sprintf("UpdatePtsChanged%+v", Alias(*u))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePtsChanged) TypeID() uint32 {
 	return UpdatePtsChangedTypeID
@@ -6834,7 +6881,8 @@ func (u *UpdateChannelWebPage) FillFrom(from interface {
 	u.PtsCount = from.GetPtsCount()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChannelWebPage) TypeID() uint32 {
 	return UpdateChannelWebPageTypeID
@@ -7002,7 +7050,8 @@ func (u *UpdateDialogPinned) FillFrom(from interface {
 	u.Peer = from.GetPeer()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateDialogPinned) TypeID() uint32 {
 	return UpdateDialogPinnedTypeID
@@ -7185,7 +7234,8 @@ func (u *UpdatePinnedDialogs) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePinnedDialogs) TypeID() uint32 {
 	return UpdatePinnedDialogsTypeID
@@ -7352,7 +7402,8 @@ func (u *UpdateBotWebhookJSON) FillFrom(from interface {
 	u.Data = from.GetData()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateBotWebhookJSON) TypeID() uint32 {
 	return UpdateBotWebhookJSONTypeID
@@ -7460,7 +7511,8 @@ func (u *UpdateBotWebhookJSONQuery) FillFrom(from interface {
 	u.Timeout = from.GetTimeout()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateBotWebhookJSONQuery) TypeID() uint32 {
 	return UpdateBotWebhookJSONQueryTypeID
@@ -7601,7 +7653,8 @@ func (u *UpdateBotShippingQuery) FillFrom(from interface {
 	u.ShippingAddress = from.GetShippingAddress()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateBotShippingQuery) TypeID() uint32 {
 	return UpdateBotShippingQueryTypeID
@@ -7800,7 +7853,8 @@ func (u *UpdateBotPrecheckoutQuery) FillFrom(from interface {
 	u.TotalAmount = from.GetTotalAmount()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateBotPrecheckoutQuery) TypeID() uint32 {
 	return UpdateBotPrecheckoutQueryTypeID
@@ -8010,7 +8064,8 @@ func (u *UpdatePhoneCall) FillFrom(from interface {
 	u.PhoneCall = from.GetPhoneCall()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePhoneCall) TypeID() uint32 {
 	return UpdatePhoneCallTypeID
@@ -8112,7 +8167,8 @@ func (u *UpdateLangPackTooLong) FillFrom(from interface {
 	u.LangCode = from.GetLangCode()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateLangPackTooLong) TypeID() uint32 {
 	return UpdateLangPackTooLongTypeID
@@ -8206,7 +8262,8 @@ func (u *UpdateLangPack) FillFrom(from interface {
 	u.Difference = from.GetDifference()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateLangPack) TypeID() uint32 {
 	return UpdateLangPackTypeID
@@ -8291,7 +8348,8 @@ func (u *UpdateFavedStickers) String() string {
 	return fmt.Sprintf("UpdateFavedStickers%+v", Alias(*u))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateFavedStickers) TypeID() uint32 {
 	return UpdateFavedStickersTypeID
@@ -8385,7 +8443,8 @@ func (u *UpdateChannelReadMessagesContents) FillFrom(from interface {
 	u.Messages = from.GetMessages()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChannelReadMessagesContents) TypeID() uint32 {
 	return UpdateChannelReadMessagesContentsTypeID
@@ -8489,7 +8548,8 @@ func (u *UpdateContactsReset) String() string {
 	return fmt.Sprintf("UpdateContactsReset%+v", Alias(*u))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateContactsReset) TypeID() uint32 {
 	return UpdateContactsResetTypeID
@@ -8580,7 +8640,8 @@ func (u *UpdateChannelAvailableMessages) FillFrom(from interface {
 	u.AvailableMinID = from.GetAvailableMinID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChannelAvailableMessages) TypeID() uint32 {
 	return UpdateChannelAvailableMessagesTypeID
@@ -8702,7 +8763,8 @@ func (u *UpdateDialogUnreadMark) FillFrom(from interface {
 	u.Peer = from.GetPeer()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateDialogUnreadMark) TypeID() uint32 {
 	return UpdateDialogUnreadMarkTypeID
@@ -8856,7 +8918,8 @@ func (u *UpdateMessagePoll) FillFrom(from interface {
 	u.Results = from.GetResults()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateMessagePoll) TypeID() uint32 {
 	return UpdateMessagePollTypeID
@@ -9016,7 +9079,8 @@ func (u *UpdateChatDefaultBannedRights) FillFrom(from interface {
 	u.Version = from.GetVersion()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChatDefaultBannedRights) TypeID() uint32 {
 	return UpdateChatDefaultBannedRightsTypeID
@@ -9164,7 +9228,8 @@ func (u *UpdateFolderPeers) FillFrom(from interface {
 	u.PtsCount = from.GetPtsCount()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateFolderPeers) TypeID() uint32 {
 	return UpdateFolderPeersTypeID
@@ -9302,7 +9367,8 @@ func (u *UpdatePeerSettings) FillFrom(from interface {
 	u.Settings = from.GetSettings()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePeerSettings) TypeID() uint32 {
 	return UpdatePeerSettingsTypeID
@@ -9414,7 +9480,8 @@ func (u *UpdatePeerLocated) FillFrom(from interface {
 	u.Peers = from.GetPeers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePeerLocated) TypeID() uint32 {
 	return UpdatePeerLocatedTypeID
@@ -9530,7 +9597,8 @@ func (u *UpdateNewScheduledMessage) FillFrom(from interface {
 	u.Message = from.GetMessage()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateNewScheduledMessage) TypeID() uint32 {
 	return UpdateNewScheduledMessageTypeID
@@ -9639,7 +9707,8 @@ func (u *UpdateDeleteScheduledMessages) FillFrom(from interface {
 	u.Messages = from.GetMessages()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateDeleteScheduledMessages) TypeID() uint32 {
 	return UpdateDeleteScheduledMessagesTypeID
@@ -9760,7 +9829,8 @@ func (u *UpdateTheme) FillFrom(from interface {
 	u.Theme = from.GetTheme()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateTheme) TypeID() uint32 {
 	return UpdateThemeTypeID
@@ -9861,7 +9931,8 @@ func (u *UpdateGeoLiveViewed) FillFrom(from interface {
 	u.MsgID = from.GetMsgID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateGeoLiveViewed) TypeID() uint32 {
 	return UpdateGeoLiveViewedTypeID
@@ -9961,7 +10032,8 @@ func (u *UpdateLoginToken) String() string {
 	return fmt.Sprintf("UpdateLoginToken%+v", Alias(*u))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateLoginToken) TypeID() uint32 {
 	return UpdateLoginTokenTypeID
@@ -10056,7 +10128,8 @@ func (u *UpdateMessagePollVote) FillFrom(from interface {
 	u.Options = from.GetOptions()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateMessagePollVote) TypeID() uint32 {
 	return UpdateMessagePollVoteTypeID
@@ -10214,7 +10287,8 @@ func (u *UpdateDialogFilter) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateDialogFilter) TypeID() uint32 {
 	return UpdateDialogFilterTypeID
@@ -10350,7 +10424,8 @@ func (u *UpdateDialogFilterOrder) FillFrom(from interface {
 	u.Order = from.GetOrder()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateDialogFilterOrder) TypeID() uint32 {
 	return UpdateDialogFilterOrderTypeID
@@ -10444,7 +10519,8 @@ func (u *UpdateDialogFilters) String() string {
 	return fmt.Sprintf("UpdateDialogFilters%+v", Alias(*u))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateDialogFilters) TypeID() uint32 {
 	return UpdateDialogFiltersTypeID
@@ -10532,7 +10608,8 @@ func (u *UpdatePhoneCallSignalingData) FillFrom(from interface {
 	u.Data = from.GetData()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePhoneCallSignalingData) TypeID() uint32 {
 	return UpdatePhoneCallSignalingDataTypeID
@@ -10653,7 +10730,8 @@ func (u *UpdateChannelMessageForwards) FillFrom(from interface {
 	u.Forwards = from.GetForwards()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChannelMessageForwards) TypeID() uint32 {
 	return UpdateChannelMessageForwardsTypeID
@@ -10838,7 +10916,8 @@ func (u *UpdateReadChannelDiscussionInbox) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateReadChannelDiscussionInbox) TypeID() uint32 {
 	return UpdateReadChannelDiscussionInboxTypeID
@@ -11048,7 +11127,8 @@ func (u *UpdateReadChannelDiscussionOutbox) FillFrom(from interface {
 	u.ReadMaxID = from.GetReadMaxID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateReadChannelDiscussionOutbox) TypeID() uint32 {
 	return UpdateReadChannelDiscussionOutboxTypeID
@@ -11175,7 +11255,8 @@ func (u *UpdatePeerBlocked) FillFrom(from interface {
 	u.Blocked = from.GetBlocked()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePeerBlocked) TypeID() uint32 {
 	return UpdatePeerBlockedTypeID
@@ -11328,7 +11409,8 @@ func (u *UpdateChannelUserTyping) FillFrom(from interface {
 	u.Action = from.GetAction()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChannelUserTyping) TypeID() uint32 {
 	return UpdateChannelUserTypingTypeID
@@ -11531,7 +11613,8 @@ func (u *UpdatePinnedMessages) FillFrom(from interface {
 	u.PtsCount = from.GetPtsCount()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePinnedMessages) TypeID() uint32 {
 	return UpdatePinnedMessagesTypeID
@@ -11751,7 +11834,8 @@ func (u *UpdatePinnedChannelMessages) FillFrom(from interface {
 	u.PtsCount = from.GetPtsCount()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePinnedChannelMessages) TypeID() uint32 {
 	return UpdatePinnedChannelMessagesTypeID
@@ -11920,7 +12004,8 @@ func (u *UpdateChat) FillFrom(from interface {
 	u.ChatID = from.GetChatID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChat) TypeID() uint32 {
 	return UpdateChatTypeID
@@ -12027,7 +12112,8 @@ func (u *UpdateGroupCallParticipants) FillFrom(from interface {
 	u.Version = from.GetVersion()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateGroupCallParticipants) TypeID() uint32 {
 	return UpdateGroupCallParticipantsTypeID
@@ -12164,7 +12250,8 @@ func (u *UpdateGroupCall) FillFrom(from interface {
 	u.Call = from.GetCall()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateGroupCall) TypeID() uint32 {
 	return UpdateGroupCallTypeID
@@ -12292,7 +12379,8 @@ func (u *UpdatePeerHistoryTTL) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdatePeerHistoryTTL) TypeID() uint32 {
 	return UpdatePeerHistoryTTLTypeID
@@ -12476,7 +12564,8 @@ func (u *UpdateChatParticipant) FillFrom(from interface {
 	u.Qts = from.GetQts()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChatParticipant) TypeID() uint32 {
 	return UpdateChatParticipantTypeID
@@ -12742,7 +12831,8 @@ func (u *UpdateChannelParticipant) FillFrom(from interface {
 	u.Qts = from.GetQts()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateChannelParticipant) TypeID() uint32 {
 	return UpdateChannelParticipantTypeID
@@ -12962,7 +13052,8 @@ func (u *UpdateBotStopped) FillFrom(from interface {
 	u.Qts = from.GetQts()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UpdateBotStopped) TypeID() uint32 {
 	return UpdateBotStoppedTypeID
@@ -13152,6 +13243,7 @@ type UpdateClass interface {
 	construct() UpdateClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

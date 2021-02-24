@@ -68,7 +68,8 @@ func (f *FutureSalt) FillFrom(from interface {
 	f.Salt = from.GetSalt()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *FutureSalt) TypeID() uint32 {
 	return FutureSaltTypeID

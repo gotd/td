@@ -64,7 +64,8 @@ func (c *StickersChangeStickerPositionRequest) FillFrom(from interface {
 	c.Position = from.GetPosition()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *StickersChangeStickerPositionRequest) TypeID() uint32 {
 	return StickersChangeStickerPositionRequestTypeID

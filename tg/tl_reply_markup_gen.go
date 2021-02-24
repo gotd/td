@@ -65,7 +65,8 @@ func (r *ReplyKeyboardHide) FillFrom(from interface {
 	r.Selective = from.GetSelective()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ReplyKeyboardHide) TypeID() uint32 {
 	return ReplyKeyboardHideTypeID
@@ -189,7 +190,8 @@ func (r *ReplyKeyboardForceReply) FillFrom(from interface {
 	r.Selective = from.GetSelective()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ReplyKeyboardForceReply) TypeID() uint32 {
 	return ReplyKeyboardForceReplyTypeID
@@ -347,7 +349,8 @@ func (r *ReplyKeyboardMarkup) FillFrom(from interface {
 	r.Rows = from.GetRows()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ReplyKeyboardMarkup) TypeID() uint32 {
 	return ReplyKeyboardMarkupTypeID
@@ -520,7 +523,8 @@ func (r *ReplyInlineMarkup) FillFrom(from interface {
 	r.Rows = from.GetRows()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ReplyInlineMarkup) TypeID() uint32 {
 	return ReplyInlineMarkupTypeID
@@ -608,6 +612,7 @@ type ReplyMarkupClass interface {
 	construct() ReplyMarkupClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

@@ -44,7 +44,8 @@ func (d *DecryptedMessageMediaEmpty) String() string {
 	return fmt.Sprintf("DecryptedMessageMediaEmpty%+v", Alias(*d))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaEmpty) TypeID() uint32 {
 	return DecryptedMessageMediaEmptyTypeID
@@ -173,7 +174,8 @@ func (d *DecryptedMessageMediaPhoto23) FillFrom(from interface {
 	d.Iv = from.GetIv()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaPhoto23) TypeID() uint32 {
 	return DecryptedMessageMediaPhoto23TypeID
@@ -413,7 +415,8 @@ func (d *DecryptedMessageMediaVideo8) FillFrom(from interface {
 	d.Iv = from.GetIv()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaVideo8) TypeID() uint32 {
 	return DecryptedMessageMediaVideo8TypeID
@@ -617,7 +620,8 @@ func (d *DecryptedMessageMediaGeoPoint) FillFrom(from interface {
 	d.Long = from.GetLong()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaGeoPoint) TypeID() uint32 {
 	return DecryptedMessageMediaGeoPointTypeID
@@ -744,7 +748,8 @@ func (d *DecryptedMessageMediaContact) FillFrom(from interface {
 	d.UserID = from.GetUserID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaContact) TypeID() uint32 {
 	return DecryptedMessageMediaContactTypeID
@@ -925,7 +930,8 @@ func (d *DecryptedMessageMediaDocument23) FillFrom(from interface {
 	d.Iv = from.GetIv()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaDocument23) TypeID() uint32 {
 	return DecryptedMessageMediaDocument23TypeID
@@ -1130,7 +1136,8 @@ func (d *DecryptedMessageMediaAudio8) FillFrom(from interface {
 	d.Iv = from.GetIv()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaAudio8) TypeID() uint32 {
 	return DecryptedMessageMediaAudio8TypeID
@@ -1325,7 +1332,8 @@ func (d *DecryptedMessageMediaVideo23) FillFrom(from interface {
 	d.Iv = from.GetIv()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaVideo23) TypeID() uint32 {
 	return DecryptedMessageMediaVideo23TypeID
@@ -1563,7 +1571,8 @@ func (d *DecryptedMessageMediaAudio) FillFrom(from interface {
 	d.Iv = from.GetIv()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaAudio) TypeID() uint32 {
 	return DecryptedMessageMediaAudioTypeID
@@ -1757,7 +1766,8 @@ func (d *DecryptedMessageMediaExternalDocument) FillFrom(from interface {
 	d.Attributes = from.GetAttributes()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaExternalDocument) TypeID() uint32 {
 	return DecryptedMessageMediaExternalDocumentTypeID
@@ -2021,7 +2031,8 @@ func (d *DecryptedMessageMediaPhoto) FillFrom(from interface {
 	d.Caption = from.GetCaption()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaPhoto) TypeID() uint32 {
 	return DecryptedMessageMediaPhotoTypeID
@@ -2288,7 +2299,8 @@ func (d *DecryptedMessageMediaVideo) FillFrom(from interface {
 	d.Caption = from.GetCaption()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaVideo) TypeID() uint32 {
 	return DecryptedMessageMediaVideoTypeID
@@ -2567,7 +2579,8 @@ func (d *DecryptedMessageMediaDocument) FillFrom(from interface {
 	d.Caption = from.GetCaption()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaDocument) TypeID() uint32 {
 	return DecryptedMessageMediaDocumentTypeID
@@ -2818,7 +2831,8 @@ func (d *DecryptedMessageMediaVenue) FillFrom(from interface {
 	d.VenueID = from.GetVenueID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaVenue) TypeID() uint32 {
 	return DecryptedMessageMediaVenueTypeID
@@ -2976,7 +2990,8 @@ func (d *DecryptedMessageMediaWebPage) FillFrom(from interface {
 	d.URL = from.GetURL()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageMediaWebPage) TypeID() uint32 {
 	return DecryptedMessageMediaWebPageTypeID
@@ -3064,6 +3079,7 @@ type DecryptedMessageMediaClass interface {
 	construct() DecryptedMessageMediaClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

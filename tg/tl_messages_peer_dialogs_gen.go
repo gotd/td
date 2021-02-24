@@ -88,7 +88,8 @@ func (p *MessagesPeerDialogs) FillFrom(from interface {
 	p.State = from.GetState()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *MessagesPeerDialogs) TypeID() uint32 {
 	return MessagesPeerDialogsTypeID

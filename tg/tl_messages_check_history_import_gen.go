@@ -56,7 +56,8 @@ func (c *MessagesCheckHistoryImportRequest) FillFrom(from interface {
 	c.ImportHead = from.GetImportHead()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *MessagesCheckHistoryImportRequest) TypeID() uint32 {
 	return MessagesCheckHistoryImportRequestTypeID

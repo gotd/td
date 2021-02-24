@@ -67,7 +67,8 @@ func (s *StatsGroupTopInviter) FillFrom(from interface {
 	s.Invitations = from.GetInvitations()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StatsGroupTopInviter) TypeID() uint32 {
 	return StatsGroupTopInviterTypeID

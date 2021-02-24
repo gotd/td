@@ -45,7 +45,8 @@ func (p *PasswordKdfAlgoUnknown) String() string {
 	return fmt.Sprintf("PasswordKdfAlgoUnknown%+v", Alias(*p))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PasswordKdfAlgoUnknown) TypeID() uint32 {
 	return PasswordKdfAlgoUnknownTypeID
@@ -162,7 +163,8 @@ func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) Fill
 	p.P = from.GetP()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) TypeID() uint32 {
 	return PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPowTypeID
@@ -278,6 +280,7 @@ type PasswordKdfAlgoClass interface {
 	construct() PasswordKdfAlgoClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

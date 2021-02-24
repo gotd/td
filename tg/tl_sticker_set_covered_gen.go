@@ -64,7 +64,8 @@ func (s *StickerSetCovered) FillFrom(from interface {
 	s.Cover = from.GetCover()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StickerSetCovered) TypeID() uint32 {
 	return StickerSetCoveredTypeID
@@ -183,7 +184,8 @@ func (s *StickerSetMultiCovered) FillFrom(from interface {
 	s.Covers = from.GetCovers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StickerSetMultiCovered) TypeID() uint32 {
 	return StickerSetMultiCoveredTypeID
@@ -290,6 +292,7 @@ type StickerSetCoveredClass interface {
 	construct() StickerSetCoveredClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

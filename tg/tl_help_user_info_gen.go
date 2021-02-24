@@ -45,7 +45,8 @@ func (u *HelpUserInfoEmpty) String() string {
 	return fmt.Sprintf("HelpUserInfoEmpty%+v", Alias(*u))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *HelpUserInfoEmpty) TypeID() uint32 {
 	return HelpUserInfoEmptyTypeID
@@ -150,7 +151,8 @@ func (u *HelpUserInfo) FillFrom(from interface {
 	u.Date = from.GetDate()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *HelpUserInfo) TypeID() uint32 {
 	return HelpUserInfoTypeID
@@ -283,6 +285,7 @@ type HelpUserInfoClass interface {
 	construct() HelpUserInfoClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

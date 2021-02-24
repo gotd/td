@@ -64,7 +64,8 @@ func (s *HelpSupport) FillFrom(from interface {
 	s.User = from.GetUser()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *HelpSupport) TypeID() uint32 {
 	return HelpSupportTypeID

@@ -75,7 +75,8 @@ func (r *ResPQ) FillFrom(from interface {
 	r.ServerPublicKeyFingerprints = from.GetServerPublicKeyFingerprints()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ResPQ) TypeID() uint32 {
 	return ResPQTypeID

@@ -45,7 +45,8 @@ func (i *InputPhotoEmpty) String() string {
 	return fmt.Sprintf("InputPhotoEmpty%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPhotoEmpty) TypeID() uint32 {
 	return InputPhotoEmptyTypeID
@@ -146,7 +147,8 @@ func (i *InputPhoto) FillFrom(from interface {
 	i.FileReference = from.GetFileReference()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPhoto) TypeID() uint32 {
 	return InputPhotoTypeID
@@ -247,6 +249,7 @@ type InputPhotoClass interface {
 	construct() InputPhotoClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

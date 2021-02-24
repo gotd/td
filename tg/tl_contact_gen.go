@@ -64,7 +64,8 @@ func (c *Contact) FillFrom(from interface {
 	c.Mutual = from.GetMutual()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *Contact) TypeID() uint32 {
 	return ContactTypeID

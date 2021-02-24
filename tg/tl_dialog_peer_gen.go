@@ -57,7 +57,8 @@ func (d *DialogPeer) FillFrom(from interface {
 	d.Peer = from.GetPeer()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DialogPeer) TypeID() uint32 {
 	return DialogPeerTypeID
@@ -162,7 +163,8 @@ func (d *DialogPeerFolder) FillFrom(from interface {
 	d.FolderID = from.GetFolderID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DialogPeerFolder) TypeID() uint32 {
 	return DialogPeerFolderTypeID
@@ -237,6 +239,7 @@ type DialogPeerClass interface {
 	construct() DialogPeerClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

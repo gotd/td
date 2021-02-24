@@ -64,7 +64,8 @@ func (d *UpdatesDifferenceEmpty) FillFrom(from interface {
 	d.Seq = from.GetSeq()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *UpdatesDifferenceEmpty) TypeID() uint32 {
 	return UpdatesDifferenceEmptyTypeID
@@ -206,7 +207,8 @@ func (d *UpdatesDifference) FillFrom(from interface {
 	d.State = from.GetState()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *UpdatesDifference) TypeID() uint32 {
 	return UpdatesDifferenceTypeID
@@ -498,7 +500,8 @@ func (d *UpdatesDifferenceSlice) FillFrom(from interface {
 	d.IntermediateState = from.GetIntermediateState()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *UpdatesDifferenceSlice) TypeID() uint32 {
 	return UpdatesDifferenceSliceTypeID
@@ -755,7 +758,8 @@ func (d *UpdatesDifferenceTooLong) FillFrom(from interface {
 	d.Pts = from.GetPts()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *UpdatesDifferenceTooLong) TypeID() uint32 {
 	return UpdatesDifferenceTooLongTypeID
@@ -832,6 +836,7 @@ type UpdatesDifferenceClass interface {
 	construct() UpdatesDifferenceClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

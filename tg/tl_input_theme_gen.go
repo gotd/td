@@ -64,7 +64,8 @@ func (i *InputTheme) FillFrom(from interface {
 	i.AccessHash = from.GetAccessHash()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputTheme) TypeID() uint32 {
 	return InputThemeTypeID
@@ -171,7 +172,8 @@ func (i *InputThemeSlug) FillFrom(from interface {
 	i.Slug = from.GetSlug()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputThemeSlug) TypeID() uint32 {
 	return InputThemeSlugTypeID
@@ -246,6 +248,7 @@ type InputThemeClass interface {
 	construct() InputThemeClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

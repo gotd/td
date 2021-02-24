@@ -120,7 +120,8 @@ func (a *HelpAppUpdate) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *HelpAppUpdate) TypeID() uint32 {
 	return HelpAppUpdateTypeID
@@ -349,7 +350,8 @@ func (n *HelpNoAppUpdate) String() string {
 	return fmt.Sprintf("HelpNoAppUpdate%+v", Alias(*n))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (n *HelpNoAppUpdate) TypeID() uint32 {
 	return HelpNoAppUpdateTypeID
@@ -411,6 +413,7 @@ type HelpAppUpdateClass interface {
 	construct() HelpAppUpdateClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

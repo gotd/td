@@ -57,7 +57,8 @@ func (u *ContactsUnblockRequest) FillFrom(from interface {
 	u.ID = from.GetID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *ContactsUnblockRequest) TypeID() uint32 {
 	return ContactsUnblockRequestTypeID

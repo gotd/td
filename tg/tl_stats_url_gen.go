@@ -57,7 +57,8 @@ func (s *StatsURL) FillFrom(from interface {
 	s.URL = from.GetURL()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StatsURL) TypeID() uint32 {
 	return StatsURLTypeID

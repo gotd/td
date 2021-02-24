@@ -45,7 +45,8 @@ func (t *ContactsTopPeersNotModified) String() string {
 	return fmt.Sprintf("ContactsTopPeersNotModified%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *ContactsTopPeersNotModified) TypeID() uint32 {
 	return ContactsTopPeersNotModifiedTypeID
@@ -140,7 +141,8 @@ func (t *ContactsTopPeers) FillFrom(from interface {
 	t.Users = from.GetUsers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *ContactsTopPeers) TypeID() uint32 {
 	return ContactsTopPeersTypeID
@@ -297,7 +299,8 @@ func (t *ContactsTopPeersDisabled) String() string {
 	return fmt.Sprintf("ContactsTopPeersDisabled%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *ContactsTopPeersDisabled) TypeID() uint32 {
 	return ContactsTopPeersDisabledTypeID
@@ -360,6 +363,7 @@ type ContactsTopPeersClass interface {
 	construct() ContactsTopPeersClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

@@ -45,7 +45,8 @@ func (s *SendMessageTypingAction) String() string {
 	return fmt.Sprintf("SendMessageTypingAction%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SendMessageTypingAction) TypeID() uint32 {
 	return SendMessageTypingActionTypeID
@@ -114,7 +115,8 @@ func (s *SendMessageCancelAction) String() string {
 	return fmt.Sprintf("SendMessageCancelAction%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SendMessageCancelAction) TypeID() uint32 {
 	return SendMessageCancelActionTypeID
@@ -183,7 +185,8 @@ func (s *SendMessageRecordVideoAction) String() string {
 	return fmt.Sprintf("SendMessageRecordVideoAction%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SendMessageRecordVideoAction) TypeID() uint32 {
 	return SendMessageRecordVideoActionTypeID
@@ -252,7 +255,8 @@ func (s *SendMessageUploadVideoAction) String() string {
 	return fmt.Sprintf("SendMessageUploadVideoAction%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SendMessageUploadVideoAction) TypeID() uint32 {
 	return SendMessageUploadVideoActionTypeID
@@ -321,7 +325,8 @@ func (s *SendMessageRecordAudioAction) String() string {
 	return fmt.Sprintf("SendMessageRecordAudioAction%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SendMessageRecordAudioAction) TypeID() uint32 {
 	return SendMessageRecordAudioActionTypeID
@@ -390,7 +395,8 @@ func (s *SendMessageUploadAudioAction) String() string {
 	return fmt.Sprintf("SendMessageUploadAudioAction%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SendMessageUploadAudioAction) TypeID() uint32 {
 	return SendMessageUploadAudioActionTypeID
@@ -459,7 +465,8 @@ func (s *SendMessageUploadPhotoAction) String() string {
 	return fmt.Sprintf("SendMessageUploadPhotoAction%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SendMessageUploadPhotoAction) TypeID() uint32 {
 	return SendMessageUploadPhotoActionTypeID
@@ -528,7 +535,8 @@ func (s *SendMessageUploadDocumentAction) String() string {
 	return fmt.Sprintf("SendMessageUploadDocumentAction%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SendMessageUploadDocumentAction) TypeID() uint32 {
 	return SendMessageUploadDocumentActionTypeID
@@ -597,7 +605,8 @@ func (s *SendMessageGeoLocationAction) String() string {
 	return fmt.Sprintf("SendMessageGeoLocationAction%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SendMessageGeoLocationAction) TypeID() uint32 {
 	return SendMessageGeoLocationActionTypeID
@@ -666,7 +675,8 @@ func (s *SendMessageChooseContactAction) String() string {
 	return fmt.Sprintf("SendMessageChooseContactAction%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SendMessageChooseContactAction) TypeID() uint32 {
 	return SendMessageChooseContactActionTypeID
@@ -735,7 +745,8 @@ func (s *SendMessageRecordRoundAction) String() string {
 	return fmt.Sprintf("SendMessageRecordRoundAction%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SendMessageRecordRoundAction) TypeID() uint32 {
 	return SendMessageRecordRoundActionTypeID
@@ -804,7 +815,8 @@ func (s *SendMessageUploadRoundAction) String() string {
 	return fmt.Sprintf("SendMessageUploadRoundAction%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SendMessageUploadRoundAction) TypeID() uint32 {
 	return SendMessageUploadRoundActionTypeID
@@ -876,6 +888,7 @@ type SendMessageActionClass interface {
 	construct() SendMessageActionClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

@@ -64,7 +64,8 @@ func (f *MessagesFaveStickerRequest) FillFrom(from interface {
 	f.Unfave = from.GetUnfave()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *MessagesFaveStickerRequest) TypeID() uint32 {
 	return MessagesFaveStickerRequestTypeID

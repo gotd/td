@@ -45,7 +45,8 @@ func (b *BaseThemeClassic) String() string {
 	return fmt.Sprintf("BaseThemeClassic%+v", Alias(*b))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *BaseThemeClassic) TypeID() uint32 {
 	return BaseThemeClassicTypeID
@@ -114,7 +115,8 @@ func (b *BaseThemeDay) String() string {
 	return fmt.Sprintf("BaseThemeDay%+v", Alias(*b))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *BaseThemeDay) TypeID() uint32 {
 	return BaseThemeDayTypeID
@@ -183,7 +185,8 @@ func (b *BaseThemeNight) String() string {
 	return fmt.Sprintf("BaseThemeNight%+v", Alias(*b))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *BaseThemeNight) TypeID() uint32 {
 	return BaseThemeNightTypeID
@@ -252,7 +255,8 @@ func (b *BaseThemeTinted) String() string {
 	return fmt.Sprintf("BaseThemeTinted%+v", Alias(*b))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *BaseThemeTinted) TypeID() uint32 {
 	return BaseThemeTintedTypeID
@@ -321,7 +325,8 @@ func (b *BaseThemeArctic) String() string {
 	return fmt.Sprintf("BaseThemeArctic%+v", Alias(*b))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *BaseThemeArctic) TypeID() uint32 {
 	return BaseThemeArcticTypeID
@@ -386,6 +391,7 @@ type BaseThemeClass interface {
 	construct() BaseThemeClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

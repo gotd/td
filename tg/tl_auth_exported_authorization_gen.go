@@ -64,7 +64,8 @@ func (e *AuthExportedAuthorization) FillFrom(from interface {
 	e.Bytes = from.GetBytes()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *AuthExportedAuthorization) TypeID() uint32 {
 	return AuthExportedAuthorizationTypeID

@@ -45,7 +45,8 @@ func (f *MessagesFavedStickersNotModified) String() string {
 	return fmt.Sprintf("MessagesFavedStickersNotModified%+v", Alias(*f))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *MessagesFavedStickersNotModified) TypeID() uint32 {
 	return MessagesFavedStickersNotModifiedTypeID
@@ -143,7 +144,8 @@ func (f *MessagesFavedStickers) FillFrom(from interface {
 	f.Stickers = from.GetStickers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *MessagesFavedStickers) TypeID() uint32 {
 	return MessagesFavedStickersTypeID
@@ -274,6 +276,7 @@ type MessagesFavedStickersClass interface {
 	construct() MessagesFavedStickersClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

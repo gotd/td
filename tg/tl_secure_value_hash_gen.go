@@ -64,7 +64,8 @@ func (s *SecureValueHash) FillFrom(from interface {
 	s.Hash = from.GetHash()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueHash) TypeID() uint32 {
 	return SecureValueHashTypeID

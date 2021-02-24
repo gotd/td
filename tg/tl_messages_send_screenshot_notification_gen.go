@@ -71,7 +71,8 @@ func (s *MessagesSendScreenshotNotificationRequest) FillFrom(from interface {
 	s.RandomID = from.GetRandomID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSendScreenshotNotificationRequest) TypeID() uint32 {
 	return MessagesSendScreenshotNotificationRequestTypeID

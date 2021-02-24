@@ -65,7 +65,8 @@ func (a *AuthAcceptLoginTokenRequest) FillFrom(from interface {
 	a.Token = from.GetToken()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *AuthAcceptLoginTokenRequest) TypeID() uint32 {
 	return AuthAcceptLoginTokenRequestTypeID

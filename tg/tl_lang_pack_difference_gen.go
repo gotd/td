@@ -78,7 +78,8 @@ func (l *LangPackDifference) FillFrom(from interface {
 	l.Strings = from.GetStrings()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (l *LangPackDifference) TypeID() uint32 {
 	return LangPackDifferenceTypeID

@@ -57,7 +57,8 @@ func (f *MessagesFeaturedStickersNotModified) FillFrom(from interface {
 	f.Count = from.GetCount()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *MessagesFeaturedStickersNotModified) TypeID() uint32 {
 	return MessagesFeaturedStickersNotModifiedTypeID
@@ -175,7 +176,8 @@ func (f *MessagesFeaturedStickers) FillFrom(from interface {
 	f.Unread = from.GetUnread()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *MessagesFeaturedStickers) TypeID() uint32 {
 	return MessagesFeaturedStickersTypeID
@@ -317,6 +319,7 @@ type MessagesFeaturedStickersClass interface {
 	construct() MessagesFeaturedStickersClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

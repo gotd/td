@@ -74,7 +74,8 @@ func (a *MessagesAcceptEncryptionRequest) FillFrom(from interface {
 	a.KeyFingerprint = from.GetKeyFingerprint()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *MessagesAcceptEncryptionRequest) TypeID() uint32 {
 	return MessagesAcceptEncryptionRequestTypeID

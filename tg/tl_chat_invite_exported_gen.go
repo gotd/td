@@ -138,7 +138,8 @@ func (c *ChatInviteExported) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatInviteExported) TypeID() uint32 {
 	return ChatInviteExportedTypeID

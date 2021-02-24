@@ -64,7 +64,8 @@ func (c *ChannelParticipant) FillFrom(from interface {
 	c.Date = from.GetDate()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelParticipant) TypeID() uint32 {
 	return ChannelParticipantTypeID
@@ -185,7 +186,8 @@ func (c *ChannelParticipantSelf) FillFrom(from interface {
 	c.Date = from.GetDate()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelParticipantSelf) TypeID() uint32 {
 	return ChannelParticipantSelfTypeID
@@ -332,7 +334,8 @@ func (c *ChannelParticipantCreator) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelParticipantCreator) TypeID() uint32 {
 	return ChannelParticipantCreatorTypeID
@@ -545,7 +548,8 @@ func (c *ChannelParticipantAdmin) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelParticipantAdmin) TypeID() uint32 {
 	return ChannelParticipantAdminTypeID
@@ -821,7 +825,8 @@ func (c *ChannelParticipantBanned) FillFrom(from interface {
 	c.BannedRights = from.GetBannedRights()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelParticipantBanned) TypeID() uint32 {
 	return ChannelParticipantBannedTypeID
@@ -982,7 +987,8 @@ func (c *ChannelParticipantLeft) FillFrom(from interface {
 	c.UserID = from.GetUserID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelParticipantLeft) TypeID() uint32 {
 	return ChannelParticipantLeftTypeID
@@ -1061,6 +1067,7 @@ type ChannelParticipantClass interface {
 	construct() ChannelParticipantClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

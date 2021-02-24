@@ -109,7 +109,8 @@ func (r *AccountRegisterDeviceRequest) FillFrom(from interface {
 	r.OtherUids = from.GetOtherUids()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *AccountRegisterDeviceRequest) TypeID() uint32 {
 	return AccountRegisterDeviceRequestTypeID

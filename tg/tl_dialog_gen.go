@@ -166,7 +166,8 @@ func (d *Dialog) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *Dialog) TypeID() uint32 {
 	return DialogTypeID
@@ -537,7 +538,8 @@ func (d *DialogFolder) FillFrom(from interface {
 	d.UnreadUnmutedMessagesCount = from.GetUnreadUnmutedMessagesCount()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DialogFolder) TypeID() uint32 {
 	return DialogFolderTypeID
@@ -723,6 +725,7 @@ type DialogClass interface {
 	construct() DialogClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

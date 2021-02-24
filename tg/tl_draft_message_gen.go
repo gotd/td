@@ -70,7 +70,8 @@ func (d *DraftMessageEmpty) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DraftMessageEmpty) TypeID() uint32 {
 	return DraftMessageEmptyTypeID
@@ -239,7 +240,8 @@ func (d *DraftMessage) FillFrom(from interface {
 	d.Date = from.GetDate()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DraftMessage) TypeID() uint32 {
 	return DraftMessageTypeID
@@ -433,6 +435,7 @@ type DraftMessageClass interface {
 	construct() DraftMessageClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

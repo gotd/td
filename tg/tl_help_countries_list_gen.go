@@ -45,7 +45,8 @@ func (c *HelpCountriesListNotModified) String() string {
 	return fmt.Sprintf("HelpCountriesListNotModified%+v", Alias(*c))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *HelpCountriesListNotModified) TypeID() uint32 {
 	return HelpCountriesListNotModifiedTypeID
@@ -136,7 +137,8 @@ func (c *HelpCountriesList) FillFrom(from interface {
 	c.Hash = from.GetHash()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *HelpCountriesList) TypeID() uint32 {
 	return HelpCountriesListTypeID
@@ -235,6 +237,7 @@ type HelpCountriesListClass interface {
 	construct() HelpCountriesListClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

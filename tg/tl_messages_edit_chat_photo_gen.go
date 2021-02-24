@@ -64,7 +64,8 @@ func (e *MessagesEditChatPhotoRequest) FillFrom(from interface {
 	e.Photo = from.GetPhoto()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *MessagesEditChatPhotoRequest) TypeID() uint32 {
 	return MessagesEditChatPhotoRequestTypeID

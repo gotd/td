@@ -71,7 +71,8 @@ func (m *MessageUserVote) FillFrom(from interface {
 	m.Date = from.GetDate()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageUserVote) TypeID() uint32 {
 	return MessageUserVoteTypeID
@@ -201,7 +202,8 @@ func (m *MessageUserVoteInputOption) FillFrom(from interface {
 	m.Date = from.GetDate()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageUserVoteInputOption) TypeID() uint32 {
 	return MessageUserVoteInputOptionTypeID
@@ -322,7 +324,8 @@ func (m *MessageUserVoteMultiple) FillFrom(from interface {
 	m.Date = from.GetDate()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageUserVoteMultiple) TypeID() uint32 {
 	return MessageUserVoteMultipleTypeID
@@ -433,6 +436,7 @@ type MessageUserVoteClass interface {
 	construct() MessageUserVoteClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

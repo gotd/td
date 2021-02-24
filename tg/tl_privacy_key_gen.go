@@ -45,7 +45,8 @@ func (p *PrivacyKeyStatusTimestamp) String() string {
 	return fmt.Sprintf("PrivacyKeyStatusTimestamp%+v", Alias(*p))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PrivacyKeyStatusTimestamp) TypeID() uint32 {
 	return PrivacyKeyStatusTimestampTypeID
@@ -114,7 +115,8 @@ func (p *PrivacyKeyChatInvite) String() string {
 	return fmt.Sprintf("PrivacyKeyChatInvite%+v", Alias(*p))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PrivacyKeyChatInvite) TypeID() uint32 {
 	return PrivacyKeyChatInviteTypeID
@@ -183,7 +185,8 @@ func (p *PrivacyKeyPhoneCall) String() string {
 	return fmt.Sprintf("PrivacyKeyPhoneCall%+v", Alias(*p))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PrivacyKeyPhoneCall) TypeID() uint32 {
 	return PrivacyKeyPhoneCallTypeID
@@ -252,7 +255,8 @@ func (p *PrivacyKeyPhoneP2P) String() string {
 	return fmt.Sprintf("PrivacyKeyPhoneP2P%+v", Alias(*p))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PrivacyKeyPhoneP2P) TypeID() uint32 {
 	return PrivacyKeyPhoneP2PTypeID
@@ -324,7 +328,8 @@ func (p *PrivacyKeyForwards) String() string {
 	return fmt.Sprintf("PrivacyKeyForwards%+v", Alias(*p))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PrivacyKeyForwards) TypeID() uint32 {
 	return PrivacyKeyForwardsTypeID
@@ -393,7 +398,8 @@ func (p *PrivacyKeyProfilePhoto) String() string {
 	return fmt.Sprintf("PrivacyKeyProfilePhoto%+v", Alias(*p))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PrivacyKeyProfilePhoto) TypeID() uint32 {
 	return PrivacyKeyProfilePhotoTypeID
@@ -462,7 +468,8 @@ func (p *PrivacyKeyPhoneNumber) String() string {
 	return fmt.Sprintf("PrivacyKeyPhoneNumber%+v", Alias(*p))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PrivacyKeyPhoneNumber) TypeID() uint32 {
 	return PrivacyKeyPhoneNumberTypeID
@@ -531,7 +538,8 @@ func (p *PrivacyKeyAddedByPhone) String() string {
 	return fmt.Sprintf("PrivacyKeyAddedByPhone%+v", Alias(*p))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PrivacyKeyAddedByPhone) TypeID() uint32 {
 	return PrivacyKeyAddedByPhoneTypeID
@@ -599,6 +607,7 @@ type PrivacyKeyClass interface {
 	construct() PrivacyKeyClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

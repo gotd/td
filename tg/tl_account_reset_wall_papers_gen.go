@@ -45,7 +45,8 @@ func (r *AccountResetWallPapersRequest) String() string {
 	return fmt.Sprintf("AccountResetWallPapersRequest%+v", Alias(*r))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *AccountResetWallPapersRequest) TypeID() uint32 {
 	return AccountResetWallPapersRequestTypeID

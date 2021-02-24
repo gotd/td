@@ -68,7 +68,8 @@ func (d *DhGenOk) FillFrom(from interface {
 	d.NewNonceHash1 = from.GetNewNonceHash1()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DhGenOk) TypeID() uint32 {
 	return DhGenOkTypeID
@@ -199,7 +200,8 @@ func (d *DhGenRetry) FillFrom(from interface {
 	d.NewNonceHash2 = from.GetNewNonceHash2()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DhGenRetry) TypeID() uint32 {
 	return DhGenRetryTypeID
@@ -330,7 +332,8 @@ func (d *DhGenFail) FillFrom(from interface {
 	d.NewNonceHash3 = from.GetNewNonceHash3()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DhGenFail) TypeID() uint32 {
 	return DhGenFailTypeID
@@ -430,6 +433,7 @@ type SetClientDHParamsAnswerClass interface {
 	construct() SetClientDHParamsAnswerClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

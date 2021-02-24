@@ -92,7 +92,8 @@ func (p *PostAddress) FillFrom(from interface {
 	p.PostCode = from.GetPostCode()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PostAddress) TypeID() uint32 {
 	return PostAddressTypeID

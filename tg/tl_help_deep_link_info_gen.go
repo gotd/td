@@ -45,7 +45,8 @@ func (d *HelpDeepLinkInfoEmpty) String() string {
 	return fmt.Sprintf("HelpDeepLinkInfoEmpty%+v", Alias(*d))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *HelpDeepLinkInfoEmpty) TypeID() uint32 {
 	return HelpDeepLinkInfoEmptyTypeID
@@ -156,7 +157,8 @@ func (d *HelpDeepLinkInfo) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *HelpDeepLinkInfo) TypeID() uint32 {
 	return HelpDeepLinkInfoTypeID
@@ -309,6 +311,7 @@ type HelpDeepLinkInfoClass interface {
 	construct() HelpDeepLinkInfoClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

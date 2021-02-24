@@ -54,7 +54,8 @@ func (g *GzipPacked) FillFrom(from interface {
 	g.PackedData = from.GetPackedData()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *GzipPacked) TypeID() uint32 {
 	return GzipPackedTypeID

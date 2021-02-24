@@ -48,7 +48,8 @@ func (r *AccountResendPasswordEmailRequest) String() string {
 	return fmt.Sprintf("AccountResendPasswordEmailRequest%+v", Alias(*r))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *AccountResendPasswordEmailRequest) TypeID() uint32 {
 	return AccountResendPasswordEmailRequestTypeID

@@ -77,7 +77,8 @@ func (c *ChatParticipantsForbidden) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatParticipantsForbidden) TypeID() uint32 {
 	return ChatParticipantsForbiddenTypeID
@@ -226,7 +227,8 @@ func (c *ChatParticipants) FillFrom(from interface {
 	c.Version = from.GetVersion()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatParticipants) TypeID() uint32 {
 	return ChatParticipantsTypeID
@@ -346,6 +348,7 @@ type ChatParticipantsClass interface {
 	construct() ChatParticipantsClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

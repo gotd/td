@@ -64,7 +64,8 @@ func (l *LangPackString) FillFrom(from interface {
 	l.Value = from.GetValue()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (l *LangPackString) TypeID() uint32 {
 	return LangPackStringTypeID
@@ -249,7 +250,8 @@ func (l *LangPackStringPluralized) FillFrom(from interface {
 	l.OtherValue = from.GetOtherValue()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (l *LangPackStringPluralized) TypeID() uint32 {
 	return LangPackStringPluralizedTypeID
@@ -504,7 +506,8 @@ func (l *LangPackStringDeleted) FillFrom(from interface {
 	l.Key = from.GetKey()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (l *LangPackStringDeleted) TypeID() uint32 {
 	return LangPackStringDeletedTypeID
@@ -580,6 +583,7 @@ type LangPackStringClass interface {
 	construct() LangPackStringClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

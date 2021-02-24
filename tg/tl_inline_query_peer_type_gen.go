@@ -44,7 +44,8 @@ func (i *InlineQueryPeerTypeSameBotPM) String() string {
 	return fmt.Sprintf("InlineQueryPeerTypeSameBotPM%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InlineQueryPeerTypeSameBotPM) TypeID() uint32 {
 	return InlineQueryPeerTypeSameBotPMTypeID
@@ -112,7 +113,8 @@ func (i *InlineQueryPeerTypePM) String() string {
 	return fmt.Sprintf("InlineQueryPeerTypePM%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InlineQueryPeerTypePM) TypeID() uint32 {
 	return InlineQueryPeerTypePMTypeID
@@ -180,7 +182,8 @@ func (i *InlineQueryPeerTypeChat) String() string {
 	return fmt.Sprintf("InlineQueryPeerTypeChat%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InlineQueryPeerTypeChat) TypeID() uint32 {
 	return InlineQueryPeerTypeChatTypeID
@@ -248,7 +251,8 @@ func (i *InlineQueryPeerTypeMegagroup) String() string {
 	return fmt.Sprintf("InlineQueryPeerTypeMegagroup%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InlineQueryPeerTypeMegagroup) TypeID() uint32 {
 	return InlineQueryPeerTypeMegagroupTypeID
@@ -316,7 +320,8 @@ func (i *InlineQueryPeerTypeBroadcast) String() string {
 	return fmt.Sprintf("InlineQueryPeerTypeBroadcast%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InlineQueryPeerTypeBroadcast) TypeID() uint32 {
 	return InlineQueryPeerTypeBroadcastTypeID
@@ -381,6 +386,7 @@ type InlineQueryPeerTypeClass interface {
 	construct() InlineQueryPeerTypeClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

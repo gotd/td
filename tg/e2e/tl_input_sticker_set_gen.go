@@ -57,7 +57,8 @@ func (i *InputStickerSetShortName) FillFrom(from interface {
 	i.ShortName = from.GetShortName()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputStickerSetShortName) TypeID() uint32 {
 	return InputStickerSetShortNameTypeID
@@ -139,7 +140,8 @@ func (i *InputStickerSetEmpty) String() string {
 	return fmt.Sprintf("InputStickerSetEmpty%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputStickerSetEmpty) TypeID() uint32 {
 	return InputStickerSetEmptyTypeID
@@ -201,6 +203,7 @@ type InputStickerSetClass interface {
 	construct() InputStickerSetClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

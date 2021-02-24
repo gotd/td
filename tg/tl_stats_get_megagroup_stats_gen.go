@@ -78,7 +78,8 @@ func (g *StatsGetMegagroupStatsRequest) FillFrom(from interface {
 	g.Channel = from.GetChannel()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *StatsGetMegagroupStatsRequest) TypeID() uint32 {
 	return StatsGetMegagroupStatsRequestTypeID

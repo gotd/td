@@ -57,7 +57,8 @@ func (g *AccountGetMultiWallPapersRequest) FillFrom(from interface {
 	g.Wallpapers = from.GetWallpapers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *AccountGetMultiWallPapersRequest) TypeID() uint32 {
 	return AccountGetMultiWallPapersRequestTypeID

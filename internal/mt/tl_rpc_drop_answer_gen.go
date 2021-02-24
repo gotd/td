@@ -42,7 +42,8 @@ func (r *RPCAnswerUnknown) String() string {
 	return fmt.Sprintf("RPCAnswerUnknown%+v", Alias(*r))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RPCAnswerUnknown) TypeID() uint32 {
 	return RPCAnswerUnknownTypeID
@@ -108,7 +109,8 @@ func (r *RPCAnswerDroppedRunning) String() string {
 	return fmt.Sprintf("RPCAnswerDroppedRunning%+v", Alias(*r))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RPCAnswerDroppedRunning) TypeID() uint32 {
 	return RPCAnswerDroppedRunningTypeID
@@ -200,7 +202,8 @@ func (r *RPCAnswerDropped) FillFrom(from interface {
 	r.Bytes = from.GetBytes()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RPCAnswerDropped) TypeID() uint32 {
 	return RPCAnswerDroppedTypeID
@@ -300,6 +303,7 @@ type RpcDropAnswerClass interface {
 	construct() RpcDropAnswerClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

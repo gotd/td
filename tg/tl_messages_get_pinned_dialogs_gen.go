@@ -60,7 +60,8 @@ func (g *MessagesGetPinnedDialogsRequest) FillFrom(from interface {
 	g.FolderID = from.GetFolderID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetPinnedDialogsRequest) TypeID() uint32 {
 	return MessagesGetPinnedDialogsRequestTypeID

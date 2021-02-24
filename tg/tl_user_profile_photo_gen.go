@@ -45,7 +45,8 @@ func (u *UserProfilePhotoEmpty) String() string {
 	return fmt.Sprintf("UserProfilePhotoEmpty%+v", Alias(*u))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UserProfilePhotoEmpty) TypeID() uint32 {
 	return UserProfilePhotoEmptyTypeID
@@ -168,7 +169,8 @@ func (u *UserProfilePhoto) FillFrom(from interface {
 	u.DCID = from.GetDCID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UserProfilePhoto) TypeID() uint32 {
 	return UserProfilePhotoTypeID
@@ -310,6 +312,7 @@ type UserProfilePhotoClass interface {
 	construct() UserProfilePhotoClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

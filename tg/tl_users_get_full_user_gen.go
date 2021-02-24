@@ -57,7 +57,8 @@ func (g *UsersGetFullUserRequest) FillFrom(from interface {
 	g.ID = from.GetID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *UsersGetFullUserRequest) TypeID() uint32 {
 	return UsersGetFullUserRequestTypeID

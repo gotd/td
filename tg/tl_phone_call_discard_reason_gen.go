@@ -45,7 +45,8 @@ func (p *PhoneCallDiscardReasonMissed) String() string {
 	return fmt.Sprintf("PhoneCallDiscardReasonMissed%+v", Alias(*p))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhoneCallDiscardReasonMissed) TypeID() uint32 {
 	return PhoneCallDiscardReasonMissedTypeID
@@ -114,7 +115,8 @@ func (p *PhoneCallDiscardReasonDisconnect) String() string {
 	return fmt.Sprintf("PhoneCallDiscardReasonDisconnect%+v", Alias(*p))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhoneCallDiscardReasonDisconnect) TypeID() uint32 {
 	return PhoneCallDiscardReasonDisconnectTypeID
@@ -183,7 +185,8 @@ func (p *PhoneCallDiscardReasonHangup) String() string {
 	return fmt.Sprintf("PhoneCallDiscardReasonHangup%+v", Alias(*p))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhoneCallDiscardReasonHangup) TypeID() uint32 {
 	return PhoneCallDiscardReasonHangupTypeID
@@ -252,7 +255,8 @@ func (p *PhoneCallDiscardReasonBusy) String() string {
 	return fmt.Sprintf("PhoneCallDiscardReasonBusy%+v", Alias(*p))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhoneCallDiscardReasonBusy) TypeID() uint32 {
 	return PhoneCallDiscardReasonBusyTypeID
@@ -316,6 +320,7 @@ type PhoneCallDiscardReasonClass interface {
 	construct() PhoneCallDiscardReasonClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

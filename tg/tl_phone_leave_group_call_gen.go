@@ -63,7 +63,8 @@ func (l *PhoneLeaveGroupCallRequest) FillFrom(from interface {
 	l.Source = from.GetSource()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (l *PhoneLeaveGroupCallRequest) TypeID() uint32 {
 	return PhoneLeaveGroupCallRequestTypeID

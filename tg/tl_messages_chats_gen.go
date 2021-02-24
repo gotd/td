@@ -57,7 +57,8 @@ func (c *MessagesChats) FillFrom(from interface {
 	c.Chats = from.GetChats()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *MessagesChats) TypeID() uint32 {
 	return MessagesChatsTypeID
@@ -180,7 +181,8 @@ func (c *MessagesChatsSlice) FillFrom(from interface {
 	c.Chats = from.GetChats()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *MessagesChatsSlice) TypeID() uint32 {
 	return MessagesChatsSliceTypeID
@@ -287,6 +289,7 @@ type MessagesChatsClass interface {
 	construct() MessagesChatsClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

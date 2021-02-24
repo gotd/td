@@ -45,7 +45,8 @@ func (i *InputChannelEmpty) String() string {
 	return fmt.Sprintf("InputChannelEmpty%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputChannelEmpty) TypeID() uint32 {
 	return InputChannelEmptyTypeID
@@ -136,7 +137,8 @@ func (i *InputChannel) FillFrom(from interface {
 	i.AccessHash = from.GetAccessHash()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputChannel) TypeID() uint32 {
 	return InputChannelTypeID
@@ -260,7 +262,8 @@ func (i *InputChannelFromMessage) FillFrom(from interface {
 	i.ChannelID = from.GetChannelID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputChannelFromMessage) TypeID() uint32 {
 	return InputChannelFromMessageTypeID
@@ -367,6 +370,7 @@ type InputChannelClass interface {
 	construct() InputChannelClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.
@@ -387,6 +391,7 @@ type NotEmptyInputChannel interface {
 	construct() InputChannelClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

@@ -57,7 +57,8 @@ func (g *MessagesGetAllChatsRequest) FillFrom(from interface {
 	g.ExceptIds = from.GetExceptIds()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *MessagesGetAllChatsRequest) TypeID() uint32 {
 	return MessagesGetAllChatsRequestTypeID

@@ -45,7 +45,8 @@ func (c *ChannelMessagesFilterEmpty) String() string {
 	return fmt.Sprintf("ChannelMessagesFilterEmpty%+v", Alias(*c))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelMessagesFilterEmpty) TypeID() uint32 {
 	return ChannelMessagesFilterEmptyTypeID
@@ -141,7 +142,8 @@ func (c *ChannelMessagesFilter) FillFrom(from interface {
 	c.Ranges = from.GetRanges()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelMessagesFilter) TypeID() uint32 {
 	return ChannelMessagesFilterTypeID
@@ -255,6 +257,7 @@ type ChannelMessagesFilterClass interface {
 	construct() ChannelMessagesFilterClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

@@ -70,7 +70,8 @@ func (g *GroupCallDiscarded) FillFrom(from interface {
 	g.Duration = from.GetDuration()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *GroupCallDiscarded) TypeID() uint32 {
 	return GroupCallDiscardedTypeID
@@ -241,7 +242,8 @@ func (g *GroupCall) FillFrom(from interface {
 	g.Version = from.GetVersion()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *GroupCall) TypeID() uint32 {
 	return GroupCallTypeID
@@ -431,6 +433,7 @@ type GroupCallClass interface {
 	construct() GroupCallClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

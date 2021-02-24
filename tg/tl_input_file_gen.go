@@ -84,7 +84,8 @@ func (i *InputFile) FillFrom(from interface {
 	i.MD5Checksum = from.GetMD5Checksum()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputFile) TypeID() uint32 {
 	return InputFileTypeID
@@ -234,7 +235,8 @@ func (i *InputFileBig) FillFrom(from interface {
 	i.Name = from.GetName()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputFileBig) TypeID() uint32 {
 	return InputFileBigTypeID
@@ -335,6 +337,7 @@ type InputFileClass interface {
 	construct() InputFileClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

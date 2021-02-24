@@ -180,7 +180,8 @@ func (s *MessagesSearchRequest) FillFrom(from interface {
 	s.Hash = from.GetHash()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSearchRequest) TypeID() uint32 {
 	return MessagesSearchRequestTypeID

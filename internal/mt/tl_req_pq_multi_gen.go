@@ -54,7 +54,8 @@ func (r *ReqPqMultiRequest) FillFrom(from interface {
 	r.Nonce = from.GetNonce()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ReqPqMultiRequest) TypeID() uint32 {
 	return ReqPqMultiRequestTypeID

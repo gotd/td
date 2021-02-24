@@ -64,7 +64,8 @@ func (p *PaymentCharge) FillFrom(from interface {
 	p.ProviderChargeID = from.GetProviderChargeID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PaymentCharge) TypeID() uint32 {
 	return PaymentChargeTypeID

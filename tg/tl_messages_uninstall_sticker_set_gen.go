@@ -57,7 +57,8 @@ func (u *MessagesUninstallStickerSetRequest) FillFrom(from interface {
 	u.Stickerset = from.GetStickerset()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *MessagesUninstallStickerSetRequest) TypeID() uint32 {
 	return MessagesUninstallStickerSetRequestTypeID

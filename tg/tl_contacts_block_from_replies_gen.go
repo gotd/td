@@ -92,7 +92,8 @@ func (b *ContactsBlockFromRepliesRequest) FillFrom(from interface {
 	b.MsgID = from.GetMsgID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *ContactsBlockFromRepliesRequest) TypeID() uint32 {
 	return ContactsBlockFromRepliesRequestTypeID

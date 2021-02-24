@@ -64,7 +64,8 @@ func (c *ChannelAdminLogEventActionChangeTitle) FillFrom(from interface {
 	c.NewValue = from.GetNewValue()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionChangeTitle) TypeID() uint32 {
 	return ChannelAdminLogEventActionChangeTitleTypeID
@@ -178,7 +179,8 @@ func (c *ChannelAdminLogEventActionChangeAbout) FillFrom(from interface {
 	c.NewValue = from.GetNewValue()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionChangeAbout) TypeID() uint32 {
 	return ChannelAdminLogEventActionChangeAboutTypeID
@@ -292,7 +294,8 @@ func (c *ChannelAdminLogEventActionChangeUsername) FillFrom(from interface {
 	c.NewValue = from.GetNewValue()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionChangeUsername) TypeID() uint32 {
 	return ChannelAdminLogEventActionChangeUsernameTypeID
@@ -408,7 +411,8 @@ func (c *ChannelAdminLogEventActionChangePhoto) FillFrom(from interface {
 	c.NewPhoto = from.GetNewPhoto()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionChangePhoto) TypeID() uint32 {
 	return ChannelAdminLogEventActionChangePhotoTypeID
@@ -525,7 +529,8 @@ func (c *ChannelAdminLogEventActionToggleInvites) FillFrom(from interface {
 	c.NewValue = from.GetNewValue()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionToggleInvites) TypeID() uint32 {
 	return ChannelAdminLogEventActionToggleInvitesTypeID
@@ -621,7 +626,8 @@ func (c *ChannelAdminLogEventActionToggleSignatures) FillFrom(from interface {
 	c.NewValue = from.GetNewValue()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionToggleSignatures) TypeID() uint32 {
 	return ChannelAdminLogEventActionToggleSignaturesTypeID
@@ -717,7 +723,8 @@ func (c *ChannelAdminLogEventActionUpdatePinned) FillFrom(from interface {
 	c.Message = from.GetMessage()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionUpdatePinned) TypeID() uint32 {
 	return ChannelAdminLogEventActionUpdatePinnedTypeID
@@ -825,7 +832,8 @@ func (c *ChannelAdminLogEventActionEditMessage) FillFrom(from interface {
 	c.NewMessage = from.GetNewMessage()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionEditMessage) TypeID() uint32 {
 	return ChannelAdminLogEventActionEditMessageTypeID
@@ -942,7 +950,8 @@ func (c *ChannelAdminLogEventActionDeleteMessage) FillFrom(from interface {
 	c.Message = from.GetMessage()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionDeleteMessage) TypeID() uint32 {
 	return ChannelAdminLogEventActionDeleteMessageTypeID
@@ -1031,7 +1040,8 @@ func (c *ChannelAdminLogEventActionParticipantJoin) String() string {
 	return fmt.Sprintf("ChannelAdminLogEventActionParticipantJoin%+v", Alias(*c))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionParticipantJoin) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantJoinTypeID
@@ -1102,7 +1112,8 @@ func (c *ChannelAdminLogEventActionParticipantLeave) String() string {
 	return fmt.Sprintf("ChannelAdminLogEventActionParticipantLeave%+v", Alias(*c))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionParticipantLeave) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantLeaveTypeID
@@ -1185,7 +1196,8 @@ func (c *ChannelAdminLogEventActionParticipantInvite) FillFrom(from interface {
 	c.Participant = from.GetParticipant()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionParticipantInvite) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantInviteTypeID
@@ -1296,7 +1308,8 @@ func (c *ChannelAdminLogEventActionParticipantToggleBan) FillFrom(from interface
 	c.NewParticipant = from.GetNewParticipant()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionParticipantToggleBan) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantToggleBanTypeID
@@ -1425,7 +1438,8 @@ func (c *ChannelAdminLogEventActionParticipantToggleAdmin) FillFrom(from interfa
 	c.NewParticipant = from.GetNewParticipant()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionParticipantToggleAdmin) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantToggleAdminTypeID
@@ -1551,7 +1565,8 @@ func (c *ChannelAdminLogEventActionChangeStickerSet) FillFrom(from interface {
 	c.NewStickerset = from.GetNewStickerset()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionChangeStickerSet) TypeID() uint32 {
 	return ChannelAdminLogEventActionChangeStickerSetTypeID
@@ -1673,7 +1688,8 @@ func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) FillFrom(from interfa
 	c.NewValue = from.GetNewValue()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) TypeID() uint32 {
 	return ChannelAdminLogEventActionTogglePreHistoryHiddenTypeID
@@ -1782,7 +1798,8 @@ func (c *ChannelAdminLogEventActionDefaultBannedRights) FillFrom(from interface 
 	c.NewBannedRights = from.GetNewBannedRights()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionDefaultBannedRights) TypeID() uint32 {
 	return ChannelAdminLogEventActionDefaultBannedRightsTypeID
@@ -1891,7 +1908,8 @@ func (c *ChannelAdminLogEventActionStopPoll) FillFrom(from interface {
 	c.Message = from.GetMessage()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionStopPoll) TypeID() uint32 {
 	return ChannelAdminLogEventActionStopPollTypeID
@@ -1997,7 +2015,8 @@ func (c *ChannelAdminLogEventActionChangeLinkedChat) FillFrom(from interface {
 	c.NewValue = from.GetNewValue()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionChangeLinkedChat) TypeID() uint32 {
 	return ChannelAdminLogEventActionChangeLinkedChatTypeID
@@ -2113,7 +2132,8 @@ func (c *ChannelAdminLogEventActionChangeLocation) FillFrom(from interface {
 	c.NewValue = from.GetNewValue()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionChangeLocation) TypeID() uint32 {
 	return ChannelAdminLogEventActionChangeLocationTypeID
@@ -2242,7 +2262,8 @@ func (c *ChannelAdminLogEventActionToggleSlowMode) FillFrom(from interface {
 	c.NewValue = from.GetNewValue()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionToggleSlowMode) TypeID() uint32 {
 	return ChannelAdminLogEventActionToggleSlowModeTypeID
@@ -2350,7 +2371,8 @@ func (c *ChannelAdminLogEventActionStartGroupCall) FillFrom(from interface {
 	c.Call = from.GetCall()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionStartGroupCall) TypeID() uint32 {
 	return ChannelAdminLogEventActionStartGroupCallTypeID
@@ -2445,7 +2467,8 @@ func (c *ChannelAdminLogEventActionDiscardGroupCall) FillFrom(from interface {
 	c.Call = from.GetCall()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionDiscardGroupCall) TypeID() uint32 {
 	return ChannelAdminLogEventActionDiscardGroupCallTypeID
@@ -2540,7 +2563,8 @@ func (c *ChannelAdminLogEventActionParticipantMute) FillFrom(from interface {
 	c.Participant = from.GetParticipant()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionParticipantMute) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantMuteTypeID
@@ -2635,7 +2659,8 @@ func (c *ChannelAdminLogEventActionParticipantUnmute) FillFrom(from interface {
 	c.Participant = from.GetParticipant()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionParticipantUnmute) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantUnmuteTypeID
@@ -2730,7 +2755,8 @@ func (c *ChannelAdminLogEventActionToggleGroupCallSetting) FillFrom(from interfa
 	c.JoinMuted = from.GetJoinMuted()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionToggleGroupCallSetting) TypeID() uint32 {
 	return ChannelAdminLogEventActionToggleGroupCallSettingTypeID
@@ -2825,7 +2851,8 @@ func (c *ChannelAdminLogEventActionParticipantJoinByInvite) FillFrom(from interf
 	c.Invite = from.GetInvite()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionParticipantJoinByInvite) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantJoinByInviteTypeID
@@ -2920,7 +2947,8 @@ func (c *ChannelAdminLogEventActionExportedInviteDelete) FillFrom(from interface
 	c.Invite = from.GetInvite()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionExportedInviteDelete) TypeID() uint32 {
 	return ChannelAdminLogEventActionExportedInviteDeleteTypeID
@@ -3015,7 +3043,8 @@ func (c *ChannelAdminLogEventActionExportedInviteRevoke) FillFrom(from interface
 	c.Invite = from.GetInvite()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionExportedInviteRevoke) TypeID() uint32 {
 	return ChannelAdminLogEventActionExportedInviteRevokeTypeID
@@ -3117,7 +3146,8 @@ func (c *ChannelAdminLogEventActionExportedInviteEdit) FillFrom(from interface {
 	c.NewInvite = from.GetNewInvite()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionExportedInviteEdit) TypeID() uint32 {
 	return ChannelAdminLogEventActionExportedInviteEditTypeID
@@ -3225,7 +3255,8 @@ func (c *ChannelAdminLogEventActionParticipantVolume) FillFrom(from interface {
 	c.Participant = from.GetParticipant()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionParticipantVolume) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantVolumeTypeID
@@ -3327,7 +3358,8 @@ func (c *ChannelAdminLogEventActionChangeHistoryTTL) FillFrom(from interface {
 	c.NewValue = from.GetNewValue()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelAdminLogEventActionChangeHistoryTTL) TypeID() uint32 {
 	return ChannelAdminLogEventActionChangeHistoryTTLTypeID
@@ -3447,6 +3479,7 @@ type ChannelAdminLogEventActionClass interface {
 	construct() ChannelAdminLogEventActionClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

@@ -158,7 +158,8 @@ func (b *StatsBroadcastStats) FillFrom(from interface {
 	b.RecentMessageInteractions = from.GetRecentMessageInteractions()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *StatsBroadcastStats) TypeID() uint32 {
 	return StatsBroadcastStatsTypeID

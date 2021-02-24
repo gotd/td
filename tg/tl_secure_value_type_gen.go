@@ -45,7 +45,8 @@ func (s *SecureValueTypePersonalDetails) String() string {
 	return fmt.Sprintf("SecureValueTypePersonalDetails%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueTypePersonalDetails) TypeID() uint32 {
 	return SecureValueTypePersonalDetailsTypeID
@@ -114,7 +115,8 @@ func (s *SecureValueTypePassport) String() string {
 	return fmt.Sprintf("SecureValueTypePassport%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueTypePassport) TypeID() uint32 {
 	return SecureValueTypePassportTypeID
@@ -183,7 +185,8 @@ func (s *SecureValueTypeDriverLicense) String() string {
 	return fmt.Sprintf("SecureValueTypeDriverLicense%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueTypeDriverLicense) TypeID() uint32 {
 	return SecureValueTypeDriverLicenseTypeID
@@ -252,7 +255,8 @@ func (s *SecureValueTypeIdentityCard) String() string {
 	return fmt.Sprintf("SecureValueTypeIdentityCard%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueTypeIdentityCard) TypeID() uint32 {
 	return SecureValueTypeIdentityCardTypeID
@@ -324,7 +328,8 @@ func (s *SecureValueTypeInternalPassport) String() string {
 	return fmt.Sprintf("SecureValueTypeInternalPassport%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueTypeInternalPassport) TypeID() uint32 {
 	return SecureValueTypeInternalPassportTypeID
@@ -393,7 +398,8 @@ func (s *SecureValueTypeAddress) String() string {
 	return fmt.Sprintf("SecureValueTypeAddress%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueTypeAddress) TypeID() uint32 {
 	return SecureValueTypeAddressTypeID
@@ -462,7 +468,8 @@ func (s *SecureValueTypeUtilityBill) String() string {
 	return fmt.Sprintf("SecureValueTypeUtilityBill%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueTypeUtilityBill) TypeID() uint32 {
 	return SecureValueTypeUtilityBillTypeID
@@ -531,7 +538,8 @@ func (s *SecureValueTypeBankStatement) String() string {
 	return fmt.Sprintf("SecureValueTypeBankStatement%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueTypeBankStatement) TypeID() uint32 {
 	return SecureValueTypeBankStatementTypeID
@@ -600,7 +608,8 @@ func (s *SecureValueTypeRentalAgreement) String() string {
 	return fmt.Sprintf("SecureValueTypeRentalAgreement%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueTypeRentalAgreement) TypeID() uint32 {
 	return SecureValueTypeRentalAgreementTypeID
@@ -672,7 +681,8 @@ func (s *SecureValueTypePassportRegistration) String() string {
 	return fmt.Sprintf("SecureValueTypePassportRegistration%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueTypePassportRegistration) TypeID() uint32 {
 	return SecureValueTypePassportRegistrationTypeID
@@ -741,7 +751,8 @@ func (s *SecureValueTypeTemporaryRegistration) String() string {
 	return fmt.Sprintf("SecureValueTypeTemporaryRegistration%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueTypeTemporaryRegistration) TypeID() uint32 {
 	return SecureValueTypeTemporaryRegistrationTypeID
@@ -810,7 +821,8 @@ func (s *SecureValueTypePhone) String() string {
 	return fmt.Sprintf("SecureValueTypePhone%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueTypePhone) TypeID() uint32 {
 	return SecureValueTypePhoneTypeID
@@ -879,7 +891,8 @@ func (s *SecureValueTypeEmail) String() string {
 	return fmt.Sprintf("SecureValueTypeEmail%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueTypeEmail) TypeID() uint32 {
 	return SecureValueTypeEmailTypeID
@@ -952,6 +965,7 @@ type SecureValueTypeClass interface {
 	construct() SecureValueTypeClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

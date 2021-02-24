@@ -48,7 +48,8 @@ func (c *MessagesClearAllDraftsRequest) String() string {
 	return fmt.Sprintf("MessagesClearAllDraftsRequest%+v", Alias(*c))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *MessagesClearAllDraftsRequest) TypeID() uint32 {
 	return MessagesClearAllDraftsRequestTypeID

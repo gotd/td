@@ -64,7 +64,8 @@ func (j *JsonObjectValue) FillFrom(from interface {
 	j.Value = from.GetValue()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (j *JsonObjectValue) TypeID() uint32 {
 	return JsonObjectValueTypeID

@@ -45,7 +45,8 @@ func (r *AccountResetNotifySettingsRequest) String() string {
 	return fmt.Sprintf("AccountResetNotifySettingsRequest%+v", Alias(*r))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *AccountResetNotifySettingsRequest) TypeID() uint32 {
 	return AccountResetNotifySettingsRequestTypeID

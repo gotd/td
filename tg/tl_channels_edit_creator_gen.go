@@ -74,7 +74,8 @@ func (e *ChannelsEditCreatorRequest) FillFrom(from interface {
 	e.Password = from.GetPassword()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *ChannelsEditCreatorRequest) TypeID() uint32 {
 	return ChannelsEditCreatorRequestTypeID

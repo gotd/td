@@ -64,7 +64,8 @@ func (e *EmojiKeyword) FillFrom(from interface {
 	e.Emoticons = from.GetEmoticons()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EmojiKeyword) TypeID() uint32 {
 	return EmojiKeywordTypeID
@@ -187,7 +188,8 @@ func (e *EmojiKeywordDeleted) FillFrom(from interface {
 	e.Emoticons = from.GetEmoticons()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (e *EmojiKeywordDeleted) TypeID() uint32 {
 	return EmojiKeywordDeletedTypeID
@@ -284,6 +286,7 @@ type EmojiKeywordClass interface {
 	construct() EmojiKeywordClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

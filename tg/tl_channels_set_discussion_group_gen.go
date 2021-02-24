@@ -70,7 +70,8 @@ func (s *ChannelsSetDiscussionGroupRequest) FillFrom(from interface {
 	s.Group = from.GetGroup()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *ChannelsSetDiscussionGroupRequest) TypeID() uint32 {
 	return ChannelsSetDiscussionGroupRequestTypeID

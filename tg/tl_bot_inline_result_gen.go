@@ -142,7 +142,8 @@ func (b *BotInlineResult) FillFrom(from interface {
 	b.SendMessage = from.GetSendMessage()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *BotInlineResult) TypeID() uint32 {
 	return BotInlineResultTypeID
@@ -501,7 +502,8 @@ func (b *BotInlineMediaResult) FillFrom(from interface {
 	b.SendMessage = from.GetSendMessage()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *BotInlineMediaResult) TypeID() uint32 {
 	return BotInlineMediaResultTypeID
@@ -737,6 +739,7 @@ type BotInlineResultClass interface {
 	construct() BotInlineResultClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

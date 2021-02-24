@@ -67,7 +67,8 @@ func (r *UploadReuploadCdnFileRequest) FillFrom(from interface {
 	r.RequestToken = from.GetRequestToken()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *UploadReuploadCdnFileRequest) TypeID() uint32 {
 	return UploadReuploadCdnFileRequestTypeID

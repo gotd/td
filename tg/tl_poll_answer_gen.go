@@ -67,7 +67,8 @@ func (p *PollAnswer) FillFrom(from interface {
 	p.Option = from.GetOption()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PollAnswer) TypeID() uint32 {
 	return PollAnswerTypeID

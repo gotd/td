@@ -74,7 +74,8 @@ func (s *AccountSaveSecureValueRequest) FillFrom(from interface {
 	s.SecureSecretID = from.GetSecureSecretID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AccountSaveSecureValueRequest) TypeID() uint32 {
 	return AccountSaveSecureValueRequestTypeID

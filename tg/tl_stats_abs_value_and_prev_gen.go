@@ -64,7 +64,8 @@ func (s *StatsAbsValueAndPrev) FillFrom(from interface {
 	s.Previous = from.GetPrevious()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StatsAbsValueAndPrev) TypeID() uint32 {
 	return StatsAbsValueAndPrevTypeID

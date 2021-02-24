@@ -45,7 +45,8 @@ func (i *InputMediaEmpty) String() string {
 	return fmt.Sprintf("InputMediaEmpty%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMediaEmpty) TypeID() uint32 {
 	return InputMediaEmptyTypeID
@@ -161,7 +162,8 @@ func (i *InputMediaUploadedPhoto) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMediaUploadedPhoto) TypeID() uint32 {
 	return InputMediaUploadedPhotoTypeID
@@ -366,7 +368,8 @@ func (i *InputMediaPhoto) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMediaPhoto) TypeID() uint32 {
 	return InputMediaPhotoTypeID
@@ -501,7 +504,8 @@ func (i *InputMediaGeoPoint) FillFrom(from interface {
 	i.GeoPoint = from.GetGeoPoint()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMediaGeoPoint) TypeID() uint32 {
 	return InputMediaGeoPointTypeID
@@ -621,7 +625,8 @@ func (i *InputMediaContact) FillFrom(from interface {
 	i.Vcard = from.GetVcard()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMediaContact) TypeID() uint32 {
 	return InputMediaContactTypeID
@@ -829,7 +834,8 @@ func (i *InputMediaUploadedDocument) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMediaUploadedDocument) TypeID() uint32 {
 	return InputMediaUploadedDocumentTypeID
@@ -1164,7 +1170,8 @@ func (i *InputMediaDocument) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMediaDocument) TypeID() uint32 {
 	return InputMediaDocumentTypeID
@@ -1362,7 +1369,8 @@ func (i *InputMediaVenue) FillFrom(from interface {
 	i.VenueType = from.GetVenueType()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMediaVenue) TypeID() uint32 {
 	return InputMediaVenueTypeID
@@ -1546,7 +1554,8 @@ func (i *InputMediaPhotoExternal) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMediaPhotoExternal) TypeID() uint32 {
 	return InputMediaPhotoExternalTypeID
@@ -1696,7 +1705,8 @@ func (i *InputMediaDocumentExternal) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMediaDocumentExternal) TypeID() uint32 {
 	return InputMediaDocumentExternalTypeID
@@ -1826,7 +1836,8 @@ func (i *InputMediaGame) FillFrom(from interface {
 	i.ID = from.GetID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMediaGame) TypeID() uint32 {
 	return InputMediaGameTypeID
@@ -1993,7 +2004,8 @@ func (i *InputMediaInvoice) FillFrom(from interface {
 	i.StartParam = from.GetStartParam()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMediaInvoice) TypeID() uint32 {
 	return InputMediaInvoiceTypeID
@@ -2261,7 +2273,8 @@ func (i *InputMediaGeoLive) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMediaGeoLive) TypeID() uint32 {
 	return InputMediaGeoLiveTypeID
@@ -2519,7 +2532,8 @@ func (i *InputMediaPoll) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMediaPoll) TypeID() uint32 {
 	return InputMediaPollTypeID
@@ -2739,7 +2753,8 @@ func (i *InputMediaDice) FillFrom(from interface {
 	i.Emoticon = from.GetEmoticon()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputMediaDice) TypeID() uint32 {
 	return InputMediaDiceTypeID
@@ -2827,6 +2842,7 @@ type InputMediaClass interface {
 	construct() InputMediaClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

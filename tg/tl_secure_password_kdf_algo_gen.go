@@ -45,7 +45,8 @@ func (s *SecurePasswordKdfAlgoUnknown) String() string {
 	return fmt.Sprintf("SecurePasswordKdfAlgoUnknown%+v", Alias(*s))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecurePasswordKdfAlgoUnknown) TypeID() uint32 {
 	return SecurePasswordKdfAlgoUnknownTypeID
@@ -126,7 +127,8 @@ func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) FillFrom(from interfac
 	s.Salt = from.GetSalt()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) TypeID() uint32 {
 	return SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000TypeID
@@ -222,7 +224,8 @@ func (s *SecurePasswordKdfAlgoSHA512) FillFrom(from interface {
 	s.Salt = from.GetSalt()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecurePasswordKdfAlgoSHA512) TypeID() uint32 {
 	return SecurePasswordKdfAlgoSHA512TypeID
@@ -298,6 +301,7 @@ type SecurePasswordKdfAlgoClass interface {
 	construct() SecurePasswordKdfAlgoClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

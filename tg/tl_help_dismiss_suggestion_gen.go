@@ -64,7 +64,8 @@ func (d *HelpDismissSuggestionRequest) FillFrom(from interface {
 	d.Suggestion = from.GetSuggestion()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *HelpDismissSuggestionRequest) TypeID() uint32 {
 	return HelpDismissSuggestionRequestTypeID

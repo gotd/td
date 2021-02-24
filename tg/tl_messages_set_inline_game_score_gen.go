@@ -93,7 +93,8 @@ func (s *MessagesSetInlineGameScoreRequest) FillFrom(from interface {
 	s.Score = from.GetScore()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesSetInlineGameScoreRequest) TypeID() uint32 {
 	return MessagesSetInlineGameScoreRequestTypeID

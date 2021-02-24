@@ -45,7 +45,8 @@ func (c *ChannelLocationEmpty) String() string {
 	return fmt.Sprintf("ChannelLocationEmpty%+v", Alias(*c))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelLocationEmpty) TypeID() uint32 {
 	return ChannelLocationEmptyTypeID
@@ -133,7 +134,8 @@ func (c *ChannelLocation) FillFrom(from interface {
 	c.Address = from.GetAddress()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelLocation) TypeID() uint32 {
 	return ChannelLocationTypeID
@@ -226,6 +228,7 @@ type ChannelLocationClass interface {
 	construct() ChannelLocationClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

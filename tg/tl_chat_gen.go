@@ -57,7 +57,8 @@ func (c *ChatEmpty) FillFrom(from interface {
 	c.ID = from.GetID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatEmpty) TypeID() uint32 {
 	return ChatEmptyTypeID
@@ -284,7 +285,8 @@ func (c *Chat) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *Chat) TypeID() uint32 {
 	return ChatTypeID
@@ -672,7 +674,8 @@ func (c *ChatForbidden) FillFrom(from interface {
 	c.Title = from.GetTitle()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatForbidden) TypeID() uint32 {
 	return ChatForbiddenTypeID
@@ -1023,7 +1026,8 @@ func (c *Channel) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *Channel) TypeID() uint32 {
 	return ChannelTypeID
@@ -1757,7 +1761,8 @@ func (c *ChannelForbidden) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelForbidden) TypeID() uint32 {
 	return ChannelForbiddenTypeID
@@ -1937,6 +1942,7 @@ type ChatClass interface {
 	construct() ChatClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.
@@ -1993,6 +1999,7 @@ type NotEmptyChat interface {
 	construct() ChatClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.
@@ -2045,6 +2052,7 @@ type NotForbiddenChat interface {
 	construct() ChatClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.
@@ -2095,6 +2103,7 @@ type FullChat interface {
 	construct() ChatClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

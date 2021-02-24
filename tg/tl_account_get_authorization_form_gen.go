@@ -71,7 +71,8 @@ func (g *AccountGetAuthorizationFormRequest) FillFrom(from interface {
 	g.PublicKey = from.GetPublicKey()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *AccountGetAuthorizationFormRequest) TypeID() uint32 {
 	return AccountGetAuthorizationFormRequestTypeID

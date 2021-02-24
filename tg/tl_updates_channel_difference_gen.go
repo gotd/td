@@ -87,7 +87,8 @@ func (c *UpdatesChannelDifferenceEmpty) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *UpdatesChannelDifferenceEmpty) TypeID() uint32 {
 	return UpdatesChannelDifferenceEmptyTypeID
@@ -288,7 +289,8 @@ func (c *UpdatesChannelDifferenceTooLong) FillFrom(from interface {
 	c.Users = from.GetUsers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *UpdatesChannelDifferenceTooLong) TypeID() uint32 {
 	return UpdatesChannelDifferenceTooLongTypeID
@@ -597,7 +599,8 @@ func (c *UpdatesChannelDifference) FillFrom(from interface {
 	c.Users = from.GetUsers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *UpdatesChannelDifference) TypeID() uint32 {
 	return UpdatesChannelDifferenceTypeID
@@ -857,6 +860,7 @@ type UpdatesChannelDifferenceClass interface {
 	construct() UpdatesChannelDifferenceClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.
@@ -881,6 +885,7 @@ type NotEmptyUpdatesChannelDifference interface {
 	construct() UpdatesChannelDifferenceClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

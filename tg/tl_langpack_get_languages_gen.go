@@ -57,7 +57,8 @@ func (g *LangpackGetLanguagesRequest) FillFrom(from interface {
 	g.LangPack = from.GetLangPack()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *LangpackGetLanguagesRequest) TypeID() uint32 {
 	return LangpackGetLanguagesRequestTypeID

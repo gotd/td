@@ -126,7 +126,8 @@ func (w *WallPaper) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *WallPaper) TypeID() uint32 {
 	return WallPaperTypeID
@@ -407,7 +408,8 @@ func (w *WallPaperNoFile) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *WallPaperNoFile) TypeID() uint32 {
 	return WallPaperNoFileTypeID
@@ -545,6 +547,7 @@ type WallPaperClass interface {
 	construct() WallPaperClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

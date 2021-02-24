@@ -64,7 +64,8 @@ func (i *InputWebFileLocation) FillFrom(from interface {
 	i.AccessHash = from.GetAccessHash()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputWebFileLocation) TypeID() uint32 {
 	return InputWebFileLocationTypeID
@@ -206,7 +207,8 @@ func (i *InputWebFileGeoPointLocation) FillFrom(from interface {
 	i.Scale = from.GetScale()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputWebFileGeoPointLocation) TypeID() uint32 {
 	return InputWebFileGeoPointLocationTypeID
@@ -351,6 +353,7 @@ type InputWebFileLocationClass interface {
 	construct() InputWebFileLocationClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

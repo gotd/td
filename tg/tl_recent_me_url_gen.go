@@ -57,7 +57,8 @@ func (r *RecentMeUrlUnknown) FillFrom(from interface {
 	r.URL = from.GetURL()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RecentMeUrlUnknown) TypeID() uint32 {
 	return RecentMeUrlUnknownTypeID
@@ -158,7 +159,8 @@ func (r *RecentMeUrlUser) FillFrom(from interface {
 	r.UserID = from.GetUserID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RecentMeUrlUser) TypeID() uint32 {
 	return RecentMeUrlUserTypeID
@@ -272,7 +274,8 @@ func (r *RecentMeUrlChat) FillFrom(from interface {
 	r.ChatID = from.GetChatID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RecentMeUrlChat) TypeID() uint32 {
 	return RecentMeUrlChatTypeID
@@ -386,7 +389,8 @@ func (r *RecentMeUrlChatInvite) FillFrom(from interface {
 	r.ChatInvite = from.GetChatInvite()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RecentMeUrlChatInvite) TypeID() uint32 {
 	return RecentMeUrlChatInviteTypeID
@@ -505,7 +509,8 @@ func (r *RecentMeUrlStickerSet) FillFrom(from interface {
 	r.Set = from.GetSet()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RecentMeUrlStickerSet) TypeID() uint32 {
 	return RecentMeUrlStickerSetTypeID
@@ -601,6 +606,7 @@ type RecentMeUrlClass interface {
 	construct() RecentMeUrlClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

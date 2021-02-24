@@ -71,7 +71,8 @@ func (r *AccountReportPeerRequest) FillFrom(from interface {
 	r.Message = from.GetMessage()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *AccountReportPeerRequest) TypeID() uint32 {
 	return AccountReportPeerRequestTypeID

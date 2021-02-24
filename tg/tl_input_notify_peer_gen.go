@@ -57,7 +57,8 @@ func (i *InputNotifyPeer) FillFrom(from interface {
 	i.Peer = from.GetPeer()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputNotifyPeer) TypeID() uint32 {
 	return InputNotifyPeerTypeID
@@ -144,7 +145,8 @@ func (i *InputNotifyUsers) String() string {
 	return fmt.Sprintf("InputNotifyUsers%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputNotifyUsers) TypeID() uint32 {
 	return InputNotifyUsersTypeID
@@ -213,7 +215,8 @@ func (i *InputNotifyChats) String() string {
 	return fmt.Sprintf("InputNotifyChats%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputNotifyChats) TypeID() uint32 {
 	return InputNotifyChatsTypeID
@@ -285,7 +288,8 @@ func (i *InputNotifyBroadcasts) String() string {
 	return fmt.Sprintf("InputNotifyBroadcasts%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputNotifyBroadcasts) TypeID() uint32 {
 	return InputNotifyBroadcastsTypeID
@@ -349,6 +353,7 @@ type InputNotifyPeerClass interface {
 	construct() InputNotifyPeerClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

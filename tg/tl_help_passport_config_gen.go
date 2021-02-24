@@ -45,7 +45,8 @@ func (p *HelpPassportConfigNotModified) String() string {
 	return fmt.Sprintf("HelpPassportConfigNotModified%+v", Alias(*p))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *HelpPassportConfigNotModified) TypeID() uint32 {
 	return HelpPassportConfigNotModifiedTypeID
@@ -139,7 +140,8 @@ func (p *HelpPassportConfig) FillFrom(from interface {
 	p.CountriesLangs = from.GetCountriesLangs()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *HelpPassportConfig) TypeID() uint32 {
 	return HelpPassportConfigTypeID
@@ -227,6 +229,7 @@ type HelpPassportConfigClass interface {
 	construct() HelpPassportConfigClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

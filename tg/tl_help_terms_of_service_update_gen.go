@@ -60,7 +60,8 @@ func (t *HelpTermsOfServiceUpdateEmpty) FillFrom(from interface {
 	t.Expires = from.GetExpires()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *HelpTermsOfServiceUpdateEmpty) TypeID() uint32 {
 	return HelpTermsOfServiceUpdateEmptyTypeID
@@ -167,7 +168,8 @@ func (t *HelpTermsOfServiceUpdate) FillFrom(from interface {
 	t.TermsOfService = from.GetTermsOfService()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *HelpTermsOfServiceUpdate) TypeID() uint32 {
 	return HelpTermsOfServiceUpdateTypeID
@@ -255,6 +257,7 @@ type HelpTermsOfServiceUpdateClass interface {
 	construct() HelpTermsOfServiceUpdateClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

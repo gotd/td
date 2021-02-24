@@ -74,7 +74,8 @@ func (r *MessagesReadDiscussionRequest) FillFrom(from interface {
 	r.ReadMaxID = from.GetReadMaxID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *MessagesReadDiscussionRequest) TypeID() uint32 {
 	return MessagesReadDiscussionRequestTypeID

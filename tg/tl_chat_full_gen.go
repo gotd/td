@@ -193,7 +193,8 @@ func (c *ChatFull) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatFull) TypeID() uint32 {
 	return ChatFullTypeID
@@ -987,7 +988,8 @@ func (c *ChannelFull) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChannelFull) TypeID() uint32 {
 	return ChannelFullTypeID
@@ -1924,6 +1926,7 @@ type ChatFullClass interface {
 	construct() ChatFullClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

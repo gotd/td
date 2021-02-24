@@ -63,7 +63,8 @@ func (c *AccountConfirmPasswordEmailRequest) FillFrom(from interface {
 	c.Code = from.GetCode()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *AccountConfirmPasswordEmailRequest) TypeID() uint32 {
 	return AccountConfirmPasswordEmailRequestTypeID

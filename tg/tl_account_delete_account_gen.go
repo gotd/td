@@ -60,7 +60,8 @@ func (d *AccountDeleteAccountRequest) FillFrom(from interface {
 	d.Reason = from.GetReason()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *AccountDeleteAccountRequest) TypeID() uint32 {
 	return AccountDeleteAccountRequestTypeID

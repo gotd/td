@@ -45,7 +45,8 @@ func (i *InputEncryptedFileEmpty) String() string {
 	return fmt.Sprintf("InputEncryptedFileEmpty%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputEncryptedFileEmpty) TypeID() uint32 {
 	return InputEncryptedFileEmptyTypeID
@@ -150,7 +151,8 @@ func (i *InputEncryptedFileUploaded) FillFrom(from interface {
 	i.KeyFingerprint = from.GetKeyFingerprint()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputEncryptedFileUploaded) TypeID() uint32 {
 	return InputEncryptedFileUploadedTypeID
@@ -296,7 +298,8 @@ func (i *InputEncryptedFile) FillFrom(from interface {
 	i.AccessHash = from.GetAccessHash()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputEncryptedFile) TypeID() uint32 {
 	return InputEncryptedFileTypeID
@@ -420,7 +423,8 @@ func (i *InputEncryptedFileBigUploaded) FillFrom(from interface {
 	i.KeyFingerprint = from.GetKeyFingerprint()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputEncryptedFileBigUploaded) TypeID() uint32 {
 	return InputEncryptedFileBigUploadedTypeID
@@ -523,6 +527,7 @@ type InputEncryptedFileClass interface {
 	construct() InputEncryptedFileClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.
@@ -552,6 +557,7 @@ type NotEmptyInputEncryptedFile interface {
 	construct() InputEncryptedFileClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

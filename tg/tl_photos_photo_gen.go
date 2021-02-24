@@ -64,7 +64,8 @@ func (p *PhotosPhoto) FillFrom(from interface {
 	p.Users = from.GetUsers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhotosPhoto) TypeID() uint32 {
 	return PhotosPhotoTypeID

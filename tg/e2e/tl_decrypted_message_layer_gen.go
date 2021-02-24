@@ -84,7 +84,8 @@ func (d *DecryptedMessageLayer) FillFrom(from interface {
 	d.Message = from.GetMessage()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageLayer) TypeID() uint32 {
 	return DecryptedMessageLayerTypeID

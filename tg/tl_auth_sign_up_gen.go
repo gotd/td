@@ -78,7 +78,8 @@ func (s *AuthSignUpRequest) FillFrom(from interface {
 	s.LastName = from.GetLastName()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AuthSignUpRequest) TypeID() uint32 {
 	return AuthSignUpRequestTypeID

@@ -63,7 +63,8 @@ func (d *ChannelsDeleteChannelRequest) FillFrom(from interface {
 	d.Channel = from.GetChannel()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *ChannelsDeleteChannelRequest) TypeID() uint32 {
 	return ChannelsDeleteChannelRequestTypeID

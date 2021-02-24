@@ -71,7 +71,8 @@ func (p *PeerLocated) FillFrom(from interface {
 	p.Distance = from.GetDistance()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PeerLocated) TypeID() uint32 {
 	return PeerLocatedTypeID
@@ -196,7 +197,8 @@ func (p *PeerSelfLocated) FillFrom(from interface {
 	p.Expires = from.GetExpires()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PeerSelfLocated) TypeID() uint32 {
 	return PeerSelfLocatedTypeID
@@ -271,6 +273,7 @@ type PeerLocatedClass interface {
 	construct() PeerLocatedClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

@@ -45,7 +45,8 @@ func (i *InputReportReasonSpam) String() string {
 	return fmt.Sprintf("InputReportReasonSpam%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputReportReasonSpam) TypeID() uint32 {
 	return InputReportReasonSpamTypeID
@@ -114,7 +115,8 @@ func (i *InputReportReasonViolence) String() string {
 	return fmt.Sprintf("InputReportReasonViolence%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputReportReasonViolence) TypeID() uint32 {
 	return InputReportReasonViolenceTypeID
@@ -183,7 +185,8 @@ func (i *InputReportReasonPornography) String() string {
 	return fmt.Sprintf("InputReportReasonPornography%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputReportReasonPornography) TypeID() uint32 {
 	return InputReportReasonPornographyTypeID
@@ -252,7 +255,8 @@ func (i *InputReportReasonChildAbuse) String() string {
 	return fmt.Sprintf("InputReportReasonChildAbuse%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputReportReasonChildAbuse) TypeID() uint32 {
 	return InputReportReasonChildAbuseTypeID
@@ -321,7 +325,8 @@ func (i *InputReportReasonOther) String() string {
 	return fmt.Sprintf("InputReportReasonOther%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputReportReasonOther) TypeID() uint32 {
 	return InputReportReasonOtherTypeID
@@ -390,7 +395,8 @@ func (i *InputReportReasonCopyright) String() string {
 	return fmt.Sprintf("InputReportReasonCopyright%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputReportReasonCopyright) TypeID() uint32 {
 	return InputReportReasonCopyrightTypeID
@@ -459,7 +465,8 @@ func (i *InputReportReasonGeoIrrelevant) String() string {
 	return fmt.Sprintf("InputReportReasonGeoIrrelevant%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputReportReasonGeoIrrelevant) TypeID() uint32 {
 	return InputReportReasonGeoIrrelevantTypeID
@@ -527,7 +534,8 @@ func (i *InputReportReasonFake) String() string {
 	return fmt.Sprintf("InputReportReasonFake%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputReportReasonFake) TypeID() uint32 {
 	return InputReportReasonFakeTypeID
@@ -595,6 +603,7 @@ type ReportReasonClass interface {
 	construct() ReportReasonClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

@@ -67,7 +67,8 @@ func (l *AuthLoginToken) FillFrom(from interface {
 	l.Token = from.GetToken()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (l *AuthLoginToken) TypeID() uint32 {
 	return AuthLoginTokenTypeID
@@ -181,7 +182,8 @@ func (l *AuthLoginTokenMigrateTo) FillFrom(from interface {
 	l.Token = from.GetToken()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (l *AuthLoginTokenMigrateTo) TypeID() uint32 {
 	return AuthLoginTokenMigrateToTypeID
@@ -288,7 +290,8 @@ func (l *AuthLoginTokenSuccess) FillFrom(from interface {
 	l.Authorization = from.GetAuthorization()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (l *AuthLoginTokenSuccess) TypeID() uint32 {
 	return AuthLoginTokenSuccessTypeID
@@ -369,6 +372,7 @@ type AuthLoginTokenClass interface {
 	construct() AuthLoginTokenClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

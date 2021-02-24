@@ -63,7 +63,8 @@ func (d *MessagesDeleteExportedChatInviteRequest) FillFrom(from interface {
 	d.Link = from.GetLink()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *MessagesDeleteExportedChatInviteRequest) TypeID() uint32 {
 	return MessagesDeleteExportedChatInviteRequestTypeID

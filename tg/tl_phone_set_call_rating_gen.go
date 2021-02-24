@@ -86,7 +86,8 @@ func (s *PhoneSetCallRatingRequest) FillFrom(from interface {
 	s.Comment = from.GetComment()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *PhoneSetCallRatingRequest) TypeID() uint32 {
 	return PhoneSetCallRatingRequestTypeID

@@ -45,7 +45,8 @@ func (l *AuthLogOutRequest) String() string {
 	return fmt.Sprintf("AuthLogOutRequest%+v", Alias(*l))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (l *AuthLogOutRequest) TypeID() uint32 {
 	return AuthLogOutRequestTypeID

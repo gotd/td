@@ -112,7 +112,8 @@ func (c *StickersCreateStickerSetRequest) FillFrom(from interface {
 	c.Stickers = from.GetStickers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *StickersCreateStickerSetRequest) TypeID() uint32 {
 	return StickersCreateStickerSetRequestTypeID

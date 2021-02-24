@@ -64,7 +64,8 @@ func (m *MessageRange) FillFrom(from interface {
 	m.MaxID = from.GetMaxID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageRange) TypeID() uint32 {
 	return MessageRangeTypeID

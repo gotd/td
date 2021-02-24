@@ -67,7 +67,8 @@ func (l *LabeledPrice) FillFrom(from interface {
 	l.Amount = from.GetAmount()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (l *LabeledPrice) TypeID() uint32 {
 	return LabeledPriceTypeID

@@ -45,7 +45,8 @@ func (t *AccountThemesNotModified) String() string {
 	return fmt.Sprintf("AccountThemesNotModified%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *AccountThemesNotModified) TypeID() uint32 {
 	return AccountThemesNotModifiedTypeID
@@ -136,7 +137,8 @@ func (t *AccountThemes) FillFrom(from interface {
 	t.Themes = from.GetThemes()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *AccountThemes) TypeID() uint32 {
 	return AccountThemesTypeID
@@ -235,6 +237,7 @@ type AccountThemesClass interface {
 	construct() AccountThemesClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

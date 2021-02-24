@@ -54,7 +54,8 @@ func (vec *LongVector) FillFrom(from interface {
 	vec.Elems = from.GetElems()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (vec *LongVector) TypeID() uint32 {
 	return LongVectorTypeID

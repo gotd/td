@@ -93,7 +93,8 @@ func (u *MessagesUpdatePinnedMessageRequest) FillFrom(from interface {
 	u.ID = from.GetID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *MessagesUpdatePinnedMessageRequest) TypeID() uint32 {
 	return MessagesUpdatePinnedMessageRequestTypeID

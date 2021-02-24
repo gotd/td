@@ -57,7 +57,8 @@ func (u *UserEmpty) FillFrom(from interface {
 	u.ID = from.GetID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *UserEmpty) TypeID() uint32 {
 	return UserEmptyTypeID
@@ -402,7 +403,8 @@ func (u *User) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (u *User) TypeID() uint32 {
 	return UserTypeID
@@ -1114,6 +1116,7 @@ type UserClass interface {
 	construct() UserClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

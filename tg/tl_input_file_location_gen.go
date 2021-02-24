@@ -81,7 +81,8 @@ func (i *InputFileLocation) FillFrom(from interface {
 	i.FileReference = from.GetFileReference()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputFileLocation) TypeID() uint32 {
 	return InputFileLocationTypeID
@@ -227,7 +228,8 @@ func (i *InputEncryptedFileLocation) FillFrom(from interface {
 	i.AccessHash = from.GetAccessHash()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputEncryptedFileLocation) TypeID() uint32 {
 	return InputEncryptedFileLocationTypeID
@@ -361,7 +363,8 @@ func (i *InputDocumentFileLocation) FillFrom(from interface {
 	i.ThumbSize = from.GetThumbSize()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputDocumentFileLocation) TypeID() uint32 {
 	return InputDocumentFileLocationTypeID
@@ -510,7 +513,8 @@ func (i *InputSecureFileLocation) FillFrom(from interface {
 	i.AccessHash = from.GetAccessHash()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputSecureFileLocation) TypeID() uint32 {
 	return InputSecureFileLocationTypeID
@@ -605,7 +609,8 @@ func (i *InputTakeoutFileLocation) String() string {
 	return fmt.Sprintf("InputTakeoutFileLocation%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputTakeoutFileLocation) TypeID() uint32 {
 	return InputTakeoutFileLocationTypeID
@@ -723,7 +728,8 @@ func (i *InputPhotoFileLocation) FillFrom(from interface {
 	i.ThumbSize = from.GetThumbSize()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPhotoFileLocation) TypeID() uint32 {
 	return InputPhotoFileLocationTypeID
@@ -891,7 +897,8 @@ func (i *InputPhotoLegacyFileLocation) FillFrom(from interface {
 	i.Secret = from.GetSecret()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPhotoLegacyFileLocation) TypeID() uint32 {
 	return InputPhotoLegacyFileLocationTypeID
@@ -1085,7 +1092,8 @@ func (i *InputPeerPhotoFileLocation) FillFrom(from interface {
 	i.LocalID = from.GetLocalID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputPeerPhotoFileLocation) TypeID() uint32 {
 	return InputPeerPhotoFileLocationTypeID
@@ -1255,7 +1263,8 @@ func (i *InputStickerSetThumb) FillFrom(from interface {
 	i.LocalID = from.GetLocalID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputStickerSetThumb) TypeID() uint32 {
 	return InputStickerSetThumbTypeID
@@ -1368,6 +1377,7 @@ type InputFileLocationClass interface {
 	construct() InputFileLocationClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

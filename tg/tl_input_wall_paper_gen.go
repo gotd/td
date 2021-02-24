@@ -64,7 +64,8 @@ func (i *InputWallPaper) FillFrom(from interface {
 	i.AccessHash = from.GetAccessHash()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputWallPaper) TypeID() uint32 {
 	return InputWallPaperTypeID
@@ -171,7 +172,8 @@ func (i *InputWallPaperSlug) FillFrom(from interface {
 	i.Slug = from.GetSlug()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputWallPaperSlug) TypeID() uint32 {
 	return InputWallPaperSlugTypeID
@@ -253,7 +255,8 @@ func (i *InputWallPaperNoFile) String() string {
 	return fmt.Sprintf("InputWallPaperNoFile%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputWallPaperNoFile) TypeID() uint32 {
 	return InputWallPaperNoFileTypeID
@@ -316,6 +319,7 @@ type InputWallPaperClass interface {
 	construct() InputWallPaperClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

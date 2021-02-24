@@ -70,7 +70,8 @@ func (f *FileLocationUnavailable) FillFrom(from interface {
 	f.Secret = from.GetSecret()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *FileLocationUnavailable) TypeID() uint32 {
 	return FileLocationUnavailableTypeID
@@ -210,7 +211,8 @@ func (f *FileLocation) FillFrom(from interface {
 	f.Secret = from.GetSecret()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *FileLocation) TypeID() uint32 {
 	return FileLocationTypeID
@@ -324,6 +326,7 @@ type FileLocationClass interface {
 	construct() FileLocationClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

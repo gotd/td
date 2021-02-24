@@ -69,7 +69,8 @@ func (i *InputEncryptedChat) FillFrom(from interface {
 	i.AccessHash = from.GetAccessHash()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputEncryptedChat) TypeID() uint32 {
 	return InputEncryptedChatTypeID

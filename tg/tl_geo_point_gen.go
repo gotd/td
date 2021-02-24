@@ -45,7 +45,8 @@ func (g *GeoPointEmpty) String() string {
 	return fmt.Sprintf("GeoPointEmpty%+v", Alias(*g))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *GeoPointEmpty) TypeID() uint32 {
 	return GeoPointEmptyTypeID
@@ -160,7 +161,8 @@ func (g *GeoPoint) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *GeoPoint) TypeID() uint32 {
 	return GeoPointTypeID
@@ -297,6 +299,7 @@ type GeoPointClass interface {
 	construct() GeoPointClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

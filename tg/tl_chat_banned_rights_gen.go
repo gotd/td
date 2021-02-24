@@ -188,7 +188,8 @@ func (c *ChatBannedRights) FillFrom(from interface {
 	c.UntilDate = from.GetUntilDate()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatBannedRights) TypeID() uint32 {
 	return ChatBannedRightsTypeID

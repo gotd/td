@@ -61,7 +61,8 @@ func (g *AccountGetSecureValueRequest) FillFrom(from interface {
 	g.Types = from.GetTypes()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *AccountGetSecureValueRequest) TypeID() uint32 {
 	return AccountGetSecureValueRequestTypeID

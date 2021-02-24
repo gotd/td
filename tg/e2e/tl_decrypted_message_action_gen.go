@@ -56,7 +56,8 @@ func (d *DecryptedMessageActionSetMessageTTL) FillFrom(from interface {
 	d.TTLSeconds = from.GetTTLSeconds()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionSetMessageTTL) TypeID() uint32 {
 	return DecryptedMessageActionSetMessageTTLTypeID
@@ -149,7 +150,8 @@ func (d *DecryptedMessageActionReadMessages) FillFrom(from interface {
 	d.RandomIds = from.GetRandomIds()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionReadMessages) TypeID() uint32 {
 	return DecryptedMessageActionReadMessagesTypeID
@@ -251,7 +253,8 @@ func (d *DecryptedMessageActionDeleteMessages) FillFrom(from interface {
 	d.RandomIds = from.GetRandomIds()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionDeleteMessages) TypeID() uint32 {
 	return DecryptedMessageActionDeleteMessagesTypeID
@@ -353,7 +356,8 @@ func (d *DecryptedMessageActionScreenshotMessages) FillFrom(from interface {
 	d.RandomIds = from.GetRandomIds()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionScreenshotMessages) TypeID() uint32 {
 	return DecryptedMessageActionScreenshotMessagesTypeID
@@ -443,7 +447,8 @@ func (d *DecryptedMessageActionFlushHistory) String() string {
 	return fmt.Sprintf("DecryptedMessageActionFlushHistory%+v", Alias(*d))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionFlushHistory) TypeID() uint32 {
 	return DecryptedMessageActionFlushHistoryTypeID
@@ -530,7 +535,8 @@ func (d *DecryptedMessageActionResend) FillFrom(from interface {
 	d.EndSeqNo = from.GetEndSeqNo()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionResend) TypeID() uint32 {
 	return DecryptedMessageActionResendTypeID
@@ -636,7 +642,8 @@ func (d *DecryptedMessageActionNotifyLayer) FillFrom(from interface {
 	d.Layer = from.GetLayer()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionNotifyLayer) TypeID() uint32 {
 	return DecryptedMessageActionNotifyLayerTypeID
@@ -729,7 +736,8 @@ func (d *DecryptedMessageActionTyping) FillFrom(from interface {
 	d.Action = from.GetAction()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionTyping) TypeID() uint32 {
 	return DecryptedMessageActionTypingTypeID
@@ -834,7 +842,8 @@ func (d *DecryptedMessageActionRequestKey) FillFrom(from interface {
 	d.GA = from.GetGA()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionRequestKey) TypeID() uint32 {
 	return DecryptedMessageActionRequestKeyTypeID
@@ -954,7 +963,8 @@ func (d *DecryptedMessageActionAcceptKey) FillFrom(from interface {
 	d.KeyFingerprint = from.GetKeyFingerprint()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionAcceptKey) TypeID() uint32 {
 	return DecryptedMessageActionAcceptKeyTypeID
@@ -1073,7 +1083,8 @@ func (d *DecryptedMessageActionAbortKey) FillFrom(from interface {
 	d.ExchangeID = from.GetExchangeID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionAbortKey) TypeID() uint32 {
 	return DecryptedMessageActionAbortKeyTypeID
@@ -1173,7 +1184,8 @@ func (d *DecryptedMessageActionCommitKey) FillFrom(from interface {
 	d.KeyFingerprint = from.GetKeyFingerprint()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionCommitKey) TypeID() uint32 {
 	return DecryptedMessageActionCommitKeyTypeID
@@ -1267,7 +1279,8 @@ func (d *DecryptedMessageActionNoop) String() string {
 	return fmt.Sprintf("DecryptedMessageActionNoop%+v", Alias(*d))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DecryptedMessageActionNoop) TypeID() uint32 {
 	return DecryptedMessageActionNoopTypeID
@@ -1340,6 +1353,7 @@ type DecryptedMessageActionClass interface {
 	construct() DecryptedMessageActionClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

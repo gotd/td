@@ -70,7 +70,8 @@ func (r *ChannelsReadHistoryRequest) FillFrom(from interface {
 	r.MaxID = from.GetMaxID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *ChannelsReadHistoryRequest) TypeID() uint32 {
 	return ChannelsReadHistoryRequestTypeID

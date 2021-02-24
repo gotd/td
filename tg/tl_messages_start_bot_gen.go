@@ -84,7 +84,8 @@ func (s *MessagesStartBotRequest) FillFrom(from interface {
 	s.StartParam = from.GetStartParam()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *MessagesStartBotRequest) TypeID() uint32 {
 	return MessagesStartBotRequestTypeID

@@ -86,7 +86,8 @@ func (s *SecureValueErrorData) FillFrom(from interface {
 	s.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueErrorData) TypeID() uint32 {
 	return SecureValueErrorDataTypeID
@@ -244,7 +245,8 @@ func (s *SecureValueErrorFrontSide) FillFrom(from interface {
 	s.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueErrorFrontSide) TypeID() uint32 {
 	return SecureValueErrorFrontSideTypeID
@@ -387,7 +389,8 @@ func (s *SecureValueErrorReverseSide) FillFrom(from interface {
 	s.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueErrorReverseSide) TypeID() uint32 {
 	return SecureValueErrorReverseSideTypeID
@@ -532,7 +535,8 @@ func (s *SecureValueErrorSelfie) FillFrom(from interface {
 	s.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueErrorSelfie) TypeID() uint32 {
 	return SecureValueErrorSelfieTypeID
@@ -678,7 +682,8 @@ func (s *SecureValueErrorFile) FillFrom(from interface {
 	s.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueErrorFile) TypeID() uint32 {
 	return SecureValueErrorFileTypeID
@@ -824,7 +829,8 @@ func (s *SecureValueErrorFiles) FillFrom(from interface {
 	s.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueErrorFiles) TypeID() uint32 {
 	return SecureValueErrorFilesTypeID
@@ -972,7 +978,8 @@ func (s *SecureValueError) FillFrom(from interface {
 	s.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueError) TypeID() uint32 {
 	return SecureValueErrorTypeID
@@ -1123,7 +1130,8 @@ func (s *SecureValueErrorTranslationFile) FillFrom(from interface {
 	s.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueErrorTranslationFile) TypeID() uint32 {
 	return SecureValueErrorTranslationFileTypeID
@@ -1274,7 +1282,8 @@ func (s *SecureValueErrorTranslationFiles) FillFrom(from interface {
 	s.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SecureValueErrorTranslationFiles) TypeID() uint32 {
 	return SecureValueErrorTranslationFilesTypeID
@@ -1396,6 +1405,7 @@ type SecureValueErrorClass interface {
 	construct() SecureValueErrorClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

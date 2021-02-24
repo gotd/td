@@ -57,7 +57,8 @@ func (k *KeyboardButton) FillFrom(from interface {
 	k.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (k *KeyboardButton) TypeID() uint32 {
 	return KeyboardButtonTypeID
@@ -158,7 +159,8 @@ func (k *KeyboardButtonUrl) FillFrom(from interface {
 	k.URL = from.GetURL()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (k *KeyboardButtonUrl) TypeID() uint32 {
 	return KeyboardButtonUrlTypeID
@@ -293,7 +295,8 @@ func (k *KeyboardButtonCallback) FillFrom(from interface {
 	k.Data = from.GetData()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (k *KeyboardButtonCallback) TypeID() uint32 {
 	return KeyboardButtonCallbackTypeID
@@ -428,7 +431,8 @@ func (k *KeyboardButtonRequestPhone) FillFrom(from interface {
 	k.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (k *KeyboardButtonRequestPhone) TypeID() uint32 {
 	return KeyboardButtonRequestPhoneTypeID
@@ -522,7 +526,8 @@ func (k *KeyboardButtonRequestGeoLocation) FillFrom(from interface {
 	k.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (k *KeyboardButtonRequestGeoLocation) TypeID() uint32 {
 	return KeyboardButtonRequestGeoLocationTypeID
@@ -638,7 +643,8 @@ func (k *KeyboardButtonSwitchInline) FillFrom(from interface {
 	k.Query = from.GetQuery()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (k *KeyboardButtonSwitchInline) TypeID() uint32 {
 	return KeyboardButtonSwitchInlineTypeID
@@ -773,7 +779,8 @@ func (k *KeyboardButtonGame) FillFrom(from interface {
 	k.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (k *KeyboardButtonGame) TypeID() uint32 {
 	return KeyboardButtonGameTypeID
@@ -867,7 +874,8 @@ func (k *KeyboardButtonBuy) FillFrom(from interface {
 	k.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (k *KeyboardButtonBuy) TypeID() uint32 {
 	return KeyboardButtonBuyTypeID
@@ -1010,7 +1018,8 @@ func (k *KeyboardButtonUrlAuth) FillFrom(from interface {
 	k.ButtonID = from.GetButtonID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (k *KeyboardButtonUrlAuth) TypeID() uint32 {
 	return KeyboardButtonUrlAuthTypeID
@@ -1219,7 +1228,8 @@ func (i *InputKeyboardButtonUrlAuth) FillFrom(from interface {
 	i.Bot = from.GetBot()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputKeyboardButtonUrlAuth) TypeID() uint32 {
 	return InputKeyboardButtonUrlAuthTypeID
@@ -1420,7 +1430,8 @@ func (k *KeyboardButtonRequestPoll) FillFrom(from interface {
 	k.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (k *KeyboardButtonRequestPoll) TypeID() uint32 {
 	return KeyboardButtonRequestPollTypeID
@@ -1540,6 +1551,7 @@ type KeyboardButtonClass interface {
 	construct() KeyboardButtonClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

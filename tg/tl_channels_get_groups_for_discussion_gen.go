@@ -53,7 +53,8 @@ func (g *ChannelsGetGroupsForDiscussionRequest) String() string {
 	return fmt.Sprintf("ChannelsGetGroupsForDiscussionRequest%+v", Alias(*g))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *ChannelsGetGroupsForDiscussionRequest) TypeID() uint32 {
 	return ChannelsGetGroupsForDiscussionRequestTypeID

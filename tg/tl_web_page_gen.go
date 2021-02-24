@@ -57,7 +57,8 @@ func (w *WebPageEmpty) FillFrom(from interface {
 	w.ID = from.GetID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *WebPageEmpty) TypeID() uint32 {
 	return WebPageEmptyTypeID
@@ -158,7 +159,8 @@ func (w *WebPagePending) FillFrom(from interface {
 	w.Date = from.GetDate()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *WebPagePending) TypeID() uint32 {
 	return WebPagePendingTypeID
@@ -468,7 +470,8 @@ func (w *WebPage) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *WebPage) TypeID() uint32 {
 	return WebPageTypeID
@@ -1035,7 +1038,8 @@ func (w *WebPageNotModified) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *WebPageNotModified) TypeID() uint32 {
 	return WebPageNotModifiedTypeID
@@ -1135,6 +1139,7 @@ type WebPageClass interface {
 	construct() WebPageClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.
@@ -1155,6 +1160,7 @@ type ModifiedWebPage interface {
 	construct() WebPageClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

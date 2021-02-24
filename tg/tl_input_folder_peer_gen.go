@@ -67,7 +67,8 @@ func (i *InputFolderPeer) FillFrom(from interface {
 	i.FolderID = from.GetFolderID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputFolderPeer) TypeID() uint32 {
 	return InputFolderPeerTypeID

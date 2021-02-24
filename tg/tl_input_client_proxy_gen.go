@@ -67,7 +67,8 @@ func (i *InputClientProxy) FillFrom(from interface {
 	i.Port = from.GetPort()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputClientProxy) TypeID() uint32 {
 	return InputClientProxyTypeID

@@ -64,7 +64,8 @@ func (a *MessagesArchivedStickers) FillFrom(from interface {
 	a.Sets = from.GetSets()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *MessagesArchivedStickers) TypeID() uint32 {
 	return MessagesArchivedStickersTypeID

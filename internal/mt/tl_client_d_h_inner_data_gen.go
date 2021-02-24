@@ -75,7 +75,8 @@ func (c *ClientDHInnerData) FillFrom(from interface {
 	c.GB = from.GetGB()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ClientDHInnerData) TypeID() uint32 {
 	return ClientDHInnerDataTypeID

@@ -57,7 +57,8 @@ func (s *BotsSetBotCommandsRequest) FillFrom(from interface {
 	s.Commands = from.GetCommands()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *BotsSetBotCommandsRequest) TypeID() uint32 {
 	return BotsSetBotCommandsRequestTypeID

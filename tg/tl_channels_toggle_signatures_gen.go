@@ -64,7 +64,8 @@ func (t *ChannelsToggleSignaturesRequest) FillFrom(from interface {
 	t.Enabled = from.GetEnabled()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *ChannelsToggleSignaturesRequest) TypeID() uint32 {
 	return ChannelsToggleSignaturesRequestTypeID

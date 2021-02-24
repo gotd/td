@@ -45,7 +45,8 @@ func (g *HelpGetNearestDcRequest) String() string {
 	return fmt.Sprintf("HelpGetNearestDcRequest%+v", Alias(*g))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *HelpGetNearestDcRequest) TypeID() uint32 {
 	return HelpGetNearestDcRequestTypeID

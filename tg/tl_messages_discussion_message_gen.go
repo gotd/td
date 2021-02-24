@@ -127,7 +127,8 @@ func (d *MessagesDiscussionMessage) FillFrom(from interface {
 	d.Users = from.GetUsers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *MessagesDiscussionMessage) TypeID() uint32 {
 	return MessagesDiscussionMessageTypeID

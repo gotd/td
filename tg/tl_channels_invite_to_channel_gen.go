@@ -64,7 +64,8 @@ func (i *ChannelsInviteToChannelRequest) FillFrom(from interface {
 	i.Users = from.GetUsers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *ChannelsInviteToChannelRequest) TypeID() uint32 {
 	return ChannelsInviteToChannelRequestTypeID

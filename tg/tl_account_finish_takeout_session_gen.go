@@ -65,7 +65,8 @@ func (f *AccountFinishTakeoutSessionRequest) FillFrom(from interface {
 	f.Success = from.GetSuccess()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *AccountFinishTakeoutSessionRequest) TypeID() uint32 {
 	return AccountFinishTakeoutSessionRequestTypeID

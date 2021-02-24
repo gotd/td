@@ -61,7 +61,8 @@ func (r *RPCResult) FillFrom(from interface {
 	r.Result = from.GetResult()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (r *RPCResult) TypeID() uint32 {
 	return RPCResultTypeID

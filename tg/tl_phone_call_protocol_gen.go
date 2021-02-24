@@ -99,7 +99,8 @@ func (p *PhoneCallProtocol) FillFrom(from interface {
 	p.LibraryVersions = from.GetLibraryVersions()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhoneCallProtocol) TypeID() uint32 {
 	return PhoneCallProtocolTypeID

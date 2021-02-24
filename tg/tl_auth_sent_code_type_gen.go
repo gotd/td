@@ -57,7 +57,8 @@ func (s *AuthSentCodeTypeApp) FillFrom(from interface {
 	s.Length = from.GetLength()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AuthSentCodeTypeApp) TypeID() uint32 {
 	return AuthSentCodeTypeAppTypeID
@@ -151,7 +152,8 @@ func (s *AuthSentCodeTypeSms) FillFrom(from interface {
 	s.Length = from.GetLength()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AuthSentCodeTypeSms) TypeID() uint32 {
 	return AuthSentCodeTypeSmsTypeID
@@ -245,7 +247,8 @@ func (s *AuthSentCodeTypeCall) FillFrom(from interface {
 	s.Length = from.GetLength()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AuthSentCodeTypeCall) TypeID() uint32 {
 	return AuthSentCodeTypeCallTypeID
@@ -342,7 +345,8 @@ func (s *AuthSentCodeTypeFlashCall) FillFrom(from interface {
 	s.Pattern = from.GetPattern()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *AuthSentCodeTypeFlashCall) TypeID() uint32 {
 	return AuthSentCodeTypeFlashCallTypeID
@@ -419,6 +423,7 @@ type AuthSentCodeTypeClass interface {
 	construct() AuthSentCodeTypeClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

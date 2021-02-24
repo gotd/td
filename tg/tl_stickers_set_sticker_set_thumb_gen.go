@@ -64,7 +64,8 @@ func (s *StickersSetStickerSetThumbRequest) FillFrom(from interface {
 	s.Thumb = from.GetThumb()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *StickersSetStickerSetThumbRequest) TypeID() uint32 {
 	return StickersSetStickerSetThumbRequestTypeID

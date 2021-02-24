@@ -44,7 +44,8 @@ func (i *Int) String() string {
 	return fmt.Sprintf("Int%+v", Alias(*i))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *Int) TypeID() uint32 {
 	return IntTypeID

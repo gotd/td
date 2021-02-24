@@ -61,7 +61,8 @@ func (d *AccountDeleteSecureValueRequest) FillFrom(from interface {
 	d.Types = from.GetTypes()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *AccountDeleteSecureValueRequest) TypeID() uint32 {
 	return AccountDeleteSecureValueRequestTypeID

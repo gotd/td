@@ -57,7 +57,8 @@ func (a *AccountDaysTTL) FillFrom(from interface {
 	a.Days = from.GetDays()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *AccountDaysTTL) TypeID() uint32 {
 	return AccountDaysTTLTypeID

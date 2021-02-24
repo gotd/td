@@ -71,7 +71,8 @@ func (f *UploadFile) FillFrom(from interface {
 	f.Bytes = from.GetBytes()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *UploadFile) TypeID() uint32 {
 	return UploadFileTypeID
@@ -242,7 +243,8 @@ func (f *UploadFileCdnRedirect) FillFrom(from interface {
 	f.FileHashes = from.GetFileHashes()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *UploadFileCdnRedirect) TypeID() uint32 {
 	return UploadFileCdnRedirectTypeID
@@ -380,6 +382,7 @@ type UploadFileClass interface {
 	construct() UploadFileClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

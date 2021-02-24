@@ -57,7 +57,8 @@ func (p *PhoneCallEmpty) FillFrom(from interface {
 	p.ID = from.GetID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhoneCallEmpty) TypeID() uint32 {
 	return PhoneCallEmptyTypeID
@@ -213,7 +214,8 @@ func (p *PhoneCallWaiting) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhoneCallWaiting) TypeID() uint32 {
 	return PhoneCallWaitingTypeID
@@ -488,7 +490,8 @@ func (p *PhoneCallRequested) FillFrom(from interface {
 	p.Protocol = from.GetProtocol()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhoneCallRequested) TypeID() uint32 {
 	return PhoneCallRequestedTypeID
@@ -748,7 +751,8 @@ func (p *PhoneCallAccepted) FillFrom(from interface {
 	p.Protocol = from.GetProtocol()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhoneCallAccepted) TypeID() uint32 {
 	return PhoneCallAcceptedTypeID
@@ -1039,7 +1043,8 @@ func (p *PhoneCall) FillFrom(from interface {
 	p.StartDate = from.GetStartDate()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhoneCall) TypeID() uint32 {
 	return PhoneCallTypeID
@@ -1376,7 +1381,8 @@ func (p *PhoneCallDiscarded) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhoneCallDiscarded) TypeID() uint32 {
 	return PhoneCallDiscardedTypeID
@@ -1584,6 +1590,7 @@ type PhoneCallClass interface {
 	construct() PhoneCallClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.
@@ -1615,6 +1622,7 @@ type NotEmptyPhoneCall interface {
 	construct() PhoneCallClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

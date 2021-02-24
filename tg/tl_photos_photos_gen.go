@@ -64,7 +64,8 @@ func (p *PhotosPhotos) FillFrom(from interface {
 	p.Users = from.GetUsers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhotosPhotos) TypeID() uint32 {
 	return PhotosPhotosTypeID
@@ -223,7 +224,8 @@ func (p *PhotosPhotosSlice) FillFrom(from interface {
 	p.Users = from.GetUsers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PhotosPhotosSlice) TypeID() uint32 {
 	return PhotosPhotosSliceTypeID
@@ -362,6 +364,7 @@ type PhotosPhotosClass interface {
 	construct() PhotosPhotosClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

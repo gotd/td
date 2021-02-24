@@ -64,7 +64,8 @@ func (t *AccountTmpPassword) FillFrom(from interface {
 	t.ValidUntil = from.GetValidUntil()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *AccountTmpPassword) TypeID() uint32 {
 	return AccountTmpPasswordTypeID

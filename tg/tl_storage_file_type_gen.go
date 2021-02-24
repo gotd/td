@@ -45,7 +45,8 @@ func (f *StorageFileUnknown) String() string {
 	return fmt.Sprintf("StorageFileUnknown%+v", Alias(*f))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *StorageFileUnknown) TypeID() uint32 {
 	return StorageFileUnknownTypeID
@@ -114,7 +115,8 @@ func (f *StorageFilePartial) String() string {
 	return fmt.Sprintf("StorageFilePartial%+v", Alias(*f))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *StorageFilePartial) TypeID() uint32 {
 	return StorageFilePartialTypeID
@@ -183,7 +185,8 @@ func (f *StorageFileJpeg) String() string {
 	return fmt.Sprintf("StorageFileJpeg%+v", Alias(*f))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *StorageFileJpeg) TypeID() uint32 {
 	return StorageFileJpegTypeID
@@ -252,7 +255,8 @@ func (f *StorageFileGif) String() string {
 	return fmt.Sprintf("StorageFileGif%+v", Alias(*f))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *StorageFileGif) TypeID() uint32 {
 	return StorageFileGifTypeID
@@ -321,7 +325,8 @@ func (f *StorageFilePng) String() string {
 	return fmt.Sprintf("StorageFilePng%+v", Alias(*f))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *StorageFilePng) TypeID() uint32 {
 	return StorageFilePngTypeID
@@ -390,7 +395,8 @@ func (f *StorageFilePdf) String() string {
 	return fmt.Sprintf("StorageFilePdf%+v", Alias(*f))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *StorageFilePdf) TypeID() uint32 {
 	return StorageFilePdfTypeID
@@ -459,7 +465,8 @@ func (f *StorageFileMp3) String() string {
 	return fmt.Sprintf("StorageFileMp3%+v", Alias(*f))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *StorageFileMp3) TypeID() uint32 {
 	return StorageFileMp3TypeID
@@ -528,7 +535,8 @@ func (f *StorageFileMov) String() string {
 	return fmt.Sprintf("StorageFileMov%+v", Alias(*f))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *StorageFileMov) TypeID() uint32 {
 	return StorageFileMovTypeID
@@ -597,7 +605,8 @@ func (f *StorageFileMp4) String() string {
 	return fmt.Sprintf("StorageFileMp4%+v", Alias(*f))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *StorageFileMp4) TypeID() uint32 {
 	return StorageFileMp4TypeID
@@ -666,7 +675,8 @@ func (f *StorageFileWebp) String() string {
 	return fmt.Sprintf("StorageFileWebp%+v", Alias(*f))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *StorageFileWebp) TypeID() uint32 {
 	return StorageFileWebpTypeID
@@ -736,6 +746,7 @@ type StorageFileTypeClass interface {
 	construct() StorageFileTypeClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

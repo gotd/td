@@ -45,7 +45,8 @@ func (t *TextEmpty) String() string {
 	return fmt.Sprintf("TextEmpty%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEmpty) TypeID() uint32 {
 	return TextEmptyTypeID
@@ -126,7 +127,8 @@ func (t *TextPlain) FillFrom(from interface {
 	t.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextPlain) TypeID() uint32 {
 	return TextPlainTypeID
@@ -220,7 +222,8 @@ func (t *TextBold) FillFrom(from interface {
 	t.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextBold) TypeID() uint32 {
 	return TextBoldTypeID
@@ -319,7 +322,8 @@ func (t *TextItalic) FillFrom(from interface {
 	t.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextItalic) TypeID() uint32 {
 	return TextItalicTypeID
@@ -418,7 +422,8 @@ func (t *TextUnderline) FillFrom(from interface {
 	t.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextUnderline) TypeID() uint32 {
 	return TextUnderlineTypeID
@@ -517,7 +522,8 @@ func (t *TextStrike) FillFrom(from interface {
 	t.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextStrike) TypeID() uint32 {
 	return TextStrikeTypeID
@@ -616,7 +622,8 @@ func (t *TextFixed) FillFrom(from interface {
 	t.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextFixed) TypeID() uint32 {
 	return TextFixedTypeID
@@ -729,7 +736,8 @@ func (t *TextUrl) FillFrom(from interface {
 	t.WebpageID = from.GetWebpageID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextUrl) TypeID() uint32 {
 	return TextUrlTypeID
@@ -861,7 +869,8 @@ func (t *TextEmail) FillFrom(from interface {
 	t.Email = from.GetEmail()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEmail) TypeID() uint32 {
 	return TextEmailTypeID
@@ -973,7 +982,8 @@ func (t *TextConcat) FillFrom(from interface {
 	t.Texts = from.GetTexts()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextConcat) TypeID() uint32 {
 	return TextConcatTypeID
@@ -1086,7 +1096,8 @@ func (t *TextSubscript) FillFrom(from interface {
 	t.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextSubscript) TypeID() uint32 {
 	return TextSubscriptTypeID
@@ -1185,7 +1196,8 @@ func (t *TextSuperscript) FillFrom(from interface {
 	t.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextSuperscript) TypeID() uint32 {
 	return TextSuperscriptTypeID
@@ -1284,7 +1296,8 @@ func (t *TextMarked) FillFrom(from interface {
 	t.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextMarked) TypeID() uint32 {
 	return TextMarkedTypeID
@@ -1390,7 +1403,8 @@ func (t *TextPhone) FillFrom(from interface {
 	t.Phone = from.GetPhone()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextPhone) TypeID() uint32 {
 	return TextPhoneTypeID
@@ -1516,7 +1530,8 @@ func (t *TextImage) FillFrom(from interface {
 	t.H = from.GetH()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextImage) TypeID() uint32 {
 	return TextImageTypeID
@@ -1643,7 +1658,8 @@ func (t *TextAnchor) FillFrom(from interface {
 	t.Name = from.GetName()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextAnchor) TypeID() uint32 {
 	return TextAnchorTypeID
@@ -1750,6 +1766,7 @@ type RichTextClass interface {
 	construct() RichTextClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

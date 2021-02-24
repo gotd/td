@@ -45,7 +45,8 @@ func (c *ContactsContactsNotModified) String() string {
 	return fmt.Sprintf("ContactsContactsNotModified%+v", Alias(*c))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ContactsContactsNotModified) TypeID() uint32 {
 	return ContactsContactsNotModifiedTypeID
@@ -140,7 +141,8 @@ func (c *ContactsContacts) FillFrom(from interface {
 	c.Users = from.GetUsers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ContactsContacts) TypeID() uint32 {
 	return ContactsContactsTypeID
@@ -271,6 +273,7 @@ type ContactsContactsClass interface {
 	construct() ContactsContactsClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

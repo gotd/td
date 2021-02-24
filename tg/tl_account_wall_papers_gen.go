@@ -45,7 +45,8 @@ func (w *AccountWallPapersNotModified) String() string {
 	return fmt.Sprintf("AccountWallPapersNotModified%+v", Alias(*w))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *AccountWallPapersNotModified) TypeID() uint32 {
 	return AccountWallPapersNotModifiedTypeID
@@ -136,7 +137,8 @@ func (w *AccountWallPapers) FillFrom(from interface {
 	w.Wallpapers = from.GetWallpapers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (w *AccountWallPapers) TypeID() uint32 {
 	return AccountWallPapersTypeID
@@ -243,6 +245,7 @@ type AccountWallPapersClass interface {
 	construct() AccountWallPapersClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

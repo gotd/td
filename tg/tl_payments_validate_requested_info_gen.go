@@ -79,7 +79,8 @@ func (v *PaymentsValidateRequestedInfoRequest) FillFrom(from interface {
 	v.Info = from.GetInfo()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (v *PaymentsValidateRequestedInfoRequest) TypeID() uint32 {
 	return PaymentsValidateRequestedInfoRequestTypeID

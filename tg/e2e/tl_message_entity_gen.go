@@ -64,7 +64,8 @@ func (m *MessageEntityUnknown) FillFrom(from interface {
 	m.Length = from.GetLength()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityUnknown) TypeID() uint32 {
 	return MessageEntityUnknownTypeID
@@ -181,7 +182,8 @@ func (m *MessageEntityMention) FillFrom(from interface {
 	m.Length = from.GetLength()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityMention) TypeID() uint32 {
 	return MessageEntityMentionTypeID
@@ -295,7 +297,8 @@ func (m *MessageEntityHashtag) FillFrom(from interface {
 	m.Length = from.GetLength()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityHashtag) TypeID() uint32 {
 	return MessageEntityHashtagTypeID
@@ -409,7 +412,8 @@ func (m *MessageEntityBotCommand) FillFrom(from interface {
 	m.Length = from.GetLength()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityBotCommand) TypeID() uint32 {
 	return MessageEntityBotCommandTypeID
@@ -528,7 +532,8 @@ func (m *MessageEntityUrl) FillFrom(from interface {
 	m.Length = from.GetLength()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityUrl) TypeID() uint32 {
 	return MessageEntityUrlTypeID
@@ -645,7 +650,8 @@ func (m *MessageEntityEmail) FillFrom(from interface {
 	m.Length = from.GetLength()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityEmail) TypeID() uint32 {
 	return MessageEntityEmailTypeID
@@ -759,7 +765,8 @@ func (m *MessageEntityBold) FillFrom(from interface {
 	m.Length = from.GetLength()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityBold) TypeID() uint32 {
 	return MessageEntityBoldTypeID
@@ -873,7 +880,8 @@ func (m *MessageEntityItalic) FillFrom(from interface {
 	m.Length = from.GetLength()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityItalic) TypeID() uint32 {
 	return MessageEntityItalicTypeID
@@ -987,7 +995,8 @@ func (m *MessageEntityCode) FillFrom(from interface {
 	m.Length = from.GetLength()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityCode) TypeID() uint32 {
 	return MessageEntityCodeTypeID
@@ -1108,7 +1117,8 @@ func (m *MessageEntityPre) FillFrom(from interface {
 	m.Language = from.GetLanguage()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityPre) TypeID() uint32 {
 	return MessageEntityPreTypeID
@@ -1247,7 +1257,8 @@ func (m *MessageEntityTextUrl) FillFrom(from interface {
 	m.URL = from.GetURL()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityTextUrl) TypeID() uint32 {
 	return MessageEntityTextUrlTypeID
@@ -1385,7 +1396,8 @@ func (m *MessageEntityMentionName) FillFrom(from interface {
 	m.UserID = from.GetUserID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityMentionName) TypeID() uint32 {
 	return MessageEntityMentionNameTypeID
@@ -1512,7 +1524,8 @@ func (m *MessageEntityPhone) FillFrom(from interface {
 	m.Length = from.GetLength()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityPhone) TypeID() uint32 {
 	return MessageEntityPhoneTypeID
@@ -1626,7 +1639,8 @@ func (m *MessageEntityCashtag) FillFrom(from interface {
 	m.Length = from.GetLength()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityCashtag) TypeID() uint32 {
 	return MessageEntityCashtagTypeID
@@ -1740,7 +1754,8 @@ func (m *MessageEntityBankCard) FillFrom(from interface {
 	m.Length = from.GetLength()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityBankCard) TypeID() uint32 {
 	return MessageEntityBankCardTypeID
@@ -1854,7 +1869,8 @@ func (m *MessageEntityUnderline) FillFrom(from interface {
 	m.Length = from.GetLength()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityUnderline) TypeID() uint32 {
 	return MessageEntityUnderlineTypeID
@@ -1968,7 +1984,8 @@ func (m *MessageEntityStrike) FillFrom(from interface {
 	m.Length = from.GetLength()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityStrike) TypeID() uint32 {
 	return MessageEntityStrikeTypeID
@@ -2082,7 +2099,8 @@ func (m *MessageEntityBlockquote) FillFrom(from interface {
 	m.Length = from.GetLength()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessageEntityBlockquote) TypeID() uint32 {
 	return MessageEntityBlockquoteTypeID
@@ -2186,6 +2204,7 @@ type MessageEntityClass interface {
 	construct() MessageEntityClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

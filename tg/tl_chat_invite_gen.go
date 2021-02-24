@@ -57,7 +57,8 @@ func (c *ChatInviteAlready) FillFrom(from interface {
 	c.Chat = from.GetChat()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatInviteAlready) TypeID() uint32 {
 	return ChatInviteAlreadyTypeID
@@ -231,7 +232,8 @@ func (c *ChatInvite) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatInvite) TypeID() uint32 {
 	return ChatInviteTypeID
@@ -501,7 +503,8 @@ func (c *ChatInvitePeek) FillFrom(from interface {
 	c.Expires = from.GetExpires()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *ChatInvitePeek) TypeID() uint32 {
 	return ChatInvitePeekTypeID
@@ -595,6 +598,7 @@ type ChatInviteClass interface {
 	construct() ChatInviteClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

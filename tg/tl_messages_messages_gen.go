@@ -71,7 +71,8 @@ func (m *MessagesMessages) FillFrom(from interface {
 	m.Users = from.GetUsers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessagesMessages) TypeID() uint32 {
 	return MessagesMessagesTypeID
@@ -311,7 +312,8 @@ func (m *MessagesMessagesSlice) FillFrom(from interface {
 	m.Users = from.GetUsers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessagesMessagesSlice) TypeID() uint32 {
 	return MessagesMessagesSliceTypeID
@@ -643,7 +645,8 @@ func (c *MessagesChannelMessages) FillFrom(from interface {
 	c.Users = from.GetUsers()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *MessagesChannelMessages) TypeID() uint32 {
 	return MessagesChannelMessagesTypeID
@@ -902,7 +905,8 @@ func (m *MessagesMessagesNotModified) FillFrom(from interface {
 	m.Count = from.GetCount()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (m *MessagesMessagesNotModified) TypeID() uint32 {
 	return MessagesMessagesNotModifiedTypeID
@@ -979,6 +983,7 @@ type MessagesMessagesClass interface {
 	construct() MessagesMessagesClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.
@@ -999,6 +1004,7 @@ type ModifiedMessagesMessages interface {
 	construct() MessagesMessagesClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

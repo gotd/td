@@ -92,7 +92,8 @@ func (i *InputBotInlineMessageMediaAuto) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputBotInlineMessageMediaAuto) TypeID() uint32 {
 	return InputBotInlineMessageMediaAutoTypeID
@@ -319,7 +320,8 @@ func (i *InputBotInlineMessageText) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputBotInlineMessageText) TypeID() uint32 {
 	return InputBotInlineMessageTextTypeID
@@ -586,7 +588,8 @@ func (i *InputBotInlineMessageMediaGeo) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputBotInlineMessageMediaGeo) TypeID() uint32 {
 	return InputBotInlineMessageMediaGeoTypeID
@@ -865,7 +868,8 @@ func (i *InputBotInlineMessageMediaVenue) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputBotInlineMessageMediaVenue) TypeID() uint32 {
 	return InputBotInlineMessageMediaVenueTypeID
@@ -1111,7 +1115,8 @@ func (i *InputBotInlineMessageMediaContact) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputBotInlineMessageMediaContact) TypeID() uint32 {
 	return InputBotInlineMessageMediaContactTypeID
@@ -1298,7 +1303,8 @@ func (i *InputBotInlineMessageGame) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (i *InputBotInlineMessageGame) TypeID() uint32 {
 	return InputBotInlineMessageGameTypeID
@@ -1405,6 +1411,7 @@ type InputBotInlineMessageClass interface {
 	construct() InputBotInlineMessageClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

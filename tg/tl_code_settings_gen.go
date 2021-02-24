@@ -90,7 +90,8 @@ func (c *CodeSettings) FillFrom(from interface {
 	c.AllowAppHash = from.GetAllowAppHash()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (c *CodeSettings) TypeID() uint32 {
 	return CodeSettingsTypeID

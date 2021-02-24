@@ -57,7 +57,8 @@ func (g *PaymentsGetPaymentReceiptRequest) FillFrom(from interface {
 	g.MsgID = from.GetMsgID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *PaymentsGetPaymentReceiptRequest) TypeID() uint32 {
 	return PaymentsGetPaymentReceiptRequestTypeID

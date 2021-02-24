@@ -54,7 +54,8 @@ func (d *DestroySessionOk) FillFrom(from interface {
 	d.SessionID = from.GetSessionID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DestroySessionOk) TypeID() uint32 {
 	return DestroySessionOkTypeID
@@ -145,7 +146,8 @@ func (d *DestroySessionNone) FillFrom(from interface {
 	d.SessionID = from.GetSessionID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (d *DestroySessionNone) TypeID() uint32 {
 	return DestroySessionNoneTypeID
@@ -218,6 +220,7 @@ type DestroySessionResClass interface {
 	construct() DestroySessionResClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.
