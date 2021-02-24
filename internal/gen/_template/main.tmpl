@@ -28,7 +28,7 @@ type {{ $s.Name }} struct {
 //
 // Use Set{{ $f.Name }} and Get{{ $f.Name }} helpers.
 {{- end }}
-    {{ $f.Name }} {{ template "print_type" $f }} `schemaname:"{{ $f.RawName }}"`
+    {{ $f.Name }} {{ template "print_type" $f }} `tl:"{{ $f.RawName }}"`
 {{- end }}
 }
 
@@ -43,8 +43,8 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) TypeID() uint32 {
     return {{ $s.Name }}TypeID
 }
 
-// SchemaName returns MTProto type name.
-func ({{ $s.Receiver }} *{{ $s.Name }}) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func ({{ $s.Receiver }} *{{ $s.Name }}) TypeName() string {
     return "{{ $s.RawName }}"
 }
 
