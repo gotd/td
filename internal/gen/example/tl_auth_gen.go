@@ -56,7 +56,8 @@ func (a *Auth) FillFrom(from interface {
 	a.Name = from.GetName()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *Auth) TypeID() uint32 {
 	return AuthTypeID
@@ -156,7 +157,8 @@ func (a *AuthPassword) FillFrom(from interface {
 	a.Password = from.GetPassword()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (a *AuthPassword) TypeID() uint32 {
 	return AuthPasswordTypeID
@@ -244,6 +246,7 @@ type AuthClass interface {
 	construct() AuthClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

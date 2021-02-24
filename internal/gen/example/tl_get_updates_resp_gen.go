@@ -56,7 +56,8 @@ func (g *GetUpdatesResp) FillFrom(from interface {
 	g.Updates = from.GetUpdates()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (g *GetUpdatesResp) TypeID() uint32 {
 	return GetUpdatesRespTypeID

@@ -44,7 +44,8 @@ func (t *TextEntityTypeMention) String() string {
 	return fmt.Sprintf("TextEntityTypeMention%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypeMention) TypeID() uint32 {
 	return TextEntityTypeMentionTypeID
@@ -112,7 +113,8 @@ func (t *TextEntityTypeHashtag) String() string {
 	return fmt.Sprintf("TextEntityTypeHashtag%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypeHashtag) TypeID() uint32 {
 	return TextEntityTypeHashtagTypeID
@@ -180,7 +182,8 @@ func (t *TextEntityTypeCashtag) String() string {
 	return fmt.Sprintf("TextEntityTypeCashtag%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypeCashtag) TypeID() uint32 {
 	return TextEntityTypeCashtagTypeID
@@ -248,7 +251,8 @@ func (t *TextEntityTypeBotCommand) String() string {
 	return fmt.Sprintf("TextEntityTypeBotCommand%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypeBotCommand) TypeID() uint32 {
 	return TextEntityTypeBotCommandTypeID
@@ -316,7 +320,8 @@ func (t *TextEntityTypeUrl) String() string {
 	return fmt.Sprintf("TextEntityTypeUrl%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypeUrl) TypeID() uint32 {
 	return TextEntityTypeUrlTypeID
@@ -384,7 +389,8 @@ func (t *TextEntityTypeEmailAddress) String() string {
 	return fmt.Sprintf("TextEntityTypeEmailAddress%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypeEmailAddress) TypeID() uint32 {
 	return TextEntityTypeEmailAddressTypeID
@@ -452,7 +458,8 @@ func (t *TextEntityTypePhoneNumber) String() string {
 	return fmt.Sprintf("TextEntityTypePhoneNumber%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypePhoneNumber) TypeID() uint32 {
 	return TextEntityTypePhoneNumberTypeID
@@ -520,7 +527,8 @@ func (t *TextEntityTypeBankCardNumber) String() string {
 	return fmt.Sprintf("TextEntityTypeBankCardNumber%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypeBankCardNumber) TypeID() uint32 {
 	return TextEntityTypeBankCardNumberTypeID
@@ -588,7 +596,8 @@ func (t *TextEntityTypeBold) String() string {
 	return fmt.Sprintf("TextEntityTypeBold%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypeBold) TypeID() uint32 {
 	return TextEntityTypeBoldTypeID
@@ -656,7 +665,8 @@ func (t *TextEntityTypeItalic) String() string {
 	return fmt.Sprintf("TextEntityTypeItalic%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypeItalic) TypeID() uint32 {
 	return TextEntityTypeItalicTypeID
@@ -724,7 +734,8 @@ func (t *TextEntityTypeUnderline) String() string {
 	return fmt.Sprintf("TextEntityTypeUnderline%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypeUnderline) TypeID() uint32 {
 	return TextEntityTypeUnderlineTypeID
@@ -792,7 +803,8 @@ func (t *TextEntityTypeStrikethrough) String() string {
 	return fmt.Sprintf("TextEntityTypeStrikethrough%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypeStrikethrough) TypeID() uint32 {
 	return TextEntityTypeStrikethroughTypeID
@@ -860,7 +872,8 @@ func (t *TextEntityTypeCode) String() string {
 	return fmt.Sprintf("TextEntityTypeCode%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypeCode) TypeID() uint32 {
 	return TextEntityTypeCodeTypeID
@@ -928,7 +941,8 @@ func (t *TextEntityTypePre) String() string {
 	return fmt.Sprintf("TextEntityTypePre%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypePre) TypeID() uint32 {
 	return TextEntityTypePreTypeID
@@ -1008,7 +1022,8 @@ func (t *TextEntityTypePreCode) FillFrom(from interface {
 	t.Language = from.GetLanguage()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypePreCode) TypeID() uint32 {
 	return TextEntityTypePreCodeTypeID
@@ -1101,7 +1116,8 @@ func (t *TextEntityTypeTextUrl) FillFrom(from interface {
 	t.URL = from.GetURL()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypeTextUrl) TypeID() uint32 {
 	return TextEntityTypeTextUrlTypeID
@@ -1194,7 +1210,8 @@ func (t *TextEntityTypeMentionName) FillFrom(from interface {
 	t.UserID = from.GetUserID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntityTypeMentionName) TypeID() uint32 {
 	return TextEntityTypeMentionNameTypeID
@@ -1284,6 +1301,7 @@ type TextEntityTypeClass interface {
 	construct() TextEntityTypeClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

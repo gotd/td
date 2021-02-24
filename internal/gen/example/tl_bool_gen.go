@@ -44,7 +44,8 @@ func (f *False) String() string {
 	return fmt.Sprintf("False%+v", Alias(*f))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *False) TypeID() uint32 {
 	return FalseTypeID
@@ -112,7 +113,8 @@ func (t *True) String() string {
 	return fmt.Sprintf("True%+v", Alias(*t))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *True) TypeID() uint32 {
 	return TrueTypeID
@@ -174,6 +176,7 @@ type BoolClass interface {
 	construct() BoolClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

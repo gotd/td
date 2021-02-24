@@ -56,7 +56,8 @@ func (t *TestString) FillFrom(from interface {
 	t.Value = from.GetValue()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TestString) TypeID() uint32 {
 	return TestStringTypeID

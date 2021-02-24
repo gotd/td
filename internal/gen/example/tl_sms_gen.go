@@ -56,7 +56,8 @@ func (s *SMS) FillFrom(from interface {
 	s.Text = from.GetText()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (s *SMS) TypeID() uint32 {
 	return SMSTypeID

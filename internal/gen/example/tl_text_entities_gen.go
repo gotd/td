@@ -56,7 +56,8 @@ func (t *TextEntities) FillFrom(from interface {
 	t.Entities = from.GetEntities()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TextEntities) TypeID() uint32 {
 	return TextEntitiesTypeID

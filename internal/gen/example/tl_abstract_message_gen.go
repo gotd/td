@@ -84,7 +84,8 @@ func (b *BigMessage) FillFrom(from interface {
 	b.Summary = from.GetSummary()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *BigMessage) TypeID() uint32 {
 	return BigMessageTypeID
@@ -217,7 +218,8 @@ func (n *NoMessage) String() string {
 	return fmt.Sprintf("NoMessage%+v", Alias(*n))
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (n *NoMessage) TypeID() uint32 {
 	return NoMessageTypeID
@@ -297,7 +299,8 @@ func (t *TargetsMessage) FillFrom(from interface {
 	t.Targets = from.GetTargets()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (t *TargetsMessage) TypeID() uint32 {
 	return TargetsMessageTypeID
@@ -421,7 +424,8 @@ func (f *FieldsMessage) FillFrom(from interface {
 
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (f *FieldsMessage) TypeID() uint32 {
 	return FieldsMessageTypeID
@@ -565,7 +569,8 @@ func (b *BytesMessage) FillFrom(from interface {
 	b.Data = from.GetData()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (b *BytesMessage) TypeID() uint32 {
 	return BytesMessageTypeID
@@ -643,6 +648,7 @@ type AbstractMessageClass interface {
 	construct() AbstractMessageClass
 
 	// TypeID returns type id in TL schema.
+	//
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
 	// TypeName returns name of type in TL schema.

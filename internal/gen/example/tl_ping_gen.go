@@ -56,7 +56,8 @@ func (p *PingRequest) FillFrom(from interface {
 	p.ID = from.GetID()
 }
 
-// TypeID returns MTProto type id (CRC code).
+// TypeID returns type id in TL schema.
+//
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
 func (p *PingRequest) TypeID() uint32 {
 	return PingRequestTypeID
