@@ -27,15 +27,15 @@ type InputStickerSetItem struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// The sticker
-	Document InputDocumentClass `schemaname:"document"`
+	Document InputDocumentClass `tl:"document"`
 	// Associated emoji
-	Emoji string `schemaname:"emoji"`
+	Emoji string `tl:"emoji"`
 	// Coordinates for mask sticker
 	//
 	// Use SetMaskCoords and GetMaskCoords helpers.
-	MaskCoords MaskCoords `schemaname:"mask_coords"`
+	MaskCoords MaskCoords `tl:"mask_coords"`
 }
 
 // InputStickerSetItemTypeID is TL type id of InputStickerSetItem.
@@ -90,8 +90,8 @@ func (i *InputStickerSetItem) TypeID() uint32 {
 	return InputStickerSetItemTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputStickerSetItem) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputStickerSetItem) TypeName() string {
 	return "inputStickerSetItem"
 }
 

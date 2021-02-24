@@ -50,8 +50,8 @@ func (d *Double) TypeID() uint32 {
 	return DoubleTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *Double) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *Double) TypeName() string {
 	return "double"
 }
 

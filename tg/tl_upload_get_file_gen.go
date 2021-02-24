@@ -27,20 +27,20 @@ type UploadGetFileRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Disable some checks on limit and offset values, useful for example to stream videos by keyframes
-	Precise bool `schemaname:"precise"`
+	Precise bool `tl:"precise"`
 	// Whether the current client supports CDN downloads¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	CDNSupported bool `schemaname:"cdn_supported"`
+	CDNSupported bool `tl:"cdn_supported"`
 	// File location
-	Location InputFileLocationClass `schemaname:"location"`
+	Location InputFileLocationClass `tl:"location"`
 	// Number of bytes to be skipped
-	Offset int `schemaname:"offset"`
+	Offset int `tl:"offset"`
 	// Number of bytes to be returned
-	Limit int `schemaname:"limit"`
+	Limit int `tl:"limit"`
 }
 
 // UploadGetFileRequestTypeID is TL type id of UploadGetFileRequest.
@@ -102,8 +102,8 @@ func (g *UploadGetFileRequest) TypeID() uint32 {
 	return UploadGetFileRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *UploadGetFileRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *UploadGetFileRequest) TypeName() string {
 	return "upload.getFile"
 }
 

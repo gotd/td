@@ -27,18 +27,18 @@ type PollAnswerVoters struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether we have chosen this answer
-	Chosen bool `schemaname:"chosen"`
+	Chosen bool `tl:"chosen"`
 	// For quizes, whether the option we have chosen is correct
-	Correct bool `schemaname:"correct"`
+	Correct bool `tl:"correct"`
 	// The param that has to be passed to messages.sendVote¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.sendVote
-	Option []byte `schemaname:"option"`
+	Option []byte `tl:"option"`
 	// How many users voted for this option
-	Voters int `schemaname:"voters"`
+	Voters int `tl:"voters"`
 }
 
 // PollAnswerVotersTypeID is TL type id of PollAnswerVoters.
@@ -95,8 +95,8 @@ func (p *PollAnswerVoters) TypeID() uint32 {
 	return PollAnswerVotersTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PollAnswerVoters) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PollAnswerVoters) TypeName() string {
 	return "pollAnswerVoters"
 }
 

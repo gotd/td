@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.saveTheme for reference.
 type AccountSaveThemeRequest struct {
 	// Theme to save
-	Theme InputThemeClass `schemaname:"theme"`
+	Theme InputThemeClass `tl:"theme"`
 	// Unsave
-	Unsave bool `schemaname:"unsave"`
+	Unsave bool `tl:"unsave"`
 }
 
 // AccountSaveThemeRequestTypeID is TL type id of AccountSaveThemeRequest.
@@ -70,8 +70,8 @@ func (s *AccountSaveThemeRequest) TypeID() uint32 {
 	return AccountSaveThemeRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *AccountSaveThemeRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *AccountSaveThemeRequest) TypeName() string {
 	return "account.saveTheme"
 }
 

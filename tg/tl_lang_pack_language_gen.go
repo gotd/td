@@ -27,34 +27,34 @@ type LangPackLanguage struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether the language pack is official
-	Official bool `schemaname:"official"`
+	Official bool `tl:"official"`
 	// Is this a localization pack for an RTL language
-	Rtl bool `schemaname:"rtl"`
+	Rtl bool `tl:"rtl"`
 	// Is this a beta localization pack?
-	Beta bool `schemaname:"beta"`
+	Beta bool `tl:"beta"`
 	// Language name
-	Name string `schemaname:"name"`
+	Name string `tl:"name"`
 	// Language name in the language itself
-	NativeName string `schemaname:"native_name"`
+	NativeName string `tl:"native_name"`
 	// Language code (pack identifier)
-	LangCode string `schemaname:"lang_code"`
+	LangCode string `tl:"lang_code"`
 	// Identifier of a base language pack; may be empty. If a string is missed in the language pack, then it should be fetched from base language pack. Unsupported in custom language packs
 	//
 	// Use SetBaseLangCode and GetBaseLangCode helpers.
-	BaseLangCode string `schemaname:"base_lang_code"`
+	BaseLangCode string `tl:"base_lang_code"`
 	// A language code to be used to apply plural forms. See https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html¹ for more info
 	//
 	// Links:
 	//  1) https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html
-	PluralCode string `schemaname:"plural_code"`
+	PluralCode string `tl:"plural_code"`
 	// Total number of non-deleted strings from the language pack
-	StringsCount int `schemaname:"strings_count"`
+	StringsCount int `tl:"strings_count"`
 	// Total number of translated strings from the language pack
-	TranslatedCount int `schemaname:"translated_count"`
+	TranslatedCount int `tl:"translated_count"`
 	// Link to language translation interface; empty for custom local language packs
-	TranslationsURL string `schemaname:"translations_url"`
+	TranslationsURL string `tl:"translations_url"`
 }
 
 // LangPackLanguageTypeID is TL type id of LangPackLanguage.
@@ -149,8 +149,8 @@ func (l *LangPackLanguage) TypeID() uint32 {
 	return LangPackLanguageTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (l *LangPackLanguage) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (l *LangPackLanguage) TypeName() string {
 	return "langPackLanguage"
 }
 

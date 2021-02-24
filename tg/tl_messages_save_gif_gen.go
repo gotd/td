@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.saveGif for reference.
 type MessagesSaveGifRequest struct {
 	// GIF to save
-	ID InputDocumentClass `schemaname:"id"`
+	ID InputDocumentClass `tl:"id"`
 	// Whether to remove GIF from saved gifs list
-	Unsave bool `schemaname:"unsave"`
+	Unsave bool `tl:"unsave"`
 }
 
 // MessagesSaveGifRequestTypeID is TL type id of MessagesSaveGifRequest.
@@ -70,8 +70,8 @@ func (s *MessagesSaveGifRequest) TypeID() uint32 {
 	return MessagesSaveGifRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *MessagesSaveGifRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *MessagesSaveGifRequest) TypeName() string {
 	return "messages.saveGif"
 }
 

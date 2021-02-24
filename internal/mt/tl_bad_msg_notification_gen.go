@@ -21,11 +21,11 @@ var _ = errors.Is
 // BadMsgNotification represents TL type `bad_msg_notification#a7eff811`.
 type BadMsgNotification struct {
 	// BadMsgID field of BadMsgNotification.
-	BadMsgID int64 `schemaname:"bad_msg_id"`
+	BadMsgID int64 `tl:"bad_msg_id"`
 	// BadMsgSeqno field of BadMsgNotification.
-	BadMsgSeqno int `schemaname:"bad_msg_seqno"`
+	BadMsgSeqno int `tl:"bad_msg_seqno"`
 	// ErrorCode field of BadMsgNotification.
-	ErrorCode int `schemaname:"error_code"`
+	ErrorCode int `tl:"error_code"`
 }
 
 // BadMsgNotificationTypeID is TL type id of BadMsgNotification.
@@ -74,8 +74,8 @@ func (b *BadMsgNotification) TypeID() uint32 {
 	return BadMsgNotificationTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *BadMsgNotification) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *BadMsgNotification) TypeName() string {
 	return "bad_msg_notification"
 }
 
@@ -152,13 +152,13 @@ var (
 // BadServerSalt represents TL type `bad_server_salt#edab447b`.
 type BadServerSalt struct {
 	// BadMsgID field of BadServerSalt.
-	BadMsgID int64 `schemaname:"bad_msg_id"`
+	BadMsgID int64 `tl:"bad_msg_id"`
 	// BadMsgSeqno field of BadServerSalt.
-	BadMsgSeqno int `schemaname:"bad_msg_seqno"`
+	BadMsgSeqno int `tl:"bad_msg_seqno"`
 	// ErrorCode field of BadServerSalt.
-	ErrorCode int `schemaname:"error_code"`
+	ErrorCode int `tl:"error_code"`
 	// NewServerSalt field of BadServerSalt.
-	NewServerSalt int64 `schemaname:"new_server_salt"`
+	NewServerSalt int64 `tl:"new_server_salt"`
 }
 
 // BadServerSaltTypeID is TL type id of BadServerSalt.
@@ -212,8 +212,8 @@ func (b *BadServerSalt) TypeID() uint32 {
 	return BadServerSaltTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *BadServerSalt) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *BadServerSalt) TypeName() string {
 	return "bad_server_salt"
 }
 
@@ -317,11 +317,11 @@ type BadMsgNotificationClass interface {
 	bin.Decoder
 	construct() BadMsgNotificationClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

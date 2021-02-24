@@ -51,8 +51,8 @@ func (f *MessagesFavedStickersNotModified) TypeID() uint32 {
 	return MessagesFavedStickersNotModifiedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (f *MessagesFavedStickersNotModified) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (f *MessagesFavedStickersNotModified) TypeName() string {
 	return "messages.favedStickersNotModified"
 }
 
@@ -96,11 +96,11 @@ type MessagesFavedStickers struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `schemaname:"hash"`
+	Hash int `tl:"hash"`
 	// Emojis associated to stickers
-	Packs []StickerPack `schemaname:"packs"`
+	Packs []StickerPack `tl:"packs"`
 	// Favorited stickers
-	Stickers []DocumentClass `schemaname:"stickers"`
+	Stickers []DocumentClass `tl:"stickers"`
 }
 
 // MessagesFavedStickersTypeID is TL type id of MessagesFavedStickers.
@@ -149,8 +149,8 @@ func (f *MessagesFavedStickers) TypeID() uint32 {
 	return MessagesFavedStickersTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (f *MessagesFavedStickers) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (f *MessagesFavedStickers) TypeName() string {
 	return "messages.favedStickers"
 }
 
@@ -273,11 +273,11 @@ type MessagesFavedStickersClass interface {
 	bin.Decoder
 	construct() MessagesFavedStickersClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

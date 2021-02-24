@@ -51,8 +51,8 @@ func (i *InputChannelEmpty) TypeID() uint32 {
 	return InputChannelEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputChannelEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputChannelEmpty) TypeName() string {
 	return "inputChannelEmpty"
 }
 
@@ -93,12 +93,12 @@ var (
 // See https://core.telegram.org/constructor/inputChannel for reference.
 type InputChannel struct {
 	// Channel ID
-	ChannelID int `schemaname:"channel_id"`
+	ChannelID int `tl:"channel_id"`
 	// Access hash taken from the channel¹ constructor
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channel
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 }
 
 // InputChannelTypeID is TL type id of InputChannel.
@@ -142,8 +142,8 @@ func (i *InputChannel) TypeID() uint32 {
 	return InputChannelTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputChannel) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputChannel) TypeName() string {
 	return "inputChannel"
 }
 
@@ -213,11 +213,11 @@ var (
 // See https://core.telegram.org/constructor/inputChannelFromMessage for reference.
 type InputChannelFromMessage struct {
 	// The chat where the channel was seen
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// The message ID in the chat where the channel was seen
-	MsgID int `schemaname:"msg_id"`
+	MsgID int `tl:"msg_id"`
 	// The channel ID
-	ChannelID int `schemaname:"channel_id"`
+	ChannelID int `tl:"channel_id"`
 }
 
 // InputChannelFromMessageTypeID is TL type id of InputChannelFromMessage.
@@ -266,8 +266,8 @@ func (i *InputChannelFromMessage) TypeID() uint32 {
 	return InputChannelFromMessageTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputChannelFromMessage) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputChannelFromMessage) TypeName() string {
 	return "inputChannelFromMessage"
 }
 
@@ -366,11 +366,11 @@ type InputChannelClass interface {
 	bin.Decoder
 	construct() InputChannelClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
@@ -386,11 +386,11 @@ type NotEmptyInputChannel interface {
 	bin.Decoder
 	construct() InputChannelClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

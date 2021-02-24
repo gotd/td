@@ -24,13 +24,13 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/channelAdminLogEvent for reference.
 type ChannelAdminLogEvent struct {
 	// Event ID
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// Date
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 	// User ID
-	UserID int `schemaname:"user_id"`
+	UserID int `tl:"user_id"`
 	// Action
-	Action ChannelAdminLogEventActionClass `schemaname:"action"`
+	Action ChannelAdminLogEventActionClass `tl:"action"`
 }
 
 // ChannelAdminLogEventTypeID is TL type id of ChannelAdminLogEvent.
@@ -84,8 +84,8 @@ func (c *ChannelAdminLogEvent) TypeID() uint32 {
 	return ChannelAdminLogEventTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEvent) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEvent) TypeName() string {
 	return "channelAdminLogEvent"
 }
 

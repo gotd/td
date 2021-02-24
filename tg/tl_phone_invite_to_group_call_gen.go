@@ -23,9 +23,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/phone.inviteToGroupCall for reference.
 type PhoneInviteToGroupCallRequest struct {
 	// Call field of PhoneInviteToGroupCallRequest.
-	Call InputGroupCall `schemaname:"call"`
+	Call InputGroupCall `tl:"call"`
 	// Users field of PhoneInviteToGroupCallRequest.
-	Users []InputUserClass `schemaname:"users"`
+	Users []InputUserClass `tl:"users"`
 }
 
 // PhoneInviteToGroupCallRequestTypeID is TL type id of PhoneInviteToGroupCallRequest.
@@ -69,8 +69,8 @@ func (i *PhoneInviteToGroupCallRequest) TypeID() uint32 {
 	return PhoneInviteToGroupCallRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *PhoneInviteToGroupCallRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *PhoneInviteToGroupCallRequest) TypeName() string {
 	return "phone.inviteToGroupCall"
 }
 

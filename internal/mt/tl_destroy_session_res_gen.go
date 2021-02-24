@@ -21,7 +21,7 @@ var _ = errors.Is
 // DestroySessionOk represents TL type `destroy_session_ok#e22045fc`.
 type DestroySessionOk struct {
 	// SessionID field of DestroySessionOk.
-	SessionID int64 `schemaname:"session_id"`
+	SessionID int64 `tl:"session_id"`
 }
 
 // DestroySessionOkTypeID is TL type id of DestroySessionOk.
@@ -60,8 +60,8 @@ func (d *DestroySessionOk) TypeID() uint32 {
 	return DestroySessionOkTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DestroySessionOk) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DestroySessionOk) TypeName() string {
 	return "destroy_session_ok"
 }
 
@@ -112,7 +112,7 @@ var (
 // DestroySessionNone represents TL type `destroy_session_none#62d350c9`.
 type DestroySessionNone struct {
 	// SessionID field of DestroySessionNone.
-	SessionID int64 `schemaname:"session_id"`
+	SessionID int64 `tl:"session_id"`
 }
 
 // DestroySessionNoneTypeID is TL type id of DestroySessionNone.
@@ -151,8 +151,8 @@ func (d *DestroySessionNone) TypeID() uint32 {
 	return DestroySessionNoneTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DestroySessionNone) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DestroySessionNone) TypeName() string {
 	return "destroy_session_none"
 }
 
@@ -217,11 +217,11 @@ type DestroySessionResClass interface {
 	bin.Decoder
 	construct() DestroySessionResClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

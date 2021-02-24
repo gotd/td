@@ -55,8 +55,8 @@ func (r *AuthRequestPasswordRecoveryRequest) TypeID() uint32 {
 	return AuthRequestPasswordRecoveryRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *AuthRequestPasswordRecoveryRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *AuthRequestPasswordRecoveryRequest) TypeName() string {
 	return "auth.requestPasswordRecovery"
 }
 

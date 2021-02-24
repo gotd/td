@@ -51,8 +51,8 @@ func (n *Null) TypeID() uint32 {
 	return NullTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (n *Null) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (n *Null) TypeName() string {
 	return "null"
 }
 

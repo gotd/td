@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/userEmpty for reference.
 type UserEmpty struct {
 	// User identifier or 0
-	ID int `schemaname:"id"`
+	ID int `tl:"id"`
 }
 
 // UserEmptyTypeID is TL type id of UserEmpty.
@@ -63,8 +63,8 @@ func (u *UserEmpty) TypeID() uint32 {
 	return UserEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (u *UserEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (u *UserEmpty) TypeName() string {
 	return "userEmpty"
 }
 
@@ -121,89 +121,89 @@ type User struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether this user indicates the currently logged in user
-	Self bool `schemaname:"self"`
+	Self bool `tl:"self"`
 	// Whether this user is a contact
-	Contact bool `schemaname:"contact"`
+	Contact bool `tl:"contact"`
 	// Whether this user is a mutual contact
-	MutualContact bool `schemaname:"mutual_contact"`
+	MutualContact bool `tl:"mutual_contact"`
 	// Whether the account of this user was deleted
-	Deleted bool `schemaname:"deleted"`
+	Deleted bool `tl:"deleted"`
 	// Is this user a bot?
-	Bot bool `schemaname:"bot"`
+	Bot bool `tl:"bot"`
 	// Can the bot see all messages in groups?
-	BotChatHistory bool `schemaname:"bot_chat_history"`
+	BotChatHistory bool `tl:"bot_chat_history"`
 	// Can the bot be added to groups?
-	BotNochats bool `schemaname:"bot_nochats"`
+	BotNochats bool `tl:"bot_nochats"`
 	// Whether this user is verified
-	Verified bool `schemaname:"verified"`
+	Verified bool `tl:"verified"`
 	// Access to this user must be restricted for the reason specified in restriction_reason
-	Restricted bool `schemaname:"restricted"`
+	Restricted bool `tl:"restricted"`
 	// See min¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/min
-	Min bool `schemaname:"min"`
+	Min bool `tl:"min"`
 	// Whether the bot can request our geolocation in inline mode
-	BotInlineGeo bool `schemaname:"bot_inline_geo"`
+	BotInlineGeo bool `tl:"bot_inline_geo"`
 	// Whether this is an official support user
-	Support bool `schemaname:"support"`
+	Support bool `tl:"support"`
 	// This may be a scam user
-	Scam bool `schemaname:"scam"`
+	Scam bool `tl:"scam"`
 	// If set, the profile picture for this user should be refetched
-	ApplyMinPhoto bool `schemaname:"apply_min_photo"`
+	ApplyMinPhoto bool `tl:"apply_min_photo"`
 	// Fake field of User.
-	Fake bool `schemaname:"fake"`
+	Fake bool `tl:"fake"`
 	// ID of the user
-	ID int `schemaname:"id"`
+	ID int `tl:"id"`
 	// Access hash of the user
 	//
 	// Use SetAccessHash and GetAccessHash helpers.
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 	// First name
 	//
 	// Use SetFirstName and GetFirstName helpers.
-	FirstName string `schemaname:"first_name"`
+	FirstName string `tl:"first_name"`
 	// Last name
 	//
 	// Use SetLastName and GetLastName helpers.
-	LastName string `schemaname:"last_name"`
+	LastName string `tl:"last_name"`
 	// Username
 	//
 	// Use SetUsername and GetUsername helpers.
-	Username string `schemaname:"username"`
+	Username string `tl:"username"`
 	// Phone number
 	//
 	// Use SetPhone and GetPhone helpers.
-	Phone string `schemaname:"phone"`
+	Phone string `tl:"phone"`
 	// Profile picture of user
 	//
 	// Use SetPhoto and GetPhoto helpers.
-	Photo UserProfilePhotoClass `schemaname:"photo"`
+	Photo UserProfilePhotoClass `tl:"photo"`
 	// Online status of user
 	//
 	// Use SetStatus and GetStatus helpers.
-	Status UserStatusClass `schemaname:"status"`
+	Status UserStatusClass `tl:"status"`
 	// Version of the bot_info field in userFull¹, incremented every time it changes
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/userFull
 	//
 	// Use SetBotInfoVersion and GetBotInfoVersion helpers.
-	BotInfoVersion int `schemaname:"bot_info_version"`
+	BotInfoVersion int `tl:"bot_info_version"`
 	// Contains the reason why access to this user must be restricted.
 	//
 	// Use SetRestrictionReason and GetRestrictionReason helpers.
-	RestrictionReason []RestrictionReason `schemaname:"restriction_reason"`
+	RestrictionReason []RestrictionReason `tl:"restriction_reason"`
 	// Inline placeholder for this inline bot
 	//
 	// Use SetBotInlinePlaceholder and GetBotInlinePlaceholder helpers.
-	BotInlinePlaceholder string `schemaname:"bot_inline_placeholder"`
+	BotInlinePlaceholder string `tl:"bot_inline_placeholder"`
 	// Language code of the user
 	//
 	// Use SetLangCode and GetLangCode helpers.
-	LangCode string `schemaname:"lang_code"`
+	LangCode string `tl:"lang_code"`
 }
 
 // UserTypeID is TL type id of User.
@@ -408,8 +408,8 @@ func (u *User) TypeID() uint32 {
 	return UserTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (u *User) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (u *User) TypeName() string {
 	return "user"
 }
 
@@ -1113,11 +1113,11 @@ type UserClass interface {
 	bin.Decoder
 	construct() UserClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

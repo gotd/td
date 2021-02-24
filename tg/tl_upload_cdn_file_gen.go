@@ -30,7 +30,7 @@ type UploadCdnFileReuploadNeeded struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	RequestToken []byte `schemaname:"request_token"`
+	RequestToken []byte `tl:"request_token"`
 }
 
 // UploadCdnFileReuploadNeededTypeID is TL type id of UploadCdnFileReuploadNeeded.
@@ -69,8 +69,8 @@ func (c *UploadCdnFileReuploadNeeded) TypeID() uint32 {
 	return UploadCdnFileReuploadNeededTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *UploadCdnFileReuploadNeeded) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *UploadCdnFileReuploadNeeded) TypeName() string {
 	return "upload.cdnFileReuploadNeeded"
 }
 
@@ -127,7 +127,7 @@ var (
 // See https://core.telegram.org/constructor/upload.cdnFile for reference.
 type UploadCdnFile struct {
 	// The data
-	Bytes []byte `schemaname:"bytes"`
+	Bytes []byte `tl:"bytes"`
 }
 
 // UploadCdnFileTypeID is TL type id of UploadCdnFile.
@@ -166,8 +166,8 @@ func (c *UploadCdnFile) TypeID() uint32 {
 	return UploadCdnFileTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *UploadCdnFile) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *UploadCdnFile) TypeName() string {
 	return "upload.cdnFile"
 }
 
@@ -234,11 +234,11 @@ type UploadCdnFileClass interface {
 	bin.Decoder
 	construct() UploadCdnFileClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

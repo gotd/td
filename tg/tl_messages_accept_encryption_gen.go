@@ -24,14 +24,14 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.acceptEncryption for reference.
 type MessagesAcceptEncryptionRequest struct {
 	// Secret chat ID
-	Peer InputEncryptedChat `schemaname:"peer"`
+	Peer InputEncryptedChat `tl:"peer"`
 	// B = g ^ b mod p, see Wikipedia¹
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
-	GB []byte `schemaname:"g_b"`
+	GB []byte `tl:"g_b"`
 	// 64-bit fingerprint of the received key
-	KeyFingerprint int64 `schemaname:"key_fingerprint"`
+	KeyFingerprint int64 `tl:"key_fingerprint"`
 }
 
 // MessagesAcceptEncryptionRequestTypeID is TL type id of MessagesAcceptEncryptionRequest.
@@ -80,8 +80,8 @@ func (a *MessagesAcceptEncryptionRequest) TypeID() uint32 {
 	return MessagesAcceptEncryptionRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (a *MessagesAcceptEncryptionRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (a *MessagesAcceptEncryptionRequest) TypeName() string {
 	return "messages.acceptEncryption"
 }
 

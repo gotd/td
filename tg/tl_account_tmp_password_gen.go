@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/account.tmpPassword for reference.
 type AccountTmpPassword struct {
 	// Temporary password
-	TmpPassword []byte `schemaname:"tmp_password"`
+	TmpPassword []byte `tl:"tmp_password"`
 	// Validity period
-	ValidUntil int `schemaname:"valid_until"`
+	ValidUntil int `tl:"valid_until"`
 }
 
 // AccountTmpPasswordTypeID is TL type id of AccountTmpPassword.
@@ -70,8 +70,8 @@ func (t *AccountTmpPassword) TypeID() uint32 {
 	return AccountTmpPasswordTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *AccountTmpPassword) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *AccountTmpPassword) TypeName() string {
 	return "account.tmpPassword"
 }
 

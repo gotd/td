@@ -21,9 +21,9 @@ var _ = errors.Is
 // RPCError represents TL type `rpc_error#2144ca19`.
 type RPCError struct {
 	// ErrorCode field of RPCError.
-	ErrorCode int `schemaname:"error_code"`
+	ErrorCode int `tl:"error_code"`
 	// ErrorMessage field of RPCError.
-	ErrorMessage string `schemaname:"error_message"`
+	ErrorMessage string `tl:"error_message"`
 }
 
 // RPCErrorTypeID is TL type id of RPCError.
@@ -67,8 +67,8 @@ func (r *RPCError) TypeID() uint32 {
 	return RPCErrorTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *RPCError) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *RPCError) TypeName() string {
 	return "rpc_error"
 }
 

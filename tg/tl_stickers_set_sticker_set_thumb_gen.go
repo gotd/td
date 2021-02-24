@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/stickers.setStickerSetThumb for reference.
 type StickersSetStickerSetThumbRequest struct {
 	// Stickerset
-	Stickerset InputStickerSetClass `schemaname:"stickerset"`
+	Stickerset InputStickerSetClass `tl:"stickerset"`
 	// Thumbnail
-	Thumb InputDocumentClass `schemaname:"thumb"`
+	Thumb InputDocumentClass `tl:"thumb"`
 }
 
 // StickersSetStickerSetThumbRequestTypeID is TL type id of StickersSetStickerSetThumbRequest.
@@ -70,8 +70,8 @@ func (s *StickersSetStickerSetThumbRequest) TypeID() uint32 {
 	return StickersSetStickerSetThumbRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *StickersSetStickerSetThumbRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *StickersSetStickerSetThumbRequest) TypeName() string {
 	return "stickers.setStickerSetThumb"
 }
 

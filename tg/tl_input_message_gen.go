@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/inputMessageID for reference.
 type InputMessageID struct {
 	// Message ID
-	ID int `schemaname:"id"`
+	ID int `tl:"id"`
 }
 
 // InputMessageIDTypeID is TL type id of InputMessageID.
@@ -63,8 +63,8 @@ func (i *InputMessageID) TypeID() uint32 {
 	return InputMessageIDTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMessageID) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMessageID) TypeName() string {
 	return "inputMessageID"
 }
 
@@ -118,7 +118,7 @@ var (
 // See https://core.telegram.org/constructor/inputMessageReplyTo for reference.
 type InputMessageReplyTo struct {
 	// ID of the message that replies to the message we need
-	ID int `schemaname:"id"`
+	ID int `tl:"id"`
 }
 
 // InputMessageReplyToTypeID is TL type id of InputMessageReplyTo.
@@ -157,8 +157,8 @@ func (i *InputMessageReplyTo) TypeID() uint32 {
 	return InputMessageReplyToTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMessageReplyTo) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMessageReplyTo) TypeName() string {
 	return "inputMessageReplyTo"
 }
 
@@ -239,8 +239,8 @@ func (i *InputMessagePinned) TypeID() uint32 {
 	return InputMessagePinnedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMessagePinned) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMessagePinned) TypeName() string {
 	return "inputMessagePinned"
 }
 
@@ -281,9 +281,9 @@ var (
 // See https://core.telegram.org/constructor/inputMessageCallbackQuery for reference.
 type InputMessageCallbackQuery struct {
 	// Message ID
-	ID int `schemaname:"id"`
+	ID int `tl:"id"`
 	// Callback query ID
-	QueryID int64 `schemaname:"query_id"`
+	QueryID int64 `tl:"query_id"`
 }
 
 // InputMessageCallbackQueryTypeID is TL type id of InputMessageCallbackQuery.
@@ -327,8 +327,8 @@ func (i *InputMessageCallbackQuery) TypeID() uint32 {
 	return InputMessageCallbackQueryTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMessageCallbackQuery) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMessageCallbackQuery) TypeName() string {
 	return "inputMessageCallbackQuery"
 }
 
@@ -410,11 +410,11 @@ type InputMessageClass interface {
 	bin.Decoder
 	construct() InputMessageClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

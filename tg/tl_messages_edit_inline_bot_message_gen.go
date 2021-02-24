@@ -27,30 +27,30 @@ type MessagesEditInlineBotMessageRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Disable webpage preview
-	NoWebpage bool `schemaname:"no_webpage"`
+	NoWebpage bool `tl:"no_webpage"`
 	// Sent inline message ID
-	ID InputBotInlineMessageID `schemaname:"id"`
+	ID InputBotInlineMessageID `tl:"id"`
 	// Message
 	//
 	// Use SetMessage and GetMessage helpers.
-	Message string `schemaname:"message"`
+	Message string `tl:"message"`
 	// Media
 	//
 	// Use SetMedia and GetMedia helpers.
-	Media InputMediaClass `schemaname:"media"`
+	Media InputMediaClass `tl:"media"`
 	// Reply markup for inline keyboards
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `schemaname:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `schemaname:"entities"`
+	Entities []MessageEntityClass `tl:"entities"`
 }
 
 // MessagesEditInlineBotMessageRequestTypeID is TL type id of MessagesEditInlineBotMessageRequest.
@@ -129,8 +129,8 @@ func (e *MessagesEditInlineBotMessageRequest) TypeID() uint32 {
 	return MessagesEditInlineBotMessageRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (e *MessagesEditInlineBotMessageRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (e *MessagesEditInlineBotMessageRequest) TypeName() string {
 	return "messages.editInlineBotMessage"
 }
 

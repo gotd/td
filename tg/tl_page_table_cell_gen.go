@@ -27,29 +27,29 @@ type PageTableCell struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Is this element part of the column header
-	Header bool `schemaname:"header"`
+	Header bool `tl:"header"`
 	// Horizontally centered block
-	AlignCenter bool `schemaname:"align_center"`
+	AlignCenter bool `tl:"align_center"`
 	// Right-aligned block
-	AlignRight bool `schemaname:"align_right"`
+	AlignRight bool `tl:"align_right"`
 	// Vertically centered block
-	ValignMiddle bool `schemaname:"valign_middle"`
+	ValignMiddle bool `tl:"valign_middle"`
 	// Block vertically-alligned to the bottom
-	ValignBottom bool `schemaname:"valign_bottom"`
+	ValignBottom bool `tl:"valign_bottom"`
 	// Content
 	//
 	// Use SetText and GetText helpers.
-	Text RichTextClass `schemaname:"text"`
+	Text RichTextClass `tl:"text"`
 	// For how many columns should this cell extend
 	//
 	// Use SetColspan and GetColspan helpers.
-	Colspan int `schemaname:"colspan"`
+	Colspan int `tl:"colspan"`
 	// For how many rows should this cell extend
 	//
 	// Use SetRowspan and GetRowspan helpers.
-	Rowspan int `schemaname:"rowspan"`
+	Rowspan int `tl:"rowspan"`
 }
 
 // PageTableCellTypeID is TL type id of PageTableCell.
@@ -135,8 +135,8 @@ func (p *PageTableCell) TypeID() uint32 {
 	return PageTableCellTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageTableCell) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageTableCell) TypeName() string {
 	return "pageTableCell"
 }
 

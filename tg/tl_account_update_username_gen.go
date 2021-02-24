@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.updateUsername for reference.
 type AccountUpdateUsernameRequest struct {
 	// username or empty string if username is to be removedAccepted characters: a-z (case-insensitive), 0-9 and underscores.Length: 5-32 characters.
-	Username string `schemaname:"username"`
+	Username string `tl:"username"`
 }
 
 // AccountUpdateUsernameRequestTypeID is TL type id of AccountUpdateUsernameRequest.
@@ -63,8 +63,8 @@ func (u *AccountUpdateUsernameRequest) TypeID() uint32 {
 	return AccountUpdateUsernameRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (u *AccountUpdateUsernameRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (u *AccountUpdateUsernameRequest) TypeName() string {
 	return "account.updateUsername"
 }
 

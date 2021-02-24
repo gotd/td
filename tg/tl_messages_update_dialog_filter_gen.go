@@ -30,19 +30,19 @@ type MessagesUpdateDialogFilterRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Folder¹ ID
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	ID int `schemaname:"id"`
+	ID int `tl:"id"`
 	// Folder¹ info
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
 	//
 	// Use SetFilter and GetFilter helpers.
-	Filter DialogFilter `schemaname:"filter"`
+	Filter DialogFilter `tl:"filter"`
 }
 
 // MessagesUpdateDialogFilterRequestTypeID is TL type id of MessagesUpdateDialogFilterRequest.
@@ -92,8 +92,8 @@ func (u *MessagesUpdateDialogFilterRequest) TypeID() uint32 {
 	return MessagesUpdateDialogFilterRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (u *MessagesUpdateDialogFilterRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (u *MessagesUpdateDialogFilterRequest) TypeName() string {
 	return "messages.updateDialogFilter"
 }
 

@@ -21,13 +21,13 @@ var _ = errors.Is
 // ClientDHInnerData represents TL type `client_DH_inner_data#6643b654`.
 type ClientDHInnerData struct {
 	// Nonce field of ClientDHInnerData.
-	Nonce bin.Int128 `schemaname:"nonce"`
+	Nonce bin.Int128 `tl:"nonce"`
 	// ServerNonce field of ClientDHInnerData.
-	ServerNonce bin.Int128 `schemaname:"server_nonce"`
+	ServerNonce bin.Int128 `tl:"server_nonce"`
 	// RetryID field of ClientDHInnerData.
-	RetryID int64 `schemaname:"retry_id"`
+	RetryID int64 `tl:"retry_id"`
 	// GB field of ClientDHInnerData.
-	GB []byte `schemaname:"g_b"`
+	GB []byte `tl:"g_b"`
 }
 
 // ClientDHInnerDataTypeID is TL type id of ClientDHInnerData.
@@ -81,8 +81,8 @@ func (c *ClientDHInnerData) TypeID() uint32 {
 	return ClientDHInnerDataTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ClientDHInnerData) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ClientDHInnerData) TypeName() string {
 	return "client_DH_inner_data"
 }
 

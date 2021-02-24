@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/account.takeout for reference.
 type AccountTakeout struct {
 	// Takeout ID
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 }
 
 // AccountTakeoutTypeID is TL type id of AccountTakeout.
@@ -63,8 +63,8 @@ func (t *AccountTakeout) TypeID() uint32 {
 	return AccountTakeoutTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *AccountTakeout) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *AccountTakeout) TypeName() string {
 	return "account.takeout"
 }
 

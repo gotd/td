@@ -21,7 +21,7 @@ var _ = errors.Is
 // MsgCopy represents TL type `msg_copy#e06046b2`.
 type MsgCopy struct {
 	// OrigMessage field of MsgCopy.
-	OrigMessage Message `schemaname:"orig_message"`
+	OrigMessage Message `tl:"orig_message"`
 }
 
 // MsgCopyTypeID is TL type id of MsgCopy.
@@ -60,8 +60,8 @@ func (m *MsgCopy) TypeID() uint32 {
 	return MsgCopyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *MsgCopy) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *MsgCopy) TypeName() string {
 	return "msg_copy"
 }
 

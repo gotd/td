@@ -27,7 +27,7 @@ type HelpTermsOfServiceUpdateEmpty struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/help.getTermsOfServiceUpdate
-	Expires int `schemaname:"expires"`
+	Expires int `tl:"expires"`
 }
 
 // HelpTermsOfServiceUpdateEmptyTypeID is TL type id of HelpTermsOfServiceUpdateEmpty.
@@ -66,8 +66,8 @@ func (t *HelpTermsOfServiceUpdateEmpty) TypeID() uint32 {
 	return HelpTermsOfServiceUpdateEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *HelpTermsOfServiceUpdateEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *HelpTermsOfServiceUpdateEmpty) TypeName() string {
 	return "help.termsOfServiceUpdateEmpty"
 }
 
@@ -127,9 +127,9 @@ type HelpTermsOfServiceUpdate struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/help.getTermsOfServiceUpdate
-	Expires int `schemaname:"expires"`
+	Expires int `tl:"expires"`
 	// New terms of service
-	TermsOfService HelpTermsOfService `schemaname:"terms_of_service"`
+	TermsOfService HelpTermsOfService `tl:"terms_of_service"`
 }
 
 // HelpTermsOfServiceUpdateTypeID is TL type id of HelpTermsOfServiceUpdate.
@@ -173,8 +173,8 @@ func (t *HelpTermsOfServiceUpdate) TypeID() uint32 {
 	return HelpTermsOfServiceUpdateTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *HelpTermsOfServiceUpdate) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *HelpTermsOfServiceUpdate) TypeName() string {
 	return "help.termsOfServiceUpdate"
 }
 
@@ -254,11 +254,11 @@ type HelpTermsOfServiceUpdateClass interface {
 	bin.Decoder
 	construct() HelpTermsOfServiceUpdateClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

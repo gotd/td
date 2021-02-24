@@ -21,11 +21,11 @@ var _ = errors.Is
 // HTTPWaitRequest represents TL type `http_wait#9299359f`.
 type HTTPWaitRequest struct {
 	// MaxDelay field of HTTPWaitRequest.
-	MaxDelay int `schemaname:"max_delay"`
+	MaxDelay int `tl:"max_delay"`
 	// WaitAfter field of HTTPWaitRequest.
-	WaitAfter int `schemaname:"wait_after"`
+	WaitAfter int `tl:"wait_after"`
 	// MaxWait field of HTTPWaitRequest.
-	MaxWait int `schemaname:"max_wait"`
+	MaxWait int `tl:"max_wait"`
 }
 
 // HTTPWaitRequestTypeID is TL type id of HTTPWaitRequest.
@@ -74,8 +74,8 @@ func (h *HTTPWaitRequest) TypeID() uint32 {
 	return HTTPWaitRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (h *HTTPWaitRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (h *HTTPWaitRequest) TypeName() string {
 	return "http_wait"
 }
 

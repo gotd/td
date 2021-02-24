@@ -27,39 +27,39 @@ type StickerSet struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether this stickerset was archived (due to too many saved stickers in the current account)
-	Archived bool `schemaname:"archived"`
+	Archived bool `tl:"archived"`
 	// Is this stickerset official
-	Official bool `schemaname:"official"`
+	Official bool `tl:"official"`
 	// Is this a mask stickerset
-	Masks bool `schemaname:"masks"`
+	Masks bool `tl:"masks"`
 	// Is this an animated stickerpack
-	Animated bool `schemaname:"animated"`
+	Animated bool `tl:"animated"`
 	// When was this stickerset installed
 	//
 	// Use SetInstalledDate and GetInstalledDate helpers.
-	InstalledDate int `schemaname:"installed_date"`
+	InstalledDate int `tl:"installed_date"`
 	// ID of the stickerset
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// Access hash of stickerset
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 	// Title of stickerset
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 	// Short name of stickerset to use in tg://addstickers?set=short_name
-	ShortName string `schemaname:"short_name"`
+	ShortName string `tl:"short_name"`
 	// Thumbs field of StickerSet.
 	//
 	// Use SetThumbs and GetThumbs helpers.
-	Thumbs []PhotoSizeClass `schemaname:"thumbs"`
+	Thumbs []PhotoSizeClass `tl:"thumbs"`
 	// DC ID of thumbnail
 	//
 	// Use SetThumbDCID and GetThumbDCID helpers.
-	ThumbDCID int `schemaname:"thumb_dc_id"`
+	ThumbDCID int `tl:"thumb_dc_id"`
 	// Number of stickers in pack
-	Count int `schemaname:"count"`
+	Count int `tl:"count"`
 	// Hash
-	Hash int `schemaname:"hash"`
+	Hash int `tl:"hash"`
 }
 
 // StickerSetTypeID is TL type id of StickerSet.
@@ -170,8 +170,8 @@ func (s *StickerSet) TypeID() uint32 {
 	return StickerSetTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *StickerSet) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *StickerSet) TypeName() string {
 	return "stickerSet"
 }
 

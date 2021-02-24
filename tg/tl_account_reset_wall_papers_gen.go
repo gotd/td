@@ -51,8 +51,8 @@ func (r *AccountResetWallPapersRequest) TypeID() uint32 {
 	return AccountResetWallPapersRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *AccountResetWallPapersRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *AccountResetWallPapersRequest) TypeName() string {
 	return "account.resetWallPapers"
 }
 

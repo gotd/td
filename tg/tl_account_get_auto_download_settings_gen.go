@@ -51,8 +51,8 @@ func (g *AccountGetAutoDownloadSettingsRequest) TypeID() uint32 {
 	return AccountGetAutoDownloadSettingsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *AccountGetAutoDownloadSettingsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *AccountGetAutoDownloadSettingsRequest) TypeName() string {
 	return "account.getAutoDownloadSettings"
 }
 

@@ -21,7 +21,7 @@ var _ = errors.Is
 // DialogFilterSuggestedVector is a box for Vector<DialogFilterSuggested>
 type DialogFilterSuggestedVector struct {
 	// Elements of Vector<DialogFilterSuggested>
-	Elems []DialogFilterSuggested `schemaname:"Elems"`
+	Elems []DialogFilterSuggested `tl:"Elems"`
 }
 
 // DialogFilterSuggestedVectorTypeID is TL type id of DialogFilterSuggestedVector.
@@ -60,8 +60,8 @@ func (vec *DialogFilterSuggestedVector) TypeID() uint32 {
 	return DialogFilterSuggestedVectorTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (vec *DialogFilterSuggestedVector) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (vec *DialogFilterSuggestedVector) TypeName() string {
 	return ""
 }
 

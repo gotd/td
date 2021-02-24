@@ -21,7 +21,7 @@ var _ = errors.Is
 // MessagesSearchCounterVector is a box for Vector<messages.SearchCounter>
 type MessagesSearchCounterVector struct {
 	// Elements of Vector<messages.SearchCounter>
-	Elems []MessagesSearchCounter `schemaname:"Elems"`
+	Elems []MessagesSearchCounter `tl:"Elems"`
 }
 
 // MessagesSearchCounterVectorTypeID is TL type id of MessagesSearchCounterVector.
@@ -60,8 +60,8 @@ func (vec *MessagesSearchCounterVector) TypeID() uint32 {
 	return MessagesSearchCounterVectorTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (vec *MessagesSearchCounterVector) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (vec *MessagesSearchCounterVector) TypeName() string {
 	return ""
 }
 

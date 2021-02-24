@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/sendMultipleSMS for reference.
 type SendMultipleSMSRequest struct {
 	// Messages field of SendMultipleSMSRequest.
-	Messages []SMS `schemaname:"messages"`
+	Messages []SMS `tl:"messages"`
 }
 
 // SendMultipleSMSRequestTypeID is TL type id of SendMultipleSMSRequest.
@@ -62,8 +62,8 @@ func (s *SendMultipleSMSRequest) TypeID() uint32 {
 	return SendMultipleSMSRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SendMultipleSMSRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SendMultipleSMSRequest) TypeName() string {
 	return "sendMultipleSMS"
 }
 

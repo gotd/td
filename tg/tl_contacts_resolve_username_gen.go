@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/contacts.resolveUsername for reference.
 type ContactsResolveUsernameRequest struct {
 	// @username to resolve
-	Username string `schemaname:"username"`
+	Username string `tl:"username"`
 }
 
 // ContactsResolveUsernameRequestTypeID is TL type id of ContactsResolveUsernameRequest.
@@ -63,8 +63,8 @@ func (r *ContactsResolveUsernameRequest) TypeID() uint32 {
 	return ContactsResolveUsernameRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *ContactsResolveUsernameRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *ContactsResolveUsernameRequest) TypeName() string {
 	return "contacts.resolveUsername"
 }
 

@@ -27,23 +27,23 @@ type Game struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// ID of the game
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// Access hash of the game
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 	// Short name for the game
-	ShortName string `schemaname:"short_name"`
+	ShortName string `tl:"short_name"`
 	// Title of the game
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 	// Game description
-	Description string `schemaname:"description"`
+	Description string `tl:"description"`
 	// Game preview
-	Photo PhotoClass `schemaname:"photo"`
+	Photo PhotoClass `tl:"photo"`
 	// Optional attached document
 	//
 	// Use SetDocument and GetDocument helpers.
-	Document DocumentClass `schemaname:"document"`
+	Document DocumentClass `tl:"document"`
 }
 
 // GameTypeID is TL type id of Game.
@@ -118,8 +118,8 @@ func (g *Game) TypeID() uint32 {
 	return GameTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *Game) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *Game) TypeName() string {
 	return "game"
 }
 

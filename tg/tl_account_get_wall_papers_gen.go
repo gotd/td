@@ -27,7 +27,7 @@ type AccountGetWallPapersRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `schemaname:"hash"`
+	Hash int `tl:"hash"`
 }
 
 // AccountGetWallPapersRequestTypeID is TL type id of AccountGetWallPapersRequest.
@@ -66,8 +66,8 @@ func (g *AccountGetWallPapersRequest) TypeID() uint32 {
 	return AccountGetWallPapersRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *AccountGetWallPapersRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *AccountGetWallPapersRequest) TypeName() string {
 	return "account.getWallPapers"
 }
 

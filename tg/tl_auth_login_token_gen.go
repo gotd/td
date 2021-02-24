@@ -27,9 +27,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/auth.loginToken for reference.
 type AuthLoginToken struct {
 	// Expiry date of QR code
-	Expires int `schemaname:"expires"`
+	Expires int `tl:"expires"`
 	// Token to render in QR code
-	Token []byte `schemaname:"token"`
+	Token []byte `tl:"token"`
 }
 
 // AuthLoginTokenTypeID is TL type id of AuthLoginToken.
@@ -73,8 +73,8 @@ func (l *AuthLoginToken) TypeID() uint32 {
 	return AuthLoginTokenTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (l *AuthLoginToken) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (l *AuthLoginToken) TypeName() string {
 	return "auth.loginToken"
 }
 
@@ -141,9 +141,9 @@ var (
 // See https://core.telegram.org/constructor/auth.loginTokenMigrateTo for reference.
 type AuthLoginTokenMigrateTo struct {
 	// DC ID
-	DCID int `schemaname:"dc_id"`
+	DCID int `tl:"dc_id"`
 	// Token to use for login
-	Token []byte `schemaname:"token"`
+	Token []byte `tl:"token"`
 }
 
 // AuthLoginTokenMigrateToTypeID is TL type id of AuthLoginTokenMigrateTo.
@@ -187,8 +187,8 @@ func (l *AuthLoginTokenMigrateTo) TypeID() uint32 {
 	return AuthLoginTokenMigrateToTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (l *AuthLoginTokenMigrateTo) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (l *AuthLoginTokenMigrateTo) TypeName() string {
 	return "auth.loginTokenMigrateTo"
 }
 
@@ -255,7 +255,7 @@ var (
 // See https://core.telegram.org/constructor/auth.loginTokenSuccess for reference.
 type AuthLoginTokenSuccess struct {
 	// Authorization info
-	Authorization AuthAuthorizationClass `schemaname:"authorization"`
+	Authorization AuthAuthorizationClass `tl:"authorization"`
 }
 
 // AuthLoginTokenSuccessTypeID is TL type id of AuthLoginTokenSuccess.
@@ -294,8 +294,8 @@ func (l *AuthLoginTokenSuccess) TypeID() uint32 {
 	return AuthLoginTokenSuccessTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (l *AuthLoginTokenSuccess) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (l *AuthLoginTokenSuccess) TypeName() string {
 	return "auth.loginTokenSuccess"
 }
 
@@ -368,11 +368,11 @@ type AuthLoginTokenClass interface {
 	bin.Decoder
 	construct() AuthLoginTokenClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

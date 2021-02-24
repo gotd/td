@@ -23,15 +23,15 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getChatInviteImporters for reference.
 type MessagesGetChatInviteImportersRequest struct {
 	// Peer field of MessagesGetChatInviteImportersRequest.
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// Link field of MessagesGetChatInviteImportersRequest.
-	Link string `schemaname:"link"`
+	Link string `tl:"link"`
 	// OffsetDate field of MessagesGetChatInviteImportersRequest.
-	OffsetDate int `schemaname:"offset_date"`
+	OffsetDate int `tl:"offset_date"`
 	// OffsetUser field of MessagesGetChatInviteImportersRequest.
-	OffsetUser InputUserClass `schemaname:"offset_user"`
+	OffsetUser InputUserClass `tl:"offset_user"`
 	// Limit field of MessagesGetChatInviteImportersRequest.
-	Limit int `schemaname:"limit"`
+	Limit int `tl:"limit"`
 }
 
 // MessagesGetChatInviteImportersRequestTypeID is TL type id of MessagesGetChatInviteImportersRequest.
@@ -90,8 +90,8 @@ func (g *MessagesGetChatInviteImportersRequest) TypeID() uint32 {
 	return MessagesGetChatInviteImportersRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetChatInviteImportersRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetChatInviteImportersRequest) TypeName() string {
 	return "messages.getChatInviteImporters"
 }
 

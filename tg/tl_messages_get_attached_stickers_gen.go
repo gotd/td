@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getAttachedStickers for reference.
 type MessagesGetAttachedStickersRequest struct {
 	// Stickered media
-	Media InputStickeredMediaClass `schemaname:"media"`
+	Media InputStickeredMediaClass `tl:"media"`
 }
 
 // MessagesGetAttachedStickersRequestTypeID is TL type id of MessagesGetAttachedStickersRequest.
@@ -63,8 +63,8 @@ func (g *MessagesGetAttachedStickersRequest) TypeID() uint32 {
 	return MessagesGetAttachedStickersRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetAttachedStickersRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetAttachedStickersRequest) TypeName() string {
 	return "messages.getAttachedStickers"
 }
 

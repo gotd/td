@@ -27,11 +27,11 @@ type MessagesMarkDialogUnreadRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Mark as unread/read
-	Unread bool `schemaname:"unread"`
+	Unread bool `tl:"unread"`
 	// Dialog
-	Peer InputDialogPeerClass `schemaname:"peer"`
+	Peer InputDialogPeerClass `tl:"peer"`
 }
 
 // MessagesMarkDialogUnreadRequestTypeID is TL type id of MessagesMarkDialogUnreadRequest.
@@ -78,8 +78,8 @@ func (m *MessagesMarkDialogUnreadRequest) TypeID() uint32 {
 	return MessagesMarkDialogUnreadRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *MessagesMarkDialogUnreadRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *MessagesMarkDialogUnreadRequest) TypeName() string {
 	return "messages.markDialogUnread"
 }
 

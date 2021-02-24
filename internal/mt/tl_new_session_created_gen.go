@@ -21,11 +21,11 @@ var _ = errors.Is
 // NewSessionCreated represents TL type `new_session_created#9ec20908`.
 type NewSessionCreated struct {
 	// FirstMsgID field of NewSessionCreated.
-	FirstMsgID int64 `schemaname:"first_msg_id"`
+	FirstMsgID int64 `tl:"first_msg_id"`
 	// UniqueID field of NewSessionCreated.
-	UniqueID int64 `schemaname:"unique_id"`
+	UniqueID int64 `tl:"unique_id"`
 	// ServerSalt field of NewSessionCreated.
-	ServerSalt int64 `schemaname:"server_salt"`
+	ServerSalt int64 `tl:"server_salt"`
 }
 
 // NewSessionCreatedTypeID is TL type id of NewSessionCreated.
@@ -74,8 +74,8 @@ func (n *NewSessionCreated) TypeID() uint32 {
 	return NewSessionCreatedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (n *NewSessionCreated) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (n *NewSessionCreated) TypeName() string {
 	return "new_session_created"
 }
 

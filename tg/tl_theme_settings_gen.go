@@ -27,23 +27,23 @@ type ThemeSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Base theme
-	BaseTheme BaseThemeClass `schemaname:"base_theme"`
+	BaseTheme BaseThemeClass `tl:"base_theme"`
 	// Accent color, RGB24 format
-	AccentColor int `schemaname:"accent_color"`
+	AccentColor int `tl:"accent_color"`
 	// Message gradient color (top), RGB24 format
 	//
 	// Use SetMessageTopColor and GetMessageTopColor helpers.
-	MessageTopColor int `schemaname:"message_top_color"`
+	MessageTopColor int `tl:"message_top_color"`
 	// Message gradient color (bottom), RGB24 format
 	//
 	// Use SetMessageBottomColor and GetMessageBottomColor helpers.
-	MessageBottomColor int `schemaname:"message_bottom_color"`
+	MessageBottomColor int `tl:"message_bottom_color"`
 	// Wallpaper
 	//
 	// Use SetWallpaper and GetWallpaper helpers.
-	Wallpaper WallPaperClass `schemaname:"wallpaper"`
+	Wallpaper WallPaperClass `tl:"wallpaper"`
 }
 
 // ThemeSettingsTypeID is TL type id of ThemeSettings.
@@ -114,8 +114,8 @@ func (t *ThemeSettings) TypeID() uint32 {
 	return ThemeSettingsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *ThemeSettings) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *ThemeSettings) TypeName() string {
 	return "themeSettings"
 }
 

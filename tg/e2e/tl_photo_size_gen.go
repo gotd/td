@@ -27,7 +27,7 @@ type PhotoSizeEmpty struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/photoSize
-	Type string `schemaname:"type"`
+	Type string `tl:"type"`
 }
 
 // PhotoSizeEmptyTypeID is TL type id of PhotoSizeEmpty.
@@ -66,8 +66,8 @@ func (p *PhotoSizeEmpty) TypeID() uint32 {
 	return PhotoSizeEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PhotoSizeEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PhotoSizeEmpty) TypeName() string {
 	return "photoSizeEmpty"
 }
 
@@ -121,15 +121,15 @@ var (
 // See https://core.telegram.org/constructor/photoSize for reference.
 type PhotoSize struct {
 	// Thumbnail type
-	Type string `schemaname:"type"`
+	Type string `tl:"type"`
 	// File location
-	Location FileLocationClass `schemaname:"location"`
+	Location FileLocationClass `tl:"location"`
 	// Image width
-	W int `schemaname:"w"`
+	W int `tl:"w"`
 	// Image height
-	H int `schemaname:"h"`
+	H int `tl:"h"`
 	// File size
-	Size int `schemaname:"size"`
+	Size int `tl:"size"`
 }
 
 // PhotoSizeTypeID is TL type id of PhotoSize.
@@ -188,8 +188,8 @@ func (p *PhotoSize) TypeID() uint32 {
 	return PhotoSizeTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PhotoSize) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PhotoSize) TypeName() string {
 	return "photoSize"
 }
 
@@ -300,15 +300,15 @@ var (
 // See https://core.telegram.org/constructor/photoCachedSize for reference.
 type PhotoCachedSize struct {
 	// Thumbnail type
-	Type string `schemaname:"type"`
+	Type string `tl:"type"`
 	// File location
-	Location FileLocationClass `schemaname:"location"`
+	Location FileLocationClass `tl:"location"`
 	// Image width
-	W int `schemaname:"w"`
+	W int `tl:"w"`
 	// Image height
-	H int `schemaname:"h"`
+	H int `tl:"h"`
 	// Binary data, file content
-	Bytes []byte `schemaname:"bytes"`
+	Bytes []byte `tl:"bytes"`
 }
 
 // PhotoCachedSizeTypeID is TL type id of PhotoCachedSize.
@@ -367,8 +367,8 @@ func (p *PhotoCachedSize) TypeID() uint32 {
 	return PhotoCachedSizeTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PhotoCachedSize) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PhotoCachedSize) TypeName() string {
 	return "photoCachedSize"
 }
 
@@ -493,11 +493,11 @@ type PhotoSizeClass interface {
 	bin.Decoder
 	construct() PhotoSizeClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
@@ -518,11 +518,11 @@ type NotEmptyPhotoSize interface {
 	bin.Decoder
 	construct() PhotoSizeClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

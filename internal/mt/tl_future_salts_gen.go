@@ -21,11 +21,11 @@ var _ = errors.Is
 // FutureSalts represents TL type `future_salts#ae500895`.
 type FutureSalts struct {
 	// ReqMsgID field of FutureSalts.
-	ReqMsgID int64 `schemaname:"req_msg_id"`
+	ReqMsgID int64 `tl:"req_msg_id"`
 	// Now field of FutureSalts.
-	Now int `schemaname:"now"`
+	Now int `tl:"now"`
 	// Salts field of FutureSalts.
-	Salts []FutureSalt `schemaname:"salts"`
+	Salts []FutureSalt `tl:"salts"`
 }
 
 // FutureSaltsTypeID is TL type id of FutureSalts.
@@ -74,8 +74,8 @@ func (f *FutureSalts) TypeID() uint32 {
 	return FutureSaltsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (f *FutureSalts) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (f *FutureSalts) TypeName() string {
 	return "future_salts"
 }
 

@@ -21,7 +21,7 @@ var _ = errors.Is
 // DestroySessionRequest represents TL type `destroy_session#e7512126`.
 type DestroySessionRequest struct {
 	// SessionID field of DestroySessionRequest.
-	SessionID int64 `schemaname:"session_id"`
+	SessionID int64 `tl:"session_id"`
 }
 
 // DestroySessionRequestTypeID is TL type id of DestroySessionRequest.
@@ -60,8 +60,8 @@ func (d *DestroySessionRequest) TypeID() uint32 {
 	return DestroySessionRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DestroySessionRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DestroySessionRequest) TypeName() string {
 	return "destroy_session"
 }
 

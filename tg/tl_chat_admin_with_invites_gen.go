@@ -23,11 +23,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/chatAdminWithInvites for reference.
 type ChatAdminWithInvites struct {
 	// AdminID field of ChatAdminWithInvites.
-	AdminID int `schemaname:"admin_id"`
+	AdminID int `tl:"admin_id"`
 	// InvitesCount field of ChatAdminWithInvites.
-	InvitesCount int `schemaname:"invites_count"`
+	InvitesCount int `tl:"invites_count"`
 	// RevokedInvitesCount field of ChatAdminWithInvites.
-	RevokedInvitesCount int `schemaname:"revoked_invites_count"`
+	RevokedInvitesCount int `tl:"revoked_invites_count"`
 }
 
 // ChatAdminWithInvitesTypeID is TL type id of ChatAdminWithInvites.
@@ -76,8 +76,8 @@ func (c *ChatAdminWithInvites) TypeID() uint32 {
 	return ChatAdminWithInvitesTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChatAdminWithInvites) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChatAdminWithInvites) TypeName() string {
 	return "chatAdminWithInvites"
 }
 

@@ -27,13 +27,13 @@ type AccountSaveAutoDownloadSettingsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether to save settings in the low data usage preset
-	Low bool `schemaname:"low"`
+	Low bool `tl:"low"`
 	// Whether to save settings in the high data usage preset
-	High bool `schemaname:"high"`
+	High bool `tl:"high"`
 	// Media autodownload settings
-	Settings AutoDownloadSettings `schemaname:"settings"`
+	Settings AutoDownloadSettings `tl:"settings"`
 }
 
 // AccountSaveAutoDownloadSettingsRequestTypeID is TL type id of AccountSaveAutoDownloadSettingsRequest.
@@ -85,8 +85,8 @@ func (s *AccountSaveAutoDownloadSettingsRequest) TypeID() uint32 {
 	return AccountSaveAutoDownloadSettingsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *AccountSaveAutoDownloadSettingsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *AccountSaveAutoDownloadSettingsRequest) TypeName() string {
 	return "account.saveAutoDownloadSettings"
 }
 

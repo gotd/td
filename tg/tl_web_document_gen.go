@@ -24,15 +24,15 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/webDocument for reference.
 type WebDocument struct {
 	// Document URL
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 	// Access hash
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 	// File size
-	Size int `schemaname:"size"`
+	Size int `tl:"size"`
 	// MIME type
-	MimeType string `schemaname:"mime_type"`
+	MimeType string `tl:"mime_type"`
 	// Attributes for media types
-	Attributes []DocumentAttributeClass `schemaname:"attributes"`
+	Attributes []DocumentAttributeClass `tl:"attributes"`
 }
 
 // WebDocumentTypeID is TL type id of WebDocument.
@@ -91,8 +91,8 @@ func (w *WebDocument) TypeID() uint32 {
 	return WebDocumentTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (w *WebDocument) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (w *WebDocument) TypeName() string {
 	return "webDocument"
 }
 
@@ -220,13 +220,13 @@ var (
 // See https://core.telegram.org/constructor/webDocumentNoProxy for reference.
 type WebDocumentNoProxy struct {
 	// Document URL
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 	// File size
-	Size int `schemaname:"size"`
+	Size int `tl:"size"`
 	// MIME type
-	MimeType string `schemaname:"mime_type"`
+	MimeType string `tl:"mime_type"`
 	// Attributes for media types
-	Attributes []DocumentAttributeClass `schemaname:"attributes"`
+	Attributes []DocumentAttributeClass `tl:"attributes"`
 }
 
 // WebDocumentNoProxyTypeID is TL type id of WebDocumentNoProxy.
@@ -280,8 +280,8 @@ func (w *WebDocumentNoProxy) TypeID() uint32 {
 	return WebDocumentNoProxyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (w *WebDocumentNoProxy) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (w *WebDocumentNoProxy) TypeName() string {
 	return "webDocumentNoProxy"
 }
 
@@ -406,11 +406,11 @@ type WebDocumentClass interface {
 	bin.Decoder
 	construct() WebDocumentClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

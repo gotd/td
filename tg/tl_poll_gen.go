@@ -24,35 +24,35 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/poll for reference.
 type Poll struct {
 	// ID of the poll
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// Flags, see TL conditional fields¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether the poll is closed and doesn't accept any more answers
-	Closed bool `schemaname:"closed"`
+	Closed bool `tl:"closed"`
 	// Whether cast votes are publicly visible to all users (non-anonymous poll)
-	PublicVoters bool `schemaname:"public_voters"`
+	PublicVoters bool `tl:"public_voters"`
 	// Whether multiple options can be chosen as answer
-	MultipleChoice bool `schemaname:"multiple_choice"`
+	MultipleChoice bool `tl:"multiple_choice"`
 	// Whether this is a quiz (with wrong and correct answers, results shown in the return type)
-	Quiz bool `schemaname:"quiz"`
+	Quiz bool `tl:"quiz"`
 	// The question of the poll
-	Question string `schemaname:"question"`
+	Question string `tl:"question"`
 	// The possible answers, vote using messages.sendVote¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.sendVote
-	Answers []PollAnswer `schemaname:"answers"`
+	Answers []PollAnswer `tl:"answers"`
 	// Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date.
 	//
 	// Use SetClosePeriod and GetClosePeriod helpers.
-	ClosePeriod int `schemaname:"close_period"`
+	ClosePeriod int `tl:"close_period"`
 	// Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 seconds in the future; can't be used together with close_period.
 	//
 	// Use SetCloseDate and GetCloseDate helpers.
-	CloseDate int `schemaname:"close_date"`
+	CloseDate int `tl:"close_date"`
 }
 
 // PollTypeID is TL type id of Poll.
@@ -140,8 +140,8 @@ func (p *Poll) TypeID() uint32 {
 	return PollTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *Poll) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *Poll) TypeName() string {
 	return "poll"
 }
 

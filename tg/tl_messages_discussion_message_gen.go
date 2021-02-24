@@ -30,34 +30,34 @@ type MessagesDiscussionMessage struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Discussion messages
-	Messages []MessageClass `schemaname:"messages"`
+	Messages []MessageClass `tl:"messages"`
 	// Message ID of latest reply in this thread¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetMaxID and GetMaxID helpers.
-	MaxID int `schemaname:"max_id"`
+	MaxID int `tl:"max_id"`
 	// Message ID of latest read incoming message in this thread¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetReadInboxMaxID and GetReadInboxMaxID helpers.
-	ReadInboxMaxID int `schemaname:"read_inbox_max_id"`
+	ReadInboxMaxID int `tl:"read_inbox_max_id"`
 	// Message ID of latest read outgoing message in this thread¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetReadOutboxMaxID and GetReadOutboxMaxID helpers.
-	ReadOutboxMaxID int `schemaname:"read_outbox_max_id"`
+	ReadOutboxMaxID int `tl:"read_outbox_max_id"`
 	// Chats mentioned in constructor
-	Chats []ChatClass `schemaname:"chats"`
+	Chats []ChatClass `tl:"chats"`
 	// Users mentioned in constructor
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // MessagesDiscussionMessageTypeID is TL type id of MessagesDiscussionMessage.
@@ -133,8 +133,8 @@ func (d *MessagesDiscussionMessage) TypeID() uint32 {
 	return MessagesDiscussionMessageTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *MessagesDiscussionMessage) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *MessagesDiscussionMessage) TypeName() string {
 	return "messages.discussionMessage"
 }
 

@@ -51,8 +51,8 @@ func (g *HelpGetSupportNameRequest) TypeID() uint32 {
 	return HelpGetSupportNameRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *HelpGetSupportNameRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *HelpGetSupportNameRequest) TypeName() string {
 	return "help.getSupportName"
 }
 

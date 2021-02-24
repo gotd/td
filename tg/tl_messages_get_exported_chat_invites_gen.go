@@ -23,23 +23,23 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getExportedChatInvites for reference.
 type MessagesGetExportedChatInvitesRequest struct {
 	// Flags field of MessagesGetExportedChatInvitesRequest.
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Revoked field of MessagesGetExportedChatInvitesRequest.
-	Revoked bool `schemaname:"revoked"`
+	Revoked bool `tl:"revoked"`
 	// Peer field of MessagesGetExportedChatInvitesRequest.
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// AdminID field of MessagesGetExportedChatInvitesRequest.
-	AdminID InputUserClass `schemaname:"admin_id"`
+	AdminID InputUserClass `tl:"admin_id"`
 	// OffsetDate field of MessagesGetExportedChatInvitesRequest.
 	//
 	// Use SetOffsetDate and GetOffsetDate helpers.
-	OffsetDate int `schemaname:"offset_date"`
+	OffsetDate int `tl:"offset_date"`
 	// OffsetLink field of MessagesGetExportedChatInvitesRequest.
 	//
 	// Use SetOffsetLink and GetOffsetLink helpers.
-	OffsetLink string `schemaname:"offset_link"`
+	OffsetLink string `tl:"offset_link"`
 	// Limit field of MessagesGetExportedChatInvitesRequest.
-	Limit int `schemaname:"limit"`
+	Limit int `tl:"limit"`
 }
 
 // MessagesGetExportedChatInvitesRequestTypeID is TL type id of MessagesGetExportedChatInvitesRequest.
@@ -112,8 +112,8 @@ func (g *MessagesGetExportedChatInvitesRequest) TypeID() uint32 {
 	return MessagesGetExportedChatInvitesRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetExportedChatInvitesRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetExportedChatInvitesRequest) TypeName() string {
 	return "messages.getExportedChatInvites"
 }
 

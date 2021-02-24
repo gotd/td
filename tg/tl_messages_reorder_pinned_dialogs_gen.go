@@ -27,16 +27,16 @@ type MessagesReorderPinnedDialogsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// If set, dialogs pinned server-side but not present in the order field will be unpinned.
-	Force bool `schemaname:"force"`
+	Force bool `tl:"force"`
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
-	FolderID int `schemaname:"folder_id"`
+	FolderID int `tl:"folder_id"`
 	// New dialog order
-	Order []InputDialogPeerClass `schemaname:"order"`
+	Order []InputDialogPeerClass `tl:"order"`
 }
 
 // MessagesReorderPinnedDialogsRequestTypeID is TL type id of MessagesReorderPinnedDialogsRequest.
@@ -88,8 +88,8 @@ func (r *MessagesReorderPinnedDialogsRequest) TypeID() uint32 {
 	return MessagesReorderPinnedDialogsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *MessagesReorderPinnedDialogsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *MessagesReorderPinnedDialogsRequest) TypeName() string {
 	return "messages.reorderPinnedDialogs"
 }
 

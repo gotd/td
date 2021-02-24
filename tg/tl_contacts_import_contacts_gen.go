@@ -28,7 +28,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/contacts.importContacts for reference.
 type ContactsImportContactsRequest struct {
 	// List of contacts to import
-	Contacts []InputPhoneContact `schemaname:"contacts"`
+	Contacts []InputPhoneContact `tl:"contacts"`
 }
 
 // ContactsImportContactsRequestTypeID is TL type id of ContactsImportContactsRequest.
@@ -67,8 +67,8 @@ func (i *ContactsImportContactsRequest) TypeID() uint32 {
 	return ContactsImportContactsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *ContactsImportContactsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *ContactsImportContactsRequest) TypeName() string {
 	return "contacts.importContacts"
 }
 

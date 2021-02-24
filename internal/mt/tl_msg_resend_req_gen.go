@@ -21,7 +21,7 @@ var _ = errors.Is
 // MsgResendReq represents TL type `msg_resend_req#7d861a08`.
 type MsgResendReq struct {
 	// MsgIds field of MsgResendReq.
-	MsgIds []int64 `schemaname:"msg_ids"`
+	MsgIds []int64 `tl:"msg_ids"`
 }
 
 // MsgResendReqTypeID is TL type id of MsgResendReq.
@@ -60,8 +60,8 @@ func (m *MsgResendReq) TypeID() uint32 {
 	return MsgResendReqTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *MsgResendReq) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *MsgResendReq) TypeName() string {
 	return "msg_resend_req"
 }
 

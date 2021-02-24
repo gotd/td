@@ -27,11 +27,11 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.requestUrlAuth for reference.
 type MessagesRequestUrlAuthRequest struct {
 	// Peer where the message is located
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// The message
-	MsgID int `schemaname:"msg_id"`
+	MsgID int `tl:"msg_id"`
 	// The ID of the button with the authorization request
-	ButtonID int `schemaname:"button_id"`
+	ButtonID int `tl:"button_id"`
 }
 
 // MessagesRequestUrlAuthRequestTypeID is TL type id of MessagesRequestUrlAuthRequest.
@@ -80,8 +80,8 @@ func (r *MessagesRequestUrlAuthRequest) TypeID() uint32 {
 	return MessagesRequestUrlAuthRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *MessagesRequestUrlAuthRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *MessagesRequestUrlAuthRequest) TypeName() string {
 	return "messages.requestUrlAuth"
 }
 

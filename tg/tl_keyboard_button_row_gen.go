@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/keyboardButtonRow for reference.
 type KeyboardButtonRow struct {
 	// Bot or inline keyboard buttons
-	Buttons []KeyboardButtonClass `schemaname:"buttons"`
+	Buttons []KeyboardButtonClass `tl:"buttons"`
 }
 
 // KeyboardButtonRowTypeID is TL type id of KeyboardButtonRow.
@@ -63,8 +63,8 @@ func (k *KeyboardButtonRow) TypeID() uint32 {
 	return KeyboardButtonRowTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (k *KeyboardButtonRow) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (k *KeyboardButtonRow) TypeName() string {
 	return "keyboardButtonRow"
 }
 

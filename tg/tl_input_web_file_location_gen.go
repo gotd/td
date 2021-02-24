@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/inputWebFileLocation for reference.
 type InputWebFileLocation struct {
 	// HTTP URL of file
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 	// Access hash
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 }
 
 // InputWebFileLocationTypeID is TL type id of InputWebFileLocation.
@@ -70,8 +70,8 @@ func (i *InputWebFileLocation) TypeID() uint32 {
 	return InputWebFileLocationTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputWebFileLocation) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputWebFileLocation) TypeName() string {
 	return "inputWebFileLocation"
 }
 
@@ -138,17 +138,17 @@ var (
 // See https://core.telegram.org/constructor/inputWebFileGeoPointLocation for reference.
 type InputWebFileGeoPointLocation struct {
 	// Geolocation
-	GeoPoint InputGeoPointClass `schemaname:"geo_point"`
+	GeoPoint InputGeoPointClass `tl:"geo_point"`
 	// Access hash
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 	// Map width in pixels before applying scale; 16-1024
-	W int `schemaname:"w"`
+	W int `tl:"w"`
 	// Map height in pixels before applying scale; 16-1024
-	H int `schemaname:"h"`
+	H int `tl:"h"`
 	// Map zoom level; 13-20
-	Zoom int `schemaname:"zoom"`
+	Zoom int `tl:"zoom"`
 	// Map scale; 1-3
-	Scale int `schemaname:"scale"`
+	Scale int `tl:"scale"`
 }
 
 // InputWebFileGeoPointLocationTypeID is TL type id of InputWebFileGeoPointLocation.
@@ -212,8 +212,8 @@ func (i *InputWebFileGeoPointLocation) TypeID() uint32 {
 	return InputWebFileGeoPointLocationTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputWebFileGeoPointLocation) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputWebFileGeoPointLocation) TypeName() string {
 	return "inputWebFileGeoPointLocation"
 }
 
@@ -350,11 +350,11 @@ type InputWebFileLocationClass interface {
 	bin.Decoder
 	construct() InputWebFileLocationClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

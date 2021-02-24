@@ -27,11 +27,11 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.readDiscussion for reference.
 type MessagesReadDiscussionRequest struct {
 	// Group ID
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// ID of message that started the thread
-	MsgID int `schemaname:"msg_id"`
+	MsgID int `tl:"msg_id"`
 	// ID up to which thread messages were read
-	ReadMaxID int `schemaname:"read_max_id"`
+	ReadMaxID int `tl:"read_max_id"`
 }
 
 // MessagesReadDiscussionRequestTypeID is TL type id of MessagesReadDiscussionRequest.
@@ -80,8 +80,8 @@ func (r *MessagesReadDiscussionRequest) TypeID() uint32 {
 	return MessagesReadDiscussionRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *MessagesReadDiscussionRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *MessagesReadDiscussionRequest) TypeName() string {
 	return "messages.readDiscussion"
 }
 

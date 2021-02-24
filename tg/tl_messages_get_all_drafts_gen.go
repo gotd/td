@@ -54,8 +54,8 @@ func (g *MessagesGetAllDraftsRequest) TypeID() uint32 {
 	return MessagesGetAllDraftsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetAllDraftsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetAllDraftsRequest) TypeName() string {
 	return "messages.getAllDrafts"
 }
 

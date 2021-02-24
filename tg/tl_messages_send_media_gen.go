@@ -27,43 +27,43 @@ type MessagesSendMediaRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Send message silently (no notification should be triggered)
-	Silent bool `schemaname:"silent"`
+	Silent bool `tl:"silent"`
 	// Send message in background
-	Background bool `schemaname:"background"`
+	Background bool `tl:"background"`
 	// Clear the draft
-	ClearDraft bool `schemaname:"clear_draft"`
+	ClearDraft bool `tl:"clear_draft"`
 	// Destination
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// Message ID to which this message should reply to
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
-	ReplyToMsgID int `schemaname:"reply_to_msg_id"`
+	ReplyToMsgID int `tl:"reply_to_msg_id"`
 	// Attached media
-	Media InputMediaClass `schemaname:"media"`
+	Media InputMediaClass `tl:"media"`
 	// Caption
-	Message string `schemaname:"message"`
+	Message string `tl:"message"`
 	// Random ID to avoid resending the same message
-	RandomID int64 `schemaname:"random_id"`
+	RandomID int64 `tl:"random_id"`
 	// Reply markup for bot keyboards
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `schemaname:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
 	// Message entities¹ for styled text
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `schemaname:"entities"`
+	Entities []MessageEntityClass `tl:"entities"`
 	// Scheduled message date for scheduled messages¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/scheduled-messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
-	ScheduleDate int `schemaname:"schedule_date"`
+	ScheduleDate int `tl:"schedule_date"`
 }
 
 // MessagesSendMediaRequestTypeID is TL type id of MessagesSendMediaRequest.
@@ -167,8 +167,8 @@ func (s *MessagesSendMediaRequest) TypeID() uint32 {
 	return MessagesSendMediaRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *MessagesSendMediaRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *MessagesSendMediaRequest) TypeName() string {
 	return "messages.sendMedia"
 }
 

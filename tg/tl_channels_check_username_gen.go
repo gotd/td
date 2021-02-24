@@ -27,9 +27,9 @@ type ChannelsCheckUsernameRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass `schemaname:"channel"`
+	Channel InputChannelClass `tl:"channel"`
 	// The username to check
-	Username string `schemaname:"username"`
+	Username string `tl:"username"`
 }
 
 // ChannelsCheckUsernameRequestTypeID is TL type id of ChannelsCheckUsernameRequest.
@@ -73,8 +73,8 @@ func (c *ChannelsCheckUsernameRequest) TypeID() uint32 {
 	return ChannelsCheckUsernameRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelsCheckUsernameRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelsCheckUsernameRequest) TypeName() string {
 	return "channels.checkUsername"
 }
 

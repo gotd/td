@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.sendScreenshotNotification for reference.
 type MessagesSendScreenshotNotificationRequest struct {
 	// Other user
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// ID of message that was screenshotted, can be 0
-	ReplyToMsgID int `schemaname:"reply_to_msg_id"`
+	ReplyToMsgID int `tl:"reply_to_msg_id"`
 	// Random ID to avoid message resending
-	RandomID int64 `schemaname:"random_id"`
+	RandomID int64 `tl:"random_id"`
 }
 
 // MessagesSendScreenshotNotificationRequestTypeID is TL type id of MessagesSendScreenshotNotificationRequest.
@@ -77,8 +77,8 @@ func (s *MessagesSendScreenshotNotificationRequest) TypeID() uint32 {
 	return MessagesSendScreenshotNotificationRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *MessagesSendScreenshotNotificationRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *MessagesSendScreenshotNotificationRequest) TypeName() string {
 	return "messages.sendScreenshotNotification"
 }
 

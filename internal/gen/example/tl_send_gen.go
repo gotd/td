@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://localhost:80/doc/method/send for reference.
 type SendRequest struct {
 	// Msg field of SendRequest.
-	Msg SMS `schemaname:"msg"`
+	Msg SMS `tl:"msg"`
 }
 
 // SendRequestTypeID is TL type id of SendRequest.
@@ -62,8 +62,8 @@ func (s *SendRequest) TypeID() uint32 {
 	return SendRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SendRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SendRequest) TypeName() string {
 	return "send"
 }
 

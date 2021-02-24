@@ -21,7 +21,7 @@ var _ = errors.Is
 // ContactStatusVector is a box for Vector<ContactStatus>
 type ContactStatusVector struct {
 	// Elements of Vector<ContactStatus>
-	Elems []ContactStatus `schemaname:"Elems"`
+	Elems []ContactStatus `tl:"Elems"`
 }
 
 // ContactStatusVectorTypeID is TL type id of ContactStatusVector.
@@ -60,8 +60,8 @@ func (vec *ContactStatusVector) TypeID() uint32 {
 	return ContactStatusVectorTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (vec *ContactStatusVector) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (vec *ContactStatusVector) TypeName() string {
 	return ""
 }
 

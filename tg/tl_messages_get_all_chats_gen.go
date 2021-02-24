@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getAllChats for reference.
 type MessagesGetAllChatsRequest struct {
 	// Except these chats/channels/supergroups
-	ExceptIds []int `schemaname:"except_ids"`
+	ExceptIds []int `tl:"except_ids"`
 }
 
 // MessagesGetAllChatsRequestTypeID is TL type id of MessagesGetAllChatsRequest.
@@ -63,8 +63,8 @@ func (g *MessagesGetAllChatsRequest) TypeID() uint32 {
 	return MessagesGetAllChatsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetAllChatsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetAllChatsRequest) TypeName() string {
 	return "messages.getAllChats"
 }
 

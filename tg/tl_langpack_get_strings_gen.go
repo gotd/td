@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/method/langpack.getStrings for reference.
 type LangpackGetStringsRequest struct {
 	// Language pack name
-	LangPack string `schemaname:"lang_pack"`
+	LangPack string `tl:"lang_pack"`
 	// Language code
-	LangCode string `schemaname:"lang_code"`
+	LangCode string `tl:"lang_code"`
 	// Strings to get
-	Keys []string `schemaname:"keys"`
+	Keys []string `tl:"keys"`
 }
 
 // LangpackGetStringsRequestTypeID is TL type id of LangpackGetStringsRequest.
@@ -77,8 +77,8 @@ func (g *LangpackGetStringsRequest) TypeID() uint32 {
 	return LangpackGetStringsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *LangpackGetStringsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *LangpackGetStringsRequest) TypeName() string {
 	return "langpack.getStrings"
 }
 

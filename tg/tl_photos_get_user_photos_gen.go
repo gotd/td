@@ -24,13 +24,13 @@ var _ = errors.Is
 // See https://core.telegram.org/method/photos.getUserPhotos for reference.
 type PhotosGetUserPhotosRequest struct {
 	// User ID
-	UserID InputUserClass `schemaname:"user_id"`
+	UserID InputUserClass `tl:"user_id"`
 	// Number of list elements to be skipped
-	Offset int `schemaname:"offset"`
+	Offset int `tl:"offset"`
 	// If a positive value was transferred, the method will return only photos with IDs less than the set one
-	MaxID int64 `schemaname:"max_id"`
+	MaxID int64 `tl:"max_id"`
 	// Number of list elements to be returned
-	Limit int `schemaname:"limit"`
+	Limit int `tl:"limit"`
 }
 
 // PhotosGetUserPhotosRequestTypeID is TL type id of PhotosGetUserPhotosRequest.
@@ -84,8 +84,8 @@ func (g *PhotosGetUserPhotosRequest) TypeID() uint32 {
 	return PhotosGetUserPhotosRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *PhotosGetUserPhotosRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *PhotosGetUserPhotosRequest) TypeName() string {
 	return "photos.getUserPhotos"
 }
 

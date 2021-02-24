@@ -50,8 +50,8 @@ func (i *Int) TypeID() uint32 {
 	return IntTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *Int) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *Int) TypeName() string {
 	return "int"
 }
 

@@ -28,29 +28,29 @@ var _ = errors.Is
 // See https://core.telegram.org/method/stats.getMessagePublicForwards for reference.
 type StatsGetMessagePublicForwardsRequest struct {
 	// Source channel
-	Channel InputChannelClass `schemaname:"channel"`
+	Channel InputChannelClass `tl:"channel"`
 	// Source message ID
-	MsgID int `schemaname:"msg_id"`
+	MsgID int `tl:"msg_id"`
 	// Initially 0, then set to the next_rate parameter of messages.messagesSlice¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/messages.messagesSlice
-	OffsetRate int `schemaname:"offset_rate"`
+	OffsetRate int `tl:"offset_rate"`
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetPeer InputPeerClass `schemaname:"offset_peer"`
+	OffsetPeer InputPeerClass `tl:"offset_peer"`
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetID int `schemaname:"offset_id"`
+	OffsetID int `tl:"offset_id"`
 	// Maximum number of results to return, see pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int `schemaname:"limit"`
+	Limit int `tl:"limit"`
 }
 
 // StatsGetMessagePublicForwardsRequestTypeID is TL type id of StatsGetMessagePublicForwardsRequest.
@@ -114,8 +114,8 @@ func (g *StatsGetMessagePublicForwardsRequest) TypeID() uint32 {
 	return StatsGetMessagePublicForwardsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *StatsGetMessagePublicForwardsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *StatsGetMessagePublicForwardsRequest) TypeName() string {
 	return "stats.getMessagePublicForwards"
 }
 

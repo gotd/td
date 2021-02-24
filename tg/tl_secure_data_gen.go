@@ -28,11 +28,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/secureData for reference.
 type SecureData struct {
 	// Data
-	Data []byte `schemaname:"data"`
+	Data []byte `tl:"data"`
 	// Data hash
-	DataHash []byte `schemaname:"data_hash"`
+	DataHash []byte `tl:"data_hash"`
 	// Secret
-	Secret []byte `schemaname:"secret"`
+	Secret []byte `tl:"secret"`
 }
 
 // SecureDataTypeID is TL type id of SecureData.
@@ -81,8 +81,8 @@ func (s *SecureData) TypeID() uint32 {
 	return SecureDataTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SecureData) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SecureData) TypeName() string {
 	return "secureData"
 }
 

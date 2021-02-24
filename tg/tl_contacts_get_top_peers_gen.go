@@ -27,38 +27,38 @@ type ContactsGetTopPeersRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Users we've chatted most frequently with
-	Correspondents bool `schemaname:"correspondents"`
+	Correspondents bool `tl:"correspondents"`
 	// Most used bots
-	BotsPm bool `schemaname:"bots_pm"`
+	BotsPm bool `tl:"bots_pm"`
 	// Most used inline bots
-	BotsInline bool `schemaname:"bots_inline"`
+	BotsInline bool `tl:"bots_inline"`
 	// Most frequently called users
-	PhoneCalls bool `schemaname:"phone_calls"`
+	PhoneCalls bool `tl:"phone_calls"`
 	// Users to which the users often forwards messages to
-	ForwardUsers bool `schemaname:"forward_users"`
+	ForwardUsers bool `tl:"forward_users"`
 	// Chats to which the users often forwards messages to
-	ForwardChats bool `schemaname:"forward_chats"`
+	ForwardChats bool `tl:"forward_chats"`
 	// Often-opened groups and supergroups
-	Groups bool `schemaname:"groups"`
+	Groups bool `tl:"groups"`
 	// Most frequently visited channels
-	Channels bool `schemaname:"channels"`
+	Channels bool `tl:"channels"`
 	// Offset for pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Offset int `schemaname:"offset"`
+	Offset int `tl:"offset"`
 	// Maximum number of results to return, see pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int `schemaname:"limit"`
+	Limit int `tl:"limit"`
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `schemaname:"hash"`
+	Hash int `tl:"hash"`
 }
 
 // ContactsGetTopPeersRequestTypeID is TL type id of ContactsGetTopPeersRequest.
@@ -150,8 +150,8 @@ func (g *ContactsGetTopPeersRequest) TypeID() uint32 {
 	return ContactsGetTopPeersRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *ContactsGetTopPeersRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *ContactsGetTopPeersRequest) TypeName() string {
 	return "contacts.getTopPeers"
 }
 

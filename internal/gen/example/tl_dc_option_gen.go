@@ -23,27 +23,27 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/dcOption for reference.
 type DcOption struct {
 	// Flags field of DcOption.
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Ipv6 field of DcOption.
-	Ipv6 bool `schemaname:"ipv6"`
+	Ipv6 bool `tl:"ipv6"`
 	// MediaOnly field of DcOption.
-	MediaOnly bool `schemaname:"media_only"`
+	MediaOnly bool `tl:"media_only"`
 	// TcpoOnly field of DcOption.
-	TcpoOnly bool `schemaname:"tcpo_only"`
+	TcpoOnly bool `tl:"tcpo_only"`
 	// CDN field of DcOption.
-	CDN bool `schemaname:"cdn"`
+	CDN bool `tl:"cdn"`
 	// Static field of DcOption.
-	Static bool `schemaname:"static"`
+	Static bool `tl:"static"`
 	// ID field of DcOption.
-	ID int `schemaname:"id"`
+	ID int `tl:"id"`
 	// IPAddress field of DcOption.
-	IPAddress string `schemaname:"ip_address"`
+	IPAddress string `tl:"ip_address"`
 	// Port field of DcOption.
-	Port int `schemaname:"port"`
+	Port int `tl:"port"`
 	// Secret field of DcOption.
 	//
 	// Use SetSecret and GetSecret helpers.
-	Secret []byte `schemaname:"secret"`
+	Secret []byte `tl:"secret"`
 }
 
 // DcOptionTypeID is TL type id of DcOption.
@@ -128,8 +128,8 @@ func (d *DcOption) TypeID() uint32 {
 	return DcOptionTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DcOption) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DcOption) TypeName() string {
 	return "dcOption"
 }
 

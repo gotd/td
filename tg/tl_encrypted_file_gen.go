@@ -51,8 +51,8 @@ func (e *EncryptedFileEmpty) TypeID() uint32 {
 	return EncryptedFileEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (e *EncryptedFileEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (e *EncryptedFileEmpty) TypeName() string {
 	return "encryptedFileEmpty"
 }
 
@@ -93,15 +93,15 @@ var (
 // See https://core.telegram.org/constructor/encryptedFile for reference.
 type EncryptedFile struct {
 	// File ID
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// Checking sum depending on user ID
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 	// File size in bytes
-	Size int `schemaname:"size"`
+	Size int `tl:"size"`
 	// Number of data centre
-	DCID int `schemaname:"dc_id"`
+	DCID int `tl:"dc_id"`
 	// 32-bit fingerprint of key used for file encryption
-	KeyFingerprint int `schemaname:"key_fingerprint"`
+	KeyFingerprint int `tl:"key_fingerprint"`
 }
 
 // EncryptedFileTypeID is TL type id of EncryptedFile.
@@ -160,8 +160,8 @@ func (e *EncryptedFile) TypeID() uint32 {
 	return EncryptedFileTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (e *EncryptedFile) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (e *EncryptedFile) TypeName() string {
 	return "encryptedFile"
 }
 
@@ -280,11 +280,11 @@ type EncryptedFileClass interface {
 	bin.Decoder
 	construct() EncryptedFileClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

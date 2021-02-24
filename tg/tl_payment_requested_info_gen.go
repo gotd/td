@@ -27,23 +27,23 @@ type PaymentRequestedInfo struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// User's full name
 	//
 	// Use SetName and GetName helpers.
-	Name string `schemaname:"name"`
+	Name string `tl:"name"`
 	// User's phone number
 	//
 	// Use SetPhone and GetPhone helpers.
-	Phone string `schemaname:"phone"`
+	Phone string `tl:"phone"`
 	// User's email address
 	//
 	// Use SetEmail and GetEmail helpers.
-	Email string `schemaname:"email"`
+	Email string `tl:"email"`
 	// User's shipping address
 	//
 	// Use SetShippingAddress and GetShippingAddress helpers.
-	ShippingAddress PostAddress `schemaname:"shipping_address"`
+	ShippingAddress PostAddress `tl:"shipping_address"`
 }
 
 // PaymentRequestedInfoTypeID is TL type id of PaymentRequestedInfo.
@@ -112,8 +112,8 @@ func (p *PaymentRequestedInfo) TypeID() uint32 {
 	return PaymentRequestedInfoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PaymentRequestedInfo) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PaymentRequestedInfo) TypeName() string {
 	return "paymentRequestedInfo"
 }
 

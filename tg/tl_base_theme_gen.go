@@ -51,8 +51,8 @@ func (b *BaseThemeClassic) TypeID() uint32 {
 	return BaseThemeClassicTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *BaseThemeClassic) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *BaseThemeClassic) TypeName() string {
 	return "baseThemeClassic"
 }
 
@@ -120,8 +120,8 @@ func (b *BaseThemeDay) TypeID() uint32 {
 	return BaseThemeDayTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *BaseThemeDay) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *BaseThemeDay) TypeName() string {
 	return "baseThemeDay"
 }
 
@@ -189,8 +189,8 @@ func (b *BaseThemeNight) TypeID() uint32 {
 	return BaseThemeNightTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *BaseThemeNight) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *BaseThemeNight) TypeName() string {
 	return "baseThemeNight"
 }
 
@@ -258,8 +258,8 @@ func (b *BaseThemeTinted) TypeID() uint32 {
 	return BaseThemeTintedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *BaseThemeTinted) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *BaseThemeTinted) TypeName() string {
 	return "baseThemeTinted"
 }
 
@@ -327,8 +327,8 @@ func (b *BaseThemeArctic) TypeID() uint32 {
 	return BaseThemeArcticTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *BaseThemeArctic) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *BaseThemeArctic) TypeName() string {
 	return "baseThemeArctic"
 }
 
@@ -385,11 +385,11 @@ type BaseThemeClass interface {
 	bin.Decoder
 	construct() BaseThemeClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

@@ -51,8 +51,8 @@ func (g *HelpGetTermsOfServiceUpdateRequest) TypeID() uint32 {
 	return HelpGetTermsOfServiceUpdateRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *HelpGetTermsOfServiceUpdateRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *HelpGetTermsOfServiceUpdateRequest) TypeName() string {
 	return "help.getTermsOfServiceUpdate"
 }
 

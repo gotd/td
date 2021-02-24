@@ -23,127 +23,127 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/config for reference.
 type Config struct {
 	// Flags field of Config.
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// PhonecallsEnabled field of Config.
-	PhonecallsEnabled bool `schemaname:"phonecalls_enabled"`
+	PhonecallsEnabled bool `tl:"phonecalls_enabled"`
 	// DefaultP2PContacts field of Config.
-	DefaultP2PContacts bool `schemaname:"default_p2p_contacts"`
+	DefaultP2PContacts bool `tl:"default_p2p_contacts"`
 	// PreloadFeaturedStickers field of Config.
-	PreloadFeaturedStickers bool `schemaname:"preload_featured_stickers"`
+	PreloadFeaturedStickers bool `tl:"preload_featured_stickers"`
 	// IgnorePhoneEntities field of Config.
-	IgnorePhoneEntities bool `schemaname:"ignore_phone_entities"`
+	IgnorePhoneEntities bool `tl:"ignore_phone_entities"`
 	// RevokePmInbox field of Config.
-	RevokePmInbox bool `schemaname:"revoke_pm_inbox"`
+	RevokePmInbox bool `tl:"revoke_pm_inbox"`
 	// BlockedMode field of Config.
-	BlockedMode bool `schemaname:"blocked_mode"`
+	BlockedMode bool `tl:"blocked_mode"`
 	// PFSEnabled field of Config.
-	PFSEnabled bool `schemaname:"pfs_enabled"`
+	PFSEnabled bool `tl:"pfs_enabled"`
 	// Date field of Config.
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 	// Expires field of Config.
-	Expires int `schemaname:"expires"`
+	Expires int `tl:"expires"`
 	// TestMode field of Config.
-	TestMode bool `schemaname:"test_mode"`
+	TestMode bool `tl:"test_mode"`
 	// ThisDC field of Config.
-	ThisDC int `schemaname:"this_dc"`
+	ThisDC int `tl:"this_dc"`
 	// DCOptions field of Config.
-	DCOptions []DcOption `schemaname:"dc_options"`
+	DCOptions []DcOption `tl:"dc_options"`
 	// DCTxtDomainName field of Config.
-	DCTxtDomainName string `schemaname:"dc_txt_domain_name"`
+	DCTxtDomainName string `tl:"dc_txt_domain_name"`
 	// ChatSizeMax field of Config.
-	ChatSizeMax int `schemaname:"chat_size_max"`
+	ChatSizeMax int `tl:"chat_size_max"`
 	// MegagroupSizeMax field of Config.
-	MegagroupSizeMax int `schemaname:"megagroup_size_max"`
+	MegagroupSizeMax int `tl:"megagroup_size_max"`
 	// ForwardedCountMax field of Config.
-	ForwardedCountMax int `schemaname:"forwarded_count_max"`
+	ForwardedCountMax int `tl:"forwarded_count_max"`
 	// OnlineUpdatePeriodMs field of Config.
-	OnlineUpdatePeriodMs int `schemaname:"online_update_period_ms"`
+	OnlineUpdatePeriodMs int `tl:"online_update_period_ms"`
 	// OfflineBlurTimeoutMs field of Config.
-	OfflineBlurTimeoutMs int `schemaname:"offline_blur_timeout_ms"`
+	OfflineBlurTimeoutMs int `tl:"offline_blur_timeout_ms"`
 	// OfflineIdleTimeoutMs field of Config.
-	OfflineIdleTimeoutMs int `schemaname:"offline_idle_timeout_ms"`
+	OfflineIdleTimeoutMs int `tl:"offline_idle_timeout_ms"`
 	// OnlineCloudTimeoutMs field of Config.
-	OnlineCloudTimeoutMs int `schemaname:"online_cloud_timeout_ms"`
+	OnlineCloudTimeoutMs int `tl:"online_cloud_timeout_ms"`
 	// NotifyCloudDelayMs field of Config.
-	NotifyCloudDelayMs int `schemaname:"notify_cloud_delay_ms"`
+	NotifyCloudDelayMs int `tl:"notify_cloud_delay_ms"`
 	// NotifyDefaultDelayMs field of Config.
-	NotifyDefaultDelayMs int `schemaname:"notify_default_delay_ms"`
+	NotifyDefaultDelayMs int `tl:"notify_default_delay_ms"`
 	// PushChatPeriodMs field of Config.
-	PushChatPeriodMs int `schemaname:"push_chat_period_ms"`
+	PushChatPeriodMs int `tl:"push_chat_period_ms"`
 	// PushChatLimit field of Config.
-	PushChatLimit int `schemaname:"push_chat_limit"`
+	PushChatLimit int `tl:"push_chat_limit"`
 	// SavedGifsLimit field of Config.
-	SavedGifsLimit int `schemaname:"saved_gifs_limit"`
+	SavedGifsLimit int `tl:"saved_gifs_limit"`
 	// EditTimeLimit field of Config.
-	EditTimeLimit int `schemaname:"edit_time_limit"`
+	EditTimeLimit int `tl:"edit_time_limit"`
 	// RevokeTimeLimit field of Config.
-	RevokeTimeLimit int `schemaname:"revoke_time_limit"`
+	RevokeTimeLimit int `tl:"revoke_time_limit"`
 	// RevokePmTimeLimit field of Config.
-	RevokePmTimeLimit int `schemaname:"revoke_pm_time_limit"`
+	RevokePmTimeLimit int `tl:"revoke_pm_time_limit"`
 	// RatingEDecay field of Config.
-	RatingEDecay int `schemaname:"rating_e_decay"`
+	RatingEDecay int `tl:"rating_e_decay"`
 	// StickersRecentLimit field of Config.
-	StickersRecentLimit int `schemaname:"stickers_recent_limit"`
+	StickersRecentLimit int `tl:"stickers_recent_limit"`
 	// StickersFavedLimit field of Config.
-	StickersFavedLimit int `schemaname:"stickers_faved_limit"`
+	StickersFavedLimit int `tl:"stickers_faved_limit"`
 	// ChannelsReadMediaPeriod field of Config.
-	ChannelsReadMediaPeriod int `schemaname:"channels_read_media_period"`
+	ChannelsReadMediaPeriod int `tl:"channels_read_media_period"`
 	// TmpSessions field of Config.
 	//
 	// Use SetTmpSessions and GetTmpSessions helpers.
-	TmpSessions int `schemaname:"tmp_sessions"`
+	TmpSessions int `tl:"tmp_sessions"`
 	// PinnedDialogsCountMax field of Config.
-	PinnedDialogsCountMax int `schemaname:"pinned_dialogs_count_max"`
+	PinnedDialogsCountMax int `tl:"pinned_dialogs_count_max"`
 	// PinnedInfolderCountMax field of Config.
-	PinnedInfolderCountMax int `schemaname:"pinned_infolder_count_max"`
+	PinnedInfolderCountMax int `tl:"pinned_infolder_count_max"`
 	// CallReceiveTimeoutMs field of Config.
-	CallReceiveTimeoutMs int `schemaname:"call_receive_timeout_ms"`
+	CallReceiveTimeoutMs int `tl:"call_receive_timeout_ms"`
 	// CallRingTimeoutMs field of Config.
-	CallRingTimeoutMs int `schemaname:"call_ring_timeout_ms"`
+	CallRingTimeoutMs int `tl:"call_ring_timeout_ms"`
 	// CallConnectTimeoutMs field of Config.
-	CallConnectTimeoutMs int `schemaname:"call_connect_timeout_ms"`
+	CallConnectTimeoutMs int `tl:"call_connect_timeout_ms"`
 	// CallPacketTimeoutMs field of Config.
-	CallPacketTimeoutMs int `schemaname:"call_packet_timeout_ms"`
+	CallPacketTimeoutMs int `tl:"call_packet_timeout_ms"`
 	// MeURLPrefix field of Config.
-	MeURLPrefix string `schemaname:"me_url_prefix"`
+	MeURLPrefix string `tl:"me_url_prefix"`
 	// AutoupdateURLPrefix field of Config.
 	//
 	// Use SetAutoupdateURLPrefix and GetAutoupdateURLPrefix helpers.
-	AutoupdateURLPrefix string `schemaname:"autoupdate_url_prefix"`
+	AutoupdateURLPrefix string `tl:"autoupdate_url_prefix"`
 	// GifSearchUsername field of Config.
 	//
 	// Use SetGifSearchUsername and GetGifSearchUsername helpers.
-	GifSearchUsername string `schemaname:"gif_search_username"`
+	GifSearchUsername string `tl:"gif_search_username"`
 	// VenueSearchUsername field of Config.
 	//
 	// Use SetVenueSearchUsername and GetVenueSearchUsername helpers.
-	VenueSearchUsername string `schemaname:"venue_search_username"`
+	VenueSearchUsername string `tl:"venue_search_username"`
 	// ImgSearchUsername field of Config.
 	//
 	// Use SetImgSearchUsername and GetImgSearchUsername helpers.
-	ImgSearchUsername string `schemaname:"img_search_username"`
+	ImgSearchUsername string `tl:"img_search_username"`
 	// StaticMapsProvider field of Config.
 	//
 	// Use SetStaticMapsProvider and GetStaticMapsProvider helpers.
-	StaticMapsProvider string `schemaname:"static_maps_provider"`
+	StaticMapsProvider string `tl:"static_maps_provider"`
 	// CaptionLengthMax field of Config.
-	CaptionLengthMax int `schemaname:"caption_length_max"`
+	CaptionLengthMax int `tl:"caption_length_max"`
 	// MessageLengthMax field of Config.
-	MessageLengthMax int `schemaname:"message_length_max"`
+	MessageLengthMax int `tl:"message_length_max"`
 	// WebfileDCID field of Config.
-	WebfileDCID int `schemaname:"webfile_dc_id"`
+	WebfileDCID int `tl:"webfile_dc_id"`
 	// SuggestedLangCode field of Config.
 	//
 	// Use SetSuggestedLangCode and GetSuggestedLangCode helpers.
-	SuggestedLangCode string `schemaname:"suggested_lang_code"`
+	SuggestedLangCode string `tl:"suggested_lang_code"`
 	// LangPackVersion field of Config.
 	//
 	// Use SetLangPackVersion and GetLangPackVersion helpers.
-	LangPackVersion int `schemaname:"lang_pack_version"`
+	LangPackVersion int `tl:"lang_pack_version"`
 	// BaseLangPackVersion field of Config.
 	//
 	// Use SetBaseLangPackVersion and GetBaseLangPackVersion helpers.
-	BaseLangPackVersion int `schemaname:"base_lang_pack_version"`
+	BaseLangPackVersion int `tl:"base_lang_pack_version"`
 }
 
 // ConfigTypeID is TL type id of Config.
@@ -462,8 +462,8 @@ func (c *Config) TypeID() uint32 {
 	return ConfigTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *Config) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *Config) TypeName() string {
 	return "config"
 }
 

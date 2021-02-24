@@ -24,18 +24,18 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.peerDialogs for reference.
 type MessagesPeerDialogs struct {
 	// Dialog info
-	Dialogs []DialogClass `schemaname:"dialogs"`
+	Dialogs []DialogClass `tl:"dialogs"`
 	// Messages mentioned in dialog info
-	Messages []MessageClass `schemaname:"messages"`
+	Messages []MessageClass `tl:"messages"`
 	// Chats
-	Chats []ChatClass `schemaname:"chats"`
+	Chats []ChatClass `tl:"chats"`
 	// Users
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 	// Current update state of dialog¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	State UpdatesState `schemaname:"state"`
+	State UpdatesState `tl:"state"`
 }
 
 // MessagesPeerDialogsTypeID is TL type id of MessagesPeerDialogs.
@@ -94,8 +94,8 @@ func (p *MessagesPeerDialogs) TypeID() uint32 {
 	return MessagesPeerDialogsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *MessagesPeerDialogs) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *MessagesPeerDialogs) TypeName() string {
 	return "messages.peerDialogs"
 }
 

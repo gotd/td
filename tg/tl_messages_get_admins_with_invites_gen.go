@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getAdminsWithInvites for reference.
 type MessagesGetAdminsWithInvitesRequest struct {
 	// Peer field of MessagesGetAdminsWithInvitesRequest.
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 }
 
 // MessagesGetAdminsWithInvitesRequestTypeID is TL type id of MessagesGetAdminsWithInvitesRequest.
@@ -62,8 +62,8 @@ func (g *MessagesGetAdminsWithInvitesRequest) TypeID() uint32 {
 	return MessagesGetAdminsWithInvitesRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetAdminsWithInvitesRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetAdminsWithInvitesRequest) TypeName() string {
 	return "messages.getAdminsWithInvites"
 }
 

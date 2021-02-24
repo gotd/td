@@ -51,8 +51,8 @@ func (t *TextEmpty) TypeID() uint32 {
 	return TextEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextEmpty) TypeName() string {
 	return "textEmpty"
 }
 
@@ -93,7 +93,7 @@ var (
 // See https://core.telegram.org/constructor/textPlain for reference.
 type TextPlain struct {
 	// Text
-	Text string `schemaname:"text"`
+	Text string `tl:"text"`
 }
 
 // TextPlainTypeID is TL type id of TextPlain.
@@ -132,8 +132,8 @@ func (t *TextPlain) TypeID() uint32 {
 	return TextPlainTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextPlain) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextPlain) TypeName() string {
 	return "textPlain"
 }
 
@@ -187,7 +187,7 @@ var (
 // See https://core.telegram.org/constructor/textBold for reference.
 type TextBold struct {
 	// Text
-	Text RichTextClass `schemaname:"text"`
+	Text RichTextClass `tl:"text"`
 }
 
 // TextBoldTypeID is TL type id of TextBold.
@@ -226,8 +226,8 @@ func (t *TextBold) TypeID() uint32 {
 	return TextBoldTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextBold) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextBold) TypeName() string {
 	return "textBold"
 }
 
@@ -286,7 +286,7 @@ var (
 // See https://core.telegram.org/constructor/textItalic for reference.
 type TextItalic struct {
 	// Text
-	Text RichTextClass `schemaname:"text"`
+	Text RichTextClass `tl:"text"`
 }
 
 // TextItalicTypeID is TL type id of TextItalic.
@@ -325,8 +325,8 @@ func (t *TextItalic) TypeID() uint32 {
 	return TextItalicTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextItalic) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextItalic) TypeName() string {
 	return "textItalic"
 }
 
@@ -385,7 +385,7 @@ var (
 // See https://core.telegram.org/constructor/textUnderline for reference.
 type TextUnderline struct {
 	// Text
-	Text RichTextClass `schemaname:"text"`
+	Text RichTextClass `tl:"text"`
 }
 
 // TextUnderlineTypeID is TL type id of TextUnderline.
@@ -424,8 +424,8 @@ func (t *TextUnderline) TypeID() uint32 {
 	return TextUnderlineTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextUnderline) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextUnderline) TypeName() string {
 	return "textUnderline"
 }
 
@@ -484,7 +484,7 @@ var (
 // See https://core.telegram.org/constructor/textStrike for reference.
 type TextStrike struct {
 	// Text
-	Text RichTextClass `schemaname:"text"`
+	Text RichTextClass `tl:"text"`
 }
 
 // TextStrikeTypeID is TL type id of TextStrike.
@@ -523,8 +523,8 @@ func (t *TextStrike) TypeID() uint32 {
 	return TextStrikeTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextStrike) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextStrike) TypeName() string {
 	return "textStrike"
 }
 
@@ -583,7 +583,7 @@ var (
 // See https://core.telegram.org/constructor/textFixed for reference.
 type TextFixed struct {
 	// Text
-	Text RichTextClass `schemaname:"text"`
+	Text RichTextClass `tl:"text"`
 }
 
 // TextFixedTypeID is TL type id of TextFixed.
@@ -622,8 +622,8 @@ func (t *TextFixed) TypeID() uint32 {
 	return TextFixedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextFixed) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextFixed) TypeName() string {
 	return "textFixed"
 }
 
@@ -682,11 +682,11 @@ var (
 // See https://core.telegram.org/constructor/textUrl for reference.
 type TextUrl struct {
 	// Text of link
-	Text RichTextClass `schemaname:"text"`
+	Text RichTextClass `tl:"text"`
 	// Webpage HTTP URL
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 	// If a preview was already generated for the page, the page ID
-	WebpageID int64 `schemaname:"webpage_id"`
+	WebpageID int64 `tl:"webpage_id"`
 }
 
 // TextUrlTypeID is TL type id of TextUrl.
@@ -735,8 +735,8 @@ func (t *TextUrl) TypeID() uint32 {
 	return TextUrlTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextUrl) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextUrl) TypeName() string {
 	return "textUrl"
 }
 
@@ -821,9 +821,9 @@ var (
 // See https://core.telegram.org/constructor/textEmail for reference.
 type TextEmail struct {
 	// Link text
-	Text RichTextClass `schemaname:"text"`
+	Text RichTextClass `tl:"text"`
 	// Email address
-	Email string `schemaname:"email"`
+	Email string `tl:"email"`
 }
 
 // TextEmailTypeID is TL type id of TextEmail.
@@ -867,8 +867,8 @@ func (t *TextEmail) TypeID() uint32 {
 	return TextEmailTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextEmail) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextEmail) TypeName() string {
 	return "textEmail"
 }
 
@@ -940,7 +940,7 @@ var (
 // See https://core.telegram.org/constructor/textConcat for reference.
 type TextConcat struct {
 	// Concatenated rich texts
-	Texts []RichTextClass `schemaname:"texts"`
+	Texts []RichTextClass `tl:"texts"`
 }
 
 // TextConcatTypeID is TL type id of TextConcat.
@@ -979,8 +979,8 @@ func (t *TextConcat) TypeID() uint32 {
 	return TextConcatTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextConcat) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextConcat) TypeName() string {
 	return "textConcat"
 }
 
@@ -1053,7 +1053,7 @@ var (
 // See https://core.telegram.org/constructor/textSubscript for reference.
 type TextSubscript struct {
 	// Text
-	Text RichTextClass `schemaname:"text"`
+	Text RichTextClass `tl:"text"`
 }
 
 // TextSubscriptTypeID is TL type id of TextSubscript.
@@ -1092,8 +1092,8 @@ func (t *TextSubscript) TypeID() uint32 {
 	return TextSubscriptTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextSubscript) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextSubscript) TypeName() string {
 	return "textSubscript"
 }
 
@@ -1152,7 +1152,7 @@ var (
 // See https://core.telegram.org/constructor/textSuperscript for reference.
 type TextSuperscript struct {
 	// Text
-	Text RichTextClass `schemaname:"text"`
+	Text RichTextClass `tl:"text"`
 }
 
 // TextSuperscriptTypeID is TL type id of TextSuperscript.
@@ -1191,8 +1191,8 @@ func (t *TextSuperscript) TypeID() uint32 {
 	return TextSuperscriptTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextSuperscript) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextSuperscript) TypeName() string {
 	return "textSuperscript"
 }
 
@@ -1251,7 +1251,7 @@ var (
 // See https://core.telegram.org/constructor/textMarked for reference.
 type TextMarked struct {
 	// Text
-	Text RichTextClass `schemaname:"text"`
+	Text RichTextClass `tl:"text"`
 }
 
 // TextMarkedTypeID is TL type id of TextMarked.
@@ -1290,8 +1290,8 @@ func (t *TextMarked) TypeID() uint32 {
 	return TextMarkedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextMarked) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextMarked) TypeName() string {
 	return "textMarked"
 }
 
@@ -1350,9 +1350,9 @@ var (
 // See https://core.telegram.org/constructor/textPhone for reference.
 type TextPhone struct {
 	// Text
-	Text RichTextClass `schemaname:"text"`
+	Text RichTextClass `tl:"text"`
 	// Phone number
-	Phone string `schemaname:"phone"`
+	Phone string `tl:"phone"`
 }
 
 // TextPhoneTypeID is TL type id of TextPhone.
@@ -1396,8 +1396,8 @@ func (t *TextPhone) TypeID() uint32 {
 	return TextPhoneTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextPhone) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextPhone) TypeName() string {
 	return "textPhone"
 }
 
@@ -1469,11 +1469,11 @@ var (
 // See https://core.telegram.org/constructor/textImage for reference.
 type TextImage struct {
 	// Document ID
-	DocumentID int64 `schemaname:"document_id"`
+	DocumentID int64 `tl:"document_id"`
 	// Width
-	W int `schemaname:"w"`
+	W int `tl:"w"`
 	// Height
-	H int `schemaname:"h"`
+	H int `tl:"h"`
 }
 
 // TextImageTypeID is TL type id of TextImage.
@@ -1522,8 +1522,8 @@ func (t *TextImage) TypeID() uint32 {
 	return TextImageTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextImage) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextImage) TypeName() string {
 	return "textImage"
 }
 
@@ -1603,9 +1603,9 @@ var (
 // See https://core.telegram.org/constructor/textAnchor for reference.
 type TextAnchor struct {
 	// Text
-	Text RichTextClass `schemaname:"text"`
+	Text RichTextClass `tl:"text"`
 	// Section name
-	Name string `schemaname:"name"`
+	Name string `tl:"name"`
 }
 
 // TextAnchorTypeID is TL type id of TextAnchor.
@@ -1649,8 +1649,8 @@ func (t *TextAnchor) TypeID() uint32 {
 	return TextAnchorTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextAnchor) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextAnchor) TypeName() string {
 	return "textAnchor"
 }
 
@@ -1749,11 +1749,11 @@ type RichTextClass interface {
 	bin.Decoder
 	construct() RichTextClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

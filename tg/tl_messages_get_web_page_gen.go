@@ -27,12 +27,12 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getWebPage for reference.
 type MessagesGetWebPageRequest struct {
 	// URL of IV page to fetch
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `schemaname:"hash"`
+	Hash int `tl:"hash"`
 }
 
 // MessagesGetWebPageRequestTypeID is TL type id of MessagesGetWebPageRequest.
@@ -76,8 +76,8 @@ func (g *MessagesGetWebPageRequest) TypeID() uint32 {
 	return MessagesGetWebPageRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetWebPageRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetWebPageRequest) TypeName() string {
 	return "messages.getWebPage"
 }
 

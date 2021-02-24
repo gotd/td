@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/pageCaption for reference.
 type PageCaption struct {
 	// Caption
-	Text RichTextClass `schemaname:"text"`
+	Text RichTextClass `tl:"text"`
 	// Credits
-	Credit RichTextClass `schemaname:"credit"`
+	Credit RichTextClass `tl:"credit"`
 }
 
 // PageCaptionTypeID is TL type id of PageCaption.
@@ -70,8 +70,8 @@ func (p *PageCaption) TypeID() uint32 {
 	return PageCaptionTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageCaption) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageCaption) TypeName() string {
 	return "pageCaption"
 }
 

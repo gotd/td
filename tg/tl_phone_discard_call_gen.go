@@ -27,17 +27,17 @@ type PhoneDiscardCallRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether this is a video call
-	Video bool `schemaname:"video"`
+	Video bool `tl:"video"`
 	// The phone call
-	Peer InputPhoneCall `schemaname:"peer"`
+	Peer InputPhoneCall `tl:"peer"`
 	// Call duration
-	Duration int `schemaname:"duration"`
+	Duration int `tl:"duration"`
 	// Why was the call discarded
-	Reason PhoneCallDiscardReasonClass `schemaname:"reason"`
+	Reason PhoneCallDiscardReasonClass `tl:"reason"`
 	// Preferred libtgvoip relay ID
-	ConnectionID int64 `schemaname:"connection_id"`
+	ConnectionID int64 `tl:"connection_id"`
 }
 
 // PhoneDiscardCallRequestTypeID is TL type id of PhoneDiscardCallRequest.
@@ -99,8 +99,8 @@ func (d *PhoneDiscardCallRequest) TypeID() uint32 {
 	return PhoneDiscardCallRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *PhoneDiscardCallRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *PhoneDiscardCallRequest) TypeName() string {
 	return "phone.discardCall"
 }
 

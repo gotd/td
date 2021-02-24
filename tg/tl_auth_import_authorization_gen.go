@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/auth.importAuthorization for reference.
 type AuthImportAuthorizationRequest struct {
 	// User ID
-	ID int `schemaname:"id"`
+	ID int `tl:"id"`
 	// Authorization key
-	Bytes []byte `schemaname:"bytes"`
+	Bytes []byte `tl:"bytes"`
 }
 
 // AuthImportAuthorizationRequestTypeID is TL type id of AuthImportAuthorizationRequest.
@@ -70,8 +70,8 @@ func (i *AuthImportAuthorizationRequest) TypeID() uint32 {
 	return AuthImportAuthorizationRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *AuthImportAuthorizationRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *AuthImportAuthorizationRequest) TypeName() string {
 	return "auth.importAuthorization"
 }
 

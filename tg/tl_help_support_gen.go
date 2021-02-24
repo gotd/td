@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/help.support for reference.
 type HelpSupport struct {
 	// Phone number
-	PhoneNumber string `schemaname:"phone_number"`
+	PhoneNumber string `tl:"phone_number"`
 	// User
-	User UserClass `schemaname:"user"`
+	User UserClass `tl:"user"`
 }
 
 // HelpSupportTypeID is TL type id of HelpSupport.
@@ -70,8 +70,8 @@ func (s *HelpSupport) TypeID() uint32 {
 	return HelpSupportTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *HelpSupport) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *HelpSupport) TypeName() string {
 	return "help.support"
 }
 

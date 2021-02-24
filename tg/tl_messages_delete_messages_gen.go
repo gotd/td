@@ -27,11 +27,11 @@ type MessagesDeleteMessagesRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether to delete messages for all participants of the chat
-	Revoke bool `schemaname:"revoke"`
+	Revoke bool `tl:"revoke"`
 	// Message ID list
-	ID []int `schemaname:"id"`
+	ID []int `tl:"id"`
 }
 
 // MessagesDeleteMessagesRequestTypeID is TL type id of MessagesDeleteMessagesRequest.
@@ -78,8 +78,8 @@ func (d *MessagesDeleteMessagesRequest) TypeID() uint32 {
 	return MessagesDeleteMessagesRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *MessagesDeleteMessagesRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *MessagesDeleteMessagesRequest) TypeName() string {
 	return "messages.deleteMessages"
 }
 

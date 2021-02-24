@@ -51,8 +51,8 @@ func (b *BoolFalse) TypeID() uint32 {
 	return BoolFalseTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *BoolFalse) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *BoolFalse) TypeName() string {
 	return "boolFalse"
 }
 
@@ -120,8 +120,8 @@ func (b *BoolTrue) TypeID() uint32 {
 	return BoolTrueTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *BoolTrue) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *BoolTrue) TypeName() string {
 	return "boolTrue"
 }
 
@@ -175,11 +175,11 @@ type BoolClass interface {
 	bin.Decoder
 	construct() BoolClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

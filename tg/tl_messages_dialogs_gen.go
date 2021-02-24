@@ -24,13 +24,13 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.dialogs for reference.
 type MessagesDialogs struct {
 	// List of chats
-	Dialogs []DialogClass `schemaname:"dialogs"`
+	Dialogs []DialogClass `tl:"dialogs"`
 	// List of last messages from each chat
-	Messages []MessageClass `schemaname:"messages"`
+	Messages []MessageClass `tl:"messages"`
 	// List of groups mentioned in the chats
-	Chats []ChatClass `schemaname:"chats"`
+	Chats []ChatClass `tl:"chats"`
 	// List of users mentioned in messages and groups
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // MessagesDialogsTypeID is TL type id of MessagesDialogs.
@@ -84,8 +84,8 @@ func (d *MessagesDialogs) TypeID() uint32 {
 	return MessagesDialogsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *MessagesDialogs) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *MessagesDialogs) TypeName() string {
 	return "messages.dialogs"
 }
 
@@ -254,15 +254,15 @@ var (
 // See https://core.telegram.org/constructor/messages.dialogsSlice for reference.
 type MessagesDialogsSlice struct {
 	// Total number of dialogs
-	Count int `schemaname:"count"`
+	Count int `tl:"count"`
 	// List of dialogs
-	Dialogs []DialogClass `schemaname:"dialogs"`
+	Dialogs []DialogClass `tl:"dialogs"`
 	// List of last messages from dialogs
-	Messages []MessageClass `schemaname:"messages"`
+	Messages []MessageClass `tl:"messages"`
 	// List of chats mentioned in dialogs
-	Chats []ChatClass `schemaname:"chats"`
+	Chats []ChatClass `tl:"chats"`
 	// List of users mentioned in messages and chats
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // MessagesDialogsSliceTypeID is TL type id of MessagesDialogsSlice.
@@ -321,8 +321,8 @@ func (d *MessagesDialogsSlice) TypeID() uint32 {
 	return MessagesDialogsSliceTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *MessagesDialogsSlice) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *MessagesDialogsSlice) TypeName() string {
 	return "messages.dialogsSlice"
 }
 
@@ -504,7 +504,7 @@ var (
 // See https://core.telegram.org/constructor/messages.dialogsNotModified for reference.
 type MessagesDialogsNotModified struct {
 	// Number of dialogs found server-side by the query
-	Count int `schemaname:"count"`
+	Count int `tl:"count"`
 }
 
 // MessagesDialogsNotModifiedTypeID is TL type id of MessagesDialogsNotModified.
@@ -543,8 +543,8 @@ func (d *MessagesDialogsNotModified) TypeID() uint32 {
 	return MessagesDialogsNotModifiedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *MessagesDialogsNotModified) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *MessagesDialogsNotModified) TypeName() string {
 	return "messages.dialogsNotModified"
 }
 
@@ -612,11 +612,11 @@ type MessagesDialogsClass interface {
 	bin.Decoder
 	construct() MessagesDialogsClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
@@ -632,11 +632,11 @@ type ModifiedMessagesDialogs interface {
 	bin.Decoder
 	construct() MessagesDialogsClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

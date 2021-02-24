@@ -51,8 +51,8 @@ func (p *PageBlockUnsupported) TypeID() uint32 {
 	return PageBlockUnsupportedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockUnsupported) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockUnsupported) TypeName() string {
 	return "pageBlockUnsupported"
 }
 
@@ -93,7 +93,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockTitle for reference.
 type PageBlockTitle struct {
 	// Title
-	Text RichTextClass `schemaname:"text"`
+	Text RichTextClass `tl:"text"`
 }
 
 // PageBlockTitleTypeID is TL type id of PageBlockTitle.
@@ -132,8 +132,8 @@ func (p *PageBlockTitle) TypeID() uint32 {
 	return PageBlockTitleTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockTitle) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockTitle) TypeName() string {
 	return "pageBlockTitle"
 }
 
@@ -192,7 +192,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockSubtitle for reference.
 type PageBlockSubtitle struct {
 	// Text
-	Text RichTextClass `schemaname:"text"`
+	Text RichTextClass `tl:"text"`
 }
 
 // PageBlockSubtitleTypeID is TL type id of PageBlockSubtitle.
@@ -231,8 +231,8 @@ func (p *PageBlockSubtitle) TypeID() uint32 {
 	return PageBlockSubtitleTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockSubtitle) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockSubtitle) TypeName() string {
 	return "pageBlockSubtitle"
 }
 
@@ -291,9 +291,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockAuthorDate for reference.
 type PageBlockAuthorDate struct {
 	// Author name
-	Author RichTextClass `schemaname:"author"`
+	Author RichTextClass `tl:"author"`
 	// Date of pubblication
-	PublishedDate int `schemaname:"published_date"`
+	PublishedDate int `tl:"published_date"`
 }
 
 // PageBlockAuthorDateTypeID is TL type id of PageBlockAuthorDate.
@@ -337,8 +337,8 @@ func (p *PageBlockAuthorDate) TypeID() uint32 {
 	return PageBlockAuthorDateTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockAuthorDate) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockAuthorDate) TypeName() string {
 	return "pageBlockAuthorDate"
 }
 
@@ -410,7 +410,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockHeader for reference.
 type PageBlockHeader struct {
 	// Contents
-	Text RichTextClass `schemaname:"text"`
+	Text RichTextClass `tl:"text"`
 }
 
 // PageBlockHeaderTypeID is TL type id of PageBlockHeader.
@@ -449,8 +449,8 @@ func (p *PageBlockHeader) TypeID() uint32 {
 	return PageBlockHeaderTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockHeader) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockHeader) TypeName() string {
 	return "pageBlockHeader"
 }
 
@@ -509,7 +509,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockSubheader for reference.
 type PageBlockSubheader struct {
 	// Subheader
-	Text RichTextClass `schemaname:"text"`
+	Text RichTextClass `tl:"text"`
 }
 
 // PageBlockSubheaderTypeID is TL type id of PageBlockSubheader.
@@ -548,8 +548,8 @@ func (p *PageBlockSubheader) TypeID() uint32 {
 	return PageBlockSubheaderTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockSubheader) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockSubheader) TypeName() string {
 	return "pageBlockSubheader"
 }
 
@@ -608,7 +608,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockParagraph for reference.
 type PageBlockParagraph struct {
 	// Text
-	Text RichTextClass `schemaname:"text"`
+	Text RichTextClass `tl:"text"`
 }
 
 // PageBlockParagraphTypeID is TL type id of PageBlockParagraph.
@@ -647,8 +647,8 @@ func (p *PageBlockParagraph) TypeID() uint32 {
 	return PageBlockParagraphTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockParagraph) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockParagraph) TypeName() string {
 	return "pageBlockParagraph"
 }
 
@@ -707,9 +707,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockPreformatted for reference.
 type PageBlockPreformatted struct {
 	// Text
-	Text RichTextClass `schemaname:"text"`
+	Text RichTextClass `tl:"text"`
 	// Programming language of preformatted text
-	Language string `schemaname:"language"`
+	Language string `tl:"language"`
 }
 
 // PageBlockPreformattedTypeID is TL type id of PageBlockPreformatted.
@@ -753,8 +753,8 @@ func (p *PageBlockPreformatted) TypeID() uint32 {
 	return PageBlockPreformattedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockPreformatted) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockPreformatted) TypeName() string {
 	return "pageBlockPreformatted"
 }
 
@@ -826,7 +826,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockFooter for reference.
 type PageBlockFooter struct {
 	// Contents
-	Text RichTextClass `schemaname:"text"`
+	Text RichTextClass `tl:"text"`
 }
 
 // PageBlockFooterTypeID is TL type id of PageBlockFooter.
@@ -865,8 +865,8 @@ func (p *PageBlockFooter) TypeID() uint32 {
 	return PageBlockFooterTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockFooter) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockFooter) TypeName() string {
 	return "pageBlockFooter"
 }
 
@@ -952,8 +952,8 @@ func (p *PageBlockDivider) TypeID() uint32 {
 	return PageBlockDividerTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockDivider) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockDivider) TypeName() string {
 	return "pageBlockDivider"
 }
 
@@ -994,7 +994,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockAnchor for reference.
 type PageBlockAnchor struct {
 	// Name of target section
-	Name string `schemaname:"name"`
+	Name string `tl:"name"`
 }
 
 // PageBlockAnchorTypeID is TL type id of PageBlockAnchor.
@@ -1033,8 +1033,8 @@ func (p *PageBlockAnchor) TypeID() uint32 {
 	return PageBlockAnchorTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockAnchor) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockAnchor) TypeName() string {
 	return "pageBlockAnchor"
 }
 
@@ -1088,7 +1088,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockList for reference.
 type PageBlockList struct {
 	// List of blocks in an IV page
-	Items []PageListItemClass `schemaname:"items"`
+	Items []PageListItemClass `tl:"items"`
 }
 
 // PageBlockListTypeID is TL type id of PageBlockList.
@@ -1127,8 +1127,8 @@ func (p *PageBlockList) TypeID() uint32 {
 	return PageBlockListTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockList) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockList) TypeName() string {
 	return "pageBlockList"
 }
 
@@ -1201,9 +1201,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockBlockquote for reference.
 type PageBlockBlockquote struct {
 	// Quote contents
-	Text RichTextClass `schemaname:"text"`
+	Text RichTextClass `tl:"text"`
 	// Caption
-	Caption RichTextClass `schemaname:"caption"`
+	Caption RichTextClass `tl:"caption"`
 }
 
 // PageBlockBlockquoteTypeID is TL type id of PageBlockBlockquote.
@@ -1247,8 +1247,8 @@ func (p *PageBlockBlockquote) TypeID() uint32 {
 	return PageBlockBlockquoteTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockBlockquote) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockBlockquote) TypeName() string {
 	return "pageBlockBlockquote"
 }
 
@@ -1325,9 +1325,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockPullquote for reference.
 type PageBlockPullquote struct {
 	// Text
-	Text RichTextClass `schemaname:"text"`
+	Text RichTextClass `tl:"text"`
 	// Caption
-	Caption RichTextClass `schemaname:"caption"`
+	Caption RichTextClass `tl:"caption"`
 }
 
 // PageBlockPullquoteTypeID is TL type id of PageBlockPullquote.
@@ -1371,8 +1371,8 @@ func (p *PageBlockPullquote) TypeID() uint32 {
 	return PageBlockPullquoteTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockPullquote) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockPullquote) TypeName() string {
 	return "pageBlockPullquote"
 }
 
@@ -1452,19 +1452,19 @@ type PageBlockPhoto struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Photo ID
-	PhotoID int64 `schemaname:"photo_id"`
+	PhotoID int64 `tl:"photo_id"`
 	// Caption
-	Caption PageCaption `schemaname:"caption"`
+	Caption PageCaption `tl:"caption"`
 	// HTTP URL of page the photo leads to when clicked
 	//
 	// Use SetURL and GetURL helpers.
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 	// ID of preview of the page the photo leads to when clicked
 	//
 	// Use SetWebpageID and GetWebpageID helpers.
-	WebpageID int64 `schemaname:"webpage_id"`
+	WebpageID int64 `tl:"webpage_id"`
 }
 
 // PageBlockPhotoTypeID is TL type id of PageBlockPhoto.
@@ -1527,8 +1527,8 @@ func (p *PageBlockPhoto) TypeID() uint32 {
 	return PageBlockPhotoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockPhoto) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockPhoto) TypeName() string {
 	return "pageBlockPhoto"
 }
 
@@ -1662,15 +1662,15 @@ type PageBlockVideo struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether the video is set to autoplay
-	Autoplay bool `schemaname:"autoplay"`
+	Autoplay bool `tl:"autoplay"`
 	// Whether the video is set to loop
-	Loop bool `schemaname:"loop"`
+	Loop bool `tl:"loop"`
 	// Video ID
-	VideoID int64 `schemaname:"video_id"`
+	VideoID int64 `tl:"video_id"`
 	// Caption
-	Caption PageCaption `schemaname:"caption"`
+	Caption PageCaption `tl:"caption"`
 }
 
 // PageBlockVideoTypeID is TL type id of PageBlockVideo.
@@ -1727,8 +1727,8 @@ func (p *PageBlockVideo) TypeID() uint32 {
 	return PageBlockVideoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockVideo) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockVideo) TypeName() string {
 	return "pageBlockVideo"
 }
 
@@ -1843,7 +1843,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockCover for reference.
 type PageBlockCover struct {
 	// Cover
-	Cover PageBlockClass `schemaname:"cover"`
+	Cover PageBlockClass `tl:"cover"`
 }
 
 // PageBlockCoverTypeID is TL type id of PageBlockCover.
@@ -1882,8 +1882,8 @@ func (p *PageBlockCover) TypeID() uint32 {
 	return PageBlockCoverTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockCover) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockCover) TypeName() string {
 	return "pageBlockCover"
 }
 
@@ -1945,33 +1945,33 @@ type PageBlockEmbed struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether the block should be full width
-	FullWidth bool `schemaname:"full_width"`
+	FullWidth bool `tl:"full_width"`
 	// Whether scrolling should be allowed
-	AllowScrolling bool `schemaname:"allow_scrolling"`
+	AllowScrolling bool `tl:"allow_scrolling"`
 	// Web page URL, if available
 	//
 	// Use SetURL and GetURL helpers.
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 	// HTML-markup of the embedded page
 	//
 	// Use SetHTML and GetHTML helpers.
-	HTML string `schemaname:"html"`
+	HTML string `tl:"html"`
 	// Poster photo, if available
 	//
 	// Use SetPosterPhotoID and GetPosterPhotoID helpers.
-	PosterPhotoID int64 `schemaname:"poster_photo_id"`
+	PosterPhotoID int64 `tl:"poster_photo_id"`
 	// Block width, if known
 	//
 	// Use SetW and GetW helpers.
-	W int `schemaname:"w"`
+	W int `tl:"w"`
 	// Block height, if known
 	//
 	// Use SetH and GetH helpers.
-	H int `schemaname:"h"`
+	H int `tl:"h"`
 	// Caption
-	Caption PageCaption `schemaname:"caption"`
+	Caption PageCaption `tl:"caption"`
 }
 
 // PageBlockEmbedTypeID is TL type id of PageBlockEmbed.
@@ -2063,8 +2063,8 @@ func (p *PageBlockEmbed) TypeID() uint32 {
 	return PageBlockEmbedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockEmbed) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockEmbed) TypeName() string {
 	return "pageBlockEmbed"
 }
 
@@ -2306,19 +2306,19 @@ var (
 // See https://core.telegram.org/constructor/pageBlockEmbedPost for reference.
 type PageBlockEmbedPost struct {
 	// Web page URL
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 	// ID of generated webpage preview
-	WebpageID int64 `schemaname:"webpage_id"`
+	WebpageID int64 `tl:"webpage_id"`
 	// ID of the author's photo
-	AuthorPhotoID int64 `schemaname:"author_photo_id"`
+	AuthorPhotoID int64 `tl:"author_photo_id"`
 	// Author name
-	Author string `schemaname:"author"`
+	Author string `tl:"author"`
 	// Creation date
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 	// Post contents
-	Blocks []PageBlockClass `schemaname:"blocks"`
+	Blocks []PageBlockClass `tl:"blocks"`
 	// Caption
-	Caption PageCaption `schemaname:"caption"`
+	Caption PageCaption `tl:"caption"`
 }
 
 // PageBlockEmbedPostTypeID is TL type id of PageBlockEmbedPost.
@@ -2387,8 +2387,8 @@ func (p *PageBlockEmbedPost) TypeID() uint32 {
 	return PageBlockEmbedPostTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockEmbedPost) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockEmbedPost) TypeName() string {
 	return "pageBlockEmbedPost"
 }
 
@@ -2539,9 +2539,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockCollage for reference.
 type PageBlockCollage struct {
 	// Media elements
-	Items []PageBlockClass `schemaname:"items"`
+	Items []PageBlockClass `tl:"items"`
 	// Caption
-	Caption PageCaption `schemaname:"caption"`
+	Caption PageCaption `tl:"caption"`
 }
 
 // PageBlockCollageTypeID is TL type id of PageBlockCollage.
@@ -2585,8 +2585,8 @@ func (p *PageBlockCollage) TypeID() uint32 {
 	return PageBlockCollageTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockCollage) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockCollage) TypeName() string {
 	return "pageBlockCollage"
 }
 
@@ -2672,9 +2672,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockSlideshow for reference.
 type PageBlockSlideshow struct {
 	// Slideshow items
-	Items []PageBlockClass `schemaname:"items"`
+	Items []PageBlockClass `tl:"items"`
 	// Caption
-	Caption PageCaption `schemaname:"caption"`
+	Caption PageCaption `tl:"caption"`
 }
 
 // PageBlockSlideshowTypeID is TL type id of PageBlockSlideshow.
@@ -2718,8 +2718,8 @@ func (p *PageBlockSlideshow) TypeID() uint32 {
 	return PageBlockSlideshowTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockSlideshow) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockSlideshow) TypeName() string {
 	return "pageBlockSlideshow"
 }
 
@@ -2805,7 +2805,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockChannel for reference.
 type PageBlockChannel struct {
 	// The channel/supergroup/chat
-	Channel ChatClass `schemaname:"channel"`
+	Channel ChatClass `tl:"channel"`
 }
 
 // PageBlockChannelTypeID is TL type id of PageBlockChannel.
@@ -2844,8 +2844,8 @@ func (p *PageBlockChannel) TypeID() uint32 {
 	return PageBlockChannelTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockChannel) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockChannel) TypeName() string {
 	return "pageBlockChannel"
 }
 
@@ -2907,9 +2907,9 @@ type PageBlockAudio struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/page
-	AudioID int64 `schemaname:"audio_id"`
+	AudioID int64 `tl:"audio_id"`
 	// Audio caption
-	Caption PageCaption `schemaname:"caption"`
+	Caption PageCaption `tl:"caption"`
 }
 
 // PageBlockAudioTypeID is TL type id of PageBlockAudio.
@@ -2953,8 +2953,8 @@ func (p *PageBlockAudio) TypeID() uint32 {
 	return PageBlockAudioTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockAudio) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockAudio) TypeName() string {
 	return "pageBlockAudio"
 }
 
@@ -3021,7 +3021,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockKicker for reference.
 type PageBlockKicker struct {
 	// Contents
-	Text RichTextClass `schemaname:"text"`
+	Text RichTextClass `tl:"text"`
 }
 
 // PageBlockKickerTypeID is TL type id of PageBlockKicker.
@@ -3060,8 +3060,8 @@ func (p *PageBlockKicker) TypeID() uint32 {
 	return PageBlockKickerTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockKicker) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockKicker) TypeName() string {
 	return "pageBlockKicker"
 }
 
@@ -3123,15 +3123,15 @@ type PageBlockTable struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Does the table have a visible border?
-	Bordered bool `schemaname:"bordered"`
+	Bordered bool `tl:"bordered"`
 	// Is the table striped?
-	Striped bool `schemaname:"striped"`
+	Striped bool `tl:"striped"`
 	// Title
-	Title RichTextClass `schemaname:"title"`
+	Title RichTextClass `tl:"title"`
 	// Table rows
-	Rows []PageTableRow `schemaname:"rows"`
+	Rows []PageTableRow `tl:"rows"`
 }
 
 // PageBlockTableTypeID is TL type id of PageBlockTable.
@@ -3188,8 +3188,8 @@ func (p *PageBlockTable) TypeID() uint32 {
 	return PageBlockTableTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockTable) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockTable) TypeName() string {
 	return "pageBlockTable"
 }
 
@@ -3320,7 +3320,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockOrderedList for reference.
 type PageBlockOrderedList struct {
 	// List items
-	Items []PageListOrderedItemClass `schemaname:"items"`
+	Items []PageListOrderedItemClass `tl:"items"`
 }
 
 // PageBlockOrderedListTypeID is TL type id of PageBlockOrderedList.
@@ -3359,8 +3359,8 @@ func (p *PageBlockOrderedList) TypeID() uint32 {
 	return PageBlockOrderedListTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockOrderedList) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockOrderedList) TypeName() string {
 	return "pageBlockOrderedList"
 }
 
@@ -3436,13 +3436,13 @@ type PageBlockDetails struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether the block is open by default
-	Open bool `schemaname:"open"`
+	Open bool `tl:"open"`
 	// Block contents
-	Blocks []PageBlockClass `schemaname:"blocks"`
+	Blocks []PageBlockClass `tl:"blocks"`
 	// Always visible heading for the block
-	Title RichTextClass `schemaname:"title"`
+	Title RichTextClass `tl:"title"`
 }
 
 // PageBlockDetailsTypeID is TL type id of PageBlockDetails.
@@ -3494,8 +3494,8 @@ func (p *PageBlockDetails) TypeID() uint32 {
 	return PageBlockDetailsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockDetails) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockDetails) TypeName() string {
 	return "pageBlockDetails"
 }
 
@@ -3614,9 +3614,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockRelatedArticles for reference.
 type PageBlockRelatedArticles struct {
 	// Title
-	Title RichTextClass `schemaname:"title"`
+	Title RichTextClass `tl:"title"`
 	// Related articles
-	Articles []PageRelatedArticle `schemaname:"articles"`
+	Articles []PageRelatedArticle `tl:"articles"`
 }
 
 // PageBlockRelatedArticlesTypeID is TL type id of PageBlockRelatedArticles.
@@ -3660,8 +3660,8 @@ func (p *PageBlockRelatedArticles) TypeID() uint32 {
 	return PageBlockRelatedArticlesTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockRelatedArticles) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockRelatedArticles) TypeName() string {
 	return "pageBlockRelatedArticles"
 }
 
@@ -3744,15 +3744,15 @@ var (
 // See https://core.telegram.org/constructor/pageBlockMap for reference.
 type PageBlockMap struct {
 	// Location of the map center
-	Geo GeoPointClass `schemaname:"geo"`
+	Geo GeoPointClass `tl:"geo"`
 	// Map zoom level; 13-20
-	Zoom int `schemaname:"zoom"`
+	Zoom int `tl:"zoom"`
 	// Map width in pixels before applying scale; 16-102
-	W int `schemaname:"w"`
+	W int `tl:"w"`
 	// Map height in pixels before applying scale; 16-1024
-	H int `schemaname:"h"`
+	H int `tl:"h"`
 	// Caption
-	Caption PageCaption `schemaname:"caption"`
+	Caption PageCaption `tl:"caption"`
 }
 
 // PageBlockMapTypeID is TL type id of PageBlockMap.
@@ -3811,8 +3811,8 @@ func (p *PageBlockMap) TypeID() uint32 {
 	return PageBlockMapTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageBlockMap) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageBlockMap) TypeName() string {
 	return "pageBlockMap"
 }
 
@@ -3963,11 +3963,11 @@ type PageBlockClass interface {
 	bin.Decoder
 	construct() PageBlockClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

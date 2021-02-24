@@ -51,8 +51,8 @@ func (s *SecurePasswordKdfAlgoUnknown) TypeID() uint32 {
 	return SecurePasswordKdfAlgoUnknownTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SecurePasswordKdfAlgoUnknown) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SecurePasswordKdfAlgoUnknown) TypeName() string {
 	return "securePasswordKdfAlgoUnknown"
 }
 
@@ -93,7 +93,7 @@ var (
 // See https://core.telegram.org/constructor/securePasswordKdfAlgoPBKDF2HMACSHA512iter100000 for reference.
 type SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000 struct {
 	// Salt
-	Salt []byte `schemaname:"salt"`
+	Salt []byte `tl:"salt"`
 }
 
 // SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000TypeID is TL type id of SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000.
@@ -132,8 +132,8 @@ func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) TypeID() uint32 {
 	return SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000TypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) TypeName() string {
 	return "securePasswordKdfAlgoPBKDF2HMACSHA512iter100000"
 }
 
@@ -189,7 +189,7 @@ var (
 // See https://core.telegram.org/constructor/securePasswordKdfAlgoSHA512 for reference.
 type SecurePasswordKdfAlgoSHA512 struct {
 	// Salt
-	Salt []byte `schemaname:"salt"`
+	Salt []byte `tl:"salt"`
 }
 
 // SecurePasswordKdfAlgoSHA512TypeID is TL type id of SecurePasswordKdfAlgoSHA512.
@@ -228,8 +228,8 @@ func (s *SecurePasswordKdfAlgoSHA512) TypeID() uint32 {
 	return SecurePasswordKdfAlgoSHA512TypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SecurePasswordKdfAlgoSHA512) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SecurePasswordKdfAlgoSHA512) TypeName() string {
 	return "securePasswordKdfAlgoSHA512"
 }
 
@@ -297,11 +297,11 @@ type SecurePasswordKdfAlgoClass interface {
 	bin.Decoder
 	construct() SecurePasswordKdfAlgoClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

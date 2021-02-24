@@ -21,9 +21,9 @@ var _ = errors.Is
 // PingDelayDisconnectRequest represents TL type `ping_delay_disconnect#f3427b8c`.
 type PingDelayDisconnectRequest struct {
 	// PingID field of PingDelayDisconnectRequest.
-	PingID int64 `schemaname:"ping_id"`
+	PingID int64 `tl:"ping_id"`
 	// DisconnectDelay field of PingDelayDisconnectRequest.
-	DisconnectDelay int `schemaname:"disconnect_delay"`
+	DisconnectDelay int `tl:"disconnect_delay"`
 }
 
 // PingDelayDisconnectRequestTypeID is TL type id of PingDelayDisconnectRequest.
@@ -67,8 +67,8 @@ func (p *PingDelayDisconnectRequest) TypeID() uint32 {
 	return PingDelayDisconnectRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PingDelayDisconnectRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PingDelayDisconnectRequest) TypeName() string {
 	return "ping_delay_disconnect"
 }
 

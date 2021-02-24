@@ -51,8 +51,8 @@ func (g *HelpGetNearestDcRequest) TypeID() uint32 {
 	return HelpGetNearestDcRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *HelpGetNearestDcRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *HelpGetNearestDcRequest) TypeName() string {
 	return "help.getNearestDc"
 }
 

@@ -32,19 +32,19 @@ type CodeSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether to allow phone verification via phone calls¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/auth
-	AllowFlashcall bool `schemaname:"allow_flashcall"`
+	AllowFlashcall bool `tl:"allow_flashcall"`
 	// Pass true if the phone number is used on the current device. Ignored if allow_flashcall is not set.
-	CurrentNumber bool `schemaname:"current_number"`
+	CurrentNumber bool `tl:"current_number"`
 	// If a token that will be included in eventually sent SMSs is required: required in newer versions of android, to use the android SMS receiver APIs¹
 	//
 	// Links:
 	//  1) https://developers.google.com/identity/sms-retriever/overview
-	AllowAppHash bool `schemaname:"allow_app_hash"`
+	AllowAppHash bool `tl:"allow_app_hash"`
 }
 
 // CodeSettingsTypeID is TL type id of CodeSettings.
@@ -96,8 +96,8 @@ func (c *CodeSettings) TypeID() uint32 {
 	return CodeSettingsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *CodeSettings) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *CodeSettings) TypeName() string {
 	return "codeSettings"
 }
 

@@ -51,8 +51,8 @@ func (s *MessagesSavedGifsNotModified) TypeID() uint32 {
 	return MessagesSavedGifsNotModifiedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *MessagesSavedGifsNotModified) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *MessagesSavedGifsNotModified) TypeName() string {
 	return "messages.savedGifsNotModified"
 }
 
@@ -96,9 +96,9 @@ type MessagesSavedGifs struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `schemaname:"hash"`
+	Hash int `tl:"hash"`
 	// List of saved gifs
-	Gifs []DocumentClass `schemaname:"gifs"`
+	Gifs []DocumentClass `tl:"gifs"`
 }
 
 // MessagesSavedGifsTypeID is TL type id of MessagesSavedGifs.
@@ -142,8 +142,8 @@ func (s *MessagesSavedGifs) TypeID() uint32 {
 	return MessagesSavedGifsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *MessagesSavedGifs) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *MessagesSavedGifs) TypeName() string {
 	return "messages.savedGifs"
 }
 
@@ -242,11 +242,11 @@ type MessagesSavedGifsClass interface {
 	bin.Decoder
 	construct() MessagesSavedGifsClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

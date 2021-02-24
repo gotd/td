@@ -24,32 +24,32 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getUnreadMentions for reference.
 type MessagesGetUnreadMentionsRequest struct {
 	// Peer where to look for mentions
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetID int `schemaname:"offset_id"`
+	OffsetID int `tl:"offset_id"`
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	AddOffset int `schemaname:"add_offset"`
+	AddOffset int `tl:"add_offset"`
 	// Maximum number of results to return, see pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int `schemaname:"limit"`
+	Limit int `tl:"limit"`
 	// Maximum message ID to return, see pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	MaxID int `schemaname:"max_id"`
+	MaxID int `tl:"max_id"`
 	// Minimum message ID to return, see pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	MinID int `schemaname:"min_id"`
+	MinID int `tl:"min_id"`
 }
 
 // MessagesGetUnreadMentionsRequestTypeID is TL type id of MessagesGetUnreadMentionsRequest.
@@ -113,8 +113,8 @@ func (g *MessagesGetUnreadMentionsRequest) TypeID() uint32 {
 	return MessagesGetUnreadMentionsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetUnreadMentionsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetUnreadMentionsRequest) TypeName() string {
 	return "messages.getUnreadMentions"
 }
 

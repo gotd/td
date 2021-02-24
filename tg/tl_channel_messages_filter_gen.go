@@ -51,8 +51,8 @@ func (c *ChannelMessagesFilterEmpty) TypeID() uint32 {
 	return ChannelMessagesFilterEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelMessagesFilterEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelMessagesFilterEmpty) TypeName() string {
 	return "channelMessagesFilterEmpty"
 }
 
@@ -96,11 +96,11 @@ type ChannelMessagesFilter struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether to exclude new messages from the search
-	ExcludeNewMessages bool `schemaname:"exclude_new_messages"`
+	ExcludeNewMessages bool `tl:"exclude_new_messages"`
 	// A range of messages to fetch
-	Ranges []MessageRange `schemaname:"ranges"`
+	Ranges []MessageRange `tl:"ranges"`
 }
 
 // ChannelMessagesFilterTypeID is TL type id of ChannelMessagesFilter.
@@ -147,8 +147,8 @@ func (c *ChannelMessagesFilter) TypeID() uint32 {
 	return ChannelMessagesFilterTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelMessagesFilter) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelMessagesFilter) TypeName() string {
 	return "channelMessagesFilter"
 }
 
@@ -254,11 +254,11 @@ type ChannelMessagesFilterClass interface {
 	bin.Decoder
 	construct() ChannelMessagesFilterClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

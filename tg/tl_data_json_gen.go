@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/dataJSON for reference.
 type DataJSON struct {
 	// JSON-encoded object
-	Data string `schemaname:"data"`
+	Data string `tl:"data"`
 }
 
 // DataJSONTypeID is TL type id of DataJSON.
@@ -63,8 +63,8 @@ func (d *DataJSON) TypeID() uint32 {
 	return DataJSONTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DataJSON) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DataJSON) TypeName() string {
 	return "dataJSON"
 }
 

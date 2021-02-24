@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.checkChatInvite for reference.
 type MessagesCheckChatInviteRequest struct {
 	// Invite hash in t.me/joinchat/hash
-	Hash string `schemaname:"hash"`
+	Hash string `tl:"hash"`
 }
 
 // MessagesCheckChatInviteRequestTypeID is TL type id of MessagesCheckChatInviteRequest.
@@ -63,8 +63,8 @@ func (c *MessagesCheckChatInviteRequest) TypeID() uint32 {
 	return MessagesCheckChatInviteRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *MessagesCheckChatInviteRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *MessagesCheckChatInviteRequest) TypeName() string {
 	return "messages.checkChatInvite"
 }
 

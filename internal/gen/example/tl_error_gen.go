@@ -23,11 +23,11 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/error for reference.
 type Error struct {
 	// Error code; subject to future changes. If the error code is 406, the error message must not be processed in any way and must not be displayed to the user
-	Code int32 `schemaname:"code"`
+	Code int32 `tl:"code"`
 	// Error message; subject to future changes
-	Message string `schemaname:"message"`
+	Message string `tl:"message"`
 	// Temporary field of Error.
-	Temporary bool `schemaname:"temporary"`
+	Temporary bool `tl:"temporary"`
 }
 
 // ErrorTypeID is TL type id of Error.
@@ -76,8 +76,8 @@ func (e *Error) TypeID() uint32 {
 	return ErrorTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (e *Error) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (e *Error) TypeName() string {
 	return "error"
 }
 

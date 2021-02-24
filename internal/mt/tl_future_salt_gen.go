@@ -21,11 +21,11 @@ var _ = errors.Is
 // FutureSalt represents TL type `future_salt#949d9dc`.
 type FutureSalt struct {
 	// ValidSince field of FutureSalt.
-	ValidSince int `schemaname:"valid_since"`
+	ValidSince int `tl:"valid_since"`
 	// ValidUntil field of FutureSalt.
-	ValidUntil int `schemaname:"valid_until"`
+	ValidUntil int `tl:"valid_until"`
 	// Salt field of FutureSalt.
-	Salt int64 `schemaname:"salt"`
+	Salt int64 `tl:"salt"`
 }
 
 // FutureSaltTypeID is TL type id of FutureSalt.
@@ -74,8 +74,8 @@ func (f *FutureSalt) TypeID() uint32 {
 	return FutureSaltTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (f *FutureSalt) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (f *FutureSalt) TypeName() string {
 	return "future_salt"
 }
 

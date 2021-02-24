@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getOnlines for reference.
 type MessagesGetOnlinesRequest struct {
 	// The chat
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 }
 
 // MessagesGetOnlinesRequestTypeID is TL type id of MessagesGetOnlinesRequest.
@@ -63,8 +63,8 @@ func (g *MessagesGetOnlinesRequest) TypeID() uint32 {
 	return MessagesGetOnlinesRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetOnlinesRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetOnlinesRequest) TypeName() string {
 	return "messages.getOnlines"
 }
 

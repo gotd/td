@@ -51,8 +51,8 @@ func (g *MessagesGetSplitRangesRequest) TypeID() uint32 {
 	return MessagesGetSplitRangesRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetSplitRangesRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetSplitRangesRequest) TypeName() string {
 	return "messages.getSplitRanges"
 }
 

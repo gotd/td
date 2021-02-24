@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/method/channels.reportSpam for reference.
 type ChannelsReportSpamRequest struct {
 	// Supergroup
-	Channel InputChannelClass `schemaname:"channel"`
+	Channel InputChannelClass `tl:"channel"`
 	// ID of the user that sent the spam messages
-	UserID InputUserClass `schemaname:"user_id"`
+	UserID InputUserClass `tl:"user_id"`
 	// IDs of spam messages
-	ID []int `schemaname:"id"`
+	ID []int `tl:"id"`
 }
 
 // ChannelsReportSpamRequestTypeID is TL type id of ChannelsReportSpamRequest.
@@ -77,8 +77,8 @@ func (r *ChannelsReportSpamRequest) TypeID() uint32 {
 	return ChannelsReportSpamRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *ChannelsReportSpamRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *ChannelsReportSpamRequest) TypeName() string {
 	return "channels.reportSpam"
 }
 

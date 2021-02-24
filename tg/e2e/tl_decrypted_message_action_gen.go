@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/decryptedMessageActionSetMessageTTL for reference.
 type DecryptedMessageActionSetMessageTTL struct {
 	// TTLSeconds field of DecryptedMessageActionSetMessageTTL.
-	TTLSeconds int `schemaname:"ttl_seconds"`
+	TTLSeconds int `tl:"ttl_seconds"`
 }
 
 // DecryptedMessageActionSetMessageTTLTypeID is TL type id of DecryptedMessageActionSetMessageTTL.
@@ -62,8 +62,8 @@ func (d *DecryptedMessageActionSetMessageTTL) TypeID() uint32 {
 	return DecryptedMessageActionSetMessageTTLTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DecryptedMessageActionSetMessageTTL) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DecryptedMessageActionSetMessageTTL) TypeName() string {
 	return "decryptedMessageActionSetMessageTTL"
 }
 
@@ -116,7 +116,7 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionReadMessages for reference.
 type DecryptedMessageActionReadMessages struct {
 	// RandomIds field of DecryptedMessageActionReadMessages.
-	RandomIds []int64 `schemaname:"random_ids"`
+	RandomIds []int64 `tl:"random_ids"`
 }
 
 // DecryptedMessageActionReadMessagesTypeID is TL type id of DecryptedMessageActionReadMessages.
@@ -155,8 +155,8 @@ func (d *DecryptedMessageActionReadMessages) TypeID() uint32 {
 	return DecryptedMessageActionReadMessagesTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DecryptedMessageActionReadMessages) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DecryptedMessageActionReadMessages) TypeName() string {
 	return "decryptedMessageActionReadMessages"
 }
 
@@ -218,7 +218,7 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionDeleteMessages for reference.
 type DecryptedMessageActionDeleteMessages struct {
 	// RandomIds field of DecryptedMessageActionDeleteMessages.
-	RandomIds []int64 `schemaname:"random_ids"`
+	RandomIds []int64 `tl:"random_ids"`
 }
 
 // DecryptedMessageActionDeleteMessagesTypeID is TL type id of DecryptedMessageActionDeleteMessages.
@@ -257,8 +257,8 @@ func (d *DecryptedMessageActionDeleteMessages) TypeID() uint32 {
 	return DecryptedMessageActionDeleteMessagesTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DecryptedMessageActionDeleteMessages) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DecryptedMessageActionDeleteMessages) TypeName() string {
 	return "decryptedMessageActionDeleteMessages"
 }
 
@@ -320,7 +320,7 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionScreenshotMessages for reference.
 type DecryptedMessageActionScreenshotMessages struct {
 	// RandomIds field of DecryptedMessageActionScreenshotMessages.
-	RandomIds []int64 `schemaname:"random_ids"`
+	RandomIds []int64 `tl:"random_ids"`
 }
 
 // DecryptedMessageActionScreenshotMessagesTypeID is TL type id of DecryptedMessageActionScreenshotMessages.
@@ -359,8 +359,8 @@ func (d *DecryptedMessageActionScreenshotMessages) TypeID() uint32 {
 	return DecryptedMessageActionScreenshotMessagesTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DecryptedMessageActionScreenshotMessages) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DecryptedMessageActionScreenshotMessages) TypeName() string {
 	return "decryptedMessageActionScreenshotMessages"
 }
 
@@ -449,8 +449,8 @@ func (d *DecryptedMessageActionFlushHistory) TypeID() uint32 {
 	return DecryptedMessageActionFlushHistoryTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DecryptedMessageActionFlushHistory) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DecryptedMessageActionFlushHistory) TypeName() string {
 	return "decryptedMessageActionFlushHistory"
 }
 
@@ -490,9 +490,9 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionResend for reference.
 type DecryptedMessageActionResend struct {
 	// StartSeqNo field of DecryptedMessageActionResend.
-	StartSeqNo int `schemaname:"start_seq_no"`
+	StartSeqNo int `tl:"start_seq_no"`
 	// EndSeqNo field of DecryptedMessageActionResend.
-	EndSeqNo int `schemaname:"end_seq_no"`
+	EndSeqNo int `tl:"end_seq_no"`
 }
 
 // DecryptedMessageActionResendTypeID is TL type id of DecryptedMessageActionResend.
@@ -536,8 +536,8 @@ func (d *DecryptedMessageActionResend) TypeID() uint32 {
 	return DecryptedMessageActionResendTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DecryptedMessageActionResend) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DecryptedMessageActionResend) TypeName() string {
 	return "decryptedMessageActionResend"
 }
 
@@ -603,7 +603,7 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionNotifyLayer for reference.
 type DecryptedMessageActionNotifyLayer struct {
 	// Layer field of DecryptedMessageActionNotifyLayer.
-	Layer int `schemaname:"layer"`
+	Layer int `tl:"layer"`
 }
 
 // DecryptedMessageActionNotifyLayerTypeID is TL type id of DecryptedMessageActionNotifyLayer.
@@ -642,8 +642,8 @@ func (d *DecryptedMessageActionNotifyLayer) TypeID() uint32 {
 	return DecryptedMessageActionNotifyLayerTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DecryptedMessageActionNotifyLayer) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DecryptedMessageActionNotifyLayer) TypeName() string {
 	return "decryptedMessageActionNotifyLayer"
 }
 
@@ -696,7 +696,7 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionTyping for reference.
 type DecryptedMessageActionTyping struct {
 	// Action field of DecryptedMessageActionTyping.
-	Action SendMessageActionClass `schemaname:"action"`
+	Action SendMessageActionClass `tl:"action"`
 }
 
 // DecryptedMessageActionTypingTypeID is TL type id of DecryptedMessageActionTyping.
@@ -735,8 +735,8 @@ func (d *DecryptedMessageActionTyping) TypeID() uint32 {
 	return DecryptedMessageActionTypingTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DecryptedMessageActionTyping) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DecryptedMessageActionTyping) TypeName() string {
 	return "decryptedMessageActionTyping"
 }
 
@@ -794,9 +794,9 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionRequestKey for reference.
 type DecryptedMessageActionRequestKey struct {
 	// ExchangeID field of DecryptedMessageActionRequestKey.
-	ExchangeID int64 `schemaname:"exchange_id"`
+	ExchangeID int64 `tl:"exchange_id"`
 	// GA field of DecryptedMessageActionRequestKey.
-	GA []byte `schemaname:"g_a"`
+	GA []byte `tl:"g_a"`
 }
 
 // DecryptedMessageActionRequestKeyTypeID is TL type id of DecryptedMessageActionRequestKey.
@@ -840,8 +840,8 @@ func (d *DecryptedMessageActionRequestKey) TypeID() uint32 {
 	return DecryptedMessageActionRequestKeyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DecryptedMessageActionRequestKey) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DecryptedMessageActionRequestKey) TypeName() string {
 	return "decryptedMessageActionRequestKey"
 }
 
@@ -907,11 +907,11 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionAcceptKey for reference.
 type DecryptedMessageActionAcceptKey struct {
 	// ExchangeID field of DecryptedMessageActionAcceptKey.
-	ExchangeID int64 `schemaname:"exchange_id"`
+	ExchangeID int64 `tl:"exchange_id"`
 	// GB field of DecryptedMessageActionAcceptKey.
-	GB []byte `schemaname:"g_b"`
+	GB []byte `tl:"g_b"`
 	// KeyFingerprint field of DecryptedMessageActionAcceptKey.
-	KeyFingerprint int64 `schemaname:"key_fingerprint"`
+	KeyFingerprint int64 `tl:"key_fingerprint"`
 }
 
 // DecryptedMessageActionAcceptKeyTypeID is TL type id of DecryptedMessageActionAcceptKey.
@@ -960,8 +960,8 @@ func (d *DecryptedMessageActionAcceptKey) TypeID() uint32 {
 	return DecryptedMessageActionAcceptKeyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DecryptedMessageActionAcceptKey) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DecryptedMessageActionAcceptKey) TypeName() string {
 	return "decryptedMessageActionAcceptKey"
 }
 
@@ -1040,7 +1040,7 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionAbortKey for reference.
 type DecryptedMessageActionAbortKey struct {
 	// ExchangeID field of DecryptedMessageActionAbortKey.
-	ExchangeID int64 `schemaname:"exchange_id"`
+	ExchangeID int64 `tl:"exchange_id"`
 }
 
 // DecryptedMessageActionAbortKeyTypeID is TL type id of DecryptedMessageActionAbortKey.
@@ -1079,8 +1079,8 @@ func (d *DecryptedMessageActionAbortKey) TypeID() uint32 {
 	return DecryptedMessageActionAbortKeyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DecryptedMessageActionAbortKey) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DecryptedMessageActionAbortKey) TypeName() string {
 	return "decryptedMessageActionAbortKey"
 }
 
@@ -1133,9 +1133,9 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionCommitKey for reference.
 type DecryptedMessageActionCommitKey struct {
 	// ExchangeID field of DecryptedMessageActionCommitKey.
-	ExchangeID int64 `schemaname:"exchange_id"`
+	ExchangeID int64 `tl:"exchange_id"`
 	// KeyFingerprint field of DecryptedMessageActionCommitKey.
-	KeyFingerprint int64 `schemaname:"key_fingerprint"`
+	KeyFingerprint int64 `tl:"key_fingerprint"`
 }
 
 // DecryptedMessageActionCommitKeyTypeID is TL type id of DecryptedMessageActionCommitKey.
@@ -1179,8 +1179,8 @@ func (d *DecryptedMessageActionCommitKey) TypeID() uint32 {
 	return DecryptedMessageActionCommitKeyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DecryptedMessageActionCommitKey) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DecryptedMessageActionCommitKey) TypeName() string {
 	return "decryptedMessageActionCommitKey"
 }
 
@@ -1273,8 +1273,8 @@ func (d *DecryptedMessageActionNoop) TypeID() uint32 {
 	return DecryptedMessageActionNoopTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DecryptedMessageActionNoop) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DecryptedMessageActionNoop) TypeName() string {
 	return "decryptedMessageActionNoop"
 }
 
@@ -1339,11 +1339,11 @@ type DecryptedMessageActionClass interface {
 	bin.Decoder
 	construct() DecryptedMessageActionClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

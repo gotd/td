@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/auth.dropTempAuthKeys for reference.
 type AuthDropTempAuthKeysRequest struct {
 	// The auth keys that shouldn't be dropped.
-	ExceptAuthKeys []int64 `schemaname:"except_auth_keys"`
+	ExceptAuthKeys []int64 `tl:"except_auth_keys"`
 }
 
 // AuthDropTempAuthKeysRequestTypeID is TL type id of AuthDropTempAuthKeysRequest.
@@ -63,8 +63,8 @@ func (d *AuthDropTempAuthKeysRequest) TypeID() uint32 {
 	return AuthDropTempAuthKeysRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *AuthDropTempAuthKeysRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *AuthDropTempAuthKeysRequest) TypeName() string {
 	return "auth.dropTempAuthKeys"
 }
 

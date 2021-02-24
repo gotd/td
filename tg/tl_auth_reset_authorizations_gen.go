@@ -55,8 +55,8 @@ func (r *AuthResetAuthorizationsRequest) TypeID() uint32 {
 	return AuthResetAuthorizationsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *AuthResetAuthorizationsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *AuthResetAuthorizationsRequest) TypeName() string {
 	return "auth.resetAuthorizations"
 }
 

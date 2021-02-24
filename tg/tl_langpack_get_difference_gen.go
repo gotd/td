@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/method/langpack.getDifference for reference.
 type LangpackGetDifferenceRequest struct {
 	// Language pack
-	LangPack string `schemaname:"lang_pack"`
+	LangPack string `tl:"lang_pack"`
 	// Language code
-	LangCode string `schemaname:"lang_code"`
+	LangCode string `tl:"lang_code"`
 	// Previous localization pack version
-	FromVersion int `schemaname:"from_version"`
+	FromVersion int `tl:"from_version"`
 }
 
 // LangpackGetDifferenceRequestTypeID is TL type id of LangpackGetDifferenceRequest.
@@ -77,8 +77,8 @@ func (g *LangpackGetDifferenceRequest) TypeID() uint32 {
 	return LangpackGetDifferenceRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *LangpackGetDifferenceRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *LangpackGetDifferenceRequest) TypeName() string {
 	return "langpack.getDifference"
 }
 

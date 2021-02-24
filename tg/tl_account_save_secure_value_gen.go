@@ -31,12 +31,12 @@ type AccountSaveSecureValueRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport/encryption#encryption
-	Value InputSecureValue `schemaname:"value"`
+	Value InputSecureValue `tl:"value"`
 	// Passport secret hash, for more info see the passport docs »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport/encryption#encryption
-	SecureSecretID int64 `schemaname:"secure_secret_id"`
+	SecureSecretID int64 `tl:"secure_secret_id"`
 }
 
 // AccountSaveSecureValueRequestTypeID is TL type id of AccountSaveSecureValueRequest.
@@ -80,8 +80,8 @@ func (s *AccountSaveSecureValueRequest) TypeID() uint32 {
 	return AccountSaveSecureValueRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *AccountSaveSecureValueRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *AccountSaveSecureValueRequest) TypeName() string {
 	return "account.saveSecureValue"
 }
 

@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/channelParticipant for reference.
 type ChannelParticipant struct {
 	// Pariticipant user ID
-	UserID int `schemaname:"user_id"`
+	UserID int `tl:"user_id"`
 	// Date joined
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 }
 
 // ChannelParticipantTypeID is TL type id of ChannelParticipant.
@@ -70,8 +70,8 @@ func (c *ChannelParticipant) TypeID() uint32 {
 	return ChannelParticipantTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelParticipant) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelParticipant) TypeName() string {
 	return "channelParticipant"
 }
 
@@ -138,11 +138,11 @@ var (
 // See https://core.telegram.org/constructor/channelParticipantSelf for reference.
 type ChannelParticipantSelf struct {
 	// User ID
-	UserID int `schemaname:"user_id"`
+	UserID int `tl:"user_id"`
 	// User that invited me to the channel/supergroup
-	InviterID int `schemaname:"inviter_id"`
+	InviterID int `tl:"inviter_id"`
 	// When did I join the channel/supergroup
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 }
 
 // ChannelParticipantSelfTypeID is TL type id of ChannelParticipantSelf.
@@ -191,8 +191,8 @@ func (c *ChannelParticipantSelf) TypeID() uint32 {
 	return ChannelParticipantSelfTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelParticipantSelf) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelParticipantSelf) TypeName() string {
 	return "channelParticipantSelf"
 }
 
@@ -275,15 +275,15 @@ type ChannelParticipantCreator struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// User ID
-	UserID int `schemaname:"user_id"`
+	UserID int `tl:"user_id"`
 	// Creator admin rights
-	AdminRights ChatAdminRights `schemaname:"admin_rights"`
+	AdminRights ChatAdminRights `tl:"admin_rights"`
 	// The role (rank) of the group creator in the group: just an arbitrary string, admin by default
 	//
 	// Use SetRank and GetRank helpers.
-	Rank string `schemaname:"rank"`
+	Rank string `tl:"rank"`
 }
 
 // ChannelParticipantCreatorTypeID is TL type id of ChannelParticipantCreator.
@@ -338,8 +338,8 @@ func (c *ChannelParticipantCreator) TypeID() uint32 {
 	return ChannelParticipantCreatorTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelParticipantCreator) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelParticipantCreator) TypeName() string {
 	return "channelParticipantCreator"
 }
 
@@ -445,30 +445,30 @@ type ChannelParticipantAdmin struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Can this admin promote other admins with the same permissions?
-	CanEdit bool `schemaname:"can_edit"`
+	CanEdit bool `tl:"can_edit"`
 	// Is this the current user
-	Self bool `schemaname:"self"`
+	Self bool `tl:"self"`
 	// Admin user ID
-	UserID int `schemaname:"user_id"`
+	UserID int `tl:"user_id"`
 	// User that invited the admin to the channel/group
 	//
 	// Use SetInviterID and GetInviterID helpers.
-	InviterID int `schemaname:"inviter_id"`
+	InviterID int `tl:"inviter_id"`
 	// User that promoted the user to admin
-	PromotedBy int `schemaname:"promoted_by"`
+	PromotedBy int `tl:"promoted_by"`
 	// When did the user join
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 	// Admin rights¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
-	AdminRights ChatAdminRights `schemaname:"admin_rights"`
+	AdminRights ChatAdminRights `tl:"admin_rights"`
 	// The role (rank) of the admin in the group: just an arbitrary string, admin by default
 	//
 	// Use SetRank and GetRank helpers.
-	Rank string `schemaname:"rank"`
+	Rank string `tl:"rank"`
 }
 
 // ChannelParticipantAdminTypeID is TL type id of ChannelParticipantAdmin.
@@ -551,8 +551,8 @@ func (c *ChannelParticipantAdmin) TypeID() uint32 {
 	return ChannelParticipantAdminTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelParticipantAdmin) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelParticipantAdmin) TypeName() string {
 	return "channelParticipantAdmin"
 }
 
@@ -752,20 +752,20 @@ type ChannelParticipantBanned struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether the user has left the group
-	Left bool `schemaname:"left"`
+	Left bool `tl:"left"`
 	// User ID
-	UserID int `schemaname:"user_id"`
+	UserID int `tl:"user_id"`
 	// User was kicked by the specified admin
-	KickedBy int `schemaname:"kicked_by"`
+	KickedBy int `tl:"kicked_by"`
 	// When did the user join the group
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 	// Banned rights¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
-	BannedRights ChatBannedRights `schemaname:"banned_rights"`
+	BannedRights ChatBannedRights `tl:"banned_rights"`
 }
 
 // ChannelParticipantBannedTypeID is TL type id of ChannelParticipantBanned.
@@ -827,8 +827,8 @@ func (c *ChannelParticipantBanned) TypeID() uint32 {
 	return ChannelParticipantBannedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelParticipantBanned) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelParticipantBanned) TypeName() string {
 	return "channelParticipantBanned"
 }
 
@@ -949,7 +949,7 @@ var (
 // See https://core.telegram.org/constructor/channelParticipantLeft for reference.
 type ChannelParticipantLeft struct {
 	// User ID
-	UserID int `schemaname:"user_id"`
+	UserID int `tl:"user_id"`
 }
 
 // ChannelParticipantLeftTypeID is TL type id of ChannelParticipantLeft.
@@ -988,8 +988,8 @@ func (c *ChannelParticipantLeft) TypeID() uint32 {
 	return ChannelParticipantLeftTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelParticipantLeft) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelParticipantLeft) TypeName() string {
 	return "channelParticipantLeft"
 }
 
@@ -1060,11 +1060,11 @@ type ChannelParticipantClass interface {
 	bin.Decoder
 	construct() ChannelParticipantClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

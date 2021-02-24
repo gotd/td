@@ -28,7 +28,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.deleteSecureValue for reference.
 type AccountDeleteSecureValueRequest struct {
 	// Document types to delete
-	Types []SecureValueTypeClass `schemaname:"types"`
+	Types []SecureValueTypeClass `tl:"types"`
 }
 
 // AccountDeleteSecureValueRequestTypeID is TL type id of AccountDeleteSecureValueRequest.
@@ -67,8 +67,8 @@ func (d *AccountDeleteSecureValueRequest) TypeID() uint32 {
 	return AccountDeleteSecureValueRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *AccountDeleteSecureValueRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *AccountDeleteSecureValueRequest) TypeName() string {
 	return "account.deleteSecureValue"
 }
 

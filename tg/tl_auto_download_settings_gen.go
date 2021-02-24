@@ -27,23 +27,23 @@ type AutoDownloadSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Disable automatic media downloads?
-	Disabled bool `schemaname:"disabled"`
+	Disabled bool `tl:"disabled"`
 	// Whether to preload the first seconds of videos larger than the specified limit
-	VideoPreloadLarge bool `schemaname:"video_preload_large"`
+	VideoPreloadLarge bool `tl:"video_preload_large"`
 	// Whether to preload the next audio track when you're listening to music
-	AudioPreloadNext bool `schemaname:"audio_preload_next"`
+	AudioPreloadNext bool `tl:"audio_preload_next"`
 	// Whether to enable data saving mode in phone calls
-	PhonecallsLessData bool `schemaname:"phonecalls_less_data"`
+	PhonecallsLessData bool `tl:"phonecalls_less_data"`
 	// Maximum size of photos to preload
-	PhotoSizeMax int `schemaname:"photo_size_max"`
+	PhotoSizeMax int `tl:"photo_size_max"`
 	// Maximum size of videos to preload
-	VideoSizeMax int `schemaname:"video_size_max"`
+	VideoSizeMax int `tl:"video_size_max"`
 	// Maximum size of other files to preload
-	FileSizeMax int `schemaname:"file_size_max"`
+	FileSizeMax int `tl:"file_size_max"`
 	// Maximum suggested bitrate for uploading videos
-	VideoUploadMaxbitrate int `schemaname:"video_upload_maxbitrate"`
+	VideoUploadMaxbitrate int `tl:"video_upload_maxbitrate"`
 }
 
 // AutoDownloadSettingsTypeID is TL type id of AutoDownloadSettings.
@@ -120,8 +120,8 @@ func (a *AutoDownloadSettings) TypeID() uint32 {
 	return AutoDownloadSettingsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (a *AutoDownloadSettings) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (a *AutoDownloadSettings) TypeName() string {
 	return "autoDownloadSettings"
 }
 

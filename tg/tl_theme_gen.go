@@ -27,29 +27,29 @@ type Theme struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether the current user is the creator of this theme
-	Creator bool `schemaname:"creator"`
+	Creator bool `tl:"creator"`
 	// Whether this is the default theme
-	Default bool `schemaname:"default"`
+	Default bool `tl:"default"`
 	// Theme ID
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// Theme access hash
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 	// Unique theme ID
-	Slug string `schemaname:"slug"`
+	Slug string `tl:"slug"`
 	// Theme name
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 	// Theme
 	//
 	// Use SetDocument and GetDocument helpers.
-	Document DocumentClass `schemaname:"document"`
+	Document DocumentClass `tl:"document"`
 	// Theme settings
 	//
 	// Use SetSettings and GetSettings helpers.
-	Settings ThemeSettings `schemaname:"settings"`
+	Settings ThemeSettings `tl:"settings"`
 	// Installation count
-	InstallsCount int `schemaname:"installs_count"`
+	InstallsCount int `tl:"installs_count"`
 }
 
 // ThemeTypeID is TL type id of Theme.
@@ -137,8 +137,8 @@ func (t *Theme) TypeID() uint32 {
 	return ThemeTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *Theme) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *Theme) TypeName() string {
 	return "theme"
 }
 

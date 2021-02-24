@@ -27,30 +27,30 @@ type PeerSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether we can still report the user for spam
-	ReportSpam bool `schemaname:"report_spam"`
+	ReportSpam bool `tl:"report_spam"`
 	// Whether we can add the user as contact
-	AddContact bool `schemaname:"add_contact"`
+	AddContact bool `tl:"add_contact"`
 	// Whether we can block the user
-	BlockContact bool `schemaname:"block_contact"`
+	BlockContact bool `tl:"block_contact"`
 	// Whether we can share the user's contact
-	ShareContact bool `schemaname:"share_contact"`
+	ShareContact bool `tl:"share_contact"`
 	// Whether a special exception for contacts is needed
-	NeedContactsException bool `schemaname:"need_contacts_exception"`
+	NeedContactsException bool `tl:"need_contacts_exception"`
 	// Whether we can report a geogroup is irrelevant for this location
-	ReportGeo bool `schemaname:"report_geo"`
+	ReportGeo bool `tl:"report_geo"`
 	// Whether this peer was automatically archived according to privacy settings¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/globalPrivacySettings
-	Autoarchived bool `schemaname:"autoarchived"`
+	Autoarchived bool `tl:"autoarchived"`
 	// InviteMembers field of PeerSettings.
-	InviteMembers bool `schemaname:"invite_members"`
+	InviteMembers bool `tl:"invite_members"`
 	// Distance in meters between us and this peer
 	//
 	// Use SetGeoDistance and GetGeoDistance helpers.
-	GeoDistance int `schemaname:"geo_distance"`
+	GeoDistance int `tl:"geo_distance"`
 }
 
 // PeerSettingsTypeID is TL type id of PeerSettings.
@@ -135,8 +135,8 @@ func (p *PeerSettings) TypeID() uint32 {
 	return PeerSettingsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PeerSettings) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PeerSettings) TypeName() string {
 	return "peerSettings"
 }
 

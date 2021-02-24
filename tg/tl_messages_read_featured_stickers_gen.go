@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.readFeaturedStickers for reference.
 type MessagesReadFeaturedStickersRequest struct {
 	// IDs of stickersets to mark as read
-	ID []int64 `schemaname:"id"`
+	ID []int64 `tl:"id"`
 }
 
 // MessagesReadFeaturedStickersRequestTypeID is TL type id of MessagesReadFeaturedStickersRequest.
@@ -63,8 +63,8 @@ func (r *MessagesReadFeaturedStickersRequest) TypeID() uint32 {
 	return MessagesReadFeaturedStickersRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *MessagesReadFeaturedStickersRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *MessagesReadFeaturedStickersRequest) TypeName() string {
 	return "messages.readFeaturedStickers"
 }
 

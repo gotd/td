@@ -51,8 +51,8 @@ func (u *UserProfilePhotoEmpty) TypeID() uint32 {
 	return UserProfilePhotoEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (u *UserProfilePhotoEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (u *UserProfilePhotoEmpty) TypeName() string {
 	return "userProfilePhotoEmpty"
 }
 
@@ -96,23 +96,23 @@ type UserProfilePhoto struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether an animated profile picture¹ is available for this user
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files#animated-profile-pictures
-	HasVideo bool `schemaname:"has_video"`
+	HasVideo bool `tl:"has_video"`
 	// Identifier of the respective photoParameter added in Layer 2¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/layers#layer-2
-	PhotoID int64 `schemaname:"photo_id"`
+	PhotoID int64 `tl:"photo_id"`
 	// Location of the file, corresponding to the small profile photo thumbnail
-	PhotoSmall FileLocationToBeDeprecated `schemaname:"photo_small"`
+	PhotoSmall FileLocationToBeDeprecated `tl:"photo_small"`
 	// Location of the file, corresponding to the big profile photo thumbnail
-	PhotoBig FileLocationToBeDeprecated `schemaname:"photo_big"`
+	PhotoBig FileLocationToBeDeprecated `tl:"photo_big"`
 	// DC ID where the photo is stored
-	DCID int `schemaname:"dc_id"`
+	DCID int `tl:"dc_id"`
 }
 
 // UserProfilePhotoTypeID is TL type id of UserProfilePhoto.
@@ -174,8 +174,8 @@ func (u *UserProfilePhoto) TypeID() uint32 {
 	return UserProfilePhotoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (u *UserProfilePhoto) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (u *UserProfilePhoto) TypeName() string {
 	return "userProfilePhoto"
 }
 
@@ -309,11 +309,11 @@ type UserProfilePhotoClass interface {
 	bin.Decoder
 	construct() UserProfilePhotoClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

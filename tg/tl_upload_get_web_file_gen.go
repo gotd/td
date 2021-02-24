@@ -23,11 +23,11 @@ var _ = errors.Is
 // See https://core.telegram.org/method/upload.getWebFile for reference.
 type UploadGetWebFileRequest struct {
 	// Location field of UploadGetWebFileRequest.
-	Location InputWebFileLocationClass `schemaname:"location"`
+	Location InputWebFileLocationClass `tl:"location"`
 	// Offset field of UploadGetWebFileRequest.
-	Offset int `schemaname:"offset"`
+	Offset int `tl:"offset"`
 	// Limit field of UploadGetWebFileRequest.
-	Limit int `schemaname:"limit"`
+	Limit int `tl:"limit"`
 }
 
 // UploadGetWebFileRequestTypeID is TL type id of UploadGetWebFileRequest.
@@ -76,8 +76,8 @@ func (g *UploadGetWebFileRequest) TypeID() uint32 {
 	return UploadGetWebFileRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *UploadGetWebFileRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *UploadGetWebFileRequest) TypeName() string {
 	return "upload.getWebFile"
 }
 

@@ -24,13 +24,13 @@ var _ = errors.Is
 // See https://core.telegram.org/method/auth.signUp for reference.
 type AuthSignUpRequest struct {
 	// Phone number in the international format
-	PhoneNumber string `schemaname:"phone_number"`
+	PhoneNumber string `tl:"phone_number"`
 	// SMS-message ID
-	PhoneCodeHash string `schemaname:"phone_code_hash"`
+	PhoneCodeHash string `tl:"phone_code_hash"`
 	// New user first name
-	FirstName string `schemaname:"first_name"`
+	FirstName string `tl:"first_name"`
 	// New user last name
-	LastName string `schemaname:"last_name"`
+	LastName string `tl:"last_name"`
 }
 
 // AuthSignUpRequestTypeID is TL type id of AuthSignUpRequest.
@@ -84,8 +84,8 @@ func (s *AuthSignUpRequest) TypeID() uint32 {
 	return AuthSignUpRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *AuthSignUpRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *AuthSignUpRequest) TypeName() string {
 	return "auth.signUp"
 }
 

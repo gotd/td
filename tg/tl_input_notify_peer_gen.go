@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/inputNotifyPeer for reference.
 type InputNotifyPeer struct {
 	// User or group
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 }
 
 // InputNotifyPeerTypeID is TL type id of InputNotifyPeer.
@@ -63,8 +63,8 @@ func (i *InputNotifyPeer) TypeID() uint32 {
 	return InputNotifyPeerTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputNotifyPeer) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputNotifyPeer) TypeName() string {
 	return "inputNotifyPeer"
 }
 
@@ -150,8 +150,8 @@ func (i *InputNotifyUsers) TypeID() uint32 {
 	return InputNotifyUsersTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputNotifyUsers) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputNotifyUsers) TypeName() string {
 	return "inputNotifyUsers"
 }
 
@@ -219,8 +219,8 @@ func (i *InputNotifyChats) TypeID() uint32 {
 	return InputNotifyChatsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputNotifyChats) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputNotifyChats) TypeName() string {
 	return "inputNotifyChats"
 }
 
@@ -291,8 +291,8 @@ func (i *InputNotifyBroadcasts) TypeID() uint32 {
 	return InputNotifyBroadcastsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputNotifyBroadcasts) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputNotifyBroadcasts) TypeName() string {
 	return "inputNotifyBroadcasts"
 }
 
@@ -348,11 +348,11 @@ type InputNotifyPeerClass interface {
 	bin.Decoder
 	construct() InputNotifyPeerClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

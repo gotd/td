@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/payments.bankCardData for reference.
 type PaymentsBankCardData struct {
 	// Credit card title
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 	// Info URL(s) provided by the card's bank(s)
-	OpenUrls []BankCardOpenUrl `schemaname:"open_urls"`
+	OpenUrls []BankCardOpenUrl `tl:"open_urls"`
 }
 
 // PaymentsBankCardDataTypeID is TL type id of PaymentsBankCardData.
@@ -70,8 +70,8 @@ func (b *PaymentsBankCardData) TypeID() uint32 {
 	return PaymentsBankCardDataTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *PaymentsBankCardData) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *PaymentsBankCardData) TypeName() string {
 	return "payments.bankCardData"
 }
 

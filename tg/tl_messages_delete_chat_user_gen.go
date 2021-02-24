@@ -24,13 +24,13 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.deleteChatUser for reference.
 type MessagesDeleteChatUserRequest struct {
 	// Flags field of MessagesDeleteChatUserRequest.
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// RevokeHistory field of MessagesDeleteChatUserRequest.
-	RevokeHistory bool `schemaname:"revoke_history"`
+	RevokeHistory bool `tl:"revoke_history"`
 	// Chat ID
-	ChatID int `schemaname:"chat_id"`
+	ChatID int `tl:"chat_id"`
 	// User ID to be deleted
-	UserID InputUserClass `schemaname:"user_id"`
+	UserID InputUserClass `tl:"user_id"`
 }
 
 // MessagesDeleteChatUserRequestTypeID is TL type id of MessagesDeleteChatUserRequest.
@@ -82,8 +82,8 @@ func (d *MessagesDeleteChatUserRequest) TypeID() uint32 {
 	return MessagesDeleteChatUserRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *MessagesDeleteChatUserRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *MessagesDeleteChatUserRequest) TypeName() string {
 	return "messages.deleteChatUser"
 }
 

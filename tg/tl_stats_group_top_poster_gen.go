@@ -24,14 +24,14 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/statsGroupTopPoster for reference.
 type StatsGroupTopPoster struct {
 	// User ID
-	UserID int `schemaname:"user_id"`
+	UserID int `tl:"user_id"`
 	// Number of messages for statistics¹ period in consideration
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/stats
-	Messages int `schemaname:"messages"`
+	Messages int `tl:"messages"`
 	// Average number of characters per message
-	AvgChars int `schemaname:"avg_chars"`
+	AvgChars int `tl:"avg_chars"`
 }
 
 // StatsGroupTopPosterTypeID is TL type id of StatsGroupTopPoster.
@@ -80,8 +80,8 @@ func (s *StatsGroupTopPoster) TypeID() uint32 {
 	return StatsGroupTopPosterTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *StatsGroupTopPoster) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *StatsGroupTopPoster) TypeName() string {
 	return "statsGroupTopPoster"
 }
 

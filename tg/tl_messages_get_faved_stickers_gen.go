@@ -27,7 +27,7 @@ type MessagesGetFavedStickersRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `schemaname:"hash"`
+	Hash int `tl:"hash"`
 }
 
 // MessagesGetFavedStickersRequestTypeID is TL type id of MessagesGetFavedStickersRequest.
@@ -66,8 +66,8 @@ func (g *MessagesGetFavedStickersRequest) TypeID() uint32 {
 	return MessagesGetFavedStickersRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetFavedStickersRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetFavedStickersRequest) TypeName() string {
 	return "messages.getFavedStickers"
 }
 

@@ -51,8 +51,8 @@ func (i *InputStickerSetEmpty) TypeID() uint32 {
 	return InputStickerSetEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputStickerSetEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputStickerSetEmpty) TypeName() string {
 	return "inputStickerSetEmpty"
 }
 
@@ -93,9 +93,9 @@ var (
 // See https://core.telegram.org/constructor/inputStickerSetID for reference.
 type InputStickerSetID struct {
 	// ID
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// Access hash
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 }
 
 // InputStickerSetIDTypeID is TL type id of InputStickerSetID.
@@ -139,8 +139,8 @@ func (i *InputStickerSetID) TypeID() uint32 {
 	return InputStickerSetIDTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputStickerSetID) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputStickerSetID) TypeName() string {
 	return "inputStickerSetID"
 }
 
@@ -207,7 +207,7 @@ var (
 // See https://core.telegram.org/constructor/inputStickerSetShortName for reference.
 type InputStickerSetShortName struct {
 	// From tg://addstickers?set=short_name
-	ShortName string `schemaname:"short_name"`
+	ShortName string `tl:"short_name"`
 }
 
 // InputStickerSetShortNameTypeID is TL type id of InputStickerSetShortName.
@@ -246,8 +246,8 @@ func (i *InputStickerSetShortName) TypeID() uint32 {
 	return InputStickerSetShortNameTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputStickerSetShortName) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputStickerSetShortName) TypeName() string {
 	return "inputStickerSetShortName"
 }
 
@@ -328,8 +328,8 @@ func (i *InputStickerSetAnimatedEmoji) TypeID() uint32 {
 	return InputStickerSetAnimatedEmojiTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputStickerSetAnimatedEmoji) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputStickerSetAnimatedEmoji) TypeName() string {
 	return "inputStickerSetAnimatedEmoji"
 }
 
@@ -373,7 +373,7 @@ var (
 // See https://core.telegram.org/constructor/inputStickerSetDice for reference.
 type InputStickerSetDice struct {
 	// The emoji, for now ,  and  are supported
-	Emoticon string `schemaname:"emoticon"`
+	Emoticon string `tl:"emoticon"`
 }
 
 // InputStickerSetDiceTypeID is TL type id of InputStickerSetDice.
@@ -412,8 +412,8 @@ func (i *InputStickerSetDice) TypeID() uint32 {
 	return InputStickerSetDiceTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputStickerSetDice) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputStickerSetDice) TypeName() string {
 	return "inputStickerSetDice"
 }
 
@@ -483,11 +483,11 @@ type InputStickerSetClass interface {
 	bin.Decoder
 	construct() InputStickerSetClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

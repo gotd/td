@@ -23,13 +23,13 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.reportProfilePhoto for reference.
 type AccountReportProfilePhotoRequest struct {
 	// Peer field of AccountReportProfilePhotoRequest.
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// PhotoID field of AccountReportProfilePhotoRequest.
-	PhotoID InputPhotoClass `schemaname:"photo_id"`
+	PhotoID InputPhotoClass `tl:"photo_id"`
 	// Reason field of AccountReportProfilePhotoRequest.
-	Reason ReportReasonClass `schemaname:"reason"`
+	Reason ReportReasonClass `tl:"reason"`
 	// Message field of AccountReportProfilePhotoRequest.
-	Message string `schemaname:"message"`
+	Message string `tl:"message"`
 }
 
 // AccountReportProfilePhotoRequestTypeID is TL type id of AccountReportProfilePhotoRequest.
@@ -83,8 +83,8 @@ func (r *AccountReportProfilePhotoRequest) TypeID() uint32 {
 	return AccountReportProfilePhotoRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *AccountReportProfilePhotoRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *AccountReportProfilePhotoRequest) TypeName() string {
 	return "account.reportProfilePhoto"
 }
 

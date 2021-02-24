@@ -27,16 +27,16 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/inputFile for reference.
 type InputFile struct {
 	// Random file identifier created by the client
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// Number of parts saved
-	Parts int `schemaname:"parts"`
+	Parts int `tl:"parts"`
 	// Full name of the file
-	Name string `schemaname:"name"`
+	Name string `tl:"name"`
 	// In case the file's md5-hash¹ was passed, contents of the file will be checked prior to use
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/MD5#MD5_hashes
-	MD5Checksum string `schemaname:"md5_checksum"`
+	MD5Checksum string `tl:"md5_checksum"`
 }
 
 // InputFileTypeID is TL type id of InputFile.
@@ -90,8 +90,8 @@ func (i *InputFile) TypeID() uint32 {
 	return InputFileTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputFile) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputFile) TypeName() string {
 	return "inputFile"
 }
 
@@ -187,11 +187,11 @@ var (
 // See https://core.telegram.org/constructor/inputFileBig for reference.
 type InputFileBig struct {
 	// Random file id, created by the client
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// Number of parts saved
-	Parts int `schemaname:"parts"`
+	Parts int `tl:"parts"`
 	// Full file name
-	Name string `schemaname:"name"`
+	Name string `tl:"name"`
 }
 
 // InputFileBigTypeID is TL type id of InputFileBig.
@@ -240,8 +240,8 @@ func (i *InputFileBig) TypeID() uint32 {
 	return InputFileBigTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputFileBig) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputFileBig) TypeName() string {
 	return "inputFileBig"
 }
 
@@ -334,11 +334,11 @@ type InputFileClass interface {
 	bin.Decoder
 	construct() InputFileClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/channels.togglePreHistoryHidden for reference.
 type ChannelsTogglePreHistoryHiddenRequest struct {
 	// Channel/supergroup
-	Channel InputChannelClass `schemaname:"channel"`
+	Channel InputChannelClass `tl:"channel"`
 	// Hide/unhide
-	Enabled bool `schemaname:"enabled"`
+	Enabled bool `tl:"enabled"`
 }
 
 // ChannelsTogglePreHistoryHiddenRequestTypeID is TL type id of ChannelsTogglePreHistoryHiddenRequest.
@@ -70,8 +70,8 @@ func (t *ChannelsTogglePreHistoryHiddenRequest) TypeID() uint32 {
 	return ChannelsTogglePreHistoryHiddenRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *ChannelsTogglePreHistoryHiddenRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *ChannelsTogglePreHistoryHiddenRequest) TypeName() string {
 	return "channels.togglePreHistoryHidden"
 }
 

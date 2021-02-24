@@ -28,9 +28,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/statsPercentValue for reference.
 type StatsPercentValue struct {
 	// Partial value
-	Part float64 `schemaname:"part"`
+	Part float64 `tl:"part"`
 	// Total value
-	Total float64 `schemaname:"total"`
+	Total float64 `tl:"total"`
 }
 
 // StatsPercentValueTypeID is TL type id of StatsPercentValue.
@@ -74,8 +74,8 @@ func (s *StatsPercentValue) TypeID() uint32 {
 	return StatsPercentValueTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *StatsPercentValue) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *StatsPercentValue) TypeName() string {
 	return "statsPercentValue"
 }
 

@@ -27,39 +27,39 @@ type MessagesEditMessageRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Disable webpage preview
-	NoWebpage bool `schemaname:"no_webpage"`
+	NoWebpage bool `tl:"no_webpage"`
 	// Where was the message sent
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// ID of the message to edit
-	ID int `schemaname:"id"`
+	ID int `tl:"id"`
 	// New message
 	//
 	// Use SetMessage and GetMessage helpers.
-	Message string `schemaname:"message"`
+	Message string `tl:"message"`
 	// New attached media
 	//
 	// Use SetMedia and GetMedia helpers.
-	Media InputMediaClass `schemaname:"media"`
+	Media InputMediaClass `tl:"media"`
 	// Reply markup for inline keyboards
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `schemaname:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `schemaname:"entities"`
+	Entities []MessageEntityClass `tl:"entities"`
 	// Scheduled message date for scheduled messages¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/scheduled-messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
-	ScheduleDate int `schemaname:"schedule_date"`
+	ScheduleDate int `tl:"schedule_date"`
 }
 
 // MessagesEditMessageRequestTypeID is TL type id of MessagesEditMessageRequest.
@@ -151,8 +151,8 @@ func (e *MessagesEditMessageRequest) TypeID() uint32 {
 	return MessagesEditMessageRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (e *MessagesEditMessageRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (e *MessagesEditMessageRequest) TypeName() string {
 	return "messages.editMessage"
 }
 

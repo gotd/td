@@ -21,7 +21,7 @@ var _ = errors.Is
 // GzipPacked represents TL type `gzip_packed#3072cfa1`.
 type GzipPacked struct {
 	// PackedData field of GzipPacked.
-	PackedData []byte `schemaname:"packed_data"`
+	PackedData []byte `tl:"packed_data"`
 }
 
 // GzipPackedTypeID is TL type id of GzipPacked.
@@ -60,8 +60,8 @@ func (g *GzipPacked) TypeID() uint32 {
 	return GzipPackedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *GzipPacked) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *GzipPacked) TypeName() string {
 	return "gzip_packed"
 }
 

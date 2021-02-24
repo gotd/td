@@ -51,8 +51,8 @@ func (c *ChannelLocationEmpty) TypeID() uint32 {
 	return ChannelLocationEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelLocationEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelLocationEmpty) TypeName() string {
 	return "channelLocationEmpty"
 }
 
@@ -93,9 +93,9 @@ var (
 // See https://core.telegram.org/constructor/channelLocation for reference.
 type ChannelLocation struct {
 	// Geographical location of supergrup
-	GeoPoint GeoPointClass `schemaname:"geo_point"`
+	GeoPoint GeoPointClass `tl:"geo_point"`
 	// Textual description of the address
-	Address string `schemaname:"address"`
+	Address string `tl:"address"`
 }
 
 // ChannelLocationTypeID is TL type id of ChannelLocation.
@@ -139,8 +139,8 @@ func (c *ChannelLocation) TypeID() uint32 {
 	return ChannelLocationTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelLocation) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelLocation) TypeName() string {
 	return "channelLocation"
 }
 
@@ -225,11 +225,11 @@ type ChannelLocationClass interface {
 	bin.Decoder
 	construct() ChannelLocationClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

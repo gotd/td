@@ -27,17 +27,17 @@ type MessagesUpdatePinnedMessageRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Pin the message silently, without triggering a notification
-	Silent bool `schemaname:"silent"`
+	Silent bool `tl:"silent"`
 	// Whether the message should unpinned or pinned
-	Unpin bool `schemaname:"unpin"`
+	Unpin bool `tl:"unpin"`
 	// Whether the message should only be pinned on the local side of a one-to-one chat
-	PmOneside bool `schemaname:"pm_oneside"`
+	PmOneside bool `tl:"pm_oneside"`
 	// The peer where to pin the message
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// The message to pin or unpin
-	ID int `schemaname:"id"`
+	ID int `tl:"id"`
 }
 
 // MessagesUpdatePinnedMessageRequestTypeID is TL type id of MessagesUpdatePinnedMessageRequest.
@@ -99,8 +99,8 @@ func (u *MessagesUpdatePinnedMessageRequest) TypeID() uint32 {
 	return MessagesUpdatePinnedMessageRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (u *MessagesUpdatePinnedMessageRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (u *MessagesUpdatePinnedMessageRequest) TypeName() string {
 	return "messages.updatePinnedMessage"
 }
 

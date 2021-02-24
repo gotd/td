@@ -50,8 +50,8 @@ func (b *Bytes) TypeID() uint32 {
 	return BytesTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *Bytes) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *Bytes) TypeName() string {
 	return "bytes"
 }
 

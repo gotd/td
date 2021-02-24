@@ -30,53 +30,53 @@ type ChatAdminRights struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// If set, allows the admin to modify the description of the channel/supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	ChangeInfo bool `schemaname:"change_info"`
+	ChangeInfo bool `tl:"change_info"`
 	// If set, allows the admin to post messages in the channel¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	PostMessages bool `schemaname:"post_messages"`
+	PostMessages bool `tl:"post_messages"`
 	// If set, allows the admin to also edit messages from other admins in the channel¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	EditMessages bool `schemaname:"edit_messages"`
+	EditMessages bool `tl:"edit_messages"`
 	// If set, allows the admin to also delete messages from other admins in the channel¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	DeleteMessages bool `schemaname:"delete_messages"`
+	DeleteMessages bool `tl:"delete_messages"`
 	// If set, allows the admin to ban users from the channel/supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	BanUsers bool `schemaname:"ban_users"`
+	BanUsers bool `tl:"ban_users"`
 	// If set, allows the admin to invite users in the channel/supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	InviteUsers bool `schemaname:"invite_users"`
+	InviteUsers bool `tl:"invite_users"`
 	// If set, allows the admin to pin messages in the channel/supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	PinMessages bool `schemaname:"pin_messages"`
+	PinMessages bool `tl:"pin_messages"`
 	// If set, allows the admin to add other admins with the same (or more limited) permissions in the channel/supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	AddAdmins bool `schemaname:"add_admins"`
+	AddAdmins bool `tl:"add_admins"`
 	// Whether this admin is anonymous
-	Anonymous bool `schemaname:"anonymous"`
+	Anonymous bool `tl:"anonymous"`
 	// ManageCall field of ChatAdminRights.
-	ManageCall bool `schemaname:"manage_call"`
+	ManageCall bool `tl:"manage_call"`
 	// Other field of ChatAdminRights.
-	Other bool `schemaname:"other"`
+	Other bool `tl:"other"`
 }
 
 // ChatAdminRightsTypeID is TL type id of ChatAdminRights.
@@ -168,8 +168,8 @@ func (c *ChatAdminRights) TypeID() uint32 {
 	return ChatAdminRightsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChatAdminRights) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChatAdminRights) TypeName() string {
 	return "chatAdminRights"
 }
 

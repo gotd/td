@@ -51,8 +51,8 @@ func (w *AccountWallPapersNotModified) TypeID() uint32 {
 	return AccountWallPapersNotModifiedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (w *AccountWallPapersNotModified) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (w *AccountWallPapersNotModified) TypeName() string {
 	return "account.wallPapersNotModified"
 }
 
@@ -96,9 +96,9 @@ type AccountWallPapers struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `schemaname:"hash"`
+	Hash int `tl:"hash"`
 	// Wallpapers
-	Wallpapers []WallPaperClass `schemaname:"wallpapers"`
+	Wallpapers []WallPaperClass `tl:"wallpapers"`
 }
 
 // AccountWallPapersTypeID is TL type id of AccountWallPapers.
@@ -142,8 +142,8 @@ func (w *AccountWallPapers) TypeID() uint32 {
 	return AccountWallPapersTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (w *AccountWallPapers) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (w *AccountWallPapers) TypeName() string {
 	return "account.wallPapers"
 }
 
@@ -242,11 +242,11 @@ type AccountWallPapersClass interface {
 	bin.Decoder
 	construct() AccountWallPapersClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

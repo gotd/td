@@ -30,28 +30,28 @@ type MessagesSendMultiMediaRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether to send the album silently (no notification triggered)
-	Silent bool `schemaname:"silent"`
+	Silent bool `tl:"silent"`
 	// Send in background?
-	Background bool `schemaname:"background"`
+	Background bool `tl:"background"`
 	// Whether to clear drafts¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/drafts
-	ClearDraft bool `schemaname:"clear_draft"`
+	ClearDraft bool `tl:"clear_draft"`
 	// The destination chat
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// The message to reply to
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
-	ReplyToMsgID int `schemaname:"reply_to_msg_id"`
+	ReplyToMsgID int `tl:"reply_to_msg_id"`
 	// The medias to send
-	MultiMedia []InputSingleMedia `schemaname:"multi_media"`
+	MultiMedia []InputSingleMedia `tl:"multi_media"`
 	// Scheduled message date for scheduled messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
-	ScheduleDate int `schemaname:"schedule_date"`
+	ScheduleDate int `tl:"schedule_date"`
 }
 
 // MessagesSendMultiMediaRequestTypeID is TL type id of MessagesSendMultiMediaRequest.
@@ -129,8 +129,8 @@ func (s *MessagesSendMultiMediaRequest) TypeID() uint32 {
 	return MessagesSendMultiMediaRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *MessagesSendMultiMediaRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *MessagesSendMultiMediaRequest) TypeName() string {
 	return "messages.sendMultiMedia"
 }
 

@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.messageViews for reference.
 type MessagesMessageViews struct {
 	// View, forward counter + info about replies
-	Views []MessageViews `schemaname:"views"`
+	Views []MessageViews `tl:"views"`
 	// Chats mentioned in constructor
-	Chats []ChatClass `schemaname:"chats"`
+	Chats []ChatClass `tl:"chats"`
 	// Users mentioned in constructor
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // MessagesMessageViewsTypeID is TL type id of MessagesMessageViews.
@@ -77,8 +77,8 @@ func (m *MessagesMessageViews) TypeID() uint32 {
 	return MessagesMessageViewsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *MessagesMessageViews) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *MessagesMessageViews) TypeName() string {
 	return "messages.messageViews"
 }
 

@@ -50,8 +50,8 @@ func (t *TextEntityTypeMention) TypeID() uint32 {
 	return TextEntityTypeMentionTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextEntityTypeMention) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextEntityTypeMention) TypeName() string {
 	return "textEntityTypeMention"
 }
 
@@ -118,8 +118,8 @@ func (t *TextEntityTypeHashtag) TypeID() uint32 {
 	return TextEntityTypeHashtagTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextEntityTypeHashtag) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextEntityTypeHashtag) TypeName() string {
 	return "textEntityTypeHashtag"
 }
 
@@ -186,8 +186,8 @@ func (t *TextEntityTypeCashtag) TypeID() uint32 {
 	return TextEntityTypeCashtagTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextEntityTypeCashtag) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextEntityTypeCashtag) TypeName() string {
 	return "textEntityTypeCashtag"
 }
 
@@ -254,8 +254,8 @@ func (t *TextEntityTypeBotCommand) TypeID() uint32 {
 	return TextEntityTypeBotCommandTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextEntityTypeBotCommand) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextEntityTypeBotCommand) TypeName() string {
 	return "textEntityTypeBotCommand"
 }
 
@@ -322,8 +322,8 @@ func (t *TextEntityTypeUrl) TypeID() uint32 {
 	return TextEntityTypeUrlTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextEntityTypeUrl) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextEntityTypeUrl) TypeName() string {
 	return "textEntityTypeUrl"
 }
 
@@ -390,8 +390,8 @@ func (t *TextEntityTypeEmailAddress) TypeID() uint32 {
 	return TextEntityTypeEmailAddressTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextEntityTypeEmailAddress) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextEntityTypeEmailAddress) TypeName() string {
 	return "textEntityTypeEmailAddress"
 }
 
@@ -458,8 +458,8 @@ func (t *TextEntityTypePhoneNumber) TypeID() uint32 {
 	return TextEntityTypePhoneNumberTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextEntityTypePhoneNumber) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextEntityTypePhoneNumber) TypeName() string {
 	return "textEntityTypePhoneNumber"
 }
 
@@ -526,8 +526,8 @@ func (t *TextEntityTypeBankCardNumber) TypeID() uint32 {
 	return TextEntityTypeBankCardNumberTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextEntityTypeBankCardNumber) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextEntityTypeBankCardNumber) TypeName() string {
 	return "textEntityTypeBankCardNumber"
 }
 
@@ -594,8 +594,8 @@ func (t *TextEntityTypeBold) TypeID() uint32 {
 	return TextEntityTypeBoldTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextEntityTypeBold) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextEntityTypeBold) TypeName() string {
 	return "textEntityTypeBold"
 }
 
@@ -662,8 +662,8 @@ func (t *TextEntityTypeItalic) TypeID() uint32 {
 	return TextEntityTypeItalicTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextEntityTypeItalic) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextEntityTypeItalic) TypeName() string {
 	return "textEntityTypeItalic"
 }
 
@@ -730,8 +730,8 @@ func (t *TextEntityTypeUnderline) TypeID() uint32 {
 	return TextEntityTypeUnderlineTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextEntityTypeUnderline) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextEntityTypeUnderline) TypeName() string {
 	return "textEntityTypeUnderline"
 }
 
@@ -798,8 +798,8 @@ func (t *TextEntityTypeStrikethrough) TypeID() uint32 {
 	return TextEntityTypeStrikethroughTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextEntityTypeStrikethrough) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextEntityTypeStrikethrough) TypeName() string {
 	return "textEntityTypeStrikethrough"
 }
 
@@ -866,8 +866,8 @@ func (t *TextEntityTypeCode) TypeID() uint32 {
 	return TextEntityTypeCodeTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextEntityTypeCode) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextEntityTypeCode) TypeName() string {
 	return "textEntityTypeCode"
 }
 
@@ -934,8 +934,8 @@ func (t *TextEntityTypePre) TypeID() uint32 {
 	return TextEntityTypePreTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextEntityTypePre) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextEntityTypePre) TypeName() string {
 	return "textEntityTypePre"
 }
 
@@ -975,7 +975,7 @@ var (
 // See https://localhost:80/doc/constructor/textEntityTypePreCode for reference.
 type TextEntityTypePreCode struct {
 	// Programming language of the code; as defined by the sender
-	Language string `schemaname:"language"`
+	Language string `tl:"language"`
 }
 
 // TextEntityTypePreCodeTypeID is TL type id of TextEntityTypePreCode.
@@ -1014,8 +1014,8 @@ func (t *TextEntityTypePreCode) TypeID() uint32 {
 	return TextEntityTypePreCodeTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextEntityTypePreCode) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextEntityTypePreCode) TypeName() string {
 	return "textEntityTypePreCode"
 }
 
@@ -1068,7 +1068,7 @@ var (
 // See https://localhost:80/doc/constructor/textEntityTypeTextUrl for reference.
 type TextEntityTypeTextUrl struct {
 	// HTTP or tg:// URL to be opened when the link is clicked
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 }
 
 // TextEntityTypeTextUrlTypeID is TL type id of TextEntityTypeTextUrl.
@@ -1107,8 +1107,8 @@ func (t *TextEntityTypeTextUrl) TypeID() uint32 {
 	return TextEntityTypeTextUrlTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextEntityTypeTextUrl) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextEntityTypeTextUrl) TypeName() string {
 	return "textEntityTypeTextUrl"
 }
 
@@ -1161,7 +1161,7 @@ var (
 // See https://localhost:80/doc/constructor/textEntityTypeMentionName for reference.
 type TextEntityTypeMentionName struct {
 	// Identifier of the mentioned user
-	UserID int32 `schemaname:"user_id"`
+	UserID int32 `tl:"user_id"`
 }
 
 // TextEntityTypeMentionNameTypeID is TL type id of TextEntityTypeMentionName.
@@ -1200,8 +1200,8 @@ func (t *TextEntityTypeMentionName) TypeID() uint32 {
 	return TextEntityTypeMentionNameTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextEntityTypeMentionName) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextEntityTypeMentionName) TypeName() string {
 	return "textEntityTypeMentionName"
 }
 
@@ -1283,11 +1283,11 @@ type TextEntityTypeClass interface {
 	bin.Decoder
 	construct() TextEntityTypeClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

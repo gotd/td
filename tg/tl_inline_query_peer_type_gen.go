@@ -50,8 +50,8 @@ func (i *InlineQueryPeerTypeSameBotPM) TypeID() uint32 {
 	return InlineQueryPeerTypeSameBotPMTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InlineQueryPeerTypeSameBotPM) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InlineQueryPeerTypeSameBotPM) TypeName() string {
 	return "inlineQueryPeerTypeSameBotPM"
 }
 
@@ -118,8 +118,8 @@ func (i *InlineQueryPeerTypePM) TypeID() uint32 {
 	return InlineQueryPeerTypePMTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InlineQueryPeerTypePM) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InlineQueryPeerTypePM) TypeName() string {
 	return "inlineQueryPeerTypePM"
 }
 
@@ -186,8 +186,8 @@ func (i *InlineQueryPeerTypeChat) TypeID() uint32 {
 	return InlineQueryPeerTypeChatTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InlineQueryPeerTypeChat) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InlineQueryPeerTypeChat) TypeName() string {
 	return "inlineQueryPeerTypeChat"
 }
 
@@ -254,8 +254,8 @@ func (i *InlineQueryPeerTypeMegagroup) TypeID() uint32 {
 	return InlineQueryPeerTypeMegagroupTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InlineQueryPeerTypeMegagroup) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InlineQueryPeerTypeMegagroup) TypeName() string {
 	return "inlineQueryPeerTypeMegagroup"
 }
 
@@ -322,8 +322,8 @@ func (i *InlineQueryPeerTypeBroadcast) TypeID() uint32 {
 	return InlineQueryPeerTypeBroadcastTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InlineQueryPeerTypeBroadcast) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InlineQueryPeerTypeBroadcast) TypeName() string {
 	return "inlineQueryPeerTypeBroadcast"
 }
 
@@ -380,11 +380,11 @@ type InlineQueryPeerTypeClass interface {
 	bin.Decoder
 	construct() InlineQueryPeerTypeClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

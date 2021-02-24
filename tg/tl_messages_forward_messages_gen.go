@@ -27,25 +27,25 @@ type MessagesForwardMessagesRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether to send messages silently (no notification will be triggered on the destination clients)
-	Silent bool `schemaname:"silent"`
+	Silent bool `tl:"silent"`
 	// Whether to send the message in background
-	Background bool `schemaname:"background"`
+	Background bool `tl:"background"`
 	// When forwarding games, whether to include your score in the game
-	WithMyScore bool `schemaname:"with_my_score"`
+	WithMyScore bool `tl:"with_my_score"`
 	// Source of messages
-	FromPeer InputPeerClass `schemaname:"from_peer"`
+	FromPeer InputPeerClass `tl:"from_peer"`
 	// IDs of messages
-	ID []int `schemaname:"id"`
+	ID []int `tl:"id"`
 	// Random ID to prevent resending of messages
-	RandomID []int64 `schemaname:"random_id"`
+	RandomID []int64 `tl:"random_id"`
 	// Destination peer
-	ToPeer InputPeerClass `schemaname:"to_peer"`
+	ToPeer InputPeerClass `tl:"to_peer"`
 	// Scheduled message date for scheduled messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
-	ScheduleDate int `schemaname:"schedule_date"`
+	ScheduleDate int `tl:"schedule_date"`
 }
 
 // MessagesForwardMessagesRequestTypeID is TL type id of MessagesForwardMessagesRequest.
@@ -125,8 +125,8 @@ func (f *MessagesForwardMessagesRequest) TypeID() uint32 {
 	return MessagesForwardMessagesRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (f *MessagesForwardMessagesRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (f *MessagesForwardMessagesRequest) TypeName() string {
 	return "messages.forwardMessages"
 }
 

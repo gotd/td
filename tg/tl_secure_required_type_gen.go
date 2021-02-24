@@ -27,15 +27,15 @@ type SecureRequiredType struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Native names
-	NativeNames bool `schemaname:"native_names"`
+	NativeNames bool `tl:"native_names"`
 	// Is a selfie required
-	SelfieRequired bool `schemaname:"selfie_required"`
+	SelfieRequired bool `tl:"selfie_required"`
 	// Is a translation required
-	TranslationRequired bool `schemaname:"translation_required"`
+	TranslationRequired bool `tl:"translation_required"`
 	// Secure value type
-	Type SecureValueTypeClass `schemaname:"type"`
+	Type SecureValueTypeClass `tl:"type"`
 }
 
 // SecureRequiredTypeTypeID is TL type id of SecureRequiredType.
@@ -92,8 +92,8 @@ func (s *SecureRequiredType) TypeID() uint32 {
 	return SecureRequiredTypeTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SecureRequiredType) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SecureRequiredType) TypeName() string {
 	return "secureRequiredType"
 }
 
@@ -220,7 +220,7 @@ var (
 // See https://core.telegram.org/constructor/secureRequiredTypeOneOf for reference.
 type SecureRequiredTypeOneOf struct {
 	// Secure required value types
-	Types []SecureRequiredTypeClass `schemaname:"types"`
+	Types []SecureRequiredTypeClass `tl:"types"`
 }
 
 // SecureRequiredTypeOneOfTypeID is TL type id of SecureRequiredTypeOneOf.
@@ -259,8 +259,8 @@ func (s *SecureRequiredTypeOneOf) TypeID() uint32 {
 	return SecureRequiredTypeOneOfTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SecureRequiredTypeOneOf) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SecureRequiredTypeOneOf) TypeName() string {
 	return "secureRequiredTypeOneOf"
 }
 
@@ -346,11 +346,11 @@ type SecureRequiredTypeClass interface {
 	bin.Decoder
 	construct() SecureRequiredTypeClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

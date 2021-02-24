@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/shippingOption for reference.
 type ShippingOption struct {
 	// Option ID
-	ID string `schemaname:"id"`
+	ID string `tl:"id"`
 	// Title
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 	// List of price portions
-	Prices []LabeledPrice `schemaname:"prices"`
+	Prices []LabeledPrice `tl:"prices"`
 }
 
 // ShippingOptionTypeID is TL type id of ShippingOption.
@@ -77,8 +77,8 @@ func (s *ShippingOption) TypeID() uint32 {
 	return ShippingOptionTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *ShippingOption) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *ShippingOption) TypeName() string {
 	return "shippingOption"
 }
 

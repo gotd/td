@@ -51,8 +51,8 @@ func (t *TopPeerCategoryBotsPM) TypeID() uint32 {
 	return TopPeerCategoryBotsPMTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TopPeerCategoryBotsPM) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TopPeerCategoryBotsPM) TypeName() string {
 	return "topPeerCategoryBotsPM"
 }
 
@@ -120,8 +120,8 @@ func (t *TopPeerCategoryBotsInline) TypeID() uint32 {
 	return TopPeerCategoryBotsInlineTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TopPeerCategoryBotsInline) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TopPeerCategoryBotsInline) TypeName() string {
 	return "topPeerCategoryBotsInline"
 }
 
@@ -189,8 +189,8 @@ func (t *TopPeerCategoryCorrespondents) TypeID() uint32 {
 	return TopPeerCategoryCorrespondentsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TopPeerCategoryCorrespondents) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TopPeerCategoryCorrespondents) TypeName() string {
 	return "topPeerCategoryCorrespondents"
 }
 
@@ -258,8 +258,8 @@ func (t *TopPeerCategoryGroups) TypeID() uint32 {
 	return TopPeerCategoryGroupsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TopPeerCategoryGroups) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TopPeerCategoryGroups) TypeName() string {
 	return "topPeerCategoryGroups"
 }
 
@@ -327,8 +327,8 @@ func (t *TopPeerCategoryChannels) TypeID() uint32 {
 	return TopPeerCategoryChannelsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TopPeerCategoryChannels) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TopPeerCategoryChannels) TypeName() string {
 	return "topPeerCategoryChannels"
 }
 
@@ -396,8 +396,8 @@ func (t *TopPeerCategoryPhoneCalls) TypeID() uint32 {
 	return TopPeerCategoryPhoneCallsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TopPeerCategoryPhoneCalls) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TopPeerCategoryPhoneCalls) TypeName() string {
 	return "topPeerCategoryPhoneCalls"
 }
 
@@ -465,8 +465,8 @@ func (t *TopPeerCategoryForwardUsers) TypeID() uint32 {
 	return TopPeerCategoryForwardUsersTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TopPeerCategoryForwardUsers) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TopPeerCategoryForwardUsers) TypeName() string {
 	return "topPeerCategoryForwardUsers"
 }
 
@@ -534,8 +534,8 @@ func (t *TopPeerCategoryForwardChats) TypeID() uint32 {
 	return TopPeerCategoryForwardChatsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TopPeerCategoryForwardChats) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TopPeerCategoryForwardChats) TypeName() string {
 	return "topPeerCategoryForwardChats"
 }
 
@@ -595,11 +595,11 @@ type TopPeerCategoryClass interface {
 	bin.Decoder
 	construct() TopPeerCategoryClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

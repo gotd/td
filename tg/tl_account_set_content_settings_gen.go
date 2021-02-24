@@ -27,9 +27,9 @@ type AccountSetContentSettingsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Enable NSFW content
-	SensitiveEnabled bool `schemaname:"sensitive_enabled"`
+	SensitiveEnabled bool `tl:"sensitive_enabled"`
 }
 
 // AccountSetContentSettingsRequestTypeID is TL type id of AccountSetContentSettingsRequest.
@@ -71,8 +71,8 @@ func (s *AccountSetContentSettingsRequest) TypeID() uint32 {
 	return AccountSetContentSettingsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *AccountSetContentSettingsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *AccountSetContentSettingsRequest) TypeName() string {
 	return "account.setContentSettings"
 }
 

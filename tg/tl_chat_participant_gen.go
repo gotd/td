@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/chatParticipant for reference.
 type ChatParticipant struct {
 	// Member user ID
-	UserID int `schemaname:"user_id"`
+	UserID int `tl:"user_id"`
 	// ID of the user that added the member to the group
-	InviterID int `schemaname:"inviter_id"`
+	InviterID int `tl:"inviter_id"`
 	// Date added to the group
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 }
 
 // ChatParticipantTypeID is TL type id of ChatParticipant.
@@ -77,8 +77,8 @@ func (c *ChatParticipant) TypeID() uint32 {
 	return ChatParticipantTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChatParticipant) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChatParticipant) TypeName() string {
 	return "chatParticipant"
 }
 
@@ -158,7 +158,7 @@ var (
 // See https://core.telegram.org/constructor/chatParticipantCreator for reference.
 type ChatParticipantCreator struct {
 	// ID of the user that created the group
-	UserID int `schemaname:"user_id"`
+	UserID int `tl:"user_id"`
 }
 
 // ChatParticipantCreatorTypeID is TL type id of ChatParticipantCreator.
@@ -197,8 +197,8 @@ func (c *ChatParticipantCreator) TypeID() uint32 {
 	return ChatParticipantCreatorTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChatParticipantCreator) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChatParticipantCreator) TypeName() string {
 	return "chatParticipantCreator"
 }
 
@@ -252,11 +252,11 @@ var (
 // See https://core.telegram.org/constructor/chatParticipantAdmin for reference.
 type ChatParticipantAdmin struct {
 	// ID of a group member that is admin
-	UserID int `schemaname:"user_id"`
+	UserID int `tl:"user_id"`
 	// ID of the user that added the member to the group
-	InviterID int `schemaname:"inviter_id"`
+	InviterID int `tl:"inviter_id"`
 	// Date when the user was added
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 }
 
 // ChatParticipantAdminTypeID is TL type id of ChatParticipantAdmin.
@@ -305,8 +305,8 @@ func (c *ChatParticipantAdmin) TypeID() uint32 {
 	return ChatParticipantAdminTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChatParticipantAdmin) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChatParticipantAdmin) TypeName() string {
 	return "chatParticipantAdmin"
 }
 
@@ -400,11 +400,11 @@ type ChatParticipantClass interface {
 	bin.Decoder
 	construct() ChatParticipantClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

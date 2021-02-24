@@ -27,58 +27,58 @@ type MessagesSearchRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// User or chat, histories with which are searched, or (inputPeerEmpty)¹ constructor for global search
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/inputPeerEmpty
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// Text search request
-	Q string `schemaname:"q"`
+	Q string `tl:"q"`
 	// Only return messages sent by the specified user ID
 	//
 	// Use SetFromID and GetFromID helpers.
-	FromID InputPeerClass `schemaname:"from_id"`
+	FromID InputPeerClass `tl:"from_id"`
 	// Thread ID¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
-	TopMsgID int `schemaname:"top_msg_id"`
+	TopMsgID int `tl:"top_msg_id"`
 	// Filter to return only specified message types
-	Filter MessagesFilterClass `schemaname:"filter"`
+	Filter MessagesFilterClass `tl:"filter"`
 	// If a positive value was transferred, only messages with a sending date bigger than the transferred one will be returned
-	MinDate int `schemaname:"min_date"`
+	MinDate int `tl:"min_date"`
 	// If a positive value was transferred, only messages with a sending date smaller than the transferred one will be returned
-	MaxDate int `schemaname:"max_date"`
+	MaxDate int `tl:"max_date"`
 	// Only return messages starting from the specified message ID
-	OffsetID int `schemaname:"offset_id"`
+	OffsetID int `tl:"offset_id"`
 	// Additional offset¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	AddOffset int `schemaname:"add_offset"`
+	AddOffset int `tl:"add_offset"`
 	// Number of results to return¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int `schemaname:"limit"`
+	Limit int `tl:"limit"`
 	// Maximum message ID to return¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	MaxID int `schemaname:"max_id"`
+	MaxID int `tl:"max_id"`
 	// Minimum message ID to return¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	MinID int `schemaname:"min_id"`
+	MinID int `tl:"min_id"`
 	// Hash¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Hash int `schemaname:"hash"`
+	Hash int `tl:"hash"`
 }
 
 // MessagesSearchRequestTypeID is TL type id of MessagesSearchRequest.
@@ -186,8 +186,8 @@ func (s *MessagesSearchRequest) TypeID() uint32 {
 	return MessagesSearchRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *MessagesSearchRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *MessagesSearchRequest) TypeName() string {
 	return "messages.search"
 }
 

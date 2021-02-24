@@ -51,8 +51,8 @@ func (g *AccountGetAccountTTLRequest) TypeID() uint32 {
 	return AccountGetAccountTTLRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *AccountGetAccountTTLRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *AccountGetAccountTTLRequest) TypeName() string {
 	return "account.getAccountTTL"
 }
 

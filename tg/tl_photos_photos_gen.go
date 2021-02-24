@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/photos.photos for reference.
 type PhotosPhotos struct {
 	// List of photos
-	Photos []PhotoClass `schemaname:"photos"`
+	Photos []PhotoClass `tl:"photos"`
 	// List of mentioned users
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // PhotosPhotosTypeID is TL type id of PhotosPhotos.
@@ -70,8 +70,8 @@ func (p *PhotosPhotos) TypeID() uint32 {
 	return PhotosPhotosTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PhotosPhotos) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PhotosPhotos) TypeName() string {
 	return "photos.photos"
 }
 
@@ -176,11 +176,11 @@ var (
 // See https://core.telegram.org/constructor/photos.photosSlice for reference.
 type PhotosPhotosSlice struct {
 	// Total number of photos
-	Count int `schemaname:"count"`
+	Count int `tl:"count"`
 	// List of photos
-	Photos []PhotoClass `schemaname:"photos"`
+	Photos []PhotoClass `tl:"photos"`
 	// List of mentioned users
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // PhotosPhotosSliceTypeID is TL type id of PhotosPhotosSlice.
@@ -229,8 +229,8 @@ func (p *PhotosPhotosSlice) TypeID() uint32 {
 	return PhotosPhotosSliceTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PhotosPhotosSlice) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PhotosPhotosSlice) TypeName() string {
 	return "photos.photosSlice"
 }
 
@@ -361,11 +361,11 @@ type PhotosPhotosClass interface {
 	bin.Decoder
 	construct() PhotosPhotosClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

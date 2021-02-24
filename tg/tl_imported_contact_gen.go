@@ -24,12 +24,12 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/importedContact for reference.
 type ImportedContact struct {
 	// User identifier
-	UserID int `schemaname:"user_id"`
+	UserID int `tl:"user_id"`
 	// The contact's client identifier (passed to one of the InputContact¹ constructors)
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/InputContact
-	ClientID int64 `schemaname:"client_id"`
+	ClientID int64 `tl:"client_id"`
 }
 
 // ImportedContactTypeID is TL type id of ImportedContact.
@@ -73,8 +73,8 @@ func (i *ImportedContact) TypeID() uint32 {
 	return ImportedContactTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *ImportedContact) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *ImportedContact) TypeName() string {
 	return "importedContact"
 }
 

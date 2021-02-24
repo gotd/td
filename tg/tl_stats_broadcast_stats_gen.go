@@ -27,35 +27,35 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/stats.broadcastStats for reference.
 type StatsBroadcastStats struct {
 	// Period in consideration
-	Period StatsDateRangeDays `schemaname:"period"`
+	Period StatsDateRangeDays `tl:"period"`
 	// Follower count change for period in consideration
-	Followers StatsAbsValueAndPrev `schemaname:"followers"`
+	Followers StatsAbsValueAndPrev `tl:"followers"`
 	// total_viewcount/postcount, for posts posted during the period in consideration (views_per_post). Note that in this case, current refers to the period in consideration (min_date till max_date), and prev refers to the previous period ((min_date - (max_date - min_date)) till min_date).
-	ViewsPerPost StatsAbsValueAndPrev `schemaname:"views_per_post"`
+	ViewsPerPost StatsAbsValueAndPrev `tl:"views_per_post"`
 	// total_viewcount/postcount, for posts posted during the period in consideration (views_per_post). Note that in this case, current refers to the period in consideration (min_date till max_date), and prev refers to the previous period ((min_date - (max_date - min_date)) till min_date)
-	SharesPerPost StatsAbsValueAndPrev `schemaname:"shares_per_post"`
+	SharesPerPost StatsAbsValueAndPrev `tl:"shares_per_post"`
 	// Percentage of subscribers with enabled notifications
-	EnabledNotifications StatsPercentValue `schemaname:"enabled_notifications"`
+	EnabledNotifications StatsPercentValue `tl:"enabled_notifications"`
 	// Channel growth graph (absolute subscriber count)
-	GrowthGraph StatsGraphClass `schemaname:"growth_graph"`
+	GrowthGraph StatsGraphClass `tl:"growth_graph"`
 	// Followers growth graph (relative subscriber count)
-	FollowersGraph StatsGraphClass `schemaname:"followers_graph"`
+	FollowersGraph StatsGraphClass `tl:"followers_graph"`
 	// Muted users graph (relative)
-	MuteGraph StatsGraphClass `schemaname:"mute_graph"`
+	MuteGraph StatsGraphClass `tl:"mute_graph"`
 	// Views per hour graph (absolute)
-	TopHoursGraph StatsGraphClass `schemaname:"top_hours_graph"`
+	TopHoursGraph StatsGraphClass `tl:"top_hours_graph"`
 	// Interactions graph (absolute)
-	InteractionsGraph StatsGraphClass `schemaname:"interactions_graph"`
+	InteractionsGraph StatsGraphClass `tl:"interactions_graph"`
 	// IV interactions graph (absolute)
-	IvInteractionsGraph StatsGraphClass `schemaname:"iv_interactions_graph"`
+	IvInteractionsGraph StatsGraphClass `tl:"iv_interactions_graph"`
 	// Views by source graph (absolute)
-	ViewsBySourceGraph StatsGraphClass `schemaname:"views_by_source_graph"`
+	ViewsBySourceGraph StatsGraphClass `tl:"views_by_source_graph"`
 	// New followers by source graph (absolute)
-	NewFollowersBySourceGraph StatsGraphClass `schemaname:"new_followers_by_source_graph"`
+	NewFollowersBySourceGraph StatsGraphClass `tl:"new_followers_by_source_graph"`
 	// Subscriber language graph (piechart)
-	LanguagesGraph StatsGraphClass `schemaname:"languages_graph"`
+	LanguagesGraph StatsGraphClass `tl:"languages_graph"`
 	// Recent message interactions
-	RecentMessageInteractions []MessageInteractionCounters `schemaname:"recent_message_interactions"`
+	RecentMessageInteractions []MessageInteractionCounters `tl:"recent_message_interactions"`
 }
 
 // StatsBroadcastStatsTypeID is TL type id of StatsBroadcastStats.
@@ -164,8 +164,8 @@ func (b *StatsBroadcastStats) TypeID() uint32 {
 	return StatsBroadcastStatsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *StatsBroadcastStats) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *StatsBroadcastStats) TypeName() string {
 	return "stats.broadcastStats"
 }
 

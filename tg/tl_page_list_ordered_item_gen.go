@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/pageListOrderedItemText for reference.
 type PageListOrderedItemText struct {
 	// Number of element within ordered list
-	Num string `schemaname:"num"`
+	Num string `tl:"num"`
 	// Text
-	Text RichTextClass `schemaname:"text"`
+	Text RichTextClass `tl:"text"`
 }
 
 // PageListOrderedItemTextTypeID is TL type id of PageListOrderedItemText.
@@ -70,8 +70,8 @@ func (p *PageListOrderedItemText) TypeID() uint32 {
 	return PageListOrderedItemTextTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageListOrderedItemText) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageListOrderedItemText) TypeName() string {
 	return "pageListOrderedItemText"
 }
 
@@ -146,9 +146,9 @@ var (
 // See https://core.telegram.org/constructor/pageListOrderedItemBlocks for reference.
 type PageListOrderedItemBlocks struct {
 	// Number of element within ordered list
-	Num string `schemaname:"num"`
+	Num string `tl:"num"`
 	// Item contents
-	Blocks []PageBlockClass `schemaname:"blocks"`
+	Blocks []PageBlockClass `tl:"blocks"`
 }
 
 // PageListOrderedItemBlocksTypeID is TL type id of PageListOrderedItemBlocks.
@@ -192,8 +192,8 @@ func (p *PageListOrderedItemBlocks) TypeID() uint32 {
 	return PageListOrderedItemBlocksTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageListOrderedItemBlocks) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageListOrderedItemBlocks) TypeName() string {
 	return "pageListOrderedItemBlocks"
 }
 
@@ -292,11 +292,11 @@ type PageListOrderedItemClass interface {
 	bin.Decoder
 	construct() PageListOrderedItemClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

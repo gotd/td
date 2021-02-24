@@ -27,11 +27,11 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getMessagesViews for reference.
 type MessagesGetMessagesViewsRequest struct {
 	// Peer where the message was found
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// ID of message
-	ID []int `schemaname:"id"`
+	ID []int `tl:"id"`
 	// Whether to mark the message as viewed and increment the view counter
-	Increment bool `schemaname:"increment"`
+	Increment bool `tl:"increment"`
 }
 
 // MessagesGetMessagesViewsRequestTypeID is TL type id of MessagesGetMessagesViewsRequest.
@@ -80,8 +80,8 @@ func (g *MessagesGetMessagesViewsRequest) TypeID() uint32 {
 	return MessagesGetMessagesViewsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetMessagesViewsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetMessagesViewsRequest) TypeName() string {
 	return "messages.getMessagesViews"
 }
 

@@ -23,11 +23,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/fileHash for reference.
 type FileHash struct {
 	// Offset field of FileHash.
-	Offset int `schemaname:"offset"`
+	Offset int `tl:"offset"`
 	// Limit field of FileHash.
-	Limit int `schemaname:"limit"`
+	Limit int `tl:"limit"`
 	// Hash field of FileHash.
-	Hash []byte `schemaname:"hash"`
+	Hash []byte `tl:"hash"`
 }
 
 // FileHashTypeID is TL type id of FileHash.
@@ -76,8 +76,8 @@ func (f *FileHash) TypeID() uint32 {
 	return FileHashTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (f *FileHash) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (f *FileHash) TypeName() string {
 	return "fileHash"
 }
 

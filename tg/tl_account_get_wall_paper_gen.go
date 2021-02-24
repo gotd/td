@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.getWallPaper for reference.
 type AccountGetWallPaperRequest struct {
 	// The wallpaper to get info about
-	Wallpaper InputWallPaperClass `schemaname:"wallpaper"`
+	Wallpaper InputWallPaperClass `tl:"wallpaper"`
 }
 
 // AccountGetWallPaperRequestTypeID is TL type id of AccountGetWallPaperRequest.
@@ -63,8 +63,8 @@ func (g *AccountGetWallPaperRequest) TypeID() uint32 {
 	return AccountGetWallPaperRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *AccountGetWallPaperRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *AccountGetWallPaperRequest) TypeName() string {
 	return "account.getWallPaper"
 }
 

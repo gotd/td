@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/payments.getPaymentForm for reference.
 type PaymentsGetPaymentFormRequest struct {
 	// Message ID of payment form
-	MsgID int `schemaname:"msg_id"`
+	MsgID int `tl:"msg_id"`
 }
 
 // PaymentsGetPaymentFormRequestTypeID is TL type id of PaymentsGetPaymentFormRequest.
@@ -63,8 +63,8 @@ func (g *PaymentsGetPaymentFormRequest) TypeID() uint32 {
 	return PaymentsGetPaymentFormRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *PaymentsGetPaymentFormRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *PaymentsGetPaymentFormRequest) TypeName() string {
 	return "payments.getPaymentForm"
 }
 

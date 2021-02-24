@@ -51,8 +51,8 @@ func (l *AuthLogOutRequest) TypeID() uint32 {
 	return AuthLogOutRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (l *AuthLogOutRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (l *AuthLogOutRequest) TypeName() string {
 	return "auth.logOut"
 }
 

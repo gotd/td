@@ -30,25 +30,25 @@ type AccountRegisterDeviceRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Avoid receiving (silent and invisible background) notifications. Useful to save battery.
-	NoMuted bool `schemaname:"no_muted"`
+	NoMuted bool `tl:"no_muted"`
 	// Device token type.Possible values:1 - APNS (device token for apple push)2 - FCM (firebase token for google firebase)3 - MPNS (channel URI for microsoft push)4 - Simple push (endpoint for firefox's simple push API)5 - Ubuntu phone (token for ubuntu push)6 - Blackberry (token for blackberry push)7 - Unused8 - WNS (windows push)9 - APNS VoIP (token for apple push VoIP)10 - Web push (web push, see below)11 - MPNS VoIP (token for microsoft push VoIP)12 - Tizen (token for tizen push)For 10 web push, the token must be a JSON-encoded object containing the keys described in PUSH updates¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/push-updates
-	TokenType int `schemaname:"token_type"`
+	TokenType int `tl:"token_type"`
 	// Device token
-	Token string `schemaname:"token"`
+	Token string `tl:"token"`
 	// If (boolTrue)¹ is transmitted, a sandbox-certificate will be used during transmission.
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/boolTrue
-	AppSandbox bool `schemaname:"app_sandbox"`
+	AppSandbox bool `tl:"app_sandbox"`
 	// For FCM and APNS VoIP, optional encryption key used to encrypt push notifications
-	Secret []byte `schemaname:"secret"`
+	Secret []byte `tl:"secret"`
 	// List of user identifiers of other users currently using the client
-	OtherUids []int `schemaname:"other_uids"`
+	OtherUids []int `tl:"other_uids"`
 }
 
 // AccountRegisterDeviceRequestTypeID is TL type id of AccountRegisterDeviceRequest.
@@ -115,8 +115,8 @@ func (r *AccountRegisterDeviceRequest) TypeID() uint32 {
 	return AccountRegisterDeviceRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *AccountRegisterDeviceRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *AccountRegisterDeviceRequest) TypeName() string {
 	return "account.registerDevice"
 }
 

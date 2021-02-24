@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.readHistory for reference.
 type MessagesReadHistoryRequest struct {
 	// Target user or group
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// If a positive value is passed, only messages with identifiers less or equal than the given one will be read
-	MaxID int `schemaname:"max_id"`
+	MaxID int `tl:"max_id"`
 }
 
 // MessagesReadHistoryRequestTypeID is TL type id of MessagesReadHistoryRequest.
@@ -70,8 +70,8 @@ func (r *MessagesReadHistoryRequest) TypeID() uint32 {
 	return MessagesReadHistoryRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *MessagesReadHistoryRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *MessagesReadHistoryRequest) TypeName() string {
 	return "messages.readHistory"
 }
 

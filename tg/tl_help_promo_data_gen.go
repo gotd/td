@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/help.promoDataEmpty for reference.
 type HelpPromoDataEmpty struct {
 	// Re-fetch PSA/MTProxy info after the specified number of seconds
-	Expires int `schemaname:"expires"`
+	Expires int `tl:"expires"`
 }
 
 // HelpPromoDataEmptyTypeID is TL type id of HelpPromoDataEmpty.
@@ -63,8 +63,8 @@ func (p *HelpPromoDataEmpty) TypeID() uint32 {
 	return HelpPromoDataEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *HelpPromoDataEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *HelpPromoDataEmpty) TypeName() string {
 	return "help.promoDataEmpty"
 }
 
@@ -121,25 +121,25 @@ type HelpPromoData struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// MTProxy-related channel
-	Proxy bool `schemaname:"proxy"`
+	Proxy bool `tl:"proxy"`
 	// Expiry of PSA/MTProxy info
-	Expires int `schemaname:"expires"`
+	Expires int `tl:"expires"`
 	// MTProxy/PSA peer
-	Peer PeerClass `schemaname:"peer"`
+	Peer PeerClass `tl:"peer"`
 	// Chat info
-	Chats []ChatClass `schemaname:"chats"`
+	Chats []ChatClass `tl:"chats"`
 	// User info
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 	// PSA type
 	//
 	// Use SetPsaType and GetPsaType helpers.
-	PsaType string `schemaname:"psa_type"`
+	PsaType string `tl:"psa_type"`
 	// PSA message
 	//
 	// Use SetPsaMessage and GetPsaMessage helpers.
-	PsaMessage string `schemaname:"psa_message"`
+	PsaMessage string `tl:"psa_message"`
 }
 
 // HelpPromoDataTypeID is TL type id of HelpPromoData.
@@ -217,8 +217,8 @@ func (p *HelpPromoData) TypeID() uint32 {
 	return HelpPromoDataTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *HelpPromoData) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *HelpPromoData) TypeName() string {
 	return "help.promoData"
 }
 
@@ -451,11 +451,11 @@ type HelpPromoDataClass interface {
 	bin.Decoder
 	construct() HelpPromoDataClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

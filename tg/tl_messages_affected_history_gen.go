@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.affectedHistory for reference.
 type MessagesAffectedHistory struct {
 	// Number of events occured in a text box
-	Pts int `schemaname:"pts"`
+	Pts int `tl:"pts"`
 	// Number of affected events
-	PtsCount int `schemaname:"pts_count"`
+	PtsCount int `tl:"pts_count"`
 	// If a parameter contains positive value, it is necessary to repeat the method call using the given value; during the proceeding of all the history the value itself shall gradually decrease
-	Offset int `schemaname:"offset"`
+	Offset int `tl:"offset"`
 }
 
 // MessagesAffectedHistoryTypeID is TL type id of MessagesAffectedHistory.
@@ -77,8 +77,8 @@ func (a *MessagesAffectedHistory) TypeID() uint32 {
 	return MessagesAffectedHistoryTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (a *MessagesAffectedHistory) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (a *MessagesAffectedHistory) TypeName() string {
 	return "messages.affectedHistory"
 }
 

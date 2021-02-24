@@ -30,79 +30,79 @@ type DialogFilter struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether to include all contacts in this folder¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	Contacts bool `schemaname:"contacts"`
+	Contacts bool `tl:"contacts"`
 	// Whether to include all non-contacts in this folder¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	NonContacts bool `schemaname:"non_contacts"`
+	NonContacts bool `tl:"non_contacts"`
 	// Whether to include all groups in this folder¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	Groups bool `schemaname:"groups"`
+	Groups bool `tl:"groups"`
 	// Whether to include all channels in this folder¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	Broadcasts bool `schemaname:"broadcasts"`
+	Broadcasts bool `tl:"broadcasts"`
 	// Whether to include all bots in this folder¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	Bots bool `schemaname:"bots"`
+	Bots bool `tl:"bots"`
 	// Whether to exclude muted chats from this folder¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	ExcludeMuted bool `schemaname:"exclude_muted"`
+	ExcludeMuted bool `tl:"exclude_muted"`
 	// Whether to exclude read chats from this folder¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	ExcludeRead bool `schemaname:"exclude_read"`
+	ExcludeRead bool `tl:"exclude_read"`
 	// Whether to exclude archived chats from this folder¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	ExcludeArchived bool `schemaname:"exclude_archived"`
+	ExcludeArchived bool `tl:"exclude_archived"`
 	// Folder¹ ID
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	ID int `schemaname:"id"`
+	ID int `tl:"id"`
 	// Folder¹ name
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 	// Folder¹ emoticon
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
 	//
 	// Use SetEmoticon and GetEmoticon helpers.
-	Emoticon string `schemaname:"emoticon"`
+	Emoticon string `tl:"emoticon"`
 	// Pinned chats, folders¹ can have unlimited pinned chats
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	PinnedPeers []InputPeerClass `schemaname:"pinned_peers"`
+	PinnedPeers []InputPeerClass `tl:"pinned_peers"`
 	// Include the following chats in this folder¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	IncludePeers []InputPeerClass `schemaname:"include_peers"`
+	IncludePeers []InputPeerClass `tl:"include_peers"`
 	// Exclude the following chats from this folder¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	ExcludePeers []InputPeerClass `schemaname:"exclude_peers"`
+	ExcludePeers []InputPeerClass `tl:"exclude_peers"`
 }
 
 // DialogFilterTypeID is TL type id of DialogFilter.
@@ -212,8 +212,8 @@ func (d *DialogFilter) TypeID() uint32 {
 	return DialogFilterTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DialogFilter) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DialogFilter) TypeName() string {
 	return "dialogFilter"
 }
 

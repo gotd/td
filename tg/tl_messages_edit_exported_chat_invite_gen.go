@@ -23,21 +23,21 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.editExportedChatInvite for reference.
 type MessagesEditExportedChatInviteRequest struct {
 	// Flags field of MessagesEditExportedChatInviteRequest.
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Revoked field of MessagesEditExportedChatInviteRequest.
-	Revoked bool `schemaname:"revoked"`
+	Revoked bool `tl:"revoked"`
 	// Peer field of MessagesEditExportedChatInviteRequest.
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// Link field of MessagesEditExportedChatInviteRequest.
-	Link string `schemaname:"link"`
+	Link string `tl:"link"`
 	// ExpireDate field of MessagesEditExportedChatInviteRequest.
 	//
 	// Use SetExpireDate and GetExpireDate helpers.
-	ExpireDate int `schemaname:"expire_date"`
+	ExpireDate int `tl:"expire_date"`
 	// UsageLimit field of MessagesEditExportedChatInviteRequest.
 	//
 	// Use SetUsageLimit and GetUsageLimit helpers.
-	UsageLimit int `schemaname:"usage_limit"`
+	UsageLimit int `tl:"usage_limit"`
 }
 
 // MessagesEditExportedChatInviteRequestTypeID is TL type id of MessagesEditExportedChatInviteRequest.
@@ -105,8 +105,8 @@ func (e *MessagesEditExportedChatInviteRequest) TypeID() uint32 {
 	return MessagesEditExportedChatInviteRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (e *MessagesEditExportedChatInviteRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (e *MessagesEditExportedChatInviteRequest) TypeName() string {
 	return "messages.editExportedChatInvite"
 }
 

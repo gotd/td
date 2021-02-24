@@ -23,11 +23,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/fileLocationUnavailable for reference.
 type FileLocationUnavailable struct {
 	// VolumeID field of FileLocationUnavailable.
-	VolumeID int64 `schemaname:"volume_id"`
+	VolumeID int64 `tl:"volume_id"`
 	// LocalID field of FileLocationUnavailable.
-	LocalID int `schemaname:"local_id"`
+	LocalID int `tl:"local_id"`
 	// Secret field of FileLocationUnavailable.
-	Secret int64 `schemaname:"secret"`
+	Secret int64 `tl:"secret"`
 }
 
 // FileLocationUnavailableTypeID is TL type id of FileLocationUnavailable.
@@ -76,8 +76,8 @@ func (f *FileLocationUnavailable) TypeID() uint32 {
 	return FileLocationUnavailableTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (f *FileLocationUnavailable) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (f *FileLocationUnavailable) TypeName() string {
 	return "fileLocationUnavailable"
 }
 
@@ -156,13 +156,13 @@ var (
 // See https://core.telegram.org/constructor/fileLocation for reference.
 type FileLocation struct {
 	// DCID field of FileLocation.
-	DCID int `schemaname:"dc_id"`
+	DCID int `tl:"dc_id"`
 	// VolumeID field of FileLocation.
-	VolumeID int64 `schemaname:"volume_id"`
+	VolumeID int64 `tl:"volume_id"`
 	// LocalID field of FileLocation.
-	LocalID int `schemaname:"local_id"`
+	LocalID int `tl:"local_id"`
 	// Secret field of FileLocation.
-	Secret int64 `schemaname:"secret"`
+	Secret int64 `tl:"secret"`
 }
 
 // FileLocationTypeID is TL type id of FileLocation.
@@ -216,8 +216,8 @@ func (f *FileLocation) TypeID() uint32 {
 	return FileLocationTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (f *FileLocation) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (f *FileLocation) TypeName() string {
 	return "fileLocation"
 }
 
@@ -323,11 +323,11 @@ type FileLocationClass interface {
 	bin.Decoder
 	construct() FileLocationClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

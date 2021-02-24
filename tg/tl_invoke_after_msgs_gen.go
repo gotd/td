@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/invokeAfterMsgs for reference.
 type InvokeAfterMsgsRequest struct {
 	// List of messages on which a current query depends
-	MsgIds []int64 `schemaname:"msg_ids"`
+	MsgIds []int64 `tl:"msg_ids"`
 	// The query itself
-	Query bin.Object `schemaname:"query"`
+	Query bin.Object `tl:"query"`
 }
 
 // InvokeAfterMsgsRequestTypeID is TL type id of InvokeAfterMsgsRequest.
@@ -70,8 +70,8 @@ func (i *InvokeAfterMsgsRequest) TypeID() uint32 {
 	return InvokeAfterMsgsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InvokeAfterMsgsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InvokeAfterMsgsRequest) TypeName() string {
 	return "invokeAfterMsgs"
 }
 

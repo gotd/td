@@ -27,7 +27,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.unpinAllMessages for reference.
 type MessagesUnpinAllMessagesRequest struct {
 	// Chat where to unpin
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 }
 
 // MessagesUnpinAllMessagesRequestTypeID is TL type id of MessagesUnpinAllMessagesRequest.
@@ -66,8 +66,8 @@ func (u *MessagesUnpinAllMessagesRequest) TypeID() uint32 {
 	return MessagesUnpinAllMessagesRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (u *MessagesUnpinAllMessagesRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (u *MessagesUnpinAllMessagesRequest) TypeName() string {
 	return "messages.unpinAllMessages"
 }
 

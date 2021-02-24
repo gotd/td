@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeTitle for reference.
 type ChannelAdminLogEventActionChangeTitle struct {
 	// Previous title
-	PrevValue string `schemaname:"prev_value"`
+	PrevValue string `tl:"prev_value"`
 	// New title
-	NewValue string `schemaname:"new_value"`
+	NewValue string `tl:"new_value"`
 }
 
 // ChannelAdminLogEventActionChangeTitleTypeID is TL type id of ChannelAdminLogEventActionChangeTitle.
@@ -70,8 +70,8 @@ func (c *ChannelAdminLogEventActionChangeTitle) TypeID() uint32 {
 	return ChannelAdminLogEventActionChangeTitleTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionChangeTitle) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionChangeTitle) TypeName() string {
 	return "channelAdminLogEventActionChangeTitle"
 }
 
@@ -138,9 +138,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeAbout for reference.
 type ChannelAdminLogEventActionChangeAbout struct {
 	// Previous description
-	PrevValue string `schemaname:"prev_value"`
+	PrevValue string `tl:"prev_value"`
 	// New description
-	NewValue string `schemaname:"new_value"`
+	NewValue string `tl:"new_value"`
 }
 
 // ChannelAdminLogEventActionChangeAboutTypeID is TL type id of ChannelAdminLogEventActionChangeAbout.
@@ -184,8 +184,8 @@ func (c *ChannelAdminLogEventActionChangeAbout) TypeID() uint32 {
 	return ChannelAdminLogEventActionChangeAboutTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionChangeAbout) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionChangeAbout) TypeName() string {
 	return "channelAdminLogEventActionChangeAbout"
 }
 
@@ -252,9 +252,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeUsername for reference.
 type ChannelAdminLogEventActionChangeUsername struct {
 	// Old username
-	PrevValue string `schemaname:"prev_value"`
+	PrevValue string `tl:"prev_value"`
 	// New username
-	NewValue string `schemaname:"new_value"`
+	NewValue string `tl:"new_value"`
 }
 
 // ChannelAdminLogEventActionChangeUsernameTypeID is TL type id of ChannelAdminLogEventActionChangeUsername.
@@ -298,8 +298,8 @@ func (c *ChannelAdminLogEventActionChangeUsername) TypeID() uint32 {
 	return ChannelAdminLogEventActionChangeUsernameTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionChangeUsername) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionChangeUsername) TypeName() string {
 	return "channelAdminLogEventActionChangeUsername"
 }
 
@@ -368,9 +368,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangePhoto for reference.
 type ChannelAdminLogEventActionChangePhoto struct {
 	// Previous picture
-	PrevPhoto PhotoClass `schemaname:"prev_photo"`
+	PrevPhoto PhotoClass `tl:"prev_photo"`
 	// New picture
-	NewPhoto PhotoClass `schemaname:"new_photo"`
+	NewPhoto PhotoClass `tl:"new_photo"`
 }
 
 // ChannelAdminLogEventActionChangePhotoTypeID is TL type id of ChannelAdminLogEventActionChangePhoto.
@@ -414,8 +414,8 @@ func (c *ChannelAdminLogEventActionChangePhoto) TypeID() uint32 {
 	return ChannelAdminLogEventActionChangePhotoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionChangePhoto) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionChangePhoto) TypeName() string {
 	return "channelAdminLogEventActionChangePhoto"
 }
 
@@ -492,7 +492,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleInvites for reference.
 type ChannelAdminLogEventActionToggleInvites struct {
 	// New value
-	NewValue bool `schemaname:"new_value"`
+	NewValue bool `tl:"new_value"`
 }
 
 // ChannelAdminLogEventActionToggleInvitesTypeID is TL type id of ChannelAdminLogEventActionToggleInvites.
@@ -531,8 +531,8 @@ func (c *ChannelAdminLogEventActionToggleInvites) TypeID() uint32 {
 	return ChannelAdminLogEventActionToggleInvitesTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionToggleInvites) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionToggleInvites) TypeName() string {
 	return "channelAdminLogEventActionToggleInvites"
 }
 
@@ -588,7 +588,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleSignatures for reference.
 type ChannelAdminLogEventActionToggleSignatures struct {
 	// New value
-	NewValue bool `schemaname:"new_value"`
+	NewValue bool `tl:"new_value"`
 }
 
 // ChannelAdminLogEventActionToggleSignaturesTypeID is TL type id of ChannelAdminLogEventActionToggleSignatures.
@@ -627,8 +627,8 @@ func (c *ChannelAdminLogEventActionToggleSignatures) TypeID() uint32 {
 	return ChannelAdminLogEventActionToggleSignaturesTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionToggleSignatures) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionToggleSignatures) TypeName() string {
 	return "channelAdminLogEventActionToggleSignatures"
 }
 
@@ -684,7 +684,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionUpdatePinned for reference.
 type ChannelAdminLogEventActionUpdatePinned struct {
 	// The message that was pinned
-	Message MessageClass `schemaname:"message"`
+	Message MessageClass `tl:"message"`
 }
 
 // ChannelAdminLogEventActionUpdatePinnedTypeID is TL type id of ChannelAdminLogEventActionUpdatePinned.
@@ -723,8 +723,8 @@ func (c *ChannelAdminLogEventActionUpdatePinned) TypeID() uint32 {
 	return ChannelAdminLogEventActionUpdatePinnedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionUpdatePinned) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionUpdatePinned) TypeName() string {
 	return "channelAdminLogEventActionUpdatePinned"
 }
 
@@ -785,9 +785,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionEditMessage for reference.
 type ChannelAdminLogEventActionEditMessage struct {
 	// Old message
-	PrevMessage MessageClass `schemaname:"prev_message"`
+	PrevMessage MessageClass `tl:"prev_message"`
 	// New message
-	NewMessage MessageClass `schemaname:"new_message"`
+	NewMessage MessageClass `tl:"new_message"`
 }
 
 // ChannelAdminLogEventActionEditMessageTypeID is TL type id of ChannelAdminLogEventActionEditMessage.
@@ -831,8 +831,8 @@ func (c *ChannelAdminLogEventActionEditMessage) TypeID() uint32 {
 	return ChannelAdminLogEventActionEditMessageTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionEditMessage) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionEditMessage) TypeName() string {
 	return "channelAdminLogEventActionEditMessage"
 }
 
@@ -909,7 +909,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionDeleteMessage for reference.
 type ChannelAdminLogEventActionDeleteMessage struct {
 	// The message that was deleted
-	Message MessageClass `schemaname:"message"`
+	Message MessageClass `tl:"message"`
 }
 
 // ChannelAdminLogEventActionDeleteMessageTypeID is TL type id of ChannelAdminLogEventActionDeleteMessage.
@@ -948,8 +948,8 @@ func (c *ChannelAdminLogEventActionDeleteMessage) TypeID() uint32 {
 	return ChannelAdminLogEventActionDeleteMessageTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionDeleteMessage) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionDeleteMessage) TypeName() string {
 	return "channelAdminLogEventActionDeleteMessage"
 }
 
@@ -1037,8 +1037,8 @@ func (c *ChannelAdminLogEventActionParticipantJoin) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantJoinTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionParticipantJoin) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionParticipantJoin) TypeName() string {
 	return "channelAdminLogEventActionParticipantJoin"
 }
 
@@ -1108,8 +1108,8 @@ func (c *ChannelAdminLogEventActionParticipantLeave) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantLeaveTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionParticipantLeave) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionParticipantLeave) TypeName() string {
 	return "channelAdminLogEventActionParticipantLeave"
 }
 
@@ -1152,7 +1152,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantInvite for reference.
 type ChannelAdminLogEventActionParticipantInvite struct {
 	// The user that was invited
-	Participant ChannelParticipantClass `schemaname:"participant"`
+	Participant ChannelParticipantClass `tl:"participant"`
 }
 
 // ChannelAdminLogEventActionParticipantInviteTypeID is TL type id of ChannelAdminLogEventActionParticipantInvite.
@@ -1191,8 +1191,8 @@ func (c *ChannelAdminLogEventActionParticipantInvite) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantInviteTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionParticipantInvite) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionParticipantInvite) TypeName() string {
 	return "channelAdminLogEventActionParticipantInvite"
 }
 
@@ -1256,9 +1256,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan for reference.
 type ChannelAdminLogEventActionParticipantToggleBan struct {
 	// Old banned rights of user
-	PrevParticipant ChannelParticipantClass `schemaname:"prev_participant"`
+	PrevParticipant ChannelParticipantClass `tl:"prev_participant"`
 	// New banned rights of user
-	NewParticipant ChannelParticipantClass `schemaname:"new_participant"`
+	NewParticipant ChannelParticipantClass `tl:"new_participant"`
 }
 
 // ChannelAdminLogEventActionParticipantToggleBanTypeID is TL type id of ChannelAdminLogEventActionParticipantToggleBan.
@@ -1302,8 +1302,8 @@ func (c *ChannelAdminLogEventActionParticipantToggleBan) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantToggleBanTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionParticipantToggleBan) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionParticipantToggleBan) TypeName() string {
 	return "channelAdminLogEventActionParticipantToggleBan"
 }
 
@@ -1385,9 +1385,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleAdmin for reference.
 type ChannelAdminLogEventActionParticipantToggleAdmin struct {
 	// Previous admin rights
-	PrevParticipant ChannelParticipantClass `schemaname:"prev_participant"`
+	PrevParticipant ChannelParticipantClass `tl:"prev_participant"`
 	// New admin rights
-	NewParticipant ChannelParticipantClass `schemaname:"new_participant"`
+	NewParticipant ChannelParticipantClass `tl:"new_participant"`
 }
 
 // ChannelAdminLogEventActionParticipantToggleAdminTypeID is TL type id of ChannelAdminLogEventActionParticipantToggleAdmin.
@@ -1431,8 +1431,8 @@ func (c *ChannelAdminLogEventActionParticipantToggleAdmin) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantToggleAdminTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionParticipantToggleAdmin) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionParticipantToggleAdmin) TypeName() string {
 	return "channelAdminLogEventActionParticipantToggleAdmin"
 }
 
@@ -1511,9 +1511,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeStickerSet for reference.
 type ChannelAdminLogEventActionChangeStickerSet struct {
 	// Previous stickerset
-	PrevStickerset InputStickerSetClass `schemaname:"prev_stickerset"`
+	PrevStickerset InputStickerSetClass `tl:"prev_stickerset"`
 	// New stickerset
-	NewStickerset InputStickerSetClass `schemaname:"new_stickerset"`
+	NewStickerset InputStickerSetClass `tl:"new_stickerset"`
 }
 
 // ChannelAdminLogEventActionChangeStickerSetTypeID is TL type id of ChannelAdminLogEventActionChangeStickerSet.
@@ -1557,8 +1557,8 @@ func (c *ChannelAdminLogEventActionChangeStickerSet) TypeID() uint32 {
 	return ChannelAdminLogEventActionChangeStickerSetTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionChangeStickerSet) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionChangeStickerSet) TypeName() string {
 	return "channelAdminLogEventActionChangeStickerSet"
 }
 
@@ -1640,7 +1640,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionTogglePreHistoryHidden for reference.
 type ChannelAdminLogEventActionTogglePreHistoryHidden struct {
 	// New value
-	NewValue bool `schemaname:"new_value"`
+	NewValue bool `tl:"new_value"`
 }
 
 // ChannelAdminLogEventActionTogglePreHistoryHiddenTypeID is TL type id of ChannelAdminLogEventActionTogglePreHistoryHidden.
@@ -1679,8 +1679,8 @@ func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) TypeID() uint32 {
 	return ChannelAdminLogEventActionTogglePreHistoryHiddenTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) TypeName() string {
 	return "channelAdminLogEventActionTogglePreHistoryHidden"
 }
 
@@ -1739,12 +1739,12 @@ type ChannelAdminLogEventActionDefaultBannedRights struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
-	PrevBannedRights ChatBannedRights `schemaname:"prev_banned_rights"`
+	PrevBannedRights ChatBannedRights `tl:"prev_banned_rights"`
 	// New glboal banned rights¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
-	NewBannedRights ChatBannedRights `schemaname:"new_banned_rights"`
+	NewBannedRights ChatBannedRights `tl:"new_banned_rights"`
 }
 
 // ChannelAdminLogEventActionDefaultBannedRightsTypeID is TL type id of ChannelAdminLogEventActionDefaultBannedRights.
@@ -1788,8 +1788,8 @@ func (c *ChannelAdminLogEventActionDefaultBannedRights) TypeID() uint32 {
 	return ChannelAdminLogEventActionDefaultBannedRightsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionDefaultBannedRights) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionDefaultBannedRights) TypeName() string {
 	return "channelAdminLogEventActionDefaultBannedRights"
 }
 
@@ -1858,7 +1858,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionStopPoll for reference.
 type ChannelAdminLogEventActionStopPoll struct {
 	// The poll that was stopped
-	Message MessageClass `schemaname:"message"`
+	Message MessageClass `tl:"message"`
 }
 
 // ChannelAdminLogEventActionStopPollTypeID is TL type id of ChannelAdminLogEventActionStopPoll.
@@ -1897,8 +1897,8 @@ func (c *ChannelAdminLogEventActionStopPoll) TypeID() uint32 {
 	return ChannelAdminLogEventActionStopPollTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionStopPoll) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionStopPoll) TypeName() string {
 	return "channelAdminLogEventActionStopPoll"
 }
 
@@ -1957,9 +1957,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeLinkedChat for reference.
 type ChannelAdminLogEventActionChangeLinkedChat struct {
 	// Previous linked chat
-	PrevValue int `schemaname:"prev_value"`
+	PrevValue int `tl:"prev_value"`
 	// New linked chat
-	NewValue int `schemaname:"new_value"`
+	NewValue int `tl:"new_value"`
 }
 
 // ChannelAdminLogEventActionChangeLinkedChatTypeID is TL type id of ChannelAdminLogEventActionChangeLinkedChat.
@@ -2003,8 +2003,8 @@ func (c *ChannelAdminLogEventActionChangeLinkedChat) TypeID() uint32 {
 	return ChannelAdminLogEventActionChangeLinkedChatTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionChangeLinkedChat) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionChangeLinkedChat) TypeName() string {
 	return "channelAdminLogEventActionChangeLinkedChat"
 }
 
@@ -2073,9 +2073,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeLocation for reference.
 type ChannelAdminLogEventActionChangeLocation struct {
 	// Previous location
-	PrevValue ChannelLocationClass `schemaname:"prev_value"`
+	PrevValue ChannelLocationClass `tl:"prev_value"`
 	// New location
-	NewValue ChannelLocationClass `schemaname:"new_value"`
+	NewValue ChannelLocationClass `tl:"new_value"`
 }
 
 // ChannelAdminLogEventActionChangeLocationTypeID is TL type id of ChannelAdminLogEventActionChangeLocation.
@@ -2119,8 +2119,8 @@ func (c *ChannelAdminLogEventActionChangeLocation) TypeID() uint32 {
 	return ChannelAdminLogEventActionChangeLocationTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionChangeLocation) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionChangeLocation) TypeName() string {
 	return "channelAdminLogEventActionChangeLocation"
 }
 
@@ -2202,9 +2202,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleSlowMode for reference.
 type ChannelAdminLogEventActionToggleSlowMode struct {
 	// Previous slow mode value
-	PrevValue int `schemaname:"prev_value"`
+	PrevValue int `tl:"prev_value"`
 	// New slow mode value
-	NewValue int `schemaname:"new_value"`
+	NewValue int `tl:"new_value"`
 }
 
 // ChannelAdminLogEventActionToggleSlowModeTypeID is TL type id of ChannelAdminLogEventActionToggleSlowMode.
@@ -2248,8 +2248,8 @@ func (c *ChannelAdminLogEventActionToggleSlowMode) TypeID() uint32 {
 	return ChannelAdminLogEventActionToggleSlowModeTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionToggleSlowMode) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionToggleSlowMode) TypeName() string {
 	return "channelAdminLogEventActionToggleSlowMode"
 }
 
@@ -2317,7 +2317,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionStartGroupCall for reference.
 type ChannelAdminLogEventActionStartGroupCall struct {
 	// Call field of ChannelAdminLogEventActionStartGroupCall.
-	Call InputGroupCall `schemaname:"call"`
+	Call InputGroupCall `tl:"call"`
 }
 
 // ChannelAdminLogEventActionStartGroupCallTypeID is TL type id of ChannelAdminLogEventActionStartGroupCall.
@@ -2356,8 +2356,8 @@ func (c *ChannelAdminLogEventActionStartGroupCall) TypeID() uint32 {
 	return ChannelAdminLogEventActionStartGroupCallTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionStartGroupCall) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionStartGroupCall) TypeName() string {
 	return "channelAdminLogEventActionStartGroupCall"
 }
 
@@ -2412,7 +2412,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionDiscardGroupCall for reference.
 type ChannelAdminLogEventActionDiscardGroupCall struct {
 	// Call field of ChannelAdminLogEventActionDiscardGroupCall.
-	Call InputGroupCall `schemaname:"call"`
+	Call InputGroupCall `tl:"call"`
 }
 
 // ChannelAdminLogEventActionDiscardGroupCallTypeID is TL type id of ChannelAdminLogEventActionDiscardGroupCall.
@@ -2451,8 +2451,8 @@ func (c *ChannelAdminLogEventActionDiscardGroupCall) TypeID() uint32 {
 	return ChannelAdminLogEventActionDiscardGroupCallTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionDiscardGroupCall) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionDiscardGroupCall) TypeName() string {
 	return "channelAdminLogEventActionDiscardGroupCall"
 }
 
@@ -2507,7 +2507,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantMute for reference.
 type ChannelAdminLogEventActionParticipantMute struct {
 	// Participant field of ChannelAdminLogEventActionParticipantMute.
-	Participant GroupCallParticipant `schemaname:"participant"`
+	Participant GroupCallParticipant `tl:"participant"`
 }
 
 // ChannelAdminLogEventActionParticipantMuteTypeID is TL type id of ChannelAdminLogEventActionParticipantMute.
@@ -2546,8 +2546,8 @@ func (c *ChannelAdminLogEventActionParticipantMute) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantMuteTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionParticipantMute) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionParticipantMute) TypeName() string {
 	return "channelAdminLogEventActionParticipantMute"
 }
 
@@ -2602,7 +2602,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantUnmute for reference.
 type ChannelAdminLogEventActionParticipantUnmute struct {
 	// Participant field of ChannelAdminLogEventActionParticipantUnmute.
-	Participant GroupCallParticipant `schemaname:"participant"`
+	Participant GroupCallParticipant `tl:"participant"`
 }
 
 // ChannelAdminLogEventActionParticipantUnmuteTypeID is TL type id of ChannelAdminLogEventActionParticipantUnmute.
@@ -2641,8 +2641,8 @@ func (c *ChannelAdminLogEventActionParticipantUnmute) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantUnmuteTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionParticipantUnmute) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionParticipantUnmute) TypeName() string {
 	return "channelAdminLogEventActionParticipantUnmute"
 }
 
@@ -2697,7 +2697,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleGroupCallSetting for reference.
 type ChannelAdminLogEventActionToggleGroupCallSetting struct {
 	// JoinMuted field of ChannelAdminLogEventActionToggleGroupCallSetting.
-	JoinMuted bool `schemaname:"join_muted"`
+	JoinMuted bool `tl:"join_muted"`
 }
 
 // ChannelAdminLogEventActionToggleGroupCallSettingTypeID is TL type id of ChannelAdminLogEventActionToggleGroupCallSetting.
@@ -2736,8 +2736,8 @@ func (c *ChannelAdminLogEventActionToggleGroupCallSetting) TypeID() uint32 {
 	return ChannelAdminLogEventActionToggleGroupCallSettingTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionToggleGroupCallSetting) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionToggleGroupCallSetting) TypeName() string {
 	return "channelAdminLogEventActionToggleGroupCallSetting"
 }
 
@@ -2792,7 +2792,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantJoinByInvite for reference.
 type ChannelAdminLogEventActionParticipantJoinByInvite struct {
 	// Invite field of ChannelAdminLogEventActionParticipantJoinByInvite.
-	Invite ChatInviteExported `schemaname:"invite"`
+	Invite ChatInviteExported `tl:"invite"`
 }
 
 // ChannelAdminLogEventActionParticipantJoinByInviteTypeID is TL type id of ChannelAdminLogEventActionParticipantJoinByInvite.
@@ -2831,8 +2831,8 @@ func (c *ChannelAdminLogEventActionParticipantJoinByInvite) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantJoinByInviteTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionParticipantJoinByInvite) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionParticipantJoinByInvite) TypeName() string {
 	return "channelAdminLogEventActionParticipantJoinByInvite"
 }
 
@@ -2887,7 +2887,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionExportedInviteDelete for reference.
 type ChannelAdminLogEventActionExportedInviteDelete struct {
 	// Invite field of ChannelAdminLogEventActionExportedInviteDelete.
-	Invite ChatInviteExported `schemaname:"invite"`
+	Invite ChatInviteExported `tl:"invite"`
 }
 
 // ChannelAdminLogEventActionExportedInviteDeleteTypeID is TL type id of ChannelAdminLogEventActionExportedInviteDelete.
@@ -2926,8 +2926,8 @@ func (c *ChannelAdminLogEventActionExportedInviteDelete) TypeID() uint32 {
 	return ChannelAdminLogEventActionExportedInviteDeleteTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionExportedInviteDelete) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionExportedInviteDelete) TypeName() string {
 	return "channelAdminLogEventActionExportedInviteDelete"
 }
 
@@ -2982,7 +2982,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionExportedInviteRevoke for reference.
 type ChannelAdminLogEventActionExportedInviteRevoke struct {
 	// Invite field of ChannelAdminLogEventActionExportedInviteRevoke.
-	Invite ChatInviteExported `schemaname:"invite"`
+	Invite ChatInviteExported `tl:"invite"`
 }
 
 // ChannelAdminLogEventActionExportedInviteRevokeTypeID is TL type id of ChannelAdminLogEventActionExportedInviteRevoke.
@@ -3021,8 +3021,8 @@ func (c *ChannelAdminLogEventActionExportedInviteRevoke) TypeID() uint32 {
 	return ChannelAdminLogEventActionExportedInviteRevokeTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionExportedInviteRevoke) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionExportedInviteRevoke) TypeName() string {
 	return "channelAdminLogEventActionExportedInviteRevoke"
 }
 
@@ -3077,9 +3077,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionExportedInviteEdit for reference.
 type ChannelAdminLogEventActionExportedInviteEdit struct {
 	// PrevInvite field of ChannelAdminLogEventActionExportedInviteEdit.
-	PrevInvite ChatInviteExported `schemaname:"prev_invite"`
+	PrevInvite ChatInviteExported `tl:"prev_invite"`
 	// NewInvite field of ChannelAdminLogEventActionExportedInviteEdit.
-	NewInvite ChatInviteExported `schemaname:"new_invite"`
+	NewInvite ChatInviteExported `tl:"new_invite"`
 }
 
 // ChannelAdminLogEventActionExportedInviteEditTypeID is TL type id of ChannelAdminLogEventActionExportedInviteEdit.
@@ -3123,8 +3123,8 @@ func (c *ChannelAdminLogEventActionExportedInviteEdit) TypeID() uint32 {
 	return ChannelAdminLogEventActionExportedInviteEditTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionExportedInviteEdit) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionExportedInviteEdit) TypeName() string {
 	return "channelAdminLogEventActionExportedInviteEdit"
 }
 
@@ -3192,7 +3192,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantVolume for reference.
 type ChannelAdminLogEventActionParticipantVolume struct {
 	// Participant field of ChannelAdminLogEventActionParticipantVolume.
-	Participant GroupCallParticipant `schemaname:"participant"`
+	Participant GroupCallParticipant `tl:"participant"`
 }
 
 // ChannelAdminLogEventActionParticipantVolumeTypeID is TL type id of ChannelAdminLogEventActionParticipantVolume.
@@ -3231,8 +3231,8 @@ func (c *ChannelAdminLogEventActionParticipantVolume) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantVolumeTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionParticipantVolume) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionParticipantVolume) TypeName() string {
 	return "channelAdminLogEventActionParticipantVolume"
 }
 
@@ -3287,9 +3287,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeHistoryTTL for reference.
 type ChannelAdminLogEventActionChangeHistoryTTL struct {
 	// PrevValue field of ChannelAdminLogEventActionChangeHistoryTTL.
-	PrevValue int `schemaname:"prev_value"`
+	PrevValue int `tl:"prev_value"`
 	// NewValue field of ChannelAdminLogEventActionChangeHistoryTTL.
-	NewValue int `schemaname:"new_value"`
+	NewValue int `tl:"new_value"`
 }
 
 // ChannelAdminLogEventActionChangeHistoryTTLTypeID is TL type id of ChannelAdminLogEventActionChangeHistoryTTL.
@@ -3333,8 +3333,8 @@ func (c *ChannelAdminLogEventActionChangeHistoryTTL) TypeID() uint32 {
 	return ChannelAdminLogEventActionChangeHistoryTTLTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventActionChangeHistoryTTL) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventActionChangeHistoryTTL) TypeName() string {
 	return "channelAdminLogEventActionChangeHistoryTTL"
 }
 
@@ -3446,11 +3446,11 @@ type ChannelAdminLogEventActionClass interface {
 	bin.Decoder
 	construct() ChannelAdminLogEventActionClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

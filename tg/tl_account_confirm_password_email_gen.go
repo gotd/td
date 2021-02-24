@@ -30,7 +30,7 @@ type AccountConfirmPasswordEmailRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp#email-verification
-	Code string `schemaname:"code"`
+	Code string `tl:"code"`
 }
 
 // AccountConfirmPasswordEmailRequestTypeID is TL type id of AccountConfirmPasswordEmailRequest.
@@ -69,8 +69,8 @@ func (c *AccountConfirmPasswordEmailRequest) TypeID() uint32 {
 	return AccountConfirmPasswordEmailRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *AccountConfirmPasswordEmailRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *AccountConfirmPasswordEmailRequest) TypeName() string {
 	return "account.confirmPasswordEmail"
 }
 

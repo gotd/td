@@ -23,15 +23,15 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.historyImportParsed for reference.
 type MessagesHistoryImportParsed struct {
 	// Flags field of MessagesHistoryImportParsed.
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Pm field of MessagesHistoryImportParsed.
-	Pm bool `schemaname:"pm"`
+	Pm bool `tl:"pm"`
 	// Group field of MessagesHistoryImportParsed.
-	Group bool `schemaname:"group"`
+	Group bool `tl:"group"`
 	// Title field of MessagesHistoryImportParsed.
 	//
 	// Use SetTitle and GetTitle helpers.
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 }
 
 // MessagesHistoryImportParsedTypeID is TL type id of MessagesHistoryImportParsed.
@@ -86,8 +86,8 @@ func (h *MessagesHistoryImportParsed) TypeID() uint32 {
 	return MessagesHistoryImportParsedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (h *MessagesHistoryImportParsed) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (h *MessagesHistoryImportParsed) TypeName() string {
 	return "messages.historyImportParsed"
 }
 

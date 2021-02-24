@@ -51,8 +51,8 @@ func (c *ChatPhotoEmpty) TypeID() uint32 {
 	return ChatPhotoEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChatPhotoEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChatPhotoEmpty) TypeName() string {
 	return "chatPhotoEmpty"
 }
 
@@ -96,15 +96,15 @@ type ChatPhoto struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether the user has an animated profile picture
-	HasVideo bool `schemaname:"has_video"`
+	HasVideo bool `tl:"has_video"`
 	// Location of the file corresponding to the small thumbnail for group profile photo
-	PhotoSmall FileLocationToBeDeprecated `schemaname:"photo_small"`
+	PhotoSmall FileLocationToBeDeprecated `tl:"photo_small"`
 	// Location of the file corresponding to the small thumbnail for group profile photo
-	PhotoBig FileLocationToBeDeprecated `schemaname:"photo_big"`
+	PhotoBig FileLocationToBeDeprecated `tl:"photo_big"`
 	// DC where this photo is stored
-	DCID int `schemaname:"dc_id"`
+	DCID int `tl:"dc_id"`
 }
 
 // ChatPhotoTypeID is TL type id of ChatPhoto.
@@ -161,8 +161,8 @@ func (c *ChatPhoto) TypeID() uint32 {
 	return ChatPhotoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChatPhoto) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChatPhoto) TypeName() string {
 	return "chatPhoto"
 }
 
@@ -283,11 +283,11 @@ type ChatPhotoClass interface {
 	bin.Decoder
 	construct() ChatPhotoClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

@@ -27,60 +27,60 @@ type UserFull struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether you have blocked this user
-	Blocked bool `schemaname:"blocked"`
+	Blocked bool `tl:"blocked"`
 	// Whether this user can make VoIP calls
-	PhoneCallsAvailable bool `schemaname:"phone_calls_available"`
+	PhoneCallsAvailable bool `tl:"phone_calls_available"`
 	// Whether this user's privacy settings allow you to call him
-	PhoneCallsPrivate bool `schemaname:"phone_calls_private"`
+	PhoneCallsPrivate bool `tl:"phone_calls_private"`
 	// Whether you can pin messages in the chat with this user, you can do this only for a chat with yourself
-	CanPinMessage bool `schemaname:"can_pin_message"`
+	CanPinMessage bool `tl:"can_pin_message"`
 	// Whether scheduled messages¹ are available
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/scheduled-messages
-	HasScheduled bool `schemaname:"has_scheduled"`
+	HasScheduled bool `tl:"has_scheduled"`
 	// Whether the user can receive video calls
-	VideoCallsAvailable bool `schemaname:"video_calls_available"`
+	VideoCallsAvailable bool `tl:"video_calls_available"`
 	// Remaining user info
-	User UserClass `schemaname:"user"`
+	User UserClass `tl:"user"`
 	// Bio of the user
 	//
 	// Use SetAbout and GetAbout helpers.
-	About string `schemaname:"about"`
+	About string `tl:"about"`
 	// Peer settings
-	Settings PeerSettings `schemaname:"settings"`
+	Settings PeerSettings `tl:"settings"`
 	// Profile photo
 	//
 	// Use SetProfilePhoto and GetProfilePhoto helpers.
-	ProfilePhoto PhotoClass `schemaname:"profile_photo"`
+	ProfilePhoto PhotoClass `tl:"profile_photo"`
 	// Notification settings
-	NotifySettings PeerNotifySettings `schemaname:"notify_settings"`
+	NotifySettings PeerNotifySettings `tl:"notify_settings"`
 	// For bots, info about the bot (bot commands, etc)
 	//
 	// Use SetBotInfo and GetBotInfo helpers.
-	BotInfo BotInfo `schemaname:"bot_info"`
+	BotInfo BotInfo `tl:"bot_info"`
 	// Message ID of the last pinned message¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/pin
 	//
 	// Use SetPinnedMsgID and GetPinnedMsgID helpers.
-	PinnedMsgID int `schemaname:"pinned_msg_id"`
+	PinnedMsgID int `tl:"pinned_msg_id"`
 	// Chats in common with this user
-	CommonChatsCount int `schemaname:"common_chats_count"`
+	CommonChatsCount int `tl:"common_chats_count"`
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int `schemaname:"folder_id"`
+	FolderID int `tl:"folder_id"`
 	// TTLPeriod field of UserFull.
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
-	TTLPeriod int `schemaname:"ttl_period"`
+	TTLPeriod int `tl:"ttl_period"`
 }
 
 // UserFullTypeID is TL type id of UserFull.
@@ -215,8 +215,8 @@ func (u *UserFull) TypeID() uint32 {
 	return UserFullTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (u *UserFull) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (u *UserFull) TypeName() string {
 	return "userFull"
 }
 

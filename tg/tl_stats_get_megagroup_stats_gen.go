@@ -30,14 +30,14 @@ type StatsGetMegagroupStatsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether to enable dark theme for graph colors
-	Dark bool `schemaname:"dark"`
+	Dark bool `tl:"dark"`
 	// Supergroup ID¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass `schemaname:"channel"`
+	Channel InputChannelClass `tl:"channel"`
 }
 
 // StatsGetMegagroupStatsRequestTypeID is TL type id of StatsGetMegagroupStatsRequest.
@@ -84,8 +84,8 @@ func (g *StatsGetMegagroupStatsRequest) TypeID() uint32 {
 	return StatsGetMegagroupStatsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *StatsGetMegagroupStatsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *StatsGetMegagroupStatsRequest) TypeName() string {
 	return "stats.getMegagroupStats"
 }
 

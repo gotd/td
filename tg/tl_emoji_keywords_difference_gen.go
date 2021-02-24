@@ -24,13 +24,13 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/emojiKeywordsDifference for reference.
 type EmojiKeywordsDifference struct {
 	// Language code for keywords
-	LangCode string `schemaname:"lang_code"`
+	LangCode string `tl:"lang_code"`
 	// Previous emoji keyword list version
-	FromVersion int `schemaname:"from_version"`
+	FromVersion int `tl:"from_version"`
 	// Current version of emoji keyword list
-	Version int `schemaname:"version"`
+	Version int `tl:"version"`
 	// Emojis associated to keywords
-	Keywords []EmojiKeywordClass `schemaname:"keywords"`
+	Keywords []EmojiKeywordClass `tl:"keywords"`
 }
 
 // EmojiKeywordsDifferenceTypeID is TL type id of EmojiKeywordsDifference.
@@ -84,8 +84,8 @@ func (e *EmojiKeywordsDifference) TypeID() uint32 {
 	return EmojiKeywordsDifferenceTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (e *EmojiKeywordsDifference) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (e *EmojiKeywordsDifference) TypeName() string {
 	return "emojiKeywordsDifference"
 }
 

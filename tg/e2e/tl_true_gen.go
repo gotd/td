@@ -54,8 +54,8 @@ func (t *True) TypeID() uint32 {
 	return TrueTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *True) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *True) TypeName() string {
 	return "true"
 }
 

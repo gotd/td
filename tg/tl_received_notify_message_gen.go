@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/receivedNotifyMessage for reference.
 type ReceivedNotifyMessage struct {
 	// Message ID, for which PUSH-notifications were canceled
-	ID int `schemaname:"id"`
+	ID int `tl:"id"`
 	// Reserved for future use
-	Flags int `schemaname:"flags"`
+	Flags int `tl:"flags"`
 }
 
 // ReceivedNotifyMessageTypeID is TL type id of ReceivedNotifyMessage.
@@ -70,8 +70,8 @@ func (r *ReceivedNotifyMessage) TypeID() uint32 {
 	return ReceivedNotifyMessageTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *ReceivedNotifyMessage) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *ReceivedNotifyMessage) TypeName() string {
 	return "receivedNotifyMessage"
 }
 

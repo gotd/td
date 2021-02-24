@@ -23,13 +23,13 @@ var _ = errors.Is
 // See https://core.telegram.org/method/phone.joinGroupCall for reference.
 type PhoneJoinGroupCallRequest struct {
 	// Flags field of PhoneJoinGroupCallRequest.
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Muted field of PhoneJoinGroupCallRequest.
-	Muted bool `schemaname:"muted"`
+	Muted bool `tl:"muted"`
 	// Call field of PhoneJoinGroupCallRequest.
-	Call InputGroupCall `schemaname:"call"`
+	Call InputGroupCall `tl:"call"`
 	// Params field of PhoneJoinGroupCallRequest.
-	Params DataJSON `schemaname:"params"`
+	Params DataJSON `tl:"params"`
 }
 
 // PhoneJoinGroupCallRequestTypeID is TL type id of PhoneJoinGroupCallRequest.
@@ -81,8 +81,8 @@ func (j *PhoneJoinGroupCallRequest) TypeID() uint32 {
 	return PhoneJoinGroupCallRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (j *PhoneJoinGroupCallRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (j *PhoneJoinGroupCallRequest) TypeName() string {
 	return "phone.joinGroupCall"
 }
 

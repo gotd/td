@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.readMessageContents for reference.
 type MessagesReadMessageContentsRequest struct {
 	// Message ID list
-	ID []int `schemaname:"id"`
+	ID []int `tl:"id"`
 }
 
 // MessagesReadMessageContentsRequestTypeID is TL type id of MessagesReadMessageContentsRequest.
@@ -63,8 +63,8 @@ func (r *MessagesReadMessageContentsRequest) TypeID() uint32 {
 	return MessagesReadMessageContentsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *MessagesReadMessageContentsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *MessagesReadMessageContentsRequest) TypeName() string {
 	return "messages.readMessageContents"
 }
 

@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/inputPhoneCall for reference.
 type InputPhoneCall struct {
 	// Call ID
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// Access hash
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 }
 
 // InputPhoneCallTypeID is TL type id of InputPhoneCall.
@@ -70,8 +70,8 @@ func (i *InputPhoneCall) TypeID() uint32 {
 	return InputPhoneCallTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputPhoneCall) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputPhoneCall) TypeName() string {
 	return "inputPhoneCall"
 }
 

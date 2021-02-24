@@ -30,9 +30,9 @@ type ChannelsReadMessageContentsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass `schemaname:"channel"`
+	Channel InputChannelClass `tl:"channel"`
 	// IDs of messages whose contents should be marked as read
-	ID []int `schemaname:"id"`
+	ID []int `tl:"id"`
 }
 
 // ChannelsReadMessageContentsRequestTypeID is TL type id of ChannelsReadMessageContentsRequest.
@@ -76,8 +76,8 @@ func (r *ChannelsReadMessageContentsRequest) TypeID() uint32 {
 	return ChannelsReadMessageContentsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *ChannelsReadMessageContentsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *ChannelsReadMessageContentsRequest) TypeName() string {
 	return "channels.readMessageContents"
 }
 

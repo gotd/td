@@ -23,15 +23,15 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/bigMessage for reference.
 type BigMessage struct {
 	// ID field of BigMessage.
-	ID int32 `schemaname:"id"`
+	ID int32 `tl:"id"`
 	// Count field of BigMessage.
-	Count int32 `schemaname:"count"`
+	Count int32 `tl:"count"`
 	// TargetId field of BigMessage.
-	TargetId int32 `schemaname:"targetId"`
+	TargetId int32 `tl:"targetId"`
 	// Escape field of BigMessage.
-	Escape bool `schemaname:"escape"`
+	Escape bool `tl:"escape"`
 	// Summary field of BigMessage.
-	Summary bool `schemaname:"summary"`
+	Summary bool `tl:"summary"`
 }
 
 // BigMessageTypeID is TL type id of BigMessage.
@@ -90,8 +90,8 @@ func (b *BigMessage) TypeID() uint32 {
 	return BigMessageTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *BigMessage) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *BigMessage) TypeName() string {
 	return "bigMessage"
 }
 
@@ -223,8 +223,8 @@ func (n *NoMessage) TypeID() uint32 {
 	return NoMessageTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (n *NoMessage) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (n *NoMessage) TypeName() string {
 	return "noMessage"
 }
 
@@ -264,7 +264,7 @@ var (
 // See https://localhost:80/doc/constructor/targetsMessage for reference.
 type TargetsMessage struct {
 	// Targets field of TargetsMessage.
-	Targets []int32 `schemaname:"targets"`
+	Targets []int32 `tl:"targets"`
 }
 
 // TargetsMessageTypeID is TL type id of TargetsMessage.
@@ -303,8 +303,8 @@ func (t *TargetsMessage) TypeID() uint32 {
 	return TargetsMessageTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TargetsMessage) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TargetsMessage) TypeName() string {
 	return "targetsMessage"
 }
 
@@ -366,15 +366,15 @@ var (
 // See https://localhost:80/doc/constructor/fieldsMessage for reference.
 type FieldsMessage struct {
 	// Flags field of FieldsMessage.
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Escape field of FieldsMessage.
 	//
 	// Use SetEscape and GetEscape helpers.
-	Escape bool `schemaname:"escape"`
+	Escape bool `tl:"escape"`
 	// TTLSeconds field of FieldsMessage.
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
-	TTLSeconds int `schemaname:"ttl_seconds"`
+	TTLSeconds int `tl:"ttl_seconds"`
 }
 
 // FieldsMessageTypeID is TL type id of FieldsMessage.
@@ -427,8 +427,8 @@ func (f *FieldsMessage) TypeID() uint32 {
 	return FieldsMessageTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (f *FieldsMessage) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (f *FieldsMessage) TypeName() string {
 	return "fieldsMessage"
 }
 
@@ -532,7 +532,7 @@ var (
 // See https://localhost:80/doc/constructor/bytesMessage for reference.
 type BytesMessage struct {
 	// Data field of BytesMessage.
-	Data []byte `schemaname:"data"`
+	Data []byte `tl:"data"`
 }
 
 // BytesMessageTypeID is TL type id of BytesMessage.
@@ -571,8 +571,8 @@ func (b *BytesMessage) TypeID() uint32 {
 	return BytesMessageTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *BytesMessage) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *BytesMessage) TypeName() string {
 	return "bytesMessage"
 }
 
@@ -642,11 +642,11 @@ type AbstractMessageClass interface {
 	bin.Decoder
 	construct() AbstractMessageClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

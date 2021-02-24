@@ -27,19 +27,19 @@ type AccountUpdateProfileRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// New user first name
 	//
 	// Use SetFirstName and GetFirstName helpers.
-	FirstName string `schemaname:"first_name"`
+	FirstName string `tl:"first_name"`
 	// New user last name
 	//
 	// Use SetLastName and GetLastName helpers.
-	LastName string `schemaname:"last_name"`
+	LastName string `tl:"last_name"`
 	// New bio
 	//
 	// Use SetAbout and GetAbout helpers.
-	About string `schemaname:"about"`
+	About string `tl:"about"`
 }
 
 // AccountUpdateProfileRequestTypeID is TL type id of AccountUpdateProfileRequest.
@@ -100,8 +100,8 @@ func (u *AccountUpdateProfileRequest) TypeID() uint32 {
 	return AccountUpdateProfileRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (u *AccountUpdateProfileRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (u *AccountUpdateProfileRequest) TypeName() string {
 	return "account.updateProfile"
 }
 

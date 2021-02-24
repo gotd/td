@@ -27,39 +27,39 @@ type DcOption struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether the specified IP is an IPv6 address
-	Ipv6 bool `schemaname:"ipv6"`
+	Ipv6 bool `tl:"ipv6"`
 	// Whether this DC should only be used to download or upload files¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files
-	MediaOnly bool `schemaname:"media_only"`
+	MediaOnly bool `tl:"media_only"`
 	// Whether this DC only supports connection with transport obfuscation¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/mtproto-transports#transport-obfuscation
-	TcpoOnly bool `schemaname:"tcpo_only"`
+	TcpoOnly bool `tl:"tcpo_only"`
 	// Whether this is a CDN DC¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	CDN bool `schemaname:"cdn"`
+	CDN bool `tl:"cdn"`
 	// If set, this IP should be used when connecting through a proxy
-	Static bool `schemaname:"static"`
+	Static bool `tl:"static"`
 	// DC ID
-	ID int `schemaname:"id"`
+	ID int `tl:"id"`
 	// IP address of DC
-	IPAddress string `schemaname:"ip_address"`
+	IPAddress string `tl:"ip_address"`
 	// Port
-	Port int `schemaname:"port"`
+	Port int `tl:"port"`
 	// If the tcpo_only flag is set, specifies the secret to use when connecting using transport obfuscation¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/mtproto-transports#transport-obfuscation
 	//
 	// Use SetSecret and GetSecret helpers.
-	Secret []byte `schemaname:"secret"`
+	Secret []byte `tl:"secret"`
 }
 
 // DcOptionTypeID is TL type id of DcOption.
@@ -144,8 +144,8 @@ func (d *DcOption) TypeID() uint32 {
 	return DcOptionTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DcOption) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DcOption) TypeName() string {
 	return "dcOption"
 }
 

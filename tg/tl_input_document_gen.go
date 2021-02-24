@@ -51,8 +51,8 @@ func (i *InputDocumentEmpty) TypeID() uint32 {
 	return InputDocumentEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputDocumentEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputDocumentEmpty) TypeName() string {
 	return "inputDocumentEmpty"
 }
 
@@ -93,17 +93,17 @@ var (
 // See https://core.telegram.org/constructor/inputDocument for reference.
 type InputDocument struct {
 	// Document ID
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// access_hash parameter from the document¹ constructor
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/document
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 	// File reference¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/file_reference
-	FileReference []byte `schemaname:"file_reference"`
+	FileReference []byte `tl:"file_reference"`
 }
 
 // InputDocumentTypeID is TL type id of InputDocument.
@@ -152,8 +152,8 @@ func (i *InputDocument) TypeID() uint32 {
 	return InputDocumentTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputDocument) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputDocument) TypeName() string {
 	return "inputDocument"
 }
 
@@ -246,11 +246,11 @@ type InputDocumentClass interface {
 	bin.Decoder
 	construct() InputDocumentClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

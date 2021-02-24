@@ -51,8 +51,8 @@ func (s *SecureValueTypePersonalDetails) TypeID() uint32 {
 	return SecureValueTypePersonalDetailsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SecureValueTypePersonalDetails) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SecureValueTypePersonalDetails) TypeName() string {
 	return "secureValueTypePersonalDetails"
 }
 
@@ -120,8 +120,8 @@ func (s *SecureValueTypePassport) TypeID() uint32 {
 	return SecureValueTypePassportTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SecureValueTypePassport) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SecureValueTypePassport) TypeName() string {
 	return "secureValueTypePassport"
 }
 
@@ -189,8 +189,8 @@ func (s *SecureValueTypeDriverLicense) TypeID() uint32 {
 	return SecureValueTypeDriverLicenseTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SecureValueTypeDriverLicense) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SecureValueTypeDriverLicense) TypeName() string {
 	return "secureValueTypeDriverLicense"
 }
 
@@ -258,8 +258,8 @@ func (s *SecureValueTypeIdentityCard) TypeID() uint32 {
 	return SecureValueTypeIdentityCardTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SecureValueTypeIdentityCard) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SecureValueTypeIdentityCard) TypeName() string {
 	return "secureValueTypeIdentityCard"
 }
 
@@ -330,8 +330,8 @@ func (s *SecureValueTypeInternalPassport) TypeID() uint32 {
 	return SecureValueTypeInternalPassportTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SecureValueTypeInternalPassport) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SecureValueTypeInternalPassport) TypeName() string {
 	return "secureValueTypeInternalPassport"
 }
 
@@ -399,8 +399,8 @@ func (s *SecureValueTypeAddress) TypeID() uint32 {
 	return SecureValueTypeAddressTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SecureValueTypeAddress) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SecureValueTypeAddress) TypeName() string {
 	return "secureValueTypeAddress"
 }
 
@@ -468,8 +468,8 @@ func (s *SecureValueTypeUtilityBill) TypeID() uint32 {
 	return SecureValueTypeUtilityBillTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SecureValueTypeUtilityBill) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SecureValueTypeUtilityBill) TypeName() string {
 	return "secureValueTypeUtilityBill"
 }
 
@@ -537,8 +537,8 @@ func (s *SecureValueTypeBankStatement) TypeID() uint32 {
 	return SecureValueTypeBankStatementTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SecureValueTypeBankStatement) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SecureValueTypeBankStatement) TypeName() string {
 	return "secureValueTypeBankStatement"
 }
 
@@ -606,8 +606,8 @@ func (s *SecureValueTypeRentalAgreement) TypeID() uint32 {
 	return SecureValueTypeRentalAgreementTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SecureValueTypeRentalAgreement) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SecureValueTypeRentalAgreement) TypeName() string {
 	return "secureValueTypeRentalAgreement"
 }
 
@@ -678,8 +678,8 @@ func (s *SecureValueTypePassportRegistration) TypeID() uint32 {
 	return SecureValueTypePassportRegistrationTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SecureValueTypePassportRegistration) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SecureValueTypePassportRegistration) TypeName() string {
 	return "secureValueTypePassportRegistration"
 }
 
@@ -747,8 +747,8 @@ func (s *SecureValueTypeTemporaryRegistration) TypeID() uint32 {
 	return SecureValueTypeTemporaryRegistrationTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SecureValueTypeTemporaryRegistration) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SecureValueTypeTemporaryRegistration) TypeName() string {
 	return "secureValueTypeTemporaryRegistration"
 }
 
@@ -816,8 +816,8 @@ func (s *SecureValueTypePhone) TypeID() uint32 {
 	return SecureValueTypePhoneTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SecureValueTypePhone) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SecureValueTypePhone) TypeName() string {
 	return "secureValueTypePhone"
 }
 
@@ -885,8 +885,8 @@ func (s *SecureValueTypeEmail) TypeID() uint32 {
 	return SecureValueTypeEmailTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SecureValueTypeEmail) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SecureValueTypeEmail) TypeName() string {
 	return "secureValueTypeEmail"
 }
 
@@ -951,11 +951,11 @@ type SecureValueTypeClass interface {
 	bin.Decoder
 	construct() SecureValueTypeClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

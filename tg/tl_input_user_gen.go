@@ -51,8 +51,8 @@ func (i *InputUserEmpty) TypeID() uint32 {
 	return InputUserEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputUserEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputUserEmpty) TypeName() string {
 	return "inputUserEmpty"
 }
 
@@ -120,8 +120,8 @@ func (i *InputUserSelf) TypeID() uint32 {
 	return InputUserSelfTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputUserSelf) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputUserSelf) TypeName() string {
 	return "inputUserSelf"
 }
 
@@ -162,12 +162,12 @@ var (
 // See https://core.telegram.org/constructor/inputUser for reference.
 type InputUser struct {
 	// User identifier
-	UserID int `schemaname:"user_id"`
+	UserID int `tl:"user_id"`
 	// access_hash value from the user¹ constructor
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/user
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 }
 
 // InputUserTypeID is TL type id of InputUser.
@@ -211,8 +211,8 @@ func (i *InputUser) TypeID() uint32 {
 	return InputUserTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputUser) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputUser) TypeName() string {
 	return "inputUser"
 }
 
@@ -282,11 +282,11 @@ var (
 // See https://core.telegram.org/constructor/inputUserFromMessage for reference.
 type InputUserFromMessage struct {
 	// The chat where the user was seen
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// The message ID
-	MsgID int `schemaname:"msg_id"`
+	MsgID int `tl:"msg_id"`
 	// The identifier of the user that was seen
-	UserID int `schemaname:"user_id"`
+	UserID int `tl:"user_id"`
 }
 
 // InputUserFromMessageTypeID is TL type id of InputUserFromMessage.
@@ -335,8 +335,8 @@ func (i *InputUserFromMessage) TypeID() uint32 {
 	return InputUserFromMessageTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputUserFromMessage) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputUserFromMessage) TypeName() string {
 	return "inputUserFromMessage"
 }
 
@@ -436,11 +436,11 @@ type InputUserClass interface {
 	bin.Decoder
 	construct() InputUserClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

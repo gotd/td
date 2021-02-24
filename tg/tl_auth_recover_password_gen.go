@@ -28,7 +28,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/auth.recoverPassword for reference.
 type AuthRecoverPasswordRequest struct {
 	// Code received via email
-	Code string `schemaname:"code"`
+	Code string `tl:"code"`
 }
 
 // AuthRecoverPasswordRequestTypeID is TL type id of AuthRecoverPasswordRequest.
@@ -67,8 +67,8 @@ func (r *AuthRecoverPasswordRequest) TypeID() uint32 {
 	return AuthRecoverPasswordRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *AuthRecoverPasswordRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *AuthRecoverPasswordRequest) TypeName() string {
 	return "auth.recoverPassword"
 }
 

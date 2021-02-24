@@ -31,17 +31,17 @@ type ContactsAddContactRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Allow the other user to see our phone number?
-	AddPhonePrivacyException bool `schemaname:"add_phone_privacy_exception"`
+	AddPhonePrivacyException bool `tl:"add_phone_privacy_exception"`
 	// Telegram ID of the other user
-	ID InputUserClass `schemaname:"id"`
+	ID InputUserClass `tl:"id"`
 	// First name
-	FirstName string `schemaname:"first_name"`
+	FirstName string `tl:"first_name"`
 	// Last name
-	LastName string `schemaname:"last_name"`
+	LastName string `tl:"last_name"`
 	// User's phone number
-	Phone string `schemaname:"phone"`
+	Phone string `tl:"phone"`
 }
 
 // ContactsAddContactRequestTypeID is TL type id of ContactsAddContactRequest.
@@ -103,8 +103,8 @@ func (a *ContactsAddContactRequest) TypeID() uint32 {
 	return ContactsAddContactRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (a *ContactsAddContactRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (a *ContactsAddContactRequest) TypeName() string {
 	return "contacts.addContact"
 }
 

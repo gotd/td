@@ -51,8 +51,8 @@ func (i *InputMediaEmpty) TypeID() uint32 {
 	return InputMediaEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMediaEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMediaEmpty) TypeName() string {
 	return "inputMediaEmpty"
 }
 
@@ -96,20 +96,20 @@ type InputMediaUploadedPhoto struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// The uploaded file¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files
-	File InputFileClass `schemaname:"file"`
+	File InputFileClass `tl:"file"`
 	// Attached mask stickers
 	//
 	// Use SetStickers and GetStickers helpers.
-	Stickers []InputDocumentClass `schemaname:"stickers"`
+	Stickers []InputDocumentClass `tl:"stickers"`
 	// Time to live in seconds of self-destructing photo
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
-	TTLSeconds int `schemaname:"ttl_seconds"`
+	TTLSeconds int `tl:"ttl_seconds"`
 }
 
 // InputMediaUploadedPhotoTypeID is TL type id of InputMediaUploadedPhoto.
@@ -167,8 +167,8 @@ func (i *InputMediaUploadedPhoto) TypeID() uint32 {
 	return InputMediaUploadedPhotoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMediaUploadedPhoto) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMediaUploadedPhoto) TypeName() string {
 	return "inputMediaUploadedPhoto"
 }
 
@@ -316,13 +316,13 @@ type InputMediaPhoto struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Photo to be forwarded
-	ID InputPhotoClass `schemaname:"id"`
+	ID InputPhotoClass `tl:"id"`
 	// Time to live in seconds of self-destructing photo
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
-	TTLSeconds int `schemaname:"ttl_seconds"`
+	TTLSeconds int `tl:"ttl_seconds"`
 }
 
 // InputMediaPhotoTypeID is TL type id of InputMediaPhoto.
@@ -372,8 +372,8 @@ func (i *InputMediaPhoto) TypeID() uint32 {
 	return InputMediaPhotoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMediaPhoto) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMediaPhoto) TypeName() string {
 	return "inputMediaPhoto"
 }
 
@@ -468,7 +468,7 @@ var (
 // See https://core.telegram.org/constructor/inputMediaGeoPoint for reference.
 type InputMediaGeoPoint struct {
 	// GeoPoint
-	GeoPoint InputGeoPointClass `schemaname:"geo_point"`
+	GeoPoint InputGeoPointClass `tl:"geo_point"`
 }
 
 // InputMediaGeoPointTypeID is TL type id of InputMediaGeoPoint.
@@ -507,8 +507,8 @@ func (i *InputMediaGeoPoint) TypeID() uint32 {
 	return InputMediaGeoPointTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMediaGeoPoint) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMediaGeoPoint) TypeName() string {
 	return "inputMediaGeoPoint"
 }
 
@@ -567,13 +567,13 @@ var (
 // See https://core.telegram.org/constructor/inputMediaContact for reference.
 type InputMediaContact struct {
 	// Phone number
-	PhoneNumber string `schemaname:"phone_number"`
+	PhoneNumber string `tl:"phone_number"`
 	// Contact's first name
-	FirstName string `schemaname:"first_name"`
+	FirstName string `tl:"first_name"`
 	// Contact's last name
-	LastName string `schemaname:"last_name"`
+	LastName string `tl:"last_name"`
 	// Contact vcard
-	Vcard string `schemaname:"vcard"`
+	Vcard string `tl:"vcard"`
 }
 
 // InputMediaContactTypeID is TL type id of InputMediaContact.
@@ -627,8 +627,8 @@ func (i *InputMediaContact) TypeID() uint32 {
 	return InputMediaContactTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMediaContact) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMediaContact) TypeName() string {
 	return "inputMediaContact"
 }
 
@@ -724,32 +724,32 @@ type InputMediaUploadedDocument struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether the specified document is a video file with no audio tracks (a GIF animation (even as MPEG4), for example)
-	NosoundVideo bool `schemaname:"nosound_video"`
+	NosoundVideo bool `tl:"nosound_video"`
 	// Force the media file to be uploaded as document
-	ForceFile bool `schemaname:"force_file"`
+	ForceFile bool `tl:"force_file"`
 	// The uploaded file¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files
-	File InputFileClass `schemaname:"file"`
+	File InputFileClass `tl:"file"`
 	// Thumbnail of the document, uploaded as for the file
 	//
 	// Use SetThumb and GetThumb helpers.
-	Thumb InputFileClass `schemaname:"thumb"`
+	Thumb InputFileClass `tl:"thumb"`
 	// MIME type of document
-	MimeType string `schemaname:"mime_type"`
+	MimeType string `tl:"mime_type"`
 	// Attributes that specify the type of the document (video, audio, voice, sticker, etc.)
-	Attributes []DocumentAttributeClass `schemaname:"attributes"`
+	Attributes []DocumentAttributeClass `tl:"attributes"`
 	// Attached stickers
 	//
 	// Use SetStickers and GetStickers helpers.
-	Stickers []InputDocumentClass `schemaname:"stickers"`
+	Stickers []InputDocumentClass `tl:"stickers"`
 	// Time to live in seconds of self-destructing document
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
-	TTLSeconds int `schemaname:"ttl_seconds"`
+	TTLSeconds int `tl:"ttl_seconds"`
 }
 
 // InputMediaUploadedDocumentTypeID is TL type id of InputMediaUploadedDocument.
@@ -835,8 +835,8 @@ func (i *InputMediaUploadedDocument) TypeID() uint32 {
 	return InputMediaUploadedDocumentTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMediaUploadedDocument) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMediaUploadedDocument) TypeName() string {
 	return "inputMediaUploadedDocument"
 }
 
@@ -1102,17 +1102,17 @@ type InputMediaDocument struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// The document to be forwarded.
-	ID InputDocumentClass `schemaname:"id"`
+	ID InputDocumentClass `tl:"id"`
 	// Time to live of self-destructing document
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
-	TTLSeconds int `schemaname:"ttl_seconds"`
+	TTLSeconds int `tl:"ttl_seconds"`
 	// Query field of InputMediaDocument.
 	//
 	// Use SetQuery and GetQuery helpers.
-	Query string `schemaname:"query"`
+	Query string `tl:"query"`
 }
 
 // InputMediaDocumentTypeID is TL type id of InputMediaDocument.
@@ -1170,8 +1170,8 @@ func (i *InputMediaDocument) TypeID() uint32 {
 	return InputMediaDocumentTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMediaDocument) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMediaDocument) TypeName() string {
 	return "inputMediaDocument"
 }
 
@@ -1294,17 +1294,17 @@ var (
 // See https://core.telegram.org/constructor/inputMediaVenue for reference.
 type InputMediaVenue struct {
 	// Geolocation
-	GeoPoint InputGeoPointClass `schemaname:"geo_point"`
+	GeoPoint InputGeoPointClass `tl:"geo_point"`
 	// Venue name
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 	// Physical address of the venue
-	Address string `schemaname:"address"`
+	Address string `tl:"address"`
 	// Venue provider: currently only "foursquare" needs to be supported
-	Provider string `schemaname:"provider"`
+	Provider string `tl:"provider"`
 	// Venue ID in the provider's database
-	VenueID string `schemaname:"venue_id"`
+	VenueID string `tl:"venue_id"`
 	// Venue type in the provider's database
-	VenueType string `schemaname:"venue_type"`
+	VenueType string `tl:"venue_type"`
 }
 
 // InputMediaVenueTypeID is TL type id of InputMediaVenue.
@@ -1368,8 +1368,8 @@ func (i *InputMediaVenue) TypeID() uint32 {
 	return InputMediaVenueTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMediaVenue) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMediaVenue) TypeName() string {
 	return "inputMediaVenue"
 }
 
@@ -1496,13 +1496,13 @@ type InputMediaPhotoExternal struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// URL of the photo
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 	// Self-destruct time to live of photo
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
-	TTLSeconds int `schemaname:"ttl_seconds"`
+	TTLSeconds int `tl:"ttl_seconds"`
 }
 
 // InputMediaPhotoExternalTypeID is TL type id of InputMediaPhotoExternal.
@@ -1552,8 +1552,8 @@ func (i *InputMediaPhotoExternal) TypeID() uint32 {
 	return InputMediaPhotoExternalTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMediaPhotoExternal) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMediaPhotoExternal) TypeName() string {
 	return "inputMediaPhotoExternal"
 }
 
@@ -1646,13 +1646,13 @@ type InputMediaDocumentExternal struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// URL of the document
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 	// Self-destruct time to live of document
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
-	TTLSeconds int `schemaname:"ttl_seconds"`
+	TTLSeconds int `tl:"ttl_seconds"`
 }
 
 // InputMediaDocumentExternalTypeID is TL type id of InputMediaDocumentExternal.
@@ -1702,8 +1702,8 @@ func (i *InputMediaDocumentExternal) TypeID() uint32 {
 	return InputMediaDocumentExternalTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMediaDocumentExternal) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMediaDocumentExternal) TypeName() string {
 	return "inputMediaDocumentExternal"
 }
 
@@ -1793,7 +1793,7 @@ var (
 // See https://core.telegram.org/constructor/inputMediaGame for reference.
 type InputMediaGame struct {
 	// The game to forward
-	ID InputGameClass `schemaname:"id"`
+	ID InputGameClass `tl:"id"`
 }
 
 // InputMediaGameTypeID is TL type id of InputMediaGame.
@@ -1832,8 +1832,8 @@ func (i *InputMediaGame) TypeID() uint32 {
 	return InputMediaGameTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMediaGame) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMediaGame) TypeName() string {
 	return "inputMediaGame"
 }
 
@@ -1898,28 +1898,28 @@ type InputMediaInvoice struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Product name, 1-32 characters
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 	// Product description, 1-255 characters
-	Description string `schemaname:"description"`
+	Description string `tl:"description"`
 	// URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for.
 	//
 	// Use SetPhoto and GetPhoto helpers.
-	Photo InputWebDocument `schemaname:"photo"`
+	Photo InputWebDocument `tl:"photo"`
 	// The actual invoice
-	Invoice Invoice `schemaname:"invoice"`
+	Invoice Invoice `tl:"invoice"`
 	// Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes.
-	Payload []byte `schemaname:"payload"`
+	Payload []byte `tl:"payload"`
 	// Payments provider token, obtained via Botfather¹
 	//
 	// Links:
 	//  1) https://t.me/botfather
-	Provider string `schemaname:"provider"`
+	Provider string `tl:"provider"`
 	// JSON-encoded data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
-	ProviderData DataJSON `schemaname:"provider_data"`
+	ProviderData DataJSON `tl:"provider_data"`
 	// Start parameter
-	StartParam string `schemaname:"start_param"`
+	StartParam string `tl:"start_param"`
 }
 
 // InputMediaInvoiceTypeID is TL type id of InputMediaInvoice.
@@ -1999,8 +1999,8 @@ func (i *InputMediaInvoice) TypeID() uint32 {
 	return InputMediaInvoiceTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMediaInvoice) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMediaInvoice) TypeName() string {
 	return "inputMediaInvoice"
 }
 
@@ -2174,29 +2174,29 @@ type InputMediaGeoLive struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether sending of the geolocation was stopped
-	Stopped bool `schemaname:"stopped"`
+	Stopped bool `tl:"stopped"`
 	// Current geolocation
-	GeoPoint InputGeoPointClass `schemaname:"geo_point"`
+	GeoPoint InputGeoPointClass `tl:"geo_point"`
 	// For live locations¹, a direction in which the location moves, in degrees; 1-360.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/live-location
 	//
 	// Use SetHeading and GetHeading helpers.
-	Heading int `schemaname:"heading"`
+	Heading int `tl:"heading"`
 	// Validity period of the current location
 	//
 	// Use SetPeriod and GetPeriod helpers.
-	Period int `schemaname:"period"`
+	Period int `tl:"period"`
 	// For live locations¹, a maximum distance to another chat member for proximity alerts, in meters (0-100000)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/live-location
 	//
 	// Use SetProximityNotificationRadius and GetProximityNotificationRadius helpers.
-	ProximityNotificationRadius int `schemaname:"proximity_notification_radius"`
+	ProximityNotificationRadius int `tl:"proximity_notification_radius"`
 }
 
 // InputMediaGeoLiveTypeID is TL type id of InputMediaGeoLive.
@@ -2267,8 +2267,8 @@ func (i *InputMediaGeoLive) TypeID() uint32 {
 	return InputMediaGeoLiveTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMediaGeoLive) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMediaGeoLive) TypeName() string {
 	return "inputMediaGeoLive"
 }
 
@@ -2442,24 +2442,24 @@ type InputMediaPoll struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// The poll to send
-	Poll Poll `schemaname:"poll"`
+	Poll Poll `tl:"poll"`
 	// Correct answer IDs (for quiz polls)
 	//
 	// Use SetCorrectAnswers and GetCorrectAnswers helpers.
-	CorrectAnswers [][]byte `schemaname:"correct_answers"`
+	CorrectAnswers [][]byte `tl:"correct_answers"`
 	// Explanation of quiz solution
 	//
 	// Use SetSolution and GetSolution helpers.
-	Solution string `schemaname:"solution"`
+	Solution string `tl:"solution"`
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetSolutionEntities and GetSolutionEntities helpers.
-	SolutionEntities []MessageEntityClass `schemaname:"solution_entities"`
+	SolutionEntities []MessageEntityClass `tl:"solution_entities"`
 }
 
 // InputMediaPollTypeID is TL type id of InputMediaPoll.
@@ -2525,8 +2525,8 @@ func (i *InputMediaPoll) TypeID() uint32 {
 	return InputMediaPollTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMediaPoll) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMediaPoll) TypeName() string {
 	return "inputMediaPoll"
 }
 
@@ -2706,7 +2706,7 @@ var (
 // See https://core.telegram.org/constructor/inputMediaDice for reference.
 type InputMediaDice struct {
 	// The emoji, for now ,  and  are supported
-	Emoticon string `schemaname:"emoticon"`
+	Emoticon string `tl:"emoticon"`
 }
 
 // InputMediaDiceTypeID is TL type id of InputMediaDice.
@@ -2745,8 +2745,8 @@ func (i *InputMediaDice) TypeID() uint32 {
 	return InputMediaDiceTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMediaDice) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMediaDice) TypeName() string {
 	return "inputMediaDice"
 }
 
@@ -2826,11 +2826,11 @@ type InputMediaClass interface {
 	bin.Decoder
 	construct() InputMediaClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

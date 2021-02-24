@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.sendScheduledMessages for reference.
 type MessagesSendScheduledMessagesRequest struct {
 	// Peer
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// Scheduled message IDs
-	ID []int `schemaname:"id"`
+	ID []int `tl:"id"`
 }
 
 // MessagesSendScheduledMessagesRequestTypeID is TL type id of MessagesSendScheduledMessagesRequest.
@@ -70,8 +70,8 @@ func (s *MessagesSendScheduledMessagesRequest) TypeID() uint32 {
 	return MessagesSendScheduledMessagesRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *MessagesSendScheduledMessagesRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *MessagesSendScheduledMessagesRequest) TypeName() string {
 	return "messages.sendScheduledMessages"
 }
 

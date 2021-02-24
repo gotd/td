@@ -27,16 +27,16 @@ type MessagesSearchStickerSetsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Exclude featured stickersets from results
-	ExcludeFeatured bool `schemaname:"exclude_featured"`
+	ExcludeFeatured bool `tl:"exclude_featured"`
 	// Query string
-	Q string `schemaname:"q"`
+	Q string `tl:"q"`
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `schemaname:"hash"`
+	Hash int `tl:"hash"`
 }
 
 // MessagesSearchStickerSetsRequestTypeID is TL type id of MessagesSearchStickerSetsRequest.
@@ -88,8 +88,8 @@ func (s *MessagesSearchStickerSetsRequest) TypeID() uint32 {
 	return MessagesSearchStickerSetsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *MessagesSearchStickerSetsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *MessagesSearchStickerSetsRequest) TypeName() string {
 	return "messages.searchStickerSets"
 }
 

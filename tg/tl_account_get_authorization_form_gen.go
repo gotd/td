@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.getAuthorizationForm for reference.
 type AccountGetAuthorizationFormRequest struct {
 	// User identifier of the service's bot
-	BotID int `schemaname:"bot_id"`
+	BotID int `tl:"bot_id"`
 	// Telegram Passport element types requested by the service
-	Scope string `schemaname:"scope"`
+	Scope string `tl:"scope"`
 	// Service's public key
-	PublicKey string `schemaname:"public_key"`
+	PublicKey string `tl:"public_key"`
 }
 
 // AccountGetAuthorizationFormRequestTypeID is TL type id of AccountGetAuthorizationFormRequest.
@@ -77,8 +77,8 @@ func (g *AccountGetAuthorizationFormRequest) TypeID() uint32 {
 	return AccountGetAuthorizationFormRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *AccountGetAuthorizationFormRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *AccountGetAuthorizationFormRequest) TypeName() string {
 	return "account.getAuthorizationForm"
 }
 

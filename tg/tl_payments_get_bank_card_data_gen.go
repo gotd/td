@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/payments.getBankCardData for reference.
 type PaymentsGetBankCardDataRequest struct {
 	// Credit card number
-	Number string `schemaname:"number"`
+	Number string `tl:"number"`
 }
 
 // PaymentsGetBankCardDataRequestTypeID is TL type id of PaymentsGetBankCardDataRequest.
@@ -63,8 +63,8 @@ func (g *PaymentsGetBankCardDataRequest) TypeID() uint32 {
 	return PaymentsGetBankCardDataRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *PaymentsGetBankCardDataRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *PaymentsGetBankCardDataRequest) TypeName() string {
 	return "payments.getBankCardData"
 }
 

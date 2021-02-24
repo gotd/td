@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/contacts.block for reference.
 type ContactsBlockRequest struct {
 	// User ID
-	ID InputPeerClass `schemaname:"id"`
+	ID InputPeerClass `tl:"id"`
 }
 
 // ContactsBlockRequestTypeID is TL type id of ContactsBlockRequest.
@@ -63,8 +63,8 @@ func (b *ContactsBlockRequest) TypeID() uint32 {
 	return ContactsBlockRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *ContactsBlockRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *ContactsBlockRequest) TypeName() string {
 	return "contacts.block"
 }
 

@@ -27,40 +27,40 @@ type Authorization struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether this is the current session
-	Current bool `schemaname:"current"`
+	Current bool `tl:"current"`
 	// Whether the session is from an official app
-	OfficialApp bool `schemaname:"official_app"`
+	OfficialApp bool `tl:"official_app"`
 	// Whether the session is still waiting for a 2FA password
-	PasswordPending bool `schemaname:"password_pending"`
+	PasswordPending bool `tl:"password_pending"`
 	// Identifier
-	Hash int64 `schemaname:"hash"`
+	Hash int64 `tl:"hash"`
 	// Device model
-	DeviceModel string `schemaname:"device_model"`
+	DeviceModel string `tl:"device_model"`
 	// Platform
-	Platform string `schemaname:"platform"`
+	Platform string `tl:"platform"`
 	// System version
-	SystemVersion string `schemaname:"system_version"`
+	SystemVersion string `tl:"system_version"`
 	// API ID¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/obtaining_api_id
-	APIID int `schemaname:"api_id"`
+	APIID int `tl:"api_id"`
 	// App name
-	AppName string `schemaname:"app_name"`
+	AppName string `tl:"app_name"`
 	// App version
-	AppVersion string `schemaname:"app_version"`
+	AppVersion string `tl:"app_version"`
 	// When was the session created
-	DateCreated int `schemaname:"date_created"`
+	DateCreated int `tl:"date_created"`
 	// When was the session last active
-	DateActive int `schemaname:"date_active"`
+	DateActive int `tl:"date_active"`
 	// Last known IP
-	IP string `schemaname:"ip"`
+	IP string `tl:"ip"`
 	// Country determined from IP
-	Country string `schemaname:"country"`
+	Country string `tl:"country"`
 	// Region determined from IP
-	Region string `schemaname:"region"`
+	Region string `tl:"region"`
 }
 
 // AuthorizationTypeID is TL type id of Authorization.
@@ -172,8 +172,8 @@ func (a *Authorization) TypeID() uint32 {
 	return AuthorizationTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (a *Authorization) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (a *Authorization) TypeName() string {
 	return "authorization"
 }
 

@@ -27,11 +27,11 @@ type AccountUnregisterDeviceRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/push-updates
-	TokenType int `schemaname:"token_type"`
+	TokenType int `tl:"token_type"`
 	// Device token
-	Token string `schemaname:"token"`
+	Token string `tl:"token"`
 	// List of user identifiers of other users currently using the client
-	OtherUids []int `schemaname:"other_uids"`
+	OtherUids []int `tl:"other_uids"`
 }
 
 // AccountUnregisterDeviceRequestTypeID is TL type id of AccountUnregisterDeviceRequest.
@@ -80,8 +80,8 @@ func (u *AccountUnregisterDeviceRequest) TypeID() uint32 {
 	return AccountUnregisterDeviceRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (u *AccountUnregisterDeviceRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (u *AccountUnregisterDeviceRequest) TypeName() string {
 	return "account.unregisterDevice"
 }
 

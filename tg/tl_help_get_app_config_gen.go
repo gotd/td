@@ -54,8 +54,8 @@ func (g *HelpGetAppConfigRequest) TypeID() uint32 {
 	return HelpGetAppConfigRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *HelpGetAppConfigRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *HelpGetAppConfigRequest) TypeName() string {
 	return "help.getAppConfig"
 }
 

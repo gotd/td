@@ -24,33 +24,33 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/chatInviteExported for reference.
 type ChatInviteExported struct {
 	// Flags field of ChatInviteExported.
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Revoked field of ChatInviteExported.
-	Revoked bool `schemaname:"revoked"`
+	Revoked bool `tl:"revoked"`
 	// Permanent field of ChatInviteExported.
-	Permanent bool `schemaname:"permanent"`
+	Permanent bool `tl:"permanent"`
 	// Chat invitation link
-	Link string `schemaname:"link"`
+	Link string `tl:"link"`
 	// AdminID field of ChatInviteExported.
-	AdminID int `schemaname:"admin_id"`
+	AdminID int `tl:"admin_id"`
 	// Date field of ChatInviteExported.
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 	// StartDate field of ChatInviteExported.
 	//
 	// Use SetStartDate and GetStartDate helpers.
-	StartDate int `schemaname:"start_date"`
+	StartDate int `tl:"start_date"`
 	// ExpireDate field of ChatInviteExported.
 	//
 	// Use SetExpireDate and GetExpireDate helpers.
-	ExpireDate int `schemaname:"expire_date"`
+	ExpireDate int `tl:"expire_date"`
 	// UsageLimit field of ChatInviteExported.
 	//
 	// Use SetUsageLimit and GetUsageLimit helpers.
-	UsageLimit int `schemaname:"usage_limit"`
+	UsageLimit int `tl:"usage_limit"`
 	// Usage field of ChatInviteExported.
 	//
 	// Use SetUsage and GetUsage helpers.
-	Usage int `schemaname:"usage"`
+	Usage int `tl:"usage"`
 }
 
 // ChatInviteExportedTypeID is TL type id of ChatInviteExported.
@@ -144,8 +144,8 @@ func (c *ChatInviteExported) TypeID() uint32 {
 	return ChatInviteExportedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChatInviteExported) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChatInviteExported) TypeName() string {
 	return "chatInviteExported"
 }
 

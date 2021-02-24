@@ -21,7 +21,7 @@ var _ = errors.Is
 // ReceivedNotifyMessageVector is a box for Vector<ReceivedNotifyMessage>
 type ReceivedNotifyMessageVector struct {
 	// Elements of Vector<ReceivedNotifyMessage>
-	Elems []ReceivedNotifyMessage `schemaname:"Elems"`
+	Elems []ReceivedNotifyMessage `tl:"Elems"`
 }
 
 // ReceivedNotifyMessageVectorTypeID is TL type id of ReceivedNotifyMessageVector.
@@ -60,8 +60,8 @@ func (vec *ReceivedNotifyMessageVector) TypeID() uint32 {
 	return ReceivedNotifyMessageVectorTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (vec *ReceivedNotifyMessageVector) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (vec *ReceivedNotifyMessageVector) TypeName() string {
 	return ""
 }
 

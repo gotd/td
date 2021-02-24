@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/testVectorString for reference.
 type TestVectorString struct {
 	// Vector of strings
-	Value []string `schemaname:"value"`
+	Value []string `tl:"value"`
 }
 
 // TestVectorStringTypeID is TL type id of TestVectorString.
@@ -62,8 +62,8 @@ func (t *TestVectorString) TypeID() uint32 {
 	return TestVectorStringTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TestVectorString) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TestVectorString) TypeName() string {
 	return "testVectorString"
 }
 

@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/chatEmpty for reference.
 type ChatEmpty struct {
 	// Group identifier
-	ID int `schemaname:"id"`
+	ID int `tl:"id"`
 }
 
 // ChatEmptyTypeID is TL type id of ChatEmpty.
@@ -63,8 +63,8 @@ func (c *ChatEmpty) TypeID() uint32 {
 	return ChatEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChatEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChatEmpty) TypeName() string {
 	return "chatEmpty"
 }
 
@@ -121,55 +121,55 @@ type Chat struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether the current user is the creator of the group
-	Creator bool `schemaname:"creator"`
+	Creator bool `tl:"creator"`
 	// Whether the current user was kicked from the group
-	Kicked bool `schemaname:"kicked"`
+	Kicked bool `tl:"kicked"`
 	// Whether the current user has left the group
-	Left bool `schemaname:"left"`
+	Left bool `tl:"left"`
 	// Whether the group was migrated¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Deactivated bool `schemaname:"deactivated"`
+	Deactivated bool `tl:"deactivated"`
 	// CallActive field of Chat.
-	CallActive bool `schemaname:"call_active"`
+	CallActive bool `tl:"call_active"`
 	// CallNotEmpty field of Chat.
-	CallNotEmpty bool `schemaname:"call_not_empty"`
+	CallNotEmpty bool `tl:"call_not_empty"`
 	// ID of the group
-	ID int `schemaname:"id"`
+	ID int `tl:"id"`
 	// Title
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 	// Chat photo
-	Photo ChatPhotoClass `schemaname:"photo"`
+	Photo ChatPhotoClass `tl:"photo"`
 	// Participant count
-	ParticipantsCount int `schemaname:"participants_count"`
+	ParticipantsCount int `tl:"participants_count"`
 	// Date of creation of the group
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 	// Used in basic groups to reorder updates and make sure that all of them were received.
-	Version int `schemaname:"version"`
+	Version int `tl:"version"`
 	// Means this chat was upgraded¹ to a supergroup
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	//
 	// Use SetMigratedTo and GetMigratedTo helpers.
-	MigratedTo InputChannelClass `schemaname:"migrated_to"`
+	MigratedTo InputChannelClass `tl:"migrated_to"`
 	// Admin rights¹ of the user in the group
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetAdminRights and GetAdminRights helpers.
-	AdminRights ChatAdminRights `schemaname:"admin_rights"`
+	AdminRights ChatAdminRights `tl:"admin_rights"`
 	// Default banned rights¹ of all users in the group
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetDefaultBannedRights and GetDefaultBannedRights helpers.
-	DefaultBannedRights ChatBannedRights `schemaname:"default_banned_rights"`
+	DefaultBannedRights ChatBannedRights `tl:"default_banned_rights"`
 }
 
 // ChatTypeID is TL type id of Chat.
@@ -290,8 +290,8 @@ func (c *Chat) TypeID() uint32 {
 	return ChatTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *Chat) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *Chat) TypeName() string {
 	return "chat"
 }
 
@@ -632,9 +632,9 @@ var (
 // See https://core.telegram.org/constructor/chatForbidden for reference.
 type ChatForbidden struct {
 	// User identifier
-	ID int `schemaname:"id"`
+	ID int `tl:"id"`
 	// Group name
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 }
 
 // ChatForbiddenTypeID is TL type id of ChatForbidden.
@@ -678,8 +678,8 @@ func (c *ChatForbidden) TypeID() uint32 {
 	return ChatForbiddenTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChatForbidden) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChatForbidden) TypeName() string {
 	return "chatForbidden"
 }
 
@@ -749,89 +749,89 @@ type Channel struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether the current user is the creator of this channel
-	Creator bool `schemaname:"creator"`
+	Creator bool `tl:"creator"`
 	// Whether the current user has left this channel
-	Left bool `schemaname:"left"`
+	Left bool `tl:"left"`
 	// Is this a channel?
-	Broadcast bool `schemaname:"broadcast"`
+	Broadcast bool `tl:"broadcast"`
 	// Is this channel verified by telegram?
-	Verified bool `schemaname:"verified"`
+	Verified bool `tl:"verified"`
 	// Is this a supergroup?
-	Megagroup bool `schemaname:"megagroup"`
+	Megagroup bool `tl:"megagroup"`
 	// Whether viewing/writing in this channel for a reason (see restriction_reason
-	Restricted bool `schemaname:"restricted"`
+	Restricted bool `tl:"restricted"`
 	// Whether signatures are enabled (channels)
-	Signatures bool `schemaname:"signatures"`
+	Signatures bool `tl:"signatures"`
 	// See min¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/min
-	Min bool `schemaname:"min"`
+	Min bool `tl:"min"`
 	// This channel/supergroup is probably a scam
-	Scam bool `schemaname:"scam"`
+	Scam bool `tl:"scam"`
 	// Whether this channel has a private join link
-	HasLink bool `schemaname:"has_link"`
+	HasLink bool `tl:"has_link"`
 	// Whether this chanel has a geoposition
-	HasGeo bool `schemaname:"has_geo"`
+	HasGeo bool `tl:"has_geo"`
 	// Whether slow mode is enabled for groups to prevent flood in chat
-	SlowmodeEnabled bool `schemaname:"slowmode_enabled"`
+	SlowmodeEnabled bool `tl:"slowmode_enabled"`
 	// CallActive field of Channel.
-	CallActive bool `schemaname:"call_active"`
+	CallActive bool `tl:"call_active"`
 	// CallNotEmpty field of Channel.
-	CallNotEmpty bool `schemaname:"call_not_empty"`
+	CallNotEmpty bool `tl:"call_not_empty"`
 	// Fake field of Channel.
-	Fake bool `schemaname:"fake"`
+	Fake bool `tl:"fake"`
 	// Gigagroup field of Channel.
-	Gigagroup bool `schemaname:"gigagroup"`
+	Gigagroup bool `tl:"gigagroup"`
 	// ID of the channel
-	ID int `schemaname:"id"`
+	ID int `tl:"id"`
 	// Access hash
 	//
 	// Use SetAccessHash and GetAccessHash helpers.
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 	// Title
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 	// Username
 	//
 	// Use SetUsername and GetUsername helpers.
-	Username string `schemaname:"username"`
+	Username string `tl:"username"`
 	// Profile photo
-	Photo ChatPhotoClass `schemaname:"photo"`
+	Photo ChatPhotoClass `tl:"photo"`
 	// Date when the user joined the supergroup/channel, or if the user isn't a member, its creation date
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 	// Version of the channel (always 0)
-	Version int `schemaname:"version"`
+	Version int `tl:"version"`
 	// Contains the reason why access to this channel must be restricted.
 	//
 	// Use SetRestrictionReason and GetRestrictionReason helpers.
-	RestrictionReason []RestrictionReason `schemaname:"restriction_reason"`
+	RestrictionReason []RestrictionReason `tl:"restriction_reason"`
 	// Admin rights of the user in this channel (see rights¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetAdminRights and GetAdminRights helpers.
-	AdminRights ChatAdminRights `schemaname:"admin_rights"`
+	AdminRights ChatAdminRights `tl:"admin_rights"`
 	// Banned rights of the user in this channel (see rights¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetBannedRights and GetBannedRights helpers.
-	BannedRights ChatBannedRights `schemaname:"banned_rights"`
+	BannedRights ChatBannedRights `tl:"banned_rights"`
 	// Default chat rights (see rights¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetDefaultBannedRights and GetDefaultBannedRights helpers.
-	DefaultBannedRights ChatBannedRights `schemaname:"default_banned_rights"`
+	DefaultBannedRights ChatBannedRights `tl:"default_banned_rights"`
 	// Participant count
 	//
 	// Use SetParticipantsCount and GetParticipantsCount helpers.
-	ParticipantsCount int `schemaname:"participants_count"`
+	ParticipantsCount int `tl:"participants_count"`
 }
 
 // ChannelTypeID is TL type id of Channel.
@@ -1029,8 +1029,8 @@ func (c *Channel) TypeID() uint32 {
 	return ChannelTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *Channel) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *Channel) TypeName() string {
 	return "channel"
 }
 
@@ -1679,21 +1679,21 @@ type ChannelForbidden struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Is this a channel
-	Broadcast bool `schemaname:"broadcast"`
+	Broadcast bool `tl:"broadcast"`
 	// Is this a supergroup
-	Megagroup bool `schemaname:"megagroup"`
+	Megagroup bool `tl:"megagroup"`
 	// Channel ID
-	ID int `schemaname:"id"`
+	ID int `tl:"id"`
 	// Access hash
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 	// Title
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 	// The ban is valid until the specified date
 	//
 	// Use SetUntilDate and GetUntilDate helpers.
-	UntilDate int `schemaname:"until_date"`
+	UntilDate int `tl:"until_date"`
 }
 
 // ChannelForbiddenTypeID is TL type id of ChannelForbidden.
@@ -1763,8 +1763,8 @@ func (c *ChannelForbidden) TypeID() uint32 {
 	return ChannelForbiddenTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelForbidden) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelForbidden) TypeName() string {
 	return "channelForbidden"
 }
 
@@ -1936,11 +1936,11 @@ type ChatClass interface {
 	bin.Decoder
 	construct() ChatClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
@@ -1992,11 +1992,11 @@ type NotEmptyChat interface {
 	bin.Decoder
 	construct() ChatClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
@@ -2044,11 +2044,11 @@ type NotForbiddenChat interface {
 	bin.Decoder
 	construct() ChatClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
@@ -2094,11 +2094,11 @@ type FullChat interface {
 	bin.Decoder
 	construct() ChatClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

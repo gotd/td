@@ -51,8 +51,8 @@ func (p *PrivacyKeyStatusTimestamp) TypeID() uint32 {
 	return PrivacyKeyStatusTimestampTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PrivacyKeyStatusTimestamp) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PrivacyKeyStatusTimestamp) TypeName() string {
 	return "privacyKeyStatusTimestamp"
 }
 
@@ -120,8 +120,8 @@ func (p *PrivacyKeyChatInvite) TypeID() uint32 {
 	return PrivacyKeyChatInviteTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PrivacyKeyChatInvite) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PrivacyKeyChatInvite) TypeName() string {
 	return "privacyKeyChatInvite"
 }
 
@@ -189,8 +189,8 @@ func (p *PrivacyKeyPhoneCall) TypeID() uint32 {
 	return PrivacyKeyPhoneCallTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PrivacyKeyPhoneCall) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PrivacyKeyPhoneCall) TypeName() string {
 	return "privacyKeyPhoneCall"
 }
 
@@ -258,8 +258,8 @@ func (p *PrivacyKeyPhoneP2P) TypeID() uint32 {
 	return PrivacyKeyPhoneP2PTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PrivacyKeyPhoneP2P) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PrivacyKeyPhoneP2P) TypeName() string {
 	return "privacyKeyPhoneP2P"
 }
 
@@ -330,8 +330,8 @@ func (p *PrivacyKeyForwards) TypeID() uint32 {
 	return PrivacyKeyForwardsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PrivacyKeyForwards) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PrivacyKeyForwards) TypeName() string {
 	return "privacyKeyForwards"
 }
 
@@ -399,8 +399,8 @@ func (p *PrivacyKeyProfilePhoto) TypeID() uint32 {
 	return PrivacyKeyProfilePhotoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PrivacyKeyProfilePhoto) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PrivacyKeyProfilePhoto) TypeName() string {
 	return "privacyKeyProfilePhoto"
 }
 
@@ -468,8 +468,8 @@ func (p *PrivacyKeyPhoneNumber) TypeID() uint32 {
 	return PrivacyKeyPhoneNumberTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PrivacyKeyPhoneNumber) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PrivacyKeyPhoneNumber) TypeName() string {
 	return "privacyKeyPhoneNumber"
 }
 
@@ -537,8 +537,8 @@ func (p *PrivacyKeyAddedByPhone) TypeID() uint32 {
 	return PrivacyKeyAddedByPhoneTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PrivacyKeyAddedByPhone) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PrivacyKeyAddedByPhone) TypeName() string {
 	return "privacyKeyAddedByPhone"
 }
 
@@ -598,11 +598,11 @@ type PrivacyKeyClass interface {
 	bin.Decoder
 	construct() PrivacyKeyClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/account.privacyRules for reference.
 type AccountPrivacyRules struct {
 	// Privacy rules
-	Rules []PrivacyRuleClass `schemaname:"rules"`
+	Rules []PrivacyRuleClass `tl:"rules"`
 	// Chats to which the rules apply
-	Chats []ChatClass `schemaname:"chats"`
+	Chats []ChatClass `tl:"chats"`
 	// Users to which the rules apply
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // AccountPrivacyRulesTypeID is TL type id of AccountPrivacyRules.
@@ -77,8 +77,8 @@ func (p *AccountPrivacyRules) TypeID() uint32 {
 	return AccountPrivacyRulesTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *AccountPrivacyRules) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *AccountPrivacyRules) TypeName() string {
 	return "account.privacyRules"
 }
 

@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.installWallPaper for reference.
 type AccountInstallWallPaperRequest struct {
 	// Wallpaper to install
-	Wallpaper InputWallPaperClass `schemaname:"wallpaper"`
+	Wallpaper InputWallPaperClass `tl:"wallpaper"`
 	// Wallpaper settings
-	Settings WallPaperSettings `schemaname:"settings"`
+	Settings WallPaperSettings `tl:"settings"`
 }
 
 // AccountInstallWallPaperRequestTypeID is TL type id of AccountInstallWallPaperRequest.
@@ -70,8 +70,8 @@ func (i *AccountInstallWallPaperRequest) TypeID() uint32 {
 	return AccountInstallWallPaperRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *AccountInstallWallPaperRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *AccountInstallWallPaperRequest) TypeName() string {
 	return "account.installWallPaper"
 }
 

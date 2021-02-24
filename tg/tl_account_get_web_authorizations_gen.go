@@ -54,8 +54,8 @@ func (g *AccountGetWebAuthorizationsRequest) TypeID() uint32 {
 	return AccountGetWebAuthorizationsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *AccountGetWebAuthorizationsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *AccountGetWebAuthorizationsRequest) TypeName() string {
 	return "account.getWebAuthorizations"
 }
 

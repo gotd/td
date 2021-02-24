@@ -51,8 +51,8 @@ func (i *InputReportReasonSpam) TypeID() uint32 {
 	return InputReportReasonSpamTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputReportReasonSpam) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputReportReasonSpam) TypeName() string {
 	return "inputReportReasonSpam"
 }
 
@@ -120,8 +120,8 @@ func (i *InputReportReasonViolence) TypeID() uint32 {
 	return InputReportReasonViolenceTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputReportReasonViolence) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputReportReasonViolence) TypeName() string {
 	return "inputReportReasonViolence"
 }
 
@@ -189,8 +189,8 @@ func (i *InputReportReasonPornography) TypeID() uint32 {
 	return InputReportReasonPornographyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputReportReasonPornography) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputReportReasonPornography) TypeName() string {
 	return "inputReportReasonPornography"
 }
 
@@ -258,8 +258,8 @@ func (i *InputReportReasonChildAbuse) TypeID() uint32 {
 	return InputReportReasonChildAbuseTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputReportReasonChildAbuse) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputReportReasonChildAbuse) TypeName() string {
 	return "inputReportReasonChildAbuse"
 }
 
@@ -327,8 +327,8 @@ func (i *InputReportReasonOther) TypeID() uint32 {
 	return InputReportReasonOtherTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputReportReasonOther) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputReportReasonOther) TypeName() string {
 	return "inputReportReasonOther"
 }
 
@@ -396,8 +396,8 @@ func (i *InputReportReasonCopyright) TypeID() uint32 {
 	return InputReportReasonCopyrightTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputReportReasonCopyright) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputReportReasonCopyright) TypeName() string {
 	return "inputReportReasonCopyright"
 }
 
@@ -465,8 +465,8 @@ func (i *InputReportReasonGeoIrrelevant) TypeID() uint32 {
 	return InputReportReasonGeoIrrelevantTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputReportReasonGeoIrrelevant) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputReportReasonGeoIrrelevant) TypeName() string {
 	return "inputReportReasonGeoIrrelevant"
 }
 
@@ -533,8 +533,8 @@ func (i *InputReportReasonFake) TypeID() uint32 {
 	return InputReportReasonFakeTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputReportReasonFake) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputReportReasonFake) TypeName() string {
 	return "inputReportReasonFake"
 }
 
@@ -594,11 +594,11 @@ type ReportReasonClass interface {
 	bin.Decoder
 	construct() ReportReasonClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

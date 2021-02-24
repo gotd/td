@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/error for reference.
 type Error struct {
 	// Error code
-	Code int `schemaname:"code"`
+	Code int `tl:"code"`
 	// Message
-	Text string `schemaname:"text"`
+	Text string `tl:"text"`
 }
 
 // ErrorTypeID is TL type id of Error.
@@ -70,8 +70,8 @@ func (e *Error) TypeID() uint32 {
 	return ErrorTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (e *Error) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (e *Error) TypeName() string {
 	return "error"
 }
 

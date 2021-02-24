@@ -51,8 +51,8 @@ func (g *ChannelsGetInactiveChannelsRequest) TypeID() uint32 {
 	return ChannelsGetInactiveChannelsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *ChannelsGetInactiveChannelsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *ChannelsGetInactiveChannelsRequest) TypeName() string {
 	return "channels.getInactiveChannels"
 }
 

@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.chatFull for reference.
 type MessagesChatFull struct {
 	// Extended info on a chat
-	FullChat ChatFullClass `schemaname:"full_chat"`
+	FullChat ChatFullClass `tl:"full_chat"`
 	// List containing basic info on chat
-	Chats []ChatClass `schemaname:"chats"`
+	Chats []ChatClass `tl:"chats"`
 	// List of users mentioned above
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // MessagesChatFullTypeID is TL type id of MessagesChatFull.
@@ -77,8 +77,8 @@ func (c *MessagesChatFull) TypeID() uint32 {
 	return MessagesChatFullTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *MessagesChatFull) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *MessagesChatFull) TypeName() string {
 	return "messages.chatFull"
 }
 

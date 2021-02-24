@@ -21,11 +21,11 @@ var _ = errors.Is
 // SetClientDHParamsRequest represents TL type `set_client_DH_params#f5045f1f`.
 type SetClientDHParamsRequest struct {
 	// Nonce field of SetClientDHParamsRequest.
-	Nonce bin.Int128 `schemaname:"nonce"`
+	Nonce bin.Int128 `tl:"nonce"`
 	// ServerNonce field of SetClientDHParamsRequest.
-	ServerNonce bin.Int128 `schemaname:"server_nonce"`
+	ServerNonce bin.Int128 `tl:"server_nonce"`
 	// EncryptedData field of SetClientDHParamsRequest.
-	EncryptedData []byte `schemaname:"encrypted_data"`
+	EncryptedData []byte `tl:"encrypted_data"`
 }
 
 // SetClientDHParamsRequestTypeID is TL type id of SetClientDHParamsRequest.
@@ -74,8 +74,8 @@ func (s *SetClientDHParamsRequest) TypeID() uint32 {
 	return SetClientDHParamsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SetClientDHParamsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SetClientDHParamsRequest) TypeName() string {
 	return "set_client_DH_params"
 }
 

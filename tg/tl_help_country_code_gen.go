@@ -27,17 +27,17 @@ type HelpCountryCode struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// ISO country code
-	CountryCode string `schemaname:"country_code"`
+	CountryCode string `tl:"country_code"`
 	// Possible phone prefixes
 	//
 	// Use SetPrefixes and GetPrefixes helpers.
-	Prefixes []string `schemaname:"prefixes"`
+	Prefixes []string `tl:"prefixes"`
 	// Phone patterns: for example, XXX XXX XXX
 	//
 	// Use SetPatterns and GetPatterns helpers.
-	Patterns []string `schemaname:"patterns"`
+	Patterns []string `tl:"patterns"`
 }
 
 // HelpCountryCodeTypeID is TL type id of HelpCountryCode.
@@ -95,8 +95,8 @@ func (c *HelpCountryCode) TypeID() uint32 {
 	return HelpCountryCodeTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *HelpCountryCode) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *HelpCountryCode) TypeName() string {
 	return "help.countryCode"
 }
 

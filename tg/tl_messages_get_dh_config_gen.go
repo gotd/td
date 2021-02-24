@@ -27,9 +27,9 @@ type MessagesGetDhConfigRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/messages.dhConfig
-	Version int `schemaname:"version"`
+	Version int `tl:"version"`
 	// Length of the required random sequence
-	RandomLength int `schemaname:"random_length"`
+	RandomLength int `tl:"random_length"`
 }
 
 // MessagesGetDhConfigRequestTypeID is TL type id of MessagesGetDhConfigRequest.
@@ -73,8 +73,8 @@ func (g *MessagesGetDhConfigRequest) TypeID() uint32 {
 	return MessagesGetDhConfigRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetDhConfigRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetDhConfigRequest) TypeName() string {
 	return "messages.getDhConfig"
 }
 

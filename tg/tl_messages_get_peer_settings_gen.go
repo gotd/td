@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getPeerSettings for reference.
 type MessagesGetPeerSettingsRequest struct {
 	// The peer
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 }
 
 // MessagesGetPeerSettingsRequestTypeID is TL type id of MessagesGetPeerSettingsRequest.
@@ -63,8 +63,8 @@ func (g *MessagesGetPeerSettingsRequest) TypeID() uint32 {
 	return MessagesGetPeerSettingsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetPeerSettingsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetPeerSettingsRequest) TypeName() string {
 	return "messages.getPeerSettings"
 }
 

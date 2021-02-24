@@ -51,8 +51,8 @@ func (g *MessagesGetDialogUnreadMarksRequest) TypeID() uint32 {
 	return MessagesGetDialogUnreadMarksRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetDialogUnreadMarksRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetDialogUnreadMarksRequest) TypeName() string {
 	return "messages.getDialogUnreadMarks"
 }
 

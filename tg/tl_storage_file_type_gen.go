@@ -51,8 +51,8 @@ func (f *StorageFileUnknown) TypeID() uint32 {
 	return StorageFileUnknownTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (f *StorageFileUnknown) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (f *StorageFileUnknown) TypeName() string {
 	return "storage.fileUnknown"
 }
 
@@ -120,8 +120,8 @@ func (f *StorageFilePartial) TypeID() uint32 {
 	return StorageFilePartialTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (f *StorageFilePartial) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (f *StorageFilePartial) TypeName() string {
 	return "storage.filePartial"
 }
 
@@ -189,8 +189,8 @@ func (f *StorageFileJpeg) TypeID() uint32 {
 	return StorageFileJpegTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (f *StorageFileJpeg) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (f *StorageFileJpeg) TypeName() string {
 	return "storage.fileJpeg"
 }
 
@@ -258,8 +258,8 @@ func (f *StorageFileGif) TypeID() uint32 {
 	return StorageFileGifTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (f *StorageFileGif) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (f *StorageFileGif) TypeName() string {
 	return "storage.fileGif"
 }
 
@@ -327,8 +327,8 @@ func (f *StorageFilePng) TypeID() uint32 {
 	return StorageFilePngTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (f *StorageFilePng) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (f *StorageFilePng) TypeName() string {
 	return "storage.filePng"
 }
 
@@ -396,8 +396,8 @@ func (f *StorageFilePdf) TypeID() uint32 {
 	return StorageFilePdfTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (f *StorageFilePdf) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (f *StorageFilePdf) TypeName() string {
 	return "storage.filePdf"
 }
 
@@ -465,8 +465,8 @@ func (f *StorageFileMp3) TypeID() uint32 {
 	return StorageFileMp3TypeID
 }
 
-// SchemaName returns MTProto type name.
-func (f *StorageFileMp3) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (f *StorageFileMp3) TypeName() string {
 	return "storage.fileMp3"
 }
 
@@ -534,8 +534,8 @@ func (f *StorageFileMov) TypeID() uint32 {
 	return StorageFileMovTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (f *StorageFileMov) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (f *StorageFileMov) TypeName() string {
 	return "storage.fileMov"
 }
 
@@ -603,8 +603,8 @@ func (f *StorageFileMp4) TypeID() uint32 {
 	return StorageFileMp4TypeID
 }
 
-// SchemaName returns MTProto type name.
-func (f *StorageFileMp4) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (f *StorageFileMp4) TypeName() string {
 	return "storage.fileMp4"
 }
 
@@ -672,8 +672,8 @@ func (f *StorageFileWebp) TypeID() uint32 {
 	return StorageFileWebpTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (f *StorageFileWebp) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (f *StorageFileWebp) TypeName() string {
 	return "storage.fileWebp"
 }
 
@@ -735,11 +735,11 @@ type StorageFileTypeClass interface {
 	bin.Decoder
 	construct() StorageFileTypeClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

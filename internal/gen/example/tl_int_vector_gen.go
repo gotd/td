@@ -21,7 +21,7 @@ var _ = errors.Is
 // IntVector is a box for Vector<int>
 type IntVector struct {
 	// Elements of Vector<int>
-	Elems []int `schemaname:"Elems"`
+	Elems []int `tl:"Elems"`
 }
 
 // IntVectorTypeID is TL type id of IntVector.
@@ -60,8 +60,8 @@ func (vec *IntVector) TypeID() uint32 {
 	return IntVectorTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (vec *IntVector) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (vec *IntVector) TypeName() string {
 	return ""
 }
 

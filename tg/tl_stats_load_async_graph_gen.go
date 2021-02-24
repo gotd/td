@@ -30,16 +30,16 @@ type StatsLoadAsyncGraphRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Graph token from statsGraphAsync¹ constructor
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/statsGraphAsync
-	Token string `schemaname:"token"`
+	Token string `tl:"token"`
 	// Zoom value, if required
 	//
 	// Use SetX and GetX helpers.
-	X int64 `schemaname:"x"`
+	X int64 `tl:"x"`
 }
 
 // StatsLoadAsyncGraphRequestTypeID is TL type id of StatsLoadAsyncGraphRequest.
@@ -89,8 +89,8 @@ func (l *StatsLoadAsyncGraphRequest) TypeID() uint32 {
 	return StatsLoadAsyncGraphRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (l *StatsLoadAsyncGraphRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (l *StatsLoadAsyncGraphRequest) TypeName() string {
 	return "stats.loadAsyncGraph"
 }
 

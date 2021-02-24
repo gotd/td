@@ -27,15 +27,15 @@ type PhoneSetCallRatingRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether the user decided on their own initiative to rate the call
-	UserInitiative bool `schemaname:"user_initiative"`
+	UserInitiative bool `tl:"user_initiative"`
 	// The call to rate
-	Peer InputPhoneCall `schemaname:"peer"`
+	Peer InputPhoneCall `tl:"peer"`
 	// Rating in 1-5 stars
-	Rating int `schemaname:"rating"`
+	Rating int `tl:"rating"`
 	// An additional comment
-	Comment string `schemaname:"comment"`
+	Comment string `tl:"comment"`
 }
 
 // PhoneSetCallRatingRequestTypeID is TL type id of PhoneSetCallRatingRequest.
@@ -92,8 +92,8 @@ func (s *PhoneSetCallRatingRequest) TypeID() uint32 {
 	return PhoneSetCallRatingRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *PhoneSetCallRatingRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *PhoneSetCallRatingRequest) TypeName() string {
 	return "phone.setCallRating"
 }
 

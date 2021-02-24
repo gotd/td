@@ -21,7 +21,7 @@ var _ = errors.Is
 // DialogPeerClassVector is a box for Vector<DialogPeer>
 type DialogPeerClassVector struct {
 	// Elements of Vector<DialogPeer>
-	Elems []DialogPeerClass `schemaname:"Elems"`
+	Elems []DialogPeerClass `tl:"Elems"`
 }
 
 // DialogPeerClassVectorTypeID is TL type id of DialogPeerClassVector.
@@ -60,8 +60,8 @@ func (vec *DialogPeerClassVector) TypeID() uint32 {
 	return DialogPeerClassVectorTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (vec *DialogPeerClassVector) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (vec *DialogPeerClassVector) TypeName() string {
 	return ""
 }
 

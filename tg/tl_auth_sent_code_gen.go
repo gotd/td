@@ -27,25 +27,25 @@ type AuthSentCode struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Phone code type
-	Type AuthSentCodeTypeClass `schemaname:"type"`
+	Type AuthSentCodeTypeClass `tl:"type"`
 	// Phone code hash, to be stored and later re-used with auth.signIn¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/auth.signIn
-	PhoneCodeHash string `schemaname:"phone_code_hash"`
+	PhoneCodeHash string `tl:"phone_code_hash"`
 	// Phone code type that will be sent next, if the phone code is not received within timeout seconds: to send it use auth.resendCode¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/auth.resendCode
 	//
 	// Use SetNextType and GetNextType helpers.
-	NextType AuthCodeTypeClass `schemaname:"next_type"`
+	NextType AuthCodeTypeClass `tl:"next_type"`
 	// Timeout for reception of the phone code
 	//
 	// Use SetTimeout and GetTimeout helpers.
-	Timeout int `schemaname:"timeout"`
+	Timeout int `tl:"timeout"`
 }
 
 // AuthSentCodeTypeID is TL type id of AuthSentCode.
@@ -108,8 +108,8 @@ func (s *AuthSentCode) TypeID() uint32 {
 	return AuthSentCodeTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *AuthSentCode) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *AuthSentCode) TypeName() string {
 	return "auth.sentCode"
 }
 

@@ -23,9 +23,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.deletePhoneCallHistory for reference.
 type MessagesDeletePhoneCallHistoryRequest struct {
 	// Flags field of MessagesDeletePhoneCallHistoryRequest.
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Revoke field of MessagesDeletePhoneCallHistoryRequest.
-	Revoke bool `schemaname:"revoke"`
+	Revoke bool `tl:"revoke"`
 }
 
 // MessagesDeletePhoneCallHistoryRequestTypeID is TL type id of MessagesDeletePhoneCallHistoryRequest.
@@ -67,8 +67,8 @@ func (d *MessagesDeletePhoneCallHistoryRequest) TypeID() uint32 {
 	return MessagesDeletePhoneCallHistoryRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *MessagesDeletePhoneCallHistoryRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *MessagesDeletePhoneCallHistoryRequest) TypeName() string {
 	return "messages.deletePhoneCallHistory"
 }
 

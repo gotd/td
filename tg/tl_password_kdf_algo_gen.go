@@ -51,8 +51,8 @@ func (p *PasswordKdfAlgoUnknown) TypeID() uint32 {
 	return PasswordKdfAlgoUnknownTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PasswordKdfAlgoUnknown) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PasswordKdfAlgoUnknown) TypeName() string {
 	return "passwordKdfAlgoUnknown"
 }
 
@@ -99,22 +99,22 @@ type PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	Salt1 []byte `schemaname:"salt1"`
+	Salt1 []byte `tl:"salt1"`
 	// One of two salts used by the derivation function (see SRP 2FA login¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	Salt2 []byte `schemaname:"salt2"`
+	Salt2 []byte `tl:"salt2"`
 	// Base (see SRP 2FA login¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	G int `schemaname:"g"`
+	G int `tl:"g"`
 	// 2048-bit modulus (see SRP 2FA login¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	P []byte `schemaname:"p"`
+	P []byte `tl:"p"`
 }
 
 // PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPowTypeID is TL type id of PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow.
@@ -168,8 +168,8 @@ func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) Type
 	return PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPowTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) TypeName() string {
 	return "passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow"
 }
 
@@ -277,11 +277,11 @@ type PasswordKdfAlgoClass interface {
 	bin.Decoder
 	construct() PasswordKdfAlgoClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

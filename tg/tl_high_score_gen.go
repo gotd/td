@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/highScore for reference.
 type HighScore struct {
 	// Position in highscore list
-	Pos int `schemaname:"pos"`
+	Pos int `tl:"pos"`
 	// User ID
-	UserID int `schemaname:"user_id"`
+	UserID int `tl:"user_id"`
 	// Score
-	Score int `schemaname:"score"`
+	Score int `tl:"score"`
 }
 
 // HighScoreTypeID is TL type id of HighScore.
@@ -77,8 +77,8 @@ func (h *HighScore) TypeID() uint32 {
 	return HighScoreTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (h *HighScore) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (h *HighScore) TypeName() string {
 	return "highScore"
 }
 

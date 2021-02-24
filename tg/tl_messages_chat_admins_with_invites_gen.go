@@ -23,9 +23,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.chatAdminsWithInvites for reference.
 type MessagesChatAdminsWithInvites struct {
 	// Admins field of MessagesChatAdminsWithInvites.
-	Admins []ChatAdminWithInvites `schemaname:"admins"`
+	Admins []ChatAdminWithInvites `tl:"admins"`
 	// Users field of MessagesChatAdminsWithInvites.
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // MessagesChatAdminsWithInvitesTypeID is TL type id of MessagesChatAdminsWithInvites.
@@ -69,8 +69,8 @@ func (c *MessagesChatAdminsWithInvites) TypeID() uint32 {
 	return MessagesChatAdminsWithInvitesTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *MessagesChatAdminsWithInvites) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *MessagesChatAdminsWithInvites) TypeName() string {
 	return "messages.chatAdminsWithInvites"
 }
 

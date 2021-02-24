@@ -30,20 +30,20 @@ type BotInlineMessageMediaAuto struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Caption
-	Message string `schemaname:"message"`
+	Message string `tl:"message"`
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `schemaname:"entities"`
+	Entities []MessageEntityClass `tl:"entities"`
 	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `schemaname:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
 }
 
 // BotInlineMessageMediaAutoTypeID is TL type id of BotInlineMessageMediaAuto.
@@ -101,8 +101,8 @@ func (b *BotInlineMessageMediaAuto) TypeID() uint32 {
 	return BotInlineMessageMediaAutoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *BotInlineMessageMediaAuto) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *BotInlineMessageMediaAuto) TypeName() string {
 	return "botInlineMessageMediaAuto"
 }
 
@@ -250,22 +250,22 @@ type BotInlineMessageText struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Disable webpage preview
-	NoWebpage bool `schemaname:"no_webpage"`
+	NoWebpage bool `tl:"no_webpage"`
 	// The message
-	Message string `schemaname:"message"`
+	Message string `tl:"message"`
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `schemaname:"entities"`
+	Entities []MessageEntityClass `tl:"entities"`
 	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `schemaname:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
 }
 
 // BotInlineMessageTextTypeID is TL type id of BotInlineMessageText.
@@ -328,8 +328,8 @@ func (b *BotInlineMessageText) TypeID() uint32 {
 	return BotInlineMessageTextTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *BotInlineMessageText) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *BotInlineMessageText) TypeName() string {
 	return "botInlineMessageText"
 }
 
@@ -497,31 +497,31 @@ type BotInlineMessageMediaGeo struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Geolocation
-	Geo GeoPointClass `schemaname:"geo"`
+	Geo GeoPointClass `tl:"geo"`
 	// For live locations¹, a direction in which the location moves, in degrees; 1-360.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/live-location
 	//
 	// Use SetHeading and GetHeading helpers.
-	Heading int `schemaname:"heading"`
+	Heading int `tl:"heading"`
 	// Validity period
 	//
 	// Use SetPeriod and GetPeriod helpers.
-	Period int `schemaname:"period"`
+	Period int `tl:"period"`
 	// For live locations¹, a maximum distance to another chat member for proximity alerts, in meters (0-100000).
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/live-location
 	//
 	// Use SetProximityNotificationRadius and GetProximityNotificationRadius helpers.
-	ProximityNotificationRadius int `schemaname:"proximity_notification_radius"`
+	ProximityNotificationRadius int `tl:"proximity_notification_radius"`
 	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `schemaname:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
 }
 
 // BotInlineMessageMediaGeoTypeID is TL type id of BotInlineMessageMediaGeo.
@@ -595,8 +595,8 @@ func (b *BotInlineMessageMediaGeo) TypeID() uint32 {
 	return BotInlineMessageMediaGeoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *BotInlineMessageMediaGeo) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *BotInlineMessageMediaGeo) TypeName() string {
 	return "botInlineMessageMediaGeo"
 }
 
@@ -783,23 +783,23 @@ type BotInlineMessageMediaVenue struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Geolocation of venue
-	Geo GeoPointClass `schemaname:"geo"`
+	Geo GeoPointClass `tl:"geo"`
 	// Venue name
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 	// Address
-	Address string `schemaname:"address"`
+	Address string `tl:"address"`
 	// Venue provider: currently only "foursquare" needs to be supported
-	Provider string `schemaname:"provider"`
+	Provider string `tl:"provider"`
 	// Venue ID in the provider's database
-	VenueID string `schemaname:"venue_id"`
+	VenueID string `tl:"venue_id"`
 	// Venue type in the provider's database
-	VenueType string `schemaname:"venue_type"`
+	VenueType string `tl:"venue_type"`
 	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `schemaname:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
 }
 
 // BotInlineMessageMediaVenueTypeID is TL type id of BotInlineMessageMediaVenue.
@@ -874,8 +874,8 @@ func (b *BotInlineMessageMediaVenue) TypeID() uint32 {
 	return BotInlineMessageMediaVenueTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *BotInlineMessageMediaVenue) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *BotInlineMessageMediaVenue) TypeName() string {
 	return "botInlineMessageMediaVenue"
 }
 
@@ -1043,19 +1043,19 @@ type BotInlineMessageMediaContact struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Phone number
-	PhoneNumber string `schemaname:"phone_number"`
+	PhoneNumber string `tl:"phone_number"`
 	// First name
-	FirstName string `schemaname:"first_name"`
+	FirstName string `tl:"first_name"`
 	// Last name
-	LastName string `schemaname:"last_name"`
+	LastName string `tl:"last_name"`
 	// VCard info
-	Vcard string `schemaname:"vcard"`
+	Vcard string `tl:"vcard"`
 	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `schemaname:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
 }
 
 // BotInlineMessageMediaContactTypeID is TL type id of BotInlineMessageMediaContact.
@@ -1120,8 +1120,8 @@ func (b *BotInlineMessageMediaContact) TypeID() uint32 {
 	return BotInlineMessageMediaContactTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *BotInlineMessageMediaContact) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *BotInlineMessageMediaContact) TypeName() string {
 	return "botInlineMessageMediaContact"
 }
 
@@ -1271,11 +1271,11 @@ type BotInlineMessageClass interface {
 	bin.Decoder
 	construct() BotInlineMessageClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

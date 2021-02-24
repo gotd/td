@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getInlineGameHighScores for reference.
 type MessagesGetInlineGameHighScoresRequest struct {
 	// ID of inline message
-	ID InputBotInlineMessageID `schemaname:"id"`
+	ID InputBotInlineMessageID `tl:"id"`
 	// Get high scores of a certain user
-	UserID InputUserClass `schemaname:"user_id"`
+	UserID InputUserClass `tl:"user_id"`
 }
 
 // MessagesGetInlineGameHighScoresRequestTypeID is TL type id of MessagesGetInlineGameHighScoresRequest.
@@ -70,8 +70,8 @@ func (g *MessagesGetInlineGameHighScoresRequest) TypeID() uint32 {
 	return MessagesGetInlineGameHighScoresRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetInlineGameHighScoresRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetInlineGameHighScoresRequest) TypeName() string {
 	return "messages.getInlineGameHighScores"
 }
 

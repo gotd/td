@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/dialogPeer for reference.
 type DialogPeer struct {
 	// Peer
-	Peer PeerClass `schemaname:"peer"`
+	Peer PeerClass `tl:"peer"`
 }
 
 // DialogPeerTypeID is TL type id of DialogPeer.
@@ -63,8 +63,8 @@ func (d *DialogPeer) TypeID() uint32 {
 	return DialogPeerTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DialogPeer) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DialogPeer) TypeName() string {
 	return "dialogPeer"
 }
 
@@ -129,7 +129,7 @@ type DialogPeerFolder struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
-	FolderID int `schemaname:"folder_id"`
+	FolderID int `tl:"folder_id"`
 }
 
 // DialogPeerFolderTypeID is TL type id of DialogPeerFolder.
@@ -168,8 +168,8 @@ func (d *DialogPeerFolder) TypeID() uint32 {
 	return DialogPeerFolderTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DialogPeerFolder) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DialogPeerFolder) TypeName() string {
 	return "dialogPeerFolder"
 }
 
@@ -236,11 +236,11 @@ type DialogPeerClass interface {
 	bin.Decoder
 	construct() DialogPeerClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

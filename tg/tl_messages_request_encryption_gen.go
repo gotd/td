@@ -24,14 +24,14 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.requestEncryption for reference.
 type MessagesRequestEncryptionRequest struct {
 	// User ID
-	UserID InputUserClass `schemaname:"user_id"`
+	UserID InputUserClass `tl:"user_id"`
 	// Unique client request ID required to prevent resending. This also doubles as the chat ID.
-	RandomID int `schemaname:"random_id"`
+	RandomID int `tl:"random_id"`
 	// A = g ^ a mod p, see Wikipedia¹
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
-	GA []byte `schemaname:"g_a"`
+	GA []byte `tl:"g_a"`
 }
 
 // MessagesRequestEncryptionRequestTypeID is TL type id of MessagesRequestEncryptionRequest.
@@ -80,8 +80,8 @@ func (r *MessagesRequestEncryptionRequest) TypeID() uint32 {
 	return MessagesRequestEncryptionRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *MessagesRequestEncryptionRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *MessagesRequestEncryptionRequest) TypeName() string {
 	return "messages.requestEncryption"
 }
 

@@ -51,8 +51,8 @@ func (c *HelpCountriesListNotModified) TypeID() uint32 {
 	return HelpCountriesListNotModifiedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *HelpCountriesListNotModified) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *HelpCountriesListNotModified) TypeName() string {
 	return "help.countriesListNotModified"
 }
 
@@ -93,12 +93,12 @@ var (
 // See https://core.telegram.org/constructor/help.countriesList for reference.
 type HelpCountriesList struct {
 	// Name, ISO code, localized name and phone codes/patterns of all available countries
-	Countries []HelpCountry `schemaname:"countries"`
+	Countries []HelpCountry `tl:"countries"`
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `schemaname:"hash"`
+	Hash int `tl:"hash"`
 }
 
 // HelpCountriesListTypeID is TL type id of HelpCountriesList.
@@ -142,8 +142,8 @@ func (c *HelpCountriesList) TypeID() uint32 {
 	return HelpCountriesListTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *HelpCountriesList) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *HelpCountriesList) TypeName() string {
 	return "help.countriesList"
 }
 
@@ -234,11 +234,11 @@ type HelpCountriesListClass interface {
 	bin.Decoder
 	construct() HelpCountriesListClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

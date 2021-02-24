@@ -24,13 +24,13 @@ var _ = errors.Is
 // See https://core.telegram.org/method/upload.saveBigFilePart for reference.
 type UploadSaveBigFilePartRequest struct {
 	// Random file id, created by the client
-	FileID int64 `schemaname:"file_id"`
+	FileID int64 `tl:"file_id"`
 	// Part sequence number
-	FilePart int `schemaname:"file_part"`
+	FilePart int `tl:"file_part"`
 	// Total number of parts
-	FileTotalParts int `schemaname:"file_total_parts"`
+	FileTotalParts int `tl:"file_total_parts"`
 	// Binary data, part contents
-	Bytes []byte `schemaname:"bytes"`
+	Bytes []byte `tl:"bytes"`
 }
 
 // UploadSaveBigFilePartRequestTypeID is TL type id of UploadSaveBigFilePartRequest.
@@ -84,8 +84,8 @@ func (s *UploadSaveBigFilePartRequest) TypeID() uint32 {
 	return UploadSaveBigFilePartRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *UploadSaveBigFilePartRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *UploadSaveBigFilePartRequest) TypeName() string {
 	return "upload.saveBigFilePart"
 }
 

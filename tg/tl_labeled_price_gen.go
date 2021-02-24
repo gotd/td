@@ -24,12 +24,12 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/labeledPrice for reference.
 type LabeledPrice struct {
 	// Portion label
-	Label string `schemaname:"label"`
+	Label string `tl:"label"`
 	// Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json¹, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments/currencies.json
-	Amount int64 `schemaname:"amount"`
+	Amount int64 `tl:"amount"`
 }
 
 // LabeledPriceTypeID is TL type id of LabeledPrice.
@@ -73,8 +73,8 @@ func (l *LabeledPrice) TypeID() uint32 {
 	return LabeledPriceTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (l *LabeledPrice) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (l *LabeledPrice) TypeName() string {
 	return "labeledPrice"
 }
 

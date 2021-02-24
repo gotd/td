@@ -24,15 +24,15 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.acceptAuthorization for reference.
 type AccountAcceptAuthorizationRequest struct {
 	// Bot ID
-	BotID int `schemaname:"bot_id"`
+	BotID int `tl:"bot_id"`
 	// Telegram Passport element types requested by the service
-	Scope string `schemaname:"scope"`
+	Scope string `tl:"scope"`
 	// Service's public key
-	PublicKey string `schemaname:"public_key"`
+	PublicKey string `tl:"public_key"`
 	// Types of values sent and their hashes
-	ValueHashes []SecureValueHash `schemaname:"value_hashes"`
+	ValueHashes []SecureValueHash `tl:"value_hashes"`
 	// Encrypted values
-	Credentials SecureCredentialsEncrypted `schemaname:"credentials"`
+	Credentials SecureCredentialsEncrypted `tl:"credentials"`
 }
 
 // AccountAcceptAuthorizationRequestTypeID is TL type id of AccountAcceptAuthorizationRequest.
@@ -91,8 +91,8 @@ func (a *AccountAcceptAuthorizationRequest) TypeID() uint32 {
 	return AccountAcceptAuthorizationRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (a *AccountAcceptAuthorizationRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (a *AccountAcceptAuthorizationRequest) TypeName() string {
 	return "account.acceptAuthorization"
 }
 

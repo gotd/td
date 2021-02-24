@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.updateNotifySettings for reference.
 type AccountUpdateNotifySettingsRequest struct {
 	// Notification source
-	Peer InputNotifyPeerClass `schemaname:"peer"`
+	Peer InputNotifyPeerClass `tl:"peer"`
 	// Notification settings
-	Settings InputPeerNotifySettings `schemaname:"settings"`
+	Settings InputPeerNotifySettings `tl:"settings"`
 }
 
 // AccountUpdateNotifySettingsRequestTypeID is TL type id of AccountUpdateNotifySettingsRequest.
@@ -70,8 +70,8 @@ func (u *AccountUpdateNotifySettingsRequest) TypeID() uint32 {
 	return AccountUpdateNotifySettingsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (u *AccountUpdateNotifySettingsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (u *AccountUpdateNotifySettingsRequest) TypeName() string {
 	return "account.updateNotifySettings"
 }
 

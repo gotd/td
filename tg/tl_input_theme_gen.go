@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/inputTheme for reference.
 type InputTheme struct {
 	// ID
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// Access hash
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 }
 
 // InputThemeTypeID is TL type id of InputTheme.
@@ -70,8 +70,8 @@ func (i *InputTheme) TypeID() uint32 {
 	return InputThemeTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputTheme) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputTheme) TypeName() string {
 	return "inputTheme"
 }
 
@@ -138,7 +138,7 @@ var (
 // See https://core.telegram.org/constructor/inputThemeSlug for reference.
 type InputThemeSlug struct {
 	// Unique theme ID
-	Slug string `schemaname:"slug"`
+	Slug string `tl:"slug"`
 }
 
 // InputThemeSlugTypeID is TL type id of InputThemeSlug.
@@ -177,8 +177,8 @@ func (i *InputThemeSlug) TypeID() uint32 {
 	return InputThemeSlugTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputThemeSlug) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputThemeSlug) TypeName() string {
 	return "inputThemeSlug"
 }
 
@@ -245,11 +245,11 @@ type InputThemeClass interface {
 	bin.Decoder
 	construct() InputThemeClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

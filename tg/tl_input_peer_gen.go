@@ -51,8 +51,8 @@ func (i *InputPeerEmpty) TypeID() uint32 {
 	return InputPeerEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputPeerEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputPeerEmpty) TypeName() string {
 	return "inputPeerEmpty"
 }
 
@@ -120,8 +120,8 @@ func (i *InputPeerSelf) TypeID() uint32 {
 	return InputPeerSelfTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputPeerSelf) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputPeerSelf) TypeName() string {
 	return "inputPeerSelf"
 }
 
@@ -162,7 +162,7 @@ var (
 // See https://core.telegram.org/constructor/inputPeerChat for reference.
 type InputPeerChat struct {
 	// Chat idientifier
-	ChatID int `schemaname:"chat_id"`
+	ChatID int `tl:"chat_id"`
 }
 
 // InputPeerChatTypeID is TL type id of InputPeerChat.
@@ -201,8 +201,8 @@ func (i *InputPeerChat) TypeID() uint32 {
 	return InputPeerChatTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputPeerChat) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputPeerChat) TypeName() string {
 	return "inputPeerChat"
 }
 
@@ -256,12 +256,12 @@ var (
 // See https://core.telegram.org/constructor/inputPeerUser for reference.
 type InputPeerUser struct {
 	// User identifier
-	UserID int `schemaname:"user_id"`
+	UserID int `tl:"user_id"`
 	// access_hash value from the user¹ constructor
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/user
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 }
 
 // InputPeerUserTypeID is TL type id of InputPeerUser.
@@ -305,8 +305,8 @@ func (i *InputPeerUser) TypeID() uint32 {
 	return InputPeerUserTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputPeerUser) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputPeerUser) TypeName() string {
 	return "inputPeerUser"
 }
 
@@ -373,12 +373,12 @@ var (
 // See https://core.telegram.org/constructor/inputPeerChannel for reference.
 type InputPeerChannel struct {
 	// Channel identifier
-	ChannelID int `schemaname:"channel_id"`
+	ChannelID int `tl:"channel_id"`
 	// access_hash value from the channel¹ constructor
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channel
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 }
 
 // InputPeerChannelTypeID is TL type id of InputPeerChannel.
@@ -422,8 +422,8 @@ func (i *InputPeerChannel) TypeID() uint32 {
 	return InputPeerChannelTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputPeerChannel) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputPeerChannel) TypeName() string {
 	return "inputPeerChannel"
 }
 
@@ -493,11 +493,11 @@ var (
 // See https://core.telegram.org/constructor/inputPeerUserFromMessage for reference.
 type InputPeerUserFromMessage struct {
 	// The chat where the user was seen
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// The message ID
-	MsgID int `schemaname:"msg_id"`
+	MsgID int `tl:"msg_id"`
 	// The identifier of the user that was seen
-	UserID int `schemaname:"user_id"`
+	UserID int `tl:"user_id"`
 }
 
 // InputPeerUserFromMessageTypeID is TL type id of InputPeerUserFromMessage.
@@ -546,8 +546,8 @@ func (i *InputPeerUserFromMessage) TypeID() uint32 {
 	return InputPeerUserFromMessageTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputPeerUserFromMessage) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputPeerUserFromMessage) TypeName() string {
 	return "inputPeerUserFromMessage"
 }
 
@@ -635,11 +635,11 @@ var (
 // See https://core.telegram.org/constructor/inputPeerChannelFromMessage for reference.
 type InputPeerChannelFromMessage struct {
 	// The chat where the channel's message was seen
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// The message ID
-	MsgID int `schemaname:"msg_id"`
+	MsgID int `tl:"msg_id"`
 	// The identifier of the channel that was seen
-	ChannelID int `schemaname:"channel_id"`
+	ChannelID int `tl:"channel_id"`
 }
 
 // InputPeerChannelFromMessageTypeID is TL type id of InputPeerChannelFromMessage.
@@ -688,8 +688,8 @@ func (i *InputPeerChannelFromMessage) TypeID() uint32 {
 	return InputPeerChannelFromMessageTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputPeerChannelFromMessage) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputPeerChannelFromMessage) TypeName() string {
 	return "inputPeerChannelFromMessage"
 }
 
@@ -792,11 +792,11 @@ type InputPeerClass interface {
 	bin.Decoder
 	construct() InputPeerClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

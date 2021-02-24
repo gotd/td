@@ -27,23 +27,23 @@ type MessagesBotCallbackAnswer struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether an alert should be shown to the user instead of a toast notification
-	Alert bool `schemaname:"alert"`
+	Alert bool `tl:"alert"`
 	// Whether an URL is present
-	HasURL bool `schemaname:"has_url"`
+	HasURL bool `tl:"has_url"`
 	// Whether to show games in WebView or in native UI.
-	NativeUI bool `schemaname:"native_ui"`
+	NativeUI bool `tl:"native_ui"`
 	// Alert to show
 	//
 	// Use SetMessage and GetMessage helpers.
-	Message string `schemaname:"message"`
+	Message string `tl:"message"`
 	// URL to open
 	//
 	// Use SetURL and GetURL helpers.
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 	// For how long should this answer be cached
-	CacheTime int `schemaname:"cache_time"`
+	CacheTime int `tl:"cache_time"`
 }
 
 // MessagesBotCallbackAnswerTypeID is TL type id of MessagesBotCallbackAnswer.
@@ -116,8 +116,8 @@ func (b *MessagesBotCallbackAnswer) TypeID() uint32 {
 	return MessagesBotCallbackAnswerTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *MessagesBotCallbackAnswer) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *MessagesBotCallbackAnswer) TypeName() string {
 	return "messages.botCallbackAnswer"
 }
 

@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/sms for reference.
 type SMS struct {
 	// Text field of SMS.
-	Text string `schemaname:"text"`
+	Text string `tl:"text"`
 }
 
 // SMSTypeID is TL type id of SMS.
@@ -62,8 +62,8 @@ func (s *SMS) TypeID() uint32 {
 	return SMSTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SMS) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SMS) TypeName() string {
 	return "sms"
 }
 

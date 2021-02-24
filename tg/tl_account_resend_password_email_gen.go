@@ -54,8 +54,8 @@ func (r *AccountResendPasswordEmailRequest) TypeID() uint32 {
 	return AccountResendPasswordEmailRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *AccountResendPasswordEmailRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *AccountResendPasswordEmailRequest) TypeName() string {
 	return "account.resendPasswordEmail"
 }
 

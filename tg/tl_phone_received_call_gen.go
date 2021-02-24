@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/phone.receivedCall for reference.
 type PhoneReceivedCallRequest struct {
 	// The phone call we're currently in
-	Peer InputPhoneCall `schemaname:"peer"`
+	Peer InputPhoneCall `tl:"peer"`
 }
 
 // PhoneReceivedCallRequestTypeID is TL type id of PhoneReceivedCallRequest.
@@ -63,8 +63,8 @@ func (r *PhoneReceivedCallRequest) TypeID() uint32 {
 	return PhoneReceivedCallRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *PhoneReceivedCallRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *PhoneReceivedCallRequest) TypeName() string {
 	return "phone.receivedCall"
 }
 

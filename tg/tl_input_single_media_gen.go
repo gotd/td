@@ -31,20 +31,20 @@ type InputSingleMedia struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// The media
-	Media InputMediaClass `schemaname:"media"`
+	Media InputMediaClass `tl:"media"`
 	// Unique client media ID required to prevent message resending
-	RandomID int64 `schemaname:"random_id"`
+	RandomID int64 `tl:"random_id"`
 	// A caption for the media
-	Message string `schemaname:"message"`
+	Message string `tl:"message"`
 	// Message entities¹ for styled text
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `schemaname:"entities"`
+	Entities []MessageEntityClass `tl:"entities"`
 }
 
 // InputSingleMediaTypeID is TL type id of InputSingleMedia.
@@ -104,8 +104,8 @@ func (i *InputSingleMedia) TypeID() uint32 {
 	return InputSingleMediaTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputSingleMedia) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputSingleMedia) TypeName() string {
 	return "inputSingleMedia"
 }
 

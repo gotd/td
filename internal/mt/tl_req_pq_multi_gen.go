@@ -21,7 +21,7 @@ var _ = errors.Is
 // ReqPqMultiRequest represents TL type `req_pq_multi#be7e8ef1`.
 type ReqPqMultiRequest struct {
 	// Nonce field of ReqPqMultiRequest.
-	Nonce bin.Int128 `schemaname:"nonce"`
+	Nonce bin.Int128 `tl:"nonce"`
 }
 
 // ReqPqMultiRequestTypeID is TL type id of ReqPqMultiRequest.
@@ -60,8 +60,8 @@ func (r *ReqPqMultiRequest) TypeID() uint32 {
 	return ReqPqMultiRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *ReqPqMultiRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *ReqPqMultiRequest) TypeName() string {
 	return "req_pq_multi"
 }
 

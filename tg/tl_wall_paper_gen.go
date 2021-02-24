@@ -24,30 +24,30 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/wallPaper for reference.
 type WallPaper struct {
 	// Identifier
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// Flags, see TL conditional fields¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Creator of the wallpaper
-	Creator bool `schemaname:"creator"`
+	Creator bool `tl:"creator"`
 	// Whether this is the default wallpaper
-	Default bool `schemaname:"default"`
+	Default bool `tl:"default"`
 	// Pattern
-	Pattern bool `schemaname:"pattern"`
+	Pattern bool `tl:"pattern"`
 	// Dark mode
-	Dark bool `schemaname:"dark"`
+	Dark bool `tl:"dark"`
 	// Access hash
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 	// Unique wallpaper ID
-	Slug string `schemaname:"slug"`
+	Slug string `tl:"slug"`
 	// The actual wallpaper
-	Document DocumentClass `schemaname:"document"`
+	Document DocumentClass `tl:"document"`
 	// Wallpaper settings
 	//
 	// Use SetSettings and GetSettings helpers.
-	Settings WallPaperSettings `schemaname:"settings"`
+	Settings WallPaperSettings `tl:"settings"`
 }
 
 // WallPaperTypeID is TL type id of WallPaper.
@@ -132,8 +132,8 @@ func (w *WallPaper) TypeID() uint32 {
 	return WallPaperTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (w *WallPaper) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (w *WallPaper) TypeName() string {
 	return "wallPaper"
 }
 
@@ -350,15 +350,15 @@ type WallPaperNoFile struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether this is the default wallpaper
-	Default bool `schemaname:"default"`
+	Default bool `tl:"default"`
 	// Dark mode
-	Dark bool `schemaname:"dark"`
+	Dark bool `tl:"dark"`
 	// Wallpaper settings
 	//
 	// Use SetSettings and GetSettings helpers.
-	Settings WallPaperSettings `schemaname:"settings"`
+	Settings WallPaperSettings `tl:"settings"`
 }
 
 // WallPaperNoFileTypeID is TL type id of WallPaperNoFile.
@@ -413,8 +413,8 @@ func (w *WallPaperNoFile) TypeID() uint32 {
 	return WallPaperNoFileTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (w *WallPaperNoFile) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (w *WallPaperNoFile) TypeName() string {
 	return "wallPaperNoFile"
 }
 
@@ -544,11 +544,11 @@ type WallPaperClass interface {
 	bin.Decoder
 	construct() WallPaperClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

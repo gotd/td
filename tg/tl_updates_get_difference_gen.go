@@ -30,29 +30,29 @@ type UpdatesGetDifferenceRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// PTS, see updates¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int `schemaname:"pts"`
+	Pts int `tl:"pts"`
 	// For fast updating: if provided and pts + pts_total_limit < remote pts, updates.differenceTooLong¹ will be returned.Simply tells the server to not return the difference if it is bigger than pts_total_limitIf the remote pts is too big (> ~4000000), this field will default to 1000000
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/updates.differenceTooLong
 	//
 	// Use SetPtsTotalLimit and GetPtsTotalLimit helpers.
-	PtsTotalLimit int `schemaname:"pts_total_limit"`
+	PtsTotalLimit int `tl:"pts_total_limit"`
 	// date, see updates¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 	// QTS, see updates¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Qts int `schemaname:"qts"`
+	Qts int `tl:"qts"`
 }
 
 // UpdatesGetDifferenceRequestTypeID is TL type id of UpdatesGetDifferenceRequest.
@@ -112,8 +112,8 @@ func (g *UpdatesGetDifferenceRequest) TypeID() uint32 {
 	return UpdatesGetDifferenceRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *UpdatesGetDifferenceRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *UpdatesGetDifferenceRequest) TypeName() string {
 	return "updates.getDifference"
 }
 

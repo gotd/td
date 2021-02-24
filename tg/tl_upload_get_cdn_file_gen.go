@@ -27,11 +27,11 @@ var _ = errors.Is
 // See https://core.telegram.org/method/upload.getCdnFile for reference.
 type UploadGetCdnFileRequest struct {
 	// File token
-	FileToken []byte `schemaname:"file_token"`
+	FileToken []byte `tl:"file_token"`
 	// Offset of chunk to download
-	Offset int `schemaname:"offset"`
+	Offset int `tl:"offset"`
 	// Length of chunk to download
-	Limit int `schemaname:"limit"`
+	Limit int `tl:"limit"`
 }
 
 // UploadGetCdnFileRequestTypeID is TL type id of UploadGetCdnFileRequest.
@@ -80,8 +80,8 @@ func (g *UploadGetCdnFileRequest) TypeID() uint32 {
 	return UploadGetCdnFileRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *UploadGetCdnFileRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *UploadGetCdnFileRequest) TypeName() string {
 	return "upload.getCdnFile"
 }
 

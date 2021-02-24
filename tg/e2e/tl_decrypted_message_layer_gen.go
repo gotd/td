@@ -23,15 +23,15 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/decryptedMessageLayer for reference.
 type DecryptedMessageLayer struct {
 	// RandomBytes field of DecryptedMessageLayer.
-	RandomBytes []byte `schemaname:"random_bytes"`
+	RandomBytes []byte `tl:"random_bytes"`
 	// Layer field of DecryptedMessageLayer.
-	Layer int `schemaname:"layer"`
+	Layer int `tl:"layer"`
 	// InSeqNo field of DecryptedMessageLayer.
-	InSeqNo int `schemaname:"in_seq_no"`
+	InSeqNo int `tl:"in_seq_no"`
 	// OutSeqNo field of DecryptedMessageLayer.
-	OutSeqNo int `schemaname:"out_seq_no"`
+	OutSeqNo int `tl:"out_seq_no"`
 	// Message field of DecryptedMessageLayer.
-	Message DecryptedMessageClass `schemaname:"message"`
+	Message DecryptedMessageClass `tl:"message"`
 }
 
 // DecryptedMessageLayerTypeID is TL type id of DecryptedMessageLayer.
@@ -90,8 +90,8 @@ func (d *DecryptedMessageLayer) TypeID() uint32 {
 	return DecryptedMessageLayerTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DecryptedMessageLayer) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DecryptedMessageLayer) TypeName() string {
 	return "decryptedMessageLayer"
 }
 

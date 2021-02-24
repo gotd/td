@@ -51,8 +51,8 @@ func (g *HelpGetPromoDataRequest) TypeID() uint32 {
 	return HelpGetPromoDataRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *HelpGetPromoDataRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *HelpGetPromoDataRequest) TypeName() string {
 	return "help.getPromoData"
 }
 

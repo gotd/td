@@ -27,23 +27,23 @@ type StickersCreateStickerSetRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether this is a mask stickerset
-	Masks bool `schemaname:"masks"`
+	Masks bool `tl:"masks"`
 	// Whether this is an animated stickerset
-	Animated bool `schemaname:"animated"`
+	Animated bool `tl:"animated"`
 	// Stickerset owner
-	UserID InputUserClass `schemaname:"user_id"`
+	UserID InputUserClass `tl:"user_id"`
 	// Stickerset name, 1-64 chars
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 	// Sticker set name. Can contain only English letters, digits and underscores. Must end with "by" ( is case insensitive); 1-64 characters
-	ShortName string `schemaname:"short_name"`
+	ShortName string `tl:"short_name"`
 	// Thumbnail
 	//
 	// Use SetThumb and GetThumb helpers.
-	Thumb InputDocumentClass `schemaname:"thumb"`
+	Thumb InputDocumentClass `tl:"thumb"`
 	// Stickers
-	Stickers []InputStickerSetItem `schemaname:"stickers"`
+	Stickers []InputStickerSetItem `tl:"stickers"`
 }
 
 // StickersCreateStickerSetRequestTypeID is TL type id of StickersCreateStickerSetRequest.
@@ -118,8 +118,8 @@ func (c *StickersCreateStickerSetRequest) TypeID() uint32 {
 	return StickersCreateStickerSetRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *StickersCreateStickerSetRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *StickersCreateStickerSetRequest) TypeName() string {
 	return "stickers.createStickerSet"
 }
 

@@ -27,9 +27,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.verifyEmail for reference.
 type AccountVerifyEmailRequest struct {
 	// The email to verify
-	Email string `schemaname:"email"`
+	Email string `tl:"email"`
 	// The verification code that was received
-	Code string `schemaname:"code"`
+	Code string `tl:"code"`
 }
 
 // AccountVerifyEmailRequestTypeID is TL type id of AccountVerifyEmailRequest.
@@ -73,8 +73,8 @@ func (v *AccountVerifyEmailRequest) TypeID() uint32 {
 	return AccountVerifyEmailRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (v *AccountVerifyEmailRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (v *AccountVerifyEmailRequest) TypeName() string {
 	return "account.verifyEmail"
 }
 

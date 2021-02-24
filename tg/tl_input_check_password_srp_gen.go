@@ -51,8 +51,8 @@ func (i *InputCheckPasswordEmpty) TypeID() uint32 {
 	return InputCheckPasswordEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputCheckPasswordEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputCheckPasswordEmpty) TypeName() string {
 	return "inputCheckPasswordEmpty"
 }
 
@@ -99,17 +99,17 @@ type InputCheckPasswordSRP struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	SRPID int64 `schemaname:"srp_id"`
+	SRPID int64 `tl:"srp_id"`
 	// A parameter (see SRP¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	A []byte `schemaname:"A"`
+	A []byte `tl:"A"`
 	// M1 parameter (see SRP¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	M1 []byte `schemaname:"M1"`
+	M1 []byte `tl:"M1"`
 }
 
 // InputCheckPasswordSRPTypeID is TL type id of InputCheckPasswordSRP.
@@ -158,8 +158,8 @@ func (i *InputCheckPasswordSRP) TypeID() uint32 {
 	return InputCheckPasswordSRPTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputCheckPasswordSRP) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputCheckPasswordSRP) TypeName() string {
 	return "inputCheckPasswordSRP"
 }
 
@@ -252,11 +252,11 @@ type InputCheckPasswordSRPClass interface {
 	bin.Decoder
 	construct() InputCheckPasswordSRPClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

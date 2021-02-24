@@ -21,7 +21,7 @@ var _ = errors.Is
 // UserClassVector is a box for Vector<User>
 type UserClassVector struct {
 	// Elements of Vector<User>
-	Elems []UserClass `schemaname:"Elems"`
+	Elems []UserClass `tl:"Elems"`
 }
 
 // UserClassVectorTypeID is TL type id of UserClassVector.
@@ -60,8 +60,8 @@ func (vec *UserClassVector) TypeID() uint32 {
 	return UserClassVectorTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (vec *UserClassVector) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (vec *UserClassVector) TypeName() string {
 	return ""
 }
 

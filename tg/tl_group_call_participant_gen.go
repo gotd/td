@@ -23,37 +23,37 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/groupCallParticipant for reference.
 type GroupCallParticipant struct {
 	// Flags field of GroupCallParticipant.
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Muted field of GroupCallParticipant.
-	Muted bool `schemaname:"muted"`
+	Muted bool `tl:"muted"`
 	// Left field of GroupCallParticipant.
-	Left bool `schemaname:"left"`
+	Left bool `tl:"left"`
 	// CanSelfUnmute field of GroupCallParticipant.
-	CanSelfUnmute bool `schemaname:"can_self_unmute"`
+	CanSelfUnmute bool `tl:"can_self_unmute"`
 	// JustJoined field of GroupCallParticipant.
-	JustJoined bool `schemaname:"just_joined"`
+	JustJoined bool `tl:"just_joined"`
 	// Versioned field of GroupCallParticipant.
-	Versioned bool `schemaname:"versioned"`
+	Versioned bool `tl:"versioned"`
 	// Min field of GroupCallParticipant.
-	Min bool `schemaname:"min"`
+	Min bool `tl:"min"`
 	// MutedByYou field of GroupCallParticipant.
-	MutedByYou bool `schemaname:"muted_by_you"`
+	MutedByYou bool `tl:"muted_by_you"`
 	// VolumeByAdmin field of GroupCallParticipant.
-	VolumeByAdmin bool `schemaname:"volume_by_admin"`
+	VolumeByAdmin bool `tl:"volume_by_admin"`
 	// UserID field of GroupCallParticipant.
-	UserID int `schemaname:"user_id"`
+	UserID int `tl:"user_id"`
 	// Date field of GroupCallParticipant.
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 	// ActiveDate field of GroupCallParticipant.
 	//
 	// Use SetActiveDate and GetActiveDate helpers.
-	ActiveDate int `schemaname:"active_date"`
+	ActiveDate int `tl:"active_date"`
 	// Source field of GroupCallParticipant.
-	Source int `schemaname:"source"`
+	Source int `tl:"source"`
 	// Volume field of GroupCallParticipant.
 	//
 	// Use SetVolume and GetVolume helpers.
-	Volume int `schemaname:"volume"`
+	Volume int `tl:"volume"`
 }
 
 // GroupCallParticipantTypeID is TL type id of GroupCallParticipant.
@@ -161,8 +161,8 @@ func (g *GroupCallParticipant) TypeID() uint32 {
 	return GroupCallParticipantTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *GroupCallParticipant) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *GroupCallParticipant) TypeName() string {
 	return "groupCallParticipant"
 }
 

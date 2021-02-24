@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/stickers.addStickerToSet for reference.
 type StickersAddStickerToSetRequest struct {
 	// The stickerset
-	Stickerset InputStickerSetClass `schemaname:"stickerset"`
+	Stickerset InputStickerSetClass `tl:"stickerset"`
 	// The sticker
-	Sticker InputStickerSetItem `schemaname:"sticker"`
+	Sticker InputStickerSetItem `tl:"sticker"`
 }
 
 // StickersAddStickerToSetRequestTypeID is TL type id of StickersAddStickerToSetRequest.
@@ -70,8 +70,8 @@ func (a *StickersAddStickerToSetRequest) TypeID() uint32 {
 	return StickersAddStickerToSetRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (a *StickersAddStickerToSetRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (a *StickersAddStickerToSetRequest) TypeName() string {
 	return "stickers.addStickerToSet"
 }
 

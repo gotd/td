@@ -27,7 +27,7 @@ type MessagesGetMaskStickersRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `schemaname:"hash"`
+	Hash int `tl:"hash"`
 }
 
 // MessagesGetMaskStickersRequestTypeID is TL type id of MessagesGetMaskStickersRequest.
@@ -66,8 +66,8 @@ func (g *MessagesGetMaskStickersRequest) TypeID() uint32 {
 	return MessagesGetMaskStickersRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetMaskStickersRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetMaskStickersRequest) TypeName() string {
 	return "messages.getMaskStickers"
 }
 

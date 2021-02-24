@@ -27,14 +27,14 @@ type MessagesGetRecentStickersRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Get stickers recently attached to photo or video files
-	Attached bool `schemaname:"attached"`
+	Attached bool `tl:"attached"`
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `schemaname:"hash"`
+	Hash int `tl:"hash"`
 }
 
 // MessagesGetRecentStickersRequestTypeID is TL type id of MessagesGetRecentStickersRequest.
@@ -81,8 +81,8 @@ func (g *MessagesGetRecentStickersRequest) TypeID() uint32 {
 	return MessagesGetRecentStickersRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetRecentStickersRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetRecentStickersRequest) TypeName() string {
 	return "messages.getRecentStickers"
 }
 

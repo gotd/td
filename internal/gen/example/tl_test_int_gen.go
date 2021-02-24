@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/testInt for reference.
 type TestInt struct {
 	// Number
-	Value int32 `schemaname:"value"`
+	Value int32 `tl:"value"`
 }
 
 // TestIntTypeID is TL type id of TestInt.
@@ -62,8 +62,8 @@ func (t *TestInt) TypeID() uint32 {
 	return TestIntTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TestInt) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TestInt) TypeName() string {
 	return "testInt"
 }
 

@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/chatOnlines for reference.
 type ChatOnlines struct {
 	// Number of online users
-	Onlines int `schemaname:"onlines"`
+	Onlines int `tl:"onlines"`
 }
 
 // ChatOnlinesTypeID is TL type id of ChatOnlines.
@@ -63,8 +63,8 @@ func (c *ChatOnlines) TypeID() uint32 {
 	return ChatOnlinesTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChatOnlines) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChatOnlines) TypeName() string {
 	return "chatOnlines"
 }
 

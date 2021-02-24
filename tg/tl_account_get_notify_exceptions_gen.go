@@ -27,13 +27,13 @@ type AccountGetNotifyExceptionsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// If true, chats with non-default sound will also be returned
-	CompareSound bool `schemaname:"compare_sound"`
+	CompareSound bool `tl:"compare_sound"`
 	// If specified, only chats of the specified category will be returned
 	//
 	// Use SetPeer and GetPeer helpers.
-	Peer InputNotifyPeerClass `schemaname:"peer"`
+	Peer InputNotifyPeerClass `tl:"peer"`
 }
 
 // AccountGetNotifyExceptionsRequestTypeID is TL type id of AccountGetNotifyExceptionsRequest.
@@ -83,8 +83,8 @@ func (g *AccountGetNotifyExceptionsRequest) TypeID() uint32 {
 	return AccountGetNotifyExceptionsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *AccountGetNotifyExceptionsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *AccountGetNotifyExceptionsRequest) TypeName() string {
 	return "account.getNotifyExceptions"
 }
 

@@ -51,8 +51,8 @@ func (d *HelpDeepLinkInfoEmpty) TypeID() uint32 {
 	return HelpDeepLinkInfoEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *HelpDeepLinkInfoEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *HelpDeepLinkInfoEmpty) TypeName() string {
 	return "help.deepLinkInfoEmpty"
 }
 
@@ -96,18 +96,18 @@ type HelpDeepLinkInfo struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// An update of the app is required to parse this link
-	UpdateApp bool `schemaname:"update_app"`
+	UpdateApp bool `tl:"update_app"`
 	// Message to show to the user
-	Message string `schemaname:"message"`
+	Message string `tl:"message"`
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `schemaname:"entities"`
+	Entities []MessageEntityClass `tl:"entities"`
 }
 
 // HelpDeepLinkInfoTypeID is TL type id of HelpDeepLinkInfo.
@@ -162,8 +162,8 @@ func (d *HelpDeepLinkInfo) TypeID() uint32 {
 	return HelpDeepLinkInfoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *HelpDeepLinkInfo) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *HelpDeepLinkInfo) TypeName() string {
 	return "help.deepLinkInfo"
 }
 
@@ -308,11 +308,11 @@ type HelpDeepLinkInfoClass interface {
 	bin.Decoder
 	construct() HelpDeepLinkInfoClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

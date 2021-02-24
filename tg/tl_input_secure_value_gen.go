@@ -30,61 +30,61 @@ type InputSecureValue struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Secure passport¹ value type
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
-	Type SecureValueTypeClass `schemaname:"type"`
+	Type SecureValueTypeClass `tl:"type"`
 	// Encrypted Telegram Passport¹ element data
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetData and GetData helpers.
-	Data SecureData `schemaname:"data"`
+	Data SecureData `tl:"data"`
 	// Encrypted passport¹ file with the front side of the document
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetFrontSide and GetFrontSide helpers.
-	FrontSide InputSecureFileClass `schemaname:"front_side"`
+	FrontSide InputSecureFileClass `tl:"front_side"`
 	// Encrypted passport¹ file with the reverse side of the document
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetReverseSide and GetReverseSide helpers.
-	ReverseSide InputSecureFileClass `schemaname:"reverse_side"`
+	ReverseSide InputSecureFileClass `tl:"reverse_side"`
 	// Encrypted passport¹ file with a selfie of the user holding the document
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetSelfie and GetSelfie helpers.
-	Selfie InputSecureFileClass `schemaname:"selfie"`
+	Selfie InputSecureFileClass `tl:"selfie"`
 	// Array of encrypted passport¹ files with translated versions of the provided documents
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetTranslation and GetTranslation helpers.
-	Translation []InputSecureFileClass `schemaname:"translation"`
+	Translation []InputSecureFileClass `tl:"translation"`
 	// Array of encrypted passport¹ files with photos the of the documents
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetFiles and GetFiles helpers.
-	Files []InputSecureFileClass `schemaname:"files"`
+	Files []InputSecureFileClass `tl:"files"`
 	// Plaintext verified passport¹ data
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetPlainData and GetPlainData helpers.
-	PlainData SecurePlainDataClass `schemaname:"plain_data"`
+	PlainData SecurePlainDataClass `tl:"plain_data"`
 }
 
 // InputSecureValueTypeID is TL type id of InputSecureValue.
@@ -182,8 +182,8 @@ func (i *InputSecureValue) TypeID() uint32 {
 	return InputSecureValueTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputSecureValue) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputSecureValue) TypeName() string {
 	return "inputSecureValue"
 }
 

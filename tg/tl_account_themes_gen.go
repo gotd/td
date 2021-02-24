@@ -51,8 +51,8 @@ func (t *AccountThemesNotModified) TypeID() uint32 {
 	return AccountThemesNotModifiedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *AccountThemesNotModified) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *AccountThemesNotModified) TypeName() string {
 	return "account.themesNotModified"
 }
 
@@ -96,9 +96,9 @@ type AccountThemes struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `schemaname:"hash"`
+	Hash int `tl:"hash"`
 	// Themes
-	Themes []Theme `schemaname:"themes"`
+	Themes []Theme `tl:"themes"`
 }
 
 // AccountThemesTypeID is TL type id of AccountThemes.
@@ -142,8 +142,8 @@ func (t *AccountThemes) TypeID() uint32 {
 	return AccountThemesTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *AccountThemes) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *AccountThemes) TypeName() string {
 	return "account.themes"
 }
 
@@ -234,11 +234,11 @@ type AccountThemesClass interface {
 	bin.Decoder
 	construct() AccountThemesClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

@@ -27,11 +27,11 @@ type DraftMessageEmpty struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// When was the draft last updated
 	//
 	// Use SetDate and GetDate helpers.
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 }
 
 // DraftMessageEmptyTypeID is TL type id of DraftMessageEmpty.
@@ -76,8 +76,8 @@ func (d *DraftMessageEmpty) TypeID() uint32 {
 	return DraftMessageEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DraftMessageEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DraftMessageEmpty) TypeName() string {
 	return "draftMessageEmpty"
 }
 
@@ -160,24 +160,24 @@ type DraftMessage struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether no webpage preview will be generated
-	NoWebpage bool `schemaname:"no_webpage"`
+	NoWebpage bool `tl:"no_webpage"`
 	// The message this message will reply to
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
-	ReplyToMsgID int `schemaname:"reply_to_msg_id"`
+	ReplyToMsgID int `tl:"reply_to_msg_id"`
 	// The draft
-	Message string `schemaname:"message"`
+	Message string `tl:"message"`
 	// Message entities¹ for styled text.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `schemaname:"entities"`
+	Entities []MessageEntityClass `tl:"entities"`
 	// Date of last update of the draft.
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 }
 
 // DraftMessageTypeID is TL type id of DraftMessage.
@@ -245,8 +245,8 @@ func (d *DraftMessage) TypeID() uint32 {
 	return DraftMessageTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DraftMessage) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DraftMessage) TypeName() string {
 	return "draftMessage"
 }
 
@@ -432,11 +432,11 @@ type DraftMessageClass interface {
 	bin.Decoder
 	construct() DraftMessageClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

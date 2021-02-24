@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/textEntities for reference.
 type TextEntities struct {
 	// List of text entities
-	Entities []TextEntity `schemaname:"entities"`
+	Entities []TextEntity `tl:"entities"`
 }
 
 // TextEntitiesTypeID is TL type id of TextEntities.
@@ -62,8 +62,8 @@ func (t *TextEntities) TypeID() uint32 {
 	return TextEntitiesTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TextEntities) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TextEntities) TypeName() string {
 	return "textEntities"
 }
 

@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.saveWallPaper for reference.
 type AccountSaveWallPaperRequest struct {
 	// Wallpaper to save
-	Wallpaper InputWallPaperClass `schemaname:"wallpaper"`
+	Wallpaper InputWallPaperClass `tl:"wallpaper"`
 	// Uninstall wallpaper?
-	Unsave bool `schemaname:"unsave"`
+	Unsave bool `tl:"unsave"`
 	// Wallpaper settings
-	Settings WallPaperSettings `schemaname:"settings"`
+	Settings WallPaperSettings `tl:"settings"`
 }
 
 // AccountSaveWallPaperRequestTypeID is TL type id of AccountSaveWallPaperRequest.
@@ -77,8 +77,8 @@ func (s *AccountSaveWallPaperRequest) TypeID() uint32 {
 	return AccountSaveWallPaperRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *AccountSaveWallPaperRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *AccountSaveWallPaperRequest) TypeName() string {
 	return "account.saveWallPaper"
 }
 

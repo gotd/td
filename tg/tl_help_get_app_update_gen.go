@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/help.getAppUpdate for reference.
 type HelpGetAppUpdateRequest struct {
 	// Source
-	Source string `schemaname:"source"`
+	Source string `tl:"source"`
 }
 
 // HelpGetAppUpdateRequestTypeID is TL type id of HelpGetAppUpdateRequest.
@@ -63,8 +63,8 @@ func (g *HelpGetAppUpdateRequest) TypeID() uint32 {
 	return HelpGetAppUpdateRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *HelpGetAppUpdateRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *HelpGetAppUpdateRequest) TypeName() string {
 	return "help.getAppUpdate"
 }
 

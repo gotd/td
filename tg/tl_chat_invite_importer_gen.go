@@ -23,9 +23,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/chatInviteImporter for reference.
 type ChatInviteImporter struct {
 	// UserID field of ChatInviteImporter.
-	UserID int `schemaname:"user_id"`
+	UserID int `tl:"user_id"`
 	// Date field of ChatInviteImporter.
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 }
 
 // ChatInviteImporterTypeID is TL type id of ChatInviteImporter.
@@ -69,8 +69,8 @@ func (c *ChatInviteImporter) TypeID() uint32 {
 	return ChatInviteImporterTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChatInviteImporter) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChatInviteImporter) TypeName() string {
 	return "chatInviteImporter"
 }
 

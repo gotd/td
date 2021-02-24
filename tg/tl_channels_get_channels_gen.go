@@ -27,7 +27,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/channels.getChannels for reference.
 type ChannelsGetChannelsRequest struct {
 	// IDs of channels/supergroups to get info about
-	ID []InputChannelClass `schemaname:"id"`
+	ID []InputChannelClass `tl:"id"`
 }
 
 // ChannelsGetChannelsRequestTypeID is TL type id of ChannelsGetChannelsRequest.
@@ -66,8 +66,8 @@ func (g *ChannelsGetChannelsRequest) TypeID() uint32 {
 	return ChannelsGetChannelsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *ChannelsGetChannelsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *ChannelsGetChannelsRequest) TypeName() string {
 	return "channels.getChannels"
 }
 

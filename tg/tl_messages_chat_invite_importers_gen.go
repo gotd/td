@@ -23,11 +23,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.chatInviteImporters for reference.
 type MessagesChatInviteImporters struct {
 	// Count field of MessagesChatInviteImporters.
-	Count int `schemaname:"count"`
+	Count int `tl:"count"`
 	// Importers field of MessagesChatInviteImporters.
-	Importers []ChatInviteImporter `schemaname:"importers"`
+	Importers []ChatInviteImporter `tl:"importers"`
 	// Users field of MessagesChatInviteImporters.
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // MessagesChatInviteImportersTypeID is TL type id of MessagesChatInviteImporters.
@@ -76,8 +76,8 @@ func (c *MessagesChatInviteImporters) TypeID() uint32 {
 	return MessagesChatInviteImportersTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *MessagesChatInviteImporters) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *MessagesChatInviteImporters) TypeName() string {
 	return "messages.chatInviteImporters"
 }
 

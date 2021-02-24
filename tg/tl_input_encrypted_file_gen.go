@@ -51,8 +51,8 @@ func (i *InputEncryptedFileEmpty) TypeID() uint32 {
 	return InputEncryptedFileEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputEncryptedFileEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputEncryptedFileEmpty) TypeName() string {
 	return "inputEncryptedFileEmpty"
 }
 
@@ -93,16 +93,16 @@ var (
 // See https://core.telegram.org/constructor/inputEncryptedFileUploaded for reference.
 type InputEncryptedFileUploaded struct {
 	// Random file ID created by clien
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// Number of saved parts
-	Parts int `schemaname:"parts"`
+	Parts int `tl:"parts"`
 	// In case md5-HASH¹ of the (already encrypted) file was transmitted, file content will be checked prior to use
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/MD5
-	MD5Checksum string `schemaname:"md5_checksum"`
+	MD5Checksum string `tl:"md5_checksum"`
 	// 32-bit fingerprint of the key used to encrypt a file
-	KeyFingerprint int `schemaname:"key_fingerprint"`
+	KeyFingerprint int `tl:"key_fingerprint"`
 }
 
 // InputEncryptedFileUploadedTypeID is TL type id of InputEncryptedFileUploaded.
@@ -156,8 +156,8 @@ func (i *InputEncryptedFileUploaded) TypeID() uint32 {
 	return InputEncryptedFileUploadedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputEncryptedFileUploaded) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputEncryptedFileUploaded) TypeName() string {
 	return "inputEncryptedFileUploaded"
 }
 
@@ -253,12 +253,12 @@ type InputEncryptedFile struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/encryptedFile
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// Checking sum, value of access_hash parameter from encryptedFile¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/encryptedFile
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 }
 
 // InputEncryptedFileTypeID is TL type id of InputEncryptedFile.
@@ -302,8 +302,8 @@ func (i *InputEncryptedFile) TypeID() uint32 {
 	return InputEncryptedFileTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputEncryptedFile) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputEncryptedFile) TypeName() string {
 	return "inputEncryptedFile"
 }
 
@@ -373,11 +373,11 @@ var (
 // See https://core.telegram.org/constructor/inputEncryptedFileBigUploaded for reference.
 type InputEncryptedFileBigUploaded struct {
 	// Random file id, created by the client
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// Number of saved parts
-	Parts int `schemaname:"parts"`
+	Parts int `tl:"parts"`
 	// 32-bit imprint of the key used to encrypt the file
-	KeyFingerprint int `schemaname:"key_fingerprint"`
+	KeyFingerprint int `tl:"key_fingerprint"`
 }
 
 // InputEncryptedFileBigUploadedTypeID is TL type id of InputEncryptedFileBigUploaded.
@@ -426,8 +426,8 @@ func (i *InputEncryptedFileBigUploaded) TypeID() uint32 {
 	return InputEncryptedFileBigUploadedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputEncryptedFileBigUploaded) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputEncryptedFileBigUploaded) TypeName() string {
 	return "inputEncryptedFileBigUploaded"
 }
 
@@ -522,11 +522,11 @@ type InputEncryptedFileClass interface {
 	bin.Decoder
 	construct() InputEncryptedFileClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
@@ -551,11 +551,11 @@ type NotEmptyInputEncryptedFile interface {
 	bin.Decoder
 	construct() InputEncryptedFileClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

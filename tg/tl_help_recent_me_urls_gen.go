@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/help.recentMeUrls for reference.
 type HelpRecentMeUrls struct {
 	// URLs
-	Urls []RecentMeUrlClass `schemaname:"urls"`
+	Urls []RecentMeUrlClass `tl:"urls"`
 	// Chats
-	Chats []ChatClass `schemaname:"chats"`
+	Chats []ChatClass `tl:"chats"`
 	// Users
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // HelpRecentMeUrlsTypeID is TL type id of HelpRecentMeUrls.
@@ -77,8 +77,8 @@ func (r *HelpRecentMeUrls) TypeID() uint32 {
 	return HelpRecentMeUrlsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *HelpRecentMeUrls) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *HelpRecentMeUrls) TypeName() string {
 	return "help.recentMeUrls"
 }
 

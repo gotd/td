@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/contacts.unblock for reference.
 type ContactsUnblockRequest struct {
 	// User ID
-	ID InputPeerClass `schemaname:"id"`
+	ID InputPeerClass `tl:"id"`
 }
 
 // ContactsUnblockRequestTypeID is TL type id of ContactsUnblockRequest.
@@ -63,8 +63,8 @@ func (u *ContactsUnblockRequest) TypeID() uint32 {
 	return ContactsUnblockRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (u *ContactsUnblockRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (u *ContactsUnblockRequest) TypeName() string {
 	return "contacts.unblock"
 }
 

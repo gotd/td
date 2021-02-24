@@ -51,8 +51,8 @@ func (p *PhoneCallDiscardReasonMissed) TypeID() uint32 {
 	return PhoneCallDiscardReasonMissedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PhoneCallDiscardReasonMissed) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PhoneCallDiscardReasonMissed) TypeName() string {
 	return "phoneCallDiscardReasonMissed"
 }
 
@@ -120,8 +120,8 @@ func (p *PhoneCallDiscardReasonDisconnect) TypeID() uint32 {
 	return PhoneCallDiscardReasonDisconnectTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PhoneCallDiscardReasonDisconnect) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PhoneCallDiscardReasonDisconnect) TypeName() string {
 	return "phoneCallDiscardReasonDisconnect"
 }
 
@@ -189,8 +189,8 @@ func (p *PhoneCallDiscardReasonHangup) TypeID() uint32 {
 	return PhoneCallDiscardReasonHangupTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PhoneCallDiscardReasonHangup) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PhoneCallDiscardReasonHangup) TypeName() string {
 	return "phoneCallDiscardReasonHangup"
 }
 
@@ -258,8 +258,8 @@ func (p *PhoneCallDiscardReasonBusy) TypeID() uint32 {
 	return PhoneCallDiscardReasonBusyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PhoneCallDiscardReasonBusy) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PhoneCallDiscardReasonBusy) TypeName() string {
 	return "phoneCallDiscardReasonBusy"
 }
 
@@ -315,11 +315,11 @@ type PhoneCallDiscardReasonClass interface {
 	bin.Decoder
 	construct() PhoneCallDiscardReasonClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

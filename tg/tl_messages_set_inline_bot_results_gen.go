@@ -27,25 +27,25 @@ type MessagesSetInlineBotResultsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Set this flag if the results are composed of media files
-	Gallery bool `schemaname:"gallery"`
+	Gallery bool `tl:"gallery"`
 	// Set this flag if results may be cached on the server side only for the user that sent the query. By default, results may be returned to any user who sends the same query
-	Private bool `schemaname:"private"`
+	Private bool `tl:"private"`
 	// Unique identifier for the answered query
-	QueryID int64 `schemaname:"query_id"`
+	QueryID int64 `tl:"query_id"`
 	// Vector of results for the inline query
-	Results []InputBotInlineResultClass `schemaname:"results"`
+	Results []InputBotInlineResultClass `tl:"results"`
 	// The maximum amount of time in seconds that the result of the inline query may be cached on the server. Defaults to 300.
-	CacheTime int `schemaname:"cache_time"`
+	CacheTime int `tl:"cache_time"`
 	// Pass the offset that a client should send in the next query with the same text to receive more results. Pass an empty string if there are no more results or if you don‘t support pagination. Offset length can’t exceed 64 bytes.
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
-	NextOffset string `schemaname:"next_offset"`
+	NextOffset string `tl:"next_offset"`
 	// If passed, clients will display a button with specified text that switches the user to a private chat with the bot and sends the bot a start message with a certain parameter.
 	//
 	// Use SetSwitchPm and GetSwitchPm helpers.
-	SwitchPm InlineBotSwitchPM `schemaname:"switch_pm"`
+	SwitchPm InlineBotSwitchPM `tl:"switch_pm"`
 }
 
 // MessagesSetInlineBotResultsRequestTypeID is TL type id of MessagesSetInlineBotResultsRequest.
@@ -123,8 +123,8 @@ func (s *MessagesSetInlineBotResultsRequest) TypeID() uint32 {
 	return MessagesSetInlineBotResultsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *MessagesSetInlineBotResultsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *MessagesSetInlineBotResultsRequest) TypeName() string {
 	return "messages.setInlineBotResults"
 }
 

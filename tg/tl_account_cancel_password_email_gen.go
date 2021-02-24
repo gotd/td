@@ -54,8 +54,8 @@ func (c *AccountCancelPasswordEmailRequest) TypeID() uint32 {
 	return AccountCancelPasswordEmailRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *AccountCancelPasswordEmailRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *AccountCancelPasswordEmailRequest) TypeName() string {
 	return "account.cancelPasswordEmail"
 }
 

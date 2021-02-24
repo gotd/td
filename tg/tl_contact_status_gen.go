@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/contactStatus for reference.
 type ContactStatus struct {
 	// User identifier
-	UserID int `schemaname:"user_id"`
+	UserID int `tl:"user_id"`
 	// Online status
-	Status UserStatusClass `schemaname:"status"`
+	Status UserStatusClass `tl:"status"`
 }
 
 // ContactStatusTypeID is TL type id of ContactStatus.
@@ -70,8 +70,8 @@ func (c *ContactStatus) TypeID() uint32 {
 	return ContactStatusTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ContactStatus) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ContactStatus) TypeName() string {
 	return "contactStatus"
 }
 

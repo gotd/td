@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/users.getFullUser for reference.
 type UsersGetFullUserRequest struct {
 	// User ID
-	ID InputUserClass `schemaname:"id"`
+	ID InputUserClass `tl:"id"`
 }
 
 // UsersGetFullUserRequestTypeID is TL type id of UsersGetFullUserRequest.
@@ -63,8 +63,8 @@ func (g *UsersGetFullUserRequest) TypeID() uint32 {
 	return UsersGetFullUserRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *UsersGetFullUserRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *UsersGetFullUserRequest) TypeName() string {
 	return "users.getFullUser"
 }
 

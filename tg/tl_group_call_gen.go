@@ -23,11 +23,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/groupCallDiscarded for reference.
 type GroupCallDiscarded struct {
 	// ID field of GroupCallDiscarded.
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// AccessHash field of GroupCallDiscarded.
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 	// Duration field of GroupCallDiscarded.
-	Duration int `schemaname:"duration"`
+	Duration int `tl:"duration"`
 }
 
 // GroupCallDiscardedTypeID is TL type id of GroupCallDiscarded.
@@ -76,8 +76,8 @@ func (g *GroupCallDiscarded) TypeID() uint32 {
 	return GroupCallDiscardedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *GroupCallDiscarded) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *GroupCallDiscarded) TypeName() string {
 	return "groupCallDiscarded"
 }
 
@@ -156,23 +156,23 @@ var (
 // See https://core.telegram.org/constructor/groupCall for reference.
 type GroupCall struct {
 	// Flags field of GroupCall.
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// JoinMuted field of GroupCall.
-	JoinMuted bool `schemaname:"join_muted"`
+	JoinMuted bool `tl:"join_muted"`
 	// CanChangeJoinMuted field of GroupCall.
-	CanChangeJoinMuted bool `schemaname:"can_change_join_muted"`
+	CanChangeJoinMuted bool `tl:"can_change_join_muted"`
 	// ID field of GroupCall.
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// AccessHash field of GroupCall.
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 	// ParticipantsCount field of GroupCall.
-	ParticipantsCount int `schemaname:"participants_count"`
+	ParticipantsCount int `tl:"participants_count"`
 	// Params field of GroupCall.
 	//
 	// Use SetParams and GetParams helpers.
-	Params DataJSON `schemaname:"params"`
+	Params DataJSON `tl:"params"`
 	// Version field of GroupCall.
-	Version int `schemaname:"version"`
+	Version int `tl:"version"`
 }
 
 // GroupCallTypeID is TL type id of GroupCall.
@@ -247,8 +247,8 @@ func (g *GroupCall) TypeID() uint32 {
 	return GroupCallTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *GroupCall) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *GroupCall) TypeName() string {
 	return "groupCall"
 }
 
@@ -430,11 +430,11 @@ type GroupCallClass interface {
 	bin.Decoder
 	construct() GroupCallClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

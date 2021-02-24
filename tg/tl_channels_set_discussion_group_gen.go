@@ -27,12 +27,12 @@ var _ = errors.Is
 // See https://core.telegram.org/method/channels.setDiscussionGroup for reference.
 type ChannelsSetDiscussionGroupRequest struct {
 	// Channel
-	Broadcast InputChannelClass `schemaname:"broadcast"`
+	Broadcast InputChannelClass `tl:"broadcast"`
 	// Discussion group¹ to associate to the channel
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/discussion
-	Group InputChannelClass `schemaname:"group"`
+	Group InputChannelClass `tl:"group"`
 }
 
 // ChannelsSetDiscussionGroupRequestTypeID is TL type id of ChannelsSetDiscussionGroupRequest.
@@ -76,8 +76,8 @@ func (s *ChannelsSetDiscussionGroupRequest) TypeID() uint32 {
 	return ChannelsSetDiscussionGroupRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *ChannelsSetDiscussionGroupRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *ChannelsSetDiscussionGroupRequest) TypeName() string {
 	return "channels.setDiscussionGroup"
 }
 

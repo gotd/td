@@ -30,17 +30,17 @@ type MessagesSetBotShippingResultsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Unique identifier for the query to be answered
-	QueryID int64 `schemaname:"query_id"`
+	QueryID int64 `tl:"query_id"`
 	// Error message in human readable form that explains why it is impossible to complete the order (e.g. "Sorry, delivery to your desired address is unavailable'). Telegram will display this message to the user.
 	//
 	// Use SetError and GetError helpers.
-	Error string `schemaname:"error"`
+	Error string `tl:"error"`
 	// A vector of available shipping options.
 	//
 	// Use SetShippingOptions and GetShippingOptions helpers.
-	ShippingOptions []ShippingOption `schemaname:"shipping_options"`
+	ShippingOptions []ShippingOption `tl:"shipping_options"`
 }
 
 // MessagesSetBotShippingResultsRequestTypeID is TL type id of MessagesSetBotShippingResultsRequest.
@@ -98,8 +98,8 @@ func (s *MessagesSetBotShippingResultsRequest) TypeID() uint32 {
 	return MessagesSetBotShippingResultsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *MessagesSetBotShippingResultsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *MessagesSetBotShippingResultsRequest) TypeName() string {
 	return "messages.setBotShippingResults"
 }
 

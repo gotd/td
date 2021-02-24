@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.receivedQueue for reference.
 type MessagesReceivedQueueRequest struct {
 	// Maximum qts value available at the client
-	MaxQts int `schemaname:"max_qts"`
+	MaxQts int `tl:"max_qts"`
 }
 
 // MessagesReceivedQueueRequestTypeID is TL type id of MessagesReceivedQueueRequest.
@@ -63,8 +63,8 @@ func (r *MessagesReceivedQueueRequest) TypeID() uint32 {
 	return MessagesReceivedQueueRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *MessagesReceivedQueueRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *MessagesReceivedQueueRequest) TypeName() string {
 	return "messages.receivedQueue"
 }
 

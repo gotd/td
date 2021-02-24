@@ -51,8 +51,8 @@ func (g *AccountGetGlobalPrivacySettingsRequest) TypeID() uint32 {
 	return AccountGetGlobalPrivacySettingsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *AccountGetGlobalPrivacySettingsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *AccountGetGlobalPrivacySettingsRequest) TypeName() string {
 	return "account.getGlobalPrivacySettings"
 }
 

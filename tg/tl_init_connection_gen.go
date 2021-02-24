@@ -27,34 +27,34 @@ type InitConnectionRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Application identifier (see. App configuration¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/myapp
-	APIID int `schemaname:"api_id"`
+	APIID int `tl:"api_id"`
 	// Device model
-	DeviceModel string `schemaname:"device_model"`
+	DeviceModel string `tl:"device_model"`
 	// Operation system version
-	SystemVersion string `schemaname:"system_version"`
+	SystemVersion string `tl:"system_version"`
 	// Application version
-	AppVersion string `schemaname:"app_version"`
+	AppVersion string `tl:"app_version"`
 	// Code for the language used on the device's OS, ISO 639-1 standard
-	SystemLangCode string `schemaname:"system_lang_code"`
+	SystemLangCode string `tl:"system_lang_code"`
 	// Language pack to use
-	LangPack string `schemaname:"lang_pack"`
+	LangPack string `tl:"lang_pack"`
 	// Code for the language used on the client, ISO 639-1 standard
-	LangCode string `schemaname:"lang_code"`
+	LangCode string `tl:"lang_code"`
 	// Info about an MTProto proxy
 	//
 	// Use SetProxy and GetProxy helpers.
-	Proxy InputClientProxy `schemaname:"proxy"`
+	Proxy InputClientProxy `tl:"proxy"`
 	// Additional initConnection parameters. For now, only the tz_offset field is supported, for specifying timezone offset in seconds.
 	//
 	// Use SetParams and GetParams helpers.
-	Params JSONValueClass `schemaname:"params"`
+	Params JSONValueClass `tl:"params"`
 	// The query itself
-	Query bin.Object `schemaname:"query"`
+	Query bin.Object `tl:"query"`
 }
 
 // InitConnectionRequestTypeID is TL type id of InitConnectionRequest.
@@ -147,8 +147,8 @@ func (i *InitConnectionRequest) TypeID() uint32 {
 	return InitConnectionRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InitConnectionRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InitConnectionRequest) TypeName() string {
 	return "initConnection"
 }
 

@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/updates.differenceEmpty for reference.
 type UpdatesDifferenceEmpty struct {
 	// Current date
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 	// Number of sent updates
-	Seq int `schemaname:"seq"`
+	Seq int `tl:"seq"`
 }
 
 // UpdatesDifferenceEmptyTypeID is TL type id of UpdatesDifferenceEmpty.
@@ -70,8 +70,8 @@ func (d *UpdatesDifferenceEmpty) TypeID() uint32 {
 	return UpdatesDifferenceEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *UpdatesDifferenceEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *UpdatesDifferenceEmpty) TypeName() string {
 	return "updates.differenceEmpty"
 }
 
@@ -138,17 +138,17 @@ var (
 // See https://core.telegram.org/constructor/updates.difference for reference.
 type UpdatesDifference struct {
 	// List of new messages
-	NewMessages []MessageClass `schemaname:"new_messages"`
+	NewMessages []MessageClass `tl:"new_messages"`
 	// List of new encrypted secret chat messages
-	NewEncryptedMessages []EncryptedMessageClass `schemaname:"new_encrypted_messages"`
+	NewEncryptedMessages []EncryptedMessageClass `tl:"new_encrypted_messages"`
 	// List of updates
-	OtherUpdates []UpdateClass `schemaname:"other_updates"`
+	OtherUpdates []UpdateClass `tl:"other_updates"`
 	// List of chats mentioned in events
-	Chats []ChatClass `schemaname:"chats"`
+	Chats []ChatClass `tl:"chats"`
 	// List of users mentioned in events
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 	// Current state
-	State UpdatesState `schemaname:"state"`
+	State UpdatesState `tl:"state"`
 }
 
 // UpdatesDifferenceTypeID is TL type id of UpdatesDifference.
@@ -212,8 +212,8 @@ func (d *UpdatesDifference) TypeID() uint32 {
 	return UpdatesDifferenceTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *UpdatesDifference) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *UpdatesDifference) TypeName() string {
 	return "updates.difference"
 }
 
@@ -427,20 +427,20 @@ var (
 // See https://core.telegram.org/constructor/updates.differenceSlice for reference.
 type UpdatesDifferenceSlice struct {
 	// List of new messgaes
-	NewMessages []MessageClass `schemaname:"new_messages"`
+	NewMessages []MessageClass `tl:"new_messages"`
 	// New messages from the encrypted event sequence¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	NewEncryptedMessages []EncryptedMessageClass `schemaname:"new_encrypted_messages"`
+	NewEncryptedMessages []EncryptedMessageClass `tl:"new_encrypted_messages"`
 	// List of updates
-	OtherUpdates []UpdateClass `schemaname:"other_updates"`
+	OtherUpdates []UpdateClass `tl:"other_updates"`
 	// List of chats mentioned in events
-	Chats []ChatClass `schemaname:"chats"`
+	Chats []ChatClass `tl:"chats"`
 	// List of users mentioned in events
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 	// Intermediary state
-	IntermediateState UpdatesState `schemaname:"intermediate_state"`
+	IntermediateState UpdatesState `tl:"intermediate_state"`
 }
 
 // UpdatesDifferenceSliceTypeID is TL type id of UpdatesDifferenceSlice.
@@ -504,8 +504,8 @@ func (d *UpdatesDifferenceSlice) TypeID() uint32 {
 	return UpdatesDifferenceSliceTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *UpdatesDifferenceSlice) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *UpdatesDifferenceSlice) TypeName() string {
 	return "updates.differenceSlice"
 }
 
@@ -722,7 +722,7 @@ var (
 // See https://core.telegram.org/constructor/updates.differenceTooLong for reference.
 type UpdatesDifferenceTooLong struct {
 	// The new state to use.
-	Pts int `schemaname:"pts"`
+	Pts int `tl:"pts"`
 }
 
 // UpdatesDifferenceTooLongTypeID is TL type id of UpdatesDifferenceTooLong.
@@ -761,8 +761,8 @@ func (d *UpdatesDifferenceTooLong) TypeID() uint32 {
 	return UpdatesDifferenceTooLongTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *UpdatesDifferenceTooLong) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *UpdatesDifferenceTooLong) TypeName() string {
 	return "updates.differenceTooLong"
 }
 
@@ -831,11 +831,11 @@ type UpdatesDifferenceClass interface {
 	bin.Decoder
 	construct() UpdatesDifferenceClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

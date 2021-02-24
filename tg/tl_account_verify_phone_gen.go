@@ -27,17 +27,17 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.verifyPhone for reference.
 type AccountVerifyPhoneRequest struct {
 	// Phone number
-	PhoneNumber string `schemaname:"phone_number"`
+	PhoneNumber string `tl:"phone_number"`
 	// Phone code hash received from the call to account.sendVerifyPhoneCode¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/account.sendVerifyPhoneCode
-	PhoneCodeHash string `schemaname:"phone_code_hash"`
+	PhoneCodeHash string `tl:"phone_code_hash"`
 	// Code received after the call to account.sendVerifyPhoneCode¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/account.sendVerifyPhoneCode
-	PhoneCode string `schemaname:"phone_code"`
+	PhoneCode string `tl:"phone_code"`
 }
 
 // AccountVerifyPhoneRequestTypeID is TL type id of AccountVerifyPhoneRequest.
@@ -86,8 +86,8 @@ func (v *AccountVerifyPhoneRequest) TypeID() uint32 {
 	return AccountVerifyPhoneRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (v *AccountVerifyPhoneRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (v *AccountVerifyPhoneRequest) TypeName() string {
 	return "account.verifyPhone"
 }
 

@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.setPrivacy for reference.
 type AccountSetPrivacyRequest struct {
 	// Peers to which the privacy rules apply
-	Key InputPrivacyKeyClass `schemaname:"key"`
+	Key InputPrivacyKeyClass `tl:"key"`
 	// New privacy rules
-	Rules []InputPrivacyRuleClass `schemaname:"rules"`
+	Rules []InputPrivacyRuleClass `tl:"rules"`
 }
 
 // AccountSetPrivacyRequestTypeID is TL type id of AccountSetPrivacyRequest.
@@ -70,8 +70,8 @@ func (s *AccountSetPrivacyRequest) TypeID() uint32 {
 	return AccountSetPrivacyRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *AccountSetPrivacyRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *AccountSetPrivacyRequest) TypeName() string {
 	return "account.setPrivacy"
 }
 

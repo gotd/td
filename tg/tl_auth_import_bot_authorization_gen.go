@@ -24,22 +24,22 @@ var _ = errors.Is
 // See https://core.telegram.org/method/auth.importBotAuthorization for reference.
 type AuthImportBotAuthorizationRequest struct {
 	// Reserved for future use
-	Flags int `schemaname:"flags"`
+	Flags int `tl:"flags"`
 	// Application identifier (see. App configuration¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/myapp
-	APIID int `schemaname:"api_id"`
+	APIID int `tl:"api_id"`
 	// Application identifier hash (see. App configuration¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/myapp
-	APIHash string `schemaname:"api_hash"`
+	APIHash string `tl:"api_hash"`
 	// Bot token (see bots¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots
-	BotAuthToken string `schemaname:"bot_auth_token"`
+	BotAuthToken string `tl:"bot_auth_token"`
 }
 
 // AuthImportBotAuthorizationRequestTypeID is TL type id of AuthImportBotAuthorizationRequest.
@@ -93,8 +93,8 @@ func (i *AuthImportBotAuthorizationRequest) TypeID() uint32 {
 	return AuthImportBotAuthorizationRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *AuthImportBotAuthorizationRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *AuthImportBotAuthorizationRequest) TypeName() string {
 	return "auth.importBotAuthorization"
 }
 

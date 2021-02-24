@@ -51,8 +51,8 @@ func (c *ContactsContactsNotModified) TypeID() uint32 {
 	return ContactsContactsNotModifiedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ContactsContactsNotModified) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ContactsContactsNotModified) TypeName() string {
 	return "contacts.contactsNotModified"
 }
 
@@ -93,11 +93,11 @@ var (
 // See https://core.telegram.org/constructor/contacts.contacts for reference.
 type ContactsContacts struct {
 	// Contact list
-	Contacts []Contact `schemaname:"contacts"`
+	Contacts []Contact `tl:"contacts"`
 	// Number of contacts that were saved successfully
-	SavedCount int `schemaname:"saved_count"`
+	SavedCount int `tl:"saved_count"`
 	// User list
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // ContactsContactsTypeID is TL type id of ContactsContacts.
@@ -146,8 +146,8 @@ func (c *ContactsContacts) TypeID() uint32 {
 	return ContactsContactsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ContactsContacts) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ContactsContacts) TypeName() string {
 	return "contacts.contacts"
 }
 
@@ -270,11 +270,11 @@ type ContactsContactsClass interface {
 	bin.Decoder
 	construct() ContactsContactsClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

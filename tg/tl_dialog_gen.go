@@ -27,46 +27,46 @@ type Dialog struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Is the dialog pinned
-	Pinned bool `schemaname:"pinned"`
+	Pinned bool `tl:"pinned"`
 	// Whether the chat was manually marked as unread
-	UnreadMark bool `schemaname:"unread_mark"`
+	UnreadMark bool `tl:"unread_mark"`
 	// The chat
-	Peer PeerClass `schemaname:"peer"`
+	Peer PeerClass `tl:"peer"`
 	// The latest message ID
-	TopMessage int `schemaname:"top_message"`
+	TopMessage int `tl:"top_message"`
 	// Position up to which all incoming messages are read.
-	ReadInboxMaxID int `schemaname:"read_inbox_max_id"`
+	ReadInboxMaxID int `tl:"read_inbox_max_id"`
 	// Position up to which all outgoing messages are read.
-	ReadOutboxMaxID int `schemaname:"read_outbox_max_id"`
+	ReadOutboxMaxID int `tl:"read_outbox_max_id"`
 	// Number of unread messages
-	UnreadCount int `schemaname:"unread_count"`
+	UnreadCount int `tl:"unread_count"`
 	// Number of unread mentions¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/mentions
-	UnreadMentionsCount int `schemaname:"unread_mentions_count"`
+	UnreadMentionsCount int `tl:"unread_mentions_count"`
 	// Notification settings
-	NotifySettings PeerNotifySettings `schemaname:"notify_settings"`
+	NotifySettings PeerNotifySettings `tl:"notify_settings"`
 	// PTS¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
 	//
 	// Use SetPts and GetPts helpers.
-	Pts int `schemaname:"pts"`
+	Pts int `tl:"pts"`
 	// Message draft
 	//
 	// Use SetDraft and GetDraft helpers.
-	Draft DraftMessageClass `schemaname:"draft"`
+	Draft DraftMessageClass `tl:"draft"`
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int `schemaname:"folder_id"`
+	FolderID int `tl:"folder_id"`
 }
 
 // DialogTypeID is TL type id of Dialog.
@@ -172,8 +172,8 @@ func (d *Dialog) TypeID() uint32 {
 	return DialogTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *Dialog) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *Dialog) TypeName() string {
 	return "dialog"
 }
 
@@ -450,23 +450,23 @@ type DialogFolder struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Is this folder pinned
-	Pinned bool `schemaname:"pinned"`
+	Pinned bool `tl:"pinned"`
 	// The folder
-	Folder Folder `schemaname:"folder"`
+	Folder Folder `tl:"folder"`
 	// Peer in folder
-	Peer PeerClass `schemaname:"peer"`
+	Peer PeerClass `tl:"peer"`
 	// Latest message ID of dialog
-	TopMessage int `schemaname:"top_message"`
+	TopMessage int `tl:"top_message"`
 	// Number of unread muted peers in folder
-	UnreadMutedPeersCount int `schemaname:"unread_muted_peers_count"`
+	UnreadMutedPeersCount int `tl:"unread_muted_peers_count"`
 	// Number of unread unmuted peers in folder
-	UnreadUnmutedPeersCount int `schemaname:"unread_unmuted_peers_count"`
+	UnreadUnmutedPeersCount int `tl:"unread_unmuted_peers_count"`
 	// Number of unread messages from muted peers in folder
-	UnreadMutedMessagesCount int `schemaname:"unread_muted_messages_count"`
+	UnreadMutedMessagesCount int `tl:"unread_muted_messages_count"`
 	// Number of unread messages from unmuted peers in folder
-	UnreadUnmutedMessagesCount int `schemaname:"unread_unmuted_messages_count"`
+	UnreadUnmutedMessagesCount int `tl:"unread_unmuted_messages_count"`
 }
 
 // DialogFolderTypeID is TL type id of DialogFolder.
@@ -543,8 +543,8 @@ func (d *DialogFolder) TypeID() uint32 {
 	return DialogFolderTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DialogFolder) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DialogFolder) TypeName() string {
 	return "dialogFolder"
 }
 
@@ -722,11 +722,11 @@ type DialogClass interface {
 	bin.Decoder
 	construct() DialogClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

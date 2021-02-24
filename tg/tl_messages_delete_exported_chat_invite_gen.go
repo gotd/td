@@ -23,9 +23,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.deleteExportedChatInvite for reference.
 type MessagesDeleteExportedChatInviteRequest struct {
 	// Peer field of MessagesDeleteExportedChatInviteRequest.
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// Link field of MessagesDeleteExportedChatInviteRequest.
-	Link string `schemaname:"link"`
+	Link string `tl:"link"`
 }
 
 // MessagesDeleteExportedChatInviteRequestTypeID is TL type id of MessagesDeleteExportedChatInviteRequest.
@@ -69,8 +69,8 @@ func (d *MessagesDeleteExportedChatInviteRequest) TypeID() uint32 {
 	return MessagesDeleteExportedChatInviteRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *MessagesDeleteExportedChatInviteRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *MessagesDeleteExportedChatInviteRequest) TypeName() string {
 	return "messages.deleteExportedChatInvite"
 }
 

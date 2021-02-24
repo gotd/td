@@ -51,8 +51,8 @@ func (r *AccountResetNotifySettingsRequest) TypeID() uint32 {
 	return AccountResetNotifySettingsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *AccountResetNotifySettingsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *AccountResetNotifySettingsRequest) TypeName() string {
 	return "account.resetNotifySettings"
 }
 

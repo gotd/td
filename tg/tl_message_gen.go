@@ -24,13 +24,13 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messageEmpty for reference.
 type MessageEmpty struct {
 	// Flags field of MessageEmpty.
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Message identifier
-	ID int `schemaname:"id"`
+	ID int `tl:"id"`
 	// PeerID field of MessageEmpty.
 	//
 	// Use SetPeerID and GetPeerID helpers.
-	PeerID PeerClass `schemaname:"peer_id"`
+	PeerID PeerClass `tl:"peer_id"`
 }
 
 // MessageEmptyTypeID is TL type id of MessageEmpty.
@@ -80,8 +80,8 @@ func (m *MessageEmpty) TypeID() uint32 {
 	return MessageEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *MessageEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *MessageEmpty) TypeName() string {
 	return "messageEmpty"
 }
 
@@ -179,96 +179,96 @@ type Message struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Is this an outgoing message
-	Out bool `schemaname:"out"`
+	Out bool `tl:"out"`
 	// Whether we were mentioned¹ in this message
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/mentions
-	Mentioned bool `schemaname:"mentioned"`
+	Mentioned bool `tl:"mentioned"`
 	// Whether there are unread media attachments in this message
-	MediaUnread bool `schemaname:"media_unread"`
+	MediaUnread bool `tl:"media_unread"`
 	// Whether this is a silent message (no notification triggered)
-	Silent bool `schemaname:"silent"`
+	Silent bool `tl:"silent"`
 	// Whether this is a channel post
-	Post bool `schemaname:"post"`
+	Post bool `tl:"post"`
 	// Whether this is a scheduled message¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/scheduled-messages
-	FromScheduled bool `schemaname:"from_scheduled"`
+	FromScheduled bool `tl:"from_scheduled"`
 	// This is a legacy message: it has to be refetched with the new layer
-	Legacy bool `schemaname:"legacy"`
+	Legacy bool `tl:"legacy"`
 	// Whether the message should be shown as not modified to the user, even if an edit date is present
-	EditHide bool `schemaname:"edit_hide"`
+	EditHide bool `tl:"edit_hide"`
 	// Whether this message is pinned¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/pin
-	Pinned bool `schemaname:"pinned"`
+	Pinned bool `tl:"pinned"`
 	// ID of the message
-	ID int `schemaname:"id"`
+	ID int `tl:"id"`
 	// ID of the sender of the message
 	//
 	// Use SetFromID and GetFromID helpers.
-	FromID PeerClass `schemaname:"from_id"`
+	FromID PeerClass `tl:"from_id"`
 	// Peer ID, the chat where this message was sent
-	PeerID PeerClass `schemaname:"peer_id"`
+	PeerID PeerClass `tl:"peer_id"`
 	// Info about forwarded messages
 	//
 	// Use SetFwdFrom and GetFwdFrom helpers.
-	FwdFrom MessageFwdHeader `schemaname:"fwd_from"`
+	FwdFrom MessageFwdHeader `tl:"fwd_from"`
 	// ID of the inline bot that generated the message
 	//
 	// Use SetViaBotID and GetViaBotID helpers.
-	ViaBotID int `schemaname:"via_bot_id"`
+	ViaBotID int `tl:"via_bot_id"`
 	// Reply information
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
-	ReplyTo MessageReplyHeader `schemaname:"reply_to"`
+	ReplyTo MessageReplyHeader `tl:"reply_to"`
 	// Date of the message
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 	// The message
-	Message string `schemaname:"message"`
+	Message string `tl:"message"`
 	// Media attachment
 	//
 	// Use SetMedia and GetMedia helpers.
-	Media MessageMediaClass `schemaname:"media"`
+	Media MessageMediaClass `tl:"media"`
 	// Reply markup (bot/inline keyboards)
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `schemaname:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
 	// Message entities¹ for styled text
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `schemaname:"entities"`
+	Entities []MessageEntityClass `tl:"entities"`
 	// View count for channel posts
 	//
 	// Use SetViews and GetViews helpers.
-	Views int `schemaname:"views"`
+	Views int `tl:"views"`
 	// Forward counter
 	//
 	// Use SetForwards and GetForwards helpers.
-	Forwards int `schemaname:"forwards"`
+	Forwards int `tl:"forwards"`
 	// Info about post comments (for channels) or message replies (for groups)¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetReplies and GetReplies helpers.
-	Replies MessageReplies `schemaname:"replies"`
+	Replies MessageReplies `tl:"replies"`
 	// Last edit date of this message
 	//
 	// Use SetEditDate and GetEditDate helpers.
-	EditDate int `schemaname:"edit_date"`
+	EditDate int `tl:"edit_date"`
 	// Name of the author of this message for channel posts (with signatures enabled)
 	//
 	// Use SetPostAuthor and GetPostAuthor helpers.
-	PostAuthor string `schemaname:"post_author"`
+	PostAuthor string `tl:"post_author"`
 	// Multiple media messages sent using messages.sendMultiMedia¹ with the same grouped ID indicate an album or media group²
 	//
 	// Links:
@@ -276,15 +276,15 @@ type Message struct {
 	//  2) https://core.telegram.org/api/files#albums-grouped-media
 	//
 	// Use SetGroupedID and GetGroupedID helpers.
-	GroupedID int64 `schemaname:"grouped_id"`
+	GroupedID int64 `tl:"grouped_id"`
 	// Contains the reason why access to this message must be restricted.
 	//
 	// Use SetRestrictionReason and GetRestrictionReason helpers.
-	RestrictionReason []RestrictionReason `schemaname:"restriction_reason"`
+	RestrictionReason []RestrictionReason `tl:"restriction_reason"`
 	// TTLPeriod field of Message.
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
-	TTLPeriod int `schemaname:"ttl_period"`
+	TTLPeriod int `tl:"ttl_period"`
 }
 
 // MessageTypeID is TL type id of Message.
@@ -506,8 +506,8 @@ func (m *Message) TypeID() uint32 {
 	return MessageTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *Message) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *Message) TypeName() string {
 	return "message"
 }
 
@@ -1264,39 +1264,39 @@ type MessageService struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether the message is outgoing
-	Out bool `schemaname:"out"`
+	Out bool `tl:"out"`
 	// Whether we were mentioned in the message
-	Mentioned bool `schemaname:"mentioned"`
+	Mentioned bool `tl:"mentioned"`
 	// Whether the message contains unread media
-	MediaUnread bool `schemaname:"media_unread"`
+	MediaUnread bool `tl:"media_unread"`
 	// Whether the message is silent
-	Silent bool `schemaname:"silent"`
+	Silent bool `tl:"silent"`
 	// Whether it's a channel post
-	Post bool `schemaname:"post"`
+	Post bool `tl:"post"`
 	// This is a legacy message: it has to be refetched with the new layer
-	Legacy bool `schemaname:"legacy"`
+	Legacy bool `tl:"legacy"`
 	// Message ID
-	ID int `schemaname:"id"`
+	ID int `tl:"id"`
 	// ID of the sender of this message
 	//
 	// Use SetFromID and GetFromID helpers.
-	FromID PeerClass `schemaname:"from_id"`
+	FromID PeerClass `tl:"from_id"`
 	// Sender of service message
-	PeerID PeerClass `schemaname:"peer_id"`
+	PeerID PeerClass `tl:"peer_id"`
 	// Reply (thread) information
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
-	ReplyTo MessageReplyHeader `schemaname:"reply_to"`
+	ReplyTo MessageReplyHeader `tl:"reply_to"`
 	// Message date
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 	// Event connected with the service message
-	Action MessageActionClass `schemaname:"action"`
+	Action MessageActionClass `tl:"action"`
 	// TTLPeriod field of MessageService.
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
-	TTLPeriod int `schemaname:"ttl_period"`
+	TTLPeriod int `tl:"ttl_period"`
 }
 
 // MessageServiceTypeID is TL type id of MessageService.
@@ -1407,8 +1407,8 @@ func (m *MessageService) TypeID() uint32 {
 	return MessageServiceTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *MessageService) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *MessageService) TypeName() string {
 	return "messageService"
 }
 
@@ -1742,11 +1742,11 @@ type MessageClass interface {
 	bin.Decoder
 	construct() MessageClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
@@ -1780,11 +1780,11 @@ type NotEmptyMessage interface {
 	bin.Decoder
 	construct() MessageClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

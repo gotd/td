@@ -51,8 +51,8 @@ func (t *ContactsTopPeersNotModified) TypeID() uint32 {
 	return ContactsTopPeersNotModifiedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *ContactsTopPeersNotModified) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *ContactsTopPeersNotModified) TypeName() string {
 	return "contacts.topPeersNotModified"
 }
 
@@ -93,11 +93,11 @@ var (
 // See https://core.telegram.org/constructor/contacts.topPeers for reference.
 type ContactsTopPeers struct {
 	// Top peers by top peer category
-	Categories []TopPeerCategoryPeers `schemaname:"categories"`
+	Categories []TopPeerCategoryPeers `tl:"categories"`
 	// Chats
-	Chats []ChatClass `schemaname:"chats"`
+	Chats []ChatClass `tl:"chats"`
 	// Users
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // ContactsTopPeersTypeID is TL type id of ContactsTopPeers.
@@ -146,8 +146,8 @@ func (t *ContactsTopPeers) TypeID() uint32 {
 	return ContactsTopPeersTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *ContactsTopPeers) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *ContactsTopPeers) TypeName() string {
 	return "contacts.topPeers"
 }
 
@@ -303,8 +303,8 @@ func (t *ContactsTopPeersDisabled) TypeID() uint32 {
 	return ContactsTopPeersDisabledTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *ContactsTopPeersDisabled) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *ContactsTopPeersDisabled) TypeName() string {
 	return "contacts.topPeersDisabled"
 }
 
@@ -359,11 +359,11 @@ type ContactsTopPeersClass interface {
 	bin.Decoder
 	construct() ContactsTopPeersClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

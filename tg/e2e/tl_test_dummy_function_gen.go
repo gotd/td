@@ -50,8 +50,8 @@ func (d *TestDummyFunctionRequest) TypeID() uint32 {
 	return TestDummyFunctionRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *TestDummyFunctionRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *TestDummyFunctionRequest) TypeName() string {
 	return "test.dummyFunction"
 }
 

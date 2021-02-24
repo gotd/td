@@ -21,13 +21,13 @@ var _ = errors.Is
 // ResPQ represents TL type `resPQ#5162463`.
 type ResPQ struct {
 	// Nonce field of ResPQ.
-	Nonce bin.Int128 `schemaname:"nonce"`
+	Nonce bin.Int128 `tl:"nonce"`
 	// ServerNonce field of ResPQ.
-	ServerNonce bin.Int128 `schemaname:"server_nonce"`
+	ServerNonce bin.Int128 `tl:"server_nonce"`
 	// Pq field of ResPQ.
-	Pq []byte `schemaname:"pq"`
+	Pq []byte `tl:"pq"`
 	// ServerPublicKeyFingerprints field of ResPQ.
-	ServerPublicKeyFingerprints []int64 `schemaname:"server_public_key_fingerprints"`
+	ServerPublicKeyFingerprints []int64 `tl:"server_public_key_fingerprints"`
 }
 
 // ResPQTypeID is TL type id of ResPQ.
@@ -81,8 +81,8 @@ func (r *ResPQ) TypeID() uint32 {
 	return ResPQTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *ResPQ) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *ResPQ) TypeName() string {
 	return "resPQ"
 }
 

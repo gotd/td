@@ -24,12 +24,12 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/topPeer for reference.
 type TopPeer struct {
 	// Peer
-	Peer PeerClass `schemaname:"peer"`
+	Peer PeerClass `tl:"peer"`
 	// Rating as computed in top peer rating »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/top-rating
-	Rating float64 `schemaname:"rating"`
+	Rating float64 `tl:"rating"`
 }
 
 // TopPeerTypeID is TL type id of TopPeer.
@@ -73,8 +73,8 @@ func (t *TopPeer) TypeID() uint32 {
 	return TopPeerTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *TopPeer) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *TopPeer) TypeName() string {
 	return "topPeer"
 }
 

@@ -27,18 +27,18 @@ type UpdatesChannelDifferenceEmpty struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether there are more updates that must be fetched (always false)
-	Final bool `schemaname:"final"`
+	Final bool `tl:"final"`
 	// The latest PTS¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int `schemaname:"pts"`
+	Pts int `tl:"pts"`
 	// Clients are supposed to refetch the channel difference after timeout seconds have elapsed
 	//
 	// Use SetTimeout and GetTimeout helpers.
-	Timeout int `schemaname:"timeout"`
+	Timeout int `tl:"timeout"`
 }
 
 // UpdatesChannelDifferenceEmptyTypeID is TL type id of UpdatesChannelDifferenceEmpty.
@@ -93,8 +93,8 @@ func (c *UpdatesChannelDifferenceEmpty) TypeID() uint32 {
 	return UpdatesChannelDifferenceEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *UpdatesChannelDifferenceEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *UpdatesChannelDifferenceEmpty) TypeName() string {
 	return "updates.channelDifferenceEmpty"
 }
 
@@ -207,24 +207,24 @@ type UpdatesChannelDifferenceTooLong struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether there are more updates that must be fetched (always false)
-	Final bool `schemaname:"final"`
+	Final bool `tl:"final"`
 	// Clients are supposed to refetch the channel difference after timeout seconds have elapsed
 	//
 	// Use SetTimeout and GetTimeout helpers.
-	Timeout int `schemaname:"timeout"`
+	Timeout int `tl:"timeout"`
 	// Dialog containing the latest PTS¹ that can be used to reset the channel state
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Dialog DialogClass `schemaname:"dialog"`
+	Dialog DialogClass `tl:"dialog"`
 	// The latest messages
-	Messages []MessageClass `schemaname:"messages"`
+	Messages []MessageClass `tl:"messages"`
 	// Chats from messages
-	Chats []ChatClass `schemaname:"chats"`
+	Chats []ChatClass `tl:"chats"`
 	// Users from messages
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // UpdatesChannelDifferenceTooLongTypeID is TL type id of UpdatesChannelDifferenceTooLong.
@@ -294,8 +294,8 @@ func (c *UpdatesChannelDifferenceTooLong) TypeID() uint32 {
 	return UpdatesChannelDifferenceTooLongTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *UpdatesChannelDifferenceTooLong) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *UpdatesChannelDifferenceTooLong) TypeName() string {
 	return "updates.channelDifferenceTooLong"
 }
 
@@ -509,26 +509,26 @@ type UpdatesChannelDifference struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether there are more updates to be fetched using getDifference, starting from the provided pts
-	Final bool `schemaname:"final"`
+	Final bool `tl:"final"`
 	// The PTS¹ from which to start getting updates the next time
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int `schemaname:"pts"`
+	Pts int `tl:"pts"`
 	// Clients are supposed to refetch the channel difference after timeout seconds have elapsed
 	//
 	// Use SetTimeout and GetTimeout helpers.
-	Timeout int `schemaname:"timeout"`
+	Timeout int `tl:"timeout"`
 	// New messages
-	NewMessages []MessageClass `schemaname:"new_messages"`
+	NewMessages []MessageClass `tl:"new_messages"`
 	// Other updates
-	OtherUpdates []UpdateClass `schemaname:"other_updates"`
+	OtherUpdates []UpdateClass `tl:"other_updates"`
 	// Chats
-	Chats []ChatClass `schemaname:"chats"`
+	Chats []ChatClass `tl:"chats"`
 	// Users
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // UpdatesChannelDifferenceTypeID is TL type id of UpdatesChannelDifference.
@@ -603,8 +603,8 @@ func (c *UpdatesChannelDifference) TypeID() uint32 {
 	return UpdatesChannelDifferenceTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *UpdatesChannelDifference) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *UpdatesChannelDifference) TypeName() string {
 	return "updates.channelDifference"
 }
 
@@ -856,11 +856,11 @@ type UpdatesChannelDifferenceClass interface {
 	bin.Decoder
 	construct() UpdatesChannelDifferenceClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
@@ -880,11 +880,11 @@ type NotEmptyUpdatesChannelDifference interface {
 	bin.Decoder
 	construct() UpdatesChannelDifferenceClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

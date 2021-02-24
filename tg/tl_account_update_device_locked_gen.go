@@ -30,7 +30,7 @@ type AccountUpdateDeviceLockedRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/push-updates
-	Period int `schemaname:"period"`
+	Period int `tl:"period"`
 }
 
 // AccountUpdateDeviceLockedRequestTypeID is TL type id of AccountUpdateDeviceLockedRequest.
@@ -69,8 +69,8 @@ func (u *AccountUpdateDeviceLockedRequest) TypeID() uint32 {
 	return AccountUpdateDeviceLockedRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (u *AccountUpdateDeviceLockedRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (u *AccountUpdateDeviceLockedRequest) TypeName() string {
 	return "account.updateDeviceLocked"
 }
 

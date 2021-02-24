@@ -51,8 +51,8 @@ func (g *PhoneGetCallConfigRequest) TypeID() uint32 {
 	return PhoneGetCallConfigRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *PhoneGetCallConfigRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *PhoneGetCallConfigRequest) TypeName() string {
 	return "phone.getCallConfig"
 }
 

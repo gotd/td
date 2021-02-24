@@ -25,11 +25,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/restrictionReason for reference.
 type RestrictionReason struct {
 	// Platform identifier (ios, android, wp, all, etc.), can be concatenated with a dash as separator (android-ios, ios-wp, etc)
-	Platform string `schemaname:"platform"`
+	Platform string `tl:"platform"`
 	// Restriction reason (porno, terms, etc.)
-	Reason string `schemaname:"reason"`
+	Reason string `tl:"reason"`
 	// Error message to be shown to the user
-	Text string `schemaname:"text"`
+	Text string `tl:"text"`
 }
 
 // RestrictionReasonTypeID is TL type id of RestrictionReason.
@@ -78,8 +78,8 @@ func (r *RestrictionReason) TypeID() uint32 {
 	return RestrictionReasonTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *RestrictionReason) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *RestrictionReason) TypeName() string {
 	return "restrictionReason"
 }
 

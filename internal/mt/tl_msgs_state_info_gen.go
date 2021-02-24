@@ -21,9 +21,9 @@ var _ = errors.Is
 // MsgsStateInfo represents TL type `msgs_state_info#4deb57d`.
 type MsgsStateInfo struct {
 	// ReqMsgID field of MsgsStateInfo.
-	ReqMsgID int64 `schemaname:"req_msg_id"`
+	ReqMsgID int64 `tl:"req_msg_id"`
 	// Info field of MsgsStateInfo.
-	Info []byte `schemaname:"info"`
+	Info []byte `tl:"info"`
 }
 
 // MsgsStateInfoTypeID is TL type id of MsgsStateInfo.
@@ -67,8 +67,8 @@ func (m *MsgsStateInfo) TypeID() uint32 {
 	return MsgsStateInfoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *MsgsStateInfo) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *MsgsStateInfo) TypeName() string {
 	return "msgs_state_info"
 }
 

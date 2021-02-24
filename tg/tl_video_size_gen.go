@@ -30,21 +30,21 @@ type VideoSize struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// u for animated profile pictures, and v for trimmed and downscaled video previews
-	Type string `schemaname:"type"`
+	Type string `tl:"type"`
 	// File location
-	Location FileLocationToBeDeprecated `schemaname:"location"`
+	Location FileLocationToBeDeprecated `tl:"location"`
 	// Video width
-	W int `schemaname:"w"`
+	W int `tl:"w"`
 	// Video height
-	H int `schemaname:"h"`
+	H int `tl:"h"`
 	// File size
-	Size int `schemaname:"size"`
+	Size int `tl:"size"`
 	// Timestamp that should be shown as static preview to the user (seconds)
 	//
 	// Use SetVideoStartTs and GetVideoStartTs helpers.
-	VideoStartTs float64 `schemaname:"video_start_ts"`
+	VideoStartTs float64 `tl:"video_start_ts"`
 }
 
 // VideoSizeTypeID is TL type id of VideoSize.
@@ -114,8 +114,8 @@ func (v *VideoSize) TypeID() uint32 {
 	return VideoSizeTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (v *VideoSize) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (v *VideoSize) TypeName() string {
 	return "videoSize"
 }
 

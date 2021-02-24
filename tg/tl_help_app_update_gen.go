@@ -27,28 +27,28 @@ type HelpAppUpdate struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Unskippable, the new info must be shown to the user (with a popup or something else)
-	CanNotSkip bool `schemaname:"can_not_skip"`
+	CanNotSkip bool `tl:"can_not_skip"`
 	// Update ID
-	ID int `schemaname:"id"`
+	ID int `tl:"id"`
 	// New version name
-	Version string `schemaname:"version"`
+	Version string `tl:"version"`
 	// Text description of the update
-	Text string `schemaname:"text"`
+	Text string `tl:"text"`
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
-	Entities []MessageEntityClass `schemaname:"entities"`
+	Entities []MessageEntityClass `tl:"entities"`
 	// Application binary
 	//
 	// Use SetDocument and GetDocument helpers.
-	Document DocumentClass `schemaname:"document"`
+	Document DocumentClass `tl:"document"`
 	// Application download URL
 	//
 	// Use SetURL and GetURL helpers.
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 }
 
 // HelpAppUpdateTypeID is TL type id of HelpAppUpdate.
@@ -126,8 +126,8 @@ func (a *HelpAppUpdate) TypeID() uint32 {
 	return HelpAppUpdateTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (a *HelpAppUpdate) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (a *HelpAppUpdate) TypeName() string {
 	return "help.appUpdate"
 }
 
@@ -355,8 +355,8 @@ func (n *HelpNoAppUpdate) TypeID() uint32 {
 	return HelpNoAppUpdateTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (n *HelpNoAppUpdate) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (n *HelpNoAppUpdate) TypeName() string {
 	return "help.noAppUpdate"
 }
 
@@ -410,11 +410,11 @@ type HelpAppUpdateClass interface {
 	bin.Decoder
 	construct() HelpAppUpdateClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

@@ -23,17 +23,17 @@ var _ = errors.Is
 // See https://core.telegram.org/method/phone.editGroupCallMember for reference.
 type PhoneEditGroupCallMemberRequest struct {
 	// Flags field of PhoneEditGroupCallMemberRequest.
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Muted field of PhoneEditGroupCallMemberRequest.
-	Muted bool `schemaname:"muted"`
+	Muted bool `tl:"muted"`
 	// Call field of PhoneEditGroupCallMemberRequest.
-	Call InputGroupCall `schemaname:"call"`
+	Call InputGroupCall `tl:"call"`
 	// UserID field of PhoneEditGroupCallMemberRequest.
-	UserID InputUserClass `schemaname:"user_id"`
+	UserID InputUserClass `tl:"user_id"`
 	// Volume field of PhoneEditGroupCallMemberRequest.
 	//
 	// Use SetVolume and GetVolume helpers.
-	Volume int `schemaname:"volume"`
+	Volume int `tl:"volume"`
 }
 
 // PhoneEditGroupCallMemberRequestTypeID is TL type id of PhoneEditGroupCallMemberRequest.
@@ -93,8 +93,8 @@ func (e *PhoneEditGroupCallMemberRequest) TypeID() uint32 {
 	return PhoneEditGroupCallMemberRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (e *PhoneEditGroupCallMemberRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (e *PhoneEditGroupCallMemberRequest) TypeName() string {
 	return "phone.editGroupCallMember"
 }
 

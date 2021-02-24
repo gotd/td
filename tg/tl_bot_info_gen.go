@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/botInfo for reference.
 type BotInfo struct {
 	// ID of the bot
-	UserID int `schemaname:"user_id"`
+	UserID int `tl:"user_id"`
 	// Description of the bot
-	Description string `schemaname:"description"`
+	Description string `tl:"description"`
 	// Bot commands that can be used in the chat
-	Commands []BotCommand `schemaname:"commands"`
+	Commands []BotCommand `tl:"commands"`
 }
 
 // BotInfoTypeID is TL type id of BotInfo.
@@ -77,8 +77,8 @@ func (b *BotInfo) TypeID() uint32 {
 	return BotInfoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *BotInfo) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *BotInfo) TypeName() string {
 	return "botInfo"
 }
 

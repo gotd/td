@@ -27,36 +27,36 @@ type AccountPasswordInputSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// The SRP algorithm¹ to use
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
 	//
 	// Use SetNewAlgo and GetNewAlgo helpers.
-	NewAlgo PasswordKdfAlgoClass `schemaname:"new_algo"`
+	NewAlgo PasswordKdfAlgoClass `tl:"new_algo"`
 	// The computed password hash¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
 	//
 	// Use SetNewPasswordHash and GetNewPasswordHash helpers.
-	NewPasswordHash []byte `schemaname:"new_password_hash"`
+	NewPasswordHash []byte `tl:"new_password_hash"`
 	// Text hint for the password
 	//
 	// Use SetHint and GetHint helpers.
-	Hint string `schemaname:"hint"`
+	Hint string `tl:"hint"`
 	// Password recovery email
 	//
 	// Use SetEmail and GetEmail helpers.
-	Email string `schemaname:"email"`
+	Email string `tl:"email"`
 	// Telegram passport¹ settings
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetNewSecureSettings and GetNewSecureSettings helpers.
-	NewSecureSettings SecureSecretSettings `schemaname:"new_secure_settings"`
+	NewSecureSettings SecureSecretSettings `tl:"new_secure_settings"`
 }
 
 // AccountPasswordInputSettingsTypeID is TL type id of AccountPasswordInputSettings.
@@ -133,8 +133,8 @@ func (p *AccountPasswordInputSettings) TypeID() uint32 {
 	return AccountPasswordInputSettingsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *AccountPasswordInputSettings) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *AccountPasswordInputSettings) TypeName() string {
 	return "account.passwordInputSettings"
 }
 

@@ -30,21 +30,21 @@ type AccountPasswordSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// 2FA Recovery email¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp#email-verification
 	//
 	// Use SetEmail and GetEmail helpers.
-	Email string `schemaname:"email"`
+	Email string `tl:"email"`
 	// Telegram passport¹ settings
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetSecureSettings and GetSecureSettings helpers.
-	SecureSettings SecureSecretSettings `schemaname:"secure_settings"`
+	SecureSettings SecureSecretSettings `tl:"secure_settings"`
 }
 
 // AccountPasswordSettingsTypeID is TL type id of AccountPasswordSettings.
@@ -97,8 +97,8 @@ func (p *AccountPasswordSettings) TypeID() uint32 {
 	return AccountPasswordSettingsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *AccountPasswordSettings) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *AccountPasswordSettings) TypeName() string {
 	return "account.passwordSettings"
 }
 

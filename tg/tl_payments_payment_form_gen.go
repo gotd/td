@@ -27,41 +27,41 @@ type PaymentsPaymentForm struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether the user can choose to save credentials.
-	CanSaveCredentials bool `schemaname:"can_save_credentials"`
+	CanSaveCredentials bool `tl:"can_save_credentials"`
 	// Indicates that the user can save payment credentials, but only after setting up a 2FA password¹ (currently the account doesn't have a 2FA password²)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
 	//  2) https://core.telegram.org/api/srp
-	PasswordMissing bool `schemaname:"password_missing"`
+	PasswordMissing bool `tl:"password_missing"`
 	// Bot ID
-	BotID int `schemaname:"bot_id"`
+	BotID int `tl:"bot_id"`
 	// Invoice
-	Invoice Invoice `schemaname:"invoice"`
+	Invoice Invoice `tl:"invoice"`
 	// Payment provider ID.
-	ProviderID int `schemaname:"provider_id"`
+	ProviderID int `tl:"provider_id"`
 	// Payment form URL
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 	// Payment provider name.One of the following:- stripe
 	//
 	// Use SetNativeProvider and GetNativeProvider helpers.
-	NativeProvider string `schemaname:"native_provider"`
+	NativeProvider string `tl:"native_provider"`
 	// Contains information about the payment provider, if available, to support it natively without the need for opening the URL.A JSON object that can contain the following fields:- publishable_key: Stripe API publishable key- apple_pay_merchant_id: Apple Pay merchant ID- android_pay_public_key: Android Pay public key- android_pay_bgcolor: Android Pay form background color- android_pay_inverse: Whether to use the dark theme in the Android Pay form- need_country: True, if the user country must be provided,- need_zip: True, if the user ZIP/postal code must be provided,- need_cardholder_name: True, if the cardholder name must be provided
 	//
 	// Use SetNativeParams and GetNativeParams helpers.
-	NativeParams DataJSON `schemaname:"native_params"`
+	NativeParams DataJSON `tl:"native_params"`
 	// Saved server-side order information
 	//
 	// Use SetSavedInfo and GetSavedInfo helpers.
-	SavedInfo PaymentRequestedInfo `schemaname:"saved_info"`
+	SavedInfo PaymentRequestedInfo `tl:"saved_info"`
 	// Contains information about saved card credentials
 	//
 	// Use SetSavedCredentials and GetSavedCredentials helpers.
-	SavedCredentials PaymentSavedCredentialsCard `schemaname:"saved_credentials"`
+	SavedCredentials PaymentSavedCredentialsCard `tl:"saved_credentials"`
 	// Users
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // PaymentsPaymentFormTypeID is TL type id of PaymentsPaymentForm.
@@ -165,8 +165,8 @@ func (p *PaymentsPaymentForm) TypeID() uint32 {
 	return PaymentsPaymentFormTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PaymentsPaymentForm) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PaymentsPaymentForm) TypeName() string {
 	return "payments.paymentForm"
 }
 

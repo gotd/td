@@ -27,12 +27,12 @@ var _ = errors.Is
 // See https://core.telegram.org/method/auth.resendCode for reference.
 type AuthResendCodeRequest struct {
 	// The phone number
-	PhoneNumber string `schemaname:"phone_number"`
+	PhoneNumber string `tl:"phone_number"`
 	// The phone code hash obtained from auth.sendCode¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/auth.sendCode
-	PhoneCodeHash string `schemaname:"phone_code_hash"`
+	PhoneCodeHash string `tl:"phone_code_hash"`
 }
 
 // AuthResendCodeRequestTypeID is TL type id of AuthResendCodeRequest.
@@ -76,8 +76,8 @@ func (r *AuthResendCodeRequest) TypeID() uint32 {
 	return AuthResendCodeRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *AuthResendCodeRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *AuthResendCodeRequest) TypeName() string {
 	return "auth.resendCode"
 }
 

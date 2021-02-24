@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/invokeWithMessagesRange for reference.
 type InvokeWithMessagesRangeRequest struct {
 	// Message range
-	Range MessageRange `schemaname:"range"`
+	Range MessageRange `tl:"range"`
 	// Query
-	Query bin.Object `schemaname:"query"`
+	Query bin.Object `tl:"query"`
 }
 
 // InvokeWithMessagesRangeRequestTypeID is TL type id of InvokeWithMessagesRangeRequest.
@@ -70,8 +70,8 @@ func (i *InvokeWithMessagesRangeRequest) TypeID() uint32 {
 	return InvokeWithMessagesRangeRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InvokeWithMessagesRangeRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InvokeWithMessagesRangeRequest) TypeName() string {
 	return "invokeWithMessagesRange"
 }
 

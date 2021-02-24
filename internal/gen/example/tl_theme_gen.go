@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/theme for reference.
 type Theme struct {
 	// Name field of Theme.
-	Name string `schemaname:"name"`
+	Name string `tl:"name"`
 }
 
 // ThemeTypeID is TL type id of Theme.
@@ -62,8 +62,8 @@ func (t *Theme) TypeID() uint32 {
 	return ThemeTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *Theme) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *Theme) TypeName() string {
 	return "theme"
 }
 

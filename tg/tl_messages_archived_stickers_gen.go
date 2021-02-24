@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.archivedStickers for reference.
 type MessagesArchivedStickers struct {
 	// Number of archived stickers
-	Count int `schemaname:"count"`
+	Count int `tl:"count"`
 	// Archived stickersets
-	Sets []StickerSetCoveredClass `schemaname:"sets"`
+	Sets []StickerSetCoveredClass `tl:"sets"`
 }
 
 // MessagesArchivedStickersTypeID is TL type id of MessagesArchivedStickers.
@@ -70,8 +70,8 @@ func (a *MessagesArchivedStickers) TypeID() uint32 {
 	return MessagesArchivedStickersTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (a *MessagesArchivedStickers) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (a *MessagesArchivedStickers) TypeName() string {
 	return "messages.archivedStickers"
 }
 

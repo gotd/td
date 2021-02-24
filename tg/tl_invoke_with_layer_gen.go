@@ -27,9 +27,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/invokeWithLayer for reference.
 type InvokeWithLayerRequest struct {
 	// The layer to use
-	Layer int `schemaname:"layer"`
+	Layer int `tl:"layer"`
 	// The query
-	Query bin.Object `schemaname:"query"`
+	Query bin.Object `tl:"query"`
 }
 
 // InvokeWithLayerRequestTypeID is TL type id of InvokeWithLayerRequest.
@@ -73,8 +73,8 @@ func (i *InvokeWithLayerRequest) TypeID() uint32 {
 	return InvokeWithLayerRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InvokeWithLayerRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InvokeWithLayerRequest) TypeName() string {
 	return "invokeWithLayer"
 }
 

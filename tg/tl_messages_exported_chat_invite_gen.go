@@ -23,9 +23,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.exportedChatInvite for reference.
 type MessagesExportedChatInvite struct {
 	// Invite field of MessagesExportedChatInvite.
-	Invite ChatInviteExported `schemaname:"invite"`
+	Invite ChatInviteExported `tl:"invite"`
 	// Users field of MessagesExportedChatInvite.
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // MessagesExportedChatInviteTypeID is TL type id of MessagesExportedChatInvite.
@@ -69,8 +69,8 @@ func (e *MessagesExportedChatInvite) TypeID() uint32 {
 	return MessagesExportedChatInviteTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (e *MessagesExportedChatInvite) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (e *MessagesExportedChatInvite) TypeName() string {
 	return "messages.exportedChatInvite"
 }
 
@@ -155,11 +155,11 @@ var (
 // See https://core.telegram.org/constructor/messages.exportedChatInviteReplaced for reference.
 type MessagesExportedChatInviteReplaced struct {
 	// Invite field of MessagesExportedChatInviteReplaced.
-	Invite ChatInviteExported `schemaname:"invite"`
+	Invite ChatInviteExported `tl:"invite"`
 	// NewInvite field of MessagesExportedChatInviteReplaced.
-	NewInvite ChatInviteExported `schemaname:"new_invite"`
+	NewInvite ChatInviteExported `tl:"new_invite"`
 	// Users field of MessagesExportedChatInviteReplaced.
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // MessagesExportedChatInviteReplacedTypeID is TL type id of MessagesExportedChatInviteReplaced.
@@ -208,8 +208,8 @@ func (e *MessagesExportedChatInviteReplaced) TypeID() uint32 {
 	return MessagesExportedChatInviteReplacedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (e *MessagesExportedChatInviteReplaced) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (e *MessagesExportedChatInviteReplaced) TypeName() string {
 	return "messages.exportedChatInviteReplaced"
 }
 
@@ -321,11 +321,11 @@ type MessagesExportedChatInviteClass interface {
 	bin.Decoder
 	construct() MessagesExportedChatInviteClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

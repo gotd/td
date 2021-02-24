@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/help.saveAppLog for reference.
 type HelpSaveAppLogRequest struct {
 	// List of input events
-	Events []InputAppEvent `schemaname:"events"`
+	Events []InputAppEvent `tl:"events"`
 }
 
 // HelpSaveAppLogRequestTypeID is TL type id of HelpSaveAppLogRequest.
@@ -63,8 +63,8 @@ func (s *HelpSaveAppLogRequest) TypeID() uint32 {
 	return HelpSaveAppLogRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *HelpSaveAppLogRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *HelpSaveAppLogRequest) TypeName() string {
 	return "help.saveAppLog"
 }
 

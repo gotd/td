@@ -24,12 +24,12 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getScheduledHistory for reference.
 type MessagesGetScheduledHistoryRequest struct {
 	// Peer
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `schemaname:"hash"`
+	Hash int `tl:"hash"`
 }
 
 // MessagesGetScheduledHistoryRequestTypeID is TL type id of MessagesGetScheduledHistoryRequest.
@@ -73,8 +73,8 @@ func (g *MessagesGetScheduledHistoryRequest) TypeID() uint32 {
 	return MessagesGetScheduledHistoryRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetScheduledHistoryRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetScheduledHistoryRequest) TypeName() string {
 	return "messages.getScheduledHistory"
 }
 

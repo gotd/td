@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.setContactSignUpNotification for reference.
 type AccountSetContactSignUpNotificationRequest struct {
 	// Whether to disable contact sign up notifications
-	Silent bool `schemaname:"silent"`
+	Silent bool `tl:"silent"`
 }
 
 // AccountSetContactSignUpNotificationRequestTypeID is TL type id of AccountSetContactSignUpNotificationRequest.
@@ -63,8 +63,8 @@ func (s *AccountSetContactSignUpNotificationRequest) TypeID() uint32 {
 	return AccountSetContactSignUpNotificationRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *AccountSetContactSignUpNotificationRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *AccountSetContactSignUpNotificationRequest) TypeName() string {
 	return "account.setContactSignUpNotification"
 }
 

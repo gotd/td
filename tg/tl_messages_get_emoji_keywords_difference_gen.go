@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getEmojiKeywordsDifference for reference.
 type MessagesGetEmojiKeywordsDifferenceRequest struct {
 	// Language code
-	LangCode string `schemaname:"lang_code"`
+	LangCode string `tl:"lang_code"`
 	// Previous emoji keyword localization version
-	FromVersion int `schemaname:"from_version"`
+	FromVersion int `tl:"from_version"`
 }
 
 // MessagesGetEmojiKeywordsDifferenceRequestTypeID is TL type id of MessagesGetEmojiKeywordsDifferenceRequest.
@@ -70,8 +70,8 @@ func (g *MessagesGetEmojiKeywordsDifferenceRequest) TypeID() uint32 {
 	return MessagesGetEmojiKeywordsDifferenceRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetEmojiKeywordsDifferenceRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetEmojiKeywordsDifferenceRequest) TypeName() string {
 	return "messages.getEmojiKeywordsDifference"
 }
 

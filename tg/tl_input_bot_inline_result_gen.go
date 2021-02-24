@@ -27,36 +27,36 @@ type InputBotInlineResult struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// ID of result
-	ID string `schemaname:"id"`
+	ID string `tl:"id"`
 	// Result type (see bot API docs¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/api#inlinequeryresult
-	Type string `schemaname:"type"`
+	Type string `tl:"type"`
 	// Result title
 	//
 	// Use SetTitle and GetTitle helpers.
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 	// Result description
 	//
 	// Use SetDescription and GetDescription helpers.
-	Description string `schemaname:"description"`
+	Description string `tl:"description"`
 	// URL of result
 	//
 	// Use SetURL and GetURL helpers.
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 	// Thumbnail for result
 	//
 	// Use SetThumb and GetThumb helpers.
-	Thumb InputWebDocument `schemaname:"thumb"`
+	Thumb InputWebDocument `tl:"thumb"`
 	// Result contents
 	//
 	// Use SetContent and GetContent helpers.
-	Content InputWebDocument `schemaname:"content"`
+	Content InputWebDocument `tl:"content"`
 	// Message to send when the result is selected
-	SendMessage InputBotInlineMessageClass `schemaname:"send_message"`
+	SendMessage InputBotInlineMessageClass `tl:"send_message"`
 }
 
 // InputBotInlineResultTypeID is TL type id of InputBotInlineResult.
@@ -148,8 +148,8 @@ func (i *InputBotInlineResult) TypeID() uint32 {
 	return InputBotInlineResultTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputBotInlineResult) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputBotInlineResult) TypeName() string {
 	return "inputBotInlineResult"
 }
 
@@ -382,16 +382,16 @@ var (
 // See https://core.telegram.org/constructor/inputBotInlineResultPhoto for reference.
 type InputBotInlineResultPhoto struct {
 	// Result ID
-	ID string `schemaname:"id"`
+	ID string `tl:"id"`
 	// Result type (see bot API docs¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/api#inlinequeryresult
-	Type string `schemaname:"type"`
+	Type string `tl:"type"`
 	// Photo to send
-	Photo InputPhotoClass `schemaname:"photo"`
+	Photo InputPhotoClass `tl:"photo"`
 	// Message to send when the result is selected
-	SendMessage InputBotInlineMessageClass `schemaname:"send_message"`
+	SendMessage InputBotInlineMessageClass `tl:"send_message"`
 }
 
 // InputBotInlineResultPhotoTypeID is TL type id of InputBotInlineResultPhoto.
@@ -445,8 +445,8 @@ func (i *InputBotInlineResultPhoto) TypeID() uint32 {
 	return InputBotInlineResultPhotoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputBotInlineResultPhoto) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputBotInlineResultPhoto) TypeName() string {
 	return "inputBotInlineResultPhoto"
 }
 
@@ -552,26 +552,26 @@ type InputBotInlineResultDocument struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Result ID
-	ID string `schemaname:"id"`
+	ID string `tl:"id"`
 	// Result type (see bot API docs¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/api#inlinequeryresult
-	Type string `schemaname:"type"`
+	Type string `tl:"type"`
 	// Result title
 	//
 	// Use SetTitle and GetTitle helpers.
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 	// Result description
 	//
 	// Use SetDescription and GetDescription helpers.
-	Description string `schemaname:"description"`
+	Description string `tl:"description"`
 	// Document to send
-	Document InputDocumentClass `schemaname:"document"`
+	Document InputDocumentClass `tl:"document"`
 	// Message to send when the result is selected
-	SendMessage InputBotInlineMessageClass `schemaname:"send_message"`
+	SendMessage InputBotInlineMessageClass `tl:"send_message"`
 }
 
 // InputBotInlineResultDocumentTypeID is TL type id of InputBotInlineResultDocument.
@@ -644,8 +644,8 @@ func (i *InputBotInlineResultDocument) TypeID() uint32 {
 	return InputBotInlineResultDocumentTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputBotInlineResultDocument) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputBotInlineResultDocument) TypeName() string {
 	return "inputBotInlineResultDocument"
 }
 
@@ -812,11 +812,11 @@ var (
 // See https://core.telegram.org/constructor/inputBotInlineResultGame for reference.
 type InputBotInlineResultGame struct {
 	// Result ID
-	ID string `schemaname:"id"`
+	ID string `tl:"id"`
 	// Game short name
-	ShortName string `schemaname:"short_name"`
+	ShortName string `tl:"short_name"`
 	// Message to send when the result is selected
-	SendMessage InputBotInlineMessageClass `schemaname:"send_message"`
+	SendMessage InputBotInlineMessageClass `tl:"send_message"`
 }
 
 // InputBotInlineResultGameTypeID is TL type id of InputBotInlineResultGame.
@@ -865,8 +865,8 @@ func (i *InputBotInlineResultGame) TypeID() uint32 {
 	return InputBotInlineResultGameTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputBotInlineResultGame) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputBotInlineResultGame) TypeName() string {
 	return "inputBotInlineResultGame"
 }
 
@@ -966,11 +966,11 @@ type InputBotInlineResultClass interface {
 	bin.Decoder
 	construct() InputBotInlineResultClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

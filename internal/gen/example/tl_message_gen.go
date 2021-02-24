@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/message for reference.
 type Message struct {
 	// Err field of Message.
-	Err Error `schemaname:"err"`
+	Err Error `tl:"err"`
 }
 
 // MessageTypeID is TL type id of Message.
@@ -62,8 +62,8 @@ func (m *Message) TypeID() uint32 {
 	return MessageTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *Message) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *Message) TypeName() string {
 	return "message"
 }
 

@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/contacts.blocked for reference.
 type ContactsBlocked struct {
 	// List of blocked users
-	Blocked []PeerBlocked `schemaname:"blocked"`
+	Blocked []PeerBlocked `tl:"blocked"`
 	// Blocked chats
-	Chats []ChatClass `schemaname:"chats"`
+	Chats []ChatClass `tl:"chats"`
 	// List of users
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // ContactsBlockedTypeID is TL type id of ContactsBlocked.
@@ -77,8 +77,8 @@ func (b *ContactsBlocked) TypeID() uint32 {
 	return ContactsBlockedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *ContactsBlocked) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *ContactsBlocked) TypeName() string {
 	return "contacts.blocked"
 }
 
@@ -207,13 +207,13 @@ var (
 // See https://core.telegram.org/constructor/contacts.blockedSlice for reference.
 type ContactsBlockedSlice struct {
 	// Total number of elements in the list
-	Count int `schemaname:"count"`
+	Count int `tl:"count"`
 	// List of blocked users
-	Blocked []PeerBlocked `schemaname:"blocked"`
+	Blocked []PeerBlocked `tl:"blocked"`
 	// Blocked chats
-	Chats []ChatClass `schemaname:"chats"`
+	Chats []ChatClass `tl:"chats"`
 	// List of users
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // ContactsBlockedSliceTypeID is TL type id of ContactsBlockedSlice.
@@ -267,8 +267,8 @@ func (b *ContactsBlockedSlice) TypeID() uint32 {
 	return ContactsBlockedSliceTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *ContactsBlockedSlice) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *ContactsBlockedSlice) TypeName() string {
 	return "contacts.blockedSlice"
 }
 
@@ -423,11 +423,11 @@ type ContactsBlockedClass interface {
 	bin.Decoder
 	construct() ContactsBlockedClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

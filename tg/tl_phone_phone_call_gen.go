@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/phone.phoneCall for reference.
 type PhonePhoneCall struct {
 	// The VoIP phone call
-	PhoneCall PhoneCallClass `schemaname:"phone_call"`
+	PhoneCall PhoneCallClass `tl:"phone_call"`
 	// VoIP phone call participants
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // PhonePhoneCallTypeID is TL type id of PhonePhoneCall.
@@ -70,8 +70,8 @@ func (p *PhonePhoneCall) TypeID() uint32 {
 	return PhonePhoneCallTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PhonePhoneCall) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PhonePhoneCall) TypeName() string {
 	return "phone.phoneCall"
 }
 

@@ -21,7 +21,7 @@ var _ = errors.Is
 // EmojiLanguageVector is a box for Vector<EmojiLanguage>
 type EmojiLanguageVector struct {
 	// Elements of Vector<EmojiLanguage>
-	Elems []EmojiLanguage `schemaname:"Elems"`
+	Elems []EmojiLanguage `tl:"Elems"`
 }
 
 // EmojiLanguageVectorTypeID is TL type id of EmojiLanguageVector.
@@ -60,8 +60,8 @@ func (vec *EmojiLanguageVector) TypeID() uint32 {
 	return EmojiLanguageVectorTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (vec *EmojiLanguageVector) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (vec *EmojiLanguageVector) TypeName() string {
 	return ""
 }
 

@@ -51,8 +51,8 @@ func (u *UserStatusEmpty) TypeID() uint32 {
 	return UserStatusEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (u *UserStatusEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (u *UserStatusEmpty) TypeName() string {
 	return "userStatusEmpty"
 }
 
@@ -93,7 +93,7 @@ var (
 // See https://core.telegram.org/constructor/userStatusOnline for reference.
 type UserStatusOnline struct {
 	// Time to expiration of the current online status
-	Expires int `schemaname:"expires"`
+	Expires int `tl:"expires"`
 }
 
 // UserStatusOnlineTypeID is TL type id of UserStatusOnline.
@@ -132,8 +132,8 @@ func (u *UserStatusOnline) TypeID() uint32 {
 	return UserStatusOnlineTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (u *UserStatusOnline) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (u *UserStatusOnline) TypeName() string {
 	return "userStatusOnline"
 }
 
@@ -187,7 +187,7 @@ var (
 // See https://core.telegram.org/constructor/userStatusOffline for reference.
 type UserStatusOffline struct {
 	// Time the user was last seen online
-	WasOnline int `schemaname:"was_online"`
+	WasOnline int `tl:"was_online"`
 }
 
 // UserStatusOfflineTypeID is TL type id of UserStatusOffline.
@@ -226,8 +226,8 @@ func (u *UserStatusOffline) TypeID() uint32 {
 	return UserStatusOfflineTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (u *UserStatusOffline) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (u *UserStatusOffline) TypeName() string {
 	return "userStatusOffline"
 }
 
@@ -308,8 +308,8 @@ func (u *UserStatusRecently) TypeID() uint32 {
 	return UserStatusRecentlyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (u *UserStatusRecently) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (u *UserStatusRecently) TypeName() string {
 	return "userStatusRecently"
 }
 
@@ -377,8 +377,8 @@ func (u *UserStatusLastWeek) TypeID() uint32 {
 	return UserStatusLastWeekTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (u *UserStatusLastWeek) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (u *UserStatusLastWeek) TypeName() string {
 	return "userStatusLastWeek"
 }
 
@@ -446,8 +446,8 @@ func (u *UserStatusLastMonth) TypeID() uint32 {
 	return UserStatusLastMonthTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (u *UserStatusLastMonth) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (u *UserStatusLastMonth) TypeName() string {
 	return "userStatusLastMonth"
 }
 
@@ -505,11 +505,11 @@ type UserStatusClass interface {
 	bin.Decoder
 	construct() UserStatusClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

@@ -27,7 +27,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.reportSpam for reference.
 type MessagesReportSpamRequest struct {
 	// Peer to report
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 }
 
 // MessagesReportSpamRequestTypeID is TL type id of MessagesReportSpamRequest.
@@ -66,8 +66,8 @@ func (r *MessagesReportSpamRequest) TypeID() uint32 {
 	return MessagesReportSpamRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *MessagesReportSpamRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *MessagesReportSpamRequest) TypeName() string {
 	return "messages.reportSpam"
 }
 

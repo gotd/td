@@ -24,14 +24,14 @@ var _ = errors.Is
 // See https://core.telegram.org/method/help.editUserInfo for reference.
 type HelpEditUserInfoRequest struct {
 	// User
-	UserID InputUserClass `schemaname:"user_id"`
+	UserID InputUserClass `tl:"user_id"`
 	// Message
-	Message string `schemaname:"message"`
+	Message string `tl:"message"`
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
-	Entities []MessageEntityClass `schemaname:"entities"`
+	Entities []MessageEntityClass `tl:"entities"`
 }
 
 // HelpEditUserInfoRequestTypeID is TL type id of HelpEditUserInfoRequest.
@@ -80,8 +80,8 @@ func (e *HelpEditUserInfoRequest) TypeID() uint32 {
 	return HelpEditUserInfoRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (e *HelpEditUserInfoRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (e *HelpEditUserInfoRequest) TypeName() string {
 	return "help.editUserInfo"
 }
 

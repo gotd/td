@@ -33,14 +33,14 @@ type AuthExportLoginTokenRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/myapp
-	APIID int `schemaname:"api_id"`
+	APIID int `tl:"api_id"`
 	// Application identifier hash (see. App configuration¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/myapp
-	APIHash string `schemaname:"api_hash"`
+	APIHash string `tl:"api_hash"`
 	// List of already logged-in user IDs, to prevent logging in twice with the same user
-	ExceptIds []int `schemaname:"except_ids"`
+	ExceptIds []int `tl:"except_ids"`
 }
 
 // AuthExportLoginTokenRequestTypeID is TL type id of AuthExportLoginTokenRequest.
@@ -89,8 +89,8 @@ func (e *AuthExportLoginTokenRequest) TypeID() uint32 {
 	return AuthExportLoginTokenRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (e *AuthExportLoginTokenRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (e *AuthExportLoginTokenRequest) TypeName() string {
 	return "auth.exportLoginToken"
 }
 

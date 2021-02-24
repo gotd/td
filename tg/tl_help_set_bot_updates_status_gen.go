@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/help.setBotUpdatesStatus for reference.
 type HelpSetBotUpdatesStatusRequest struct {
 	// Number of pending updates
-	PendingUpdatesCount int `schemaname:"pending_updates_count"`
+	PendingUpdatesCount int `tl:"pending_updates_count"`
 	// Error message, if present
-	Message string `schemaname:"message"`
+	Message string `tl:"message"`
 }
 
 // HelpSetBotUpdatesStatusRequestTypeID is TL type id of HelpSetBotUpdatesStatusRequest.
@@ -70,8 +70,8 @@ func (s *HelpSetBotUpdatesStatusRequest) TypeID() uint32 {
 	return HelpSetBotUpdatesStatusRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *HelpSetBotUpdatesStatusRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *HelpSetBotUpdatesStatusRequest) TypeName() string {
 	return "help.setBotUpdatesStatus"
 }
 

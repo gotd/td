@@ -23,9 +23,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.setHistoryTTL for reference.
 type MessagesSetHistoryTTLRequest struct {
 	// Peer field of MessagesSetHistoryTTLRequest.
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// Period field of MessagesSetHistoryTTLRequest.
-	Period int `schemaname:"period"`
+	Period int `tl:"period"`
 }
 
 // MessagesSetHistoryTTLRequestTypeID is TL type id of MessagesSetHistoryTTLRequest.
@@ -69,8 +69,8 @@ func (s *MessagesSetHistoryTTLRequest) TypeID() uint32 {
 	return MessagesSetHistoryTTLRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *MessagesSetHistoryTTLRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *MessagesSetHistoryTTLRequest) TypeName() string {
 	return "messages.setHistoryTTL"
 }
 

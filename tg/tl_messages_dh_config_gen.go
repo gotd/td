@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.dhConfigNotModified for reference.
 type MessagesDhConfigNotModified struct {
 	// Random sequence of bytes of assigned length
-	Random []byte `schemaname:"random"`
+	Random []byte `tl:"random"`
 }
 
 // MessagesDhConfigNotModifiedTypeID is TL type id of MessagesDhConfigNotModified.
@@ -63,8 +63,8 @@ func (d *MessagesDhConfigNotModified) TypeID() uint32 {
 	return MessagesDhConfigNotModifiedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *MessagesDhConfigNotModified) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *MessagesDhConfigNotModified) TypeName() string {
 	return "messages.dhConfigNotModified"
 }
 
@@ -121,16 +121,16 @@ type MessagesDhConfig struct {
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
-	G int `schemaname:"g"`
+	G int `tl:"g"`
 	// New value primitive root, see Wikipedia¹
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
-	P []byte `schemaname:"p"`
+	P []byte `tl:"p"`
 	// Vestion of set of parameters
-	Version int `schemaname:"version"`
+	Version int `tl:"version"`
 	// Random sequence of bytes of assigned length
-	Random []byte `schemaname:"random"`
+	Random []byte `tl:"random"`
 }
 
 // MessagesDhConfigTypeID is TL type id of MessagesDhConfig.
@@ -184,8 +184,8 @@ func (d *MessagesDhConfig) TypeID() uint32 {
 	return MessagesDhConfigTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *MessagesDhConfig) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *MessagesDhConfig) TypeName() string {
 	return "messages.dhConfig"
 }
 
@@ -291,11 +291,11 @@ type MessagesDhConfigClass interface {
 	bin.Decoder
 	construct() MessagesDhConfigClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

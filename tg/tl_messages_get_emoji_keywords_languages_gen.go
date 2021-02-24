@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getEmojiKeywordsLanguages for reference.
 type MessagesGetEmojiKeywordsLanguagesRequest struct {
 	// Language codes
-	LangCodes []string `schemaname:"lang_codes"`
+	LangCodes []string `tl:"lang_codes"`
 }
 
 // MessagesGetEmojiKeywordsLanguagesRequestTypeID is TL type id of MessagesGetEmojiKeywordsLanguagesRequest.
@@ -63,8 +63,8 @@ func (g *MessagesGetEmojiKeywordsLanguagesRequest) TypeID() uint32 {
 	return MessagesGetEmojiKeywordsLanguagesRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetEmojiKeywordsLanguagesRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetEmojiKeywordsLanguagesRequest) TypeName() string {
 	return "messages.getEmojiKeywordsLanguages"
 }
 

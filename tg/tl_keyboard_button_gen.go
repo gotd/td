@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/keyboardButton for reference.
 type KeyboardButton struct {
 	// Button text
-	Text string `schemaname:"text"`
+	Text string `tl:"text"`
 }
 
 // KeyboardButtonTypeID is TL type id of KeyboardButton.
@@ -63,8 +63,8 @@ func (k *KeyboardButton) TypeID() uint32 {
 	return KeyboardButtonTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (k *KeyboardButton) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (k *KeyboardButton) TypeName() string {
 	return "keyboardButton"
 }
 
@@ -118,9 +118,9 @@ var (
 // See https://core.telegram.org/constructor/keyboardButtonUrl for reference.
 type KeyboardButtonUrl struct {
 	// Button label
-	Text string `schemaname:"text"`
+	Text string `tl:"text"`
 	// URL
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 }
 
 // KeyboardButtonUrlTypeID is TL type id of KeyboardButtonUrl.
@@ -164,8 +164,8 @@ func (k *KeyboardButtonUrl) TypeID() uint32 {
 	return KeyboardButtonUrlTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (k *KeyboardButtonUrl) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (k *KeyboardButtonUrl) TypeName() string {
 	return "keyboardButtonUrl"
 }
 
@@ -235,7 +235,7 @@ type KeyboardButtonCallback struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether the user should verify his identity by entering his 2FA SRP parameters¹ to the messages.getBotCallbackAnswer² method. NOTE: telegram and the bot WILL NOT have access to the plaintext password, thanks to SRP³. This button is mainly used by the official @botfather⁴ bot, for verifying the user's identity before transferring ownership of a bot to another user.
 	//
 	// Links:
@@ -243,11 +243,11 @@ type KeyboardButtonCallback struct {
 	//  2) https://core.telegram.org/method/messages.getBotCallbackAnswer
 	//  3) https://core.telegram.org/api/srp
 	//  4) https://t.me/botfather
-	RequiresPassword bool `schemaname:"requires_password"`
+	RequiresPassword bool `tl:"requires_password"`
 	// Button text
-	Text string `schemaname:"text"`
+	Text string `tl:"text"`
 	// Callback data
-	Data []byte `schemaname:"data"`
+	Data []byte `tl:"data"`
 }
 
 // KeyboardButtonCallbackTypeID is TL type id of KeyboardButtonCallback.
@@ -299,8 +299,8 @@ func (k *KeyboardButtonCallback) TypeID() uint32 {
 	return KeyboardButtonCallbackTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (k *KeyboardButtonCallback) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (k *KeyboardButtonCallback) TypeName() string {
 	return "keyboardButtonCallback"
 }
 
@@ -395,7 +395,7 @@ var (
 // See https://core.telegram.org/constructor/keyboardButtonRequestPhone for reference.
 type KeyboardButtonRequestPhone struct {
 	// Button text
-	Text string `schemaname:"text"`
+	Text string `tl:"text"`
 }
 
 // KeyboardButtonRequestPhoneTypeID is TL type id of KeyboardButtonRequestPhone.
@@ -434,8 +434,8 @@ func (k *KeyboardButtonRequestPhone) TypeID() uint32 {
 	return KeyboardButtonRequestPhoneTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (k *KeyboardButtonRequestPhone) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (k *KeyboardButtonRequestPhone) TypeName() string {
 	return "keyboardButtonRequestPhone"
 }
 
@@ -489,7 +489,7 @@ var (
 // See https://core.telegram.org/constructor/keyboardButtonRequestGeoLocation for reference.
 type KeyboardButtonRequestGeoLocation struct {
 	// Button text
-	Text string `schemaname:"text"`
+	Text string `tl:"text"`
 }
 
 // KeyboardButtonRequestGeoLocationTypeID is TL type id of KeyboardButtonRequestGeoLocation.
@@ -528,8 +528,8 @@ func (k *KeyboardButtonRequestGeoLocation) TypeID() uint32 {
 	return KeyboardButtonRequestGeoLocationTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (k *KeyboardButtonRequestGeoLocation) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (k *KeyboardButtonRequestGeoLocation) TypeName() string {
 	return "keyboardButtonRequestGeoLocation"
 }
 
@@ -586,13 +586,13 @@ type KeyboardButtonSwitchInline struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// If set, pressing the button will insert the bot‘s username and the specified inline query in the current chat's input field.
-	SamePeer bool `schemaname:"same_peer"`
+	SamePeer bool `tl:"same_peer"`
 	// Button label
-	Text string `schemaname:"text"`
+	Text string `tl:"text"`
 	// The inline query to use
-	Query string `schemaname:"query"`
+	Query string `tl:"query"`
 }
 
 // KeyboardButtonSwitchInlineTypeID is TL type id of KeyboardButtonSwitchInline.
@@ -644,8 +644,8 @@ func (k *KeyboardButtonSwitchInline) TypeID() uint32 {
 	return KeyboardButtonSwitchInlineTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (k *KeyboardButtonSwitchInline) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (k *KeyboardButtonSwitchInline) TypeName() string {
 	return "keyboardButtonSwitchInline"
 }
 
@@ -740,7 +740,7 @@ var (
 // See https://core.telegram.org/constructor/keyboardButtonGame for reference.
 type KeyboardButtonGame struct {
 	// Button text
-	Text string `schemaname:"text"`
+	Text string `tl:"text"`
 }
 
 // KeyboardButtonGameTypeID is TL type id of KeyboardButtonGame.
@@ -779,8 +779,8 @@ func (k *KeyboardButtonGame) TypeID() uint32 {
 	return KeyboardButtonGameTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (k *KeyboardButtonGame) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (k *KeyboardButtonGame) TypeName() string {
 	return "keyboardButtonGame"
 }
 
@@ -834,7 +834,7 @@ var (
 // See https://core.telegram.org/constructor/keyboardButtonBuy for reference.
 type KeyboardButtonBuy struct {
 	// Button text
-	Text string `schemaname:"text"`
+	Text string `tl:"text"`
 }
 
 // KeyboardButtonBuyTypeID is TL type id of KeyboardButtonBuy.
@@ -873,8 +873,8 @@ func (k *KeyboardButtonBuy) TypeID() uint32 {
 	return KeyboardButtonBuyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (k *KeyboardButtonBuy) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (k *KeyboardButtonBuy) TypeName() string {
 	return "keyboardButtonBuy"
 }
 
@@ -939,24 +939,24 @@ type KeyboardButtonUrlAuth struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Button label
-	Text string `schemaname:"text"`
+	Text string `tl:"text"`
 	// New text of the button in forwarded messages.
 	//
 	// Use SetFwdText and GetFwdText helpers.
-	FwdText string `schemaname:"fwd_text"`
+	FwdText string `tl:"fwd_text"`
 	// An HTTP URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in Receiving authorization data¹.NOTE: Services must always check the hash of the received data to verify the authentication and the integrity of the data as described in Checking authorization².
 	//
 	// Links:
 	//  1) https://core.telegram.org/widgets/login#receiving-authorization-data
 	//  2) https://core.telegram.org/widgets/login#checking-authorization
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 	// ID of the button to pass to messages.requestUrlAuth¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.requestUrlAuth
-	ButtonID int `schemaname:"button_id"`
+	ButtonID int `tl:"button_id"`
 }
 
 // KeyboardButtonUrlAuthTypeID is TL type id of KeyboardButtonUrlAuth.
@@ -1016,8 +1016,8 @@ func (k *KeyboardButtonUrlAuth) TypeID() uint32 {
 	return KeyboardButtonUrlAuthTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (k *KeyboardButtonUrlAuth) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (k *KeyboardButtonUrlAuth) TypeName() string {
 	return "keyboardButtonUrlAuth"
 }
 
@@ -1140,27 +1140,27 @@ type InputKeyboardButtonUrlAuth struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Set this flag to request the permission for your bot to send messages to the user.
-	RequestWriteAccess bool `schemaname:"request_write_access"`
+	RequestWriteAccess bool `tl:"request_write_access"`
 	// Button text
-	Text string `schemaname:"text"`
+	Text string `tl:"text"`
 	// New text of the button in forwarded messages.
 	//
 	// Use SetFwdText and GetFwdText helpers.
-	FwdText string `schemaname:"fwd_text"`
+	FwdText string `tl:"fwd_text"`
 	// An HTTP URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in Receiving authorization data¹.NOTE: You must always check the hash of the received data to verify the authentication and the integrity of the data as described in Checking authorization².
 	//
 	// Links:
 	//  1) https://core.telegram.org/widgets/login#receiving-authorization-data
 	//  2) https://core.telegram.org/widgets/login#checking-authorization
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 	// Username of a bot, which will be used for user authorization. See Setting up a bot¹ for more details. If not specified, the current bot's username will be assumed. The url's domain must be the same as the domain linked with the bot. See Linking your domain to the bot² for more details.
 	//
 	// Links:
 	//  1) https://core.telegram.org/widgets/login#setting-up-a-bot
 	//  2) https://core.telegram.org/widgets/login#linking-your-domain-to-the-bot
-	Bot InputUserClass `schemaname:"bot"`
+	Bot InputUserClass `tl:"bot"`
 }
 
 // InputKeyboardButtonUrlAuthTypeID is TL type id of InputKeyboardButtonUrlAuth.
@@ -1225,8 +1225,8 @@ func (i *InputKeyboardButtonUrlAuth) TypeID() uint32 {
 	return InputKeyboardButtonUrlAuthTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputKeyboardButtonUrlAuth) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputKeyboardButtonUrlAuth) TypeName() string {
 	return "inputKeyboardButtonUrlAuth"
 }
 
@@ -1370,13 +1370,13 @@ type KeyboardButtonRequestPoll struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// If set, only quiz polls can be sent
 	//
 	// Use SetQuiz and GetQuiz helpers.
-	Quiz bool `schemaname:"quiz"`
+	Quiz bool `tl:"quiz"`
 	// Button text
-	Text string `schemaname:"text"`
+	Text string `tl:"text"`
 }
 
 // KeyboardButtonRequestPollTypeID is TL type id of KeyboardButtonRequestPoll.
@@ -1426,8 +1426,8 @@ func (k *KeyboardButtonRequestPoll) TypeID() uint32 {
 	return KeyboardButtonRequestPollTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (k *KeyboardButtonRequestPoll) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (k *KeyboardButtonRequestPoll) TypeName() string {
 	return "keyboardButtonRequestPoll"
 }
 
@@ -1539,11 +1539,11 @@ type KeyboardButtonClass interface {
 	bin.Decoder
 	construct() KeyboardButtonClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

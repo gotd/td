@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getPeerDialogs for reference.
 type MessagesGetPeerDialogsRequest struct {
 	// Peers
-	Peers []InputDialogPeerClass `schemaname:"peers"`
+	Peers []InputDialogPeerClass `tl:"peers"`
 }
 
 // MessagesGetPeerDialogsRequestTypeID is TL type id of MessagesGetPeerDialogsRequest.
@@ -63,8 +63,8 @@ func (g *MessagesGetPeerDialogsRequest) TypeID() uint32 {
 	return MessagesGetPeerDialogsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetPeerDialogsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetPeerDialogsRequest) TypeName() string {
 	return "messages.getPeerDialogs"
 }
 

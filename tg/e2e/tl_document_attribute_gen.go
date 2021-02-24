@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/documentAttributeImageSize for reference.
 type DocumentAttributeImageSize struct {
 	// Width of image
-	W int `schemaname:"w"`
+	W int `tl:"w"`
 	// Height of image
-	H int `schemaname:"h"`
+	H int `tl:"h"`
 }
 
 // DocumentAttributeImageSizeTypeID is TL type id of DocumentAttributeImageSize.
@@ -70,8 +70,8 @@ func (d *DocumentAttributeImageSize) TypeID() uint32 {
 	return DocumentAttributeImageSizeTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DocumentAttributeImageSize) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DocumentAttributeImageSize) TypeName() string {
 	return "documentAttributeImageSize"
 }
 
@@ -165,8 +165,8 @@ func (d *DocumentAttributeAnimated) TypeID() uint32 {
 	return DocumentAttributeAnimatedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DocumentAttributeAnimated) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DocumentAttributeAnimated) TypeName() string {
 	return "documentAttributeAnimated"
 }
 
@@ -233,8 +233,8 @@ func (d *DocumentAttributeSticker23) TypeID() uint32 {
 	return DocumentAttributeSticker23TypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DocumentAttributeSticker23) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DocumentAttributeSticker23) TypeName() string {
 	return "documentAttributeSticker23"
 }
 
@@ -275,11 +275,11 @@ var (
 // See https://core.telegram.org/constructor/documentAttributeVideo for reference.
 type DocumentAttributeVideo struct {
 	// Duration in seconds
-	Duration int `schemaname:"duration"`
+	Duration int `tl:"duration"`
 	// Video width
-	W int `schemaname:"w"`
+	W int `tl:"w"`
 	// Video height
-	H int `schemaname:"h"`
+	H int `tl:"h"`
 }
 
 // DocumentAttributeVideoTypeID is TL type id of DocumentAttributeVideo.
@@ -328,8 +328,8 @@ func (d *DocumentAttributeVideo) TypeID() uint32 {
 	return DocumentAttributeVideoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DocumentAttributeVideo) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DocumentAttributeVideo) TypeName() string {
 	return "documentAttributeVideo"
 }
 
@@ -408,7 +408,7 @@ var (
 // See https://core.telegram.org/constructor/documentAttributeAudio23 for reference.
 type DocumentAttributeAudio23 struct {
 	// Duration field of DocumentAttributeAudio23.
-	Duration int `schemaname:"duration"`
+	Duration int `tl:"duration"`
 }
 
 // DocumentAttributeAudio23TypeID is TL type id of DocumentAttributeAudio23.
@@ -447,8 +447,8 @@ func (d *DocumentAttributeAudio23) TypeID() uint32 {
 	return DocumentAttributeAudio23TypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DocumentAttributeAudio23) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DocumentAttributeAudio23) TypeName() string {
 	return "documentAttributeAudio23"
 }
 
@@ -502,7 +502,7 @@ var (
 // See https://core.telegram.org/constructor/documentAttributeFilename for reference.
 type DocumentAttributeFilename struct {
 	// The file name
-	FileName string `schemaname:"file_name"`
+	FileName string `tl:"file_name"`
 }
 
 // DocumentAttributeFilenameTypeID is TL type id of DocumentAttributeFilename.
@@ -541,8 +541,8 @@ func (d *DocumentAttributeFilename) TypeID() uint32 {
 	return DocumentAttributeFilenameTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DocumentAttributeFilename) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DocumentAttributeFilename) TypeName() string {
 	return "documentAttributeFilename"
 }
 
@@ -595,11 +595,11 @@ var (
 // See https://core.telegram.org/constructor/documentAttributeAudio45 for reference.
 type DocumentAttributeAudio45 struct {
 	// Duration field of DocumentAttributeAudio45.
-	Duration int `schemaname:"duration"`
+	Duration int `tl:"duration"`
 	// Title field of DocumentAttributeAudio45.
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 	// Performer field of DocumentAttributeAudio45.
-	Performer string `schemaname:"performer"`
+	Performer string `tl:"performer"`
 }
 
 // DocumentAttributeAudio45TypeID is TL type id of DocumentAttributeAudio45.
@@ -648,8 +648,8 @@ func (d *DocumentAttributeAudio45) TypeID() uint32 {
 	return DocumentAttributeAudio45TypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DocumentAttributeAudio45) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DocumentAttributeAudio45) TypeName() string {
 	return "documentAttributeAudio45"
 }
 
@@ -729,9 +729,9 @@ var (
 // See https://core.telegram.org/constructor/documentAttributeSticker for reference.
 type DocumentAttributeSticker struct {
 	// Alternative emoji representation of sticker
-	Alt string `schemaname:"alt"`
+	Alt string `tl:"alt"`
 	// Associated stickerset
-	Stickerset InputStickerSetClass `schemaname:"stickerset"`
+	Stickerset InputStickerSetClass `tl:"stickerset"`
 }
 
 // DocumentAttributeStickerTypeID is TL type id of DocumentAttributeSticker.
@@ -775,8 +775,8 @@ func (d *DocumentAttributeSticker) TypeID() uint32 {
 	return DocumentAttributeStickerTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DocumentAttributeSticker) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DocumentAttributeSticker) TypeName() string {
 	return "documentAttributeSticker"
 }
 
@@ -851,23 +851,23 @@ type DocumentAttributeAudio struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether this is a voice message
-	Voice bool `schemaname:"voice"`
+	Voice bool `tl:"voice"`
 	// Duration in seconds
-	Duration int `schemaname:"duration"`
+	Duration int `tl:"duration"`
 	// Name of song
 	//
 	// Use SetTitle and GetTitle helpers.
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 	// Performer
 	//
 	// Use SetPerformer and GetPerformer helpers.
-	Performer string `schemaname:"performer"`
+	Performer string `tl:"performer"`
 	// Waveform
 	//
 	// Use SetWaveform and GetWaveform helpers.
-	Waveform []byte `schemaname:"waveform"`
+	Waveform []byte `tl:"waveform"`
 }
 
 // DocumentAttributeAudioTypeID is TL type id of DocumentAttributeAudio.
@@ -938,8 +938,8 @@ func (d *DocumentAttributeAudio) TypeID() uint32 {
 	return DocumentAttributeAudioTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DocumentAttributeAudio) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DocumentAttributeAudio) TypeName() string {
 	return "documentAttributeAudio"
 }
 
@@ -1104,15 +1104,15 @@ var (
 // See https://core.telegram.org/constructor/documentAttributeVideo66 for reference.
 type DocumentAttributeVideo66 struct {
 	// Flags field of DocumentAttributeVideo66.
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// RoundMessage field of DocumentAttributeVideo66.
-	RoundMessage bool `schemaname:"round_message"`
+	RoundMessage bool `tl:"round_message"`
 	// Duration field of DocumentAttributeVideo66.
-	Duration int `schemaname:"duration"`
+	Duration int `tl:"duration"`
 	// W field of DocumentAttributeVideo66.
-	W int `schemaname:"w"`
+	W int `tl:"w"`
 	// H field of DocumentAttributeVideo66.
-	H int `schemaname:"h"`
+	H int `tl:"h"`
 }
 
 // DocumentAttributeVideo66TypeID is TL type id of DocumentAttributeVideo66.
@@ -1169,8 +1169,8 @@ func (d *DocumentAttributeVideo66) TypeID() uint32 {
 	return DocumentAttributeVideo66TypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DocumentAttributeVideo66) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DocumentAttributeVideo66) TypeName() string {
 	return "documentAttributeVideo66"
 }
 
@@ -1299,11 +1299,11 @@ type DocumentAttributeClass interface {
 	bin.Decoder
 	construct() DocumentAttributeClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

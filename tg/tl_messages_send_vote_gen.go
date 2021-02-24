@@ -27,11 +27,11 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.sendVote for reference.
 type MessagesSendVoteRequest struct {
 	// The chat where the poll was sent
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// The message ID of the poll
-	MsgID int `schemaname:"msg_id"`
+	MsgID int `tl:"msg_id"`
 	// The options that were chosen
-	Options [][]byte `schemaname:"options"`
+	Options [][]byte `tl:"options"`
 }
 
 // MessagesSendVoteRequestTypeID is TL type id of MessagesSendVoteRequest.
@@ -80,8 +80,8 @@ func (s *MessagesSendVoteRequest) TypeID() uint32 {
 	return MessagesSendVoteRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *MessagesSendVoteRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *MessagesSendVoteRequest) TypeName() string {
 	return "messages.sendVote"
 }
 

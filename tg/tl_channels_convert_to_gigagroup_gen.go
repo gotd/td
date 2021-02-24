@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/channels.convertToGigagroup for reference.
 type ChannelsConvertToGigagroupRequest struct {
 	// Channel field of ChannelsConvertToGigagroupRequest.
-	Channel InputChannelClass `schemaname:"channel"`
+	Channel InputChannelClass `tl:"channel"`
 }
 
 // ChannelsConvertToGigagroupRequestTypeID is TL type id of ChannelsConvertToGigagroupRequest.
@@ -62,8 +62,8 @@ func (c *ChannelsConvertToGigagroupRequest) TypeID() uint32 {
 	return ChannelsConvertToGigagroupRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelsConvertToGigagroupRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelsConvertToGigagroupRequest) TypeName() string {
 	return "channels.convertToGigagroup"
 }
 

@@ -21,9 +21,9 @@ var _ = errors.Is
 // RPCResult represents TL type `rpc_result#f35c6d01`.
 type RPCResult struct {
 	// ReqMsgID field of RPCResult.
-	ReqMsgID int64 `schemaname:"req_msg_id"`
+	ReqMsgID int64 `tl:"req_msg_id"`
 	// Result field of RPCResult.
-	Result GzipPacked `schemaname:"result"`
+	Result GzipPacked `tl:"result"`
 }
 
 // RPCResultTypeID is TL type id of RPCResult.
@@ -67,8 +67,8 @@ func (r *RPCResult) TypeID() uint32 {
 	return RPCResultTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *RPCResult) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *RPCResult) TypeName() string {
 	return "rpc_result"
 }
 

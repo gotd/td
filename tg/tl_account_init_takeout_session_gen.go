@@ -27,32 +27,32 @@ type AccountInitTakeoutSessionRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether to export contacts
-	Contacts bool `schemaname:"contacts"`
+	Contacts bool `tl:"contacts"`
 	// Whether to export messages in private chats
-	MessageUsers bool `schemaname:"message_users"`
+	MessageUsers bool `tl:"message_users"`
 	// Whether to export messages in legacy groups¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	MessageChats bool `schemaname:"message_chats"`
+	MessageChats bool `tl:"message_chats"`
 	// Whether to export messages in supergroups¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	MessageMegagroups bool `schemaname:"message_megagroups"`
+	MessageMegagroups bool `tl:"message_megagroups"`
 	// Whether to export messages in channels¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	MessageChannels bool `schemaname:"message_channels"`
+	MessageChannels bool `tl:"message_channels"`
 	// Whether to export files
-	Files bool `schemaname:"files"`
+	Files bool `tl:"files"`
 	// Maximum size of files to export
 	//
 	// Use SetFileMaxSize and GetFileMaxSize helpers.
-	FileMaxSize int `schemaname:"file_max_size"`
+	FileMaxSize int `tl:"file_max_size"`
 }
 
 // AccountInitTakeoutSessionRequestTypeID is TL type id of AccountInitTakeoutSessionRequest.
@@ -127,8 +127,8 @@ func (i *AccountInitTakeoutSessionRequest) TypeID() uint32 {
 	return AccountInitTakeoutSessionRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *AccountInitTakeoutSessionRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *AccountInitTakeoutSessionRequest) TypeName() string {
 	return "account.initTakeoutSession"
 }
 

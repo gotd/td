@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/secureSecretSettings for reference.
 type SecureSecretSettings struct {
 	// Secure KDF algo
-	SecureAlgo SecurePasswordKdfAlgoClass `schemaname:"secure_algo"`
+	SecureAlgo SecurePasswordKdfAlgoClass `tl:"secure_algo"`
 	// Secure secret
-	SecureSecret []byte `schemaname:"secure_secret"`
+	SecureSecret []byte `tl:"secure_secret"`
 	// Secret ID
-	SecureSecretID int64 `schemaname:"secure_secret_id"`
+	SecureSecretID int64 `tl:"secure_secret_id"`
 }
 
 // SecureSecretSettingsTypeID is TL type id of SecureSecretSettings.
@@ -77,8 +77,8 @@ func (s *SecureSecretSettings) TypeID() uint32 {
 	return SecureSecretSettingsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SecureSecretSettings) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SecureSecretSettings) TypeName() string {
 	return "secureSecretSettings"
 }
 

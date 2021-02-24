@@ -28,7 +28,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/invokeWithoutUpdates for reference.
 type InvokeWithoutUpdatesRequest struct {
 	// The query
-	Query bin.Object `schemaname:"query"`
+	Query bin.Object `tl:"query"`
 }
 
 // InvokeWithoutUpdatesRequestTypeID is TL type id of InvokeWithoutUpdatesRequest.
@@ -67,8 +67,8 @@ func (i *InvokeWithoutUpdatesRequest) TypeID() uint32 {
 	return InvokeWithoutUpdatesRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InvokeWithoutUpdatesRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InvokeWithoutUpdatesRequest) TypeName() string {
 	return "invokeWithoutUpdates"
 }
 

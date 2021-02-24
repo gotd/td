@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/phone.discardGroupCall for reference.
 type PhoneDiscardGroupCallRequest struct {
 	// Call field of PhoneDiscardGroupCallRequest.
-	Call InputGroupCall `schemaname:"call"`
+	Call InputGroupCall `tl:"call"`
 }
 
 // PhoneDiscardGroupCallRequestTypeID is TL type id of PhoneDiscardGroupCallRequest.
@@ -62,8 +62,8 @@ func (d *PhoneDiscardGroupCallRequest) TypeID() uint32 {
 	return PhoneDiscardGroupCallRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *PhoneDiscardGroupCallRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *PhoneDiscardGroupCallRequest) TypeName() string {
 	return "phone.discardGroupCall"
 }
 

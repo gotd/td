@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getDocumentByHash for reference.
 type MessagesGetDocumentByHashRequest struct {
 	// SHA256 of file
-	SHA256 []byte `schemaname:"sha256"`
+	SHA256 []byte `tl:"sha256"`
 	// Size of the file in bytes
-	Size int `schemaname:"size"`
+	Size int `tl:"size"`
 	// Mime type
-	MimeType string `schemaname:"mime_type"`
+	MimeType string `tl:"mime_type"`
 }
 
 // MessagesGetDocumentByHashRequestTypeID is TL type id of MessagesGetDocumentByHashRequest.
@@ -77,8 +77,8 @@ func (g *MessagesGetDocumentByHashRequest) TypeID() uint32 {
 	return MessagesGetDocumentByHashRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetDocumentByHashRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetDocumentByHashRequest) TypeName() string {
 	return "messages.getDocumentByHash"
 }
 

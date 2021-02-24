@@ -51,8 +51,8 @@ func (i *InputPrivacyKeyStatusTimestamp) TypeID() uint32 {
 	return InputPrivacyKeyStatusTimestampTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputPrivacyKeyStatusTimestamp) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputPrivacyKeyStatusTimestamp) TypeName() string {
 	return "inputPrivacyKeyStatusTimestamp"
 }
 
@@ -120,8 +120,8 @@ func (i *InputPrivacyKeyChatInvite) TypeID() uint32 {
 	return InputPrivacyKeyChatInviteTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputPrivacyKeyChatInvite) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputPrivacyKeyChatInvite) TypeName() string {
 	return "inputPrivacyKeyChatInvite"
 }
 
@@ -189,8 +189,8 @@ func (i *InputPrivacyKeyPhoneCall) TypeID() uint32 {
 	return InputPrivacyKeyPhoneCallTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputPrivacyKeyPhoneCall) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputPrivacyKeyPhoneCall) TypeName() string {
 	return "inputPrivacyKeyPhoneCall"
 }
 
@@ -258,8 +258,8 @@ func (i *InputPrivacyKeyPhoneP2P) TypeID() uint32 {
 	return InputPrivacyKeyPhoneP2PTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputPrivacyKeyPhoneP2P) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputPrivacyKeyPhoneP2P) TypeName() string {
 	return "inputPrivacyKeyPhoneP2P"
 }
 
@@ -330,8 +330,8 @@ func (i *InputPrivacyKeyForwards) TypeID() uint32 {
 	return InputPrivacyKeyForwardsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputPrivacyKeyForwards) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputPrivacyKeyForwards) TypeName() string {
 	return "inputPrivacyKeyForwards"
 }
 
@@ -399,8 +399,8 @@ func (i *InputPrivacyKeyProfilePhoto) TypeID() uint32 {
 	return InputPrivacyKeyProfilePhotoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputPrivacyKeyProfilePhoto) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputPrivacyKeyProfilePhoto) TypeName() string {
 	return "inputPrivacyKeyProfilePhoto"
 }
 
@@ -468,8 +468,8 @@ func (i *InputPrivacyKeyPhoneNumber) TypeID() uint32 {
 	return InputPrivacyKeyPhoneNumberTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputPrivacyKeyPhoneNumber) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputPrivacyKeyPhoneNumber) TypeName() string {
 	return "inputPrivacyKeyPhoneNumber"
 }
 
@@ -537,8 +537,8 @@ func (i *InputPrivacyKeyAddedByPhone) TypeID() uint32 {
 	return InputPrivacyKeyAddedByPhoneTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputPrivacyKeyAddedByPhone) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputPrivacyKeyAddedByPhone) TypeName() string {
 	return "inputPrivacyKeyAddedByPhone"
 }
 
@@ -598,11 +598,11 @@ type InputPrivacyKeyClass interface {
 	bin.Decoder
 	construct() InputPrivacyKeyClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

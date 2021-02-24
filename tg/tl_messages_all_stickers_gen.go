@@ -51,8 +51,8 @@ func (a *MessagesAllStickersNotModified) TypeID() uint32 {
 	return MessagesAllStickersNotModifiedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (a *MessagesAllStickersNotModified) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (a *MessagesAllStickersNotModified) TypeName() string {
 	return "messages.allStickersNotModified"
 }
 
@@ -96,9 +96,9 @@ type MessagesAllStickers struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `schemaname:"hash"`
+	Hash int `tl:"hash"`
 	// All stickersets
-	Sets []StickerSet `schemaname:"sets"`
+	Sets []StickerSet `tl:"sets"`
 }
 
 // MessagesAllStickersTypeID is TL type id of MessagesAllStickers.
@@ -142,8 +142,8 @@ func (a *MessagesAllStickers) TypeID() uint32 {
 	return MessagesAllStickersTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (a *MessagesAllStickers) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (a *MessagesAllStickers) TypeName() string {
 	return "messages.allStickers"
 }
 
@@ -234,11 +234,11 @@ type MessagesAllStickersClass interface {
 	bin.Decoder
 	construct() MessagesAllStickersClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

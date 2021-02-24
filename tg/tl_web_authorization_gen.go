@@ -27,23 +27,23 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/webAuthorization for reference.
 type WebAuthorization struct {
 	// Authorization hash
-	Hash int64 `schemaname:"hash"`
+	Hash int64 `tl:"hash"`
 	// Bot ID
-	BotID int `schemaname:"bot_id"`
+	BotID int `tl:"bot_id"`
 	// The domain name of the website on which the user has logged in.
-	Domain string `schemaname:"domain"`
+	Domain string `tl:"domain"`
 	// Browser user-agent
-	Browser string `schemaname:"browser"`
+	Browser string `tl:"browser"`
 	// Platform
-	Platform string `schemaname:"platform"`
+	Platform string `tl:"platform"`
 	// When was the web session created
-	DateCreated int `schemaname:"date_created"`
+	DateCreated int `tl:"date_created"`
 	// When was the web session last active
-	DateActive int `schemaname:"date_active"`
+	DateActive int `tl:"date_active"`
 	// IP address
-	IP string `schemaname:"ip"`
+	IP string `tl:"ip"`
 	// Region, determined from IP address
-	Region string `schemaname:"region"`
+	Region string `tl:"region"`
 }
 
 // WebAuthorizationTypeID is TL type id of WebAuthorization.
@@ -122,8 +122,8 @@ func (w *WebAuthorization) TypeID() uint32 {
 	return WebAuthorizationTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (w *WebAuthorization) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (w *WebAuthorization) TypeName() string {
 	return "webAuthorization"
 }
 

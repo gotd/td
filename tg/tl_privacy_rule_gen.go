@@ -51,8 +51,8 @@ func (p *PrivacyValueAllowContacts) TypeID() uint32 {
 	return PrivacyValueAllowContactsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PrivacyValueAllowContacts) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PrivacyValueAllowContacts) TypeName() string {
 	return "privacyValueAllowContacts"
 }
 
@@ -120,8 +120,8 @@ func (p *PrivacyValueAllowAll) TypeID() uint32 {
 	return PrivacyValueAllowAllTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PrivacyValueAllowAll) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PrivacyValueAllowAll) TypeName() string {
 	return "privacyValueAllowAll"
 }
 
@@ -162,7 +162,7 @@ var (
 // See https://core.telegram.org/constructor/privacyValueAllowUsers for reference.
 type PrivacyValueAllowUsers struct {
 	// Allowed users
-	Users []int `schemaname:"users"`
+	Users []int `tl:"users"`
 }
 
 // PrivacyValueAllowUsersTypeID is TL type id of PrivacyValueAllowUsers.
@@ -201,8 +201,8 @@ func (p *PrivacyValueAllowUsers) TypeID() uint32 {
 	return PrivacyValueAllowUsersTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PrivacyValueAllowUsers) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PrivacyValueAllowUsers) TypeName() string {
 	return "privacyValueAllowUsers"
 }
 
@@ -292,8 +292,8 @@ func (p *PrivacyValueDisallowContacts) TypeID() uint32 {
 	return PrivacyValueDisallowContactsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PrivacyValueDisallowContacts) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PrivacyValueDisallowContacts) TypeName() string {
 	return "privacyValueDisallowContacts"
 }
 
@@ -361,8 +361,8 @@ func (p *PrivacyValueDisallowAll) TypeID() uint32 {
 	return PrivacyValueDisallowAllTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PrivacyValueDisallowAll) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PrivacyValueDisallowAll) TypeName() string {
 	return "privacyValueDisallowAll"
 }
 
@@ -403,7 +403,7 @@ var (
 // See https://core.telegram.org/constructor/privacyValueDisallowUsers for reference.
 type PrivacyValueDisallowUsers struct {
 	// Disallowed users
-	Users []int `schemaname:"users"`
+	Users []int `tl:"users"`
 }
 
 // PrivacyValueDisallowUsersTypeID is TL type id of PrivacyValueDisallowUsers.
@@ -442,8 +442,8 @@ func (p *PrivacyValueDisallowUsers) TypeID() uint32 {
 	return PrivacyValueDisallowUsersTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PrivacyValueDisallowUsers) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PrivacyValueDisallowUsers) TypeName() string {
 	return "privacyValueDisallowUsers"
 }
 
@@ -506,7 +506,7 @@ var (
 // See https://core.telegram.org/constructor/privacyValueAllowChatParticipants for reference.
 type PrivacyValueAllowChatParticipants struct {
 	// Allowed chats
-	Chats []int `schemaname:"chats"`
+	Chats []int `tl:"chats"`
 }
 
 // PrivacyValueAllowChatParticipantsTypeID is TL type id of PrivacyValueAllowChatParticipants.
@@ -545,8 +545,8 @@ func (p *PrivacyValueAllowChatParticipants) TypeID() uint32 {
 	return PrivacyValueAllowChatParticipantsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PrivacyValueAllowChatParticipants) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PrivacyValueAllowChatParticipants) TypeName() string {
 	return "privacyValueAllowChatParticipants"
 }
 
@@ -609,7 +609,7 @@ var (
 // See https://core.telegram.org/constructor/privacyValueDisallowChatParticipants for reference.
 type PrivacyValueDisallowChatParticipants struct {
 	// Disallowed chats
-	Chats []int `schemaname:"chats"`
+	Chats []int `tl:"chats"`
 }
 
 // PrivacyValueDisallowChatParticipantsTypeID is TL type id of PrivacyValueDisallowChatParticipants.
@@ -648,8 +648,8 @@ func (p *PrivacyValueDisallowChatParticipants) TypeID() uint32 {
 	return PrivacyValueDisallowChatParticipantsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PrivacyValueDisallowChatParticipants) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PrivacyValueDisallowChatParticipants) TypeName() string {
 	return "privacyValueDisallowChatParticipants"
 }
 
@@ -731,11 +731,11 @@ type PrivacyRuleClass interface {
 	bin.Decoder
 	construct() PrivacyRuleClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

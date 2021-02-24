@@ -24,24 +24,24 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getHistory for reference.
 type MessagesGetHistoryRequest struct {
 	// Target peer
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// Only return messages starting from the specified message ID
-	OffsetID int `schemaname:"offset_id"`
+	OffsetID int `tl:"offset_id"`
 	// Only return messages sent before the specified date
-	OffsetDate int `schemaname:"offset_date"`
+	OffsetDate int `tl:"offset_date"`
 	// Number of list elements to be skipped, negative values are also accepted.
-	AddOffset int `schemaname:"add_offset"`
+	AddOffset int `tl:"add_offset"`
 	// Number of results to return
-	Limit int `schemaname:"limit"`
+	Limit int `tl:"limit"`
 	// If a positive value was transferred, the method will return only messages with IDs less than max_id
-	MaxID int `schemaname:"max_id"`
+	MaxID int `tl:"max_id"`
 	// If a positive value was transferred, the method will return only messages with IDs more than min_id
-	MinID int `schemaname:"min_id"`
+	MinID int `tl:"min_id"`
 	// Result hash¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Hash int `schemaname:"hash"`
+	Hash int `tl:"hash"`
 }
 
 // MessagesGetHistoryRequestTypeID is TL type id of MessagesGetHistoryRequest.
@@ -115,8 +115,8 @@ func (g *MessagesGetHistoryRequest) TypeID() uint32 {
 	return MessagesGetHistoryRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetHistoryRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetHistoryRequest) TypeName() string {
 	return "messages.getHistory"
 }
 

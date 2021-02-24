@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/bankCardOpenUrl for reference.
 type BankCardOpenUrl struct {
 	// Info URL
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 	// Bank name
-	Name string `schemaname:"name"`
+	Name string `tl:"name"`
 }
 
 // BankCardOpenUrlTypeID is TL type id of BankCardOpenUrl.
@@ -70,8 +70,8 @@ func (b *BankCardOpenUrl) TypeID() uint32 {
 	return BankCardOpenUrlTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *BankCardOpenUrl) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *BankCardOpenUrl) TypeName() string {
 	return "bankCardOpenUrl"
 }
 

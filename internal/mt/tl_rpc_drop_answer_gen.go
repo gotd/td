@@ -48,8 +48,8 @@ func (r *RPCAnswerUnknown) TypeID() uint32 {
 	return RPCAnswerUnknownTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *RPCAnswerUnknown) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *RPCAnswerUnknown) TypeName() string {
 	return "rpc_answer_unknown"
 }
 
@@ -114,8 +114,8 @@ func (r *RPCAnswerDroppedRunning) TypeID() uint32 {
 	return RPCAnswerDroppedRunningTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *RPCAnswerDroppedRunning) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *RPCAnswerDroppedRunning) TypeName() string {
 	return "rpc_answer_dropped_running"
 }
 
@@ -153,11 +153,11 @@ var (
 // RPCAnswerDropped represents TL type `rpc_answer_dropped#a43ad8b7`.
 type RPCAnswerDropped struct {
 	// MsgID field of RPCAnswerDropped.
-	MsgID int64 `schemaname:"msg_id"`
+	MsgID int64 `tl:"msg_id"`
 	// SeqNo field of RPCAnswerDropped.
-	SeqNo int `schemaname:"seq_no"`
+	SeqNo int `tl:"seq_no"`
 	// Bytes field of RPCAnswerDropped.
-	Bytes int `schemaname:"bytes"`
+	Bytes int `tl:"bytes"`
 }
 
 // RPCAnswerDroppedTypeID is TL type id of RPCAnswerDropped.
@@ -206,8 +206,8 @@ func (r *RPCAnswerDropped) TypeID() uint32 {
 	return RPCAnswerDroppedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *RPCAnswerDropped) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *RPCAnswerDropped) TypeName() string {
 	return "rpc_answer_dropped"
 }
 
@@ -299,11 +299,11 @@ type RpcDropAnswerClass interface {
 	bin.Decoder
 	construct() RpcDropAnswerClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.reportEncryptedSpam for reference.
 type MessagesReportEncryptedSpamRequest struct {
 	// The secret chat to report
-	Peer InputEncryptedChat `schemaname:"peer"`
+	Peer InputEncryptedChat `tl:"peer"`
 }
 
 // MessagesReportEncryptedSpamRequestTypeID is TL type id of MessagesReportEncryptedSpamRequest.
@@ -63,8 +63,8 @@ func (r *MessagesReportEncryptedSpamRequest) TypeID() uint32 {
 	return MessagesReportEncryptedSpamRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *MessagesReportEncryptedSpamRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *MessagesReportEncryptedSpamRequest) TypeName() string {
 	return "messages.reportEncryptedSpam"
 }
 

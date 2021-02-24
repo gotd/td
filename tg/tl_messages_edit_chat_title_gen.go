@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.editChatTitle for reference.
 type MessagesEditChatTitleRequest struct {
 	// Chat ID
-	ChatID int `schemaname:"chat_id"`
+	ChatID int `tl:"chat_id"`
 	// New chat name, different from the old one
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 }
 
 // MessagesEditChatTitleRequestTypeID is TL type id of MessagesEditChatTitleRequest.
@@ -70,8 +70,8 @@ func (e *MessagesEditChatTitleRequest) TypeID() uint32 {
 	return MessagesEditChatTitleRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (e *MessagesEditChatTitleRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (e *MessagesEditChatTitleRequest) TypeName() string {
 	return "messages.editChatTitle"
 }
 

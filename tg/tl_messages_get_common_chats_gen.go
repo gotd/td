@@ -24,17 +24,17 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getCommonChats for reference.
 type MessagesGetCommonChatsRequest struct {
 	// User ID
-	UserID InputUserClass `schemaname:"user_id"`
+	UserID InputUserClass `tl:"user_id"`
 	// Maximum ID of chat to return (see pagination¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	MaxID int `schemaname:"max_id"`
+	MaxID int `tl:"max_id"`
 	// Maximum number of results to return, see pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int `schemaname:"limit"`
+	Limit int `tl:"limit"`
 }
 
 // MessagesGetCommonChatsRequestTypeID is TL type id of MessagesGetCommonChatsRequest.
@@ -83,8 +83,8 @@ func (g *MessagesGetCommonChatsRequest) TypeID() uint32 {
 	return MessagesGetCommonChatsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetCommonChatsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetCommonChatsRequest) TypeName() string {
 	return "messages.getCommonChats"
 }
 

@@ -27,52 +27,52 @@ type ChannelAdminLogEventsFilter struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Join events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantJoin
-	Join bool `schemaname:"join"`
+	Join bool `tl:"join"`
 	// Leave events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantLeave
-	Leave bool `schemaname:"leave"`
+	Leave bool `tl:"leave"`
 	// Invite events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantInvite
-	Invite bool `schemaname:"invite"`
+	Invite bool `tl:"invite"`
 	// Ban events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan
-	Ban bool `schemaname:"ban"`
+	Ban bool `tl:"ban"`
 	// Unban events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan
-	Unban bool `schemaname:"unban"`
+	Unban bool `tl:"unban"`
 	// Kick events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan
-	Kick bool `schemaname:"kick"`
+	Kick bool `tl:"kick"`
 	// Unkick events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan
-	Unkick bool `schemaname:"unkick"`
+	Unkick bool `tl:"unkick"`
 	// Admin promotion events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleAdmin
-	Promote bool `schemaname:"promote"`
+	Promote bool `tl:"promote"`
 	// Admin demotion events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleAdmin
-	Demote bool `schemaname:"demote"`
+	Demote bool `tl:"demote"`
 	// Info change events (when about¹, linked chat², location³, photo⁴, stickerset⁵, title⁶ or username⁷ data of a channel gets modified)
 	//
 	// Links:
@@ -83,7 +83,7 @@ type ChannelAdminLogEventsFilter struct {
 	//  5) https://core.telegram.org/constructor/channelAdminLogEventActionChangeStickerSet
 	//  6) https://core.telegram.org/constructor/channelAdminLogEventActionChangeTitle
 	//  7) https://core.telegram.org/constructor/channelAdminLogEventActionChangeUsername
-	Info bool `schemaname:"info"`
+	Info bool `tl:"info"`
 	// Settings change events (invites¹, hidden prehistory², signatures³, default banned rights⁴)
 	//
 	// Links:
@@ -91,26 +91,26 @@ type ChannelAdminLogEventsFilter struct {
 	//  2) https://core.telegram.org/constructor/channelAdminLogEventActionTogglePreHistoryHidden
 	//  3) https://core.telegram.org/constructor/channelAdminLogEventActionToggleSignatures
 	//  4) https://core.telegram.org/constructor/channelAdminLogEventActionDefaultBannedRights
-	Settings bool `schemaname:"settings"`
+	Settings bool `tl:"settings"`
 	// Message pin events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionUpdatePinned
-	Pinned bool `schemaname:"pinned"`
+	Pinned bool `tl:"pinned"`
 	// Message edit events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionEditMessage
-	Edit bool `schemaname:"edit"`
+	Edit bool `tl:"edit"`
 	// Message deletion events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionDeleteMessage
-	Delete bool `schemaname:"delete"`
+	Delete bool `tl:"delete"`
 	// GroupCall field of ChannelAdminLogEventsFilter.
-	GroupCall bool `schemaname:"group_call"`
+	GroupCall bool `tl:"group_call"`
 	// Invites field of ChannelAdminLogEventsFilter.
-	Invites bool `schemaname:"invites"`
+	Invites bool `tl:"invites"`
 }
 
 // ChannelAdminLogEventsFilterTypeID is TL type id of ChannelAdminLogEventsFilter.
@@ -227,8 +227,8 @@ func (c *ChannelAdminLogEventsFilter) TypeID() uint32 {
 	return ChannelAdminLogEventsFilterTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelAdminLogEventsFilter) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelAdminLogEventsFilter) TypeName() string {
 	return "channelAdminLogEventsFilter"
 }
 

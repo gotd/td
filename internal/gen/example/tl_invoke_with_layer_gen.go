@@ -23,9 +23,9 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/invokeWithLayer for reference.
 type InvokeWithLayer struct {
 	// Layer field of InvokeWithLayer.
-	Layer int `schemaname:"layer"`
+	Layer int `tl:"layer"`
 	// Query field of InvokeWithLayer.
-	Query bin.Object `schemaname:"query"`
+	Query bin.Object `tl:"query"`
 }
 
 // InvokeWithLayerTypeID is TL type id of InvokeWithLayer.
@@ -69,8 +69,8 @@ func (i *InvokeWithLayer) TypeID() uint32 {
 	return InvokeWithLayerTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InvokeWithLayer) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InvokeWithLayer) TypeName() string {
 	return "invokeWithLayer"
 }
 

@@ -30,11 +30,11 @@ type ChannelsEditBannedRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass `schemaname:"channel"`
+	Channel InputChannelClass `tl:"channel"`
 	// The ID of the user whose banned rights should be modified
-	UserID InputUserClass `schemaname:"user_id"`
+	UserID InputUserClass `tl:"user_id"`
 	// The banned rights
-	BannedRights ChatBannedRights `schemaname:"banned_rights"`
+	BannedRights ChatBannedRights `tl:"banned_rights"`
 }
 
 // ChannelsEditBannedRequestTypeID is TL type id of ChannelsEditBannedRequest.
@@ -83,8 +83,8 @@ func (e *ChannelsEditBannedRequest) TypeID() uint32 {
 	return ChannelsEditBannedRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (e *ChannelsEditBannedRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (e *ChannelsEditBannedRequest) TypeName() string {
 	return "channels.editBanned"
 }
 

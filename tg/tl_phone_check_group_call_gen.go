@@ -23,9 +23,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/phone.checkGroupCall for reference.
 type PhoneCheckGroupCallRequest struct {
 	// Call field of PhoneCheckGroupCallRequest.
-	Call InputGroupCall `schemaname:"call"`
+	Call InputGroupCall `tl:"call"`
 	// Source field of PhoneCheckGroupCallRequest.
-	Source int `schemaname:"source"`
+	Source int `tl:"source"`
 }
 
 // PhoneCheckGroupCallRequestTypeID is TL type id of PhoneCheckGroupCallRequest.
@@ -69,8 +69,8 @@ func (c *PhoneCheckGroupCallRequest) TypeID() uint32 {
 	return PhoneCheckGroupCallRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *PhoneCheckGroupCallRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *PhoneCheckGroupCallRequest) TypeName() string {
 	return "phone.checkGroupCall"
 }
 

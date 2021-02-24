@@ -27,27 +27,27 @@ type WallPaperSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// If set, the wallpaper must be downscaled to fit in 450x450 square and then box-blurred with radius 12
-	Blur bool `schemaname:"blur"`
+	Blur bool `tl:"blur"`
 	// If set, the background needs to be slightly moved when device is rotated
-	Motion bool `schemaname:"motion"`
+	Motion bool `tl:"motion"`
 	// If set, a PNG pattern is to be combined with the color chosen by the user: the main color of the background in RGB24 format
 	//
 	// Use SetBackgroundColor and GetBackgroundColor helpers.
-	BackgroundColor int `schemaname:"background_color"`
+	BackgroundColor int `tl:"background_color"`
 	// If set, a PNG pattern is to be combined with the first and second background colors (RGB24 format) in a top-bottom gradient
 	//
 	// Use SetSecondBackgroundColor and GetSecondBackgroundColor helpers.
-	SecondBackgroundColor int `schemaname:"second_background_color"`
+	SecondBackgroundColor int `tl:"second_background_color"`
 	// Intensity of the pattern when it is shown above the main background color, 0-100
 	//
 	// Use SetIntensity and GetIntensity helpers.
-	Intensity int `schemaname:"intensity"`
+	Intensity int `tl:"intensity"`
 	// Clockwise rotation angle of the gradient, in degrees; 0-359. Should be always divisible by 45
 	//
 	// Use SetRotation and GetRotation helpers.
-	Rotation int `schemaname:"rotation"`
+	Rotation int `tl:"rotation"`
 }
 
 // WallPaperSettingsTypeID is TL type id of WallPaperSettings.
@@ -126,8 +126,8 @@ func (w *WallPaperSettings) TypeID() uint32 {
 	return WallPaperSettingsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (w *WallPaperSettings) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (w *WallPaperSettings) TypeName() string {
 	return "wallPaperSettings"
 }
 

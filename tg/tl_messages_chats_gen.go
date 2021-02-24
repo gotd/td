@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.chats for reference.
 type MessagesChats struct {
 	// List of chats
-	Chats []ChatClass `schemaname:"chats"`
+	Chats []ChatClass `tl:"chats"`
 }
 
 // MessagesChatsTypeID is TL type id of MessagesChats.
@@ -63,8 +63,8 @@ func (c *MessagesChats) TypeID() uint32 {
 	return MessagesChatsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *MessagesChats) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *MessagesChats) TypeName() string {
 	return "messages.chats"
 }
 
@@ -140,9 +140,9 @@ var (
 // See https://core.telegram.org/constructor/messages.chatsSlice for reference.
 type MessagesChatsSlice struct {
 	// Total number of results that were found server-side (not all are included in chats)
-	Count int `schemaname:"count"`
+	Count int `tl:"count"`
 	// Chats
-	Chats []ChatClass `schemaname:"chats"`
+	Chats []ChatClass `tl:"chats"`
 }
 
 // MessagesChatsSliceTypeID is TL type id of MessagesChatsSlice.
@@ -186,8 +186,8 @@ func (c *MessagesChatsSlice) TypeID() uint32 {
 	return MessagesChatsSliceTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *MessagesChatsSlice) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *MessagesChatsSlice) TypeName() string {
 	return "messages.chatsSlice"
 }
 
@@ -286,11 +286,11 @@ type MessagesChatsClass interface {
 	bin.Decoder
 	construct() MessagesChatsClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/stickerSetCovered for reference.
 type StickerSetCovered struct {
 	// Stickerset
-	Set StickerSet `schemaname:"set"`
+	Set StickerSet `tl:"set"`
 	// Preview
-	Cover DocumentClass `schemaname:"cover"`
+	Cover DocumentClass `tl:"cover"`
 }
 
 // StickerSetCoveredTypeID is TL type id of StickerSetCovered.
@@ -70,8 +70,8 @@ func (s *StickerSetCovered) TypeID() uint32 {
 	return StickerSetCoveredTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *StickerSetCovered) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *StickerSetCovered) TypeName() string {
 	return "stickerSetCovered"
 }
 
@@ -143,9 +143,9 @@ var (
 // See https://core.telegram.org/constructor/stickerSetMultiCovered for reference.
 type StickerSetMultiCovered struct {
 	// Stickerset
-	Set StickerSet `schemaname:"set"`
+	Set StickerSet `tl:"set"`
 	// Preview stickers
-	Covers []DocumentClass `schemaname:"covers"`
+	Covers []DocumentClass `tl:"covers"`
 }
 
 // StickerSetMultiCoveredTypeID is TL type id of StickerSetMultiCovered.
@@ -189,8 +189,8 @@ func (s *StickerSetMultiCovered) TypeID() uint32 {
 	return StickerSetMultiCoveredTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *StickerSetMultiCovered) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *StickerSetMultiCovered) TypeName() string {
 	return "stickerSetMultiCovered"
 }
 
@@ -289,11 +289,11 @@ type StickerSetCoveredClass interface {
 	bin.Decoder
 	construct() StickerSetCoveredClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

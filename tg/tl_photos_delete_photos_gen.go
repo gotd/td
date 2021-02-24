@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/photos.deletePhotos for reference.
 type PhotosDeletePhotosRequest struct {
 	// Input photos to delete
-	ID []InputPhotoClass `schemaname:"id"`
+	ID []InputPhotoClass `tl:"id"`
 }
 
 // PhotosDeletePhotosRequestTypeID is TL type id of PhotosDeletePhotosRequest.
@@ -63,8 +63,8 @@ func (d *PhotosDeletePhotosRequest) TypeID() uint32 {
 	return PhotosDeletePhotosRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *PhotosDeletePhotosRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *PhotosDeletePhotosRequest) TypeName() string {
 	return "photos.deletePhotos"
 }
 

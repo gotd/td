@@ -27,22 +27,22 @@ type HelpTermsOfService struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether a prompt must be showed to the user, in order to accept the new terms.
-	Popup bool `schemaname:"popup"`
+	Popup bool `tl:"popup"`
 	// ID of the new terms
-	ID DataJSON `schemaname:"id"`
+	ID DataJSON `tl:"id"`
 	// Text of the new terms
-	Text string `schemaname:"text"`
+	Text string `tl:"text"`
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
-	Entities []MessageEntityClass `schemaname:"entities"`
+	Entities []MessageEntityClass `tl:"entities"`
 	// Minimum age required to sign up to telegram, the user must confirm that they is older than the minimum age.
 	//
 	// Use SetMinAgeConfirm and GetMinAgeConfirm helpers.
-	MinAgeConfirm int `schemaname:"min_age_confirm"`
+	MinAgeConfirm int `tl:"min_age_confirm"`
 }
 
 // HelpTermsOfServiceTypeID is TL type id of HelpTermsOfService.
@@ -107,8 +107,8 @@ func (t *HelpTermsOfService) TypeID() uint32 {
 	return HelpTermsOfServiceTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *HelpTermsOfService) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *HelpTermsOfService) TypeName() string {
 	return "help.termsOfService"
 }
 

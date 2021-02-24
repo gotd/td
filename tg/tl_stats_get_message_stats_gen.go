@@ -30,13 +30,13 @@ type StatsGetMessageStatsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether to enable dark theme for graph colors
-	Dark bool `schemaname:"dark"`
+	Dark bool `tl:"dark"`
 	// Channel ID
-	Channel InputChannelClass `schemaname:"channel"`
+	Channel InputChannelClass `tl:"channel"`
 	// Message ID
-	MsgID int `schemaname:"msg_id"`
+	MsgID int `tl:"msg_id"`
 }
 
 // StatsGetMessageStatsRequestTypeID is TL type id of StatsGetMessageStatsRequest.
@@ -88,8 +88,8 @@ func (g *StatsGetMessageStatsRequest) TypeID() uint32 {
 	return StatsGetMessageStatsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *StatsGetMessageStatsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *StatsGetMessageStatsRequest) TypeName() string {
 	return "stats.getMessageStats"
 }
 

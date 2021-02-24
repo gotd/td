@@ -27,42 +27,42 @@ type MessagesSearchGlobalRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int `schemaname:"folder_id"`
+	FolderID int `tl:"folder_id"`
 	// Query
-	Q string `schemaname:"q"`
+	Q string `tl:"q"`
 	// Global search filter
-	Filter MessagesFilterClass `schemaname:"filter"`
+	Filter MessagesFilterClass `tl:"filter"`
 	// If a positive value was specified, the method will return only messages with date bigger than min_date
-	MinDate int `schemaname:"min_date"`
+	MinDate int `tl:"min_date"`
 	// If a positive value was transferred, the method will return only messages with date smaller than max_date
-	MaxDate int `schemaname:"max_date"`
+	MaxDate int `tl:"max_date"`
 	// Initially 0, then set to the next_rate parameter of messages.messagesSlice¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/messages.messagesSlice
-	OffsetRate int `schemaname:"offset_rate"`
+	OffsetRate int `tl:"offset_rate"`
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetPeer InputPeerClass `schemaname:"offset_peer"`
+	OffsetPeer InputPeerClass `tl:"offset_peer"`
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetID int `schemaname:"offset_id"`
+	OffsetID int `tl:"offset_id"`
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int `schemaname:"limit"`
+	Limit int `tl:"limit"`
 }
 
 // MessagesSearchGlobalRequestTypeID is TL type id of MessagesSearchGlobalRequest.
@@ -147,8 +147,8 @@ func (s *MessagesSearchGlobalRequest) TypeID() uint32 {
 	return MessagesSearchGlobalRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *MessagesSearchGlobalRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *MessagesSearchGlobalRequest) TypeName() string {
 	return "messages.searchGlobal"
 }
 

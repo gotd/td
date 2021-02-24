@@ -24,19 +24,19 @@ var _ = errors.Is
 // See https://core.telegram.org/method/auth.sendCode for reference.
 type AuthSendCodeRequest struct {
 	// Phone number in international format
-	PhoneNumber string `schemaname:"phone_number"`
+	PhoneNumber string `tl:"phone_number"`
 	// Application identifier (see App configuration¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/myapp
-	APIID int `schemaname:"api_id"`
+	APIID int `tl:"api_id"`
 	// Application secret hash (see App configuration¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/myapp
-	APIHash string `schemaname:"api_hash"`
+	APIHash string `tl:"api_hash"`
 	// Settings for the code type to send
-	Settings CodeSettings `schemaname:"settings"`
+	Settings CodeSettings `tl:"settings"`
 }
 
 // AuthSendCodeRequestTypeID is TL type id of AuthSendCodeRequest.
@@ -90,8 +90,8 @@ func (s *AuthSendCodeRequest) TypeID() uint32 {
 	return AuthSendCodeRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *AuthSendCodeRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *AuthSendCodeRequest) TypeName() string {
 	return "auth.sendCode"
 }
 

@@ -51,8 +51,8 @@ func (g *UpdatesGetStateRequest) TypeID() uint32 {
 	return UpdatesGetStateRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *UpdatesGetStateRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *UpdatesGetStateRequest) TypeName() string {
 	return "updates.getState"
 }
 

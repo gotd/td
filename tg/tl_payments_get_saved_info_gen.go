@@ -51,8 +51,8 @@ func (g *PaymentsGetSavedInfoRequest) TypeID() uint32 {
 	return PaymentsGetSavedInfoRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *PaymentsGetSavedInfoRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *PaymentsGetSavedInfoRequest) TypeName() string {
 	return "payments.getSavedInfo"
 }
 

@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/channels.adminLogResults for reference.
 type ChannelsAdminLogResults struct {
 	// Admin log events
-	Events []ChannelAdminLogEvent `schemaname:"events"`
+	Events []ChannelAdminLogEvent `tl:"events"`
 	// Chats mentioned in events
-	Chats []ChatClass `schemaname:"chats"`
+	Chats []ChatClass `tl:"chats"`
 	// Users mentioned in events
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // ChannelsAdminLogResultsTypeID is TL type id of ChannelsAdminLogResults.
@@ -77,8 +77,8 @@ func (a *ChannelsAdminLogResults) TypeID() uint32 {
 	return ChannelsAdminLogResultsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (a *ChannelsAdminLogResults) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (a *ChannelsAdminLogResults) TypeName() string {
 	return "channels.adminLogResults"
 }
 

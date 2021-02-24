@@ -24,19 +24,19 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.exportChatInvite for reference.
 type MessagesExportChatInviteRequest struct {
 	// Flags field of MessagesExportChatInviteRequest.
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// LegacyRevokePermanent field of MessagesExportChatInviteRequest.
-	LegacyRevokePermanent bool `schemaname:"legacy_revoke_permanent"`
+	LegacyRevokePermanent bool `tl:"legacy_revoke_permanent"`
 	// Chat
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// ExpireDate field of MessagesExportChatInviteRequest.
 	//
 	// Use SetExpireDate and GetExpireDate helpers.
-	ExpireDate int `schemaname:"expire_date"`
+	ExpireDate int `tl:"expire_date"`
 	// UsageLimit field of MessagesExportChatInviteRequest.
 	//
 	// Use SetUsageLimit and GetUsageLimit helpers.
-	UsageLimit int `schemaname:"usage_limit"`
+	UsageLimit int `tl:"usage_limit"`
 }
 
 // MessagesExportChatInviteRequestTypeID is TL type id of MessagesExportChatInviteRequest.
@@ -99,8 +99,8 @@ func (e *MessagesExportChatInviteRequest) TypeID() uint32 {
 	return MessagesExportChatInviteRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (e *MessagesExportChatInviteRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (e *MessagesExportChatInviteRequest) TypeName() string {
 	return "messages.exportChatInvite"
 }
 

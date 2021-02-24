@@ -27,21 +27,21 @@ type MessagesSetBotCallbackAnswerRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether to show the message as a popup instead of a toast notification
-	Alert bool `schemaname:"alert"`
+	Alert bool `tl:"alert"`
 	// Query ID
-	QueryID int64 `schemaname:"query_id"`
+	QueryID int64 `tl:"query_id"`
 	// Popup to show
 	//
 	// Use SetMessage and GetMessage helpers.
-	Message string `schemaname:"message"`
+	Message string `tl:"message"`
 	// URL to open
 	//
 	// Use SetURL and GetURL helpers.
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 	// Cache validity
-	CacheTime int `schemaname:"cache_time"`
+	CacheTime int `tl:"cache_time"`
 }
 
 // MessagesSetBotCallbackAnswerRequestTypeID is TL type id of MessagesSetBotCallbackAnswerRequest.
@@ -109,8 +109,8 @@ func (s *MessagesSetBotCallbackAnswerRequest) TypeID() uint32 {
 	return MessagesSetBotCallbackAnswerRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *MessagesSetBotCallbackAnswerRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *MessagesSetBotCallbackAnswerRequest) TypeName() string {
 	return "messages.setBotCallbackAnswer"
 }
 

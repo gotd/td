@@ -21,17 +21,17 @@ var _ = errors.Is
 // PQInnerData represents TL type `p_q_inner_data#83c95aec`.
 type PQInnerData struct {
 	// Pq field of PQInnerData.
-	Pq []byte `schemaname:"pq"`
+	Pq []byte `tl:"pq"`
 	// P field of PQInnerData.
-	P []byte `schemaname:"p"`
+	P []byte `tl:"p"`
 	// Q field of PQInnerData.
-	Q []byte `schemaname:"q"`
+	Q []byte `tl:"q"`
 	// Nonce field of PQInnerData.
-	Nonce bin.Int128 `schemaname:"nonce"`
+	Nonce bin.Int128 `tl:"nonce"`
 	// ServerNonce field of PQInnerData.
-	ServerNonce bin.Int128 `schemaname:"server_nonce"`
+	ServerNonce bin.Int128 `tl:"server_nonce"`
 	// NewNonce field of PQInnerData.
-	NewNonce bin.Int256 `schemaname:"new_nonce"`
+	NewNonce bin.Int256 `tl:"new_nonce"`
 }
 
 // PQInnerDataTypeID is TL type id of PQInnerData.
@@ -95,8 +95,8 @@ func (p *PQInnerData) TypeID() uint32 {
 	return PQInnerDataTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PQInnerData) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PQInnerData) TypeName() string {
 	return "p_q_inner_data"
 }
 

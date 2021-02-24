@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.inactiveChats for reference.
 type MessagesInactiveChats struct {
 	// When was the chat last active
-	Dates []int `schemaname:"dates"`
+	Dates []int `tl:"dates"`
 	// Chat list
-	Chats []ChatClass `schemaname:"chats"`
+	Chats []ChatClass `tl:"chats"`
 	// Users mentioned in the chat list
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // MessagesInactiveChatsTypeID is TL type id of MessagesInactiveChats.
@@ -77,8 +77,8 @@ func (i *MessagesInactiveChats) TypeID() uint32 {
 	return MessagesInactiveChatsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *MessagesInactiveChats) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *MessagesInactiveChats) TypeName() string {
 	return "messages.inactiveChats"
 }
 

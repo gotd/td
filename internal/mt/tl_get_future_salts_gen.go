@@ -21,7 +21,7 @@ var _ = errors.Is
 // GetFutureSaltsRequest represents TL type `get_future_salts#b921bd04`.
 type GetFutureSaltsRequest struct {
 	// Num field of GetFutureSaltsRequest.
-	Num int `schemaname:"num"`
+	Num int `tl:"num"`
 }
 
 // GetFutureSaltsRequestTypeID is TL type id of GetFutureSaltsRequest.
@@ -60,8 +60,8 @@ func (g *GetFutureSaltsRequest) TypeID() uint32 {
 	return GetFutureSaltsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *GetFutureSaltsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *GetFutureSaltsRequest) TypeName() string {
 	return "get_future_salts"
 }
 

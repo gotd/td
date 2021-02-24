@@ -27,9 +27,9 @@ type MessagesMessageEditData struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Media caption, if the specified media's caption can be edited
-	Caption bool `schemaname:"caption"`
+	Caption bool `tl:"caption"`
 }
 
 // MessagesMessageEditDataTypeID is TL type id of MessagesMessageEditData.
@@ -71,8 +71,8 @@ func (m *MessagesMessageEditData) TypeID() uint32 {
 	return MessagesMessageEditDataTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *MessagesMessageEditData) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *MessagesMessageEditData) TypeName() string {
 	return "messages.messageEditData"
 }
 

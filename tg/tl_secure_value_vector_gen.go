@@ -21,7 +21,7 @@ var _ = errors.Is
 // SecureValueVector is a box for Vector<SecureValue>
 type SecureValueVector struct {
 	// Elements of Vector<SecureValue>
-	Elems []SecureValue `schemaname:"Elems"`
+	Elems []SecureValue `tl:"Elems"`
 }
 
 // SecureValueVectorTypeID is TL type id of SecureValueVector.
@@ -60,8 +60,8 @@ func (vec *SecureValueVector) TypeID() uint32 {
 	return SecureValueVectorTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (vec *SecureValueVector) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (vec *SecureValueVector) TypeName() string {
 	return ""
 }
 

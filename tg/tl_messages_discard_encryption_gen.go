@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.discardEncryption for reference.
 type MessagesDiscardEncryptionRequest struct {
 	// Flags field of MessagesDiscardEncryptionRequest.
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// DeleteHistory field of MessagesDiscardEncryptionRequest.
-	DeleteHistory bool `schemaname:"delete_history"`
+	DeleteHistory bool `tl:"delete_history"`
 	// Secret chat ID
-	ChatID int `schemaname:"chat_id"`
+	ChatID int `tl:"chat_id"`
 }
 
 // MessagesDiscardEncryptionRequestTypeID is TL type id of MessagesDiscardEncryptionRequest.
@@ -75,8 +75,8 @@ func (d *MessagesDiscardEncryptionRequest) TypeID() uint32 {
 	return MessagesDiscardEncryptionRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *MessagesDiscardEncryptionRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *MessagesDiscardEncryptionRequest) TypeName() string {
 	return "messages.discardEncryption"
 }
 

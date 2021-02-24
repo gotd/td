@@ -23,9 +23,9 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/update for reference.
 type Update struct {
 	// Msg field of Update.
-	Msg AbstractMessageClass `schemaname:"msg"`
+	Msg AbstractMessageClass `tl:"msg"`
 	// Delay field of Update.
-	Delay int32 `schemaname:"delay"`
+	Delay int32 `tl:"delay"`
 }
 
 // UpdateTypeID is TL type id of Update.
@@ -69,8 +69,8 @@ func (u *Update) TypeID() uint32 {
 	return UpdateTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (u *Update) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (u *Update) TypeName() string {
 	return "update"
 }
 

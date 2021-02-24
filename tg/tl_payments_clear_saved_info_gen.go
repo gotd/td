@@ -27,11 +27,11 @@ type PaymentsClearSavedInfoRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Remove saved payment credentials
-	Credentials bool `schemaname:"credentials"`
+	Credentials bool `tl:"credentials"`
 	// Clear the last order settings saved by the user
-	Info bool `schemaname:"info"`
+	Info bool `tl:"info"`
 }
 
 // PaymentsClearSavedInfoRequestTypeID is TL type id of PaymentsClearSavedInfoRequest.
@@ -78,8 +78,8 @@ func (c *PaymentsClearSavedInfoRequest) TypeID() uint32 {
 	return PaymentsClearSavedInfoRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *PaymentsClearSavedInfoRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *PaymentsClearSavedInfoRequest) TypeName() string {
 	return "payments.clearSavedInfo"
 }
 

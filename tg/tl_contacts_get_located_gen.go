@@ -27,15 +27,15 @@ type ContactsGetLocatedRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// While the geolocation of the current user is public, clients should update it in the background every half-an-hour or so, while setting this flag. Do this only if the new location is more than 1 KM away from the previous one, or if the previous location is unknown.
-	Background bool `schemaname:"background"`
+	Background bool `tl:"background"`
 	// Geolocation
-	GeoPoint InputGeoPointClass `schemaname:"geo_point"`
+	GeoPoint InputGeoPointClass `tl:"geo_point"`
 	// If set, the geolocation of the current user will be public for the specified number of seconds; pass 0x7fffffff to disable expiry, 0 to make the current geolocation private; if the flag isn't set, no changes will be applied.
 	//
 	// Use SetSelfExpires and GetSelfExpires helpers.
-	SelfExpires int `schemaname:"self_expires"`
+	SelfExpires int `tl:"self_expires"`
 }
 
 // ContactsGetLocatedRequestTypeID is TL type id of ContactsGetLocatedRequest.
@@ -90,8 +90,8 @@ func (g *ContactsGetLocatedRequest) TypeID() uint32 {
 	return ContactsGetLocatedRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *ContactsGetLocatedRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *ContactsGetLocatedRequest) TypeName() string {
 	return "contacts.getLocated"
 }
 

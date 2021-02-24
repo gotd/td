@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/channels.channelParticipants for reference.
 type ChannelsChannelParticipants struct {
 	// Total number of participants that correspond to the given query
-	Count int `schemaname:"count"`
+	Count int `tl:"count"`
 	// Participants
-	Participants []ChannelParticipantClass `schemaname:"participants"`
+	Participants []ChannelParticipantClass `tl:"participants"`
 	// Users mentioned in participant info
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // ChannelsChannelParticipantsTypeID is TL type id of ChannelsChannelParticipants.
@@ -77,8 +77,8 @@ func (c *ChannelsChannelParticipants) TypeID() uint32 {
 	return ChannelsChannelParticipantsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelsChannelParticipants) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelsChannelParticipants) TypeName() string {
 	return "channels.channelParticipants"
 }
 
@@ -223,8 +223,8 @@ func (c *ChannelsChannelParticipantsNotModified) TypeID() uint32 {
 	return ChannelsChannelParticipantsNotModifiedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelsChannelParticipantsNotModified) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelsChannelParticipantsNotModified) TypeName() string {
 	return "channels.channelParticipantsNotModified"
 }
 
@@ -280,11 +280,11 @@ type ChannelsChannelParticipantsClass interface {
 	bin.Decoder
 	construct() ChannelsChannelParticipantsClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

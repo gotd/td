@@ -27,15 +27,15 @@ type MessagesToggleStickerSetsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Uninstall the specified stickersets
-	Uninstall bool `schemaname:"uninstall"`
+	Uninstall bool `tl:"uninstall"`
 	// Archive the specified stickersets
-	Archive bool `schemaname:"archive"`
+	Archive bool `tl:"archive"`
 	// Unarchive the specified stickersets
-	Unarchive bool `schemaname:"unarchive"`
+	Unarchive bool `tl:"unarchive"`
 	// Stickersets to act upon
-	Stickersets []InputStickerSetClass `schemaname:"stickersets"`
+	Stickersets []InputStickerSetClass `tl:"stickersets"`
 }
 
 // MessagesToggleStickerSetsRequestTypeID is TL type id of MessagesToggleStickerSetsRequest.
@@ -92,8 +92,8 @@ func (t *MessagesToggleStickerSetsRequest) TypeID() uint32 {
 	return MessagesToggleStickerSetsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (t *MessagesToggleStickerSetsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (t *MessagesToggleStickerSetsRequest) TypeName() string {
 	return "messages.toggleStickerSets"
 }
 

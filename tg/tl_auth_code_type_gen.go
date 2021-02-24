@@ -51,8 +51,8 @@ func (c *AuthCodeTypeSms) TypeID() uint32 {
 	return AuthCodeTypeSmsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *AuthCodeTypeSms) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *AuthCodeTypeSms) TypeName() string {
 	return "auth.codeTypeSms"
 }
 
@@ -120,8 +120,8 @@ func (c *AuthCodeTypeCall) TypeID() uint32 {
 	return AuthCodeTypeCallTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *AuthCodeTypeCall) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *AuthCodeTypeCall) TypeName() string {
 	return "auth.codeTypeCall"
 }
 
@@ -189,8 +189,8 @@ func (c *AuthCodeTypeFlashCall) TypeID() uint32 {
 	return AuthCodeTypeFlashCallTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *AuthCodeTypeFlashCall) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *AuthCodeTypeFlashCall) TypeName() string {
 	return "auth.codeTypeFlashCall"
 }
 
@@ -245,11 +245,11 @@ type AuthCodeTypeClass interface {
 	bin.Decoder
 	construct() AuthCodeTypeClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

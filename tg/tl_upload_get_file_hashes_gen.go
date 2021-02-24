@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/upload.getFileHashes for reference.
 type UploadGetFileHashesRequest struct {
 	// File
-	Location InputFileLocationClass `schemaname:"location"`
+	Location InputFileLocationClass `tl:"location"`
 	// Offset from which to get file hashes
-	Offset int `schemaname:"offset"`
+	Offset int `tl:"offset"`
 }
 
 // UploadGetFileHashesRequestTypeID is TL type id of UploadGetFileHashesRequest.
@@ -70,8 +70,8 @@ func (g *UploadGetFileHashesRequest) TypeID() uint32 {
 	return UploadGetFileHashesRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *UploadGetFileHashesRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *UploadGetFileHashesRequest) TypeName() string {
 	return "upload.getFileHashes"
 }
 

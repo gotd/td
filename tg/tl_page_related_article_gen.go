@@ -27,31 +27,31 @@ type PageRelatedArticle struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// URL of article
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 	// Webpage ID of generated IV preview
-	WebpageID int64 `schemaname:"webpage_id"`
+	WebpageID int64 `tl:"webpage_id"`
 	// Title
 	//
 	// Use SetTitle and GetTitle helpers.
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 	// Description
 	//
 	// Use SetDescription and GetDescription helpers.
-	Description string `schemaname:"description"`
+	Description string `tl:"description"`
 	// ID of preview photo
 	//
 	// Use SetPhotoID and GetPhotoID helpers.
-	PhotoID int64 `schemaname:"photo_id"`
+	PhotoID int64 `tl:"photo_id"`
 	// Author name
 	//
 	// Use SetAuthor and GetAuthor helpers.
-	Author string `schemaname:"author"`
+	Author string `tl:"author"`
 	// Date of pubblication
 	//
 	// Use SetPublishedDate and GetPublishedDate helpers.
-	PublishedDate int `schemaname:"published_date"`
+	PublishedDate int `tl:"published_date"`
 }
 
 // PageRelatedArticleTypeID is TL type id of PageRelatedArticle.
@@ -138,8 +138,8 @@ func (p *PageRelatedArticle) TypeID() uint32 {
 	return PageRelatedArticleTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageRelatedArticle) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageRelatedArticle) TypeName() string {
 	return "pageRelatedArticle"
 }
 

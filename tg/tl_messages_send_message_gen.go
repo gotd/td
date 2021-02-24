@@ -27,43 +27,43 @@ type MessagesSendMessageRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Set this flag to disable generation of the webpage preview
-	NoWebpage bool `schemaname:"no_webpage"`
+	NoWebpage bool `tl:"no_webpage"`
 	// Send this message silently (no notifications for the receivers)
-	Silent bool `schemaname:"silent"`
+	Silent bool `tl:"silent"`
 	// Send this message as background message
-	Background bool `schemaname:"background"`
+	Background bool `tl:"background"`
 	// Clear the draft field
-	ClearDraft bool `schemaname:"clear_draft"`
+	ClearDraft bool `tl:"clear_draft"`
 	// The destination where the message will be sent
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// The message ID to which this message will reply to
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
-	ReplyToMsgID int `schemaname:"reply_to_msg_id"`
+	ReplyToMsgID int `tl:"reply_to_msg_id"`
 	// The message
-	Message string `schemaname:"message"`
+	Message string `tl:"message"`
 	// Unique client message ID required to prevent message resending
-	RandomID int64 `schemaname:"random_id"`
+	RandomID int64 `tl:"random_id"`
 	// Reply markup for sending bot buttons
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `schemaname:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
 	// Message entities¹ for sending styled text
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `schemaname:"entities"`
+	Entities []MessageEntityClass `tl:"entities"`
 	// Scheduled message date for scheduled messages¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/scheduled-messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
-	ScheduleDate int `schemaname:"schedule_date"`
+	ScheduleDate int `tl:"schedule_date"`
 }
 
 // MessagesSendMessageRequestTypeID is TL type id of MessagesSendMessageRequest.
@@ -167,8 +167,8 @@ func (s *MessagesSendMessageRequest) TypeID() uint32 {
 	return MessagesSendMessageRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *MessagesSendMessageRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *MessagesSendMessageRequest) TypeName() string {
 	return "messages.sendMessage"
 }
 

@@ -30,15 +30,15 @@ type ChannelsExportMessageLinkRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether to include other grouped media (for albums)
-	Grouped bool `schemaname:"grouped"`
+	Grouped bool `tl:"grouped"`
 	// Whether to also include a thread ID, if available, inside of the link
-	Thread bool `schemaname:"thread"`
+	Thread bool `tl:"thread"`
 	// Channel
-	Channel InputChannelClass `schemaname:"channel"`
+	Channel InputChannelClass `tl:"channel"`
 	// Message ID
-	ID int `schemaname:"id"`
+	ID int `tl:"id"`
 }
 
 // ChannelsExportMessageLinkRequestTypeID is TL type id of ChannelsExportMessageLinkRequest.
@@ -95,8 +95,8 @@ func (e *ChannelsExportMessageLinkRequest) TypeID() uint32 {
 	return ChannelsExportMessageLinkRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (e *ChannelsExportMessageLinkRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (e *ChannelsExportMessageLinkRequest) TypeName() string {
 	return "channels.exportMessageLink"
 }
 

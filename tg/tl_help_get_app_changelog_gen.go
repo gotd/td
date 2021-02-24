@@ -29,7 +29,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/help.getAppChangelog for reference.
 type HelpGetAppChangelogRequest struct {
 	// Previous app version
-	PrevAppVersion string `schemaname:"prev_app_version"`
+	PrevAppVersion string `tl:"prev_app_version"`
 }
 
 // HelpGetAppChangelogRequestTypeID is TL type id of HelpGetAppChangelogRequest.
@@ -68,8 +68,8 @@ func (g *HelpGetAppChangelogRequest) TypeID() uint32 {
 	return HelpGetAppChangelogRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *HelpGetAppChangelogRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *HelpGetAppChangelogRequest) TypeName() string {
 	return "help.getAppChangelog"
 }
 

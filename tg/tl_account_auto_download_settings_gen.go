@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/account.autoDownloadSettings for reference.
 type AccountAutoDownloadSettings struct {
 	// Low data usage preset
-	Low AutoDownloadSettings `schemaname:"low"`
+	Low AutoDownloadSettings `tl:"low"`
 	// Medium data usage preset
-	Medium AutoDownloadSettings `schemaname:"medium"`
+	Medium AutoDownloadSettings `tl:"medium"`
 	// High data usage preset
-	High AutoDownloadSettings `schemaname:"high"`
+	High AutoDownloadSettings `tl:"high"`
 }
 
 // AccountAutoDownloadSettingsTypeID is TL type id of AccountAutoDownloadSettings.
@@ -77,8 +77,8 @@ func (a *AccountAutoDownloadSettings) TypeID() uint32 {
 	return AccountAutoDownloadSettingsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (a *AccountAutoDownloadSettings) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (a *AccountAutoDownloadSettings) TypeName() string {
 	return "account.autoDownloadSettings"
 }
 

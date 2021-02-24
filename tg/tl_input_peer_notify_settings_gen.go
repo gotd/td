@@ -27,23 +27,23 @@ type InputPeerNotifySettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// If the text of the message shall be displayed in notification
 	//
 	// Use SetShowPreviews and GetShowPreviews helpers.
-	ShowPreviews bool `schemaname:"show_previews"`
+	ShowPreviews bool `tl:"show_previews"`
 	// Peer was muted?
 	//
 	// Use SetSilent and GetSilent helpers.
-	Silent bool `schemaname:"silent"`
+	Silent bool `tl:"silent"`
 	// Date until which all notifications shall be switched off
 	//
 	// Use SetMuteUntil and GetMuteUntil helpers.
-	MuteUntil int `schemaname:"mute_until"`
+	MuteUntil int `tl:"mute_until"`
 	// Name of an audio file for notification
 	//
 	// Use SetSound and GetSound helpers.
-	Sound string `schemaname:"sound"`
+	Sound string `tl:"sound"`
 }
 
 // InputPeerNotifySettingsTypeID is TL type id of InputPeerNotifySettings.
@@ -112,8 +112,8 @@ func (i *InputPeerNotifySettings) TypeID() uint32 {
 	return InputPeerNotifySettingsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputPeerNotifySettings) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputPeerNotifySettings) TypeName() string {
 	return "inputPeerNotifySettings"
 }
 

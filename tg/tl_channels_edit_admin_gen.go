@@ -30,13 +30,13 @@ type ChannelsEditAdminRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass `schemaname:"channel"`
+	Channel InputChannelClass `tl:"channel"`
 	// The ID of the user whose admin rights should be modified
-	UserID InputUserClass `schemaname:"user_id"`
+	UserID InputUserClass `tl:"user_id"`
 	// The admin rights
-	AdminRights ChatAdminRights `schemaname:"admin_rights"`
+	AdminRights ChatAdminRights `tl:"admin_rights"`
 	// Indicates the role (rank) of the admin in the group: just an arbitrary string
-	Rank string `schemaname:"rank"`
+	Rank string `tl:"rank"`
 }
 
 // ChannelsEditAdminRequestTypeID is TL type id of ChannelsEditAdminRequest.
@@ -90,8 +90,8 @@ func (e *ChannelsEditAdminRequest) TypeID() uint32 {
 	return ChannelsEditAdminRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (e *ChannelsEditAdminRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (e *ChannelsEditAdminRequest) TypeName() string {
 	return "channels.editAdmin"
 }
 

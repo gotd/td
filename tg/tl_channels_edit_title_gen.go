@@ -27,9 +27,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/channels.editTitle for reference.
 type ChannelsEditTitleRequest struct {
 	// Channel/supergroup
-	Channel InputChannelClass `schemaname:"channel"`
+	Channel InputChannelClass `tl:"channel"`
 	// New name
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 }
 
 // ChannelsEditTitleRequestTypeID is TL type id of ChannelsEditTitleRequest.
@@ -73,8 +73,8 @@ func (e *ChannelsEditTitleRequest) TypeID() uint32 {
 	return ChannelsEditTitleRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (e *ChannelsEditTitleRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (e *ChannelsEditTitleRequest) TypeName() string {
 	return "channels.editTitle"
 }
 

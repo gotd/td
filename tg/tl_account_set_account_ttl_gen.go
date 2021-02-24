@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.setAccountTTL for reference.
 type AccountSetAccountTTLRequest struct {
 	// Time to live in days
-	TTL AccountDaysTTL `schemaname:"ttl"`
+	TTL AccountDaysTTL `tl:"ttl"`
 }
 
 // AccountSetAccountTTLRequestTypeID is TL type id of AccountSetAccountTTLRequest.
@@ -63,8 +63,8 @@ func (s *AccountSetAccountTTLRequest) TypeID() uint32 {
 	return AccountSetAccountTTLRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *AccountSetAccountTTLRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *AccountSetAccountTTLRequest) TypeName() string {
 	return "account.setAccountTTL"
 }
 

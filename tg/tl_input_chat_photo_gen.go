@@ -51,8 +51,8 @@ func (i *InputChatPhotoEmpty) TypeID() uint32 {
 	return InputChatPhotoEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputChatPhotoEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputChatPhotoEmpty) TypeName() string {
 	return "inputChatPhotoEmpty"
 }
 
@@ -96,22 +96,22 @@ type InputChatUploadedPhoto struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// File saved in parts using the method upload.saveFilePart¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/upload.saveFilePart
 	//
 	// Use SetFile and GetFile helpers.
-	File InputFileClass `schemaname:"file"`
+	File InputFileClass `tl:"file"`
 	// Square video for animated profile picture
 	//
 	// Use SetVideo and GetVideo helpers.
-	Video InputFileClass `schemaname:"video"`
+	Video InputFileClass `tl:"video"`
 	// Timestamp that should be shown as static preview to the user (seconds)
 	//
 	// Use SetVideoStartTs and GetVideoStartTs helpers.
-	VideoStartTs float64 `schemaname:"video_start_ts"`
+	VideoStartTs float64 `tl:"video_start_ts"`
 }
 
 // InputChatUploadedPhotoTypeID is TL type id of InputChatUploadedPhoto.
@@ -172,8 +172,8 @@ func (i *InputChatUploadedPhoto) TypeID() uint32 {
 	return InputChatUploadedPhotoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputChatUploadedPhoto) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputChatUploadedPhoto) TypeName() string {
 	return "inputChatUploadedPhoto"
 }
 
@@ -316,7 +316,7 @@ var (
 // See https://core.telegram.org/constructor/inputChatPhoto for reference.
 type InputChatPhoto struct {
 	// Existing photo
-	ID InputPhotoClass `schemaname:"id"`
+	ID InputPhotoClass `tl:"id"`
 }
 
 // InputChatPhotoTypeID is TL type id of InputChatPhoto.
@@ -355,8 +355,8 @@ func (i *InputChatPhoto) TypeID() uint32 {
 	return InputChatPhotoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputChatPhoto) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputChatPhoto) TypeName() string {
 	return "inputChatPhoto"
 }
 
@@ -429,11 +429,11 @@ type InputChatPhotoClass interface {
 	bin.Decoder
 	construct() InputChatPhotoClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

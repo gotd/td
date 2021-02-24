@@ -51,8 +51,8 @@ func (m *MessageMediaEmpty) TypeID() uint32 {
 	return MessageMediaEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *MessageMediaEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *MessageMediaEmpty) TypeName() string {
 	return "messageMediaEmpty"
 }
 
@@ -96,15 +96,15 @@ type MessageMediaPhoto struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Photo
 	//
 	// Use SetPhoto and GetPhoto helpers.
-	Photo PhotoClass `schemaname:"photo"`
+	Photo PhotoClass `tl:"photo"`
 	// Time to live in seconds of self-destructing photo
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
-	TTLSeconds int `schemaname:"ttl_seconds"`
+	TTLSeconds int `tl:"ttl_seconds"`
 }
 
 // MessageMediaPhotoTypeID is TL type id of MessageMediaPhoto.
@@ -157,8 +157,8 @@ func (m *MessageMediaPhoto) TypeID() uint32 {
 	return MessageMediaPhotoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *MessageMediaPhoto) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *MessageMediaPhoto) TypeName() string {
 	return "messageMediaPhoto"
 }
 
@@ -268,7 +268,7 @@ var (
 // See https://core.telegram.org/constructor/messageMediaGeo for reference.
 type MessageMediaGeo struct {
 	// GeoPoint
-	Geo GeoPointClass `schemaname:"geo"`
+	Geo GeoPointClass `tl:"geo"`
 }
 
 // MessageMediaGeoTypeID is TL type id of MessageMediaGeo.
@@ -307,8 +307,8 @@ func (m *MessageMediaGeo) TypeID() uint32 {
 	return MessageMediaGeoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *MessageMediaGeo) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *MessageMediaGeo) TypeName() string {
 	return "messageMediaGeo"
 }
 
@@ -367,15 +367,15 @@ var (
 // See https://core.telegram.org/constructor/messageMediaContact for reference.
 type MessageMediaContact struct {
 	// Phone number
-	PhoneNumber string `schemaname:"phone_number"`
+	PhoneNumber string `tl:"phone_number"`
 	// Contact's first name
-	FirstName string `schemaname:"first_name"`
+	FirstName string `tl:"first_name"`
 	// Contact's last name
-	LastName string `schemaname:"last_name"`
+	LastName string `tl:"last_name"`
 	// VCARD of contact
-	Vcard string `schemaname:"vcard"`
+	Vcard string `tl:"vcard"`
 	// User identifier or 0, if the user with the given phone number is not registered
-	UserID int `schemaname:"user_id"`
+	UserID int `tl:"user_id"`
 }
 
 // MessageMediaContactTypeID is TL type id of MessageMediaContact.
@@ -434,8 +434,8 @@ func (m *MessageMediaContact) TypeID() uint32 {
 	return MessageMediaContactTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *MessageMediaContact) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *MessageMediaContact) TypeName() string {
 	return "messageMediaContact"
 }
 
@@ -568,8 +568,8 @@ func (m *MessageMediaUnsupported) TypeID() uint32 {
 	return MessageMediaUnsupportedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *MessageMediaUnsupported) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *MessageMediaUnsupported) TypeName() string {
 	return "messageMediaUnsupported"
 }
 
@@ -613,15 +613,15 @@ type MessageMediaDocument struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Attached document
 	//
 	// Use SetDocument and GetDocument helpers.
-	Document DocumentClass `schemaname:"document"`
+	Document DocumentClass `tl:"document"`
 	// Time to live of self-destructing document
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
-	TTLSeconds int `schemaname:"ttl_seconds"`
+	TTLSeconds int `tl:"ttl_seconds"`
 }
 
 // MessageMediaDocumentTypeID is TL type id of MessageMediaDocument.
@@ -674,8 +674,8 @@ func (m *MessageMediaDocument) TypeID() uint32 {
 	return MessageMediaDocumentTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *MessageMediaDocument) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *MessageMediaDocument) TypeName() string {
 	return "messageMediaDocument"
 }
 
@@ -785,7 +785,7 @@ var (
 // See https://core.telegram.org/constructor/messageMediaWebPage for reference.
 type MessageMediaWebPage struct {
 	// Webpage preview
-	Webpage WebPageClass `schemaname:"webpage"`
+	Webpage WebPageClass `tl:"webpage"`
 }
 
 // MessageMediaWebPageTypeID is TL type id of MessageMediaWebPage.
@@ -824,8 +824,8 @@ func (m *MessageMediaWebPage) TypeID() uint32 {
 	return MessageMediaWebPageTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *MessageMediaWebPage) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *MessageMediaWebPage) TypeName() string {
 	return "messageMediaWebPage"
 }
 
@@ -884,17 +884,17 @@ var (
 // See https://core.telegram.org/constructor/messageMediaVenue for reference.
 type MessageMediaVenue struct {
 	// Geolocation of venue
-	Geo GeoPointClass `schemaname:"geo"`
+	Geo GeoPointClass `tl:"geo"`
 	// Venue name
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 	// Address
-	Address string `schemaname:"address"`
+	Address string `tl:"address"`
 	// Venue provider: currently only "foursquare" needs to be supported
-	Provider string `schemaname:"provider"`
+	Provider string `tl:"provider"`
 	// Venue ID in the provider's database
-	VenueID string `schemaname:"venue_id"`
+	VenueID string `tl:"venue_id"`
 	// Venue type in the provider's database
-	VenueType string `schemaname:"venue_type"`
+	VenueType string `tl:"venue_type"`
 }
 
 // MessageMediaVenueTypeID is TL type id of MessageMediaVenue.
@@ -958,8 +958,8 @@ func (m *MessageMediaVenue) TypeID() uint32 {
 	return MessageMediaVenueTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *MessageMediaVenue) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *MessageMediaVenue) TypeName() string {
 	return "messageMediaVenue"
 }
 
@@ -1083,7 +1083,7 @@ var (
 // See https://core.telegram.org/constructor/messageMediaGame for reference.
 type MessageMediaGame struct {
 	// Game
-	Game Game `schemaname:"game"`
+	Game Game `tl:"game"`
 }
 
 // MessageMediaGameTypeID is TL type id of MessageMediaGame.
@@ -1122,8 +1122,8 @@ func (m *MessageMediaGame) TypeID() uint32 {
 	return MessageMediaGameTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *MessageMediaGame) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *MessageMediaGame) TypeName() string {
 	return "messageMediaGame"
 }
 
@@ -1180,19 +1180,19 @@ type MessageMediaInvoice struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether the shipping address was requested
-	ShippingAddressRequested bool `schemaname:"shipping_address_requested"`
+	ShippingAddressRequested bool `tl:"shipping_address_requested"`
 	// Whether this is an example invoice
-	Test bool `schemaname:"test"`
+	Test bool `tl:"test"`
 	// Product name, 1-32 characters
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 	// Product description, 1-255 characters
-	Description string `schemaname:"description"`
+	Description string `tl:"description"`
 	// URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for.
 	//
 	// Use SetPhoto and GetPhoto helpers.
-	Photo WebDocumentClass `schemaname:"photo"`
+	Photo WebDocumentClass `tl:"photo"`
 	// Message ID of receipt: if set, clients should change the text of the first keyboardButtonBuy¹ button always attached to the message² to a localized version of the word Receipt
 	//
 	// Links:
@@ -1200,19 +1200,19 @@ type MessageMediaInvoice struct {
 	//  2) https://core.telegram.org/constructor/message
 	//
 	// Use SetReceiptMsgID and GetReceiptMsgID helpers.
-	ReceiptMsgID int `schemaname:"receipt_msg_id"`
+	ReceiptMsgID int `tl:"receipt_msg_id"`
 	// Three-letter ISO 4217 currency¹ code
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments#supported-currencies
-	Currency string `schemaname:"currency"`
+	Currency string `tl:"currency"`
 	// Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json¹, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments/currencies.json
-	TotalAmount int64 `schemaname:"total_amount"`
+	TotalAmount int64 `tl:"total_amount"`
 	// Unique bot deep-linking parameter that can be used to generate this invoice
-	StartParam string `schemaname:"start_param"`
+	StartParam string `tl:"start_param"`
 }
 
 // MessageMediaInvoiceTypeID is TL type id of MessageMediaInvoice.
@@ -1300,8 +1300,8 @@ func (m *MessageMediaInvoice) TypeID() uint32 {
 	return MessageMediaInvoiceTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *MessageMediaInvoice) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *MessageMediaInvoice) TypeName() string {
 	return "messageMediaInvoice"
 }
 
@@ -1522,25 +1522,25 @@ type MessageMediaGeoLive struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Geolocation
-	Geo GeoPointClass `schemaname:"geo"`
+	Geo GeoPointClass `tl:"geo"`
 	// For live locations¹, a direction in which the location moves, in degrees; 1-360
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/live-location
 	//
 	// Use SetHeading and GetHeading helpers.
-	Heading int `schemaname:"heading"`
+	Heading int `tl:"heading"`
 	// Validity period of provided geolocation
-	Period int `schemaname:"period"`
+	Period int `tl:"period"`
 	// For live locations¹, a maximum distance to another chat member for proximity alerts, in meters (0-100000).
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/live-location
 	//
 	// Use SetProximityNotificationRadius and GetProximityNotificationRadius helpers.
-	ProximityNotificationRadius int `schemaname:"proximity_notification_radius"`
+	ProximityNotificationRadius int `tl:"proximity_notification_radius"`
 }
 
 // MessageMediaGeoLiveTypeID is TL type id of MessageMediaGeoLive.
@@ -1603,8 +1603,8 @@ func (m *MessageMediaGeoLive) TypeID() uint32 {
 	return MessageMediaGeoLiveTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *MessageMediaGeoLive) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *MessageMediaGeoLive) TypeName() string {
 	return "messageMediaGeoLive"
 }
 
@@ -1740,9 +1740,9 @@ var (
 // See https://core.telegram.org/constructor/messageMediaPoll for reference.
 type MessageMediaPoll struct {
 	// The poll
-	Poll Poll `schemaname:"poll"`
+	Poll Poll `tl:"poll"`
 	// The results of the poll
-	Results PollResults `schemaname:"results"`
+	Results PollResults `tl:"results"`
 }
 
 // MessageMediaPollTypeID is TL type id of MessageMediaPoll.
@@ -1786,8 +1786,8 @@ func (m *MessageMediaPoll) TypeID() uint32 {
 	return MessageMediaPollTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *MessageMediaPoll) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *MessageMediaPoll) TypeName() string {
 	return "messageMediaPoll"
 }
 
@@ -1860,9 +1860,9 @@ type MessageMediaDice struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/dice
-	Value int `schemaname:"value"`
+	Value int `tl:"value"`
 	// The emoji, for now ,  and  are supported
-	Emoticon string `schemaname:"emoticon"`
+	Emoticon string `tl:"emoticon"`
 }
 
 // MessageMediaDiceTypeID is TL type id of MessageMediaDice.
@@ -1906,8 +1906,8 @@ func (m *MessageMediaDice) TypeID() uint32 {
 	return MessageMediaDiceTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *MessageMediaDice) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *MessageMediaDice) TypeName() string {
 	return "messageMediaDice"
 }
 
@@ -1998,11 +1998,11 @@ type MessageMediaClass interface {
 	bin.Decoder
 	construct() MessageMediaClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

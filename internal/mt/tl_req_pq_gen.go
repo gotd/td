@@ -21,7 +21,7 @@ var _ = errors.Is
 // ReqPqRequest represents TL type `req_pq#60469778`.
 type ReqPqRequest struct {
 	// Nonce field of ReqPqRequest.
-	Nonce bin.Int128 `schemaname:"nonce"`
+	Nonce bin.Int128 `tl:"nonce"`
 }
 
 // ReqPqRequestTypeID is TL type id of ReqPqRequest.
@@ -60,8 +60,8 @@ func (r *ReqPqRequest) TypeID() uint32 {
 	return ReqPqRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *ReqPqRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *ReqPqRequest) TypeName() string {
 	return "req_pq"
 }
 

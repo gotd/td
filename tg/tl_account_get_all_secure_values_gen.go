@@ -55,8 +55,8 @@ func (g *AccountGetAllSecureValuesRequest) TypeID() uint32 {
 	return AccountGetAllSecureValuesRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *AccountGetAllSecureValuesRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *AccountGetAllSecureValuesRequest) TypeName() string {
 	return "account.getAllSecureValues"
 }
 

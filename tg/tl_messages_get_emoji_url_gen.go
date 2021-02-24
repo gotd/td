@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getEmojiURL for reference.
 type MessagesGetEmojiURLRequest struct {
 	// Language code for which the emoji replacements will be suggested
-	LangCode string `schemaname:"lang_code"`
+	LangCode string `tl:"lang_code"`
 }
 
 // MessagesGetEmojiURLRequestTypeID is TL type id of MessagesGetEmojiURLRequest.
@@ -63,8 +63,8 @@ func (g *MessagesGetEmojiURLRequest) TypeID() uint32 {
 	return MessagesGetEmojiURLRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetEmojiURLRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetEmojiURLRequest) TypeName() string {
 	return "messages.getEmojiURL"
 }
 

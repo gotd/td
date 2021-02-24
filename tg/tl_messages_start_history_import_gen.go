@@ -23,9 +23,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.startHistoryImport for reference.
 type MessagesStartHistoryImportRequest struct {
 	// Peer field of MessagesStartHistoryImportRequest.
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// ImportID field of MessagesStartHistoryImportRequest.
-	ImportID int64 `schemaname:"import_id"`
+	ImportID int64 `tl:"import_id"`
 }
 
 // MessagesStartHistoryImportRequestTypeID is TL type id of MessagesStartHistoryImportRequest.
@@ -69,8 +69,8 @@ func (s *MessagesStartHistoryImportRequest) TypeID() uint32 {
 	return MessagesStartHistoryImportRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *MessagesStartHistoryImportRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *MessagesStartHistoryImportRequest) TypeName() string {
 	return "messages.startHistoryImport"
 }
 

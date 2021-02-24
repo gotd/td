@@ -51,8 +51,8 @@ func (r *ContactsResetSavedRequest) TypeID() uint32 {
 	return ContactsResetSavedRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *ContactsResetSavedRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *ContactsResetSavedRequest) TypeName() string {
 	return "contacts.resetSaved"
 }
 

@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getStickerSet for reference.
 type MessagesGetStickerSetRequest struct {
 	// Stickerset
-	Stickerset InputStickerSetClass `schemaname:"stickerset"`
+	Stickerset InputStickerSetClass `tl:"stickerset"`
 }
 
 // MessagesGetStickerSetRequestTypeID is TL type id of MessagesGetStickerSetRequest.
@@ -63,8 +63,8 @@ func (g *MessagesGetStickerSetRequest) TypeID() uint32 {
 	return MessagesGetStickerSetRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetStickerSetRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetStickerSetRequest) TypeName() string {
 	return "messages.getStickerSet"
 }
 

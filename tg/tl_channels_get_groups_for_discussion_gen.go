@@ -59,8 +59,8 @@ func (g *ChannelsGetGroupsForDiscussionRequest) TypeID() uint32 {
 	return ChannelsGetGroupsForDiscussionRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *ChannelsGetGroupsForDiscussionRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *ChannelsGetGroupsForDiscussionRequest) TypeName() string {
 	return "channels.getGroupsForDiscussion"
 }
 

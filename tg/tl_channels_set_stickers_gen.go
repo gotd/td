@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/channels.setStickers for reference.
 type ChannelsSetStickersRequest struct {
 	// Supergroup
-	Channel InputChannelClass `schemaname:"channel"`
+	Channel InputChannelClass `tl:"channel"`
 	// The stickerset to associate
-	Stickerset InputStickerSetClass `schemaname:"stickerset"`
+	Stickerset InputStickerSetClass `tl:"stickerset"`
 }
 
 // ChannelsSetStickersRequestTypeID is TL type id of ChannelsSetStickersRequest.
@@ -70,8 +70,8 @@ func (s *ChannelsSetStickersRequest) TypeID() uint32 {
 	return ChannelsSetStickersRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *ChannelsSetStickersRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *ChannelsSetStickersRequest) TypeName() string {
 	return "channels.setStickers"
 }
 

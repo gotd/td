@@ -30,18 +30,18 @@ type ContactsBlockFromRepliesRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether to delete the specified message as well
-	DeleteMessage bool `schemaname:"delete_message"`
+	DeleteMessage bool `tl:"delete_message"`
 	// Whether to delete all @replies messages from this user as well
-	DeleteHistory bool `schemaname:"delete_history"`
+	DeleteHistory bool `tl:"delete_history"`
 	// Whether to also report this user for spam
-	ReportSpam bool `schemaname:"report_spam"`
+	ReportSpam bool `tl:"report_spam"`
 	// ID of the message in the @replies¹ chat
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads#replies
-	MsgID int `schemaname:"msg_id"`
+	MsgID int `tl:"msg_id"`
 }
 
 // ContactsBlockFromRepliesRequestTypeID is TL type id of ContactsBlockFromRepliesRequest.
@@ -98,8 +98,8 @@ func (b *ContactsBlockFromRepliesRequest) TypeID() uint32 {
 	return ContactsBlockFromRepliesRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *ContactsBlockFromRepliesRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *ContactsBlockFromRepliesRequest) TypeName() string {
 	return "contacts.blockFromReplies"
 }
 

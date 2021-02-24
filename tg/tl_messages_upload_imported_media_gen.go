@@ -23,13 +23,13 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.uploadImportedMedia for reference.
 type MessagesUploadImportedMediaRequest struct {
 	// Peer field of MessagesUploadImportedMediaRequest.
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// ImportID field of MessagesUploadImportedMediaRequest.
-	ImportID int64 `schemaname:"import_id"`
+	ImportID int64 `tl:"import_id"`
 	// FileName field of MessagesUploadImportedMediaRequest.
-	FileName string `schemaname:"file_name"`
+	FileName string `tl:"file_name"`
 	// Media field of MessagesUploadImportedMediaRequest.
-	Media InputMediaClass `schemaname:"media"`
+	Media InputMediaClass `tl:"media"`
 }
 
 // MessagesUploadImportedMediaRequestTypeID is TL type id of MessagesUploadImportedMediaRequest.
@@ -83,8 +83,8 @@ func (u *MessagesUploadImportedMediaRequest) TypeID() uint32 {
 	return MessagesUploadImportedMediaRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (u *MessagesUploadImportedMediaRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (u *MessagesUploadImportedMediaRequest) TypeName() string {
 	return "messages.uploadImportedMedia"
 }
 

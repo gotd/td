@@ -30,7 +30,7 @@ type AuthCheckPasswordRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	Password InputCheckPasswordSRPClass `schemaname:"password"`
+	Password InputCheckPasswordSRPClass `tl:"password"`
 }
 
 // AuthCheckPasswordRequestTypeID is TL type id of AuthCheckPasswordRequest.
@@ -69,8 +69,8 @@ func (c *AuthCheckPasswordRequest) TypeID() uint32 {
 	return AuthCheckPasswordRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *AuthCheckPasswordRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *AuthCheckPasswordRequest) TypeName() string {
 	return "auth.checkPassword"
 }
 

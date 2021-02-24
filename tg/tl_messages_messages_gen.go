@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.messages for reference.
 type MessagesMessages struct {
 	// List of messages
-	Messages []MessageClass `schemaname:"messages"`
+	Messages []MessageClass `tl:"messages"`
 	// List of chats mentioned in dialogs
-	Chats []ChatClass `schemaname:"chats"`
+	Chats []ChatClass `tl:"chats"`
 	// List of users mentioned in messages and chats
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // MessagesMessagesTypeID is TL type id of MessagesMessages.
@@ -77,8 +77,8 @@ func (m *MessagesMessages) TypeID() uint32 {
 	return MessagesMessagesTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *MessagesMessages) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *MessagesMessages) TypeName() string {
 	return "messages.messages"
 }
 
@@ -218,28 +218,28 @@ type MessagesMessagesSlice struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// If set, indicates that the results may be inexact
-	Inexact bool `schemaname:"inexact"`
+	Inexact bool `tl:"inexact"`
 	// Total number of messages in the list
-	Count int `schemaname:"count"`
+	Count int `tl:"count"`
 	// Rate to use in the offset_rate parameter in the next call to messages.searchGlobal¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.searchGlobal
 	//
 	// Use SetNextRate and GetNextRate helpers.
-	NextRate int `schemaname:"next_rate"`
+	NextRate int `tl:"next_rate"`
 	// Indicates the absolute position of messages[0] within the total result set with count count. This is useful, for example, if the result was fetched using offset_id, and we need to display a progress/total counter (like photo 134 of 200, for all media in a chat, we could simply use photo ${offset_id_offset} of ${count}.
 	//
 	// Use SetOffsetIDOffset and GetOffsetIDOffset helpers.
-	OffsetIDOffset int `schemaname:"offset_id_offset"`
+	OffsetIDOffset int `tl:"offset_id_offset"`
 	// List of messages
-	Messages []MessageClass `schemaname:"messages"`
+	Messages []MessageClass `tl:"messages"`
 	// List of chats mentioned in messages
-	Chats []ChatClass `schemaname:"chats"`
+	Chats []ChatClass `tl:"chats"`
 	// List of users mentioned in messages and chats
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // MessagesMessagesSliceTypeID is TL type id of MessagesMessagesSlice.
@@ -317,8 +317,8 @@ func (m *MessagesMessagesSlice) TypeID() uint32 {
 	return MessagesMessagesSliceTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *MessagesMessagesSlice) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *MessagesMessagesSlice) TypeName() string {
 	return "messages.messagesSlice"
 }
 
@@ -555,26 +555,26 @@ type MessagesChannelMessages struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// If set, returned results may be inexact
-	Inexact bool `schemaname:"inexact"`
+	Inexact bool `tl:"inexact"`
 	// Event count after generation¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int `schemaname:"pts"`
+	Pts int `tl:"pts"`
 	// Total number of results were found server-side (may not be all included here)
-	Count int `schemaname:"count"`
+	Count int `tl:"count"`
 	// Indicates the absolute position of messages[0] within the total result set with count count. This is useful, for example, if the result was fetched using offset_id, and we need to display a progress/total counter (like photo 134 of 200, for all media in a chat, we could simply use photo ${offset_id_offset} of ${count}.
 	//
 	// Use SetOffsetIDOffset and GetOffsetIDOffset helpers.
-	OffsetIDOffset int `schemaname:"offset_id_offset"`
+	OffsetIDOffset int `tl:"offset_id_offset"`
 	// Found messages
-	Messages []MessageClass `schemaname:"messages"`
+	Messages []MessageClass `tl:"messages"`
 	// Chats
-	Chats []ChatClass `schemaname:"chats"`
+	Chats []ChatClass `tl:"chats"`
 	// Users
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // MessagesChannelMessagesTypeID is TL type id of MessagesChannelMessages.
@@ -649,8 +649,8 @@ func (c *MessagesChannelMessages) TypeID() uint32 {
 	return MessagesChannelMessagesTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *MessagesChannelMessages) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *MessagesChannelMessages) TypeName() string {
 	return "messages.channelMessages"
 }
 
@@ -869,7 +869,7 @@ var (
 // See https://core.telegram.org/constructor/messages.messagesNotModified for reference.
 type MessagesMessagesNotModified struct {
 	// Number of results found server-side by the given query
-	Count int `schemaname:"count"`
+	Count int `tl:"count"`
 }
 
 // MessagesMessagesNotModifiedTypeID is TL type id of MessagesMessagesNotModified.
@@ -908,8 +908,8 @@ func (m *MessagesMessagesNotModified) TypeID() uint32 {
 	return MessagesMessagesNotModifiedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *MessagesMessagesNotModified) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *MessagesMessagesNotModified) TypeName() string {
 	return "messages.messagesNotModified"
 }
 
@@ -978,11 +978,11 @@ type MessagesMessagesClass interface {
 	bin.Decoder
 	construct() MessagesMessagesClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
@@ -998,11 +998,11 @@ type ModifiedMessagesMessages interface {
 	bin.Decoder
 	construct() MessagesMessagesClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

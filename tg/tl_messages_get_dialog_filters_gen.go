@@ -54,8 +54,8 @@ func (g *MessagesGetDialogFiltersRequest) TypeID() uint32 {
 	return MessagesGetDialogFiltersRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetDialogFiltersRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetDialogFiltersRequest) TypeName() string {
 	return "messages.getDialogFilters"
 }
 

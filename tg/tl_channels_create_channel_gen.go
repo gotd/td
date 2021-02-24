@@ -30,31 +30,31 @@ type ChannelsCreateChannelRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether to create a channel¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Broadcast bool `schemaname:"broadcast"`
+	Broadcast bool `tl:"broadcast"`
 	// Whether to create a supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Megagroup bool `schemaname:"megagroup"`
+	Megagroup bool `tl:"megagroup"`
 	// ForImport field of ChannelsCreateChannelRequest.
-	ForImport bool `schemaname:"for_import"`
+	ForImport bool `tl:"for_import"`
 	// Channel title
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 	// Channel description
-	About string `schemaname:"about"`
+	About string `tl:"about"`
 	// Geogroup location
 	//
 	// Use SetGeoPoint and GetGeoPoint helpers.
-	GeoPoint InputGeoPointClass `schemaname:"geo_point"`
+	GeoPoint InputGeoPointClass `tl:"geo_point"`
 	// Geogroup address
 	//
 	// Use SetAddress and GetAddress helpers.
-	Address string `schemaname:"address"`
+	Address string `tl:"address"`
 }
 
 // ChannelsCreateChannelRequestTypeID is TL type id of ChannelsCreateChannelRequest.
@@ -132,8 +132,8 @@ func (c *ChannelsCreateChannelRequest) TypeID() uint32 {
 	return ChannelsCreateChannelRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelsCreateChannelRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelsCreateChannelRequest) TypeName() string {
 	return "channels.createChannel"
 }
 

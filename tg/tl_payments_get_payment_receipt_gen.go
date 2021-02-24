@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/payments.getPaymentReceipt for reference.
 type PaymentsGetPaymentReceiptRequest struct {
 	// Message ID of receipt
-	MsgID int `schemaname:"msg_id"`
+	MsgID int `tl:"msg_id"`
 }
 
 // PaymentsGetPaymentReceiptRequestTypeID is TL type id of PaymentsGetPaymentReceiptRequest.
@@ -63,8 +63,8 @@ func (g *PaymentsGetPaymentReceiptRequest) TypeID() uint32 {
 	return PaymentsGetPaymentReceiptRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *PaymentsGetPaymentReceiptRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *PaymentsGetPaymentReceiptRequest) TypeName() string {
 	return "payments.getPaymentReceipt"
 }
 

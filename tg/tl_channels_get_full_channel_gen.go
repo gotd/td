@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/channels.getFullChannel for reference.
 type ChannelsGetFullChannelRequest struct {
 	// The channel to get info about
-	Channel InputChannelClass `schemaname:"channel"`
+	Channel InputChannelClass `tl:"channel"`
 }
 
 // ChannelsGetFullChannelRequestTypeID is TL type id of ChannelsGetFullChannelRequest.
@@ -63,8 +63,8 @@ func (g *ChannelsGetFullChannelRequest) TypeID() uint32 {
 	return ChannelsGetFullChannelRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *ChannelsGetFullChannelRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *ChannelsGetFullChannelRequest) TypeName() string {
 	return "channels.getFullChannel"
 }
 

@@ -51,8 +51,8 @@ func (g *AccountGetContactSignUpNotificationRequest) TypeID() uint32 {
 	return AccountGetContactSignUpNotificationRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *AccountGetContactSignUpNotificationRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *AccountGetContactSignUpNotificationRequest) TypeName() string {
 	return "account.getContactSignUpNotification"
 }
 

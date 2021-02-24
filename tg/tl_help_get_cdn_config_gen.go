@@ -54,8 +54,8 @@ func (g *HelpGetCdnConfigRequest) TypeID() uint32 {
 	return HelpGetCdnConfigRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *HelpGetCdnConfigRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *HelpGetCdnConfigRequest) TypeName() string {
 	return "help.getCdnConfig"
 }
 

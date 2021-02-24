@@ -51,8 +51,8 @@ func (g *AccountGetContentSettingsRequest) TypeID() uint32 {
 	return AccountGetContentSettingsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *AccountGetContentSettingsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *AccountGetContentSettingsRequest) TypeName() string {
 	return "account.getContentSettings"
 }
 

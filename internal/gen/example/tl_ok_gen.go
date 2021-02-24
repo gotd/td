@@ -50,8 +50,8 @@ func (o *Ok) TypeID() uint32 {
 	return OkTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (o *Ok) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (o *Ok) TypeName() string {
 	return "ok"
 }
 

@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/help.getRecentMeUrls for reference.
 type HelpGetRecentMeUrlsRequest struct {
 	// Referer
-	Referer string `schemaname:"referer"`
+	Referer string `tl:"referer"`
 }
 
 // HelpGetRecentMeUrlsRequestTypeID is TL type id of HelpGetRecentMeUrlsRequest.
@@ -63,8 +63,8 @@ func (g *HelpGetRecentMeUrlsRequest) TypeID() uint32 {
 	return HelpGetRecentMeUrlsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *HelpGetRecentMeUrlsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *HelpGetRecentMeUrlsRequest) TypeName() string {
 	return "help.getRecentMeUrls"
 }
 

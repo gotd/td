@@ -27,22 +27,22 @@ type PaymentsSendPaymentFormRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Message ID of form
-	MsgID int `schemaname:"msg_id"`
+	MsgID int `tl:"msg_id"`
 	// ID of saved and validated order info¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/payments.validatedRequestedInfo
 	//
 	// Use SetRequestedInfoID and GetRequestedInfoID helpers.
-	RequestedInfoID string `schemaname:"requested_info_id"`
+	RequestedInfoID string `tl:"requested_info_id"`
 	// Chosen shipping option ID
 	//
 	// Use SetShippingOptionID and GetShippingOptionID helpers.
-	ShippingOptionID string `schemaname:"shipping_option_id"`
+	ShippingOptionID string `tl:"shipping_option_id"`
 	// Payment credentials
-	Credentials InputPaymentCredentialsClass `schemaname:"credentials"`
+	Credentials InputPaymentCredentialsClass `tl:"credentials"`
 }
 
 // PaymentsSendPaymentFormRequestTypeID is TL type id of PaymentsSendPaymentFormRequest.
@@ -105,8 +105,8 @@ func (s *PaymentsSendPaymentFormRequest) TypeID() uint32 {
 	return PaymentsSendPaymentFormRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *PaymentsSendPaymentFormRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *PaymentsSendPaymentFormRequest) TypeName() string {
 	return "payments.sendPaymentForm"
 }
 

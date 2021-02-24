@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.getTmpPassword for reference.
 type AccountGetTmpPasswordRequest struct {
 	// SRP password parameters
-	Password InputCheckPasswordSRPClass `schemaname:"password"`
+	Password InputCheckPasswordSRPClass `tl:"password"`
 	// Time during which the temporary password will be valid, in seconds; should be between 60 and 86400
-	Period int `schemaname:"period"`
+	Period int `tl:"period"`
 }
 
 // AccountGetTmpPasswordRequestTypeID is TL type id of AccountGetTmpPasswordRequest.
@@ -70,8 +70,8 @@ func (g *AccountGetTmpPasswordRequest) TypeID() uint32 {
 	return AccountGetTmpPasswordRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *AccountGetTmpPasswordRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *AccountGetTmpPasswordRequest) TypeName() string {
 	return "account.getTmpPassword"
 }
 

@@ -24,38 +24,38 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getReplies for reference.
 type MessagesGetRepliesRequest struct {
 	// Peer
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// Message ID
-	MsgID int `schemaname:"msg_id"`
+	MsgID int `tl:"msg_id"`
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetID int `schemaname:"offset_id"`
+	OffsetID int `tl:"offset_id"`
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetDate int `schemaname:"offset_date"`
+	OffsetDate int `tl:"offset_date"`
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	AddOffset int `schemaname:"add_offset"`
+	AddOffset int `tl:"add_offset"`
 	// Maximum number of results to return, see pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int `schemaname:"limit"`
+	Limit int `tl:"limit"`
 	// If a positive value was transferred, the method will return only messages with ID smaller than max_id
-	MaxID int `schemaname:"max_id"`
+	MaxID int `tl:"max_id"`
 	// If a positive value was transferred, the method will return only messages with ID bigger than min_id
-	MinID int `schemaname:"min_id"`
+	MinID int `tl:"min_id"`
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `schemaname:"hash"`
+	Hash int `tl:"hash"`
 }
 
 // MessagesGetRepliesRequestTypeID is TL type id of MessagesGetRepliesRequest.
@@ -134,8 +134,8 @@ func (g *MessagesGetRepliesRequest) TypeID() uint32 {
 	return MessagesGetRepliesRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetRepliesRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetRepliesRequest) TypeName() string {
 	return "messages.getReplies"
 }
 

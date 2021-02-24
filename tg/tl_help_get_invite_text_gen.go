@@ -51,8 +51,8 @@ func (g *HelpGetInviteTextRequest) TypeID() uint32 {
 	return HelpGetInviteTextRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *HelpGetInviteTextRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *HelpGetInviteTextRequest) TypeName() string {
 	return "help.getInviteText"
 }
 

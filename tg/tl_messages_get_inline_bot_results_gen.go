@@ -27,19 +27,19 @@ type MessagesGetInlineBotResultsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// The bot to query
-	Bot InputUserClass `schemaname:"bot"`
+	Bot InputUserClass `tl:"bot"`
 	// The currently opened chat
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// The geolocation, if requested
 	//
 	// Use SetGeoPoint and GetGeoPoint helpers.
-	GeoPoint InputGeoPointClass `schemaname:"geo_point"`
+	GeoPoint InputGeoPointClass `tl:"geo_point"`
 	// The query
-	Query string `schemaname:"query"`
+	Query string `tl:"query"`
 	// The offset within the results, will be passed directly as-is to the bot.
-	Offset string `schemaname:"offset"`
+	Offset string `tl:"offset"`
 }
 
 // MessagesGetInlineBotResultsRequestTypeID is TL type id of MessagesGetInlineBotResultsRequest.
@@ -104,8 +104,8 @@ func (g *MessagesGetInlineBotResultsRequest) TypeID() uint32 {
 	return MessagesGetInlineBotResultsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetInlineBotResultsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetInlineBotResultsRequest) TypeName() string {
 	return "messages.getInlineBotResults"
 }
 

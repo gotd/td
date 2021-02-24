@@ -23,11 +23,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.exportedChatInvites for reference.
 type MessagesExportedChatInvites struct {
 	// Count field of MessagesExportedChatInvites.
-	Count int `schemaname:"count"`
+	Count int `tl:"count"`
 	// Invites field of MessagesExportedChatInvites.
-	Invites []ChatInviteExported `schemaname:"invites"`
+	Invites []ChatInviteExported `tl:"invites"`
 	// Users field of MessagesExportedChatInvites.
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // MessagesExportedChatInvitesTypeID is TL type id of MessagesExportedChatInvites.
@@ -76,8 +76,8 @@ func (e *MessagesExportedChatInvites) TypeID() uint32 {
 	return MessagesExportedChatInvitesTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (e *MessagesExportedChatInvites) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (e *MessagesExportedChatInvites) TypeName() string {
 	return "messages.exportedChatInvites"
 }
 

@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/recentMeUrlUnknown for reference.
 type RecentMeUrlUnknown struct {
 	// URL
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 }
 
 // RecentMeUrlUnknownTypeID is TL type id of RecentMeUrlUnknown.
@@ -63,8 +63,8 @@ func (r *RecentMeUrlUnknown) TypeID() uint32 {
 	return RecentMeUrlUnknownTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *RecentMeUrlUnknown) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *RecentMeUrlUnknown) TypeName() string {
 	return "recentMeUrlUnknown"
 }
 
@@ -118,9 +118,9 @@ var (
 // See https://core.telegram.org/constructor/recentMeUrlUser for reference.
 type RecentMeUrlUser struct {
 	// URL
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 	// User ID
-	UserID int `schemaname:"user_id"`
+	UserID int `tl:"user_id"`
 }
 
 // RecentMeUrlUserTypeID is TL type id of RecentMeUrlUser.
@@ -164,8 +164,8 @@ func (r *RecentMeUrlUser) TypeID() uint32 {
 	return RecentMeUrlUserTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *RecentMeUrlUser) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *RecentMeUrlUser) TypeName() string {
 	return "recentMeUrlUser"
 }
 
@@ -232,9 +232,9 @@ var (
 // See https://core.telegram.org/constructor/recentMeUrlChat for reference.
 type RecentMeUrlChat struct {
 	// t.me URL
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 	// Chat ID
-	ChatID int `schemaname:"chat_id"`
+	ChatID int `tl:"chat_id"`
 }
 
 // RecentMeUrlChatTypeID is TL type id of RecentMeUrlChat.
@@ -278,8 +278,8 @@ func (r *RecentMeUrlChat) TypeID() uint32 {
 	return RecentMeUrlChatTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *RecentMeUrlChat) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *RecentMeUrlChat) TypeName() string {
 	return "recentMeUrlChat"
 }
 
@@ -346,9 +346,9 @@ var (
 // See https://core.telegram.org/constructor/recentMeUrlChatInvite for reference.
 type RecentMeUrlChatInvite struct {
 	// t.me URL
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 	// Chat invitation
-	ChatInvite ChatInviteClass `schemaname:"chat_invite"`
+	ChatInvite ChatInviteClass `tl:"chat_invite"`
 }
 
 // RecentMeUrlChatInviteTypeID is TL type id of RecentMeUrlChatInvite.
@@ -392,8 +392,8 @@ func (r *RecentMeUrlChatInvite) TypeID() uint32 {
 	return RecentMeUrlChatInviteTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *RecentMeUrlChatInvite) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *RecentMeUrlChatInvite) TypeName() string {
 	return "recentMeUrlChatInvite"
 }
 
@@ -465,9 +465,9 @@ var (
 // See https://core.telegram.org/constructor/recentMeUrlStickerSet for reference.
 type RecentMeUrlStickerSet struct {
 	// t.me URL
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 	// Stickerset
-	Set StickerSetCoveredClass `schemaname:"set"`
+	Set StickerSetCoveredClass `tl:"set"`
 }
 
 // RecentMeUrlStickerSetTypeID is TL type id of RecentMeUrlStickerSet.
@@ -511,8 +511,8 @@ func (r *RecentMeUrlStickerSet) TypeID() uint32 {
 	return RecentMeUrlStickerSetTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *RecentMeUrlStickerSet) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *RecentMeUrlStickerSet) TypeName() string {
 	return "recentMeUrlStickerSet"
 }
 
@@ -600,11 +600,11 @@ type RecentMeUrlClass interface {
 	bin.Decoder
 	construct() RecentMeUrlClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

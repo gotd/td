@@ -21,7 +21,7 @@ var _ = errors.Is
 // StickerSetCoveredClassVector is a box for Vector<StickerSetCovered>
 type StickerSetCoveredClassVector struct {
 	// Elements of Vector<StickerSetCovered>
-	Elems []StickerSetCoveredClass `schemaname:"Elems"`
+	Elems []StickerSetCoveredClass `tl:"Elems"`
 }
 
 // StickerSetCoveredClassVectorTypeID is TL type id of StickerSetCoveredClassVector.
@@ -60,8 +60,8 @@ func (vec *StickerSetCoveredClassVector) TypeID() uint32 {
 	return StickerSetCoveredClassVectorTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (vec *StickerSetCoveredClassVector) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (vec *StickerSetCoveredClassVector) TypeName() string {
 	return ""
 }
 

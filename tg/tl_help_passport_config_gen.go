@@ -51,8 +51,8 @@ func (p *HelpPassportConfigNotModified) TypeID() uint32 {
 	return HelpPassportConfigNotModifiedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *HelpPassportConfigNotModified) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *HelpPassportConfigNotModified) TypeName() string {
 	return "help.passportConfigNotModified"
 }
 
@@ -99,9 +99,9 @@ type HelpPassportConfig struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `schemaname:"hash"`
+	Hash int `tl:"hash"`
 	// Localization
-	CountriesLangs DataJSON `schemaname:"countries_langs"`
+	CountriesLangs DataJSON `tl:"countries_langs"`
 }
 
 // HelpPassportConfigTypeID is TL type id of HelpPassportConfig.
@@ -145,8 +145,8 @@ func (p *HelpPassportConfig) TypeID() uint32 {
 	return HelpPassportConfigTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *HelpPassportConfig) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *HelpPassportConfig) TypeName() string {
 	return "help.passportConfig"
 }
 
@@ -226,11 +226,11 @@ type HelpPassportConfigClass interface {
 	bin.Decoder
 	construct() HelpPassportConfigClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

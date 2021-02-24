@@ -28,7 +28,7 @@ type ContactsGetContactsRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
 	//  2) https://core.telegram.org/constructor/contacts.contactsNotModified
-	Hash int `schemaname:"hash"`
+	Hash int `tl:"hash"`
 }
 
 // ContactsGetContactsRequestTypeID is TL type id of ContactsGetContactsRequest.
@@ -67,8 +67,8 @@ func (g *ContactsGetContactsRequest) TypeID() uint32 {
 	return ContactsGetContactsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *ContactsGetContactsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *ContactsGetContactsRequest) TypeName() string {
 	return "contacts.getContacts"
 }
 

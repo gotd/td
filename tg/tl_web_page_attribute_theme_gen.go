@@ -27,15 +27,15 @@ type WebPageAttributeTheme struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Theme files
 	//
 	// Use SetDocuments and GetDocuments helpers.
-	Documents []DocumentClass `schemaname:"documents"`
+	Documents []DocumentClass `tl:"documents"`
 	// Theme settings
 	//
 	// Use SetSettings and GetSettings helpers.
-	Settings ThemeSettings `schemaname:"settings"`
+	Settings ThemeSettings `tl:"settings"`
 }
 
 // WebPageAttributeThemeTypeID is TL type id of WebPageAttributeTheme.
@@ -88,8 +88,8 @@ func (w *WebPageAttributeTheme) TypeID() uint32 {
 	return WebPageAttributeThemeTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (w *WebPageAttributeTheme) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (w *WebPageAttributeTheme) TypeName() string {
 	return "webPageAttributeTheme"
 }
 

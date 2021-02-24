@@ -30,9 +30,9 @@ type MessagesEditChatAboutRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// The new description
-	About string `schemaname:"about"`
+	About string `tl:"about"`
 }
 
 // MessagesEditChatAboutRequestTypeID is TL type id of MessagesEditChatAboutRequest.
@@ -76,8 +76,8 @@ func (e *MessagesEditChatAboutRequest) TypeID() uint32 {
 	return MessagesEditChatAboutRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (e *MessagesEditChatAboutRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (e *MessagesEditChatAboutRequest) TypeName() string {
 	return "messages.editChatAbout"
 }
 

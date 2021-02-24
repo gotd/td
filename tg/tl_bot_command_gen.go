@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/botCommand for reference.
 type BotCommand struct {
 	// /command name
-	Command string `schemaname:"command"`
+	Command string `tl:"command"`
 	// Description of the command
-	Description string `schemaname:"description"`
+	Description string `tl:"description"`
 }
 
 // BotCommandTypeID is TL type id of BotCommand.
@@ -70,8 +70,8 @@ func (b *BotCommand) TypeID() uint32 {
 	return BotCommandTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *BotCommand) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *BotCommand) TypeName() string {
 	return "botCommand"
 }
 

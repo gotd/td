@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.checkUsername for reference.
 type AccountCheckUsernameRequest struct {
 	// usernameAccepted characters: A-z (case-insensitive), 0-9 and underscores.Length: 5-32 characters.
-	Username string `schemaname:"username"`
+	Username string `tl:"username"`
 }
 
 // AccountCheckUsernameRequestTypeID is TL type id of AccountCheckUsernameRequest.
@@ -63,8 +63,8 @@ func (c *AccountCheckUsernameRequest) TypeID() uint32 {
 	return AccountCheckUsernameRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *AccountCheckUsernameRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *AccountCheckUsernameRequest) TypeName() string {
 	return "account.checkUsername"
 }
 

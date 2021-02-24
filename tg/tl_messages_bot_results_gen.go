@@ -27,25 +27,25 @@ type MessagesBotResults struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether the result is a picture gallery
-	Gallery bool `schemaname:"gallery"`
+	Gallery bool `tl:"gallery"`
 	// Query ID
-	QueryID int64 `schemaname:"query_id"`
+	QueryID int64 `tl:"query_id"`
 	// The next offset to use when navigating through results
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
-	NextOffset string `schemaname:"next_offset"`
+	NextOffset string `tl:"next_offset"`
 	// Whether the bot requested the user to message him in private
 	//
 	// Use SetSwitchPm and GetSwitchPm helpers.
-	SwitchPm InlineBotSwitchPM `schemaname:"switch_pm"`
+	SwitchPm InlineBotSwitchPM `tl:"switch_pm"`
 	// The results
-	Results []BotInlineResultClass `schemaname:"results"`
+	Results []BotInlineResultClass `tl:"results"`
 	// Caching validity of the results
-	CacheTime int `schemaname:"cache_time"`
+	CacheTime int `tl:"cache_time"`
 	// Users mentioned in the results
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // MessagesBotResultsTypeID is TL type id of MessagesBotResults.
@@ -123,8 +123,8 @@ func (b *MessagesBotResults) TypeID() uint32 {
 	return MessagesBotResultsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *MessagesBotResults) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *MessagesBotResults) TypeName() string {
 	return "messages.botResults"
 }
 

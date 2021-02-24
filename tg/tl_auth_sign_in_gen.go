@@ -24,14 +24,14 @@ var _ = errors.Is
 // See https://core.telegram.org/method/auth.signIn for reference.
 type AuthSignInRequest struct {
 	// Phone number in the international format
-	PhoneNumber string `schemaname:"phone_number"`
+	PhoneNumber string `tl:"phone_number"`
 	// SMS-message ID, obtained from auth.sendCode¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/auth.sendCode
-	PhoneCodeHash string `schemaname:"phone_code_hash"`
+	PhoneCodeHash string `tl:"phone_code_hash"`
 	// Valid numerical code from the SMS-message
-	PhoneCode string `schemaname:"phone_code"`
+	PhoneCode string `tl:"phone_code"`
 }
 
 // AuthSignInRequestTypeID is TL type id of AuthSignInRequest.
@@ -80,8 +80,8 @@ func (s *AuthSignInRequest) TypeID() uint32 {
 	return AuthSignInRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *AuthSignInRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *AuthSignInRequest) TypeName() string {
 	return "auth.signIn"
 }
 

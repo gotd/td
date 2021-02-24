@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/photos.photo for reference.
 type PhotosPhoto struct {
 	// Photo
-	Photo PhotoClass `schemaname:"photo"`
+	Photo PhotoClass `tl:"photo"`
 	// Users
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // PhotosPhotoTypeID is TL type id of PhotosPhoto.
@@ -70,8 +70,8 @@ func (p *PhotosPhoto) TypeID() uint32 {
 	return PhotosPhotoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PhotosPhoto) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PhotosPhoto) TypeName() string {
 	return "photos.photo"
 }
 

@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/help.getUserInfo for reference.
 type HelpGetUserInfoRequest struct {
 	// User ID
-	UserID InputUserClass `schemaname:"user_id"`
+	UserID InputUserClass `tl:"user_id"`
 }
 
 // HelpGetUserInfoRequestTypeID is TL type id of HelpGetUserInfoRequest.
@@ -63,8 +63,8 @@ func (g *HelpGetUserInfoRequest) TypeID() uint32 {
 	return HelpGetUserInfoRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *HelpGetUserInfoRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *HelpGetUserInfoRequest) TypeName() string {
 	return "help.getUserInfo"
 }
 

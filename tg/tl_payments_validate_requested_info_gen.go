@@ -27,13 +27,13 @@ type PaymentsValidateRequestedInfoRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Save order information to re-use it for future orders
-	Save bool `schemaname:"save"`
+	Save bool `tl:"save"`
 	// Message ID of payment form
-	MsgID int `schemaname:"msg_id"`
+	MsgID int `tl:"msg_id"`
 	// Requested order information
-	Info PaymentRequestedInfo `schemaname:"info"`
+	Info PaymentRequestedInfo `tl:"info"`
 }
 
 // PaymentsValidateRequestedInfoRequestTypeID is TL type id of PaymentsValidateRequestedInfoRequest.
@@ -85,8 +85,8 @@ func (v *PaymentsValidateRequestedInfoRequest) TypeID() uint32 {
 	return PaymentsValidateRequestedInfoRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (v *PaymentsValidateRequestedInfoRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (v *PaymentsValidateRequestedInfoRequest) TypeName() string {
 	return "payments.validateRequestedInfo"
 }
 

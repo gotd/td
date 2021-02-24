@@ -27,19 +27,19 @@ type MessagesSetGameScoreRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Set this flag if the game message should be automatically edited to include the current scoreboard
-	EditMessage bool `schemaname:"edit_message"`
+	EditMessage bool `tl:"edit_message"`
 	// Set this flag if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters
-	Force bool `schemaname:"force"`
+	Force bool `tl:"force"`
 	// Unique identifier of target chat
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// Identifier of the sent message
-	ID int `schemaname:"id"`
+	ID int `tl:"id"`
 	// User identifier
-	UserID InputUserClass `schemaname:"user_id"`
+	UserID InputUserClass `tl:"user_id"`
 	// New score
-	Score int `schemaname:"score"`
+	Score int `tl:"score"`
 }
 
 // MessagesSetGameScoreRequestTypeID is TL type id of MessagesSetGameScoreRequest.
@@ -106,8 +106,8 @@ func (s *MessagesSetGameScoreRequest) TypeID() uint32 {
 	return MessagesSetGameScoreRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *MessagesSetGameScoreRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *MessagesSetGameScoreRequest) TypeName() string {
 	return "messages.setGameScore"
 }
 

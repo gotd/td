@@ -23,7 +23,7 @@ var _ = errors.Is
 // See https://localhost:80/doc/constructor/ping for reference.
 type PingRequest struct {
 	// ID field of PingRequest.
-	ID int32 `schemaname:"id"`
+	ID int32 `tl:"id"`
 }
 
 // PingRequestTypeID is TL type id of PingRequest.
@@ -62,8 +62,8 @@ func (p *PingRequest) TypeID() uint32 {
 	return PingRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PingRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PingRequest) TypeName() string {
 	return "ping"
 }
 

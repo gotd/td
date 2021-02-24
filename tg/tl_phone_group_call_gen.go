@@ -23,13 +23,13 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/phone.groupCall for reference.
 type PhoneGroupCall struct {
 	// Call field of PhoneGroupCall.
-	Call GroupCallClass `schemaname:"call"`
+	Call GroupCallClass `tl:"call"`
 	// Participants field of PhoneGroupCall.
-	Participants []GroupCallParticipant `schemaname:"participants"`
+	Participants []GroupCallParticipant `tl:"participants"`
 	// ParticipantsNextOffset field of PhoneGroupCall.
-	ParticipantsNextOffset string `schemaname:"participants_next_offset"`
+	ParticipantsNextOffset string `tl:"participants_next_offset"`
 	// Users field of PhoneGroupCall.
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // PhoneGroupCallTypeID is TL type id of PhoneGroupCall.
@@ -83,8 +83,8 @@ func (g *PhoneGroupCall) TypeID() uint32 {
 	return PhoneGroupCallTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *PhoneGroupCall) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *PhoneGroupCall) TypeName() string {
 	return "phone.groupCall"
 }
 

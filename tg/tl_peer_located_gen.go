@@ -24,11 +24,11 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/peerLocated for reference.
 type PeerLocated struct {
 	// Peer
-	Peer PeerClass `schemaname:"peer"`
+	Peer PeerClass `tl:"peer"`
 	// Validity period of current data
-	Expires int `schemaname:"expires"`
+	Expires int `tl:"expires"`
 	// Distance from the peer in meters
-	Distance int `schemaname:"distance"`
+	Distance int `tl:"distance"`
 }
 
 // PeerLocatedTypeID is TL type id of PeerLocated.
@@ -77,8 +77,8 @@ func (p *PeerLocated) TypeID() uint32 {
 	return PeerLocatedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PeerLocated) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PeerLocated) TypeName() string {
 	return "peerLocated"
 }
 
@@ -163,7 +163,7 @@ var (
 // See https://core.telegram.org/constructor/peerSelfLocated for reference.
 type PeerSelfLocated struct {
 	// Expiry of geolocation info for current peer
-	Expires int `schemaname:"expires"`
+	Expires int `tl:"expires"`
 }
 
 // PeerSelfLocatedTypeID is TL type id of PeerSelfLocated.
@@ -202,8 +202,8 @@ func (p *PeerSelfLocated) TypeID() uint32 {
 	return PeerSelfLocatedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PeerSelfLocated) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PeerSelfLocated) TypeName() string {
 	return "peerSelfLocated"
 }
 
@@ -270,11 +270,11 @@ type PeerLocatedClass interface {
 	bin.Decoder
 	construct() PeerLocatedClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

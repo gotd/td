@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/bots.setBotCommands for reference.
 type BotsSetBotCommandsRequest struct {
 	// Bot commands
-	Commands []BotCommand `schemaname:"commands"`
+	Commands []BotCommand `tl:"commands"`
 }
 
 // BotsSetBotCommandsRequestTypeID is TL type id of BotsSetBotCommandsRequest.
@@ -63,8 +63,8 @@ func (s *BotsSetBotCommandsRequest) TypeID() uint32 {
 	return BotsSetBotCommandsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *BotsSetBotCommandsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *BotsSetBotCommandsRequest) TypeName() string {
 	return "bots.setBotCommands"
 }
 

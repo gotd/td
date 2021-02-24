@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/emojiKeyword for reference.
 type EmojiKeyword struct {
 	// Keyword
-	Keyword string `schemaname:"keyword"`
+	Keyword string `tl:"keyword"`
 	// Emojis associated to keyword
-	Emoticons []string `schemaname:"emoticons"`
+	Emoticons []string `tl:"emoticons"`
 }
 
 // EmojiKeywordTypeID is TL type id of EmojiKeyword.
@@ -70,8 +70,8 @@ func (e *EmojiKeyword) TypeID() uint32 {
 	return EmojiKeywordTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (e *EmojiKeyword) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (e *EmojiKeyword) TypeName() string {
 	return "emojiKeyword"
 }
 
@@ -147,9 +147,9 @@ var (
 // See https://core.telegram.org/constructor/emojiKeywordDeleted for reference.
 type EmojiKeywordDeleted struct {
 	// Keyword
-	Keyword string `schemaname:"keyword"`
+	Keyword string `tl:"keyword"`
 	// Emojis that were associated to keyword
-	Emoticons []string `schemaname:"emoticons"`
+	Emoticons []string `tl:"emoticons"`
 }
 
 // EmojiKeywordDeletedTypeID is TL type id of EmojiKeywordDeleted.
@@ -193,8 +193,8 @@ func (e *EmojiKeywordDeleted) TypeID() uint32 {
 	return EmojiKeywordDeletedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (e *EmojiKeywordDeleted) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (e *EmojiKeywordDeleted) TypeName() string {
 	return "emojiKeywordDeleted"
 }
 
@@ -283,11 +283,11 @@ type EmojiKeywordClass interface {
 	bin.Decoder
 	construct() EmojiKeywordClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

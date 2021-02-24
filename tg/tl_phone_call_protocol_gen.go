@@ -27,15 +27,15 @@ type PhoneCallProtocol struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether to allow P2P connection to the other participant
-	UDPP2P bool `schemaname:"udp_p2p"`
+	UDPP2P bool `tl:"udp_p2p"`
 	// Whether to allow connection to the other participants through the reflector servers
-	UDPReflector bool `schemaname:"udp_reflector"`
+	UDPReflector bool `tl:"udp_reflector"`
 	// Minimum layer for remote libtgvoip
-	MinLayer int `schemaname:"min_layer"`
+	MinLayer int `tl:"min_layer"`
 	// Maximum layer for remote libtgvoip
-	MaxLayer int `schemaname:"max_layer"`
+	MaxLayer int `tl:"max_layer"`
 	// When using phone.requestCall¹ and phone.acceptCall², specify all library versions supported by the client. The server will merge and choose the best library version supported by both peers, returning only the best value in the result of the callee's phone.acceptCall³ and in the phoneCallAccepted⁴ update received by the caller.
 	//
 	// Links:
@@ -43,7 +43,7 @@ type PhoneCallProtocol struct {
 	//  2) https://core.telegram.org/method/phone.acceptCall
 	//  3) https://core.telegram.org/method/phone.acceptCall
 	//  4) https://core.telegram.org/constructor/phoneCallAccepted
-	LibraryVersions []string `schemaname:"library_versions"`
+	LibraryVersions []string `tl:"library_versions"`
 }
 
 // PhoneCallProtocolTypeID is TL type id of PhoneCallProtocol.
@@ -105,8 +105,8 @@ func (p *PhoneCallProtocol) TypeID() uint32 {
 	return PhoneCallProtocolTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PhoneCallProtocol) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PhoneCallProtocol) TypeName() string {
 	return "phoneCallProtocol"
 }
 

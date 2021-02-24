@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/phone.sendSignalingData for reference.
 type PhoneSendSignalingDataRequest struct {
 	// Phone call
-	Peer InputPhoneCall `schemaname:"peer"`
+	Peer InputPhoneCall `tl:"peer"`
 	// Signaling payload
-	Data []byte `schemaname:"data"`
+	Data []byte `tl:"data"`
 }
 
 // PhoneSendSignalingDataRequestTypeID is TL type id of PhoneSendSignalingDataRequest.
@@ -70,8 +70,8 @@ func (s *PhoneSendSignalingDataRequest) TypeID() uint32 {
 	return PhoneSendSignalingDataRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *PhoneSendSignalingDataRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *PhoneSendSignalingDataRequest) TypeName() string {
 	return "phone.sendSignalingData"
 }
 

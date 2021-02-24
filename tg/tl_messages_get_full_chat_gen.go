@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.getFullChat for reference.
 type MessagesGetFullChatRequest struct {
 	// Chat ID
-	ChatID int `schemaname:"chat_id"`
+	ChatID int `tl:"chat_id"`
 }
 
 // MessagesGetFullChatRequestTypeID is TL type id of MessagesGetFullChatRequest.
@@ -63,8 +63,8 @@ func (g *MessagesGetFullChatRequest) TypeID() uint32 {
 	return MessagesGetFullChatRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetFullChatRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetFullChatRequest) TypeName() string {
 	return "messages.getFullChat"
 }
 

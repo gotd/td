@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/inputStickeredMediaPhoto for reference.
 type InputStickeredMediaPhoto struct {
 	// The photo
-	ID InputPhotoClass `schemaname:"id"`
+	ID InputPhotoClass `tl:"id"`
 }
 
 // InputStickeredMediaPhotoTypeID is TL type id of InputStickeredMediaPhoto.
@@ -63,8 +63,8 @@ func (i *InputStickeredMediaPhoto) TypeID() uint32 {
 	return InputStickeredMediaPhotoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputStickeredMediaPhoto) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputStickeredMediaPhoto) TypeName() string {
 	return "inputStickeredMediaPhoto"
 }
 
@@ -123,7 +123,7 @@ var (
 // See https://core.telegram.org/constructor/inputStickeredMediaDocument for reference.
 type InputStickeredMediaDocument struct {
 	// The document
-	ID InputDocumentClass `schemaname:"id"`
+	ID InputDocumentClass `tl:"id"`
 }
 
 // InputStickeredMediaDocumentTypeID is TL type id of InputStickeredMediaDocument.
@@ -162,8 +162,8 @@ func (i *InputStickeredMediaDocument) TypeID() uint32 {
 	return InputStickeredMediaDocumentTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputStickeredMediaDocument) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputStickeredMediaDocument) TypeName() string {
 	return "inputStickeredMediaDocument"
 }
 
@@ -235,11 +235,11 @@ type InputStickeredMediaClass interface {
 	bin.Decoder
 	construct() InputStickeredMediaClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

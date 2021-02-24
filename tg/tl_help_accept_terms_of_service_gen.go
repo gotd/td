@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/help.acceptTermsOfService for reference.
 type HelpAcceptTermsOfServiceRequest struct {
 	// ID of terms of service
-	ID DataJSON `schemaname:"id"`
+	ID DataJSON `tl:"id"`
 }
 
 // HelpAcceptTermsOfServiceRequestTypeID is TL type id of HelpAcceptTermsOfServiceRequest.
@@ -63,8 +63,8 @@ func (a *HelpAcceptTermsOfServiceRequest) TypeID() uint32 {
 	return HelpAcceptTermsOfServiceRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (a *HelpAcceptTermsOfServiceRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (a *HelpAcceptTermsOfServiceRequest) TypeName() string {
 	return "help.acceptTermsOfService"
 }
 

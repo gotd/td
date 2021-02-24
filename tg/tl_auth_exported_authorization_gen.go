@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/auth.exportedAuthorization for reference.
 type AuthExportedAuthorization struct {
 	// current user identifier
-	ID int `schemaname:"id"`
+	ID int `tl:"id"`
 	// authorizes key
-	Bytes []byte `schemaname:"bytes"`
+	Bytes []byte `tl:"bytes"`
 }
 
 // AuthExportedAuthorizationTypeID is TL type id of AuthExportedAuthorization.
@@ -70,8 +70,8 @@ func (e *AuthExportedAuthorization) TypeID() uint32 {
 	return AuthExportedAuthorizationTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (e *AuthExportedAuthorization) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (e *AuthExportedAuthorization) TypeName() string {
 	return "auth.exportedAuthorization"
 }
 

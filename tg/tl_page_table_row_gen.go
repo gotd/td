@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/pageTableRow for reference.
 type PageTableRow struct {
 	// Table cells
-	Cells []PageTableCell `schemaname:"cells"`
+	Cells []PageTableCell `tl:"cells"`
 }
 
 // PageTableRowTypeID is TL type id of PageTableRow.
@@ -63,8 +63,8 @@ func (p *PageTableRow) TypeID() uint32 {
 	return PageTableRowTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PageTableRow) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PageTableRow) TypeName() string {
 	return "pageTableRow"
 }
 

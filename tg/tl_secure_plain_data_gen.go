@@ -28,7 +28,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/securePlainPhone for reference.
 type SecurePlainPhone struct {
 	// Phone number
-	Phone string `schemaname:"phone"`
+	Phone string `tl:"phone"`
 }
 
 // SecurePlainPhoneTypeID is TL type id of SecurePlainPhone.
@@ -67,8 +67,8 @@ func (s *SecurePlainPhone) TypeID() uint32 {
 	return SecurePlainPhoneTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SecurePlainPhone) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SecurePlainPhone) TypeName() string {
 	return "securePlainPhone"
 }
 
@@ -126,7 +126,7 @@ var (
 // See https://core.telegram.org/constructor/securePlainEmail for reference.
 type SecurePlainEmail struct {
 	// Email address
-	Email string `schemaname:"email"`
+	Email string `tl:"email"`
 }
 
 // SecurePlainEmailTypeID is TL type id of SecurePlainEmail.
@@ -165,8 +165,8 @@ func (s *SecurePlainEmail) TypeID() uint32 {
 	return SecurePlainEmailTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SecurePlainEmail) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SecurePlainEmail) TypeName() string {
 	return "securePlainEmail"
 }
 
@@ -233,11 +233,11 @@ type SecurePlainDataClass interface {
 	bin.Decoder
 	construct() SecurePlainDataClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

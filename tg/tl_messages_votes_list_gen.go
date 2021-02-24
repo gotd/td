@@ -27,23 +27,23 @@ type MessagesVotesList struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Total number of votes for all options (or only for the chosen option, if provided to messages.getPollVotes¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.getPollVotes
-	Count int `schemaname:"count"`
+	Count int `tl:"count"`
 	// Vote info for each user
-	Votes []MessageUserVoteClass `schemaname:"votes"`
+	Votes []MessageUserVoteClass `tl:"votes"`
 	// Info about users that voted in the poll
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 	// Offset to use with the next messages.getPollVotes¹ request, empty string if no more results are available.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.getPollVotes
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
-	NextOffset string `schemaname:"next_offset"`
+	NextOffset string `tl:"next_offset"`
 }
 
 // MessagesVotesListTypeID is TL type id of MessagesVotesList.
@@ -103,8 +103,8 @@ func (v *MessagesVotesList) TypeID() uint32 {
 	return MessagesVotesListTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (v *MessagesVotesList) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (v *MessagesVotesList) TypeName() string {
 	return "messages.votesList"
 }
 

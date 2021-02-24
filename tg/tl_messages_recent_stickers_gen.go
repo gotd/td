@@ -51,8 +51,8 @@ func (r *MessagesRecentStickersNotModified) TypeID() uint32 {
 	return MessagesRecentStickersNotModifiedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *MessagesRecentStickersNotModified) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *MessagesRecentStickersNotModified) TypeName() string {
 	return "messages.recentStickersNotModified"
 }
 
@@ -96,13 +96,13 @@ type MessagesRecentStickers struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `schemaname:"hash"`
+	Hash int `tl:"hash"`
 	// Emojis associated to stickers
-	Packs []StickerPack `schemaname:"packs"`
+	Packs []StickerPack `tl:"packs"`
 	// Recent stickers
-	Stickers []DocumentClass `schemaname:"stickers"`
+	Stickers []DocumentClass `tl:"stickers"`
 	// When was each sticker last used
-	Dates []int `schemaname:"dates"`
+	Dates []int `tl:"dates"`
 }
 
 // MessagesRecentStickersTypeID is TL type id of MessagesRecentStickers.
@@ -156,8 +156,8 @@ func (r *MessagesRecentStickers) TypeID() uint32 {
 	return MessagesRecentStickersTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *MessagesRecentStickers) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *MessagesRecentStickers) TypeName() string {
 	return "messages.recentStickers"
 }
 
@@ -302,11 +302,11 @@ type MessagesRecentStickersClass interface {
 	bin.Decoder
 	construct() MessagesRecentStickersClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

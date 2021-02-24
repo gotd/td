@@ -51,8 +51,8 @@ func (i *InputMessagesFilterEmpty) TypeID() uint32 {
 	return InputMessagesFilterEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMessagesFilterEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMessagesFilterEmpty) TypeName() string {
 	return "inputMessagesFilterEmpty"
 }
 
@@ -120,8 +120,8 @@ func (i *InputMessagesFilterPhotos) TypeID() uint32 {
 	return InputMessagesFilterPhotosTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMessagesFilterPhotos) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMessagesFilterPhotos) TypeName() string {
 	return "inputMessagesFilterPhotos"
 }
 
@@ -189,8 +189,8 @@ func (i *InputMessagesFilterVideo) TypeID() uint32 {
 	return InputMessagesFilterVideoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMessagesFilterVideo) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMessagesFilterVideo) TypeName() string {
 	return "inputMessagesFilterVideo"
 }
 
@@ -258,8 +258,8 @@ func (i *InputMessagesFilterPhotoVideo) TypeID() uint32 {
 	return InputMessagesFilterPhotoVideoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMessagesFilterPhotoVideo) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMessagesFilterPhotoVideo) TypeName() string {
 	return "inputMessagesFilterPhotoVideo"
 }
 
@@ -327,8 +327,8 @@ func (i *InputMessagesFilterDocument) TypeID() uint32 {
 	return InputMessagesFilterDocumentTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMessagesFilterDocument) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMessagesFilterDocument) TypeName() string {
 	return "inputMessagesFilterDocument"
 }
 
@@ -396,8 +396,8 @@ func (i *InputMessagesFilterUrl) TypeID() uint32 {
 	return InputMessagesFilterUrlTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMessagesFilterUrl) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMessagesFilterUrl) TypeName() string {
 	return "inputMessagesFilterUrl"
 }
 
@@ -465,8 +465,8 @@ func (i *InputMessagesFilterGif) TypeID() uint32 {
 	return InputMessagesFilterGifTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMessagesFilterGif) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMessagesFilterGif) TypeName() string {
 	return "inputMessagesFilterGif"
 }
 
@@ -534,8 +534,8 @@ func (i *InputMessagesFilterVoice) TypeID() uint32 {
 	return InputMessagesFilterVoiceTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMessagesFilterVoice) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMessagesFilterVoice) TypeName() string {
 	return "inputMessagesFilterVoice"
 }
 
@@ -603,8 +603,8 @@ func (i *InputMessagesFilterMusic) TypeID() uint32 {
 	return InputMessagesFilterMusicTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMessagesFilterMusic) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMessagesFilterMusic) TypeName() string {
 	return "inputMessagesFilterMusic"
 }
 
@@ -672,8 +672,8 @@ func (i *InputMessagesFilterChatPhotos) TypeID() uint32 {
 	return InputMessagesFilterChatPhotosTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMessagesFilterChatPhotos) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMessagesFilterChatPhotos) TypeName() string {
 	return "inputMessagesFilterChatPhotos"
 }
 
@@ -717,9 +717,9 @@ type InputMessagesFilterPhoneCalls struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Return only missed phone calls
-	Missed bool `schemaname:"missed"`
+	Missed bool `tl:"missed"`
 }
 
 // InputMessagesFilterPhoneCallsTypeID is TL type id of InputMessagesFilterPhoneCalls.
@@ -761,8 +761,8 @@ func (i *InputMessagesFilterPhoneCalls) TypeID() uint32 {
 	return InputMessagesFilterPhoneCallsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMessagesFilterPhoneCalls) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMessagesFilterPhoneCalls) TypeName() string {
 	return "inputMessagesFilterPhoneCalls"
 }
 
@@ -858,8 +858,8 @@ func (i *InputMessagesFilterRoundVoice) TypeID() uint32 {
 	return InputMessagesFilterRoundVoiceTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMessagesFilterRoundVoice) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMessagesFilterRoundVoice) TypeName() string {
 	return "inputMessagesFilterRoundVoice"
 }
 
@@ -927,8 +927,8 @@ func (i *InputMessagesFilterRoundVideo) TypeID() uint32 {
 	return InputMessagesFilterRoundVideoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMessagesFilterRoundVideo) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMessagesFilterRoundVideo) TypeName() string {
 	return "inputMessagesFilterRoundVideo"
 }
 
@@ -999,8 +999,8 @@ func (i *InputMessagesFilterMyMentions) TypeID() uint32 {
 	return InputMessagesFilterMyMentionsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMessagesFilterMyMentions) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMessagesFilterMyMentions) TypeName() string {
 	return "inputMessagesFilterMyMentions"
 }
 
@@ -1068,8 +1068,8 @@ func (i *InputMessagesFilterGeo) TypeID() uint32 {
 	return InputMessagesFilterGeoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMessagesFilterGeo) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMessagesFilterGeo) TypeName() string {
 	return "inputMessagesFilterGeo"
 }
 
@@ -1137,8 +1137,8 @@ func (i *InputMessagesFilterContacts) TypeID() uint32 {
 	return InputMessagesFilterContactsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMessagesFilterContacts) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMessagesFilterContacts) TypeName() string {
 	return "inputMessagesFilterContacts"
 }
 
@@ -1206,8 +1206,8 @@ func (i *InputMessagesFilterPinned) TypeID() uint32 {
 	return InputMessagesFilterPinnedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputMessagesFilterPinned) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputMessagesFilterPinned) TypeName() string {
 	return "inputMessagesFilterPinned"
 }
 
@@ -1276,11 +1276,11 @@ type MessagesFilterClass interface {
 	bin.Decoder
 	construct() MessagesFilterClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

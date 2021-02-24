@@ -27,17 +27,17 @@ type MessagesGetBotCallbackAnswerRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether this is a "play game" button
-	Game bool `schemaname:"game"`
+	Game bool `tl:"game"`
 	// Where was the inline keyboard sent
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// ID of the Message with the inline keyboard
-	MsgID int `schemaname:"msg_id"`
+	MsgID int `tl:"msg_id"`
 	// Callback data
 	//
 	// Use SetData and GetData helpers.
-	Data []byte `schemaname:"data"`
+	Data []byte `tl:"data"`
 	// For buttons requiring you to verify your identity with your 2FA password¹, the SRP payload generated using SRP².
 	//
 	// Links:
@@ -45,7 +45,7 @@ type MessagesGetBotCallbackAnswerRequest struct {
 	//  2) https://core.telegram.org/api/srp
 	//
 	// Use SetPassword and GetPassword helpers.
-	Password InputCheckPasswordSRPClass `schemaname:"password"`
+	Password InputCheckPasswordSRPClass `tl:"password"`
 }
 
 // MessagesGetBotCallbackAnswerRequestTypeID is TL type id of MessagesGetBotCallbackAnswerRequest.
@@ -113,8 +113,8 @@ func (g *MessagesGetBotCallbackAnswerRequest) TypeID() uint32 {
 	return MessagesGetBotCallbackAnswerRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetBotCallbackAnswerRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetBotCallbackAnswerRequest) TypeName() string {
 	return "messages.getBotCallbackAnswer"
 }
 

@@ -21,13 +21,13 @@ var _ = errors.Is
 // Message represents TL type `message#5bb8e511`.
 type Message struct {
 	// MsgID field of Message.
-	MsgID int64 `schemaname:"msg_id"`
+	MsgID int64 `tl:"msg_id"`
 	// Seqno field of Message.
-	Seqno int `schemaname:"seqno"`
+	Seqno int `tl:"seqno"`
 	// Bytes field of Message.
-	Bytes int `schemaname:"bytes"`
+	Bytes int `tl:"bytes"`
 	// Body field of Message.
-	Body GzipPacked `schemaname:"body"`
+	Body GzipPacked `tl:"body"`
 }
 
 // MessageTypeID is TL type id of Message.
@@ -81,8 +81,8 @@ func (m *Message) TypeID() uint32 {
 	return MessageTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *Message) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *Message) TypeName() string {
 	return "message"
 }
 

@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/webPageEmpty for reference.
 type WebPageEmpty struct {
 	// Preview ID
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 }
 
 // WebPageEmptyTypeID is TL type id of WebPageEmpty.
@@ -63,8 +63,8 @@ func (w *WebPageEmpty) TypeID() uint32 {
 	return WebPageEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (w *WebPageEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (w *WebPageEmpty) TypeName() string {
 	return "webPageEmpty"
 }
 
@@ -118,9 +118,9 @@ var (
 // See https://core.telegram.org/constructor/webPagePending for reference.
 type WebPagePending struct {
 	// ID of preview
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// When was the processing started
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 }
 
 // WebPagePendingTypeID is TL type id of WebPagePending.
@@ -164,8 +164,8 @@ func (w *WebPagePending) TypeID() uint32 {
 	return WebPagePendingTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (w *WebPagePending) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (w *WebPagePending) TypeName() string {
 	return "webPagePending"
 }
 
@@ -235,77 +235,77 @@ type WebPage struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Preview ID
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// URL of previewed webpage
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 	// Webpage URL to be displayed to the user
-	DisplayURL string `schemaname:"display_url"`
+	DisplayURL string `tl:"display_url"`
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `schemaname:"hash"`
+	Hash int `tl:"hash"`
 	// Type of the web page. Can be: article, photo, audio, video, document, profile, app, or something else
 	//
 	// Use SetType and GetType helpers.
-	Type string `schemaname:"type"`
+	Type string `tl:"type"`
 	// Short name of the site (e.g., Google Docs, App Store)
 	//
 	// Use SetSiteName and GetSiteName helpers.
-	SiteName string `schemaname:"site_name"`
+	SiteName string `tl:"site_name"`
 	// Title of the content
 	//
 	// Use SetTitle and GetTitle helpers.
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 	// Content description
 	//
 	// Use SetDescription and GetDescription helpers.
-	Description string `schemaname:"description"`
+	Description string `tl:"description"`
 	// Image representing the content
 	//
 	// Use SetPhoto and GetPhoto helpers.
-	Photo PhotoClass `schemaname:"photo"`
+	Photo PhotoClass `tl:"photo"`
 	// URL to show in the embedded preview
 	//
 	// Use SetEmbedURL and GetEmbedURL helpers.
-	EmbedURL string `schemaname:"embed_url"`
+	EmbedURL string `tl:"embed_url"`
 	// MIME type of the embedded preview, (e.g., text/html or video/mp4)
 	//
 	// Use SetEmbedType and GetEmbedType helpers.
-	EmbedType string `schemaname:"embed_type"`
+	EmbedType string `tl:"embed_type"`
 	// Width of the embedded preview
 	//
 	// Use SetEmbedWidth and GetEmbedWidth helpers.
-	EmbedWidth int `schemaname:"embed_width"`
+	EmbedWidth int `tl:"embed_width"`
 	// Height of the embedded preview
 	//
 	// Use SetEmbedHeight and GetEmbedHeight helpers.
-	EmbedHeight int `schemaname:"embed_height"`
+	EmbedHeight int `tl:"embed_height"`
 	// Duration of the content, in seconds
 	//
 	// Use SetDuration and GetDuration helpers.
-	Duration int `schemaname:"duration"`
+	Duration int `tl:"duration"`
 	// Author of the content
 	//
 	// Use SetAuthor and GetAuthor helpers.
-	Author string `schemaname:"author"`
+	Author string `tl:"author"`
 	// Preview of the content as a media file
 	//
 	// Use SetDocument and GetDocument helpers.
-	Document DocumentClass `schemaname:"document"`
+	Document DocumentClass `tl:"document"`
 	// Page contents in instant view¹ format
 	//
 	// Links:
 	//  1) https://instantview.telegram.org
 	//
 	// Use SetCachedPage and GetCachedPage helpers.
-	CachedPage Page `schemaname:"cached_page"`
+	CachedPage Page `tl:"cached_page"`
 	// Webpage attributes
 	//
 	// Use SetAttributes and GetAttributes helpers.
-	Attributes []WebPageAttributeTheme `schemaname:"attributes"`
+	Attributes []WebPageAttributeTheme `tl:"attributes"`
 }
 
 // WebPageTypeID is TL type id of WebPage.
@@ -474,8 +474,8 @@ func (w *WebPage) TypeID() uint32 {
 	return WebPageTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (w *WebPage) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (w *WebPage) TypeName() string {
 	return "webPage"
 }
 
@@ -992,11 +992,11 @@ type WebPageNotModified struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Page view count
 	//
 	// Use SetCachedPageViews and GetCachedPageViews helpers.
-	CachedPageViews int `schemaname:"cached_page_views"`
+	CachedPageViews int `tl:"cached_page_views"`
 }
 
 // WebPageNotModifiedTypeID is TL type id of WebPageNotModified.
@@ -1041,8 +1041,8 @@ func (w *WebPageNotModified) TypeID() uint32 {
 	return WebPageNotModifiedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (w *WebPageNotModified) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (w *WebPageNotModified) TypeName() string {
 	return "webPageNotModified"
 }
 
@@ -1134,11 +1134,11 @@ type WebPageClass interface {
 	bin.Decoder
 	construct() WebPageClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.
@@ -1154,11 +1154,11 @@ type ModifiedWebPage interface {
 	bin.Decoder
 	construct() WebPageClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

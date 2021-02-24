@@ -27,23 +27,23 @@ type PeerNotifySettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Display text in notifications
 	//
 	// Use SetShowPreviews and GetShowPreviews helpers.
-	ShowPreviews bool `schemaname:"show_previews"`
+	ShowPreviews bool `tl:"show_previews"`
 	// Mute peer?
 	//
 	// Use SetSilent and GetSilent helpers.
-	Silent bool `schemaname:"silent"`
+	Silent bool `tl:"silent"`
 	// Mute all notifications until this date
 	//
 	// Use SetMuteUntil and GetMuteUntil helpers.
-	MuteUntil int `schemaname:"mute_until"`
+	MuteUntil int `tl:"mute_until"`
 	// Audio file name for notifications
 	//
 	// Use SetSound and GetSound helpers.
-	Sound string `schemaname:"sound"`
+	Sound string `tl:"sound"`
 }
 
 // PeerNotifySettingsTypeID is TL type id of PeerNotifySettings.
@@ -112,8 +112,8 @@ func (p *PeerNotifySettings) TypeID() uint32 {
 	return PeerNotifySettingsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PeerNotifySettings) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PeerNotifySettings) TypeName() string {
 	return "peerNotifySettings"
 }
 

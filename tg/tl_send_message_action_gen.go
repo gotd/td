@@ -51,8 +51,8 @@ func (s *SendMessageTypingAction) TypeID() uint32 {
 	return SendMessageTypingActionTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SendMessageTypingAction) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SendMessageTypingAction) TypeName() string {
 	return "sendMessageTypingAction"
 }
 
@@ -120,8 +120,8 @@ func (s *SendMessageCancelAction) TypeID() uint32 {
 	return SendMessageCancelActionTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SendMessageCancelAction) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SendMessageCancelAction) TypeName() string {
 	return "sendMessageCancelAction"
 }
 
@@ -189,8 +189,8 @@ func (s *SendMessageRecordVideoAction) TypeID() uint32 {
 	return SendMessageRecordVideoActionTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SendMessageRecordVideoAction) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SendMessageRecordVideoAction) TypeName() string {
 	return "sendMessageRecordVideoAction"
 }
 
@@ -231,7 +231,7 @@ var (
 // See https://core.telegram.org/constructor/sendMessageUploadVideoAction for reference.
 type SendMessageUploadVideoAction struct {
 	// Progress percentage
-	Progress int `schemaname:"progress"`
+	Progress int `tl:"progress"`
 }
 
 // SendMessageUploadVideoActionTypeID is TL type id of SendMessageUploadVideoAction.
@@ -270,8 +270,8 @@ func (s *SendMessageUploadVideoAction) TypeID() uint32 {
 	return SendMessageUploadVideoActionTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SendMessageUploadVideoAction) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SendMessageUploadVideoAction) TypeName() string {
 	return "sendMessageUploadVideoAction"
 }
 
@@ -352,8 +352,8 @@ func (s *SendMessageRecordAudioAction) TypeID() uint32 {
 	return SendMessageRecordAudioActionTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SendMessageRecordAudioAction) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SendMessageRecordAudioAction) TypeName() string {
 	return "sendMessageRecordAudioAction"
 }
 
@@ -394,7 +394,7 @@ var (
 // See https://core.telegram.org/constructor/sendMessageUploadAudioAction for reference.
 type SendMessageUploadAudioAction struct {
 	// Progress percentage
-	Progress int `schemaname:"progress"`
+	Progress int `tl:"progress"`
 }
 
 // SendMessageUploadAudioActionTypeID is TL type id of SendMessageUploadAudioAction.
@@ -433,8 +433,8 @@ func (s *SendMessageUploadAudioAction) TypeID() uint32 {
 	return SendMessageUploadAudioActionTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SendMessageUploadAudioAction) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SendMessageUploadAudioAction) TypeName() string {
 	return "sendMessageUploadAudioAction"
 }
 
@@ -488,7 +488,7 @@ var (
 // See https://core.telegram.org/constructor/sendMessageUploadPhotoAction for reference.
 type SendMessageUploadPhotoAction struct {
 	// Progress percentage
-	Progress int `schemaname:"progress"`
+	Progress int `tl:"progress"`
 }
 
 // SendMessageUploadPhotoActionTypeID is TL type id of SendMessageUploadPhotoAction.
@@ -527,8 +527,8 @@ func (s *SendMessageUploadPhotoAction) TypeID() uint32 {
 	return SendMessageUploadPhotoActionTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SendMessageUploadPhotoAction) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SendMessageUploadPhotoAction) TypeName() string {
 	return "sendMessageUploadPhotoAction"
 }
 
@@ -582,7 +582,7 @@ var (
 // See https://core.telegram.org/constructor/sendMessageUploadDocumentAction for reference.
 type SendMessageUploadDocumentAction struct {
 	// Progress percentage
-	Progress int `schemaname:"progress"`
+	Progress int `tl:"progress"`
 }
 
 // SendMessageUploadDocumentActionTypeID is TL type id of SendMessageUploadDocumentAction.
@@ -621,8 +621,8 @@ func (s *SendMessageUploadDocumentAction) TypeID() uint32 {
 	return SendMessageUploadDocumentActionTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SendMessageUploadDocumentAction) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SendMessageUploadDocumentAction) TypeName() string {
 	return "sendMessageUploadDocumentAction"
 }
 
@@ -703,8 +703,8 @@ func (s *SendMessageGeoLocationAction) TypeID() uint32 {
 	return SendMessageGeoLocationActionTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SendMessageGeoLocationAction) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SendMessageGeoLocationAction) TypeName() string {
 	return "sendMessageGeoLocationAction"
 }
 
@@ -772,8 +772,8 @@ func (s *SendMessageChooseContactAction) TypeID() uint32 {
 	return SendMessageChooseContactActionTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SendMessageChooseContactAction) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SendMessageChooseContactAction) TypeName() string {
 	return "sendMessageChooseContactAction"
 }
 
@@ -841,8 +841,8 @@ func (s *SendMessageGamePlayAction) TypeID() uint32 {
 	return SendMessageGamePlayActionTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SendMessageGamePlayAction) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SendMessageGamePlayAction) TypeName() string {
 	return "sendMessageGamePlayAction"
 }
 
@@ -910,8 +910,8 @@ func (s *SendMessageRecordRoundAction) TypeID() uint32 {
 	return SendMessageRecordRoundActionTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SendMessageRecordRoundAction) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SendMessageRecordRoundAction) TypeName() string {
 	return "sendMessageRecordRoundAction"
 }
 
@@ -952,7 +952,7 @@ var (
 // See https://core.telegram.org/constructor/sendMessageUploadRoundAction for reference.
 type SendMessageUploadRoundAction struct {
 	// Progress percentage
-	Progress int `schemaname:"progress"`
+	Progress int `tl:"progress"`
 }
 
 // SendMessageUploadRoundActionTypeID is TL type id of SendMessageUploadRoundAction.
@@ -991,8 +991,8 @@ func (s *SendMessageUploadRoundAction) TypeID() uint32 {
 	return SendMessageUploadRoundActionTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SendMessageUploadRoundAction) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SendMessageUploadRoundAction) TypeName() string {
 	return "sendMessageUploadRoundAction"
 }
 
@@ -1072,8 +1072,8 @@ func (s *SpeakingInGroupCallAction) TypeID() uint32 {
 	return SpeakingInGroupCallActionTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SpeakingInGroupCallAction) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SpeakingInGroupCallAction) TypeName() string {
 	return "speakingInGroupCallAction"
 }
 
@@ -1113,7 +1113,7 @@ var (
 // See https://core.telegram.org/constructor/sendMessageHistoryImportAction for reference.
 type SendMessageHistoryImportAction struct {
 	// Progress field of SendMessageHistoryImportAction.
-	Progress int `schemaname:"progress"`
+	Progress int `tl:"progress"`
 }
 
 // SendMessageHistoryImportActionTypeID is TL type id of SendMessageHistoryImportAction.
@@ -1152,8 +1152,8 @@ func (s *SendMessageHistoryImportAction) TypeID() uint32 {
 	return SendMessageHistoryImportActionTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SendMessageHistoryImportAction) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SendMessageHistoryImportAction) TypeName() string {
 	return "sendMessageHistoryImportAction"
 }
 
@@ -1233,11 +1233,11 @@ type SendMessageActionClass interface {
 	bin.Decoder
 	construct() SendMessageActionClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

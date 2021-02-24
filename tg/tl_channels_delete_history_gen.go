@@ -30,9 +30,9 @@ type ChannelsDeleteHistoryRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass `schemaname:"channel"`
+	Channel InputChannelClass `tl:"channel"`
 	// ID of message up to which the history must be deleted
-	MaxID int `schemaname:"max_id"`
+	MaxID int `tl:"max_id"`
 }
 
 // ChannelsDeleteHistoryRequestTypeID is TL type id of ChannelsDeleteHistoryRequest.
@@ -76,8 +76,8 @@ func (d *ChannelsDeleteHistoryRequest) TypeID() uint32 {
 	return ChannelsDeleteHistoryRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *ChannelsDeleteHistoryRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *ChannelsDeleteHistoryRequest) TypeName() string {
 	return "channels.deleteHistory"
 }
 

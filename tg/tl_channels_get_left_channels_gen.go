@@ -30,7 +30,7 @@ type ChannelsGetLeftChannelsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Offset int `schemaname:"offset"`
+	Offset int `tl:"offset"`
 }
 
 // ChannelsGetLeftChannelsRequestTypeID is TL type id of ChannelsGetLeftChannelsRequest.
@@ -69,8 +69,8 @@ func (g *ChannelsGetLeftChannelsRequest) TypeID() uint32 {
 	return ChannelsGetLeftChannelsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *ChannelsGetLeftChannelsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *ChannelsGetLeftChannelsRequest) TypeName() string {
 	return "channels.getLeftChannels"
 }
 

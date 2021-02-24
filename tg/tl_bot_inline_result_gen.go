@@ -27,36 +27,36 @@ type BotInlineResult struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Result ID
-	ID string `schemaname:"id"`
+	ID string `tl:"id"`
 	// Result type (see bot API docs¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/api#inlinequeryresult
-	Type string `schemaname:"type"`
+	Type string `tl:"type"`
 	// Result title
 	//
 	// Use SetTitle and GetTitle helpers.
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 	// Result description
 	//
 	// Use SetDescription and GetDescription helpers.
-	Description string `schemaname:"description"`
+	Description string `tl:"description"`
 	// URL of article or webpage
 	//
 	// Use SetURL and GetURL helpers.
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 	// Thumbnail for the result
 	//
 	// Use SetThumb and GetThumb helpers.
-	Thumb WebDocumentClass `schemaname:"thumb"`
+	Thumb WebDocumentClass `tl:"thumb"`
 	// Content of the result
 	//
 	// Use SetContent and GetContent helpers.
-	Content WebDocumentClass `schemaname:"content"`
+	Content WebDocumentClass `tl:"content"`
 	// Message to send
-	SendMessage BotInlineMessageClass `schemaname:"send_message"`
+	SendMessage BotInlineMessageClass `tl:"send_message"`
 }
 
 // BotInlineResultTypeID is TL type id of BotInlineResult.
@@ -148,8 +148,8 @@ func (b *BotInlineResult) TypeID() uint32 {
 	return BotInlineResultTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *BotInlineResult) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *BotInlineResult) TypeName() string {
 	return "botInlineResult"
 }
 
@@ -395,35 +395,35 @@ type BotInlineMediaResult struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Result ID
-	ID string `schemaname:"id"`
+	ID string `tl:"id"`
 	// Result type (see bot API docs¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/api#inlinequeryresult
-	Type string `schemaname:"type"`
+	Type string `tl:"type"`
 	// If type is photo, the photo to send
 	//
 	// Use SetPhoto and GetPhoto helpers.
-	Photo PhotoClass `schemaname:"photo"`
+	Photo PhotoClass `tl:"photo"`
 	// If type is document, the document to send
 	//
 	// Use SetDocument and GetDocument helpers.
-	Document DocumentClass `schemaname:"document"`
+	Document DocumentClass `tl:"document"`
 	// Result title
 	//
 	// Use SetTitle and GetTitle helpers.
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 	// Description
 	//
 	// Use SetDescription and GetDescription helpers.
-	Description string `schemaname:"description"`
+	Description string `tl:"description"`
 	// Depending on the type and on the constructor¹, contains the caption of the media or the content of the message to be sent instead of the media
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/BotInlineMessage
-	SendMessage BotInlineMessageClass `schemaname:"send_message"`
+	SendMessage BotInlineMessageClass `tl:"send_message"`
 }
 
 // BotInlineMediaResultTypeID is TL type id of BotInlineMediaResult.
@@ -507,8 +507,8 @@ func (b *BotInlineMediaResult) TypeID() uint32 {
 	return BotInlineMediaResultTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (b *BotInlineMediaResult) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (b *BotInlineMediaResult) TypeName() string {
 	return "botInlineMediaResult"
 }
 
@@ -736,11 +736,11 @@ type BotInlineResultClass interface {
 	bin.Decoder
 	construct() BotInlineResultClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

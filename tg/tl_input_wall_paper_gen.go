@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/inputWallPaper for reference.
 type InputWallPaper struct {
 	// Wallpaper ID
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// Access hash
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 }
 
 // InputWallPaperTypeID is TL type id of InputWallPaper.
@@ -70,8 +70,8 @@ func (i *InputWallPaper) TypeID() uint32 {
 	return InputWallPaperTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputWallPaper) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputWallPaper) TypeName() string {
 	return "inputWallPaper"
 }
 
@@ -138,7 +138,7 @@ var (
 // See https://core.telegram.org/constructor/inputWallPaperSlug for reference.
 type InputWallPaperSlug struct {
 	// Unique wallpaper ID
-	Slug string `schemaname:"slug"`
+	Slug string `tl:"slug"`
 }
 
 // InputWallPaperSlugTypeID is TL type id of InputWallPaperSlug.
@@ -177,8 +177,8 @@ func (i *InputWallPaperSlug) TypeID() uint32 {
 	return InputWallPaperSlugTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputWallPaperSlug) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputWallPaperSlug) TypeName() string {
 	return "inputWallPaperSlug"
 }
 
@@ -259,8 +259,8 @@ func (i *InputWallPaperNoFile) TypeID() uint32 {
 	return InputWallPaperNoFileTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputWallPaperNoFile) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputWallPaperNoFile) TypeName() string {
 	return "inputWallPaperNoFile"
 }
 
@@ -315,11 +315,11 @@ type InputWallPaperClass interface {
 	bin.Decoder
 	construct() InputWallPaperClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

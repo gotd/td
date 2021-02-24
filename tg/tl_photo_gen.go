@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/photoEmpty for reference.
 type PhotoEmpty struct {
 	// Photo identifier
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 }
 
 // PhotoEmptyTypeID is TL type id of PhotoEmpty.
@@ -63,8 +63,8 @@ func (p *PhotoEmpty) TypeID() uint32 {
 	return PhotoEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PhotoEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PhotoEmpty) TypeName() string {
 	return "photoEmpty"
 }
 
@@ -121,31 +121,31 @@ type Photo struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether the photo has mask stickers attached to it
-	HasStickers bool `schemaname:"has_stickers"`
+	HasStickers bool `tl:"has_stickers"`
 	// ID
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// Access hash
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 	// file reference¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/file_reference
-	FileReference []byte `schemaname:"file_reference"`
+	FileReference []byte `tl:"file_reference"`
 	// Date of upload
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 	// Available sizes for download
-	Sizes []PhotoSizeClass `schemaname:"sizes"`
+	Sizes []PhotoSizeClass `tl:"sizes"`
 	// For animated profiles¹, the MPEG4 videos
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files#animated-profile-pictures
 	//
 	// Use SetVideoSizes and GetVideoSizes helpers.
-	VideoSizes []VideoSize `schemaname:"video_sizes"`
+	VideoSizes []VideoSize `tl:"video_sizes"`
 	// DC ID to use for download
-	DCID int `schemaname:"dc_id"`
+	DCID int `tl:"dc_id"`
 }
 
 // PhotoTypeID is TL type id of Photo.
@@ -225,8 +225,8 @@ func (p *Photo) TypeID() uint32 {
 	return PhotoTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *Photo) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *Photo) TypeName() string {
 	return "photo"
 }
 
@@ -444,11 +444,11 @@ type PhotoClass interface {
 	bin.Decoder
 	construct() PhotoClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

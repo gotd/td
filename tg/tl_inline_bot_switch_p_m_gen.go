@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/inlineBotSwitchPM for reference.
 type InlineBotSwitchPM struct {
 	// Text for the button that switches the user to a private chat with the bot and sends the bot a start message with the parameter start_parameter (can be empty)
-	Text string `schemaname:"text"`
+	Text string `tl:"text"`
 	// The parameter for the /start parameter
-	StartParam string `schemaname:"start_param"`
+	StartParam string `tl:"start_param"`
 }
 
 // InlineBotSwitchPMTypeID is TL type id of InlineBotSwitchPM.
@@ -70,8 +70,8 @@ func (i *InlineBotSwitchPM) TypeID() uint32 {
 	return InlineBotSwitchPMTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InlineBotSwitchPM) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InlineBotSwitchPM) TypeName() string {
 	return "inlineBotSwitchPM"
 }
 

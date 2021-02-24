@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/contact for reference.
 type Contact struct {
 	// User identifier
-	UserID int `schemaname:"user_id"`
+	UserID int `tl:"user_id"`
 	// Current user is in the user's contact list
-	Mutual bool `schemaname:"mutual"`
+	Mutual bool `tl:"mutual"`
 }
 
 // ContactTypeID is TL type id of Contact.
@@ -70,8 +70,8 @@ func (c *Contact) TypeID() uint32 {
 	return ContactTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *Contact) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *Contact) TypeName() string {
 	return "contact"
 }
 

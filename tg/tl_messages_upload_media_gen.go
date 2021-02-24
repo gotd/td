@@ -27,12 +27,12 @@ type MessagesUploadMediaRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/inputPeerEmpty
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// File uploaded in chunks as described in files »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files
-	Media InputMediaClass `schemaname:"media"`
+	Media InputMediaClass `tl:"media"`
 }
 
 // MessagesUploadMediaRequestTypeID is TL type id of MessagesUploadMediaRequest.
@@ -76,8 +76,8 @@ func (u *MessagesUploadMediaRequest) TypeID() uint32 {
 	return MessagesUploadMediaRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (u *MessagesUploadMediaRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (u *MessagesUploadMediaRequest) TypeName() string {
 	return "messages.uploadMedia"
 }
 

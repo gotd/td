@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/account.sendChangePhoneCode for reference.
 type AccountSendChangePhoneCodeRequest struct {
 	// New phone number
-	PhoneNumber string `schemaname:"phone_number"`
+	PhoneNumber string `tl:"phone_number"`
 	// Phone code settings
-	Settings CodeSettings `schemaname:"settings"`
+	Settings CodeSettings `tl:"settings"`
 }
 
 // AccountSendChangePhoneCodeRequestTypeID is TL type id of AccountSendChangePhoneCodeRequest.
@@ -70,8 +70,8 @@ func (s *AccountSendChangePhoneCodeRequest) TypeID() uint32 {
 	return AccountSendChangePhoneCodeRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *AccountSendChangePhoneCodeRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *AccountSendChangePhoneCodeRequest) TypeName() string {
 	return "account.sendChangePhoneCode"
 }
 

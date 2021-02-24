@@ -21,11 +21,11 @@ var _ = errors.Is
 // DhGenOk represents TL type `dh_gen_ok#3bcbf734`.
 type DhGenOk struct {
 	// Nonce field of DhGenOk.
-	Nonce bin.Int128 `schemaname:"nonce"`
+	Nonce bin.Int128 `tl:"nonce"`
 	// ServerNonce field of DhGenOk.
-	ServerNonce bin.Int128 `schemaname:"server_nonce"`
+	ServerNonce bin.Int128 `tl:"server_nonce"`
 	// NewNonceHash1 field of DhGenOk.
-	NewNonceHash1 bin.Int128 `schemaname:"new_nonce_hash1"`
+	NewNonceHash1 bin.Int128 `tl:"new_nonce_hash1"`
 }
 
 // DhGenOkTypeID is TL type id of DhGenOk.
@@ -74,8 +74,8 @@ func (d *DhGenOk) TypeID() uint32 {
 	return DhGenOkTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DhGenOk) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DhGenOk) TypeName() string {
 	return "dh_gen_ok"
 }
 
@@ -152,11 +152,11 @@ var (
 // DhGenRetry represents TL type `dh_gen_retry#46dc1fb9`.
 type DhGenRetry struct {
 	// Nonce field of DhGenRetry.
-	Nonce bin.Int128 `schemaname:"nonce"`
+	Nonce bin.Int128 `tl:"nonce"`
 	// ServerNonce field of DhGenRetry.
-	ServerNonce bin.Int128 `schemaname:"server_nonce"`
+	ServerNonce bin.Int128 `tl:"server_nonce"`
 	// NewNonceHash2 field of DhGenRetry.
-	NewNonceHash2 bin.Int128 `schemaname:"new_nonce_hash2"`
+	NewNonceHash2 bin.Int128 `tl:"new_nonce_hash2"`
 }
 
 // DhGenRetryTypeID is TL type id of DhGenRetry.
@@ -205,8 +205,8 @@ func (d *DhGenRetry) TypeID() uint32 {
 	return DhGenRetryTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DhGenRetry) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DhGenRetry) TypeName() string {
 	return "dh_gen_retry"
 }
 
@@ -283,11 +283,11 @@ var (
 // DhGenFail represents TL type `dh_gen_fail#a69dae02`.
 type DhGenFail struct {
 	// Nonce field of DhGenFail.
-	Nonce bin.Int128 `schemaname:"nonce"`
+	Nonce bin.Int128 `tl:"nonce"`
 	// ServerNonce field of DhGenFail.
-	ServerNonce bin.Int128 `schemaname:"server_nonce"`
+	ServerNonce bin.Int128 `tl:"server_nonce"`
 	// NewNonceHash3 field of DhGenFail.
-	NewNonceHash3 bin.Int128 `schemaname:"new_nonce_hash3"`
+	NewNonceHash3 bin.Int128 `tl:"new_nonce_hash3"`
 }
 
 // DhGenFailTypeID is TL type id of DhGenFail.
@@ -336,8 +336,8 @@ func (d *DhGenFail) TypeID() uint32 {
 	return DhGenFailTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DhGenFail) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DhGenFail) TypeName() string {
 	return "dh_gen_fail"
 }
 
@@ -429,11 +429,11 @@ type SetClientDHParamsAnswerClass interface {
 	bin.Decoder
 	construct() SetClientDHParamsAnswerClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

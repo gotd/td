@@ -21,7 +21,7 @@ var _ = errors.Is
 // MsgsAck represents TL type `msgs_ack#62d6b459`.
 type MsgsAck struct {
 	// MsgIds field of MsgsAck.
-	MsgIds []int64 `schemaname:"msg_ids"`
+	MsgIds []int64 `tl:"msg_ids"`
 }
 
 // MsgsAckTypeID is TL type id of MsgsAck.
@@ -60,8 +60,8 @@ func (m *MsgsAck) TypeID() uint32 {
 	return MsgsAckTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *MsgsAck) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *MsgsAck) TypeName() string {
 	return "msgs_ack"
 }
 

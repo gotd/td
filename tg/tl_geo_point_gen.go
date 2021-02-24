@@ -51,8 +51,8 @@ func (g *GeoPointEmpty) TypeID() uint32 {
 	return GeoPointEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *GeoPointEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *GeoPointEmpty) TypeName() string {
 	return "geoPointEmpty"
 }
 
@@ -96,17 +96,17 @@ type GeoPoint struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Longtitude
-	Long float64 `schemaname:"long"`
+	Long float64 `tl:"long"`
 	// Latitude
-	Lat float64 `schemaname:"lat"`
+	Lat float64 `tl:"lat"`
 	// Access hash
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 	// The estimated horizontal accuracy of the location, in meters; as defined by the sender.
 	//
 	// Use SetAccuracyRadius and GetAccuracyRadius helpers.
-	AccuracyRadius int `schemaname:"accuracy_radius"`
+	AccuracyRadius int `tl:"accuracy_radius"`
 }
 
 // GeoPointTypeID is TL type id of GeoPoint.
@@ -166,8 +166,8 @@ func (g *GeoPoint) TypeID() uint32 {
 	return GeoPointTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *GeoPoint) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *GeoPoint) TypeName() string {
 	return "geoPoint"
 }
 
@@ -296,11 +296,11 @@ type GeoPointClass interface {
 	bin.Decoder
 	construct() GeoPointClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

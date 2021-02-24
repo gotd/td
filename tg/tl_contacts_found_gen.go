@@ -24,13 +24,13 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/contacts.found for reference.
 type ContactsFound struct {
 	// Personalized results
-	MyResults []PeerClass `schemaname:"my_results"`
+	MyResults []PeerClass `tl:"my_results"`
 	// List of found user identifiers
-	Results []PeerClass `schemaname:"results"`
+	Results []PeerClass `tl:"results"`
 	// Found chats
-	Chats []ChatClass `schemaname:"chats"`
+	Chats []ChatClass `tl:"chats"`
 	// List of users
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // ContactsFoundTypeID is TL type id of ContactsFound.
@@ -84,8 +84,8 @@ func (f *ContactsFound) TypeID() uint32 {
 	return ContactsFoundTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (f *ContactsFound) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (f *ContactsFound) TypeName() string {
 	return "contacts.found"
 }
 

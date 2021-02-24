@@ -50,8 +50,8 @@ func (d *DoAuthRequest) TypeID() uint32 {
 	return DoAuthRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DoAuthRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DoAuthRequest) TypeName() string {
 	return "doAuth"
 }
 

@@ -27,19 +27,19 @@ type AccountCreateThemeRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Unique theme ID
-	Slug string `schemaname:"slug"`
+	Slug string `tl:"slug"`
 	// Theme name
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 	// Theme file
 	//
 	// Use SetDocument and GetDocument helpers.
-	Document InputDocumentClass `schemaname:"document"`
+	Document InputDocumentClass `tl:"document"`
 	// Theme settings
 	//
 	// Use SetSettings and GetSettings helpers.
-	Settings InputThemeSettings `schemaname:"settings"`
+	Settings InputThemeSettings `tl:"settings"`
 }
 
 // AccountCreateThemeRequestTypeID is TL type id of AccountCreateThemeRequest.
@@ -102,8 +102,8 @@ func (c *AccountCreateThemeRequest) TypeID() uint32 {
 	return AccountCreateThemeRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *AccountCreateThemeRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *AccountCreateThemeRequest) TypeName() string {
 	return "account.createTheme"
 }
 

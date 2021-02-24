@@ -27,21 +27,21 @@ type Folder struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Automatically add new channels to this folder
-	AutofillNewBroadcasts bool `schemaname:"autofill_new_broadcasts"`
+	AutofillNewBroadcasts bool `tl:"autofill_new_broadcasts"`
 	// Automatically add joined new public supergroups to this folder
-	AutofillPublicGroups bool `schemaname:"autofill_public_groups"`
+	AutofillPublicGroups bool `tl:"autofill_public_groups"`
 	// Automatically add new private chats to this folder
-	AutofillNewCorrespondents bool `schemaname:"autofill_new_correspondents"`
+	AutofillNewCorrespondents bool `tl:"autofill_new_correspondents"`
 	// Folder ID
-	ID int `schemaname:"id"`
+	ID int `tl:"id"`
 	// Folder title
-	Title string `schemaname:"title"`
+	Title string `tl:"title"`
 	// Folder picture
 	//
 	// Use SetPhoto and GetPhoto helpers.
-	Photo ChatPhotoClass `schemaname:"photo"`
+	Photo ChatPhotoClass `tl:"photo"`
 }
 
 // FolderTypeID is TL type id of Folder.
@@ -111,8 +111,8 @@ func (f *Folder) TypeID() uint32 {
 	return FolderTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (f *Folder) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (f *Folder) TypeName() string {
 	return "folder"
 }
 

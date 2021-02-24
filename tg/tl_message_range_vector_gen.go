@@ -21,7 +21,7 @@ var _ = errors.Is
 // MessageRangeVector is a box for Vector<MessageRange>
 type MessageRangeVector struct {
 	// Elements of Vector<MessageRange>
-	Elems []MessageRange `schemaname:"Elems"`
+	Elems []MessageRange `tl:"Elems"`
 }
 
 // MessageRangeVectorTypeID is TL type id of MessageRangeVector.
@@ -60,8 +60,8 @@ func (vec *MessageRangeVector) TypeID() uint32 {
 	return MessageRangeVectorTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (vec *MessageRangeVector) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (vec *MessageRangeVector) TypeName() string {
 	return ""
 }
 

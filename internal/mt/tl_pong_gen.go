@@ -21,9 +21,9 @@ var _ = errors.Is
 // Pong represents TL type `pong#347773c5`.
 type Pong struct {
 	// MsgID field of Pong.
-	MsgID int64 `schemaname:"msg_id"`
+	MsgID int64 `tl:"msg_id"`
 	// PingID field of Pong.
-	PingID int64 `schemaname:"ping_id"`
+	PingID int64 `tl:"ping_id"`
 }
 
 // PongTypeID is TL type id of Pong.
@@ -67,8 +67,8 @@ func (p *Pong) TypeID() uint32 {
 	return PongTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *Pong) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *Pong) TypeName() string {
 	return "pong"
 }
 

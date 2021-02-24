@@ -27,16 +27,16 @@ type AuthAuthorization struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Temporary passport¹ sessions
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetTmpSessions and GetTmpSessions helpers.
-	TmpSessions int `schemaname:"tmp_sessions"`
+	TmpSessions int `tl:"tmp_sessions"`
 	// Info on authorized user
-	User UserClass `schemaname:"user"`
+	User UserClass `tl:"user"`
 }
 
 // AuthAuthorizationTypeID is TL type id of AuthAuthorization.
@@ -86,8 +86,8 @@ func (a *AuthAuthorization) TypeID() uint32 {
 	return AuthAuthorizationTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (a *AuthAuthorization) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (a *AuthAuthorization) TypeName() string {
 	return "auth.authorization"
 }
 
@@ -188,11 +188,11 @@ type AuthAuthorizationSignUpRequired struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Telegram's terms of service: the user must read and accept the terms of service before signing up to telegram
 	//
 	// Use SetTermsOfService and GetTermsOfService helpers.
-	TermsOfService HelpTermsOfService `schemaname:"terms_of_service"`
+	TermsOfService HelpTermsOfService `tl:"terms_of_service"`
 }
 
 // AuthAuthorizationSignUpRequiredTypeID is TL type id of AuthAuthorizationSignUpRequired.
@@ -237,8 +237,8 @@ func (a *AuthAuthorizationSignUpRequired) TypeID() uint32 {
 	return AuthAuthorizationSignUpRequiredTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (a *AuthAuthorizationSignUpRequired) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (a *AuthAuthorizationSignUpRequired) TypeName() string {
 	return "auth.authorizationSignUpRequired"
 }
 
@@ -328,11 +328,11 @@ type AuthAuthorizationClass interface {
 	bin.Decoder
 	construct() AuthAuthorizationClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

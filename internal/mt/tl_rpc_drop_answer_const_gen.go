@@ -21,7 +21,7 @@ var _ = errors.Is
 // RPCDropAnswerRequest represents TL type `rpc_drop_answer#58e4a740`.
 type RPCDropAnswerRequest struct {
 	// ReqMsgID field of RPCDropAnswerRequest.
-	ReqMsgID int64 `schemaname:"req_msg_id"`
+	ReqMsgID int64 `tl:"req_msg_id"`
 }
 
 // RPCDropAnswerRequestTypeID is TL type id of RPCDropAnswerRequest.
@@ -60,8 +60,8 @@ func (r *RPCDropAnswerRequest) TypeID() uint32 {
 	return RPCDropAnswerRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *RPCDropAnswerRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *RPCDropAnswerRequest) TypeName() string {
 	return "rpc_drop_answer"
 }
 

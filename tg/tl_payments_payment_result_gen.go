@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/payments.paymentResult for reference.
 type PaymentsPaymentResult struct {
 	// Info about the payment
-	Updates UpdatesClass `schemaname:"updates"`
+	Updates UpdatesClass `tl:"updates"`
 }
 
 // PaymentsPaymentResultTypeID is TL type id of PaymentsPaymentResult.
@@ -63,8 +63,8 @@ func (p *PaymentsPaymentResult) TypeID() uint32 {
 	return PaymentsPaymentResultTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PaymentsPaymentResult) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PaymentsPaymentResult) TypeName() string {
 	return "payments.paymentResult"
 }
 
@@ -123,7 +123,7 @@ var (
 // See https://core.telegram.org/constructor/payments.paymentVerificationNeeded for reference.
 type PaymentsPaymentVerificationNeeded struct {
 	// URL for additional payment credentials verification
-	URL string `schemaname:"url"`
+	URL string `tl:"url"`
 }
 
 // PaymentsPaymentVerificationNeededTypeID is TL type id of PaymentsPaymentVerificationNeeded.
@@ -162,8 +162,8 @@ func (p *PaymentsPaymentVerificationNeeded) TypeID() uint32 {
 	return PaymentsPaymentVerificationNeededTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PaymentsPaymentVerificationNeeded) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PaymentsPaymentVerificationNeeded) TypeName() string {
 	return "payments.paymentVerificationNeeded"
 }
 
@@ -230,11 +230,11 @@ type PaymentsPaymentResultClass interface {
 	bin.Decoder
 	construct() PaymentsPaymentResultClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

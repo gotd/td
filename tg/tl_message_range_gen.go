@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messageRange for reference.
 type MessageRange struct {
 	// Start of range (message ID)
-	MinID int `schemaname:"min_id"`
+	MinID int `tl:"min_id"`
 	// End of range (message ID)
-	MaxID int `schemaname:"max_id"`
+	MaxID int `tl:"max_id"`
 }
 
 // MessageRangeTypeID is TL type id of MessageRange.
@@ -70,8 +70,8 @@ func (m *MessageRange) TypeID() uint32 {
 	return MessageRangeTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (m *MessageRange) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (m *MessageRange) TypeName() string {
 	return "messageRange"
 }
 

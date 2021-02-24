@@ -30,7 +30,7 @@ type AccountGetPasswordSettingsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	Password InputCheckPasswordSRPClass `schemaname:"password"`
+	Password InputCheckPasswordSRPClass `tl:"password"`
 }
 
 // AccountGetPasswordSettingsRequestTypeID is TL type id of AccountGetPasswordSettingsRequest.
@@ -69,8 +69,8 @@ func (g *AccountGetPasswordSettingsRequest) TypeID() uint32 {
 	return AccountGetPasswordSettingsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *AccountGetPasswordSettingsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *AccountGetPasswordSettingsRequest) TypeName() string {
 	return "account.getPasswordSettings"
 }
 

@@ -51,8 +51,8 @@ func (s *SecureFileEmpty) TypeID() uint32 {
 	return SecureFileEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SecureFileEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SecureFileEmpty) TypeName() string {
 	return "secureFileEmpty"
 }
 
@@ -97,19 +97,19 @@ var (
 // See https://core.telegram.org/constructor/secureFile for reference.
 type SecureFile struct {
 	// ID
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// Access hash
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 	// File size
-	Size int `schemaname:"size"`
+	Size int `tl:"size"`
 	// DC ID
-	DCID int `schemaname:"dc_id"`
+	DCID int `tl:"dc_id"`
 	// Date of upload
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 	// File hash
-	FileHash []byte `schemaname:"file_hash"`
+	FileHash []byte `tl:"file_hash"`
 	// Secret
-	Secret []byte `schemaname:"secret"`
+	Secret []byte `tl:"secret"`
 }
 
 // SecureFileTypeID is TL type id of SecureFile.
@@ -178,8 +178,8 @@ func (s *SecureFile) TypeID() uint32 {
 	return SecureFileTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *SecureFile) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *SecureFile) TypeName() string {
 	return "secureFile"
 }
 
@@ -324,11 +324,11 @@ type SecureFileClass interface {
 	bin.Decoder
 	construct() SecureFileClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

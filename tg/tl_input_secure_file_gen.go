@@ -27,15 +27,15 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/inputSecureFileUploaded for reference.
 type InputSecureFileUploaded struct {
 	// Secure file ID
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// Secure file part count
-	Parts int `schemaname:"parts"`
+	Parts int `tl:"parts"`
 	// MD5 hash of encrypted uploaded file, to be checked server-side
-	MD5Checksum string `schemaname:"md5_checksum"`
+	MD5Checksum string `tl:"md5_checksum"`
 	// File hash
-	FileHash []byte `schemaname:"file_hash"`
+	FileHash []byte `tl:"file_hash"`
 	// Secret
-	Secret []byte `schemaname:"secret"`
+	Secret []byte `tl:"secret"`
 }
 
 // InputSecureFileUploadedTypeID is TL type id of InputSecureFileUploaded.
@@ -94,8 +94,8 @@ func (i *InputSecureFileUploaded) TypeID() uint32 {
 	return InputSecureFileUploadedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputSecureFileUploaded) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputSecureFileUploaded) TypeName() string {
 	return "inputSecureFileUploaded"
 }
 
@@ -205,9 +205,9 @@ var (
 // See https://core.telegram.org/constructor/inputSecureFile for reference.
 type InputSecureFile struct {
 	// Secure file ID
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// Secure file access hash
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 }
 
 // InputSecureFileTypeID is TL type id of InputSecureFile.
@@ -251,8 +251,8 @@ func (i *InputSecureFile) TypeID() uint32 {
 	return InputSecureFileTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (i *InputSecureFile) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (i *InputSecureFile) TypeName() string {
 	return "inputSecureFile"
 }
 
@@ -332,11 +332,11 @@ type InputSecureFileClass interface {
 	bin.Decoder
 	construct() InputSecureFileClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

@@ -31,7 +31,7 @@ type AuthPasswordRecovery struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/pattern
-	EmailPattern string `schemaname:"email_pattern"`
+	EmailPattern string `tl:"email_pattern"`
 }
 
 // AuthPasswordRecoveryTypeID is TL type id of AuthPasswordRecovery.
@@ -70,8 +70,8 @@ func (p *AuthPasswordRecovery) TypeID() uint32 {
 	return AuthPasswordRecoveryTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *AuthPasswordRecovery) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *AuthPasswordRecovery) TypeName() string {
 	return "auth.passwordRecovery"
 }
 

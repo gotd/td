@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/help.dismissSuggestion for reference.
 type HelpDismissSuggestionRequest struct {
 	// Peer field of HelpDismissSuggestionRequest.
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// Suggestion
-	Suggestion string `schemaname:"suggestion"`
+	Suggestion string `tl:"suggestion"`
 }
 
 // HelpDismissSuggestionRequestTypeID is TL type id of HelpDismissSuggestionRequest.
@@ -70,8 +70,8 @@ func (d *HelpDismissSuggestionRequest) TypeID() uint32 {
 	return HelpDismissSuggestionRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *HelpDismissSuggestionRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *HelpDismissSuggestionRequest) TypeName() string {
 	return "help.dismissSuggestion"
 }
 

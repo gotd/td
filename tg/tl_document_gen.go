@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/documentEmpty for reference.
 type DocumentEmpty struct {
 	// Document ID or 0
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 }
 
 // DocumentEmptyTypeID is TL type id of DocumentEmpty.
@@ -63,8 +63,8 @@ func (d *DocumentEmpty) TypeID() uint32 {
 	return DocumentEmptyTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *DocumentEmpty) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *DocumentEmpty) TypeName() string {
 	return "documentEmpty"
 }
 
@@ -121,34 +121,34 @@ type Document struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Document ID
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// Check sum, dependant on document ID
-	AccessHash int64 `schemaname:"access_hash"`
+	AccessHash int64 `tl:"access_hash"`
 	// File reference¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/file_reference
-	FileReference []byte `schemaname:"file_reference"`
+	FileReference []byte `tl:"file_reference"`
 	// Creation date
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 	// MIME type
-	MimeType string `schemaname:"mime_type"`
+	MimeType string `tl:"mime_type"`
 	// Size
-	Size int `schemaname:"size"`
+	Size int `tl:"size"`
 	// Thumbnails
 	//
 	// Use SetThumbs and GetThumbs helpers.
-	Thumbs []PhotoSizeClass `schemaname:"thumbs"`
+	Thumbs []PhotoSizeClass `tl:"thumbs"`
 	// Video thumbnails
 	//
 	// Use SetVideoThumbs and GetVideoThumbs helpers.
-	VideoThumbs []VideoSize `schemaname:"video_thumbs"`
+	VideoThumbs []VideoSize `tl:"video_thumbs"`
 	// DC ID
-	DCID int `schemaname:"dc_id"`
+	DCID int `tl:"dc_id"`
 	// Attributes
-	Attributes []DocumentAttributeClass `schemaname:"attributes"`
+	Attributes []DocumentAttributeClass `tl:"attributes"`
 }
 
 // DocumentTypeID is TL type id of Document.
@@ -241,8 +241,8 @@ func (d *Document) TypeID() uint32 {
 	return DocumentTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (d *Document) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (d *Document) TypeName() string {
 	return "document"
 }
 
@@ -516,11 +516,11 @@ type DocumentClass interface {
 	bin.Decoder
 	construct() DocumentClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

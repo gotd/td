@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/contacts.search for reference.
 type ContactsSearchRequest struct {
 	// Target substring
-	Q string `schemaname:"q"`
+	Q string `tl:"q"`
 	// Maximum number of users to be returned
-	Limit int `schemaname:"limit"`
+	Limit int `tl:"limit"`
 }
 
 // ContactsSearchRequestTypeID is TL type id of ContactsSearchRequest.
@@ -70,8 +70,8 @@ func (s *ContactsSearchRequest) TypeID() uint32 {
 	return ContactsSearchRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *ContactsSearchRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *ContactsSearchRequest) TypeName() string {
 	return "contacts.search"
 }
 

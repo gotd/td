@@ -27,7 +27,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/messages.hidePeerSettingsBar for reference.
 type MessagesHidePeerSettingsBarRequest struct {
 	// Peer
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 }
 
 // MessagesHidePeerSettingsBarRequestTypeID is TL type id of MessagesHidePeerSettingsBarRequest.
@@ -66,8 +66,8 @@ func (h *MessagesHidePeerSettingsBarRequest) TypeID() uint32 {
 	return MessagesHidePeerSettingsBarRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (h *MessagesHidePeerSettingsBarRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (h *MessagesHidePeerSettingsBarRequest) TypeName() string {
 	return "messages.hidePeerSettingsBar"
 }
 

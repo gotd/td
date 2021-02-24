@@ -21,7 +21,7 @@ var _ = errors.Is
 // SavedPhoneContactVector is a box for Vector<SavedContact>
 type SavedPhoneContactVector struct {
 	// Elements of Vector<SavedContact>
-	Elems []SavedPhoneContact `schemaname:"Elems"`
+	Elems []SavedPhoneContact `tl:"Elems"`
 }
 
 // SavedPhoneContactVectorTypeID is TL type id of SavedPhoneContactVector.
@@ -60,8 +60,8 @@ func (vec *SavedPhoneContactVector) TypeID() uint32 {
 	return SavedPhoneContactVectorTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (vec *SavedPhoneContactVector) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (vec *SavedPhoneContactVector) TypeName() string {
 	return ""
 }
 

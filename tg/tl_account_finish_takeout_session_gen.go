@@ -27,9 +27,9 @@ type AccountFinishTakeoutSessionRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Data exported successfully
-	Success bool `schemaname:"success"`
+	Success bool `tl:"success"`
 }
 
 // AccountFinishTakeoutSessionRequestTypeID is TL type id of AccountFinishTakeoutSessionRequest.
@@ -71,8 +71,8 @@ func (f *AccountFinishTakeoutSessionRequest) TypeID() uint32 {
 	return AccountFinishTakeoutSessionRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (f *AccountFinishTakeoutSessionRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (f *AccountFinishTakeoutSessionRequest) TypeName() string {
 	return "account.finishTakeoutSession"
 }
 

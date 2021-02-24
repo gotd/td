@@ -51,8 +51,8 @@ func (g *AccountGetPasswordRequest) TypeID() uint32 {
 	return AccountGetPasswordRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *AccountGetPasswordRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *AccountGetPasswordRequest) TypeName() string {
 	return "account.getPassword"
 }
 

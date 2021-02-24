@@ -21,17 +21,17 @@ var _ = errors.Is
 // ReqDHParamsRequest represents TL type `req_DH_params#d712e4be`.
 type ReqDHParamsRequest struct {
 	// Nonce field of ReqDHParamsRequest.
-	Nonce bin.Int128 `schemaname:"nonce"`
+	Nonce bin.Int128 `tl:"nonce"`
 	// ServerNonce field of ReqDHParamsRequest.
-	ServerNonce bin.Int128 `schemaname:"server_nonce"`
+	ServerNonce bin.Int128 `tl:"server_nonce"`
 	// P field of ReqDHParamsRequest.
-	P []byte `schemaname:"p"`
+	P []byte `tl:"p"`
 	// Q field of ReqDHParamsRequest.
-	Q []byte `schemaname:"q"`
+	Q []byte `tl:"q"`
 	// PublicKeyFingerprint field of ReqDHParamsRequest.
-	PublicKeyFingerprint int64 `schemaname:"public_key_fingerprint"`
+	PublicKeyFingerprint int64 `tl:"public_key_fingerprint"`
 	// EncryptedData field of ReqDHParamsRequest.
-	EncryptedData []byte `schemaname:"encrypted_data"`
+	EncryptedData []byte `tl:"encrypted_data"`
 }
 
 // ReqDHParamsRequestTypeID is TL type id of ReqDHParamsRequest.
@@ -95,8 +95,8 @@ func (r *ReqDHParamsRequest) TypeID() uint32 {
 	return ReqDHParamsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (r *ReqDHParamsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (r *ReqDHParamsRequest) TypeName() string {
 	return "req_DH_params"
 }
 

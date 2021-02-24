@@ -51,8 +51,8 @@ func (c *ChannelParticipantsRecent) TypeID() uint32 {
 	return ChannelParticipantsRecentTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelParticipantsRecent) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelParticipantsRecent) TypeName() string {
 	return "channelParticipantsRecent"
 }
 
@@ -120,8 +120,8 @@ func (c *ChannelParticipantsAdmins) TypeID() uint32 {
 	return ChannelParticipantsAdminsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelParticipantsAdmins) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelParticipantsAdmins) TypeName() string {
 	return "channelParticipantsAdmins"
 }
 
@@ -162,7 +162,7 @@ var (
 // See https://core.telegram.org/constructor/channelParticipantsKicked for reference.
 type ChannelParticipantsKicked struct {
 	// Optional filter for searching kicked participants by name (otherwise empty)
-	Q string `schemaname:"q"`
+	Q string `tl:"q"`
 }
 
 // ChannelParticipantsKickedTypeID is TL type id of ChannelParticipantsKicked.
@@ -201,8 +201,8 @@ func (c *ChannelParticipantsKicked) TypeID() uint32 {
 	return ChannelParticipantsKickedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelParticipantsKicked) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelParticipantsKicked) TypeName() string {
 	return "channelParticipantsKicked"
 }
 
@@ -283,8 +283,8 @@ func (c *ChannelParticipantsBots) TypeID() uint32 {
 	return ChannelParticipantsBotsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelParticipantsBots) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelParticipantsBots) TypeName() string {
 	return "channelParticipantsBots"
 }
 
@@ -325,7 +325,7 @@ var (
 // See https://core.telegram.org/constructor/channelParticipantsBanned for reference.
 type ChannelParticipantsBanned struct {
 	// Optional filter for searching banned participants by name (otherwise empty)
-	Q string `schemaname:"q"`
+	Q string `tl:"q"`
 }
 
 // ChannelParticipantsBannedTypeID is TL type id of ChannelParticipantsBanned.
@@ -364,8 +364,8 @@ func (c *ChannelParticipantsBanned) TypeID() uint32 {
 	return ChannelParticipantsBannedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelParticipantsBanned) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelParticipantsBanned) TypeName() string {
 	return "channelParticipantsBanned"
 }
 
@@ -419,7 +419,7 @@ var (
 // See https://core.telegram.org/constructor/channelParticipantsSearch for reference.
 type ChannelParticipantsSearch struct {
 	// Search query
-	Q string `schemaname:"q"`
+	Q string `tl:"q"`
 }
 
 // ChannelParticipantsSearchTypeID is TL type id of ChannelParticipantsSearch.
@@ -458,8 +458,8 @@ func (c *ChannelParticipantsSearch) TypeID() uint32 {
 	return ChannelParticipantsSearchTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelParticipantsSearch) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelParticipantsSearch) TypeName() string {
 	return "channelParticipantsSearch"
 }
 
@@ -513,7 +513,7 @@ var (
 // See https://core.telegram.org/constructor/channelParticipantsContacts for reference.
 type ChannelParticipantsContacts struct {
 	// Optional search query for searching contact participants by name
-	Q string `schemaname:"q"`
+	Q string `tl:"q"`
 }
 
 // ChannelParticipantsContactsTypeID is TL type id of ChannelParticipantsContacts.
@@ -552,8 +552,8 @@ func (c *ChannelParticipantsContacts) TypeID() uint32 {
 	return ChannelParticipantsContactsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelParticipantsContacts) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelParticipantsContacts) TypeName() string {
 	return "channelParticipantsContacts"
 }
 
@@ -615,18 +615,18 @@ type ChannelParticipantsMentions struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Filter by user name or username
 	//
 	// Use SetQ and GetQ helpers.
-	Q string `schemaname:"q"`
+	Q string `tl:"q"`
 	// Look only for users that posted in this thread¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
-	TopMsgID int `schemaname:"top_msg_id"`
+	TopMsgID int `tl:"top_msg_id"`
 }
 
 // ChannelParticipantsMentionsTypeID is TL type id of ChannelParticipantsMentions.
@@ -679,8 +679,8 @@ func (c *ChannelParticipantsMentions) TypeID() uint32 {
 	return ChannelParticipantsMentionsTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *ChannelParticipantsMentions) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *ChannelParticipantsMentions) TypeName() string {
 	return "channelParticipantsMentions"
 }
 
@@ -804,11 +804,11 @@ type ChannelParticipantsFilterClass interface {
 	bin.Decoder
 	construct() ChannelParticipantsFilterClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

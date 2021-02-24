@@ -27,19 +27,19 @@ type MessagesGetArchivedStickersRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Get mask stickers
-	Masks bool `schemaname:"masks"`
+	Masks bool `tl:"masks"`
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetID int64 `schemaname:"offset_id"`
+	OffsetID int64 `tl:"offset_id"`
 	// Maximum number of results to return, see pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int `schemaname:"limit"`
+	Limit int `tl:"limit"`
 }
 
 // MessagesGetArchivedStickersRequestTypeID is TL type id of MessagesGetArchivedStickersRequest.
@@ -91,8 +91,8 @@ func (g *MessagesGetArchivedStickersRequest) TypeID() uint32 {
 	return MessagesGetArchivedStickersRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetArchivedStickersRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetArchivedStickersRequest) TypeName() string {
 	return "messages.getArchivedStickers"
 }
 

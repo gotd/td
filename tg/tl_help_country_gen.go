@@ -27,19 +27,19 @@ type HelpCountry struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether this country should not be shown in the list
-	Hidden bool `schemaname:"hidden"`
+	Hidden bool `tl:"hidden"`
 	// ISO code of country
-	Iso2 string `schemaname:"iso2"`
+	Iso2 string `tl:"iso2"`
 	// Name of the country in the country's language
-	DefaultName string `schemaname:"default_name"`
+	DefaultName string `tl:"default_name"`
 	// Name of the country in the user's language, if different from the original name
 	//
 	// Use SetName and GetName helpers.
-	Name string `schemaname:"name"`
+	Name string `tl:"name"`
 	// Phone codes/patterns
-	CountryCodes []HelpCountryCode `schemaname:"country_codes"`
+	CountryCodes []HelpCountryCode `tl:"country_codes"`
 }
 
 // HelpCountryTypeID is TL type id of HelpCountry.
@@ -104,8 +104,8 @@ func (c *HelpCountry) TypeID() uint32 {
 	return HelpCountryTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (c *HelpCountry) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (c *HelpCountry) TypeName() string {
 	return "help.country"
 }
 

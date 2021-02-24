@@ -27,38 +27,38 @@ type MessagesGetDialogsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Exclude pinned dialogs
-	ExcludePinned bool `schemaname:"exclude_pinned"`
+	ExcludePinned bool `tl:"exclude_pinned"`
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int `schemaname:"folder_id"`
+	FolderID int `tl:"folder_id"`
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetDate int `schemaname:"offset_date"`
+	OffsetDate int `tl:"offset_date"`
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetID int `schemaname:"offset_id"`
+	OffsetID int `tl:"offset_id"`
 	// Offset peer for pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetPeer InputPeerClass `schemaname:"offset_peer"`
+	OffsetPeer InputPeerClass `tl:"offset_peer"`
 	// Number of list elements to be returned
-	Limit int `schemaname:"limit"`
+	Limit int `tl:"limit"`
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `schemaname:"hash"`
+	Hash int `tl:"hash"`
 }
 
 // MessagesGetDialogsRequestTypeID is TL type id of MessagesGetDialogsRequest.
@@ -133,8 +133,8 @@ func (g *MessagesGetDialogsRequest) TypeID() uint32 {
 	return MessagesGetDialogsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (g *MessagesGetDialogsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (g *MessagesGetDialogsRequest) TypeName() string {
 	return "messages.getDialogs"
 }
 

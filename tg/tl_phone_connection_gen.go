@@ -24,15 +24,15 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/phoneConnection for reference.
 type PhoneConnection struct {
 	// Endpoint ID
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// IP address of endpoint
-	IP string `schemaname:"ip"`
+	IP string `tl:"ip"`
 	// IPv6 address of endpoint
-	Ipv6 string `schemaname:"ipv6"`
+	Ipv6 string `tl:"ipv6"`
 	// Port ID
-	Port int `schemaname:"port"`
+	Port int `tl:"port"`
 	// Our peer tag
-	PeerTag []byte `schemaname:"peer_tag"`
+	PeerTag []byte `tl:"peer_tag"`
 }
 
 // PhoneConnectionTypeID is TL type id of PhoneConnection.
@@ -91,8 +91,8 @@ func (p *PhoneConnection) TypeID() uint32 {
 	return PhoneConnectionTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PhoneConnection) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PhoneConnection) TypeName() string {
 	return "phoneConnection"
 }
 
@@ -201,23 +201,23 @@ type PhoneConnectionWebrtc struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Whether this is a TURN endpoint
-	Turn bool `schemaname:"turn"`
+	Turn bool `tl:"turn"`
 	// Whether this is a STUN endpoint
-	Stun bool `schemaname:"stun"`
+	Stun bool `tl:"stun"`
 	// Endpoint ID
-	ID int64 `schemaname:"id"`
+	ID int64 `tl:"id"`
 	// IP address
-	IP string `schemaname:"ip"`
+	IP string `tl:"ip"`
 	// IPv6 address
-	Ipv6 string `schemaname:"ipv6"`
+	Ipv6 string `tl:"ipv6"`
 	// Port
-	Port int `schemaname:"port"`
+	Port int `tl:"port"`
 	// Username
-	Username string `schemaname:"username"`
+	Username string `tl:"username"`
 	// Password
-	Password string `schemaname:"password"`
+	Password string `tl:"password"`
 }
 
 // PhoneConnectionWebrtcTypeID is TL type id of PhoneConnectionWebrtc.
@@ -294,8 +294,8 @@ func (p *PhoneConnectionWebrtc) TypeID() uint32 {
 	return PhoneConnectionWebrtcTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PhoneConnectionWebrtc) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PhoneConnectionWebrtc) TypeName() string {
 	return "phoneConnectionWebrtc"
 }
 
@@ -475,11 +475,11 @@ type PhoneConnectionClass interface {
 	bin.Decoder
 	construct() PhoneConnectionClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

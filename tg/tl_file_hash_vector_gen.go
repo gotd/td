@@ -21,7 +21,7 @@ var _ = errors.Is
 // FileHashVector is a box for Vector<FileHash>
 type FileHashVector struct {
 	// Elements of Vector<FileHash>
-	Elems []FileHash `schemaname:"Elems"`
+	Elems []FileHash `tl:"Elems"`
 }
 
 // FileHashVectorTypeID is TL type id of FileHashVector.
@@ -60,8 +60,8 @@ func (vec *FileHashVector) TypeID() uint32 {
 	return FileHashVectorTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (vec *FileHashVector) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (vec *FileHashVector) TypeName() string {
 	return ""
 }
 

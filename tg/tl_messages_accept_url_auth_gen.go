@@ -30,15 +30,15 @@ type MessagesAcceptUrlAuthRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Set this flag to allow the bot to send messages to you (if requested)
-	WriteAllowed bool `schemaname:"write_allowed"`
+	WriteAllowed bool `tl:"write_allowed"`
 	// The location of the message
-	Peer InputPeerClass `schemaname:"peer"`
+	Peer InputPeerClass `tl:"peer"`
 	// Message ID of the message with the login button
-	MsgID int `schemaname:"msg_id"`
+	MsgID int `tl:"msg_id"`
 	// ID of the login button
-	ButtonID int `schemaname:"button_id"`
+	ButtonID int `tl:"button_id"`
 }
 
 // MessagesAcceptUrlAuthRequestTypeID is TL type id of MessagesAcceptUrlAuthRequest.
@@ -95,8 +95,8 @@ func (a *MessagesAcceptUrlAuthRequest) TypeID() uint32 {
 	return MessagesAcceptUrlAuthRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (a *MessagesAcceptUrlAuthRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (a *MessagesAcceptUrlAuthRequest) TypeName() string {
 	return "messages.acceptUrlAuth"
 }
 

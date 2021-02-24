@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.featuredStickersNotModified for reference.
 type MessagesFeaturedStickersNotModified struct {
 	// Total number of featured stickers
-	Count int `schemaname:"count"`
+	Count int `tl:"count"`
 }
 
 // MessagesFeaturedStickersNotModifiedTypeID is TL type id of MessagesFeaturedStickersNotModified.
@@ -63,8 +63,8 @@ func (f *MessagesFeaturedStickersNotModified) TypeID() uint32 {
 	return MessagesFeaturedStickersNotModifiedTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (f *MessagesFeaturedStickersNotModified) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (f *MessagesFeaturedStickersNotModified) TypeName() string {
 	return "messages.featuredStickersNotModified"
 }
 
@@ -121,13 +121,13 @@ type MessagesFeaturedStickers struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `schemaname:"hash"`
+	Hash int `tl:"hash"`
 	// Total number of featured stickers
-	Count int `schemaname:"count"`
+	Count int `tl:"count"`
 	// Featured stickersets
-	Sets []StickerSetCoveredClass `schemaname:"sets"`
+	Sets []StickerSetCoveredClass `tl:"sets"`
 	// IDs of new featured stickersets
-	Unread []int64 `schemaname:"unread"`
+	Unread []int64 `tl:"unread"`
 }
 
 // MessagesFeaturedStickersTypeID is TL type id of MessagesFeaturedStickers.
@@ -181,8 +181,8 @@ func (f *MessagesFeaturedStickers) TypeID() uint32 {
 	return MessagesFeaturedStickersTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (f *MessagesFeaturedStickers) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (f *MessagesFeaturedStickers) TypeName() string {
 	return "messages.featuredStickers"
 }
 
@@ -316,11 +316,11 @@ type MessagesFeaturedStickersClass interface {
 	bin.Decoder
 	construct() MessagesFeaturedStickersClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

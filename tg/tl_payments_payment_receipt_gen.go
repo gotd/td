@@ -27,37 +27,37 @@ type PaymentsPaymentReceipt struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Date of generation
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 	// Bot ID
-	BotID int `schemaname:"bot_id"`
+	BotID int `tl:"bot_id"`
 	// Invoice
-	Invoice Invoice `schemaname:"invoice"`
+	Invoice Invoice `tl:"invoice"`
 	// Provider ID
-	ProviderID int `schemaname:"provider_id"`
+	ProviderID int `tl:"provider_id"`
 	// Info
 	//
 	// Use SetInfo and GetInfo helpers.
-	Info PaymentRequestedInfo `schemaname:"info"`
+	Info PaymentRequestedInfo `tl:"info"`
 	// Selected shipping option
 	//
 	// Use SetShipping and GetShipping helpers.
-	Shipping ShippingOption `schemaname:"shipping"`
+	Shipping ShippingOption `tl:"shipping"`
 	// Three-letter ISO 4217 currency¹ code
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments#supported-currencies
-	Currency string `schemaname:"currency"`
+	Currency string `tl:"currency"`
 	// Total amount in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json¹, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments/currencies.json
-	TotalAmount int64 `schemaname:"total_amount"`
+	TotalAmount int64 `tl:"total_amount"`
 	// Payment credential name
-	CredentialsTitle string `schemaname:"credentials_title"`
+	CredentialsTitle string `tl:"credentials_title"`
 	// Users
-	Users []UserClass `schemaname:"users"`
+	Users []UserClass `tl:"users"`
 }
 
 // PaymentsPaymentReceiptTypeID is TL type id of PaymentsPaymentReceipt.
@@ -150,8 +150,8 @@ func (p *PaymentsPaymentReceipt) TypeID() uint32 {
 	return PaymentsPaymentReceiptTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PaymentsPaymentReceipt) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PaymentsPaymentReceipt) TypeName() string {
 	return "payments.paymentReceipt"
 }
 

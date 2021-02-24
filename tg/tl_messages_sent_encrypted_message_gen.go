@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/messages.sentEncryptedMessage for reference.
 type MessagesSentEncryptedMessage struct {
 	// Date of sending
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 }
 
 // MessagesSentEncryptedMessageTypeID is TL type id of MessagesSentEncryptedMessage.
@@ -63,8 +63,8 @@ func (s *MessagesSentEncryptedMessage) TypeID() uint32 {
 	return MessagesSentEncryptedMessageTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *MessagesSentEncryptedMessage) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *MessagesSentEncryptedMessage) TypeName() string {
 	return "messages.sentEncryptedMessage"
 }
 
@@ -118,9 +118,9 @@ var (
 // See https://core.telegram.org/constructor/messages.sentEncryptedFile for reference.
 type MessagesSentEncryptedFile struct {
 	// Sending date
-	Date int `schemaname:"date"`
+	Date int `tl:"date"`
 	// Attached file
-	File EncryptedFileClass `schemaname:"file"`
+	File EncryptedFileClass `tl:"file"`
 }
 
 // MessagesSentEncryptedFileTypeID is TL type id of MessagesSentEncryptedFile.
@@ -164,8 +164,8 @@ func (s *MessagesSentEncryptedFile) TypeID() uint32 {
 	return MessagesSentEncryptedFileTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *MessagesSentEncryptedFile) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *MessagesSentEncryptedFile) TypeName() string {
 	return "messages.sentEncryptedFile"
 }
 
@@ -250,11 +250,11 @@ type MessagesSentEncryptedMessageClass interface {
 	bin.Decoder
 	construct() MessagesSentEncryptedMessageClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

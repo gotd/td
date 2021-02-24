@@ -24,7 +24,7 @@ var _ = errors.Is
 // See https://core.telegram.org/constructor/peerUser for reference.
 type PeerUser struct {
 	// User identifier
-	UserID int `schemaname:"user_id"`
+	UserID int `tl:"user_id"`
 }
 
 // PeerUserTypeID is TL type id of PeerUser.
@@ -63,8 +63,8 @@ func (p *PeerUser) TypeID() uint32 {
 	return PeerUserTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PeerUser) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PeerUser) TypeName() string {
 	return "peerUser"
 }
 
@@ -118,7 +118,7 @@ var (
 // See https://core.telegram.org/constructor/peerChat for reference.
 type PeerChat struct {
 	// Group identifier
-	ChatID int `schemaname:"chat_id"`
+	ChatID int `tl:"chat_id"`
 }
 
 // PeerChatTypeID is TL type id of PeerChat.
@@ -157,8 +157,8 @@ func (p *PeerChat) TypeID() uint32 {
 	return PeerChatTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PeerChat) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PeerChat) TypeName() string {
 	return "peerChat"
 }
 
@@ -212,7 +212,7 @@ var (
 // See https://core.telegram.org/constructor/peerChannel for reference.
 type PeerChannel struct {
 	// Channel ID
-	ChannelID int `schemaname:"channel_id"`
+	ChannelID int `tl:"channel_id"`
 }
 
 // PeerChannelTypeID is TL type id of PeerChannel.
@@ -251,8 +251,8 @@ func (p *PeerChannel) TypeID() uint32 {
 	return PeerChannelTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (p *PeerChannel) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (p *PeerChannel) TypeName() string {
 	return "peerChannel"
 }
 
@@ -320,11 +320,11 @@ type PeerClass interface {
 	bin.Decoder
 	construct() PeerClass
 
-	// TypeID returns MTProto type id (CRC code).
+	// TypeID returns type id in TL schema.
 	// See https://core.telegram.org/mtproto/TL-tl#remarks.
 	TypeID() uint32
-	// SchemaName returns MTProto type name.
-	SchemaName() string
+	// TypeName returns name of type in TL schema.
+	TypeName() string
 	// String implements fmt.Stringer.
 	String() string
 	// Zero returns true if current object has a zero value.

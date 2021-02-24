@@ -21,7 +21,7 @@ var _ = errors.Is
 // LongVector is a box for Vector<long>
 type LongVector struct {
 	// Elements of Vector<long>
-	Elems []int64 `schemaname:"Elems"`
+	Elems []int64 `tl:"Elems"`
 }
 
 // LongVectorTypeID is TL type id of LongVector.
@@ -60,8 +60,8 @@ func (vec *LongVector) TypeID() uint32 {
 	return LongVectorTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (vec *LongVector) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (vec *LongVector) TypeName() string {
 	return ""
 }
 

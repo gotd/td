@@ -27,7 +27,7 @@ var _ = errors.Is
 // See https://core.telegram.org/method/contacts.acceptContact for reference.
 type ContactsAcceptContactRequest struct {
 	// The user to add as contact
-	ID InputUserClass `schemaname:"id"`
+	ID InputUserClass `tl:"id"`
 }
 
 // ContactsAcceptContactRequestTypeID is TL type id of ContactsAcceptContactRequest.
@@ -66,8 +66,8 @@ func (a *ContactsAcceptContactRequest) TypeID() uint32 {
 	return ContactsAcceptContactRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (a *ContactsAcceptContactRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (a *ContactsAcceptContactRequest) TypeName() string {
 	return "contacts.acceptContact"
 }
 

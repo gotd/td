@@ -24,9 +24,9 @@ var _ = errors.Is
 // See https://core.telegram.org/method/phone.saveCallDebug for reference.
 type PhoneSaveCallDebugRequest struct {
 	// Phone call
-	Peer InputPhoneCall `schemaname:"peer"`
+	Peer InputPhoneCall `tl:"peer"`
 	// Debug statistics obtained from libtgvoip
-	Debug DataJSON `schemaname:"debug"`
+	Debug DataJSON `tl:"debug"`
 }
 
 // PhoneSaveCallDebugRequestTypeID is TL type id of PhoneSaveCallDebugRequest.
@@ -70,8 +70,8 @@ func (s *PhoneSaveCallDebugRequest) TypeID() uint32 {
 	return PhoneSaveCallDebugRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *PhoneSaveCallDebugRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *PhoneSaveCallDebugRequest) TypeName() string {
 	return "phone.saveCallDebug"
 }
 

@@ -32,15 +32,15 @@ type MessagesSetBotPrecheckoutResultsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `schemaname:"flags"`
+	Flags bin.Fields `tl:"flags"`
 	// Set this flag if everything is alright (goods are available, etc.) and the bot is ready to proceed with the order, otherwise do not set it, and set the error field, instead
-	Success bool `schemaname:"success"`
+	Success bool `tl:"success"`
 	// Unique identifier for the query to be answered
-	QueryID int64 `schemaname:"query_id"`
+	QueryID int64 `tl:"query_id"`
 	// Required if the success isn't set. Error message in human readable form that explains the reason for failure to proceed with the checkout (e.g. "Sorry, somebody just bought the last of our amazing black T-shirts while you were busy filling out your payment details. Please choose a different color or garment!"). Telegram will display this message to the user.
 	//
 	// Use SetError and GetError helpers.
-	Error string `schemaname:"error"`
+	Error string `tl:"error"`
 }
 
 // MessagesSetBotPrecheckoutResultsRequestTypeID is TL type id of MessagesSetBotPrecheckoutResultsRequest.
@@ -95,8 +95,8 @@ func (s *MessagesSetBotPrecheckoutResultsRequest) TypeID() uint32 {
 	return MessagesSetBotPrecheckoutResultsRequestTypeID
 }
 
-// SchemaName returns MTProto type name.
-func (s *MessagesSetBotPrecheckoutResultsRequest) SchemaName() string {
+// TypeName returns name of type in TL schema.
+func (s *MessagesSetBotPrecheckoutResultsRequest) TypeName() string {
 	return "messages.setBotPrecheckoutResults"
 }
 
