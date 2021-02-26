@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // AccountGetSecureValueRequest represents TL type `account.getSecureValue#73665bc2`.
 // Get saved Telegram Passport¹ document, for more info see the passport docs »²
@@ -95,9 +97,9 @@ func (g *AccountGetSecureValueRequest) GetTypes() (value []SecureValueTypeClass)
 	return g.Types
 }
 
-// MapTypes returns field Types wrapped in SecureValueTypeClassSlice helper.
-func (g *AccountGetSecureValueRequest) MapTypes() (value SecureValueTypeClassSlice) {
-	return SecureValueTypeClassSlice(g.Types)
+// MapTypes returns field Types wrapped in SecureValueTypeClassArray helper.
+func (g *AccountGetSecureValueRequest) MapTypes() (value SecureValueTypeClassArray) {
+	return SecureValueTypeClassArray(g.Types)
 }
 
 // Decode implements bin.Decoder.
@@ -147,5 +149,5 @@ func (c *Client) AccountGetSecureValue(ctx context.Context, types []SecureValueT
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return result.Elems, nil
+	return []SecureValue(result.Elems), nil
 }

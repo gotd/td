@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // StickersAddStickerToSetRequest represents TL type `stickers.addStickerToSet#8653febe`.
 // Add a sticker to a stickerset, bots only. The sticker set must have been created by the bot.

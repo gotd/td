@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesCreateChatRequest represents TL type `messages.createChat#9cb126e`.
 // Creates a new chat.
@@ -99,9 +101,9 @@ func (c *MessagesCreateChatRequest) GetUsers() (value []InputUserClass) {
 	return c.Users
 }
 
-// MapUsers returns field Users wrapped in InputUserClassSlice helper.
-func (c *MessagesCreateChatRequest) MapUsers() (value InputUserClassSlice) {
-	return InputUserClassSlice(c.Users)
+// MapUsers returns field Users wrapped in InputUserClassArray helper.
+func (c *MessagesCreateChatRequest) MapUsers() (value InputUserClassArray) {
+	return InputUserClassArray(c.Users)
 }
 
 // GetTitle returns value of Title field.

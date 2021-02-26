@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // InputStickerSetShortName represents TL type `inputStickerSetShortName#861cc8a0`.
 // Stickerset by short name, from tg://addstickers?set=short_name
@@ -276,12 +278,104 @@ func (b *InputStickerSetBox) Encode(buf *bin.Buffer) error {
 	return b.InputStickerSet.Encode(buf)
 }
 
-// InputStickerSetClassSlice is adapter for slice of InputStickerSetClass.
-type InputStickerSetClassSlice []InputStickerSetClass
+// InputStickerSetClassArray is adapter for slice of InputStickerSetClass.
+type InputStickerSetClassArray []InputStickerSetClass
+
+// Sort sorts slice of InputStickerSetClass.
+func (s InputStickerSetClassArray) Sort(less func(a, b InputStickerSetClass) bool) InputStickerSetClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputStickerSetClass.
+func (s InputStickerSetClassArray) SortStable(less func(a, b InputStickerSetClass) bool) InputStickerSetClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputStickerSetClass.
+func (s InputStickerSetClassArray) Retain(keep func(x InputStickerSetClass) bool) InputStickerSetClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputStickerSetClassArray) First() (v InputStickerSetClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputStickerSetClassArray) Last() (v InputStickerSetClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputStickerSetClassArray) PopFirst() (v InputStickerSetClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputStickerSetClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputStickerSetClassArray) Pop() (v InputStickerSetClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsInputStickerSetShortName returns copy with only InputStickerSetShortName constructors.
+func (s InputStickerSetClassArray) AsInputStickerSetShortName() (to InputStickerSetShortNameArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputStickerSetShortName)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
 
 // AppendOnlyNotEmpty appends only NotEmpty constructors to
 // given slice.
-func (s InputStickerSetClassSlice) AppendOnlyNotEmpty(to []*InputStickerSetShortName) []*InputStickerSetShortName {
+func (s InputStickerSetClassArray) AppendOnlyNotEmpty(to []*InputStickerSetShortName) []*InputStickerSetShortName {
 	for _, elem := range s {
 		value, ok := elem.AsNotEmpty()
 		if !ok {
@@ -294,12 +388,12 @@ func (s InputStickerSetClassSlice) AppendOnlyNotEmpty(to []*InputStickerSetShort
 }
 
 // AsNotEmpty returns copy with only NotEmpty constructors.
-func (s InputStickerSetClassSlice) AsNotEmpty() (to []*InputStickerSetShortName) {
+func (s InputStickerSetClassArray) AsNotEmpty() (to []*InputStickerSetShortName) {
 	return s.AppendOnlyNotEmpty(to)
 }
 
 // FirstAsNotEmpty returns first element of slice (if exists).
-func (s InputStickerSetClassSlice) FirstAsNotEmpty() (v *InputStickerSetShortName, ok bool) {
+func (s InputStickerSetClassArray) FirstAsNotEmpty() (v *InputStickerSetShortName, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -308,7 +402,7 @@ func (s InputStickerSetClassSlice) FirstAsNotEmpty() (v *InputStickerSetShortNam
 }
 
 // LastAsNotEmpty returns last element of slice (if exists).
-func (s InputStickerSetClassSlice) LastAsNotEmpty() (v *InputStickerSetShortName, ok bool) {
+func (s InputStickerSetClassArray) LastAsNotEmpty() (v *InputStickerSetShortName, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -317,7 +411,7 @@ func (s InputStickerSetClassSlice) LastAsNotEmpty() (v *InputStickerSetShortName
 }
 
 // PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *InputStickerSetClassSlice) PopFirstAsNotEmpty() (v *InputStickerSetShortName, ok bool) {
+func (s *InputStickerSetClassArray) PopFirstAsNotEmpty() (v *InputStickerSetShortName, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -326,7 +420,7 @@ func (s *InputStickerSetClassSlice) PopFirstAsNotEmpty() (v *InputStickerSetShor
 }
 
 // PopAsNotEmpty returns element of slice (if exists).
-func (s *InputStickerSetClassSlice) PopAsNotEmpty() (v *InputStickerSetShortName, ok bool) {
+func (s *InputStickerSetClassArray) PopAsNotEmpty() (v *InputStickerSetShortName, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -334,8 +428,41 @@ func (s *InputStickerSetClassSlice) PopAsNotEmpty() (v *InputStickerSetShortName
 	return value.AsNotEmpty()
 }
 
+// InputStickerSetShortNameArray is adapter for slice of InputStickerSetShortName.
+type InputStickerSetShortNameArray []InputStickerSetShortName
+
+// Sort sorts slice of InputStickerSetShortName.
+func (s InputStickerSetShortNameArray) Sort(less func(a, b InputStickerSetShortName) bool) InputStickerSetShortNameArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputStickerSetShortName.
+func (s InputStickerSetShortNameArray) SortStable(less func(a, b InputStickerSetShortName) bool) InputStickerSetShortNameArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputStickerSetShortName.
+func (s InputStickerSetShortNameArray) Retain(keep func(x InputStickerSetShortName) bool) InputStickerSetShortNameArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s InputStickerSetClassSlice) First() (v InputStickerSetClass, ok bool) {
+func (s InputStickerSetShortNameArray) First() (v InputStickerSetShortName, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -343,7 +470,7 @@ func (s InputStickerSetClassSlice) First() (v InputStickerSetClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s InputStickerSetClassSlice) Last() (v InputStickerSetClass, ok bool) {
+func (s InputStickerSetShortNameArray) Last() (v InputStickerSetShortName, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -351,7 +478,7 @@ func (s InputStickerSetClassSlice) Last() (v InputStickerSetClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputStickerSetClassSlice) PopFirst() (v InputStickerSetClass, ok bool) {
+func (s *InputStickerSetShortNameArray) PopFirst() (v InputStickerSetShortName, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -361,7 +488,8 @@ func (s *InputStickerSetClassSlice) PopFirst() (v InputStickerSetClass, ok bool)
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero InputStickerSetShortName
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -369,7 +497,7 @@ func (s *InputStickerSetClassSlice) PopFirst() (v InputStickerSetClass, ok bool)
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *InputStickerSetClassSlice) Pop() (v InputStickerSetClass, ok bool) {
+func (s *InputStickerSetShortNameArray) Pop() (v InputStickerSetShortName, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

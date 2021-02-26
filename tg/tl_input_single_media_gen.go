@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // InputSingleMedia represents TL type `inputSingleMedia#1cc6e91f`.
 // A single media in an album or grouped media¹ sent with messages.sendMultiMedia².
@@ -173,12 +175,12 @@ func (i *InputSingleMedia) GetEntities() (value []MessageEntityClass, ok bool) {
 	return i.Entities, true
 }
 
-// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
-func (i *InputSingleMedia) MapEntities() (value MessageEntityClassSlice, ok bool) {
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (i *InputSingleMedia) MapEntities() (value MessageEntityClassArray, ok bool) {
 	if !i.Flags.Has(0) {
 		return value, false
 	}
-	return MessageEntityClassSlice(i.Entities), true
+	return MessageEntityClassArray(i.Entities), true
 }
 
 // Decode implements bin.Decoder.

@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesDhConfigNotModified represents TL type `messages.dhConfigNotModified#c0e24635`.
 // Configuring parameters did not change.
@@ -368,12 +370,117 @@ func (b *MessagesDhConfigBox) Encode(buf *bin.Buffer) error {
 	return b.DhConfig.Encode(buf)
 }
 
-// MessagesDhConfigClassSlice is adapter for slice of MessagesDhConfigClass.
-type MessagesDhConfigClassSlice []MessagesDhConfigClass
+// MessagesDhConfigClassArray is adapter for slice of MessagesDhConfigClass.
+type MessagesDhConfigClassArray []MessagesDhConfigClass
+
+// Sort sorts slice of MessagesDhConfigClass.
+func (s MessagesDhConfigClassArray) Sort(less func(a, b MessagesDhConfigClass) bool) MessagesDhConfigClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessagesDhConfigClass.
+func (s MessagesDhConfigClassArray) SortStable(less func(a, b MessagesDhConfigClass) bool) MessagesDhConfigClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessagesDhConfigClass.
+func (s MessagesDhConfigClassArray) Retain(keep func(x MessagesDhConfigClass) bool) MessagesDhConfigClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessagesDhConfigClassArray) First() (v MessagesDhConfigClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessagesDhConfigClassArray) Last() (v MessagesDhConfigClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessagesDhConfigClassArray) PopFirst() (v MessagesDhConfigClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessagesDhConfigClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessagesDhConfigClassArray) Pop() (v MessagesDhConfigClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsMessagesDhConfigNotModified returns copy with only MessagesDhConfigNotModified constructors.
+func (s MessagesDhConfigClassArray) AsMessagesDhConfigNotModified() (to MessagesDhConfigNotModifiedArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessagesDhConfigNotModified)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsMessagesDhConfig returns copy with only MessagesDhConfig constructors.
+func (s MessagesDhConfigClassArray) AsMessagesDhConfig() (to MessagesDhConfigArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessagesDhConfig)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
 
 // AppendOnlyModified appends only Modified constructors to
 // given slice.
-func (s MessagesDhConfigClassSlice) AppendOnlyModified(to []*MessagesDhConfig) []*MessagesDhConfig {
+func (s MessagesDhConfigClassArray) AppendOnlyModified(to []*MessagesDhConfig) []*MessagesDhConfig {
 	for _, elem := range s {
 		value, ok := elem.AsModified()
 		if !ok {
@@ -386,12 +493,12 @@ func (s MessagesDhConfigClassSlice) AppendOnlyModified(to []*MessagesDhConfig) [
 }
 
 // AsModified returns copy with only Modified constructors.
-func (s MessagesDhConfigClassSlice) AsModified() (to []*MessagesDhConfig) {
+func (s MessagesDhConfigClassArray) AsModified() (to []*MessagesDhConfig) {
 	return s.AppendOnlyModified(to)
 }
 
 // FirstAsModified returns first element of slice (if exists).
-func (s MessagesDhConfigClassSlice) FirstAsModified() (v *MessagesDhConfig, ok bool) {
+func (s MessagesDhConfigClassArray) FirstAsModified() (v *MessagesDhConfig, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -400,7 +507,7 @@ func (s MessagesDhConfigClassSlice) FirstAsModified() (v *MessagesDhConfig, ok b
 }
 
 // LastAsModified returns last element of slice (if exists).
-func (s MessagesDhConfigClassSlice) LastAsModified() (v *MessagesDhConfig, ok bool) {
+func (s MessagesDhConfigClassArray) LastAsModified() (v *MessagesDhConfig, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -409,7 +516,7 @@ func (s MessagesDhConfigClassSlice) LastAsModified() (v *MessagesDhConfig, ok bo
 }
 
 // PopFirstAsModified returns element of slice (if exists).
-func (s *MessagesDhConfigClassSlice) PopFirstAsModified() (v *MessagesDhConfig, ok bool) {
+func (s *MessagesDhConfigClassArray) PopFirstAsModified() (v *MessagesDhConfig, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -418,7 +525,7 @@ func (s *MessagesDhConfigClassSlice) PopFirstAsModified() (v *MessagesDhConfig, 
 }
 
 // PopAsModified returns element of slice (if exists).
-func (s *MessagesDhConfigClassSlice) PopAsModified() (v *MessagesDhConfig, ok bool) {
+func (s *MessagesDhConfigClassArray) PopAsModified() (v *MessagesDhConfig, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -426,8 +533,41 @@ func (s *MessagesDhConfigClassSlice) PopAsModified() (v *MessagesDhConfig, ok bo
 	return value.AsModified()
 }
 
+// MessagesDhConfigNotModifiedArray is adapter for slice of MessagesDhConfigNotModified.
+type MessagesDhConfigNotModifiedArray []MessagesDhConfigNotModified
+
+// Sort sorts slice of MessagesDhConfigNotModified.
+func (s MessagesDhConfigNotModifiedArray) Sort(less func(a, b MessagesDhConfigNotModified) bool) MessagesDhConfigNotModifiedArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessagesDhConfigNotModified.
+func (s MessagesDhConfigNotModifiedArray) SortStable(less func(a, b MessagesDhConfigNotModified) bool) MessagesDhConfigNotModifiedArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessagesDhConfigNotModified.
+func (s MessagesDhConfigNotModifiedArray) Retain(keep func(x MessagesDhConfigNotModified) bool) MessagesDhConfigNotModifiedArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s MessagesDhConfigClassSlice) First() (v MessagesDhConfigClass, ok bool) {
+func (s MessagesDhConfigNotModifiedArray) First() (v MessagesDhConfigNotModified, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -435,7 +575,7 @@ func (s MessagesDhConfigClassSlice) First() (v MessagesDhConfigClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s MessagesDhConfigClassSlice) Last() (v MessagesDhConfigClass, ok bool) {
+func (s MessagesDhConfigNotModifiedArray) Last() (v MessagesDhConfigNotModified, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -443,7 +583,7 @@ func (s MessagesDhConfigClassSlice) Last() (v MessagesDhConfigClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessagesDhConfigClassSlice) PopFirst() (v MessagesDhConfigClass, ok bool) {
+func (s *MessagesDhConfigNotModifiedArray) PopFirst() (v MessagesDhConfigNotModified, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -453,7 +593,8 @@ func (s *MessagesDhConfigClassSlice) PopFirst() (v MessagesDhConfigClass, ok boo
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero MessagesDhConfigNotModified
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -461,7 +602,89 @@ func (s *MessagesDhConfigClassSlice) PopFirst() (v MessagesDhConfigClass, ok boo
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *MessagesDhConfigClassSlice) Pop() (v MessagesDhConfigClass, ok bool) {
+func (s *MessagesDhConfigNotModifiedArray) Pop() (v MessagesDhConfigNotModified, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessagesDhConfigArray is adapter for slice of MessagesDhConfig.
+type MessagesDhConfigArray []MessagesDhConfig
+
+// Sort sorts slice of MessagesDhConfig.
+func (s MessagesDhConfigArray) Sort(less func(a, b MessagesDhConfig) bool) MessagesDhConfigArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessagesDhConfig.
+func (s MessagesDhConfigArray) SortStable(less func(a, b MessagesDhConfig) bool) MessagesDhConfigArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessagesDhConfig.
+func (s MessagesDhConfigArray) Retain(keep func(x MessagesDhConfig) bool) MessagesDhConfigArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessagesDhConfigArray) First() (v MessagesDhConfig, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessagesDhConfigArray) Last() (v MessagesDhConfig, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessagesDhConfigArray) PopFirst() (v MessagesDhConfig, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessagesDhConfig
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessagesDhConfigArray) Pop() (v MessagesDhConfig, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

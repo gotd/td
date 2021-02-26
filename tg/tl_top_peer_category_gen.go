@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // TopPeerCategoryBotsPM represents TL type `topPeerCategoryBotsPM#ab661b5b`.
 // Most used bots
@@ -700,11 +702,41 @@ func (b *TopPeerCategoryBox) Encode(buf *bin.Buffer) error {
 	return b.TopPeerCategory.Encode(buf)
 }
 
-// TopPeerCategoryClassSlice is adapter for slice of TopPeerCategoryClass.
-type TopPeerCategoryClassSlice []TopPeerCategoryClass
+// TopPeerCategoryClassArray is adapter for slice of TopPeerCategoryClass.
+type TopPeerCategoryClassArray []TopPeerCategoryClass
+
+// Sort sorts slice of TopPeerCategoryClass.
+func (s TopPeerCategoryClassArray) Sort(less func(a, b TopPeerCategoryClass) bool) TopPeerCategoryClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of TopPeerCategoryClass.
+func (s TopPeerCategoryClassArray) SortStable(less func(a, b TopPeerCategoryClass) bool) TopPeerCategoryClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of TopPeerCategoryClass.
+func (s TopPeerCategoryClassArray) Retain(keep func(x TopPeerCategoryClass) bool) TopPeerCategoryClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s TopPeerCategoryClassSlice) First() (v TopPeerCategoryClass, ok bool) {
+func (s TopPeerCategoryClassArray) First() (v TopPeerCategoryClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -712,7 +744,7 @@ func (s TopPeerCategoryClassSlice) First() (v TopPeerCategoryClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s TopPeerCategoryClassSlice) Last() (v TopPeerCategoryClass, ok bool) {
+func (s TopPeerCategoryClassArray) Last() (v TopPeerCategoryClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -720,7 +752,7 @@ func (s TopPeerCategoryClassSlice) Last() (v TopPeerCategoryClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *TopPeerCategoryClassSlice) PopFirst() (v TopPeerCategoryClass, ok bool) {
+func (s *TopPeerCategoryClassArray) PopFirst() (v TopPeerCategoryClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -730,7 +762,8 @@ func (s *TopPeerCategoryClassSlice) PopFirst() (v TopPeerCategoryClass, ok bool)
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero TopPeerCategoryClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -738,7 +771,7 @@ func (s *TopPeerCategoryClassSlice) PopFirst() (v TopPeerCategoryClass, ok bool)
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *TopPeerCategoryClassSlice) Pop() (v TopPeerCategoryClass, ok bool) {
+func (s *TopPeerCategoryClassArray) Pop() (v TopPeerCategoryClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

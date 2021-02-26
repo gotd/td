@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // ContactsGetSavedRequest represents TL type `contacts.getSaved#82f1e39f`.
 // Get all contacts
@@ -96,5 +98,5 @@ func (c *Client) ContactsGetSaved(ctx context.Context) ([]SavedPhoneContact, err
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return result.Elems, nil
+	return []SavedPhoneContact(result.Elems), nil
 }

@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // InvokeWithoutUpdatesRequest represents TL type `invokeWithoutUpdates#bf9459b7`.
 // Invoke a request without subscribing the used connection for updates¹ (this is enabled by default for file queries²).

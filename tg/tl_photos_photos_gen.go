@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // PhotosPhotos represents TL type `photos.photos#8dca6aa5`.
 // Full list of photos with auxiliary data.
@@ -107,9 +109,9 @@ func (p *PhotosPhotos) GetPhotos() (value []PhotoClass) {
 	return p.Photos
 }
 
-// MapPhotos returns field Photos wrapped in PhotoClassSlice helper.
-func (p *PhotosPhotos) MapPhotos() (value PhotoClassSlice) {
-	return PhotoClassSlice(p.Photos)
+// MapPhotos returns field Photos wrapped in PhotoClassArray helper.
+func (p *PhotosPhotos) MapPhotos() (value PhotoClassArray) {
+	return PhotoClassArray(p.Photos)
 }
 
 // GetUsers returns value of Users field.
@@ -117,9 +119,9 @@ func (p *PhotosPhotos) GetUsers() (value []UserClass) {
 	return p.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (p *PhotosPhotos) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(p.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (p *PhotosPhotos) MapUsers() (value UserClassArray) {
+	return UserClassArray(p.Users)
 }
 
 // Decode implements bin.Decoder.
@@ -272,9 +274,9 @@ func (p *PhotosPhotosSlice) GetPhotos() (value []PhotoClass) {
 	return p.Photos
 }
 
-// MapPhotos returns field Photos wrapped in PhotoClassSlice helper.
-func (p *PhotosPhotosSlice) MapPhotos() (value PhotoClassSlice) {
-	return PhotoClassSlice(p.Photos)
+// MapPhotos returns field Photos wrapped in PhotoClassArray helper.
+func (p *PhotosPhotosSlice) MapPhotos() (value PhotoClassArray) {
+	return PhotoClassArray(p.Photos)
 }
 
 // GetUsers returns value of Users field.
@@ -282,9 +284,9 @@ func (p *PhotosPhotosSlice) GetUsers() (value []UserClass) {
 	return p.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (p *PhotosPhotosSlice) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(p.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (p *PhotosPhotosSlice) MapUsers() (value UserClassArray) {
+	return UserClassArray(p.Users)
 }
 
 // Decode implements bin.Decoder.
@@ -374,10 +376,10 @@ type PhotosPhotosClass interface {
 	// List of photos
 	GetPhotos() (value []PhotoClass)
 	// List of photos
-	MapPhotos() (value PhotoClassSlice) // List of mentioned users
+	MapPhotos() (value PhotoClassArray) // List of mentioned users
 	GetUsers() (value []UserClass)
 	// List of mentioned users
-	MapUsers() (value UserClassSlice)
+	MapUsers() (value UserClassArray)
 }
 
 // DecodePhotosPhotos implements binary de-serialization for PhotosPhotosClass.
@@ -432,11 +434,41 @@ func (b *PhotosPhotosBox) Encode(buf *bin.Buffer) error {
 	return b.Photos.Encode(buf)
 }
 
-// PhotosPhotosClassSlice is adapter for slice of PhotosPhotosClass.
-type PhotosPhotosClassSlice []PhotosPhotosClass
+// PhotosPhotosClassArray is adapter for slice of PhotosPhotosClass.
+type PhotosPhotosClassArray []PhotosPhotosClass
+
+// Sort sorts slice of PhotosPhotosClass.
+func (s PhotosPhotosClassArray) Sort(less func(a, b PhotosPhotosClass) bool) PhotosPhotosClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PhotosPhotosClass.
+func (s PhotosPhotosClassArray) SortStable(less func(a, b PhotosPhotosClass) bool) PhotosPhotosClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PhotosPhotosClass.
+func (s PhotosPhotosClassArray) Retain(keep func(x PhotosPhotosClass) bool) PhotosPhotosClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s PhotosPhotosClassSlice) First() (v PhotosPhotosClass, ok bool) {
+func (s PhotosPhotosClassArray) First() (v PhotosPhotosClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -444,7 +476,7 @@ func (s PhotosPhotosClassSlice) First() (v PhotosPhotosClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s PhotosPhotosClassSlice) Last() (v PhotosPhotosClass, ok bool) {
+func (s PhotosPhotosClassArray) Last() (v PhotosPhotosClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -452,7 +484,7 @@ func (s PhotosPhotosClassSlice) Last() (v PhotosPhotosClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PhotosPhotosClassSlice) PopFirst() (v PhotosPhotosClass, ok bool) {
+func (s *PhotosPhotosClassArray) PopFirst() (v PhotosPhotosClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -462,7 +494,8 @@ func (s *PhotosPhotosClassSlice) PopFirst() (v PhotosPhotosClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero PhotosPhotosClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -470,7 +503,197 @@ func (s *PhotosPhotosClassSlice) PopFirst() (v PhotosPhotosClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *PhotosPhotosClassSlice) Pop() (v PhotosPhotosClass, ok bool) {
+func (s *PhotosPhotosClassArray) Pop() (v PhotosPhotosClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsPhotosPhotos returns copy with only PhotosPhotos constructors.
+func (s PhotosPhotosClassArray) AsPhotosPhotos() (to PhotosPhotosArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PhotosPhotos)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsPhotosPhotosSlice returns copy with only PhotosPhotosSlice constructors.
+func (s PhotosPhotosClassArray) AsPhotosPhotosSlice() (to PhotosPhotosSliceArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PhotosPhotosSlice)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// PhotosPhotosArray is adapter for slice of PhotosPhotos.
+type PhotosPhotosArray []PhotosPhotos
+
+// Sort sorts slice of PhotosPhotos.
+func (s PhotosPhotosArray) Sort(less func(a, b PhotosPhotos) bool) PhotosPhotosArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PhotosPhotos.
+func (s PhotosPhotosArray) SortStable(less func(a, b PhotosPhotos) bool) PhotosPhotosArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PhotosPhotos.
+func (s PhotosPhotosArray) Retain(keep func(x PhotosPhotos) bool) PhotosPhotosArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PhotosPhotosArray) First() (v PhotosPhotos, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PhotosPhotosArray) Last() (v PhotosPhotos, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PhotosPhotosArray) PopFirst() (v PhotosPhotos, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PhotosPhotos
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PhotosPhotosArray) Pop() (v PhotosPhotos, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// PhotosPhotosSliceArray is adapter for slice of PhotosPhotosSlice.
+type PhotosPhotosSliceArray []PhotosPhotosSlice
+
+// Sort sorts slice of PhotosPhotosSlice.
+func (s PhotosPhotosSliceArray) Sort(less func(a, b PhotosPhotosSlice) bool) PhotosPhotosSliceArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PhotosPhotosSlice.
+func (s PhotosPhotosSliceArray) SortStable(less func(a, b PhotosPhotosSlice) bool) PhotosPhotosSliceArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PhotosPhotosSlice.
+func (s PhotosPhotosSliceArray) Retain(keep func(x PhotosPhotosSlice) bool) PhotosPhotosSliceArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PhotosPhotosSliceArray) First() (v PhotosPhotosSlice, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PhotosPhotosSliceArray) Last() (v PhotosPhotosSlice, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PhotosPhotosSliceArray) PopFirst() (v PhotosPhotosSlice, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PhotosPhotosSlice
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PhotosPhotosSliceArray) Pop() (v PhotosPhotosSlice, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

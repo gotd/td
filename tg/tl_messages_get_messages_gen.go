@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesGetMessagesRequest represents TL type `messages.getMessages#63c66506`.
 // Returns the list of messages by their IDs.
@@ -91,9 +93,9 @@ func (g *MessagesGetMessagesRequest) GetID() (value []InputMessageClass) {
 	return g.ID
 }
 
-// MapID returns field ID wrapped in InputMessageClassSlice helper.
-func (g *MessagesGetMessagesRequest) MapID() (value InputMessageClassSlice) {
-	return InputMessageClassSlice(g.ID)
+// MapID returns field ID wrapped in InputMessageClassArray helper.
+func (g *MessagesGetMessagesRequest) MapID() (value InputMessageClassArray) {
+	return InputMessageClassArray(g.ID)
 }
 
 // Decode implements bin.Decoder.

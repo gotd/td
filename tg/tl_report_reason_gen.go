@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // InputReportReasonSpam represents TL type `inputReportReasonSpam#58dbcab8`.
 // Report for spam
@@ -699,11 +701,41 @@ func (b *ReportReasonBox) Encode(buf *bin.Buffer) error {
 	return b.ReportReason.Encode(buf)
 }
 
-// ReportReasonClassSlice is adapter for slice of ReportReasonClass.
-type ReportReasonClassSlice []ReportReasonClass
+// ReportReasonClassArray is adapter for slice of ReportReasonClass.
+type ReportReasonClassArray []ReportReasonClass
+
+// Sort sorts slice of ReportReasonClass.
+func (s ReportReasonClassArray) Sort(less func(a, b ReportReasonClass) bool) ReportReasonClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ReportReasonClass.
+func (s ReportReasonClassArray) SortStable(less func(a, b ReportReasonClass) bool) ReportReasonClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ReportReasonClass.
+func (s ReportReasonClassArray) Retain(keep func(x ReportReasonClass) bool) ReportReasonClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s ReportReasonClassSlice) First() (v ReportReasonClass, ok bool) {
+func (s ReportReasonClassArray) First() (v ReportReasonClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -711,7 +743,7 @@ func (s ReportReasonClassSlice) First() (v ReportReasonClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s ReportReasonClassSlice) Last() (v ReportReasonClass, ok bool) {
+func (s ReportReasonClassArray) Last() (v ReportReasonClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -719,7 +751,7 @@ func (s ReportReasonClassSlice) Last() (v ReportReasonClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ReportReasonClassSlice) PopFirst() (v ReportReasonClass, ok bool) {
+func (s *ReportReasonClassArray) PopFirst() (v ReportReasonClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -729,7 +761,8 @@ func (s *ReportReasonClassSlice) PopFirst() (v ReportReasonClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero ReportReasonClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -737,7 +770,7 @@ func (s *ReportReasonClassSlice) PopFirst() (v ReportReasonClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *ReportReasonClassSlice) Pop() (v ReportReasonClass, ok bool) {
+func (s *ReportReasonClassArray) Pop() (v ReportReasonClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

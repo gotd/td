@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // ContactsResolvedPeer represents TL type `contacts.resolvedPeer#7f077ad9`.
 // Resolved peer
@@ -125,9 +127,9 @@ func (r *ContactsResolvedPeer) GetChats() (value []ChatClass) {
 	return r.Chats
 }
 
-// MapChats returns field Chats wrapped in ChatClassSlice helper.
-func (r *ContactsResolvedPeer) MapChats() (value ChatClassSlice) {
-	return ChatClassSlice(r.Chats)
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (r *ContactsResolvedPeer) MapChats() (value ChatClassArray) {
+	return ChatClassArray(r.Chats)
 }
 
 // GetUsers returns value of Users field.
@@ -135,9 +137,9 @@ func (r *ContactsResolvedPeer) GetUsers() (value []UserClass) {
 	return r.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (r *ContactsResolvedPeer) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(r.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (r *ContactsResolvedPeer) MapUsers() (value UserClassArray) {
+	return UserClassArray(r.Users)
 }
 
 // Decode implements bin.Decoder.

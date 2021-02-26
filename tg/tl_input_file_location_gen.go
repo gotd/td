@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // InputFileLocation represents TL type `inputFileLocation#dfdaabe1`.
 // DEPRECATED location of a photo
@@ -1479,11 +1481,41 @@ func (b *InputFileLocationBox) Encode(buf *bin.Buffer) error {
 	return b.InputFileLocation.Encode(buf)
 }
 
-// InputFileLocationClassSlice is adapter for slice of InputFileLocationClass.
-type InputFileLocationClassSlice []InputFileLocationClass
+// InputFileLocationClassArray is adapter for slice of InputFileLocationClass.
+type InputFileLocationClassArray []InputFileLocationClass
+
+// Sort sorts slice of InputFileLocationClass.
+func (s InputFileLocationClassArray) Sort(less func(a, b InputFileLocationClass) bool) InputFileLocationClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputFileLocationClass.
+func (s InputFileLocationClassArray) SortStable(less func(a, b InputFileLocationClass) bool) InputFileLocationClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputFileLocationClass.
+func (s InputFileLocationClassArray) Retain(keep func(x InputFileLocationClass) bool) InputFileLocationClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s InputFileLocationClassSlice) First() (v InputFileLocationClass, ok bool) {
+func (s InputFileLocationClassArray) First() (v InputFileLocationClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1491,7 +1523,7 @@ func (s InputFileLocationClassSlice) First() (v InputFileLocationClass, ok bool)
 }
 
 // Last returns last element of slice (if exists).
-func (s InputFileLocationClassSlice) Last() (v InputFileLocationClass, ok bool) {
+func (s InputFileLocationClassArray) Last() (v InputFileLocationClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1499,7 +1531,7 @@ func (s InputFileLocationClassSlice) Last() (v InputFileLocationClass, ok bool) 
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputFileLocationClassSlice) PopFirst() (v InputFileLocationClass, ok bool) {
+func (s *InputFileLocationClassArray) PopFirst() (v InputFileLocationClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1509,7 +1541,8 @@ func (s *InputFileLocationClassSlice) PopFirst() (v InputFileLocationClass, ok b
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero InputFileLocationClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -1517,7 +1550,767 @@ func (s *InputFileLocationClassSlice) PopFirst() (v InputFileLocationClass, ok b
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *InputFileLocationClassSlice) Pop() (v InputFileLocationClass, ok bool) {
+func (s *InputFileLocationClassArray) Pop() (v InputFileLocationClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsInputFileLocation returns copy with only InputFileLocation constructors.
+func (s InputFileLocationClassArray) AsInputFileLocation() (to InputFileLocationArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputFileLocation)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputEncryptedFileLocation returns copy with only InputEncryptedFileLocation constructors.
+func (s InputFileLocationClassArray) AsInputEncryptedFileLocation() (to InputEncryptedFileLocationArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputEncryptedFileLocation)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputDocumentFileLocation returns copy with only InputDocumentFileLocation constructors.
+func (s InputFileLocationClassArray) AsInputDocumentFileLocation() (to InputDocumentFileLocationArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputDocumentFileLocation)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputSecureFileLocation returns copy with only InputSecureFileLocation constructors.
+func (s InputFileLocationClassArray) AsInputSecureFileLocation() (to InputSecureFileLocationArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputSecureFileLocation)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputPhotoFileLocation returns copy with only InputPhotoFileLocation constructors.
+func (s InputFileLocationClassArray) AsInputPhotoFileLocation() (to InputPhotoFileLocationArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputPhotoFileLocation)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputPhotoLegacyFileLocation returns copy with only InputPhotoLegacyFileLocation constructors.
+func (s InputFileLocationClassArray) AsInputPhotoLegacyFileLocation() (to InputPhotoLegacyFileLocationArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputPhotoLegacyFileLocation)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputPeerPhotoFileLocation returns copy with only InputPeerPhotoFileLocation constructors.
+func (s InputFileLocationClassArray) AsInputPeerPhotoFileLocation() (to InputPeerPhotoFileLocationArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputPeerPhotoFileLocation)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputStickerSetThumb returns copy with only InputStickerSetThumb constructors.
+func (s InputFileLocationClassArray) AsInputStickerSetThumb() (to InputStickerSetThumbArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputStickerSetThumb)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// InputFileLocationArray is adapter for slice of InputFileLocation.
+type InputFileLocationArray []InputFileLocation
+
+// Sort sorts slice of InputFileLocation.
+func (s InputFileLocationArray) Sort(less func(a, b InputFileLocation) bool) InputFileLocationArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputFileLocation.
+func (s InputFileLocationArray) SortStable(less func(a, b InputFileLocation) bool) InputFileLocationArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputFileLocation.
+func (s InputFileLocationArray) Retain(keep func(x InputFileLocation) bool) InputFileLocationArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputFileLocationArray) First() (v InputFileLocation, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputFileLocationArray) Last() (v InputFileLocation, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputFileLocationArray) PopFirst() (v InputFileLocation, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputFileLocation
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputFileLocationArray) Pop() (v InputFileLocation, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputEncryptedFileLocationArray is adapter for slice of InputEncryptedFileLocation.
+type InputEncryptedFileLocationArray []InputEncryptedFileLocation
+
+// Sort sorts slice of InputEncryptedFileLocation.
+func (s InputEncryptedFileLocationArray) Sort(less func(a, b InputEncryptedFileLocation) bool) InputEncryptedFileLocationArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputEncryptedFileLocation.
+func (s InputEncryptedFileLocationArray) SortStable(less func(a, b InputEncryptedFileLocation) bool) InputEncryptedFileLocationArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputEncryptedFileLocation.
+func (s InputEncryptedFileLocationArray) Retain(keep func(x InputEncryptedFileLocation) bool) InputEncryptedFileLocationArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputEncryptedFileLocationArray) First() (v InputEncryptedFileLocation, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputEncryptedFileLocationArray) Last() (v InputEncryptedFileLocation, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputEncryptedFileLocationArray) PopFirst() (v InputEncryptedFileLocation, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputEncryptedFileLocation
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputEncryptedFileLocationArray) Pop() (v InputEncryptedFileLocation, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputDocumentFileLocationArray is adapter for slice of InputDocumentFileLocation.
+type InputDocumentFileLocationArray []InputDocumentFileLocation
+
+// Sort sorts slice of InputDocumentFileLocation.
+func (s InputDocumentFileLocationArray) Sort(less func(a, b InputDocumentFileLocation) bool) InputDocumentFileLocationArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputDocumentFileLocation.
+func (s InputDocumentFileLocationArray) SortStable(less func(a, b InputDocumentFileLocation) bool) InputDocumentFileLocationArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputDocumentFileLocation.
+func (s InputDocumentFileLocationArray) Retain(keep func(x InputDocumentFileLocation) bool) InputDocumentFileLocationArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputDocumentFileLocationArray) First() (v InputDocumentFileLocation, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputDocumentFileLocationArray) Last() (v InputDocumentFileLocation, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputDocumentFileLocationArray) PopFirst() (v InputDocumentFileLocation, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputDocumentFileLocation
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputDocumentFileLocationArray) Pop() (v InputDocumentFileLocation, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputSecureFileLocationArray is adapter for slice of InputSecureFileLocation.
+type InputSecureFileLocationArray []InputSecureFileLocation
+
+// Sort sorts slice of InputSecureFileLocation.
+func (s InputSecureFileLocationArray) Sort(less func(a, b InputSecureFileLocation) bool) InputSecureFileLocationArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputSecureFileLocation.
+func (s InputSecureFileLocationArray) SortStable(less func(a, b InputSecureFileLocation) bool) InputSecureFileLocationArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputSecureFileLocation.
+func (s InputSecureFileLocationArray) Retain(keep func(x InputSecureFileLocation) bool) InputSecureFileLocationArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputSecureFileLocationArray) First() (v InputSecureFileLocation, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputSecureFileLocationArray) Last() (v InputSecureFileLocation, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputSecureFileLocationArray) PopFirst() (v InputSecureFileLocation, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputSecureFileLocation
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputSecureFileLocationArray) Pop() (v InputSecureFileLocation, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputPhotoFileLocationArray is adapter for slice of InputPhotoFileLocation.
+type InputPhotoFileLocationArray []InputPhotoFileLocation
+
+// Sort sorts slice of InputPhotoFileLocation.
+func (s InputPhotoFileLocationArray) Sort(less func(a, b InputPhotoFileLocation) bool) InputPhotoFileLocationArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputPhotoFileLocation.
+func (s InputPhotoFileLocationArray) SortStable(less func(a, b InputPhotoFileLocation) bool) InputPhotoFileLocationArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputPhotoFileLocation.
+func (s InputPhotoFileLocationArray) Retain(keep func(x InputPhotoFileLocation) bool) InputPhotoFileLocationArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputPhotoFileLocationArray) First() (v InputPhotoFileLocation, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputPhotoFileLocationArray) Last() (v InputPhotoFileLocation, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputPhotoFileLocationArray) PopFirst() (v InputPhotoFileLocation, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputPhotoFileLocation
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputPhotoFileLocationArray) Pop() (v InputPhotoFileLocation, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputPhotoLegacyFileLocationArray is adapter for slice of InputPhotoLegacyFileLocation.
+type InputPhotoLegacyFileLocationArray []InputPhotoLegacyFileLocation
+
+// Sort sorts slice of InputPhotoLegacyFileLocation.
+func (s InputPhotoLegacyFileLocationArray) Sort(less func(a, b InputPhotoLegacyFileLocation) bool) InputPhotoLegacyFileLocationArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputPhotoLegacyFileLocation.
+func (s InputPhotoLegacyFileLocationArray) SortStable(less func(a, b InputPhotoLegacyFileLocation) bool) InputPhotoLegacyFileLocationArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputPhotoLegacyFileLocation.
+func (s InputPhotoLegacyFileLocationArray) Retain(keep func(x InputPhotoLegacyFileLocation) bool) InputPhotoLegacyFileLocationArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputPhotoLegacyFileLocationArray) First() (v InputPhotoLegacyFileLocation, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputPhotoLegacyFileLocationArray) Last() (v InputPhotoLegacyFileLocation, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputPhotoLegacyFileLocationArray) PopFirst() (v InputPhotoLegacyFileLocation, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputPhotoLegacyFileLocation
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputPhotoLegacyFileLocationArray) Pop() (v InputPhotoLegacyFileLocation, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputPeerPhotoFileLocationArray is adapter for slice of InputPeerPhotoFileLocation.
+type InputPeerPhotoFileLocationArray []InputPeerPhotoFileLocation
+
+// Sort sorts slice of InputPeerPhotoFileLocation.
+func (s InputPeerPhotoFileLocationArray) Sort(less func(a, b InputPeerPhotoFileLocation) bool) InputPeerPhotoFileLocationArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputPeerPhotoFileLocation.
+func (s InputPeerPhotoFileLocationArray) SortStable(less func(a, b InputPeerPhotoFileLocation) bool) InputPeerPhotoFileLocationArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputPeerPhotoFileLocation.
+func (s InputPeerPhotoFileLocationArray) Retain(keep func(x InputPeerPhotoFileLocation) bool) InputPeerPhotoFileLocationArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputPeerPhotoFileLocationArray) First() (v InputPeerPhotoFileLocation, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputPeerPhotoFileLocationArray) Last() (v InputPeerPhotoFileLocation, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputPeerPhotoFileLocationArray) PopFirst() (v InputPeerPhotoFileLocation, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputPeerPhotoFileLocation
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputPeerPhotoFileLocationArray) Pop() (v InputPeerPhotoFileLocation, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputStickerSetThumbArray is adapter for slice of InputStickerSetThumb.
+type InputStickerSetThumbArray []InputStickerSetThumb
+
+// Sort sorts slice of InputStickerSetThumb.
+func (s InputStickerSetThumbArray) Sort(less func(a, b InputStickerSetThumb) bool) InputStickerSetThumbArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputStickerSetThumb.
+func (s InputStickerSetThumbArray) SortStable(less func(a, b InputStickerSetThumb) bool) InputStickerSetThumbArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputStickerSetThumb.
+func (s InputStickerSetThumbArray) Retain(keep func(x InputStickerSetThumb) bool) InputStickerSetThumbArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputStickerSetThumbArray) First() (v InputStickerSetThumb, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputStickerSetThumbArray) Last() (v InputStickerSetThumb, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputStickerSetThumbArray) PopFirst() (v InputStickerSetThumb, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputStickerSetThumb
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputStickerSetThumbArray) Pop() (v InputStickerSetThumb, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

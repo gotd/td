@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // UpdatesDifferenceEmpty represents TL type `updates.differenceEmpty#5d75a138`.
 // No events.
@@ -279,9 +281,9 @@ func (d *UpdatesDifference) GetNewMessages() (value []MessageClass) {
 	return d.NewMessages
 }
 
-// MapNewMessages returns field NewMessages wrapped in MessageClassSlice helper.
-func (d *UpdatesDifference) MapNewMessages() (value MessageClassSlice) {
-	return MessageClassSlice(d.NewMessages)
+// MapNewMessages returns field NewMessages wrapped in MessageClassArray helper.
+func (d *UpdatesDifference) MapNewMessages() (value MessageClassArray) {
+	return MessageClassArray(d.NewMessages)
 }
 
 // GetNewEncryptedMessages returns value of NewEncryptedMessages field.
@@ -289,9 +291,9 @@ func (d *UpdatesDifference) GetNewEncryptedMessages() (value []EncryptedMessageC
 	return d.NewEncryptedMessages
 }
 
-// MapNewEncryptedMessages returns field NewEncryptedMessages wrapped in EncryptedMessageClassSlice helper.
-func (d *UpdatesDifference) MapNewEncryptedMessages() (value EncryptedMessageClassSlice) {
-	return EncryptedMessageClassSlice(d.NewEncryptedMessages)
+// MapNewEncryptedMessages returns field NewEncryptedMessages wrapped in EncryptedMessageClassArray helper.
+func (d *UpdatesDifference) MapNewEncryptedMessages() (value EncryptedMessageClassArray) {
+	return EncryptedMessageClassArray(d.NewEncryptedMessages)
 }
 
 // GetOtherUpdates returns value of OtherUpdates field.
@@ -299,9 +301,9 @@ func (d *UpdatesDifference) GetOtherUpdates() (value []UpdateClass) {
 	return d.OtherUpdates
 }
 
-// MapOtherUpdates returns field OtherUpdates wrapped in UpdateClassSlice helper.
-func (d *UpdatesDifference) MapOtherUpdates() (value UpdateClassSlice) {
-	return UpdateClassSlice(d.OtherUpdates)
+// MapOtherUpdates returns field OtherUpdates wrapped in UpdateClassArray helper.
+func (d *UpdatesDifference) MapOtherUpdates() (value UpdateClassArray) {
+	return UpdateClassArray(d.OtherUpdates)
 }
 
 // GetChats returns value of Chats field.
@@ -309,9 +311,9 @@ func (d *UpdatesDifference) GetChats() (value []ChatClass) {
 	return d.Chats
 }
 
-// MapChats returns field Chats wrapped in ChatClassSlice helper.
-func (d *UpdatesDifference) MapChats() (value ChatClassSlice) {
-	return ChatClassSlice(d.Chats)
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (d *UpdatesDifference) MapChats() (value ChatClassArray) {
+	return ChatClassArray(d.Chats)
 }
 
 // GetUsers returns value of Users field.
@@ -319,9 +321,9 @@ func (d *UpdatesDifference) GetUsers() (value []UserClass) {
 	return d.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (d *UpdatesDifference) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(d.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (d *UpdatesDifference) MapUsers() (value UserClassArray) {
+	return UserClassArray(d.Users)
 }
 
 // GetState returns value of State field.
@@ -571,9 +573,9 @@ func (d *UpdatesDifferenceSlice) GetNewMessages() (value []MessageClass) {
 	return d.NewMessages
 }
 
-// MapNewMessages returns field NewMessages wrapped in MessageClassSlice helper.
-func (d *UpdatesDifferenceSlice) MapNewMessages() (value MessageClassSlice) {
-	return MessageClassSlice(d.NewMessages)
+// MapNewMessages returns field NewMessages wrapped in MessageClassArray helper.
+func (d *UpdatesDifferenceSlice) MapNewMessages() (value MessageClassArray) {
+	return MessageClassArray(d.NewMessages)
 }
 
 // GetNewEncryptedMessages returns value of NewEncryptedMessages field.
@@ -581,9 +583,9 @@ func (d *UpdatesDifferenceSlice) GetNewEncryptedMessages() (value []EncryptedMes
 	return d.NewEncryptedMessages
 }
 
-// MapNewEncryptedMessages returns field NewEncryptedMessages wrapped in EncryptedMessageClassSlice helper.
-func (d *UpdatesDifferenceSlice) MapNewEncryptedMessages() (value EncryptedMessageClassSlice) {
-	return EncryptedMessageClassSlice(d.NewEncryptedMessages)
+// MapNewEncryptedMessages returns field NewEncryptedMessages wrapped in EncryptedMessageClassArray helper.
+func (d *UpdatesDifferenceSlice) MapNewEncryptedMessages() (value EncryptedMessageClassArray) {
+	return EncryptedMessageClassArray(d.NewEncryptedMessages)
 }
 
 // GetOtherUpdates returns value of OtherUpdates field.
@@ -591,9 +593,9 @@ func (d *UpdatesDifferenceSlice) GetOtherUpdates() (value []UpdateClass) {
 	return d.OtherUpdates
 }
 
-// MapOtherUpdates returns field OtherUpdates wrapped in UpdateClassSlice helper.
-func (d *UpdatesDifferenceSlice) MapOtherUpdates() (value UpdateClassSlice) {
-	return UpdateClassSlice(d.OtherUpdates)
+// MapOtherUpdates returns field OtherUpdates wrapped in UpdateClassArray helper.
+func (d *UpdatesDifferenceSlice) MapOtherUpdates() (value UpdateClassArray) {
+	return UpdateClassArray(d.OtherUpdates)
 }
 
 // GetChats returns value of Chats field.
@@ -601,9 +603,9 @@ func (d *UpdatesDifferenceSlice) GetChats() (value []ChatClass) {
 	return d.Chats
 }
 
-// MapChats returns field Chats wrapped in ChatClassSlice helper.
-func (d *UpdatesDifferenceSlice) MapChats() (value ChatClassSlice) {
-	return ChatClassSlice(d.Chats)
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (d *UpdatesDifferenceSlice) MapChats() (value ChatClassArray) {
+	return ChatClassArray(d.Chats)
 }
 
 // GetUsers returns value of Users field.
@@ -611,9 +613,9 @@ func (d *UpdatesDifferenceSlice) GetUsers() (value []UserClass) {
 	return d.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (d *UpdatesDifferenceSlice) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(d.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (d *UpdatesDifferenceSlice) MapUsers() (value UserClassArray) {
+	return UserClassArray(d.Users)
 }
 
 // GetIntermediateState returns value of IntermediateState field.
@@ -908,11 +910,41 @@ func (b *UpdatesDifferenceBox) Encode(buf *bin.Buffer) error {
 	return b.Difference.Encode(buf)
 }
 
-// UpdatesDifferenceClassSlice is adapter for slice of UpdatesDifferenceClass.
-type UpdatesDifferenceClassSlice []UpdatesDifferenceClass
+// UpdatesDifferenceClassArray is adapter for slice of UpdatesDifferenceClass.
+type UpdatesDifferenceClassArray []UpdatesDifferenceClass
+
+// Sort sorts slice of UpdatesDifferenceClass.
+func (s UpdatesDifferenceClassArray) Sort(less func(a, b UpdatesDifferenceClass) bool) UpdatesDifferenceClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdatesDifferenceClass.
+func (s UpdatesDifferenceClassArray) SortStable(less func(a, b UpdatesDifferenceClass) bool) UpdatesDifferenceClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdatesDifferenceClass.
+func (s UpdatesDifferenceClassArray) Retain(keep func(x UpdatesDifferenceClass) bool) UpdatesDifferenceClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s UpdatesDifferenceClassSlice) First() (v UpdatesDifferenceClass, ok bool) {
+func (s UpdatesDifferenceClassArray) First() (v UpdatesDifferenceClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -920,7 +952,7 @@ func (s UpdatesDifferenceClassSlice) First() (v UpdatesDifferenceClass, ok bool)
 }
 
 // Last returns last element of slice (if exists).
-func (s UpdatesDifferenceClassSlice) Last() (v UpdatesDifferenceClass, ok bool) {
+func (s UpdatesDifferenceClassArray) Last() (v UpdatesDifferenceClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -928,7 +960,7 @@ func (s UpdatesDifferenceClassSlice) Last() (v UpdatesDifferenceClass, ok bool) 
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdatesDifferenceClassSlice) PopFirst() (v UpdatesDifferenceClass, ok bool) {
+func (s *UpdatesDifferenceClassArray) PopFirst() (v UpdatesDifferenceClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -938,7 +970,8 @@ func (s *UpdatesDifferenceClassSlice) PopFirst() (v UpdatesDifferenceClass, ok b
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero UpdatesDifferenceClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -946,7 +979,401 @@ func (s *UpdatesDifferenceClassSlice) PopFirst() (v UpdatesDifferenceClass, ok b
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdatesDifferenceClassSlice) Pop() (v UpdatesDifferenceClass, ok bool) {
+func (s *UpdatesDifferenceClassArray) Pop() (v UpdatesDifferenceClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsUpdatesDifferenceEmpty returns copy with only UpdatesDifferenceEmpty constructors.
+func (s UpdatesDifferenceClassArray) AsUpdatesDifferenceEmpty() (to UpdatesDifferenceEmptyArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdatesDifferenceEmpty)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdatesDifference returns copy with only UpdatesDifference constructors.
+func (s UpdatesDifferenceClassArray) AsUpdatesDifference() (to UpdatesDifferenceArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdatesDifference)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdatesDifferenceSlice returns copy with only UpdatesDifferenceSlice constructors.
+func (s UpdatesDifferenceClassArray) AsUpdatesDifferenceSlice() (to UpdatesDifferenceSliceArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdatesDifferenceSlice)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdatesDifferenceTooLong returns copy with only UpdatesDifferenceTooLong constructors.
+func (s UpdatesDifferenceClassArray) AsUpdatesDifferenceTooLong() (to UpdatesDifferenceTooLongArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdatesDifferenceTooLong)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// UpdatesDifferenceEmptyArray is adapter for slice of UpdatesDifferenceEmpty.
+type UpdatesDifferenceEmptyArray []UpdatesDifferenceEmpty
+
+// Sort sorts slice of UpdatesDifferenceEmpty.
+func (s UpdatesDifferenceEmptyArray) Sort(less func(a, b UpdatesDifferenceEmpty) bool) UpdatesDifferenceEmptyArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdatesDifferenceEmpty.
+func (s UpdatesDifferenceEmptyArray) SortStable(less func(a, b UpdatesDifferenceEmpty) bool) UpdatesDifferenceEmptyArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdatesDifferenceEmpty.
+func (s UpdatesDifferenceEmptyArray) Retain(keep func(x UpdatesDifferenceEmpty) bool) UpdatesDifferenceEmptyArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdatesDifferenceEmptyArray) First() (v UpdatesDifferenceEmpty, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdatesDifferenceEmptyArray) Last() (v UpdatesDifferenceEmpty, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdatesDifferenceEmptyArray) PopFirst() (v UpdatesDifferenceEmpty, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdatesDifferenceEmpty
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdatesDifferenceEmptyArray) Pop() (v UpdatesDifferenceEmpty, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByDate sorts slice of UpdatesDifferenceEmpty by Date.
+func (s UpdatesDifferenceEmptyArray) SortByDate() UpdatesDifferenceEmptyArray {
+	return s.Sort(func(a, b UpdatesDifferenceEmpty) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of UpdatesDifferenceEmpty by Date.
+func (s UpdatesDifferenceEmptyArray) SortStableByDate() UpdatesDifferenceEmptyArray {
+	return s.SortStable(func(a, b UpdatesDifferenceEmpty) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// UpdatesDifferenceArray is adapter for slice of UpdatesDifference.
+type UpdatesDifferenceArray []UpdatesDifference
+
+// Sort sorts slice of UpdatesDifference.
+func (s UpdatesDifferenceArray) Sort(less func(a, b UpdatesDifference) bool) UpdatesDifferenceArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdatesDifference.
+func (s UpdatesDifferenceArray) SortStable(less func(a, b UpdatesDifference) bool) UpdatesDifferenceArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdatesDifference.
+func (s UpdatesDifferenceArray) Retain(keep func(x UpdatesDifference) bool) UpdatesDifferenceArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdatesDifferenceArray) First() (v UpdatesDifference, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdatesDifferenceArray) Last() (v UpdatesDifference, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdatesDifferenceArray) PopFirst() (v UpdatesDifference, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdatesDifference
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdatesDifferenceArray) Pop() (v UpdatesDifference, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdatesDifferenceSliceArray is adapter for slice of UpdatesDifferenceSlice.
+type UpdatesDifferenceSliceArray []UpdatesDifferenceSlice
+
+// Sort sorts slice of UpdatesDifferenceSlice.
+func (s UpdatesDifferenceSliceArray) Sort(less func(a, b UpdatesDifferenceSlice) bool) UpdatesDifferenceSliceArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdatesDifferenceSlice.
+func (s UpdatesDifferenceSliceArray) SortStable(less func(a, b UpdatesDifferenceSlice) bool) UpdatesDifferenceSliceArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdatesDifferenceSlice.
+func (s UpdatesDifferenceSliceArray) Retain(keep func(x UpdatesDifferenceSlice) bool) UpdatesDifferenceSliceArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdatesDifferenceSliceArray) First() (v UpdatesDifferenceSlice, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdatesDifferenceSliceArray) Last() (v UpdatesDifferenceSlice, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdatesDifferenceSliceArray) PopFirst() (v UpdatesDifferenceSlice, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdatesDifferenceSlice
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdatesDifferenceSliceArray) Pop() (v UpdatesDifferenceSlice, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UpdatesDifferenceTooLongArray is adapter for slice of UpdatesDifferenceTooLong.
+type UpdatesDifferenceTooLongArray []UpdatesDifferenceTooLong
+
+// Sort sorts slice of UpdatesDifferenceTooLong.
+func (s UpdatesDifferenceTooLongArray) Sort(less func(a, b UpdatesDifferenceTooLong) bool) UpdatesDifferenceTooLongArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdatesDifferenceTooLong.
+func (s UpdatesDifferenceTooLongArray) SortStable(less func(a, b UpdatesDifferenceTooLong) bool) UpdatesDifferenceTooLongArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdatesDifferenceTooLong.
+func (s UpdatesDifferenceTooLongArray) Retain(keep func(x UpdatesDifferenceTooLong) bool) UpdatesDifferenceTooLongArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdatesDifferenceTooLongArray) First() (v UpdatesDifferenceTooLong, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdatesDifferenceTooLongArray) Last() (v UpdatesDifferenceTooLong, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdatesDifferenceTooLongArray) PopFirst() (v UpdatesDifferenceTooLong, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdatesDifferenceTooLong
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdatesDifferenceTooLongArray) Pop() (v UpdatesDifferenceTooLong, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

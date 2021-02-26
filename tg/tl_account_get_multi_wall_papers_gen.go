@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // AccountGetMultiWallPapersRequest represents TL type `account.getMultiWallPapers#65ad71dc`.
 // Get info about multiple wallpapers
@@ -91,9 +93,9 @@ func (g *AccountGetMultiWallPapersRequest) GetWallpapers() (value []InputWallPap
 	return g.Wallpapers
 }
 
-// MapWallpapers returns field Wallpapers wrapped in InputWallPaperClassSlice helper.
-func (g *AccountGetMultiWallPapersRequest) MapWallpapers() (value InputWallPaperClassSlice) {
-	return InputWallPaperClassSlice(g.Wallpapers)
+// MapWallpapers returns field Wallpapers wrapped in InputWallPaperClassArray helper.
+func (g *AccountGetMultiWallPapersRequest) MapWallpapers() (value InputWallPaperClassArray) {
+	return InputWallPaperClassArray(g.Wallpapers)
 }
 
 // Decode implements bin.Decoder.
@@ -139,5 +141,5 @@ func (c *Client) AccountGetMultiWallPapers(ctx context.Context, wallpapers []Inp
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return result.Elems, nil
+	return []WallPaperClass(result.Elems), nil
 }

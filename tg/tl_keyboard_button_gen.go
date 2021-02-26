@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // KeyboardButton represents TL type `keyboardButton#a2fa4880`.
 // Bot keyboard button
@@ -1668,11 +1670,41 @@ func (b *KeyboardButtonBox) Encode(buf *bin.Buffer) error {
 	return b.KeyboardButton.Encode(buf)
 }
 
-// KeyboardButtonClassSlice is adapter for slice of KeyboardButtonClass.
-type KeyboardButtonClassSlice []KeyboardButtonClass
+// KeyboardButtonClassArray is adapter for slice of KeyboardButtonClass.
+type KeyboardButtonClassArray []KeyboardButtonClass
+
+// Sort sorts slice of KeyboardButtonClass.
+func (s KeyboardButtonClassArray) Sort(less func(a, b KeyboardButtonClass) bool) KeyboardButtonClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of KeyboardButtonClass.
+func (s KeyboardButtonClassArray) SortStable(less func(a, b KeyboardButtonClass) bool) KeyboardButtonClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of KeyboardButtonClass.
+func (s KeyboardButtonClassArray) Retain(keep func(x KeyboardButtonClass) bool) KeyboardButtonClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s KeyboardButtonClassSlice) First() (v KeyboardButtonClass, ok bool) {
+func (s KeyboardButtonClassArray) First() (v KeyboardButtonClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1680,7 +1712,7 @@ func (s KeyboardButtonClassSlice) First() (v KeyboardButtonClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s KeyboardButtonClassSlice) Last() (v KeyboardButtonClass, ok bool) {
+func (s KeyboardButtonClassArray) Last() (v KeyboardButtonClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1688,7 +1720,7 @@ func (s KeyboardButtonClassSlice) Last() (v KeyboardButtonClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *KeyboardButtonClassSlice) PopFirst() (v KeyboardButtonClass, ok bool) {
+func (s *KeyboardButtonClassArray) PopFirst() (v KeyboardButtonClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1698,7 +1730,8 @@ func (s *KeyboardButtonClassSlice) PopFirst() (v KeyboardButtonClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero KeyboardButtonClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -1706,7 +1739,1052 @@ func (s *KeyboardButtonClassSlice) PopFirst() (v KeyboardButtonClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *KeyboardButtonClassSlice) Pop() (v KeyboardButtonClass, ok bool) {
+func (s *KeyboardButtonClassArray) Pop() (v KeyboardButtonClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsKeyboardButton returns copy with only KeyboardButton constructors.
+func (s KeyboardButtonClassArray) AsKeyboardButton() (to KeyboardButtonArray) {
+	for _, elem := range s {
+		value, ok := elem.(*KeyboardButton)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsKeyboardButtonUrl returns copy with only KeyboardButtonUrl constructors.
+func (s KeyboardButtonClassArray) AsKeyboardButtonUrl() (to KeyboardButtonUrlArray) {
+	for _, elem := range s {
+		value, ok := elem.(*KeyboardButtonUrl)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsKeyboardButtonCallback returns copy with only KeyboardButtonCallback constructors.
+func (s KeyboardButtonClassArray) AsKeyboardButtonCallback() (to KeyboardButtonCallbackArray) {
+	for _, elem := range s {
+		value, ok := elem.(*KeyboardButtonCallback)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsKeyboardButtonRequestPhone returns copy with only KeyboardButtonRequestPhone constructors.
+func (s KeyboardButtonClassArray) AsKeyboardButtonRequestPhone() (to KeyboardButtonRequestPhoneArray) {
+	for _, elem := range s {
+		value, ok := elem.(*KeyboardButtonRequestPhone)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsKeyboardButtonRequestGeoLocation returns copy with only KeyboardButtonRequestGeoLocation constructors.
+func (s KeyboardButtonClassArray) AsKeyboardButtonRequestGeoLocation() (to KeyboardButtonRequestGeoLocationArray) {
+	for _, elem := range s {
+		value, ok := elem.(*KeyboardButtonRequestGeoLocation)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsKeyboardButtonSwitchInline returns copy with only KeyboardButtonSwitchInline constructors.
+func (s KeyboardButtonClassArray) AsKeyboardButtonSwitchInline() (to KeyboardButtonSwitchInlineArray) {
+	for _, elem := range s {
+		value, ok := elem.(*KeyboardButtonSwitchInline)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsKeyboardButtonGame returns copy with only KeyboardButtonGame constructors.
+func (s KeyboardButtonClassArray) AsKeyboardButtonGame() (to KeyboardButtonGameArray) {
+	for _, elem := range s {
+		value, ok := elem.(*KeyboardButtonGame)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsKeyboardButtonBuy returns copy with only KeyboardButtonBuy constructors.
+func (s KeyboardButtonClassArray) AsKeyboardButtonBuy() (to KeyboardButtonBuyArray) {
+	for _, elem := range s {
+		value, ok := elem.(*KeyboardButtonBuy)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsKeyboardButtonUrlAuth returns copy with only KeyboardButtonUrlAuth constructors.
+func (s KeyboardButtonClassArray) AsKeyboardButtonUrlAuth() (to KeyboardButtonUrlAuthArray) {
+	for _, elem := range s {
+		value, ok := elem.(*KeyboardButtonUrlAuth)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputKeyboardButtonUrlAuth returns copy with only InputKeyboardButtonUrlAuth constructors.
+func (s KeyboardButtonClassArray) AsInputKeyboardButtonUrlAuth() (to InputKeyboardButtonUrlAuthArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputKeyboardButtonUrlAuth)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsKeyboardButtonRequestPoll returns copy with only KeyboardButtonRequestPoll constructors.
+func (s KeyboardButtonClassArray) AsKeyboardButtonRequestPoll() (to KeyboardButtonRequestPollArray) {
+	for _, elem := range s {
+		value, ok := elem.(*KeyboardButtonRequestPoll)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// KeyboardButtonArray is adapter for slice of KeyboardButton.
+type KeyboardButtonArray []KeyboardButton
+
+// Sort sorts slice of KeyboardButton.
+func (s KeyboardButtonArray) Sort(less func(a, b KeyboardButton) bool) KeyboardButtonArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of KeyboardButton.
+func (s KeyboardButtonArray) SortStable(less func(a, b KeyboardButton) bool) KeyboardButtonArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of KeyboardButton.
+func (s KeyboardButtonArray) Retain(keep func(x KeyboardButton) bool) KeyboardButtonArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s KeyboardButtonArray) First() (v KeyboardButton, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s KeyboardButtonArray) Last() (v KeyboardButton, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *KeyboardButtonArray) PopFirst() (v KeyboardButton, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero KeyboardButton
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *KeyboardButtonArray) Pop() (v KeyboardButton, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// KeyboardButtonUrlArray is adapter for slice of KeyboardButtonUrl.
+type KeyboardButtonUrlArray []KeyboardButtonUrl
+
+// Sort sorts slice of KeyboardButtonUrl.
+func (s KeyboardButtonUrlArray) Sort(less func(a, b KeyboardButtonUrl) bool) KeyboardButtonUrlArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of KeyboardButtonUrl.
+func (s KeyboardButtonUrlArray) SortStable(less func(a, b KeyboardButtonUrl) bool) KeyboardButtonUrlArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of KeyboardButtonUrl.
+func (s KeyboardButtonUrlArray) Retain(keep func(x KeyboardButtonUrl) bool) KeyboardButtonUrlArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s KeyboardButtonUrlArray) First() (v KeyboardButtonUrl, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s KeyboardButtonUrlArray) Last() (v KeyboardButtonUrl, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *KeyboardButtonUrlArray) PopFirst() (v KeyboardButtonUrl, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero KeyboardButtonUrl
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *KeyboardButtonUrlArray) Pop() (v KeyboardButtonUrl, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// KeyboardButtonCallbackArray is adapter for slice of KeyboardButtonCallback.
+type KeyboardButtonCallbackArray []KeyboardButtonCallback
+
+// Sort sorts slice of KeyboardButtonCallback.
+func (s KeyboardButtonCallbackArray) Sort(less func(a, b KeyboardButtonCallback) bool) KeyboardButtonCallbackArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of KeyboardButtonCallback.
+func (s KeyboardButtonCallbackArray) SortStable(less func(a, b KeyboardButtonCallback) bool) KeyboardButtonCallbackArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of KeyboardButtonCallback.
+func (s KeyboardButtonCallbackArray) Retain(keep func(x KeyboardButtonCallback) bool) KeyboardButtonCallbackArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s KeyboardButtonCallbackArray) First() (v KeyboardButtonCallback, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s KeyboardButtonCallbackArray) Last() (v KeyboardButtonCallback, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *KeyboardButtonCallbackArray) PopFirst() (v KeyboardButtonCallback, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero KeyboardButtonCallback
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *KeyboardButtonCallbackArray) Pop() (v KeyboardButtonCallback, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// KeyboardButtonRequestPhoneArray is adapter for slice of KeyboardButtonRequestPhone.
+type KeyboardButtonRequestPhoneArray []KeyboardButtonRequestPhone
+
+// Sort sorts slice of KeyboardButtonRequestPhone.
+func (s KeyboardButtonRequestPhoneArray) Sort(less func(a, b KeyboardButtonRequestPhone) bool) KeyboardButtonRequestPhoneArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of KeyboardButtonRequestPhone.
+func (s KeyboardButtonRequestPhoneArray) SortStable(less func(a, b KeyboardButtonRequestPhone) bool) KeyboardButtonRequestPhoneArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of KeyboardButtonRequestPhone.
+func (s KeyboardButtonRequestPhoneArray) Retain(keep func(x KeyboardButtonRequestPhone) bool) KeyboardButtonRequestPhoneArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s KeyboardButtonRequestPhoneArray) First() (v KeyboardButtonRequestPhone, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s KeyboardButtonRequestPhoneArray) Last() (v KeyboardButtonRequestPhone, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *KeyboardButtonRequestPhoneArray) PopFirst() (v KeyboardButtonRequestPhone, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero KeyboardButtonRequestPhone
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *KeyboardButtonRequestPhoneArray) Pop() (v KeyboardButtonRequestPhone, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// KeyboardButtonRequestGeoLocationArray is adapter for slice of KeyboardButtonRequestGeoLocation.
+type KeyboardButtonRequestGeoLocationArray []KeyboardButtonRequestGeoLocation
+
+// Sort sorts slice of KeyboardButtonRequestGeoLocation.
+func (s KeyboardButtonRequestGeoLocationArray) Sort(less func(a, b KeyboardButtonRequestGeoLocation) bool) KeyboardButtonRequestGeoLocationArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of KeyboardButtonRequestGeoLocation.
+func (s KeyboardButtonRequestGeoLocationArray) SortStable(less func(a, b KeyboardButtonRequestGeoLocation) bool) KeyboardButtonRequestGeoLocationArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of KeyboardButtonRequestGeoLocation.
+func (s KeyboardButtonRequestGeoLocationArray) Retain(keep func(x KeyboardButtonRequestGeoLocation) bool) KeyboardButtonRequestGeoLocationArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s KeyboardButtonRequestGeoLocationArray) First() (v KeyboardButtonRequestGeoLocation, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s KeyboardButtonRequestGeoLocationArray) Last() (v KeyboardButtonRequestGeoLocation, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *KeyboardButtonRequestGeoLocationArray) PopFirst() (v KeyboardButtonRequestGeoLocation, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero KeyboardButtonRequestGeoLocation
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *KeyboardButtonRequestGeoLocationArray) Pop() (v KeyboardButtonRequestGeoLocation, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// KeyboardButtonSwitchInlineArray is adapter for slice of KeyboardButtonSwitchInline.
+type KeyboardButtonSwitchInlineArray []KeyboardButtonSwitchInline
+
+// Sort sorts slice of KeyboardButtonSwitchInline.
+func (s KeyboardButtonSwitchInlineArray) Sort(less func(a, b KeyboardButtonSwitchInline) bool) KeyboardButtonSwitchInlineArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of KeyboardButtonSwitchInline.
+func (s KeyboardButtonSwitchInlineArray) SortStable(less func(a, b KeyboardButtonSwitchInline) bool) KeyboardButtonSwitchInlineArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of KeyboardButtonSwitchInline.
+func (s KeyboardButtonSwitchInlineArray) Retain(keep func(x KeyboardButtonSwitchInline) bool) KeyboardButtonSwitchInlineArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s KeyboardButtonSwitchInlineArray) First() (v KeyboardButtonSwitchInline, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s KeyboardButtonSwitchInlineArray) Last() (v KeyboardButtonSwitchInline, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *KeyboardButtonSwitchInlineArray) PopFirst() (v KeyboardButtonSwitchInline, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero KeyboardButtonSwitchInline
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *KeyboardButtonSwitchInlineArray) Pop() (v KeyboardButtonSwitchInline, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// KeyboardButtonGameArray is adapter for slice of KeyboardButtonGame.
+type KeyboardButtonGameArray []KeyboardButtonGame
+
+// Sort sorts slice of KeyboardButtonGame.
+func (s KeyboardButtonGameArray) Sort(less func(a, b KeyboardButtonGame) bool) KeyboardButtonGameArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of KeyboardButtonGame.
+func (s KeyboardButtonGameArray) SortStable(less func(a, b KeyboardButtonGame) bool) KeyboardButtonGameArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of KeyboardButtonGame.
+func (s KeyboardButtonGameArray) Retain(keep func(x KeyboardButtonGame) bool) KeyboardButtonGameArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s KeyboardButtonGameArray) First() (v KeyboardButtonGame, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s KeyboardButtonGameArray) Last() (v KeyboardButtonGame, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *KeyboardButtonGameArray) PopFirst() (v KeyboardButtonGame, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero KeyboardButtonGame
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *KeyboardButtonGameArray) Pop() (v KeyboardButtonGame, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// KeyboardButtonBuyArray is adapter for slice of KeyboardButtonBuy.
+type KeyboardButtonBuyArray []KeyboardButtonBuy
+
+// Sort sorts slice of KeyboardButtonBuy.
+func (s KeyboardButtonBuyArray) Sort(less func(a, b KeyboardButtonBuy) bool) KeyboardButtonBuyArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of KeyboardButtonBuy.
+func (s KeyboardButtonBuyArray) SortStable(less func(a, b KeyboardButtonBuy) bool) KeyboardButtonBuyArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of KeyboardButtonBuy.
+func (s KeyboardButtonBuyArray) Retain(keep func(x KeyboardButtonBuy) bool) KeyboardButtonBuyArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s KeyboardButtonBuyArray) First() (v KeyboardButtonBuy, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s KeyboardButtonBuyArray) Last() (v KeyboardButtonBuy, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *KeyboardButtonBuyArray) PopFirst() (v KeyboardButtonBuy, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero KeyboardButtonBuy
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *KeyboardButtonBuyArray) Pop() (v KeyboardButtonBuy, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// KeyboardButtonUrlAuthArray is adapter for slice of KeyboardButtonUrlAuth.
+type KeyboardButtonUrlAuthArray []KeyboardButtonUrlAuth
+
+// Sort sorts slice of KeyboardButtonUrlAuth.
+func (s KeyboardButtonUrlAuthArray) Sort(less func(a, b KeyboardButtonUrlAuth) bool) KeyboardButtonUrlAuthArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of KeyboardButtonUrlAuth.
+func (s KeyboardButtonUrlAuthArray) SortStable(less func(a, b KeyboardButtonUrlAuth) bool) KeyboardButtonUrlAuthArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of KeyboardButtonUrlAuth.
+func (s KeyboardButtonUrlAuthArray) Retain(keep func(x KeyboardButtonUrlAuth) bool) KeyboardButtonUrlAuthArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s KeyboardButtonUrlAuthArray) First() (v KeyboardButtonUrlAuth, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s KeyboardButtonUrlAuthArray) Last() (v KeyboardButtonUrlAuth, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *KeyboardButtonUrlAuthArray) PopFirst() (v KeyboardButtonUrlAuth, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero KeyboardButtonUrlAuth
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *KeyboardButtonUrlAuthArray) Pop() (v KeyboardButtonUrlAuth, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputKeyboardButtonUrlAuthArray is adapter for slice of InputKeyboardButtonUrlAuth.
+type InputKeyboardButtonUrlAuthArray []InputKeyboardButtonUrlAuth
+
+// Sort sorts slice of InputKeyboardButtonUrlAuth.
+func (s InputKeyboardButtonUrlAuthArray) Sort(less func(a, b InputKeyboardButtonUrlAuth) bool) InputKeyboardButtonUrlAuthArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputKeyboardButtonUrlAuth.
+func (s InputKeyboardButtonUrlAuthArray) SortStable(less func(a, b InputKeyboardButtonUrlAuth) bool) InputKeyboardButtonUrlAuthArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputKeyboardButtonUrlAuth.
+func (s InputKeyboardButtonUrlAuthArray) Retain(keep func(x InputKeyboardButtonUrlAuth) bool) InputKeyboardButtonUrlAuthArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputKeyboardButtonUrlAuthArray) First() (v InputKeyboardButtonUrlAuth, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputKeyboardButtonUrlAuthArray) Last() (v InputKeyboardButtonUrlAuth, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputKeyboardButtonUrlAuthArray) PopFirst() (v InputKeyboardButtonUrlAuth, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputKeyboardButtonUrlAuth
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputKeyboardButtonUrlAuthArray) Pop() (v InputKeyboardButtonUrlAuth, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// KeyboardButtonRequestPollArray is adapter for slice of KeyboardButtonRequestPoll.
+type KeyboardButtonRequestPollArray []KeyboardButtonRequestPoll
+
+// Sort sorts slice of KeyboardButtonRequestPoll.
+func (s KeyboardButtonRequestPollArray) Sort(less func(a, b KeyboardButtonRequestPoll) bool) KeyboardButtonRequestPollArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of KeyboardButtonRequestPoll.
+func (s KeyboardButtonRequestPollArray) SortStable(less func(a, b KeyboardButtonRequestPoll) bool) KeyboardButtonRequestPollArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of KeyboardButtonRequestPoll.
+func (s KeyboardButtonRequestPollArray) Retain(keep func(x KeyboardButtonRequestPoll) bool) KeyboardButtonRequestPollArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s KeyboardButtonRequestPollArray) First() (v KeyboardButtonRequestPoll, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s KeyboardButtonRequestPollArray) Last() (v KeyboardButtonRequestPoll, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *KeyboardButtonRequestPollArray) PopFirst() (v KeyboardButtonRequestPoll, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero KeyboardButtonRequestPoll
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *KeyboardButtonRequestPollArray) Pop() (v KeyboardButtonRequestPoll, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

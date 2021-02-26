@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // HelpTermsOfService represents TL type `help.termsOfService#780a0310`.
 // Info about the latest telegram Terms Of Service
@@ -177,9 +179,9 @@ func (t *HelpTermsOfService) GetEntities() (value []MessageEntityClass) {
 	return t.Entities
 }
 
-// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
-func (t *HelpTermsOfService) MapEntities() (value MessageEntityClassSlice) {
-	return MessageEntityClassSlice(t.Entities)
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (t *HelpTermsOfService) MapEntities() (value MessageEntityClassArray) {
+	return MessageEntityClassArray(t.Entities)
 }
 
 // SetMinAgeConfirm sets value of MinAgeConfirm conditional field.

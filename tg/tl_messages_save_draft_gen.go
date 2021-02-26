@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesSaveDraftRequest represents TL type `messages.saveDraft#bc39e14b`.
 // Save a message draft¹ associated to a chat.
@@ -218,12 +220,12 @@ func (s *MessagesSaveDraftRequest) GetEntities() (value []MessageEntityClass, ok
 	return s.Entities, true
 }
 
-// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
-func (s *MessagesSaveDraftRequest) MapEntities() (value MessageEntityClassSlice, ok bool) {
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (s *MessagesSaveDraftRequest) MapEntities() (value MessageEntityClassArray, ok bool) {
 	if !s.Flags.Has(3) {
 		return value, false
 	}
-	return MessageEntityClassSlice(s.Entities), true
+	return MessageEntityClassArray(s.Entities), true
 }
 
 // Decode implements bin.Decoder.

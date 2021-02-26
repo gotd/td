@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // ChannelMessagesFilterEmpty represents TL type `channelMessagesFilterEmpty#94d42ee7`.
 // No filter
@@ -330,12 +332,104 @@ func (b *ChannelMessagesFilterBox) Encode(buf *bin.Buffer) error {
 	return b.ChannelMessagesFilter.Encode(buf)
 }
 
-// ChannelMessagesFilterClassSlice is adapter for slice of ChannelMessagesFilterClass.
-type ChannelMessagesFilterClassSlice []ChannelMessagesFilterClass
+// ChannelMessagesFilterClassArray is adapter for slice of ChannelMessagesFilterClass.
+type ChannelMessagesFilterClassArray []ChannelMessagesFilterClass
+
+// Sort sorts slice of ChannelMessagesFilterClass.
+func (s ChannelMessagesFilterClassArray) Sort(less func(a, b ChannelMessagesFilterClass) bool) ChannelMessagesFilterClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ChannelMessagesFilterClass.
+func (s ChannelMessagesFilterClassArray) SortStable(less func(a, b ChannelMessagesFilterClass) bool) ChannelMessagesFilterClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ChannelMessagesFilterClass.
+func (s ChannelMessagesFilterClassArray) Retain(keep func(x ChannelMessagesFilterClass) bool) ChannelMessagesFilterClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s ChannelMessagesFilterClassArray) First() (v ChannelMessagesFilterClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChannelMessagesFilterClassArray) Last() (v ChannelMessagesFilterClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChannelMessagesFilterClassArray) PopFirst() (v ChannelMessagesFilterClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero ChannelMessagesFilterClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChannelMessagesFilterClassArray) Pop() (v ChannelMessagesFilterClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsChannelMessagesFilter returns copy with only ChannelMessagesFilter constructors.
+func (s ChannelMessagesFilterClassArray) AsChannelMessagesFilter() (to ChannelMessagesFilterArray) {
+	for _, elem := range s {
+		value, ok := elem.(*ChannelMessagesFilter)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
 
 // AppendOnlyNotEmpty appends only NotEmpty constructors to
 // given slice.
-func (s ChannelMessagesFilterClassSlice) AppendOnlyNotEmpty(to []*ChannelMessagesFilter) []*ChannelMessagesFilter {
+func (s ChannelMessagesFilterClassArray) AppendOnlyNotEmpty(to []*ChannelMessagesFilter) []*ChannelMessagesFilter {
 	for _, elem := range s {
 		value, ok := elem.AsNotEmpty()
 		if !ok {
@@ -348,12 +442,12 @@ func (s ChannelMessagesFilterClassSlice) AppendOnlyNotEmpty(to []*ChannelMessage
 }
 
 // AsNotEmpty returns copy with only NotEmpty constructors.
-func (s ChannelMessagesFilterClassSlice) AsNotEmpty() (to []*ChannelMessagesFilter) {
+func (s ChannelMessagesFilterClassArray) AsNotEmpty() (to []*ChannelMessagesFilter) {
 	return s.AppendOnlyNotEmpty(to)
 }
 
 // FirstAsNotEmpty returns first element of slice (if exists).
-func (s ChannelMessagesFilterClassSlice) FirstAsNotEmpty() (v *ChannelMessagesFilter, ok bool) {
+func (s ChannelMessagesFilterClassArray) FirstAsNotEmpty() (v *ChannelMessagesFilter, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -362,7 +456,7 @@ func (s ChannelMessagesFilterClassSlice) FirstAsNotEmpty() (v *ChannelMessagesFi
 }
 
 // LastAsNotEmpty returns last element of slice (if exists).
-func (s ChannelMessagesFilterClassSlice) LastAsNotEmpty() (v *ChannelMessagesFilter, ok bool) {
+func (s ChannelMessagesFilterClassArray) LastAsNotEmpty() (v *ChannelMessagesFilter, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -371,7 +465,7 @@ func (s ChannelMessagesFilterClassSlice) LastAsNotEmpty() (v *ChannelMessagesFil
 }
 
 // PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *ChannelMessagesFilterClassSlice) PopFirstAsNotEmpty() (v *ChannelMessagesFilter, ok bool) {
+func (s *ChannelMessagesFilterClassArray) PopFirstAsNotEmpty() (v *ChannelMessagesFilter, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -380,7 +474,7 @@ func (s *ChannelMessagesFilterClassSlice) PopFirstAsNotEmpty() (v *ChannelMessag
 }
 
 // PopAsNotEmpty returns element of slice (if exists).
-func (s *ChannelMessagesFilterClassSlice) PopAsNotEmpty() (v *ChannelMessagesFilter, ok bool) {
+func (s *ChannelMessagesFilterClassArray) PopAsNotEmpty() (v *ChannelMessagesFilter, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -388,8 +482,41 @@ func (s *ChannelMessagesFilterClassSlice) PopAsNotEmpty() (v *ChannelMessagesFil
 	return value.AsNotEmpty()
 }
 
+// ChannelMessagesFilterArray is adapter for slice of ChannelMessagesFilter.
+type ChannelMessagesFilterArray []ChannelMessagesFilter
+
+// Sort sorts slice of ChannelMessagesFilter.
+func (s ChannelMessagesFilterArray) Sort(less func(a, b ChannelMessagesFilter) bool) ChannelMessagesFilterArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ChannelMessagesFilter.
+func (s ChannelMessagesFilterArray) SortStable(less func(a, b ChannelMessagesFilter) bool) ChannelMessagesFilterArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ChannelMessagesFilter.
+func (s ChannelMessagesFilterArray) Retain(keep func(x ChannelMessagesFilter) bool) ChannelMessagesFilterArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s ChannelMessagesFilterClassSlice) First() (v ChannelMessagesFilterClass, ok bool) {
+func (s ChannelMessagesFilterArray) First() (v ChannelMessagesFilter, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -397,7 +524,7 @@ func (s ChannelMessagesFilterClassSlice) First() (v ChannelMessagesFilterClass, 
 }
 
 // Last returns last element of slice (if exists).
-func (s ChannelMessagesFilterClassSlice) Last() (v ChannelMessagesFilterClass, ok bool) {
+func (s ChannelMessagesFilterArray) Last() (v ChannelMessagesFilter, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -405,7 +532,7 @@ func (s ChannelMessagesFilterClassSlice) Last() (v ChannelMessagesFilterClass, o
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChannelMessagesFilterClassSlice) PopFirst() (v ChannelMessagesFilterClass, ok bool) {
+func (s *ChannelMessagesFilterArray) PopFirst() (v ChannelMessagesFilter, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -415,7 +542,8 @@ func (s *ChannelMessagesFilterClassSlice) PopFirst() (v ChannelMessagesFilterCla
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero ChannelMessagesFilter
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -423,7 +551,7 @@ func (s *ChannelMessagesFilterClassSlice) PopFirst() (v ChannelMessagesFilterCla
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *ChannelMessagesFilterClassSlice) Pop() (v ChannelMessagesFilterClass, ok bool) {
+func (s *ChannelMessagesFilterArray) Pop() (v ChannelMessagesFilter, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

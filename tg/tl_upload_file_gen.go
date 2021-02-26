@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // UploadFile represents TL type `upload.file#96a18d5`.
 // File content.
@@ -442,11 +444,41 @@ func (b *UploadFileBox) Encode(buf *bin.Buffer) error {
 	return b.File.Encode(buf)
 }
 
-// UploadFileClassSlice is adapter for slice of UploadFileClass.
-type UploadFileClassSlice []UploadFileClass
+// UploadFileClassArray is adapter for slice of UploadFileClass.
+type UploadFileClassArray []UploadFileClass
+
+// Sort sorts slice of UploadFileClass.
+func (s UploadFileClassArray) Sort(less func(a, b UploadFileClass) bool) UploadFileClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UploadFileClass.
+func (s UploadFileClassArray) SortStable(less func(a, b UploadFileClass) bool) UploadFileClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UploadFileClass.
+func (s UploadFileClassArray) Retain(keep func(x UploadFileClass) bool) UploadFileClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s UploadFileClassSlice) First() (v UploadFileClass, ok bool) {
+func (s UploadFileClassArray) First() (v UploadFileClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -454,7 +486,7 @@ func (s UploadFileClassSlice) First() (v UploadFileClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s UploadFileClassSlice) Last() (v UploadFileClass, ok bool) {
+func (s UploadFileClassArray) Last() (v UploadFileClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -462,7 +494,7 @@ func (s UploadFileClassSlice) Last() (v UploadFileClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UploadFileClassSlice) PopFirst() (v UploadFileClass, ok bool) {
+func (s *UploadFileClassArray) PopFirst() (v UploadFileClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -472,7 +504,8 @@ func (s *UploadFileClassSlice) PopFirst() (v UploadFileClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero UploadFileClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -480,7 +513,197 @@ func (s *UploadFileClassSlice) PopFirst() (v UploadFileClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *UploadFileClassSlice) Pop() (v UploadFileClass, ok bool) {
+func (s *UploadFileClassArray) Pop() (v UploadFileClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsUploadFile returns copy with only UploadFile constructors.
+func (s UploadFileClassArray) AsUploadFile() (to UploadFileArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UploadFile)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUploadFileCdnRedirect returns copy with only UploadFileCdnRedirect constructors.
+func (s UploadFileClassArray) AsUploadFileCdnRedirect() (to UploadFileCdnRedirectArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UploadFileCdnRedirect)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// UploadFileArray is adapter for slice of UploadFile.
+type UploadFileArray []UploadFile
+
+// Sort sorts slice of UploadFile.
+func (s UploadFileArray) Sort(less func(a, b UploadFile) bool) UploadFileArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UploadFile.
+func (s UploadFileArray) SortStable(less func(a, b UploadFile) bool) UploadFileArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UploadFile.
+func (s UploadFileArray) Retain(keep func(x UploadFile) bool) UploadFileArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UploadFileArray) First() (v UploadFile, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UploadFileArray) Last() (v UploadFile, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UploadFileArray) PopFirst() (v UploadFile, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UploadFile
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UploadFileArray) Pop() (v UploadFile, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UploadFileCdnRedirectArray is adapter for slice of UploadFileCdnRedirect.
+type UploadFileCdnRedirectArray []UploadFileCdnRedirect
+
+// Sort sorts slice of UploadFileCdnRedirect.
+func (s UploadFileCdnRedirectArray) Sort(less func(a, b UploadFileCdnRedirect) bool) UploadFileCdnRedirectArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UploadFileCdnRedirect.
+func (s UploadFileCdnRedirectArray) SortStable(less func(a, b UploadFileCdnRedirect) bool) UploadFileCdnRedirectArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UploadFileCdnRedirect.
+func (s UploadFileCdnRedirectArray) Retain(keep func(x UploadFileCdnRedirect) bool) UploadFileCdnRedirectArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UploadFileCdnRedirectArray) First() (v UploadFileCdnRedirect, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UploadFileCdnRedirectArray) Last() (v UploadFileCdnRedirect, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UploadFileCdnRedirectArray) PopFirst() (v UploadFileCdnRedirect, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UploadFileCdnRedirect
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UploadFileCdnRedirectArray) Pop() (v UploadFileCdnRedirect, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

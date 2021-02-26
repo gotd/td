@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesMessageViews represents TL type `messages.messageViews#b6c4f543`.
 // View, forward counter + info about replies
@@ -125,9 +127,9 @@ func (m *MessagesMessageViews) GetChats() (value []ChatClass) {
 	return m.Chats
 }
 
-// MapChats returns field Chats wrapped in ChatClassSlice helper.
-func (m *MessagesMessageViews) MapChats() (value ChatClassSlice) {
-	return ChatClassSlice(m.Chats)
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (m *MessagesMessageViews) MapChats() (value ChatClassArray) {
+	return ChatClassArray(m.Chats)
 }
 
 // GetUsers returns value of Users field.
@@ -135,9 +137,9 @@ func (m *MessagesMessageViews) GetUsers() (value []UserClass) {
 	return m.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (m *MessagesMessageViews) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(m.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (m *MessagesMessageViews) MapUsers() (value UserClassArray) {
+	return UserClassArray(m.Users)
 }
 
 // Decode implements bin.Decoder.

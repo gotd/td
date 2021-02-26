@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // InputDialogPeer represents TL type `inputDialogPeer#fcaafeb7`.
 // A peer
@@ -299,11 +301,41 @@ func (b *InputDialogPeerBox) Encode(buf *bin.Buffer) error {
 	return b.InputDialogPeer.Encode(buf)
 }
 
-// InputDialogPeerClassSlice is adapter for slice of InputDialogPeerClass.
-type InputDialogPeerClassSlice []InputDialogPeerClass
+// InputDialogPeerClassArray is adapter for slice of InputDialogPeerClass.
+type InputDialogPeerClassArray []InputDialogPeerClass
+
+// Sort sorts slice of InputDialogPeerClass.
+func (s InputDialogPeerClassArray) Sort(less func(a, b InputDialogPeerClass) bool) InputDialogPeerClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputDialogPeerClass.
+func (s InputDialogPeerClassArray) SortStable(less func(a, b InputDialogPeerClass) bool) InputDialogPeerClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputDialogPeerClass.
+func (s InputDialogPeerClassArray) Retain(keep func(x InputDialogPeerClass) bool) InputDialogPeerClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s InputDialogPeerClassSlice) First() (v InputDialogPeerClass, ok bool) {
+func (s InputDialogPeerClassArray) First() (v InputDialogPeerClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -311,7 +343,7 @@ func (s InputDialogPeerClassSlice) First() (v InputDialogPeerClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s InputDialogPeerClassSlice) Last() (v InputDialogPeerClass, ok bool) {
+func (s InputDialogPeerClassArray) Last() (v InputDialogPeerClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -319,7 +351,7 @@ func (s InputDialogPeerClassSlice) Last() (v InputDialogPeerClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputDialogPeerClassSlice) PopFirst() (v InputDialogPeerClass, ok bool) {
+func (s *InputDialogPeerClassArray) PopFirst() (v InputDialogPeerClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -329,7 +361,8 @@ func (s *InputDialogPeerClassSlice) PopFirst() (v InputDialogPeerClass, ok bool)
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero InputDialogPeerClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -337,7 +370,197 @@ func (s *InputDialogPeerClassSlice) PopFirst() (v InputDialogPeerClass, ok bool)
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *InputDialogPeerClassSlice) Pop() (v InputDialogPeerClass, ok bool) {
+func (s *InputDialogPeerClassArray) Pop() (v InputDialogPeerClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsInputDialogPeer returns copy with only InputDialogPeer constructors.
+func (s InputDialogPeerClassArray) AsInputDialogPeer() (to InputDialogPeerArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputDialogPeer)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputDialogPeerFolder returns copy with only InputDialogPeerFolder constructors.
+func (s InputDialogPeerClassArray) AsInputDialogPeerFolder() (to InputDialogPeerFolderArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputDialogPeerFolder)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// InputDialogPeerArray is adapter for slice of InputDialogPeer.
+type InputDialogPeerArray []InputDialogPeer
+
+// Sort sorts slice of InputDialogPeer.
+func (s InputDialogPeerArray) Sort(less func(a, b InputDialogPeer) bool) InputDialogPeerArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputDialogPeer.
+func (s InputDialogPeerArray) SortStable(less func(a, b InputDialogPeer) bool) InputDialogPeerArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputDialogPeer.
+func (s InputDialogPeerArray) Retain(keep func(x InputDialogPeer) bool) InputDialogPeerArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputDialogPeerArray) First() (v InputDialogPeer, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputDialogPeerArray) Last() (v InputDialogPeer, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputDialogPeerArray) PopFirst() (v InputDialogPeer, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputDialogPeer
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputDialogPeerArray) Pop() (v InputDialogPeer, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputDialogPeerFolderArray is adapter for slice of InputDialogPeerFolder.
+type InputDialogPeerFolderArray []InputDialogPeerFolder
+
+// Sort sorts slice of InputDialogPeerFolder.
+func (s InputDialogPeerFolderArray) Sort(less func(a, b InputDialogPeerFolder) bool) InputDialogPeerFolderArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputDialogPeerFolder.
+func (s InputDialogPeerFolderArray) SortStable(less func(a, b InputDialogPeerFolder) bool) InputDialogPeerFolderArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputDialogPeerFolder.
+func (s InputDialogPeerFolderArray) Retain(keep func(x InputDialogPeerFolder) bool) InputDialogPeerFolderArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputDialogPeerFolderArray) First() (v InputDialogPeerFolder, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputDialogPeerFolderArray) Last() (v InputDialogPeerFolder, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputDialogPeerFolderArray) PopFirst() (v InputDialogPeerFolder, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputDialogPeerFolder
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputDialogPeerFolderArray) Pop() (v InputDialogPeerFolder, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

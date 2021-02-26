@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // Auth represents TL type `auth#f8bb4a38`.
 //
@@ -309,11 +311,41 @@ func (b *AuthBox) Encode(buf *bin.Buffer) error {
 	return b.Auth.Encode(buf)
 }
 
-// AuthClassSlice is adapter for slice of AuthClass.
-type AuthClassSlice []AuthClass
+// AuthClassArray is adapter for slice of AuthClass.
+type AuthClassArray []AuthClass
+
+// Sort sorts slice of AuthClass.
+func (s AuthClassArray) Sort(less func(a, b AuthClass) bool) AuthClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of AuthClass.
+func (s AuthClassArray) SortStable(less func(a, b AuthClass) bool) AuthClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of AuthClass.
+func (s AuthClassArray) Retain(keep func(x AuthClass) bool) AuthClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s AuthClassSlice) First() (v AuthClass, ok bool) {
+func (s AuthClassArray) First() (v AuthClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -321,7 +353,7 @@ func (s AuthClassSlice) First() (v AuthClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s AuthClassSlice) Last() (v AuthClass, ok bool) {
+func (s AuthClassArray) Last() (v AuthClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -329,7 +361,7 @@ func (s AuthClassSlice) Last() (v AuthClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *AuthClassSlice) PopFirst() (v AuthClass, ok bool) {
+func (s *AuthClassArray) PopFirst() (v AuthClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -339,7 +371,8 @@ func (s *AuthClassSlice) PopFirst() (v AuthClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero AuthClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -347,7 +380,197 @@ func (s *AuthClassSlice) PopFirst() (v AuthClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *AuthClassSlice) Pop() (v AuthClass, ok bool) {
+func (s *AuthClassArray) Pop() (v AuthClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsAuth returns copy with only Auth constructors.
+func (s AuthClassArray) AsAuth() (to AuthArray) {
+	for _, elem := range s {
+		value, ok := elem.(*Auth)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsAuthPassword returns copy with only AuthPassword constructors.
+func (s AuthClassArray) AsAuthPassword() (to AuthPasswordArray) {
+	for _, elem := range s {
+		value, ok := elem.(*AuthPassword)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AuthArray is adapter for slice of Auth.
+type AuthArray []Auth
+
+// Sort sorts slice of Auth.
+func (s AuthArray) Sort(less func(a, b Auth) bool) AuthArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of Auth.
+func (s AuthArray) SortStable(less func(a, b Auth) bool) AuthArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of Auth.
+func (s AuthArray) Retain(keep func(x Auth) bool) AuthArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s AuthArray) First() (v Auth, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s AuthArray) Last() (v Auth, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *AuthArray) PopFirst() (v Auth, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero Auth
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *AuthArray) Pop() (v Auth, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AuthPasswordArray is adapter for slice of AuthPassword.
+type AuthPasswordArray []AuthPassword
+
+// Sort sorts slice of AuthPassword.
+func (s AuthPasswordArray) Sort(less func(a, b AuthPassword) bool) AuthPasswordArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of AuthPassword.
+func (s AuthPasswordArray) SortStable(less func(a, b AuthPassword) bool) AuthPasswordArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of AuthPassword.
+func (s AuthPasswordArray) Retain(keep func(x AuthPassword) bool) AuthPasswordArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s AuthPasswordArray) First() (v AuthPassword, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s AuthPasswordArray) Last() (v AuthPassword, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *AuthPasswordArray) PopFirst() (v AuthPassword, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero AuthPassword
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *AuthPasswordArray) Pop() (v AuthPassword, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

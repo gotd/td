@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MsgDetailedInfo represents TL type `msg_detailed_info#276d3ec6`.
 type MsgDetailedInfo struct {
@@ -387,11 +389,41 @@ func (b *MsgDetailedInfoBox) Encode(buf *bin.Buffer) error {
 	return b.MsgDetailedInfo.Encode(buf)
 }
 
-// MsgDetailedInfoClassSlice is adapter for slice of MsgDetailedInfoClass.
-type MsgDetailedInfoClassSlice []MsgDetailedInfoClass
+// MsgDetailedInfoClassArray is adapter for slice of MsgDetailedInfoClass.
+type MsgDetailedInfoClassArray []MsgDetailedInfoClass
+
+// Sort sorts slice of MsgDetailedInfoClass.
+func (s MsgDetailedInfoClassArray) Sort(less func(a, b MsgDetailedInfoClass) bool) MsgDetailedInfoClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MsgDetailedInfoClass.
+func (s MsgDetailedInfoClassArray) SortStable(less func(a, b MsgDetailedInfoClass) bool) MsgDetailedInfoClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MsgDetailedInfoClass.
+func (s MsgDetailedInfoClassArray) Retain(keep func(x MsgDetailedInfoClass) bool) MsgDetailedInfoClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s MsgDetailedInfoClassSlice) First() (v MsgDetailedInfoClass, ok bool) {
+func (s MsgDetailedInfoClassArray) First() (v MsgDetailedInfoClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -399,7 +431,7 @@ func (s MsgDetailedInfoClassSlice) First() (v MsgDetailedInfoClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s MsgDetailedInfoClassSlice) Last() (v MsgDetailedInfoClass, ok bool) {
+func (s MsgDetailedInfoClassArray) Last() (v MsgDetailedInfoClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -407,7 +439,7 @@ func (s MsgDetailedInfoClassSlice) Last() (v MsgDetailedInfoClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MsgDetailedInfoClassSlice) PopFirst() (v MsgDetailedInfoClass, ok bool) {
+func (s *MsgDetailedInfoClassArray) PopFirst() (v MsgDetailedInfoClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -417,7 +449,8 @@ func (s *MsgDetailedInfoClassSlice) PopFirst() (v MsgDetailedInfoClass, ok bool)
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero MsgDetailedInfoClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -425,7 +458,197 @@ func (s *MsgDetailedInfoClassSlice) PopFirst() (v MsgDetailedInfoClass, ok bool)
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *MsgDetailedInfoClassSlice) Pop() (v MsgDetailedInfoClass, ok bool) {
+func (s *MsgDetailedInfoClassArray) Pop() (v MsgDetailedInfoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsMsgDetailedInfo returns copy with only MsgDetailedInfo constructors.
+func (s MsgDetailedInfoClassArray) AsMsgDetailedInfo() (to MsgDetailedInfoArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MsgDetailedInfo)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsMsgNewDetailedInfo returns copy with only MsgNewDetailedInfo constructors.
+func (s MsgDetailedInfoClassArray) AsMsgNewDetailedInfo() (to MsgNewDetailedInfoArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MsgNewDetailedInfo)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// MsgDetailedInfoArray is adapter for slice of MsgDetailedInfo.
+type MsgDetailedInfoArray []MsgDetailedInfo
+
+// Sort sorts slice of MsgDetailedInfo.
+func (s MsgDetailedInfoArray) Sort(less func(a, b MsgDetailedInfo) bool) MsgDetailedInfoArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MsgDetailedInfo.
+func (s MsgDetailedInfoArray) SortStable(less func(a, b MsgDetailedInfo) bool) MsgDetailedInfoArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MsgDetailedInfo.
+func (s MsgDetailedInfoArray) Retain(keep func(x MsgDetailedInfo) bool) MsgDetailedInfoArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MsgDetailedInfoArray) First() (v MsgDetailedInfo, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MsgDetailedInfoArray) Last() (v MsgDetailedInfo, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MsgDetailedInfoArray) PopFirst() (v MsgDetailedInfo, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MsgDetailedInfo
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MsgDetailedInfoArray) Pop() (v MsgDetailedInfo, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MsgNewDetailedInfoArray is adapter for slice of MsgNewDetailedInfo.
+type MsgNewDetailedInfoArray []MsgNewDetailedInfo
+
+// Sort sorts slice of MsgNewDetailedInfo.
+func (s MsgNewDetailedInfoArray) Sort(less func(a, b MsgNewDetailedInfo) bool) MsgNewDetailedInfoArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MsgNewDetailedInfo.
+func (s MsgNewDetailedInfoArray) SortStable(less func(a, b MsgNewDetailedInfo) bool) MsgNewDetailedInfoArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MsgNewDetailedInfo.
+func (s MsgNewDetailedInfoArray) Retain(keep func(x MsgNewDetailedInfo) bool) MsgNewDetailedInfoArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MsgNewDetailedInfoArray) First() (v MsgNewDetailedInfo, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MsgNewDetailedInfoArray) Last() (v MsgNewDetailedInfo, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MsgNewDetailedInfoArray) PopFirst() (v MsgNewDetailedInfo, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MsgNewDetailedInfo
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MsgNewDetailedInfoArray) Pop() (v MsgNewDetailedInfo, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

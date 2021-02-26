@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // ChannelsChannelParticipants represents TL type `channels.channelParticipants#f56ee2a8`.
 // Represents multiple channel participants
@@ -120,9 +122,9 @@ func (c *ChannelsChannelParticipants) GetParticipants() (value []ChannelParticip
 	return c.Participants
 }
 
-// MapParticipants returns field Participants wrapped in ChannelParticipantClassSlice helper.
-func (c *ChannelsChannelParticipants) MapParticipants() (value ChannelParticipantClassSlice) {
-	return ChannelParticipantClassSlice(c.Participants)
+// MapParticipants returns field Participants wrapped in ChannelParticipantClassArray helper.
+func (c *ChannelsChannelParticipants) MapParticipants() (value ChannelParticipantClassArray) {
+	return ChannelParticipantClassArray(c.Participants)
 }
 
 // GetUsers returns value of Users field.
@@ -130,9 +132,9 @@ func (c *ChannelsChannelParticipants) GetUsers() (value []UserClass) {
 	return c.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (c *ChannelsChannelParticipants) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(c.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (c *ChannelsChannelParticipants) MapUsers() (value UserClassArray) {
+	return UserClassArray(c.Users)
 }
 
 // Decode implements bin.Decoder.
@@ -356,12 +358,104 @@ func (b *ChannelsChannelParticipantsBox) Encode(buf *bin.Buffer) error {
 	return b.ChannelParticipants.Encode(buf)
 }
 
-// ChannelsChannelParticipantsClassSlice is adapter for slice of ChannelsChannelParticipantsClass.
-type ChannelsChannelParticipantsClassSlice []ChannelsChannelParticipantsClass
+// ChannelsChannelParticipantsClassArray is adapter for slice of ChannelsChannelParticipantsClass.
+type ChannelsChannelParticipantsClassArray []ChannelsChannelParticipantsClass
+
+// Sort sorts slice of ChannelsChannelParticipantsClass.
+func (s ChannelsChannelParticipantsClassArray) Sort(less func(a, b ChannelsChannelParticipantsClass) bool) ChannelsChannelParticipantsClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ChannelsChannelParticipantsClass.
+func (s ChannelsChannelParticipantsClassArray) SortStable(less func(a, b ChannelsChannelParticipantsClass) bool) ChannelsChannelParticipantsClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ChannelsChannelParticipantsClass.
+func (s ChannelsChannelParticipantsClassArray) Retain(keep func(x ChannelsChannelParticipantsClass) bool) ChannelsChannelParticipantsClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s ChannelsChannelParticipantsClassArray) First() (v ChannelsChannelParticipantsClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChannelsChannelParticipantsClassArray) Last() (v ChannelsChannelParticipantsClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChannelsChannelParticipantsClassArray) PopFirst() (v ChannelsChannelParticipantsClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero ChannelsChannelParticipantsClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChannelsChannelParticipantsClassArray) Pop() (v ChannelsChannelParticipantsClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsChannelsChannelParticipants returns copy with only ChannelsChannelParticipants constructors.
+func (s ChannelsChannelParticipantsClassArray) AsChannelsChannelParticipants() (to ChannelsChannelParticipantsArray) {
+	for _, elem := range s {
+		value, ok := elem.(*ChannelsChannelParticipants)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
 
 // AppendOnlyModified appends only Modified constructors to
 // given slice.
-func (s ChannelsChannelParticipantsClassSlice) AppendOnlyModified(to []*ChannelsChannelParticipants) []*ChannelsChannelParticipants {
+func (s ChannelsChannelParticipantsClassArray) AppendOnlyModified(to []*ChannelsChannelParticipants) []*ChannelsChannelParticipants {
 	for _, elem := range s {
 		value, ok := elem.AsModified()
 		if !ok {
@@ -374,12 +468,12 @@ func (s ChannelsChannelParticipantsClassSlice) AppendOnlyModified(to []*Channels
 }
 
 // AsModified returns copy with only Modified constructors.
-func (s ChannelsChannelParticipantsClassSlice) AsModified() (to []*ChannelsChannelParticipants) {
+func (s ChannelsChannelParticipantsClassArray) AsModified() (to []*ChannelsChannelParticipants) {
 	return s.AppendOnlyModified(to)
 }
 
 // FirstAsModified returns first element of slice (if exists).
-func (s ChannelsChannelParticipantsClassSlice) FirstAsModified() (v *ChannelsChannelParticipants, ok bool) {
+func (s ChannelsChannelParticipantsClassArray) FirstAsModified() (v *ChannelsChannelParticipants, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -388,7 +482,7 @@ func (s ChannelsChannelParticipantsClassSlice) FirstAsModified() (v *ChannelsCha
 }
 
 // LastAsModified returns last element of slice (if exists).
-func (s ChannelsChannelParticipantsClassSlice) LastAsModified() (v *ChannelsChannelParticipants, ok bool) {
+func (s ChannelsChannelParticipantsClassArray) LastAsModified() (v *ChannelsChannelParticipants, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -397,7 +491,7 @@ func (s ChannelsChannelParticipantsClassSlice) LastAsModified() (v *ChannelsChan
 }
 
 // PopFirstAsModified returns element of slice (if exists).
-func (s *ChannelsChannelParticipantsClassSlice) PopFirstAsModified() (v *ChannelsChannelParticipants, ok bool) {
+func (s *ChannelsChannelParticipantsClassArray) PopFirstAsModified() (v *ChannelsChannelParticipants, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -406,7 +500,7 @@ func (s *ChannelsChannelParticipantsClassSlice) PopFirstAsModified() (v *Channel
 }
 
 // PopAsModified returns element of slice (if exists).
-func (s *ChannelsChannelParticipantsClassSlice) PopAsModified() (v *ChannelsChannelParticipants, ok bool) {
+func (s *ChannelsChannelParticipantsClassArray) PopAsModified() (v *ChannelsChannelParticipants, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -414,8 +508,41 @@ func (s *ChannelsChannelParticipantsClassSlice) PopAsModified() (v *ChannelsChan
 	return value.AsModified()
 }
 
+// ChannelsChannelParticipantsArray is adapter for slice of ChannelsChannelParticipants.
+type ChannelsChannelParticipantsArray []ChannelsChannelParticipants
+
+// Sort sorts slice of ChannelsChannelParticipants.
+func (s ChannelsChannelParticipantsArray) Sort(less func(a, b ChannelsChannelParticipants) bool) ChannelsChannelParticipantsArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ChannelsChannelParticipants.
+func (s ChannelsChannelParticipantsArray) SortStable(less func(a, b ChannelsChannelParticipants) bool) ChannelsChannelParticipantsArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ChannelsChannelParticipants.
+func (s ChannelsChannelParticipantsArray) Retain(keep func(x ChannelsChannelParticipants) bool) ChannelsChannelParticipantsArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s ChannelsChannelParticipantsClassSlice) First() (v ChannelsChannelParticipantsClass, ok bool) {
+func (s ChannelsChannelParticipantsArray) First() (v ChannelsChannelParticipants, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -423,7 +550,7 @@ func (s ChannelsChannelParticipantsClassSlice) First() (v ChannelsChannelPartici
 }
 
 // Last returns last element of slice (if exists).
-func (s ChannelsChannelParticipantsClassSlice) Last() (v ChannelsChannelParticipantsClass, ok bool) {
+func (s ChannelsChannelParticipantsArray) Last() (v ChannelsChannelParticipants, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -431,7 +558,7 @@ func (s ChannelsChannelParticipantsClassSlice) Last() (v ChannelsChannelParticip
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChannelsChannelParticipantsClassSlice) PopFirst() (v ChannelsChannelParticipantsClass, ok bool) {
+func (s *ChannelsChannelParticipantsArray) PopFirst() (v ChannelsChannelParticipants, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -441,7 +568,8 @@ func (s *ChannelsChannelParticipantsClassSlice) PopFirst() (v ChannelsChannelPar
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero ChannelsChannelParticipants
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -449,7 +577,7 @@ func (s *ChannelsChannelParticipantsClassSlice) PopFirst() (v ChannelsChannelPar
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *ChannelsChannelParticipantsClassSlice) Pop() (v ChannelsChannelParticipantsClass, ok bool) {
+func (s *ChannelsChannelParticipantsArray) Pop() (v ChannelsChannelParticipants, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

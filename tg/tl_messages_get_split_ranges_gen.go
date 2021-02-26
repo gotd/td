@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesGetSplitRangesRequest represents TL type `messages.getSplitRanges#1cff7e08`.
 // Get message ranges for saving the user's chat history
@@ -93,5 +95,5 @@ func (c *Client) MessagesGetSplitRanges(ctx context.Context) ([]MessageRange, er
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return result.Elems, nil
+	return []MessageRange(result.Elems), nil
 }

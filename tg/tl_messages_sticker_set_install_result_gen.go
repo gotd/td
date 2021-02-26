@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesStickerSetInstallResultSuccess represents TL type `messages.stickerSetInstallResultSuccess#38641628`.
 // The stickerset was installed successfully
@@ -162,9 +164,9 @@ func (s *MessagesStickerSetInstallResultArchive) GetSets() (value []StickerSetCo
 	return s.Sets
 }
 
-// MapSets returns field Sets wrapped in StickerSetCoveredClassSlice helper.
-func (s *MessagesStickerSetInstallResultArchive) MapSets() (value StickerSetCoveredClassSlice) {
-	return StickerSetCoveredClassSlice(s.Sets)
+// MapSets returns field Sets wrapped in StickerSetCoveredClassArray helper.
+func (s *MessagesStickerSetInstallResultArchive) MapSets() (value StickerSetCoveredClassArray) {
+	return StickerSetCoveredClassArray(s.Sets)
 }
 
 // Decode implements bin.Decoder.
@@ -286,11 +288,41 @@ func (b *MessagesStickerSetInstallResultBox) Encode(buf *bin.Buffer) error {
 	return b.StickerSetInstallResult.Encode(buf)
 }
 
-// MessagesStickerSetInstallResultClassSlice is adapter for slice of MessagesStickerSetInstallResultClass.
-type MessagesStickerSetInstallResultClassSlice []MessagesStickerSetInstallResultClass
+// MessagesStickerSetInstallResultClassArray is adapter for slice of MessagesStickerSetInstallResultClass.
+type MessagesStickerSetInstallResultClassArray []MessagesStickerSetInstallResultClass
+
+// Sort sorts slice of MessagesStickerSetInstallResultClass.
+func (s MessagesStickerSetInstallResultClassArray) Sort(less func(a, b MessagesStickerSetInstallResultClass) bool) MessagesStickerSetInstallResultClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessagesStickerSetInstallResultClass.
+func (s MessagesStickerSetInstallResultClassArray) SortStable(less func(a, b MessagesStickerSetInstallResultClass) bool) MessagesStickerSetInstallResultClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessagesStickerSetInstallResultClass.
+func (s MessagesStickerSetInstallResultClassArray) Retain(keep func(x MessagesStickerSetInstallResultClass) bool) MessagesStickerSetInstallResultClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s MessagesStickerSetInstallResultClassSlice) First() (v MessagesStickerSetInstallResultClass, ok bool) {
+func (s MessagesStickerSetInstallResultClassArray) First() (v MessagesStickerSetInstallResultClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -298,7 +330,7 @@ func (s MessagesStickerSetInstallResultClassSlice) First() (v MessagesStickerSet
 }
 
 // Last returns last element of slice (if exists).
-func (s MessagesStickerSetInstallResultClassSlice) Last() (v MessagesStickerSetInstallResultClass, ok bool) {
+func (s MessagesStickerSetInstallResultClassArray) Last() (v MessagesStickerSetInstallResultClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -306,7 +338,7 @@ func (s MessagesStickerSetInstallResultClassSlice) Last() (v MessagesStickerSetI
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessagesStickerSetInstallResultClassSlice) PopFirst() (v MessagesStickerSetInstallResultClass, ok bool) {
+func (s *MessagesStickerSetInstallResultClassArray) PopFirst() (v MessagesStickerSetInstallResultClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -316,7 +348,8 @@ func (s *MessagesStickerSetInstallResultClassSlice) PopFirst() (v MessagesSticke
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero MessagesStickerSetInstallResultClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -324,7 +357,102 @@ func (s *MessagesStickerSetInstallResultClassSlice) PopFirst() (v MessagesSticke
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *MessagesStickerSetInstallResultClassSlice) Pop() (v MessagesStickerSetInstallResultClass, ok bool) {
+func (s *MessagesStickerSetInstallResultClassArray) Pop() (v MessagesStickerSetInstallResultClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsMessagesStickerSetInstallResultArchive returns copy with only MessagesStickerSetInstallResultArchive constructors.
+func (s MessagesStickerSetInstallResultClassArray) AsMessagesStickerSetInstallResultArchive() (to MessagesStickerSetInstallResultArchiveArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessagesStickerSetInstallResultArchive)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// MessagesStickerSetInstallResultArchiveArray is adapter for slice of MessagesStickerSetInstallResultArchive.
+type MessagesStickerSetInstallResultArchiveArray []MessagesStickerSetInstallResultArchive
+
+// Sort sorts slice of MessagesStickerSetInstallResultArchive.
+func (s MessagesStickerSetInstallResultArchiveArray) Sort(less func(a, b MessagesStickerSetInstallResultArchive) bool) MessagesStickerSetInstallResultArchiveArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessagesStickerSetInstallResultArchive.
+func (s MessagesStickerSetInstallResultArchiveArray) SortStable(less func(a, b MessagesStickerSetInstallResultArchive) bool) MessagesStickerSetInstallResultArchiveArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessagesStickerSetInstallResultArchive.
+func (s MessagesStickerSetInstallResultArchiveArray) Retain(keep func(x MessagesStickerSetInstallResultArchive) bool) MessagesStickerSetInstallResultArchiveArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessagesStickerSetInstallResultArchiveArray) First() (v MessagesStickerSetInstallResultArchive, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessagesStickerSetInstallResultArchiveArray) Last() (v MessagesStickerSetInstallResultArchive, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessagesStickerSetInstallResultArchiveArray) PopFirst() (v MessagesStickerSetInstallResultArchive, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessagesStickerSetInstallResultArchive
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessagesStickerSetInstallResultArchiveArray) Pop() (v MessagesStickerSetInstallResultArchive, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

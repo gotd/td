@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // ChannelsAdminLogResults represents TL type `channels.adminLogResults#ed8af74d`.
 // Admin log events
@@ -125,9 +127,9 @@ func (a *ChannelsAdminLogResults) GetChats() (value []ChatClass) {
 	return a.Chats
 }
 
-// MapChats returns field Chats wrapped in ChatClassSlice helper.
-func (a *ChannelsAdminLogResults) MapChats() (value ChatClassSlice) {
-	return ChatClassSlice(a.Chats)
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (a *ChannelsAdminLogResults) MapChats() (value ChatClassArray) {
+	return ChatClassArray(a.Chats)
 }
 
 // GetUsers returns value of Users field.
@@ -135,9 +137,9 @@ func (a *ChannelsAdminLogResults) GetUsers() (value []UserClass) {
 	return a.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (a *ChannelsAdminLogResults) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(a.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (a *ChannelsAdminLogResults) MapUsers() (value UserClassArray) {
+	return UserClassArray(a.Users)
 }
 
 // Decode implements bin.Decoder.

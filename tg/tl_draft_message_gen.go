@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // DraftMessageEmpty represents TL type `draftMessageEmpty#1b0c841a`.
 // Empty draft
@@ -338,12 +340,12 @@ func (d *DraftMessage) GetEntities() (value []MessageEntityClass, ok bool) {
 	return d.Entities, true
 }
 
-// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
-func (d *DraftMessage) MapEntities() (value MessageEntityClassSlice, ok bool) {
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (d *DraftMessage) MapEntities() (value MessageEntityClassArray, ok bool) {
 	if !d.Flags.Has(3) {
 		return value, false
 	}
-	return MessageEntityClassSlice(d.Entities), true
+	return MessageEntityClassArray(d.Entities), true
 }
 
 // GetDate returns value of Date field.
@@ -508,12 +510,117 @@ func (b *DraftMessageBox) Encode(buf *bin.Buffer) error {
 	return b.DraftMessage.Encode(buf)
 }
 
-// DraftMessageClassSlice is adapter for slice of DraftMessageClass.
-type DraftMessageClassSlice []DraftMessageClass
+// DraftMessageClassArray is adapter for slice of DraftMessageClass.
+type DraftMessageClassArray []DraftMessageClass
+
+// Sort sorts slice of DraftMessageClass.
+func (s DraftMessageClassArray) Sort(less func(a, b DraftMessageClass) bool) DraftMessageClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DraftMessageClass.
+func (s DraftMessageClassArray) SortStable(less func(a, b DraftMessageClass) bool) DraftMessageClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DraftMessageClass.
+func (s DraftMessageClassArray) Retain(keep func(x DraftMessageClass) bool) DraftMessageClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DraftMessageClassArray) First() (v DraftMessageClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DraftMessageClassArray) Last() (v DraftMessageClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DraftMessageClassArray) PopFirst() (v DraftMessageClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DraftMessageClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DraftMessageClassArray) Pop() (v DraftMessageClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsDraftMessageEmpty returns copy with only DraftMessageEmpty constructors.
+func (s DraftMessageClassArray) AsDraftMessageEmpty() (to DraftMessageEmptyArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DraftMessageEmpty)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDraftMessage returns copy with only DraftMessage constructors.
+func (s DraftMessageClassArray) AsDraftMessage() (to DraftMessageArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DraftMessage)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
 
 // AppendOnlyNotEmpty appends only NotEmpty constructors to
 // given slice.
-func (s DraftMessageClassSlice) AppendOnlyNotEmpty(to []*DraftMessage) []*DraftMessage {
+func (s DraftMessageClassArray) AppendOnlyNotEmpty(to []*DraftMessage) []*DraftMessage {
 	for _, elem := range s {
 		value, ok := elem.AsNotEmpty()
 		if !ok {
@@ -526,12 +633,12 @@ func (s DraftMessageClassSlice) AppendOnlyNotEmpty(to []*DraftMessage) []*DraftM
 }
 
 // AsNotEmpty returns copy with only NotEmpty constructors.
-func (s DraftMessageClassSlice) AsNotEmpty() (to []*DraftMessage) {
+func (s DraftMessageClassArray) AsNotEmpty() (to []*DraftMessage) {
 	return s.AppendOnlyNotEmpty(to)
 }
 
 // FirstAsNotEmpty returns first element of slice (if exists).
-func (s DraftMessageClassSlice) FirstAsNotEmpty() (v *DraftMessage, ok bool) {
+func (s DraftMessageClassArray) FirstAsNotEmpty() (v *DraftMessage, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -540,7 +647,7 @@ func (s DraftMessageClassSlice) FirstAsNotEmpty() (v *DraftMessage, ok bool) {
 }
 
 // LastAsNotEmpty returns last element of slice (if exists).
-func (s DraftMessageClassSlice) LastAsNotEmpty() (v *DraftMessage, ok bool) {
+func (s DraftMessageClassArray) LastAsNotEmpty() (v *DraftMessage, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -549,7 +656,7 @@ func (s DraftMessageClassSlice) LastAsNotEmpty() (v *DraftMessage, ok bool) {
 }
 
 // PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *DraftMessageClassSlice) PopFirstAsNotEmpty() (v *DraftMessage, ok bool) {
+func (s *DraftMessageClassArray) PopFirstAsNotEmpty() (v *DraftMessage, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -558,7 +665,7 @@ func (s *DraftMessageClassSlice) PopFirstAsNotEmpty() (v *DraftMessage, ok bool)
 }
 
 // PopAsNotEmpty returns element of slice (if exists).
-func (s *DraftMessageClassSlice) PopAsNotEmpty() (v *DraftMessage, ok bool) {
+func (s *DraftMessageClassArray) PopAsNotEmpty() (v *DraftMessage, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -566,8 +673,41 @@ func (s *DraftMessageClassSlice) PopAsNotEmpty() (v *DraftMessage, ok bool) {
 	return value.AsNotEmpty()
 }
 
+// DraftMessageEmptyArray is adapter for slice of DraftMessageEmpty.
+type DraftMessageEmptyArray []DraftMessageEmpty
+
+// Sort sorts slice of DraftMessageEmpty.
+func (s DraftMessageEmptyArray) Sort(less func(a, b DraftMessageEmpty) bool) DraftMessageEmptyArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DraftMessageEmpty.
+func (s DraftMessageEmptyArray) SortStable(less func(a, b DraftMessageEmpty) bool) DraftMessageEmptyArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DraftMessageEmpty.
+func (s DraftMessageEmptyArray) Retain(keep func(x DraftMessageEmpty) bool) DraftMessageEmptyArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s DraftMessageClassSlice) First() (v DraftMessageClass, ok bool) {
+func (s DraftMessageEmptyArray) First() (v DraftMessageEmpty, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -575,7 +715,7 @@ func (s DraftMessageClassSlice) First() (v DraftMessageClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s DraftMessageClassSlice) Last() (v DraftMessageClass, ok bool) {
+func (s DraftMessageEmptyArray) Last() (v DraftMessageEmpty, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -583,7 +723,7 @@ func (s DraftMessageClassSlice) Last() (v DraftMessageClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DraftMessageClassSlice) PopFirst() (v DraftMessageClass, ok bool) {
+func (s *DraftMessageEmptyArray) PopFirst() (v DraftMessageEmpty, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -593,7 +733,8 @@ func (s *DraftMessageClassSlice) PopFirst() (v DraftMessageClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero DraftMessageEmpty
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -601,7 +742,7 @@ func (s *DraftMessageClassSlice) PopFirst() (v DraftMessageClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *DraftMessageClassSlice) Pop() (v DraftMessageClass, ok bool) {
+func (s *DraftMessageEmptyArray) Pop() (v DraftMessageEmpty, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -612,4 +753,100 @@ func (s *DraftMessageClassSlice) Pop() (v DraftMessageClass, ok bool) {
 	*s = a
 
 	return v, true
+}
+
+// DraftMessageArray is adapter for slice of DraftMessage.
+type DraftMessageArray []DraftMessage
+
+// Sort sorts slice of DraftMessage.
+func (s DraftMessageArray) Sort(less func(a, b DraftMessage) bool) DraftMessageArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DraftMessage.
+func (s DraftMessageArray) SortStable(less func(a, b DraftMessage) bool) DraftMessageArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DraftMessage.
+func (s DraftMessageArray) Retain(keep func(x DraftMessage) bool) DraftMessageArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DraftMessageArray) First() (v DraftMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DraftMessageArray) Last() (v DraftMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DraftMessageArray) PopFirst() (v DraftMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DraftMessage
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DraftMessageArray) Pop() (v DraftMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByDate sorts slice of DraftMessage by Date.
+func (s DraftMessageArray) SortByDate() DraftMessageArray {
+	return s.Sort(func(a, b DraftMessage) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of DraftMessage by Date.
+func (s DraftMessageArray) SortStableByDate() DraftMessageArray {
+	return s.SortStable(func(a, b DraftMessage) bool {
+		return a.GetDate() < b.GetDate()
+	})
 }

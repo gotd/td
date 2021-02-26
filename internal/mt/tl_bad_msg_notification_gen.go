@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // BadMsgNotification represents TL type `bad_msg_notification#a7eff811`.
 type BadMsgNotification struct {
@@ -387,11 +389,41 @@ func (b *BadMsgNotificationBox) Encode(buf *bin.Buffer) error {
 	return b.BadMsgNotification.Encode(buf)
 }
 
-// BadMsgNotificationClassSlice is adapter for slice of BadMsgNotificationClass.
-type BadMsgNotificationClassSlice []BadMsgNotificationClass
+// BadMsgNotificationClassArray is adapter for slice of BadMsgNotificationClass.
+type BadMsgNotificationClassArray []BadMsgNotificationClass
+
+// Sort sorts slice of BadMsgNotificationClass.
+func (s BadMsgNotificationClassArray) Sort(less func(a, b BadMsgNotificationClass) bool) BadMsgNotificationClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of BadMsgNotificationClass.
+func (s BadMsgNotificationClassArray) SortStable(less func(a, b BadMsgNotificationClass) bool) BadMsgNotificationClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of BadMsgNotificationClass.
+func (s BadMsgNotificationClassArray) Retain(keep func(x BadMsgNotificationClass) bool) BadMsgNotificationClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s BadMsgNotificationClassSlice) First() (v BadMsgNotificationClass, ok bool) {
+func (s BadMsgNotificationClassArray) First() (v BadMsgNotificationClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -399,7 +431,7 @@ func (s BadMsgNotificationClassSlice) First() (v BadMsgNotificationClass, ok boo
 }
 
 // Last returns last element of slice (if exists).
-func (s BadMsgNotificationClassSlice) Last() (v BadMsgNotificationClass, ok bool) {
+func (s BadMsgNotificationClassArray) Last() (v BadMsgNotificationClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -407,7 +439,7 @@ func (s BadMsgNotificationClassSlice) Last() (v BadMsgNotificationClass, ok bool
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *BadMsgNotificationClassSlice) PopFirst() (v BadMsgNotificationClass, ok bool) {
+func (s *BadMsgNotificationClassArray) PopFirst() (v BadMsgNotificationClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -417,7 +449,8 @@ func (s *BadMsgNotificationClassSlice) PopFirst() (v BadMsgNotificationClass, ok
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero BadMsgNotificationClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -425,7 +458,197 @@ func (s *BadMsgNotificationClassSlice) PopFirst() (v BadMsgNotificationClass, ok
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *BadMsgNotificationClassSlice) Pop() (v BadMsgNotificationClass, ok bool) {
+func (s *BadMsgNotificationClassArray) Pop() (v BadMsgNotificationClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsBadMsgNotification returns copy with only BadMsgNotification constructors.
+func (s BadMsgNotificationClassArray) AsBadMsgNotification() (to BadMsgNotificationArray) {
+	for _, elem := range s {
+		value, ok := elem.(*BadMsgNotification)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsBadServerSalt returns copy with only BadServerSalt constructors.
+func (s BadMsgNotificationClassArray) AsBadServerSalt() (to BadServerSaltArray) {
+	for _, elem := range s {
+		value, ok := elem.(*BadServerSalt)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// BadMsgNotificationArray is adapter for slice of BadMsgNotification.
+type BadMsgNotificationArray []BadMsgNotification
+
+// Sort sorts slice of BadMsgNotification.
+func (s BadMsgNotificationArray) Sort(less func(a, b BadMsgNotification) bool) BadMsgNotificationArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of BadMsgNotification.
+func (s BadMsgNotificationArray) SortStable(less func(a, b BadMsgNotification) bool) BadMsgNotificationArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of BadMsgNotification.
+func (s BadMsgNotificationArray) Retain(keep func(x BadMsgNotification) bool) BadMsgNotificationArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s BadMsgNotificationArray) First() (v BadMsgNotification, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s BadMsgNotificationArray) Last() (v BadMsgNotification, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *BadMsgNotificationArray) PopFirst() (v BadMsgNotification, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero BadMsgNotification
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *BadMsgNotificationArray) Pop() (v BadMsgNotification, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// BadServerSaltArray is adapter for slice of BadServerSalt.
+type BadServerSaltArray []BadServerSalt
+
+// Sort sorts slice of BadServerSalt.
+func (s BadServerSaltArray) Sort(less func(a, b BadServerSalt) bool) BadServerSaltArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of BadServerSalt.
+func (s BadServerSaltArray) SortStable(less func(a, b BadServerSalt) bool) BadServerSaltArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of BadServerSalt.
+func (s BadServerSaltArray) Retain(keep func(x BadServerSalt) bool) BadServerSaltArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s BadServerSaltArray) First() (v BadServerSalt, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s BadServerSaltArray) Last() (v BadServerSalt, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *BadServerSaltArray) PopFirst() (v BadServerSalt, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero BadServerSalt
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *BadServerSaltArray) Pop() (v BadServerSalt, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // AccountWallPapersNotModified represents TL type `account.wallPapersNotModified#1c199183`.
 // No new wallpapers were found
@@ -176,9 +178,9 @@ func (w *AccountWallPapers) GetWallpapers() (value []WallPaperClass) {
 	return w.Wallpapers
 }
 
-// MapWallpapers returns field Wallpapers wrapped in WallPaperClassSlice helper.
-func (w *AccountWallPapers) MapWallpapers() (value WallPaperClassSlice) {
-	return WallPaperClassSlice(w.Wallpapers)
+// MapWallpapers returns field Wallpapers wrapped in WallPaperClassArray helper.
+func (w *AccountWallPapers) MapWallpapers() (value WallPaperClassArray) {
+	return WallPaperClassArray(w.Wallpapers)
 }
 
 // Decode implements bin.Decoder.
@@ -318,12 +320,104 @@ func (b *AccountWallPapersBox) Encode(buf *bin.Buffer) error {
 	return b.WallPapers.Encode(buf)
 }
 
-// AccountWallPapersClassSlice is adapter for slice of AccountWallPapersClass.
-type AccountWallPapersClassSlice []AccountWallPapersClass
+// AccountWallPapersClassArray is adapter for slice of AccountWallPapersClass.
+type AccountWallPapersClassArray []AccountWallPapersClass
+
+// Sort sorts slice of AccountWallPapersClass.
+func (s AccountWallPapersClassArray) Sort(less func(a, b AccountWallPapersClass) bool) AccountWallPapersClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of AccountWallPapersClass.
+func (s AccountWallPapersClassArray) SortStable(less func(a, b AccountWallPapersClass) bool) AccountWallPapersClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of AccountWallPapersClass.
+func (s AccountWallPapersClassArray) Retain(keep func(x AccountWallPapersClass) bool) AccountWallPapersClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s AccountWallPapersClassArray) First() (v AccountWallPapersClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s AccountWallPapersClassArray) Last() (v AccountWallPapersClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *AccountWallPapersClassArray) PopFirst() (v AccountWallPapersClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero AccountWallPapersClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *AccountWallPapersClassArray) Pop() (v AccountWallPapersClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsAccountWallPapers returns copy with only AccountWallPapers constructors.
+func (s AccountWallPapersClassArray) AsAccountWallPapers() (to AccountWallPapersArray) {
+	for _, elem := range s {
+		value, ok := elem.(*AccountWallPapers)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
 
 // AppendOnlyModified appends only Modified constructors to
 // given slice.
-func (s AccountWallPapersClassSlice) AppendOnlyModified(to []*AccountWallPapers) []*AccountWallPapers {
+func (s AccountWallPapersClassArray) AppendOnlyModified(to []*AccountWallPapers) []*AccountWallPapers {
 	for _, elem := range s {
 		value, ok := elem.AsModified()
 		if !ok {
@@ -336,12 +430,12 @@ func (s AccountWallPapersClassSlice) AppendOnlyModified(to []*AccountWallPapers)
 }
 
 // AsModified returns copy with only Modified constructors.
-func (s AccountWallPapersClassSlice) AsModified() (to []*AccountWallPapers) {
+func (s AccountWallPapersClassArray) AsModified() (to []*AccountWallPapers) {
 	return s.AppendOnlyModified(to)
 }
 
 // FirstAsModified returns first element of slice (if exists).
-func (s AccountWallPapersClassSlice) FirstAsModified() (v *AccountWallPapers, ok bool) {
+func (s AccountWallPapersClassArray) FirstAsModified() (v *AccountWallPapers, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -350,7 +444,7 @@ func (s AccountWallPapersClassSlice) FirstAsModified() (v *AccountWallPapers, ok
 }
 
 // LastAsModified returns last element of slice (if exists).
-func (s AccountWallPapersClassSlice) LastAsModified() (v *AccountWallPapers, ok bool) {
+func (s AccountWallPapersClassArray) LastAsModified() (v *AccountWallPapers, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -359,7 +453,7 @@ func (s AccountWallPapersClassSlice) LastAsModified() (v *AccountWallPapers, ok 
 }
 
 // PopFirstAsModified returns element of slice (if exists).
-func (s *AccountWallPapersClassSlice) PopFirstAsModified() (v *AccountWallPapers, ok bool) {
+func (s *AccountWallPapersClassArray) PopFirstAsModified() (v *AccountWallPapers, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -368,7 +462,7 @@ func (s *AccountWallPapersClassSlice) PopFirstAsModified() (v *AccountWallPapers
 }
 
 // PopAsModified returns element of slice (if exists).
-func (s *AccountWallPapersClassSlice) PopAsModified() (v *AccountWallPapers, ok bool) {
+func (s *AccountWallPapersClassArray) PopAsModified() (v *AccountWallPapers, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -376,8 +470,41 @@ func (s *AccountWallPapersClassSlice) PopAsModified() (v *AccountWallPapers, ok 
 	return value.AsModified()
 }
 
+// AccountWallPapersArray is adapter for slice of AccountWallPapers.
+type AccountWallPapersArray []AccountWallPapers
+
+// Sort sorts slice of AccountWallPapers.
+func (s AccountWallPapersArray) Sort(less func(a, b AccountWallPapers) bool) AccountWallPapersArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of AccountWallPapers.
+func (s AccountWallPapersArray) SortStable(less func(a, b AccountWallPapers) bool) AccountWallPapersArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of AccountWallPapers.
+func (s AccountWallPapersArray) Retain(keep func(x AccountWallPapers) bool) AccountWallPapersArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s AccountWallPapersClassSlice) First() (v AccountWallPapersClass, ok bool) {
+func (s AccountWallPapersArray) First() (v AccountWallPapers, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -385,7 +512,7 @@ func (s AccountWallPapersClassSlice) First() (v AccountWallPapersClass, ok bool)
 }
 
 // Last returns last element of slice (if exists).
-func (s AccountWallPapersClassSlice) Last() (v AccountWallPapersClass, ok bool) {
+func (s AccountWallPapersArray) Last() (v AccountWallPapers, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -393,7 +520,7 @@ func (s AccountWallPapersClassSlice) Last() (v AccountWallPapersClass, ok bool) 
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *AccountWallPapersClassSlice) PopFirst() (v AccountWallPapersClass, ok bool) {
+func (s *AccountWallPapersArray) PopFirst() (v AccountWallPapers, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -403,7 +530,8 @@ func (s *AccountWallPapersClassSlice) PopFirst() (v AccountWallPapersClass, ok b
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero AccountWallPapers
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -411,7 +539,7 @@ func (s *AccountWallPapersClassSlice) PopFirst() (v AccountWallPapersClass, ok b
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *AccountWallPapersClassSlice) Pop() (v AccountWallPapersClass, ok bool) {
+func (s *AccountWallPapersArray) Pop() (v AccountWallPapers, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesChatAdminsWithInvites represents TL type `messages.chatAdminsWithInvites#b69b72d7`.
 //
@@ -108,9 +110,9 @@ func (c *MessagesChatAdminsWithInvites) GetUsers() (value []UserClass) {
 	return c.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (c *MessagesChatAdminsWithInvites) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(c.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (c *MessagesChatAdminsWithInvites) MapUsers() (value UserClassArray) {
+	return UserClassArray(c.Users)
 }
 
 // Decode implements bin.Decoder.

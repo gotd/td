@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // ContactsImportedContacts represents TL type `contacts.importedContacts#77d01c3b`.
 // Info on succesfully imported contacts.
@@ -146,9 +148,9 @@ func (i *ContactsImportedContacts) GetUsers() (value []UserClass) {
 	return i.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (i *ContactsImportedContacts) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(i.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (i *ContactsImportedContacts) MapUsers() (value UserClassArray) {
+	return UserClassArray(i.Users)
 }
 
 // Decode implements bin.Decoder.

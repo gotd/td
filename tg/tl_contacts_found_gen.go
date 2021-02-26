@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // ContactsFound represents TL type `contacts.found#b3134d9d`.
 // Users found by name substring and auxiliary data.
@@ -139,9 +141,9 @@ func (f *ContactsFound) GetMyResults() (value []PeerClass) {
 	return f.MyResults
 }
 
-// MapMyResults returns field MyResults wrapped in PeerClassSlice helper.
-func (f *ContactsFound) MapMyResults() (value PeerClassSlice) {
-	return PeerClassSlice(f.MyResults)
+// MapMyResults returns field MyResults wrapped in PeerClassArray helper.
+func (f *ContactsFound) MapMyResults() (value PeerClassArray) {
+	return PeerClassArray(f.MyResults)
 }
 
 // GetResults returns value of Results field.
@@ -149,9 +151,9 @@ func (f *ContactsFound) GetResults() (value []PeerClass) {
 	return f.Results
 }
 
-// MapResults returns field Results wrapped in PeerClassSlice helper.
-func (f *ContactsFound) MapResults() (value PeerClassSlice) {
-	return PeerClassSlice(f.Results)
+// MapResults returns field Results wrapped in PeerClassArray helper.
+func (f *ContactsFound) MapResults() (value PeerClassArray) {
+	return PeerClassArray(f.Results)
 }
 
 // GetChats returns value of Chats field.
@@ -159,9 +161,9 @@ func (f *ContactsFound) GetChats() (value []ChatClass) {
 	return f.Chats
 }
 
-// MapChats returns field Chats wrapped in ChatClassSlice helper.
-func (f *ContactsFound) MapChats() (value ChatClassSlice) {
-	return ChatClassSlice(f.Chats)
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (f *ContactsFound) MapChats() (value ChatClassArray) {
+	return ChatClassArray(f.Chats)
 }
 
 // GetUsers returns value of Users field.
@@ -169,9 +171,9 @@ func (f *ContactsFound) GetUsers() (value []UserClass) {
 	return f.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (f *ContactsFound) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(f.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (f *ContactsFound) MapUsers() (value UserClassArray) {
+	return UserClassArray(f.Users)
 }
 
 // Decode implements bin.Decoder.

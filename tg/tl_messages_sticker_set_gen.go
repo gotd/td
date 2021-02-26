@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesStickerSet represents TL type `messages.stickerSet#b60a24a6`.
 // Stickerset and stickers inside it
@@ -124,9 +126,9 @@ func (s *MessagesStickerSet) GetDocuments() (value []DocumentClass) {
 	return s.Documents
 }
 
-// MapDocuments returns field Documents wrapped in DocumentClassSlice helper.
-func (s *MessagesStickerSet) MapDocuments() (value DocumentClassSlice) {
-	return DocumentClassSlice(s.Documents)
+// MapDocuments returns field Documents wrapped in DocumentClassArray helper.
+func (s *MessagesStickerSet) MapDocuments() (value DocumentClassArray) {
+	return DocumentClassArray(s.Documents)
 }
 
 // Decode implements bin.Decoder.

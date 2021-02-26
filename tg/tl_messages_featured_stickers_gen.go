@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesFeaturedStickersNotModified represents TL type `messages.featuredStickersNotModified#c6dc0c66`.
 // Featured stickers haven't changed
@@ -225,9 +227,9 @@ func (f *MessagesFeaturedStickers) GetSets() (value []StickerSetCoveredClass) {
 	return f.Sets
 }
 
-// MapSets returns field Sets wrapped in StickerSetCoveredClassSlice helper.
-func (f *MessagesFeaturedStickers) MapSets() (value StickerSetCoveredClassSlice) {
-	return StickerSetCoveredClassSlice(f.Sets)
+// MapSets returns field Sets wrapped in StickerSetCoveredClassArray helper.
+func (f *MessagesFeaturedStickers) MapSets() (value StickerSetCoveredClassArray) {
+	return StickerSetCoveredClassArray(f.Sets)
 }
 
 // GetUnread returns value of Unread field.
@@ -394,12 +396,117 @@ func (b *MessagesFeaturedStickersBox) Encode(buf *bin.Buffer) error {
 	return b.FeaturedStickers.Encode(buf)
 }
 
-// MessagesFeaturedStickersClassSlice is adapter for slice of MessagesFeaturedStickersClass.
-type MessagesFeaturedStickersClassSlice []MessagesFeaturedStickersClass
+// MessagesFeaturedStickersClassArray is adapter for slice of MessagesFeaturedStickersClass.
+type MessagesFeaturedStickersClassArray []MessagesFeaturedStickersClass
+
+// Sort sorts slice of MessagesFeaturedStickersClass.
+func (s MessagesFeaturedStickersClassArray) Sort(less func(a, b MessagesFeaturedStickersClass) bool) MessagesFeaturedStickersClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessagesFeaturedStickersClass.
+func (s MessagesFeaturedStickersClassArray) SortStable(less func(a, b MessagesFeaturedStickersClass) bool) MessagesFeaturedStickersClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessagesFeaturedStickersClass.
+func (s MessagesFeaturedStickersClassArray) Retain(keep func(x MessagesFeaturedStickersClass) bool) MessagesFeaturedStickersClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessagesFeaturedStickersClassArray) First() (v MessagesFeaturedStickersClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessagesFeaturedStickersClassArray) Last() (v MessagesFeaturedStickersClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessagesFeaturedStickersClassArray) PopFirst() (v MessagesFeaturedStickersClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessagesFeaturedStickersClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessagesFeaturedStickersClassArray) Pop() (v MessagesFeaturedStickersClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsMessagesFeaturedStickersNotModified returns copy with only MessagesFeaturedStickersNotModified constructors.
+func (s MessagesFeaturedStickersClassArray) AsMessagesFeaturedStickersNotModified() (to MessagesFeaturedStickersNotModifiedArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessagesFeaturedStickersNotModified)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsMessagesFeaturedStickers returns copy with only MessagesFeaturedStickers constructors.
+func (s MessagesFeaturedStickersClassArray) AsMessagesFeaturedStickers() (to MessagesFeaturedStickersArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessagesFeaturedStickers)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
 
 // AppendOnlyModified appends only Modified constructors to
 // given slice.
-func (s MessagesFeaturedStickersClassSlice) AppendOnlyModified(to []*MessagesFeaturedStickers) []*MessagesFeaturedStickers {
+func (s MessagesFeaturedStickersClassArray) AppendOnlyModified(to []*MessagesFeaturedStickers) []*MessagesFeaturedStickers {
 	for _, elem := range s {
 		value, ok := elem.AsModified()
 		if !ok {
@@ -412,12 +519,12 @@ func (s MessagesFeaturedStickersClassSlice) AppendOnlyModified(to []*MessagesFea
 }
 
 // AsModified returns copy with only Modified constructors.
-func (s MessagesFeaturedStickersClassSlice) AsModified() (to []*MessagesFeaturedStickers) {
+func (s MessagesFeaturedStickersClassArray) AsModified() (to []*MessagesFeaturedStickers) {
 	return s.AppendOnlyModified(to)
 }
 
 // FirstAsModified returns first element of slice (if exists).
-func (s MessagesFeaturedStickersClassSlice) FirstAsModified() (v *MessagesFeaturedStickers, ok bool) {
+func (s MessagesFeaturedStickersClassArray) FirstAsModified() (v *MessagesFeaturedStickers, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -426,7 +533,7 @@ func (s MessagesFeaturedStickersClassSlice) FirstAsModified() (v *MessagesFeatur
 }
 
 // LastAsModified returns last element of slice (if exists).
-func (s MessagesFeaturedStickersClassSlice) LastAsModified() (v *MessagesFeaturedStickers, ok bool) {
+func (s MessagesFeaturedStickersClassArray) LastAsModified() (v *MessagesFeaturedStickers, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -435,7 +542,7 @@ func (s MessagesFeaturedStickersClassSlice) LastAsModified() (v *MessagesFeature
 }
 
 // PopFirstAsModified returns element of slice (if exists).
-func (s *MessagesFeaturedStickersClassSlice) PopFirstAsModified() (v *MessagesFeaturedStickers, ok bool) {
+func (s *MessagesFeaturedStickersClassArray) PopFirstAsModified() (v *MessagesFeaturedStickers, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -444,7 +551,7 @@ func (s *MessagesFeaturedStickersClassSlice) PopFirstAsModified() (v *MessagesFe
 }
 
 // PopAsModified returns element of slice (if exists).
-func (s *MessagesFeaturedStickersClassSlice) PopAsModified() (v *MessagesFeaturedStickers, ok bool) {
+func (s *MessagesFeaturedStickersClassArray) PopAsModified() (v *MessagesFeaturedStickers, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -452,8 +559,41 @@ func (s *MessagesFeaturedStickersClassSlice) PopAsModified() (v *MessagesFeature
 	return value.AsModified()
 }
 
+// MessagesFeaturedStickersNotModifiedArray is adapter for slice of MessagesFeaturedStickersNotModified.
+type MessagesFeaturedStickersNotModifiedArray []MessagesFeaturedStickersNotModified
+
+// Sort sorts slice of MessagesFeaturedStickersNotModified.
+func (s MessagesFeaturedStickersNotModifiedArray) Sort(less func(a, b MessagesFeaturedStickersNotModified) bool) MessagesFeaturedStickersNotModifiedArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessagesFeaturedStickersNotModified.
+func (s MessagesFeaturedStickersNotModifiedArray) SortStable(less func(a, b MessagesFeaturedStickersNotModified) bool) MessagesFeaturedStickersNotModifiedArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessagesFeaturedStickersNotModified.
+func (s MessagesFeaturedStickersNotModifiedArray) Retain(keep func(x MessagesFeaturedStickersNotModified) bool) MessagesFeaturedStickersNotModifiedArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s MessagesFeaturedStickersClassSlice) First() (v MessagesFeaturedStickersClass, ok bool) {
+func (s MessagesFeaturedStickersNotModifiedArray) First() (v MessagesFeaturedStickersNotModified, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -461,7 +601,7 @@ func (s MessagesFeaturedStickersClassSlice) First() (v MessagesFeaturedStickersC
 }
 
 // Last returns last element of slice (if exists).
-func (s MessagesFeaturedStickersClassSlice) Last() (v MessagesFeaturedStickersClass, ok bool) {
+func (s MessagesFeaturedStickersNotModifiedArray) Last() (v MessagesFeaturedStickersNotModified, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -469,7 +609,7 @@ func (s MessagesFeaturedStickersClassSlice) Last() (v MessagesFeaturedStickersCl
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessagesFeaturedStickersClassSlice) PopFirst() (v MessagesFeaturedStickersClass, ok bool) {
+func (s *MessagesFeaturedStickersNotModifiedArray) PopFirst() (v MessagesFeaturedStickersNotModified, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -479,7 +619,8 @@ func (s *MessagesFeaturedStickersClassSlice) PopFirst() (v MessagesFeaturedStick
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero MessagesFeaturedStickersNotModified
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -487,7 +628,89 @@ func (s *MessagesFeaturedStickersClassSlice) PopFirst() (v MessagesFeaturedStick
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *MessagesFeaturedStickersClassSlice) Pop() (v MessagesFeaturedStickersClass, ok bool) {
+func (s *MessagesFeaturedStickersNotModifiedArray) Pop() (v MessagesFeaturedStickersNotModified, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessagesFeaturedStickersArray is adapter for slice of MessagesFeaturedStickers.
+type MessagesFeaturedStickersArray []MessagesFeaturedStickers
+
+// Sort sorts slice of MessagesFeaturedStickers.
+func (s MessagesFeaturedStickersArray) Sort(less func(a, b MessagesFeaturedStickers) bool) MessagesFeaturedStickersArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessagesFeaturedStickers.
+func (s MessagesFeaturedStickersArray) SortStable(less func(a, b MessagesFeaturedStickers) bool) MessagesFeaturedStickersArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessagesFeaturedStickers.
+func (s MessagesFeaturedStickersArray) Retain(keep func(x MessagesFeaturedStickers) bool) MessagesFeaturedStickersArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessagesFeaturedStickersArray) First() (v MessagesFeaturedStickers, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessagesFeaturedStickersArray) Last() (v MessagesFeaturedStickers, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessagesFeaturedStickersArray) PopFirst() (v MessagesFeaturedStickers, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessagesFeaturedStickers
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessagesFeaturedStickersArray) Pop() (v MessagesFeaturedStickers, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

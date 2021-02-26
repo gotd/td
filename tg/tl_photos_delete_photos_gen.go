@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // PhotosDeletePhotosRequest represents TL type `photos.deletePhotos#87cf7f2f`.
 // Deletes profile photos.
@@ -91,9 +93,9 @@ func (d *PhotosDeletePhotosRequest) GetID() (value []InputPhotoClass) {
 	return d.ID
 }
 
-// MapID returns field ID wrapped in InputPhotoClassSlice helper.
-func (d *PhotosDeletePhotosRequest) MapID() (value InputPhotoClassSlice) {
-	return InputPhotoClassSlice(d.ID)
+// MapID returns field ID wrapped in InputPhotoClassArray helper.
+func (d *PhotosDeletePhotosRequest) MapID() (value InputPhotoClassArray) {
+	return InputPhotoClassArray(d.ID)
 }
 
 // Decode implements bin.Decoder.
@@ -139,5 +141,5 @@ func (c *Client) PhotosDeletePhotos(ctx context.Context, id []InputPhotoClass) (
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return result.Elems, nil
+	return []int64(result.Elems), nil
 }

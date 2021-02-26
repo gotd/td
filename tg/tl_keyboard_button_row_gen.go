@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // KeyboardButtonRow represents TL type `keyboardButtonRow#77608b83`.
 // Inline keyboard row
@@ -91,9 +93,9 @@ func (k *KeyboardButtonRow) GetButtons() (value []KeyboardButtonClass) {
 	return k.Buttons
 }
 
-// MapButtons returns field Buttons wrapped in KeyboardButtonClassSlice helper.
-func (k *KeyboardButtonRow) MapButtons() (value KeyboardButtonClassSlice) {
-	return KeyboardButtonClassSlice(k.Buttons)
+// MapButtons returns field Buttons wrapped in KeyboardButtonClassArray helper.
+func (k *KeyboardButtonRow) MapButtons() (value KeyboardButtonClassArray) {
+	return KeyboardButtonClassArray(k.Buttons)
 }
 
 // Decode implements bin.Decoder.

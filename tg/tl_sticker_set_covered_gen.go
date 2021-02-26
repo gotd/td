@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // StickerSetCovered represents TL type `stickerSetCovered#6410a5d2`.
 // Stickerset, with a specific sticker as preview
@@ -225,9 +227,9 @@ func (s *StickerSetMultiCovered) GetCovers() (value []DocumentClass) {
 	return s.Covers
 }
 
-// MapCovers returns field Covers wrapped in DocumentClassSlice helper.
-func (s *StickerSetMultiCovered) MapCovers() (value DocumentClassSlice) {
-	return DocumentClassSlice(s.Covers)
+// MapCovers returns field Covers wrapped in DocumentClassArray helper.
+func (s *StickerSetMultiCovered) MapCovers() (value DocumentClassArray) {
+	return DocumentClassArray(s.Covers)
 }
 
 // Decode implements bin.Decoder.
@@ -355,11 +357,41 @@ func (b *StickerSetCoveredBox) Encode(buf *bin.Buffer) error {
 	return b.StickerSetCovered.Encode(buf)
 }
 
-// StickerSetCoveredClassSlice is adapter for slice of StickerSetCoveredClass.
-type StickerSetCoveredClassSlice []StickerSetCoveredClass
+// StickerSetCoveredClassArray is adapter for slice of StickerSetCoveredClass.
+type StickerSetCoveredClassArray []StickerSetCoveredClass
+
+// Sort sorts slice of StickerSetCoveredClass.
+func (s StickerSetCoveredClassArray) Sort(less func(a, b StickerSetCoveredClass) bool) StickerSetCoveredClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of StickerSetCoveredClass.
+func (s StickerSetCoveredClassArray) SortStable(less func(a, b StickerSetCoveredClass) bool) StickerSetCoveredClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of StickerSetCoveredClass.
+func (s StickerSetCoveredClassArray) Retain(keep func(x StickerSetCoveredClass) bool) StickerSetCoveredClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s StickerSetCoveredClassSlice) First() (v StickerSetCoveredClass, ok bool) {
+func (s StickerSetCoveredClassArray) First() (v StickerSetCoveredClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -367,7 +399,7 @@ func (s StickerSetCoveredClassSlice) First() (v StickerSetCoveredClass, ok bool)
 }
 
 // Last returns last element of slice (if exists).
-func (s StickerSetCoveredClassSlice) Last() (v StickerSetCoveredClass, ok bool) {
+func (s StickerSetCoveredClassArray) Last() (v StickerSetCoveredClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -375,7 +407,7 @@ func (s StickerSetCoveredClassSlice) Last() (v StickerSetCoveredClass, ok bool) 
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *StickerSetCoveredClassSlice) PopFirst() (v StickerSetCoveredClass, ok bool) {
+func (s *StickerSetCoveredClassArray) PopFirst() (v StickerSetCoveredClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -385,7 +417,8 @@ func (s *StickerSetCoveredClassSlice) PopFirst() (v StickerSetCoveredClass, ok b
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero StickerSetCoveredClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -393,7 +426,197 @@ func (s *StickerSetCoveredClassSlice) PopFirst() (v StickerSetCoveredClass, ok b
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *StickerSetCoveredClassSlice) Pop() (v StickerSetCoveredClass, ok bool) {
+func (s *StickerSetCoveredClassArray) Pop() (v StickerSetCoveredClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsStickerSetCovered returns copy with only StickerSetCovered constructors.
+func (s StickerSetCoveredClassArray) AsStickerSetCovered() (to StickerSetCoveredArray) {
+	for _, elem := range s {
+		value, ok := elem.(*StickerSetCovered)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsStickerSetMultiCovered returns copy with only StickerSetMultiCovered constructors.
+func (s StickerSetCoveredClassArray) AsStickerSetMultiCovered() (to StickerSetMultiCoveredArray) {
+	for _, elem := range s {
+		value, ok := elem.(*StickerSetMultiCovered)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// StickerSetCoveredArray is adapter for slice of StickerSetCovered.
+type StickerSetCoveredArray []StickerSetCovered
+
+// Sort sorts slice of StickerSetCovered.
+func (s StickerSetCoveredArray) Sort(less func(a, b StickerSetCovered) bool) StickerSetCoveredArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of StickerSetCovered.
+func (s StickerSetCoveredArray) SortStable(less func(a, b StickerSetCovered) bool) StickerSetCoveredArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of StickerSetCovered.
+func (s StickerSetCoveredArray) Retain(keep func(x StickerSetCovered) bool) StickerSetCoveredArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s StickerSetCoveredArray) First() (v StickerSetCovered, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s StickerSetCoveredArray) Last() (v StickerSetCovered, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *StickerSetCoveredArray) PopFirst() (v StickerSetCovered, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero StickerSetCovered
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *StickerSetCoveredArray) Pop() (v StickerSetCovered, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// StickerSetMultiCoveredArray is adapter for slice of StickerSetMultiCovered.
+type StickerSetMultiCoveredArray []StickerSetMultiCovered
+
+// Sort sorts slice of StickerSetMultiCovered.
+func (s StickerSetMultiCoveredArray) Sort(less func(a, b StickerSetMultiCovered) bool) StickerSetMultiCoveredArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of StickerSetMultiCovered.
+func (s StickerSetMultiCoveredArray) SortStable(less func(a, b StickerSetMultiCovered) bool) StickerSetMultiCoveredArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of StickerSetMultiCovered.
+func (s StickerSetMultiCoveredArray) Retain(keep func(x StickerSetMultiCovered) bool) StickerSetMultiCoveredArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s StickerSetMultiCoveredArray) First() (v StickerSetMultiCovered, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s StickerSetMultiCoveredArray) Last() (v StickerSetMultiCovered, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *StickerSetMultiCoveredArray) PopFirst() (v StickerSetMultiCovered, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero StickerSetMultiCovered
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *StickerSetMultiCoveredArray) Pop() (v StickerSetMultiCovered, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

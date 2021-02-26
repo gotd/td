@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // EncryptedMessage represents TL type `encryptedMessage#ed18c118`.
 // Encrypted message.
@@ -451,11 +453,41 @@ func (b *EncryptedMessageBox) Encode(buf *bin.Buffer) error {
 	return b.EncryptedMessage.Encode(buf)
 }
 
-// EncryptedMessageClassSlice is adapter for slice of EncryptedMessageClass.
-type EncryptedMessageClassSlice []EncryptedMessageClass
+// EncryptedMessageClassArray is adapter for slice of EncryptedMessageClass.
+type EncryptedMessageClassArray []EncryptedMessageClass
+
+// Sort sorts slice of EncryptedMessageClass.
+func (s EncryptedMessageClassArray) Sort(less func(a, b EncryptedMessageClass) bool) EncryptedMessageClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of EncryptedMessageClass.
+func (s EncryptedMessageClassArray) SortStable(less func(a, b EncryptedMessageClass) bool) EncryptedMessageClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of EncryptedMessageClass.
+func (s EncryptedMessageClassArray) Retain(keep func(x EncryptedMessageClass) bool) EncryptedMessageClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s EncryptedMessageClassSlice) First() (v EncryptedMessageClass, ok bool) {
+func (s EncryptedMessageClassArray) First() (v EncryptedMessageClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -463,7 +495,7 @@ func (s EncryptedMessageClassSlice) First() (v EncryptedMessageClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s EncryptedMessageClassSlice) Last() (v EncryptedMessageClass, ok bool) {
+func (s EncryptedMessageClassArray) Last() (v EncryptedMessageClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -471,7 +503,7 @@ func (s EncryptedMessageClassSlice) Last() (v EncryptedMessageClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *EncryptedMessageClassSlice) PopFirst() (v EncryptedMessageClass, ok bool) {
+func (s *EncryptedMessageClassArray) PopFirst() (v EncryptedMessageClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -481,7 +513,8 @@ func (s *EncryptedMessageClassSlice) PopFirst() (v EncryptedMessageClass, ok boo
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero EncryptedMessageClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -489,7 +522,7 @@ func (s *EncryptedMessageClassSlice) PopFirst() (v EncryptedMessageClass, ok boo
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *EncryptedMessageClassSlice) Pop() (v EncryptedMessageClass, ok bool) {
+func (s *EncryptedMessageClassArray) Pop() (v EncryptedMessageClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -500,4 +533,236 @@ func (s *EncryptedMessageClassSlice) Pop() (v EncryptedMessageClass, ok bool) {
 	*s = a
 
 	return v, true
+}
+
+// SortByDate sorts slice of EncryptedMessageClass by Date.
+func (s EncryptedMessageClassArray) SortByDate() EncryptedMessageClassArray {
+	return s.Sort(func(a, b EncryptedMessageClass) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of EncryptedMessageClass by Date.
+func (s EncryptedMessageClassArray) SortStableByDate() EncryptedMessageClassArray {
+	return s.SortStable(func(a, b EncryptedMessageClass) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// AsEncryptedMessage returns copy with only EncryptedMessage constructors.
+func (s EncryptedMessageClassArray) AsEncryptedMessage() (to EncryptedMessageArray) {
+	for _, elem := range s {
+		value, ok := elem.(*EncryptedMessage)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsEncryptedMessageService returns copy with only EncryptedMessageService constructors.
+func (s EncryptedMessageClassArray) AsEncryptedMessageService() (to EncryptedMessageServiceArray) {
+	for _, elem := range s {
+		value, ok := elem.(*EncryptedMessageService)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// EncryptedMessageArray is adapter for slice of EncryptedMessage.
+type EncryptedMessageArray []EncryptedMessage
+
+// Sort sorts slice of EncryptedMessage.
+func (s EncryptedMessageArray) Sort(less func(a, b EncryptedMessage) bool) EncryptedMessageArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of EncryptedMessage.
+func (s EncryptedMessageArray) SortStable(less func(a, b EncryptedMessage) bool) EncryptedMessageArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of EncryptedMessage.
+func (s EncryptedMessageArray) Retain(keep func(x EncryptedMessage) bool) EncryptedMessageArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s EncryptedMessageArray) First() (v EncryptedMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s EncryptedMessageArray) Last() (v EncryptedMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *EncryptedMessageArray) PopFirst() (v EncryptedMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero EncryptedMessage
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *EncryptedMessageArray) Pop() (v EncryptedMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByDate sorts slice of EncryptedMessage by Date.
+func (s EncryptedMessageArray) SortByDate() EncryptedMessageArray {
+	return s.Sort(func(a, b EncryptedMessage) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of EncryptedMessage by Date.
+func (s EncryptedMessageArray) SortStableByDate() EncryptedMessageArray {
+	return s.SortStable(func(a, b EncryptedMessage) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// EncryptedMessageServiceArray is adapter for slice of EncryptedMessageService.
+type EncryptedMessageServiceArray []EncryptedMessageService
+
+// Sort sorts slice of EncryptedMessageService.
+func (s EncryptedMessageServiceArray) Sort(less func(a, b EncryptedMessageService) bool) EncryptedMessageServiceArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of EncryptedMessageService.
+func (s EncryptedMessageServiceArray) SortStable(less func(a, b EncryptedMessageService) bool) EncryptedMessageServiceArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of EncryptedMessageService.
+func (s EncryptedMessageServiceArray) Retain(keep func(x EncryptedMessageService) bool) EncryptedMessageServiceArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s EncryptedMessageServiceArray) First() (v EncryptedMessageService, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s EncryptedMessageServiceArray) Last() (v EncryptedMessageService, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *EncryptedMessageServiceArray) PopFirst() (v EncryptedMessageService, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero EncryptedMessageService
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *EncryptedMessageServiceArray) Pop() (v EncryptedMessageService, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByDate sorts slice of EncryptedMessageService by Date.
+func (s EncryptedMessageServiceArray) SortByDate() EncryptedMessageServiceArray {
+	return s.Sort(func(a, b EncryptedMessageService) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of EncryptedMessageService by Date.
+func (s EncryptedMessageServiceArray) SortStableByDate() EncryptedMessageServiceArray {
+	return s.SortStable(func(a, b EncryptedMessageService) bool {
+		return a.GetDate() < b.GetDate()
+	})
 }

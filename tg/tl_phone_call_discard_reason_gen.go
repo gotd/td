@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // PhoneCallDiscardReasonMissed represents TL type `phoneCallDiscardReasonMissed#85e42301`.
 // The phone call was missed
@@ -392,11 +394,41 @@ func (b *PhoneCallDiscardReasonBox) Encode(buf *bin.Buffer) error {
 	return b.PhoneCallDiscardReason.Encode(buf)
 }
 
-// PhoneCallDiscardReasonClassSlice is adapter for slice of PhoneCallDiscardReasonClass.
-type PhoneCallDiscardReasonClassSlice []PhoneCallDiscardReasonClass
+// PhoneCallDiscardReasonClassArray is adapter for slice of PhoneCallDiscardReasonClass.
+type PhoneCallDiscardReasonClassArray []PhoneCallDiscardReasonClass
+
+// Sort sorts slice of PhoneCallDiscardReasonClass.
+func (s PhoneCallDiscardReasonClassArray) Sort(less func(a, b PhoneCallDiscardReasonClass) bool) PhoneCallDiscardReasonClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PhoneCallDiscardReasonClass.
+func (s PhoneCallDiscardReasonClassArray) SortStable(less func(a, b PhoneCallDiscardReasonClass) bool) PhoneCallDiscardReasonClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PhoneCallDiscardReasonClass.
+func (s PhoneCallDiscardReasonClassArray) Retain(keep func(x PhoneCallDiscardReasonClass) bool) PhoneCallDiscardReasonClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s PhoneCallDiscardReasonClassSlice) First() (v PhoneCallDiscardReasonClass, ok bool) {
+func (s PhoneCallDiscardReasonClassArray) First() (v PhoneCallDiscardReasonClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -404,7 +436,7 @@ func (s PhoneCallDiscardReasonClassSlice) First() (v PhoneCallDiscardReasonClass
 }
 
 // Last returns last element of slice (if exists).
-func (s PhoneCallDiscardReasonClassSlice) Last() (v PhoneCallDiscardReasonClass, ok bool) {
+func (s PhoneCallDiscardReasonClassArray) Last() (v PhoneCallDiscardReasonClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -412,7 +444,7 @@ func (s PhoneCallDiscardReasonClassSlice) Last() (v PhoneCallDiscardReasonClass,
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PhoneCallDiscardReasonClassSlice) PopFirst() (v PhoneCallDiscardReasonClass, ok bool) {
+func (s *PhoneCallDiscardReasonClassArray) PopFirst() (v PhoneCallDiscardReasonClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -422,7 +454,8 @@ func (s *PhoneCallDiscardReasonClassSlice) PopFirst() (v PhoneCallDiscardReasonC
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero PhoneCallDiscardReasonClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -430,7 +463,7 @@ func (s *PhoneCallDiscardReasonClassSlice) PopFirst() (v PhoneCallDiscardReasonC
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *PhoneCallDiscardReasonClassSlice) Pop() (v PhoneCallDiscardReasonClass, ok bool) {
+func (s *PhoneCallDiscardReasonClassArray) Pop() (v PhoneCallDiscardReasonClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

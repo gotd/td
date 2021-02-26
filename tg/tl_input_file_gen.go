@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // InputFile represents TL type `inputFile#f52ff27f`.
 // Defines a file saved in parts using the method upload.saveFilePart¹.
@@ -404,11 +406,41 @@ func (b *InputFileBox) Encode(buf *bin.Buffer) error {
 	return b.InputFile.Encode(buf)
 }
 
-// InputFileClassSlice is adapter for slice of InputFileClass.
-type InputFileClassSlice []InputFileClass
+// InputFileClassArray is adapter for slice of InputFileClass.
+type InputFileClassArray []InputFileClass
+
+// Sort sorts slice of InputFileClass.
+func (s InputFileClassArray) Sort(less func(a, b InputFileClass) bool) InputFileClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputFileClass.
+func (s InputFileClassArray) SortStable(less func(a, b InputFileClass) bool) InputFileClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputFileClass.
+func (s InputFileClassArray) Retain(keep func(x InputFileClass) bool) InputFileClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s InputFileClassSlice) First() (v InputFileClass, ok bool) {
+func (s InputFileClassArray) First() (v InputFileClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -416,7 +448,7 @@ func (s InputFileClassSlice) First() (v InputFileClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s InputFileClassSlice) Last() (v InputFileClass, ok bool) {
+func (s InputFileClassArray) Last() (v InputFileClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -424,7 +456,7 @@ func (s InputFileClassSlice) Last() (v InputFileClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputFileClassSlice) PopFirst() (v InputFileClass, ok bool) {
+func (s *InputFileClassArray) PopFirst() (v InputFileClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -434,7 +466,8 @@ func (s *InputFileClassSlice) PopFirst() (v InputFileClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero InputFileClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -442,7 +475,197 @@ func (s *InputFileClassSlice) PopFirst() (v InputFileClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *InputFileClassSlice) Pop() (v InputFileClass, ok bool) {
+func (s *InputFileClassArray) Pop() (v InputFileClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsInputFile returns copy with only InputFile constructors.
+func (s InputFileClassArray) AsInputFile() (to InputFileArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputFile)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputFileBig returns copy with only InputFileBig constructors.
+func (s InputFileClassArray) AsInputFileBig() (to InputFileBigArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputFileBig)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// InputFileArray is adapter for slice of InputFile.
+type InputFileArray []InputFile
+
+// Sort sorts slice of InputFile.
+func (s InputFileArray) Sort(less func(a, b InputFile) bool) InputFileArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputFile.
+func (s InputFileArray) SortStable(less func(a, b InputFile) bool) InputFileArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputFile.
+func (s InputFileArray) Retain(keep func(x InputFile) bool) InputFileArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputFileArray) First() (v InputFile, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputFileArray) Last() (v InputFile, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputFileArray) PopFirst() (v InputFile, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputFile
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputFileArray) Pop() (v InputFile, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputFileBigArray is adapter for slice of InputFileBig.
+type InputFileBigArray []InputFileBig
+
+// Sort sorts slice of InputFileBig.
+func (s InputFileBigArray) Sort(less func(a, b InputFileBig) bool) InputFileBigArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputFileBig.
+func (s InputFileBigArray) SortStable(less func(a, b InputFileBig) bool) InputFileBigArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputFileBig.
+func (s InputFileBigArray) Retain(keep func(x InputFileBig) bool) InputFileBigArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputFileBigArray) First() (v InputFileBig, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputFileBigArray) Last() (v InputFileBig, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputFileBigArray) PopFirst() (v InputFileBig, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputFileBig
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputFileBigArray) Pop() (v InputFileBig, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

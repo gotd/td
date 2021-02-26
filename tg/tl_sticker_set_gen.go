@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // StickerSet represents TL type `stickerSet#40e237a8`.
 // Represents a stickerset (stickerpack)
@@ -345,12 +347,12 @@ func (s *StickerSet) GetThumbs() (value []PhotoSizeClass, ok bool) {
 	return s.Thumbs, true
 }
 
-// MapThumbs returns field Thumbs wrapped in PhotoSizeClassSlice helper.
-func (s *StickerSet) MapThumbs() (value PhotoSizeClassSlice, ok bool) {
+// MapThumbs returns field Thumbs wrapped in PhotoSizeClassArray helper.
+func (s *StickerSet) MapThumbs() (value PhotoSizeClassArray, ok bool) {
 	if !s.Flags.Has(4) {
 		return value, false
 	}
-	return PhotoSizeClassSlice(s.Thumbs), true
+	return PhotoSizeClassArray(s.Thumbs), true
 }
 
 // SetThumbDCID sets value of ThumbDCID conditional field.

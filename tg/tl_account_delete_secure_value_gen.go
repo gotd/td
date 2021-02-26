@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // AccountDeleteSecureValueRequest represents TL type `account.deleteSecureValue#b880bc4b`.
 // Delete stored Telegram Passport¹ documents, for more info see the passport docs »²
@@ -95,9 +97,9 @@ func (d *AccountDeleteSecureValueRequest) GetTypes() (value []SecureValueTypeCla
 	return d.Types
 }
 
-// MapTypes returns field Types wrapped in SecureValueTypeClassSlice helper.
-func (d *AccountDeleteSecureValueRequest) MapTypes() (value SecureValueTypeClassSlice) {
-	return SecureValueTypeClassSlice(d.Types)
+// MapTypes returns field Types wrapped in SecureValueTypeClassArray helper.
+func (d *AccountDeleteSecureValueRequest) MapTypes() (value SecureValueTypeClassArray) {
+	return SecureValueTypeClassArray(d.Types)
 }
 
 // Decode implements bin.Decoder.

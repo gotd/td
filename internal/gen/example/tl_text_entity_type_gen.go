@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // TextEntityTypeMention represents TL type `textEntityTypeMention#37b3df65`.
 //
@@ -1451,11 +1453,41 @@ func (b *TextEntityTypeBox) Encode(buf *bin.Buffer) error {
 	return b.TextEntityType.Encode(buf)
 }
 
-// TextEntityTypeClassSlice is adapter for slice of TextEntityTypeClass.
-type TextEntityTypeClassSlice []TextEntityTypeClass
+// TextEntityTypeClassArray is adapter for slice of TextEntityTypeClass.
+type TextEntityTypeClassArray []TextEntityTypeClass
+
+// Sort sorts slice of TextEntityTypeClass.
+func (s TextEntityTypeClassArray) Sort(less func(a, b TextEntityTypeClass) bool) TextEntityTypeClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of TextEntityTypeClass.
+func (s TextEntityTypeClassArray) SortStable(less func(a, b TextEntityTypeClass) bool) TextEntityTypeClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of TextEntityTypeClass.
+func (s TextEntityTypeClassArray) Retain(keep func(x TextEntityTypeClass) bool) TextEntityTypeClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s TextEntityTypeClassSlice) First() (v TextEntityTypeClass, ok bool) {
+func (s TextEntityTypeClassArray) First() (v TextEntityTypeClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1463,7 +1495,7 @@ func (s TextEntityTypeClassSlice) First() (v TextEntityTypeClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s TextEntityTypeClassSlice) Last() (v TextEntityTypeClass, ok bool) {
+func (s TextEntityTypeClassArray) Last() (v TextEntityTypeClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1471,7 +1503,7 @@ func (s TextEntityTypeClassSlice) Last() (v TextEntityTypeClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *TextEntityTypeClassSlice) PopFirst() (v TextEntityTypeClass, ok bool) {
+func (s *TextEntityTypeClassArray) PopFirst() (v TextEntityTypeClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1481,7 +1513,8 @@ func (s *TextEntityTypeClassSlice) PopFirst() (v TextEntityTypeClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero TextEntityTypeClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -1489,7 +1522,292 @@ func (s *TextEntityTypeClassSlice) PopFirst() (v TextEntityTypeClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *TextEntityTypeClassSlice) Pop() (v TextEntityTypeClass, ok bool) {
+func (s *TextEntityTypeClassArray) Pop() (v TextEntityTypeClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsTextEntityTypePreCode returns copy with only TextEntityTypePreCode constructors.
+func (s TextEntityTypeClassArray) AsTextEntityTypePreCode() (to TextEntityTypePreCodeArray) {
+	for _, elem := range s {
+		value, ok := elem.(*TextEntityTypePreCode)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsTextEntityTypeTextUrl returns copy with only TextEntityTypeTextUrl constructors.
+func (s TextEntityTypeClassArray) AsTextEntityTypeTextUrl() (to TextEntityTypeTextUrlArray) {
+	for _, elem := range s {
+		value, ok := elem.(*TextEntityTypeTextUrl)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsTextEntityTypeMentionName returns copy with only TextEntityTypeMentionName constructors.
+func (s TextEntityTypeClassArray) AsTextEntityTypeMentionName() (to TextEntityTypeMentionNameArray) {
+	for _, elem := range s {
+		value, ok := elem.(*TextEntityTypeMentionName)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// TextEntityTypePreCodeArray is adapter for slice of TextEntityTypePreCode.
+type TextEntityTypePreCodeArray []TextEntityTypePreCode
+
+// Sort sorts slice of TextEntityTypePreCode.
+func (s TextEntityTypePreCodeArray) Sort(less func(a, b TextEntityTypePreCode) bool) TextEntityTypePreCodeArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of TextEntityTypePreCode.
+func (s TextEntityTypePreCodeArray) SortStable(less func(a, b TextEntityTypePreCode) bool) TextEntityTypePreCodeArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of TextEntityTypePreCode.
+func (s TextEntityTypePreCodeArray) Retain(keep func(x TextEntityTypePreCode) bool) TextEntityTypePreCodeArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s TextEntityTypePreCodeArray) First() (v TextEntityTypePreCode, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s TextEntityTypePreCodeArray) Last() (v TextEntityTypePreCode, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *TextEntityTypePreCodeArray) PopFirst() (v TextEntityTypePreCode, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero TextEntityTypePreCode
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *TextEntityTypePreCodeArray) Pop() (v TextEntityTypePreCode, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// TextEntityTypeTextUrlArray is adapter for slice of TextEntityTypeTextUrl.
+type TextEntityTypeTextUrlArray []TextEntityTypeTextUrl
+
+// Sort sorts slice of TextEntityTypeTextUrl.
+func (s TextEntityTypeTextUrlArray) Sort(less func(a, b TextEntityTypeTextUrl) bool) TextEntityTypeTextUrlArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of TextEntityTypeTextUrl.
+func (s TextEntityTypeTextUrlArray) SortStable(less func(a, b TextEntityTypeTextUrl) bool) TextEntityTypeTextUrlArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of TextEntityTypeTextUrl.
+func (s TextEntityTypeTextUrlArray) Retain(keep func(x TextEntityTypeTextUrl) bool) TextEntityTypeTextUrlArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s TextEntityTypeTextUrlArray) First() (v TextEntityTypeTextUrl, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s TextEntityTypeTextUrlArray) Last() (v TextEntityTypeTextUrl, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *TextEntityTypeTextUrlArray) PopFirst() (v TextEntityTypeTextUrl, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero TextEntityTypeTextUrl
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *TextEntityTypeTextUrlArray) Pop() (v TextEntityTypeTextUrl, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// TextEntityTypeMentionNameArray is adapter for slice of TextEntityTypeMentionName.
+type TextEntityTypeMentionNameArray []TextEntityTypeMentionName
+
+// Sort sorts slice of TextEntityTypeMentionName.
+func (s TextEntityTypeMentionNameArray) Sort(less func(a, b TextEntityTypeMentionName) bool) TextEntityTypeMentionNameArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of TextEntityTypeMentionName.
+func (s TextEntityTypeMentionNameArray) SortStable(less func(a, b TextEntityTypeMentionName) bool) TextEntityTypeMentionNameArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of TextEntityTypeMentionName.
+func (s TextEntityTypeMentionNameArray) Retain(keep func(x TextEntityTypeMentionName) bool) TextEntityTypeMentionNameArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s TextEntityTypeMentionNameArray) First() (v TextEntityTypeMentionName, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s TextEntityTypeMentionNameArray) Last() (v TextEntityTypeMentionName, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *TextEntityTypeMentionNameArray) PopFirst() (v TextEntityTypeMentionName, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero TextEntityTypeMentionName
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *TextEntityTypeMentionNameArray) Pop() (v TextEntityTypeMentionName, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

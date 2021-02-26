@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // ContactsTopPeersNotModified represents TL type `contacts.topPeersNotModified#de266ef5`.
 // Top peer info hasn't changed
@@ -194,9 +196,9 @@ func (t *ContactsTopPeers) GetChats() (value []ChatClass) {
 	return t.Chats
 }
 
-// MapChats returns field Chats wrapped in ChatClassSlice helper.
-func (t *ContactsTopPeers) MapChats() (value ChatClassSlice) {
-	return ChatClassSlice(t.Chats)
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (t *ContactsTopPeers) MapChats() (value ChatClassArray) {
+	return ChatClassArray(t.Chats)
 }
 
 // GetUsers returns value of Users field.
@@ -204,9 +206,9 @@ func (t *ContactsTopPeers) GetUsers() (value []UserClass) {
 	return t.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (t *ContactsTopPeers) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(t.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (t *ContactsTopPeers) MapUsers() (value UserClassArray) {
+	return UserClassArray(t.Users)
 }
 
 // Decode implements bin.Decoder.
@@ -429,11 +431,41 @@ func (b *ContactsTopPeersBox) Encode(buf *bin.Buffer) error {
 	return b.TopPeers.Encode(buf)
 }
 
-// ContactsTopPeersClassSlice is adapter for slice of ContactsTopPeersClass.
-type ContactsTopPeersClassSlice []ContactsTopPeersClass
+// ContactsTopPeersClassArray is adapter for slice of ContactsTopPeersClass.
+type ContactsTopPeersClassArray []ContactsTopPeersClass
+
+// Sort sorts slice of ContactsTopPeersClass.
+func (s ContactsTopPeersClassArray) Sort(less func(a, b ContactsTopPeersClass) bool) ContactsTopPeersClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ContactsTopPeersClass.
+func (s ContactsTopPeersClassArray) SortStable(less func(a, b ContactsTopPeersClass) bool) ContactsTopPeersClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ContactsTopPeersClass.
+func (s ContactsTopPeersClassArray) Retain(keep func(x ContactsTopPeersClass) bool) ContactsTopPeersClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s ContactsTopPeersClassSlice) First() (v ContactsTopPeersClass, ok bool) {
+func (s ContactsTopPeersClassArray) First() (v ContactsTopPeersClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -441,7 +473,7 @@ func (s ContactsTopPeersClassSlice) First() (v ContactsTopPeersClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s ContactsTopPeersClassSlice) Last() (v ContactsTopPeersClass, ok bool) {
+func (s ContactsTopPeersClassArray) Last() (v ContactsTopPeersClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -449,7 +481,7 @@ func (s ContactsTopPeersClassSlice) Last() (v ContactsTopPeersClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ContactsTopPeersClassSlice) PopFirst() (v ContactsTopPeersClass, ok bool) {
+func (s *ContactsTopPeersClassArray) PopFirst() (v ContactsTopPeersClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -459,7 +491,8 @@ func (s *ContactsTopPeersClassSlice) PopFirst() (v ContactsTopPeersClass, ok boo
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero ContactsTopPeersClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -467,7 +500,102 @@ func (s *ContactsTopPeersClassSlice) PopFirst() (v ContactsTopPeersClass, ok boo
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *ContactsTopPeersClassSlice) Pop() (v ContactsTopPeersClass, ok bool) {
+func (s *ContactsTopPeersClassArray) Pop() (v ContactsTopPeersClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsContactsTopPeers returns copy with only ContactsTopPeers constructors.
+func (s ContactsTopPeersClassArray) AsContactsTopPeers() (to ContactsTopPeersArray) {
+	for _, elem := range s {
+		value, ok := elem.(*ContactsTopPeers)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// ContactsTopPeersArray is adapter for slice of ContactsTopPeers.
+type ContactsTopPeersArray []ContactsTopPeers
+
+// Sort sorts slice of ContactsTopPeers.
+func (s ContactsTopPeersArray) Sort(less func(a, b ContactsTopPeers) bool) ContactsTopPeersArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ContactsTopPeers.
+func (s ContactsTopPeersArray) SortStable(less func(a, b ContactsTopPeers) bool) ContactsTopPeersArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ContactsTopPeers.
+func (s ContactsTopPeersArray) Retain(keep func(x ContactsTopPeers) bool) ContactsTopPeersArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s ContactsTopPeersArray) First() (v ContactsTopPeers, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ContactsTopPeersArray) Last() (v ContactsTopPeers, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ContactsTopPeersArray) PopFirst() (v ContactsTopPeers, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero ContactsTopPeers
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ContactsTopPeersArray) Pop() (v ContactsTopPeers, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

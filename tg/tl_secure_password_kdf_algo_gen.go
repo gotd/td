@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // SecurePasswordKdfAlgoUnknown represents TL type `securePasswordKdfAlgoUnknown#4a8537`.
 // Unknown KDF algo (most likely the client has to be updated)
@@ -367,11 +369,41 @@ func (b *SecurePasswordKdfAlgoBox) Encode(buf *bin.Buffer) error {
 	return b.SecurePasswordKdfAlgo.Encode(buf)
 }
 
-// SecurePasswordKdfAlgoClassSlice is adapter for slice of SecurePasswordKdfAlgoClass.
-type SecurePasswordKdfAlgoClassSlice []SecurePasswordKdfAlgoClass
+// SecurePasswordKdfAlgoClassArray is adapter for slice of SecurePasswordKdfAlgoClass.
+type SecurePasswordKdfAlgoClassArray []SecurePasswordKdfAlgoClass
+
+// Sort sorts slice of SecurePasswordKdfAlgoClass.
+func (s SecurePasswordKdfAlgoClassArray) Sort(less func(a, b SecurePasswordKdfAlgoClass) bool) SecurePasswordKdfAlgoClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of SecurePasswordKdfAlgoClass.
+func (s SecurePasswordKdfAlgoClassArray) SortStable(less func(a, b SecurePasswordKdfAlgoClass) bool) SecurePasswordKdfAlgoClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of SecurePasswordKdfAlgoClass.
+func (s SecurePasswordKdfAlgoClassArray) Retain(keep func(x SecurePasswordKdfAlgoClass) bool) SecurePasswordKdfAlgoClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s SecurePasswordKdfAlgoClassSlice) First() (v SecurePasswordKdfAlgoClass, ok bool) {
+func (s SecurePasswordKdfAlgoClassArray) First() (v SecurePasswordKdfAlgoClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -379,7 +411,7 @@ func (s SecurePasswordKdfAlgoClassSlice) First() (v SecurePasswordKdfAlgoClass, 
 }
 
 // Last returns last element of slice (if exists).
-func (s SecurePasswordKdfAlgoClassSlice) Last() (v SecurePasswordKdfAlgoClass, ok bool) {
+func (s SecurePasswordKdfAlgoClassArray) Last() (v SecurePasswordKdfAlgoClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -387,7 +419,7 @@ func (s SecurePasswordKdfAlgoClassSlice) Last() (v SecurePasswordKdfAlgoClass, o
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SecurePasswordKdfAlgoClassSlice) PopFirst() (v SecurePasswordKdfAlgoClass, ok bool) {
+func (s *SecurePasswordKdfAlgoClassArray) PopFirst() (v SecurePasswordKdfAlgoClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -397,7 +429,8 @@ func (s *SecurePasswordKdfAlgoClassSlice) PopFirst() (v SecurePasswordKdfAlgoCla
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero SecurePasswordKdfAlgoClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -405,7 +438,197 @@ func (s *SecurePasswordKdfAlgoClassSlice) PopFirst() (v SecurePasswordKdfAlgoCla
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *SecurePasswordKdfAlgoClassSlice) Pop() (v SecurePasswordKdfAlgoClass, ok bool) {
+func (s *SecurePasswordKdfAlgoClassArray) Pop() (v SecurePasswordKdfAlgoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsSecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000 returns copy with only SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000 constructors.
+func (s SecurePasswordKdfAlgoClassArray) AsSecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000() (to SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000Array) {
+	for _, elem := range s {
+		value, ok := elem.(*SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsSecurePasswordKdfAlgoSHA512 returns copy with only SecurePasswordKdfAlgoSHA512 constructors.
+func (s SecurePasswordKdfAlgoClassArray) AsSecurePasswordKdfAlgoSHA512() (to SecurePasswordKdfAlgoSHA512Array) {
+	for _, elem := range s {
+		value, ok := elem.(*SecurePasswordKdfAlgoSHA512)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000Array is adapter for slice of SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000.
+type SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000Array []SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000
+
+// Sort sorts slice of SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000.
+func (s SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000Array) Sort(less func(a, b SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) bool) SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000Array {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000.
+func (s SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000Array) SortStable(less func(a, b SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) bool) SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000Array {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000.
+func (s SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000Array) Retain(keep func(x SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) bool) SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000Array {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000Array) First() (v SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000Array) Last() (v SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000Array) PopFirst() (v SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000Array) Pop() (v SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SecurePasswordKdfAlgoSHA512Array is adapter for slice of SecurePasswordKdfAlgoSHA512.
+type SecurePasswordKdfAlgoSHA512Array []SecurePasswordKdfAlgoSHA512
+
+// Sort sorts slice of SecurePasswordKdfAlgoSHA512.
+func (s SecurePasswordKdfAlgoSHA512Array) Sort(less func(a, b SecurePasswordKdfAlgoSHA512) bool) SecurePasswordKdfAlgoSHA512Array {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of SecurePasswordKdfAlgoSHA512.
+func (s SecurePasswordKdfAlgoSHA512Array) SortStable(less func(a, b SecurePasswordKdfAlgoSHA512) bool) SecurePasswordKdfAlgoSHA512Array {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of SecurePasswordKdfAlgoSHA512.
+func (s SecurePasswordKdfAlgoSHA512Array) Retain(keep func(x SecurePasswordKdfAlgoSHA512) bool) SecurePasswordKdfAlgoSHA512Array {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s SecurePasswordKdfAlgoSHA512Array) First() (v SecurePasswordKdfAlgoSHA512, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s SecurePasswordKdfAlgoSHA512Array) Last() (v SecurePasswordKdfAlgoSHA512, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *SecurePasswordKdfAlgoSHA512Array) PopFirst() (v SecurePasswordKdfAlgoSHA512, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero SecurePasswordKdfAlgoSHA512
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *SecurePasswordKdfAlgoSHA512Array) Pop() (v SecurePasswordKdfAlgoSHA512, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

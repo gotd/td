@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // LangPackDifference represents TL type `langPackDifference#f385c1f6`.
 // Changes to the app's localization pack
@@ -130,9 +132,9 @@ func (l *LangPackDifference) GetStrings() (value []LangPackStringClass) {
 	return l.Strings
 }
 
-// MapStrings returns field Strings wrapped in LangPackStringClassSlice helper.
-func (l *LangPackDifference) MapStrings() (value LangPackStringClassSlice) {
-	return LangPackStringClassSlice(l.Strings)
+// MapStrings returns field Strings wrapped in LangPackStringClassArray helper.
+func (l *LangPackDifference) MapStrings() (value LangPackStringClassArray) {
+	return LangPackStringClassArray(l.Strings)
 }
 
 // Decode implements bin.Decoder.

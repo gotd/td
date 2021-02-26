@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // PhoneConnection represents TL type `phoneConnection#9d4c17c0`.
 // Identifies an endpoint that can be used to connect to the other user in a phone call
@@ -547,11 +549,41 @@ func (b *PhoneConnectionBox) Encode(buf *bin.Buffer) error {
 	return b.PhoneConnection.Encode(buf)
 }
 
-// PhoneConnectionClassSlice is adapter for slice of PhoneConnectionClass.
-type PhoneConnectionClassSlice []PhoneConnectionClass
+// PhoneConnectionClassArray is adapter for slice of PhoneConnectionClass.
+type PhoneConnectionClassArray []PhoneConnectionClass
+
+// Sort sorts slice of PhoneConnectionClass.
+func (s PhoneConnectionClassArray) Sort(less func(a, b PhoneConnectionClass) bool) PhoneConnectionClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PhoneConnectionClass.
+func (s PhoneConnectionClassArray) SortStable(less func(a, b PhoneConnectionClass) bool) PhoneConnectionClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PhoneConnectionClass.
+func (s PhoneConnectionClassArray) Retain(keep func(x PhoneConnectionClass) bool) PhoneConnectionClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s PhoneConnectionClassSlice) First() (v PhoneConnectionClass, ok bool) {
+func (s PhoneConnectionClassArray) First() (v PhoneConnectionClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -559,7 +591,7 @@ func (s PhoneConnectionClassSlice) First() (v PhoneConnectionClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s PhoneConnectionClassSlice) Last() (v PhoneConnectionClass, ok bool) {
+func (s PhoneConnectionClassArray) Last() (v PhoneConnectionClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -567,7 +599,7 @@ func (s PhoneConnectionClassSlice) Last() (v PhoneConnectionClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PhoneConnectionClassSlice) PopFirst() (v PhoneConnectionClass, ok bool) {
+func (s *PhoneConnectionClassArray) PopFirst() (v PhoneConnectionClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -577,7 +609,8 @@ func (s *PhoneConnectionClassSlice) PopFirst() (v PhoneConnectionClass, ok bool)
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero PhoneConnectionClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -585,7 +618,197 @@ func (s *PhoneConnectionClassSlice) PopFirst() (v PhoneConnectionClass, ok bool)
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *PhoneConnectionClassSlice) Pop() (v PhoneConnectionClass, ok bool) {
+func (s *PhoneConnectionClassArray) Pop() (v PhoneConnectionClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsPhoneConnection returns copy with only PhoneConnection constructors.
+func (s PhoneConnectionClassArray) AsPhoneConnection() (to PhoneConnectionArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PhoneConnection)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsPhoneConnectionWebrtc returns copy with only PhoneConnectionWebrtc constructors.
+func (s PhoneConnectionClassArray) AsPhoneConnectionWebrtc() (to PhoneConnectionWebrtcArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PhoneConnectionWebrtc)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// PhoneConnectionArray is adapter for slice of PhoneConnection.
+type PhoneConnectionArray []PhoneConnection
+
+// Sort sorts slice of PhoneConnection.
+func (s PhoneConnectionArray) Sort(less func(a, b PhoneConnection) bool) PhoneConnectionArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PhoneConnection.
+func (s PhoneConnectionArray) SortStable(less func(a, b PhoneConnection) bool) PhoneConnectionArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PhoneConnection.
+func (s PhoneConnectionArray) Retain(keep func(x PhoneConnection) bool) PhoneConnectionArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PhoneConnectionArray) First() (v PhoneConnection, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PhoneConnectionArray) Last() (v PhoneConnection, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PhoneConnectionArray) PopFirst() (v PhoneConnection, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PhoneConnection
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PhoneConnectionArray) Pop() (v PhoneConnection, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// PhoneConnectionWebrtcArray is adapter for slice of PhoneConnectionWebrtc.
+type PhoneConnectionWebrtcArray []PhoneConnectionWebrtc
+
+// Sort sorts slice of PhoneConnectionWebrtc.
+func (s PhoneConnectionWebrtcArray) Sort(less func(a, b PhoneConnectionWebrtc) bool) PhoneConnectionWebrtcArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PhoneConnectionWebrtc.
+func (s PhoneConnectionWebrtcArray) SortStable(less func(a, b PhoneConnectionWebrtc) bool) PhoneConnectionWebrtcArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PhoneConnectionWebrtc.
+func (s PhoneConnectionWebrtcArray) Retain(keep func(x PhoneConnectionWebrtc) bool) PhoneConnectionWebrtcArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PhoneConnectionWebrtcArray) First() (v PhoneConnectionWebrtc, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PhoneConnectionWebrtcArray) Last() (v PhoneConnectionWebrtc, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PhoneConnectionWebrtcArray) PopFirst() (v PhoneConnectionWebrtc, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PhoneConnectionWebrtc
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PhoneConnectionWebrtcArray) Pop() (v PhoneConnectionWebrtc, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

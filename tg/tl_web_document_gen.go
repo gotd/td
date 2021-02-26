@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // WebDocument represents TL type `webDocument#1c570ed1`.
 // Remote document
@@ -143,9 +145,9 @@ func (w *WebDocument) GetAttributes() (value []DocumentAttributeClass) {
 	return w.Attributes
 }
 
-// MapAttributes returns field Attributes wrapped in DocumentAttributeClassSlice helper.
-func (w *WebDocument) MapAttributes() (value DocumentAttributeClassSlice) {
-	return DocumentAttributeClassSlice(w.Attributes)
+// MapAttributes returns field Attributes wrapped in DocumentAttributeClassArray helper.
+func (w *WebDocument) MapAttributes() (value DocumentAttributeClassArray) {
+	return DocumentAttributeClassArray(w.Attributes)
 }
 
 // Decode implements bin.Decoder.
@@ -326,9 +328,9 @@ func (w *WebDocumentNoProxy) GetAttributes() (value []DocumentAttributeClass) {
 	return w.Attributes
 }
 
-// MapAttributes returns field Attributes wrapped in DocumentAttributeClassSlice helper.
-func (w *WebDocumentNoProxy) MapAttributes() (value DocumentAttributeClassSlice) {
-	return DocumentAttributeClassSlice(w.Attributes)
+// MapAttributes returns field Attributes wrapped in DocumentAttributeClassArray helper.
+func (w *WebDocumentNoProxy) MapAttributes() (value DocumentAttributeClassArray) {
+	return DocumentAttributeClassArray(w.Attributes)
 }
 
 // Decode implements bin.Decoder.
@@ -425,7 +427,7 @@ type WebDocumentClass interface {
 	// Attributes for media types
 	GetAttributes() (value []DocumentAttributeClass)
 	// Attributes for media types
-	MapAttributes() (value DocumentAttributeClassSlice)
+	MapAttributes() (value DocumentAttributeClassArray)
 }
 
 // AsInput tries to map WebDocument to InputWebDocument.
@@ -491,11 +493,41 @@ func (b *WebDocumentBox) Encode(buf *bin.Buffer) error {
 	return b.WebDocument.Encode(buf)
 }
 
-// WebDocumentClassSlice is adapter for slice of WebDocumentClass.
-type WebDocumentClassSlice []WebDocumentClass
+// WebDocumentClassArray is adapter for slice of WebDocumentClass.
+type WebDocumentClassArray []WebDocumentClass
+
+// Sort sorts slice of WebDocumentClass.
+func (s WebDocumentClassArray) Sort(less func(a, b WebDocumentClass) bool) WebDocumentClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of WebDocumentClass.
+func (s WebDocumentClassArray) SortStable(less func(a, b WebDocumentClass) bool) WebDocumentClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of WebDocumentClass.
+func (s WebDocumentClassArray) Retain(keep func(x WebDocumentClass) bool) WebDocumentClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s WebDocumentClassSlice) First() (v WebDocumentClass, ok bool) {
+func (s WebDocumentClassArray) First() (v WebDocumentClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -503,7 +535,7 @@ func (s WebDocumentClassSlice) First() (v WebDocumentClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s WebDocumentClassSlice) Last() (v WebDocumentClass, ok bool) {
+func (s WebDocumentClassArray) Last() (v WebDocumentClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -511,7 +543,7 @@ func (s WebDocumentClassSlice) Last() (v WebDocumentClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *WebDocumentClassSlice) PopFirst() (v WebDocumentClass, ok bool) {
+func (s *WebDocumentClassArray) PopFirst() (v WebDocumentClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -521,7 +553,8 @@ func (s *WebDocumentClassSlice) PopFirst() (v WebDocumentClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero WebDocumentClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -529,7 +562,197 @@ func (s *WebDocumentClassSlice) PopFirst() (v WebDocumentClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *WebDocumentClassSlice) Pop() (v WebDocumentClass, ok bool) {
+func (s *WebDocumentClassArray) Pop() (v WebDocumentClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsWebDocument returns copy with only WebDocument constructors.
+func (s WebDocumentClassArray) AsWebDocument() (to WebDocumentArray) {
+	for _, elem := range s {
+		value, ok := elem.(*WebDocument)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsWebDocumentNoProxy returns copy with only WebDocumentNoProxy constructors.
+func (s WebDocumentClassArray) AsWebDocumentNoProxy() (to WebDocumentNoProxyArray) {
+	for _, elem := range s {
+		value, ok := elem.(*WebDocumentNoProxy)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// WebDocumentArray is adapter for slice of WebDocument.
+type WebDocumentArray []WebDocument
+
+// Sort sorts slice of WebDocument.
+func (s WebDocumentArray) Sort(less func(a, b WebDocument) bool) WebDocumentArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of WebDocument.
+func (s WebDocumentArray) SortStable(less func(a, b WebDocument) bool) WebDocumentArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of WebDocument.
+func (s WebDocumentArray) Retain(keep func(x WebDocument) bool) WebDocumentArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s WebDocumentArray) First() (v WebDocument, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s WebDocumentArray) Last() (v WebDocument, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *WebDocumentArray) PopFirst() (v WebDocument, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero WebDocument
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *WebDocumentArray) Pop() (v WebDocument, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// WebDocumentNoProxyArray is adapter for slice of WebDocumentNoProxy.
+type WebDocumentNoProxyArray []WebDocumentNoProxy
+
+// Sort sorts slice of WebDocumentNoProxy.
+func (s WebDocumentNoProxyArray) Sort(less func(a, b WebDocumentNoProxy) bool) WebDocumentNoProxyArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of WebDocumentNoProxy.
+func (s WebDocumentNoProxyArray) SortStable(less func(a, b WebDocumentNoProxy) bool) WebDocumentNoProxyArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of WebDocumentNoProxy.
+func (s WebDocumentNoProxyArray) Retain(keep func(x WebDocumentNoProxy) bool) WebDocumentNoProxyArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s WebDocumentNoProxyArray) First() (v WebDocumentNoProxy, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s WebDocumentNoProxyArray) Last() (v WebDocumentNoProxy, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *WebDocumentNoProxyArray) PopFirst() (v WebDocumentNoProxy, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero WebDocumentNoProxy
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *WebDocumentNoProxyArray) Pop() (v WebDocumentNoProxy, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

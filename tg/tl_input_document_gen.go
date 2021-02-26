@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // InputDocumentEmpty represents TL type `inputDocumentEmpty#72f0eaae`.
 // Empty constructor.
@@ -332,12 +334,104 @@ func (b *InputDocumentBox) Encode(buf *bin.Buffer) error {
 	return b.InputDocument.Encode(buf)
 }
 
-// InputDocumentClassSlice is adapter for slice of InputDocumentClass.
-type InputDocumentClassSlice []InputDocumentClass
+// InputDocumentClassArray is adapter for slice of InputDocumentClass.
+type InputDocumentClassArray []InputDocumentClass
+
+// Sort sorts slice of InputDocumentClass.
+func (s InputDocumentClassArray) Sort(less func(a, b InputDocumentClass) bool) InputDocumentClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputDocumentClass.
+func (s InputDocumentClassArray) SortStable(less func(a, b InputDocumentClass) bool) InputDocumentClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputDocumentClass.
+func (s InputDocumentClassArray) Retain(keep func(x InputDocumentClass) bool) InputDocumentClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputDocumentClassArray) First() (v InputDocumentClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputDocumentClassArray) Last() (v InputDocumentClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputDocumentClassArray) PopFirst() (v InputDocumentClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputDocumentClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputDocumentClassArray) Pop() (v InputDocumentClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsInputDocument returns copy with only InputDocument constructors.
+func (s InputDocumentClassArray) AsInputDocument() (to InputDocumentArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputDocument)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
 
 // AppendOnlyNotEmpty appends only NotEmpty constructors to
 // given slice.
-func (s InputDocumentClassSlice) AppendOnlyNotEmpty(to []*InputDocument) []*InputDocument {
+func (s InputDocumentClassArray) AppendOnlyNotEmpty(to []*InputDocument) []*InputDocument {
 	for _, elem := range s {
 		value, ok := elem.AsNotEmpty()
 		if !ok {
@@ -350,12 +444,12 @@ func (s InputDocumentClassSlice) AppendOnlyNotEmpty(to []*InputDocument) []*Inpu
 }
 
 // AsNotEmpty returns copy with only NotEmpty constructors.
-func (s InputDocumentClassSlice) AsNotEmpty() (to []*InputDocument) {
+func (s InputDocumentClassArray) AsNotEmpty() (to []*InputDocument) {
 	return s.AppendOnlyNotEmpty(to)
 }
 
 // FirstAsNotEmpty returns first element of slice (if exists).
-func (s InputDocumentClassSlice) FirstAsNotEmpty() (v *InputDocument, ok bool) {
+func (s InputDocumentClassArray) FirstAsNotEmpty() (v *InputDocument, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -364,7 +458,7 @@ func (s InputDocumentClassSlice) FirstAsNotEmpty() (v *InputDocument, ok bool) {
 }
 
 // LastAsNotEmpty returns last element of slice (if exists).
-func (s InputDocumentClassSlice) LastAsNotEmpty() (v *InputDocument, ok bool) {
+func (s InputDocumentClassArray) LastAsNotEmpty() (v *InputDocument, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -373,7 +467,7 @@ func (s InputDocumentClassSlice) LastAsNotEmpty() (v *InputDocument, ok bool) {
 }
 
 // PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *InputDocumentClassSlice) PopFirstAsNotEmpty() (v *InputDocument, ok bool) {
+func (s *InputDocumentClassArray) PopFirstAsNotEmpty() (v *InputDocument, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -382,7 +476,7 @@ func (s *InputDocumentClassSlice) PopFirstAsNotEmpty() (v *InputDocument, ok boo
 }
 
 // PopAsNotEmpty returns element of slice (if exists).
-func (s *InputDocumentClassSlice) PopAsNotEmpty() (v *InputDocument, ok bool) {
+func (s *InputDocumentClassArray) PopAsNotEmpty() (v *InputDocument, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -390,8 +484,41 @@ func (s *InputDocumentClassSlice) PopAsNotEmpty() (v *InputDocument, ok bool) {
 	return value.AsNotEmpty()
 }
 
+// InputDocumentArray is adapter for slice of InputDocument.
+type InputDocumentArray []InputDocument
+
+// Sort sorts slice of InputDocument.
+func (s InputDocumentArray) Sort(less func(a, b InputDocument) bool) InputDocumentArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputDocument.
+func (s InputDocumentArray) SortStable(less func(a, b InputDocument) bool) InputDocumentArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputDocument.
+func (s InputDocumentArray) Retain(keep func(x InputDocument) bool) InputDocumentArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s InputDocumentClassSlice) First() (v InputDocumentClass, ok bool) {
+func (s InputDocumentArray) First() (v InputDocument, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -399,7 +526,7 @@ func (s InputDocumentClassSlice) First() (v InputDocumentClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s InputDocumentClassSlice) Last() (v InputDocumentClass, ok bool) {
+func (s InputDocumentArray) Last() (v InputDocument, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -407,7 +534,7 @@ func (s InputDocumentClassSlice) Last() (v InputDocumentClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputDocumentClassSlice) PopFirst() (v InputDocumentClass, ok bool) {
+func (s *InputDocumentArray) PopFirst() (v InputDocument, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -417,7 +544,8 @@ func (s *InputDocumentClassSlice) PopFirst() (v InputDocumentClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero InputDocument
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -425,7 +553,7 @@ func (s *InputDocumentClassSlice) PopFirst() (v InputDocumentClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *InputDocumentClassSlice) Pop() (v InputDocumentClass, ok bool) {
+func (s *InputDocumentArray) Pop() (v InputDocument, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

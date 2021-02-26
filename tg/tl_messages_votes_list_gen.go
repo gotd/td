@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesVotesList represents TL type `messages.votesList#823f649`.
 // How users voted in a poll
@@ -155,9 +157,9 @@ func (v *MessagesVotesList) GetVotes() (value []MessageUserVoteClass) {
 	return v.Votes
 }
 
-// MapVotes returns field Votes wrapped in MessageUserVoteClassSlice helper.
-func (v *MessagesVotesList) MapVotes() (value MessageUserVoteClassSlice) {
-	return MessageUserVoteClassSlice(v.Votes)
+// MapVotes returns field Votes wrapped in MessageUserVoteClassArray helper.
+func (v *MessagesVotesList) MapVotes() (value MessageUserVoteClassArray) {
+	return MessageUserVoteClassArray(v.Votes)
 }
 
 // GetUsers returns value of Users field.
@@ -165,9 +167,9 @@ func (v *MessagesVotesList) GetUsers() (value []UserClass) {
 	return v.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (v *MessagesVotesList) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(v.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (v *MessagesVotesList) MapUsers() (value UserClassArray) {
+	return UserClassArray(v.Users)
 }
 
 // SetNextOffset sets value of NextOffset conditional field.

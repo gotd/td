@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // UploadGetCdnFileHashesRequest represents TL type `upload.getCdnFileHashes#4da54231`.
 // Get SHA256 hashes for verifying downloaded CDN¹ files
@@ -148,5 +150,5 @@ func (c *Client) UploadGetCdnFileHashes(ctx context.Context, request *UploadGetC
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return result.Elems, nil
+	return []FileHash(result.Elems), nil
 }

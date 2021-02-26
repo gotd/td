@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesGetWebPagePreviewRequest represents TL type `messages.getWebPagePreview#8b68b0cc`.
 // Get preview of webpage
@@ -138,12 +140,12 @@ func (g *MessagesGetWebPagePreviewRequest) GetEntities() (value []MessageEntityC
 	return g.Entities, true
 }
 
-// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
-func (g *MessagesGetWebPagePreviewRequest) MapEntities() (value MessageEntityClassSlice, ok bool) {
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (g *MessagesGetWebPagePreviewRequest) MapEntities() (value MessageEntityClassArray, ok bool) {
 	if !g.Flags.Has(3) {
 		return value, false
 	}
-	return MessageEntityClassSlice(g.Entities), true
+	return MessageEntityClassArray(g.Entities), true
 }
 
 // Decode implements bin.Decoder.

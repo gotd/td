@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // AccountCancelPasswordEmailRequest represents TL type `account.cancelPasswordEmail#c1cbd5b6`.
 // Cancel the code that was sent to verify an email to use as 2FA recovery method¹.

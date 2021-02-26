@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // UserEmpty represents TL type `userEmpty#200250ba`.
 // Empty constructor, non-existent user.
@@ -1213,11 +1215,104 @@ func (b *UserBox) Encode(buf *bin.Buffer) error {
 	return b.User.Encode(buf)
 }
 
-// UserClassSlice is adapter for slice of UserClass.
-type UserClassSlice []UserClass
+// UserClassArray is adapter for slice of UserClass.
+type UserClassArray []UserClass
+
+// Sort sorts slice of UserClass.
+func (s UserClassArray) Sort(less func(a, b UserClass) bool) UserClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UserClass.
+func (s UserClassArray) SortStable(less func(a, b UserClass) bool) UserClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UserClass.
+func (s UserClassArray) Retain(keep func(x UserClass) bool) UserClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UserClassArray) First() (v UserClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UserClassArray) Last() (v UserClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UserClassArray) PopFirst() (v UserClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UserClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UserClassArray) Pop() (v UserClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of UserClass by ID.
+func (s UserClassArray) SortByID() UserClassArray {
+	return s.Sort(func(a, b UserClass) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of UserClass by ID.
+func (s UserClassArray) SortStableByID() UserClassArray {
+	return s.SortStable(func(a, b UserClass) bool {
+		return a.GetID() < b.GetID()
+	})
+}
 
 // FillUserEmptyMap fills only UserEmpty constructors to given map.
-func (s UserClassSlice) FillUserEmptyMap(to map[int]*UserEmpty) {
+func (s UserClassArray) FillUserEmptyMap(to map[int]*UserEmpty) {
 	for _, elem := range s {
 		value, ok := elem.(*UserEmpty)
 		if !ok {
@@ -1228,14 +1323,25 @@ func (s UserClassSlice) FillUserEmptyMap(to map[int]*UserEmpty) {
 }
 
 // UserEmptyToMap collects only UserEmpty constructors to map.
-func (s UserClassSlice) UserEmptyToMap() map[int]*UserEmpty {
+func (s UserClassArray) UserEmptyToMap() map[int]*UserEmpty {
 	r := make(map[int]*UserEmpty, len(s))
 	s.FillUserEmptyMap(r)
 	return r
 }
 
-// FillUserMap fills only User constructors to given map.
-func (s UserClassSlice) FillUserMap(to map[int]*User) {
+// AsUserEmpty returns copy with only UserEmpty constructors.
+func (s UserClassArray) AsUserEmpty() (to UserEmptyArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UserEmpty)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+} // FillUserMap fills only User constructors to given map.
+func (s UserClassArray) FillUserMap(to map[int]*User) {
 	for _, elem := range s {
 		value, ok := elem.(*User)
 		if !ok {
@@ -1246,14 +1352,27 @@ func (s UserClassSlice) FillUserMap(to map[int]*User) {
 }
 
 // UserToMap collects only User constructors to map.
-func (s UserClassSlice) UserToMap() map[int]*User {
+func (s UserClassArray) UserToMap() map[int]*User {
 	r := make(map[int]*User, len(s))
 	s.FillUserMap(r)
 	return r
 }
 
+// AsUser returns copy with only User constructors.
+func (s UserClassArray) AsUser() (to UserArray) {
+	for _, elem := range s {
+		value, ok := elem.(*User)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // FillNotEmptyMap fills only NotEmpty constructors to given map.
-func (s UserClassSlice) FillNotEmptyMap(to map[int]*User) {
+func (s UserClassArray) FillNotEmptyMap(to map[int]*User) {
 	for _, elem := range s {
 		value, ok := elem.AsNotEmpty()
 		if !ok {
@@ -1264,7 +1383,7 @@ func (s UserClassSlice) FillNotEmptyMap(to map[int]*User) {
 }
 
 // NotEmptyToMap collects only NotEmpty constructors to map.
-func (s UserClassSlice) NotEmptyToMap() map[int]*User {
+func (s UserClassArray) NotEmptyToMap() map[int]*User {
 	r := make(map[int]*User, len(s))
 	s.FillNotEmptyMap(r)
 	return r
@@ -1272,7 +1391,7 @@ func (s UserClassSlice) NotEmptyToMap() map[int]*User {
 
 // AppendOnlyNotEmpty appends only NotEmpty constructors to
 // given slice.
-func (s UserClassSlice) AppendOnlyNotEmpty(to []*User) []*User {
+func (s UserClassArray) AppendOnlyNotEmpty(to []*User) []*User {
 	for _, elem := range s {
 		value, ok := elem.AsNotEmpty()
 		if !ok {
@@ -1285,12 +1404,12 @@ func (s UserClassSlice) AppendOnlyNotEmpty(to []*User) []*User {
 }
 
 // AsNotEmpty returns copy with only NotEmpty constructors.
-func (s UserClassSlice) AsNotEmpty() (to []*User) {
+func (s UserClassArray) AsNotEmpty() (to []*User) {
 	return s.AppendOnlyNotEmpty(to)
 }
 
 // FirstAsNotEmpty returns first element of slice (if exists).
-func (s UserClassSlice) FirstAsNotEmpty() (v *User, ok bool) {
+func (s UserClassArray) FirstAsNotEmpty() (v *User, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -1299,7 +1418,7 @@ func (s UserClassSlice) FirstAsNotEmpty() (v *User, ok bool) {
 }
 
 // LastAsNotEmpty returns last element of slice (if exists).
-func (s UserClassSlice) LastAsNotEmpty() (v *User, ok bool) {
+func (s UserClassArray) LastAsNotEmpty() (v *User, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -1308,7 +1427,7 @@ func (s UserClassSlice) LastAsNotEmpty() (v *User, ok bool) {
 }
 
 // PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *UserClassSlice) PopFirstAsNotEmpty() (v *User, ok bool) {
+func (s *UserClassArray) PopFirstAsNotEmpty() (v *User, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -1317,7 +1436,7 @@ func (s *UserClassSlice) PopFirstAsNotEmpty() (v *User, ok bool) {
 }
 
 // PopAsNotEmpty returns element of slice (if exists).
-func (s *UserClassSlice) PopAsNotEmpty() (v *User, ok bool) {
+func (s *UserClassArray) PopAsNotEmpty() (v *User, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -1325,8 +1444,41 @@ func (s *UserClassSlice) PopAsNotEmpty() (v *User, ok bool) {
 	return value.AsNotEmpty()
 }
 
+// UserEmptyArray is adapter for slice of UserEmpty.
+type UserEmptyArray []UserEmpty
+
+// Sort sorts slice of UserEmpty.
+func (s UserEmptyArray) Sort(less func(a, b UserEmpty) bool) UserEmptyArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UserEmpty.
+func (s UserEmptyArray) SortStable(less func(a, b UserEmpty) bool) UserEmptyArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UserEmpty.
+func (s UserEmptyArray) Retain(keep func(x UserEmpty) bool) UserEmptyArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s UserClassSlice) First() (v UserClass, ok bool) {
+func (s UserEmptyArray) First() (v UserEmpty, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1334,7 +1486,7 @@ func (s UserClassSlice) First() (v UserClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s UserClassSlice) Last() (v UserClass, ok bool) {
+func (s UserEmptyArray) Last() (v UserEmpty, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1342,7 +1494,7 @@ func (s UserClassSlice) Last() (v UserClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UserClassSlice) PopFirst() (v UserClass, ok bool) {
+func (s *UserEmptyArray) PopFirst() (v UserEmpty, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1352,7 +1504,8 @@ func (s *UserClassSlice) PopFirst() (v UserClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero UserEmpty
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -1360,7 +1513,7 @@ func (s *UserClassSlice) PopFirst() (v UserClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *UserClassSlice) Pop() (v UserClass, ok bool) {
+func (s *UserEmptyArray) Pop() (v UserEmpty, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1371,4 +1524,142 @@ func (s *UserClassSlice) Pop() (v UserClass, ok bool) {
 	*s = a
 
 	return v, true
+}
+
+// SortByID sorts slice of UserEmpty by ID.
+func (s UserEmptyArray) SortByID() UserEmptyArray {
+	return s.Sort(func(a, b UserEmpty) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of UserEmpty by ID.
+func (s UserEmptyArray) SortStableByID() UserEmptyArray {
+	return s.SortStable(func(a, b UserEmpty) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s UserEmptyArray) FillMap(to map[int]UserEmpty) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s UserEmptyArray) ToMap() map[int]UserEmpty {
+	r := make(map[int]UserEmpty, len(s))
+	s.FillMap(r)
+	return r
+}
+
+// UserArray is adapter for slice of User.
+type UserArray []User
+
+// Sort sorts slice of User.
+func (s UserArray) Sort(less func(a, b User) bool) UserArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of User.
+func (s UserArray) SortStable(less func(a, b User) bool) UserArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of User.
+func (s UserArray) Retain(keep func(x User) bool) UserArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UserArray) First() (v User, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UserArray) Last() (v User, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UserArray) PopFirst() (v User, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero User
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UserArray) Pop() (v User, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of User by ID.
+func (s UserArray) SortByID() UserArray {
+	return s.Sort(func(a, b User) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of User by ID.
+func (s UserArray) SortStableByID() UserArray {
+	return s.SortStable(func(a, b User) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s UserArray) FillMap(to map[int]User) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s UserArray) ToMap() map[int]User {
+	r := make(map[int]User, len(s))
+	s.FillMap(r)
+	return r
 }

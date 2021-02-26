@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // HelpUserInfoEmpty represents TL type `help.userInfoEmpty#f3ae2eed`.
 // Internal use
@@ -192,9 +194,9 @@ func (u *HelpUserInfo) GetEntities() (value []MessageEntityClass) {
 	return u.Entities
 }
 
-// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
-func (u *HelpUserInfo) MapEntities() (value MessageEntityClassSlice) {
-	return MessageEntityClassSlice(u.Entities)
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (u *HelpUserInfo) MapEntities() (value MessageEntityClassArray) {
+	return MessageEntityClassArray(u.Entities)
 }
 
 // GetAuthor returns value of Author field.
@@ -358,12 +360,104 @@ func (b *HelpUserInfoBox) Encode(buf *bin.Buffer) error {
 	return b.UserInfo.Encode(buf)
 }
 
-// HelpUserInfoClassSlice is adapter for slice of HelpUserInfoClass.
-type HelpUserInfoClassSlice []HelpUserInfoClass
+// HelpUserInfoClassArray is adapter for slice of HelpUserInfoClass.
+type HelpUserInfoClassArray []HelpUserInfoClass
+
+// Sort sorts slice of HelpUserInfoClass.
+func (s HelpUserInfoClassArray) Sort(less func(a, b HelpUserInfoClass) bool) HelpUserInfoClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of HelpUserInfoClass.
+func (s HelpUserInfoClassArray) SortStable(less func(a, b HelpUserInfoClass) bool) HelpUserInfoClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of HelpUserInfoClass.
+func (s HelpUserInfoClassArray) Retain(keep func(x HelpUserInfoClass) bool) HelpUserInfoClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s HelpUserInfoClassArray) First() (v HelpUserInfoClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s HelpUserInfoClassArray) Last() (v HelpUserInfoClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *HelpUserInfoClassArray) PopFirst() (v HelpUserInfoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero HelpUserInfoClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *HelpUserInfoClassArray) Pop() (v HelpUserInfoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsHelpUserInfo returns copy with only HelpUserInfo constructors.
+func (s HelpUserInfoClassArray) AsHelpUserInfo() (to HelpUserInfoArray) {
+	for _, elem := range s {
+		value, ok := elem.(*HelpUserInfo)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
 
 // AppendOnlyNotEmpty appends only NotEmpty constructors to
 // given slice.
-func (s HelpUserInfoClassSlice) AppendOnlyNotEmpty(to []*HelpUserInfo) []*HelpUserInfo {
+func (s HelpUserInfoClassArray) AppendOnlyNotEmpty(to []*HelpUserInfo) []*HelpUserInfo {
 	for _, elem := range s {
 		value, ok := elem.AsNotEmpty()
 		if !ok {
@@ -376,12 +470,12 @@ func (s HelpUserInfoClassSlice) AppendOnlyNotEmpty(to []*HelpUserInfo) []*HelpUs
 }
 
 // AsNotEmpty returns copy with only NotEmpty constructors.
-func (s HelpUserInfoClassSlice) AsNotEmpty() (to []*HelpUserInfo) {
+func (s HelpUserInfoClassArray) AsNotEmpty() (to []*HelpUserInfo) {
 	return s.AppendOnlyNotEmpty(to)
 }
 
 // FirstAsNotEmpty returns first element of slice (if exists).
-func (s HelpUserInfoClassSlice) FirstAsNotEmpty() (v *HelpUserInfo, ok bool) {
+func (s HelpUserInfoClassArray) FirstAsNotEmpty() (v *HelpUserInfo, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -390,7 +484,7 @@ func (s HelpUserInfoClassSlice) FirstAsNotEmpty() (v *HelpUserInfo, ok bool) {
 }
 
 // LastAsNotEmpty returns last element of slice (if exists).
-func (s HelpUserInfoClassSlice) LastAsNotEmpty() (v *HelpUserInfo, ok bool) {
+func (s HelpUserInfoClassArray) LastAsNotEmpty() (v *HelpUserInfo, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -399,7 +493,7 @@ func (s HelpUserInfoClassSlice) LastAsNotEmpty() (v *HelpUserInfo, ok bool) {
 }
 
 // PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *HelpUserInfoClassSlice) PopFirstAsNotEmpty() (v *HelpUserInfo, ok bool) {
+func (s *HelpUserInfoClassArray) PopFirstAsNotEmpty() (v *HelpUserInfo, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -408,7 +502,7 @@ func (s *HelpUserInfoClassSlice) PopFirstAsNotEmpty() (v *HelpUserInfo, ok bool)
 }
 
 // PopAsNotEmpty returns element of slice (if exists).
-func (s *HelpUserInfoClassSlice) PopAsNotEmpty() (v *HelpUserInfo, ok bool) {
+func (s *HelpUserInfoClassArray) PopAsNotEmpty() (v *HelpUserInfo, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -416,8 +510,41 @@ func (s *HelpUserInfoClassSlice) PopAsNotEmpty() (v *HelpUserInfo, ok bool) {
 	return value.AsNotEmpty()
 }
 
+// HelpUserInfoArray is adapter for slice of HelpUserInfo.
+type HelpUserInfoArray []HelpUserInfo
+
+// Sort sorts slice of HelpUserInfo.
+func (s HelpUserInfoArray) Sort(less func(a, b HelpUserInfo) bool) HelpUserInfoArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of HelpUserInfo.
+func (s HelpUserInfoArray) SortStable(less func(a, b HelpUserInfo) bool) HelpUserInfoArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of HelpUserInfo.
+func (s HelpUserInfoArray) Retain(keep func(x HelpUserInfo) bool) HelpUserInfoArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s HelpUserInfoClassSlice) First() (v HelpUserInfoClass, ok bool) {
+func (s HelpUserInfoArray) First() (v HelpUserInfo, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -425,7 +552,7 @@ func (s HelpUserInfoClassSlice) First() (v HelpUserInfoClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s HelpUserInfoClassSlice) Last() (v HelpUserInfoClass, ok bool) {
+func (s HelpUserInfoArray) Last() (v HelpUserInfo, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -433,7 +560,7 @@ func (s HelpUserInfoClassSlice) Last() (v HelpUserInfoClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *HelpUserInfoClassSlice) PopFirst() (v HelpUserInfoClass, ok bool) {
+func (s *HelpUserInfoArray) PopFirst() (v HelpUserInfo, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -443,7 +570,8 @@ func (s *HelpUserInfoClassSlice) PopFirst() (v HelpUserInfoClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero HelpUserInfo
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -451,7 +579,7 @@ func (s *HelpUserInfoClassSlice) PopFirst() (v HelpUserInfoClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *HelpUserInfoClassSlice) Pop() (v HelpUserInfoClass, ok bool) {
+func (s *HelpUserInfoArray) Pop() (v HelpUserInfo, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -462,4 +590,18 @@ func (s *HelpUserInfoClassSlice) Pop() (v HelpUserInfoClass, ok bool) {
 	*s = a
 
 	return v, true
+}
+
+// SortByDate sorts slice of HelpUserInfo by Date.
+func (s HelpUserInfoArray) SortByDate() HelpUserInfoArray {
+	return s.Sort(func(a, b HelpUserInfo) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of HelpUserInfo by Date.
+func (s HelpUserInfoArray) SortStableByDate() HelpUserInfoArray {
+	return s.SortStable(func(a, b HelpUserInfo) bool {
+		return a.GetDate() < b.GetDate()
+	})
 }

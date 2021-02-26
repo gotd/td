@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // StatsMegagroupStats represents TL type `stats.megagroupStats#ef7ff916`.
 // Supergroup statistics¹
@@ -367,9 +369,9 @@ func (m *StatsMegagroupStats) GetUsers() (value []UserClass) {
 	return m.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (m *StatsMegagroupStats) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(m.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (m *StatsMegagroupStats) MapUsers() (value UserClassArray) {
+	return UserClassArray(m.Users)
 }
 
 // Decode implements bin.Decoder.

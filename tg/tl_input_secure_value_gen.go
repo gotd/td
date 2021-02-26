@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // InputSecureValue represents TL type `inputSecureValue#db21d0a7`.
 // Secure value, for more info see the passport docs »¹
@@ -365,12 +367,12 @@ func (i *InputSecureValue) GetTranslation() (value []InputSecureFileClass, ok bo
 	return i.Translation, true
 }
 
-// MapTranslation returns field Translation wrapped in InputSecureFileClassSlice helper.
-func (i *InputSecureValue) MapTranslation() (value InputSecureFileClassSlice, ok bool) {
+// MapTranslation returns field Translation wrapped in InputSecureFileClassArray helper.
+func (i *InputSecureValue) MapTranslation() (value InputSecureFileClassArray, ok bool) {
 	if !i.Flags.Has(6) {
 		return value, false
 	}
-	return InputSecureFileClassSlice(i.Translation), true
+	return InputSecureFileClassArray(i.Translation), true
 }
 
 // SetFiles sets value of Files conditional field.
@@ -388,12 +390,12 @@ func (i *InputSecureValue) GetFiles() (value []InputSecureFileClass, ok bool) {
 	return i.Files, true
 }
 
-// MapFiles returns field Files wrapped in InputSecureFileClassSlice helper.
-func (i *InputSecureValue) MapFiles() (value InputSecureFileClassSlice, ok bool) {
+// MapFiles returns field Files wrapped in InputSecureFileClassArray helper.
+func (i *InputSecureValue) MapFiles() (value InputSecureFileClassArray, ok bool) {
 	if !i.Flags.Has(4) {
 		return value, false
 	}
-	return InputSecureFileClassSlice(i.Files), true
+	return InputSecureFileClassArray(i.Files), true
 }
 
 // SetPlainData sets value of PlainData conditional field.

@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // BoolFalse represents TL type `boolFalse#bc799737`.
 // Constructor may be interpreted as a booleanfalse value.
@@ -238,11 +240,41 @@ func (b *BoolBox) Encode(buf *bin.Buffer) error {
 	return b.Bool.Encode(buf)
 }
 
-// BoolClassSlice is adapter for slice of BoolClass.
-type BoolClassSlice []BoolClass
+// BoolClassArray is adapter for slice of BoolClass.
+type BoolClassArray []BoolClass
+
+// Sort sorts slice of BoolClass.
+func (s BoolClassArray) Sort(less func(a, b BoolClass) bool) BoolClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of BoolClass.
+func (s BoolClassArray) SortStable(less func(a, b BoolClass) bool) BoolClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of BoolClass.
+func (s BoolClassArray) Retain(keep func(x BoolClass) bool) BoolClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s BoolClassSlice) First() (v BoolClass, ok bool) {
+func (s BoolClassArray) First() (v BoolClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -250,7 +282,7 @@ func (s BoolClassSlice) First() (v BoolClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s BoolClassSlice) Last() (v BoolClass, ok bool) {
+func (s BoolClassArray) Last() (v BoolClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -258,7 +290,7 @@ func (s BoolClassSlice) Last() (v BoolClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *BoolClassSlice) PopFirst() (v BoolClass, ok bool) {
+func (s *BoolClassArray) PopFirst() (v BoolClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -268,7 +300,8 @@ func (s *BoolClassSlice) PopFirst() (v BoolClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero BoolClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -276,7 +309,7 @@ func (s *BoolClassSlice) PopFirst() (v BoolClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *BoolClassSlice) Pop() (v BoolClass, ok bool) {
+func (s *BoolClassArray) Pop() (v BoolClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

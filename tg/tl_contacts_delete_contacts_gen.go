@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // ContactsDeleteContactsRequest represents TL type `contacts.deleteContacts#96a0e00`.
 // Deletes several contacts from the list.
@@ -91,9 +93,9 @@ func (d *ContactsDeleteContactsRequest) GetID() (value []InputUserClass) {
 	return d.ID
 }
 
-// MapID returns field ID wrapped in InputUserClassSlice helper.
-func (d *ContactsDeleteContactsRequest) MapID() (value InputUserClassSlice) {
-	return InputUserClassSlice(d.ID)
+// MapID returns field ID wrapped in InputUserClassArray helper.
+func (d *ContactsDeleteContactsRequest) MapID() (value InputUserClassArray) {
+	return InputUserClassArray(d.ID)
 }
 
 // Decode implements bin.Decoder.

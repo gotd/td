@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesGetSearchCountersRequest represents TL type `messages.getSearchCounters#732eef00`.
 // Get the number of results that would be found by a messages.search¹ call with the same parameters
@@ -112,9 +114,9 @@ func (g *MessagesGetSearchCountersRequest) GetFilters() (value []MessagesFilterC
 	return g.Filters
 }
 
-// MapFilters returns field Filters wrapped in MessagesFilterClassSlice helper.
-func (g *MessagesGetSearchCountersRequest) MapFilters() (value MessagesFilterClassSlice) {
-	return MessagesFilterClassSlice(g.Filters)
+// MapFilters returns field Filters wrapped in MessagesFilterClassArray helper.
+func (g *MessagesGetSearchCountersRequest) MapFilters() (value MessagesFilterClassArray) {
+	return MessagesFilterClassArray(g.Filters)
 }
 
 // Decode implements bin.Decoder.
@@ -167,5 +169,5 @@ func (c *Client) MessagesGetSearchCounters(ctx context.Context, request *Message
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return result.Elems, nil
+	return []MessagesSearchCounter(result.Elems), nil
 }

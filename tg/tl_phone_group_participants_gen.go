@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // PhoneGroupParticipants represents TL type `phone.groupParticipants#9cfeb92d`.
 //
@@ -142,9 +144,9 @@ func (g *PhoneGroupParticipants) GetUsers() (value []UserClass) {
 	return g.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (g *PhoneGroupParticipants) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(g.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (g *PhoneGroupParticipants) MapUsers() (value UserClassArray) {
+	return UserClassArray(g.Users)
 }
 
 // GetVersion returns value of Version field.

@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // ChatParticipantsForbidden represents TL type `chatParticipantsForbidden#fc900c2b`.
 // Info on members is unavailable
@@ -267,9 +269,9 @@ func (c *ChatParticipants) GetParticipants() (value []ChatParticipantClass) {
 	return c.Participants
 }
 
-// MapParticipants returns field Participants wrapped in ChatParticipantClassSlice helper.
-func (c *ChatParticipants) MapParticipants() (value ChatParticipantClassSlice) {
-	return ChatParticipantClassSlice(c.Participants)
+// MapParticipants returns field Participants wrapped in ChatParticipantClassArray helper.
+func (c *ChatParticipants) MapParticipants() (value ChatParticipantClassArray) {
+	return ChatParticipantClassArray(c.Participants)
 }
 
 // GetVersion returns value of Version field.
@@ -423,12 +425,117 @@ func (b *ChatParticipantsBox) Encode(buf *bin.Buffer) error {
 	return b.ChatParticipants.Encode(buf)
 }
 
-// ChatParticipantsClassSlice is adapter for slice of ChatParticipantsClass.
-type ChatParticipantsClassSlice []ChatParticipantsClass
+// ChatParticipantsClassArray is adapter for slice of ChatParticipantsClass.
+type ChatParticipantsClassArray []ChatParticipantsClass
+
+// Sort sorts slice of ChatParticipantsClass.
+func (s ChatParticipantsClassArray) Sort(less func(a, b ChatParticipantsClass) bool) ChatParticipantsClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ChatParticipantsClass.
+func (s ChatParticipantsClassArray) SortStable(less func(a, b ChatParticipantsClass) bool) ChatParticipantsClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ChatParticipantsClass.
+func (s ChatParticipantsClassArray) Retain(keep func(x ChatParticipantsClass) bool) ChatParticipantsClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s ChatParticipantsClassArray) First() (v ChatParticipantsClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChatParticipantsClassArray) Last() (v ChatParticipantsClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChatParticipantsClassArray) PopFirst() (v ChatParticipantsClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero ChatParticipantsClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChatParticipantsClassArray) Pop() (v ChatParticipantsClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsChatParticipantsForbidden returns copy with only ChatParticipantsForbidden constructors.
+func (s ChatParticipantsClassArray) AsChatParticipantsForbidden() (to ChatParticipantsForbiddenArray) {
+	for _, elem := range s {
+		value, ok := elem.(*ChatParticipantsForbidden)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsChatParticipants returns copy with only ChatParticipants constructors.
+func (s ChatParticipantsClassArray) AsChatParticipants() (to ChatParticipantsArray) {
+	for _, elem := range s {
+		value, ok := elem.(*ChatParticipants)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
 
 // AppendOnlyNotForbidden appends only NotForbidden constructors to
 // given slice.
-func (s ChatParticipantsClassSlice) AppendOnlyNotForbidden(to []*ChatParticipants) []*ChatParticipants {
+func (s ChatParticipantsClassArray) AppendOnlyNotForbidden(to []*ChatParticipants) []*ChatParticipants {
 	for _, elem := range s {
 		value, ok := elem.AsNotForbidden()
 		if !ok {
@@ -441,12 +548,12 @@ func (s ChatParticipantsClassSlice) AppendOnlyNotForbidden(to []*ChatParticipant
 }
 
 // AsNotForbidden returns copy with only NotForbidden constructors.
-func (s ChatParticipantsClassSlice) AsNotForbidden() (to []*ChatParticipants) {
+func (s ChatParticipantsClassArray) AsNotForbidden() (to []*ChatParticipants) {
 	return s.AppendOnlyNotForbidden(to)
 }
 
 // FirstAsNotForbidden returns first element of slice (if exists).
-func (s ChatParticipantsClassSlice) FirstAsNotForbidden() (v *ChatParticipants, ok bool) {
+func (s ChatParticipantsClassArray) FirstAsNotForbidden() (v *ChatParticipants, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -455,7 +562,7 @@ func (s ChatParticipantsClassSlice) FirstAsNotForbidden() (v *ChatParticipants, 
 }
 
 // LastAsNotForbidden returns last element of slice (if exists).
-func (s ChatParticipantsClassSlice) LastAsNotForbidden() (v *ChatParticipants, ok bool) {
+func (s ChatParticipantsClassArray) LastAsNotForbidden() (v *ChatParticipants, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -464,7 +571,7 @@ func (s ChatParticipantsClassSlice) LastAsNotForbidden() (v *ChatParticipants, o
 }
 
 // PopFirstAsNotForbidden returns element of slice (if exists).
-func (s *ChatParticipantsClassSlice) PopFirstAsNotForbidden() (v *ChatParticipants, ok bool) {
+func (s *ChatParticipantsClassArray) PopFirstAsNotForbidden() (v *ChatParticipants, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -473,7 +580,7 @@ func (s *ChatParticipantsClassSlice) PopFirstAsNotForbidden() (v *ChatParticipan
 }
 
 // PopAsNotForbidden returns element of slice (if exists).
-func (s *ChatParticipantsClassSlice) PopAsNotForbidden() (v *ChatParticipants, ok bool) {
+func (s *ChatParticipantsClassArray) PopAsNotForbidden() (v *ChatParticipants, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -481,8 +588,41 @@ func (s *ChatParticipantsClassSlice) PopAsNotForbidden() (v *ChatParticipants, o
 	return value.AsNotForbidden()
 }
 
+// ChatParticipantsForbiddenArray is adapter for slice of ChatParticipantsForbidden.
+type ChatParticipantsForbiddenArray []ChatParticipantsForbidden
+
+// Sort sorts slice of ChatParticipantsForbidden.
+func (s ChatParticipantsForbiddenArray) Sort(less func(a, b ChatParticipantsForbidden) bool) ChatParticipantsForbiddenArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ChatParticipantsForbidden.
+func (s ChatParticipantsForbiddenArray) SortStable(less func(a, b ChatParticipantsForbidden) bool) ChatParticipantsForbiddenArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ChatParticipantsForbidden.
+func (s ChatParticipantsForbiddenArray) Retain(keep func(x ChatParticipantsForbidden) bool) ChatParticipantsForbiddenArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s ChatParticipantsClassSlice) First() (v ChatParticipantsClass, ok bool) {
+func (s ChatParticipantsForbiddenArray) First() (v ChatParticipantsForbidden, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -490,7 +630,7 @@ func (s ChatParticipantsClassSlice) First() (v ChatParticipantsClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s ChatParticipantsClassSlice) Last() (v ChatParticipantsClass, ok bool) {
+func (s ChatParticipantsForbiddenArray) Last() (v ChatParticipantsForbidden, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -498,7 +638,7 @@ func (s ChatParticipantsClassSlice) Last() (v ChatParticipantsClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChatParticipantsClassSlice) PopFirst() (v ChatParticipantsClass, ok bool) {
+func (s *ChatParticipantsForbiddenArray) PopFirst() (v ChatParticipantsForbidden, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -508,7 +648,8 @@ func (s *ChatParticipantsClassSlice) PopFirst() (v ChatParticipantsClass, ok boo
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero ChatParticipantsForbidden
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -516,7 +657,89 @@ func (s *ChatParticipantsClassSlice) PopFirst() (v ChatParticipantsClass, ok boo
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *ChatParticipantsClassSlice) Pop() (v ChatParticipantsClass, ok bool) {
+func (s *ChatParticipantsForbiddenArray) Pop() (v ChatParticipantsForbidden, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// ChatParticipantsArray is adapter for slice of ChatParticipants.
+type ChatParticipantsArray []ChatParticipants
+
+// Sort sorts slice of ChatParticipants.
+func (s ChatParticipantsArray) Sort(less func(a, b ChatParticipants) bool) ChatParticipantsArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ChatParticipants.
+func (s ChatParticipantsArray) SortStable(less func(a, b ChatParticipants) bool) ChatParticipantsArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ChatParticipants.
+func (s ChatParticipantsArray) Retain(keep func(x ChatParticipants) bool) ChatParticipantsArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s ChatParticipantsArray) First() (v ChatParticipants, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChatParticipantsArray) Last() (v ChatParticipants, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChatParticipantsArray) PopFirst() (v ChatParticipants, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero ChatParticipants
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChatParticipantsArray) Pop() (v ChatParticipants, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

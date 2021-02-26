@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // AccountAuthorizationForm represents TL type `account.authorizationForm#ad2e1cd8`.
 // Telegram Passport¹ authorization form
@@ -177,9 +179,9 @@ func (a *AccountAuthorizationForm) GetRequiredTypes() (value []SecureRequiredTyp
 	return a.RequiredTypes
 }
 
-// MapRequiredTypes returns field RequiredTypes wrapped in SecureRequiredTypeClassSlice helper.
-func (a *AccountAuthorizationForm) MapRequiredTypes() (value SecureRequiredTypeClassSlice) {
-	return SecureRequiredTypeClassSlice(a.RequiredTypes)
+// MapRequiredTypes returns field RequiredTypes wrapped in SecureRequiredTypeClassArray helper.
+func (a *AccountAuthorizationForm) MapRequiredTypes() (value SecureRequiredTypeClassArray) {
+	return SecureRequiredTypeClassArray(a.RequiredTypes)
 }
 
 // GetValues returns value of Values field.
@@ -192,9 +194,9 @@ func (a *AccountAuthorizationForm) GetErrors() (value []SecureValueErrorClass) {
 	return a.Errors
 }
 
-// MapErrors returns field Errors wrapped in SecureValueErrorClassSlice helper.
-func (a *AccountAuthorizationForm) MapErrors() (value SecureValueErrorClassSlice) {
-	return SecureValueErrorClassSlice(a.Errors)
+// MapErrors returns field Errors wrapped in SecureValueErrorClassArray helper.
+func (a *AccountAuthorizationForm) MapErrors() (value SecureValueErrorClassArray) {
+	return SecureValueErrorClassArray(a.Errors)
 }
 
 // GetUsers returns value of Users field.
@@ -202,9 +204,9 @@ func (a *AccountAuthorizationForm) GetUsers() (value []UserClass) {
 	return a.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (a *AccountAuthorizationForm) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(a.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (a *AccountAuthorizationForm) MapUsers() (value UserClassArray) {
+	return UserClassArray(a.Users)
 }
 
 // SetPrivacyPolicyURL sets value of PrivacyPolicyURL conditional field.

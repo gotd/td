@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // Page represents TL type `page#98657f0d`.
 // Instant view¹ page
@@ -252,9 +254,9 @@ func (p *Page) GetBlocks() (value []PageBlockClass) {
 	return p.Blocks
 }
 
-// MapBlocks returns field Blocks wrapped in PageBlockClassSlice helper.
-func (p *Page) MapBlocks() (value PageBlockClassSlice) {
-	return PageBlockClassSlice(p.Blocks)
+// MapBlocks returns field Blocks wrapped in PageBlockClassArray helper.
+func (p *Page) MapBlocks() (value PageBlockClassArray) {
+	return PageBlockClassArray(p.Blocks)
 }
 
 // GetPhotos returns value of Photos field.
@@ -262,9 +264,9 @@ func (p *Page) GetPhotos() (value []PhotoClass) {
 	return p.Photos
 }
 
-// MapPhotos returns field Photos wrapped in PhotoClassSlice helper.
-func (p *Page) MapPhotos() (value PhotoClassSlice) {
-	return PhotoClassSlice(p.Photos)
+// MapPhotos returns field Photos wrapped in PhotoClassArray helper.
+func (p *Page) MapPhotos() (value PhotoClassArray) {
+	return PhotoClassArray(p.Photos)
 }
 
 // GetDocuments returns value of Documents field.
@@ -272,9 +274,9 @@ func (p *Page) GetDocuments() (value []DocumentClass) {
 	return p.Documents
 }
 
-// MapDocuments returns field Documents wrapped in DocumentClassSlice helper.
-func (p *Page) MapDocuments() (value DocumentClassSlice) {
-	return DocumentClassSlice(p.Documents)
+// MapDocuments returns field Documents wrapped in DocumentClassArray helper.
+func (p *Page) MapDocuments() (value DocumentClassArray) {
+	return DocumentClassArray(p.Documents)
 }
 
 // SetViews sets value of Views conditional field.

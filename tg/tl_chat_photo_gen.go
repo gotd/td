@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // ChatPhotoEmpty represents TL type `chatPhotoEmpty#37c1011c`.
 // Group photo is not set.
@@ -359,12 +361,104 @@ func (b *ChatPhotoBox) Encode(buf *bin.Buffer) error {
 	return b.ChatPhoto.Encode(buf)
 }
 
-// ChatPhotoClassSlice is adapter for slice of ChatPhotoClass.
-type ChatPhotoClassSlice []ChatPhotoClass
+// ChatPhotoClassArray is adapter for slice of ChatPhotoClass.
+type ChatPhotoClassArray []ChatPhotoClass
+
+// Sort sorts slice of ChatPhotoClass.
+func (s ChatPhotoClassArray) Sort(less func(a, b ChatPhotoClass) bool) ChatPhotoClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ChatPhotoClass.
+func (s ChatPhotoClassArray) SortStable(less func(a, b ChatPhotoClass) bool) ChatPhotoClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ChatPhotoClass.
+func (s ChatPhotoClassArray) Retain(keep func(x ChatPhotoClass) bool) ChatPhotoClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s ChatPhotoClassArray) First() (v ChatPhotoClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChatPhotoClassArray) Last() (v ChatPhotoClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChatPhotoClassArray) PopFirst() (v ChatPhotoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero ChatPhotoClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChatPhotoClassArray) Pop() (v ChatPhotoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsChatPhoto returns copy with only ChatPhoto constructors.
+func (s ChatPhotoClassArray) AsChatPhoto() (to ChatPhotoArray) {
+	for _, elem := range s {
+		value, ok := elem.(*ChatPhoto)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
 
 // AppendOnlyNotEmpty appends only NotEmpty constructors to
 // given slice.
-func (s ChatPhotoClassSlice) AppendOnlyNotEmpty(to []*ChatPhoto) []*ChatPhoto {
+func (s ChatPhotoClassArray) AppendOnlyNotEmpty(to []*ChatPhoto) []*ChatPhoto {
 	for _, elem := range s {
 		value, ok := elem.AsNotEmpty()
 		if !ok {
@@ -377,12 +471,12 @@ func (s ChatPhotoClassSlice) AppendOnlyNotEmpty(to []*ChatPhoto) []*ChatPhoto {
 }
 
 // AsNotEmpty returns copy with only NotEmpty constructors.
-func (s ChatPhotoClassSlice) AsNotEmpty() (to []*ChatPhoto) {
+func (s ChatPhotoClassArray) AsNotEmpty() (to []*ChatPhoto) {
 	return s.AppendOnlyNotEmpty(to)
 }
 
 // FirstAsNotEmpty returns first element of slice (if exists).
-func (s ChatPhotoClassSlice) FirstAsNotEmpty() (v *ChatPhoto, ok bool) {
+func (s ChatPhotoClassArray) FirstAsNotEmpty() (v *ChatPhoto, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -391,7 +485,7 @@ func (s ChatPhotoClassSlice) FirstAsNotEmpty() (v *ChatPhoto, ok bool) {
 }
 
 // LastAsNotEmpty returns last element of slice (if exists).
-func (s ChatPhotoClassSlice) LastAsNotEmpty() (v *ChatPhoto, ok bool) {
+func (s ChatPhotoClassArray) LastAsNotEmpty() (v *ChatPhoto, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -400,7 +494,7 @@ func (s ChatPhotoClassSlice) LastAsNotEmpty() (v *ChatPhoto, ok bool) {
 }
 
 // PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *ChatPhotoClassSlice) PopFirstAsNotEmpty() (v *ChatPhoto, ok bool) {
+func (s *ChatPhotoClassArray) PopFirstAsNotEmpty() (v *ChatPhoto, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -409,7 +503,7 @@ func (s *ChatPhotoClassSlice) PopFirstAsNotEmpty() (v *ChatPhoto, ok bool) {
 }
 
 // PopAsNotEmpty returns element of slice (if exists).
-func (s *ChatPhotoClassSlice) PopAsNotEmpty() (v *ChatPhoto, ok bool) {
+func (s *ChatPhotoClassArray) PopAsNotEmpty() (v *ChatPhoto, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -417,8 +511,41 @@ func (s *ChatPhotoClassSlice) PopAsNotEmpty() (v *ChatPhoto, ok bool) {
 	return value.AsNotEmpty()
 }
 
+// ChatPhotoArray is adapter for slice of ChatPhoto.
+type ChatPhotoArray []ChatPhoto
+
+// Sort sorts slice of ChatPhoto.
+func (s ChatPhotoArray) Sort(less func(a, b ChatPhoto) bool) ChatPhotoArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ChatPhoto.
+func (s ChatPhotoArray) SortStable(less func(a, b ChatPhoto) bool) ChatPhotoArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ChatPhoto.
+func (s ChatPhotoArray) Retain(keep func(x ChatPhoto) bool) ChatPhotoArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s ChatPhotoClassSlice) First() (v ChatPhotoClass, ok bool) {
+func (s ChatPhotoArray) First() (v ChatPhoto, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -426,7 +553,7 @@ func (s ChatPhotoClassSlice) First() (v ChatPhotoClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s ChatPhotoClassSlice) Last() (v ChatPhotoClass, ok bool) {
+func (s ChatPhotoArray) Last() (v ChatPhoto, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -434,7 +561,7 @@ func (s ChatPhotoClassSlice) Last() (v ChatPhotoClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChatPhotoClassSlice) PopFirst() (v ChatPhotoClass, ok bool) {
+func (s *ChatPhotoArray) PopFirst() (v ChatPhoto, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -444,7 +571,8 @@ func (s *ChatPhotoClassSlice) PopFirst() (v ChatPhotoClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero ChatPhoto
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -452,7 +580,7 @@ func (s *ChatPhotoClassSlice) PopFirst() (v ChatPhotoClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *ChatPhotoClassSlice) Pop() (v ChatPhotoClass, ok bool) {
+func (s *ChatPhotoArray) Pop() (v ChatPhoto, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

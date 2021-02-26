@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesToggleStickerSetsRequest represents TL type `messages.toggleStickerSets#b5052fea`.
 // Apply changes to multiple stickersets
@@ -180,9 +182,9 @@ func (t *MessagesToggleStickerSetsRequest) GetStickersets() (value []InputSticke
 	return t.Stickersets
 }
 
-// MapStickersets returns field Stickersets wrapped in InputStickerSetClassSlice helper.
-func (t *MessagesToggleStickerSetsRequest) MapStickersets() (value InputStickerSetClassSlice) {
-	return InputStickerSetClassSlice(t.Stickersets)
+// MapStickersets returns field Stickersets wrapped in InputStickerSetClassArray helper.
+func (t *MessagesToggleStickerSetsRequest) MapStickersets() (value InputStickerSetClassArray) {
+	return InputStickerSetClassArray(t.Stickersets)
 }
 
 // Decode implements bin.Decoder.

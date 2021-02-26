@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesArchivedStickers represents TL type `messages.archivedStickers#4fcba9c8`.
 // Archived stickersets
@@ -104,9 +106,9 @@ func (a *MessagesArchivedStickers) GetSets() (value []StickerSetCoveredClass) {
 	return a.Sets
 }
 
-// MapSets returns field Sets wrapped in StickerSetCoveredClassSlice helper.
-func (a *MessagesArchivedStickers) MapSets() (value StickerSetCoveredClassSlice) {
-	return StickerSetCoveredClassSlice(a.Sets)
+// MapSets returns field Sets wrapped in StickerSetCoveredClassArray helper.
+func (a *MessagesArchivedStickers) MapSets() (value StickerSetCoveredClassArray) {
+	return StickerSetCoveredClassArray(a.Sets)
 }
 
 // Decode implements bin.Decoder.

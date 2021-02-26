@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // AccountWebAuthorizations represents TL type `account.webAuthorizations#ed56c9fc`.
 // Web authorizations
@@ -109,9 +111,9 @@ func (w *AccountWebAuthorizations) GetUsers() (value []UserClass) {
 	return w.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (w *AccountWebAuthorizations) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(w.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (w *AccountWebAuthorizations) MapUsers() (value UserClassArray) {
+	return UserClassArray(w.Users)
 }
 
 // Decode implements bin.Decoder.

@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // AuthCodeTypeSms represents TL type `auth.codeTypeSms#72a3158c`.
 // Type of verification code that will be sent next if you call the resendCode method: SMS code
@@ -315,11 +317,41 @@ func (b *AuthCodeTypeBox) Encode(buf *bin.Buffer) error {
 	return b.CodeType.Encode(buf)
 }
 
-// AuthCodeTypeClassSlice is adapter for slice of AuthCodeTypeClass.
-type AuthCodeTypeClassSlice []AuthCodeTypeClass
+// AuthCodeTypeClassArray is adapter for slice of AuthCodeTypeClass.
+type AuthCodeTypeClassArray []AuthCodeTypeClass
+
+// Sort sorts slice of AuthCodeTypeClass.
+func (s AuthCodeTypeClassArray) Sort(less func(a, b AuthCodeTypeClass) bool) AuthCodeTypeClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of AuthCodeTypeClass.
+func (s AuthCodeTypeClassArray) SortStable(less func(a, b AuthCodeTypeClass) bool) AuthCodeTypeClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of AuthCodeTypeClass.
+func (s AuthCodeTypeClassArray) Retain(keep func(x AuthCodeTypeClass) bool) AuthCodeTypeClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s AuthCodeTypeClassSlice) First() (v AuthCodeTypeClass, ok bool) {
+func (s AuthCodeTypeClassArray) First() (v AuthCodeTypeClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -327,7 +359,7 @@ func (s AuthCodeTypeClassSlice) First() (v AuthCodeTypeClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s AuthCodeTypeClassSlice) Last() (v AuthCodeTypeClass, ok bool) {
+func (s AuthCodeTypeClassArray) Last() (v AuthCodeTypeClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -335,7 +367,7 @@ func (s AuthCodeTypeClassSlice) Last() (v AuthCodeTypeClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *AuthCodeTypeClassSlice) PopFirst() (v AuthCodeTypeClass, ok bool) {
+func (s *AuthCodeTypeClassArray) PopFirst() (v AuthCodeTypeClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -345,7 +377,8 @@ func (s *AuthCodeTypeClassSlice) PopFirst() (v AuthCodeTypeClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero AuthCodeTypeClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -353,7 +386,7 @@ func (s *AuthCodeTypeClassSlice) PopFirst() (v AuthCodeTypeClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *AuthCodeTypeClassSlice) Pop() (v AuthCodeTypeClass, ok bool) {
+func (s *AuthCodeTypeClassArray) Pop() (v AuthCodeTypeClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // LangpackGetStringsRequest represents TL type `langpack.getStrings#efea3803`.
 // Get strings from a language pack
@@ -169,5 +171,5 @@ func (c *Client) LangpackGetStrings(ctx context.Context, request *LangpackGetStr
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return result.Elems, nil
+	return []LangPackStringClass(result.Elems), nil
 }

@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // ServerDHParamsFail represents TL type `server_DH_params_fail#79cb045d`.
 type ServerDHParamsFail struct {
@@ -365,11 +367,41 @@ func (b *ServerDHParamsBox) Encode(buf *bin.Buffer) error {
 	return b.Server_DH_Params.Encode(buf)
 }
 
-// ServerDHParamsClassSlice is adapter for slice of ServerDHParamsClass.
-type ServerDHParamsClassSlice []ServerDHParamsClass
+// ServerDHParamsClassArray is adapter for slice of ServerDHParamsClass.
+type ServerDHParamsClassArray []ServerDHParamsClass
+
+// Sort sorts slice of ServerDHParamsClass.
+func (s ServerDHParamsClassArray) Sort(less func(a, b ServerDHParamsClass) bool) ServerDHParamsClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ServerDHParamsClass.
+func (s ServerDHParamsClassArray) SortStable(less func(a, b ServerDHParamsClass) bool) ServerDHParamsClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ServerDHParamsClass.
+func (s ServerDHParamsClassArray) Retain(keep func(x ServerDHParamsClass) bool) ServerDHParamsClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s ServerDHParamsClassSlice) First() (v ServerDHParamsClass, ok bool) {
+func (s ServerDHParamsClassArray) First() (v ServerDHParamsClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -377,7 +409,7 @@ func (s ServerDHParamsClassSlice) First() (v ServerDHParamsClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s ServerDHParamsClassSlice) Last() (v ServerDHParamsClass, ok bool) {
+func (s ServerDHParamsClassArray) Last() (v ServerDHParamsClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -385,7 +417,7 @@ func (s ServerDHParamsClassSlice) Last() (v ServerDHParamsClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ServerDHParamsClassSlice) PopFirst() (v ServerDHParamsClass, ok bool) {
+func (s *ServerDHParamsClassArray) PopFirst() (v ServerDHParamsClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -395,7 +427,8 @@ func (s *ServerDHParamsClassSlice) PopFirst() (v ServerDHParamsClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero ServerDHParamsClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -403,7 +436,197 @@ func (s *ServerDHParamsClassSlice) PopFirst() (v ServerDHParamsClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *ServerDHParamsClassSlice) Pop() (v ServerDHParamsClass, ok bool) {
+func (s *ServerDHParamsClassArray) Pop() (v ServerDHParamsClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsServerDHParamsFail returns copy with only ServerDHParamsFail constructors.
+func (s ServerDHParamsClassArray) AsServerDHParamsFail() (to ServerDHParamsFailArray) {
+	for _, elem := range s {
+		value, ok := elem.(*ServerDHParamsFail)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsServerDHParamsOk returns copy with only ServerDHParamsOk constructors.
+func (s ServerDHParamsClassArray) AsServerDHParamsOk() (to ServerDHParamsOkArray) {
+	for _, elem := range s {
+		value, ok := elem.(*ServerDHParamsOk)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// ServerDHParamsFailArray is adapter for slice of ServerDHParamsFail.
+type ServerDHParamsFailArray []ServerDHParamsFail
+
+// Sort sorts slice of ServerDHParamsFail.
+func (s ServerDHParamsFailArray) Sort(less func(a, b ServerDHParamsFail) bool) ServerDHParamsFailArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ServerDHParamsFail.
+func (s ServerDHParamsFailArray) SortStable(less func(a, b ServerDHParamsFail) bool) ServerDHParamsFailArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ServerDHParamsFail.
+func (s ServerDHParamsFailArray) Retain(keep func(x ServerDHParamsFail) bool) ServerDHParamsFailArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s ServerDHParamsFailArray) First() (v ServerDHParamsFail, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ServerDHParamsFailArray) Last() (v ServerDHParamsFail, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ServerDHParamsFailArray) PopFirst() (v ServerDHParamsFail, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero ServerDHParamsFail
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ServerDHParamsFailArray) Pop() (v ServerDHParamsFail, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// ServerDHParamsOkArray is adapter for slice of ServerDHParamsOk.
+type ServerDHParamsOkArray []ServerDHParamsOk
+
+// Sort sorts slice of ServerDHParamsOk.
+func (s ServerDHParamsOkArray) Sort(less func(a, b ServerDHParamsOk) bool) ServerDHParamsOkArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ServerDHParamsOk.
+func (s ServerDHParamsOkArray) SortStable(less func(a, b ServerDHParamsOk) bool) ServerDHParamsOkArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ServerDHParamsOk.
+func (s ServerDHParamsOkArray) Retain(keep func(x ServerDHParamsOk) bool) ServerDHParamsOkArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s ServerDHParamsOkArray) First() (v ServerDHParamsOk, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ServerDHParamsOkArray) Last() (v ServerDHParamsOk, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ServerDHParamsOkArray) PopFirst() (v ServerDHParamsOk, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero ServerDHParamsOk
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ServerDHParamsOkArray) Pop() (v ServerDHParamsOk, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

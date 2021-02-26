@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesReorderPinnedDialogsRequest represents TL type `messages.reorderPinnedDialogs#3b1adf37`.
 // Reorder pinned dialogs
@@ -144,9 +146,9 @@ func (r *MessagesReorderPinnedDialogsRequest) GetOrder() (value []InputDialogPee
 	return r.Order
 }
 
-// MapOrder returns field Order wrapped in InputDialogPeerClassSlice helper.
-func (r *MessagesReorderPinnedDialogsRequest) MapOrder() (value InputDialogPeerClassSlice) {
-	return InputDialogPeerClassSlice(r.Order)
+// MapOrder returns field Order wrapped in InputDialogPeerClassArray helper.
+func (r *MessagesReorderPinnedDialogsRequest) MapOrder() (value InputDialogPeerClassArray) {
+	return InputDialogPeerClassArray(r.Order)
 }
 
 // Decode implements bin.Decoder.

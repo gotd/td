@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // HelpPassportConfigNotModified represents TL type `help.passportConfigNotModified#bfb9f457`.
 // Password configuration not modified
@@ -302,12 +304,104 @@ func (b *HelpPassportConfigBox) Encode(buf *bin.Buffer) error {
 	return b.PassportConfig.Encode(buf)
 }
 
-// HelpPassportConfigClassSlice is adapter for slice of HelpPassportConfigClass.
-type HelpPassportConfigClassSlice []HelpPassportConfigClass
+// HelpPassportConfigClassArray is adapter for slice of HelpPassportConfigClass.
+type HelpPassportConfigClassArray []HelpPassportConfigClass
+
+// Sort sorts slice of HelpPassportConfigClass.
+func (s HelpPassportConfigClassArray) Sort(less func(a, b HelpPassportConfigClass) bool) HelpPassportConfigClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of HelpPassportConfigClass.
+func (s HelpPassportConfigClassArray) SortStable(less func(a, b HelpPassportConfigClass) bool) HelpPassportConfigClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of HelpPassportConfigClass.
+func (s HelpPassportConfigClassArray) Retain(keep func(x HelpPassportConfigClass) bool) HelpPassportConfigClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s HelpPassportConfigClassArray) First() (v HelpPassportConfigClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s HelpPassportConfigClassArray) Last() (v HelpPassportConfigClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *HelpPassportConfigClassArray) PopFirst() (v HelpPassportConfigClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero HelpPassportConfigClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *HelpPassportConfigClassArray) Pop() (v HelpPassportConfigClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsHelpPassportConfig returns copy with only HelpPassportConfig constructors.
+func (s HelpPassportConfigClassArray) AsHelpPassportConfig() (to HelpPassportConfigArray) {
+	for _, elem := range s {
+		value, ok := elem.(*HelpPassportConfig)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
 
 // AppendOnlyModified appends only Modified constructors to
 // given slice.
-func (s HelpPassportConfigClassSlice) AppendOnlyModified(to []*HelpPassportConfig) []*HelpPassportConfig {
+func (s HelpPassportConfigClassArray) AppendOnlyModified(to []*HelpPassportConfig) []*HelpPassportConfig {
 	for _, elem := range s {
 		value, ok := elem.AsModified()
 		if !ok {
@@ -320,12 +414,12 @@ func (s HelpPassportConfigClassSlice) AppendOnlyModified(to []*HelpPassportConfi
 }
 
 // AsModified returns copy with only Modified constructors.
-func (s HelpPassportConfigClassSlice) AsModified() (to []*HelpPassportConfig) {
+func (s HelpPassportConfigClassArray) AsModified() (to []*HelpPassportConfig) {
 	return s.AppendOnlyModified(to)
 }
 
 // FirstAsModified returns first element of slice (if exists).
-func (s HelpPassportConfigClassSlice) FirstAsModified() (v *HelpPassportConfig, ok bool) {
+func (s HelpPassportConfigClassArray) FirstAsModified() (v *HelpPassportConfig, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -334,7 +428,7 @@ func (s HelpPassportConfigClassSlice) FirstAsModified() (v *HelpPassportConfig, 
 }
 
 // LastAsModified returns last element of slice (if exists).
-func (s HelpPassportConfigClassSlice) LastAsModified() (v *HelpPassportConfig, ok bool) {
+func (s HelpPassportConfigClassArray) LastAsModified() (v *HelpPassportConfig, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -343,7 +437,7 @@ func (s HelpPassportConfigClassSlice) LastAsModified() (v *HelpPassportConfig, o
 }
 
 // PopFirstAsModified returns element of slice (if exists).
-func (s *HelpPassportConfigClassSlice) PopFirstAsModified() (v *HelpPassportConfig, ok bool) {
+func (s *HelpPassportConfigClassArray) PopFirstAsModified() (v *HelpPassportConfig, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -352,7 +446,7 @@ func (s *HelpPassportConfigClassSlice) PopFirstAsModified() (v *HelpPassportConf
 }
 
 // PopAsModified returns element of slice (if exists).
-func (s *HelpPassportConfigClassSlice) PopAsModified() (v *HelpPassportConfig, ok bool) {
+func (s *HelpPassportConfigClassArray) PopAsModified() (v *HelpPassportConfig, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -360,8 +454,41 @@ func (s *HelpPassportConfigClassSlice) PopAsModified() (v *HelpPassportConfig, o
 	return value.AsModified()
 }
 
+// HelpPassportConfigArray is adapter for slice of HelpPassportConfig.
+type HelpPassportConfigArray []HelpPassportConfig
+
+// Sort sorts slice of HelpPassportConfig.
+func (s HelpPassportConfigArray) Sort(less func(a, b HelpPassportConfig) bool) HelpPassportConfigArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of HelpPassportConfig.
+func (s HelpPassportConfigArray) SortStable(less func(a, b HelpPassportConfig) bool) HelpPassportConfigArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of HelpPassportConfig.
+func (s HelpPassportConfigArray) Retain(keep func(x HelpPassportConfig) bool) HelpPassportConfigArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s HelpPassportConfigClassSlice) First() (v HelpPassportConfigClass, ok bool) {
+func (s HelpPassportConfigArray) First() (v HelpPassportConfig, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -369,7 +496,7 @@ func (s HelpPassportConfigClassSlice) First() (v HelpPassportConfigClass, ok boo
 }
 
 // Last returns last element of slice (if exists).
-func (s HelpPassportConfigClassSlice) Last() (v HelpPassportConfigClass, ok bool) {
+func (s HelpPassportConfigArray) Last() (v HelpPassportConfig, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -377,7 +504,7 @@ func (s HelpPassportConfigClassSlice) Last() (v HelpPassportConfigClass, ok bool
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *HelpPassportConfigClassSlice) PopFirst() (v HelpPassportConfigClass, ok bool) {
+func (s *HelpPassportConfigArray) PopFirst() (v HelpPassportConfig, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -387,7 +514,8 @@ func (s *HelpPassportConfigClassSlice) PopFirst() (v HelpPassportConfigClass, ok
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero HelpPassportConfig
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -395,7 +523,7 @@ func (s *HelpPassportConfigClassSlice) PopFirst() (v HelpPassportConfigClass, ok
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *HelpPassportConfigClassSlice) Pop() (v HelpPassportConfigClass, ok bool) {
+func (s *HelpPassportConfigArray) Pop() (v HelpPassportConfig, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

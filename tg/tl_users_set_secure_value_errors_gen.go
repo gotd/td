@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // UsersSetSecureValueErrorsRequest represents TL type `users.setSecureValueErrors#90c894b5`.
 // Notify the user that the sent passport¹ data contains some errors The user will not be able to re-submit their Passport data to you until the errors are fixed (the contents of the field for which you returned the error must change).
@@ -113,9 +115,9 @@ func (s *UsersSetSecureValueErrorsRequest) GetErrors() (value []SecureValueError
 	return s.Errors
 }
 
-// MapErrors returns field Errors wrapped in SecureValueErrorClassSlice helper.
-func (s *UsersSetSecureValueErrorsRequest) MapErrors() (value SecureValueErrorClassSlice) {
-	return SecureValueErrorClassSlice(s.Errors)
+// MapErrors returns field Errors wrapped in SecureValueErrorClassArray helper.
+func (s *UsersSetSecureValueErrorsRequest) MapErrors() (value SecureValueErrorClassArray) {
+	return SecureValueErrorClassArray(s.Errors)
 }
 
 // Decode implements bin.Decoder.

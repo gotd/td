@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // PollResults represents TL type `pollResults#badcc1a3`.
 // Results of poll
@@ -295,12 +297,12 @@ func (p *PollResults) GetSolutionEntities() (value []MessageEntityClass, ok bool
 	return p.SolutionEntities, true
 }
 
-// MapSolutionEntities returns field SolutionEntities wrapped in MessageEntityClassSlice helper.
-func (p *PollResults) MapSolutionEntities() (value MessageEntityClassSlice, ok bool) {
+// MapSolutionEntities returns field SolutionEntities wrapped in MessageEntityClassArray helper.
+func (p *PollResults) MapSolutionEntities() (value MessageEntityClassArray, ok bool) {
 	if !p.Flags.Has(4) {
 		return value, false
 	}
-	return MessageEntityClassSlice(p.SolutionEntities), true
+	return MessageEntityClassArray(p.SolutionEntities), true
 }
 
 // Decode implements bin.Decoder.

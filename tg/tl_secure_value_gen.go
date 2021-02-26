@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // SecureValue represents TL type `secureValue#187fa0ca`.
 // Secure value
@@ -397,12 +399,12 @@ func (s *SecureValue) GetTranslation() (value []SecureFileClass, ok bool) {
 	return s.Translation, true
 }
 
-// MapTranslation returns field Translation wrapped in SecureFileClassSlice helper.
-func (s *SecureValue) MapTranslation() (value SecureFileClassSlice, ok bool) {
+// MapTranslation returns field Translation wrapped in SecureFileClassArray helper.
+func (s *SecureValue) MapTranslation() (value SecureFileClassArray, ok bool) {
 	if !s.Flags.Has(6) {
 		return value, false
 	}
-	return SecureFileClassSlice(s.Translation), true
+	return SecureFileClassArray(s.Translation), true
 }
 
 // SetFiles sets value of Files conditional field.
@@ -420,12 +422,12 @@ func (s *SecureValue) GetFiles() (value []SecureFileClass, ok bool) {
 	return s.Files, true
 }
 
-// MapFiles returns field Files wrapped in SecureFileClassSlice helper.
-func (s *SecureValue) MapFiles() (value SecureFileClassSlice, ok bool) {
+// MapFiles returns field Files wrapped in SecureFileClassArray helper.
+func (s *SecureValue) MapFiles() (value SecureFileClassArray, ok bool) {
 	if !s.Flags.Has(4) {
 		return value, false
 	}
-	return SecureFileClassSlice(s.Files), true
+	return SecureFileClassArray(s.Files), true
 }
 
 // SetPlainData sets value of PlainData conditional field.

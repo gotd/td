@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesEditMessageRequest represents TL type `messages.editMessage#48f71778`.
 // Edit message
@@ -312,12 +314,12 @@ func (e *MessagesEditMessageRequest) GetEntities() (value []MessageEntityClass, 
 	return e.Entities, true
 }
 
-// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
-func (e *MessagesEditMessageRequest) MapEntities() (value MessageEntityClassSlice, ok bool) {
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (e *MessagesEditMessageRequest) MapEntities() (value MessageEntityClassArray, ok bool) {
 	if !e.Flags.Has(3) {
 		return value, false
 	}
-	return MessageEntityClassSlice(e.Entities), true
+	return MessageEntityClassArray(e.Entities), true
 }
 
 // SetScheduleDate sets value of ScheduleDate conditional field.

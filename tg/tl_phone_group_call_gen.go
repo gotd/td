@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // PhoneGroupCall represents TL type `phone.groupCall#66ab0bfc`.
 //
@@ -139,9 +141,9 @@ func (g *PhoneGroupCall) GetUsers() (value []UserClass) {
 	return g.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (g *PhoneGroupCall) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(g.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (g *PhoneGroupCall) MapUsers() (value UserClassArray) {
+	return UserClassArray(g.Users)
 }
 
 // Decode implements bin.Decoder.

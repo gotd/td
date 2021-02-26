@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // BigMessage represents TL type `bigMessage#7490dcc5`.
 //
@@ -726,11 +728,41 @@ func (b *AbstractMessageBox) Encode(buf *bin.Buffer) error {
 	return b.AbstractMessage.Encode(buf)
 }
 
-// AbstractMessageClassSlice is adapter for slice of AbstractMessageClass.
-type AbstractMessageClassSlice []AbstractMessageClass
+// AbstractMessageClassArray is adapter for slice of AbstractMessageClass.
+type AbstractMessageClassArray []AbstractMessageClass
+
+// Sort sorts slice of AbstractMessageClass.
+func (s AbstractMessageClassArray) Sort(less func(a, b AbstractMessageClass) bool) AbstractMessageClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of AbstractMessageClass.
+func (s AbstractMessageClassArray) SortStable(less func(a, b AbstractMessageClass) bool) AbstractMessageClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of AbstractMessageClass.
+func (s AbstractMessageClassArray) Retain(keep func(x AbstractMessageClass) bool) AbstractMessageClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s AbstractMessageClassSlice) First() (v AbstractMessageClass, ok bool) {
+func (s AbstractMessageClassArray) First() (v AbstractMessageClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -738,7 +770,7 @@ func (s AbstractMessageClassSlice) First() (v AbstractMessageClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s AbstractMessageClassSlice) Last() (v AbstractMessageClass, ok bool) {
+func (s AbstractMessageClassArray) Last() (v AbstractMessageClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -746,7 +778,7 @@ func (s AbstractMessageClassSlice) Last() (v AbstractMessageClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *AbstractMessageClassSlice) PopFirst() (v AbstractMessageClass, ok bool) {
+func (s *AbstractMessageClassArray) PopFirst() (v AbstractMessageClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -756,7 +788,8 @@ func (s *AbstractMessageClassSlice) PopFirst() (v AbstractMessageClass, ok bool)
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero AbstractMessageClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -764,7 +797,387 @@ func (s *AbstractMessageClassSlice) PopFirst() (v AbstractMessageClass, ok bool)
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *AbstractMessageClassSlice) Pop() (v AbstractMessageClass, ok bool) {
+func (s *AbstractMessageClassArray) Pop() (v AbstractMessageClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsBigMessage returns copy with only BigMessage constructors.
+func (s AbstractMessageClassArray) AsBigMessage() (to BigMessageArray) {
+	for _, elem := range s {
+		value, ok := elem.(*BigMessage)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsTargetsMessage returns copy with only TargetsMessage constructors.
+func (s AbstractMessageClassArray) AsTargetsMessage() (to TargetsMessageArray) {
+	for _, elem := range s {
+		value, ok := elem.(*TargetsMessage)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsFieldsMessage returns copy with only FieldsMessage constructors.
+func (s AbstractMessageClassArray) AsFieldsMessage() (to FieldsMessageArray) {
+	for _, elem := range s {
+		value, ok := elem.(*FieldsMessage)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsBytesMessage returns copy with only BytesMessage constructors.
+func (s AbstractMessageClassArray) AsBytesMessage() (to BytesMessageArray) {
+	for _, elem := range s {
+		value, ok := elem.(*BytesMessage)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// BigMessageArray is adapter for slice of BigMessage.
+type BigMessageArray []BigMessage
+
+// Sort sorts slice of BigMessage.
+func (s BigMessageArray) Sort(less func(a, b BigMessage) bool) BigMessageArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of BigMessage.
+func (s BigMessageArray) SortStable(less func(a, b BigMessage) bool) BigMessageArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of BigMessage.
+func (s BigMessageArray) Retain(keep func(x BigMessage) bool) BigMessageArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s BigMessageArray) First() (v BigMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s BigMessageArray) Last() (v BigMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *BigMessageArray) PopFirst() (v BigMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero BigMessage
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *BigMessageArray) Pop() (v BigMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// TargetsMessageArray is adapter for slice of TargetsMessage.
+type TargetsMessageArray []TargetsMessage
+
+// Sort sorts slice of TargetsMessage.
+func (s TargetsMessageArray) Sort(less func(a, b TargetsMessage) bool) TargetsMessageArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of TargetsMessage.
+func (s TargetsMessageArray) SortStable(less func(a, b TargetsMessage) bool) TargetsMessageArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of TargetsMessage.
+func (s TargetsMessageArray) Retain(keep func(x TargetsMessage) bool) TargetsMessageArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s TargetsMessageArray) First() (v TargetsMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s TargetsMessageArray) Last() (v TargetsMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *TargetsMessageArray) PopFirst() (v TargetsMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero TargetsMessage
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *TargetsMessageArray) Pop() (v TargetsMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// FieldsMessageArray is adapter for slice of FieldsMessage.
+type FieldsMessageArray []FieldsMessage
+
+// Sort sorts slice of FieldsMessage.
+func (s FieldsMessageArray) Sort(less func(a, b FieldsMessage) bool) FieldsMessageArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of FieldsMessage.
+func (s FieldsMessageArray) SortStable(less func(a, b FieldsMessage) bool) FieldsMessageArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of FieldsMessage.
+func (s FieldsMessageArray) Retain(keep func(x FieldsMessage) bool) FieldsMessageArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s FieldsMessageArray) First() (v FieldsMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s FieldsMessageArray) Last() (v FieldsMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *FieldsMessageArray) PopFirst() (v FieldsMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero FieldsMessage
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *FieldsMessageArray) Pop() (v FieldsMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// BytesMessageArray is adapter for slice of BytesMessage.
+type BytesMessageArray []BytesMessage
+
+// Sort sorts slice of BytesMessage.
+func (s BytesMessageArray) Sort(less func(a, b BytesMessage) bool) BytesMessageArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of BytesMessage.
+func (s BytesMessageArray) SortStable(less func(a, b BytesMessage) bool) BytesMessageArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of BytesMessage.
+func (s BytesMessageArray) Retain(keep func(x BytesMessage) bool) BytesMessageArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s BytesMessageArray) First() (v BytesMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s BytesMessageArray) Last() (v BytesMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *BytesMessageArray) PopFirst() (v BytesMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero BytesMessage
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *BytesMessageArray) Pop() (v BytesMessage, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

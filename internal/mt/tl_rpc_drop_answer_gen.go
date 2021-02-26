@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // RPCAnswerUnknown represents TL type `rpc_answer_unknown#5e2ad36e`.
 type RPCAnswerUnknown struct {
@@ -369,11 +371,41 @@ func (b *RpcDropAnswerBox) Encode(buf *bin.Buffer) error {
 	return b.RpcDropAnswer.Encode(buf)
 }
 
-// RpcDropAnswerClassSlice is adapter for slice of RpcDropAnswerClass.
-type RpcDropAnswerClassSlice []RpcDropAnswerClass
+// RpcDropAnswerClassArray is adapter for slice of RpcDropAnswerClass.
+type RpcDropAnswerClassArray []RpcDropAnswerClass
+
+// Sort sorts slice of RpcDropAnswerClass.
+func (s RpcDropAnswerClassArray) Sort(less func(a, b RpcDropAnswerClass) bool) RpcDropAnswerClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of RpcDropAnswerClass.
+func (s RpcDropAnswerClassArray) SortStable(less func(a, b RpcDropAnswerClass) bool) RpcDropAnswerClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of RpcDropAnswerClass.
+func (s RpcDropAnswerClassArray) Retain(keep func(x RpcDropAnswerClass) bool) RpcDropAnswerClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s RpcDropAnswerClassSlice) First() (v RpcDropAnswerClass, ok bool) {
+func (s RpcDropAnswerClassArray) First() (v RpcDropAnswerClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -381,7 +413,7 @@ func (s RpcDropAnswerClassSlice) First() (v RpcDropAnswerClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s RpcDropAnswerClassSlice) Last() (v RpcDropAnswerClass, ok bool) {
+func (s RpcDropAnswerClassArray) Last() (v RpcDropAnswerClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -389,7 +421,7 @@ func (s RpcDropAnswerClassSlice) Last() (v RpcDropAnswerClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *RpcDropAnswerClassSlice) PopFirst() (v RpcDropAnswerClass, ok bool) {
+func (s *RpcDropAnswerClassArray) PopFirst() (v RpcDropAnswerClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -399,7 +431,8 @@ func (s *RpcDropAnswerClassSlice) PopFirst() (v RpcDropAnswerClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero RpcDropAnswerClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -407,7 +440,102 @@ func (s *RpcDropAnswerClassSlice) PopFirst() (v RpcDropAnswerClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *RpcDropAnswerClassSlice) Pop() (v RpcDropAnswerClass, ok bool) {
+func (s *RpcDropAnswerClassArray) Pop() (v RpcDropAnswerClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsRPCAnswerDropped returns copy with only RPCAnswerDropped constructors.
+func (s RpcDropAnswerClassArray) AsRPCAnswerDropped() (to RPCAnswerDroppedArray) {
+	for _, elem := range s {
+		value, ok := elem.(*RPCAnswerDropped)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// RPCAnswerDroppedArray is adapter for slice of RPCAnswerDropped.
+type RPCAnswerDroppedArray []RPCAnswerDropped
+
+// Sort sorts slice of RPCAnswerDropped.
+func (s RPCAnswerDroppedArray) Sort(less func(a, b RPCAnswerDropped) bool) RPCAnswerDroppedArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of RPCAnswerDropped.
+func (s RPCAnswerDroppedArray) SortStable(less func(a, b RPCAnswerDropped) bool) RPCAnswerDroppedArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of RPCAnswerDropped.
+func (s RPCAnswerDroppedArray) Retain(keep func(x RPCAnswerDropped) bool) RPCAnswerDroppedArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s RPCAnswerDroppedArray) First() (v RPCAnswerDropped, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s RPCAnswerDroppedArray) Last() (v RPCAnswerDropped, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *RPCAnswerDroppedArray) PopFirst() (v RPCAnswerDropped, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero RPCAnswerDropped
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *RPCAnswerDroppedArray) Pop() (v RPCAnswerDropped, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
