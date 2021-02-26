@@ -66,3 +66,8 @@ Get{{$.Name}}() (value {{ template "print_type" $ }}{{ if and ($.Conditional) (n
     // Zero returns true if current object has a zero value.
     Zero() bool
 {{- end }}
+
+
+{{ define "map_collector_name" }}{{ $field := . }}{{- /*gotype: github.com/gotd/td/internal/gen.fieldDef*/ -}}
+{{ if ne ($field.Name) ("ID") }}{{ $field.Name }}{{ end }}
+{{- end }}

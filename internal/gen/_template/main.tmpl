@@ -179,15 +179,15 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Get{{ $f.Name }}As{{ $mapping.MapperName
 }
 {{- end }}{{- end }}
 {{- else }}{{- if $f.Interface }}
-// Map{{ $f.Name }} returns field {{ $f.Name }} wrapped in {{ $f.Type }}Slice helper.
-func ({{ $s.Receiver }} *{{ $s.Name }}) Map{{ $f.Name }}() (value {{ $f.Type }}Slice{{ if $f.Conditional }}, ok bool{{ end }}) {
+// Map{{ $f.Name }} returns field {{ $f.Name }} wrapped in {{ template "slice_field_name" $f }} helper.
+func ({{ $s.Receiver }} *{{ $s.Name }}) Map{{ $f.Name }}() (value {{ template "slice_field_name" $f }}{{ if $f.Conditional }}, ok bool{{ end }}) {
     {{- if $f.Conditional }}
     if !{{ $s.Receiver }}.{{ $f.ConditionalField }}.Has({{ $f.ConditionalIndex }}) {
         return value, false
     }
-    return {{ $f.Type }}Slice({{ $s.Receiver }}.{{ $f.Name }}), true
+    return {{ template "slice_field_name" $f }}({{ $s.Receiver }}.{{ $f.Name }}), true
     {{- else }}
-    return {{ $f.Type }}Slice({{ $s.Receiver }}.{{ $f.Name }})
+    return {{ template "slice_field_name" $f }}({{ $s.Receiver }}.{{ $f.Name }})
     {{- end }}
 }
 {{- end }}{{- end }}
@@ -315,14 +315,14 @@ _ {{ $s.Interface }} = &{{ $s.Name }}{}
 {{- end }}
 {{- if $s.Result }}
 {{- if $s.ResultSingular }}
-func (c *Client) {{ $s.Method }}({{ template "request_params" $s }}) ({{ if not $s.ResultVector }}*{{ $s.Result }}{{ else }}[]{{ $s.ResultFunc }}{{ end }}, error) {
+func (c *Client) {{ $s.Method }}({{ template "request_params" $s }}) ({{ if not $s.ResultVector }}*{{ $s.Result }}{{ else }}{{ template "slice_result_name" $s }}{{ end }}, error) {
     var result {{ $s.Result }}
     {{ template "pack_request" $s }}
     if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
         return nil, err
     }
     {{- if $s.ResultVector }}
-    return result.Elems, nil
+    return {{ template "slice_result_name" $s }}(result.Elems), nil
     {{- else }}
     return &result, nil
     {{- end }}
@@ -392,7 +392,7 @@ type {{ $f.Name }} interface {
     {{- end }}
     {{ else }}{{- if $field.Interface }}
     // {{ $field.Comment }}
-    Map{{ $field.Name }}() (value {{ $field.Type }}Slice{{ if $field.Conditional }}, ok bool{{ end }})
+    Map{{ $field.Name }}() (value {{ template "slice_field_name" $field }}{{ if $field.Conditional }}, ok bool{{ end }})
     {{- end }}{{- end }}
 
     {{- end }}
