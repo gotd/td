@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // UsersGetUsersRequest represents TL type `users.getUsers#d91a548`.
 // Returns basic user info according to their identifiers.
@@ -92,9 +94,9 @@ func (g *UsersGetUsersRequest) GetID() (value []InputUserClass) {
 	return g.ID
 }
 
-// MapID returns field ID wrapped in InputUserClassSlice helper.
-func (g *UsersGetUsersRequest) MapID() (value InputUserClassSlice) {
-	return InputUserClassSlice(g.ID)
+// MapID returns field ID wrapped in InputUserClassArray helper.
+func (g *UsersGetUsersRequest) MapID() (value InputUserClassArray) {
+	return InputUserClassArray(g.ID)
 }
 
 // Decode implements bin.Decoder.
@@ -148,5 +150,5 @@ func (c *Client) UsersGetUsers(ctx context.Context, id []InputUserClass) ([]User
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return result.Elems, nil
+	return []UserClass(result.Elems), nil
 }

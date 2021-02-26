@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesRequestUrlAuthRequest represents TL type `messages.requestUrlAuth#e33f5613`.
 // Get more info about a Seamless Telegram Login authorization request, for more info click here »¹

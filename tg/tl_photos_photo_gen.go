@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // PhotosPhoto represents TL type `photos.photo#20212ca8`.
 // Photo with auxiliary data.
@@ -115,9 +117,9 @@ func (p *PhotosPhoto) GetUsers() (value []UserClass) {
 	return p.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (p *PhotosPhoto) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(p.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (p *PhotosPhoto) MapUsers() (value UserClassArray) {
+	return UserClassArray(p.Users)
 }
 
 // Decode implements bin.Decoder.

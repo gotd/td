@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // UploadGetFileRequest represents TL type `upload.getFile#b15a9afc`.
 // Returns content of a whole file or its part.

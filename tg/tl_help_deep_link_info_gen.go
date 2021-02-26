@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // HelpDeepLinkInfoEmpty represents TL type `help.deepLinkInfoEmpty#66afa166`.
 // Deep link info empty
@@ -235,12 +237,12 @@ func (d *HelpDeepLinkInfo) GetEntities() (value []MessageEntityClass, ok bool) {
 	return d.Entities, true
 }
 
-// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
-func (d *HelpDeepLinkInfo) MapEntities() (value MessageEntityClassSlice, ok bool) {
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (d *HelpDeepLinkInfo) MapEntities() (value MessageEntityClassArray, ok bool) {
 	if !d.Flags.Has(1) {
 		return value, false
 	}
-	return MessageEntityClassSlice(d.Entities), true
+	return MessageEntityClassArray(d.Entities), true
 }
 
 // Decode implements bin.Decoder.
@@ -387,12 +389,104 @@ func (b *HelpDeepLinkInfoBox) Encode(buf *bin.Buffer) error {
 	return b.DeepLinkInfo.Encode(buf)
 }
 
-// HelpDeepLinkInfoClassSlice is adapter for slice of HelpDeepLinkInfoClass.
-type HelpDeepLinkInfoClassSlice []HelpDeepLinkInfoClass
+// HelpDeepLinkInfoClassArray is adapter for slice of HelpDeepLinkInfoClass.
+type HelpDeepLinkInfoClassArray []HelpDeepLinkInfoClass
+
+// Sort sorts slice of HelpDeepLinkInfoClass.
+func (s HelpDeepLinkInfoClassArray) Sort(less func(a, b HelpDeepLinkInfoClass) bool) HelpDeepLinkInfoClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of HelpDeepLinkInfoClass.
+func (s HelpDeepLinkInfoClassArray) SortStable(less func(a, b HelpDeepLinkInfoClass) bool) HelpDeepLinkInfoClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of HelpDeepLinkInfoClass.
+func (s HelpDeepLinkInfoClassArray) Retain(keep func(x HelpDeepLinkInfoClass) bool) HelpDeepLinkInfoClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s HelpDeepLinkInfoClassArray) First() (v HelpDeepLinkInfoClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s HelpDeepLinkInfoClassArray) Last() (v HelpDeepLinkInfoClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *HelpDeepLinkInfoClassArray) PopFirst() (v HelpDeepLinkInfoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero HelpDeepLinkInfoClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *HelpDeepLinkInfoClassArray) Pop() (v HelpDeepLinkInfoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsHelpDeepLinkInfo returns copy with only HelpDeepLinkInfo constructors.
+func (s HelpDeepLinkInfoClassArray) AsHelpDeepLinkInfo() (to HelpDeepLinkInfoArray) {
+	for _, elem := range s {
+		value, ok := elem.(*HelpDeepLinkInfo)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
 
 // AppendOnlyNotEmpty appends only NotEmpty constructors to
 // given slice.
-func (s HelpDeepLinkInfoClassSlice) AppendOnlyNotEmpty(to []*HelpDeepLinkInfo) []*HelpDeepLinkInfo {
+func (s HelpDeepLinkInfoClassArray) AppendOnlyNotEmpty(to []*HelpDeepLinkInfo) []*HelpDeepLinkInfo {
 	for _, elem := range s {
 		value, ok := elem.AsNotEmpty()
 		if !ok {
@@ -405,12 +499,12 @@ func (s HelpDeepLinkInfoClassSlice) AppendOnlyNotEmpty(to []*HelpDeepLinkInfo) [
 }
 
 // AsNotEmpty returns copy with only NotEmpty constructors.
-func (s HelpDeepLinkInfoClassSlice) AsNotEmpty() (to []*HelpDeepLinkInfo) {
+func (s HelpDeepLinkInfoClassArray) AsNotEmpty() (to []*HelpDeepLinkInfo) {
 	return s.AppendOnlyNotEmpty(to)
 }
 
 // FirstAsNotEmpty returns first element of slice (if exists).
-func (s HelpDeepLinkInfoClassSlice) FirstAsNotEmpty() (v *HelpDeepLinkInfo, ok bool) {
+func (s HelpDeepLinkInfoClassArray) FirstAsNotEmpty() (v *HelpDeepLinkInfo, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -419,7 +513,7 @@ func (s HelpDeepLinkInfoClassSlice) FirstAsNotEmpty() (v *HelpDeepLinkInfo, ok b
 }
 
 // LastAsNotEmpty returns last element of slice (if exists).
-func (s HelpDeepLinkInfoClassSlice) LastAsNotEmpty() (v *HelpDeepLinkInfo, ok bool) {
+func (s HelpDeepLinkInfoClassArray) LastAsNotEmpty() (v *HelpDeepLinkInfo, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -428,7 +522,7 @@ func (s HelpDeepLinkInfoClassSlice) LastAsNotEmpty() (v *HelpDeepLinkInfo, ok bo
 }
 
 // PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *HelpDeepLinkInfoClassSlice) PopFirstAsNotEmpty() (v *HelpDeepLinkInfo, ok bool) {
+func (s *HelpDeepLinkInfoClassArray) PopFirstAsNotEmpty() (v *HelpDeepLinkInfo, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -437,7 +531,7 @@ func (s *HelpDeepLinkInfoClassSlice) PopFirstAsNotEmpty() (v *HelpDeepLinkInfo, 
 }
 
 // PopAsNotEmpty returns element of slice (if exists).
-func (s *HelpDeepLinkInfoClassSlice) PopAsNotEmpty() (v *HelpDeepLinkInfo, ok bool) {
+func (s *HelpDeepLinkInfoClassArray) PopAsNotEmpty() (v *HelpDeepLinkInfo, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -445,8 +539,41 @@ func (s *HelpDeepLinkInfoClassSlice) PopAsNotEmpty() (v *HelpDeepLinkInfo, ok bo
 	return value.AsNotEmpty()
 }
 
+// HelpDeepLinkInfoArray is adapter for slice of HelpDeepLinkInfo.
+type HelpDeepLinkInfoArray []HelpDeepLinkInfo
+
+// Sort sorts slice of HelpDeepLinkInfo.
+func (s HelpDeepLinkInfoArray) Sort(less func(a, b HelpDeepLinkInfo) bool) HelpDeepLinkInfoArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of HelpDeepLinkInfo.
+func (s HelpDeepLinkInfoArray) SortStable(less func(a, b HelpDeepLinkInfo) bool) HelpDeepLinkInfoArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of HelpDeepLinkInfo.
+func (s HelpDeepLinkInfoArray) Retain(keep func(x HelpDeepLinkInfo) bool) HelpDeepLinkInfoArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s HelpDeepLinkInfoClassSlice) First() (v HelpDeepLinkInfoClass, ok bool) {
+func (s HelpDeepLinkInfoArray) First() (v HelpDeepLinkInfo, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -454,7 +581,7 @@ func (s HelpDeepLinkInfoClassSlice) First() (v HelpDeepLinkInfoClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s HelpDeepLinkInfoClassSlice) Last() (v HelpDeepLinkInfoClass, ok bool) {
+func (s HelpDeepLinkInfoArray) Last() (v HelpDeepLinkInfo, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -462,7 +589,7 @@ func (s HelpDeepLinkInfoClassSlice) Last() (v HelpDeepLinkInfoClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *HelpDeepLinkInfoClassSlice) PopFirst() (v HelpDeepLinkInfoClass, ok bool) {
+func (s *HelpDeepLinkInfoArray) PopFirst() (v HelpDeepLinkInfo, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -472,7 +599,8 @@ func (s *HelpDeepLinkInfoClassSlice) PopFirst() (v HelpDeepLinkInfoClass, ok boo
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero HelpDeepLinkInfo
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -480,7 +608,7 @@ func (s *HelpDeepLinkInfoClassSlice) PopFirst() (v HelpDeepLinkInfoClass, ok boo
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *HelpDeepLinkInfoClassSlice) Pop() (v HelpDeepLinkInfoClass, ok bool) {
+func (s *HelpDeepLinkInfoArray) Pop() (v HelpDeepLinkInfo, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

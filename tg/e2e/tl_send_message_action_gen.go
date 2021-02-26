@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // SendMessageTypingAction represents TL type `sendMessageTypingAction#16bf744e`.
 // User is typing.
@@ -1021,11 +1023,41 @@ func (b *SendMessageActionBox) Encode(buf *bin.Buffer) error {
 	return b.SendMessageAction.Encode(buf)
 }
 
-// SendMessageActionClassSlice is adapter for slice of SendMessageActionClass.
-type SendMessageActionClassSlice []SendMessageActionClass
+// SendMessageActionClassArray is adapter for slice of SendMessageActionClass.
+type SendMessageActionClassArray []SendMessageActionClass
+
+// Sort sorts slice of SendMessageActionClass.
+func (s SendMessageActionClassArray) Sort(less func(a, b SendMessageActionClass) bool) SendMessageActionClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of SendMessageActionClass.
+func (s SendMessageActionClassArray) SortStable(less func(a, b SendMessageActionClass) bool) SendMessageActionClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of SendMessageActionClass.
+func (s SendMessageActionClassArray) Retain(keep func(x SendMessageActionClass) bool) SendMessageActionClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s SendMessageActionClassSlice) First() (v SendMessageActionClass, ok bool) {
+func (s SendMessageActionClassArray) First() (v SendMessageActionClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1033,7 +1065,7 @@ func (s SendMessageActionClassSlice) First() (v SendMessageActionClass, ok bool)
 }
 
 // Last returns last element of slice (if exists).
-func (s SendMessageActionClassSlice) Last() (v SendMessageActionClass, ok bool) {
+func (s SendMessageActionClassArray) Last() (v SendMessageActionClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1041,7 +1073,7 @@ func (s SendMessageActionClassSlice) Last() (v SendMessageActionClass, ok bool) 
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SendMessageActionClassSlice) PopFirst() (v SendMessageActionClass, ok bool) {
+func (s *SendMessageActionClassArray) PopFirst() (v SendMessageActionClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1051,7 +1083,8 @@ func (s *SendMessageActionClassSlice) PopFirst() (v SendMessageActionClass, ok b
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero SendMessageActionClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -1059,7 +1092,7 @@ func (s *SendMessageActionClassSlice) PopFirst() (v SendMessageActionClass, ok b
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *SendMessageActionClassSlice) Pop() (v SendMessageActionClass, ok bool) {
+func (s *SendMessageActionClassArray) Pop() (v SendMessageActionClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

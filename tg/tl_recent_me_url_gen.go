@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // RecentMeUrlUnknown represents TL type `recentMeUrlUnknown#46e1d13d`.
 // Unknown t.me url
@@ -693,11 +695,41 @@ func (b *RecentMeUrlBox) Encode(buf *bin.Buffer) error {
 	return b.RecentMeUrl.Encode(buf)
 }
 
-// RecentMeUrlClassSlice is adapter for slice of RecentMeUrlClass.
-type RecentMeUrlClassSlice []RecentMeUrlClass
+// RecentMeUrlClassArray is adapter for slice of RecentMeUrlClass.
+type RecentMeUrlClassArray []RecentMeUrlClass
+
+// Sort sorts slice of RecentMeUrlClass.
+func (s RecentMeUrlClassArray) Sort(less func(a, b RecentMeUrlClass) bool) RecentMeUrlClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of RecentMeUrlClass.
+func (s RecentMeUrlClassArray) SortStable(less func(a, b RecentMeUrlClass) bool) RecentMeUrlClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of RecentMeUrlClass.
+func (s RecentMeUrlClassArray) Retain(keep func(x RecentMeUrlClass) bool) RecentMeUrlClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s RecentMeUrlClassSlice) First() (v RecentMeUrlClass, ok bool) {
+func (s RecentMeUrlClassArray) First() (v RecentMeUrlClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -705,7 +737,7 @@ func (s RecentMeUrlClassSlice) First() (v RecentMeUrlClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s RecentMeUrlClassSlice) Last() (v RecentMeUrlClass, ok bool) {
+func (s RecentMeUrlClassArray) Last() (v RecentMeUrlClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -713,7 +745,7 @@ func (s RecentMeUrlClassSlice) Last() (v RecentMeUrlClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *RecentMeUrlClassSlice) PopFirst() (v RecentMeUrlClass, ok bool) {
+func (s *RecentMeUrlClassArray) PopFirst() (v RecentMeUrlClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -723,7 +755,8 @@ func (s *RecentMeUrlClassSlice) PopFirst() (v RecentMeUrlClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero RecentMeUrlClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -731,7 +764,482 @@ func (s *RecentMeUrlClassSlice) PopFirst() (v RecentMeUrlClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *RecentMeUrlClassSlice) Pop() (v RecentMeUrlClass, ok bool) {
+func (s *RecentMeUrlClassArray) Pop() (v RecentMeUrlClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsRecentMeUrlUnknown returns copy with only RecentMeUrlUnknown constructors.
+func (s RecentMeUrlClassArray) AsRecentMeUrlUnknown() (to RecentMeUrlUnknownArray) {
+	for _, elem := range s {
+		value, ok := elem.(*RecentMeUrlUnknown)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsRecentMeUrlUser returns copy with only RecentMeUrlUser constructors.
+func (s RecentMeUrlClassArray) AsRecentMeUrlUser() (to RecentMeUrlUserArray) {
+	for _, elem := range s {
+		value, ok := elem.(*RecentMeUrlUser)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsRecentMeUrlChat returns copy with only RecentMeUrlChat constructors.
+func (s RecentMeUrlClassArray) AsRecentMeUrlChat() (to RecentMeUrlChatArray) {
+	for _, elem := range s {
+		value, ok := elem.(*RecentMeUrlChat)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsRecentMeUrlChatInvite returns copy with only RecentMeUrlChatInvite constructors.
+func (s RecentMeUrlClassArray) AsRecentMeUrlChatInvite() (to RecentMeUrlChatInviteArray) {
+	for _, elem := range s {
+		value, ok := elem.(*RecentMeUrlChatInvite)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsRecentMeUrlStickerSet returns copy with only RecentMeUrlStickerSet constructors.
+func (s RecentMeUrlClassArray) AsRecentMeUrlStickerSet() (to RecentMeUrlStickerSetArray) {
+	for _, elem := range s {
+		value, ok := elem.(*RecentMeUrlStickerSet)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// RecentMeUrlUnknownArray is adapter for slice of RecentMeUrlUnknown.
+type RecentMeUrlUnknownArray []RecentMeUrlUnknown
+
+// Sort sorts slice of RecentMeUrlUnknown.
+func (s RecentMeUrlUnknownArray) Sort(less func(a, b RecentMeUrlUnknown) bool) RecentMeUrlUnknownArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of RecentMeUrlUnknown.
+func (s RecentMeUrlUnknownArray) SortStable(less func(a, b RecentMeUrlUnknown) bool) RecentMeUrlUnknownArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of RecentMeUrlUnknown.
+func (s RecentMeUrlUnknownArray) Retain(keep func(x RecentMeUrlUnknown) bool) RecentMeUrlUnknownArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s RecentMeUrlUnknownArray) First() (v RecentMeUrlUnknown, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s RecentMeUrlUnknownArray) Last() (v RecentMeUrlUnknown, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *RecentMeUrlUnknownArray) PopFirst() (v RecentMeUrlUnknown, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero RecentMeUrlUnknown
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *RecentMeUrlUnknownArray) Pop() (v RecentMeUrlUnknown, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// RecentMeUrlUserArray is adapter for slice of RecentMeUrlUser.
+type RecentMeUrlUserArray []RecentMeUrlUser
+
+// Sort sorts slice of RecentMeUrlUser.
+func (s RecentMeUrlUserArray) Sort(less func(a, b RecentMeUrlUser) bool) RecentMeUrlUserArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of RecentMeUrlUser.
+func (s RecentMeUrlUserArray) SortStable(less func(a, b RecentMeUrlUser) bool) RecentMeUrlUserArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of RecentMeUrlUser.
+func (s RecentMeUrlUserArray) Retain(keep func(x RecentMeUrlUser) bool) RecentMeUrlUserArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s RecentMeUrlUserArray) First() (v RecentMeUrlUser, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s RecentMeUrlUserArray) Last() (v RecentMeUrlUser, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *RecentMeUrlUserArray) PopFirst() (v RecentMeUrlUser, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero RecentMeUrlUser
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *RecentMeUrlUserArray) Pop() (v RecentMeUrlUser, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// RecentMeUrlChatArray is adapter for slice of RecentMeUrlChat.
+type RecentMeUrlChatArray []RecentMeUrlChat
+
+// Sort sorts slice of RecentMeUrlChat.
+func (s RecentMeUrlChatArray) Sort(less func(a, b RecentMeUrlChat) bool) RecentMeUrlChatArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of RecentMeUrlChat.
+func (s RecentMeUrlChatArray) SortStable(less func(a, b RecentMeUrlChat) bool) RecentMeUrlChatArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of RecentMeUrlChat.
+func (s RecentMeUrlChatArray) Retain(keep func(x RecentMeUrlChat) bool) RecentMeUrlChatArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s RecentMeUrlChatArray) First() (v RecentMeUrlChat, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s RecentMeUrlChatArray) Last() (v RecentMeUrlChat, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *RecentMeUrlChatArray) PopFirst() (v RecentMeUrlChat, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero RecentMeUrlChat
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *RecentMeUrlChatArray) Pop() (v RecentMeUrlChat, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// RecentMeUrlChatInviteArray is adapter for slice of RecentMeUrlChatInvite.
+type RecentMeUrlChatInviteArray []RecentMeUrlChatInvite
+
+// Sort sorts slice of RecentMeUrlChatInvite.
+func (s RecentMeUrlChatInviteArray) Sort(less func(a, b RecentMeUrlChatInvite) bool) RecentMeUrlChatInviteArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of RecentMeUrlChatInvite.
+func (s RecentMeUrlChatInviteArray) SortStable(less func(a, b RecentMeUrlChatInvite) bool) RecentMeUrlChatInviteArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of RecentMeUrlChatInvite.
+func (s RecentMeUrlChatInviteArray) Retain(keep func(x RecentMeUrlChatInvite) bool) RecentMeUrlChatInviteArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s RecentMeUrlChatInviteArray) First() (v RecentMeUrlChatInvite, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s RecentMeUrlChatInviteArray) Last() (v RecentMeUrlChatInvite, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *RecentMeUrlChatInviteArray) PopFirst() (v RecentMeUrlChatInvite, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero RecentMeUrlChatInvite
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *RecentMeUrlChatInviteArray) Pop() (v RecentMeUrlChatInvite, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// RecentMeUrlStickerSetArray is adapter for slice of RecentMeUrlStickerSet.
+type RecentMeUrlStickerSetArray []RecentMeUrlStickerSet
+
+// Sort sorts slice of RecentMeUrlStickerSet.
+func (s RecentMeUrlStickerSetArray) Sort(less func(a, b RecentMeUrlStickerSet) bool) RecentMeUrlStickerSetArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of RecentMeUrlStickerSet.
+func (s RecentMeUrlStickerSetArray) SortStable(less func(a, b RecentMeUrlStickerSet) bool) RecentMeUrlStickerSetArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of RecentMeUrlStickerSet.
+func (s RecentMeUrlStickerSetArray) Retain(keep func(x RecentMeUrlStickerSet) bool) RecentMeUrlStickerSetArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s RecentMeUrlStickerSetArray) First() (v RecentMeUrlStickerSet, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s RecentMeUrlStickerSetArray) Last() (v RecentMeUrlStickerSet, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *RecentMeUrlStickerSetArray) PopFirst() (v RecentMeUrlStickerSet, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero RecentMeUrlStickerSet
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *RecentMeUrlStickerSetArray) Pop() (v RecentMeUrlStickerSet, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

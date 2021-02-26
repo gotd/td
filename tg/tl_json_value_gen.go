@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // JsonNull represents TL type `jsonNull#3f6d7b68`.
 // null JSON value
@@ -447,9 +449,9 @@ func (j *JsonArray) GetValue() (value []JSONValueClass) {
 	return j.Value
 }
 
-// MapValue returns field Value wrapped in JSONValueClassSlice helper.
-func (j *JsonArray) MapValue() (value JSONValueClassSlice) {
-	return JSONValueClassSlice(j.Value)
+// MapValue returns field Value wrapped in JSONValueClassArray helper.
+func (j *JsonArray) MapValue() (value JSONValueClassArray) {
+	return JSONValueClassArray(j.Value)
 }
 
 // Decode implements bin.Decoder.
@@ -708,11 +710,41 @@ func (b *JSONValueBox) Encode(buf *bin.Buffer) error {
 	return b.JSONValue.Encode(buf)
 }
 
-// JSONValueClassSlice is adapter for slice of JSONValueClass.
-type JSONValueClassSlice []JSONValueClass
+// JSONValueClassArray is adapter for slice of JSONValueClass.
+type JSONValueClassArray []JSONValueClass
+
+// Sort sorts slice of JSONValueClass.
+func (s JSONValueClassArray) Sort(less func(a, b JSONValueClass) bool) JSONValueClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of JSONValueClass.
+func (s JSONValueClassArray) SortStable(less func(a, b JSONValueClass) bool) JSONValueClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of JSONValueClass.
+func (s JSONValueClassArray) Retain(keep func(x JSONValueClass) bool) JSONValueClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s JSONValueClassSlice) First() (v JSONValueClass, ok bool) {
+func (s JSONValueClassArray) First() (v JSONValueClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -720,7 +752,7 @@ func (s JSONValueClassSlice) First() (v JSONValueClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s JSONValueClassSlice) Last() (v JSONValueClass, ok bool) {
+func (s JSONValueClassArray) Last() (v JSONValueClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -728,7 +760,7 @@ func (s JSONValueClassSlice) Last() (v JSONValueClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *JSONValueClassSlice) PopFirst() (v JSONValueClass, ok bool) {
+func (s *JSONValueClassArray) PopFirst() (v JSONValueClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -738,7 +770,8 @@ func (s *JSONValueClassSlice) PopFirst() (v JSONValueClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero JSONValueClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -746,7 +779,482 @@ func (s *JSONValueClassSlice) PopFirst() (v JSONValueClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *JSONValueClassSlice) Pop() (v JSONValueClass, ok bool) {
+func (s *JSONValueClassArray) Pop() (v JSONValueClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsJsonBool returns copy with only JsonBool constructors.
+func (s JSONValueClassArray) AsJsonBool() (to JsonBoolArray) {
+	for _, elem := range s {
+		value, ok := elem.(*JsonBool)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsJsonNumber returns copy with only JsonNumber constructors.
+func (s JSONValueClassArray) AsJsonNumber() (to JsonNumberArray) {
+	for _, elem := range s {
+		value, ok := elem.(*JsonNumber)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsJsonString returns copy with only JsonString constructors.
+func (s JSONValueClassArray) AsJsonString() (to JsonStringArray) {
+	for _, elem := range s {
+		value, ok := elem.(*JsonString)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsJsonArray returns copy with only JsonArray constructors.
+func (s JSONValueClassArray) AsJsonArray() (to JsonArrayArray) {
+	for _, elem := range s {
+		value, ok := elem.(*JsonArray)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsJsonObject returns copy with only JsonObject constructors.
+func (s JSONValueClassArray) AsJsonObject() (to JsonObjectArray) {
+	for _, elem := range s {
+		value, ok := elem.(*JsonObject)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// JsonBoolArray is adapter for slice of JsonBool.
+type JsonBoolArray []JsonBool
+
+// Sort sorts slice of JsonBool.
+func (s JsonBoolArray) Sort(less func(a, b JsonBool) bool) JsonBoolArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of JsonBool.
+func (s JsonBoolArray) SortStable(less func(a, b JsonBool) bool) JsonBoolArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of JsonBool.
+func (s JsonBoolArray) Retain(keep func(x JsonBool) bool) JsonBoolArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s JsonBoolArray) First() (v JsonBool, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s JsonBoolArray) Last() (v JsonBool, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *JsonBoolArray) PopFirst() (v JsonBool, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero JsonBool
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *JsonBoolArray) Pop() (v JsonBool, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// JsonNumberArray is adapter for slice of JsonNumber.
+type JsonNumberArray []JsonNumber
+
+// Sort sorts slice of JsonNumber.
+func (s JsonNumberArray) Sort(less func(a, b JsonNumber) bool) JsonNumberArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of JsonNumber.
+func (s JsonNumberArray) SortStable(less func(a, b JsonNumber) bool) JsonNumberArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of JsonNumber.
+func (s JsonNumberArray) Retain(keep func(x JsonNumber) bool) JsonNumberArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s JsonNumberArray) First() (v JsonNumber, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s JsonNumberArray) Last() (v JsonNumber, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *JsonNumberArray) PopFirst() (v JsonNumber, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero JsonNumber
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *JsonNumberArray) Pop() (v JsonNumber, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// JsonStringArray is adapter for slice of JsonString.
+type JsonStringArray []JsonString
+
+// Sort sorts slice of JsonString.
+func (s JsonStringArray) Sort(less func(a, b JsonString) bool) JsonStringArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of JsonString.
+func (s JsonStringArray) SortStable(less func(a, b JsonString) bool) JsonStringArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of JsonString.
+func (s JsonStringArray) Retain(keep func(x JsonString) bool) JsonStringArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s JsonStringArray) First() (v JsonString, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s JsonStringArray) Last() (v JsonString, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *JsonStringArray) PopFirst() (v JsonString, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero JsonString
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *JsonStringArray) Pop() (v JsonString, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// JsonArrayArray is adapter for slice of JsonArray.
+type JsonArrayArray []JsonArray
+
+// Sort sorts slice of JsonArray.
+func (s JsonArrayArray) Sort(less func(a, b JsonArray) bool) JsonArrayArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of JsonArray.
+func (s JsonArrayArray) SortStable(less func(a, b JsonArray) bool) JsonArrayArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of JsonArray.
+func (s JsonArrayArray) Retain(keep func(x JsonArray) bool) JsonArrayArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s JsonArrayArray) First() (v JsonArray, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s JsonArrayArray) Last() (v JsonArray, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *JsonArrayArray) PopFirst() (v JsonArray, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero JsonArray
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *JsonArrayArray) Pop() (v JsonArray, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// JsonObjectArray is adapter for slice of JsonObject.
+type JsonObjectArray []JsonObject
+
+// Sort sorts slice of JsonObject.
+func (s JsonObjectArray) Sort(less func(a, b JsonObject) bool) JsonObjectArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of JsonObject.
+func (s JsonObjectArray) SortStable(less func(a, b JsonObject) bool) JsonObjectArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of JsonObject.
+func (s JsonObjectArray) Retain(keep func(x JsonObject) bool) JsonObjectArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s JsonObjectArray) First() (v JsonObject, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s JsonObjectArray) Last() (v JsonObject, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *JsonObjectArray) PopFirst() (v JsonObject, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero JsonObject
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *JsonObjectArray) Pop() (v JsonObject, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

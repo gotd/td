@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesGetDhConfigRequest represents TL type `messages.getDhConfig#26cf8950`.
 // Returns configuration parameters for Diffie-Hellman key generation. Can also return a random sequence of bytes of required length.

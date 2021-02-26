@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // PeerUser represents TL type `peerUser#9db1bc6d`.
 // Chat partner
@@ -402,11 +404,41 @@ func (b *PeerBox) Encode(buf *bin.Buffer) error {
 	return b.Peer.Encode(buf)
 }
 
-// PeerClassSlice is adapter for slice of PeerClass.
-type PeerClassSlice []PeerClass
+// PeerClassArray is adapter for slice of PeerClass.
+type PeerClassArray []PeerClass
+
+// Sort sorts slice of PeerClass.
+func (s PeerClassArray) Sort(less func(a, b PeerClass) bool) PeerClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PeerClass.
+func (s PeerClassArray) SortStable(less func(a, b PeerClass) bool) PeerClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PeerClass.
+func (s PeerClassArray) Retain(keep func(x PeerClass) bool) PeerClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s PeerClassSlice) First() (v PeerClass, ok bool) {
+func (s PeerClassArray) First() (v PeerClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -414,7 +446,7 @@ func (s PeerClassSlice) First() (v PeerClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s PeerClassSlice) Last() (v PeerClass, ok bool) {
+func (s PeerClassArray) Last() (v PeerClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -422,7 +454,7 @@ func (s PeerClassSlice) Last() (v PeerClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PeerClassSlice) PopFirst() (v PeerClass, ok bool) {
+func (s *PeerClassArray) PopFirst() (v PeerClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -432,7 +464,8 @@ func (s *PeerClassSlice) PopFirst() (v PeerClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero PeerClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -440,7 +473,292 @@ func (s *PeerClassSlice) PopFirst() (v PeerClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *PeerClassSlice) Pop() (v PeerClass, ok bool) {
+func (s *PeerClassArray) Pop() (v PeerClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsPeerUser returns copy with only PeerUser constructors.
+func (s PeerClassArray) AsPeerUser() (to PeerUserArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PeerUser)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsPeerChat returns copy with only PeerChat constructors.
+func (s PeerClassArray) AsPeerChat() (to PeerChatArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PeerChat)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsPeerChannel returns copy with only PeerChannel constructors.
+func (s PeerClassArray) AsPeerChannel() (to PeerChannelArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PeerChannel)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// PeerUserArray is adapter for slice of PeerUser.
+type PeerUserArray []PeerUser
+
+// Sort sorts slice of PeerUser.
+func (s PeerUserArray) Sort(less func(a, b PeerUser) bool) PeerUserArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PeerUser.
+func (s PeerUserArray) SortStable(less func(a, b PeerUser) bool) PeerUserArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PeerUser.
+func (s PeerUserArray) Retain(keep func(x PeerUser) bool) PeerUserArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PeerUserArray) First() (v PeerUser, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PeerUserArray) Last() (v PeerUser, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PeerUserArray) PopFirst() (v PeerUser, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PeerUser
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PeerUserArray) Pop() (v PeerUser, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// PeerChatArray is adapter for slice of PeerChat.
+type PeerChatArray []PeerChat
+
+// Sort sorts slice of PeerChat.
+func (s PeerChatArray) Sort(less func(a, b PeerChat) bool) PeerChatArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PeerChat.
+func (s PeerChatArray) SortStable(less func(a, b PeerChat) bool) PeerChatArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PeerChat.
+func (s PeerChatArray) Retain(keep func(x PeerChat) bool) PeerChatArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PeerChatArray) First() (v PeerChat, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PeerChatArray) Last() (v PeerChat, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PeerChatArray) PopFirst() (v PeerChat, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PeerChat
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PeerChatArray) Pop() (v PeerChat, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// PeerChannelArray is adapter for slice of PeerChannel.
+type PeerChannelArray []PeerChannel
+
+// Sort sorts slice of PeerChannel.
+func (s PeerChannelArray) Sort(less func(a, b PeerChannel) bool) PeerChannelArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PeerChannel.
+func (s PeerChannelArray) SortStable(less func(a, b PeerChannel) bool) PeerChannelArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PeerChannel.
+func (s PeerChannelArray) Retain(keep func(x PeerChannel) bool) PeerChannelArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PeerChannelArray) First() (v PeerChannel, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PeerChannelArray) Last() (v PeerChannel, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PeerChannelArray) PopFirst() (v PeerChannel, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PeerChannel
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PeerChannelArray) Pop() (v PeerChannel, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

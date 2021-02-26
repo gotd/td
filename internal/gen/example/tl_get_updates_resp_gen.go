@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // GetUpdatesResp represents TL type `getUpdatesResp#2b4b45c`.
 //
@@ -91,9 +93,9 @@ func (g *GetUpdatesResp) GetUpdates() (value []AbstractMessageClass) {
 	return g.Updates
 }
 
-// MapUpdates returns field Updates wrapped in AbstractMessageClassSlice helper.
-func (g *GetUpdatesResp) MapUpdates() (value AbstractMessageClassSlice) {
-	return AbstractMessageClassSlice(g.Updates)
+// MapUpdates returns field Updates wrapped in AbstractMessageClassArray helper.
+func (g *GetUpdatesResp) MapUpdates() (value AbstractMessageClassArray) {
+	return AbstractMessageClassArray(g.Updates)
 }
 
 // Decode implements bin.Decoder.

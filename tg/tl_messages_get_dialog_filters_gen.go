@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesGetDialogFiltersRequest represents TL type `messages.getDialogFilters#f19ed96d`.
 // Get folders¹
@@ -100,5 +102,5 @@ func (c *Client) MessagesGetDialogFilters(ctx context.Context) ([]DialogFilter, 
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return result.Elems, nil
+	return []DialogFilter(result.Elems), nil
 }

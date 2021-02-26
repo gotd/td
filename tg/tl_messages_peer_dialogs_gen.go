@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesPeerDialogs represents TL type `messages.peerDialogs#3371c354`.
 // Dialog info of multiple peers
@@ -153,9 +155,9 @@ func (p *MessagesPeerDialogs) GetDialogs() (value []DialogClass) {
 	return p.Dialogs
 }
 
-// MapDialogs returns field Dialogs wrapped in DialogClassSlice helper.
-func (p *MessagesPeerDialogs) MapDialogs() (value DialogClassSlice) {
-	return DialogClassSlice(p.Dialogs)
+// MapDialogs returns field Dialogs wrapped in DialogClassArray helper.
+func (p *MessagesPeerDialogs) MapDialogs() (value DialogClassArray) {
+	return DialogClassArray(p.Dialogs)
 }
 
 // GetMessages returns value of Messages field.
@@ -163,9 +165,9 @@ func (p *MessagesPeerDialogs) GetMessages() (value []MessageClass) {
 	return p.Messages
 }
 
-// MapMessages returns field Messages wrapped in MessageClassSlice helper.
-func (p *MessagesPeerDialogs) MapMessages() (value MessageClassSlice) {
-	return MessageClassSlice(p.Messages)
+// MapMessages returns field Messages wrapped in MessageClassArray helper.
+func (p *MessagesPeerDialogs) MapMessages() (value MessageClassArray) {
+	return MessageClassArray(p.Messages)
 }
 
 // GetChats returns value of Chats field.
@@ -173,9 +175,9 @@ func (p *MessagesPeerDialogs) GetChats() (value []ChatClass) {
 	return p.Chats
 }
 
-// MapChats returns field Chats wrapped in ChatClassSlice helper.
-func (p *MessagesPeerDialogs) MapChats() (value ChatClassSlice) {
-	return ChatClassSlice(p.Chats)
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (p *MessagesPeerDialogs) MapChats() (value ChatClassArray) {
+	return ChatClassArray(p.Chats)
 }
 
 // GetUsers returns value of Users field.
@@ -183,9 +185,9 @@ func (p *MessagesPeerDialogs) GetUsers() (value []UserClass) {
 	return p.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (p *MessagesPeerDialogs) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(p.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (p *MessagesPeerDialogs) MapUsers() (value UserClassArray) {
+	return UserClassArray(p.Users)
 }
 
 // GetState returns value of State field.

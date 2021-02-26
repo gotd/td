@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // BaseThemeClassic represents TL type `baseThemeClassic#c3a12462`.
 // Classic theme
@@ -475,11 +477,41 @@ func (b *BaseThemeBox) Encode(buf *bin.Buffer) error {
 	return b.BaseTheme.Encode(buf)
 }
 
-// BaseThemeClassSlice is adapter for slice of BaseThemeClass.
-type BaseThemeClassSlice []BaseThemeClass
+// BaseThemeClassArray is adapter for slice of BaseThemeClass.
+type BaseThemeClassArray []BaseThemeClass
+
+// Sort sorts slice of BaseThemeClass.
+func (s BaseThemeClassArray) Sort(less func(a, b BaseThemeClass) bool) BaseThemeClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of BaseThemeClass.
+func (s BaseThemeClassArray) SortStable(less func(a, b BaseThemeClass) bool) BaseThemeClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of BaseThemeClass.
+func (s BaseThemeClassArray) Retain(keep func(x BaseThemeClass) bool) BaseThemeClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s BaseThemeClassSlice) First() (v BaseThemeClass, ok bool) {
+func (s BaseThemeClassArray) First() (v BaseThemeClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -487,7 +519,7 @@ func (s BaseThemeClassSlice) First() (v BaseThemeClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s BaseThemeClassSlice) Last() (v BaseThemeClass, ok bool) {
+func (s BaseThemeClassArray) Last() (v BaseThemeClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -495,7 +527,7 @@ func (s BaseThemeClassSlice) Last() (v BaseThemeClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *BaseThemeClassSlice) PopFirst() (v BaseThemeClass, ok bool) {
+func (s *BaseThemeClassArray) PopFirst() (v BaseThemeClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -505,7 +537,8 @@ func (s *BaseThemeClassSlice) PopFirst() (v BaseThemeClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero BaseThemeClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -513,7 +546,7 @@ func (s *BaseThemeClassSlice) PopFirst() (v BaseThemeClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *BaseThemeClassSlice) Pop() (v BaseThemeClass, ok bool) {
+func (s *BaseThemeClassArray) Pop() (v BaseThemeClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

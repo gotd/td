@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // SecureValueTypePersonalDetails represents TL type `secureValueTypePersonalDetails#9d2a81e3`.
 // Personal details
@@ -1105,11 +1107,41 @@ func (b *SecureValueTypeBox) Encode(buf *bin.Buffer) error {
 	return b.SecureValueType.Encode(buf)
 }
 
-// SecureValueTypeClassSlice is adapter for slice of SecureValueTypeClass.
-type SecureValueTypeClassSlice []SecureValueTypeClass
+// SecureValueTypeClassArray is adapter for slice of SecureValueTypeClass.
+type SecureValueTypeClassArray []SecureValueTypeClass
+
+// Sort sorts slice of SecureValueTypeClass.
+func (s SecureValueTypeClassArray) Sort(less func(a, b SecureValueTypeClass) bool) SecureValueTypeClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of SecureValueTypeClass.
+func (s SecureValueTypeClassArray) SortStable(less func(a, b SecureValueTypeClass) bool) SecureValueTypeClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of SecureValueTypeClass.
+func (s SecureValueTypeClassArray) Retain(keep func(x SecureValueTypeClass) bool) SecureValueTypeClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s SecureValueTypeClassSlice) First() (v SecureValueTypeClass, ok bool) {
+func (s SecureValueTypeClassArray) First() (v SecureValueTypeClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1117,7 +1149,7 @@ func (s SecureValueTypeClassSlice) First() (v SecureValueTypeClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s SecureValueTypeClassSlice) Last() (v SecureValueTypeClass, ok bool) {
+func (s SecureValueTypeClassArray) Last() (v SecureValueTypeClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1125,7 +1157,7 @@ func (s SecureValueTypeClassSlice) Last() (v SecureValueTypeClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SecureValueTypeClassSlice) PopFirst() (v SecureValueTypeClass, ok bool) {
+func (s *SecureValueTypeClassArray) PopFirst() (v SecureValueTypeClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1135,7 +1167,8 @@ func (s *SecureValueTypeClassSlice) PopFirst() (v SecureValueTypeClass, ok bool)
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero SecureValueTypeClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -1143,7 +1176,7 @@ func (s *SecureValueTypeClassSlice) PopFirst() (v SecureValueTypeClass, ok bool)
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *SecureValueTypeClassSlice) Pop() (v SecureValueTypeClass, ok bool) {
+func (s *SecureValueTypeClassArray) Pop() (v SecureValueTypeClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

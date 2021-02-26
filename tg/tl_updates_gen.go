@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // UpdatesTooLong represents TL type `updatesTooLong#e317af7e`.
 // Too many updates, it is necessary to execute updates.getDifference¹.
@@ -514,12 +516,12 @@ func (u *UpdateShortMessage) GetEntities() (value []MessageEntityClass, ok bool)
 	return u.Entities, true
 }
 
-// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
-func (u *UpdateShortMessage) MapEntities() (value MessageEntityClassSlice, ok bool) {
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (u *UpdateShortMessage) MapEntities() (value MessageEntityClassArray, ok bool) {
 	if !u.Flags.Has(7) {
 		return value, false
 	}
-	return MessageEntityClassSlice(u.Entities), true
+	return MessageEntityClassArray(u.Entities), true
 }
 
 // SetTTLPeriod sets value of TTLPeriod conditional field.
@@ -1080,12 +1082,12 @@ func (u *UpdateShortChatMessage) GetEntities() (value []MessageEntityClass, ok b
 	return u.Entities, true
 }
 
-// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
-func (u *UpdateShortChatMessage) MapEntities() (value MessageEntityClassSlice, ok bool) {
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (u *UpdateShortChatMessage) MapEntities() (value MessageEntityClassArray, ok bool) {
 	if !u.Flags.Has(7) {
 		return value, false
 	}
-	return MessageEntityClassSlice(u.Entities), true
+	return MessageEntityClassArray(u.Entities), true
 }
 
 // SetTTLPeriod sets value of TTLPeriod conditional field.
@@ -1470,9 +1472,9 @@ func (u *UpdatesCombined) GetUpdates() (value []UpdateClass) {
 	return u.Updates
 }
 
-// MapUpdates returns field Updates wrapped in UpdateClassSlice helper.
-func (u *UpdatesCombined) MapUpdates() (value UpdateClassSlice) {
-	return UpdateClassSlice(u.Updates)
+// MapUpdates returns field Updates wrapped in UpdateClassArray helper.
+func (u *UpdatesCombined) MapUpdates() (value UpdateClassArray) {
+	return UpdateClassArray(u.Updates)
 }
 
 // GetUsers returns value of Users field.
@@ -1480,9 +1482,9 @@ func (u *UpdatesCombined) GetUsers() (value []UserClass) {
 	return u.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (u *UpdatesCombined) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(u.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (u *UpdatesCombined) MapUsers() (value UserClassArray) {
+	return UserClassArray(u.Users)
 }
 
 // GetChats returns value of Chats field.
@@ -1490,9 +1492,9 @@ func (u *UpdatesCombined) GetChats() (value []ChatClass) {
 	return u.Chats
 }
 
-// MapChats returns field Chats wrapped in ChatClassSlice helper.
-func (u *UpdatesCombined) MapChats() (value ChatClassSlice) {
-	return ChatClassSlice(u.Chats)
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (u *UpdatesCombined) MapChats() (value ChatClassArray) {
+	return ChatClassArray(u.Chats)
 }
 
 // GetDate returns value of Date field.
@@ -1713,9 +1715,9 @@ func (u *Updates) GetUpdates() (value []UpdateClass) {
 	return u.Updates
 }
 
-// MapUpdates returns field Updates wrapped in UpdateClassSlice helper.
-func (u *Updates) MapUpdates() (value UpdateClassSlice) {
-	return UpdateClassSlice(u.Updates)
+// MapUpdates returns field Updates wrapped in UpdateClassArray helper.
+func (u *Updates) MapUpdates() (value UpdateClassArray) {
+	return UpdateClassArray(u.Updates)
 }
 
 // GetUsers returns value of Users field.
@@ -1723,9 +1725,9 @@ func (u *Updates) GetUsers() (value []UserClass) {
 	return u.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (u *Updates) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(u.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (u *Updates) MapUsers() (value UserClassArray) {
+	return UserClassArray(u.Users)
 }
 
 // GetChats returns value of Chats field.
@@ -1733,9 +1735,9 @@ func (u *Updates) GetChats() (value []ChatClass) {
 	return u.Chats
 }
 
-// MapChats returns field Chats wrapped in ChatClassSlice helper.
-func (u *Updates) MapChats() (value ChatClassSlice) {
-	return ChatClassSlice(u.Chats)
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (u *Updates) MapChats() (value ChatClassArray) {
+	return ChatClassArray(u.Chats)
 }
 
 // GetDate returns value of Date field.
@@ -2074,12 +2076,12 @@ func (u *UpdateShortSentMessage) GetEntities() (value []MessageEntityClass, ok b
 	return u.Entities, true
 }
 
-// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
-func (u *UpdateShortSentMessage) MapEntities() (value MessageEntityClassSlice, ok bool) {
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (u *UpdateShortSentMessage) MapEntities() (value MessageEntityClassArray, ok bool) {
 	if !u.Flags.Has(7) {
 		return value, false
 	}
-	return MessageEntityClassSlice(u.Entities), true
+	return MessageEntityClassArray(u.Entities), true
 }
 
 // SetTTLPeriod sets value of TTLPeriod conditional field.
@@ -2303,11 +2305,41 @@ func (b *UpdatesBox) Encode(buf *bin.Buffer) error {
 	return b.Updates.Encode(buf)
 }
 
-// UpdatesClassSlice is adapter for slice of UpdatesClass.
-type UpdatesClassSlice []UpdatesClass
+// UpdatesClassArray is adapter for slice of UpdatesClass.
+type UpdatesClassArray []UpdatesClass
+
+// Sort sorts slice of UpdatesClass.
+func (s UpdatesClassArray) Sort(less func(a, b UpdatesClass) bool) UpdatesClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdatesClass.
+func (s UpdatesClassArray) SortStable(less func(a, b UpdatesClass) bool) UpdatesClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdatesClass.
+func (s UpdatesClassArray) Retain(keep func(x UpdatesClass) bool) UpdatesClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s UpdatesClassSlice) First() (v UpdatesClass, ok bool) {
+func (s UpdatesClassArray) First() (v UpdatesClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -2315,7 +2347,7 @@ func (s UpdatesClassSlice) First() (v UpdatesClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s UpdatesClassSlice) Last() (v UpdatesClass, ok bool) {
+func (s UpdatesClassArray) Last() (v UpdatesClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -2323,7 +2355,7 @@ func (s UpdatesClassSlice) Last() (v UpdatesClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdatesClassSlice) PopFirst() (v UpdatesClass, ok bool) {
+func (s *UpdatesClassArray) PopFirst() (v UpdatesClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -2333,7 +2365,8 @@ func (s *UpdatesClassSlice) PopFirst() (v UpdatesClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero UpdatesClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -2341,7 +2374,7 @@ func (s *UpdatesClassSlice) PopFirst() (v UpdatesClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdatesClassSlice) Pop() (v UpdatesClass, ok bool) {
+func (s *UpdatesClassArray) Pop() (v UpdatesClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -2352,4 +2385,742 @@ func (s *UpdatesClassSlice) Pop() (v UpdatesClass, ok bool) {
 	*s = a
 
 	return v, true
+}
+
+// AsUpdateShortMessage returns copy with only UpdateShortMessage constructors.
+func (s UpdatesClassArray) AsUpdateShortMessage() (to UpdateShortMessageArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateShortMessage)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateShortChatMessage returns copy with only UpdateShortChatMessage constructors.
+func (s UpdatesClassArray) AsUpdateShortChatMessage() (to UpdateShortChatMessageArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateShortChatMessage)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateShort returns copy with only UpdateShort constructors.
+func (s UpdatesClassArray) AsUpdateShort() (to UpdateShortArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateShort)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdatesCombined returns copy with only UpdatesCombined constructors.
+func (s UpdatesClassArray) AsUpdatesCombined() (to UpdatesCombinedArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdatesCombined)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdates returns copy with only Updates constructors.
+func (s UpdatesClassArray) AsUpdates() (to UpdatesArray) {
+	for _, elem := range s {
+		value, ok := elem.(*Updates)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUpdateShortSentMessage returns copy with only UpdateShortSentMessage constructors.
+func (s UpdatesClassArray) AsUpdateShortSentMessage() (to UpdateShortSentMessageArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UpdateShortSentMessage)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// UpdateShortMessageArray is adapter for slice of UpdateShortMessage.
+type UpdateShortMessageArray []UpdateShortMessage
+
+// Sort sorts slice of UpdateShortMessage.
+func (s UpdateShortMessageArray) Sort(less func(a, b UpdateShortMessage) bool) UpdateShortMessageArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateShortMessage.
+func (s UpdateShortMessageArray) SortStable(less func(a, b UpdateShortMessage) bool) UpdateShortMessageArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateShortMessage.
+func (s UpdateShortMessageArray) Retain(keep func(x UpdateShortMessage) bool) UpdateShortMessageArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateShortMessageArray) First() (v UpdateShortMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateShortMessageArray) Last() (v UpdateShortMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateShortMessageArray) PopFirst() (v UpdateShortMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateShortMessage
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateShortMessageArray) Pop() (v UpdateShortMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of UpdateShortMessage by ID.
+func (s UpdateShortMessageArray) SortByID() UpdateShortMessageArray {
+	return s.Sort(func(a, b UpdateShortMessage) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of UpdateShortMessage by ID.
+func (s UpdateShortMessageArray) SortStableByID() UpdateShortMessageArray {
+	return s.SortStable(func(a, b UpdateShortMessage) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortByDate sorts slice of UpdateShortMessage by Date.
+func (s UpdateShortMessageArray) SortByDate() UpdateShortMessageArray {
+	return s.Sort(func(a, b UpdateShortMessage) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of UpdateShortMessage by Date.
+func (s UpdateShortMessageArray) SortStableByDate() UpdateShortMessageArray {
+	return s.SortStable(func(a, b UpdateShortMessage) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s UpdateShortMessageArray) FillMap(to map[int]UpdateShortMessage) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s UpdateShortMessageArray) ToMap() map[int]UpdateShortMessage {
+	r := make(map[int]UpdateShortMessage, len(s))
+	s.FillMap(r)
+	return r
+}
+
+// UpdateShortChatMessageArray is adapter for slice of UpdateShortChatMessage.
+type UpdateShortChatMessageArray []UpdateShortChatMessage
+
+// Sort sorts slice of UpdateShortChatMessage.
+func (s UpdateShortChatMessageArray) Sort(less func(a, b UpdateShortChatMessage) bool) UpdateShortChatMessageArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateShortChatMessage.
+func (s UpdateShortChatMessageArray) SortStable(less func(a, b UpdateShortChatMessage) bool) UpdateShortChatMessageArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateShortChatMessage.
+func (s UpdateShortChatMessageArray) Retain(keep func(x UpdateShortChatMessage) bool) UpdateShortChatMessageArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateShortChatMessageArray) First() (v UpdateShortChatMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateShortChatMessageArray) Last() (v UpdateShortChatMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateShortChatMessageArray) PopFirst() (v UpdateShortChatMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateShortChatMessage
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateShortChatMessageArray) Pop() (v UpdateShortChatMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of UpdateShortChatMessage by ID.
+func (s UpdateShortChatMessageArray) SortByID() UpdateShortChatMessageArray {
+	return s.Sort(func(a, b UpdateShortChatMessage) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of UpdateShortChatMessage by ID.
+func (s UpdateShortChatMessageArray) SortStableByID() UpdateShortChatMessageArray {
+	return s.SortStable(func(a, b UpdateShortChatMessage) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortByDate sorts slice of UpdateShortChatMessage by Date.
+func (s UpdateShortChatMessageArray) SortByDate() UpdateShortChatMessageArray {
+	return s.Sort(func(a, b UpdateShortChatMessage) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of UpdateShortChatMessage by Date.
+func (s UpdateShortChatMessageArray) SortStableByDate() UpdateShortChatMessageArray {
+	return s.SortStable(func(a, b UpdateShortChatMessage) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s UpdateShortChatMessageArray) FillMap(to map[int]UpdateShortChatMessage) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s UpdateShortChatMessageArray) ToMap() map[int]UpdateShortChatMessage {
+	r := make(map[int]UpdateShortChatMessage, len(s))
+	s.FillMap(r)
+	return r
+}
+
+// UpdateShortArray is adapter for slice of UpdateShort.
+type UpdateShortArray []UpdateShort
+
+// Sort sorts slice of UpdateShort.
+func (s UpdateShortArray) Sort(less func(a, b UpdateShort) bool) UpdateShortArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateShort.
+func (s UpdateShortArray) SortStable(less func(a, b UpdateShort) bool) UpdateShortArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateShort.
+func (s UpdateShortArray) Retain(keep func(x UpdateShort) bool) UpdateShortArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateShortArray) First() (v UpdateShort, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateShortArray) Last() (v UpdateShort, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateShortArray) PopFirst() (v UpdateShort, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateShort
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateShortArray) Pop() (v UpdateShort, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByDate sorts slice of UpdateShort by Date.
+func (s UpdateShortArray) SortByDate() UpdateShortArray {
+	return s.Sort(func(a, b UpdateShort) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of UpdateShort by Date.
+func (s UpdateShortArray) SortStableByDate() UpdateShortArray {
+	return s.SortStable(func(a, b UpdateShort) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// UpdatesCombinedArray is adapter for slice of UpdatesCombined.
+type UpdatesCombinedArray []UpdatesCombined
+
+// Sort sorts slice of UpdatesCombined.
+func (s UpdatesCombinedArray) Sort(less func(a, b UpdatesCombined) bool) UpdatesCombinedArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdatesCombined.
+func (s UpdatesCombinedArray) SortStable(less func(a, b UpdatesCombined) bool) UpdatesCombinedArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdatesCombined.
+func (s UpdatesCombinedArray) Retain(keep func(x UpdatesCombined) bool) UpdatesCombinedArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdatesCombinedArray) First() (v UpdatesCombined, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdatesCombinedArray) Last() (v UpdatesCombined, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdatesCombinedArray) PopFirst() (v UpdatesCombined, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdatesCombined
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdatesCombinedArray) Pop() (v UpdatesCombined, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByDate sorts slice of UpdatesCombined by Date.
+func (s UpdatesCombinedArray) SortByDate() UpdatesCombinedArray {
+	return s.Sort(func(a, b UpdatesCombined) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of UpdatesCombined by Date.
+func (s UpdatesCombinedArray) SortStableByDate() UpdatesCombinedArray {
+	return s.SortStable(func(a, b UpdatesCombined) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// UpdatesArray is adapter for slice of Updates.
+type UpdatesArray []Updates
+
+// Sort sorts slice of Updates.
+func (s UpdatesArray) Sort(less func(a, b Updates) bool) UpdatesArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of Updates.
+func (s UpdatesArray) SortStable(less func(a, b Updates) bool) UpdatesArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of Updates.
+func (s UpdatesArray) Retain(keep func(x Updates) bool) UpdatesArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdatesArray) First() (v Updates, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdatesArray) Last() (v Updates, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdatesArray) PopFirst() (v Updates, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero Updates
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdatesArray) Pop() (v Updates, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByDate sorts slice of Updates by Date.
+func (s UpdatesArray) SortByDate() UpdatesArray {
+	return s.Sort(func(a, b Updates) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of Updates by Date.
+func (s UpdatesArray) SortStableByDate() UpdatesArray {
+	return s.SortStable(func(a, b Updates) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// UpdateShortSentMessageArray is adapter for slice of UpdateShortSentMessage.
+type UpdateShortSentMessageArray []UpdateShortSentMessage
+
+// Sort sorts slice of UpdateShortSentMessage.
+func (s UpdateShortSentMessageArray) Sort(less func(a, b UpdateShortSentMessage) bool) UpdateShortSentMessageArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UpdateShortSentMessage.
+func (s UpdateShortSentMessageArray) SortStable(less func(a, b UpdateShortSentMessage) bool) UpdateShortSentMessageArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UpdateShortSentMessage.
+func (s UpdateShortSentMessageArray) Retain(keep func(x UpdateShortSentMessage) bool) UpdateShortSentMessageArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UpdateShortSentMessageArray) First() (v UpdateShortSentMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UpdateShortSentMessageArray) Last() (v UpdateShortSentMessage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UpdateShortSentMessageArray) PopFirst() (v UpdateShortSentMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UpdateShortSentMessage
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UpdateShortSentMessageArray) Pop() (v UpdateShortSentMessage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of UpdateShortSentMessage by ID.
+func (s UpdateShortSentMessageArray) SortByID() UpdateShortSentMessageArray {
+	return s.Sort(func(a, b UpdateShortSentMessage) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of UpdateShortSentMessage by ID.
+func (s UpdateShortSentMessageArray) SortStableByID() UpdateShortSentMessageArray {
+	return s.SortStable(func(a, b UpdateShortSentMessage) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortByDate sorts slice of UpdateShortSentMessage by Date.
+func (s UpdateShortSentMessageArray) SortByDate() UpdateShortSentMessageArray {
+	return s.Sort(func(a, b UpdateShortSentMessage) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of UpdateShortSentMessage by Date.
+func (s UpdateShortSentMessageArray) SortStableByDate() UpdateShortSentMessageArray {
+	return s.SortStable(func(a, b UpdateShortSentMessage) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s UpdateShortSentMessageArray) FillMap(to map[int]UpdateShortSentMessage) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s UpdateShortSentMessageArray) ToMap() map[int]UpdateShortSentMessage {
+	r := make(map[int]UpdateShortSentMessage, len(s))
+	s.FillMap(r)
+	return r
 }

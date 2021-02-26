@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessageEmpty represents TL type `messageEmpty#90a6ca84`.
 // Empty constructor, non-existent message.
@@ -954,12 +956,12 @@ func (m *Message) GetEntities() (value []MessageEntityClass, ok bool) {
 	return m.Entities, true
 }
 
-// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
-func (m *Message) MapEntities() (value MessageEntityClassSlice, ok bool) {
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (m *Message) MapEntities() (value MessageEntityClassArray, ok bool) {
 	if !m.Flags.Has(7) {
 		return value, false
 	}
-	return MessageEntityClassSlice(m.Entities), true
+	return MessageEntityClassArray(m.Entities), true
 }
 
 // SetViews sets value of Views conditional field.
@@ -1901,11 +1903,104 @@ func (b *MessageBox) Encode(buf *bin.Buffer) error {
 	return b.Message.Encode(buf)
 }
 
-// MessageClassSlice is adapter for slice of MessageClass.
-type MessageClassSlice []MessageClass
+// MessageClassArray is adapter for slice of MessageClass.
+type MessageClassArray []MessageClass
+
+// Sort sorts slice of MessageClass.
+func (s MessageClassArray) Sort(less func(a, b MessageClass) bool) MessageClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageClass.
+func (s MessageClassArray) SortStable(less func(a, b MessageClass) bool) MessageClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageClass.
+func (s MessageClassArray) Retain(keep func(x MessageClass) bool) MessageClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageClassArray) First() (v MessageClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageClassArray) Last() (v MessageClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageClassArray) PopFirst() (v MessageClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageClassArray) Pop() (v MessageClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of MessageClass by ID.
+func (s MessageClassArray) SortByID() MessageClassArray {
+	return s.Sort(func(a, b MessageClass) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of MessageClass by ID.
+func (s MessageClassArray) SortStableByID() MessageClassArray {
+	return s.SortStable(func(a, b MessageClass) bool {
+		return a.GetID() < b.GetID()
+	})
+}
 
 // FillMessageEmptyMap fills only MessageEmpty constructors to given map.
-func (s MessageClassSlice) FillMessageEmptyMap(to map[int]*MessageEmpty) {
+func (s MessageClassArray) FillMessageEmptyMap(to map[int]*MessageEmpty) {
 	for _, elem := range s {
 		value, ok := elem.(*MessageEmpty)
 		if !ok {
@@ -1916,14 +2011,25 @@ func (s MessageClassSlice) FillMessageEmptyMap(to map[int]*MessageEmpty) {
 }
 
 // MessageEmptyToMap collects only MessageEmpty constructors to map.
-func (s MessageClassSlice) MessageEmptyToMap() map[int]*MessageEmpty {
+func (s MessageClassArray) MessageEmptyToMap() map[int]*MessageEmpty {
 	r := make(map[int]*MessageEmpty, len(s))
 	s.FillMessageEmptyMap(r)
 	return r
 }
 
-// FillMessageMap fills only Message constructors to given map.
-func (s MessageClassSlice) FillMessageMap(to map[int]*Message) {
+// AsMessageEmpty returns copy with only MessageEmpty constructors.
+func (s MessageClassArray) AsMessageEmpty() (to MessageEmptyArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageEmpty)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+} // FillMessageMap fills only Message constructors to given map.
+func (s MessageClassArray) FillMessageMap(to map[int]*Message) {
 	for _, elem := range s {
 		value, ok := elem.(*Message)
 		if !ok {
@@ -1934,14 +2040,25 @@ func (s MessageClassSlice) FillMessageMap(to map[int]*Message) {
 }
 
 // MessageToMap collects only Message constructors to map.
-func (s MessageClassSlice) MessageToMap() map[int]*Message {
+func (s MessageClassArray) MessageToMap() map[int]*Message {
 	r := make(map[int]*Message, len(s))
 	s.FillMessageMap(r)
 	return r
 }
 
-// FillMessageServiceMap fills only MessageService constructors to given map.
-func (s MessageClassSlice) FillMessageServiceMap(to map[int]*MessageService) {
+// AsMessage returns copy with only Message constructors.
+func (s MessageClassArray) AsMessage() (to MessageArray) {
+	for _, elem := range s {
+		value, ok := elem.(*Message)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+} // FillMessageServiceMap fills only MessageService constructors to given map.
+func (s MessageClassArray) FillMessageServiceMap(to map[int]*MessageService) {
 	for _, elem := range s {
 		value, ok := elem.(*MessageService)
 		if !ok {
@@ -1952,14 +2069,27 @@ func (s MessageClassSlice) FillMessageServiceMap(to map[int]*MessageService) {
 }
 
 // MessageServiceToMap collects only MessageService constructors to map.
-func (s MessageClassSlice) MessageServiceToMap() map[int]*MessageService {
+func (s MessageClassArray) MessageServiceToMap() map[int]*MessageService {
 	r := make(map[int]*MessageService, len(s))
 	s.FillMessageServiceMap(r)
 	return r
 }
 
+// AsMessageService returns copy with only MessageService constructors.
+func (s MessageClassArray) AsMessageService() (to MessageServiceArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageService)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // FillNotEmptyMap fills only NotEmpty constructors to given map.
-func (s MessageClassSlice) FillNotEmptyMap(to map[int]NotEmptyMessage) {
+func (s MessageClassArray) FillNotEmptyMap(to map[int]NotEmptyMessage) {
 	for _, elem := range s {
 		value, ok := elem.AsNotEmpty()
 		if !ok {
@@ -1970,7 +2100,7 @@ func (s MessageClassSlice) FillNotEmptyMap(to map[int]NotEmptyMessage) {
 }
 
 // NotEmptyToMap collects only NotEmpty constructors to map.
-func (s MessageClassSlice) NotEmptyToMap() map[int]NotEmptyMessage {
+func (s MessageClassArray) NotEmptyToMap() map[int]NotEmptyMessage {
 	r := make(map[int]NotEmptyMessage, len(s))
 	s.FillNotEmptyMap(r)
 	return r
@@ -1978,7 +2108,7 @@ func (s MessageClassSlice) NotEmptyToMap() map[int]NotEmptyMessage {
 
 // AppendOnlyNotEmpty appends only NotEmpty constructors to
 // given slice.
-func (s MessageClassSlice) AppendOnlyNotEmpty(to []NotEmptyMessage) []NotEmptyMessage {
+func (s MessageClassArray) AppendOnlyNotEmpty(to []NotEmptyMessage) []NotEmptyMessage {
 	for _, elem := range s {
 		value, ok := elem.AsNotEmpty()
 		if !ok {
@@ -1991,12 +2121,12 @@ func (s MessageClassSlice) AppendOnlyNotEmpty(to []NotEmptyMessage) []NotEmptyMe
 }
 
 // AsNotEmpty returns copy with only NotEmpty constructors.
-func (s MessageClassSlice) AsNotEmpty() (to []NotEmptyMessage) {
+func (s MessageClassArray) AsNotEmpty() (to []NotEmptyMessage) {
 	return s.AppendOnlyNotEmpty(to)
 }
 
 // FirstAsNotEmpty returns first element of slice (if exists).
-func (s MessageClassSlice) FirstAsNotEmpty() (v NotEmptyMessage, ok bool) {
+func (s MessageClassArray) FirstAsNotEmpty() (v NotEmptyMessage, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -2005,7 +2135,7 @@ func (s MessageClassSlice) FirstAsNotEmpty() (v NotEmptyMessage, ok bool) {
 }
 
 // LastAsNotEmpty returns last element of slice (if exists).
-func (s MessageClassSlice) LastAsNotEmpty() (v NotEmptyMessage, ok bool) {
+func (s MessageClassArray) LastAsNotEmpty() (v NotEmptyMessage, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -2014,7 +2144,7 @@ func (s MessageClassSlice) LastAsNotEmpty() (v NotEmptyMessage, ok bool) {
 }
 
 // PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *MessageClassSlice) PopFirstAsNotEmpty() (v NotEmptyMessage, ok bool) {
+func (s *MessageClassArray) PopFirstAsNotEmpty() (v NotEmptyMessage, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -2023,7 +2153,7 @@ func (s *MessageClassSlice) PopFirstAsNotEmpty() (v NotEmptyMessage, ok bool) {
 }
 
 // PopAsNotEmpty returns element of slice (if exists).
-func (s *MessageClassSlice) PopAsNotEmpty() (v NotEmptyMessage, ok bool) {
+func (s *MessageClassArray) PopAsNotEmpty() (v NotEmptyMessage, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -2031,8 +2161,41 @@ func (s *MessageClassSlice) PopAsNotEmpty() (v NotEmptyMessage, ok bool) {
 	return value.AsNotEmpty()
 }
 
+// MessageEmptyArray is adapter for slice of MessageEmpty.
+type MessageEmptyArray []MessageEmpty
+
+// Sort sorts slice of MessageEmpty.
+func (s MessageEmptyArray) Sort(less func(a, b MessageEmpty) bool) MessageEmptyArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageEmpty.
+func (s MessageEmptyArray) SortStable(less func(a, b MessageEmpty) bool) MessageEmptyArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageEmpty.
+func (s MessageEmptyArray) Retain(keep func(x MessageEmpty) bool) MessageEmptyArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s MessageClassSlice) First() (v MessageClass, ok bool) {
+func (s MessageEmptyArray) First() (v MessageEmpty, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -2040,7 +2203,7 @@ func (s MessageClassSlice) First() (v MessageClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s MessageClassSlice) Last() (v MessageClass, ok bool) {
+func (s MessageEmptyArray) Last() (v MessageEmpty, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -2048,7 +2211,7 @@ func (s MessageClassSlice) Last() (v MessageClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageClassSlice) PopFirst() (v MessageClass, ok bool) {
+func (s *MessageEmptyArray) PopFirst() (v MessageEmpty, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -2058,7 +2221,8 @@ func (s *MessageClassSlice) PopFirst() (v MessageClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero MessageEmpty
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -2066,7 +2230,7 @@ func (s *MessageClassSlice) PopFirst() (v MessageClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageClassSlice) Pop() (v MessageClass, ok bool) {
+func (s *MessageEmptyArray) Pop() (v MessageEmpty, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -2077,4 +2241,280 @@ func (s *MessageClassSlice) Pop() (v MessageClass, ok bool) {
 	*s = a
 
 	return v, true
+}
+
+// SortByID sorts slice of MessageEmpty by ID.
+func (s MessageEmptyArray) SortByID() MessageEmptyArray {
+	return s.Sort(func(a, b MessageEmpty) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of MessageEmpty by ID.
+func (s MessageEmptyArray) SortStableByID() MessageEmptyArray {
+	return s.SortStable(func(a, b MessageEmpty) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s MessageEmptyArray) FillMap(to map[int]MessageEmpty) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s MessageEmptyArray) ToMap() map[int]MessageEmpty {
+	r := make(map[int]MessageEmpty, len(s))
+	s.FillMap(r)
+	return r
+}
+
+// MessageArray is adapter for slice of Message.
+type MessageArray []Message
+
+// Sort sorts slice of Message.
+func (s MessageArray) Sort(less func(a, b Message) bool) MessageArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of Message.
+func (s MessageArray) SortStable(less func(a, b Message) bool) MessageArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of Message.
+func (s MessageArray) Retain(keep func(x Message) bool) MessageArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageArray) First() (v Message, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageArray) Last() (v Message, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageArray) PopFirst() (v Message, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero Message
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageArray) Pop() (v Message, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of Message by ID.
+func (s MessageArray) SortByID() MessageArray {
+	return s.Sort(func(a, b Message) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of Message by ID.
+func (s MessageArray) SortStableByID() MessageArray {
+	return s.SortStable(func(a, b Message) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortByDate sorts slice of Message by Date.
+func (s MessageArray) SortByDate() MessageArray {
+	return s.Sort(func(a, b Message) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of Message by Date.
+func (s MessageArray) SortStableByDate() MessageArray {
+	return s.SortStable(func(a, b Message) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s MessageArray) FillMap(to map[int]Message) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s MessageArray) ToMap() map[int]Message {
+	r := make(map[int]Message, len(s))
+	s.FillMap(r)
+	return r
+}
+
+// MessageServiceArray is adapter for slice of MessageService.
+type MessageServiceArray []MessageService
+
+// Sort sorts slice of MessageService.
+func (s MessageServiceArray) Sort(less func(a, b MessageService) bool) MessageServiceArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageService.
+func (s MessageServiceArray) SortStable(less func(a, b MessageService) bool) MessageServiceArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageService.
+func (s MessageServiceArray) Retain(keep func(x MessageService) bool) MessageServiceArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageServiceArray) First() (v MessageService, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageServiceArray) Last() (v MessageService, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageServiceArray) PopFirst() (v MessageService, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageService
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageServiceArray) Pop() (v MessageService, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of MessageService by ID.
+func (s MessageServiceArray) SortByID() MessageServiceArray {
+	return s.Sort(func(a, b MessageService) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of MessageService by ID.
+func (s MessageServiceArray) SortStableByID() MessageServiceArray {
+	return s.SortStable(func(a, b MessageService) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortByDate sorts slice of MessageService by Date.
+func (s MessageServiceArray) SortByDate() MessageServiceArray {
+	return s.Sort(func(a, b MessageService) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of MessageService by Date.
+func (s MessageServiceArray) SortStableByDate() MessageServiceArray {
+	return s.SortStable(func(a, b MessageService) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s MessageServiceArray) FillMap(to map[int]MessageService) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s MessageServiceArray) ToMap() map[int]MessageService {
+	r := make(map[int]MessageService, len(s))
+	s.FillMap(r)
+	return r
 }

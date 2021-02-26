@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // HelpTermsOfServiceUpdateEmpty represents TL type `help.termsOfServiceUpdateEmpty#e3309f7f`.
 // No changes were made to telegram's terms of service
@@ -338,12 +340,117 @@ func (b *HelpTermsOfServiceUpdateBox) Encode(buf *bin.Buffer) error {
 	return b.TermsOfServiceUpdate.Encode(buf)
 }
 
-// HelpTermsOfServiceUpdateClassSlice is adapter for slice of HelpTermsOfServiceUpdateClass.
-type HelpTermsOfServiceUpdateClassSlice []HelpTermsOfServiceUpdateClass
+// HelpTermsOfServiceUpdateClassArray is adapter for slice of HelpTermsOfServiceUpdateClass.
+type HelpTermsOfServiceUpdateClassArray []HelpTermsOfServiceUpdateClass
+
+// Sort sorts slice of HelpTermsOfServiceUpdateClass.
+func (s HelpTermsOfServiceUpdateClassArray) Sort(less func(a, b HelpTermsOfServiceUpdateClass) bool) HelpTermsOfServiceUpdateClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of HelpTermsOfServiceUpdateClass.
+func (s HelpTermsOfServiceUpdateClassArray) SortStable(less func(a, b HelpTermsOfServiceUpdateClass) bool) HelpTermsOfServiceUpdateClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of HelpTermsOfServiceUpdateClass.
+func (s HelpTermsOfServiceUpdateClassArray) Retain(keep func(x HelpTermsOfServiceUpdateClass) bool) HelpTermsOfServiceUpdateClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s HelpTermsOfServiceUpdateClassArray) First() (v HelpTermsOfServiceUpdateClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s HelpTermsOfServiceUpdateClassArray) Last() (v HelpTermsOfServiceUpdateClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *HelpTermsOfServiceUpdateClassArray) PopFirst() (v HelpTermsOfServiceUpdateClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero HelpTermsOfServiceUpdateClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *HelpTermsOfServiceUpdateClassArray) Pop() (v HelpTermsOfServiceUpdateClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsHelpTermsOfServiceUpdateEmpty returns copy with only HelpTermsOfServiceUpdateEmpty constructors.
+func (s HelpTermsOfServiceUpdateClassArray) AsHelpTermsOfServiceUpdateEmpty() (to HelpTermsOfServiceUpdateEmptyArray) {
+	for _, elem := range s {
+		value, ok := elem.(*HelpTermsOfServiceUpdateEmpty)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsHelpTermsOfServiceUpdate returns copy with only HelpTermsOfServiceUpdate constructors.
+func (s HelpTermsOfServiceUpdateClassArray) AsHelpTermsOfServiceUpdate() (to HelpTermsOfServiceUpdateArray) {
+	for _, elem := range s {
+		value, ok := elem.(*HelpTermsOfServiceUpdate)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
 
 // AppendOnlyNotEmpty appends only NotEmpty constructors to
 // given slice.
-func (s HelpTermsOfServiceUpdateClassSlice) AppendOnlyNotEmpty(to []*HelpTermsOfServiceUpdate) []*HelpTermsOfServiceUpdate {
+func (s HelpTermsOfServiceUpdateClassArray) AppendOnlyNotEmpty(to []*HelpTermsOfServiceUpdate) []*HelpTermsOfServiceUpdate {
 	for _, elem := range s {
 		value, ok := elem.AsNotEmpty()
 		if !ok {
@@ -356,12 +463,12 @@ func (s HelpTermsOfServiceUpdateClassSlice) AppendOnlyNotEmpty(to []*HelpTermsOf
 }
 
 // AsNotEmpty returns copy with only NotEmpty constructors.
-func (s HelpTermsOfServiceUpdateClassSlice) AsNotEmpty() (to []*HelpTermsOfServiceUpdate) {
+func (s HelpTermsOfServiceUpdateClassArray) AsNotEmpty() (to []*HelpTermsOfServiceUpdate) {
 	return s.AppendOnlyNotEmpty(to)
 }
 
 // FirstAsNotEmpty returns first element of slice (if exists).
-func (s HelpTermsOfServiceUpdateClassSlice) FirstAsNotEmpty() (v *HelpTermsOfServiceUpdate, ok bool) {
+func (s HelpTermsOfServiceUpdateClassArray) FirstAsNotEmpty() (v *HelpTermsOfServiceUpdate, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -370,7 +477,7 @@ func (s HelpTermsOfServiceUpdateClassSlice) FirstAsNotEmpty() (v *HelpTermsOfSer
 }
 
 // LastAsNotEmpty returns last element of slice (if exists).
-func (s HelpTermsOfServiceUpdateClassSlice) LastAsNotEmpty() (v *HelpTermsOfServiceUpdate, ok bool) {
+func (s HelpTermsOfServiceUpdateClassArray) LastAsNotEmpty() (v *HelpTermsOfServiceUpdate, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -379,7 +486,7 @@ func (s HelpTermsOfServiceUpdateClassSlice) LastAsNotEmpty() (v *HelpTermsOfServ
 }
 
 // PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *HelpTermsOfServiceUpdateClassSlice) PopFirstAsNotEmpty() (v *HelpTermsOfServiceUpdate, ok bool) {
+func (s *HelpTermsOfServiceUpdateClassArray) PopFirstAsNotEmpty() (v *HelpTermsOfServiceUpdate, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -388,7 +495,7 @@ func (s *HelpTermsOfServiceUpdateClassSlice) PopFirstAsNotEmpty() (v *HelpTermsO
 }
 
 // PopAsNotEmpty returns element of slice (if exists).
-func (s *HelpTermsOfServiceUpdateClassSlice) PopAsNotEmpty() (v *HelpTermsOfServiceUpdate, ok bool) {
+func (s *HelpTermsOfServiceUpdateClassArray) PopAsNotEmpty() (v *HelpTermsOfServiceUpdate, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -396,8 +503,41 @@ func (s *HelpTermsOfServiceUpdateClassSlice) PopAsNotEmpty() (v *HelpTermsOfServ
 	return value.AsNotEmpty()
 }
 
+// HelpTermsOfServiceUpdateEmptyArray is adapter for slice of HelpTermsOfServiceUpdateEmpty.
+type HelpTermsOfServiceUpdateEmptyArray []HelpTermsOfServiceUpdateEmpty
+
+// Sort sorts slice of HelpTermsOfServiceUpdateEmpty.
+func (s HelpTermsOfServiceUpdateEmptyArray) Sort(less func(a, b HelpTermsOfServiceUpdateEmpty) bool) HelpTermsOfServiceUpdateEmptyArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of HelpTermsOfServiceUpdateEmpty.
+func (s HelpTermsOfServiceUpdateEmptyArray) SortStable(less func(a, b HelpTermsOfServiceUpdateEmpty) bool) HelpTermsOfServiceUpdateEmptyArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of HelpTermsOfServiceUpdateEmpty.
+func (s HelpTermsOfServiceUpdateEmptyArray) Retain(keep func(x HelpTermsOfServiceUpdateEmpty) bool) HelpTermsOfServiceUpdateEmptyArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s HelpTermsOfServiceUpdateClassSlice) First() (v HelpTermsOfServiceUpdateClass, ok bool) {
+func (s HelpTermsOfServiceUpdateEmptyArray) First() (v HelpTermsOfServiceUpdateEmpty, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -405,7 +545,7 @@ func (s HelpTermsOfServiceUpdateClassSlice) First() (v HelpTermsOfServiceUpdateC
 }
 
 // Last returns last element of slice (if exists).
-func (s HelpTermsOfServiceUpdateClassSlice) Last() (v HelpTermsOfServiceUpdateClass, ok bool) {
+func (s HelpTermsOfServiceUpdateEmptyArray) Last() (v HelpTermsOfServiceUpdateEmpty, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -413,7 +553,7 @@ func (s HelpTermsOfServiceUpdateClassSlice) Last() (v HelpTermsOfServiceUpdateCl
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *HelpTermsOfServiceUpdateClassSlice) PopFirst() (v HelpTermsOfServiceUpdateClass, ok bool) {
+func (s *HelpTermsOfServiceUpdateEmptyArray) PopFirst() (v HelpTermsOfServiceUpdateEmpty, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -423,7 +563,8 @@ func (s *HelpTermsOfServiceUpdateClassSlice) PopFirst() (v HelpTermsOfServiceUpd
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero HelpTermsOfServiceUpdateEmpty
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -431,7 +572,89 @@ func (s *HelpTermsOfServiceUpdateClassSlice) PopFirst() (v HelpTermsOfServiceUpd
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *HelpTermsOfServiceUpdateClassSlice) Pop() (v HelpTermsOfServiceUpdateClass, ok bool) {
+func (s *HelpTermsOfServiceUpdateEmptyArray) Pop() (v HelpTermsOfServiceUpdateEmpty, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// HelpTermsOfServiceUpdateArray is adapter for slice of HelpTermsOfServiceUpdate.
+type HelpTermsOfServiceUpdateArray []HelpTermsOfServiceUpdate
+
+// Sort sorts slice of HelpTermsOfServiceUpdate.
+func (s HelpTermsOfServiceUpdateArray) Sort(less func(a, b HelpTermsOfServiceUpdate) bool) HelpTermsOfServiceUpdateArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of HelpTermsOfServiceUpdate.
+func (s HelpTermsOfServiceUpdateArray) SortStable(less func(a, b HelpTermsOfServiceUpdate) bool) HelpTermsOfServiceUpdateArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of HelpTermsOfServiceUpdate.
+func (s HelpTermsOfServiceUpdateArray) Retain(keep func(x HelpTermsOfServiceUpdate) bool) HelpTermsOfServiceUpdateArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s HelpTermsOfServiceUpdateArray) First() (v HelpTermsOfServiceUpdate, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s HelpTermsOfServiceUpdateArray) Last() (v HelpTermsOfServiceUpdate, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *HelpTermsOfServiceUpdateArray) PopFirst() (v HelpTermsOfServiceUpdate, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero HelpTermsOfServiceUpdate
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *HelpTermsOfServiceUpdateArray) Pop() (v HelpTermsOfServiceUpdate, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

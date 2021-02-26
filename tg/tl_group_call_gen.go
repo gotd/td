@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // GroupCallDiscarded represents TL type `groupCallDiscarded#7780bcb4`.
 //
@@ -510,11 +512,41 @@ func (b *GroupCallBox) Encode(buf *bin.Buffer) error {
 	return b.GroupCall.Encode(buf)
 }
 
-// GroupCallClassSlice is adapter for slice of GroupCallClass.
-type GroupCallClassSlice []GroupCallClass
+// GroupCallClassArray is adapter for slice of GroupCallClass.
+type GroupCallClassArray []GroupCallClass
+
+// Sort sorts slice of GroupCallClass.
+func (s GroupCallClassArray) Sort(less func(a, b GroupCallClass) bool) GroupCallClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of GroupCallClass.
+func (s GroupCallClassArray) SortStable(less func(a, b GroupCallClass) bool) GroupCallClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of GroupCallClass.
+func (s GroupCallClassArray) Retain(keep func(x GroupCallClass) bool) GroupCallClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s GroupCallClassSlice) First() (v GroupCallClass, ok bool) {
+func (s GroupCallClassArray) First() (v GroupCallClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -522,7 +554,7 @@ func (s GroupCallClassSlice) First() (v GroupCallClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s GroupCallClassSlice) Last() (v GroupCallClass, ok bool) {
+func (s GroupCallClassArray) Last() (v GroupCallClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -530,7 +562,7 @@ func (s GroupCallClassSlice) Last() (v GroupCallClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *GroupCallClassSlice) PopFirst() (v GroupCallClass, ok bool) {
+func (s *GroupCallClassArray) PopFirst() (v GroupCallClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -540,7 +572,8 @@ func (s *GroupCallClassSlice) PopFirst() (v GroupCallClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero GroupCallClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -548,7 +581,197 @@ func (s *GroupCallClassSlice) PopFirst() (v GroupCallClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *GroupCallClassSlice) Pop() (v GroupCallClass, ok bool) {
+func (s *GroupCallClassArray) Pop() (v GroupCallClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsGroupCallDiscarded returns copy with only GroupCallDiscarded constructors.
+func (s GroupCallClassArray) AsGroupCallDiscarded() (to GroupCallDiscardedArray) {
+	for _, elem := range s {
+		value, ok := elem.(*GroupCallDiscarded)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsGroupCall returns copy with only GroupCall constructors.
+func (s GroupCallClassArray) AsGroupCall() (to GroupCallArray) {
+	for _, elem := range s {
+		value, ok := elem.(*GroupCall)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// GroupCallDiscardedArray is adapter for slice of GroupCallDiscarded.
+type GroupCallDiscardedArray []GroupCallDiscarded
+
+// Sort sorts slice of GroupCallDiscarded.
+func (s GroupCallDiscardedArray) Sort(less func(a, b GroupCallDiscarded) bool) GroupCallDiscardedArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of GroupCallDiscarded.
+func (s GroupCallDiscardedArray) SortStable(less func(a, b GroupCallDiscarded) bool) GroupCallDiscardedArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of GroupCallDiscarded.
+func (s GroupCallDiscardedArray) Retain(keep func(x GroupCallDiscarded) bool) GroupCallDiscardedArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s GroupCallDiscardedArray) First() (v GroupCallDiscarded, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s GroupCallDiscardedArray) Last() (v GroupCallDiscarded, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *GroupCallDiscardedArray) PopFirst() (v GroupCallDiscarded, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero GroupCallDiscarded
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *GroupCallDiscardedArray) Pop() (v GroupCallDiscarded, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// GroupCallArray is adapter for slice of GroupCall.
+type GroupCallArray []GroupCall
+
+// Sort sorts slice of GroupCall.
+func (s GroupCallArray) Sort(less func(a, b GroupCall) bool) GroupCallArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of GroupCall.
+func (s GroupCallArray) SortStable(less func(a, b GroupCall) bool) GroupCallArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of GroupCall.
+func (s GroupCallArray) Retain(keep func(x GroupCall) bool) GroupCallArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s GroupCallArray) First() (v GroupCall, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s GroupCallArray) Last() (v GroupCall, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *GroupCallArray) PopFirst() (v GroupCall, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero GroupCall
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *GroupCallArray) Pop() (v GroupCall, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

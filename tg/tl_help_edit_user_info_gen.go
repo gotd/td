@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // HelpEditUserInfoRequest represents TL type `help.editUserInfo#66b91b70`.
 // Internal use
@@ -126,9 +128,9 @@ func (e *HelpEditUserInfoRequest) GetEntities() (value []MessageEntityClass) {
 	return e.Entities
 }
 
-// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
-func (e *HelpEditUserInfoRequest) MapEntities() (value MessageEntityClassSlice) {
-	return MessageEntityClassSlice(e.Entities)
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (e *HelpEditUserInfoRequest) MapEntities() (value MessageEntityClassArray) {
+	return MessageEntityClassArray(e.Entities)
 }
 
 // Decode implements bin.Decoder.

@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // AccountGetAllSecureValuesRequest represents TL type `account.getAllSecureValues#b288bc7d`.
 // Get all saved Telegram Passport¹ documents, for more info see the passport docs »²
@@ -102,5 +104,5 @@ func (c *Client) AccountGetAllSecureValues(ctx context.Context) ([]SecureValue, 
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return result.Elems, nil
+	return []SecureValue(result.Elems), nil
 }

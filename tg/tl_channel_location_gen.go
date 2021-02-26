@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // ChannelLocationEmpty represents TL type `channelLocationEmpty#bfb5ad8b`.
 // No location (normal supergroup)
@@ -304,12 +306,104 @@ func (b *ChannelLocationBox) Encode(buf *bin.Buffer) error {
 	return b.ChannelLocation.Encode(buf)
 }
 
-// ChannelLocationClassSlice is adapter for slice of ChannelLocationClass.
-type ChannelLocationClassSlice []ChannelLocationClass
+// ChannelLocationClassArray is adapter for slice of ChannelLocationClass.
+type ChannelLocationClassArray []ChannelLocationClass
+
+// Sort sorts slice of ChannelLocationClass.
+func (s ChannelLocationClassArray) Sort(less func(a, b ChannelLocationClass) bool) ChannelLocationClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ChannelLocationClass.
+func (s ChannelLocationClassArray) SortStable(less func(a, b ChannelLocationClass) bool) ChannelLocationClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ChannelLocationClass.
+func (s ChannelLocationClassArray) Retain(keep func(x ChannelLocationClass) bool) ChannelLocationClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s ChannelLocationClassArray) First() (v ChannelLocationClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ChannelLocationClassArray) Last() (v ChannelLocationClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ChannelLocationClassArray) PopFirst() (v ChannelLocationClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero ChannelLocationClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ChannelLocationClassArray) Pop() (v ChannelLocationClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsChannelLocation returns copy with only ChannelLocation constructors.
+func (s ChannelLocationClassArray) AsChannelLocation() (to ChannelLocationArray) {
+	for _, elem := range s {
+		value, ok := elem.(*ChannelLocation)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
 
 // AppendOnlyNotEmpty appends only NotEmpty constructors to
 // given slice.
-func (s ChannelLocationClassSlice) AppendOnlyNotEmpty(to []*ChannelLocation) []*ChannelLocation {
+func (s ChannelLocationClassArray) AppendOnlyNotEmpty(to []*ChannelLocation) []*ChannelLocation {
 	for _, elem := range s {
 		value, ok := elem.AsNotEmpty()
 		if !ok {
@@ -322,12 +416,12 @@ func (s ChannelLocationClassSlice) AppendOnlyNotEmpty(to []*ChannelLocation) []*
 }
 
 // AsNotEmpty returns copy with only NotEmpty constructors.
-func (s ChannelLocationClassSlice) AsNotEmpty() (to []*ChannelLocation) {
+func (s ChannelLocationClassArray) AsNotEmpty() (to []*ChannelLocation) {
 	return s.AppendOnlyNotEmpty(to)
 }
 
 // FirstAsNotEmpty returns first element of slice (if exists).
-func (s ChannelLocationClassSlice) FirstAsNotEmpty() (v *ChannelLocation, ok bool) {
+func (s ChannelLocationClassArray) FirstAsNotEmpty() (v *ChannelLocation, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -336,7 +430,7 @@ func (s ChannelLocationClassSlice) FirstAsNotEmpty() (v *ChannelLocation, ok boo
 }
 
 // LastAsNotEmpty returns last element of slice (if exists).
-func (s ChannelLocationClassSlice) LastAsNotEmpty() (v *ChannelLocation, ok bool) {
+func (s ChannelLocationClassArray) LastAsNotEmpty() (v *ChannelLocation, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -345,7 +439,7 @@ func (s ChannelLocationClassSlice) LastAsNotEmpty() (v *ChannelLocation, ok bool
 }
 
 // PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *ChannelLocationClassSlice) PopFirstAsNotEmpty() (v *ChannelLocation, ok bool) {
+func (s *ChannelLocationClassArray) PopFirstAsNotEmpty() (v *ChannelLocation, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -354,7 +448,7 @@ func (s *ChannelLocationClassSlice) PopFirstAsNotEmpty() (v *ChannelLocation, ok
 }
 
 // PopAsNotEmpty returns element of slice (if exists).
-func (s *ChannelLocationClassSlice) PopAsNotEmpty() (v *ChannelLocation, ok bool) {
+func (s *ChannelLocationClassArray) PopAsNotEmpty() (v *ChannelLocation, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -362,8 +456,41 @@ func (s *ChannelLocationClassSlice) PopAsNotEmpty() (v *ChannelLocation, ok bool
 	return value.AsNotEmpty()
 }
 
+// ChannelLocationArray is adapter for slice of ChannelLocation.
+type ChannelLocationArray []ChannelLocation
+
+// Sort sorts slice of ChannelLocation.
+func (s ChannelLocationArray) Sort(less func(a, b ChannelLocation) bool) ChannelLocationArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ChannelLocation.
+func (s ChannelLocationArray) SortStable(less func(a, b ChannelLocation) bool) ChannelLocationArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ChannelLocation.
+func (s ChannelLocationArray) Retain(keep func(x ChannelLocation) bool) ChannelLocationArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s ChannelLocationClassSlice) First() (v ChannelLocationClass, ok bool) {
+func (s ChannelLocationArray) First() (v ChannelLocation, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -371,7 +498,7 @@ func (s ChannelLocationClassSlice) First() (v ChannelLocationClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s ChannelLocationClassSlice) Last() (v ChannelLocationClass, ok bool) {
+func (s ChannelLocationArray) Last() (v ChannelLocation, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -379,7 +506,7 @@ func (s ChannelLocationClassSlice) Last() (v ChannelLocationClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ChannelLocationClassSlice) PopFirst() (v ChannelLocationClass, ok bool) {
+func (s *ChannelLocationArray) PopFirst() (v ChannelLocation, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -389,7 +516,8 @@ func (s *ChannelLocationClassSlice) PopFirst() (v ChannelLocationClass, ok bool)
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero ChannelLocation
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -397,7 +525,7 @@ func (s *ChannelLocationClassSlice) PopFirst() (v ChannelLocationClass, ok bool)
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *ChannelLocationClassSlice) Pop() (v ChannelLocationClass, ok bool) {
+func (s *ChannelLocationArray) Pop() (v ChannelLocation, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

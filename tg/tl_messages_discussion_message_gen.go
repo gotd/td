@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesDiscussionMessage represents TL type `messages.discussionMessage#f5dd8f9d`.
 // Information about a message thread¹
@@ -201,9 +203,9 @@ func (d *MessagesDiscussionMessage) GetMessages() (value []MessageClass) {
 	return d.Messages
 }
 
-// MapMessages returns field Messages wrapped in MessageClassSlice helper.
-func (d *MessagesDiscussionMessage) MapMessages() (value MessageClassSlice) {
-	return MessageClassSlice(d.Messages)
+// MapMessages returns field Messages wrapped in MessageClassArray helper.
+func (d *MessagesDiscussionMessage) MapMessages() (value MessageClassArray) {
+	return MessageClassArray(d.Messages)
 }
 
 // SetMaxID sets value of MaxID conditional field.
@@ -256,9 +258,9 @@ func (d *MessagesDiscussionMessage) GetChats() (value []ChatClass) {
 	return d.Chats
 }
 
-// MapChats returns field Chats wrapped in ChatClassSlice helper.
-func (d *MessagesDiscussionMessage) MapChats() (value ChatClassSlice) {
-	return ChatClassSlice(d.Chats)
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (d *MessagesDiscussionMessage) MapChats() (value ChatClassArray) {
+	return ChatClassArray(d.Chats)
 }
 
 // GetUsers returns value of Users field.
@@ -266,9 +268,9 @@ func (d *MessagesDiscussionMessage) GetUsers() (value []UserClass) {
 	return d.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (d *MessagesDiscussionMessage) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(d.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (d *MessagesDiscussionMessage) MapUsers() (value UserClassArray) {
+	return UserClassArray(d.Users)
 }
 
 // Decode implements bin.Decoder.

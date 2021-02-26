@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesSavedGifsNotModified represents TL type `messages.savedGifsNotModified#e8025ca2`.
 // No new saved gifs were found
@@ -178,9 +180,9 @@ func (s *MessagesSavedGifs) GetGifs() (value []DocumentClass) {
 	return s.Gifs
 }
 
-// MapGifs returns field Gifs wrapped in DocumentClassSlice helper.
-func (s *MessagesSavedGifs) MapGifs() (value DocumentClassSlice) {
-	return DocumentClassSlice(s.Gifs)
+// MapGifs returns field Gifs wrapped in DocumentClassArray helper.
+func (s *MessagesSavedGifs) MapGifs() (value DocumentClassArray) {
+	return DocumentClassArray(s.Gifs)
 }
 
 // Decode implements bin.Decoder.
@@ -321,12 +323,104 @@ func (b *MessagesSavedGifsBox) Encode(buf *bin.Buffer) error {
 	return b.SavedGifs.Encode(buf)
 }
 
-// MessagesSavedGifsClassSlice is adapter for slice of MessagesSavedGifsClass.
-type MessagesSavedGifsClassSlice []MessagesSavedGifsClass
+// MessagesSavedGifsClassArray is adapter for slice of MessagesSavedGifsClass.
+type MessagesSavedGifsClassArray []MessagesSavedGifsClass
+
+// Sort sorts slice of MessagesSavedGifsClass.
+func (s MessagesSavedGifsClassArray) Sort(less func(a, b MessagesSavedGifsClass) bool) MessagesSavedGifsClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessagesSavedGifsClass.
+func (s MessagesSavedGifsClassArray) SortStable(less func(a, b MessagesSavedGifsClass) bool) MessagesSavedGifsClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessagesSavedGifsClass.
+func (s MessagesSavedGifsClassArray) Retain(keep func(x MessagesSavedGifsClass) bool) MessagesSavedGifsClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessagesSavedGifsClassArray) First() (v MessagesSavedGifsClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessagesSavedGifsClassArray) Last() (v MessagesSavedGifsClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessagesSavedGifsClassArray) PopFirst() (v MessagesSavedGifsClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessagesSavedGifsClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessagesSavedGifsClassArray) Pop() (v MessagesSavedGifsClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsMessagesSavedGifs returns copy with only MessagesSavedGifs constructors.
+func (s MessagesSavedGifsClassArray) AsMessagesSavedGifs() (to MessagesSavedGifsArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessagesSavedGifs)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
 
 // AppendOnlyModified appends only Modified constructors to
 // given slice.
-func (s MessagesSavedGifsClassSlice) AppendOnlyModified(to []*MessagesSavedGifs) []*MessagesSavedGifs {
+func (s MessagesSavedGifsClassArray) AppendOnlyModified(to []*MessagesSavedGifs) []*MessagesSavedGifs {
 	for _, elem := range s {
 		value, ok := elem.AsModified()
 		if !ok {
@@ -339,12 +433,12 @@ func (s MessagesSavedGifsClassSlice) AppendOnlyModified(to []*MessagesSavedGifs)
 }
 
 // AsModified returns copy with only Modified constructors.
-func (s MessagesSavedGifsClassSlice) AsModified() (to []*MessagesSavedGifs) {
+func (s MessagesSavedGifsClassArray) AsModified() (to []*MessagesSavedGifs) {
 	return s.AppendOnlyModified(to)
 }
 
 // FirstAsModified returns first element of slice (if exists).
-func (s MessagesSavedGifsClassSlice) FirstAsModified() (v *MessagesSavedGifs, ok bool) {
+func (s MessagesSavedGifsClassArray) FirstAsModified() (v *MessagesSavedGifs, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -353,7 +447,7 @@ func (s MessagesSavedGifsClassSlice) FirstAsModified() (v *MessagesSavedGifs, ok
 }
 
 // LastAsModified returns last element of slice (if exists).
-func (s MessagesSavedGifsClassSlice) LastAsModified() (v *MessagesSavedGifs, ok bool) {
+func (s MessagesSavedGifsClassArray) LastAsModified() (v *MessagesSavedGifs, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -362,7 +456,7 @@ func (s MessagesSavedGifsClassSlice) LastAsModified() (v *MessagesSavedGifs, ok 
 }
 
 // PopFirstAsModified returns element of slice (if exists).
-func (s *MessagesSavedGifsClassSlice) PopFirstAsModified() (v *MessagesSavedGifs, ok bool) {
+func (s *MessagesSavedGifsClassArray) PopFirstAsModified() (v *MessagesSavedGifs, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -371,7 +465,7 @@ func (s *MessagesSavedGifsClassSlice) PopFirstAsModified() (v *MessagesSavedGifs
 }
 
 // PopAsModified returns element of slice (if exists).
-func (s *MessagesSavedGifsClassSlice) PopAsModified() (v *MessagesSavedGifs, ok bool) {
+func (s *MessagesSavedGifsClassArray) PopAsModified() (v *MessagesSavedGifs, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -379,8 +473,41 @@ func (s *MessagesSavedGifsClassSlice) PopAsModified() (v *MessagesSavedGifs, ok 
 	return value.AsModified()
 }
 
+// MessagesSavedGifsArray is adapter for slice of MessagesSavedGifs.
+type MessagesSavedGifsArray []MessagesSavedGifs
+
+// Sort sorts slice of MessagesSavedGifs.
+func (s MessagesSavedGifsArray) Sort(less func(a, b MessagesSavedGifs) bool) MessagesSavedGifsArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessagesSavedGifs.
+func (s MessagesSavedGifsArray) SortStable(less func(a, b MessagesSavedGifs) bool) MessagesSavedGifsArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessagesSavedGifs.
+func (s MessagesSavedGifsArray) Retain(keep func(x MessagesSavedGifs) bool) MessagesSavedGifsArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s MessagesSavedGifsClassSlice) First() (v MessagesSavedGifsClass, ok bool) {
+func (s MessagesSavedGifsArray) First() (v MessagesSavedGifs, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -388,7 +515,7 @@ func (s MessagesSavedGifsClassSlice) First() (v MessagesSavedGifsClass, ok bool)
 }
 
 // Last returns last element of slice (if exists).
-func (s MessagesSavedGifsClassSlice) Last() (v MessagesSavedGifsClass, ok bool) {
+func (s MessagesSavedGifsArray) Last() (v MessagesSavedGifs, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -396,7 +523,7 @@ func (s MessagesSavedGifsClassSlice) Last() (v MessagesSavedGifsClass, ok bool) 
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessagesSavedGifsClassSlice) PopFirst() (v MessagesSavedGifsClass, ok bool) {
+func (s *MessagesSavedGifsArray) PopFirst() (v MessagesSavedGifs, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -406,7 +533,8 @@ func (s *MessagesSavedGifsClassSlice) PopFirst() (v MessagesSavedGifsClass, ok b
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero MessagesSavedGifs
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -414,7 +542,7 @@ func (s *MessagesSavedGifsClassSlice) PopFirst() (v MessagesSavedGifsClass, ok b
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *MessagesSavedGifsClassSlice) Pop() (v MessagesSavedGifsClass, ok bool) {
+func (s *MessagesSavedGifsArray) Pop() (v MessagesSavedGifs, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

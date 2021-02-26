@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // FileLocationUnavailable represents TL type `fileLocationUnavailable#7c596b46`.
 //
@@ -408,12 +410,117 @@ func (b *FileLocationBox) Encode(buf *bin.Buffer) error {
 	return b.FileLocation.Encode(buf)
 }
 
-// FileLocationClassSlice is adapter for slice of FileLocationClass.
-type FileLocationClassSlice []FileLocationClass
+// FileLocationClassArray is adapter for slice of FileLocationClass.
+type FileLocationClassArray []FileLocationClass
+
+// Sort sorts slice of FileLocationClass.
+func (s FileLocationClassArray) Sort(less func(a, b FileLocationClass) bool) FileLocationClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of FileLocationClass.
+func (s FileLocationClassArray) SortStable(less func(a, b FileLocationClass) bool) FileLocationClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of FileLocationClass.
+func (s FileLocationClassArray) Retain(keep func(x FileLocationClass) bool) FileLocationClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s FileLocationClassArray) First() (v FileLocationClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s FileLocationClassArray) Last() (v FileLocationClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *FileLocationClassArray) PopFirst() (v FileLocationClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero FileLocationClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *FileLocationClassArray) Pop() (v FileLocationClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsFileLocationUnavailable returns copy with only FileLocationUnavailable constructors.
+func (s FileLocationClassArray) AsFileLocationUnavailable() (to FileLocationUnavailableArray) {
+	for _, elem := range s {
+		value, ok := elem.(*FileLocationUnavailable)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsFileLocation returns copy with only FileLocation constructors.
+func (s FileLocationClassArray) AsFileLocation() (to FileLocationArray) {
+	for _, elem := range s {
+		value, ok := elem.(*FileLocation)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
 
 // AppendOnlyAvailable appends only Available constructors to
 // given slice.
-func (s FileLocationClassSlice) AppendOnlyAvailable(to []*FileLocation) []*FileLocation {
+func (s FileLocationClassArray) AppendOnlyAvailable(to []*FileLocation) []*FileLocation {
 	for _, elem := range s {
 		value, ok := elem.AsAvailable()
 		if !ok {
@@ -426,12 +533,12 @@ func (s FileLocationClassSlice) AppendOnlyAvailable(to []*FileLocation) []*FileL
 }
 
 // AsAvailable returns copy with only Available constructors.
-func (s FileLocationClassSlice) AsAvailable() (to []*FileLocation) {
+func (s FileLocationClassArray) AsAvailable() (to []*FileLocation) {
 	return s.AppendOnlyAvailable(to)
 }
 
 // FirstAsAvailable returns first element of slice (if exists).
-func (s FileLocationClassSlice) FirstAsAvailable() (v *FileLocation, ok bool) {
+func (s FileLocationClassArray) FirstAsAvailable() (v *FileLocation, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -440,7 +547,7 @@ func (s FileLocationClassSlice) FirstAsAvailable() (v *FileLocation, ok bool) {
 }
 
 // LastAsAvailable returns last element of slice (if exists).
-func (s FileLocationClassSlice) LastAsAvailable() (v *FileLocation, ok bool) {
+func (s FileLocationClassArray) LastAsAvailable() (v *FileLocation, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -449,7 +556,7 @@ func (s FileLocationClassSlice) LastAsAvailable() (v *FileLocation, ok bool) {
 }
 
 // PopFirstAsAvailable returns element of slice (if exists).
-func (s *FileLocationClassSlice) PopFirstAsAvailable() (v *FileLocation, ok bool) {
+func (s *FileLocationClassArray) PopFirstAsAvailable() (v *FileLocation, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -458,7 +565,7 @@ func (s *FileLocationClassSlice) PopFirstAsAvailable() (v *FileLocation, ok bool
 }
 
 // PopAsAvailable returns element of slice (if exists).
-func (s *FileLocationClassSlice) PopAsAvailable() (v *FileLocation, ok bool) {
+func (s *FileLocationClassArray) PopAsAvailable() (v *FileLocation, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -466,8 +573,41 @@ func (s *FileLocationClassSlice) PopAsAvailable() (v *FileLocation, ok bool) {
 	return value.AsAvailable()
 }
 
+// FileLocationUnavailableArray is adapter for slice of FileLocationUnavailable.
+type FileLocationUnavailableArray []FileLocationUnavailable
+
+// Sort sorts slice of FileLocationUnavailable.
+func (s FileLocationUnavailableArray) Sort(less func(a, b FileLocationUnavailable) bool) FileLocationUnavailableArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of FileLocationUnavailable.
+func (s FileLocationUnavailableArray) SortStable(less func(a, b FileLocationUnavailable) bool) FileLocationUnavailableArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of FileLocationUnavailable.
+func (s FileLocationUnavailableArray) Retain(keep func(x FileLocationUnavailable) bool) FileLocationUnavailableArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s FileLocationClassSlice) First() (v FileLocationClass, ok bool) {
+func (s FileLocationUnavailableArray) First() (v FileLocationUnavailable, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -475,7 +615,7 @@ func (s FileLocationClassSlice) First() (v FileLocationClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s FileLocationClassSlice) Last() (v FileLocationClass, ok bool) {
+func (s FileLocationUnavailableArray) Last() (v FileLocationUnavailable, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -483,7 +623,7 @@ func (s FileLocationClassSlice) Last() (v FileLocationClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *FileLocationClassSlice) PopFirst() (v FileLocationClass, ok bool) {
+func (s *FileLocationUnavailableArray) PopFirst() (v FileLocationUnavailable, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -493,7 +633,8 @@ func (s *FileLocationClassSlice) PopFirst() (v FileLocationClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero FileLocationUnavailable
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -501,7 +642,89 @@ func (s *FileLocationClassSlice) PopFirst() (v FileLocationClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *FileLocationClassSlice) Pop() (v FileLocationClass, ok bool) {
+func (s *FileLocationUnavailableArray) Pop() (v FileLocationUnavailable, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// FileLocationArray is adapter for slice of FileLocation.
+type FileLocationArray []FileLocation
+
+// Sort sorts slice of FileLocation.
+func (s FileLocationArray) Sort(less func(a, b FileLocation) bool) FileLocationArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of FileLocation.
+func (s FileLocationArray) SortStable(less func(a, b FileLocation) bool) FileLocationArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of FileLocation.
+func (s FileLocationArray) Retain(keep func(x FileLocation) bool) FileLocationArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s FileLocationArray) First() (v FileLocation, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s FileLocationArray) Last() (v FileLocation, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *FileLocationArray) PopFirst() (v FileLocation, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero FileLocation
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *FileLocationArray) Pop() (v FileLocation, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

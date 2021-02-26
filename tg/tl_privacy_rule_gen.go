@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // PrivacyValueAllowContacts represents TL type `privacyValueAllowContacts#fffe1bac`.
 // Allow all contacts
@@ -861,11 +863,41 @@ func (b *PrivacyRuleBox) Encode(buf *bin.Buffer) error {
 	return b.PrivacyRule.Encode(buf)
 }
 
-// PrivacyRuleClassSlice is adapter for slice of PrivacyRuleClass.
-type PrivacyRuleClassSlice []PrivacyRuleClass
+// PrivacyRuleClassArray is adapter for slice of PrivacyRuleClass.
+type PrivacyRuleClassArray []PrivacyRuleClass
+
+// Sort sorts slice of PrivacyRuleClass.
+func (s PrivacyRuleClassArray) Sort(less func(a, b PrivacyRuleClass) bool) PrivacyRuleClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PrivacyRuleClass.
+func (s PrivacyRuleClassArray) SortStable(less func(a, b PrivacyRuleClass) bool) PrivacyRuleClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PrivacyRuleClass.
+func (s PrivacyRuleClassArray) Retain(keep func(x PrivacyRuleClass) bool) PrivacyRuleClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s PrivacyRuleClassSlice) First() (v PrivacyRuleClass, ok bool) {
+func (s PrivacyRuleClassArray) First() (v PrivacyRuleClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -873,7 +905,7 @@ func (s PrivacyRuleClassSlice) First() (v PrivacyRuleClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s PrivacyRuleClassSlice) Last() (v PrivacyRuleClass, ok bool) {
+func (s PrivacyRuleClassArray) Last() (v PrivacyRuleClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -881,7 +913,7 @@ func (s PrivacyRuleClassSlice) Last() (v PrivacyRuleClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PrivacyRuleClassSlice) PopFirst() (v PrivacyRuleClass, ok bool) {
+func (s *PrivacyRuleClassArray) PopFirst() (v PrivacyRuleClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -891,7 +923,8 @@ func (s *PrivacyRuleClassSlice) PopFirst() (v PrivacyRuleClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero PrivacyRuleClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -899,7 +932,387 @@ func (s *PrivacyRuleClassSlice) PopFirst() (v PrivacyRuleClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *PrivacyRuleClassSlice) Pop() (v PrivacyRuleClass, ok bool) {
+func (s *PrivacyRuleClassArray) Pop() (v PrivacyRuleClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsPrivacyValueAllowUsers returns copy with only PrivacyValueAllowUsers constructors.
+func (s PrivacyRuleClassArray) AsPrivacyValueAllowUsers() (to PrivacyValueAllowUsersArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PrivacyValueAllowUsers)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsPrivacyValueDisallowUsers returns copy with only PrivacyValueDisallowUsers constructors.
+func (s PrivacyRuleClassArray) AsPrivacyValueDisallowUsers() (to PrivacyValueDisallowUsersArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PrivacyValueDisallowUsers)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsPrivacyValueAllowChatParticipants returns copy with only PrivacyValueAllowChatParticipants constructors.
+func (s PrivacyRuleClassArray) AsPrivacyValueAllowChatParticipants() (to PrivacyValueAllowChatParticipantsArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PrivacyValueAllowChatParticipants)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsPrivacyValueDisallowChatParticipants returns copy with only PrivacyValueDisallowChatParticipants constructors.
+func (s PrivacyRuleClassArray) AsPrivacyValueDisallowChatParticipants() (to PrivacyValueDisallowChatParticipantsArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PrivacyValueDisallowChatParticipants)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// PrivacyValueAllowUsersArray is adapter for slice of PrivacyValueAllowUsers.
+type PrivacyValueAllowUsersArray []PrivacyValueAllowUsers
+
+// Sort sorts slice of PrivacyValueAllowUsers.
+func (s PrivacyValueAllowUsersArray) Sort(less func(a, b PrivacyValueAllowUsers) bool) PrivacyValueAllowUsersArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PrivacyValueAllowUsers.
+func (s PrivacyValueAllowUsersArray) SortStable(less func(a, b PrivacyValueAllowUsers) bool) PrivacyValueAllowUsersArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PrivacyValueAllowUsers.
+func (s PrivacyValueAllowUsersArray) Retain(keep func(x PrivacyValueAllowUsers) bool) PrivacyValueAllowUsersArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PrivacyValueAllowUsersArray) First() (v PrivacyValueAllowUsers, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PrivacyValueAllowUsersArray) Last() (v PrivacyValueAllowUsers, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PrivacyValueAllowUsersArray) PopFirst() (v PrivacyValueAllowUsers, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PrivacyValueAllowUsers
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PrivacyValueAllowUsersArray) Pop() (v PrivacyValueAllowUsers, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// PrivacyValueDisallowUsersArray is adapter for slice of PrivacyValueDisallowUsers.
+type PrivacyValueDisallowUsersArray []PrivacyValueDisallowUsers
+
+// Sort sorts slice of PrivacyValueDisallowUsers.
+func (s PrivacyValueDisallowUsersArray) Sort(less func(a, b PrivacyValueDisallowUsers) bool) PrivacyValueDisallowUsersArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PrivacyValueDisallowUsers.
+func (s PrivacyValueDisallowUsersArray) SortStable(less func(a, b PrivacyValueDisallowUsers) bool) PrivacyValueDisallowUsersArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PrivacyValueDisallowUsers.
+func (s PrivacyValueDisallowUsersArray) Retain(keep func(x PrivacyValueDisallowUsers) bool) PrivacyValueDisallowUsersArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PrivacyValueDisallowUsersArray) First() (v PrivacyValueDisallowUsers, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PrivacyValueDisallowUsersArray) Last() (v PrivacyValueDisallowUsers, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PrivacyValueDisallowUsersArray) PopFirst() (v PrivacyValueDisallowUsers, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PrivacyValueDisallowUsers
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PrivacyValueDisallowUsersArray) Pop() (v PrivacyValueDisallowUsers, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// PrivacyValueAllowChatParticipantsArray is adapter for slice of PrivacyValueAllowChatParticipants.
+type PrivacyValueAllowChatParticipantsArray []PrivacyValueAllowChatParticipants
+
+// Sort sorts slice of PrivacyValueAllowChatParticipants.
+func (s PrivacyValueAllowChatParticipantsArray) Sort(less func(a, b PrivacyValueAllowChatParticipants) bool) PrivacyValueAllowChatParticipantsArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PrivacyValueAllowChatParticipants.
+func (s PrivacyValueAllowChatParticipantsArray) SortStable(less func(a, b PrivacyValueAllowChatParticipants) bool) PrivacyValueAllowChatParticipantsArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PrivacyValueAllowChatParticipants.
+func (s PrivacyValueAllowChatParticipantsArray) Retain(keep func(x PrivacyValueAllowChatParticipants) bool) PrivacyValueAllowChatParticipantsArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PrivacyValueAllowChatParticipantsArray) First() (v PrivacyValueAllowChatParticipants, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PrivacyValueAllowChatParticipantsArray) Last() (v PrivacyValueAllowChatParticipants, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PrivacyValueAllowChatParticipantsArray) PopFirst() (v PrivacyValueAllowChatParticipants, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PrivacyValueAllowChatParticipants
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PrivacyValueAllowChatParticipantsArray) Pop() (v PrivacyValueAllowChatParticipants, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// PrivacyValueDisallowChatParticipantsArray is adapter for slice of PrivacyValueDisallowChatParticipants.
+type PrivacyValueDisallowChatParticipantsArray []PrivacyValueDisallowChatParticipants
+
+// Sort sorts slice of PrivacyValueDisallowChatParticipants.
+func (s PrivacyValueDisallowChatParticipantsArray) Sort(less func(a, b PrivacyValueDisallowChatParticipants) bool) PrivacyValueDisallowChatParticipantsArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PrivacyValueDisallowChatParticipants.
+func (s PrivacyValueDisallowChatParticipantsArray) SortStable(less func(a, b PrivacyValueDisallowChatParticipants) bool) PrivacyValueDisallowChatParticipantsArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PrivacyValueDisallowChatParticipants.
+func (s PrivacyValueDisallowChatParticipantsArray) Retain(keep func(x PrivacyValueDisallowChatParticipants) bool) PrivacyValueDisallowChatParticipantsArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PrivacyValueDisallowChatParticipantsArray) First() (v PrivacyValueDisallowChatParticipants, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PrivacyValueDisallowChatParticipantsArray) Last() (v PrivacyValueDisallowChatParticipants, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PrivacyValueDisallowChatParticipantsArray) PopFirst() (v PrivacyValueDisallowChatParticipants, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PrivacyValueDisallowChatParticipants
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PrivacyValueDisallowChatParticipantsArray) Pop() (v PrivacyValueDisallowChatParticipants, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

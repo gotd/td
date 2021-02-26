@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // PhoneCallEmpty represents TL type `phoneCallEmpty#5366c915`.
 // Empty constructor
@@ -1170,9 +1172,9 @@ func (p *PhoneCall) GetConnections() (value []PhoneConnectionClass) {
 	return p.Connections
 }
 
-// MapConnections returns field Connections wrapped in PhoneConnectionClassSlice helper.
-func (p *PhoneCall) MapConnections() (value PhoneConnectionClassSlice) {
-	return PhoneConnectionClassSlice(p.Connections)
+// MapConnections returns field Connections wrapped in PhoneConnectionClassArray helper.
+func (p *PhoneCall) MapConnections() (value PhoneConnectionClassArray) {
+	return PhoneConnectionClassArray(p.Connections)
 }
 
 // GetStartDate returns value of StartDate field.
@@ -1754,12 +1756,169 @@ func (b *PhoneCallBox) Encode(buf *bin.Buffer) error {
 	return b.PhoneCall.Encode(buf)
 }
 
-// PhoneCallClassSlice is adapter for slice of PhoneCallClass.
-type PhoneCallClassSlice []PhoneCallClass
+// PhoneCallClassArray is adapter for slice of PhoneCallClass.
+type PhoneCallClassArray []PhoneCallClass
+
+// Sort sorts slice of PhoneCallClass.
+func (s PhoneCallClassArray) Sort(less func(a, b PhoneCallClass) bool) PhoneCallClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PhoneCallClass.
+func (s PhoneCallClassArray) SortStable(less func(a, b PhoneCallClass) bool) PhoneCallClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PhoneCallClass.
+func (s PhoneCallClassArray) Retain(keep func(x PhoneCallClass) bool) PhoneCallClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PhoneCallClassArray) First() (v PhoneCallClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PhoneCallClassArray) Last() (v PhoneCallClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PhoneCallClassArray) PopFirst() (v PhoneCallClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PhoneCallClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PhoneCallClassArray) Pop() (v PhoneCallClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsPhoneCallEmpty returns copy with only PhoneCallEmpty constructors.
+func (s PhoneCallClassArray) AsPhoneCallEmpty() (to PhoneCallEmptyArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PhoneCallEmpty)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsPhoneCallWaiting returns copy with only PhoneCallWaiting constructors.
+func (s PhoneCallClassArray) AsPhoneCallWaiting() (to PhoneCallWaitingArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PhoneCallWaiting)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsPhoneCallRequested returns copy with only PhoneCallRequested constructors.
+func (s PhoneCallClassArray) AsPhoneCallRequested() (to PhoneCallRequestedArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PhoneCallRequested)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsPhoneCallAccepted returns copy with only PhoneCallAccepted constructors.
+func (s PhoneCallClassArray) AsPhoneCallAccepted() (to PhoneCallAcceptedArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PhoneCallAccepted)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsPhoneCall returns copy with only PhoneCall constructors.
+func (s PhoneCallClassArray) AsPhoneCall() (to PhoneCallArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PhoneCall)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsPhoneCallDiscarded returns copy with only PhoneCallDiscarded constructors.
+func (s PhoneCallClassArray) AsPhoneCallDiscarded() (to PhoneCallDiscardedArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PhoneCallDiscarded)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
 
 // AppendOnlyNotEmpty appends only NotEmpty constructors to
 // given slice.
-func (s PhoneCallClassSlice) AppendOnlyNotEmpty(to []NotEmptyPhoneCall) []NotEmptyPhoneCall {
+func (s PhoneCallClassArray) AppendOnlyNotEmpty(to []NotEmptyPhoneCall) []NotEmptyPhoneCall {
 	for _, elem := range s {
 		value, ok := elem.AsNotEmpty()
 		if !ok {
@@ -1772,12 +1931,12 @@ func (s PhoneCallClassSlice) AppendOnlyNotEmpty(to []NotEmptyPhoneCall) []NotEmp
 }
 
 // AsNotEmpty returns copy with only NotEmpty constructors.
-func (s PhoneCallClassSlice) AsNotEmpty() (to []NotEmptyPhoneCall) {
+func (s PhoneCallClassArray) AsNotEmpty() (to []NotEmptyPhoneCall) {
 	return s.AppendOnlyNotEmpty(to)
 }
 
 // FirstAsNotEmpty returns first element of slice (if exists).
-func (s PhoneCallClassSlice) FirstAsNotEmpty() (v NotEmptyPhoneCall, ok bool) {
+func (s PhoneCallClassArray) FirstAsNotEmpty() (v NotEmptyPhoneCall, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -1786,7 +1945,7 @@ func (s PhoneCallClassSlice) FirstAsNotEmpty() (v NotEmptyPhoneCall, ok bool) {
 }
 
 // LastAsNotEmpty returns last element of slice (if exists).
-func (s PhoneCallClassSlice) LastAsNotEmpty() (v NotEmptyPhoneCall, ok bool) {
+func (s PhoneCallClassArray) LastAsNotEmpty() (v NotEmptyPhoneCall, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -1795,7 +1954,7 @@ func (s PhoneCallClassSlice) LastAsNotEmpty() (v NotEmptyPhoneCall, ok bool) {
 }
 
 // PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *PhoneCallClassSlice) PopFirstAsNotEmpty() (v NotEmptyPhoneCall, ok bool) {
+func (s *PhoneCallClassArray) PopFirstAsNotEmpty() (v NotEmptyPhoneCall, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -1804,7 +1963,7 @@ func (s *PhoneCallClassSlice) PopFirstAsNotEmpty() (v NotEmptyPhoneCall, ok bool
 }
 
 // PopAsNotEmpty returns element of slice (if exists).
-func (s *PhoneCallClassSlice) PopAsNotEmpty() (v NotEmptyPhoneCall, ok bool) {
+func (s *PhoneCallClassArray) PopAsNotEmpty() (v NotEmptyPhoneCall, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -1812,8 +1971,41 @@ func (s *PhoneCallClassSlice) PopAsNotEmpty() (v NotEmptyPhoneCall, ok bool) {
 	return value.AsNotEmpty()
 }
 
+// PhoneCallEmptyArray is adapter for slice of PhoneCallEmpty.
+type PhoneCallEmptyArray []PhoneCallEmpty
+
+// Sort sorts slice of PhoneCallEmpty.
+func (s PhoneCallEmptyArray) Sort(less func(a, b PhoneCallEmpty) bool) PhoneCallEmptyArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PhoneCallEmpty.
+func (s PhoneCallEmptyArray) SortStable(less func(a, b PhoneCallEmpty) bool) PhoneCallEmptyArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PhoneCallEmpty.
+func (s PhoneCallEmptyArray) Retain(keep func(x PhoneCallEmpty) bool) PhoneCallEmptyArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s PhoneCallClassSlice) First() (v PhoneCallClass, ok bool) {
+func (s PhoneCallEmptyArray) First() (v PhoneCallEmpty, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1821,7 +2013,7 @@ func (s PhoneCallClassSlice) First() (v PhoneCallClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s PhoneCallClassSlice) Last() (v PhoneCallClass, ok bool) {
+func (s PhoneCallEmptyArray) Last() (v PhoneCallEmpty, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1829,7 +2021,7 @@ func (s PhoneCallClassSlice) Last() (v PhoneCallClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PhoneCallClassSlice) PopFirst() (v PhoneCallClass, ok bool) {
+func (s *PhoneCallEmptyArray) PopFirst() (v PhoneCallEmpty, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1839,7 +2031,8 @@ func (s *PhoneCallClassSlice) PopFirst() (v PhoneCallClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero PhoneCallEmpty
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -1847,7 +2040,473 @@ func (s *PhoneCallClassSlice) PopFirst() (v PhoneCallClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *PhoneCallClassSlice) Pop() (v PhoneCallClass, ok bool) {
+func (s *PhoneCallEmptyArray) Pop() (v PhoneCallEmpty, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// PhoneCallWaitingArray is adapter for slice of PhoneCallWaiting.
+type PhoneCallWaitingArray []PhoneCallWaiting
+
+// Sort sorts slice of PhoneCallWaiting.
+func (s PhoneCallWaitingArray) Sort(less func(a, b PhoneCallWaiting) bool) PhoneCallWaitingArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PhoneCallWaiting.
+func (s PhoneCallWaitingArray) SortStable(less func(a, b PhoneCallWaiting) bool) PhoneCallWaitingArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PhoneCallWaiting.
+func (s PhoneCallWaitingArray) Retain(keep func(x PhoneCallWaiting) bool) PhoneCallWaitingArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PhoneCallWaitingArray) First() (v PhoneCallWaiting, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PhoneCallWaitingArray) Last() (v PhoneCallWaiting, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PhoneCallWaitingArray) PopFirst() (v PhoneCallWaiting, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PhoneCallWaiting
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PhoneCallWaitingArray) Pop() (v PhoneCallWaiting, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByDate sorts slice of PhoneCallWaiting by Date.
+func (s PhoneCallWaitingArray) SortByDate() PhoneCallWaitingArray {
+	return s.Sort(func(a, b PhoneCallWaiting) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of PhoneCallWaiting by Date.
+func (s PhoneCallWaitingArray) SortStableByDate() PhoneCallWaitingArray {
+	return s.SortStable(func(a, b PhoneCallWaiting) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// PhoneCallRequestedArray is adapter for slice of PhoneCallRequested.
+type PhoneCallRequestedArray []PhoneCallRequested
+
+// Sort sorts slice of PhoneCallRequested.
+func (s PhoneCallRequestedArray) Sort(less func(a, b PhoneCallRequested) bool) PhoneCallRequestedArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PhoneCallRequested.
+func (s PhoneCallRequestedArray) SortStable(less func(a, b PhoneCallRequested) bool) PhoneCallRequestedArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PhoneCallRequested.
+func (s PhoneCallRequestedArray) Retain(keep func(x PhoneCallRequested) bool) PhoneCallRequestedArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PhoneCallRequestedArray) First() (v PhoneCallRequested, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PhoneCallRequestedArray) Last() (v PhoneCallRequested, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PhoneCallRequestedArray) PopFirst() (v PhoneCallRequested, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PhoneCallRequested
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PhoneCallRequestedArray) Pop() (v PhoneCallRequested, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByDate sorts slice of PhoneCallRequested by Date.
+func (s PhoneCallRequestedArray) SortByDate() PhoneCallRequestedArray {
+	return s.Sort(func(a, b PhoneCallRequested) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of PhoneCallRequested by Date.
+func (s PhoneCallRequestedArray) SortStableByDate() PhoneCallRequestedArray {
+	return s.SortStable(func(a, b PhoneCallRequested) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// PhoneCallAcceptedArray is adapter for slice of PhoneCallAccepted.
+type PhoneCallAcceptedArray []PhoneCallAccepted
+
+// Sort sorts slice of PhoneCallAccepted.
+func (s PhoneCallAcceptedArray) Sort(less func(a, b PhoneCallAccepted) bool) PhoneCallAcceptedArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PhoneCallAccepted.
+func (s PhoneCallAcceptedArray) SortStable(less func(a, b PhoneCallAccepted) bool) PhoneCallAcceptedArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PhoneCallAccepted.
+func (s PhoneCallAcceptedArray) Retain(keep func(x PhoneCallAccepted) bool) PhoneCallAcceptedArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PhoneCallAcceptedArray) First() (v PhoneCallAccepted, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PhoneCallAcceptedArray) Last() (v PhoneCallAccepted, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PhoneCallAcceptedArray) PopFirst() (v PhoneCallAccepted, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PhoneCallAccepted
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PhoneCallAcceptedArray) Pop() (v PhoneCallAccepted, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByDate sorts slice of PhoneCallAccepted by Date.
+func (s PhoneCallAcceptedArray) SortByDate() PhoneCallAcceptedArray {
+	return s.Sort(func(a, b PhoneCallAccepted) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of PhoneCallAccepted by Date.
+func (s PhoneCallAcceptedArray) SortStableByDate() PhoneCallAcceptedArray {
+	return s.SortStable(func(a, b PhoneCallAccepted) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// PhoneCallArray is adapter for slice of PhoneCall.
+type PhoneCallArray []PhoneCall
+
+// Sort sorts slice of PhoneCall.
+func (s PhoneCallArray) Sort(less func(a, b PhoneCall) bool) PhoneCallArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PhoneCall.
+func (s PhoneCallArray) SortStable(less func(a, b PhoneCall) bool) PhoneCallArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PhoneCall.
+func (s PhoneCallArray) Retain(keep func(x PhoneCall) bool) PhoneCallArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PhoneCallArray) First() (v PhoneCall, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PhoneCallArray) Last() (v PhoneCall, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PhoneCallArray) PopFirst() (v PhoneCall, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PhoneCall
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PhoneCallArray) Pop() (v PhoneCall, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByDate sorts slice of PhoneCall by Date.
+func (s PhoneCallArray) SortByDate() PhoneCallArray {
+	return s.Sort(func(a, b PhoneCall) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of PhoneCall by Date.
+func (s PhoneCallArray) SortStableByDate() PhoneCallArray {
+	return s.SortStable(func(a, b PhoneCall) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// PhoneCallDiscardedArray is adapter for slice of PhoneCallDiscarded.
+type PhoneCallDiscardedArray []PhoneCallDiscarded
+
+// Sort sorts slice of PhoneCallDiscarded.
+func (s PhoneCallDiscardedArray) Sort(less func(a, b PhoneCallDiscarded) bool) PhoneCallDiscardedArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PhoneCallDiscarded.
+func (s PhoneCallDiscardedArray) SortStable(less func(a, b PhoneCallDiscarded) bool) PhoneCallDiscardedArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PhoneCallDiscarded.
+func (s PhoneCallDiscardedArray) Retain(keep func(x PhoneCallDiscarded) bool) PhoneCallDiscardedArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PhoneCallDiscardedArray) First() (v PhoneCallDiscarded, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PhoneCallDiscardedArray) Last() (v PhoneCallDiscarded, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PhoneCallDiscardedArray) PopFirst() (v PhoneCallDiscarded, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PhoneCallDiscarded
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PhoneCallDiscardedArray) Pop() (v PhoneCallDiscarded, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesMessages represents TL type `messages.messages#8c718e87`.
 // Full list of messages with auxilary data.
@@ -124,9 +126,9 @@ func (m *MessagesMessages) GetMessages() (value []MessageClass) {
 	return m.Messages
 }
 
-// MapMessages returns field Messages wrapped in MessageClassSlice helper.
-func (m *MessagesMessages) MapMessages() (value MessageClassSlice) {
-	return MessageClassSlice(m.Messages)
+// MapMessages returns field Messages wrapped in MessageClassArray helper.
+func (m *MessagesMessages) MapMessages() (value MessageClassArray) {
+	return MessageClassArray(m.Messages)
 }
 
 // GetChats returns value of Chats field.
@@ -134,9 +136,9 @@ func (m *MessagesMessages) GetChats() (value []ChatClass) {
 	return m.Chats
 }
 
-// MapChats returns field Chats wrapped in ChatClassSlice helper.
-func (m *MessagesMessages) MapChats() (value ChatClassSlice) {
-	return ChatClassSlice(m.Chats)
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (m *MessagesMessages) MapChats() (value ChatClassArray) {
+	return ChatClassArray(m.Chats)
 }
 
 // GetUsers returns value of Users field.
@@ -144,9 +146,9 @@ func (m *MessagesMessages) GetUsers() (value []UserClass) {
 	return m.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (m *MessagesMessages) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(m.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (m *MessagesMessages) MapUsers() (value UserClassArray) {
+	return UserClassArray(m.Users)
 }
 
 // Decode implements bin.Decoder.
@@ -435,9 +437,9 @@ func (m *MessagesMessagesSlice) GetMessages() (value []MessageClass) {
 	return m.Messages
 }
 
-// MapMessages returns field Messages wrapped in MessageClassSlice helper.
-func (m *MessagesMessagesSlice) MapMessages() (value MessageClassSlice) {
-	return MessageClassSlice(m.Messages)
+// MapMessages returns field Messages wrapped in MessageClassArray helper.
+func (m *MessagesMessagesSlice) MapMessages() (value MessageClassArray) {
+	return MessageClassArray(m.Messages)
 }
 
 // GetChats returns value of Chats field.
@@ -445,9 +447,9 @@ func (m *MessagesMessagesSlice) GetChats() (value []ChatClass) {
 	return m.Chats
 }
 
-// MapChats returns field Chats wrapped in ChatClassSlice helper.
-func (m *MessagesMessagesSlice) MapChats() (value ChatClassSlice) {
-	return ChatClassSlice(m.Chats)
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (m *MessagesMessagesSlice) MapChats() (value ChatClassArray) {
+	return ChatClassArray(m.Chats)
 }
 
 // GetUsers returns value of Users field.
@@ -455,9 +457,9 @@ func (m *MessagesMessagesSlice) GetUsers() (value []UserClass) {
 	return m.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (m *MessagesMessagesSlice) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(m.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (m *MessagesMessagesSlice) MapUsers() (value UserClassArray) {
+	return UserClassArray(m.Users)
 }
 
 // Decode implements bin.Decoder.
@@ -753,9 +755,9 @@ func (c *MessagesChannelMessages) GetMessages() (value []MessageClass) {
 	return c.Messages
 }
 
-// MapMessages returns field Messages wrapped in MessageClassSlice helper.
-func (c *MessagesChannelMessages) MapMessages() (value MessageClassSlice) {
-	return MessageClassSlice(c.Messages)
+// MapMessages returns field Messages wrapped in MessageClassArray helper.
+func (c *MessagesChannelMessages) MapMessages() (value MessageClassArray) {
+	return MessageClassArray(c.Messages)
 }
 
 // GetChats returns value of Chats field.
@@ -763,9 +765,9 @@ func (c *MessagesChannelMessages) GetChats() (value []ChatClass) {
 	return c.Chats
 }
 
-// MapChats returns field Chats wrapped in ChatClassSlice helper.
-func (c *MessagesChannelMessages) MapChats() (value ChatClassSlice) {
-	return ChatClassSlice(c.Chats)
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (c *MessagesChannelMessages) MapChats() (value ChatClassArray) {
+	return ChatClassArray(c.Chats)
 }
 
 // GetUsers returns value of Users field.
@@ -773,9 +775,9 @@ func (c *MessagesChannelMessages) GetUsers() (value []UserClass) {
 	return c.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (c *MessagesChannelMessages) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(c.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (c *MessagesChannelMessages) MapUsers() (value UserClassArray) {
+	return UserClassArray(c.Users)
 }
 
 // Decode implements bin.Decoder.
@@ -1112,12 +1114,143 @@ func (b *MessagesMessagesBox) Encode(buf *bin.Buffer) error {
 	return b.Messages.Encode(buf)
 }
 
-// MessagesMessagesClassSlice is adapter for slice of MessagesMessagesClass.
-type MessagesMessagesClassSlice []MessagesMessagesClass
+// MessagesMessagesClassArray is adapter for slice of MessagesMessagesClass.
+type MessagesMessagesClassArray []MessagesMessagesClass
+
+// Sort sorts slice of MessagesMessagesClass.
+func (s MessagesMessagesClassArray) Sort(less func(a, b MessagesMessagesClass) bool) MessagesMessagesClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessagesMessagesClass.
+func (s MessagesMessagesClassArray) SortStable(less func(a, b MessagesMessagesClass) bool) MessagesMessagesClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessagesMessagesClass.
+func (s MessagesMessagesClassArray) Retain(keep func(x MessagesMessagesClass) bool) MessagesMessagesClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessagesMessagesClassArray) First() (v MessagesMessagesClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessagesMessagesClassArray) Last() (v MessagesMessagesClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessagesMessagesClassArray) PopFirst() (v MessagesMessagesClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessagesMessagesClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessagesMessagesClassArray) Pop() (v MessagesMessagesClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsMessagesMessages returns copy with only MessagesMessages constructors.
+func (s MessagesMessagesClassArray) AsMessagesMessages() (to MessagesMessagesArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessagesMessages)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsMessagesMessagesSlice returns copy with only MessagesMessagesSlice constructors.
+func (s MessagesMessagesClassArray) AsMessagesMessagesSlice() (to MessagesMessagesSliceArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessagesMessagesSlice)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsMessagesChannelMessages returns copy with only MessagesChannelMessages constructors.
+func (s MessagesMessagesClassArray) AsMessagesChannelMessages() (to MessagesChannelMessagesArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessagesChannelMessages)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsMessagesMessagesNotModified returns copy with only MessagesMessagesNotModified constructors.
+func (s MessagesMessagesClassArray) AsMessagesMessagesNotModified() (to MessagesMessagesNotModifiedArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessagesMessagesNotModified)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
 
 // AppendOnlyModified appends only Modified constructors to
 // given slice.
-func (s MessagesMessagesClassSlice) AppendOnlyModified(to []ModifiedMessagesMessages) []ModifiedMessagesMessages {
+func (s MessagesMessagesClassArray) AppendOnlyModified(to []ModifiedMessagesMessages) []ModifiedMessagesMessages {
 	for _, elem := range s {
 		value, ok := elem.AsModified()
 		if !ok {
@@ -1130,12 +1263,12 @@ func (s MessagesMessagesClassSlice) AppendOnlyModified(to []ModifiedMessagesMess
 }
 
 // AsModified returns copy with only Modified constructors.
-func (s MessagesMessagesClassSlice) AsModified() (to []ModifiedMessagesMessages) {
+func (s MessagesMessagesClassArray) AsModified() (to []ModifiedMessagesMessages) {
 	return s.AppendOnlyModified(to)
 }
 
 // FirstAsModified returns first element of slice (if exists).
-func (s MessagesMessagesClassSlice) FirstAsModified() (v ModifiedMessagesMessages, ok bool) {
+func (s MessagesMessagesClassArray) FirstAsModified() (v ModifiedMessagesMessages, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -1144,7 +1277,7 @@ func (s MessagesMessagesClassSlice) FirstAsModified() (v ModifiedMessagesMessage
 }
 
 // LastAsModified returns last element of slice (if exists).
-func (s MessagesMessagesClassSlice) LastAsModified() (v ModifiedMessagesMessages, ok bool) {
+func (s MessagesMessagesClassArray) LastAsModified() (v ModifiedMessagesMessages, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -1153,7 +1286,7 @@ func (s MessagesMessagesClassSlice) LastAsModified() (v ModifiedMessagesMessages
 }
 
 // PopFirstAsModified returns element of slice (if exists).
-func (s *MessagesMessagesClassSlice) PopFirstAsModified() (v ModifiedMessagesMessages, ok bool) {
+func (s *MessagesMessagesClassArray) PopFirstAsModified() (v ModifiedMessagesMessages, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -1162,7 +1295,7 @@ func (s *MessagesMessagesClassSlice) PopFirstAsModified() (v ModifiedMessagesMes
 }
 
 // PopAsModified returns element of slice (if exists).
-func (s *MessagesMessagesClassSlice) PopAsModified() (v ModifiedMessagesMessages, ok bool) {
+func (s *MessagesMessagesClassArray) PopAsModified() (v ModifiedMessagesMessages, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -1170,8 +1303,41 @@ func (s *MessagesMessagesClassSlice) PopAsModified() (v ModifiedMessagesMessages
 	return value.AsModified()
 }
 
+// MessagesMessagesArray is adapter for slice of MessagesMessages.
+type MessagesMessagesArray []MessagesMessages
+
+// Sort sorts slice of MessagesMessages.
+func (s MessagesMessagesArray) Sort(less func(a, b MessagesMessages) bool) MessagesMessagesArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessagesMessages.
+func (s MessagesMessagesArray) SortStable(less func(a, b MessagesMessages) bool) MessagesMessagesArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessagesMessages.
+func (s MessagesMessagesArray) Retain(keep func(x MessagesMessages) bool) MessagesMessagesArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s MessagesMessagesClassSlice) First() (v MessagesMessagesClass, ok bool) {
+func (s MessagesMessagesArray) First() (v MessagesMessages, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1179,7 +1345,7 @@ func (s MessagesMessagesClassSlice) First() (v MessagesMessagesClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s MessagesMessagesClassSlice) Last() (v MessagesMessagesClass, ok bool) {
+func (s MessagesMessagesArray) Last() (v MessagesMessages, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1187,7 +1353,7 @@ func (s MessagesMessagesClassSlice) Last() (v MessagesMessagesClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessagesMessagesClassSlice) PopFirst() (v MessagesMessagesClass, ok bool) {
+func (s *MessagesMessagesArray) PopFirst() (v MessagesMessages, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1197,7 +1363,8 @@ func (s *MessagesMessagesClassSlice) PopFirst() (v MessagesMessagesClass, ok boo
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero MessagesMessages
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -1205,7 +1372,253 @@ func (s *MessagesMessagesClassSlice) PopFirst() (v MessagesMessagesClass, ok boo
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *MessagesMessagesClassSlice) Pop() (v MessagesMessagesClass, ok bool) {
+func (s *MessagesMessagesArray) Pop() (v MessagesMessages, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessagesMessagesSliceArray is adapter for slice of MessagesMessagesSlice.
+type MessagesMessagesSliceArray []MessagesMessagesSlice
+
+// Sort sorts slice of MessagesMessagesSlice.
+func (s MessagesMessagesSliceArray) Sort(less func(a, b MessagesMessagesSlice) bool) MessagesMessagesSliceArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessagesMessagesSlice.
+func (s MessagesMessagesSliceArray) SortStable(less func(a, b MessagesMessagesSlice) bool) MessagesMessagesSliceArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessagesMessagesSlice.
+func (s MessagesMessagesSliceArray) Retain(keep func(x MessagesMessagesSlice) bool) MessagesMessagesSliceArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessagesMessagesSliceArray) First() (v MessagesMessagesSlice, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessagesMessagesSliceArray) Last() (v MessagesMessagesSlice, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessagesMessagesSliceArray) PopFirst() (v MessagesMessagesSlice, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessagesMessagesSlice
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessagesMessagesSliceArray) Pop() (v MessagesMessagesSlice, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessagesChannelMessagesArray is adapter for slice of MessagesChannelMessages.
+type MessagesChannelMessagesArray []MessagesChannelMessages
+
+// Sort sorts slice of MessagesChannelMessages.
+func (s MessagesChannelMessagesArray) Sort(less func(a, b MessagesChannelMessages) bool) MessagesChannelMessagesArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessagesChannelMessages.
+func (s MessagesChannelMessagesArray) SortStable(less func(a, b MessagesChannelMessages) bool) MessagesChannelMessagesArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessagesChannelMessages.
+func (s MessagesChannelMessagesArray) Retain(keep func(x MessagesChannelMessages) bool) MessagesChannelMessagesArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessagesChannelMessagesArray) First() (v MessagesChannelMessages, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessagesChannelMessagesArray) Last() (v MessagesChannelMessages, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessagesChannelMessagesArray) PopFirst() (v MessagesChannelMessages, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessagesChannelMessages
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessagesChannelMessagesArray) Pop() (v MessagesChannelMessages, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessagesMessagesNotModifiedArray is adapter for slice of MessagesMessagesNotModified.
+type MessagesMessagesNotModifiedArray []MessagesMessagesNotModified
+
+// Sort sorts slice of MessagesMessagesNotModified.
+func (s MessagesMessagesNotModifiedArray) Sort(less func(a, b MessagesMessagesNotModified) bool) MessagesMessagesNotModifiedArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessagesMessagesNotModified.
+func (s MessagesMessagesNotModifiedArray) SortStable(less func(a, b MessagesMessagesNotModified) bool) MessagesMessagesNotModifiedArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessagesMessagesNotModified.
+func (s MessagesMessagesNotModifiedArray) Retain(keep func(x MessagesMessagesNotModified) bool) MessagesMessagesNotModifiedArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessagesMessagesNotModifiedArray) First() (v MessagesMessagesNotModified, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessagesMessagesNotModifiedArray) Last() (v MessagesMessagesNotModified, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessagesMessagesNotModifiedArray) PopFirst() (v MessagesMessagesNotModified, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessagesMessagesNotModified
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessagesMessagesNotModifiedArray) Pop() (v MessagesMessagesNotModified, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

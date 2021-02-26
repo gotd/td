@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // InputGeoPointEmpty represents TL type `inputGeoPointEmpty#e4c123d6`.
 // Empty GeoPoint constructor.
@@ -355,12 +357,104 @@ func (b *InputGeoPointBox) Encode(buf *bin.Buffer) error {
 	return b.InputGeoPoint.Encode(buf)
 }
 
-// InputGeoPointClassSlice is adapter for slice of InputGeoPointClass.
-type InputGeoPointClassSlice []InputGeoPointClass
+// InputGeoPointClassArray is adapter for slice of InputGeoPointClass.
+type InputGeoPointClassArray []InputGeoPointClass
+
+// Sort sorts slice of InputGeoPointClass.
+func (s InputGeoPointClassArray) Sort(less func(a, b InputGeoPointClass) bool) InputGeoPointClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputGeoPointClass.
+func (s InputGeoPointClassArray) SortStable(less func(a, b InputGeoPointClass) bool) InputGeoPointClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputGeoPointClass.
+func (s InputGeoPointClassArray) Retain(keep func(x InputGeoPointClass) bool) InputGeoPointClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputGeoPointClassArray) First() (v InputGeoPointClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputGeoPointClassArray) Last() (v InputGeoPointClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputGeoPointClassArray) PopFirst() (v InputGeoPointClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputGeoPointClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputGeoPointClassArray) Pop() (v InputGeoPointClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsInputGeoPoint returns copy with only InputGeoPoint constructors.
+func (s InputGeoPointClassArray) AsInputGeoPoint() (to InputGeoPointArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputGeoPoint)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
 
 // AppendOnlyNotEmpty appends only NotEmpty constructors to
 // given slice.
-func (s InputGeoPointClassSlice) AppendOnlyNotEmpty(to []*InputGeoPoint) []*InputGeoPoint {
+func (s InputGeoPointClassArray) AppendOnlyNotEmpty(to []*InputGeoPoint) []*InputGeoPoint {
 	for _, elem := range s {
 		value, ok := elem.AsNotEmpty()
 		if !ok {
@@ -373,12 +467,12 @@ func (s InputGeoPointClassSlice) AppendOnlyNotEmpty(to []*InputGeoPoint) []*Inpu
 }
 
 // AsNotEmpty returns copy with only NotEmpty constructors.
-func (s InputGeoPointClassSlice) AsNotEmpty() (to []*InputGeoPoint) {
+func (s InputGeoPointClassArray) AsNotEmpty() (to []*InputGeoPoint) {
 	return s.AppendOnlyNotEmpty(to)
 }
 
 // FirstAsNotEmpty returns first element of slice (if exists).
-func (s InputGeoPointClassSlice) FirstAsNotEmpty() (v *InputGeoPoint, ok bool) {
+func (s InputGeoPointClassArray) FirstAsNotEmpty() (v *InputGeoPoint, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -387,7 +481,7 @@ func (s InputGeoPointClassSlice) FirstAsNotEmpty() (v *InputGeoPoint, ok bool) {
 }
 
 // LastAsNotEmpty returns last element of slice (if exists).
-func (s InputGeoPointClassSlice) LastAsNotEmpty() (v *InputGeoPoint, ok bool) {
+func (s InputGeoPointClassArray) LastAsNotEmpty() (v *InputGeoPoint, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -396,7 +490,7 @@ func (s InputGeoPointClassSlice) LastAsNotEmpty() (v *InputGeoPoint, ok bool) {
 }
 
 // PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *InputGeoPointClassSlice) PopFirstAsNotEmpty() (v *InputGeoPoint, ok bool) {
+func (s *InputGeoPointClassArray) PopFirstAsNotEmpty() (v *InputGeoPoint, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -405,7 +499,7 @@ func (s *InputGeoPointClassSlice) PopFirstAsNotEmpty() (v *InputGeoPoint, ok boo
 }
 
 // PopAsNotEmpty returns element of slice (if exists).
-func (s *InputGeoPointClassSlice) PopAsNotEmpty() (v *InputGeoPoint, ok bool) {
+func (s *InputGeoPointClassArray) PopAsNotEmpty() (v *InputGeoPoint, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -413,8 +507,41 @@ func (s *InputGeoPointClassSlice) PopAsNotEmpty() (v *InputGeoPoint, ok bool) {
 	return value.AsNotEmpty()
 }
 
+// InputGeoPointArray is adapter for slice of InputGeoPoint.
+type InputGeoPointArray []InputGeoPoint
+
+// Sort sorts slice of InputGeoPoint.
+func (s InputGeoPointArray) Sort(less func(a, b InputGeoPoint) bool) InputGeoPointArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputGeoPoint.
+func (s InputGeoPointArray) SortStable(less func(a, b InputGeoPoint) bool) InputGeoPointArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputGeoPoint.
+func (s InputGeoPointArray) Retain(keep func(x InputGeoPoint) bool) InputGeoPointArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s InputGeoPointClassSlice) First() (v InputGeoPointClass, ok bool) {
+func (s InputGeoPointArray) First() (v InputGeoPoint, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -422,7 +549,7 @@ func (s InputGeoPointClassSlice) First() (v InputGeoPointClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s InputGeoPointClassSlice) Last() (v InputGeoPointClass, ok bool) {
+func (s InputGeoPointArray) Last() (v InputGeoPoint, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -430,7 +557,7 @@ func (s InputGeoPointClassSlice) Last() (v InputGeoPointClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputGeoPointClassSlice) PopFirst() (v InputGeoPointClass, ok bool) {
+func (s *InputGeoPointArray) PopFirst() (v InputGeoPoint, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -440,7 +567,8 @@ func (s *InputGeoPointClassSlice) PopFirst() (v InputGeoPointClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero InputGeoPoint
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -448,7 +576,7 @@ func (s *InputGeoPointClassSlice) PopFirst() (v InputGeoPointClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *InputGeoPointClassSlice) Pop() (v InputGeoPointClass, ok bool) {
+func (s *InputGeoPointArray) Pop() (v InputGeoPoint, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

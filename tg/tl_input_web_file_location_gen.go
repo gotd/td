@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // InputWebFileLocation represents TL type `inputWebFileLocation#c239d686`.
 // Location of a remote HTTP(s) file
@@ -419,11 +421,41 @@ func (b *InputWebFileLocationBox) Encode(buf *bin.Buffer) error {
 	return b.InputWebFileLocation.Encode(buf)
 }
 
-// InputWebFileLocationClassSlice is adapter for slice of InputWebFileLocationClass.
-type InputWebFileLocationClassSlice []InputWebFileLocationClass
+// InputWebFileLocationClassArray is adapter for slice of InputWebFileLocationClass.
+type InputWebFileLocationClassArray []InputWebFileLocationClass
+
+// Sort sorts slice of InputWebFileLocationClass.
+func (s InputWebFileLocationClassArray) Sort(less func(a, b InputWebFileLocationClass) bool) InputWebFileLocationClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputWebFileLocationClass.
+func (s InputWebFileLocationClassArray) SortStable(less func(a, b InputWebFileLocationClass) bool) InputWebFileLocationClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputWebFileLocationClass.
+func (s InputWebFileLocationClassArray) Retain(keep func(x InputWebFileLocationClass) bool) InputWebFileLocationClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s InputWebFileLocationClassSlice) First() (v InputWebFileLocationClass, ok bool) {
+func (s InputWebFileLocationClassArray) First() (v InputWebFileLocationClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -431,7 +463,7 @@ func (s InputWebFileLocationClassSlice) First() (v InputWebFileLocationClass, ok
 }
 
 // Last returns last element of slice (if exists).
-func (s InputWebFileLocationClassSlice) Last() (v InputWebFileLocationClass, ok bool) {
+func (s InputWebFileLocationClassArray) Last() (v InputWebFileLocationClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -439,7 +471,7 @@ func (s InputWebFileLocationClassSlice) Last() (v InputWebFileLocationClass, ok 
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputWebFileLocationClassSlice) PopFirst() (v InputWebFileLocationClass, ok bool) {
+func (s *InputWebFileLocationClassArray) PopFirst() (v InputWebFileLocationClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -449,7 +481,8 @@ func (s *InputWebFileLocationClassSlice) PopFirst() (v InputWebFileLocationClass
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero InputWebFileLocationClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -457,7 +490,197 @@ func (s *InputWebFileLocationClassSlice) PopFirst() (v InputWebFileLocationClass
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *InputWebFileLocationClassSlice) Pop() (v InputWebFileLocationClass, ok bool) {
+func (s *InputWebFileLocationClassArray) Pop() (v InputWebFileLocationClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsInputWebFileLocation returns copy with only InputWebFileLocation constructors.
+func (s InputWebFileLocationClassArray) AsInputWebFileLocation() (to InputWebFileLocationArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputWebFileLocation)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputWebFileGeoPointLocation returns copy with only InputWebFileGeoPointLocation constructors.
+func (s InputWebFileLocationClassArray) AsInputWebFileGeoPointLocation() (to InputWebFileGeoPointLocationArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputWebFileGeoPointLocation)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// InputWebFileLocationArray is adapter for slice of InputWebFileLocation.
+type InputWebFileLocationArray []InputWebFileLocation
+
+// Sort sorts slice of InputWebFileLocation.
+func (s InputWebFileLocationArray) Sort(less func(a, b InputWebFileLocation) bool) InputWebFileLocationArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputWebFileLocation.
+func (s InputWebFileLocationArray) SortStable(less func(a, b InputWebFileLocation) bool) InputWebFileLocationArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputWebFileLocation.
+func (s InputWebFileLocationArray) Retain(keep func(x InputWebFileLocation) bool) InputWebFileLocationArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputWebFileLocationArray) First() (v InputWebFileLocation, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputWebFileLocationArray) Last() (v InputWebFileLocation, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputWebFileLocationArray) PopFirst() (v InputWebFileLocation, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputWebFileLocation
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputWebFileLocationArray) Pop() (v InputWebFileLocation, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputWebFileGeoPointLocationArray is adapter for slice of InputWebFileGeoPointLocation.
+type InputWebFileGeoPointLocationArray []InputWebFileGeoPointLocation
+
+// Sort sorts slice of InputWebFileGeoPointLocation.
+func (s InputWebFileGeoPointLocationArray) Sort(less func(a, b InputWebFileGeoPointLocation) bool) InputWebFileGeoPointLocationArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputWebFileGeoPointLocation.
+func (s InputWebFileGeoPointLocationArray) SortStable(less func(a, b InputWebFileGeoPointLocation) bool) InputWebFileGeoPointLocationArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputWebFileGeoPointLocation.
+func (s InputWebFileGeoPointLocationArray) Retain(keep func(x InputWebFileGeoPointLocation) bool) InputWebFileGeoPointLocationArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputWebFileGeoPointLocationArray) First() (v InputWebFileGeoPointLocation, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputWebFileGeoPointLocationArray) Last() (v InputWebFileGeoPointLocation, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputWebFileGeoPointLocationArray) PopFirst() (v InputWebFileGeoPointLocation, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputWebFileGeoPointLocation
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputWebFileGeoPointLocationArray) Pop() (v InputWebFileGeoPointLocation, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

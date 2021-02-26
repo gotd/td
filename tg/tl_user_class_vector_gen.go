@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // UserClassVector is a box for Vector<User>
 type UserClassVector struct {
@@ -88,9 +90,9 @@ func (vec *UserClassVector) GetElems() (value []UserClass) {
 	return vec.Elems
 }
 
-// MapElems returns field Elems wrapped in UserClassSlice helper.
-func (vec *UserClassVector) MapElems() (value UserClassSlice) {
-	return UserClassSlice(vec.Elems)
+// MapElems returns field Elems wrapped in UserClassArray helper.
+func (vec *UserClassVector) MapElems() (value UserClassArray) {
+	return UserClassArray(vec.Elems)
 }
 
 // Decode implements bin.Decoder.

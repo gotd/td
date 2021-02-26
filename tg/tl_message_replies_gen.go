@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessageReplies represents TL type `messageReplies#4128faac`.
 // Info about the comment section of a channel post, or a simple message thread¹
@@ -241,12 +243,12 @@ func (m *MessageReplies) GetRecentRepliers() (value []PeerClass, ok bool) {
 	return m.RecentRepliers, true
 }
 
-// MapRecentRepliers returns field RecentRepliers wrapped in PeerClassSlice helper.
-func (m *MessageReplies) MapRecentRepliers() (value PeerClassSlice, ok bool) {
+// MapRecentRepliers returns field RecentRepliers wrapped in PeerClassArray helper.
+func (m *MessageReplies) MapRecentRepliers() (value PeerClassArray, ok bool) {
 	if !m.Flags.Has(1) {
 		return value, false
 	}
-	return PeerClassSlice(m.RecentRepliers), true
+	return PeerClassArray(m.RecentRepliers), true
 }
 
 // SetChannelID sets value of ChannelID conditional field.

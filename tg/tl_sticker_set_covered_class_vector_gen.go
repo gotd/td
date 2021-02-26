@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // StickerSetCoveredClassVector is a box for Vector<StickerSetCovered>
 type StickerSetCoveredClassVector struct {
@@ -88,9 +90,9 @@ func (vec *StickerSetCoveredClassVector) GetElems() (value []StickerSetCoveredCl
 	return vec.Elems
 }
 
-// MapElems returns field Elems wrapped in StickerSetCoveredClassSlice helper.
-func (vec *StickerSetCoveredClassVector) MapElems() (value StickerSetCoveredClassSlice) {
-	return StickerSetCoveredClassSlice(vec.Elems)
+// MapElems returns field Elems wrapped in StickerSetCoveredClassArray helper.
+func (vec *StickerSetCoveredClassVector) MapElems() (value StickerSetCoveredClassArray) {
+	return StickerSetCoveredClassArray(vec.Elems)
 }
 
 // Decode implements bin.Decoder.

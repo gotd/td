@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // InputMessagesFilterEmpty represents TL type `inputMessagesFilterEmpty#57e2f66c`.
 // Filter is absent.
@@ -1462,11 +1464,41 @@ func (b *MessagesFilterBox) Encode(buf *bin.Buffer) error {
 	return b.MessagesFilter.Encode(buf)
 }
 
-// MessagesFilterClassSlice is adapter for slice of MessagesFilterClass.
-type MessagesFilterClassSlice []MessagesFilterClass
+// MessagesFilterClassArray is adapter for slice of MessagesFilterClass.
+type MessagesFilterClassArray []MessagesFilterClass
+
+// Sort sorts slice of MessagesFilterClass.
+func (s MessagesFilterClassArray) Sort(less func(a, b MessagesFilterClass) bool) MessagesFilterClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessagesFilterClass.
+func (s MessagesFilterClassArray) SortStable(less func(a, b MessagesFilterClass) bool) MessagesFilterClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessagesFilterClass.
+func (s MessagesFilterClassArray) Retain(keep func(x MessagesFilterClass) bool) MessagesFilterClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s MessagesFilterClassSlice) First() (v MessagesFilterClass, ok bool) {
+func (s MessagesFilterClassArray) First() (v MessagesFilterClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1474,7 +1506,7 @@ func (s MessagesFilterClassSlice) First() (v MessagesFilterClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s MessagesFilterClassSlice) Last() (v MessagesFilterClass, ok bool) {
+func (s MessagesFilterClassArray) Last() (v MessagesFilterClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1482,7 +1514,7 @@ func (s MessagesFilterClassSlice) Last() (v MessagesFilterClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessagesFilterClassSlice) PopFirst() (v MessagesFilterClass, ok bool) {
+func (s *MessagesFilterClassArray) PopFirst() (v MessagesFilterClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1492,7 +1524,8 @@ func (s *MessagesFilterClassSlice) PopFirst() (v MessagesFilterClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero MessagesFilterClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -1500,7 +1533,102 @@ func (s *MessagesFilterClassSlice) PopFirst() (v MessagesFilterClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *MessagesFilterClassSlice) Pop() (v MessagesFilterClass, ok bool) {
+func (s *MessagesFilterClassArray) Pop() (v MessagesFilterClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsInputMessagesFilterPhoneCalls returns copy with only InputMessagesFilterPhoneCalls constructors.
+func (s MessagesFilterClassArray) AsInputMessagesFilterPhoneCalls() (to InputMessagesFilterPhoneCallsArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputMessagesFilterPhoneCalls)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// InputMessagesFilterPhoneCallsArray is adapter for slice of InputMessagesFilterPhoneCalls.
+type InputMessagesFilterPhoneCallsArray []InputMessagesFilterPhoneCalls
+
+// Sort sorts slice of InputMessagesFilterPhoneCalls.
+func (s InputMessagesFilterPhoneCallsArray) Sort(less func(a, b InputMessagesFilterPhoneCalls) bool) InputMessagesFilterPhoneCallsArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputMessagesFilterPhoneCalls.
+func (s InputMessagesFilterPhoneCallsArray) SortStable(less func(a, b InputMessagesFilterPhoneCalls) bool) InputMessagesFilterPhoneCallsArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputMessagesFilterPhoneCalls.
+func (s InputMessagesFilterPhoneCallsArray) Retain(keep func(x InputMessagesFilterPhoneCalls) bool) InputMessagesFilterPhoneCallsArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputMessagesFilterPhoneCallsArray) First() (v InputMessagesFilterPhoneCalls, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputMessagesFilterPhoneCallsArray) Last() (v InputMessagesFilterPhoneCalls, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputMessagesFilterPhoneCallsArray) PopFirst() (v InputMessagesFilterPhoneCalls, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputMessagesFilterPhoneCalls
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputMessagesFilterPhoneCallsArray) Pop() (v InputMessagesFilterPhoneCalls, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // AccountPrivacyRules represents TL type `account.privacyRules#50a04e45`.
 // Privacy rules
@@ -124,9 +126,9 @@ func (p *AccountPrivacyRules) GetRules() (value []PrivacyRuleClass) {
 	return p.Rules
 }
 
-// MapRules returns field Rules wrapped in PrivacyRuleClassSlice helper.
-func (p *AccountPrivacyRules) MapRules() (value PrivacyRuleClassSlice) {
-	return PrivacyRuleClassSlice(p.Rules)
+// MapRules returns field Rules wrapped in PrivacyRuleClassArray helper.
+func (p *AccountPrivacyRules) MapRules() (value PrivacyRuleClassArray) {
+	return PrivacyRuleClassArray(p.Rules)
 }
 
 // GetChats returns value of Chats field.
@@ -134,9 +136,9 @@ func (p *AccountPrivacyRules) GetChats() (value []ChatClass) {
 	return p.Chats
 }
 
-// MapChats returns field Chats wrapped in ChatClassSlice helper.
-func (p *AccountPrivacyRules) MapChats() (value ChatClassSlice) {
-	return ChatClassSlice(p.Chats)
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (p *AccountPrivacyRules) MapChats() (value ChatClassArray) {
+	return ChatClassArray(p.Chats)
 }
 
 // GetUsers returns value of Users field.
@@ -144,9 +146,9 @@ func (p *AccountPrivacyRules) GetUsers() (value []UserClass) {
 	return p.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (p *AccountPrivacyRules) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(p.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (p *AccountPrivacyRules) MapUsers() (value UserClassArray) {
+	return UserClassArray(p.Users)
 }
 
 // Decode implements bin.Decoder.

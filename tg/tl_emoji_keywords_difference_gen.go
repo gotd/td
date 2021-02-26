@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // EmojiKeywordsDifference represents TL type `emojiKeywordsDifference#5cc761bd`.
 // Changes to emoji keywords
@@ -131,9 +133,9 @@ func (e *EmojiKeywordsDifference) GetKeywords() (value []EmojiKeywordClass) {
 	return e.Keywords
 }
 
-// MapKeywords returns field Keywords wrapped in EmojiKeywordClassSlice helper.
-func (e *EmojiKeywordsDifference) MapKeywords() (value EmojiKeywordClassSlice) {
-	return EmojiKeywordClassSlice(e.Keywords)
+// MapKeywords returns field Keywords wrapped in EmojiKeywordClassArray helper.
+func (e *EmojiKeywordsDifference) MapKeywords() (value EmojiKeywordClassArray) {
+	return EmojiKeywordClassArray(e.Keywords)
 }
 
 // Decode implements bin.Decoder.

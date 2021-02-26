@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesSetInlineGameScoreRequest represents TL type `messages.setInlineGameScore#15ad9f64`.
 // Use this method to set the score of the specified user in a game sent as an inline message (bots only).

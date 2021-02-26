@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesGetPeerDialogsRequest represents TL type `messages.getPeerDialogs#e470bcfd`.
 // Get dialog info of specified peers
@@ -92,9 +94,9 @@ func (g *MessagesGetPeerDialogsRequest) GetPeers() (value []InputDialogPeerClass
 	return g.Peers
 }
 
-// MapPeers returns field Peers wrapped in InputDialogPeerClassSlice helper.
-func (g *MessagesGetPeerDialogsRequest) MapPeers() (value InputDialogPeerClassSlice) {
-	return InputDialogPeerClassSlice(g.Peers)
+// MapPeers returns field Peers wrapped in InputDialogPeerClassArray helper.
+func (g *MessagesGetPeerDialogsRequest) MapPeers() (value InputDialogPeerClassArray) {
+	return InputDialogPeerClassArray(g.Peers)
 }
 
 // Decode implements bin.Decoder.

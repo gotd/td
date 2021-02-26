@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // PaymentsPaymentForm represents TL type `payments.paymentForm#3f56aea3`.
 // Payment form
@@ -351,9 +353,9 @@ func (p *PaymentsPaymentForm) GetUsers() (value []UserClass) {
 	return p.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (p *PaymentsPaymentForm) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(p.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (p *PaymentsPaymentForm) MapUsers() (value UserClassArray) {
+	return UserClassArray(p.Users)
 }
 
 // Decode implements bin.Decoder.

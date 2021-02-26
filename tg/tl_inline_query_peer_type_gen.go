@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // InlineQueryPeerTypeSameBotPM represents TL type `inlineQueryPeerTypeSameBotPM#3081ed9d`.
 //
@@ -470,11 +472,41 @@ func (b *InlineQueryPeerTypeBox) Encode(buf *bin.Buffer) error {
 	return b.InlineQueryPeerType.Encode(buf)
 }
 
-// InlineQueryPeerTypeClassSlice is adapter for slice of InlineQueryPeerTypeClass.
-type InlineQueryPeerTypeClassSlice []InlineQueryPeerTypeClass
+// InlineQueryPeerTypeClassArray is adapter for slice of InlineQueryPeerTypeClass.
+type InlineQueryPeerTypeClassArray []InlineQueryPeerTypeClass
+
+// Sort sorts slice of InlineQueryPeerTypeClass.
+func (s InlineQueryPeerTypeClassArray) Sort(less func(a, b InlineQueryPeerTypeClass) bool) InlineQueryPeerTypeClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InlineQueryPeerTypeClass.
+func (s InlineQueryPeerTypeClassArray) SortStable(less func(a, b InlineQueryPeerTypeClass) bool) InlineQueryPeerTypeClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InlineQueryPeerTypeClass.
+func (s InlineQueryPeerTypeClassArray) Retain(keep func(x InlineQueryPeerTypeClass) bool) InlineQueryPeerTypeClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s InlineQueryPeerTypeClassSlice) First() (v InlineQueryPeerTypeClass, ok bool) {
+func (s InlineQueryPeerTypeClassArray) First() (v InlineQueryPeerTypeClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -482,7 +514,7 @@ func (s InlineQueryPeerTypeClassSlice) First() (v InlineQueryPeerTypeClass, ok b
 }
 
 // Last returns last element of slice (if exists).
-func (s InlineQueryPeerTypeClassSlice) Last() (v InlineQueryPeerTypeClass, ok bool) {
+func (s InlineQueryPeerTypeClassArray) Last() (v InlineQueryPeerTypeClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -490,7 +522,7 @@ func (s InlineQueryPeerTypeClassSlice) Last() (v InlineQueryPeerTypeClass, ok bo
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InlineQueryPeerTypeClassSlice) PopFirst() (v InlineQueryPeerTypeClass, ok bool) {
+func (s *InlineQueryPeerTypeClassArray) PopFirst() (v InlineQueryPeerTypeClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -500,7 +532,8 @@ func (s *InlineQueryPeerTypeClassSlice) PopFirst() (v InlineQueryPeerTypeClass, 
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero InlineQueryPeerTypeClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -508,7 +541,7 @@ func (s *InlineQueryPeerTypeClassSlice) PopFirst() (v InlineQueryPeerTypeClass, 
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *InlineQueryPeerTypeClassSlice) Pop() (v InlineQueryPeerTypeClass, ok bool) {
+func (s *InlineQueryPeerTypeClassArray) Pop() (v InlineQueryPeerTypeClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

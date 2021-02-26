@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // AuthRecoverPasswordRequest represents TL type `auth.recoverPassword#4ea56e92`.
 // Reset the 2FA password¹ using the recovery code sent using auth.requestPasswordRecovery².

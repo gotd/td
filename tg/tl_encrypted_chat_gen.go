@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // EncryptedChatEmpty represents TL type `encryptedChatEmpty#ab7ec0a0`.
 // Empty constructor.
@@ -1070,11 +1072,104 @@ func (b *EncryptedChatBox) Encode(buf *bin.Buffer) error {
 	return b.EncryptedChat.Encode(buf)
 }
 
-// EncryptedChatClassSlice is adapter for slice of EncryptedChatClass.
-type EncryptedChatClassSlice []EncryptedChatClass
+// EncryptedChatClassArray is adapter for slice of EncryptedChatClass.
+type EncryptedChatClassArray []EncryptedChatClass
+
+// Sort sorts slice of EncryptedChatClass.
+func (s EncryptedChatClassArray) Sort(less func(a, b EncryptedChatClass) bool) EncryptedChatClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of EncryptedChatClass.
+func (s EncryptedChatClassArray) SortStable(less func(a, b EncryptedChatClass) bool) EncryptedChatClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of EncryptedChatClass.
+func (s EncryptedChatClassArray) Retain(keep func(x EncryptedChatClass) bool) EncryptedChatClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s EncryptedChatClassArray) First() (v EncryptedChatClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s EncryptedChatClassArray) Last() (v EncryptedChatClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *EncryptedChatClassArray) PopFirst() (v EncryptedChatClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero EncryptedChatClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *EncryptedChatClassArray) Pop() (v EncryptedChatClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of EncryptedChatClass by ID.
+func (s EncryptedChatClassArray) SortByID() EncryptedChatClassArray {
+	return s.Sort(func(a, b EncryptedChatClass) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of EncryptedChatClass by ID.
+func (s EncryptedChatClassArray) SortStableByID() EncryptedChatClassArray {
+	return s.SortStable(func(a, b EncryptedChatClass) bool {
+		return a.GetID() < b.GetID()
+	})
+}
 
 // FillEncryptedChatEmptyMap fills only EncryptedChatEmpty constructors to given map.
-func (s EncryptedChatClassSlice) FillEncryptedChatEmptyMap(to map[int]*EncryptedChatEmpty) {
+func (s EncryptedChatClassArray) FillEncryptedChatEmptyMap(to map[int]*EncryptedChatEmpty) {
 	for _, elem := range s {
 		value, ok := elem.(*EncryptedChatEmpty)
 		if !ok {
@@ -1085,14 +1180,25 @@ func (s EncryptedChatClassSlice) FillEncryptedChatEmptyMap(to map[int]*Encrypted
 }
 
 // EncryptedChatEmptyToMap collects only EncryptedChatEmpty constructors to map.
-func (s EncryptedChatClassSlice) EncryptedChatEmptyToMap() map[int]*EncryptedChatEmpty {
+func (s EncryptedChatClassArray) EncryptedChatEmptyToMap() map[int]*EncryptedChatEmpty {
 	r := make(map[int]*EncryptedChatEmpty, len(s))
 	s.FillEncryptedChatEmptyMap(r)
 	return r
 }
 
-// FillEncryptedChatWaitingMap fills only EncryptedChatWaiting constructors to given map.
-func (s EncryptedChatClassSlice) FillEncryptedChatWaitingMap(to map[int]*EncryptedChatWaiting) {
+// AsEncryptedChatEmpty returns copy with only EncryptedChatEmpty constructors.
+func (s EncryptedChatClassArray) AsEncryptedChatEmpty() (to EncryptedChatEmptyArray) {
+	for _, elem := range s {
+		value, ok := elem.(*EncryptedChatEmpty)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+} // FillEncryptedChatWaitingMap fills only EncryptedChatWaiting constructors to given map.
+func (s EncryptedChatClassArray) FillEncryptedChatWaitingMap(to map[int]*EncryptedChatWaiting) {
 	for _, elem := range s {
 		value, ok := elem.(*EncryptedChatWaiting)
 		if !ok {
@@ -1103,14 +1209,25 @@ func (s EncryptedChatClassSlice) FillEncryptedChatWaitingMap(to map[int]*Encrypt
 }
 
 // EncryptedChatWaitingToMap collects only EncryptedChatWaiting constructors to map.
-func (s EncryptedChatClassSlice) EncryptedChatWaitingToMap() map[int]*EncryptedChatWaiting {
+func (s EncryptedChatClassArray) EncryptedChatWaitingToMap() map[int]*EncryptedChatWaiting {
 	r := make(map[int]*EncryptedChatWaiting, len(s))
 	s.FillEncryptedChatWaitingMap(r)
 	return r
 }
 
-// FillEncryptedChatRequestedMap fills only EncryptedChatRequested constructors to given map.
-func (s EncryptedChatClassSlice) FillEncryptedChatRequestedMap(to map[int]*EncryptedChatRequested) {
+// AsEncryptedChatWaiting returns copy with only EncryptedChatWaiting constructors.
+func (s EncryptedChatClassArray) AsEncryptedChatWaiting() (to EncryptedChatWaitingArray) {
+	for _, elem := range s {
+		value, ok := elem.(*EncryptedChatWaiting)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+} // FillEncryptedChatRequestedMap fills only EncryptedChatRequested constructors to given map.
+func (s EncryptedChatClassArray) FillEncryptedChatRequestedMap(to map[int]*EncryptedChatRequested) {
 	for _, elem := range s {
 		value, ok := elem.(*EncryptedChatRequested)
 		if !ok {
@@ -1121,14 +1238,25 @@ func (s EncryptedChatClassSlice) FillEncryptedChatRequestedMap(to map[int]*Encry
 }
 
 // EncryptedChatRequestedToMap collects only EncryptedChatRequested constructors to map.
-func (s EncryptedChatClassSlice) EncryptedChatRequestedToMap() map[int]*EncryptedChatRequested {
+func (s EncryptedChatClassArray) EncryptedChatRequestedToMap() map[int]*EncryptedChatRequested {
 	r := make(map[int]*EncryptedChatRequested, len(s))
 	s.FillEncryptedChatRequestedMap(r)
 	return r
 }
 
-// FillEncryptedChatMap fills only EncryptedChat constructors to given map.
-func (s EncryptedChatClassSlice) FillEncryptedChatMap(to map[int]*EncryptedChat) {
+// AsEncryptedChatRequested returns copy with only EncryptedChatRequested constructors.
+func (s EncryptedChatClassArray) AsEncryptedChatRequested() (to EncryptedChatRequestedArray) {
+	for _, elem := range s {
+		value, ok := elem.(*EncryptedChatRequested)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+} // FillEncryptedChatMap fills only EncryptedChat constructors to given map.
+func (s EncryptedChatClassArray) FillEncryptedChatMap(to map[int]*EncryptedChat) {
 	for _, elem := range s {
 		value, ok := elem.(*EncryptedChat)
 		if !ok {
@@ -1139,14 +1267,25 @@ func (s EncryptedChatClassSlice) FillEncryptedChatMap(to map[int]*EncryptedChat)
 }
 
 // EncryptedChatToMap collects only EncryptedChat constructors to map.
-func (s EncryptedChatClassSlice) EncryptedChatToMap() map[int]*EncryptedChat {
+func (s EncryptedChatClassArray) EncryptedChatToMap() map[int]*EncryptedChat {
 	r := make(map[int]*EncryptedChat, len(s))
 	s.FillEncryptedChatMap(r)
 	return r
 }
 
-// FillEncryptedChatDiscardedMap fills only EncryptedChatDiscarded constructors to given map.
-func (s EncryptedChatClassSlice) FillEncryptedChatDiscardedMap(to map[int]*EncryptedChatDiscarded) {
+// AsEncryptedChat returns copy with only EncryptedChat constructors.
+func (s EncryptedChatClassArray) AsEncryptedChat() (to EncryptedChatArray) {
+	for _, elem := range s {
+		value, ok := elem.(*EncryptedChat)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+} // FillEncryptedChatDiscardedMap fills only EncryptedChatDiscarded constructors to given map.
+func (s EncryptedChatClassArray) FillEncryptedChatDiscardedMap(to map[int]*EncryptedChatDiscarded) {
 	for _, elem := range s {
 		value, ok := elem.(*EncryptedChatDiscarded)
 		if !ok {
@@ -1157,14 +1296,27 @@ func (s EncryptedChatClassSlice) FillEncryptedChatDiscardedMap(to map[int]*Encry
 }
 
 // EncryptedChatDiscardedToMap collects only EncryptedChatDiscarded constructors to map.
-func (s EncryptedChatClassSlice) EncryptedChatDiscardedToMap() map[int]*EncryptedChatDiscarded {
+func (s EncryptedChatClassArray) EncryptedChatDiscardedToMap() map[int]*EncryptedChatDiscarded {
 	r := make(map[int]*EncryptedChatDiscarded, len(s))
 	s.FillEncryptedChatDiscardedMap(r)
 	return r
 }
 
+// AsEncryptedChatDiscarded returns copy with only EncryptedChatDiscarded constructors.
+func (s EncryptedChatClassArray) AsEncryptedChatDiscarded() (to EncryptedChatDiscardedArray) {
+	for _, elem := range s {
+		value, ok := elem.(*EncryptedChatDiscarded)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
 // FillNotEmptyMap fills only NotEmpty constructors to given map.
-func (s EncryptedChatClassSlice) FillNotEmptyMap(to map[int]NotEmptyEncryptedChat) {
+func (s EncryptedChatClassArray) FillNotEmptyMap(to map[int]NotEmptyEncryptedChat) {
 	for _, elem := range s {
 		value, ok := elem.AsNotEmpty()
 		if !ok {
@@ -1175,7 +1327,7 @@ func (s EncryptedChatClassSlice) FillNotEmptyMap(to map[int]NotEmptyEncryptedCha
 }
 
 // NotEmptyToMap collects only NotEmpty constructors to map.
-func (s EncryptedChatClassSlice) NotEmptyToMap() map[int]NotEmptyEncryptedChat {
+func (s EncryptedChatClassArray) NotEmptyToMap() map[int]NotEmptyEncryptedChat {
 	r := make(map[int]NotEmptyEncryptedChat, len(s))
 	s.FillNotEmptyMap(r)
 	return r
@@ -1183,7 +1335,7 @@ func (s EncryptedChatClassSlice) NotEmptyToMap() map[int]NotEmptyEncryptedChat {
 
 // AppendOnlyNotEmpty appends only NotEmpty constructors to
 // given slice.
-func (s EncryptedChatClassSlice) AppendOnlyNotEmpty(to []NotEmptyEncryptedChat) []NotEmptyEncryptedChat {
+func (s EncryptedChatClassArray) AppendOnlyNotEmpty(to []NotEmptyEncryptedChat) []NotEmptyEncryptedChat {
 	for _, elem := range s {
 		value, ok := elem.AsNotEmpty()
 		if !ok {
@@ -1196,12 +1348,12 @@ func (s EncryptedChatClassSlice) AppendOnlyNotEmpty(to []NotEmptyEncryptedChat) 
 }
 
 // AsNotEmpty returns copy with only NotEmpty constructors.
-func (s EncryptedChatClassSlice) AsNotEmpty() (to []NotEmptyEncryptedChat) {
+func (s EncryptedChatClassArray) AsNotEmpty() (to []NotEmptyEncryptedChat) {
 	return s.AppendOnlyNotEmpty(to)
 }
 
 // FirstAsNotEmpty returns first element of slice (if exists).
-func (s EncryptedChatClassSlice) FirstAsNotEmpty() (v NotEmptyEncryptedChat, ok bool) {
+func (s EncryptedChatClassArray) FirstAsNotEmpty() (v NotEmptyEncryptedChat, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -1210,7 +1362,7 @@ func (s EncryptedChatClassSlice) FirstAsNotEmpty() (v NotEmptyEncryptedChat, ok 
 }
 
 // LastAsNotEmpty returns last element of slice (if exists).
-func (s EncryptedChatClassSlice) LastAsNotEmpty() (v NotEmptyEncryptedChat, ok bool) {
+func (s EncryptedChatClassArray) LastAsNotEmpty() (v NotEmptyEncryptedChat, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -1219,7 +1371,7 @@ func (s EncryptedChatClassSlice) LastAsNotEmpty() (v NotEmptyEncryptedChat, ok b
 }
 
 // PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *EncryptedChatClassSlice) PopFirstAsNotEmpty() (v NotEmptyEncryptedChat, ok bool) {
+func (s *EncryptedChatClassArray) PopFirstAsNotEmpty() (v NotEmptyEncryptedChat, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -1228,7 +1380,7 @@ func (s *EncryptedChatClassSlice) PopFirstAsNotEmpty() (v NotEmptyEncryptedChat,
 }
 
 // PopAsNotEmpty returns element of slice (if exists).
-func (s *EncryptedChatClassSlice) PopAsNotEmpty() (v NotEmptyEncryptedChat, ok bool) {
+func (s *EncryptedChatClassArray) PopAsNotEmpty() (v NotEmptyEncryptedChat, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -1236,8 +1388,41 @@ func (s *EncryptedChatClassSlice) PopAsNotEmpty() (v NotEmptyEncryptedChat, ok b
 	return value.AsNotEmpty()
 }
 
+// EncryptedChatEmptyArray is adapter for slice of EncryptedChatEmpty.
+type EncryptedChatEmptyArray []EncryptedChatEmpty
+
+// Sort sorts slice of EncryptedChatEmpty.
+func (s EncryptedChatEmptyArray) Sort(less func(a, b EncryptedChatEmpty) bool) EncryptedChatEmptyArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of EncryptedChatEmpty.
+func (s EncryptedChatEmptyArray) SortStable(less func(a, b EncryptedChatEmpty) bool) EncryptedChatEmptyArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of EncryptedChatEmpty.
+func (s EncryptedChatEmptyArray) Retain(keep func(x EncryptedChatEmpty) bool) EncryptedChatEmptyArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s EncryptedChatClassSlice) First() (v EncryptedChatClass, ok bool) {
+func (s EncryptedChatEmptyArray) First() (v EncryptedChatEmpty, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1245,7 +1430,7 @@ func (s EncryptedChatClassSlice) First() (v EncryptedChatClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s EncryptedChatClassSlice) Last() (v EncryptedChatClass, ok bool) {
+func (s EncryptedChatEmptyArray) Last() (v EncryptedChatEmpty, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1253,7 +1438,7 @@ func (s EncryptedChatClassSlice) Last() (v EncryptedChatClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *EncryptedChatClassSlice) PopFirst() (v EncryptedChatClass, ok bool) {
+func (s *EncryptedChatEmptyArray) PopFirst() (v EncryptedChatEmpty, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1263,7 +1448,8 @@ func (s *EncryptedChatClassSlice) PopFirst() (v EncryptedChatClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero EncryptedChatEmpty
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -1271,7 +1457,7 @@ func (s *EncryptedChatClassSlice) PopFirst() (v EncryptedChatClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *EncryptedChatClassSlice) Pop() (v EncryptedChatClass, ok bool) {
+func (s *EncryptedChatEmptyArray) Pop() (v EncryptedChatEmpty, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1282,4 +1468,514 @@ func (s *EncryptedChatClassSlice) Pop() (v EncryptedChatClass, ok bool) {
 	*s = a
 
 	return v, true
+}
+
+// SortByID sorts slice of EncryptedChatEmpty by ID.
+func (s EncryptedChatEmptyArray) SortByID() EncryptedChatEmptyArray {
+	return s.Sort(func(a, b EncryptedChatEmpty) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of EncryptedChatEmpty by ID.
+func (s EncryptedChatEmptyArray) SortStableByID() EncryptedChatEmptyArray {
+	return s.SortStable(func(a, b EncryptedChatEmpty) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s EncryptedChatEmptyArray) FillMap(to map[int]EncryptedChatEmpty) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s EncryptedChatEmptyArray) ToMap() map[int]EncryptedChatEmpty {
+	r := make(map[int]EncryptedChatEmpty, len(s))
+	s.FillMap(r)
+	return r
+}
+
+// EncryptedChatWaitingArray is adapter for slice of EncryptedChatWaiting.
+type EncryptedChatWaitingArray []EncryptedChatWaiting
+
+// Sort sorts slice of EncryptedChatWaiting.
+func (s EncryptedChatWaitingArray) Sort(less func(a, b EncryptedChatWaiting) bool) EncryptedChatWaitingArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of EncryptedChatWaiting.
+func (s EncryptedChatWaitingArray) SortStable(less func(a, b EncryptedChatWaiting) bool) EncryptedChatWaitingArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of EncryptedChatWaiting.
+func (s EncryptedChatWaitingArray) Retain(keep func(x EncryptedChatWaiting) bool) EncryptedChatWaitingArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s EncryptedChatWaitingArray) First() (v EncryptedChatWaiting, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s EncryptedChatWaitingArray) Last() (v EncryptedChatWaiting, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *EncryptedChatWaitingArray) PopFirst() (v EncryptedChatWaiting, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero EncryptedChatWaiting
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *EncryptedChatWaitingArray) Pop() (v EncryptedChatWaiting, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of EncryptedChatWaiting by ID.
+func (s EncryptedChatWaitingArray) SortByID() EncryptedChatWaitingArray {
+	return s.Sort(func(a, b EncryptedChatWaiting) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of EncryptedChatWaiting by ID.
+func (s EncryptedChatWaitingArray) SortStableByID() EncryptedChatWaitingArray {
+	return s.SortStable(func(a, b EncryptedChatWaiting) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortByDate sorts slice of EncryptedChatWaiting by Date.
+func (s EncryptedChatWaitingArray) SortByDate() EncryptedChatWaitingArray {
+	return s.Sort(func(a, b EncryptedChatWaiting) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of EncryptedChatWaiting by Date.
+func (s EncryptedChatWaitingArray) SortStableByDate() EncryptedChatWaitingArray {
+	return s.SortStable(func(a, b EncryptedChatWaiting) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s EncryptedChatWaitingArray) FillMap(to map[int]EncryptedChatWaiting) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s EncryptedChatWaitingArray) ToMap() map[int]EncryptedChatWaiting {
+	r := make(map[int]EncryptedChatWaiting, len(s))
+	s.FillMap(r)
+	return r
+}
+
+// EncryptedChatRequestedArray is adapter for slice of EncryptedChatRequested.
+type EncryptedChatRequestedArray []EncryptedChatRequested
+
+// Sort sorts slice of EncryptedChatRequested.
+func (s EncryptedChatRequestedArray) Sort(less func(a, b EncryptedChatRequested) bool) EncryptedChatRequestedArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of EncryptedChatRequested.
+func (s EncryptedChatRequestedArray) SortStable(less func(a, b EncryptedChatRequested) bool) EncryptedChatRequestedArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of EncryptedChatRequested.
+func (s EncryptedChatRequestedArray) Retain(keep func(x EncryptedChatRequested) bool) EncryptedChatRequestedArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s EncryptedChatRequestedArray) First() (v EncryptedChatRequested, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s EncryptedChatRequestedArray) Last() (v EncryptedChatRequested, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *EncryptedChatRequestedArray) PopFirst() (v EncryptedChatRequested, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero EncryptedChatRequested
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *EncryptedChatRequestedArray) Pop() (v EncryptedChatRequested, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of EncryptedChatRequested by ID.
+func (s EncryptedChatRequestedArray) SortByID() EncryptedChatRequestedArray {
+	return s.Sort(func(a, b EncryptedChatRequested) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of EncryptedChatRequested by ID.
+func (s EncryptedChatRequestedArray) SortStableByID() EncryptedChatRequestedArray {
+	return s.SortStable(func(a, b EncryptedChatRequested) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortByDate sorts slice of EncryptedChatRequested by Date.
+func (s EncryptedChatRequestedArray) SortByDate() EncryptedChatRequestedArray {
+	return s.Sort(func(a, b EncryptedChatRequested) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of EncryptedChatRequested by Date.
+func (s EncryptedChatRequestedArray) SortStableByDate() EncryptedChatRequestedArray {
+	return s.SortStable(func(a, b EncryptedChatRequested) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s EncryptedChatRequestedArray) FillMap(to map[int]EncryptedChatRequested) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s EncryptedChatRequestedArray) ToMap() map[int]EncryptedChatRequested {
+	r := make(map[int]EncryptedChatRequested, len(s))
+	s.FillMap(r)
+	return r
+}
+
+// EncryptedChatArray is adapter for slice of EncryptedChat.
+type EncryptedChatArray []EncryptedChat
+
+// Sort sorts slice of EncryptedChat.
+func (s EncryptedChatArray) Sort(less func(a, b EncryptedChat) bool) EncryptedChatArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of EncryptedChat.
+func (s EncryptedChatArray) SortStable(less func(a, b EncryptedChat) bool) EncryptedChatArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of EncryptedChat.
+func (s EncryptedChatArray) Retain(keep func(x EncryptedChat) bool) EncryptedChatArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s EncryptedChatArray) First() (v EncryptedChat, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s EncryptedChatArray) Last() (v EncryptedChat, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *EncryptedChatArray) PopFirst() (v EncryptedChat, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero EncryptedChat
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *EncryptedChatArray) Pop() (v EncryptedChat, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of EncryptedChat by ID.
+func (s EncryptedChatArray) SortByID() EncryptedChatArray {
+	return s.Sort(func(a, b EncryptedChat) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of EncryptedChat by ID.
+func (s EncryptedChatArray) SortStableByID() EncryptedChatArray {
+	return s.SortStable(func(a, b EncryptedChat) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortByDate sorts slice of EncryptedChat by Date.
+func (s EncryptedChatArray) SortByDate() EncryptedChatArray {
+	return s.Sort(func(a, b EncryptedChat) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of EncryptedChat by Date.
+func (s EncryptedChatArray) SortStableByDate() EncryptedChatArray {
+	return s.SortStable(func(a, b EncryptedChat) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s EncryptedChatArray) FillMap(to map[int]EncryptedChat) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s EncryptedChatArray) ToMap() map[int]EncryptedChat {
+	r := make(map[int]EncryptedChat, len(s))
+	s.FillMap(r)
+	return r
+}
+
+// EncryptedChatDiscardedArray is adapter for slice of EncryptedChatDiscarded.
+type EncryptedChatDiscardedArray []EncryptedChatDiscarded
+
+// Sort sorts slice of EncryptedChatDiscarded.
+func (s EncryptedChatDiscardedArray) Sort(less func(a, b EncryptedChatDiscarded) bool) EncryptedChatDiscardedArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of EncryptedChatDiscarded.
+func (s EncryptedChatDiscardedArray) SortStable(less func(a, b EncryptedChatDiscarded) bool) EncryptedChatDiscardedArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of EncryptedChatDiscarded.
+func (s EncryptedChatDiscardedArray) Retain(keep func(x EncryptedChatDiscarded) bool) EncryptedChatDiscardedArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s EncryptedChatDiscardedArray) First() (v EncryptedChatDiscarded, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s EncryptedChatDiscardedArray) Last() (v EncryptedChatDiscarded, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *EncryptedChatDiscardedArray) PopFirst() (v EncryptedChatDiscarded, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero EncryptedChatDiscarded
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *EncryptedChatDiscardedArray) Pop() (v EncryptedChatDiscarded, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByID sorts slice of EncryptedChatDiscarded by ID.
+func (s EncryptedChatDiscardedArray) SortByID() EncryptedChatDiscardedArray {
+	return s.Sort(func(a, b EncryptedChatDiscarded) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// SortStableByID sorts slice of EncryptedChatDiscarded by ID.
+func (s EncryptedChatDiscardedArray) SortStableByID() EncryptedChatDiscardedArray {
+	return s.SortStable(func(a, b EncryptedChatDiscarded) bool {
+		return a.GetID() < b.GetID()
+	})
+}
+
+// FillMap fills constructors to given map.
+func (s EncryptedChatDiscardedArray) FillMap(to map[int]EncryptedChatDiscarded) {
+	for _, value := range s {
+		to[value.GetID()] = value
+	}
+}
+
+// ToMap collects constructors to map.
+func (s EncryptedChatDiscardedArray) ToMap() map[int]EncryptedChatDiscarded {
+	r := make(map[int]EncryptedChatDiscarded, len(s))
+	s.FillMap(r)
+	return r
 }

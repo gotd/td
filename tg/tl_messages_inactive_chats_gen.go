@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesInactiveChats represents TL type `messages.inactiveChats#a927fec5`.
 // Inactive chat list
@@ -124,9 +126,9 @@ func (i *MessagesInactiveChats) GetChats() (value []ChatClass) {
 	return i.Chats
 }
 
-// MapChats returns field Chats wrapped in ChatClassSlice helper.
-func (i *MessagesInactiveChats) MapChats() (value ChatClassSlice) {
-	return ChatClassSlice(i.Chats)
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (i *MessagesInactiveChats) MapChats() (value ChatClassArray) {
+	return ChatClassArray(i.Chats)
 }
 
 // GetUsers returns value of Users field.
@@ -134,9 +136,9 @@ func (i *MessagesInactiveChats) GetUsers() (value []UserClass) {
 	return i.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (i *MessagesInactiveChats) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(i.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (i *MessagesInactiveChats) MapUsers() (value UserClassArray) {
+	return UserClassArray(i.Users)
 }
 
 // Decode implements bin.Decoder.

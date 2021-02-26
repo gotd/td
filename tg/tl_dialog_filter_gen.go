@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // DialogFilter represents TL type `dialogFilter#7438f7e8`.
 // Dialog filter AKA folder¹
@@ -447,9 +449,9 @@ func (d *DialogFilter) GetPinnedPeers() (value []InputPeerClass) {
 	return d.PinnedPeers
 }
 
-// MapPinnedPeers returns field PinnedPeers wrapped in InputPeerClassSlice helper.
-func (d *DialogFilter) MapPinnedPeers() (value InputPeerClassSlice) {
-	return InputPeerClassSlice(d.PinnedPeers)
+// MapPinnedPeers returns field PinnedPeers wrapped in InputPeerClassArray helper.
+func (d *DialogFilter) MapPinnedPeers() (value InputPeerClassArray) {
+	return InputPeerClassArray(d.PinnedPeers)
 }
 
 // GetIncludePeers returns value of IncludePeers field.
@@ -457,9 +459,9 @@ func (d *DialogFilter) GetIncludePeers() (value []InputPeerClass) {
 	return d.IncludePeers
 }
 
-// MapIncludePeers returns field IncludePeers wrapped in InputPeerClassSlice helper.
-func (d *DialogFilter) MapIncludePeers() (value InputPeerClassSlice) {
-	return InputPeerClassSlice(d.IncludePeers)
+// MapIncludePeers returns field IncludePeers wrapped in InputPeerClassArray helper.
+func (d *DialogFilter) MapIncludePeers() (value InputPeerClassArray) {
+	return InputPeerClassArray(d.IncludePeers)
 }
 
 // GetExcludePeers returns value of ExcludePeers field.
@@ -467,9 +469,9 @@ func (d *DialogFilter) GetExcludePeers() (value []InputPeerClass) {
 	return d.ExcludePeers
 }
 
-// MapExcludePeers returns field ExcludePeers wrapped in InputPeerClassSlice helper.
-func (d *DialogFilter) MapExcludePeers() (value InputPeerClassSlice) {
-	return InputPeerClassSlice(d.ExcludePeers)
+// MapExcludePeers returns field ExcludePeers wrapped in InputPeerClassArray helper.
+func (d *DialogFilter) MapExcludePeers() (value InputPeerClassArray) {
+	return InputPeerClassArray(d.ExcludePeers)
 }
 
 // Decode implements bin.Decoder.

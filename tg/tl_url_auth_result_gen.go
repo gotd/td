@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // UrlAuthResultRequest represents TL type `urlAuthResultRequest#92d33a0e`.
 // Details about the authorization request, for more info click here »¹
@@ -449,11 +451,41 @@ func (b *UrlAuthResultBox) Encode(buf *bin.Buffer) error {
 	return b.UrlAuthResult.Encode(buf)
 }
 
-// UrlAuthResultClassSlice is adapter for slice of UrlAuthResultClass.
-type UrlAuthResultClassSlice []UrlAuthResultClass
+// UrlAuthResultClassArray is adapter for slice of UrlAuthResultClass.
+type UrlAuthResultClassArray []UrlAuthResultClass
+
+// Sort sorts slice of UrlAuthResultClass.
+func (s UrlAuthResultClassArray) Sort(less func(a, b UrlAuthResultClass) bool) UrlAuthResultClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UrlAuthResultClass.
+func (s UrlAuthResultClassArray) SortStable(less func(a, b UrlAuthResultClass) bool) UrlAuthResultClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UrlAuthResultClass.
+func (s UrlAuthResultClassArray) Retain(keep func(x UrlAuthResultClass) bool) UrlAuthResultClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s UrlAuthResultClassSlice) First() (v UrlAuthResultClass, ok bool) {
+func (s UrlAuthResultClassArray) First() (v UrlAuthResultClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -461,7 +493,7 @@ func (s UrlAuthResultClassSlice) First() (v UrlAuthResultClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s UrlAuthResultClassSlice) Last() (v UrlAuthResultClass, ok bool) {
+func (s UrlAuthResultClassArray) Last() (v UrlAuthResultClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -469,7 +501,7 @@ func (s UrlAuthResultClassSlice) Last() (v UrlAuthResultClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UrlAuthResultClassSlice) PopFirst() (v UrlAuthResultClass, ok bool) {
+func (s *UrlAuthResultClassArray) PopFirst() (v UrlAuthResultClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -479,7 +511,8 @@ func (s *UrlAuthResultClassSlice) PopFirst() (v UrlAuthResultClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero UrlAuthResultClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -487,7 +520,197 @@ func (s *UrlAuthResultClassSlice) PopFirst() (v UrlAuthResultClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *UrlAuthResultClassSlice) Pop() (v UrlAuthResultClass, ok bool) {
+func (s *UrlAuthResultClassArray) Pop() (v UrlAuthResultClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsUrlAuthResultRequest returns copy with only UrlAuthResultRequest constructors.
+func (s UrlAuthResultClassArray) AsUrlAuthResultRequest() (to UrlAuthResultRequestArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UrlAuthResultRequest)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsUrlAuthResultAccepted returns copy with only UrlAuthResultAccepted constructors.
+func (s UrlAuthResultClassArray) AsUrlAuthResultAccepted() (to UrlAuthResultAcceptedArray) {
+	for _, elem := range s {
+		value, ok := elem.(*UrlAuthResultAccepted)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// UrlAuthResultRequestArray is adapter for slice of UrlAuthResultRequest.
+type UrlAuthResultRequestArray []UrlAuthResultRequest
+
+// Sort sorts slice of UrlAuthResultRequest.
+func (s UrlAuthResultRequestArray) Sort(less func(a, b UrlAuthResultRequest) bool) UrlAuthResultRequestArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UrlAuthResultRequest.
+func (s UrlAuthResultRequestArray) SortStable(less func(a, b UrlAuthResultRequest) bool) UrlAuthResultRequestArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UrlAuthResultRequest.
+func (s UrlAuthResultRequestArray) Retain(keep func(x UrlAuthResultRequest) bool) UrlAuthResultRequestArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UrlAuthResultRequestArray) First() (v UrlAuthResultRequest, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UrlAuthResultRequestArray) Last() (v UrlAuthResultRequest, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UrlAuthResultRequestArray) PopFirst() (v UrlAuthResultRequest, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UrlAuthResultRequest
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UrlAuthResultRequestArray) Pop() (v UrlAuthResultRequest, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// UrlAuthResultAcceptedArray is adapter for slice of UrlAuthResultAccepted.
+type UrlAuthResultAcceptedArray []UrlAuthResultAccepted
+
+// Sort sorts slice of UrlAuthResultAccepted.
+func (s UrlAuthResultAcceptedArray) Sort(less func(a, b UrlAuthResultAccepted) bool) UrlAuthResultAcceptedArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of UrlAuthResultAccepted.
+func (s UrlAuthResultAcceptedArray) SortStable(less func(a, b UrlAuthResultAccepted) bool) UrlAuthResultAcceptedArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of UrlAuthResultAccepted.
+func (s UrlAuthResultAcceptedArray) Retain(keep func(x UrlAuthResultAccepted) bool) UrlAuthResultAcceptedArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s UrlAuthResultAcceptedArray) First() (v UrlAuthResultAccepted, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s UrlAuthResultAcceptedArray) Last() (v UrlAuthResultAccepted, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *UrlAuthResultAcceptedArray) PopFirst() (v UrlAuthResultAccepted, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero UrlAuthResultAccepted
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *UrlAuthResultAcceptedArray) Pop() (v UrlAuthResultAccepted, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

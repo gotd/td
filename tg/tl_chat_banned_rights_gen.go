@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // ChatBannedRights represents TL type `chatBannedRights#9f120418`.
 // Represents the rights of a normal user in a supergroup/channel/chat¹. In this case, the flags are inverted: if set, a flag does not allow a user to do X.

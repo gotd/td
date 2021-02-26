@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // HelpCountriesListNotModified represents TL type `help.countriesListNotModified#93cc1f32`.
 // The country list has not changed
@@ -313,12 +315,104 @@ func (b *HelpCountriesListBox) Encode(buf *bin.Buffer) error {
 	return b.CountriesList.Encode(buf)
 }
 
-// HelpCountriesListClassSlice is adapter for slice of HelpCountriesListClass.
-type HelpCountriesListClassSlice []HelpCountriesListClass
+// HelpCountriesListClassArray is adapter for slice of HelpCountriesListClass.
+type HelpCountriesListClassArray []HelpCountriesListClass
+
+// Sort sorts slice of HelpCountriesListClass.
+func (s HelpCountriesListClassArray) Sort(less func(a, b HelpCountriesListClass) bool) HelpCountriesListClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of HelpCountriesListClass.
+func (s HelpCountriesListClassArray) SortStable(less func(a, b HelpCountriesListClass) bool) HelpCountriesListClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of HelpCountriesListClass.
+func (s HelpCountriesListClassArray) Retain(keep func(x HelpCountriesListClass) bool) HelpCountriesListClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s HelpCountriesListClassArray) First() (v HelpCountriesListClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s HelpCountriesListClassArray) Last() (v HelpCountriesListClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *HelpCountriesListClassArray) PopFirst() (v HelpCountriesListClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero HelpCountriesListClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *HelpCountriesListClassArray) Pop() (v HelpCountriesListClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsHelpCountriesList returns copy with only HelpCountriesList constructors.
+func (s HelpCountriesListClassArray) AsHelpCountriesList() (to HelpCountriesListArray) {
+	for _, elem := range s {
+		value, ok := elem.(*HelpCountriesList)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
 
 // AppendOnlyModified appends only Modified constructors to
 // given slice.
-func (s HelpCountriesListClassSlice) AppendOnlyModified(to []*HelpCountriesList) []*HelpCountriesList {
+func (s HelpCountriesListClassArray) AppendOnlyModified(to []*HelpCountriesList) []*HelpCountriesList {
 	for _, elem := range s {
 		value, ok := elem.AsModified()
 		if !ok {
@@ -331,12 +425,12 @@ func (s HelpCountriesListClassSlice) AppendOnlyModified(to []*HelpCountriesList)
 }
 
 // AsModified returns copy with only Modified constructors.
-func (s HelpCountriesListClassSlice) AsModified() (to []*HelpCountriesList) {
+func (s HelpCountriesListClassArray) AsModified() (to []*HelpCountriesList) {
 	return s.AppendOnlyModified(to)
 }
 
 // FirstAsModified returns first element of slice (if exists).
-func (s HelpCountriesListClassSlice) FirstAsModified() (v *HelpCountriesList, ok bool) {
+func (s HelpCountriesListClassArray) FirstAsModified() (v *HelpCountriesList, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -345,7 +439,7 @@ func (s HelpCountriesListClassSlice) FirstAsModified() (v *HelpCountriesList, ok
 }
 
 // LastAsModified returns last element of slice (if exists).
-func (s HelpCountriesListClassSlice) LastAsModified() (v *HelpCountriesList, ok bool) {
+func (s HelpCountriesListClassArray) LastAsModified() (v *HelpCountriesList, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -354,7 +448,7 @@ func (s HelpCountriesListClassSlice) LastAsModified() (v *HelpCountriesList, ok 
 }
 
 // PopFirstAsModified returns element of slice (if exists).
-func (s *HelpCountriesListClassSlice) PopFirstAsModified() (v *HelpCountriesList, ok bool) {
+func (s *HelpCountriesListClassArray) PopFirstAsModified() (v *HelpCountriesList, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -363,7 +457,7 @@ func (s *HelpCountriesListClassSlice) PopFirstAsModified() (v *HelpCountriesList
 }
 
 // PopAsModified returns element of slice (if exists).
-func (s *HelpCountriesListClassSlice) PopAsModified() (v *HelpCountriesList, ok bool) {
+func (s *HelpCountriesListClassArray) PopAsModified() (v *HelpCountriesList, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -371,8 +465,41 @@ func (s *HelpCountriesListClassSlice) PopAsModified() (v *HelpCountriesList, ok 
 	return value.AsModified()
 }
 
+// HelpCountriesListArray is adapter for slice of HelpCountriesList.
+type HelpCountriesListArray []HelpCountriesList
+
+// Sort sorts slice of HelpCountriesList.
+func (s HelpCountriesListArray) Sort(less func(a, b HelpCountriesList) bool) HelpCountriesListArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of HelpCountriesList.
+func (s HelpCountriesListArray) SortStable(less func(a, b HelpCountriesList) bool) HelpCountriesListArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of HelpCountriesList.
+func (s HelpCountriesListArray) Retain(keep func(x HelpCountriesList) bool) HelpCountriesListArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s HelpCountriesListClassSlice) First() (v HelpCountriesListClass, ok bool) {
+func (s HelpCountriesListArray) First() (v HelpCountriesList, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -380,7 +507,7 @@ func (s HelpCountriesListClassSlice) First() (v HelpCountriesListClass, ok bool)
 }
 
 // Last returns last element of slice (if exists).
-func (s HelpCountriesListClassSlice) Last() (v HelpCountriesListClass, ok bool) {
+func (s HelpCountriesListArray) Last() (v HelpCountriesList, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -388,7 +515,7 @@ func (s HelpCountriesListClassSlice) Last() (v HelpCountriesListClass, ok bool) 
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *HelpCountriesListClassSlice) PopFirst() (v HelpCountriesListClass, ok bool) {
+func (s *HelpCountriesListArray) PopFirst() (v HelpCountriesList, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -398,7 +525,8 @@ func (s *HelpCountriesListClassSlice) PopFirst() (v HelpCountriesListClass, ok b
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero HelpCountriesList
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -406,7 +534,7 @@ func (s *HelpCountriesListClassSlice) PopFirst() (v HelpCountriesListClass, ok b
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *HelpCountriesListClassSlice) Pop() (v HelpCountriesListClass, ok bool) {
+func (s *HelpCountriesListArray) Pop() (v HelpCountriesList, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

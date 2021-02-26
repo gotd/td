@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // AccountSetPrivacyRequest represents TL type `account.setPrivacy#c9f81ce8`.
 // Change privacy settings of current account
@@ -110,9 +112,9 @@ func (s *AccountSetPrivacyRequest) GetRules() (value []InputPrivacyRuleClass) {
 	return s.Rules
 }
 
-// MapRules returns field Rules wrapped in InputPrivacyRuleClassSlice helper.
-func (s *AccountSetPrivacyRequest) MapRules() (value InputPrivacyRuleClassSlice) {
-	return InputPrivacyRuleClassSlice(s.Rules)
+// MapRules returns field Rules wrapped in InputPrivacyRuleClassArray helper.
+func (s *AccountSetPrivacyRequest) MapRules() (value InputPrivacyRuleClassArray) {
+	return InputPrivacyRuleClassArray(s.Rules)
 }
 
 // Decode implements bin.Decoder.

@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // DestroySessionOk represents TL type `destroy_session_ok#e22045fc`.
 type DestroySessionOk struct {
@@ -286,11 +288,41 @@ func (b *DestroySessionResBox) Encode(buf *bin.Buffer) error {
 	return b.DestroySessionRes.Encode(buf)
 }
 
-// DestroySessionResClassSlice is adapter for slice of DestroySessionResClass.
-type DestroySessionResClassSlice []DestroySessionResClass
+// DestroySessionResClassArray is adapter for slice of DestroySessionResClass.
+type DestroySessionResClassArray []DestroySessionResClass
+
+// Sort sorts slice of DestroySessionResClass.
+func (s DestroySessionResClassArray) Sort(less func(a, b DestroySessionResClass) bool) DestroySessionResClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DestroySessionResClass.
+func (s DestroySessionResClassArray) SortStable(less func(a, b DestroySessionResClass) bool) DestroySessionResClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DestroySessionResClass.
+func (s DestroySessionResClassArray) Retain(keep func(x DestroySessionResClass) bool) DestroySessionResClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s DestroySessionResClassSlice) First() (v DestroySessionResClass, ok bool) {
+func (s DestroySessionResClassArray) First() (v DestroySessionResClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -298,7 +330,7 @@ func (s DestroySessionResClassSlice) First() (v DestroySessionResClass, ok bool)
 }
 
 // Last returns last element of slice (if exists).
-func (s DestroySessionResClassSlice) Last() (v DestroySessionResClass, ok bool) {
+func (s DestroySessionResClassArray) Last() (v DestroySessionResClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -306,7 +338,7 @@ func (s DestroySessionResClassSlice) Last() (v DestroySessionResClass, ok bool) 
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DestroySessionResClassSlice) PopFirst() (v DestroySessionResClass, ok bool) {
+func (s *DestroySessionResClassArray) PopFirst() (v DestroySessionResClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -316,7 +348,8 @@ func (s *DestroySessionResClassSlice) PopFirst() (v DestroySessionResClass, ok b
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero DestroySessionResClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -324,7 +357,197 @@ func (s *DestroySessionResClassSlice) PopFirst() (v DestroySessionResClass, ok b
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *DestroySessionResClassSlice) Pop() (v DestroySessionResClass, ok bool) {
+func (s *DestroySessionResClassArray) Pop() (v DestroySessionResClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsDestroySessionOk returns copy with only DestroySessionOk constructors.
+func (s DestroySessionResClassArray) AsDestroySessionOk() (to DestroySessionOkArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DestroySessionOk)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDestroySessionNone returns copy with only DestroySessionNone constructors.
+func (s DestroySessionResClassArray) AsDestroySessionNone() (to DestroySessionNoneArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DestroySessionNone)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// DestroySessionOkArray is adapter for slice of DestroySessionOk.
+type DestroySessionOkArray []DestroySessionOk
+
+// Sort sorts slice of DestroySessionOk.
+func (s DestroySessionOkArray) Sort(less func(a, b DestroySessionOk) bool) DestroySessionOkArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DestroySessionOk.
+func (s DestroySessionOkArray) SortStable(less func(a, b DestroySessionOk) bool) DestroySessionOkArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DestroySessionOk.
+func (s DestroySessionOkArray) Retain(keep func(x DestroySessionOk) bool) DestroySessionOkArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DestroySessionOkArray) First() (v DestroySessionOk, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DestroySessionOkArray) Last() (v DestroySessionOk, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DestroySessionOkArray) PopFirst() (v DestroySessionOk, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DestroySessionOk
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DestroySessionOkArray) Pop() (v DestroySessionOk, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DestroySessionNoneArray is adapter for slice of DestroySessionNone.
+type DestroySessionNoneArray []DestroySessionNone
+
+// Sort sorts slice of DestroySessionNone.
+func (s DestroySessionNoneArray) Sort(less func(a, b DestroySessionNone) bool) DestroySessionNoneArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DestroySessionNone.
+func (s DestroySessionNoneArray) SortStable(less func(a, b DestroySessionNone) bool) DestroySessionNoneArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DestroySessionNone.
+func (s DestroySessionNoneArray) Retain(keep func(x DestroySessionNone) bool) DestroySessionNoneArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DestroySessionNoneArray) First() (v DestroySessionNone, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DestroySessionNoneArray) Last() (v DestroySessionNone, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DestroySessionNoneArray) PopFirst() (v DestroySessionNone, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DestroySessionNone
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DestroySessionNoneArray) Pop() (v DestroySessionNone, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

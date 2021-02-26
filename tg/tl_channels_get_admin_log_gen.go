@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // ChannelsGetAdminLogRequest represents TL type `channels.getAdminLog#33ddf480`.
 // Get the admin log of a channel/supergroup¹
@@ -230,12 +232,12 @@ func (g *ChannelsGetAdminLogRequest) GetAdmins() (value []InputUserClass, ok boo
 	return g.Admins, true
 }
 
-// MapAdmins returns field Admins wrapped in InputUserClassSlice helper.
-func (g *ChannelsGetAdminLogRequest) MapAdmins() (value InputUserClassSlice, ok bool) {
+// MapAdmins returns field Admins wrapped in InputUserClassArray helper.
+func (g *ChannelsGetAdminLogRequest) MapAdmins() (value InputUserClassArray, ok bool) {
 	if !g.Flags.Has(1) {
 		return value, false
 	}
-	return InputUserClassSlice(g.Admins), true
+	return InputUserClassArray(g.Admins), true
 }
 
 // GetMaxID returns value of MaxID field.

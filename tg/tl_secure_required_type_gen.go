@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // SecureRequiredType represents TL type `secureRequiredType#829d99da`.
 // Required type
@@ -289,9 +291,9 @@ func (s *SecureRequiredTypeOneOf) GetTypes() (value []SecureRequiredTypeClass) {
 	return s.Types
 }
 
-// MapTypes returns field Types wrapped in SecureRequiredTypeClassSlice helper.
-func (s *SecureRequiredTypeOneOf) MapTypes() (value SecureRequiredTypeClassSlice) {
-	return SecureRequiredTypeClassSlice(s.Types)
+// MapTypes returns field Types wrapped in SecureRequiredTypeClassArray helper.
+func (s *SecureRequiredTypeOneOf) MapTypes() (value SecureRequiredTypeClassArray) {
+	return SecureRequiredTypeClassArray(s.Types)
 }
 
 // Decode implements bin.Decoder.
@@ -412,11 +414,41 @@ func (b *SecureRequiredTypeBox) Encode(buf *bin.Buffer) error {
 	return b.SecureRequiredType.Encode(buf)
 }
 
-// SecureRequiredTypeClassSlice is adapter for slice of SecureRequiredTypeClass.
-type SecureRequiredTypeClassSlice []SecureRequiredTypeClass
+// SecureRequiredTypeClassArray is adapter for slice of SecureRequiredTypeClass.
+type SecureRequiredTypeClassArray []SecureRequiredTypeClass
+
+// Sort sorts slice of SecureRequiredTypeClass.
+func (s SecureRequiredTypeClassArray) Sort(less func(a, b SecureRequiredTypeClass) bool) SecureRequiredTypeClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of SecureRequiredTypeClass.
+func (s SecureRequiredTypeClassArray) SortStable(less func(a, b SecureRequiredTypeClass) bool) SecureRequiredTypeClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of SecureRequiredTypeClass.
+func (s SecureRequiredTypeClassArray) Retain(keep func(x SecureRequiredTypeClass) bool) SecureRequiredTypeClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s SecureRequiredTypeClassSlice) First() (v SecureRequiredTypeClass, ok bool) {
+func (s SecureRequiredTypeClassArray) First() (v SecureRequiredTypeClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -424,7 +456,7 @@ func (s SecureRequiredTypeClassSlice) First() (v SecureRequiredTypeClass, ok boo
 }
 
 // Last returns last element of slice (if exists).
-func (s SecureRequiredTypeClassSlice) Last() (v SecureRequiredTypeClass, ok bool) {
+func (s SecureRequiredTypeClassArray) Last() (v SecureRequiredTypeClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -432,7 +464,7 @@ func (s SecureRequiredTypeClassSlice) Last() (v SecureRequiredTypeClass, ok bool
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SecureRequiredTypeClassSlice) PopFirst() (v SecureRequiredTypeClass, ok bool) {
+func (s *SecureRequiredTypeClassArray) PopFirst() (v SecureRequiredTypeClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -442,7 +474,8 @@ func (s *SecureRequiredTypeClassSlice) PopFirst() (v SecureRequiredTypeClass, ok
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero SecureRequiredTypeClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -450,7 +483,197 @@ func (s *SecureRequiredTypeClassSlice) PopFirst() (v SecureRequiredTypeClass, ok
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *SecureRequiredTypeClassSlice) Pop() (v SecureRequiredTypeClass, ok bool) {
+func (s *SecureRequiredTypeClassArray) Pop() (v SecureRequiredTypeClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsSecureRequiredType returns copy with only SecureRequiredType constructors.
+func (s SecureRequiredTypeClassArray) AsSecureRequiredType() (to SecureRequiredTypeArray) {
+	for _, elem := range s {
+		value, ok := elem.(*SecureRequiredType)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsSecureRequiredTypeOneOf returns copy with only SecureRequiredTypeOneOf constructors.
+func (s SecureRequiredTypeClassArray) AsSecureRequiredTypeOneOf() (to SecureRequiredTypeOneOfArray) {
+	for _, elem := range s {
+		value, ok := elem.(*SecureRequiredTypeOneOf)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// SecureRequiredTypeArray is adapter for slice of SecureRequiredType.
+type SecureRequiredTypeArray []SecureRequiredType
+
+// Sort sorts slice of SecureRequiredType.
+func (s SecureRequiredTypeArray) Sort(less func(a, b SecureRequiredType) bool) SecureRequiredTypeArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of SecureRequiredType.
+func (s SecureRequiredTypeArray) SortStable(less func(a, b SecureRequiredType) bool) SecureRequiredTypeArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of SecureRequiredType.
+func (s SecureRequiredTypeArray) Retain(keep func(x SecureRequiredType) bool) SecureRequiredTypeArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s SecureRequiredTypeArray) First() (v SecureRequiredType, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s SecureRequiredTypeArray) Last() (v SecureRequiredType, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *SecureRequiredTypeArray) PopFirst() (v SecureRequiredType, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero SecureRequiredType
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *SecureRequiredTypeArray) Pop() (v SecureRequiredType, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SecureRequiredTypeOneOfArray is adapter for slice of SecureRequiredTypeOneOf.
+type SecureRequiredTypeOneOfArray []SecureRequiredTypeOneOf
+
+// Sort sorts slice of SecureRequiredTypeOneOf.
+func (s SecureRequiredTypeOneOfArray) Sort(less func(a, b SecureRequiredTypeOneOf) bool) SecureRequiredTypeOneOfArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of SecureRequiredTypeOneOf.
+func (s SecureRequiredTypeOneOfArray) SortStable(less func(a, b SecureRequiredTypeOneOf) bool) SecureRequiredTypeOneOfArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of SecureRequiredTypeOneOf.
+func (s SecureRequiredTypeOneOfArray) Retain(keep func(x SecureRequiredTypeOneOf) bool) SecureRequiredTypeOneOfArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s SecureRequiredTypeOneOfArray) First() (v SecureRequiredTypeOneOf, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s SecureRequiredTypeOneOfArray) Last() (v SecureRequiredTypeOneOf, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *SecureRequiredTypeOneOfArray) PopFirst() (v SecureRequiredTypeOneOf, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero SecureRequiredTypeOneOf
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *SecureRequiredTypeOneOfArray) Pop() (v SecureRequiredTypeOneOf, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

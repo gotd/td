@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // ResponseID represents TL type `responseID#85d7fd8b`.
 //
@@ -289,11 +291,41 @@ func (b *ResponseBox) Encode(buf *bin.Buffer) error {
 	return b.Response.Encode(buf)
 }
 
-// ResponseClassSlice is adapter for slice of ResponseClass.
-type ResponseClassSlice []ResponseClass
+// ResponseClassArray is adapter for slice of ResponseClass.
+type ResponseClassArray []ResponseClass
+
+// Sort sorts slice of ResponseClass.
+func (s ResponseClassArray) Sort(less func(a, b ResponseClass) bool) ResponseClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ResponseClass.
+func (s ResponseClassArray) SortStable(less func(a, b ResponseClass) bool) ResponseClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ResponseClass.
+func (s ResponseClassArray) Retain(keep func(x ResponseClass) bool) ResponseClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s ResponseClassSlice) First() (v ResponseClass, ok bool) {
+func (s ResponseClassArray) First() (v ResponseClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -301,7 +333,7 @@ func (s ResponseClassSlice) First() (v ResponseClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s ResponseClassSlice) Last() (v ResponseClass, ok bool) {
+func (s ResponseClassArray) Last() (v ResponseClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -309,7 +341,7 @@ func (s ResponseClassSlice) Last() (v ResponseClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *ResponseClassSlice) PopFirst() (v ResponseClass, ok bool) {
+func (s *ResponseClassArray) PopFirst() (v ResponseClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -319,7 +351,8 @@ func (s *ResponseClassSlice) PopFirst() (v ResponseClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero ResponseClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -327,7 +360,197 @@ func (s *ResponseClassSlice) PopFirst() (v ResponseClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *ResponseClassSlice) Pop() (v ResponseClass, ok bool) {
+func (s *ResponseClassArray) Pop() (v ResponseClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsResponseID returns copy with only ResponseID constructors.
+func (s ResponseClassArray) AsResponseID() (to ResponseIDArray) {
+	for _, elem := range s {
+		value, ok := elem.(*ResponseID)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsResponseText returns copy with only ResponseText constructors.
+func (s ResponseClassArray) AsResponseText() (to ResponseTextArray) {
+	for _, elem := range s {
+		value, ok := elem.(*ResponseText)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// ResponseIDArray is adapter for slice of ResponseID.
+type ResponseIDArray []ResponseID
+
+// Sort sorts slice of ResponseID.
+func (s ResponseIDArray) Sort(less func(a, b ResponseID) bool) ResponseIDArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ResponseID.
+func (s ResponseIDArray) SortStable(less func(a, b ResponseID) bool) ResponseIDArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ResponseID.
+func (s ResponseIDArray) Retain(keep func(x ResponseID) bool) ResponseIDArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s ResponseIDArray) First() (v ResponseID, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ResponseIDArray) Last() (v ResponseID, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ResponseIDArray) PopFirst() (v ResponseID, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero ResponseID
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ResponseIDArray) Pop() (v ResponseID, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// ResponseTextArray is adapter for slice of ResponseText.
+type ResponseTextArray []ResponseText
+
+// Sort sorts slice of ResponseText.
+func (s ResponseTextArray) Sort(less func(a, b ResponseText) bool) ResponseTextArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of ResponseText.
+func (s ResponseTextArray) SortStable(less func(a, b ResponseText) bool) ResponseTextArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of ResponseText.
+func (s ResponseTextArray) Retain(keep func(x ResponseText) bool) ResponseTextArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s ResponseTextArray) First() (v ResponseText, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s ResponseTextArray) Last() (v ResponseText, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *ResponseTextArray) PopFirst() (v ResponseText, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero ResponseText
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *ResponseTextArray) Pop() (v ResponseText, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

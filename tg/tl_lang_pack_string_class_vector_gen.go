@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // LangPackStringClassVector is a box for Vector<LangPackString>
 type LangPackStringClassVector struct {
@@ -88,9 +90,9 @@ func (vec *LangPackStringClassVector) GetElems() (value []LangPackStringClass) {
 	return vec.Elems
 }
 
-// MapElems returns field Elems wrapped in LangPackStringClassSlice helper.
-func (vec *LangPackStringClassVector) MapElems() (value LangPackStringClassSlice) {
-	return LangPackStringClassSlice(vec.Elems)
+// MapElems returns field Elems wrapped in LangPackStringClassArray helper.
+func (vec *LangPackStringClassVector) MapElems() (value LangPackStringClassArray) {
+	return LangPackStringClassArray(vec.Elems)
 }
 
 // Decode implements bin.Decoder.

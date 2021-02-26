@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // WebPageAttributeTheme represents TL type `webPageAttributeTheme#54b56617`.
 // Page theme
@@ -143,12 +145,12 @@ func (w *WebPageAttributeTheme) GetDocuments() (value []DocumentClass, ok bool) 
 	return w.Documents, true
 }
 
-// MapDocuments returns field Documents wrapped in DocumentClassSlice helper.
-func (w *WebPageAttributeTheme) MapDocuments() (value DocumentClassSlice, ok bool) {
+// MapDocuments returns field Documents wrapped in DocumentClassArray helper.
+func (w *WebPageAttributeTheme) MapDocuments() (value DocumentClassArray, ok bool) {
 	if !w.Flags.Has(0) {
 		return value, false
 	}
-	return DocumentClassSlice(w.Documents), true
+	return DocumentClassArray(w.Documents), true
 }
 
 // SetSettings sets value of Settings conditional field.

@@ -17,7 +17,7 @@ func (c *Client) Self(ctx context.Context) (*tg.User, error) {
 		return nil, err
 	}
 
-	user, ok := tg.UserClassSlice(users).FirstAsNotEmpty()
+	user, ok := tg.UserClassArray(users).FirstAsNotEmpty()
 	if !ok {
 		return nil, xerrors.Errorf("users response count: %v", users)
 	}

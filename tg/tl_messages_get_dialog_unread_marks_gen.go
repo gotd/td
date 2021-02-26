@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesGetDialogUnreadMarksRequest represents TL type `messages.getDialogUnreadMarks#22e24e22`.
 // Get dialogs manually marked as unread
@@ -94,5 +96,5 @@ func (c *Client) MessagesGetDialogUnreadMarks(ctx context.Context) ([]DialogPeer
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return result.Elems, nil
+	return []DialogPeerClass(result.Elems), nil
 }

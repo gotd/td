@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesSendMessageRequest represents TL type `messages.sendMessage#520c3870`.
 // Sends a message to a chat
@@ -366,12 +368,12 @@ func (s *MessagesSendMessageRequest) GetEntities() (value []MessageEntityClass, 
 	return s.Entities, true
 }
 
-// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
-func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassSlice, ok bool) {
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (s *MessagesSendMessageRequest) MapEntities() (value MessageEntityClassArray, ok bool) {
 	if !s.Flags.Has(3) {
 		return value, false
 	}
-	return MessageEntityClassSlice(s.Entities), true
+	return MessageEntityClassArray(s.Entities), true
 }
 
 // SetScheduleDate sets value of ScheduleDate conditional field.

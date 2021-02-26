@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // EmojiKeyword represents TL type `emojiKeyword#d5b3b9f9`.
 // Emoji keyword
@@ -354,11 +356,41 @@ func (b *EmojiKeywordBox) Encode(buf *bin.Buffer) error {
 	return b.EmojiKeyword.Encode(buf)
 }
 
-// EmojiKeywordClassSlice is adapter for slice of EmojiKeywordClass.
-type EmojiKeywordClassSlice []EmojiKeywordClass
+// EmojiKeywordClassArray is adapter for slice of EmojiKeywordClass.
+type EmojiKeywordClassArray []EmojiKeywordClass
+
+// Sort sorts slice of EmojiKeywordClass.
+func (s EmojiKeywordClassArray) Sort(less func(a, b EmojiKeywordClass) bool) EmojiKeywordClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of EmojiKeywordClass.
+func (s EmojiKeywordClassArray) SortStable(less func(a, b EmojiKeywordClass) bool) EmojiKeywordClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of EmojiKeywordClass.
+func (s EmojiKeywordClassArray) Retain(keep func(x EmojiKeywordClass) bool) EmojiKeywordClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s EmojiKeywordClassSlice) First() (v EmojiKeywordClass, ok bool) {
+func (s EmojiKeywordClassArray) First() (v EmojiKeywordClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -366,7 +398,7 @@ func (s EmojiKeywordClassSlice) First() (v EmojiKeywordClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s EmojiKeywordClassSlice) Last() (v EmojiKeywordClass, ok bool) {
+func (s EmojiKeywordClassArray) Last() (v EmojiKeywordClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -374,7 +406,7 @@ func (s EmojiKeywordClassSlice) Last() (v EmojiKeywordClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *EmojiKeywordClassSlice) PopFirst() (v EmojiKeywordClass, ok bool) {
+func (s *EmojiKeywordClassArray) PopFirst() (v EmojiKeywordClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -384,7 +416,8 @@ func (s *EmojiKeywordClassSlice) PopFirst() (v EmojiKeywordClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero EmojiKeywordClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -392,7 +425,197 @@ func (s *EmojiKeywordClassSlice) PopFirst() (v EmojiKeywordClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *EmojiKeywordClassSlice) Pop() (v EmojiKeywordClass, ok bool) {
+func (s *EmojiKeywordClassArray) Pop() (v EmojiKeywordClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsEmojiKeyword returns copy with only EmojiKeyword constructors.
+func (s EmojiKeywordClassArray) AsEmojiKeyword() (to EmojiKeywordArray) {
+	for _, elem := range s {
+		value, ok := elem.(*EmojiKeyword)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsEmojiKeywordDeleted returns copy with only EmojiKeywordDeleted constructors.
+func (s EmojiKeywordClassArray) AsEmojiKeywordDeleted() (to EmojiKeywordDeletedArray) {
+	for _, elem := range s {
+		value, ok := elem.(*EmojiKeywordDeleted)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// EmojiKeywordArray is adapter for slice of EmojiKeyword.
+type EmojiKeywordArray []EmojiKeyword
+
+// Sort sorts slice of EmojiKeyword.
+func (s EmojiKeywordArray) Sort(less func(a, b EmojiKeyword) bool) EmojiKeywordArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of EmojiKeyword.
+func (s EmojiKeywordArray) SortStable(less func(a, b EmojiKeyword) bool) EmojiKeywordArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of EmojiKeyword.
+func (s EmojiKeywordArray) Retain(keep func(x EmojiKeyword) bool) EmojiKeywordArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s EmojiKeywordArray) First() (v EmojiKeyword, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s EmojiKeywordArray) Last() (v EmojiKeyword, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *EmojiKeywordArray) PopFirst() (v EmojiKeyword, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero EmojiKeyword
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *EmojiKeywordArray) Pop() (v EmojiKeyword, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// EmojiKeywordDeletedArray is adapter for slice of EmojiKeywordDeleted.
+type EmojiKeywordDeletedArray []EmojiKeywordDeleted
+
+// Sort sorts slice of EmojiKeywordDeleted.
+func (s EmojiKeywordDeletedArray) Sort(less func(a, b EmojiKeywordDeleted) bool) EmojiKeywordDeletedArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of EmojiKeywordDeleted.
+func (s EmojiKeywordDeletedArray) SortStable(less func(a, b EmojiKeywordDeleted) bool) EmojiKeywordDeletedArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of EmojiKeywordDeleted.
+func (s EmojiKeywordDeletedArray) Retain(keep func(x EmojiKeywordDeleted) bool) EmojiKeywordDeletedArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s EmojiKeywordDeletedArray) First() (v EmojiKeywordDeleted, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s EmojiKeywordDeletedArray) Last() (v EmojiKeywordDeleted, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *EmojiKeywordDeletedArray) PopFirst() (v EmojiKeywordDeleted, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero EmojiKeywordDeleted
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *EmojiKeywordDeletedArray) Pop() (v EmojiKeywordDeleted, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

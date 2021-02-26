@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // DhGenOk represents TL type `dh_gen_ok#3bcbf734`.
 type DhGenOk struct {
@@ -508,11 +510,41 @@ func (b *SetClientDHParamsAnswerBox) Encode(buf *bin.Buffer) error {
 	return b.Set_client_DH_params_answer.Encode(buf)
 }
 
-// SetClientDHParamsAnswerClassSlice is adapter for slice of SetClientDHParamsAnswerClass.
-type SetClientDHParamsAnswerClassSlice []SetClientDHParamsAnswerClass
+// SetClientDHParamsAnswerClassArray is adapter for slice of SetClientDHParamsAnswerClass.
+type SetClientDHParamsAnswerClassArray []SetClientDHParamsAnswerClass
+
+// Sort sorts slice of SetClientDHParamsAnswerClass.
+func (s SetClientDHParamsAnswerClassArray) Sort(less func(a, b SetClientDHParamsAnswerClass) bool) SetClientDHParamsAnswerClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of SetClientDHParamsAnswerClass.
+func (s SetClientDHParamsAnswerClassArray) SortStable(less func(a, b SetClientDHParamsAnswerClass) bool) SetClientDHParamsAnswerClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of SetClientDHParamsAnswerClass.
+func (s SetClientDHParamsAnswerClassArray) Retain(keep func(x SetClientDHParamsAnswerClass) bool) SetClientDHParamsAnswerClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s SetClientDHParamsAnswerClassSlice) First() (v SetClientDHParamsAnswerClass, ok bool) {
+func (s SetClientDHParamsAnswerClassArray) First() (v SetClientDHParamsAnswerClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -520,7 +552,7 @@ func (s SetClientDHParamsAnswerClassSlice) First() (v SetClientDHParamsAnswerCla
 }
 
 // Last returns last element of slice (if exists).
-func (s SetClientDHParamsAnswerClassSlice) Last() (v SetClientDHParamsAnswerClass, ok bool) {
+func (s SetClientDHParamsAnswerClassArray) Last() (v SetClientDHParamsAnswerClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -528,7 +560,7 @@ func (s SetClientDHParamsAnswerClassSlice) Last() (v SetClientDHParamsAnswerClas
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *SetClientDHParamsAnswerClassSlice) PopFirst() (v SetClientDHParamsAnswerClass, ok bool) {
+func (s *SetClientDHParamsAnswerClassArray) PopFirst() (v SetClientDHParamsAnswerClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -538,7 +570,8 @@ func (s *SetClientDHParamsAnswerClassSlice) PopFirst() (v SetClientDHParamsAnswe
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero SetClientDHParamsAnswerClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -546,7 +579,292 @@ func (s *SetClientDHParamsAnswerClassSlice) PopFirst() (v SetClientDHParamsAnswe
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *SetClientDHParamsAnswerClassSlice) Pop() (v SetClientDHParamsAnswerClass, ok bool) {
+func (s *SetClientDHParamsAnswerClassArray) Pop() (v SetClientDHParamsAnswerClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsDhGenOk returns copy with only DhGenOk constructors.
+func (s SetClientDHParamsAnswerClassArray) AsDhGenOk() (to DhGenOkArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DhGenOk)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDhGenRetry returns copy with only DhGenRetry constructors.
+func (s SetClientDHParamsAnswerClassArray) AsDhGenRetry() (to DhGenRetryArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DhGenRetry)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDhGenFail returns copy with only DhGenFail constructors.
+func (s SetClientDHParamsAnswerClassArray) AsDhGenFail() (to DhGenFailArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DhGenFail)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// DhGenOkArray is adapter for slice of DhGenOk.
+type DhGenOkArray []DhGenOk
+
+// Sort sorts slice of DhGenOk.
+func (s DhGenOkArray) Sort(less func(a, b DhGenOk) bool) DhGenOkArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DhGenOk.
+func (s DhGenOkArray) SortStable(less func(a, b DhGenOk) bool) DhGenOkArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DhGenOk.
+func (s DhGenOkArray) Retain(keep func(x DhGenOk) bool) DhGenOkArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DhGenOkArray) First() (v DhGenOk, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DhGenOkArray) Last() (v DhGenOk, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DhGenOkArray) PopFirst() (v DhGenOk, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DhGenOk
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DhGenOkArray) Pop() (v DhGenOk, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DhGenRetryArray is adapter for slice of DhGenRetry.
+type DhGenRetryArray []DhGenRetry
+
+// Sort sorts slice of DhGenRetry.
+func (s DhGenRetryArray) Sort(less func(a, b DhGenRetry) bool) DhGenRetryArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DhGenRetry.
+func (s DhGenRetryArray) SortStable(less func(a, b DhGenRetry) bool) DhGenRetryArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DhGenRetry.
+func (s DhGenRetryArray) Retain(keep func(x DhGenRetry) bool) DhGenRetryArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DhGenRetryArray) First() (v DhGenRetry, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DhGenRetryArray) Last() (v DhGenRetry, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DhGenRetryArray) PopFirst() (v DhGenRetry, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DhGenRetry
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DhGenRetryArray) Pop() (v DhGenRetry, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DhGenFailArray is adapter for slice of DhGenFail.
+type DhGenFailArray []DhGenFail
+
+// Sort sorts slice of DhGenFail.
+func (s DhGenFailArray) Sort(less func(a, b DhGenFail) bool) DhGenFailArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DhGenFail.
+func (s DhGenFailArray) SortStable(less func(a, b DhGenFail) bool) DhGenFailArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DhGenFail.
+func (s DhGenFailArray) Retain(keep func(x DhGenFail) bool) DhGenFailArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DhGenFailArray) First() (v DhGenFail, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DhGenFailArray) Last() (v DhGenFail, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DhGenFailArray) PopFirst() (v DhGenFail, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DhGenFail
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DhGenFailArray) Pop() (v DhGenFail, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

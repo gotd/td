@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // InputCheckPasswordEmpty represents TL type `inputCheckPasswordEmpty#9880f658`.
 // There is no password
@@ -331,12 +333,104 @@ func (b *InputCheckPasswordSRPBox) Encode(buf *bin.Buffer) error {
 	return b.InputCheckPasswordSRP.Encode(buf)
 }
 
-// InputCheckPasswordSRPClassSlice is adapter for slice of InputCheckPasswordSRPClass.
-type InputCheckPasswordSRPClassSlice []InputCheckPasswordSRPClass
+// InputCheckPasswordSRPClassArray is adapter for slice of InputCheckPasswordSRPClass.
+type InputCheckPasswordSRPClassArray []InputCheckPasswordSRPClass
+
+// Sort sorts slice of InputCheckPasswordSRPClass.
+func (s InputCheckPasswordSRPClassArray) Sort(less func(a, b InputCheckPasswordSRPClass) bool) InputCheckPasswordSRPClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputCheckPasswordSRPClass.
+func (s InputCheckPasswordSRPClassArray) SortStable(less func(a, b InputCheckPasswordSRPClass) bool) InputCheckPasswordSRPClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputCheckPasswordSRPClass.
+func (s InputCheckPasswordSRPClassArray) Retain(keep func(x InputCheckPasswordSRPClass) bool) InputCheckPasswordSRPClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputCheckPasswordSRPClassArray) First() (v InputCheckPasswordSRPClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputCheckPasswordSRPClassArray) Last() (v InputCheckPasswordSRPClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputCheckPasswordSRPClassArray) PopFirst() (v InputCheckPasswordSRPClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputCheckPasswordSRPClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputCheckPasswordSRPClassArray) Pop() (v InputCheckPasswordSRPClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsInputCheckPasswordSRP returns copy with only InputCheckPasswordSRP constructors.
+func (s InputCheckPasswordSRPClassArray) AsInputCheckPasswordSRP() (to InputCheckPasswordSRPArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputCheckPasswordSRP)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
 
 // AppendOnlyNotEmpty appends only NotEmpty constructors to
 // given slice.
-func (s InputCheckPasswordSRPClassSlice) AppendOnlyNotEmpty(to []*InputCheckPasswordSRP) []*InputCheckPasswordSRP {
+func (s InputCheckPasswordSRPClassArray) AppendOnlyNotEmpty(to []*InputCheckPasswordSRP) []*InputCheckPasswordSRP {
 	for _, elem := range s {
 		value, ok := elem.AsNotEmpty()
 		if !ok {
@@ -349,12 +443,12 @@ func (s InputCheckPasswordSRPClassSlice) AppendOnlyNotEmpty(to []*InputCheckPass
 }
 
 // AsNotEmpty returns copy with only NotEmpty constructors.
-func (s InputCheckPasswordSRPClassSlice) AsNotEmpty() (to []*InputCheckPasswordSRP) {
+func (s InputCheckPasswordSRPClassArray) AsNotEmpty() (to []*InputCheckPasswordSRP) {
 	return s.AppendOnlyNotEmpty(to)
 }
 
 // FirstAsNotEmpty returns first element of slice (if exists).
-func (s InputCheckPasswordSRPClassSlice) FirstAsNotEmpty() (v *InputCheckPasswordSRP, ok bool) {
+func (s InputCheckPasswordSRPClassArray) FirstAsNotEmpty() (v *InputCheckPasswordSRP, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -363,7 +457,7 @@ func (s InputCheckPasswordSRPClassSlice) FirstAsNotEmpty() (v *InputCheckPasswor
 }
 
 // LastAsNotEmpty returns last element of slice (if exists).
-func (s InputCheckPasswordSRPClassSlice) LastAsNotEmpty() (v *InputCheckPasswordSRP, ok bool) {
+func (s InputCheckPasswordSRPClassArray) LastAsNotEmpty() (v *InputCheckPasswordSRP, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -372,7 +466,7 @@ func (s InputCheckPasswordSRPClassSlice) LastAsNotEmpty() (v *InputCheckPassword
 }
 
 // PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *InputCheckPasswordSRPClassSlice) PopFirstAsNotEmpty() (v *InputCheckPasswordSRP, ok bool) {
+func (s *InputCheckPasswordSRPClassArray) PopFirstAsNotEmpty() (v *InputCheckPasswordSRP, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -381,7 +475,7 @@ func (s *InputCheckPasswordSRPClassSlice) PopFirstAsNotEmpty() (v *InputCheckPas
 }
 
 // PopAsNotEmpty returns element of slice (if exists).
-func (s *InputCheckPasswordSRPClassSlice) PopAsNotEmpty() (v *InputCheckPasswordSRP, ok bool) {
+func (s *InputCheckPasswordSRPClassArray) PopAsNotEmpty() (v *InputCheckPasswordSRP, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -389,8 +483,41 @@ func (s *InputCheckPasswordSRPClassSlice) PopAsNotEmpty() (v *InputCheckPassword
 	return value.AsNotEmpty()
 }
 
+// InputCheckPasswordSRPArray is adapter for slice of InputCheckPasswordSRP.
+type InputCheckPasswordSRPArray []InputCheckPasswordSRP
+
+// Sort sorts slice of InputCheckPasswordSRP.
+func (s InputCheckPasswordSRPArray) Sort(less func(a, b InputCheckPasswordSRP) bool) InputCheckPasswordSRPArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputCheckPasswordSRP.
+func (s InputCheckPasswordSRPArray) SortStable(less func(a, b InputCheckPasswordSRP) bool) InputCheckPasswordSRPArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputCheckPasswordSRP.
+func (s InputCheckPasswordSRPArray) Retain(keep func(x InputCheckPasswordSRP) bool) InputCheckPasswordSRPArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s InputCheckPasswordSRPClassSlice) First() (v InputCheckPasswordSRPClass, ok bool) {
+func (s InputCheckPasswordSRPArray) First() (v InputCheckPasswordSRP, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -398,7 +525,7 @@ func (s InputCheckPasswordSRPClassSlice) First() (v InputCheckPasswordSRPClass, 
 }
 
 // Last returns last element of slice (if exists).
-func (s InputCheckPasswordSRPClassSlice) Last() (v InputCheckPasswordSRPClass, ok bool) {
+func (s InputCheckPasswordSRPArray) Last() (v InputCheckPasswordSRP, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -406,7 +533,7 @@ func (s InputCheckPasswordSRPClassSlice) Last() (v InputCheckPasswordSRPClass, o
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputCheckPasswordSRPClassSlice) PopFirst() (v InputCheckPasswordSRPClass, ok bool) {
+func (s *InputCheckPasswordSRPArray) PopFirst() (v InputCheckPasswordSRP, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -416,7 +543,8 @@ func (s *InputCheckPasswordSRPClassSlice) PopFirst() (v InputCheckPasswordSRPCla
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero InputCheckPasswordSRP
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -424,7 +552,7 @@ func (s *InputCheckPasswordSRPClassSlice) PopFirst() (v InputCheckPasswordSRPCla
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *InputCheckPasswordSRPClassSlice) Pop() (v InputCheckPasswordSRPClass, ok bool) {
+func (s *InputCheckPasswordSRPArray) Pop() (v InputCheckPasswordSRP, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

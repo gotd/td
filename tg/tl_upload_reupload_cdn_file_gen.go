@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // UploadReuploadCdnFileRequest represents TL type `upload.reuploadCdnFile#9b2754a8`.
 // Request a reupload of a certain file to a CDN DC¹.
@@ -148,5 +150,5 @@ func (c *Client) UploadReuploadCdnFile(ctx context.Context, request *UploadReupl
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return result.Elems, nil
+	return []FileHash(result.Elems), nil
 }

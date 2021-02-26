@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // PrivacyKeyStatusTimestamp represents TL type `privacyKeyStatusTimestamp#bc2eab30`.
 // Whether we can see the last online timestamp
@@ -712,11 +714,41 @@ func (b *PrivacyKeyBox) Encode(buf *bin.Buffer) error {
 	return b.PrivacyKey.Encode(buf)
 }
 
-// PrivacyKeyClassSlice is adapter for slice of PrivacyKeyClass.
-type PrivacyKeyClassSlice []PrivacyKeyClass
+// PrivacyKeyClassArray is adapter for slice of PrivacyKeyClass.
+type PrivacyKeyClassArray []PrivacyKeyClass
+
+// Sort sorts slice of PrivacyKeyClass.
+func (s PrivacyKeyClassArray) Sort(less func(a, b PrivacyKeyClass) bool) PrivacyKeyClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PrivacyKeyClass.
+func (s PrivacyKeyClassArray) SortStable(less func(a, b PrivacyKeyClass) bool) PrivacyKeyClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PrivacyKeyClass.
+func (s PrivacyKeyClassArray) Retain(keep func(x PrivacyKeyClass) bool) PrivacyKeyClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s PrivacyKeyClassSlice) First() (v PrivacyKeyClass, ok bool) {
+func (s PrivacyKeyClassArray) First() (v PrivacyKeyClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -724,7 +756,7 @@ func (s PrivacyKeyClassSlice) First() (v PrivacyKeyClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s PrivacyKeyClassSlice) Last() (v PrivacyKeyClass, ok bool) {
+func (s PrivacyKeyClassArray) Last() (v PrivacyKeyClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -732,7 +764,7 @@ func (s PrivacyKeyClassSlice) Last() (v PrivacyKeyClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PrivacyKeyClassSlice) PopFirst() (v PrivacyKeyClass, ok bool) {
+func (s *PrivacyKeyClassArray) PopFirst() (v PrivacyKeyClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -742,7 +774,8 @@ func (s *PrivacyKeyClassSlice) PopFirst() (v PrivacyKeyClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero PrivacyKeyClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -750,7 +783,7 @@ func (s *PrivacyKeyClassSlice) PopFirst() (v PrivacyKeyClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *PrivacyKeyClassSlice) Pop() (v PrivacyKeyClass, ok bool) {
+func (s *PrivacyKeyClassArray) Pop() (v PrivacyKeyClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

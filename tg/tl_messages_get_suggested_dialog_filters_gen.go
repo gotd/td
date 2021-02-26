@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesGetSuggestedDialogFiltersRequest represents TL type `messages.getSuggestedDialogFilters#a29cd42c`.
 // Get suggested folders¹
@@ -100,5 +102,5 @@ func (c *Client) MessagesGetSuggestedDialogFilters(ctx context.Context) ([]Dialo
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return result.Elems, nil
+	return []DialogFilterSuggested(result.Elems), nil
 }

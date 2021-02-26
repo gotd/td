@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // InputChatPhotoEmpty represents TL type `inputChatPhotoEmpty#1ca48f57`.
 // Empty constructor, remove group photo.
@@ -503,11 +505,41 @@ func (b *InputChatPhotoBox) Encode(buf *bin.Buffer) error {
 	return b.InputChatPhoto.Encode(buf)
 }
 
-// InputChatPhotoClassSlice is adapter for slice of InputChatPhotoClass.
-type InputChatPhotoClassSlice []InputChatPhotoClass
+// InputChatPhotoClassArray is adapter for slice of InputChatPhotoClass.
+type InputChatPhotoClassArray []InputChatPhotoClass
+
+// Sort sorts slice of InputChatPhotoClass.
+func (s InputChatPhotoClassArray) Sort(less func(a, b InputChatPhotoClass) bool) InputChatPhotoClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputChatPhotoClass.
+func (s InputChatPhotoClassArray) SortStable(less func(a, b InputChatPhotoClass) bool) InputChatPhotoClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputChatPhotoClass.
+func (s InputChatPhotoClassArray) Retain(keep func(x InputChatPhotoClass) bool) InputChatPhotoClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s InputChatPhotoClassSlice) First() (v InputChatPhotoClass, ok bool) {
+func (s InputChatPhotoClassArray) First() (v InputChatPhotoClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -515,7 +547,7 @@ func (s InputChatPhotoClassSlice) First() (v InputChatPhotoClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s InputChatPhotoClassSlice) Last() (v InputChatPhotoClass, ok bool) {
+func (s InputChatPhotoClassArray) Last() (v InputChatPhotoClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -523,7 +555,7 @@ func (s InputChatPhotoClassSlice) Last() (v InputChatPhotoClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputChatPhotoClassSlice) PopFirst() (v InputChatPhotoClass, ok bool) {
+func (s *InputChatPhotoClassArray) PopFirst() (v InputChatPhotoClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -533,7 +565,8 @@ func (s *InputChatPhotoClassSlice) PopFirst() (v InputChatPhotoClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero InputChatPhotoClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -541,7 +574,197 @@ func (s *InputChatPhotoClassSlice) PopFirst() (v InputChatPhotoClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *InputChatPhotoClassSlice) Pop() (v InputChatPhotoClass, ok bool) {
+func (s *InputChatPhotoClassArray) Pop() (v InputChatPhotoClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsInputChatUploadedPhoto returns copy with only InputChatUploadedPhoto constructors.
+func (s InputChatPhotoClassArray) AsInputChatUploadedPhoto() (to InputChatUploadedPhotoArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputChatUploadedPhoto)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputChatPhoto returns copy with only InputChatPhoto constructors.
+func (s InputChatPhotoClassArray) AsInputChatPhoto() (to InputChatPhotoArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputChatPhoto)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// InputChatUploadedPhotoArray is adapter for slice of InputChatUploadedPhoto.
+type InputChatUploadedPhotoArray []InputChatUploadedPhoto
+
+// Sort sorts slice of InputChatUploadedPhoto.
+func (s InputChatUploadedPhotoArray) Sort(less func(a, b InputChatUploadedPhoto) bool) InputChatUploadedPhotoArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputChatUploadedPhoto.
+func (s InputChatUploadedPhotoArray) SortStable(less func(a, b InputChatUploadedPhoto) bool) InputChatUploadedPhotoArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputChatUploadedPhoto.
+func (s InputChatUploadedPhotoArray) Retain(keep func(x InputChatUploadedPhoto) bool) InputChatUploadedPhotoArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputChatUploadedPhotoArray) First() (v InputChatUploadedPhoto, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputChatUploadedPhotoArray) Last() (v InputChatUploadedPhoto, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputChatUploadedPhotoArray) PopFirst() (v InputChatUploadedPhoto, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputChatUploadedPhoto
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputChatUploadedPhotoArray) Pop() (v InputChatUploadedPhoto, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputChatPhotoArray is adapter for slice of InputChatPhoto.
+type InputChatPhotoArray []InputChatPhoto
+
+// Sort sorts slice of InputChatPhoto.
+func (s InputChatPhotoArray) Sort(less func(a, b InputChatPhoto) bool) InputChatPhotoArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputChatPhoto.
+func (s InputChatPhotoArray) SortStable(less func(a, b InputChatPhoto) bool) InputChatPhotoArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputChatPhoto.
+func (s InputChatPhotoArray) Retain(keep func(x InputChatPhoto) bool) InputChatPhotoArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputChatPhotoArray) First() (v InputChatPhoto, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputChatPhotoArray) Last() (v InputChatPhoto, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputChatPhotoArray) PopFirst() (v InputChatPhoto, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputChatPhoto
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputChatPhotoArray) Pop() (v InputChatPhoto, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

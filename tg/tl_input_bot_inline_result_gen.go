@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // InputBotInlineResult represents TL type `inputBotInlineResult#88bf9319`.
 // An inline bot result
@@ -1053,11 +1055,41 @@ func (b *InputBotInlineResultBox) Encode(buf *bin.Buffer) error {
 	return b.InputBotInlineResult.Encode(buf)
 }
 
-// InputBotInlineResultClassSlice is adapter for slice of InputBotInlineResultClass.
-type InputBotInlineResultClassSlice []InputBotInlineResultClass
+// InputBotInlineResultClassArray is adapter for slice of InputBotInlineResultClass.
+type InputBotInlineResultClassArray []InputBotInlineResultClass
+
+// Sort sorts slice of InputBotInlineResultClass.
+func (s InputBotInlineResultClassArray) Sort(less func(a, b InputBotInlineResultClass) bool) InputBotInlineResultClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputBotInlineResultClass.
+func (s InputBotInlineResultClassArray) SortStable(less func(a, b InputBotInlineResultClass) bool) InputBotInlineResultClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputBotInlineResultClass.
+func (s InputBotInlineResultClassArray) Retain(keep func(x InputBotInlineResultClass) bool) InputBotInlineResultClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s InputBotInlineResultClassSlice) First() (v InputBotInlineResultClass, ok bool) {
+func (s InputBotInlineResultClassArray) First() (v InputBotInlineResultClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1065,7 +1097,7 @@ func (s InputBotInlineResultClassSlice) First() (v InputBotInlineResultClass, ok
 }
 
 // Last returns last element of slice (if exists).
-func (s InputBotInlineResultClassSlice) Last() (v InputBotInlineResultClass, ok bool) {
+func (s InputBotInlineResultClassArray) Last() (v InputBotInlineResultClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1073,7 +1105,7 @@ func (s InputBotInlineResultClassSlice) Last() (v InputBotInlineResultClass, ok 
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputBotInlineResultClassSlice) PopFirst() (v InputBotInlineResultClass, ok bool) {
+func (s *InputBotInlineResultClassArray) PopFirst() (v InputBotInlineResultClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1083,7 +1115,8 @@ func (s *InputBotInlineResultClassSlice) PopFirst() (v InputBotInlineResultClass
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero InputBotInlineResultClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -1091,7 +1124,387 @@ func (s *InputBotInlineResultClassSlice) PopFirst() (v InputBotInlineResultClass
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *InputBotInlineResultClassSlice) Pop() (v InputBotInlineResultClass, ok bool) {
+func (s *InputBotInlineResultClassArray) Pop() (v InputBotInlineResultClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsInputBotInlineResult returns copy with only InputBotInlineResult constructors.
+func (s InputBotInlineResultClassArray) AsInputBotInlineResult() (to InputBotInlineResultArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputBotInlineResult)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputBotInlineResultPhoto returns copy with only InputBotInlineResultPhoto constructors.
+func (s InputBotInlineResultClassArray) AsInputBotInlineResultPhoto() (to InputBotInlineResultPhotoArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputBotInlineResultPhoto)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputBotInlineResultDocument returns copy with only InputBotInlineResultDocument constructors.
+func (s InputBotInlineResultClassArray) AsInputBotInlineResultDocument() (to InputBotInlineResultDocumentArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputBotInlineResultDocument)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputBotInlineResultGame returns copy with only InputBotInlineResultGame constructors.
+func (s InputBotInlineResultClassArray) AsInputBotInlineResultGame() (to InputBotInlineResultGameArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputBotInlineResultGame)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// InputBotInlineResultArray is adapter for slice of InputBotInlineResult.
+type InputBotInlineResultArray []InputBotInlineResult
+
+// Sort sorts slice of InputBotInlineResult.
+func (s InputBotInlineResultArray) Sort(less func(a, b InputBotInlineResult) bool) InputBotInlineResultArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputBotInlineResult.
+func (s InputBotInlineResultArray) SortStable(less func(a, b InputBotInlineResult) bool) InputBotInlineResultArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputBotInlineResult.
+func (s InputBotInlineResultArray) Retain(keep func(x InputBotInlineResult) bool) InputBotInlineResultArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputBotInlineResultArray) First() (v InputBotInlineResult, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputBotInlineResultArray) Last() (v InputBotInlineResult, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputBotInlineResultArray) PopFirst() (v InputBotInlineResult, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputBotInlineResult
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputBotInlineResultArray) Pop() (v InputBotInlineResult, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputBotInlineResultPhotoArray is adapter for slice of InputBotInlineResultPhoto.
+type InputBotInlineResultPhotoArray []InputBotInlineResultPhoto
+
+// Sort sorts slice of InputBotInlineResultPhoto.
+func (s InputBotInlineResultPhotoArray) Sort(less func(a, b InputBotInlineResultPhoto) bool) InputBotInlineResultPhotoArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputBotInlineResultPhoto.
+func (s InputBotInlineResultPhotoArray) SortStable(less func(a, b InputBotInlineResultPhoto) bool) InputBotInlineResultPhotoArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputBotInlineResultPhoto.
+func (s InputBotInlineResultPhotoArray) Retain(keep func(x InputBotInlineResultPhoto) bool) InputBotInlineResultPhotoArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputBotInlineResultPhotoArray) First() (v InputBotInlineResultPhoto, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputBotInlineResultPhotoArray) Last() (v InputBotInlineResultPhoto, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputBotInlineResultPhotoArray) PopFirst() (v InputBotInlineResultPhoto, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputBotInlineResultPhoto
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputBotInlineResultPhotoArray) Pop() (v InputBotInlineResultPhoto, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputBotInlineResultDocumentArray is adapter for slice of InputBotInlineResultDocument.
+type InputBotInlineResultDocumentArray []InputBotInlineResultDocument
+
+// Sort sorts slice of InputBotInlineResultDocument.
+func (s InputBotInlineResultDocumentArray) Sort(less func(a, b InputBotInlineResultDocument) bool) InputBotInlineResultDocumentArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputBotInlineResultDocument.
+func (s InputBotInlineResultDocumentArray) SortStable(less func(a, b InputBotInlineResultDocument) bool) InputBotInlineResultDocumentArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputBotInlineResultDocument.
+func (s InputBotInlineResultDocumentArray) Retain(keep func(x InputBotInlineResultDocument) bool) InputBotInlineResultDocumentArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputBotInlineResultDocumentArray) First() (v InputBotInlineResultDocument, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputBotInlineResultDocumentArray) Last() (v InputBotInlineResultDocument, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputBotInlineResultDocumentArray) PopFirst() (v InputBotInlineResultDocument, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputBotInlineResultDocument
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputBotInlineResultDocumentArray) Pop() (v InputBotInlineResultDocument, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputBotInlineResultGameArray is adapter for slice of InputBotInlineResultGame.
+type InputBotInlineResultGameArray []InputBotInlineResultGame
+
+// Sort sorts slice of InputBotInlineResultGame.
+func (s InputBotInlineResultGameArray) Sort(less func(a, b InputBotInlineResultGame) bool) InputBotInlineResultGameArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputBotInlineResultGame.
+func (s InputBotInlineResultGameArray) SortStable(less func(a, b InputBotInlineResultGame) bool) InputBotInlineResultGameArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputBotInlineResultGame.
+func (s InputBotInlineResultGameArray) Retain(keep func(x InputBotInlineResultGame) bool) InputBotInlineResultGameArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputBotInlineResultGameArray) First() (v InputBotInlineResultGame, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputBotInlineResultGameArray) Last() (v InputBotInlineResultGame, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputBotInlineResultGameArray) PopFirst() (v InputBotInlineResultGame, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputBotInlineResultGame
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputBotInlineResultGameArray) Pop() (v InputBotInlineResultGame, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

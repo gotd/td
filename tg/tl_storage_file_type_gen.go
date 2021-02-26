@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // StorageFileUnknown represents TL type `storage.fileUnknown#aa963b05`.
 // Unknown type.
@@ -865,11 +867,41 @@ func (b *StorageFileTypeBox) Encode(buf *bin.Buffer) error {
 	return b.FileType.Encode(buf)
 }
 
-// StorageFileTypeClassSlice is adapter for slice of StorageFileTypeClass.
-type StorageFileTypeClassSlice []StorageFileTypeClass
+// StorageFileTypeClassArray is adapter for slice of StorageFileTypeClass.
+type StorageFileTypeClassArray []StorageFileTypeClass
+
+// Sort sorts slice of StorageFileTypeClass.
+func (s StorageFileTypeClassArray) Sort(less func(a, b StorageFileTypeClass) bool) StorageFileTypeClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of StorageFileTypeClass.
+func (s StorageFileTypeClassArray) SortStable(less func(a, b StorageFileTypeClass) bool) StorageFileTypeClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of StorageFileTypeClass.
+func (s StorageFileTypeClassArray) Retain(keep func(x StorageFileTypeClass) bool) StorageFileTypeClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s StorageFileTypeClassSlice) First() (v StorageFileTypeClass, ok bool) {
+func (s StorageFileTypeClassArray) First() (v StorageFileTypeClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -877,7 +909,7 @@ func (s StorageFileTypeClassSlice) First() (v StorageFileTypeClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s StorageFileTypeClassSlice) Last() (v StorageFileTypeClass, ok bool) {
+func (s StorageFileTypeClassArray) Last() (v StorageFileTypeClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -885,7 +917,7 @@ func (s StorageFileTypeClassSlice) Last() (v StorageFileTypeClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *StorageFileTypeClassSlice) PopFirst() (v StorageFileTypeClass, ok bool) {
+func (s *StorageFileTypeClassArray) PopFirst() (v StorageFileTypeClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -895,7 +927,8 @@ func (s *StorageFileTypeClassSlice) PopFirst() (v StorageFileTypeClass, ok bool)
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero StorageFileTypeClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -903,7 +936,7 @@ func (s *StorageFileTypeClassSlice) PopFirst() (v StorageFileTypeClass, ok bool)
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *StorageFileTypeClassSlice) Pop() (v StorageFileTypeClass, ok bool) {
+func (s *StorageFileTypeClassArray) Pop() (v StorageFileTypeClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

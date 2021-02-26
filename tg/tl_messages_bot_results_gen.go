@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesBotResults represents TL type `messages.botResults#947ca848`.
 // Result of a query to an inline bot
@@ -234,9 +236,9 @@ func (b *MessagesBotResults) GetResults() (value []BotInlineResultClass) {
 	return b.Results
 }
 
-// MapResults returns field Results wrapped in BotInlineResultClassSlice helper.
-func (b *MessagesBotResults) MapResults() (value BotInlineResultClassSlice) {
-	return BotInlineResultClassSlice(b.Results)
+// MapResults returns field Results wrapped in BotInlineResultClassArray helper.
+func (b *MessagesBotResults) MapResults() (value BotInlineResultClassArray) {
+	return BotInlineResultClassArray(b.Results)
 }
 
 // GetCacheTime returns value of CacheTime field.
@@ -249,9 +251,9 @@ func (b *MessagesBotResults) GetUsers() (value []UserClass) {
 	return b.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (b *MessagesBotResults) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(b.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (b *MessagesBotResults) MapUsers() (value UserClassArray) {
+	return UserClassArray(b.Users)
 }
 
 // Decode implements bin.Decoder.

@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // WallPaperClassVector is a box for Vector<WallPaper>
 type WallPaperClassVector struct {
@@ -88,9 +90,9 @@ func (vec *WallPaperClassVector) GetElems() (value []WallPaperClass) {
 	return vec.Elems
 }
 
-// MapElems returns field Elems wrapped in WallPaperClassSlice helper.
-func (vec *WallPaperClassVector) MapElems() (value WallPaperClassSlice) {
-	return WallPaperClassSlice(vec.Elems)
+// MapElems returns field Elems wrapped in WallPaperClassArray helper.
+func (vec *WallPaperClassVector) MapElems() (value WallPaperClassArray) {
+	return WallPaperClassArray(vec.Elems)
 }
 
 // Decode implements bin.Decoder.

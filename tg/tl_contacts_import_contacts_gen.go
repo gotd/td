@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // ContactsImportContactsRequest represents TL type `contacts.importContacts#2c800be5`.
 // Imports contacts: saves a full list on the server, adds already registered contacts to the contact list, returns added contacts and their info.

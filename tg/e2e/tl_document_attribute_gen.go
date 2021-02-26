@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // DocumentAttributeImageSize represents TL type `documentAttributeImageSize#6c37c15c`.
 // Defines the width and height of an image uploaded as document
@@ -1429,11 +1431,41 @@ func (b *DocumentAttributeBox) Encode(buf *bin.Buffer) error {
 	return b.DocumentAttribute.Encode(buf)
 }
 
-// DocumentAttributeClassSlice is adapter for slice of DocumentAttributeClass.
-type DocumentAttributeClassSlice []DocumentAttributeClass
+// DocumentAttributeClassArray is adapter for slice of DocumentAttributeClass.
+type DocumentAttributeClassArray []DocumentAttributeClass
+
+// Sort sorts slice of DocumentAttributeClass.
+func (s DocumentAttributeClassArray) Sort(less func(a, b DocumentAttributeClass) bool) DocumentAttributeClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DocumentAttributeClass.
+func (s DocumentAttributeClassArray) SortStable(less func(a, b DocumentAttributeClass) bool) DocumentAttributeClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DocumentAttributeClass.
+func (s DocumentAttributeClassArray) Retain(keep func(x DocumentAttributeClass) bool) DocumentAttributeClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s DocumentAttributeClassSlice) First() (v DocumentAttributeClass, ok bool) {
+func (s DocumentAttributeClassArray) First() (v DocumentAttributeClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1441,7 +1473,7 @@ func (s DocumentAttributeClassSlice) First() (v DocumentAttributeClass, ok bool)
 }
 
 // Last returns last element of slice (if exists).
-func (s DocumentAttributeClassSlice) Last() (v DocumentAttributeClass, ok bool) {
+func (s DocumentAttributeClassArray) Last() (v DocumentAttributeClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1449,7 +1481,7 @@ func (s DocumentAttributeClassSlice) Last() (v DocumentAttributeClass, ok bool) 
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DocumentAttributeClassSlice) PopFirst() (v DocumentAttributeClass, ok bool) {
+func (s *DocumentAttributeClassArray) PopFirst() (v DocumentAttributeClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1459,7 +1491,8 @@ func (s *DocumentAttributeClassSlice) PopFirst() (v DocumentAttributeClass, ok b
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero DocumentAttributeClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -1467,7 +1500,767 @@ func (s *DocumentAttributeClassSlice) PopFirst() (v DocumentAttributeClass, ok b
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *DocumentAttributeClassSlice) Pop() (v DocumentAttributeClass, ok bool) {
+func (s *DocumentAttributeClassArray) Pop() (v DocumentAttributeClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsDocumentAttributeImageSize returns copy with only DocumentAttributeImageSize constructors.
+func (s DocumentAttributeClassArray) AsDocumentAttributeImageSize() (to DocumentAttributeImageSizeArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DocumentAttributeImageSize)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDocumentAttributeVideo returns copy with only DocumentAttributeVideo constructors.
+func (s DocumentAttributeClassArray) AsDocumentAttributeVideo() (to DocumentAttributeVideoArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DocumentAttributeVideo)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDocumentAttributeAudio23 returns copy with only DocumentAttributeAudio23 constructors.
+func (s DocumentAttributeClassArray) AsDocumentAttributeAudio23() (to DocumentAttributeAudio23Array) {
+	for _, elem := range s {
+		value, ok := elem.(*DocumentAttributeAudio23)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDocumentAttributeFilename returns copy with only DocumentAttributeFilename constructors.
+func (s DocumentAttributeClassArray) AsDocumentAttributeFilename() (to DocumentAttributeFilenameArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DocumentAttributeFilename)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDocumentAttributeAudio45 returns copy with only DocumentAttributeAudio45 constructors.
+func (s DocumentAttributeClassArray) AsDocumentAttributeAudio45() (to DocumentAttributeAudio45Array) {
+	for _, elem := range s {
+		value, ok := elem.(*DocumentAttributeAudio45)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDocumentAttributeSticker returns copy with only DocumentAttributeSticker constructors.
+func (s DocumentAttributeClassArray) AsDocumentAttributeSticker() (to DocumentAttributeStickerArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DocumentAttributeSticker)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDocumentAttributeAudio returns copy with only DocumentAttributeAudio constructors.
+func (s DocumentAttributeClassArray) AsDocumentAttributeAudio() (to DocumentAttributeAudioArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DocumentAttributeAudio)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDocumentAttributeVideo66 returns copy with only DocumentAttributeVideo66 constructors.
+func (s DocumentAttributeClassArray) AsDocumentAttributeVideo66() (to DocumentAttributeVideo66Array) {
+	for _, elem := range s {
+		value, ok := elem.(*DocumentAttributeVideo66)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// DocumentAttributeImageSizeArray is adapter for slice of DocumentAttributeImageSize.
+type DocumentAttributeImageSizeArray []DocumentAttributeImageSize
+
+// Sort sorts slice of DocumentAttributeImageSize.
+func (s DocumentAttributeImageSizeArray) Sort(less func(a, b DocumentAttributeImageSize) bool) DocumentAttributeImageSizeArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DocumentAttributeImageSize.
+func (s DocumentAttributeImageSizeArray) SortStable(less func(a, b DocumentAttributeImageSize) bool) DocumentAttributeImageSizeArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DocumentAttributeImageSize.
+func (s DocumentAttributeImageSizeArray) Retain(keep func(x DocumentAttributeImageSize) bool) DocumentAttributeImageSizeArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DocumentAttributeImageSizeArray) First() (v DocumentAttributeImageSize, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DocumentAttributeImageSizeArray) Last() (v DocumentAttributeImageSize, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DocumentAttributeImageSizeArray) PopFirst() (v DocumentAttributeImageSize, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DocumentAttributeImageSize
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DocumentAttributeImageSizeArray) Pop() (v DocumentAttributeImageSize, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DocumentAttributeVideoArray is adapter for slice of DocumentAttributeVideo.
+type DocumentAttributeVideoArray []DocumentAttributeVideo
+
+// Sort sorts slice of DocumentAttributeVideo.
+func (s DocumentAttributeVideoArray) Sort(less func(a, b DocumentAttributeVideo) bool) DocumentAttributeVideoArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DocumentAttributeVideo.
+func (s DocumentAttributeVideoArray) SortStable(less func(a, b DocumentAttributeVideo) bool) DocumentAttributeVideoArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DocumentAttributeVideo.
+func (s DocumentAttributeVideoArray) Retain(keep func(x DocumentAttributeVideo) bool) DocumentAttributeVideoArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DocumentAttributeVideoArray) First() (v DocumentAttributeVideo, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DocumentAttributeVideoArray) Last() (v DocumentAttributeVideo, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DocumentAttributeVideoArray) PopFirst() (v DocumentAttributeVideo, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DocumentAttributeVideo
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DocumentAttributeVideoArray) Pop() (v DocumentAttributeVideo, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DocumentAttributeAudio23Array is adapter for slice of DocumentAttributeAudio23.
+type DocumentAttributeAudio23Array []DocumentAttributeAudio23
+
+// Sort sorts slice of DocumentAttributeAudio23.
+func (s DocumentAttributeAudio23Array) Sort(less func(a, b DocumentAttributeAudio23) bool) DocumentAttributeAudio23Array {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DocumentAttributeAudio23.
+func (s DocumentAttributeAudio23Array) SortStable(less func(a, b DocumentAttributeAudio23) bool) DocumentAttributeAudio23Array {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DocumentAttributeAudio23.
+func (s DocumentAttributeAudio23Array) Retain(keep func(x DocumentAttributeAudio23) bool) DocumentAttributeAudio23Array {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DocumentAttributeAudio23Array) First() (v DocumentAttributeAudio23, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DocumentAttributeAudio23Array) Last() (v DocumentAttributeAudio23, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DocumentAttributeAudio23Array) PopFirst() (v DocumentAttributeAudio23, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DocumentAttributeAudio23
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DocumentAttributeAudio23Array) Pop() (v DocumentAttributeAudio23, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DocumentAttributeFilenameArray is adapter for slice of DocumentAttributeFilename.
+type DocumentAttributeFilenameArray []DocumentAttributeFilename
+
+// Sort sorts slice of DocumentAttributeFilename.
+func (s DocumentAttributeFilenameArray) Sort(less func(a, b DocumentAttributeFilename) bool) DocumentAttributeFilenameArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DocumentAttributeFilename.
+func (s DocumentAttributeFilenameArray) SortStable(less func(a, b DocumentAttributeFilename) bool) DocumentAttributeFilenameArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DocumentAttributeFilename.
+func (s DocumentAttributeFilenameArray) Retain(keep func(x DocumentAttributeFilename) bool) DocumentAttributeFilenameArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DocumentAttributeFilenameArray) First() (v DocumentAttributeFilename, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DocumentAttributeFilenameArray) Last() (v DocumentAttributeFilename, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DocumentAttributeFilenameArray) PopFirst() (v DocumentAttributeFilename, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DocumentAttributeFilename
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DocumentAttributeFilenameArray) Pop() (v DocumentAttributeFilename, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DocumentAttributeAudio45Array is adapter for slice of DocumentAttributeAudio45.
+type DocumentAttributeAudio45Array []DocumentAttributeAudio45
+
+// Sort sorts slice of DocumentAttributeAudio45.
+func (s DocumentAttributeAudio45Array) Sort(less func(a, b DocumentAttributeAudio45) bool) DocumentAttributeAudio45Array {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DocumentAttributeAudio45.
+func (s DocumentAttributeAudio45Array) SortStable(less func(a, b DocumentAttributeAudio45) bool) DocumentAttributeAudio45Array {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DocumentAttributeAudio45.
+func (s DocumentAttributeAudio45Array) Retain(keep func(x DocumentAttributeAudio45) bool) DocumentAttributeAudio45Array {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DocumentAttributeAudio45Array) First() (v DocumentAttributeAudio45, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DocumentAttributeAudio45Array) Last() (v DocumentAttributeAudio45, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DocumentAttributeAudio45Array) PopFirst() (v DocumentAttributeAudio45, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DocumentAttributeAudio45
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DocumentAttributeAudio45Array) Pop() (v DocumentAttributeAudio45, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DocumentAttributeStickerArray is adapter for slice of DocumentAttributeSticker.
+type DocumentAttributeStickerArray []DocumentAttributeSticker
+
+// Sort sorts slice of DocumentAttributeSticker.
+func (s DocumentAttributeStickerArray) Sort(less func(a, b DocumentAttributeSticker) bool) DocumentAttributeStickerArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DocumentAttributeSticker.
+func (s DocumentAttributeStickerArray) SortStable(less func(a, b DocumentAttributeSticker) bool) DocumentAttributeStickerArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DocumentAttributeSticker.
+func (s DocumentAttributeStickerArray) Retain(keep func(x DocumentAttributeSticker) bool) DocumentAttributeStickerArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DocumentAttributeStickerArray) First() (v DocumentAttributeSticker, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DocumentAttributeStickerArray) Last() (v DocumentAttributeSticker, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DocumentAttributeStickerArray) PopFirst() (v DocumentAttributeSticker, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DocumentAttributeSticker
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DocumentAttributeStickerArray) Pop() (v DocumentAttributeSticker, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DocumentAttributeAudioArray is adapter for slice of DocumentAttributeAudio.
+type DocumentAttributeAudioArray []DocumentAttributeAudio
+
+// Sort sorts slice of DocumentAttributeAudio.
+func (s DocumentAttributeAudioArray) Sort(less func(a, b DocumentAttributeAudio) bool) DocumentAttributeAudioArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DocumentAttributeAudio.
+func (s DocumentAttributeAudioArray) SortStable(less func(a, b DocumentAttributeAudio) bool) DocumentAttributeAudioArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DocumentAttributeAudio.
+func (s DocumentAttributeAudioArray) Retain(keep func(x DocumentAttributeAudio) bool) DocumentAttributeAudioArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DocumentAttributeAudioArray) First() (v DocumentAttributeAudio, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DocumentAttributeAudioArray) Last() (v DocumentAttributeAudio, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DocumentAttributeAudioArray) PopFirst() (v DocumentAttributeAudio, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DocumentAttributeAudio
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DocumentAttributeAudioArray) Pop() (v DocumentAttributeAudio, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DocumentAttributeVideo66Array is adapter for slice of DocumentAttributeVideo66.
+type DocumentAttributeVideo66Array []DocumentAttributeVideo66
+
+// Sort sorts slice of DocumentAttributeVideo66.
+func (s DocumentAttributeVideo66Array) Sort(less func(a, b DocumentAttributeVideo66) bool) DocumentAttributeVideo66Array {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DocumentAttributeVideo66.
+func (s DocumentAttributeVideo66Array) SortStable(less func(a, b DocumentAttributeVideo66) bool) DocumentAttributeVideo66Array {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DocumentAttributeVideo66.
+func (s DocumentAttributeVideo66Array) Retain(keep func(x DocumentAttributeVideo66) bool) DocumentAttributeVideo66Array {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DocumentAttributeVideo66Array) First() (v DocumentAttributeVideo66, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DocumentAttributeVideo66Array) Last() (v DocumentAttributeVideo66, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DocumentAttributeVideo66Array) PopFirst() (v DocumentAttributeVideo66, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DocumentAttributeVideo66
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DocumentAttributeVideo66Array) Pop() (v DocumentAttributeVideo66, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

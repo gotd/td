@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // InputWebDocument represents TL type `inputWebDocument#9bed434d`.
 // The document
@@ -134,9 +136,9 @@ func (i *InputWebDocument) GetAttributes() (value []DocumentAttributeClass) {
 	return i.Attributes
 }
 
-// MapAttributes returns field Attributes wrapped in DocumentAttributeClassSlice helper.
-func (i *InputWebDocument) MapAttributes() (value DocumentAttributeClassSlice) {
-	return DocumentAttributeClassSlice(i.Attributes)
+// MapAttributes returns field Attributes wrapped in DocumentAttributeClassArray helper.
+func (i *InputWebDocument) MapAttributes() (value DocumentAttributeClassArray) {
+	return DocumentAttributeClassArray(i.Attributes)
 }
 
 // Decode implements bin.Decoder.

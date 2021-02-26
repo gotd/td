@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // AccountThemesNotModified represents TL type `account.themesNotModified#f41eb622`.
 // No new themes were installed
@@ -313,12 +315,104 @@ func (b *AccountThemesBox) Encode(buf *bin.Buffer) error {
 	return b.Themes.Encode(buf)
 }
 
-// AccountThemesClassSlice is adapter for slice of AccountThemesClass.
-type AccountThemesClassSlice []AccountThemesClass
+// AccountThemesClassArray is adapter for slice of AccountThemesClass.
+type AccountThemesClassArray []AccountThemesClass
+
+// Sort sorts slice of AccountThemesClass.
+func (s AccountThemesClassArray) Sort(less func(a, b AccountThemesClass) bool) AccountThemesClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of AccountThemesClass.
+func (s AccountThemesClassArray) SortStable(less func(a, b AccountThemesClass) bool) AccountThemesClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of AccountThemesClass.
+func (s AccountThemesClassArray) Retain(keep func(x AccountThemesClass) bool) AccountThemesClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s AccountThemesClassArray) First() (v AccountThemesClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s AccountThemesClassArray) Last() (v AccountThemesClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *AccountThemesClassArray) PopFirst() (v AccountThemesClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero AccountThemesClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *AccountThemesClassArray) Pop() (v AccountThemesClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsAccountThemes returns copy with only AccountThemes constructors.
+func (s AccountThemesClassArray) AsAccountThemes() (to AccountThemesArray) {
+	for _, elem := range s {
+		value, ok := elem.(*AccountThemes)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
 
 // AppendOnlyModified appends only Modified constructors to
 // given slice.
-func (s AccountThemesClassSlice) AppendOnlyModified(to []*AccountThemes) []*AccountThemes {
+func (s AccountThemesClassArray) AppendOnlyModified(to []*AccountThemes) []*AccountThemes {
 	for _, elem := range s {
 		value, ok := elem.AsModified()
 		if !ok {
@@ -331,12 +425,12 @@ func (s AccountThemesClassSlice) AppendOnlyModified(to []*AccountThemes) []*Acco
 }
 
 // AsModified returns copy with only Modified constructors.
-func (s AccountThemesClassSlice) AsModified() (to []*AccountThemes) {
+func (s AccountThemesClassArray) AsModified() (to []*AccountThemes) {
 	return s.AppendOnlyModified(to)
 }
 
 // FirstAsModified returns first element of slice (if exists).
-func (s AccountThemesClassSlice) FirstAsModified() (v *AccountThemes, ok bool) {
+func (s AccountThemesClassArray) FirstAsModified() (v *AccountThemes, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -345,7 +439,7 @@ func (s AccountThemesClassSlice) FirstAsModified() (v *AccountThemes, ok bool) {
 }
 
 // LastAsModified returns last element of slice (if exists).
-func (s AccountThemesClassSlice) LastAsModified() (v *AccountThemes, ok bool) {
+func (s AccountThemesClassArray) LastAsModified() (v *AccountThemes, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -354,7 +448,7 @@ func (s AccountThemesClassSlice) LastAsModified() (v *AccountThemes, ok bool) {
 }
 
 // PopFirstAsModified returns element of slice (if exists).
-func (s *AccountThemesClassSlice) PopFirstAsModified() (v *AccountThemes, ok bool) {
+func (s *AccountThemesClassArray) PopFirstAsModified() (v *AccountThemes, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -363,7 +457,7 @@ func (s *AccountThemesClassSlice) PopFirstAsModified() (v *AccountThemes, ok boo
 }
 
 // PopAsModified returns element of slice (if exists).
-func (s *AccountThemesClassSlice) PopAsModified() (v *AccountThemes, ok bool) {
+func (s *AccountThemesClassArray) PopAsModified() (v *AccountThemes, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -371,8 +465,41 @@ func (s *AccountThemesClassSlice) PopAsModified() (v *AccountThemes, ok bool) {
 	return value.AsModified()
 }
 
+// AccountThemesArray is adapter for slice of AccountThemes.
+type AccountThemesArray []AccountThemes
+
+// Sort sorts slice of AccountThemes.
+func (s AccountThemesArray) Sort(less func(a, b AccountThemes) bool) AccountThemesArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of AccountThemes.
+func (s AccountThemesArray) SortStable(less func(a, b AccountThemes) bool) AccountThemesArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of AccountThemes.
+func (s AccountThemesArray) Retain(keep func(x AccountThemes) bool) AccountThemesArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s AccountThemesClassSlice) First() (v AccountThemesClass, ok bool) {
+func (s AccountThemesArray) First() (v AccountThemes, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -380,7 +507,7 @@ func (s AccountThemesClassSlice) First() (v AccountThemesClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s AccountThemesClassSlice) Last() (v AccountThemesClass, ok bool) {
+func (s AccountThemesArray) Last() (v AccountThemes, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -388,7 +515,7 @@ func (s AccountThemesClassSlice) Last() (v AccountThemesClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *AccountThemesClassSlice) PopFirst() (v AccountThemesClass, ok bool) {
+func (s *AccountThemesArray) PopFirst() (v AccountThemes, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -398,7 +525,8 @@ func (s *AccountThemesClassSlice) PopFirst() (v AccountThemesClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero AccountThemes
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -406,7 +534,7 @@ func (s *AccountThemesClassSlice) PopFirst() (v AccountThemesClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *AccountThemesClassSlice) Pop() (v AccountThemesClass, ok bool) {
+func (s *AccountThemesArray) Pop() (v AccountThemes, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

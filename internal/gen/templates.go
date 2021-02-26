@@ -9,21 +9,16 @@ import (
 // Funcs returns functions which used in templates.
 func Funcs() template.FuncMap {
 	return template.FuncMap{
-		"trim":       strings.TrimSpace,
-		"lower":      strings.ToLower,
-		"trimPrefix": strings.TrimPrefix,
-		"trimSuffix": strings.TrimSuffix,
-		"hasPrefix":  strings.HasPrefix,
-		"hasSuffix":  strings.HasSuffix,
-		"hasField": func(fields []fieldDef, name, typ string) bool {
-			for _, f := range fields {
-				if f.Name == name && f.Type == typ {
-					return true
-				}
-			}
-
-			return false
-		},
+		"trim":                 strings.TrimSpace,
+		"lower":                strings.ToLower,
+		"trimPrefix":           strings.TrimPrefix,
+		"trimSuffix":           strings.TrimSuffix,
+		"hasPrefix":            strings.HasPrefix,
+		"hasSuffix":            strings.HasSuffix,
+		"hasField":             hasField,
+		"mapCollectableFields": mapCollectableFields,
+		"sortableFields":       sortableFields,
+		"generateSliceHelper":  generateSliceHelper,
 		"concat": func(args ...interface{}) []interface{} {
 			return args
 		},

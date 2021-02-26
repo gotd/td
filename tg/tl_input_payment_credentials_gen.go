@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // InputPaymentCredentialsSaved represents TL type `inputPaymentCredentialsSaved#c10eb2cf`.
 // Saved payment credentials
@@ -559,11 +561,41 @@ func (b *InputPaymentCredentialsBox) Encode(buf *bin.Buffer) error {
 	return b.InputPaymentCredentials.Encode(buf)
 }
 
-// InputPaymentCredentialsClassSlice is adapter for slice of InputPaymentCredentialsClass.
-type InputPaymentCredentialsClassSlice []InputPaymentCredentialsClass
+// InputPaymentCredentialsClassArray is adapter for slice of InputPaymentCredentialsClass.
+type InputPaymentCredentialsClassArray []InputPaymentCredentialsClass
+
+// Sort sorts slice of InputPaymentCredentialsClass.
+func (s InputPaymentCredentialsClassArray) Sort(less func(a, b InputPaymentCredentialsClass) bool) InputPaymentCredentialsClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputPaymentCredentialsClass.
+func (s InputPaymentCredentialsClassArray) SortStable(less func(a, b InputPaymentCredentialsClass) bool) InputPaymentCredentialsClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputPaymentCredentialsClass.
+func (s InputPaymentCredentialsClassArray) Retain(keep func(x InputPaymentCredentialsClass) bool) InputPaymentCredentialsClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s InputPaymentCredentialsClassSlice) First() (v InputPaymentCredentialsClass, ok bool) {
+func (s InputPaymentCredentialsClassArray) First() (v InputPaymentCredentialsClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -571,7 +603,7 @@ func (s InputPaymentCredentialsClassSlice) First() (v InputPaymentCredentialsCla
 }
 
 // Last returns last element of slice (if exists).
-func (s InputPaymentCredentialsClassSlice) Last() (v InputPaymentCredentialsClass, ok bool) {
+func (s InputPaymentCredentialsClassArray) Last() (v InputPaymentCredentialsClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -579,7 +611,7 @@ func (s InputPaymentCredentialsClassSlice) Last() (v InputPaymentCredentialsClas
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputPaymentCredentialsClassSlice) PopFirst() (v InputPaymentCredentialsClass, ok bool) {
+func (s *InputPaymentCredentialsClassArray) PopFirst() (v InputPaymentCredentialsClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -589,7 +621,8 @@ func (s *InputPaymentCredentialsClassSlice) PopFirst() (v InputPaymentCredential
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero InputPaymentCredentialsClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -597,7 +630,387 @@ func (s *InputPaymentCredentialsClassSlice) PopFirst() (v InputPaymentCredential
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *InputPaymentCredentialsClassSlice) Pop() (v InputPaymentCredentialsClass, ok bool) {
+func (s *InputPaymentCredentialsClassArray) Pop() (v InputPaymentCredentialsClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsInputPaymentCredentialsSaved returns copy with only InputPaymentCredentialsSaved constructors.
+func (s InputPaymentCredentialsClassArray) AsInputPaymentCredentialsSaved() (to InputPaymentCredentialsSavedArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputPaymentCredentialsSaved)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputPaymentCredentials returns copy with only InputPaymentCredentials constructors.
+func (s InputPaymentCredentialsClassArray) AsInputPaymentCredentials() (to InputPaymentCredentialsArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputPaymentCredentials)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputPaymentCredentialsApplePay returns copy with only InputPaymentCredentialsApplePay constructors.
+func (s InputPaymentCredentialsClassArray) AsInputPaymentCredentialsApplePay() (to InputPaymentCredentialsApplePayArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputPaymentCredentialsApplePay)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputPaymentCredentialsGooglePay returns copy with only InputPaymentCredentialsGooglePay constructors.
+func (s InputPaymentCredentialsClassArray) AsInputPaymentCredentialsGooglePay() (to InputPaymentCredentialsGooglePayArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputPaymentCredentialsGooglePay)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// InputPaymentCredentialsSavedArray is adapter for slice of InputPaymentCredentialsSaved.
+type InputPaymentCredentialsSavedArray []InputPaymentCredentialsSaved
+
+// Sort sorts slice of InputPaymentCredentialsSaved.
+func (s InputPaymentCredentialsSavedArray) Sort(less func(a, b InputPaymentCredentialsSaved) bool) InputPaymentCredentialsSavedArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputPaymentCredentialsSaved.
+func (s InputPaymentCredentialsSavedArray) SortStable(less func(a, b InputPaymentCredentialsSaved) bool) InputPaymentCredentialsSavedArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputPaymentCredentialsSaved.
+func (s InputPaymentCredentialsSavedArray) Retain(keep func(x InputPaymentCredentialsSaved) bool) InputPaymentCredentialsSavedArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputPaymentCredentialsSavedArray) First() (v InputPaymentCredentialsSaved, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputPaymentCredentialsSavedArray) Last() (v InputPaymentCredentialsSaved, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputPaymentCredentialsSavedArray) PopFirst() (v InputPaymentCredentialsSaved, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputPaymentCredentialsSaved
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputPaymentCredentialsSavedArray) Pop() (v InputPaymentCredentialsSaved, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputPaymentCredentialsArray is adapter for slice of InputPaymentCredentials.
+type InputPaymentCredentialsArray []InputPaymentCredentials
+
+// Sort sorts slice of InputPaymentCredentials.
+func (s InputPaymentCredentialsArray) Sort(less func(a, b InputPaymentCredentials) bool) InputPaymentCredentialsArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputPaymentCredentials.
+func (s InputPaymentCredentialsArray) SortStable(less func(a, b InputPaymentCredentials) bool) InputPaymentCredentialsArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputPaymentCredentials.
+func (s InputPaymentCredentialsArray) Retain(keep func(x InputPaymentCredentials) bool) InputPaymentCredentialsArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputPaymentCredentialsArray) First() (v InputPaymentCredentials, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputPaymentCredentialsArray) Last() (v InputPaymentCredentials, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputPaymentCredentialsArray) PopFirst() (v InputPaymentCredentials, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputPaymentCredentials
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputPaymentCredentialsArray) Pop() (v InputPaymentCredentials, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputPaymentCredentialsApplePayArray is adapter for slice of InputPaymentCredentialsApplePay.
+type InputPaymentCredentialsApplePayArray []InputPaymentCredentialsApplePay
+
+// Sort sorts slice of InputPaymentCredentialsApplePay.
+func (s InputPaymentCredentialsApplePayArray) Sort(less func(a, b InputPaymentCredentialsApplePay) bool) InputPaymentCredentialsApplePayArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputPaymentCredentialsApplePay.
+func (s InputPaymentCredentialsApplePayArray) SortStable(less func(a, b InputPaymentCredentialsApplePay) bool) InputPaymentCredentialsApplePayArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputPaymentCredentialsApplePay.
+func (s InputPaymentCredentialsApplePayArray) Retain(keep func(x InputPaymentCredentialsApplePay) bool) InputPaymentCredentialsApplePayArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputPaymentCredentialsApplePayArray) First() (v InputPaymentCredentialsApplePay, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputPaymentCredentialsApplePayArray) Last() (v InputPaymentCredentialsApplePay, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputPaymentCredentialsApplePayArray) PopFirst() (v InputPaymentCredentialsApplePay, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputPaymentCredentialsApplePay
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputPaymentCredentialsApplePayArray) Pop() (v InputPaymentCredentialsApplePay, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputPaymentCredentialsGooglePayArray is adapter for slice of InputPaymentCredentialsGooglePay.
+type InputPaymentCredentialsGooglePayArray []InputPaymentCredentialsGooglePay
+
+// Sort sorts slice of InputPaymentCredentialsGooglePay.
+func (s InputPaymentCredentialsGooglePayArray) Sort(less func(a, b InputPaymentCredentialsGooglePay) bool) InputPaymentCredentialsGooglePayArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputPaymentCredentialsGooglePay.
+func (s InputPaymentCredentialsGooglePayArray) SortStable(less func(a, b InputPaymentCredentialsGooglePay) bool) InputPaymentCredentialsGooglePayArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputPaymentCredentialsGooglePay.
+func (s InputPaymentCredentialsGooglePayArray) Retain(keep func(x InputPaymentCredentialsGooglePay) bool) InputPaymentCredentialsGooglePayArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputPaymentCredentialsGooglePayArray) First() (v InputPaymentCredentialsGooglePay, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputPaymentCredentialsGooglePayArray) Last() (v InputPaymentCredentialsGooglePay, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputPaymentCredentialsGooglePayArray) PopFirst() (v InputPaymentCredentialsGooglePay, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputPaymentCredentialsGooglePay
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputPaymentCredentialsGooglePayArray) Pop() (v InputPaymentCredentialsGooglePay, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

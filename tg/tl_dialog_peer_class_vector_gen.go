@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // DialogPeerClassVector is a box for Vector<DialogPeer>
 type DialogPeerClassVector struct {
@@ -88,9 +90,9 @@ func (vec *DialogPeerClassVector) GetElems() (value []DialogPeerClass) {
 	return vec.Elems
 }
 
-// MapElems returns field Elems wrapped in DialogPeerClassSlice helper.
-func (vec *DialogPeerClassVector) MapElems() (value DialogPeerClassSlice) {
-	return DialogPeerClassSlice(vec.Elems)
+// MapElems returns field Elems wrapped in DialogPeerClassArray helper.
+func (vec *DialogPeerClassVector) MapElems() (value DialogPeerClassArray) {
+	return DialogPeerClassArray(vec.Elems)
 }
 
 // Decode implements bin.Decoder.

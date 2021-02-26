@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesHighScores represents TL type `messages.highScores#9a3bfd99`.
 // Highscores in a game
@@ -110,9 +112,9 @@ func (h *MessagesHighScores) GetUsers() (value []UserClass) {
 	return h.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (h *MessagesHighScores) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(h.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (h *MessagesHighScores) MapUsers() (value UserClassArray) {
+	return UserClassArray(h.Users)
 }
 
 // Decode implements bin.Decoder.

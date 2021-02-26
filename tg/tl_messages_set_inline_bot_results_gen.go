@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesSetInlineBotResultsRequest represents TL type `messages.setInlineBotResults#eb5ea206`.
 // Answer an inline query, for bots only
@@ -214,9 +216,9 @@ func (s *MessagesSetInlineBotResultsRequest) GetResults() (value []InputBotInlin
 	return s.Results
 }
 
-// MapResults returns field Results wrapped in InputBotInlineResultClassSlice helper.
-func (s *MessagesSetInlineBotResultsRequest) MapResults() (value InputBotInlineResultClassSlice) {
-	return InputBotInlineResultClassSlice(s.Results)
+// MapResults returns field Results wrapped in InputBotInlineResultClassArray helper.
+func (s *MessagesSetInlineBotResultsRequest) MapResults() (value InputBotInlineResultClassArray) {
+	return InputBotInlineResultClassArray(s.Results)
 }
 
 // GetCacheTime returns value of CacheTime field.

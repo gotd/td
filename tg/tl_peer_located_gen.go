@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // PeerLocated represents TL type `peerLocated#ca461b5d`.
 // Peer geolocated nearby
@@ -339,11 +341,41 @@ func (b *PeerLocatedBox) Encode(buf *bin.Buffer) error {
 	return b.PeerLocated.Encode(buf)
 }
 
-// PeerLocatedClassSlice is adapter for slice of PeerLocatedClass.
-type PeerLocatedClassSlice []PeerLocatedClass
+// PeerLocatedClassArray is adapter for slice of PeerLocatedClass.
+type PeerLocatedClassArray []PeerLocatedClass
+
+// Sort sorts slice of PeerLocatedClass.
+func (s PeerLocatedClassArray) Sort(less func(a, b PeerLocatedClass) bool) PeerLocatedClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PeerLocatedClass.
+func (s PeerLocatedClassArray) SortStable(less func(a, b PeerLocatedClass) bool) PeerLocatedClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PeerLocatedClass.
+func (s PeerLocatedClassArray) Retain(keep func(x PeerLocatedClass) bool) PeerLocatedClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s PeerLocatedClassSlice) First() (v PeerLocatedClass, ok bool) {
+func (s PeerLocatedClassArray) First() (v PeerLocatedClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -351,7 +383,7 @@ func (s PeerLocatedClassSlice) First() (v PeerLocatedClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s PeerLocatedClassSlice) Last() (v PeerLocatedClass, ok bool) {
+func (s PeerLocatedClassArray) Last() (v PeerLocatedClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -359,7 +391,7 @@ func (s PeerLocatedClassSlice) Last() (v PeerLocatedClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *PeerLocatedClassSlice) PopFirst() (v PeerLocatedClass, ok bool) {
+func (s *PeerLocatedClassArray) PopFirst() (v PeerLocatedClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -369,7 +401,8 @@ func (s *PeerLocatedClassSlice) PopFirst() (v PeerLocatedClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero PeerLocatedClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -377,7 +410,197 @@ func (s *PeerLocatedClassSlice) PopFirst() (v PeerLocatedClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *PeerLocatedClassSlice) Pop() (v PeerLocatedClass, ok bool) {
+func (s *PeerLocatedClassArray) Pop() (v PeerLocatedClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsPeerLocated returns copy with only PeerLocated constructors.
+func (s PeerLocatedClassArray) AsPeerLocated() (to PeerLocatedArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PeerLocated)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsPeerSelfLocated returns copy with only PeerSelfLocated constructors.
+func (s PeerLocatedClassArray) AsPeerSelfLocated() (to PeerSelfLocatedArray) {
+	for _, elem := range s {
+		value, ok := elem.(*PeerSelfLocated)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// PeerLocatedArray is adapter for slice of PeerLocated.
+type PeerLocatedArray []PeerLocated
+
+// Sort sorts slice of PeerLocated.
+func (s PeerLocatedArray) Sort(less func(a, b PeerLocated) bool) PeerLocatedArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PeerLocated.
+func (s PeerLocatedArray) SortStable(less func(a, b PeerLocated) bool) PeerLocatedArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PeerLocated.
+func (s PeerLocatedArray) Retain(keep func(x PeerLocated) bool) PeerLocatedArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PeerLocatedArray) First() (v PeerLocated, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PeerLocatedArray) Last() (v PeerLocated, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PeerLocatedArray) PopFirst() (v PeerLocated, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PeerLocated
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PeerLocatedArray) Pop() (v PeerLocated, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// PeerSelfLocatedArray is adapter for slice of PeerSelfLocated.
+type PeerSelfLocatedArray []PeerSelfLocated
+
+// Sort sorts slice of PeerSelfLocated.
+func (s PeerSelfLocatedArray) Sort(less func(a, b PeerSelfLocated) bool) PeerSelfLocatedArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of PeerSelfLocated.
+func (s PeerSelfLocatedArray) SortStable(less func(a, b PeerSelfLocated) bool) PeerSelfLocatedArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of PeerSelfLocated.
+func (s PeerSelfLocatedArray) Retain(keep func(x PeerSelfLocated) bool) PeerSelfLocatedArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s PeerSelfLocatedArray) First() (v PeerSelfLocated, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s PeerSelfLocatedArray) Last() (v PeerSelfLocated, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *PeerSelfLocatedArray) PopFirst() (v PeerSelfLocated, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero PeerSelfLocated
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *PeerSelfLocatedArray) Pop() (v PeerSelfLocated, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

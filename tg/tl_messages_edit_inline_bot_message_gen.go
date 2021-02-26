@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesEditInlineBotMessageRequest represents TL type `messages.editInlineBotMessage#83557dba`.
 // Edit an inline bot message
@@ -276,12 +278,12 @@ func (e *MessagesEditInlineBotMessageRequest) GetEntities() (value []MessageEnti
 	return e.Entities, true
 }
 
-// MapEntities returns field Entities wrapped in MessageEntityClassSlice helper.
-func (e *MessagesEditInlineBotMessageRequest) MapEntities() (value MessageEntityClassSlice, ok bool) {
+// MapEntities returns field Entities wrapped in MessageEntityClassArray helper.
+func (e *MessagesEditInlineBotMessageRequest) MapEntities() (value MessageEntityClassArray, ok bool) {
 	if !e.Flags.Has(3) {
 		return value, false
 	}
-	return MessageEntityClassSlice(e.Entities), true
+	return MessageEntityClassArray(e.Entities), true
 }
 
 // Decode implements bin.Decoder.

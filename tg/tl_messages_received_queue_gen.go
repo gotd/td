@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesReceivedQueueRequest represents TL type `messages.receivedQueue#55a5bb66`.
 // Confirms receipt of messages in a secret chat by client, cancels push notifications.
@@ -124,5 +126,5 @@ func (c *Client) MessagesReceivedQueue(ctx context.Context, maxqts int) ([]int64
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return result.Elems, nil
+	return []int64(result.Elems), nil
 }

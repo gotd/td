@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // UpdatesGetChannelDifferenceRequest represents TL type `updates.getChannelDifference#3173d78`.
 // Returns the difference between the current state of updates of a certain channel and transmitted.

@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // DecryptedMessageMediaEmpty represents TL type `decryptedMessageMediaEmpty#89f5c4a`.
 //
@@ -1848,9 +1850,9 @@ func (d *DecryptedMessageMediaExternalDocument) GetAttributes() (value []Documen
 	return d.Attributes
 }
 
-// MapAttributes returns field Attributes wrapped in DocumentAttributeClassSlice helper.
-func (d *DecryptedMessageMediaExternalDocument) MapAttributes() (value DocumentAttributeClassSlice) {
-	return DocumentAttributeClassSlice(d.Attributes)
+// MapAttributes returns field Attributes wrapped in DocumentAttributeClassArray helper.
+func (d *DecryptedMessageMediaExternalDocument) MapAttributes() (value DocumentAttributeClassArray) {
+	return DocumentAttributeClassArray(d.Attributes)
 }
 
 // Decode implements bin.Decoder.
@@ -2657,9 +2659,9 @@ func (d *DecryptedMessageMediaDocument) GetAttributes() (value []DocumentAttribu
 	return d.Attributes
 }
 
-// MapAttributes returns field Attributes wrapped in DocumentAttributeClassSlice helper.
-func (d *DecryptedMessageMediaDocument) MapAttributes() (value DocumentAttributeClassSlice) {
-	return DocumentAttributeClassSlice(d.Attributes)
+// MapAttributes returns field Attributes wrapped in DocumentAttributeClassArray helper.
+func (d *DecryptedMessageMediaDocument) MapAttributes() (value DocumentAttributeClassArray) {
+	return DocumentAttributeClassArray(d.Attributes)
 }
 
 // GetCaption returns value of Caption field.
@@ -3233,11 +3235,41 @@ func (b *DecryptedMessageMediaBox) Encode(buf *bin.Buffer) error {
 	return b.DecryptedMessageMedia.Encode(buf)
 }
 
-// DecryptedMessageMediaClassSlice is adapter for slice of DecryptedMessageMediaClass.
-type DecryptedMessageMediaClassSlice []DecryptedMessageMediaClass
+// DecryptedMessageMediaClassArray is adapter for slice of DecryptedMessageMediaClass.
+type DecryptedMessageMediaClassArray []DecryptedMessageMediaClass
+
+// Sort sorts slice of DecryptedMessageMediaClass.
+func (s DecryptedMessageMediaClassArray) Sort(less func(a, b DecryptedMessageMediaClass) bool) DecryptedMessageMediaClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageMediaClass.
+func (s DecryptedMessageMediaClassArray) SortStable(less func(a, b DecryptedMessageMediaClass) bool) DecryptedMessageMediaClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageMediaClass.
+func (s DecryptedMessageMediaClassArray) Retain(keep func(x DecryptedMessageMediaClass) bool) DecryptedMessageMediaClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s DecryptedMessageMediaClassSlice) First() (v DecryptedMessageMediaClass, ok bool) {
+func (s DecryptedMessageMediaClassArray) First() (v DecryptedMessageMediaClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -3245,7 +3277,7 @@ func (s DecryptedMessageMediaClassSlice) First() (v DecryptedMessageMediaClass, 
 }
 
 // Last returns last element of slice (if exists).
-func (s DecryptedMessageMediaClassSlice) Last() (v DecryptedMessageMediaClass, ok bool) {
+func (s DecryptedMessageMediaClassArray) Last() (v DecryptedMessageMediaClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -3253,7 +3285,7 @@ func (s DecryptedMessageMediaClassSlice) Last() (v DecryptedMessageMediaClass, o
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaClassSlice) PopFirst() (v DecryptedMessageMediaClass, ok bool) {
+func (s *DecryptedMessageMediaClassArray) PopFirst() (v DecryptedMessageMediaClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -3263,7 +3295,8 @@ func (s *DecryptedMessageMediaClassSlice) PopFirst() (v DecryptedMessageMediaCla
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero DecryptedMessageMediaClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -3271,7 +3304,1351 @@ func (s *DecryptedMessageMediaClassSlice) PopFirst() (v DecryptedMessageMediaCla
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageMediaClassSlice) Pop() (v DecryptedMessageMediaClass, ok bool) {
+func (s *DecryptedMessageMediaClassArray) Pop() (v DecryptedMessageMediaClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsDecryptedMessageMediaPhoto23 returns copy with only DecryptedMessageMediaPhoto23 constructors.
+func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaPhoto23() (to DecryptedMessageMediaPhoto23Array) {
+	for _, elem := range s {
+		value, ok := elem.(*DecryptedMessageMediaPhoto23)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDecryptedMessageMediaVideo8 returns copy with only DecryptedMessageMediaVideo8 constructors.
+func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaVideo8() (to DecryptedMessageMediaVideo8Array) {
+	for _, elem := range s {
+		value, ok := elem.(*DecryptedMessageMediaVideo8)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDecryptedMessageMediaGeoPoint returns copy with only DecryptedMessageMediaGeoPoint constructors.
+func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaGeoPoint() (to DecryptedMessageMediaGeoPointArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DecryptedMessageMediaGeoPoint)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDecryptedMessageMediaContact returns copy with only DecryptedMessageMediaContact constructors.
+func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaContact() (to DecryptedMessageMediaContactArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DecryptedMessageMediaContact)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDecryptedMessageMediaDocument23 returns copy with only DecryptedMessageMediaDocument23 constructors.
+func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaDocument23() (to DecryptedMessageMediaDocument23Array) {
+	for _, elem := range s {
+		value, ok := elem.(*DecryptedMessageMediaDocument23)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDecryptedMessageMediaAudio8 returns copy with only DecryptedMessageMediaAudio8 constructors.
+func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaAudio8() (to DecryptedMessageMediaAudio8Array) {
+	for _, elem := range s {
+		value, ok := elem.(*DecryptedMessageMediaAudio8)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDecryptedMessageMediaVideo23 returns copy with only DecryptedMessageMediaVideo23 constructors.
+func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaVideo23() (to DecryptedMessageMediaVideo23Array) {
+	for _, elem := range s {
+		value, ok := elem.(*DecryptedMessageMediaVideo23)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDecryptedMessageMediaAudio returns copy with only DecryptedMessageMediaAudio constructors.
+func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaAudio() (to DecryptedMessageMediaAudioArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DecryptedMessageMediaAudio)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDecryptedMessageMediaExternalDocument returns copy with only DecryptedMessageMediaExternalDocument constructors.
+func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaExternalDocument() (to DecryptedMessageMediaExternalDocumentArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DecryptedMessageMediaExternalDocument)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDecryptedMessageMediaPhoto returns copy with only DecryptedMessageMediaPhoto constructors.
+func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaPhoto() (to DecryptedMessageMediaPhotoArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DecryptedMessageMediaPhoto)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDecryptedMessageMediaVideo returns copy with only DecryptedMessageMediaVideo constructors.
+func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaVideo() (to DecryptedMessageMediaVideoArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DecryptedMessageMediaVideo)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDecryptedMessageMediaDocument returns copy with only DecryptedMessageMediaDocument constructors.
+func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaDocument() (to DecryptedMessageMediaDocumentArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DecryptedMessageMediaDocument)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDecryptedMessageMediaVenue returns copy with only DecryptedMessageMediaVenue constructors.
+func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaVenue() (to DecryptedMessageMediaVenueArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DecryptedMessageMediaVenue)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDecryptedMessageMediaWebPage returns copy with only DecryptedMessageMediaWebPage constructors.
+func (s DecryptedMessageMediaClassArray) AsDecryptedMessageMediaWebPage() (to DecryptedMessageMediaWebPageArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DecryptedMessageMediaWebPage)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// DecryptedMessageMediaPhoto23Array is adapter for slice of DecryptedMessageMediaPhoto23.
+type DecryptedMessageMediaPhoto23Array []DecryptedMessageMediaPhoto23
+
+// Sort sorts slice of DecryptedMessageMediaPhoto23.
+func (s DecryptedMessageMediaPhoto23Array) Sort(less func(a, b DecryptedMessageMediaPhoto23) bool) DecryptedMessageMediaPhoto23Array {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageMediaPhoto23.
+func (s DecryptedMessageMediaPhoto23Array) SortStable(less func(a, b DecryptedMessageMediaPhoto23) bool) DecryptedMessageMediaPhoto23Array {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageMediaPhoto23.
+func (s DecryptedMessageMediaPhoto23Array) Retain(keep func(x DecryptedMessageMediaPhoto23) bool) DecryptedMessageMediaPhoto23Array {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageMediaPhoto23Array) First() (v DecryptedMessageMediaPhoto23, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageMediaPhoto23Array) Last() (v DecryptedMessageMediaPhoto23, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaPhoto23Array) PopFirst() (v DecryptedMessageMediaPhoto23, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DecryptedMessageMediaPhoto23
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaPhoto23Array) Pop() (v DecryptedMessageMediaPhoto23, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DecryptedMessageMediaVideo8Array is adapter for slice of DecryptedMessageMediaVideo8.
+type DecryptedMessageMediaVideo8Array []DecryptedMessageMediaVideo8
+
+// Sort sorts slice of DecryptedMessageMediaVideo8.
+func (s DecryptedMessageMediaVideo8Array) Sort(less func(a, b DecryptedMessageMediaVideo8) bool) DecryptedMessageMediaVideo8Array {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageMediaVideo8.
+func (s DecryptedMessageMediaVideo8Array) SortStable(less func(a, b DecryptedMessageMediaVideo8) bool) DecryptedMessageMediaVideo8Array {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageMediaVideo8.
+func (s DecryptedMessageMediaVideo8Array) Retain(keep func(x DecryptedMessageMediaVideo8) bool) DecryptedMessageMediaVideo8Array {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageMediaVideo8Array) First() (v DecryptedMessageMediaVideo8, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageMediaVideo8Array) Last() (v DecryptedMessageMediaVideo8, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaVideo8Array) PopFirst() (v DecryptedMessageMediaVideo8, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DecryptedMessageMediaVideo8
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaVideo8Array) Pop() (v DecryptedMessageMediaVideo8, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DecryptedMessageMediaGeoPointArray is adapter for slice of DecryptedMessageMediaGeoPoint.
+type DecryptedMessageMediaGeoPointArray []DecryptedMessageMediaGeoPoint
+
+// Sort sorts slice of DecryptedMessageMediaGeoPoint.
+func (s DecryptedMessageMediaGeoPointArray) Sort(less func(a, b DecryptedMessageMediaGeoPoint) bool) DecryptedMessageMediaGeoPointArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageMediaGeoPoint.
+func (s DecryptedMessageMediaGeoPointArray) SortStable(less func(a, b DecryptedMessageMediaGeoPoint) bool) DecryptedMessageMediaGeoPointArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageMediaGeoPoint.
+func (s DecryptedMessageMediaGeoPointArray) Retain(keep func(x DecryptedMessageMediaGeoPoint) bool) DecryptedMessageMediaGeoPointArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageMediaGeoPointArray) First() (v DecryptedMessageMediaGeoPoint, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageMediaGeoPointArray) Last() (v DecryptedMessageMediaGeoPoint, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaGeoPointArray) PopFirst() (v DecryptedMessageMediaGeoPoint, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DecryptedMessageMediaGeoPoint
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaGeoPointArray) Pop() (v DecryptedMessageMediaGeoPoint, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DecryptedMessageMediaContactArray is adapter for slice of DecryptedMessageMediaContact.
+type DecryptedMessageMediaContactArray []DecryptedMessageMediaContact
+
+// Sort sorts slice of DecryptedMessageMediaContact.
+func (s DecryptedMessageMediaContactArray) Sort(less func(a, b DecryptedMessageMediaContact) bool) DecryptedMessageMediaContactArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageMediaContact.
+func (s DecryptedMessageMediaContactArray) SortStable(less func(a, b DecryptedMessageMediaContact) bool) DecryptedMessageMediaContactArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageMediaContact.
+func (s DecryptedMessageMediaContactArray) Retain(keep func(x DecryptedMessageMediaContact) bool) DecryptedMessageMediaContactArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageMediaContactArray) First() (v DecryptedMessageMediaContact, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageMediaContactArray) Last() (v DecryptedMessageMediaContact, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaContactArray) PopFirst() (v DecryptedMessageMediaContact, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DecryptedMessageMediaContact
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaContactArray) Pop() (v DecryptedMessageMediaContact, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DecryptedMessageMediaDocument23Array is adapter for slice of DecryptedMessageMediaDocument23.
+type DecryptedMessageMediaDocument23Array []DecryptedMessageMediaDocument23
+
+// Sort sorts slice of DecryptedMessageMediaDocument23.
+func (s DecryptedMessageMediaDocument23Array) Sort(less func(a, b DecryptedMessageMediaDocument23) bool) DecryptedMessageMediaDocument23Array {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageMediaDocument23.
+func (s DecryptedMessageMediaDocument23Array) SortStable(less func(a, b DecryptedMessageMediaDocument23) bool) DecryptedMessageMediaDocument23Array {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageMediaDocument23.
+func (s DecryptedMessageMediaDocument23Array) Retain(keep func(x DecryptedMessageMediaDocument23) bool) DecryptedMessageMediaDocument23Array {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageMediaDocument23Array) First() (v DecryptedMessageMediaDocument23, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageMediaDocument23Array) Last() (v DecryptedMessageMediaDocument23, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaDocument23Array) PopFirst() (v DecryptedMessageMediaDocument23, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DecryptedMessageMediaDocument23
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaDocument23Array) Pop() (v DecryptedMessageMediaDocument23, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DecryptedMessageMediaAudio8Array is adapter for slice of DecryptedMessageMediaAudio8.
+type DecryptedMessageMediaAudio8Array []DecryptedMessageMediaAudio8
+
+// Sort sorts slice of DecryptedMessageMediaAudio8.
+func (s DecryptedMessageMediaAudio8Array) Sort(less func(a, b DecryptedMessageMediaAudio8) bool) DecryptedMessageMediaAudio8Array {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageMediaAudio8.
+func (s DecryptedMessageMediaAudio8Array) SortStable(less func(a, b DecryptedMessageMediaAudio8) bool) DecryptedMessageMediaAudio8Array {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageMediaAudio8.
+func (s DecryptedMessageMediaAudio8Array) Retain(keep func(x DecryptedMessageMediaAudio8) bool) DecryptedMessageMediaAudio8Array {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageMediaAudio8Array) First() (v DecryptedMessageMediaAudio8, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageMediaAudio8Array) Last() (v DecryptedMessageMediaAudio8, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaAudio8Array) PopFirst() (v DecryptedMessageMediaAudio8, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DecryptedMessageMediaAudio8
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaAudio8Array) Pop() (v DecryptedMessageMediaAudio8, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DecryptedMessageMediaVideo23Array is adapter for slice of DecryptedMessageMediaVideo23.
+type DecryptedMessageMediaVideo23Array []DecryptedMessageMediaVideo23
+
+// Sort sorts slice of DecryptedMessageMediaVideo23.
+func (s DecryptedMessageMediaVideo23Array) Sort(less func(a, b DecryptedMessageMediaVideo23) bool) DecryptedMessageMediaVideo23Array {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageMediaVideo23.
+func (s DecryptedMessageMediaVideo23Array) SortStable(less func(a, b DecryptedMessageMediaVideo23) bool) DecryptedMessageMediaVideo23Array {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageMediaVideo23.
+func (s DecryptedMessageMediaVideo23Array) Retain(keep func(x DecryptedMessageMediaVideo23) bool) DecryptedMessageMediaVideo23Array {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageMediaVideo23Array) First() (v DecryptedMessageMediaVideo23, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageMediaVideo23Array) Last() (v DecryptedMessageMediaVideo23, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaVideo23Array) PopFirst() (v DecryptedMessageMediaVideo23, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DecryptedMessageMediaVideo23
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaVideo23Array) Pop() (v DecryptedMessageMediaVideo23, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DecryptedMessageMediaAudioArray is adapter for slice of DecryptedMessageMediaAudio.
+type DecryptedMessageMediaAudioArray []DecryptedMessageMediaAudio
+
+// Sort sorts slice of DecryptedMessageMediaAudio.
+func (s DecryptedMessageMediaAudioArray) Sort(less func(a, b DecryptedMessageMediaAudio) bool) DecryptedMessageMediaAudioArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageMediaAudio.
+func (s DecryptedMessageMediaAudioArray) SortStable(less func(a, b DecryptedMessageMediaAudio) bool) DecryptedMessageMediaAudioArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageMediaAudio.
+func (s DecryptedMessageMediaAudioArray) Retain(keep func(x DecryptedMessageMediaAudio) bool) DecryptedMessageMediaAudioArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageMediaAudioArray) First() (v DecryptedMessageMediaAudio, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageMediaAudioArray) Last() (v DecryptedMessageMediaAudio, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaAudioArray) PopFirst() (v DecryptedMessageMediaAudio, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DecryptedMessageMediaAudio
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaAudioArray) Pop() (v DecryptedMessageMediaAudio, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DecryptedMessageMediaExternalDocumentArray is adapter for slice of DecryptedMessageMediaExternalDocument.
+type DecryptedMessageMediaExternalDocumentArray []DecryptedMessageMediaExternalDocument
+
+// Sort sorts slice of DecryptedMessageMediaExternalDocument.
+func (s DecryptedMessageMediaExternalDocumentArray) Sort(less func(a, b DecryptedMessageMediaExternalDocument) bool) DecryptedMessageMediaExternalDocumentArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageMediaExternalDocument.
+func (s DecryptedMessageMediaExternalDocumentArray) SortStable(less func(a, b DecryptedMessageMediaExternalDocument) bool) DecryptedMessageMediaExternalDocumentArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageMediaExternalDocument.
+func (s DecryptedMessageMediaExternalDocumentArray) Retain(keep func(x DecryptedMessageMediaExternalDocument) bool) DecryptedMessageMediaExternalDocumentArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageMediaExternalDocumentArray) First() (v DecryptedMessageMediaExternalDocument, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageMediaExternalDocumentArray) Last() (v DecryptedMessageMediaExternalDocument, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaExternalDocumentArray) PopFirst() (v DecryptedMessageMediaExternalDocument, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DecryptedMessageMediaExternalDocument
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaExternalDocumentArray) Pop() (v DecryptedMessageMediaExternalDocument, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// SortByDate sorts slice of DecryptedMessageMediaExternalDocument by Date.
+func (s DecryptedMessageMediaExternalDocumentArray) SortByDate() DecryptedMessageMediaExternalDocumentArray {
+	return s.Sort(func(a, b DecryptedMessageMediaExternalDocument) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// SortStableByDate sorts slice of DecryptedMessageMediaExternalDocument by Date.
+func (s DecryptedMessageMediaExternalDocumentArray) SortStableByDate() DecryptedMessageMediaExternalDocumentArray {
+	return s.SortStable(func(a, b DecryptedMessageMediaExternalDocument) bool {
+		return a.GetDate() < b.GetDate()
+	})
+}
+
+// DecryptedMessageMediaPhotoArray is adapter for slice of DecryptedMessageMediaPhoto.
+type DecryptedMessageMediaPhotoArray []DecryptedMessageMediaPhoto
+
+// Sort sorts slice of DecryptedMessageMediaPhoto.
+func (s DecryptedMessageMediaPhotoArray) Sort(less func(a, b DecryptedMessageMediaPhoto) bool) DecryptedMessageMediaPhotoArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageMediaPhoto.
+func (s DecryptedMessageMediaPhotoArray) SortStable(less func(a, b DecryptedMessageMediaPhoto) bool) DecryptedMessageMediaPhotoArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageMediaPhoto.
+func (s DecryptedMessageMediaPhotoArray) Retain(keep func(x DecryptedMessageMediaPhoto) bool) DecryptedMessageMediaPhotoArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageMediaPhotoArray) First() (v DecryptedMessageMediaPhoto, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageMediaPhotoArray) Last() (v DecryptedMessageMediaPhoto, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaPhotoArray) PopFirst() (v DecryptedMessageMediaPhoto, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DecryptedMessageMediaPhoto
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaPhotoArray) Pop() (v DecryptedMessageMediaPhoto, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DecryptedMessageMediaVideoArray is adapter for slice of DecryptedMessageMediaVideo.
+type DecryptedMessageMediaVideoArray []DecryptedMessageMediaVideo
+
+// Sort sorts slice of DecryptedMessageMediaVideo.
+func (s DecryptedMessageMediaVideoArray) Sort(less func(a, b DecryptedMessageMediaVideo) bool) DecryptedMessageMediaVideoArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageMediaVideo.
+func (s DecryptedMessageMediaVideoArray) SortStable(less func(a, b DecryptedMessageMediaVideo) bool) DecryptedMessageMediaVideoArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageMediaVideo.
+func (s DecryptedMessageMediaVideoArray) Retain(keep func(x DecryptedMessageMediaVideo) bool) DecryptedMessageMediaVideoArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageMediaVideoArray) First() (v DecryptedMessageMediaVideo, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageMediaVideoArray) Last() (v DecryptedMessageMediaVideo, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaVideoArray) PopFirst() (v DecryptedMessageMediaVideo, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DecryptedMessageMediaVideo
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaVideoArray) Pop() (v DecryptedMessageMediaVideo, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DecryptedMessageMediaDocumentArray is adapter for slice of DecryptedMessageMediaDocument.
+type DecryptedMessageMediaDocumentArray []DecryptedMessageMediaDocument
+
+// Sort sorts slice of DecryptedMessageMediaDocument.
+func (s DecryptedMessageMediaDocumentArray) Sort(less func(a, b DecryptedMessageMediaDocument) bool) DecryptedMessageMediaDocumentArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageMediaDocument.
+func (s DecryptedMessageMediaDocumentArray) SortStable(less func(a, b DecryptedMessageMediaDocument) bool) DecryptedMessageMediaDocumentArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageMediaDocument.
+func (s DecryptedMessageMediaDocumentArray) Retain(keep func(x DecryptedMessageMediaDocument) bool) DecryptedMessageMediaDocumentArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageMediaDocumentArray) First() (v DecryptedMessageMediaDocument, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageMediaDocumentArray) Last() (v DecryptedMessageMediaDocument, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaDocumentArray) PopFirst() (v DecryptedMessageMediaDocument, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DecryptedMessageMediaDocument
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaDocumentArray) Pop() (v DecryptedMessageMediaDocument, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DecryptedMessageMediaVenueArray is adapter for slice of DecryptedMessageMediaVenue.
+type DecryptedMessageMediaVenueArray []DecryptedMessageMediaVenue
+
+// Sort sorts slice of DecryptedMessageMediaVenue.
+func (s DecryptedMessageMediaVenueArray) Sort(less func(a, b DecryptedMessageMediaVenue) bool) DecryptedMessageMediaVenueArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageMediaVenue.
+func (s DecryptedMessageMediaVenueArray) SortStable(less func(a, b DecryptedMessageMediaVenue) bool) DecryptedMessageMediaVenueArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageMediaVenue.
+func (s DecryptedMessageMediaVenueArray) Retain(keep func(x DecryptedMessageMediaVenue) bool) DecryptedMessageMediaVenueArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageMediaVenueArray) First() (v DecryptedMessageMediaVenue, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageMediaVenueArray) Last() (v DecryptedMessageMediaVenue, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaVenueArray) PopFirst() (v DecryptedMessageMediaVenue, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DecryptedMessageMediaVenue
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaVenueArray) Pop() (v DecryptedMessageMediaVenue, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DecryptedMessageMediaWebPageArray is adapter for slice of DecryptedMessageMediaWebPage.
+type DecryptedMessageMediaWebPageArray []DecryptedMessageMediaWebPage
+
+// Sort sorts slice of DecryptedMessageMediaWebPage.
+func (s DecryptedMessageMediaWebPageArray) Sort(less func(a, b DecryptedMessageMediaWebPage) bool) DecryptedMessageMediaWebPageArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageMediaWebPage.
+func (s DecryptedMessageMediaWebPageArray) SortStable(less func(a, b DecryptedMessageMediaWebPage) bool) DecryptedMessageMediaWebPageArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageMediaWebPage.
+func (s DecryptedMessageMediaWebPageArray) Retain(keep func(x DecryptedMessageMediaWebPage) bool) DecryptedMessageMediaWebPageArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageMediaWebPageArray) First() (v DecryptedMessageMediaWebPage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageMediaWebPageArray) Last() (v DecryptedMessageMediaWebPage, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaWebPageArray) PopFirst() (v DecryptedMessageMediaWebPage, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DecryptedMessageMediaWebPage
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageMediaWebPageArray) Pop() (v DecryptedMessageMediaWebPage, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

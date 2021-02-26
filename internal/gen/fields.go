@@ -8,6 +8,16 @@ func optionalField(_ structDef, f fieldDef) bool {
 	return f.Conditional || f.Type == "string" && f.Name == "ThumbSize"
 }
 
+func hasField(fields []fieldDef, name, typ string) bool {
+	for _, f := range fields {
+		if f.Name == name && f.Type == typ {
+			return true
+		}
+	}
+
+	return false
+}
+
 func mappableFields(constructor, to structDef) (constructorMapping, bool) {
 	var r []fieldPair
 	mapped := map[string]struct{}{}
@@ -97,4 +107,14 @@ func filterFields(a []fieldDef, filter func(def fieldDef) bool) []fieldDef {
 	a = a[:n]
 
 	return a
+}
+
+func filterFieldsTo(a, b []fieldDef, filter func(def fieldDef) bool) []fieldDef {
+	for _, f := range a {
+		if filter(f) {
+			b = append(b, f)
+		}
+	}
+
+	return b
 }

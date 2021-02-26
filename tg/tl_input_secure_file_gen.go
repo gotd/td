@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // InputSecureFileUploaded represents TL type `inputSecureFileUploaded#3334b0f0`.
 // Uploaded secure file, for more info see the passport docs »¹
@@ -410,11 +412,41 @@ func (b *InputSecureFileBox) Encode(buf *bin.Buffer) error {
 	return b.InputSecureFile.Encode(buf)
 }
 
-// InputSecureFileClassSlice is adapter for slice of InputSecureFileClass.
-type InputSecureFileClassSlice []InputSecureFileClass
+// InputSecureFileClassArray is adapter for slice of InputSecureFileClass.
+type InputSecureFileClassArray []InputSecureFileClass
+
+// Sort sorts slice of InputSecureFileClass.
+func (s InputSecureFileClassArray) Sort(less func(a, b InputSecureFileClass) bool) InputSecureFileClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputSecureFileClass.
+func (s InputSecureFileClassArray) SortStable(less func(a, b InputSecureFileClass) bool) InputSecureFileClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputSecureFileClass.
+func (s InputSecureFileClassArray) Retain(keep func(x InputSecureFileClass) bool) InputSecureFileClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s InputSecureFileClassSlice) First() (v InputSecureFileClass, ok bool) {
+func (s InputSecureFileClassArray) First() (v InputSecureFileClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -422,7 +454,7 @@ func (s InputSecureFileClassSlice) First() (v InputSecureFileClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s InputSecureFileClassSlice) Last() (v InputSecureFileClass, ok bool) {
+func (s InputSecureFileClassArray) Last() (v InputSecureFileClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -430,7 +462,7 @@ func (s InputSecureFileClassSlice) Last() (v InputSecureFileClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputSecureFileClassSlice) PopFirst() (v InputSecureFileClass, ok bool) {
+func (s *InputSecureFileClassArray) PopFirst() (v InputSecureFileClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -440,7 +472,8 @@ func (s *InputSecureFileClassSlice) PopFirst() (v InputSecureFileClass, ok bool)
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero InputSecureFileClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -448,7 +481,197 @@ func (s *InputSecureFileClassSlice) PopFirst() (v InputSecureFileClass, ok bool)
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *InputSecureFileClassSlice) Pop() (v InputSecureFileClass, ok bool) {
+func (s *InputSecureFileClassArray) Pop() (v InputSecureFileClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsInputSecureFileUploaded returns copy with only InputSecureFileUploaded constructors.
+func (s InputSecureFileClassArray) AsInputSecureFileUploaded() (to InputSecureFileUploadedArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputSecureFileUploaded)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputSecureFile returns copy with only InputSecureFile constructors.
+func (s InputSecureFileClassArray) AsInputSecureFile() (to InputSecureFileArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputSecureFile)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// InputSecureFileUploadedArray is adapter for slice of InputSecureFileUploaded.
+type InputSecureFileUploadedArray []InputSecureFileUploaded
+
+// Sort sorts slice of InputSecureFileUploaded.
+func (s InputSecureFileUploadedArray) Sort(less func(a, b InputSecureFileUploaded) bool) InputSecureFileUploadedArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputSecureFileUploaded.
+func (s InputSecureFileUploadedArray) SortStable(less func(a, b InputSecureFileUploaded) bool) InputSecureFileUploadedArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputSecureFileUploaded.
+func (s InputSecureFileUploadedArray) Retain(keep func(x InputSecureFileUploaded) bool) InputSecureFileUploadedArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputSecureFileUploadedArray) First() (v InputSecureFileUploaded, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputSecureFileUploadedArray) Last() (v InputSecureFileUploaded, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputSecureFileUploadedArray) PopFirst() (v InputSecureFileUploaded, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputSecureFileUploaded
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputSecureFileUploadedArray) Pop() (v InputSecureFileUploaded, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputSecureFileArray is adapter for slice of InputSecureFile.
+type InputSecureFileArray []InputSecureFile
+
+// Sort sorts slice of InputSecureFile.
+func (s InputSecureFileArray) Sort(less func(a, b InputSecureFile) bool) InputSecureFileArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputSecureFile.
+func (s InputSecureFileArray) SortStable(less func(a, b InputSecureFile) bool) InputSecureFileArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputSecureFile.
+func (s InputSecureFileArray) Retain(keep func(x InputSecureFile) bool) InputSecureFileArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputSecureFileArray) First() (v InputSecureFile, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputSecureFileArray) Last() (v InputSecureFile, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputSecureFileArray) PopFirst() (v InputSecureFile, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputSecureFile
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputSecureFileArray) Pop() (v InputSecureFile, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

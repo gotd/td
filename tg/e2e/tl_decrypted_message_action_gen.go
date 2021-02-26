@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // DecryptedMessageActionSetMessageTTL represents TL type `decryptedMessageActionSetMessageTTL#a1733aec`.
 //
@@ -1493,11 +1495,41 @@ func (b *DecryptedMessageActionBox) Encode(buf *bin.Buffer) error {
 	return b.DecryptedMessageAction.Encode(buf)
 }
 
-// DecryptedMessageActionClassSlice is adapter for slice of DecryptedMessageActionClass.
-type DecryptedMessageActionClassSlice []DecryptedMessageActionClass
+// DecryptedMessageActionClassArray is adapter for slice of DecryptedMessageActionClass.
+type DecryptedMessageActionClassArray []DecryptedMessageActionClass
+
+// Sort sorts slice of DecryptedMessageActionClass.
+func (s DecryptedMessageActionClassArray) Sort(less func(a, b DecryptedMessageActionClass) bool) DecryptedMessageActionClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageActionClass.
+func (s DecryptedMessageActionClassArray) SortStable(less func(a, b DecryptedMessageActionClass) bool) DecryptedMessageActionClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageActionClass.
+func (s DecryptedMessageActionClassArray) Retain(keep func(x DecryptedMessageActionClass) bool) DecryptedMessageActionClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
 
 // First returns first element of slice (if exists).
-func (s DecryptedMessageActionClassSlice) First() (v DecryptedMessageActionClass, ok bool) {
+func (s DecryptedMessageActionClassArray) First() (v DecryptedMessageActionClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1505,7 +1537,7 @@ func (s DecryptedMessageActionClassSlice) First() (v DecryptedMessageActionClass
 }
 
 // Last returns last element of slice (if exists).
-func (s DecryptedMessageActionClassSlice) Last() (v DecryptedMessageActionClass, ok bool) {
+func (s DecryptedMessageActionClassArray) Last() (v DecryptedMessageActionClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1513,7 +1545,7 @@ func (s DecryptedMessageActionClassSlice) Last() (v DecryptedMessageActionClass,
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *DecryptedMessageActionClassSlice) PopFirst() (v DecryptedMessageActionClass, ok bool) {
+func (s *DecryptedMessageActionClassArray) PopFirst() (v DecryptedMessageActionClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1523,7 +1555,8 @@ func (s *DecryptedMessageActionClassSlice) PopFirst() (v DecryptedMessageActionC
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero DecryptedMessageActionClass
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -1531,7 +1564,1052 @@ func (s *DecryptedMessageActionClassSlice) PopFirst() (v DecryptedMessageActionC
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *DecryptedMessageActionClassSlice) Pop() (v DecryptedMessageActionClass, ok bool) {
+func (s *DecryptedMessageActionClassArray) Pop() (v DecryptedMessageActionClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsDecryptedMessageActionSetMessageTTL returns copy with only DecryptedMessageActionSetMessageTTL constructors.
+func (s DecryptedMessageActionClassArray) AsDecryptedMessageActionSetMessageTTL() (to DecryptedMessageActionSetMessageTTLArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DecryptedMessageActionSetMessageTTL)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDecryptedMessageActionReadMessages returns copy with only DecryptedMessageActionReadMessages constructors.
+func (s DecryptedMessageActionClassArray) AsDecryptedMessageActionReadMessages() (to DecryptedMessageActionReadMessagesArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DecryptedMessageActionReadMessages)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDecryptedMessageActionDeleteMessages returns copy with only DecryptedMessageActionDeleteMessages constructors.
+func (s DecryptedMessageActionClassArray) AsDecryptedMessageActionDeleteMessages() (to DecryptedMessageActionDeleteMessagesArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DecryptedMessageActionDeleteMessages)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDecryptedMessageActionScreenshotMessages returns copy with only DecryptedMessageActionScreenshotMessages constructors.
+func (s DecryptedMessageActionClassArray) AsDecryptedMessageActionScreenshotMessages() (to DecryptedMessageActionScreenshotMessagesArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DecryptedMessageActionScreenshotMessages)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDecryptedMessageActionResend returns copy with only DecryptedMessageActionResend constructors.
+func (s DecryptedMessageActionClassArray) AsDecryptedMessageActionResend() (to DecryptedMessageActionResendArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DecryptedMessageActionResend)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDecryptedMessageActionNotifyLayer returns copy with only DecryptedMessageActionNotifyLayer constructors.
+func (s DecryptedMessageActionClassArray) AsDecryptedMessageActionNotifyLayer() (to DecryptedMessageActionNotifyLayerArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DecryptedMessageActionNotifyLayer)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDecryptedMessageActionTyping returns copy with only DecryptedMessageActionTyping constructors.
+func (s DecryptedMessageActionClassArray) AsDecryptedMessageActionTyping() (to DecryptedMessageActionTypingArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DecryptedMessageActionTyping)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDecryptedMessageActionRequestKey returns copy with only DecryptedMessageActionRequestKey constructors.
+func (s DecryptedMessageActionClassArray) AsDecryptedMessageActionRequestKey() (to DecryptedMessageActionRequestKeyArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DecryptedMessageActionRequestKey)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDecryptedMessageActionAcceptKey returns copy with only DecryptedMessageActionAcceptKey constructors.
+func (s DecryptedMessageActionClassArray) AsDecryptedMessageActionAcceptKey() (to DecryptedMessageActionAcceptKeyArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DecryptedMessageActionAcceptKey)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDecryptedMessageActionAbortKey returns copy with only DecryptedMessageActionAbortKey constructors.
+func (s DecryptedMessageActionClassArray) AsDecryptedMessageActionAbortKey() (to DecryptedMessageActionAbortKeyArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DecryptedMessageActionAbortKey)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsDecryptedMessageActionCommitKey returns copy with only DecryptedMessageActionCommitKey constructors.
+func (s DecryptedMessageActionClassArray) AsDecryptedMessageActionCommitKey() (to DecryptedMessageActionCommitKeyArray) {
+	for _, elem := range s {
+		value, ok := elem.(*DecryptedMessageActionCommitKey)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// DecryptedMessageActionSetMessageTTLArray is adapter for slice of DecryptedMessageActionSetMessageTTL.
+type DecryptedMessageActionSetMessageTTLArray []DecryptedMessageActionSetMessageTTL
+
+// Sort sorts slice of DecryptedMessageActionSetMessageTTL.
+func (s DecryptedMessageActionSetMessageTTLArray) Sort(less func(a, b DecryptedMessageActionSetMessageTTL) bool) DecryptedMessageActionSetMessageTTLArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageActionSetMessageTTL.
+func (s DecryptedMessageActionSetMessageTTLArray) SortStable(less func(a, b DecryptedMessageActionSetMessageTTL) bool) DecryptedMessageActionSetMessageTTLArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageActionSetMessageTTL.
+func (s DecryptedMessageActionSetMessageTTLArray) Retain(keep func(x DecryptedMessageActionSetMessageTTL) bool) DecryptedMessageActionSetMessageTTLArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageActionSetMessageTTLArray) First() (v DecryptedMessageActionSetMessageTTL, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageActionSetMessageTTLArray) Last() (v DecryptedMessageActionSetMessageTTL, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageActionSetMessageTTLArray) PopFirst() (v DecryptedMessageActionSetMessageTTL, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DecryptedMessageActionSetMessageTTL
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageActionSetMessageTTLArray) Pop() (v DecryptedMessageActionSetMessageTTL, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DecryptedMessageActionReadMessagesArray is adapter for slice of DecryptedMessageActionReadMessages.
+type DecryptedMessageActionReadMessagesArray []DecryptedMessageActionReadMessages
+
+// Sort sorts slice of DecryptedMessageActionReadMessages.
+func (s DecryptedMessageActionReadMessagesArray) Sort(less func(a, b DecryptedMessageActionReadMessages) bool) DecryptedMessageActionReadMessagesArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageActionReadMessages.
+func (s DecryptedMessageActionReadMessagesArray) SortStable(less func(a, b DecryptedMessageActionReadMessages) bool) DecryptedMessageActionReadMessagesArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageActionReadMessages.
+func (s DecryptedMessageActionReadMessagesArray) Retain(keep func(x DecryptedMessageActionReadMessages) bool) DecryptedMessageActionReadMessagesArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageActionReadMessagesArray) First() (v DecryptedMessageActionReadMessages, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageActionReadMessagesArray) Last() (v DecryptedMessageActionReadMessages, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageActionReadMessagesArray) PopFirst() (v DecryptedMessageActionReadMessages, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DecryptedMessageActionReadMessages
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageActionReadMessagesArray) Pop() (v DecryptedMessageActionReadMessages, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DecryptedMessageActionDeleteMessagesArray is adapter for slice of DecryptedMessageActionDeleteMessages.
+type DecryptedMessageActionDeleteMessagesArray []DecryptedMessageActionDeleteMessages
+
+// Sort sorts slice of DecryptedMessageActionDeleteMessages.
+func (s DecryptedMessageActionDeleteMessagesArray) Sort(less func(a, b DecryptedMessageActionDeleteMessages) bool) DecryptedMessageActionDeleteMessagesArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageActionDeleteMessages.
+func (s DecryptedMessageActionDeleteMessagesArray) SortStable(less func(a, b DecryptedMessageActionDeleteMessages) bool) DecryptedMessageActionDeleteMessagesArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageActionDeleteMessages.
+func (s DecryptedMessageActionDeleteMessagesArray) Retain(keep func(x DecryptedMessageActionDeleteMessages) bool) DecryptedMessageActionDeleteMessagesArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageActionDeleteMessagesArray) First() (v DecryptedMessageActionDeleteMessages, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageActionDeleteMessagesArray) Last() (v DecryptedMessageActionDeleteMessages, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageActionDeleteMessagesArray) PopFirst() (v DecryptedMessageActionDeleteMessages, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DecryptedMessageActionDeleteMessages
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageActionDeleteMessagesArray) Pop() (v DecryptedMessageActionDeleteMessages, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DecryptedMessageActionScreenshotMessagesArray is adapter for slice of DecryptedMessageActionScreenshotMessages.
+type DecryptedMessageActionScreenshotMessagesArray []DecryptedMessageActionScreenshotMessages
+
+// Sort sorts slice of DecryptedMessageActionScreenshotMessages.
+func (s DecryptedMessageActionScreenshotMessagesArray) Sort(less func(a, b DecryptedMessageActionScreenshotMessages) bool) DecryptedMessageActionScreenshotMessagesArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageActionScreenshotMessages.
+func (s DecryptedMessageActionScreenshotMessagesArray) SortStable(less func(a, b DecryptedMessageActionScreenshotMessages) bool) DecryptedMessageActionScreenshotMessagesArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageActionScreenshotMessages.
+func (s DecryptedMessageActionScreenshotMessagesArray) Retain(keep func(x DecryptedMessageActionScreenshotMessages) bool) DecryptedMessageActionScreenshotMessagesArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageActionScreenshotMessagesArray) First() (v DecryptedMessageActionScreenshotMessages, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageActionScreenshotMessagesArray) Last() (v DecryptedMessageActionScreenshotMessages, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageActionScreenshotMessagesArray) PopFirst() (v DecryptedMessageActionScreenshotMessages, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DecryptedMessageActionScreenshotMessages
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageActionScreenshotMessagesArray) Pop() (v DecryptedMessageActionScreenshotMessages, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DecryptedMessageActionResendArray is adapter for slice of DecryptedMessageActionResend.
+type DecryptedMessageActionResendArray []DecryptedMessageActionResend
+
+// Sort sorts slice of DecryptedMessageActionResend.
+func (s DecryptedMessageActionResendArray) Sort(less func(a, b DecryptedMessageActionResend) bool) DecryptedMessageActionResendArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageActionResend.
+func (s DecryptedMessageActionResendArray) SortStable(less func(a, b DecryptedMessageActionResend) bool) DecryptedMessageActionResendArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageActionResend.
+func (s DecryptedMessageActionResendArray) Retain(keep func(x DecryptedMessageActionResend) bool) DecryptedMessageActionResendArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageActionResendArray) First() (v DecryptedMessageActionResend, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageActionResendArray) Last() (v DecryptedMessageActionResend, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageActionResendArray) PopFirst() (v DecryptedMessageActionResend, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DecryptedMessageActionResend
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageActionResendArray) Pop() (v DecryptedMessageActionResend, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DecryptedMessageActionNotifyLayerArray is adapter for slice of DecryptedMessageActionNotifyLayer.
+type DecryptedMessageActionNotifyLayerArray []DecryptedMessageActionNotifyLayer
+
+// Sort sorts slice of DecryptedMessageActionNotifyLayer.
+func (s DecryptedMessageActionNotifyLayerArray) Sort(less func(a, b DecryptedMessageActionNotifyLayer) bool) DecryptedMessageActionNotifyLayerArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageActionNotifyLayer.
+func (s DecryptedMessageActionNotifyLayerArray) SortStable(less func(a, b DecryptedMessageActionNotifyLayer) bool) DecryptedMessageActionNotifyLayerArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageActionNotifyLayer.
+func (s DecryptedMessageActionNotifyLayerArray) Retain(keep func(x DecryptedMessageActionNotifyLayer) bool) DecryptedMessageActionNotifyLayerArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageActionNotifyLayerArray) First() (v DecryptedMessageActionNotifyLayer, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageActionNotifyLayerArray) Last() (v DecryptedMessageActionNotifyLayer, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageActionNotifyLayerArray) PopFirst() (v DecryptedMessageActionNotifyLayer, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DecryptedMessageActionNotifyLayer
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageActionNotifyLayerArray) Pop() (v DecryptedMessageActionNotifyLayer, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DecryptedMessageActionTypingArray is adapter for slice of DecryptedMessageActionTyping.
+type DecryptedMessageActionTypingArray []DecryptedMessageActionTyping
+
+// Sort sorts slice of DecryptedMessageActionTyping.
+func (s DecryptedMessageActionTypingArray) Sort(less func(a, b DecryptedMessageActionTyping) bool) DecryptedMessageActionTypingArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageActionTyping.
+func (s DecryptedMessageActionTypingArray) SortStable(less func(a, b DecryptedMessageActionTyping) bool) DecryptedMessageActionTypingArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageActionTyping.
+func (s DecryptedMessageActionTypingArray) Retain(keep func(x DecryptedMessageActionTyping) bool) DecryptedMessageActionTypingArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageActionTypingArray) First() (v DecryptedMessageActionTyping, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageActionTypingArray) Last() (v DecryptedMessageActionTyping, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageActionTypingArray) PopFirst() (v DecryptedMessageActionTyping, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DecryptedMessageActionTyping
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageActionTypingArray) Pop() (v DecryptedMessageActionTyping, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DecryptedMessageActionRequestKeyArray is adapter for slice of DecryptedMessageActionRequestKey.
+type DecryptedMessageActionRequestKeyArray []DecryptedMessageActionRequestKey
+
+// Sort sorts slice of DecryptedMessageActionRequestKey.
+func (s DecryptedMessageActionRequestKeyArray) Sort(less func(a, b DecryptedMessageActionRequestKey) bool) DecryptedMessageActionRequestKeyArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageActionRequestKey.
+func (s DecryptedMessageActionRequestKeyArray) SortStable(less func(a, b DecryptedMessageActionRequestKey) bool) DecryptedMessageActionRequestKeyArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageActionRequestKey.
+func (s DecryptedMessageActionRequestKeyArray) Retain(keep func(x DecryptedMessageActionRequestKey) bool) DecryptedMessageActionRequestKeyArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageActionRequestKeyArray) First() (v DecryptedMessageActionRequestKey, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageActionRequestKeyArray) Last() (v DecryptedMessageActionRequestKey, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageActionRequestKeyArray) PopFirst() (v DecryptedMessageActionRequestKey, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DecryptedMessageActionRequestKey
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageActionRequestKeyArray) Pop() (v DecryptedMessageActionRequestKey, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DecryptedMessageActionAcceptKeyArray is adapter for slice of DecryptedMessageActionAcceptKey.
+type DecryptedMessageActionAcceptKeyArray []DecryptedMessageActionAcceptKey
+
+// Sort sorts slice of DecryptedMessageActionAcceptKey.
+func (s DecryptedMessageActionAcceptKeyArray) Sort(less func(a, b DecryptedMessageActionAcceptKey) bool) DecryptedMessageActionAcceptKeyArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageActionAcceptKey.
+func (s DecryptedMessageActionAcceptKeyArray) SortStable(less func(a, b DecryptedMessageActionAcceptKey) bool) DecryptedMessageActionAcceptKeyArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageActionAcceptKey.
+func (s DecryptedMessageActionAcceptKeyArray) Retain(keep func(x DecryptedMessageActionAcceptKey) bool) DecryptedMessageActionAcceptKeyArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageActionAcceptKeyArray) First() (v DecryptedMessageActionAcceptKey, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageActionAcceptKeyArray) Last() (v DecryptedMessageActionAcceptKey, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageActionAcceptKeyArray) PopFirst() (v DecryptedMessageActionAcceptKey, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DecryptedMessageActionAcceptKey
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageActionAcceptKeyArray) Pop() (v DecryptedMessageActionAcceptKey, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DecryptedMessageActionAbortKeyArray is adapter for slice of DecryptedMessageActionAbortKey.
+type DecryptedMessageActionAbortKeyArray []DecryptedMessageActionAbortKey
+
+// Sort sorts slice of DecryptedMessageActionAbortKey.
+func (s DecryptedMessageActionAbortKeyArray) Sort(less func(a, b DecryptedMessageActionAbortKey) bool) DecryptedMessageActionAbortKeyArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageActionAbortKey.
+func (s DecryptedMessageActionAbortKeyArray) SortStable(less func(a, b DecryptedMessageActionAbortKey) bool) DecryptedMessageActionAbortKeyArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageActionAbortKey.
+func (s DecryptedMessageActionAbortKeyArray) Retain(keep func(x DecryptedMessageActionAbortKey) bool) DecryptedMessageActionAbortKeyArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageActionAbortKeyArray) First() (v DecryptedMessageActionAbortKey, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageActionAbortKeyArray) Last() (v DecryptedMessageActionAbortKey, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageActionAbortKeyArray) PopFirst() (v DecryptedMessageActionAbortKey, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DecryptedMessageActionAbortKey
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageActionAbortKeyArray) Pop() (v DecryptedMessageActionAbortKey, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// DecryptedMessageActionCommitKeyArray is adapter for slice of DecryptedMessageActionCommitKey.
+type DecryptedMessageActionCommitKeyArray []DecryptedMessageActionCommitKey
+
+// Sort sorts slice of DecryptedMessageActionCommitKey.
+func (s DecryptedMessageActionCommitKeyArray) Sort(less func(a, b DecryptedMessageActionCommitKey) bool) DecryptedMessageActionCommitKeyArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of DecryptedMessageActionCommitKey.
+func (s DecryptedMessageActionCommitKeyArray) SortStable(less func(a, b DecryptedMessageActionCommitKey) bool) DecryptedMessageActionCommitKeyArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of DecryptedMessageActionCommitKey.
+func (s DecryptedMessageActionCommitKeyArray) Retain(keep func(x DecryptedMessageActionCommitKey) bool) DecryptedMessageActionCommitKeyArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s DecryptedMessageActionCommitKeyArray) First() (v DecryptedMessageActionCommitKey, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s DecryptedMessageActionCommitKeyArray) Last() (v DecryptedMessageActionCommitKey, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *DecryptedMessageActionCommitKeyArray) PopFirst() (v DecryptedMessageActionCommitKey, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero DecryptedMessageActionCommitKey
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *DecryptedMessageActionCommitKeyArray) Pop() (v DecryptedMessageActionCommitKey, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // HelpRecentMeUrls represents TL type `help.recentMeUrls#e0310d7`.
 // Recent t.me URLs
@@ -124,9 +126,9 @@ func (r *HelpRecentMeUrls) GetUrls() (value []RecentMeUrlClass) {
 	return r.Urls
 }
 
-// MapUrls returns field Urls wrapped in RecentMeUrlClassSlice helper.
-func (r *HelpRecentMeUrls) MapUrls() (value RecentMeUrlClassSlice) {
-	return RecentMeUrlClassSlice(r.Urls)
+// MapUrls returns field Urls wrapped in RecentMeUrlClassArray helper.
+func (r *HelpRecentMeUrls) MapUrls() (value RecentMeUrlClassArray) {
+	return RecentMeUrlClassArray(r.Urls)
 }
 
 // GetChats returns value of Chats field.
@@ -134,9 +136,9 @@ func (r *HelpRecentMeUrls) GetChats() (value []ChatClass) {
 	return r.Chats
 }
 
-// MapChats returns field Chats wrapped in ChatClassSlice helper.
-func (r *HelpRecentMeUrls) MapChats() (value ChatClassSlice) {
-	return ChatClassSlice(r.Chats)
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (r *HelpRecentMeUrls) MapChats() (value ChatClassArray) {
+	return ChatClassArray(r.Chats)
 }
 
 // GetUsers returns value of Users field.
@@ -144,9 +146,9 @@ func (r *HelpRecentMeUrls) GetUsers() (value []UserClass) {
 	return r.Users
 }
 
-// MapUsers returns field Users wrapped in UserClassSlice helper.
-func (r *HelpRecentMeUrls) MapUsers() (value UserClassSlice) {
-	return UserClassSlice(r.Users)
+// MapUsers returns field Users wrapped in UserClassArray helper.
+func (r *HelpRecentMeUrls) MapUsers() (value UserClassArray) {
+	return UserClassArray(r.Users)
 }
 
 // Decode implements bin.Decoder.

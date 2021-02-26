@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // EncryptedFileEmpty represents TL type `encryptedFileEmpty#c21f497e`.
 // Empty constructor, unexisitng file.
@@ -377,12 +379,104 @@ func (b *EncryptedFileBox) Encode(buf *bin.Buffer) error {
 	return b.EncryptedFile.Encode(buf)
 }
 
-// EncryptedFileClassSlice is adapter for slice of EncryptedFileClass.
-type EncryptedFileClassSlice []EncryptedFileClass
+// EncryptedFileClassArray is adapter for slice of EncryptedFileClass.
+type EncryptedFileClassArray []EncryptedFileClass
+
+// Sort sorts slice of EncryptedFileClass.
+func (s EncryptedFileClassArray) Sort(less func(a, b EncryptedFileClass) bool) EncryptedFileClassArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of EncryptedFileClass.
+func (s EncryptedFileClassArray) SortStable(less func(a, b EncryptedFileClass) bool) EncryptedFileClassArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of EncryptedFileClass.
+func (s EncryptedFileClassArray) Retain(keep func(x EncryptedFileClass) bool) EncryptedFileClassArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s EncryptedFileClassArray) First() (v EncryptedFileClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s EncryptedFileClassArray) Last() (v EncryptedFileClass, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *EncryptedFileClassArray) PopFirst() (v EncryptedFileClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero EncryptedFileClass
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *EncryptedFileClassArray) Pop() (v EncryptedFileClass, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// AsEncryptedFile returns copy with only EncryptedFile constructors.
+func (s EncryptedFileClassArray) AsEncryptedFile() (to EncryptedFileArray) {
+	for _, elem := range s {
+		value, ok := elem.(*EncryptedFile)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
 
 // AppendOnlyNotEmpty appends only NotEmpty constructors to
 // given slice.
-func (s EncryptedFileClassSlice) AppendOnlyNotEmpty(to []*EncryptedFile) []*EncryptedFile {
+func (s EncryptedFileClassArray) AppendOnlyNotEmpty(to []*EncryptedFile) []*EncryptedFile {
 	for _, elem := range s {
 		value, ok := elem.AsNotEmpty()
 		if !ok {
@@ -395,12 +489,12 @@ func (s EncryptedFileClassSlice) AppendOnlyNotEmpty(to []*EncryptedFile) []*Encr
 }
 
 // AsNotEmpty returns copy with only NotEmpty constructors.
-func (s EncryptedFileClassSlice) AsNotEmpty() (to []*EncryptedFile) {
+func (s EncryptedFileClassArray) AsNotEmpty() (to []*EncryptedFile) {
 	return s.AppendOnlyNotEmpty(to)
 }
 
 // FirstAsNotEmpty returns first element of slice (if exists).
-func (s EncryptedFileClassSlice) FirstAsNotEmpty() (v *EncryptedFile, ok bool) {
+func (s EncryptedFileClassArray) FirstAsNotEmpty() (v *EncryptedFile, ok bool) {
 	value, ok := s.First()
 	if !ok {
 		return
@@ -409,7 +503,7 @@ func (s EncryptedFileClassSlice) FirstAsNotEmpty() (v *EncryptedFile, ok bool) {
 }
 
 // LastAsNotEmpty returns last element of slice (if exists).
-func (s EncryptedFileClassSlice) LastAsNotEmpty() (v *EncryptedFile, ok bool) {
+func (s EncryptedFileClassArray) LastAsNotEmpty() (v *EncryptedFile, ok bool) {
 	value, ok := s.Last()
 	if !ok {
 		return
@@ -418,7 +512,7 @@ func (s EncryptedFileClassSlice) LastAsNotEmpty() (v *EncryptedFile, ok bool) {
 }
 
 // PopFirstAsNotEmpty returns element of slice (if exists).
-func (s *EncryptedFileClassSlice) PopFirstAsNotEmpty() (v *EncryptedFile, ok bool) {
+func (s *EncryptedFileClassArray) PopFirstAsNotEmpty() (v *EncryptedFile, ok bool) {
 	value, ok := s.PopFirst()
 	if !ok {
 		return
@@ -427,7 +521,7 @@ func (s *EncryptedFileClassSlice) PopFirstAsNotEmpty() (v *EncryptedFile, ok boo
 }
 
 // PopAsNotEmpty returns element of slice (if exists).
-func (s *EncryptedFileClassSlice) PopAsNotEmpty() (v *EncryptedFile, ok bool) {
+func (s *EncryptedFileClassArray) PopAsNotEmpty() (v *EncryptedFile, ok bool) {
 	value, ok := s.Pop()
 	if !ok {
 		return
@@ -435,8 +529,41 @@ func (s *EncryptedFileClassSlice) PopAsNotEmpty() (v *EncryptedFile, ok bool) {
 	return value.AsNotEmpty()
 }
 
+// EncryptedFileArray is adapter for slice of EncryptedFile.
+type EncryptedFileArray []EncryptedFile
+
+// Sort sorts slice of EncryptedFile.
+func (s EncryptedFileArray) Sort(less func(a, b EncryptedFile) bool) EncryptedFileArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of EncryptedFile.
+func (s EncryptedFileArray) SortStable(less func(a, b EncryptedFile) bool) EncryptedFileArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of EncryptedFile.
+func (s EncryptedFileArray) Retain(keep func(x EncryptedFile) bool) EncryptedFileArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
 // First returns first element of slice (if exists).
-func (s EncryptedFileClassSlice) First() (v EncryptedFileClass, ok bool) {
+func (s EncryptedFileArray) First() (v EncryptedFile, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -444,7 +571,7 @@ func (s EncryptedFileClassSlice) First() (v EncryptedFileClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s EncryptedFileClassSlice) Last() (v EncryptedFileClass, ok bool) {
+func (s EncryptedFileArray) Last() (v EncryptedFile, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -452,7 +579,7 @@ func (s EncryptedFileClassSlice) Last() (v EncryptedFileClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *EncryptedFileClassSlice) PopFirst() (v EncryptedFileClass, ok bool) {
+func (s *EncryptedFileArray) PopFirst() (v EncryptedFile, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -462,7 +589,8 @@ func (s *EncryptedFileClassSlice) PopFirst() (v EncryptedFileClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	a[len(a)-1] = nil
+	var zero EncryptedFile
+	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
 
@@ -470,7 +598,7 @@ func (s *EncryptedFileClassSlice) PopFirst() (v EncryptedFileClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *EncryptedFileClassSlice) Pop() (v EncryptedFileClass, ok bool) {
+func (s *EncryptedFileArray) Pop() (v EncryptedFile, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

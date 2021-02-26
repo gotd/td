@@ -6,6 +6,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/gotd/td/bin"
@@ -17,6 +18,7 @@ var _ = context.Background()
 var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
+var _ = sort.Ints
 
 // MessagesReceivedMessagesRequest represents TL type `messages.receivedMessages#5a954c0`.
 // Confirms receipt of messages by a client, cancels PUSH-notification sending.
@@ -121,5 +123,5 @@ func (c *Client) MessagesReceivedMessages(ctx context.Context, maxid int) ([]Rec
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}
-	return result.Elems, nil
+	return []ReceivedNotifyMessage(result.Elems), nil
 }
