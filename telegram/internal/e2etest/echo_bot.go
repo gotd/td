@@ -54,7 +54,7 @@ func (m *users) add(list ...tg.UserClass) {
 	m.lock.Lock()
 	defer m.lock.Unlock()
 
-	tg.UserClassSlice(list).FillNotEmptyMap(m.users)
+	tg.UserClassArray(list).FillNotEmptyMap(m.users)
 }
 
 func (m *users) get(id int) (r *tg.User) {
