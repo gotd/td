@@ -4,36 +4,33 @@ import (
 	"context"
 	"errors"
 	"sync/atomic"
+	"time"
 
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/rpc"
 )
 
-func (c *Conn) rpcDo(ctx context.Context, contentMsg bool, in bin.Encoder, out bin.Decoder) error {
+// InvokeRaw sends input and decodes result into output.
+//
+// NOTE: Assuming that call contains content message (seqno increment).
+func (c *Conn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	req := rpc.Request{
-		ID:     c.newMessageID(),
-		Input:  in,
-		Output: out,
+		ID:       c.newMessageID(),
+		Sequence: c.seqNo(true),
+		Input:    input,
+		Output:   output,
 	}
 
 	log := c.log.With(
-		zap.Bool("content_msg", contentMsg),
+		zap.Bool("content_msg", true),
 		zap.Int64("msg_id", req.ID),
 	)
-	log.Debug("rpcDo start")
-	defer log.Debug("rpcDo end")
-
-	c.sentContentMessagesMux.Lock()
-	// Atomically calculating and updating sequence number.
-	req.Sequence = c.sentContentMessages * 2
-	if contentMsg {
-		req.Sequence++
-		c.sentContentMessages++
-	}
-	c.sentContentMessagesMux.Unlock()
+	log.Debug("Invoke start")
+	defer log.Debug("Invoke end")
 
 	if err := c.rpc.Do(ctx, req); err != nil {
 		var badMsgErr *badMessageError
@@ -50,8 +47,24 @@ func (c *Conn) rpcDo(ctx context.Context, contentMsg bool, in bin.Encoder, out b
 	return nil
 }
 
-// rpcContent should be called for RPC requests that require acknowledgement, like
-// content requests (send message, etc).
-func (c *Conn) rpcContent(ctx context.Context, in bin.Encoder, out bin.Decoder) error {
-	return c.rpcDo(ctx, true, in, out)
+func (c *Conn) dropRPC(req rpc.Request) error {
+	var resp mt.RpcDropAnswerBox
+
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
+	defer cancel()
+
+	if err := c.InvokeRaw(ctx, &mt.RPCDropAnswerRequest{
+		ReqMsgID: req.ID,
+	}, &resp); err != nil {
+		return err
+	}
+
+	switch resp.RpcDropAnswer.(type) {
+	case *mt.RPCAnswerDropped, *mt.RPCAnswerDroppedRunning:
+		return nil
+	case *mt.RPCAnswerUnknown:
+		return xerrors.Errorf("unknown request id")
+	default:
+		return xerrors.Errorf("unexpected response type: %T", resp.RpcDropAnswer)
+	}
 }

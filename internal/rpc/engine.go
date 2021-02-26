@@ -17,6 +17,7 @@ import (
 // Engine handles RPC requests.
 type Engine struct {
 	send Send
+	drop DropHandler
 
 	mux sync.Mutex
 	rpc map[int64]func(*bin.Buffer, error) error
@@ -40,6 +41,9 @@ type Send func(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) er
 
 // NopSend does nothing.
 func NopSend(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error { return nil }
+
+// DropHandler handles drop rpc requests.
+type DropHandler func(req Request) error
 
 // New creates new rpc Engine.
 func New(send Send, cfg Options) *Engine {
@@ -176,35 +180,45 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) error {
 		return xerrors.Errorf("send: %w", err)
 	}
 
-	for {
-		select {
-		case <-ctx.Done():
-			return ctx.Err()
-		case <-e.reqCtx.Done():
-			return xerrors.Errorf("engine forcibly closed: %w", e.reqCtx.Err())
-		case <-ackChan:
-			log.Debug("Acknowledged")
-			return nil
-		case <-e.clock.After(e.retryInterval):
-			log.Debug("Acknowledge timed out, performing retry")
-			if err := e.send(ctx, req.ID, req.Sequence, req.Input); err != nil {
-				if errors.Is(err, context.Canceled) {
-					return nil
+	err := func() error {
+		for {
+			select {
+			case <-ctx.Done():
+				return ctx.Err()
+			case <-e.reqCtx.Done():
+				return xerrors.Errorf("engine forcibly closed: %w", e.reqCtx.Err())
+			case <-ackChan:
+				log.Debug("Acknowledged")
+				return nil
+			case <-e.clock.After(e.retryInterval):
+				log.Debug("Acknowledge timed out, performing retry")
+				if err := e.send(ctx, req.ID, req.Sequence, req.Input); err != nil {
+					if errors.Is(err, context.Canceled) {
+						return err
+					}
+
+					log.Error("Retry failed", zap.Error(err))
+					return err
 				}
 
-				log.Error("Retry failed", zap.Error(err))
-				return err
-			}
-
-			retries++
-			if retries >= e.maxRetries {
-				log.Error("Retry limit reached", zap.Int64("msg_id", req.ID))
-				return &RetryLimitReachedErr{
-					Retries: retries,
+				retries++
+				if retries >= e.maxRetries {
+					log.Error("Retry limit reached", zap.Int64("msg_id", req.ID))
+					return &RetryLimitReachedErr{
+						Retries: retries,
+					}
 				}
 			}
 		}
+	}()
+
+	if errors.Is(err, context.Canceled) {
+		if err := e.drop(req); err != nil {
+			log.Error("Failed to drop request", zap.Error(err))
+		}
 	}
+
+	return err
 }
 
 // NotifyResult notifies engine about received RPC response.

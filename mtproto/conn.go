@@ -127,6 +127,7 @@ func New(addr string, opt Options) *Conn {
 			RetryInterval: opt.RetryInterval,
 			MaxRetries:    opt.MaxRetries,
 			Clock:         opt.Clock,
+			DropHandler:   conn.dropRPC,
 		})
 	}
 

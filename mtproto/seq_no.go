@@ -1,11 +1,15 @@
 package mtproto
 
 // seqNo returns current sequence number
-func (c *Conn) seqNo() int32 {
+func (c *Conn) seqNo(content bool) int32 {
 	c.sentContentMessagesMux.Lock()
+	defer c.sentContentMessagesMux.Unlock()
+	
 	current := c.sentContentMessages * 2
-	c.sentContentMessages++
-	c.sentContentMessagesMux.Unlock()
+	if content {
+		current++
+		c.sentContentMessages++
+	}
 
 	return current
 }
