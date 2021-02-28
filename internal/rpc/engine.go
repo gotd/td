@@ -139,7 +139,8 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 	}()
 
 	// Start retrying.
-	if err := e.retryUntilAck(retryCtx, req); err != nil && !errors.Is(err, context.Canceled) {
+	sent, err := e.retryUntilAck(retryCtx, req)
+	if err != nil && !errors.Is(err, context.Canceled) {
 		// If the retryCtx was canceled, then one of two things happened:
 		//   1. User canceled the original context.
 		//   2. The RPC result came and callback canceled retryCtx.
@@ -152,6 +153,14 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 
 	select {
 	case <-ctx.Done():
+		if sent {
+			if err := e.drop(req); err != nil {
+				log.Error("Failed to drop request", zap.Error(err))
+			} else {
+				log.Error("Request dropped")
+			}
+		}
+
 		return ctx.Err()
 	case <-e.reqCtx.Done():
 		return xerrors.Errorf("engine forcibly closed: %w", e.reqCtx.Err())
@@ -164,7 +173,7 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 // acknowledged.
 //
 // Returns nil if acknowledge was received or error otherwise.
-func (e *Engine) retryUntilAck(ctx context.Context, req Request) error {
+func (e *Engine) retryUntilAck(ctx context.Context, req Request) (sent bool, err error) {
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
@@ -178,10 +187,10 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) error {
 
 	// Encoding request.
 	if err := e.send(ctx, req.ID, req.Sequence, req.Input); err != nil {
-		return xerrors.Errorf("send: %w", err)
+		return false, xerrors.Errorf("send: %w", err)
 	}
 
-	err := func() error {
+	loop := func() error {
 		for {
 			select {
 			case <-ctx.Done():
@@ -195,7 +204,7 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) error {
 				log.Debug("Acknowledge timed out, performing retry")
 				if err := e.send(ctx, req.ID, req.Sequence, req.Input); err != nil {
 					if errors.Is(err, context.Canceled) {
-						return err
+						return nil
 					}
 
 					log.Error("Retry failed", zap.Error(err))
@@ -211,15 +220,9 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) error {
 				}
 			}
 		}
-	}()
-
-	if errors.Is(err, context.Canceled) {
-		if err := e.drop(req); err != nil {
-			log.Error("Failed to drop request", zap.Error(err))
-		}
 	}
 
-	return err
+	return true, loop()
 }
 
 // NotifyResult notifies engine about received RPC response.
