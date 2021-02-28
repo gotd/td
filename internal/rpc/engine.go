@@ -60,6 +60,7 @@ func New(send Send, cfg Options) *Engine {
 		ack: map[int64]chan struct{}{},
 
 		send: send,
+		drop: cfg.DropHandler,
 
 		log:           cfg.Logger,
 		maxRetries:    cfg.MaxRetries,

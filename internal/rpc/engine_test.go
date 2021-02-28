@@ -9,6 +9,7 @@ import (
 	"time"
 
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
 	"golang.org/x/net/context"
 	"golang.org/x/sync/errgroup"
@@ -29,9 +30,9 @@ type request struct {
 var defaultNow = testutil.Date()
 
 const (
-	reqID  = 1
-	pingID = 1337
-	seqNo  = 1
+	reqID  int64 = 1
+	pingID int64 = 1337
+	seqNo  int32 = 1
 )
 
 func TestRPCError(t *testing.T) {
@@ -364,6 +365,65 @@ func TestEngineGracefulShutdown(t *testing.T) {
 		RetryInterval: time.Second * 5,
 		MaxRetries:    5,
 		Logger:        log.Named("rpc"),
+	}, server, client)
+}
+
+func TestDropRPC(t *testing.T) {
+	clock := neo.NewTime(defaultNow)
+	log := zaptest.NewLogger(t)
+	serverRecvRequest := make(chan struct{})
+	clientCancelledCtx := make(chan struct{})
+	dropChan := make(chan Request)
+
+	server := func(t *testing.T, e *Engine, incoming <-chan request) error {
+		log := log.Named("server")
+
+		log.Info("Waiting ping request")
+		assert.Equal(t, request{
+			MsgID: reqID,
+			SeqNo: seqNo,
+			Input: &mt.PingRequest{PingID: pingID},
+		}, <-incoming)
+
+		close(serverRecvRequest)
+		<-clientCancelledCtx
+
+		log.Info("Waiting drop request")
+		require.Equal(t, reqID, (<-dropChan).ID)
+		return nil
+	}
+
+	client := func(t *testing.T, e *Engine) error {
+		log := log.Named("client")
+
+		log.Info("Sending ping request")
+
+		ctx, cancel := context.WithCancel(context.Background())
+		defer cancel()
+
+		go func() {
+			<-serverRecvRequest
+			log.Info("Cancelling request context")
+			cancel()
+			close(clientCancelledCtx)
+		}()
+
+		require.ErrorIs(t, e.Do(ctx, Request{
+			ID:       reqID,
+			Sequence: seqNo,
+			Input:    &mt.PingRequest{PingID: pingID},
+			Output:   &mt.Pong{},
+		}), context.Canceled)
+
+		return nil
+	}
+
+	runTest(t, Options{
+		RetryInterval: time.Second * 4,
+		MaxRetries:    2,
+		Clock:         clock,
+		Logger:        log.Named("rpc"),
+		DropHandler:   func(req Request) error { dropChan <- req; return nil },
 	}, server, client)
 }
 
