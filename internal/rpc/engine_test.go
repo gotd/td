@@ -6,7 +6,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
 	"golang.org/x/net/context"
@@ -43,7 +42,7 @@ func TestRPCError(t *testing.T) {
 		log := log.Named("server")
 
 		log.Info("Waiting ping request")
-		assert.Equal(t, request{
+		require.Equal(t, request{
 			MsgID: reqID,
 			SeqNo: seqNo,
 			Input: &mt.PingRequest{PingID: pingID},
@@ -77,7 +76,7 @@ func TestRPCError(t *testing.T) {
 		})
 
 		log.Info("Got pong response")
-		assert.True(t, errors.Is(err, expectedErr), "expected error")
+		require.True(t, errors.Is(err, expectedErr), "expected error")
 
 		return nil
 	}
@@ -99,7 +98,7 @@ func TestRPCResult(t *testing.T) {
 		log := log.Named("server")
 
 		log.Info("Waiting ping request")
-		assert.Equal(t, request{
+		require.Equal(t, request{
 			MsgID: reqID,
 			SeqNo: seqNo,
 			Input: &mt.PingRequest{PingID: pingID},
@@ -130,7 +129,7 @@ func TestRPCResult(t *testing.T) {
 
 		log.Info("Sending ping request")
 		var out mt.Pong
-		assert.NoError(t, e.Do(context.TODO(), Request{
+		require.NoError(t, e.Do(context.TODO(), Request{
 			ID:       reqID,
 			Sequence: seqNo,
 			Input:    &mt.PingRequest{PingID: pingID},
@@ -138,7 +137,7 @@ func TestRPCResult(t *testing.T) {
 		}))
 
 		log.Info("Got pong response")
-		assert.Equal(t, mt.Pong{
+		require.Equal(t, mt.Pong{
 			MsgID:  reqID,
 			PingID: pingID,
 		}, out)
@@ -163,7 +162,7 @@ func TestRPCAckThenResult(t *testing.T) {
 		log := log.Named("server")
 
 		log.Info("Waiting ping request")
-		assert.Equal(t, request{
+		require.Equal(t, request{
 			MsgID: reqID,
 			SeqNo: seqNo,
 			Input: &mt.PingRequest{PingID: pingID},
@@ -199,7 +198,7 @@ func TestRPCAckThenResult(t *testing.T) {
 
 		log.Info("Sending ping request")
 		var out mt.Pong
-		assert.NoError(t, e.Do(context.TODO(), Request{
+		require.NoError(t, e.Do(context.TODO(), Request{
 			ID:       reqID,
 			Sequence: seqNo,
 			Input:    &mt.PingRequest{PingID: pingID},
@@ -207,7 +206,7 @@ func TestRPCAckThenResult(t *testing.T) {
 		}))
 
 		log.Info("Got pong response")
-		assert.Equal(t, mt.Pong{
+		require.Equal(t, mt.Pong{
 			MsgID:  reqID,
 			PingID: pingID,
 		}, out)
@@ -232,7 +231,7 @@ func TestRPCWithRetryResult(t *testing.T) {
 		log := log.Named("server")
 
 		log.Info("Waiting ping request")
-		assert.Equal(t, request{
+		require.Equal(t, request{
 			MsgID: reqID,
 			SeqNo: seqNo,
 			Input: &mt.PingRequest{PingID: pingID},
@@ -247,7 +246,7 @@ func TestRPCWithRetryResult(t *testing.T) {
 		clock.Travel(time.Second * 6)
 
 		log.Info("Waiting re-sending request")
-		assert.Equal(t, request{
+		require.Equal(t, request{
 			MsgID: reqID,
 			SeqNo: seqNo,
 			Input: &mt.PingRequest{PingID: pingID},
@@ -271,7 +270,7 @@ func TestRPCWithRetryResult(t *testing.T) {
 
 		log.Info("Sending ping request")
 		var out mt.Pong
-		assert.NoError(t, e.Do(context.TODO(), Request{
+		require.NoError(t, e.Do(context.TODO(), Request{
 			ID:       1,
 			Sequence: 1,
 			Input:    &mt.PingRequest{PingID: pingID},
@@ -279,7 +278,7 @@ func TestRPCWithRetryResult(t *testing.T) {
 		}))
 
 		log.Info("Got pong response")
-		assert.Equal(t, mt.Pong{
+		require.Equal(t, mt.Pong{
 			MsgID:  reqID,
 			PingID: pingID,
 		}, out)
@@ -337,7 +336,7 @@ func TestEngineGracefulShutdown(t *testing.T) {
 		for i := 0; i < requestsCount; i++ {
 			go func(t *testing.T, msgID int64, seqNo int32) {
 				var out mt.Pong
-				assert.Equal(t, e.Do(context.TODO(), Request{
+				require.Equal(t, e.Do(context.TODO(), Request{
 					ID:       msgID,
 					Sequence: seqNo,
 					Input:    &mt.PingRequest{PingID: pingID},
@@ -377,7 +376,7 @@ func TestDropRPC(t *testing.T) {
 		log := log.Named("server")
 
 		log.Info("Waiting ping request")
-		assert.Equal(t, request{
+		require.Equal(t, request{
 			MsgID: reqID,
 			SeqNo: seqNo,
 			Input: &mt.PingRequest{PingID: pingID},
@@ -456,7 +455,7 @@ func runTest(
 	g.Go(func() error { return server(t, e, requests) })
 	g.Go(func() error { return client(t, e) })
 
-	assert.NoError(t, g.Wait())
+	require.NoError(t, g.Wait())
 	e.Close()
-	assert.NoError(t, cfg.Logger.Sync())
+	require.NoError(t, cfg.Logger.Sync())
 }
