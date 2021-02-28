@@ -21,11 +21,19 @@ func (c *Conn) Ping(ctx context.Context) error {
 		return err
 	}
 
+	pong := c.pong(pingID)
+	defer c.removePong(pingID)
+
 	if err := c.writeServiceMessage(ctx, &mt.PingRequest{PingID: pingID}); err != nil {
 		return xerrors.Errorf("write: %w", err)
 	}
 
-	return c.waitPong(ctx, pingID)
+	select {
+	case <-pong:
+		return nil
+	case <-ctx.Done():
+		return ctx.Err()
+	}
 }
 
 func (c *Conn) handlePong(b *bin.Buffer) error {
@@ -36,10 +44,10 @@ func (c *Conn) handlePong(b *bin.Buffer) error {
 	c.log.Debug("Pong")
 
 	c.pingMux.Lock()
-	f, ok := c.ping[pong.PingID]
+	ch, ok := c.ping[pong.PingID]
 	c.pingMux.Unlock()
 	if ok {
-		f()
+		close(ch)
 	}
 	return nil
 }
@@ -52,6 +60,9 @@ func (c *Conn) pingDelayDisconnect(ctx context.Context, delay int) error {
 		return err
 	}
 
+	pong := c.pong(pingID)
+	defer c.removePong(pingID)
+
 	if err := c.writeServiceMessage(ctx, &mt.PingDelayDisconnectRequest{
 		PingID:          pingID,
 		DisconnectDelay: delay,
@@ -59,33 +70,26 @@ func (c *Conn) pingDelayDisconnect(ctx context.Context, delay int) error {
 		return xerrors.Errorf("write: %w", err)
 	}
 
-	return c.waitPong(ctx, pingID)
-}
-
-func (c *Conn) waitPong(ctx context.Context, pingID int64) error {
-	// Setting ping callback before write.
-	result := make(chan struct{})
-	c.pingMux.Lock()
-	c.ping[pingID] = func() {
-		close(result)
-	}
-	c.pingMux.Unlock()
-
-	defer func() {
-		c.pingMux.Lock()
-		delete(c.ping, pingID)
-		c.pingMux.Unlock()
-	}()
-
-	// Waiting for result.
 	select {
-	case <-result:
-		// Received pong with pingID.
+	case <-pong:
 		return nil
 	case <-ctx.Done():
-		// Something gone really bad.
 		return ctx.Err()
 	}
+}
+
+func (c *Conn) pong(pingID int64) chan struct{} {
+	ch := make(chan struct{})
+	c.pingMux.Lock()
+	c.ping[pingID] = ch
+	c.pingMux.Unlock()
+	return ch
+}
+
+func (c *Conn) removePong(pingID int64) {
+	c.pingMux.Lock()
+	delete(c.ping, pingID)
+	c.pingMux.Unlock()
 }
 
 func (c *Conn) pingLoop(ctx context.Context) error {
