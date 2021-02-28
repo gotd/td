@@ -30,9 +30,9 @@ func (u *DocumentBuilder) Query(query string) *DocumentBuilder {
 	return u
 }
 
-// Apply implements MediaOption.
-func (u *DocumentBuilder) Apply(ctx context.Context, b multiMediaBuilder) error {
-	return Media(&u.doc, u.caption...).Apply(ctx, b)
+// apply implements MediaOption.
+func (u *DocumentBuilder) apply(ctx context.Context, b multiMediaBuilder) error {
+	return Media(&u.doc, u.caption...).apply(ctx, b)
 }
 
 // Document adds doc attachment.
@@ -65,9 +65,9 @@ func (u *DocumentExternalBuilder) TTLSeconds(ttl int) *DocumentExternalBuilder {
 	return u
 }
 
-// Apply implements MediaOption.
-func (u *DocumentExternalBuilder) Apply(ctx context.Context, b multiMediaBuilder) error {
-	return Media(&u.doc, u.caption...).Apply(ctx, b)
+// apply implements MediaOption.
+func (u *DocumentExternalBuilder) apply(ctx context.Context, b multiMediaBuilder) error {
+	return Media(&u.doc, u.caption...).apply(ctx, b)
 }
 
 // DocumentExternal adds document attachment that will be downloaded by the Telegram servers.
@@ -135,9 +135,9 @@ func (u *UploadedDocumentBuilder) TTLSeconds(ttl int) *UploadedDocumentBuilder {
 	return u
 }
 
-// Apply implements MediaOption.
-func (u *UploadedDocumentBuilder) Apply(ctx context.Context, b multiMediaBuilder) error {
-	return Media(&u.doc, u.caption...).Apply(ctx, b)
+// apply implements MediaOption.
+func (u *UploadedDocumentBuilder) apply(ctx context.Context, b multiMediaBuilder) error {
+	return Media(&u.doc, u.caption...).apply(ctx, b)
 }
 
 // UploadedDocument adds document attachment.

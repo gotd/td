@@ -14,14 +14,14 @@ type multiMediaBuilder struct {
 
 // MediaOption is a option for setting media attachments.
 type MediaOption interface {
-	Apply(ctx context.Context, b multiMediaBuilder) error
+	apply(ctx context.Context, b multiMediaBuilder) error
 }
 
 // MediaOptionFunc is a function adapter for MediaOption.
 type MediaOptionFunc func(ctx context.Context, b multiMediaBuilder) error
 
-// Apply implements MediaOption.
-func (m MediaOptionFunc) Apply(ctx context.Context, b multiMediaBuilder) error {
+// apply implements MediaOption.
+func (m MediaOptionFunc) apply(ctx context.Context, b multiMediaBuilder) error {
 	return m(ctx, b)
 }
 
@@ -73,13 +73,13 @@ func (b *Builder) Media(ctx context.Context, media MediaOption, album ...MediaOp
 	}
 	mb := multiMediaBuilder{msg: b}
 
-	if err := media.Apply(ctx, mb); err != nil {
+	if err := media.apply(ctx, mb); err != nil {
 		return xerrors.Errorf("media option: %w", err)
 	}
 
 	if len(album) > 0 {
 		for i, opt := range album {
-			if err := opt.Apply(ctx, mb); err != nil {
+			if err := opt.apply(ctx, mb); err != nil {
 				return xerrors.Errorf("media option %d: %w", i, err)
 			}
 		}
