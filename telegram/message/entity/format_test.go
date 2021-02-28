@@ -1,4 +1,4 @@
-package message
+package entity
 
 import (
 	"testing"
@@ -9,64 +9,74 @@ import (
 )
 
 func TestFormat(t *testing.T) {
+	b := Builder{}
 	t.Run("Mention", func(t *testing.T) {
-		r := FormatMention("abc")[0]
+		_, ent := b.Mention("abc").Complete()
+		r := ent[0]
 		require.Equal(t, &tg.MessageEntityMention{
 			Offset: 0,
 			Length: len("abc"),
 		}, r)
 	})
 	t.Run("Hashtag", func(t *testing.T) {
-		r := FormatHashtag("abc")[0]
+		_, ent := b.Hashtag("abc").Complete()
+		r := ent[0]
 		require.Equal(t, &tg.MessageEntityHashtag{
 			Offset: 0,
 			Length: len("abc"),
 		}, r)
 	})
 	t.Run("BotCommand", func(t *testing.T) {
-		r := FormatBotCommand("abc")[0]
+		_, ent := b.BotCommand("abc").Complete()
+		r := ent[0]
 		require.Equal(t, &tg.MessageEntityBotCommand{
 			Offset: 0,
 			Length: len("abc"),
 		}, r)
 	})
 	t.Run("URL", func(t *testing.T) {
-		r := FormatURL("abc")[0]
+		_, ent := b.URL("abc").Complete()
+		r := ent[0]
 		require.Equal(t, &tg.MessageEntityUrl{
 			Offset: 0,
 			Length: len("abc"),
 		}, r)
 	})
 	t.Run("Email", func(t *testing.T) {
-		r := FormatEmail("abc")[0]
+		_, ent := b.Email("abc").Complete()
+		r := ent[0]
 		require.Equal(t, &tg.MessageEntityEmail{
 			Offset: 0,
 			Length: len("abc"),
 		}, r)
 	})
 	t.Run("Bold", func(t *testing.T) {
-		r := FormatBold("abc")[0]
+		_, ent := b.Bold("abc").Complete()
+		r := ent[0]
 		require.Equal(t, &tg.MessageEntityBold{
 			Offset: 0,
 			Length: len("abc"),
 		}, r)
 	})
 	t.Run("Italic", func(t *testing.T) {
-		r := FormatItalic("abc")[0]
+		_, ent := b.Italic("abc").Complete()
+		r := ent[0]
 		require.Equal(t, &tg.MessageEntityItalic{
 			Offset: 0,
 			Length: len("abc"),
 		}, r)
 	})
 	t.Run("Code", func(t *testing.T) {
-		r := FormatCode("abc")[0]
+		_, ent := b.Code("abc").Complete()
+		r := ent[0]
 		require.Equal(t, &tg.MessageEntityCode{
 			Offset: 0,
 			Length: len("abc"),
 		}, r)
 	})
 	t.Run("Pre", func(t *testing.T) {
-		r := FormatPre("abc", "lang")[0]
+		_, ent := b.Pre("abc", "lang").Complete()
+		r := ent[0]
 		require.Equal(t, &tg.MessageEntityPre{
 			Offset:   0,
 			Length:   len("abc"),
@@ -74,7 +84,8 @@ func TestFormat(t *testing.T) {
 		}, r)
 	})
 	t.Run("TextURL", func(t *testing.T) {
-		r := FormatTextURL("abc", "url")[0]
+		_, ent := b.TextURL("abc", "url").Complete()
+		r := ent[0]
 		require.Equal(t, &tg.MessageEntityTextUrl{
 			Offset: 0,
 			Length: len("abc"),
@@ -82,7 +93,8 @@ func TestFormat(t *testing.T) {
 		}, r)
 	})
 	t.Run("MentionName", func(t *testing.T) {
-		r := FormatMentionName("abc", 1)[0]
+		_, ent := b.MentionName("abc", 1).Complete()
+		r := ent[0]
 		require.Equal(t, &tg.MessageEntityMentionName{
 			Offset: 0,
 			Length: len("abc"),
@@ -90,42 +102,48 @@ func TestFormat(t *testing.T) {
 		}, r)
 	})
 	t.Run("Phone", func(t *testing.T) {
-		r := FormatPhone("abc")[0]
+		_, ent := b.Phone("abc").Complete()
+		r := ent[0]
 		require.Equal(t, &tg.MessageEntityPhone{
 			Offset: 0,
 			Length: len("abc"),
 		}, r)
 	})
 	t.Run("Cashtag", func(t *testing.T) {
-		r := FormatCashtag("abc")[0]
+		_, ent := b.Cashtag("abc").Complete()
+		r := ent[0]
 		require.Equal(t, &tg.MessageEntityCashtag{
 			Offset: 0,
 			Length: len("abc"),
 		}, r)
 	})
 	t.Run("Underline", func(t *testing.T) {
-		r := FormatUnderline("abc")[0]
+		_, ent := b.Underline("abc").Complete()
+		r := ent[0]
 		require.Equal(t, &tg.MessageEntityUnderline{
 			Offset: 0,
 			Length: len("abc"),
 		}, r)
 	})
 	t.Run("Strike", func(t *testing.T) {
-		r := FormatStrike("abc")[0]
+		_, ent := b.Strike("abc").Complete()
+		r := ent[0]
 		require.Equal(t, &tg.MessageEntityStrike{
 			Offset: 0,
 			Length: len("abc"),
 		}, r)
 	})
 	t.Run("Blockquote", func(t *testing.T) {
-		r := FormatBlockquote("abc")[0]
+		_, ent := b.Blockquote("abc").Complete()
+		r := ent[0]
 		require.Equal(t, &tg.MessageEntityBlockquote{
 			Offset: 0,
 			Length: len("abc"),
 		}, r)
 	})
 	t.Run("BankCard", func(t *testing.T) {
-		r := FormatBankCard("abc")[0]
+		_, ent := b.BankCard("abc").Complete()
+		r := ent[0]
 		require.Equal(t, &tg.MessageEntityBankCard{
 			Offset: 0,
 			Length: len("abc"),
