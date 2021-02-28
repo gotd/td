@@ -329,8 +329,8 @@ func TestEngineGracefulShutdown(t *testing.T) {
 
 	client := func(t *testing.T, e *Engine) error {
 		var (
-			msgID int64
-			seqNo int32
+			currMsgID int64
+			currSeqNo int32
 		)
 
 		for i := 0; i < requestsCount; i++ {
@@ -342,10 +342,10 @@ func TestEngineGracefulShutdown(t *testing.T) {
 					Input:    &mt.PingRequest{PingID: pingID},
 					Output:   &out,
 				}), expectedErr)
-			}(t, msgID, seqNo)
+			}(t, currMsgID, currSeqNo)
 
-			msgID++
-			seqNo++
+			currMsgID++
+			currSeqNo++
 		}
 
 		// wait until server receive all requests
@@ -400,7 +400,7 @@ func TestDropRPC(t *testing.T) {
 
 		go func() {
 			<-serverRecvRequest
-			log.Info("Cancelling request context")
+			log.Info("Canceling request context")
 			cancel()
 			close(clientCancelledCtx)
 		}()

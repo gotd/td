@@ -4,7 +4,7 @@ package mtproto
 func (c *Conn) seqNo(content bool) int32 {
 	c.sentContentMessagesMux.Lock()
 	defer c.sentContentMessagesMux.Unlock()
-	
+
 	current := c.sentContentMessages * 2
 	if content {
 		current++
