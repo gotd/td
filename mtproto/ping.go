@@ -45,10 +45,12 @@ func (c *Conn) handlePong(b *bin.Buffer) error {
 
 	c.pingMux.Lock()
 	ch, ok := c.ping[pong.PingID]
-	c.pingMux.Unlock()
 	if ok {
 		close(ch)
+		delete(c.ping, pong.PingID)
 	}
+	c.pingMux.Unlock()
+
 	return nil
 }
 
