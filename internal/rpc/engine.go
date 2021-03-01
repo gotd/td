@@ -155,9 +155,9 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 	case <-ctx.Done():
 		if sent {
 			if err := e.drop(req); err != nil {
-				log.Error("Failed to drop request", zap.Error(err))
+				log.Warn("Failed to drop request", zap.Error(err))
 			} else {
-				log.Error("Request dropped")
+				log.Debug("Request dropped")
 			}
 		}
 
