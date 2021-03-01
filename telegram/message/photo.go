@@ -25,7 +25,7 @@ func (u *PhotoBuilder) TTLSeconds(ttl int) *PhotoBuilder {
 }
 
 // apply implements MediaOption.
-func (u *PhotoBuilder) apply(ctx context.Context, b multiMediaBuilder) error {
+func (u *PhotoBuilder) apply(ctx context.Context, b *multiMediaBuilder) error {
 	return Media(&u.photo, u.caption...).apply(ctx, b)
 }
 
@@ -60,7 +60,7 @@ func (u *PhotoExternalBuilder) TTLSeconds(ttl int) *PhotoExternalBuilder {
 }
 
 // apply implements MediaOption.
-func (u *PhotoExternalBuilder) apply(ctx context.Context, b multiMediaBuilder) error {
+func (u *PhotoExternalBuilder) apply(ctx context.Context, b *multiMediaBuilder) error {
 	return Media(&u.doc, u.caption...).apply(ctx, b)
 }
 
@@ -98,7 +98,7 @@ func (u *UploadedPhotoBuilder) TTLSeconds(ttl int) *UploadedPhotoBuilder {
 }
 
 // apply implements MediaOption.
-func (u *UploadedPhotoBuilder) apply(ctx context.Context, b multiMediaBuilder) error {
+func (u *UploadedPhotoBuilder) apply(ctx context.Context, b *multiMediaBuilder) error {
 	return Media(&u.photo, u.caption...).apply(ctx, b)
 }
 

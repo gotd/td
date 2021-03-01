@@ -1,6 +1,8 @@
 package message
 
-import "github.com/gotd/td/tg"
+import (
+	"github.com/gotd/td/tg"
+)
 
 // Video adds video attachment.
 func Video(file tg.InputFileClass, mime string, caption ...StyledTextOption) *UploadedDocumentBuilder {

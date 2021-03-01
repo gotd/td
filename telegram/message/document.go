@@ -31,7 +31,7 @@ func (u *DocumentBuilder) Query(query string) *DocumentBuilder {
 }
 
 // apply implements MediaOption.
-func (u *DocumentBuilder) apply(ctx context.Context, b multiMediaBuilder) error {
+func (u *DocumentBuilder) apply(ctx context.Context, b *multiMediaBuilder) error {
 	return Media(&u.doc, u.caption...).apply(ctx, b)
 }
 
@@ -66,7 +66,7 @@ func (u *DocumentExternalBuilder) TTLSeconds(ttl int) *DocumentExternalBuilder {
 }
 
 // apply implements MediaOption.
-func (u *DocumentExternalBuilder) apply(ctx context.Context, b multiMediaBuilder) error {
+func (u *DocumentExternalBuilder) apply(ctx context.Context, b *multiMediaBuilder) error {
 	return Media(&u.doc, u.caption...).apply(ctx, b)
 }
 
@@ -136,7 +136,7 @@ func (u *UploadedDocumentBuilder) TTLSeconds(ttl int) *UploadedDocumentBuilder {
 }
 
 // apply implements MediaOption.
-func (u *UploadedDocumentBuilder) apply(ctx context.Context, b multiMediaBuilder) error {
+func (u *UploadedDocumentBuilder) apply(ctx context.Context, b *multiMediaBuilder) error {
 	return Media(&u.doc, u.caption...).apply(ctx, b)
 }
 

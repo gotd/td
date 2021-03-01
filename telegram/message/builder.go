@@ -25,8 +25,6 @@ type Builder struct {
 	// Clear the draft field.
 	clearDraft bool
 
-	// Attached media.
-	media []tg.InputSingleMedia
 	// The message ID to which this message will reply to.
 	replyToMsgID int
 	// Reply markup for sending bot buttons.
@@ -67,6 +65,12 @@ func (b *Builder) ReplyMsg(msg tg.MessageClass) *Builder {
 // Schedule sets scheduled message date for scheduled messages.
 func (b *Builder) Schedule(date time.Time) *Builder {
 	b.scheduleDate = int(date.Unix())
+	return b
+}
+
+// NoWebpage sets flag to disable generation of the webpage preview.
+func (b *Builder) NoWebpage() *Builder {
+	b.noWebpage = true
 	return b
 }
 
