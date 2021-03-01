@@ -18,5 +18,5 @@ func RoundVideo(file tg.InputFileClass, mime string, caption ...StyledTextOption
 
 // GIF adds gif attachment.
 func GIF(file tg.InputFileClass, caption ...StyledTextOption) *UploadedDocumentBuilder {
-	return UploadedDocument(file, caption...).NosoundVideo(true)
+	return UploadedDocument(file, caption...).MIME("image/gif")
 }
