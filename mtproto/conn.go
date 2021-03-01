@@ -76,7 +76,7 @@ type Conn struct {
 
 	// callbacks for ping results.
 	// Key is ping id.
-	ping    map[int64]func()
+	ping    map[int64]chan struct{}
 	pingMux sync.Mutex
 
 	readConcurrency int
@@ -99,7 +99,7 @@ func New(addr string, opt Options) *Conn {
 		rand:         opt.Random,
 		cipher:       opt.Cipher,
 		log:          opt.Logger,
-		ping:         map[int64]func(){},
+		ping:         map[int64]chan struct{}{},
 		messageID:    opt.MessageID,
 		messageIDBuf: proto.NewMessageIDBuf(100),
 

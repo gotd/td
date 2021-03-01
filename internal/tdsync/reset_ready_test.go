@@ -101,6 +101,7 @@ func TestResetReady(t *testing.T) {
 				<-wait
 			}()
 
+			wg.Wait()
 			r.Reset()
 			checkNoSignal(t, r)
 		})
