@@ -8,7 +8,7 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-func (s Sender) builder(peer peerPromise) *Builder {
+func (s *Sender) builder(peer peerPromise) *Builder {
 	return &Builder{
 		sender: s,
 		peer:   peer,
@@ -16,7 +16,7 @@ func (s Sender) builder(peer peerPromise) *Builder {
 }
 
 // Peer uses given peer to create new message builder.
-func (s Sender) Peer(peer tg.InputPeerClass) *Builder {
+func (s *Sender) Peer(peer tg.InputPeerClass) *Builder {
 	return s.builder(func(ctx context.Context) (tg.InputPeerClass, error) {
 		return peer, nil
 	})
@@ -24,7 +24,7 @@ func (s Sender) Peer(peer tg.InputPeerClass) *Builder {
 
 // Self creates a new message builder to send it to yourself.
 // It means that message will be sent to your Saved Messages folder.
-func (s Sender) Self() *Builder {
+func (s *Sender) Self() *Builder {
 	return s.Peer(&tg.InputPeerSelf{})
 }
 
@@ -34,7 +34,13 @@ type AnswerableMessageUpdate interface {
 	GetPts() int
 }
 
-func (s Sender) findPeer(uctx tg.UpdateContext, peerID tg.PeerClass) (tg.InputPeerClass, error) {
+type entities struct {
+	Users    map[int]*tg.User
+	Chats    map[int]*tg.Chat
+	Channels map[int]*tg.Channel
+}
+
+func findPeer(uctx entities, peerID tg.PeerClass) (tg.InputPeerClass, error) {
 	var peer tg.InputPeerClass
 	switch p := peerID.(type) {
 	case *tg.PeerUser: // peerUser#9db1bc6d
@@ -72,7 +78,7 @@ func (s Sender) findPeer(uctx tg.UpdateContext, peerID tg.PeerClass) (tg.InputPe
 }
 
 // Answer uses given message update to create message for same chat.
-func (s Sender) Answer(uctx tg.UpdateContext, upd AnswerableMessageUpdate) *Builder {
+func (s *Sender) Answer(uctx tg.UpdateContext, upd AnswerableMessageUpdate) *Builder {
 	return s.builder(func(ctx context.Context) (tg.InputPeerClass, error) {
 		updMsg := upd.GetMessage()
 		msg, ok := updMsg.AsNotEmpty()
@@ -87,10 +93,18 @@ func (s Sender) Answer(uctx tg.UpdateContext, upd AnswerableMessageUpdate) *Buil
 				return nil, xerrors.Errorf("got %T with empty PeerID", updMsg)
 			}
 
-			return s.findPeer(uctx, peer)
+			return findPeer(entities{
+				Users:    uctx.Users,
+				Chats:    uctx.Chats,
+				Channels: uctx.Channels,
+			}, peer)
 		}
 
-		return s.findPeer(uctx, msg.GetPeerID())
+		return findPeer(entities{
+			Users:    uctx.Users,
+			Chats:    uctx.Chats,
+			Channels: uctx.Channels,
+		}, msg.GetPeerID())
 	})
 }
 
@@ -99,6 +113,6 @@ func (s Sender) Answer(uctx tg.UpdateContext, upd AnswerableMessageUpdate) *Buil
 //
 // 	sender.Answer(uctx, upd).ReplyMsg(upd.GetMessage())
 //
-func (s Sender) Reply(uctx tg.UpdateContext, upd AnswerableMessageUpdate) *Builder {
+func (s *Sender) Reply(uctx tg.UpdateContext, upd AnswerableMessageUpdate) *Builder {
 	return s.Answer(uctx, upd).ReplyMsg(upd.GetMessage())
 }

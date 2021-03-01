@@ -12,7 +12,7 @@ type peerPromise func(ctx context.Context) (tg.InputPeerClass, error)
 // Builder is a message builder.
 type Builder struct {
 	// Sender to use.
-	sender Sender
+	sender *Sender
 	// The destination where the message will be sent.
 	peer peerPromise
 

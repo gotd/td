@@ -13,20 +13,34 @@ import (
 
 // Sender is a message sending helper.
 type Sender struct {
-	raw  *tg.Client
-	rand io.Reader
+	raw      *tg.Client
+	rand     io.Reader
+	resolver PeerResolver
 }
 
 // NewSender creates a new Sender.
-func NewSender(raw *tg.Client) Sender {
-	return Sender{
-		raw:  raw,
-		rand: rand.Reader,
+func NewSender(raw *tg.Client) *Sender {
+	return &Sender{
+		raw:      raw,
+		rand:     rand.Reader,
+		resolver: DefaultPeerResolver(raw),
 	}
 }
 
+// WithResolver sets peer resolver to use.
+func (s *Sender) WithResolver(resolver PeerResolver) *Sender {
+	s.resolver = resolver
+	return s
+}
+
+// WithRand sets random ID source.
+func (s *Sender) WithRand(r io.Reader) *Sender {
+	s.rand = r
+	return s
+}
+
 // SendMessage sends message to peer.
-func (s Sender) SendMessage(ctx context.Context, req *tg.MessagesSendMessageRequest) error {
+func (s *Sender) SendMessage(ctx context.Context, req *tg.MessagesSendMessageRequest) error {
 	if req.RandomID == 0 {
 		id, err := crypto.RandInt64(s.rand)
 		if err != nil {
@@ -40,7 +54,7 @@ func (s Sender) SendMessage(ctx context.Context, req *tg.MessagesSendMessageRequ
 }
 
 // SendMedia sends message to peer.
-func (s Sender) SendMedia(ctx context.Context, req *tg.MessagesSendMediaRequest) error {
+func (s *Sender) SendMedia(ctx context.Context, req *tg.MessagesSendMediaRequest) error {
 	if req.RandomID == 0 {
 		id, err := crypto.RandInt64(s.rand)
 		if err != nil {
@@ -54,7 +68,7 @@ func (s Sender) SendMedia(ctx context.Context, req *tg.MessagesSendMediaRequest)
 }
 
 // SendMultiMedia sends message to peer.
-func (s Sender) SendMultiMedia(ctx context.Context, req *tg.MessagesSendMultiMediaRequest) error {
+func (s *Sender) SendMultiMedia(ctx context.Context, req *tg.MessagesSendMultiMediaRequest) error {
 	for i := range req.MultiMedia {
 		id, err := crypto.RandInt64(s.rand)
 		if err != nil {
