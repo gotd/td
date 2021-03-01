@@ -1,14 +1,12 @@
 package rpc
 
 import (
-	"bytes"
 	"errors"
 	"sync"
-	"sync/atomic"
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
 	"golang.org/x/net/context"
 	"golang.org/x/sync/errgroup"
@@ -29,9 +27,9 @@ type request struct {
 var defaultNow = testutil.Date()
 
 const (
-	reqID  = 1
-	pingID = 1337
-	seqNo  = 1
+	reqID  int64 = 1
+	pingID int64 = 1337
+	seqNo  int32 = 1
 )
 
 func TestRPCError(t *testing.T) {
@@ -44,7 +42,7 @@ func TestRPCError(t *testing.T) {
 		log := log.Named("server")
 
 		log.Info("Waiting ping request")
-		assert.Equal(t, request{
+		require.Equal(t, request{
 			MsgID: reqID,
 			SeqNo: seqNo,
 			Input: &mt.PingRequest{PingID: pingID},
@@ -78,7 +76,7 @@ func TestRPCError(t *testing.T) {
 		})
 
 		log.Info("Got pong response")
-		assert.True(t, errors.Is(err, expectedErr), "expected error")
+		require.True(t, errors.Is(err, expectedErr), "expected error")
 
 		return nil
 	}
@@ -100,7 +98,7 @@ func TestRPCResult(t *testing.T) {
 		log := log.Named("server")
 
 		log.Info("Waiting ping request")
-		assert.Equal(t, request{
+		require.Equal(t, request{
 			MsgID: reqID,
 			SeqNo: seqNo,
 			Input: &mt.PingRequest{PingID: pingID},
@@ -131,7 +129,7 @@ func TestRPCResult(t *testing.T) {
 
 		log.Info("Sending ping request")
 		var out mt.Pong
-		assert.NoError(t, e.Do(context.TODO(), Request{
+		require.NoError(t, e.Do(context.TODO(), Request{
 			ID:       reqID,
 			Sequence: seqNo,
 			Input:    &mt.PingRequest{PingID: pingID},
@@ -139,7 +137,7 @@ func TestRPCResult(t *testing.T) {
 		}))
 
 		log.Info("Got pong response")
-		assert.Equal(t, mt.Pong{
+		require.Equal(t, mt.Pong{
 			MsgID:  reqID,
 			PingID: pingID,
 		}, out)
@@ -164,7 +162,7 @@ func TestRPCAckThenResult(t *testing.T) {
 		log := log.Named("server")
 
 		log.Info("Waiting ping request")
-		assert.Equal(t, request{
+		require.Equal(t, request{
 			MsgID: reqID,
 			SeqNo: seqNo,
 			Input: &mt.PingRequest{PingID: pingID},
@@ -200,7 +198,7 @@ func TestRPCAckThenResult(t *testing.T) {
 
 		log.Info("Sending ping request")
 		var out mt.Pong
-		assert.NoError(t, e.Do(context.TODO(), Request{
+		require.NoError(t, e.Do(context.TODO(), Request{
 			ID:       reqID,
 			Sequence: seqNo,
 			Input:    &mt.PingRequest{PingID: pingID},
@@ -208,7 +206,7 @@ func TestRPCAckThenResult(t *testing.T) {
 		}))
 
 		log.Info("Got pong response")
-		assert.Equal(t, mt.Pong{
+		require.Equal(t, mt.Pong{
 			MsgID:  reqID,
 			PingID: pingID,
 		}, out)
@@ -233,7 +231,7 @@ func TestRPCWithRetryResult(t *testing.T) {
 		log := log.Named("server")
 
 		log.Info("Waiting ping request")
-		assert.Equal(t, request{
+		require.Equal(t, request{
 			MsgID: reqID,
 			SeqNo: seqNo,
 			Input: &mt.PingRequest{PingID: pingID},
@@ -248,7 +246,7 @@ func TestRPCWithRetryResult(t *testing.T) {
 		clock.Travel(time.Second * 6)
 
 		log.Info("Waiting re-sending request")
-		assert.Equal(t, request{
+		require.Equal(t, request{
 			MsgID: reqID,
 			SeqNo: seqNo,
 			Input: &mt.PingRequest{PingID: pingID},
@@ -272,7 +270,7 @@ func TestRPCWithRetryResult(t *testing.T) {
 
 		log.Info("Sending ping request")
 		var out mt.Pong
-		assert.NoError(t, e.Do(context.TODO(), Request{
+		require.NoError(t, e.Do(context.TODO(), Request{
 			ID:       1,
 			Sequence: 1,
 			Input:    &mt.PingRequest{PingID: pingID},
@@ -280,7 +278,7 @@ func TestRPCWithRetryResult(t *testing.T) {
 		}))
 
 		log.Info("Got pong response")
-		assert.Equal(t, mt.Pong{
+		require.Equal(t, mt.Pong{
 			MsgID:  reqID,
 			PingID: pingID,
 		}, out)
@@ -331,23 +329,23 @@ func TestEngineGracefulShutdown(t *testing.T) {
 
 	client := func(t *testing.T, e *Engine) error {
 		var (
-			msgID int64
-			seqNo int32
+			currMsgID int64
+			currSeqNo int32
 		)
 
 		for i := 0; i < requestsCount; i++ {
 			go func(t *testing.T, msgID int64, seqNo int32) {
 				var out mt.Pong
-				assert.Equal(t, e.Do(context.TODO(), Request{
+				require.Equal(t, e.Do(context.TODO(), Request{
 					ID:       msgID,
 					Sequence: seqNo,
 					Input:    &mt.PingRequest{PingID: pingID},
 					Output:   &out,
 				}), expectedErr)
-			}(t, msgID, seqNo)
+			}(t, currMsgID, currSeqNo)
 
-			msgID++
-			seqNo++
+			currMsgID++
+			currSeqNo++
 		}
 
 		// wait until server receive all requests
@@ -364,6 +362,65 @@ func TestEngineGracefulShutdown(t *testing.T) {
 		RetryInterval: time.Second * 5,
 		MaxRetries:    5,
 		Logger:        log.Named("rpc"),
+	}, server, client)
+}
+
+func TestDropRPC(t *testing.T) {
+	clock := neo.NewTime(defaultNow)
+	log := zaptest.NewLogger(t)
+	serverRecvRequest := make(chan struct{})
+	clientCancelledCtx := make(chan struct{})
+	dropChan := make(chan Request)
+
+	server := func(t *testing.T, e *Engine, incoming <-chan request) error {
+		log := log.Named("server")
+
+		log.Info("Waiting ping request")
+		require.Equal(t, request{
+			MsgID: reqID,
+			SeqNo: seqNo,
+			Input: &mt.PingRequest{PingID: pingID},
+		}, <-incoming)
+
+		close(serverRecvRequest)
+		<-clientCancelledCtx
+
+		log.Info("Waiting drop request")
+		require.Equal(t, reqID, (<-dropChan).ID)
+		return nil
+	}
+
+	client := func(t *testing.T, e *Engine) error {
+		log := log.Named("client")
+
+		log.Info("Sending ping request")
+
+		ctx, cancel := context.WithCancel(context.Background())
+		defer cancel()
+
+		go func() {
+			<-serverRecvRequest
+			log.Info("Canceling request context")
+			cancel()
+			close(clientCancelledCtx)
+		}()
+
+		require.ErrorIs(t, e.Do(ctx, Request{
+			ID:       reqID,
+			Sequence: seqNo,
+			Input:    &mt.PingRequest{PingID: pingID},
+			Output:   &mt.Pong{},
+		}), context.Canceled)
+
+		return nil
+	}
+
+	runTest(t, Options{
+		RetryInterval: time.Second * 4,
+		MaxRetries:    2,
+		Clock:         clock,
+		Logger:        log.Named("rpc"),
+		DropHandler:   func(req Request) error { dropChan <- req; return nil },
 	}, server, client)
 }
 
@@ -398,70 +455,7 @@ func runTest(
 	g.Go(func() error { return server(t, e, requests) })
 	g.Go(func() error { return client(t, e) })
 
-	assert.NoError(t, g.Wait())
+	require.NoError(t, g.Wait())
 	e.Close()
-	assert.NoError(t, cfg.Logger.Sync())
-}
-
-// mockObject implements bin.Object for testing.
-type mockObject struct {
-	data []byte
-}
-
-func (m mockObject) Decode(b *bin.Buffer) error {
-	if !bytes.Equal(b.Buf, m.data) {
-		return errors.New("mismatch")
-	}
-	b.Skip(len(b.Buf))
-	return nil
-}
-
-func (m mockObject) Encode(b *bin.Buffer) error {
-	b.Put(m.data)
-	return nil
-}
-
-func BenchmarkEngine_Do(b *testing.B) {
-	ids := make(chan int64, 100)
-	defer close(ids)
-
-	e := New(func(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error {
-		ids <- msgID
-		return nil
-	}, Options{})
-
-	var id int64
-
-	ctx := context.Background()
-	b.ReportAllocs()
-	b.RunParallel(func(pb *testing.PB) {
-		go func() {
-			buf := &bin.Buffer{}
-			// Fake handler.
-			obj := mockObject{data: make([]byte, 100)}
-
-			for id := range ids {
-				e.NotifyAcks([]int64{id})
-
-				buf.ResetTo(obj.data)
-				if err := e.NotifyResult(id, buf); err != nil {
-					b.Error(err)
-				}
-			}
-		}()
-
-		obj := mockObject{data: make([]byte, 100)}
-
-		for pb.Next() {
-			nextID := atomic.AddInt64(&id, 1)
-			if err := e.Do(ctx, Request{
-				ID:       nextID,
-				Sequence: int32(nextID),
-				Input:    obj,
-				Output:   obj,
-			}); err != nil {
-				b.Fatal(err)
-			}
-		}
-	})
+	require.NoError(t, cfg.Logger.Sync())
 }

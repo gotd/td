@@ -14,6 +14,7 @@ type Options struct {
 	MaxRetries    int
 	Logger        *zap.Logger
 	Clock         clock.Clock
+	DropHandler   DropHandler
 }
 
 func (cfg *Options) setDefaults() {
@@ -28,5 +29,8 @@ func (cfg *Options) setDefaults() {
 	}
 	if cfg.Clock == nil {
 		cfg.Clock = clock.System
+	}
+	if cfg.DropHandler == nil {
+		cfg.DropHandler = func(req Request) error { return nil }
 	}
 }

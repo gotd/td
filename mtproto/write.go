@@ -19,5 +19,5 @@ func (c *Conn) write(ctx context.Context, id int64, seq int32, message bin.Encod
 }
 
 func (c *Conn) writeServiceMessage(ctx context.Context, message bin.Encoder) error {
-	return c.write(ctx, c.newMessageID(), c.seqNo(), message)
+	return c.write(ctx, c.newMessageID(), c.seqNo(false), message)
 }

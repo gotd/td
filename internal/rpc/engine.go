@@ -17,6 +17,7 @@ import (
 // Engine handles RPC requests.
 type Engine struct {
 	send Send
+	drop DropHandler
 
 	mux sync.Mutex
 	rpc map[int64]func(*bin.Buffer, error) error
@@ -41,6 +42,9 @@ type Send func(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) er
 // NopSend does nothing.
 func NopSend(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error { return nil }
 
+// DropHandler handles drop rpc requests.
+type DropHandler func(req Request) error
+
 // New creates new rpc Engine.
 func New(send Send, cfg Options) *Engine {
 	cfg.setDefaults()
@@ -56,6 +60,7 @@ func New(send Send, cfg Options) *Engine {
 		ack: map[int64]chan struct{}{},
 
 		send: send,
+		drop: cfg.DropHandler,
 
 		log:           cfg.Logger,
 		maxRetries:    cfg.MaxRetries,
@@ -134,7 +139,8 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 	}()
 
 	// Start retrying.
-	if err := e.retryUntilAck(retryCtx, req); err != nil && !errors.Is(err, context.Canceled) {
+	sent, err := e.retryUntilAck(retryCtx, req)
+	if err != nil && !errors.Is(err, context.Canceled) {
 		// If the retryCtx was canceled, then one of two things happened:
 		//   1. User canceled the original context.
 		//   2. The RPC result came and callback canceled retryCtx.
@@ -147,6 +153,14 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 
 	select {
 	case <-ctx.Done():
+		if sent {
+			if err := e.drop(req); err != nil {
+				log.Warn("Failed to drop request", zap.Error(err))
+			} else {
+				log.Debug("Request dropped")
+			}
+		}
+
 		return ctx.Err()
 	case <-e.reqCtx.Done():
 		return xerrors.Errorf("engine forcibly closed: %w", e.reqCtx.Err())
@@ -159,7 +173,7 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 // acknowledged.
 //
 // Returns nil if acknowledge was received or error otherwise.
-func (e *Engine) retryUntilAck(ctx context.Context, req Request) error {
+func (e *Engine) retryUntilAck(ctx context.Context, req Request) (sent bool, err error) {
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
@@ -173,38 +187,42 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) error {
 
 	// Encoding request.
 	if err := e.send(ctx, req.ID, req.Sequence, req.Input); err != nil {
-		return xerrors.Errorf("send: %w", err)
+		return false, xerrors.Errorf("send: %w", err)
 	}
 
-	for {
-		select {
-		case <-ctx.Done():
-			return ctx.Err()
-		case <-e.reqCtx.Done():
-			return xerrors.Errorf("engine forcibly closed: %w", e.reqCtx.Err())
-		case <-ackChan:
-			log.Debug("Acknowledged")
-			return nil
-		case <-e.clock.After(e.retryInterval):
-			log.Debug("Acknowledge timed out, performing retry")
-			if err := e.send(ctx, req.ID, req.Sequence, req.Input); err != nil {
-				if errors.Is(err, context.Canceled) {
-					return nil
+	loop := func() error {
+		for {
+			select {
+			case <-ctx.Done():
+				return ctx.Err()
+			case <-e.reqCtx.Done():
+				return xerrors.Errorf("engine forcibly closed: %w", e.reqCtx.Err())
+			case <-ackChan:
+				log.Debug("Acknowledged")
+				return nil
+			case <-e.clock.After(e.retryInterval):
+				log.Debug("Acknowledge timed out, performing retry")
+				if err := e.send(ctx, req.ID, req.Sequence, req.Input); err != nil {
+					if errors.Is(err, context.Canceled) {
+						return nil
+					}
+
+					log.Error("Retry failed", zap.Error(err))
+					return err
 				}
 
-				log.Error("Retry failed", zap.Error(err))
-				return err
-			}
-
-			retries++
-			if retries >= e.maxRetries {
-				log.Error("Retry limit reached", zap.Int64("msg_id", req.ID))
-				return &RetryLimitReachedErr{
-					Retries: retries,
+				retries++
+				if retries >= e.maxRetries {
+					log.Error("Retry limit reached", zap.Int64("msg_id", req.ID))
+					return &RetryLimitReachedErr{
+						Retries: retries,
+					}
 				}
 			}
 		}
 	}
+
+	return true, loop()
 }
 
 // NotifyResult notifies engine about received RPC response.
