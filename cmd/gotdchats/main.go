@@ -38,7 +38,7 @@ func run(ctx context.Context) error {
 			return err
 		}
 		sessionDir := filepath.Join(home, ".td")
-		if err := os.MkdirAll(sessionDir, 0600); err != nil {
+		if err := os.MkdirAll(sessionDir, 0700); err != nil {
 			return err
 		}
 		storage = &telegram.FileSessionStorage{

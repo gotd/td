@@ -54,7 +54,7 @@ func OptionsFromEnvironment(opts Options) (Options, error) {
 		}
 
 		dir, _ := filepath.Split(sessionFile)
-		if err := os.MkdirAll(dir, 0600); err != nil {
+		if err := os.MkdirAll(dir, 0700); err != nil {
 			return Options{}, xerrors.Errorf("session dir creation: %w", err)
 		}
 
