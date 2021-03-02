@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // DcOption represents TL type `dcOption#18b7a10d`.
 //
@@ -127,13 +129,74 @@ func (d *DcOption) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DcOption) TypeID() uint32 {
+func (*DcOption) TypeID() uint32 {
 	return DcOptionTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DcOption) TypeName() string {
+func (*DcOption) TypeName() string {
 	return "dcOption"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DcOption) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "dcOption",
+		ID:   DcOptionTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Ipv6",
+			SchemaName: "ipv6",
+			Null:       !d.Flags.Has(0),
+		},
+		{
+			Name:       "MediaOnly",
+			SchemaName: "media_only",
+			Null:       !d.Flags.Has(1),
+		},
+		{
+			Name:       "TcpoOnly",
+			SchemaName: "tcpo_only",
+			Null:       !d.Flags.Has(2),
+		},
+		{
+			Name:       "CDN",
+			SchemaName: "cdn",
+			Null:       !d.Flags.Has(3),
+		},
+		{
+			Name:       "Static",
+			SchemaName: "static",
+			Null:       !d.Flags.Has(4),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "IPAddress",
+			SchemaName: "ip_address",
+		},
+		{
+			Name:       "Port",
+			SchemaName: "port",
+		},
+		{
+			Name:       "Secret",
+			SchemaName: "secret",
+			Null:       !d.Flags.Has(10),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

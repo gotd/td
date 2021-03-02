@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PeerUser represents TL type `peerUser#9db1bc6d`.
 // Chat partner
@@ -62,13 +64,32 @@ func (p *PeerUser) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PeerUser) TypeID() uint32 {
+func (*PeerUser) TypeID() uint32 {
 	return PeerUserTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PeerUser) TypeName() string {
+func (*PeerUser) TypeName() string {
 	return "peerUser"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PeerUser) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "peerUser",
+		ID:   PeerUserTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -157,13 +178,32 @@ func (p *PeerChat) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PeerChat) TypeID() uint32 {
+func (*PeerChat) TypeID() uint32 {
 	return PeerChatTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PeerChat) TypeName() string {
+func (*PeerChat) TypeName() string {
 	return "peerChat"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PeerChat) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "peerChat",
+		ID:   PeerChatTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -252,13 +292,32 @@ func (p *PeerChannel) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PeerChannel) TypeID() uint32 {
+func (*PeerChannel) TypeID() uint32 {
 	return PeerChannelTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PeerChannel) TypeName() string {
+func (*PeerChannel) TypeName() string {
 	return "peerChannel"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PeerChannel) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "peerChannel",
+		ID:   PeerChannelTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChannelID",
+			SchemaName: "channel_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

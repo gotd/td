@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PaymentsSavedInfo represents TL type `payments.savedInfo#fb8fe43c`.
 // Saved server-side order information
@@ -82,13 +84,42 @@ func (s *PaymentsSavedInfo) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *PaymentsSavedInfo) TypeID() uint32 {
+func (*PaymentsSavedInfo) TypeID() uint32 {
 	return PaymentsSavedInfoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *PaymentsSavedInfo) TypeName() string {
+func (*PaymentsSavedInfo) TypeName() string {
 	return "payments.savedInfo"
+}
+
+// TypeInfo returns info about TL type.
+func (s *PaymentsSavedInfo) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "payments.savedInfo",
+		ID:   PaymentsSavedInfoTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "HasSavedCredentials",
+			SchemaName: "has_saved_credentials",
+			Null:       !s.Flags.Has(1),
+		},
+		{
+			Name:       "SavedInfo",
+			SchemaName: "saved_info",
+			Null:       !s.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

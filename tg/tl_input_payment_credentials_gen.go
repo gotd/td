@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputPaymentCredentialsSaved represents TL type `inputPaymentCredentialsSaved#c10eb2cf`.
 // Saved payment credentials
@@ -69,13 +71,36 @@ func (i *InputPaymentCredentialsSaved) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPaymentCredentialsSaved) TypeID() uint32 {
+func (*InputPaymentCredentialsSaved) TypeID() uint32 {
 	return InputPaymentCredentialsSavedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPaymentCredentialsSaved) TypeName() string {
+func (*InputPaymentCredentialsSaved) TypeName() string {
 	return "inputPaymentCredentialsSaved"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPaymentCredentialsSaved) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPaymentCredentialsSaved",
+		ID:   InputPaymentCredentialsSavedTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "TmpPassword",
+			SchemaName: "tmp_password",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -192,13 +217,41 @@ func (i *InputPaymentCredentials) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPaymentCredentials) TypeID() uint32 {
+func (*InputPaymentCredentials) TypeID() uint32 {
 	return InputPaymentCredentialsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPaymentCredentials) TypeName() string {
+func (*InputPaymentCredentials) TypeName() string {
 	return "inputPaymentCredentials"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPaymentCredentials) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPaymentCredentials",
+		ID:   InputPaymentCredentialsTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Save",
+			SchemaName: "save",
+			Null:       !i.Flags.Has(0),
+		},
+		{
+			Name:       "Data",
+			SchemaName: "data",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -315,13 +368,32 @@ func (i *InputPaymentCredentialsApplePay) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPaymentCredentialsApplePay) TypeID() uint32 {
+func (*InputPaymentCredentialsApplePay) TypeID() uint32 {
 	return InputPaymentCredentialsApplePayTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPaymentCredentialsApplePay) TypeName() string {
+func (*InputPaymentCredentialsApplePay) TypeName() string {
 	return "inputPaymentCredentialsApplePay"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPaymentCredentialsApplePay) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPaymentCredentialsApplePay",
+		ID:   InputPaymentCredentialsApplePayTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PaymentData",
+			SchemaName: "payment_data",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -409,13 +481,32 @@ func (i *InputPaymentCredentialsGooglePay) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPaymentCredentialsGooglePay) TypeID() uint32 {
+func (*InputPaymentCredentialsGooglePay) TypeID() uint32 {
 	return InputPaymentCredentialsGooglePayTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPaymentCredentialsGooglePay) TypeName() string {
+func (*InputPaymentCredentialsGooglePay) TypeName() string {
 	return "inputPaymentCredentialsGooglePay"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPaymentCredentialsGooglePay) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPaymentCredentialsGooglePay",
+		ID:   InputPaymentCredentialsGooglePayTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PaymentToken",
+			SchemaName: "payment_token",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

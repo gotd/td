@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhoneReceivedCallRequest represents TL type `phone.receivedCall#17d54f61`.
 // Optional: notify the server that the user is currently busy in a call: this will automatically refuse all incoming phone calls until the current phone call is ended.
@@ -62,13 +64,32 @@ func (r *PhoneReceivedCallRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *PhoneReceivedCallRequest) TypeID() uint32 {
+func (*PhoneReceivedCallRequest) TypeID() uint32 {
 	return PhoneReceivedCallRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *PhoneReceivedCallRequest) TypeName() string {
+func (*PhoneReceivedCallRequest) TypeName() string {
 	return "phone.receivedCall"
+}
+
+// TypeInfo returns info about TL type.
+func (r *PhoneReceivedCallRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phone.receivedCall",
+		ID:   PhoneReceivedCallRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

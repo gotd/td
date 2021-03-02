@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesVotesList represents TL type `messages.votesList#823f649`.
 // How users voted in a poll
@@ -102,13 +104,49 @@ func (v *MessagesVotesList) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (v *MessagesVotesList) TypeID() uint32 {
+func (*MessagesVotesList) TypeID() uint32 {
 	return MessagesVotesListTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (v *MessagesVotesList) TypeName() string {
+func (*MessagesVotesList) TypeName() string {
 	return "messages.votesList"
+}
+
+// TypeInfo returns info about TL type.
+func (v *MessagesVotesList) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.votesList",
+		ID:   MessagesVotesListTypeID,
+	}
+	if v == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Count",
+			SchemaName: "count",
+		},
+		{
+			Name:       "Votes",
+			SchemaName: "votes",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+		{
+			Name:       "NextOffset",
+			SchemaName: "next_offset",
+			Null:       !v.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

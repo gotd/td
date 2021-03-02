@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChatFull represents TL type `chatFull#f06c4018`.
 // Detailed chat info
@@ -198,13 +200,93 @@ func (c *ChatFull) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChatFull) TypeID() uint32 {
+func (*ChatFull) TypeID() uint32 {
 	return ChatFullTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChatFull) TypeName() string {
+func (*ChatFull) TypeName() string {
 	return "chatFull"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatFull) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatFull",
+		ID:   ChatFullTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "CanSetUsername",
+			SchemaName: "can_set_username",
+			Null:       !c.Flags.Has(7),
+		},
+		{
+			Name:       "HasScheduled",
+			SchemaName: "has_scheduled",
+			Null:       !c.Flags.Has(8),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "About",
+			SchemaName: "about",
+		},
+		{
+			Name:       "Participants",
+			SchemaName: "participants",
+		},
+		{
+			Name:       "ChatPhoto",
+			SchemaName: "chat_photo",
+			Null:       !c.Flags.Has(2),
+		},
+		{
+			Name:       "NotifySettings",
+			SchemaName: "notify_settings",
+		},
+		{
+			Name:       "ExportedInvite",
+			SchemaName: "exported_invite",
+			Null:       !c.Flags.Has(13),
+		},
+		{
+			Name:       "BotInfo",
+			SchemaName: "bot_info",
+			Null:       !c.Flags.Has(3),
+		},
+		{
+			Name:       "PinnedMsgID",
+			SchemaName: "pinned_msg_id",
+			Null:       !c.Flags.Has(6),
+		},
+		{
+			Name:       "FolderID",
+			SchemaName: "folder_id",
+			Null:       !c.Flags.Has(11),
+		},
+		{
+			Name:       "Call",
+			SchemaName: "call",
+			Null:       !c.Flags.Has(12),
+		},
+		{
+			Name:       "TTLPeriod",
+			SchemaName: "ttl_period",
+			Null:       !c.Flags.Has(14),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -993,13 +1075,208 @@ func (c *ChannelFull) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelFull) TypeID() uint32 {
+func (*ChannelFull) TypeID() uint32 {
 	return ChannelFullTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelFull) TypeName() string {
+func (*ChannelFull) TypeName() string {
 	return "channelFull"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelFull) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelFull",
+		ID:   ChannelFullTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "CanViewParticipants",
+			SchemaName: "can_view_participants",
+			Null:       !c.Flags.Has(3),
+		},
+		{
+			Name:       "CanSetUsername",
+			SchemaName: "can_set_username",
+			Null:       !c.Flags.Has(6),
+		},
+		{
+			Name:       "CanSetStickers",
+			SchemaName: "can_set_stickers",
+			Null:       !c.Flags.Has(7),
+		},
+		{
+			Name:       "HiddenPrehistory",
+			SchemaName: "hidden_prehistory",
+			Null:       !c.Flags.Has(10),
+		},
+		{
+			Name:       "CanSetLocation",
+			SchemaName: "can_set_location",
+			Null:       !c.Flags.Has(16),
+		},
+		{
+			Name:       "HasScheduled",
+			SchemaName: "has_scheduled",
+			Null:       !c.Flags.Has(19),
+		},
+		{
+			Name:       "CanViewStats",
+			SchemaName: "can_view_stats",
+			Null:       !c.Flags.Has(20),
+		},
+		{
+			Name:       "Blocked",
+			SchemaName: "blocked",
+			Null:       !c.Flags.Has(22),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "About",
+			SchemaName: "about",
+		},
+		{
+			Name:       "ParticipantsCount",
+			SchemaName: "participants_count",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "AdminsCount",
+			SchemaName: "admins_count",
+			Null:       !c.Flags.Has(1),
+		},
+		{
+			Name:       "KickedCount",
+			SchemaName: "kicked_count",
+			Null:       !c.Flags.Has(2),
+		},
+		{
+			Name:       "BannedCount",
+			SchemaName: "banned_count",
+			Null:       !c.Flags.Has(2),
+		},
+		{
+			Name:       "OnlineCount",
+			SchemaName: "online_count",
+			Null:       !c.Flags.Has(13),
+		},
+		{
+			Name:       "ReadInboxMaxID",
+			SchemaName: "read_inbox_max_id",
+		},
+		{
+			Name:       "ReadOutboxMaxID",
+			SchemaName: "read_outbox_max_id",
+		},
+		{
+			Name:       "UnreadCount",
+			SchemaName: "unread_count",
+		},
+		{
+			Name:       "ChatPhoto",
+			SchemaName: "chat_photo",
+		},
+		{
+			Name:       "NotifySettings",
+			SchemaName: "notify_settings",
+		},
+		{
+			Name:       "ExportedInvite",
+			SchemaName: "exported_invite",
+			Null:       !c.Flags.Has(23),
+		},
+		{
+			Name:       "BotInfo",
+			SchemaName: "bot_info",
+		},
+		{
+			Name:       "MigratedFromChatID",
+			SchemaName: "migrated_from_chat_id",
+			Null:       !c.Flags.Has(4),
+		},
+		{
+			Name:       "MigratedFromMaxID",
+			SchemaName: "migrated_from_max_id",
+			Null:       !c.Flags.Has(4),
+		},
+		{
+			Name:       "PinnedMsgID",
+			SchemaName: "pinned_msg_id",
+			Null:       !c.Flags.Has(5),
+		},
+		{
+			Name:       "Stickerset",
+			SchemaName: "stickerset",
+			Null:       !c.Flags.Has(8),
+		},
+		{
+			Name:       "AvailableMinID",
+			SchemaName: "available_min_id",
+			Null:       !c.Flags.Has(9),
+		},
+		{
+			Name:       "FolderID",
+			SchemaName: "folder_id",
+			Null:       !c.Flags.Has(11),
+		},
+		{
+			Name:       "LinkedChatID",
+			SchemaName: "linked_chat_id",
+			Null:       !c.Flags.Has(14),
+		},
+		{
+			Name:       "Location",
+			SchemaName: "location",
+			Null:       !c.Flags.Has(15),
+		},
+		{
+			Name:       "SlowmodeSeconds",
+			SchemaName: "slowmode_seconds",
+			Null:       !c.Flags.Has(17),
+		},
+		{
+			Name:       "SlowmodeNextSendDate",
+			SchemaName: "slowmode_next_send_date",
+			Null:       !c.Flags.Has(18),
+		},
+		{
+			Name:       "StatsDC",
+			SchemaName: "stats_dc",
+			Null:       !c.Flags.Has(12),
+		},
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+		},
+		{
+			Name:       "Call",
+			SchemaName: "call",
+			Null:       !c.Flags.Has(21),
+		},
+		{
+			Name:       "TTLPeriod",
+			SchemaName: "ttl_period",
+			Null:       !c.Flags.Has(24),
+		},
+		{
+			Name:       "PendingSuggestions",
+			SchemaName: "pending_suggestions",
+			Null:       !c.Flags.Has(25),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

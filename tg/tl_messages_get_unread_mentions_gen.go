@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetUnreadMentionsRequest represents TL type `messages.getUnreadMentions#46578472`.
 // Get unread messages where we were mentioned
@@ -112,13 +114,52 @@ func (g *MessagesGetUnreadMentionsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetUnreadMentionsRequest) TypeID() uint32 {
+func (*MessagesGetUnreadMentionsRequest) TypeID() uint32 {
 	return MessagesGetUnreadMentionsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetUnreadMentionsRequest) TypeName() string {
+func (*MessagesGetUnreadMentionsRequest) TypeName() string {
 	return "messages.getUnreadMentions"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetUnreadMentionsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getUnreadMentions",
+		ID:   MessagesGetUnreadMentionsRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "OffsetID",
+			SchemaName: "offset_id",
+		},
+		{
+			Name:       "AddOffset",
+			SchemaName: "add_offset",
+		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
+		{
+			Name:       "MaxID",
+			SchemaName: "max_id",
+		},
+		{
+			Name:       "MinID",
+			SchemaName: "min_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

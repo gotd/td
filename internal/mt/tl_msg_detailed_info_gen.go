@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MsgDetailedInfo represents TL type `msg_detailed_info#276d3ec6`.
 type MsgDetailedInfo struct {
@@ -80,13 +82,44 @@ func (m *MsgDetailedInfo) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MsgDetailedInfo) TypeID() uint32 {
+func (*MsgDetailedInfo) TypeID() uint32 {
 	return MsgDetailedInfoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MsgDetailedInfo) TypeName() string {
+func (*MsgDetailedInfo) TypeName() string {
 	return "msg_detailed_info"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MsgDetailedInfo) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "msg_detailed_info",
+		ID:   MsgDetailedInfoTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+		{
+			Name:       "AnswerMsgID",
+			SchemaName: "answer_msg_id",
+		},
+		{
+			Name:       "Bytes",
+			SchemaName: "bytes",
+		},
+		{
+			Name:       "Status",
+			SchemaName: "status",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -225,13 +258,40 @@ func (m *MsgNewDetailedInfo) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MsgNewDetailedInfo) TypeID() uint32 {
+func (*MsgNewDetailedInfo) TypeID() uint32 {
 	return MsgNewDetailedInfoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MsgNewDetailedInfo) TypeName() string {
+func (*MsgNewDetailedInfo) TypeName() string {
 	return "msg_new_detailed_info"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MsgNewDetailedInfo) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "msg_new_detailed_info",
+		ID:   MsgNewDetailedInfoTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "AnswerMsgID",
+			SchemaName: "answer_msg_id",
+		},
+		{
+			Name:       "Bytes",
+			SchemaName: "bytes",
+		},
+		{
+			Name:       "Status",
+			SchemaName: "status",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

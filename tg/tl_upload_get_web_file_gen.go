@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // UploadGetWebFileRequest represents TL type `upload.getWebFile#24e6818d`.
 //
@@ -75,13 +77,40 @@ func (g *UploadGetWebFileRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *UploadGetWebFileRequest) TypeID() uint32 {
+func (*UploadGetWebFileRequest) TypeID() uint32 {
 	return UploadGetWebFileRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *UploadGetWebFileRequest) TypeName() string {
+func (*UploadGetWebFileRequest) TypeName() string {
 	return "upload.getWebFile"
+}
+
+// TypeInfo returns info about TL type.
+func (g *UploadGetWebFileRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "upload.getWebFile",
+		ID:   UploadGetWebFileRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Location",
+			SchemaName: "location",
+		},
+		{
+			Name:       "Offset",
+			SchemaName: "offset",
+		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

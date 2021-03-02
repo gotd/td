@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // TextEmpty represents TL type `textEmpty#dc3d824f`.
 // Empty rich text element
@@ -50,13 +52,27 @@ func (t *TextEmpty) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TextEmpty) TypeID() uint32 {
+func (*TextEmpty) TypeID() uint32 {
 	return TextEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TextEmpty) TypeName() string {
+func (*TextEmpty) TypeName() string {
 	return "textEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textEmpty",
+		ID:   TextEmptyTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -132,13 +148,32 @@ func (t *TextPlain) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TextPlain) TypeID() uint32 {
+func (*TextPlain) TypeID() uint32 {
 	return TextPlainTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TextPlain) TypeName() string {
+func (*TextPlain) TypeName() string {
 	return "textPlain"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextPlain) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textPlain",
+		ID:   TextPlainTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -227,13 +262,32 @@ func (t *TextBold) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TextBold) TypeID() uint32 {
+func (*TextBold) TypeID() uint32 {
 	return TextBoldTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TextBold) TypeName() string {
+func (*TextBold) TypeName() string {
 	return "textBold"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextBold) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textBold",
+		ID:   TextBoldTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -327,13 +381,32 @@ func (t *TextItalic) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TextItalic) TypeID() uint32 {
+func (*TextItalic) TypeID() uint32 {
 	return TextItalicTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TextItalic) TypeName() string {
+func (*TextItalic) TypeName() string {
 	return "textItalic"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextItalic) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textItalic",
+		ID:   TextItalicTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -427,13 +500,32 @@ func (t *TextUnderline) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TextUnderline) TypeID() uint32 {
+func (*TextUnderline) TypeID() uint32 {
 	return TextUnderlineTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TextUnderline) TypeName() string {
+func (*TextUnderline) TypeName() string {
 	return "textUnderline"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextUnderline) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textUnderline",
+		ID:   TextUnderlineTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -527,13 +619,32 @@ func (t *TextStrike) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TextStrike) TypeID() uint32 {
+func (*TextStrike) TypeID() uint32 {
 	return TextStrikeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TextStrike) TypeName() string {
+func (*TextStrike) TypeName() string {
 	return "textStrike"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextStrike) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textStrike",
+		ID:   TextStrikeTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -627,13 +738,32 @@ func (t *TextFixed) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TextFixed) TypeID() uint32 {
+func (*TextFixed) TypeID() uint32 {
 	return TextFixedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TextFixed) TypeName() string {
+func (*TextFixed) TypeName() string {
 	return "textFixed"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextFixed) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textFixed",
+		ID:   TextFixedTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -741,13 +871,40 @@ func (t *TextUrl) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TextUrl) TypeID() uint32 {
+func (*TextUrl) TypeID() uint32 {
 	return TextUrlTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TextUrl) TypeName() string {
+func (*TextUrl) TypeName() string {
 	return "textUrl"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextUrl) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textUrl",
+		ID:   TextUrlTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+		{
+			Name:       "WebpageID",
+			SchemaName: "webpage_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -874,13 +1031,36 @@ func (t *TextEmail) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TextEmail) TypeID() uint32 {
+func (*TextEmail) TypeID() uint32 {
 	return TextEmailTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TextEmail) TypeName() string {
+func (*TextEmail) TypeName() string {
 	return "textEmail"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextEmail) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textEmail",
+		ID:   TextEmailTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
+			Name:       "Email",
+			SchemaName: "email",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -987,13 +1167,32 @@ func (t *TextConcat) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TextConcat) TypeID() uint32 {
+func (*TextConcat) TypeID() uint32 {
 	return TextConcatTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TextConcat) TypeName() string {
+func (*TextConcat) TypeName() string {
 	return "textConcat"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextConcat) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textConcat",
+		ID:   TextConcatTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Texts",
+			SchemaName: "texts",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1101,13 +1300,32 @@ func (t *TextSubscript) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TextSubscript) TypeID() uint32 {
+func (*TextSubscript) TypeID() uint32 {
 	return TextSubscriptTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TextSubscript) TypeName() string {
+func (*TextSubscript) TypeName() string {
 	return "textSubscript"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextSubscript) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textSubscript",
+		ID:   TextSubscriptTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1201,13 +1419,32 @@ func (t *TextSuperscript) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TextSuperscript) TypeID() uint32 {
+func (*TextSuperscript) TypeID() uint32 {
 	return TextSuperscriptTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TextSuperscript) TypeName() string {
+func (*TextSuperscript) TypeName() string {
 	return "textSuperscript"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextSuperscript) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textSuperscript",
+		ID:   TextSuperscriptTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1301,13 +1538,32 @@ func (t *TextMarked) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TextMarked) TypeID() uint32 {
+func (*TextMarked) TypeID() uint32 {
 	return TextMarkedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TextMarked) TypeName() string {
+func (*TextMarked) TypeName() string {
 	return "textMarked"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextMarked) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textMarked",
+		ID:   TextMarkedTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1408,13 +1664,36 @@ func (t *TextPhone) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TextPhone) TypeID() uint32 {
+func (*TextPhone) TypeID() uint32 {
 	return TextPhoneTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TextPhone) TypeName() string {
+func (*TextPhone) TypeName() string {
 	return "textPhone"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextPhone) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textPhone",
+		ID:   TextPhoneTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
+			Name:       "Phone",
+			SchemaName: "phone",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1535,13 +1814,40 @@ func (t *TextImage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TextImage) TypeID() uint32 {
+func (*TextImage) TypeID() uint32 {
 	return TextImageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TextImage) TypeName() string {
+func (*TextImage) TypeName() string {
 	return "textImage"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextImage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textImage",
+		ID:   TextImageTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "DocumentID",
+			SchemaName: "document_id",
+		},
+		{
+			Name:       "W",
+			SchemaName: "w",
+		},
+		{
+			Name:       "H",
+			SchemaName: "h",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1663,13 +1969,36 @@ func (t *TextAnchor) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TextAnchor) TypeID() uint32 {
+func (*TextAnchor) TypeID() uint32 {
 	return TextAnchorTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TextAnchor) TypeName() string {
+func (*TextAnchor) TypeName() string {
 	return "textAnchor"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TextAnchor) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "textAnchor",
+		ID:   TextAnchorTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
+			Name:       "Name",
+			SchemaName: "name",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

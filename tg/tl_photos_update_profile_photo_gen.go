@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhotosUpdateProfilePhotoRequest represents TL type `photos.updateProfilePhoto#72d4742c`.
 // Installs a previously uploaded photo as a profile photo.
@@ -62,13 +64,32 @@ func (u *PhotosUpdateProfilePhotoRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *PhotosUpdateProfilePhotoRequest) TypeID() uint32 {
+func (*PhotosUpdateProfilePhotoRequest) TypeID() uint32 {
 	return PhotosUpdateProfilePhotoRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *PhotosUpdateProfilePhotoRequest) TypeName() string {
+func (*PhotosUpdateProfilePhotoRequest) TypeName() string {
 	return "photos.updateProfilePhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (u *PhotosUpdateProfilePhotoRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "photos.updateProfilePhoto",
+		ID:   PhotosUpdateProfilePhotoRequestTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

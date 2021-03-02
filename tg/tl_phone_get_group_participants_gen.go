@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhoneGetGroupParticipantsRequest represents TL type `phone.getGroupParticipants#c9f1d285`.
 //
@@ -89,13 +91,48 @@ func (g *PhoneGetGroupParticipantsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *PhoneGetGroupParticipantsRequest) TypeID() uint32 {
+func (*PhoneGetGroupParticipantsRequest) TypeID() uint32 {
 	return PhoneGetGroupParticipantsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *PhoneGetGroupParticipantsRequest) TypeName() string {
+func (*PhoneGetGroupParticipantsRequest) TypeName() string {
 	return "phone.getGroupParticipants"
+}
+
+// TypeInfo returns info about TL type.
+func (g *PhoneGetGroupParticipantsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phone.getGroupParticipants",
+		ID:   PhoneGetGroupParticipantsRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Call",
+			SchemaName: "call",
+		},
+		{
+			Name:       "Ids",
+			SchemaName: "ids",
+		},
+		{
+			Name:       "Sources",
+			SchemaName: "sources",
+		},
+		{
+			Name:       "Offset",
+			SchemaName: "offset",
+		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

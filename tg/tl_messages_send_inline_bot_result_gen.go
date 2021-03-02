@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSendInlineBotResultRequest represents TL type `messages.sendInlineBotResult#220815b0`.
 // Send a result obtained using messages.getInlineBotResults¹.
@@ -158,13 +160,78 @@ func (s *MessagesSendInlineBotResultRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSendInlineBotResultRequest) TypeID() uint32 {
+func (*MessagesSendInlineBotResultRequest) TypeID() uint32 {
 	return MessagesSendInlineBotResultRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSendInlineBotResultRequest) TypeName() string {
+func (*MessagesSendInlineBotResultRequest) TypeName() string {
 	return "messages.sendInlineBotResult"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSendInlineBotResultRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.sendInlineBotResult",
+		ID:   MessagesSendInlineBotResultRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Silent",
+			SchemaName: "silent",
+			Null:       !s.Flags.Has(5),
+		},
+		{
+			Name:       "Background",
+			SchemaName: "background",
+			Null:       !s.Flags.Has(6),
+		},
+		{
+			Name:       "ClearDraft",
+			SchemaName: "clear_draft",
+			Null:       !s.Flags.Has(7),
+		},
+		{
+			Name:       "HideVia",
+			SchemaName: "hide_via",
+			Null:       !s.Flags.Has(11),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "ReplyToMsgID",
+			SchemaName: "reply_to_msg_id",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "RandomID",
+			SchemaName: "random_id",
+		},
+		{
+			Name:       "QueryID",
+			SchemaName: "query_id",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "ScheduleDate",
+			SchemaName: "schedule_date",
+			Null:       !s.Flags.Has(10),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

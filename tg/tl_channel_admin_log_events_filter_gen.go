@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelAdminLogEventsFilter represents TL type `channelAdminLogEventsFilter#ea107ae4`.
 // Filter only certain admin log events
@@ -226,13 +228,112 @@ func (c *ChannelAdminLogEventsFilter) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventsFilter) TypeID() uint32 {
+func (*ChannelAdminLogEventsFilter) TypeID() uint32 {
 	return ChannelAdminLogEventsFilterTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventsFilter) TypeName() string {
+func (*ChannelAdminLogEventsFilter) TypeName() string {
 	return "channelAdminLogEventsFilter"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventsFilter) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventsFilter",
+		ID:   ChannelAdminLogEventsFilterTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Join",
+			SchemaName: "join",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "Leave",
+			SchemaName: "leave",
+			Null:       !c.Flags.Has(1),
+		},
+		{
+			Name:       "Invite",
+			SchemaName: "invite",
+			Null:       !c.Flags.Has(2),
+		},
+		{
+			Name:       "Ban",
+			SchemaName: "ban",
+			Null:       !c.Flags.Has(3),
+		},
+		{
+			Name:       "Unban",
+			SchemaName: "unban",
+			Null:       !c.Flags.Has(4),
+		},
+		{
+			Name:       "Kick",
+			SchemaName: "kick",
+			Null:       !c.Flags.Has(5),
+		},
+		{
+			Name:       "Unkick",
+			SchemaName: "unkick",
+			Null:       !c.Flags.Has(6),
+		},
+		{
+			Name:       "Promote",
+			SchemaName: "promote",
+			Null:       !c.Flags.Has(7),
+		},
+		{
+			Name:       "Demote",
+			SchemaName: "demote",
+			Null:       !c.Flags.Has(8),
+		},
+		{
+			Name:       "Info",
+			SchemaName: "info",
+			Null:       !c.Flags.Has(9),
+		},
+		{
+			Name:       "Settings",
+			SchemaName: "settings",
+			Null:       !c.Flags.Has(10),
+		},
+		{
+			Name:       "Pinned",
+			SchemaName: "pinned",
+			Null:       !c.Flags.Has(11),
+		},
+		{
+			Name:       "Edit",
+			SchemaName: "edit",
+			Null:       !c.Flags.Has(12),
+		},
+		{
+			Name:       "Delete",
+			SchemaName: "delete",
+			Null:       !c.Flags.Has(13),
+		},
+		{
+			Name:       "GroupCall",
+			SchemaName: "group_call",
+			Null:       !c.Flags.Has(14),
+		},
+		{
+			Name:       "Invites",
+			SchemaName: "invites",
+			Null:       !c.Flags.Has(15),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

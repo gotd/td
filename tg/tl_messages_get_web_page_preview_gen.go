@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetWebPagePreviewRequest represents TL type `messages.getWebPagePreview#8b68b0cc`.
 // Get preview of webpage
@@ -85,13 +87,41 @@ func (g *MessagesGetWebPagePreviewRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetWebPagePreviewRequest) TypeID() uint32 {
+func (*MessagesGetWebPagePreviewRequest) TypeID() uint32 {
 	return MessagesGetWebPagePreviewRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetWebPagePreviewRequest) TypeName() string {
+func (*MessagesGetWebPagePreviewRequest) TypeName() string {
 	return "messages.getWebPagePreview"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetWebPagePreviewRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getWebPagePreview",
+		ID:   MessagesGetWebPagePreviewRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+		{
+			Name:       "Entities",
+			SchemaName: "entities",
+			Null:       !g.Flags.Has(3),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

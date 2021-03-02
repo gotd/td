@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetRecentLocationsRequest represents TL type `messages.getRecentLocations#bbc45b09`.
 // Get live location history of a certain user
@@ -82,13 +84,40 @@ func (g *MessagesGetRecentLocationsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetRecentLocationsRequest) TypeID() uint32 {
+func (*MessagesGetRecentLocationsRequest) TypeID() uint32 {
 	return MessagesGetRecentLocationsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetRecentLocationsRequest) TypeName() string {
+func (*MessagesGetRecentLocationsRequest) TypeName() string {
 	return "messages.getRecentLocations"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetRecentLocationsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getRecentLocations",
+		ID:   MessagesGetRecentLocationsRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

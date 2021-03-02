@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // Auth represents TL type `auth#f8bb4a38`.
 //
@@ -61,13 +63,32 @@ func (a *Auth) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *Auth) TypeID() uint32 {
+func (*Auth) TypeID() uint32 {
 	return AuthTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *Auth) TypeName() string {
+func (*Auth) TypeName() string {
 	return "auth"
+}
+
+// TypeInfo returns info about TL type.
+func (a *Auth) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth",
+		ID:   AuthTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Name",
+			SchemaName: "name",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -162,13 +183,36 @@ func (a *AuthPassword) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *AuthPassword) TypeID() uint32 {
+func (*AuthPassword) TypeID() uint32 {
 	return AuthPasswordTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *AuthPassword) TypeName() string {
+func (*AuthPassword) TypeName() string {
 	return "authPassword"
+}
+
+// TypeInfo returns info about TL type.
+func (a *AuthPassword) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "authPassword",
+		ID:   AuthPasswordTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Name",
+			SchemaName: "name",
+		},
+		{
+			Name:       "Password",
+			SchemaName: "password",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

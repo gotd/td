@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputChatPhotoEmpty represents TL type `inputChatPhotoEmpty#1ca48f57`.
 // Empty constructor, remove group photo.
@@ -50,13 +52,27 @@ func (i *InputChatPhotoEmpty) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputChatPhotoEmpty) TypeID() uint32 {
+func (*InputChatPhotoEmpty) TypeID() uint32 {
 	return InputChatPhotoEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputChatPhotoEmpty) TypeName() string {
+func (*InputChatPhotoEmpty) TypeName() string {
 	return "inputChatPhotoEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputChatPhotoEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputChatPhotoEmpty",
+		ID:   InputChatPhotoEmptyTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -172,13 +188,47 @@ func (i *InputChatUploadedPhoto) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputChatUploadedPhoto) TypeID() uint32 {
+func (*InputChatUploadedPhoto) TypeID() uint32 {
 	return InputChatUploadedPhotoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputChatUploadedPhoto) TypeName() string {
+func (*InputChatUploadedPhoto) TypeName() string {
 	return "inputChatUploadedPhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputChatUploadedPhoto) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputChatUploadedPhoto",
+		ID:   InputChatUploadedPhotoTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "File",
+			SchemaName: "file",
+			Null:       !i.Flags.Has(0),
+		},
+		{
+			Name:       "Video",
+			SchemaName: "video",
+			Null:       !i.Flags.Has(1),
+		},
+		{
+			Name:       "VideoStartTs",
+			SchemaName: "video_start_ts",
+			Null:       !i.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -356,13 +406,32 @@ func (i *InputChatPhoto) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputChatPhoto) TypeID() uint32 {
+func (*InputChatPhoto) TypeID() uint32 {
 	return InputChatPhotoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputChatPhoto) TypeName() string {
+func (*InputChatPhoto) TypeName() string {
 	return "inputChatPhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputChatPhoto) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputChatPhoto",
+		ID:   InputChatPhotoTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

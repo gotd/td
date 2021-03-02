@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PingDelayDisconnectRequest represents TL type `ping_delay_disconnect#f3427b8c`.
 type PingDelayDisconnectRequest struct {
@@ -66,13 +68,36 @@ func (p *PingDelayDisconnectRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PingDelayDisconnectRequest) TypeID() uint32 {
+func (*PingDelayDisconnectRequest) TypeID() uint32 {
 	return PingDelayDisconnectRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PingDelayDisconnectRequest) TypeName() string {
+func (*PingDelayDisconnectRequest) TypeName() string {
 	return "ping_delay_disconnect"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PingDelayDisconnectRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "ping_delay_disconnect",
+		ID:   PingDelayDisconnectRequestTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PingID",
+			SchemaName: "ping_id",
+		},
+		{
+			Name:       "DisconnectDelay",
+			SchemaName: "disconnect_delay",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

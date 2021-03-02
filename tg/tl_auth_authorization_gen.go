@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AuthAuthorization represents TL type `auth.authorization#cd050916`.
 // Contains user authorization info.
@@ -85,13 +87,41 @@ func (a *AuthAuthorization) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *AuthAuthorization) TypeID() uint32 {
+func (*AuthAuthorization) TypeID() uint32 {
 	return AuthAuthorizationTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *AuthAuthorization) TypeName() string {
+func (*AuthAuthorization) TypeName() string {
 	return "auth.authorization"
+}
+
+// TypeInfo returns info about TL type.
+func (a *AuthAuthorization) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.authorization",
+		ID:   AuthAuthorizationTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "TmpSessions",
+			SchemaName: "tmp_sessions",
+			Null:       !a.Flags.Has(0),
+		},
+		{
+			Name:       "User",
+			SchemaName: "user",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -237,13 +267,37 @@ func (a *AuthAuthorizationSignUpRequired) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *AuthAuthorizationSignUpRequired) TypeID() uint32 {
+func (*AuthAuthorizationSignUpRequired) TypeID() uint32 {
 	return AuthAuthorizationSignUpRequiredTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *AuthAuthorizationSignUpRequired) TypeName() string {
+func (*AuthAuthorizationSignUpRequired) TypeName() string {
 	return "auth.authorizationSignUpRequired"
+}
+
+// TypeInfo returns info about TL type.
+func (a *AuthAuthorizationSignUpRequired) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.authorizationSignUpRequired",
+		ID:   AuthAuthorizationSignUpRequiredTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "TermsOfService",
+			SchemaName: "terms_of_service",
+			Null:       !a.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

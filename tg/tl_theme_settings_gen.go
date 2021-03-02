@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ThemeSettings represents TL type `themeSettings#9c14984a`.
 // Theme settings
@@ -113,13 +115,55 @@ func (t *ThemeSettings) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *ThemeSettings) TypeID() uint32 {
+func (*ThemeSettings) TypeID() uint32 {
 	return ThemeSettingsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *ThemeSettings) TypeName() string {
+func (*ThemeSettings) TypeName() string {
 	return "themeSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (t *ThemeSettings) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "themeSettings",
+		ID:   ThemeSettingsTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "BaseTheme",
+			SchemaName: "base_theme",
+		},
+		{
+			Name:       "AccentColor",
+			SchemaName: "accent_color",
+		},
+		{
+			Name:       "MessageTopColor",
+			SchemaName: "message_top_color",
+			Null:       !t.Flags.Has(0),
+		},
+		{
+			Name:       "MessageBottomColor",
+			SchemaName: "message_bottom_color",
+			Null:       !t.Flags.Has(0),
+		},
+		{
+			Name:       "Wallpaper",
+			SchemaName: "wallpaper",
+			Null:       !t.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

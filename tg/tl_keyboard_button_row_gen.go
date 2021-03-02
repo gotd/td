@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // KeyboardButtonRow represents TL type `keyboardButtonRow#77608b83`.
 // Inline keyboard row
@@ -62,13 +64,32 @@ func (k *KeyboardButtonRow) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (k *KeyboardButtonRow) TypeID() uint32 {
+func (*KeyboardButtonRow) TypeID() uint32 {
 	return KeyboardButtonRowTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (k *KeyboardButtonRow) TypeName() string {
+func (*KeyboardButtonRow) TypeName() string {
 	return "keyboardButtonRow"
+}
+
+// TypeInfo returns info about TL type.
+func (k *KeyboardButtonRow) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "keyboardButtonRow",
+		ID:   KeyboardButtonRowTypeID,
+	}
+	if k == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Buttons",
+			SchemaName: "buttons",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

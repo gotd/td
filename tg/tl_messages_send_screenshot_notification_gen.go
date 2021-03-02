@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSendScreenshotNotificationRequest represents TL type `messages.sendScreenshotNotification#c97df020`.
 // Notify the other user in a private chat that a screenshot of the chat was taken
@@ -76,13 +78,40 @@ func (s *MessagesSendScreenshotNotificationRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSendScreenshotNotificationRequest) TypeID() uint32 {
+func (*MessagesSendScreenshotNotificationRequest) TypeID() uint32 {
 	return MessagesSendScreenshotNotificationRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSendScreenshotNotificationRequest) TypeName() string {
+func (*MessagesSendScreenshotNotificationRequest) TypeName() string {
 	return "messages.sendScreenshotNotification"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSendScreenshotNotificationRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.sendScreenshotNotification",
+		ID:   MessagesSendScreenshotNotificationRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "ReplyToMsgID",
+			SchemaName: "reply_to_msg_id",
+		},
+		{
+			Name:       "RandomID",
+			SchemaName: "random_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

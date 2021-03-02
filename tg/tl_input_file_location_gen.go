@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputFileLocation represents TL type `inputFileLocation#dfdaabe1`.
 // DEPRECATED location of a photo
@@ -86,13 +88,44 @@ func (i *InputFileLocation) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputFileLocation) TypeID() uint32 {
+func (*InputFileLocation) TypeID() uint32 {
 	return InputFileLocationTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputFileLocation) TypeName() string {
+func (*InputFileLocation) TypeName() string {
 	return "inputFileLocation"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputFileLocation) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputFileLocation",
+		ID:   InputFileLocationTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "VolumeID",
+			SchemaName: "volume_id",
+		},
+		{
+			Name:       "LocalID",
+			SchemaName: "local_id",
+		},
+		{
+			Name:       "Secret",
+			SchemaName: "secret",
+		},
+		{
+			Name:       "FileReference",
+			SchemaName: "file_reference",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -233,13 +266,36 @@ func (i *InputEncryptedFileLocation) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputEncryptedFileLocation) TypeID() uint32 {
+func (*InputEncryptedFileLocation) TypeID() uint32 {
 	return InputEncryptedFileLocationTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputEncryptedFileLocation) TypeName() string {
+func (*InputEncryptedFileLocation) TypeName() string {
 	return "inputEncryptedFileLocation"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputEncryptedFileLocation) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputEncryptedFileLocation",
+		ID:   InputEncryptedFileLocationTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -368,13 +424,44 @@ func (i *InputDocumentFileLocation) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputDocumentFileLocation) TypeID() uint32 {
+func (*InputDocumentFileLocation) TypeID() uint32 {
 	return InputDocumentFileLocationTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputDocumentFileLocation) TypeName() string {
+func (*InputDocumentFileLocation) TypeName() string {
 	return "inputDocumentFileLocation"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputDocumentFileLocation) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputDocumentFileLocation",
+		ID:   InputDocumentFileLocationTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "FileReference",
+			SchemaName: "file_reference",
+		},
+		{
+			Name:       "ThumbSize",
+			SchemaName: "thumb_size",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -518,13 +605,36 @@ func (i *InputSecureFileLocation) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputSecureFileLocation) TypeID() uint32 {
+func (*InputSecureFileLocation) TypeID() uint32 {
 	return InputSecureFileLocationTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputSecureFileLocation) TypeName() string {
+func (*InputSecureFileLocation) TypeName() string {
 	return "inputSecureFileLocation"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputSecureFileLocation) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputSecureFileLocation",
+		ID:   InputSecureFileLocationTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -614,13 +724,27 @@ func (i *InputTakeoutFileLocation) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputTakeoutFileLocation) TypeID() uint32 {
+func (*InputTakeoutFileLocation) TypeID() uint32 {
 	return InputTakeoutFileLocationTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputTakeoutFileLocation) TypeName() string {
+func (*InputTakeoutFileLocation) TypeName() string {
 	return "inputTakeoutFileLocation"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputTakeoutFileLocation) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputTakeoutFileLocation",
+		ID:   InputTakeoutFileLocationTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -733,13 +857,44 @@ func (i *InputPhotoFileLocation) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPhotoFileLocation) TypeID() uint32 {
+func (*InputPhotoFileLocation) TypeID() uint32 {
 	return InputPhotoFileLocationTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPhotoFileLocation) TypeName() string {
+func (*InputPhotoFileLocation) TypeName() string {
 	return "inputPhotoFileLocation"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPhotoFileLocation) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPhotoFileLocation",
+		ID:   InputPhotoFileLocationTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "FileReference",
+			SchemaName: "file_reference",
+		},
+		{
+			Name:       "ThumbSize",
+			SchemaName: "thumb_size",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -902,13 +1057,52 @@ func (i *InputPhotoLegacyFileLocation) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPhotoLegacyFileLocation) TypeID() uint32 {
+func (*InputPhotoLegacyFileLocation) TypeID() uint32 {
 	return InputPhotoLegacyFileLocationTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPhotoLegacyFileLocation) TypeName() string {
+func (*InputPhotoLegacyFileLocation) TypeName() string {
 	return "inputPhotoLegacyFileLocation"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPhotoLegacyFileLocation) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPhotoLegacyFileLocation",
+		ID:   InputPhotoLegacyFileLocationTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "FileReference",
+			SchemaName: "file_reference",
+		},
+		{
+			Name:       "VolumeID",
+			SchemaName: "volume_id",
+		},
+		{
+			Name:       "LocalID",
+			SchemaName: "local_id",
+		},
+		{
+			Name:       "Secret",
+			SchemaName: "secret",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1097,13 +1291,49 @@ func (i *InputPeerPhotoFileLocation) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPeerPhotoFileLocation) TypeID() uint32 {
+func (*InputPeerPhotoFileLocation) TypeID() uint32 {
 	return InputPeerPhotoFileLocationTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPeerPhotoFileLocation) TypeName() string {
+func (*InputPeerPhotoFileLocation) TypeName() string {
 	return "inputPeerPhotoFileLocation"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPeerPhotoFileLocation) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPeerPhotoFileLocation",
+		ID:   InputPeerPhotoFileLocationTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Big",
+			SchemaName: "big",
+			Null:       !i.Flags.Has(0),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "VolumeID",
+			SchemaName: "volume_id",
+		},
+		{
+			Name:       "LocalID",
+			SchemaName: "local_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1268,13 +1498,40 @@ func (i *InputStickerSetThumb) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputStickerSetThumb) TypeID() uint32 {
+func (*InputStickerSetThumb) TypeID() uint32 {
 	return InputStickerSetThumbTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputStickerSetThumb) TypeName() string {
+func (*InputStickerSetThumb) TypeName() string {
 	return "inputStickerSetThumb"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputStickerSetThumb) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputStickerSetThumb",
+		ID:   InputStickerSetThumbTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Stickerset",
+			SchemaName: "stickerset",
+		},
+		{
+			Name:       "VolumeID",
+			SchemaName: "volume_id",
+		},
+		{
+			Name:       "LocalID",
+			SchemaName: "local_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

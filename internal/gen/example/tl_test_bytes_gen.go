@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // TestBytes represents TL type `testBytes#a422c4de`.
 //
@@ -61,13 +63,32 @@ func (t *TestBytes) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TestBytes) TypeID() uint32 {
+func (*TestBytes) TypeID() uint32 {
 	return TestBytesTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TestBytes) TypeName() string {
+func (*TestBytes) TypeName() string {
 	return "testBytes"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TestBytes) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "testBytes",
+		ID:   TestBytesTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Value",
+			SchemaName: "value",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

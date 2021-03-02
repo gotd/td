@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessageReplies represents TL type `messageReplies#4128faac`.
 // Info about the comment section of a channel post, or a simple message thread¹
@@ -144,13 +146,65 @@ func (m *MessageReplies) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageReplies) TypeID() uint32 {
+func (*MessageReplies) TypeID() uint32 {
 	return MessageRepliesTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageReplies) TypeName() string {
+func (*MessageReplies) TypeName() string {
 	return "messageReplies"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageReplies) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageReplies",
+		ID:   MessageRepliesTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Comments",
+			SchemaName: "comments",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "Replies",
+			SchemaName: "replies",
+		},
+		{
+			Name:       "RepliesPts",
+			SchemaName: "replies_pts",
+		},
+		{
+			Name:       "RecentRepliers",
+			SchemaName: "recent_repliers",
+			Null:       !m.Flags.Has(1),
+		},
+		{
+			Name:       "ChannelID",
+			SchemaName: "channel_id",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "MaxID",
+			SchemaName: "max_id",
+			Null:       !m.Flags.Has(2),
+		},
+		{
+			Name:       "ReadMaxID",
+			SchemaName: "read_max_id",
+			Null:       !m.Flags.Has(3),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

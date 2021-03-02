@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhotoSizeEmpty represents TL type `photoSizeEmpty#e17e23c`.
 // Empty constructor. Image with this thumbnail is unavailable.
@@ -65,13 +67,32 @@ func (p *PhotoSizeEmpty) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhotoSizeEmpty) TypeID() uint32 {
+func (*PhotoSizeEmpty) TypeID() uint32 {
 	return PhotoSizeEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhotoSizeEmpty) TypeName() string {
+func (*PhotoSizeEmpty) TypeName() string {
 	return "photoSizeEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhotoSizeEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "photoSizeEmpty",
+		ID:   PhotoSizeEmptyTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -188,13 +209,48 @@ func (p *PhotoSize) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhotoSize) TypeID() uint32 {
+func (*PhotoSize) TypeID() uint32 {
 	return PhotoSizeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhotoSize) TypeName() string {
+func (*PhotoSize) TypeName() string {
 	return "photoSize"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhotoSize) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "photoSize",
+		ID:   PhotoSizeTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "Location",
+			SchemaName: "location",
+		},
+		{
+			Name:       "W",
+			SchemaName: "w",
+		},
+		{
+			Name:       "H",
+			SchemaName: "h",
+		},
+		{
+			Name:       "Size",
+			SchemaName: "size",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -363,13 +419,48 @@ func (p *PhotoCachedSize) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhotoCachedSize) TypeID() uint32 {
+func (*PhotoCachedSize) TypeID() uint32 {
 	return PhotoCachedSizeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhotoCachedSize) TypeName() string {
+func (*PhotoCachedSize) TypeName() string {
 	return "photoCachedSize"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhotoCachedSize) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "photoCachedSize",
+		ID:   PhotoCachedSizeTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "Location",
+			SchemaName: "location",
+		},
+		{
+			Name:       "W",
+			SchemaName: "w",
+		},
+		{
+			Name:       "H",
+			SchemaName: "h",
+		},
+		{
+			Name:       "Bytes",
+			SchemaName: "bytes",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -520,13 +611,36 @@ func (p *PhotoStrippedSize) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhotoStrippedSize) TypeID() uint32 {
+func (*PhotoStrippedSize) TypeID() uint32 {
 	return PhotoStrippedSizeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhotoStrippedSize) TypeName() string {
+func (*PhotoStrippedSize) TypeName() string {
 	return "photoStrippedSize"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhotoStrippedSize) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "photoStrippedSize",
+		ID:   PhotoStrippedSizeTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "Bytes",
+			SchemaName: "bytes",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -656,13 +770,48 @@ func (p *PhotoSizeProgressive) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhotoSizeProgressive) TypeID() uint32 {
+func (*PhotoSizeProgressive) TypeID() uint32 {
 	return PhotoSizeProgressiveTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhotoSizeProgressive) TypeName() string {
+func (*PhotoSizeProgressive) TypeName() string {
 	return "photoSizeProgressive"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhotoSizeProgressive) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "photoSizeProgressive",
+		ID:   PhotoSizeProgressiveTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "Location",
+			SchemaName: "location",
+		},
+		{
+			Name:       "W",
+			SchemaName: "w",
+		},
+		{
+			Name:       "H",
+			SchemaName: "h",
+		},
+		{
+			Name:       "Sizes",
+			SchemaName: "sizes",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -822,13 +971,36 @@ func (p *PhotoPathSize) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhotoPathSize) TypeID() uint32 {
+func (*PhotoPathSize) TypeID() uint32 {
 	return PhotoPathSizeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhotoPathSize) TypeName() string {
+func (*PhotoPathSize) TypeName() string {
 	return "photoPathSize"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhotoPathSize) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "photoPathSize",
+		ID:   PhotoPathSizeTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "Bytes",
+			SchemaName: "bytes",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

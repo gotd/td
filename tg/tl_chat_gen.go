@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChatEmpty represents TL type `chatEmpty#9ba2d800`.
 // Empty constructor, group doesn't exist
@@ -62,13 +64,32 @@ func (c *ChatEmpty) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChatEmpty) TypeID() uint32 {
+func (*ChatEmpty) TypeID() uint32 {
 	return ChatEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChatEmpty) TypeName() string {
+func (*ChatEmpty) TypeName() string {
 	return "chatEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatEmpty",
+		ID:   ChatEmptyTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -290,13 +311,101 @@ func (c *Chat) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *Chat) TypeID() uint32 {
+func (*Chat) TypeID() uint32 {
 	return ChatTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *Chat) TypeName() string {
+func (*Chat) TypeName() string {
 	return "chat"
+}
+
+// TypeInfo returns info about TL type.
+func (c *Chat) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chat",
+		ID:   ChatTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Creator",
+			SchemaName: "creator",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "Kicked",
+			SchemaName: "kicked",
+			Null:       !c.Flags.Has(1),
+		},
+		{
+			Name:       "Left",
+			SchemaName: "left",
+			Null:       !c.Flags.Has(2),
+		},
+		{
+			Name:       "Deactivated",
+			SchemaName: "deactivated",
+			Null:       !c.Flags.Has(5),
+		},
+		{
+			Name:       "CallActive",
+			SchemaName: "call_active",
+			Null:       !c.Flags.Has(23),
+		},
+		{
+			Name:       "CallNotEmpty",
+			SchemaName: "call_not_empty",
+			Null:       !c.Flags.Has(24),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "Photo",
+			SchemaName: "photo",
+		},
+		{
+			Name:       "ParticipantsCount",
+			SchemaName: "participants_count",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "Version",
+			SchemaName: "version",
+		},
+		{
+			Name:       "MigratedTo",
+			SchemaName: "migrated_to",
+			Null:       !c.Flags.Has(6),
+		},
+		{
+			Name:       "AdminRights",
+			SchemaName: "admin_rights",
+			Null:       !c.Flags.Has(14),
+		},
+		{
+			Name:       "DefaultBannedRights",
+			SchemaName: "default_banned_rights",
+			Null:       !c.Flags.Has(18),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -679,13 +788,36 @@ func (c *ChatForbidden) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChatForbidden) TypeID() uint32 {
+func (*ChatForbidden) TypeID() uint32 {
 	return ChatForbiddenTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChatForbidden) TypeName() string {
+func (*ChatForbidden) TypeName() string {
 	return "chatForbidden"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatForbidden) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatForbidden",
+		ID:   ChatForbiddenTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1031,13 +1163,167 @@ func (c *Channel) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *Channel) TypeID() uint32 {
+func (*Channel) TypeID() uint32 {
 	return ChannelTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *Channel) TypeName() string {
+func (*Channel) TypeName() string {
 	return "channel"
+}
+
+// TypeInfo returns info about TL type.
+func (c *Channel) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channel",
+		ID:   ChannelTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Creator",
+			SchemaName: "creator",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "Left",
+			SchemaName: "left",
+			Null:       !c.Flags.Has(2),
+		},
+		{
+			Name:       "Broadcast",
+			SchemaName: "broadcast",
+			Null:       !c.Flags.Has(5),
+		},
+		{
+			Name:       "Verified",
+			SchemaName: "verified",
+			Null:       !c.Flags.Has(7),
+		},
+		{
+			Name:       "Megagroup",
+			SchemaName: "megagroup",
+			Null:       !c.Flags.Has(8),
+		},
+		{
+			Name:       "Restricted",
+			SchemaName: "restricted",
+			Null:       !c.Flags.Has(9),
+		},
+		{
+			Name:       "Signatures",
+			SchemaName: "signatures",
+			Null:       !c.Flags.Has(11),
+		},
+		{
+			Name:       "Min",
+			SchemaName: "min",
+			Null:       !c.Flags.Has(12),
+		},
+		{
+			Name:       "Scam",
+			SchemaName: "scam",
+			Null:       !c.Flags.Has(19),
+		},
+		{
+			Name:       "HasLink",
+			SchemaName: "has_link",
+			Null:       !c.Flags.Has(20),
+		},
+		{
+			Name:       "HasGeo",
+			SchemaName: "has_geo",
+			Null:       !c.Flags.Has(21),
+		},
+		{
+			Name:       "SlowmodeEnabled",
+			SchemaName: "slowmode_enabled",
+			Null:       !c.Flags.Has(22),
+		},
+		{
+			Name:       "CallActive",
+			SchemaName: "call_active",
+			Null:       !c.Flags.Has(23),
+		},
+		{
+			Name:       "CallNotEmpty",
+			SchemaName: "call_not_empty",
+			Null:       !c.Flags.Has(24),
+		},
+		{
+			Name:       "Fake",
+			SchemaName: "fake",
+			Null:       !c.Flags.Has(25),
+		},
+		{
+			Name:       "Gigagroup",
+			SchemaName: "gigagroup",
+			Null:       !c.Flags.Has(26),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+			Null:       !c.Flags.Has(13),
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "Username",
+			SchemaName: "username",
+			Null:       !c.Flags.Has(6),
+		},
+		{
+			Name:       "Photo",
+			SchemaName: "photo",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "Version",
+			SchemaName: "version",
+		},
+		{
+			Name:       "RestrictionReason",
+			SchemaName: "restriction_reason",
+			Null:       !c.Flags.Has(9),
+		},
+		{
+			Name:       "AdminRights",
+			SchemaName: "admin_rights",
+			Null:       !c.Flags.Has(14),
+		},
+		{
+			Name:       "BannedRights",
+			SchemaName: "banned_rights",
+			Null:       !c.Flags.Has(15),
+		},
+		{
+			Name:       "DefaultBannedRights",
+			SchemaName: "default_banned_rights",
+			Null:       !c.Flags.Has(18),
+		},
+		{
+			Name:       "ParticipantsCount",
+			SchemaName: "participants_count",
+			Null:       !c.Flags.Has(17),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1766,13 +2052,59 @@ func (c *ChannelForbidden) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelForbidden) TypeID() uint32 {
+func (*ChannelForbidden) TypeID() uint32 {
 	return ChannelForbiddenTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelForbidden) TypeName() string {
+func (*ChannelForbidden) TypeName() string {
 	return "channelForbidden"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelForbidden) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelForbidden",
+		ID:   ChannelForbiddenTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Broadcast",
+			SchemaName: "broadcast",
+			Null:       !c.Flags.Has(5),
+		},
+		{
+			Name:       "Megagroup",
+			SchemaName: "megagroup",
+			Null:       !c.Flags.Has(8),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "UntilDate",
+			SchemaName: "until_date",
+			Null:       !c.Flags.Has(16),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSendVoteRequest represents TL type `messages.sendVote#10ea6184`.
 // Vote in a poll¹
@@ -79,13 +81,40 @@ func (s *MessagesSendVoteRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSendVoteRequest) TypeID() uint32 {
+func (*MessagesSendVoteRequest) TypeID() uint32 {
 	return MessagesSendVoteRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSendVoteRequest) TypeName() string {
+func (*MessagesSendVoteRequest) TypeName() string {
 	return "messages.sendVote"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSendVoteRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.sendVote",
+		ID:   MessagesSendVoteRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+		{
+			Name:       "Options",
+			SchemaName: "options",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

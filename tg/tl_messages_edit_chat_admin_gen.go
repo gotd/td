@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesEditChatAdminRequest represents TL type `messages.editChatAdmin#a9e69f2e`.
 // Make a user admin in a legacy group¹.
@@ -79,13 +81,40 @@ func (e *MessagesEditChatAdminRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *MessagesEditChatAdminRequest) TypeID() uint32 {
+func (*MessagesEditChatAdminRequest) TypeID() uint32 {
 	return MessagesEditChatAdminRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *MessagesEditChatAdminRequest) TypeName() string {
+func (*MessagesEditChatAdminRequest) TypeName() string {
 	return "messages.editChatAdmin"
+}
+
+// TypeInfo returns info about TL type.
+func (e *MessagesEditChatAdminRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.editChatAdmin",
+		ID:   MessagesEditChatAdminRequestTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "IsAdmin",
+			SchemaName: "is_admin",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

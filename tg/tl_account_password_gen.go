@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountPassword represents TL type `account.password#ad2641f8`.
 // Configuration for two-factor authorization
@@ -187,13 +189,84 @@ func (p *AccountPassword) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *AccountPassword) TypeID() uint32 {
+func (*AccountPassword) TypeID() uint32 {
 	return AccountPasswordTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *AccountPassword) TypeName() string {
+func (*AccountPassword) TypeName() string {
 	return "account.password"
+}
+
+// TypeInfo returns info about TL type.
+func (p *AccountPassword) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.password",
+		ID:   AccountPasswordTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "HasRecovery",
+			SchemaName: "has_recovery",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "HasSecureValues",
+			SchemaName: "has_secure_values",
+			Null:       !p.Flags.Has(1),
+		},
+		{
+			Name:       "HasPassword",
+			SchemaName: "has_password",
+			Null:       !p.Flags.Has(2),
+		},
+		{
+			Name:       "CurrentAlgo",
+			SchemaName: "current_algo",
+			Null:       !p.Flags.Has(2),
+		},
+		{
+			Name:       "SRPB",
+			SchemaName: "srp_B",
+			Null:       !p.Flags.Has(2),
+		},
+		{
+			Name:       "SRPID",
+			SchemaName: "srp_id",
+			Null:       !p.Flags.Has(2),
+		},
+		{
+			Name:       "Hint",
+			SchemaName: "hint",
+			Null:       !p.Flags.Has(3),
+		},
+		{
+			Name:       "EmailUnconfirmedPattern",
+			SchemaName: "email_unconfirmed_pattern",
+			Null:       !p.Flags.Has(4),
+		},
+		{
+			Name:       "NewAlgo",
+			SchemaName: "new_algo",
+		},
+		{
+			Name:       "NewSecureAlgo",
+			SchemaName: "new_secure_algo",
+		},
+		{
+			Name:       "SecureRandom",
+			SchemaName: "secure_random",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

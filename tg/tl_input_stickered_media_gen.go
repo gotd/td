@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputStickeredMediaPhoto represents TL type `inputStickeredMediaPhoto#4a992157`.
 // A photo with stickers attached
@@ -62,13 +64,32 @@ func (i *InputStickeredMediaPhoto) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputStickeredMediaPhoto) TypeID() uint32 {
+func (*InputStickeredMediaPhoto) TypeID() uint32 {
 	return InputStickeredMediaPhotoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputStickeredMediaPhoto) TypeName() string {
+func (*InputStickeredMediaPhoto) TypeName() string {
 	return "inputStickeredMediaPhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputStickeredMediaPhoto) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputStickeredMediaPhoto",
+		ID:   InputStickeredMediaPhotoTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -162,13 +183,32 @@ func (i *InputStickeredMediaDocument) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputStickeredMediaDocument) TypeID() uint32 {
+func (*InputStickeredMediaDocument) TypeID() uint32 {
 	return InputStickeredMediaDocumentTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputStickeredMediaDocument) TypeName() string {
+func (*InputStickeredMediaDocument) TypeName() string {
 	return "inputStickeredMediaDocument"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputStickeredMediaDocument) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputStickeredMediaDocument",
+		ID:   InputStickeredMediaDocumentTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

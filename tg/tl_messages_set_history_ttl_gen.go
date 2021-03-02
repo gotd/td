@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSetHistoryTTLRequest represents TL type `messages.setHistoryTTL#b80e5fe4`.
 //
@@ -68,13 +70,36 @@ func (s *MessagesSetHistoryTTLRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSetHistoryTTLRequest) TypeID() uint32 {
+func (*MessagesSetHistoryTTLRequest) TypeID() uint32 {
 	return MessagesSetHistoryTTLRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSetHistoryTTLRequest) TypeName() string {
+func (*MessagesSetHistoryTTLRequest) TypeName() string {
 	return "messages.setHistoryTTL"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSetHistoryTTLRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.setHistoryTTL",
+		ID:   MessagesSetHistoryTTLRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Period",
+			SchemaName: "period",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

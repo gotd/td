@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesForwardMessagesRequest represents TL type `messages.forwardMessages#d9fee60e`.
 // Forwards messages by their IDs.
@@ -124,13 +126,68 @@ func (f *MessagesForwardMessagesRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *MessagesForwardMessagesRequest) TypeID() uint32 {
+func (*MessagesForwardMessagesRequest) TypeID() uint32 {
 	return MessagesForwardMessagesRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *MessagesForwardMessagesRequest) TypeName() string {
+func (*MessagesForwardMessagesRequest) TypeName() string {
 	return "messages.forwardMessages"
+}
+
+// TypeInfo returns info about TL type.
+func (f *MessagesForwardMessagesRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.forwardMessages",
+		ID:   MessagesForwardMessagesRequestTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Silent",
+			SchemaName: "silent",
+			Null:       !f.Flags.Has(5),
+		},
+		{
+			Name:       "Background",
+			SchemaName: "background",
+			Null:       !f.Flags.Has(6),
+		},
+		{
+			Name:       "WithMyScore",
+			SchemaName: "with_my_score",
+			Null:       !f.Flags.Has(8),
+		},
+		{
+			Name:       "FromPeer",
+			SchemaName: "from_peer",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "RandomID",
+			SchemaName: "random_id",
+		},
+		{
+			Name:       "ToPeer",
+			SchemaName: "to_peer",
+		},
+		{
+			Name:       "ScheduleDate",
+			SchemaName: "schedule_date",
+			Null:       !f.Flags.Has(10),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSetBotPrecheckoutResultsRequest represents TL type `messages.setBotPrecheckoutResults#9c2dd95`.
 // Once the user has confirmed their payment and shipping details, the bot receives an updateBotPrecheckoutQuery¹ update.
@@ -94,13 +96,46 @@ func (s *MessagesSetBotPrecheckoutResultsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSetBotPrecheckoutResultsRequest) TypeID() uint32 {
+func (*MessagesSetBotPrecheckoutResultsRequest) TypeID() uint32 {
 	return MessagesSetBotPrecheckoutResultsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSetBotPrecheckoutResultsRequest) TypeName() string {
+func (*MessagesSetBotPrecheckoutResultsRequest) TypeName() string {
 	return "messages.setBotPrecheckoutResults"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSetBotPrecheckoutResultsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.setBotPrecheckoutResults",
+		ID:   MessagesSetBotPrecheckoutResultsRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Success",
+			SchemaName: "success",
+			Null:       !s.Flags.Has(1),
+		},
+		{
+			Name:       "QueryID",
+			SchemaName: "query_id",
+		},
+		{
+			Name:       "Error",
+			SchemaName: "error",
+			Null:       !s.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

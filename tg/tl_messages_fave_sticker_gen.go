@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesFaveStickerRequest represents TL type `messages.faveSticker#b9ffc55b`.
 // Mark a sticker as favorite
@@ -69,13 +71,36 @@ func (f *MessagesFaveStickerRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *MessagesFaveStickerRequest) TypeID() uint32 {
+func (*MessagesFaveStickerRequest) TypeID() uint32 {
 	return MessagesFaveStickerRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *MessagesFaveStickerRequest) TypeName() string {
+func (*MessagesFaveStickerRequest) TypeName() string {
 	return "messages.faveSticker"
+}
+
+// TypeInfo returns info about TL type.
+func (f *MessagesFaveStickerRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.faveSticker",
+		ID:   MessagesFaveStickerRequestTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Unfave",
+			SchemaName: "unfave",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

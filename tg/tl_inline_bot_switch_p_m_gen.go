@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InlineBotSwitchPM represents TL type `inlineBotSwitchPM#3c20629f`.
 // The bot requested the user to message him in private
@@ -69,13 +71,36 @@ func (i *InlineBotSwitchPM) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InlineBotSwitchPM) TypeID() uint32 {
+func (*InlineBotSwitchPM) TypeID() uint32 {
 	return InlineBotSwitchPMTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InlineBotSwitchPM) TypeName() string {
+func (*InlineBotSwitchPM) TypeName() string {
 	return "inlineBotSwitchPM"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InlineBotSwitchPM) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inlineBotSwitchPM",
+		ID:   InlineBotSwitchPMTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
+			Name:       "StartParam",
+			SchemaName: "start_param",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

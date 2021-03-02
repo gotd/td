@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSavedGifsNotModified represents TL type `messages.savedGifsNotModified#e8025ca2`.
 // No new saved gifs were found
@@ -50,13 +52,27 @@ func (s *MessagesSavedGifsNotModified) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSavedGifsNotModified) TypeID() uint32 {
+func (*MessagesSavedGifsNotModified) TypeID() uint32 {
 	return MessagesSavedGifsNotModifiedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSavedGifsNotModified) TypeName() string {
+func (*MessagesSavedGifsNotModified) TypeName() string {
 	return "messages.savedGifsNotModified"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSavedGifsNotModified) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.savedGifsNotModified",
+		ID:   MessagesSavedGifsNotModifiedTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -142,13 +158,36 @@ func (s *MessagesSavedGifs) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSavedGifs) TypeID() uint32 {
+func (*MessagesSavedGifs) TypeID() uint32 {
 	return MessagesSavedGifsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSavedGifs) TypeName() string {
+func (*MessagesSavedGifs) TypeName() string {
 	return "messages.savedGifs"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSavedGifs) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.savedGifs",
+		ID:   MessagesSavedGifsTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+		{
+			Name:       "Gifs",
+			SchemaName: "gifs",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PageListOrderedItemText represents TL type `pageListOrderedItemText#5e068047`.
 // Ordered list of text items
@@ -69,13 +71,36 @@ func (p *PageListOrderedItemText) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageListOrderedItemText) TypeID() uint32 {
+func (*PageListOrderedItemText) TypeID() uint32 {
 	return PageListOrderedItemTextTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageListOrderedItemText) TypeName() string {
+func (*PageListOrderedItemText) TypeName() string {
 	return "pageListOrderedItemText"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageListOrderedItemText) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageListOrderedItemText",
+		ID:   PageListOrderedItemTextTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Num",
+			SchemaName: "num",
+		},
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -192,13 +217,36 @@ func (p *PageListOrderedItemBlocks) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageListOrderedItemBlocks) TypeID() uint32 {
+func (*PageListOrderedItemBlocks) TypeID() uint32 {
 	return PageListOrderedItemBlocksTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageListOrderedItemBlocks) TypeName() string {
+func (*PageListOrderedItemBlocks) TypeName() string {
 	return "pageListOrderedItemBlocks"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageListOrderedItemBlocks) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageListOrderedItemBlocks",
+		ID:   PageListOrderedItemBlocksTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Num",
+			SchemaName: "num",
+		},
+		{
+			Name:       "Blocks",
+			SchemaName: "blocks",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

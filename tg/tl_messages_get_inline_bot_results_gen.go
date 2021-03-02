@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetInlineBotResultsRequest represents TL type `messages.getInlineBotResults#514e999d`.
 // Query an inline bot
@@ -103,13 +105,53 @@ func (g *MessagesGetInlineBotResultsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetInlineBotResultsRequest) TypeID() uint32 {
+func (*MessagesGetInlineBotResultsRequest) TypeID() uint32 {
 	return MessagesGetInlineBotResultsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetInlineBotResultsRequest) TypeName() string {
+func (*MessagesGetInlineBotResultsRequest) TypeName() string {
 	return "messages.getInlineBotResults"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetInlineBotResultsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getInlineBotResults",
+		ID:   MessagesGetInlineBotResultsRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Bot",
+			SchemaName: "bot",
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "GeoPoint",
+			SchemaName: "geo_point",
+			Null:       !g.Flags.Has(0),
+		},
+		{
+			Name:       "Query",
+			SchemaName: "query",
+		},
+		{
+			Name:       "Offset",
+			SchemaName: "offset",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

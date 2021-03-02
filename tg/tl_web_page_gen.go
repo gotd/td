@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // WebPageEmpty represents TL type `webPageEmpty#eb1477e8`.
 // No preview is available for the webpage
@@ -62,13 +64,32 @@ func (w *WebPageEmpty) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (w *WebPageEmpty) TypeID() uint32 {
+func (*WebPageEmpty) TypeID() uint32 {
 	return WebPageEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (w *WebPageEmpty) TypeName() string {
+func (*WebPageEmpty) TypeName() string {
 	return "webPageEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (w *WebPageEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "webPageEmpty",
+		ID:   WebPageEmptyTypeID,
+	}
+	if w == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -164,13 +185,36 @@ func (w *WebPagePending) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (w *WebPagePending) TypeID() uint32 {
+func (*WebPagePending) TypeID() uint32 {
 	return WebPagePendingTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (w *WebPagePending) TypeName() string {
+func (*WebPagePending) TypeName() string {
 	return "webPagePending"
+}
+
+// TypeInfo returns info about TL type.
+func (w *WebPagePending) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "webPagePending",
+		ID:   WebPagePendingTypeID,
+	}
+	if w == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -475,13 +519,118 @@ func (w *WebPage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (w *WebPage) TypeID() uint32 {
+func (*WebPage) TypeID() uint32 {
 	return WebPageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (w *WebPage) TypeName() string {
+func (*WebPage) TypeName() string {
 	return "webPage"
+}
+
+// TypeInfo returns info about TL type.
+func (w *WebPage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "webPage",
+		ID:   WebPageTypeID,
+	}
+	if w == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+		{
+			Name:       "DisplayURL",
+			SchemaName: "display_url",
+		},
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+		{
+			Name:       "Type",
+			SchemaName: "type",
+			Null:       !w.Flags.Has(0),
+		},
+		{
+			Name:       "SiteName",
+			SchemaName: "site_name",
+			Null:       !w.Flags.Has(1),
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+			Null:       !w.Flags.Has(2),
+		},
+		{
+			Name:       "Description",
+			SchemaName: "description",
+			Null:       !w.Flags.Has(3),
+		},
+		{
+			Name:       "Photo",
+			SchemaName: "photo",
+			Null:       !w.Flags.Has(4),
+		},
+		{
+			Name:       "EmbedURL",
+			SchemaName: "embed_url",
+			Null:       !w.Flags.Has(5),
+		},
+		{
+			Name:       "EmbedType",
+			SchemaName: "embed_type",
+			Null:       !w.Flags.Has(5),
+		},
+		{
+			Name:       "EmbedWidth",
+			SchemaName: "embed_width",
+			Null:       !w.Flags.Has(6),
+		},
+		{
+			Name:       "EmbedHeight",
+			SchemaName: "embed_height",
+			Null:       !w.Flags.Has(6),
+		},
+		{
+			Name:       "Duration",
+			SchemaName: "duration",
+			Null:       !w.Flags.Has(7),
+		},
+		{
+			Name:       "Author",
+			SchemaName: "author",
+			Null:       !w.Flags.Has(8),
+		},
+		{
+			Name:       "Document",
+			SchemaName: "document",
+			Null:       !w.Flags.Has(9),
+		},
+		{
+			Name:       "CachedPage",
+			SchemaName: "cached_page",
+			Null:       !w.Flags.Has(10),
+		},
+		{
+			Name:       "Attributes",
+			SchemaName: "attributes",
+			Null:       !w.Flags.Has(12),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1043,13 +1192,37 @@ func (w *WebPageNotModified) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (w *WebPageNotModified) TypeID() uint32 {
+func (*WebPageNotModified) TypeID() uint32 {
 	return WebPageNotModifiedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (w *WebPageNotModified) TypeName() string {
+func (*WebPageNotModified) TypeName() string {
 	return "webPageNotModified"
+}
+
+// TypeInfo returns info about TL type.
+func (w *WebPageNotModified) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "webPageNotModified",
+		ID:   WebPageNotModifiedTypeID,
+	}
+	if w == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "CachedPageViews",
+			SchemaName: "cached_page_views",
+			Null:       !w.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

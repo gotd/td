@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetPollVotesRequest represents TL type `messages.getPollVotes#b86e380e`.
 // Get poll results for non-anonymous polls
@@ -112,13 +114,54 @@ func (g *MessagesGetPollVotesRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetPollVotesRequest) TypeID() uint32 {
+func (*MessagesGetPollVotesRequest) TypeID() uint32 {
 	return MessagesGetPollVotesRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetPollVotesRequest) TypeName() string {
+func (*MessagesGetPollVotesRequest) TypeName() string {
 	return "messages.getPollVotes"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetPollVotesRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getPollVotes",
+		ID:   MessagesGetPollVotesRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Option",
+			SchemaName: "option",
+			Null:       !g.Flags.Has(0),
+		},
+		{
+			Name:       "Offset",
+			SchemaName: "offset",
+			Null:       !g.Flags.Has(1),
+		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StatsPercentValue represents TL type `statsPercentValue#cbce2fe0`.
 // Channel statistics percentage¹.
@@ -73,13 +75,36 @@ func (s *StatsPercentValue) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *StatsPercentValue) TypeID() uint32 {
+func (*StatsPercentValue) TypeID() uint32 {
 	return StatsPercentValueTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *StatsPercentValue) TypeName() string {
+func (*StatsPercentValue) TypeName() string {
 	return "statsPercentValue"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StatsPercentValue) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "statsPercentValue",
+		ID:   StatsPercentValueTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Part",
+			SchemaName: "part",
+		},
+		{
+			Name:       "Total",
+			SchemaName: "total",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputFile represents TL type `inputFile#f52ff27f`.
 // Defines a file saved in parts using the method upload.saveFilePart¹.
@@ -89,13 +91,44 @@ func (i *InputFile) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputFile) TypeID() uint32 {
+func (*InputFile) TypeID() uint32 {
 	return InputFileTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputFile) TypeName() string {
+func (*InputFile) TypeName() string {
 	return "inputFile"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputFile) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputFile",
+		ID:   InputFileTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Parts",
+			SchemaName: "parts",
+		},
+		{
+			Name:       "Name",
+			SchemaName: "name",
+		},
+		{
+			Name:       "MD5Checksum",
+			SchemaName: "md5_checksum",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -240,13 +273,40 @@ func (i *InputFileBig) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputFileBig) TypeID() uint32 {
+func (*InputFileBig) TypeID() uint32 {
 	return InputFileBigTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputFileBig) TypeName() string {
+func (*InputFileBig) TypeName() string {
 	return "inputFileBig"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputFileBig) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputFileBig",
+		ID:   InputFileBigTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Parts",
+			SchemaName: "parts",
+		},
+		{
+			Name:       "Name",
+			SchemaName: "name",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

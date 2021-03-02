@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AuthAcceptLoginTokenRequest represents TL type `auth.acceptLoginToken#e894ad4d`.
 // Accept QR code login token, logging in the app that generated it.
@@ -70,13 +72,32 @@ func (a *AuthAcceptLoginTokenRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *AuthAcceptLoginTokenRequest) TypeID() uint32 {
+func (*AuthAcceptLoginTokenRequest) TypeID() uint32 {
 	return AuthAcceptLoginTokenRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *AuthAcceptLoginTokenRequest) TypeName() string {
+func (*AuthAcceptLoginTokenRequest) TypeName() string {
 	return "auth.acceptLoginToken"
+}
+
+// TypeInfo returns info about TL type.
+func (a *AuthAcceptLoginTokenRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.acceptLoginToken",
+		ID:   AuthAcceptLoginTokenRequestTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Token",
+			SchemaName: "token",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

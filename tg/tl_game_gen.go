@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // Game represents TL type `game#bdf9653b`.
 // Indicates an already sent game
@@ -117,13 +119,61 @@ func (g *Game) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *Game) TypeID() uint32 {
+func (*Game) TypeID() uint32 {
 	return GameTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *Game) TypeName() string {
+func (*Game) TypeName() string {
 	return "game"
+}
+
+// TypeInfo returns info about TL type.
+func (g *Game) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "game",
+		ID:   GameTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "ShortName",
+			SchemaName: "short_name",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "Description",
+			SchemaName: "description",
+		},
+		{
+			Name:       "Photo",
+			SchemaName: "photo",
+		},
+		{
+			Name:       "Document",
+			SchemaName: "document",
+			Null:       !g.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

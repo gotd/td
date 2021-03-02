@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ContactsBlocked represents TL type `contacts.blocked#ade1591`.
 // Full list of blocked users.
@@ -76,13 +78,40 @@ func (b *ContactsBlocked) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (b *ContactsBlocked) TypeID() uint32 {
+func (*ContactsBlocked) TypeID() uint32 {
 	return ContactsBlockedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (b *ContactsBlocked) TypeName() string {
+func (*ContactsBlocked) TypeName() string {
 	return "contacts.blocked"
+}
+
+// TypeInfo returns info about TL type.
+func (b *ContactsBlocked) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "contacts.blocked",
+		ID:   ContactsBlockedTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Blocked",
+			SchemaName: "blocked",
+		},
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -267,13 +296,44 @@ func (b *ContactsBlockedSlice) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (b *ContactsBlockedSlice) TypeID() uint32 {
+func (*ContactsBlockedSlice) TypeID() uint32 {
 	return ContactsBlockedSliceTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (b *ContactsBlockedSlice) TypeName() string {
+func (*ContactsBlockedSlice) TypeName() string {
 	return "contacts.blockedSlice"
+}
+
+// TypeInfo returns info about TL type.
+func (b *ContactsBlockedSlice) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "contacts.blockedSlice",
+		ID:   ContactsBlockedSliceTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Count",
+			SchemaName: "count",
+		},
+		{
+			Name:       "Blocked",
+			SchemaName: "blocked",
+		},
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

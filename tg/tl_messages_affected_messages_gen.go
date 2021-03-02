@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesAffectedMessages represents TL type `messages.affectedMessages#84d19185`.
 // Events affected by operation
@@ -75,13 +77,36 @@ func (a *MessagesAffectedMessages) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *MessagesAffectedMessages) TypeID() uint32 {
+func (*MessagesAffectedMessages) TypeID() uint32 {
 	return MessagesAffectedMessagesTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *MessagesAffectedMessages) TypeName() string {
+func (*MessagesAffectedMessages) TypeName() string {
 	return "messages.affectedMessages"
+}
+
+// TypeInfo returns info about TL type.
+func (a *MessagesAffectedMessages) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.affectedMessages",
+		ID:   MessagesAffectedMessagesTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+		},
+		{
+			Name:       "PtsCount",
+			SchemaName: "pts_count",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

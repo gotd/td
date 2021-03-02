@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // UpdatesDifferenceEmpty represents TL type `updates.differenceEmpty#5d75a138`.
 // No events.
@@ -69,13 +71,36 @@ func (d *UpdatesDifferenceEmpty) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *UpdatesDifferenceEmpty) TypeID() uint32 {
+func (*UpdatesDifferenceEmpty) TypeID() uint32 {
 	return UpdatesDifferenceEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *UpdatesDifferenceEmpty) TypeName() string {
+func (*UpdatesDifferenceEmpty) TypeName() string {
 	return "updates.differenceEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (d *UpdatesDifferenceEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updates.differenceEmpty",
+		ID:   UpdatesDifferenceEmptyTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "Seq",
+			SchemaName: "seq",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -212,13 +237,52 @@ func (d *UpdatesDifference) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *UpdatesDifference) TypeID() uint32 {
+func (*UpdatesDifference) TypeID() uint32 {
 	return UpdatesDifferenceTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *UpdatesDifference) TypeName() string {
+func (*UpdatesDifference) TypeName() string {
 	return "updates.difference"
+}
+
+// TypeInfo returns info about TL type.
+func (d *UpdatesDifference) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updates.difference",
+		ID:   UpdatesDifferenceTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "NewMessages",
+			SchemaName: "new_messages",
+		},
+		{
+			Name:       "NewEncryptedMessages",
+			SchemaName: "new_encrypted_messages",
+		},
+		{
+			Name:       "OtherUpdates",
+			SchemaName: "other_updates",
+		},
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+		{
+			Name:       "State",
+			SchemaName: "state",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -505,13 +569,52 @@ func (d *UpdatesDifferenceSlice) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *UpdatesDifferenceSlice) TypeID() uint32 {
+func (*UpdatesDifferenceSlice) TypeID() uint32 {
 	return UpdatesDifferenceSliceTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *UpdatesDifferenceSlice) TypeName() string {
+func (*UpdatesDifferenceSlice) TypeName() string {
 	return "updates.differenceSlice"
+}
+
+// TypeInfo returns info about TL type.
+func (d *UpdatesDifferenceSlice) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updates.differenceSlice",
+		ID:   UpdatesDifferenceSliceTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "NewMessages",
+			SchemaName: "new_messages",
+		},
+		{
+			Name:       "NewEncryptedMessages",
+			SchemaName: "new_encrypted_messages",
+		},
+		{
+			Name:       "OtherUpdates",
+			SchemaName: "other_updates",
+		},
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+		{
+			Name:       "IntermediateState",
+			SchemaName: "intermediate_state",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -763,13 +866,32 @@ func (d *UpdatesDifferenceTooLong) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *UpdatesDifferenceTooLong) TypeID() uint32 {
+func (*UpdatesDifferenceTooLong) TypeID() uint32 {
 	return UpdatesDifferenceTooLongTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *UpdatesDifferenceTooLong) TypeName() string {
+func (*UpdatesDifferenceTooLong) TypeName() string {
 	return "updates.differenceTooLong"
+}
+
+// TypeInfo returns info about TL type.
+func (d *UpdatesDifferenceTooLong) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updates.differenceTooLong",
+		ID:   UpdatesDifferenceTooLongTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // RPCAnswerUnknown represents TL type `rpc_answer_unknown#5e2ad36e`.
 type RPCAnswerUnknown struct {
@@ -47,13 +49,27 @@ func (r *RPCAnswerUnknown) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *RPCAnswerUnknown) TypeID() uint32 {
+func (*RPCAnswerUnknown) TypeID() uint32 {
 	return RPCAnswerUnknownTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *RPCAnswerUnknown) TypeName() string {
+func (*RPCAnswerUnknown) TypeName() string {
 	return "rpc_answer_unknown"
+}
+
+// TypeInfo returns info about TL type.
+func (r *RPCAnswerUnknown) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "rpc_answer_unknown",
+		ID:   RPCAnswerUnknownTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -114,13 +130,27 @@ func (r *RPCAnswerDroppedRunning) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *RPCAnswerDroppedRunning) TypeID() uint32 {
+func (*RPCAnswerDroppedRunning) TypeID() uint32 {
 	return RPCAnswerDroppedRunningTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *RPCAnswerDroppedRunning) TypeName() string {
+func (*RPCAnswerDroppedRunning) TypeName() string {
 	return "rpc_answer_dropped_running"
+}
+
+// TypeInfo returns info about TL type.
+func (r *RPCAnswerDroppedRunning) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "rpc_answer_dropped_running",
+		ID:   RPCAnswerDroppedRunningTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -207,13 +237,40 @@ func (r *RPCAnswerDropped) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *RPCAnswerDropped) TypeID() uint32 {
+func (*RPCAnswerDropped) TypeID() uint32 {
 	return RPCAnswerDroppedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *RPCAnswerDropped) TypeName() string {
+func (*RPCAnswerDropped) TypeName() string {
 	return "rpc_answer_dropped"
+}
+
+// TypeInfo returns info about TL type.
+func (r *RPCAnswerDropped) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "rpc_answer_dropped",
+		ID:   RPCAnswerDroppedTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+		{
+			Name:       "SeqNo",
+			SchemaName: "seq_no",
+		},
+		{
+			Name:       "Bytes",
+			SchemaName: "bytes",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

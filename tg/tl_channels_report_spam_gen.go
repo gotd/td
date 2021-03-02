@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelsReportSpamRequest represents TL type `channels.reportSpam#fe087810`.
 // Reports some messages from a user in a supergroup as spam; requires administrator rights in the supergroup
@@ -76,13 +78,40 @@ func (r *ChannelsReportSpamRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *ChannelsReportSpamRequest) TypeID() uint32 {
+func (*ChannelsReportSpamRequest) TypeID() uint32 {
 	return ChannelsReportSpamRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *ChannelsReportSpamRequest) TypeName() string {
+func (*ChannelsReportSpamRequest) TypeName() string {
 	return "channels.reportSpam"
+}
+
+// TypeInfo returns info about TL type.
+func (r *ChannelsReportSpamRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channels.reportSpam",
+		ID:   ChannelsReportSpamRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Channel",
+			SchemaName: "channel",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

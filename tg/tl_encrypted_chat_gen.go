@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // EncryptedChatEmpty represents TL type `encryptedChatEmpty#ab7ec0a0`.
 // Empty constructor.
@@ -62,13 +64,32 @@ func (e *EncryptedChatEmpty) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *EncryptedChatEmpty) TypeID() uint32 {
+func (*EncryptedChatEmpty) TypeID() uint32 {
 	return EncryptedChatEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *EncryptedChatEmpty) TypeName() string {
+func (*EncryptedChatEmpty) TypeName() string {
 	return "encryptedChatEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (e *EncryptedChatEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "encryptedChatEmpty",
+		ID:   EncryptedChatEmptyTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -185,13 +206,48 @@ func (e *EncryptedChatWaiting) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *EncryptedChatWaiting) TypeID() uint32 {
+func (*EncryptedChatWaiting) TypeID() uint32 {
 	return EncryptedChatWaitingTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *EncryptedChatWaiting) TypeName() string {
+func (*EncryptedChatWaiting) TypeName() string {
 	return "encryptedChatWaiting"
+}
+
+// TypeInfo returns info about TL type.
+func (e *EncryptedChatWaiting) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "encryptedChatWaiting",
+		ID:   EncryptedChatWaitingTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "AdminID",
+			SchemaName: "admin_id",
+		},
+		{
+			Name:       "ParticipantID",
+			SchemaName: "participant_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -393,13 +449,61 @@ func (e *EncryptedChatRequested) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *EncryptedChatRequested) TypeID() uint32 {
+func (*EncryptedChatRequested) TypeID() uint32 {
 	return EncryptedChatRequestedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *EncryptedChatRequested) TypeName() string {
+func (*EncryptedChatRequested) TypeName() string {
 	return "encryptedChatRequested"
+}
+
+// TypeInfo returns info about TL type.
+func (e *EncryptedChatRequested) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "encryptedChatRequested",
+		ID:   EncryptedChatRequestedTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "FolderID",
+			SchemaName: "folder_id",
+			Null:       !e.Flags.Has(0),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "AdminID",
+			SchemaName: "admin_id",
+		},
+		{
+			Name:       "ParticipantID",
+			SchemaName: "participant_id",
+		},
+		{
+			Name:       "GA",
+			SchemaName: "g_a",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -634,13 +738,56 @@ func (e *EncryptedChat) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *EncryptedChat) TypeID() uint32 {
+func (*EncryptedChat) TypeID() uint32 {
 	return EncryptedChatTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *EncryptedChat) TypeName() string {
+func (*EncryptedChat) TypeName() string {
 	return "encryptedChat"
+}
+
+// TypeInfo returns info about TL type.
+func (e *EncryptedChat) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "encryptedChat",
+		ID:   EncryptedChatTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "AdminID",
+			SchemaName: "admin_id",
+		},
+		{
+			Name:       "ParticipantID",
+			SchemaName: "participant_id",
+		},
+		{
+			Name:       "GAOrB",
+			SchemaName: "g_a_or_b",
+		},
+		{
+			Name:       "KeyFingerprint",
+			SchemaName: "key_fingerprint",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -819,13 +966,41 @@ func (e *EncryptedChatDiscarded) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *EncryptedChatDiscarded) TypeID() uint32 {
+func (*EncryptedChatDiscarded) TypeID() uint32 {
 	return EncryptedChatDiscardedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *EncryptedChatDiscarded) TypeName() string {
+func (*EncryptedChatDiscarded) TypeName() string {
 	return "encryptedChatDiscarded"
+}
+
+// TypeInfo returns info about TL type.
+func (e *EncryptedChatDiscarded) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "encryptedChatDiscarded",
+		ID:   EncryptedChatDiscardedTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "HistoryDeleted",
+			SchemaName: "history_deleted",
+			Null:       !e.Flags.Has(0),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StatsGroupTopPoster represents TL type `statsGroupTopPoster#18f3d0f7`.
 // Information about an active user in a supergroup
@@ -79,13 +81,40 @@ func (s *StatsGroupTopPoster) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *StatsGroupTopPoster) TypeID() uint32 {
+func (*StatsGroupTopPoster) TypeID() uint32 {
 	return StatsGroupTopPosterTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *StatsGroupTopPoster) TypeName() string {
+func (*StatsGroupTopPoster) TypeName() string {
 	return "statsGroupTopPoster"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StatsGroupTopPoster) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "statsGroupTopPoster",
+		ID:   StatsGroupTopPosterTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Messages",
+			SchemaName: "messages",
+		},
+		{
+			Name:       "AvgChars",
+			SchemaName: "avg_chars",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

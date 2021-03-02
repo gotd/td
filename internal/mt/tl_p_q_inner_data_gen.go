@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PQInnerData represents TL type `p_q_inner_data#83c95aec`.
 type PQInnerData struct {
@@ -94,13 +96,52 @@ func (p *PQInnerData) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PQInnerData) TypeID() uint32 {
+func (*PQInnerData) TypeID() uint32 {
 	return PQInnerDataTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PQInnerData) TypeName() string {
+func (*PQInnerData) TypeName() string {
 	return "p_q_inner_data"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PQInnerData) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "p_q_inner_data",
+		ID:   PQInnerDataTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Pq",
+			SchemaName: "pq",
+		},
+		{
+			Name:       "P",
+			SchemaName: "p",
+		},
+		{
+			Name:       "Q",
+			SchemaName: "q",
+		},
+		{
+			Name:       "Nonce",
+			SchemaName: "nonce",
+		},
+		{
+			Name:       "ServerNonce",
+			SchemaName: "server_nonce",
+		},
+		{
+			Name:       "NewNonce",
+			SchemaName: "new_nonce",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

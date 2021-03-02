@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StickerPack represents TL type `stickerPack#12b299d4`.
 // A stickerpack is a group of stickers associated to the same emoji.
@@ -73,13 +75,36 @@ func (s *StickerPack) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *StickerPack) TypeID() uint32 {
+func (*StickerPack) TypeID() uint32 {
 	return StickerPackTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *StickerPack) TypeName() string {
+func (*StickerPack) TypeName() string {
 	return "stickerPack"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StickerPack) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "stickerPack",
+		ID:   StickerPackTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Emoticon",
+			SchemaName: "emoticon",
+		},
+		{
+			Name:       "Documents",
+			SchemaName: "documents",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

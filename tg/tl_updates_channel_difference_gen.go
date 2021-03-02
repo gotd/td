@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // UpdatesChannelDifferenceEmpty represents TL type `updates.channelDifferenceEmpty#3e11affb`.
 // There are no new updates
@@ -92,13 +94,46 @@ func (c *UpdatesChannelDifferenceEmpty) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *UpdatesChannelDifferenceEmpty) TypeID() uint32 {
+func (*UpdatesChannelDifferenceEmpty) TypeID() uint32 {
 	return UpdatesChannelDifferenceEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *UpdatesChannelDifferenceEmpty) TypeName() string {
+func (*UpdatesChannelDifferenceEmpty) TypeName() string {
 	return "updates.channelDifferenceEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (c *UpdatesChannelDifferenceEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updates.channelDifferenceEmpty",
+		ID:   UpdatesChannelDifferenceEmptyTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Final",
+			SchemaName: "final",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+		},
+		{
+			Name:       "Timeout",
+			SchemaName: "timeout",
+			Null:       !c.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -294,13 +329,58 @@ func (c *UpdatesChannelDifferenceTooLong) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *UpdatesChannelDifferenceTooLong) TypeID() uint32 {
+func (*UpdatesChannelDifferenceTooLong) TypeID() uint32 {
 	return UpdatesChannelDifferenceTooLongTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *UpdatesChannelDifferenceTooLong) TypeName() string {
+func (*UpdatesChannelDifferenceTooLong) TypeName() string {
 	return "updates.channelDifferenceTooLong"
+}
+
+// TypeInfo returns info about TL type.
+func (c *UpdatesChannelDifferenceTooLong) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updates.channelDifferenceTooLong",
+		ID:   UpdatesChannelDifferenceTooLongTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Final",
+			SchemaName: "final",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "Timeout",
+			SchemaName: "timeout",
+			Null:       !c.Flags.Has(1),
+		},
+		{
+			Name:       "Dialog",
+			SchemaName: "dialog",
+		},
+		{
+			Name:       "Messages",
+			SchemaName: "messages",
+		},
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -604,13 +684,62 @@ func (c *UpdatesChannelDifference) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *UpdatesChannelDifference) TypeID() uint32 {
+func (*UpdatesChannelDifference) TypeID() uint32 {
 	return UpdatesChannelDifferenceTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *UpdatesChannelDifference) TypeName() string {
+func (*UpdatesChannelDifference) TypeName() string {
 	return "updates.channelDifference"
+}
+
+// TypeInfo returns info about TL type.
+func (c *UpdatesChannelDifference) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updates.channelDifference",
+		ID:   UpdatesChannelDifferenceTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Final",
+			SchemaName: "final",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+		},
+		{
+			Name:       "Timeout",
+			SchemaName: "timeout",
+			Null:       !c.Flags.Has(1),
+		},
+		{
+			Name:       "NewMessages",
+			SchemaName: "new_messages",
+		},
+		{
+			Name:       "OtherUpdates",
+			SchemaName: "other_updates",
+		},
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

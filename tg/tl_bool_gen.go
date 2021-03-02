@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // BoolFalse represents TL type `boolFalse#bc799737`.
 // Constructor may be interpreted as a booleanfalse value.
@@ -50,13 +52,27 @@ func (b *BoolFalse) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (b *BoolFalse) TypeID() uint32 {
+func (*BoolFalse) TypeID() uint32 {
 	return BoolFalseTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (b *BoolFalse) TypeName() string {
+func (*BoolFalse) TypeName() string {
 	return "boolFalse"
+}
+
+// TypeInfo returns info about TL type.
+func (b *BoolFalse) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "boolFalse",
+		ID:   BoolFalseTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -120,13 +136,27 @@ func (b *BoolTrue) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (b *BoolTrue) TypeID() uint32 {
+func (*BoolTrue) TypeID() uint32 {
 	return BoolTrueTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (b *BoolTrue) TypeName() string {
+func (*BoolTrue) TypeName() string {
 	return "boolTrue"
+}
+
+// TypeInfo returns info about TL type.
+func (b *BoolTrue) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "boolTrue",
+		ID:   BoolTrueTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

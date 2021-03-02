@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // DialogFilter represents TL type `dialogFilter#7438f7e8`.
 // Dialog filter AKA folder¹
@@ -211,13 +213,97 @@ func (d *DialogFilter) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DialogFilter) TypeID() uint32 {
+func (*DialogFilter) TypeID() uint32 {
 	return DialogFilterTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DialogFilter) TypeName() string {
+func (*DialogFilter) TypeName() string {
 	return "dialogFilter"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DialogFilter) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "dialogFilter",
+		ID:   DialogFilterTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Contacts",
+			SchemaName: "contacts",
+			Null:       !d.Flags.Has(0),
+		},
+		{
+			Name:       "NonContacts",
+			SchemaName: "non_contacts",
+			Null:       !d.Flags.Has(1),
+		},
+		{
+			Name:       "Groups",
+			SchemaName: "groups",
+			Null:       !d.Flags.Has(2),
+		},
+		{
+			Name:       "Broadcasts",
+			SchemaName: "broadcasts",
+			Null:       !d.Flags.Has(3),
+		},
+		{
+			Name:       "Bots",
+			SchemaName: "bots",
+			Null:       !d.Flags.Has(4),
+		},
+		{
+			Name:       "ExcludeMuted",
+			SchemaName: "exclude_muted",
+			Null:       !d.Flags.Has(11),
+		},
+		{
+			Name:       "ExcludeRead",
+			SchemaName: "exclude_read",
+			Null:       !d.Flags.Has(12),
+		},
+		{
+			Name:       "ExcludeArchived",
+			SchemaName: "exclude_archived",
+			Null:       !d.Flags.Has(13),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "Emoticon",
+			SchemaName: "emoticon",
+			Null:       !d.Flags.Has(25),
+		},
+		{
+			Name:       "PinnedPeers",
+			SchemaName: "pinned_peers",
+		},
+		{
+			Name:       "IncludePeers",
+			SchemaName: "include_peers",
+		},
+		{
+			Name:       "ExcludePeers",
+			SchemaName: "exclude_peers",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

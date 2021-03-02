@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelsExportMessageLinkRequest represents TL type `channels.exportMessageLink#e63fadeb`.
 // Get link and embed info of a message in a channel/supergroup¹
@@ -94,13 +96,50 @@ func (e *ChannelsExportMessageLinkRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *ChannelsExportMessageLinkRequest) TypeID() uint32 {
+func (*ChannelsExportMessageLinkRequest) TypeID() uint32 {
 	return ChannelsExportMessageLinkRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *ChannelsExportMessageLinkRequest) TypeName() string {
+func (*ChannelsExportMessageLinkRequest) TypeName() string {
 	return "channels.exportMessageLink"
+}
+
+// TypeInfo returns info about TL type.
+func (e *ChannelsExportMessageLinkRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channels.exportMessageLink",
+		ID:   ChannelsExportMessageLinkRequestTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Grouped",
+			SchemaName: "grouped",
+			Null:       !e.Flags.Has(0),
+		},
+		{
+			Name:       "Thread",
+			SchemaName: "thread",
+			Null:       !e.Flags.Has(1),
+		},
+		{
+			Name:       "Channel",
+			SchemaName: "channel",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

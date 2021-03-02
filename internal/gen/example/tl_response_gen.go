@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ResponseID represents TL type `responseID#85d7fd8b`.
 //
@@ -61,13 +63,32 @@ func (r *ResponseID) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *ResponseID) TypeID() uint32 {
+func (*ResponseID) TypeID() uint32 {
 	return ResponseIDTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *ResponseID) TypeName() string {
+func (*ResponseID) TypeName() string {
 	return "responseID"
+}
+
+// TypeInfo returns info about TL type.
+func (r *ResponseID) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "responseID",
+		ID:   ResponseIDTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -155,13 +176,32 @@ func (r *ResponseText) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *ResponseText) TypeID() uint32 {
+func (*ResponseText) TypeID() uint32 {
 	return ResponseTextTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *ResponseText) TypeName() string {
+func (*ResponseText) TypeName() string {
 	return "responseText"
+}
+
+// TypeInfo returns info about TL type.
+func (r *ResponseText) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "responseText",
+		ID:   ResponseTextTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

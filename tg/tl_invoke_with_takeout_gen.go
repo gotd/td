@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InvokeWithTakeoutRequest represents TL type `invokeWithTakeout#aca9fd2e`.
 // Invoke a method within a takeout session
@@ -69,13 +71,36 @@ func (i *InvokeWithTakeoutRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InvokeWithTakeoutRequest) TypeID() uint32 {
+func (*InvokeWithTakeoutRequest) TypeID() uint32 {
 	return InvokeWithTakeoutRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InvokeWithTakeoutRequest) TypeName() string {
+func (*InvokeWithTakeoutRequest) TypeName() string {
 	return "invokeWithTakeout"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InvokeWithTakeoutRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "invokeWithTakeout",
+		ID:   InvokeWithTakeoutRequestTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "TakeoutID",
+			SchemaName: "takeout_id",
+		},
+		{
+			Name:       "Query",
+			SchemaName: "query",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

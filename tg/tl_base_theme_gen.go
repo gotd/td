@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // BaseThemeClassic represents TL type `baseThemeClassic#c3a12462`.
 // Classic theme
@@ -50,13 +52,27 @@ func (b *BaseThemeClassic) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (b *BaseThemeClassic) TypeID() uint32 {
+func (*BaseThemeClassic) TypeID() uint32 {
 	return BaseThemeClassicTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (b *BaseThemeClassic) TypeName() string {
+func (*BaseThemeClassic) TypeName() string {
 	return "baseThemeClassic"
+}
+
+// TypeInfo returns info about TL type.
+func (b *BaseThemeClassic) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "baseThemeClassic",
+		ID:   BaseThemeClassicTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -120,13 +136,27 @@ func (b *BaseThemeDay) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (b *BaseThemeDay) TypeID() uint32 {
+func (*BaseThemeDay) TypeID() uint32 {
 	return BaseThemeDayTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (b *BaseThemeDay) TypeName() string {
+func (*BaseThemeDay) TypeName() string {
 	return "baseThemeDay"
+}
+
+// TypeInfo returns info about TL type.
+func (b *BaseThemeDay) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "baseThemeDay",
+		ID:   BaseThemeDayTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -190,13 +220,27 @@ func (b *BaseThemeNight) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (b *BaseThemeNight) TypeID() uint32 {
+func (*BaseThemeNight) TypeID() uint32 {
 	return BaseThemeNightTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (b *BaseThemeNight) TypeName() string {
+func (*BaseThemeNight) TypeName() string {
 	return "baseThemeNight"
+}
+
+// TypeInfo returns info about TL type.
+func (b *BaseThemeNight) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "baseThemeNight",
+		ID:   BaseThemeNightTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -260,13 +304,27 @@ func (b *BaseThemeTinted) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (b *BaseThemeTinted) TypeID() uint32 {
+func (*BaseThemeTinted) TypeID() uint32 {
 	return BaseThemeTintedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (b *BaseThemeTinted) TypeName() string {
+func (*BaseThemeTinted) TypeName() string {
 	return "baseThemeTinted"
+}
+
+// TypeInfo returns info about TL type.
+func (b *BaseThemeTinted) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "baseThemeTinted",
+		ID:   BaseThemeTintedTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -330,13 +388,27 @@ func (b *BaseThemeArctic) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (b *BaseThemeArctic) TypeID() uint32 {
+func (*BaseThemeArctic) TypeID() uint32 {
 	return BaseThemeArcticTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (b *BaseThemeArctic) TypeName() string {
+func (*BaseThemeArctic) TypeName() string {
 	return "baseThemeArctic"
+}
+
+// TypeInfo returns info about TL type.
+func (b *BaseThemeArctic) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "baseThemeArctic",
+		ID:   BaseThemeArcticTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

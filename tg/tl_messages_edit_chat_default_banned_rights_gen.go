@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesEditChatDefaultBannedRightsRequest represents TL type `messages.editChatDefaultBannedRights#a5866b41`.
 // Edit the default banned rights of a channel/supergroup/group¹.
@@ -72,13 +74,36 @@ func (e *MessagesEditChatDefaultBannedRightsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *MessagesEditChatDefaultBannedRightsRequest) TypeID() uint32 {
+func (*MessagesEditChatDefaultBannedRightsRequest) TypeID() uint32 {
 	return MessagesEditChatDefaultBannedRightsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *MessagesEditChatDefaultBannedRightsRequest) TypeName() string {
+func (*MessagesEditChatDefaultBannedRightsRequest) TypeName() string {
 	return "messages.editChatDefaultBannedRights"
+}
+
+// TypeInfo returns info about TL type.
+func (e *MessagesEditChatDefaultBannedRightsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.editChatDefaultBannedRights",
+		ID:   MessagesEditChatDefaultBannedRightsRequestTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "BannedRights",
+			SchemaName: "banned_rights",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

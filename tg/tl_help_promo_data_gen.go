@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HelpPromoDataEmpty represents TL type `help.promoDataEmpty#98f6ac75`.
 // No PSA/MTProxy info is available
@@ -62,13 +64,32 @@ func (p *HelpPromoDataEmpty) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *HelpPromoDataEmpty) TypeID() uint32 {
+func (*HelpPromoDataEmpty) TypeID() uint32 {
 	return HelpPromoDataEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *HelpPromoDataEmpty) TypeName() string {
+func (*HelpPromoDataEmpty) TypeName() string {
 	return "help.promoDataEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (p *HelpPromoDataEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.promoDataEmpty",
+		ID:   HelpPromoDataEmptyTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Expires",
+			SchemaName: "expires",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -217,13 +238,63 @@ func (p *HelpPromoData) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *HelpPromoData) TypeID() uint32 {
+func (*HelpPromoData) TypeID() uint32 {
 	return HelpPromoDataTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *HelpPromoData) TypeName() string {
+func (*HelpPromoData) TypeName() string {
 	return "help.promoData"
+}
+
+// TypeInfo returns info about TL type.
+func (p *HelpPromoData) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.promoData",
+		ID:   HelpPromoDataTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Proxy",
+			SchemaName: "proxy",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "Expires",
+			SchemaName: "expires",
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+		{
+			Name:       "PsaType",
+			SchemaName: "psa_type",
+			Null:       !p.Flags.Has(1),
+		},
+		{
+			Name:       "PsaMessage",
+			SchemaName: "psa_message",
+			Null:       !p.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

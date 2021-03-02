@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessageViews represents TL type `messageViews#455b853d`.
 // View, forward counter + info about replies of a specific message
@@ -102,13 +104,47 @@ func (m *MessageViews) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageViews) TypeID() uint32 {
+func (*MessageViews) TypeID() uint32 {
 	return MessageViewsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageViews) TypeName() string {
+func (*MessageViews) TypeName() string {
 	return "messageViews"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageViews) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageViews",
+		ID:   MessageViewsTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Views",
+			SchemaName: "views",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "Forwards",
+			SchemaName: "forwards",
+			Null:       !m.Flags.Has(1),
+		},
+		{
+			Name:       "Replies",
+			SchemaName: "replies",
+			Null:       !m.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

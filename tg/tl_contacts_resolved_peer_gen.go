@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ContactsResolvedPeer represents TL type `contacts.resolvedPeer#7f077ad9`.
 // Resolved peer
@@ -76,13 +78,40 @@ func (r *ContactsResolvedPeer) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *ContactsResolvedPeer) TypeID() uint32 {
+func (*ContactsResolvedPeer) TypeID() uint32 {
 	return ContactsResolvedPeerTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *ContactsResolvedPeer) TypeName() string {
+func (*ContactsResolvedPeer) TypeName() string {
 	return "contacts.resolvedPeer"
+}
+
+// TypeInfo returns info about TL type.
+func (r *ContactsResolvedPeer) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "contacts.resolvedPeer",
+		ID:   ContactsResolvedPeerTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

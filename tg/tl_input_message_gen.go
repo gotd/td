@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputMessageID represents TL type `inputMessageID#a676a322`.
 // Message by ID
@@ -62,13 +64,32 @@ func (i *InputMessageID) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputMessageID) TypeID() uint32 {
+func (*InputMessageID) TypeID() uint32 {
 	return InputMessageIDTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputMessageID) TypeName() string {
+func (*InputMessageID) TypeName() string {
 	return "inputMessageID"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMessageID) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMessageID",
+		ID:   InputMessageIDTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -157,13 +178,32 @@ func (i *InputMessageReplyTo) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputMessageReplyTo) TypeID() uint32 {
+func (*InputMessageReplyTo) TypeID() uint32 {
 	return InputMessageReplyToTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputMessageReplyTo) TypeName() string {
+func (*InputMessageReplyTo) TypeName() string {
 	return "inputMessageReplyTo"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMessageReplyTo) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMessageReplyTo",
+		ID:   InputMessageReplyToTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -240,13 +280,27 @@ func (i *InputMessagePinned) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputMessagePinned) TypeID() uint32 {
+func (*InputMessagePinned) TypeID() uint32 {
 	return InputMessagePinnedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputMessagePinned) TypeName() string {
+func (*InputMessagePinned) TypeName() string {
 	return "inputMessagePinned"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMessagePinned) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMessagePinned",
+		ID:   InputMessagePinnedTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -329,13 +383,36 @@ func (i *InputMessageCallbackQuery) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputMessageCallbackQuery) TypeID() uint32 {
+func (*InputMessageCallbackQuery) TypeID() uint32 {
 	return InputMessageCallbackQueryTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputMessageCallbackQuery) TypeName() string {
+func (*InputMessageCallbackQuery) TypeName() string {
 	return "inputMessageCallbackQuery"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMessageCallbackQuery) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMessageCallbackQuery",
+		ID:   InputMessageCallbackQueryTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "QueryID",
+			SchemaName: "query_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

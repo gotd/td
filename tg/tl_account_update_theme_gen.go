@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountUpdateThemeRequest represents TL type `account.updateTheme#5cb367d5`.
 // Update theme
@@ -125,13 +127,60 @@ func (u *AccountUpdateThemeRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *AccountUpdateThemeRequest) TypeID() uint32 {
+func (*AccountUpdateThemeRequest) TypeID() uint32 {
 	return AccountUpdateThemeRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *AccountUpdateThemeRequest) TypeName() string {
+func (*AccountUpdateThemeRequest) TypeName() string {
 	return "account.updateTheme"
+}
+
+// TypeInfo returns info about TL type.
+func (u *AccountUpdateThemeRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.updateTheme",
+		ID:   AccountUpdateThemeRequestTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Format",
+			SchemaName: "format",
+		},
+		{
+			Name:       "Theme",
+			SchemaName: "theme",
+		},
+		{
+			Name:       "Slug",
+			SchemaName: "slug",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "Document",
+			SchemaName: "document",
+			Null:       !u.Flags.Has(2),
+		},
+		{
+			Name:       "Settings",
+			SchemaName: "settings",
+			Null:       !u.Flags.Has(3),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

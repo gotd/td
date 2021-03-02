@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // Authorization represents TL type `authorization#ad01d61d`.
 // Logged-in session
@@ -171,13 +173,95 @@ func (a *Authorization) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *Authorization) TypeID() uint32 {
+func (*Authorization) TypeID() uint32 {
 	return AuthorizationTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *Authorization) TypeName() string {
+func (*Authorization) TypeName() string {
 	return "authorization"
+}
+
+// TypeInfo returns info about TL type.
+func (a *Authorization) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "authorization",
+		ID:   AuthorizationTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Current",
+			SchemaName: "current",
+			Null:       !a.Flags.Has(0),
+		},
+		{
+			Name:       "OfficialApp",
+			SchemaName: "official_app",
+			Null:       !a.Flags.Has(1),
+		},
+		{
+			Name:       "PasswordPending",
+			SchemaName: "password_pending",
+			Null:       !a.Flags.Has(2),
+		},
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+		{
+			Name:       "DeviceModel",
+			SchemaName: "device_model",
+		},
+		{
+			Name:       "Platform",
+			SchemaName: "platform",
+		},
+		{
+			Name:       "SystemVersion",
+			SchemaName: "system_version",
+		},
+		{
+			Name:       "APIID",
+			SchemaName: "api_id",
+		},
+		{
+			Name:       "AppName",
+			SchemaName: "app_name",
+		},
+		{
+			Name:       "AppVersion",
+			SchemaName: "app_version",
+		},
+		{
+			Name:       "DateCreated",
+			SchemaName: "date_created",
+		},
+		{
+			Name:       "DateActive",
+			SchemaName: "date_active",
+		},
+		{
+			Name:       "IP",
+			SchemaName: "ip",
+		},
+		{
+			Name:       "Country",
+			SchemaName: "country",
+		},
+		{
+			Name:       "Region",
+			SchemaName: "region",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

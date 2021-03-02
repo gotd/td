@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetScheduledHistoryRequest represents TL type `messages.getScheduledHistory#e2c2685b`.
 // Get scheduled messages
@@ -72,13 +74,36 @@ func (g *MessagesGetScheduledHistoryRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetScheduledHistoryRequest) TypeID() uint32 {
+func (*MessagesGetScheduledHistoryRequest) TypeID() uint32 {
 	return MessagesGetScheduledHistoryRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetScheduledHistoryRequest) TypeName() string {
+func (*MessagesGetScheduledHistoryRequest) TypeName() string {
 	return "messages.getScheduledHistory"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetScheduledHistoryRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getScheduledHistory",
+		ID:   MessagesGetScheduledHistoryRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

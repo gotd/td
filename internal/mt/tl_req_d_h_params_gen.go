@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ReqDHParamsRequest represents TL type `req_DH_params#d712e4be`.
 type ReqDHParamsRequest struct {
@@ -94,13 +96,52 @@ func (r *ReqDHParamsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *ReqDHParamsRequest) TypeID() uint32 {
+func (*ReqDHParamsRequest) TypeID() uint32 {
 	return ReqDHParamsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *ReqDHParamsRequest) TypeName() string {
+func (*ReqDHParamsRequest) TypeName() string {
 	return "req_DH_params"
+}
+
+// TypeInfo returns info about TL type.
+func (r *ReqDHParamsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "req_DH_params",
+		ID:   ReqDHParamsRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Nonce",
+			SchemaName: "nonce",
+		},
+		{
+			Name:       "ServerNonce",
+			SchemaName: "server_nonce",
+		},
+		{
+			Name:       "P",
+			SchemaName: "p",
+		},
+		{
+			Name:       "Q",
+			SchemaName: "q",
+		},
+		{
+			Name:       "PublicKeyFingerprint",
+			SchemaName: "public_key_fingerprint",
+		},
+		{
+			Name:       "EncryptedData",
+			SchemaName: "encrypted_data",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

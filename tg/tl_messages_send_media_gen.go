@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSendMediaRequest represents TL type `messages.sendMedia#3491eba9`.
 // Send a media
@@ -166,13 +168,83 @@ func (s *MessagesSendMediaRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSendMediaRequest) TypeID() uint32 {
+func (*MessagesSendMediaRequest) TypeID() uint32 {
 	return MessagesSendMediaRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSendMediaRequest) TypeName() string {
+func (*MessagesSendMediaRequest) TypeName() string {
 	return "messages.sendMedia"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSendMediaRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.sendMedia",
+		ID:   MessagesSendMediaRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Silent",
+			SchemaName: "silent",
+			Null:       !s.Flags.Has(5),
+		},
+		{
+			Name:       "Background",
+			SchemaName: "background",
+			Null:       !s.Flags.Has(6),
+		},
+		{
+			Name:       "ClearDraft",
+			SchemaName: "clear_draft",
+			Null:       !s.Flags.Has(7),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "ReplyToMsgID",
+			SchemaName: "reply_to_msg_id",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "Media",
+			SchemaName: "media",
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+		{
+			Name:       "RandomID",
+			SchemaName: "random_id",
+		},
+		{
+			Name:       "ReplyMarkup",
+			SchemaName: "reply_markup",
+			Null:       !s.Flags.Has(2),
+		},
+		{
+			Name:       "Entities",
+			SchemaName: "entities",
+			Null:       !s.Flags.Has(3),
+		},
+		{
+			Name:       "ScheduleDate",
+			SchemaName: "schedule_date",
+			Null:       !s.Flags.Has(10),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSetTypingRequest represents TL type `messages.setTyping#58943ee2`.
 // Sends a current user typing event (see SendMessageAction¹ for all event types) to a conversation partner or group.
@@ -98,13 +100,45 @@ func (s *MessagesSetTypingRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSetTypingRequest) TypeID() uint32 {
+func (*MessagesSetTypingRequest) TypeID() uint32 {
 	return MessagesSetTypingRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSetTypingRequest) TypeName() string {
+func (*MessagesSetTypingRequest) TypeName() string {
 	return "messages.setTyping"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSetTypingRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.setTyping",
+		ID:   MessagesSetTypingRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "TopMsgID",
+			SchemaName: "top_msg_id",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "Action",
+			SchemaName: "action",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

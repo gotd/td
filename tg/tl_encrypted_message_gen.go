@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // EncryptedMessage represents TL type `encryptedMessage#ed18c118`.
 // Encrypted message.
@@ -93,13 +95,48 @@ func (e *EncryptedMessage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *EncryptedMessage) TypeID() uint32 {
+func (*EncryptedMessage) TypeID() uint32 {
 	return EncryptedMessageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *EncryptedMessage) TypeName() string {
+func (*EncryptedMessage) TypeName() string {
 	return "encryptedMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (e *EncryptedMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "encryptedMessage",
+		ID:   EncryptedMessageTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "RandomID",
+			SchemaName: "random_id",
+		},
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "Bytes",
+			SchemaName: "bytes",
+		},
+		{
+			Name:       "File",
+			SchemaName: "file",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -269,13 +306,44 @@ func (e *EncryptedMessageService) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *EncryptedMessageService) TypeID() uint32 {
+func (*EncryptedMessageService) TypeID() uint32 {
 	return EncryptedMessageServiceTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *EncryptedMessageService) TypeName() string {
+func (*EncryptedMessageService) TypeName() string {
 	return "encryptedMessageService"
+}
+
+// TypeInfo returns info about TL type.
+func (e *EncryptedMessageService) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "encryptedMessageService",
+		ID:   EncryptedMessageServiceTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "RandomID",
+			SchemaName: "random_id",
+		},
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "Bytes",
+			SchemaName: "bytes",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // EmojiURL represents TL type `emojiURL#a575739d`.
 // An HTTP URL which can be used to automatically log in into translation platform and suggest new emoji replacements. The URL will be valid for 30 seconds after generation
@@ -62,13 +64,32 @@ func (e *EmojiURL) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *EmojiURL) TypeID() uint32 {
+func (*EmojiURL) TypeID() uint32 {
 	return EmojiURLTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *EmojiURL) TypeName() string {
+func (*EmojiURL) TypeName() string {
 	return "emojiURL"
+}
+
+// TypeInfo returns info about TL type.
+func (e *EmojiURL) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "emojiURL",
+		ID:   EmojiURLTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

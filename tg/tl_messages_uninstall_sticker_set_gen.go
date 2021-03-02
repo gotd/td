@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesUninstallStickerSetRequest represents TL type `messages.uninstallStickerSet#f96e55de`.
 // Uninstall a stickerset
@@ -62,13 +64,32 @@ func (u *MessagesUninstallStickerSetRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *MessagesUninstallStickerSetRequest) TypeID() uint32 {
+func (*MessagesUninstallStickerSetRequest) TypeID() uint32 {
 	return MessagesUninstallStickerSetRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *MessagesUninstallStickerSetRequest) TypeName() string {
+func (*MessagesUninstallStickerSetRequest) TypeName() string {
 	return "messages.uninstallStickerSet"
+}
+
+// TypeInfo returns info about TL type.
+func (u *MessagesUninstallStickerSetRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.uninstallStickerSet",
+		ID:   MessagesUninstallStickerSetRequestTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Stickerset",
+			SchemaName: "stickerset",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

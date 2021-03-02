@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountAuthorizationForm represents TL type `account.authorizationForm#ad2e1cd8`.
 // Telegram Passport¹ authorization form
@@ -115,13 +117,53 @@ func (a *AccountAuthorizationForm) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *AccountAuthorizationForm) TypeID() uint32 {
+func (*AccountAuthorizationForm) TypeID() uint32 {
 	return AccountAuthorizationFormTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *AccountAuthorizationForm) TypeName() string {
+func (*AccountAuthorizationForm) TypeName() string {
 	return "account.authorizationForm"
+}
+
+// TypeInfo returns info about TL type.
+func (a *AccountAuthorizationForm) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.authorizationForm",
+		ID:   AccountAuthorizationFormTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "RequiredTypes",
+			SchemaName: "required_types",
+		},
+		{
+			Name:       "Values",
+			SchemaName: "values",
+		},
+		{
+			Name:       "Errors",
+			SchemaName: "errors",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+		{
+			Name:       "PrivacyPolicyURL",
+			SchemaName: "privacy_policy_url",
+			Null:       !a.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

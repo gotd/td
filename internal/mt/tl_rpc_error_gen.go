@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // RPCError represents TL type `rpc_error#2144ca19`.
 type RPCError struct {
@@ -66,13 +68,36 @@ func (r *RPCError) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *RPCError) TypeID() uint32 {
+func (*RPCError) TypeID() uint32 {
 	return RPCErrorTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *RPCError) TypeName() string {
+func (*RPCError) TypeName() string {
 	return "rpc_error"
+}
+
+// TypeInfo returns info about TL type.
+func (r *RPCError) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "rpc_error",
+		ID:   RPCErrorTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ErrorCode",
+			SchemaName: "error_code",
+		},
+		{
+			Name:       "ErrorMessage",
+			SchemaName: "error_message",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

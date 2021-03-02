@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // LongVector is a box for Vector<long>
 type LongVector struct {
@@ -59,13 +61,32 @@ func (vec *LongVector) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (vec *LongVector) TypeID() uint32 {
+func (*LongVector) TypeID() uint32 {
 	return LongVectorTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (vec *LongVector) TypeName() string {
+func (*LongVector) TypeName() string {
 	return ""
+}
+
+// TypeInfo returns info about TL type.
+func (vec *LongVector) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "",
+		ID:   LongVectorTypeID,
+	}
+	if vec == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Elems",
+			SchemaName: "Elems",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSetInlineBotResultsRequest represents TL type `messages.setInlineBotResults#eb5ea206`.
 // Answer an inline query, for bots only
@@ -122,13 +124,64 @@ func (s *MessagesSetInlineBotResultsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSetInlineBotResultsRequest) TypeID() uint32 {
+func (*MessagesSetInlineBotResultsRequest) TypeID() uint32 {
 	return MessagesSetInlineBotResultsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSetInlineBotResultsRequest) TypeName() string {
+func (*MessagesSetInlineBotResultsRequest) TypeName() string {
 	return "messages.setInlineBotResults"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSetInlineBotResultsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.setInlineBotResults",
+		ID:   MessagesSetInlineBotResultsRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Gallery",
+			SchemaName: "gallery",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "Private",
+			SchemaName: "private",
+			Null:       !s.Flags.Has(1),
+		},
+		{
+			Name:       "QueryID",
+			SchemaName: "query_id",
+		},
+		{
+			Name:       "Results",
+			SchemaName: "results",
+		},
+		{
+			Name:       "CacheTime",
+			SchemaName: "cache_time",
+		},
+		{
+			Name:       "NextOffset",
+			SchemaName: "next_offset",
+			Null:       !s.Flags.Has(2),
+		},
+		{
+			Name:       "SwitchPm",
+			SchemaName: "switch_pm",
+			Null:       !s.Flags.Has(3),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessageReplyHeader represents TL type `messageReplyHeader#a6d57763`.
 // Message replies and thread¹ information
@@ -103,13 +105,46 @@ func (m *MessageReplyHeader) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageReplyHeader) TypeID() uint32 {
+func (*MessageReplyHeader) TypeID() uint32 {
 	return MessageReplyHeaderTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageReplyHeader) TypeName() string {
+func (*MessageReplyHeader) TypeName() string {
 	return "messageReplyHeader"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageReplyHeader) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageReplyHeader",
+		ID:   MessageReplyHeaderTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ReplyToMsgID",
+			SchemaName: "reply_to_msg_id",
+		},
+		{
+			Name:       "ReplyToPeerID",
+			SchemaName: "reply_to_peer_id",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "ReplyToTopID",
+			SchemaName: "reply_to_top_id",
+			Null:       !m.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

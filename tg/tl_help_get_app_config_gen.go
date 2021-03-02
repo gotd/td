@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HelpGetAppConfigRequest represents TL type `help.getAppConfig#98914110`.
 // Get app-specific configuration, see client configuration¹ for more info on the result.
@@ -53,13 +55,27 @@ func (g *HelpGetAppConfigRequest) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *HelpGetAppConfigRequest) TypeID() uint32 {
+func (*HelpGetAppConfigRequest) TypeID() uint32 {
 	return HelpGetAppConfigRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *HelpGetAppConfigRequest) TypeName() string {
+func (*HelpGetAppConfigRequest) TypeName() string {
 	return "help.getAppConfig"
+}
+
+// TypeInfo returns info about TL type.
+func (g *HelpGetAppConfigRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.getAppConfig",
+		ID:   HelpGetAppConfigRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

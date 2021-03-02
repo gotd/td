@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // DecryptedMessageLayer represents TL type `decryptedMessageLayer#1be31789`.
 //
@@ -89,13 +91,48 @@ func (d *DecryptedMessageLayer) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageLayer) TypeID() uint32 {
+func (*DecryptedMessageLayer) TypeID() uint32 {
 	return DecryptedMessageLayerTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageLayer) TypeName() string {
+func (*DecryptedMessageLayer) TypeName() string {
 	return "decryptedMessageLayer"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageLayer) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageLayer",
+		ID:   DecryptedMessageLayerTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "RandomBytes",
+			SchemaName: "random_bytes",
+		},
+		{
+			Name:       "Layer",
+			SchemaName: "layer",
+		},
+		{
+			Name:       "InSeqNo",
+			SchemaName: "in_seq_no",
+		},
+		{
+			Name:       "OutSeqNo",
+			SchemaName: "out_seq_no",
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

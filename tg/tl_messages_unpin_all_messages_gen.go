@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesUnpinAllMessagesRequest represents TL type `messages.unpinAllMessages#f025bc8b`.
 // Unpin¹ all pinned messages
@@ -65,13 +67,32 @@ func (u *MessagesUnpinAllMessagesRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *MessagesUnpinAllMessagesRequest) TypeID() uint32 {
+func (*MessagesUnpinAllMessagesRequest) TypeID() uint32 {
 	return MessagesUnpinAllMessagesRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *MessagesUnpinAllMessagesRequest) TypeName() string {
+func (*MessagesUnpinAllMessagesRequest) TypeName() string {
 	return "messages.unpinAllMessages"
+}
+
+// TypeInfo returns info about TL type.
+func (u *MessagesUnpinAllMessagesRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.unpinAllMessages",
+		ID:   MessagesUnpinAllMessagesRequestTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

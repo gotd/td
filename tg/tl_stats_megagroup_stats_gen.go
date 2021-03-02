@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StatsMegagroupStats represents TL type `stats.megagroupStats#ef7ff916`.
 // Supergroup statistics¹
@@ -177,13 +179,96 @@ func (m *StatsMegagroupStats) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *StatsMegagroupStats) TypeID() uint32 {
+func (*StatsMegagroupStats) TypeID() uint32 {
 	return StatsMegagroupStatsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *StatsMegagroupStats) TypeName() string {
+func (*StatsMegagroupStats) TypeName() string {
 	return "stats.megagroupStats"
+}
+
+// TypeInfo returns info about TL type.
+func (m *StatsMegagroupStats) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "stats.megagroupStats",
+		ID:   StatsMegagroupStatsTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Period",
+			SchemaName: "period",
+		},
+		{
+			Name:       "Members",
+			SchemaName: "members",
+		},
+		{
+			Name:       "Messages",
+			SchemaName: "messages",
+		},
+		{
+			Name:       "Viewers",
+			SchemaName: "viewers",
+		},
+		{
+			Name:       "Posters",
+			SchemaName: "posters",
+		},
+		{
+			Name:       "GrowthGraph",
+			SchemaName: "growth_graph",
+		},
+		{
+			Name:       "MembersGraph",
+			SchemaName: "members_graph",
+		},
+		{
+			Name:       "NewMembersBySourceGraph",
+			SchemaName: "new_members_by_source_graph",
+		},
+		{
+			Name:       "LanguagesGraph",
+			SchemaName: "languages_graph",
+		},
+		{
+			Name:       "MessagesGraph",
+			SchemaName: "messages_graph",
+		},
+		{
+			Name:       "ActionsGraph",
+			SchemaName: "actions_graph",
+		},
+		{
+			Name:       "TopHoursGraph",
+			SchemaName: "top_hours_graph",
+		},
+		{
+			Name:       "WeekdaysGraph",
+			SchemaName: "weekdays_graph",
+		},
+		{
+			Name:       "TopPosters",
+			SchemaName: "top_posters",
+		},
+		{
+			Name:       "TopAdmins",
+			SchemaName: "top_admins",
+		},
+		{
+			Name:       "TopInviters",
+			SchemaName: "top_inviters",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

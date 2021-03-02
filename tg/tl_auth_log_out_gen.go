@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AuthLogOutRequest represents TL type `auth.logOut#5717da40`.
 // Logs out the user.
@@ -50,13 +52,27 @@ func (l *AuthLogOutRequest) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (l *AuthLogOutRequest) TypeID() uint32 {
+func (*AuthLogOutRequest) TypeID() uint32 {
 	return AuthLogOutRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (l *AuthLogOutRequest) TypeName() string {
+func (*AuthLogOutRequest) TypeName() string {
 	return "auth.logOut"
+}
+
+// TypeInfo returns info about TL type.
+func (l *AuthLogOutRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.logOut",
+		ID:   AuthLogOutRequestTypeID,
+	}
+	if l == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

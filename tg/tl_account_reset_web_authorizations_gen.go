@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountResetWebAuthorizationsRequest represents TL type `account.resetWebAuthorizations#682d2594`.
 // Reset all active web telegram login¹ sessions
@@ -53,13 +55,27 @@ func (r *AccountResetWebAuthorizationsRequest) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *AccountResetWebAuthorizationsRequest) TypeID() uint32 {
+func (*AccountResetWebAuthorizationsRequest) TypeID() uint32 {
 	return AccountResetWebAuthorizationsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *AccountResetWebAuthorizationsRequest) TypeName() string {
+func (*AccountResetWebAuthorizationsRequest) TypeName() string {
 	return "account.resetWebAuthorizations"
+}
+
+// TypeInfo returns info about TL type.
+func (r *AccountResetWebAuthorizationsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.resetWebAuthorizations",
+		ID:   AccountResetWebAuthorizationsRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

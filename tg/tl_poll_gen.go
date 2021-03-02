@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // Poll represents TL type `poll#86e18161`.
 // Poll
@@ -139,13 +141,74 @@ func (p *Poll) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *Poll) TypeID() uint32 {
+func (*Poll) TypeID() uint32 {
 	return PollTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *Poll) TypeName() string {
+func (*Poll) TypeName() string {
 	return "poll"
+}
+
+// TypeInfo returns info about TL type.
+func (p *Poll) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "poll",
+		ID:   PollTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Closed",
+			SchemaName: "closed",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "PublicVoters",
+			SchemaName: "public_voters",
+			Null:       !p.Flags.Has(1),
+		},
+		{
+			Name:       "MultipleChoice",
+			SchemaName: "multiple_choice",
+			Null:       !p.Flags.Has(2),
+		},
+		{
+			Name:       "Quiz",
+			SchemaName: "quiz",
+			Null:       !p.Flags.Has(3),
+		},
+		{
+			Name:       "Question",
+			SchemaName: "question",
+		},
+		{
+			Name:       "Answers",
+			SchemaName: "answers",
+		},
+		{
+			Name:       "ClosePeriod",
+			SchemaName: "close_period",
+			Null:       !p.Flags.Has(4),
+		},
+		{
+			Name:       "CloseDate",
+			SchemaName: "close_date",
+			Null:       !p.Flags.Has(5),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

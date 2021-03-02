@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // DecryptedMessageActionSetMessageTTL represents TL type `decryptedMessageActionSetMessageTTL#a1733aec`.
 //
@@ -61,13 +63,32 @@ func (d *DecryptedMessageActionSetMessageTTL) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageActionSetMessageTTL) TypeID() uint32 {
+func (*DecryptedMessageActionSetMessageTTL) TypeID() uint32 {
 	return DecryptedMessageActionSetMessageTTLTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageActionSetMessageTTL) TypeName() string {
+func (*DecryptedMessageActionSetMessageTTL) TypeName() string {
 	return "decryptedMessageActionSetMessageTTL"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageActionSetMessageTTL) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageActionSetMessageTTL",
+		ID:   DecryptedMessageActionSetMessageTTLTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "TTLSeconds",
+			SchemaName: "ttl_seconds",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -155,13 +176,32 @@ func (d *DecryptedMessageActionReadMessages) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageActionReadMessages) TypeID() uint32 {
+func (*DecryptedMessageActionReadMessages) TypeID() uint32 {
 	return DecryptedMessageActionReadMessagesTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageActionReadMessages) TypeName() string {
+func (*DecryptedMessageActionReadMessages) TypeName() string {
 	return "decryptedMessageActionReadMessages"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageActionReadMessages) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageActionReadMessages",
+		ID:   DecryptedMessageActionReadMessagesTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "RandomIds",
+			SchemaName: "random_ids",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -258,13 +298,32 @@ func (d *DecryptedMessageActionDeleteMessages) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageActionDeleteMessages) TypeID() uint32 {
+func (*DecryptedMessageActionDeleteMessages) TypeID() uint32 {
 	return DecryptedMessageActionDeleteMessagesTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageActionDeleteMessages) TypeName() string {
+func (*DecryptedMessageActionDeleteMessages) TypeName() string {
 	return "decryptedMessageActionDeleteMessages"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageActionDeleteMessages) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageActionDeleteMessages",
+		ID:   DecryptedMessageActionDeleteMessagesTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "RandomIds",
+			SchemaName: "random_ids",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -361,13 +420,32 @@ func (d *DecryptedMessageActionScreenshotMessages) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageActionScreenshotMessages) TypeID() uint32 {
+func (*DecryptedMessageActionScreenshotMessages) TypeID() uint32 {
 	return DecryptedMessageActionScreenshotMessagesTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageActionScreenshotMessages) TypeName() string {
+func (*DecryptedMessageActionScreenshotMessages) TypeName() string {
 	return "decryptedMessageActionScreenshotMessages"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageActionScreenshotMessages) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageActionScreenshotMessages",
+		ID:   DecryptedMessageActionScreenshotMessagesTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "RandomIds",
+			SchemaName: "random_ids",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -452,13 +530,27 @@ func (d *DecryptedMessageActionFlushHistory) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageActionFlushHistory) TypeID() uint32 {
+func (*DecryptedMessageActionFlushHistory) TypeID() uint32 {
 	return DecryptedMessageActionFlushHistoryTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageActionFlushHistory) TypeName() string {
+func (*DecryptedMessageActionFlushHistory) TypeName() string {
 	return "decryptedMessageActionFlushHistory"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageActionFlushHistory) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageActionFlushHistory",
+		ID:   DecryptedMessageActionFlushHistoryTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -540,13 +632,36 @@ func (d *DecryptedMessageActionResend) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageActionResend) TypeID() uint32 {
+func (*DecryptedMessageActionResend) TypeID() uint32 {
 	return DecryptedMessageActionResendTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageActionResend) TypeName() string {
+func (*DecryptedMessageActionResend) TypeName() string {
 	return "decryptedMessageActionResend"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageActionResend) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageActionResend",
+		ID:   DecryptedMessageActionResendTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "StartSeqNo",
+			SchemaName: "start_seq_no",
+		},
+		{
+			Name:       "EndSeqNo",
+			SchemaName: "end_seq_no",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -647,13 +762,32 @@ func (d *DecryptedMessageActionNotifyLayer) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageActionNotifyLayer) TypeID() uint32 {
+func (*DecryptedMessageActionNotifyLayer) TypeID() uint32 {
 	return DecryptedMessageActionNotifyLayerTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageActionNotifyLayer) TypeName() string {
+func (*DecryptedMessageActionNotifyLayer) TypeName() string {
 	return "decryptedMessageActionNotifyLayer"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageActionNotifyLayer) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageActionNotifyLayer",
+		ID:   DecryptedMessageActionNotifyLayerTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Layer",
+			SchemaName: "layer",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -741,13 +875,32 @@ func (d *DecryptedMessageActionTyping) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageActionTyping) TypeID() uint32 {
+func (*DecryptedMessageActionTyping) TypeID() uint32 {
 	return DecryptedMessageActionTypingTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageActionTyping) TypeName() string {
+func (*DecryptedMessageActionTyping) TypeName() string {
 	return "decryptedMessageActionTyping"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageActionTyping) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageActionTyping",
+		ID:   DecryptedMessageActionTypingTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Action",
+			SchemaName: "action",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -847,13 +1000,36 @@ func (d *DecryptedMessageActionRequestKey) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageActionRequestKey) TypeID() uint32 {
+func (*DecryptedMessageActionRequestKey) TypeID() uint32 {
 	return DecryptedMessageActionRequestKeyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageActionRequestKey) TypeName() string {
+func (*DecryptedMessageActionRequestKey) TypeName() string {
 	return "decryptedMessageActionRequestKey"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageActionRequestKey) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageActionRequestKey",
+		ID:   DecryptedMessageActionRequestKeyTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ExchangeID",
+			SchemaName: "exchange_id",
+		},
+		{
+			Name:       "GA",
+			SchemaName: "g_a",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -968,13 +1144,40 @@ func (d *DecryptedMessageActionAcceptKey) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageActionAcceptKey) TypeID() uint32 {
+func (*DecryptedMessageActionAcceptKey) TypeID() uint32 {
 	return DecryptedMessageActionAcceptKeyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageActionAcceptKey) TypeName() string {
+func (*DecryptedMessageActionAcceptKey) TypeName() string {
 	return "decryptedMessageActionAcceptKey"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageActionAcceptKey) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageActionAcceptKey",
+		ID:   DecryptedMessageActionAcceptKeyTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ExchangeID",
+			SchemaName: "exchange_id",
+		},
+		{
+			Name:       "GB",
+			SchemaName: "g_b",
+		},
+		{
+			Name:       "KeyFingerprint",
+			SchemaName: "key_fingerprint",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1088,13 +1291,32 @@ func (d *DecryptedMessageActionAbortKey) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageActionAbortKey) TypeID() uint32 {
+func (*DecryptedMessageActionAbortKey) TypeID() uint32 {
 	return DecryptedMessageActionAbortKeyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageActionAbortKey) TypeName() string {
+func (*DecryptedMessageActionAbortKey) TypeName() string {
 	return "decryptedMessageActionAbortKey"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageActionAbortKey) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageActionAbortKey",
+		ID:   DecryptedMessageActionAbortKeyTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ExchangeID",
+			SchemaName: "exchange_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1189,13 +1411,36 @@ func (d *DecryptedMessageActionCommitKey) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageActionCommitKey) TypeID() uint32 {
+func (*DecryptedMessageActionCommitKey) TypeID() uint32 {
 	return DecryptedMessageActionCommitKeyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageActionCommitKey) TypeName() string {
+func (*DecryptedMessageActionCommitKey) TypeName() string {
 	return "decryptedMessageActionCommitKey"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageActionCommitKey) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageActionCommitKey",
+		ID:   DecryptedMessageActionCommitKeyTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ExchangeID",
+			SchemaName: "exchange_id",
+		},
+		{
+			Name:       "KeyFingerprint",
+			SchemaName: "key_fingerprint",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1284,13 +1529,27 @@ func (d *DecryptedMessageActionNoop) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageActionNoop) TypeID() uint32 {
+func (*DecryptedMessageActionNoop) TypeID() uint32 {
 	return DecryptedMessageActionNoopTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageActionNoop) TypeName() string {
+func (*DecryptedMessageActionNoop) TypeName() string {
 	return "decryptedMessageActionNoop"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageActionNoop) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageActionNoop",
+		ID:   DecryptedMessageActionNoopTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

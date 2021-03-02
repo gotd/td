@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StatsLoadAsyncGraphRequest represents TL type `stats.loadAsyncGraph#621d5fa0`.
 // Load channel statistics graph¹ asynchronously
@@ -88,13 +90,41 @@ func (l *StatsLoadAsyncGraphRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (l *StatsLoadAsyncGraphRequest) TypeID() uint32 {
+func (*StatsLoadAsyncGraphRequest) TypeID() uint32 {
 	return StatsLoadAsyncGraphRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (l *StatsLoadAsyncGraphRequest) TypeName() string {
+func (*StatsLoadAsyncGraphRequest) TypeName() string {
 	return "stats.loadAsyncGraph"
+}
+
+// TypeInfo returns info about TL type.
+func (l *StatsLoadAsyncGraphRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "stats.loadAsyncGraph",
+		ID:   StatsLoadAsyncGraphRequestTypeID,
+	}
+	if l == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Token",
+			SchemaName: "token",
+		},
+		{
+			Name:       "X",
+			SchemaName: "x",
+			Null:       !l.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

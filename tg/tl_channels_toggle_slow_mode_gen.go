@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelsToggleSlowModeRequest represents TL type `channels.toggleSlowMode#edd49ef0`.
 // Toggle supergroup slow mode: if enabled, users will only be able to send one message every seconds seconds
@@ -72,13 +74,36 @@ func (t *ChannelsToggleSlowModeRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *ChannelsToggleSlowModeRequest) TypeID() uint32 {
+func (*ChannelsToggleSlowModeRequest) TypeID() uint32 {
 	return ChannelsToggleSlowModeRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *ChannelsToggleSlowModeRequest) TypeName() string {
+func (*ChannelsToggleSlowModeRequest) TypeName() string {
 	return "channels.toggleSlowMode"
+}
+
+// TypeInfo returns info about TL type.
+func (t *ChannelsToggleSlowModeRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channels.toggleSlowMode",
+		ID:   ChannelsToggleSlowModeRequestTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Channel",
+			SchemaName: "channel",
+		},
+		{
+			Name:       "Seconds",
+			SchemaName: "seconds",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

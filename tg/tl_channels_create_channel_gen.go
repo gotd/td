@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelsCreateChannelRequest represents TL type `channels.createChannel#3d5fb10f`.
 // Create a supergroup/channel¹.
@@ -131,13 +133,65 @@ func (c *ChannelsCreateChannelRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelsCreateChannelRequest) TypeID() uint32 {
+func (*ChannelsCreateChannelRequest) TypeID() uint32 {
 	return ChannelsCreateChannelRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelsCreateChannelRequest) TypeName() string {
+func (*ChannelsCreateChannelRequest) TypeName() string {
 	return "channels.createChannel"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelsCreateChannelRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channels.createChannel",
+		ID:   ChannelsCreateChannelRequestTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Broadcast",
+			SchemaName: "broadcast",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "Megagroup",
+			SchemaName: "megagroup",
+			Null:       !c.Flags.Has(1),
+		},
+		{
+			Name:       "ForImport",
+			SchemaName: "for_import",
+			Null:       !c.Flags.Has(3),
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "About",
+			SchemaName: "about",
+		},
+		{
+			Name:       "GeoPoint",
+			SchemaName: "geo_point",
+			Null:       !c.Flags.Has(2),
+		},
+		{
+			Name:       "Address",
+			SchemaName: "address",
+			Null:       !c.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

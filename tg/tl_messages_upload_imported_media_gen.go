@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesUploadImportedMediaRequest represents TL type `messages.uploadImportedMedia#2a862092`.
 //
@@ -82,13 +84,44 @@ func (u *MessagesUploadImportedMediaRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *MessagesUploadImportedMediaRequest) TypeID() uint32 {
+func (*MessagesUploadImportedMediaRequest) TypeID() uint32 {
 	return MessagesUploadImportedMediaRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *MessagesUploadImportedMediaRequest) TypeName() string {
+func (*MessagesUploadImportedMediaRequest) TypeName() string {
 	return "messages.uploadImportedMedia"
+}
+
+// TypeInfo returns info about TL type.
+func (u *MessagesUploadImportedMediaRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.uploadImportedMedia",
+		ID:   MessagesUploadImportedMediaRequestTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "ImportID",
+			SchemaName: "import_id",
+		},
+		{
+			Name:       "FileName",
+			SchemaName: "file_name",
+		},
+		{
+			Name:       "Media",
+			SchemaName: "media",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

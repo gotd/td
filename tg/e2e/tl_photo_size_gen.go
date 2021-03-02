@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhotoSizeEmpty represents TL type `photoSizeEmpty#e17e23c`.
 // Empty constructor. Image with this thumbnail is unavailable.
@@ -65,13 +67,32 @@ func (p *PhotoSizeEmpty) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhotoSizeEmpty) TypeID() uint32 {
+func (*PhotoSizeEmpty) TypeID() uint32 {
 	return PhotoSizeEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhotoSizeEmpty) TypeName() string {
+func (*PhotoSizeEmpty) TypeName() string {
 	return "photoSizeEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhotoSizeEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "photoSizeEmpty",
+		ID:   PhotoSizeEmptyTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -188,13 +209,48 @@ func (p *PhotoSize) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhotoSize) TypeID() uint32 {
+func (*PhotoSize) TypeID() uint32 {
 	return PhotoSizeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhotoSize) TypeName() string {
+func (*PhotoSize) TypeName() string {
 	return "photoSize"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhotoSize) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "photoSize",
+		ID:   PhotoSizeTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "Location",
+			SchemaName: "location",
+		},
+		{
+			Name:       "W",
+			SchemaName: "w",
+		},
+		{
+			Name:       "H",
+			SchemaName: "h",
+		},
+		{
+			Name:       "Size",
+			SchemaName: "size",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -368,13 +424,48 @@ func (p *PhotoCachedSize) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhotoCachedSize) TypeID() uint32 {
+func (*PhotoCachedSize) TypeID() uint32 {
 	return PhotoCachedSizeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhotoCachedSize) TypeName() string {
+func (*PhotoCachedSize) TypeName() string {
 	return "photoCachedSize"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhotoCachedSize) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "photoCachedSize",
+		ID:   PhotoCachedSizeTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "Location",
+			SchemaName: "location",
+		},
+		{
+			Name:       "W",
+			SchemaName: "w",
+		},
+		{
+			Name:       "H",
+			SchemaName: "h",
+		},
+		{
+			Name:       "Bytes",
+			SchemaName: "bytes",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

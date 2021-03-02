@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // DocumentAttributeImageSize represents TL type `documentAttributeImageSize#6c37c15c`.
 // Defines the width and height of an image uploaded as document
@@ -69,13 +71,36 @@ func (d *DocumentAttributeImageSize) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DocumentAttributeImageSize) TypeID() uint32 {
+func (*DocumentAttributeImageSize) TypeID() uint32 {
 	return DocumentAttributeImageSizeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DocumentAttributeImageSize) TypeName() string {
+func (*DocumentAttributeImageSize) TypeName() string {
 	return "documentAttributeImageSize"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DocumentAttributeImageSize) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "documentAttributeImageSize",
+		ID:   DocumentAttributeImageSizeTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "W",
+			SchemaName: "w",
+		},
+		{
+			Name:       "H",
+			SchemaName: "h",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -165,13 +190,27 @@ func (d *DocumentAttributeAnimated) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DocumentAttributeAnimated) TypeID() uint32 {
+func (*DocumentAttributeAnimated) TypeID() uint32 {
 	return DocumentAttributeAnimatedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DocumentAttributeAnimated) TypeName() string {
+func (*DocumentAttributeAnimated) TypeName() string {
 	return "documentAttributeAnimated"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DocumentAttributeAnimated) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "documentAttributeAnimated",
+		ID:   DocumentAttributeAnimatedTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -234,13 +273,27 @@ func (d *DocumentAttributeSticker23) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DocumentAttributeSticker23) TypeID() uint32 {
+func (*DocumentAttributeSticker23) TypeID() uint32 {
 	return DocumentAttributeSticker23TypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DocumentAttributeSticker23) TypeName() string {
+func (*DocumentAttributeSticker23) TypeName() string {
 	return "documentAttributeSticker23"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DocumentAttributeSticker23) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "documentAttributeSticker23",
+		ID:   DocumentAttributeSticker23TypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -330,13 +383,40 @@ func (d *DocumentAttributeVideo) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DocumentAttributeVideo) TypeID() uint32 {
+func (*DocumentAttributeVideo) TypeID() uint32 {
 	return DocumentAttributeVideoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DocumentAttributeVideo) TypeName() string {
+func (*DocumentAttributeVideo) TypeName() string {
 	return "documentAttributeVideo"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DocumentAttributeVideo) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "documentAttributeVideo",
+		ID:   DocumentAttributeVideoTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Duration",
+			SchemaName: "duration",
+		},
+		{
+			Name:       "W",
+			SchemaName: "w",
+		},
+		{
+			Name:       "H",
+			SchemaName: "h",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -450,13 +530,32 @@ func (d *DocumentAttributeAudio23) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DocumentAttributeAudio23) TypeID() uint32 {
+func (*DocumentAttributeAudio23) TypeID() uint32 {
 	return DocumentAttributeAudio23TypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DocumentAttributeAudio23) TypeName() string {
+func (*DocumentAttributeAudio23) TypeName() string {
 	return "documentAttributeAudio23"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DocumentAttributeAudio23) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "documentAttributeAudio23",
+		ID:   DocumentAttributeAudio23TypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Duration",
+			SchemaName: "duration",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -545,13 +644,32 @@ func (d *DocumentAttributeFilename) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DocumentAttributeFilename) TypeID() uint32 {
+func (*DocumentAttributeFilename) TypeID() uint32 {
 	return DocumentAttributeFilenameTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DocumentAttributeFilename) TypeName() string {
+func (*DocumentAttributeFilename) TypeName() string {
 	return "documentAttributeFilename"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DocumentAttributeFilename) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "documentAttributeFilename",
+		ID:   DocumentAttributeFilenameTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "FileName",
+			SchemaName: "file_name",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -653,13 +771,40 @@ func (d *DocumentAttributeAudio45) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DocumentAttributeAudio45) TypeID() uint32 {
+func (*DocumentAttributeAudio45) TypeID() uint32 {
 	return DocumentAttributeAudio45TypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DocumentAttributeAudio45) TypeName() string {
+func (*DocumentAttributeAudio45) TypeName() string {
 	return "documentAttributeAudio45"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DocumentAttributeAudio45) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "documentAttributeAudio45",
+		ID:   DocumentAttributeAudio45TypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Duration",
+			SchemaName: "duration",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "Performer",
+			SchemaName: "performer",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -781,13 +926,36 @@ func (d *DocumentAttributeSticker) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DocumentAttributeSticker) TypeID() uint32 {
+func (*DocumentAttributeSticker) TypeID() uint32 {
 	return DocumentAttributeStickerTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DocumentAttributeSticker) TypeName() string {
+func (*DocumentAttributeSticker) TypeName() string {
 	return "documentAttributeSticker"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DocumentAttributeSticker) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "documentAttributeSticker",
+		ID:   DocumentAttributeStickerTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Alt",
+			SchemaName: "alt",
+		},
+		{
+			Name:       "Stickerset",
+			SchemaName: "stickerset",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -945,13 +1113,56 @@ func (d *DocumentAttributeAudio) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DocumentAttributeAudio) TypeID() uint32 {
+func (*DocumentAttributeAudio) TypeID() uint32 {
 	return DocumentAttributeAudioTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DocumentAttributeAudio) TypeName() string {
+func (*DocumentAttributeAudio) TypeName() string {
 	return "documentAttributeAudio"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DocumentAttributeAudio) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "documentAttributeAudio",
+		ID:   DocumentAttributeAudioTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Voice",
+			SchemaName: "voice",
+			Null:       !d.Flags.Has(10),
+		},
+		{
+			Name:       "Duration",
+			SchemaName: "duration",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+			Null:       !d.Flags.Has(0),
+		},
+		{
+			Name:       "Performer",
+			SchemaName: "performer",
+			Null:       !d.Flags.Has(1),
+		},
+		{
+			Name:       "Waveform",
+			SchemaName: "waveform",
+			Null:       !d.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1177,13 +1388,49 @@ func (d *DocumentAttributeVideo66) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DocumentAttributeVideo66) TypeID() uint32 {
+func (*DocumentAttributeVideo66) TypeID() uint32 {
 	return DocumentAttributeVideo66TypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DocumentAttributeVideo66) TypeName() string {
+func (*DocumentAttributeVideo66) TypeName() string {
 	return "documentAttributeVideo66"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DocumentAttributeVideo66) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "documentAttributeVideo66",
+		ID:   DocumentAttributeVideo66TypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "RoundMessage",
+			SchemaName: "round_message",
+			Null:       !d.Flags.Has(0),
+		},
+		{
+			Name:       "Duration",
+			SchemaName: "duration",
+		},
+		{
+			Name:       "W",
+			SchemaName: "w",
+		},
+		{
+			Name:       "H",
+			SchemaName: "h",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

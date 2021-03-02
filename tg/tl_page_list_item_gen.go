@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PageListItemText represents TL type `pageListItemText#b92fb6cd`.
 // List item
@@ -62,13 +64,32 @@ func (p *PageListItemText) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageListItemText) TypeID() uint32 {
+func (*PageListItemText) TypeID() uint32 {
 	return PageListItemTextTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageListItemText) TypeName() string {
+func (*PageListItemText) TypeName() string {
 	return "pageListItemText"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageListItemText) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageListItemText",
+		ID:   PageListItemTextTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -162,13 +183,32 @@ func (p *PageListItemBlocks) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageListItemBlocks) TypeID() uint32 {
+func (*PageListItemBlocks) TypeID() uint32 {
 	return PageListItemBlocksTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageListItemBlocks) TypeName() string {
+func (*PageListItemBlocks) TypeName() string {
 	return "pageListItemBlocks"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageListItemBlocks) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageListItemBlocks",
+		ID:   PageListItemBlocksTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Blocks",
+			SchemaName: "blocks",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

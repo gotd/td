@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // RestrictionReason represents TL type `restrictionReason#d072acb4`.
 // Restriction reason.
@@ -77,13 +79,40 @@ func (r *RestrictionReason) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *RestrictionReason) TypeID() uint32 {
+func (*RestrictionReason) TypeID() uint32 {
 	return RestrictionReasonTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *RestrictionReason) TypeName() string {
+func (*RestrictionReason) TypeName() string {
 	return "restrictionReason"
+}
+
+// TypeInfo returns info about TL type.
+func (r *RestrictionReason) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "restrictionReason",
+		ID:   RestrictionReasonTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Platform",
+			SchemaName: "platform",
+		},
+		{
+			Name:       "Reason",
+			SchemaName: "reason",
+		},
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

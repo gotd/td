@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // FileLocationUnavailable represents TL type `fileLocationUnavailable#7c596b46`.
 //
@@ -75,13 +77,40 @@ func (f *FileLocationUnavailable) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *FileLocationUnavailable) TypeID() uint32 {
+func (*FileLocationUnavailable) TypeID() uint32 {
 	return FileLocationUnavailableTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *FileLocationUnavailable) TypeName() string {
+func (*FileLocationUnavailable) TypeName() string {
 	return "fileLocationUnavailable"
+}
+
+// TypeInfo returns info about TL type.
+func (f *FileLocationUnavailable) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "fileLocationUnavailable",
+		ID:   FileLocationUnavailableTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "VolumeID",
+			SchemaName: "volume_id",
+		},
+		{
+			Name:       "LocalID",
+			SchemaName: "local_id",
+		},
+		{
+			Name:       "Secret",
+			SchemaName: "secret",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -216,13 +245,44 @@ func (f *FileLocation) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *FileLocation) TypeID() uint32 {
+func (*FileLocation) TypeID() uint32 {
 	return FileLocationTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *FileLocation) TypeName() string {
+func (*FileLocation) TypeName() string {
 	return "fileLocation"
+}
+
+// TypeInfo returns info about TL type.
+func (f *FileLocation) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "fileLocation",
+		ID:   FileLocationTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "DCID",
+			SchemaName: "dc_id",
+		},
+		{
+			Name:       "VolumeID",
+			SchemaName: "volume_id",
+		},
+		{
+			Name:       "LocalID",
+			SchemaName: "local_id",
+		},
+		{
+			Name:       "Secret",
+			SchemaName: "secret",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

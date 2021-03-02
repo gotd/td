@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ContactsBlockFromRepliesRequest represents TL type `contacts.blockFromReplies#29a8962c`.
 // Stop getting notifications about thread replies¹ of a certain user in @replies
@@ -97,13 +99,51 @@ func (b *ContactsBlockFromRepliesRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (b *ContactsBlockFromRepliesRequest) TypeID() uint32 {
+func (*ContactsBlockFromRepliesRequest) TypeID() uint32 {
 	return ContactsBlockFromRepliesRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (b *ContactsBlockFromRepliesRequest) TypeName() string {
+func (*ContactsBlockFromRepliesRequest) TypeName() string {
 	return "contacts.blockFromReplies"
+}
+
+// TypeInfo returns info about TL type.
+func (b *ContactsBlockFromRepliesRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "contacts.blockFromReplies",
+		ID:   ContactsBlockFromRepliesRequestTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "DeleteMessage",
+			SchemaName: "delete_message",
+			Null:       !b.Flags.Has(0),
+		},
+		{
+			Name:       "DeleteHistory",
+			SchemaName: "delete_history",
+			Null:       !b.Flags.Has(1),
+		},
+		{
+			Name:       "ReportSpam",
+			SchemaName: "report_spam",
+			Null:       !b.Flags.Has(2),
+		},
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

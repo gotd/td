@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesMessages represents TL type `messages.messages#8c718e87`.
 // Full list of messages with auxilary data.
@@ -76,13 +78,40 @@ func (m *MessagesMessages) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessagesMessages) TypeID() uint32 {
+func (*MessagesMessages) TypeID() uint32 {
 	return MessagesMessagesTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessagesMessages) TypeName() string {
+func (*MessagesMessages) TypeName() string {
 	return "messages.messages"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessagesMessages) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.messages",
+		ID:   MessagesMessagesTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Messages",
+			SchemaName: "messages",
+		},
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -317,13 +346,63 @@ func (m *MessagesMessagesSlice) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessagesMessagesSlice) TypeID() uint32 {
+func (*MessagesMessagesSlice) TypeID() uint32 {
 	return MessagesMessagesSliceTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessagesMessagesSlice) TypeName() string {
+func (*MessagesMessagesSlice) TypeName() string {
 	return "messages.messagesSlice"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessagesMessagesSlice) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.messagesSlice",
+		ID:   MessagesMessagesSliceTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Inexact",
+			SchemaName: "inexact",
+			Null:       !m.Flags.Has(1),
+		},
+		{
+			Name:       "Count",
+			SchemaName: "count",
+		},
+		{
+			Name:       "NextRate",
+			SchemaName: "next_rate",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "OffsetIDOffset",
+			SchemaName: "offset_id_offset",
+			Null:       !m.Flags.Has(2),
+		},
+		{
+			Name:       "Messages",
+			SchemaName: "messages",
+		},
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -650,13 +729,62 @@ func (c *MessagesChannelMessages) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *MessagesChannelMessages) TypeID() uint32 {
+func (*MessagesChannelMessages) TypeID() uint32 {
 	return MessagesChannelMessagesTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *MessagesChannelMessages) TypeName() string {
+func (*MessagesChannelMessages) TypeName() string {
 	return "messages.channelMessages"
+}
+
+// TypeInfo returns info about TL type.
+func (c *MessagesChannelMessages) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.channelMessages",
+		ID:   MessagesChannelMessagesTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Inexact",
+			SchemaName: "inexact",
+			Null:       !c.Flags.Has(1),
+		},
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+		},
+		{
+			Name:       "Count",
+			SchemaName: "count",
+		},
+		{
+			Name:       "OffsetIDOffset",
+			SchemaName: "offset_id_offset",
+			Null:       !c.Flags.Has(2),
+		},
+		{
+			Name:       "Messages",
+			SchemaName: "messages",
+		},
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -910,13 +1038,32 @@ func (m *MessagesMessagesNotModified) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessagesMessagesNotModified) TypeID() uint32 {
+func (*MessagesMessagesNotModified) TypeID() uint32 {
 	return MessagesMessagesNotModifiedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessagesMessagesNotModified) TypeName() string {
+func (*MessagesMessagesNotModified) TypeName() string {
 	return "messages.messagesNotModified"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessagesMessagesNotModified) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.messagesNotModified",
+		ID:   MessagesMessagesNotModifiedTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Count",
+			SchemaName: "count",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

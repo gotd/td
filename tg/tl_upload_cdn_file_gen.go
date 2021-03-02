@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // UploadCdnFileReuploadNeeded represents TL type `upload.cdnFileReuploadNeeded#eea8e46e`.
 // The file was cleared from the temporary RAM cache of the CDN¹ and has to be reuploaded.
@@ -68,13 +70,32 @@ func (c *UploadCdnFileReuploadNeeded) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *UploadCdnFileReuploadNeeded) TypeID() uint32 {
+func (*UploadCdnFileReuploadNeeded) TypeID() uint32 {
 	return UploadCdnFileReuploadNeededTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *UploadCdnFileReuploadNeeded) TypeName() string {
+func (*UploadCdnFileReuploadNeeded) TypeName() string {
 	return "upload.cdnFileReuploadNeeded"
+}
+
+// TypeInfo returns info about TL type.
+func (c *UploadCdnFileReuploadNeeded) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "upload.cdnFileReuploadNeeded",
+		ID:   UploadCdnFileReuploadNeededTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "RequestToken",
+			SchemaName: "request_token",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -166,13 +187,32 @@ func (c *UploadCdnFile) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *UploadCdnFile) TypeID() uint32 {
+func (*UploadCdnFile) TypeID() uint32 {
 	return UploadCdnFileTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *UploadCdnFile) TypeName() string {
+func (*UploadCdnFile) TypeName() string {
 	return "upload.cdnFile"
+}
+
+// TypeInfo returns info about TL type.
+func (c *UploadCdnFile) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "upload.cdnFile",
+		ID:   UploadCdnFileTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Bytes",
+			SchemaName: "bytes",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

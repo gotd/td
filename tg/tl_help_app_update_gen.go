@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HelpAppUpdate represents TL type `help.appUpdate#1da7158f`.
 // An update is available for the application.
@@ -125,13 +127,63 @@ func (a *HelpAppUpdate) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *HelpAppUpdate) TypeID() uint32 {
+func (*HelpAppUpdate) TypeID() uint32 {
 	return HelpAppUpdateTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *HelpAppUpdate) TypeName() string {
+func (*HelpAppUpdate) TypeName() string {
 	return "help.appUpdate"
+}
+
+// TypeInfo returns info about TL type.
+func (a *HelpAppUpdate) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.appUpdate",
+		ID:   HelpAppUpdateTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "CanNotSkip",
+			SchemaName: "can_not_skip",
+			Null:       !a.Flags.Has(0),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Version",
+			SchemaName: "version",
+		},
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
+			Name:       "Entities",
+			SchemaName: "entities",
+		},
+		{
+			Name:       "Document",
+			SchemaName: "document",
+			Null:       !a.Flags.Has(1),
+		},
+		{
+			Name:       "URL",
+			SchemaName: "url",
+			Null:       !a.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -355,13 +407,27 @@ func (n *HelpNoAppUpdate) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (n *HelpNoAppUpdate) TypeID() uint32 {
+func (*HelpNoAppUpdate) TypeID() uint32 {
 	return HelpNoAppUpdateTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (n *HelpNoAppUpdate) TypeName() string {
+func (*HelpNoAppUpdate) TypeName() string {
 	return "help.noAppUpdate"
+}
+
+// TypeInfo returns info about TL type.
+func (n *HelpNoAppUpdate) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.noAppUpdate",
+		ID:   HelpNoAppUpdateTypeID,
+	}
+	if n == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

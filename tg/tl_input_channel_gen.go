@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputChannelEmpty represents TL type `inputChannelEmpty#ee8c1e86`.
 // Represents the absence of a channel
@@ -50,13 +52,27 @@ func (i *InputChannelEmpty) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputChannelEmpty) TypeID() uint32 {
+func (*InputChannelEmpty) TypeID() uint32 {
 	return InputChannelEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputChannelEmpty) TypeName() string {
+func (*InputChannelEmpty) TypeName() string {
 	return "inputChannelEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputChannelEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputChannelEmpty",
+		ID:   InputChannelEmptyTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -142,13 +158,36 @@ func (i *InputChannel) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputChannel) TypeID() uint32 {
+func (*InputChannel) TypeID() uint32 {
 	return InputChannelTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputChannel) TypeName() string {
+func (*InputChannel) TypeName() string {
 	return "inputChannel"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputChannel) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputChannel",
+		ID:   InputChannelTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChannelID",
+			SchemaName: "channel_id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -267,13 +306,40 @@ func (i *InputChannelFromMessage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputChannelFromMessage) TypeID() uint32 {
+func (*InputChannelFromMessage) TypeID() uint32 {
 	return InputChannelFromMessageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputChannelFromMessage) TypeName() string {
+func (*InputChannelFromMessage) TypeName() string {
 	return "inputChannelFromMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputChannelFromMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputChannelFromMessage",
+		ID:   InputChannelFromMessageTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+		{
+			Name:       "ChannelID",
+			SchemaName: "channel_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

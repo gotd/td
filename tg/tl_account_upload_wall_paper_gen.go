@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountUploadWallPaperRequest represents TL type `account.uploadWallPaper#dd853661`.
 // Create and upload a new wallpaper
@@ -76,13 +78,40 @@ func (u *AccountUploadWallPaperRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *AccountUploadWallPaperRequest) TypeID() uint32 {
+func (*AccountUploadWallPaperRequest) TypeID() uint32 {
 	return AccountUploadWallPaperRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *AccountUploadWallPaperRequest) TypeName() string {
+func (*AccountUploadWallPaperRequest) TypeName() string {
 	return "account.uploadWallPaper"
+}
+
+// TypeInfo returns info about TL type.
+func (u *AccountUploadWallPaperRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.uploadWallPaper",
+		ID:   AccountUploadWallPaperRequestTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "File",
+			SchemaName: "file",
+		},
+		{
+			Name:       "MimeType",
+			SchemaName: "mime_type",
+		},
+		{
+			Name:       "Settings",
+			SchemaName: "settings",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

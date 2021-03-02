@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StatsBroadcastStats represents TL type `stats.broadcastStats#bdf78394`.
 // Channel statistics¹.
@@ -163,13 +165,88 @@ func (b *StatsBroadcastStats) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (b *StatsBroadcastStats) TypeID() uint32 {
+func (*StatsBroadcastStats) TypeID() uint32 {
 	return StatsBroadcastStatsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (b *StatsBroadcastStats) TypeName() string {
+func (*StatsBroadcastStats) TypeName() string {
 	return "stats.broadcastStats"
+}
+
+// TypeInfo returns info about TL type.
+func (b *StatsBroadcastStats) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "stats.broadcastStats",
+		ID:   StatsBroadcastStatsTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Period",
+			SchemaName: "period",
+		},
+		{
+			Name:       "Followers",
+			SchemaName: "followers",
+		},
+		{
+			Name:       "ViewsPerPost",
+			SchemaName: "views_per_post",
+		},
+		{
+			Name:       "SharesPerPost",
+			SchemaName: "shares_per_post",
+		},
+		{
+			Name:       "EnabledNotifications",
+			SchemaName: "enabled_notifications",
+		},
+		{
+			Name:       "GrowthGraph",
+			SchemaName: "growth_graph",
+		},
+		{
+			Name:       "FollowersGraph",
+			SchemaName: "followers_graph",
+		},
+		{
+			Name:       "MuteGraph",
+			SchemaName: "mute_graph",
+		},
+		{
+			Name:       "TopHoursGraph",
+			SchemaName: "top_hours_graph",
+		},
+		{
+			Name:       "InteractionsGraph",
+			SchemaName: "interactions_graph",
+		},
+		{
+			Name:       "IvInteractionsGraph",
+			SchemaName: "iv_interactions_graph",
+		},
+		{
+			Name:       "ViewsBySourceGraph",
+			SchemaName: "views_by_source_graph",
+		},
+		{
+			Name:       "NewFollowersBySourceGraph",
+			SchemaName: "new_followers_by_source_graph",
+		},
+		{
+			Name:       "LanguagesGraph",
+			SchemaName: "languages_graph",
+		},
+		{
+			Name:       "RecentMessageInteractions",
+			SchemaName: "recent_message_interactions",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

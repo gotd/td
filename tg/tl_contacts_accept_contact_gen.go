@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ContactsAcceptContactRequest represents TL type `contacts.acceptContact#f831a20f`.
 // If the peer settings¹ of a new user allow us to add him as contact, add that user as contact
@@ -65,13 +67,32 @@ func (a *ContactsAcceptContactRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *ContactsAcceptContactRequest) TypeID() uint32 {
+func (*ContactsAcceptContactRequest) TypeID() uint32 {
 	return ContactsAcceptContactRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *ContactsAcceptContactRequest) TypeName() string {
+func (*ContactsAcceptContactRequest) TypeName() string {
 	return "contacts.acceptContact"
+}
+
+// TypeInfo returns info about TL type.
+func (a *ContactsAcceptContactRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "contacts.acceptContact",
+		ID:   ContactsAcceptContactRequestTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

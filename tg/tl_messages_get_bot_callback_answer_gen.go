@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetBotCallbackAnswerRequest represents TL type `messages.getBotCallbackAnswer#9342ca07`.
 // Press an inline callback button and get a callback answer from the bot
@@ -112,13 +114,55 @@ func (g *MessagesGetBotCallbackAnswerRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetBotCallbackAnswerRequest) TypeID() uint32 {
+func (*MessagesGetBotCallbackAnswerRequest) TypeID() uint32 {
 	return MessagesGetBotCallbackAnswerRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetBotCallbackAnswerRequest) TypeName() string {
+func (*MessagesGetBotCallbackAnswerRequest) TypeName() string {
 	return "messages.getBotCallbackAnswer"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetBotCallbackAnswerRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getBotCallbackAnswer",
+		ID:   MessagesGetBotCallbackAnswerRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Game",
+			SchemaName: "game",
+			Null:       !g.Flags.Has(1),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+		{
+			Name:       "Data",
+			SchemaName: "data",
+			Null:       !g.Flags.Has(0),
+		},
+		{
+			Name:       "Password",
+			SchemaName: "password",
+			Null:       !g.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

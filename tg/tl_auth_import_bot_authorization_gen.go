@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AuthImportBotAuthorizationRequest represents TL type `auth.importBotAuthorization#67a3ff2c`.
 // Login as a bot
@@ -92,13 +94,44 @@ func (i *AuthImportBotAuthorizationRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *AuthImportBotAuthorizationRequest) TypeID() uint32 {
+func (*AuthImportBotAuthorizationRequest) TypeID() uint32 {
 	return AuthImportBotAuthorizationRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *AuthImportBotAuthorizationRequest) TypeName() string {
+func (*AuthImportBotAuthorizationRequest) TypeName() string {
 	return "auth.importBotAuthorization"
+}
+
+// TypeInfo returns info about TL type.
+func (i *AuthImportBotAuthorizationRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.importBotAuthorization",
+		ID:   AuthImportBotAuthorizationRequestTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "APIID",
+			SchemaName: "api_id",
+		},
+		{
+			Name:       "APIHash",
+			SchemaName: "api_hash",
+		},
+		{
+			Name:       "BotAuthToken",
+			SchemaName: "bot_auth_token",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

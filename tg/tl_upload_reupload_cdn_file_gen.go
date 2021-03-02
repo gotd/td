@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // UploadReuploadCdnFileRequest represents TL type `upload.reuploadCdnFile#9b2754a8`.
 // Request a reupload of a certain file to a CDN DC¹.
@@ -72,13 +74,36 @@ func (r *UploadReuploadCdnFileRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *UploadReuploadCdnFileRequest) TypeID() uint32 {
+func (*UploadReuploadCdnFileRequest) TypeID() uint32 {
 	return UploadReuploadCdnFileRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *UploadReuploadCdnFileRequest) TypeName() string {
+func (*UploadReuploadCdnFileRequest) TypeName() string {
 	return "upload.reuploadCdnFile"
+}
+
+// TypeInfo returns info about TL type.
+func (r *UploadReuploadCdnFileRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "upload.reuploadCdnFile",
+		ID:   UploadReuploadCdnFileRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "FileToken",
+			SchemaName: "file_token",
+		},
+		{
+			Name:       "RequestToken",
+			SchemaName: "request_token",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

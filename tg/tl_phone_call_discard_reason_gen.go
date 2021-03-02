@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhoneCallDiscardReasonMissed represents TL type `phoneCallDiscardReasonMissed#85e42301`.
 // The phone call was missed
@@ -50,13 +52,27 @@ func (p *PhoneCallDiscardReasonMissed) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhoneCallDiscardReasonMissed) TypeID() uint32 {
+func (*PhoneCallDiscardReasonMissed) TypeID() uint32 {
 	return PhoneCallDiscardReasonMissedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhoneCallDiscardReasonMissed) TypeName() string {
+func (*PhoneCallDiscardReasonMissed) TypeName() string {
 	return "phoneCallDiscardReasonMissed"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhoneCallDiscardReasonMissed) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phoneCallDiscardReasonMissed",
+		ID:   PhoneCallDiscardReasonMissedTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -120,13 +136,27 @@ func (p *PhoneCallDiscardReasonDisconnect) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhoneCallDiscardReasonDisconnect) TypeID() uint32 {
+func (*PhoneCallDiscardReasonDisconnect) TypeID() uint32 {
 	return PhoneCallDiscardReasonDisconnectTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhoneCallDiscardReasonDisconnect) TypeName() string {
+func (*PhoneCallDiscardReasonDisconnect) TypeName() string {
 	return "phoneCallDiscardReasonDisconnect"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhoneCallDiscardReasonDisconnect) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phoneCallDiscardReasonDisconnect",
+		ID:   PhoneCallDiscardReasonDisconnectTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -190,13 +220,27 @@ func (p *PhoneCallDiscardReasonHangup) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhoneCallDiscardReasonHangup) TypeID() uint32 {
+func (*PhoneCallDiscardReasonHangup) TypeID() uint32 {
 	return PhoneCallDiscardReasonHangupTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhoneCallDiscardReasonHangup) TypeName() string {
+func (*PhoneCallDiscardReasonHangup) TypeName() string {
 	return "phoneCallDiscardReasonHangup"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhoneCallDiscardReasonHangup) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phoneCallDiscardReasonHangup",
+		ID:   PhoneCallDiscardReasonHangupTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -260,13 +304,27 @@ func (p *PhoneCallDiscardReasonBusy) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhoneCallDiscardReasonBusy) TypeID() uint32 {
+func (*PhoneCallDiscardReasonBusy) TypeID() uint32 {
 	return PhoneCallDiscardReasonBusyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhoneCallDiscardReasonBusy) TypeName() string {
+func (*PhoneCallDiscardReasonBusy) TypeName() string {
 	return "phoneCallDiscardReasonBusy"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhoneCallDiscardReasonBusy) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phoneCallDiscardReasonBusy",
+		ID:   PhoneCallDiscardReasonBusyTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

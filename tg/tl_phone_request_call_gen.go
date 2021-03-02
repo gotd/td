@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhoneRequestCallRequest represents TL type `phone.requestCall#42ff96ed`.
 // Start a telegram phone call
@@ -101,13 +103,53 @@ func (r *PhoneRequestCallRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *PhoneRequestCallRequest) TypeID() uint32 {
+func (*PhoneRequestCallRequest) TypeID() uint32 {
 	return PhoneRequestCallRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *PhoneRequestCallRequest) TypeName() string {
+func (*PhoneRequestCallRequest) TypeName() string {
 	return "phone.requestCall"
+}
+
+// TypeInfo returns info about TL type.
+func (r *PhoneRequestCallRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phone.requestCall",
+		ID:   PhoneRequestCallRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Video",
+			SchemaName: "video",
+			Null:       !r.Flags.Has(0),
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "RandomID",
+			SchemaName: "random_id",
+		},
+		{
+			Name:       "GAHash",
+			SchemaName: "g_a_hash",
+		},
+		{
+			Name:       "Protocol",
+			SchemaName: "protocol",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

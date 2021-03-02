@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PaymentsGetBankCardDataRequest represents TL type `payments.getBankCardData#2e79d779`.
 // Get info about a credit card
@@ -62,13 +64,32 @@ func (g *PaymentsGetBankCardDataRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *PaymentsGetBankCardDataRequest) TypeID() uint32 {
+func (*PaymentsGetBankCardDataRequest) TypeID() uint32 {
 	return PaymentsGetBankCardDataRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *PaymentsGetBankCardDataRequest) TypeName() string {
+func (*PaymentsGetBankCardDataRequest) TypeName() string {
 	return "payments.getBankCardData"
+}
+
+// TypeInfo returns info about TL type.
+func (g *PaymentsGetBankCardDataRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "payments.getBankCardData",
+		ID:   PaymentsGetBankCardDataRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Number",
+			SchemaName: "number",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // Long represents TL type `long#22076cba`.
 //
@@ -49,13 +51,27 @@ func (l *Long) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (l *Long) TypeID() uint32 {
+func (*Long) TypeID() uint32 {
 	return LongTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (l *Long) TypeName() string {
+func (*Long) TypeName() string {
 	return "long"
+}
+
+// TypeInfo returns info about TL type.
+func (l *Long) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "long",
+		ID:   LongTypeID,
+	}
+	if l == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

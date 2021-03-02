@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhoneConnection represents TL type `phoneConnection#9d4c17c0`.
 // Identifies an endpoint that can be used to connect to the other user in a phone call
@@ -90,13 +92,48 @@ func (p *PhoneConnection) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhoneConnection) TypeID() uint32 {
+func (*PhoneConnection) TypeID() uint32 {
 	return PhoneConnectionTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhoneConnection) TypeName() string {
+func (*PhoneConnection) TypeName() string {
 	return "phoneConnection"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhoneConnection) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phoneConnection",
+		ID:   PhoneConnectionTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "IP",
+			SchemaName: "ip",
+		},
+		{
+			Name:       "Ipv6",
+			SchemaName: "ipv6",
+		},
+		{
+			Name:       "Port",
+			SchemaName: "port",
+		},
+		{
+			Name:       "PeerTag",
+			SchemaName: "peer_tag",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -294,13 +331,66 @@ func (p *PhoneConnectionWebrtc) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhoneConnectionWebrtc) TypeID() uint32 {
+func (*PhoneConnectionWebrtc) TypeID() uint32 {
 	return PhoneConnectionWebrtcTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhoneConnectionWebrtc) TypeName() string {
+func (*PhoneConnectionWebrtc) TypeName() string {
 	return "phoneConnectionWebrtc"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhoneConnectionWebrtc) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phoneConnectionWebrtc",
+		ID:   PhoneConnectionWebrtcTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Turn",
+			SchemaName: "turn",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "Stun",
+			SchemaName: "stun",
+			Null:       !p.Flags.Has(1),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "IP",
+			SchemaName: "ip",
+		},
+		{
+			Name:       "Ipv6",
+			SchemaName: "ipv6",
+		},
+		{
+			Name:       "Port",
+			SchemaName: "port",
+		},
+		{
+			Name:       "Username",
+			SchemaName: "username",
+		},
+		{
+			Name:       "Password",
+			SchemaName: "password",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

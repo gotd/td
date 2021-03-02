@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PollResults represents TL type `pollResults#badcc1a3`.
 // Results of poll
@@ -137,13 +139,62 @@ func (p *PollResults) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PollResults) TypeID() uint32 {
+func (*PollResults) TypeID() uint32 {
 	return PollResultsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PollResults) TypeName() string {
+func (*PollResults) TypeName() string {
 	return "pollResults"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PollResults) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pollResults",
+		ID:   PollResultsTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Min",
+			SchemaName: "min",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "Results",
+			SchemaName: "results",
+			Null:       !p.Flags.Has(1),
+		},
+		{
+			Name:       "TotalVoters",
+			SchemaName: "total_voters",
+			Null:       !p.Flags.Has(2),
+		},
+		{
+			Name:       "RecentVoters",
+			SchemaName: "recent_voters",
+			Null:       !p.Flags.Has(3),
+		},
+		{
+			Name:       "Solution",
+			SchemaName: "solution",
+			Null:       !p.Flags.Has(4),
+		},
+		{
+			Name:       "SolutionEntities",
+			SchemaName: "solution_entities",
+			Null:       !p.Flags.Has(4),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

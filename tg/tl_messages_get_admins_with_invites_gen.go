@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetAdminsWithInvitesRequest represents TL type `messages.getAdminsWithInvites#3920e6ef`.
 //
@@ -61,13 +63,32 @@ func (g *MessagesGetAdminsWithInvitesRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetAdminsWithInvitesRequest) TypeID() uint32 {
+func (*MessagesGetAdminsWithInvitesRequest) TypeID() uint32 {
 	return MessagesGetAdminsWithInvitesRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetAdminsWithInvitesRequest) TypeName() string {
+func (*MessagesGetAdminsWithInvitesRequest) TypeName() string {
 	return "messages.getAdminsWithInvites"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetAdminsWithInvitesRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getAdminsWithInvites",
+		ID:   MessagesGetAdminsWithInvitesRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

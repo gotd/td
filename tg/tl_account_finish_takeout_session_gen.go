@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountFinishTakeoutSessionRequest represents TL type `account.finishTakeoutSession#1d2652ee`.
 // Finish account takeout session
@@ -70,13 +72,37 @@ func (f *AccountFinishTakeoutSessionRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *AccountFinishTakeoutSessionRequest) TypeID() uint32 {
+func (*AccountFinishTakeoutSessionRequest) TypeID() uint32 {
 	return AccountFinishTakeoutSessionRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *AccountFinishTakeoutSessionRequest) TypeName() string {
+func (*AccountFinishTakeoutSessionRequest) TypeName() string {
 	return "account.finishTakeoutSession"
+}
+
+// TypeInfo returns info about TL type.
+func (f *AccountFinishTakeoutSessionRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.finishTakeoutSession",
+		ID:   AccountFinishTakeoutSessionRequestTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Success",
+			SchemaName: "success",
+			Null:       !f.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

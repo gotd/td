@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InvokeAfterMsgRequest represents TL type `invokeAfterMsg#cb9f372d`.
 // Invokes a query after successfull completion of one of the previous queries.
@@ -69,13 +71,36 @@ func (i *InvokeAfterMsgRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InvokeAfterMsgRequest) TypeID() uint32 {
+func (*InvokeAfterMsgRequest) TypeID() uint32 {
 	return InvokeAfterMsgRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InvokeAfterMsgRequest) TypeName() string {
+func (*InvokeAfterMsgRequest) TypeName() string {
 	return "invokeAfterMsg"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InvokeAfterMsgRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "invokeAfterMsg",
+		ID:   InvokeAfterMsgRequestTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+		{
+			Name:       "Query",
+			SchemaName: "query",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

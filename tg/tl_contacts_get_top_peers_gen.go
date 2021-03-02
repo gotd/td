@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ContactsGetTopPeersRequest represents TL type `contacts.getTopPeers#d4982db5`.
 // Get most used peers
@@ -149,13 +151,84 @@ func (g *ContactsGetTopPeersRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *ContactsGetTopPeersRequest) TypeID() uint32 {
+func (*ContactsGetTopPeersRequest) TypeID() uint32 {
 	return ContactsGetTopPeersRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *ContactsGetTopPeersRequest) TypeName() string {
+func (*ContactsGetTopPeersRequest) TypeName() string {
 	return "contacts.getTopPeers"
+}
+
+// TypeInfo returns info about TL type.
+func (g *ContactsGetTopPeersRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "contacts.getTopPeers",
+		ID:   ContactsGetTopPeersRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Correspondents",
+			SchemaName: "correspondents",
+			Null:       !g.Flags.Has(0),
+		},
+		{
+			Name:       "BotsPm",
+			SchemaName: "bots_pm",
+			Null:       !g.Flags.Has(1),
+		},
+		{
+			Name:       "BotsInline",
+			SchemaName: "bots_inline",
+			Null:       !g.Flags.Has(2),
+		},
+		{
+			Name:       "PhoneCalls",
+			SchemaName: "phone_calls",
+			Null:       !g.Flags.Has(3),
+		},
+		{
+			Name:       "ForwardUsers",
+			SchemaName: "forward_users",
+			Null:       !g.Flags.Has(4),
+		},
+		{
+			Name:       "ForwardChats",
+			SchemaName: "forward_chats",
+			Null:       !g.Flags.Has(5),
+		},
+		{
+			Name:       "Groups",
+			SchemaName: "groups",
+			Null:       !g.Flags.Has(10),
+		},
+		{
+			Name:       "Channels",
+			SchemaName: "channels",
+			Null:       !g.Flags.Has(15),
+		},
+		{
+			Name:       "Offset",
+			SchemaName: "offset",
+		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

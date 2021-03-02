@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountContentSettings represents TL type `account.contentSettings#57e28221`.
 // Sensitive content settings
@@ -77,13 +79,42 @@ func (c *AccountContentSettings) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *AccountContentSettings) TypeID() uint32 {
+func (*AccountContentSettings) TypeID() uint32 {
 	return AccountContentSettingsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *AccountContentSettings) TypeName() string {
+func (*AccountContentSettings) TypeName() string {
 	return "account.contentSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (c *AccountContentSettings) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.contentSettings",
+		ID:   AccountContentSettingsTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "SensitiveEnabled",
+			SchemaName: "sensitive_enabled",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "SensitiveCanChange",
+			SchemaName: "sensitive_can_change",
+			Null:       !c.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

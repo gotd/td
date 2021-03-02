@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesDeleteExportedChatInviteRequest represents TL type `messages.deleteExportedChatInvite#d464a42b`.
 //
@@ -68,13 +70,36 @@ func (d *MessagesDeleteExportedChatInviteRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *MessagesDeleteExportedChatInviteRequest) TypeID() uint32 {
+func (*MessagesDeleteExportedChatInviteRequest) TypeID() uint32 {
 	return MessagesDeleteExportedChatInviteRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *MessagesDeleteExportedChatInviteRequest) TypeName() string {
+func (*MessagesDeleteExportedChatInviteRequest) TypeName() string {
 	return "messages.deleteExportedChatInvite"
+}
+
+// TypeInfo returns info about TL type.
+func (d *MessagesDeleteExportedChatInviteRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.deleteExportedChatInvite",
+		ID:   MessagesDeleteExportedChatInviteRequestTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Link",
+			SchemaName: "link",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

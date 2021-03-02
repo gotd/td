@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // WallPaperClassVector is a box for Vector<WallPaper>
 type WallPaperClassVector struct {
@@ -59,13 +61,32 @@ func (vec *WallPaperClassVector) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (vec *WallPaperClassVector) TypeID() uint32 {
+func (*WallPaperClassVector) TypeID() uint32 {
 	return WallPaperClassVectorTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (vec *WallPaperClassVector) TypeName() string {
+func (*WallPaperClassVector) TypeName() string {
 	return ""
+}
+
+// TypeInfo returns info about TL type.
+func (vec *WallPaperClassVector) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "",
+		ID:   WallPaperClassVectorTypeID,
+	}
+	if vec == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Elems",
+			SchemaName: "Elems",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

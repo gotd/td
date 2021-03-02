@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PeerSettings represents TL type `peerSettings#733f2961`.
 // Peer settings
@@ -134,13 +136,77 @@ func (p *PeerSettings) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PeerSettings) TypeID() uint32 {
+func (*PeerSettings) TypeID() uint32 {
 	return PeerSettingsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PeerSettings) TypeName() string {
+func (*PeerSettings) TypeName() string {
 	return "peerSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PeerSettings) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "peerSettings",
+		ID:   PeerSettingsTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ReportSpam",
+			SchemaName: "report_spam",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "AddContact",
+			SchemaName: "add_contact",
+			Null:       !p.Flags.Has(1),
+		},
+		{
+			Name:       "BlockContact",
+			SchemaName: "block_contact",
+			Null:       !p.Flags.Has(2),
+		},
+		{
+			Name:       "ShareContact",
+			SchemaName: "share_contact",
+			Null:       !p.Flags.Has(3),
+		},
+		{
+			Name:       "NeedContactsException",
+			SchemaName: "need_contacts_exception",
+			Null:       !p.Flags.Has(4),
+		},
+		{
+			Name:       "ReportGeo",
+			SchemaName: "report_geo",
+			Null:       !p.Flags.Has(5),
+		},
+		{
+			Name:       "Autoarchived",
+			SchemaName: "autoarchived",
+			Null:       !p.Flags.Has(7),
+		},
+		{
+			Name:       "InviteMembers",
+			SchemaName: "invite_members",
+			Null:       !p.Flags.Has(8),
+		},
+		{
+			Name:       "GeoDistance",
+			SchemaName: "geo_distance",
+			Null:       !p.Flags.Has(6),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

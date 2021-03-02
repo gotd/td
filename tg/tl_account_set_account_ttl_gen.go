@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountSetAccountTTLRequest represents TL type `account.setAccountTTL#2442485e`.
 // Set account self-destruction period
@@ -62,13 +64,32 @@ func (s *AccountSetAccountTTLRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *AccountSetAccountTTLRequest) TypeID() uint32 {
+func (*AccountSetAccountTTLRequest) TypeID() uint32 {
 	return AccountSetAccountTTLRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *AccountSetAccountTTLRequest) TypeName() string {
+func (*AccountSetAccountTTLRequest) TypeName() string {
 	return "account.setAccountTTL"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AccountSetAccountTTLRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.setAccountTTL",
+		ID:   AccountSetAccountTTLRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "TTL",
+			SchemaName: "ttl",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

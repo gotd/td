@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // UserStatusEmpty represents TL type `userStatusEmpty#9d05049`.
 // User status has not been set yet.
@@ -50,13 +52,27 @@ func (u *UserStatusEmpty) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UserStatusEmpty) TypeID() uint32 {
+func (*UserStatusEmpty) TypeID() uint32 {
 	return UserStatusEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UserStatusEmpty) TypeName() string {
+func (*UserStatusEmpty) TypeName() string {
 	return "userStatusEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UserStatusEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "userStatusEmpty",
+		ID:   UserStatusEmptyTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -132,13 +148,32 @@ func (u *UserStatusOnline) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UserStatusOnline) TypeID() uint32 {
+func (*UserStatusOnline) TypeID() uint32 {
 	return UserStatusOnlineTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UserStatusOnline) TypeName() string {
+func (*UserStatusOnline) TypeName() string {
 	return "userStatusOnline"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UserStatusOnline) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "userStatusOnline",
+		ID:   UserStatusOnlineTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Expires",
+			SchemaName: "expires",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -227,13 +262,32 @@ func (u *UserStatusOffline) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UserStatusOffline) TypeID() uint32 {
+func (*UserStatusOffline) TypeID() uint32 {
 	return UserStatusOfflineTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UserStatusOffline) TypeName() string {
+func (*UserStatusOffline) TypeName() string {
 	return "userStatusOffline"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UserStatusOffline) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "userStatusOffline",
+		ID:   UserStatusOfflineTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "WasOnline",
+			SchemaName: "was_online",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -310,13 +364,27 @@ func (u *UserStatusRecently) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UserStatusRecently) TypeID() uint32 {
+func (*UserStatusRecently) TypeID() uint32 {
 	return UserStatusRecentlyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UserStatusRecently) TypeName() string {
+func (*UserStatusRecently) TypeName() string {
 	return "userStatusRecently"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UserStatusRecently) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "userStatusRecently",
+		ID:   UserStatusRecentlyTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -380,13 +448,27 @@ func (u *UserStatusLastWeek) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UserStatusLastWeek) TypeID() uint32 {
+func (*UserStatusLastWeek) TypeID() uint32 {
 	return UserStatusLastWeekTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UserStatusLastWeek) TypeName() string {
+func (*UserStatusLastWeek) TypeName() string {
 	return "userStatusLastWeek"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UserStatusLastWeek) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "userStatusLastWeek",
+		ID:   UserStatusLastWeekTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -450,13 +532,27 @@ func (u *UserStatusLastMonth) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UserStatusLastMonth) TypeID() uint32 {
+func (*UserStatusLastMonth) TypeID() uint32 {
 	return UserStatusLastMonthTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UserStatusLastMonth) TypeName() string {
+func (*UserStatusLastMonth) TypeName() string {
 	return "userStatusLastMonth"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UserStatusLastMonth) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "userStatusLastMonth",
+		ID:   UserStatusLastMonthTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

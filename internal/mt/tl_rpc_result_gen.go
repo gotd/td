@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // RPCResult represents TL type `rpc_result#f35c6d01`.
 type RPCResult struct {
@@ -66,13 +68,36 @@ func (r *RPCResult) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *RPCResult) TypeID() uint32 {
+func (*RPCResult) TypeID() uint32 {
 	return RPCResultTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *RPCResult) TypeName() string {
+func (*RPCResult) TypeName() string {
 	return "rpc_result"
+}
+
+// TypeInfo returns info about TL type.
+func (r *RPCResult) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "rpc_result",
+		ID:   RPCResultTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ReqMsgID",
+			SchemaName: "req_msg_id",
+		},
+		{
+			Name:       "Result",
+			SchemaName: "result",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

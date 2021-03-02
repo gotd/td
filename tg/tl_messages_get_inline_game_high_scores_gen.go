@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetInlineGameHighScoresRequest represents TL type `messages.getInlineGameHighScores#f635e1b`.
 // Get highscores of a game sent using an inline bot
@@ -69,13 +71,36 @@ func (g *MessagesGetInlineGameHighScoresRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetInlineGameHighScoresRequest) TypeID() uint32 {
+func (*MessagesGetInlineGameHighScoresRequest) TypeID() uint32 {
 	return MessagesGetInlineGameHighScoresRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetInlineGameHighScoresRequest) TypeName() string {
+func (*MessagesGetInlineGameHighScoresRequest) TypeName() string {
 	return "messages.getInlineGameHighScores"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetInlineGameHighScoresRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getInlineGameHighScores",
+		ID:   MessagesGetInlineGameHighScoresRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

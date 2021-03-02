@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HelpGetTermsOfServiceUpdateRequest represents TL type `help.getTermsOfServiceUpdate#2ca51fd1`.
 // Look for updates of telegram's terms of service
@@ -50,13 +52,27 @@ func (g *HelpGetTermsOfServiceUpdateRequest) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *HelpGetTermsOfServiceUpdateRequest) TypeID() uint32 {
+func (*HelpGetTermsOfServiceUpdateRequest) TypeID() uint32 {
 	return HelpGetTermsOfServiceUpdateRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *HelpGetTermsOfServiceUpdateRequest) TypeName() string {
+func (*HelpGetTermsOfServiceUpdateRequest) TypeName() string {
 	return "help.getTermsOfServiceUpdate"
+}
+
+// TypeInfo returns info about TL type.
+func (g *HelpGetTermsOfServiceUpdateRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.getTermsOfServiceUpdate",
+		ID:   HelpGetTermsOfServiceUpdateRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesDialogs represents TL type `messages.dialogs#15ba6c40`.
 // Full list of chats with messages and auxiliary data.
@@ -83,13 +85,44 @@ func (d *MessagesDialogs) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *MessagesDialogs) TypeID() uint32 {
+func (*MessagesDialogs) TypeID() uint32 {
 	return MessagesDialogsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *MessagesDialogs) TypeName() string {
+func (*MessagesDialogs) TypeName() string {
 	return "messages.dialogs"
+}
+
+// TypeInfo returns info about TL type.
+func (d *MessagesDialogs) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.dialogs",
+		ID:   MessagesDialogsTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Dialogs",
+			SchemaName: "dialogs",
+		},
+		{
+			Name:       "Messages",
+			SchemaName: "messages",
+		},
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -321,13 +354,48 @@ func (d *MessagesDialogsSlice) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *MessagesDialogsSlice) TypeID() uint32 {
+func (*MessagesDialogsSlice) TypeID() uint32 {
 	return MessagesDialogsSliceTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *MessagesDialogsSlice) TypeName() string {
+func (*MessagesDialogsSlice) TypeName() string {
 	return "messages.dialogsSlice"
+}
+
+// TypeInfo returns info about TL type.
+func (d *MessagesDialogsSlice) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.dialogsSlice",
+		ID:   MessagesDialogsSliceTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Count",
+			SchemaName: "count",
+		},
+		{
+			Name:       "Dialogs",
+			SchemaName: "dialogs",
+		},
+		{
+			Name:       "Messages",
+			SchemaName: "messages",
+		},
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -544,13 +612,32 @@ func (d *MessagesDialogsNotModified) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *MessagesDialogsNotModified) TypeID() uint32 {
+func (*MessagesDialogsNotModified) TypeID() uint32 {
 	return MessagesDialogsNotModifiedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *MessagesDialogsNotModified) TypeName() string {
+func (*MessagesDialogsNotModified) TypeName() string {
 	return "messages.dialogsNotModified"
+}
+
+// TypeInfo returns info about TL type.
+func (d *MessagesDialogsNotModified) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.dialogsNotModified",
+		ID:   MessagesDialogsNotModifiedTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Count",
+			SchemaName: "count",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

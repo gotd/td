@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesMessageEditData represents TL type `messages.messageEditData#26b5dde6`.
 // Message edit data for media
@@ -70,13 +72,37 @@ func (m *MessagesMessageEditData) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessagesMessageEditData) TypeID() uint32 {
+func (*MessagesMessageEditData) TypeID() uint32 {
 	return MessagesMessageEditDataTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessagesMessageEditData) TypeName() string {
+func (*MessagesMessageEditData) TypeName() string {
 	return "messages.messageEditData"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessagesMessageEditData) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.messageEditData",
+		ID:   MessagesMessageEditDataTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Caption",
+			SchemaName: "caption",
+			Null:       !m.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

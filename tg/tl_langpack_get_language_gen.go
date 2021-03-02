@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // LangpackGetLanguageRequest represents TL type `langpack.getLanguage#6a596502`.
 // Get information about a language in a localization pack
@@ -69,13 +71,36 @@ func (g *LangpackGetLanguageRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *LangpackGetLanguageRequest) TypeID() uint32 {
+func (*LangpackGetLanguageRequest) TypeID() uint32 {
 	return LangpackGetLanguageRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *LangpackGetLanguageRequest) TypeName() string {
+func (*LangpackGetLanguageRequest) TypeName() string {
 	return "langpack.getLanguage"
+}
+
+// TypeInfo returns info about TL type.
+func (g *LangpackGetLanguageRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "langpack.getLanguage",
+		ID:   LangpackGetLanguageRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "LangPack",
+			SchemaName: "lang_pack",
+		},
+		{
+			Name:       "LangCode",
+			SchemaName: "lang_code",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

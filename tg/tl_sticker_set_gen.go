@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StickerSet represents TL type `stickerSet#40e237a8`.
 // Represents a stickerset (stickerpack)
@@ -169,13 +171,91 @@ func (s *StickerSet) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *StickerSet) TypeID() uint32 {
+func (*StickerSet) TypeID() uint32 {
 	return StickerSetTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *StickerSet) TypeName() string {
+func (*StickerSet) TypeName() string {
 	return "stickerSet"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StickerSet) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "stickerSet",
+		ID:   StickerSetTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Archived",
+			SchemaName: "archived",
+			Null:       !s.Flags.Has(1),
+		},
+		{
+			Name:       "Official",
+			SchemaName: "official",
+			Null:       !s.Flags.Has(2),
+		},
+		{
+			Name:       "Masks",
+			SchemaName: "masks",
+			Null:       !s.Flags.Has(3),
+		},
+		{
+			Name:       "Animated",
+			SchemaName: "animated",
+			Null:       !s.Flags.Has(5),
+		},
+		{
+			Name:       "InstalledDate",
+			SchemaName: "installed_date",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "ShortName",
+			SchemaName: "short_name",
+		},
+		{
+			Name:       "Thumbs",
+			SchemaName: "thumbs",
+			Null:       !s.Flags.Has(4),
+		},
+		{
+			Name:       "ThumbDCID",
+			SchemaName: "thumb_dc_id",
+			Null:       !s.Flags.Has(4),
+		},
+		{
+			Name:       "Count",
+			SchemaName: "count",
+		},
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

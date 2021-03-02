@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputSecureValue represents TL type `inputSecureValue#db21d0a7`.
 // Secure value, for more info see the passport docs »¹
@@ -181,13 +183,71 @@ func (i *InputSecureValue) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputSecureValue) TypeID() uint32 {
+func (*InputSecureValue) TypeID() uint32 {
 	return InputSecureValueTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputSecureValue) TypeName() string {
+func (*InputSecureValue) TypeName() string {
 	return "inputSecureValue"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputSecureValue) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputSecureValue",
+		ID:   InputSecureValueTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "Data",
+			SchemaName: "data",
+			Null:       !i.Flags.Has(0),
+		},
+		{
+			Name:       "FrontSide",
+			SchemaName: "front_side",
+			Null:       !i.Flags.Has(1),
+		},
+		{
+			Name:       "ReverseSide",
+			SchemaName: "reverse_side",
+			Null:       !i.Flags.Has(2),
+		},
+		{
+			Name:       "Selfie",
+			SchemaName: "selfie",
+			Null:       !i.Flags.Has(3),
+		},
+		{
+			Name:       "Translation",
+			SchemaName: "translation",
+			Null:       !i.Flags.Has(6),
+		},
+		{
+			Name:       "Files",
+			SchemaName: "files",
+			Null:       !i.Flags.Has(4),
+		},
+		{
+			Name:       "PlainData",
+			SchemaName: "plain_data",
+			Null:       !i.Flags.Has(5),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

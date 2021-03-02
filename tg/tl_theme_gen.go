@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // Theme represents TL type `theme#28f1114`.
 // Theme
@@ -136,13 +138,72 @@ func (t *Theme) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *Theme) TypeID() uint32 {
+func (*Theme) TypeID() uint32 {
 	return ThemeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *Theme) TypeName() string {
+func (*Theme) TypeName() string {
 	return "theme"
+}
+
+// TypeInfo returns info about TL type.
+func (t *Theme) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "theme",
+		ID:   ThemeTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Creator",
+			SchemaName: "creator",
+			Null:       !t.Flags.Has(0),
+		},
+		{
+			Name:       "Default",
+			SchemaName: "default",
+			Null:       !t.Flags.Has(1),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "Slug",
+			SchemaName: "slug",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "Document",
+			SchemaName: "document",
+			Null:       !t.Flags.Has(2),
+		},
+		{
+			Name:       "Settings",
+			SchemaName: "settings",
+			Null:       !t.Flags.Has(3),
+		},
+		{
+			Name:       "InstallsCount",
+			SchemaName: "installs_count",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

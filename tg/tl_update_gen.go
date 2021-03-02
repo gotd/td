@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // UpdateNewMessage represents TL type `updateNewMessage#1f2b0afd`.
 // New message in a private chat or in a legacy group¹.
@@ -79,13 +81,40 @@ func (u *UpdateNewMessage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateNewMessage) TypeID() uint32 {
+func (*UpdateNewMessage) TypeID() uint32 {
 	return UpdateNewMessageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateNewMessage) TypeName() string {
+func (*UpdateNewMessage) TypeName() string {
 	return "updateNewMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateNewMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateNewMessage",
+		ID:   UpdateNewMessageTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+		},
+		{
+			Name:       "PtsCount",
+			SchemaName: "pts_count",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -215,13 +244,36 @@ func (u *UpdateMessageID) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateMessageID) TypeID() uint32 {
+func (*UpdateMessageID) TypeID() uint32 {
 	return UpdateMessageIDTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateMessageID) TypeName() string {
+func (*UpdateMessageID) TypeName() string {
 	return "updateMessageID"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateMessageID) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateMessageID",
+		ID:   UpdateMessageIDTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "RandomID",
+			SchemaName: "random_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -340,13 +392,40 @@ func (u *UpdateDeleteMessages) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateDeleteMessages) TypeID() uint32 {
+func (*UpdateDeleteMessages) TypeID() uint32 {
 	return UpdateDeleteMessagesTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateDeleteMessages) TypeName() string {
+func (*UpdateDeleteMessages) TypeName() string {
 	return "updateDeleteMessages"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateDeleteMessages) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateDeleteMessages",
+		ID:   UpdateDeleteMessagesTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Messages",
+			SchemaName: "messages",
+		},
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+		},
+		{
+			Name:       "PtsCount",
+			SchemaName: "pts_count",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -480,13 +559,36 @@ func (u *UpdateUserTyping) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateUserTyping) TypeID() uint32 {
+func (*UpdateUserTyping) TypeID() uint32 {
 	return UpdateUserTypingTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateUserTyping) TypeName() string {
+func (*UpdateUserTyping) TypeName() string {
 	return "updateUserTyping"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateUserTyping) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateUserTyping",
+		ID:   UpdateUserTypingTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Action",
+			SchemaName: "action",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -610,13 +712,40 @@ func (u *UpdateChatUserTyping) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateChatUserTyping) TypeID() uint32 {
+func (*UpdateChatUserTyping) TypeID() uint32 {
 	return UpdateChatUserTypingTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateChatUserTyping) TypeName() string {
+func (*UpdateChatUserTyping) TypeName() string {
 	return "updateChatUserTyping"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatUserTyping) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatUserTyping",
+		ID:   UpdateChatUserTypingTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Action",
+			SchemaName: "action",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -736,13 +865,32 @@ func (u *UpdateChatParticipants) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateChatParticipants) TypeID() uint32 {
+func (*UpdateChatParticipants) TypeID() uint32 {
 	return UpdateChatParticipantsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateChatParticipants) TypeName() string {
+func (*UpdateChatParticipants) TypeName() string {
 	return "updateChatParticipants"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatParticipants) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatParticipants",
+		ID:   UpdateChatParticipantsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Participants",
+			SchemaName: "participants",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -843,13 +991,36 @@ func (u *UpdateUserStatus) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateUserStatus) TypeID() uint32 {
+func (*UpdateUserStatus) TypeID() uint32 {
 	return UpdateUserStatusTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateUserStatus) TypeName() string {
+func (*UpdateUserStatus) TypeName() string {
 	return "updateUserStatus"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateUserStatus) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateUserStatus",
+		ID:   UpdateUserStatusTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Status",
+			SchemaName: "status",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -986,13 +1157,44 @@ func (u *UpdateUserName) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateUserName) TypeID() uint32 {
+func (*UpdateUserName) TypeID() uint32 {
 	return UpdateUserNameTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateUserName) TypeName() string {
+func (*UpdateUserName) TypeName() string {
 	return "updateUserName"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateUserName) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateUserName",
+		ID:   UpdateUserNameTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "FirstName",
+			SchemaName: "first_name",
+		},
+		{
+			Name:       "LastName",
+			SchemaName: "last_name",
+		},
+		{
+			Name:       "Username",
+			SchemaName: "username",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1144,13 +1346,44 @@ func (u *UpdateUserPhoto) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateUserPhoto) TypeID() uint32 {
+func (*UpdateUserPhoto) TypeID() uint32 {
 	return UpdateUserPhotoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateUserPhoto) TypeName() string {
+func (*UpdateUserPhoto) TypeName() string {
 	return "updateUserPhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateUserPhoto) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateUserPhoto",
+		ID:   UpdateUserPhotoTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "Photo",
+			SchemaName: "photo",
+		},
+		{
+			Name:       "Previous",
+			SchemaName: "previous",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1290,13 +1523,36 @@ func (u *UpdateNewEncryptedMessage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateNewEncryptedMessage) TypeID() uint32 {
+func (*UpdateNewEncryptedMessage) TypeID() uint32 {
 	return UpdateNewEncryptedMessageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateNewEncryptedMessage) TypeName() string {
+func (*UpdateNewEncryptedMessage) TypeName() string {
 	return "updateNewEncryptedMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateNewEncryptedMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateNewEncryptedMessage",
+		ID:   UpdateNewEncryptedMessageTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+		{
+			Name:       "Qts",
+			SchemaName: "qts",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1403,13 +1659,32 @@ func (u *UpdateEncryptedChatTyping) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateEncryptedChatTyping) TypeID() uint32 {
+func (*UpdateEncryptedChatTyping) TypeID() uint32 {
 	return UpdateEncryptedChatTypingTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateEncryptedChatTyping) TypeName() string {
+func (*UpdateEncryptedChatTyping) TypeName() string {
 	return "updateEncryptedChatTyping"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateEncryptedChatTyping) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateEncryptedChatTyping",
+		ID:   UpdateEncryptedChatTypingTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1505,13 +1780,36 @@ func (u *UpdateEncryption) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateEncryption) TypeID() uint32 {
+func (*UpdateEncryption) TypeID() uint32 {
 	return UpdateEncryptionTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateEncryption) TypeName() string {
+func (*UpdateEncryption) TypeName() string {
 	return "updateEncryption"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateEncryption) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateEncryption",
+		ID:   UpdateEncryptionTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Chat",
+			SchemaName: "chat",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1632,13 +1930,40 @@ func (u *UpdateEncryptedMessagesRead) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateEncryptedMessagesRead) TypeID() uint32 {
+func (*UpdateEncryptedMessagesRead) TypeID() uint32 {
 	return UpdateEncryptedMessagesReadTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateEncryptedMessagesRead) TypeName() string {
+func (*UpdateEncryptedMessagesRead) TypeName() string {
 	return "updateEncryptedMessagesRead"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateEncryptedMessagesRead) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateEncryptedMessagesRead",
+		ID:   UpdateEncryptedMessagesReadTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "MaxDate",
+			SchemaName: "max_date",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1781,13 +2106,48 @@ func (u *UpdateChatParticipantAdd) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateChatParticipantAdd) TypeID() uint32 {
+func (*UpdateChatParticipantAdd) TypeID() uint32 {
 	return UpdateChatParticipantAddTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateChatParticipantAdd) TypeName() string {
+func (*UpdateChatParticipantAdd) TypeName() string {
 	return "updateChatParticipantAdd"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatParticipantAdd) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatParticipantAdd",
+		ID:   UpdateChatParticipantAddTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "InviterID",
+			SchemaName: "inviter_id",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "Version",
+			SchemaName: "version",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1942,13 +2302,40 @@ func (u *UpdateChatParticipantDelete) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateChatParticipantDelete) TypeID() uint32 {
+func (*UpdateChatParticipantDelete) TypeID() uint32 {
 	return UpdateChatParticipantDeleteTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateChatParticipantDelete) TypeName() string {
+func (*UpdateChatParticipantDelete) TypeName() string {
 	return "updateChatParticipantDelete"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatParticipantDelete) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatParticipantDelete",
+		ID:   UpdateChatParticipantDeleteTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Version",
+			SchemaName: "version",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2063,13 +2450,32 @@ func (u *UpdateDcOptions) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateDcOptions) TypeID() uint32 {
+func (*UpdateDcOptions) TypeID() uint32 {
 	return UpdateDcOptionsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateDcOptions) TypeName() string {
+func (*UpdateDcOptions) TypeName() string {
 	return "updateDcOptions"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateDcOptions) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateDcOptions",
+		ID:   UpdateDcOptionsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "DCOptions",
+			SchemaName: "dc_options",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2176,13 +2582,36 @@ func (u *UpdateNotifySettings) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateNotifySettings) TypeID() uint32 {
+func (*UpdateNotifySettings) TypeID() uint32 {
 	return UpdateNotifySettingsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateNotifySettings) TypeName() string {
+func (*UpdateNotifySettings) TypeName() string {
 	return "updateNotifySettings"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateNotifySettings) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateNotifySettings",
+		ID:   UpdateNotifySettingsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "NotifySettings",
+			SchemaName: "notify_settings",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2344,13 +2773,58 @@ func (u *UpdateServiceNotification) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateServiceNotification) TypeID() uint32 {
+func (*UpdateServiceNotification) TypeID() uint32 {
 	return UpdateServiceNotificationTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateServiceNotification) TypeName() string {
+func (*UpdateServiceNotification) TypeName() string {
 	return "updateServiceNotification"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateServiceNotification) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateServiceNotification",
+		ID:   UpdateServiceNotificationTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Popup",
+			SchemaName: "popup",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "InboxDate",
+			SchemaName: "inbox_date",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+		{
+			Name:       "Media",
+			SchemaName: "media",
+		},
+		{
+			Name:       "Entities",
+			SchemaName: "entities",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2565,13 +3039,36 @@ func (u *UpdatePrivacy) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdatePrivacy) TypeID() uint32 {
+func (*UpdatePrivacy) TypeID() uint32 {
 	return UpdatePrivacyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdatePrivacy) TypeName() string {
+func (*UpdatePrivacy) TypeName() string {
 	return "updatePrivacy"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdatePrivacy) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updatePrivacy",
+		ID:   UpdatePrivacyTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Key",
+			SchemaName: "key",
+		},
+		{
+			Name:       "Rules",
+			SchemaName: "rules",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2704,13 +3201,36 @@ func (u *UpdateUserPhone) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateUserPhone) TypeID() uint32 {
+func (*UpdateUserPhone) TypeID() uint32 {
 	return UpdateUserPhoneTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateUserPhone) TypeName() string {
+func (*UpdateUserPhone) TypeName() string {
 	return "updateUserPhone"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateUserPhone) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateUserPhone",
+		ID:   UpdateUserPhoneTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Phone",
+			SchemaName: "phone",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2869,13 +3389,57 @@ func (u *UpdateReadHistoryInbox) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateReadHistoryInbox) TypeID() uint32 {
+func (*UpdateReadHistoryInbox) TypeID() uint32 {
 	return UpdateReadHistoryInboxTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateReadHistoryInbox) TypeName() string {
+func (*UpdateReadHistoryInbox) TypeName() string {
 	return "updateReadHistoryInbox"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateReadHistoryInbox) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateReadHistoryInbox",
+		ID:   UpdateReadHistoryInboxTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "FolderID",
+			SchemaName: "folder_id",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "MaxID",
+			SchemaName: "max_id",
+		},
+		{
+			Name:       "StillUnreadCount",
+			SchemaName: "still_unread_count",
+		},
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+		},
+		{
+			Name:       "PtsCount",
+			SchemaName: "pts_count",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -3084,13 +3648,44 @@ func (u *UpdateReadHistoryOutbox) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateReadHistoryOutbox) TypeID() uint32 {
+func (*UpdateReadHistoryOutbox) TypeID() uint32 {
 	return UpdateReadHistoryOutboxTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateReadHistoryOutbox) TypeName() string {
+func (*UpdateReadHistoryOutbox) TypeName() string {
 	return "updateReadHistoryOutbox"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateReadHistoryOutbox) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateReadHistoryOutbox",
+		ID:   UpdateReadHistoryOutboxTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "MaxID",
+			SchemaName: "max_id",
+		},
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+		},
+		{
+			Name:       "PtsCount",
+			SchemaName: "pts_count",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -3246,13 +3841,40 @@ func (u *UpdateWebPage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateWebPage) TypeID() uint32 {
+func (*UpdateWebPage) TypeID() uint32 {
 	return UpdateWebPageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateWebPage) TypeName() string {
+func (*UpdateWebPage) TypeName() string {
 	return "updateWebPage"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateWebPage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateWebPage",
+		ID:   UpdateWebPageTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Webpage",
+			SchemaName: "webpage",
+		},
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+		},
+		{
+			Name:       "PtsCount",
+			SchemaName: "pts_count",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -3395,13 +4017,40 @@ func (u *UpdateReadMessagesContents) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateReadMessagesContents) TypeID() uint32 {
+func (*UpdateReadMessagesContents) TypeID() uint32 {
 	return UpdateReadMessagesContentsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateReadMessagesContents) TypeName() string {
+func (*UpdateReadMessagesContents) TypeName() string {
 	return "updateReadMessagesContents"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateReadMessagesContents) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateReadMessagesContents",
+		ID:   UpdateReadMessagesContentsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Messages",
+			SchemaName: "messages",
+		},
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+		},
+		{
+			Name:       "PtsCount",
+			SchemaName: "pts_count",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -3549,13 +4198,41 @@ func (u *UpdateChannelTooLong) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateChannelTooLong) TypeID() uint32 {
+func (*UpdateChannelTooLong) TypeID() uint32 {
 	return UpdateChannelTooLongTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateChannelTooLong) TypeName() string {
+func (*UpdateChannelTooLong) TypeName() string {
 	return "updateChannelTooLong"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChannelTooLong) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChannelTooLong",
+		ID:   UpdateChannelTooLongTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ChannelID",
+			SchemaName: "channel_id",
+		},
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+			Null:       !u.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -3680,13 +4357,32 @@ func (u *UpdateChannel) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateChannel) TypeID() uint32 {
+func (*UpdateChannel) TypeID() uint32 {
 	return UpdateChannelTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateChannel) TypeName() string {
+func (*UpdateChannel) TypeName() string {
 	return "updateChannel"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChannel) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChannel",
+		ID:   UpdateChannelTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChannelID",
+			SchemaName: "channel_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -3798,13 +4494,40 @@ func (u *UpdateNewChannelMessage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateNewChannelMessage) TypeID() uint32 {
+func (*UpdateNewChannelMessage) TypeID() uint32 {
 	return UpdateNewChannelMessageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateNewChannelMessage) TypeName() string {
+func (*UpdateNewChannelMessage) TypeName() string {
 	return "updateNewChannelMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateNewChannelMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateNewChannelMessage",
+		ID:   UpdateNewChannelMessageTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+		},
+		{
+			Name:       "PtsCount",
+			SchemaName: "pts_count",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -3974,13 +4697,53 @@ func (u *UpdateReadChannelInbox) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateReadChannelInbox) TypeID() uint32 {
+func (*UpdateReadChannelInbox) TypeID() uint32 {
 	return UpdateReadChannelInboxTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateReadChannelInbox) TypeName() string {
+func (*UpdateReadChannelInbox) TypeName() string {
 	return "updateReadChannelInbox"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateReadChannelInbox) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateReadChannelInbox",
+		ID:   UpdateReadChannelInboxTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "FolderID",
+			SchemaName: "folder_id",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "ChannelID",
+			SchemaName: "channel_id",
+		},
+		{
+			Name:       "MaxID",
+			SchemaName: "max_id",
+		},
+		{
+			Name:       "StillUnreadCount",
+			SchemaName: "still_unread_count",
+		},
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -4174,13 +4937,44 @@ func (u *UpdateDeleteChannelMessages) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateDeleteChannelMessages) TypeID() uint32 {
+func (*UpdateDeleteChannelMessages) TypeID() uint32 {
 	return UpdateDeleteChannelMessagesTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateDeleteChannelMessages) TypeName() string {
+func (*UpdateDeleteChannelMessages) TypeName() string {
 	return "updateDeleteChannelMessages"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateDeleteChannelMessages) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateDeleteChannelMessages",
+		ID:   UpdateDeleteChannelMessagesTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChannelID",
+			SchemaName: "channel_id",
+		},
+		{
+			Name:       "Messages",
+			SchemaName: "messages",
+		},
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+		},
+		{
+			Name:       "PtsCount",
+			SchemaName: "pts_count",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -4331,13 +5125,40 @@ func (u *UpdateChannelMessageViews) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateChannelMessageViews) TypeID() uint32 {
+func (*UpdateChannelMessageViews) TypeID() uint32 {
 	return UpdateChannelMessageViewsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateChannelMessageViews) TypeName() string {
+func (*UpdateChannelMessageViews) TypeName() string {
 	return "updateChannelMessageViews"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChannelMessageViews) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChannelMessageViews",
+		ID:   UpdateChannelMessageViewsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChannelID",
+			SchemaName: "channel_id",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Views",
+			SchemaName: "views",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -4476,13 +5297,44 @@ func (u *UpdateChatParticipantAdmin) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateChatParticipantAdmin) TypeID() uint32 {
+func (*UpdateChatParticipantAdmin) TypeID() uint32 {
 	return UpdateChatParticipantAdminTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateChatParticipantAdmin) TypeName() string {
+func (*UpdateChatParticipantAdmin) TypeName() string {
 	return "updateChatParticipantAdmin"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatParticipantAdmin) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatParticipantAdmin",
+		ID:   UpdateChatParticipantAdminTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "IsAdmin",
+			SchemaName: "is_admin",
+		},
+		{
+			Name:       "Version",
+			SchemaName: "version",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -4610,13 +5462,32 @@ func (u *UpdateNewStickerSet) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateNewStickerSet) TypeID() uint32 {
+func (*UpdateNewStickerSet) TypeID() uint32 {
 	return UpdateNewStickerSetTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateNewStickerSet) TypeName() string {
+func (*UpdateNewStickerSet) TypeName() string {
 	return "updateNewStickerSet"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateNewStickerSet) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateNewStickerSet",
+		ID:   UpdateNewStickerSetTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Stickerset",
+			SchemaName: "stickerset",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -4720,13 +5591,41 @@ func (u *UpdateStickerSetsOrder) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateStickerSetsOrder) TypeID() uint32 {
+func (*UpdateStickerSetsOrder) TypeID() uint32 {
 	return UpdateStickerSetsOrderTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateStickerSetsOrder) TypeName() string {
+func (*UpdateStickerSetsOrder) TypeName() string {
 	return "updateStickerSetsOrder"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateStickerSetsOrder) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateStickerSetsOrder",
+		ID:   UpdateStickerSetsOrderTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Masks",
+			SchemaName: "masks",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "Order",
+			SchemaName: "order",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -4843,13 +5742,27 @@ func (u *UpdateStickerSets) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateStickerSets) TypeID() uint32 {
+func (*UpdateStickerSets) TypeID() uint32 {
 	return UpdateStickerSetsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateStickerSets) TypeName() string {
+func (*UpdateStickerSets) TypeName() string {
 	return "updateStickerSets"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateStickerSets) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateStickerSets",
+		ID:   UpdateStickerSetsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -4916,13 +5829,27 @@ func (u *UpdateSavedGifs) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateSavedGifs) TypeID() uint32 {
+func (*UpdateSavedGifs) TypeID() uint32 {
 	return UpdateSavedGifsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateSavedGifs) TypeName() string {
+func (*UpdateSavedGifs) TypeName() string {
 	return "updateSavedGifs"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateSavedGifs) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateSavedGifs",
+		ID:   UpdateSavedGifsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -5051,13 +5978,58 @@ func (u *UpdateBotInlineQuery) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateBotInlineQuery) TypeID() uint32 {
+func (*UpdateBotInlineQuery) TypeID() uint32 {
 	return UpdateBotInlineQueryTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateBotInlineQuery) TypeName() string {
+func (*UpdateBotInlineQuery) TypeName() string {
 	return "updateBotInlineQuery"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateBotInlineQuery) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateBotInlineQuery",
+		ID:   UpdateBotInlineQueryTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "QueryID",
+			SchemaName: "query_id",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Query",
+			SchemaName: "query",
+		},
+		{
+			Name:       "Geo",
+			SchemaName: "geo",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "PeerType",
+			SchemaName: "peer_type",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "Offset",
+			SchemaName: "offset",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -5308,13 +6280,54 @@ func (u *UpdateBotInlineSend) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateBotInlineSend) TypeID() uint32 {
+func (*UpdateBotInlineSend) TypeID() uint32 {
 	return UpdateBotInlineSendTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateBotInlineSend) TypeName() string {
+func (*UpdateBotInlineSend) TypeName() string {
 	return "updateBotInlineSend"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateBotInlineSend) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateBotInlineSend",
+		ID:   UpdateBotInlineSendTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Query",
+			SchemaName: "query",
+		},
+		{
+			Name:       "Geo",
+			SchemaName: "geo",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+			Null:       !u.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -5521,13 +6534,40 @@ func (u *UpdateEditChannelMessage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateEditChannelMessage) TypeID() uint32 {
+func (*UpdateEditChannelMessage) TypeID() uint32 {
 	return UpdateEditChannelMessageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateEditChannelMessage) TypeName() string {
+func (*UpdateEditChannelMessage) TypeName() string {
 	return "updateEditChannelMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateEditChannelMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateEditChannelMessage",
+		ID:   UpdateEditChannelMessageTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+		},
+		{
+			Name:       "PtsCount",
+			SchemaName: "pts_count",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -5707,13 +6747,62 @@ func (u *UpdateBotCallbackQuery) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateBotCallbackQuery) TypeID() uint32 {
+func (*UpdateBotCallbackQuery) TypeID() uint32 {
 	return UpdateBotCallbackQueryTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateBotCallbackQuery) TypeName() string {
+func (*UpdateBotCallbackQuery) TypeName() string {
 	return "updateBotCallbackQuery"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateBotCallbackQuery) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateBotCallbackQuery",
+		ID:   UpdateBotCallbackQueryTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "QueryID",
+			SchemaName: "query_id",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+		{
+			Name:       "ChatInstance",
+			SchemaName: "chat_instance",
+		},
+		{
+			Name:       "Data",
+			SchemaName: "data",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "GameShortName",
+			SchemaName: "game_short_name",
+			Null:       !u.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -5943,13 +7032,40 @@ func (u *UpdateEditMessage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateEditMessage) TypeID() uint32 {
+func (*UpdateEditMessage) TypeID() uint32 {
 	return UpdateEditMessageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateEditMessage) TypeName() string {
+func (*UpdateEditMessage) TypeName() string {
 	return "updateEditMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateEditMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateEditMessage",
+		ID:   UpdateEditMessageTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+		},
+		{
+			Name:       "PtsCount",
+			SchemaName: "pts_count",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -6122,13 +7238,58 @@ func (u *UpdateInlineBotCallbackQuery) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateInlineBotCallbackQuery) TypeID() uint32 {
+func (*UpdateInlineBotCallbackQuery) TypeID() uint32 {
 	return UpdateInlineBotCallbackQueryTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateInlineBotCallbackQuery) TypeName() string {
+func (*UpdateInlineBotCallbackQuery) TypeName() string {
 	return "updateInlineBotCallbackQuery"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateInlineBotCallbackQuery) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateInlineBotCallbackQuery",
+		ID:   UpdateInlineBotCallbackQueryTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "QueryID",
+			SchemaName: "query_id",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+		{
+			Name:       "ChatInstance",
+			SchemaName: "chat_instance",
+		},
+		{
+			Name:       "Data",
+			SchemaName: "data",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "GameShortName",
+			SchemaName: "game_short_name",
+			Null:       !u.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -6330,13 +7491,36 @@ func (u *UpdateReadChannelOutbox) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateReadChannelOutbox) TypeID() uint32 {
+func (*UpdateReadChannelOutbox) TypeID() uint32 {
 	return UpdateReadChannelOutboxTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateReadChannelOutbox) TypeName() string {
+func (*UpdateReadChannelOutbox) TypeName() string {
 	return "updateReadChannelOutbox"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateReadChannelOutbox) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateReadChannelOutbox",
+		ID:   UpdateReadChannelOutboxTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChannelID",
+			SchemaName: "channel_id",
+		},
+		{
+			Name:       "MaxID",
+			SchemaName: "max_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -6448,13 +7632,36 @@ func (u *UpdateDraftMessage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateDraftMessage) TypeID() uint32 {
+func (*UpdateDraftMessage) TypeID() uint32 {
 	return UpdateDraftMessageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateDraftMessage) TypeName() string {
+func (*UpdateDraftMessage) TypeName() string {
 	return "updateDraftMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateDraftMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateDraftMessage",
+		ID:   UpdateDraftMessageTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Draft",
+			SchemaName: "draft",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -6554,13 +7761,27 @@ func (u *UpdateReadFeaturedStickers) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateReadFeaturedStickers) TypeID() uint32 {
+func (*UpdateReadFeaturedStickers) TypeID() uint32 {
 	return UpdateReadFeaturedStickersTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateReadFeaturedStickers) TypeName() string {
+func (*UpdateReadFeaturedStickers) TypeName() string {
 	return "updateReadFeaturedStickers"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateReadFeaturedStickers) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateReadFeaturedStickers",
+		ID:   UpdateReadFeaturedStickersTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -6624,13 +7845,27 @@ func (u *UpdateRecentStickers) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateRecentStickers) TypeID() uint32 {
+func (*UpdateRecentStickers) TypeID() uint32 {
 	return UpdateRecentStickersTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateRecentStickers) TypeName() string {
+func (*UpdateRecentStickers) TypeName() string {
 	return "updateRecentStickers"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateRecentStickers) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateRecentStickers",
+		ID:   UpdateRecentStickersTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -6697,13 +7932,27 @@ func (u *UpdateConfig) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateConfig) TypeID() uint32 {
+func (*UpdateConfig) TypeID() uint32 {
 	return UpdateConfigTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateConfig) TypeName() string {
+func (*UpdateConfig) TypeName() string {
 	return "updateConfig"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateConfig) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateConfig",
+		ID:   UpdateConfigTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -6771,13 +8020,27 @@ func (u *UpdatePtsChanged) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdatePtsChanged) TypeID() uint32 {
+func (*UpdatePtsChanged) TypeID() uint32 {
 	return UpdatePtsChangedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdatePtsChanged) TypeName() string {
+func (*UpdatePtsChanged) TypeName() string {
 	return "updatePtsChanged"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdatePtsChanged) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updatePtsChanged",
+		ID:   UpdatePtsChangedTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -6886,13 +8149,44 @@ func (u *UpdateChannelWebPage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateChannelWebPage) TypeID() uint32 {
+func (*UpdateChannelWebPage) TypeID() uint32 {
 	return UpdateChannelWebPageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateChannelWebPage) TypeName() string {
+func (*UpdateChannelWebPage) TypeName() string {
 	return "updateChannelWebPage"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChannelWebPage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChannelWebPage",
+		ID:   UpdateChannelWebPageTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChannelID",
+			SchemaName: "channel_id",
+		},
+		{
+			Name:       "Webpage",
+			SchemaName: "webpage",
+		},
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+		},
+		{
+			Name:       "PtsCount",
+			SchemaName: "pts_count",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -7055,13 +8349,46 @@ func (u *UpdateDialogPinned) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateDialogPinned) TypeID() uint32 {
+func (*UpdateDialogPinned) TypeID() uint32 {
 	return UpdateDialogPinnedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateDialogPinned) TypeName() string {
+func (*UpdateDialogPinned) TypeName() string {
 	return "updateDialogPinned"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateDialogPinned) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateDialogPinned",
+		ID:   UpdateDialogPinnedTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Pinned",
+			SchemaName: "pinned",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "FolderID",
+			SchemaName: "folder_id",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -7239,13 +8566,42 @@ func (u *UpdatePinnedDialogs) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdatePinnedDialogs) TypeID() uint32 {
+func (*UpdatePinnedDialogs) TypeID() uint32 {
 	return UpdatePinnedDialogsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdatePinnedDialogs) TypeName() string {
+func (*UpdatePinnedDialogs) TypeName() string {
 	return "updatePinnedDialogs"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdatePinnedDialogs) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updatePinnedDialogs",
+		ID:   UpdatePinnedDialogsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "FolderID",
+			SchemaName: "folder_id",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "Order",
+			SchemaName: "order",
+			Null:       !u.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -7407,13 +8763,32 @@ func (u *UpdateBotWebhookJSON) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateBotWebhookJSON) TypeID() uint32 {
+func (*UpdateBotWebhookJSON) TypeID() uint32 {
 	return UpdateBotWebhookJSONTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateBotWebhookJSON) TypeName() string {
+func (*UpdateBotWebhookJSON) TypeName() string {
 	return "updateBotWebhookJSON"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateBotWebhookJSON) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateBotWebhookJSON",
+		ID:   UpdateBotWebhookJSONTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Data",
+			SchemaName: "data",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -7516,13 +8891,40 @@ func (u *UpdateBotWebhookJSONQuery) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateBotWebhookJSONQuery) TypeID() uint32 {
+func (*UpdateBotWebhookJSONQuery) TypeID() uint32 {
 	return UpdateBotWebhookJSONQueryTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateBotWebhookJSONQuery) TypeName() string {
+func (*UpdateBotWebhookJSONQuery) TypeName() string {
 	return "updateBotWebhookJSONQuery"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateBotWebhookJSONQuery) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateBotWebhookJSONQuery",
+		ID:   UpdateBotWebhookJSONQueryTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "QueryID",
+			SchemaName: "query_id",
+		},
+		{
+			Name:       "Data",
+			SchemaName: "data",
+		},
+		{
+			Name:       "Timeout",
+			SchemaName: "timeout",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -7658,13 +9060,44 @@ func (u *UpdateBotShippingQuery) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateBotShippingQuery) TypeID() uint32 {
+func (*UpdateBotShippingQuery) TypeID() uint32 {
 	return UpdateBotShippingQueryTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateBotShippingQuery) TypeName() string {
+func (*UpdateBotShippingQuery) TypeName() string {
 	return "updateBotShippingQuery"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateBotShippingQuery) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateBotShippingQuery",
+		ID:   UpdateBotShippingQueryTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "QueryID",
+			SchemaName: "query_id",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Payload",
+			SchemaName: "payload",
+		},
+		{
+			Name:       "ShippingAddress",
+			SchemaName: "shipping_address",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -7858,13 +9291,62 @@ func (u *UpdateBotPrecheckoutQuery) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateBotPrecheckoutQuery) TypeID() uint32 {
+func (*UpdateBotPrecheckoutQuery) TypeID() uint32 {
 	return UpdateBotPrecheckoutQueryTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateBotPrecheckoutQuery) TypeName() string {
+func (*UpdateBotPrecheckoutQuery) TypeName() string {
 	return "updateBotPrecheckoutQuery"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateBotPrecheckoutQuery) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateBotPrecheckoutQuery",
+		ID:   UpdateBotPrecheckoutQueryTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "QueryID",
+			SchemaName: "query_id",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Payload",
+			SchemaName: "payload",
+		},
+		{
+			Name:       "Info",
+			SchemaName: "info",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "ShippingOptionID",
+			SchemaName: "shipping_option_id",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "Currency",
+			SchemaName: "currency",
+		},
+		{
+			Name:       "TotalAmount",
+			SchemaName: "total_amount",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -8069,13 +9551,32 @@ func (u *UpdatePhoneCall) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdatePhoneCall) TypeID() uint32 {
+func (*UpdatePhoneCall) TypeID() uint32 {
 	return UpdatePhoneCallTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdatePhoneCall) TypeName() string {
+func (*UpdatePhoneCall) TypeName() string {
 	return "updatePhoneCall"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdatePhoneCall) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updatePhoneCall",
+		ID:   UpdatePhoneCallTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PhoneCall",
+			SchemaName: "phone_call",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -8172,13 +9673,32 @@ func (u *UpdateLangPackTooLong) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateLangPackTooLong) TypeID() uint32 {
+func (*UpdateLangPackTooLong) TypeID() uint32 {
 	return UpdateLangPackTooLongTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateLangPackTooLong) TypeName() string {
+func (*UpdateLangPackTooLong) TypeName() string {
 	return "updateLangPackTooLong"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateLangPackTooLong) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateLangPackTooLong",
+		ID:   UpdateLangPackTooLongTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "LangCode",
+			SchemaName: "lang_code",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -8267,13 +9787,32 @@ func (u *UpdateLangPack) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateLangPack) TypeID() uint32 {
+func (*UpdateLangPack) TypeID() uint32 {
 	return UpdateLangPackTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateLangPack) TypeName() string {
+func (*UpdateLangPack) TypeName() string {
 	return "updateLangPack"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateLangPack) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateLangPack",
+		ID:   UpdateLangPackTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Difference",
+			SchemaName: "difference",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -8353,13 +9892,27 @@ func (u *UpdateFavedStickers) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateFavedStickers) TypeID() uint32 {
+func (*UpdateFavedStickers) TypeID() uint32 {
 	return UpdateFavedStickersTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateFavedStickers) TypeName() string {
+func (*UpdateFavedStickers) TypeName() string {
 	return "updateFavedStickers"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateFavedStickers) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateFavedStickers",
+		ID:   UpdateFavedStickersTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -8448,13 +10001,36 @@ func (u *UpdateChannelReadMessagesContents) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateChannelReadMessagesContents) TypeID() uint32 {
+func (*UpdateChannelReadMessagesContents) TypeID() uint32 {
 	return UpdateChannelReadMessagesContentsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateChannelReadMessagesContents) TypeName() string {
+func (*UpdateChannelReadMessagesContents) TypeName() string {
 	return "updateChannelReadMessagesContents"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChannelReadMessagesContents) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChannelReadMessagesContents",
+		ID:   UpdateChannelReadMessagesContentsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChannelID",
+			SchemaName: "channel_id",
+		},
+		{
+			Name:       "Messages",
+			SchemaName: "messages",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -8553,13 +10129,27 @@ func (u *UpdateContactsReset) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateContactsReset) TypeID() uint32 {
+func (*UpdateContactsReset) TypeID() uint32 {
 	return UpdateContactsResetTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateContactsReset) TypeName() string {
+func (*UpdateContactsReset) TypeName() string {
 	return "updateContactsReset"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateContactsReset) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateContactsReset",
+		ID:   UpdateContactsResetTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -8645,13 +10235,36 @@ func (u *UpdateChannelAvailableMessages) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateChannelAvailableMessages) TypeID() uint32 {
+func (*UpdateChannelAvailableMessages) TypeID() uint32 {
 	return UpdateChannelAvailableMessagesTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateChannelAvailableMessages) TypeName() string {
+func (*UpdateChannelAvailableMessages) TypeName() string {
 	return "updateChannelAvailableMessages"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChannelAvailableMessages) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChannelAvailableMessages",
+		ID:   UpdateChannelAvailableMessagesTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChannelID",
+			SchemaName: "channel_id",
+		},
+		{
+			Name:       "AvailableMinID",
+			SchemaName: "available_min_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -8768,13 +10381,41 @@ func (u *UpdateDialogUnreadMark) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateDialogUnreadMark) TypeID() uint32 {
+func (*UpdateDialogUnreadMark) TypeID() uint32 {
 	return UpdateDialogUnreadMarkTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateDialogUnreadMark) TypeName() string {
+func (*UpdateDialogUnreadMark) TypeName() string {
 	return "updateDialogUnreadMark"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateDialogUnreadMark) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateDialogUnreadMark",
+		ID:   UpdateDialogUnreadMarkTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Unread",
+			SchemaName: "unread",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -8923,13 +10564,45 @@ func (u *UpdateMessagePoll) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateMessagePoll) TypeID() uint32 {
+func (*UpdateMessagePoll) TypeID() uint32 {
 	return UpdateMessagePollTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateMessagePoll) TypeName() string {
+func (*UpdateMessagePoll) TypeName() string {
 	return "updateMessagePoll"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateMessagePoll) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateMessagePoll",
+		ID:   UpdateMessagePollTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "PollID",
+			SchemaName: "poll_id",
+		},
+		{
+			Name:       "Poll",
+			SchemaName: "poll",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "Results",
+			SchemaName: "results",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -9084,13 +10757,40 @@ func (u *UpdateChatDefaultBannedRights) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateChatDefaultBannedRights) TypeID() uint32 {
+func (*UpdateChatDefaultBannedRights) TypeID() uint32 {
 	return UpdateChatDefaultBannedRightsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateChatDefaultBannedRights) TypeName() string {
+func (*UpdateChatDefaultBannedRights) TypeName() string {
 	return "updateChatDefaultBannedRights"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatDefaultBannedRights) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatDefaultBannedRights",
+		ID:   UpdateChatDefaultBannedRightsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "DefaultBannedRights",
+			SchemaName: "default_banned_rights",
+		},
+		{
+			Name:       "Version",
+			SchemaName: "version",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -9233,13 +10933,40 @@ func (u *UpdateFolderPeers) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateFolderPeers) TypeID() uint32 {
+func (*UpdateFolderPeers) TypeID() uint32 {
 	return UpdateFolderPeersTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateFolderPeers) TypeName() string {
+func (*UpdateFolderPeers) TypeName() string {
 	return "updateFolderPeers"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateFolderPeers) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateFolderPeers",
+		ID:   UpdateFolderPeersTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "FolderPeers",
+			SchemaName: "folder_peers",
+		},
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+		},
+		{
+			Name:       "PtsCount",
+			SchemaName: "pts_count",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -9372,13 +11099,36 @@ func (u *UpdatePeerSettings) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdatePeerSettings) TypeID() uint32 {
+func (*UpdatePeerSettings) TypeID() uint32 {
 	return UpdatePeerSettingsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdatePeerSettings) TypeName() string {
+func (*UpdatePeerSettings) TypeName() string {
 	return "updatePeerSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdatePeerSettings) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updatePeerSettings",
+		ID:   UpdatePeerSettingsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Settings",
+			SchemaName: "settings",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -9485,13 +11235,32 @@ func (u *UpdatePeerLocated) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdatePeerLocated) TypeID() uint32 {
+func (*UpdatePeerLocated) TypeID() uint32 {
 	return UpdatePeerLocatedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdatePeerLocated) TypeName() string {
+func (*UpdatePeerLocated) TypeName() string {
 	return "updatePeerLocated"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdatePeerLocated) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updatePeerLocated",
+		ID:   UpdatePeerLocatedTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peers",
+			SchemaName: "peers",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -9602,13 +11371,32 @@ func (u *UpdateNewScheduledMessage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateNewScheduledMessage) TypeID() uint32 {
+func (*UpdateNewScheduledMessage) TypeID() uint32 {
 	return UpdateNewScheduledMessageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateNewScheduledMessage) TypeName() string {
+func (*UpdateNewScheduledMessage) TypeName() string {
 	return "updateNewScheduledMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateNewScheduledMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateNewScheduledMessage",
+		ID:   UpdateNewScheduledMessageTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -9712,13 +11500,36 @@ func (u *UpdateDeleteScheduledMessages) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateDeleteScheduledMessages) TypeID() uint32 {
+func (*UpdateDeleteScheduledMessages) TypeID() uint32 {
 	return UpdateDeleteScheduledMessagesTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateDeleteScheduledMessages) TypeName() string {
+func (*UpdateDeleteScheduledMessages) TypeName() string {
 	return "updateDeleteScheduledMessages"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateDeleteScheduledMessages) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateDeleteScheduledMessages",
+		ID:   UpdateDeleteScheduledMessagesTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Messages",
+			SchemaName: "messages",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -9834,13 +11645,32 @@ func (u *UpdateTheme) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateTheme) TypeID() uint32 {
+func (*UpdateTheme) TypeID() uint32 {
 	return UpdateThemeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateTheme) TypeName() string {
+func (*UpdateTheme) TypeName() string {
 	return "updateTheme"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateTheme) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateTheme",
+		ID:   UpdateThemeTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Theme",
+			SchemaName: "theme",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -9936,13 +11766,36 @@ func (u *UpdateGeoLiveViewed) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateGeoLiveViewed) TypeID() uint32 {
+func (*UpdateGeoLiveViewed) TypeID() uint32 {
 	return UpdateGeoLiveViewedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateGeoLiveViewed) TypeName() string {
+func (*UpdateGeoLiveViewed) TypeName() string {
 	return "updateGeoLiveViewed"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateGeoLiveViewed) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateGeoLiveViewed",
+		ID:   UpdateGeoLiveViewedTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -10037,13 +11890,27 @@ func (u *UpdateLoginToken) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateLoginToken) TypeID() uint32 {
+func (*UpdateLoginToken) TypeID() uint32 {
 	return UpdateLoginTokenTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateLoginToken) TypeName() string {
+func (*UpdateLoginToken) TypeName() string {
 	return "updateLoginToken"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateLoginToken) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateLoginToken",
+		ID:   UpdateLoginTokenTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -10133,13 +12000,40 @@ func (u *UpdateMessagePollVote) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateMessagePollVote) TypeID() uint32 {
+func (*UpdateMessagePollVote) TypeID() uint32 {
 	return UpdateMessagePollVoteTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateMessagePollVote) TypeName() string {
+func (*UpdateMessagePollVote) TypeName() string {
 	return "updateMessagePollVote"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateMessagePollVote) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateMessagePollVote",
+		ID:   UpdateMessagePollVoteTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PollID",
+			SchemaName: "poll_id",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Options",
+			SchemaName: "options",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -10292,13 +12186,41 @@ func (u *UpdateDialogFilter) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateDialogFilter) TypeID() uint32 {
+func (*UpdateDialogFilter) TypeID() uint32 {
 	return UpdateDialogFilterTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateDialogFilter) TypeName() string {
+func (*UpdateDialogFilter) TypeName() string {
 	return "updateDialogFilter"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateDialogFilter) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateDialogFilter",
+		ID:   UpdateDialogFilterTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Filter",
+			SchemaName: "filter",
+			Null:       !u.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -10429,13 +12351,32 @@ func (u *UpdateDialogFilterOrder) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateDialogFilterOrder) TypeID() uint32 {
+func (*UpdateDialogFilterOrder) TypeID() uint32 {
 	return UpdateDialogFilterOrderTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateDialogFilterOrder) TypeName() string {
+func (*UpdateDialogFilterOrder) TypeName() string {
 	return "updateDialogFilterOrder"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateDialogFilterOrder) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateDialogFilterOrder",
+		ID:   UpdateDialogFilterOrderTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Order",
+			SchemaName: "order",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -10524,13 +12465,27 @@ func (u *UpdateDialogFilters) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateDialogFilters) TypeID() uint32 {
+func (*UpdateDialogFilters) TypeID() uint32 {
 	return UpdateDialogFiltersTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateDialogFilters) TypeName() string {
+func (*UpdateDialogFilters) TypeName() string {
 	return "updateDialogFilters"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateDialogFilters) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateDialogFilters",
+		ID:   UpdateDialogFiltersTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -10613,13 +12568,36 @@ func (u *UpdatePhoneCallSignalingData) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdatePhoneCallSignalingData) TypeID() uint32 {
+func (*UpdatePhoneCallSignalingData) TypeID() uint32 {
 	return UpdatePhoneCallSignalingDataTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdatePhoneCallSignalingData) TypeName() string {
+func (*UpdatePhoneCallSignalingData) TypeName() string {
 	return "updatePhoneCallSignalingData"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdatePhoneCallSignalingData) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updatePhoneCallSignalingData",
+		ID:   UpdatePhoneCallSignalingDataTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PhoneCallID",
+			SchemaName: "phone_call_id",
+		},
+		{
+			Name:       "Data",
+			SchemaName: "data",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -10735,13 +12713,40 @@ func (u *UpdateChannelMessageForwards) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateChannelMessageForwards) TypeID() uint32 {
+func (*UpdateChannelMessageForwards) TypeID() uint32 {
 	return UpdateChannelMessageForwardsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateChannelMessageForwards) TypeName() string {
+func (*UpdateChannelMessageForwards) TypeName() string {
 	return "updateChannelMessageForwards"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChannelMessageForwards) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChannelMessageForwards",
+		ID:   UpdateChannelMessageForwardsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChannelID",
+			SchemaName: "channel_id",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Forwards",
+			SchemaName: "forwards",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -10921,13 +12926,54 @@ func (u *UpdateReadChannelDiscussionInbox) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateReadChannelDiscussionInbox) TypeID() uint32 {
+func (*UpdateReadChannelDiscussionInbox) TypeID() uint32 {
 	return UpdateReadChannelDiscussionInboxTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateReadChannelDiscussionInbox) TypeName() string {
+func (*UpdateReadChannelDiscussionInbox) TypeName() string {
 	return "updateReadChannelDiscussionInbox"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateReadChannelDiscussionInbox) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateReadChannelDiscussionInbox",
+		ID:   UpdateReadChannelDiscussionInboxTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ChannelID",
+			SchemaName: "channel_id",
+		},
+		{
+			Name:       "TopMsgID",
+			SchemaName: "top_msg_id",
+		},
+		{
+			Name:       "ReadMaxID",
+			SchemaName: "read_max_id",
+		},
+		{
+			Name:       "BroadcastID",
+			SchemaName: "broadcast_id",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "BroadcastPost",
+			SchemaName: "broadcast_post",
+			Null:       !u.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -11132,13 +13178,40 @@ func (u *UpdateReadChannelDiscussionOutbox) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateReadChannelDiscussionOutbox) TypeID() uint32 {
+func (*UpdateReadChannelDiscussionOutbox) TypeID() uint32 {
 	return UpdateReadChannelDiscussionOutboxTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateReadChannelDiscussionOutbox) TypeName() string {
+func (*UpdateReadChannelDiscussionOutbox) TypeName() string {
 	return "updateReadChannelDiscussionOutbox"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateReadChannelDiscussionOutbox) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateReadChannelDiscussionOutbox",
+		ID:   UpdateReadChannelDiscussionOutboxTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChannelID",
+			SchemaName: "channel_id",
+		},
+		{
+			Name:       "TopMsgID",
+			SchemaName: "top_msg_id",
+		},
+		{
+			Name:       "ReadMaxID",
+			SchemaName: "read_max_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -11260,13 +13333,36 @@ func (u *UpdatePeerBlocked) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdatePeerBlocked) TypeID() uint32 {
+func (*UpdatePeerBlocked) TypeID() uint32 {
 	return UpdatePeerBlockedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdatePeerBlocked) TypeName() string {
+func (*UpdatePeerBlocked) TypeName() string {
 	return "updatePeerBlocked"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdatePeerBlocked) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updatePeerBlocked",
+		ID:   UpdatePeerBlockedTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PeerID",
+			SchemaName: "peer_id",
+		},
+		{
+			Name:       "Blocked",
+			SchemaName: "blocked",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -11414,13 +13510,49 @@ func (u *UpdateChannelUserTyping) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateChannelUserTyping) TypeID() uint32 {
+func (*UpdateChannelUserTyping) TypeID() uint32 {
 	return UpdateChannelUserTypingTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateChannelUserTyping) TypeName() string {
+func (*UpdateChannelUserTyping) TypeName() string {
 	return "updateChannelUserTyping"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChannelUserTyping) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChannelUserTyping",
+		ID:   UpdateChannelUserTypingTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ChannelID",
+			SchemaName: "channel_id",
+		},
+		{
+			Name:       "TopMsgID",
+			SchemaName: "top_msg_id",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Action",
+			SchemaName: "action",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -11618,13 +13750,53 @@ func (u *UpdatePinnedMessages) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdatePinnedMessages) TypeID() uint32 {
+func (*UpdatePinnedMessages) TypeID() uint32 {
 	return UpdatePinnedMessagesTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdatePinnedMessages) TypeName() string {
+func (*UpdatePinnedMessages) TypeName() string {
 	return "updatePinnedMessages"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdatePinnedMessages) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updatePinnedMessages",
+		ID:   UpdatePinnedMessagesTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Pinned",
+			SchemaName: "pinned",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Messages",
+			SchemaName: "messages",
+		},
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+		},
+		{
+			Name:       "PtsCount",
+			SchemaName: "pts_count",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -11839,13 +14011,53 @@ func (u *UpdatePinnedChannelMessages) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdatePinnedChannelMessages) TypeID() uint32 {
+func (*UpdatePinnedChannelMessages) TypeID() uint32 {
 	return UpdatePinnedChannelMessagesTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdatePinnedChannelMessages) TypeName() string {
+func (*UpdatePinnedChannelMessages) TypeName() string {
 	return "updatePinnedChannelMessages"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdatePinnedChannelMessages) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updatePinnedChannelMessages",
+		ID:   UpdatePinnedChannelMessagesTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Pinned",
+			SchemaName: "pinned",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "ChannelID",
+			SchemaName: "channel_id",
+		},
+		{
+			Name:       "Messages",
+			SchemaName: "messages",
+		},
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+		},
+		{
+			Name:       "PtsCount",
+			SchemaName: "pts_count",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -12009,13 +14221,32 @@ func (u *UpdateChat) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateChat) TypeID() uint32 {
+func (*UpdateChat) TypeID() uint32 {
 	return UpdateChatTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateChat) TypeName() string {
+func (*UpdateChat) TypeName() string {
 	return "updateChat"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChat) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChat",
+		ID:   UpdateChatTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -12117,13 +14348,40 @@ func (u *UpdateGroupCallParticipants) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateGroupCallParticipants) TypeID() uint32 {
+func (*UpdateGroupCallParticipants) TypeID() uint32 {
 	return UpdateGroupCallParticipantsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateGroupCallParticipants) TypeName() string {
+func (*UpdateGroupCallParticipants) TypeName() string {
 	return "updateGroupCallParticipants"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateGroupCallParticipants) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateGroupCallParticipants",
+		ID:   UpdateGroupCallParticipantsTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Call",
+			SchemaName: "call",
+		},
+		{
+			Name:       "Participants",
+			SchemaName: "participants",
+		},
+		{
+			Name:       "Version",
+			SchemaName: "version",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -12255,13 +14513,36 @@ func (u *UpdateGroupCall) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateGroupCall) TypeID() uint32 {
+func (*UpdateGroupCall) TypeID() uint32 {
 	return UpdateGroupCallTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateGroupCall) TypeName() string {
+func (*UpdateGroupCall) TypeName() string {
 	return "updateGroupCall"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateGroupCall) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateGroupCall",
+		ID:   UpdateGroupCallTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "Call",
+			SchemaName: "call",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -12384,13 +14665,41 @@ func (u *UpdatePeerHistoryTTL) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdatePeerHistoryTTL) TypeID() uint32 {
+func (*UpdatePeerHistoryTTL) TypeID() uint32 {
 	return UpdatePeerHistoryTTLTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdatePeerHistoryTTL) TypeName() string {
+func (*UpdatePeerHistoryTTL) TypeName() string {
 	return "updatePeerHistoryTTL"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdatePeerHistoryTTL) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updatePeerHistoryTTL",
+		ID:   UpdatePeerHistoryTTLTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "TTLPeriod",
+			SchemaName: "ttl_period",
+			Null:       !u.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -12569,13 +14878,58 @@ func (u *UpdateChatParticipant) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateChatParticipant) TypeID() uint32 {
+func (*UpdateChatParticipant) TypeID() uint32 {
 	return UpdateChatParticipantTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateChatParticipant) TypeName() string {
+func (*UpdateChatParticipant) TypeName() string {
 	return "updateChatParticipant"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChatParticipant) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChatParticipant",
+		ID:   UpdateChatParticipantTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "PrevParticipant",
+			SchemaName: "prev_participant",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "NewParticipant",
+			SchemaName: "new_participant",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "Qts",
+			SchemaName: "qts",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -12836,13 +15190,58 @@ func (u *UpdateChannelParticipant) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateChannelParticipant) TypeID() uint32 {
+func (*UpdateChannelParticipant) TypeID() uint32 {
 	return UpdateChannelParticipantTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateChannelParticipant) TypeName() string {
+func (*UpdateChannelParticipant) TypeName() string {
 	return "updateChannelParticipant"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateChannelParticipant) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateChannelParticipant",
+		ID:   UpdateChannelParticipantTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ChannelID",
+			SchemaName: "channel_id",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "PrevParticipant",
+			SchemaName: "prev_participant",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "NewParticipant",
+			SchemaName: "new_participant",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "Qts",
+			SchemaName: "qts",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -13057,13 +15456,40 @@ func (u *UpdateBotStopped) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UpdateBotStopped) TypeID() uint32 {
+func (*UpdateBotStopped) TypeID() uint32 {
 	return UpdateBotStoppedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UpdateBotStopped) TypeName() string {
+func (*UpdateBotStopped) TypeName() string {
 	return "updateBotStopped"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UpdateBotStopped) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updateBotStopped",
+		ID:   UpdateBotStoppedTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Stopped",
+			SchemaName: "stopped",
+		},
+		{
+			Name:       "Qts",
+			SchemaName: "qts",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

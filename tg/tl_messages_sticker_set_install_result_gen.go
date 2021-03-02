@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesStickerSetInstallResultSuccess represents TL type `messages.stickerSetInstallResultSuccess#38641628`.
 // The stickerset was installed successfully
@@ -50,13 +52,27 @@ func (s *MessagesStickerSetInstallResultSuccess) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesStickerSetInstallResultSuccess) TypeID() uint32 {
+func (*MessagesStickerSetInstallResultSuccess) TypeID() uint32 {
 	return MessagesStickerSetInstallResultSuccessTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesStickerSetInstallResultSuccess) TypeName() string {
+func (*MessagesStickerSetInstallResultSuccess) TypeName() string {
 	return "messages.stickerSetInstallResultSuccess"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesStickerSetInstallResultSuccess) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.stickerSetInstallResultSuccess",
+		ID:   MessagesStickerSetInstallResultSuccessTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -134,13 +150,32 @@ func (s *MessagesStickerSetInstallResultArchive) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesStickerSetInstallResultArchive) TypeID() uint32 {
+func (*MessagesStickerSetInstallResultArchive) TypeID() uint32 {
 	return MessagesStickerSetInstallResultArchiveTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesStickerSetInstallResultArchive) TypeName() string {
+func (*MessagesStickerSetInstallResultArchive) TypeName() string {
 	return "messages.stickerSetInstallResultArchive"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesStickerSetInstallResultArchive) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.stickerSetInstallResultArchive",
+		ID:   MessagesStickerSetInstallResultArchiveTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Sets",
+			SchemaName: "sets",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

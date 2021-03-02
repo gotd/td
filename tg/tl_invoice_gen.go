@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // Invoice represents TL type `invoice#c30aa358`.
 // Invoice
@@ -136,13 +138,80 @@ func (i *Invoice) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *Invoice) TypeID() uint32 {
+func (*Invoice) TypeID() uint32 {
 	return InvoiceTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *Invoice) TypeName() string {
+func (*Invoice) TypeName() string {
 	return "invoice"
+}
+
+// TypeInfo returns info about TL type.
+func (i *Invoice) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "invoice",
+		ID:   InvoiceTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Test",
+			SchemaName: "test",
+			Null:       !i.Flags.Has(0),
+		},
+		{
+			Name:       "NameRequested",
+			SchemaName: "name_requested",
+			Null:       !i.Flags.Has(1),
+		},
+		{
+			Name:       "PhoneRequested",
+			SchemaName: "phone_requested",
+			Null:       !i.Flags.Has(2),
+		},
+		{
+			Name:       "EmailRequested",
+			SchemaName: "email_requested",
+			Null:       !i.Flags.Has(3),
+		},
+		{
+			Name:       "ShippingAddressRequested",
+			SchemaName: "shipping_address_requested",
+			Null:       !i.Flags.Has(4),
+		},
+		{
+			Name:       "Flexible",
+			SchemaName: "flexible",
+			Null:       !i.Flags.Has(5),
+		},
+		{
+			Name:       "PhoneToProvider",
+			SchemaName: "phone_to_provider",
+			Null:       !i.Flags.Has(6),
+		},
+		{
+			Name:       "EmailToProvider",
+			SchemaName: "email_to_provider",
+			Null:       !i.Flags.Has(7),
+		},
+		{
+			Name:       "Currency",
+			SchemaName: "currency",
+		},
+		{
+			Name:       "Prices",
+			SchemaName: "prices",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

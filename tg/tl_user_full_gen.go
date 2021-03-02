@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // UserFull represents TL type `userFull#139a9a77`.
 // Extended user info
@@ -214,13 +216,108 @@ func (u *UserFull) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UserFull) TypeID() uint32 {
+func (*UserFull) TypeID() uint32 {
 	return UserFullTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UserFull) TypeName() string {
+func (*UserFull) TypeName() string {
 	return "userFull"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UserFull) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "userFull",
+		ID:   UserFullTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Blocked",
+			SchemaName: "blocked",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "PhoneCallsAvailable",
+			SchemaName: "phone_calls_available",
+			Null:       !u.Flags.Has(4),
+		},
+		{
+			Name:       "PhoneCallsPrivate",
+			SchemaName: "phone_calls_private",
+			Null:       !u.Flags.Has(5),
+		},
+		{
+			Name:       "CanPinMessage",
+			SchemaName: "can_pin_message",
+			Null:       !u.Flags.Has(7),
+		},
+		{
+			Name:       "HasScheduled",
+			SchemaName: "has_scheduled",
+			Null:       !u.Flags.Has(12),
+		},
+		{
+			Name:       "VideoCallsAvailable",
+			SchemaName: "video_calls_available",
+			Null:       !u.Flags.Has(13),
+		},
+		{
+			Name:       "User",
+			SchemaName: "user",
+		},
+		{
+			Name:       "About",
+			SchemaName: "about",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "Settings",
+			SchemaName: "settings",
+		},
+		{
+			Name:       "ProfilePhoto",
+			SchemaName: "profile_photo",
+			Null:       !u.Flags.Has(2),
+		},
+		{
+			Name:       "NotifySettings",
+			SchemaName: "notify_settings",
+		},
+		{
+			Name:       "BotInfo",
+			SchemaName: "bot_info",
+			Null:       !u.Flags.Has(3),
+		},
+		{
+			Name:       "PinnedMsgID",
+			SchemaName: "pinned_msg_id",
+			Null:       !u.Flags.Has(6),
+		},
+		{
+			Name:       "CommonChatsCount",
+			SchemaName: "common_chats_count",
+		},
+		{
+			Name:       "FolderID",
+			SchemaName: "folder_id",
+			Null:       !u.Flags.Has(11),
+		},
+		{
+			Name:       "TTLPeriod",
+			SchemaName: "ttl_period",
+			Null:       !u.Flags.Has(14),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

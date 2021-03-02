@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // JsonObjectValue represents TL type `jsonObjectValue#c0de1bd9`.
 // JSON key: value pair
@@ -69,13 +71,36 @@ func (j *JsonObjectValue) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (j *JsonObjectValue) TypeID() uint32 {
+func (*JsonObjectValue) TypeID() uint32 {
 	return JsonObjectValueTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (j *JsonObjectValue) TypeName() string {
+func (*JsonObjectValue) TypeName() string {
 	return "jsonObjectValue"
+}
+
+// TypeInfo returns info about TL type.
+func (j *JsonObjectValue) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "jsonObjectValue",
+		ID:   JsonObjectValueTypeID,
+	}
+	if j == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Key",
+			SchemaName: "key",
+		},
+		{
+			Name:       "Value",
+			SchemaName: "value",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

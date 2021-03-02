@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountCancelPasswordEmailRequest represents TL type `account.cancelPasswordEmail#c1cbd5b6`.
 // Cancel the code that was sent to verify an email to use as 2FA recovery method¹.
@@ -53,13 +55,27 @@ func (c *AccountCancelPasswordEmailRequest) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *AccountCancelPasswordEmailRequest) TypeID() uint32 {
+func (*AccountCancelPasswordEmailRequest) TypeID() uint32 {
 	return AccountCancelPasswordEmailRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *AccountCancelPasswordEmailRequest) TypeName() string {
+func (*AccountCancelPasswordEmailRequest) TypeName() string {
 	return "account.cancelPasswordEmail"
+}
+
+// TypeInfo returns info about TL type.
+func (c *AccountCancelPasswordEmailRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.cancelPasswordEmail",
+		ID:   AccountCancelPasswordEmailRequestTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

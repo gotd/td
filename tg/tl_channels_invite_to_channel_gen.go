@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelsInviteToChannelRequest represents TL type `channels.inviteToChannel#199f3a6c`.
 // Invite users to a channel/supergroup
@@ -69,13 +71,36 @@ func (i *ChannelsInviteToChannelRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *ChannelsInviteToChannelRequest) TypeID() uint32 {
+func (*ChannelsInviteToChannelRequest) TypeID() uint32 {
 	return ChannelsInviteToChannelRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *ChannelsInviteToChannelRequest) TypeName() string {
+func (*ChannelsInviteToChannelRequest) TypeName() string {
 	return "channels.inviteToChannel"
+}
+
+// TypeInfo returns info about TL type.
+func (i *ChannelsInviteToChannelRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channels.inviteToChannel",
+		ID:   ChannelsInviteToChannelRequestTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Channel",
+			SchemaName: "channel",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

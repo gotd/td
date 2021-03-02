@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HelpGetCountriesListRequest represents TL type `help.getCountriesList#735787a8`.
 // Get name, ISO code, localized name and phone codes/patterns of all available countries
@@ -72,13 +74,36 @@ func (g *HelpGetCountriesListRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *HelpGetCountriesListRequest) TypeID() uint32 {
+func (*HelpGetCountriesListRequest) TypeID() uint32 {
 	return HelpGetCountriesListRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *HelpGetCountriesListRequest) TypeName() string {
+func (*HelpGetCountriesListRequest) TypeName() string {
 	return "help.getCountriesList"
+}
+
+// TypeInfo returns info about TL type.
+func (g *HelpGetCountriesListRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.getCountriesList",
+		ID:   HelpGetCountriesListRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "LangCode",
+			SchemaName: "lang_code",
+		},
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

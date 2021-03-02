@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MsgResendReq represents TL type `msg_resend_req#7d861a08`.
 type MsgResendReq struct {
@@ -59,13 +61,32 @@ func (m *MsgResendReq) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MsgResendReq) TypeID() uint32 {
+func (*MsgResendReq) TypeID() uint32 {
 	return MsgResendReqTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MsgResendReq) TypeName() string {
+func (*MsgResendReq) TypeName() string {
 	return "msg_resend_req"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MsgResendReq) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "msg_resend_req",
+		ID:   MsgResendReqTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "MsgIds",
+			SchemaName: "msg_ids",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

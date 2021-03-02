@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HelpUserInfoEmpty represents TL type `help.userInfoEmpty#f3ae2eed`.
 // Internal use
@@ -50,13 +52,27 @@ func (u *HelpUserInfoEmpty) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *HelpUserInfoEmpty) TypeID() uint32 {
+func (*HelpUserInfoEmpty) TypeID() uint32 {
 	return HelpUserInfoEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *HelpUserInfoEmpty) TypeName() string {
+func (*HelpUserInfoEmpty) TypeName() string {
 	return "help.userInfoEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (u *HelpUserInfoEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.userInfoEmpty",
+		ID:   HelpUserInfoEmptyTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -156,13 +172,44 @@ func (u *HelpUserInfo) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *HelpUserInfo) TypeID() uint32 {
+func (*HelpUserInfo) TypeID() uint32 {
 	return HelpUserInfoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *HelpUserInfo) TypeName() string {
+func (*HelpUserInfo) TypeName() string {
 	return "help.userInfo"
+}
+
+// TypeInfo returns info about TL type.
+func (u *HelpUserInfo) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.userInfo",
+		ID:   HelpUserInfoTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+		{
+			Name:       "Entities",
+			SchemaName: "entities",
+		},
+		{
+			Name:       "Author",
+			SchemaName: "author",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

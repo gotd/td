@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // DialogPeer represents TL type `dialogPeer#e56dbf05`.
 // Peer
@@ -62,13 +64,32 @@ func (d *DialogPeer) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DialogPeer) TypeID() uint32 {
+func (*DialogPeer) TypeID() uint32 {
 	return DialogPeerTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DialogPeer) TypeName() string {
+func (*DialogPeer) TypeName() string {
 	return "dialogPeer"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DialogPeer) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "dialogPeer",
+		ID:   DialogPeerTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -168,13 +189,32 @@ func (d *DialogPeerFolder) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DialogPeerFolder) TypeID() uint32 {
+func (*DialogPeerFolder) TypeID() uint32 {
 	return DialogPeerFolderTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DialogPeerFolder) TypeName() string {
+func (*DialogPeerFolder) TypeName() string {
 	return "dialogPeerFolder"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DialogPeerFolder) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "dialogPeerFolder",
+		ID:   DialogPeerFolderTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "FolderID",
+			SchemaName: "folder_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

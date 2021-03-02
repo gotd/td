@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhoneAcceptCallRequest represents TL type `phone.acceptCall#3bd2b4a0`.
 // Accept incoming call
@@ -79,13 +81,40 @@ func (a *PhoneAcceptCallRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *PhoneAcceptCallRequest) TypeID() uint32 {
+func (*PhoneAcceptCallRequest) TypeID() uint32 {
 	return PhoneAcceptCallRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *PhoneAcceptCallRequest) TypeName() string {
+func (*PhoneAcceptCallRequest) TypeName() string {
 	return "phone.acceptCall"
+}
+
+// TypeInfo returns info about TL type.
+func (a *PhoneAcceptCallRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phone.acceptCall",
+		ID:   PhoneAcceptCallRequestTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "GB",
+			SchemaName: "g_b",
+		},
+		{
+			Name:       "Protocol",
+			SchemaName: "protocol",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

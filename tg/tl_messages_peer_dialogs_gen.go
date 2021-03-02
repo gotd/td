@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesPeerDialogs represents TL type `messages.peerDialogs#3371c354`.
 // Dialog info of multiple peers
@@ -93,13 +95,48 @@ func (p *MessagesPeerDialogs) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *MessagesPeerDialogs) TypeID() uint32 {
+func (*MessagesPeerDialogs) TypeID() uint32 {
 	return MessagesPeerDialogsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *MessagesPeerDialogs) TypeName() string {
+func (*MessagesPeerDialogs) TypeName() string {
 	return "messages.peerDialogs"
+}
+
+// TypeInfo returns info about TL type.
+func (p *MessagesPeerDialogs) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.peerDialogs",
+		ID:   MessagesPeerDialogsTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Dialogs",
+			SchemaName: "dialogs",
+		},
+		{
+			Name:       "Messages",
+			SchemaName: "messages",
+		},
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+		{
+			Name:       "State",
+			SchemaName: "state",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // SecureData represents TL type `secureData#8aeabec3`.
 // Secure passport¹ data, for more info see the passport docs »²
@@ -80,13 +82,40 @@ func (s *SecureData) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureData) TypeID() uint32 {
+func (*SecureData) TypeID() uint32 {
 	return SecureDataTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureData) TypeName() string {
+func (*SecureData) TypeName() string {
 	return "secureData"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureData) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureData",
+		ID:   SecureDataTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Data",
+			SchemaName: "data",
+		},
+		{
+			Name:       "DataHash",
+			SchemaName: "data_hash",
+		},
+		{
+			Name:       "Secret",
+			SchemaName: "secret",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

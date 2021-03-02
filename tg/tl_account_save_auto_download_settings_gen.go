@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountSaveAutoDownloadSettingsRequest represents TL type `account.saveAutoDownloadSettings#76f36233`.
 // Change media autodownload settings
@@ -84,13 +86,46 @@ func (s *AccountSaveAutoDownloadSettingsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *AccountSaveAutoDownloadSettingsRequest) TypeID() uint32 {
+func (*AccountSaveAutoDownloadSettingsRequest) TypeID() uint32 {
 	return AccountSaveAutoDownloadSettingsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *AccountSaveAutoDownloadSettingsRequest) TypeName() string {
+func (*AccountSaveAutoDownloadSettingsRequest) TypeName() string {
 	return "account.saveAutoDownloadSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AccountSaveAutoDownloadSettingsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.saveAutoDownloadSettings",
+		ID:   AccountSaveAutoDownloadSettingsRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Low",
+			SchemaName: "low",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "High",
+			SchemaName: "high",
+			Null:       !s.Flags.Has(1),
+		},
+		{
+			Name:       "Settings",
+			SchemaName: "settings",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesToggleDialogPinRequest represents TL type `messages.toggleDialogPin#a731e257`.
 // Pin/unpin a dialog
@@ -77,13 +79,41 @@ func (t *MessagesToggleDialogPinRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *MessagesToggleDialogPinRequest) TypeID() uint32 {
+func (*MessagesToggleDialogPinRequest) TypeID() uint32 {
 	return MessagesToggleDialogPinRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *MessagesToggleDialogPinRequest) TypeName() string {
+func (*MessagesToggleDialogPinRequest) TypeName() string {
 	return "messages.toggleDialogPin"
+}
+
+// TypeInfo returns info about TL type.
+func (t *MessagesToggleDialogPinRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.toggleDialogPin",
+		ID:   MessagesToggleDialogPinRequestTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Pinned",
+			SchemaName: "pinned",
+			Null:       !t.Flags.Has(0),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSaveDraftRequest represents TL type `messages.saveDraft#bc39e14b`.
 // Save a message draft¹ associated to a chat.
@@ -114,13 +116,55 @@ func (s *MessagesSaveDraftRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSaveDraftRequest) TypeID() uint32 {
+func (*MessagesSaveDraftRequest) TypeID() uint32 {
 	return MessagesSaveDraftRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSaveDraftRequest) TypeName() string {
+func (*MessagesSaveDraftRequest) TypeName() string {
 	return "messages.saveDraft"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSaveDraftRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.saveDraft",
+		ID:   MessagesSaveDraftRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "NoWebpage",
+			SchemaName: "no_webpage",
+			Null:       !s.Flags.Has(1),
+		},
+		{
+			Name:       "ReplyToMsgID",
+			SchemaName: "reply_to_msg_id",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+		{
+			Name:       "Entities",
+			SchemaName: "entities",
+			Null:       !s.Flags.Has(3),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

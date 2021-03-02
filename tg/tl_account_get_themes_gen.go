@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountGetThemesRequest represents TL type `account.getThemes#285946f8`.
 // Get installed themes
@@ -72,13 +74,36 @@ func (g *AccountGetThemesRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *AccountGetThemesRequest) TypeID() uint32 {
+func (*AccountGetThemesRequest) TypeID() uint32 {
 	return AccountGetThemesRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *AccountGetThemesRequest) TypeName() string {
+func (*AccountGetThemesRequest) TypeName() string {
 	return "account.getThemes"
+}
+
+// TypeInfo returns info about TL type.
+func (g *AccountGetThemesRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.getThemes",
+		ID:   AccountGetThemesRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Format",
+			SchemaName: "format",
+		},
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

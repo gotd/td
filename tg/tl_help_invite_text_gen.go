@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HelpInviteText represents TL type `help.inviteText#18cb9f78`.
 // Text of a text message with an invitation to install Telegram.
@@ -62,13 +64,32 @@ func (i *HelpInviteText) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *HelpInviteText) TypeID() uint32 {
+func (*HelpInviteText) TypeID() uint32 {
 	return HelpInviteTextTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *HelpInviteText) TypeName() string {
+func (*HelpInviteText) TypeName() string {
 	return "help.inviteText"
+}
+
+// TypeInfo returns info about TL type.
+func (i *HelpInviteText) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.inviteText",
+		ID:   HelpInviteTextTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

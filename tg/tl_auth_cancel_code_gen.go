@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AuthCancelCodeRequest represents TL type `auth.cancelCode#1f040578`.
 // Cancel the login verification code
@@ -72,13 +74,36 @@ func (c *AuthCancelCodeRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *AuthCancelCodeRequest) TypeID() uint32 {
+func (*AuthCancelCodeRequest) TypeID() uint32 {
 	return AuthCancelCodeRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *AuthCancelCodeRequest) TypeName() string {
+func (*AuthCancelCodeRequest) TypeName() string {
 	return "auth.cancelCode"
+}
+
+// TypeInfo returns info about TL type.
+func (c *AuthCancelCodeRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.cancelCode",
+		ID:   AuthCancelCodeRequestTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PhoneNumber",
+			SchemaName: "phone_number",
+		},
+		{
+			Name:       "PhoneCodeHash",
+			SchemaName: "phone_code_hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

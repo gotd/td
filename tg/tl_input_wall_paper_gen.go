@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputWallPaper represents TL type `inputWallPaper#e630b979`.
 // Wallpaper
@@ -69,13 +71,36 @@ func (i *InputWallPaper) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputWallPaper) TypeID() uint32 {
+func (*InputWallPaper) TypeID() uint32 {
 	return InputWallPaperTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputWallPaper) TypeName() string {
+func (*InputWallPaper) TypeName() string {
 	return "inputWallPaper"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputWallPaper) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputWallPaper",
+		ID:   InputWallPaperTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -177,13 +202,32 @@ func (i *InputWallPaperSlug) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputWallPaperSlug) TypeID() uint32 {
+func (*InputWallPaperSlug) TypeID() uint32 {
 	return InputWallPaperSlugTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputWallPaperSlug) TypeName() string {
+func (*InputWallPaperSlug) TypeName() string {
 	return "inputWallPaperSlug"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputWallPaperSlug) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputWallPaperSlug",
+		ID:   InputWallPaperSlugTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Slug",
+			SchemaName: "slug",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -260,13 +304,27 @@ func (i *InputWallPaperNoFile) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputWallPaperNoFile) TypeID() uint32 {
+func (*InputWallPaperNoFile) TypeID() uint32 {
 	return InputWallPaperNoFileTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputWallPaperNoFile) TypeName() string {
+func (*InputWallPaperNoFile) TypeName() string {
 	return "inputWallPaperNoFile"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputWallPaperNoFile) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputWallPaperNoFile",
+		ID:   InputWallPaperNoFileTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

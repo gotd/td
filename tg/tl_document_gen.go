@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // DocumentEmpty represents TL type `documentEmpty#36f8c871`.
 // Empty constructor, document doesn't exist.
@@ -62,13 +64,32 @@ func (d *DocumentEmpty) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DocumentEmpty) TypeID() uint32 {
+func (*DocumentEmpty) TypeID() uint32 {
 	return DocumentEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DocumentEmpty) TypeName() string {
+func (*DocumentEmpty) TypeName() string {
 	return "documentEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DocumentEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "documentEmpty",
+		ID:   DocumentEmptyTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -241,13 +262,74 @@ func (d *Document) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *Document) TypeID() uint32 {
+func (*Document) TypeID() uint32 {
 	return DocumentTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *Document) TypeName() string {
+func (*Document) TypeName() string {
 	return "document"
+}
+
+// TypeInfo returns info about TL type.
+func (d *Document) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "document",
+		ID:   DocumentTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "FileReference",
+			SchemaName: "file_reference",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "MimeType",
+			SchemaName: "mime_type",
+		},
+		{
+			Name:       "Size",
+			SchemaName: "size",
+		},
+		{
+			Name:       "Thumbs",
+			SchemaName: "thumbs",
+			Null:       !d.Flags.Has(0),
+		},
+		{
+			Name:       "VideoThumbs",
+			SchemaName: "video_thumbs",
+			Null:       !d.Flags.Has(1),
+		},
+		{
+			Name:       "DCID",
+			SchemaName: "dc_id",
+		},
+		{
+			Name:       "Attributes",
+			SchemaName: "attributes",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

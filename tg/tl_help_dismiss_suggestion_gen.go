@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HelpDismissSuggestionRequest represents TL type `help.dismissSuggestion#f50dbaa1`.
 // Dismiss a suggestion
@@ -69,13 +71,36 @@ func (d *HelpDismissSuggestionRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *HelpDismissSuggestionRequest) TypeID() uint32 {
+func (*HelpDismissSuggestionRequest) TypeID() uint32 {
 	return HelpDismissSuggestionRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *HelpDismissSuggestionRequest) TypeName() string {
+func (*HelpDismissSuggestionRequest) TypeName() string {
 	return "help.dismissSuggestion"
+}
+
+// TypeInfo returns info about TL type.
+func (d *HelpDismissSuggestionRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.dismissSuggestion",
+		ID:   HelpDismissSuggestionRequestTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Suggestion",
+			SchemaName: "suggestion",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

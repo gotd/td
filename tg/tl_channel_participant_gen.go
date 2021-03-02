@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelParticipant represents TL type `channelParticipant#15ebac1d`.
 // Channel/supergroup participant
@@ -69,13 +71,36 @@ func (c *ChannelParticipant) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelParticipant) TypeID() uint32 {
+func (*ChannelParticipant) TypeID() uint32 {
 	return ChannelParticipantTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelParticipant) TypeName() string {
+func (*ChannelParticipant) TypeName() string {
 	return "channelParticipant"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelParticipant) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelParticipant",
+		ID:   ChannelParticipantTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -191,13 +216,40 @@ func (c *ChannelParticipantSelf) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelParticipantSelf) TypeID() uint32 {
+func (*ChannelParticipantSelf) TypeID() uint32 {
 	return ChannelParticipantSelfTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelParticipantSelf) TypeName() string {
+func (*ChannelParticipantSelf) TypeName() string {
 	return "channelParticipantSelf"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelParticipantSelf) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelParticipantSelf",
+		ID:   ChannelParticipantSelfTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "InviterID",
+			SchemaName: "inviter_id",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -339,13 +391,45 @@ func (c *ChannelParticipantCreator) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelParticipantCreator) TypeID() uint32 {
+func (*ChannelParticipantCreator) TypeID() uint32 {
 	return ChannelParticipantCreatorTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelParticipantCreator) TypeName() string {
+func (*ChannelParticipantCreator) TypeName() string {
 	return "channelParticipantCreator"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelParticipantCreator) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelParticipantCreator",
+		ID:   ChannelParticipantCreatorTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "AdminRights",
+			SchemaName: "admin_rights",
+		},
+		{
+			Name:       "Rank",
+			SchemaName: "rank",
+			Null:       !c.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -553,13 +637,68 @@ func (c *ChannelParticipantAdmin) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelParticipantAdmin) TypeID() uint32 {
+func (*ChannelParticipantAdmin) TypeID() uint32 {
 	return ChannelParticipantAdminTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelParticipantAdmin) TypeName() string {
+func (*ChannelParticipantAdmin) TypeName() string {
 	return "channelParticipantAdmin"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelParticipantAdmin) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelParticipantAdmin",
+		ID:   ChannelParticipantAdminTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "CanEdit",
+			SchemaName: "can_edit",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "Self",
+			SchemaName: "self",
+			Null:       !c.Flags.Has(1),
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "InviterID",
+			SchemaName: "inviter_id",
+			Null:       !c.Flags.Has(1),
+		},
+		{
+			Name:       "PromotedBy",
+			SchemaName: "promoted_by",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "AdminRights",
+			SchemaName: "admin_rights",
+		},
+		{
+			Name:       "Rank",
+			SchemaName: "rank",
+			Null:       !c.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -830,13 +969,53 @@ func (c *ChannelParticipantBanned) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelParticipantBanned) TypeID() uint32 {
+func (*ChannelParticipantBanned) TypeID() uint32 {
 	return ChannelParticipantBannedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelParticipantBanned) TypeName() string {
+func (*ChannelParticipantBanned) TypeName() string {
 	return "channelParticipantBanned"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelParticipantBanned) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelParticipantBanned",
+		ID:   ChannelParticipantBannedTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Left",
+			SchemaName: "left",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "KickedBy",
+			SchemaName: "kicked_by",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "BannedRights",
+			SchemaName: "banned_rights",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -992,13 +1171,32 @@ func (c *ChannelParticipantLeft) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelParticipantLeft) TypeID() uint32 {
+func (*ChannelParticipantLeft) TypeID() uint32 {
 	return ChannelParticipantLeftTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelParticipantLeft) TypeName() string {
+func (*ChannelParticipantLeft) TypeName() string {
 	return "channelParticipantLeft"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelParticipantLeft) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelParticipantLeft",
+		ID:   ChannelParticipantLeftTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

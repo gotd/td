@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhoneEditGroupCallMemberRequest represents TL type `phone.editGroupCallMember#a5e76cd8`.
 //
@@ -92,13 +94,50 @@ func (e *PhoneEditGroupCallMemberRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *PhoneEditGroupCallMemberRequest) TypeID() uint32 {
+func (*PhoneEditGroupCallMemberRequest) TypeID() uint32 {
 	return PhoneEditGroupCallMemberRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *PhoneEditGroupCallMemberRequest) TypeName() string {
+func (*PhoneEditGroupCallMemberRequest) TypeName() string {
 	return "phone.editGroupCallMember"
+}
+
+// TypeInfo returns info about TL type.
+func (e *PhoneEditGroupCallMemberRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phone.editGroupCallMember",
+		ID:   PhoneEditGroupCallMemberRequestTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Muted",
+			SchemaName: "muted",
+			Null:       !e.Flags.Has(0),
+		},
+		{
+			Name:       "Call",
+			SchemaName: "call",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Volume",
+			SchemaName: "volume",
+			Null:       !e.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // WebPageAttributeTheme represents TL type `webPageAttributeTheme#54b56617`.
 // Page theme
@@ -87,13 +89,42 @@ func (w *WebPageAttributeTheme) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (w *WebPageAttributeTheme) TypeID() uint32 {
+func (*WebPageAttributeTheme) TypeID() uint32 {
 	return WebPageAttributeThemeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (w *WebPageAttributeTheme) TypeName() string {
+func (*WebPageAttributeTheme) TypeName() string {
 	return "webPageAttributeTheme"
+}
+
+// TypeInfo returns info about TL type.
+func (w *WebPageAttributeTheme) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "webPageAttributeTheme",
+		ID:   WebPageAttributeThemeTypeID,
+	}
+	if w == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Documents",
+			SchemaName: "documents",
+			Null:       !w.Flags.Has(0),
+		},
+		{
+			Name:       "Settings",
+			SchemaName: "settings",
+			Null:       !w.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

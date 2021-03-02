@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // FutureSalt represents TL type `future_salt#949d9dc`.
 type FutureSalt struct {
@@ -73,13 +75,40 @@ func (f *FutureSalt) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *FutureSalt) TypeID() uint32 {
+func (*FutureSalt) TypeID() uint32 {
 	return FutureSaltTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *FutureSalt) TypeName() string {
+func (*FutureSalt) TypeName() string {
 	return "future_salt"
+}
+
+// TypeInfo returns info about TL type.
+func (f *FutureSalt) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "future_salt",
+		ID:   FutureSaltTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ValidSince",
+			SchemaName: "valid_since",
+		},
+		{
+			Name:       "ValidUntil",
+			SchemaName: "valid_until",
+		},
+		{
+			Name:       "Salt",
+			SchemaName: "salt",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

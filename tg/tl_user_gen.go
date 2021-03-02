@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // UserEmpty represents TL type `userEmpty#200250ba`.
 // Empty constructor, non-existent user.
@@ -62,13 +64,32 @@ func (u *UserEmpty) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UserEmpty) TypeID() uint32 {
+func (*UserEmpty) TypeID() uint32 {
 	return UserEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UserEmpty) TypeName() string {
+func (*UserEmpty) TypeName() string {
 	return "userEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UserEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "userEmpty",
+		ID:   UserEmptyTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -408,13 +429,166 @@ func (u *User) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *User) TypeID() uint32 {
+func (*User) TypeID() uint32 {
 	return UserTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *User) TypeName() string {
+func (*User) TypeName() string {
 	return "user"
+}
+
+// TypeInfo returns info about TL type.
+func (u *User) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "user",
+		ID:   UserTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Self",
+			SchemaName: "self",
+			Null:       !u.Flags.Has(10),
+		},
+		{
+			Name:       "Contact",
+			SchemaName: "contact",
+			Null:       !u.Flags.Has(11),
+		},
+		{
+			Name:       "MutualContact",
+			SchemaName: "mutual_contact",
+			Null:       !u.Flags.Has(12),
+		},
+		{
+			Name:       "Deleted",
+			SchemaName: "deleted",
+			Null:       !u.Flags.Has(13),
+		},
+		{
+			Name:       "Bot",
+			SchemaName: "bot",
+			Null:       !u.Flags.Has(14),
+		},
+		{
+			Name:       "BotChatHistory",
+			SchemaName: "bot_chat_history",
+			Null:       !u.Flags.Has(15),
+		},
+		{
+			Name:       "BotNochats",
+			SchemaName: "bot_nochats",
+			Null:       !u.Flags.Has(16),
+		},
+		{
+			Name:       "Verified",
+			SchemaName: "verified",
+			Null:       !u.Flags.Has(17),
+		},
+		{
+			Name:       "Restricted",
+			SchemaName: "restricted",
+			Null:       !u.Flags.Has(18),
+		},
+		{
+			Name:       "Min",
+			SchemaName: "min",
+			Null:       !u.Flags.Has(20),
+		},
+		{
+			Name:       "BotInlineGeo",
+			SchemaName: "bot_inline_geo",
+			Null:       !u.Flags.Has(21),
+		},
+		{
+			Name:       "Support",
+			SchemaName: "support",
+			Null:       !u.Flags.Has(23),
+		},
+		{
+			Name:       "Scam",
+			SchemaName: "scam",
+			Null:       !u.Flags.Has(24),
+		},
+		{
+			Name:       "ApplyMinPhoto",
+			SchemaName: "apply_min_photo",
+			Null:       !u.Flags.Has(25),
+		},
+		{
+			Name:       "Fake",
+			SchemaName: "fake",
+			Null:       !u.Flags.Has(26),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "FirstName",
+			SchemaName: "first_name",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "LastName",
+			SchemaName: "last_name",
+			Null:       !u.Flags.Has(2),
+		},
+		{
+			Name:       "Username",
+			SchemaName: "username",
+			Null:       !u.Flags.Has(3),
+		},
+		{
+			Name:       "Phone",
+			SchemaName: "phone",
+			Null:       !u.Flags.Has(4),
+		},
+		{
+			Name:       "Photo",
+			SchemaName: "photo",
+			Null:       !u.Flags.Has(5),
+		},
+		{
+			Name:       "Status",
+			SchemaName: "status",
+			Null:       !u.Flags.Has(6),
+		},
+		{
+			Name:       "BotInfoVersion",
+			SchemaName: "bot_info_version",
+			Null:       !u.Flags.Has(14),
+		},
+		{
+			Name:       "RestrictionReason",
+			SchemaName: "restriction_reason",
+			Null:       !u.Flags.Has(18),
+		},
+		{
+			Name:       "BotInlinePlaceholder",
+			SchemaName: "bot_inline_placeholder",
+			Null:       !u.Flags.Has(19),
+		},
+		{
+			Name:       "LangCode",
+			SchemaName: "lang_code",
+			Null:       !u.Flags.Has(22),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

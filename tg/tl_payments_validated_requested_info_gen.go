@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PaymentsValidatedRequestedInfo represents TL type `payments.validatedRequestedInfo#d1451883`.
 //
@@ -83,13 +85,42 @@ func (v *PaymentsValidatedRequestedInfo) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (v *PaymentsValidatedRequestedInfo) TypeID() uint32 {
+func (*PaymentsValidatedRequestedInfo) TypeID() uint32 {
 	return PaymentsValidatedRequestedInfoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (v *PaymentsValidatedRequestedInfo) TypeName() string {
+func (*PaymentsValidatedRequestedInfo) TypeName() string {
 	return "payments.validatedRequestedInfo"
+}
+
+// TypeInfo returns info about TL type.
+func (v *PaymentsValidatedRequestedInfo) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "payments.validatedRequestedInfo",
+		ID:   PaymentsValidatedRequestedInfoTypeID,
+	}
+	if v == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+			Null:       !v.Flags.Has(0),
+		},
+		{
+			Name:       "ShippingOptions",
+			SchemaName: "shipping_options",
+			Null:       !v.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

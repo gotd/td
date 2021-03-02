@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // EmojiKeyword represents TL type `emojiKeyword#d5b3b9f9`.
 // Emoji keyword
@@ -69,13 +71,36 @@ func (e *EmojiKeyword) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *EmojiKeyword) TypeID() uint32 {
+func (*EmojiKeyword) TypeID() uint32 {
 	return EmojiKeywordTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *EmojiKeyword) TypeName() string {
+func (*EmojiKeyword) TypeName() string {
 	return "emojiKeyword"
+}
+
+// TypeInfo returns info about TL type.
+func (e *EmojiKeyword) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "emojiKeyword",
+		ID:   EmojiKeywordTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Keyword",
+			SchemaName: "keyword",
+		},
+		{
+			Name:       "Emoticons",
+			SchemaName: "emoticons",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -193,13 +218,36 @@ func (e *EmojiKeywordDeleted) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *EmojiKeywordDeleted) TypeID() uint32 {
+func (*EmojiKeywordDeleted) TypeID() uint32 {
 	return EmojiKeywordDeletedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *EmojiKeywordDeleted) TypeName() string {
+func (*EmojiKeywordDeleted) TypeName() string {
 	return "emojiKeywordDeleted"
+}
+
+// TypeInfo returns info about TL type.
+func (e *EmojiKeywordDeleted) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "emojiKeywordDeleted",
+		ID:   EmojiKeywordDeletedTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Keyword",
+			SchemaName: "keyword",
+		},
+		{
+			Name:       "Emoticons",
+			SchemaName: "emoticons",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

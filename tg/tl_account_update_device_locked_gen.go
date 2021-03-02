@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountUpdateDeviceLockedRequest represents TL type `account.updateDeviceLocked#38df3532`.
 // When client-side passcode lock feature is enabled, will not show message texts in incoming PUSH notifications¹.
@@ -68,13 +70,32 @@ func (u *AccountUpdateDeviceLockedRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *AccountUpdateDeviceLockedRequest) TypeID() uint32 {
+func (*AccountUpdateDeviceLockedRequest) TypeID() uint32 {
 	return AccountUpdateDeviceLockedRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *AccountUpdateDeviceLockedRequest) TypeName() string {
+func (*AccountUpdateDeviceLockedRequest) TypeName() string {
 	return "account.updateDeviceLocked"
+}
+
+// TypeInfo returns info about TL type.
+func (u *AccountUpdateDeviceLockedRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.updateDeviceLocked",
+		ID:   AccountUpdateDeviceLockedRequestTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Period",
+			SchemaName: "period",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

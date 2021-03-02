@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSentEncryptedMessage represents TL type `messages.sentEncryptedMessage#560f8935`.
 // Message without file attachemts sent to an encrypted file.
@@ -62,13 +64,32 @@ func (s *MessagesSentEncryptedMessage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSentEncryptedMessage) TypeID() uint32 {
+func (*MessagesSentEncryptedMessage) TypeID() uint32 {
 	return MessagesSentEncryptedMessageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSentEncryptedMessage) TypeName() string {
+func (*MessagesSentEncryptedMessage) TypeName() string {
 	return "messages.sentEncryptedMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSentEncryptedMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.sentEncryptedMessage",
+		ID:   MessagesSentEncryptedMessageTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -164,13 +185,36 @@ func (s *MessagesSentEncryptedFile) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSentEncryptedFile) TypeID() uint32 {
+func (*MessagesSentEncryptedFile) TypeID() uint32 {
 	return MessagesSentEncryptedFileTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSentEncryptedFile) TypeName() string {
+func (*MessagesSentEncryptedFile) TypeName() string {
 	return "messages.sentEncryptedFile"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSentEncryptedFile) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.sentEncryptedFile",
+		ID:   MessagesSentEncryptedFileTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "File",
+			SchemaName: "file",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

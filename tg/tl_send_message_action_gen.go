@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // SendMessageTypingAction represents TL type `sendMessageTypingAction#16bf744e`.
 // User is typing.
@@ -50,13 +52,27 @@ func (s *SendMessageTypingAction) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SendMessageTypingAction) TypeID() uint32 {
+func (*SendMessageTypingAction) TypeID() uint32 {
 	return SendMessageTypingActionTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SendMessageTypingAction) TypeName() string {
+func (*SendMessageTypingAction) TypeName() string {
 	return "sendMessageTypingAction"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SendMessageTypingAction) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "sendMessageTypingAction",
+		ID:   SendMessageTypingActionTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -120,13 +136,27 @@ func (s *SendMessageCancelAction) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SendMessageCancelAction) TypeID() uint32 {
+func (*SendMessageCancelAction) TypeID() uint32 {
 	return SendMessageCancelActionTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SendMessageCancelAction) TypeName() string {
+func (*SendMessageCancelAction) TypeName() string {
 	return "sendMessageCancelAction"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SendMessageCancelAction) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "sendMessageCancelAction",
+		ID:   SendMessageCancelActionTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -190,13 +220,27 @@ func (s *SendMessageRecordVideoAction) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SendMessageRecordVideoAction) TypeID() uint32 {
+func (*SendMessageRecordVideoAction) TypeID() uint32 {
 	return SendMessageRecordVideoActionTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SendMessageRecordVideoAction) TypeName() string {
+func (*SendMessageRecordVideoAction) TypeName() string {
 	return "sendMessageRecordVideoAction"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SendMessageRecordVideoAction) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "sendMessageRecordVideoAction",
+		ID:   SendMessageRecordVideoActionTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -272,13 +316,32 @@ func (s *SendMessageUploadVideoAction) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SendMessageUploadVideoAction) TypeID() uint32 {
+func (*SendMessageUploadVideoAction) TypeID() uint32 {
 	return SendMessageUploadVideoActionTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SendMessageUploadVideoAction) TypeName() string {
+func (*SendMessageUploadVideoAction) TypeName() string {
 	return "sendMessageUploadVideoAction"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SendMessageUploadVideoAction) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "sendMessageUploadVideoAction",
+		ID:   SendMessageUploadVideoActionTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Progress",
+			SchemaName: "progress",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -355,13 +418,27 @@ func (s *SendMessageRecordAudioAction) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SendMessageRecordAudioAction) TypeID() uint32 {
+func (*SendMessageRecordAudioAction) TypeID() uint32 {
 	return SendMessageRecordAudioActionTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SendMessageRecordAudioAction) TypeName() string {
+func (*SendMessageRecordAudioAction) TypeName() string {
 	return "sendMessageRecordAudioAction"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SendMessageRecordAudioAction) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "sendMessageRecordAudioAction",
+		ID:   SendMessageRecordAudioActionTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -437,13 +514,32 @@ func (s *SendMessageUploadAudioAction) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SendMessageUploadAudioAction) TypeID() uint32 {
+func (*SendMessageUploadAudioAction) TypeID() uint32 {
 	return SendMessageUploadAudioActionTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SendMessageUploadAudioAction) TypeName() string {
+func (*SendMessageUploadAudioAction) TypeName() string {
 	return "sendMessageUploadAudioAction"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SendMessageUploadAudioAction) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "sendMessageUploadAudioAction",
+		ID:   SendMessageUploadAudioActionTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Progress",
+			SchemaName: "progress",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -532,13 +628,32 @@ func (s *SendMessageUploadPhotoAction) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SendMessageUploadPhotoAction) TypeID() uint32 {
+func (*SendMessageUploadPhotoAction) TypeID() uint32 {
 	return SendMessageUploadPhotoActionTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SendMessageUploadPhotoAction) TypeName() string {
+func (*SendMessageUploadPhotoAction) TypeName() string {
 	return "sendMessageUploadPhotoAction"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SendMessageUploadPhotoAction) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "sendMessageUploadPhotoAction",
+		ID:   SendMessageUploadPhotoActionTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Progress",
+			SchemaName: "progress",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -627,13 +742,32 @@ func (s *SendMessageUploadDocumentAction) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SendMessageUploadDocumentAction) TypeID() uint32 {
+func (*SendMessageUploadDocumentAction) TypeID() uint32 {
 	return SendMessageUploadDocumentActionTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SendMessageUploadDocumentAction) TypeName() string {
+func (*SendMessageUploadDocumentAction) TypeName() string {
 	return "sendMessageUploadDocumentAction"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SendMessageUploadDocumentAction) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "sendMessageUploadDocumentAction",
+		ID:   SendMessageUploadDocumentActionTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Progress",
+			SchemaName: "progress",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -710,13 +844,27 @@ func (s *SendMessageGeoLocationAction) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SendMessageGeoLocationAction) TypeID() uint32 {
+func (*SendMessageGeoLocationAction) TypeID() uint32 {
 	return SendMessageGeoLocationActionTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SendMessageGeoLocationAction) TypeName() string {
+func (*SendMessageGeoLocationAction) TypeName() string {
 	return "sendMessageGeoLocationAction"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SendMessageGeoLocationAction) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "sendMessageGeoLocationAction",
+		ID:   SendMessageGeoLocationActionTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -780,13 +928,27 @@ func (s *SendMessageChooseContactAction) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SendMessageChooseContactAction) TypeID() uint32 {
+func (*SendMessageChooseContactAction) TypeID() uint32 {
 	return SendMessageChooseContactActionTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SendMessageChooseContactAction) TypeName() string {
+func (*SendMessageChooseContactAction) TypeName() string {
 	return "sendMessageChooseContactAction"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SendMessageChooseContactAction) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "sendMessageChooseContactAction",
+		ID:   SendMessageChooseContactActionTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -850,13 +1012,27 @@ func (s *SendMessageGamePlayAction) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SendMessageGamePlayAction) TypeID() uint32 {
+func (*SendMessageGamePlayAction) TypeID() uint32 {
 	return SendMessageGamePlayActionTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SendMessageGamePlayAction) TypeName() string {
+func (*SendMessageGamePlayAction) TypeName() string {
 	return "sendMessageGamePlayAction"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SendMessageGamePlayAction) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "sendMessageGamePlayAction",
+		ID:   SendMessageGamePlayActionTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -920,13 +1096,27 @@ func (s *SendMessageRecordRoundAction) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SendMessageRecordRoundAction) TypeID() uint32 {
+func (*SendMessageRecordRoundAction) TypeID() uint32 {
 	return SendMessageRecordRoundActionTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SendMessageRecordRoundAction) TypeName() string {
+func (*SendMessageRecordRoundAction) TypeName() string {
 	return "sendMessageRecordRoundAction"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SendMessageRecordRoundAction) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "sendMessageRecordRoundAction",
+		ID:   SendMessageRecordRoundActionTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1002,13 +1192,32 @@ func (s *SendMessageUploadRoundAction) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SendMessageUploadRoundAction) TypeID() uint32 {
+func (*SendMessageUploadRoundAction) TypeID() uint32 {
 	return SendMessageUploadRoundActionTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SendMessageUploadRoundAction) TypeName() string {
+func (*SendMessageUploadRoundAction) TypeName() string {
 	return "sendMessageUploadRoundAction"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SendMessageUploadRoundAction) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "sendMessageUploadRoundAction",
+		ID:   SendMessageUploadRoundActionTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Progress",
+			SchemaName: "progress",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1084,13 +1293,27 @@ func (s *SpeakingInGroupCallAction) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SpeakingInGroupCallAction) TypeID() uint32 {
+func (*SpeakingInGroupCallAction) TypeID() uint32 {
 	return SpeakingInGroupCallActionTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SpeakingInGroupCallAction) TypeName() string {
+func (*SpeakingInGroupCallAction) TypeName() string {
 	return "speakingInGroupCallAction"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SpeakingInGroupCallAction) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "speakingInGroupCallAction",
+		ID:   SpeakingInGroupCallActionTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1165,13 +1388,32 @@ func (s *SendMessageHistoryImportAction) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SendMessageHistoryImportAction) TypeID() uint32 {
+func (*SendMessageHistoryImportAction) TypeID() uint32 {
 	return SendMessageHistoryImportActionTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SendMessageHistoryImportAction) TypeName() string {
+func (*SendMessageHistoryImportAction) TypeName() string {
 	return "sendMessageHistoryImportAction"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SendMessageHistoryImportAction) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "sendMessageHistoryImportAction",
+		ID:   SendMessageHistoryImportActionTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Progress",
+			SchemaName: "progress",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

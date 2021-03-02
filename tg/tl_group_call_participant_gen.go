@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // GroupCallParticipant represents TL type `groupCallParticipant#64c62a15`.
 //
@@ -160,13 +162,94 @@ func (g *GroupCallParticipant) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *GroupCallParticipant) TypeID() uint32 {
+func (*GroupCallParticipant) TypeID() uint32 {
 	return GroupCallParticipantTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *GroupCallParticipant) TypeName() string {
+func (*GroupCallParticipant) TypeName() string {
 	return "groupCallParticipant"
+}
+
+// TypeInfo returns info about TL type.
+func (g *GroupCallParticipant) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "groupCallParticipant",
+		ID:   GroupCallParticipantTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Muted",
+			SchemaName: "muted",
+			Null:       !g.Flags.Has(0),
+		},
+		{
+			Name:       "Left",
+			SchemaName: "left",
+			Null:       !g.Flags.Has(1),
+		},
+		{
+			Name:       "CanSelfUnmute",
+			SchemaName: "can_self_unmute",
+			Null:       !g.Flags.Has(2),
+		},
+		{
+			Name:       "JustJoined",
+			SchemaName: "just_joined",
+			Null:       !g.Flags.Has(4),
+		},
+		{
+			Name:       "Versioned",
+			SchemaName: "versioned",
+			Null:       !g.Flags.Has(5),
+		},
+		{
+			Name:       "Min",
+			SchemaName: "min",
+			Null:       !g.Flags.Has(8),
+		},
+		{
+			Name:       "MutedByYou",
+			SchemaName: "muted_by_you",
+			Null:       !g.Flags.Has(9),
+		},
+		{
+			Name:       "VolumeByAdmin",
+			SchemaName: "volume_by_admin",
+			Null:       !g.Flags.Has(10),
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "ActiveDate",
+			SchemaName: "active_date",
+			Null:       !g.Flags.Has(3),
+		},
+		{
+			Name:       "Source",
+			SchemaName: "source",
+		},
+		{
+			Name:       "Volume",
+			SchemaName: "volume",
+			Null:       !g.Flags.Has(7),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

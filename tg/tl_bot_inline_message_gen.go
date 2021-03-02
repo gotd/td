@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // BotInlineMessageMediaAuto represents TL type `botInlineMessageMediaAuto#764cf810`.
 // Send whatever media is attached to the botInlineMediaResult¹
@@ -100,13 +102,46 @@ func (b *BotInlineMessageMediaAuto) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (b *BotInlineMessageMediaAuto) TypeID() uint32 {
+func (*BotInlineMessageMediaAuto) TypeID() uint32 {
 	return BotInlineMessageMediaAutoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (b *BotInlineMessageMediaAuto) TypeName() string {
+func (*BotInlineMessageMediaAuto) TypeName() string {
 	return "botInlineMessageMediaAuto"
+}
+
+// TypeInfo returns info about TL type.
+func (b *BotInlineMessageMediaAuto) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "botInlineMessageMediaAuto",
+		ID:   BotInlineMessageMediaAutoTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+		{
+			Name:       "Entities",
+			SchemaName: "entities",
+			Null:       !b.Flags.Has(1),
+		},
+		{
+			Name:       "ReplyMarkup",
+			SchemaName: "reply_markup",
+			Null:       !b.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -328,13 +363,51 @@ func (b *BotInlineMessageText) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (b *BotInlineMessageText) TypeID() uint32 {
+func (*BotInlineMessageText) TypeID() uint32 {
 	return BotInlineMessageTextTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (b *BotInlineMessageText) TypeName() string {
+func (*BotInlineMessageText) TypeName() string {
 	return "botInlineMessageText"
+}
+
+// TypeInfo returns info about TL type.
+func (b *BotInlineMessageText) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "botInlineMessageText",
+		ID:   BotInlineMessageTextTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "NoWebpage",
+			SchemaName: "no_webpage",
+			Null:       !b.Flags.Has(0),
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+		{
+			Name:       "Entities",
+			SchemaName: "entities",
+			Null:       !b.Flags.Has(1),
+		},
+		{
+			Name:       "ReplyMarkup",
+			SchemaName: "reply_markup",
+			Null:       !b.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -596,13 +669,56 @@ func (b *BotInlineMessageMediaGeo) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (b *BotInlineMessageMediaGeo) TypeID() uint32 {
+func (*BotInlineMessageMediaGeo) TypeID() uint32 {
 	return BotInlineMessageMediaGeoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (b *BotInlineMessageMediaGeo) TypeName() string {
+func (*BotInlineMessageMediaGeo) TypeName() string {
 	return "botInlineMessageMediaGeo"
+}
+
+// TypeInfo returns info about TL type.
+func (b *BotInlineMessageMediaGeo) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "botInlineMessageMediaGeo",
+		ID:   BotInlineMessageMediaGeoTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Geo",
+			SchemaName: "geo",
+		},
+		{
+			Name:       "Heading",
+			SchemaName: "heading",
+			Null:       !b.Flags.Has(0),
+		},
+		{
+			Name:       "Period",
+			SchemaName: "period",
+			Null:       !b.Flags.Has(1),
+		},
+		{
+			Name:       "ProximityNotificationRadius",
+			SchemaName: "proximity_notification_radius",
+			Null:       !b.Flags.Has(3),
+		},
+		{
+			Name:       "ReplyMarkup",
+			SchemaName: "reply_markup",
+			Null:       !b.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -876,13 +992,61 @@ func (b *BotInlineMessageMediaVenue) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (b *BotInlineMessageMediaVenue) TypeID() uint32 {
+func (*BotInlineMessageMediaVenue) TypeID() uint32 {
 	return BotInlineMessageMediaVenueTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (b *BotInlineMessageMediaVenue) TypeName() string {
+func (*BotInlineMessageMediaVenue) TypeName() string {
 	return "botInlineMessageMediaVenue"
+}
+
+// TypeInfo returns info about TL type.
+func (b *BotInlineMessageMediaVenue) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "botInlineMessageMediaVenue",
+		ID:   BotInlineMessageMediaVenueTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Geo",
+			SchemaName: "geo",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "Address",
+			SchemaName: "address",
+		},
+		{
+			Name:       "Provider",
+			SchemaName: "provider",
+		},
+		{
+			Name:       "VenueID",
+			SchemaName: "venue_id",
+		},
+		{
+			Name:       "VenueType",
+			SchemaName: "venue_type",
+		},
+		{
+			Name:       "ReplyMarkup",
+			SchemaName: "reply_markup",
+			Null:       !b.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1123,13 +1287,53 @@ func (b *BotInlineMessageMediaContact) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (b *BotInlineMessageMediaContact) TypeID() uint32 {
+func (*BotInlineMessageMediaContact) TypeID() uint32 {
 	return BotInlineMessageMediaContactTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (b *BotInlineMessageMediaContact) TypeName() string {
+func (*BotInlineMessageMediaContact) TypeName() string {
 	return "botInlineMessageMediaContact"
+}
+
+// TypeInfo returns info about TL type.
+func (b *BotInlineMessageMediaContact) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "botInlineMessageMediaContact",
+		ID:   BotInlineMessageMediaContactTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "PhoneNumber",
+			SchemaName: "phone_number",
+		},
+		{
+			Name:       "FirstName",
+			SchemaName: "first_name",
+		},
+		{
+			Name:       "LastName",
+			SchemaName: "last_name",
+		},
+		{
+			Name:       "Vcard",
+			SchemaName: "vcard",
+		},
+		{
+			Name:       "ReplyMarkup",
+			SchemaName: "reply_markup",
+			Null:       !b.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

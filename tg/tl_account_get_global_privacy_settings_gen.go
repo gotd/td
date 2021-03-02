@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountGetGlobalPrivacySettingsRequest represents TL type `account.getGlobalPrivacySettings#eb2b4cf6`.
 // Get global privacy settings
@@ -50,13 +52,27 @@ func (g *AccountGetGlobalPrivacySettingsRequest) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *AccountGetGlobalPrivacySettingsRequest) TypeID() uint32 {
+func (*AccountGetGlobalPrivacySettingsRequest) TypeID() uint32 {
 	return AccountGetGlobalPrivacySettingsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *AccountGetGlobalPrivacySettingsRequest) TypeName() string {
+func (*AccountGetGlobalPrivacySettingsRequest) TypeName() string {
 	return "account.getGlobalPrivacySettings"
+}
+
+// TypeInfo returns info about TL type.
+func (g *AccountGetGlobalPrivacySettingsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.getGlobalPrivacySettings",
+		ID:   AccountGetGlobalPrivacySettingsRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelsGetAdminedPublicChannelsRequest represents TL type `channels.getAdminedPublicChannels#f8b036af`.
 // Get channels/supergroups/geogroups¹ we're admin in. Usually called when the user exceeds the limit² for owned public channels/supergroups/geogroups³, and the user is given the choice to remove one of his channels/supergroups/geogroups.
@@ -88,13 +90,42 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *ChannelsGetAdminedPublicChannelsRequest) TypeID() uint32 {
+func (*ChannelsGetAdminedPublicChannelsRequest) TypeID() uint32 {
 	return ChannelsGetAdminedPublicChannelsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *ChannelsGetAdminedPublicChannelsRequest) TypeName() string {
+func (*ChannelsGetAdminedPublicChannelsRequest) TypeName() string {
 	return "channels.getAdminedPublicChannels"
+}
+
+// TypeInfo returns info about TL type.
+func (g *ChannelsGetAdminedPublicChannelsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channels.getAdminedPublicChannels",
+		ID:   ChannelsGetAdminedPublicChannelsRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ByLocation",
+			SchemaName: "by_location",
+			Null:       !g.Flags.Has(0),
+		},
+		{
+			Name:       "CheckLimit",
+			SchemaName: "check_limit",
+			Null:       !g.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

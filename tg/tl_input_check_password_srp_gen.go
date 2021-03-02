@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputCheckPasswordEmpty represents TL type `inputCheckPasswordEmpty#9880f658`.
 // There is no password
@@ -50,13 +52,27 @@ func (i *InputCheckPasswordEmpty) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputCheckPasswordEmpty) TypeID() uint32 {
+func (*InputCheckPasswordEmpty) TypeID() uint32 {
 	return InputCheckPasswordEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputCheckPasswordEmpty) TypeName() string {
+func (*InputCheckPasswordEmpty) TypeName() string {
 	return "inputCheckPasswordEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputCheckPasswordEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputCheckPasswordEmpty",
+		ID:   InputCheckPasswordEmptyTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -158,13 +174,40 @@ func (i *InputCheckPasswordSRP) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputCheckPasswordSRP) TypeID() uint32 {
+func (*InputCheckPasswordSRP) TypeID() uint32 {
 	return InputCheckPasswordSRPTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputCheckPasswordSRP) TypeName() string {
+func (*InputCheckPasswordSRP) TypeName() string {
 	return "inputCheckPasswordSRP"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputCheckPasswordSRP) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputCheckPasswordSRP",
+		ID:   InputCheckPasswordSRPTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "SRPID",
+			SchemaName: "srp_id",
+		},
+		{
+			Name:       "A",
+			SchemaName: "A",
+		},
+		{
+			Name:       "M1",
+			SchemaName: "M1",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

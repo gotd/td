@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountSendChangePhoneCodeRequest represents TL type `account.sendChangePhoneCode#82574ae5`.
 // Verify a new phone number to associate to the current account
@@ -69,13 +71,36 @@ func (s *AccountSendChangePhoneCodeRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *AccountSendChangePhoneCodeRequest) TypeID() uint32 {
+func (*AccountSendChangePhoneCodeRequest) TypeID() uint32 {
 	return AccountSendChangePhoneCodeRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *AccountSendChangePhoneCodeRequest) TypeName() string {
+func (*AccountSendChangePhoneCodeRequest) TypeName() string {
 	return "account.sendChangePhoneCode"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AccountSendChangePhoneCodeRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.sendChangePhoneCode",
+		ID:   AccountSendChangePhoneCodeRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PhoneNumber",
+			SchemaName: "phone_number",
+		},
+		{
+			Name:       "Settings",
+			SchemaName: "settings",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

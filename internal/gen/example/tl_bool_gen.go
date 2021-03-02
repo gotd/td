@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // False represents TL type `false#bc799737`.
 //
@@ -49,13 +51,27 @@ func (f *False) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *False) TypeID() uint32 {
+func (*False) TypeID() uint32 {
 	return FalseTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *False) TypeName() string {
+func (*False) TypeName() string {
 	return "false"
+}
+
+// TypeInfo returns info about TL type.
+func (f *False) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "false",
+		ID:   FalseTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -118,13 +134,27 @@ func (t *True) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *True) TypeID() uint32 {
+func (*True) TypeID() uint32 {
 	return TrueTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *True) TypeName() string {
+func (*True) TypeName() string {
 	return "true"
+}
+
+// TypeInfo returns info about TL type.
+func (t *True) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "true",
+		ID:   TrueTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

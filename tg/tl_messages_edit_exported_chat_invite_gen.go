@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesEditExportedChatInviteRequest represents TL type `messages.editExportedChatInvite#2e4ffbe`.
 //
@@ -104,13 +106,55 @@ func (e *MessagesEditExportedChatInviteRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *MessagesEditExportedChatInviteRequest) TypeID() uint32 {
+func (*MessagesEditExportedChatInviteRequest) TypeID() uint32 {
 	return MessagesEditExportedChatInviteRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *MessagesEditExportedChatInviteRequest) TypeName() string {
+func (*MessagesEditExportedChatInviteRequest) TypeName() string {
 	return "messages.editExportedChatInvite"
+}
+
+// TypeInfo returns info about TL type.
+func (e *MessagesEditExportedChatInviteRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.editExportedChatInvite",
+		ID:   MessagesEditExportedChatInviteRequestTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Revoked",
+			SchemaName: "revoked",
+			Null:       !e.Flags.Has(2),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Link",
+			SchemaName: "link",
+		},
+		{
+			Name:       "ExpireDate",
+			SchemaName: "expire_date",
+			Null:       !e.Flags.Has(0),
+		},
+		{
+			Name:       "UsageLimit",
+			SchemaName: "usage_limit",
+			Null:       !e.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

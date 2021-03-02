@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesStartBotRequest represents TL type `messages.startBot#e6df7378`.
 // Start a conversation with a bot using a deep linking parameter¹
@@ -89,13 +91,44 @@ func (s *MessagesStartBotRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesStartBotRequest) TypeID() uint32 {
+func (*MessagesStartBotRequest) TypeID() uint32 {
 	return MessagesStartBotRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesStartBotRequest) TypeName() string {
+func (*MessagesStartBotRequest) TypeName() string {
 	return "messages.startBot"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesStartBotRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.startBot",
+		ID:   MessagesStartBotRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Bot",
+			SchemaName: "bot",
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "RandomID",
+			SchemaName: "random_id",
+		},
+		{
+			Name:       "StartParam",
+			SchemaName: "start_param",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

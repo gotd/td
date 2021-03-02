@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AuthRecoverPasswordRequest represents TL type `auth.recoverPassword#4ea56e92`.
 // Reset the 2FA password¹ using the recovery code sent using auth.requestPasswordRecovery².
@@ -66,13 +68,32 @@ func (r *AuthRecoverPasswordRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *AuthRecoverPasswordRequest) TypeID() uint32 {
+func (*AuthRecoverPasswordRequest) TypeID() uint32 {
 	return AuthRecoverPasswordRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *AuthRecoverPasswordRequest) TypeName() string {
+func (*AuthRecoverPasswordRequest) TypeName() string {
 	return "auth.recoverPassword"
+}
+
+// TypeInfo returns info about TL type.
+func (r *AuthRecoverPasswordRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.recoverPassword",
+		ID:   AuthRecoverPasswordRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Code",
+			SchemaName: "code",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

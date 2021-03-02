@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesRequestEncryptionRequest represents TL type `messages.requestEncryption#f64daf43`.
 // Sends a request to start a secret chat to the user.
@@ -79,13 +81,40 @@ func (r *MessagesRequestEncryptionRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *MessagesRequestEncryptionRequest) TypeID() uint32 {
+func (*MessagesRequestEncryptionRequest) TypeID() uint32 {
 	return MessagesRequestEncryptionRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *MessagesRequestEncryptionRequest) TypeName() string {
+func (*MessagesRequestEncryptionRequest) TypeName() string {
 	return "messages.requestEncryption"
+}
+
+// TypeInfo returns info about TL type.
+func (r *MessagesRequestEncryptionRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.requestEncryption",
+		ID:   MessagesRequestEncryptionRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "RandomID",
+			SchemaName: "random_id",
+		},
+		{
+			Name:       "GA",
+			SchemaName: "g_a",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

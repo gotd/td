@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PaymentsPaymentReceipt represents TL type `payments.paymentReceipt#500911e1`.
 // Receipt
@@ -149,13 +151,74 @@ func (p *PaymentsPaymentReceipt) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PaymentsPaymentReceipt) TypeID() uint32 {
+func (*PaymentsPaymentReceipt) TypeID() uint32 {
 	return PaymentsPaymentReceiptTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PaymentsPaymentReceipt) TypeName() string {
+func (*PaymentsPaymentReceipt) TypeName() string {
 	return "payments.paymentReceipt"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PaymentsPaymentReceipt) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "payments.paymentReceipt",
+		ID:   PaymentsPaymentReceiptTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "BotID",
+			SchemaName: "bot_id",
+		},
+		{
+			Name:       "Invoice",
+			SchemaName: "invoice",
+		},
+		{
+			Name:       "ProviderID",
+			SchemaName: "provider_id",
+		},
+		{
+			Name:       "Info",
+			SchemaName: "info",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "Shipping",
+			SchemaName: "shipping",
+			Null:       !p.Flags.Has(1),
+		},
+		{
+			Name:       "Currency",
+			SchemaName: "currency",
+		},
+		{
+			Name:       "TotalAmount",
+			SchemaName: "total_amount",
+		},
+		{
+			Name:       "CredentialsTitle",
+			SchemaName: "credentials_title",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

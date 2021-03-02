@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesExportedChatInvites represents TL type `messages.exportedChatInvites#bdc62dcc`.
 //
@@ -75,13 +77,40 @@ func (e *MessagesExportedChatInvites) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *MessagesExportedChatInvites) TypeID() uint32 {
+func (*MessagesExportedChatInvites) TypeID() uint32 {
 	return MessagesExportedChatInvitesTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *MessagesExportedChatInvites) TypeName() string {
+func (*MessagesExportedChatInvites) TypeName() string {
 	return "messages.exportedChatInvites"
+}
+
+// TypeInfo returns info about TL type.
+func (e *MessagesExportedChatInvites) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.exportedChatInvites",
+		ID:   MessagesExportedChatInvitesTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Count",
+			SchemaName: "count",
+		},
+		{
+			Name:       "Invites",
+			SchemaName: "invites",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

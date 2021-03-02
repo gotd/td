@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HelpTermsOfServiceUpdateEmpty represents TL type `help.termsOfServiceUpdateEmpty#e3309f7f`.
 // No changes were made to telegram's terms of service
@@ -65,13 +67,32 @@ func (t *HelpTermsOfServiceUpdateEmpty) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *HelpTermsOfServiceUpdateEmpty) TypeID() uint32 {
+func (*HelpTermsOfServiceUpdateEmpty) TypeID() uint32 {
 	return HelpTermsOfServiceUpdateEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *HelpTermsOfServiceUpdateEmpty) TypeName() string {
+func (*HelpTermsOfServiceUpdateEmpty) TypeName() string {
 	return "help.termsOfServiceUpdateEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (t *HelpTermsOfServiceUpdateEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.termsOfServiceUpdateEmpty",
+		ID:   HelpTermsOfServiceUpdateEmptyTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Expires",
+			SchemaName: "expires",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -173,13 +194,36 @@ func (t *HelpTermsOfServiceUpdate) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *HelpTermsOfServiceUpdate) TypeID() uint32 {
+func (*HelpTermsOfServiceUpdate) TypeID() uint32 {
 	return HelpTermsOfServiceUpdateTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *HelpTermsOfServiceUpdate) TypeName() string {
+func (*HelpTermsOfServiceUpdate) TypeName() string {
 	return "help.termsOfServiceUpdate"
+}
+
+// TypeInfo returns info about TL type.
+func (t *HelpTermsOfServiceUpdate) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.termsOfServiceUpdate",
+		ID:   HelpTermsOfServiceUpdateTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Expires",
+			SchemaName: "expires",
+		},
+		{
+			Name:       "TermsOfService",
+			SchemaName: "terms_of_service",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

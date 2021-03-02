@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // TopPeerCategoryPeers represents TL type `topPeerCategoryPeers#fb834291`.
 // Top peer category
@@ -76,13 +78,40 @@ func (t *TopPeerCategoryPeers) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TopPeerCategoryPeers) TypeID() uint32 {
+func (*TopPeerCategoryPeers) TypeID() uint32 {
 	return TopPeerCategoryPeersTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TopPeerCategoryPeers) TypeName() string {
+func (*TopPeerCategoryPeers) TypeName() string {
 	return "topPeerCategoryPeers"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TopPeerCategoryPeers) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "topPeerCategoryPeers",
+		ID:   TopPeerCategoryPeersTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Category",
+			SchemaName: "category",
+		},
+		{
+			Name:       "Count",
+			SchemaName: "count",
+		},
+		{
+			Name:       "Peers",
+			SchemaName: "peers",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountSendConfirmPhoneCodeRequest represents TL type `account.sendConfirmPhoneCode#1b3faa88`.
 // Send confirmation code to cancel account deletion, for more info click here »¹
@@ -75,13 +77,36 @@ func (s *AccountSendConfirmPhoneCodeRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *AccountSendConfirmPhoneCodeRequest) TypeID() uint32 {
+func (*AccountSendConfirmPhoneCodeRequest) TypeID() uint32 {
 	return AccountSendConfirmPhoneCodeRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *AccountSendConfirmPhoneCodeRequest) TypeName() string {
+func (*AccountSendConfirmPhoneCodeRequest) TypeName() string {
 	return "account.sendConfirmPhoneCode"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AccountSendConfirmPhoneCodeRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.sendConfirmPhoneCode",
+		ID:   AccountSendConfirmPhoneCodeRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+		{
+			Name:       "Settings",
+			SchemaName: "settings",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

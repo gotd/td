@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // WallPaperSettings represents TL type `wallPaperSettings#5086cf8`.
 // Wallpaper settings
@@ -125,13 +127,62 @@ func (w *WallPaperSettings) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (w *WallPaperSettings) TypeID() uint32 {
+func (*WallPaperSettings) TypeID() uint32 {
 	return WallPaperSettingsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (w *WallPaperSettings) TypeName() string {
+func (*WallPaperSettings) TypeName() string {
 	return "wallPaperSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (w *WallPaperSettings) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "wallPaperSettings",
+		ID:   WallPaperSettingsTypeID,
+	}
+	if w == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Blur",
+			SchemaName: "blur",
+			Null:       !w.Flags.Has(1),
+		},
+		{
+			Name:       "Motion",
+			SchemaName: "motion",
+			Null:       !w.Flags.Has(2),
+		},
+		{
+			Name:       "BackgroundColor",
+			SchemaName: "background_color",
+			Null:       !w.Flags.Has(0),
+		},
+		{
+			Name:       "SecondBackgroundColor",
+			SchemaName: "second_background_color",
+			Null:       !w.Flags.Has(4),
+		},
+		{
+			Name:       "Intensity",
+			SchemaName: "intensity",
+			Null:       !w.Flags.Has(3),
+		},
+		{
+			Name:       "Rotation",
+			SchemaName: "rotation",
+			Null:       !w.Flags.Has(4),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

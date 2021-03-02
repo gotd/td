@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSetBotShippingResultsRequest represents TL type `messages.setBotShippingResults#e5f672fa`.
 // If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the bot will receive an updateBotShippingQuery¹ update. Use this method to reply to shipping queries.
@@ -97,13 +99,46 @@ func (s *MessagesSetBotShippingResultsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSetBotShippingResultsRequest) TypeID() uint32 {
+func (*MessagesSetBotShippingResultsRequest) TypeID() uint32 {
 	return MessagesSetBotShippingResultsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSetBotShippingResultsRequest) TypeName() string {
+func (*MessagesSetBotShippingResultsRequest) TypeName() string {
 	return "messages.setBotShippingResults"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSetBotShippingResultsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.setBotShippingResults",
+		ID:   MessagesSetBotShippingResultsRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "QueryID",
+			SchemaName: "query_id",
+		},
+		{
+			Name:       "Error",
+			SchemaName: "error",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "ShippingOptions",
+			SchemaName: "shipping_options",
+			Null:       !s.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

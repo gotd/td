@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetAllDraftsRequest represents TL type `messages.getAllDrafts#6a3f8d65`.
 // Save get all message drafts¹.
@@ -53,13 +55,27 @@ func (g *MessagesGetAllDraftsRequest) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetAllDraftsRequest) TypeID() uint32 {
+func (*MessagesGetAllDraftsRequest) TypeID() uint32 {
 	return MessagesGetAllDraftsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetAllDraftsRequest) TypeName() string {
+func (*MessagesGetAllDraftsRequest) TypeName() string {
 	return "messages.getAllDrafts"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetAllDraftsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getAllDrafts",
+		ID:   MessagesGetAllDraftsRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

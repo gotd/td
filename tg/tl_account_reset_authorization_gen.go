@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountResetAuthorizationRequest represents TL type `account.resetAuthorization#df77f3bc`.
 // Log out an active authorized session¹ by its hash
@@ -65,13 +67,32 @@ func (r *AccountResetAuthorizationRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *AccountResetAuthorizationRequest) TypeID() uint32 {
+func (*AccountResetAuthorizationRequest) TypeID() uint32 {
 	return AccountResetAuthorizationRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *AccountResetAuthorizationRequest) TypeName() string {
+func (*AccountResetAuthorizationRequest) TypeName() string {
 	return "account.resetAuthorization"
+}
+
+// TypeInfo returns info about TL type.
+func (r *AccountResetAuthorizationRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.resetAuthorization",
+		ID:   AccountResetAuthorizationRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

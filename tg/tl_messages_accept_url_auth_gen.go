@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesAcceptUrlAuthRequest represents TL type `messages.acceptUrlAuth#f729ea98`.
 // Use this to accept a Seamless Telegram Login authorization request, for more info click here »¹
@@ -94,13 +96,49 @@ func (a *MessagesAcceptUrlAuthRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *MessagesAcceptUrlAuthRequest) TypeID() uint32 {
+func (*MessagesAcceptUrlAuthRequest) TypeID() uint32 {
 	return MessagesAcceptUrlAuthRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *MessagesAcceptUrlAuthRequest) TypeName() string {
+func (*MessagesAcceptUrlAuthRequest) TypeName() string {
 	return "messages.acceptUrlAuth"
+}
+
+// TypeInfo returns info about TL type.
+func (a *MessagesAcceptUrlAuthRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.acceptUrlAuth",
+		ID:   MessagesAcceptUrlAuthRequestTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "WriteAllowed",
+			SchemaName: "write_allowed",
+			Null:       !a.Flags.Has(0),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+		{
+			Name:       "ButtonID",
+			SchemaName: "button_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

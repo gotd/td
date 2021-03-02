@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesEditChatTitleRequest represents TL type `messages.editChatTitle#dc452855`.
 // Chanages chat name and sends a service message on it.
@@ -69,13 +71,36 @@ func (e *MessagesEditChatTitleRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *MessagesEditChatTitleRequest) TypeID() uint32 {
+func (*MessagesEditChatTitleRequest) TypeID() uint32 {
 	return MessagesEditChatTitleRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *MessagesEditChatTitleRequest) TypeName() string {
+func (*MessagesEditChatTitleRequest) TypeName() string {
 	return "messages.editChatTitle"
+}
+
+// TypeInfo returns info about TL type.
+func (e *MessagesEditChatTitleRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.editChatTitle",
+		ID:   MessagesEditChatTitleRequestTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

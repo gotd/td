@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChatAdminWithInvites represents TL type `chatAdminWithInvites#dfd2330f`.
 //
@@ -75,13 +77,40 @@ func (c *ChatAdminWithInvites) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChatAdminWithInvites) TypeID() uint32 {
+func (*ChatAdminWithInvites) TypeID() uint32 {
 	return ChatAdminWithInvitesTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChatAdminWithInvites) TypeName() string {
+func (*ChatAdminWithInvites) TypeName() string {
 	return "chatAdminWithInvites"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatAdminWithInvites) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatAdminWithInvites",
+		ID:   ChatAdminWithInvitesTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "AdminID",
+			SchemaName: "admin_id",
+		},
+		{
+			Name:       "InvitesCount",
+			SchemaName: "invites_count",
+		},
+		{
+			Name:       "RevokedInvitesCount",
+			SchemaName: "revoked_invites_count",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

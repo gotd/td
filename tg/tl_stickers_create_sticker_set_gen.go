@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StickersCreateStickerSetRequest represents TL type `stickers.createStickerSet#f1036780`.
 // Create a stickerset, bots only.
@@ -117,13 +119,63 @@ func (c *StickersCreateStickerSetRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *StickersCreateStickerSetRequest) TypeID() uint32 {
+func (*StickersCreateStickerSetRequest) TypeID() uint32 {
 	return StickersCreateStickerSetRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *StickersCreateStickerSetRequest) TypeName() string {
+func (*StickersCreateStickerSetRequest) TypeName() string {
 	return "stickers.createStickerSet"
+}
+
+// TypeInfo returns info about TL type.
+func (c *StickersCreateStickerSetRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "stickers.createStickerSet",
+		ID:   StickersCreateStickerSetRequestTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Masks",
+			SchemaName: "masks",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "Animated",
+			SchemaName: "animated",
+			Null:       !c.Flags.Has(1),
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "ShortName",
+			SchemaName: "short_name",
+		},
+		{
+			Name:       "Thumb",
+			SchemaName: "thumb",
+			Null:       !c.Flags.Has(2),
+		},
+		{
+			Name:       "Stickers",
+			SchemaName: "stickers",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

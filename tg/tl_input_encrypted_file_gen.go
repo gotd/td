@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputEncryptedFileEmpty represents TL type `inputEncryptedFileEmpty#1837c364`.
 // Empty constructor.
@@ -50,13 +52,27 @@ func (i *InputEncryptedFileEmpty) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputEncryptedFileEmpty) TypeID() uint32 {
+func (*InputEncryptedFileEmpty) TypeID() uint32 {
 	return InputEncryptedFileEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputEncryptedFileEmpty) TypeName() string {
+func (*InputEncryptedFileEmpty) TypeName() string {
 	return "inputEncryptedFileEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputEncryptedFileEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputEncryptedFileEmpty",
+		ID:   InputEncryptedFileEmptyTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -156,13 +172,44 @@ func (i *InputEncryptedFileUploaded) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputEncryptedFileUploaded) TypeID() uint32 {
+func (*InputEncryptedFileUploaded) TypeID() uint32 {
 	return InputEncryptedFileUploadedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputEncryptedFileUploaded) TypeName() string {
+func (*InputEncryptedFileUploaded) TypeName() string {
 	return "inputEncryptedFileUploaded"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputEncryptedFileUploaded) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputEncryptedFileUploaded",
+		ID:   InputEncryptedFileUploadedTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Parts",
+			SchemaName: "parts",
+		},
+		{
+			Name:       "MD5Checksum",
+			SchemaName: "md5_checksum",
+		},
+		{
+			Name:       "KeyFingerprint",
+			SchemaName: "key_fingerprint",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -303,13 +350,36 @@ func (i *InputEncryptedFile) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputEncryptedFile) TypeID() uint32 {
+func (*InputEncryptedFile) TypeID() uint32 {
 	return InputEncryptedFileTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputEncryptedFile) TypeName() string {
+func (*InputEncryptedFile) TypeName() string {
 	return "inputEncryptedFile"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputEncryptedFile) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputEncryptedFile",
+		ID:   InputEncryptedFileTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -428,13 +498,40 @@ func (i *InputEncryptedFileBigUploaded) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputEncryptedFileBigUploaded) TypeID() uint32 {
+func (*InputEncryptedFileBigUploaded) TypeID() uint32 {
 	return InputEncryptedFileBigUploadedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputEncryptedFileBigUploaded) TypeName() string {
+func (*InputEncryptedFileBigUploaded) TypeName() string {
 	return "inputEncryptedFileBigUploaded"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputEncryptedFileBigUploaded) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputEncryptedFileBigUploaded",
+		ID:   InputEncryptedFileBigUploadedTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Parts",
+			SchemaName: "parts",
+		},
+		{
+			Name:       "KeyFingerprint",
+			SchemaName: "key_fingerprint",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

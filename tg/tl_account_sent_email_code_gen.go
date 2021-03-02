@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountSentEmailCode represents TL type `account.sentEmailCode#811f854f`.
 // The sent email code
@@ -72,13 +74,36 @@ func (s *AccountSentEmailCode) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *AccountSentEmailCode) TypeID() uint32 {
+func (*AccountSentEmailCode) TypeID() uint32 {
 	return AccountSentEmailCodeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *AccountSentEmailCode) TypeName() string {
+func (*AccountSentEmailCode) TypeName() string {
 	return "account.sentEmailCode"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AccountSentEmailCode) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.sentEmailCode",
+		ID:   AccountSentEmailCodeTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "EmailPattern",
+			SchemaName: "email_pattern",
+		},
+		{
+			Name:       "Length",
+			SchemaName: "length",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

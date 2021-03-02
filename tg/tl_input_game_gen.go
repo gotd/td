@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputGameID represents TL type `inputGameID#32c3e77`.
 // Indicates an already sent game
@@ -75,13 +77,36 @@ func (i *InputGameID) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputGameID) TypeID() uint32 {
+func (*InputGameID) TypeID() uint32 {
 	return InputGameIDTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputGameID) TypeName() string {
+func (*InputGameID) TypeName() string {
 	return "inputGameID"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputGameID) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputGameID",
+		ID:   InputGameIDTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -190,13 +215,36 @@ func (i *InputGameShortName) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputGameShortName) TypeID() uint32 {
+func (*InputGameShortName) TypeID() uint32 {
 	return InputGameShortNameTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputGameShortName) TypeName() string {
+func (*InputGameShortName) TypeName() string {
 	return "inputGameShortName"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputGameShortName) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputGameShortName",
+		ID:   InputGameShortNameTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "BotID",
+			SchemaName: "bot_id",
+		},
+		{
+			Name:       "ShortName",
+			SchemaName: "short_name",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

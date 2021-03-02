@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputWebFileLocation represents TL type `inputWebFileLocation#c239d686`.
 // Location of a remote HTTP(s) file
@@ -69,13 +71,36 @@ func (i *InputWebFileLocation) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputWebFileLocation) TypeID() uint32 {
+func (*InputWebFileLocation) TypeID() uint32 {
 	return InputWebFileLocationTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputWebFileLocation) TypeName() string {
+func (*InputWebFileLocation) TypeName() string {
 	return "inputWebFileLocation"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputWebFileLocation) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputWebFileLocation",
+		ID:   InputWebFileLocationTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -212,13 +237,52 @@ func (i *InputWebFileGeoPointLocation) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputWebFileGeoPointLocation) TypeID() uint32 {
+func (*InputWebFileGeoPointLocation) TypeID() uint32 {
 	return InputWebFileGeoPointLocationTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputWebFileGeoPointLocation) TypeName() string {
+func (*InputWebFileGeoPointLocation) TypeName() string {
 	return "inputWebFileGeoPointLocation"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputWebFileGeoPointLocation) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputWebFileGeoPointLocation",
+		ID:   InputWebFileGeoPointLocationTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "GeoPoint",
+			SchemaName: "geo_point",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "W",
+			SchemaName: "w",
+		},
+		{
+			Name:       "H",
+			SchemaName: "h",
+		},
+		{
+			Name:       "Zoom",
+			SchemaName: "zoom",
+		},
+		{
+			Name:       "Scale",
+			SchemaName: "scale",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

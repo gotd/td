@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // SecureValueHash represents TL type `secureValueHash#ed1ecdb0`.
 // Secure value hash
@@ -69,13 +71,36 @@ func (s *SecureValueHash) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureValueHash) TypeID() uint32 {
+func (*SecureValueHash) TypeID() uint32 {
 	return SecureValueHashTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureValueHash) TypeName() string {
+func (*SecureValueHash) TypeName() string {
 	return "secureValueHash"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureValueHash) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureValueHash",
+		ID:   SecureValueHashTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

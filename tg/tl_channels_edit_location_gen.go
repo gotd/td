@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelsEditLocationRequest represents TL type `channels.editLocation#58e63f6d`.
 // Edit location of geogroup
@@ -79,13 +81,40 @@ func (e *ChannelsEditLocationRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *ChannelsEditLocationRequest) TypeID() uint32 {
+func (*ChannelsEditLocationRequest) TypeID() uint32 {
 	return ChannelsEditLocationRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *ChannelsEditLocationRequest) TypeName() string {
+func (*ChannelsEditLocationRequest) TypeName() string {
 	return "channels.editLocation"
+}
+
+// TypeInfo returns info about TL type.
+func (e *ChannelsEditLocationRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channels.editLocation",
+		ID:   ChannelsEditLocationRequestTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Channel",
+			SchemaName: "channel",
+		},
+		{
+			Name:       "GeoPoint",
+			SchemaName: "geo_point",
+		},
+		{
+			Name:       "Address",
+			SchemaName: "address",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

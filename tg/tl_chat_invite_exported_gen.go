@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChatInviteExported represents TL type `chatInviteExported#6e24fc9d`.
 // Exported chat invite
@@ -143,13 +145,74 @@ func (c *ChatInviteExported) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChatInviteExported) TypeID() uint32 {
+func (*ChatInviteExported) TypeID() uint32 {
 	return ChatInviteExportedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChatInviteExported) TypeName() string {
+func (*ChatInviteExported) TypeName() string {
 	return "chatInviteExported"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatInviteExported) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatInviteExported",
+		ID:   ChatInviteExportedTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Revoked",
+			SchemaName: "revoked",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "Permanent",
+			SchemaName: "permanent",
+			Null:       !c.Flags.Has(5),
+		},
+		{
+			Name:       "Link",
+			SchemaName: "link",
+		},
+		{
+			Name:       "AdminID",
+			SchemaName: "admin_id",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "StartDate",
+			SchemaName: "start_date",
+			Null:       !c.Flags.Has(4),
+		},
+		{
+			Name:       "ExpireDate",
+			SchemaName: "expire_date",
+			Null:       !c.Flags.Has(1),
+		},
+		{
+			Name:       "UsageLimit",
+			SchemaName: "usage_limit",
+			Null:       !c.Flags.Has(2),
+		},
+		{
+			Name:       "Usage",
+			SchemaName: "usage",
+			Null:       !c.Flags.Has(3),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

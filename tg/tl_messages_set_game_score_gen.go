@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSetGameScoreRequest represents TL type `messages.setGameScore#8ef8ecc0`.
 // Use this method to set the score of the specified user in a game sent as a normal message (bots only).
@@ -105,13 +107,58 @@ func (s *MessagesSetGameScoreRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSetGameScoreRequest) TypeID() uint32 {
+func (*MessagesSetGameScoreRequest) TypeID() uint32 {
 	return MessagesSetGameScoreRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSetGameScoreRequest) TypeName() string {
+func (*MessagesSetGameScoreRequest) TypeName() string {
 	return "messages.setGameScore"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSetGameScoreRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.setGameScore",
+		ID:   MessagesSetGameScoreRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "EditMessage",
+			SchemaName: "edit_message",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "Force",
+			SchemaName: "force",
+			Null:       !s.Flags.Has(1),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Score",
+			SchemaName: "score",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

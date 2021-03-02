@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // UserProfilePhotoEmpty represents TL type `userProfilePhotoEmpty#4f11bae1`.
 // Profile photo has not been set, or was hidden.
@@ -50,13 +52,27 @@ func (u *UserProfilePhotoEmpty) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UserProfilePhotoEmpty) TypeID() uint32 {
+func (*UserProfilePhotoEmpty) TypeID() uint32 {
 	return UserProfilePhotoEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UserProfilePhotoEmpty) TypeName() string {
+func (*UserProfilePhotoEmpty) TypeName() string {
 	return "userProfilePhotoEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UserProfilePhotoEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "userProfilePhotoEmpty",
+		ID:   UserProfilePhotoEmptyTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -174,13 +190,53 @@ func (u *UserProfilePhoto) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UserProfilePhoto) TypeID() uint32 {
+func (*UserProfilePhoto) TypeID() uint32 {
 	return UserProfilePhotoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UserProfilePhoto) TypeName() string {
+func (*UserProfilePhoto) TypeName() string {
 	return "userProfilePhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UserProfilePhoto) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "userProfilePhoto",
+		ID:   UserProfilePhotoTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "HasVideo",
+			SchemaName: "has_video",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "PhotoID",
+			SchemaName: "photo_id",
+		},
+		{
+			Name:       "PhotoSmall",
+			SchemaName: "photo_small",
+		},
+		{
+			Name:       "PhotoBig",
+			SchemaName: "photo_big",
+		},
+		{
+			Name:       "DCID",
+			SchemaName: "dc_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

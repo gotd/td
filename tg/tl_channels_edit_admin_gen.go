@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelsEditAdminRequest represents TL type `channels.editAdmin#d33c8902`.
 // Modify the admin rights of a user in a supergroup/channel¹.
@@ -89,13 +91,44 @@ func (e *ChannelsEditAdminRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *ChannelsEditAdminRequest) TypeID() uint32 {
+func (*ChannelsEditAdminRequest) TypeID() uint32 {
 	return ChannelsEditAdminRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *ChannelsEditAdminRequest) TypeName() string {
+func (*ChannelsEditAdminRequest) TypeName() string {
 	return "channels.editAdmin"
+}
+
+// TypeInfo returns info about TL type.
+func (e *ChannelsEditAdminRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channels.editAdmin",
+		ID:   ChannelsEditAdminRequestTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Channel",
+			SchemaName: "channel",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "AdminRights",
+			SchemaName: "admin_rights",
+		},
+		{
+			Name:       "Rank",
+			SchemaName: "rank",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

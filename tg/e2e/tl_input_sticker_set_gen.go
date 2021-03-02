@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputStickerSetShortName represents TL type `inputStickerSetShortName#861cc8a0`.
 // Stickerset by short name, from tg://addstickers?set=short_name
@@ -62,13 +64,32 @@ func (i *InputStickerSetShortName) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputStickerSetShortName) TypeID() uint32 {
+func (*InputStickerSetShortName) TypeID() uint32 {
 	return InputStickerSetShortNameTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputStickerSetShortName) TypeName() string {
+func (*InputStickerSetShortName) TypeName() string {
 	return "inputStickerSetShortName"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputStickerSetShortName) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputStickerSetShortName",
+		ID:   InputStickerSetShortNameTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ShortName",
+			SchemaName: "short_name",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -145,13 +166,27 @@ func (i *InputStickerSetEmpty) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputStickerSetEmpty) TypeID() uint32 {
+func (*InputStickerSetEmpty) TypeID() uint32 {
 	return InputStickerSetEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputStickerSetEmpty) TypeName() string {
+func (*InputStickerSetEmpty) TypeName() string {
 	return "inputStickerSetEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputStickerSetEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputStickerSetEmpty",
+		ID:   InputStickerSetEmptyTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesFeaturedStickersNotModified represents TL type `messages.featuredStickersNotModified#c6dc0c66`.
 // Featured stickers haven't changed
@@ -62,13 +64,32 @@ func (f *MessagesFeaturedStickersNotModified) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *MessagesFeaturedStickersNotModified) TypeID() uint32 {
+func (*MessagesFeaturedStickersNotModified) TypeID() uint32 {
 	return MessagesFeaturedStickersNotModifiedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *MessagesFeaturedStickersNotModified) TypeName() string {
+func (*MessagesFeaturedStickersNotModified) TypeName() string {
 	return "messages.featuredStickersNotModified"
+}
+
+// TypeInfo returns info about TL type.
+func (f *MessagesFeaturedStickersNotModified) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.featuredStickersNotModified",
+		ID:   MessagesFeaturedStickersNotModifiedTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Count",
+			SchemaName: "count",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -181,13 +202,44 @@ func (f *MessagesFeaturedStickers) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *MessagesFeaturedStickers) TypeID() uint32 {
+func (*MessagesFeaturedStickers) TypeID() uint32 {
 	return MessagesFeaturedStickersTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *MessagesFeaturedStickers) TypeName() string {
+func (*MessagesFeaturedStickers) TypeName() string {
 	return "messages.featuredStickers"
+}
+
+// TypeInfo returns info about TL type.
+func (f *MessagesFeaturedStickers) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.featuredStickers",
+		ID:   MessagesFeaturedStickersTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+		{
+			Name:       "Count",
+			SchemaName: "count",
+		},
+		{
+			Name:       "Sets",
+			SchemaName: "sets",
+		},
+		{
+			Name:       "Unread",
+			SchemaName: "unread",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

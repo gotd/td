@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelsToggleSignaturesRequest represents TL type `channels.toggleSignatures#1f69b606`.
 // Enable/disable message signatures in channels
@@ -69,13 +71,36 @@ func (t *ChannelsToggleSignaturesRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *ChannelsToggleSignaturesRequest) TypeID() uint32 {
+func (*ChannelsToggleSignaturesRequest) TypeID() uint32 {
 	return ChannelsToggleSignaturesRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *ChannelsToggleSignaturesRequest) TypeName() string {
+func (*ChannelsToggleSignaturesRequest) TypeName() string {
 	return "channels.toggleSignatures"
+}
+
+// TypeInfo returns info about TL type.
+func (t *ChannelsToggleSignaturesRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channels.toggleSignatures",
+		ID:   ChannelsToggleSignaturesRequestTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Channel",
+			SchemaName: "channel",
+		},
+		{
+			Name:       "Enabled",
+			SchemaName: "enabled",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

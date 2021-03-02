@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AuthSentCode represents TL type `auth.sentCode#5e002502`.
 // Contains info about a sent verification code.
@@ -107,13 +109,50 @@ func (s *AuthSentCode) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *AuthSentCode) TypeID() uint32 {
+func (*AuthSentCode) TypeID() uint32 {
 	return AuthSentCodeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *AuthSentCode) TypeName() string {
+func (*AuthSentCode) TypeName() string {
 	return "auth.sentCode"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AuthSentCode) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.sentCode",
+		ID:   AuthSentCodeTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "PhoneCodeHash",
+			SchemaName: "phone_code_hash",
+		},
+		{
+			Name:       "NextType",
+			SchemaName: "next_type",
+			Null:       !s.Flags.Has(1),
+		},
+		{
+			Name:       "Timeout",
+			SchemaName: "timeout",
+			Null:       !s.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

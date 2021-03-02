@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // UpdatesGetDifferenceRequest represents TL type `updates.getDifference#25939651`.
 // Get new updates¹.
@@ -111,13 +113,49 @@ func (g *UpdatesGetDifferenceRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *UpdatesGetDifferenceRequest) TypeID() uint32 {
+func (*UpdatesGetDifferenceRequest) TypeID() uint32 {
 	return UpdatesGetDifferenceRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *UpdatesGetDifferenceRequest) TypeName() string {
+func (*UpdatesGetDifferenceRequest) TypeName() string {
 	return "updates.getDifference"
+}
+
+// TypeInfo returns info about TL type.
+func (g *UpdatesGetDifferenceRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updates.getDifference",
+		ID:   UpdatesGetDifferenceRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+		},
+		{
+			Name:       "PtsTotalLimit",
+			SchemaName: "pts_total_limit",
+			Null:       !g.Flags.Has(0),
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "Qts",
+			SchemaName: "qts",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

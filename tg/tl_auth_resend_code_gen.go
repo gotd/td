@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AuthResendCodeRequest represents TL type `auth.resendCode#3ef1a9bf`.
 // Resend the login code via another medium, the phone code type is determined by the return value of the previous auth.sendCode/auth.resendCode: see login¹ for more info.
@@ -75,13 +77,36 @@ func (r *AuthResendCodeRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *AuthResendCodeRequest) TypeID() uint32 {
+func (*AuthResendCodeRequest) TypeID() uint32 {
 	return AuthResendCodeRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *AuthResendCodeRequest) TypeName() string {
+func (*AuthResendCodeRequest) TypeName() string {
 	return "auth.resendCode"
+}
+
+// TypeInfo returns info about TL type.
+func (r *AuthResendCodeRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.resendCode",
+		ID:   AuthResendCodeRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PhoneNumber",
+			SchemaName: "phone_number",
+		},
+		{
+			Name:       "PhoneCodeHash",
+			SchemaName: "phone_code_hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

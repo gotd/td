@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesUpdateDialogFiltersOrderRequest represents TL type `messages.updateDialogFiltersOrder#c563c1e4`.
 // Reorder folders¹
@@ -68,13 +70,32 @@ func (u *MessagesUpdateDialogFiltersOrderRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *MessagesUpdateDialogFiltersOrderRequest) TypeID() uint32 {
+func (*MessagesUpdateDialogFiltersOrderRequest) TypeID() uint32 {
 	return MessagesUpdateDialogFiltersOrderRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *MessagesUpdateDialogFiltersOrderRequest) TypeName() string {
+func (*MessagesUpdateDialogFiltersOrderRequest) TypeName() string {
 	return "messages.updateDialogFiltersOrder"
+}
+
+// TypeInfo returns info about TL type.
+func (u *MessagesUpdateDialogFiltersOrderRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.updateDialogFiltersOrder",
+		ID:   MessagesUpdateDialogFiltersOrderRequestTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Order",
+			SchemaName: "order",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

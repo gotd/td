@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HelpDeepLinkInfoEmpty represents TL type `help.deepLinkInfoEmpty#66afa166`.
 // Deep link info empty
@@ -50,13 +52,27 @@ func (d *HelpDeepLinkInfoEmpty) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *HelpDeepLinkInfoEmpty) TypeID() uint32 {
+func (*HelpDeepLinkInfoEmpty) TypeID() uint32 {
 	return HelpDeepLinkInfoEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *HelpDeepLinkInfoEmpty) TypeName() string {
+func (*HelpDeepLinkInfoEmpty) TypeName() string {
 	return "help.deepLinkInfoEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (d *HelpDeepLinkInfoEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.deepLinkInfoEmpty",
+		ID:   HelpDeepLinkInfoEmptyTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -162,13 +178,46 @@ func (d *HelpDeepLinkInfo) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *HelpDeepLinkInfo) TypeID() uint32 {
+func (*HelpDeepLinkInfo) TypeID() uint32 {
 	return HelpDeepLinkInfoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *HelpDeepLinkInfo) TypeName() string {
+func (*HelpDeepLinkInfo) TypeName() string {
 	return "help.deepLinkInfo"
+}
+
+// TypeInfo returns info about TL type.
+func (d *HelpDeepLinkInfo) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.deepLinkInfo",
+		ID:   HelpDeepLinkInfoTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "UpdateApp",
+			SchemaName: "update_app",
+			Null:       !d.Flags.Has(0),
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+		{
+			Name:       "Entities",
+			SchemaName: "entities",
+			Null:       !d.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

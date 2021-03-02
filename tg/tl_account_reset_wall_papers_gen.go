@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountResetWallPapersRequest represents TL type `account.resetWallPapers#bb3b9804`.
 // Delete installed wallpapers
@@ -50,13 +52,27 @@ func (r *AccountResetWallPapersRequest) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *AccountResetWallPapersRequest) TypeID() uint32 {
+func (*AccountResetWallPapersRequest) TypeID() uint32 {
 	return AccountResetWallPapersRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *AccountResetWallPapersRequest) TypeName() string {
+func (*AccountResetWallPapersRequest) TypeName() string {
 	return "account.resetWallPapers"
+}
+
+// TypeInfo returns info about TL type.
+func (r *AccountResetWallPapersRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.resetWallPapers",
+		ID:   AccountResetWallPapersRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

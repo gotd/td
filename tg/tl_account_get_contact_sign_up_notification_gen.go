@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountGetContactSignUpNotificationRequest represents TL type `account.getContactSignUpNotification#9f07c728`.
 // Whether the user will receive notifications when contacts sign up
@@ -50,13 +52,27 @@ func (g *AccountGetContactSignUpNotificationRequest) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *AccountGetContactSignUpNotificationRequest) TypeID() uint32 {
+func (*AccountGetContactSignUpNotificationRequest) TypeID() uint32 {
 	return AccountGetContactSignUpNotificationRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *AccountGetContactSignUpNotificationRequest) TypeName() string {
+func (*AccountGetContactSignUpNotificationRequest) TypeName() string {
 	return "account.getContactSignUpNotification"
+}
+
+// TypeInfo returns info about TL type.
+func (g *AccountGetContactSignUpNotificationRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.getContactSignUpNotification",
+		ID:   AccountGetContactSignUpNotificationRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhotosUploadProfilePhotoRequest represents TL type `photos.uploadProfilePhoto#89f30f69`.
 // Updates current user profile photo.
@@ -105,13 +107,47 @@ func (u *PhotosUploadProfilePhotoRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *PhotosUploadProfilePhotoRequest) TypeID() uint32 {
+func (*PhotosUploadProfilePhotoRequest) TypeID() uint32 {
 	return PhotosUploadProfilePhotoRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *PhotosUploadProfilePhotoRequest) TypeName() string {
+func (*PhotosUploadProfilePhotoRequest) TypeName() string {
 	return "photos.uploadProfilePhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (u *PhotosUploadProfilePhotoRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "photos.uploadProfilePhoto",
+		ID:   PhotosUploadProfilePhotoRequestTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "File",
+			SchemaName: "file",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "Video",
+			SchemaName: "video",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "VideoStartTs",
+			SchemaName: "video_start_ts",
+			Null:       !u.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

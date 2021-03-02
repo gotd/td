@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetOldFeaturedStickersRequest represents TL type `messages.getOldFeaturedStickers#5fe7025b`.
 // Method for fetching previously featured stickers
@@ -82,13 +84,40 @@ func (g *MessagesGetOldFeaturedStickersRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetOldFeaturedStickersRequest) TypeID() uint32 {
+func (*MessagesGetOldFeaturedStickersRequest) TypeID() uint32 {
 	return MessagesGetOldFeaturedStickersRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetOldFeaturedStickersRequest) TypeName() string {
+func (*MessagesGetOldFeaturedStickersRequest) TypeName() string {
 	return "messages.getOldFeaturedStickers"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetOldFeaturedStickersRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getOldFeaturedStickers",
+		ID:   MessagesGetOldFeaturedStickersRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Offset",
+			SchemaName: "offset",
+		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

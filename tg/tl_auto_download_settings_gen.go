@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AutoDownloadSettings represents TL type `autoDownloadSettings#e04232f3`.
 // Autodownload settings
@@ -119,13 +121,68 @@ func (a *AutoDownloadSettings) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *AutoDownloadSettings) TypeID() uint32 {
+func (*AutoDownloadSettings) TypeID() uint32 {
 	return AutoDownloadSettingsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *AutoDownloadSettings) TypeName() string {
+func (*AutoDownloadSettings) TypeName() string {
 	return "autoDownloadSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (a *AutoDownloadSettings) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "autoDownloadSettings",
+		ID:   AutoDownloadSettingsTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Disabled",
+			SchemaName: "disabled",
+			Null:       !a.Flags.Has(0),
+		},
+		{
+			Name:       "VideoPreloadLarge",
+			SchemaName: "video_preload_large",
+			Null:       !a.Flags.Has(1),
+		},
+		{
+			Name:       "AudioPreloadNext",
+			SchemaName: "audio_preload_next",
+			Null:       !a.Flags.Has(2),
+		},
+		{
+			Name:       "PhonecallsLessData",
+			SchemaName: "phonecalls_less_data",
+			Null:       !a.Flags.Has(3),
+		},
+		{
+			Name:       "PhotoSizeMax",
+			SchemaName: "photo_size_max",
+		},
+		{
+			Name:       "VideoSizeMax",
+			SchemaName: "video_size_max",
+		},
+		{
+			Name:       "FileSizeMax",
+			SchemaName: "file_size_max",
+		},
+		{
+			Name:       "VideoUploadMaxbitrate",
+			SchemaName: "video_upload_maxbitrate",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

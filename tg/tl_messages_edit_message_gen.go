@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesEditMessageRequest represents TL type `messages.editMessage#48f71778`.
 // Edit message
@@ -150,13 +152,70 @@ func (e *MessagesEditMessageRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *MessagesEditMessageRequest) TypeID() uint32 {
+func (*MessagesEditMessageRequest) TypeID() uint32 {
 	return MessagesEditMessageRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *MessagesEditMessageRequest) TypeName() string {
+func (*MessagesEditMessageRequest) TypeName() string {
 	return "messages.editMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (e *MessagesEditMessageRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.editMessage",
+		ID:   MessagesEditMessageRequestTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "NoWebpage",
+			SchemaName: "no_webpage",
+			Null:       !e.Flags.Has(1),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+			Null:       !e.Flags.Has(11),
+		},
+		{
+			Name:       "Media",
+			SchemaName: "media",
+			Null:       !e.Flags.Has(14),
+		},
+		{
+			Name:       "ReplyMarkup",
+			SchemaName: "reply_markup",
+			Null:       !e.Flags.Has(2),
+		},
+		{
+			Name:       "Entities",
+			SchemaName: "entities",
+			Null:       !e.Flags.Has(3),
+		},
+		{
+			Name:       "ScheduleDate",
+			SchemaName: "schedule_date",
+			Null:       !e.Flags.Has(15),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

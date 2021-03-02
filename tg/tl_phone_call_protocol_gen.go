@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhoneCallProtocol represents TL type `phoneCallProtocol#fc878fc8`.
 // Protocol info for libtgvoip
@@ -104,13 +106,54 @@ func (p *PhoneCallProtocol) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhoneCallProtocol) TypeID() uint32 {
+func (*PhoneCallProtocol) TypeID() uint32 {
 	return PhoneCallProtocolTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhoneCallProtocol) TypeName() string {
+func (*PhoneCallProtocol) TypeName() string {
 	return "phoneCallProtocol"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhoneCallProtocol) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phoneCallProtocol",
+		ID:   PhoneCallProtocolTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "UDPP2P",
+			SchemaName: "udp_p2p",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "UDPReflector",
+			SchemaName: "udp_reflector",
+			Null:       !p.Flags.Has(1),
+		},
+		{
+			Name:       "MinLayer",
+			SchemaName: "min_layer",
+		},
+		{
+			Name:       "MaxLayer",
+			SchemaName: "max_layer",
+		},
+		{
+			Name:       "LibraryVersions",
+			SchemaName: "library_versions",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

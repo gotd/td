@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // UploadSaveBigFilePartRequest represents TL type `upload.saveBigFilePart#de7b673d`.
 // Saves a part of a large file (over 10Mb in size) to be later passed to one of the methods.
@@ -83,13 +85,44 @@ func (s *UploadSaveBigFilePartRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *UploadSaveBigFilePartRequest) TypeID() uint32 {
+func (*UploadSaveBigFilePartRequest) TypeID() uint32 {
 	return UploadSaveBigFilePartRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *UploadSaveBigFilePartRequest) TypeName() string {
+func (*UploadSaveBigFilePartRequest) TypeName() string {
 	return "upload.saveBigFilePart"
+}
+
+// TypeInfo returns info about TL type.
+func (s *UploadSaveBigFilePartRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "upload.saveBigFilePart",
+		ID:   UploadSaveBigFilePartRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "FileID",
+			SchemaName: "file_id",
+		},
+		{
+			Name:       "FilePart",
+			SchemaName: "file_part",
+		},
+		{
+			Name:       "FileTotalParts",
+			SchemaName: "file_total_parts",
+		},
+		{
+			Name:       "Bytes",
+			SchemaName: "bytes",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

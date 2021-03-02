@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesReadMessageContentsRequest represents TL type `messages.readMessageContents#36a73f77`.
 // Notifies the sender about the recipient having listened a voice message or watched a video.
@@ -62,13 +64,32 @@ func (r *MessagesReadMessageContentsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *MessagesReadMessageContentsRequest) TypeID() uint32 {
+func (*MessagesReadMessageContentsRequest) TypeID() uint32 {
 	return MessagesReadMessageContentsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *MessagesReadMessageContentsRequest) TypeName() string {
+func (*MessagesReadMessageContentsRequest) TypeName() string {
 	return "messages.readMessageContents"
+}
+
+// TypeInfo returns info about TL type.
+func (r *MessagesReadMessageContentsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.readMessageContents",
+		ID:   MessagesReadMessageContentsRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

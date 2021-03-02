@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // UsersGetUsersRequest represents TL type `users.getUsers#d91a548`.
 // Returns basic user info according to their identifiers.
@@ -62,13 +64,32 @@ func (g *UsersGetUsersRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *UsersGetUsersRequest) TypeID() uint32 {
+func (*UsersGetUsersRequest) TypeID() uint32 {
 	return UsersGetUsersRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *UsersGetUsersRequest) TypeName() string {
+func (*UsersGetUsersRequest) TypeName() string {
 	return "users.getUsers"
+}
+
+// TypeInfo returns info about TL type.
+func (g *UsersGetUsersRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "users.getUsers",
+		ID:   UsersGetUsersRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

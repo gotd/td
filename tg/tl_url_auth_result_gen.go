@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // UrlAuthResultRequest represents TL type `urlAuthResultRequest#92d33a0e`.
 // Details about the authorization request, for more info click here »¹
@@ -90,13 +92,45 @@ func (u *UrlAuthResultRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UrlAuthResultRequest) TypeID() uint32 {
+func (*UrlAuthResultRequest) TypeID() uint32 {
 	return UrlAuthResultRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UrlAuthResultRequest) TypeName() string {
+func (*UrlAuthResultRequest) TypeName() string {
 	return "urlAuthResultRequest"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UrlAuthResultRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "urlAuthResultRequest",
+		ID:   UrlAuthResultRequestTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "RequestWriteAccess",
+			SchemaName: "request_write_access",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "Bot",
+			SchemaName: "bot",
+		},
+		{
+			Name:       "Domain",
+			SchemaName: "domain",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -234,13 +268,32 @@ func (u *UrlAuthResultAccepted) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UrlAuthResultAccepted) TypeID() uint32 {
+func (*UrlAuthResultAccepted) TypeID() uint32 {
 	return UrlAuthResultAcceptedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UrlAuthResultAccepted) TypeName() string {
+func (*UrlAuthResultAccepted) TypeName() string {
 	return "urlAuthResultAccepted"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UrlAuthResultAccepted) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "urlAuthResultAccepted",
+		ID:   UrlAuthResultAcceptedTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -320,13 +373,27 @@ func (u *UrlAuthResultDefault) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UrlAuthResultDefault) TypeID() uint32 {
+func (*UrlAuthResultDefault) TypeID() uint32 {
 	return UrlAuthResultDefaultTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UrlAuthResultDefault) TypeName() string {
+func (*UrlAuthResultDefault) TypeName() string {
 	return "urlAuthResultDefault"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UrlAuthResultDefault) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "urlAuthResultDefault",
+		ID:   UrlAuthResultDefaultTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

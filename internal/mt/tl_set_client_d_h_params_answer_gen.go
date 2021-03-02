@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // DhGenOk represents TL type `dh_gen_ok#3bcbf734`.
 type DhGenOk struct {
@@ -73,13 +75,40 @@ func (d *DhGenOk) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DhGenOk) TypeID() uint32 {
+func (*DhGenOk) TypeID() uint32 {
 	return DhGenOkTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DhGenOk) TypeName() string {
+func (*DhGenOk) TypeName() string {
 	return "dh_gen_ok"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DhGenOk) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "dh_gen_ok",
+		ID:   DhGenOkTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Nonce",
+			SchemaName: "nonce",
+		},
+		{
+			Name:       "ServerNonce",
+			SchemaName: "server_nonce",
+		},
+		{
+			Name:       "NewNonceHash1",
+			SchemaName: "new_nonce_hash1",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -205,13 +234,40 @@ func (d *DhGenRetry) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DhGenRetry) TypeID() uint32 {
+func (*DhGenRetry) TypeID() uint32 {
 	return DhGenRetryTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DhGenRetry) TypeName() string {
+func (*DhGenRetry) TypeName() string {
 	return "dh_gen_retry"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DhGenRetry) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "dh_gen_retry",
+		ID:   DhGenRetryTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Nonce",
+			SchemaName: "nonce",
+		},
+		{
+			Name:       "ServerNonce",
+			SchemaName: "server_nonce",
+		},
+		{
+			Name:       "NewNonceHash2",
+			SchemaName: "new_nonce_hash2",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -337,13 +393,40 @@ func (d *DhGenFail) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DhGenFail) TypeID() uint32 {
+func (*DhGenFail) TypeID() uint32 {
 	return DhGenFailTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DhGenFail) TypeName() string {
+func (*DhGenFail) TypeName() string {
 	return "dh_gen_fail"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DhGenFail) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "dh_gen_fail",
+		ID:   DhGenFailTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Nonce",
+			SchemaName: "nonce",
+		},
+		{
+			Name:       "ServerNonce",
+			SchemaName: "server_nonce",
+		},
+		{
+			Name:       "NewNonceHash3",
+			SchemaName: "new_nonce_hash3",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetSearchCountersRequest represents TL type `messages.getSearchCounters#732eef00`.
 // Get the number of results that would be found by a messages.search¹ call with the same parameters
@@ -72,13 +74,36 @@ func (g *MessagesGetSearchCountersRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetSearchCountersRequest) TypeID() uint32 {
+func (*MessagesGetSearchCountersRequest) TypeID() uint32 {
 	return MessagesGetSearchCountersRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetSearchCountersRequest) TypeName() string {
+func (*MessagesGetSearchCountersRequest) TypeName() string {
 	return "messages.getSearchCounters"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetSearchCountersRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getSearchCounters",
+		ID:   MessagesGetSearchCountersRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Filters",
+			SchemaName: "filters",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

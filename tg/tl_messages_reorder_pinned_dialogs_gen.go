@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesReorderPinnedDialogsRequest represents TL type `messages.reorderPinnedDialogs#3b1adf37`.
 // Reorder pinned dialogs
@@ -87,13 +89,45 @@ func (r *MessagesReorderPinnedDialogsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *MessagesReorderPinnedDialogsRequest) TypeID() uint32 {
+func (*MessagesReorderPinnedDialogsRequest) TypeID() uint32 {
 	return MessagesReorderPinnedDialogsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *MessagesReorderPinnedDialogsRequest) TypeName() string {
+func (*MessagesReorderPinnedDialogsRequest) TypeName() string {
 	return "messages.reorderPinnedDialogs"
+}
+
+// TypeInfo returns info about TL type.
+func (r *MessagesReorderPinnedDialogsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.reorderPinnedDialogs",
+		ID:   MessagesReorderPinnedDialogsRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Force",
+			SchemaName: "force",
+			Null:       !r.Flags.Has(0),
+		},
+		{
+			Name:       "FolderID",
+			SchemaName: "folder_id",
+		},
+		{
+			Name:       "Order",
+			SchemaName: "order",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

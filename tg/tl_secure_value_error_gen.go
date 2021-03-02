@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // SecureValueErrorData represents TL type `secureValueErrorData#e8a40bd9`.
 // Represents an issue in one of the data fields that was provided by the user. The error is considered resolved when the field's value changes.
@@ -91,13 +93,44 @@ func (s *SecureValueErrorData) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureValueErrorData) TypeID() uint32 {
+func (*SecureValueErrorData) TypeID() uint32 {
 	return SecureValueErrorDataTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureValueErrorData) TypeName() string {
+func (*SecureValueErrorData) TypeName() string {
 	return "secureValueErrorData"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureValueErrorData) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureValueErrorData",
+		ID:   SecureValueErrorDataTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "DataHash",
+			SchemaName: "data_hash",
+		},
+		{
+			Name:       "Field",
+			SchemaName: "field",
+		},
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -250,13 +283,40 @@ func (s *SecureValueErrorFrontSide) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureValueErrorFrontSide) TypeID() uint32 {
+func (*SecureValueErrorFrontSide) TypeID() uint32 {
 	return SecureValueErrorFrontSideTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureValueErrorFrontSide) TypeName() string {
+func (*SecureValueErrorFrontSide) TypeName() string {
 	return "secureValueErrorFrontSide"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureValueErrorFrontSide) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureValueErrorFrontSide",
+		ID:   SecureValueErrorFrontSideTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "FileHash",
+			SchemaName: "file_hash",
+		},
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -394,13 +454,40 @@ func (s *SecureValueErrorReverseSide) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureValueErrorReverseSide) TypeID() uint32 {
+func (*SecureValueErrorReverseSide) TypeID() uint32 {
 	return SecureValueErrorReverseSideTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureValueErrorReverseSide) TypeName() string {
+func (*SecureValueErrorReverseSide) TypeName() string {
 	return "secureValueErrorReverseSide"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureValueErrorReverseSide) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureValueErrorReverseSide",
+		ID:   SecureValueErrorReverseSideTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "FileHash",
+			SchemaName: "file_hash",
+		},
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -540,13 +627,40 @@ func (s *SecureValueErrorSelfie) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureValueErrorSelfie) TypeID() uint32 {
+func (*SecureValueErrorSelfie) TypeID() uint32 {
 	return SecureValueErrorSelfieTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureValueErrorSelfie) TypeName() string {
+func (*SecureValueErrorSelfie) TypeName() string {
 	return "secureValueErrorSelfie"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureValueErrorSelfie) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureValueErrorSelfie",
+		ID:   SecureValueErrorSelfieTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "FileHash",
+			SchemaName: "file_hash",
+		},
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -687,13 +801,40 @@ func (s *SecureValueErrorFile) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureValueErrorFile) TypeID() uint32 {
+func (*SecureValueErrorFile) TypeID() uint32 {
 	return SecureValueErrorFileTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureValueErrorFile) TypeName() string {
+func (*SecureValueErrorFile) TypeName() string {
 	return "secureValueErrorFile"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureValueErrorFile) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureValueErrorFile",
+		ID:   SecureValueErrorFileTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "FileHash",
+			SchemaName: "file_hash",
+		},
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -834,13 +975,40 @@ func (s *SecureValueErrorFiles) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureValueErrorFiles) TypeID() uint32 {
+func (*SecureValueErrorFiles) TypeID() uint32 {
 	return SecureValueErrorFilesTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureValueErrorFiles) TypeName() string {
+func (*SecureValueErrorFiles) TypeName() string {
 	return "secureValueErrorFiles"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureValueErrorFiles) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureValueErrorFiles",
+		ID:   SecureValueErrorFilesTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "FileHash",
+			SchemaName: "file_hash",
+		},
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -983,13 +1151,40 @@ func (s *SecureValueError) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureValueError) TypeID() uint32 {
+func (*SecureValueError) TypeID() uint32 {
 	return SecureValueErrorTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureValueError) TypeName() string {
+func (*SecureValueError) TypeName() string {
 	return "secureValueError"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureValueError) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureValueError",
+		ID:   SecureValueErrorTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1135,13 +1330,40 @@ func (s *SecureValueErrorTranslationFile) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureValueErrorTranslationFile) TypeID() uint32 {
+func (*SecureValueErrorTranslationFile) TypeID() uint32 {
 	return SecureValueErrorTranslationFileTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureValueErrorTranslationFile) TypeName() string {
+func (*SecureValueErrorTranslationFile) TypeName() string {
 	return "secureValueErrorTranslationFile"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureValueErrorTranslationFile) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureValueErrorTranslationFile",
+		ID:   SecureValueErrorTranslationFileTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "FileHash",
+			SchemaName: "file_hash",
+		},
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1287,13 +1509,40 @@ func (s *SecureValueErrorTranslationFiles) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureValueErrorTranslationFiles) TypeID() uint32 {
+func (*SecureValueErrorTranslationFiles) TypeID() uint32 {
 	return SecureValueErrorTranslationFilesTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureValueErrorTranslationFiles) TypeName() string {
+func (*SecureValueErrorTranslationFiles) TypeName() string {
 	return "secureValueErrorTranslationFiles"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureValueErrorTranslationFiles) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureValueErrorTranslationFiles",
+		ID:   SecureValueErrorTranslationFilesTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "FileHash",
+			SchemaName: "file_hash",
+		},
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

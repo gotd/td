@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // BotsAnswerWebhookJSONQueryRequest represents TL type `bots.answerWebhookJSONQuery#e6213f4d`.
 // Answers a custom query; for bots only
@@ -69,13 +71,36 @@ func (a *BotsAnswerWebhookJSONQueryRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *BotsAnswerWebhookJSONQueryRequest) TypeID() uint32 {
+func (*BotsAnswerWebhookJSONQueryRequest) TypeID() uint32 {
 	return BotsAnswerWebhookJSONQueryRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *BotsAnswerWebhookJSONQueryRequest) TypeName() string {
+func (*BotsAnswerWebhookJSONQueryRequest) TypeName() string {
 	return "bots.answerWebhookJSONQuery"
+}
+
+// TypeInfo returns info about TL type.
+func (a *BotsAnswerWebhookJSONQueryRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "bots.answerWebhookJSONQuery",
+		ID:   BotsAnswerWebhookJSONQueryRequestTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "QueryID",
+			SchemaName: "query_id",
+		},
+		{
+			Name:       "Data",
+			SchemaName: "data",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

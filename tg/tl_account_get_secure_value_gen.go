@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountGetSecureValueRequest represents TL type `account.getSecureValue#73665bc2`.
 // Get saved Telegram Passport¹ document, for more info see the passport docs »²
@@ -66,13 +68,32 @@ func (g *AccountGetSecureValueRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *AccountGetSecureValueRequest) TypeID() uint32 {
+func (*AccountGetSecureValueRequest) TypeID() uint32 {
 	return AccountGetSecureValueRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *AccountGetSecureValueRequest) TypeName() string {
+func (*AccountGetSecureValueRequest) TypeName() string {
 	return "account.getSecureValue"
+}
+
+// TypeInfo returns info about TL type.
+func (g *AccountGetSecureValueRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.getSecureValue",
+		ID:   AccountGetSecureValueRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Types",
+			SchemaName: "types",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

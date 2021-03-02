@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // WebDocument represents TL type `webDocument#1c570ed1`.
 // Remote document
@@ -90,13 +92,48 @@ func (w *WebDocument) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (w *WebDocument) TypeID() uint32 {
+func (*WebDocument) TypeID() uint32 {
 	return WebDocumentTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (w *WebDocument) TypeName() string {
+func (*WebDocument) TypeName() string {
 	return "webDocument"
+}
+
+// TypeInfo returns info about TL type.
+func (w *WebDocument) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "webDocument",
+		ID:   WebDocumentTypeID,
+	}
+	if w == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "Size",
+			SchemaName: "size",
+		},
+		{
+			Name:       "MimeType",
+			SchemaName: "mime_type",
+		},
+		{
+			Name:       "Attributes",
+			SchemaName: "attributes",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -280,13 +317,44 @@ func (w *WebDocumentNoProxy) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (w *WebDocumentNoProxy) TypeID() uint32 {
+func (*WebDocumentNoProxy) TypeID() uint32 {
 	return WebDocumentNoProxyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (w *WebDocumentNoProxy) TypeName() string {
+func (*WebDocumentNoProxy) TypeName() string {
 	return "webDocumentNoProxy"
+}
+
+// TypeInfo returns info about TL type.
+func (w *WebDocumentNoProxy) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "webDocumentNoProxy",
+		ID:   WebDocumentNoProxyTypeID,
+	}
+	if w == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+		{
+			Name:       "Size",
+			SchemaName: "size",
+		},
+		{
+			Name:       "MimeType",
+			SchemaName: "mime_type",
+		},
+		{
+			Name:       "Attributes",
+			SchemaName: "attributes",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetHistoryRequest represents TL type `messages.getHistory#dcbb8260`.
 // Gets back the conversation history with one interlocutor / within a chat
@@ -114,13 +116,60 @@ func (g *MessagesGetHistoryRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetHistoryRequest) TypeID() uint32 {
+func (*MessagesGetHistoryRequest) TypeID() uint32 {
 	return MessagesGetHistoryRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetHistoryRequest) TypeName() string {
+func (*MessagesGetHistoryRequest) TypeName() string {
 	return "messages.getHistory"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetHistoryRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getHistory",
+		ID:   MessagesGetHistoryRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "OffsetID",
+			SchemaName: "offset_id",
+		},
+		{
+			Name:       "OffsetDate",
+			SchemaName: "offset_date",
+		},
+		{
+			Name:       "AddOffset",
+			SchemaName: "add_offset",
+		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
+		{
+			Name:       "MaxID",
+			SchemaName: "max_id",
+		},
+		{
+			Name:       "MinID",
+			SchemaName: "min_id",
+		},
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

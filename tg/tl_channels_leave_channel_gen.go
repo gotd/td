@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelsLeaveChannelRequest represents TL type `channels.leaveChannel#f836aa95`.
 // Leave a channel/supergroup¹
@@ -68,13 +70,32 @@ func (l *ChannelsLeaveChannelRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (l *ChannelsLeaveChannelRequest) TypeID() uint32 {
+func (*ChannelsLeaveChannelRequest) TypeID() uint32 {
 	return ChannelsLeaveChannelRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (l *ChannelsLeaveChannelRequest) TypeName() string {
+func (*ChannelsLeaveChannelRequest) TypeName() string {
 	return "channels.leaveChannel"
+}
+
+// TypeInfo returns info about TL type.
+func (l *ChannelsLeaveChannelRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channels.leaveChannel",
+		ID:   ChannelsLeaveChannelRequestTypeID,
+	}
+	if l == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Channel",
+			SchemaName: "channel",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

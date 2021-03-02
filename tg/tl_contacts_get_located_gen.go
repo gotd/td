@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ContactsGetLocatedRequest represents TL type `contacts.getLocated#d348bc44`.
 // Get contacts near you
@@ -89,13 +91,46 @@ func (g *ContactsGetLocatedRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *ContactsGetLocatedRequest) TypeID() uint32 {
+func (*ContactsGetLocatedRequest) TypeID() uint32 {
 	return ContactsGetLocatedRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *ContactsGetLocatedRequest) TypeName() string {
+func (*ContactsGetLocatedRequest) TypeName() string {
 	return "contacts.getLocated"
+}
+
+// TypeInfo returns info about TL type.
+func (g *ContactsGetLocatedRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "contacts.getLocated",
+		ID:   ContactsGetLocatedRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Background",
+			SchemaName: "background",
+			Null:       !g.Flags.Has(1),
+		},
+		{
+			Name:       "GeoPoint",
+			SchemaName: "geo_point",
+		},
+		{
+			Name:       "SelfExpires",
+			SchemaName: "self_expires",
+			Null:       !g.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

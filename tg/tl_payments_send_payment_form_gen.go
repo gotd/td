@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PaymentsSendPaymentFormRequest represents TL type `payments.sendPaymentForm#2b8879b3`.
 // Send compiled payment form
@@ -104,13 +106,50 @@ func (s *PaymentsSendPaymentFormRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *PaymentsSendPaymentFormRequest) TypeID() uint32 {
+func (*PaymentsSendPaymentFormRequest) TypeID() uint32 {
 	return PaymentsSendPaymentFormRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *PaymentsSendPaymentFormRequest) TypeName() string {
+func (*PaymentsSendPaymentFormRequest) TypeName() string {
 	return "payments.sendPaymentForm"
+}
+
+// TypeInfo returns info about TL type.
+func (s *PaymentsSendPaymentFormRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "payments.sendPaymentForm",
+		ID:   PaymentsSendPaymentFormRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+		{
+			Name:       "RequestedInfoID",
+			SchemaName: "requested_info_id",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "ShippingOptionID",
+			SchemaName: "shipping_option_id",
+			Null:       !s.Flags.Has(1),
+		},
+		{
+			Name:       "Credentials",
+			SchemaName: "credentials",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HelpGetRecentMeUrlsRequest represents TL type `help.getRecentMeUrls#3dc0f114`.
 // Get recently used t.me links
@@ -62,13 +64,32 @@ func (g *HelpGetRecentMeUrlsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *HelpGetRecentMeUrlsRequest) TypeID() uint32 {
+func (*HelpGetRecentMeUrlsRequest) TypeID() uint32 {
 	return HelpGetRecentMeUrlsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *HelpGetRecentMeUrlsRequest) TypeName() string {
+func (*HelpGetRecentMeUrlsRequest) TypeName() string {
 	return "help.getRecentMeUrls"
+}
+
+// TypeInfo returns info about TL type.
+func (g *HelpGetRecentMeUrlsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.getRecentMeUrls",
+		ID:   HelpGetRecentMeUrlsRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Referer",
+			SchemaName: "referer",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HighScore represents TL type `highScore#58fffcd0`.
 // Game highscore
@@ -76,13 +78,40 @@ func (h *HighScore) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (h *HighScore) TypeID() uint32 {
+func (*HighScore) TypeID() uint32 {
 	return HighScoreTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (h *HighScore) TypeName() string {
+func (*HighScore) TypeName() string {
 	return "highScore"
+}
+
+// TypeInfo returns info about TL type.
+func (h *HighScore) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "highScore",
+		ID:   HighScoreTypeID,
+	}
+	if h == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Pos",
+			SchemaName: "pos",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Score",
+			SchemaName: "score",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountUnregisterDeviceRequest represents TL type `account.unregisterDevice#3076c4bf`.
 // Deletes a device by its token, stops sending PUSH-notifications to it.
@@ -79,13 +81,40 @@ func (u *AccountUnregisterDeviceRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *AccountUnregisterDeviceRequest) TypeID() uint32 {
+func (*AccountUnregisterDeviceRequest) TypeID() uint32 {
 	return AccountUnregisterDeviceRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *AccountUnregisterDeviceRequest) TypeName() string {
+func (*AccountUnregisterDeviceRequest) TypeName() string {
 	return "account.unregisterDevice"
+}
+
+// TypeInfo returns info about TL type.
+func (u *AccountUnregisterDeviceRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.unregisterDevice",
+		ID:   AccountUnregisterDeviceRequestTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "TokenType",
+			SchemaName: "token_type",
+		},
+		{
+			Name:       "Token",
+			SchemaName: "token",
+		},
+		{
+			Name:       "OtherUids",
+			SchemaName: "other_uids",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

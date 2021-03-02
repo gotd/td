@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesChats represents TL type `messages.chats#64ff9fd5`.
 // List of chats with auxiliary data.
@@ -62,13 +64,32 @@ func (c *MessagesChats) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *MessagesChats) TypeID() uint32 {
+func (*MessagesChats) TypeID() uint32 {
 	return MessagesChatsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *MessagesChats) TypeName() string {
+func (*MessagesChats) TypeName() string {
 	return "messages.chats"
+}
+
+// TypeInfo returns info about TL type.
+func (c *MessagesChats) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.chats",
+		ID:   MessagesChatsTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -186,13 +207,36 @@ func (c *MessagesChatsSlice) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *MessagesChatsSlice) TypeID() uint32 {
+func (*MessagesChatsSlice) TypeID() uint32 {
 	return MessagesChatsSliceTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *MessagesChatsSlice) TypeName() string {
+func (*MessagesChatsSlice) TypeName() string {
 	return "messages.chatsSlice"
+}
+
+// TypeInfo returns info about TL type.
+func (c *MessagesChatsSlice) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.chatsSlice",
+		ID:   MessagesChatsSliceTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Count",
+			SchemaName: "count",
+		},
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

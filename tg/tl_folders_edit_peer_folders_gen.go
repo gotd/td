@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // FoldersEditPeerFoldersRequest represents TL type `folders.editPeerFolders#6847d0ab`.
 // Edit peers in peer folder¹
@@ -65,13 +67,32 @@ func (e *FoldersEditPeerFoldersRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *FoldersEditPeerFoldersRequest) TypeID() uint32 {
+func (*FoldersEditPeerFoldersRequest) TypeID() uint32 {
 	return FoldersEditPeerFoldersRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *FoldersEditPeerFoldersRequest) TypeName() string {
+func (*FoldersEditPeerFoldersRequest) TypeName() string {
 	return "folders.editPeerFolders"
+}
+
+// TypeInfo returns info about TL type.
+func (e *FoldersEditPeerFoldersRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "folders.editPeerFolders",
+		ID:   FoldersEditPeerFoldersRequestTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "FolderPeers",
+			SchemaName: "folder_peers",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

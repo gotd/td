@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ContactsGetBlockedRequest represents TL type `contacts.getBlocked#f57c350f`.
 // Returns the list of blocked users.
@@ -69,13 +71,36 @@ func (g *ContactsGetBlockedRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *ContactsGetBlockedRequest) TypeID() uint32 {
+func (*ContactsGetBlockedRequest) TypeID() uint32 {
 	return ContactsGetBlockedRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *ContactsGetBlockedRequest) TypeName() string {
+func (*ContactsGetBlockedRequest) TypeName() string {
 	return "contacts.getBlocked"
+}
+
+// TypeInfo returns info about TL type.
+func (g *ContactsGetBlockedRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "contacts.getBlocked",
+		ID:   ContactsGetBlockedRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Offset",
+			SchemaName: "offset",
+		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

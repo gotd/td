@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ContactsContactsNotModified represents TL type `contacts.contactsNotModified#b74ba9d2`.
 // Contact list on the server is the same as the list on the client.
@@ -50,13 +52,27 @@ func (c *ContactsContactsNotModified) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ContactsContactsNotModified) TypeID() uint32 {
+func (*ContactsContactsNotModified) TypeID() uint32 {
 	return ContactsContactsNotModifiedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ContactsContactsNotModified) TypeName() string {
+func (*ContactsContactsNotModified) TypeName() string {
 	return "contacts.contactsNotModified"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ContactsContactsNotModified) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "contacts.contactsNotModified",
+		ID:   ContactsContactsNotModifiedTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -146,13 +162,40 @@ func (c *ContactsContacts) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ContactsContacts) TypeID() uint32 {
+func (*ContactsContacts) TypeID() uint32 {
 	return ContactsContactsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ContactsContacts) TypeName() string {
+func (*ContactsContacts) TypeName() string {
 	return "contacts.contacts"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ContactsContacts) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "contacts.contacts",
+		ID:   ContactsContactsTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Contacts",
+			SchemaName: "contacts",
+		},
+		{
+			Name:       "SavedCount",
+			SchemaName: "saved_count",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

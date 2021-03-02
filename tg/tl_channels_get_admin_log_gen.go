@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelsGetAdminLogRequest represents TL type `channels.getAdminLog#33ddf480`.
 // Get the admin log of a channel/supergroup¹
@@ -134,13 +136,62 @@ func (g *ChannelsGetAdminLogRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *ChannelsGetAdminLogRequest) TypeID() uint32 {
+func (*ChannelsGetAdminLogRequest) TypeID() uint32 {
 	return ChannelsGetAdminLogRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *ChannelsGetAdminLogRequest) TypeName() string {
+func (*ChannelsGetAdminLogRequest) TypeName() string {
 	return "channels.getAdminLog"
+}
+
+// TypeInfo returns info about TL type.
+func (g *ChannelsGetAdminLogRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channels.getAdminLog",
+		ID:   ChannelsGetAdminLogRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Channel",
+			SchemaName: "channel",
+		},
+		{
+			Name:       "Q",
+			SchemaName: "q",
+		},
+		{
+			Name:       "EventsFilter",
+			SchemaName: "events_filter",
+			Null:       !g.Flags.Has(0),
+		},
+		{
+			Name:       "Admins",
+			SchemaName: "admins",
+			Null:       !g.Flags.Has(1),
+		},
+		{
+			Name:       "MaxID",
+			SchemaName: "max_id",
+		},
+		{
+			Name:       "MinID",
+			SchemaName: "min_id",
+		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

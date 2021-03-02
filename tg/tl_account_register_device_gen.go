@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountRegisterDeviceRequest represents TL type `account.registerDevice#68976c6f`.
 // Register device to receive PUSH notifications¹
@@ -114,13 +116,57 @@ func (r *AccountRegisterDeviceRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *AccountRegisterDeviceRequest) TypeID() uint32 {
+func (*AccountRegisterDeviceRequest) TypeID() uint32 {
 	return AccountRegisterDeviceRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *AccountRegisterDeviceRequest) TypeName() string {
+func (*AccountRegisterDeviceRequest) TypeName() string {
 	return "account.registerDevice"
+}
+
+// TypeInfo returns info about TL type.
+func (r *AccountRegisterDeviceRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.registerDevice",
+		ID:   AccountRegisterDeviceRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "NoMuted",
+			SchemaName: "no_muted",
+			Null:       !r.Flags.Has(0),
+		},
+		{
+			Name:       "TokenType",
+			SchemaName: "token_type",
+		},
+		{
+			Name:       "Token",
+			SchemaName: "token",
+		},
+		{
+			Name:       "AppSandbox",
+			SchemaName: "app_sandbox",
+		},
+		{
+			Name:       "Secret",
+			SchemaName: "secret",
+		},
+		{
+			Name:       "OtherUids",
+			SchemaName: "other_uids",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

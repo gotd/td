@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessageMediaEmpty represents TL type `messageMediaEmpty#3ded6320`.
 // Empty constructor.
@@ -50,13 +52,27 @@ func (m *MessageMediaEmpty) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageMediaEmpty) TypeID() uint32 {
+func (*MessageMediaEmpty) TypeID() uint32 {
 	return MessageMediaEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageMediaEmpty) TypeName() string {
+func (*MessageMediaEmpty) TypeName() string {
 	return "messageMediaEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageMediaEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageMediaEmpty",
+		ID:   MessageMediaEmptyTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -157,13 +173,42 @@ func (m *MessageMediaPhoto) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageMediaPhoto) TypeID() uint32 {
+func (*MessageMediaPhoto) TypeID() uint32 {
 	return MessageMediaPhotoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageMediaPhoto) TypeName() string {
+func (*MessageMediaPhoto) TypeName() string {
 	return "messageMediaPhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageMediaPhoto) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageMediaPhoto",
+		ID:   MessageMediaPhotoTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Photo",
+			SchemaName: "photo",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "TTLSeconds",
+			SchemaName: "ttl_seconds",
+			Null:       !m.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -308,13 +353,32 @@ func (m *MessageMediaGeo) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageMediaGeo) TypeID() uint32 {
+func (*MessageMediaGeo) TypeID() uint32 {
 	return MessageMediaGeoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageMediaGeo) TypeName() string {
+func (*MessageMediaGeo) TypeName() string {
 	return "messageMediaGeo"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageMediaGeo) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageMediaGeo",
+		ID:   MessageMediaGeoTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Geo",
+			SchemaName: "geo",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -436,13 +500,48 @@ func (m *MessageMediaContact) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageMediaContact) TypeID() uint32 {
+func (*MessageMediaContact) TypeID() uint32 {
 	return MessageMediaContactTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageMediaContact) TypeName() string {
+func (*MessageMediaContact) TypeName() string {
 	return "messageMediaContact"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageMediaContact) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageMediaContact",
+		ID:   MessageMediaContactTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PhoneNumber",
+			SchemaName: "phone_number",
+		},
+		{
+			Name:       "FirstName",
+			SchemaName: "first_name",
+		},
+		{
+			Name:       "LastName",
+			SchemaName: "last_name",
+		},
+		{
+			Name:       "Vcard",
+			SchemaName: "vcard",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -571,13 +670,27 @@ func (m *MessageMediaUnsupported) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageMediaUnsupported) TypeID() uint32 {
+func (*MessageMediaUnsupported) TypeID() uint32 {
 	return MessageMediaUnsupportedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageMediaUnsupported) TypeName() string {
+func (*MessageMediaUnsupported) TypeName() string {
 	return "messageMediaUnsupported"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageMediaUnsupported) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageMediaUnsupported",
+		ID:   MessageMediaUnsupportedTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -678,13 +791,42 @@ func (m *MessageMediaDocument) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageMediaDocument) TypeID() uint32 {
+func (*MessageMediaDocument) TypeID() uint32 {
 	return MessageMediaDocumentTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageMediaDocument) TypeName() string {
+func (*MessageMediaDocument) TypeName() string {
 	return "messageMediaDocument"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageMediaDocument) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageMediaDocument",
+		ID:   MessageMediaDocumentTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Document",
+			SchemaName: "document",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "TTLSeconds",
+			SchemaName: "ttl_seconds",
+			Null:       !m.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -829,13 +971,32 @@ func (m *MessageMediaWebPage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageMediaWebPage) TypeID() uint32 {
+func (*MessageMediaWebPage) TypeID() uint32 {
 	return MessageMediaWebPageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageMediaWebPage) TypeName() string {
+func (*MessageMediaWebPage) TypeName() string {
 	return "messageMediaWebPage"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageMediaWebPage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageMediaWebPage",
+		ID:   MessageMediaWebPageTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Webpage",
+			SchemaName: "webpage",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -964,13 +1125,52 @@ func (m *MessageMediaVenue) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageMediaVenue) TypeID() uint32 {
+func (*MessageMediaVenue) TypeID() uint32 {
 	return MessageMediaVenueTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageMediaVenue) TypeName() string {
+func (*MessageMediaVenue) TypeName() string {
 	return "messageMediaVenue"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageMediaVenue) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageMediaVenue",
+		ID:   MessageMediaVenueTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Geo",
+			SchemaName: "geo",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "Address",
+			SchemaName: "address",
+		},
+		{
+			Name:       "Provider",
+			SchemaName: "provider",
+		},
+		{
+			Name:       "VenueID",
+			SchemaName: "venue_id",
+		},
+		{
+			Name:       "VenueType",
+			SchemaName: "venue_type",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1129,13 +1329,32 @@ func (m *MessageMediaGame) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageMediaGame) TypeID() uint32 {
+func (*MessageMediaGame) TypeID() uint32 {
 	return MessageMediaGameTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageMediaGame) TypeName() string {
+func (*MessageMediaGame) TypeName() string {
 	return "messageMediaGame"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageMediaGame) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageMediaGame",
+		ID:   MessageMediaGameTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Game",
+			SchemaName: "game",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1308,13 +1527,72 @@ func (m *MessageMediaInvoice) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageMediaInvoice) TypeID() uint32 {
+func (*MessageMediaInvoice) TypeID() uint32 {
 	return MessageMediaInvoiceTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageMediaInvoice) TypeName() string {
+func (*MessageMediaInvoice) TypeName() string {
 	return "messageMediaInvoice"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageMediaInvoice) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageMediaInvoice",
+		ID:   MessageMediaInvoiceTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ShippingAddressRequested",
+			SchemaName: "shipping_address_requested",
+			Null:       !m.Flags.Has(1),
+		},
+		{
+			Name:       "Test",
+			SchemaName: "test",
+			Null:       !m.Flags.Has(3),
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "Description",
+			SchemaName: "description",
+		},
+		{
+			Name:       "Photo",
+			SchemaName: "photo",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "ReceiptMsgID",
+			SchemaName: "receipt_msg_id",
+			Null:       !m.Flags.Has(2),
+		},
+		{
+			Name:       "Currency",
+			SchemaName: "currency",
+		},
+		{
+			Name:       "TotalAmount",
+			SchemaName: "total_amount",
+		},
+		{
+			Name:       "StartParam",
+			SchemaName: "start_param",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1612,13 +1890,50 @@ func (m *MessageMediaGeoLive) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageMediaGeoLive) TypeID() uint32 {
+func (*MessageMediaGeoLive) TypeID() uint32 {
 	return MessageMediaGeoLiveTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageMediaGeoLive) TypeName() string {
+func (*MessageMediaGeoLive) TypeName() string {
 	return "messageMediaGeoLive"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageMediaGeoLive) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageMediaGeoLive",
+		ID:   MessageMediaGeoLiveTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Geo",
+			SchemaName: "geo",
+		},
+		{
+			Name:       "Heading",
+			SchemaName: "heading",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "Period",
+			SchemaName: "period",
+		},
+		{
+			Name:       "ProximityNotificationRadius",
+			SchemaName: "proximity_notification_radius",
+			Null:       !m.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1796,13 +2111,36 @@ func (m *MessageMediaPoll) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageMediaPoll) TypeID() uint32 {
+func (*MessageMediaPoll) TypeID() uint32 {
 	return MessageMediaPollTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageMediaPoll) TypeName() string {
+func (*MessageMediaPoll) TypeName() string {
 	return "messageMediaPoll"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageMediaPoll) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageMediaPoll",
+		ID:   MessageMediaPollTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Poll",
+			SchemaName: "poll",
+		},
+		{
+			Name:       "Results",
+			SchemaName: "results",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1917,13 +2255,36 @@ func (m *MessageMediaDice) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageMediaDice) TypeID() uint32 {
+func (*MessageMediaDice) TypeID() uint32 {
 	return MessageMediaDiceTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageMediaDice) TypeName() string {
+func (*MessageMediaDice) TypeName() string {
 	return "messageMediaDice"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageMediaDice) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageMediaDice",
+		ID:   MessageMediaDiceTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Value",
+			SchemaName: "value",
+		},
+		{
+			Name:       "Emoticon",
+			SchemaName: "emoticon",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

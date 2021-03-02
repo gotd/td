@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessageEmpty represents TL type `messageEmpty#90a6ca84`.
 // Empty constructor, non-existent message.
@@ -79,13 +81,41 @@ func (m *MessageEmpty) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageEmpty) TypeID() uint32 {
+func (*MessageEmpty) TypeID() uint32 {
 	return MessageEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageEmpty) TypeName() string {
+func (*MessageEmpty) TypeName() string {
 	return "messageEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageEmpty",
+		ID:   MessageEmptyTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "PeerID",
+			SchemaName: "peer_id",
+			Null:       !m.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -506,13 +536,168 @@ func (m *Message) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *Message) TypeID() uint32 {
+func (*Message) TypeID() uint32 {
 	return MessageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *Message) TypeName() string {
+func (*Message) TypeName() string {
 	return "message"
+}
+
+// TypeInfo returns info about TL type.
+func (m *Message) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "message",
+		ID:   MessageTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Out",
+			SchemaName: "out",
+			Null:       !m.Flags.Has(1),
+		},
+		{
+			Name:       "Mentioned",
+			SchemaName: "mentioned",
+			Null:       !m.Flags.Has(4),
+		},
+		{
+			Name:       "MediaUnread",
+			SchemaName: "media_unread",
+			Null:       !m.Flags.Has(5),
+		},
+		{
+			Name:       "Silent",
+			SchemaName: "silent",
+			Null:       !m.Flags.Has(13),
+		},
+		{
+			Name:       "Post",
+			SchemaName: "post",
+			Null:       !m.Flags.Has(14),
+		},
+		{
+			Name:       "FromScheduled",
+			SchemaName: "from_scheduled",
+			Null:       !m.Flags.Has(18),
+		},
+		{
+			Name:       "Legacy",
+			SchemaName: "legacy",
+			Null:       !m.Flags.Has(19),
+		},
+		{
+			Name:       "EditHide",
+			SchemaName: "edit_hide",
+			Null:       !m.Flags.Has(21),
+		},
+		{
+			Name:       "Pinned",
+			SchemaName: "pinned",
+			Null:       !m.Flags.Has(24),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "FromID",
+			SchemaName: "from_id",
+			Null:       !m.Flags.Has(8),
+		},
+		{
+			Name:       "PeerID",
+			SchemaName: "peer_id",
+		},
+		{
+			Name:       "FwdFrom",
+			SchemaName: "fwd_from",
+			Null:       !m.Flags.Has(2),
+		},
+		{
+			Name:       "ViaBotID",
+			SchemaName: "via_bot_id",
+			Null:       !m.Flags.Has(11),
+		},
+		{
+			Name:       "ReplyTo",
+			SchemaName: "reply_to",
+			Null:       !m.Flags.Has(3),
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+		{
+			Name:       "Media",
+			SchemaName: "media",
+			Null:       !m.Flags.Has(9),
+		},
+		{
+			Name:       "ReplyMarkup",
+			SchemaName: "reply_markup",
+			Null:       !m.Flags.Has(6),
+		},
+		{
+			Name:       "Entities",
+			SchemaName: "entities",
+			Null:       !m.Flags.Has(7),
+		},
+		{
+			Name:       "Views",
+			SchemaName: "views",
+			Null:       !m.Flags.Has(10),
+		},
+		{
+			Name:       "Forwards",
+			SchemaName: "forwards",
+			Null:       !m.Flags.Has(10),
+		},
+		{
+			Name:       "Replies",
+			SchemaName: "replies",
+			Null:       !m.Flags.Has(23),
+		},
+		{
+			Name:       "EditDate",
+			SchemaName: "edit_date",
+			Null:       !m.Flags.Has(15),
+		},
+		{
+			Name:       "PostAuthor",
+			SchemaName: "post_author",
+			Null:       !m.Flags.Has(16),
+		},
+		{
+			Name:       "GroupedID",
+			SchemaName: "grouped_id",
+			Null:       !m.Flags.Has(17),
+		},
+		{
+			Name:       "RestrictionReason",
+			SchemaName: "restriction_reason",
+			Null:       !m.Flags.Has(22),
+		},
+		{
+			Name:       "TTLPeriod",
+			SchemaName: "ttl_period",
+			Null:       !m.Flags.Has(25),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1408,13 +1593,93 @@ func (m *MessageService) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageService) TypeID() uint32 {
+func (*MessageService) TypeID() uint32 {
 	return MessageServiceTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageService) TypeName() string {
+func (*MessageService) TypeName() string {
 	return "messageService"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageService) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageService",
+		ID:   MessageServiceTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Out",
+			SchemaName: "out",
+			Null:       !m.Flags.Has(1),
+		},
+		{
+			Name:       "Mentioned",
+			SchemaName: "mentioned",
+			Null:       !m.Flags.Has(4),
+		},
+		{
+			Name:       "MediaUnread",
+			SchemaName: "media_unread",
+			Null:       !m.Flags.Has(5),
+		},
+		{
+			Name:       "Silent",
+			SchemaName: "silent",
+			Null:       !m.Flags.Has(13),
+		},
+		{
+			Name:       "Post",
+			SchemaName: "post",
+			Null:       !m.Flags.Has(14),
+		},
+		{
+			Name:       "Legacy",
+			SchemaName: "legacy",
+			Null:       !m.Flags.Has(19),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "FromID",
+			SchemaName: "from_id",
+			Null:       !m.Flags.Has(8),
+		},
+		{
+			Name:       "PeerID",
+			SchemaName: "peer_id",
+		},
+		{
+			Name:       "ReplyTo",
+			SchemaName: "reply_to",
+			Null:       !m.Flags.Has(3),
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "Action",
+			SchemaName: "action",
+		},
+		{
+			Name:       "TTLPeriod",
+			SchemaName: "ttl_period",
+			Null:       !m.Flags.Has(25),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

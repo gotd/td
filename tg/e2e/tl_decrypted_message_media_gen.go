@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // DecryptedMessageMediaEmpty represents TL type `decryptedMessageMediaEmpty#89f5c4a`.
 //
@@ -49,13 +51,27 @@ func (d *DecryptedMessageMediaEmpty) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageMediaEmpty) TypeID() uint32 {
+func (*DecryptedMessageMediaEmpty) TypeID() uint32 {
 	return DecryptedMessageMediaEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageMediaEmpty) TypeName() string {
+func (*DecryptedMessageMediaEmpty) TypeName() string {
 	return "decryptedMessageMediaEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageMediaEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageMediaEmpty",
+		ID:   DecryptedMessageMediaEmptyTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -179,13 +195,60 @@ func (d *DecryptedMessageMediaPhoto23) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageMediaPhoto23) TypeID() uint32 {
+func (*DecryptedMessageMediaPhoto23) TypeID() uint32 {
 	return DecryptedMessageMediaPhoto23TypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageMediaPhoto23) TypeName() string {
+func (*DecryptedMessageMediaPhoto23) TypeName() string {
 	return "decryptedMessageMediaPhoto23"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageMediaPhoto23) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageMediaPhoto23",
+		ID:   DecryptedMessageMediaPhoto23TypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Thumb",
+			SchemaName: "thumb",
+		},
+		{
+			Name:       "ThumbW",
+			SchemaName: "thumb_w",
+		},
+		{
+			Name:       "ThumbH",
+			SchemaName: "thumb_h",
+		},
+		{
+			Name:       "W",
+			SchemaName: "w",
+		},
+		{
+			Name:       "H",
+			SchemaName: "h",
+		},
+		{
+			Name:       "Size",
+			SchemaName: "size",
+		},
+		{
+			Name:       "Key",
+			SchemaName: "key",
+		},
+		{
+			Name:       "Iv",
+			SchemaName: "iv",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -420,13 +483,64 @@ func (d *DecryptedMessageMediaVideo8) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageMediaVideo8) TypeID() uint32 {
+func (*DecryptedMessageMediaVideo8) TypeID() uint32 {
 	return DecryptedMessageMediaVideo8TypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageMediaVideo8) TypeName() string {
+func (*DecryptedMessageMediaVideo8) TypeName() string {
 	return "decryptedMessageMediaVideo8"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageMediaVideo8) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageMediaVideo8",
+		ID:   DecryptedMessageMediaVideo8TypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Thumb",
+			SchemaName: "thumb",
+		},
+		{
+			Name:       "ThumbW",
+			SchemaName: "thumb_w",
+		},
+		{
+			Name:       "ThumbH",
+			SchemaName: "thumb_h",
+		},
+		{
+			Name:       "Duration",
+			SchemaName: "duration",
+		},
+		{
+			Name:       "W",
+			SchemaName: "w",
+		},
+		{
+			Name:       "H",
+			SchemaName: "h",
+		},
+		{
+			Name:       "Size",
+			SchemaName: "size",
+		},
+		{
+			Name:       "Key",
+			SchemaName: "key",
+		},
+		{
+			Name:       "Iv",
+			SchemaName: "iv",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -625,13 +739,36 @@ func (d *DecryptedMessageMediaGeoPoint) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageMediaGeoPoint) TypeID() uint32 {
+func (*DecryptedMessageMediaGeoPoint) TypeID() uint32 {
 	return DecryptedMessageMediaGeoPointTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageMediaGeoPoint) TypeName() string {
+func (*DecryptedMessageMediaGeoPoint) TypeName() string {
 	return "decryptedMessageMediaGeoPoint"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageMediaGeoPoint) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageMediaGeoPoint",
+		ID:   DecryptedMessageMediaGeoPointTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Lat",
+			SchemaName: "lat",
+		},
+		{
+			Name:       "Long",
+			SchemaName: "long",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -753,13 +890,44 @@ func (d *DecryptedMessageMediaContact) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageMediaContact) TypeID() uint32 {
+func (*DecryptedMessageMediaContact) TypeID() uint32 {
 	return DecryptedMessageMediaContactTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageMediaContact) TypeName() string {
+func (*DecryptedMessageMediaContact) TypeName() string {
 	return "decryptedMessageMediaContact"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageMediaContact) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageMediaContact",
+		ID:   DecryptedMessageMediaContactTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PhoneNumber",
+			SchemaName: "phone_number",
+		},
+		{
+			Name:       "FirstName",
+			SchemaName: "first_name",
+		},
+		{
+			Name:       "LastName",
+			SchemaName: "last_name",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -935,13 +1103,60 @@ func (d *DecryptedMessageMediaDocument23) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageMediaDocument23) TypeID() uint32 {
+func (*DecryptedMessageMediaDocument23) TypeID() uint32 {
 	return DecryptedMessageMediaDocument23TypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageMediaDocument23) TypeName() string {
+func (*DecryptedMessageMediaDocument23) TypeName() string {
 	return "decryptedMessageMediaDocument23"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageMediaDocument23) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageMediaDocument23",
+		ID:   DecryptedMessageMediaDocument23TypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Thumb",
+			SchemaName: "thumb",
+		},
+		{
+			Name:       "ThumbW",
+			SchemaName: "thumb_w",
+		},
+		{
+			Name:       "ThumbH",
+			SchemaName: "thumb_h",
+		},
+		{
+			Name:       "FileName",
+			SchemaName: "file_name",
+		},
+		{
+			Name:       "MimeType",
+			SchemaName: "mime_type",
+		},
+		{
+			Name:       "Size",
+			SchemaName: "size",
+		},
+		{
+			Name:       "Key",
+			SchemaName: "key",
+		},
+		{
+			Name:       "Iv",
+			SchemaName: "iv",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1141,13 +1356,44 @@ func (d *DecryptedMessageMediaAudio8) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageMediaAudio8) TypeID() uint32 {
+func (*DecryptedMessageMediaAudio8) TypeID() uint32 {
 	return DecryptedMessageMediaAudio8TypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageMediaAudio8) TypeName() string {
+func (*DecryptedMessageMediaAudio8) TypeName() string {
 	return "decryptedMessageMediaAudio8"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageMediaAudio8) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageMediaAudio8",
+		ID:   DecryptedMessageMediaAudio8TypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Duration",
+			SchemaName: "duration",
+		},
+		{
+			Name:       "Size",
+			SchemaName: "size",
+		},
+		{
+			Name:       "Key",
+			SchemaName: "key",
+		},
+		{
+			Name:       "Iv",
+			SchemaName: "iv",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1337,13 +1583,68 @@ func (d *DecryptedMessageMediaVideo23) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageMediaVideo23) TypeID() uint32 {
+func (*DecryptedMessageMediaVideo23) TypeID() uint32 {
 	return DecryptedMessageMediaVideo23TypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageMediaVideo23) TypeName() string {
+func (*DecryptedMessageMediaVideo23) TypeName() string {
 	return "decryptedMessageMediaVideo23"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageMediaVideo23) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageMediaVideo23",
+		ID:   DecryptedMessageMediaVideo23TypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Thumb",
+			SchemaName: "thumb",
+		},
+		{
+			Name:       "ThumbW",
+			SchemaName: "thumb_w",
+		},
+		{
+			Name:       "ThumbH",
+			SchemaName: "thumb_h",
+		},
+		{
+			Name:       "Duration",
+			SchemaName: "duration",
+		},
+		{
+			Name:       "MimeType",
+			SchemaName: "mime_type",
+		},
+		{
+			Name:       "W",
+			SchemaName: "w",
+		},
+		{
+			Name:       "H",
+			SchemaName: "h",
+		},
+		{
+			Name:       "Size",
+			SchemaName: "size",
+		},
+		{
+			Name:       "Key",
+			SchemaName: "key",
+		},
+		{
+			Name:       "Iv",
+			SchemaName: "iv",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1576,13 +1877,48 @@ func (d *DecryptedMessageMediaAudio) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageMediaAudio) TypeID() uint32 {
+func (*DecryptedMessageMediaAudio) TypeID() uint32 {
 	return DecryptedMessageMediaAudioTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageMediaAudio) TypeName() string {
+func (*DecryptedMessageMediaAudio) TypeName() string {
 	return "decryptedMessageMediaAudio"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageMediaAudio) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageMediaAudio",
+		ID:   DecryptedMessageMediaAudioTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Duration",
+			SchemaName: "duration",
+		},
+		{
+			Name:       "MimeType",
+			SchemaName: "mime_type",
+		},
+		{
+			Name:       "Size",
+			SchemaName: "size",
+		},
+		{
+			Name:       "Key",
+			SchemaName: "key",
+		},
+		{
+			Name:       "Iv",
+			SchemaName: "iv",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1771,13 +2107,60 @@ func (d *DecryptedMessageMediaExternalDocument) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageMediaExternalDocument) TypeID() uint32 {
+func (*DecryptedMessageMediaExternalDocument) TypeID() uint32 {
 	return DecryptedMessageMediaExternalDocumentTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageMediaExternalDocument) TypeName() string {
+func (*DecryptedMessageMediaExternalDocument) TypeName() string {
 	return "decryptedMessageMediaExternalDocument"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageMediaExternalDocument) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageMediaExternalDocument",
+		ID:   DecryptedMessageMediaExternalDocumentTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "MimeType",
+			SchemaName: "mime_type",
+		},
+		{
+			Name:       "Size",
+			SchemaName: "size",
+		},
+		{
+			Name:       "Thumb",
+			SchemaName: "thumb",
+		},
+		{
+			Name:       "DCID",
+			SchemaName: "dc_id",
+		},
+		{
+			Name:       "Attributes",
+			SchemaName: "attributes",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2036,13 +2419,64 @@ func (d *DecryptedMessageMediaPhoto) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageMediaPhoto) TypeID() uint32 {
+func (*DecryptedMessageMediaPhoto) TypeID() uint32 {
 	return DecryptedMessageMediaPhotoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageMediaPhoto) TypeName() string {
+func (*DecryptedMessageMediaPhoto) TypeName() string {
 	return "decryptedMessageMediaPhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageMediaPhoto) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageMediaPhoto",
+		ID:   DecryptedMessageMediaPhotoTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Thumb",
+			SchemaName: "thumb",
+		},
+		{
+			Name:       "ThumbW",
+			SchemaName: "thumb_w",
+		},
+		{
+			Name:       "ThumbH",
+			SchemaName: "thumb_h",
+		},
+		{
+			Name:       "W",
+			SchemaName: "w",
+		},
+		{
+			Name:       "H",
+			SchemaName: "h",
+		},
+		{
+			Name:       "Size",
+			SchemaName: "size",
+		},
+		{
+			Name:       "Key",
+			SchemaName: "key",
+		},
+		{
+			Name:       "Iv",
+			SchemaName: "iv",
+		},
+		{
+			Name:       "Caption",
+			SchemaName: "caption",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2304,13 +2738,72 @@ func (d *DecryptedMessageMediaVideo) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageMediaVideo) TypeID() uint32 {
+func (*DecryptedMessageMediaVideo) TypeID() uint32 {
 	return DecryptedMessageMediaVideoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageMediaVideo) TypeName() string {
+func (*DecryptedMessageMediaVideo) TypeName() string {
 	return "decryptedMessageMediaVideo"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageMediaVideo) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageMediaVideo",
+		ID:   DecryptedMessageMediaVideoTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Thumb",
+			SchemaName: "thumb",
+		},
+		{
+			Name:       "ThumbW",
+			SchemaName: "thumb_w",
+		},
+		{
+			Name:       "ThumbH",
+			SchemaName: "thumb_h",
+		},
+		{
+			Name:       "Duration",
+			SchemaName: "duration",
+		},
+		{
+			Name:       "MimeType",
+			SchemaName: "mime_type",
+		},
+		{
+			Name:       "W",
+			SchemaName: "w",
+		},
+		{
+			Name:       "H",
+			SchemaName: "h",
+		},
+		{
+			Name:       "Size",
+			SchemaName: "size",
+		},
+		{
+			Name:       "Key",
+			SchemaName: "key",
+		},
+		{
+			Name:       "Iv",
+			SchemaName: "iv",
+		},
+		{
+			Name:       "Caption",
+			SchemaName: "caption",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2584,13 +3077,64 @@ func (d *DecryptedMessageMediaDocument) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageMediaDocument) TypeID() uint32 {
+func (*DecryptedMessageMediaDocument) TypeID() uint32 {
 	return DecryptedMessageMediaDocumentTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageMediaDocument) TypeName() string {
+func (*DecryptedMessageMediaDocument) TypeName() string {
 	return "decryptedMessageMediaDocument"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageMediaDocument) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageMediaDocument",
+		ID:   DecryptedMessageMediaDocumentTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Thumb",
+			SchemaName: "thumb",
+		},
+		{
+			Name:       "ThumbW",
+			SchemaName: "thumb_w",
+		},
+		{
+			Name:       "ThumbH",
+			SchemaName: "thumb_h",
+		},
+		{
+			Name:       "MimeType",
+			SchemaName: "mime_type",
+		},
+		{
+			Name:       "Size",
+			SchemaName: "size",
+		},
+		{
+			Name:       "Key",
+			SchemaName: "key",
+		},
+		{
+			Name:       "Iv",
+			SchemaName: "iv",
+		},
+		{
+			Name:       "Attributes",
+			SchemaName: "attributes",
+		},
+		{
+			Name:       "Caption",
+			SchemaName: "caption",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2836,13 +3380,52 @@ func (d *DecryptedMessageMediaVenue) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageMediaVenue) TypeID() uint32 {
+func (*DecryptedMessageMediaVenue) TypeID() uint32 {
 	return DecryptedMessageMediaVenueTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageMediaVenue) TypeName() string {
+func (*DecryptedMessageMediaVenue) TypeName() string {
 	return "decryptedMessageMediaVenue"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageMediaVenue) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageMediaVenue",
+		ID:   DecryptedMessageMediaVenueTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Lat",
+			SchemaName: "lat",
+		},
+		{
+			Name:       "Long",
+			SchemaName: "long",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "Address",
+			SchemaName: "address",
+		},
+		{
+			Name:       "Provider",
+			SchemaName: "provider",
+		},
+		{
+			Name:       "VenueID",
+			SchemaName: "venue_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2995,13 +3578,32 @@ func (d *DecryptedMessageMediaWebPage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DecryptedMessageMediaWebPage) TypeID() uint32 {
+func (*DecryptedMessageMediaWebPage) TypeID() uint32 {
 	return DecryptedMessageMediaWebPageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DecryptedMessageMediaWebPage) TypeName() string {
+func (*DecryptedMessageMediaWebPage) TypeName() string {
 	return "decryptedMessageMediaWebPage"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DecryptedMessageMediaWebPage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "decryptedMessageMediaWebPage",
+		ID:   DecryptedMessageMediaWebPageTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

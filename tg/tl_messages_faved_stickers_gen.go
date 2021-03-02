@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesFavedStickersNotModified represents TL type `messages.favedStickersNotModified#9e8fa6d3`.
 // No new favorited stickers were found
@@ -50,13 +52,27 @@ func (f *MessagesFavedStickersNotModified) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *MessagesFavedStickersNotModified) TypeID() uint32 {
+func (*MessagesFavedStickersNotModified) TypeID() uint32 {
 	return MessagesFavedStickersNotModifiedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *MessagesFavedStickersNotModified) TypeName() string {
+func (*MessagesFavedStickersNotModified) TypeName() string {
 	return "messages.favedStickersNotModified"
+}
+
+// TypeInfo returns info about TL type.
+func (f *MessagesFavedStickersNotModified) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.favedStickersNotModified",
+		ID:   MessagesFavedStickersNotModifiedTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -149,13 +165,40 @@ func (f *MessagesFavedStickers) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *MessagesFavedStickers) TypeID() uint32 {
+func (*MessagesFavedStickers) TypeID() uint32 {
 	return MessagesFavedStickersTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *MessagesFavedStickers) TypeName() string {
+func (*MessagesFavedStickers) TypeName() string {
 	return "messages.favedStickers"
+}
+
+// TypeInfo returns info about TL type.
+func (f *MessagesFavedStickers) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.favedStickers",
+		ID:   MessagesFavedStickersTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+		{
+			Name:       "Packs",
+			SchemaName: "packs",
+		},
+		{
+			Name:       "Stickers",
+			SchemaName: "stickers",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

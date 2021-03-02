@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InvokeWithMessagesRangeRequest represents TL type `invokeWithMessagesRange#365275f2`.
 // Invoke with the given message range
@@ -69,13 +71,36 @@ func (i *InvokeWithMessagesRangeRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InvokeWithMessagesRangeRequest) TypeID() uint32 {
+func (*InvokeWithMessagesRangeRequest) TypeID() uint32 {
 	return InvokeWithMessagesRangeRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InvokeWithMessagesRangeRequest) TypeName() string {
+func (*InvokeWithMessagesRangeRequest) TypeName() string {
 	return "invokeWithMessagesRange"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InvokeWithMessagesRangeRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "invokeWithMessagesRange",
+		ID:   InvokeWithMessagesRangeRequestTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Range",
+			SchemaName: "range",
+		},
+		{
+			Name:       "Query",
+			SchemaName: "query",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

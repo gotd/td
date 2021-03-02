@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AuthExportedAuthorization represents TL type `auth.exportedAuthorization#df969c2d`.
 // Data for copying of authorization between data centres.
@@ -69,13 +71,36 @@ func (e *AuthExportedAuthorization) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *AuthExportedAuthorization) TypeID() uint32 {
+func (*AuthExportedAuthorization) TypeID() uint32 {
 	return AuthExportedAuthorizationTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *AuthExportedAuthorization) TypeName() string {
+func (*AuthExportedAuthorization) TypeName() string {
 	return "auth.exportedAuthorization"
+}
+
+// TypeInfo returns info about TL type.
+func (e *AuthExportedAuthorization) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.exportedAuthorization",
+		ID:   AuthExportedAuthorizationTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Bytes",
+			SchemaName: "bytes",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

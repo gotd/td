@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetEmojiKeywordsLanguagesRequest represents TL type `messages.getEmojiKeywordsLanguages#4e9963b2`.
 // Get info about an emoji keyword localization
@@ -62,13 +64,32 @@ func (g *MessagesGetEmojiKeywordsLanguagesRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetEmojiKeywordsLanguagesRequest) TypeID() uint32 {
+func (*MessagesGetEmojiKeywordsLanguagesRequest) TypeID() uint32 {
 	return MessagesGetEmojiKeywordsLanguagesRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetEmojiKeywordsLanguagesRequest) TypeName() string {
+func (*MessagesGetEmojiKeywordsLanguagesRequest) TypeName() string {
 	return "messages.getEmojiKeywordsLanguages"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetEmojiKeywordsLanguagesRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getEmojiKeywordsLanguages",
+		ID:   MessagesGetEmojiKeywordsLanguagesRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "LangCodes",
+			SchemaName: "lang_codes",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

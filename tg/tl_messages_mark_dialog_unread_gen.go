@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesMarkDialogUnreadRequest represents TL type `messages.markDialogUnread#c286d98f`.
 // Manually mark dialog as unread
@@ -77,13 +79,41 @@ func (m *MessagesMarkDialogUnreadRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessagesMarkDialogUnreadRequest) TypeID() uint32 {
+func (*MessagesMarkDialogUnreadRequest) TypeID() uint32 {
 	return MessagesMarkDialogUnreadRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessagesMarkDialogUnreadRequest) TypeName() string {
+func (*MessagesMarkDialogUnreadRequest) TypeName() string {
 	return "messages.markDialogUnread"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessagesMarkDialogUnreadRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.markDialogUnread",
+		ID:   MessagesMarkDialogUnreadRequestTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Unread",
+			SchemaName: "unread",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

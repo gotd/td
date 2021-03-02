@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HelpHidePromoDataRequest represents TL type `help.hidePromoData#1e251c95`.
 // Hide MTProxy/Public Service Announcement information
@@ -62,13 +64,32 @@ func (h *HelpHidePromoDataRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (h *HelpHidePromoDataRequest) TypeID() uint32 {
+func (*HelpHidePromoDataRequest) TypeID() uint32 {
 	return HelpHidePromoDataRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (h *HelpHidePromoDataRequest) TypeName() string {
+func (*HelpHidePromoDataRequest) TypeName() string {
 	return "help.hidePromoData"
+}
+
+// TypeInfo returns info about TL type.
+func (h *HelpHidePromoDataRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.hidePromoData",
+		ID:   HelpHidePromoDataRequestTypeID,
+	}
+	if h == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

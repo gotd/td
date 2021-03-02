@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PaymentsPaymentForm represents TL type `payments.paymentForm#3f56aea3`.
 // Payment form
@@ -164,13 +166,82 @@ func (p *PaymentsPaymentForm) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PaymentsPaymentForm) TypeID() uint32 {
+func (*PaymentsPaymentForm) TypeID() uint32 {
 	return PaymentsPaymentFormTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PaymentsPaymentForm) TypeName() string {
+func (*PaymentsPaymentForm) TypeName() string {
 	return "payments.paymentForm"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PaymentsPaymentForm) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "payments.paymentForm",
+		ID:   PaymentsPaymentFormTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "CanSaveCredentials",
+			SchemaName: "can_save_credentials",
+			Null:       !p.Flags.Has(2),
+		},
+		{
+			Name:       "PasswordMissing",
+			SchemaName: "password_missing",
+			Null:       !p.Flags.Has(3),
+		},
+		{
+			Name:       "BotID",
+			SchemaName: "bot_id",
+		},
+		{
+			Name:       "Invoice",
+			SchemaName: "invoice",
+		},
+		{
+			Name:       "ProviderID",
+			SchemaName: "provider_id",
+		},
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+		{
+			Name:       "NativeProvider",
+			SchemaName: "native_provider",
+			Null:       !p.Flags.Has(4),
+		},
+		{
+			Name:       "NativeParams",
+			SchemaName: "native_params",
+			Null:       !p.Flags.Has(4),
+		},
+		{
+			Name:       "SavedInfo",
+			SchemaName: "saved_info",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "SavedCredentials",
+			SchemaName: "saved_credentials",
+			Null:       !p.Flags.Has(1),
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

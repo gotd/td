@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // BigMessage represents TL type `bigMessage#7490dcc5`.
 //
@@ -89,13 +91,48 @@ func (b *BigMessage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (b *BigMessage) TypeID() uint32 {
+func (*BigMessage) TypeID() uint32 {
 	return BigMessageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (b *BigMessage) TypeName() string {
+func (*BigMessage) TypeName() string {
 	return "bigMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (b *BigMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "bigMessage",
+		ID:   BigMessageTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Count",
+			SchemaName: "count",
+		},
+		{
+			Name:       "TargetId",
+			SchemaName: "targetId",
+		},
+		{
+			Name:       "Escape",
+			SchemaName: "escape",
+		},
+		{
+			Name:       "Summary",
+			SchemaName: "summary",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -223,13 +260,27 @@ func (n *NoMessage) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (n *NoMessage) TypeID() uint32 {
+func (*NoMessage) TypeID() uint32 {
 	return NoMessageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (n *NoMessage) TypeName() string {
+func (*NoMessage) TypeName() string {
 	return "noMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (n *NoMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "noMessage",
+		ID:   NoMessageTypeID,
+	}
+	if n == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -304,13 +355,32 @@ func (t *TargetsMessage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TargetsMessage) TypeID() uint32 {
+func (*TargetsMessage) TypeID() uint32 {
 	return TargetsMessageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TargetsMessage) TypeName() string {
+func (*TargetsMessage) TypeName() string {
 	return "targetsMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TargetsMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "targetsMessage",
+		ID:   TargetsMessageTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Targets",
+			SchemaName: "targets",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -429,13 +499,42 @@ func (f *FieldsMessage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *FieldsMessage) TypeID() uint32 {
+func (*FieldsMessage) TypeID() uint32 {
 	return FieldsMessageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *FieldsMessage) TypeName() string {
+func (*FieldsMessage) TypeName() string {
 	return "fieldsMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (f *FieldsMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "fieldsMessage",
+		ID:   FieldsMessageTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Escape",
+			SchemaName: "escape",
+			Null:       !f.Flags.Has(0),
+		},
+		{
+			Name:       "TTLSeconds",
+			SchemaName: "ttl_seconds",
+			Null:       !f.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -574,13 +673,32 @@ func (b *BytesMessage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (b *BytesMessage) TypeID() uint32 {
+func (*BytesMessage) TypeID() uint32 {
 	return BytesMessageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (b *BytesMessage) TypeName() string {
+func (*BytesMessage) TypeName() string {
 	return "bytesMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (b *BytesMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "bytesMessage",
+		ID:   BytesMessageTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Data",
+			SchemaName: "data",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

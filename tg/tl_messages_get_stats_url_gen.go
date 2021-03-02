@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetStatsURLRequest represents TL type `messages.getStatsURL#812c2ae6`.
 // Returns URL with the chat statistics. Currently this method can be used only for channels
@@ -84,13 +86,45 @@ func (g *MessagesGetStatsURLRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetStatsURLRequest) TypeID() uint32 {
+func (*MessagesGetStatsURLRequest) TypeID() uint32 {
 	return MessagesGetStatsURLRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetStatsURLRequest) TypeName() string {
+func (*MessagesGetStatsURLRequest) TypeName() string {
 	return "messages.getStatsURL"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetStatsURLRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getStatsURL",
+		ID:   MessagesGetStatsURLRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Dark",
+			SchemaName: "dark",
+			Null:       !g.Flags.Has(0),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Params",
+			SchemaName: "params",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

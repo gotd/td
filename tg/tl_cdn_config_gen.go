@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // CdnConfig represents TL type `cdnConfig#5725e40a`.
 // Configuration for CDN¹ file downloads.
@@ -68,13 +70,32 @@ func (c *CdnConfig) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *CdnConfig) TypeID() uint32 {
+func (*CdnConfig) TypeID() uint32 {
 	return CdnConfigTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *CdnConfig) TypeName() string {
+func (*CdnConfig) TypeName() string {
 	return "cdnConfig"
+}
+
+// TypeInfo returns info about TL type.
+func (c *CdnConfig) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "cdnConfig",
+		ID:   CdnConfigTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PublicKeys",
+			SchemaName: "public_keys",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

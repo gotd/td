@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputTheme represents TL type `inputTheme#3c5693e9`.
 // Theme
@@ -69,13 +71,36 @@ func (i *InputTheme) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputTheme) TypeID() uint32 {
+func (*InputTheme) TypeID() uint32 {
 	return InputThemeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputTheme) TypeName() string {
+func (*InputTheme) TypeName() string {
 	return "inputTheme"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputTheme) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputTheme",
+		ID:   InputThemeTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -177,13 +202,32 @@ func (i *InputThemeSlug) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputThemeSlug) TypeID() uint32 {
+func (*InputThemeSlug) TypeID() uint32 {
 	return InputThemeSlugTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputThemeSlug) TypeName() string {
+func (*InputThemeSlug) TypeName() string {
 	return "inputThemeSlug"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputThemeSlug) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputThemeSlug",
+		ID:   InputThemeSlugTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Slug",
+			SchemaName: "slug",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

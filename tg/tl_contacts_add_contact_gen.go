@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ContactsAddContactRequest represents TL type `contacts.addContact#e8f463d0`.
 // Add an existing telegram user as contact.
@@ -102,13 +104,53 @@ func (a *ContactsAddContactRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *ContactsAddContactRequest) TypeID() uint32 {
+func (*ContactsAddContactRequest) TypeID() uint32 {
 	return ContactsAddContactRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *ContactsAddContactRequest) TypeName() string {
+func (*ContactsAddContactRequest) TypeName() string {
 	return "contacts.addContact"
+}
+
+// TypeInfo returns info about TL type.
+func (a *ContactsAddContactRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "contacts.addContact",
+		ID:   ContactsAddContactRequestTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "AddPhonePrivacyException",
+			SchemaName: "add_phone_privacy_exception",
+			Null:       !a.Flags.Has(0),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "FirstName",
+			SchemaName: "first_name",
+		},
+		{
+			Name:       "LastName",
+			SchemaName: "last_name",
+		},
+		{
+			Name:       "Phone",
+			SchemaName: "phone",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // LangPackLanguage represents TL type `langPackLanguage#eeca5ce3`.
 // Identifies a localization pack
@@ -148,13 +150,80 @@ func (l *LangPackLanguage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (l *LangPackLanguage) TypeID() uint32 {
+func (*LangPackLanguage) TypeID() uint32 {
 	return LangPackLanguageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (l *LangPackLanguage) TypeName() string {
+func (*LangPackLanguage) TypeName() string {
 	return "langPackLanguage"
+}
+
+// TypeInfo returns info about TL type.
+func (l *LangPackLanguage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "langPackLanguage",
+		ID:   LangPackLanguageTypeID,
+	}
+	if l == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Official",
+			SchemaName: "official",
+			Null:       !l.Flags.Has(0),
+		},
+		{
+			Name:       "Rtl",
+			SchemaName: "rtl",
+			Null:       !l.Flags.Has(2),
+		},
+		{
+			Name:       "Beta",
+			SchemaName: "beta",
+			Null:       !l.Flags.Has(3),
+		},
+		{
+			Name:       "Name",
+			SchemaName: "name",
+		},
+		{
+			Name:       "NativeName",
+			SchemaName: "native_name",
+		},
+		{
+			Name:       "LangCode",
+			SchemaName: "lang_code",
+		},
+		{
+			Name:       "BaseLangCode",
+			SchemaName: "base_lang_code",
+			Null:       !l.Flags.Has(1),
+		},
+		{
+			Name:       "PluralCode",
+			SchemaName: "plural_code",
+		},
+		{
+			Name:       "StringsCount",
+			SchemaName: "strings_count",
+		},
+		{
+			Name:       "TranslatedCount",
+			SchemaName: "translated_count",
+		},
+		{
+			Name:       "TranslationsURL",
+			SchemaName: "translations_url",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

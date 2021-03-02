@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesDeleteScheduledMessagesRequest represents TL type `messages.deleteScheduledMessages#59ae2b16`.
 // Delete scheduled messages
@@ -69,13 +71,36 @@ func (d *MessagesDeleteScheduledMessagesRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *MessagesDeleteScheduledMessagesRequest) TypeID() uint32 {
+func (*MessagesDeleteScheduledMessagesRequest) TypeID() uint32 {
 	return MessagesDeleteScheduledMessagesRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *MessagesDeleteScheduledMessagesRequest) TypeName() string {
+func (*MessagesDeleteScheduledMessagesRequest) TypeName() string {
 	return "messages.deleteScheduledMessages"
+}
+
+// TypeInfo returns info about TL type.
+func (d *MessagesDeleteScheduledMessagesRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.deleteScheduledMessages",
+		ID:   MessagesDeleteScheduledMessagesRequestTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

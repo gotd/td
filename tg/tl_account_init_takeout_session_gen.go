@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountInitTakeoutSessionRequest represents TL type `account.initTakeoutSession#f05b4804`.
 // Intialize account takeout session
@@ -126,13 +128,67 @@ func (i *AccountInitTakeoutSessionRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *AccountInitTakeoutSessionRequest) TypeID() uint32 {
+func (*AccountInitTakeoutSessionRequest) TypeID() uint32 {
 	return AccountInitTakeoutSessionRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *AccountInitTakeoutSessionRequest) TypeName() string {
+func (*AccountInitTakeoutSessionRequest) TypeName() string {
 	return "account.initTakeoutSession"
+}
+
+// TypeInfo returns info about TL type.
+func (i *AccountInitTakeoutSessionRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.initTakeoutSession",
+		ID:   AccountInitTakeoutSessionRequestTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Contacts",
+			SchemaName: "contacts",
+			Null:       !i.Flags.Has(0),
+		},
+		{
+			Name:       "MessageUsers",
+			SchemaName: "message_users",
+			Null:       !i.Flags.Has(1),
+		},
+		{
+			Name:       "MessageChats",
+			SchemaName: "message_chats",
+			Null:       !i.Flags.Has(2),
+		},
+		{
+			Name:       "MessageMegagroups",
+			SchemaName: "message_megagroups",
+			Null:       !i.Flags.Has(3),
+		},
+		{
+			Name:       "MessageChannels",
+			SchemaName: "message_channels",
+			Null:       !i.Flags.Has(4),
+		},
+		{
+			Name:       "Files",
+			SchemaName: "files",
+			Null:       !i.Flags.Has(5),
+		},
+		{
+			Name:       "FileMaxSize",
+			SchemaName: "file_max_size",
+			Null:       !i.Flags.Has(5),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

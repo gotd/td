@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputStickerSetEmpty represents TL type `inputStickerSetEmpty#ffb62b95`.
 // Empty constructor
@@ -50,13 +52,27 @@ func (i *InputStickerSetEmpty) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputStickerSetEmpty) TypeID() uint32 {
+func (*InputStickerSetEmpty) TypeID() uint32 {
 	return InputStickerSetEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputStickerSetEmpty) TypeName() string {
+func (*InputStickerSetEmpty) TypeName() string {
 	return "inputStickerSetEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputStickerSetEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputStickerSetEmpty",
+		ID:   InputStickerSetEmptyTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -139,13 +155,36 @@ func (i *InputStickerSetID) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputStickerSetID) TypeID() uint32 {
+func (*InputStickerSetID) TypeID() uint32 {
 	return InputStickerSetIDTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputStickerSetID) TypeName() string {
+func (*InputStickerSetID) TypeName() string {
 	return "inputStickerSetID"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputStickerSetID) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputStickerSetID",
+		ID:   InputStickerSetIDTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -247,13 +286,32 @@ func (i *InputStickerSetShortName) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputStickerSetShortName) TypeID() uint32 {
+func (*InputStickerSetShortName) TypeID() uint32 {
 	return InputStickerSetShortNameTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputStickerSetShortName) TypeName() string {
+func (*InputStickerSetShortName) TypeName() string {
 	return "inputStickerSetShortName"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputStickerSetShortName) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputStickerSetShortName",
+		ID:   InputStickerSetShortNameTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ShortName",
+			SchemaName: "short_name",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -330,13 +388,27 @@ func (i *InputStickerSetAnimatedEmoji) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputStickerSetAnimatedEmoji) TypeID() uint32 {
+func (*InputStickerSetAnimatedEmoji) TypeID() uint32 {
 	return InputStickerSetAnimatedEmojiTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputStickerSetAnimatedEmoji) TypeName() string {
+func (*InputStickerSetAnimatedEmoji) TypeName() string {
 	return "inputStickerSetAnimatedEmoji"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputStickerSetAnimatedEmoji) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputStickerSetAnimatedEmoji",
+		ID:   InputStickerSetAnimatedEmojiTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -415,13 +487,32 @@ func (i *InputStickerSetDice) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputStickerSetDice) TypeID() uint32 {
+func (*InputStickerSetDice) TypeID() uint32 {
 	return InputStickerSetDiceTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputStickerSetDice) TypeName() string {
+func (*InputStickerSetDice) TypeName() string {
 	return "inputStickerSetDice"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputStickerSetDice) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputStickerSetDice",
+		ID:   InputStickerSetDiceTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Emoticon",
+			SchemaName: "emoticon",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

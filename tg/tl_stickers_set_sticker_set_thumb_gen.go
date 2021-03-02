@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StickersSetStickerSetThumbRequest represents TL type `stickers.setStickerSetThumb#9a364e30`.
 // Set stickerset thumbnail
@@ -69,13 +71,36 @@ func (s *StickersSetStickerSetThumbRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *StickersSetStickerSetThumbRequest) TypeID() uint32 {
+func (*StickersSetStickerSetThumbRequest) TypeID() uint32 {
 	return StickersSetStickerSetThumbRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *StickersSetStickerSetThumbRequest) TypeName() string {
+func (*StickersSetStickerSetThumbRequest) TypeName() string {
 	return "stickers.setStickerSetThumb"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StickersSetStickerSetThumbRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "stickers.setStickerSetThumb",
+		ID:   StickersSetStickerSetThumbRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Stickerset",
+			SchemaName: "stickerset",
+		},
+		{
+			Name:       "Thumb",
+			SchemaName: "thumb",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhotosGetUserPhotosRequest represents TL type `photos.getUserPhotos#91cd32a8`.
 // Returns the list of user photos.
@@ -83,13 +85,44 @@ func (g *PhotosGetUserPhotosRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *PhotosGetUserPhotosRequest) TypeID() uint32 {
+func (*PhotosGetUserPhotosRequest) TypeID() uint32 {
 	return PhotosGetUserPhotosRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *PhotosGetUserPhotosRequest) TypeName() string {
+func (*PhotosGetUserPhotosRequest) TypeName() string {
 	return "photos.getUserPhotos"
+}
+
+// TypeInfo returns info about TL type.
+func (g *PhotosGetUserPhotosRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "photos.getUserPhotos",
+		ID:   PhotosGetUserPhotosRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Offset",
+			SchemaName: "offset",
+		},
+		{
+			Name:       "MaxID",
+			SchemaName: "max_id",
+		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

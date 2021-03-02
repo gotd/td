@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // UpdatesGetChannelDifferenceRequest represents TL type `updates.getChannelDifference#3173d78`.
 // Returns the difference between the current state of updates of a certain channel and transmitted.
@@ -101,13 +103,53 @@ func (g *UpdatesGetChannelDifferenceRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *UpdatesGetChannelDifferenceRequest) TypeID() uint32 {
+func (*UpdatesGetChannelDifferenceRequest) TypeID() uint32 {
 	return UpdatesGetChannelDifferenceRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *UpdatesGetChannelDifferenceRequest) TypeName() string {
+func (*UpdatesGetChannelDifferenceRequest) TypeName() string {
 	return "updates.getChannelDifference"
+}
+
+// TypeInfo returns info about TL type.
+func (g *UpdatesGetChannelDifferenceRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "updates.getChannelDifference",
+		ID:   UpdatesGetChannelDifferenceRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Force",
+			SchemaName: "force",
+			Null:       !g.Flags.Has(0),
+		},
+		{
+			Name:       "Channel",
+			SchemaName: "channel",
+		},
+		{
+			Name:       "Filter",
+			SchemaName: "filter",
+		},
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

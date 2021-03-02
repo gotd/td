@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountVerifyPhoneRequest represents TL type `account.verifyPhone#4dd3a7f6`.
 // Verify a phone number for telegram passport¹.
@@ -85,13 +87,40 @@ func (v *AccountVerifyPhoneRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (v *AccountVerifyPhoneRequest) TypeID() uint32 {
+func (*AccountVerifyPhoneRequest) TypeID() uint32 {
 	return AccountVerifyPhoneRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (v *AccountVerifyPhoneRequest) TypeName() string {
+func (*AccountVerifyPhoneRequest) TypeName() string {
 	return "account.verifyPhone"
+}
+
+// TypeInfo returns info about TL type.
+func (v *AccountVerifyPhoneRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.verifyPhone",
+		ID:   AccountVerifyPhoneRequestTypeID,
+	}
+	if v == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PhoneNumber",
+			SchemaName: "phone_number",
+		},
+		{
+			Name:       "PhoneCodeHash",
+			SchemaName: "phone_code_hash",
+		},
+		{
+			Name:       "PhoneCode",
+			SchemaName: "phone_code",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

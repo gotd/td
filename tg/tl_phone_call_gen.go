@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhoneCallEmpty represents TL type `phoneCallEmpty#5366c915`.
 // Empty constructor
@@ -62,13 +64,32 @@ func (p *PhoneCallEmpty) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhoneCallEmpty) TypeID() uint32 {
+func (*PhoneCallEmpty) TypeID() uint32 {
 	return PhoneCallEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhoneCallEmpty) TypeName() string {
+func (*PhoneCallEmpty) TypeName() string {
 	return "phoneCallEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhoneCallEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phoneCallEmpty",
+		ID:   PhoneCallEmptyTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -219,13 +240,66 @@ func (p *PhoneCallWaiting) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhoneCallWaiting) TypeID() uint32 {
+func (*PhoneCallWaiting) TypeID() uint32 {
 	return PhoneCallWaitingTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhoneCallWaiting) TypeName() string {
+func (*PhoneCallWaiting) TypeName() string {
 	return "phoneCallWaiting"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhoneCallWaiting) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phoneCallWaiting",
+		ID:   PhoneCallWaitingTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Video",
+			SchemaName: "video",
+			Null:       !p.Flags.Has(6),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "AdminID",
+			SchemaName: "admin_id",
+		},
+		{
+			Name:       "ParticipantID",
+			SchemaName: "participant_id",
+		},
+		{
+			Name:       "Protocol",
+			SchemaName: "protocol",
+		},
+		{
+			Name:       "ReceiveDate",
+			SchemaName: "receive_date",
+			Null:       !p.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -495,13 +569,65 @@ func (p *PhoneCallRequested) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhoneCallRequested) TypeID() uint32 {
+func (*PhoneCallRequested) TypeID() uint32 {
 	return PhoneCallRequestedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhoneCallRequested) TypeName() string {
+func (*PhoneCallRequested) TypeName() string {
 	return "phoneCallRequested"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhoneCallRequested) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phoneCallRequested",
+		ID:   PhoneCallRequestedTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Video",
+			SchemaName: "video",
+			Null:       !p.Flags.Has(6),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "AdminID",
+			SchemaName: "admin_id",
+		},
+		{
+			Name:       "ParticipantID",
+			SchemaName: "participant_id",
+		},
+		{
+			Name:       "GAHash",
+			SchemaName: "g_a_hash",
+		},
+		{
+			Name:       "Protocol",
+			SchemaName: "protocol",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -756,13 +882,65 @@ func (p *PhoneCallAccepted) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhoneCallAccepted) TypeID() uint32 {
+func (*PhoneCallAccepted) TypeID() uint32 {
 	return PhoneCallAcceptedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhoneCallAccepted) TypeName() string {
+func (*PhoneCallAccepted) TypeName() string {
 	return "phoneCallAccepted"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhoneCallAccepted) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phoneCallAccepted",
+		ID:   PhoneCallAcceptedTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Video",
+			SchemaName: "video",
+			Null:       !p.Flags.Has(6),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "AdminID",
+			SchemaName: "admin_id",
+		},
+		{
+			Name:       "ParticipantID",
+			SchemaName: "participant_id",
+		},
+		{
+			Name:       "GB",
+			SchemaName: "g_b",
+		},
+		{
+			Name:       "Protocol",
+			SchemaName: "protocol",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1048,13 +1226,82 @@ func (p *PhoneCall) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhoneCall) TypeID() uint32 {
+func (*PhoneCall) TypeID() uint32 {
 	return PhoneCallTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhoneCall) TypeName() string {
+func (*PhoneCall) TypeName() string {
 	return "phoneCall"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhoneCall) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phoneCall",
+		ID:   PhoneCallTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "P2PAllowed",
+			SchemaName: "p2p_allowed",
+			Null:       !p.Flags.Has(5),
+		},
+		{
+			Name:       "Video",
+			SchemaName: "video",
+			Null:       !p.Flags.Has(6),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "AdminID",
+			SchemaName: "admin_id",
+		},
+		{
+			Name:       "ParticipantID",
+			SchemaName: "participant_id",
+		},
+		{
+			Name:       "GAOrB",
+			SchemaName: "g_a_or_b",
+		},
+		{
+			Name:       "KeyFingerprint",
+			SchemaName: "key_fingerprint",
+		},
+		{
+			Name:       "Protocol",
+			SchemaName: "protocol",
+		},
+		{
+			Name:       "Connections",
+			SchemaName: "connections",
+		},
+		{
+			Name:       "StartDate",
+			SchemaName: "start_date",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1386,13 +1633,61 @@ func (p *PhoneCallDiscarded) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhoneCallDiscarded) TypeID() uint32 {
+func (*PhoneCallDiscarded) TypeID() uint32 {
 	return PhoneCallDiscardedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhoneCallDiscarded) TypeName() string {
+func (*PhoneCallDiscarded) TypeName() string {
 	return "phoneCallDiscarded"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhoneCallDiscarded) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phoneCallDiscarded",
+		ID:   PhoneCallDiscardedTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "NeedRating",
+			SchemaName: "need_rating",
+			Null:       !p.Flags.Has(2),
+		},
+		{
+			Name:       "NeedDebug",
+			SchemaName: "need_debug",
+			Null:       !p.Flags.Has(3),
+		},
+		{
+			Name:       "Video",
+			SchemaName: "video",
+			Null:       !p.Flags.Has(6),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Reason",
+			SchemaName: "reason",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "Duration",
+			SchemaName: "duration",
+			Null:       !p.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

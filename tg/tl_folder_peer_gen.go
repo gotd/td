@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // FolderPeer represents TL type `folderPeer#e9baa668`.
 // Peer in a folder
@@ -72,13 +74,36 @@ func (f *FolderPeer) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *FolderPeer) TypeID() uint32 {
+func (*FolderPeer) TypeID() uint32 {
 	return FolderPeerTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *FolderPeer) TypeName() string {
+func (*FolderPeer) TypeName() string {
 	return "folderPeer"
+}
+
+// TypeInfo returns info about TL type.
+func (f *FolderPeer) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "folderPeer",
+		ID:   FolderPeerTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "FolderID",
+			SchemaName: "folder_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ExportedMessageLink represents TL type `exportedMessageLink#5dab1af4`.
 // Link to a message in a supergroup/channel
@@ -69,13 +71,36 @@ func (e *ExportedMessageLink) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *ExportedMessageLink) TypeID() uint32 {
+func (*ExportedMessageLink) TypeID() uint32 {
 	return ExportedMessageLinkTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *ExportedMessageLink) TypeName() string {
+func (*ExportedMessageLink) TypeName() string {
 	return "exportedMessageLink"
+}
+
+// TypeInfo returns info about TL type.
+func (e *ExportedMessageLink) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "exportedMessageLink",
+		ID:   ExportedMessageLinkTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Link",
+			SchemaName: "link",
+		},
+		{
+			Name:       "HTML",
+			SchemaName: "html",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

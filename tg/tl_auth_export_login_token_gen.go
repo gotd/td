@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AuthExportLoginTokenRequest represents TL type `auth.exportLoginToken#b1b41517`.
 // Generate a login token, for login via QR code¹.
@@ -88,13 +90,40 @@ func (e *AuthExportLoginTokenRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *AuthExportLoginTokenRequest) TypeID() uint32 {
+func (*AuthExportLoginTokenRequest) TypeID() uint32 {
 	return AuthExportLoginTokenRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *AuthExportLoginTokenRequest) TypeName() string {
+func (*AuthExportLoginTokenRequest) TypeName() string {
 	return "auth.exportLoginToken"
+}
+
+// TypeInfo returns info about TL type.
+func (e *AuthExportLoginTokenRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.exportLoginToken",
+		ID:   AuthExportLoginTokenRequestTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "APIID",
+			SchemaName: "api_id",
+		},
+		{
+			Name:       "APIHash",
+			SchemaName: "api_hash",
+		},
+		{
+			Name:       "ExceptIds",
+			SchemaName: "except_ids",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

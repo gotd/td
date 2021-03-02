@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesArchivedStickers represents TL type `messages.archivedStickers#4fcba9c8`.
 // Archived stickersets
@@ -69,13 +71,36 @@ func (a *MessagesArchivedStickers) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *MessagesArchivedStickers) TypeID() uint32 {
+func (*MessagesArchivedStickers) TypeID() uint32 {
 	return MessagesArchivedStickersTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *MessagesArchivedStickers) TypeName() string {
+func (*MessagesArchivedStickers) TypeName() string {
 	return "messages.archivedStickers"
+}
+
+// TypeInfo returns info about TL type.
+func (a *MessagesArchivedStickers) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.archivedStickers",
+		ID:   MessagesArchivedStickersTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Count",
+			SchemaName: "count",
+		},
+		{
+			Name:       "Sets",
+			SchemaName: "sets",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChatAdminRights represents TL type `chatAdminRights#5fb224d5`.
 // Represents the rights of an admin in a channel/supergroup¹.
@@ -167,13 +169,87 @@ func (c *ChatAdminRights) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChatAdminRights) TypeID() uint32 {
+func (*ChatAdminRights) TypeID() uint32 {
 	return ChatAdminRightsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChatAdminRights) TypeName() string {
+func (*ChatAdminRights) TypeName() string {
 	return "chatAdminRights"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatAdminRights) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatAdminRights",
+		ID:   ChatAdminRightsTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ChangeInfo",
+			SchemaName: "change_info",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "PostMessages",
+			SchemaName: "post_messages",
+			Null:       !c.Flags.Has(1),
+		},
+		{
+			Name:       "EditMessages",
+			SchemaName: "edit_messages",
+			Null:       !c.Flags.Has(2),
+		},
+		{
+			Name:       "DeleteMessages",
+			SchemaName: "delete_messages",
+			Null:       !c.Flags.Has(3),
+		},
+		{
+			Name:       "BanUsers",
+			SchemaName: "ban_users",
+			Null:       !c.Flags.Has(4),
+		},
+		{
+			Name:       "InviteUsers",
+			SchemaName: "invite_users",
+			Null:       !c.Flags.Has(5),
+		},
+		{
+			Name:       "PinMessages",
+			SchemaName: "pin_messages",
+			Null:       !c.Flags.Has(7),
+		},
+		{
+			Name:       "AddAdmins",
+			SchemaName: "add_admins",
+			Null:       !c.Flags.Has(9),
+		},
+		{
+			Name:       "Anonymous",
+			SchemaName: "anonymous",
+			Null:       !c.Flags.Has(10),
+		},
+		{
+			Name:       "ManageCall",
+			SchemaName: "manage_call",
+			Null:       !c.Flags.Has(11),
+		},
+		{
+			Name:       "Other",
+			SchemaName: "other",
+			Null:       !c.Flags.Has(12),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

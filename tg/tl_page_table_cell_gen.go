@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PageTableCell represents TL type `pageTableCell#34566b6a`.
 // Table cell
@@ -134,13 +136,72 @@ func (p *PageTableCell) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageTableCell) TypeID() uint32 {
+func (*PageTableCell) TypeID() uint32 {
 	return PageTableCellTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageTableCell) TypeName() string {
+func (*PageTableCell) TypeName() string {
 	return "pageTableCell"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageTableCell) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageTableCell",
+		ID:   PageTableCellTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Header",
+			SchemaName: "header",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "AlignCenter",
+			SchemaName: "align_center",
+			Null:       !p.Flags.Has(3),
+		},
+		{
+			Name:       "AlignRight",
+			SchemaName: "align_right",
+			Null:       !p.Flags.Has(4),
+		},
+		{
+			Name:       "ValignMiddle",
+			SchemaName: "valign_middle",
+			Null:       !p.Flags.Has(5),
+		},
+		{
+			Name:       "ValignBottom",
+			SchemaName: "valign_bottom",
+			Null:       !p.Flags.Has(6),
+		},
+		{
+			Name:       "Text",
+			SchemaName: "text",
+			Null:       !p.Flags.Has(7),
+		},
+		{
+			Name:       "Colspan",
+			SchemaName: "colspan",
+			Null:       !p.Flags.Has(1),
+		},
+		{
+			Name:       "Rowspan",
+			SchemaName: "rowspan",
+			Null:       !p.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

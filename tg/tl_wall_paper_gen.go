@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // WallPaper represents TL type `wallPaper#a437c3ed`.
 // Wallpaper settings.
@@ -131,13 +133,73 @@ func (w *WallPaper) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (w *WallPaper) TypeID() uint32 {
+func (*WallPaper) TypeID() uint32 {
 	return WallPaperTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (w *WallPaper) TypeName() string {
+func (*WallPaper) TypeName() string {
 	return "wallPaper"
+}
+
+// TypeInfo returns info about TL type.
+func (w *WallPaper) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "wallPaper",
+		ID:   WallPaperTypeID,
+	}
+	if w == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Creator",
+			SchemaName: "creator",
+			Null:       !w.Flags.Has(0),
+		},
+		{
+			Name:       "Default",
+			SchemaName: "default",
+			Null:       !w.Flags.Has(1),
+		},
+		{
+			Name:       "Pattern",
+			SchemaName: "pattern",
+			Null:       !w.Flags.Has(3),
+		},
+		{
+			Name:       "Dark",
+			SchemaName: "dark",
+			Null:       !w.Flags.Has(4),
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "Slug",
+			SchemaName: "slug",
+		},
+		{
+			Name:       "Document",
+			SchemaName: "document",
+		},
+		{
+			Name:       "Settings",
+			SchemaName: "settings",
+			Null:       !w.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -413,13 +475,47 @@ func (w *WallPaperNoFile) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (w *WallPaperNoFile) TypeID() uint32 {
+func (*WallPaperNoFile) TypeID() uint32 {
 	return WallPaperNoFileTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (w *WallPaperNoFile) TypeName() string {
+func (*WallPaperNoFile) TypeName() string {
 	return "wallPaperNoFile"
+}
+
+// TypeInfo returns info about TL type.
+func (w *WallPaperNoFile) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "wallPaperNoFile",
+		ID:   WallPaperNoFileTypeID,
+	}
+	if w == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Default",
+			SchemaName: "default",
+			Null:       !w.Flags.Has(1),
+		},
+		{
+			Name:       "Dark",
+			SchemaName: "dark",
+			Null:       !w.Flags.Has(4),
+		},
+		{
+			Name:       "Settings",
+			SchemaName: "settings",
+			Null:       !w.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

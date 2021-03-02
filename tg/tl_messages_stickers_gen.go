@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesStickersNotModified represents TL type `messages.stickersNotModified#f1749a22`.
 // No new stickers were found for the given query
@@ -50,13 +52,27 @@ func (s *MessagesStickersNotModified) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesStickersNotModified) TypeID() uint32 {
+func (*MessagesStickersNotModified) TypeID() uint32 {
 	return MessagesStickersNotModifiedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesStickersNotModified) TypeName() string {
+func (*MessagesStickersNotModified) TypeName() string {
 	return "messages.stickersNotModified"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesStickersNotModified) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.stickersNotModified",
+		ID:   MessagesStickersNotModifiedTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -142,13 +158,36 @@ func (s *MessagesStickers) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesStickers) TypeID() uint32 {
+func (*MessagesStickers) TypeID() uint32 {
 	return MessagesStickersTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesStickers) TypeName() string {
+func (*MessagesStickers) TypeName() string {
 	return "messages.stickers"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesStickers) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.stickers",
+		ID:   MessagesStickersTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+		{
+			Name:       "Stickers",
+			SchemaName: "stickers",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

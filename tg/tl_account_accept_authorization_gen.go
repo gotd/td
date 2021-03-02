@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountAcceptAuthorizationRequest represents TL type `account.acceptAuthorization#e7027c94`.
 // Sends a Telegram Passport authorization form, effectively sharing data with the service
@@ -90,13 +92,48 @@ func (a *AccountAcceptAuthorizationRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *AccountAcceptAuthorizationRequest) TypeID() uint32 {
+func (*AccountAcceptAuthorizationRequest) TypeID() uint32 {
 	return AccountAcceptAuthorizationRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *AccountAcceptAuthorizationRequest) TypeName() string {
+func (*AccountAcceptAuthorizationRequest) TypeName() string {
 	return "account.acceptAuthorization"
+}
+
+// TypeInfo returns info about TL type.
+func (a *AccountAcceptAuthorizationRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.acceptAuthorization",
+		ID:   AccountAcceptAuthorizationRequestTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "BotID",
+			SchemaName: "bot_id",
+		},
+		{
+			Name:       "Scope",
+			SchemaName: "scope",
+		},
+		{
+			Name:       "PublicKey",
+			SchemaName: "public_key",
+		},
+		{
+			Name:       "ValueHashes",
+			SchemaName: "value_hashes",
+		},
+		{
+			Name:       "Credentials",
+			SchemaName: "credentials",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

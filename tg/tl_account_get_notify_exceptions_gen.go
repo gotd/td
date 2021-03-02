@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountGetNotifyExceptionsRequest represents TL type `account.getNotifyExceptions#53577479`.
 // Returns list of chats with non-default notification settings
@@ -82,13 +84,42 @@ func (g *AccountGetNotifyExceptionsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *AccountGetNotifyExceptionsRequest) TypeID() uint32 {
+func (*AccountGetNotifyExceptionsRequest) TypeID() uint32 {
 	return AccountGetNotifyExceptionsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *AccountGetNotifyExceptionsRequest) TypeName() string {
+func (*AccountGetNotifyExceptionsRequest) TypeName() string {
 	return "account.getNotifyExceptions"
+}
+
+// TypeInfo returns info about TL type.
+func (g *AccountGetNotifyExceptionsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.getNotifyExceptions",
+		ID:   AccountGetNotifyExceptionsRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "CompareSound",
+			SchemaName: "compare_sound",
+			Null:       !g.Flags.Has(1),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+			Null:       !g.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

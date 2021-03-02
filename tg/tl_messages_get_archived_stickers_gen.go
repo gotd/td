@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetArchivedStickersRequest represents TL type `messages.getArchivedStickers#57f17692`.
 // Get all archived stickers
@@ -90,13 +92,45 @@ func (g *MessagesGetArchivedStickersRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetArchivedStickersRequest) TypeID() uint32 {
+func (*MessagesGetArchivedStickersRequest) TypeID() uint32 {
 	return MessagesGetArchivedStickersRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetArchivedStickersRequest) TypeName() string {
+func (*MessagesGetArchivedStickersRequest) TypeName() string {
 	return "messages.getArchivedStickers"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetArchivedStickersRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getArchivedStickers",
+		ID:   MessagesGetArchivedStickersRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Masks",
+			SchemaName: "masks",
+			Null:       !g.Flags.Has(0),
+		},
+		{
+			Name:       "OffsetID",
+			SchemaName: "offset_id",
+		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

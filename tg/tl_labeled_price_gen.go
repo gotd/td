@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // LabeledPrice represents TL type `labeledPrice#cb296bf8`.
 // This object represents a portion of the price for goods or services.
@@ -72,13 +74,36 @@ func (l *LabeledPrice) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (l *LabeledPrice) TypeID() uint32 {
+func (*LabeledPrice) TypeID() uint32 {
 	return LabeledPriceTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (l *LabeledPrice) TypeName() string {
+func (*LabeledPrice) TypeName() string {
 	return "labeledPrice"
+}
+
+// TypeInfo returns info about TL type.
+func (l *LabeledPrice) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "labeledPrice",
+		ID:   LabeledPriceTypeID,
+	}
+	if l == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Label",
+			SchemaName: "label",
+		},
+		{
+			Name:       "Amount",
+			SchemaName: "amount",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
