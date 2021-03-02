@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelsAdminLogResults represents TL type `channels.adminLogResults#ed8af74d`.
 // Admin log events
@@ -26,11 +28,11 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/channels.adminLogResults for reference.
 type ChannelsAdminLogResults struct {
 	// Admin log events
-	Events []ChannelAdminLogEvent `tl:"events"`
+	Events []ChannelAdminLogEvent
 	// Chats mentioned in events
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// Users mentioned in events
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // ChannelsAdminLogResultsTypeID is TL type id of ChannelsAdminLogResults.
@@ -76,13 +78,40 @@ func (a *ChannelsAdminLogResults) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *ChannelsAdminLogResults) TypeID() uint32 {
+func (*ChannelsAdminLogResults) TypeID() uint32 {
 	return ChannelsAdminLogResultsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *ChannelsAdminLogResults) TypeName() string {
+func (*ChannelsAdminLogResults) TypeName() string {
 	return "channels.adminLogResults"
+}
+
+// TypeInfo returns info about TL type.
+func (a *ChannelsAdminLogResults) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channels.adminLogResults",
+		ID:   ChannelsAdminLogResultsTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Events",
+			SchemaName: "events",
+		},
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

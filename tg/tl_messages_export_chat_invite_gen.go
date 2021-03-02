@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesExportChatInviteRequest represents TL type `messages.exportChatInvite#14b9bcd7`.
 // Export an invite link for a chat
@@ -26,19 +28,19 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.exportChatInvite for reference.
 type MessagesExportChatInviteRequest struct {
 	// Flags field of MessagesExportChatInviteRequest.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// LegacyRevokePermanent field of MessagesExportChatInviteRequest.
-	LegacyRevokePermanent bool `tl:"legacy_revoke_permanent"`
+	LegacyRevokePermanent bool
 	// Chat
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// ExpireDate field of MessagesExportChatInviteRequest.
 	//
 	// Use SetExpireDate and GetExpireDate helpers.
-	ExpireDate int `tl:"expire_date"`
+	ExpireDate int
 	// UsageLimit field of MessagesExportChatInviteRequest.
 	//
 	// Use SetUsageLimit and GetUsageLimit helpers.
-	UsageLimit int `tl:"usage_limit"`
+	UsageLimit int
 }
 
 // MessagesExportChatInviteRequestTypeID is TL type id of MessagesExportChatInviteRequest.
@@ -98,13 +100,51 @@ func (e *MessagesExportChatInviteRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *MessagesExportChatInviteRequest) TypeID() uint32 {
+func (*MessagesExportChatInviteRequest) TypeID() uint32 {
 	return MessagesExportChatInviteRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *MessagesExportChatInviteRequest) TypeName() string {
+func (*MessagesExportChatInviteRequest) TypeName() string {
 	return "messages.exportChatInvite"
+}
+
+// TypeInfo returns info about TL type.
+func (e *MessagesExportChatInviteRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.exportChatInvite",
+		ID:   MessagesExportChatInviteRequestTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "LegacyRevokePermanent",
+			SchemaName: "legacy_revoke_permanent",
+			Null:       !e.Flags.Has(2),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "ExpireDate",
+			SchemaName: "expire_date",
+			Null:       !e.Flags.Has(0),
+		},
+		{
+			Name:       "UsageLimit",
+			SchemaName: "usage_limit",
+			Null:       !e.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

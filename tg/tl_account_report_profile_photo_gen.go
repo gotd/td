@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,19 +20,20 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountReportProfilePhotoRequest represents TL type `account.reportProfilePhoto#fa8cc6f5`.
 //
 // See https://core.telegram.org/method/account.reportProfilePhoto for reference.
 type AccountReportProfilePhotoRequest struct {
 	// Peer field of AccountReportProfilePhotoRequest.
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// PhotoID field of AccountReportProfilePhotoRequest.
-	PhotoID InputPhotoClass `tl:"photo_id"`
+	PhotoID InputPhotoClass
 	// Reason field of AccountReportProfilePhotoRequest.
-	Reason ReportReasonClass `tl:"reason"`
+	Reason ReportReasonClass
 	// Message field of AccountReportProfilePhotoRequest.
-	Message string `tl:"message"`
+	Message string
 }
 
 // AccountReportProfilePhotoRequestTypeID is TL type id of AccountReportProfilePhotoRequest.
@@ -82,13 +84,44 @@ func (r *AccountReportProfilePhotoRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *AccountReportProfilePhotoRequest) TypeID() uint32 {
+func (*AccountReportProfilePhotoRequest) TypeID() uint32 {
 	return AccountReportProfilePhotoRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *AccountReportProfilePhotoRequest) TypeName() string {
+func (*AccountReportProfilePhotoRequest) TypeName() string {
 	return "account.reportProfilePhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (r *AccountReportProfilePhotoRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.reportProfilePhoto",
+		ID:   AccountReportProfilePhotoRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "PhotoID",
+			SchemaName: "photo_id",
+		},
+		{
+			Name:       "Reason",
+			SchemaName: "reason",
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

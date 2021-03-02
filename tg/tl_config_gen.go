@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // Config represents TL type `config#330b4067`.
 // Current configuration
@@ -29,157 +31,157 @@ type Config struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether phone calls can be used
-	PhonecallsEnabled bool `tl:"phonecalls_enabled"`
+	PhonecallsEnabled bool
 	// Whether the client should use P2P by default for phone calls with contacts
-	DefaultP2PContacts bool `tl:"default_p2p_contacts"`
+	DefaultP2PContacts bool
 	// Whether the client should preload featured stickers
-	PreloadFeaturedStickers bool `tl:"preload_featured_stickers"`
+	PreloadFeaturedStickers bool
 	// Whether the client should ignore phone entities¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
-	IgnorePhoneEntities bool `tl:"ignore_phone_entities"`
+	IgnorePhoneEntities bool
 	// Whether incoming private messages can be deleted for both participants
-	RevokePmInbox bool `tl:"revoke_pm_inbox"`
+	RevokePmInbox bool
 	// Indicates that telegram is probably censored by governments/ISPs in the current region
-	BlockedMode bool `tl:"blocked_mode"`
+	BlockedMode bool
 	// Whether pfs¹ was used
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/pfs
-	PFSEnabled bool `tl:"pfs_enabled"`
+	PFSEnabled bool
 	// Current date at the server
-	Date int `tl:"date"`
+	Date int
 	// Expiration date of this config: when it expires it'll have to be refetched using help.getConfig¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/help.getConfig
-	Expires int `tl:"expires"`
+	Expires int
 	// Whether we're connected to the test DCs
-	TestMode bool `tl:"test_mode"`
+	TestMode bool
 	// ID of the DC that returned the reply
-	ThisDC int `tl:"this_dc"`
+	ThisDC int
 	// DC IP list
-	DCOptions []DcOption `tl:"dc_options"`
+	DCOptions []DcOption
 	// Domain name for fetching encrypted DC list from DNS TXT record
-	DCTxtDomainName string `tl:"dc_txt_domain_name"`
+	DCTxtDomainName string
 	// Maximum member count for normal groups¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	ChatSizeMax int `tl:"chat_size_max"`
+	ChatSizeMax int
 	// Maximum member count for supergroups¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	MegagroupSizeMax int `tl:"megagroup_size_max"`
+	MegagroupSizeMax int
 	// Maximum number of messages that can be forwarded at once using messages.forwardMessages¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.forwardMessages
-	ForwardedCountMax int `tl:"forwarded_count_max"`
+	ForwardedCountMax int
 	// The client should update its online status¹ every N milliseconds
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/account.updateStatus
-	OnlineUpdatePeriodMs int `tl:"online_update_period_ms"`
+	OnlineUpdatePeriodMs int
 	// Delay before offline status needs to be sent to the server
-	OfflineBlurTimeoutMs int `tl:"offline_blur_timeout_ms"`
+	OfflineBlurTimeoutMs int
 	// Time without any user activity after which it should be treated offline
-	OfflineIdleTimeoutMs int `tl:"offline_idle_timeout_ms"`
+	OfflineIdleTimeoutMs int
 	// If we are offline, but were online from some other client in last online_cloud_timeout_ms milliseconds after we had gone offline, then delay offline notification for notify_cloud_delay_ms milliseconds.
-	OnlineCloudTimeoutMs int `tl:"online_cloud_timeout_ms"`
+	OnlineCloudTimeoutMs int
 	// If we are offline, but online from some other client then delay sending the offline notification for notify_cloud_delay_ms milliseconds.
-	NotifyCloudDelayMs int `tl:"notify_cloud_delay_ms"`
+	NotifyCloudDelayMs int
 	// If some other client is online, then delay notification for notification_default_delay_ms milliseconds
-	NotifyDefaultDelayMs int `tl:"notify_default_delay_ms"`
+	NotifyDefaultDelayMs int
 	// Not for client use
-	PushChatPeriodMs int `tl:"push_chat_period_ms"`
+	PushChatPeriodMs int
 	// Not for client use
-	PushChatLimit int `tl:"push_chat_limit"`
+	PushChatLimit int
 	// Maximum count of saved gifs
-	SavedGifsLimit int `tl:"saved_gifs_limit"`
+	SavedGifsLimit int
 	// Only messages with age smaller than the one specified can be edited
-	EditTimeLimit int `tl:"edit_time_limit"`
+	EditTimeLimit int
 	// Only channel/supergroup messages with age smaller than the specified can be deleted
-	RevokeTimeLimit int `tl:"revoke_time_limit"`
+	RevokeTimeLimit int
 	// Only private messages with age smaller than the specified can be deleted
-	RevokePmTimeLimit int `tl:"revoke_pm_time_limit"`
+	RevokePmTimeLimit int
 	// Exponential decay rate for computing top peer rating¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/top-rating
-	RatingEDecay int `tl:"rating_e_decay"`
+	RatingEDecay int
 	// Maximum number of recent stickers
-	StickersRecentLimit int `tl:"stickers_recent_limit"`
+	StickersRecentLimit int
 	// Maximum number of faved stickers
-	StickersFavedLimit int `tl:"stickers_faved_limit"`
+	StickersFavedLimit int
 	// Indicates that round videos (video notes) and voice messages sent in channels and older than the specified period must be marked as read
-	ChannelsReadMediaPeriod int `tl:"channels_read_media_period"`
+	ChannelsReadMediaPeriod int
 	// Temporary passport¹ sessions
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetTmpSessions and GetTmpSessions helpers.
-	TmpSessions int `tl:"tmp_sessions"`
+	TmpSessions int
 	// Maximum count of pinned dialogs
-	PinnedDialogsCountMax int `tl:"pinned_dialogs_count_max"`
+	PinnedDialogsCountMax int
 	// Maximum count of dialogs per folder
-	PinnedInfolderCountMax int `tl:"pinned_infolder_count_max"`
+	PinnedInfolderCountMax int
 	// Maximum allowed outgoing ring time in VoIP calls: if the user we're calling doesn't reply within the specified time (in milliseconds), we should hang up the call
-	CallReceiveTimeoutMs int `tl:"call_receive_timeout_ms"`
+	CallReceiveTimeoutMs int
 	// Maximum allowed incoming ring time in VoIP calls: if the current user doesn't reply within the specified time (in milliseconds), the call will be automatically refused
-	CallRingTimeoutMs int `tl:"call_ring_timeout_ms"`
+	CallRingTimeoutMs int
 	// VoIP connection timeout: if the instance of libtgvoip on the other side of the call doesn't connect to our instance of libtgvoip within the specified time (in milliseconds), the call must be aborted
-	CallConnectTimeoutMs int `tl:"call_connect_timeout_ms"`
+	CallConnectTimeoutMs int
 	// If during a VoIP call a packet isn't received for the specified period of time, the call must be aborted
-	CallPacketTimeoutMs int `tl:"call_packet_timeout_ms"`
+	CallPacketTimeoutMs int
 	// The domain to use to parse in-app links.For example t.me indicates that t.me/username links should parsed to @username, t.me/addsticker/name should be parsed to the appropriate stickerset and so on...
-	MeURLPrefix string `tl:"me_url_prefix"`
+	MeURLPrefix string
 	// URL to use to auto-update the current app
 	//
 	// Use SetAutoupdateURLPrefix and GetAutoupdateURLPrefix helpers.
-	AutoupdateURLPrefix string `tl:"autoupdate_url_prefix"`
+	AutoupdateURLPrefix string
 	// Username of the bot to use to search for GIFs
 	//
 	// Use SetGifSearchUsername and GetGifSearchUsername helpers.
-	GifSearchUsername string `tl:"gif_search_username"`
+	GifSearchUsername string
 	// Username of the bot to use to search for venues
 	//
 	// Use SetVenueSearchUsername and GetVenueSearchUsername helpers.
-	VenueSearchUsername string `tl:"venue_search_username"`
+	VenueSearchUsername string
 	// Username of the bot to use for image search
 	//
 	// Use SetImgSearchUsername and GetImgSearchUsername helpers.
-	ImgSearchUsername string `tl:"img_search_username"`
+	ImgSearchUsername string
 	// ID of the map provider to use for venues
 	//
 	// Use SetStaticMapsProvider and GetStaticMapsProvider helpers.
-	StaticMapsProvider string `tl:"static_maps_provider"`
+	StaticMapsProvider string
 	// Maximum length of caption (length in utf8 codepoints)
-	CaptionLengthMax int `tl:"caption_length_max"`
+	CaptionLengthMax int
 	// Maximum length of messages (length in utf8 codepoints)
-	MessageLengthMax int `tl:"message_length_max"`
+	MessageLengthMax int
 	// DC ID to use to download webfiles¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files
-	WebfileDCID int `tl:"webfile_dc_id"`
+	WebfileDCID int
 	// Suggested language code
 	//
 	// Use SetSuggestedLangCode and GetSuggestedLangCode helpers.
-	SuggestedLangCode string `tl:"suggested_lang_code"`
+	SuggestedLangCode string
 	// Language pack version
 	//
 	// Use SetLangPackVersion and GetLangPackVersion helpers.
-	LangPackVersion int `tl:"lang_pack_version"`
+	LangPackVersion int
 	// Basic language pack version
 	//
 	// Use SetBaseLangPackVersion and GetBaseLangPackVersion helpers.
-	BaseLangPackVersion int `tl:"base_lang_pack_version"`
+	BaseLangPackVersion int
 }
 
 // ConfigTypeID is TL type id of Config.
@@ -495,13 +497,252 @@ func (c *Config) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *Config) TypeID() uint32 {
+func (*Config) TypeID() uint32 {
 	return ConfigTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *Config) TypeName() string {
+func (*Config) TypeName() string {
 	return "config"
+}
+
+// TypeInfo returns info about TL type.
+func (c *Config) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "config",
+		ID:   ConfigTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "PhonecallsEnabled",
+			SchemaName: "phonecalls_enabled",
+			Null:       !c.Flags.Has(1),
+		},
+		{
+			Name:       "DefaultP2PContacts",
+			SchemaName: "default_p2p_contacts",
+			Null:       !c.Flags.Has(3),
+		},
+		{
+			Name:       "PreloadFeaturedStickers",
+			SchemaName: "preload_featured_stickers",
+			Null:       !c.Flags.Has(4),
+		},
+		{
+			Name:       "IgnorePhoneEntities",
+			SchemaName: "ignore_phone_entities",
+			Null:       !c.Flags.Has(5),
+		},
+		{
+			Name:       "RevokePmInbox",
+			SchemaName: "revoke_pm_inbox",
+			Null:       !c.Flags.Has(6),
+		},
+		{
+			Name:       "BlockedMode",
+			SchemaName: "blocked_mode",
+			Null:       !c.Flags.Has(8),
+		},
+		{
+			Name:       "PFSEnabled",
+			SchemaName: "pfs_enabled",
+			Null:       !c.Flags.Has(13),
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "Expires",
+			SchemaName: "expires",
+		},
+		{
+			Name:       "TestMode",
+			SchemaName: "test_mode",
+		},
+		{
+			Name:       "ThisDC",
+			SchemaName: "this_dc",
+		},
+		{
+			Name:       "DCOptions",
+			SchemaName: "dc_options",
+		},
+		{
+			Name:       "DCTxtDomainName",
+			SchemaName: "dc_txt_domain_name",
+		},
+		{
+			Name:       "ChatSizeMax",
+			SchemaName: "chat_size_max",
+		},
+		{
+			Name:       "MegagroupSizeMax",
+			SchemaName: "megagroup_size_max",
+		},
+		{
+			Name:       "ForwardedCountMax",
+			SchemaName: "forwarded_count_max",
+		},
+		{
+			Name:       "OnlineUpdatePeriodMs",
+			SchemaName: "online_update_period_ms",
+		},
+		{
+			Name:       "OfflineBlurTimeoutMs",
+			SchemaName: "offline_blur_timeout_ms",
+		},
+		{
+			Name:       "OfflineIdleTimeoutMs",
+			SchemaName: "offline_idle_timeout_ms",
+		},
+		{
+			Name:       "OnlineCloudTimeoutMs",
+			SchemaName: "online_cloud_timeout_ms",
+		},
+		{
+			Name:       "NotifyCloudDelayMs",
+			SchemaName: "notify_cloud_delay_ms",
+		},
+		{
+			Name:       "NotifyDefaultDelayMs",
+			SchemaName: "notify_default_delay_ms",
+		},
+		{
+			Name:       "PushChatPeriodMs",
+			SchemaName: "push_chat_period_ms",
+		},
+		{
+			Name:       "PushChatLimit",
+			SchemaName: "push_chat_limit",
+		},
+		{
+			Name:       "SavedGifsLimit",
+			SchemaName: "saved_gifs_limit",
+		},
+		{
+			Name:       "EditTimeLimit",
+			SchemaName: "edit_time_limit",
+		},
+		{
+			Name:       "RevokeTimeLimit",
+			SchemaName: "revoke_time_limit",
+		},
+		{
+			Name:       "RevokePmTimeLimit",
+			SchemaName: "revoke_pm_time_limit",
+		},
+		{
+			Name:       "RatingEDecay",
+			SchemaName: "rating_e_decay",
+		},
+		{
+			Name:       "StickersRecentLimit",
+			SchemaName: "stickers_recent_limit",
+		},
+		{
+			Name:       "StickersFavedLimit",
+			SchemaName: "stickers_faved_limit",
+		},
+		{
+			Name:       "ChannelsReadMediaPeriod",
+			SchemaName: "channels_read_media_period",
+		},
+		{
+			Name:       "TmpSessions",
+			SchemaName: "tmp_sessions",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "PinnedDialogsCountMax",
+			SchemaName: "pinned_dialogs_count_max",
+		},
+		{
+			Name:       "PinnedInfolderCountMax",
+			SchemaName: "pinned_infolder_count_max",
+		},
+		{
+			Name:       "CallReceiveTimeoutMs",
+			SchemaName: "call_receive_timeout_ms",
+		},
+		{
+			Name:       "CallRingTimeoutMs",
+			SchemaName: "call_ring_timeout_ms",
+		},
+		{
+			Name:       "CallConnectTimeoutMs",
+			SchemaName: "call_connect_timeout_ms",
+		},
+		{
+			Name:       "CallPacketTimeoutMs",
+			SchemaName: "call_packet_timeout_ms",
+		},
+		{
+			Name:       "MeURLPrefix",
+			SchemaName: "me_url_prefix",
+		},
+		{
+			Name:       "AutoupdateURLPrefix",
+			SchemaName: "autoupdate_url_prefix",
+			Null:       !c.Flags.Has(7),
+		},
+		{
+			Name:       "GifSearchUsername",
+			SchemaName: "gif_search_username",
+			Null:       !c.Flags.Has(9),
+		},
+		{
+			Name:       "VenueSearchUsername",
+			SchemaName: "venue_search_username",
+			Null:       !c.Flags.Has(10),
+		},
+		{
+			Name:       "ImgSearchUsername",
+			SchemaName: "img_search_username",
+			Null:       !c.Flags.Has(11),
+		},
+		{
+			Name:       "StaticMapsProvider",
+			SchemaName: "static_maps_provider",
+			Null:       !c.Flags.Has(12),
+		},
+		{
+			Name:       "CaptionLengthMax",
+			SchemaName: "caption_length_max",
+		},
+		{
+			Name:       "MessageLengthMax",
+			SchemaName: "message_length_max",
+		},
+		{
+			Name:       "WebfileDCID",
+			SchemaName: "webfile_dc_id",
+		},
+		{
+			Name:       "SuggestedLangCode",
+			SchemaName: "suggested_lang_code",
+			Null:       !c.Flags.Has(2),
+		},
+		{
+			Name:       "LangPackVersion",
+			SchemaName: "lang_pack_version",
+			Null:       !c.Flags.Has(2),
+		},
+		{
+			Name:       "BaseLangPackVersion",
+			SchemaName: "base_lang_pack_version",
+			Null:       !c.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

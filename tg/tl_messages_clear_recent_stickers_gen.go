@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesClearRecentStickersRequest represents TL type `messages.clearRecentStickers#8999602d`.
 // Clear recent stickers
@@ -29,9 +31,9 @@ type MessagesClearRecentStickersRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Set this flag to clear the list of stickers recently attached to photo or video files
-	Attached bool `tl:"attached"`
+	Attached bool
 }
 
 // MessagesClearRecentStickersRequestTypeID is TL type id of MessagesClearRecentStickersRequest.
@@ -70,13 +72,37 @@ func (c *MessagesClearRecentStickersRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *MessagesClearRecentStickersRequest) TypeID() uint32 {
+func (*MessagesClearRecentStickersRequest) TypeID() uint32 {
 	return MessagesClearRecentStickersRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *MessagesClearRecentStickersRequest) TypeName() string {
+func (*MessagesClearRecentStickersRequest) TypeName() string {
 	return "messages.clearRecentStickers"
+}
+
+// TypeInfo returns info about TL type.
+func (c *MessagesClearRecentStickersRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.clearRecentStickers",
+		ID:   MessagesClearRecentStickersRequestTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Attached",
+			SchemaName: "attached",
+			Null:       !c.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

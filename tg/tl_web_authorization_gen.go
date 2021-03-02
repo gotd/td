@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // WebAuthorization represents TL type `webAuthorization#cac943f2`.
 // Represents a bot logged in using the Telegram login widget¹
@@ -29,23 +31,23 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/webAuthorization for reference.
 type WebAuthorization struct {
 	// Authorization hash
-	Hash int64 `tl:"hash"`
+	Hash int64
 	// Bot ID
-	BotID int `tl:"bot_id"`
+	BotID int
 	// The domain name of the website on which the user has logged in.
-	Domain string `tl:"domain"`
+	Domain string
 	// Browser user-agent
-	Browser string `tl:"browser"`
+	Browser string
 	// Platform
-	Platform string `tl:"platform"`
+	Platform string
 	// When was the web session created
-	DateCreated int `tl:"date_created"`
+	DateCreated int
 	// When was the web session last active
-	DateActive int `tl:"date_active"`
+	DateActive int
 	// IP address
-	IP string `tl:"ip"`
+	IP string
 	// Region, determined from IP address
-	Region string `tl:"region"`
+	Region string
 }
 
 // WebAuthorizationTypeID is TL type id of WebAuthorization.
@@ -121,13 +123,64 @@ func (w *WebAuthorization) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (w *WebAuthorization) TypeID() uint32 {
+func (*WebAuthorization) TypeID() uint32 {
 	return WebAuthorizationTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (w *WebAuthorization) TypeName() string {
+func (*WebAuthorization) TypeName() string {
 	return "webAuthorization"
+}
+
+// TypeInfo returns info about TL type.
+func (w *WebAuthorization) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "webAuthorization",
+		ID:   WebAuthorizationTypeID,
+	}
+	if w == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+		{
+			Name:       "BotID",
+			SchemaName: "bot_id",
+		},
+		{
+			Name:       "Domain",
+			SchemaName: "domain",
+		},
+		{
+			Name:       "Browser",
+			SchemaName: "browser",
+		},
+		{
+			Name:       "Platform",
+			SchemaName: "platform",
+		},
+		{
+			Name:       "DateCreated",
+			SchemaName: "date_created",
+		},
+		{
+			Name:       "DateActive",
+			SchemaName: "date_active",
+		},
+		{
+			Name:       "IP",
+			SchemaName: "ip",
+		},
+		{
+			Name:       "Region",
+			SchemaName: "region",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

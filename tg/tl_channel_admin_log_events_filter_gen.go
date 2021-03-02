@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelAdminLogEventsFilter represents TL type `channelAdminLogEventsFilter#ea107ae4`.
 // Filter only certain admin log events
@@ -29,52 +31,52 @@ type ChannelAdminLogEventsFilter struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Join events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantJoin
-	Join bool `tl:"join"`
+	Join bool
 	// Leave events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantLeave
-	Leave bool `tl:"leave"`
+	Leave bool
 	// Invite events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantInvite
-	Invite bool `tl:"invite"`
+	Invite bool
 	// Ban events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan
-	Ban bool `tl:"ban"`
+	Ban bool
 	// Unban events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan
-	Unban bool `tl:"unban"`
+	Unban bool
 	// Kick events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan
-	Kick bool `tl:"kick"`
+	Kick bool
 	// Unkick events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan
-	Unkick bool `tl:"unkick"`
+	Unkick bool
 	// Admin promotion events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleAdmin
-	Promote bool `tl:"promote"`
+	Promote bool
 	// Admin demotion events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleAdmin
-	Demote bool `tl:"demote"`
+	Demote bool
 	// Info change events (when about¹, linked chat², location³, photo⁴, stickerset⁵, title⁶ or username⁷ data of a channel gets modified)
 	//
 	// Links:
@@ -85,7 +87,7 @@ type ChannelAdminLogEventsFilter struct {
 	//  5) https://core.telegram.org/constructor/channelAdminLogEventActionChangeStickerSet
 	//  6) https://core.telegram.org/constructor/channelAdminLogEventActionChangeTitle
 	//  7) https://core.telegram.org/constructor/channelAdminLogEventActionChangeUsername
-	Info bool `tl:"info"`
+	Info bool
 	// Settings change events (invites¹, hidden prehistory², signatures³, default banned rights⁴)
 	//
 	// Links:
@@ -93,26 +95,26 @@ type ChannelAdminLogEventsFilter struct {
 	//  2) https://core.telegram.org/constructor/channelAdminLogEventActionTogglePreHistoryHidden
 	//  3) https://core.telegram.org/constructor/channelAdminLogEventActionToggleSignatures
 	//  4) https://core.telegram.org/constructor/channelAdminLogEventActionDefaultBannedRights
-	Settings bool `tl:"settings"`
+	Settings bool
 	// Message pin events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionUpdatePinned
-	Pinned bool `tl:"pinned"`
+	Pinned bool
 	// Message edit events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionEditMessage
-	Edit bool `tl:"edit"`
+	Edit bool
 	// Message deletion events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionDeleteMessage
-	Delete bool `tl:"delete"`
+	Delete bool
 	// GroupCall field of ChannelAdminLogEventsFilter.
-	GroupCall bool `tl:"group_call"`
+	GroupCall bool
 	// Invites field of ChannelAdminLogEventsFilter.
-	Invites bool `tl:"invites"`
+	Invites bool
 }
 
 // ChannelAdminLogEventsFilterTypeID is TL type id of ChannelAdminLogEventsFilter.
@@ -226,13 +228,112 @@ func (c *ChannelAdminLogEventsFilter) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventsFilter) TypeID() uint32 {
+func (*ChannelAdminLogEventsFilter) TypeID() uint32 {
 	return ChannelAdminLogEventsFilterTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventsFilter) TypeName() string {
+func (*ChannelAdminLogEventsFilter) TypeName() string {
 	return "channelAdminLogEventsFilter"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventsFilter) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventsFilter",
+		ID:   ChannelAdminLogEventsFilterTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Join",
+			SchemaName: "join",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "Leave",
+			SchemaName: "leave",
+			Null:       !c.Flags.Has(1),
+		},
+		{
+			Name:       "Invite",
+			SchemaName: "invite",
+			Null:       !c.Flags.Has(2),
+		},
+		{
+			Name:       "Ban",
+			SchemaName: "ban",
+			Null:       !c.Flags.Has(3),
+		},
+		{
+			Name:       "Unban",
+			SchemaName: "unban",
+			Null:       !c.Flags.Has(4),
+		},
+		{
+			Name:       "Kick",
+			SchemaName: "kick",
+			Null:       !c.Flags.Has(5),
+		},
+		{
+			Name:       "Unkick",
+			SchemaName: "unkick",
+			Null:       !c.Flags.Has(6),
+		},
+		{
+			Name:       "Promote",
+			SchemaName: "promote",
+			Null:       !c.Flags.Has(7),
+		},
+		{
+			Name:       "Demote",
+			SchemaName: "demote",
+			Null:       !c.Flags.Has(8),
+		},
+		{
+			Name:       "Info",
+			SchemaName: "info",
+			Null:       !c.Flags.Has(9),
+		},
+		{
+			Name:       "Settings",
+			SchemaName: "settings",
+			Null:       !c.Flags.Has(10),
+		},
+		{
+			Name:       "Pinned",
+			SchemaName: "pinned",
+			Null:       !c.Flags.Has(11),
+		},
+		{
+			Name:       "Edit",
+			SchemaName: "edit",
+			Null:       !c.Flags.Has(12),
+		},
+		{
+			Name:       "Delete",
+			SchemaName: "delete",
+			Null:       !c.Flags.Has(13),
+		},
+		{
+			Name:       "GroupCall",
+			SchemaName: "group_call",
+			Null:       !c.Flags.Has(14),
+		},
+		{
+			Name:       "Invites",
+			SchemaName: "invites",
+			Null:       !c.Flags.Has(15),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelsUpdateUsernameRequest represents TL type `channels.updateUsername#3514b3de`.
 // Change the username of a supergroup/channel
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/channels.updateUsername for reference.
 type ChannelsUpdateUsernameRequest struct {
 	// Channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// New username
-	Username string `tl:"username"`
+	Username string
 }
 
 // ChannelsUpdateUsernameRequestTypeID is TL type id of ChannelsUpdateUsernameRequest.
@@ -69,13 +71,36 @@ func (u *ChannelsUpdateUsernameRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *ChannelsUpdateUsernameRequest) TypeID() uint32 {
+func (*ChannelsUpdateUsernameRequest) TypeID() uint32 {
 	return ChannelsUpdateUsernameRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *ChannelsUpdateUsernameRequest) TypeName() string {
+func (*ChannelsUpdateUsernameRequest) TypeName() string {
 	return "channels.updateUsername"
+}
+
+// TypeInfo returns info about TL type.
+func (u *ChannelsUpdateUsernameRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channels.updateUsername",
+		ID:   ChannelsUpdateUsernameRequestTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Channel",
+			SchemaName: "channel",
+		},
+		{
+			Name:       "Username",
+			SchemaName: "username",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

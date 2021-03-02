@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChatOnlines represents TL type `chatOnlines#f041e250`.
 // Number of online users in a chat
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/chatOnlines for reference.
 type ChatOnlines struct {
 	// Number of online users
-	Onlines int `tl:"onlines"`
+	Onlines int
 }
 
 // ChatOnlinesTypeID is TL type id of ChatOnlines.
@@ -62,13 +64,32 @@ func (c *ChatOnlines) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChatOnlines) TypeID() uint32 {
+func (*ChatOnlines) TypeID() uint32 {
 	return ChatOnlinesTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChatOnlines) TypeName() string {
+func (*ChatOnlines) TypeName() string {
 	return "chatOnlines"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatOnlines) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatOnlines",
+		ID:   ChatOnlinesTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Onlines",
+			SchemaName: "onlines",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

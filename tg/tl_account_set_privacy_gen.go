@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountSetPrivacyRequest represents TL type `account.setPrivacy#c9f81ce8`.
 // Change privacy settings of current account
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/account.setPrivacy for reference.
 type AccountSetPrivacyRequest struct {
 	// Peers to which the privacy rules apply
-	Key InputPrivacyKeyClass `tl:"key"`
+	Key InputPrivacyKeyClass
 	// New privacy rules
-	Rules []InputPrivacyRuleClass `tl:"rules"`
+	Rules []InputPrivacyRuleClass
 }
 
 // AccountSetPrivacyRequestTypeID is TL type id of AccountSetPrivacyRequest.
@@ -69,13 +71,36 @@ func (s *AccountSetPrivacyRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *AccountSetPrivacyRequest) TypeID() uint32 {
+func (*AccountSetPrivacyRequest) TypeID() uint32 {
 	return AccountSetPrivacyRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *AccountSetPrivacyRequest) TypeName() string {
+func (*AccountSetPrivacyRequest) TypeName() string {
 	return "account.setPrivacy"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AccountSetPrivacyRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.setPrivacy",
+		ID:   AccountSetPrivacyRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Key",
+			SchemaName: "key",
+		},
+		{
+			Name:       "Rules",
+			SchemaName: "rules",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

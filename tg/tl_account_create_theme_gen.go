@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountCreateThemeRequest represents TL type `account.createTheme#8432c21f`.
 // Create a theme
@@ -29,19 +31,19 @@ type AccountCreateThemeRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Unique theme ID
-	Slug string `tl:"slug"`
+	Slug string
 	// Theme name
-	Title string `tl:"title"`
+	Title string
 	// Theme file
 	//
 	// Use SetDocument and GetDocument helpers.
-	Document InputDocumentClass `tl:"document"`
+	Document InputDocumentClass
 	// Theme settings
 	//
 	// Use SetSettings and GetSettings helpers.
-	Settings InputThemeSettings `tl:"settings"`
+	Settings InputThemeSettings
 }
 
 // AccountCreateThemeRequestTypeID is TL type id of AccountCreateThemeRequest.
@@ -101,13 +103,50 @@ func (c *AccountCreateThemeRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *AccountCreateThemeRequest) TypeID() uint32 {
+func (*AccountCreateThemeRequest) TypeID() uint32 {
 	return AccountCreateThemeRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *AccountCreateThemeRequest) TypeName() string {
+func (*AccountCreateThemeRequest) TypeName() string {
 	return "account.createTheme"
+}
+
+// TypeInfo returns info about TL type.
+func (c *AccountCreateThemeRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.createTheme",
+		ID:   AccountCreateThemeRequestTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Slug",
+			SchemaName: "slug",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "Document",
+			SchemaName: "document",
+			Null:       !c.Flags.Has(2),
+		},
+		{
+			Name:       "Settings",
+			SchemaName: "settings",
+			Null:       !c.Flags.Has(3),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

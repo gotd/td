@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HelpGetNearestDcRequest represents TL type `help.getNearestDc#1fb33026`.
 // Returns info on data centre nearest to the user.
@@ -50,13 +52,27 @@ func (g *HelpGetNearestDcRequest) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *HelpGetNearestDcRequest) TypeID() uint32 {
+func (*HelpGetNearestDcRequest) TypeID() uint32 {
 	return HelpGetNearestDcRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *HelpGetNearestDcRequest) TypeName() string {
+func (*HelpGetNearestDcRequest) TypeName() string {
 	return "help.getNearestDc"
+}
+
+// TypeInfo returns info about TL type.
+func (g *HelpGetNearestDcRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.getNearestDc",
+		ID:   HelpGetNearestDcRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

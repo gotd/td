@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesFoundStickerSetsNotModified represents TL type `messages.foundStickerSetsNotModified#d54b65d`.
 // No further results were found
@@ -50,13 +52,27 @@ func (f *MessagesFoundStickerSetsNotModified) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *MessagesFoundStickerSetsNotModified) TypeID() uint32 {
+func (*MessagesFoundStickerSetsNotModified) TypeID() uint32 {
 	return MessagesFoundStickerSetsNotModifiedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *MessagesFoundStickerSetsNotModified) TypeName() string {
+func (*MessagesFoundStickerSetsNotModified) TypeName() string {
 	return "messages.foundStickerSetsNotModified"
+}
+
+// TypeInfo returns info about TL type.
+func (f *MessagesFoundStickerSetsNotModified) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.foundStickerSetsNotModified",
+		ID:   MessagesFoundStickerSetsNotModifiedTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -99,9 +115,9 @@ type MessagesFoundStickerSets struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 	// Found stickersets
-	Sets []StickerSetCoveredClass `tl:"sets"`
+	Sets []StickerSetCoveredClass
 }
 
 // MessagesFoundStickerSetsTypeID is TL type id of MessagesFoundStickerSets.
@@ -142,13 +158,36 @@ func (f *MessagesFoundStickerSets) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *MessagesFoundStickerSets) TypeID() uint32 {
+func (*MessagesFoundStickerSets) TypeID() uint32 {
 	return MessagesFoundStickerSetsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *MessagesFoundStickerSets) TypeName() string {
+func (*MessagesFoundStickerSets) TypeName() string {
 	return "messages.foundStickerSets"
+}
+
+// TypeInfo returns info about TL type.
+func (f *MessagesFoundStickerSets) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.foundStickerSets",
+		ID:   MessagesFoundStickerSetsTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+		{
+			Name:       "Sets",
+			SchemaName: "sets",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

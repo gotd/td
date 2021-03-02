@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountDeleteSecureValueRequest represents TL type `account.deleteSecureValue#b880bc4b`.
 // Delete stored Telegram Passport¹ documents, for more info see the passport docs »²
@@ -30,7 +32,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/account.deleteSecureValue for reference.
 type AccountDeleteSecureValueRequest struct {
 	// Document types to delete
-	Types []SecureValueTypeClass `tl:"types"`
+	Types []SecureValueTypeClass
 }
 
 // AccountDeleteSecureValueRequestTypeID is TL type id of AccountDeleteSecureValueRequest.
@@ -66,13 +68,32 @@ func (d *AccountDeleteSecureValueRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *AccountDeleteSecureValueRequest) TypeID() uint32 {
+func (*AccountDeleteSecureValueRequest) TypeID() uint32 {
 	return AccountDeleteSecureValueRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *AccountDeleteSecureValueRequest) TypeName() string {
+func (*AccountDeleteSecureValueRequest) TypeName() string {
 	return "account.deleteSecureValue"
+}
+
+// TypeInfo returns info about TL type.
+func (d *AccountDeleteSecureValueRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.deleteSecureValue",
+		ID:   AccountDeleteSecureValueRequestTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Types",
+			SchemaName: "types",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

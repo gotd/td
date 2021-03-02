@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StatsGetBroadcastStatsRequest represents TL type `stats.getBroadcastStats#ab42441a`.
 // Get channel statistics¹
@@ -32,11 +34,11 @@ type StatsGetBroadcastStatsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to enable dark theme for graph colors
-	Dark bool `tl:"dark"`
+	Dark bool
 	// The channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 }
 
 // StatsGetBroadcastStatsRequestTypeID is TL type id of StatsGetBroadcastStatsRequest.
@@ -80,13 +82,41 @@ func (g *StatsGetBroadcastStatsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *StatsGetBroadcastStatsRequest) TypeID() uint32 {
+func (*StatsGetBroadcastStatsRequest) TypeID() uint32 {
 	return StatsGetBroadcastStatsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *StatsGetBroadcastStatsRequest) TypeName() string {
+func (*StatsGetBroadcastStatsRequest) TypeName() string {
 	return "stats.getBroadcastStats"
+}
+
+// TypeInfo returns info about TL type.
+func (g *StatsGetBroadcastStatsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "stats.getBroadcastStats",
+		ID:   StatsGetBroadcastStatsRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Dark",
+			SchemaName: "dark",
+			Null:       !g.Flags.Has(0),
+		},
+		{
+			Name:       "Channel",
+			SchemaName: "channel",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

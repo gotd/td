@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HelpTermsOfService represents TL type `help.termsOfService#780a0310`.
 // Info about the latest telegram Terms Of Service
@@ -29,22 +31,22 @@ type HelpTermsOfService struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether a prompt must be showed to the user, in order to accept the new terms.
-	Popup bool `tl:"popup"`
+	Popup bool
 	// ID of the new terms
-	ID DataJSON `tl:"id"`
+	ID DataJSON
 	// Text of the new terms
-	Text string `tl:"text"`
+	Text string
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
-	Entities []MessageEntityClass `tl:"entities"`
+	Entities []MessageEntityClass
 	// Minimum age required to sign up to telegram, the user must confirm that they is older than the minimum age.
 	//
 	// Use SetMinAgeConfirm and GetMinAgeConfirm helpers.
-	MinAgeConfirm int `tl:"min_age_confirm"`
+	MinAgeConfirm int
 }
 
 // HelpTermsOfServiceTypeID is TL type id of HelpTermsOfService.
@@ -106,13 +108,54 @@ func (t *HelpTermsOfService) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *HelpTermsOfService) TypeID() uint32 {
+func (*HelpTermsOfService) TypeID() uint32 {
 	return HelpTermsOfServiceTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *HelpTermsOfService) TypeName() string {
+func (*HelpTermsOfService) TypeName() string {
 	return "help.termsOfService"
+}
+
+// TypeInfo returns info about TL type.
+func (t *HelpTermsOfService) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.termsOfService",
+		ID:   HelpTermsOfServiceTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Popup",
+			SchemaName: "popup",
+			Null:       !t.Flags.Has(0),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
+			Name:       "Entities",
+			SchemaName: "entities",
+		},
+		{
+			Name:       "MinAgeConfirm",
+			SchemaName: "min_age_confirm",
+			Null:       !t.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

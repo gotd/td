@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // DoAuthRequest represents TL type `doAuth#fd2f6687`.
 //
@@ -49,13 +51,27 @@ func (d *DoAuthRequest) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DoAuthRequest) TypeID() uint32 {
+func (*DoAuthRequest) TypeID() uint32 {
 	return DoAuthRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DoAuthRequest) TypeName() string {
+func (*DoAuthRequest) TypeName() string {
 	return "doAuth"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DoAuthRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "doAuth",
+		ID:   DoAuthRequestTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

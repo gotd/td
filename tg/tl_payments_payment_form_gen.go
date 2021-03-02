@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PaymentsPaymentForm represents TL type `payments.paymentForm#3f56aea3`.
 // Payment form
@@ -29,41 +31,41 @@ type PaymentsPaymentForm struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the user can choose to save credentials.
-	CanSaveCredentials bool `tl:"can_save_credentials"`
+	CanSaveCredentials bool
 	// Indicates that the user can save payment credentials, but only after setting up a 2FA password¹ (currently the account doesn't have a 2FA password²)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
 	//  2) https://core.telegram.org/api/srp
-	PasswordMissing bool `tl:"password_missing"`
+	PasswordMissing bool
 	// Bot ID
-	BotID int `tl:"bot_id"`
+	BotID int
 	// Invoice
-	Invoice Invoice `tl:"invoice"`
+	Invoice Invoice
 	// Payment provider ID.
-	ProviderID int `tl:"provider_id"`
+	ProviderID int
 	// Payment form URL
-	URL string `tl:"url"`
+	URL string
 	// Payment provider name.One of the following:- stripe
 	//
 	// Use SetNativeProvider and GetNativeProvider helpers.
-	NativeProvider string `tl:"native_provider"`
+	NativeProvider string
 	// Contains information about the payment provider, if available, to support it natively without the need for opening the URL.A JSON object that can contain the following fields:- publishable_key: Stripe API publishable key- apple_pay_merchant_id: Apple Pay merchant ID- android_pay_public_key: Android Pay public key- android_pay_bgcolor: Android Pay form background color- android_pay_inverse: Whether to use the dark theme in the Android Pay form- need_country: True, if the user country must be provided,- need_zip: True, if the user ZIP/postal code must be provided,- need_cardholder_name: True, if the cardholder name must be provided
 	//
 	// Use SetNativeParams and GetNativeParams helpers.
-	NativeParams DataJSON `tl:"native_params"`
+	NativeParams DataJSON
 	// Saved server-side order information
 	//
 	// Use SetSavedInfo and GetSavedInfo helpers.
-	SavedInfo PaymentRequestedInfo `tl:"saved_info"`
+	SavedInfo PaymentRequestedInfo
 	// Contains information about saved card credentials
 	//
 	// Use SetSavedCredentials and GetSavedCredentials helpers.
-	SavedCredentials PaymentSavedCredentialsCard `tl:"saved_credentials"`
+	SavedCredentials PaymentSavedCredentialsCard
 	// Users
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // PaymentsPaymentFormTypeID is TL type id of PaymentsPaymentForm.
@@ -164,13 +166,82 @@ func (p *PaymentsPaymentForm) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PaymentsPaymentForm) TypeID() uint32 {
+func (*PaymentsPaymentForm) TypeID() uint32 {
 	return PaymentsPaymentFormTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PaymentsPaymentForm) TypeName() string {
+func (*PaymentsPaymentForm) TypeName() string {
 	return "payments.paymentForm"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PaymentsPaymentForm) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "payments.paymentForm",
+		ID:   PaymentsPaymentFormTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "CanSaveCredentials",
+			SchemaName: "can_save_credentials",
+			Null:       !p.Flags.Has(2),
+		},
+		{
+			Name:       "PasswordMissing",
+			SchemaName: "password_missing",
+			Null:       !p.Flags.Has(3),
+		},
+		{
+			Name:       "BotID",
+			SchemaName: "bot_id",
+		},
+		{
+			Name:       "Invoice",
+			SchemaName: "invoice",
+		},
+		{
+			Name:       "ProviderID",
+			SchemaName: "provider_id",
+		},
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+		{
+			Name:       "NativeProvider",
+			SchemaName: "native_provider",
+			Null:       !p.Flags.Has(4),
+		},
+		{
+			Name:       "NativeParams",
+			SchemaName: "native_params",
+			Null:       !p.Flags.Has(4),
+		},
+		{
+			Name:       "SavedInfo",
+			SchemaName: "saved_info",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "SavedCredentials",
+			SchemaName: "saved_credentials",
+			Null:       !p.Flags.Has(1),
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountUpdatePasswordSettingsRequest represents TL type `account.updatePasswordSettings#a59b102f`.
 // Set a new 2FA password
@@ -29,12 +31,12 @@ type AccountUpdatePasswordSettingsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	Password InputCheckPasswordSRPClass `tl:"password"`
+	Password InputCheckPasswordSRPClass
 	// The new password (see SRP¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	NewSettings AccountPasswordInputSettings `tl:"new_settings"`
+	NewSettings AccountPasswordInputSettings
 }
 
 // AccountUpdatePasswordSettingsRequestTypeID is TL type id of AccountUpdatePasswordSettingsRequest.
@@ -75,13 +77,36 @@ func (u *AccountUpdatePasswordSettingsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *AccountUpdatePasswordSettingsRequest) TypeID() uint32 {
+func (*AccountUpdatePasswordSettingsRequest) TypeID() uint32 {
 	return AccountUpdatePasswordSettingsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *AccountUpdatePasswordSettingsRequest) TypeName() string {
+func (*AccountUpdatePasswordSettingsRequest) TypeName() string {
 	return "account.updatePasswordSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (u *AccountUpdatePasswordSettingsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.updatePasswordSettings",
+		ID:   AccountUpdatePasswordSettingsRequestTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Password",
+			SchemaName: "password",
+		},
+		{
+			Name:       "NewSettings",
+			SchemaName: "new_settings",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

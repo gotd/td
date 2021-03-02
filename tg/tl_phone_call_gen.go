@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhoneCallEmpty represents TL type `phoneCallEmpty#5366c915`.
 // Empty constructor
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/phoneCallEmpty for reference.
 type PhoneCallEmpty struct {
 	// Call ID
-	ID int64 `tl:"id"`
+	ID int64
 }
 
 // PhoneCallEmptyTypeID is TL type id of PhoneCallEmpty.
@@ -62,13 +64,32 @@ func (p *PhoneCallEmpty) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhoneCallEmpty) TypeID() uint32 {
+func (*PhoneCallEmpty) TypeID() uint32 {
 	return PhoneCallEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhoneCallEmpty) TypeName() string {
+func (*PhoneCallEmpty) TypeName() string {
 	return "phoneCallEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhoneCallEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phoneCallEmpty",
+		ID:   PhoneCallEmptyTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -124,25 +145,25 @@ type PhoneCallWaiting struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Is this a video call
-	Video bool `tl:"video"`
+	Video bool
 	// Call ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// Date
-	Date int `tl:"date"`
+	Date int
 	// Admin ID
-	AdminID int `tl:"admin_id"`
+	AdminID int
 	// Participant ID
-	ParticipantID int `tl:"participant_id"`
+	ParticipantID int
 	// Phone call protocol info
-	Protocol PhoneCallProtocol `tl:"protocol"`
+	Protocol PhoneCallProtocol
 	// When was the phone call received
 	//
 	// Use SetReceiveDate and GetReceiveDate helpers.
-	ReceiveDate int `tl:"receive_date"`
+	ReceiveDate int
 }
 
 // PhoneCallWaitingTypeID is TL type id of PhoneCallWaiting.
@@ -219,13 +240,66 @@ func (p *PhoneCallWaiting) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhoneCallWaiting) TypeID() uint32 {
+func (*PhoneCallWaiting) TypeID() uint32 {
 	return PhoneCallWaitingTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhoneCallWaiting) TypeName() string {
+func (*PhoneCallWaiting) TypeName() string {
 	return "phoneCallWaiting"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhoneCallWaiting) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phoneCallWaiting",
+		ID:   PhoneCallWaitingTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Video",
+			SchemaName: "video",
+			Null:       !p.Flags.Has(6),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "AdminID",
+			SchemaName: "admin_id",
+		},
+		{
+			Name:       "ParticipantID",
+			SchemaName: "participant_id",
+		},
+		{
+			Name:       "Protocol",
+			SchemaName: "protocol",
+		},
+		{
+			Name:       "ReceiveDate",
+			SchemaName: "receive_date",
+			Null:       !p.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -402,26 +476,26 @@ type PhoneCallRequested struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether this is a video call
-	Video bool `tl:"video"`
+	Video bool
 	// Phone call ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// When was the phone call created
-	Date int `tl:"date"`
+	Date int
 	// ID of the creator of the phone call
-	AdminID int `tl:"admin_id"`
+	AdminID int
 	// ID of the other participant of the phone call
-	ParticipantID int `tl:"participant_id"`
+	ParticipantID int
 	// Parameter for key exchange¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/end-to-end/voice-calls
-	GAHash []byte `tl:"g_a_hash"`
+	GAHash []byte
 	// Call protocol info to be passed to libtgvoip
-	Protocol PhoneCallProtocol `tl:"protocol"`
+	Protocol PhoneCallProtocol
 }
 
 // PhoneCallRequestedTypeID is TL type id of PhoneCallRequested.
@@ -495,13 +569,65 @@ func (p *PhoneCallRequested) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhoneCallRequested) TypeID() uint32 {
+func (*PhoneCallRequested) TypeID() uint32 {
 	return PhoneCallRequestedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhoneCallRequested) TypeName() string {
+func (*PhoneCallRequested) TypeName() string {
 	return "phoneCallRequested"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhoneCallRequested) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phoneCallRequested",
+		ID:   PhoneCallRequestedTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Video",
+			SchemaName: "video",
+			Null:       !p.Flags.Has(6),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "AdminID",
+			SchemaName: "admin_id",
+		},
+		{
+			Name:       "ParticipantID",
+			SchemaName: "participant_id",
+		},
+		{
+			Name:       "GAHash",
+			SchemaName: "g_a_hash",
+		},
+		{
+			Name:       "Protocol",
+			SchemaName: "protocol",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -663,26 +789,26 @@ type PhoneCallAccepted struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether this is a video call
-	Video bool `tl:"video"`
+	Video bool
 	// ID of accepted phone call
-	ID int64 `tl:"id"`
+	ID int64
 	// Access hash of phone call
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// When was the call accepted
-	Date int `tl:"date"`
+	Date int
 	// ID of the call creator
-	AdminID int `tl:"admin_id"`
+	AdminID int
 	// ID of the other user in the call
-	ParticipantID int `tl:"participant_id"`
+	ParticipantID int
 	// B parameter for secure E2E phone call key exchange¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/end-to-end/voice-calls
-	GB []byte `tl:"g_b"`
+	GB []byte
 	// Protocol to use for phone call
-	Protocol PhoneCallProtocol `tl:"protocol"`
+	Protocol PhoneCallProtocol
 }
 
 // PhoneCallAcceptedTypeID is TL type id of PhoneCallAccepted.
@@ -756,13 +882,65 @@ func (p *PhoneCallAccepted) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhoneCallAccepted) TypeID() uint32 {
+func (*PhoneCallAccepted) TypeID() uint32 {
 	return PhoneCallAcceptedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhoneCallAccepted) TypeName() string {
+func (*PhoneCallAccepted) TypeName() string {
 	return "phoneCallAccepted"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhoneCallAccepted) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phoneCallAccepted",
+		ID:   PhoneCallAcceptedTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Video",
+			SchemaName: "video",
+			Null:       !p.Flags.Has(6),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "AdminID",
+			SchemaName: "admin_id",
+		},
+		{
+			Name:       "ParticipantID",
+			SchemaName: "participant_id",
+		},
+		{
+			Name:       "GB",
+			SchemaName: "g_b",
+		},
+		{
+			Name:       "Protocol",
+			SchemaName: "protocol",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -924,37 +1102,37 @@ type PhoneCall struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether P2P connection to the other peer is allowed
-	P2PAllowed bool `tl:"p2p_allowed"`
+	P2PAllowed bool
 	// Whether this is a video call
-	Video bool `tl:"video"`
+	Video bool
 	// Call ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// Date of creation of the call
-	Date int `tl:"date"`
+	Date int
 	// User ID of the creator of the call
-	AdminID int `tl:"admin_id"`
+	AdminID int
 	// User ID of the other participant in the call
-	ParticipantID int `tl:"participant_id"`
+	ParticipantID int
 	// Parameter for key exchange¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/end-to-end/voice-calls
-	GAOrB []byte `tl:"g_a_or_b"`
+	GAOrB []byte
 	// Key fingerprint¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/end-to-end/voice-calls
-	KeyFingerprint int64 `tl:"key_fingerprint"`
+	KeyFingerprint int64
 	// Call protocol info to be passed to libtgvoip
-	Protocol PhoneCallProtocol `tl:"protocol"`
+	Protocol PhoneCallProtocol
 	// List of endpoints the user can connect to to exchange call data
-	Connections []PhoneConnectionClass `tl:"connections"`
+	Connections []PhoneConnectionClass
 	// When was the call actually started
-	StartDate int `tl:"start_date"`
+	StartDate int
 }
 
 // PhoneCallTypeID is TL type id of PhoneCall.
@@ -1048,13 +1226,82 @@ func (p *PhoneCall) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhoneCall) TypeID() uint32 {
+func (*PhoneCall) TypeID() uint32 {
 	return PhoneCallTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhoneCall) TypeName() string {
+func (*PhoneCall) TypeName() string {
 	return "phoneCall"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhoneCall) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phoneCall",
+		ID:   PhoneCallTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "P2PAllowed",
+			SchemaName: "p2p_allowed",
+			Null:       !p.Flags.Has(5),
+		},
+		{
+			Name:       "Video",
+			SchemaName: "video",
+			Null:       !p.Flags.Has(6),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "AdminID",
+			SchemaName: "admin_id",
+		},
+		{
+			Name:       "ParticipantID",
+			SchemaName: "participant_id",
+		},
+		{
+			Name:       "GAOrB",
+			SchemaName: "g_a_or_b",
+		},
+		{
+			Name:       "KeyFingerprint",
+			SchemaName: "key_fingerprint",
+		},
+		{
+			Name:       "Protocol",
+			SchemaName: "protocol",
+		},
+		{
+			Name:       "Connections",
+			SchemaName: "connections",
+		},
+		{
+			Name:       "StartDate",
+			SchemaName: "start_date",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1294,29 +1541,29 @@ type PhoneCallDiscarded struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the server required the user to rate¹ the call
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/phone.setCallRating
-	NeedRating bool `tl:"need_rating"`
+	NeedRating bool
 	// Whether the server required the client to send¹ the libtgvoip call debug data
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/phone.saveCallDebug
-	NeedDebug bool `tl:"need_debug"`
+	NeedDebug bool
 	// Whether the call was a video call
-	Video bool `tl:"video"`
+	Video bool
 	// Call ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Why was the phone call discarded
 	//
 	// Use SetReason and GetReason helpers.
-	Reason PhoneCallDiscardReasonClass `tl:"reason"`
+	Reason PhoneCallDiscardReasonClass
 	// Duration of the phone call in seconds
 	//
 	// Use SetDuration and GetDuration helpers.
-	Duration int `tl:"duration"`
+	Duration int
 }
 
 // PhoneCallDiscardedTypeID is TL type id of PhoneCallDiscarded.
@@ -1386,13 +1633,61 @@ func (p *PhoneCallDiscarded) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhoneCallDiscarded) TypeID() uint32 {
+func (*PhoneCallDiscarded) TypeID() uint32 {
 	return PhoneCallDiscardedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhoneCallDiscarded) TypeName() string {
+func (*PhoneCallDiscarded) TypeName() string {
 	return "phoneCallDiscarded"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhoneCallDiscarded) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phoneCallDiscarded",
+		ID:   PhoneCallDiscardedTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "NeedRating",
+			SchemaName: "need_rating",
+			Null:       !p.Flags.Has(2),
+		},
+		{
+			Name:       "NeedDebug",
+			SchemaName: "need_debug",
+			Null:       !p.Flags.Has(3),
+		},
+		{
+			Name:       "Video",
+			SchemaName: "video",
+			Null:       !p.Flags.Has(6),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Reason",
+			SchemaName: "reason",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "Duration",
+			SchemaName: "duration",
+			Null:       !p.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

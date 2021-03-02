@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetDialogFiltersRequest represents TL type `messages.getDialogFilters#f19ed96d`.
 // Get folders¹
@@ -53,13 +55,27 @@ func (g *MessagesGetDialogFiltersRequest) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetDialogFiltersRequest) TypeID() uint32 {
+func (*MessagesGetDialogFiltersRequest) TypeID() uint32 {
 	return MessagesGetDialogFiltersRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetDialogFiltersRequest) TypeName() string {
+func (*MessagesGetDialogFiltersRequest) TypeName() string {
 	return "messages.getDialogFilters"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetDialogFiltersRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getDialogFilters",
+		ID:   MessagesGetDialogFiltersRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

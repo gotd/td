@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // LangPackString represents TL type `langPackString#cad181f6`.
 // Translated localization string
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/langPackString for reference.
 type LangPackString struct {
 	// Language key
-	Key string `tl:"key"`
+	Key string
 	// Value
-	Value string `tl:"value"`
+	Value string
 }
 
 // LangPackStringTypeID is TL type id of LangPackString.
@@ -69,13 +71,36 @@ func (l *LangPackString) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (l *LangPackString) TypeID() uint32 {
+func (*LangPackString) TypeID() uint32 {
 	return LangPackStringTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (l *LangPackString) TypeName() string {
+func (*LangPackString) TypeName() string {
 	return "langPackString"
+}
+
+// TypeInfo returns info about TL type.
+func (l *LangPackString) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "langPackString",
+		ID:   LangPackStringTypeID,
+	}
+	if l == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Key",
+			SchemaName: "key",
+		},
+		{
+			Name:       "Value",
+			SchemaName: "value",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -147,31 +172,31 @@ type LangPackStringPluralized struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Localization key
-	Key string `tl:"key"`
+	Key string
 	// Value for zero objects
 	//
 	// Use SetZeroValue and GetZeroValue helpers.
-	ZeroValue string `tl:"zero_value"`
+	ZeroValue string
 	// Value for one object
 	//
 	// Use SetOneValue and GetOneValue helpers.
-	OneValue string `tl:"one_value"`
+	OneValue string
 	// Value for two objects
 	//
 	// Use SetTwoValue and GetTwoValue helpers.
-	TwoValue string `tl:"two_value"`
+	TwoValue string
 	// Value for a few objects
 	//
 	// Use SetFewValue and GetFewValue helpers.
-	FewValue string `tl:"few_value"`
+	FewValue string
 	// Value for many objects
 	//
 	// Use SetManyValue and GetManyValue helpers.
-	ManyValue string `tl:"many_value"`
+	ManyValue string
 	// Default value
-	OtherValue string `tl:"other_value"`
+	OtherValue string
 }
 
 // LangPackStringPluralizedTypeID is TL type id of LangPackStringPluralized.
@@ -255,13 +280,65 @@ func (l *LangPackStringPluralized) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (l *LangPackStringPluralized) TypeID() uint32 {
+func (*LangPackStringPluralized) TypeID() uint32 {
 	return LangPackStringPluralizedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (l *LangPackStringPluralized) TypeName() string {
+func (*LangPackStringPluralized) TypeName() string {
 	return "langPackStringPluralized"
+}
+
+// TypeInfo returns info about TL type.
+func (l *LangPackStringPluralized) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "langPackStringPluralized",
+		ID:   LangPackStringPluralizedTypeID,
+	}
+	if l == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Key",
+			SchemaName: "key",
+		},
+		{
+			Name:       "ZeroValue",
+			SchemaName: "zero_value",
+			Null:       !l.Flags.Has(0),
+		},
+		{
+			Name:       "OneValue",
+			SchemaName: "one_value",
+			Null:       !l.Flags.Has(1),
+		},
+		{
+			Name:       "TwoValue",
+			SchemaName: "two_value",
+			Null:       !l.Flags.Has(2),
+		},
+		{
+			Name:       "FewValue",
+			SchemaName: "few_value",
+			Null:       !l.Flags.Has(3),
+		},
+		{
+			Name:       "ManyValue",
+			SchemaName: "many_value",
+			Null:       !l.Flags.Has(4),
+		},
+		{
+			Name:       "OtherValue",
+			SchemaName: "other_value",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -475,7 +552,7 @@ var (
 // See https://core.telegram.org/constructor/langPackStringDeleted for reference.
 type LangPackStringDeleted struct {
 	// Localization key
-	Key string `tl:"key"`
+	Key string
 }
 
 // LangPackStringDeletedTypeID is TL type id of LangPackStringDeleted.
@@ -511,13 +588,32 @@ func (l *LangPackStringDeleted) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (l *LangPackStringDeleted) TypeID() uint32 {
+func (*LangPackStringDeleted) TypeID() uint32 {
 	return LangPackStringDeletedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (l *LangPackStringDeleted) TypeName() string {
+func (*LangPackStringDeleted) TypeName() string {
 	return "langPackStringDeleted"
+}
+
+// TypeInfo returns info about TL type.
+func (l *LangPackStringDeleted) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "langPackStringDeleted",
+		ID:   LangPackStringDeletedTypeID,
+	}
+	if l == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Key",
+			SchemaName: "key",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InvokeWithoutUpdatesRequest represents TL type `invokeWithoutUpdates#bf9459b7`.
 // Invoke a request without subscribing the used connection for updates¹ (this is enabled by default for file queries²).
@@ -30,7 +32,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/invokeWithoutUpdates for reference.
 type InvokeWithoutUpdatesRequest struct {
 	// The query
-	Query bin.Object `tl:"query"`
+	Query bin.Object
 }
 
 // InvokeWithoutUpdatesRequestTypeID is TL type id of InvokeWithoutUpdatesRequest.
@@ -66,13 +68,32 @@ func (i *InvokeWithoutUpdatesRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InvokeWithoutUpdatesRequest) TypeID() uint32 {
+func (*InvokeWithoutUpdatesRequest) TypeID() uint32 {
 	return InvokeWithoutUpdatesRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InvokeWithoutUpdatesRequest) TypeName() string {
+func (*InvokeWithoutUpdatesRequest) TypeName() string {
 	return "invokeWithoutUpdates"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InvokeWithoutUpdatesRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "invokeWithoutUpdates",
+		ID:   InvokeWithoutUpdatesRequestTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Query",
+			SchemaName: "query",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // RecentMeUrlUnknown represents TL type `recentMeUrlUnknown#46e1d13d`.
 // Unknown t.me url
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/recentMeUrlUnknown for reference.
 type RecentMeUrlUnknown struct {
 	// URL
-	URL string `tl:"url"`
+	URL string
 }
 
 // RecentMeUrlUnknownTypeID is TL type id of RecentMeUrlUnknown.
@@ -62,13 +64,32 @@ func (r *RecentMeUrlUnknown) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *RecentMeUrlUnknown) TypeID() uint32 {
+func (*RecentMeUrlUnknown) TypeID() uint32 {
 	return RecentMeUrlUnknownTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *RecentMeUrlUnknown) TypeName() string {
+func (*RecentMeUrlUnknown) TypeName() string {
 	return "recentMeUrlUnknown"
+}
+
+// TypeInfo returns info about TL type.
+func (r *RecentMeUrlUnknown) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "recentMeUrlUnknown",
+		ID:   RecentMeUrlUnknownTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -121,9 +142,9 @@ var (
 // See https://core.telegram.org/constructor/recentMeUrlUser for reference.
 type RecentMeUrlUser struct {
 	// URL
-	URL string `tl:"url"`
+	URL string
 	// User ID
-	UserID int `tl:"user_id"`
+	UserID int
 }
 
 // RecentMeUrlUserTypeID is TL type id of RecentMeUrlUser.
@@ -164,13 +185,36 @@ func (r *RecentMeUrlUser) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *RecentMeUrlUser) TypeID() uint32 {
+func (*RecentMeUrlUser) TypeID() uint32 {
 	return RecentMeUrlUserTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *RecentMeUrlUser) TypeName() string {
+func (*RecentMeUrlUser) TypeName() string {
 	return "recentMeUrlUser"
+}
+
+// TypeInfo returns info about TL type.
+func (r *RecentMeUrlUser) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "recentMeUrlUser",
+		ID:   RecentMeUrlUserTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -236,9 +280,9 @@ var (
 // See https://core.telegram.org/constructor/recentMeUrlChat for reference.
 type RecentMeUrlChat struct {
 	// t.me URL
-	URL string `tl:"url"`
+	URL string
 	// Chat ID
-	ChatID int `tl:"chat_id"`
+	ChatID int
 }
 
 // RecentMeUrlChatTypeID is TL type id of RecentMeUrlChat.
@@ -279,13 +323,36 @@ func (r *RecentMeUrlChat) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *RecentMeUrlChat) TypeID() uint32 {
+func (*RecentMeUrlChat) TypeID() uint32 {
 	return RecentMeUrlChatTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *RecentMeUrlChat) TypeName() string {
+func (*RecentMeUrlChat) TypeName() string {
 	return "recentMeUrlChat"
+}
+
+// TypeInfo returns info about TL type.
+func (r *RecentMeUrlChat) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "recentMeUrlChat",
+		ID:   RecentMeUrlChatTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -351,9 +418,9 @@ var (
 // See https://core.telegram.org/constructor/recentMeUrlChatInvite for reference.
 type RecentMeUrlChatInvite struct {
 	// t.me URL
-	URL string `tl:"url"`
+	URL string
 	// Chat invitation
-	ChatInvite ChatInviteClass `tl:"chat_invite"`
+	ChatInvite ChatInviteClass
 }
 
 // RecentMeUrlChatInviteTypeID is TL type id of RecentMeUrlChatInvite.
@@ -394,13 +461,36 @@ func (r *RecentMeUrlChatInvite) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *RecentMeUrlChatInvite) TypeID() uint32 {
+func (*RecentMeUrlChatInvite) TypeID() uint32 {
 	return RecentMeUrlChatInviteTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *RecentMeUrlChatInvite) TypeName() string {
+func (*RecentMeUrlChatInvite) TypeName() string {
 	return "recentMeUrlChatInvite"
+}
+
+// TypeInfo returns info about TL type.
+func (r *RecentMeUrlChatInvite) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "recentMeUrlChatInvite",
+		ID:   RecentMeUrlChatInviteTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+		{
+			Name:       "ChatInvite",
+			SchemaName: "chat_invite",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -471,9 +561,9 @@ var (
 // See https://core.telegram.org/constructor/recentMeUrlStickerSet for reference.
 type RecentMeUrlStickerSet struct {
 	// t.me URL
-	URL string `tl:"url"`
+	URL string
 	// Stickerset
-	Set StickerSetCoveredClass `tl:"set"`
+	Set StickerSetCoveredClass
 }
 
 // RecentMeUrlStickerSetTypeID is TL type id of RecentMeUrlStickerSet.
@@ -514,13 +604,36 @@ func (r *RecentMeUrlStickerSet) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *RecentMeUrlStickerSet) TypeID() uint32 {
+func (*RecentMeUrlStickerSet) TypeID() uint32 {
 	return RecentMeUrlStickerSetTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *RecentMeUrlStickerSet) TypeName() string {
+func (*RecentMeUrlStickerSet) TypeName() string {
 	return "recentMeUrlStickerSet"
+}
+
+// TypeInfo returns info about TL type.
+func (r *RecentMeUrlStickerSet) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "recentMeUrlStickerSet",
+		ID:   RecentMeUrlStickerSetTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+		{
+			Name:       "Set",
+			SchemaName: "set",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

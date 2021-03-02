@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSetBotShippingResultsRequest represents TL type `messages.setBotShippingResults#e5f672fa`.
 // If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the bot will receive an updateBotShippingQuery¹ update. Use this method to reply to shipping queries.
@@ -32,17 +34,17 @@ type MessagesSetBotShippingResultsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Unique identifier for the query to be answered
-	QueryID int64 `tl:"query_id"`
+	QueryID int64
 	// Error message in human readable form that explains why it is impossible to complete the order (e.g. "Sorry, delivery to your desired address is unavailable'). Telegram will display this message to the user.
 	//
 	// Use SetError and GetError helpers.
-	Error string `tl:"error"`
+	Error string
 	// A vector of available shipping options.
 	//
 	// Use SetShippingOptions and GetShippingOptions helpers.
-	ShippingOptions []ShippingOption `tl:"shipping_options"`
+	ShippingOptions []ShippingOption
 }
 
 // MessagesSetBotShippingResultsRequestTypeID is TL type id of MessagesSetBotShippingResultsRequest.
@@ -97,13 +99,46 @@ func (s *MessagesSetBotShippingResultsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSetBotShippingResultsRequest) TypeID() uint32 {
+func (*MessagesSetBotShippingResultsRequest) TypeID() uint32 {
 	return MessagesSetBotShippingResultsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSetBotShippingResultsRequest) TypeName() string {
+func (*MessagesSetBotShippingResultsRequest) TypeName() string {
 	return "messages.setBotShippingResults"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSetBotShippingResultsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.setBotShippingResults",
+		ID:   MessagesSetBotShippingResultsRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "QueryID",
+			SchemaName: "query_id",
+		},
+		{
+			Name:       "Error",
+			SchemaName: "error",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "ShippingOptions",
+			SchemaName: "shipping_options",
+			Null:       !s.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

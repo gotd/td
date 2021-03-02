@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // UserEmpty represents TL type `userEmpty#200250ba`.
 // Empty constructor, non-existent user.
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/userEmpty for reference.
 type UserEmpty struct {
 	// User identifier or 0
-	ID int `tl:"id"`
+	ID int
 }
 
 // UserEmptyTypeID is TL type id of UserEmpty.
@@ -62,13 +64,32 @@ func (u *UserEmpty) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UserEmpty) TypeID() uint32 {
+func (*UserEmpty) TypeID() uint32 {
 	return UserEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UserEmpty) TypeName() string {
+func (*UserEmpty) TypeName() string {
 	return "userEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UserEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "userEmpty",
+		ID:   UserEmptyTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -124,89 +145,89 @@ type User struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether this user indicates the currently logged in user
-	Self bool `tl:"self"`
+	Self bool
 	// Whether this user is a contact
-	Contact bool `tl:"contact"`
+	Contact bool
 	// Whether this user is a mutual contact
-	MutualContact bool `tl:"mutual_contact"`
+	MutualContact bool
 	// Whether the account of this user was deleted
-	Deleted bool `tl:"deleted"`
+	Deleted bool
 	// Is this user a bot?
-	Bot bool `tl:"bot"`
+	Bot bool
 	// Can the bot see all messages in groups?
-	BotChatHistory bool `tl:"bot_chat_history"`
+	BotChatHistory bool
 	// Can the bot be added to groups?
-	BotNochats bool `tl:"bot_nochats"`
+	BotNochats bool
 	// Whether this user is verified
-	Verified bool `tl:"verified"`
+	Verified bool
 	// Access to this user must be restricted for the reason specified in restriction_reason
-	Restricted bool `tl:"restricted"`
+	Restricted bool
 	// See min¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/min
-	Min bool `tl:"min"`
+	Min bool
 	// Whether the bot can request our geolocation in inline mode
-	BotInlineGeo bool `tl:"bot_inline_geo"`
+	BotInlineGeo bool
 	// Whether this is an official support user
-	Support bool `tl:"support"`
+	Support bool
 	// This may be a scam user
-	Scam bool `tl:"scam"`
+	Scam bool
 	// If set, the profile picture for this user should be refetched
-	ApplyMinPhoto bool `tl:"apply_min_photo"`
+	ApplyMinPhoto bool
 	// Fake field of User.
-	Fake bool `tl:"fake"`
+	Fake bool
 	// ID of the user
-	ID int `tl:"id"`
+	ID int
 	// Access hash of the user
 	//
 	// Use SetAccessHash and GetAccessHash helpers.
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// First name
 	//
 	// Use SetFirstName and GetFirstName helpers.
-	FirstName string `tl:"first_name"`
+	FirstName string
 	// Last name
 	//
 	// Use SetLastName and GetLastName helpers.
-	LastName string `tl:"last_name"`
+	LastName string
 	// Username
 	//
 	// Use SetUsername and GetUsername helpers.
-	Username string `tl:"username"`
+	Username string
 	// Phone number
 	//
 	// Use SetPhone and GetPhone helpers.
-	Phone string `tl:"phone"`
+	Phone string
 	// Profile picture of user
 	//
 	// Use SetPhoto and GetPhoto helpers.
-	Photo UserProfilePhotoClass `tl:"photo"`
+	Photo UserProfilePhotoClass
 	// Online status of user
 	//
 	// Use SetStatus and GetStatus helpers.
-	Status UserStatusClass `tl:"status"`
+	Status UserStatusClass
 	// Version of the bot_info field in userFull¹, incremented every time it changes
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/userFull
 	//
 	// Use SetBotInfoVersion and GetBotInfoVersion helpers.
-	BotInfoVersion int `tl:"bot_info_version"`
+	BotInfoVersion int
 	// Contains the reason why access to this user must be restricted.
 	//
 	// Use SetRestrictionReason and GetRestrictionReason helpers.
-	RestrictionReason []RestrictionReason `tl:"restriction_reason"`
+	RestrictionReason []RestrictionReason
 	// Inline placeholder for this inline bot
 	//
 	// Use SetBotInlinePlaceholder and GetBotInlinePlaceholder helpers.
-	BotInlinePlaceholder string `tl:"bot_inline_placeholder"`
+	BotInlinePlaceholder string
 	// Language code of the user
 	//
 	// Use SetLangCode and GetLangCode helpers.
-	LangCode string `tl:"lang_code"`
+	LangCode string
 }
 
 // UserTypeID is TL type id of User.
@@ -408,13 +429,166 @@ func (u *User) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *User) TypeID() uint32 {
+func (*User) TypeID() uint32 {
 	return UserTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *User) TypeName() string {
+func (*User) TypeName() string {
 	return "user"
+}
+
+// TypeInfo returns info about TL type.
+func (u *User) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "user",
+		ID:   UserTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Self",
+			SchemaName: "self",
+			Null:       !u.Flags.Has(10),
+		},
+		{
+			Name:       "Contact",
+			SchemaName: "contact",
+			Null:       !u.Flags.Has(11),
+		},
+		{
+			Name:       "MutualContact",
+			SchemaName: "mutual_contact",
+			Null:       !u.Flags.Has(12),
+		},
+		{
+			Name:       "Deleted",
+			SchemaName: "deleted",
+			Null:       !u.Flags.Has(13),
+		},
+		{
+			Name:       "Bot",
+			SchemaName: "bot",
+			Null:       !u.Flags.Has(14),
+		},
+		{
+			Name:       "BotChatHistory",
+			SchemaName: "bot_chat_history",
+			Null:       !u.Flags.Has(15),
+		},
+		{
+			Name:       "BotNochats",
+			SchemaName: "bot_nochats",
+			Null:       !u.Flags.Has(16),
+		},
+		{
+			Name:       "Verified",
+			SchemaName: "verified",
+			Null:       !u.Flags.Has(17),
+		},
+		{
+			Name:       "Restricted",
+			SchemaName: "restricted",
+			Null:       !u.Flags.Has(18),
+		},
+		{
+			Name:       "Min",
+			SchemaName: "min",
+			Null:       !u.Flags.Has(20),
+		},
+		{
+			Name:       "BotInlineGeo",
+			SchemaName: "bot_inline_geo",
+			Null:       !u.Flags.Has(21),
+		},
+		{
+			Name:       "Support",
+			SchemaName: "support",
+			Null:       !u.Flags.Has(23),
+		},
+		{
+			Name:       "Scam",
+			SchemaName: "scam",
+			Null:       !u.Flags.Has(24),
+		},
+		{
+			Name:       "ApplyMinPhoto",
+			SchemaName: "apply_min_photo",
+			Null:       !u.Flags.Has(25),
+		},
+		{
+			Name:       "Fake",
+			SchemaName: "fake",
+			Null:       !u.Flags.Has(26),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "FirstName",
+			SchemaName: "first_name",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "LastName",
+			SchemaName: "last_name",
+			Null:       !u.Flags.Has(2),
+		},
+		{
+			Name:       "Username",
+			SchemaName: "username",
+			Null:       !u.Flags.Has(3),
+		},
+		{
+			Name:       "Phone",
+			SchemaName: "phone",
+			Null:       !u.Flags.Has(4),
+		},
+		{
+			Name:       "Photo",
+			SchemaName: "photo",
+			Null:       !u.Flags.Has(5),
+		},
+		{
+			Name:       "Status",
+			SchemaName: "status",
+			Null:       !u.Flags.Has(6),
+		},
+		{
+			Name:       "BotInfoVersion",
+			SchemaName: "bot_info_version",
+			Null:       !u.Flags.Has(14),
+		},
+		{
+			Name:       "RestrictionReason",
+			SchemaName: "restriction_reason",
+			Null:       !u.Flags.Has(18),
+		},
+		{
+			Name:       "BotInlinePlaceholder",
+			SchemaName: "bot_inline_placeholder",
+			Null:       !u.Flags.Has(19),
+		},
+		{
+			Name:       "LangCode",
+			SchemaName: "lang_code",
+			Null:       !u.Flags.Has(22),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

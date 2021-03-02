@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountGetWebAuthorizationsRequest represents TL type `account.getWebAuthorizations#182e6d6f`.
 // Get web login widget¹ authorizations
@@ -53,13 +55,27 @@ func (g *AccountGetWebAuthorizationsRequest) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *AccountGetWebAuthorizationsRequest) TypeID() uint32 {
+func (*AccountGetWebAuthorizationsRequest) TypeID() uint32 {
 	return AccountGetWebAuthorizationsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *AccountGetWebAuthorizationsRequest) TypeName() string {
+func (*AccountGetWebAuthorizationsRequest) TypeName() string {
 	return "account.getWebAuthorizations"
+}
+
+// TypeInfo returns info about TL type.
+func (g *AccountGetWebAuthorizationsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.getWebAuthorizations",
+		ID:   AccountGetWebAuthorizationsRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

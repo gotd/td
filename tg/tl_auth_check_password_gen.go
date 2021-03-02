@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AuthCheckPasswordRequest represents TL type `auth.checkPassword#d18b4d16`.
 // Try logging to an account protected by a 2FA password¹.
@@ -32,7 +34,7 @@ type AuthCheckPasswordRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	Password InputCheckPasswordSRPClass `tl:"password"`
+	Password InputCheckPasswordSRPClass
 }
 
 // AuthCheckPasswordRequestTypeID is TL type id of AuthCheckPasswordRequest.
@@ -68,13 +70,32 @@ func (c *AuthCheckPasswordRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *AuthCheckPasswordRequest) TypeID() uint32 {
+func (*AuthCheckPasswordRequest) TypeID() uint32 {
 	return AuthCheckPasswordRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *AuthCheckPasswordRequest) TypeName() string {
+func (*AuthCheckPasswordRequest) TypeName() string {
 	return "auth.checkPassword"
+}
+
+// TypeInfo returns info about TL type.
+func (c *AuthCheckPasswordRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.checkPassword",
+		ID:   AuthCheckPasswordRequestTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Password",
+			SchemaName: "password",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

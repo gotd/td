@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountUpdateProfileRequest represents TL type `account.updateProfile#78515775`.
 // Updates user profile.
@@ -29,19 +31,19 @@ type AccountUpdateProfileRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// New user first name
 	//
 	// Use SetFirstName and GetFirstName helpers.
-	FirstName string `tl:"first_name"`
+	FirstName string
 	// New user last name
 	//
 	// Use SetLastName and GetLastName helpers.
-	LastName string `tl:"last_name"`
+	LastName string
 	// New bio
 	//
 	// Use SetAbout and GetAbout helpers.
-	About string `tl:"about"`
+	About string
 }
 
 // AccountUpdateProfileRequestTypeID is TL type id of AccountUpdateProfileRequest.
@@ -99,13 +101,47 @@ func (u *AccountUpdateProfileRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *AccountUpdateProfileRequest) TypeID() uint32 {
+func (*AccountUpdateProfileRequest) TypeID() uint32 {
 	return AccountUpdateProfileRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *AccountUpdateProfileRequest) TypeName() string {
+func (*AccountUpdateProfileRequest) TypeName() string {
 	return "account.updateProfile"
+}
+
+// TypeInfo returns info about TL type.
+func (u *AccountUpdateProfileRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.updateProfile",
+		ID:   AccountUpdateProfileRequestTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "FirstName",
+			SchemaName: "first_name",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "LastName",
+			SchemaName: "last_name",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "About",
+			SchemaName: "about",
+			Null:       !u.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

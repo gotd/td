@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,21 +20,22 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ServerDHInnerData represents TL type `server_DH_inner_data#b5890dba`.
 type ServerDHInnerData struct {
 	// Nonce field of ServerDHInnerData.
-	Nonce bin.Int128 `tl:"nonce"`
+	Nonce bin.Int128
 	// ServerNonce field of ServerDHInnerData.
-	ServerNonce bin.Int128 `tl:"server_nonce"`
+	ServerNonce bin.Int128
 	// G field of ServerDHInnerData.
-	G int `tl:"g"`
+	G int
 	// DhPrime field of ServerDHInnerData.
-	DhPrime []byte `tl:"dh_prime"`
+	DhPrime []byte
 	// GA field of ServerDHInnerData.
-	GA []byte `tl:"g_a"`
+	GA []byte
 	// ServerTime field of ServerDHInnerData.
-	ServerTime int `tl:"server_time"`
+	ServerTime int
 }
 
 // ServerDHInnerDataTypeID is TL type id of ServerDHInnerData.
@@ -94,13 +96,52 @@ func (s *ServerDHInnerData) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *ServerDHInnerData) TypeID() uint32 {
+func (*ServerDHInnerData) TypeID() uint32 {
 	return ServerDHInnerDataTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *ServerDHInnerData) TypeName() string {
+func (*ServerDHInnerData) TypeName() string {
 	return "server_DH_inner_data"
+}
+
+// TypeInfo returns info about TL type.
+func (s *ServerDHInnerData) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "server_DH_inner_data",
+		ID:   ServerDHInnerDataTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Nonce",
+			SchemaName: "nonce",
+		},
+		{
+			Name:       "ServerNonce",
+			SchemaName: "server_nonce",
+		},
+		{
+			Name:       "G",
+			SchemaName: "g",
+		},
+		{
+			Name:       "DhPrime",
+			SchemaName: "dh_prime",
+		},
+		{
+			Name:       "GA",
+			SchemaName: "g_a",
+		},
+		{
+			Name:       "ServerTime",
+			SchemaName: "server_time",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

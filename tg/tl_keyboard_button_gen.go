@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // KeyboardButton represents TL type `keyboardButton#a2fa4880`.
 // Bot keyboard button
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/keyboardButton for reference.
 type KeyboardButton struct {
 	// Button text
-	Text string `tl:"text"`
+	Text string
 }
 
 // KeyboardButtonTypeID is TL type id of KeyboardButton.
@@ -62,13 +64,32 @@ func (k *KeyboardButton) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (k *KeyboardButton) TypeID() uint32 {
+func (*KeyboardButton) TypeID() uint32 {
 	return KeyboardButtonTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (k *KeyboardButton) TypeName() string {
+func (*KeyboardButton) TypeName() string {
 	return "keyboardButton"
+}
+
+// TypeInfo returns info about TL type.
+func (k *KeyboardButton) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "keyboardButton",
+		ID:   KeyboardButtonTypeID,
+	}
+	if k == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -121,9 +142,9 @@ var (
 // See https://core.telegram.org/constructor/keyboardButtonUrl for reference.
 type KeyboardButtonUrl struct {
 	// Button label
-	Text string `tl:"text"`
+	Text string
 	// URL
-	URL string `tl:"url"`
+	URL string
 }
 
 // KeyboardButtonUrlTypeID is TL type id of KeyboardButtonUrl.
@@ -164,13 +185,36 @@ func (k *KeyboardButtonUrl) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (k *KeyboardButtonUrl) TypeID() uint32 {
+func (*KeyboardButtonUrl) TypeID() uint32 {
 	return KeyboardButtonUrlTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (k *KeyboardButtonUrl) TypeName() string {
+func (*KeyboardButtonUrl) TypeName() string {
 	return "keyboardButtonUrl"
+}
+
+// TypeInfo returns info about TL type.
+func (k *KeyboardButtonUrl) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "keyboardButtonUrl",
+		ID:   KeyboardButtonUrlTypeID,
+	}
+	if k == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -239,7 +283,7 @@ type KeyboardButtonCallback struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the user should verify his identity by entering his 2FA SRP parameters¹ to the messages.getBotCallbackAnswer² method. NOTE: telegram and the bot WILL NOT have access to the plaintext password, thanks to SRP³. This button is mainly used by the official @botfather⁴ bot, for verifying the user's identity before transferring ownership of a bot to another user.
 	//
 	// Links:
@@ -247,11 +291,11 @@ type KeyboardButtonCallback struct {
 	//  2) https://core.telegram.org/method/messages.getBotCallbackAnswer
 	//  3) https://core.telegram.org/api/srp
 	//  4) https://t.me/botfather
-	RequiresPassword bool `tl:"requires_password"`
+	RequiresPassword bool
 	// Button text
-	Text string `tl:"text"`
+	Text string
 	// Callback data
-	Data []byte `tl:"data"`
+	Data []byte
 }
 
 // KeyboardButtonCallbackTypeID is TL type id of KeyboardButtonCallback.
@@ -300,13 +344,45 @@ func (k *KeyboardButtonCallback) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (k *KeyboardButtonCallback) TypeID() uint32 {
+func (*KeyboardButtonCallback) TypeID() uint32 {
 	return KeyboardButtonCallbackTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (k *KeyboardButtonCallback) TypeName() string {
+func (*KeyboardButtonCallback) TypeName() string {
 	return "keyboardButtonCallback"
+}
+
+// TypeInfo returns info about TL type.
+func (k *KeyboardButtonCallback) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "keyboardButtonCallback",
+		ID:   KeyboardButtonCallbackTypeID,
+	}
+	if k == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "RequiresPassword",
+			SchemaName: "requires_password",
+			Null:       !k.Flags.Has(0),
+		},
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
+			Name:       "Data",
+			SchemaName: "data",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -400,7 +476,7 @@ var (
 // See https://core.telegram.org/constructor/keyboardButtonRequestPhone for reference.
 type KeyboardButtonRequestPhone struct {
 	// Button text
-	Text string `tl:"text"`
+	Text string
 }
 
 // KeyboardButtonRequestPhoneTypeID is TL type id of KeyboardButtonRequestPhone.
@@ -436,13 +512,32 @@ func (k *KeyboardButtonRequestPhone) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (k *KeyboardButtonRequestPhone) TypeID() uint32 {
+func (*KeyboardButtonRequestPhone) TypeID() uint32 {
 	return KeyboardButtonRequestPhoneTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (k *KeyboardButtonRequestPhone) TypeName() string {
+func (*KeyboardButtonRequestPhone) TypeName() string {
 	return "keyboardButtonRequestPhone"
+}
+
+// TypeInfo returns info about TL type.
+func (k *KeyboardButtonRequestPhone) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "keyboardButtonRequestPhone",
+		ID:   KeyboardButtonRequestPhoneTypeID,
+	}
+	if k == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -495,7 +590,7 @@ var (
 // See https://core.telegram.org/constructor/keyboardButtonRequestGeoLocation for reference.
 type KeyboardButtonRequestGeoLocation struct {
 	// Button text
-	Text string `tl:"text"`
+	Text string
 }
 
 // KeyboardButtonRequestGeoLocationTypeID is TL type id of KeyboardButtonRequestGeoLocation.
@@ -531,13 +626,32 @@ func (k *KeyboardButtonRequestGeoLocation) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (k *KeyboardButtonRequestGeoLocation) TypeID() uint32 {
+func (*KeyboardButtonRequestGeoLocation) TypeID() uint32 {
 	return KeyboardButtonRequestGeoLocationTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (k *KeyboardButtonRequestGeoLocation) TypeName() string {
+func (*KeyboardButtonRequestGeoLocation) TypeName() string {
 	return "keyboardButtonRequestGeoLocation"
+}
+
+// TypeInfo returns info about TL type.
+func (k *KeyboardButtonRequestGeoLocation) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "keyboardButtonRequestGeoLocation",
+		ID:   KeyboardButtonRequestGeoLocationTypeID,
+	}
+	if k == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -593,13 +707,13 @@ type KeyboardButtonSwitchInline struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// If set, pressing the button will insert the bot‘s username and the specified inline query in the current chat's input field.
-	SamePeer bool `tl:"same_peer"`
+	SamePeer bool
 	// Button label
-	Text string `tl:"text"`
+	Text string
 	// The inline query to use
-	Query string `tl:"query"`
+	Query string
 }
 
 // KeyboardButtonSwitchInlineTypeID is TL type id of KeyboardButtonSwitchInline.
@@ -648,13 +762,45 @@ func (k *KeyboardButtonSwitchInline) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (k *KeyboardButtonSwitchInline) TypeID() uint32 {
+func (*KeyboardButtonSwitchInline) TypeID() uint32 {
 	return KeyboardButtonSwitchInlineTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (k *KeyboardButtonSwitchInline) TypeName() string {
+func (*KeyboardButtonSwitchInline) TypeName() string {
 	return "keyboardButtonSwitchInline"
+}
+
+// TypeInfo returns info about TL type.
+func (k *KeyboardButtonSwitchInline) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "keyboardButtonSwitchInline",
+		ID:   KeyboardButtonSwitchInlineTypeID,
+	}
+	if k == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "SamePeer",
+			SchemaName: "same_peer",
+			Null:       !k.Flags.Has(0),
+		},
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
+			Name:       "Query",
+			SchemaName: "query",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -748,7 +894,7 @@ var (
 // See https://core.telegram.org/constructor/keyboardButtonGame for reference.
 type KeyboardButtonGame struct {
 	// Button text
-	Text string `tl:"text"`
+	Text string
 }
 
 // KeyboardButtonGameTypeID is TL type id of KeyboardButtonGame.
@@ -784,13 +930,32 @@ func (k *KeyboardButtonGame) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (k *KeyboardButtonGame) TypeID() uint32 {
+func (*KeyboardButtonGame) TypeID() uint32 {
 	return KeyboardButtonGameTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (k *KeyboardButtonGame) TypeName() string {
+func (*KeyboardButtonGame) TypeName() string {
 	return "keyboardButtonGame"
+}
+
+// TypeInfo returns info about TL type.
+func (k *KeyboardButtonGame) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "keyboardButtonGame",
+		ID:   KeyboardButtonGameTypeID,
+	}
+	if k == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -843,7 +1008,7 @@ var (
 // See https://core.telegram.org/constructor/keyboardButtonBuy for reference.
 type KeyboardButtonBuy struct {
 	// Button text
-	Text string `tl:"text"`
+	Text string
 }
 
 // KeyboardButtonBuyTypeID is TL type id of KeyboardButtonBuy.
@@ -879,13 +1044,32 @@ func (k *KeyboardButtonBuy) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (k *KeyboardButtonBuy) TypeID() uint32 {
+func (*KeyboardButtonBuy) TypeID() uint32 {
 	return KeyboardButtonBuyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (k *KeyboardButtonBuy) TypeName() string {
+func (*KeyboardButtonBuy) TypeName() string {
 	return "keyboardButtonBuy"
+}
+
+// TypeInfo returns info about TL type.
+func (k *KeyboardButtonBuy) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "keyboardButtonBuy",
+		ID:   KeyboardButtonBuyTypeID,
+	}
+	if k == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -949,24 +1133,24 @@ type KeyboardButtonUrlAuth struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Button label
-	Text string `tl:"text"`
+	Text string
 	// New text of the button in forwarded messages.
 	//
 	// Use SetFwdText and GetFwdText helpers.
-	FwdText string `tl:"fwd_text"`
+	FwdText string
 	// An HTTP URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in Receiving authorization data¹.NOTE: Services must always check the hash of the received data to verify the authentication and the integrity of the data as described in Checking authorization².
 	//
 	// Links:
 	//  1) https://core.telegram.org/widgets/login#receiving-authorization-data
 	//  2) https://core.telegram.org/widgets/login#checking-authorization
-	URL string `tl:"url"`
+	URL string
 	// ID of the button to pass to messages.requestUrlAuth¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.requestUrlAuth
-	ButtonID int `tl:"button_id"`
+	ButtonID int
 }
 
 // KeyboardButtonUrlAuthTypeID is TL type id of KeyboardButtonUrlAuth.
@@ -1023,13 +1207,49 @@ func (k *KeyboardButtonUrlAuth) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (k *KeyboardButtonUrlAuth) TypeID() uint32 {
+func (*KeyboardButtonUrlAuth) TypeID() uint32 {
 	return KeyboardButtonUrlAuthTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (k *KeyboardButtonUrlAuth) TypeName() string {
+func (*KeyboardButtonUrlAuth) TypeName() string {
 	return "keyboardButtonUrlAuth"
+}
+
+// TypeInfo returns info about TL type.
+func (k *KeyboardButtonUrlAuth) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "keyboardButtonUrlAuth",
+		ID:   KeyboardButtonUrlAuthTypeID,
+	}
+	if k == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
+			Name:       "FwdText",
+			SchemaName: "fwd_text",
+			Null:       !k.Flags.Has(0),
+		},
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+		{
+			Name:       "ButtonID",
+			SchemaName: "button_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1151,27 +1371,27 @@ type InputKeyboardButtonUrlAuth struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Set this flag to request the permission for your bot to send messages to the user.
-	RequestWriteAccess bool `tl:"request_write_access"`
+	RequestWriteAccess bool
 	// Button text
-	Text string `tl:"text"`
+	Text string
 	// New text of the button in forwarded messages.
 	//
 	// Use SetFwdText and GetFwdText helpers.
-	FwdText string `tl:"fwd_text"`
+	FwdText string
 	// An HTTP URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in Receiving authorization data¹.NOTE: You must always check the hash of the received data to verify the authentication and the integrity of the data as described in Checking authorization².
 	//
 	// Links:
 	//  1) https://core.telegram.org/widgets/login#receiving-authorization-data
 	//  2) https://core.telegram.org/widgets/login#checking-authorization
-	URL string `tl:"url"`
+	URL string
 	// Username of a bot, which will be used for user authorization. See Setting up a bot¹ for more details. If not specified, the current bot's username will be assumed. The url's domain must be the same as the domain linked with the bot. See Linking your domain to the bot² for more details.
 	//
 	// Links:
 	//  1) https://core.telegram.org/widgets/login#setting-up-a-bot
 	//  2) https://core.telegram.org/widgets/login#linking-your-domain-to-the-bot
-	Bot InputUserClass `tl:"bot"`
+	Bot InputUserClass
 }
 
 // InputKeyboardButtonUrlAuthTypeID is TL type id of InputKeyboardButtonUrlAuth.
@@ -1233,13 +1453,54 @@ func (i *InputKeyboardButtonUrlAuth) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputKeyboardButtonUrlAuth) TypeID() uint32 {
+func (*InputKeyboardButtonUrlAuth) TypeID() uint32 {
 	return InputKeyboardButtonUrlAuthTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputKeyboardButtonUrlAuth) TypeName() string {
+func (*InputKeyboardButtonUrlAuth) TypeName() string {
 	return "inputKeyboardButtonUrlAuth"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputKeyboardButtonUrlAuth) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputKeyboardButtonUrlAuth",
+		ID:   InputKeyboardButtonUrlAuthTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "RequestWriteAccess",
+			SchemaName: "request_write_access",
+			Null:       !i.Flags.Has(0),
+		},
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
+			Name:       "FwdText",
+			SchemaName: "fwd_text",
+			Null:       !i.Flags.Has(1),
+		},
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+		{
+			Name:       "Bot",
+			SchemaName: "bot",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1382,13 +1643,13 @@ type KeyboardButtonRequestPoll struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// If set, only quiz polls can be sent
 	//
 	// Use SetQuiz and GetQuiz helpers.
-	Quiz bool `tl:"quiz"`
+	Quiz bool
 	// Button text
-	Text string `tl:"text"`
+	Text string
 }
 
 // KeyboardButtonRequestPollTypeID is TL type id of KeyboardButtonRequestPoll.
@@ -1435,13 +1696,41 @@ func (k *KeyboardButtonRequestPoll) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (k *KeyboardButtonRequestPoll) TypeID() uint32 {
+func (*KeyboardButtonRequestPoll) TypeID() uint32 {
 	return KeyboardButtonRequestPollTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (k *KeyboardButtonRequestPoll) TypeName() string {
+func (*KeyboardButtonRequestPoll) TypeName() string {
 	return "keyboardButtonRequestPoll"
+}
+
+// TypeInfo returns info about TL type.
+func (k *KeyboardButtonRequestPoll) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "keyboardButtonRequestPoll",
+		ID:   KeyboardButtonRequestPollTypeID,
+	}
+	if k == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Quiz",
+			SchemaName: "quiz",
+			Null:       !k.Flags.Has(0),
+		},
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

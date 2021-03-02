@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StatsMessageStats represents TL type `stats.messageStats#8999f295`.
 // Message statistics
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/stats.messageStats for reference.
 type StatsMessageStats struct {
 	// Message view graph
-	ViewsGraph StatsGraphClass `tl:"views_graph"`
+	ViewsGraph StatsGraphClass
 }
 
 // StatsMessageStatsTypeID is TL type id of StatsMessageStats.
@@ -62,13 +64,32 @@ func (m *StatsMessageStats) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *StatsMessageStats) TypeID() uint32 {
+func (*StatsMessageStats) TypeID() uint32 {
 	return StatsMessageStatsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *StatsMessageStats) TypeName() string {
+func (*StatsMessageStats) TypeName() string {
 	return "stats.messageStats"
+}
+
+// TypeInfo returns info about TL type.
+func (m *StatsMessageStats) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "stats.messageStats",
+		ID:   StatsMessageStatsTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ViewsGraph",
+			SchemaName: "views_graph",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

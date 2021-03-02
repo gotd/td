@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountSendVerifyEmailCodeRequest represents TL type `account.sendVerifyEmailCode#7011509f`.
 // Send the verification email code for telegram passport¹.
@@ -29,7 +31,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/account.sendVerifyEmailCode for reference.
 type AccountSendVerifyEmailCodeRequest struct {
 	// The email where to send the code
-	Email string `tl:"email"`
+	Email string
 }
 
 // AccountSendVerifyEmailCodeRequestTypeID is TL type id of AccountSendVerifyEmailCodeRequest.
@@ -65,13 +67,32 @@ func (s *AccountSendVerifyEmailCodeRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *AccountSendVerifyEmailCodeRequest) TypeID() uint32 {
+func (*AccountSendVerifyEmailCodeRequest) TypeID() uint32 {
 	return AccountSendVerifyEmailCodeRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *AccountSendVerifyEmailCodeRequest) TypeName() string {
+func (*AccountSendVerifyEmailCodeRequest) TypeName() string {
 	return "account.sendVerifyEmailCode"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AccountSendVerifyEmailCodeRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.sendVerifyEmailCode",
+		ID:   AccountSendVerifyEmailCodeRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Email",
+			SchemaName: "email",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

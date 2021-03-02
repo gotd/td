@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelAdminLogEventActionChangeTitle represents TL type `channelAdminLogEventActionChangeTitle#e6dfb825`.
 // Channel/supergroup title was changed
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeTitle for reference.
 type ChannelAdminLogEventActionChangeTitle struct {
 	// Previous title
-	PrevValue string `tl:"prev_value"`
+	PrevValue string
 	// New title
-	NewValue string `tl:"new_value"`
+	NewValue string
 }
 
 // ChannelAdminLogEventActionChangeTitleTypeID is TL type id of ChannelAdminLogEventActionChangeTitle.
@@ -69,13 +71,36 @@ func (c *ChannelAdminLogEventActionChangeTitle) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionChangeTitle) TypeID() uint32 {
+func (*ChannelAdminLogEventActionChangeTitle) TypeID() uint32 {
 	return ChannelAdminLogEventActionChangeTitleTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionChangeTitle) TypeName() string {
+func (*ChannelAdminLogEventActionChangeTitle) TypeName() string {
 	return "channelAdminLogEventActionChangeTitle"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionChangeTitle) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionChangeTitle",
+		ID:   ChannelAdminLogEventActionChangeTitleTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PrevValue",
+			SchemaName: "prev_value",
+		},
+		{
+			Name:       "NewValue",
+			SchemaName: "new_value",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -141,9 +166,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeAbout for reference.
 type ChannelAdminLogEventActionChangeAbout struct {
 	// Previous description
-	PrevValue string `tl:"prev_value"`
+	PrevValue string
 	// New description
-	NewValue string `tl:"new_value"`
+	NewValue string
 }
 
 // ChannelAdminLogEventActionChangeAboutTypeID is TL type id of ChannelAdminLogEventActionChangeAbout.
@@ -184,13 +209,36 @@ func (c *ChannelAdminLogEventActionChangeAbout) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionChangeAbout) TypeID() uint32 {
+func (*ChannelAdminLogEventActionChangeAbout) TypeID() uint32 {
 	return ChannelAdminLogEventActionChangeAboutTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionChangeAbout) TypeName() string {
+func (*ChannelAdminLogEventActionChangeAbout) TypeName() string {
 	return "channelAdminLogEventActionChangeAbout"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionChangeAbout) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionChangeAbout",
+		ID:   ChannelAdminLogEventActionChangeAboutTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PrevValue",
+			SchemaName: "prev_value",
+		},
+		{
+			Name:       "NewValue",
+			SchemaName: "new_value",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -256,9 +304,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeUsername for reference.
 type ChannelAdminLogEventActionChangeUsername struct {
 	// Old username
-	PrevValue string `tl:"prev_value"`
+	PrevValue string
 	// New username
-	NewValue string `tl:"new_value"`
+	NewValue string
 }
 
 // ChannelAdminLogEventActionChangeUsernameTypeID is TL type id of ChannelAdminLogEventActionChangeUsername.
@@ -299,13 +347,36 @@ func (c *ChannelAdminLogEventActionChangeUsername) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionChangeUsername) TypeID() uint32 {
+func (*ChannelAdminLogEventActionChangeUsername) TypeID() uint32 {
 	return ChannelAdminLogEventActionChangeUsernameTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionChangeUsername) TypeName() string {
+func (*ChannelAdminLogEventActionChangeUsername) TypeName() string {
 	return "channelAdminLogEventActionChangeUsername"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionChangeUsername) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionChangeUsername",
+		ID:   ChannelAdminLogEventActionChangeUsernameTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PrevValue",
+			SchemaName: "prev_value",
+		},
+		{
+			Name:       "NewValue",
+			SchemaName: "new_value",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -373,9 +444,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangePhoto for reference.
 type ChannelAdminLogEventActionChangePhoto struct {
 	// Previous picture
-	PrevPhoto PhotoClass `tl:"prev_photo"`
+	PrevPhoto PhotoClass
 	// New picture
-	NewPhoto PhotoClass `tl:"new_photo"`
+	NewPhoto PhotoClass
 }
 
 // ChannelAdminLogEventActionChangePhotoTypeID is TL type id of ChannelAdminLogEventActionChangePhoto.
@@ -416,13 +487,36 @@ func (c *ChannelAdminLogEventActionChangePhoto) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionChangePhoto) TypeID() uint32 {
+func (*ChannelAdminLogEventActionChangePhoto) TypeID() uint32 {
 	return ChannelAdminLogEventActionChangePhotoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionChangePhoto) TypeName() string {
+func (*ChannelAdminLogEventActionChangePhoto) TypeName() string {
 	return "channelAdminLogEventActionChangePhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionChangePhoto) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionChangePhoto",
+		ID:   ChannelAdminLogEventActionChangePhotoTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PrevPhoto",
+			SchemaName: "prev_photo",
+		},
+		{
+			Name:       "NewPhoto",
+			SchemaName: "new_photo",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -498,7 +592,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleInvites for reference.
 type ChannelAdminLogEventActionToggleInvites struct {
 	// New value
-	NewValue bool `tl:"new_value"`
+	NewValue bool
 }
 
 // ChannelAdminLogEventActionToggleInvitesTypeID is TL type id of ChannelAdminLogEventActionToggleInvites.
@@ -534,13 +628,32 @@ func (c *ChannelAdminLogEventActionToggleInvites) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionToggleInvites) TypeID() uint32 {
+func (*ChannelAdminLogEventActionToggleInvites) TypeID() uint32 {
 	return ChannelAdminLogEventActionToggleInvitesTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionToggleInvites) TypeName() string {
+func (*ChannelAdminLogEventActionToggleInvites) TypeName() string {
 	return "channelAdminLogEventActionToggleInvites"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionToggleInvites) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionToggleInvites",
+		ID:   ChannelAdminLogEventActionToggleInvitesTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "NewValue",
+			SchemaName: "new_value",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -595,7 +708,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleSignatures for reference.
 type ChannelAdminLogEventActionToggleSignatures struct {
 	// New value
-	NewValue bool `tl:"new_value"`
+	NewValue bool
 }
 
 // ChannelAdminLogEventActionToggleSignaturesTypeID is TL type id of ChannelAdminLogEventActionToggleSignatures.
@@ -631,13 +744,32 @@ func (c *ChannelAdminLogEventActionToggleSignatures) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionToggleSignatures) TypeID() uint32 {
+func (*ChannelAdminLogEventActionToggleSignatures) TypeID() uint32 {
 	return ChannelAdminLogEventActionToggleSignaturesTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionToggleSignatures) TypeName() string {
+func (*ChannelAdminLogEventActionToggleSignatures) TypeName() string {
 	return "channelAdminLogEventActionToggleSignatures"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionToggleSignatures) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionToggleSignatures",
+		ID:   ChannelAdminLogEventActionToggleSignaturesTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "NewValue",
+			SchemaName: "new_value",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -692,7 +824,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionUpdatePinned for reference.
 type ChannelAdminLogEventActionUpdatePinned struct {
 	// The message that was pinned
-	Message MessageClass `tl:"message"`
+	Message MessageClass
 }
 
 // ChannelAdminLogEventActionUpdatePinnedTypeID is TL type id of ChannelAdminLogEventActionUpdatePinned.
@@ -728,13 +860,32 @@ func (c *ChannelAdminLogEventActionUpdatePinned) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionUpdatePinned) TypeID() uint32 {
+func (*ChannelAdminLogEventActionUpdatePinned) TypeID() uint32 {
 	return ChannelAdminLogEventActionUpdatePinnedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionUpdatePinned) TypeName() string {
+func (*ChannelAdminLogEventActionUpdatePinned) TypeName() string {
 	return "channelAdminLogEventActionUpdatePinned"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionUpdatePinned) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionUpdatePinned",
+		ID:   ChannelAdminLogEventActionUpdatePinnedTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -794,9 +945,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionEditMessage for reference.
 type ChannelAdminLogEventActionEditMessage struct {
 	// Old message
-	PrevMessage MessageClass `tl:"prev_message"`
+	PrevMessage MessageClass
 	// New message
-	NewMessage MessageClass `tl:"new_message"`
+	NewMessage MessageClass
 }
 
 // ChannelAdminLogEventActionEditMessageTypeID is TL type id of ChannelAdminLogEventActionEditMessage.
@@ -837,13 +988,36 @@ func (c *ChannelAdminLogEventActionEditMessage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionEditMessage) TypeID() uint32 {
+func (*ChannelAdminLogEventActionEditMessage) TypeID() uint32 {
 	return ChannelAdminLogEventActionEditMessageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionEditMessage) TypeName() string {
+func (*ChannelAdminLogEventActionEditMessage) TypeName() string {
 	return "channelAdminLogEventActionEditMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionEditMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionEditMessage",
+		ID:   ChannelAdminLogEventActionEditMessageTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PrevMessage",
+			SchemaName: "prev_message",
+		},
+		{
+			Name:       "NewMessage",
+			SchemaName: "new_message",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -919,7 +1093,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionDeleteMessage for reference.
 type ChannelAdminLogEventActionDeleteMessage struct {
 	// The message that was deleted
-	Message MessageClass `tl:"message"`
+	Message MessageClass
 }
 
 // ChannelAdminLogEventActionDeleteMessageTypeID is TL type id of ChannelAdminLogEventActionDeleteMessage.
@@ -955,13 +1129,32 @@ func (c *ChannelAdminLogEventActionDeleteMessage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionDeleteMessage) TypeID() uint32 {
+func (*ChannelAdminLogEventActionDeleteMessage) TypeID() uint32 {
 	return ChannelAdminLogEventActionDeleteMessageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionDeleteMessage) TypeName() string {
+func (*ChannelAdminLogEventActionDeleteMessage) TypeName() string {
 	return "channelAdminLogEventActionDeleteMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionDeleteMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionDeleteMessage",
+		ID:   ChannelAdminLogEventActionDeleteMessageTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1045,13 +1238,27 @@ func (c *ChannelAdminLogEventActionParticipantJoin) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionParticipantJoin) TypeID() uint32 {
+func (*ChannelAdminLogEventActionParticipantJoin) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantJoinTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionParticipantJoin) TypeName() string {
+func (*ChannelAdminLogEventActionParticipantJoin) TypeName() string {
 	return "channelAdminLogEventActionParticipantJoin"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionParticipantJoin) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionParticipantJoin",
+		ID:   ChannelAdminLogEventActionParticipantJoinTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1117,13 +1324,27 @@ func (c *ChannelAdminLogEventActionParticipantLeave) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionParticipantLeave) TypeID() uint32 {
+func (*ChannelAdminLogEventActionParticipantLeave) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantLeaveTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionParticipantLeave) TypeName() string {
+func (*ChannelAdminLogEventActionParticipantLeave) TypeName() string {
 	return "channelAdminLogEventActionParticipantLeave"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionParticipantLeave) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionParticipantLeave",
+		ID:   ChannelAdminLogEventActionParticipantLeaveTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1165,7 +1386,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantInvite for reference.
 type ChannelAdminLogEventActionParticipantInvite struct {
 	// The user that was invited
-	Participant ChannelParticipantClass `tl:"participant"`
+	Participant ChannelParticipantClass
 }
 
 // ChannelAdminLogEventActionParticipantInviteTypeID is TL type id of ChannelAdminLogEventActionParticipantInvite.
@@ -1201,13 +1422,32 @@ func (c *ChannelAdminLogEventActionParticipantInvite) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionParticipantInvite) TypeID() uint32 {
+func (*ChannelAdminLogEventActionParticipantInvite) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantInviteTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionParticipantInvite) TypeName() string {
+func (*ChannelAdminLogEventActionParticipantInvite) TypeName() string {
 	return "channelAdminLogEventActionParticipantInvite"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionParticipantInvite) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionParticipantInvite",
+		ID:   ChannelAdminLogEventActionParticipantInviteTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Participant",
+			SchemaName: "participant",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1270,9 +1510,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan for reference.
 type ChannelAdminLogEventActionParticipantToggleBan struct {
 	// Old banned rights of user
-	PrevParticipant ChannelParticipantClass `tl:"prev_participant"`
+	PrevParticipant ChannelParticipantClass
 	// New banned rights of user
-	NewParticipant ChannelParticipantClass `tl:"new_participant"`
+	NewParticipant ChannelParticipantClass
 }
 
 // ChannelAdminLogEventActionParticipantToggleBanTypeID is TL type id of ChannelAdminLogEventActionParticipantToggleBan.
@@ -1313,13 +1553,36 @@ func (c *ChannelAdminLogEventActionParticipantToggleBan) FillFrom(from interface
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionParticipantToggleBan) TypeID() uint32 {
+func (*ChannelAdminLogEventActionParticipantToggleBan) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantToggleBanTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionParticipantToggleBan) TypeName() string {
+func (*ChannelAdminLogEventActionParticipantToggleBan) TypeName() string {
 	return "channelAdminLogEventActionParticipantToggleBan"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionParticipantToggleBan) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionParticipantToggleBan",
+		ID:   ChannelAdminLogEventActionParticipantToggleBanTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PrevParticipant",
+			SchemaName: "prev_participant",
+		},
+		{
+			Name:       "NewParticipant",
+			SchemaName: "new_participant",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1400,9 +1663,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleAdmin for reference.
 type ChannelAdminLogEventActionParticipantToggleAdmin struct {
 	// Previous admin rights
-	PrevParticipant ChannelParticipantClass `tl:"prev_participant"`
+	PrevParticipant ChannelParticipantClass
 	// New admin rights
-	NewParticipant ChannelParticipantClass `tl:"new_participant"`
+	NewParticipant ChannelParticipantClass
 }
 
 // ChannelAdminLogEventActionParticipantToggleAdminTypeID is TL type id of ChannelAdminLogEventActionParticipantToggleAdmin.
@@ -1443,13 +1706,36 @@ func (c *ChannelAdminLogEventActionParticipantToggleAdmin) FillFrom(from interfa
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionParticipantToggleAdmin) TypeID() uint32 {
+func (*ChannelAdminLogEventActionParticipantToggleAdmin) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantToggleAdminTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionParticipantToggleAdmin) TypeName() string {
+func (*ChannelAdminLogEventActionParticipantToggleAdmin) TypeName() string {
 	return "channelAdminLogEventActionParticipantToggleAdmin"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionParticipantToggleAdmin) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionParticipantToggleAdmin",
+		ID:   ChannelAdminLogEventActionParticipantToggleAdminTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PrevParticipant",
+			SchemaName: "prev_participant",
+		},
+		{
+			Name:       "NewParticipant",
+			SchemaName: "new_participant",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1527,9 +1813,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeStickerSet for reference.
 type ChannelAdminLogEventActionChangeStickerSet struct {
 	// Previous stickerset
-	PrevStickerset InputStickerSetClass `tl:"prev_stickerset"`
+	PrevStickerset InputStickerSetClass
 	// New stickerset
-	NewStickerset InputStickerSetClass `tl:"new_stickerset"`
+	NewStickerset InputStickerSetClass
 }
 
 // ChannelAdminLogEventActionChangeStickerSetTypeID is TL type id of ChannelAdminLogEventActionChangeStickerSet.
@@ -1570,13 +1856,36 @@ func (c *ChannelAdminLogEventActionChangeStickerSet) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionChangeStickerSet) TypeID() uint32 {
+func (*ChannelAdminLogEventActionChangeStickerSet) TypeID() uint32 {
 	return ChannelAdminLogEventActionChangeStickerSetTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionChangeStickerSet) TypeName() string {
+func (*ChannelAdminLogEventActionChangeStickerSet) TypeName() string {
 	return "channelAdminLogEventActionChangeStickerSet"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionChangeStickerSet) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionChangeStickerSet",
+		ID:   ChannelAdminLogEventActionChangeStickerSetTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PrevStickerset",
+			SchemaName: "prev_stickerset",
+		},
+		{
+			Name:       "NewStickerset",
+			SchemaName: "new_stickerset",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1657,7 +1966,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionTogglePreHistoryHidden for reference.
 type ChannelAdminLogEventActionTogglePreHistoryHidden struct {
 	// New value
-	NewValue bool `tl:"new_value"`
+	NewValue bool
 }
 
 // ChannelAdminLogEventActionTogglePreHistoryHiddenTypeID is TL type id of ChannelAdminLogEventActionTogglePreHistoryHidden.
@@ -1693,13 +2002,32 @@ func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) FillFrom(from interfa
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) TypeID() uint32 {
+func (*ChannelAdminLogEventActionTogglePreHistoryHidden) TypeID() uint32 {
 	return ChannelAdminLogEventActionTogglePreHistoryHiddenTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) TypeName() string {
+func (*ChannelAdminLogEventActionTogglePreHistoryHidden) TypeName() string {
 	return "channelAdminLogEventActionTogglePreHistoryHidden"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionTogglePreHistoryHidden",
+		ID:   ChannelAdminLogEventActionTogglePreHistoryHiddenTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "NewValue",
+			SchemaName: "new_value",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1757,12 +2085,12 @@ type ChannelAdminLogEventActionDefaultBannedRights struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
-	PrevBannedRights ChatBannedRights `tl:"prev_banned_rights"`
+	PrevBannedRights ChatBannedRights
 	// New glboal banned rights¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
-	NewBannedRights ChatBannedRights `tl:"new_banned_rights"`
+	NewBannedRights ChatBannedRights
 }
 
 // ChannelAdminLogEventActionDefaultBannedRightsTypeID is TL type id of ChannelAdminLogEventActionDefaultBannedRights.
@@ -1803,13 +2131,36 @@ func (c *ChannelAdminLogEventActionDefaultBannedRights) FillFrom(from interface 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionDefaultBannedRights) TypeID() uint32 {
+func (*ChannelAdminLogEventActionDefaultBannedRights) TypeID() uint32 {
 	return ChannelAdminLogEventActionDefaultBannedRightsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionDefaultBannedRights) TypeName() string {
+func (*ChannelAdminLogEventActionDefaultBannedRights) TypeName() string {
 	return "channelAdminLogEventActionDefaultBannedRights"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionDefaultBannedRights) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionDefaultBannedRights",
+		ID:   ChannelAdminLogEventActionDefaultBannedRightsTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PrevBannedRights",
+			SchemaName: "prev_banned_rights",
+		},
+		{
+			Name:       "NewBannedRights",
+			SchemaName: "new_banned_rights",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1877,7 +2228,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionStopPoll for reference.
 type ChannelAdminLogEventActionStopPoll struct {
 	// The poll that was stopped
-	Message MessageClass `tl:"message"`
+	Message MessageClass
 }
 
 // ChannelAdminLogEventActionStopPollTypeID is TL type id of ChannelAdminLogEventActionStopPoll.
@@ -1913,13 +2264,32 @@ func (c *ChannelAdminLogEventActionStopPoll) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionStopPoll) TypeID() uint32 {
+func (*ChannelAdminLogEventActionStopPoll) TypeID() uint32 {
 	return ChannelAdminLogEventActionStopPollTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionStopPoll) TypeName() string {
+func (*ChannelAdminLogEventActionStopPoll) TypeName() string {
 	return "channelAdminLogEventActionStopPoll"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionStopPoll) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionStopPoll",
+		ID:   ChannelAdminLogEventActionStopPollTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1977,9 +2347,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeLinkedChat for reference.
 type ChannelAdminLogEventActionChangeLinkedChat struct {
 	// Previous linked chat
-	PrevValue int `tl:"prev_value"`
+	PrevValue int
 	// New linked chat
-	NewValue int `tl:"new_value"`
+	NewValue int
 }
 
 // ChannelAdminLogEventActionChangeLinkedChatTypeID is TL type id of ChannelAdminLogEventActionChangeLinkedChat.
@@ -2020,13 +2390,36 @@ func (c *ChannelAdminLogEventActionChangeLinkedChat) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionChangeLinkedChat) TypeID() uint32 {
+func (*ChannelAdminLogEventActionChangeLinkedChat) TypeID() uint32 {
 	return ChannelAdminLogEventActionChangeLinkedChatTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionChangeLinkedChat) TypeName() string {
+func (*ChannelAdminLogEventActionChangeLinkedChat) TypeName() string {
 	return "channelAdminLogEventActionChangeLinkedChat"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionChangeLinkedChat) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionChangeLinkedChat",
+		ID:   ChannelAdminLogEventActionChangeLinkedChatTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PrevValue",
+			SchemaName: "prev_value",
+		},
+		{
+			Name:       "NewValue",
+			SchemaName: "new_value",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2094,9 +2487,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeLocation for reference.
 type ChannelAdminLogEventActionChangeLocation struct {
 	// Previous location
-	PrevValue ChannelLocationClass `tl:"prev_value"`
+	PrevValue ChannelLocationClass
 	// New location
-	NewValue ChannelLocationClass `tl:"new_value"`
+	NewValue ChannelLocationClass
 }
 
 // ChannelAdminLogEventActionChangeLocationTypeID is TL type id of ChannelAdminLogEventActionChangeLocation.
@@ -2137,13 +2530,36 @@ func (c *ChannelAdminLogEventActionChangeLocation) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionChangeLocation) TypeID() uint32 {
+func (*ChannelAdminLogEventActionChangeLocation) TypeID() uint32 {
 	return ChannelAdminLogEventActionChangeLocationTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionChangeLocation) TypeName() string {
+func (*ChannelAdminLogEventActionChangeLocation) TypeName() string {
 	return "channelAdminLogEventActionChangeLocation"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionChangeLocation) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionChangeLocation",
+		ID:   ChannelAdminLogEventActionChangeLocationTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PrevValue",
+			SchemaName: "prev_value",
+		},
+		{
+			Name:       "NewValue",
+			SchemaName: "new_value",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2224,9 +2640,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleSlowMode for reference.
 type ChannelAdminLogEventActionToggleSlowMode struct {
 	// Previous slow mode value
-	PrevValue int `tl:"prev_value"`
+	PrevValue int
 	// New slow mode value
-	NewValue int `tl:"new_value"`
+	NewValue int
 }
 
 // ChannelAdminLogEventActionToggleSlowModeTypeID is TL type id of ChannelAdminLogEventActionToggleSlowMode.
@@ -2267,13 +2683,36 @@ func (c *ChannelAdminLogEventActionToggleSlowMode) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionToggleSlowMode) TypeID() uint32 {
+func (*ChannelAdminLogEventActionToggleSlowMode) TypeID() uint32 {
 	return ChannelAdminLogEventActionToggleSlowModeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionToggleSlowMode) TypeName() string {
+func (*ChannelAdminLogEventActionToggleSlowMode) TypeName() string {
 	return "channelAdminLogEventActionToggleSlowMode"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionToggleSlowMode) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionToggleSlowMode",
+		ID:   ChannelAdminLogEventActionToggleSlowModeTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PrevValue",
+			SchemaName: "prev_value",
+		},
+		{
+			Name:       "NewValue",
+			SchemaName: "new_value",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2340,7 +2779,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionStartGroupCall for reference.
 type ChannelAdminLogEventActionStartGroupCall struct {
 	// Call field of ChannelAdminLogEventActionStartGroupCall.
-	Call InputGroupCall `tl:"call"`
+	Call InputGroupCall
 }
 
 // ChannelAdminLogEventActionStartGroupCallTypeID is TL type id of ChannelAdminLogEventActionStartGroupCall.
@@ -2376,13 +2815,32 @@ func (c *ChannelAdminLogEventActionStartGroupCall) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionStartGroupCall) TypeID() uint32 {
+func (*ChannelAdminLogEventActionStartGroupCall) TypeID() uint32 {
 	return ChannelAdminLogEventActionStartGroupCallTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionStartGroupCall) TypeName() string {
+func (*ChannelAdminLogEventActionStartGroupCall) TypeName() string {
 	return "channelAdminLogEventActionStartGroupCall"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionStartGroupCall) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionStartGroupCall",
+		ID:   ChannelAdminLogEventActionStartGroupCallTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Call",
+			SchemaName: "call",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2436,7 +2894,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionDiscardGroupCall for reference.
 type ChannelAdminLogEventActionDiscardGroupCall struct {
 	// Call field of ChannelAdminLogEventActionDiscardGroupCall.
-	Call InputGroupCall `tl:"call"`
+	Call InputGroupCall
 }
 
 // ChannelAdminLogEventActionDiscardGroupCallTypeID is TL type id of ChannelAdminLogEventActionDiscardGroupCall.
@@ -2472,13 +2930,32 @@ func (c *ChannelAdminLogEventActionDiscardGroupCall) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionDiscardGroupCall) TypeID() uint32 {
+func (*ChannelAdminLogEventActionDiscardGroupCall) TypeID() uint32 {
 	return ChannelAdminLogEventActionDiscardGroupCallTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionDiscardGroupCall) TypeName() string {
+func (*ChannelAdminLogEventActionDiscardGroupCall) TypeName() string {
 	return "channelAdminLogEventActionDiscardGroupCall"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionDiscardGroupCall) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionDiscardGroupCall",
+		ID:   ChannelAdminLogEventActionDiscardGroupCallTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Call",
+			SchemaName: "call",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2532,7 +3009,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantMute for reference.
 type ChannelAdminLogEventActionParticipantMute struct {
 	// Participant field of ChannelAdminLogEventActionParticipantMute.
-	Participant GroupCallParticipant `tl:"participant"`
+	Participant GroupCallParticipant
 }
 
 // ChannelAdminLogEventActionParticipantMuteTypeID is TL type id of ChannelAdminLogEventActionParticipantMute.
@@ -2568,13 +3045,32 @@ func (c *ChannelAdminLogEventActionParticipantMute) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionParticipantMute) TypeID() uint32 {
+func (*ChannelAdminLogEventActionParticipantMute) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantMuteTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionParticipantMute) TypeName() string {
+func (*ChannelAdminLogEventActionParticipantMute) TypeName() string {
 	return "channelAdminLogEventActionParticipantMute"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionParticipantMute) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionParticipantMute",
+		ID:   ChannelAdminLogEventActionParticipantMuteTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Participant",
+			SchemaName: "participant",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2628,7 +3124,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantUnmute for reference.
 type ChannelAdminLogEventActionParticipantUnmute struct {
 	// Participant field of ChannelAdminLogEventActionParticipantUnmute.
-	Participant GroupCallParticipant `tl:"participant"`
+	Participant GroupCallParticipant
 }
 
 // ChannelAdminLogEventActionParticipantUnmuteTypeID is TL type id of ChannelAdminLogEventActionParticipantUnmute.
@@ -2664,13 +3160,32 @@ func (c *ChannelAdminLogEventActionParticipantUnmute) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionParticipantUnmute) TypeID() uint32 {
+func (*ChannelAdminLogEventActionParticipantUnmute) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantUnmuteTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionParticipantUnmute) TypeName() string {
+func (*ChannelAdminLogEventActionParticipantUnmute) TypeName() string {
 	return "channelAdminLogEventActionParticipantUnmute"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionParticipantUnmute) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionParticipantUnmute",
+		ID:   ChannelAdminLogEventActionParticipantUnmuteTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Participant",
+			SchemaName: "participant",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2724,7 +3239,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleGroupCallSetting for reference.
 type ChannelAdminLogEventActionToggleGroupCallSetting struct {
 	// JoinMuted field of ChannelAdminLogEventActionToggleGroupCallSetting.
-	JoinMuted bool `tl:"join_muted"`
+	JoinMuted bool
 }
 
 // ChannelAdminLogEventActionToggleGroupCallSettingTypeID is TL type id of ChannelAdminLogEventActionToggleGroupCallSetting.
@@ -2760,13 +3275,32 @@ func (c *ChannelAdminLogEventActionToggleGroupCallSetting) FillFrom(from interfa
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionToggleGroupCallSetting) TypeID() uint32 {
+func (*ChannelAdminLogEventActionToggleGroupCallSetting) TypeID() uint32 {
 	return ChannelAdminLogEventActionToggleGroupCallSettingTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionToggleGroupCallSetting) TypeName() string {
+func (*ChannelAdminLogEventActionToggleGroupCallSetting) TypeName() string {
 	return "channelAdminLogEventActionToggleGroupCallSetting"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionToggleGroupCallSetting) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionToggleGroupCallSetting",
+		ID:   ChannelAdminLogEventActionToggleGroupCallSettingTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "JoinMuted",
+			SchemaName: "join_muted",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2820,7 +3354,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantJoinByInvite for reference.
 type ChannelAdminLogEventActionParticipantJoinByInvite struct {
 	// Invite field of ChannelAdminLogEventActionParticipantJoinByInvite.
-	Invite ChatInviteExported `tl:"invite"`
+	Invite ChatInviteExported
 }
 
 // ChannelAdminLogEventActionParticipantJoinByInviteTypeID is TL type id of ChannelAdminLogEventActionParticipantJoinByInvite.
@@ -2856,13 +3390,32 @@ func (c *ChannelAdminLogEventActionParticipantJoinByInvite) FillFrom(from interf
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionParticipantJoinByInvite) TypeID() uint32 {
+func (*ChannelAdminLogEventActionParticipantJoinByInvite) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantJoinByInviteTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionParticipantJoinByInvite) TypeName() string {
+func (*ChannelAdminLogEventActionParticipantJoinByInvite) TypeName() string {
 	return "channelAdminLogEventActionParticipantJoinByInvite"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionParticipantJoinByInvite) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionParticipantJoinByInvite",
+		ID:   ChannelAdminLogEventActionParticipantJoinByInviteTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Invite",
+			SchemaName: "invite",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2916,7 +3469,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionExportedInviteDelete for reference.
 type ChannelAdminLogEventActionExportedInviteDelete struct {
 	// Invite field of ChannelAdminLogEventActionExportedInviteDelete.
-	Invite ChatInviteExported `tl:"invite"`
+	Invite ChatInviteExported
 }
 
 // ChannelAdminLogEventActionExportedInviteDeleteTypeID is TL type id of ChannelAdminLogEventActionExportedInviteDelete.
@@ -2952,13 +3505,32 @@ func (c *ChannelAdminLogEventActionExportedInviteDelete) FillFrom(from interface
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionExportedInviteDelete) TypeID() uint32 {
+func (*ChannelAdminLogEventActionExportedInviteDelete) TypeID() uint32 {
 	return ChannelAdminLogEventActionExportedInviteDeleteTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionExportedInviteDelete) TypeName() string {
+func (*ChannelAdminLogEventActionExportedInviteDelete) TypeName() string {
 	return "channelAdminLogEventActionExportedInviteDelete"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionExportedInviteDelete) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionExportedInviteDelete",
+		ID:   ChannelAdminLogEventActionExportedInviteDeleteTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Invite",
+			SchemaName: "invite",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -3012,7 +3584,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionExportedInviteRevoke for reference.
 type ChannelAdminLogEventActionExportedInviteRevoke struct {
 	// Invite field of ChannelAdminLogEventActionExportedInviteRevoke.
-	Invite ChatInviteExported `tl:"invite"`
+	Invite ChatInviteExported
 }
 
 // ChannelAdminLogEventActionExportedInviteRevokeTypeID is TL type id of ChannelAdminLogEventActionExportedInviteRevoke.
@@ -3048,13 +3620,32 @@ func (c *ChannelAdminLogEventActionExportedInviteRevoke) FillFrom(from interface
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionExportedInviteRevoke) TypeID() uint32 {
+func (*ChannelAdminLogEventActionExportedInviteRevoke) TypeID() uint32 {
 	return ChannelAdminLogEventActionExportedInviteRevokeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionExportedInviteRevoke) TypeName() string {
+func (*ChannelAdminLogEventActionExportedInviteRevoke) TypeName() string {
 	return "channelAdminLogEventActionExportedInviteRevoke"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionExportedInviteRevoke) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionExportedInviteRevoke",
+		ID:   ChannelAdminLogEventActionExportedInviteRevokeTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Invite",
+			SchemaName: "invite",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -3108,9 +3699,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionExportedInviteEdit for reference.
 type ChannelAdminLogEventActionExportedInviteEdit struct {
 	// PrevInvite field of ChannelAdminLogEventActionExportedInviteEdit.
-	PrevInvite ChatInviteExported `tl:"prev_invite"`
+	PrevInvite ChatInviteExported
 	// NewInvite field of ChannelAdminLogEventActionExportedInviteEdit.
-	NewInvite ChatInviteExported `tl:"new_invite"`
+	NewInvite ChatInviteExported
 }
 
 // ChannelAdminLogEventActionExportedInviteEditTypeID is TL type id of ChannelAdminLogEventActionExportedInviteEdit.
@@ -3151,13 +3742,36 @@ func (c *ChannelAdminLogEventActionExportedInviteEdit) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionExportedInviteEdit) TypeID() uint32 {
+func (*ChannelAdminLogEventActionExportedInviteEdit) TypeID() uint32 {
 	return ChannelAdminLogEventActionExportedInviteEditTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionExportedInviteEdit) TypeName() string {
+func (*ChannelAdminLogEventActionExportedInviteEdit) TypeName() string {
 	return "channelAdminLogEventActionExportedInviteEdit"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionExportedInviteEdit) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionExportedInviteEdit",
+		ID:   ChannelAdminLogEventActionExportedInviteEditTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PrevInvite",
+			SchemaName: "prev_invite",
+		},
+		{
+			Name:       "NewInvite",
+			SchemaName: "new_invite",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -3224,7 +3838,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantVolume for reference.
 type ChannelAdminLogEventActionParticipantVolume struct {
 	// Participant field of ChannelAdminLogEventActionParticipantVolume.
-	Participant GroupCallParticipant `tl:"participant"`
+	Participant GroupCallParticipant
 }
 
 // ChannelAdminLogEventActionParticipantVolumeTypeID is TL type id of ChannelAdminLogEventActionParticipantVolume.
@@ -3260,13 +3874,32 @@ func (c *ChannelAdminLogEventActionParticipantVolume) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionParticipantVolume) TypeID() uint32 {
+func (*ChannelAdminLogEventActionParticipantVolume) TypeID() uint32 {
 	return ChannelAdminLogEventActionParticipantVolumeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionParticipantVolume) TypeName() string {
+func (*ChannelAdminLogEventActionParticipantVolume) TypeName() string {
 	return "channelAdminLogEventActionParticipantVolume"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionParticipantVolume) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionParticipantVolume",
+		ID:   ChannelAdminLogEventActionParticipantVolumeTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Participant",
+			SchemaName: "participant",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -3320,9 +3953,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeHistoryTTL for reference.
 type ChannelAdminLogEventActionChangeHistoryTTL struct {
 	// PrevValue field of ChannelAdminLogEventActionChangeHistoryTTL.
-	PrevValue int `tl:"prev_value"`
+	PrevValue int
 	// NewValue field of ChannelAdminLogEventActionChangeHistoryTTL.
-	NewValue int `tl:"new_value"`
+	NewValue int
 }
 
 // ChannelAdminLogEventActionChangeHistoryTTLTypeID is TL type id of ChannelAdminLogEventActionChangeHistoryTTL.
@@ -3363,13 +3996,36 @@ func (c *ChannelAdminLogEventActionChangeHistoryTTL) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEventActionChangeHistoryTTL) TypeID() uint32 {
+func (*ChannelAdminLogEventActionChangeHistoryTTL) TypeID() uint32 {
 	return ChannelAdminLogEventActionChangeHistoryTTLTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEventActionChangeHistoryTTL) TypeName() string {
+func (*ChannelAdminLogEventActionChangeHistoryTTL) TypeName() string {
 	return "channelAdminLogEventActionChangeHistoryTTL"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEventActionChangeHistoryTTL) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEventActionChangeHistoryTTL",
+		ID:   ChannelAdminLogEventActionChangeHistoryTTLTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PrevValue",
+			SchemaName: "prev_value",
+		},
+		{
+			Name:       "NewValue",
+			SchemaName: "new_value",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

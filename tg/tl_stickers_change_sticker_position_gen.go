@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StickersChangeStickerPositionRequest represents TL type `stickers.changeStickerPosition#ffb6d4ca`.
 // Changes the absolute position of a sticker in the set to which it belongs; for bots only. The sticker set must have been created by the bot
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/stickers.changeStickerPosition for reference.
 type StickersChangeStickerPositionRequest struct {
 	// The sticker
-	Sticker InputDocumentClass `tl:"sticker"`
+	Sticker InputDocumentClass
 	// The new position of the sticker, zero-based
-	Position int `tl:"position"`
+	Position int
 }
 
 // StickersChangeStickerPositionRequestTypeID is TL type id of StickersChangeStickerPositionRequest.
@@ -69,13 +71,36 @@ func (c *StickersChangeStickerPositionRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *StickersChangeStickerPositionRequest) TypeID() uint32 {
+func (*StickersChangeStickerPositionRequest) TypeID() uint32 {
 	return StickersChangeStickerPositionRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *StickersChangeStickerPositionRequest) TypeName() string {
+func (*StickersChangeStickerPositionRequest) TypeName() string {
 	return "stickers.changeStickerPosition"
+}
+
+// TypeInfo returns info about TL type.
+func (c *StickersChangeStickerPositionRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "stickers.changeStickerPosition",
+		ID:   StickersChangeStickerPositionRequestTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Sticker",
+			SchemaName: "sticker",
+		},
+		{
+			Name:       "Position",
+			SchemaName: "position",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

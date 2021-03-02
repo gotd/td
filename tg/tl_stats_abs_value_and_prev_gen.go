@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StatsAbsValueAndPrev represents TL type `statsAbsValueAndPrev#cb43acde`.
 // Statistics value couple; intial and final value for period of time currently in consideration
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/statsAbsValueAndPrev for reference.
 type StatsAbsValueAndPrev struct {
 	// Current value
-	Current float64 `tl:"current"`
+	Current float64
 	// Previous value
-	Previous float64 `tl:"previous"`
+	Previous float64
 }
 
 // StatsAbsValueAndPrevTypeID is TL type id of StatsAbsValueAndPrev.
@@ -69,13 +71,36 @@ func (s *StatsAbsValueAndPrev) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *StatsAbsValueAndPrev) TypeID() uint32 {
+func (*StatsAbsValueAndPrev) TypeID() uint32 {
 	return StatsAbsValueAndPrevTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *StatsAbsValueAndPrev) TypeName() string {
+func (*StatsAbsValueAndPrev) TypeName() string {
 	return "statsAbsValueAndPrev"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StatsAbsValueAndPrev) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "statsAbsValueAndPrev",
+		ID:   StatsAbsValueAndPrevTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Current",
+			SchemaName: "current",
+		},
+		{
+			Name:       "Previous",
+			SchemaName: "previous",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

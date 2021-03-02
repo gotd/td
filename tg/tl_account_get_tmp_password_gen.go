@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountGetTmpPasswordRequest represents TL type `account.getTmpPassword#449e0b51`.
 // Get temporary payment password
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/account.getTmpPassword for reference.
 type AccountGetTmpPasswordRequest struct {
 	// SRP password parameters
-	Password InputCheckPasswordSRPClass `tl:"password"`
+	Password InputCheckPasswordSRPClass
 	// Time during which the temporary password will be valid, in seconds; should be between 60 and 86400
-	Period int `tl:"period"`
+	Period int
 }
 
 // AccountGetTmpPasswordRequestTypeID is TL type id of AccountGetTmpPasswordRequest.
@@ -69,13 +71,36 @@ func (g *AccountGetTmpPasswordRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *AccountGetTmpPasswordRequest) TypeID() uint32 {
+func (*AccountGetTmpPasswordRequest) TypeID() uint32 {
 	return AccountGetTmpPasswordRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *AccountGetTmpPasswordRequest) TypeName() string {
+func (*AccountGetTmpPasswordRequest) TypeName() string {
 	return "account.getTmpPassword"
+}
+
+// TypeInfo returns info about TL type.
+func (g *AccountGetTmpPasswordRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.getTmpPassword",
+		ID:   AccountGetTmpPasswordRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Password",
+			SchemaName: "password",
+		},
+		{
+			Name:       "Period",
+			SchemaName: "period",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

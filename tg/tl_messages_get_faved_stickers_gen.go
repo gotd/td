@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetFavedStickersRequest represents TL type `messages.getFavedStickers#21ce0b0e`.
 // Get faved stickers
@@ -29,7 +31,7 @@ type MessagesGetFavedStickersRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 }
 
 // MessagesGetFavedStickersRequestTypeID is TL type id of MessagesGetFavedStickersRequest.
@@ -65,13 +67,32 @@ func (g *MessagesGetFavedStickersRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetFavedStickersRequest) TypeID() uint32 {
+func (*MessagesGetFavedStickersRequest) TypeID() uint32 {
 	return MessagesGetFavedStickersRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetFavedStickersRequest) TypeName() string {
+func (*MessagesGetFavedStickersRequest) TypeName() string {
 	return "messages.getFavedStickers"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetFavedStickersRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getFavedStickers",
+		ID:   MessagesGetFavedStickersRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

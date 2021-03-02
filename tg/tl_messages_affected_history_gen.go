@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesAffectedHistory represents TL type `messages.affectedHistory#b45c69d1`.
 // Affected part of communication history with the user or in a chat.
@@ -26,11 +28,11 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/messages.affectedHistory for reference.
 type MessagesAffectedHistory struct {
 	// Number of events occured in a text box
-	Pts int `tl:"pts"`
+	Pts int
 	// Number of affected events
-	PtsCount int `tl:"pts_count"`
+	PtsCount int
 	// If a parameter contains positive value, it is necessary to repeat the method call using the given value; during the proceeding of all the history the value itself shall gradually decrease
-	Offset int `tl:"offset"`
+	Offset int
 }
 
 // MessagesAffectedHistoryTypeID is TL type id of MessagesAffectedHistory.
@@ -76,13 +78,40 @@ func (a *MessagesAffectedHistory) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *MessagesAffectedHistory) TypeID() uint32 {
+func (*MessagesAffectedHistory) TypeID() uint32 {
 	return MessagesAffectedHistoryTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *MessagesAffectedHistory) TypeName() string {
+func (*MessagesAffectedHistory) TypeName() string {
 	return "messages.affectedHistory"
+}
+
+// TypeInfo returns info about TL type.
+func (a *MessagesAffectedHistory) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.affectedHistory",
+		ID:   MessagesAffectedHistoryTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+		},
+		{
+			Name:       "PtsCount",
+			SchemaName: "pts_count",
+		},
+		{
+			Name:       "Offset",
+			SchemaName: "offset",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

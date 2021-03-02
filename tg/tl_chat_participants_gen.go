@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChatParticipantsForbidden represents TL type `chatParticipantsForbidden#fc900c2b`.
 // Info on members is unavailable
@@ -29,13 +31,13 @@ type ChatParticipantsForbidden struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Group ID
-	ChatID int `tl:"chat_id"`
+	ChatID int
 	// Info about the group membership of the current user
 	//
 	// Use SetSelfParticipant and GetSelfParticipant helpers.
-	SelfParticipant ChatParticipantClass `tl:"self_participant"`
+	SelfParticipant ChatParticipantClass
 }
 
 // ChatParticipantsForbiddenTypeID is TL type id of ChatParticipantsForbidden.
@@ -82,13 +84,41 @@ func (c *ChatParticipantsForbidden) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChatParticipantsForbidden) TypeID() uint32 {
+func (*ChatParticipantsForbidden) TypeID() uint32 {
 	return ChatParticipantsForbiddenTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChatParticipantsForbidden) TypeName() string {
+func (*ChatParticipantsForbidden) TypeName() string {
 	return "chatParticipantsForbidden"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatParticipantsForbidden) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatParticipantsForbidden",
+		ID:   ChatParticipantsForbiddenTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "SelfParticipant",
+			SchemaName: "self_participant",
+			Null:       !c.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -182,11 +212,11 @@ var (
 // See https://core.telegram.org/constructor/chatParticipants for reference.
 type ChatParticipants struct {
 	// Group identifier
-	ChatID int `tl:"chat_id"`
+	ChatID int
 	// List of group members
-	Participants []ChatParticipantClass `tl:"participants"`
+	Participants []ChatParticipantClass
 	// Group version number
-	Version int `tl:"version"`
+	Version int
 }
 
 // ChatParticipantsTypeID is TL type id of ChatParticipants.
@@ -232,13 +262,40 @@ func (c *ChatParticipants) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChatParticipants) TypeID() uint32 {
+func (*ChatParticipants) TypeID() uint32 {
 	return ChatParticipantsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChatParticipants) TypeName() string {
+func (*ChatParticipants) TypeName() string {
 	return "chatParticipants"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatParticipants) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatParticipants",
+		ID:   ChatParticipantsTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "Participants",
+			SchemaName: "participants",
+		},
+		{
+			Name:       "Version",
+			SchemaName: "version",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

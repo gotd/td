@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // Page represents TL type `page#98657f0d`.
 // Instant view¹ page
@@ -32,31 +34,31 @@ type Page struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Indicates that not full page preview is available to the client and it will need to fetch full Instant View from the server using messages.getWebPagePreview¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.getWebPagePreview
-	Part bool `tl:"part"`
+	Part bool
 	// Whether the page contains RTL text
-	Rtl bool `tl:"rtl"`
+	Rtl bool
 	// Whether this is an IV v2¹ page
 	//
 	// Links:
 	//  1) https://instantview.telegram.org/docs#what-39s-new-in-2-0
-	V2 bool `tl:"v2"`
+	V2 bool
 	// Original page HTTP URL
-	URL string `tl:"url"`
+	URL string
 	// Page elements (like with HTML elements, only as TL constructors)
-	Blocks []PageBlockClass `tl:"blocks"`
+	Blocks []PageBlockClass
 	// Photos in page
-	Photos []PhotoClass `tl:"photos"`
+	Photos []PhotoClass
 	// Media in page
-	Documents []DocumentClass `tl:"documents"`
+	Documents []DocumentClass
 	// Viewcount
 	//
 	// Use SetViews and GetViews helpers.
-	Views int `tl:"views"`
+	Views int
 }
 
 // PageTypeID is TL type id of Page.
@@ -133,13 +135,68 @@ func (p *Page) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *Page) TypeID() uint32 {
+func (*Page) TypeID() uint32 {
 	return PageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *Page) TypeName() string {
+func (*Page) TypeName() string {
 	return "page"
+}
+
+// TypeInfo returns info about TL type.
+func (p *Page) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "page",
+		ID:   PageTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Part",
+			SchemaName: "part",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "Rtl",
+			SchemaName: "rtl",
+			Null:       !p.Flags.Has(1),
+		},
+		{
+			Name:       "V2",
+			SchemaName: "v2",
+			Null:       !p.Flags.Has(2),
+		},
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+		{
+			Name:       "Blocks",
+			SchemaName: "blocks",
+		},
+		{
+			Name:       "Photos",
+			SchemaName: "photos",
+		},
+		{
+			Name:       "Documents",
+			SchemaName: "documents",
+		},
+		{
+			Name:       "Views",
+			SchemaName: "views",
+			Null:       !p.Flags.Has(3),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

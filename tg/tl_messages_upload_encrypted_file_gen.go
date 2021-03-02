@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesUploadEncryptedFileRequest represents TL type `messages.uploadEncryptedFile#5057c497`.
 // Upload encrypted file and associate it to a secret chat
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.uploadEncryptedFile for reference.
 type MessagesUploadEncryptedFileRequest struct {
 	// The secret chat to associate the file to
-	Peer InputEncryptedChat `tl:"peer"`
+	Peer InputEncryptedChat
 	// The file
-	File InputEncryptedFileClass `tl:"file"`
+	File InputEncryptedFileClass
 }
 
 // MessagesUploadEncryptedFileRequestTypeID is TL type id of MessagesUploadEncryptedFileRequest.
@@ -69,13 +71,36 @@ func (u *MessagesUploadEncryptedFileRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *MessagesUploadEncryptedFileRequest) TypeID() uint32 {
+func (*MessagesUploadEncryptedFileRequest) TypeID() uint32 {
 	return MessagesUploadEncryptedFileRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *MessagesUploadEncryptedFileRequest) TypeName() string {
+func (*MessagesUploadEncryptedFileRequest) TypeName() string {
 	return "messages.uploadEncryptedFile"
+}
+
+// TypeInfo returns info about TL type.
+func (u *MessagesUploadEncryptedFileRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.uploadEncryptedFile",
+		ID:   MessagesUploadEncryptedFileRequestTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "File",
+			SchemaName: "file",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // UserProfilePhotoEmpty represents TL type `userProfilePhotoEmpty#4f11bae1`.
 // Profile photo has not been set, or was hidden.
@@ -50,13 +52,27 @@ func (u *UserProfilePhotoEmpty) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UserProfilePhotoEmpty) TypeID() uint32 {
+func (*UserProfilePhotoEmpty) TypeID() uint32 {
 	return UserProfilePhotoEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UserProfilePhotoEmpty) TypeName() string {
+func (*UserProfilePhotoEmpty) TypeName() string {
 	return "userProfilePhotoEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UserProfilePhotoEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "userProfilePhotoEmpty",
+		ID:   UserProfilePhotoEmptyTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -99,23 +115,23 @@ type UserProfilePhoto struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether an animated profile picture¹ is available for this user
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files#animated-profile-pictures
-	HasVideo bool `tl:"has_video"`
+	HasVideo bool
 	// Identifier of the respective photoParameter added in Layer 2¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/layers#layer-2
-	PhotoID int64 `tl:"photo_id"`
+	PhotoID int64
 	// Location of the file, corresponding to the small profile photo thumbnail
-	PhotoSmall FileLocationToBeDeprecated `tl:"photo_small"`
+	PhotoSmall FileLocationToBeDeprecated
 	// Location of the file, corresponding to the big profile photo thumbnail
-	PhotoBig FileLocationToBeDeprecated `tl:"photo_big"`
+	PhotoBig FileLocationToBeDeprecated
 	// DC ID where the photo is stored
-	DCID int `tl:"dc_id"`
+	DCID int
 }
 
 // UserProfilePhotoTypeID is TL type id of UserProfilePhoto.
@@ -174,13 +190,53 @@ func (u *UserProfilePhoto) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UserProfilePhoto) TypeID() uint32 {
+func (*UserProfilePhoto) TypeID() uint32 {
 	return UserProfilePhotoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UserProfilePhoto) TypeName() string {
+func (*UserProfilePhoto) TypeName() string {
 	return "userProfilePhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UserProfilePhoto) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "userProfilePhoto",
+		ID:   UserProfilePhotoTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "HasVideo",
+			SchemaName: "has_video",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "PhotoID",
+			SchemaName: "photo_id",
+		},
+		{
+			Name:       "PhotoSmall",
+			SchemaName: "photo_small",
+		},
+		{
+			Name:       "PhotoBig",
+			SchemaName: "photo_big",
+		},
+		{
+			Name:       "DCID",
+			SchemaName: "dc_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

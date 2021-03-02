@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // UploadFile represents TL type `upload.file#96a18d5`.
 // File content.
@@ -26,11 +28,11 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/upload.file for reference.
 type UploadFile struct {
 	// File type
-	Type StorageFileTypeClass `tl:"type"`
+	Type StorageFileTypeClass
 	// Modification type
-	Mtime int `tl:"mtime"`
+	Mtime int
 	// Binary data, file content
-	Bytes []byte `tl:"bytes"`
+	Bytes []byte
 }
 
 // UploadFileTypeID is TL type id of UploadFile.
@@ -76,13 +78,40 @@ func (f *UploadFile) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *UploadFile) TypeID() uint32 {
+func (*UploadFile) TypeID() uint32 {
 	return UploadFileTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *UploadFile) TypeName() string {
+func (*UploadFile) TypeName() string {
 	return "upload.file"
+}
+
+// TypeInfo returns info about TL type.
+func (f *UploadFile) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "upload.file",
+		ID:   UploadFileTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "Mtime",
+			SchemaName: "mtime",
+		},
+		{
+			Name:       "Bytes",
+			SchemaName: "bytes",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -172,27 +201,27 @@ type UploadFileCdnRedirect struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	DCID int `tl:"dc_id"`
+	DCID int
 	// File token (see CDN files¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	FileToken []byte `tl:"file_token"`
+	FileToken []byte
 	// Encryption key (see CDN files¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	EncryptionKey []byte `tl:"encryption_key"`
+	EncryptionKey []byte
 	// Encryption IV (see CDN files¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	EncryptionIv []byte `tl:"encryption_iv"`
+	EncryptionIv []byte
 	// File hashes (see CDN files¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	FileHashes []FileHash `tl:"file_hashes"`
+	FileHashes []FileHash
 }
 
 // UploadFileCdnRedirectTypeID is TL type id of UploadFileCdnRedirect.
@@ -248,13 +277,48 @@ func (f *UploadFileCdnRedirect) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *UploadFileCdnRedirect) TypeID() uint32 {
+func (*UploadFileCdnRedirect) TypeID() uint32 {
 	return UploadFileCdnRedirectTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *UploadFileCdnRedirect) TypeName() string {
+func (*UploadFileCdnRedirect) TypeName() string {
 	return "upload.fileCdnRedirect"
+}
+
+// TypeInfo returns info about TL type.
+func (f *UploadFileCdnRedirect) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "upload.fileCdnRedirect",
+		ID:   UploadFileCdnRedirectTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "DCID",
+			SchemaName: "dc_id",
+		},
+		{
+			Name:       "FileToken",
+			SchemaName: "file_token",
+		},
+		{
+			Name:       "EncryptionKey",
+			SchemaName: "encryption_key",
+		},
+		{
+			Name:       "EncryptionIv",
+			SchemaName: "encryption_iv",
+		},
+		{
+			Name:       "FileHashes",
+			SchemaName: "file_hashes",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

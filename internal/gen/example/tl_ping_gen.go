@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,13 +20,14 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PingRequest represents TL type `ping#ce73048f`.
 //
 // See https://localhost:80/doc/constructor/ping for reference.
 type PingRequest struct {
 	// ID field of PingRequest.
-	ID int32 `tl:"id"`
+	ID int32
 }
 
 // PingRequestTypeID is TL type id of PingRequest.
@@ -61,13 +63,32 @@ func (p *PingRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PingRequest) TypeID() uint32 {
+func (*PingRequest) TypeID() uint32 {
 	return PingRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PingRequest) TypeName() string {
+func (*PingRequest) TypeName() string {
 	return "ping"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PingRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "ping",
+		ID:   PingRequestTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

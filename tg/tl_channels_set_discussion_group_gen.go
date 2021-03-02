@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelsSetDiscussionGroupRequest represents TL type `channels.setDiscussionGroup#40582bb2`.
 // Associate a group to a channel as discussion group¹ for that channel
@@ -29,12 +31,12 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/channels.setDiscussionGroup for reference.
 type ChannelsSetDiscussionGroupRequest struct {
 	// Channel
-	Broadcast InputChannelClass `tl:"broadcast"`
+	Broadcast InputChannelClass
 	// Discussion group¹ to associate to the channel
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/discussion
-	Group InputChannelClass `tl:"group"`
+	Group InputChannelClass
 }
 
 // ChannelsSetDiscussionGroupRequestTypeID is TL type id of ChannelsSetDiscussionGroupRequest.
@@ -75,13 +77,36 @@ func (s *ChannelsSetDiscussionGroupRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *ChannelsSetDiscussionGroupRequest) TypeID() uint32 {
+func (*ChannelsSetDiscussionGroupRequest) TypeID() uint32 {
 	return ChannelsSetDiscussionGroupRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *ChannelsSetDiscussionGroupRequest) TypeName() string {
+func (*ChannelsSetDiscussionGroupRequest) TypeName() string {
 	return "channels.setDiscussionGroup"
+}
+
+// TypeInfo returns info about TL type.
+func (s *ChannelsSetDiscussionGroupRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channels.setDiscussionGroup",
+		ID:   ChannelsSetDiscussionGroupRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Broadcast",
+			SchemaName: "broadcast",
+		},
+		{
+			Name:       "Group",
+			SchemaName: "group",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

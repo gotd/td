@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesInactiveChats represents TL type `messages.inactiveChats#a927fec5`.
 // Inactive chat list
@@ -26,11 +28,11 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/messages.inactiveChats for reference.
 type MessagesInactiveChats struct {
 	// When was the chat last active
-	Dates []int `tl:"dates"`
+	Dates []int
 	// Chat list
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// Users mentioned in the chat list
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // MessagesInactiveChatsTypeID is TL type id of MessagesInactiveChats.
@@ -76,13 +78,40 @@ func (i *MessagesInactiveChats) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *MessagesInactiveChats) TypeID() uint32 {
+func (*MessagesInactiveChats) TypeID() uint32 {
 	return MessagesInactiveChatsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *MessagesInactiveChats) TypeName() string {
+func (*MessagesInactiveChats) TypeName() string {
 	return "messages.inactiveChats"
+}
+
+// TypeInfo returns info about TL type.
+func (i *MessagesInactiveChats) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.inactiveChats",
+		ID:   MessagesInactiveChatsTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Dates",
+			SchemaName: "dates",
+		},
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

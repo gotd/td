@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HelpGetPromoDataRequest represents TL type `help.getPromoData#c0977421`.
 // Get MTProxy/Public Service Announcement information
@@ -50,13 +52,27 @@ func (g *HelpGetPromoDataRequest) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *HelpGetPromoDataRequest) TypeID() uint32 {
+func (*HelpGetPromoDataRequest) TypeID() uint32 {
 	return HelpGetPromoDataRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *HelpGetPromoDataRequest) TypeName() string {
+func (*HelpGetPromoDataRequest) TypeName() string {
 	return "help.getPromoData"
+}
+
+// TypeInfo returns info about TL type.
+func (g *HelpGetPromoDataRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.getPromoData",
+		ID:   HelpGetPromoDataRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

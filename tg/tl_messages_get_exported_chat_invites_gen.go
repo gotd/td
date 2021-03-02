@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,29 +20,30 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetExportedChatInvitesRequest represents TL type `messages.getExportedChatInvites#a2b5a3f6`.
 //
 // See https://core.telegram.org/method/messages.getExportedChatInvites for reference.
 type MessagesGetExportedChatInvitesRequest struct {
 	// Flags field of MessagesGetExportedChatInvitesRequest.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Revoked field of MessagesGetExportedChatInvitesRequest.
-	Revoked bool `tl:"revoked"`
+	Revoked bool
 	// Peer field of MessagesGetExportedChatInvitesRequest.
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// AdminID field of MessagesGetExportedChatInvitesRequest.
-	AdminID InputUserClass `tl:"admin_id"`
+	AdminID InputUserClass
 	// OffsetDate field of MessagesGetExportedChatInvitesRequest.
 	//
 	// Use SetOffsetDate and GetOffsetDate helpers.
-	OffsetDate int `tl:"offset_date"`
+	OffsetDate int
 	// OffsetLink field of MessagesGetExportedChatInvitesRequest.
 	//
 	// Use SetOffsetLink and GetOffsetLink helpers.
-	OffsetLink string `tl:"offset_link"`
+	OffsetLink string
 	// Limit field of MessagesGetExportedChatInvitesRequest.
-	Limit int `tl:"limit"`
+	Limit int
 }
 
 // MessagesGetExportedChatInvitesRequestTypeID is TL type id of MessagesGetExportedChatInvitesRequest.
@@ -111,13 +113,59 @@ func (g *MessagesGetExportedChatInvitesRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetExportedChatInvitesRequest) TypeID() uint32 {
+func (*MessagesGetExportedChatInvitesRequest) TypeID() uint32 {
 	return MessagesGetExportedChatInvitesRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetExportedChatInvitesRequest) TypeName() string {
+func (*MessagesGetExportedChatInvitesRequest) TypeName() string {
 	return "messages.getExportedChatInvites"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetExportedChatInvitesRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getExportedChatInvites",
+		ID:   MessagesGetExportedChatInvitesRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Revoked",
+			SchemaName: "revoked",
+			Null:       !g.Flags.Has(3),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "AdminID",
+			SchemaName: "admin_id",
+		},
+		{
+			Name:       "OffsetDate",
+			SchemaName: "offset_date",
+			Null:       !g.Flags.Has(2),
+		},
+		{
+			Name:       "OffsetLink",
+			SchemaName: "offset_link",
+			Null:       !g.Flags.Has(2),
+		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,11 +20,12 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // LangPackStringClassVector is a box for Vector<LangPackString>
 type LangPackStringClassVector struct {
 	// Elements of Vector<LangPackString>
-	Elems []LangPackStringClass `tl:"Elems"`
+	Elems []LangPackStringClass
 }
 
 // LangPackStringClassVectorTypeID is TL type id of LangPackStringClassVector.
@@ -59,13 +61,32 @@ func (vec *LangPackStringClassVector) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (vec *LangPackStringClassVector) TypeID() uint32 {
+func (*LangPackStringClassVector) TypeID() uint32 {
 	return LangPackStringClassVectorTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (vec *LangPackStringClassVector) TypeName() string {
+func (*LangPackStringClassVector) TypeName() string {
 	return ""
+}
+
+// TypeInfo returns info about TL type.
+func (vec *LangPackStringClassVector) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "",
+		ID:   LangPackStringClassVectorTypeID,
+	}
+	if vec == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Elems",
+			SchemaName: "Elems",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

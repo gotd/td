@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesChatFull represents TL type `messages.chatFull#e5d7d19c`.
 // Extended info on chat and auxiliary data.
@@ -26,11 +28,11 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/messages.chatFull for reference.
 type MessagesChatFull struct {
 	// Extended info on a chat
-	FullChat ChatFullClass `tl:"full_chat"`
+	FullChat ChatFullClass
 	// List containing basic info on chat
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// List of users mentioned above
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // MessagesChatFullTypeID is TL type id of MessagesChatFull.
@@ -76,13 +78,40 @@ func (c *MessagesChatFull) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *MessagesChatFull) TypeID() uint32 {
+func (*MessagesChatFull) TypeID() uint32 {
 	return MessagesChatFullTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *MessagesChatFull) TypeName() string {
+func (*MessagesChatFull) TypeName() string {
 	return "messages.chatFull"
+}
+
+// TypeInfo returns info about TL type.
+func (c *MessagesChatFull) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.chatFull",
+		ID:   MessagesChatFullTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "FullChat",
+			SchemaName: "full_chat",
+		},
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

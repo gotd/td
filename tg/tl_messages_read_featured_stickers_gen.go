@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesReadFeaturedStickersRequest represents TL type `messages.readFeaturedStickers#5b118126`.
 // Mark new featured stickers as read
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.readFeaturedStickers for reference.
 type MessagesReadFeaturedStickersRequest struct {
 	// IDs of stickersets to mark as read
-	ID []int64 `tl:"id"`
+	ID []int64
 }
 
 // MessagesReadFeaturedStickersRequestTypeID is TL type id of MessagesReadFeaturedStickersRequest.
@@ -62,13 +64,32 @@ func (r *MessagesReadFeaturedStickersRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *MessagesReadFeaturedStickersRequest) TypeID() uint32 {
+func (*MessagesReadFeaturedStickersRequest) TypeID() uint32 {
 	return MessagesReadFeaturedStickersRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *MessagesReadFeaturedStickersRequest) TypeName() string {
+func (*MessagesReadFeaturedStickersRequest) TypeName() string {
 	return "messages.readFeaturedStickers"
+}
+
+// TypeInfo returns info about TL type.
+func (r *MessagesReadFeaturedStickersRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.readFeaturedStickers",
+		ID:   MessagesReadFeaturedStickersRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

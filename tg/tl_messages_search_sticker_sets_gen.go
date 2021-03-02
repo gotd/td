@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSearchStickerSetsRequest represents TL type `messages.searchStickerSets#c2b7d08b`.
 // Search for stickersets
@@ -29,16 +31,16 @@ type MessagesSearchStickerSetsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Exclude featured stickersets from results
-	ExcludeFeatured bool `tl:"exclude_featured"`
+	ExcludeFeatured bool
 	// Query string
-	Q string `tl:"q"`
+	Q string
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 }
 
 // MessagesSearchStickerSetsRequestTypeID is TL type id of MessagesSearchStickerSetsRequest.
@@ -87,13 +89,45 @@ func (s *MessagesSearchStickerSetsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSearchStickerSetsRequest) TypeID() uint32 {
+func (*MessagesSearchStickerSetsRequest) TypeID() uint32 {
 	return MessagesSearchStickerSetsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSearchStickerSetsRequest) TypeName() string {
+func (*MessagesSearchStickerSetsRequest) TypeName() string {
 	return "messages.searchStickerSets"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSearchStickerSetsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.searchStickerSets",
+		ID:   MessagesSearchStickerSetsRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ExcludeFeatured",
+			SchemaName: "exclude_featured",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "Q",
+			SchemaName: "q",
+		},
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetDialogsRequest represents TL type `messages.getDialogs#a0ee3b73`.
 // Returns the current user dialog list.
@@ -29,38 +31,38 @@ type MessagesGetDialogsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Exclude pinned dialogs
-	ExcludePinned bool `tl:"exclude_pinned"`
+	ExcludePinned bool
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int `tl:"folder_id"`
+	FolderID int
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetDate int `tl:"offset_date"`
+	OffsetDate int
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetID int `tl:"offset_id"`
+	OffsetID int
 	// Offset peer for pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetPeer InputPeerClass `tl:"offset_peer"`
+	OffsetPeer InputPeerClass
 	// Number of list elements to be returned
-	Limit int `tl:"limit"`
+	Limit int
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 }
 
 // MessagesGetDialogsRequestTypeID is TL type id of MessagesGetDialogsRequest.
@@ -132,13 +134,62 @@ func (g *MessagesGetDialogsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetDialogsRequest) TypeID() uint32 {
+func (*MessagesGetDialogsRequest) TypeID() uint32 {
 	return MessagesGetDialogsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetDialogsRequest) TypeName() string {
+func (*MessagesGetDialogsRequest) TypeName() string {
 	return "messages.getDialogs"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetDialogsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getDialogs",
+		ID:   MessagesGetDialogsRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ExcludePinned",
+			SchemaName: "exclude_pinned",
+			Null:       !g.Flags.Has(0),
+		},
+		{
+			Name:       "FolderID",
+			SchemaName: "folder_id",
+			Null:       !g.Flags.Has(1),
+		},
+		{
+			Name:       "OffsetDate",
+			SchemaName: "offset_date",
+		},
+		{
+			Name:       "OffsetID",
+			SchemaName: "offset_id",
+		},
+		{
+			Name:       "OffsetPeer",
+			SchemaName: "offset_peer",
+		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

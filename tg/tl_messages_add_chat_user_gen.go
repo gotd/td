@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesAddChatUserRequest represents TL type `messages.addChatUser#f9a0aa09`.
 // Adds a user to a chat and sends a service message on it.
@@ -26,11 +28,11 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.addChatUser for reference.
 type MessagesAddChatUserRequest struct {
 	// Chat ID
-	ChatID int `tl:"chat_id"`
+	ChatID int
 	// User ID to be added
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 	// Number of last messages to be forwarded
-	FwdLimit int `tl:"fwd_limit"`
+	FwdLimit int
 }
 
 // MessagesAddChatUserRequestTypeID is TL type id of MessagesAddChatUserRequest.
@@ -76,13 +78,40 @@ func (a *MessagesAddChatUserRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *MessagesAddChatUserRequest) TypeID() uint32 {
+func (*MessagesAddChatUserRequest) TypeID() uint32 {
 	return MessagesAddChatUserRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *MessagesAddChatUserRequest) TypeName() string {
+func (*MessagesAddChatUserRequest) TypeName() string {
 	return "messages.addChatUser"
+}
+
+// TypeInfo returns info about TL type.
+func (a *MessagesAddChatUserRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.addChatUser",
+		ID:   MessagesAddChatUserRequestTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "FwdLimit",
+			SchemaName: "fwd_limit",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

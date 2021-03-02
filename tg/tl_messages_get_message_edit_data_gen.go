@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetMessageEditDataRequest represents TL type `messages.getMessageEditData#fda68d36`.
 // Find out if a media message's caption can be edited
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.getMessageEditData for reference.
 type MessagesGetMessageEditDataRequest struct {
 	// Peer where the media was sent
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// ID of message
-	ID int `tl:"id"`
+	ID int
 }
 
 // MessagesGetMessageEditDataRequestTypeID is TL type id of MessagesGetMessageEditDataRequest.
@@ -69,13 +71,36 @@ func (g *MessagesGetMessageEditDataRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetMessageEditDataRequest) TypeID() uint32 {
+func (*MessagesGetMessageEditDataRequest) TypeID() uint32 {
 	return MessagesGetMessageEditDataRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetMessageEditDataRequest) TypeName() string {
+func (*MessagesGetMessageEditDataRequest) TypeName() string {
 	return "messages.getMessageEditData"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetMessageEditDataRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getMessageEditData",
+		ID:   MessagesGetMessageEditDataRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

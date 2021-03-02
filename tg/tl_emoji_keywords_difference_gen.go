@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // EmojiKeywordsDifference represents TL type `emojiKeywordsDifference#5cc761bd`.
 // Changes to emoji keywords
@@ -26,13 +28,13 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/emojiKeywordsDifference for reference.
 type EmojiKeywordsDifference struct {
 	// Language code for keywords
-	LangCode string `tl:"lang_code"`
+	LangCode string
 	// Previous emoji keyword list version
-	FromVersion int `tl:"from_version"`
+	FromVersion int
 	// Current version of emoji keyword list
-	Version int `tl:"version"`
+	Version int
 	// Emojis associated to keywords
-	Keywords []EmojiKeywordClass `tl:"keywords"`
+	Keywords []EmojiKeywordClass
 }
 
 // EmojiKeywordsDifferenceTypeID is TL type id of EmojiKeywordsDifference.
@@ -83,13 +85,44 @@ func (e *EmojiKeywordsDifference) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *EmojiKeywordsDifference) TypeID() uint32 {
+func (*EmojiKeywordsDifference) TypeID() uint32 {
 	return EmojiKeywordsDifferenceTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *EmojiKeywordsDifference) TypeName() string {
+func (*EmojiKeywordsDifference) TypeName() string {
 	return "emojiKeywordsDifference"
+}
+
+// TypeInfo returns info about TL type.
+func (e *EmojiKeywordsDifference) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "emojiKeywordsDifference",
+		ID:   EmojiKeywordsDifferenceTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "LangCode",
+			SchemaName: "lang_code",
+		},
+		{
+			Name:       "FromVersion",
+			SchemaName: "from_version",
+		},
+		{
+			Name:       "Version",
+			SchemaName: "version",
+		},
+		{
+			Name:       "Keywords",
+			SchemaName: "keywords",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

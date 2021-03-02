@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AuthBindTempAuthKeyRequest represents TL type `auth.bindTempAuthKey#cdd42a05`.
 // Binds a temporary authorization key temp_auth_key_id to the permanent authorization key perm_auth_key_id. Each permanent key may only be bound to one temporary key at a time, binding a new temporary key overwrites the previous one.
@@ -30,22 +32,22 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/auth.bindTempAuthKey for reference.
 type AuthBindTempAuthKeyRequest struct {
 	// Permanent auth_key_id to bind to
-	PermAuthKeyID int64 `tl:"perm_auth_key_id"`
+	PermAuthKeyID int64
 	// Random long from Binding message contents¹
 	//
 	// Links:
 	//  1) https://core.telegram.org#binding-message-contents
-	Nonce int64 `tl:"nonce"`
+	Nonce int64
 	// Unix timestamp to invalidate temporary key, see Binding message contents¹
 	//
 	// Links:
 	//  1) https://core.telegram.org#binding-message-contents
-	ExpiresAt int `tl:"expires_at"`
+	ExpiresAt int
 	// See Generating encrypted_message¹
 	//
 	// Links:
 	//  1) https://core.telegram.org#generating-encrypted-message
-	EncryptedMessage []byte `tl:"encrypted_message"`
+	EncryptedMessage []byte
 }
 
 // AuthBindTempAuthKeyRequestTypeID is TL type id of AuthBindTempAuthKeyRequest.
@@ -96,13 +98,44 @@ func (b *AuthBindTempAuthKeyRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (b *AuthBindTempAuthKeyRequest) TypeID() uint32 {
+func (*AuthBindTempAuthKeyRequest) TypeID() uint32 {
 	return AuthBindTempAuthKeyRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (b *AuthBindTempAuthKeyRequest) TypeName() string {
+func (*AuthBindTempAuthKeyRequest) TypeName() string {
 	return "auth.bindTempAuthKey"
+}
+
+// TypeInfo returns info about TL type.
+func (b *AuthBindTempAuthKeyRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.bindTempAuthKey",
+		ID:   AuthBindTempAuthKeyRequestTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PermAuthKeyID",
+			SchemaName: "perm_auth_key_id",
+		},
+		{
+			Name:       "Nonce",
+			SchemaName: "nonce",
+		},
+		{
+			Name:       "ExpiresAt",
+			SchemaName: "expires_at",
+		},
+		{
+			Name:       "EncryptedMessage",
+			SchemaName: "encrypted_message",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

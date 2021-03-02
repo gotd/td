@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputDocumentEmpty represents TL type `inputDocumentEmpty#72f0eaae`.
 // Empty constructor.
@@ -50,13 +52,27 @@ func (i *InputDocumentEmpty) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputDocumentEmpty) TypeID() uint32 {
+func (*InputDocumentEmpty) TypeID() uint32 {
 	return InputDocumentEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputDocumentEmpty) TypeName() string {
+func (*InputDocumentEmpty) TypeName() string {
 	return "inputDocumentEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputDocumentEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputDocumentEmpty",
+		ID:   InputDocumentEmptyTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -96,17 +112,17 @@ var (
 // See https://core.telegram.org/constructor/inputDocument for reference.
 type InputDocument struct {
 	// Document ID
-	ID int64 `tl:"id"`
+	ID int64
 	// access_hash parameter from the document¹ constructor
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/document
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// File reference¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/file_reference
-	FileReference []byte `tl:"file_reference"`
+	FileReference []byte
 }
 
 // InputDocumentTypeID is TL type id of InputDocument.
@@ -152,13 +168,40 @@ func (i *InputDocument) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputDocument) TypeID() uint32 {
+func (*InputDocument) TypeID() uint32 {
 	return InputDocumentTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputDocument) TypeName() string {
+func (*InputDocument) TypeName() string {
 	return "inputDocument"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputDocument) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputDocument",
+		ID:   InputDocumentTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "FileReference",
+			SchemaName: "file_reference",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

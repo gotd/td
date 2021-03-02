@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSendMessageRequest represents TL type `messages.sendMessage#520c3870`.
 // Sends a message to a chat
@@ -29,43 +31,43 @@ type MessagesSendMessageRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Set this flag to disable generation of the webpage preview
-	NoWebpage bool `tl:"no_webpage"`
+	NoWebpage bool
 	// Send this message silently (no notifications for the receivers)
-	Silent bool `tl:"silent"`
+	Silent bool
 	// Send this message as background message
-	Background bool `tl:"background"`
+	Background bool
 	// Clear the draft field
-	ClearDraft bool `tl:"clear_draft"`
+	ClearDraft bool
 	// The destination where the message will be sent
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// The message ID to which this message will reply to
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
-	ReplyToMsgID int `tl:"reply_to_msg_id"`
+	ReplyToMsgID int
 	// The message
-	Message string `tl:"message"`
+	Message string
 	// Unique client message ID required to prevent message resending
-	RandomID int64 `tl:"random_id"`
+	RandomID int64
 	// Reply markup for sending bot buttons
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass
 	// Message entities¹ for sending styled text
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `tl:"entities"`
+	Entities []MessageEntityClass
 	// Scheduled message date for scheduled messages¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/scheduled-messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
-	ScheduleDate int `tl:"schedule_date"`
+	ScheduleDate int
 }
 
 // MessagesSendMessageRequestTypeID is TL type id of MessagesSendMessageRequest.
@@ -166,13 +168,84 @@ func (s *MessagesSendMessageRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSendMessageRequest) TypeID() uint32 {
+func (*MessagesSendMessageRequest) TypeID() uint32 {
 	return MessagesSendMessageRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSendMessageRequest) TypeName() string {
+func (*MessagesSendMessageRequest) TypeName() string {
 	return "messages.sendMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSendMessageRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.sendMessage",
+		ID:   MessagesSendMessageRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "NoWebpage",
+			SchemaName: "no_webpage",
+			Null:       !s.Flags.Has(1),
+		},
+		{
+			Name:       "Silent",
+			SchemaName: "silent",
+			Null:       !s.Flags.Has(5),
+		},
+		{
+			Name:       "Background",
+			SchemaName: "background",
+			Null:       !s.Flags.Has(6),
+		},
+		{
+			Name:       "ClearDraft",
+			SchemaName: "clear_draft",
+			Null:       !s.Flags.Has(7),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "ReplyToMsgID",
+			SchemaName: "reply_to_msg_id",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+		{
+			Name:       "RandomID",
+			SchemaName: "random_id",
+		},
+		{
+			Name:       "ReplyMarkup",
+			SchemaName: "reply_markup",
+			Null:       !s.Flags.Has(2),
+		},
+		{
+			Name:       "Entities",
+			SchemaName: "entities",
+			Null:       !s.Flags.Has(3),
+		},
+		{
+			Name:       "ScheduleDate",
+			SchemaName: "schedule_date",
+			Null:       !s.Flags.Has(10),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

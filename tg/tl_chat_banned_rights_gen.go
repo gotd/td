@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChatBannedRights represents TL type `chatBannedRights#9f120418`.
 // Represents the rights of a normal user in a supergroup/channel/chat¹. In this case, the flags are inverted: if set, a flag does not allow a user to do X.
@@ -32,69 +34,69 @@ type ChatBannedRights struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// If set, does not allow a user to view messages in a supergroup/channel/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	ViewMessages bool `tl:"view_messages"`
+	ViewMessages bool
 	// If set, does not allow a user to send messages in a supergroup/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	SendMessages bool `tl:"send_messages"`
+	SendMessages bool
 	// If set, does not allow a user to send any media in a supergroup/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	SendMedia bool `tl:"send_media"`
+	SendMedia bool
 	// If set, does not allow a user to send stickers in a supergroup/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	SendStickers bool `tl:"send_stickers"`
+	SendStickers bool
 	// If set, does not allow a user to send gifs in a supergroup/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	SendGifs bool `tl:"send_gifs"`
+	SendGifs bool
 	// If set, does not allow a user to send games in a supergroup/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	SendGames bool `tl:"send_games"`
+	SendGames bool
 	// If set, does not allow a user to use inline bots in a supergroup/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	SendInline bool `tl:"send_inline"`
+	SendInline bool
 	// If set, does not allow a user to embed links in the messages of a supergroup/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	EmbedLinks bool `tl:"embed_links"`
+	EmbedLinks bool
 	// If set, does not allow a user to send stickers in a supergroup/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	SendPolls bool `tl:"send_polls"`
+	SendPolls bool
 	// If set, does not allow any user to change the description of a supergroup/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	ChangeInfo bool `tl:"change_info"`
+	ChangeInfo bool
 	// If set, does not allow any user to invite users in a supergroup/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	InviteUsers bool `tl:"invite_users"`
+	InviteUsers bool
 	// If set, does not allow any user to pin messages in a supergroup/chat¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	PinMessages bool `tl:"pin_messages"`
+	PinMessages bool
 	// Validity of said permissions (it is considered forever any value less then 30 seconds or more then 366 days).
-	UntilDate int `tl:"until_date"`
+	UntilDate int
 }
 
 // ChatBannedRightsTypeID is TL type id of ChatBannedRights.
@@ -193,13 +195,96 @@ func (c *ChatBannedRights) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChatBannedRights) TypeID() uint32 {
+func (*ChatBannedRights) TypeID() uint32 {
 	return ChatBannedRightsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChatBannedRights) TypeName() string {
+func (*ChatBannedRights) TypeName() string {
 	return "chatBannedRights"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatBannedRights) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatBannedRights",
+		ID:   ChatBannedRightsTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ViewMessages",
+			SchemaName: "view_messages",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "SendMessages",
+			SchemaName: "send_messages",
+			Null:       !c.Flags.Has(1),
+		},
+		{
+			Name:       "SendMedia",
+			SchemaName: "send_media",
+			Null:       !c.Flags.Has(2),
+		},
+		{
+			Name:       "SendStickers",
+			SchemaName: "send_stickers",
+			Null:       !c.Flags.Has(3),
+		},
+		{
+			Name:       "SendGifs",
+			SchemaName: "send_gifs",
+			Null:       !c.Flags.Has(4),
+		},
+		{
+			Name:       "SendGames",
+			SchemaName: "send_games",
+			Null:       !c.Flags.Has(5),
+		},
+		{
+			Name:       "SendInline",
+			SchemaName: "send_inline",
+			Null:       !c.Flags.Has(6),
+		},
+		{
+			Name:       "EmbedLinks",
+			SchemaName: "embed_links",
+			Null:       !c.Flags.Has(7),
+		},
+		{
+			Name:       "SendPolls",
+			SchemaName: "send_polls",
+			Null:       !c.Flags.Has(8),
+		},
+		{
+			Name:       "ChangeInfo",
+			SchemaName: "change_info",
+			Null:       !c.Flags.Has(10),
+		},
+		{
+			Name:       "InviteUsers",
+			SchemaName: "invite_users",
+			Null:       !c.Flags.Has(15),
+		},
+		{
+			Name:       "PinMessages",
+			SchemaName: "pin_messages",
+			Null:       !c.Flags.Has(17),
+		},
+		{
+			Name:       "UntilDate",
+			SchemaName: "until_date",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

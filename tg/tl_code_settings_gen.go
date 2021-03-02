@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // CodeSettings represents TL type `codeSettings#debebe83`.
 // Settings used by telegram servers for sending the confirm code.
@@ -34,19 +36,19 @@ type CodeSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to allow phone verification via phone calls¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/auth
-	AllowFlashcall bool `tl:"allow_flashcall"`
+	AllowFlashcall bool
 	// Pass true if the phone number is used on the current device. Ignored if allow_flashcall is not set.
-	CurrentNumber bool `tl:"current_number"`
+	CurrentNumber bool
 	// If a token that will be included in eventually sent SMSs is required: required in newer versions of android, to use the android SMS receiver APIs¹
 	//
 	// Links:
 	//  1) https://developers.google.com/identity/sms-retriever/overview
-	AllowAppHash bool `tl:"allow_app_hash"`
+	AllowAppHash bool
 }
 
 // CodeSettingsTypeID is TL type id of CodeSettings.
@@ -95,13 +97,47 @@ func (c *CodeSettings) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *CodeSettings) TypeID() uint32 {
+func (*CodeSettings) TypeID() uint32 {
 	return CodeSettingsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *CodeSettings) TypeName() string {
+func (*CodeSettings) TypeName() string {
 	return "codeSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (c *CodeSettings) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "codeSettings",
+		ID:   CodeSettingsTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "AllowFlashcall",
+			SchemaName: "allow_flashcall",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "CurrentNumber",
+			SchemaName: "current_number",
+			Null:       !c.Flags.Has(1),
+		},
+		{
+			Name:       "AllowAppHash",
+			SchemaName: "allow_app_hash",
+			Null:       !c.Flags.Has(4),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

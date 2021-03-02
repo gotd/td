@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PaymentsValidateRequestedInfoRequest represents TL type `payments.validateRequestedInfo#770a8e74`.
 // Submit requested order information for validation
@@ -29,13 +31,13 @@ type PaymentsValidateRequestedInfoRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Save order information to re-use it for future orders
-	Save bool `tl:"save"`
+	Save bool
 	// Message ID of payment form
-	MsgID int `tl:"msg_id"`
+	MsgID int
 	// Requested order information
-	Info PaymentRequestedInfo `tl:"info"`
+	Info PaymentRequestedInfo
 }
 
 // PaymentsValidateRequestedInfoRequestTypeID is TL type id of PaymentsValidateRequestedInfoRequest.
@@ -84,13 +86,45 @@ func (v *PaymentsValidateRequestedInfoRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (v *PaymentsValidateRequestedInfoRequest) TypeID() uint32 {
+func (*PaymentsValidateRequestedInfoRequest) TypeID() uint32 {
 	return PaymentsValidateRequestedInfoRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (v *PaymentsValidateRequestedInfoRequest) TypeName() string {
+func (*PaymentsValidateRequestedInfoRequest) TypeName() string {
 	return "payments.validateRequestedInfo"
+}
+
+// TypeInfo returns info about TL type.
+func (v *PaymentsValidateRequestedInfoRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "payments.validateRequestedInfo",
+		ID:   PaymentsValidateRequestedInfoRequestTypeID,
+	}
+	if v == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Save",
+			SchemaName: "save",
+			Null:       !v.Flags.Has(0),
+		},
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+		{
+			Name:       "Info",
+			SchemaName: "info",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

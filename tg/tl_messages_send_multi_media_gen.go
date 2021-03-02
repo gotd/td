@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSendMultiMediaRequest represents TL type `messages.sendMultiMedia#cc0110cb`.
 // Send an album or grouped media¹
@@ -32,28 +34,28 @@ type MessagesSendMultiMediaRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to send the album silently (no notification triggered)
-	Silent bool `tl:"silent"`
+	Silent bool
 	// Send in background?
-	Background bool `tl:"background"`
+	Background bool
 	// Whether to clear drafts¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/drafts
-	ClearDraft bool `tl:"clear_draft"`
+	ClearDraft bool
 	// The destination chat
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// The message to reply to
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
-	ReplyToMsgID int `tl:"reply_to_msg_id"`
+	ReplyToMsgID int
 	// The medias to send
-	MultiMedia []InputSingleMedia `tl:"multi_media"`
+	MultiMedia []InputSingleMedia
 	// Scheduled message date for scheduled messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
-	ScheduleDate int `tl:"schedule_date"`
+	ScheduleDate int
 }
 
 // MessagesSendMultiMediaRequestTypeID is TL type id of MessagesSendMultiMediaRequest.
@@ -128,13 +130,65 @@ func (s *MessagesSendMultiMediaRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSendMultiMediaRequest) TypeID() uint32 {
+func (*MessagesSendMultiMediaRequest) TypeID() uint32 {
 	return MessagesSendMultiMediaRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSendMultiMediaRequest) TypeName() string {
+func (*MessagesSendMultiMediaRequest) TypeName() string {
 	return "messages.sendMultiMedia"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSendMultiMediaRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.sendMultiMedia",
+		ID:   MessagesSendMultiMediaRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Silent",
+			SchemaName: "silent",
+			Null:       !s.Flags.Has(5),
+		},
+		{
+			Name:       "Background",
+			SchemaName: "background",
+			Null:       !s.Flags.Has(6),
+		},
+		{
+			Name:       "ClearDraft",
+			SchemaName: "clear_draft",
+			Null:       !s.Flags.Has(7),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "ReplyToMsgID",
+			SchemaName: "reply_to_msg_id",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "MultiMedia",
+			SchemaName: "multi_media",
+		},
+		{
+			Name:       "ScheduleDate",
+			SchemaName: "schedule_date",
+			Null:       !s.Flags.Has(10),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

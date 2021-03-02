@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AutoDownloadSettings represents TL type `autoDownloadSettings#e04232f3`.
 // Autodownload settings
@@ -29,23 +31,23 @@ type AutoDownloadSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Disable automatic media downloads?
-	Disabled bool `tl:"disabled"`
+	Disabled bool
 	// Whether to preload the first seconds of videos larger than the specified limit
-	VideoPreloadLarge bool `tl:"video_preload_large"`
+	VideoPreloadLarge bool
 	// Whether to preload the next audio track when you're listening to music
-	AudioPreloadNext bool `tl:"audio_preload_next"`
+	AudioPreloadNext bool
 	// Whether to enable data saving mode in phone calls
-	PhonecallsLessData bool `tl:"phonecalls_less_data"`
+	PhonecallsLessData bool
 	// Maximum size of photos to preload
-	PhotoSizeMax int `tl:"photo_size_max"`
+	PhotoSizeMax int
 	// Maximum size of videos to preload
-	VideoSizeMax int `tl:"video_size_max"`
+	VideoSizeMax int
 	// Maximum size of other files to preload
-	FileSizeMax int `tl:"file_size_max"`
+	FileSizeMax int
 	// Maximum suggested bitrate for uploading videos
-	VideoUploadMaxbitrate int `tl:"video_upload_maxbitrate"`
+	VideoUploadMaxbitrate int
 }
 
 // AutoDownloadSettingsTypeID is TL type id of AutoDownloadSettings.
@@ -119,13 +121,68 @@ func (a *AutoDownloadSettings) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *AutoDownloadSettings) TypeID() uint32 {
+func (*AutoDownloadSettings) TypeID() uint32 {
 	return AutoDownloadSettingsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *AutoDownloadSettings) TypeName() string {
+func (*AutoDownloadSettings) TypeName() string {
 	return "autoDownloadSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (a *AutoDownloadSettings) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "autoDownloadSettings",
+		ID:   AutoDownloadSettingsTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Disabled",
+			SchemaName: "disabled",
+			Null:       !a.Flags.Has(0),
+		},
+		{
+			Name:       "VideoPreloadLarge",
+			SchemaName: "video_preload_large",
+			Null:       !a.Flags.Has(1),
+		},
+		{
+			Name:       "AudioPreloadNext",
+			SchemaName: "audio_preload_next",
+			Null:       !a.Flags.Has(2),
+		},
+		{
+			Name:       "PhonecallsLessData",
+			SchemaName: "phonecalls_less_data",
+			Null:       !a.Flags.Has(3),
+		},
+		{
+			Name:       "PhotoSizeMax",
+			SchemaName: "photo_size_max",
+		},
+		{
+			Name:       "VideoSizeMax",
+			SchemaName: "video_size_max",
+		},
+		{
+			Name:       "FileSizeMax",
+			SchemaName: "file_size_max",
+		},
+		{
+			Name:       "VideoUploadMaxbitrate",
+			SchemaName: "video_upload_maxbitrate",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

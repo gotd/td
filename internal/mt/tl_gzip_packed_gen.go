@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,11 +20,12 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // GzipPacked represents TL type `gzip_packed#3072cfa1`.
 type GzipPacked struct {
 	// PackedData field of GzipPacked.
-	PackedData []byte `tl:"packed_data"`
+	PackedData []byte
 }
 
 // GzipPackedTypeID is TL type id of GzipPacked.
@@ -59,13 +61,32 @@ func (g *GzipPacked) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *GzipPacked) TypeID() uint32 {
+func (*GzipPacked) TypeID() uint32 {
 	return GzipPackedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *GzipPacked) TypeName() string {
+func (*GzipPacked) TypeName() string {
 	return "gzip_packed"
+}
+
+// TypeInfo returns info about TL type.
+func (g *GzipPacked) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "gzip_packed",
+		ID:   GzipPackedTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PackedData",
+			SchemaName: "packed_data",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

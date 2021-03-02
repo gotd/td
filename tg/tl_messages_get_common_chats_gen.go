@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetCommonChatsRequest represents TL type `messages.getCommonChats#d0a48c4`.
 // Get chats in common with a user
@@ -26,17 +28,17 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.getCommonChats for reference.
 type MessagesGetCommonChatsRequest struct {
 	// User ID
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 	// Maximum ID of chat to return (see pagination¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	MaxID int `tl:"max_id"`
+	MaxID int
 	// Maximum number of results to return, see pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int `tl:"limit"`
+	Limit int
 }
 
 // MessagesGetCommonChatsRequestTypeID is TL type id of MessagesGetCommonChatsRequest.
@@ -82,13 +84,40 @@ func (g *MessagesGetCommonChatsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetCommonChatsRequest) TypeID() uint32 {
+func (*MessagesGetCommonChatsRequest) TypeID() uint32 {
 	return MessagesGetCommonChatsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetCommonChatsRequest) TypeName() string {
+func (*MessagesGetCommonChatsRequest) TypeName() string {
 	return "messages.getCommonChats"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetCommonChatsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getCommonChats",
+		ID:   MessagesGetCommonChatsRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "MaxID",
+			SchemaName: "max_id",
+		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesReorderStickerSetsRequest represents TL type `messages.reorderStickerSets#78337739`.
 // Reorder installed stickersets
@@ -29,11 +31,11 @@ type MessagesReorderStickerSetsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Reorder mask stickersets
-	Masks bool `tl:"masks"`
+	Masks bool
 	// New stickerset order by stickerset IDs
-	Order []int64 `tl:"order"`
+	Order []int64
 }
 
 // MessagesReorderStickerSetsRequestTypeID is TL type id of MessagesReorderStickerSetsRequest.
@@ -77,13 +79,41 @@ func (r *MessagesReorderStickerSetsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *MessagesReorderStickerSetsRequest) TypeID() uint32 {
+func (*MessagesReorderStickerSetsRequest) TypeID() uint32 {
 	return MessagesReorderStickerSetsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *MessagesReorderStickerSetsRequest) TypeName() string {
+func (*MessagesReorderStickerSetsRequest) TypeName() string {
 	return "messages.reorderStickerSets"
+}
+
+// TypeInfo returns info about TL type.
+func (r *MessagesReorderStickerSetsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.reorderStickerSets",
+		ID:   MessagesReorderStickerSetsRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Masks",
+			SchemaName: "masks",
+			Null:       !r.Flags.Has(0),
+		},
+		{
+			Name:       "Order",
+			SchemaName: "order",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

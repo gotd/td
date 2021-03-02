@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // BotsSendCustomRequestRequest represents TL type `bots.sendCustomRequest#aa2769ed`.
 // Sends a custom request; for bots only
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/bots.sendCustomRequest for reference.
 type BotsSendCustomRequestRequest struct {
 	// The method name
-	CustomMethod string `tl:"custom_method"`
+	CustomMethod string
 	// JSON-serialized method parameters
-	Params DataJSON `tl:"params"`
+	Params DataJSON
 }
 
 // BotsSendCustomRequestRequestTypeID is TL type id of BotsSendCustomRequestRequest.
@@ -69,13 +71,36 @@ func (s *BotsSendCustomRequestRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *BotsSendCustomRequestRequest) TypeID() uint32 {
+func (*BotsSendCustomRequestRequest) TypeID() uint32 {
 	return BotsSendCustomRequestRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *BotsSendCustomRequestRequest) TypeName() string {
+func (*BotsSendCustomRequestRequest) TypeName() string {
 	return "bots.sendCustomRequest"
+}
+
+// TypeInfo returns info about TL type.
+func (s *BotsSendCustomRequestRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "bots.sendCustomRequest",
+		ID:   BotsSendCustomRequestRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "CustomMethod",
+			SchemaName: "custom_method",
+		},
+		{
+			Name:       "Params",
+			SchemaName: "params",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

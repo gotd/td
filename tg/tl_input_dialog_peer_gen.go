@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputDialogPeer represents TL type `inputDialogPeer#fcaafeb7`.
 // A peer
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/inputDialogPeer for reference.
 type InputDialogPeer struct {
 	// Peer
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 }
 
 // InputDialogPeerTypeID is TL type id of InputDialogPeer.
@@ -62,13 +64,32 @@ func (i *InputDialogPeer) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputDialogPeer) TypeID() uint32 {
+func (*InputDialogPeer) TypeID() uint32 {
 	return InputDialogPeerTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputDialogPeer) TypeName() string {
+func (*InputDialogPeer) TypeName() string {
 	return "inputDialogPeer"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputDialogPeer) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputDialogPeer",
+		ID:   InputDialogPeerTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -132,7 +153,7 @@ type InputDialogPeerFolder struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
-	FolderID int `tl:"folder_id"`
+	FolderID int
 }
 
 // InputDialogPeerFolderTypeID is TL type id of InputDialogPeerFolder.
@@ -168,13 +189,32 @@ func (i *InputDialogPeerFolder) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputDialogPeerFolder) TypeID() uint32 {
+func (*InputDialogPeerFolder) TypeID() uint32 {
 	return InputDialogPeerFolderTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputDialogPeerFolder) TypeName() string {
+func (*InputDialogPeerFolder) TypeName() string {
 	return "inputDialogPeerFolder"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputDialogPeerFolder) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputDialogPeerFolder",
+		ID:   InputDialogPeerFolderTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "FolderID",
+			SchemaName: "folder_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

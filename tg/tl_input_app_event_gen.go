@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputAppEvent represents TL type `inputAppEvent#1d1b1245`.
 // Event that occured in the application.
@@ -26,13 +28,13 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/inputAppEvent for reference.
 type InputAppEvent struct {
 	// Client's exact timestamp for the event
-	Time float64 `tl:"time"`
+	Time float64
 	// Type of event
-	Type string `tl:"type"`
+	Type string
 	// Arbitrary numeric value for more convenient selection of certain event types, or events referring to a certain object
-	Peer int64 `tl:"peer"`
+	Peer int64
 	// Details of the event
-	Data JSONValueClass `tl:"data"`
+	Data JSONValueClass
 }
 
 // InputAppEventTypeID is TL type id of InputAppEvent.
@@ -83,13 +85,44 @@ func (i *InputAppEvent) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputAppEvent) TypeID() uint32 {
+func (*InputAppEvent) TypeID() uint32 {
 	return InputAppEventTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputAppEvent) TypeName() string {
+func (*InputAppEvent) TypeName() string {
 	return "inputAppEvent"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputAppEvent) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputAppEvent",
+		ID:   InputAppEventTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Time",
+			SchemaName: "time",
+		},
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Data",
+			SchemaName: "data",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

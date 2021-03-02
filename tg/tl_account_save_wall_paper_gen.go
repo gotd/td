@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountSaveWallPaperRequest represents TL type `account.saveWallPaper#6c5a5b37`.
 // Install/uninstall wallpaper
@@ -26,11 +28,11 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/account.saveWallPaper for reference.
 type AccountSaveWallPaperRequest struct {
 	// Wallpaper to save
-	Wallpaper InputWallPaperClass `tl:"wallpaper"`
+	Wallpaper InputWallPaperClass
 	// Uninstall wallpaper?
-	Unsave bool `tl:"unsave"`
+	Unsave bool
 	// Wallpaper settings
-	Settings WallPaperSettings `tl:"settings"`
+	Settings WallPaperSettings
 }
 
 // AccountSaveWallPaperRequestTypeID is TL type id of AccountSaveWallPaperRequest.
@@ -76,13 +78,40 @@ func (s *AccountSaveWallPaperRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *AccountSaveWallPaperRequest) TypeID() uint32 {
+func (*AccountSaveWallPaperRequest) TypeID() uint32 {
 	return AccountSaveWallPaperRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *AccountSaveWallPaperRequest) TypeName() string {
+func (*AccountSaveWallPaperRequest) TypeName() string {
 	return "account.saveWallPaper"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AccountSaveWallPaperRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.saveWallPaper",
+		ID:   AccountSaveWallPaperRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Wallpaper",
+			SchemaName: "wallpaper",
+		},
+		{
+			Name:       "Unsave",
+			SchemaName: "unsave",
+		},
+		{
+			Name:       "Settings",
+			SchemaName: "settings",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

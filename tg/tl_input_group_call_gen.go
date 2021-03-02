@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,15 +20,16 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputGroupCall represents TL type `inputGroupCall#d8aa840f`.
 //
 // See https://core.telegram.org/constructor/inputGroupCall for reference.
 type InputGroupCall struct {
 	// ID field of InputGroupCall.
-	ID int64 `tl:"id"`
+	ID int64
 	// AccessHash field of InputGroupCall.
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 }
 
 // InputGroupCallTypeID is TL type id of InputGroupCall.
@@ -68,13 +70,36 @@ func (i *InputGroupCall) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputGroupCall) TypeID() uint32 {
+func (*InputGroupCall) TypeID() uint32 {
 	return InputGroupCallTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputGroupCall) TypeName() string {
+func (*InputGroupCall) TypeName() string {
 	return "inputGroupCall"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputGroupCall) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputGroupCall",
+		ID:   InputGroupCallTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

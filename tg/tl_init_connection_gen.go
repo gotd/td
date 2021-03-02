@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InitConnectionRequest represents TL type `initConnection#c1cd5ea9`.
 // Initialize connection
@@ -29,34 +31,34 @@ type InitConnectionRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Application identifier (see. App configuration¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/myapp
-	APIID int `tl:"api_id"`
+	APIID int
 	// Device model
-	DeviceModel string `tl:"device_model"`
+	DeviceModel string
 	// Operation system version
-	SystemVersion string `tl:"system_version"`
+	SystemVersion string
 	// Application version
-	AppVersion string `tl:"app_version"`
+	AppVersion string
 	// Code for the language used on the device's OS, ISO 639-1 standard
-	SystemLangCode string `tl:"system_lang_code"`
+	SystemLangCode string
 	// Language pack to use
-	LangPack string `tl:"lang_pack"`
+	LangPack string
 	// Code for the language used on the client, ISO 639-1 standard
-	LangCode string `tl:"lang_code"`
+	LangCode string
 	// Info about an MTProto proxy
 	//
 	// Use SetProxy and GetProxy helpers.
-	Proxy InputClientProxy `tl:"proxy"`
+	Proxy InputClientProxy
 	// Additional initConnection parameters. For now, only the tz_offset field is supported, for specifying timezone offset in seconds.
 	//
 	// Use SetParams and GetParams helpers.
-	Params JSONValueClass `tl:"params"`
+	Params JSONValueClass
 	// The query itself
-	Query bin.Object `tl:"query"`
+	Query bin.Object
 }
 
 // InitConnectionRequestTypeID is TL type id of InitConnectionRequest.
@@ -146,13 +148,74 @@ func (i *InitConnectionRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InitConnectionRequest) TypeID() uint32 {
+func (*InitConnectionRequest) TypeID() uint32 {
 	return InitConnectionRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InitConnectionRequest) TypeName() string {
+func (*InitConnectionRequest) TypeName() string {
 	return "initConnection"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InitConnectionRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "initConnection",
+		ID:   InitConnectionRequestTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "APIID",
+			SchemaName: "api_id",
+		},
+		{
+			Name:       "DeviceModel",
+			SchemaName: "device_model",
+		},
+		{
+			Name:       "SystemVersion",
+			SchemaName: "system_version",
+		},
+		{
+			Name:       "AppVersion",
+			SchemaName: "app_version",
+		},
+		{
+			Name:       "SystemLangCode",
+			SchemaName: "system_lang_code",
+		},
+		{
+			Name:       "LangPack",
+			SchemaName: "lang_pack",
+		},
+		{
+			Name:       "LangCode",
+			SchemaName: "lang_code",
+		},
+		{
+			Name:       "Proxy",
+			SchemaName: "proxy",
+			Null:       !i.Flags.Has(0),
+		},
+		{
+			Name:       "Params",
+			SchemaName: "params",
+			Null:       !i.Flags.Has(1),
+		},
+		{
+			Name:       "Query",
+			SchemaName: "query",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

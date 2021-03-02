@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetDiscussionMessageRequest represents TL type `messages.getDiscussionMessage#446972fd`.
 // Get discussion message¹ from the associated discussion group² of a channel to show it on top of the comment section, without actually joining the group
@@ -33,9 +35,9 @@ type MessagesGetDiscussionMessageRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Message ID
-	MsgID int `tl:"msg_id"`
+	MsgID int
 }
 
 // MessagesGetDiscussionMessageRequestTypeID is TL type id of MessagesGetDiscussionMessageRequest.
@@ -76,13 +78,36 @@ func (g *MessagesGetDiscussionMessageRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetDiscussionMessageRequest) TypeID() uint32 {
+func (*MessagesGetDiscussionMessageRequest) TypeID() uint32 {
 	return MessagesGetDiscussionMessageRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetDiscussionMessageRequest) TypeName() string {
+func (*MessagesGetDiscussionMessageRequest) TypeName() string {
 	return "messages.getDiscussionMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetDiscussionMessageRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getDiscussionMessage",
+		ID:   MessagesGetDiscussionMessageRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

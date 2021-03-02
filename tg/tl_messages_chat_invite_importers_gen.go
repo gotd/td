@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,17 +20,18 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesChatInviteImporters represents TL type `messages.chatInviteImporters#81b6b00a`.
 //
 // See https://core.telegram.org/constructor/messages.chatInviteImporters for reference.
 type MessagesChatInviteImporters struct {
 	// Count field of MessagesChatInviteImporters.
-	Count int `tl:"count"`
+	Count int
 	// Importers field of MessagesChatInviteImporters.
-	Importers []ChatInviteImporter `tl:"importers"`
+	Importers []ChatInviteImporter
 	// Users field of MessagesChatInviteImporters.
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // MessagesChatInviteImportersTypeID is TL type id of MessagesChatInviteImporters.
@@ -75,13 +77,40 @@ func (c *MessagesChatInviteImporters) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *MessagesChatInviteImporters) TypeID() uint32 {
+func (*MessagesChatInviteImporters) TypeID() uint32 {
 	return MessagesChatInviteImportersTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *MessagesChatInviteImporters) TypeName() string {
+func (*MessagesChatInviteImporters) TypeName() string {
 	return "messages.chatInviteImporters"
+}
+
+// TypeInfo returns info about TL type.
+func (c *MessagesChatInviteImporters) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.chatInviteImporters",
+		ID:   MessagesChatInviteImportersTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Count",
+			SchemaName: "count",
+		},
+		{
+			Name:       "Importers",
+			SchemaName: "importers",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

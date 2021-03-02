@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AuthSentCode represents TL type `auth.sentCode#5e002502`.
 // Contains info about a sent verification code.
@@ -29,25 +31,25 @@ type AuthSentCode struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Phone code type
-	Type AuthSentCodeTypeClass `tl:"type"`
+	Type AuthSentCodeTypeClass
 	// Phone code hash, to be stored and later re-used with auth.signIn¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/auth.signIn
-	PhoneCodeHash string `tl:"phone_code_hash"`
+	PhoneCodeHash string
 	// Phone code type that will be sent next, if the phone code is not received within timeout seconds: to send it use auth.resendCode¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/auth.resendCode
 	//
 	// Use SetNextType and GetNextType helpers.
-	NextType AuthCodeTypeClass `tl:"next_type"`
+	NextType AuthCodeTypeClass
 	// Timeout for reception of the phone code
 	//
 	// Use SetTimeout and GetTimeout helpers.
-	Timeout int `tl:"timeout"`
+	Timeout int
 }
 
 // AuthSentCodeTypeID is TL type id of AuthSentCode.
@@ -107,13 +109,50 @@ func (s *AuthSentCode) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *AuthSentCode) TypeID() uint32 {
+func (*AuthSentCode) TypeID() uint32 {
 	return AuthSentCodeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *AuthSentCode) TypeName() string {
+func (*AuthSentCode) TypeName() string {
 	return "auth.sentCode"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AuthSentCode) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.sentCode",
+		ID:   AuthSentCodeTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "PhoneCodeHash",
+			SchemaName: "phone_code_hash",
+		},
+		{
+			Name:       "NextType",
+			SchemaName: "next_type",
+			Null:       !s.Flags.Has(1),
+		},
+		{
+			Name:       "Timeout",
+			SchemaName: "timeout",
+			Null:       !s.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

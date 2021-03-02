@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountWallPapersNotModified represents TL type `account.wallPapersNotModified#1c199183`.
 // No new wallpapers were found
@@ -50,13 +52,27 @@ func (w *AccountWallPapersNotModified) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (w *AccountWallPapersNotModified) TypeID() uint32 {
+func (*AccountWallPapersNotModified) TypeID() uint32 {
 	return AccountWallPapersNotModifiedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (w *AccountWallPapersNotModified) TypeName() string {
+func (*AccountWallPapersNotModified) TypeName() string {
 	return "account.wallPapersNotModified"
+}
+
+// TypeInfo returns info about TL type.
+func (w *AccountWallPapersNotModified) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.wallPapersNotModified",
+		ID:   AccountWallPapersNotModifiedTypeID,
+	}
+	if w == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -99,9 +115,9 @@ type AccountWallPapers struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 	// Wallpapers
-	Wallpapers []WallPaperClass `tl:"wallpapers"`
+	Wallpapers []WallPaperClass
 }
 
 // AccountWallPapersTypeID is TL type id of AccountWallPapers.
@@ -142,13 +158,36 @@ func (w *AccountWallPapers) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (w *AccountWallPapers) TypeID() uint32 {
+func (*AccountWallPapers) TypeID() uint32 {
 	return AccountWallPapersTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (w *AccountWallPapers) TypeName() string {
+func (*AccountWallPapers) TypeName() string {
 	return "account.wallPapers"
+}
+
+// TypeInfo returns info about TL type.
+func (w *AccountWallPapers) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.wallPapers",
+		ID:   AccountWallPapersTypeID,
+	}
+	if w == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+		{
+			Name:       "Wallpapers",
+			SchemaName: "wallpapers",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

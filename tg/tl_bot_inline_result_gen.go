@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // BotInlineResult represents TL type `botInlineResult#11965f3a`.
 // Generic result
@@ -29,36 +31,36 @@ type BotInlineResult struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Result ID
-	ID string `tl:"id"`
+	ID string
 	// Result type (see bot API docs¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/api#inlinequeryresult
-	Type string `tl:"type"`
+	Type string
 	// Result title
 	//
 	// Use SetTitle and GetTitle helpers.
-	Title string `tl:"title"`
+	Title string
 	// Result description
 	//
 	// Use SetDescription and GetDescription helpers.
-	Description string `tl:"description"`
+	Description string
 	// URL of article or webpage
 	//
 	// Use SetURL and GetURL helpers.
-	URL string `tl:"url"`
+	URL string
 	// Thumbnail for the result
 	//
 	// Use SetThumb and GetThumb helpers.
-	Thumb WebDocumentClass `tl:"thumb"`
+	Thumb WebDocumentClass
 	// Content of the result
 	//
 	// Use SetContent and GetContent helpers.
-	Content WebDocumentClass `tl:"content"`
+	Content WebDocumentClass
 	// Message to send
-	SendMessage BotInlineMessageClass `tl:"send_message"`
+	SendMessage BotInlineMessageClass
 }
 
 // BotInlineResultTypeID is TL type id of BotInlineResult.
@@ -147,13 +149,69 @@ func (b *BotInlineResult) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (b *BotInlineResult) TypeID() uint32 {
+func (*BotInlineResult) TypeID() uint32 {
 	return BotInlineResultTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (b *BotInlineResult) TypeName() string {
+func (*BotInlineResult) TypeName() string {
 	return "botInlineResult"
+}
+
+// TypeInfo returns info about TL type.
+func (b *BotInlineResult) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "botInlineResult",
+		ID:   BotInlineResultTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+			Null:       !b.Flags.Has(1),
+		},
+		{
+			Name:       "Description",
+			SchemaName: "description",
+			Null:       !b.Flags.Has(2),
+		},
+		{
+			Name:       "URL",
+			SchemaName: "url",
+			Null:       !b.Flags.Has(3),
+		},
+		{
+			Name:       "Thumb",
+			SchemaName: "thumb",
+			Null:       !b.Flags.Has(4),
+		},
+		{
+			Name:       "Content",
+			SchemaName: "content",
+			Null:       !b.Flags.Has(5),
+		},
+		{
+			Name:       "SendMessage",
+			SchemaName: "send_message",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -398,35 +456,35 @@ type BotInlineMediaResult struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Result ID
-	ID string `tl:"id"`
+	ID string
 	// Result type (see bot API docs¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/api#inlinequeryresult
-	Type string `tl:"type"`
+	Type string
 	// If type is photo, the photo to send
 	//
 	// Use SetPhoto and GetPhoto helpers.
-	Photo PhotoClass `tl:"photo"`
+	Photo PhotoClass
 	// If type is document, the document to send
 	//
 	// Use SetDocument and GetDocument helpers.
-	Document DocumentClass `tl:"document"`
+	Document DocumentClass
 	// Result title
 	//
 	// Use SetTitle and GetTitle helpers.
-	Title string `tl:"title"`
+	Title string
 	// Description
 	//
 	// Use SetDescription and GetDescription helpers.
-	Description string `tl:"description"`
+	Description string
 	// Depending on the type and on the constructor¹, contains the caption of the media or the content of the message to be sent instead of the media
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/BotInlineMessage
-	SendMessage BotInlineMessageClass `tl:"send_message"`
+	SendMessage BotInlineMessageClass
 }
 
 // BotInlineMediaResultTypeID is TL type id of BotInlineMediaResult.
@@ -507,13 +565,64 @@ func (b *BotInlineMediaResult) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (b *BotInlineMediaResult) TypeID() uint32 {
+func (*BotInlineMediaResult) TypeID() uint32 {
 	return BotInlineMediaResultTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (b *BotInlineMediaResult) TypeName() string {
+func (*BotInlineMediaResult) TypeName() string {
 	return "botInlineMediaResult"
+}
+
+// TypeInfo returns info about TL type.
+func (b *BotInlineMediaResult) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "botInlineMediaResult",
+		ID:   BotInlineMediaResultTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "Photo",
+			SchemaName: "photo",
+			Null:       !b.Flags.Has(0),
+		},
+		{
+			Name:       "Document",
+			SchemaName: "document",
+			Null:       !b.Flags.Has(1),
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+			Null:       !b.Flags.Has(2),
+		},
+		{
+			Name:       "Description",
+			SchemaName: "description",
+			Null:       !b.Flags.Has(3),
+		},
+		{
+			Name:       "SendMessage",
+			SchemaName: "send_message",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

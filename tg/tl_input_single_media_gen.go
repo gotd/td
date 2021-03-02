@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputSingleMedia represents TL type `inputSingleMedia#1cc6e91f`.
 // A single media in an album or grouped media¹ sent with messages.sendMultiMedia².
@@ -33,20 +35,20 @@ type InputSingleMedia struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// The media
-	Media InputMediaClass `tl:"media"`
+	Media InputMediaClass
 	// Unique client media ID required to prevent message resending
-	RandomID int64 `tl:"random_id"`
+	RandomID int64
 	// A caption for the media
-	Message string `tl:"message"`
+	Message string
 	// Message entities¹ for styled text
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `tl:"entities"`
+	Entities []MessageEntityClass
 }
 
 // InputSingleMediaTypeID is TL type id of InputSingleMedia.
@@ -103,13 +105,49 @@ func (i *InputSingleMedia) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputSingleMedia) TypeID() uint32 {
+func (*InputSingleMedia) TypeID() uint32 {
 	return InputSingleMediaTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputSingleMedia) TypeName() string {
+func (*InputSingleMedia) TypeName() string {
 	return "inputSingleMedia"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputSingleMedia) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputSingleMedia",
+		ID:   InputSingleMediaTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Media",
+			SchemaName: "media",
+		},
+		{
+			Name:       "RandomID",
+			SchemaName: "random_id",
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+		{
+			Name:       "Entities",
+			SchemaName: "entities",
+			Null:       !i.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

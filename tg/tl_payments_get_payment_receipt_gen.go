@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PaymentsGetPaymentReceiptRequest represents TL type `payments.getPaymentReceipt#a092a980`.
 // Get payment receipt
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/payments.getPaymentReceipt for reference.
 type PaymentsGetPaymentReceiptRequest struct {
 	// Message ID of receipt
-	MsgID int `tl:"msg_id"`
+	MsgID int
 }
 
 // PaymentsGetPaymentReceiptRequestTypeID is TL type id of PaymentsGetPaymentReceiptRequest.
@@ -62,13 +64,32 @@ func (g *PaymentsGetPaymentReceiptRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *PaymentsGetPaymentReceiptRequest) TypeID() uint32 {
+func (*PaymentsGetPaymentReceiptRequest) TypeID() uint32 {
 	return PaymentsGetPaymentReceiptRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *PaymentsGetPaymentReceiptRequest) TypeName() string {
+func (*PaymentsGetPaymentReceiptRequest) TypeName() string {
 	return "payments.getPaymentReceipt"
+}
+
+// TypeInfo returns info about TL type.
+func (g *PaymentsGetPaymentReceiptRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "payments.getPaymentReceipt",
+		ID:   PaymentsGetPaymentReceiptRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

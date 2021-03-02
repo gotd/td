@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputReportReasonSpam represents TL type `inputReportReasonSpam#58dbcab8`.
 // Report for spam
@@ -50,13 +52,27 @@ func (i *InputReportReasonSpam) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputReportReasonSpam) TypeID() uint32 {
+func (*InputReportReasonSpam) TypeID() uint32 {
 	return InputReportReasonSpamTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputReportReasonSpam) TypeName() string {
+func (*InputReportReasonSpam) TypeName() string {
 	return "inputReportReasonSpam"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputReportReasonSpam) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputReportReasonSpam",
+		ID:   InputReportReasonSpamTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -120,13 +136,27 @@ func (i *InputReportReasonViolence) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputReportReasonViolence) TypeID() uint32 {
+func (*InputReportReasonViolence) TypeID() uint32 {
 	return InputReportReasonViolenceTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputReportReasonViolence) TypeName() string {
+func (*InputReportReasonViolence) TypeName() string {
 	return "inputReportReasonViolence"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputReportReasonViolence) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputReportReasonViolence",
+		ID:   InputReportReasonViolenceTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -190,13 +220,27 @@ func (i *InputReportReasonPornography) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputReportReasonPornography) TypeID() uint32 {
+func (*InputReportReasonPornography) TypeID() uint32 {
 	return InputReportReasonPornographyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputReportReasonPornography) TypeName() string {
+func (*InputReportReasonPornography) TypeName() string {
 	return "inputReportReasonPornography"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputReportReasonPornography) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputReportReasonPornography",
+		ID:   InputReportReasonPornographyTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -260,13 +304,27 @@ func (i *InputReportReasonChildAbuse) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputReportReasonChildAbuse) TypeID() uint32 {
+func (*InputReportReasonChildAbuse) TypeID() uint32 {
 	return InputReportReasonChildAbuseTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputReportReasonChildAbuse) TypeName() string {
+func (*InputReportReasonChildAbuse) TypeName() string {
 	return "inputReportReasonChildAbuse"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputReportReasonChildAbuse) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputReportReasonChildAbuse",
+		ID:   InputReportReasonChildAbuseTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -330,13 +388,27 @@ func (i *InputReportReasonOther) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputReportReasonOther) TypeID() uint32 {
+func (*InputReportReasonOther) TypeID() uint32 {
 	return InputReportReasonOtherTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputReportReasonOther) TypeName() string {
+func (*InputReportReasonOther) TypeName() string {
 	return "inputReportReasonOther"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputReportReasonOther) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputReportReasonOther",
+		ID:   InputReportReasonOtherTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -400,13 +472,27 @@ func (i *InputReportReasonCopyright) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputReportReasonCopyright) TypeID() uint32 {
+func (*InputReportReasonCopyright) TypeID() uint32 {
 	return InputReportReasonCopyrightTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputReportReasonCopyright) TypeName() string {
+func (*InputReportReasonCopyright) TypeName() string {
 	return "inputReportReasonCopyright"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputReportReasonCopyright) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputReportReasonCopyright",
+		ID:   InputReportReasonCopyrightTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -470,13 +556,27 @@ func (i *InputReportReasonGeoIrrelevant) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputReportReasonGeoIrrelevant) TypeID() uint32 {
+func (*InputReportReasonGeoIrrelevant) TypeID() uint32 {
 	return InputReportReasonGeoIrrelevantTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputReportReasonGeoIrrelevant) TypeName() string {
+func (*InputReportReasonGeoIrrelevant) TypeName() string {
 	return "inputReportReasonGeoIrrelevant"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputReportReasonGeoIrrelevant) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputReportReasonGeoIrrelevant",
+		ID:   InputReportReasonGeoIrrelevantTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -539,13 +639,27 @@ func (i *InputReportReasonFake) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputReportReasonFake) TypeID() uint32 {
+func (*InputReportReasonFake) TypeID() uint32 {
 	return InputReportReasonFakeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputReportReasonFake) TypeName() string {
+func (*InputReportReasonFake) TypeName() string {
 	return "inputReportReasonFake"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputReportReasonFake) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputReportReasonFake",
+		ID:   InputReportReasonFakeTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountCheckUsernameRequest represents TL type `account.checkUsername#2714d86c`.
 // Validates a username and checks availability.
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/account.checkUsername for reference.
 type AccountCheckUsernameRequest struct {
 	// usernameAccepted characters: A-z (case-insensitive), 0-9 and underscores.Length: 5-32 characters.
-	Username string `tl:"username"`
+	Username string
 }
 
 // AccountCheckUsernameRequestTypeID is TL type id of AccountCheckUsernameRequest.
@@ -62,13 +64,32 @@ func (c *AccountCheckUsernameRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *AccountCheckUsernameRequest) TypeID() uint32 {
+func (*AccountCheckUsernameRequest) TypeID() uint32 {
 	return AccountCheckUsernameRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *AccountCheckUsernameRequest) TypeName() string {
+func (*AccountCheckUsernameRequest) TypeName() string {
 	return "account.checkUsername"
+}
+
+// TypeInfo returns info about TL type.
+func (c *AccountCheckUsernameRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.checkUsername",
+		ID:   AccountCheckUsernameRequestTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Username",
+			SchemaName: "username",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

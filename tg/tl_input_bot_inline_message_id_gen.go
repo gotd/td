@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputBotInlineMessageID represents TL type `inputBotInlineMessageID#890c3d89`.
 // Represents a sent inline message from the perspective of a bot
@@ -26,11 +28,11 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/inputBotInlineMessageID for reference.
 type InputBotInlineMessageID struct {
 	// DC ID to use when working with this inline message
-	DCID int `tl:"dc_id"`
+	DCID int
 	// ID of message
-	ID int64 `tl:"id"`
+	ID int64
 	// Access hash of message
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 }
 
 // InputBotInlineMessageIDTypeID is TL type id of InputBotInlineMessageID.
@@ -76,13 +78,40 @@ func (i *InputBotInlineMessageID) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputBotInlineMessageID) TypeID() uint32 {
+func (*InputBotInlineMessageID) TypeID() uint32 {
 	return InputBotInlineMessageIDTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputBotInlineMessageID) TypeName() string {
+func (*InputBotInlineMessageID) TypeName() string {
 	return "inputBotInlineMessageID"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputBotInlineMessageID) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputBotInlineMessageID",
+		ID:   InputBotInlineMessageIDTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "DCID",
+			SchemaName: "dc_id",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

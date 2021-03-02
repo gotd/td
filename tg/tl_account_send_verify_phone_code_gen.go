@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountSendVerifyPhoneCodeRequest represents TL type `account.sendVerifyPhoneCode#a5a356f9`.
 // Send the verification phone code for telegram passport¹.
@@ -29,9 +31,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/account.sendVerifyPhoneCode for reference.
 type AccountSendVerifyPhoneCodeRequest struct {
 	// The phone number to verify
-	PhoneNumber string `tl:"phone_number"`
+	PhoneNumber string
 	// Phone code settings
-	Settings CodeSettings `tl:"settings"`
+	Settings CodeSettings
 }
 
 // AccountSendVerifyPhoneCodeRequestTypeID is TL type id of AccountSendVerifyPhoneCodeRequest.
@@ -72,13 +74,36 @@ func (s *AccountSendVerifyPhoneCodeRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *AccountSendVerifyPhoneCodeRequest) TypeID() uint32 {
+func (*AccountSendVerifyPhoneCodeRequest) TypeID() uint32 {
 	return AccountSendVerifyPhoneCodeRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *AccountSendVerifyPhoneCodeRequest) TypeName() string {
+func (*AccountSendVerifyPhoneCodeRequest) TypeName() string {
 	return "account.sendVerifyPhoneCode"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AccountSendVerifyPhoneCodeRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.sendVerifyPhoneCode",
+		ID:   AccountSendVerifyPhoneCodeRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PhoneNumber",
+			SchemaName: "phone_number",
+		},
+		{
+			Name:       "Settings",
+			SchemaName: "settings",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

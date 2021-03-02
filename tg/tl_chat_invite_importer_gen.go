@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,15 +20,16 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChatInviteImporter represents TL type `chatInviteImporter#1e3e6680`.
 //
 // See https://core.telegram.org/constructor/chatInviteImporter for reference.
 type ChatInviteImporter struct {
 	// UserID field of ChatInviteImporter.
-	UserID int `tl:"user_id"`
+	UserID int
 	// Date field of ChatInviteImporter.
-	Date int `tl:"date"`
+	Date int
 }
 
 // ChatInviteImporterTypeID is TL type id of ChatInviteImporter.
@@ -68,13 +70,36 @@ func (c *ChatInviteImporter) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChatInviteImporter) TypeID() uint32 {
+func (*ChatInviteImporter) TypeID() uint32 {
 	return ChatInviteImporterTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChatInviteImporter) TypeName() string {
+func (*ChatInviteImporter) TypeName() string {
 	return "chatInviteImporter"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatInviteImporter) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatInviteImporter",
+		ID:   ChatInviteImporterTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

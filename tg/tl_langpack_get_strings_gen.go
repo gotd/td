@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // LangpackGetStringsRequest represents TL type `langpack.getStrings#efea3803`.
 // Get strings from a language pack
@@ -26,11 +28,11 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/langpack.getStrings for reference.
 type LangpackGetStringsRequest struct {
 	// Language pack name
-	LangPack string `tl:"lang_pack"`
+	LangPack string
 	// Language code
-	LangCode string `tl:"lang_code"`
+	LangCode string
 	// Strings to get
-	Keys []string `tl:"keys"`
+	Keys []string
 }
 
 // LangpackGetStringsRequestTypeID is TL type id of LangpackGetStringsRequest.
@@ -76,13 +78,40 @@ func (g *LangpackGetStringsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *LangpackGetStringsRequest) TypeID() uint32 {
+func (*LangpackGetStringsRequest) TypeID() uint32 {
 	return LangpackGetStringsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *LangpackGetStringsRequest) TypeName() string {
+func (*LangpackGetStringsRequest) TypeName() string {
 	return "langpack.getStrings"
+}
+
+// TypeInfo returns info about TL type.
+func (g *LangpackGetStringsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "langpack.getStrings",
+		ID:   LangpackGetStringsRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "LangPack",
+			SchemaName: "lang_pack",
+		},
+		{
+			Name:       "LangCode",
+			SchemaName: "lang_code",
+		},
+		{
+			Name:       "Keys",
+			SchemaName: "keys",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

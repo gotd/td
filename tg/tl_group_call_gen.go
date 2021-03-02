@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,17 +20,18 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // GroupCallDiscarded represents TL type `groupCallDiscarded#7780bcb4`.
 //
 // See https://core.telegram.org/constructor/groupCallDiscarded for reference.
 type GroupCallDiscarded struct {
 	// ID field of GroupCallDiscarded.
-	ID int64 `tl:"id"`
+	ID int64
 	// AccessHash field of GroupCallDiscarded.
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// Duration field of GroupCallDiscarded.
-	Duration int `tl:"duration"`
+	Duration int
 }
 
 // GroupCallDiscardedTypeID is TL type id of GroupCallDiscarded.
@@ -75,13 +77,40 @@ func (g *GroupCallDiscarded) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *GroupCallDiscarded) TypeID() uint32 {
+func (*GroupCallDiscarded) TypeID() uint32 {
 	return GroupCallDiscardedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *GroupCallDiscarded) TypeName() string {
+func (*GroupCallDiscarded) TypeName() string {
 	return "groupCallDiscarded"
+}
+
+// TypeInfo returns info about TL type.
+func (g *GroupCallDiscarded) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "groupCallDiscarded",
+		ID:   GroupCallDiscardedTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "Duration",
+			SchemaName: "duration",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -159,23 +188,23 @@ var (
 // See https://core.telegram.org/constructor/groupCall for reference.
 type GroupCall struct {
 	// Flags field of GroupCall.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// JoinMuted field of GroupCall.
-	JoinMuted bool `tl:"join_muted"`
+	JoinMuted bool
 	// CanChangeJoinMuted field of GroupCall.
-	CanChangeJoinMuted bool `tl:"can_change_join_muted"`
+	CanChangeJoinMuted bool
 	// ID field of GroupCall.
-	ID int64 `tl:"id"`
+	ID int64
 	// AccessHash field of GroupCall.
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// ParticipantsCount field of GroupCall.
-	ParticipantsCount int `tl:"participants_count"`
+	ParticipantsCount int
 	// Params field of GroupCall.
 	//
 	// Use SetParams and GetParams helpers.
-	Params DataJSON `tl:"params"`
+	Params DataJSON
 	// Version field of GroupCall.
-	Version int `tl:"version"`
+	Version int
 }
 
 // GroupCallTypeID is TL type id of GroupCall.
@@ -247,13 +276,63 @@ func (g *GroupCall) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *GroupCall) TypeID() uint32 {
+func (*GroupCall) TypeID() uint32 {
 	return GroupCallTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *GroupCall) TypeName() string {
+func (*GroupCall) TypeName() string {
 	return "groupCall"
+}
+
+// TypeInfo returns info about TL type.
+func (g *GroupCall) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "groupCall",
+		ID:   GroupCallTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "JoinMuted",
+			SchemaName: "join_muted",
+			Null:       !g.Flags.Has(1),
+		},
+		{
+			Name:       "CanChangeJoinMuted",
+			SchemaName: "can_change_join_muted",
+			Null:       !g.Flags.Has(2),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "ParticipantsCount",
+			SchemaName: "participants_count",
+		},
+		{
+			Name:       "Params",
+			SchemaName: "params",
+			Null:       !g.Flags.Has(0),
+		},
+		{
+			Name:       "Version",
+			SchemaName: "version",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

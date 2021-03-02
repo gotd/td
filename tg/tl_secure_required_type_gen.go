@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // SecureRequiredType represents TL type `secureRequiredType#829d99da`.
 // Required type
@@ -29,15 +31,15 @@ type SecureRequiredType struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Native names
-	NativeNames bool `tl:"native_names"`
+	NativeNames bool
 	// Is a selfie required
-	SelfieRequired bool `tl:"selfie_required"`
+	SelfieRequired bool
 	// Is a translation required
-	TranslationRequired bool `tl:"translation_required"`
+	TranslationRequired bool
 	// Secure value type
-	Type SecureValueTypeClass `tl:"type"`
+	Type SecureValueTypeClass
 }
 
 // SecureRequiredTypeTypeID is TL type id of SecureRequiredType.
@@ -91,13 +93,51 @@ func (s *SecureRequiredType) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureRequiredType) TypeID() uint32 {
+func (*SecureRequiredType) TypeID() uint32 {
 	return SecureRequiredTypeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureRequiredType) TypeName() string {
+func (*SecureRequiredType) TypeName() string {
 	return "secureRequiredType"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureRequiredType) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureRequiredType",
+		ID:   SecureRequiredTypeTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "NativeNames",
+			SchemaName: "native_names",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "SelfieRequired",
+			SchemaName: "selfie_required",
+			Null:       !s.Flags.Has(1),
+		},
+		{
+			Name:       "TranslationRequired",
+			SchemaName: "translation_required",
+			Null:       !s.Flags.Has(2),
+		},
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -223,7 +263,7 @@ var (
 // See https://core.telegram.org/constructor/secureRequiredTypeOneOf for reference.
 type SecureRequiredTypeOneOf struct {
 	// Secure required value types
-	Types []SecureRequiredTypeClass `tl:"types"`
+	Types []SecureRequiredTypeClass
 }
 
 // SecureRequiredTypeOneOfTypeID is TL type id of SecureRequiredTypeOneOf.
@@ -259,13 +299,32 @@ func (s *SecureRequiredTypeOneOf) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureRequiredTypeOneOf) TypeID() uint32 {
+func (*SecureRequiredTypeOneOf) TypeID() uint32 {
 	return SecureRequiredTypeOneOfTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureRequiredTypeOneOf) TypeName() string {
+func (*SecureRequiredTypeOneOf) TypeName() string {
 	return "secureRequiredTypeOneOf"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureRequiredTypeOneOf) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureRequiredTypeOneOf",
+		ID:   SecureRequiredTypeOneOfTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Types",
+			SchemaName: "types",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

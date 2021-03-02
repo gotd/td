@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesAllStickersNotModified represents TL type `messages.allStickersNotModified#e86602c3`.
 // Info about all installed stickers hasn't changed
@@ -50,13 +52,27 @@ func (a *MessagesAllStickersNotModified) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *MessagesAllStickersNotModified) TypeID() uint32 {
+func (*MessagesAllStickersNotModified) TypeID() uint32 {
 	return MessagesAllStickersNotModifiedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *MessagesAllStickersNotModified) TypeName() string {
+func (*MessagesAllStickersNotModified) TypeName() string {
 	return "messages.allStickersNotModified"
+}
+
+// TypeInfo returns info about TL type.
+func (a *MessagesAllStickersNotModified) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.allStickersNotModified",
+		ID:   MessagesAllStickersNotModifiedTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -99,9 +115,9 @@ type MessagesAllStickers struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 	// All stickersets
-	Sets []StickerSet `tl:"sets"`
+	Sets []StickerSet
 }
 
 // MessagesAllStickersTypeID is TL type id of MessagesAllStickers.
@@ -142,13 +158,36 @@ func (a *MessagesAllStickers) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *MessagesAllStickers) TypeID() uint32 {
+func (*MessagesAllStickers) TypeID() uint32 {
 	return MessagesAllStickersTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *MessagesAllStickers) TypeName() string {
+func (*MessagesAllStickers) TypeName() string {
 	return "messages.allStickers"
+}
+
+// TypeInfo returns info about TL type.
+func (a *MessagesAllStickers) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.allStickers",
+		ID:   MessagesAllStickersTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+		{
+			Name:       "Sets",
+			SchemaName: "sets",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

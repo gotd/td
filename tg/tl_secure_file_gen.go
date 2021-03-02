@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // SecureFileEmpty represents TL type `secureFileEmpty#64199744`.
 // Empty constructor
@@ -50,13 +52,27 @@ func (s *SecureFileEmpty) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureFileEmpty) TypeID() uint32 {
+func (*SecureFileEmpty) TypeID() uint32 {
 	return SecureFileEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureFileEmpty) TypeName() string {
+func (*SecureFileEmpty) TypeName() string {
 	return "secureFileEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureFileEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureFileEmpty",
+		ID:   SecureFileEmptyTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -100,19 +116,19 @@ var (
 // See https://core.telegram.org/constructor/secureFile for reference.
 type SecureFile struct {
 	// ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// File size
-	Size int `tl:"size"`
+	Size int
 	// DC ID
-	DCID int `tl:"dc_id"`
+	DCID int
 	// Date of upload
-	Date int `tl:"date"`
+	Date int
 	// File hash
-	FileHash []byte `tl:"file_hash"`
+	FileHash []byte
 	// Secret
-	Secret []byte `tl:"secret"`
+	Secret []byte
 }
 
 // SecureFileTypeID is TL type id of SecureFile.
@@ -178,13 +194,56 @@ func (s *SecureFile) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureFile) TypeID() uint32 {
+func (*SecureFile) TypeID() uint32 {
 	return SecureFileTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureFile) TypeName() string {
+func (*SecureFile) TypeName() string {
 	return "secureFile"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureFile) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureFile",
+		ID:   SecureFileTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "Size",
+			SchemaName: "size",
+		},
+		{
+			Name:       "DCID",
+			SchemaName: "dc_id",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "FileHash",
+			SchemaName: "file_hash",
+		},
+		{
+			Name:       "Secret",
+			SchemaName: "secret",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

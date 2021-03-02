@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StickerSetCovered represents TL type `stickerSetCovered#6410a5d2`.
 // Stickerset, with a specific sticker as preview
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/stickerSetCovered for reference.
 type StickerSetCovered struct {
 	// Stickerset
-	Set StickerSet `tl:"set"`
+	Set StickerSet
 	// Preview
-	Cover DocumentClass `tl:"cover"`
+	Cover DocumentClass
 }
 
 // StickerSetCoveredTypeID is TL type id of StickerSetCovered.
@@ -69,13 +71,36 @@ func (s *StickerSetCovered) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *StickerSetCovered) TypeID() uint32 {
+func (*StickerSetCovered) TypeID() uint32 {
 	return StickerSetCoveredTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *StickerSetCovered) TypeName() string {
+func (*StickerSetCovered) TypeName() string {
 	return "stickerSetCovered"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StickerSetCovered) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "stickerSetCovered",
+		ID:   StickerSetCoveredTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Set",
+			SchemaName: "set",
+		},
+		{
+			Name:       "Cover",
+			SchemaName: "cover",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -146,9 +171,9 @@ var (
 // See https://core.telegram.org/constructor/stickerSetMultiCovered for reference.
 type StickerSetMultiCovered struct {
 	// Stickerset
-	Set StickerSet `tl:"set"`
+	Set StickerSet
 	// Preview stickers
-	Covers []DocumentClass `tl:"covers"`
+	Covers []DocumentClass
 }
 
 // StickerSetMultiCoveredTypeID is TL type id of StickerSetMultiCovered.
@@ -189,13 +214,36 @@ func (s *StickerSetMultiCovered) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *StickerSetMultiCovered) TypeID() uint32 {
+func (*StickerSetMultiCovered) TypeID() uint32 {
 	return StickerSetMultiCoveredTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *StickerSetMultiCovered) TypeName() string {
+func (*StickerSetMultiCovered) TypeName() string {
 	return "stickerSetMultiCovered"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StickerSetMultiCovered) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "stickerSetMultiCovered",
+		ID:   StickerSetMultiCoveredTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Set",
+			SchemaName: "set",
+		},
+		{
+			Name:       "Covers",
+			SchemaName: "covers",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

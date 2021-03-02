@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhotosPhoto represents TL type `photos.photo#20212ca8`.
 // Photo with auxiliary data.
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/photos.photo for reference.
 type PhotosPhoto struct {
 	// Photo
-	Photo PhotoClass `tl:"photo"`
+	Photo PhotoClass
 	// Users
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // PhotosPhotoTypeID is TL type id of PhotosPhoto.
@@ -69,13 +71,36 @@ func (p *PhotosPhoto) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhotosPhoto) TypeID() uint32 {
+func (*PhotosPhoto) TypeID() uint32 {
 	return PhotosPhotoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhotosPhoto) TypeName() string {
+func (*PhotosPhoto) TypeName() string {
 	return "photos.photo"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhotosPhoto) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "photos.photo",
+		ID:   PhotosPhotoTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Photo",
+			SchemaName: "photo",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

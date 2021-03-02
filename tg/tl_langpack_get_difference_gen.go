@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // LangpackGetDifferenceRequest represents TL type `langpack.getDifference#cd984aa5`.
 // Get new strings in languagepack
@@ -26,11 +28,11 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/langpack.getDifference for reference.
 type LangpackGetDifferenceRequest struct {
 	// Language pack
-	LangPack string `tl:"lang_pack"`
+	LangPack string
 	// Language code
-	LangCode string `tl:"lang_code"`
+	LangCode string
 	// Previous localization pack version
-	FromVersion int `tl:"from_version"`
+	FromVersion int
 }
 
 // LangpackGetDifferenceRequestTypeID is TL type id of LangpackGetDifferenceRequest.
@@ -76,13 +78,40 @@ func (g *LangpackGetDifferenceRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *LangpackGetDifferenceRequest) TypeID() uint32 {
+func (*LangpackGetDifferenceRequest) TypeID() uint32 {
 	return LangpackGetDifferenceRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *LangpackGetDifferenceRequest) TypeName() string {
+func (*LangpackGetDifferenceRequest) TypeName() string {
 	return "langpack.getDifference"
+}
+
+// TypeInfo returns info about TL type.
+func (g *LangpackGetDifferenceRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "langpack.getDifference",
+		ID:   LangpackGetDifferenceRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "LangPack",
+			SchemaName: "lang_pack",
+		},
+		{
+			Name:       "LangCode",
+			SchemaName: "lang_code",
+		},
+		{
+			Name:       "FromVersion",
+			SchemaName: "from_version",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

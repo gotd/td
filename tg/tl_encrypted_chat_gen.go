@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // EncryptedChatEmpty represents TL type `encryptedChatEmpty#ab7ec0a0`.
 // Empty constructor.
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/encryptedChatEmpty for reference.
 type EncryptedChatEmpty struct {
 	// Chat ID
-	ID int `tl:"id"`
+	ID int
 }
 
 // EncryptedChatEmptyTypeID is TL type id of EncryptedChatEmpty.
@@ -62,13 +64,32 @@ func (e *EncryptedChatEmpty) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *EncryptedChatEmpty) TypeID() uint32 {
+func (*EncryptedChatEmpty) TypeID() uint32 {
 	return EncryptedChatEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *EncryptedChatEmpty) TypeName() string {
+func (*EncryptedChatEmpty) TypeName() string {
 	return "encryptedChatEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (e *EncryptedChatEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "encryptedChatEmpty",
+		ID:   EncryptedChatEmptyTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -121,15 +142,15 @@ var (
 // See https://core.telegram.org/constructor/encryptedChatWaiting for reference.
 type EncryptedChatWaiting struct {
 	// Chat ID
-	ID int `tl:"id"`
+	ID int
 	// Checking sum depending on user ID
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// Date of chat creation
-	Date int `tl:"date"`
+	Date int
 	// Chat creator ID
-	AdminID int `tl:"admin_id"`
+	AdminID int
 	// ID of second chat participant
-	ParticipantID int `tl:"participant_id"`
+	ParticipantID int
 }
 
 // EncryptedChatWaitingTypeID is TL type id of EncryptedChatWaiting.
@@ -185,13 +206,48 @@ func (e *EncryptedChatWaiting) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *EncryptedChatWaiting) TypeID() uint32 {
+func (*EncryptedChatWaiting) TypeID() uint32 {
 	return EncryptedChatWaitingTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *EncryptedChatWaiting) TypeName() string {
+func (*EncryptedChatWaiting) TypeName() string {
 	return "encryptedChatWaiting"
+}
+
+// TypeInfo returns info about TL type.
+func (e *EncryptedChatWaiting) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "encryptedChatWaiting",
+		ID:   EncryptedChatWaitingTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "AdminID",
+			SchemaName: "admin_id",
+		},
+		{
+			Name:       "ParticipantID",
+			SchemaName: "participant_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -299,29 +355,29 @@ type EncryptedChatRequested struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int `tl:"folder_id"`
+	FolderID int
 	// Chat ID
-	ID int `tl:"id"`
+	ID int
 	// Check sum depending on user ID
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// Chat creation date
-	Date int `tl:"date"`
+	Date int
 	// Chat creator ID
-	AdminID int `tl:"admin_id"`
+	AdminID int
 	// ID of second chat participant
-	ParticipantID int `tl:"participant_id"`
+	ParticipantID int
 	// A = g ^ a mod p, see Wikipedia¹
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
-	GA []byte `tl:"g_a"`
+	GA []byte
 }
 
 // EncryptedChatRequestedTypeID is TL type id of EncryptedChatRequested.
@@ -393,13 +449,61 @@ func (e *EncryptedChatRequested) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *EncryptedChatRequested) TypeID() uint32 {
+func (*EncryptedChatRequested) TypeID() uint32 {
 	return EncryptedChatRequestedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *EncryptedChatRequested) TypeName() string {
+func (*EncryptedChatRequested) TypeName() string {
 	return "encryptedChatRequested"
+}
+
+// TypeInfo returns info about TL type.
+func (e *EncryptedChatRequested) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "encryptedChatRequested",
+		ID:   EncryptedChatRequestedTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "FolderID",
+			SchemaName: "folder_id",
+			Null:       !e.Flags.Has(0),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "AdminID",
+			SchemaName: "admin_id",
+		},
+		{
+			Name:       "ParticipantID",
+			SchemaName: "participant_id",
+		},
+		{
+			Name:       "GA",
+			SchemaName: "g_a",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -553,22 +657,22 @@ var (
 // See https://core.telegram.org/constructor/encryptedChat for reference.
 type EncryptedChat struct {
 	// Chat ID
-	ID int `tl:"id"`
+	ID int
 	// Check sum dependant on the user ID
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// Date chat was created
-	Date int `tl:"date"`
+	Date int
 	// Chat creator ID
-	AdminID int `tl:"admin_id"`
+	AdminID int
 	// ID of the second chat participant
-	ParticipantID int `tl:"participant_id"`
+	ParticipantID int
 	// B = g ^ b mod p, if the currently authorized user is the chat's creator,or A = g ^ a mod p otherwiseSee Wikipedia¹ for more info
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
-	GAOrB []byte `tl:"g_a_or_b"`
+	GAOrB []byte
 	// 64-bit fingerprint of received key
-	KeyFingerprint int64 `tl:"key_fingerprint"`
+	KeyFingerprint int64
 }
 
 // EncryptedChatTypeID is TL type id of EncryptedChat.
@@ -634,13 +738,56 @@ func (e *EncryptedChat) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *EncryptedChat) TypeID() uint32 {
+func (*EncryptedChat) TypeID() uint32 {
 	return EncryptedChatTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *EncryptedChat) TypeName() string {
+func (*EncryptedChat) TypeName() string {
 	return "encryptedChat"
+}
+
+// TypeInfo returns info about TL type.
+func (e *EncryptedChat) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "encryptedChat",
+		ID:   EncryptedChatTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "AdminID",
+			SchemaName: "admin_id",
+		},
+		{
+			Name:       "ParticipantID",
+			SchemaName: "participant_id",
+		},
+		{
+			Name:       "GAOrB",
+			SchemaName: "g_a_or_b",
+		},
+		{
+			Name:       "KeyFingerprint",
+			SchemaName: "key_fingerprint",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -771,11 +918,11 @@ var (
 // See https://core.telegram.org/constructor/encryptedChatDiscarded for reference.
 type EncryptedChatDiscarded struct {
 	// Flags field of EncryptedChatDiscarded.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// HistoryDeleted field of EncryptedChatDiscarded.
-	HistoryDeleted bool `tl:"history_deleted"`
+	HistoryDeleted bool
 	// Chat ID
-	ID int `tl:"id"`
+	ID int
 }
 
 // EncryptedChatDiscardedTypeID is TL type id of EncryptedChatDiscarded.
@@ -819,13 +966,41 @@ func (e *EncryptedChatDiscarded) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *EncryptedChatDiscarded) TypeID() uint32 {
+func (*EncryptedChatDiscarded) TypeID() uint32 {
 	return EncryptedChatDiscardedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *EncryptedChatDiscarded) TypeName() string {
+func (*EncryptedChatDiscarded) TypeName() string {
 	return "encryptedChatDiscarded"
+}
+
+// TypeInfo returns info about TL type.
+func (e *EncryptedChatDiscarded) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "encryptedChatDiscarded",
+		ID:   EncryptedChatDiscardedTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "HistoryDeleted",
+			SchemaName: "history_deleted",
+			Null:       !e.Flags.Has(0),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

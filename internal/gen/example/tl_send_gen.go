@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,13 +20,14 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // SendRequest represents TL type `send#f74488a`.
 //
 // See https://localhost:80/doc/method/send for reference.
 type SendRequest struct {
 	// Msg field of SendRequest.
-	Msg SMS `tl:"msg"`
+	Msg SMS
 }
 
 // SendRequestTypeID is TL type id of SendRequest.
@@ -61,13 +63,32 @@ func (s *SendRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SendRequest) TypeID() uint32 {
+func (*SendRequest) TypeID() uint32 {
 	return SendRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SendRequest) TypeName() string {
+func (*SendRequest) TypeName() string {
 	return "send"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SendRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "send",
+		ID:   SendRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Msg",
+			SchemaName: "msg",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

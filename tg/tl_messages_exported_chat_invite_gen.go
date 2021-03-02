@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,15 +20,16 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesExportedChatInvite represents TL type `messages.exportedChatInvite#1871be50`.
 //
 // See https://core.telegram.org/constructor/messages.exportedChatInvite for reference.
 type MessagesExportedChatInvite struct {
 	// Invite field of MessagesExportedChatInvite.
-	Invite ChatInviteExported `tl:"invite"`
+	Invite ChatInviteExported
 	// Users field of MessagesExportedChatInvite.
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // MessagesExportedChatInviteTypeID is TL type id of MessagesExportedChatInvite.
@@ -68,13 +70,36 @@ func (e *MessagesExportedChatInvite) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *MessagesExportedChatInvite) TypeID() uint32 {
+func (*MessagesExportedChatInvite) TypeID() uint32 {
 	return MessagesExportedChatInviteTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *MessagesExportedChatInvite) TypeName() string {
+func (*MessagesExportedChatInvite) TypeName() string {
 	return "messages.exportedChatInvite"
+}
+
+// TypeInfo returns info about TL type.
+func (e *MessagesExportedChatInvite) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.exportedChatInvite",
+		ID:   MessagesExportedChatInviteTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Invite",
+			SchemaName: "invite",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -158,11 +183,11 @@ var (
 // See https://core.telegram.org/constructor/messages.exportedChatInviteReplaced for reference.
 type MessagesExportedChatInviteReplaced struct {
 	// Invite field of MessagesExportedChatInviteReplaced.
-	Invite ChatInviteExported `tl:"invite"`
+	Invite ChatInviteExported
 	// NewInvite field of MessagesExportedChatInviteReplaced.
-	NewInvite ChatInviteExported `tl:"new_invite"`
+	NewInvite ChatInviteExported
 	// Users field of MessagesExportedChatInviteReplaced.
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // MessagesExportedChatInviteReplacedTypeID is TL type id of MessagesExportedChatInviteReplaced.
@@ -208,13 +233,40 @@ func (e *MessagesExportedChatInviteReplaced) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *MessagesExportedChatInviteReplaced) TypeID() uint32 {
+func (*MessagesExportedChatInviteReplaced) TypeID() uint32 {
 	return MessagesExportedChatInviteReplacedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *MessagesExportedChatInviteReplaced) TypeName() string {
+func (*MessagesExportedChatInviteReplaced) TypeName() string {
 	return "messages.exportedChatInviteReplaced"
+}
+
+// TypeInfo returns info about TL type.
+func (e *MessagesExportedChatInviteReplaced) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.exportedChatInviteReplaced",
+		ID:   MessagesExportedChatInviteReplacedTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Invite",
+			SchemaName: "invite",
+		},
+		{
+			Name:       "NewInvite",
+			SchemaName: "new_invite",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

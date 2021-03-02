@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HelpCountryCode represents TL type `help.countryCode#4203c5ef`.
 // Country code and phone number pattern of a specific country
@@ -29,17 +31,17 @@ type HelpCountryCode struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// ISO country code
-	CountryCode string `tl:"country_code"`
+	CountryCode string
 	// Possible phone prefixes
 	//
 	// Use SetPrefixes and GetPrefixes helpers.
-	Prefixes []string `tl:"prefixes"`
+	Prefixes []string
 	// Phone patterns: for example, XXX XXX XXX
 	//
 	// Use SetPatterns and GetPatterns helpers.
-	Patterns []string `tl:"patterns"`
+	Patterns []string
 }
 
 // HelpCountryCodeTypeID is TL type id of HelpCountryCode.
@@ -94,13 +96,46 @@ func (c *HelpCountryCode) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *HelpCountryCode) TypeID() uint32 {
+func (*HelpCountryCode) TypeID() uint32 {
 	return HelpCountryCodeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *HelpCountryCode) TypeName() string {
+func (*HelpCountryCode) TypeName() string {
 	return "help.countryCode"
+}
+
+// TypeInfo returns info about TL type.
+func (c *HelpCountryCode) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.countryCode",
+		ID:   HelpCountryCodeTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "CountryCode",
+			SchemaName: "country_code",
+		},
+		{
+			Name:       "Prefixes",
+			SchemaName: "prefixes",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "Patterns",
+			SchemaName: "patterns",
+			Null:       !c.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AuthAuthorization represents TL type `auth.authorization#cd050916`.
 // Contains user authorization info.
@@ -29,16 +31,16 @@ type AuthAuthorization struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Temporary passport¹ sessions
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetTmpSessions and GetTmpSessions helpers.
-	TmpSessions int `tl:"tmp_sessions"`
+	TmpSessions int
 	// Info on authorized user
-	User UserClass `tl:"user"`
+	User UserClass
 }
 
 // AuthAuthorizationTypeID is TL type id of AuthAuthorization.
@@ -85,13 +87,41 @@ func (a *AuthAuthorization) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *AuthAuthorization) TypeID() uint32 {
+func (*AuthAuthorization) TypeID() uint32 {
 	return AuthAuthorizationTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *AuthAuthorization) TypeName() string {
+func (*AuthAuthorization) TypeName() string {
 	return "auth.authorization"
+}
+
+// TypeInfo returns info about TL type.
+func (a *AuthAuthorization) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.authorization",
+		ID:   AuthAuthorizationTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "TmpSessions",
+			SchemaName: "tmp_sessions",
+			Null:       !a.Flags.Has(0),
+		},
+		{
+			Name:       "User",
+			SchemaName: "user",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -191,11 +221,11 @@ type AuthAuthorizationSignUpRequired struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Telegram's terms of service: the user must read and accept the terms of service before signing up to telegram
 	//
 	// Use SetTermsOfService and GetTermsOfService helpers.
-	TermsOfService HelpTermsOfService `tl:"terms_of_service"`
+	TermsOfService HelpTermsOfService
 }
 
 // AuthAuthorizationSignUpRequiredTypeID is TL type id of AuthAuthorizationSignUpRequired.
@@ -237,13 +267,37 @@ func (a *AuthAuthorizationSignUpRequired) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *AuthAuthorizationSignUpRequired) TypeID() uint32 {
+func (*AuthAuthorizationSignUpRequired) TypeID() uint32 {
 	return AuthAuthorizationSignUpRequiredTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *AuthAuthorizationSignUpRequired) TypeName() string {
+func (*AuthAuthorizationSignUpRequired) TypeName() string {
 	return "auth.authorizationSignUpRequired"
+}
+
+// TypeInfo returns info about TL type.
+func (a *AuthAuthorizationSignUpRequired) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.authorizationSignUpRequired",
+		ID:   AuthAuthorizationSignUpRequiredTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "TermsOfService",
+			SchemaName: "terms_of_service",
+			Null:       !a.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

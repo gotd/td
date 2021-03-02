@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StatsGroupTopPoster represents TL type `statsGroupTopPoster#18f3d0f7`.
 // Information about an active user in a supergroup
@@ -26,14 +28,14 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/statsGroupTopPoster for reference.
 type StatsGroupTopPoster struct {
 	// User ID
-	UserID int `tl:"user_id"`
+	UserID int
 	// Number of messages for statistics¹ period in consideration
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/stats
-	Messages int `tl:"messages"`
+	Messages int
 	// Average number of characters per message
-	AvgChars int `tl:"avg_chars"`
+	AvgChars int
 }
 
 // StatsGroupTopPosterTypeID is TL type id of StatsGroupTopPoster.
@@ -79,13 +81,40 @@ func (s *StatsGroupTopPoster) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *StatsGroupTopPoster) TypeID() uint32 {
+func (*StatsGroupTopPoster) TypeID() uint32 {
 	return StatsGroupTopPosterTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *StatsGroupTopPoster) TypeName() string {
+func (*StatsGroupTopPoster) TypeName() string {
 	return "statsGroupTopPoster"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StatsGroupTopPoster) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "statsGroupTopPoster",
+		ID:   StatsGroupTopPosterTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Messages",
+			SchemaName: "messages",
+		},
+		{
+			Name:       "AvgChars",
+			SchemaName: "avg_chars",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

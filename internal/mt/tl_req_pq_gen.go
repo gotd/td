@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,11 +20,12 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ReqPqRequest represents TL type `req_pq#60469778`.
 type ReqPqRequest struct {
 	// Nonce field of ReqPqRequest.
-	Nonce bin.Int128 `tl:"nonce"`
+	Nonce bin.Int128
 }
 
 // ReqPqRequestTypeID is TL type id of ReqPqRequest.
@@ -59,13 +61,32 @@ func (r *ReqPqRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *ReqPqRequest) TypeID() uint32 {
+func (*ReqPqRequest) TypeID() uint32 {
 	return ReqPqRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *ReqPqRequest) TypeName() string {
+func (*ReqPqRequest) TypeName() string {
 	return "req_pq"
+}
+
+// TypeInfo returns info about TL type.
+func (r *ReqPqRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "req_pq",
+		ID:   ReqPqRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Nonce",
+			SchemaName: "nonce",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountGetNotifySettingsRequest represents TL type `account.getNotifySettings#12b3ad31`.
 // Gets current notification settings for a given user/group, from all users/all groups.
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/account.getNotifySettings for reference.
 type AccountGetNotifySettingsRequest struct {
 	// Notification source
-	Peer InputNotifyPeerClass `tl:"peer"`
+	Peer InputNotifyPeerClass
 }
 
 // AccountGetNotifySettingsRequestTypeID is TL type id of AccountGetNotifySettingsRequest.
@@ -62,13 +64,32 @@ func (g *AccountGetNotifySettingsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *AccountGetNotifySettingsRequest) TypeID() uint32 {
+func (*AccountGetNotifySettingsRequest) TypeID() uint32 {
 	return AccountGetNotifySettingsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *AccountGetNotifySettingsRequest) TypeName() string {
+func (*AccountGetNotifySettingsRequest) TypeName() string {
 	return "account.getNotifySettings"
+}
+
+// TypeInfo returns info about TL type.
+func (g *AccountGetNotifySettingsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.getNotifySettings",
+		ID:   AccountGetNotifySettingsRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

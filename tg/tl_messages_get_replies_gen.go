@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetRepliesRequest represents TL type `messages.getReplies#24b581ba`.
 // Get messages in a reply thread
@@ -26,38 +28,38 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.getReplies for reference.
 type MessagesGetRepliesRequest struct {
 	// Peer
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Message ID
-	MsgID int `tl:"msg_id"`
+	MsgID int
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetID int `tl:"offset_id"`
+	OffsetID int
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetDate int `tl:"offset_date"`
+	OffsetDate int
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	AddOffset int `tl:"add_offset"`
+	AddOffset int
 	// Maximum number of results to return, see pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int `tl:"limit"`
+	Limit int
 	// If a positive value was transferred, the method will return only messages with ID smaller than max_id
-	MaxID int `tl:"max_id"`
+	MaxID int
 	// If a positive value was transferred, the method will return only messages with ID bigger than min_id
-	MinID int `tl:"min_id"`
+	MinID int
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 }
 
 // MessagesGetRepliesRequestTypeID is TL type id of MessagesGetRepliesRequest.
@@ -133,13 +135,64 @@ func (g *MessagesGetRepliesRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetRepliesRequest) TypeID() uint32 {
+func (*MessagesGetRepliesRequest) TypeID() uint32 {
 	return MessagesGetRepliesRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetRepliesRequest) TypeName() string {
+func (*MessagesGetRepliesRequest) TypeName() string {
 	return "messages.getReplies"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetRepliesRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getReplies",
+		ID:   MessagesGetRepliesRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+		{
+			Name:       "OffsetID",
+			SchemaName: "offset_id",
+		},
+		{
+			Name:       "OffsetDate",
+			SchemaName: "offset_date",
+		},
+		{
+			Name:       "AddOffset",
+			SchemaName: "add_offset",
+		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
+		{
+			Name:       "MaxID",
+			SchemaName: "max_id",
+		},
+		{
+			Name:       "MinID",
+			SchemaName: "min_id",
+		},
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

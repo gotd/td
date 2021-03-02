@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StickerSet represents TL type `stickerSet#40e237a8`.
 // Represents a stickerset (stickerpack)
@@ -29,39 +31,39 @@ type StickerSet struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether this stickerset was archived (due to too many saved stickers in the current account)
-	Archived bool `tl:"archived"`
+	Archived bool
 	// Is this stickerset official
-	Official bool `tl:"official"`
+	Official bool
 	// Is this a mask stickerset
-	Masks bool `tl:"masks"`
+	Masks bool
 	// Is this an animated stickerpack
-	Animated bool `tl:"animated"`
+	Animated bool
 	// When was this stickerset installed
 	//
 	// Use SetInstalledDate and GetInstalledDate helpers.
-	InstalledDate int `tl:"installed_date"`
+	InstalledDate int
 	// ID of the stickerset
-	ID int64 `tl:"id"`
+	ID int64
 	// Access hash of stickerset
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// Title of stickerset
-	Title string `tl:"title"`
+	Title string
 	// Short name of stickerset to use in tg://addstickers?set=short_name
-	ShortName string `tl:"short_name"`
+	ShortName string
 	// Thumbs field of StickerSet.
 	//
 	// Use SetThumbs and GetThumbs helpers.
-	Thumbs []PhotoSizeClass `tl:"thumbs"`
+	Thumbs []PhotoSizeClass
 	// DC ID of thumbnail
 	//
 	// Use SetThumbDCID and GetThumbDCID helpers.
-	ThumbDCID int `tl:"thumb_dc_id"`
+	ThumbDCID int
 	// Number of stickers in pack
-	Count int `tl:"count"`
+	Count int
 	// Hash
-	Hash int `tl:"hash"`
+	Hash int
 }
 
 // StickerSetTypeID is TL type id of StickerSet.
@@ -169,13 +171,91 @@ func (s *StickerSet) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *StickerSet) TypeID() uint32 {
+func (*StickerSet) TypeID() uint32 {
 	return StickerSetTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *StickerSet) TypeName() string {
+func (*StickerSet) TypeName() string {
 	return "stickerSet"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StickerSet) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "stickerSet",
+		ID:   StickerSetTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Archived",
+			SchemaName: "archived",
+			Null:       !s.Flags.Has(1),
+		},
+		{
+			Name:       "Official",
+			SchemaName: "official",
+			Null:       !s.Flags.Has(2),
+		},
+		{
+			Name:       "Masks",
+			SchemaName: "masks",
+			Null:       !s.Flags.Has(3),
+		},
+		{
+			Name:       "Animated",
+			SchemaName: "animated",
+			Null:       !s.Flags.Has(5),
+		},
+		{
+			Name:       "InstalledDate",
+			SchemaName: "installed_date",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "ShortName",
+			SchemaName: "short_name",
+		},
+		{
+			Name:       "Thumbs",
+			SchemaName: "thumbs",
+			Null:       !s.Flags.Has(4),
+		},
+		{
+			Name:       "ThumbDCID",
+			SchemaName: "thumb_dc_id",
+			Null:       !s.Flags.Has(4),
+		},
+		{
+			Name:       "Count",
+			SchemaName: "count",
+		},
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

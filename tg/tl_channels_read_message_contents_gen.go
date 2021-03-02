@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelsReadMessageContentsRequest represents TL type `channels.readMessageContents#eab5dc38`.
 // Mark channel/supergroup¹ message contents as read
@@ -32,9 +34,9 @@ type ChannelsReadMessageContentsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// IDs of messages whose contents should be marked as read
-	ID []int `tl:"id"`
+	ID []int
 }
 
 // ChannelsReadMessageContentsRequestTypeID is TL type id of ChannelsReadMessageContentsRequest.
@@ -75,13 +77,36 @@ func (r *ChannelsReadMessageContentsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *ChannelsReadMessageContentsRequest) TypeID() uint32 {
+func (*ChannelsReadMessageContentsRequest) TypeID() uint32 {
 	return ChannelsReadMessageContentsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *ChannelsReadMessageContentsRequest) TypeName() string {
+func (*ChannelsReadMessageContentsRequest) TypeName() string {
 	return "channels.readMessageContents"
+}
+
+// TypeInfo returns info about TL type.
+func (r *ChannelsReadMessageContentsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channels.readMessageContents",
+		ID:   ChannelsReadMessageContentsRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Channel",
+			SchemaName: "channel",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

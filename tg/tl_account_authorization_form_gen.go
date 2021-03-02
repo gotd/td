@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountAuthorizationForm represents TL type `account.authorizationForm#ad2e1cd8`.
 // Telegram Passport¹ authorization form
@@ -32,28 +34,28 @@ type AccountAuthorizationForm struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Required Telegram Passport¹ documents
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
-	RequiredTypes []SecureRequiredTypeClass `tl:"required_types"`
+	RequiredTypes []SecureRequiredTypeClass
 	// Already submitted Telegram Passport¹ documents
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
-	Values []SecureValue `tl:"values"`
+	Values []SecureValue
 	// Telegram Passport¹ errors
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
-	Errors []SecureValueErrorClass `tl:"errors"`
+	Errors []SecureValueErrorClass
 	// Info about the bot to which the form will be submitted
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 	// URL of the service's privacy policy
 	//
 	// Use SetPrivacyPolicyURL and GetPrivacyPolicyURL helpers.
-	PrivacyPolicyURL string `tl:"privacy_policy_url"`
+	PrivacyPolicyURL string
 }
 
 // AccountAuthorizationFormTypeID is TL type id of AccountAuthorizationForm.
@@ -115,13 +117,53 @@ func (a *AccountAuthorizationForm) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *AccountAuthorizationForm) TypeID() uint32 {
+func (*AccountAuthorizationForm) TypeID() uint32 {
 	return AccountAuthorizationFormTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *AccountAuthorizationForm) TypeName() string {
+func (*AccountAuthorizationForm) TypeName() string {
 	return "account.authorizationForm"
+}
+
+// TypeInfo returns info about TL type.
+func (a *AccountAuthorizationForm) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.authorizationForm",
+		ID:   AccountAuthorizationFormTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "RequiredTypes",
+			SchemaName: "required_types",
+		},
+		{
+			Name:       "Values",
+			SchemaName: "values",
+		},
+		{
+			Name:       "Errors",
+			SchemaName: "errors",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+		{
+			Name:       "PrivacyPolicyURL",
+			SchemaName: "privacy_policy_url",
+			Null:       !a.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

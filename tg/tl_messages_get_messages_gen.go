@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetMessagesRequest represents TL type `messages.getMessages#63c66506`.
 // Returns the list of messages by their IDs.
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.getMessages for reference.
 type MessagesGetMessagesRequest struct {
 	// Message ID list
-	ID []InputMessageClass `tl:"id"`
+	ID []InputMessageClass
 }
 
 // MessagesGetMessagesRequestTypeID is TL type id of MessagesGetMessagesRequest.
@@ -62,13 +64,32 @@ func (g *MessagesGetMessagesRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetMessagesRequest) TypeID() uint32 {
+func (*MessagesGetMessagesRequest) TypeID() uint32 {
 	return MessagesGetMessagesRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetMessagesRequest) TypeName() string {
+func (*MessagesGetMessagesRequest) TypeName() string {
 	return "messages.getMessages"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetMessagesRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getMessages",
+		ID:   MessagesGetMessagesRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetAttachedStickersRequest represents TL type `messages.getAttachedStickers#cc5b67cc`.
 // Get stickers attached to a photo or video
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.getAttachedStickers for reference.
 type MessagesGetAttachedStickersRequest struct {
 	// Stickered media
-	Media InputStickeredMediaClass `tl:"media"`
+	Media InputStickeredMediaClass
 }
 
 // MessagesGetAttachedStickersRequestTypeID is TL type id of MessagesGetAttachedStickersRequest.
@@ -62,13 +64,32 @@ func (g *MessagesGetAttachedStickersRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetAttachedStickersRequest) TypeID() uint32 {
+func (*MessagesGetAttachedStickersRequest) TypeID() uint32 {
 	return MessagesGetAttachedStickersRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetAttachedStickersRequest) TypeName() string {
+func (*MessagesGetAttachedStickersRequest) TypeName() string {
 	return "messages.getAttachedStickers"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetAttachedStickersRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getAttachedStickers",
+		ID:   MessagesGetAttachedStickersRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Media",
+			SchemaName: "media",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

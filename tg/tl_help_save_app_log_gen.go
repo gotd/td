@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HelpSaveAppLogRequest represents TL type `help.saveAppLog#6f02f748`.
 // Saves logs of application on the server.
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/help.saveAppLog for reference.
 type HelpSaveAppLogRequest struct {
 	// List of input events
-	Events []InputAppEvent `tl:"events"`
+	Events []InputAppEvent
 }
 
 // HelpSaveAppLogRequestTypeID is TL type id of HelpSaveAppLogRequest.
@@ -62,13 +64,32 @@ func (s *HelpSaveAppLogRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *HelpSaveAppLogRequest) TypeID() uint32 {
+func (*HelpSaveAppLogRequest) TypeID() uint32 {
 	return HelpSaveAppLogRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *HelpSaveAppLogRequest) TypeName() string {
+func (*HelpSaveAppLogRequest) TypeName() string {
 	return "help.saveAppLog"
+}
+
+// TypeInfo returns info about TL type.
+func (s *HelpSaveAppLogRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.saveAppLog",
+		ID:   HelpSaveAppLogRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Events",
+			SchemaName: "events",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

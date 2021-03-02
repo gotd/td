@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputPrivacyKeyStatusTimestamp represents TL type `inputPrivacyKeyStatusTimestamp#4f96cb18`.
 // Whether we can see the exact last online timestamp of the user
@@ -50,13 +52,27 @@ func (i *InputPrivacyKeyStatusTimestamp) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPrivacyKeyStatusTimestamp) TypeID() uint32 {
+func (*InputPrivacyKeyStatusTimestamp) TypeID() uint32 {
 	return InputPrivacyKeyStatusTimestampTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPrivacyKeyStatusTimestamp) TypeName() string {
+func (*InputPrivacyKeyStatusTimestamp) TypeName() string {
 	return "inputPrivacyKeyStatusTimestamp"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPrivacyKeyStatusTimestamp) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPrivacyKeyStatusTimestamp",
+		ID:   InputPrivacyKeyStatusTimestampTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -120,13 +136,27 @@ func (i *InputPrivacyKeyChatInvite) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPrivacyKeyChatInvite) TypeID() uint32 {
+func (*InputPrivacyKeyChatInvite) TypeID() uint32 {
 	return InputPrivacyKeyChatInviteTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPrivacyKeyChatInvite) TypeName() string {
+func (*InputPrivacyKeyChatInvite) TypeName() string {
 	return "inputPrivacyKeyChatInvite"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPrivacyKeyChatInvite) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPrivacyKeyChatInvite",
+		ID:   InputPrivacyKeyChatInviteTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -190,13 +220,27 @@ func (i *InputPrivacyKeyPhoneCall) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPrivacyKeyPhoneCall) TypeID() uint32 {
+func (*InputPrivacyKeyPhoneCall) TypeID() uint32 {
 	return InputPrivacyKeyPhoneCallTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPrivacyKeyPhoneCall) TypeName() string {
+func (*InputPrivacyKeyPhoneCall) TypeName() string {
 	return "inputPrivacyKeyPhoneCall"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPrivacyKeyPhoneCall) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPrivacyKeyPhoneCall",
+		ID:   InputPrivacyKeyPhoneCallTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -260,13 +304,27 @@ func (i *InputPrivacyKeyPhoneP2P) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPrivacyKeyPhoneP2P) TypeID() uint32 {
+func (*InputPrivacyKeyPhoneP2P) TypeID() uint32 {
 	return InputPrivacyKeyPhoneP2PTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPrivacyKeyPhoneP2P) TypeName() string {
+func (*InputPrivacyKeyPhoneP2P) TypeName() string {
 	return "inputPrivacyKeyPhoneP2P"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPrivacyKeyPhoneP2P) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPrivacyKeyPhoneP2P",
+		ID:   InputPrivacyKeyPhoneP2PTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -333,13 +391,27 @@ func (i *InputPrivacyKeyForwards) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPrivacyKeyForwards) TypeID() uint32 {
+func (*InputPrivacyKeyForwards) TypeID() uint32 {
 	return InputPrivacyKeyForwardsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPrivacyKeyForwards) TypeName() string {
+func (*InputPrivacyKeyForwards) TypeName() string {
 	return "inputPrivacyKeyForwards"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPrivacyKeyForwards) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPrivacyKeyForwards",
+		ID:   InputPrivacyKeyForwardsTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -403,13 +475,27 @@ func (i *InputPrivacyKeyProfilePhoto) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPrivacyKeyProfilePhoto) TypeID() uint32 {
+func (*InputPrivacyKeyProfilePhoto) TypeID() uint32 {
 	return InputPrivacyKeyProfilePhotoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPrivacyKeyProfilePhoto) TypeName() string {
+func (*InputPrivacyKeyProfilePhoto) TypeName() string {
 	return "inputPrivacyKeyProfilePhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPrivacyKeyProfilePhoto) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPrivacyKeyProfilePhoto",
+		ID:   InputPrivacyKeyProfilePhotoTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -473,13 +559,27 @@ func (i *InputPrivacyKeyPhoneNumber) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPrivacyKeyPhoneNumber) TypeID() uint32 {
+func (*InputPrivacyKeyPhoneNumber) TypeID() uint32 {
 	return InputPrivacyKeyPhoneNumberTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPrivacyKeyPhoneNumber) TypeName() string {
+func (*InputPrivacyKeyPhoneNumber) TypeName() string {
 	return "inputPrivacyKeyPhoneNumber"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPrivacyKeyPhoneNumber) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPrivacyKeyPhoneNumber",
+		ID:   InputPrivacyKeyPhoneNumberTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -543,13 +643,27 @@ func (i *InputPrivacyKeyAddedByPhone) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPrivacyKeyAddedByPhone) TypeID() uint32 {
+func (*InputPrivacyKeyAddedByPhone) TypeID() uint32 {
 	return InputPrivacyKeyAddedByPhoneTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPrivacyKeyAddedByPhone) TypeName() string {
+func (*InputPrivacyKeyAddedByPhone) TypeName() string {
 	return "inputPrivacyKeyAddedByPhone"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPrivacyKeyAddedByPhone) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPrivacyKeyAddedByPhone",
+		ID:   InputPrivacyKeyAddedByPhoneTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

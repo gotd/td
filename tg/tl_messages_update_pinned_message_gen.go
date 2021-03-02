@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesUpdatePinnedMessageRequest represents TL type `messages.updatePinnedMessage#d2aaf7ec`.
 // Pin a message
@@ -29,17 +31,17 @@ type MessagesUpdatePinnedMessageRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Pin the message silently, without triggering a notification
-	Silent bool `tl:"silent"`
+	Silent bool
 	// Whether the message should unpinned or pinned
-	Unpin bool `tl:"unpin"`
+	Unpin bool
 	// Whether the message should only be pinned on the local side of a one-to-one chat
-	PmOneside bool `tl:"pm_oneside"`
+	PmOneside bool
 	// The peer where to pin the message
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// The message to pin or unpin
-	ID int `tl:"id"`
+	ID int
 }
 
 // MessagesUpdatePinnedMessageRequestTypeID is TL type id of MessagesUpdatePinnedMessageRequest.
@@ -98,13 +100,55 @@ func (u *MessagesUpdatePinnedMessageRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *MessagesUpdatePinnedMessageRequest) TypeID() uint32 {
+func (*MessagesUpdatePinnedMessageRequest) TypeID() uint32 {
 	return MessagesUpdatePinnedMessageRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *MessagesUpdatePinnedMessageRequest) TypeName() string {
+func (*MessagesUpdatePinnedMessageRequest) TypeName() string {
 	return "messages.updatePinnedMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (u *MessagesUpdatePinnedMessageRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.updatePinnedMessage",
+		ID:   MessagesUpdatePinnedMessageRequestTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Silent",
+			SchemaName: "silent",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "Unpin",
+			SchemaName: "unpin",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "PmOneside",
+			SchemaName: "pm_oneside",
+			Null:       !u.Flags.Has(2),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

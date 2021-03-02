@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesDhConfigNotModified represents TL type `messages.dhConfigNotModified#c0e24635`.
 // Configuring parameters did not change.
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/messages.dhConfigNotModified for reference.
 type MessagesDhConfigNotModified struct {
 	// Random sequence of bytes of assigned length
-	Random []byte `tl:"random"`
+	Random []byte
 }
 
 // MessagesDhConfigNotModifiedTypeID is TL type id of MessagesDhConfigNotModified.
@@ -62,13 +64,32 @@ func (d *MessagesDhConfigNotModified) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *MessagesDhConfigNotModified) TypeID() uint32 {
+func (*MessagesDhConfigNotModified) TypeID() uint32 {
 	return MessagesDhConfigNotModifiedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *MessagesDhConfigNotModified) TypeName() string {
+func (*MessagesDhConfigNotModified) TypeName() string {
 	return "messages.dhConfigNotModified"
+}
+
+// TypeInfo returns info about TL type.
+func (d *MessagesDhConfigNotModified) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.dhConfigNotModified",
+		ID:   MessagesDhConfigNotModifiedTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Random",
+			SchemaName: "random",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -124,16 +145,16 @@ type MessagesDhConfig struct {
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
-	G int `tl:"g"`
+	G int
 	// New value primitive root, see Wikipedia¹
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
-	P []byte `tl:"p"`
+	P []byte
 	// Vestion of set of parameters
-	Version int `tl:"version"`
+	Version int
 	// Random sequence of bytes of assigned length
-	Random []byte `tl:"random"`
+	Random []byte
 }
 
 // MessagesDhConfigTypeID is TL type id of MessagesDhConfig.
@@ -184,13 +205,44 @@ func (d *MessagesDhConfig) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *MessagesDhConfig) TypeID() uint32 {
+func (*MessagesDhConfig) TypeID() uint32 {
 	return MessagesDhConfigTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *MessagesDhConfig) TypeName() string {
+func (*MessagesDhConfig) TypeName() string {
 	return "messages.dhConfig"
+}
+
+// TypeInfo returns info about TL type.
+func (d *MessagesDhConfig) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.dhConfig",
+		ID:   MessagesDhConfigTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "G",
+			SchemaName: "g",
+		},
+		{
+			Name:       "P",
+			SchemaName: "p",
+		},
+		{
+			Name:       "Version",
+			SchemaName: "version",
+		},
+		{
+			Name:       "Random",
+			SchemaName: "random",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

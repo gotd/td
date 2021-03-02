@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PaymentsGetPaymentFormRequest represents TL type `payments.getPaymentForm#99f09745`.
 // Get a payment form
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/payments.getPaymentForm for reference.
 type PaymentsGetPaymentFormRequest struct {
 	// Message ID of payment form
-	MsgID int `tl:"msg_id"`
+	MsgID int
 }
 
 // PaymentsGetPaymentFormRequestTypeID is TL type id of PaymentsGetPaymentFormRequest.
@@ -62,13 +64,32 @@ func (g *PaymentsGetPaymentFormRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *PaymentsGetPaymentFormRequest) TypeID() uint32 {
+func (*PaymentsGetPaymentFormRequest) TypeID() uint32 {
 	return PaymentsGetPaymentFormRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *PaymentsGetPaymentFormRequest) TypeName() string {
+func (*PaymentsGetPaymentFormRequest) TypeName() string {
 	return "payments.getPaymentForm"
+}
+
+// TypeInfo returns info about TL type.
+func (g *PaymentsGetPaymentFormRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "payments.getPaymentForm",
+		ID:   PaymentsGetPaymentFormRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

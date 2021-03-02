@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesForwardMessagesRequest represents TL type `messages.forwardMessages#d9fee60e`.
 // Forwards messages by their IDs.
@@ -29,25 +31,25 @@ type MessagesForwardMessagesRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to send messages silently (no notification will be triggered on the destination clients)
-	Silent bool `tl:"silent"`
+	Silent bool
 	// Whether to send the message in background
-	Background bool `tl:"background"`
+	Background bool
 	// When forwarding games, whether to include your score in the game
-	WithMyScore bool `tl:"with_my_score"`
+	WithMyScore bool
 	// Source of messages
-	FromPeer InputPeerClass `tl:"from_peer"`
+	FromPeer InputPeerClass
 	// IDs of messages
-	ID []int `tl:"id"`
+	ID []int
 	// Random ID to prevent resending of messages
-	RandomID []int64 `tl:"random_id"`
+	RandomID []int64
 	// Destination peer
-	ToPeer InputPeerClass `tl:"to_peer"`
+	ToPeer InputPeerClass
 	// Scheduled message date for scheduled messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
-	ScheduleDate int `tl:"schedule_date"`
+	ScheduleDate int
 }
 
 // MessagesForwardMessagesRequestTypeID is TL type id of MessagesForwardMessagesRequest.
@@ -124,13 +126,68 @@ func (f *MessagesForwardMessagesRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *MessagesForwardMessagesRequest) TypeID() uint32 {
+func (*MessagesForwardMessagesRequest) TypeID() uint32 {
 	return MessagesForwardMessagesRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *MessagesForwardMessagesRequest) TypeName() string {
+func (*MessagesForwardMessagesRequest) TypeName() string {
 	return "messages.forwardMessages"
+}
+
+// TypeInfo returns info about TL type.
+func (f *MessagesForwardMessagesRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.forwardMessages",
+		ID:   MessagesForwardMessagesRequestTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Silent",
+			SchemaName: "silent",
+			Null:       !f.Flags.Has(5),
+		},
+		{
+			Name:       "Background",
+			SchemaName: "background",
+			Null:       !f.Flags.Has(6),
+		},
+		{
+			Name:       "WithMyScore",
+			SchemaName: "with_my_score",
+			Null:       !f.Flags.Has(8),
+		},
+		{
+			Name:       "FromPeer",
+			SchemaName: "from_peer",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "RandomID",
+			SchemaName: "random_id",
+		},
+		{
+			Name:       "ToPeer",
+			SchemaName: "to_peer",
+		},
+		{
+			Name:       "ScheduleDate",
+			SchemaName: "schedule_date",
+			Null:       !f.Flags.Has(10),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

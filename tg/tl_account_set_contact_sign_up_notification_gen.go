@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountSetContactSignUpNotificationRequest represents TL type `account.setContactSignUpNotification#cff43f61`.
 // Toggle contact sign up notifications
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/account.setContactSignUpNotification for reference.
 type AccountSetContactSignUpNotificationRequest struct {
 	// Whether to disable contact sign up notifications
-	Silent bool `tl:"silent"`
+	Silent bool
 }
 
 // AccountSetContactSignUpNotificationRequestTypeID is TL type id of AccountSetContactSignUpNotificationRequest.
@@ -62,13 +64,32 @@ func (s *AccountSetContactSignUpNotificationRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *AccountSetContactSignUpNotificationRequest) TypeID() uint32 {
+func (*AccountSetContactSignUpNotificationRequest) TypeID() uint32 {
 	return AccountSetContactSignUpNotificationRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *AccountSetContactSignUpNotificationRequest) TypeName() string {
+func (*AccountSetContactSignUpNotificationRequest) TypeName() string {
 	return "account.setContactSignUpNotification"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AccountSetContactSignUpNotificationRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.setContactSignUpNotification",
+		ID:   AccountSetContactSignUpNotificationRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Silent",
+			SchemaName: "silent",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

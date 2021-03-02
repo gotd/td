@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesInstallStickerSetRequest represents TL type `messages.installStickerSet#c78fe460`.
 // Install a stickerset
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.installStickerSet for reference.
 type MessagesInstallStickerSetRequest struct {
 	// Stickerset to install
-	Stickerset InputStickerSetClass `tl:"stickerset"`
+	Stickerset InputStickerSetClass
 	// Whether to archive stickerset
-	Archived bool `tl:"archived"`
+	Archived bool
 }
 
 // MessagesInstallStickerSetRequestTypeID is TL type id of MessagesInstallStickerSetRequest.
@@ -69,13 +71,36 @@ func (i *MessagesInstallStickerSetRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *MessagesInstallStickerSetRequest) TypeID() uint32 {
+func (*MessagesInstallStickerSetRequest) TypeID() uint32 {
 	return MessagesInstallStickerSetRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *MessagesInstallStickerSetRequest) TypeName() string {
+func (*MessagesInstallStickerSetRequest) TypeName() string {
 	return "messages.installStickerSet"
+}
+
+// TypeInfo returns info about TL type.
+func (i *MessagesInstallStickerSetRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.installStickerSet",
+		ID:   MessagesInstallStickerSetRequestTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Stickerset",
+			SchemaName: "stickerset",
+		},
+		{
+			Name:       "Archived",
+			SchemaName: "archived",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

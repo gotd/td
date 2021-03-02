@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HelpSetBotUpdatesStatusRequest represents TL type `help.setBotUpdatesStatus#ec22cfcd`.
 // Informs the server about the number of pending bot updates if they haven't been processed for a long time; for bots only
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/help.setBotUpdatesStatus for reference.
 type HelpSetBotUpdatesStatusRequest struct {
 	// Number of pending updates
-	PendingUpdatesCount int `tl:"pending_updates_count"`
+	PendingUpdatesCount int
 	// Error message, if present
-	Message string `tl:"message"`
+	Message string
 }
 
 // HelpSetBotUpdatesStatusRequestTypeID is TL type id of HelpSetBotUpdatesStatusRequest.
@@ -69,13 +71,36 @@ func (s *HelpSetBotUpdatesStatusRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *HelpSetBotUpdatesStatusRequest) TypeID() uint32 {
+func (*HelpSetBotUpdatesStatusRequest) TypeID() uint32 {
 	return HelpSetBotUpdatesStatusRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *HelpSetBotUpdatesStatusRequest) TypeName() string {
+func (*HelpSetBotUpdatesStatusRequest) TypeName() string {
 	return "help.setBotUpdatesStatus"
+}
+
+// TypeInfo returns info about TL type.
+func (s *HelpSetBotUpdatesStatusRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.setBotUpdatesStatus",
+		ID:   HelpSetBotUpdatesStatusRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PendingUpdatesCount",
+			SchemaName: "pending_updates_count",
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

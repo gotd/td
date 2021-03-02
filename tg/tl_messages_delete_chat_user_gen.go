@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesDeleteChatUserRequest represents TL type `messages.deleteChatUser#c534459a`.
 // Deletes a user from a chat and sends a service message on it.
@@ -26,13 +28,13 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.deleteChatUser for reference.
 type MessagesDeleteChatUserRequest struct {
 	// Flags field of MessagesDeleteChatUserRequest.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// RevokeHistory field of MessagesDeleteChatUserRequest.
-	RevokeHistory bool `tl:"revoke_history"`
+	RevokeHistory bool
 	// Chat ID
-	ChatID int `tl:"chat_id"`
+	ChatID int
 	// User ID to be deleted
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 }
 
 // MessagesDeleteChatUserRequestTypeID is TL type id of MessagesDeleteChatUserRequest.
@@ -81,13 +83,45 @@ func (d *MessagesDeleteChatUserRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *MessagesDeleteChatUserRequest) TypeID() uint32 {
+func (*MessagesDeleteChatUserRequest) TypeID() uint32 {
 	return MessagesDeleteChatUserRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *MessagesDeleteChatUserRequest) TypeName() string {
+func (*MessagesDeleteChatUserRequest) TypeName() string {
 	return "messages.deleteChatUser"
+}
+
+// TypeInfo returns info about TL type.
+func (d *MessagesDeleteChatUserRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.deleteChatUser",
+		ID:   MessagesDeleteChatUserRequestTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "RevokeHistory",
+			SchemaName: "revoke_history",
+			Null:       !d.Flags.Has(0),
+		},
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,13 +20,14 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // EchoVectorRequest represents TL type `echoVector#d4785939`.
 //
 // See https://localhost:80/doc/method/echoVector for reference.
 type EchoVectorRequest struct {
 	// Ids field of EchoVectorRequest.
-	Ids []int `tl:"ids"`
+	Ids []int
 }
 
 // EchoVectorRequestTypeID is TL type id of EchoVectorRequest.
@@ -61,13 +63,32 @@ func (e *EchoVectorRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *EchoVectorRequest) TypeID() uint32 {
+func (*EchoVectorRequest) TypeID() uint32 {
 	return EchoVectorRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *EchoVectorRequest) TypeName() string {
+func (*EchoVectorRequest) TypeName() string {
 	return "echoVector"
+}
+
+// TypeInfo returns info about TL type.
+func (e *EchoVectorRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "echoVector",
+		ID:   EchoVectorRequestTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Ids",
+			SchemaName: "ids",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

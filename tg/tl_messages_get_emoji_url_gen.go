@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetEmojiURLRequest represents TL type `messages.getEmojiURL#d5b10c26`.
 // Returns an HTTP URL which can be used to automatically log in into translation platform and suggest new emoji replacements. The URL will be valid for 30 seconds after generation
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.getEmojiURL for reference.
 type MessagesGetEmojiURLRequest struct {
 	// Language code for which the emoji replacements will be suggested
-	LangCode string `tl:"lang_code"`
+	LangCode string
 }
 
 // MessagesGetEmojiURLRequestTypeID is TL type id of MessagesGetEmojiURLRequest.
@@ -62,13 +64,32 @@ func (g *MessagesGetEmojiURLRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetEmojiURLRequest) TypeID() uint32 {
+func (*MessagesGetEmojiURLRequest) TypeID() uint32 {
 	return MessagesGetEmojiURLRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetEmojiURLRequest) TypeName() string {
+func (*MessagesGetEmojiURLRequest) TypeName() string {
 	return "messages.getEmojiURL"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetEmojiURLRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getEmojiURL",
+		ID:   MessagesGetEmojiURLRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "LangCode",
+			SchemaName: "lang_code",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

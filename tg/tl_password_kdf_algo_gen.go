@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PasswordKdfAlgoUnknown represents TL type `passwordKdfAlgoUnknown#d45ab096`.
 // Unknown KDF (most likely, the client is outdated and does not support the specified KDF algorithm)
@@ -50,13 +52,27 @@ func (p *PasswordKdfAlgoUnknown) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PasswordKdfAlgoUnknown) TypeID() uint32 {
+func (*PasswordKdfAlgoUnknown) TypeID() uint32 {
 	return PasswordKdfAlgoUnknownTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PasswordKdfAlgoUnknown) TypeName() string {
+func (*PasswordKdfAlgoUnknown) TypeName() string {
 	return "passwordKdfAlgoUnknown"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PasswordKdfAlgoUnknown) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "passwordKdfAlgoUnknown",
+		ID:   PasswordKdfAlgoUnknownTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -102,22 +118,22 @@ type PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	Salt1 []byte `tl:"salt1"`
+	Salt1 []byte
 	// One of two salts used by the derivation function (see SRP 2FA login¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	Salt2 []byte `tl:"salt2"`
+	Salt2 []byte
 	// Base (see SRP 2FA login¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	G int `tl:"g"`
+	G int
 	// 2048-bit modulus (see SRP 2FA login¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	P []byte `tl:"p"`
+	P []byte
 }
 
 // PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPowTypeID is TL type id of PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow.
@@ -168,13 +184,44 @@ func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) Fill
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) TypeID() uint32 {
+func (*PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) TypeID() uint32 {
 	return PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPowTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) TypeName() string {
+func (*PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) TypeName() string {
 	return "passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow",
+		ID:   PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPowTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Salt1",
+			SchemaName: "salt1",
+		},
+		{
+			Name:       "Salt2",
+			SchemaName: "salt2",
+		},
+		{
+			Name:       "G",
+			SchemaName: "g",
+		},
+		{
+			Name:       "P",
+			SchemaName: "p",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

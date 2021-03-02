@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MaskCoords represents TL type `maskCoords#aed6dbb2`.
 // Position on a photo where a mask should be placed
@@ -27,13 +29,13 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/maskCoords for reference.
 type MaskCoords struct {
 	// Part of the face, relative to which the mask should be placed
-	N int `tl:"n"`
+	N int
 	// Shift by X-axis measured in widths of the mask scaled to the face size, from left to right. (For example, -1.0 will place the mask just to the left of the default mask position)
-	X float64 `tl:"x"`
+	X float64
 	// Shift by Y-axis measured in widths of the mask scaled to the face size, from left to right. (For example, -1.0 will place the mask just to the left of the default mask position)
-	Y float64 `tl:"y"`
+	Y float64
 	// Mask scaling coefficient. (For example, 2.0 means a doubled size)
-	Zoom float64 `tl:"zoom"`
+	Zoom float64
 }
 
 // MaskCoordsTypeID is TL type id of MaskCoords.
@@ -84,13 +86,44 @@ func (m *MaskCoords) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MaskCoords) TypeID() uint32 {
+func (*MaskCoords) TypeID() uint32 {
 	return MaskCoordsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MaskCoords) TypeName() string {
+func (*MaskCoords) TypeName() string {
 	return "maskCoords"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MaskCoords) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "maskCoords",
+		ID:   MaskCoordsTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "N",
+			SchemaName: "n",
+		},
+		{
+			Name:       "X",
+			SchemaName: "x",
+		},
+		{
+			Name:       "Y",
+			SchemaName: "y",
+		},
+		{
+			Name:       "Zoom",
+			SchemaName: "zoom",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

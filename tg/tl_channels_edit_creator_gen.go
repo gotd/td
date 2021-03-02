@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelsEditCreatorRequest represents TL type `channels.editCreator#8f38cd1f`.
 // Transfer channel ownership
@@ -26,14 +28,14 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/channels.editCreator for reference.
 type ChannelsEditCreatorRequest struct {
 	// Channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// New channel owner
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 	// 2FA password¹ of account
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	Password InputCheckPasswordSRPClass `tl:"password"`
+	Password InputCheckPasswordSRPClass
 }
 
 // ChannelsEditCreatorRequestTypeID is TL type id of ChannelsEditCreatorRequest.
@@ -79,13 +81,40 @@ func (e *ChannelsEditCreatorRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *ChannelsEditCreatorRequest) TypeID() uint32 {
+func (*ChannelsEditCreatorRequest) TypeID() uint32 {
 	return ChannelsEditCreatorRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *ChannelsEditCreatorRequest) TypeName() string {
+func (*ChannelsEditCreatorRequest) TypeName() string {
 	return "channels.editCreator"
+}
+
+// TypeInfo returns info about TL type.
+func (e *ChannelsEditCreatorRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channels.editCreator",
+		ID:   ChannelsEditCreatorRequestTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Channel",
+			SchemaName: "channel",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Password",
+			SchemaName: "password",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

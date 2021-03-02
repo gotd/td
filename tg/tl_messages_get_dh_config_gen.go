@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetDhConfigRequest represents TL type `messages.getDhConfig#26cf8950`.
 // Returns configuration parameters for Diffie-Hellman key generation. Can also return a random sequence of bytes of required length.
@@ -29,9 +31,9 @@ type MessagesGetDhConfigRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/messages.dhConfig
-	Version int `tl:"version"`
+	Version int
 	// Length of the required random sequence
-	RandomLength int `tl:"random_length"`
+	RandomLength int
 }
 
 // MessagesGetDhConfigRequestTypeID is TL type id of MessagesGetDhConfigRequest.
@@ -72,13 +74,36 @@ func (g *MessagesGetDhConfigRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetDhConfigRequest) TypeID() uint32 {
+func (*MessagesGetDhConfigRequest) TypeID() uint32 {
 	return MessagesGetDhConfigRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetDhConfigRequest) TypeName() string {
+func (*MessagesGetDhConfigRequest) TypeName() string {
 	return "messages.getDhConfig"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetDhConfigRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getDhConfig",
+		ID:   MessagesGetDhConfigRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Version",
+			SchemaName: "version",
+		},
+		{
+			Name:       "RandomLength",
+			SchemaName: "random_length",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

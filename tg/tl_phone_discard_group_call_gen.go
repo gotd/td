@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,13 +20,14 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhoneDiscardGroupCallRequest represents TL type `phone.discardGroupCall#7a777135`.
 //
 // See https://core.telegram.org/method/phone.discardGroupCall for reference.
 type PhoneDiscardGroupCallRequest struct {
 	// Call field of PhoneDiscardGroupCallRequest.
-	Call InputGroupCall `tl:"call"`
+	Call InputGroupCall
 }
 
 // PhoneDiscardGroupCallRequestTypeID is TL type id of PhoneDiscardGroupCallRequest.
@@ -61,13 +63,32 @@ func (d *PhoneDiscardGroupCallRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *PhoneDiscardGroupCallRequest) TypeID() uint32 {
+func (*PhoneDiscardGroupCallRequest) TypeID() uint32 {
 	return PhoneDiscardGroupCallRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *PhoneDiscardGroupCallRequest) TypeName() string {
+func (*PhoneDiscardGroupCallRequest) TypeName() string {
 	return "phone.discardGroupCall"
+}
+
+// TypeInfo returns info about TL type.
+func (d *PhoneDiscardGroupCallRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phone.discardGroupCall",
+		ID:   PhoneDiscardGroupCallRequestTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Call",
+			SchemaName: "call",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

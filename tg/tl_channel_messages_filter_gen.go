@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelMessagesFilterEmpty represents TL type `channelMessagesFilterEmpty#94d42ee7`.
 // No filter
@@ -50,13 +52,27 @@ func (c *ChannelMessagesFilterEmpty) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelMessagesFilterEmpty) TypeID() uint32 {
+func (*ChannelMessagesFilterEmpty) TypeID() uint32 {
 	return ChannelMessagesFilterEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelMessagesFilterEmpty) TypeName() string {
+func (*ChannelMessagesFilterEmpty) TypeName() string {
 	return "channelMessagesFilterEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelMessagesFilterEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelMessagesFilterEmpty",
+		ID:   ChannelMessagesFilterEmptyTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -99,11 +115,11 @@ type ChannelMessagesFilter struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to exclude new messages from the search
-	ExcludeNewMessages bool `tl:"exclude_new_messages"`
+	ExcludeNewMessages bool
 	// A range of messages to fetch
-	Ranges []MessageRange `tl:"ranges"`
+	Ranges []MessageRange
 }
 
 // ChannelMessagesFilterTypeID is TL type id of ChannelMessagesFilter.
@@ -147,13 +163,41 @@ func (c *ChannelMessagesFilter) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelMessagesFilter) TypeID() uint32 {
+func (*ChannelMessagesFilter) TypeID() uint32 {
 	return ChannelMessagesFilterTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelMessagesFilter) TypeName() string {
+func (*ChannelMessagesFilter) TypeName() string {
 	return "channelMessagesFilter"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelMessagesFilter) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelMessagesFilter",
+		ID:   ChannelMessagesFilterTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ExcludeNewMessages",
+			SchemaName: "exclude_new_messages",
+			Null:       !c.Flags.Has(1),
+		},
+		{
+			Name:       "Ranges",
+			SchemaName: "ranges",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

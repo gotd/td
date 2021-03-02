@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhoneConnection represents TL type `phoneConnection#9d4c17c0`.
 // Identifies an endpoint that can be used to connect to the other user in a phone call
@@ -26,15 +28,15 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/phoneConnection for reference.
 type PhoneConnection struct {
 	// Endpoint ID
-	ID int64 `tl:"id"`
+	ID int64
 	// IP address of endpoint
-	IP string `tl:"ip"`
+	IP string
 	// IPv6 address of endpoint
-	Ipv6 string `tl:"ipv6"`
+	Ipv6 string
 	// Port ID
-	Port int `tl:"port"`
+	Port int
 	// Our peer tag
-	PeerTag []byte `tl:"peer_tag"`
+	PeerTag []byte
 }
 
 // PhoneConnectionTypeID is TL type id of PhoneConnection.
@@ -90,13 +92,48 @@ func (p *PhoneConnection) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhoneConnection) TypeID() uint32 {
+func (*PhoneConnection) TypeID() uint32 {
 	return PhoneConnectionTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhoneConnection) TypeName() string {
+func (*PhoneConnection) TypeName() string {
 	return "phoneConnection"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhoneConnection) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phoneConnection",
+		ID:   PhoneConnectionTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "IP",
+			SchemaName: "ip",
+		},
+		{
+			Name:       "Ipv6",
+			SchemaName: "ipv6",
+		},
+		{
+			Name:       "Port",
+			SchemaName: "port",
+		},
+		{
+			Name:       "PeerTag",
+			SchemaName: "peer_tag",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -204,23 +241,23 @@ type PhoneConnectionWebrtc struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether this is a TURN endpoint
-	Turn bool `tl:"turn"`
+	Turn bool
 	// Whether this is a STUN endpoint
-	Stun bool `tl:"stun"`
+	Stun bool
 	// Endpoint ID
-	ID int64 `tl:"id"`
+	ID int64
 	// IP address
-	IP string `tl:"ip"`
+	IP string
 	// IPv6 address
-	Ipv6 string `tl:"ipv6"`
+	Ipv6 string
 	// Port
-	Port int `tl:"port"`
+	Port int
 	// Username
-	Username string `tl:"username"`
+	Username string
 	// Password
-	Password string `tl:"password"`
+	Password string
 }
 
 // PhoneConnectionWebrtcTypeID is TL type id of PhoneConnectionWebrtc.
@@ -294,13 +331,66 @@ func (p *PhoneConnectionWebrtc) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhoneConnectionWebrtc) TypeID() uint32 {
+func (*PhoneConnectionWebrtc) TypeID() uint32 {
 	return PhoneConnectionWebrtcTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhoneConnectionWebrtc) TypeName() string {
+func (*PhoneConnectionWebrtc) TypeName() string {
 	return "phoneConnectionWebrtc"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhoneConnectionWebrtc) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phoneConnectionWebrtc",
+		ID:   PhoneConnectionWebrtcTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Turn",
+			SchemaName: "turn",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "Stun",
+			SchemaName: "stun",
+			Null:       !p.Flags.Has(1),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "IP",
+			SchemaName: "ip",
+		},
+		{
+			Name:       "Ipv6",
+			SchemaName: "ipv6",
+		},
+		{
+			Name:       "Port",
+			SchemaName: "port",
+		},
+		{
+			Name:       "Username",
+			SchemaName: "username",
+		},
+		{
+			Name:       "Password",
+			SchemaName: "password",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

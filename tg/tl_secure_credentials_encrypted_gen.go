@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // SecureCredentialsEncrypted represents TL type `secureCredentialsEncrypted#33f0ea47`.
 // Encrypted credentials required to decrypt telegram passport¹ data.
@@ -32,17 +34,17 @@ type SecureCredentialsEncrypted struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport#decrypting-data
-	Data []byte `tl:"data"`
+	Data []byte
 	// Data hash for data authentication as described in decrypting data »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport#decrypting-data
-	Hash []byte `tl:"hash"`
+	Hash []byte
 	// Secret, encrypted with the bot's public RSA key, required for data decryption as described in decrypting data »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport#decrypting-data
-	Secret []byte `tl:"secret"`
+	Secret []byte
 }
 
 // SecureCredentialsEncryptedTypeID is TL type id of SecureCredentialsEncrypted.
@@ -88,13 +90,40 @@ func (s *SecureCredentialsEncrypted) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureCredentialsEncrypted) TypeID() uint32 {
+func (*SecureCredentialsEncrypted) TypeID() uint32 {
 	return SecureCredentialsEncryptedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureCredentialsEncrypted) TypeName() string {
+func (*SecureCredentialsEncrypted) TypeName() string {
 	return "secureCredentialsEncrypted"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureCredentialsEncrypted) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureCredentialsEncrypted",
+		ID:   SecureCredentialsEncryptedTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Data",
+			SchemaName: "data",
+		},
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+		{
+			Name:       "Secret",
+			SchemaName: "secret",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

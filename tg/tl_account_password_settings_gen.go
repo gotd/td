@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountPasswordSettings represents TL type `account.passwordSettings#9a5c33e5`.
 // Private info associated to the password info (recovery email, telegram passport¹ info & so on)
@@ -32,21 +34,21 @@ type AccountPasswordSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// 2FA Recovery email¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp#email-verification
 	//
 	// Use SetEmail and GetEmail helpers.
-	Email string `tl:"email"`
+	Email string
 	// Telegram passport¹ settings
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetSecureSettings and GetSecureSettings helpers.
-	SecureSettings SecureSecretSettings `tl:"secure_settings"`
+	SecureSettings SecureSecretSettings
 }
 
 // AccountPasswordSettingsTypeID is TL type id of AccountPasswordSettings.
@@ -96,13 +98,42 @@ func (p *AccountPasswordSettings) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *AccountPasswordSettings) TypeID() uint32 {
+func (*AccountPasswordSettings) TypeID() uint32 {
 	return AccountPasswordSettingsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *AccountPasswordSettings) TypeName() string {
+func (*AccountPasswordSettings) TypeName() string {
 	return "account.passwordSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (p *AccountPasswordSettings) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.passwordSettings",
+		ID:   AccountPasswordSettingsTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Email",
+			SchemaName: "email",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "SecureSettings",
+			SchemaName: "secure_settings",
+			Null:       !p.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessageFwdHeader represents TL type `messageFwdHeader#5f777dce`.
 // Info about a forwarded message
@@ -29,39 +31,39 @@ type MessageFwdHeader struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Imported field of MessageFwdHeader.
-	Imported bool `tl:"imported"`
+	Imported bool
 	// The ID of the user that originally sent the message
 	//
 	// Use SetFromID and GetFromID helpers.
-	FromID PeerClass `tl:"from_id"`
+	FromID PeerClass
 	// The name of the user that originally sent the message
 	//
 	// Use SetFromName and GetFromName helpers.
-	FromName string `tl:"from_name"`
+	FromName string
 	// When was the message originally sent
-	Date int `tl:"date"`
+	Date int
 	// ID of the channel message that was forwarded
 	//
 	// Use SetChannelPost and GetChannelPost helpers.
-	ChannelPost int `tl:"channel_post"`
+	ChannelPost int
 	// For channels and if signatures are enabled, author of the channel message
 	//
 	// Use SetPostAuthor and GetPostAuthor helpers.
-	PostAuthor string `tl:"post_author"`
+	PostAuthor string
 	// Only for messages forwarded to the current user (inputPeerSelf), full info about the user/channel that originally sent the message
 	//
 	// Use SetSavedFromPeer and GetSavedFromPeer helpers.
-	SavedFromPeer PeerClass `tl:"saved_from_peer"`
+	SavedFromPeer PeerClass
 	// Only for messages forwarded to the current user (inputPeerSelf), ID of the message that was forwarded from the original user/channel
 	//
 	// Use SetSavedFromMsgID and GetSavedFromMsgID helpers.
-	SavedFromMsgID int `tl:"saved_from_msg_id"`
+	SavedFromMsgID int
 	// PSA type
 	//
 	// Use SetPsaType and GetPsaType helpers.
-	PsaType string `tl:"psa_type"`
+	PsaType string
 }
 
 // MessageFwdHeaderTypeID is TL type id of MessageFwdHeader.
@@ -161,13 +163,76 @@ func (m *MessageFwdHeader) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageFwdHeader) TypeID() uint32 {
+func (*MessageFwdHeader) TypeID() uint32 {
 	return MessageFwdHeaderTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageFwdHeader) TypeName() string {
+func (*MessageFwdHeader) TypeName() string {
 	return "messageFwdHeader"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageFwdHeader) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageFwdHeader",
+		ID:   MessageFwdHeaderTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Imported",
+			SchemaName: "imported",
+			Null:       !m.Flags.Has(7),
+		},
+		{
+			Name:       "FromID",
+			SchemaName: "from_id",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "FromName",
+			SchemaName: "from_name",
+			Null:       !m.Flags.Has(5),
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "ChannelPost",
+			SchemaName: "channel_post",
+			Null:       !m.Flags.Has(2),
+		},
+		{
+			Name:       "PostAuthor",
+			SchemaName: "post_author",
+			Null:       !m.Flags.Has(3),
+		},
+		{
+			Name:       "SavedFromPeer",
+			SchemaName: "saved_from_peer",
+			Null:       !m.Flags.Has(4),
+		},
+		{
+			Name:       "SavedFromMsgID",
+			SchemaName: "saved_from_msg_id",
+			Null:       !m.Flags.Has(4),
+		},
+		{
+			Name:       "PsaType",
+			SchemaName: "psa_type",
+			Null:       !m.Flags.Has(6),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

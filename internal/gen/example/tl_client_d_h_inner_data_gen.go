@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,19 +20,20 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ClientDHInnerData represents TL type `client_DH_inner_data#6643b654`.
 //
 // See https://localhost:80/doc/constructor/client_DH_inner_data for reference.
 type ClientDHInnerData struct {
 	// Nonce field of ClientDHInnerData.
-	Nonce bin.Int128 `tl:"nonce"`
+	Nonce bin.Int128
 	// ServerNonce field of ClientDHInnerData.
-	ServerNonce bin.Int128 `tl:"server_nonce"`
+	ServerNonce bin.Int128
 	// RetryID field of ClientDHInnerData.
-	RetryID int64 `tl:"retry_id"`
+	RetryID int64
 	// GB field of ClientDHInnerData.
-	GB string `tl:"g_b"`
+	GB string
 }
 
 // ClientDHInnerDataTypeID is TL type id of ClientDHInnerData.
@@ -82,13 +84,44 @@ func (c *ClientDHInnerData) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ClientDHInnerData) TypeID() uint32 {
+func (*ClientDHInnerData) TypeID() uint32 {
 	return ClientDHInnerDataTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ClientDHInnerData) TypeName() string {
+func (*ClientDHInnerData) TypeName() string {
 	return "client_DH_inner_data"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ClientDHInnerData) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "client_DH_inner_data",
+		ID:   ClientDHInnerDataTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Nonce",
+			SchemaName: "nonce",
+		},
+		{
+			Name:       "ServerNonce",
+			SchemaName: "server_nonce",
+		},
+		{
+			Name:       "RetryID",
+			SchemaName: "retry_id",
+		},
+		{
+			Name:       "GB",
+			SchemaName: "g_b",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

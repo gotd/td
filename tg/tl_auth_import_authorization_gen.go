@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AuthImportAuthorizationRequest represents TL type `auth.importAuthorization#e3ef9613`.
 // Logs in a user using a key transmitted from his native data-centre.
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/auth.importAuthorization for reference.
 type AuthImportAuthorizationRequest struct {
 	// User ID
-	ID int `tl:"id"`
+	ID int
 	// Authorization key
-	Bytes []byte `tl:"bytes"`
+	Bytes []byte
 }
 
 // AuthImportAuthorizationRequestTypeID is TL type id of AuthImportAuthorizationRequest.
@@ -69,13 +71,36 @@ func (i *AuthImportAuthorizationRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *AuthImportAuthorizationRequest) TypeID() uint32 {
+func (*AuthImportAuthorizationRequest) TypeID() uint32 {
 	return AuthImportAuthorizationRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *AuthImportAuthorizationRequest) TypeName() string {
+func (*AuthImportAuthorizationRequest) TypeName() string {
 	return "auth.importAuthorization"
+}
+
+// TypeInfo returns info about TL type.
+func (i *AuthImportAuthorizationRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.importAuthorization",
+		ID:   AuthImportAuthorizationRequestTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Bytes",
+			SchemaName: "bytes",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

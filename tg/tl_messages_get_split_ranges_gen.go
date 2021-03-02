@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetSplitRangesRequest represents TL type `messages.getSplitRanges#1cff7e08`.
 // Get message ranges for saving the user's chat history
@@ -50,13 +52,27 @@ func (g *MessagesGetSplitRangesRequest) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetSplitRangesRequest) TypeID() uint32 {
+func (*MessagesGetSplitRangesRequest) TypeID() uint32 {
 	return MessagesGetSplitRangesRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetSplitRangesRequest) TypeName() string {
+func (*MessagesGetSplitRangesRequest) TypeName() string {
 	return "messages.getSplitRanges"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetSplitRangesRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getSplitRanges",
+		ID:   MessagesGetSplitRangesRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

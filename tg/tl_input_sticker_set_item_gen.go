@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputStickerSetItem represents TL type `inputStickerSetItem#ffa0a496`.
 // Sticker in a stickerset
@@ -29,15 +31,15 @@ type InputStickerSetItem struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// The sticker
-	Document InputDocumentClass `tl:"document"`
+	Document InputDocumentClass
 	// Associated emoji
-	Emoji string `tl:"emoji"`
+	Emoji string
 	// Coordinates for mask sticker
 	//
 	// Use SetMaskCoords and GetMaskCoords helpers.
-	MaskCoords MaskCoords `tl:"mask_coords"`
+	MaskCoords MaskCoords
 }
 
 // InputStickerSetItemTypeID is TL type id of InputStickerSetItem.
@@ -89,13 +91,45 @@ func (i *InputStickerSetItem) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputStickerSetItem) TypeID() uint32 {
+func (*InputStickerSetItem) TypeID() uint32 {
 	return InputStickerSetItemTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputStickerSetItem) TypeName() string {
+func (*InputStickerSetItem) TypeName() string {
 	return "inputStickerSetItem"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputStickerSetItem) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputStickerSetItem",
+		ID:   InputStickerSetItemTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Document",
+			SchemaName: "document",
+		},
+		{
+			Name:       "Emoji",
+			SchemaName: "emoji",
+		},
+		{
+			Name:       "MaskCoords",
+			SchemaName: "mask_coords",
+			Null:       !i.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

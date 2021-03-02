@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesEditChatAboutRequest represents TL type `messages.editChatAbout#def60797`.
 // Edit the description of a group/supergroup/channel¹.
@@ -32,9 +34,9 @@ type MessagesEditChatAboutRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// The new description
-	About string `tl:"about"`
+	About string
 }
 
 // MessagesEditChatAboutRequestTypeID is TL type id of MessagesEditChatAboutRequest.
@@ -75,13 +77,36 @@ func (e *MessagesEditChatAboutRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *MessagesEditChatAboutRequest) TypeID() uint32 {
+func (*MessagesEditChatAboutRequest) TypeID() uint32 {
 	return MessagesEditChatAboutRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *MessagesEditChatAboutRequest) TypeName() string {
+func (*MessagesEditChatAboutRequest) TypeName() string {
 	return "messages.editChatAbout"
+}
+
+// TypeInfo returns info about TL type.
+func (e *MessagesEditChatAboutRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.editChatAbout",
+		ID:   MessagesEditChatAboutRequestTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "About",
+			SchemaName: "about",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSendEncryptedFileRequest represents TL type `messages.sendEncryptedFile#5559481d`.
 // Sends a message with a file attachment to a secret chat
@@ -29,20 +31,20 @@ type MessagesSendEncryptedFileRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to send the file without triggering a notification
-	Silent bool `tl:"silent"`
+	Silent bool
 	// Secret chat ID
-	Peer InputEncryptedChat `tl:"peer"`
+	Peer InputEncryptedChat
 	// Unique client message ID necessary to prevent message resending
-	RandomID int64 `tl:"random_id"`
+	RandomID int64
 	// TL-serialization of DecryptedMessage¹ type, encrypted with a key generated during chat initialization
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/DecryptedMessage
-	Data []byte `tl:"data"`
+	Data []byte
 	// File attachment for the secret chat
-	File InputEncryptedFileClass `tl:"file"`
+	File InputEncryptedFileClass
 }
 
 // MessagesSendEncryptedFileRequestTypeID is TL type id of MessagesSendEncryptedFileRequest.
@@ -101,13 +103,53 @@ func (s *MessagesSendEncryptedFileRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSendEncryptedFileRequest) TypeID() uint32 {
+func (*MessagesSendEncryptedFileRequest) TypeID() uint32 {
 	return MessagesSendEncryptedFileRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSendEncryptedFileRequest) TypeName() string {
+func (*MessagesSendEncryptedFileRequest) TypeName() string {
 	return "messages.sendEncryptedFile"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSendEncryptedFileRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.sendEncryptedFile",
+		ID:   MessagesSendEncryptedFileRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Silent",
+			SchemaName: "silent",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "RandomID",
+			SchemaName: "random_id",
+		},
+		{
+			Name:       "Data",
+			SchemaName: "data",
+		},
+		{
+			Name:       "File",
+			SchemaName: "file",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

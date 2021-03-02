@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesReceivedMessagesRequest represents TL type `messages.receivedMessages#5a954c0`.
 // Confirms receipt of messages by a client, cancels PUSH-notification sending.
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.receivedMessages for reference.
 type MessagesReceivedMessagesRequest struct {
 	// Maximum message ID available in a client.
-	MaxID int `tl:"max_id"`
+	MaxID int
 }
 
 // MessagesReceivedMessagesRequestTypeID is TL type id of MessagesReceivedMessagesRequest.
@@ -62,13 +64,32 @@ func (r *MessagesReceivedMessagesRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *MessagesReceivedMessagesRequest) TypeID() uint32 {
+func (*MessagesReceivedMessagesRequest) TypeID() uint32 {
 	return MessagesReceivedMessagesRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *MessagesReceivedMessagesRequest) TypeName() string {
+func (*MessagesReceivedMessagesRequest) TypeName() string {
 	return "messages.receivedMessages"
+}
+
+// TypeInfo returns info about TL type.
+func (r *MessagesReceivedMessagesRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.receivedMessages",
+		ID:   MessagesReceivedMessagesRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "MaxID",
+			SchemaName: "max_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

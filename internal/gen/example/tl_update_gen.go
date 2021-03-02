@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,15 +20,16 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // Update represents TL type `update#b03e2ef8`.
 //
 // See https://localhost:80/doc/constructor/update for reference.
 type Update struct {
 	// Msg field of Update.
-	Msg AbstractMessageClass `tl:"msg"`
+	Msg AbstractMessageClass
 	// Delay field of Update.
-	Delay int32 `tl:"delay"`
+	Delay int32
 }
 
 // UpdateTypeID is TL type id of Update.
@@ -68,13 +70,36 @@ func (u *Update) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *Update) TypeID() uint32 {
+func (*Update) TypeID() uint32 {
 	return UpdateTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *Update) TypeName() string {
+func (*Update) TypeName() string {
 	return "update"
+}
+
+// TypeInfo returns info about TL type.
+func (u *Update) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "update",
+		ID:   UpdateTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Msg",
+			SchemaName: "msg",
+		},
+		{
+			Name:       "Delay",
+			SchemaName: "delay",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

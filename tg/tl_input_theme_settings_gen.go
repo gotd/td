@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputThemeSettings represents TL type `inputThemeSettings#bd507cd1`.
 // Theme settings
@@ -29,27 +31,27 @@ type InputThemeSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Default theme on which this theme is based
-	BaseTheme BaseThemeClass `tl:"base_theme"`
+	BaseTheme BaseThemeClass
 	// Accent color, RGB24 format
-	AccentColor int `tl:"accent_color"`
+	AccentColor int
 	// Message gradient color (top), RGB24 format
 	//
 	// Use SetMessageTopColor and GetMessageTopColor helpers.
-	MessageTopColor int `tl:"message_top_color"`
+	MessageTopColor int
 	// Message gradient color (bottom), RGB24 format
 	//
 	// Use SetMessageBottomColor and GetMessageBottomColor helpers.
-	MessageBottomColor int `tl:"message_bottom_color"`
+	MessageBottomColor int
 	// Wallpaper
 	//
 	// Use SetWallpaper and GetWallpaper helpers.
-	Wallpaper InputWallPaperClass `tl:"wallpaper"`
+	Wallpaper InputWallPaperClass
 	// Wallpaper settings
 	//
 	// Use SetWallpaperSettings and GetWallpaperSettings helpers.
-	WallpaperSettings WallPaperSettings `tl:"wallpaper_settings"`
+	WallpaperSettings WallPaperSettings
 }
 
 // InputThemeSettingsTypeID is TL type id of InputThemeSettings.
@@ -125,13 +127,60 @@ func (i *InputThemeSettings) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputThemeSettings) TypeID() uint32 {
+func (*InputThemeSettings) TypeID() uint32 {
 	return InputThemeSettingsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputThemeSettings) TypeName() string {
+func (*InputThemeSettings) TypeName() string {
 	return "inputThemeSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputThemeSettings) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputThemeSettings",
+		ID:   InputThemeSettingsTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "BaseTheme",
+			SchemaName: "base_theme",
+		},
+		{
+			Name:       "AccentColor",
+			SchemaName: "accent_color",
+		},
+		{
+			Name:       "MessageTopColor",
+			SchemaName: "message_top_color",
+			Null:       !i.Flags.Has(0),
+		},
+		{
+			Name:       "MessageBottomColor",
+			SchemaName: "message_bottom_color",
+			Null:       !i.Flags.Has(0),
+		},
+		{
+			Name:       "Wallpaper",
+			SchemaName: "wallpaper",
+			Null:       !i.Flags.Has(1),
+		},
+		{
+			Name:       "WallpaperSettings",
+			SchemaName: "wallpaper_settings",
+			Null:       !i.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

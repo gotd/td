@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,21 +20,22 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhoneGroupParticipants represents TL type `phone.groupParticipants#9cfeb92d`.
 //
 // See https://core.telegram.org/constructor/phone.groupParticipants for reference.
 type PhoneGroupParticipants struct {
 	// Count field of PhoneGroupParticipants.
-	Count int `tl:"count"`
+	Count int
 	// Participants field of PhoneGroupParticipants.
-	Participants []GroupCallParticipant `tl:"participants"`
+	Participants []GroupCallParticipant
 	// NextOffset field of PhoneGroupParticipants.
-	NextOffset string `tl:"next_offset"`
+	NextOffset string
 	// Users field of PhoneGroupParticipants.
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 	// Version field of PhoneGroupParticipants.
-	Version int `tl:"version"`
+	Version int
 }
 
 // PhoneGroupParticipantsTypeID is TL type id of PhoneGroupParticipants.
@@ -89,13 +91,48 @@ func (g *PhoneGroupParticipants) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *PhoneGroupParticipants) TypeID() uint32 {
+func (*PhoneGroupParticipants) TypeID() uint32 {
 	return PhoneGroupParticipantsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *PhoneGroupParticipants) TypeName() string {
+func (*PhoneGroupParticipants) TypeName() string {
 	return "phone.groupParticipants"
+}
+
+// TypeInfo returns info about TL type.
+func (g *PhoneGroupParticipants) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phone.groupParticipants",
+		ID:   PhoneGroupParticipantsTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Count",
+			SchemaName: "count",
+		},
+		{
+			Name:       "Participants",
+			SchemaName: "participants",
+		},
+		{
+			Name:       "NextOffset",
+			SchemaName: "next_offset",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+		{
+			Name:       "Version",
+			SchemaName: "version",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

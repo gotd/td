@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelsEditBannedRequest represents TL type `channels.editBanned#72796912`.
 // Ban/unban/kick a user in a supergroup/channel¹.
@@ -32,11 +34,11 @@ type ChannelsEditBannedRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// The ID of the user whose banned rights should be modified
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 	// The banned rights
-	BannedRights ChatBannedRights `tl:"banned_rights"`
+	BannedRights ChatBannedRights
 }
 
 // ChannelsEditBannedRequestTypeID is TL type id of ChannelsEditBannedRequest.
@@ -82,13 +84,40 @@ func (e *ChannelsEditBannedRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *ChannelsEditBannedRequest) TypeID() uint32 {
+func (*ChannelsEditBannedRequest) TypeID() uint32 {
 	return ChannelsEditBannedRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *ChannelsEditBannedRequest) TypeName() string {
+func (*ChannelsEditBannedRequest) TypeName() string {
 	return "channels.editBanned"
+}
+
+// TypeInfo returns info about TL type.
+func (e *ChannelsEditBannedRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channels.editBanned",
+		ID:   ChannelsEditBannedRequestTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Channel",
+			SchemaName: "channel",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "BannedRights",
+			SchemaName: "banned_rights",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

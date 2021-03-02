@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StatsGraphAsync represents TL type `statsGraphAsync#4a27eb2d`.
 // This channel statistics graph¹ must be generated asynchronously using stats.loadAsyncGraph² to reduce server load
@@ -30,7 +32,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/statsGraphAsync for reference.
 type StatsGraphAsync struct {
 	// Token to use for fetching the async graph
-	Token string `tl:"token"`
+	Token string
 }
 
 // StatsGraphAsyncTypeID is TL type id of StatsGraphAsync.
@@ -66,13 +68,32 @@ func (s *StatsGraphAsync) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *StatsGraphAsync) TypeID() uint32 {
+func (*StatsGraphAsync) TypeID() uint32 {
 	return StatsGraphAsyncTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *StatsGraphAsync) TypeName() string {
+func (*StatsGraphAsync) TypeName() string {
 	return "statsGraphAsync"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StatsGraphAsync) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "statsGraphAsync",
+		ID:   StatsGraphAsyncTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Token",
+			SchemaName: "token",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -128,7 +149,7 @@ var (
 // See https://core.telegram.org/constructor/statsGraphError for reference.
 type StatsGraphError struct {
 	// The error
-	Error string `tl:"error"`
+	Error string
 }
 
 // StatsGraphErrorTypeID is TL type id of StatsGraphError.
@@ -164,13 +185,32 @@ func (s *StatsGraphError) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *StatsGraphError) TypeID() uint32 {
+func (*StatsGraphError) TypeID() uint32 {
 	return StatsGraphErrorTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *StatsGraphError) TypeName() string {
+func (*StatsGraphError) TypeName() string {
 	return "statsGraphError"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StatsGraphError) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "statsGraphError",
+		ID:   StatsGraphErrorTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Error",
+			SchemaName: "error",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -229,13 +269,13 @@ type StatsGraph struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Statistics data
-	JSON DataJSON `tl:"json"`
+	JSON DataJSON
 	// Zoom token
 	//
 	// Use SetZoomToken and GetZoomToken helpers.
-	ZoomToken string `tl:"zoom_token"`
+	ZoomToken string
 }
 
 // StatsGraphTypeID is TL type id of StatsGraph.
@@ -282,13 +322,41 @@ func (s *StatsGraph) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *StatsGraph) TypeID() uint32 {
+func (*StatsGraph) TypeID() uint32 {
 	return StatsGraphTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *StatsGraph) TypeName() string {
+func (*StatsGraph) TypeName() string {
 	return "statsGraph"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StatsGraph) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "statsGraph",
+		ID:   StatsGraphTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "JSON",
+			SchemaName: "json",
+		},
+		{
+			Name:       "ZoomToken",
+			SchemaName: "zoom_token",
+			Null:       !s.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

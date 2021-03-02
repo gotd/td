@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesCreateChatRequest represents TL type `messages.createChat#9cb126e`.
 // Creates a new chat.
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.createChat for reference.
 type MessagesCreateChatRequest struct {
 	// List of user IDs to be invited
-	Users []InputUserClass `tl:"users"`
+	Users []InputUserClass
 	// Chat name
-	Title string `tl:"title"`
+	Title string
 }
 
 // MessagesCreateChatRequestTypeID is TL type id of MessagesCreateChatRequest.
@@ -69,13 +71,36 @@ func (c *MessagesCreateChatRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *MessagesCreateChatRequest) TypeID() uint32 {
+func (*MessagesCreateChatRequest) TypeID() uint32 {
 	return MessagesCreateChatRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *MessagesCreateChatRequest) TypeName() string {
+func (*MessagesCreateChatRequest) TypeName() string {
 	return "messages.createChat"
+}
+
+// TypeInfo returns info about TL type.
+func (c *MessagesCreateChatRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.createChat",
+		ID:   MessagesCreateChatRequestTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

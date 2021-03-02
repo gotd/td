@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesReadDiscussionRequest represents TL type `messages.readDiscussion#f731a9f4`.
 // Mark a thread¹ as read
@@ -29,11 +31,11 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.readDiscussion for reference.
 type MessagesReadDiscussionRequest struct {
 	// Group ID
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// ID of message that started the thread
-	MsgID int `tl:"msg_id"`
+	MsgID int
 	// ID up to which thread messages were read
-	ReadMaxID int `tl:"read_max_id"`
+	ReadMaxID int
 }
 
 // MessagesReadDiscussionRequestTypeID is TL type id of MessagesReadDiscussionRequest.
@@ -79,13 +81,40 @@ func (r *MessagesReadDiscussionRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *MessagesReadDiscussionRequest) TypeID() uint32 {
+func (*MessagesReadDiscussionRequest) TypeID() uint32 {
 	return MessagesReadDiscussionRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *MessagesReadDiscussionRequest) TypeName() string {
+func (*MessagesReadDiscussionRequest) TypeName() string {
 	return "messages.readDiscussion"
+}
+
+// TypeInfo returns info about TL type.
+func (r *MessagesReadDiscussionRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.readDiscussion",
+		ID:   MessagesReadDiscussionRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+		{
+			Name:       "ReadMaxID",
+			SchemaName: "read_max_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

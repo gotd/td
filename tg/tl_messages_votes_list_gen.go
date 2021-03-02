@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesVotesList represents TL type `messages.votesList#823f649`.
 // How users voted in a poll
@@ -29,23 +31,23 @@ type MessagesVotesList struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Total number of votes for all options (or only for the chosen option, if provided to messages.getPollVotes¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.getPollVotes
-	Count int `tl:"count"`
+	Count int
 	// Vote info for each user
-	Votes []MessageUserVoteClass `tl:"votes"`
+	Votes []MessageUserVoteClass
 	// Info about users that voted in the poll
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 	// Offset to use with the next messages.getPollVotes¹ request, empty string if no more results are available.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.getPollVotes
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
-	NextOffset string `tl:"next_offset"`
+	NextOffset string
 }
 
 // MessagesVotesListTypeID is TL type id of MessagesVotesList.
@@ -102,13 +104,49 @@ func (v *MessagesVotesList) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (v *MessagesVotesList) TypeID() uint32 {
+func (*MessagesVotesList) TypeID() uint32 {
 	return MessagesVotesListTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (v *MessagesVotesList) TypeName() string {
+func (*MessagesVotesList) TypeName() string {
 	return "messages.votesList"
+}
+
+// TypeInfo returns info about TL type.
+func (v *MessagesVotesList) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.votesList",
+		ID:   MessagesVotesListTypeID,
+	}
+	if v == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Count",
+			SchemaName: "count",
+		},
+		{
+			Name:       "Votes",
+			SchemaName: "votes",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+		{
+			Name:       "NextOffset",
+			SchemaName: "next_offset",
+			Null:       !v.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

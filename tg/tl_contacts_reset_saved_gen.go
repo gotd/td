@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ContactsResetSavedRequest represents TL type `contacts.resetSaved#879537f1`.
 // Delete saved contacts
@@ -50,13 +52,27 @@ func (r *ContactsResetSavedRequest) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *ContactsResetSavedRequest) TypeID() uint32 {
+func (*ContactsResetSavedRequest) TypeID() uint32 {
 	return ContactsResetSavedRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *ContactsResetSavedRequest) TypeName() string {
+func (*ContactsResetSavedRequest) TypeName() string {
 	return "contacts.resetSaved"
+}
+
+// TypeInfo returns info about TL type.
+func (r *ContactsResetSavedRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "contacts.resetSaved",
+		ID:   ContactsResetSavedRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

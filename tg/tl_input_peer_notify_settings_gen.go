@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputPeerNotifySettings represents TL type `inputPeerNotifySettings#9c3d198e`.
 // Notification settings.
@@ -29,23 +31,23 @@ type InputPeerNotifySettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// If the text of the message shall be displayed in notification
 	//
 	// Use SetShowPreviews and GetShowPreviews helpers.
-	ShowPreviews bool `tl:"show_previews"`
+	ShowPreviews bool
 	// Peer was muted?
 	//
 	// Use SetSilent and GetSilent helpers.
-	Silent bool `tl:"silent"`
+	Silent bool
 	// Date until which all notifications shall be switched off
 	//
 	// Use SetMuteUntil and GetMuteUntil helpers.
-	MuteUntil int `tl:"mute_until"`
+	MuteUntil int
 	// Name of an audio file for notification
 	//
 	// Use SetSound and GetSound helpers.
-	Sound string `tl:"sound"`
+	Sound string
 }
 
 // InputPeerNotifySettingsTypeID is TL type id of InputPeerNotifySettings.
@@ -111,13 +113,52 @@ func (i *InputPeerNotifySettings) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPeerNotifySettings) TypeID() uint32 {
+func (*InputPeerNotifySettings) TypeID() uint32 {
 	return InputPeerNotifySettingsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPeerNotifySettings) TypeName() string {
+func (*InputPeerNotifySettings) TypeName() string {
 	return "inputPeerNotifySettings"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPeerNotifySettings) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPeerNotifySettings",
+		ID:   InputPeerNotifySettingsTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ShowPreviews",
+			SchemaName: "show_previews",
+			Null:       !i.Flags.Has(0),
+		},
+		{
+			Name:       "Silent",
+			SchemaName: "silent",
+			Null:       !i.Flags.Has(1),
+		},
+		{
+			Name:       "MuteUntil",
+			SchemaName: "mute_until",
+			Null:       !i.Flags.Has(2),
+		},
+		{
+			Name:       "Sound",
+			SchemaName: "sound",
+			Null:       !i.Flags.Has(3),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

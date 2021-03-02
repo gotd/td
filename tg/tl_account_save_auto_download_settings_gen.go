@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountSaveAutoDownloadSettingsRequest represents TL type `account.saveAutoDownloadSettings#76f36233`.
 // Change media autodownload settings
@@ -29,13 +31,13 @@ type AccountSaveAutoDownloadSettingsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to save settings in the low data usage preset
-	Low bool `tl:"low"`
+	Low bool
 	// Whether to save settings in the high data usage preset
-	High bool `tl:"high"`
+	High bool
 	// Media autodownload settings
-	Settings AutoDownloadSettings `tl:"settings"`
+	Settings AutoDownloadSettings
 }
 
 // AccountSaveAutoDownloadSettingsRequestTypeID is TL type id of AccountSaveAutoDownloadSettingsRequest.
@@ -84,13 +86,46 @@ func (s *AccountSaveAutoDownloadSettingsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *AccountSaveAutoDownloadSettingsRequest) TypeID() uint32 {
+func (*AccountSaveAutoDownloadSettingsRequest) TypeID() uint32 {
 	return AccountSaveAutoDownloadSettingsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *AccountSaveAutoDownloadSettingsRequest) TypeName() string {
+func (*AccountSaveAutoDownloadSettingsRequest) TypeName() string {
 	return "account.saveAutoDownloadSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AccountSaveAutoDownloadSettingsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.saveAutoDownloadSettings",
+		ID:   AccountSaveAutoDownloadSettingsRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Low",
+			SchemaName: "low",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "High",
+			SchemaName: "high",
+			Null:       !s.Flags.Has(1),
+		},
+		{
+			Name:       "Settings",
+			SchemaName: "settings",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesEditInlineBotMessageRequest represents TL type `messages.editInlineBotMessage#83557dba`.
 // Edit an inline bot message
@@ -29,30 +31,30 @@ type MessagesEditInlineBotMessageRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Disable webpage preview
-	NoWebpage bool `tl:"no_webpage"`
+	NoWebpage bool
 	// Sent inline message ID
-	ID InputBotInlineMessageID `tl:"id"`
+	ID InputBotInlineMessageID
 	// Message
 	//
 	// Use SetMessage and GetMessage helpers.
-	Message string `tl:"message"`
+	Message string
 	// Media
 	//
 	// Use SetMedia and GetMedia helpers.
-	Media InputMediaClass `tl:"media"`
+	Media InputMediaClass
 	// Reply markup for inline keyboards
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `tl:"entities"`
+	Entities []MessageEntityClass
 }
 
 // MessagesEditInlineBotMessageRequestTypeID is TL type id of MessagesEditInlineBotMessageRequest.
@@ -128,13 +130,61 @@ func (e *MessagesEditInlineBotMessageRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *MessagesEditInlineBotMessageRequest) TypeID() uint32 {
+func (*MessagesEditInlineBotMessageRequest) TypeID() uint32 {
 	return MessagesEditInlineBotMessageRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *MessagesEditInlineBotMessageRequest) TypeName() string {
+func (*MessagesEditInlineBotMessageRequest) TypeName() string {
 	return "messages.editInlineBotMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (e *MessagesEditInlineBotMessageRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.editInlineBotMessage",
+		ID:   MessagesEditInlineBotMessageRequestTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "NoWebpage",
+			SchemaName: "no_webpage",
+			Null:       !e.Flags.Has(1),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+			Null:       !e.Flags.Has(11),
+		},
+		{
+			Name:       "Media",
+			SchemaName: "media",
+			Null:       !e.Flags.Has(14),
+		},
+		{
+			Name:       "ReplyMarkup",
+			SchemaName: "reply_markup",
+			Null:       !e.Flags.Has(2),
+		},
+		{
+			Name:       "Entities",
+			SchemaName: "entities",
+			Null:       !e.Flags.Has(3),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

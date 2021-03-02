@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PaymentsPaymentResult represents TL type `payments.paymentResult#4e5f810d`.
 // Payment result
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/payments.paymentResult for reference.
 type PaymentsPaymentResult struct {
 	// Info about the payment
-	Updates UpdatesClass `tl:"updates"`
+	Updates UpdatesClass
 }
 
 // PaymentsPaymentResultTypeID is TL type id of PaymentsPaymentResult.
@@ -62,13 +64,32 @@ func (p *PaymentsPaymentResult) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PaymentsPaymentResult) TypeID() uint32 {
+func (*PaymentsPaymentResult) TypeID() uint32 {
 	return PaymentsPaymentResultTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PaymentsPaymentResult) TypeName() string {
+func (*PaymentsPaymentResult) TypeName() string {
 	return "payments.paymentResult"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PaymentsPaymentResult) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "payments.paymentResult",
+		ID:   PaymentsPaymentResultTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Updates",
+			SchemaName: "updates",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -126,7 +147,7 @@ var (
 // See https://core.telegram.org/constructor/payments.paymentVerificationNeeded for reference.
 type PaymentsPaymentVerificationNeeded struct {
 	// URL for additional payment credentials verification
-	URL string `tl:"url"`
+	URL string
 }
 
 // PaymentsPaymentVerificationNeededTypeID is TL type id of PaymentsPaymentVerificationNeeded.
@@ -162,13 +183,32 @@ func (p *PaymentsPaymentVerificationNeeded) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PaymentsPaymentVerificationNeeded) TypeID() uint32 {
+func (*PaymentsPaymentVerificationNeeded) TypeID() uint32 {
 	return PaymentsPaymentVerificationNeededTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PaymentsPaymentVerificationNeeded) TypeName() string {
+func (*PaymentsPaymentVerificationNeeded) TypeName() string {
 	return "payments.paymentVerificationNeeded"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PaymentsPaymentVerificationNeeded) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "payments.paymentVerificationNeeded",
+		ID:   PaymentsPaymentVerificationNeededTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

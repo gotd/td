@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AuthExportAuthorizationRequest represents TL type `auth.exportAuthorization#e5bfffcd`.
 // Returns data for copying authorization to another data-centre.
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/auth.exportAuthorization for reference.
 type AuthExportAuthorizationRequest struct {
 	// Number of a target data-centre
-	DCID int `tl:"dc_id"`
+	DCID int
 }
 
 // AuthExportAuthorizationRequestTypeID is TL type id of AuthExportAuthorizationRequest.
@@ -62,13 +64,32 @@ func (e *AuthExportAuthorizationRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *AuthExportAuthorizationRequest) TypeID() uint32 {
+func (*AuthExportAuthorizationRequest) TypeID() uint32 {
 	return AuthExportAuthorizationRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *AuthExportAuthorizationRequest) TypeName() string {
+func (*AuthExportAuthorizationRequest) TypeName() string {
 	return "auth.exportAuthorization"
+}
+
+// TypeInfo returns info about TL type.
+func (e *AuthExportAuthorizationRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.exportAuthorization",
+		ID:   AuthExportAuthorizationRequestTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "DCID",
+			SchemaName: "dc_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

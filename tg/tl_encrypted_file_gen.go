@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // EncryptedFileEmpty represents TL type `encryptedFileEmpty#c21f497e`.
 // Empty constructor, unexisitng file.
@@ -50,13 +52,27 @@ func (e *EncryptedFileEmpty) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *EncryptedFileEmpty) TypeID() uint32 {
+func (*EncryptedFileEmpty) TypeID() uint32 {
 	return EncryptedFileEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *EncryptedFileEmpty) TypeName() string {
+func (*EncryptedFileEmpty) TypeName() string {
 	return "encryptedFileEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (e *EncryptedFileEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "encryptedFileEmpty",
+		ID:   EncryptedFileEmptyTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -96,15 +112,15 @@ var (
 // See https://core.telegram.org/constructor/encryptedFile for reference.
 type EncryptedFile struct {
 	// File ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Checking sum depending on user ID
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// File size in bytes
-	Size int `tl:"size"`
+	Size int
 	// Number of data centre
-	DCID int `tl:"dc_id"`
+	DCID int
 	// 32-bit fingerprint of key used for file encryption
-	KeyFingerprint int `tl:"key_fingerprint"`
+	KeyFingerprint int
 }
 
 // EncryptedFileTypeID is TL type id of EncryptedFile.
@@ -160,13 +176,48 @@ func (e *EncryptedFile) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *EncryptedFile) TypeID() uint32 {
+func (*EncryptedFile) TypeID() uint32 {
 	return EncryptedFileTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *EncryptedFile) TypeName() string {
+func (*EncryptedFile) TypeName() string {
 	return "encryptedFile"
+}
+
+// TypeInfo returns info about TL type.
+func (e *EncryptedFile) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "encryptedFile",
+		ID:   EncryptedFileTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "Size",
+			SchemaName: "size",
+		},
+		{
+			Name:       "DCID",
+			SchemaName: "dc_id",
+		},
+		{
+			Name:       "KeyFingerprint",
+			SchemaName: "key_fingerprint",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

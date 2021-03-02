@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelsJoinChannelRequest represents TL type `channels.joinChannel#24b524c5`.
 // Join a channel/supergroup
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/channels.joinChannel for reference.
 type ChannelsJoinChannelRequest struct {
 	// Channel/supergroup to join
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 }
 
 // ChannelsJoinChannelRequestTypeID is TL type id of ChannelsJoinChannelRequest.
@@ -62,13 +64,32 @@ func (j *ChannelsJoinChannelRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (j *ChannelsJoinChannelRequest) TypeID() uint32 {
+func (*ChannelsJoinChannelRequest) TypeID() uint32 {
 	return ChannelsJoinChannelRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (j *ChannelsJoinChannelRequest) TypeName() string {
+func (*ChannelsJoinChannelRequest) TypeName() string {
 	return "channels.joinChannel"
+}
+
+// TypeInfo returns info about TL type.
+func (j *ChannelsJoinChannelRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channels.joinChannel",
+		ID:   ChannelsJoinChannelRequestTypeID,
+	}
+	if j == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Channel",
+			SchemaName: "channel",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

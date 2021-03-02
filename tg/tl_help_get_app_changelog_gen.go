@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HelpGetAppChangelogRequest represents TL type `help.getAppChangelog#9010ef6f`.
 // Get changelog of current app.
@@ -31,7 +33,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/help.getAppChangelog for reference.
 type HelpGetAppChangelogRequest struct {
 	// Previous app version
-	PrevAppVersion string `tl:"prev_app_version"`
+	PrevAppVersion string
 }
 
 // HelpGetAppChangelogRequestTypeID is TL type id of HelpGetAppChangelogRequest.
@@ -67,13 +69,32 @@ func (g *HelpGetAppChangelogRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *HelpGetAppChangelogRequest) TypeID() uint32 {
+func (*HelpGetAppChangelogRequest) TypeID() uint32 {
 	return HelpGetAppChangelogRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *HelpGetAppChangelogRequest) TypeName() string {
+func (*HelpGetAppChangelogRequest) TypeName() string {
 	return "help.getAppChangelog"
+}
+
+// TypeInfo returns info about TL type.
+func (g *HelpGetAppChangelogRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.getAppChangelog",
+		ID:   HelpGetAppChangelogRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PrevAppVersion",
+			SchemaName: "prev_app_version",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountGetThemeRequest represents TL type `account.getTheme#8d9d742b`.
 // Get theme information
@@ -26,11 +28,11 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/account.getTheme for reference.
 type AccountGetThemeRequest struct {
 	// Theme format, a string that identifies the theming engines supported by the client
-	Format string `tl:"format"`
+	Format string
 	// Theme
-	Theme InputThemeClass `tl:"theme"`
+	Theme InputThemeClass
 	// Document ID
-	DocumentID int64 `tl:"document_id"`
+	DocumentID int64
 }
 
 // AccountGetThemeRequestTypeID is TL type id of AccountGetThemeRequest.
@@ -76,13 +78,40 @@ func (g *AccountGetThemeRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *AccountGetThemeRequest) TypeID() uint32 {
+func (*AccountGetThemeRequest) TypeID() uint32 {
 	return AccountGetThemeRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *AccountGetThemeRequest) TypeName() string {
+func (*AccountGetThemeRequest) TypeName() string {
 	return "account.getTheme"
+}
+
+// TypeInfo returns info about TL type.
+func (g *AccountGetThemeRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.getTheme",
+		ID:   AccountGetThemeRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Format",
+			SchemaName: "format",
+		},
+		{
+			Name:       "Theme",
+			SchemaName: "theme",
+		},
+		{
+			Name:       "DocumentID",
+			SchemaName: "document_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

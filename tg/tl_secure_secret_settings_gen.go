@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // SecureSecretSettings represents TL type `secureSecretSettings#1527bcac`.
 // Secure settings
@@ -26,11 +28,11 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/secureSecretSettings for reference.
 type SecureSecretSettings struct {
 	// Secure KDF algo
-	SecureAlgo SecurePasswordKdfAlgoClass `tl:"secure_algo"`
+	SecureAlgo SecurePasswordKdfAlgoClass
 	// Secure secret
-	SecureSecret []byte `tl:"secure_secret"`
+	SecureSecret []byte
 	// Secret ID
-	SecureSecretID int64 `tl:"secure_secret_id"`
+	SecureSecretID int64
 }
 
 // SecureSecretSettingsTypeID is TL type id of SecureSecretSettings.
@@ -76,13 +78,40 @@ func (s *SecureSecretSettings) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureSecretSettings) TypeID() uint32 {
+func (*SecureSecretSettings) TypeID() uint32 {
 	return SecureSecretSettingsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureSecretSettings) TypeName() string {
+func (*SecureSecretSettings) TypeName() string {
 	return "secureSecretSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureSecretSettings) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureSecretSettings",
+		ID:   SecureSecretSettingsTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "SecureAlgo",
+			SchemaName: "secure_algo",
+		},
+		{
+			Name:       "SecureSecret",
+			SchemaName: "secure_secret",
+		},
+		{
+			Name:       "SecureSecretID",
+			SchemaName: "secure_secret_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

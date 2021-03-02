@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ContactsFound represents TL type `contacts.found#b3134d9d`.
 // Users found by name substring and auxiliary data.
@@ -26,13 +28,13 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/contacts.found for reference.
 type ContactsFound struct {
 	// Personalized results
-	MyResults []PeerClass `tl:"my_results"`
+	MyResults []PeerClass
 	// List of found user identifiers
-	Results []PeerClass `tl:"results"`
+	Results []PeerClass
 	// Found chats
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// List of users
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // ContactsFoundTypeID is TL type id of ContactsFound.
@@ -83,13 +85,44 @@ func (f *ContactsFound) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *ContactsFound) TypeID() uint32 {
+func (*ContactsFound) TypeID() uint32 {
 	return ContactsFoundTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *ContactsFound) TypeName() string {
+func (*ContactsFound) TypeName() string {
 	return "contacts.found"
+}
+
+// TypeInfo returns info about TL type.
+func (f *ContactsFound) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "contacts.found",
+		ID:   ContactsFoundTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "MyResults",
+			SchemaName: "my_results",
+		},
+		{
+			Name:       "Results",
+			SchemaName: "results",
+		},
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

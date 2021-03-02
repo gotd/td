@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetBotCallbackAnswerRequest represents TL type `messages.getBotCallbackAnswer#9342ca07`.
 // Press an inline callback button and get a callback answer from the bot
@@ -29,17 +31,17 @@ type MessagesGetBotCallbackAnswerRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether this is a "play game" button
-	Game bool `tl:"game"`
+	Game bool
 	// Where was the inline keyboard sent
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// ID of the Message with the inline keyboard
-	MsgID int `tl:"msg_id"`
+	MsgID int
 	// Callback data
 	//
 	// Use SetData and GetData helpers.
-	Data []byte `tl:"data"`
+	Data []byte
 	// For buttons requiring you to verify your identity with your 2FA password¹, the SRP payload generated using SRP².
 	//
 	// Links:
@@ -47,7 +49,7 @@ type MessagesGetBotCallbackAnswerRequest struct {
 	//  2) https://core.telegram.org/api/srp
 	//
 	// Use SetPassword and GetPassword helpers.
-	Password InputCheckPasswordSRPClass `tl:"password"`
+	Password InputCheckPasswordSRPClass
 }
 
 // MessagesGetBotCallbackAnswerRequestTypeID is TL type id of MessagesGetBotCallbackAnswerRequest.
@@ -112,13 +114,55 @@ func (g *MessagesGetBotCallbackAnswerRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetBotCallbackAnswerRequest) TypeID() uint32 {
+func (*MessagesGetBotCallbackAnswerRequest) TypeID() uint32 {
 	return MessagesGetBotCallbackAnswerRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetBotCallbackAnswerRequest) TypeName() string {
+func (*MessagesGetBotCallbackAnswerRequest) TypeName() string {
 	return "messages.getBotCallbackAnswer"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetBotCallbackAnswerRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getBotCallbackAnswer",
+		ID:   MessagesGetBotCallbackAnswerRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Game",
+			SchemaName: "game",
+			Null:       !g.Flags.Has(1),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+		{
+			Name:       "Data",
+			SchemaName: "data",
+			Null:       !g.Flags.Has(0),
+		},
+		{
+			Name:       "Password",
+			SchemaName: "password",
+			Null:       !g.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

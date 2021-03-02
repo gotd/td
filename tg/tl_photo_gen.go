@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhotoEmpty represents TL type `photoEmpty#2331b22d`.
 // Empty constructor, non-existent photo
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/photoEmpty for reference.
 type PhotoEmpty struct {
 	// Photo identifier
-	ID int64 `tl:"id"`
+	ID int64
 }
 
 // PhotoEmptyTypeID is TL type id of PhotoEmpty.
@@ -62,13 +64,32 @@ func (p *PhotoEmpty) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhotoEmpty) TypeID() uint32 {
+func (*PhotoEmpty) TypeID() uint32 {
 	return PhotoEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhotoEmpty) TypeName() string {
+func (*PhotoEmpty) TypeName() string {
 	return "photoEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhotoEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "photoEmpty",
+		ID:   PhotoEmptyTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -124,31 +145,31 @@ type Photo struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the photo has mask stickers attached to it
-	HasStickers bool `tl:"has_stickers"`
+	HasStickers bool
 	// ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// file reference¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/file_reference
-	FileReference []byte `tl:"file_reference"`
+	FileReference []byte
 	// Date of upload
-	Date int `tl:"date"`
+	Date int
 	// Available sizes for download
-	Sizes []PhotoSizeClass `tl:"sizes"`
+	Sizes []PhotoSizeClass
 	// For animated profiles¹, the MPEG4 videos
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files#animated-profile-pictures
 	//
 	// Use SetVideoSizes and GetVideoSizes helpers.
-	VideoSizes []VideoSize `tl:"video_sizes"`
+	VideoSizes []VideoSize
 	// DC ID to use for download
-	DCID int `tl:"dc_id"`
+	DCID int
 }
 
 // PhotoTypeID is TL type id of Photo.
@@ -225,13 +246,66 @@ func (p *Photo) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *Photo) TypeID() uint32 {
+func (*Photo) TypeID() uint32 {
 	return PhotoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *Photo) TypeName() string {
+func (*Photo) TypeName() string {
 	return "photo"
+}
+
+// TypeInfo returns info about TL type.
+func (p *Photo) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "photo",
+		ID:   PhotoTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "HasStickers",
+			SchemaName: "has_stickers",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "FileReference",
+			SchemaName: "file_reference",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "Sizes",
+			SchemaName: "sizes",
+		},
+		{
+			Name:       "VideoSizes",
+			SchemaName: "video_sizes",
+			Null:       !p.Flags.Has(1),
+		},
+		{
+			Name:       "DCID",
+			SchemaName: "dc_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

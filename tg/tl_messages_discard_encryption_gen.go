@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesDiscardEncryptionRequest represents TL type `messages.discardEncryption#f393aea0`.
 // Cancels a request for creation and/or delete info on secret chat.
@@ -26,11 +28,11 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.discardEncryption for reference.
 type MessagesDiscardEncryptionRequest struct {
 	// Flags field of MessagesDiscardEncryptionRequest.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// DeleteHistory field of MessagesDiscardEncryptionRequest.
-	DeleteHistory bool `tl:"delete_history"`
+	DeleteHistory bool
 	// Secret chat ID
-	ChatID int `tl:"chat_id"`
+	ChatID int
 }
 
 // MessagesDiscardEncryptionRequestTypeID is TL type id of MessagesDiscardEncryptionRequest.
@@ -74,13 +76,41 @@ func (d *MessagesDiscardEncryptionRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *MessagesDiscardEncryptionRequest) TypeID() uint32 {
+func (*MessagesDiscardEncryptionRequest) TypeID() uint32 {
 	return MessagesDiscardEncryptionRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *MessagesDiscardEncryptionRequest) TypeName() string {
+func (*MessagesDiscardEncryptionRequest) TypeName() string {
 	return "messages.discardEncryption"
+}
+
+// TypeInfo returns info about TL type.
+func (d *MessagesDiscardEncryptionRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.discardEncryption",
+		ID:   MessagesDiscardEncryptionRequestTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "DeleteHistory",
+			SchemaName: "delete_history",
+			Null:       !d.Flags.Has(0),
+		},
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

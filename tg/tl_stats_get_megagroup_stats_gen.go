@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StatsGetMegagroupStatsRequest represents TL type `stats.getMegagroupStats#dcdf8607`.
 // Get supergroup statistics¹
@@ -32,14 +34,14 @@ type StatsGetMegagroupStatsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to enable dark theme for graph colors
-	Dark bool `tl:"dark"`
+	Dark bool
 	// Supergroup ID¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 }
 
 // StatsGetMegagroupStatsRequestTypeID is TL type id of StatsGetMegagroupStatsRequest.
@@ -83,13 +85,41 @@ func (g *StatsGetMegagroupStatsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *StatsGetMegagroupStatsRequest) TypeID() uint32 {
+func (*StatsGetMegagroupStatsRequest) TypeID() uint32 {
 	return StatsGetMegagroupStatsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *StatsGetMegagroupStatsRequest) TypeName() string {
+func (*StatsGetMegagroupStatsRequest) TypeName() string {
 	return "stats.getMegagroupStats"
+}
+
+// TypeInfo returns info about TL type.
+func (g *StatsGetMegagroupStatsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "stats.getMegagroupStats",
+		ID:   StatsGetMegagroupStatsRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Dark",
+			SchemaName: "dark",
+			Null:       !g.Flags.Has(0),
+		},
+		{
+			Name:       "Channel",
+			SchemaName: "channel",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

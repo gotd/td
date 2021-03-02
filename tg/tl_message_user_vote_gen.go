@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessageUserVote represents TL type `messageUserVote#a28e5559`.
 // How a user voted in a poll
@@ -26,11 +28,11 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/messageUserVote for reference.
 type MessageUserVote struct {
 	// User ID
-	UserID int `tl:"user_id"`
+	UserID int
 	// The option chosen by the user
-	Option []byte `tl:"option"`
+	Option []byte
 	// When did the user cast the vote
-	Date int `tl:"date"`
+	Date int
 }
 
 // MessageUserVoteTypeID is TL type id of MessageUserVote.
@@ -76,13 +78,40 @@ func (m *MessageUserVote) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageUserVote) TypeID() uint32 {
+func (*MessageUserVote) TypeID() uint32 {
 	return MessageUserVoteTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageUserVote) TypeName() string {
+func (*MessageUserVote) TypeName() string {
 	return "messageUserVote"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageUserVote) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageUserVote",
+		ID:   MessageUserVoteTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Option",
+			SchemaName: "option",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -164,9 +193,9 @@ var (
 // See https://core.telegram.org/constructor/messageUserVoteInputOption for reference.
 type MessageUserVoteInputOption struct {
 	// The user that voted for the queried option
-	UserID int `tl:"user_id"`
+	UserID int
 	// When did the user cast the vote
-	Date int `tl:"date"`
+	Date int
 }
 
 // MessageUserVoteInputOptionTypeID is TL type id of MessageUserVoteInputOption.
@@ -207,13 +236,36 @@ func (m *MessageUserVoteInputOption) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageUserVoteInputOption) TypeID() uint32 {
+func (*MessageUserVoteInputOption) TypeID() uint32 {
 	return MessageUserVoteInputOptionTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageUserVoteInputOption) TypeName() string {
+func (*MessageUserVoteInputOption) TypeName() string {
 	return "messageUserVoteInputOption"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageUserVoteInputOption) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageUserVoteInputOption",
+		ID:   MessageUserVoteInputOptionTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -279,11 +331,11 @@ var (
 // See https://core.telegram.org/constructor/messageUserVoteMultiple for reference.
 type MessageUserVoteMultiple struct {
 	// User ID
-	UserID int `tl:"user_id"`
+	UserID int
 	// Options chosen by the user
-	Options [][]byte `tl:"options"`
+	Options [][]byte
 	// When did the user cast their votes
-	Date int `tl:"date"`
+	Date int
 }
 
 // MessageUserVoteMultipleTypeID is TL type id of MessageUserVoteMultiple.
@@ -329,13 +381,40 @@ func (m *MessageUserVoteMultiple) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageUserVoteMultiple) TypeID() uint32 {
+func (*MessageUserVoteMultiple) TypeID() uint32 {
 	return MessageUserVoteMultipleTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageUserVoteMultiple) TypeName() string {
+func (*MessageUserVoteMultiple) TypeName() string {
 	return "messageUserVoteMultiple"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageUserVoteMultiple) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageUserVoteMultiple",
+		ID:   MessageUserVoteMultipleTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Options",
+			SchemaName: "options",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

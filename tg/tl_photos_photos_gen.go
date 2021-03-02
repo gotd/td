@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhotosPhotos represents TL type `photos.photos#8dca6aa5`.
 // Full list of photos with auxiliary data.
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/photos.photos for reference.
 type PhotosPhotos struct {
 	// List of photos
-	Photos []PhotoClass `tl:"photos"`
+	Photos []PhotoClass
 	// List of mentioned users
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // PhotosPhotosTypeID is TL type id of PhotosPhotos.
@@ -69,13 +71,36 @@ func (p *PhotosPhotos) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhotosPhotos) TypeID() uint32 {
+func (*PhotosPhotos) TypeID() uint32 {
 	return PhotosPhotosTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhotosPhotos) TypeName() string {
+func (*PhotosPhotos) TypeName() string {
 	return "photos.photos"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhotosPhotos) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "photos.photos",
+		ID:   PhotosPhotosTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Photos",
+			SchemaName: "photos",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -179,11 +204,11 @@ var (
 // See https://core.telegram.org/constructor/photos.photosSlice for reference.
 type PhotosPhotosSlice struct {
 	// Total number of photos
-	Count int `tl:"count"`
+	Count int
 	// List of photos
-	Photos []PhotoClass `tl:"photos"`
+	Photos []PhotoClass
 	// List of mentioned users
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // PhotosPhotosSliceTypeID is TL type id of PhotosPhotosSlice.
@@ -229,13 +254,40 @@ func (p *PhotosPhotosSlice) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PhotosPhotosSlice) TypeID() uint32 {
+func (*PhotosPhotosSlice) TypeID() uint32 {
 	return PhotosPhotosSliceTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PhotosPhotosSlice) TypeName() string {
+func (*PhotosPhotosSlice) TypeName() string {
 	return "photos.photosSlice"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PhotosPhotosSlice) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "photos.photosSlice",
+		ID:   PhotosPhotosSliceTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Count",
+			SchemaName: "count",
+		},
+		{
+			Name:       "Photos",
+			SchemaName: "photos",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

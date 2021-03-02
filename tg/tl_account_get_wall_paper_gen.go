@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountGetWallPaperRequest represents TL type `account.getWallPaper#fc8ddbea`.
 // Get info about a certain wallpaper
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/account.getWallPaper for reference.
 type AccountGetWallPaperRequest struct {
 	// The wallpaper to get info about
-	Wallpaper InputWallPaperClass `tl:"wallpaper"`
+	Wallpaper InputWallPaperClass
 }
 
 // AccountGetWallPaperRequestTypeID is TL type id of AccountGetWallPaperRequest.
@@ -62,13 +64,32 @@ func (g *AccountGetWallPaperRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *AccountGetWallPaperRequest) TypeID() uint32 {
+func (*AccountGetWallPaperRequest) TypeID() uint32 {
 	return AccountGetWallPaperRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *AccountGetWallPaperRequest) TypeName() string {
+func (*AccountGetWallPaperRequest) TypeName() string {
 	return "account.getWallPaper"
+}
+
+// TypeInfo returns info about TL type.
+func (g *AccountGetWallPaperRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.getWallPaper",
+		ID:   AccountGetWallPaperRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Wallpaper",
+			SchemaName: "wallpaper",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

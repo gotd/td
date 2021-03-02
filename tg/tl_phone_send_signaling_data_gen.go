@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhoneSendSignalingDataRequest represents TL type `phone.sendSignalingData#ff7a9383`.
 // Send VoIP signaling data
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/phone.sendSignalingData for reference.
 type PhoneSendSignalingDataRequest struct {
 	// Phone call
-	Peer InputPhoneCall `tl:"peer"`
+	Peer InputPhoneCall
 	// Signaling payload
-	Data []byte `tl:"data"`
+	Data []byte
 }
 
 // PhoneSendSignalingDataRequestTypeID is TL type id of PhoneSendSignalingDataRequest.
@@ -69,13 +71,36 @@ func (s *PhoneSendSignalingDataRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *PhoneSendSignalingDataRequest) TypeID() uint32 {
+func (*PhoneSendSignalingDataRequest) TypeID() uint32 {
 	return PhoneSendSignalingDataRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *PhoneSendSignalingDataRequest) TypeName() string {
+func (*PhoneSendSignalingDataRequest) TypeName() string {
 	return "phone.sendSignalingData"
+}
+
+// TypeInfo returns info about TL type.
+func (s *PhoneSendSignalingDataRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phone.sendSignalingData",
+		ID:   PhoneSendSignalingDataRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Data",
+			SchemaName: "data",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

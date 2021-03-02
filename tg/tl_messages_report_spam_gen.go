@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesReportSpamRequest represents TL type `messages.reportSpam#cf1592db`.
 // Report a new incoming chat for spam, if the peer settings¹ of the chat allow us to do that
@@ -29,7 +31,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.reportSpam for reference.
 type MessagesReportSpamRequest struct {
 	// Peer to report
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 }
 
 // MessagesReportSpamRequestTypeID is TL type id of MessagesReportSpamRequest.
@@ -65,13 +67,32 @@ func (r *MessagesReportSpamRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *MessagesReportSpamRequest) TypeID() uint32 {
+func (*MessagesReportSpamRequest) TypeID() uint32 {
 	return MessagesReportSpamRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *MessagesReportSpamRequest) TypeName() string {
+func (*MessagesReportSpamRequest) TypeName() string {
 	return "messages.reportSpam"
+}
+
+// TypeInfo returns info about TL type.
+func (r *MessagesReportSpamRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.reportSpam",
+		ID:   MessagesReportSpamRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

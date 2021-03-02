@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputPrivacyValueAllowContacts represents TL type `inputPrivacyValueAllowContacts#d09e07b`.
 // Allow only contacts
@@ -50,13 +52,27 @@ func (i *InputPrivacyValueAllowContacts) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPrivacyValueAllowContacts) TypeID() uint32 {
+func (*InputPrivacyValueAllowContacts) TypeID() uint32 {
 	return InputPrivacyValueAllowContactsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPrivacyValueAllowContacts) TypeName() string {
+func (*InputPrivacyValueAllowContacts) TypeName() string {
 	return "inputPrivacyValueAllowContacts"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPrivacyValueAllowContacts) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPrivacyValueAllowContacts",
+		ID:   InputPrivacyValueAllowContactsTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -120,13 +136,27 @@ func (i *InputPrivacyValueAllowAll) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPrivacyValueAllowAll) TypeID() uint32 {
+func (*InputPrivacyValueAllowAll) TypeID() uint32 {
 	return InputPrivacyValueAllowAllTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPrivacyValueAllowAll) TypeName() string {
+func (*InputPrivacyValueAllowAll) TypeName() string {
 	return "inputPrivacyValueAllowAll"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPrivacyValueAllowAll) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPrivacyValueAllowAll",
+		ID:   InputPrivacyValueAllowAllTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -166,7 +196,7 @@ var (
 // See https://core.telegram.org/constructor/inputPrivacyValueAllowUsers for reference.
 type InputPrivacyValueAllowUsers struct {
 	// Allowed users
-	Users []InputUserClass `tl:"users"`
+	Users []InputUserClass
 }
 
 // InputPrivacyValueAllowUsersTypeID is TL type id of InputPrivacyValueAllowUsers.
@@ -202,13 +232,32 @@ func (i *InputPrivacyValueAllowUsers) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPrivacyValueAllowUsers) TypeID() uint32 {
+func (*InputPrivacyValueAllowUsers) TypeID() uint32 {
 	return InputPrivacyValueAllowUsersTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPrivacyValueAllowUsers) TypeName() string {
+func (*InputPrivacyValueAllowUsers) TypeName() string {
 	return "inputPrivacyValueAllowUsers"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPrivacyValueAllowUsers) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPrivacyValueAllowUsers",
+		ID:   InputPrivacyValueAllowUsersTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -304,13 +353,27 @@ func (i *InputPrivacyValueDisallowContacts) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPrivacyValueDisallowContacts) TypeID() uint32 {
+func (*InputPrivacyValueDisallowContacts) TypeID() uint32 {
 	return InputPrivacyValueDisallowContactsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPrivacyValueDisallowContacts) TypeName() string {
+func (*InputPrivacyValueDisallowContacts) TypeName() string {
 	return "inputPrivacyValueDisallowContacts"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPrivacyValueDisallowContacts) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPrivacyValueDisallowContacts",
+		ID:   InputPrivacyValueDisallowContactsTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -374,13 +437,27 @@ func (i *InputPrivacyValueDisallowAll) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPrivacyValueDisallowAll) TypeID() uint32 {
+func (*InputPrivacyValueDisallowAll) TypeID() uint32 {
 	return InputPrivacyValueDisallowAllTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPrivacyValueDisallowAll) TypeName() string {
+func (*InputPrivacyValueDisallowAll) TypeName() string {
 	return "inputPrivacyValueDisallowAll"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPrivacyValueDisallowAll) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPrivacyValueDisallowAll",
+		ID:   InputPrivacyValueDisallowAllTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -420,7 +497,7 @@ var (
 // See https://core.telegram.org/constructor/inputPrivacyValueDisallowUsers for reference.
 type InputPrivacyValueDisallowUsers struct {
 	// Users to disallow
-	Users []InputUserClass `tl:"users"`
+	Users []InputUserClass
 }
 
 // InputPrivacyValueDisallowUsersTypeID is TL type id of InputPrivacyValueDisallowUsers.
@@ -456,13 +533,32 @@ func (i *InputPrivacyValueDisallowUsers) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPrivacyValueDisallowUsers) TypeID() uint32 {
+func (*InputPrivacyValueDisallowUsers) TypeID() uint32 {
 	return InputPrivacyValueDisallowUsersTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPrivacyValueDisallowUsers) TypeName() string {
+func (*InputPrivacyValueDisallowUsers) TypeName() string {
 	return "inputPrivacyValueDisallowUsers"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPrivacyValueDisallowUsers) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPrivacyValueDisallowUsers",
+		ID:   InputPrivacyValueDisallowUsersTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -534,7 +630,7 @@ var (
 // See https://core.telegram.org/constructor/inputPrivacyValueAllowChatParticipants for reference.
 type InputPrivacyValueAllowChatParticipants struct {
 	// Allowed chat IDs
-	Chats []int `tl:"chats"`
+	Chats []int
 }
 
 // InputPrivacyValueAllowChatParticipantsTypeID is TL type id of InputPrivacyValueAllowChatParticipants.
@@ -570,13 +666,32 @@ func (i *InputPrivacyValueAllowChatParticipants) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPrivacyValueAllowChatParticipants) TypeID() uint32 {
+func (*InputPrivacyValueAllowChatParticipants) TypeID() uint32 {
 	return InputPrivacyValueAllowChatParticipantsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPrivacyValueAllowChatParticipants) TypeName() string {
+func (*InputPrivacyValueAllowChatParticipants) TypeName() string {
 	return "inputPrivacyValueAllowChatParticipants"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPrivacyValueAllowChatParticipants) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPrivacyValueAllowChatParticipants",
+		ID:   InputPrivacyValueAllowChatParticipantsTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -638,7 +753,7 @@ var (
 // See https://core.telegram.org/constructor/inputPrivacyValueDisallowChatParticipants for reference.
 type InputPrivacyValueDisallowChatParticipants struct {
 	// Disallowed chat IDs
-	Chats []int `tl:"chats"`
+	Chats []int
 }
 
 // InputPrivacyValueDisallowChatParticipantsTypeID is TL type id of InputPrivacyValueDisallowChatParticipants.
@@ -674,13 +789,32 @@ func (i *InputPrivacyValueDisallowChatParticipants) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPrivacyValueDisallowChatParticipants) TypeID() uint32 {
+func (*InputPrivacyValueDisallowChatParticipants) TypeID() uint32 {
 	return InputPrivacyValueDisallowChatParticipantsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPrivacyValueDisallowChatParticipants) TypeName() string {
+func (*InputPrivacyValueDisallowChatParticipants) TypeName() string {
 	return "inputPrivacyValueDisallowChatParticipants"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPrivacyValueDisallowChatParticipants) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPrivacyValueDisallowChatParticipants",
+		ID:   InputPrivacyValueDisallowChatParticipantsTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

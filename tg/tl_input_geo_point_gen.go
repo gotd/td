@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputGeoPointEmpty represents TL type `inputGeoPointEmpty#e4c123d6`.
 // Empty GeoPoint constructor.
@@ -50,13 +52,27 @@ func (i *InputGeoPointEmpty) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputGeoPointEmpty) TypeID() uint32 {
+func (*InputGeoPointEmpty) TypeID() uint32 {
 	return InputGeoPointEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputGeoPointEmpty) TypeName() string {
+func (*InputGeoPointEmpty) TypeName() string {
 	return "inputGeoPointEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputGeoPointEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputGeoPointEmpty",
+		ID:   InputGeoPointEmptyTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -99,15 +115,15 @@ type InputGeoPoint struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Latitide
-	Lat float64 `tl:"lat"`
+	Lat float64
 	// Longtitude
-	Long float64 `tl:"long"`
+	Long float64
 	// The estimated horizontal accuracy of the location, in meters; as defined by the sender.
 	//
 	// Use SetAccuracyRadius and GetAccuracyRadius helpers.
-	AccuracyRadius int `tl:"accuracy_radius"`
+	AccuracyRadius int
 }
 
 // InputGeoPointTypeID is TL type id of InputGeoPoint.
@@ -159,13 +175,45 @@ func (i *InputGeoPoint) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputGeoPoint) TypeID() uint32 {
+func (*InputGeoPoint) TypeID() uint32 {
 	return InputGeoPointTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputGeoPoint) TypeName() string {
+func (*InputGeoPoint) TypeName() string {
 	return "inputGeoPoint"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputGeoPoint) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputGeoPoint",
+		ID:   InputGeoPointTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Lat",
+			SchemaName: "lat",
+		},
+		{
+			Name:       "Long",
+			SchemaName: "long",
+		},
+		{
+			Name:       "AccuracyRadius",
+			SchemaName: "accuracy_radius",
+			Null:       !i.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

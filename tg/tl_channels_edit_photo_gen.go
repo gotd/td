@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelsEditPhotoRequest represents TL type `channels.editPhoto#f12e57c9`.
 // Change the photo of a channel/supergroup¹
@@ -29,9 +31,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/channels.editPhoto for reference.
 type ChannelsEditPhotoRequest struct {
 	// Channel/supergroup whose photo should be edited
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// New photo
-	Photo InputChatPhotoClass `tl:"photo"`
+	Photo InputChatPhotoClass
 }
 
 // ChannelsEditPhotoRequestTypeID is TL type id of ChannelsEditPhotoRequest.
@@ -72,13 +74,36 @@ func (e *ChannelsEditPhotoRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *ChannelsEditPhotoRequest) TypeID() uint32 {
+func (*ChannelsEditPhotoRequest) TypeID() uint32 {
 	return ChannelsEditPhotoRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *ChannelsEditPhotoRequest) TypeName() string {
+func (*ChannelsEditPhotoRequest) TypeName() string {
 	return "channels.editPhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (e *ChannelsEditPhotoRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channels.editPhoto",
+		ID:   ChannelsEditPhotoRequestTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Channel",
+			SchemaName: "channel",
+		},
+		{
+			Name:       "Photo",
+			SchemaName: "photo",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

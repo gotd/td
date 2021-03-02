@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,43 +20,44 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // GroupCallParticipant represents TL type `groupCallParticipant#64c62a15`.
 //
 // See https://core.telegram.org/constructor/groupCallParticipant for reference.
 type GroupCallParticipant struct {
 	// Flags field of GroupCallParticipant.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Muted field of GroupCallParticipant.
-	Muted bool `tl:"muted"`
+	Muted bool
 	// Left field of GroupCallParticipant.
-	Left bool `tl:"left"`
+	Left bool
 	// CanSelfUnmute field of GroupCallParticipant.
-	CanSelfUnmute bool `tl:"can_self_unmute"`
+	CanSelfUnmute bool
 	// JustJoined field of GroupCallParticipant.
-	JustJoined bool `tl:"just_joined"`
+	JustJoined bool
 	// Versioned field of GroupCallParticipant.
-	Versioned bool `tl:"versioned"`
+	Versioned bool
 	// Min field of GroupCallParticipant.
-	Min bool `tl:"min"`
+	Min bool
 	// MutedByYou field of GroupCallParticipant.
-	MutedByYou bool `tl:"muted_by_you"`
+	MutedByYou bool
 	// VolumeByAdmin field of GroupCallParticipant.
-	VolumeByAdmin bool `tl:"volume_by_admin"`
+	VolumeByAdmin bool
 	// UserID field of GroupCallParticipant.
-	UserID int `tl:"user_id"`
+	UserID int
 	// Date field of GroupCallParticipant.
-	Date int `tl:"date"`
+	Date int
 	// ActiveDate field of GroupCallParticipant.
 	//
 	// Use SetActiveDate and GetActiveDate helpers.
-	ActiveDate int `tl:"active_date"`
+	ActiveDate int
 	// Source field of GroupCallParticipant.
-	Source int `tl:"source"`
+	Source int
 	// Volume field of GroupCallParticipant.
 	//
 	// Use SetVolume and GetVolume helpers.
-	Volume int `tl:"volume"`
+	Volume int
 }
 
 // GroupCallParticipantTypeID is TL type id of GroupCallParticipant.
@@ -160,13 +162,94 @@ func (g *GroupCallParticipant) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *GroupCallParticipant) TypeID() uint32 {
+func (*GroupCallParticipant) TypeID() uint32 {
 	return GroupCallParticipantTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *GroupCallParticipant) TypeName() string {
+func (*GroupCallParticipant) TypeName() string {
 	return "groupCallParticipant"
+}
+
+// TypeInfo returns info about TL type.
+func (g *GroupCallParticipant) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "groupCallParticipant",
+		ID:   GroupCallParticipantTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Muted",
+			SchemaName: "muted",
+			Null:       !g.Flags.Has(0),
+		},
+		{
+			Name:       "Left",
+			SchemaName: "left",
+			Null:       !g.Flags.Has(1),
+		},
+		{
+			Name:       "CanSelfUnmute",
+			SchemaName: "can_self_unmute",
+			Null:       !g.Flags.Has(2),
+		},
+		{
+			Name:       "JustJoined",
+			SchemaName: "just_joined",
+			Null:       !g.Flags.Has(4),
+		},
+		{
+			Name:       "Versioned",
+			SchemaName: "versioned",
+			Null:       !g.Flags.Has(5),
+		},
+		{
+			Name:       "Min",
+			SchemaName: "min",
+			Null:       !g.Flags.Has(8),
+		},
+		{
+			Name:       "MutedByYou",
+			SchemaName: "muted_by_you",
+			Null:       !g.Flags.Has(9),
+		},
+		{
+			Name:       "VolumeByAdmin",
+			SchemaName: "volume_by_admin",
+			Null:       !g.Flags.Has(10),
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "ActiveDate",
+			SchemaName: "active_date",
+			Null:       !g.Flags.Has(3),
+		},
+		{
+			Name:       "Source",
+			SchemaName: "source",
+		},
+		{
+			Name:       "Volume",
+			SchemaName: "volume",
+			Null:       !g.Flags.Has(7),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

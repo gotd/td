@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PaymentsGetSavedInfoRequest represents TL type `payments.getSavedInfo#227d824b`.
 // Get saved payment information
@@ -50,13 +52,27 @@ func (g *PaymentsGetSavedInfoRequest) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *PaymentsGetSavedInfoRequest) TypeID() uint32 {
+func (*PaymentsGetSavedInfoRequest) TypeID() uint32 {
 	return PaymentsGetSavedInfoRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *PaymentsGetSavedInfoRequest) TypeName() string {
+func (*PaymentsGetSavedInfoRequest) TypeName() string {
 	return "payments.getSavedInfo"
+}
+
+// TypeInfo returns info about TL type.
+func (g *PaymentsGetSavedInfoRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "payments.getSavedInfo",
+		ID:   PaymentsGetSavedInfoRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

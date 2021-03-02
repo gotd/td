@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelLocationEmpty represents TL type `channelLocationEmpty#bfb5ad8b`.
 // No location (normal supergroup)
@@ -50,13 +52,27 @@ func (c *ChannelLocationEmpty) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelLocationEmpty) TypeID() uint32 {
+func (*ChannelLocationEmpty) TypeID() uint32 {
 	return ChannelLocationEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelLocationEmpty) TypeName() string {
+func (*ChannelLocationEmpty) TypeName() string {
 	return "channelLocationEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelLocationEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelLocationEmpty",
+		ID:   ChannelLocationEmptyTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -96,9 +112,9 @@ var (
 // See https://core.telegram.org/constructor/channelLocation for reference.
 type ChannelLocation struct {
 	// Geographical location of supergrup
-	GeoPoint GeoPointClass `tl:"geo_point"`
+	GeoPoint GeoPointClass
 	// Textual description of the address
-	Address string `tl:"address"`
+	Address string
 }
 
 // ChannelLocationTypeID is TL type id of ChannelLocation.
@@ -139,13 +155,36 @@ func (c *ChannelLocation) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelLocation) TypeID() uint32 {
+func (*ChannelLocation) TypeID() uint32 {
 	return ChannelLocationTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelLocation) TypeName() string {
+func (*ChannelLocation) TypeName() string {
 	return "channelLocation"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelLocation) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelLocation",
+		ID:   ChannelLocationTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "GeoPoint",
+			SchemaName: "geo_point",
+		},
+		{
+			Name:       "Address",
+			SchemaName: "address",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

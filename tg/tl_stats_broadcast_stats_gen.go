@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StatsBroadcastStats represents TL type `stats.broadcastStats#bdf78394`.
 // Channel statistics¹.
@@ -29,35 +31,35 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/stats.broadcastStats for reference.
 type StatsBroadcastStats struct {
 	// Period in consideration
-	Period StatsDateRangeDays `tl:"period"`
+	Period StatsDateRangeDays
 	// Follower count change for period in consideration
-	Followers StatsAbsValueAndPrev `tl:"followers"`
+	Followers StatsAbsValueAndPrev
 	// total_viewcount/postcount, for posts posted during the period in consideration (views_per_post). Note that in this case, current refers to the period in consideration (min_date till max_date), and prev refers to the previous period ((min_date - (max_date - min_date)) till min_date).
-	ViewsPerPost StatsAbsValueAndPrev `tl:"views_per_post"`
+	ViewsPerPost StatsAbsValueAndPrev
 	// total_viewcount/postcount, for posts posted during the period in consideration (views_per_post). Note that in this case, current refers to the period in consideration (min_date till max_date), and prev refers to the previous period ((min_date - (max_date - min_date)) till min_date)
-	SharesPerPost StatsAbsValueAndPrev `tl:"shares_per_post"`
+	SharesPerPost StatsAbsValueAndPrev
 	// Percentage of subscribers with enabled notifications
-	EnabledNotifications StatsPercentValue `tl:"enabled_notifications"`
+	EnabledNotifications StatsPercentValue
 	// Channel growth graph (absolute subscriber count)
-	GrowthGraph StatsGraphClass `tl:"growth_graph"`
+	GrowthGraph StatsGraphClass
 	// Followers growth graph (relative subscriber count)
-	FollowersGraph StatsGraphClass `tl:"followers_graph"`
+	FollowersGraph StatsGraphClass
 	// Muted users graph (relative)
-	MuteGraph StatsGraphClass `tl:"mute_graph"`
+	MuteGraph StatsGraphClass
 	// Views per hour graph (absolute)
-	TopHoursGraph StatsGraphClass `tl:"top_hours_graph"`
+	TopHoursGraph StatsGraphClass
 	// Interactions graph (absolute)
-	InteractionsGraph StatsGraphClass `tl:"interactions_graph"`
+	InteractionsGraph StatsGraphClass
 	// IV interactions graph (absolute)
-	IvInteractionsGraph StatsGraphClass `tl:"iv_interactions_graph"`
+	IvInteractionsGraph StatsGraphClass
 	// Views by source graph (absolute)
-	ViewsBySourceGraph StatsGraphClass `tl:"views_by_source_graph"`
+	ViewsBySourceGraph StatsGraphClass
 	// New followers by source graph (absolute)
-	NewFollowersBySourceGraph StatsGraphClass `tl:"new_followers_by_source_graph"`
+	NewFollowersBySourceGraph StatsGraphClass
 	// Subscriber language graph (piechart)
-	LanguagesGraph StatsGraphClass `tl:"languages_graph"`
+	LanguagesGraph StatsGraphClass
 	// Recent message interactions
-	RecentMessageInteractions []MessageInteractionCounters `tl:"recent_message_interactions"`
+	RecentMessageInteractions []MessageInteractionCounters
 }
 
 // StatsBroadcastStatsTypeID is TL type id of StatsBroadcastStats.
@@ -163,13 +165,88 @@ func (b *StatsBroadcastStats) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (b *StatsBroadcastStats) TypeID() uint32 {
+func (*StatsBroadcastStats) TypeID() uint32 {
 	return StatsBroadcastStatsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (b *StatsBroadcastStats) TypeName() string {
+func (*StatsBroadcastStats) TypeName() string {
 	return "stats.broadcastStats"
+}
+
+// TypeInfo returns info about TL type.
+func (b *StatsBroadcastStats) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "stats.broadcastStats",
+		ID:   StatsBroadcastStatsTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Period",
+			SchemaName: "period",
+		},
+		{
+			Name:       "Followers",
+			SchemaName: "followers",
+		},
+		{
+			Name:       "ViewsPerPost",
+			SchemaName: "views_per_post",
+		},
+		{
+			Name:       "SharesPerPost",
+			SchemaName: "shares_per_post",
+		},
+		{
+			Name:       "EnabledNotifications",
+			SchemaName: "enabled_notifications",
+		},
+		{
+			Name:       "GrowthGraph",
+			SchemaName: "growth_graph",
+		},
+		{
+			Name:       "FollowersGraph",
+			SchemaName: "followers_graph",
+		},
+		{
+			Name:       "MuteGraph",
+			SchemaName: "mute_graph",
+		},
+		{
+			Name:       "TopHoursGraph",
+			SchemaName: "top_hours_graph",
+		},
+		{
+			Name:       "InteractionsGraph",
+			SchemaName: "interactions_graph",
+		},
+		{
+			Name:       "IvInteractionsGraph",
+			SchemaName: "iv_interactions_graph",
+		},
+		{
+			Name:       "ViewsBySourceGraph",
+			SchemaName: "views_by_source_graph",
+		},
+		{
+			Name:       "NewFollowersBySourceGraph",
+			SchemaName: "new_followers_by_source_graph",
+		},
+		{
+			Name:       "LanguagesGraph",
+			SchemaName: "languages_graph",
+		},
+		{
+			Name:       "RecentMessageInteractions",
+			SchemaName: "recent_message_interactions",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

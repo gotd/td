@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,11 +20,12 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MsgsStateReq represents TL type `msgs_state_req#da69fb52`.
 type MsgsStateReq struct {
 	// MsgIds field of MsgsStateReq.
-	MsgIds []int64 `tl:"msg_ids"`
+	MsgIds []int64
 }
 
 // MsgsStateReqTypeID is TL type id of MsgsStateReq.
@@ -59,13 +61,32 @@ func (m *MsgsStateReq) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MsgsStateReq) TypeID() uint32 {
+func (*MsgsStateReq) TypeID() uint32 {
 	return MsgsStateReqTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MsgsStateReq) TypeName() string {
+func (*MsgsStateReq) TypeName() string {
 	return "msgs_state_req"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MsgsStateReq) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "msgs_state_req",
+		ID:   MsgsStateReqTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "MsgIds",
+			SchemaName: "msg_ids",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

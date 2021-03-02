@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetMessagesViewsRequest represents TL type `messages.getMessagesViews#5784d3e1`.
 // Get and increase the view counter of a message sent or forwarded from a channel¹
@@ -29,11 +31,11 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.getMessagesViews for reference.
 type MessagesGetMessagesViewsRequest struct {
 	// Peer where the message was found
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// ID of message
-	ID []int `tl:"id"`
+	ID []int
 	// Whether to mark the message as viewed and increment the view counter
-	Increment bool `tl:"increment"`
+	Increment bool
 }
 
 // MessagesGetMessagesViewsRequestTypeID is TL type id of MessagesGetMessagesViewsRequest.
@@ -79,13 +81,40 @@ func (g *MessagesGetMessagesViewsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetMessagesViewsRequest) TypeID() uint32 {
+func (*MessagesGetMessagesViewsRequest) TypeID() uint32 {
 	return MessagesGetMessagesViewsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetMessagesViewsRequest) TypeName() string {
+func (*MessagesGetMessagesViewsRequest) TypeName() string {
 	return "messages.getMessagesViews"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetMessagesViewsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getMessagesViews",
+		ID:   MessagesGetMessagesViewsRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Increment",
+			SchemaName: "increment",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

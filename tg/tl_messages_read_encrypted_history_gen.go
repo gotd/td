@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesReadEncryptedHistoryRequest represents TL type `messages.readEncryptedHistory#7f4b690a`.
 // Marks message history within a secret chat as read.
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.readEncryptedHistory for reference.
 type MessagesReadEncryptedHistoryRequest struct {
 	// Secret chat ID
-	Peer InputEncryptedChat `tl:"peer"`
+	Peer InputEncryptedChat
 	// Maximum date value for received messages in history
-	MaxDate int `tl:"max_date"`
+	MaxDate int
 }
 
 // MessagesReadEncryptedHistoryRequestTypeID is TL type id of MessagesReadEncryptedHistoryRequest.
@@ -69,13 +71,36 @@ func (r *MessagesReadEncryptedHistoryRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *MessagesReadEncryptedHistoryRequest) TypeID() uint32 {
+func (*MessagesReadEncryptedHistoryRequest) TypeID() uint32 {
 	return MessagesReadEncryptedHistoryRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *MessagesReadEncryptedHistoryRequest) TypeName() string {
+func (*MessagesReadEncryptedHistoryRequest) TypeName() string {
 	return "messages.readEncryptedHistory"
+}
+
+// TypeInfo returns info about TL type.
+func (r *MessagesReadEncryptedHistoryRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.readEncryptedHistory",
+		ID:   MessagesReadEncryptedHistoryRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "MaxDate",
+			SchemaName: "max_date",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

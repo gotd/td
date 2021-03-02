@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountConfirmPhoneRequest represents TL type `account.confirmPhone#5f2178c3`.
 // Confirm a phone number to cancel account deletion, for more info click here »¹
@@ -32,12 +34,12 @@ type AccountConfirmPhoneRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/account-deletion
-	PhoneCodeHash string `tl:"phone_code_hash"`
+	PhoneCodeHash string
 	// SMS code, for more info click here »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/account-deletion
-	PhoneCode string `tl:"phone_code"`
+	PhoneCode string
 }
 
 // AccountConfirmPhoneRequestTypeID is TL type id of AccountConfirmPhoneRequest.
@@ -78,13 +80,36 @@ func (c *AccountConfirmPhoneRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *AccountConfirmPhoneRequest) TypeID() uint32 {
+func (*AccountConfirmPhoneRequest) TypeID() uint32 {
 	return AccountConfirmPhoneRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *AccountConfirmPhoneRequest) TypeName() string {
+func (*AccountConfirmPhoneRequest) TypeName() string {
 	return "account.confirmPhone"
+}
+
+// TypeInfo returns info about TL type.
+func (c *AccountConfirmPhoneRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.confirmPhone",
+		ID:   AccountConfirmPhoneRequestTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PhoneCodeHash",
+			SchemaName: "phone_code_hash",
+		},
+		{
+			Name:       "PhoneCode",
+			SchemaName: "phone_code",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // WallPaper represents TL type `wallPaper#a437c3ed`.
 // Wallpaper settings.
@@ -26,30 +28,30 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/wallPaper for reference.
 type WallPaper struct {
 	// Identifier
-	ID int64 `tl:"id"`
+	ID int64
 	// Flags, see TL conditional fields¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Creator of the wallpaper
-	Creator bool `tl:"creator"`
+	Creator bool
 	// Whether this is the default wallpaper
-	Default bool `tl:"default"`
+	Default bool
 	// Pattern
-	Pattern bool `tl:"pattern"`
+	Pattern bool
 	// Dark mode
-	Dark bool `tl:"dark"`
+	Dark bool
 	// Access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// Unique wallpaper ID
-	Slug string `tl:"slug"`
+	Slug string
 	// The actual wallpaper
-	Document DocumentClass `tl:"document"`
+	Document DocumentClass
 	// Wallpaper settings
 	//
 	// Use SetSettings and GetSettings helpers.
-	Settings WallPaperSettings `tl:"settings"`
+	Settings WallPaperSettings
 }
 
 // WallPaperTypeID is TL type id of WallPaper.
@@ -131,13 +133,73 @@ func (w *WallPaper) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (w *WallPaper) TypeID() uint32 {
+func (*WallPaper) TypeID() uint32 {
 	return WallPaperTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (w *WallPaper) TypeName() string {
+func (*WallPaper) TypeName() string {
 	return "wallPaper"
+}
+
+// TypeInfo returns info about TL type.
+func (w *WallPaper) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "wallPaper",
+		ID:   WallPaperTypeID,
+	}
+	if w == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Creator",
+			SchemaName: "creator",
+			Null:       !w.Flags.Has(0),
+		},
+		{
+			Name:       "Default",
+			SchemaName: "default",
+			Null:       !w.Flags.Has(1),
+		},
+		{
+			Name:       "Pattern",
+			SchemaName: "pattern",
+			Null:       !w.Flags.Has(3),
+		},
+		{
+			Name:       "Dark",
+			SchemaName: "dark",
+			Null:       !w.Flags.Has(4),
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "Slug",
+			SchemaName: "slug",
+		},
+		{
+			Name:       "Document",
+			SchemaName: "document",
+		},
+		{
+			Name:       "Settings",
+			SchemaName: "settings",
+			Null:       !w.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -353,15 +415,15 @@ type WallPaperNoFile struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether this is the default wallpaper
-	Default bool `tl:"default"`
+	Default bool
 	// Dark mode
-	Dark bool `tl:"dark"`
+	Dark bool
 	// Wallpaper settings
 	//
 	// Use SetSettings and GetSettings helpers.
-	Settings WallPaperSettings `tl:"settings"`
+	Settings WallPaperSettings
 }
 
 // WallPaperNoFileTypeID is TL type id of WallPaperNoFile.
@@ -413,13 +475,47 @@ func (w *WallPaperNoFile) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (w *WallPaperNoFile) TypeID() uint32 {
+func (*WallPaperNoFile) TypeID() uint32 {
 	return WallPaperNoFileTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (w *WallPaperNoFile) TypeName() string {
+func (*WallPaperNoFile) TypeName() string {
 	return "wallPaperNoFile"
+}
+
+// TypeInfo returns info about TL type.
+func (w *WallPaperNoFile) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "wallPaperNoFile",
+		ID:   WallPaperNoFileTypeID,
+	}
+	if w == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Default",
+			SchemaName: "default",
+			Null:       !w.Flags.Has(1),
+		},
+		{
+			Name:       "Dark",
+			SchemaName: "dark",
+			Null:       !w.Flags.Has(4),
+		},
+		{
+			Name:       "Settings",
+			SchemaName: "settings",
+			Null:       !w.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

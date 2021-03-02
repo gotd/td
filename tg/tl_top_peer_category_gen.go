@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // TopPeerCategoryBotsPM represents TL type `topPeerCategoryBotsPM#ab661b5b`.
 // Most used bots
@@ -50,13 +52,27 @@ func (t *TopPeerCategoryBotsPM) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TopPeerCategoryBotsPM) TypeID() uint32 {
+func (*TopPeerCategoryBotsPM) TypeID() uint32 {
 	return TopPeerCategoryBotsPMTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TopPeerCategoryBotsPM) TypeName() string {
+func (*TopPeerCategoryBotsPM) TypeName() string {
 	return "topPeerCategoryBotsPM"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TopPeerCategoryBotsPM) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "topPeerCategoryBotsPM",
+		ID:   TopPeerCategoryBotsPMTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -120,13 +136,27 @@ func (t *TopPeerCategoryBotsInline) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TopPeerCategoryBotsInline) TypeID() uint32 {
+func (*TopPeerCategoryBotsInline) TypeID() uint32 {
 	return TopPeerCategoryBotsInlineTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TopPeerCategoryBotsInline) TypeName() string {
+func (*TopPeerCategoryBotsInline) TypeName() string {
 	return "topPeerCategoryBotsInline"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TopPeerCategoryBotsInline) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "topPeerCategoryBotsInline",
+		ID:   TopPeerCategoryBotsInlineTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -190,13 +220,27 @@ func (t *TopPeerCategoryCorrespondents) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TopPeerCategoryCorrespondents) TypeID() uint32 {
+func (*TopPeerCategoryCorrespondents) TypeID() uint32 {
 	return TopPeerCategoryCorrespondentsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TopPeerCategoryCorrespondents) TypeName() string {
+func (*TopPeerCategoryCorrespondents) TypeName() string {
 	return "topPeerCategoryCorrespondents"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TopPeerCategoryCorrespondents) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "topPeerCategoryCorrespondents",
+		ID:   TopPeerCategoryCorrespondentsTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -260,13 +304,27 @@ func (t *TopPeerCategoryGroups) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TopPeerCategoryGroups) TypeID() uint32 {
+func (*TopPeerCategoryGroups) TypeID() uint32 {
 	return TopPeerCategoryGroupsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TopPeerCategoryGroups) TypeName() string {
+func (*TopPeerCategoryGroups) TypeName() string {
 	return "topPeerCategoryGroups"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TopPeerCategoryGroups) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "topPeerCategoryGroups",
+		ID:   TopPeerCategoryGroupsTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -330,13 +388,27 @@ func (t *TopPeerCategoryChannels) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TopPeerCategoryChannels) TypeID() uint32 {
+func (*TopPeerCategoryChannels) TypeID() uint32 {
 	return TopPeerCategoryChannelsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TopPeerCategoryChannels) TypeName() string {
+func (*TopPeerCategoryChannels) TypeName() string {
 	return "topPeerCategoryChannels"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TopPeerCategoryChannels) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "topPeerCategoryChannels",
+		ID:   TopPeerCategoryChannelsTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -400,13 +472,27 @@ func (t *TopPeerCategoryPhoneCalls) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TopPeerCategoryPhoneCalls) TypeID() uint32 {
+func (*TopPeerCategoryPhoneCalls) TypeID() uint32 {
 	return TopPeerCategoryPhoneCallsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TopPeerCategoryPhoneCalls) TypeName() string {
+func (*TopPeerCategoryPhoneCalls) TypeName() string {
 	return "topPeerCategoryPhoneCalls"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TopPeerCategoryPhoneCalls) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "topPeerCategoryPhoneCalls",
+		ID:   TopPeerCategoryPhoneCallsTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -470,13 +556,27 @@ func (t *TopPeerCategoryForwardUsers) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TopPeerCategoryForwardUsers) TypeID() uint32 {
+func (*TopPeerCategoryForwardUsers) TypeID() uint32 {
 	return TopPeerCategoryForwardUsersTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TopPeerCategoryForwardUsers) TypeName() string {
+func (*TopPeerCategoryForwardUsers) TypeName() string {
 	return "topPeerCategoryForwardUsers"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TopPeerCategoryForwardUsers) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "topPeerCategoryForwardUsers",
+		ID:   TopPeerCategoryForwardUsersTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -540,13 +640,27 @@ func (t *TopPeerCategoryForwardChats) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *TopPeerCategoryForwardChats) TypeID() uint32 {
+func (*TopPeerCategoryForwardChats) TypeID() uint32 {
 	return TopPeerCategoryForwardChatsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *TopPeerCategoryForwardChats) TypeName() string {
+func (*TopPeerCategoryForwardChats) TypeName() string {
 	return "topPeerCategoryForwardChats"
+}
+
+// TypeInfo returns info about TL type.
+func (t *TopPeerCategoryForwardChats) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "topPeerCategoryForwardChats",
+		ID:   TopPeerCategoryForwardChatsTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

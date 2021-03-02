@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,19 +20,20 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhoneToggleGroupCallSettingsRequest represents TL type `phone.toggleGroupCallSettings#74bbb43d`.
 //
 // See https://core.telegram.org/method/phone.toggleGroupCallSettings for reference.
 type PhoneToggleGroupCallSettingsRequest struct {
 	// Flags field of PhoneToggleGroupCallSettingsRequest.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Call field of PhoneToggleGroupCallSettingsRequest.
-	Call InputGroupCall `tl:"call"`
+	Call InputGroupCall
 	// JoinMuted field of PhoneToggleGroupCallSettingsRequest.
 	//
 	// Use SetJoinMuted and GetJoinMuted helpers.
-	JoinMuted bool `tl:"join_muted"`
+	JoinMuted bool
 }
 
 // PhoneToggleGroupCallSettingsRequestTypeID is TL type id of PhoneToggleGroupCallSettingsRequest.
@@ -78,13 +80,41 @@ func (t *PhoneToggleGroupCallSettingsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *PhoneToggleGroupCallSettingsRequest) TypeID() uint32 {
+func (*PhoneToggleGroupCallSettingsRequest) TypeID() uint32 {
 	return PhoneToggleGroupCallSettingsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *PhoneToggleGroupCallSettingsRequest) TypeName() string {
+func (*PhoneToggleGroupCallSettingsRequest) TypeName() string {
 	return "phone.toggleGroupCallSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (t *PhoneToggleGroupCallSettingsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phone.toggleGroupCallSettings",
+		ID:   PhoneToggleGroupCallSettingsRequestTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Call",
+			SchemaName: "call",
+		},
+		{
+			Name:       "JoinMuted",
+			SchemaName: "join_muted",
+			Null:       !t.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

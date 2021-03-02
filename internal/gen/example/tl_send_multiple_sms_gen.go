@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,13 +20,14 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // SendMultipleSMSRequest represents TL type `sendMultipleSMS#df18e5ca`.
 //
 // See https://localhost:80/doc/constructor/sendMultipleSMS for reference.
 type SendMultipleSMSRequest struct {
 	// Messages field of SendMultipleSMSRequest.
-	Messages []SMS `tl:"messages"`
+	Messages []SMS
 }
 
 // SendMultipleSMSRequestTypeID is TL type id of SendMultipleSMSRequest.
@@ -61,13 +63,32 @@ func (s *SendMultipleSMSRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SendMultipleSMSRequest) TypeID() uint32 {
+func (*SendMultipleSMSRequest) TypeID() uint32 {
 	return SendMultipleSMSRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SendMultipleSMSRequest) TypeName() string {
+func (*SendMultipleSMSRequest) TypeName() string {
 	return "sendMultipleSMS"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SendMultipleSMSRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "sendMultipleSMS",
+		ID:   SendMultipleSMSRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Messages",
+			SchemaName: "messages",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

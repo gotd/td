@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSendScheduledMessagesRequest represents TL type `messages.sendScheduledMessages#bd38850a`.
 // Send scheduled messages right away
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.sendScheduledMessages for reference.
 type MessagesSendScheduledMessagesRequest struct {
 	// Peer
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Scheduled message IDs
-	ID []int `tl:"id"`
+	ID []int
 }
 
 // MessagesSendScheduledMessagesRequestTypeID is TL type id of MessagesSendScheduledMessagesRequest.
@@ -69,13 +71,36 @@ func (s *MessagesSendScheduledMessagesRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSendScheduledMessagesRequest) TypeID() uint32 {
+func (*MessagesSendScheduledMessagesRequest) TypeID() uint32 {
 	return MessagesSendScheduledMessagesRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSendScheduledMessagesRequest) TypeName() string {
+func (*MessagesSendScheduledMessagesRequest) TypeName() string {
 	return "messages.sendScheduledMessages"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSendScheduledMessagesRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.sendScheduledMessages",
+		ID:   MessagesSendScheduledMessagesRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

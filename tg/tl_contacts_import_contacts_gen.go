@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ContactsImportContactsRequest represents TL type `contacts.importContacts#2c800be5`.
 // Imports contacts: saves a full list on the server, adds already registered contacts to the contact list, returns added contacts and their info.
@@ -30,7 +32,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/contacts.importContacts for reference.
 type ContactsImportContactsRequest struct {
 	// List of contacts to import
-	Contacts []InputPhoneContact `tl:"contacts"`
+	Contacts []InputPhoneContact
 }
 
 // ContactsImportContactsRequestTypeID is TL type id of ContactsImportContactsRequest.
@@ -66,13 +68,32 @@ func (i *ContactsImportContactsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *ContactsImportContactsRequest) TypeID() uint32 {
+func (*ContactsImportContactsRequest) TypeID() uint32 {
 	return ContactsImportContactsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *ContactsImportContactsRequest) TypeName() string {
+func (*ContactsImportContactsRequest) TypeName() string {
 	return "contacts.importContacts"
+}
+
+// TypeInfo returns info about TL type.
+func (i *ContactsImportContactsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "contacts.importContacts",
+		ID:   ContactsImportContactsRequestTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Contacts",
+			SchemaName: "contacts",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountVerifyEmailRequest represents TL type `account.verifyEmail#ecba39db`.
 // Verify an email address for telegram passport¹.
@@ -29,9 +31,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/account.verifyEmail for reference.
 type AccountVerifyEmailRequest struct {
 	// The email to verify
-	Email string `tl:"email"`
+	Email string
 	// The verification code that was received
-	Code string `tl:"code"`
+	Code string
 }
 
 // AccountVerifyEmailRequestTypeID is TL type id of AccountVerifyEmailRequest.
@@ -72,13 +74,36 @@ func (v *AccountVerifyEmailRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (v *AccountVerifyEmailRequest) TypeID() uint32 {
+func (*AccountVerifyEmailRequest) TypeID() uint32 {
 	return AccountVerifyEmailRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (v *AccountVerifyEmailRequest) TypeName() string {
+func (*AccountVerifyEmailRequest) TypeName() string {
 	return "account.verifyEmail"
+}
+
+// TypeInfo returns info about TL type.
+func (v *AccountVerifyEmailRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.verifyEmail",
+		ID:   AccountVerifyEmailRequestTypeID,
+	}
+	if v == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Email",
+			SchemaName: "email",
+		},
+		{
+			Name:       "Code",
+			SchemaName: "code",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

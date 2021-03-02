@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PostAddress represents TL type `postAddress#1e8caaeb`.
 // Shipping address
@@ -26,17 +28,17 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/postAddress for reference.
 type PostAddress struct {
 	// First line for the address
-	StreetLine1 string `tl:"street_line1"`
+	StreetLine1 string
 	// Second line for the address
-	StreetLine2 string `tl:"street_line2"`
+	StreetLine2 string
 	// City
-	City string `tl:"city"`
+	City string
 	// State, if applicable (empty otherwise)
-	State string `tl:"state"`
+	State string
 	// ISO 3166-1 alpha-2 country code
-	CountryIso2 string `tl:"country_iso2"`
+	CountryIso2 string
 	// Address post code
-	PostCode string `tl:"post_code"`
+	PostCode string
 }
 
 // PostAddressTypeID is TL type id of PostAddress.
@@ -97,13 +99,52 @@ func (p *PostAddress) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PostAddress) TypeID() uint32 {
+func (*PostAddress) TypeID() uint32 {
 	return PostAddressTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PostAddress) TypeName() string {
+func (*PostAddress) TypeName() string {
 	return "postAddress"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PostAddress) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "postAddress",
+		ID:   PostAddressTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "StreetLine1",
+			SchemaName: "street_line1",
+		},
+		{
+			Name:       "StreetLine2",
+			SchemaName: "street_line2",
+		},
+		{
+			Name:       "City",
+			SchemaName: "city",
+		},
+		{
+			Name:       "State",
+			SchemaName: "state",
+		},
+		{
+			Name:       "CountryIso2",
+			SchemaName: "country_iso2",
+		},
+		{
+			Name:       "PostCode",
+			SchemaName: "post_code",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

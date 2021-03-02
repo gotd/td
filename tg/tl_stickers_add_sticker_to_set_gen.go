@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StickersAddStickerToSetRequest represents TL type `stickers.addStickerToSet#8653febe`.
 // Add a sticker to a stickerset, bots only. The sticker set must have been created by the bot.
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/stickers.addStickerToSet for reference.
 type StickersAddStickerToSetRequest struct {
 	// The stickerset
-	Stickerset InputStickerSetClass `tl:"stickerset"`
+	Stickerset InputStickerSetClass
 	// The sticker
-	Sticker InputStickerSetItem `tl:"sticker"`
+	Sticker InputStickerSetItem
 }
 
 // StickersAddStickerToSetRequestTypeID is TL type id of StickersAddStickerToSetRequest.
@@ -69,13 +71,36 @@ func (a *StickersAddStickerToSetRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *StickersAddStickerToSetRequest) TypeID() uint32 {
+func (*StickersAddStickerToSetRequest) TypeID() uint32 {
 	return StickersAddStickerToSetRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *StickersAddStickerToSetRequest) TypeName() string {
+func (*StickersAddStickerToSetRequest) TypeName() string {
 	return "stickers.addStickerToSet"
+}
+
+// TypeInfo returns info about TL type.
+func (a *StickersAddStickerToSetRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "stickers.addStickerToSet",
+		ID:   StickersAddStickerToSetRequestTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Stickerset",
+			SchemaName: "stickerset",
+		},
+		{
+			Name:       "Sticker",
+			SchemaName: "sticker",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

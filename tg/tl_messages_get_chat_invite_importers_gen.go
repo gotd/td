@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,21 +20,22 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetChatInviteImportersRequest represents TL type `messages.getChatInviteImporters#26fb7289`.
 //
 // See https://core.telegram.org/method/messages.getChatInviteImporters for reference.
 type MessagesGetChatInviteImportersRequest struct {
 	// Peer field of MessagesGetChatInviteImportersRequest.
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Link field of MessagesGetChatInviteImportersRequest.
-	Link string `tl:"link"`
+	Link string
 	// OffsetDate field of MessagesGetChatInviteImportersRequest.
-	OffsetDate int `tl:"offset_date"`
+	OffsetDate int
 	// OffsetUser field of MessagesGetChatInviteImportersRequest.
-	OffsetUser InputUserClass `tl:"offset_user"`
+	OffsetUser InputUserClass
 	// Limit field of MessagesGetChatInviteImportersRequest.
-	Limit int `tl:"limit"`
+	Limit int
 }
 
 // MessagesGetChatInviteImportersRequestTypeID is TL type id of MessagesGetChatInviteImportersRequest.
@@ -89,13 +91,48 @@ func (g *MessagesGetChatInviteImportersRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetChatInviteImportersRequest) TypeID() uint32 {
+func (*MessagesGetChatInviteImportersRequest) TypeID() uint32 {
 	return MessagesGetChatInviteImportersRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetChatInviteImportersRequest) TypeName() string {
+func (*MessagesGetChatInviteImportersRequest) TypeName() string {
 	return "messages.getChatInviteImporters"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetChatInviteImportersRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getChatInviteImporters",
+		ID:   MessagesGetChatInviteImportersRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Link",
+			SchemaName: "link",
+		},
+		{
+			Name:       "OffsetDate",
+			SchemaName: "offset_date",
+		},
+		{
+			Name:       "OffsetUser",
+			SchemaName: "offset_user",
+		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

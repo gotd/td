@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSendEncryptedRequest represents TL type `messages.sendEncrypted#44fa7a15`.
 // Sends a text message to a secret chat.
@@ -29,18 +31,18 @@ type MessagesSendEncryptedRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Send encrypted message without a notification
-	Silent bool `tl:"silent"`
+	Silent bool
 	// Secret chat ID
-	Peer InputEncryptedChat `tl:"peer"`
+	Peer InputEncryptedChat
 	// Unique client message ID, necessary to avoid message resending
-	RandomID int64 `tl:"random_id"`
+	RandomID int64
 	// TL-serialization of DecryptedMessage¹ type, encrypted with a key that was created during chat initialization
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/DecryptedMessage
-	Data []byte `tl:"data"`
+	Data []byte
 }
 
 // MessagesSendEncryptedRequestTypeID is TL type id of MessagesSendEncryptedRequest.
@@ -94,13 +96,49 @@ func (s *MessagesSendEncryptedRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSendEncryptedRequest) TypeID() uint32 {
+func (*MessagesSendEncryptedRequest) TypeID() uint32 {
 	return MessagesSendEncryptedRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSendEncryptedRequest) TypeName() string {
+func (*MessagesSendEncryptedRequest) TypeName() string {
 	return "messages.sendEncrypted"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSendEncryptedRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.sendEncrypted",
+		ID:   MessagesSendEncryptedRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Silent",
+			SchemaName: "silent",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "RandomID",
+			SchemaName: "random_id",
+		},
+		{
+			Name:       "Data",
+			SchemaName: "data",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

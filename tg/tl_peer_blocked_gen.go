@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PeerBlocked represents TL type `peerBlocked#e8fd8014`.
 // Information about a blocked peer
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/peerBlocked for reference.
 type PeerBlocked struct {
 	// Peer ID
-	PeerID PeerClass `tl:"peer_id"`
+	PeerID PeerClass
 	// When was the peer blocked
-	Date int `tl:"date"`
+	Date int
 }
 
 // PeerBlockedTypeID is TL type id of PeerBlocked.
@@ -69,13 +71,36 @@ func (p *PeerBlocked) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PeerBlocked) TypeID() uint32 {
+func (*PeerBlocked) TypeID() uint32 {
 	return PeerBlockedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PeerBlocked) TypeName() string {
+func (*PeerBlocked) TypeName() string {
 	return "peerBlocked"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PeerBlocked) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "peerBlocked",
+		ID:   PeerBlockedTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PeerID",
+			SchemaName: "peer_id",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

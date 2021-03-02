@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HelpSupportName represents TL type `help.supportName#8c05f1c9`.
 // Localized name for telegram support
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/help.supportName for reference.
 type HelpSupportName struct {
 	// Localized name
-	Name string `tl:"name"`
+	Name string
 }
 
 // HelpSupportNameTypeID is TL type id of HelpSupportName.
@@ -62,13 +64,32 @@ func (s *HelpSupportName) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *HelpSupportName) TypeID() uint32 {
+func (*HelpSupportName) TypeID() uint32 {
 	return HelpSupportNameTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *HelpSupportName) TypeName() string {
+func (*HelpSupportName) TypeName() string {
 	return "help.supportName"
+}
+
+// TypeInfo returns info about TL type.
+func (s *HelpSupportName) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.supportName",
+		ID:   HelpSupportNameTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Name",
+			SchemaName: "name",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

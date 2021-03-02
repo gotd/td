@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // UploadGetCdnFileRequest represents TL type `upload.getCdnFile#2000bcc3`.
 // Download a CDN¹ file.
@@ -29,11 +31,11 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/upload.getCdnFile for reference.
 type UploadGetCdnFileRequest struct {
 	// File token
-	FileToken []byte `tl:"file_token"`
+	FileToken []byte
 	// Offset of chunk to download
-	Offset int `tl:"offset"`
+	Offset int
 	// Length of chunk to download
-	Limit int `tl:"limit"`
+	Limit int
 }
 
 // UploadGetCdnFileRequestTypeID is TL type id of UploadGetCdnFileRequest.
@@ -79,13 +81,40 @@ func (g *UploadGetCdnFileRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *UploadGetCdnFileRequest) TypeID() uint32 {
+func (*UploadGetCdnFileRequest) TypeID() uint32 {
 	return UploadGetCdnFileRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *UploadGetCdnFileRequest) TypeName() string {
+func (*UploadGetCdnFileRequest) TypeName() string {
 	return "upload.getCdnFile"
+}
+
+// TypeInfo returns info about TL type.
+func (g *UploadGetCdnFileRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "upload.getCdnFile",
+		ID:   UploadGetCdnFileRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "FileToken",
+			SchemaName: "file_token",
+		},
+		{
+			Name:       "Offset",
+			SchemaName: "offset",
+		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

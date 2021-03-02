@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhoneGetCallConfigRequest represents TL type `phone.getCallConfig#55451fa9`.
 // Get phone call configuration to be passed to libtgvoip's shared config
@@ -50,13 +52,27 @@ func (g *PhoneGetCallConfigRequest) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *PhoneGetCallConfigRequest) TypeID() uint32 {
+func (*PhoneGetCallConfigRequest) TypeID() uint32 {
 	return PhoneGetCallConfigRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *PhoneGetCallConfigRequest) TypeName() string {
+func (*PhoneGetCallConfigRequest) TypeName() string {
 	return "phone.getCallConfig"
+}
+
+// TypeInfo returns info about TL type.
+func (g *PhoneGetCallConfigRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phone.getCallConfig",
+		ID:   PhoneGetCallConfigRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // LangPackLanguage represents TL type `langPackLanguage#eeca5ce3`.
 // Identifies a localization pack
@@ -29,34 +31,34 @@ type LangPackLanguage struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the language pack is official
-	Official bool `tl:"official"`
+	Official bool
 	// Is this a localization pack for an RTL language
-	Rtl bool `tl:"rtl"`
+	Rtl bool
 	// Is this a beta localization pack?
-	Beta bool `tl:"beta"`
+	Beta bool
 	// Language name
-	Name string `tl:"name"`
+	Name string
 	// Language name in the language itself
-	NativeName string `tl:"native_name"`
+	NativeName string
 	// Language code (pack identifier)
-	LangCode string `tl:"lang_code"`
+	LangCode string
 	// Identifier of a base language pack; may be empty. If a string is missed in the language pack, then it should be fetched from base language pack. Unsupported in custom language packs
 	//
 	// Use SetBaseLangCode and GetBaseLangCode helpers.
-	BaseLangCode string `tl:"base_lang_code"`
+	BaseLangCode string
 	// A language code to be used to apply plural forms. See https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html¹ for more info
 	//
 	// Links:
 	//  1) https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html
-	PluralCode string `tl:"plural_code"`
+	PluralCode string
 	// Total number of non-deleted strings from the language pack
-	StringsCount int `tl:"strings_count"`
+	StringsCount int
 	// Total number of translated strings from the language pack
-	TranslatedCount int `tl:"translated_count"`
+	TranslatedCount int
 	// Link to language translation interface; empty for custom local language packs
-	TranslationsURL string `tl:"translations_url"`
+	TranslationsURL string
 }
 
 // LangPackLanguageTypeID is TL type id of LangPackLanguage.
@@ -148,13 +150,80 @@ func (l *LangPackLanguage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (l *LangPackLanguage) TypeID() uint32 {
+func (*LangPackLanguage) TypeID() uint32 {
 	return LangPackLanguageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (l *LangPackLanguage) TypeName() string {
+func (*LangPackLanguage) TypeName() string {
 	return "langPackLanguage"
+}
+
+// TypeInfo returns info about TL type.
+func (l *LangPackLanguage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "langPackLanguage",
+		ID:   LangPackLanguageTypeID,
+	}
+	if l == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Official",
+			SchemaName: "official",
+			Null:       !l.Flags.Has(0),
+		},
+		{
+			Name:       "Rtl",
+			SchemaName: "rtl",
+			Null:       !l.Flags.Has(2),
+		},
+		{
+			Name:       "Beta",
+			SchemaName: "beta",
+			Null:       !l.Flags.Has(3),
+		},
+		{
+			Name:       "Name",
+			SchemaName: "name",
+		},
+		{
+			Name:       "NativeName",
+			SchemaName: "native_name",
+		},
+		{
+			Name:       "LangCode",
+			SchemaName: "lang_code",
+		},
+		{
+			Name:       "BaseLangCode",
+			SchemaName: "base_lang_code",
+			Null:       !l.Flags.Has(1),
+		},
+		{
+			Name:       "PluralCode",
+			SchemaName: "plural_code",
+		},
+		{
+			Name:       "StringsCount",
+			SchemaName: "strings_count",
+		},
+		{
+			Name:       "TranslatedCount",
+			SchemaName: "translated_count",
+		},
+		{
+			Name:       "TranslationsURL",
+			SchemaName: "translations_url",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

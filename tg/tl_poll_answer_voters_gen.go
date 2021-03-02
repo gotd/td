@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PollAnswerVoters represents TL type `pollAnswerVoters#3b6ddad2`.
 // A poll answer, and how users voted on it
@@ -29,18 +31,18 @@ type PollAnswerVoters struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether we have chosen this answer
-	Chosen bool `tl:"chosen"`
+	Chosen bool
 	// For quizes, whether the option we have chosen is correct
-	Correct bool `tl:"correct"`
+	Correct bool
 	// The param that has to be passed to messages.sendVote¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.sendVote
-	Option []byte `tl:"option"`
+	Option []byte
 	// How many users voted for this option
-	Voters int `tl:"voters"`
+	Voters int
 }
 
 // PollAnswerVotersTypeID is TL type id of PollAnswerVoters.
@@ -94,13 +96,50 @@ func (p *PollAnswerVoters) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PollAnswerVoters) TypeID() uint32 {
+func (*PollAnswerVoters) TypeID() uint32 {
 	return PollAnswerVotersTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PollAnswerVoters) TypeName() string {
+func (*PollAnswerVoters) TypeName() string {
 	return "pollAnswerVoters"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PollAnswerVoters) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pollAnswerVoters",
+		ID:   PollAnswerVotersTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Chosen",
+			SchemaName: "chosen",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "Correct",
+			SchemaName: "correct",
+			Null:       !p.Flags.Has(1),
+		},
+		{
+			Name:       "Option",
+			SchemaName: "option",
+		},
+		{
+			Name:       "Voters",
+			SchemaName: "voters",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

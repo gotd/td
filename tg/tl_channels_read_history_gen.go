@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelsReadHistoryRequest represents TL type `channels.readHistory#cc104937`.
 // Mark channel/supergroup¹ history as read
@@ -32,9 +34,9 @@ type ChannelsReadHistoryRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// ID of message up to which messages should be marked as read
-	MaxID int `tl:"max_id"`
+	MaxID int
 }
 
 // ChannelsReadHistoryRequestTypeID is TL type id of ChannelsReadHistoryRequest.
@@ -75,13 +77,36 @@ func (r *ChannelsReadHistoryRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *ChannelsReadHistoryRequest) TypeID() uint32 {
+func (*ChannelsReadHistoryRequest) TypeID() uint32 {
 	return ChannelsReadHistoryRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *ChannelsReadHistoryRequest) TypeName() string {
+func (*ChannelsReadHistoryRequest) TypeName() string {
 	return "channels.readHistory"
+}
+
+// TypeInfo returns info about TL type.
+func (r *ChannelsReadHistoryRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channels.readHistory",
+		ID:   ChannelsReadHistoryRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Channel",
+			SchemaName: "channel",
+		},
+		{
+			Name:       "MaxID",
+			SchemaName: "max_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessageReplies represents TL type `messageReplies#4128faac`.
 // Info about the comment section of a channel post, or a simple message thread¹
@@ -32,38 +34,38 @@ type MessageReplies struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether this constructor contains information about the comment section of a channel post, or a simple message thread¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
-	Comments bool `tl:"comments"`
+	Comments bool
 	// Contains the total number of replies in this thread or comment section.
-	Replies int `tl:"replies"`
+	Replies int
 	// PTS¹ of the message that started this thread.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	RepliesPts int `tl:"replies_pts"`
+	RepliesPts int
 	// For channel post comments, contains information about the last few comment posters for a specific thread, to show a small list of commenter profile pictures in client previews.
 	//
 	// Use SetRecentRepliers and GetRecentRepliers helpers.
-	RecentRepliers []PeerClass `tl:"recent_repliers"`
+	RecentRepliers []PeerClass
 	// For channel post comments, contains the ID of the associated discussion supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/discussion
 	//
 	// Use SetChannelID and GetChannelID helpers.
-	ChannelID int `tl:"channel_id"`
+	ChannelID int
 	// ID of the latest message in this thread or comment section.
 	//
 	// Use SetMaxID and GetMaxID helpers.
-	MaxID int `tl:"max_id"`
+	MaxID int
 	// Contains the ID of the latest read message in this thread or comment section.
 	//
 	// Use SetReadMaxID and GetReadMaxID helpers.
-	ReadMaxID int `tl:"read_max_id"`
+	ReadMaxID int
 }
 
 // MessageRepliesTypeID is TL type id of MessageReplies.
@@ -144,13 +146,65 @@ func (m *MessageReplies) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageReplies) TypeID() uint32 {
+func (*MessageReplies) TypeID() uint32 {
 	return MessageRepliesTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageReplies) TypeName() string {
+func (*MessageReplies) TypeName() string {
 	return "messageReplies"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageReplies) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageReplies",
+		ID:   MessageRepliesTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Comments",
+			SchemaName: "comments",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "Replies",
+			SchemaName: "replies",
+		},
+		{
+			Name:       "RepliesPts",
+			SchemaName: "replies_pts",
+		},
+		{
+			Name:       "RecentRepliers",
+			SchemaName: "recent_repliers",
+			Null:       !m.Flags.Has(1),
+		},
+		{
+			Name:       "ChannelID",
+			SchemaName: "channel_id",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "MaxID",
+			SchemaName: "max_id",
+			Null:       !m.Flags.Has(2),
+		},
+		{
+			Name:       "ReadMaxID",
+			SchemaName: "read_max_id",
+			Null:       !m.Flags.Has(3),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

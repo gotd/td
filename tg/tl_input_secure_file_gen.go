@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputSecureFileUploaded represents TL type `inputSecureFileUploaded#3334b0f0`.
 // Uploaded secure file, for more info see the passport docs »¹
@@ -29,15 +31,15 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/inputSecureFileUploaded for reference.
 type InputSecureFileUploaded struct {
 	// Secure file ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Secure file part count
-	Parts int `tl:"parts"`
+	Parts int
 	// MD5 hash of encrypted uploaded file, to be checked server-side
-	MD5Checksum string `tl:"md5_checksum"`
+	MD5Checksum string
 	// File hash
-	FileHash []byte `tl:"file_hash"`
+	FileHash []byte
 	// Secret
-	Secret []byte `tl:"secret"`
+	Secret []byte
 }
 
 // InputSecureFileUploadedTypeID is TL type id of InputSecureFileUploaded.
@@ -93,13 +95,48 @@ func (i *InputSecureFileUploaded) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputSecureFileUploaded) TypeID() uint32 {
+func (*InputSecureFileUploaded) TypeID() uint32 {
 	return InputSecureFileUploadedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputSecureFileUploaded) TypeName() string {
+func (*InputSecureFileUploaded) TypeName() string {
 	return "inputSecureFileUploaded"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputSecureFileUploaded) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputSecureFileUploaded",
+		ID:   InputSecureFileUploadedTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Parts",
+			SchemaName: "parts",
+		},
+		{
+			Name:       "MD5Checksum",
+			SchemaName: "md5_checksum",
+		},
+		{
+			Name:       "FileHash",
+			SchemaName: "file_hash",
+		},
+		{
+			Name:       "Secret",
+			SchemaName: "secret",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -208,9 +245,9 @@ var (
 // See https://core.telegram.org/constructor/inputSecureFile for reference.
 type InputSecureFile struct {
 	// Secure file ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Secure file access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 }
 
 // InputSecureFileTypeID is TL type id of InputSecureFile.
@@ -251,13 +288,36 @@ func (i *InputSecureFile) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputSecureFile) TypeID() uint32 {
+func (*InputSecureFile) TypeID() uint32 {
 	return InputSecureFileTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputSecureFile) TypeName() string {
+func (*InputSecureFile) TypeName() string {
 	return "inputSecureFile"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputSecureFile) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputSecureFile",
+		ID:   InputSecureFileTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

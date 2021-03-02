@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesBotCallbackAnswer represents TL type `messages.botCallbackAnswer#36585ea4`.
 // Callback answer sent by the bot in response to a button press
@@ -29,23 +31,23 @@ type MessagesBotCallbackAnswer struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether an alert should be shown to the user instead of a toast notification
-	Alert bool `tl:"alert"`
+	Alert bool
 	// Whether an URL is present
-	HasURL bool `tl:"has_url"`
+	HasURL bool
 	// Whether to show games in WebView or in native UI.
-	NativeUI bool `tl:"native_ui"`
+	NativeUI bool
 	// Alert to show
 	//
 	// Use SetMessage and GetMessage helpers.
-	Message string `tl:"message"`
+	Message string
 	// URL to open
 	//
 	// Use SetURL and GetURL helpers.
-	URL string `tl:"url"`
+	URL string
 	// For how long should this answer be cached
-	CacheTime int `tl:"cache_time"`
+	CacheTime int
 }
 
 // MessagesBotCallbackAnswerTypeID is TL type id of MessagesBotCallbackAnswer.
@@ -115,13 +117,61 @@ func (b *MessagesBotCallbackAnswer) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (b *MessagesBotCallbackAnswer) TypeID() uint32 {
+func (*MessagesBotCallbackAnswer) TypeID() uint32 {
 	return MessagesBotCallbackAnswerTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (b *MessagesBotCallbackAnswer) TypeName() string {
+func (*MessagesBotCallbackAnswer) TypeName() string {
 	return "messages.botCallbackAnswer"
+}
+
+// TypeInfo returns info about TL type.
+func (b *MessagesBotCallbackAnswer) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.botCallbackAnswer",
+		ID:   MessagesBotCallbackAnswerTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Alert",
+			SchemaName: "alert",
+			Null:       !b.Flags.Has(1),
+		},
+		{
+			Name:       "HasURL",
+			SchemaName: "has_url",
+			Null:       !b.Flags.Has(3),
+		},
+		{
+			Name:       "NativeUI",
+			SchemaName: "native_ui",
+			Null:       !b.Flags.Has(4),
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+			Null:       !b.Flags.Has(0),
+		},
+		{
+			Name:       "URL",
+			SchemaName: "url",
+			Null:       !b.Flags.Has(2),
+		},
+		{
+			Name:       "CacheTime",
+			SchemaName: "cache_time",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountUploadThemeRequest represents TL type `account.uploadTheme#1c3db333`.
 // Upload theme
@@ -29,20 +31,20 @@ type AccountUploadThemeRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Theme file uploaded as described in files »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files
-	File InputFileClass `tl:"file"`
+	File InputFileClass
 	// Thumbnail
 	//
 	// Use SetThumb and GetThumb helpers.
-	Thumb InputFileClass `tl:"thumb"`
+	Thumb InputFileClass
 	// File name
-	FileName string `tl:"file_name"`
+	FileName string
 	// MIME type, must be application/x-tgtheme-{format}, where format depends on the client
-	MimeType string `tl:"mime_type"`
+	MimeType string
 }
 
 // AccountUploadThemeRequestTypeID is TL type id of AccountUploadThemeRequest.
@@ -99,13 +101,49 @@ func (u *AccountUploadThemeRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *AccountUploadThemeRequest) TypeID() uint32 {
+func (*AccountUploadThemeRequest) TypeID() uint32 {
 	return AccountUploadThemeRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *AccountUploadThemeRequest) TypeName() string {
+func (*AccountUploadThemeRequest) TypeName() string {
 	return "account.uploadTheme"
+}
+
+// TypeInfo returns info about TL type.
+func (u *AccountUploadThemeRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.uploadTheme",
+		ID:   AccountUploadThemeRequestTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "File",
+			SchemaName: "file",
+		},
+		{
+			Name:       "Thumb",
+			SchemaName: "thumb",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "FileName",
+			SchemaName: "file_name",
+		},
+		{
+			Name:       "MimeType",
+			SchemaName: "mime_type",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

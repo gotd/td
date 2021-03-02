@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSetInlineBotResultsRequest represents TL type `messages.setInlineBotResults#eb5ea206`.
 // Answer an inline query, for bots only
@@ -29,25 +31,25 @@ type MessagesSetInlineBotResultsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Set this flag if the results are composed of media files
-	Gallery bool `tl:"gallery"`
+	Gallery bool
 	// Set this flag if results may be cached on the server side only for the user that sent the query. By default, results may be returned to any user who sends the same query
-	Private bool `tl:"private"`
+	Private bool
 	// Unique identifier for the answered query
-	QueryID int64 `tl:"query_id"`
+	QueryID int64
 	// Vector of results for the inline query
-	Results []InputBotInlineResultClass `tl:"results"`
+	Results []InputBotInlineResultClass
 	// The maximum amount of time in seconds that the result of the inline query may be cached on the server. Defaults to 300.
-	CacheTime int `tl:"cache_time"`
+	CacheTime int
 	// Pass the offset that a client should send in the next query with the same text to receive more results. Pass an empty string if there are no more results or if you don‘t support pagination. Offset length can’t exceed 64 bytes.
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
-	NextOffset string `tl:"next_offset"`
+	NextOffset string
 	// If passed, clients will display a button with specified text that switches the user to a private chat with the bot and sends the bot a start message with a certain parameter.
 	//
 	// Use SetSwitchPm and GetSwitchPm helpers.
-	SwitchPm InlineBotSwitchPM `tl:"switch_pm"`
+	SwitchPm InlineBotSwitchPM
 }
 
 // MessagesSetInlineBotResultsRequestTypeID is TL type id of MessagesSetInlineBotResultsRequest.
@@ -122,13 +124,64 @@ func (s *MessagesSetInlineBotResultsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSetInlineBotResultsRequest) TypeID() uint32 {
+func (*MessagesSetInlineBotResultsRequest) TypeID() uint32 {
 	return MessagesSetInlineBotResultsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSetInlineBotResultsRequest) TypeName() string {
+func (*MessagesSetInlineBotResultsRequest) TypeName() string {
 	return "messages.setInlineBotResults"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSetInlineBotResultsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.setInlineBotResults",
+		ID:   MessagesSetInlineBotResultsRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Gallery",
+			SchemaName: "gallery",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "Private",
+			SchemaName: "private",
+			Null:       !s.Flags.Has(1),
+		},
+		{
+			Name:       "QueryID",
+			SchemaName: "query_id",
+		},
+		{
+			Name:       "Results",
+			SchemaName: "results",
+		},
+		{
+			Name:       "CacheTime",
+			SchemaName: "cache_time",
+		},
+		{
+			Name:       "NextOffset",
+			SchemaName: "next_offset",
+			Null:       !s.Flags.Has(2),
+		},
+		{
+			Name:       "SwitchPm",
+			SchemaName: "switch_pm",
+			Null:       !s.Flags.Has(3),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

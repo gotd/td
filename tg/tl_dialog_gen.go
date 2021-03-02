@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // Dialog represents TL type `dialog#2c171f72`.
 // Chat
@@ -29,46 +31,46 @@ type Dialog struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Is the dialog pinned
-	Pinned bool `tl:"pinned"`
+	Pinned bool
 	// Whether the chat was manually marked as unread
-	UnreadMark bool `tl:"unread_mark"`
+	UnreadMark bool
 	// The chat
-	Peer PeerClass `tl:"peer"`
+	Peer PeerClass
 	// The latest message ID
-	TopMessage int `tl:"top_message"`
+	TopMessage int
 	// Position up to which all incoming messages are read.
-	ReadInboxMaxID int `tl:"read_inbox_max_id"`
+	ReadInboxMaxID int
 	// Position up to which all outgoing messages are read.
-	ReadOutboxMaxID int `tl:"read_outbox_max_id"`
+	ReadOutboxMaxID int
 	// Number of unread messages
-	UnreadCount int `tl:"unread_count"`
+	UnreadCount int
 	// Number of unread mentions¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/mentions
-	UnreadMentionsCount int `tl:"unread_mentions_count"`
+	UnreadMentionsCount int
 	// Notification settings
-	NotifySettings PeerNotifySettings `tl:"notify_settings"`
+	NotifySettings PeerNotifySettings
 	// PTS¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
 	//
 	// Use SetPts and GetPts helpers.
-	Pts int `tl:"pts"`
+	Pts int
 	// Message draft
 	//
 	// Use SetDraft and GetDraft helpers.
-	Draft DraftMessageClass `tl:"draft"`
+	Draft DraftMessageClass
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int `tl:"folder_id"`
+	FolderID int
 }
 
 // DialogTypeID is TL type id of Dialog.
@@ -171,13 +173,85 @@ func (d *Dialog) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *Dialog) TypeID() uint32 {
+func (*Dialog) TypeID() uint32 {
 	return DialogTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *Dialog) TypeName() string {
+func (*Dialog) TypeName() string {
 	return "dialog"
+}
+
+// TypeInfo returns info about TL type.
+func (d *Dialog) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "dialog",
+		ID:   DialogTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Pinned",
+			SchemaName: "pinned",
+			Null:       !d.Flags.Has(2),
+		},
+		{
+			Name:       "UnreadMark",
+			SchemaName: "unread_mark",
+			Null:       !d.Flags.Has(3),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "TopMessage",
+			SchemaName: "top_message",
+		},
+		{
+			Name:       "ReadInboxMaxID",
+			SchemaName: "read_inbox_max_id",
+		},
+		{
+			Name:       "ReadOutboxMaxID",
+			SchemaName: "read_outbox_max_id",
+		},
+		{
+			Name:       "UnreadCount",
+			SchemaName: "unread_count",
+		},
+		{
+			Name:       "UnreadMentionsCount",
+			SchemaName: "unread_mentions_count",
+		},
+		{
+			Name:       "NotifySettings",
+			SchemaName: "notify_settings",
+		},
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+			Null:       !d.Flags.Has(0),
+		},
+		{
+			Name:       "Draft",
+			SchemaName: "draft",
+			Null:       !d.Flags.Has(1),
+		},
+		{
+			Name:       "FolderID",
+			SchemaName: "folder_id",
+			Null:       !d.Flags.Has(4),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -453,23 +527,23 @@ type DialogFolder struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Is this folder pinned
-	Pinned bool `tl:"pinned"`
+	Pinned bool
 	// The folder
-	Folder Folder `tl:"folder"`
+	Folder Folder
 	// Peer in folder
-	Peer PeerClass `tl:"peer"`
+	Peer PeerClass
 	// Latest message ID of dialog
-	TopMessage int `tl:"top_message"`
+	TopMessage int
 	// Number of unread muted peers in folder
-	UnreadMutedPeersCount int `tl:"unread_muted_peers_count"`
+	UnreadMutedPeersCount int
 	// Number of unread unmuted peers in folder
-	UnreadUnmutedPeersCount int `tl:"unread_unmuted_peers_count"`
+	UnreadUnmutedPeersCount int
 	// Number of unread messages from muted peers in folder
-	UnreadMutedMessagesCount int `tl:"unread_muted_messages_count"`
+	UnreadMutedMessagesCount int
 	// Number of unread messages from unmuted peers in folder
-	UnreadUnmutedMessagesCount int `tl:"unread_unmuted_messages_count"`
+	UnreadUnmutedMessagesCount int
 }
 
 // DialogFolderTypeID is TL type id of DialogFolder.
@@ -543,13 +617,65 @@ func (d *DialogFolder) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DialogFolder) TypeID() uint32 {
+func (*DialogFolder) TypeID() uint32 {
 	return DialogFolderTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DialogFolder) TypeName() string {
+func (*DialogFolder) TypeName() string {
 	return "dialogFolder"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DialogFolder) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "dialogFolder",
+		ID:   DialogFolderTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Pinned",
+			SchemaName: "pinned",
+			Null:       !d.Flags.Has(2),
+		},
+		{
+			Name:       "Folder",
+			SchemaName: "folder",
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "TopMessage",
+			SchemaName: "top_message",
+		},
+		{
+			Name:       "UnreadMutedPeersCount",
+			SchemaName: "unread_muted_peers_count",
+		},
+		{
+			Name:       "UnreadUnmutedPeersCount",
+			SchemaName: "unread_unmuted_peers_count",
+		},
+		{
+			Name:       "UnreadMutedMessagesCount",
+			SchemaName: "unread_muted_messages_count",
+		},
+		{
+			Name:       "UnreadUnmutedMessagesCount",
+			SchemaName: "unread_unmuted_messages_count",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

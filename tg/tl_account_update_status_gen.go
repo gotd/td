@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountUpdateStatusRequest represents TL type `account.updateStatus#6628562c`.
 // Updates online user status.
@@ -30,7 +32,7 @@ type AccountUpdateStatusRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/constructor/boolTrue
 	//  2) https://core.telegram.org/constructor/userStatusOffline
-	Offline bool `tl:"offline"`
+	Offline bool
 }
 
 // AccountUpdateStatusRequestTypeID is TL type id of AccountUpdateStatusRequest.
@@ -66,13 +68,32 @@ func (u *AccountUpdateStatusRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *AccountUpdateStatusRequest) TypeID() uint32 {
+func (*AccountUpdateStatusRequest) TypeID() uint32 {
 	return AccountUpdateStatusRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *AccountUpdateStatusRequest) TypeName() string {
+func (*AccountUpdateStatusRequest) TypeName() string {
 	return "account.updateStatus"
+}
+
+// TypeInfo returns info about TL type.
+func (u *AccountUpdateStatusRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.updateStatus",
+		ID:   AccountUpdateStatusRequestTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Offline",
+			SchemaName: "offline",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

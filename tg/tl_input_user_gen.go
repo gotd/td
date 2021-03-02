@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputUserEmpty represents TL type `inputUserEmpty#b98886cf`.
 // Empty constructor, does not define a user.
@@ -50,13 +52,27 @@ func (i *InputUserEmpty) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputUserEmpty) TypeID() uint32 {
+func (*InputUserEmpty) TypeID() uint32 {
 	return InputUserEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputUserEmpty) TypeName() string {
+func (*InputUserEmpty) TypeName() string {
 	return "inputUserEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputUserEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputUserEmpty",
+		ID:   InputUserEmptyTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -120,13 +136,27 @@ func (i *InputUserSelf) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputUserSelf) TypeID() uint32 {
+func (*InputUserSelf) TypeID() uint32 {
 	return InputUserSelfTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputUserSelf) TypeName() string {
+func (*InputUserSelf) TypeName() string {
 	return "inputUserSelf"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputUserSelf) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputUserSelf",
+		ID:   InputUserSelfTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -166,12 +196,12 @@ var (
 // See https://core.telegram.org/constructor/inputUser for reference.
 type InputUser struct {
 	// User identifier
-	UserID int `tl:"user_id"`
+	UserID int
 	// access_hash value from the user¹ constructor
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/user
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 }
 
 // InputUserTypeID is TL type id of InputUser.
@@ -212,13 +242,36 @@ func (i *InputUser) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputUser) TypeID() uint32 {
+func (*InputUser) TypeID() uint32 {
 	return InputUserTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputUser) TypeName() string {
+func (*InputUser) TypeName() string {
 	return "inputUser"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputUser) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputUser",
+		ID:   InputUserTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -287,11 +340,11 @@ var (
 // See https://core.telegram.org/constructor/inputUserFromMessage for reference.
 type InputUserFromMessage struct {
 	// The chat where the user was seen
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// The message ID
-	MsgID int `tl:"msg_id"`
+	MsgID int
 	// The identifier of the user that was seen
-	UserID int `tl:"user_id"`
+	UserID int
 }
 
 // InputUserFromMessageTypeID is TL type id of InputUserFromMessage.
@@ -337,13 +390,40 @@ func (i *InputUserFromMessage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputUserFromMessage) TypeID() uint32 {
+func (*InputUserFromMessage) TypeID() uint32 {
 	return InputUserFromMessageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputUserFromMessage) TypeName() string {
+func (*InputUserFromMessage) TypeName() string {
 	return "inputUserFromMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputUserFromMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputUserFromMessage",
+		ID:   InputUserFromMessageTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

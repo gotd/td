@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhotosUploadProfilePhotoRequest represents TL type `photos.uploadProfilePhoto#89f30f69`.
 // Updates current user profile photo.
@@ -29,25 +31,25 @@ type PhotosUploadProfilePhotoRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// File saved in parts by means of upload.saveFilePart¹ method
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/upload.saveFilePart
 	//
 	// Use SetFile and GetFile helpers.
-	File InputFileClass `tl:"file"`
+	File InputFileClass
 	// Animated profile picture¹ video
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files#animated-profile-pictures
 	//
 	// Use SetVideo and GetVideo helpers.
-	Video InputFileClass `tl:"video"`
+	Video InputFileClass
 	// Floating point UNIX timestamp in seconds, indicating the frame of the video that should be used as static preview.
 	//
 	// Use SetVideoStartTs and GetVideoStartTs helpers.
-	VideoStartTs float64 `tl:"video_start_ts"`
+	VideoStartTs float64
 }
 
 // PhotosUploadProfilePhotoRequestTypeID is TL type id of PhotosUploadProfilePhotoRequest.
@@ -105,13 +107,47 @@ func (u *PhotosUploadProfilePhotoRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *PhotosUploadProfilePhotoRequest) TypeID() uint32 {
+func (*PhotosUploadProfilePhotoRequest) TypeID() uint32 {
 	return PhotosUploadProfilePhotoRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *PhotosUploadProfilePhotoRequest) TypeName() string {
+func (*PhotosUploadProfilePhotoRequest) TypeName() string {
 	return "photos.uploadProfilePhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (u *PhotosUploadProfilePhotoRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "photos.uploadProfilePhoto",
+		ID:   PhotosUploadProfilePhotoRequestTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "File",
+			SchemaName: "file",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "Video",
+			SchemaName: "video",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "VideoStartTs",
+			SchemaName: "video_start_ts",
+			Null:       !u.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

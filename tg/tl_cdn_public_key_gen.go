@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // CdnPublicKey represents TL type `cdnPublicKey#c982eaba`.
 // Public key to use only during handshakes to CDN¹ DCs.
@@ -32,9 +34,9 @@ type CdnPublicKey struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	DCID int `tl:"dc_id"`
+	DCID int
 	// RSA public key
-	PublicKey string `tl:"public_key"`
+	PublicKey string
 }
 
 // CdnPublicKeyTypeID is TL type id of CdnPublicKey.
@@ -75,13 +77,36 @@ func (c *CdnPublicKey) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *CdnPublicKey) TypeID() uint32 {
+func (*CdnPublicKey) TypeID() uint32 {
 	return CdnPublicKeyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *CdnPublicKey) TypeName() string {
+func (*CdnPublicKey) TypeName() string {
 	return "cdnPublicKey"
+}
+
+// TypeInfo returns info about TL type.
+func (c *CdnPublicKey) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "cdnPublicKey",
+		ID:   CdnPublicKeyTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "DCID",
+			SchemaName: "dc_id",
+		},
+		{
+			Name:       "PublicKey",
+			SchemaName: "public_key",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

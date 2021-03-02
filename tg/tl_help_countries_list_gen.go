@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HelpCountriesListNotModified represents TL type `help.countriesListNotModified#93cc1f32`.
 // The country list has not changed
@@ -50,13 +52,27 @@ func (c *HelpCountriesListNotModified) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *HelpCountriesListNotModified) TypeID() uint32 {
+func (*HelpCountriesListNotModified) TypeID() uint32 {
 	return HelpCountriesListNotModifiedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *HelpCountriesListNotModified) TypeName() string {
+func (*HelpCountriesListNotModified) TypeName() string {
 	return "help.countriesListNotModified"
+}
+
+// TypeInfo returns info about TL type.
+func (c *HelpCountriesListNotModified) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.countriesListNotModified",
+		ID:   HelpCountriesListNotModifiedTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -96,12 +112,12 @@ var (
 // See https://core.telegram.org/constructor/help.countriesList for reference.
 type HelpCountriesList struct {
 	// Name, ISO code, localized name and phone codes/patterns of all available countries
-	Countries []HelpCountry `tl:"countries"`
+	Countries []HelpCountry
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 }
 
 // HelpCountriesListTypeID is TL type id of HelpCountriesList.
@@ -142,13 +158,36 @@ func (c *HelpCountriesList) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *HelpCountriesList) TypeID() uint32 {
+func (*HelpCountriesList) TypeID() uint32 {
 	return HelpCountriesListTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *HelpCountriesList) TypeName() string {
+func (*HelpCountriesList) TypeName() string {
 	return "help.countriesList"
+}
+
+// TypeInfo returns info about TL type.
+func (c *HelpCountriesList) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.countriesList",
+		ID:   HelpCountriesListTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Countries",
+			SchemaName: "countries",
+		},
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

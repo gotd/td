@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HelpEditUserInfoRequest represents TL type `help.editUserInfo#66b91b70`.
 // Internal use
@@ -26,14 +28,14 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/help.editUserInfo for reference.
 type HelpEditUserInfoRequest struct {
 	// User
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 	// Message
-	Message string `tl:"message"`
+	Message string
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
-	Entities []MessageEntityClass `tl:"entities"`
+	Entities []MessageEntityClass
 }
 
 // HelpEditUserInfoRequestTypeID is TL type id of HelpEditUserInfoRequest.
@@ -79,13 +81,40 @@ func (e *HelpEditUserInfoRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *HelpEditUserInfoRequest) TypeID() uint32 {
+func (*HelpEditUserInfoRequest) TypeID() uint32 {
 	return HelpEditUserInfoRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *HelpEditUserInfoRequest) TypeName() string {
+func (*HelpEditUserInfoRequest) TypeName() string {
 	return "help.editUserInfo"
+}
+
+// TypeInfo returns info about TL type.
+func (e *HelpEditUserInfoRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.editUserInfo",
+		ID:   HelpEditUserInfoRequestTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+		{
+			Name:       "Entities",
+			SchemaName: "entities",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

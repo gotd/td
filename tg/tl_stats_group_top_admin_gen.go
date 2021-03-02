@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StatsGroupTopAdmin represents TL type `statsGroupTopAdmin#6014f412`.
 // Information about an active admin in a supergroup
@@ -26,22 +28,22 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/statsGroupTopAdmin for reference.
 type StatsGroupTopAdmin struct {
 	// User ID
-	UserID int `tl:"user_id"`
+	UserID int
 	// Number of deleted messages for statistics¹ period in consideration
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/stats
-	Deleted int `tl:"deleted"`
+	Deleted int
 	// Number of kicked users for statistics¹ period in consideration
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/stats
-	Kicked int `tl:"kicked"`
+	Kicked int
 	// Number of banned users for statistics¹ period in consideration
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/stats
-	Banned int `tl:"banned"`
+	Banned int
 }
 
 // StatsGroupTopAdminTypeID is TL type id of StatsGroupTopAdmin.
@@ -92,13 +94,44 @@ func (s *StatsGroupTopAdmin) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *StatsGroupTopAdmin) TypeID() uint32 {
+func (*StatsGroupTopAdmin) TypeID() uint32 {
 	return StatsGroupTopAdminTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *StatsGroupTopAdmin) TypeName() string {
+func (*StatsGroupTopAdmin) TypeName() string {
 	return "statsGroupTopAdmin"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StatsGroupTopAdmin) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "statsGroupTopAdmin",
+		ID:   StatsGroupTopAdminTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Deleted",
+			SchemaName: "deleted",
+		},
+		{
+			Name:       "Kicked",
+			SchemaName: "kicked",
+		},
+		{
+			Name:       "Banned",
+			SchemaName: "banned",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

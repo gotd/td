@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // UserFull represents TL type `userFull#139a9a77`.
 // Extended user info
@@ -29,60 +31,60 @@ type UserFull struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether you have blocked this user
-	Blocked bool `tl:"blocked"`
+	Blocked bool
 	// Whether this user can make VoIP calls
-	PhoneCallsAvailable bool `tl:"phone_calls_available"`
+	PhoneCallsAvailable bool
 	// Whether this user's privacy settings allow you to call him
-	PhoneCallsPrivate bool `tl:"phone_calls_private"`
+	PhoneCallsPrivate bool
 	// Whether you can pin messages in the chat with this user, you can do this only for a chat with yourself
-	CanPinMessage bool `tl:"can_pin_message"`
+	CanPinMessage bool
 	// Whether scheduled messages¹ are available
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/scheduled-messages
-	HasScheduled bool `tl:"has_scheduled"`
+	HasScheduled bool
 	// Whether the user can receive video calls
-	VideoCallsAvailable bool `tl:"video_calls_available"`
+	VideoCallsAvailable bool
 	// Remaining user info
-	User UserClass `tl:"user"`
+	User UserClass
 	// Bio of the user
 	//
 	// Use SetAbout and GetAbout helpers.
-	About string `tl:"about"`
+	About string
 	// Peer settings
-	Settings PeerSettings `tl:"settings"`
+	Settings PeerSettings
 	// Profile photo
 	//
 	// Use SetProfilePhoto and GetProfilePhoto helpers.
-	ProfilePhoto PhotoClass `tl:"profile_photo"`
+	ProfilePhoto PhotoClass
 	// Notification settings
-	NotifySettings PeerNotifySettings `tl:"notify_settings"`
+	NotifySettings PeerNotifySettings
 	// For bots, info about the bot (bot commands, etc)
 	//
 	// Use SetBotInfo and GetBotInfo helpers.
-	BotInfo BotInfo `tl:"bot_info"`
+	BotInfo BotInfo
 	// Message ID of the last pinned message¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/pin
 	//
 	// Use SetPinnedMsgID and GetPinnedMsgID helpers.
-	PinnedMsgID int `tl:"pinned_msg_id"`
+	PinnedMsgID int
 	// Chats in common with this user
-	CommonChatsCount int `tl:"common_chats_count"`
+	CommonChatsCount int
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int `tl:"folder_id"`
+	FolderID int
 	// TTLPeriod field of UserFull.
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
-	TTLPeriod int `tl:"ttl_period"`
+	TTLPeriod int
 }
 
 // UserFullTypeID is TL type id of UserFull.
@@ -214,13 +216,108 @@ func (u *UserFull) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *UserFull) TypeID() uint32 {
+func (*UserFull) TypeID() uint32 {
 	return UserFullTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *UserFull) TypeName() string {
+func (*UserFull) TypeName() string {
 	return "userFull"
+}
+
+// TypeInfo returns info about TL type.
+func (u *UserFull) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "userFull",
+		ID:   UserFullTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Blocked",
+			SchemaName: "blocked",
+			Null:       !u.Flags.Has(0),
+		},
+		{
+			Name:       "PhoneCallsAvailable",
+			SchemaName: "phone_calls_available",
+			Null:       !u.Flags.Has(4),
+		},
+		{
+			Name:       "PhoneCallsPrivate",
+			SchemaName: "phone_calls_private",
+			Null:       !u.Flags.Has(5),
+		},
+		{
+			Name:       "CanPinMessage",
+			SchemaName: "can_pin_message",
+			Null:       !u.Flags.Has(7),
+		},
+		{
+			Name:       "HasScheduled",
+			SchemaName: "has_scheduled",
+			Null:       !u.Flags.Has(12),
+		},
+		{
+			Name:       "VideoCallsAvailable",
+			SchemaName: "video_calls_available",
+			Null:       !u.Flags.Has(13),
+		},
+		{
+			Name:       "User",
+			SchemaName: "user",
+		},
+		{
+			Name:       "About",
+			SchemaName: "about",
+			Null:       !u.Flags.Has(1),
+		},
+		{
+			Name:       "Settings",
+			SchemaName: "settings",
+		},
+		{
+			Name:       "ProfilePhoto",
+			SchemaName: "profile_photo",
+			Null:       !u.Flags.Has(2),
+		},
+		{
+			Name:       "NotifySettings",
+			SchemaName: "notify_settings",
+		},
+		{
+			Name:       "BotInfo",
+			SchemaName: "bot_info",
+			Null:       !u.Flags.Has(3),
+		},
+		{
+			Name:       "PinnedMsgID",
+			SchemaName: "pinned_msg_id",
+			Null:       !u.Flags.Has(6),
+		},
+		{
+			Name:       "CommonChatsCount",
+			SchemaName: "common_chats_count",
+		},
+		{
+			Name:       "FolderID",
+			SchemaName: "folder_id",
+			Null:       !u.Flags.Has(11),
+		},
+		{
+			Name:       "TTLPeriod",
+			SchemaName: "ttl_period",
+			Null:       !u.Flags.Has(14),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

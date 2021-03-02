@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountGetPasswordSettingsRequest represents TL type `account.getPasswordSettings#9cd4eaf9`.
 // Get private info associated to the password info (recovery email, telegram passport¹ info & so on)
@@ -32,7 +34,7 @@ type AccountGetPasswordSettingsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	Password InputCheckPasswordSRPClass `tl:"password"`
+	Password InputCheckPasswordSRPClass
 }
 
 // AccountGetPasswordSettingsRequestTypeID is TL type id of AccountGetPasswordSettingsRequest.
@@ -68,13 +70,32 @@ func (g *AccountGetPasswordSettingsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *AccountGetPasswordSettingsRequest) TypeID() uint32 {
+func (*AccountGetPasswordSettingsRequest) TypeID() uint32 {
 	return AccountGetPasswordSettingsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *AccountGetPasswordSettingsRequest) TypeName() string {
+func (*AccountGetPasswordSettingsRequest) TypeName() string {
 	return "account.getPasswordSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (g *AccountGetPasswordSettingsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.getPasswordSettings",
+		ID:   AccountGetPasswordSettingsRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Password",
+			SchemaName: "password",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

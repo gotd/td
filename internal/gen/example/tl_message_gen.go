@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,13 +20,14 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // Message represents TL type `message#ec200d96`.
 //
 // See https://localhost:80/doc/constructor/message for reference.
 type Message struct {
 	// Err field of Message.
-	Err Error `tl:"err"`
+	Err Error
 }
 
 // MessageTypeID is TL type id of Message.
@@ -61,13 +63,32 @@ func (m *Message) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *Message) TypeID() uint32 {
+func (*Message) TypeID() uint32 {
 	return MessageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *Message) TypeName() string {
+func (*Message) TypeName() string {
 	return "message"
+}
+
+// TypeInfo returns info about TL type.
+func (m *Message) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "message",
+		ID:   MessageTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Err",
+			SchemaName: "err",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

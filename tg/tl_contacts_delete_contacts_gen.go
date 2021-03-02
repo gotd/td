@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ContactsDeleteContactsRequest represents TL type `contacts.deleteContacts#96a0e00`.
 // Deletes several contacts from the list.
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/contacts.deleteContacts for reference.
 type ContactsDeleteContactsRequest struct {
 	// User ID list
-	ID []InputUserClass `tl:"id"`
+	ID []InputUserClass
 }
 
 // ContactsDeleteContactsRequestTypeID is TL type id of ContactsDeleteContactsRequest.
@@ -62,13 +64,32 @@ func (d *ContactsDeleteContactsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *ContactsDeleteContactsRequest) TypeID() uint32 {
+func (*ContactsDeleteContactsRequest) TypeID() uint32 {
 	return ContactsDeleteContactsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *ContactsDeleteContactsRequest) TypeName() string {
+func (*ContactsDeleteContactsRequest) TypeName() string {
 	return "contacts.deleteContacts"
+}
+
+// TypeInfo returns info about TL type.
+func (d *ContactsDeleteContactsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "contacts.deleteContacts",
+		ID:   ContactsDeleteContactsRequestTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

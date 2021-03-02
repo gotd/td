@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetAllStickersRequest represents TL type `messages.getAllStickers#1c9618b1`.
 // Get all installed stickers
@@ -29,7 +31,7 @@ type MessagesGetAllStickersRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 }
 
 // MessagesGetAllStickersRequestTypeID is TL type id of MessagesGetAllStickersRequest.
@@ -65,13 +67,32 @@ func (g *MessagesGetAllStickersRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetAllStickersRequest) TypeID() uint32 {
+func (*MessagesGetAllStickersRequest) TypeID() uint32 {
 	return MessagesGetAllStickersRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetAllStickersRequest) TypeName() string {
+func (*MessagesGetAllStickersRequest) TypeName() string {
 	return "messages.getAllStickers"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetAllStickersRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getAllStickers",
+		ID:   MessagesGetAllStickersRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

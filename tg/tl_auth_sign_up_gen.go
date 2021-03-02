@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AuthSignUpRequest represents TL type `auth.signUp#80eee427`.
 // Registers a validated phone number in the system.
@@ -26,13 +28,13 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/auth.signUp for reference.
 type AuthSignUpRequest struct {
 	// Phone number in the international format
-	PhoneNumber string `tl:"phone_number"`
+	PhoneNumber string
 	// SMS-message ID
-	PhoneCodeHash string `tl:"phone_code_hash"`
+	PhoneCodeHash string
 	// New user first name
-	FirstName string `tl:"first_name"`
+	FirstName string
 	// New user last name
-	LastName string `tl:"last_name"`
+	LastName string
 }
 
 // AuthSignUpRequestTypeID is TL type id of AuthSignUpRequest.
@@ -83,13 +85,44 @@ func (s *AuthSignUpRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *AuthSignUpRequest) TypeID() uint32 {
+func (*AuthSignUpRequest) TypeID() uint32 {
 	return AuthSignUpRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *AuthSignUpRequest) TypeName() string {
+func (*AuthSignUpRequest) TypeName() string {
 	return "auth.signUp"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AuthSignUpRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.signUp",
+		ID:   AuthSignUpRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PhoneNumber",
+			SchemaName: "phone_number",
+		},
+		{
+			Name:       "PhoneCodeHash",
+			SchemaName: "phone_code_hash",
+		},
+		{
+			Name:       "FirstName",
+			SchemaName: "first_name",
+		},
+		{
+			Name:       "LastName",
+			SchemaName: "last_name",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

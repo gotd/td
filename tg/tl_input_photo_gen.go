@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputPhotoEmpty represents TL type `inputPhotoEmpty#1cd7bf0d`.
 // Empty constructor.
@@ -50,13 +52,27 @@ func (i *InputPhotoEmpty) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPhotoEmpty) TypeID() uint32 {
+func (*InputPhotoEmpty) TypeID() uint32 {
 	return InputPhotoEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPhotoEmpty) TypeName() string {
+func (*InputPhotoEmpty) TypeName() string {
 	return "inputPhotoEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPhotoEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPhotoEmpty",
+		ID:   InputPhotoEmptyTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -96,17 +112,17 @@ var (
 // See https://core.telegram.org/constructor/inputPhoto for reference.
 type InputPhoto struct {
 	// Photo identifier
-	ID int64 `tl:"id"`
+	ID int64
 	// access_hash value from the photo¹ constructor
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/photo
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// File reference¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/file_reference
-	FileReference []byte `tl:"file_reference"`
+	FileReference []byte
 }
 
 // InputPhotoTypeID is TL type id of InputPhoto.
@@ -152,13 +168,40 @@ func (i *InputPhoto) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPhoto) TypeID() uint32 {
+func (*InputPhoto) TypeID() uint32 {
 	return InputPhotoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPhoto) TypeName() string {
+func (*InputPhoto) TypeName() string {
 	return "inputPhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPhoto) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPhoto",
+		ID:   InputPhotoTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "FileReference",
+			SchemaName: "file_reference",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

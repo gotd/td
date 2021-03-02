@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChatPhotoEmpty represents TL type `chatPhotoEmpty#37c1011c`.
 // Group photo is not set.
@@ -50,13 +52,27 @@ func (c *ChatPhotoEmpty) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChatPhotoEmpty) TypeID() uint32 {
+func (*ChatPhotoEmpty) TypeID() uint32 {
 	return ChatPhotoEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChatPhotoEmpty) TypeName() string {
+func (*ChatPhotoEmpty) TypeName() string {
 	return "chatPhotoEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatPhotoEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatPhotoEmpty",
+		ID:   ChatPhotoEmptyTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -99,15 +115,15 @@ type ChatPhoto struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the user has an animated profile picture
-	HasVideo bool `tl:"has_video"`
+	HasVideo bool
 	// Location of the file corresponding to the small thumbnail for group profile photo
-	PhotoSmall FileLocationToBeDeprecated `tl:"photo_small"`
+	PhotoSmall FileLocationToBeDeprecated
 	// Location of the file corresponding to the small thumbnail for group profile photo
-	PhotoBig FileLocationToBeDeprecated `tl:"photo_big"`
+	PhotoBig FileLocationToBeDeprecated
 	// DC where this photo is stored
-	DCID int `tl:"dc_id"`
+	DCID int
 }
 
 // ChatPhotoTypeID is TL type id of ChatPhoto.
@@ -161,13 +177,49 @@ func (c *ChatPhoto) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChatPhoto) TypeID() uint32 {
+func (*ChatPhoto) TypeID() uint32 {
 	return ChatPhotoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChatPhoto) TypeName() string {
+func (*ChatPhoto) TypeName() string {
 	return "chatPhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatPhoto) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatPhoto",
+		ID:   ChatPhotoTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "HasVideo",
+			SchemaName: "has_video",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "PhotoSmall",
+			SchemaName: "photo_small",
+		},
+		{
+			Name:       "PhotoBig",
+			SchemaName: "photo_big",
+		},
+		{
+			Name:       "DCID",
+			SchemaName: "dc_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

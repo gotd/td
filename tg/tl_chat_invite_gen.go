@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChatInviteAlready represents TL type `chatInviteAlready#5a686d7c`.
 // The user has already joined this chat
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/chatInviteAlready for reference.
 type ChatInviteAlready struct {
 	// The chat connected to the invite
-	Chat ChatClass `tl:"chat"`
+	Chat ChatClass
 }
 
 // ChatInviteAlreadyTypeID is TL type id of ChatInviteAlready.
@@ -62,13 +64,32 @@ func (c *ChatInviteAlready) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChatInviteAlready) TypeID() uint32 {
+func (*ChatInviteAlready) TypeID() uint32 {
 	return ChatInviteAlreadyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChatInviteAlready) TypeName() string {
+func (*ChatInviteAlready) TypeName() string {
 	return "chatInviteAlready"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatInviteAlready) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatInviteAlready",
+		ID:   ChatInviteAlreadyTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Chat",
+			SchemaName: "chat",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -129,38 +150,38 @@ type ChatInvite struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether this is a channel/supergroup¹ or a normal group²
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	//  2) https://core.telegram.org/api/channel
-	Channel bool `tl:"channel"`
+	Channel bool
 	// Whether this is a channel¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Broadcast bool `tl:"broadcast"`
+	Broadcast bool
 	// Whether this is a public channel/supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Public bool `tl:"public"`
+	Public bool
 	// Whether this is a supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Megagroup bool `tl:"megagroup"`
+	Megagroup bool
 	// Chat/supergroup/channel title
-	Title string `tl:"title"`
+	Title string
 	// Chat/supergroup/channel photo
-	Photo PhotoClass `tl:"photo"`
+	Photo PhotoClass
 	// Participant count
-	ParticipantsCount int `tl:"participants_count"`
+	ParticipantsCount int
 	// A few of the participants that are in the group
 	//
 	// Use SetParticipants and GetParticipants helpers.
-	Participants []UserClass `tl:"participants"`
+	Participants []UserClass
 }
 
 // ChatInviteTypeID is TL type id of ChatInvite.
@@ -237,13 +258,69 @@ func (c *ChatInvite) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChatInvite) TypeID() uint32 {
+func (*ChatInvite) TypeID() uint32 {
 	return ChatInviteTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChatInvite) TypeName() string {
+func (*ChatInvite) TypeName() string {
 	return "chatInvite"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatInvite) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatInvite",
+		ID:   ChatInviteTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Channel",
+			SchemaName: "channel",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "Broadcast",
+			SchemaName: "broadcast",
+			Null:       !c.Flags.Has(1),
+		},
+		{
+			Name:       "Public",
+			SchemaName: "public",
+			Null:       !c.Flags.Has(2),
+		},
+		{
+			Name:       "Megagroup",
+			SchemaName: "megagroup",
+			Null:       !c.Flags.Has(3),
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "Photo",
+			SchemaName: "photo",
+		},
+		{
+			Name:       "ParticipantsCount",
+			SchemaName: "participants_count",
+		},
+		{
+			Name:       "Participants",
+			SchemaName: "participants",
+			Null:       !c.Flags.Has(4),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -465,9 +542,9 @@ var (
 // See https://core.telegram.org/constructor/chatInvitePeek for reference.
 type ChatInvitePeek struct {
 	// Chat information
-	Chat ChatClass `tl:"chat"`
+	Chat ChatClass
 	// Read-only anonymous access to this group will be revoked at this date
-	Expires int `tl:"expires"`
+	Expires int
 }
 
 // ChatInvitePeekTypeID is TL type id of ChatInvitePeek.
@@ -508,13 +585,36 @@ func (c *ChatInvitePeek) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChatInvitePeek) TypeID() uint32 {
+func (*ChatInvitePeek) TypeID() uint32 {
 	return ChatInvitePeekTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChatInvitePeek) TypeName() string {
+func (*ChatInvitePeek) TypeName() string {
 	return "chatInvitePeek"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatInvitePeek) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatInvitePeek",
+		ID:   ChatInvitePeekTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Chat",
+			SchemaName: "chat",
+		},
+		{
+			Name:       "Expires",
+			SchemaName: "expires",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

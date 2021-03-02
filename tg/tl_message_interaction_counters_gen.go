@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessageInteractionCounters represents TL type `messageInteractionCounters#ad4fc9bd`.
 // Message interaction counters
@@ -26,11 +28,11 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/messageInteractionCounters for reference.
 type MessageInteractionCounters struct {
 	// Message ID
-	MsgID int `tl:"msg_id"`
+	MsgID int
 	// Views
-	Views int `tl:"views"`
+	Views int
 	// Number of times this message was forwarded
-	Forwards int `tl:"forwards"`
+	Forwards int
 }
 
 // MessageInteractionCountersTypeID is TL type id of MessageInteractionCounters.
@@ -76,13 +78,40 @@ func (m *MessageInteractionCounters) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageInteractionCounters) TypeID() uint32 {
+func (*MessageInteractionCounters) TypeID() uint32 {
 	return MessageInteractionCountersTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageInteractionCounters) TypeName() string {
+func (*MessageInteractionCounters) TypeName() string {
 	return "messageInteractionCounters"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageInteractionCounters) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageInteractionCounters",
+		ID:   MessageInteractionCountersTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+		{
+			Name:       "Views",
+			SchemaName: "views",
+		},
+		{
+			Name:       "Forwards",
+			SchemaName: "forwards",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

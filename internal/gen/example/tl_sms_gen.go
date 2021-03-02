@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,13 +20,14 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // SMS represents TL type `sms#ed8bebfe`.
 //
 // See https://localhost:80/doc/constructor/sms for reference.
 type SMS struct {
 	// Text field of SMS.
-	Text string `tl:"text"`
+	Text string
 }
 
 // SMSTypeID is TL type id of SMS.
@@ -61,13 +63,32 @@ func (s *SMS) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SMS) TypeID() uint32 {
+func (*SMS) TypeID() uint32 {
 	return SMSTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SMS) TypeName() string {
+func (*SMS) TypeName() string {
 	return "sms"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SMS) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "sms",
+		ID:   SMSTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

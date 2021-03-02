@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HelpCountry represents TL type `help.country#c3878e23`.
 // Name, ISO code, localized name and phone codes/patterns of a specific country
@@ -29,19 +31,19 @@ type HelpCountry struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether this country should not be shown in the list
-	Hidden bool `tl:"hidden"`
+	Hidden bool
 	// ISO code of country
-	Iso2 string `tl:"iso2"`
+	Iso2 string
 	// Name of the country in the country's language
-	DefaultName string `tl:"default_name"`
+	DefaultName string
 	// Name of the country in the user's language, if different from the original name
 	//
 	// Use SetName and GetName helpers.
-	Name string `tl:"name"`
+	Name string
 	// Phone codes/patterns
-	CountryCodes []HelpCountryCode `tl:"country_codes"`
+	CountryCodes []HelpCountryCode
 }
 
 // HelpCountryTypeID is TL type id of HelpCountry.
@@ -103,13 +105,54 @@ func (c *HelpCountry) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *HelpCountry) TypeID() uint32 {
+func (*HelpCountry) TypeID() uint32 {
 	return HelpCountryTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *HelpCountry) TypeName() string {
+func (*HelpCountry) TypeName() string {
 	return "help.country"
+}
+
+// TypeInfo returns info about TL type.
+func (c *HelpCountry) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.country",
+		ID:   HelpCountryTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Hidden",
+			SchemaName: "hidden",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "Iso2",
+			SchemaName: "iso2",
+		},
+		{
+			Name:       "DefaultName",
+			SchemaName: "default_name",
+		},
+		{
+			Name:       "Name",
+			SchemaName: "name",
+			Null:       !c.Flags.Has(1),
+		},
+		{
+			Name:       "CountryCodes",
+			SchemaName: "country_codes",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

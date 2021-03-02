@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PageTableRow represents TL type `pageTableRow#e0c0c5e5`.
 // Table row
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/pageTableRow for reference.
 type PageTableRow struct {
 	// Table cells
-	Cells []PageTableCell `tl:"cells"`
+	Cells []PageTableCell
 }
 
 // PageTableRowTypeID is TL type id of PageTableRow.
@@ -62,13 +64,32 @@ func (p *PageTableRow) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageTableRow) TypeID() uint32 {
+func (*PageTableRow) TypeID() uint32 {
 	return PageTableRowTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageTableRow) TypeName() string {
+func (*PageTableRow) TypeName() string {
 	return "pageTableRow"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageTableRow) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageTableRow",
+		ID:   PageTableRowTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Cells",
+			SchemaName: "cells",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

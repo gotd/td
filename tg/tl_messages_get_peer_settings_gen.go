@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetPeerSettingsRequest represents TL type `messages.getPeerSettings#3672e09c`.
 // Get peer settings
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.getPeerSettings for reference.
 type MessagesGetPeerSettingsRequest struct {
 	// The peer
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 }
 
 // MessagesGetPeerSettingsRequestTypeID is TL type id of MessagesGetPeerSettingsRequest.
@@ -62,13 +64,32 @@ func (g *MessagesGetPeerSettingsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetPeerSettingsRequest) TypeID() uint32 {
+func (*MessagesGetPeerSettingsRequest) TypeID() uint32 {
 	return MessagesGetPeerSettingsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetPeerSettingsRequest) TypeName() string {
+func (*MessagesGetPeerSettingsRequest) TypeName() string {
 	return "messages.getPeerSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetPeerSettingsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getPeerSettings",
+		ID:   MessagesGetPeerSettingsRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

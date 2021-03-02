@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhoneConfirmCallRequest represents TL type `phone.confirmCall#2efe1722`.
 // Complete phone call E2E encryption key exchange »¹
@@ -29,16 +31,16 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/phone.confirmCall for reference.
 type PhoneConfirmCallRequest struct {
 	// The phone call
-	Peer InputPhoneCall `tl:"peer"`
+	Peer InputPhoneCall
 	// Parameter for E2E encryption key exchange »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/end-to-end/voice-calls
-	GA []byte `tl:"g_a"`
+	GA []byte
 	// Key fingerprint
-	KeyFingerprint int64 `tl:"key_fingerprint"`
+	KeyFingerprint int64
 	// Phone call settings
-	Protocol PhoneCallProtocol `tl:"protocol"`
+	Protocol PhoneCallProtocol
 }
 
 // PhoneConfirmCallRequestTypeID is TL type id of PhoneConfirmCallRequest.
@@ -89,13 +91,44 @@ func (c *PhoneConfirmCallRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *PhoneConfirmCallRequest) TypeID() uint32 {
+func (*PhoneConfirmCallRequest) TypeID() uint32 {
 	return PhoneConfirmCallRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *PhoneConfirmCallRequest) TypeName() string {
+func (*PhoneConfirmCallRequest) TypeName() string {
 	return "phone.confirmCall"
+}
+
+// TypeInfo returns info about TL type.
+func (c *PhoneConfirmCallRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phone.confirmCall",
+		ID:   PhoneConfirmCallRequestTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "GA",
+			SchemaName: "g_a",
+		},
+		{
+			Name:       "KeyFingerprint",
+			SchemaName: "key_fingerprint",
+		},
+		{
+			Name:       "Protocol",
+			SchemaName: "protocol",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

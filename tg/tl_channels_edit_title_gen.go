@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelsEditTitleRequest represents TL type `channels.editTitle#566decd0`.
 // Edit the name of a channel/supergroup¹
@@ -29,9 +31,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/channels.editTitle for reference.
 type ChannelsEditTitleRequest struct {
 	// Channel/supergroup
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// New name
-	Title string `tl:"title"`
+	Title string
 }
 
 // ChannelsEditTitleRequestTypeID is TL type id of ChannelsEditTitleRequest.
@@ -72,13 +74,36 @@ func (e *ChannelsEditTitleRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (e *ChannelsEditTitleRequest) TypeID() uint32 {
+func (*ChannelsEditTitleRequest) TypeID() uint32 {
 	return ChannelsEditTitleRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (e *ChannelsEditTitleRequest) TypeName() string {
+func (*ChannelsEditTitleRequest) TypeName() string {
 	return "channels.editTitle"
+}
+
+// TypeInfo returns info about TL type.
+func (e *ChannelsEditTitleRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channels.editTitle",
+		ID:   ChannelsEditTitleRequestTypeID,
+	}
+	if e == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Channel",
+			SchemaName: "channel",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

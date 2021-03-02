@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HelpGetDeepLinkInfoRequest represents TL type `help.getDeepLinkInfo#3fedc75f`.
 // Get info about a t.me link
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/help.getDeepLinkInfo for reference.
 type HelpGetDeepLinkInfoRequest struct {
 	// Path in t.me/path
-	Path string `tl:"path"`
+	Path string
 }
 
 // HelpGetDeepLinkInfoRequestTypeID is TL type id of HelpGetDeepLinkInfoRequest.
@@ -62,13 +64,32 @@ func (g *HelpGetDeepLinkInfoRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *HelpGetDeepLinkInfoRequest) TypeID() uint32 {
+func (*HelpGetDeepLinkInfoRequest) TypeID() uint32 {
 	return HelpGetDeepLinkInfoRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *HelpGetDeepLinkInfoRequest) TypeName() string {
+func (*HelpGetDeepLinkInfoRequest) TypeName() string {
 	return "help.getDeepLinkInfo"
+}
+
+// TypeInfo returns info about TL type.
+func (g *HelpGetDeepLinkInfoRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.getDeepLinkInfo",
+		ID:   HelpGetDeepLinkInfoRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Path",
+			SchemaName: "path",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

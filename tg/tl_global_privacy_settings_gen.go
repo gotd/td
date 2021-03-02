@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // GlobalPrivacySettings represents TL type `globalPrivacySettings#bea2f424`.
 // Global privacy settings
@@ -29,11 +31,11 @@ type GlobalPrivacySettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to archive and mute new chats from non-contacts
 	//
 	// Use SetArchiveAndMuteNewNoncontactPeers and GetArchiveAndMuteNewNoncontactPeers helpers.
-	ArchiveAndMuteNewNoncontactPeers bool `tl:"archive_and_mute_new_noncontact_peers"`
+	ArchiveAndMuteNewNoncontactPeers bool
 }
 
 // GlobalPrivacySettingsTypeID is TL type id of GlobalPrivacySettings.
@@ -75,13 +77,37 @@ func (g *GlobalPrivacySettings) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *GlobalPrivacySettings) TypeID() uint32 {
+func (*GlobalPrivacySettings) TypeID() uint32 {
 	return GlobalPrivacySettingsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *GlobalPrivacySettings) TypeName() string {
+func (*GlobalPrivacySettings) TypeName() string {
 	return "globalPrivacySettings"
+}
+
+// TypeInfo returns info about TL type.
+func (g *GlobalPrivacySettings) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "globalPrivacySettings",
+		ID:   GlobalPrivacySettingsTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ArchiveAndMuteNewNoncontactPeers",
+			SchemaName: "archive_and_mute_new_noncontact_peers",
+			Null:       !g.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

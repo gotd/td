@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // Contact represents TL type `contact#f911c994`.
 // A contact of the current user that is registered in the system.
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/contact for reference.
 type Contact struct {
 	// User identifier
-	UserID int `tl:"user_id"`
+	UserID int
 	// Current user is in the user's contact list
-	Mutual bool `tl:"mutual"`
+	Mutual bool
 }
 
 // ContactTypeID is TL type id of Contact.
@@ -69,13 +71,36 @@ func (c *Contact) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *Contact) TypeID() uint32 {
+func (*Contact) TypeID() uint32 {
 	return ContactTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *Contact) TypeName() string {
+func (*Contact) TypeName() string {
 	return "contact"
+}
+
+// TypeInfo returns info about TL type.
+func (c *Contact) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "contact",
+		ID:   ContactTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Mutual",
+			SchemaName: "mutual",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

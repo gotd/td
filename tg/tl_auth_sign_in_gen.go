@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AuthSignInRequest represents TL type `auth.signIn#bcd51581`.
 // Signs in a user with a validated phone number.
@@ -26,14 +28,14 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/auth.signIn for reference.
 type AuthSignInRequest struct {
 	// Phone number in the international format
-	PhoneNumber string `tl:"phone_number"`
+	PhoneNumber string
 	// SMS-message ID, obtained from auth.sendCode¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/auth.sendCode
-	PhoneCodeHash string `tl:"phone_code_hash"`
+	PhoneCodeHash string
 	// Valid numerical code from the SMS-message
-	PhoneCode string `tl:"phone_code"`
+	PhoneCode string
 }
 
 // AuthSignInRequestTypeID is TL type id of AuthSignInRequest.
@@ -79,13 +81,40 @@ func (s *AuthSignInRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *AuthSignInRequest) TypeID() uint32 {
+func (*AuthSignInRequest) TypeID() uint32 {
 	return AuthSignInRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *AuthSignInRequest) TypeName() string {
+func (*AuthSignInRequest) TypeName() string {
 	return "auth.signIn"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AuthSignInRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.signIn",
+		ID:   AuthSignInRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PhoneNumber",
+			SchemaName: "phone_number",
+		},
+		{
+			Name:       "PhoneCodeHash",
+			SchemaName: "phone_code_hash",
+		},
+		{
+			Name:       "PhoneCode",
+			SchemaName: "phone_code",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

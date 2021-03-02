@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSearchRequest represents TL type `messages.search#c352eec`.
 // Gets back found messages
@@ -29,58 +31,58 @@ type MessagesSearchRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// User or chat, histories with which are searched, or (inputPeerEmpty)¹ constructor for global search
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/inputPeerEmpty
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Text search request
-	Q string `tl:"q"`
+	Q string
 	// Only return messages sent by the specified user ID
 	//
 	// Use SetFromID and GetFromID helpers.
-	FromID InputPeerClass `tl:"from_id"`
+	FromID InputPeerClass
 	// Thread ID¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
-	TopMsgID int `tl:"top_msg_id"`
+	TopMsgID int
 	// Filter to return only specified message types
-	Filter MessagesFilterClass `tl:"filter"`
+	Filter MessagesFilterClass
 	// If a positive value was transferred, only messages with a sending date bigger than the transferred one will be returned
-	MinDate int `tl:"min_date"`
+	MinDate int
 	// If a positive value was transferred, only messages with a sending date smaller than the transferred one will be returned
-	MaxDate int `tl:"max_date"`
+	MaxDate int
 	// Only return messages starting from the specified message ID
-	OffsetID int `tl:"offset_id"`
+	OffsetID int
 	// Additional offset¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	AddOffset int `tl:"add_offset"`
+	AddOffset int
 	// Number of results to return¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int `tl:"limit"`
+	Limit int
 	// Maximum message ID to return¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	MaxID int `tl:"max_id"`
+	MaxID int
 	// Minimum message ID to return¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	MinID int `tl:"min_id"`
+	MinID int
 	// Hash¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Hash int `tl:"hash"`
+	Hash int
 }
 
 // MessagesSearchRequestTypeID is TL type id of MessagesSearchRequest.
@@ -185,13 +187,86 @@ func (s *MessagesSearchRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSearchRequest) TypeID() uint32 {
+func (*MessagesSearchRequest) TypeID() uint32 {
 	return MessagesSearchRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSearchRequest) TypeName() string {
+func (*MessagesSearchRequest) TypeName() string {
 	return "messages.search"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSearchRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.search",
+		ID:   MessagesSearchRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Q",
+			SchemaName: "q",
+		},
+		{
+			Name:       "FromID",
+			SchemaName: "from_id",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "TopMsgID",
+			SchemaName: "top_msg_id",
+			Null:       !s.Flags.Has(1),
+		},
+		{
+			Name:       "Filter",
+			SchemaName: "filter",
+		},
+		{
+			Name:       "MinDate",
+			SchemaName: "min_date",
+		},
+		{
+			Name:       "MaxDate",
+			SchemaName: "max_date",
+		},
+		{
+			Name:       "OffsetID",
+			SchemaName: "offset_id",
+		},
+		{
+			Name:       "AddOffset",
+			SchemaName: "add_offset",
+		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
+		{
+			Name:       "MaxID",
+			SchemaName: "max_id",
+		},
+		{
+			Name:       "MinID",
+			SchemaName: "min_id",
+		},
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // FileLocationToBeDeprecated represents TL type `fileLocationToBeDeprecated#bc7fc6cd`.
 // Indicates the location of a photo, will be deprecated soon
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/fileLocationToBeDeprecated for reference.
 type FileLocationToBeDeprecated struct {
 	// Volume ID
-	VolumeID int64 `tl:"volume_id"`
+	VolumeID int64
 	// Local ID
-	LocalID int `tl:"local_id"`
+	LocalID int
 }
 
 // FileLocationToBeDeprecatedTypeID is TL type id of FileLocationToBeDeprecated.
@@ -69,13 +71,36 @@ func (f *FileLocationToBeDeprecated) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *FileLocationToBeDeprecated) TypeID() uint32 {
+func (*FileLocationToBeDeprecated) TypeID() uint32 {
 	return FileLocationToBeDeprecatedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *FileLocationToBeDeprecated) TypeName() string {
+func (*FileLocationToBeDeprecated) TypeName() string {
 	return "fileLocationToBeDeprecated"
+}
+
+// TypeInfo returns info about TL type.
+func (f *FileLocationToBeDeprecated) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "fileLocationToBeDeprecated",
+		ID:   FileLocationToBeDeprecatedTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "VolumeID",
+			SchemaName: "volume_id",
+		},
+		{
+			Name:       "LocalID",
+			SchemaName: "local_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

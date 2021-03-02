@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // SecurePlainPhone represents TL type `securePlainPhone#7d6099dd`.
 // Phone number to use in telegram passport¹: it must be verified, first »².
@@ -30,7 +32,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/securePlainPhone for reference.
 type SecurePlainPhone struct {
 	// Phone number
-	Phone string `tl:"phone"`
+	Phone string
 }
 
 // SecurePlainPhoneTypeID is TL type id of SecurePlainPhone.
@@ -66,13 +68,32 @@ func (s *SecurePlainPhone) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecurePlainPhone) TypeID() uint32 {
+func (*SecurePlainPhone) TypeID() uint32 {
 	return SecurePlainPhoneTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecurePlainPhone) TypeName() string {
+func (*SecurePlainPhone) TypeName() string {
 	return "securePlainPhone"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecurePlainPhone) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "securePlainPhone",
+		ID:   SecurePlainPhoneTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Phone",
+			SchemaName: "phone",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -129,7 +150,7 @@ var (
 // See https://core.telegram.org/constructor/securePlainEmail for reference.
 type SecurePlainEmail struct {
 	// Email address
-	Email string `tl:"email"`
+	Email string
 }
 
 // SecurePlainEmailTypeID is TL type id of SecurePlainEmail.
@@ -165,13 +186,32 @@ func (s *SecurePlainEmail) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecurePlainEmail) TypeID() uint32 {
+func (*SecurePlainEmail) TypeID() uint32 {
 	return SecurePlainEmailTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecurePlainEmail) TypeName() string {
+func (*SecurePlainEmail) TypeName() string {
 	return "securePlainEmail"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecurePlainEmail) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "securePlainEmail",
+		ID:   SecurePlainEmailTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Email",
+			SchemaName: "email",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

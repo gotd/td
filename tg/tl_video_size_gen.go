@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // VideoSize represents TL type `videoSize#e831c556`.
 // Animated profile picture¹ in MPEG4 format
@@ -32,21 +34,21 @@ type VideoSize struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// u for animated profile pictures, and v for trimmed and downscaled video previews
-	Type string `tl:"type"`
+	Type string
 	// File location
-	Location FileLocationToBeDeprecated `tl:"location"`
+	Location FileLocationToBeDeprecated
 	// Video width
-	W int `tl:"w"`
+	W int
 	// Video height
-	H int `tl:"h"`
+	H int
 	// File size
-	Size int `tl:"size"`
+	Size int
 	// Timestamp that should be shown as static preview to the user (seconds)
 	//
 	// Use SetVideoStartTs and GetVideoStartTs helpers.
-	VideoStartTs float64 `tl:"video_start_ts"`
+	VideoStartTs float64
 }
 
 // VideoSizeTypeID is TL type id of VideoSize.
@@ -113,13 +115,57 @@ func (v *VideoSize) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (v *VideoSize) TypeID() uint32 {
+func (*VideoSize) TypeID() uint32 {
 	return VideoSizeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (v *VideoSize) TypeName() string {
+func (*VideoSize) TypeName() string {
 	return "videoSize"
+}
+
+// TypeInfo returns info about TL type.
+func (v *VideoSize) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "videoSize",
+		ID:   VideoSizeTypeID,
+	}
+	if v == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Type",
+			SchemaName: "type",
+		},
+		{
+			Name:       "Location",
+			SchemaName: "location",
+		},
+		{
+			Name:       "W",
+			SchemaName: "w",
+		},
+		{
+			Name:       "H",
+			SchemaName: "h",
+		},
+		{
+			Name:       "Size",
+			SchemaName: "size",
+		},
+		{
+			Name:       "VideoStartTs",
+			SchemaName: "video_start_ts",
+			Null:       !v.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelAdminLogEvent represents TL type `channelAdminLogEvent#3b5a3e40`.
 // Admin log event
@@ -26,13 +28,13 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/channelAdminLogEvent for reference.
 type ChannelAdminLogEvent struct {
 	// Event ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Date
-	Date int `tl:"date"`
+	Date int
 	// User ID
-	UserID int `tl:"user_id"`
+	UserID int
 	// Action
-	Action ChannelAdminLogEventActionClass `tl:"action"`
+	Action ChannelAdminLogEventActionClass
 }
 
 // ChannelAdminLogEventTypeID is TL type id of ChannelAdminLogEvent.
@@ -83,13 +85,44 @@ func (c *ChannelAdminLogEvent) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelAdminLogEvent) TypeID() uint32 {
+func (*ChannelAdminLogEvent) TypeID() uint32 {
 	return ChannelAdminLogEventTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelAdminLogEvent) TypeName() string {
+func (*ChannelAdminLogEvent) TypeName() string {
 	return "channelAdminLogEvent"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelAdminLogEvent) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelAdminLogEvent",
+		ID:   ChannelAdminLogEventTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Action",
+			SchemaName: "action",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

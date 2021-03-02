@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,19 +20,20 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhoneJoinGroupCallRequest represents TL type `phone.joinGroupCall#5f9c8e62`.
 //
 // See https://core.telegram.org/method/phone.joinGroupCall for reference.
 type PhoneJoinGroupCallRequest struct {
 	// Flags field of PhoneJoinGroupCallRequest.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Muted field of PhoneJoinGroupCallRequest.
-	Muted bool `tl:"muted"`
+	Muted bool
 	// Call field of PhoneJoinGroupCallRequest.
-	Call InputGroupCall `tl:"call"`
+	Call InputGroupCall
 	// Params field of PhoneJoinGroupCallRequest.
-	Params DataJSON `tl:"params"`
+	Params DataJSON
 }
 
 // PhoneJoinGroupCallRequestTypeID is TL type id of PhoneJoinGroupCallRequest.
@@ -80,13 +82,45 @@ func (j *PhoneJoinGroupCallRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (j *PhoneJoinGroupCallRequest) TypeID() uint32 {
+func (*PhoneJoinGroupCallRequest) TypeID() uint32 {
 	return PhoneJoinGroupCallRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (j *PhoneJoinGroupCallRequest) TypeName() string {
+func (*PhoneJoinGroupCallRequest) TypeName() string {
 	return "phone.joinGroupCall"
+}
+
+// TypeInfo returns info about TL type.
+func (j *PhoneJoinGroupCallRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phone.joinGroupCall",
+		ID:   PhoneJoinGroupCallRequestTypeID,
+	}
+	if j == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Muted",
+			SchemaName: "muted",
+			Null:       !j.Flags.Has(0),
+		},
+		{
+			Name:       "Call",
+			SchemaName: "call",
+		},
+		{
+			Name:       "Params",
+			SchemaName: "params",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

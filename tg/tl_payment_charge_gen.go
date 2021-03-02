@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PaymentCharge represents TL type `paymentCharge#ea02c27e`.
 // Payment identifier
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/paymentCharge for reference.
 type PaymentCharge struct {
 	// Telegram payment identifier
-	ID string `tl:"id"`
+	ID string
 	// Provider payment identifier
-	ProviderChargeID string `tl:"provider_charge_id"`
+	ProviderChargeID string
 }
 
 // PaymentChargeTypeID is TL type id of PaymentCharge.
@@ -69,13 +71,36 @@ func (p *PaymentCharge) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PaymentCharge) TypeID() uint32 {
+func (*PaymentCharge) TypeID() uint32 {
 	return PaymentChargeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PaymentCharge) TypeName() string {
+func (*PaymentCharge) TypeName() string {
 	return "paymentCharge"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PaymentCharge) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "paymentCharge",
+		ID:   PaymentChargeTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "ProviderChargeID",
+			SchemaName: "provider_charge_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

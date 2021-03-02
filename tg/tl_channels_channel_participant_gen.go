@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelsChannelParticipant represents TL type `channels.channelParticipant#d0d9b163`.
 // Represents a channel participant
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/channels.channelParticipant for reference.
 type ChannelsChannelParticipant struct {
 	// The channel participant
-	Participant ChannelParticipantClass `tl:"participant"`
+	Participant ChannelParticipantClass
 	// Users
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // ChannelsChannelParticipantTypeID is TL type id of ChannelsChannelParticipant.
@@ -69,13 +71,36 @@ func (c *ChannelsChannelParticipant) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelsChannelParticipant) TypeID() uint32 {
+func (*ChannelsChannelParticipant) TypeID() uint32 {
 	return ChannelsChannelParticipantTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelsChannelParticipant) TypeName() string {
+func (*ChannelsChannelParticipant) TypeName() string {
 	return "channels.channelParticipant"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelsChannelParticipant) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channels.channelParticipant",
+		ID:   ChannelsChannelParticipantTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Participant",
+			SchemaName: "participant",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

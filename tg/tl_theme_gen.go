@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // Theme represents TL type `theme#28f1114`.
 // Theme
@@ -29,29 +31,29 @@ type Theme struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the current user is the creator of this theme
-	Creator bool `tl:"creator"`
+	Creator bool
 	// Whether this is the default theme
-	Default bool `tl:"default"`
+	Default bool
 	// Theme ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Theme access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// Unique theme ID
-	Slug string `tl:"slug"`
+	Slug string
 	// Theme name
-	Title string `tl:"title"`
+	Title string
 	// Theme
 	//
 	// Use SetDocument and GetDocument helpers.
-	Document DocumentClass `tl:"document"`
+	Document DocumentClass
 	// Theme settings
 	//
 	// Use SetSettings and GetSettings helpers.
-	Settings ThemeSettings `tl:"settings"`
+	Settings ThemeSettings
 	// Installation count
-	InstallsCount int `tl:"installs_count"`
+	InstallsCount int
 }
 
 // ThemeTypeID is TL type id of Theme.
@@ -136,13 +138,72 @@ func (t *Theme) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *Theme) TypeID() uint32 {
+func (*Theme) TypeID() uint32 {
 	return ThemeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *Theme) TypeName() string {
+func (*Theme) TypeName() string {
 	return "theme"
+}
+
+// TypeInfo returns info about TL type.
+func (t *Theme) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "theme",
+		ID:   ThemeTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Creator",
+			SchemaName: "creator",
+			Null:       !t.Flags.Has(0),
+		},
+		{
+			Name:       "Default",
+			SchemaName: "default",
+			Null:       !t.Flags.Has(1),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "Slug",
+			SchemaName: "slug",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "Document",
+			SchemaName: "document",
+			Null:       !t.Flags.Has(2),
+		},
+		{
+			Name:       "Settings",
+			SchemaName: "settings",
+			Null:       !t.Flags.Has(3),
+		},
+		{
+			Name:       "InstallsCount",
+			SchemaName: "installs_count",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

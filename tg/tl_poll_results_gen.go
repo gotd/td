@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PollResults represents TL type `pollResults#badcc1a3`.
 // Results of poll
@@ -29,36 +31,36 @@ type PollResults struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Similar to min¹ objects, used for poll constructors that are the same for all users so they don't have option chosen by the current user (you can use messages.getPollResults² to get the full poll results).
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/min
 	//  2) https://core.telegram.org/method/messages.getPollResults
-	Min bool `tl:"min"`
+	Min bool
 	// Poll results
 	//
 	// Use SetResults and GetResults helpers.
-	Results []PollAnswerVoters `tl:"results"`
+	Results []PollAnswerVoters
 	// Total number of people that voted in the poll
 	//
 	// Use SetTotalVoters and GetTotalVoters helpers.
-	TotalVoters int `tl:"total_voters"`
+	TotalVoters int
 	// IDs of the last users that recently voted in the poll
 	//
 	// Use SetRecentVoters and GetRecentVoters helpers.
-	RecentVoters []int `tl:"recent_voters"`
+	RecentVoters []int
 	// Explanation of quiz solution
 	//
 	// Use SetSolution and GetSolution helpers.
-	Solution string `tl:"solution"`
+	Solution string
 	// Message entities for styled text in quiz solution¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetSolutionEntities and GetSolutionEntities helpers.
-	SolutionEntities []MessageEntityClass `tl:"solution_entities"`
+	SolutionEntities []MessageEntityClass
 }
 
 // PollResultsTypeID is TL type id of PollResults.
@@ -137,13 +139,62 @@ func (p *PollResults) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PollResults) TypeID() uint32 {
+func (*PollResults) TypeID() uint32 {
 	return PollResultsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PollResults) TypeName() string {
+func (*PollResults) TypeName() string {
 	return "pollResults"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PollResults) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pollResults",
+		ID:   PollResultsTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Min",
+			SchemaName: "min",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "Results",
+			SchemaName: "results",
+			Null:       !p.Flags.Has(1),
+		},
+		{
+			Name:       "TotalVoters",
+			SchemaName: "total_voters",
+			Null:       !p.Flags.Has(2),
+		},
+		{
+			Name:       "RecentVoters",
+			SchemaName: "recent_voters",
+			Null:       !p.Flags.Has(3),
+		},
+		{
+			Name:       "Solution",
+			SchemaName: "solution",
+			Null:       !p.Flags.Has(4),
+		},
+		{
+			Name:       "SolutionEntities",
+			SchemaName: "solution_entities",
+			Null:       !p.Flags.Has(4),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

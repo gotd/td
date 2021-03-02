@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChatParticipant represents TL type `chatParticipant#c8d7493e`.
 // Group member.
@@ -26,11 +28,11 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/chatParticipant for reference.
 type ChatParticipant struct {
 	// Member user ID
-	UserID int `tl:"user_id"`
+	UserID int
 	// ID of the user that added the member to the group
-	InviterID int `tl:"inviter_id"`
+	InviterID int
 	// Date added to the group
-	Date int `tl:"date"`
+	Date int
 }
 
 // ChatParticipantTypeID is TL type id of ChatParticipant.
@@ -76,13 +78,40 @@ func (c *ChatParticipant) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChatParticipant) TypeID() uint32 {
+func (*ChatParticipant) TypeID() uint32 {
 	return ChatParticipantTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChatParticipant) TypeName() string {
+func (*ChatParticipant) TypeName() string {
 	return "chatParticipant"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatParticipant) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatParticipant",
+		ID:   ChatParticipantTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "InviterID",
+			SchemaName: "inviter_id",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -161,7 +190,7 @@ var (
 // See https://core.telegram.org/constructor/chatParticipantCreator for reference.
 type ChatParticipantCreator struct {
 	// ID of the user that created the group
-	UserID int `tl:"user_id"`
+	UserID int
 }
 
 // ChatParticipantCreatorTypeID is TL type id of ChatParticipantCreator.
@@ -197,13 +226,32 @@ func (c *ChatParticipantCreator) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChatParticipantCreator) TypeID() uint32 {
+func (*ChatParticipantCreator) TypeID() uint32 {
 	return ChatParticipantCreatorTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChatParticipantCreator) TypeName() string {
+func (*ChatParticipantCreator) TypeName() string {
 	return "chatParticipantCreator"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatParticipantCreator) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatParticipantCreator",
+		ID:   ChatParticipantCreatorTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -256,11 +304,11 @@ var (
 // See https://core.telegram.org/constructor/chatParticipantAdmin for reference.
 type ChatParticipantAdmin struct {
 	// ID of a group member that is admin
-	UserID int `tl:"user_id"`
+	UserID int
 	// ID of the user that added the member to the group
-	InviterID int `tl:"inviter_id"`
+	InviterID int
 	// Date when the user was added
-	Date int `tl:"date"`
+	Date int
 }
 
 // ChatParticipantAdminTypeID is TL type id of ChatParticipantAdmin.
@@ -306,13 +354,40 @@ func (c *ChatParticipantAdmin) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChatParticipantAdmin) TypeID() uint32 {
+func (*ChatParticipantAdmin) TypeID() uint32 {
 	return ChatParticipantAdminTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChatParticipantAdmin) TypeName() string {
+func (*ChatParticipantAdmin) TypeName() string {
 	return "chatParticipantAdmin"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatParticipantAdmin) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatParticipantAdmin",
+		ID:   ChatParticipantAdminTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "InviterID",
+			SchemaName: "inviter_id",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

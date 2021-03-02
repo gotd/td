@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StatsGetMessageStatsRequest represents TL type `stats.getMessageStats#b6e0a3f5`.
 // Get message statistics¹
@@ -32,13 +34,13 @@ type StatsGetMessageStatsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to enable dark theme for graph colors
-	Dark bool `tl:"dark"`
+	Dark bool
 	// Channel ID
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// Message ID
-	MsgID int `tl:"msg_id"`
+	MsgID int
 }
 
 // StatsGetMessageStatsRequestTypeID is TL type id of StatsGetMessageStatsRequest.
@@ -87,13 +89,45 @@ func (g *StatsGetMessageStatsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *StatsGetMessageStatsRequest) TypeID() uint32 {
+func (*StatsGetMessageStatsRequest) TypeID() uint32 {
 	return StatsGetMessageStatsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *StatsGetMessageStatsRequest) TypeName() string {
+func (*StatsGetMessageStatsRequest) TypeName() string {
 	return "stats.getMessageStats"
+}
+
+// TypeInfo returns info about TL type.
+func (g *StatsGetMessageStatsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "stats.getMessageStats",
+		ID:   StatsGetMessageStatsRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Dark",
+			SchemaName: "dark",
+			Null:       !g.Flags.Has(0),
+		},
+		{
+			Name:       "Channel",
+			SchemaName: "channel",
+		},
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

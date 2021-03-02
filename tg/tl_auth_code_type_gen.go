@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AuthCodeTypeSms represents TL type `auth.codeTypeSms#72a3158c`.
 // Type of verification code that will be sent next if you call the resendCode method: SMS code
@@ -50,13 +52,27 @@ func (c *AuthCodeTypeSms) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *AuthCodeTypeSms) TypeID() uint32 {
+func (*AuthCodeTypeSms) TypeID() uint32 {
 	return AuthCodeTypeSmsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *AuthCodeTypeSms) TypeName() string {
+func (*AuthCodeTypeSms) TypeName() string {
 	return "auth.codeTypeSms"
+}
+
+// TypeInfo returns info about TL type.
+func (c *AuthCodeTypeSms) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.codeTypeSms",
+		ID:   AuthCodeTypeSmsTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -120,13 +136,27 @@ func (c *AuthCodeTypeCall) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *AuthCodeTypeCall) TypeID() uint32 {
+func (*AuthCodeTypeCall) TypeID() uint32 {
 	return AuthCodeTypeCallTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *AuthCodeTypeCall) TypeName() string {
+func (*AuthCodeTypeCall) TypeName() string {
 	return "auth.codeTypeCall"
+}
+
+// TypeInfo returns info about TL type.
+func (c *AuthCodeTypeCall) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.codeTypeCall",
+		ID:   AuthCodeTypeCallTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -190,13 +220,27 @@ func (c *AuthCodeTypeFlashCall) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *AuthCodeTypeFlashCall) TypeID() uint32 {
+func (*AuthCodeTypeFlashCall) TypeID() uint32 {
 	return AuthCodeTypeFlashCallTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *AuthCodeTypeFlashCall) TypeName() string {
+func (*AuthCodeTypeFlashCall) TypeName() string {
 	return "auth.codeTypeFlashCall"
+}
+
+// TypeInfo returns info about TL type.
+func (c *AuthCodeTypeFlashCall) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.codeTypeFlashCall",
+		ID:   AuthCodeTypeFlashCallTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetWebPageRequest represents TL type `messages.getWebPage#32ca8f91`.
 // Get instant view¹ page
@@ -29,12 +31,12 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.getWebPage for reference.
 type MessagesGetWebPageRequest struct {
 	// URL of IV page to fetch
-	URL string `tl:"url"`
+	URL string
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 }
 
 // MessagesGetWebPageRequestTypeID is TL type id of MessagesGetWebPageRequest.
@@ -75,13 +77,36 @@ func (g *MessagesGetWebPageRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetWebPageRequest) TypeID() uint32 {
+func (*MessagesGetWebPageRequest) TypeID() uint32 {
 	return MessagesGetWebPageRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetWebPageRequest) TypeName() string {
+func (*MessagesGetWebPageRequest) TypeName() string {
 	return "messages.getWebPage"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetWebPageRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getWebPage",
+		ID:   MessagesGetWebPageRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

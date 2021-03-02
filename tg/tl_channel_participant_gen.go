@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelParticipant represents TL type `channelParticipant#15ebac1d`.
 // Channel/supergroup participant
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/channelParticipant for reference.
 type ChannelParticipant struct {
 	// Pariticipant user ID
-	UserID int `tl:"user_id"`
+	UserID int
 	// Date joined
-	Date int `tl:"date"`
+	Date int
 }
 
 // ChannelParticipantTypeID is TL type id of ChannelParticipant.
@@ -69,13 +71,36 @@ func (c *ChannelParticipant) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelParticipant) TypeID() uint32 {
+func (*ChannelParticipant) TypeID() uint32 {
 	return ChannelParticipantTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelParticipant) TypeName() string {
+func (*ChannelParticipant) TypeName() string {
 	return "channelParticipant"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelParticipant) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelParticipant",
+		ID:   ChannelParticipantTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -141,11 +166,11 @@ var (
 // See https://core.telegram.org/constructor/channelParticipantSelf for reference.
 type ChannelParticipantSelf struct {
 	// User ID
-	UserID int `tl:"user_id"`
+	UserID int
 	// User that invited me to the channel/supergroup
-	InviterID int `tl:"inviter_id"`
+	InviterID int
 	// When did I join the channel/supergroup
-	Date int `tl:"date"`
+	Date int
 }
 
 // ChannelParticipantSelfTypeID is TL type id of ChannelParticipantSelf.
@@ -191,13 +216,40 @@ func (c *ChannelParticipantSelf) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelParticipantSelf) TypeID() uint32 {
+func (*ChannelParticipantSelf) TypeID() uint32 {
 	return ChannelParticipantSelfTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelParticipantSelf) TypeName() string {
+func (*ChannelParticipantSelf) TypeName() string {
 	return "channelParticipantSelf"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelParticipantSelf) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelParticipantSelf",
+		ID:   ChannelParticipantSelfTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "InviterID",
+			SchemaName: "inviter_id",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -279,15 +331,15 @@ type ChannelParticipantCreator struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// User ID
-	UserID int `tl:"user_id"`
+	UserID int
 	// Creator admin rights
-	AdminRights ChatAdminRights `tl:"admin_rights"`
+	AdminRights ChatAdminRights
 	// The role (rank) of the group creator in the group: just an arbitrary string, admin by default
 	//
 	// Use SetRank and GetRank helpers.
-	Rank string `tl:"rank"`
+	Rank string
 }
 
 // ChannelParticipantCreatorTypeID is TL type id of ChannelParticipantCreator.
@@ -339,13 +391,45 @@ func (c *ChannelParticipantCreator) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelParticipantCreator) TypeID() uint32 {
+func (*ChannelParticipantCreator) TypeID() uint32 {
 	return ChannelParticipantCreatorTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelParticipantCreator) TypeName() string {
+func (*ChannelParticipantCreator) TypeName() string {
 	return "channelParticipantCreator"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelParticipantCreator) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelParticipantCreator",
+		ID:   ChannelParticipantCreatorTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "AdminRights",
+			SchemaName: "admin_rights",
+		},
+		{
+			Name:       "Rank",
+			SchemaName: "rank",
+			Null:       !c.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -450,30 +534,30 @@ type ChannelParticipantAdmin struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Can this admin promote other admins with the same permissions?
-	CanEdit bool `tl:"can_edit"`
+	CanEdit bool
 	// Is this the current user
-	Self bool `tl:"self"`
+	Self bool
 	// Admin user ID
-	UserID int `tl:"user_id"`
+	UserID int
 	// User that invited the admin to the channel/group
 	//
 	// Use SetInviterID and GetInviterID helpers.
-	InviterID int `tl:"inviter_id"`
+	InviterID int
 	// User that promoted the user to admin
-	PromotedBy int `tl:"promoted_by"`
+	PromotedBy int
 	// When did the user join
-	Date int `tl:"date"`
+	Date int
 	// Admin rights¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
-	AdminRights ChatAdminRights `tl:"admin_rights"`
+	AdminRights ChatAdminRights
 	// The role (rank) of the admin in the group: just an arbitrary string, admin by default
 	//
 	// Use SetRank and GetRank helpers.
-	Rank string `tl:"rank"`
+	Rank string
 }
 
 // ChannelParticipantAdminTypeID is TL type id of ChannelParticipantAdmin.
@@ -553,13 +637,68 @@ func (c *ChannelParticipantAdmin) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelParticipantAdmin) TypeID() uint32 {
+func (*ChannelParticipantAdmin) TypeID() uint32 {
 	return ChannelParticipantAdminTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelParticipantAdmin) TypeName() string {
+func (*ChannelParticipantAdmin) TypeName() string {
 	return "channelParticipantAdmin"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelParticipantAdmin) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelParticipantAdmin",
+		ID:   ChannelParticipantAdminTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "CanEdit",
+			SchemaName: "can_edit",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "Self",
+			SchemaName: "self",
+			Null:       !c.Flags.Has(1),
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "InviterID",
+			SchemaName: "inviter_id",
+			Null:       !c.Flags.Has(1),
+		},
+		{
+			Name:       "PromotedBy",
+			SchemaName: "promoted_by",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "AdminRights",
+			SchemaName: "admin_rights",
+		},
+		{
+			Name:       "Rank",
+			SchemaName: "rank",
+			Null:       !c.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -758,20 +897,20 @@ type ChannelParticipantBanned struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the user has left the group
-	Left bool `tl:"left"`
+	Left bool
 	// User ID
-	UserID int `tl:"user_id"`
+	UserID int
 	// User was kicked by the specified admin
-	KickedBy int `tl:"kicked_by"`
+	KickedBy int
 	// When did the user join the group
-	Date int `tl:"date"`
+	Date int
 	// Banned rights¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
-	BannedRights ChatBannedRights `tl:"banned_rights"`
+	BannedRights ChatBannedRights
 }
 
 // ChannelParticipantBannedTypeID is TL type id of ChannelParticipantBanned.
@@ -830,13 +969,53 @@ func (c *ChannelParticipantBanned) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelParticipantBanned) TypeID() uint32 {
+func (*ChannelParticipantBanned) TypeID() uint32 {
 	return ChannelParticipantBannedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelParticipantBanned) TypeName() string {
+func (*ChannelParticipantBanned) TypeName() string {
 	return "channelParticipantBanned"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelParticipantBanned) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelParticipantBanned",
+		ID:   ChannelParticipantBannedTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Left",
+			SchemaName: "left",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "KickedBy",
+			SchemaName: "kicked_by",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "BannedRights",
+			SchemaName: "banned_rights",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -956,7 +1135,7 @@ var (
 // See https://core.telegram.org/constructor/channelParticipantLeft for reference.
 type ChannelParticipantLeft struct {
 	// User ID
-	UserID int `tl:"user_id"`
+	UserID int
 }
 
 // ChannelParticipantLeftTypeID is TL type id of ChannelParticipantLeft.
@@ -992,13 +1171,32 @@ func (c *ChannelParticipantLeft) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelParticipantLeft) TypeID() uint32 {
+func (*ChannelParticipantLeft) TypeID() uint32 {
 	return ChannelParticipantLeftTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelParticipantLeft) TypeName() string {
+func (*ChannelParticipantLeft) TypeName() string {
 	return "channelParticipantLeft"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelParticipantLeft) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelParticipantLeft",
+		ID:   ChannelParticipantLeftTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

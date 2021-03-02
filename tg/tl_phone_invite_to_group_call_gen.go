@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,15 +20,16 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhoneInviteToGroupCallRequest represents TL type `phone.inviteToGroupCall#7b393160`.
 //
 // See https://core.telegram.org/method/phone.inviteToGroupCall for reference.
 type PhoneInviteToGroupCallRequest struct {
 	// Call field of PhoneInviteToGroupCallRequest.
-	Call InputGroupCall `tl:"call"`
+	Call InputGroupCall
 	// Users field of PhoneInviteToGroupCallRequest.
-	Users []InputUserClass `tl:"users"`
+	Users []InputUserClass
 }
 
 // PhoneInviteToGroupCallRequestTypeID is TL type id of PhoneInviteToGroupCallRequest.
@@ -68,13 +70,36 @@ func (i *PhoneInviteToGroupCallRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *PhoneInviteToGroupCallRequest) TypeID() uint32 {
+func (*PhoneInviteToGroupCallRequest) TypeID() uint32 {
 	return PhoneInviteToGroupCallRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *PhoneInviteToGroupCallRequest) TypeName() string {
+func (*PhoneInviteToGroupCallRequest) TypeName() string {
 	return "phone.inviteToGroupCall"
+}
+
+// TypeInfo returns info about TL type.
+func (i *PhoneInviteToGroupCallRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phone.inviteToGroupCall",
+		ID:   PhoneInviteToGroupCallRequestTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Call",
+			SchemaName: "call",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

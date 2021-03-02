@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // UploadWebFile represents TL type `upload.webFile#21e753bc`.
 // Represents a chunk of an HTTP webfile¹ downloaded through telegram's secure MTProto servers
@@ -29,15 +31,15 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/upload.webFile for reference.
 type UploadWebFile struct {
 	// File size
-	Size int `tl:"size"`
+	Size int
 	// Mime type
-	MimeType string `tl:"mime_type"`
+	MimeType string
 	// File type
-	FileType StorageFileTypeClass `tl:"file_type"`
+	FileType StorageFileTypeClass
 	// Modified time
-	Mtime int `tl:"mtime"`
+	Mtime int
 	// Data
-	Bytes []byte `tl:"bytes"`
+	Bytes []byte
 }
 
 // UploadWebFileTypeID is TL type id of UploadWebFile.
@@ -93,13 +95,48 @@ func (w *UploadWebFile) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (w *UploadWebFile) TypeID() uint32 {
+func (*UploadWebFile) TypeID() uint32 {
 	return UploadWebFileTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (w *UploadWebFile) TypeName() string {
+func (*UploadWebFile) TypeName() string {
 	return "upload.webFile"
+}
+
+// TypeInfo returns info about TL type.
+func (w *UploadWebFile) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "upload.webFile",
+		ID:   UploadWebFileTypeID,
+	}
+	if w == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Size",
+			SchemaName: "size",
+		},
+		{
+			Name:       "MimeType",
+			SchemaName: "mime_type",
+		},
+		{
+			Name:       "FileType",
+			SchemaName: "file_type",
+		},
+		{
+			Name:       "Mtime",
+			SchemaName: "mtime",
+		},
+		{
+			Name:       "Bytes",
+			SchemaName: "bytes",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputClientProxy represents TL type `inputClientProxy#75588b3f`.
 // Info about an MTProxy¹ used to connect.
@@ -29,9 +31,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/inputClientProxy for reference.
 type InputClientProxy struct {
 	// Proxy address
-	Address string `tl:"address"`
+	Address string
 	// Proxy port
-	Port int `tl:"port"`
+	Port int
 }
 
 // InputClientProxyTypeID is TL type id of InputClientProxy.
@@ -72,13 +74,36 @@ func (i *InputClientProxy) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputClientProxy) TypeID() uint32 {
+func (*InputClientProxy) TypeID() uint32 {
 	return InputClientProxyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputClientProxy) TypeName() string {
+func (*InputClientProxy) TypeName() string {
 	return "inputClientProxy"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputClientProxy) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputClientProxy",
+		ID:   InputClientProxyTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Address",
+			SchemaName: "address",
+		},
+		{
+			Name:       "Port",
+			SchemaName: "port",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

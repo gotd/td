@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChatAdminRights represents TL type `chatAdminRights#5fb224d5`.
 // Represents the rights of an admin in a channel/supergroup¹.
@@ -32,53 +34,53 @@ type ChatAdminRights struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// If set, allows the admin to modify the description of the channel/supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	ChangeInfo bool `tl:"change_info"`
+	ChangeInfo bool
 	// If set, allows the admin to post messages in the channel¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	PostMessages bool `tl:"post_messages"`
+	PostMessages bool
 	// If set, allows the admin to also edit messages from other admins in the channel¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	EditMessages bool `tl:"edit_messages"`
+	EditMessages bool
 	// If set, allows the admin to also delete messages from other admins in the channel¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	DeleteMessages bool `tl:"delete_messages"`
+	DeleteMessages bool
 	// If set, allows the admin to ban users from the channel/supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	BanUsers bool `tl:"ban_users"`
+	BanUsers bool
 	// If set, allows the admin to invite users in the channel/supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	InviteUsers bool `tl:"invite_users"`
+	InviteUsers bool
 	// If set, allows the admin to pin messages in the channel/supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	PinMessages bool `tl:"pin_messages"`
+	PinMessages bool
 	// If set, allows the admin to add other admins with the same (or more limited) permissions in the channel/supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	AddAdmins bool `tl:"add_admins"`
+	AddAdmins bool
 	// Whether this admin is anonymous
-	Anonymous bool `tl:"anonymous"`
+	Anonymous bool
 	// ManageCall field of ChatAdminRights.
-	ManageCall bool `tl:"manage_call"`
+	ManageCall bool
 	// Other field of ChatAdminRights.
-	Other bool `tl:"other"`
+	Other bool
 }
 
 // ChatAdminRightsTypeID is TL type id of ChatAdminRights.
@@ -167,13 +169,87 @@ func (c *ChatAdminRights) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChatAdminRights) TypeID() uint32 {
+func (*ChatAdminRights) TypeID() uint32 {
 	return ChatAdminRightsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChatAdminRights) TypeName() string {
+func (*ChatAdminRights) TypeName() string {
 	return "chatAdminRights"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatAdminRights) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatAdminRights",
+		ID:   ChatAdminRightsTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ChangeInfo",
+			SchemaName: "change_info",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "PostMessages",
+			SchemaName: "post_messages",
+			Null:       !c.Flags.Has(1),
+		},
+		{
+			Name:       "EditMessages",
+			SchemaName: "edit_messages",
+			Null:       !c.Flags.Has(2),
+		},
+		{
+			Name:       "DeleteMessages",
+			SchemaName: "delete_messages",
+			Null:       !c.Flags.Has(3),
+		},
+		{
+			Name:       "BanUsers",
+			SchemaName: "ban_users",
+			Null:       !c.Flags.Has(4),
+		},
+		{
+			Name:       "InviteUsers",
+			SchemaName: "invite_users",
+			Null:       !c.Flags.Has(5),
+		},
+		{
+			Name:       "PinMessages",
+			SchemaName: "pin_messages",
+			Null:       !c.Flags.Has(7),
+		},
+		{
+			Name:       "AddAdmins",
+			SchemaName: "add_admins",
+			Null:       !c.Flags.Has(9),
+		},
+		{
+			Name:       "Anonymous",
+			SchemaName: "anonymous",
+			Null:       !c.Flags.Has(10),
+		},
+		{
+			Name:       "ManageCall",
+			SchemaName: "manage_call",
+			Null:       !c.Flags.Has(11),
+		},
+		{
+			Name:       "Other",
+			SchemaName: "other",
+			Null:       !c.Flags.Has(12),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

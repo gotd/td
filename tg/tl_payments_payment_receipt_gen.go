@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PaymentsPaymentReceipt represents TL type `payments.paymentReceipt#500911e1`.
 // Receipt
@@ -29,37 +31,37 @@ type PaymentsPaymentReceipt struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Date of generation
-	Date int `tl:"date"`
+	Date int
 	// Bot ID
-	BotID int `tl:"bot_id"`
+	BotID int
 	// Invoice
-	Invoice Invoice `tl:"invoice"`
+	Invoice Invoice
 	// Provider ID
-	ProviderID int `tl:"provider_id"`
+	ProviderID int
 	// Info
 	//
 	// Use SetInfo and GetInfo helpers.
-	Info PaymentRequestedInfo `tl:"info"`
+	Info PaymentRequestedInfo
 	// Selected shipping option
 	//
 	// Use SetShipping and GetShipping helpers.
-	Shipping ShippingOption `tl:"shipping"`
+	Shipping ShippingOption
 	// Three-letter ISO 4217 currency¹ code
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments#supported-currencies
-	Currency string `tl:"currency"`
+	Currency string
 	// Total amount in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json¹, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments/currencies.json
-	TotalAmount int64 `tl:"total_amount"`
+	TotalAmount int64
 	// Payment credential name
-	CredentialsTitle string `tl:"credentials_title"`
+	CredentialsTitle string
 	// Users
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // PaymentsPaymentReceiptTypeID is TL type id of PaymentsPaymentReceipt.
@@ -149,13 +151,74 @@ func (p *PaymentsPaymentReceipt) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PaymentsPaymentReceipt) TypeID() uint32 {
+func (*PaymentsPaymentReceipt) TypeID() uint32 {
 	return PaymentsPaymentReceiptTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PaymentsPaymentReceipt) TypeName() string {
+func (*PaymentsPaymentReceipt) TypeName() string {
 	return "payments.paymentReceipt"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PaymentsPaymentReceipt) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "payments.paymentReceipt",
+		ID:   PaymentsPaymentReceiptTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "BotID",
+			SchemaName: "bot_id",
+		},
+		{
+			Name:       "Invoice",
+			SchemaName: "invoice",
+		},
+		{
+			Name:       "ProviderID",
+			SchemaName: "provider_id",
+		},
+		{
+			Name:       "Info",
+			SchemaName: "info",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "Shipping",
+			SchemaName: "shipping",
+			Null:       !p.Flags.Has(1),
+		},
+		{
+			Name:       "Currency",
+			SchemaName: "currency",
+		},
+		{
+			Name:       "TotalAmount",
+			SchemaName: "total_amount",
+		},
+		{
+			Name:       "CredentialsTitle",
+			SchemaName: "credentials_title",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

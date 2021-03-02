@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // SecurePasswordKdfAlgoUnknown represents TL type `securePasswordKdfAlgoUnknown#4a8537`.
 // Unknown KDF algo (most likely the client has to be updated)
@@ -50,13 +52,27 @@ func (s *SecurePasswordKdfAlgoUnknown) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecurePasswordKdfAlgoUnknown) TypeID() uint32 {
+func (*SecurePasswordKdfAlgoUnknown) TypeID() uint32 {
 	return SecurePasswordKdfAlgoUnknownTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecurePasswordKdfAlgoUnknown) TypeName() string {
+func (*SecurePasswordKdfAlgoUnknown) TypeName() string {
 	return "securePasswordKdfAlgoUnknown"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecurePasswordKdfAlgoUnknown) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "securePasswordKdfAlgoUnknown",
+		ID:   SecurePasswordKdfAlgoUnknownTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -96,7 +112,7 @@ var (
 // See https://core.telegram.org/constructor/securePasswordKdfAlgoPBKDF2HMACSHA512iter100000 for reference.
 type SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000 struct {
 	// Salt
-	Salt []byte `tl:"salt"`
+	Salt []byte
 }
 
 // SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000TypeID is TL type id of SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000.
@@ -132,13 +148,32 @@ func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) FillFrom(from interfac
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) TypeID() uint32 {
+func (*SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) TypeID() uint32 {
 	return SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000TypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) TypeName() string {
+func (*SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) TypeName() string {
 	return "securePasswordKdfAlgoPBKDF2HMACSHA512iter100000"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "securePasswordKdfAlgoPBKDF2HMACSHA512iter100000",
+		ID:   SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000TypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Salt",
+			SchemaName: "salt",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -193,7 +228,7 @@ var (
 // See https://core.telegram.org/constructor/securePasswordKdfAlgoSHA512 for reference.
 type SecurePasswordKdfAlgoSHA512 struct {
 	// Salt
-	Salt []byte `tl:"salt"`
+	Salt []byte
 }
 
 // SecurePasswordKdfAlgoSHA512TypeID is TL type id of SecurePasswordKdfAlgoSHA512.
@@ -229,13 +264,32 @@ func (s *SecurePasswordKdfAlgoSHA512) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecurePasswordKdfAlgoSHA512) TypeID() uint32 {
+func (*SecurePasswordKdfAlgoSHA512) TypeID() uint32 {
 	return SecurePasswordKdfAlgoSHA512TypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecurePasswordKdfAlgoSHA512) TypeName() string {
+func (*SecurePasswordKdfAlgoSHA512) TypeName() string {
 	return "securePasswordKdfAlgoSHA512"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecurePasswordKdfAlgoSHA512) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "securePasswordKdfAlgoSHA512",
+		ID:   SecurePasswordKdfAlgoSHA512TypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Salt",
+			SchemaName: "salt",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

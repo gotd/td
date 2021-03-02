@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PopularContact represents TL type `popularContact#5ce14175`.
 // Popular contact
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/popularContact for reference.
 type PopularContact struct {
 	// Contact identifier
-	ClientID int64 `tl:"client_id"`
+	ClientID int64
 	// How many people imported this contact
-	Importers int `tl:"importers"`
+	Importers int
 }
 
 // PopularContactTypeID is TL type id of PopularContact.
@@ -69,13 +71,36 @@ func (p *PopularContact) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PopularContact) TypeID() uint32 {
+func (*PopularContact) TypeID() uint32 {
 	return PopularContactTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PopularContact) TypeName() string {
+func (*PopularContact) TypeName() string {
 	return "popularContact"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PopularContact) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "popularContact",
+		ID:   PopularContactTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ClientID",
+			SchemaName: "client_id",
+		},
+		{
+			Name:       "Importers",
+			SchemaName: "importers",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

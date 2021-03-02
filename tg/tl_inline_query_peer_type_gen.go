@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InlineQueryPeerTypeSameBotPM represents TL type `inlineQueryPeerTypeSameBotPM#3081ed9d`.
 //
@@ -49,13 +51,27 @@ func (i *InlineQueryPeerTypeSameBotPM) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InlineQueryPeerTypeSameBotPM) TypeID() uint32 {
+func (*InlineQueryPeerTypeSameBotPM) TypeID() uint32 {
 	return InlineQueryPeerTypeSameBotPMTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InlineQueryPeerTypeSameBotPM) TypeName() string {
+func (*InlineQueryPeerTypeSameBotPM) TypeName() string {
 	return "inlineQueryPeerTypeSameBotPM"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InlineQueryPeerTypeSameBotPM) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inlineQueryPeerTypeSameBotPM",
+		ID:   InlineQueryPeerTypeSameBotPMTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -118,13 +134,27 @@ func (i *InlineQueryPeerTypePM) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InlineQueryPeerTypePM) TypeID() uint32 {
+func (*InlineQueryPeerTypePM) TypeID() uint32 {
 	return InlineQueryPeerTypePMTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InlineQueryPeerTypePM) TypeName() string {
+func (*InlineQueryPeerTypePM) TypeName() string {
 	return "inlineQueryPeerTypePM"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InlineQueryPeerTypePM) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inlineQueryPeerTypePM",
+		ID:   InlineQueryPeerTypePMTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -187,13 +217,27 @@ func (i *InlineQueryPeerTypeChat) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InlineQueryPeerTypeChat) TypeID() uint32 {
+func (*InlineQueryPeerTypeChat) TypeID() uint32 {
 	return InlineQueryPeerTypeChatTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InlineQueryPeerTypeChat) TypeName() string {
+func (*InlineQueryPeerTypeChat) TypeName() string {
 	return "inlineQueryPeerTypeChat"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InlineQueryPeerTypeChat) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inlineQueryPeerTypeChat",
+		ID:   InlineQueryPeerTypeChatTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -256,13 +300,27 @@ func (i *InlineQueryPeerTypeMegagroup) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InlineQueryPeerTypeMegagroup) TypeID() uint32 {
+func (*InlineQueryPeerTypeMegagroup) TypeID() uint32 {
 	return InlineQueryPeerTypeMegagroupTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InlineQueryPeerTypeMegagroup) TypeName() string {
+func (*InlineQueryPeerTypeMegagroup) TypeName() string {
 	return "inlineQueryPeerTypeMegagroup"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InlineQueryPeerTypeMegagroup) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inlineQueryPeerTypeMegagroup",
+		ID:   InlineQueryPeerTypeMegagroupTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -325,13 +383,27 @@ func (i *InlineQueryPeerTypeBroadcast) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InlineQueryPeerTypeBroadcast) TypeID() uint32 {
+func (*InlineQueryPeerTypeBroadcast) TypeID() uint32 {
 	return InlineQueryPeerTypeBroadcastTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InlineQueryPeerTypeBroadcast) TypeName() string {
+func (*InlineQueryPeerTypeBroadcast) TypeName() string {
 	return "inlineQueryPeerTypeBroadcast"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InlineQueryPeerTypeBroadcast) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inlineQueryPeerTypeBroadcast",
+		ID:   InlineQueryPeerTypeBroadcastTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

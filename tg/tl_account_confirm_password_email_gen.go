@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountConfirmPasswordEmailRequest represents TL type `account.confirmPasswordEmail#8fdf1920`.
 // Verify an email to use as 2FA recovery method¹.
@@ -32,7 +34,7 @@ type AccountConfirmPasswordEmailRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp#email-verification
-	Code string `tl:"code"`
+	Code string
 }
 
 // AccountConfirmPasswordEmailRequestTypeID is TL type id of AccountConfirmPasswordEmailRequest.
@@ -68,13 +70,32 @@ func (c *AccountConfirmPasswordEmailRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *AccountConfirmPasswordEmailRequest) TypeID() uint32 {
+func (*AccountConfirmPasswordEmailRequest) TypeID() uint32 {
 	return AccountConfirmPasswordEmailRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *AccountConfirmPasswordEmailRequest) TypeName() string {
+func (*AccountConfirmPasswordEmailRequest) TypeName() string {
 	return "account.confirmPasswordEmail"
+}
+
+// TypeInfo returns info about TL type.
+func (c *AccountConfirmPasswordEmailRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.confirmPasswordEmail",
+		ID:   AccountConfirmPasswordEmailRequestTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Code",
+			SchemaName: "code",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

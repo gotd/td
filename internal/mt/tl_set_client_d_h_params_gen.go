@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,15 +20,16 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // SetClientDHParamsRequest represents TL type `set_client_DH_params#f5045f1f`.
 type SetClientDHParamsRequest struct {
 	// Nonce field of SetClientDHParamsRequest.
-	Nonce bin.Int128 `tl:"nonce"`
+	Nonce bin.Int128
 	// ServerNonce field of SetClientDHParamsRequest.
-	ServerNonce bin.Int128 `tl:"server_nonce"`
+	ServerNonce bin.Int128
 	// EncryptedData field of SetClientDHParamsRequest.
-	EncryptedData []byte `tl:"encrypted_data"`
+	EncryptedData []byte
 }
 
 // SetClientDHParamsRequestTypeID is TL type id of SetClientDHParamsRequest.
@@ -73,13 +75,40 @@ func (s *SetClientDHParamsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SetClientDHParamsRequest) TypeID() uint32 {
+func (*SetClientDHParamsRequest) TypeID() uint32 {
 	return SetClientDHParamsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SetClientDHParamsRequest) TypeName() string {
+func (*SetClientDHParamsRequest) TypeName() string {
 	return "set_client_DH_params"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SetClientDHParamsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "set_client_DH_params",
+		ID:   SetClientDHParamsRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Nonce",
+			SchemaName: "nonce",
+		},
+		{
+			Name:       "ServerNonce",
+			SchemaName: "server_nonce",
+		},
+		{
+			Name:       "EncryptedData",
+			SchemaName: "encrypted_data",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,11 +20,12 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // DestroySessionOk represents TL type `destroy_session_ok#e22045fc`.
 type DestroySessionOk struct {
 	// SessionID field of DestroySessionOk.
-	SessionID int64 `tl:"session_id"`
+	SessionID int64
 }
 
 // DestroySessionOkTypeID is TL type id of DestroySessionOk.
@@ -59,13 +61,32 @@ func (d *DestroySessionOk) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DestroySessionOk) TypeID() uint32 {
+func (*DestroySessionOk) TypeID() uint32 {
 	return DestroySessionOkTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DestroySessionOk) TypeName() string {
+func (*DestroySessionOk) TypeName() string {
 	return "destroy_session_ok"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DestroySessionOk) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "destroy_session_ok",
+		ID:   DestroySessionOkTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "SessionID",
+			SchemaName: "session_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -115,7 +136,7 @@ var (
 // DestroySessionNone represents TL type `destroy_session_none#62d350c9`.
 type DestroySessionNone struct {
 	// SessionID field of DestroySessionNone.
-	SessionID int64 `tl:"session_id"`
+	SessionID int64
 }
 
 // DestroySessionNoneTypeID is TL type id of DestroySessionNone.
@@ -151,13 +172,32 @@ func (d *DestroySessionNone) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *DestroySessionNone) TypeID() uint32 {
+func (*DestroySessionNone) TypeID() uint32 {
 	return DestroySessionNoneTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *DestroySessionNone) TypeName() string {
+func (*DestroySessionNone) TypeName() string {
 	return "destroy_session_none"
+}
+
+// TypeInfo returns info about TL type.
+func (d *DestroySessionNone) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "destroy_session_none",
+		ID:   DestroySessionNoneTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "SessionID",
+			SchemaName: "session_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

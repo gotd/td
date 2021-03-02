@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetOnlinesRequest represents TL type `messages.getOnlines#6e2be050`.
 // Get count of online users in a chat
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.getOnlines for reference.
 type MessagesGetOnlinesRequest struct {
 	// The chat
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 }
 
 // MessagesGetOnlinesRequestTypeID is TL type id of MessagesGetOnlinesRequest.
@@ -62,13 +64,32 @@ func (g *MessagesGetOnlinesRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetOnlinesRequest) TypeID() uint32 {
+func (*MessagesGetOnlinesRequest) TypeID() uint32 {
 	return MessagesGetOnlinesRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetOnlinesRequest) TypeName() string {
+func (*MessagesGetOnlinesRequest) TypeName() string {
 	return "messages.getOnlines"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetOnlinesRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getOnlines",
+		ID:   MessagesGetOnlinesRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

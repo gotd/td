@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,15 +20,16 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HTTPWaitRequest represents TL type `http_wait#9299359f`.
 type HTTPWaitRequest struct {
 	// MaxDelay field of HTTPWaitRequest.
-	MaxDelay int `tl:"max_delay"`
+	MaxDelay int
 	// WaitAfter field of HTTPWaitRequest.
-	WaitAfter int `tl:"wait_after"`
+	WaitAfter int
 	// MaxWait field of HTTPWaitRequest.
-	MaxWait int `tl:"max_wait"`
+	MaxWait int
 }
 
 // HTTPWaitRequestTypeID is TL type id of HTTPWaitRequest.
@@ -73,13 +75,40 @@ func (h *HTTPWaitRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (h *HTTPWaitRequest) TypeID() uint32 {
+func (*HTTPWaitRequest) TypeID() uint32 {
 	return HTTPWaitRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (h *HTTPWaitRequest) TypeName() string {
+func (*HTTPWaitRequest) TypeName() string {
 	return "http_wait"
+}
+
+// TypeInfo returns info about TL type.
+func (h *HTTPWaitRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "http_wait",
+		ID:   HTTPWaitRequestTypeID,
+	}
+	if h == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "MaxDelay",
+			SchemaName: "max_delay",
+		},
+		{
+			Name:       "WaitAfter",
+			SchemaName: "wait_after",
+		},
+		{
+			Name:       "MaxWait",
+			SchemaName: "max_wait",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

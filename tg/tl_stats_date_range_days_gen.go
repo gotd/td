@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StatsDateRangeDays represents TL type `statsDateRangeDays#b637edaf`.
 // Channel statistics¹ date range
@@ -29,9 +31,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/statsDateRangeDays for reference.
 type StatsDateRangeDays struct {
 	// Initial date
-	MinDate int `tl:"min_date"`
+	MinDate int
 	// Final date
-	MaxDate int `tl:"max_date"`
+	MaxDate int
 }
 
 // StatsDateRangeDaysTypeID is TL type id of StatsDateRangeDays.
@@ -72,13 +74,36 @@ func (s *StatsDateRangeDays) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *StatsDateRangeDays) TypeID() uint32 {
+func (*StatsDateRangeDays) TypeID() uint32 {
 	return StatsDateRangeDaysTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *StatsDateRangeDays) TypeName() string {
+func (*StatsDateRangeDays) TypeName() string {
 	return "statsDateRangeDays"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StatsDateRangeDays) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "statsDateRangeDays",
+		ID:   StatsDateRangeDaysTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "MinDate",
+			SchemaName: "min_date",
+		},
+		{
+			Name:       "MaxDate",
+			SchemaName: "max_date",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

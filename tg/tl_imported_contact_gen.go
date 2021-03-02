@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ImportedContact represents TL type `importedContact#d0028438`.
 // Successfully imported contact.
@@ -26,12 +28,12 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/importedContact for reference.
 type ImportedContact struct {
 	// User identifier
-	UserID int `tl:"user_id"`
+	UserID int
 	// The contact's client identifier (passed to one of the InputContact¹ constructors)
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/InputContact
-	ClientID int64 `tl:"client_id"`
+	ClientID int64
 }
 
 // ImportedContactTypeID is TL type id of ImportedContact.
@@ -72,13 +74,36 @@ func (i *ImportedContact) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *ImportedContact) TypeID() uint32 {
+func (*ImportedContact) TypeID() uint32 {
 	return ImportedContactTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *ImportedContact) TypeName() string {
+func (*ImportedContact) TypeName() string {
 	return "importedContact"
+}
+
+// TypeInfo returns info about TL type.
+func (i *ImportedContact) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "importedContact",
+		ID:   ImportedContactTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "ClientID",
+			SchemaName: "client_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

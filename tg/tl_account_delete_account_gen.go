@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountDeleteAccountRequest represents TL type `account.deleteAccount#418d4e0b`.
 // Delete the user's account from the telegram servers. Can be used, for example, to delete the account of a user that provided the login code, but forgot the 2FA password and no recovery method is configured¹.
@@ -29,7 +31,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/account.deleteAccount for reference.
 type AccountDeleteAccountRequest struct {
 	// Why is the account being deleted, can be empty
-	Reason string `tl:"reason"`
+	Reason string
 }
 
 // AccountDeleteAccountRequestTypeID is TL type id of AccountDeleteAccountRequest.
@@ -65,13 +67,32 @@ func (d *AccountDeleteAccountRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *AccountDeleteAccountRequest) TypeID() uint32 {
+func (*AccountDeleteAccountRequest) TypeID() uint32 {
 	return AccountDeleteAccountRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *AccountDeleteAccountRequest) TypeName() string {
+func (*AccountDeleteAccountRequest) TypeName() string {
 	return "account.deleteAccount"
+}
+
+// TypeInfo returns info about TL type.
+func (d *AccountDeleteAccountRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.deleteAccount",
+		ID:   AccountDeleteAccountRequestTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Reason",
+			SchemaName: "reason",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StatsGetMessagePublicForwardsRequest represents TL type `stats.getMessagePublicForwards#5630281b`.
 // Obtains a list of messages, indicating to which other public channels was a channel message forwarded.
@@ -30,29 +32,29 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/stats.getMessagePublicForwards for reference.
 type StatsGetMessagePublicForwardsRequest struct {
 	// Source channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// Source message ID
-	MsgID int `tl:"msg_id"`
+	MsgID int
 	// Initially 0, then set to the next_rate parameter of messages.messagesSlice¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/messages.messagesSlice
-	OffsetRate int `tl:"offset_rate"`
+	OffsetRate int
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetPeer InputPeerClass `tl:"offset_peer"`
+	OffsetPeer InputPeerClass
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetID int `tl:"offset_id"`
+	OffsetID int
 	// Maximum number of results to return, see pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int `tl:"limit"`
+	Limit int
 }
 
 // StatsGetMessagePublicForwardsRequestTypeID is TL type id of StatsGetMessagePublicForwardsRequest.
@@ -113,13 +115,52 @@ func (g *StatsGetMessagePublicForwardsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *StatsGetMessagePublicForwardsRequest) TypeID() uint32 {
+func (*StatsGetMessagePublicForwardsRequest) TypeID() uint32 {
 	return StatsGetMessagePublicForwardsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *StatsGetMessagePublicForwardsRequest) TypeName() string {
+func (*StatsGetMessagePublicForwardsRequest) TypeName() string {
 	return "stats.getMessagePublicForwards"
+}
+
+// TypeInfo returns info about TL type.
+func (g *StatsGetMessagePublicForwardsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "stats.getMessagePublicForwards",
+		ID:   StatsGetMessagePublicForwardsRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Channel",
+			SchemaName: "channel",
+		},
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+		{
+			Name:       "OffsetRate",
+			SchemaName: "offset_rate",
+		},
+		{
+			Name:       "OffsetPeer",
+			SchemaName: "offset_peer",
+		},
+		{
+			Name:       "OffsetID",
+			SchemaName: "offset_id",
+		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

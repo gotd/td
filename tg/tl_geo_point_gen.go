@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // GeoPointEmpty represents TL type `geoPointEmpty#1117dd5f`.
 // Empty constructor.
@@ -50,13 +52,27 @@ func (g *GeoPointEmpty) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *GeoPointEmpty) TypeID() uint32 {
+func (*GeoPointEmpty) TypeID() uint32 {
 	return GeoPointEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *GeoPointEmpty) TypeName() string {
+func (*GeoPointEmpty) TypeName() string {
 	return "geoPointEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (g *GeoPointEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "geoPointEmpty",
+		ID:   GeoPointEmptyTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -99,17 +115,17 @@ type GeoPoint struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Longtitude
-	Long float64 `tl:"long"`
+	Long float64
 	// Latitude
-	Lat float64 `tl:"lat"`
+	Lat float64
 	// Access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// The estimated horizontal accuracy of the location, in meters; as defined by the sender.
 	//
 	// Use SetAccuracyRadius and GetAccuracyRadius helpers.
-	AccuracyRadius int `tl:"accuracy_radius"`
+	AccuracyRadius int
 }
 
 // GeoPointTypeID is TL type id of GeoPoint.
@@ -166,13 +182,49 @@ func (g *GeoPoint) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *GeoPoint) TypeID() uint32 {
+func (*GeoPoint) TypeID() uint32 {
 	return GeoPointTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *GeoPoint) TypeName() string {
+func (*GeoPoint) TypeName() string {
 	return "geoPoint"
+}
+
+// TypeInfo returns info about TL type.
+func (g *GeoPoint) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "geoPoint",
+		ID:   GeoPointTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Long",
+			SchemaName: "long",
+		},
+		{
+			Name:       "Lat",
+			SchemaName: "lat",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "AccuracyRadius",
+			SchemaName: "accuracy_radius",
+			Null:       !g.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StorageFileUnknown represents TL type `storage.fileUnknown#aa963b05`.
 // Unknown type.
@@ -50,13 +52,27 @@ func (f *StorageFileUnknown) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *StorageFileUnknown) TypeID() uint32 {
+func (*StorageFileUnknown) TypeID() uint32 {
 	return StorageFileUnknownTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *StorageFileUnknown) TypeName() string {
+func (*StorageFileUnknown) TypeName() string {
 	return "storage.fileUnknown"
+}
+
+// TypeInfo returns info about TL type.
+func (f *StorageFileUnknown) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "storage.fileUnknown",
+		ID:   StorageFileUnknownTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -120,13 +136,27 @@ func (f *StorageFilePartial) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *StorageFilePartial) TypeID() uint32 {
+func (*StorageFilePartial) TypeID() uint32 {
 	return StorageFilePartialTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *StorageFilePartial) TypeName() string {
+func (*StorageFilePartial) TypeName() string {
 	return "storage.filePartial"
+}
+
+// TypeInfo returns info about TL type.
+func (f *StorageFilePartial) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "storage.filePartial",
+		ID:   StorageFilePartialTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -190,13 +220,27 @@ func (f *StorageFileJpeg) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *StorageFileJpeg) TypeID() uint32 {
+func (*StorageFileJpeg) TypeID() uint32 {
 	return StorageFileJpegTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *StorageFileJpeg) TypeName() string {
+func (*StorageFileJpeg) TypeName() string {
 	return "storage.fileJpeg"
+}
+
+// TypeInfo returns info about TL type.
+func (f *StorageFileJpeg) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "storage.fileJpeg",
+		ID:   StorageFileJpegTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -260,13 +304,27 @@ func (f *StorageFileGif) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *StorageFileGif) TypeID() uint32 {
+func (*StorageFileGif) TypeID() uint32 {
 	return StorageFileGifTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *StorageFileGif) TypeName() string {
+func (*StorageFileGif) TypeName() string {
 	return "storage.fileGif"
+}
+
+// TypeInfo returns info about TL type.
+func (f *StorageFileGif) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "storage.fileGif",
+		ID:   StorageFileGifTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -330,13 +388,27 @@ func (f *StorageFilePng) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *StorageFilePng) TypeID() uint32 {
+func (*StorageFilePng) TypeID() uint32 {
 	return StorageFilePngTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *StorageFilePng) TypeName() string {
+func (*StorageFilePng) TypeName() string {
 	return "storage.filePng"
+}
+
+// TypeInfo returns info about TL type.
+func (f *StorageFilePng) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "storage.filePng",
+		ID:   StorageFilePngTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -400,13 +472,27 @@ func (f *StorageFilePdf) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *StorageFilePdf) TypeID() uint32 {
+func (*StorageFilePdf) TypeID() uint32 {
 	return StorageFilePdfTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *StorageFilePdf) TypeName() string {
+func (*StorageFilePdf) TypeName() string {
 	return "storage.filePdf"
+}
+
+// TypeInfo returns info about TL type.
+func (f *StorageFilePdf) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "storage.filePdf",
+		ID:   StorageFilePdfTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -470,13 +556,27 @@ func (f *StorageFileMp3) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *StorageFileMp3) TypeID() uint32 {
+func (*StorageFileMp3) TypeID() uint32 {
 	return StorageFileMp3TypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *StorageFileMp3) TypeName() string {
+func (*StorageFileMp3) TypeName() string {
 	return "storage.fileMp3"
+}
+
+// TypeInfo returns info about TL type.
+func (f *StorageFileMp3) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "storage.fileMp3",
+		ID:   StorageFileMp3TypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -540,13 +640,27 @@ func (f *StorageFileMov) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *StorageFileMov) TypeID() uint32 {
+func (*StorageFileMov) TypeID() uint32 {
 	return StorageFileMovTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *StorageFileMov) TypeName() string {
+func (*StorageFileMov) TypeName() string {
 	return "storage.fileMov"
+}
+
+// TypeInfo returns info about TL type.
+func (f *StorageFileMov) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "storage.fileMov",
+		ID:   StorageFileMovTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -610,13 +724,27 @@ func (f *StorageFileMp4) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *StorageFileMp4) TypeID() uint32 {
+func (*StorageFileMp4) TypeID() uint32 {
 	return StorageFileMp4TypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *StorageFileMp4) TypeName() string {
+func (*StorageFileMp4) TypeName() string {
 	return "storage.fileMp4"
+}
+
+// TypeInfo returns info about TL type.
+func (f *StorageFileMp4) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "storage.fileMp4",
+		ID:   StorageFileMp4TypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -680,13 +808,27 @@ func (f *StorageFileWebp) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *StorageFileWebp) TypeID() uint32 {
+func (*StorageFileWebp) TypeID() uint32 {
 	return StorageFileWebpTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *StorageFileWebp) TypeName() string {
+func (*StorageFileWebp) TypeName() string {
 	return "storage.fileWebp"
+}
+
+// TypeInfo returns info about TL type.
+func (f *StorageFileWebp) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "storage.fileWebp",
+		ID:   StorageFileWebpTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

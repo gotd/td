@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesReadMentionsRequest represents TL type `messages.readMentions#f0189d3`.
 // Mark mentions as read
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.readMentions for reference.
 type MessagesReadMentionsRequest struct {
 	// Dialog
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 }
 
 // MessagesReadMentionsRequestTypeID is TL type id of MessagesReadMentionsRequest.
@@ -62,13 +64,32 @@ func (r *MessagesReadMentionsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *MessagesReadMentionsRequest) TypeID() uint32 {
+func (*MessagesReadMentionsRequest) TypeID() uint32 {
 	return MessagesReadMentionsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *MessagesReadMentionsRequest) TypeName() string {
+func (*MessagesReadMentionsRequest) TypeName() string {
 	return "messages.readMentions"
+}
+
+// TypeInfo returns info about TL type.
+func (r *MessagesReadMentionsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.readMentions",
+		ID:   MessagesReadMentionsRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

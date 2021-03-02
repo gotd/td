@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StickersRemoveStickerFromSetRequest represents TL type `stickers.removeStickerFromSet#f7760f51`.
 // Remove a sticker from the set where it belongs, bots only. The sticker set must have been created by the bot.
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/stickers.removeStickerFromSet for reference.
 type StickersRemoveStickerFromSetRequest struct {
 	// The sticker to remove
-	Sticker InputDocumentClass `tl:"sticker"`
+	Sticker InputDocumentClass
 }
 
 // StickersRemoveStickerFromSetRequestTypeID is TL type id of StickersRemoveStickerFromSetRequest.
@@ -62,13 +64,32 @@ func (r *StickersRemoveStickerFromSetRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *StickersRemoveStickerFromSetRequest) TypeID() uint32 {
+func (*StickersRemoveStickerFromSetRequest) TypeID() uint32 {
 	return StickersRemoveStickerFromSetRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *StickersRemoveStickerFromSetRequest) TypeName() string {
+func (*StickersRemoveStickerFromSetRequest) TypeName() string {
 	return "stickers.removeStickerFromSet"
+}
+
+// TypeInfo returns info about TL type.
+func (r *StickersRemoveStickerFromSetRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "stickers.removeStickerFromSet",
+		ID:   StickersRemoveStickerFromSetRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Sticker",
+			SchemaName: "sticker",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

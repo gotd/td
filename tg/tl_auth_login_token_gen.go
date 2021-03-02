@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AuthLoginToken represents TL type `auth.loginToken#629f1980`.
 // Login token (for QR code login¹)
@@ -29,9 +31,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/auth.loginToken for reference.
 type AuthLoginToken struct {
 	// Expiry date of QR code
-	Expires int `tl:"expires"`
+	Expires int
 	// Token to render in QR code
-	Token []byte `tl:"token"`
+	Token []byte
 }
 
 // AuthLoginTokenTypeID is TL type id of AuthLoginToken.
@@ -72,13 +74,36 @@ func (l *AuthLoginToken) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (l *AuthLoginToken) TypeID() uint32 {
+func (*AuthLoginToken) TypeID() uint32 {
 	return AuthLoginTokenTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (l *AuthLoginToken) TypeName() string {
+func (*AuthLoginToken) TypeName() string {
 	return "auth.loginToken"
+}
+
+// TypeInfo returns info about TL type.
+func (l *AuthLoginToken) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.loginToken",
+		ID:   AuthLoginTokenTypeID,
+	}
+	if l == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Expires",
+			SchemaName: "expires",
+		},
+		{
+			Name:       "Token",
+			SchemaName: "token",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -144,9 +169,9 @@ var (
 // See https://core.telegram.org/constructor/auth.loginTokenMigrateTo for reference.
 type AuthLoginTokenMigrateTo struct {
 	// DC ID
-	DCID int `tl:"dc_id"`
+	DCID int
 	// Token to use for login
-	Token []byte `tl:"token"`
+	Token []byte
 }
 
 // AuthLoginTokenMigrateToTypeID is TL type id of AuthLoginTokenMigrateTo.
@@ -187,13 +212,36 @@ func (l *AuthLoginTokenMigrateTo) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (l *AuthLoginTokenMigrateTo) TypeID() uint32 {
+func (*AuthLoginTokenMigrateTo) TypeID() uint32 {
 	return AuthLoginTokenMigrateToTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (l *AuthLoginTokenMigrateTo) TypeName() string {
+func (*AuthLoginTokenMigrateTo) TypeName() string {
 	return "auth.loginTokenMigrateTo"
+}
+
+// TypeInfo returns info about TL type.
+func (l *AuthLoginTokenMigrateTo) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.loginTokenMigrateTo",
+		ID:   AuthLoginTokenMigrateToTypeID,
+	}
+	if l == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "DCID",
+			SchemaName: "dc_id",
+		},
+		{
+			Name:       "Token",
+			SchemaName: "token",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -259,7 +307,7 @@ var (
 // See https://core.telegram.org/constructor/auth.loginTokenSuccess for reference.
 type AuthLoginTokenSuccess struct {
 	// Authorization info
-	Authorization AuthAuthorizationClass `tl:"authorization"`
+	Authorization AuthAuthorizationClass
 }
 
 // AuthLoginTokenSuccessTypeID is TL type id of AuthLoginTokenSuccess.
@@ -295,13 +343,32 @@ func (l *AuthLoginTokenSuccess) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (l *AuthLoginTokenSuccess) TypeID() uint32 {
+func (*AuthLoginTokenSuccess) TypeID() uint32 {
 	return AuthLoginTokenSuccessTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (l *AuthLoginTokenSuccess) TypeName() string {
+func (*AuthLoginTokenSuccess) TypeName() string {
 	return "auth.loginTokenSuccess"
+}
+
+// TypeInfo returns info about TL type.
+func (l *AuthLoginTokenSuccess) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.loginTokenSuccess",
+		ID:   AuthLoginTokenSuccessTypeID,
+	}
+	if l == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Authorization",
+			SchemaName: "authorization",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

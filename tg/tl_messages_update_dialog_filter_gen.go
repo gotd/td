@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesUpdateDialogFilterRequest represents TL type `messages.updateDialogFilter#1ad4a04a`.
 // Update folder¹
@@ -32,19 +34,19 @@ type MessagesUpdateDialogFilterRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Folder¹ ID
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	ID int `tl:"id"`
+	ID int
 	// Folder¹ info
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
 	//
 	// Use SetFilter and GetFilter helpers.
-	Filter DialogFilter `tl:"filter"`
+	Filter DialogFilter
 }
 
 // MessagesUpdateDialogFilterRequestTypeID is TL type id of MessagesUpdateDialogFilterRequest.
@@ -91,13 +93,41 @@ func (u *MessagesUpdateDialogFilterRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *MessagesUpdateDialogFilterRequest) TypeID() uint32 {
+func (*MessagesUpdateDialogFilterRequest) TypeID() uint32 {
 	return MessagesUpdateDialogFilterRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *MessagesUpdateDialogFilterRequest) TypeName() string {
+func (*MessagesUpdateDialogFilterRequest) TypeName() string {
 	return "messages.updateDialogFilter"
+}
+
+// TypeInfo returns info about TL type.
+func (u *MessagesUpdateDialogFilterRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.updateDialogFilter",
+		ID:   MessagesUpdateDialogFilterRequestTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Filter",
+			SchemaName: "filter",
+			Null:       !u.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

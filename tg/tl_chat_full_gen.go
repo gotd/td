@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChatFull represents TL type `chatFull#f06c4018`.
 // Detailed chat info
@@ -29,56 +31,56 @@ type ChatFull struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Can we change the username of this chat
-	CanSetUsername bool `tl:"can_set_username"`
+	CanSetUsername bool
 	// Whether scheduled messages¹ are available
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/scheduled-messages
-	HasScheduled bool `tl:"has_scheduled"`
+	HasScheduled bool
 	// ID of the chat
-	ID int `tl:"id"`
+	ID int
 	// About string for this chat
-	About string `tl:"about"`
+	About string
 	// Participant list
-	Participants ChatParticipantsClass `tl:"participants"`
+	Participants ChatParticipantsClass
 	// Chat photo
 	//
 	// Use SetChatPhoto and GetChatPhoto helpers.
-	ChatPhoto PhotoClass `tl:"chat_photo"`
+	ChatPhoto PhotoClass
 	// Notification settings
-	NotifySettings PeerNotifySettings `tl:"notify_settings"`
+	NotifySettings PeerNotifySettings
 	// Chat invite
 	//
 	// Use SetExportedInvite and GetExportedInvite helpers.
-	ExportedInvite ChatInviteExported `tl:"exported_invite"`
+	ExportedInvite ChatInviteExported
 	// Info about bots that are in this chat
 	//
 	// Use SetBotInfo and GetBotInfo helpers.
-	BotInfo []BotInfo `tl:"bot_info"`
+	BotInfo []BotInfo
 	// Message ID of the last pinned message¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/pin
 	//
 	// Use SetPinnedMsgID and GetPinnedMsgID helpers.
-	PinnedMsgID int `tl:"pinned_msg_id"`
+	PinnedMsgID int
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int `tl:"folder_id"`
+	FolderID int
 	// Call field of ChatFull.
 	//
 	// Use SetCall and GetCall helpers.
-	Call InputGroupCall `tl:"call"`
+	Call InputGroupCall
 	// TTLPeriod field of ChatFull.
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
-	TTLPeriod int `tl:"ttl_period"`
+	TTLPeriod int
 }
 
 // ChatFullTypeID is TL type id of ChatFull.
@@ -198,13 +200,93 @@ func (c *ChatFull) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChatFull) TypeID() uint32 {
+func (*ChatFull) TypeID() uint32 {
 	return ChatFullTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChatFull) TypeName() string {
+func (*ChatFull) TypeName() string {
 	return "chatFull"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChatFull) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "chatFull",
+		ID:   ChatFullTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "CanSetUsername",
+			SchemaName: "can_set_username",
+			Null:       !c.Flags.Has(7),
+		},
+		{
+			Name:       "HasScheduled",
+			SchemaName: "has_scheduled",
+			Null:       !c.Flags.Has(8),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "About",
+			SchemaName: "about",
+		},
+		{
+			Name:       "Participants",
+			SchemaName: "participants",
+		},
+		{
+			Name:       "ChatPhoto",
+			SchemaName: "chat_photo",
+			Null:       !c.Flags.Has(2),
+		},
+		{
+			Name:       "NotifySettings",
+			SchemaName: "notify_settings",
+		},
+		{
+			Name:       "ExportedInvite",
+			SchemaName: "exported_invite",
+			Null:       !c.Flags.Has(13),
+		},
+		{
+			Name:       "BotInfo",
+			SchemaName: "bot_info",
+			Null:       !c.Flags.Has(3),
+		},
+		{
+			Name:       "PinnedMsgID",
+			SchemaName: "pinned_msg_id",
+			Null:       !c.Flags.Has(6),
+		},
+		{
+			Name:       "FolderID",
+			SchemaName: "folder_id",
+			Null:       !c.Flags.Has(11),
+		},
+		{
+			Name:       "Call",
+			SchemaName: "call",
+			Null:       !c.Flags.Has(12),
+		},
+		{
+			Name:       "TTLPeriod",
+			SchemaName: "ttl_period",
+			Null:       !c.Flags.Has(14),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -567,154 +649,154 @@ type ChannelFull struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Can we vew the participant list?
-	CanViewParticipants bool `tl:"can_view_participants"`
+	CanViewParticipants bool
 	// Can we set the channel's username?
-	CanSetUsername bool `tl:"can_set_username"`
+	CanSetUsername bool
 	// Can we associate¹ a stickerpack to the supergroup?
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/channels.setStickers
-	CanSetStickers bool `tl:"can_set_stickers"`
+	CanSetStickers bool
 	// Is the history before we joined hidden to us?
-	HiddenPrehistory bool `tl:"hidden_prehistory"`
+	HiddenPrehistory bool
 	// Can we set the geolocation of this group (for geogroups)
-	CanSetLocation bool `tl:"can_set_location"`
+	CanSetLocation bool
 	// Whether scheduled messages are available
-	HasScheduled bool `tl:"has_scheduled"`
+	HasScheduled bool
 	// Can the user view channel/supergroup statistics¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/stats
-	CanViewStats bool `tl:"can_view_stats"`
+	CanViewStats bool
 	// Whether any anonymous admin of this supergroup was blocked: if set, you won't receive messages from anonymous group admins in discussion replies via @replies¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/discussion
-	Blocked bool `tl:"blocked"`
+	Blocked bool
 	// ID of the channel
-	ID int `tl:"id"`
+	ID int
 	// Info about the channel
-	About string `tl:"about"`
+	About string
 	// Number of participants of the channel
 	//
 	// Use SetParticipantsCount and GetParticipantsCount helpers.
-	ParticipantsCount int `tl:"participants_count"`
+	ParticipantsCount int
 	// Number of channel admins
 	//
 	// Use SetAdminsCount and GetAdminsCount helpers.
-	AdminsCount int `tl:"admins_count"`
+	AdminsCount int
 	// Number of users kicked¹ from the channel
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetKickedCount and GetKickedCount helpers.
-	KickedCount int `tl:"kicked_count"`
+	KickedCount int
 	// Number of users banned¹ from the channel
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetBannedCount and GetBannedCount helpers.
-	BannedCount int `tl:"banned_count"`
+	BannedCount int
 	// Number of users currently online
 	//
 	// Use SetOnlineCount and GetOnlineCount helpers.
-	OnlineCount int `tl:"online_count"`
+	OnlineCount int
 	// Position up to which all incoming messages are read.
-	ReadInboxMaxID int `tl:"read_inbox_max_id"`
+	ReadInboxMaxID int
 	// Position up to which all outgoing messages are read.
-	ReadOutboxMaxID int `tl:"read_outbox_max_id"`
+	ReadOutboxMaxID int
 	// Count of unread messages
-	UnreadCount int `tl:"unread_count"`
+	UnreadCount int
 	// Channel picture
-	ChatPhoto PhotoClass `tl:"chat_photo"`
+	ChatPhoto PhotoClass
 	// Notification settings
-	NotifySettings PeerNotifySettings `tl:"notify_settings"`
+	NotifySettings PeerNotifySettings
 	// Invite link
 	//
 	// Use SetExportedInvite and GetExportedInvite helpers.
-	ExportedInvite ChatInviteExported `tl:"exported_invite"`
+	ExportedInvite ChatInviteExported
 	// Info about bots in the channel/supergrup
-	BotInfo []BotInfo `tl:"bot_info"`
+	BotInfo []BotInfo
 	// The chat ID from which this group was migrated¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	//
 	// Use SetMigratedFromChatID and GetMigratedFromChatID helpers.
-	MigratedFromChatID int `tl:"migrated_from_chat_id"`
+	MigratedFromChatID int
 	// The message ID in the original chat at which this group was migrated¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	//
 	// Use SetMigratedFromMaxID and GetMigratedFromMaxID helpers.
-	MigratedFromMaxID int `tl:"migrated_from_max_id"`
+	MigratedFromMaxID int
 	// Message ID of the last pinned message¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/pin
 	//
 	// Use SetPinnedMsgID and GetPinnedMsgID helpers.
-	PinnedMsgID int `tl:"pinned_msg_id"`
+	PinnedMsgID int
 	// Associated stickerset
 	//
 	// Use SetStickerset and GetStickerset helpers.
-	Stickerset StickerSet `tl:"stickerset"`
+	Stickerset StickerSet
 	// Identifier of a maximum unavailable message in a channel due to hidden history.
 	//
 	// Use SetAvailableMinID and GetAvailableMinID helpers.
-	AvailableMinID int `tl:"available_min_id"`
+	AvailableMinID int
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int `tl:"folder_id"`
+	FolderID int
 	// ID of the linked discussion chat¹ for channels
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/discussion
 	//
 	// Use SetLinkedChatID and GetLinkedChatID helpers.
-	LinkedChatID int `tl:"linked_chat_id"`
+	LinkedChatID int
 	// Location of the geogroup
 	//
 	// Use SetLocation and GetLocation helpers.
-	Location ChannelLocationClass `tl:"location"`
+	Location ChannelLocationClass
 	// If specified, users in supergroups will only be able to send one message every slowmode_seconds seconds
 	//
 	// Use SetSlowmodeSeconds and GetSlowmodeSeconds helpers.
-	SlowmodeSeconds int `tl:"slowmode_seconds"`
+	SlowmodeSeconds int
 	// Indicates when the user will be allowed to send another message in the supergroup (unixdate)
 	//
 	// Use SetSlowmodeNextSendDate and GetSlowmodeNextSendDate helpers.
-	SlowmodeNextSendDate int `tl:"slowmode_next_send_date"`
+	SlowmodeNextSendDate int
 	// If set, specifies the DC to use for fetching channel statistics
 	//
 	// Use SetStatsDC and GetStatsDC helpers.
-	StatsDC int `tl:"stats_dc"`
+	StatsDC int
 	// Latest PTS¹ for this channel
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int `tl:"pts"`
+	Pts int
 	// Call field of ChannelFull.
 	//
 	// Use SetCall and GetCall helpers.
-	Call InputGroupCall `tl:"call"`
+	Call InputGroupCall
 	// TTLPeriod field of ChannelFull.
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
-	TTLPeriod int `tl:"ttl_period"`
+	TTLPeriod int
 	// PendingSuggestions field of ChannelFull.
 	//
 	// Use SetPendingSuggestions and GetPendingSuggestions helpers.
-	PendingSuggestions []string `tl:"pending_suggestions"`
+	PendingSuggestions []string
 }
 
 // ChannelFullTypeID is TL type id of ChannelFull.
@@ -993,13 +1075,208 @@ func (c *ChannelFull) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelFull) TypeID() uint32 {
+func (*ChannelFull) TypeID() uint32 {
 	return ChannelFullTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelFull) TypeName() string {
+func (*ChannelFull) TypeName() string {
 	return "channelFull"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelFull) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channelFull",
+		ID:   ChannelFullTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "CanViewParticipants",
+			SchemaName: "can_view_participants",
+			Null:       !c.Flags.Has(3),
+		},
+		{
+			Name:       "CanSetUsername",
+			SchemaName: "can_set_username",
+			Null:       !c.Flags.Has(6),
+		},
+		{
+			Name:       "CanSetStickers",
+			SchemaName: "can_set_stickers",
+			Null:       !c.Flags.Has(7),
+		},
+		{
+			Name:       "HiddenPrehistory",
+			SchemaName: "hidden_prehistory",
+			Null:       !c.Flags.Has(10),
+		},
+		{
+			Name:       "CanSetLocation",
+			SchemaName: "can_set_location",
+			Null:       !c.Flags.Has(16),
+		},
+		{
+			Name:       "HasScheduled",
+			SchemaName: "has_scheduled",
+			Null:       !c.Flags.Has(19),
+		},
+		{
+			Name:       "CanViewStats",
+			SchemaName: "can_view_stats",
+			Null:       !c.Flags.Has(20),
+		},
+		{
+			Name:       "Blocked",
+			SchemaName: "blocked",
+			Null:       !c.Flags.Has(22),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "About",
+			SchemaName: "about",
+		},
+		{
+			Name:       "ParticipantsCount",
+			SchemaName: "participants_count",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "AdminsCount",
+			SchemaName: "admins_count",
+			Null:       !c.Flags.Has(1),
+		},
+		{
+			Name:       "KickedCount",
+			SchemaName: "kicked_count",
+			Null:       !c.Flags.Has(2),
+		},
+		{
+			Name:       "BannedCount",
+			SchemaName: "banned_count",
+			Null:       !c.Flags.Has(2),
+		},
+		{
+			Name:       "OnlineCount",
+			SchemaName: "online_count",
+			Null:       !c.Flags.Has(13),
+		},
+		{
+			Name:       "ReadInboxMaxID",
+			SchemaName: "read_inbox_max_id",
+		},
+		{
+			Name:       "ReadOutboxMaxID",
+			SchemaName: "read_outbox_max_id",
+		},
+		{
+			Name:       "UnreadCount",
+			SchemaName: "unread_count",
+		},
+		{
+			Name:       "ChatPhoto",
+			SchemaName: "chat_photo",
+		},
+		{
+			Name:       "NotifySettings",
+			SchemaName: "notify_settings",
+		},
+		{
+			Name:       "ExportedInvite",
+			SchemaName: "exported_invite",
+			Null:       !c.Flags.Has(23),
+		},
+		{
+			Name:       "BotInfo",
+			SchemaName: "bot_info",
+		},
+		{
+			Name:       "MigratedFromChatID",
+			SchemaName: "migrated_from_chat_id",
+			Null:       !c.Flags.Has(4),
+		},
+		{
+			Name:       "MigratedFromMaxID",
+			SchemaName: "migrated_from_max_id",
+			Null:       !c.Flags.Has(4),
+		},
+		{
+			Name:       "PinnedMsgID",
+			SchemaName: "pinned_msg_id",
+			Null:       !c.Flags.Has(5),
+		},
+		{
+			Name:       "Stickerset",
+			SchemaName: "stickerset",
+			Null:       !c.Flags.Has(8),
+		},
+		{
+			Name:       "AvailableMinID",
+			SchemaName: "available_min_id",
+			Null:       !c.Flags.Has(9),
+		},
+		{
+			Name:       "FolderID",
+			SchemaName: "folder_id",
+			Null:       !c.Flags.Has(11),
+		},
+		{
+			Name:       "LinkedChatID",
+			SchemaName: "linked_chat_id",
+			Null:       !c.Flags.Has(14),
+		},
+		{
+			Name:       "Location",
+			SchemaName: "location",
+			Null:       !c.Flags.Has(15),
+		},
+		{
+			Name:       "SlowmodeSeconds",
+			SchemaName: "slowmode_seconds",
+			Null:       !c.Flags.Has(17),
+		},
+		{
+			Name:       "SlowmodeNextSendDate",
+			SchemaName: "slowmode_next_send_date",
+			Null:       !c.Flags.Has(18),
+		},
+		{
+			Name:       "StatsDC",
+			SchemaName: "stats_dc",
+			Null:       !c.Flags.Has(12),
+		},
+		{
+			Name:       "Pts",
+			SchemaName: "pts",
+		},
+		{
+			Name:       "Call",
+			SchemaName: "call",
+			Null:       !c.Flags.Has(21),
+		},
+		{
+			Name:       "TTLPeriod",
+			SchemaName: "ttl_period",
+			Null:       !c.Flags.Has(24),
+		},
+		{
+			Name:       "PendingSuggestions",
+			SchemaName: "pending_suggestions",
+			Null:       !c.Flags.Has(25),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

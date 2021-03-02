@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PageRelatedArticle represents TL type `pageRelatedArticle#b390dc08`.
 // Related article
@@ -29,31 +31,31 @@ type PageRelatedArticle struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// URL of article
-	URL string `tl:"url"`
+	URL string
 	// Webpage ID of generated IV preview
-	WebpageID int64 `tl:"webpage_id"`
+	WebpageID int64
 	// Title
 	//
 	// Use SetTitle and GetTitle helpers.
-	Title string `tl:"title"`
+	Title string
 	// Description
 	//
 	// Use SetDescription and GetDescription helpers.
-	Description string `tl:"description"`
+	Description string
 	// ID of preview photo
 	//
 	// Use SetPhotoID and GetPhotoID helpers.
-	PhotoID int64 `tl:"photo_id"`
+	PhotoID int64
 	// Author name
 	//
 	// Use SetAuthor and GetAuthor helpers.
-	Author string `tl:"author"`
+	Author string
 	// Date of pubblication
 	//
 	// Use SetPublishedDate and GetPublishedDate helpers.
-	PublishedDate int `tl:"published_date"`
+	PublishedDate int
 }
 
 // PageRelatedArticleTypeID is TL type id of PageRelatedArticle.
@@ -137,13 +139,65 @@ func (p *PageRelatedArticle) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageRelatedArticle) TypeID() uint32 {
+func (*PageRelatedArticle) TypeID() uint32 {
 	return PageRelatedArticleTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageRelatedArticle) TypeName() string {
+func (*PageRelatedArticle) TypeName() string {
 	return "pageRelatedArticle"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageRelatedArticle) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageRelatedArticle",
+		ID:   PageRelatedArticleTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+		{
+			Name:       "WebpageID",
+			SchemaName: "webpage_id",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "Description",
+			SchemaName: "description",
+			Null:       !p.Flags.Has(1),
+		},
+		{
+			Name:       "PhotoID",
+			SchemaName: "photo_id",
+			Null:       !p.Flags.Has(2),
+		},
+		{
+			Name:       "Author",
+			SchemaName: "author",
+			Null:       !p.Flags.Has(3),
+		},
+		{
+			Name:       "PublishedDate",
+			SchemaName: "published_date",
+			Null:       !p.Flags.Has(4),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

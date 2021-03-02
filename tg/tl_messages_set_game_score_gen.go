@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSetGameScoreRequest represents TL type `messages.setGameScore#8ef8ecc0`.
 // Use this method to set the score of the specified user in a game sent as a normal message (bots only).
@@ -29,19 +31,19 @@ type MessagesSetGameScoreRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Set this flag if the game message should be automatically edited to include the current scoreboard
-	EditMessage bool `tl:"edit_message"`
+	EditMessage bool
 	// Set this flag if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters
-	Force bool `tl:"force"`
+	Force bool
 	// Unique identifier of target chat
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Identifier of the sent message
-	ID int `tl:"id"`
+	ID int
 	// User identifier
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 	// New score
-	Score int `tl:"score"`
+	Score int
 }
 
 // MessagesSetGameScoreRequestTypeID is TL type id of MessagesSetGameScoreRequest.
@@ -105,13 +107,58 @@ func (s *MessagesSetGameScoreRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSetGameScoreRequest) TypeID() uint32 {
+func (*MessagesSetGameScoreRequest) TypeID() uint32 {
 	return MessagesSetGameScoreRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSetGameScoreRequest) TypeName() string {
+func (*MessagesSetGameScoreRequest) TypeName() string {
 	return "messages.setGameScore"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSetGameScoreRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.setGameScore",
+		ID:   MessagesSetGameScoreRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "EditMessage",
+			SchemaName: "edit_message",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "Force",
+			SchemaName: "force",
+			Null:       !s.Flags.Has(1),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Score",
+			SchemaName: "score",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

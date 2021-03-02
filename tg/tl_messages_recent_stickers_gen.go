@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesRecentStickersNotModified represents TL type `messages.recentStickersNotModified#b17f890`.
 // No new recent sticker was found
@@ -50,13 +52,27 @@ func (r *MessagesRecentStickersNotModified) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *MessagesRecentStickersNotModified) TypeID() uint32 {
+func (*MessagesRecentStickersNotModified) TypeID() uint32 {
 	return MessagesRecentStickersNotModifiedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *MessagesRecentStickersNotModified) TypeName() string {
+func (*MessagesRecentStickersNotModified) TypeName() string {
 	return "messages.recentStickersNotModified"
+}
+
+// TypeInfo returns info about TL type.
+func (r *MessagesRecentStickersNotModified) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.recentStickersNotModified",
+		ID:   MessagesRecentStickersNotModifiedTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -99,13 +115,13 @@ type MessagesRecentStickers struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 	// Emojis associated to stickers
-	Packs []StickerPack `tl:"packs"`
+	Packs []StickerPack
 	// Recent stickers
-	Stickers []DocumentClass `tl:"stickers"`
+	Stickers []DocumentClass
 	// When was each sticker last used
-	Dates []int `tl:"dates"`
+	Dates []int
 }
 
 // MessagesRecentStickersTypeID is TL type id of MessagesRecentStickers.
@@ -156,13 +172,44 @@ func (r *MessagesRecentStickers) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *MessagesRecentStickers) TypeID() uint32 {
+func (*MessagesRecentStickers) TypeID() uint32 {
 	return MessagesRecentStickersTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *MessagesRecentStickers) TypeName() string {
+func (*MessagesRecentStickers) TypeName() string {
 	return "messages.recentStickers"
+}
+
+// TypeInfo returns info about TL type.
+func (r *MessagesRecentStickers) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.recentStickers",
+		ID:   MessagesRecentStickersTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+		{
+			Name:       "Packs",
+			SchemaName: "packs",
+		},
+		{
+			Name:       "Stickers",
+			SchemaName: "stickers",
+		},
+		{
+			Name:       "Dates",
+			SchemaName: "dates",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

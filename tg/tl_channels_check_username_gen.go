@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelsCheckUsernameRequest represents TL type `channels.checkUsername#10e6bd2c`.
 // Check if a username is free and can be assigned to a channel/supergroup
@@ -29,9 +31,9 @@ type ChannelsCheckUsernameRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// The username to check
-	Username string `tl:"username"`
+	Username string
 }
 
 // ChannelsCheckUsernameRequestTypeID is TL type id of ChannelsCheckUsernameRequest.
@@ -72,13 +74,36 @@ func (c *ChannelsCheckUsernameRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ChannelsCheckUsernameRequest) TypeID() uint32 {
+func (*ChannelsCheckUsernameRequest) TypeID() uint32 {
 	return ChannelsCheckUsernameRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ChannelsCheckUsernameRequest) TypeName() string {
+func (*ChannelsCheckUsernameRequest) TypeName() string {
 	return "channels.checkUsername"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ChannelsCheckUsernameRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channels.checkUsername",
+		ID:   ChannelsCheckUsernameRequestTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Channel",
+			SchemaName: "channel",
+		},
+		{
+			Name:       "Username",
+			SchemaName: "username",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

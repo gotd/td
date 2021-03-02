@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessageReplyHeader represents TL type `messageReplyHeader#a6d57763`.
 // Message replies and thread¹ information
@@ -32,23 +34,23 @@ type MessageReplyHeader struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// ID of message to which this message is replying
-	ReplyToMsgID int `tl:"reply_to_msg_id"`
+	ReplyToMsgID int
 	// For replies sent in channel discussion threads¹ of which the current user is not a member, the discussion group ID
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetReplyToPeerID and GetReplyToPeerID helpers.
-	ReplyToPeerID PeerClass `tl:"reply_to_peer_id"`
+	ReplyToPeerID PeerClass
 	// ID of the message that started this message thread¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetReplyToTopID and GetReplyToTopID helpers.
-	ReplyToTopID int `tl:"reply_to_top_id"`
+	ReplyToTopID int
 }
 
 // MessageReplyHeaderTypeID is TL type id of MessageReplyHeader.
@@ -103,13 +105,46 @@ func (m *MessageReplyHeader) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageReplyHeader) TypeID() uint32 {
+func (*MessageReplyHeader) TypeID() uint32 {
 	return MessageReplyHeaderTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageReplyHeader) TypeName() string {
+func (*MessageReplyHeader) TypeName() string {
 	return "messageReplyHeader"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageReplyHeader) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageReplyHeader",
+		ID:   MessageReplyHeaderTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ReplyToMsgID",
+			SchemaName: "reply_to_msg_id",
+		},
+		{
+			Name:       "ReplyToPeerID",
+			SchemaName: "reply_to_peer_id",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "ReplyToTopID",
+			SchemaName: "reply_to_top_id",
+			Null:       !m.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesRequestUrlAuthRequest represents TL type `messages.requestUrlAuth#e33f5613`.
 // Get more info about a Seamless Telegram Login authorization request, for more info click here »¹
@@ -29,11 +31,11 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.requestUrlAuth for reference.
 type MessagesRequestUrlAuthRequest struct {
 	// Peer where the message is located
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// The message
-	MsgID int `tl:"msg_id"`
+	MsgID int
 	// The ID of the button with the authorization request
-	ButtonID int `tl:"button_id"`
+	ButtonID int
 }
 
 // MessagesRequestUrlAuthRequestTypeID is TL type id of MessagesRequestUrlAuthRequest.
@@ -79,13 +81,40 @@ func (r *MessagesRequestUrlAuthRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *MessagesRequestUrlAuthRequest) TypeID() uint32 {
+func (*MessagesRequestUrlAuthRequest) TypeID() uint32 {
 	return MessagesRequestUrlAuthRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *MessagesRequestUrlAuthRequest) TypeName() string {
+func (*MessagesRequestUrlAuthRequest) TypeName() string {
 	return "messages.requestUrlAuth"
+}
+
+// TypeInfo returns info about TL type.
+func (r *MessagesRequestUrlAuthRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.requestUrlAuth",
+		ID:   MessagesRequestUrlAuthRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+		{
+			Name:       "ButtonID",
+			SchemaName: "button_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

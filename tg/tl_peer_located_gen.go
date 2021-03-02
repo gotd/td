@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PeerLocated represents TL type `peerLocated#ca461b5d`.
 // Peer geolocated nearby
@@ -26,11 +28,11 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/peerLocated for reference.
 type PeerLocated struct {
 	// Peer
-	Peer PeerClass `tl:"peer"`
+	Peer PeerClass
 	// Validity period of current data
-	Expires int `tl:"expires"`
+	Expires int
 	// Distance from the peer in meters
-	Distance int `tl:"distance"`
+	Distance int
 }
 
 // PeerLocatedTypeID is TL type id of PeerLocated.
@@ -76,13 +78,40 @@ func (p *PeerLocated) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PeerLocated) TypeID() uint32 {
+func (*PeerLocated) TypeID() uint32 {
 	return PeerLocatedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PeerLocated) TypeName() string {
+func (*PeerLocated) TypeName() string {
 	return "peerLocated"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PeerLocated) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "peerLocated",
+		ID:   PeerLocatedTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Expires",
+			SchemaName: "expires",
+		},
+		{
+			Name:       "Distance",
+			SchemaName: "distance",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -166,7 +195,7 @@ var (
 // See https://core.telegram.org/constructor/peerSelfLocated for reference.
 type PeerSelfLocated struct {
 	// Expiry of geolocation info for current peer
-	Expires int `tl:"expires"`
+	Expires int
 }
 
 // PeerSelfLocatedTypeID is TL type id of PeerSelfLocated.
@@ -202,13 +231,32 @@ func (p *PeerSelfLocated) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PeerSelfLocated) TypeID() uint32 {
+func (*PeerSelfLocated) TypeID() uint32 {
 	return PeerSelfLocatedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PeerSelfLocated) TypeName() string {
+func (*PeerSelfLocated) TypeName() string {
 	return "peerSelfLocated"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PeerSelfLocated) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "peerSelfLocated",
+		ID:   PeerSelfLocatedTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Expires",
+			SchemaName: "expires",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

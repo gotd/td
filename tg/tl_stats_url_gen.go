@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // StatsURL represents TL type `statsURL#47a971e0`.
 // URL with chat statistics
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/statsURL for reference.
 type StatsURL struct {
 	// Chat statistics
-	URL string `tl:"url"`
+	URL string
 }
 
 // StatsURLTypeID is TL type id of StatsURL.
@@ -62,13 +64,32 @@ func (s *StatsURL) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *StatsURL) TypeID() uint32 {
+func (*StatsURL) TypeID() uint32 {
 	return StatsURLTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *StatsURL) TypeName() string {
+func (*StatsURL) TypeName() string {
 	return "statsURL"
+}
+
+// TypeInfo returns info about TL type.
+func (s *StatsURL) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "statsURL",
+		ID:   StatsURLTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

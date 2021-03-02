@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,17 +20,18 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // Message represents TL type `message#5bb8e511`.
 type Message struct {
 	// MsgID field of Message.
-	MsgID int64 `tl:"msg_id"`
+	MsgID int64
 	// Seqno field of Message.
-	Seqno int `tl:"seqno"`
+	Seqno int
 	// Bytes field of Message.
-	Bytes int `tl:"bytes"`
+	Bytes int
 	// Body field of Message.
-	Body GzipPacked `tl:"body"`
+	Body GzipPacked
 }
 
 // MessageTypeID is TL type id of Message.
@@ -80,13 +82,44 @@ func (m *Message) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *Message) TypeID() uint32 {
+func (*Message) TypeID() uint32 {
 	return MessageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *Message) TypeName() string {
+func (*Message) TypeName() string {
 	return "message"
+}
+
+// TypeInfo returns info about TL type.
+func (m *Message) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "message",
+		ID:   MessageTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "MsgID",
+			SchemaName: "msg_id",
+		},
+		{
+			Name:       "Seqno",
+			SchemaName: "seqno",
+		},
+		{
+			Name:       "Bytes",
+			SchemaName: "bytes",
+		},
+		{
+			Name:       "Body",
+			SchemaName: "body",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

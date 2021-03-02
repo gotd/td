@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ReplyKeyboardHide represents TL type `replyKeyboardHide#a03e5b85`.
 // Hide sent bot keyboard
@@ -29,9 +31,9 @@ type ReplyKeyboardHide struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Use this flag if you want to remove the keyboard for specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply (has reply_to_message_id), sender of the original message.Example: A user votes in a poll, bot returns confirmation message in reply to the vote and removes the keyboard for that user, while still showing the keyboard with poll options to users who haven't voted yet
-	Selective bool `tl:"selective"`
+	Selective bool
 }
 
 // ReplyKeyboardHideTypeID is TL type id of ReplyKeyboardHide.
@@ -70,13 +72,37 @@ func (r *ReplyKeyboardHide) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *ReplyKeyboardHide) TypeID() uint32 {
+func (*ReplyKeyboardHide) TypeID() uint32 {
 	return ReplyKeyboardHideTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *ReplyKeyboardHide) TypeName() string {
+func (*ReplyKeyboardHide) TypeName() string {
 	return "replyKeyboardHide"
+}
+
+// TypeInfo returns info about TL type.
+func (r *ReplyKeyboardHide) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "replyKeyboardHide",
+		ID:   ReplyKeyboardHideTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Selective",
+			SchemaName: "selective",
+			Null:       !r.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -147,11 +173,11 @@ type ReplyKeyboardForceReply struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Requests clients to hide the keyboard as soon as it's been used. The keyboard will still be available, but clients will automatically display the usual letter-keyboard in the chat – the user can press a special button in the input field to see the custom keyboard again.
-	SingleUse bool `tl:"single_use"`
+	SingleUse bool
 	// Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply (has reply_to_message_id), sender of the original message. Example: A user requests to change the bot‘s language, bot replies to the request with a keyboard to select the new language. Other users in the group don’t see the keyboard.
-	Selective bool `tl:"selective"`
+	Selective bool
 }
 
 // ReplyKeyboardForceReplyTypeID is TL type id of ReplyKeyboardForceReply.
@@ -195,13 +221,42 @@ func (r *ReplyKeyboardForceReply) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *ReplyKeyboardForceReply) TypeID() uint32 {
+func (*ReplyKeyboardForceReply) TypeID() uint32 {
 	return ReplyKeyboardForceReplyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *ReplyKeyboardForceReply) TypeName() string {
+func (*ReplyKeyboardForceReply) TypeName() string {
 	return "replyKeyboardForceReply"
+}
+
+// TypeInfo returns info about TL type.
+func (r *ReplyKeyboardForceReply) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "replyKeyboardForceReply",
+		ID:   ReplyKeyboardForceReplyTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "SingleUse",
+			SchemaName: "single_use",
+			Null:       !r.Flags.Has(1),
+		},
+		{
+			Name:       "Selective",
+			SchemaName: "selective",
+			Null:       !r.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -292,15 +347,15 @@ type ReplyKeyboardMarkup struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Requests clients to resize the keyboard vertically for optimal fit (e.g., make the keyboard smaller if there are just two rows of buttons). If not set, the custom keyboard is always of the same height as the app's standard keyboard.
-	Resize bool `tl:"resize"`
+	Resize bool
 	// Requests clients to hide the keyboard as soon as it's been used. The keyboard will still be available, but clients will automatically display the usual letter-keyboard in the chat – the user can press a special button in the input field to see the custom keyboard again.
-	SingleUse bool `tl:"single_use"`
+	SingleUse bool
 	// Use this parameter if you want to show the keyboard to specific users only. Targets: 1) users that are @mentioned in the text of the Message object; 2) if the bot's message is a reply (has reply_to_message_id), sender of the original message.Example: A user requests to change the bot‘s language, bot replies to the request with a keyboard to select the new language. Other users in the group don’t see the keyboard.
-	Selective bool `tl:"selective"`
+	Selective bool
 	// Button row
-	Rows []KeyboardButtonRow `tl:"rows"`
+	Rows []KeyboardButtonRow
 }
 
 // ReplyKeyboardMarkupTypeID is TL type id of ReplyKeyboardMarkup.
@@ -354,13 +409,51 @@ func (r *ReplyKeyboardMarkup) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *ReplyKeyboardMarkup) TypeID() uint32 {
+func (*ReplyKeyboardMarkup) TypeID() uint32 {
 	return ReplyKeyboardMarkupTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *ReplyKeyboardMarkup) TypeName() string {
+func (*ReplyKeyboardMarkup) TypeName() string {
 	return "replyKeyboardMarkup"
+}
+
+// TypeInfo returns info about TL type.
+func (r *ReplyKeyboardMarkup) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "replyKeyboardMarkup",
+		ID:   ReplyKeyboardMarkupTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Resize",
+			SchemaName: "resize",
+			Null:       !r.Flags.Has(0),
+		},
+		{
+			Name:       "SingleUse",
+			SchemaName: "single_use",
+			Null:       !r.Flags.Has(1),
+		},
+		{
+			Name:       "Selective",
+			SchemaName: "selective",
+			Null:       !r.Flags.Has(2),
+		},
+		{
+			Name:       "Rows",
+			SchemaName: "rows",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -492,7 +585,7 @@ var (
 // See https://core.telegram.org/constructor/replyInlineMarkup for reference.
 type ReplyInlineMarkup struct {
 	// Bot or inline keyboard rows
-	Rows []KeyboardButtonRow `tl:"rows"`
+	Rows []KeyboardButtonRow
 }
 
 // ReplyInlineMarkupTypeID is TL type id of ReplyInlineMarkup.
@@ -528,13 +621,32 @@ func (r *ReplyInlineMarkup) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *ReplyInlineMarkup) TypeID() uint32 {
+func (*ReplyInlineMarkup) TypeID() uint32 {
 	return ReplyInlineMarkupTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *ReplyInlineMarkup) TypeName() string {
+func (*ReplyInlineMarkup) TypeName() string {
 	return "replyInlineMarkup"
+}
+
+// TypeInfo returns info about TL type.
+func (r *ReplyInlineMarkup) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "replyInlineMarkup",
+		ID:   ReplyInlineMarkupTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Rows",
+			SchemaName: "rows",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

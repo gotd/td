@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,133 +20,134 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // Config represents TL type `config#330b4067`.
 //
 // See https://localhost:80/doc/constructor/config for reference.
 type Config struct {
 	// Flags field of Config.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// PhonecallsEnabled field of Config.
-	PhonecallsEnabled bool `tl:"phonecalls_enabled"`
+	PhonecallsEnabled bool
 	// DefaultP2PContacts field of Config.
-	DefaultP2PContacts bool `tl:"default_p2p_contacts"`
+	DefaultP2PContacts bool
 	// PreloadFeaturedStickers field of Config.
-	PreloadFeaturedStickers bool `tl:"preload_featured_stickers"`
+	PreloadFeaturedStickers bool
 	// IgnorePhoneEntities field of Config.
-	IgnorePhoneEntities bool `tl:"ignore_phone_entities"`
+	IgnorePhoneEntities bool
 	// RevokePmInbox field of Config.
-	RevokePmInbox bool `tl:"revoke_pm_inbox"`
+	RevokePmInbox bool
 	// BlockedMode field of Config.
-	BlockedMode bool `tl:"blocked_mode"`
+	BlockedMode bool
 	// PFSEnabled field of Config.
-	PFSEnabled bool `tl:"pfs_enabled"`
+	PFSEnabled bool
 	// Date field of Config.
-	Date int `tl:"date"`
+	Date int
 	// Expires field of Config.
-	Expires int `tl:"expires"`
+	Expires int
 	// TestMode field of Config.
-	TestMode bool `tl:"test_mode"`
+	TestMode bool
 	// ThisDC field of Config.
-	ThisDC int `tl:"this_dc"`
+	ThisDC int
 	// DCOptions field of Config.
-	DCOptions []DcOption `tl:"dc_options"`
+	DCOptions []DcOption
 	// DCTxtDomainName field of Config.
-	DCTxtDomainName string `tl:"dc_txt_domain_name"`
+	DCTxtDomainName string
 	// ChatSizeMax field of Config.
-	ChatSizeMax int `tl:"chat_size_max"`
+	ChatSizeMax int
 	// MegagroupSizeMax field of Config.
-	MegagroupSizeMax int `tl:"megagroup_size_max"`
+	MegagroupSizeMax int
 	// ForwardedCountMax field of Config.
-	ForwardedCountMax int `tl:"forwarded_count_max"`
+	ForwardedCountMax int
 	// OnlineUpdatePeriodMs field of Config.
-	OnlineUpdatePeriodMs int `tl:"online_update_period_ms"`
+	OnlineUpdatePeriodMs int
 	// OfflineBlurTimeoutMs field of Config.
-	OfflineBlurTimeoutMs int `tl:"offline_blur_timeout_ms"`
+	OfflineBlurTimeoutMs int
 	// OfflineIdleTimeoutMs field of Config.
-	OfflineIdleTimeoutMs int `tl:"offline_idle_timeout_ms"`
+	OfflineIdleTimeoutMs int
 	// OnlineCloudTimeoutMs field of Config.
-	OnlineCloudTimeoutMs int `tl:"online_cloud_timeout_ms"`
+	OnlineCloudTimeoutMs int
 	// NotifyCloudDelayMs field of Config.
-	NotifyCloudDelayMs int `tl:"notify_cloud_delay_ms"`
+	NotifyCloudDelayMs int
 	// NotifyDefaultDelayMs field of Config.
-	NotifyDefaultDelayMs int `tl:"notify_default_delay_ms"`
+	NotifyDefaultDelayMs int
 	// PushChatPeriodMs field of Config.
-	PushChatPeriodMs int `tl:"push_chat_period_ms"`
+	PushChatPeriodMs int
 	// PushChatLimit field of Config.
-	PushChatLimit int `tl:"push_chat_limit"`
+	PushChatLimit int
 	// SavedGifsLimit field of Config.
-	SavedGifsLimit int `tl:"saved_gifs_limit"`
+	SavedGifsLimit int
 	// EditTimeLimit field of Config.
-	EditTimeLimit int `tl:"edit_time_limit"`
+	EditTimeLimit int
 	// RevokeTimeLimit field of Config.
-	RevokeTimeLimit int `tl:"revoke_time_limit"`
+	RevokeTimeLimit int
 	// RevokePmTimeLimit field of Config.
-	RevokePmTimeLimit int `tl:"revoke_pm_time_limit"`
+	RevokePmTimeLimit int
 	// RatingEDecay field of Config.
-	RatingEDecay int `tl:"rating_e_decay"`
+	RatingEDecay int
 	// StickersRecentLimit field of Config.
-	StickersRecentLimit int `tl:"stickers_recent_limit"`
+	StickersRecentLimit int
 	// StickersFavedLimit field of Config.
-	StickersFavedLimit int `tl:"stickers_faved_limit"`
+	StickersFavedLimit int
 	// ChannelsReadMediaPeriod field of Config.
-	ChannelsReadMediaPeriod int `tl:"channels_read_media_period"`
+	ChannelsReadMediaPeriod int
 	// TmpSessions field of Config.
 	//
 	// Use SetTmpSessions and GetTmpSessions helpers.
-	TmpSessions int `tl:"tmp_sessions"`
+	TmpSessions int
 	// PinnedDialogsCountMax field of Config.
-	PinnedDialogsCountMax int `tl:"pinned_dialogs_count_max"`
+	PinnedDialogsCountMax int
 	// PinnedInfolderCountMax field of Config.
-	PinnedInfolderCountMax int `tl:"pinned_infolder_count_max"`
+	PinnedInfolderCountMax int
 	// CallReceiveTimeoutMs field of Config.
-	CallReceiveTimeoutMs int `tl:"call_receive_timeout_ms"`
+	CallReceiveTimeoutMs int
 	// CallRingTimeoutMs field of Config.
-	CallRingTimeoutMs int `tl:"call_ring_timeout_ms"`
+	CallRingTimeoutMs int
 	// CallConnectTimeoutMs field of Config.
-	CallConnectTimeoutMs int `tl:"call_connect_timeout_ms"`
+	CallConnectTimeoutMs int
 	// CallPacketTimeoutMs field of Config.
-	CallPacketTimeoutMs int `tl:"call_packet_timeout_ms"`
+	CallPacketTimeoutMs int
 	// MeURLPrefix field of Config.
-	MeURLPrefix string `tl:"me_url_prefix"`
+	MeURLPrefix string
 	// AutoupdateURLPrefix field of Config.
 	//
 	// Use SetAutoupdateURLPrefix and GetAutoupdateURLPrefix helpers.
-	AutoupdateURLPrefix string `tl:"autoupdate_url_prefix"`
+	AutoupdateURLPrefix string
 	// GifSearchUsername field of Config.
 	//
 	// Use SetGifSearchUsername and GetGifSearchUsername helpers.
-	GifSearchUsername string `tl:"gif_search_username"`
+	GifSearchUsername string
 	// VenueSearchUsername field of Config.
 	//
 	// Use SetVenueSearchUsername and GetVenueSearchUsername helpers.
-	VenueSearchUsername string `tl:"venue_search_username"`
+	VenueSearchUsername string
 	// ImgSearchUsername field of Config.
 	//
 	// Use SetImgSearchUsername and GetImgSearchUsername helpers.
-	ImgSearchUsername string `tl:"img_search_username"`
+	ImgSearchUsername string
 	// StaticMapsProvider field of Config.
 	//
 	// Use SetStaticMapsProvider and GetStaticMapsProvider helpers.
-	StaticMapsProvider string `tl:"static_maps_provider"`
+	StaticMapsProvider string
 	// CaptionLengthMax field of Config.
-	CaptionLengthMax int `tl:"caption_length_max"`
+	CaptionLengthMax int
 	// MessageLengthMax field of Config.
-	MessageLengthMax int `tl:"message_length_max"`
+	MessageLengthMax int
 	// WebfileDCID field of Config.
-	WebfileDCID int `tl:"webfile_dc_id"`
+	WebfileDCID int
 	// SuggestedLangCode field of Config.
 	//
 	// Use SetSuggestedLangCode and GetSuggestedLangCode helpers.
-	SuggestedLangCode string `tl:"suggested_lang_code"`
+	SuggestedLangCode string
 	// LangPackVersion field of Config.
 	//
 	// Use SetLangPackVersion and GetLangPackVersion helpers.
-	LangPackVersion int `tl:"lang_pack_version"`
+	LangPackVersion int
 	// BaseLangPackVersion field of Config.
 	//
 	// Use SetBaseLangPackVersion and GetBaseLangPackVersion helpers.
-	BaseLangPackVersion int `tl:"base_lang_pack_version"`
+	BaseLangPackVersion int
 }
 
 // ConfigTypeID is TL type id of Config.
@@ -461,13 +463,252 @@ func (c *Config) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *Config) TypeID() uint32 {
+func (*Config) TypeID() uint32 {
 	return ConfigTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *Config) TypeName() string {
+func (*Config) TypeName() string {
 	return "config"
+}
+
+// TypeInfo returns info about TL type.
+func (c *Config) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "config",
+		ID:   ConfigTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "PhonecallsEnabled",
+			SchemaName: "phonecalls_enabled",
+			Null:       !c.Flags.Has(1),
+		},
+		{
+			Name:       "DefaultP2PContacts",
+			SchemaName: "default_p2p_contacts",
+			Null:       !c.Flags.Has(3),
+		},
+		{
+			Name:       "PreloadFeaturedStickers",
+			SchemaName: "preload_featured_stickers",
+			Null:       !c.Flags.Has(4),
+		},
+		{
+			Name:       "IgnorePhoneEntities",
+			SchemaName: "ignore_phone_entities",
+			Null:       !c.Flags.Has(5),
+		},
+		{
+			Name:       "RevokePmInbox",
+			SchemaName: "revoke_pm_inbox",
+			Null:       !c.Flags.Has(6),
+		},
+		{
+			Name:       "BlockedMode",
+			SchemaName: "blocked_mode",
+			Null:       !c.Flags.Has(8),
+		},
+		{
+			Name:       "PFSEnabled",
+			SchemaName: "pfs_enabled",
+			Null:       !c.Flags.Has(13),
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "Expires",
+			SchemaName: "expires",
+		},
+		{
+			Name:       "TestMode",
+			SchemaName: "test_mode",
+		},
+		{
+			Name:       "ThisDC",
+			SchemaName: "this_dc",
+		},
+		{
+			Name:       "DCOptions",
+			SchemaName: "dc_options",
+		},
+		{
+			Name:       "DCTxtDomainName",
+			SchemaName: "dc_txt_domain_name",
+		},
+		{
+			Name:       "ChatSizeMax",
+			SchemaName: "chat_size_max",
+		},
+		{
+			Name:       "MegagroupSizeMax",
+			SchemaName: "megagroup_size_max",
+		},
+		{
+			Name:       "ForwardedCountMax",
+			SchemaName: "forwarded_count_max",
+		},
+		{
+			Name:       "OnlineUpdatePeriodMs",
+			SchemaName: "online_update_period_ms",
+		},
+		{
+			Name:       "OfflineBlurTimeoutMs",
+			SchemaName: "offline_blur_timeout_ms",
+		},
+		{
+			Name:       "OfflineIdleTimeoutMs",
+			SchemaName: "offline_idle_timeout_ms",
+		},
+		{
+			Name:       "OnlineCloudTimeoutMs",
+			SchemaName: "online_cloud_timeout_ms",
+		},
+		{
+			Name:       "NotifyCloudDelayMs",
+			SchemaName: "notify_cloud_delay_ms",
+		},
+		{
+			Name:       "NotifyDefaultDelayMs",
+			SchemaName: "notify_default_delay_ms",
+		},
+		{
+			Name:       "PushChatPeriodMs",
+			SchemaName: "push_chat_period_ms",
+		},
+		{
+			Name:       "PushChatLimit",
+			SchemaName: "push_chat_limit",
+		},
+		{
+			Name:       "SavedGifsLimit",
+			SchemaName: "saved_gifs_limit",
+		},
+		{
+			Name:       "EditTimeLimit",
+			SchemaName: "edit_time_limit",
+		},
+		{
+			Name:       "RevokeTimeLimit",
+			SchemaName: "revoke_time_limit",
+		},
+		{
+			Name:       "RevokePmTimeLimit",
+			SchemaName: "revoke_pm_time_limit",
+		},
+		{
+			Name:       "RatingEDecay",
+			SchemaName: "rating_e_decay",
+		},
+		{
+			Name:       "StickersRecentLimit",
+			SchemaName: "stickers_recent_limit",
+		},
+		{
+			Name:       "StickersFavedLimit",
+			SchemaName: "stickers_faved_limit",
+		},
+		{
+			Name:       "ChannelsReadMediaPeriod",
+			SchemaName: "channels_read_media_period",
+		},
+		{
+			Name:       "TmpSessions",
+			SchemaName: "tmp_sessions",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "PinnedDialogsCountMax",
+			SchemaName: "pinned_dialogs_count_max",
+		},
+		{
+			Name:       "PinnedInfolderCountMax",
+			SchemaName: "pinned_infolder_count_max",
+		},
+		{
+			Name:       "CallReceiveTimeoutMs",
+			SchemaName: "call_receive_timeout_ms",
+		},
+		{
+			Name:       "CallRingTimeoutMs",
+			SchemaName: "call_ring_timeout_ms",
+		},
+		{
+			Name:       "CallConnectTimeoutMs",
+			SchemaName: "call_connect_timeout_ms",
+		},
+		{
+			Name:       "CallPacketTimeoutMs",
+			SchemaName: "call_packet_timeout_ms",
+		},
+		{
+			Name:       "MeURLPrefix",
+			SchemaName: "me_url_prefix",
+		},
+		{
+			Name:       "AutoupdateURLPrefix",
+			SchemaName: "autoupdate_url_prefix",
+			Null:       !c.Flags.Has(7),
+		},
+		{
+			Name:       "GifSearchUsername",
+			SchemaName: "gif_search_username",
+			Null:       !c.Flags.Has(9),
+		},
+		{
+			Name:       "VenueSearchUsername",
+			SchemaName: "venue_search_username",
+			Null:       !c.Flags.Has(10),
+		},
+		{
+			Name:       "ImgSearchUsername",
+			SchemaName: "img_search_username",
+			Null:       !c.Flags.Has(11),
+		},
+		{
+			Name:       "StaticMapsProvider",
+			SchemaName: "static_maps_provider",
+			Null:       !c.Flags.Has(12),
+		},
+		{
+			Name:       "CaptionLengthMax",
+			SchemaName: "caption_length_max",
+		},
+		{
+			Name:       "MessageLengthMax",
+			SchemaName: "message_length_max",
+		},
+		{
+			Name:       "WebfileDCID",
+			SchemaName: "webfile_dc_id",
+		},
+		{
+			Name:       "SuggestedLangCode",
+			SchemaName: "suggested_lang_code",
+			Null:       !c.Flags.Has(2),
+		},
+		{
+			Name:       "LangPackVersion",
+			SchemaName: "lang_pack_version",
+			Null:       !c.Flags.Has(2),
+		},
+		{
+			Name:       "BaseLangPackVersion",
+			SchemaName: "base_lang_pack_version",
+			Null:       !c.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

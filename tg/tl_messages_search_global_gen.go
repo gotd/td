@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSearchGlobalRequest represents TL type `messages.searchGlobal#4bc6589a`.
 // Search for messages and peers globally
@@ -29,42 +31,42 @@ type MessagesSearchGlobalRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int `tl:"folder_id"`
+	FolderID int
 	// Query
-	Q string `tl:"q"`
+	Q string
 	// Global search filter
-	Filter MessagesFilterClass `tl:"filter"`
+	Filter MessagesFilterClass
 	// If a positive value was specified, the method will return only messages with date bigger than min_date
-	MinDate int `tl:"min_date"`
+	MinDate int
 	// If a positive value was transferred, the method will return only messages with date smaller than max_date
-	MaxDate int `tl:"max_date"`
+	MaxDate int
 	// Initially 0, then set to the next_rate parameter of messages.messagesSlice¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/messages.messagesSlice
-	OffsetRate int `tl:"offset_rate"`
+	OffsetRate int
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetPeer InputPeerClass `tl:"offset_peer"`
+	OffsetPeer InputPeerClass
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetID int `tl:"offset_id"`
+	OffsetID int
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int `tl:"limit"`
+	Limit int
 }
 
 // MessagesSearchGlobalRequestTypeID is TL type id of MessagesSearchGlobalRequest.
@@ -146,13 +148,69 @@ func (s *MessagesSearchGlobalRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSearchGlobalRequest) TypeID() uint32 {
+func (*MessagesSearchGlobalRequest) TypeID() uint32 {
 	return MessagesSearchGlobalRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSearchGlobalRequest) TypeName() string {
+func (*MessagesSearchGlobalRequest) TypeName() string {
 	return "messages.searchGlobal"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSearchGlobalRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.searchGlobal",
+		ID:   MessagesSearchGlobalRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "FolderID",
+			SchemaName: "folder_id",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "Q",
+			SchemaName: "q",
+		},
+		{
+			Name:       "Filter",
+			SchemaName: "filter",
+		},
+		{
+			Name:       "MinDate",
+			SchemaName: "min_date",
+		},
+		{
+			Name:       "MaxDate",
+			SchemaName: "max_date",
+		},
+		{
+			Name:       "OffsetRate",
+			SchemaName: "offset_rate",
+		},
+		{
+			Name:       "OffsetPeer",
+			SchemaName: "offset_peer",
+		},
+		{
+			Name:       "OffsetID",
+			SchemaName: "offset_id",
+		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

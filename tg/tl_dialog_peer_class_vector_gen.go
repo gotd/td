@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,11 +20,12 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // DialogPeerClassVector is a box for Vector<DialogPeer>
 type DialogPeerClassVector struct {
 	// Elements of Vector<DialogPeer>
-	Elems []DialogPeerClass `tl:"Elems"`
+	Elems []DialogPeerClass
 }
 
 // DialogPeerClassVectorTypeID is TL type id of DialogPeerClassVector.
@@ -59,13 +61,32 @@ func (vec *DialogPeerClassVector) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (vec *DialogPeerClassVector) TypeID() uint32 {
+func (*DialogPeerClassVector) TypeID() uint32 {
 	return DialogPeerClassVectorTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (vec *DialogPeerClassVector) TypeName() string {
+func (*DialogPeerClassVector) TypeName() string {
 	return ""
+}
+
+// TypeInfo returns info about TL type.
+func (vec *DialogPeerClassVector) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "",
+		ID:   DialogPeerClassVectorTypeID,
+	}
+	if vec == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Elems",
+			SchemaName: "Elems",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetPinnedDialogsRequest represents TL type `messages.getPinnedDialogs#d6b94df2`.
 // Get pinned dialogs
@@ -29,7 +31,7 @@ type MessagesGetPinnedDialogsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
-	FolderID int `tl:"folder_id"`
+	FolderID int
 }
 
 // MessagesGetPinnedDialogsRequestTypeID is TL type id of MessagesGetPinnedDialogsRequest.
@@ -65,13 +67,32 @@ func (g *MessagesGetPinnedDialogsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetPinnedDialogsRequest) TypeID() uint32 {
+func (*MessagesGetPinnedDialogsRequest) TypeID() uint32 {
 	return MessagesGetPinnedDialogsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetPinnedDialogsRequest) TypeName() string {
+func (*MessagesGetPinnedDialogsRequest) TypeName() string {
 	return "messages.getPinnedDialogs"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetPinnedDialogsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getPinnedDialogs",
+		ID:   MessagesGetPinnedDialogsRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "FolderID",
+			SchemaName: "folder_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

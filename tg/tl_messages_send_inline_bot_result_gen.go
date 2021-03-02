@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSendInlineBotResultRequest represents TL type `messages.sendInlineBotResult#220815b0`.
 // Send a result obtained using messages.getInlineBotResults¹.
@@ -32,43 +34,43 @@ type MessagesSendInlineBotResultRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to send the message silently (no notification will be triggered on the other client)
-	Silent bool `tl:"silent"`
+	Silent bool
 	// Whether to send the message in background
-	Background bool `tl:"background"`
+	Background bool
 	// Whether to clear the draft¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/drafts
-	ClearDraft bool `tl:"clear_draft"`
+	ClearDraft bool
 	// Whether to hide the via @botname in the resulting message (only for bot usernames encountered in the config¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/config
-	HideVia bool `tl:"hide_via"`
+	HideVia bool
 	// Destination
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// ID of the message this message should reply to
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
-	ReplyToMsgID int `tl:"reply_to_msg_id"`
+	ReplyToMsgID int
 	// Random ID to avoid resending the same query
-	RandomID int64 `tl:"random_id"`
+	RandomID int64
 	// Query ID from messages.getInlineBotResults¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.getInlineBotResults
-	QueryID int64 `tl:"query_id"`
+	QueryID int64
 	// Result ID from messages.getInlineBotResults¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.getInlineBotResults
-	ID string `tl:"id"`
+	ID string
 	// Scheduled message date for scheduled messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
-	ScheduleDate int `tl:"schedule_date"`
+	ScheduleDate int
 }
 
 // MessagesSendInlineBotResultRequestTypeID is TL type id of MessagesSendInlineBotResultRequest.
@@ -158,13 +160,78 @@ func (s *MessagesSendInlineBotResultRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSendInlineBotResultRequest) TypeID() uint32 {
+func (*MessagesSendInlineBotResultRequest) TypeID() uint32 {
 	return MessagesSendInlineBotResultRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSendInlineBotResultRequest) TypeName() string {
+func (*MessagesSendInlineBotResultRequest) TypeName() string {
 	return "messages.sendInlineBotResult"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSendInlineBotResultRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.sendInlineBotResult",
+		ID:   MessagesSendInlineBotResultRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Silent",
+			SchemaName: "silent",
+			Null:       !s.Flags.Has(5),
+		},
+		{
+			Name:       "Background",
+			SchemaName: "background",
+			Null:       !s.Flags.Has(6),
+		},
+		{
+			Name:       "ClearDraft",
+			SchemaName: "clear_draft",
+			Null:       !s.Flags.Has(7),
+		},
+		{
+			Name:       "HideVia",
+			SchemaName: "hide_via",
+			Null:       !s.Flags.Has(11),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "ReplyToMsgID",
+			SchemaName: "reply_to_msg_id",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "RandomID",
+			SchemaName: "random_id",
+		},
+		{
+			Name:       "QueryID",
+			SchemaName: "query_id",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "ScheduleDate",
+			SchemaName: "schedule_date",
+			Null:       !s.Flags.Has(10),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

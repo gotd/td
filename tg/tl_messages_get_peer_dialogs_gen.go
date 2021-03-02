@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetPeerDialogsRequest represents TL type `messages.getPeerDialogs#e470bcfd`.
 // Get dialog info of specified peers
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.getPeerDialogs for reference.
 type MessagesGetPeerDialogsRequest struct {
 	// Peers
-	Peers []InputDialogPeerClass `tl:"peers"`
+	Peers []InputDialogPeerClass
 }
 
 // MessagesGetPeerDialogsRequestTypeID is TL type id of MessagesGetPeerDialogsRequest.
@@ -62,13 +64,32 @@ func (g *MessagesGetPeerDialogsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetPeerDialogsRequest) TypeID() uint32 {
+func (*MessagesGetPeerDialogsRequest) TypeID() uint32 {
 	return MessagesGetPeerDialogsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetPeerDialogsRequest) TypeName() string {
+func (*MessagesGetPeerDialogsRequest) TypeName() string {
 	return "messages.getPeerDialogs"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetPeerDialogsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getPeerDialogs",
+		ID:   MessagesGetPeerDialogsRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peers",
+			SchemaName: "peers",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesCheckChatInviteRequest represents TL type `messages.checkChatInvite#3eadb1bb`.
 // Check the validity of a chat invite link and get basic info about it
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.checkChatInvite for reference.
 type MessagesCheckChatInviteRequest struct {
 	// Invite hash in t.me/joinchat/hash
-	Hash string `tl:"hash"`
+	Hash string
 }
 
 // MessagesCheckChatInviteRequestTypeID is TL type id of MessagesCheckChatInviteRequest.
@@ -62,13 +64,32 @@ func (c *MessagesCheckChatInviteRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *MessagesCheckChatInviteRequest) TypeID() uint32 {
+func (*MessagesCheckChatInviteRequest) TypeID() uint32 {
 	return MessagesCheckChatInviteRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *MessagesCheckChatInviteRequest) TypeName() string {
+func (*MessagesCheckChatInviteRequest) TypeName() string {
 	return "messages.checkChatInvite"
+}
+
+// TypeInfo returns info about TL type.
+func (c *MessagesCheckChatInviteRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.checkChatInvite",
+		ID:   MessagesCheckChatInviteRequestTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

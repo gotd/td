@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesMigrateChatRequest represents TL type `messages.migrateChat#15a3b8e3`.
 // Turn a legacy group into a supergroup¹
@@ -29,7 +31,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.migrateChat for reference.
 type MessagesMigrateChatRequest struct {
 	// Legacy group to migrate
-	ChatID int `tl:"chat_id"`
+	ChatID int
 }
 
 // MessagesMigrateChatRequestTypeID is TL type id of MessagesMigrateChatRequest.
@@ -65,13 +67,32 @@ func (m *MessagesMigrateChatRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessagesMigrateChatRequest) TypeID() uint32 {
+func (*MessagesMigrateChatRequest) TypeID() uint32 {
 	return MessagesMigrateChatRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessagesMigrateChatRequest) TypeName() string {
+func (*MessagesMigrateChatRequest) TypeName() string {
 	return "messages.migrateChat"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessagesMigrateChatRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.migrateChat",
+		ID:   MessagesMigrateChatRequestTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

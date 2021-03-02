@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSaveGifRequest represents TL type `messages.saveGif#327a30cb`.
 // Add GIF to saved gifs list
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.saveGif for reference.
 type MessagesSaveGifRequest struct {
 	// GIF to save
-	ID InputDocumentClass `tl:"id"`
+	ID InputDocumentClass
 	// Whether to remove GIF from saved gifs list
-	Unsave bool `tl:"unsave"`
+	Unsave bool
 }
 
 // MessagesSaveGifRequestTypeID is TL type id of MessagesSaveGifRequest.
@@ -69,13 +71,36 @@ func (s *MessagesSaveGifRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSaveGifRequest) TypeID() uint32 {
+func (*MessagesSaveGifRequest) TypeID() uint32 {
 	return MessagesSaveGifRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSaveGifRequest) TypeName() string {
+func (*MessagesSaveGifRequest) TypeName() string {
 	return "messages.saveGif"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSaveGifRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.saveGif",
+		ID:   MessagesSaveGifRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Unsave",
+			SchemaName: "unsave",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

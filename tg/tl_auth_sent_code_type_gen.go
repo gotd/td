@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AuthSentCodeTypeApp represents TL type `auth.sentCodeTypeApp#3dbb5986`.
 // The code was sent through the telegram app
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/auth.sentCodeTypeApp for reference.
 type AuthSentCodeTypeApp struct {
 	// Length of the code in bytes
-	Length int `tl:"length"`
+	Length int
 }
 
 // AuthSentCodeTypeAppTypeID is TL type id of AuthSentCodeTypeApp.
@@ -62,13 +64,32 @@ func (s *AuthSentCodeTypeApp) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *AuthSentCodeTypeApp) TypeID() uint32 {
+func (*AuthSentCodeTypeApp) TypeID() uint32 {
 	return AuthSentCodeTypeAppTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *AuthSentCodeTypeApp) TypeName() string {
+func (*AuthSentCodeTypeApp) TypeName() string {
 	return "auth.sentCodeTypeApp"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AuthSentCodeTypeApp) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.sentCodeTypeApp",
+		ID:   AuthSentCodeTypeAppTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Length",
+			SchemaName: "length",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -121,7 +142,7 @@ var (
 // See https://core.telegram.org/constructor/auth.sentCodeTypeSms for reference.
 type AuthSentCodeTypeSms struct {
 	// Length of the code in bytes
-	Length int `tl:"length"`
+	Length int
 }
 
 // AuthSentCodeTypeSmsTypeID is TL type id of AuthSentCodeTypeSms.
@@ -157,13 +178,32 @@ func (s *AuthSentCodeTypeSms) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *AuthSentCodeTypeSms) TypeID() uint32 {
+func (*AuthSentCodeTypeSms) TypeID() uint32 {
 	return AuthSentCodeTypeSmsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *AuthSentCodeTypeSms) TypeName() string {
+func (*AuthSentCodeTypeSms) TypeName() string {
 	return "auth.sentCodeTypeSms"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AuthSentCodeTypeSms) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.sentCodeTypeSms",
+		ID:   AuthSentCodeTypeSmsTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Length",
+			SchemaName: "length",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -216,7 +256,7 @@ var (
 // See https://core.telegram.org/constructor/auth.sentCodeTypeCall for reference.
 type AuthSentCodeTypeCall struct {
 	// Length of the verification code
-	Length int `tl:"length"`
+	Length int
 }
 
 // AuthSentCodeTypeCallTypeID is TL type id of AuthSentCodeTypeCall.
@@ -252,13 +292,32 @@ func (s *AuthSentCodeTypeCall) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *AuthSentCodeTypeCall) TypeID() uint32 {
+func (*AuthSentCodeTypeCall) TypeID() uint32 {
 	return AuthSentCodeTypeCallTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *AuthSentCodeTypeCall) TypeName() string {
+func (*AuthSentCodeTypeCall) TypeName() string {
 	return "auth.sentCodeTypeCall"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AuthSentCodeTypeCall) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.sentCodeTypeCall",
+		ID:   AuthSentCodeTypeCallTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Length",
+			SchemaName: "length",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -314,7 +373,7 @@ type AuthSentCodeTypeFlashCall struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/pattern
-	Pattern string `tl:"pattern"`
+	Pattern string
 }
 
 // AuthSentCodeTypeFlashCallTypeID is TL type id of AuthSentCodeTypeFlashCall.
@@ -350,13 +409,32 @@ func (s *AuthSentCodeTypeFlashCall) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *AuthSentCodeTypeFlashCall) TypeID() uint32 {
+func (*AuthSentCodeTypeFlashCall) TypeID() uint32 {
 	return AuthSentCodeTypeFlashCallTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *AuthSentCodeTypeFlashCall) TypeName() string {
+func (*AuthSentCodeTypeFlashCall) TypeName() string {
 	return "auth.sentCodeTypeFlashCall"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AuthSentCodeTypeFlashCall) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.sentCodeTypeFlashCall",
+		ID:   AuthSentCodeTypeFlashCallTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Pattern",
+			SchemaName: "pattern",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // SecureValueTypePersonalDetails represents TL type `secureValueTypePersonalDetails#9d2a81e3`.
 // Personal details
@@ -50,13 +52,27 @@ func (s *SecureValueTypePersonalDetails) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureValueTypePersonalDetails) TypeID() uint32 {
+func (*SecureValueTypePersonalDetails) TypeID() uint32 {
 	return SecureValueTypePersonalDetailsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureValueTypePersonalDetails) TypeName() string {
+func (*SecureValueTypePersonalDetails) TypeName() string {
 	return "secureValueTypePersonalDetails"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureValueTypePersonalDetails) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureValueTypePersonalDetails",
+		ID:   SecureValueTypePersonalDetailsTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -120,13 +136,27 @@ func (s *SecureValueTypePassport) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureValueTypePassport) TypeID() uint32 {
+func (*SecureValueTypePassport) TypeID() uint32 {
 	return SecureValueTypePassportTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureValueTypePassport) TypeName() string {
+func (*SecureValueTypePassport) TypeName() string {
 	return "secureValueTypePassport"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureValueTypePassport) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureValueTypePassport",
+		ID:   SecureValueTypePassportTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -190,13 +220,27 @@ func (s *SecureValueTypeDriverLicense) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureValueTypeDriverLicense) TypeID() uint32 {
+func (*SecureValueTypeDriverLicense) TypeID() uint32 {
 	return SecureValueTypeDriverLicenseTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureValueTypeDriverLicense) TypeName() string {
+func (*SecureValueTypeDriverLicense) TypeName() string {
 	return "secureValueTypeDriverLicense"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureValueTypeDriverLicense) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureValueTypeDriverLicense",
+		ID:   SecureValueTypeDriverLicenseTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -260,13 +304,27 @@ func (s *SecureValueTypeIdentityCard) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureValueTypeIdentityCard) TypeID() uint32 {
+func (*SecureValueTypeIdentityCard) TypeID() uint32 {
 	return SecureValueTypeIdentityCardTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureValueTypeIdentityCard) TypeName() string {
+func (*SecureValueTypeIdentityCard) TypeName() string {
 	return "secureValueTypeIdentityCard"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureValueTypeIdentityCard) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureValueTypeIdentityCard",
+		ID:   SecureValueTypeIdentityCardTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -333,13 +391,27 @@ func (s *SecureValueTypeInternalPassport) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureValueTypeInternalPassport) TypeID() uint32 {
+func (*SecureValueTypeInternalPassport) TypeID() uint32 {
 	return SecureValueTypeInternalPassportTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureValueTypeInternalPassport) TypeName() string {
+func (*SecureValueTypeInternalPassport) TypeName() string {
 	return "secureValueTypeInternalPassport"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureValueTypeInternalPassport) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureValueTypeInternalPassport",
+		ID:   SecureValueTypeInternalPassportTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -403,13 +475,27 @@ func (s *SecureValueTypeAddress) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureValueTypeAddress) TypeID() uint32 {
+func (*SecureValueTypeAddress) TypeID() uint32 {
 	return SecureValueTypeAddressTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureValueTypeAddress) TypeName() string {
+func (*SecureValueTypeAddress) TypeName() string {
 	return "secureValueTypeAddress"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureValueTypeAddress) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureValueTypeAddress",
+		ID:   SecureValueTypeAddressTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -473,13 +559,27 @@ func (s *SecureValueTypeUtilityBill) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureValueTypeUtilityBill) TypeID() uint32 {
+func (*SecureValueTypeUtilityBill) TypeID() uint32 {
 	return SecureValueTypeUtilityBillTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureValueTypeUtilityBill) TypeName() string {
+func (*SecureValueTypeUtilityBill) TypeName() string {
 	return "secureValueTypeUtilityBill"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureValueTypeUtilityBill) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureValueTypeUtilityBill",
+		ID:   SecureValueTypeUtilityBillTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -543,13 +643,27 @@ func (s *SecureValueTypeBankStatement) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureValueTypeBankStatement) TypeID() uint32 {
+func (*SecureValueTypeBankStatement) TypeID() uint32 {
 	return SecureValueTypeBankStatementTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureValueTypeBankStatement) TypeName() string {
+func (*SecureValueTypeBankStatement) TypeName() string {
 	return "secureValueTypeBankStatement"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureValueTypeBankStatement) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureValueTypeBankStatement",
+		ID:   SecureValueTypeBankStatementTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -613,13 +727,27 @@ func (s *SecureValueTypeRentalAgreement) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureValueTypeRentalAgreement) TypeID() uint32 {
+func (*SecureValueTypeRentalAgreement) TypeID() uint32 {
 	return SecureValueTypeRentalAgreementTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureValueTypeRentalAgreement) TypeName() string {
+func (*SecureValueTypeRentalAgreement) TypeName() string {
 	return "secureValueTypeRentalAgreement"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureValueTypeRentalAgreement) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureValueTypeRentalAgreement",
+		ID:   SecureValueTypeRentalAgreementTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -686,13 +814,27 @@ func (s *SecureValueTypePassportRegistration) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureValueTypePassportRegistration) TypeID() uint32 {
+func (*SecureValueTypePassportRegistration) TypeID() uint32 {
 	return SecureValueTypePassportRegistrationTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureValueTypePassportRegistration) TypeName() string {
+func (*SecureValueTypePassportRegistration) TypeName() string {
 	return "secureValueTypePassportRegistration"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureValueTypePassportRegistration) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureValueTypePassportRegistration",
+		ID:   SecureValueTypePassportRegistrationTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -756,13 +898,27 @@ func (s *SecureValueTypeTemporaryRegistration) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureValueTypeTemporaryRegistration) TypeID() uint32 {
+func (*SecureValueTypeTemporaryRegistration) TypeID() uint32 {
 	return SecureValueTypeTemporaryRegistrationTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureValueTypeTemporaryRegistration) TypeName() string {
+func (*SecureValueTypeTemporaryRegistration) TypeName() string {
 	return "secureValueTypeTemporaryRegistration"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureValueTypeTemporaryRegistration) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureValueTypeTemporaryRegistration",
+		ID:   SecureValueTypeTemporaryRegistrationTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -826,13 +982,27 @@ func (s *SecureValueTypePhone) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureValueTypePhone) TypeID() uint32 {
+func (*SecureValueTypePhone) TypeID() uint32 {
 	return SecureValueTypePhoneTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureValueTypePhone) TypeName() string {
+func (*SecureValueTypePhone) TypeName() string {
 	return "secureValueTypePhone"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureValueTypePhone) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureValueTypePhone",
+		ID:   SecureValueTypePhoneTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -896,13 +1066,27 @@ func (s *SecureValueTypeEmail) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *SecureValueTypeEmail) TypeID() uint32 {
+func (*SecureValueTypeEmail) TypeID() uint32 {
 	return SecureValueTypeEmailTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *SecureValueTypeEmail) TypeName() string {
+func (*SecureValueTypeEmail) TypeName() string {
 	return "secureValueTypeEmail"
+}
+
+// TypeInfo returns info about TL type.
+func (s *SecureValueTypeEmail) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "secureValueTypeEmail",
+		ID:   SecureValueTypeEmailTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.

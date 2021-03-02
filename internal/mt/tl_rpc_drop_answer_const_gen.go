@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,11 +20,12 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // RPCDropAnswerRequest represents TL type `rpc_drop_answer#58e4a740`.
 type RPCDropAnswerRequest struct {
 	// ReqMsgID field of RPCDropAnswerRequest.
-	ReqMsgID int64 `tl:"req_msg_id"`
+	ReqMsgID int64
 }
 
 // RPCDropAnswerRequestTypeID is TL type id of RPCDropAnswerRequest.
@@ -59,13 +61,32 @@ func (r *RPCDropAnswerRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (r *RPCDropAnswerRequest) TypeID() uint32 {
+func (*RPCDropAnswerRequest) TypeID() uint32 {
 	return RPCDropAnswerRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (r *RPCDropAnswerRequest) TypeName() string {
+func (*RPCDropAnswerRequest) TypeName() string {
 	return "rpc_drop_answer"
+}
+
+// TypeInfo returns info about TL type.
+func (r *RPCDropAnswerRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "rpc_drop_answer",
+		ID:   RPCDropAnswerRequestTypeID,
+	}
+	if r == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ReqMsgID",
+			SchemaName: "req_msg_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

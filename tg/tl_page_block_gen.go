@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PageBlockUnsupported represents TL type `pageBlockUnsupported#13567e8a`.
 // Unsupported IV element
@@ -50,13 +52,27 @@ func (p *PageBlockUnsupported) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockUnsupported) TypeID() uint32 {
+func (*PageBlockUnsupported) TypeID() uint32 {
 	return PageBlockUnsupportedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockUnsupported) TypeName() string {
+func (*PageBlockUnsupported) TypeName() string {
 	return "pageBlockUnsupported"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockUnsupported) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockUnsupported",
+		ID:   PageBlockUnsupportedTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -96,7 +112,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockTitle for reference.
 type PageBlockTitle struct {
 	// Title
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 }
 
 // PageBlockTitleTypeID is TL type id of PageBlockTitle.
@@ -132,13 +148,32 @@ func (p *PageBlockTitle) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockTitle) TypeID() uint32 {
+func (*PageBlockTitle) TypeID() uint32 {
 	return PageBlockTitleTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockTitle) TypeName() string {
+func (*PageBlockTitle) TypeName() string {
 	return "pageBlockTitle"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockTitle) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockTitle",
+		ID:   PageBlockTitleTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -196,7 +231,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockSubtitle for reference.
 type PageBlockSubtitle struct {
 	// Text
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 }
 
 // PageBlockSubtitleTypeID is TL type id of PageBlockSubtitle.
@@ -232,13 +267,32 @@ func (p *PageBlockSubtitle) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockSubtitle) TypeID() uint32 {
+func (*PageBlockSubtitle) TypeID() uint32 {
 	return PageBlockSubtitleTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockSubtitle) TypeName() string {
+func (*PageBlockSubtitle) TypeName() string {
 	return "pageBlockSubtitle"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockSubtitle) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockSubtitle",
+		ID:   PageBlockSubtitleTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -296,9 +350,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockAuthorDate for reference.
 type PageBlockAuthorDate struct {
 	// Author name
-	Author RichTextClass `tl:"author"`
+	Author RichTextClass
 	// Date of pubblication
-	PublishedDate int `tl:"published_date"`
+	PublishedDate int
 }
 
 // PageBlockAuthorDateTypeID is TL type id of PageBlockAuthorDate.
@@ -339,13 +393,36 @@ func (p *PageBlockAuthorDate) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockAuthorDate) TypeID() uint32 {
+func (*PageBlockAuthorDate) TypeID() uint32 {
 	return PageBlockAuthorDateTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockAuthorDate) TypeName() string {
+func (*PageBlockAuthorDate) TypeName() string {
 	return "pageBlockAuthorDate"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockAuthorDate) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockAuthorDate",
+		ID:   PageBlockAuthorDateTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Author",
+			SchemaName: "author",
+		},
+		{
+			Name:       "PublishedDate",
+			SchemaName: "published_date",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -416,7 +493,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockHeader for reference.
 type PageBlockHeader struct {
 	// Contents
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 }
 
 // PageBlockHeaderTypeID is TL type id of PageBlockHeader.
@@ -452,13 +529,32 @@ func (p *PageBlockHeader) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockHeader) TypeID() uint32 {
+func (*PageBlockHeader) TypeID() uint32 {
 	return PageBlockHeaderTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockHeader) TypeName() string {
+func (*PageBlockHeader) TypeName() string {
 	return "pageBlockHeader"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockHeader) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockHeader",
+		ID:   PageBlockHeaderTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -516,7 +612,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockSubheader for reference.
 type PageBlockSubheader struct {
 	// Subheader
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 }
 
 // PageBlockSubheaderTypeID is TL type id of PageBlockSubheader.
@@ -552,13 +648,32 @@ func (p *PageBlockSubheader) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockSubheader) TypeID() uint32 {
+func (*PageBlockSubheader) TypeID() uint32 {
 	return PageBlockSubheaderTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockSubheader) TypeName() string {
+func (*PageBlockSubheader) TypeName() string {
 	return "pageBlockSubheader"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockSubheader) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockSubheader",
+		ID:   PageBlockSubheaderTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -616,7 +731,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockParagraph for reference.
 type PageBlockParagraph struct {
 	// Text
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 }
 
 // PageBlockParagraphTypeID is TL type id of PageBlockParagraph.
@@ -652,13 +767,32 @@ func (p *PageBlockParagraph) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockParagraph) TypeID() uint32 {
+func (*PageBlockParagraph) TypeID() uint32 {
 	return PageBlockParagraphTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockParagraph) TypeName() string {
+func (*PageBlockParagraph) TypeName() string {
 	return "pageBlockParagraph"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockParagraph) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockParagraph",
+		ID:   PageBlockParagraphTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -716,9 +850,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockPreformatted for reference.
 type PageBlockPreformatted struct {
 	// Text
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 	// Programming language of preformatted text
-	Language string `tl:"language"`
+	Language string
 }
 
 // PageBlockPreformattedTypeID is TL type id of PageBlockPreformatted.
@@ -759,13 +893,36 @@ func (p *PageBlockPreformatted) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockPreformatted) TypeID() uint32 {
+func (*PageBlockPreformatted) TypeID() uint32 {
 	return PageBlockPreformattedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockPreformatted) TypeName() string {
+func (*PageBlockPreformatted) TypeName() string {
 	return "pageBlockPreformatted"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockPreformatted) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockPreformatted",
+		ID:   PageBlockPreformattedTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
+			Name:       "Language",
+			SchemaName: "language",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -836,7 +993,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockFooter for reference.
 type PageBlockFooter struct {
 	// Contents
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 }
 
 // PageBlockFooterTypeID is TL type id of PageBlockFooter.
@@ -872,13 +1029,32 @@ func (p *PageBlockFooter) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockFooter) TypeID() uint32 {
+func (*PageBlockFooter) TypeID() uint32 {
 	return PageBlockFooterTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockFooter) TypeName() string {
+func (*PageBlockFooter) TypeName() string {
 	return "pageBlockFooter"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockFooter) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockFooter",
+		ID:   PageBlockFooterTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -960,13 +1136,27 @@ func (p *PageBlockDivider) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockDivider) TypeID() uint32 {
+func (*PageBlockDivider) TypeID() uint32 {
 	return PageBlockDividerTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockDivider) TypeName() string {
+func (*PageBlockDivider) TypeName() string {
 	return "pageBlockDivider"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockDivider) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockDivider",
+		ID:   PageBlockDividerTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1006,7 +1196,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockAnchor for reference.
 type PageBlockAnchor struct {
 	// Name of target section
-	Name string `tl:"name"`
+	Name string
 }
 
 // PageBlockAnchorTypeID is TL type id of PageBlockAnchor.
@@ -1042,13 +1232,32 @@ func (p *PageBlockAnchor) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockAnchor) TypeID() uint32 {
+func (*PageBlockAnchor) TypeID() uint32 {
 	return PageBlockAnchorTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockAnchor) TypeName() string {
+func (*PageBlockAnchor) TypeName() string {
 	return "pageBlockAnchor"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockAnchor) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockAnchor",
+		ID:   PageBlockAnchorTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Name",
+			SchemaName: "name",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1101,7 +1310,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockList for reference.
 type PageBlockList struct {
 	// List of blocks in an IV page
-	Items []PageListItemClass `tl:"items"`
+	Items []PageListItemClass
 }
 
 // PageBlockListTypeID is TL type id of PageBlockList.
@@ -1137,13 +1346,32 @@ func (p *PageBlockList) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockList) TypeID() uint32 {
+func (*PageBlockList) TypeID() uint32 {
 	return PageBlockListTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockList) TypeName() string {
+func (*PageBlockList) TypeName() string {
 	return "pageBlockList"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockList) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockList",
+		ID:   PageBlockListTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Items",
+			SchemaName: "items",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1215,9 +1443,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockBlockquote for reference.
 type PageBlockBlockquote struct {
 	// Quote contents
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 	// Caption
-	Caption RichTextClass `tl:"caption"`
+	Caption RichTextClass
 }
 
 // PageBlockBlockquoteTypeID is TL type id of PageBlockBlockquote.
@@ -1258,13 +1486,36 @@ func (p *PageBlockBlockquote) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockBlockquote) TypeID() uint32 {
+func (*PageBlockBlockquote) TypeID() uint32 {
 	return PageBlockBlockquoteTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockBlockquote) TypeName() string {
+func (*PageBlockBlockquote) TypeName() string {
 	return "pageBlockBlockquote"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockBlockquote) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockBlockquote",
+		ID:   PageBlockBlockquoteTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
+			Name:       "Caption",
+			SchemaName: "caption",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1340,9 +1591,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockPullquote for reference.
 type PageBlockPullquote struct {
 	// Text
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 	// Caption
-	Caption RichTextClass `tl:"caption"`
+	Caption RichTextClass
 }
 
 // PageBlockPullquoteTypeID is TL type id of PageBlockPullquote.
@@ -1383,13 +1634,36 @@ func (p *PageBlockPullquote) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockPullquote) TypeID() uint32 {
+func (*PageBlockPullquote) TypeID() uint32 {
 	return PageBlockPullquoteTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockPullquote) TypeName() string {
+func (*PageBlockPullquote) TypeName() string {
 	return "pageBlockPullquote"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockPullquote) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockPullquote",
+		ID:   PageBlockPullquoteTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+		{
+			Name:       "Caption",
+			SchemaName: "caption",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1468,19 +1742,19 @@ type PageBlockPhoto struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Photo ID
-	PhotoID int64 `tl:"photo_id"`
+	PhotoID int64
 	// Caption
-	Caption PageCaption `tl:"caption"`
+	Caption PageCaption
 	// HTTP URL of page the photo leads to when clicked
 	//
 	// Use SetURL and GetURL helpers.
-	URL string `tl:"url"`
+	URL string
 	// ID of preview of the page the photo leads to when clicked
 	//
 	// Use SetWebpageID and GetWebpageID helpers.
-	WebpageID int64 `tl:"webpage_id"`
+	WebpageID int64
 }
 
 // PageBlockPhotoTypeID is TL type id of PageBlockPhoto.
@@ -1540,13 +1814,50 @@ func (p *PageBlockPhoto) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockPhoto) TypeID() uint32 {
+func (*PageBlockPhoto) TypeID() uint32 {
 	return PageBlockPhotoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockPhoto) TypeName() string {
+func (*PageBlockPhoto) TypeName() string {
 	return "pageBlockPhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockPhoto) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockPhoto",
+		ID:   PageBlockPhotoTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "PhotoID",
+			SchemaName: "photo_id",
+		},
+		{
+			Name:       "Caption",
+			SchemaName: "caption",
+		},
+		{
+			Name:       "URL",
+			SchemaName: "url",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "WebpageID",
+			SchemaName: "webpage_id",
+			Null:       !p.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1679,15 +1990,15 @@ type PageBlockVideo struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the video is set to autoplay
-	Autoplay bool `tl:"autoplay"`
+	Autoplay bool
 	// Whether the video is set to loop
-	Loop bool `tl:"loop"`
+	Loop bool
 	// Video ID
-	VideoID int64 `tl:"video_id"`
+	VideoID int64
 	// Caption
-	Caption PageCaption `tl:"caption"`
+	Caption PageCaption
 }
 
 // PageBlockVideoTypeID is TL type id of PageBlockVideo.
@@ -1741,13 +2052,50 @@ func (p *PageBlockVideo) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockVideo) TypeID() uint32 {
+func (*PageBlockVideo) TypeID() uint32 {
 	return PageBlockVideoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockVideo) TypeName() string {
+func (*PageBlockVideo) TypeName() string {
 	return "pageBlockVideo"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockVideo) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockVideo",
+		ID:   PageBlockVideoTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Autoplay",
+			SchemaName: "autoplay",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "Loop",
+			SchemaName: "loop",
+			Null:       !p.Flags.Has(1),
+		},
+		{
+			Name:       "VideoID",
+			SchemaName: "video_id",
+		},
+		{
+			Name:       "Caption",
+			SchemaName: "caption",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1861,7 +2209,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockCover for reference.
 type PageBlockCover struct {
 	// Cover
-	Cover PageBlockClass `tl:"cover"`
+	Cover PageBlockClass
 }
 
 // PageBlockCoverTypeID is TL type id of PageBlockCover.
@@ -1897,13 +2245,32 @@ func (p *PageBlockCover) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockCover) TypeID() uint32 {
+func (*PageBlockCover) TypeID() uint32 {
 	return PageBlockCoverTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockCover) TypeName() string {
+func (*PageBlockCover) TypeName() string {
 	return "pageBlockCover"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockCover) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockCover",
+		ID:   PageBlockCoverTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Cover",
+			SchemaName: "cover",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1964,33 +2331,33 @@ type PageBlockEmbed struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the block should be full width
-	FullWidth bool `tl:"full_width"`
+	FullWidth bool
 	// Whether scrolling should be allowed
-	AllowScrolling bool `tl:"allow_scrolling"`
+	AllowScrolling bool
 	// Web page URL, if available
 	//
 	// Use SetURL and GetURL helpers.
-	URL string `tl:"url"`
+	URL string
 	// HTML-markup of the embedded page
 	//
 	// Use SetHTML and GetHTML helpers.
-	HTML string `tl:"html"`
+	HTML string
 	// Poster photo, if available
 	//
 	// Use SetPosterPhotoID and GetPosterPhotoID helpers.
-	PosterPhotoID int64 `tl:"poster_photo_id"`
+	PosterPhotoID int64
 	// Block width, if known
 	//
 	// Use SetW and GetW helpers.
-	W int `tl:"w"`
+	W int
 	// Block height, if known
 	//
 	// Use SetH and GetH helpers.
-	H int `tl:"h"`
+	H int
 	// Caption
-	Caption PageCaption `tl:"caption"`
+	Caption PageCaption
 }
 
 // PageBlockEmbedTypeID is TL type id of PageBlockEmbed.
@@ -2079,13 +2446,71 @@ func (p *PageBlockEmbed) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockEmbed) TypeID() uint32 {
+func (*PageBlockEmbed) TypeID() uint32 {
 	return PageBlockEmbedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockEmbed) TypeName() string {
+func (*PageBlockEmbed) TypeName() string {
 	return "pageBlockEmbed"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockEmbed) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockEmbed",
+		ID:   PageBlockEmbedTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "FullWidth",
+			SchemaName: "full_width",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "AllowScrolling",
+			SchemaName: "allow_scrolling",
+			Null:       !p.Flags.Has(3),
+		},
+		{
+			Name:       "URL",
+			SchemaName: "url",
+			Null:       !p.Flags.Has(1),
+		},
+		{
+			Name:       "HTML",
+			SchemaName: "html",
+			Null:       !p.Flags.Has(2),
+		},
+		{
+			Name:       "PosterPhotoID",
+			SchemaName: "poster_photo_id",
+			Null:       !p.Flags.Has(4),
+		},
+		{
+			Name:       "W",
+			SchemaName: "w",
+			Null:       !p.Flags.Has(5),
+		},
+		{
+			Name:       "H",
+			SchemaName: "h",
+			Null:       !p.Flags.Has(5),
+		},
+		{
+			Name:       "Caption",
+			SchemaName: "caption",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2326,19 +2751,19 @@ var (
 // See https://core.telegram.org/constructor/pageBlockEmbedPost for reference.
 type PageBlockEmbedPost struct {
 	// Web page URL
-	URL string `tl:"url"`
+	URL string
 	// ID of generated webpage preview
-	WebpageID int64 `tl:"webpage_id"`
+	WebpageID int64
 	// ID of the author's photo
-	AuthorPhotoID int64 `tl:"author_photo_id"`
+	AuthorPhotoID int64
 	// Author name
-	Author string `tl:"author"`
+	Author string
 	// Creation date
-	Date int `tl:"date"`
+	Date int
 	// Post contents
-	Blocks []PageBlockClass `tl:"blocks"`
+	Blocks []PageBlockClass
 	// Caption
-	Caption PageCaption `tl:"caption"`
+	Caption PageCaption
 }
 
 // PageBlockEmbedPostTypeID is TL type id of PageBlockEmbedPost.
@@ -2404,13 +2829,56 @@ func (p *PageBlockEmbedPost) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockEmbedPost) TypeID() uint32 {
+func (*PageBlockEmbedPost) TypeID() uint32 {
 	return PageBlockEmbedPostTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockEmbedPost) TypeName() string {
+func (*PageBlockEmbedPost) TypeName() string {
 	return "pageBlockEmbedPost"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockEmbedPost) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockEmbedPost",
+		ID:   PageBlockEmbedPostTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+		{
+			Name:       "WebpageID",
+			SchemaName: "webpage_id",
+		},
+		{
+			Name:       "AuthorPhotoID",
+			SchemaName: "author_photo_id",
+		},
+		{
+			Name:       "Author",
+			SchemaName: "author",
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "Blocks",
+			SchemaName: "blocks",
+		},
+		{
+			Name:       "Caption",
+			SchemaName: "caption",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2560,9 +3028,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockCollage for reference.
 type PageBlockCollage struct {
 	// Media elements
-	Items []PageBlockClass `tl:"items"`
+	Items []PageBlockClass
 	// Caption
-	Caption PageCaption `tl:"caption"`
+	Caption PageCaption
 }
 
 // PageBlockCollageTypeID is TL type id of PageBlockCollage.
@@ -2603,13 +3071,36 @@ func (p *PageBlockCollage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockCollage) TypeID() uint32 {
+func (*PageBlockCollage) TypeID() uint32 {
 	return PageBlockCollageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockCollage) TypeName() string {
+func (*PageBlockCollage) TypeName() string {
 	return "pageBlockCollage"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockCollage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockCollage",
+		ID:   PageBlockCollageTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Items",
+			SchemaName: "items",
+		},
+		{
+			Name:       "Caption",
+			SchemaName: "caption",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2694,9 +3185,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockSlideshow for reference.
 type PageBlockSlideshow struct {
 	// Slideshow items
-	Items []PageBlockClass `tl:"items"`
+	Items []PageBlockClass
 	// Caption
-	Caption PageCaption `tl:"caption"`
+	Caption PageCaption
 }
 
 // PageBlockSlideshowTypeID is TL type id of PageBlockSlideshow.
@@ -2737,13 +3228,36 @@ func (p *PageBlockSlideshow) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockSlideshow) TypeID() uint32 {
+func (*PageBlockSlideshow) TypeID() uint32 {
 	return PageBlockSlideshowTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockSlideshow) TypeName() string {
+func (*PageBlockSlideshow) TypeName() string {
 	return "pageBlockSlideshow"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockSlideshow) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockSlideshow",
+		ID:   PageBlockSlideshowTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Items",
+			SchemaName: "items",
+		},
+		{
+			Name:       "Caption",
+			SchemaName: "caption",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2828,7 +3342,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockChannel for reference.
 type PageBlockChannel struct {
 	// The channel/supergroup/chat
-	Channel ChatClass `tl:"channel"`
+	Channel ChatClass
 }
 
 // PageBlockChannelTypeID is TL type id of PageBlockChannel.
@@ -2864,13 +3378,32 @@ func (p *PageBlockChannel) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockChannel) TypeID() uint32 {
+func (*PageBlockChannel) TypeID() uint32 {
 	return PageBlockChannelTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockChannel) TypeName() string {
+func (*PageBlockChannel) TypeName() string {
 	return "pageBlockChannel"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockChannel) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockChannel",
+		ID:   PageBlockChannelTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Channel",
+			SchemaName: "channel",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2931,9 +3464,9 @@ type PageBlockAudio struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/page
-	AudioID int64 `tl:"audio_id"`
+	AudioID int64
 	// Audio caption
-	Caption PageCaption `tl:"caption"`
+	Caption PageCaption
 }
 
 // PageBlockAudioTypeID is TL type id of PageBlockAudio.
@@ -2974,13 +3507,36 @@ func (p *PageBlockAudio) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockAudio) TypeID() uint32 {
+func (*PageBlockAudio) TypeID() uint32 {
 	return PageBlockAudioTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockAudio) TypeName() string {
+func (*PageBlockAudio) TypeName() string {
 	return "pageBlockAudio"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockAudio) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockAudio",
+		ID:   PageBlockAudioTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "AudioID",
+			SchemaName: "audio_id",
+		},
+		{
+			Name:       "Caption",
+			SchemaName: "caption",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -3046,7 +3602,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockKicker for reference.
 type PageBlockKicker struct {
 	// Contents
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 }
 
 // PageBlockKickerTypeID is TL type id of PageBlockKicker.
@@ -3082,13 +3638,32 @@ func (p *PageBlockKicker) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockKicker) TypeID() uint32 {
+func (*PageBlockKicker) TypeID() uint32 {
 	return PageBlockKickerTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockKicker) TypeName() string {
+func (*PageBlockKicker) TypeName() string {
 	return "pageBlockKicker"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockKicker) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockKicker",
+		ID:   PageBlockKickerTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Text",
+			SchemaName: "text",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -3149,15 +3724,15 @@ type PageBlockTable struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Does the table have a visible border?
-	Bordered bool `tl:"bordered"`
+	Bordered bool
 	// Is the table striped?
-	Striped bool `tl:"striped"`
+	Striped bool
 	// Title
-	Title RichTextClass `tl:"title"`
+	Title RichTextClass
 	// Table rows
-	Rows []PageTableRow `tl:"rows"`
+	Rows []PageTableRow
 }
 
 // PageBlockTableTypeID is TL type id of PageBlockTable.
@@ -3211,13 +3786,50 @@ func (p *PageBlockTable) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockTable) TypeID() uint32 {
+func (*PageBlockTable) TypeID() uint32 {
 	return PageBlockTableTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockTable) TypeName() string {
+func (*PageBlockTable) TypeName() string {
 	return "pageBlockTable"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockTable) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockTable",
+		ID:   PageBlockTableTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Bordered",
+			SchemaName: "bordered",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "Striped",
+			SchemaName: "striped",
+			Null:       !p.Flags.Has(1),
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "Rows",
+			SchemaName: "rows",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -3347,7 +3959,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockOrderedList for reference.
 type PageBlockOrderedList struct {
 	// List items
-	Items []PageListOrderedItemClass `tl:"items"`
+	Items []PageListOrderedItemClass
 }
 
 // PageBlockOrderedListTypeID is TL type id of PageBlockOrderedList.
@@ -3383,13 +3995,32 @@ func (p *PageBlockOrderedList) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockOrderedList) TypeID() uint32 {
+func (*PageBlockOrderedList) TypeID() uint32 {
 	return PageBlockOrderedListTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockOrderedList) TypeName() string {
+func (*PageBlockOrderedList) TypeName() string {
 	return "pageBlockOrderedList"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockOrderedList) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockOrderedList",
+		ID:   PageBlockOrderedListTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Items",
+			SchemaName: "items",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -3464,13 +4095,13 @@ type PageBlockDetails struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the block is open by default
-	Open bool `tl:"open"`
+	Open bool
 	// Block contents
-	Blocks []PageBlockClass `tl:"blocks"`
+	Blocks []PageBlockClass
 	// Always visible heading for the block
-	Title RichTextClass `tl:"title"`
+	Title RichTextClass
 }
 
 // PageBlockDetailsTypeID is TL type id of PageBlockDetails.
@@ -3519,13 +4150,45 @@ func (p *PageBlockDetails) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockDetails) TypeID() uint32 {
+func (*PageBlockDetails) TypeID() uint32 {
 	return PageBlockDetailsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockDetails) TypeName() string {
+func (*PageBlockDetails) TypeName() string {
 	return "pageBlockDetails"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockDetails) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockDetails",
+		ID:   PageBlockDetailsTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Open",
+			SchemaName: "open",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "Blocks",
+			SchemaName: "blocks",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -3643,9 +4306,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockRelatedArticles for reference.
 type PageBlockRelatedArticles struct {
 	// Title
-	Title RichTextClass `tl:"title"`
+	Title RichTextClass
 	// Related articles
-	Articles []PageRelatedArticle `tl:"articles"`
+	Articles []PageRelatedArticle
 }
 
 // PageBlockRelatedArticlesTypeID is TL type id of PageBlockRelatedArticles.
@@ -3686,13 +4349,36 @@ func (p *PageBlockRelatedArticles) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockRelatedArticles) TypeID() uint32 {
+func (*PageBlockRelatedArticles) TypeID() uint32 {
 	return PageBlockRelatedArticlesTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockRelatedArticles) TypeName() string {
+func (*PageBlockRelatedArticles) TypeName() string {
 	return "pageBlockRelatedArticles"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockRelatedArticles) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockRelatedArticles",
+		ID:   PageBlockRelatedArticlesTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "Articles",
+			SchemaName: "articles",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -3774,15 +4460,15 @@ var (
 // See https://core.telegram.org/constructor/pageBlockMap for reference.
 type PageBlockMap struct {
 	// Location of the map center
-	Geo GeoPointClass `tl:"geo"`
+	Geo GeoPointClass
 	// Map zoom level; 13-20
-	Zoom int `tl:"zoom"`
+	Zoom int
 	// Map width in pixels before applying scale; 16-102
-	W int `tl:"w"`
+	W int
 	// Map height in pixels before applying scale; 16-1024
-	H int `tl:"h"`
+	H int
 	// Caption
-	Caption PageCaption `tl:"caption"`
+	Caption PageCaption
 }
 
 // PageBlockMapTypeID is TL type id of PageBlockMap.
@@ -3838,13 +4524,48 @@ func (p *PageBlockMap) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PageBlockMap) TypeID() uint32 {
+func (*PageBlockMap) TypeID() uint32 {
 	return PageBlockMapTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PageBlockMap) TypeName() string {
+func (*PageBlockMap) TypeName() string {
 	return "pageBlockMap"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PageBlockMap) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "pageBlockMap",
+		ID:   PageBlockMapTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Geo",
+			SchemaName: "geo",
+		},
+		{
+			Name:       "Zoom",
+			SchemaName: "zoom",
+		},
+		{
+			Name:       "W",
+			SchemaName: "w",
+		},
+		{
+			Name:       "H",
+			SchemaName: "h",
+		},
+		{
+			Name:       "Caption",
+			SchemaName: "caption",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

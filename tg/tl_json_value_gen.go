@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // JsonNull represents TL type `jsonNull#3f6d7b68`.
 // null JSON value
@@ -50,13 +52,27 @@ func (j *JsonNull) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (j *JsonNull) TypeID() uint32 {
+func (*JsonNull) TypeID() uint32 {
 	return JsonNullTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (j *JsonNull) TypeName() string {
+func (*JsonNull) TypeName() string {
 	return "jsonNull"
+}
+
+// TypeInfo returns info about TL type.
+func (j *JsonNull) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "jsonNull",
+		ID:   JsonNullTypeID,
+	}
+	if j == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -96,7 +112,7 @@ var (
 // See https://core.telegram.org/constructor/jsonBool for reference.
 type JsonBool struct {
 	// Value
-	Value bool `tl:"value"`
+	Value bool
 }
 
 // JsonBoolTypeID is TL type id of JsonBool.
@@ -132,13 +148,32 @@ func (j *JsonBool) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (j *JsonBool) TypeID() uint32 {
+func (*JsonBool) TypeID() uint32 {
 	return JsonBoolTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (j *JsonBool) TypeName() string {
+func (*JsonBool) TypeName() string {
 	return "jsonBool"
+}
+
+// TypeInfo returns info about TL type.
+func (j *JsonBool) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "jsonBool",
+		ID:   JsonBoolTypeID,
+	}
+	if j == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Value",
+			SchemaName: "value",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -191,7 +226,7 @@ var (
 // See https://core.telegram.org/constructor/jsonNumber for reference.
 type JsonNumber struct {
 	// Value
-	Value float64 `tl:"value"`
+	Value float64
 }
 
 // JsonNumberTypeID is TL type id of JsonNumber.
@@ -227,13 +262,32 @@ func (j *JsonNumber) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (j *JsonNumber) TypeID() uint32 {
+func (*JsonNumber) TypeID() uint32 {
 	return JsonNumberTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (j *JsonNumber) TypeName() string {
+func (*JsonNumber) TypeName() string {
 	return "jsonNumber"
+}
+
+// TypeInfo returns info about TL type.
+func (j *JsonNumber) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "jsonNumber",
+		ID:   JsonNumberTypeID,
+	}
+	if j == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Value",
+			SchemaName: "value",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -286,7 +340,7 @@ var (
 // See https://core.telegram.org/constructor/jsonString for reference.
 type JsonString struct {
 	// Value
-	Value string `tl:"value"`
+	Value string
 }
 
 // JsonStringTypeID is TL type id of JsonString.
@@ -322,13 +376,32 @@ func (j *JsonString) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (j *JsonString) TypeID() uint32 {
+func (*JsonString) TypeID() uint32 {
 	return JsonStringTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (j *JsonString) TypeName() string {
+func (*JsonString) TypeName() string {
 	return "jsonString"
+}
+
+// TypeInfo returns info about TL type.
+func (j *JsonString) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "jsonString",
+		ID:   JsonStringTypeID,
+	}
+	if j == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Value",
+			SchemaName: "value",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -381,7 +454,7 @@ var (
 // See https://core.telegram.org/constructor/jsonArray for reference.
 type JsonArray struct {
 	// JSON values
-	Value []JSONValueClass `tl:"value"`
+	Value []JSONValueClass
 }
 
 // JsonArrayTypeID is TL type id of JsonArray.
@@ -417,13 +490,32 @@ func (j *JsonArray) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (j *JsonArray) TypeID() uint32 {
+func (*JsonArray) TypeID() uint32 {
 	return JsonArrayTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (j *JsonArray) TypeName() string {
+func (*JsonArray) TypeName() string {
 	return "jsonArray"
+}
+
+// TypeInfo returns info about TL type.
+func (j *JsonArray) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "jsonArray",
+		ID:   JsonArrayTypeID,
+	}
+	if j == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Value",
+			SchemaName: "value",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -495,7 +587,7 @@ var (
 // See https://core.telegram.org/constructor/jsonObject for reference.
 type JsonObject struct {
 	// Values
-	Value []JsonObjectValue `tl:"value"`
+	Value []JsonObjectValue
 }
 
 // JsonObjectTypeID is TL type id of JsonObject.
@@ -531,13 +623,32 @@ func (j *JsonObject) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (j *JsonObject) TypeID() uint32 {
+func (*JsonObject) TypeID() uint32 {
 	return JsonObjectTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (j *JsonObject) TypeName() string {
+func (*JsonObject) TypeName() string {
 	return "jsonObject"
+}
+
+// TypeInfo returns info about TL type.
+func (j *JsonObject) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "jsonObject",
+		ID:   JsonObjectTypeID,
+	}
+	if j == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Value",
+			SchemaName: "value",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

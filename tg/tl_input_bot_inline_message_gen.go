@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputBotInlineMessageMediaAuto represents TL type `inputBotInlineMessageMediaAuto#3380c786`.
 // A media
@@ -29,20 +31,20 @@ type InputBotInlineMessageMediaAuto struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Caption
-	Message string `tl:"message"`
+	Message string
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `tl:"entities"`
+	Entities []MessageEntityClass
 	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass
 }
 
 // InputBotInlineMessageMediaAutoTypeID is TL type id of InputBotInlineMessageMediaAuto.
@@ -97,13 +99,46 @@ func (i *InputBotInlineMessageMediaAuto) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputBotInlineMessageMediaAuto) TypeID() uint32 {
+func (*InputBotInlineMessageMediaAuto) TypeID() uint32 {
 	return InputBotInlineMessageMediaAutoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputBotInlineMessageMediaAuto) TypeName() string {
+func (*InputBotInlineMessageMediaAuto) TypeName() string {
 	return "inputBotInlineMessageMediaAuto"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputBotInlineMessageMediaAuto) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputBotInlineMessageMediaAuto",
+		ID:   InputBotInlineMessageMediaAutoTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+		{
+			Name:       "Entities",
+			SchemaName: "entities",
+			Null:       !i.Flags.Has(1),
+		},
+		{
+			Name:       "ReplyMarkup",
+			SchemaName: "reply_markup",
+			Null:       !i.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -250,22 +285,22 @@ type InputBotInlineMessageText struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Disable webpage preview
-	NoWebpage bool `tl:"no_webpage"`
+	NoWebpage bool
 	// Message
-	Message string `tl:"message"`
+	Message string
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `tl:"entities"`
+	Entities []MessageEntityClass
 	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass
 }
 
 // InputBotInlineMessageTextTypeID is TL type id of InputBotInlineMessageText.
@@ -325,13 +360,51 @@ func (i *InputBotInlineMessageText) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputBotInlineMessageText) TypeID() uint32 {
+func (*InputBotInlineMessageText) TypeID() uint32 {
 	return InputBotInlineMessageTextTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputBotInlineMessageText) TypeName() string {
+func (*InputBotInlineMessageText) TypeName() string {
 	return "inputBotInlineMessageText"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputBotInlineMessageText) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputBotInlineMessageText",
+		ID:   InputBotInlineMessageTextTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "NoWebpage",
+			SchemaName: "no_webpage",
+			Null:       !i.Flags.Has(0),
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+		{
+			Name:       "Entities",
+			SchemaName: "entities",
+			Null:       !i.Flags.Has(1),
+		},
+		{
+			Name:       "ReplyMarkup",
+			SchemaName: "reply_markup",
+			Null:       !i.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -498,31 +571,31 @@ type InputBotInlineMessageMediaGeo struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Geolocation
-	GeoPoint InputGeoPointClass `tl:"geo_point"`
+	GeoPoint InputGeoPointClass
 	// For live locations¹, a direction in which the location moves, in degrees; 1-360
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/live-location
 	//
 	// Use SetHeading and GetHeading helpers.
-	Heading int `tl:"heading"`
+	Heading int
 	// Validity period
 	//
 	// Use SetPeriod and GetPeriod helpers.
-	Period int `tl:"period"`
+	Period int
 	// For live locations¹, a maximum distance to another chat member for proximity alerts, in meters (0-100000)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/live-location
 	//
 	// Use SetProximityNotificationRadius and GetProximityNotificationRadius helpers.
-	ProximityNotificationRadius int `tl:"proximity_notification_radius"`
+	ProximityNotificationRadius int
 	// Reply markup for bot/inline keyboards
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass
 }
 
 // InputBotInlineMessageMediaGeoTypeID is TL type id of InputBotInlineMessageMediaGeo.
@@ -593,13 +666,56 @@ func (i *InputBotInlineMessageMediaGeo) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputBotInlineMessageMediaGeo) TypeID() uint32 {
+func (*InputBotInlineMessageMediaGeo) TypeID() uint32 {
 	return InputBotInlineMessageMediaGeoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputBotInlineMessageMediaGeo) TypeName() string {
+func (*InputBotInlineMessageMediaGeo) TypeName() string {
 	return "inputBotInlineMessageMediaGeo"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputBotInlineMessageMediaGeo) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputBotInlineMessageMediaGeo",
+		ID:   InputBotInlineMessageMediaGeoTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "GeoPoint",
+			SchemaName: "geo_point",
+		},
+		{
+			Name:       "Heading",
+			SchemaName: "heading",
+			Null:       !i.Flags.Has(0),
+		},
+		{
+			Name:       "Period",
+			SchemaName: "period",
+			Null:       !i.Flags.Has(1),
+		},
+		{
+			Name:       "ProximityNotificationRadius",
+			SchemaName: "proximity_notification_radius",
+			Null:       !i.Flags.Has(3),
+		},
+		{
+			Name:       "ReplyMarkup",
+			SchemaName: "reply_markup",
+			Null:       !i.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -785,23 +901,23 @@ type InputBotInlineMessageMediaVenue struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Geolocation
-	GeoPoint InputGeoPointClass `tl:"geo_point"`
+	GeoPoint InputGeoPointClass
 	// Venue name
-	Title string `tl:"title"`
+	Title string
 	// Address
-	Address string `tl:"address"`
+	Address string
 	// Venue provider: currently only "foursquare" needs to be supported
-	Provider string `tl:"provider"`
+	Provider string
 	// Venue ID in the provider's database
-	VenueID string `tl:"venue_id"`
+	VenueID string
 	// Venue type in the provider's database
-	VenueType string `tl:"venue_type"`
+	VenueType string
 	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass
 }
 
 // InputBotInlineMessageMediaVenueTypeID is TL type id of InputBotInlineMessageMediaVenue.
@@ -873,13 +989,61 @@ func (i *InputBotInlineMessageMediaVenue) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputBotInlineMessageMediaVenue) TypeID() uint32 {
+func (*InputBotInlineMessageMediaVenue) TypeID() uint32 {
 	return InputBotInlineMessageMediaVenueTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputBotInlineMessageMediaVenue) TypeName() string {
+func (*InputBotInlineMessageMediaVenue) TypeName() string {
 	return "inputBotInlineMessageMediaVenue"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputBotInlineMessageMediaVenue) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputBotInlineMessageMediaVenue",
+		ID:   InputBotInlineMessageMediaVenueTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "GeoPoint",
+			SchemaName: "geo_point",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "Address",
+			SchemaName: "address",
+		},
+		{
+			Name:       "Provider",
+			SchemaName: "provider",
+		},
+		{
+			Name:       "VenueID",
+			SchemaName: "venue_id",
+		},
+		{
+			Name:       "VenueType",
+			SchemaName: "venue_type",
+		},
+		{
+			Name:       "ReplyMarkup",
+			SchemaName: "reply_markup",
+			Null:       !i.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1046,19 +1210,19 @@ type InputBotInlineMessageMediaContact struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Phone number
-	PhoneNumber string `tl:"phone_number"`
+	PhoneNumber string
 	// First name
-	FirstName string `tl:"first_name"`
+	FirstName string
 	// Last name
-	LastName string `tl:"last_name"`
+	LastName string
 	// VCard info
-	Vcard string `tl:"vcard"`
+	Vcard string
 	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass
 }
 
 // InputBotInlineMessageMediaContactTypeID is TL type id of InputBotInlineMessageMediaContact.
@@ -1120,13 +1284,53 @@ func (i *InputBotInlineMessageMediaContact) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputBotInlineMessageMediaContact) TypeID() uint32 {
+func (*InputBotInlineMessageMediaContact) TypeID() uint32 {
 	return InputBotInlineMessageMediaContactTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputBotInlineMessageMediaContact) TypeName() string {
+func (*InputBotInlineMessageMediaContact) TypeName() string {
 	return "inputBotInlineMessageMediaContact"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputBotInlineMessageMediaContact) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputBotInlineMessageMediaContact",
+		ID:   InputBotInlineMessageMediaContactTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "PhoneNumber",
+			SchemaName: "phone_number",
+		},
+		{
+			Name:       "FirstName",
+			SchemaName: "first_name",
+		},
+		{
+			Name:       "LastName",
+			SchemaName: "last_name",
+		},
+		{
+			Name:       "Vcard",
+			SchemaName: "vcard",
+		},
+		{
+			Name:       "ReplyMarkup",
+			SchemaName: "reply_markup",
+			Null:       !i.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1262,11 +1466,11 @@ type InputBotInlineMessageGame struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass
 }
 
 // InputBotInlineMessageGameTypeID is TL type id of InputBotInlineMessageGame.
@@ -1308,13 +1512,37 @@ func (i *InputBotInlineMessageGame) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputBotInlineMessageGame) TypeID() uint32 {
+func (*InputBotInlineMessageGame) TypeID() uint32 {
 	return InputBotInlineMessageGameTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputBotInlineMessageGame) TypeName() string {
+func (*InputBotInlineMessageGame) TypeName() string {
 	return "inputBotInlineMessageGame"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputBotInlineMessageGame) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputBotInlineMessageGame",
+		ID:   InputBotInlineMessageGameTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ReplyMarkup",
+			SchemaName: "reply_markup",
+			Null:       !i.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

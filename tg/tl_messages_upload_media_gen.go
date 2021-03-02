@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesUploadMediaRequest represents TL type `messages.uploadMedia#519bc2b1`.
 // Upload a file and associate it to a chat (without actually sending it to the chat)
@@ -29,12 +31,12 @@ type MessagesUploadMediaRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/inputPeerEmpty
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// File uploaded in chunks as described in files »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files
-	Media InputMediaClass `tl:"media"`
+	Media InputMediaClass
 }
 
 // MessagesUploadMediaRequestTypeID is TL type id of MessagesUploadMediaRequest.
@@ -75,13 +77,36 @@ func (u *MessagesUploadMediaRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *MessagesUploadMediaRequest) TypeID() uint32 {
+func (*MessagesUploadMediaRequest) TypeID() uint32 {
 	return MessagesUploadMediaRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *MessagesUploadMediaRequest) TypeName() string {
+func (*MessagesUploadMediaRequest) TypeName() string {
 	return "messages.uploadMedia"
+}
+
+// TypeInfo returns info about TL type.
+func (u *MessagesUploadMediaRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.uploadMedia",
+		ID:   MessagesUploadMediaRequestTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Media",
+			SchemaName: "media",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

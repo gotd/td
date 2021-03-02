@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountGetWallPapersRequest represents TL type `account.getWallPapers#aabb1763`.
 // Returns a list of available wallpapers.
@@ -29,7 +31,7 @@ type AccountGetWallPapersRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 }
 
 // AccountGetWallPapersRequestTypeID is TL type id of AccountGetWallPapersRequest.
@@ -65,13 +67,32 @@ func (g *AccountGetWallPapersRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *AccountGetWallPapersRequest) TypeID() uint32 {
+func (*AccountGetWallPapersRequest) TypeID() uint32 {
 	return AccountGetWallPapersRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *AccountGetWallPapersRequest) TypeName() string {
+func (*AccountGetWallPapersRequest) TypeName() string {
 	return "account.getWallPapers"
+}
+
+// TypeInfo returns info about TL type.
+func (g *AccountGetWallPapersRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.getWallPapers",
+		ID:   AccountGetWallPapersRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

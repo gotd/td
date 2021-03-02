@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesGetPollVotesRequest represents TL type `messages.getPollVotes#b86e380e`.
 // Get poll results for non-anonymous polls
@@ -29,15 +31,15 @@ type MessagesGetPollVotesRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Chat where the poll was sent
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Message ID
-	ID int `tl:"id"`
+	ID int
 	// Get only results for the specified poll option
 	//
 	// Use SetOption and GetOption helpers.
-	Option []byte `tl:"option"`
+	Option []byte
 	// Offset for results, taken from the next_offset field of messages.votesList¹, initially an empty string. Note: if no more results are available, the method call will return an empty next_offset; thus, avoid providing the next_offset returned in messages.votesList² if it is empty, to avoid an infinite loop.
 	//
 	// Links:
@@ -45,9 +47,9 @@ type MessagesGetPollVotesRequest struct {
 	//  2) https://core.telegram.org/constructor/messages.votesList
 	//
 	// Use SetOffset and GetOffset helpers.
-	Offset string `tl:"offset"`
+	Offset string
 	// Number of results to return
-	Limit int `tl:"limit"`
+	Limit int
 }
 
 // MessagesGetPollVotesRequestTypeID is TL type id of MessagesGetPollVotesRequest.
@@ -112,13 +114,54 @@ func (g *MessagesGetPollVotesRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *MessagesGetPollVotesRequest) TypeID() uint32 {
+func (*MessagesGetPollVotesRequest) TypeID() uint32 {
 	return MessagesGetPollVotesRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *MessagesGetPollVotesRequest) TypeName() string {
+func (*MessagesGetPollVotesRequest) TypeName() string {
 	return "messages.getPollVotes"
+}
+
+// TypeInfo returns info about TL type.
+func (g *MessagesGetPollVotesRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.getPollVotes",
+		ID:   MessagesGetPollVotesRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Option",
+			SchemaName: "option",
+			Null:       !g.Flags.Has(0),
+		},
+		{
+			Name:       "Offset",
+			SchemaName: "offset",
+			Null:       !g.Flags.Has(1),
+		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

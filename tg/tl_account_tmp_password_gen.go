@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountTmpPassword represents TL type `account.tmpPassword#db64fd34`.
 // Temporary payment password
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/account.tmpPassword for reference.
 type AccountTmpPassword struct {
 	// Temporary password
-	TmpPassword []byte `tl:"tmp_password"`
+	TmpPassword []byte
 	// Validity period
-	ValidUntil int `tl:"valid_until"`
+	ValidUntil int
 }
 
 // AccountTmpPasswordTypeID is TL type id of AccountTmpPassword.
@@ -69,13 +71,36 @@ func (t *AccountTmpPassword) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (t *AccountTmpPassword) TypeID() uint32 {
+func (*AccountTmpPassword) TypeID() uint32 {
 	return AccountTmpPasswordTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (t *AccountTmpPassword) TypeName() string {
+func (*AccountTmpPassword) TypeName() string {
 	return "account.tmpPassword"
+}
+
+// TypeInfo returns info about TL type.
+func (t *AccountTmpPassword) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.tmpPassword",
+		ID:   AccountTmpPasswordTypeID,
+	}
+	if t == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "TmpPassword",
+			SchemaName: "tmp_password",
+		},
+		{
+			Name:       "ValidUntil",
+			SchemaName: "valid_until",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,17 +20,18 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // FileHash represents TL type `fileHash#6242c773`.
 //
 // See https://core.telegram.org/constructor/fileHash for reference.
 type FileHash struct {
 	// Offset field of FileHash.
-	Offset int `tl:"offset"`
+	Offset int
 	// Limit field of FileHash.
-	Limit int `tl:"limit"`
+	Limit int
 	// Hash field of FileHash.
-	Hash []byte `tl:"hash"`
+	Hash []byte
 }
 
 // FileHashTypeID is TL type id of FileHash.
@@ -75,13 +77,40 @@ func (f *FileHash) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (f *FileHash) TypeID() uint32 {
+func (*FileHash) TypeID() uint32 {
 	return FileHashTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (f *FileHash) TypeName() string {
+func (*FileHash) TypeName() string {
 	return "fileHash"
+}
+
+// TypeInfo returns info about TL type.
+func (f *FileHash) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "fileHash",
+		ID:   FileHashTypeID,
+	}
+	if f == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Offset",
+			SchemaName: "offset",
+		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

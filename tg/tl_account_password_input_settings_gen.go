@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountPasswordInputSettings represents TL type `account.passwordInputSettings#c23727c9`.
 // Settings for setting up a new password
@@ -29,36 +31,36 @@ type AccountPasswordInputSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// The SRP algorithm¹ to use
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
 	//
 	// Use SetNewAlgo and GetNewAlgo helpers.
-	NewAlgo PasswordKdfAlgoClass `tl:"new_algo"`
+	NewAlgo PasswordKdfAlgoClass
 	// The computed password hash¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
 	//
 	// Use SetNewPasswordHash and GetNewPasswordHash helpers.
-	NewPasswordHash []byte `tl:"new_password_hash"`
+	NewPasswordHash []byte
 	// Text hint for the password
 	//
 	// Use SetHint and GetHint helpers.
-	Hint string `tl:"hint"`
+	Hint string
 	// Password recovery email
 	//
 	// Use SetEmail and GetEmail helpers.
-	Email string `tl:"email"`
+	Email string
 	// Telegram passport¹ settings
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetNewSecureSettings and GetNewSecureSettings helpers.
-	NewSecureSettings SecureSecretSettings `tl:"new_secure_settings"`
+	NewSecureSettings SecureSecretSettings
 }
 
 // AccountPasswordInputSettingsTypeID is TL type id of AccountPasswordInputSettings.
@@ -132,13 +134,57 @@ func (p *AccountPasswordInputSettings) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *AccountPasswordInputSettings) TypeID() uint32 {
+func (*AccountPasswordInputSettings) TypeID() uint32 {
 	return AccountPasswordInputSettingsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *AccountPasswordInputSettings) TypeName() string {
+func (*AccountPasswordInputSettings) TypeName() string {
 	return "account.passwordInputSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (p *AccountPasswordInputSettings) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.passwordInputSettings",
+		ID:   AccountPasswordInputSettingsTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "NewAlgo",
+			SchemaName: "new_algo",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "NewPasswordHash",
+			SchemaName: "new_password_hash",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "Hint",
+			SchemaName: "hint",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "Email",
+			SchemaName: "email",
+			Null:       !p.Flags.Has(1),
+		},
+		{
+			Name:       "NewSecureSettings",
+			SchemaName: "new_secure_settings",
+			Null:       !p.Flags.Has(2),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AuthSendCodeRequest represents TL type `auth.sendCode#a677244f`.
 // Send the verification code for login
@@ -26,19 +28,19 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/auth.sendCode for reference.
 type AuthSendCodeRequest struct {
 	// Phone number in international format
-	PhoneNumber string `tl:"phone_number"`
+	PhoneNumber string
 	// Application identifier (see App configuration¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/myapp
-	APIID int `tl:"api_id"`
+	APIID int
 	// Application secret hash (see App configuration¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/myapp
-	APIHash string `tl:"api_hash"`
+	APIHash string
 	// Settings for the code type to send
-	Settings CodeSettings `tl:"settings"`
+	Settings CodeSettings
 }
 
 // AuthSendCodeRequestTypeID is TL type id of AuthSendCodeRequest.
@@ -89,13 +91,44 @@ func (s *AuthSendCodeRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *AuthSendCodeRequest) TypeID() uint32 {
+func (*AuthSendCodeRequest) TypeID() uint32 {
 	return AuthSendCodeRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *AuthSendCodeRequest) TypeName() string {
+func (*AuthSendCodeRequest) TypeName() string {
 	return "auth.sendCode"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AuthSendCodeRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.sendCode",
+		ID:   AuthSendCodeRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PhoneNumber",
+			SchemaName: "phone_number",
+		},
+		{
+			Name:       "APIID",
+			SchemaName: "api_id",
+		},
+		{
+			Name:       "APIHash",
+			SchemaName: "api_hash",
+		},
+		{
+			Name:       "Settings",
+			SchemaName: "settings",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

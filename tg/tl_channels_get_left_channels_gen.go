@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ChannelsGetLeftChannelsRequest represents TL type `channels.getLeftChannels#8341ecc0`.
 // Get a list of channels/supergroups¹ we left
@@ -32,7 +34,7 @@ type ChannelsGetLeftChannelsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Offset int `tl:"offset"`
+	Offset int
 }
 
 // ChannelsGetLeftChannelsRequestTypeID is TL type id of ChannelsGetLeftChannelsRequest.
@@ -68,13 +70,32 @@ func (g *ChannelsGetLeftChannelsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *ChannelsGetLeftChannelsRequest) TypeID() uint32 {
+func (*ChannelsGetLeftChannelsRequest) TypeID() uint32 {
 	return ChannelsGetLeftChannelsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *ChannelsGetLeftChannelsRequest) TypeName() string {
+func (*ChannelsGetLeftChannelsRequest) TypeName() string {
 	return "channels.getLeftChannels"
+}
+
+// TypeInfo returns info about TL type.
+func (g *ChannelsGetLeftChannelsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "channels.getLeftChannels",
+		ID:   ChannelsGetLeftChannelsRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Offset",
+			SchemaName: "offset",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

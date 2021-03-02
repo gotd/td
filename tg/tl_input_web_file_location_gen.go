@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputWebFileLocation represents TL type `inputWebFileLocation#c239d686`.
 // Location of a remote HTTP(s) file
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/inputWebFileLocation for reference.
 type InputWebFileLocation struct {
 	// HTTP URL of file
-	URL string `tl:"url"`
+	URL string
 	// Access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 }
 
 // InputWebFileLocationTypeID is TL type id of InputWebFileLocation.
@@ -69,13 +71,36 @@ func (i *InputWebFileLocation) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputWebFileLocation) TypeID() uint32 {
+func (*InputWebFileLocation) TypeID() uint32 {
 	return InputWebFileLocationTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputWebFileLocation) TypeName() string {
+func (*InputWebFileLocation) TypeName() string {
 	return "inputWebFileLocation"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputWebFileLocation) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputWebFileLocation",
+		ID:   InputWebFileLocationTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -141,17 +166,17 @@ var (
 // See https://core.telegram.org/constructor/inputWebFileGeoPointLocation for reference.
 type InputWebFileGeoPointLocation struct {
 	// Geolocation
-	GeoPoint InputGeoPointClass `tl:"geo_point"`
+	GeoPoint InputGeoPointClass
 	// Access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// Map width in pixels before applying scale; 16-1024
-	W int `tl:"w"`
+	W int
 	// Map height in pixels before applying scale; 16-1024
-	H int `tl:"h"`
+	H int
 	// Map zoom level; 13-20
-	Zoom int `tl:"zoom"`
+	Zoom int
 	// Map scale; 1-3
-	Scale int `tl:"scale"`
+	Scale int
 }
 
 // InputWebFileGeoPointLocationTypeID is TL type id of InputWebFileGeoPointLocation.
@@ -212,13 +237,52 @@ func (i *InputWebFileGeoPointLocation) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputWebFileGeoPointLocation) TypeID() uint32 {
+func (*InputWebFileGeoPointLocation) TypeID() uint32 {
 	return InputWebFileGeoPointLocationTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputWebFileGeoPointLocation) TypeName() string {
+func (*InputWebFileGeoPointLocation) TypeName() string {
 	return "inputWebFileGeoPointLocation"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputWebFileGeoPointLocation) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputWebFileGeoPointLocation",
+		ID:   InputWebFileGeoPointLocationTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "GeoPoint",
+			SchemaName: "geo_point",
+		},
+		{
+			Name:       "AccessHash",
+			SchemaName: "access_hash",
+		},
+		{
+			Name:       "W",
+			SchemaName: "w",
+		},
+		{
+			Name:       "H",
+			SchemaName: "h",
+		},
+		{
+			Name:       "Zoom",
+			SchemaName: "zoom",
+		},
+		{
+			Name:       "Scale",
+			SchemaName: "scale",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

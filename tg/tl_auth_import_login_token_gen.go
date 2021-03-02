@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AuthImportLoginTokenRequest represents TL type `auth.importLoginToken#95ac5ce4`.
 // Login using a redirected login token, generated in case of DC mismatch during QR code login¹.
@@ -31,7 +33,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/auth.importLoginToken for reference.
 type AuthImportLoginTokenRequest struct {
 	// Login token
-	Token []byte `tl:"token"`
+	Token []byte
 }
 
 // AuthImportLoginTokenRequestTypeID is TL type id of AuthImportLoginTokenRequest.
@@ -67,13 +69,32 @@ func (i *AuthImportLoginTokenRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *AuthImportLoginTokenRequest) TypeID() uint32 {
+func (*AuthImportLoginTokenRequest) TypeID() uint32 {
 	return AuthImportLoginTokenRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *AuthImportLoginTokenRequest) TypeName() string {
+func (*AuthImportLoginTokenRequest) TypeName() string {
 	return "auth.importLoginToken"
+}
+
+// TypeInfo returns info about TL type.
+func (i *AuthImportLoginTokenRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "auth.importLoginToken",
+		ID:   AuthImportLoginTokenRequestTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Token",
+			SchemaName: "token",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

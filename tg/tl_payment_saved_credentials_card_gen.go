@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PaymentSavedCredentialsCard represents TL type `paymentSavedCredentialsCard#cdc27a1f`.
 // Saved credit card
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/paymentSavedCredentialsCard for reference.
 type PaymentSavedCredentialsCard struct {
 	// Card ID
-	ID string `tl:"id"`
+	ID string
 	// Title
-	Title string `tl:"title"`
+	Title string
 }
 
 // PaymentSavedCredentialsCardTypeID is TL type id of PaymentSavedCredentialsCard.
@@ -69,13 +71,36 @@ func (p *PaymentSavedCredentialsCard) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PaymentSavedCredentialsCard) TypeID() uint32 {
+func (*PaymentSavedCredentialsCard) TypeID() uint32 {
 	return PaymentSavedCredentialsCardTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PaymentSavedCredentialsCard) TypeName() string {
+func (*PaymentSavedCredentialsCard) TypeName() string {
 	return "paymentSavedCredentialsCard"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PaymentSavedCredentialsCard) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "paymentSavedCredentialsCard",
+		ID:   PaymentSavedCredentialsCardTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

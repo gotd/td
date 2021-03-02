@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesDiscussionMessage represents TL type `messages.discussionMessage#f5dd8f9d`.
 // Information about a message thread¹
@@ -32,34 +34,34 @@ type MessagesDiscussionMessage struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Discussion messages
-	Messages []MessageClass `tl:"messages"`
+	Messages []MessageClass
 	// Message ID of latest reply in this thread¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetMaxID and GetMaxID helpers.
-	MaxID int `tl:"max_id"`
+	MaxID int
 	// Message ID of latest read incoming message in this thread¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetReadInboxMaxID and GetReadInboxMaxID helpers.
-	ReadInboxMaxID int `tl:"read_inbox_max_id"`
+	ReadInboxMaxID int
 	// Message ID of latest read outgoing message in this thread¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetReadOutboxMaxID and GetReadOutboxMaxID helpers.
-	ReadOutboxMaxID int `tl:"read_outbox_max_id"`
+	ReadOutboxMaxID int
 	// Chats mentioned in constructor
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// Users mentioned in constructor
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // MessagesDiscussionMessageTypeID is TL type id of MessagesDiscussionMessage.
@@ -132,13 +134,59 @@ func (d *MessagesDiscussionMessage) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *MessagesDiscussionMessage) TypeID() uint32 {
+func (*MessagesDiscussionMessage) TypeID() uint32 {
 	return MessagesDiscussionMessageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *MessagesDiscussionMessage) TypeName() string {
+func (*MessagesDiscussionMessage) TypeName() string {
 	return "messages.discussionMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (d *MessagesDiscussionMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.discussionMessage",
+		ID:   MessagesDiscussionMessageTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Messages",
+			SchemaName: "messages",
+		},
+		{
+			Name:       "MaxID",
+			SchemaName: "max_id",
+			Null:       !d.Flags.Has(0),
+		},
+		{
+			Name:       "ReadInboxMaxID",
+			SchemaName: "read_inbox_max_id",
+			Null:       !d.Flags.Has(1),
+		},
+		{
+			Name:       "ReadOutboxMaxID",
+			SchemaName: "read_outbox_max_id",
+			Null:       !d.Flags.Has(2),
+		},
+		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // WallPaperSettings represents TL type `wallPaperSettings#5086cf8`.
 // Wallpaper settings
@@ -29,27 +31,27 @@ type WallPaperSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// If set, the wallpaper must be downscaled to fit in 450x450 square and then box-blurred with radius 12
-	Blur bool `tl:"blur"`
+	Blur bool
 	// If set, the background needs to be slightly moved when device is rotated
-	Motion bool `tl:"motion"`
+	Motion bool
 	// If set, a PNG pattern is to be combined with the color chosen by the user: the main color of the background in RGB24 format
 	//
 	// Use SetBackgroundColor and GetBackgroundColor helpers.
-	BackgroundColor int `tl:"background_color"`
+	BackgroundColor int
 	// If set, a PNG pattern is to be combined with the first and second background colors (RGB24 format) in a top-bottom gradient
 	//
 	// Use SetSecondBackgroundColor and GetSecondBackgroundColor helpers.
-	SecondBackgroundColor int `tl:"second_background_color"`
+	SecondBackgroundColor int
 	// Intensity of the pattern when it is shown above the main background color, 0-100
 	//
 	// Use SetIntensity and GetIntensity helpers.
-	Intensity int `tl:"intensity"`
+	Intensity int
 	// Clockwise rotation angle of the gradient, in degrees; 0-359. Should be always divisible by 45
 	//
 	// Use SetRotation and GetRotation helpers.
-	Rotation int `tl:"rotation"`
+	Rotation int
 }
 
 // WallPaperSettingsTypeID is TL type id of WallPaperSettings.
@@ -125,13 +127,62 @@ func (w *WallPaperSettings) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (w *WallPaperSettings) TypeID() uint32 {
+func (*WallPaperSettings) TypeID() uint32 {
 	return WallPaperSettingsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (w *WallPaperSettings) TypeName() string {
+func (*WallPaperSettings) TypeName() string {
 	return "wallPaperSettings"
+}
+
+// TypeInfo returns info about TL type.
+func (w *WallPaperSettings) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "wallPaperSettings",
+		ID:   WallPaperSettingsTypeID,
+	}
+	if w == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Blur",
+			SchemaName: "blur",
+			Null:       !w.Flags.Has(1),
+		},
+		{
+			Name:       "Motion",
+			SchemaName: "motion",
+			Null:       !w.Flags.Has(2),
+		},
+		{
+			Name:       "BackgroundColor",
+			SchemaName: "background_color",
+			Null:       !w.Flags.Has(0),
+		},
+		{
+			Name:       "SecondBackgroundColor",
+			SchemaName: "second_background_color",
+			Null:       !w.Flags.Has(4),
+		},
+		{
+			Name:       "Intensity",
+			SchemaName: "intensity",
+			Null:       !w.Flags.Has(3),
+		},
+		{
+			Name:       "Rotation",
+			SchemaName: "rotation",
+			Null:       !w.Flags.Has(4),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

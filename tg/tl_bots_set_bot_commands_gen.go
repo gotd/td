@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // BotsSetBotCommandsRequest represents TL type `bots.setBotCommands#805d46f6`.
 // Set bot command list
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/bots.setBotCommands for reference.
 type BotsSetBotCommandsRequest struct {
 	// Bot commands
-	Commands []BotCommand `tl:"commands"`
+	Commands []BotCommand
 }
 
 // BotsSetBotCommandsRequestTypeID is TL type id of BotsSetBotCommandsRequest.
@@ -62,13 +64,32 @@ func (s *BotsSetBotCommandsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *BotsSetBotCommandsRequest) TypeID() uint32 {
+func (*BotsSetBotCommandsRequest) TypeID() uint32 {
 	return BotsSetBotCommandsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *BotsSetBotCommandsRequest) TypeName() string {
+func (*BotsSetBotCommandsRequest) TypeName() string {
 	return "bots.setBotCommands"
+}
+
+// TypeInfo returns info about TL type.
+func (s *BotsSetBotCommandsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "bots.setBotCommands",
+		ID:   BotsSetBotCommandsRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Commands",
+			SchemaName: "commands",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

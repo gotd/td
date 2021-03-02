@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ContactsImportedContacts represents TL type `contacts.importedContacts#77d01c3b`.
 // Info on succesfully imported contacts.
@@ -26,16 +28,16 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/contacts.importedContacts for reference.
 type ContactsImportedContacts struct {
 	// List of succesfully imported contacts
-	Imported []ImportedContact `tl:"imported"`
+	Imported []ImportedContact
 	// Popular contacts
-	PopularInvites []PopularContact `tl:"popular_invites"`
+	PopularInvites []PopularContact
 	// List of contact ids that could not be imported due to system limitation and will need to be imported at a later date.Parameter added in Layer 13¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/layers#layer-13
-	RetryContacts []int64 `tl:"retry_contacts"`
+	RetryContacts []int64
 	// List of users
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // ContactsImportedContactsTypeID is TL type id of ContactsImportedContacts.
@@ -86,13 +88,44 @@ func (i *ContactsImportedContacts) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *ContactsImportedContacts) TypeID() uint32 {
+func (*ContactsImportedContacts) TypeID() uint32 {
 	return ContactsImportedContactsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *ContactsImportedContacts) TypeName() string {
+func (*ContactsImportedContacts) TypeName() string {
 	return "contacts.importedContacts"
+}
+
+// TypeInfo returns info about TL type.
+func (i *ContactsImportedContacts) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "contacts.importedContacts",
+		ID:   ContactsImportedContactsTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Imported",
+			SchemaName: "imported",
+		},
+		{
+			Name:       "PopularInvites",
+			SchemaName: "popular_invites",
+		},
+		{
+			Name:       "RetryContacts",
+			SchemaName: "retry_contacts",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

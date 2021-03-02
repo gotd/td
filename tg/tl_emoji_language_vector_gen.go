@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,11 +20,12 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // EmojiLanguageVector is a box for Vector<EmojiLanguage>
 type EmojiLanguageVector struct {
 	// Elements of Vector<EmojiLanguage>
-	Elems []EmojiLanguage `tl:"Elems"`
+	Elems []EmojiLanguage
 }
 
 // EmojiLanguageVectorTypeID is TL type id of EmojiLanguageVector.
@@ -59,13 +61,32 @@ func (vec *EmojiLanguageVector) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (vec *EmojiLanguageVector) TypeID() uint32 {
+func (*EmojiLanguageVector) TypeID() uint32 {
 	return EmojiLanguageVectorTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (vec *EmojiLanguageVector) TypeName() string {
+func (*EmojiLanguageVector) TypeName() string {
 	return ""
+}
+
+// TypeInfo returns info about TL type.
+func (vec *EmojiLanguageVector) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "",
+		ID:   EmojiLanguageVectorTypeID,
+	}
+	if vec == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Elems",
+			SchemaName: "Elems",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

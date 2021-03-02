@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountUpdateNotifySettingsRequest represents TL type `account.updateNotifySettings#84be5b93`.
 // Edits notification settings from a given user/group, from all users/all groups.
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/account.updateNotifySettings for reference.
 type AccountUpdateNotifySettingsRequest struct {
 	// Notification source
-	Peer InputNotifyPeerClass `tl:"peer"`
+	Peer InputNotifyPeerClass
 	// Notification settings
-	Settings InputPeerNotifySettings `tl:"settings"`
+	Settings InputPeerNotifySettings
 }
 
 // AccountUpdateNotifySettingsRequestTypeID is TL type id of AccountUpdateNotifySettingsRequest.
@@ -69,13 +71,36 @@ func (u *AccountUpdateNotifySettingsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *AccountUpdateNotifySettingsRequest) TypeID() uint32 {
+func (*AccountUpdateNotifySettingsRequest) TypeID() uint32 {
 	return AccountUpdateNotifySettingsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *AccountUpdateNotifySettingsRequest) TypeName() string {
+func (*AccountUpdateNotifySettingsRequest) TypeName() string {
 	return "account.updateNotifySettings"
+}
+
+// TypeInfo returns info about TL type.
+func (u *AccountUpdateNotifySettingsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.updateNotifySettings",
+		ID:   AccountUpdateNotifySettingsRequestTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Settings",
+			SchemaName: "settings",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

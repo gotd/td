@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesSetEncryptedTypingRequest represents TL type `messages.setEncryptedTyping#791451ed`.
 // Send typing event by the current user to a secret chat.
@@ -26,13 +28,13 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/messages.setEncryptedTyping for reference.
 type MessagesSetEncryptedTypingRequest struct {
 	// Secret chat ID
-	Peer InputEncryptedChat `tl:"peer"`
+	Peer InputEncryptedChat
 	// Typing.Possible values:(boolTrue)¹, if the user started typing and more than 5 seconds have passed since the last request(boolFalse)², if the user stopped typing
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/boolTrue
 	//  2) https://core.telegram.org/constructor/boolFalse
-	Typing bool `tl:"typing"`
+	Typing bool
 }
 
 // MessagesSetEncryptedTypingRequestTypeID is TL type id of MessagesSetEncryptedTypingRequest.
@@ -73,13 +75,36 @@ func (s *MessagesSetEncryptedTypingRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *MessagesSetEncryptedTypingRequest) TypeID() uint32 {
+func (*MessagesSetEncryptedTypingRequest) TypeID() uint32 {
 	return MessagesSetEncryptedTypingRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *MessagesSetEncryptedTypingRequest) TypeName() string {
+func (*MessagesSetEncryptedTypingRequest) TypeName() string {
 	return "messages.setEncryptedTyping"
+}
+
+// TypeInfo returns info about TL type.
+func (s *MessagesSetEncryptedTypingRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.setEncryptedTyping",
+		ID:   MessagesSetEncryptedTypingRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Typing",
+			SchemaName: "typing",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

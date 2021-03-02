@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InvokeAfterMsgsRequest represents TL type `invokeAfterMsgs#3dc4b4f0`.
 // Invokes a query after a successfull completion of previous queries
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/invokeAfterMsgs for reference.
 type InvokeAfterMsgsRequest struct {
 	// List of messages on which a current query depends
-	MsgIds []int64 `tl:"msg_ids"`
+	MsgIds []int64
 	// The query itself
-	Query bin.Object `tl:"query"`
+	Query bin.Object
 }
 
 // InvokeAfterMsgsRequestTypeID is TL type id of InvokeAfterMsgsRequest.
@@ -69,13 +71,36 @@ func (i *InvokeAfterMsgsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InvokeAfterMsgsRequest) TypeID() uint32 {
+func (*InvokeAfterMsgsRequest) TypeID() uint32 {
 	return InvokeAfterMsgsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InvokeAfterMsgsRequest) TypeName() string {
+func (*InvokeAfterMsgsRequest) TypeName() string {
 	return "invokeAfterMsgs"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InvokeAfterMsgsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "invokeAfterMsgs",
+		ID:   InvokeAfterMsgsRequestTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "MsgIds",
+			SchemaName: "msg_ids",
+		},
+		{
+			Name:       "Query",
+			SchemaName: "query",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

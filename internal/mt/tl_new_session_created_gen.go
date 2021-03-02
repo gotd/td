@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,15 +20,16 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // NewSessionCreated represents TL type `new_session_created#9ec20908`.
 type NewSessionCreated struct {
 	// FirstMsgID field of NewSessionCreated.
-	FirstMsgID int64 `tl:"first_msg_id"`
+	FirstMsgID int64
 	// UniqueID field of NewSessionCreated.
-	UniqueID int64 `tl:"unique_id"`
+	UniqueID int64
 	// ServerSalt field of NewSessionCreated.
-	ServerSalt int64 `tl:"server_salt"`
+	ServerSalt int64
 }
 
 // NewSessionCreatedTypeID is TL type id of NewSessionCreated.
@@ -73,13 +75,40 @@ func (n *NewSessionCreated) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (n *NewSessionCreated) TypeID() uint32 {
+func (*NewSessionCreated) TypeID() uint32 {
 	return NewSessionCreatedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (n *NewSessionCreated) TypeName() string {
+func (*NewSessionCreated) TypeName() string {
 	return "new_session_created"
+}
+
+// TypeInfo returns info about TL type.
+func (n *NewSessionCreated) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "new_session_created",
+		ID:   NewSessionCreatedTypeID,
+	}
+	if n == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "FirstMsgID",
+			SchemaName: "first_msg_id",
+		},
+		{
+			Name:       "UniqueID",
+			SchemaName: "unique_id",
+		},
+		{
+			Name:       "ServerSalt",
+			SchemaName: "server_salt",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

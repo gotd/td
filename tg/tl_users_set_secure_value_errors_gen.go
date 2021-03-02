@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // UsersSetSecureValueErrorsRequest represents TL type `users.setSecureValueErrors#90c894b5`.
 // Notify the user that the sent passport¹ data contains some errors The user will not be able to re-submit their Passport data to you until the errors are fixed (the contents of the field for which you returned the error must change).
@@ -30,9 +32,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/users.setSecureValueErrors for reference.
 type UsersSetSecureValueErrorsRequest struct {
 	// The user
-	ID InputUserClass `tl:"id"`
+	ID InputUserClass
 	// Errors
-	Errors []SecureValueErrorClass `tl:"errors"`
+	Errors []SecureValueErrorClass
 }
 
 // UsersSetSecureValueErrorsRequestTypeID is TL type id of UsersSetSecureValueErrorsRequest.
@@ -73,13 +75,36 @@ func (s *UsersSetSecureValueErrorsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *UsersSetSecureValueErrorsRequest) TypeID() uint32 {
+func (*UsersSetSecureValueErrorsRequest) TypeID() uint32 {
 	return UsersSetSecureValueErrorsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *UsersSetSecureValueErrorsRequest) TypeName() string {
+func (*UsersSetSecureValueErrorsRequest) TypeName() string {
 	return "users.setSecureValueErrors"
+}
+
+// TypeInfo returns info about TL type.
+func (s *UsersSetSecureValueErrorsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "users.setSecureValueErrors",
+		ID:   UsersSetSecureValueErrorsRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "Errors",
+			SchemaName: "errors",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

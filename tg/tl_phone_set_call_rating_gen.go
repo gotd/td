@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PhoneSetCallRatingRequest represents TL type `phone.setCallRating#59ead627`.
 // Rate a call
@@ -29,15 +31,15 @@ type PhoneSetCallRatingRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the user decided on their own initiative to rate the call
-	UserInitiative bool `tl:"user_initiative"`
+	UserInitiative bool
 	// The call to rate
-	Peer InputPhoneCall `tl:"peer"`
+	Peer InputPhoneCall
 	// Rating in 1-5 stars
-	Rating int `tl:"rating"`
+	Rating int
 	// An additional comment
-	Comment string `tl:"comment"`
+	Comment string
 }
 
 // PhoneSetCallRatingRequestTypeID is TL type id of PhoneSetCallRatingRequest.
@@ -91,13 +93,49 @@ func (s *PhoneSetCallRatingRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *PhoneSetCallRatingRequest) TypeID() uint32 {
+func (*PhoneSetCallRatingRequest) TypeID() uint32 {
 	return PhoneSetCallRatingRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *PhoneSetCallRatingRequest) TypeName() string {
+func (*PhoneSetCallRatingRequest) TypeName() string {
 	return "phone.setCallRating"
+}
+
+// TypeInfo returns info about TL type.
+func (s *PhoneSetCallRatingRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "phone.setCallRating",
+		ID:   PhoneSetCallRatingRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "UserInitiative",
+			SchemaName: "user_initiative",
+			Null:       !s.Flags.Has(0),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "Rating",
+			SchemaName: "rating",
+		},
+		{
+			Name:       "Comment",
+			SchemaName: "comment",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

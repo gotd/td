@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputMediaEmpty represents TL type `inputMediaEmpty#9664f57f`.
 // Empty media content of a message.
@@ -50,13 +52,27 @@ func (i *InputMediaEmpty) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputMediaEmpty) TypeID() uint32 {
+func (*InputMediaEmpty) TypeID() uint32 {
 	return InputMediaEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputMediaEmpty) TypeName() string {
+func (*InputMediaEmpty) TypeName() string {
 	return "inputMediaEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMediaEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMediaEmpty",
+		ID:   InputMediaEmptyTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -99,20 +115,20 @@ type InputMediaUploadedPhoto struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// The uploaded file¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files
-	File InputFileClass `tl:"file"`
+	File InputFileClass
 	// Attached mask stickers
 	//
 	// Use SetStickers and GetStickers helpers.
-	Stickers []InputDocumentClass `tl:"stickers"`
+	Stickers []InputDocumentClass
 	// Time to live in seconds of self-destructing photo
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
-	TTLSeconds int `tl:"ttl_seconds"`
+	TTLSeconds int
 }
 
 // InputMediaUploadedPhotoTypeID is TL type id of InputMediaUploadedPhoto.
@@ -167,13 +183,46 @@ func (i *InputMediaUploadedPhoto) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputMediaUploadedPhoto) TypeID() uint32 {
+func (*InputMediaUploadedPhoto) TypeID() uint32 {
 	return InputMediaUploadedPhotoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputMediaUploadedPhoto) TypeName() string {
+func (*InputMediaUploadedPhoto) TypeName() string {
 	return "inputMediaUploadedPhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMediaUploadedPhoto) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMediaUploadedPhoto",
+		ID:   InputMediaUploadedPhotoTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "File",
+			SchemaName: "file",
+		},
+		{
+			Name:       "Stickers",
+			SchemaName: "stickers",
+			Null:       !i.Flags.Has(0),
+		},
+		{
+			Name:       "TTLSeconds",
+			SchemaName: "ttl_seconds",
+			Null:       !i.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -320,13 +369,13 @@ type InputMediaPhoto struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Photo to be forwarded
-	ID InputPhotoClass `tl:"id"`
+	ID InputPhotoClass
 	// Time to live in seconds of self-destructing photo
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
-	TTLSeconds int `tl:"ttl_seconds"`
+	TTLSeconds int
 }
 
 // InputMediaPhotoTypeID is TL type id of InputMediaPhoto.
@@ -373,13 +422,41 @@ func (i *InputMediaPhoto) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputMediaPhoto) TypeID() uint32 {
+func (*InputMediaPhoto) TypeID() uint32 {
 	return InputMediaPhotoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputMediaPhoto) TypeName() string {
+func (*InputMediaPhoto) TypeName() string {
 	return "inputMediaPhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMediaPhoto) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMediaPhoto",
+		ID:   InputMediaPhotoTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "TTLSeconds",
+			SchemaName: "ttl_seconds",
+			Null:       !i.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -473,7 +550,7 @@ var (
 // See https://core.telegram.org/constructor/inputMediaGeoPoint for reference.
 type InputMediaGeoPoint struct {
 	// GeoPoint
-	GeoPoint InputGeoPointClass `tl:"geo_point"`
+	GeoPoint InputGeoPointClass
 }
 
 // InputMediaGeoPointTypeID is TL type id of InputMediaGeoPoint.
@@ -509,13 +586,32 @@ func (i *InputMediaGeoPoint) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputMediaGeoPoint) TypeID() uint32 {
+func (*InputMediaGeoPoint) TypeID() uint32 {
 	return InputMediaGeoPointTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputMediaGeoPoint) TypeName() string {
+func (*InputMediaGeoPoint) TypeName() string {
 	return "inputMediaGeoPoint"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMediaGeoPoint) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMediaGeoPoint",
+		ID:   InputMediaGeoPointTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "GeoPoint",
+			SchemaName: "geo_point",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -573,13 +669,13 @@ var (
 // See https://core.telegram.org/constructor/inputMediaContact for reference.
 type InputMediaContact struct {
 	// Phone number
-	PhoneNumber string `tl:"phone_number"`
+	PhoneNumber string
 	// Contact's first name
-	FirstName string `tl:"first_name"`
+	FirstName string
 	// Contact's last name
-	LastName string `tl:"last_name"`
+	LastName string
 	// Contact vcard
-	Vcard string `tl:"vcard"`
+	Vcard string
 }
 
 // InputMediaContactTypeID is TL type id of InputMediaContact.
@@ -630,13 +726,44 @@ func (i *InputMediaContact) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputMediaContact) TypeID() uint32 {
+func (*InputMediaContact) TypeID() uint32 {
 	return InputMediaContactTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputMediaContact) TypeName() string {
+func (*InputMediaContact) TypeName() string {
 	return "inputMediaContact"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMediaContact) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMediaContact",
+		ID:   InputMediaContactTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "PhoneNumber",
+			SchemaName: "phone_number",
+		},
+		{
+			Name:       "FirstName",
+			SchemaName: "first_name",
+		},
+		{
+			Name:       "LastName",
+			SchemaName: "last_name",
+		},
+		{
+			Name:       "Vcard",
+			SchemaName: "vcard",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -731,32 +858,32 @@ type InputMediaUploadedDocument struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the specified document is a video file with no audio tracks (a GIF animation (even as MPEG4), for example)
-	NosoundVideo bool `tl:"nosound_video"`
+	NosoundVideo bool
 	// Force the media file to be uploaded as document
-	ForceFile bool `tl:"force_file"`
+	ForceFile bool
 	// The uploaded file¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files
-	File InputFileClass `tl:"file"`
+	File InputFileClass
 	// Thumbnail of the document, uploaded as for the file
 	//
 	// Use SetThumb and GetThumb helpers.
-	Thumb InputFileClass `tl:"thumb"`
+	Thumb InputFileClass
 	// MIME type of document
-	MimeType string `tl:"mime_type"`
+	MimeType string
 	// Attributes that specify the type of the document (video, audio, voice, sticker, etc.)
-	Attributes []DocumentAttributeClass `tl:"attributes"`
+	Attributes []DocumentAttributeClass
 	// Attached stickers
 	//
 	// Use SetStickers and GetStickers helpers.
-	Stickers []InputDocumentClass `tl:"stickers"`
+	Stickers []InputDocumentClass
 	// Time to live in seconds of self-destructing document
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
-	TTLSeconds int `tl:"ttl_seconds"`
+	TTLSeconds int
 }
 
 // InputMediaUploadedDocumentTypeID is TL type id of InputMediaUploadedDocument.
@@ -839,13 +966,69 @@ func (i *InputMediaUploadedDocument) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputMediaUploadedDocument) TypeID() uint32 {
+func (*InputMediaUploadedDocument) TypeID() uint32 {
 	return InputMediaUploadedDocumentTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputMediaUploadedDocument) TypeName() string {
+func (*InputMediaUploadedDocument) TypeName() string {
 	return "inputMediaUploadedDocument"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMediaUploadedDocument) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMediaUploadedDocument",
+		ID:   InputMediaUploadedDocumentTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "NosoundVideo",
+			SchemaName: "nosound_video",
+			Null:       !i.Flags.Has(3),
+		},
+		{
+			Name:       "ForceFile",
+			SchemaName: "force_file",
+			Null:       !i.Flags.Has(4),
+		},
+		{
+			Name:       "File",
+			SchemaName: "file",
+		},
+		{
+			Name:       "Thumb",
+			SchemaName: "thumb",
+			Null:       !i.Flags.Has(2),
+		},
+		{
+			Name:       "MimeType",
+			SchemaName: "mime_type",
+		},
+		{
+			Name:       "Attributes",
+			SchemaName: "attributes",
+		},
+		{
+			Name:       "Stickers",
+			SchemaName: "stickers",
+			Null:       !i.Flags.Has(0),
+		},
+		{
+			Name:       "TTLSeconds",
+			SchemaName: "ttl_seconds",
+			Null:       !i.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1110,17 +1293,17 @@ type InputMediaDocument struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// The document to be forwarded.
-	ID InputDocumentClass `tl:"id"`
+	ID InputDocumentClass
 	// Time to live of self-destructing document
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
-	TTLSeconds int `tl:"ttl_seconds"`
+	TTLSeconds int
 	// Query field of InputMediaDocument.
 	//
 	// Use SetQuery and GetQuery helpers.
-	Query string `tl:"query"`
+	Query string
 }
 
 // InputMediaDocumentTypeID is TL type id of InputMediaDocument.
@@ -1175,13 +1358,46 @@ func (i *InputMediaDocument) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputMediaDocument) TypeID() uint32 {
+func (*InputMediaDocument) TypeID() uint32 {
 	return InputMediaDocumentTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputMediaDocument) TypeName() string {
+func (*InputMediaDocument) TypeName() string {
 	return "inputMediaDocument"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMediaDocument) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMediaDocument",
+		ID:   InputMediaDocumentTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "TTLSeconds",
+			SchemaName: "ttl_seconds",
+			Null:       !i.Flags.Has(0),
+		},
+		{
+			Name:       "Query",
+			SchemaName: "query",
+			Null:       !i.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1303,17 +1519,17 @@ var (
 // See https://core.telegram.org/constructor/inputMediaVenue for reference.
 type InputMediaVenue struct {
 	// Geolocation
-	GeoPoint InputGeoPointClass `tl:"geo_point"`
+	GeoPoint InputGeoPointClass
 	// Venue name
-	Title string `tl:"title"`
+	Title string
 	// Physical address of the venue
-	Address string `tl:"address"`
+	Address string
 	// Venue provider: currently only "foursquare" needs to be supported
-	Provider string `tl:"provider"`
+	Provider string
 	// Venue ID in the provider's database
-	VenueID string `tl:"venue_id"`
+	VenueID string
 	// Venue type in the provider's database
-	VenueType string `tl:"venue_type"`
+	VenueType string
 }
 
 // InputMediaVenueTypeID is TL type id of InputMediaVenue.
@@ -1374,13 +1590,52 @@ func (i *InputMediaVenue) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputMediaVenue) TypeID() uint32 {
+func (*InputMediaVenue) TypeID() uint32 {
 	return InputMediaVenueTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputMediaVenue) TypeName() string {
+func (*InputMediaVenue) TypeName() string {
 	return "inputMediaVenue"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMediaVenue) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMediaVenue",
+		ID:   InputMediaVenueTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "GeoPoint",
+			SchemaName: "geo_point",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "Address",
+			SchemaName: "address",
+		},
+		{
+			Name:       "Provider",
+			SchemaName: "provider",
+		},
+		{
+			Name:       "VenueID",
+			SchemaName: "venue_id",
+		},
+		{
+			Name:       "VenueType",
+			SchemaName: "venue_type",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1506,13 +1761,13 @@ type InputMediaPhotoExternal struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// URL of the photo
-	URL string `tl:"url"`
+	URL string
 	// Self-destruct time to live of photo
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
-	TTLSeconds int `tl:"ttl_seconds"`
+	TTLSeconds int
 }
 
 // InputMediaPhotoExternalTypeID is TL type id of InputMediaPhotoExternal.
@@ -1559,13 +1814,41 @@ func (i *InputMediaPhotoExternal) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputMediaPhotoExternal) TypeID() uint32 {
+func (*InputMediaPhotoExternal) TypeID() uint32 {
 	return InputMediaPhotoExternalTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputMediaPhotoExternal) TypeName() string {
+func (*InputMediaPhotoExternal) TypeName() string {
 	return "inputMediaPhotoExternal"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMediaPhotoExternal) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMediaPhotoExternal",
+		ID:   InputMediaPhotoExternalTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+		{
+			Name:       "TTLSeconds",
+			SchemaName: "ttl_seconds",
+			Null:       !i.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1657,13 +1940,13 @@ type InputMediaDocumentExternal struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// URL of the document
-	URL string `tl:"url"`
+	URL string
 	// Self-destruct time to live of document
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
-	TTLSeconds int `tl:"ttl_seconds"`
+	TTLSeconds int
 }
 
 // InputMediaDocumentExternalTypeID is TL type id of InputMediaDocumentExternal.
@@ -1710,13 +1993,41 @@ func (i *InputMediaDocumentExternal) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputMediaDocumentExternal) TypeID() uint32 {
+func (*InputMediaDocumentExternal) TypeID() uint32 {
 	return InputMediaDocumentExternalTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputMediaDocumentExternal) TypeName() string {
+func (*InputMediaDocumentExternal) TypeName() string {
 	return "inputMediaDocumentExternal"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMediaDocumentExternal) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMediaDocumentExternal",
+		ID:   InputMediaDocumentExternalTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "URL",
+			SchemaName: "url",
+		},
+		{
+			Name:       "TTLSeconds",
+			SchemaName: "ttl_seconds",
+			Null:       !i.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1805,7 +2116,7 @@ var (
 // See https://core.telegram.org/constructor/inputMediaGame for reference.
 type InputMediaGame struct {
 	// The game to forward
-	ID InputGameClass `tl:"id"`
+	ID InputGameClass
 }
 
 // InputMediaGameTypeID is TL type id of InputMediaGame.
@@ -1841,13 +2152,32 @@ func (i *InputMediaGame) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputMediaGame) TypeID() uint32 {
+func (*InputMediaGame) TypeID() uint32 {
 	return InputMediaGameTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputMediaGame) TypeName() string {
+func (*InputMediaGame) TypeName() string {
 	return "inputMediaGame"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMediaGame) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMediaGame",
+		ID:   InputMediaGameTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1911,28 +2241,28 @@ type InputMediaInvoice struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Product name, 1-32 characters
-	Title string `tl:"title"`
+	Title string
 	// Product description, 1-255 characters
-	Description string `tl:"description"`
+	Description string
 	// URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for.
 	//
 	// Use SetPhoto and GetPhoto helpers.
-	Photo InputWebDocument `tl:"photo"`
+	Photo InputWebDocument
 	// The actual invoice
-	Invoice Invoice `tl:"invoice"`
+	Invoice Invoice
 	// Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes.
-	Payload []byte `tl:"payload"`
+	Payload []byte
 	// Payments provider token, obtained via Botfather¹
 	//
 	// Links:
 	//  1) https://t.me/botfather
-	Provider string `tl:"provider"`
+	Provider string
 	// JSON-encoded data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
-	ProviderData DataJSON `tl:"provider_data"`
+	ProviderData DataJSON
 	// Start parameter
-	StartParam string `tl:"start_param"`
+	StartParam string
 }
 
 // InputMediaInvoiceTypeID is TL type id of InputMediaInvoice.
@@ -2009,13 +2339,65 @@ func (i *InputMediaInvoice) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputMediaInvoice) TypeID() uint32 {
+func (*InputMediaInvoice) TypeID() uint32 {
 	return InputMediaInvoiceTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputMediaInvoice) TypeName() string {
+func (*InputMediaInvoice) TypeName() string {
 	return "inputMediaInvoice"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMediaInvoice) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMediaInvoice",
+		ID:   InputMediaInvoiceTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "Description",
+			SchemaName: "description",
+		},
+		{
+			Name:       "Photo",
+			SchemaName: "photo",
+			Null:       !i.Flags.Has(0),
+		},
+		{
+			Name:       "Invoice",
+			SchemaName: "invoice",
+		},
+		{
+			Name:       "Payload",
+			SchemaName: "payload",
+		},
+		{
+			Name:       "Provider",
+			SchemaName: "provider",
+		},
+		{
+			Name:       "ProviderData",
+			SchemaName: "provider_data",
+		},
+		{
+			Name:       "StartParam",
+			SchemaName: "start_param",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2188,29 +2570,29 @@ type InputMediaGeoLive struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether sending of the geolocation was stopped
-	Stopped bool `tl:"stopped"`
+	Stopped bool
 	// Current geolocation
-	GeoPoint InputGeoPointClass `tl:"geo_point"`
+	GeoPoint InputGeoPointClass
 	// For live locations¹, a direction in which the location moves, in degrees; 1-360.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/live-location
 	//
 	// Use SetHeading and GetHeading helpers.
-	Heading int `tl:"heading"`
+	Heading int
 	// Validity period of the current location
 	//
 	// Use SetPeriod and GetPeriod helpers.
-	Period int `tl:"period"`
+	Period int
 	// For live locations¹, a maximum distance to another chat member for proximity alerts, in meters (0-100000)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/live-location
 	//
 	// Use SetProximityNotificationRadius and GetProximityNotificationRadius helpers.
-	ProximityNotificationRadius int `tl:"proximity_notification_radius"`
+	ProximityNotificationRadius int
 }
 
 // InputMediaGeoLiveTypeID is TL type id of InputMediaGeoLive.
@@ -2278,13 +2660,56 @@ func (i *InputMediaGeoLive) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputMediaGeoLive) TypeID() uint32 {
+func (*InputMediaGeoLive) TypeID() uint32 {
 	return InputMediaGeoLiveTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputMediaGeoLive) TypeName() string {
+func (*InputMediaGeoLive) TypeName() string {
 	return "inputMediaGeoLive"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMediaGeoLive) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMediaGeoLive",
+		ID:   InputMediaGeoLiveTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Stopped",
+			SchemaName: "stopped",
+			Null:       !i.Flags.Has(0),
+		},
+		{
+			Name:       "GeoPoint",
+			SchemaName: "geo_point",
+		},
+		{
+			Name:       "Heading",
+			SchemaName: "heading",
+			Null:       !i.Flags.Has(2),
+		},
+		{
+			Name:       "Period",
+			SchemaName: "period",
+			Null:       !i.Flags.Has(1),
+		},
+		{
+			Name:       "ProximityNotificationRadius",
+			SchemaName: "proximity_notification_radius",
+			Null:       !i.Flags.Has(3),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2457,24 +2882,24 @@ type InputMediaPoll struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// The poll to send
-	Poll Poll `tl:"poll"`
+	Poll Poll
 	// Correct answer IDs (for quiz polls)
 	//
 	// Use SetCorrectAnswers and GetCorrectAnswers helpers.
-	CorrectAnswers [][]byte `tl:"correct_answers"`
+	CorrectAnswers [][]byte
 	// Explanation of quiz solution
 	//
 	// Use SetSolution and GetSolution helpers.
-	Solution string `tl:"solution"`
+	Solution string
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetSolutionEntities and GetSolutionEntities helpers.
-	SolutionEntities []MessageEntityClass `tl:"solution_entities"`
+	SolutionEntities []MessageEntityClass
 }
 
 // InputMediaPollTypeID is TL type id of InputMediaPoll.
@@ -2537,13 +2962,51 @@ func (i *InputMediaPoll) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputMediaPoll) TypeID() uint32 {
+func (*InputMediaPoll) TypeID() uint32 {
 	return InputMediaPollTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputMediaPoll) TypeName() string {
+func (*InputMediaPoll) TypeName() string {
 	return "inputMediaPoll"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMediaPoll) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMediaPoll",
+		ID:   InputMediaPollTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Poll",
+			SchemaName: "poll",
+		},
+		{
+			Name:       "CorrectAnswers",
+			SchemaName: "correct_answers",
+			Null:       !i.Flags.Has(0),
+		},
+		{
+			Name:       "Solution",
+			SchemaName: "solution",
+			Null:       !i.Flags.Has(1),
+		},
+		{
+			Name:       "SolutionEntities",
+			SchemaName: "solution_entities",
+			Null:       !i.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2722,7 +3185,7 @@ var (
 // See https://core.telegram.org/constructor/inputMediaDice for reference.
 type InputMediaDice struct {
 	// The emoji, for now ,  and  are supported
-	Emoticon string `tl:"emoticon"`
+	Emoticon string
 }
 
 // InputMediaDiceTypeID is TL type id of InputMediaDice.
@@ -2758,13 +3221,32 @@ func (i *InputMediaDice) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputMediaDice) TypeID() uint32 {
+func (*InputMediaDice) TypeID() uint32 {
 	return InputMediaDiceTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputMediaDice) TypeName() string {
+func (*InputMediaDice) TypeName() string {
 	return "inputMediaDice"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputMediaDice) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputMediaDice",
+		ID:   InputMediaDiceTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Emoticon",
+			SchemaName: "emoticon",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

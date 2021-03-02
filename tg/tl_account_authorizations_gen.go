@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountAuthorizations represents TL type `account.authorizations#1250abde`.
 // Logged-in sessions
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/account.authorizations for reference.
 type AccountAuthorizations struct {
 	// Logged-in sessions
-	Authorizations []Authorization `tl:"authorizations"`
+	Authorizations []Authorization
 }
 
 // AccountAuthorizationsTypeID is TL type id of AccountAuthorizations.
@@ -62,13 +64,32 @@ func (a *AccountAuthorizations) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (a *AccountAuthorizations) TypeID() uint32 {
+func (*AccountAuthorizations) TypeID() uint32 {
 	return AccountAuthorizationsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (a *AccountAuthorizations) TypeName() string {
+func (*AccountAuthorizations) TypeName() string {
 	return "account.authorizations"
+}
+
+// TypeInfo returns info about TL type.
+func (a *AccountAuthorizations) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.authorizations",
+		ID:   AccountAuthorizationsTypeID,
+	}
+	if a == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Authorizations",
+			SchemaName: "authorizations",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

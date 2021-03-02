@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // UploadGetFileRequest represents TL type `upload.getFile#b15a9afc`.
 // Returns content of a whole file or its part.
@@ -29,20 +31,20 @@ type UploadGetFileRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Disable some checks on limit and offset values, useful for example to stream videos by keyframes
-	Precise bool `tl:"precise"`
+	Precise bool
 	// Whether the current client supports CDN downloads¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	CDNSupported bool `tl:"cdn_supported"`
+	CDNSupported bool
 	// File location
-	Location InputFileLocationClass `tl:"location"`
+	Location InputFileLocationClass
 	// Number of bytes to be skipped
-	Offset int `tl:"offset"`
+	Offset int
 	// Number of bytes to be returned
-	Limit int `tl:"limit"`
+	Limit int
 }
 
 // UploadGetFileRequestTypeID is TL type id of UploadGetFileRequest.
@@ -101,13 +103,54 @@ func (g *UploadGetFileRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (g *UploadGetFileRequest) TypeID() uint32 {
+func (*UploadGetFileRequest) TypeID() uint32 {
 	return UploadGetFileRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (g *UploadGetFileRequest) TypeName() string {
+func (*UploadGetFileRequest) TypeName() string {
 	return "upload.getFile"
+}
+
+// TypeInfo returns info about TL type.
+func (g *UploadGetFileRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "upload.getFile",
+		ID:   UploadGetFileRequestTypeID,
+	}
+	if g == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Precise",
+			SchemaName: "precise",
+			Null:       !g.Flags.Has(0),
+		},
+		{
+			Name:       "CDNSupported",
+			SchemaName: "cdn_supported",
+			Null:       !g.Flags.Has(1),
+		},
+		{
+			Name:       "Location",
+			SchemaName: "location",
+		},
+		{
+			Name:       "Offset",
+			SchemaName: "offset",
+		},
+		{
+			Name:       "Limit",
+			SchemaName: "limit",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

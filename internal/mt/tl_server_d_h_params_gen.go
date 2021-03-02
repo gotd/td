@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,15 +20,16 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ServerDHParamsFail represents TL type `server_DH_params_fail#79cb045d`.
 type ServerDHParamsFail struct {
 	// Nonce field of ServerDHParamsFail.
-	Nonce bin.Int128 `tl:"nonce"`
+	Nonce bin.Int128
 	// ServerNonce field of ServerDHParamsFail.
-	ServerNonce bin.Int128 `tl:"server_nonce"`
+	ServerNonce bin.Int128
 	// NewNonceHash field of ServerDHParamsFail.
-	NewNonceHash bin.Int128 `tl:"new_nonce_hash"`
+	NewNonceHash bin.Int128
 }
 
 // ServerDHParamsFailTypeID is TL type id of ServerDHParamsFail.
@@ -73,13 +75,40 @@ func (s *ServerDHParamsFail) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *ServerDHParamsFail) TypeID() uint32 {
+func (*ServerDHParamsFail) TypeID() uint32 {
 	return ServerDHParamsFailTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *ServerDHParamsFail) TypeName() string {
+func (*ServerDHParamsFail) TypeName() string {
 	return "server_DH_params_fail"
+}
+
+// TypeInfo returns info about TL type.
+func (s *ServerDHParamsFail) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "server_DH_params_fail",
+		ID:   ServerDHParamsFailTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Nonce",
+			SchemaName: "nonce",
+		},
+		{
+			Name:       "ServerNonce",
+			SchemaName: "server_nonce",
+		},
+		{
+			Name:       "NewNonceHash",
+			SchemaName: "new_nonce_hash",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -155,11 +184,11 @@ var (
 // ServerDHParamsOk represents TL type `server_DH_params_ok#d0e8075c`.
 type ServerDHParamsOk struct {
 	// Nonce field of ServerDHParamsOk.
-	Nonce bin.Int128 `tl:"nonce"`
+	Nonce bin.Int128
 	// ServerNonce field of ServerDHParamsOk.
-	ServerNonce bin.Int128 `tl:"server_nonce"`
+	ServerNonce bin.Int128
 	// EncryptedAnswer field of ServerDHParamsOk.
-	EncryptedAnswer []byte `tl:"encrypted_answer"`
+	EncryptedAnswer []byte
 }
 
 // ServerDHParamsOkTypeID is TL type id of ServerDHParamsOk.
@@ -205,13 +234,40 @@ func (s *ServerDHParamsOk) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *ServerDHParamsOk) TypeID() uint32 {
+func (*ServerDHParamsOk) TypeID() uint32 {
 	return ServerDHParamsOkTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *ServerDHParamsOk) TypeName() string {
+func (*ServerDHParamsOk) TypeName() string {
 	return "server_DH_params_ok"
+}
+
+// TypeInfo returns info about TL type.
+func (s *ServerDHParamsOk) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "server_DH_params_ok",
+		ID:   ServerDHParamsOkTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Nonce",
+			SchemaName: "nonce",
+		},
+		{
+			Name:       "ServerNonce",
+			SchemaName: "server_nonce",
+		},
+		{
+			Name:       "EncryptedAnswer",
+			SchemaName: "encrypted_answer",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

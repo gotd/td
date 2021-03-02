@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // ContactStatus represents TL type `contactStatus#d3680c61`.
 // Contact status: online / offline.
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/contactStatus for reference.
 type ContactStatus struct {
 	// User identifier
-	UserID int `tl:"user_id"`
+	UserID int
 	// Online status
-	Status UserStatusClass `tl:"status"`
+	Status UserStatusClass
 }
 
 // ContactStatusTypeID is TL type id of ContactStatus.
@@ -69,13 +71,36 @@ func (c *ContactStatus) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *ContactStatus) TypeID() uint32 {
+func (*ContactStatus) TypeID() uint32 {
 	return ContactStatusTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *ContactStatus) TypeName() string {
+func (*ContactStatus) TypeName() string {
 	return "contactStatus"
+}
+
+// TypeInfo returns info about TL type.
+func (c *ContactStatus) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "contactStatus",
+		ID:   ContactStatusTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+		{
+			Name:       "Status",
+			SchemaName: "status",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

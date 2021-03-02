@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountPassword represents TL type `account.password#ad2641f8`.
 // Configuration for two-factor authorization
@@ -29,41 +31,41 @@ type AccountPassword struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the user has a recovery method configured
-	HasRecovery bool `tl:"has_recovery"`
+	HasRecovery bool
 	// Whether telegram passport¹ is enabled
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
-	HasSecureValues bool `tl:"has_secure_values"`
+	HasSecureValues bool
 	// Whether the user has a password
-	HasPassword bool `tl:"has_password"`
+	HasPassword bool
 	// The KDF algorithm for SRP two-factor authentication¹ of the current password
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
 	//
 	// Use SetCurrentAlgo and GetCurrentAlgo helpers.
-	CurrentAlgo PasswordKdfAlgoClass `tl:"current_algo"`
+	CurrentAlgo PasswordKdfAlgoClass
 	// Srp B param for SRP authorization¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
 	//
 	// Use SetSRPB and GetSRPB helpers.
-	SRPB []byte `tl:"srp_B"`
+	SRPB []byte
 	// Srp ID param for SRP authorization¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
 	//
 	// Use SetSRPID and GetSRPID helpers.
-	SRPID int64 `tl:"srp_id"`
+	SRPID int64
 	// Text hint for the password
 	//
 	// Use SetHint and GetHint helpers.
-	Hint string `tl:"hint"`
+	Hint string
 	// A password recovery email¹ with the specified pattern² is still awaiting verification
 	//
 	// Links:
@@ -71,19 +73,19 @@ type AccountPassword struct {
 	//  2) https://core.telegram.org/api/pattern
 	//
 	// Use SetEmailUnconfirmedPattern and GetEmailUnconfirmedPattern helpers.
-	EmailUnconfirmedPattern string `tl:"email_unconfirmed_pattern"`
+	EmailUnconfirmedPattern string
 	// The KDF algorithm for SRP two-factor authentication¹ to use when creating new passwords
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	NewAlgo PasswordKdfAlgoClass `tl:"new_algo"`
+	NewAlgo PasswordKdfAlgoClass
 	// The KDF algorithm for telegram passport¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
-	NewSecureAlgo SecurePasswordKdfAlgoClass `tl:"new_secure_algo"`
+	NewSecureAlgo SecurePasswordKdfAlgoClass
 	// Secure random string
-	SecureRandom []byte `tl:"secure_random"`
+	SecureRandom []byte
 }
 
 // AccountPasswordTypeID is TL type id of AccountPassword.
@@ -187,13 +189,84 @@ func (p *AccountPassword) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *AccountPassword) TypeID() uint32 {
+func (*AccountPassword) TypeID() uint32 {
 	return AccountPasswordTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *AccountPassword) TypeName() string {
+func (*AccountPassword) TypeName() string {
 	return "account.password"
+}
+
+// TypeInfo returns info about TL type.
+func (p *AccountPassword) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.password",
+		ID:   AccountPasswordTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "HasRecovery",
+			SchemaName: "has_recovery",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "HasSecureValues",
+			SchemaName: "has_secure_values",
+			Null:       !p.Flags.Has(1),
+		},
+		{
+			Name:       "HasPassword",
+			SchemaName: "has_password",
+			Null:       !p.Flags.Has(2),
+		},
+		{
+			Name:       "CurrentAlgo",
+			SchemaName: "current_algo",
+			Null:       !p.Flags.Has(2),
+		},
+		{
+			Name:       "SRPB",
+			SchemaName: "srp_B",
+			Null:       !p.Flags.Has(2),
+		},
+		{
+			Name:       "SRPID",
+			SchemaName: "srp_id",
+			Null:       !p.Flags.Has(2),
+		},
+		{
+			Name:       "Hint",
+			SchemaName: "hint",
+			Null:       !p.Flags.Has(3),
+		},
+		{
+			Name:       "EmailUnconfirmedPattern",
+			SchemaName: "email_unconfirmed_pattern",
+			Null:       !p.Flags.Has(4),
+		},
+		{
+			Name:       "NewAlgo",
+			SchemaName: "new_algo",
+		},
+		{
+			Name:       "NewSecureAlgo",
+			SchemaName: "new_secure_algo",
+		},
+		{
+			Name:       "SecureRandom",
+			SchemaName: "secure_random",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

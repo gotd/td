@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PaymentsBankCardData represents TL type `payments.bankCardData#3e24e573`.
 // Credit card info, provided by the card's bank(s)
@@ -26,9 +28,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/payments.bankCardData for reference.
 type PaymentsBankCardData struct {
 	// Credit card title
-	Title string `tl:"title"`
+	Title string
 	// Info URL(s) provided by the card's bank(s)
-	OpenUrls []BankCardOpenUrl `tl:"open_urls"`
+	OpenUrls []BankCardOpenUrl
 }
 
 // PaymentsBankCardDataTypeID is TL type id of PaymentsBankCardData.
@@ -69,13 +71,36 @@ func (b *PaymentsBankCardData) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (b *PaymentsBankCardData) TypeID() uint32 {
+func (*PaymentsBankCardData) TypeID() uint32 {
 	return PaymentsBankCardDataTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (b *PaymentsBankCardData) TypeName() string {
+func (*PaymentsBankCardData) TypeName() string {
 	return "payments.bankCardData"
+}
+
+// TypeInfo returns info about TL type.
+func (b *PaymentsBankCardData) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "payments.bankCardData",
+		ID:   PaymentsBankCardDataTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "OpenUrls",
+			SchemaName: "open_urls",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

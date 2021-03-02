@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountSaveSecureValueRequest represents TL type `account.saveSecureValue#899fe31d`.
 // Securely save Telegram Passport¹ document, for more info see the passport docs »²
@@ -33,12 +35,12 @@ type AccountSaveSecureValueRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport/encryption#encryption
-	Value InputSecureValue `tl:"value"`
+	Value InputSecureValue
 	// Passport secret hash, for more info see the passport docs »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport/encryption#encryption
-	SecureSecretID int64 `tl:"secure_secret_id"`
+	SecureSecretID int64
 }
 
 // AccountSaveSecureValueRequestTypeID is TL type id of AccountSaveSecureValueRequest.
@@ -79,13 +81,36 @@ func (s *AccountSaveSecureValueRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *AccountSaveSecureValueRequest) TypeID() uint32 {
+func (*AccountSaveSecureValueRequest) TypeID() uint32 {
 	return AccountSaveSecureValueRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *AccountSaveSecureValueRequest) TypeName() string {
+func (*AccountSaveSecureValueRequest) TypeName() string {
 	return "account.saveSecureValue"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AccountSaveSecureValueRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.saveSecureValue",
+		ID:   AccountSaveSecureValueRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Value",
+			SchemaName: "value",
+		},
+		{
+			Name:       "SecureSecretID",
+			SchemaName: "secure_secret_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

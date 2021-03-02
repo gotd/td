@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // HelpPassportConfigNotModified represents TL type `help.passportConfigNotModified#bfb9f457`.
 // Password configuration not modified
@@ -50,13 +52,27 @@ func (p *HelpPassportConfigNotModified) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *HelpPassportConfigNotModified) TypeID() uint32 {
+func (*HelpPassportConfigNotModified) TypeID() uint32 {
 	return HelpPassportConfigNotModifiedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *HelpPassportConfigNotModified) TypeName() string {
+func (*HelpPassportConfigNotModified) TypeName() string {
 	return "help.passportConfigNotModified"
+}
+
+// TypeInfo returns info about TL type.
+func (p *HelpPassportConfigNotModified) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.passportConfigNotModified",
+		ID:   HelpPassportConfigNotModifiedTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -102,9 +118,9 @@ type HelpPassportConfig struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 	// Localization
-	CountriesLangs DataJSON `tl:"countries_langs"`
+	CountriesLangs DataJSON
 }
 
 // HelpPassportConfigTypeID is TL type id of HelpPassportConfig.
@@ -145,13 +161,36 @@ func (p *HelpPassportConfig) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *HelpPassportConfig) TypeID() uint32 {
+func (*HelpPassportConfig) TypeID() uint32 {
 	return HelpPassportConfigTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *HelpPassportConfig) TypeName() string {
+func (*HelpPassportConfig) TypeName() string {
 	return "help.passportConfig"
+}
+
+// TypeInfo returns info about TL type.
+func (p *HelpPassportConfig) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "help.passportConfig",
+		ID:   HelpPassportConfigTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Hash",
+			SchemaName: "hash",
+		},
+		{
+			Name:       "CountriesLangs",
+			SchemaName: "countries_langs",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

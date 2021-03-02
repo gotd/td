@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InvokeWithLayerRequest represents TL type `invokeWithLayer#da9b0d0d`.
 // Invoke the specified query using the specified API layer¹
@@ -29,9 +31,9 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/invokeWithLayer for reference.
 type InvokeWithLayerRequest struct {
 	// The layer to use
-	Layer int `tl:"layer"`
+	Layer int
 	// The query
-	Query bin.Object `tl:"query"`
+	Query bin.Object
 }
 
 // InvokeWithLayerRequestTypeID is TL type id of InvokeWithLayerRequest.
@@ -72,13 +74,36 @@ func (i *InvokeWithLayerRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InvokeWithLayerRequest) TypeID() uint32 {
+func (*InvokeWithLayerRequest) TypeID() uint32 {
 	return InvokeWithLayerRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InvokeWithLayerRequest) TypeName() string {
+func (*InvokeWithLayerRequest) TypeName() string {
 	return "invokeWithLayer"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InvokeWithLayerRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "invokeWithLayer",
+		ID:   InvokeWithLayerRequestTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Layer",
+			SchemaName: "layer",
+		},
+		{
+			Name:       "Query",
+			SchemaName: "query",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

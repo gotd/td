@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessageActionEmpty represents TL type `messageActionEmpty#b6aef7b0`.
 // Empty constructor.
@@ -50,13 +52,27 @@ func (m *MessageActionEmpty) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionEmpty) TypeID() uint32 {
+func (*MessageActionEmpty) TypeID() uint32 {
 	return MessageActionEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionEmpty) TypeName() string {
+func (*MessageActionEmpty) TypeName() string {
 	return "messageActionEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionEmpty",
+		ID:   MessageActionEmptyTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -96,9 +112,9 @@ var (
 // See https://core.telegram.org/constructor/messageActionChatCreate for reference.
 type MessageActionChatCreate struct {
 	// Group name
-	Title string `tl:"title"`
+	Title string
 	// List of group members
-	Users []int `tl:"users"`
+	Users []int
 }
 
 // MessageActionChatCreateTypeID is TL type id of MessageActionChatCreate.
@@ -139,13 +155,36 @@ func (m *MessageActionChatCreate) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionChatCreate) TypeID() uint32 {
+func (*MessageActionChatCreate) TypeID() uint32 {
 	return MessageActionChatCreateTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionChatCreate) TypeName() string {
+func (*MessageActionChatCreate) TypeName() string {
 	return "messageActionChatCreate"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionChatCreate) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionChatCreate",
+		ID:   MessageActionChatCreateTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -220,7 +259,7 @@ var (
 // See https://core.telegram.org/constructor/messageActionChatEditTitle for reference.
 type MessageActionChatEditTitle struct {
 	// New group name
-	Title string `tl:"title"`
+	Title string
 }
 
 // MessageActionChatEditTitleTypeID is TL type id of MessageActionChatEditTitle.
@@ -256,13 +295,32 @@ func (m *MessageActionChatEditTitle) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionChatEditTitle) TypeID() uint32 {
+func (*MessageActionChatEditTitle) TypeID() uint32 {
 	return MessageActionChatEditTitleTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionChatEditTitle) TypeName() string {
+func (*MessageActionChatEditTitle) TypeName() string {
 	return "messageActionChatEditTitle"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionChatEditTitle) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionChatEditTitle",
+		ID:   MessageActionChatEditTitleTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -315,7 +373,7 @@ var (
 // See https://core.telegram.org/constructor/messageActionChatEditPhoto for reference.
 type MessageActionChatEditPhoto struct {
 	// New group pofile photo
-	Photo PhotoClass `tl:"photo"`
+	Photo PhotoClass
 }
 
 // MessageActionChatEditPhotoTypeID is TL type id of MessageActionChatEditPhoto.
@@ -351,13 +409,32 @@ func (m *MessageActionChatEditPhoto) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionChatEditPhoto) TypeID() uint32 {
+func (*MessageActionChatEditPhoto) TypeID() uint32 {
 	return MessageActionChatEditPhotoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionChatEditPhoto) TypeName() string {
+func (*MessageActionChatEditPhoto) TypeName() string {
 	return "messageActionChatEditPhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionChatEditPhoto) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionChatEditPhoto",
+		ID:   MessageActionChatEditPhotoTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Photo",
+			SchemaName: "photo",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -439,13 +516,27 @@ func (m *MessageActionChatDeletePhoto) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionChatDeletePhoto) TypeID() uint32 {
+func (*MessageActionChatDeletePhoto) TypeID() uint32 {
 	return MessageActionChatDeletePhotoTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionChatDeletePhoto) TypeName() string {
+func (*MessageActionChatDeletePhoto) TypeName() string {
 	return "messageActionChatDeletePhoto"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionChatDeletePhoto) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionChatDeletePhoto",
+		ID:   MessageActionChatDeletePhotoTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -485,7 +576,7 @@ var (
 // See https://core.telegram.org/constructor/messageActionChatAddUser for reference.
 type MessageActionChatAddUser struct {
 	// Users that were invited to the chat
-	Users []int `tl:"users"`
+	Users []int
 }
 
 // MessageActionChatAddUserTypeID is TL type id of MessageActionChatAddUser.
@@ -521,13 +612,32 @@ func (m *MessageActionChatAddUser) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionChatAddUser) TypeID() uint32 {
+func (*MessageActionChatAddUser) TypeID() uint32 {
 	return MessageActionChatAddUserTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionChatAddUser) TypeName() string {
+func (*MessageActionChatAddUser) TypeName() string {
 	return "messageActionChatAddUser"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionChatAddUser) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionChatAddUser",
+		ID:   MessageActionChatAddUserTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -589,7 +699,7 @@ var (
 // See https://core.telegram.org/constructor/messageActionChatDeleteUser for reference.
 type MessageActionChatDeleteUser struct {
 	// Leaving user ID
-	UserID int `tl:"user_id"`
+	UserID int
 }
 
 // MessageActionChatDeleteUserTypeID is TL type id of MessageActionChatDeleteUser.
@@ -625,13 +735,32 @@ func (m *MessageActionChatDeleteUser) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionChatDeleteUser) TypeID() uint32 {
+func (*MessageActionChatDeleteUser) TypeID() uint32 {
 	return MessageActionChatDeleteUserTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionChatDeleteUser) TypeName() string {
+func (*MessageActionChatDeleteUser) TypeName() string {
 	return "messageActionChatDeleteUser"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionChatDeleteUser) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionChatDeleteUser",
+		ID:   MessageActionChatDeleteUserTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "UserID",
+			SchemaName: "user_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -684,7 +813,7 @@ var (
 // See https://core.telegram.org/constructor/messageActionChatJoinedByLink for reference.
 type MessageActionChatJoinedByLink struct {
 	// ID of the user that created the invite link
-	InviterID int `tl:"inviter_id"`
+	InviterID int
 }
 
 // MessageActionChatJoinedByLinkTypeID is TL type id of MessageActionChatJoinedByLink.
@@ -720,13 +849,32 @@ func (m *MessageActionChatJoinedByLink) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionChatJoinedByLink) TypeID() uint32 {
+func (*MessageActionChatJoinedByLink) TypeID() uint32 {
 	return MessageActionChatJoinedByLinkTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionChatJoinedByLink) TypeName() string {
+func (*MessageActionChatJoinedByLink) TypeName() string {
 	return "messageActionChatJoinedByLink"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionChatJoinedByLink) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionChatJoinedByLink",
+		ID:   MessageActionChatJoinedByLinkTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "InviterID",
+			SchemaName: "inviter_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -779,7 +927,7 @@ var (
 // See https://core.telegram.org/constructor/messageActionChannelCreate for reference.
 type MessageActionChannelCreate struct {
 	// Original channel/supergroup title
-	Title string `tl:"title"`
+	Title string
 }
 
 // MessageActionChannelCreateTypeID is TL type id of MessageActionChannelCreate.
@@ -815,13 +963,32 @@ func (m *MessageActionChannelCreate) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionChannelCreate) TypeID() uint32 {
+func (*MessageActionChannelCreate) TypeID() uint32 {
 	return MessageActionChannelCreateTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionChannelCreate) TypeName() string {
+func (*MessageActionChannelCreate) TypeName() string {
 	return "messageActionChannelCreate"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionChannelCreate) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionChannelCreate",
+		ID:   MessageActionChannelCreateTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -877,7 +1044,7 @@ var (
 // See https://core.telegram.org/constructor/messageActionChatMigrateTo for reference.
 type MessageActionChatMigrateTo struct {
 	// The supergroup it was migrated to
-	ChannelID int `tl:"channel_id"`
+	ChannelID int
 }
 
 // MessageActionChatMigrateToTypeID is TL type id of MessageActionChatMigrateTo.
@@ -913,13 +1080,32 @@ func (m *MessageActionChatMigrateTo) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionChatMigrateTo) TypeID() uint32 {
+func (*MessageActionChatMigrateTo) TypeID() uint32 {
 	return MessageActionChatMigrateToTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionChatMigrateTo) TypeName() string {
+func (*MessageActionChatMigrateTo) TypeName() string {
 	return "messageActionChatMigrateTo"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionChatMigrateTo) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionChatMigrateTo",
+		ID:   MessageActionChatMigrateToTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ChannelID",
+			SchemaName: "channel_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -975,9 +1161,9 @@ var (
 // See https://core.telegram.org/constructor/messageActionChannelMigrateFrom for reference.
 type MessageActionChannelMigrateFrom struct {
 	// The old chat tite
-	Title string `tl:"title"`
+	Title string
 	// The old chat ID
-	ChatID int `tl:"chat_id"`
+	ChatID int
 }
 
 // MessageActionChannelMigrateFromTypeID is TL type id of MessageActionChannelMigrateFrom.
@@ -1018,13 +1204,36 @@ func (m *MessageActionChannelMigrateFrom) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionChannelMigrateFrom) TypeID() uint32 {
+func (*MessageActionChannelMigrateFrom) TypeID() uint32 {
 	return MessageActionChannelMigrateFromTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionChannelMigrateFrom) TypeName() string {
+func (*MessageActionChannelMigrateFrom) TypeName() string {
 	return "messageActionChannelMigrateFrom"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionChannelMigrateFrom) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionChannelMigrateFrom",
+		ID:   MessageActionChannelMigrateFromTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "ChatID",
+			SchemaName: "chat_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1114,13 +1323,27 @@ func (m *MessageActionPinMessage) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionPinMessage) TypeID() uint32 {
+func (*MessageActionPinMessage) TypeID() uint32 {
 	return MessageActionPinMessageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionPinMessage) TypeName() string {
+func (*MessageActionPinMessage) TypeName() string {
 	return "messageActionPinMessage"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionPinMessage) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionPinMessage",
+		ID:   MessageActionPinMessageTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1184,13 +1407,27 @@ func (m *MessageActionHistoryClear) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionHistoryClear) TypeID() uint32 {
+func (*MessageActionHistoryClear) TypeID() uint32 {
 	return MessageActionHistoryClearTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionHistoryClear) TypeName() string {
+func (*MessageActionHistoryClear) TypeName() string {
 	return "messageActionHistoryClear"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionHistoryClear) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionHistoryClear",
+		ID:   MessageActionHistoryClearTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1230,9 +1467,9 @@ var (
 // See https://core.telegram.org/constructor/messageActionGameScore for reference.
 type MessageActionGameScore struct {
 	// Game ID
-	GameID int64 `tl:"game_id"`
+	GameID int64
 	// Score
-	Score int `tl:"score"`
+	Score int
 }
 
 // MessageActionGameScoreTypeID is TL type id of MessageActionGameScore.
@@ -1273,13 +1510,36 @@ func (m *MessageActionGameScore) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionGameScore) TypeID() uint32 {
+func (*MessageActionGameScore) TypeID() uint32 {
 	return MessageActionGameScoreTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionGameScore) TypeName() string {
+func (*MessageActionGameScore) TypeName() string {
 	return "messageActionGameScore"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionGameScore) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionGameScore",
+		ID:   MessageActionGameScoreTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "GameID",
+			SchemaName: "game_id",
+		},
+		{
+			Name:       "Score",
+			SchemaName: "score",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1348,29 +1608,29 @@ type MessageActionPaymentSentMe struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Three-letter ISO 4217 currency¹ code
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments#supported-currencies
-	Currency string `tl:"currency"`
+	Currency string
 	// Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json¹, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments/currencies.json
-	TotalAmount int64 `tl:"total_amount"`
+	TotalAmount int64
 	// Bot specified invoice payload
-	Payload []byte `tl:"payload"`
+	Payload []byte
 	// Order info provided by the user
 	//
 	// Use SetInfo and GetInfo helpers.
-	Info PaymentRequestedInfo `tl:"info"`
+	Info PaymentRequestedInfo
 	// Identifier of the shipping option chosen by the user
 	//
 	// Use SetShippingOptionID and GetShippingOptionID helpers.
-	ShippingOptionID string `tl:"shipping_option_id"`
+	ShippingOptionID string
 	// Provider payment identifier
-	Charge PaymentCharge `tl:"charge"`
+	Charge PaymentCharge
 }
 
 // MessageActionPaymentSentMeTypeID is TL type id of MessageActionPaymentSentMe.
@@ -1440,13 +1700,58 @@ func (m *MessageActionPaymentSentMe) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionPaymentSentMe) TypeID() uint32 {
+func (*MessageActionPaymentSentMe) TypeID() uint32 {
 	return MessageActionPaymentSentMeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionPaymentSentMe) TypeName() string {
+func (*MessageActionPaymentSentMe) TypeName() string {
 	return "messageActionPaymentSentMe"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionPaymentSentMe) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionPaymentSentMe",
+		ID:   MessageActionPaymentSentMeTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Currency",
+			SchemaName: "currency",
+		},
+		{
+			Name:       "TotalAmount",
+			SchemaName: "total_amount",
+		},
+		{
+			Name:       "Payload",
+			SchemaName: "payload",
+		},
+		{
+			Name:       "Info",
+			SchemaName: "info",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "ShippingOptionID",
+			SchemaName: "shipping_option_id",
+			Null:       !m.Flags.Has(1),
+		},
+		{
+			Name:       "Charge",
+			SchemaName: "charge",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1605,12 +1910,12 @@ type MessageActionPaymentSent struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments#supported-currencies
-	Currency string `tl:"currency"`
+	Currency string
 	// Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json¹, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments/currencies.json
-	TotalAmount int64 `tl:"total_amount"`
+	TotalAmount int64
 }
 
 // MessageActionPaymentSentTypeID is TL type id of MessageActionPaymentSent.
@@ -1651,13 +1956,36 @@ func (m *MessageActionPaymentSent) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionPaymentSent) TypeID() uint32 {
+func (*MessageActionPaymentSent) TypeID() uint32 {
 	return MessageActionPaymentSentTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionPaymentSent) TypeName() string {
+func (*MessageActionPaymentSent) TypeName() string {
 	return "messageActionPaymentSent"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionPaymentSent) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionPaymentSent",
+		ID:   MessageActionPaymentSentTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Currency",
+			SchemaName: "currency",
+		},
+		{
+			Name:       "TotalAmount",
+			SchemaName: "total_amount",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1726,19 +2054,19 @@ type MessageActionPhoneCall struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Is this a video call?
-	Video bool `tl:"video"`
+	Video bool
 	// Call ID
-	CallID int64 `tl:"call_id"`
+	CallID int64
 	// If the call has ended, the reason why it ended
 	//
 	// Use SetReason and GetReason helpers.
-	Reason PhoneCallDiscardReasonClass `tl:"reason"`
+	Reason PhoneCallDiscardReasonClass
 	// Duration of the call in seconds
 	//
 	// Use SetDuration and GetDuration helpers.
-	Duration int `tl:"duration"`
+	Duration int
 }
 
 // MessageActionPhoneCallTypeID is TL type id of MessageActionPhoneCall.
@@ -1798,13 +2126,51 @@ func (m *MessageActionPhoneCall) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionPhoneCall) TypeID() uint32 {
+func (*MessageActionPhoneCall) TypeID() uint32 {
 	return MessageActionPhoneCallTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionPhoneCall) TypeName() string {
+func (*MessageActionPhoneCall) TypeName() string {
 	return "messageActionPhoneCall"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionPhoneCall) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionPhoneCall",
+		ID:   MessageActionPhoneCallTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Video",
+			SchemaName: "video",
+			Null:       !m.Flags.Has(2),
+		},
+		{
+			Name:       "CallID",
+			SchemaName: "call_id",
+		},
+		{
+			Name:       "Reason",
+			SchemaName: "reason",
+			Null:       !m.Flags.Has(0),
+		},
+		{
+			Name:       "Duration",
+			SchemaName: "duration",
+			Null:       !m.Flags.Has(1),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1970,13 +2336,27 @@ func (m *MessageActionScreenshotTaken) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionScreenshotTaken) TypeID() uint32 {
+func (*MessageActionScreenshotTaken) TypeID() uint32 {
 	return MessageActionScreenshotTakenTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionScreenshotTaken) TypeName() string {
+func (*MessageActionScreenshotTaken) TypeName() string {
 	return "messageActionScreenshotTaken"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionScreenshotTaken) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionScreenshotTaken",
+		ID:   MessageActionScreenshotTakenTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2016,7 +2396,7 @@ var (
 // See https://core.telegram.org/constructor/messageActionCustomAction for reference.
 type MessageActionCustomAction struct {
 	// Action message
-	Message string `tl:"message"`
+	Message string
 }
 
 // MessageActionCustomActionTypeID is TL type id of MessageActionCustomAction.
@@ -2052,13 +2432,32 @@ func (m *MessageActionCustomAction) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionCustomAction) TypeID() uint32 {
+func (*MessageActionCustomAction) TypeID() uint32 {
 	return MessageActionCustomActionTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionCustomAction) TypeName() string {
+func (*MessageActionCustomAction) TypeName() string {
 	return "messageActionCustomAction"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionCustomAction) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionCustomAction",
+		ID:   MessageActionCustomActionTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2114,7 +2513,7 @@ var (
 // See https://core.telegram.org/constructor/messageActionBotAllowed for reference.
 type MessageActionBotAllowed struct {
 	// The domain name of the website on which the user has logged in.
-	Domain string `tl:"domain"`
+	Domain string
 }
 
 // MessageActionBotAllowedTypeID is TL type id of MessageActionBotAllowed.
@@ -2150,13 +2549,32 @@ func (m *MessageActionBotAllowed) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionBotAllowed) TypeID() uint32 {
+func (*MessageActionBotAllowed) TypeID() uint32 {
 	return MessageActionBotAllowedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionBotAllowed) TypeName() string {
+func (*MessageActionBotAllowed) TypeName() string {
 	return "messageActionBotAllowed"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionBotAllowed) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionBotAllowed",
+		ID:   MessageActionBotAllowedTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Domain",
+			SchemaName: "domain",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2212,9 +2630,9 @@ var (
 // See https://core.telegram.org/constructor/messageActionSecureValuesSentMe for reference.
 type MessageActionSecureValuesSentMe struct {
 	// Vector with information about documents and other Telegram Passport elements that were shared with the bot
-	Values []SecureValue `tl:"values"`
+	Values []SecureValue
 	// Encrypted credentials required to decrypt the data
-	Credentials SecureCredentialsEncrypted `tl:"credentials"`
+	Credentials SecureCredentialsEncrypted
 }
 
 // MessageActionSecureValuesSentMeTypeID is TL type id of MessageActionSecureValuesSentMe.
@@ -2255,13 +2673,36 @@ func (m *MessageActionSecureValuesSentMe) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionSecureValuesSentMe) TypeID() uint32 {
+func (*MessageActionSecureValuesSentMe) TypeID() uint32 {
 	return MessageActionSecureValuesSentMeTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionSecureValuesSentMe) TypeName() string {
+func (*MessageActionSecureValuesSentMe) TypeName() string {
 	return "messageActionSecureValuesSentMe"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionSecureValuesSentMe) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionSecureValuesSentMe",
+		ID:   MessageActionSecureValuesSentMeTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Values",
+			SchemaName: "values",
+		},
+		{
+			Name:       "Credentials",
+			SchemaName: "credentials",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2341,7 +2782,7 @@ var (
 // See https://core.telegram.org/constructor/messageActionSecureValuesSent for reference.
 type MessageActionSecureValuesSent struct {
 	// Secure value types
-	Types []SecureValueTypeClass `tl:"types"`
+	Types []SecureValueTypeClass
 }
 
 // MessageActionSecureValuesSentTypeID is TL type id of MessageActionSecureValuesSent.
@@ -2377,13 +2818,32 @@ func (m *MessageActionSecureValuesSent) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionSecureValuesSent) TypeID() uint32 {
+func (*MessageActionSecureValuesSent) TypeID() uint32 {
 	return MessageActionSecureValuesSentTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionSecureValuesSent) TypeName() string {
+func (*MessageActionSecureValuesSent) TypeName() string {
 	return "messageActionSecureValuesSent"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionSecureValuesSent) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionSecureValuesSent",
+		ID:   MessageActionSecureValuesSentTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Types",
+			SchemaName: "types",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2479,13 +2939,27 @@ func (m *MessageActionContactSignUp) String() string {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionContactSignUp) TypeID() uint32 {
+func (*MessageActionContactSignUp) TypeID() uint32 {
 	return MessageActionContactSignUpTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionContactSignUp) TypeName() string {
+func (*MessageActionContactSignUp) TypeName() string {
 	return "messageActionContactSignUp"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionContactSignUp) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionContactSignUp",
+		ID:   MessageActionContactSignUpTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2525,14 +2999,14 @@ var (
 // See https://core.telegram.org/constructor/messageActionGeoProximityReached for reference.
 type MessageActionGeoProximityReached struct {
 	// The user or chat that is now in proximity of to_id
-	FromID PeerClass `tl:"from_id"`
+	FromID PeerClass
 	// The user or chat that subscribed to live geolocation proximity alerts¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/live-location#proximity-alert
-	ToID PeerClass `tl:"to_id"`
+	ToID PeerClass
 	// Distance, in meters (0-100000)
-	Distance int `tl:"distance"`
+	Distance int
 }
 
 // MessageActionGeoProximityReachedTypeID is TL type id of MessageActionGeoProximityReached.
@@ -2578,13 +3052,40 @@ func (m *MessageActionGeoProximityReached) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionGeoProximityReached) TypeID() uint32 {
+func (*MessageActionGeoProximityReached) TypeID() uint32 {
 	return MessageActionGeoProximityReachedTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionGeoProximityReached) TypeName() string {
+func (*MessageActionGeoProximityReached) TypeName() string {
 	return "messageActionGeoProximityReached"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionGeoProximityReached) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionGeoProximityReached",
+		ID:   MessageActionGeoProximityReachedTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "FromID",
+			SchemaName: "from_id",
+		},
+		{
+			Name:       "ToID",
+			SchemaName: "to_id",
+		},
+		{
+			Name:       "Distance",
+			SchemaName: "distance",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2672,13 +3173,13 @@ var (
 // See https://core.telegram.org/constructor/messageActionGroupCall for reference.
 type MessageActionGroupCall struct {
 	// Flags field of MessageActionGroupCall.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Call field of MessageActionGroupCall.
-	Call InputGroupCall `tl:"call"`
+	Call InputGroupCall
 	// Duration field of MessageActionGroupCall.
 	//
 	// Use SetDuration and GetDuration helpers.
-	Duration int `tl:"duration"`
+	Duration int
 }
 
 // MessageActionGroupCallTypeID is TL type id of MessageActionGroupCall.
@@ -2725,13 +3226,41 @@ func (m *MessageActionGroupCall) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionGroupCall) TypeID() uint32 {
+func (*MessageActionGroupCall) TypeID() uint32 {
 	return MessageActionGroupCallTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionGroupCall) TypeName() string {
+func (*MessageActionGroupCall) TypeName() string {
 	return "messageActionGroupCall"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionGroupCall) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionGroupCall",
+		ID:   MessageActionGroupCallTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Call",
+			SchemaName: "call",
+		},
+		{
+			Name:       "Duration",
+			SchemaName: "duration",
+			Null:       !m.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2819,9 +3348,9 @@ var (
 // See https://core.telegram.org/constructor/messageActionInviteToGroupCall for reference.
 type MessageActionInviteToGroupCall struct {
 	// Call field of MessageActionInviteToGroupCall.
-	Call InputGroupCall `tl:"call"`
+	Call InputGroupCall
 	// Users field of MessageActionInviteToGroupCall.
-	Users []int `tl:"users"`
+	Users []int
 }
 
 // MessageActionInviteToGroupCallTypeID is TL type id of MessageActionInviteToGroupCall.
@@ -2862,13 +3391,36 @@ func (m *MessageActionInviteToGroupCall) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionInviteToGroupCall) TypeID() uint32 {
+func (*MessageActionInviteToGroupCall) TypeID() uint32 {
 	return MessageActionInviteToGroupCallTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionInviteToGroupCall) TypeName() string {
+func (*MessageActionInviteToGroupCall) TypeName() string {
 	return "messageActionInviteToGroupCall"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionInviteToGroupCall) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionInviteToGroupCall",
+		ID:   MessageActionInviteToGroupCallTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Call",
+			SchemaName: "call",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -2942,7 +3494,7 @@ var (
 // See https://core.telegram.org/constructor/messageActionSetMessagesTTL for reference.
 type MessageActionSetMessagesTTL struct {
 	// Period field of MessageActionSetMessagesTTL.
-	Period int `tl:"period"`
+	Period int
 }
 
 // MessageActionSetMessagesTTLTypeID is TL type id of MessageActionSetMessagesTTL.
@@ -2978,13 +3530,32 @@ func (m *MessageActionSetMessagesTTL) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageActionSetMessagesTTL) TypeID() uint32 {
+func (*MessageActionSetMessagesTTL) TypeID() uint32 {
 	return MessageActionSetMessagesTTLTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageActionSetMessagesTTL) TypeName() string {
+func (*MessageActionSetMessagesTTL) TypeName() string {
 	return "messageActionSetMessagesTTL"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionSetMessagesTTL) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionSetMessagesTTL",
+		ID:   MessageActionSetMessagesTTLTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Period",
+			SchemaName: "period",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

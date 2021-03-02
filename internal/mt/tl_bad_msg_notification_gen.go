@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,15 +20,16 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // BadMsgNotification represents TL type `bad_msg_notification#a7eff811`.
 type BadMsgNotification struct {
 	// BadMsgID field of BadMsgNotification.
-	BadMsgID int64 `tl:"bad_msg_id"`
+	BadMsgID int64
 	// BadMsgSeqno field of BadMsgNotification.
-	BadMsgSeqno int `tl:"bad_msg_seqno"`
+	BadMsgSeqno int
 	// ErrorCode field of BadMsgNotification.
-	ErrorCode int `tl:"error_code"`
+	ErrorCode int
 }
 
 // BadMsgNotificationTypeID is TL type id of BadMsgNotification.
@@ -73,13 +75,40 @@ func (b *BadMsgNotification) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (b *BadMsgNotification) TypeID() uint32 {
+func (*BadMsgNotification) TypeID() uint32 {
 	return BadMsgNotificationTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (b *BadMsgNotification) TypeName() string {
+func (*BadMsgNotification) TypeName() string {
 	return "bad_msg_notification"
+}
+
+// TypeInfo returns info about TL type.
+func (b *BadMsgNotification) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "bad_msg_notification",
+		ID:   BadMsgNotificationTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "BadMsgID",
+			SchemaName: "bad_msg_id",
+		},
+		{
+			Name:       "BadMsgSeqno",
+			SchemaName: "bad_msg_seqno",
+		},
+		{
+			Name:       "ErrorCode",
+			SchemaName: "error_code",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -155,13 +184,13 @@ var (
 // BadServerSalt represents TL type `bad_server_salt#edab447b`.
 type BadServerSalt struct {
 	// BadMsgID field of BadServerSalt.
-	BadMsgID int64 `tl:"bad_msg_id"`
+	BadMsgID int64
 	// BadMsgSeqno field of BadServerSalt.
-	BadMsgSeqno int `tl:"bad_msg_seqno"`
+	BadMsgSeqno int
 	// ErrorCode field of BadServerSalt.
-	ErrorCode int `tl:"error_code"`
+	ErrorCode int
 	// NewServerSalt field of BadServerSalt.
-	NewServerSalt int64 `tl:"new_server_salt"`
+	NewServerSalt int64
 }
 
 // BadServerSaltTypeID is TL type id of BadServerSalt.
@@ -212,13 +241,44 @@ func (b *BadServerSalt) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (b *BadServerSalt) TypeID() uint32 {
+func (*BadServerSalt) TypeID() uint32 {
 	return BadServerSaltTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (b *BadServerSalt) TypeName() string {
+func (*BadServerSalt) TypeName() string {
 	return "bad_server_salt"
+}
+
+// TypeInfo returns info about TL type.
+func (b *BadServerSalt) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "bad_server_salt",
+		ID:   BadServerSaltTypeID,
+	}
+	if b == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "BadMsgID",
+			SchemaName: "bad_msg_id",
+		},
+		{
+			Name:       "BadMsgSeqno",
+			SchemaName: "bad_msg_seqno",
+		},
+		{
+			Name:       "ErrorCode",
+			SchemaName: "error_code",
+		},
+		{
+			Name:       "NewServerSalt",
+			SchemaName: "new_server_salt",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

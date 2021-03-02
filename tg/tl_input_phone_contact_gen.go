@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // InputPhoneContact represents TL type `inputPhoneContact#f392b7f4`.
 // Phone contact. The client_id is just an arbitrary contact ID: it should be set, for example, to an incremental number when using contacts.importContacts¹, in order to retry importing only the contacts that weren't imported successfully.
@@ -29,13 +31,13 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/inputPhoneContact for reference.
 type InputPhoneContact struct {
 	// User identifier on the client
-	ClientID int64 `tl:"client_id"`
+	ClientID int64
 	// Phone number
-	Phone string `tl:"phone"`
+	Phone string
 	// Contact's first name
-	FirstName string `tl:"first_name"`
+	FirstName string
 	// Contact's last name
-	LastName string `tl:"last_name"`
+	LastName string
 }
 
 // InputPhoneContactTypeID is TL type id of InputPhoneContact.
@@ -86,13 +88,44 @@ func (i *InputPhoneContact) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (i *InputPhoneContact) TypeID() uint32 {
+func (*InputPhoneContact) TypeID() uint32 {
 	return InputPhoneContactTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (i *InputPhoneContact) TypeName() string {
+func (*InputPhoneContact) TypeName() string {
 	return "inputPhoneContact"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputPhoneContact) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputPhoneContact",
+		ID:   InputPhoneContactTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "ClientID",
+			SchemaName: "client_id",
+		},
+		{
+			Name:       "Phone",
+			SchemaName: "phone",
+		},
+		{
+			Name:       "FirstName",
+			SchemaName: "first_name",
+		},
+		{
+			Name:       "LastName",
+			SchemaName: "last_name",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

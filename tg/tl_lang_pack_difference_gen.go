@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // LangPackDifference represents TL type `langPackDifference#f385c1f6`.
 // Changes to the app's localization pack
@@ -26,13 +28,13 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/langPackDifference for reference.
 type LangPackDifference struct {
 	// Language code
-	LangCode string `tl:"lang_code"`
+	LangCode string
 	// Previous version number
-	FromVersion int `tl:"from_version"`
+	FromVersion int
 	// New version number
-	Version int `tl:"version"`
+	Version int
 	// Localized strings
-	Strings []LangPackStringClass `tl:"strings"`
+	Strings []LangPackStringClass
 }
 
 // LangPackDifferenceTypeID is TL type id of LangPackDifference.
@@ -83,13 +85,44 @@ func (l *LangPackDifference) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (l *LangPackDifference) TypeID() uint32 {
+func (*LangPackDifference) TypeID() uint32 {
 	return LangPackDifferenceTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (l *LangPackDifference) TypeName() string {
+func (*LangPackDifference) TypeName() string {
 	return "langPackDifference"
+}
+
+// TypeInfo returns info about TL type.
+func (l *LangPackDifference) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "langPackDifference",
+		ID:   LangPackDifferenceTypeID,
+	}
+	if l == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "LangCode",
+			SchemaName: "lang_code",
+		},
+		{
+			Name:       "FromVersion",
+			SchemaName: "from_version",
+		},
+		{
+			Name:       "Version",
+			SchemaName: "version",
+		},
+		{
+			Name:       "Strings",
+			SchemaName: "strings",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

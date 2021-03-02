@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,15 +20,16 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesChatAdminsWithInvites represents TL type `messages.chatAdminsWithInvites#b69b72d7`.
 //
 // See https://core.telegram.org/constructor/messages.chatAdminsWithInvites for reference.
 type MessagesChatAdminsWithInvites struct {
 	// Admins field of MessagesChatAdminsWithInvites.
-	Admins []ChatAdminWithInvites `tl:"admins"`
+	Admins []ChatAdminWithInvites
 	// Users field of MessagesChatAdminsWithInvites.
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // MessagesChatAdminsWithInvitesTypeID is TL type id of MessagesChatAdminsWithInvites.
@@ -68,13 +70,36 @@ func (c *MessagesChatAdminsWithInvites) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (c *MessagesChatAdminsWithInvites) TypeID() uint32 {
+func (*MessagesChatAdminsWithInvites) TypeID() uint32 {
 	return MessagesChatAdminsWithInvitesTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (c *MessagesChatAdminsWithInvites) TypeName() string {
+func (*MessagesChatAdminsWithInvites) TypeName() string {
 	return "messages.chatAdminsWithInvites"
+}
+
+// TypeInfo returns info about TL type.
+func (c *MessagesChatAdminsWithInvites) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.chatAdminsWithInvites",
+		ID:   MessagesChatAdminsWithInvitesTypeID,
+	}
+	if c == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Admins",
+			SchemaName: "admins",
+		},
+		{
+			Name:       "Users",
+			SchemaName: "users",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

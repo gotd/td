@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessagesDeleteHistoryRequest represents TL type `messages.deleteHistory#1c015b09`.
 // Deletes communication history.
@@ -29,15 +31,15 @@ type MessagesDeleteHistoryRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Just clear history for the current user, without actually removing messages for every chat user
-	JustClear bool `tl:"just_clear"`
+	JustClear bool
 	// Whether to delete the message history for all chat participants
-	Revoke bool `tl:"revoke"`
+	Revoke bool
 	// User or chat, communication history of which will be deleted
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Maximum ID of message to delete
-	MaxID int `tl:"max_id"`
+	MaxID int
 }
 
 // MessagesDeleteHistoryRequestTypeID is TL type id of MessagesDeleteHistoryRequest.
@@ -91,13 +93,50 @@ func (d *MessagesDeleteHistoryRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (d *MessagesDeleteHistoryRequest) TypeID() uint32 {
+func (*MessagesDeleteHistoryRequest) TypeID() uint32 {
 	return MessagesDeleteHistoryRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (d *MessagesDeleteHistoryRequest) TypeName() string {
+func (*MessagesDeleteHistoryRequest) TypeName() string {
 	return "messages.deleteHistory"
+}
+
+// TypeInfo returns info about TL type.
+func (d *MessagesDeleteHistoryRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messages.deleteHistory",
+		ID:   MessagesDeleteHistoryRequestTypeID,
+	}
+	if d == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "JustClear",
+			SchemaName: "just_clear",
+			Null:       !d.Flags.Has(0),
+		},
+		{
+			Name:       "Revoke",
+			SchemaName: "revoke",
+			Null:       !d.Flags.Has(1),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
+		},
+		{
+			Name:       "MaxID",
+			SchemaName: "max_id",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

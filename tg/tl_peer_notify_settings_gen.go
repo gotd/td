@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // PeerNotifySettings represents TL type `peerNotifySettings#af509d20`.
 // Notification settings.
@@ -29,23 +31,23 @@ type PeerNotifySettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Display text in notifications
 	//
 	// Use SetShowPreviews and GetShowPreviews helpers.
-	ShowPreviews bool `tl:"show_previews"`
+	ShowPreviews bool
 	// Mute peer?
 	//
 	// Use SetSilent and GetSilent helpers.
-	Silent bool `tl:"silent"`
+	Silent bool
 	// Mute all notifications until this date
 	//
 	// Use SetMuteUntil and GetMuteUntil helpers.
-	MuteUntil int `tl:"mute_until"`
+	MuteUntil int
 	// Audio file name for notifications
 	//
 	// Use SetSound and GetSound helpers.
-	Sound string `tl:"sound"`
+	Sound string
 }
 
 // PeerNotifySettingsTypeID is TL type id of PeerNotifySettings.
@@ -111,13 +113,52 @@ func (p *PeerNotifySettings) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (p *PeerNotifySettings) TypeID() uint32 {
+func (*PeerNotifySettings) TypeID() uint32 {
 	return PeerNotifySettingsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (p *PeerNotifySettings) TypeName() string {
+func (*PeerNotifySettings) TypeName() string {
 	return "peerNotifySettings"
+}
+
+// TypeInfo returns info about TL type.
+func (p *PeerNotifySettings) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "peerNotifySettings",
+		ID:   PeerNotifySettingsTypeID,
+	}
+	if p == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ShowPreviews",
+			SchemaName: "show_previews",
+			Null:       !p.Flags.Has(0),
+		},
+		{
+			Name:       "Silent",
+			SchemaName: "silent",
+			Null:       !p.Flags.Has(1),
+		},
+		{
+			Name:       "MuteUntil",
+			SchemaName: "mute_until",
+			Null:       !p.Flags.Has(2),
+		},
+		{
+			Name:       "Sound",
+			SchemaName: "sound",
+			Null:       !p.Flags.Has(3),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

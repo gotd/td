@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountUpdateUsernameRequest represents TL type `account.updateUsername#3e0bdd7c`.
 // Changes username for the current user.
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/account.updateUsername for reference.
 type AccountUpdateUsernameRequest struct {
 	// username or empty string if username is to be removedAccepted characters: a-z (case-insensitive), 0-9 and underscores.Length: 5-32 characters.
-	Username string `tl:"username"`
+	Username string
 }
 
 // AccountUpdateUsernameRequestTypeID is TL type id of AccountUpdateUsernameRequest.
@@ -62,13 +64,32 @@ func (u *AccountUpdateUsernameRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (u *AccountUpdateUsernameRequest) TypeID() uint32 {
+func (*AccountUpdateUsernameRequest) TypeID() uint32 {
 	return AccountUpdateUsernameRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (u *AccountUpdateUsernameRequest) TypeName() string {
+func (*AccountUpdateUsernameRequest) TypeName() string {
 	return "account.updateUsername"
+}
+
+// TypeInfo returns info about TL type.
+func (u *AccountUpdateUsernameRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.updateUsername",
+		ID:   AccountUpdateUsernameRequestTypeID,
+	}
+	if u == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Username",
+			SchemaName: "username",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

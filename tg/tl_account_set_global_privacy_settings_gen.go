@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // AccountSetGlobalPrivacySettingsRequest represents TL type `account.setGlobalPrivacySettings#1edaaac2`.
 // Set global privacy settings
@@ -26,7 +28,7 @@ var _ = sort.Ints
 // See https://core.telegram.org/method/account.setGlobalPrivacySettings for reference.
 type AccountSetGlobalPrivacySettingsRequest struct {
 	// Global privacy settings
-	Settings GlobalPrivacySettings `tl:"settings"`
+	Settings GlobalPrivacySettings
 }
 
 // AccountSetGlobalPrivacySettingsRequestTypeID is TL type id of AccountSetGlobalPrivacySettingsRequest.
@@ -62,13 +64,32 @@ func (s *AccountSetGlobalPrivacySettingsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (s *AccountSetGlobalPrivacySettingsRequest) TypeID() uint32 {
+func (*AccountSetGlobalPrivacySettingsRequest) TypeID() uint32 {
 	return AccountSetGlobalPrivacySettingsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (s *AccountSetGlobalPrivacySettingsRequest) TypeName() string {
+func (*AccountSetGlobalPrivacySettingsRequest) TypeName() string {
 	return "account.setGlobalPrivacySettings"
+}
+
+// TypeInfo returns info about TL type.
+func (s *AccountSetGlobalPrivacySettingsRequest) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "account.setGlobalPrivacySettings",
+		ID:   AccountSetGlobalPrivacySettingsRequestTypeID,
+	}
+	if s == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Settings",
+			SchemaName: "settings",
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.

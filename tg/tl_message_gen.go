@@ -10,6 +10,7 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/tdp"
 )
 
 // No-op definition for keeping imports.
@@ -19,6 +20,7 @@ var _ = fmt.Stringer(nil)
 var _ = strings.Builder{}
 var _ = errors.Is
 var _ = sort.Ints
+var _ = tdp.Format
 
 // MessageEmpty represents TL type `messageEmpty#90a6ca84`.
 // Empty constructor, non-existent message.
@@ -26,13 +28,13 @@ var _ = sort.Ints
 // See https://core.telegram.org/constructor/messageEmpty for reference.
 type MessageEmpty struct {
 	// Flags field of MessageEmpty.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Message identifier
-	ID int `tl:"id"`
+	ID int
 	// PeerID field of MessageEmpty.
 	//
 	// Use SetPeerID and GetPeerID helpers.
-	PeerID PeerClass `tl:"peer_id"`
+	PeerID PeerClass
 }
 
 // MessageEmptyTypeID is TL type id of MessageEmpty.
@@ -79,13 +81,41 @@ func (m *MessageEmpty) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageEmpty) TypeID() uint32 {
+func (*MessageEmpty) TypeID() uint32 {
 	return MessageEmptyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageEmpty) TypeName() string {
+func (*MessageEmpty) TypeName() string {
 	return "messageEmpty"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageEmpty) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageEmpty",
+		ID:   MessageEmptyTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "PeerID",
+			SchemaName: "peer_id",
+			Null:       !m.Flags.Has(0),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -182,96 +212,96 @@ type Message struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Is this an outgoing message
-	Out bool `tl:"out"`
+	Out bool
 	// Whether we were mentioned¹ in this message
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/mentions
-	Mentioned bool `tl:"mentioned"`
+	Mentioned bool
 	// Whether there are unread media attachments in this message
-	MediaUnread bool `tl:"media_unread"`
+	MediaUnread bool
 	// Whether this is a silent message (no notification triggered)
-	Silent bool `tl:"silent"`
+	Silent bool
 	// Whether this is a channel post
-	Post bool `tl:"post"`
+	Post bool
 	// Whether this is a scheduled message¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/scheduled-messages
-	FromScheduled bool `tl:"from_scheduled"`
+	FromScheduled bool
 	// This is a legacy message: it has to be refetched with the new layer
-	Legacy bool `tl:"legacy"`
+	Legacy bool
 	// Whether the message should be shown as not modified to the user, even if an edit date is present
-	EditHide bool `tl:"edit_hide"`
+	EditHide bool
 	// Whether this message is pinned¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/pin
-	Pinned bool `tl:"pinned"`
+	Pinned bool
 	// ID of the message
-	ID int `tl:"id"`
+	ID int
 	// ID of the sender of the message
 	//
 	// Use SetFromID and GetFromID helpers.
-	FromID PeerClass `tl:"from_id"`
+	FromID PeerClass
 	// Peer ID, the chat where this message was sent
-	PeerID PeerClass `tl:"peer_id"`
+	PeerID PeerClass
 	// Info about forwarded messages
 	//
 	// Use SetFwdFrom and GetFwdFrom helpers.
-	FwdFrom MessageFwdHeader `tl:"fwd_from"`
+	FwdFrom MessageFwdHeader
 	// ID of the inline bot that generated the message
 	//
 	// Use SetViaBotID and GetViaBotID helpers.
-	ViaBotID int `tl:"via_bot_id"`
+	ViaBotID int
 	// Reply information
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
-	ReplyTo MessageReplyHeader `tl:"reply_to"`
+	ReplyTo MessageReplyHeader
 	// Date of the message
-	Date int `tl:"date"`
+	Date int
 	// The message
-	Message string `tl:"message"`
+	Message string
 	// Media attachment
 	//
 	// Use SetMedia and GetMedia helpers.
-	Media MessageMediaClass `tl:"media"`
+	Media MessageMediaClass
 	// Reply markup (bot/inline keyboards)
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass
 	// Message entities¹ for styled text
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `tl:"entities"`
+	Entities []MessageEntityClass
 	// View count for channel posts
 	//
 	// Use SetViews and GetViews helpers.
-	Views int `tl:"views"`
+	Views int
 	// Forward counter
 	//
 	// Use SetForwards and GetForwards helpers.
-	Forwards int `tl:"forwards"`
+	Forwards int
 	// Info about post comments (for channels) or message replies (for groups)¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetReplies and GetReplies helpers.
-	Replies MessageReplies `tl:"replies"`
+	Replies MessageReplies
 	// Last edit date of this message
 	//
 	// Use SetEditDate and GetEditDate helpers.
-	EditDate int `tl:"edit_date"`
+	EditDate int
 	// Name of the author of this message for channel posts (with signatures enabled)
 	//
 	// Use SetPostAuthor and GetPostAuthor helpers.
-	PostAuthor string `tl:"post_author"`
+	PostAuthor string
 	// Multiple media messages sent using messages.sendMultiMedia¹ with the same grouped ID indicate an album or media group²
 	//
 	// Links:
@@ -279,15 +309,15 @@ type Message struct {
 	//  2) https://core.telegram.org/api/files#albums-grouped-media
 	//
 	// Use SetGroupedID and GetGroupedID helpers.
-	GroupedID int64 `tl:"grouped_id"`
+	GroupedID int64
 	// Contains the reason why access to this message must be restricted.
 	//
 	// Use SetRestrictionReason and GetRestrictionReason helpers.
-	RestrictionReason []RestrictionReason `tl:"restriction_reason"`
+	RestrictionReason []RestrictionReason
 	// TTLPeriod field of Message.
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
-	TTLPeriod int `tl:"ttl_period"`
+	TTLPeriod int
 }
 
 // MessageTypeID is TL type id of Message.
@@ -506,13 +536,168 @@ func (m *Message) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *Message) TypeID() uint32 {
+func (*Message) TypeID() uint32 {
 	return MessageTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *Message) TypeName() string {
+func (*Message) TypeName() string {
 	return "message"
+}
+
+// TypeInfo returns info about TL type.
+func (m *Message) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "message",
+		ID:   MessageTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Out",
+			SchemaName: "out",
+			Null:       !m.Flags.Has(1),
+		},
+		{
+			Name:       "Mentioned",
+			SchemaName: "mentioned",
+			Null:       !m.Flags.Has(4),
+		},
+		{
+			Name:       "MediaUnread",
+			SchemaName: "media_unread",
+			Null:       !m.Flags.Has(5),
+		},
+		{
+			Name:       "Silent",
+			SchemaName: "silent",
+			Null:       !m.Flags.Has(13),
+		},
+		{
+			Name:       "Post",
+			SchemaName: "post",
+			Null:       !m.Flags.Has(14),
+		},
+		{
+			Name:       "FromScheduled",
+			SchemaName: "from_scheduled",
+			Null:       !m.Flags.Has(18),
+		},
+		{
+			Name:       "Legacy",
+			SchemaName: "legacy",
+			Null:       !m.Flags.Has(19),
+		},
+		{
+			Name:       "EditHide",
+			SchemaName: "edit_hide",
+			Null:       !m.Flags.Has(21),
+		},
+		{
+			Name:       "Pinned",
+			SchemaName: "pinned",
+			Null:       !m.Flags.Has(24),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "FromID",
+			SchemaName: "from_id",
+			Null:       !m.Flags.Has(8),
+		},
+		{
+			Name:       "PeerID",
+			SchemaName: "peer_id",
+		},
+		{
+			Name:       "FwdFrom",
+			SchemaName: "fwd_from",
+			Null:       !m.Flags.Has(2),
+		},
+		{
+			Name:       "ViaBotID",
+			SchemaName: "via_bot_id",
+			Null:       !m.Flags.Has(11),
+		},
+		{
+			Name:       "ReplyTo",
+			SchemaName: "reply_to",
+			Null:       !m.Flags.Has(3),
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "Message",
+			SchemaName: "message",
+		},
+		{
+			Name:       "Media",
+			SchemaName: "media",
+			Null:       !m.Flags.Has(9),
+		},
+		{
+			Name:       "ReplyMarkup",
+			SchemaName: "reply_markup",
+			Null:       !m.Flags.Has(6),
+		},
+		{
+			Name:       "Entities",
+			SchemaName: "entities",
+			Null:       !m.Flags.Has(7),
+		},
+		{
+			Name:       "Views",
+			SchemaName: "views",
+			Null:       !m.Flags.Has(10),
+		},
+		{
+			Name:       "Forwards",
+			SchemaName: "forwards",
+			Null:       !m.Flags.Has(10),
+		},
+		{
+			Name:       "Replies",
+			SchemaName: "replies",
+			Null:       !m.Flags.Has(23),
+		},
+		{
+			Name:       "EditDate",
+			SchemaName: "edit_date",
+			Null:       !m.Flags.Has(15),
+		},
+		{
+			Name:       "PostAuthor",
+			SchemaName: "post_author",
+			Null:       !m.Flags.Has(16),
+		},
+		{
+			Name:       "GroupedID",
+			SchemaName: "grouped_id",
+			Null:       !m.Flags.Has(17),
+		},
+		{
+			Name:       "RestrictionReason",
+			SchemaName: "restriction_reason",
+			Null:       !m.Flags.Has(22),
+		},
+		{
+			Name:       "TTLPeriod",
+			SchemaName: "ttl_period",
+			Null:       !m.Flags.Has(25),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
@@ -1268,39 +1453,39 @@ type MessageService struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the message is outgoing
-	Out bool `tl:"out"`
+	Out bool
 	// Whether we were mentioned in the message
-	Mentioned bool `tl:"mentioned"`
+	Mentioned bool
 	// Whether the message contains unread media
-	MediaUnread bool `tl:"media_unread"`
+	MediaUnread bool
 	// Whether the message is silent
-	Silent bool `tl:"silent"`
+	Silent bool
 	// Whether it's a channel post
-	Post bool `tl:"post"`
+	Post bool
 	// This is a legacy message: it has to be refetched with the new layer
-	Legacy bool `tl:"legacy"`
+	Legacy bool
 	// Message ID
-	ID int `tl:"id"`
+	ID int
 	// ID of the sender of this message
 	//
 	// Use SetFromID and GetFromID helpers.
-	FromID PeerClass `tl:"from_id"`
+	FromID PeerClass
 	// Sender of service message
-	PeerID PeerClass `tl:"peer_id"`
+	PeerID PeerClass
 	// Reply (thread) information
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
-	ReplyTo MessageReplyHeader `tl:"reply_to"`
+	ReplyTo MessageReplyHeader
 	// Message date
-	Date int `tl:"date"`
+	Date int
 	// Event connected with the service message
-	Action MessageActionClass `tl:"action"`
+	Action MessageActionClass
 	// TTLPeriod field of MessageService.
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
-	TTLPeriod int `tl:"ttl_period"`
+	TTLPeriod int
 }
 
 // MessageServiceTypeID is TL type id of MessageService.
@@ -1408,13 +1593,93 @@ func (m *MessageService) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (m *MessageService) TypeID() uint32 {
+func (*MessageService) TypeID() uint32 {
 	return MessageServiceTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (m *MessageService) TypeName() string {
+func (*MessageService) TypeName() string {
 	return "messageService"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageService) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageService",
+		ID:   MessageServiceTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Flags",
+			SchemaName: "flags",
+		},
+		{
+			Name:       "Out",
+			SchemaName: "out",
+			Null:       !m.Flags.Has(1),
+		},
+		{
+			Name:       "Mentioned",
+			SchemaName: "mentioned",
+			Null:       !m.Flags.Has(4),
+		},
+		{
+			Name:       "MediaUnread",
+			SchemaName: "media_unread",
+			Null:       !m.Flags.Has(5),
+		},
+		{
+			Name:       "Silent",
+			SchemaName: "silent",
+			Null:       !m.Flags.Has(13),
+		},
+		{
+			Name:       "Post",
+			SchemaName: "post",
+			Null:       !m.Flags.Has(14),
+		},
+		{
+			Name:       "Legacy",
+			SchemaName: "legacy",
+			Null:       !m.Flags.Has(19),
+		},
+		{
+			Name:       "ID",
+			SchemaName: "id",
+		},
+		{
+			Name:       "FromID",
+			SchemaName: "from_id",
+			Null:       !m.Flags.Has(8),
+		},
+		{
+			Name:       "PeerID",
+			SchemaName: "peer_id",
+		},
+		{
+			Name:       "ReplyTo",
+			SchemaName: "reply_to",
+			Null:       !m.Flags.Has(3),
+		},
+		{
+			Name:       "Date",
+			SchemaName: "date",
+		},
+		{
+			Name:       "Action",
+			SchemaName: "action",
+		},
+		{
+			Name:       "TTLPeriod",
+			SchemaName: "ttl_period",
+			Null:       !m.Flags.Has(25),
+		},
+	}
+	return typ
 }
 
 // Encode implements bin.Encoder.
