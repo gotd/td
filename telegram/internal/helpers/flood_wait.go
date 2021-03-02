@@ -12,7 +12,7 @@ import (
 func FloodWait(ctx context.Context, err error) (bool, error) {
 	if d, ok := mtproto.AsFloodWait(err); ok {
 		select {
-		case <-time.After(d):
+		case <-time.After(d + 1*time.Second):
 			return true, err
 		case <-ctx.Done():
 			return false, ctx.Err()
