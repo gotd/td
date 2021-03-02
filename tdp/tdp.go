@@ -29,7 +29,7 @@ const (
 
 func formatValue(b *strings.Builder, prefix string, opt options, v reflect.Value) {
 	switch v.Kind() {
-	case reflect.Struct, reflect.Ptr:
+	case reflect.Struct, reflect.Ptr, reflect.Interface:
 		i, ok := v.Interface().(Object)
 		if ok {
 			format(b, prefix+defaultIdent, opt, i)
