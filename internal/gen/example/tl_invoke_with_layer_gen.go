@@ -27,9 +27,9 @@ var _ = tdp.Format
 // See https://localhost:80/doc/constructor/invokeWithLayer for reference.
 type InvokeWithLayer struct {
 	// Layer field of InvokeWithLayer.
-	Layer int `tl:"layer"`
+	Layer int
 	// Query field of InvokeWithLayer.
-	Query bin.Object `tl:"query"`
+	Query bin.Object
 }
 
 // InvokeWithLayerTypeID is TL type id of InvokeWithLayer.

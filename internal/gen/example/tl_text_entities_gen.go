@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://localhost:80/doc/constructor/textEntities for reference.
 type TextEntities struct {
 	// List of text entities
-	Entities []TextEntity `tl:"entities"`
+	Entities []TextEntity
 }
 
 // TextEntitiesTypeID is TL type id of TextEntities.

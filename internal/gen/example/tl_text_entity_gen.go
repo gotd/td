@@ -27,11 +27,11 @@ var _ = tdp.Format
 // See https://localhost:80/doc/constructor/textEntity for reference.
 type TextEntity struct {
 	// Offset of the entity, in UTF-16 code units
-	Offset int32 `tl:"offset"`
+	Offset int32
 	// Length of the entity, in UTF-16 code units
-	Length int32 `tl:"length"`
+	Length int32
 	// Type of the entity
-	Type TextEntityTypeClass `tl:"type"`
+	Type TextEntityTypeClass
 }
 
 // TextEntityTypeID is TL type id of TextEntity.

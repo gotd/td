@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://localhost:80/doc/constructor/sendMultipleSMS for reference.
 type SendMultipleSMSRequest struct {
 	// Messages field of SendMultipleSMSRequest.
-	Messages []SMS `tl:"messages"`
+	Messages []SMS
 }
 
 // SendMultipleSMSRequestTypeID is TL type id of SendMultipleSMSRequest.

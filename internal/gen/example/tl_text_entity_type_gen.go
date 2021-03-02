@@ -1189,7 +1189,7 @@ var (
 // See https://localhost:80/doc/constructor/textEntityTypePreCode for reference.
 type TextEntityTypePreCode struct {
 	// Programming language of the code; as defined by the sender
-	Language string `tl:"language"`
+	Language string
 }
 
 // TextEntityTypePreCodeTypeID is TL type id of TextEntityTypePreCode.
@@ -1302,7 +1302,7 @@ var (
 // See https://localhost:80/doc/constructor/textEntityTypeTextUrl for reference.
 type TextEntityTypeTextUrl struct {
 	// HTTP or tg:// URL to be opened when the link is clicked
-	URL string `tl:"url"`
+	URL string
 }
 
 // TextEntityTypeTextUrlTypeID is TL type id of TextEntityTypeTextUrl.
@@ -1415,7 +1415,7 @@ var (
 // See https://localhost:80/doc/constructor/textEntityTypeMentionName for reference.
 type TextEntityTypeMentionName struct {
 	// Identifier of the mentioned user
-	UserID int32 `tl:"user_id"`
+	UserID int32
 }
 
 // TextEntityTypeMentionNameTypeID is TL type id of TextEntityTypeMentionName.

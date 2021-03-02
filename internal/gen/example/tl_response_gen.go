@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://localhost:80/doc/constructor/responseID for reference.
 type ResponseID struct {
 	// ID field of ResponseID.
-	ID int32 `tl:"id"`
+	ID int32
 }
 
 // ResponseIDTypeID is TL type id of ResponseID.
@@ -140,7 +140,7 @@ var (
 // See https://localhost:80/doc/constructor/responseText for reference.
 type ResponseText struct {
 	// Text field of ResponseText.
-	Text string `tl:"text"`
+	Text string
 }
 
 // ResponseTextTypeID is TL type id of ResponseText.

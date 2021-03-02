@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://localhost:80/doc/constructor/testVectorBytes for reference.
 type TestVectorBytes struct {
 	// Value field of TestVectorBytes.
-	Value [][]byte `tl:"value"`
+	Value [][]byte
 }
 
 // TestVectorBytesTypeID is TL type id of TestVectorBytes.

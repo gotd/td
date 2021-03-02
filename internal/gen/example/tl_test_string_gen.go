@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://localhost:80/doc/constructor/testString for reference.
 type TestString struct {
 	// String
-	Value string `tl:"value"`
+	Value string
 }
 
 // TestStringTypeID is TL type id of TestString.

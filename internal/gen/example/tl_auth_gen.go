@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://localhost:80/doc/constructor/auth for reference.
 type Auth struct {
 	// Name field of Auth.
-	Name string `tl:"name"`
+	Name string
 }
 
 // AuthTypeID is TL type id of Auth.
@@ -140,9 +140,9 @@ var (
 // See https://localhost:80/doc/constructor/authPassword for reference.
 type AuthPassword struct {
 	// Name field of AuthPassword.
-	Name string `tl:"name"`
+	Name string
 	// Password field of AuthPassword.
-	Password string `tl:"password"`
+	Password string
 }
 
 // AuthPasswordTypeID is TL type id of AuthPassword.

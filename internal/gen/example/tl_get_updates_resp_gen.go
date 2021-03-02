@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://localhost:80/doc/constructor/getUpdatesResp for reference.
 type GetUpdatesResp struct {
 	// Updates field of GetUpdatesResp.
-	Updates []AbstractMessageClass `tl:"updates"`
+	Updates []AbstractMessageClass
 }
 
 // GetUpdatesRespTypeID is TL type id of GetUpdatesResp.

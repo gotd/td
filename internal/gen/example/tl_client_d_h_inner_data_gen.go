@@ -27,13 +27,13 @@ var _ = tdp.Format
 // See https://localhost:80/doc/constructor/client_DH_inner_data for reference.
 type ClientDHInnerData struct {
 	// Nonce field of ClientDHInnerData.
-	Nonce bin.Int128 `tl:"nonce"`
+	Nonce bin.Int128
 	// ServerNonce field of ClientDHInnerData.
-	ServerNonce bin.Int128 `tl:"server_nonce"`
+	ServerNonce bin.Int128
 	// RetryID field of ClientDHInnerData.
-	RetryID int64 `tl:"retry_id"`
+	RetryID int64
 	// GB field of ClientDHInnerData.
-	GB string `tl:"g_b"`
+	GB string
 }
 
 // ClientDHInnerDataTypeID is TL type id of ClientDHInnerData.

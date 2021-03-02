@@ -27,27 +27,27 @@ var _ = tdp.Format
 // See https://localhost:80/doc/constructor/dcOption for reference.
 type DcOption struct {
 	// Flags field of DcOption.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Ipv6 field of DcOption.
-	Ipv6 bool `tl:"ipv6"`
+	Ipv6 bool
 	// MediaOnly field of DcOption.
-	MediaOnly bool `tl:"media_only"`
+	MediaOnly bool
 	// TcpoOnly field of DcOption.
-	TcpoOnly bool `tl:"tcpo_only"`
+	TcpoOnly bool
 	// CDN field of DcOption.
-	CDN bool `tl:"cdn"`
+	CDN bool
 	// Static field of DcOption.
-	Static bool `tl:"static"`
+	Static bool
 	// ID field of DcOption.
-	ID int `tl:"id"`
+	ID int
 	// IPAddress field of DcOption.
-	IPAddress string `tl:"ip_address"`
+	IPAddress string
 	// Port field of DcOption.
-	Port int `tl:"port"`
+	Port int
 	// Secret field of DcOption.
 	//
 	// Use SetSecret and GetSecret helpers.
-	Secret []byte `tl:"secret"`
+	Secret []byte
 }
 
 // DcOptionTypeID is TL type id of DcOption.

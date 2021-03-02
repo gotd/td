@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://localhost:80/doc/constructor/testVectorVector for reference.
 type TestVectorVector struct {
 	// Value field of TestVectorVector.
-	Value [][]string `tl:"value"`
+	Value [][]string
 }
 
 // TestVectorVectorTypeID is TL type id of TestVectorVector.

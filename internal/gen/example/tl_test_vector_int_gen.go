@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://localhost:80/doc/constructor/testVectorInt for reference.
 type TestVectorInt struct {
 	// Vector of numbers
-	Value []int32 `tl:"value"`
+	Value []int32
 }
 
 // TestVectorIntTypeID is TL type id of TestVectorInt.

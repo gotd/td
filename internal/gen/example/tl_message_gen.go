@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://localhost:80/doc/constructor/message for reference.
 type Message struct {
 	// Err field of Message.
-	Err Error `tl:"err"`
+	Err Error
 }
 
 // MessageTypeID is TL type id of Message.

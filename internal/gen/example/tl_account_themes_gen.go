@@ -110,9 +110,9 @@ var (
 // See https://localhost:80/doc/constructor/account.themes for reference.
 type AccountThemes struct {
 	// Hash field of AccountThemes.
-	Hash int `tl:"hash"`
+	Hash int
 	// Themes field of AccountThemes.
-	Themes []Theme `tl:"themes"`
+	Themes []Theme
 }
 
 // AccountThemesTypeID is TL type id of AccountThemes.

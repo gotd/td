@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://localhost:80/doc/constructor/theme for reference.
 type Theme struct {
 	// Name field of Theme.
-	Name string `tl:"name"`
+	Name string
 }
 
 // ThemeTypeID is TL type id of Theme.

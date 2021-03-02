@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://localhost:80/doc/constructor/testBytes for reference.
 type TestBytes struct {
 	// Bytes
-	Value []byte `tl:"value"`
+	Value []byte
 }
 
 // TestBytesTypeID is TL type id of TestBytes.

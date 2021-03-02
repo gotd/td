@@ -27,15 +27,15 @@ var _ = tdp.Format
 // See https://localhost:80/doc/constructor/bigMessage for reference.
 type BigMessage struct {
 	// ID field of BigMessage.
-	ID int32 `tl:"id"`
+	ID int32
 	// Count field of BigMessage.
-	Count int32 `tl:"count"`
+	Count int32
 	// TargetId field of BigMessage.
-	TargetId int32 `tl:"targetId"`
+	TargetId int32
 	// Escape field of BigMessage.
-	Escape bool `tl:"escape"`
+	Escape bool
 	// Summary field of BigMessage.
-	Summary bool `tl:"summary"`
+	Summary bool
 }
 
 // BigMessageTypeID is TL type id of BigMessage.
@@ -319,7 +319,7 @@ var (
 // See https://localhost:80/doc/constructor/targetsMessage for reference.
 type TargetsMessage struct {
 	// Targets field of TargetsMessage.
-	Targets []int32 `tl:"targets"`
+	Targets []int32
 }
 
 // TargetsMessageTypeID is TL type id of TargetsMessage.
@@ -441,15 +441,15 @@ var (
 // See https://localhost:80/doc/constructor/fieldsMessage for reference.
 type FieldsMessage struct {
 	// Flags field of FieldsMessage.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Escape field of FieldsMessage.
 	//
 	// Use SetEscape and GetEscape helpers.
-	Escape bool `tl:"escape"`
+	Escape bool
 	// TTLSeconds field of FieldsMessage.
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
-	TTLSeconds int `tl:"ttl_seconds"`
+	TTLSeconds int
 }
 
 // FieldsMessageTypeID is TL type id of FieldsMessage.
@@ -637,7 +637,7 @@ var (
 // See https://localhost:80/doc/constructor/bytesMessage for reference.
 type BytesMessage struct {
 	// Data field of BytesMessage.
-	Data []byte `tl:"data"`
+	Data []byte
 }
 
 // BytesMessageTypeID is TL type id of BytesMessage.

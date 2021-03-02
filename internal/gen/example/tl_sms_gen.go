@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://localhost:80/doc/constructor/sms for reference.
 type SMS struct {
 	// Text field of SMS.
-	Text string `tl:"text"`
+	Text string
 }
 
 // SMSTypeID is TL type id of SMS.

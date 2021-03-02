@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://localhost:80/doc/method/send for reference.
 type SendRequest struct {
 	// Msg field of SendRequest.
-	Msg SMS `tl:"msg"`
+	Msg SMS
 }
 
 // SendRequestTypeID is TL type id of SendRequest.

@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://localhost:80/doc/constructor/ping for reference.
 type PingRequest struct {
 	// ID field of PingRequest.
-	ID int32 `tl:"id"`
+	ID int32
 }
 
 // PingRequestTypeID is TL type id of PingRequest.

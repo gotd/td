@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://localhost:80/doc/method/echoVector for reference.
 type EchoVectorRequest struct {
 	// Ids field of EchoVectorRequest.
-	Ids []int `tl:"ids"`
+	Ids []int
 }
 
 // EchoVectorRequestTypeID is TL type id of EchoVectorRequest.

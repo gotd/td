@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://localhost:80/doc/constructor/user.auth for reference.
 type UserAuth struct {
 	// Foo field of UserAuth.
-	Foo string `tl:"foo"`
+	Foo string
 }
 
 // UserAuthTypeID is TL type id of UserAuth.
@@ -140,7 +140,7 @@ var (
 // See https://localhost:80/doc/constructor/user.authPassword for reference.
 type UserAuthPassword struct {
 	// Pwd field of UserAuthPassword.
-	Pwd string `tl:"pwd"`
+	Pwd string
 }
 
 // UserAuthPasswordTypeID is TL type id of UserAuthPassword.

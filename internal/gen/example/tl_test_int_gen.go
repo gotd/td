@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://localhost:80/doc/constructor/testInt for reference.
 type TestInt struct {
 	// Number
-	Value int32 `tl:"value"`
+	Value int32
 }
 
 // TestIntTypeID is TL type id of TestInt.

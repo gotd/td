@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://localhost:80/doc/constructor/testVectorIntObject for reference.
 type TestVectorIntObject struct {
 	// Vector of objects
-	Value []TestInt `tl:"value"`
+	Value []TestInt
 }
 
 // TestVectorIntObjectTypeID is TL type id of TestVectorIntObject.

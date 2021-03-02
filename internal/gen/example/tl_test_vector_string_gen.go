@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://localhost:80/doc/constructor/testVectorString for reference.
 type TestVectorString struct {
 	// Vector of strings
-	Value []string `tl:"value"`
+	Value []string
 }
 
 // TestVectorStringTypeID is TL type id of TestVectorString.

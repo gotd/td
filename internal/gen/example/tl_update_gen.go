@@ -27,9 +27,9 @@ var _ = tdp.Format
 // See https://localhost:80/doc/constructor/update for reference.
 type Update struct {
 	// Msg field of Update.
-	Msg AbstractMessageClass `tl:"msg"`
+	Msg AbstractMessageClass
 	// Delay field of Update.
-	Delay int32 `tl:"delay"`
+	Delay int32
 }
 
 // UpdateTypeID is TL type id of Update.
