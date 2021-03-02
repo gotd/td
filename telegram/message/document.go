@@ -2,7 +2,10 @@ package message
 
 import (
 	"context"
+	"encoding/hex"
 	"time"
+
+	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/tg"
 )
@@ -35,7 +38,7 @@ func (u *DocumentBuilder) apply(ctx context.Context, b *multiMediaBuilder) error
 	return Media(&u.doc, u.caption...).apply(ctx, b)
 }
 
-// Document adds doc attachment.
+// Document adds document attachment.
 func Document(doc FileLocation, caption ...StyledTextOption) *DocumentBuilder {
 	v := new(tg.InputDocument)
 	v.FillFrom(doc)
@@ -46,6 +49,74 @@ func Document(doc FileLocation, caption ...StyledTextOption) *DocumentBuilder {
 		},
 		caption: caption,
 	}
+}
+
+// Document sends document.
+func (b *Builder) Document(ctx context.Context, file FileLocation, caption ...StyledTextOption) error {
+	return b.Media(ctx, Document(file, caption...))
+}
+
+// SearchDocumentBuilder is a Document media option which uses messages.getDocumentByHash
+// to find document.
+//
+// See https://core.telegram.org/method/messages.getDocumentByHash.
+//
+// See https://core.telegram.org/api/files#re-using-pre-uploaded-files.
+type SearchDocumentBuilder struct {
+	hash []byte
+	size int
+	mime string
+	*DocumentBuilder
+}
+
+// apply implements MediaOption.
+func (u *SearchDocumentBuilder) apply(ctx context.Context, b *multiMediaBuilder) error {
+	result, err := b.sender.raw.MessagesGetDocumentByHash(ctx, &tg.MessagesGetDocumentByHashRequest{
+		SHA256:   u.hash,
+		Size:     u.size,
+		MimeType: u.mime,
+	})
+	if err != nil {
+		return xerrors.Errorf("find document: %w", err)
+	}
+
+	doc, ok := result.AsNotEmpty()
+	if !ok {
+		return xerrors.Errorf("document with hash %q not found", hex.EncodeToString(u.hash))
+	}
+
+	v := new(tg.InputDocument)
+	v.FillFrom(doc)
+	u.doc.ID = v
+	return Media(&u.doc, u.caption...).apply(ctx, b)
+}
+
+// DocumentByHash finds document by hash and adds as attachment.
+//
+// See https://core.telegram.org/method/messages.getDocumentByHash.
+//
+// See https://core.telegram.org/api/files#re-using-pre-uploaded-files.
+func DocumentByHash(
+	hash []byte, size int, mime string,
+	caption ...StyledTextOption,
+) *SearchDocumentBuilder {
+	return &SearchDocumentBuilder{
+		hash: hash,
+		size: size,
+		mime: mime,
+		DocumentBuilder: &DocumentBuilder{
+			caption: caption,
+		},
+	}
+}
+
+// DocumentByHash finds document by hash and sends as attachment.
+func (b *Builder) DocumentByHash(
+	ctx context.Context,
+	hash []byte, size int, mime string,
+	caption ...StyledTextOption,
+) error {
+	return b.Media(ctx, DocumentByHash(hash, size, mime, caption...))
 }
 
 // DocumentExternalBuilder is a DocumentExternal media option.
@@ -78,6 +149,11 @@ func DocumentExternal(url string, caption ...StyledTextOption) *DocumentExternal
 		},
 		caption: caption,
 	}
+}
+
+// DocumentExternal sends document attachment that will be downloaded by the Telegram servers.
+func (b *Builder) DocumentExternal(ctx context.Context, url string, caption ...StyledTextOption) error {
+	return b.Media(ctx, DocumentExternal(url, caption...))
 }
 
 // UploadedDocumentBuilder is a UploadedDocument media option.
@@ -118,6 +194,13 @@ func (u *UploadedDocumentBuilder) Attributes(attrs ...tg.DocumentAttributeClass)
 	return u
 }
 
+// Filename sets name of uploaded file.
+func (u *UploadedDocumentBuilder) Filename(name string) *UploadedDocumentBuilder {
+	return u.Attributes(&tg.DocumentAttributeFilename{
+		FileName: name,
+	})
+}
+
 // Stickers adds attached mask stickers.
 func (u *UploadedDocumentBuilder) Stickers(stickers ...FileLocation) *UploadedDocumentBuilder {
 	u.doc.Stickers = append(u.doc.Stickers, inputDocuments(stickers...)...)
@@ -153,4 +236,9 @@ func UploadedDocument(file tg.InputFileClass, caption ...StyledTextOption) *Uplo
 // File adds document attachment and forces it to be used as plain file, not media.
 func File(file tg.InputFileClass, caption ...StyledTextOption) *UploadedDocumentBuilder {
 	return UploadedDocument(file, caption...).ForceFile(true)
+}
+
+// File sends uploaded file as document and forces it to be used as plain file, not media.
+func (b *Builder) File(ctx context.Context, file tg.InputFileClass, caption ...StyledTextOption) error {
+	return b.Media(ctx, File(file, caption...))
 }

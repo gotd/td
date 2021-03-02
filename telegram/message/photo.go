@@ -42,6 +42,11 @@ func Photo(photo FileLocation, caption ...StyledTextOption) *PhotoBuilder {
 	}
 }
 
+// Photo sends photo.
+func (b *Builder) Photo(ctx context.Context, photo FileLocation, caption ...StyledTextOption) error {
+	return b.Media(ctx, Photo(photo, caption...))
+}
+
 // PhotoExternalBuilder is a PhotoExternal media option.
 type PhotoExternalBuilder struct {
 	doc     tg.InputMediaPhotoExternal
@@ -64,7 +69,7 @@ func (u *PhotoExternalBuilder) apply(ctx context.Context, b *multiMediaBuilder) 
 	return Media(&u.doc, u.caption...).apply(ctx, b)
 }
 
-// PhotoExternal adds document attachment that will be downloaded by the Telegram servers.
+// PhotoExternal adds photo attachment which will be downloaded by the Telegram servers.
 func PhotoExternal(url string, caption ...StyledTextOption) *PhotoExternalBuilder {
 	return &PhotoExternalBuilder{
 		doc: tg.InputMediaPhotoExternal{
@@ -72,6 +77,11 @@ func PhotoExternal(url string, caption ...StyledTextOption) *PhotoExternalBuilde
 		},
 		caption: caption,
 	}
+}
+
+// PhotoExternal sends photo attachment which will be downloaded by the Telegram servers.
+func (b *Builder) PhotoExternal(ctx context.Context, url string, caption ...StyledTextOption) error {
+	return b.Media(ctx, PhotoExternal(url, caption...))
 }
 
 // UploadedPhotoBuilder is a UploadedPhoto media option.
@@ -110,4 +120,9 @@ func UploadedPhoto(file tg.InputFileClass, caption ...StyledTextOption) *Uploade
 		},
 		caption: caption,
 	}
+}
+
+// UploadedPhoto sends uploaded file as photo.
+func (b *Builder) UploadedPhoto(ctx context.Context, file tg.InputFileClass, caption ...StyledTextOption) error {
+	return b.Media(ctx, UploadedPhoto(file, caption...))
 }

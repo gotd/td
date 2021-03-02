@@ -75,7 +75,7 @@ func TestSender_Resolve(t *testing.T) {
 						resolver: resolver(t, tt.domain, expected),
 					}
 
-					peer, err := s.Resolve(fmt.Sprintf(format.fmt, tt.domain)).peer(context.Background())
+					peer, err := s.Resolve(fmt.Sprintf(format.fmt, tt.domain)).AsInputPeer(context.Background())
 					if tt.wantErr || format.wantErr {
 						a.Error(err)
 						return

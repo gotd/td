@@ -8,15 +8,17 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-func (s *Sender) builder(peer peerPromise) *Builder {
-	return &Builder{
-		sender: s,
-		peer:   peer,
+func (s *Sender) builder(peer peerPromise) *RequestBuilder {
+	return &RequestBuilder{
+		Builder: Builder{
+			sender: s,
+			peer:   peer,
+		},
 	}
 }
 
 // Peer uses given peer to create new message builder.
-func (s *Sender) Peer(peer tg.InputPeerClass) *Builder {
+func (s *Sender) Peer(peer tg.InputPeerClass) *RequestBuilder {
 	return s.builder(func(ctx context.Context) (tg.InputPeerClass, error) {
 		return peer, nil
 	})
@@ -24,7 +26,7 @@ func (s *Sender) Peer(peer tg.InputPeerClass) *Builder {
 
 // Self creates a new message builder to send it to yourself.
 // It means that message will be sent to your Saved Messages folder.
-func (s *Sender) Self() *Builder {
+func (s *Sender) Self() *RequestBuilder {
 	return s.Peer(&tg.InputPeerSelf{})
 }
 
@@ -78,7 +80,7 @@ func findPeer(uctx entities, peerID tg.PeerClass) (tg.InputPeerClass, error) {
 }
 
 // Answer uses given message update to create message for same chat.
-func (s *Sender) Answer(uctx tg.UpdateContext, upd AnswerableMessageUpdate) *Builder {
+func (s *Sender) Answer(uctx tg.UpdateContext, upd AnswerableMessageUpdate) *RequestBuilder {
 	return s.builder(func(ctx context.Context) (tg.InputPeerClass, error) {
 		updMsg := upd.GetMessage()
 		msg, ok := updMsg.AsNotEmpty()

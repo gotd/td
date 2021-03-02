@@ -45,6 +45,11 @@ func (p plainResolver) Resolve(ctx context.Context, domain string) (tg.InputPeer
 	}, peer.Peer)
 }
 
+// AsInputPeer returns resolve result as InputPeerClass.
+func (b *RequestBuilder) AsInputPeer(ctx context.Context) (tg.InputPeerClass, error) {
+	return b.peer(ctx)
+}
+
 // Resolve uses given text to create new message builder.
 // It resolves peer of message using Sender's PeerResolver.
 // Input examples:
@@ -56,7 +61,7 @@ func (p plainResolver) Resolve(ctx context.Context, domain string) (tg.InputPeer
 //	tg:resolve?domain=telegram
 //	tg://resolve?domain=telegram
 //
-func (s *Sender) Resolve(from string) *Builder {
+func (s *Sender) Resolve(from string) *RequestBuilder {
 	from = strings.TrimSpace(from)
 
 	if strings.HasPrefix(from, "tg:") ||
@@ -76,7 +81,7 @@ func (s *Sender) Resolve(from string) *Builder {
 //	@telegram
 //	telegram
 //
-func (s *Sender) ResolveDomain(domain string) *Builder {
+func (s *Sender) ResolveDomain(domain string) *RequestBuilder {
 	if strings.HasPrefix(domain, "@") {
 		domain = strings.TrimPrefix(domain, "@")
 	}
@@ -143,7 +148,7 @@ func checkDomainSymbols(domain string) error {
 //	tg:resolve?domain=telegram
 //	tg://resolve?domain=telegram
 //
-func (s *Sender) ResolveDeeplink(deeplink string) *Builder {
+func (s *Sender) ResolveDeeplink(deeplink string) *RequestBuilder {
 	return s.builder(func(ctx context.Context) (tg.InputPeerClass, error) {
 		domain, err := parseDeeplink(deeplink)
 		if err != nil {
