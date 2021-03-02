@@ -29,17 +29,17 @@ func (b *Builder) sendRequest(
 
 // Text sends text message.
 func (b *Builder) Text(ctx context.Context, msg string) error {
-	peer, err := b.peer(ctx)
+	p, err := b.peer(ctx)
 	if err != nil {
 		return xerrors.Errorf("peer: %w", err)
 	}
 
-	return b.sender.SendMessage(ctx, b.sendRequest(peer, msg, nil))
+	return b.sender.sendMessage(ctx, b.sendRequest(p, msg, nil))
 }
 
 // StyledText sends styled text message.
 func (b *Builder) StyledText(ctx context.Context, text StyledTextOption, texts ...StyledTextOption) error {
-	peer, err := b.peer(ctx)
+	p, err := b.peer(ctx)
 	if err != nil {
 		return xerrors.Errorf("peer: %w", err)
 	}
@@ -47,5 +47,5 @@ func (b *Builder) StyledText(ctx context.Context, text StyledTextOption, texts .
 	tb := textBuilder{}
 	tb.Perform(text, texts...)
 	msg, entities := tb.Complete()
-	return b.sender.SendMessage(ctx, b.sendRequest(peer, msg, entities))
+	return b.sender.sendMessage(ctx, b.sendRequest(p, msg, entities))
 }

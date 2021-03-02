@@ -16,13 +16,23 @@ type RequestBuilder struct {
 // ScreenshotNotify sends notification about screenshot.
 // Parameter msgID is a ID of message that was screenshotted, can be 0.
 func (b *RequestBuilder) ScreenshotNotify(ctx context.Context, msgID int) error {
-	peer, err := b.peer(ctx)
+	p, err := b.peer(ctx)
 	if err != nil {
 		return xerrors.Errorf("peer: %w", err)
 	}
 
-	return b.sender.SendScreenshotNotification(ctx, &tg.MessagesSendScreenshotNotificationRequest{
-		Peer:         peer,
+	return b.sender.sendScreenshotNotification(ctx, &tg.MessagesSendScreenshotNotificationRequest{
+		Peer:         p,
 		ReplyToMsgID: msgID,
 	})
+}
+
+// PeerSettings returns peer settings.
+func (b *RequestBuilder) PeerSettings(ctx context.Context) (*tg.PeerSettings, error) {
+	p, err := b.peer(ctx)
+	if err != nil {
+		return nil, xerrors.Errorf("peer: %w", err)
+	}
+
+	return b.sender.getPeerSettings(ctx, p)
 }

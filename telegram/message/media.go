@@ -104,7 +104,7 @@ func (b *Builder) applySingleMedia(ctx context.Context, media MediaOption) (tg.I
 
 // Media sends message with media attachments.
 func (b *Builder) Media(ctx context.Context, media MediaOption, album ...MediaOption) error {
-	peer, err := b.peer(ctx)
+	p, err := b.peer(ctx)
 	if err != nil {
 		return xerrors.Errorf("peer: %w", err)
 	}
@@ -115,11 +115,11 @@ func (b *Builder) Media(ctx context.Context, media MediaOption, album ...MediaOp
 			return err
 		}
 
-		return b.sender.SendMultiMedia(ctx, &tg.MessagesSendMultiMediaRequest{
+		return b.sender.sendMultiMedia(ctx, &tg.MessagesSendMultiMediaRequest{
 			Silent:       b.silent,
 			Background:   b.background,
 			ClearDraft:   b.clearDraft,
-			Peer:         peer,
+			Peer:         p,
 			ReplyToMsgID: b.replyToMsgID,
 			MultiMedia:   mb,
 			ScheduleDate: b.scheduleDate,
@@ -131,11 +131,11 @@ func (b *Builder) Media(ctx context.Context, media MediaOption, album ...MediaOp
 		return err
 	}
 
-	return b.sender.SendMedia(ctx, &tg.MessagesSendMediaRequest{
+	return b.sender.sendMedia(ctx, &tg.MessagesSendMediaRequest{
 		Silent:       b.silent,
 		Background:   b.background,
 		ClearDraft:   b.clearDraft,
-		Peer:         peer,
+		Peer:         p,
 		ReplyToMsgID: b.replyToMsgID,
 		Media:        attachment.Media,
 		Message:      attachment.Message,
@@ -150,7 +150,7 @@ func (b *Builder) Media(ctx context.Context, media MediaOption, album ...MediaOp
 //
 // See https://core.telegram.org/method/messages.uploadMedia.
 func (b *Builder) UploadMedia(ctx context.Context, media MediaOption) (tg.MessageMediaClass, error) {
-	peer, err := b.peer(ctx)
+	p, err := b.peer(ctx)
 	if err != nil {
 		return nil, xerrors.Errorf("peer: %w", err)
 	}
@@ -160,8 +160,8 @@ func (b *Builder) UploadMedia(ctx context.Context, media MediaOption) (tg.Messag
 		return nil, err
 	}
 
-	return b.sender.UploadMedia(ctx, &tg.MessagesUploadMediaRequest{
-		Peer:  peer,
+	return b.sender.uploadMedia(ctx, &tg.MessagesUploadMediaRequest{
+		Peer:  p,
 		Media: attachment.Media,
 	})
 }

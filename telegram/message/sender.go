@@ -8,6 +8,7 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/crypto"
+	"github.com/gotd/td/telegram/message/peer"
 	"github.com/gotd/td/telegram/uploader"
 	"github.com/gotd/td/tg"
 )
@@ -18,7 +19,7 @@ type Sender struct {
 	rand io.Reader
 
 	uploader *uploader.Uploader
-	resolver PeerResolver
+	resolver peer.Resolver
 }
 
 // NewSender creates a new Sender.
@@ -27,7 +28,7 @@ func NewSender(raw *tg.Client) *Sender {
 		raw:      raw,
 		rand:     rand.Reader,
 		uploader: uploader.NewUploader(raw),
-		resolver: DefaultPeerResolver(raw),
+		resolver: peer.DefaultResolver(raw),
 	}
 }
 
@@ -38,7 +39,7 @@ func (s *Sender) WithUploader(u *uploader.Uploader) *Sender {
 }
 
 // WithResolver sets peer resolver to use.
-func (s *Sender) WithResolver(resolver PeerResolver) *Sender {
+func (s *Sender) WithResolver(resolver peer.Resolver) *Sender {
 	s.resolver = resolver
 	return s
 }
@@ -49,8 +50,14 @@ func (s *Sender) WithRand(r io.Reader) *Sender {
 	return s
 }
 
-// SendMessage sends message to peer.
-func (s *Sender) SendMessage(ctx context.Context, req *tg.MessagesSendMessageRequest) error {
+// ClearAllDrafts clears all drafts in all peers.
+func (s *Sender) ClearAllDrafts(ctx context.Context) error {
+	_, err := s.raw.MessagesClearAllDrafts(ctx)
+	return err
+}
+
+// sendMessage sends message to peer.
+func (s *Sender) sendMessage(ctx context.Context, req *tg.MessagesSendMessageRequest) error {
 	if req.RandomID == 0 {
 		id, err := crypto.RandInt64(s.rand)
 		if err != nil {
@@ -63,8 +70,8 @@ func (s *Sender) SendMessage(ctx context.Context, req *tg.MessagesSendMessageReq
 	return err
 }
 
-// SendMedia sends message with single media to peer.
-func (s *Sender) SendMedia(ctx context.Context, req *tg.MessagesSendMediaRequest) error {
+// sendMedia sends message with single media to peer.
+func (s *Sender) sendMedia(ctx context.Context, req *tg.MessagesSendMediaRequest) error {
 	if req.RandomID == 0 {
 		id, err := crypto.RandInt64(s.rand)
 		if err != nil {
@@ -77,8 +84,8 @@ func (s *Sender) SendMedia(ctx context.Context, req *tg.MessagesSendMediaRequest
 	return err
 }
 
-// SendMultiMedia sends message with multiple media to peer.
-func (s *Sender) SendMultiMedia(ctx context.Context, req *tg.MessagesSendMultiMediaRequest) error {
+// sendMultiMedia sends message with multiple media to peer.
+func (s *Sender) sendMultiMedia(ctx context.Context, req *tg.MessagesSendMultiMediaRequest) error {
 	for i := range req.MultiMedia {
 		id, err := crypto.RandInt64(s.rand)
 		if err != nil {
@@ -91,13 +98,48 @@ func (s *Sender) SendMultiMedia(ctx context.Context, req *tg.MessagesSendMultiMe
 	return err
 }
 
-// UploadMedia uploads file and associate it to a chat (without actually sending it to the chat).
-func (s *Sender) UploadMedia(ctx context.Context, req *tg.MessagesUploadMediaRequest) (tg.MessageMediaClass, error) {
+// uploadMedia uploads file and associate it to a chat (without actually sending it to the chat).
+func (s *Sender) uploadMedia(ctx context.Context, req *tg.MessagesUploadMediaRequest) (tg.MessageMediaClass, error) {
 	return s.raw.MessagesUploadMedia(ctx, req)
 }
 
-// SendScreenshotNotification sends notification about screenshot to peer.
-func (s *Sender) SendScreenshotNotification(
+// getDocumentByHash finds document by hash, MIME type and size.
+func (s *Sender) getDocumentByHash(
+	ctx context.Context,
+	req *tg.MessagesGetDocumentByHashRequest,
+) (tg.DocumentClass, error) {
+	return s.raw.MessagesGetDocumentByHash(ctx, req)
+}
+
+// saveDraft saves a message draft associated to a chat.
+func (s *Sender) saveDraft(ctx context.Context, req *tg.MessagesSaveDraftRequest) error {
+	_, err := s.raw.MessagesSaveDraft(ctx, req)
+	return err
+}
+
+// setTyping sends a typing event to a conversation partner or group.
+func (s *Sender) setTyping(ctx context.Context, req *tg.MessagesSetTypingRequest) error {
+	_, err := s.raw.MessagesSetTyping(ctx, req)
+	return err
+}
+
+// report reports a message in a chat for violation of Telegram's Terms of Service.
+func (s *Sender) report(ctx context.Context, req *tg.MessagesReportRequest) (bool, error) {
+	return s.raw.MessagesReport(ctx, req)
+}
+
+// reportSpam reports a new incoming chat for spam, if the peer settings of the chat allow us to do that.
+func (s *Sender) reportSpam(ctx context.Context, p tg.InputPeerClass) (bool, error) {
+	return s.raw.MessagesReportSpam(ctx, p)
+}
+
+// getPeerSettings returns peer settings.
+func (s *Sender) getPeerSettings(ctx context.Context, p tg.InputPeerClass) (*tg.PeerSettings, error) {
+	return s.raw.MessagesGetPeerSettings(ctx, p)
+}
+
+// sendScreenshotNotification sends notification about screenshot to peer.
+func (s *Sender) sendScreenshotNotification(
 	ctx context.Context,
 	req *tg.MessagesSendScreenshotNotificationRequest,
 ) error {

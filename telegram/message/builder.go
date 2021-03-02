@@ -56,8 +56,8 @@ func (b *Builder) Background() *Builder {
 	return r
 }
 
-// ClearDraft sets flag to clear the draft field.
-func (b *Builder) ClearDraft() *Builder {
+// Clear sets flag to clear the draft field.
+func (b *Builder) Clear() *Builder {
 	r := b.copy()
 	r.clearDraft = true
 	return r

@@ -10,41 +10,6 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-// PeerResolver is a abstraction to resolve domains and Telegram deeplinks
-type PeerResolver interface {
-	Resolve(ctx context.Context, domain string) (tg.InputPeerClass, error)
-}
-
-// PeerResolverFunc is a functional adapter for PeerResolver.
-type PeerResolverFunc func(ctx context.Context, domain string) (tg.InputPeerClass, error)
-
-// Resolve implements PeerResolver.
-func (p PeerResolverFunc) Resolve(ctx context.Context, domain string) (tg.InputPeerClass, error) {
-	return p(ctx, domain)
-}
-
-// DefaultPeerResolver creates and returns default resolver.
-func DefaultPeerResolver(raw *tg.Client) PeerResolver {
-	return &plainResolver{raw: raw}
-}
-
-type plainResolver struct {
-	raw *tg.Client
-}
-
-func (p plainResolver) Resolve(ctx context.Context, domain string) (tg.InputPeerClass, error) {
-	peer, err := p.raw.ContactsResolveUsername(ctx, domain)
-	if err != nil {
-		return nil, xerrors.Errorf("resolve: %w", err)
-	}
-
-	return findPeer(entities{
-		Users:    peer.MapUsers().UserToMap(),
-		Chats:    peer.MapChats().ChatToMap(),
-		Channels: peer.MapChats().ChannelToMap(),
-	}, peer.Peer)
-}
-
 // AsInputPeer returns resolve result as InputPeerClass.
 func (b *RequestBuilder) AsInputPeer(ctx context.Context) (tg.InputPeerClass, error) {
 	return b.peer(ctx)

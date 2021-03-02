@@ -71,7 +71,7 @@ type SearchDocumentBuilder struct {
 
 // apply implements MediaOption.
 func (u *SearchDocumentBuilder) apply(ctx context.Context, b *multiMediaBuilder) error {
-	result, err := b.sender.raw.MessagesGetDocumentByHash(ctx, &tg.MessagesGetDocumentByHashRequest{
+	result, err := b.sender.getDocumentByHash(ctx, &tg.MessagesGetDocumentByHashRequest{
 		SHA256:   u.hash,
 		Size:     u.size,
 		MimeType: u.mime,
