@@ -11,7 +11,7 @@ const (
 	// Each part should have a sequence number, file_part, with a value ranging from 0 to 2,999.
 	partsLimit = 2999
 
-	defaultPartSize = 1024 // 1 KB
+	defaultPartSize = 128 * 1024 // 128 KB
 	// The file’s binary content is then split into parts. All parts must have the same size (part_size)
 	// and the following conditions must be met:
 
