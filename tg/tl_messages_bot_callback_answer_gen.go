@@ -31,23 +31,23 @@ type MessagesBotCallbackAnswer struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether an alert should be shown to the user instead of a toast notification
-	Alert bool `tl:"alert"`
+	Alert bool
 	// Whether an URL is present
-	HasURL bool `tl:"has_url"`
+	HasURL bool
 	// Whether to show games in WebView or in native UI.
-	NativeUI bool `tl:"native_ui"`
+	NativeUI bool
 	// Alert to show
 	//
 	// Use SetMessage and GetMessage helpers.
-	Message string `tl:"message"`
+	Message string
 	// URL to open
 	//
 	// Use SetURL and GetURL helpers.
-	URL string `tl:"url"`
+	URL string
 	// For how long should this answer be cached
-	CacheTime int `tl:"cache_time"`
+	CacheTime int
 }
 
 // MessagesBotCallbackAnswerTypeID is TL type id of MessagesBotCallbackAnswer.

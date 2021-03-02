@@ -25,7 +25,7 @@ var _ = tdp.Format
 // MsgCopy represents TL type `msg_copy#e06046b2`.
 type MsgCopy struct {
 	// OrigMessage field of MsgCopy.
-	OrigMessage Message `tl:"orig_message"`
+	OrigMessage Message
 }
 
 // MsgCopyTypeID is TL type id of MsgCopy.

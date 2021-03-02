@@ -112,7 +112,7 @@ var (
 // See https://core.telegram.org/constructor/securePasswordKdfAlgoPBKDF2HMACSHA512iter100000 for reference.
 type SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000 struct {
 	// Salt
-	Salt []byte `tl:"salt"`
+	Salt []byte
 }
 
 // SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000TypeID is TL type id of SecurePasswordKdfAlgoPBKDF2HMACSHA512iter100000.
@@ -228,7 +228,7 @@ var (
 // See https://core.telegram.org/constructor/securePasswordKdfAlgoSHA512 for reference.
 type SecurePasswordKdfAlgoSHA512 struct {
 	// Salt
-	Salt []byte `tl:"salt"`
+	Salt []byte
 }
 
 // SecurePasswordKdfAlgoSHA512TypeID is TL type id of SecurePasswordKdfAlgoSHA512.

@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/account.autoDownloadSettings for reference.
 type AccountAutoDownloadSettings struct {
 	// Low data usage preset
-	Low AutoDownloadSettings `tl:"low"`
+	Low AutoDownloadSettings
 	// Medium data usage preset
-	Medium AutoDownloadSettings `tl:"medium"`
+	Medium AutoDownloadSettings
 	// High data usage preset
-	High AutoDownloadSettings `tl:"high"`
+	High AutoDownloadSettings
 }
 
 // AccountAutoDownloadSettingsTypeID is TL type id of AccountAutoDownloadSettings.

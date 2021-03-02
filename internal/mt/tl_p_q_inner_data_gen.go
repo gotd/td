@@ -25,17 +25,17 @@ var _ = tdp.Format
 // PQInnerData represents TL type `p_q_inner_data#83c95aec`.
 type PQInnerData struct {
 	// Pq field of PQInnerData.
-	Pq []byte `tl:"pq"`
+	Pq []byte
 	// P field of PQInnerData.
-	P []byte `tl:"p"`
+	P []byte
 	// Q field of PQInnerData.
-	Q []byte `tl:"q"`
+	Q []byte
 	// Nonce field of PQInnerData.
-	Nonce bin.Int128 `tl:"nonce"`
+	Nonce bin.Int128
 	// ServerNonce field of PQInnerData.
-	ServerNonce bin.Int128 `tl:"server_nonce"`
+	ServerNonce bin.Int128
 	// NewNonce field of PQInnerData.
-	NewNonce bin.Int256 `tl:"new_nonce"`
+	NewNonce bin.Int256
 }
 
 // PQInnerDataTypeID is TL type id of PQInnerData.

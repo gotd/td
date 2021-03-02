@@ -187,11 +187,11 @@ var (
 // RPCAnswerDropped represents TL type `rpc_answer_dropped#a43ad8b7`.
 type RPCAnswerDropped struct {
 	// MsgID field of RPCAnswerDropped.
-	MsgID int64 `tl:"msg_id"`
+	MsgID int64
 	// SeqNo field of RPCAnswerDropped.
-	SeqNo int `tl:"seq_no"`
+	SeqNo int
 	// Bytes field of RPCAnswerDropped.
-	Bytes int `tl:"bytes"`
+	Bytes int
 }
 
 // RPCAnswerDroppedTypeID is TL type id of RPCAnswerDropped.

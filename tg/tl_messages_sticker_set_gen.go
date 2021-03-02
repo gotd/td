@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/messages.stickerSet for reference.
 type MessagesStickerSet struct {
 	// The stickerset
-	Set StickerSet `tl:"set"`
+	Set StickerSet
 	// Emoji info for stickers
-	Packs []StickerPack `tl:"packs"`
+	Packs []StickerPack
 	// Stickers in stickerset
-	Documents []DocumentClass `tl:"documents"`
+	Documents []DocumentClass
 }
 
 // MessagesStickerSetTypeID is TL type id of MessagesStickerSet.

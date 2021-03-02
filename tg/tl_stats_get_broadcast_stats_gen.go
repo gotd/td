@@ -34,11 +34,11 @@ type StatsGetBroadcastStatsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to enable dark theme for graph colors
-	Dark bool `tl:"dark"`
+	Dark bool
 	// The channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 }
 
 // StatsGetBroadcastStatsRequestTypeID is TL type id of StatsGetBroadcastStatsRequest.

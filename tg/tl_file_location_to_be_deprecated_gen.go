@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/fileLocationToBeDeprecated for reference.
 type FileLocationToBeDeprecated struct {
 	// Volume ID
-	VolumeID int64 `tl:"volume_id"`
+	VolumeID int64
 	// Local ID
-	LocalID int `tl:"local_id"`
+	LocalID int
 }
 
 // FileLocationToBeDeprecatedTypeID is TL type id of FileLocationToBeDeprecated.

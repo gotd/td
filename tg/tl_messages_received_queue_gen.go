@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.receivedQueue for reference.
 type MessagesReceivedQueueRequest struct {
 	// Maximum qts value available at the client
-	MaxQts int `tl:"max_qts"`
+	MaxQts int
 }
 
 // MessagesReceivedQueueRequestTypeID is TL type id of MessagesReceivedQueueRequest.

@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/users.getUsers for reference.
 type UsersGetUsersRequest struct {
 	// List of user identifiers
-	ID []InputUserClass `tl:"id"`
+	ID []InputUserClass
 }
 
 // UsersGetUsersRequestTypeID is TL type id of UsersGetUsersRequest.

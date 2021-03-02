@@ -29,11 +29,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/restrictionReason for reference.
 type RestrictionReason struct {
 	// Platform identifier (ios, android, wp, all, etc.), can be concatenated with a dash as separator (android-ios, ios-wp, etc)
-	Platform string `tl:"platform"`
+	Platform string
 	// Restriction reason (porno, terms, etc.)
-	Reason string `tl:"reason"`
+	Reason string
 	// Error message to be shown to the user
-	Text string `tl:"text"`
+	Text string
 }
 
 // RestrictionReasonTypeID is TL type id of RestrictionReason.

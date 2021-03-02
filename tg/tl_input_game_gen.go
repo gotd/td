@@ -31,12 +31,12 @@ type InputGameID struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/Game
-	ID int64 `tl:"id"`
+	ID int64
 	// access hash from Game¹ constructor
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/Game
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 }
 
 // InputGameIDTypeID is TL type id of InputGameID.
@@ -172,9 +172,9 @@ var (
 // See https://core.telegram.org/constructor/inputGameShortName for reference.
 type InputGameShortName struct {
 	// The bot that provides the game
-	BotID InputUserClass `tl:"bot_id"`
+	BotID InputUserClass
 	// The game's short name
-	ShortName string `tl:"short_name"`
+	ShortName string
 }
 
 // InputGameShortNameTypeID is TL type id of InputGameShortName.

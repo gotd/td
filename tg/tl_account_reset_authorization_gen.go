@@ -31,7 +31,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.resetAuthorization for reference.
 type AccountResetAuthorizationRequest struct {
 	// Session hash
-	Hash int64 `tl:"hash"`
+	Hash int64
 }
 
 // AccountResetAuthorizationRequestTypeID is TL type id of AccountResetAuthorizationRequest.

@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/recentMeUrlUnknown for reference.
 type RecentMeUrlUnknown struct {
 	// URL
-	URL string `tl:"url"`
+	URL string
 }
 
 // RecentMeUrlUnknownTypeID is TL type id of RecentMeUrlUnknown.
@@ -142,9 +142,9 @@ var (
 // See https://core.telegram.org/constructor/recentMeUrlUser for reference.
 type RecentMeUrlUser struct {
 	// URL
-	URL string `tl:"url"`
+	URL string
 	// User ID
-	UserID int `tl:"user_id"`
+	UserID int
 }
 
 // RecentMeUrlUserTypeID is TL type id of RecentMeUrlUser.
@@ -280,9 +280,9 @@ var (
 // See https://core.telegram.org/constructor/recentMeUrlChat for reference.
 type RecentMeUrlChat struct {
 	// t.me URL
-	URL string `tl:"url"`
+	URL string
 	// Chat ID
-	ChatID int `tl:"chat_id"`
+	ChatID int
 }
 
 // RecentMeUrlChatTypeID is TL type id of RecentMeUrlChat.
@@ -418,9 +418,9 @@ var (
 // See https://core.telegram.org/constructor/recentMeUrlChatInvite for reference.
 type RecentMeUrlChatInvite struct {
 	// t.me URL
-	URL string `tl:"url"`
+	URL string
 	// Chat invitation
-	ChatInvite ChatInviteClass `tl:"chat_invite"`
+	ChatInvite ChatInviteClass
 }
 
 // RecentMeUrlChatInviteTypeID is TL type id of RecentMeUrlChatInvite.
@@ -561,9 +561,9 @@ var (
 // See https://core.telegram.org/constructor/recentMeUrlStickerSet for reference.
 type RecentMeUrlStickerSet struct {
 	// t.me URL
-	URL string `tl:"url"`
+	URL string
 	// Stickerset
-	Set StickerSetCoveredClass `tl:"set"`
+	Set StickerSetCoveredClass
 }
 
 // RecentMeUrlStickerSetTypeID is TL type id of RecentMeUrlStickerSet.

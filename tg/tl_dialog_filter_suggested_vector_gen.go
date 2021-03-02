@@ -25,7 +25,7 @@ var _ = tdp.Format
 // DialogFilterSuggestedVector is a box for Vector<DialogFilterSuggested>
 type DialogFilterSuggestedVector struct {
 	// Elements of Vector<DialogFilterSuggested>
-	Elems []DialogFilterSuggested `tl:"Elems"`
+	Elems []DialogFilterSuggested
 }
 
 // DialogFilterSuggestedVectorTypeID is TL type id of DialogFilterSuggestedVector.

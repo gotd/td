@@ -27,13 +27,13 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.uploadImportedMedia for reference.
 type MessagesUploadImportedMediaRequest struct {
 	// Peer field of MessagesUploadImportedMediaRequest.
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// ImportID field of MessagesUploadImportedMediaRequest.
-	ImportID int64 `tl:"import_id"`
+	ImportID int64
 	// FileName field of MessagesUploadImportedMediaRequest.
-	FileName string `tl:"file_name"`
+	FileName string
 	// Media field of MessagesUploadImportedMediaRequest.
-	Media InputMediaClass `tl:"media"`
+	Media InputMediaClass
 }
 
 // MessagesUploadImportedMediaRequestTypeID is TL type id of MessagesUploadImportedMediaRequest.

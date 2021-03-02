@@ -28,35 +28,35 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/poll for reference.
 type Poll struct {
 	// ID of the poll
-	ID int64 `tl:"id"`
+	ID int64
 	// Flags, see TL conditional fields¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the poll is closed and doesn't accept any more answers
-	Closed bool `tl:"closed"`
+	Closed bool
 	// Whether cast votes are publicly visible to all users (non-anonymous poll)
-	PublicVoters bool `tl:"public_voters"`
+	PublicVoters bool
 	// Whether multiple options can be chosen as answer
-	MultipleChoice bool `tl:"multiple_choice"`
+	MultipleChoice bool
 	// Whether this is a quiz (with wrong and correct answers, results shown in the return type)
-	Quiz bool `tl:"quiz"`
+	Quiz bool
 	// The question of the poll
-	Question string `tl:"question"`
+	Question string
 	// The possible answers, vote using messages.sendVote¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.sendVote
-	Answers []PollAnswer `tl:"answers"`
+	Answers []PollAnswer
 	// Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date.
 	//
 	// Use SetClosePeriod and GetClosePeriod helpers.
-	ClosePeriod int `tl:"close_period"`
+	ClosePeriod int
 	// Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 seconds in the future; can't be used together with close_period.
 	//
 	// Use SetCloseDate and GetCloseDate helpers.
-	CloseDate int `tl:"close_date"`
+	CloseDate int
 }
 
 // PollTypeID is TL type id of Poll.

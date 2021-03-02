@@ -31,13 +31,13 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/inputPhoneContact for reference.
 type InputPhoneContact struct {
 	// User identifier on the client
-	ClientID int64 `tl:"client_id"`
+	ClientID int64
 	// Phone number
-	Phone string `tl:"phone"`
+	Phone string
 	// Contact's first name
-	FirstName string `tl:"first_name"`
+	FirstName string
 	// Contact's last name
-	LastName string `tl:"last_name"`
+	LastName string
 }
 
 // InputPhoneContactTypeID is TL type id of InputPhoneContact.

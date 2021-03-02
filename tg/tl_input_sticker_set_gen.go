@@ -112,9 +112,9 @@ var (
 // See https://core.telegram.org/constructor/inputStickerSetID for reference.
 type InputStickerSetID struct {
 	// ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 }
 
 // InputStickerSetIDTypeID is TL type id of InputStickerSetID.
@@ -250,7 +250,7 @@ var (
 // See https://core.telegram.org/constructor/inputStickerSetShortName for reference.
 type InputStickerSetShortName struct {
 	// From tg://addstickers?set=short_name
-	ShortName string `tl:"short_name"`
+	ShortName string
 }
 
 // InputStickerSetShortNameTypeID is TL type id of InputStickerSetShortName.
@@ -451,7 +451,7 @@ var (
 // See https://core.telegram.org/constructor/inputStickerSetDice for reference.
 type InputStickerSetDice struct {
 	// The emoji, for now ,  and  are supported
-	Emoticon string `tl:"emoticon"`
+	Emoticon string
 }
 
 // InputStickerSetDiceTypeID is TL type id of InputStickerSetDice.

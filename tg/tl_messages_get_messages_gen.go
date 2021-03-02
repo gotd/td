@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.getMessages for reference.
 type MessagesGetMessagesRequest struct {
 	// Message ID list
-	ID []InputMessageClass `tl:"id"`
+	ID []InputMessageClass
 }
 
 // MessagesGetMessagesRequestTypeID is TL type id of MessagesGetMessagesRequest.

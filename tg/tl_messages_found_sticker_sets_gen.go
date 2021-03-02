@@ -115,9 +115,9 @@ type MessagesFoundStickerSets struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 	// Found stickersets
-	Sets []StickerSetCoveredClass `tl:"sets"`
+	Sets []StickerSetCoveredClass
 }
 
 // MessagesFoundStickerSetsTypeID is TL type id of MessagesFoundStickerSets.

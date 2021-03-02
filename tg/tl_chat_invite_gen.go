@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/chatInviteAlready for reference.
 type ChatInviteAlready struct {
 	// The chat connected to the invite
-	Chat ChatClass `tl:"chat"`
+	Chat ChatClass
 }
 
 // ChatInviteAlreadyTypeID is TL type id of ChatInviteAlready.
@@ -150,38 +150,38 @@ type ChatInvite struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether this is a channel/supergroup¹ or a normal group²
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	//  2) https://core.telegram.org/api/channel
-	Channel bool `tl:"channel"`
+	Channel bool
 	// Whether this is a channel¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Broadcast bool `tl:"broadcast"`
+	Broadcast bool
 	// Whether this is a public channel/supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Public bool `tl:"public"`
+	Public bool
 	// Whether this is a supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Megagroup bool `tl:"megagroup"`
+	Megagroup bool
 	// Chat/supergroup/channel title
-	Title string `tl:"title"`
+	Title string
 	// Chat/supergroup/channel photo
-	Photo PhotoClass `tl:"photo"`
+	Photo PhotoClass
 	// Participant count
-	ParticipantsCount int `tl:"participants_count"`
+	ParticipantsCount int
 	// A few of the participants that are in the group
 	//
 	// Use SetParticipants and GetParticipants helpers.
-	Participants []UserClass `tl:"participants"`
+	Participants []UserClass
 }
 
 // ChatInviteTypeID is TL type id of ChatInvite.
@@ -542,9 +542,9 @@ var (
 // See https://core.telegram.org/constructor/chatInvitePeek for reference.
 type ChatInvitePeek struct {
 	// Chat information
-	Chat ChatClass `tl:"chat"`
+	Chat ChatClass
 	// Read-only anonymous access to this group will be revoked at this date
-	Expires int `tl:"expires"`
+	Expires int
 }
 
 // ChatInvitePeekTypeID is TL type id of ChatInvitePeek.

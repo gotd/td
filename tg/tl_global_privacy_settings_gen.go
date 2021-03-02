@@ -31,11 +31,11 @@ type GlobalPrivacySettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to archive and mute new chats from non-contacts
 	//
 	// Use SetArchiveAndMuteNewNoncontactPeers and GetArchiveAndMuteNewNoncontactPeers helpers.
-	ArchiveAndMuteNewNoncontactPeers bool `tl:"archive_and_mute_new_noncontact_peers"`
+	ArchiveAndMuteNewNoncontactPeers bool
 }
 
 // GlobalPrivacySettingsTypeID is TL type id of GlobalPrivacySettings.

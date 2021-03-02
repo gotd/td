@@ -196,7 +196,7 @@ var (
 // See https://core.telegram.org/constructor/inputPrivacyValueAllowUsers for reference.
 type InputPrivacyValueAllowUsers struct {
 	// Allowed users
-	Users []InputUserClass `tl:"users"`
+	Users []InputUserClass
 }
 
 // InputPrivacyValueAllowUsersTypeID is TL type id of InputPrivacyValueAllowUsers.
@@ -497,7 +497,7 @@ var (
 // See https://core.telegram.org/constructor/inputPrivacyValueDisallowUsers for reference.
 type InputPrivacyValueDisallowUsers struct {
 	// Users to disallow
-	Users []InputUserClass `tl:"users"`
+	Users []InputUserClass
 }
 
 // InputPrivacyValueDisallowUsersTypeID is TL type id of InputPrivacyValueDisallowUsers.
@@ -630,7 +630,7 @@ var (
 // See https://core.telegram.org/constructor/inputPrivacyValueAllowChatParticipants for reference.
 type InputPrivacyValueAllowChatParticipants struct {
 	// Allowed chat IDs
-	Chats []int `tl:"chats"`
+	Chats []int
 }
 
 // InputPrivacyValueAllowChatParticipantsTypeID is TL type id of InputPrivacyValueAllowChatParticipants.
@@ -753,7 +753,7 @@ var (
 // See https://core.telegram.org/constructor/inputPrivacyValueDisallowChatParticipants for reference.
 type InputPrivacyValueDisallowChatParticipants struct {
 	// Disallowed chat IDs
-	Chats []int `tl:"chats"`
+	Chats []int
 }
 
 // InputPrivacyValueDisallowChatParticipantsTypeID is TL type id of InputPrivacyValueDisallowChatParticipants.

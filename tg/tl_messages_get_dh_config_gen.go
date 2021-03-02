@@ -31,9 +31,9 @@ type MessagesGetDhConfigRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/messages.dhConfig
-	Version int `tl:"version"`
+	Version int
 	// Length of the required random sequence
-	RandomLength int `tl:"random_length"`
+	RandomLength int
 }
 
 // MessagesGetDhConfigRequestTypeID is TL type id of MessagesGetDhConfigRequest.

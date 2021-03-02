@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.getScheduledMessages for reference.
 type MessagesGetScheduledMessagesRequest struct {
 	// Peer
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// IDs of scheduled messages
-	ID []int `tl:"id"`
+	ID []int
 }
 
 // MessagesGetScheduledMessagesRequestTypeID is TL type id of MessagesGetScheduledMessagesRequest.

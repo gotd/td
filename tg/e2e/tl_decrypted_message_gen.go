@@ -27,13 +27,13 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/decryptedMessage8 for reference.
 type DecryptedMessage8 struct {
 	// RandomID field of DecryptedMessage8.
-	RandomID int64 `tl:"random_id"`
+	RandomID int64
 	// RandomBytes field of DecryptedMessage8.
-	RandomBytes []byte `tl:"random_bytes"`
+	RandomBytes []byte
 	// Message field of DecryptedMessage8.
-	Message string `tl:"message"`
+	Message string
 	// Media field of DecryptedMessage8.
-	Media DecryptedMessageMediaClass `tl:"media"`
+	Media DecryptedMessageMediaClass
 }
 
 // DecryptedMessage8TypeID is TL type id of DecryptedMessage8.
@@ -217,11 +217,11 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageService8 for reference.
 type DecryptedMessageService8 struct {
 	// RandomID field of DecryptedMessageService8.
-	RandomID int64 `tl:"random_id"`
+	RandomID int64
 	// RandomBytes field of DecryptedMessageService8.
-	RandomBytes []byte `tl:"random_bytes"`
+	RandomBytes []byte
 	// Action field of DecryptedMessageService8.
-	Action DecryptedMessageActionClass `tl:"action"`
+	Action DecryptedMessageActionClass
 }
 
 // DecryptedMessageService8TypeID is TL type id of DecryptedMessageService8.
@@ -383,13 +383,13 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessage23 for reference.
 type DecryptedMessage23 struct {
 	// RandomID field of DecryptedMessage23.
-	RandomID int64 `tl:"random_id"`
+	RandomID int64
 	// TTL field of DecryptedMessage23.
-	TTL int `tl:"ttl"`
+	TTL int
 	// Message field of DecryptedMessage23.
-	Message string `tl:"message"`
+	Message string
 	// Media field of DecryptedMessage23.
-	Media DecryptedMessageMediaClass `tl:"media"`
+	Media DecryptedMessageMediaClass
 }
 
 // DecryptedMessage23TypeID is TL type id of DecryptedMessage23.
@@ -573,9 +573,9 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageService for reference.
 type DecryptedMessageService struct {
 	// RandomID field of DecryptedMessageService.
-	RandomID int64 `tl:"random_id"`
+	RandomID int64
 	// Action field of DecryptedMessageService.
-	Action DecryptedMessageActionClass `tl:"action"`
+	Action DecryptedMessageActionClass
 }
 
 // DecryptedMessageServiceTypeID is TL type id of DecryptedMessageService.
@@ -715,29 +715,29 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessage46 for reference.
 type DecryptedMessage46 struct {
 	// Flags field of DecryptedMessage46.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// RandomID field of DecryptedMessage46.
-	RandomID int64 `tl:"random_id"`
+	RandomID int64
 	// TTL field of DecryptedMessage46.
-	TTL int `tl:"ttl"`
+	TTL int
 	// Message field of DecryptedMessage46.
-	Message string `tl:"message"`
+	Message string
 	// Media field of DecryptedMessage46.
 	//
 	// Use SetMedia and GetMedia helpers.
-	Media DecryptedMessageMediaClass `tl:"media"`
+	Media DecryptedMessageMediaClass
 	// Entities field of DecryptedMessage46.
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `tl:"entities"`
+	Entities []MessageEntityClass
 	// ViaBotName field of DecryptedMessage46.
 	//
 	// Use SetViaBotName and GetViaBotName helpers.
-	ViaBotName string `tl:"via_bot_name"`
+	ViaBotName string
 	// ReplyToRandomID field of DecryptedMessage46.
 	//
 	// Use SetReplyToRandomID and GetReplyToRandomID helpers.
-	ReplyToRandomID int64 `tl:"reply_to_random_id"`
+	ReplyToRandomID int64
 }
 
 // DecryptedMessage46TypeID is TL type id of DecryptedMessage46.
@@ -1100,35 +1100,35 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessage for reference.
 type DecryptedMessage struct {
 	// Flags field of DecryptedMessage.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Silent field of DecryptedMessage.
-	Silent bool `tl:"silent"`
+	Silent bool
 	// RandomID field of DecryptedMessage.
-	RandomID int64 `tl:"random_id"`
+	RandomID int64
 	// TTL field of DecryptedMessage.
-	TTL int `tl:"ttl"`
+	TTL int
 	// Message field of DecryptedMessage.
-	Message string `tl:"message"`
+	Message string
 	// Media field of DecryptedMessage.
 	//
 	// Use SetMedia and GetMedia helpers.
-	Media DecryptedMessageMediaClass `tl:"media"`
+	Media DecryptedMessageMediaClass
 	// Entities field of DecryptedMessage.
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `tl:"entities"`
+	Entities []MessageEntityClass
 	// ViaBotName field of DecryptedMessage.
 	//
 	// Use SetViaBotName and GetViaBotName helpers.
-	ViaBotName string `tl:"via_bot_name"`
+	ViaBotName string
 	// ReplyToRandomID field of DecryptedMessage.
 	//
 	// Use SetReplyToRandomID and GetReplyToRandomID helpers.
-	ReplyToRandomID int64 `tl:"reply_to_random_id"`
+	ReplyToRandomID int64
 	// GroupedID field of DecryptedMessage.
 	//
 	// Use SetGroupedID and GetGroupedID helpers.
-	GroupedID int64 `tl:"grouped_id"`
+	GroupedID int64
 }
 
 // DecryptedMessageTypeID is TL type id of DecryptedMessage.

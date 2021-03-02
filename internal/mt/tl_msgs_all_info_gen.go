@@ -25,9 +25,9 @@ var _ = tdp.Format
 // MsgsAllInfo represents TL type `msgs_all_info#8cc0d131`.
 type MsgsAllInfo struct {
 	// MsgIds field of MsgsAllInfo.
-	MsgIds []int64 `tl:"msg_ids"`
+	MsgIds []int64
 	// Info field of MsgsAllInfo.
-	Info []byte `tl:"info"`
+	Info []byte
 }
 
 // MsgsAllInfoTypeID is TL type id of MsgsAllInfo.

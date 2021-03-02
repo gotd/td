@@ -25,11 +25,11 @@ var _ = tdp.Format
 // DhGenOk represents TL type `dh_gen_ok#3bcbf734`.
 type DhGenOk struct {
 	// Nonce field of DhGenOk.
-	Nonce bin.Int128 `tl:"nonce"`
+	Nonce bin.Int128
 	// ServerNonce field of DhGenOk.
-	ServerNonce bin.Int128 `tl:"server_nonce"`
+	ServerNonce bin.Int128
 	// NewNonceHash1 field of DhGenOk.
-	NewNonceHash1 bin.Int128 `tl:"new_nonce_hash1"`
+	NewNonceHash1 bin.Int128
 }
 
 // DhGenOkTypeID is TL type id of DhGenOk.
@@ -184,11 +184,11 @@ var (
 // DhGenRetry represents TL type `dh_gen_retry#46dc1fb9`.
 type DhGenRetry struct {
 	// Nonce field of DhGenRetry.
-	Nonce bin.Int128 `tl:"nonce"`
+	Nonce bin.Int128
 	// ServerNonce field of DhGenRetry.
-	ServerNonce bin.Int128 `tl:"server_nonce"`
+	ServerNonce bin.Int128
 	// NewNonceHash2 field of DhGenRetry.
-	NewNonceHash2 bin.Int128 `tl:"new_nonce_hash2"`
+	NewNonceHash2 bin.Int128
 }
 
 // DhGenRetryTypeID is TL type id of DhGenRetry.
@@ -343,11 +343,11 @@ var (
 // DhGenFail represents TL type `dh_gen_fail#a69dae02`.
 type DhGenFail struct {
 	// Nonce field of DhGenFail.
-	Nonce bin.Int128 `tl:"nonce"`
+	Nonce bin.Int128
 	// ServerNonce field of DhGenFail.
-	ServerNonce bin.Int128 `tl:"server_nonce"`
+	ServerNonce bin.Int128
 	// NewNonceHash3 field of DhGenFail.
-	NewNonceHash3 bin.Int128 `tl:"new_nonce_hash3"`
+	NewNonceHash3 bin.Int128
 }
 
 // DhGenFailTypeID is TL type id of DhGenFail.

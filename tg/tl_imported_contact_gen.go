@@ -28,12 +28,12 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/importedContact for reference.
 type ImportedContact struct {
 	// User identifier
-	UserID int `tl:"user_id"`
+	UserID int
 	// The contact's client identifier (passed to one of the InputContact¹ constructors)
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/InputContact
-	ClientID int64 `tl:"client_id"`
+	ClientID int64
 }
 
 // ImportedContactTypeID is TL type id of ImportedContact.

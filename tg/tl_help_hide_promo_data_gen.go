@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/help.hidePromoData for reference.
 type HelpHidePromoDataRequest struct {
 	// Peer to hide
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 }
 
 // HelpHidePromoDataRequestTypeID is TL type id of HelpHidePromoDataRequest.

@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/emojiLanguage for reference.
 type EmojiLanguage struct {
 	// Language code
-	LangCode string `tl:"lang_code"`
+	LangCode string
 }
 
 // EmojiLanguageTypeID is TL type id of EmojiLanguage.

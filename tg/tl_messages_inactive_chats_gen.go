@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/messages.inactiveChats for reference.
 type MessagesInactiveChats struct {
 	// When was the chat last active
-	Dates []int `tl:"dates"`
+	Dates []int
 	// Chat list
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// Users mentioned in the chat list
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // MessagesInactiveChatsTypeID is TL type id of MessagesInactiveChats.

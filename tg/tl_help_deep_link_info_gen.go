@@ -115,18 +115,18 @@ type HelpDeepLinkInfo struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// An update of the app is required to parse this link
-	UpdateApp bool `tl:"update_app"`
+	UpdateApp bool
 	// Message to show to the user
-	Message string `tl:"message"`
+	Message string
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `tl:"entities"`
+	Entities []MessageEntityClass
 }
 
 // HelpDeepLinkInfoTypeID is TL type id of HelpDeepLinkInfo.

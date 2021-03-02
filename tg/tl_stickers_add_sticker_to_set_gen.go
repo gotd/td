@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/stickers.addStickerToSet for reference.
 type StickersAddStickerToSetRequest struct {
 	// The stickerset
-	Stickerset InputStickerSetClass `tl:"stickerset"`
+	Stickerset InputStickerSetClass
 	// The sticker
-	Sticker InputStickerSetItem `tl:"sticker"`
+	Sticker InputStickerSetItem
 }
 
 // StickersAddStickerToSetRequestTypeID is TL type id of StickersAddStickerToSetRequest.

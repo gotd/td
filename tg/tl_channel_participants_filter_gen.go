@@ -196,7 +196,7 @@ var (
 // See https://core.telegram.org/constructor/channelParticipantsKicked for reference.
 type ChannelParticipantsKicked struct {
 	// Optional filter for searching kicked participants by name (otherwise empty)
-	Q string `tl:"q"`
+	Q string
 }
 
 // ChannelParticipantsKickedTypeID is TL type id of ChannelParticipantsKicked.
@@ -394,7 +394,7 @@ var (
 // See https://core.telegram.org/constructor/channelParticipantsBanned for reference.
 type ChannelParticipantsBanned struct {
 	// Optional filter for searching banned participants by name (otherwise empty)
-	Q string `tl:"q"`
+	Q string
 }
 
 // ChannelParticipantsBannedTypeID is TL type id of ChannelParticipantsBanned.
@@ -508,7 +508,7 @@ var (
 // See https://core.telegram.org/constructor/channelParticipantsSearch for reference.
 type ChannelParticipantsSearch struct {
 	// Search query
-	Q string `tl:"q"`
+	Q string
 }
 
 // ChannelParticipantsSearchTypeID is TL type id of ChannelParticipantsSearch.
@@ -622,7 +622,7 @@ var (
 // See https://core.telegram.org/constructor/channelParticipantsContacts for reference.
 type ChannelParticipantsContacts struct {
 	// Optional search query for searching contact participants by name
-	Q string `tl:"q"`
+	Q string
 }
 
 // ChannelParticipantsContactsTypeID is TL type id of ChannelParticipantsContacts.
@@ -744,18 +744,18 @@ type ChannelParticipantsMentions struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Filter by user name or username
 	//
 	// Use SetQ and GetQ helpers.
-	Q string `tl:"q"`
+	Q string
 	// Look only for users that posted in this thread¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
-	TopMsgID int `tl:"top_msg_id"`
+	TopMsgID int
 }
 
 // ChannelParticipantsMentionsTypeID is TL type id of ChannelParticipantsMentions.

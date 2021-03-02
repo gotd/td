@@ -196,12 +196,12 @@ var (
 // See https://core.telegram.org/constructor/inputUser for reference.
 type InputUser struct {
 	// User identifier
-	UserID int `tl:"user_id"`
+	UserID int
 	// access_hash value from the user¹ constructor
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/user
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 }
 
 // InputUserTypeID is TL type id of InputUser.
@@ -340,11 +340,11 @@ var (
 // See https://core.telegram.org/constructor/inputUserFromMessage for reference.
 type InputUserFromMessage struct {
 	// The chat where the user was seen
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// The message ID
-	MsgID int `tl:"msg_id"`
+	MsgID int
 	// The identifier of the user that was seen
-	UserID int `tl:"user_id"`
+	UserID int
 }
 
 // InputUserFromMessageTypeID is TL type id of InputUserFromMessage.

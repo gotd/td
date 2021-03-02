@@ -31,15 +31,15 @@ type InputStickerSetItem struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// The sticker
-	Document InputDocumentClass `tl:"document"`
+	Document InputDocumentClass
 	// Associated emoji
-	Emoji string `tl:"emoji"`
+	Emoji string
 	// Coordinates for mask sticker
 	//
 	// Use SetMaskCoords and GetMaskCoords helpers.
-	MaskCoords MaskCoords `tl:"mask_coords"`
+	MaskCoords MaskCoords
 }
 
 // InputStickerSetItemTypeID is TL type id of InputStickerSetItem.

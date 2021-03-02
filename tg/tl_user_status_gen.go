@@ -112,7 +112,7 @@ var (
 // See https://core.telegram.org/constructor/userStatusOnline for reference.
 type UserStatusOnline struct {
 	// Time to expiration of the current online status
-	Expires int `tl:"expires"`
+	Expires int
 }
 
 // UserStatusOnlineTypeID is TL type id of UserStatusOnline.
@@ -226,7 +226,7 @@ var (
 // See https://core.telegram.org/constructor/userStatusOffline for reference.
 type UserStatusOffline struct {
 	// Time the user was last seen online
-	WasOnline int `tl:"was_online"`
+	WasOnline int
 }
 
 // UserStatusOfflineTypeID is TL type id of UserStatusOffline.

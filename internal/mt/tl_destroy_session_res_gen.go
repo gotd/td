@@ -25,7 +25,7 @@ var _ = tdp.Format
 // DestroySessionOk represents TL type `destroy_session_ok#e22045fc`.
 type DestroySessionOk struct {
 	// SessionID field of DestroySessionOk.
-	SessionID int64 `tl:"session_id"`
+	SessionID int64
 }
 
 // DestroySessionOkTypeID is TL type id of DestroySessionOk.
@@ -136,7 +136,7 @@ var (
 // DestroySessionNone represents TL type `destroy_session_none#62d350c9`.
 type DestroySessionNone struct {
 	// SessionID field of DestroySessionNone.
-	SessionID int64 `tl:"session_id"`
+	SessionID int64
 }
 
 // DestroySessionNoneTypeID is TL type id of DestroySessionNone.

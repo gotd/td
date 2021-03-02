@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.updateUsername for reference.
 type AccountUpdateUsernameRequest struct {
 	// username or empty string if username is to be removedAccepted characters: a-z (case-insensitive), 0-9 and underscores.Length: 5-32 characters.
-	Username string `tl:"username"`
+	Username string
 }
 
 // AccountUpdateUsernameRequestTypeID is TL type id of AccountUpdateUsernameRequest.

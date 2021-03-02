@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/help.dismissSuggestion for reference.
 type HelpDismissSuggestionRequest struct {
 	// Peer field of HelpDismissSuggestionRequest.
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Suggestion
-	Suggestion string `tl:"suggestion"`
+	Suggestion string
 }
 
 // HelpDismissSuggestionRequestTypeID is TL type id of HelpDismissSuggestionRequest.

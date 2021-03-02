@@ -31,13 +31,13 @@ type ChatParticipantsForbidden struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Group ID
-	ChatID int `tl:"chat_id"`
+	ChatID int
 	// Info about the group membership of the current user
 	//
 	// Use SetSelfParticipant and GetSelfParticipant helpers.
-	SelfParticipant ChatParticipantClass `tl:"self_participant"`
+	SelfParticipant ChatParticipantClass
 }
 
 // ChatParticipantsForbiddenTypeID is TL type id of ChatParticipantsForbidden.
@@ -212,11 +212,11 @@ var (
 // See https://core.telegram.org/constructor/chatParticipants for reference.
 type ChatParticipants struct {
 	// Group identifier
-	ChatID int `tl:"chat_id"`
+	ChatID int
 	// List of group members
-	Participants []ChatParticipantClass `tl:"participants"`
+	Participants []ChatParticipantClass
 	// Group version number
-	Version int `tl:"version"`
+	Version int
 }
 
 // ChatParticipantsTypeID is TL type id of ChatParticipants.

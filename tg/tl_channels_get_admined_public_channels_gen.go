@@ -36,9 +36,9 @@ type ChannelsGetAdminedPublicChannelsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Get geogroups
-	ByLocation bool `tl:"by_location"`
+	ByLocation bool
 	// If set and the user has reached the limit of owned public channels/supergroups/geogroups¹, instead of returning the channel list one of the specified errors² will be returned.Useful to check if a new public channel can indeed be created, even before asking the user to enter a channel username to use in channels.checkUsername³/channels.updateUsername⁴.
 	//
 	// Links:
@@ -46,7 +46,7 @@ type ChannelsGetAdminedPublicChannelsRequest struct {
 	//  2) https://core.telegram.org#possible-errors
 	//  3) https://core.telegram.org/method/channels.checkUsername
 	//  4) https://core.telegram.org/method/channels.updateUsername
-	CheckLimit bool `tl:"check_limit"`
+	CheckLimit bool
 }
 
 // ChannelsGetAdminedPublicChannelsRequestTypeID is TL type id of ChannelsGetAdminedPublicChannelsRequest.

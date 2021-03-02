@@ -34,38 +34,38 @@ type MessageReplies struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether this constructor contains information about the comment section of a channel post, or a simple message thread¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
-	Comments bool `tl:"comments"`
+	Comments bool
 	// Contains the total number of replies in this thread or comment section.
-	Replies int `tl:"replies"`
+	Replies int
 	// PTS¹ of the message that started this thread.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	RepliesPts int `tl:"replies_pts"`
+	RepliesPts int
 	// For channel post comments, contains information about the last few comment posters for a specific thread, to show a small list of commenter profile pictures in client previews.
 	//
 	// Use SetRecentRepliers and GetRecentRepliers helpers.
-	RecentRepliers []PeerClass `tl:"recent_repliers"`
+	RecentRepliers []PeerClass
 	// For channel post comments, contains the ID of the associated discussion supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/discussion
 	//
 	// Use SetChannelID and GetChannelID helpers.
-	ChannelID int `tl:"channel_id"`
+	ChannelID int
 	// ID of the latest message in this thread or comment section.
 	//
 	// Use SetMaxID and GetMaxID helpers.
-	MaxID int `tl:"max_id"`
+	MaxID int
 	// Contains the ID of the latest read message in this thread or comment section.
 	//
 	// Use SetReadMaxID and GetReadMaxID helpers.
-	ReadMaxID int `tl:"read_max_id"`
+	ReadMaxID int
 }
 
 // MessageRepliesTypeID is TL type id of MessageReplies.

@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.createChat for reference.
 type MessagesCreateChatRequest struct {
 	// List of user IDs to be invited
-	Users []InputUserClass `tl:"users"`
+	Users []InputUserClass
 	// Chat name
-	Title string `tl:"title"`
+	Title string
 }
 
 // MessagesCreateChatRequestTypeID is TL type id of MessagesCreateChatRequest.

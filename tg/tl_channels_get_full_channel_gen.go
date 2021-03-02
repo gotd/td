@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/channels.getFullChannel for reference.
 type ChannelsGetFullChannelRequest struct {
 	// The channel to get info about
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 }
 
 // ChannelsGetFullChannelRequestTypeID is TL type id of ChannelsGetFullChannelRequest.

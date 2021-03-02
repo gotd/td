@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.getPollResults for reference.
 type MessagesGetPollResultsRequest struct {
 	// Peer where the poll was found
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Message ID of poll message
-	MsgID int `tl:"msg_id"`
+	MsgID int
 }
 
 // MessagesGetPollResultsRequestTypeID is TL type id of MessagesGetPollResultsRequest.

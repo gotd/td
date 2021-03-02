@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/channels.adminLogResults for reference.
 type ChannelsAdminLogResults struct {
 	// Admin log events
-	Events []ChannelAdminLogEvent `tl:"events"`
+	Events []ChannelAdminLogEvent
 	// Chats mentioned in events
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// Users mentioned in events
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // ChannelsAdminLogResultsTypeID is TL type id of ChannelsAdminLogResults.

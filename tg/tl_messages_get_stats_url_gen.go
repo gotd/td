@@ -31,13 +31,13 @@ type MessagesGetStatsURLRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Pass true if a URL with the dark theme must be returned
-	Dark bool `tl:"dark"`
+	Dark bool
 	// Chat identifier
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Parameters from tg://statsrefresh?params=****** link
-	Params string `tl:"params"`
+	Params string
 }
 
 // MessagesGetStatsURLRequestTypeID is TL type id of MessagesGetStatsURLRequest.

@@ -31,13 +31,13 @@ type AccountSaveAutoDownloadSettingsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to save settings in the low data usage preset
-	Low bool `tl:"low"`
+	Low bool
 	// Whether to save settings in the high data usage preset
-	High bool `tl:"high"`
+	High bool
 	// Media autodownload settings
-	Settings AutoDownloadSettings `tl:"settings"`
+	Settings AutoDownloadSettings
 }
 
 // AccountSaveAutoDownloadSettingsRequestTypeID is TL type id of AccountSaveAutoDownloadSettingsRequest.

@@ -28,12 +28,12 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/labeledPrice for reference.
 type LabeledPrice struct {
 	// Portion label
-	Label string `tl:"label"`
+	Label string
 	// Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json¹, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments/currencies.json
-	Amount int64 `tl:"amount"`
+	Amount int64
 }
 
 // LabeledPriceTypeID is TL type id of LabeledPrice.

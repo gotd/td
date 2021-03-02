@@ -27,9 +27,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/phone.leaveGroupCall for reference.
 type PhoneLeaveGroupCallRequest struct {
 	// Call field of PhoneLeaveGroupCallRequest.
-	Call InputGroupCall `tl:"call"`
+	Call InputGroupCall
 	// Source field of PhoneLeaveGroupCallRequest.
-	Source int `tl:"source"`
+	Source int
 }
 
 // PhoneLeaveGroupCallRequestTypeID is TL type id of PhoneLeaveGroupCallRequest.

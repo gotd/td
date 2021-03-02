@@ -25,7 +25,7 @@ var _ = tdp.Format
 // MessagesSearchCounterVector is a box for Vector<messages.SearchCounter>
 type MessagesSearchCounterVector struct {
 	// Elements of Vector<messages.SearchCounter>
-	Elems []MessagesSearchCounter `tl:"Elems"`
+	Elems []MessagesSearchCounter
 }
 
 // MessagesSearchCounterVectorTypeID is TL type id of MessagesSearchCounterVector.

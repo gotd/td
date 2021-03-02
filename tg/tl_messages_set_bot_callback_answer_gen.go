@@ -31,21 +31,21 @@ type MessagesSetBotCallbackAnswerRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to show the message as a popup instead of a toast notification
-	Alert bool `tl:"alert"`
+	Alert bool
 	// Query ID
-	QueryID int64 `tl:"query_id"`
+	QueryID int64
 	// Popup to show
 	//
 	// Use SetMessage and GetMessage helpers.
-	Message string `tl:"message"`
+	Message string
 	// URL to open
 	//
 	// Use SetURL and GetURL helpers.
-	URL string `tl:"url"`
+	URL string
 	// Cache validity
-	CacheTime int `tl:"cache_time"`
+	CacheTime int
 }
 
 // MessagesSetBotCallbackAnswerRequestTypeID is TL type id of MessagesSetBotCallbackAnswerRequest.

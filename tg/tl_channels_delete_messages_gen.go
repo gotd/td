@@ -34,9 +34,9 @@ type ChannelsDeleteMessagesRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// IDs of messages to delete
-	ID []int `tl:"id"`
+	ID []int
 }
 
 // ChannelsDeleteMessagesRequestTypeID is TL type id of ChannelsDeleteMessagesRequest.

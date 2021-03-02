@@ -28,17 +28,17 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.getCommonChats for reference.
 type MessagesGetCommonChatsRequest struct {
 	// User ID
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 	// Maximum ID of chat to return (see pagination¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	MaxID int `tl:"max_id"`
+	MaxID int
 	// Maximum number of results to return, see pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int `tl:"limit"`
+	Limit int
 }
 
 // MessagesGetCommonChatsRequestTypeID is TL type id of MessagesGetCommonChatsRequest.

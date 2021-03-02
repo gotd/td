@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/help.recentMeUrls for reference.
 type HelpRecentMeUrls struct {
 	// URLs
-	Urls []RecentMeUrlClass `tl:"urls"`
+	Urls []RecentMeUrlClass
 	// Chats
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// Users
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // HelpRecentMeUrlsTypeID is TL type id of HelpRecentMeUrls.

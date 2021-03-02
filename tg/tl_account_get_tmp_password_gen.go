@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.getTmpPassword for reference.
 type AccountGetTmpPasswordRequest struct {
 	// SRP password parameters
-	Password InputCheckPasswordSRPClass `tl:"password"`
+	Password InputCheckPasswordSRPClass
 	// Time during which the temporary password will be valid, in seconds; should be between 60 and 86400
-	Period int `tl:"period"`
+	Period int
 }
 
 // AccountGetTmpPasswordRequestTypeID is TL type id of AccountGetTmpPasswordRequest.

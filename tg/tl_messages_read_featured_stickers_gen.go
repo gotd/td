@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.readFeaturedStickers for reference.
 type MessagesReadFeaturedStickersRequest struct {
 	// IDs of stickersets to mark as read
-	ID []int64 `tl:"id"`
+	ID []int64
 }
 
 // MessagesReadFeaturedStickersRequestTypeID is TL type id of MessagesReadFeaturedStickersRequest.

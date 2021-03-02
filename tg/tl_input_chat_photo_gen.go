@@ -115,22 +115,22 @@ type InputChatUploadedPhoto struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// File saved in parts using the method upload.saveFilePart¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/upload.saveFilePart
 	//
 	// Use SetFile and GetFile helpers.
-	File InputFileClass `tl:"file"`
+	File InputFileClass
 	// Square video for animated profile picture
 	//
 	// Use SetVideo and GetVideo helpers.
-	Video InputFileClass `tl:"video"`
+	Video InputFileClass
 	// Timestamp that should be shown as static preview to the user (seconds)
 	//
 	// Use SetVideoStartTs and GetVideoStartTs helpers.
-	VideoStartTs float64 `tl:"video_start_ts"`
+	VideoStartTs float64
 }
 
 // InputChatUploadedPhotoTypeID is TL type id of InputChatUploadedPhoto.
@@ -370,7 +370,7 @@ var (
 // See https://core.telegram.org/constructor/inputChatPhoto for reference.
 type InputChatPhoto struct {
 	// Existing photo
-	ID InputPhotoClass `tl:"id"`
+	ID InputPhotoClass
 }
 
 // InputChatPhotoTypeID is TL type id of InputChatPhoto.

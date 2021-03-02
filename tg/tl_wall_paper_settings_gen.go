@@ -31,27 +31,27 @@ type WallPaperSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// If set, the wallpaper must be downscaled to fit in 450x450 square and then box-blurred with radius 12
-	Blur bool `tl:"blur"`
+	Blur bool
 	// If set, the background needs to be slightly moved when device is rotated
-	Motion bool `tl:"motion"`
+	Motion bool
 	// If set, a PNG pattern is to be combined with the color chosen by the user: the main color of the background in RGB24 format
 	//
 	// Use SetBackgroundColor and GetBackgroundColor helpers.
-	BackgroundColor int `tl:"background_color"`
+	BackgroundColor int
 	// If set, a PNG pattern is to be combined with the first and second background colors (RGB24 format) in a top-bottom gradient
 	//
 	// Use SetSecondBackgroundColor and GetSecondBackgroundColor helpers.
-	SecondBackgroundColor int `tl:"second_background_color"`
+	SecondBackgroundColor int
 	// Intensity of the pattern when it is shown above the main background color, 0-100
 	//
 	// Use SetIntensity and GetIntensity helpers.
-	Intensity int `tl:"intensity"`
+	Intensity int
 	// Clockwise rotation angle of the gradient, in degrees; 0-359. Should be always divisible by 45
 	//
 	// Use SetRotation and GetRotation helpers.
-	Rotation int `tl:"rotation"`
+	Rotation int
 }
 
 // WallPaperSettingsTypeID is TL type id of WallPaperSettings.

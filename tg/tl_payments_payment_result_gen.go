@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/payments.paymentResult for reference.
 type PaymentsPaymentResult struct {
 	// Info about the payment
-	Updates UpdatesClass `tl:"updates"`
+	Updates UpdatesClass
 }
 
 // PaymentsPaymentResultTypeID is TL type id of PaymentsPaymentResult.
@@ -147,7 +147,7 @@ var (
 // See https://core.telegram.org/constructor/payments.paymentVerificationNeeded for reference.
 type PaymentsPaymentVerificationNeeded struct {
 	// URL for additional payment credentials verification
-	URL string `tl:"url"`
+	URL string
 }
 
 // PaymentsPaymentVerificationNeededTypeID is TL type id of PaymentsPaymentVerificationNeeded.

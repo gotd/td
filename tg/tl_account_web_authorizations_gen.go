@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/account.webAuthorizations for reference.
 type AccountWebAuthorizations struct {
 	// Web authorization list
-	Authorizations []WebAuthorization `tl:"authorizations"`
+	Authorizations []WebAuthorization
 	// Users
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // AccountWebAuthorizationsTypeID is TL type id of AccountWebAuthorizations.

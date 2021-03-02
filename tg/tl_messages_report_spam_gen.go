@@ -31,7 +31,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.reportSpam for reference.
 type MessagesReportSpamRequest struct {
 	// Peer to report
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 }
 
 // MessagesReportSpamRequestTypeID is TL type id of MessagesReportSpamRequest.

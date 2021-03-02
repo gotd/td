@@ -25,7 +25,7 @@ var _ = tdp.Format
 // LongVector is a box for Vector<long>
 type LongVector struct {
 	// Elements of Vector<long>
-	Elems []int64 `tl:"Elems"`
+	Elems []int64
 }
 
 // LongVectorTypeID is TL type id of LongVector.

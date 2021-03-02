@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.discardEncryption for reference.
 type MessagesDiscardEncryptionRequest struct {
 	// Flags field of MessagesDiscardEncryptionRequest.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// DeleteHistory field of MessagesDiscardEncryptionRequest.
-	DeleteHistory bool `tl:"delete_history"`
+	DeleteHistory bool
 	// Secret chat ID
-	ChatID int `tl:"chat_id"`
+	ChatID int
 }
 
 // MessagesDiscardEncryptionRequestTypeID is TL type id of MessagesDiscardEncryptionRequest.

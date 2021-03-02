@@ -34,34 +34,34 @@ type MessagesDiscussionMessage struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Discussion messages
-	Messages []MessageClass `tl:"messages"`
+	Messages []MessageClass
 	// Message ID of latest reply in this thread¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetMaxID and GetMaxID helpers.
-	MaxID int `tl:"max_id"`
+	MaxID int
 	// Message ID of latest read incoming message in this thread¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetReadInboxMaxID and GetReadInboxMaxID helpers.
-	ReadInboxMaxID int `tl:"read_inbox_max_id"`
+	ReadInboxMaxID int
 	// Message ID of latest read outgoing message in this thread¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetReadOutboxMaxID and GetReadOutboxMaxID helpers.
-	ReadOutboxMaxID int `tl:"read_outbox_max_id"`
+	ReadOutboxMaxID int
 	// Chats mentioned in constructor
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// Users mentioned in constructor
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // MessagesDiscussionMessageTypeID is TL type id of MessagesDiscussionMessage.

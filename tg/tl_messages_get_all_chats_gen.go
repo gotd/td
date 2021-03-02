@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.getAllChats for reference.
 type MessagesGetAllChatsRequest struct {
 	// Except these chats/channels/supergroups
-	ExceptIds []int `tl:"except_ids"`
+	ExceptIds []int
 }
 
 // MessagesGetAllChatsRequestTypeID is TL type id of MessagesGetAllChatsRequest.

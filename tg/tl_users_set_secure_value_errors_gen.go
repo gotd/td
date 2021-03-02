@@ -32,9 +32,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/users.setSecureValueErrors for reference.
 type UsersSetSecureValueErrorsRequest struct {
 	// The user
-	ID InputUserClass `tl:"id"`
+	ID InputUserClass
 	// Errors
-	Errors []SecureValueErrorClass `tl:"errors"`
+	Errors []SecureValueErrorClass
 }
 
 // UsersSetSecureValueErrorsRequestTypeID is TL type id of UsersSetSecureValueErrorsRequest.

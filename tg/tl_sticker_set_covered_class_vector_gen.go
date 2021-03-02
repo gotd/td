@@ -25,7 +25,7 @@ var _ = tdp.Format
 // StickerSetCoveredClassVector is a box for Vector<StickerSetCovered>
 type StickerSetCoveredClassVector struct {
 	// Elements of Vector<StickerSetCovered>
-	Elems []StickerSetCoveredClass `tl:"Elems"`
+	Elems []StickerSetCoveredClass
 }
 
 // StickerSetCoveredClassVectorTypeID is TL type id of StickerSetCoveredClassVector.

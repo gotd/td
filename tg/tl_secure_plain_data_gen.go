@@ -32,7 +32,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/securePlainPhone for reference.
 type SecurePlainPhone struct {
 	// Phone number
-	Phone string `tl:"phone"`
+	Phone string
 }
 
 // SecurePlainPhoneTypeID is TL type id of SecurePlainPhone.
@@ -150,7 +150,7 @@ var (
 // See https://core.telegram.org/constructor/securePlainEmail for reference.
 type SecurePlainEmail struct {
 	// Email address
-	Email string `tl:"email"`
+	Email string
 }
 
 // SecurePlainEmailTypeID is TL type id of SecurePlainEmail.

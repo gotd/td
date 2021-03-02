@@ -35,7 +35,7 @@ type AuthPasswordRecovery struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/pattern
-	EmailPattern string `tl:"email_pattern"`
+	EmailPattern string
 }
 
 // AuthPasswordRecoveryTypeID is TL type id of AuthPasswordRecovery.

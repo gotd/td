@@ -34,9 +34,9 @@ type MessagesEditChatAboutRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// The new description
-	About string `tl:"about"`
+	About string
 }
 
 // MessagesEditChatAboutRequestTypeID is TL type id of MessagesEditChatAboutRequest.

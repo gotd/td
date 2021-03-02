@@ -28,12 +28,12 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/auth.cancelCode for reference.
 type AuthCancelCodeRequest struct {
 	// Phone number
-	PhoneNumber string `tl:"phone_number"`
+	PhoneNumber string
 	// Phone code hash from auth.sendCode¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/auth.sendCode
-	PhoneCodeHash string `tl:"phone_code_hash"`
+	PhoneCodeHash string
 }
 
 // AuthCancelCodeRequestTypeID is TL type id of AuthCancelCodeRequest.

@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/auth.sentCodeTypeApp for reference.
 type AuthSentCodeTypeApp struct {
 	// Length of the code in bytes
-	Length int `tl:"length"`
+	Length int
 }
 
 // AuthSentCodeTypeAppTypeID is TL type id of AuthSentCodeTypeApp.
@@ -142,7 +142,7 @@ var (
 // See https://core.telegram.org/constructor/auth.sentCodeTypeSms for reference.
 type AuthSentCodeTypeSms struct {
 	// Length of the code in bytes
-	Length int `tl:"length"`
+	Length int
 }
 
 // AuthSentCodeTypeSmsTypeID is TL type id of AuthSentCodeTypeSms.
@@ -256,7 +256,7 @@ var (
 // See https://core.telegram.org/constructor/auth.sentCodeTypeCall for reference.
 type AuthSentCodeTypeCall struct {
 	// Length of the verification code
-	Length int `tl:"length"`
+	Length int
 }
 
 // AuthSentCodeTypeCallTypeID is TL type id of AuthSentCodeTypeCall.
@@ -373,7 +373,7 @@ type AuthSentCodeTypeFlashCall struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/pattern
-	Pattern string `tl:"pattern"`
+	Pattern string
 }
 
 // AuthSentCodeTypeFlashCallTypeID is TL type id of AuthSentCodeTypeFlashCall.

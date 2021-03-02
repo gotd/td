@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/inputPhoneCall for reference.
 type InputPhoneCall struct {
 	// Call ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 }
 
 // InputPhoneCallTypeID is TL type id of InputPhoneCall.

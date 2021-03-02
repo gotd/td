@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.deleteScheduledMessages for reference.
 type MessagesDeleteScheduledMessagesRequest struct {
 	// Peer
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Scheduled message IDs
-	ID []int `tl:"id"`
+	ID []int
 }
 
 // MessagesDeleteScheduledMessagesRequestTypeID is TL type id of MessagesDeleteScheduledMessagesRequest.

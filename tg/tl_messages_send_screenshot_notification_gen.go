@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.sendScreenshotNotification for reference.
 type MessagesSendScreenshotNotificationRequest struct {
 	// Other user
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// ID of message that was screenshotted, can be 0
-	ReplyToMsgID int `tl:"reply_to_msg_id"`
+	ReplyToMsgID int
 	// Random ID to avoid message resending
-	RandomID int64 `tl:"random_id"`
+	RandomID int64
 }
 
 // MessagesSendScreenshotNotificationRequestTypeID is TL type id of MessagesSendScreenshotNotificationRequest.

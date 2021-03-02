@@ -29,13 +29,13 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/maskCoords for reference.
 type MaskCoords struct {
 	// Part of the face, relative to which the mask should be placed
-	N int `tl:"n"`
+	N int
 	// Shift by X-axis measured in widths of the mask scaled to the face size, from left to right. (For example, -1.0 will place the mask just to the left of the default mask position)
-	X float64 `tl:"x"`
+	X float64
 	// Shift by Y-axis measured in widths of the mask scaled to the face size, from left to right. (For example, -1.0 will place the mask just to the left of the default mask position)
-	Y float64 `tl:"y"`
+	Y float64
 	// Mask scaling coefficient. (For example, 2.0 means a doubled size)
-	Zoom float64 `tl:"zoom"`
+	Zoom float64
 }
 
 // MaskCoordsTypeID is TL type id of MaskCoords.

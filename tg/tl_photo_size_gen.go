@@ -31,7 +31,7 @@ type PhotoSizeEmpty struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/photoSize
-	Type string `tl:"type"`
+	Type string
 }
 
 // PhotoSizeEmptyTypeID is TL type id of PhotoSizeEmpty.
@@ -145,15 +145,15 @@ var (
 // See https://core.telegram.org/constructor/photoSize for reference.
 type PhotoSize struct {
 	// Thumbnail type
-	Type string `tl:"type"`
+	Type string
 	// File location
-	Location FileLocationToBeDeprecated `tl:"location"`
+	Location FileLocationToBeDeprecated
 	// Image width
-	W int `tl:"w"`
+	W int
 	// Image height
-	H int `tl:"h"`
+	H int
 	// File size
-	Size int `tl:"size"`
+	Size int
 }
 
 // PhotoSizeTypeID is TL type id of PhotoSize.
@@ -355,15 +355,15 @@ var (
 // See https://core.telegram.org/constructor/photoCachedSize for reference.
 type PhotoCachedSize struct {
 	// Thumbnail type
-	Type string `tl:"type"`
+	Type string
 	// File location
-	Location FileLocationToBeDeprecated `tl:"location"`
+	Location FileLocationToBeDeprecated
 	// Image width
-	W int `tl:"w"`
+	W int
 	// Image height
-	H int `tl:"h"`
+	H int
 	// Binary data, file content
-	Bytes []byte `tl:"bytes"`
+	Bytes []byte
 }
 
 // PhotoCachedSizeTypeID is TL type id of PhotoCachedSize.
@@ -565,12 +565,12 @@ var (
 // See https://core.telegram.org/constructor/photoStrippedSize for reference.
 type PhotoStrippedSize struct {
 	// Thumbnail type
-	Type string `tl:"type"`
+	Type string
 	// Thumbnail data, see here for more info on decompression »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files#stripped-thumbnails
-	Bytes []byte `tl:"bytes"`
+	Bytes []byte
 }
 
 // PhotoStrippedSizeTypeID is TL type id of PhotoStrippedSize.
@@ -706,15 +706,15 @@ var (
 // See https://core.telegram.org/constructor/photoSizeProgressive for reference.
 type PhotoSizeProgressive struct {
 	// Photosize type
-	Type string `tl:"type"`
+	Type string
 	// File location
-	Location FileLocationToBeDeprecated `tl:"location"`
+	Location FileLocationToBeDeprecated
 	// Photo width
-	W int `tl:"w"`
+	W int
 	// Photo height
-	H int `tl:"h"`
+	H int
 	// Sizes of progressive JPEG file prefixes, which can be used to preliminarily show the image.
-	Sizes []int `tl:"sizes"`
+	Sizes []int
 }
 
 // PhotoSizeProgressiveTypeID is TL type id of PhotoSizeProgressive.
@@ -925,12 +925,12 @@ var (
 // See https://core.telegram.org/constructor/photoPathSize for reference.
 type PhotoPathSize struct {
 	// Always j
-	Type string `tl:"type"`
+	Type string
 	// Compressed SVG path payload, see here for decompression instructions¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files#vector-thumbnails
-	Bytes []byte `tl:"bytes"`
+	Bytes []byte
 }
 
 // PhotoPathSizeTypeID is TL type id of PhotoPathSize.

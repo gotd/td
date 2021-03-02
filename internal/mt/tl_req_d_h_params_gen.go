@@ -25,17 +25,17 @@ var _ = tdp.Format
 // ReqDHParamsRequest represents TL type `req_DH_params#d712e4be`.
 type ReqDHParamsRequest struct {
 	// Nonce field of ReqDHParamsRequest.
-	Nonce bin.Int128 `tl:"nonce"`
+	Nonce bin.Int128
 	// ServerNonce field of ReqDHParamsRequest.
-	ServerNonce bin.Int128 `tl:"server_nonce"`
+	ServerNonce bin.Int128
 	// P field of ReqDHParamsRequest.
-	P []byte `tl:"p"`
+	P []byte
 	// Q field of ReqDHParamsRequest.
-	Q []byte `tl:"q"`
+	Q []byte
 	// PublicKeyFingerprint field of ReqDHParamsRequest.
-	PublicKeyFingerprint int64 `tl:"public_key_fingerprint"`
+	PublicKeyFingerprint int64
 	// EncryptedData field of ReqDHParamsRequest.
-	EncryptedData []byte `tl:"encrypted_data"`
+	EncryptedData []byte
 }
 
 // ReqDHParamsRequestTypeID is TL type id of ReqDHParamsRequest.

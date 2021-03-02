@@ -31,19 +31,19 @@ type AccountCreateThemeRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Unique theme ID
-	Slug string `tl:"slug"`
+	Slug string
 	// Theme name
-	Title string `tl:"title"`
+	Title string
 	// Theme file
 	//
 	// Use SetDocument and GetDocument helpers.
-	Document InputDocumentClass `tl:"document"`
+	Document InputDocumentClass
 	// Theme settings
 	//
 	// Use SetSettings and GetSettings helpers.
-	Settings InputThemeSettings `tl:"settings"`
+	Settings InputThemeSettings
 }
 
 // AccountCreateThemeRequestTypeID is TL type id of AccountCreateThemeRequest.

@@ -31,36 +31,36 @@ type AccountPasswordInputSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// The SRP algorithm¹ to use
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
 	//
 	// Use SetNewAlgo and GetNewAlgo helpers.
-	NewAlgo PasswordKdfAlgoClass `tl:"new_algo"`
+	NewAlgo PasswordKdfAlgoClass
 	// The computed password hash¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
 	//
 	// Use SetNewPasswordHash and GetNewPasswordHash helpers.
-	NewPasswordHash []byte `tl:"new_password_hash"`
+	NewPasswordHash []byte
 	// Text hint for the password
 	//
 	// Use SetHint and GetHint helpers.
-	Hint string `tl:"hint"`
+	Hint string
 	// Password recovery email
 	//
 	// Use SetEmail and GetEmail helpers.
-	Email string `tl:"email"`
+	Email string
 	// Telegram passport¹ settings
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetNewSecureSettings and GetNewSecureSettings helpers.
-	NewSecureSettings SecureSecretSettings `tl:"new_secure_settings"`
+	NewSecureSettings SecureSecretSettings
 }
 
 // AccountPasswordInputSettingsTypeID is TL type id of AccountPasswordInputSettings.

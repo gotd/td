@@ -27,17 +27,17 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/phone.editGroupCallMember for reference.
 type PhoneEditGroupCallMemberRequest struct {
 	// Flags field of PhoneEditGroupCallMemberRequest.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Muted field of PhoneEditGroupCallMemberRequest.
-	Muted bool `tl:"muted"`
+	Muted bool
 	// Call field of PhoneEditGroupCallMemberRequest.
-	Call InputGroupCall `tl:"call"`
+	Call InputGroupCall
 	// UserID field of PhoneEditGroupCallMemberRequest.
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 	// Volume field of PhoneEditGroupCallMemberRequest.
 	//
 	// Use SetVolume and GetVolume helpers.
-	Volume int `tl:"volume"`
+	Volume int
 }
 
 // PhoneEditGroupCallMemberRequestTypeID is TL type id of PhoneEditGroupCallMemberRequest.

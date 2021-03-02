@@ -31,9 +31,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/statsDateRangeDays for reference.
 type StatsDateRangeDays struct {
 	// Initial date
-	MinDate int `tl:"min_date"`
+	MinDate int
 	// Final date
-	MaxDate int `tl:"max_date"`
+	MaxDate int
 }
 
 // StatsDateRangeDaysTypeID is TL type id of StatsDateRangeDays.

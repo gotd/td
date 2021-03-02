@@ -31,23 +31,23 @@ type ThemeSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Base theme
-	BaseTheme BaseThemeClass `tl:"base_theme"`
+	BaseTheme BaseThemeClass
 	// Accent color, RGB24 format
-	AccentColor int `tl:"accent_color"`
+	AccentColor int
 	// Message gradient color (top), RGB24 format
 	//
 	// Use SetMessageTopColor and GetMessageTopColor helpers.
-	MessageTopColor int `tl:"message_top_color"`
+	MessageTopColor int
 	// Message gradient color (bottom), RGB24 format
 	//
 	// Use SetMessageBottomColor and GetMessageBottomColor helpers.
-	MessageBottomColor int `tl:"message_bottom_color"`
+	MessageBottomColor int
 	// Wallpaper
 	//
 	// Use SetWallpaper and GetWallpaper helpers.
-	Wallpaper WallPaperClass `tl:"wallpaper"`
+	Wallpaper WallPaperClass
 }
 
 // ThemeSettingsTypeID is TL type id of ThemeSettings.

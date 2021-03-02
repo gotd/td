@@ -31,34 +31,34 @@ type InitConnectionRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Application identifier (see. App configuration¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/myapp
-	APIID int `tl:"api_id"`
+	APIID int
 	// Device model
-	DeviceModel string `tl:"device_model"`
+	DeviceModel string
 	// Operation system version
-	SystemVersion string `tl:"system_version"`
+	SystemVersion string
 	// Application version
-	AppVersion string `tl:"app_version"`
+	AppVersion string
 	// Code for the language used on the device's OS, ISO 639-1 standard
-	SystemLangCode string `tl:"system_lang_code"`
+	SystemLangCode string
 	// Language pack to use
-	LangPack string `tl:"lang_pack"`
+	LangPack string
 	// Code for the language used on the client, ISO 639-1 standard
-	LangCode string `tl:"lang_code"`
+	LangCode string
 	// Info about an MTProto proxy
 	//
 	// Use SetProxy and GetProxy helpers.
-	Proxy InputClientProxy `tl:"proxy"`
+	Proxy InputClientProxy
 	// Additional initConnection parameters. For now, only the tz_offset field is supported, for specifying timezone offset in seconds.
 	//
 	// Use SetParams and GetParams helpers.
-	Params JSONValueClass `tl:"params"`
+	Params JSONValueClass
 	// The query itself
-	Query bin.Object `tl:"query"`
+	Query bin.Object
 }
 
 // InitConnectionRequestTypeID is TL type id of InitConnectionRequest.

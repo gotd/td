@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/documentAttributeImageSize for reference.
 type DocumentAttributeImageSize struct {
 	// Width of image
-	W int `tl:"w"`
+	W int
 	// Height of image
-	H int `tl:"h"`
+	H int
 }
 
 // DocumentAttributeImageSizeTypeID is TL type id of DocumentAttributeImageSize.
@@ -333,11 +333,11 @@ var (
 // See https://core.telegram.org/constructor/documentAttributeVideo for reference.
 type DocumentAttributeVideo struct {
 	// Duration in seconds
-	Duration int `tl:"duration"`
+	Duration int
 	// Video width
-	W int `tl:"w"`
+	W int
 	// Video height
-	H int `tl:"h"`
+	H int
 }
 
 // DocumentAttributeVideoTypeID is TL type id of DocumentAttributeVideo.
@@ -494,7 +494,7 @@ var (
 // See https://core.telegram.org/constructor/documentAttributeAudio23 for reference.
 type DocumentAttributeAudio23 struct {
 	// Duration field of DocumentAttributeAudio23.
-	Duration int `tl:"duration"`
+	Duration int
 }
 
 // DocumentAttributeAudio23TypeID is TL type id of DocumentAttributeAudio23.
@@ -608,7 +608,7 @@ var (
 // See https://core.telegram.org/constructor/documentAttributeFilename for reference.
 type DocumentAttributeFilename struct {
 	// The file name
-	FileName string `tl:"file_name"`
+	FileName string
 }
 
 // DocumentAttributeFilenameTypeID is TL type id of DocumentAttributeFilename.
@@ -721,11 +721,11 @@ var (
 // See https://core.telegram.org/constructor/documentAttributeAudio45 for reference.
 type DocumentAttributeAudio45 struct {
 	// Duration field of DocumentAttributeAudio45.
-	Duration int `tl:"duration"`
+	Duration int
 	// Title field of DocumentAttributeAudio45.
-	Title string `tl:"title"`
+	Title string
 	// Performer field of DocumentAttributeAudio45.
-	Performer string `tl:"performer"`
+	Performer string
 }
 
 // DocumentAttributeAudio45TypeID is TL type id of DocumentAttributeAudio45.
@@ -883,9 +883,9 @@ var (
 // See https://core.telegram.org/constructor/documentAttributeSticker for reference.
 type DocumentAttributeSticker struct {
 	// Alternative emoji representation of sticker
-	Alt string `tl:"alt"`
+	Alt string
 	// Associated stickerset
-	Stickerset InputStickerSetClass `tl:"stickerset"`
+	Stickerset InputStickerSetClass
 }
 
 // DocumentAttributeStickerTypeID is TL type id of DocumentAttributeSticker.
@@ -1029,23 +1029,23 @@ type DocumentAttributeAudio struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether this is a voice message
-	Voice bool `tl:"voice"`
+	Voice bool
 	// Duration in seconds
-	Duration int `tl:"duration"`
+	Duration int
 	// Name of song
 	//
 	// Use SetTitle and GetTitle helpers.
-	Title string `tl:"title"`
+	Title string
 	// Performer
 	//
 	// Use SetPerformer and GetPerformer helpers.
-	Performer string `tl:"performer"`
+	Performer string
 	// Waveform
 	//
 	// Use SetWaveform and GetWaveform helpers.
-	Waveform []byte `tl:"waveform"`
+	Waveform []byte
 }
 
 // DocumentAttributeAudioTypeID is TL type id of DocumentAttributeAudio.
@@ -1326,15 +1326,15 @@ var (
 // See https://core.telegram.org/constructor/documentAttributeVideo66 for reference.
 type DocumentAttributeVideo66 struct {
 	// Flags field of DocumentAttributeVideo66.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// RoundMessage field of DocumentAttributeVideo66.
-	RoundMessage bool `tl:"round_message"`
+	RoundMessage bool
 	// Duration field of DocumentAttributeVideo66.
-	Duration int `tl:"duration"`
+	Duration int
 	// W field of DocumentAttributeVideo66.
-	W int `tl:"w"`
+	W int
 	// H field of DocumentAttributeVideo66.
-	H int `tl:"h"`
+	H int
 }
 
 // DocumentAttributeVideo66TypeID is TL type id of DocumentAttributeVideo66.

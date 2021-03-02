@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.getStickerSet for reference.
 type MessagesGetStickerSetRequest struct {
 	// Stickerset
-	Stickerset InputStickerSetClass `tl:"stickerset"`
+	Stickerset InputStickerSetClass
 }
 
 // MessagesGetStickerSetRequestTypeID is TL type id of MessagesGetStickerSetRequest.

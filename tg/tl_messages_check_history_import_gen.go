@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.checkHistoryImport for reference.
 type MessagesCheckHistoryImportRequest struct {
 	// ImportHead field of MessagesCheckHistoryImportRequest.
-	ImportHead string `tl:"import_head"`
+	ImportHead string
 }
 
 // MessagesCheckHistoryImportRequestTypeID is TL type id of MessagesCheckHistoryImportRequest.

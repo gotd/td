@@ -31,13 +31,13 @@ type InputWebDocument struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files
-	URL string `tl:"url"`
+	URL string
 	// Remote file size
-	Size int `tl:"size"`
+	Size int
 	// Mime type
-	MimeType string `tl:"mime_type"`
+	MimeType string
 	// Attributes for media types
-	Attributes []DocumentAttributeClass `tl:"attributes"`
+	Attributes []DocumentAttributeClass
 }
 
 // InputWebDocumentTypeID is TL type id of InputWebDocument.

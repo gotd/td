@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/phone.saveCallDebug for reference.
 type PhoneSaveCallDebugRequest struct {
 	// Phone call
-	Peer InputPhoneCall `tl:"peer"`
+	Peer InputPhoneCall
 	// Debug statistics obtained from libtgvoip
-	Debug DataJSON `tl:"debug"`
+	Debug DataJSON
 }
 
 // PhoneSaveCallDebugRequestTypeID is TL type id of PhoneSaveCallDebugRequest.

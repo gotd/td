@@ -28,12 +28,12 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.getStickers for reference.
 type MessagesGetStickersRequest struct {
 	// The emoji
-	Emoticon string `tl:"emoticon"`
+	Emoticon string
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 }
 
 // MessagesGetStickersRequestTypeID is TL type id of MessagesGetStickersRequest.

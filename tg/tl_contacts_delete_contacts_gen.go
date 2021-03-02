@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/contacts.deleteContacts for reference.
 type ContactsDeleteContactsRequest struct {
 	// User ID list
-	ID []InputUserClass `tl:"id"`
+	ID []InputUserClass
 }
 
 // ContactsDeleteContactsRequestTypeID is TL type id of ContactsDeleteContactsRequest.

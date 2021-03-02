@@ -31,9 +31,9 @@ type MessagesClearRecentStickersRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Set this flag to clear the list of stickers recently attached to photo or video files
-	Attached bool `tl:"attached"`
+	Attached bool
 }
 
 // MessagesClearRecentStickersRequestTypeID is TL type id of MessagesClearRecentStickersRequest.

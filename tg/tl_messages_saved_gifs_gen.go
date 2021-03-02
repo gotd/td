@@ -115,9 +115,9 @@ type MessagesSavedGifs struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 	// List of saved gifs
-	Gifs []DocumentClass `tl:"gifs"`
+	Gifs []DocumentClass
 }
 
 // MessagesSavedGifsTypeID is TL type id of MessagesSavedGifs.

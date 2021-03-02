@@ -28,22 +28,22 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/auth.importBotAuthorization for reference.
 type AuthImportBotAuthorizationRequest struct {
 	// Reserved for future use
-	Flags int `tl:"flags"`
+	Flags int
 	// Application identifier (see. App configuration¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/myapp
-	APIID int `tl:"api_id"`
+	APIID int
 	// Application identifier hash (see. App configuration¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/myapp
-	APIHash string `tl:"api_hash"`
+	APIHash string
 	// Bot token (see bots¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots
-	BotAuthToken string `tl:"bot_auth_token"`
+	BotAuthToken string
 }
 
 // AuthImportBotAuthorizationRequestTypeID is TL type id of AuthImportBotAuthorizationRequest.

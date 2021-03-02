@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/inputWallPaper for reference.
 type InputWallPaper struct {
 	// Wallpaper ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 }
 
 // InputWallPaperTypeID is TL type id of InputWallPaper.
@@ -166,7 +166,7 @@ var (
 // See https://core.telegram.org/constructor/inputWallPaperSlug for reference.
 type InputWallPaperSlug struct {
 	// Unique wallpaper ID
-	Slug string `tl:"slug"`
+	Slug string
 }
 
 // InputWallPaperSlugTypeID is TL type id of InputWallPaperSlug.

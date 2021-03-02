@@ -31,11 +31,11 @@ type AccountUnregisterDeviceRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/push-updates
-	TokenType int `tl:"token_type"`
+	TokenType int
 	// Device token
-	Token string `tl:"token"`
+	Token string
 	// List of user identifiers of other users currently using the client
-	OtherUids []int `tl:"other_uids"`
+	OtherUids []int
 }
 
 // AccountUnregisterDeviceRequestTypeID is TL type id of AccountUnregisterDeviceRequest.

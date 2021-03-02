@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.getChats for reference.
 type MessagesGetChatsRequest struct {
 	// List of chat IDs
-	ID []int `tl:"id"`
+	ID []int
 }
 
 // MessagesGetChatsRequestTypeID is TL type id of MessagesGetChatsRequest.

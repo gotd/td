@@ -27,13 +27,13 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/phone.toggleGroupCallSettings for reference.
 type PhoneToggleGroupCallSettingsRequest struct {
 	// Flags field of PhoneToggleGroupCallSettingsRequest.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Call field of PhoneToggleGroupCallSettingsRequest.
-	Call InputGroupCall `tl:"call"`
+	Call InputGroupCall
 	// JoinMuted field of PhoneToggleGroupCallSettingsRequest.
 	//
 	// Use SetJoinMuted and GetJoinMuted helpers.
-	JoinMuted bool `tl:"join_muted"`
+	JoinMuted bool
 }
 
 // PhoneToggleGroupCallSettingsRequestTypeID is TL type id of PhoneToggleGroupCallSettingsRequest.

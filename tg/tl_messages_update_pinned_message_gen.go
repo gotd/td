@@ -31,17 +31,17 @@ type MessagesUpdatePinnedMessageRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Pin the message silently, without triggering a notification
-	Silent bool `tl:"silent"`
+	Silent bool
 	// Whether the message should unpinned or pinned
-	Unpin bool `tl:"unpin"`
+	Unpin bool
 	// Whether the message should only be pinned on the local side of a one-to-one chat
-	PmOneside bool `tl:"pm_oneside"`
+	PmOneside bool
 	// The peer where to pin the message
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// The message to pin or unpin
-	ID int `tl:"id"`
+	ID int
 }
 
 // MessagesUpdatePinnedMessageRequestTypeID is TL type id of MessagesUpdatePinnedMessageRequest.

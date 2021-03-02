@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/photos.photos for reference.
 type PhotosPhotos struct {
 	// List of photos
-	Photos []PhotoClass `tl:"photos"`
+	Photos []PhotoClass
 	// List of mentioned users
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // PhotosPhotosTypeID is TL type id of PhotosPhotos.
@@ -204,11 +204,11 @@ var (
 // See https://core.telegram.org/constructor/photos.photosSlice for reference.
 type PhotosPhotosSlice struct {
 	// Total number of photos
-	Count int `tl:"count"`
+	Count int
 	// List of photos
-	Photos []PhotoClass `tl:"photos"`
+	Photos []PhotoClass
 	// List of mentioned users
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // PhotosPhotosSliceTypeID is TL type id of PhotosPhotosSlice.

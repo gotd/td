@@ -25,7 +25,7 @@ var _ = tdp.Format
 // MsgResendReq represents TL type `msg_resend_req#7d861a08`.
 type MsgResendReq struct {
 	// MsgIds field of MsgResendReq.
-	MsgIds []int64 `tl:"msg_ids"`
+	MsgIds []int64
 }
 
 // MsgResendReqTypeID is TL type id of MsgResendReq.

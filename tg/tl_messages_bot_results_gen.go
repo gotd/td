@@ -31,25 +31,25 @@ type MessagesBotResults struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the result is a picture gallery
-	Gallery bool `tl:"gallery"`
+	Gallery bool
 	// Query ID
-	QueryID int64 `tl:"query_id"`
+	QueryID int64
 	// The next offset to use when navigating through results
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
-	NextOffset string `tl:"next_offset"`
+	NextOffset string
 	// Whether the bot requested the user to message him in private
 	//
 	// Use SetSwitchPm and GetSwitchPm helpers.
-	SwitchPm InlineBotSwitchPM `tl:"switch_pm"`
+	SwitchPm InlineBotSwitchPM
 	// The results
-	Results []BotInlineResultClass `tl:"results"`
+	Results []BotInlineResultClass
 	// Caching validity of the results
-	CacheTime int `tl:"cache_time"`
+	CacheTime int
 	// Users mentioned in the results
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // MessagesBotResultsTypeID is TL type id of MessagesBotResults.

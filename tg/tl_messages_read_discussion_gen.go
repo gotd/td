@@ -31,11 +31,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.readDiscussion for reference.
 type MessagesReadDiscussionRequest struct {
 	// Group ID
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// ID of message that started the thread
-	MsgID int `tl:"msg_id"`
+	MsgID int
 	// ID up to which thread messages were read
-	ReadMaxID int `tl:"read_max_id"`
+	ReadMaxID int
 }
 
 // MessagesReadDiscussionRequestTypeID is TL type id of MessagesReadDiscussionRequest.

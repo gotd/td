@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/channels.channelParticipant for reference.
 type ChannelsChannelParticipant struct {
 	// The channel participant
-	Participant ChannelParticipantClass `tl:"participant"`
+	Participant ChannelParticipantClass
 	// Users
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // ChannelsChannelParticipantTypeID is TL type id of ChannelsChannelParticipant.

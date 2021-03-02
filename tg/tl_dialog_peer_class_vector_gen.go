@@ -25,7 +25,7 @@ var _ = tdp.Format
 // DialogPeerClassVector is a box for Vector<DialogPeer>
 type DialogPeerClassVector struct {
 	// Elements of Vector<DialogPeer>
-	Elems []DialogPeerClass `tl:"Elems"`
+	Elems []DialogPeerClass
 }
 
 // DialogPeerClassVectorTypeID is TL type id of DialogPeerClassVector.

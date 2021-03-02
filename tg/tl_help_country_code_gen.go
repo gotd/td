@@ -31,17 +31,17 @@ type HelpCountryCode struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// ISO country code
-	CountryCode string `tl:"country_code"`
+	CountryCode string
 	// Possible phone prefixes
 	//
 	// Use SetPrefixes and GetPrefixes helpers.
-	Prefixes []string `tl:"prefixes"`
+	Prefixes []string
 	// Phone patterns: for example, XXX XXX XXX
 	//
 	// Use SetPatterns and GetPatterns helpers.
-	Patterns []string `tl:"patterns"`
+	Patterns []string
 }
 
 // HelpCountryCodeTypeID is TL type id of HelpCountryCode.

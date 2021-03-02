@@ -31,28 +31,28 @@ type HelpAppUpdate struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Unskippable, the new info must be shown to the user (with a popup or something else)
-	CanNotSkip bool `tl:"can_not_skip"`
+	CanNotSkip bool
 	// Update ID
-	ID int `tl:"id"`
+	ID int
 	// New version name
-	Version string `tl:"version"`
+	Version string
 	// Text description of the update
-	Text string `tl:"text"`
+	Text string
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
-	Entities []MessageEntityClass `tl:"entities"`
+	Entities []MessageEntityClass
 	// Application binary
 	//
 	// Use SetDocument and GetDocument helpers.
-	Document DocumentClass `tl:"document"`
+	Document DocumentClass
 	// Application download URL
 	//
 	// Use SetURL and GetURL helpers.
-	URL string `tl:"url"`
+	URL string
 }
 
 // HelpAppUpdateTypeID is TL type id of HelpAppUpdate.

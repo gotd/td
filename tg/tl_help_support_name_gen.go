@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/help.supportName for reference.
 type HelpSupportName struct {
 	// Localized name
-	Name string `tl:"name"`
+	Name string
 }
 
 // HelpSupportNameTypeID is TL type id of HelpSupportName.

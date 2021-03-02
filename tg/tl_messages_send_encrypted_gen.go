@@ -31,18 +31,18 @@ type MessagesSendEncryptedRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Send encrypted message without a notification
-	Silent bool `tl:"silent"`
+	Silent bool
 	// Secret chat ID
-	Peer InputEncryptedChat `tl:"peer"`
+	Peer InputEncryptedChat
 	// Unique client message ID, necessary to avoid message resending
-	RandomID int64 `tl:"random_id"`
+	RandomID int64
 	// TL-serialization of DecryptedMessage¹ type, encrypted with a key that was created during chat initialization
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/DecryptedMessage
-	Data []byte `tl:"data"`
+	Data []byte
 }
 
 // MessagesSendEncryptedRequestTypeID is TL type id of MessagesSendEncryptedRequest.

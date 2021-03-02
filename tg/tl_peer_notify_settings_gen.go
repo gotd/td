@@ -31,23 +31,23 @@ type PeerNotifySettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Display text in notifications
 	//
 	// Use SetShowPreviews and GetShowPreviews helpers.
-	ShowPreviews bool `tl:"show_previews"`
+	ShowPreviews bool
 	// Mute peer?
 	//
 	// Use SetSilent and GetSilent helpers.
-	Silent bool `tl:"silent"`
+	Silent bool
 	// Mute all notifications until this date
 	//
 	// Use SetMuteUntil and GetMuteUntil helpers.
-	MuteUntil int `tl:"mute_until"`
+	MuteUntil int
 	// Audio file name for notifications
 	//
 	// Use SetSound and GetSound helpers.
-	Sound string `tl:"sound"`
+	Sound string
 }
 
 // PeerNotifySettingsTypeID is TL type id of PeerNotifySettings.

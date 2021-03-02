@@ -27,11 +27,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/chatAdminWithInvites for reference.
 type ChatAdminWithInvites struct {
 	// AdminID field of ChatAdminWithInvites.
-	AdminID int `tl:"admin_id"`
+	AdminID int
 	// InvitesCount field of ChatAdminWithInvites.
-	InvitesCount int `tl:"invites_count"`
+	InvitesCount int
 	// RevokedInvitesCount field of ChatAdminWithInvites.
-	RevokedInvitesCount int `tl:"revoked_invites_count"`
+	RevokedInvitesCount int
 }
 
 // ChatAdminWithInvitesTypeID is TL type id of ChatAdminWithInvites.

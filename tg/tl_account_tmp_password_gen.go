@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/account.tmpPassword for reference.
 type AccountTmpPassword struct {
 	// Temporary password
-	TmpPassword []byte `tl:"tmp_password"`
+	TmpPassword []byte
 	// Validity period
-	ValidUntil int `tl:"valid_until"`
+	ValidUntil int
 }
 
 // AccountTmpPasswordTypeID is TL type id of AccountTmpPassword.

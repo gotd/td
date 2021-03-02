@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/inputWebFileLocation for reference.
 type InputWebFileLocation struct {
 	// HTTP URL of file
-	URL string `tl:"url"`
+	URL string
 	// Access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 }
 
 // InputWebFileLocationTypeID is TL type id of InputWebFileLocation.
@@ -166,17 +166,17 @@ var (
 // See https://core.telegram.org/constructor/inputWebFileGeoPointLocation for reference.
 type InputWebFileGeoPointLocation struct {
 	// Geolocation
-	GeoPoint InputGeoPointClass `tl:"geo_point"`
+	GeoPoint InputGeoPointClass
 	// Access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// Map width in pixels before applying scale; 16-1024
-	W int `tl:"w"`
+	W int
 	// Map height in pixels before applying scale; 16-1024
-	H int `tl:"h"`
+	H int
 	// Map zoom level; 13-20
-	Zoom int `tl:"zoom"`
+	Zoom int
 	// Map scale; 1-3
-	Scale int `tl:"scale"`
+	Scale int
 }
 
 // InputWebFileGeoPointLocationTypeID is TL type id of InputWebFileGeoPointLocation.

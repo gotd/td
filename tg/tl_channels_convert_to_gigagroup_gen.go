@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/channels.convertToGigagroup for reference.
 type ChannelsConvertToGigagroupRequest struct {
 	// Channel field of ChannelsConvertToGigagroupRequest.
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 }
 
 // ChannelsConvertToGigagroupRequestTypeID is TL type id of ChannelsConvertToGigagroupRequest.

@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/invokeWithTakeout for reference.
 type InvokeWithTakeoutRequest struct {
 	// Takeout session ID
-	TakeoutID int64 `tl:"takeout_id"`
+	TakeoutID int64
 	// Query
-	Query bin.Object `tl:"query"`
+	Query bin.Object
 }
 
 // InvokeWithTakeoutRequestTypeID is TL type id of InvokeWithTakeoutRequest.

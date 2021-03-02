@@ -27,11 +27,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/messages.exportedChatInvites for reference.
 type MessagesExportedChatInvites struct {
 	// Count field of MessagesExportedChatInvites.
-	Count int `tl:"count"`
+	Count int
 	// Invites field of MessagesExportedChatInvites.
-	Invites []ChatInviteExported `tl:"invites"`
+	Invites []ChatInviteExported
 	// Users field of MessagesExportedChatInvites.
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // MessagesExportedChatInvitesTypeID is TL type id of MessagesExportedChatInvites.

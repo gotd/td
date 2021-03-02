@@ -25,9 +25,9 @@ var _ = tdp.Format
 // PingDelayDisconnectRequest represents TL type `ping_delay_disconnect#f3427b8c`.
 type PingDelayDisconnectRequest struct {
 	// PingID field of PingDelayDisconnectRequest.
-	PingID int64 `tl:"ping_id"`
+	PingID int64
 	// DisconnectDelay field of PingDelayDisconnectRequest.
-	DisconnectDelay int `tl:"disconnect_delay"`
+	DisconnectDelay int
 }
 
 // PingDelayDisconnectRequestTypeID is TL type id of PingDelayDisconnectRequest.

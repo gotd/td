@@ -31,11 +31,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/upload.getCdnFile for reference.
 type UploadGetCdnFileRequest struct {
 	// File token
-	FileToken []byte `tl:"file_token"`
+	FileToken []byte
 	// Offset of chunk to download
-	Offset int `tl:"offset"`
+	Offset int
 	// Length of chunk to download
-	Limit int `tl:"limit"`
+	Limit int
 }
 
 // UploadGetCdnFileRequestTypeID is TL type id of UploadGetCdnFileRequest.

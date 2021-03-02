@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/statsAbsValueAndPrev for reference.
 type StatsAbsValueAndPrev struct {
 	// Current value
-	Current float64 `tl:"current"`
+	Current float64
 	// Previous value
-	Previous float64 `tl:"previous"`
+	Previous float64
 }
 
 // StatsAbsValueAndPrevTypeID is TL type id of StatsAbsValueAndPrev.

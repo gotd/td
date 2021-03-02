@@ -31,16 +31,16 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/phone.confirmCall for reference.
 type PhoneConfirmCallRequest struct {
 	// The phone call
-	Peer InputPhoneCall `tl:"peer"`
+	Peer InputPhoneCall
 	// Parameter for E2E encryption key exchange »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/end-to-end/voice-calls
-	GA []byte `tl:"g_a"`
+	GA []byte
 	// Key fingerprint
-	KeyFingerprint int64 `tl:"key_fingerprint"`
+	KeyFingerprint int64
 	// Phone call settings
-	Protocol PhoneCallProtocol `tl:"protocol"`
+	Protocol PhoneCallProtocol
 }
 
 // PhoneConfirmCallRequestTypeID is TL type id of PhoneConfirmCallRequest.

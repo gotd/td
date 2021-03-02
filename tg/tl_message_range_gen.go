@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/messageRange for reference.
 type MessageRange struct {
 	// Start of range (message ID)
-	MinID int `tl:"min_id"`
+	MinID int
 	// End of range (message ID)
-	MaxID int `tl:"max_id"`
+	MaxID int
 }
 
 // MessageRangeTypeID is TL type id of MessageRange.

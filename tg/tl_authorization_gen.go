@@ -31,40 +31,40 @@ type Authorization struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether this is the current session
-	Current bool `tl:"current"`
+	Current bool
 	// Whether the session is from an official app
-	OfficialApp bool `tl:"official_app"`
+	OfficialApp bool
 	// Whether the session is still waiting for a 2FA password
-	PasswordPending bool `tl:"password_pending"`
+	PasswordPending bool
 	// Identifier
-	Hash int64 `tl:"hash"`
+	Hash int64
 	// Device model
-	DeviceModel string `tl:"device_model"`
+	DeviceModel string
 	// Platform
-	Platform string `tl:"platform"`
+	Platform string
 	// System version
-	SystemVersion string `tl:"system_version"`
+	SystemVersion string
 	// API ID¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/obtaining_api_id
-	APIID int `tl:"api_id"`
+	APIID int
 	// App name
-	AppName string `tl:"app_name"`
+	AppName string
 	// App version
-	AppVersion string `tl:"app_version"`
+	AppVersion string
 	// When was the session created
-	DateCreated int `tl:"date_created"`
+	DateCreated int
 	// When was the session last active
-	DateActive int `tl:"date_active"`
+	DateActive int
 	// Last known IP
-	IP string `tl:"ip"`
+	IP string
 	// Country determined from IP
-	Country string `tl:"country"`
+	Country string
 	// Region determined from IP
-	Region string `tl:"region"`
+	Region string
 }
 
 // AuthorizationTypeID is TL type id of Authorization.

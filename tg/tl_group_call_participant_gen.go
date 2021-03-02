@@ -27,37 +27,37 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/groupCallParticipant for reference.
 type GroupCallParticipant struct {
 	// Flags field of GroupCallParticipant.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Muted field of GroupCallParticipant.
-	Muted bool `tl:"muted"`
+	Muted bool
 	// Left field of GroupCallParticipant.
-	Left bool `tl:"left"`
+	Left bool
 	// CanSelfUnmute field of GroupCallParticipant.
-	CanSelfUnmute bool `tl:"can_self_unmute"`
+	CanSelfUnmute bool
 	// JustJoined field of GroupCallParticipant.
-	JustJoined bool `tl:"just_joined"`
+	JustJoined bool
 	// Versioned field of GroupCallParticipant.
-	Versioned bool `tl:"versioned"`
+	Versioned bool
 	// Min field of GroupCallParticipant.
-	Min bool `tl:"min"`
+	Min bool
 	// MutedByYou field of GroupCallParticipant.
-	MutedByYou bool `tl:"muted_by_you"`
+	MutedByYou bool
 	// VolumeByAdmin field of GroupCallParticipant.
-	VolumeByAdmin bool `tl:"volume_by_admin"`
+	VolumeByAdmin bool
 	// UserID field of GroupCallParticipant.
-	UserID int `tl:"user_id"`
+	UserID int
 	// Date field of GroupCallParticipant.
-	Date int `tl:"date"`
+	Date int
 	// ActiveDate field of GroupCallParticipant.
 	//
 	// Use SetActiveDate and GetActiveDate helpers.
-	ActiveDate int `tl:"active_date"`
+	ActiveDate int
 	// Source field of GroupCallParticipant.
-	Source int `tl:"source"`
+	Source int
 	// Volume field of GroupCallParticipant.
 	//
 	// Use SetVolume and GetVolume helpers.
-	Volume int `tl:"volume"`
+	Volume int
 }
 
 // GroupCallParticipantTypeID is TL type id of GroupCallParticipant.

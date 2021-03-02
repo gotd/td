@@ -34,7 +34,7 @@ type AuthCheckPasswordRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	Password InputCheckPasswordSRPClass `tl:"password"`
+	Password InputCheckPasswordSRPClass
 }
 
 // AuthCheckPasswordRequestTypeID is TL type id of AuthCheckPasswordRequest.

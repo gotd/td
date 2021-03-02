@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/webPageEmpty for reference.
 type WebPageEmpty struct {
 	// Preview ID
-	ID int64 `tl:"id"`
+	ID int64
 }
 
 // WebPageEmptyTypeID is TL type id of WebPageEmpty.
@@ -142,9 +142,9 @@ var (
 // See https://core.telegram.org/constructor/webPagePending for reference.
 type WebPagePending struct {
 	// ID of preview
-	ID int64 `tl:"id"`
+	ID int64
 	// When was the processing started
-	Date int `tl:"date"`
+	Date int
 }
 
 // WebPagePendingTypeID is TL type id of WebPagePending.
@@ -283,77 +283,77 @@ type WebPage struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Preview ID
-	ID int64 `tl:"id"`
+	ID int64
 	// URL of previewed webpage
-	URL string `tl:"url"`
+	URL string
 	// Webpage URL to be displayed to the user
-	DisplayURL string `tl:"display_url"`
+	DisplayURL string
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 	// Type of the web page. Can be: article, photo, audio, video, document, profile, app, or something else
 	//
 	// Use SetType and GetType helpers.
-	Type string `tl:"type"`
+	Type string
 	// Short name of the site (e.g., Google Docs, App Store)
 	//
 	// Use SetSiteName and GetSiteName helpers.
-	SiteName string `tl:"site_name"`
+	SiteName string
 	// Title of the content
 	//
 	// Use SetTitle and GetTitle helpers.
-	Title string `tl:"title"`
+	Title string
 	// Content description
 	//
 	// Use SetDescription and GetDescription helpers.
-	Description string `tl:"description"`
+	Description string
 	// Image representing the content
 	//
 	// Use SetPhoto and GetPhoto helpers.
-	Photo PhotoClass `tl:"photo"`
+	Photo PhotoClass
 	// URL to show in the embedded preview
 	//
 	// Use SetEmbedURL and GetEmbedURL helpers.
-	EmbedURL string `tl:"embed_url"`
+	EmbedURL string
 	// MIME type of the embedded preview, (e.g., text/html or video/mp4)
 	//
 	// Use SetEmbedType and GetEmbedType helpers.
-	EmbedType string `tl:"embed_type"`
+	EmbedType string
 	// Width of the embedded preview
 	//
 	// Use SetEmbedWidth and GetEmbedWidth helpers.
-	EmbedWidth int `tl:"embed_width"`
+	EmbedWidth int
 	// Height of the embedded preview
 	//
 	// Use SetEmbedHeight and GetEmbedHeight helpers.
-	EmbedHeight int `tl:"embed_height"`
+	EmbedHeight int
 	// Duration of the content, in seconds
 	//
 	// Use SetDuration and GetDuration helpers.
-	Duration int `tl:"duration"`
+	Duration int
 	// Author of the content
 	//
 	// Use SetAuthor and GetAuthor helpers.
-	Author string `tl:"author"`
+	Author string
 	// Preview of the content as a media file
 	//
 	// Use SetDocument and GetDocument helpers.
-	Document DocumentClass `tl:"document"`
+	Document DocumentClass
 	// Page contents in instant view¹ format
 	//
 	// Links:
 	//  1) https://instantview.telegram.org
 	//
 	// Use SetCachedPage and GetCachedPage helpers.
-	CachedPage Page `tl:"cached_page"`
+	CachedPage Page
 	// Webpage attributes
 	//
 	// Use SetAttributes and GetAttributes helpers.
-	Attributes []WebPageAttributeTheme `tl:"attributes"`
+	Attributes []WebPageAttributeTheme
 }
 
 // WebPageTypeID is TL type id of WebPage.
@@ -1146,11 +1146,11 @@ type WebPageNotModified struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Page view count
 	//
 	// Use SetCachedPageViews and GetCachedPageViews helpers.
-	CachedPageViews int `tl:"cached_page_views"`
+	CachedPageViews int
 }
 
 // WebPageNotModifiedTypeID is TL type id of WebPageNotModified.

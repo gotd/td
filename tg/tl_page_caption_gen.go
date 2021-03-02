@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/pageCaption for reference.
 type PageCaption struct {
 	// Caption
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 	// Credits
-	Credit RichTextClass `tl:"credit"`
+	Credit RichTextClass
 }
 
 // PageCaptionTypeID is TL type id of PageCaption.

@@ -31,22 +31,22 @@ type HelpTermsOfService struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether a prompt must be showed to the user, in order to accept the new terms.
-	Popup bool `tl:"popup"`
+	Popup bool
 	// ID of the new terms
-	ID DataJSON `tl:"id"`
+	ID DataJSON
 	// Text of the new terms
-	Text string `tl:"text"`
+	Text string
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
-	Entities []MessageEntityClass `tl:"entities"`
+	Entities []MessageEntityClass
 	// Minimum age required to sign up to telegram, the user must confirm that they is older than the minimum age.
 	//
 	// Use SetMinAgeConfirm and GetMinAgeConfirm helpers.
-	MinAgeConfirm int `tl:"min_age_confirm"`
+	MinAgeConfirm int
 }
 
 // HelpTermsOfServiceTypeID is TL type id of HelpTermsOfService.

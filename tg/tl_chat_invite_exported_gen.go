@@ -28,33 +28,33 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/chatInviteExported for reference.
 type ChatInviteExported struct {
 	// Flags field of ChatInviteExported.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Revoked field of ChatInviteExported.
-	Revoked bool `tl:"revoked"`
+	Revoked bool
 	// Permanent field of ChatInviteExported.
-	Permanent bool `tl:"permanent"`
+	Permanent bool
 	// Chat invitation link
-	Link string `tl:"link"`
+	Link string
 	// AdminID field of ChatInviteExported.
-	AdminID int `tl:"admin_id"`
+	AdminID int
 	// Date field of ChatInviteExported.
-	Date int `tl:"date"`
+	Date int
 	// StartDate field of ChatInviteExported.
 	//
 	// Use SetStartDate and GetStartDate helpers.
-	StartDate int `tl:"start_date"`
+	StartDate int
 	// ExpireDate field of ChatInviteExported.
 	//
 	// Use SetExpireDate and GetExpireDate helpers.
-	ExpireDate int `tl:"expire_date"`
+	ExpireDate int
 	// UsageLimit field of ChatInviteExported.
 	//
 	// Use SetUsageLimit and GetUsageLimit helpers.
-	UsageLimit int `tl:"usage_limit"`
+	UsageLimit int
 	// Usage field of ChatInviteExported.
 	//
 	// Use SetUsage and GetUsage helpers.
-	Usage int `tl:"usage"`
+	Usage int
 }
 
 // ChatInviteExportedTypeID is TL type id of ChatInviteExported.

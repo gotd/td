@@ -27,13 +27,13 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/messages.affectedFoundMessages for reference.
 type MessagesAffectedFoundMessages struct {
 	// Pts field of MessagesAffectedFoundMessages.
-	Pts int `tl:"pts"`
+	Pts int
 	// PtsCount field of MessagesAffectedFoundMessages.
-	PtsCount int `tl:"pts_count"`
+	PtsCount int
 	// Offset field of MessagesAffectedFoundMessages.
-	Offset int `tl:"offset"`
+	Offset int
 	// Messages field of MessagesAffectedFoundMessages.
-	Messages []int `tl:"messages"`
+	Messages []int
 }
 
 // MessagesAffectedFoundMessagesTypeID is TL type id of MessagesAffectedFoundMessages.

@@ -31,27 +31,27 @@ type AccountUpdateThemeRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Theme format, a string that identifies the theming engines supported by the client
-	Format string `tl:"format"`
+	Format string
 	// Theme to update
-	Theme InputThemeClass `tl:"theme"`
+	Theme InputThemeClass
 	// Unique theme ID
 	//
 	// Use SetSlug and GetSlug helpers.
-	Slug string `tl:"slug"`
+	Slug string
 	// Theme name
 	//
 	// Use SetTitle and GetTitle helpers.
-	Title string `tl:"title"`
+	Title string
 	// Theme file
 	//
 	// Use SetDocument and GetDocument helpers.
-	Document InputDocumentClass `tl:"document"`
+	Document InputDocumentClass
 	// Theme settings
 	//
 	// Use SetSettings and GetSettings helpers.
-	Settings InputThemeSettings `tl:"settings"`
+	Settings InputThemeSettings
 }
 
 // AccountUpdateThemeRequestTypeID is TL type id of AccountUpdateThemeRequest.

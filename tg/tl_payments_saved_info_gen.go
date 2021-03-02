@@ -31,13 +31,13 @@ type PaymentsSavedInfo struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the user has some saved payment credentials
-	HasSavedCredentials bool `tl:"has_saved_credentials"`
+	HasSavedCredentials bool
 	// Saved server-side order information
 	//
 	// Use SetSavedInfo and GetSavedInfo helpers.
-	SavedInfo PaymentRequestedInfo `tl:"saved_info"`
+	SavedInfo PaymentRequestedInfo
 }
 
 // PaymentsSavedInfoTypeID is TL type id of PaymentsSavedInfo.

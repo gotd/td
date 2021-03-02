@@ -31,11 +31,11 @@ type DraftMessageEmpty struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// When was the draft last updated
 	//
 	// Use SetDate and GetDate helpers.
-	Date int `tl:"date"`
+	Date int
 }
 
 // DraftMessageEmptyTypeID is TL type id of DraftMessageEmpty.
@@ -189,24 +189,24 @@ type DraftMessage struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether no webpage preview will be generated
-	NoWebpage bool `tl:"no_webpage"`
+	NoWebpage bool
 	// The message this message will reply to
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
-	ReplyToMsgID int `tl:"reply_to_msg_id"`
+	ReplyToMsgID int
 	// The draft
-	Message string `tl:"message"`
+	Message string
 	// Message entities¹ for styled text.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `tl:"entities"`
+	Entities []MessageEntityClass
 	// Date of last update of the draft.
-	Date int `tl:"date"`
+	Date int
 }
 
 // DraftMessageTypeID is TL type id of DraftMessage.

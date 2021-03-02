@@ -27,9 +27,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/phone.inviteToGroupCall for reference.
 type PhoneInviteToGroupCallRequest struct {
 	// Call field of PhoneInviteToGroupCallRequest.
-	Call InputGroupCall `tl:"call"`
+	Call InputGroupCall
 	// Users field of PhoneInviteToGroupCallRequest.
-	Users []InputUserClass `tl:"users"`
+	Users []InputUserClass
 }
 
 // PhoneInviteToGroupCallRequestTypeID is TL type id of PhoneInviteToGroupCallRequest.

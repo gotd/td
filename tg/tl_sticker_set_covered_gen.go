@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/stickerSetCovered for reference.
 type StickerSetCovered struct {
 	// Stickerset
-	Set StickerSet `tl:"set"`
+	Set StickerSet
 	// Preview
-	Cover DocumentClass `tl:"cover"`
+	Cover DocumentClass
 }
 
 // StickerSetCoveredTypeID is TL type id of StickerSetCovered.
@@ -171,9 +171,9 @@ var (
 // See https://core.telegram.org/constructor/stickerSetMultiCovered for reference.
 type StickerSetMultiCovered struct {
 	// Stickerset
-	Set StickerSet `tl:"set"`
+	Set StickerSet
 	// Preview stickers
-	Covers []DocumentClass `tl:"covers"`
+	Covers []DocumentClass
 }
 
 // StickerSetMultiCoveredTypeID is TL type id of StickerSetMultiCovered.

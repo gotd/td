@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/auth.dropTempAuthKeys for reference.
 type AuthDropTempAuthKeysRequest struct {
 	// The auth keys that shouldn't be dropped.
-	ExceptAuthKeys []int64 `tl:"except_auth_keys"`
+	ExceptAuthKeys []int64
 }
 
 // AuthDropTempAuthKeysRequestTypeID is TL type id of AuthDropTempAuthKeysRequest.

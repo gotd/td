@@ -32,7 +32,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/auth.recoverPassword for reference.
 type AuthRecoverPasswordRequest struct {
 	// Code received via email
-	Code string `tl:"code"`
+	Code string
 }
 
 // AuthRecoverPasswordRequestTypeID is TL type id of AuthRecoverPasswordRequest.

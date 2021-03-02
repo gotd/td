@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/contacts.resolveUsername for reference.
 type ContactsResolveUsernameRequest struct {
 	// @username to resolve
-	Username string `tl:"username"`
+	Username string
 }
 
 // ContactsResolveUsernameRequestTypeID is TL type id of ContactsResolveUsernameRequest.

@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/chatEmpty for reference.
 type ChatEmpty struct {
 	// Group identifier
-	ID int `tl:"id"`
+	ID int
 }
 
 // ChatEmptyTypeID is TL type id of ChatEmpty.
@@ -145,55 +145,55 @@ type Chat struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the current user is the creator of the group
-	Creator bool `tl:"creator"`
+	Creator bool
 	// Whether the current user was kicked from the group
-	Kicked bool `tl:"kicked"`
+	Kicked bool
 	// Whether the current user has left the group
-	Left bool `tl:"left"`
+	Left bool
 	// Whether the group was migrated¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Deactivated bool `tl:"deactivated"`
+	Deactivated bool
 	// CallActive field of Chat.
-	CallActive bool `tl:"call_active"`
+	CallActive bool
 	// CallNotEmpty field of Chat.
-	CallNotEmpty bool `tl:"call_not_empty"`
+	CallNotEmpty bool
 	// ID of the group
-	ID int `tl:"id"`
+	ID int
 	// Title
-	Title string `tl:"title"`
+	Title string
 	// Chat photo
-	Photo ChatPhotoClass `tl:"photo"`
+	Photo ChatPhotoClass
 	// Participant count
-	ParticipantsCount int `tl:"participants_count"`
+	ParticipantsCount int
 	// Date of creation of the group
-	Date int `tl:"date"`
+	Date int
 	// Used in basic groups to reorder updates and make sure that all of them were received.
-	Version int `tl:"version"`
+	Version int
 	// Means this chat was upgraded¹ to a supergroup
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	//
 	// Use SetMigratedTo and GetMigratedTo helpers.
-	MigratedTo InputChannelClass `tl:"migrated_to"`
+	MigratedTo InputChannelClass
 	// Admin rights¹ of the user in the group
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetAdminRights and GetAdminRights helpers.
-	AdminRights ChatAdminRights `tl:"admin_rights"`
+	AdminRights ChatAdminRights
 	// Default banned rights¹ of all users in the group
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetDefaultBannedRights and GetDefaultBannedRights helpers.
-	DefaultBannedRights ChatBannedRights `tl:"default_banned_rights"`
+	DefaultBannedRights ChatBannedRights
 }
 
 // ChatTypeID is TL type id of Chat.
@@ -745,9 +745,9 @@ var (
 // See https://core.telegram.org/constructor/chatForbidden for reference.
 type ChatForbidden struct {
 	// User identifier
-	ID int `tl:"id"`
+	ID int
 	// Group name
-	Title string `tl:"title"`
+	Title string
 }
 
 // ChatForbiddenTypeID is TL type id of ChatForbidden.
@@ -886,89 +886,89 @@ type Channel struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the current user is the creator of this channel
-	Creator bool `tl:"creator"`
+	Creator bool
 	// Whether the current user has left this channel
-	Left bool `tl:"left"`
+	Left bool
 	// Is this a channel?
-	Broadcast bool `tl:"broadcast"`
+	Broadcast bool
 	// Is this channel verified by telegram?
-	Verified bool `tl:"verified"`
+	Verified bool
 	// Is this a supergroup?
-	Megagroup bool `tl:"megagroup"`
+	Megagroup bool
 	// Whether viewing/writing in this channel for a reason (see restriction_reason
-	Restricted bool `tl:"restricted"`
+	Restricted bool
 	// Whether signatures are enabled (channels)
-	Signatures bool `tl:"signatures"`
+	Signatures bool
 	// See min¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/min
-	Min bool `tl:"min"`
+	Min bool
 	// This channel/supergroup is probably a scam
-	Scam bool `tl:"scam"`
+	Scam bool
 	// Whether this channel has a private join link
-	HasLink bool `tl:"has_link"`
+	HasLink bool
 	// Whether this chanel has a geoposition
-	HasGeo bool `tl:"has_geo"`
+	HasGeo bool
 	// Whether slow mode is enabled for groups to prevent flood in chat
-	SlowmodeEnabled bool `tl:"slowmode_enabled"`
+	SlowmodeEnabled bool
 	// CallActive field of Channel.
-	CallActive bool `tl:"call_active"`
+	CallActive bool
 	// CallNotEmpty field of Channel.
-	CallNotEmpty bool `tl:"call_not_empty"`
+	CallNotEmpty bool
 	// Fake field of Channel.
-	Fake bool `tl:"fake"`
+	Fake bool
 	// Gigagroup field of Channel.
-	Gigagroup bool `tl:"gigagroup"`
+	Gigagroup bool
 	// ID of the channel
-	ID int `tl:"id"`
+	ID int
 	// Access hash
 	//
 	// Use SetAccessHash and GetAccessHash helpers.
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// Title
-	Title string `tl:"title"`
+	Title string
 	// Username
 	//
 	// Use SetUsername and GetUsername helpers.
-	Username string `tl:"username"`
+	Username string
 	// Profile photo
-	Photo ChatPhotoClass `tl:"photo"`
+	Photo ChatPhotoClass
 	// Date when the user joined the supergroup/channel, or if the user isn't a member, its creation date
-	Date int `tl:"date"`
+	Date int
 	// Version of the channel (always 0)
-	Version int `tl:"version"`
+	Version int
 	// Contains the reason why access to this channel must be restricted.
 	//
 	// Use SetRestrictionReason and GetRestrictionReason helpers.
-	RestrictionReason []RestrictionReason `tl:"restriction_reason"`
+	RestrictionReason []RestrictionReason
 	// Admin rights of the user in this channel (see rights¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetAdminRights and GetAdminRights helpers.
-	AdminRights ChatAdminRights `tl:"admin_rights"`
+	AdminRights ChatAdminRights
 	// Banned rights of the user in this channel (see rights¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetBannedRights and GetBannedRights helpers.
-	BannedRights ChatBannedRights `tl:"banned_rights"`
+	BannedRights ChatBannedRights
 	// Default chat rights (see rights¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetDefaultBannedRights and GetDefaultBannedRights helpers.
-	DefaultBannedRights ChatBannedRights `tl:"default_banned_rights"`
+	DefaultBannedRights ChatBannedRights
 	// Participant count
 	//
 	// Use SetParticipantsCount and GetParticipantsCount helpers.
-	ParticipantsCount int `tl:"participants_count"`
+	ParticipantsCount int
 }
 
 // ChannelTypeID is TL type id of Channel.
@@ -1971,21 +1971,21 @@ type ChannelForbidden struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Is this a channel
-	Broadcast bool `tl:"broadcast"`
+	Broadcast bool
 	// Is this a supergroup
-	Megagroup bool `tl:"megagroup"`
+	Megagroup bool
 	// Channel ID
-	ID int `tl:"id"`
+	ID int
 	// Access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// Title
-	Title string `tl:"title"`
+	Title string
 	// The ban is valid until the specified date
 	//
 	// Use SetUntilDate and GetUntilDate helpers.
-	UntilDate int `tl:"until_date"`
+	UntilDate int
 }
 
 // ChannelForbiddenTypeID is TL type id of ChannelForbidden.

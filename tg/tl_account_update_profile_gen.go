@@ -31,19 +31,19 @@ type AccountUpdateProfileRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// New user first name
 	//
 	// Use SetFirstName and GetFirstName helpers.
-	FirstName string `tl:"first_name"`
+	FirstName string
 	// New user last name
 	//
 	// Use SetLastName and GetLastName helpers.
-	LastName string `tl:"last_name"`
+	LastName string
 	// New bio
 	//
 	// Use SetAbout and GetAbout helpers.
-	About string `tl:"about"`
+	About string
 }
 
 // AccountUpdateProfileRequestTypeID is TL type id of AccountUpdateProfileRequest.

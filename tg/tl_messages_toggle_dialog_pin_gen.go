@@ -31,11 +31,11 @@ type MessagesToggleDialogPinRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to pin or unpin the dialog
-	Pinned bool `tl:"pinned"`
+	Pinned bool
 	// The dialog to pin
-	Peer InputDialogPeerClass `tl:"peer"`
+	Peer InputDialogPeerClass
 }
 
 // MessagesToggleDialogPinRequestTypeID is TL type id of MessagesToggleDialogPinRequest.

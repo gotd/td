@@ -31,22 +31,22 @@ type MessageViews struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Viewcount of message
 	//
 	// Use SetViews and GetViews helpers.
-	Views int `tl:"views"`
+	Views int
 	// Forward count of message
 	//
 	// Use SetForwards and GetForwards helpers.
-	Forwards int `tl:"forwards"`
+	Forwards int
 	// Reply and thread¹ information of message
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetReplies and GetReplies helpers.
-	Replies MessageReplies `tl:"replies"`
+	Replies MessageReplies
 }
 
 // MessageViewsTypeID is TL type id of MessageViews.

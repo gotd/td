@@ -31,11 +31,11 @@ type AccountContentSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether viewing of sensitive (NSFW) content is enabled
-	SensitiveEnabled bool `tl:"sensitive_enabled"`
+	SensitiveEnabled bool
 	// Whether the current client can change the sensitive content settings to view NSFW content
-	SensitiveCanChange bool `tl:"sensitive_can_change"`
+	SensitiveCanChange bool
 }
 
 // AccountContentSettingsTypeID is TL type id of AccountContentSettings.

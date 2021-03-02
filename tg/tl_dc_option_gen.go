@@ -31,39 +31,39 @@ type DcOption struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the specified IP is an IPv6 address
-	Ipv6 bool `tl:"ipv6"`
+	Ipv6 bool
 	// Whether this DC should only be used to download or upload files¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files
-	MediaOnly bool `tl:"media_only"`
+	MediaOnly bool
 	// Whether this DC only supports connection with transport obfuscation¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/mtproto-transports#transport-obfuscation
-	TcpoOnly bool `tl:"tcpo_only"`
+	TcpoOnly bool
 	// Whether this is a CDN DC¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	CDN bool `tl:"cdn"`
+	CDN bool
 	// If set, this IP should be used when connecting through a proxy
-	Static bool `tl:"static"`
+	Static bool
 	// DC ID
-	ID int `tl:"id"`
+	ID int
 	// IP address of DC
-	IPAddress string `tl:"ip_address"`
+	IPAddress string
 	// Port
-	Port int `tl:"port"`
+	Port int
 	// If the tcpo_only flag is set, specifies the secret to use when connecting using transport obfuscation¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/mtproto-transports#transport-obfuscation
 	//
 	// Use SetSecret and GetSecret helpers.
-	Secret []byte `tl:"secret"`
+	Secret []byte
 }
 
 // DcOptionTypeID is TL type id of DcOption.

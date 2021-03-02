@@ -280,7 +280,7 @@ var (
 // See https://core.telegram.org/constructor/sendMessageUploadVideoAction for reference.
 type SendMessageUploadVideoAction struct {
 	// Progress percentage
-	Progress int `tl:"progress"`
+	Progress int
 }
 
 // SendMessageUploadVideoActionTypeID is TL type id of SendMessageUploadVideoAction.
@@ -478,7 +478,7 @@ var (
 // See https://core.telegram.org/constructor/sendMessageUploadAudioAction for reference.
 type SendMessageUploadAudioAction struct {
 	// Progress percentage
-	Progress int `tl:"progress"`
+	Progress int
 }
 
 // SendMessageUploadAudioActionTypeID is TL type id of SendMessageUploadAudioAction.
@@ -592,7 +592,7 @@ var (
 // See https://core.telegram.org/constructor/sendMessageUploadPhotoAction for reference.
 type SendMessageUploadPhotoAction struct {
 	// Progress percentage
-	Progress int `tl:"progress"`
+	Progress int
 }
 
 // SendMessageUploadPhotoActionTypeID is TL type id of SendMessageUploadPhotoAction.
@@ -706,7 +706,7 @@ var (
 // See https://core.telegram.org/constructor/sendMessageUploadDocumentAction for reference.
 type SendMessageUploadDocumentAction struct {
 	// Progress percentage
-	Progress int `tl:"progress"`
+	Progress int
 }
 
 // SendMessageUploadDocumentActionTypeID is TL type id of SendMessageUploadDocumentAction.
@@ -1156,7 +1156,7 @@ var (
 // See https://core.telegram.org/constructor/sendMessageUploadRoundAction for reference.
 type SendMessageUploadRoundAction struct {
 	// Progress percentage
-	Progress int `tl:"progress"`
+	Progress int
 }
 
 // SendMessageUploadRoundActionTypeID is TL type id of SendMessageUploadRoundAction.
@@ -1352,7 +1352,7 @@ var (
 // See https://core.telegram.org/constructor/sendMessageHistoryImportAction for reference.
 type SendMessageHistoryImportAction struct {
 	// Progress field of SendMessageHistoryImportAction.
-	Progress int `tl:"progress"`
+	Progress int
 }
 
 // SendMessageHistoryImportActionTypeID is TL type id of SendMessageHistoryImportAction.

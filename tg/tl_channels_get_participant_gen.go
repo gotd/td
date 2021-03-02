@@ -31,9 +31,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/channels.getParticipant for reference.
 type ChannelsGetParticipantRequest struct {
 	// Channel/supergroup
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// ID of participant to get info about
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 }
 
 // ChannelsGetParticipantRequestTypeID is TL type id of ChannelsGetParticipantRequest.

@@ -31,7 +31,7 @@ type AccountGetWallPapersRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 }
 
 // AccountGetWallPapersRequestTypeID is TL type id of AccountGetWallPapersRequest.

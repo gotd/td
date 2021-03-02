@@ -31,37 +31,37 @@ type PaymentsPaymentReceipt struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Date of generation
-	Date int `tl:"date"`
+	Date int
 	// Bot ID
-	BotID int `tl:"bot_id"`
+	BotID int
 	// Invoice
-	Invoice Invoice `tl:"invoice"`
+	Invoice Invoice
 	// Provider ID
-	ProviderID int `tl:"provider_id"`
+	ProviderID int
 	// Info
 	//
 	// Use SetInfo and GetInfo helpers.
-	Info PaymentRequestedInfo `tl:"info"`
+	Info PaymentRequestedInfo
 	// Selected shipping option
 	//
 	// Use SetShipping and GetShipping helpers.
-	Shipping ShippingOption `tl:"shipping"`
+	Shipping ShippingOption
 	// Three-letter ISO 4217 currency¹ code
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments#supported-currencies
-	Currency string `tl:"currency"`
+	Currency string
 	// Total amount in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json¹, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments/currencies.json
-	TotalAmount int64 `tl:"total_amount"`
+	TotalAmount int64
 	// Payment credential name
-	CredentialsTitle string `tl:"credentials_title"`
+	CredentialsTitle string
 	// Users
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // PaymentsPaymentReceiptTypeID is TL type id of PaymentsPaymentReceipt.

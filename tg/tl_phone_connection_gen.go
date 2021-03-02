@@ -28,15 +28,15 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/phoneConnection for reference.
 type PhoneConnection struct {
 	// Endpoint ID
-	ID int64 `tl:"id"`
+	ID int64
 	// IP address of endpoint
-	IP string `tl:"ip"`
+	IP string
 	// IPv6 address of endpoint
-	Ipv6 string `tl:"ipv6"`
+	Ipv6 string
 	// Port ID
-	Port int `tl:"port"`
+	Port int
 	// Our peer tag
-	PeerTag []byte `tl:"peer_tag"`
+	PeerTag []byte
 }
 
 // PhoneConnectionTypeID is TL type id of PhoneConnection.
@@ -241,23 +241,23 @@ type PhoneConnectionWebrtc struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether this is a TURN endpoint
-	Turn bool `tl:"turn"`
+	Turn bool
 	// Whether this is a STUN endpoint
-	Stun bool `tl:"stun"`
+	Stun bool
 	// Endpoint ID
-	ID int64 `tl:"id"`
+	ID int64
 	// IP address
-	IP string `tl:"ip"`
+	IP string
 	// IPv6 address
-	Ipv6 string `tl:"ipv6"`
+	Ipv6 string
 	// Port
-	Port int `tl:"port"`
+	Port int
 	// Username
-	Username string `tl:"username"`
+	Username string
 	// Password
-	Password string `tl:"password"`
+	Password string
 }
 
 // PhoneConnectionWebrtcTypeID is TL type id of PhoneConnectionWebrtc.

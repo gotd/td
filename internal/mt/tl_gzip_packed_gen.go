@@ -25,7 +25,7 @@ var _ = tdp.Format
 // GzipPacked represents TL type `gzip_packed#3072cfa1`.
 type GzipPacked struct {
 	// PackedData field of GzipPacked.
-	PackedData []byte `tl:"packed_data"`
+	PackedData []byte
 }
 
 // GzipPackedTypeID is TL type id of GzipPacked.

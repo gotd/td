@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/messages.messageViews for reference.
 type MessagesMessageViews struct {
 	// View, forward counter + info about replies
-	Views []MessageViews `tl:"views"`
+	Views []MessageViews
 	// Chats mentioned in constructor
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// Users mentioned in constructor
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // MessagesMessageViewsTypeID is TL type id of MessagesMessageViews.

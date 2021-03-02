@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/messages.messages for reference.
 type MessagesMessages struct {
 	// List of messages
-	Messages []MessageClass `tl:"messages"`
+	Messages []MessageClass
 	// List of chats mentioned in dialogs
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// List of users mentioned in messages and chats
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // MessagesMessagesTypeID is TL type id of MessagesMessages.
@@ -250,28 +250,28 @@ type MessagesMessagesSlice struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// If set, indicates that the results may be inexact
-	Inexact bool `tl:"inexact"`
+	Inexact bool
 	// Total number of messages in the list
-	Count int `tl:"count"`
+	Count int
 	// Rate to use in the offset_rate parameter in the next call to messages.searchGlobal¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.searchGlobal
 	//
 	// Use SetNextRate and GetNextRate helpers.
-	NextRate int `tl:"next_rate"`
+	NextRate int
 	// Indicates the absolute position of messages[0] within the total result set with count count. This is useful, for example, if the result was fetched using offset_id, and we need to display a progress/total counter (like photo 134 of 200, for all media in a chat, we could simply use photo ${offset_id_offset} of ${count}.
 	//
 	// Use SetOffsetIDOffset and GetOffsetIDOffset helpers.
-	OffsetIDOffset int `tl:"offset_id_offset"`
+	OffsetIDOffset int
 	// List of messages
-	Messages []MessageClass `tl:"messages"`
+	Messages []MessageClass
 	// List of chats mentioned in messages
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// List of users mentioned in messages and chats
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // MessagesMessagesSliceTypeID is TL type id of MessagesMessagesSlice.
@@ -638,26 +638,26 @@ type MessagesChannelMessages struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// If set, returned results may be inexact
-	Inexact bool `tl:"inexact"`
+	Inexact bool
 	// Event count after generation¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int `tl:"pts"`
+	Pts int
 	// Total number of results were found server-side (may not be all included here)
-	Count int `tl:"count"`
+	Count int
 	// Indicates the absolute position of messages[0] within the total result set with count count. This is useful, for example, if the result was fetched using offset_id, and we need to display a progress/total counter (like photo 134 of 200, for all media in a chat, we could simply use photo ${offset_id_offset} of ${count}.
 	//
 	// Use SetOffsetIDOffset and GetOffsetIDOffset helpers.
-	OffsetIDOffset int `tl:"offset_id_offset"`
+	OffsetIDOffset int
 	// Found messages
-	Messages []MessageClass `tl:"messages"`
+	Messages []MessageClass
 	// Chats
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// Users
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // MessagesChannelMessagesTypeID is TL type id of MessagesChannelMessages.
@@ -1002,7 +1002,7 @@ var (
 // See https://core.telegram.org/constructor/messages.messagesNotModified for reference.
 type MessagesMessagesNotModified struct {
 	// Number of results found server-side by the given query
-	Count int `tl:"count"`
+	Count int
 }
 
 // MessagesMessagesNotModifiedTypeID is TL type id of MessagesMessagesNotModified.

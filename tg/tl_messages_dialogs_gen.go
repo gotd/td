@@ -28,13 +28,13 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/messages.dialogs for reference.
 type MessagesDialogs struct {
 	// List of chats
-	Dialogs []DialogClass `tl:"dialogs"`
+	Dialogs []DialogClass
 	// List of last messages from each chat
-	Messages []MessageClass `tl:"messages"`
+	Messages []MessageClass
 	// List of groups mentioned in the chats
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// List of users mentioned in messages and groups
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // MessagesDialogsTypeID is TL type id of MessagesDialogs.
@@ -290,15 +290,15 @@ var (
 // See https://core.telegram.org/constructor/messages.dialogsSlice for reference.
 type MessagesDialogsSlice struct {
 	// Total number of dialogs
-	Count int `tl:"count"`
+	Count int
 	// List of dialogs
-	Dialogs []DialogClass `tl:"dialogs"`
+	Dialogs []DialogClass
 	// List of last messages from dialogs
-	Messages []MessageClass `tl:"messages"`
+	Messages []MessageClass
 	// List of chats mentioned in dialogs
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// List of users mentioned in messages and chats
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // MessagesDialogsSliceTypeID is TL type id of MessagesDialogsSlice.
@@ -576,7 +576,7 @@ var (
 // See https://core.telegram.org/constructor/messages.dialogsNotModified for reference.
 type MessagesDialogsNotModified struct {
 	// Number of dialogs found server-side by the query
-	Count int `tl:"count"`
+	Count int
 }
 
 // MessagesDialogsNotModifiedTypeID is TL type id of MessagesDialogsNotModified.

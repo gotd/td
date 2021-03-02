@@ -28,14 +28,14 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/inputEncryptedChat for reference.
 type InputEncryptedChat struct {
 	// Chat ID
-	ChatID int `tl:"chat_id"`
+	ChatID int
 	// Checking sum from constructor encryptedChat¹, encryptedChatWaiting² or encryptedChatRequested³
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/encryptedChat
 	//  2) https://core.telegram.org/constructor/encryptedChatWaiting
 	//  3) https://core.telegram.org/constructor/encryptedChatRequested
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 }
 
 // InputEncryptedChatTypeID is TL type id of InputEncryptedChat.

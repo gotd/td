@@ -34,21 +34,21 @@ type AccountPasswordSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// 2FA Recovery email¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp#email-verification
 	//
 	// Use SetEmail and GetEmail helpers.
-	Email string `tl:"email"`
+	Email string
 	// Telegram passport¹ settings
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetSecureSettings and GetSecureSettings helpers.
-	SecureSettings SecureSecretSettings `tl:"secure_settings"`
+	SecureSettings SecureSecretSettings
 }
 
 // AccountPasswordSettingsTypeID is TL type id of AccountPasswordSettings.

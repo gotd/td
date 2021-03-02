@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/inputMessageID for reference.
 type InputMessageID struct {
 	// Message ID
-	ID int `tl:"id"`
+	ID int
 }
 
 // InputMessageIDTypeID is TL type id of InputMessageID.
@@ -142,7 +142,7 @@ var (
 // See https://core.telegram.org/constructor/inputMessageReplyTo for reference.
 type InputMessageReplyTo struct {
 	// ID of the message that replies to the message we need
-	ID int `tl:"id"`
+	ID int
 }
 
 // InputMessageReplyToTypeID is TL type id of InputMessageReplyTo.
@@ -340,9 +340,9 @@ var (
 // See https://core.telegram.org/constructor/inputMessageCallbackQuery for reference.
 type InputMessageCallbackQuery struct {
 	// Message ID
-	ID int `tl:"id"`
+	ID int
 	// Callback query ID
-	QueryID int64 `tl:"query_id"`
+	QueryID int64
 }
 
 // InputMessageCallbackQueryTypeID is TL type id of InputMessageCallbackQuery.

@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/upload.saveFilePart for reference.
 type UploadSaveFilePartRequest struct {
 	// Random file identifier created by the client
-	FileID int64 `tl:"file_id"`
+	FileID int64
 	// Numerical order of a part
-	FilePart int `tl:"file_part"`
+	FilePart int
 	// Binary data, contend of a part
-	Bytes []byte `tl:"bytes"`
+	Bytes []byte
 }
 
 // UploadSaveFilePartRequestTypeID is TL type id of UploadSaveFilePartRequest.

@@ -25,7 +25,7 @@ var _ = tdp.Format
 // MsgsAck represents TL type `msgs_ack#62d6b459`.
 type MsgsAck struct {
 	// MsgIds field of MsgsAck.
-	MsgIds []int64 `tl:"msg_ids"`
+	MsgIds []int64
 }
 
 // MsgsAckTypeID is TL type id of MsgsAck.

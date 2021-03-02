@@ -31,15 +31,15 @@ type PhoneSetCallRatingRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the user decided on their own initiative to rate the call
-	UserInitiative bool `tl:"user_initiative"`
+	UserInitiative bool
 	// The call to rate
-	Peer InputPhoneCall `tl:"peer"`
+	Peer InputPhoneCall
 	// Rating in 1-5 stars
-	Rating int `tl:"rating"`
+	Rating int
 	// An additional comment
-	Comment string `tl:"comment"`
+	Comment string
 }
 
 // PhoneSetCallRatingRequestTypeID is TL type id of PhoneSetCallRatingRequest.

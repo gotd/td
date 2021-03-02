@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/contacts.resolvedPeer for reference.
 type ContactsResolvedPeer struct {
 	// The peer
-	Peer PeerClass `tl:"peer"`
+	Peer PeerClass
 	// Chats
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// Users
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // ContactsResolvedPeerTypeID is TL type id of ContactsResolvedPeer.

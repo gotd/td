@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/help.getRecentMeUrls for reference.
 type HelpGetRecentMeUrlsRequest struct {
 	// Referer
-	Referer string `tl:"referer"`
+	Referer string
 }
 
 // HelpGetRecentMeUrlsRequestTypeID is TL type id of HelpGetRecentMeUrlsRequest.

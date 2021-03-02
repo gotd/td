@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/exportedMessageLink for reference.
 type ExportedMessageLink struct {
 	// URL
-	Link string `tl:"link"`
+	Link string
 	// Embed code
-	HTML string `tl:"html"`
+	HTML string
 }
 
 // ExportedMessageLinkTypeID is TL type id of ExportedMessageLink.

@@ -115,15 +115,15 @@ type ChatPhoto struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the user has an animated profile picture
-	HasVideo bool `tl:"has_video"`
+	HasVideo bool
 	// Location of the file corresponding to the small thumbnail for group profile photo
-	PhotoSmall FileLocationToBeDeprecated `tl:"photo_small"`
+	PhotoSmall FileLocationToBeDeprecated
 	// Location of the file corresponding to the small thumbnail for group profile photo
-	PhotoBig FileLocationToBeDeprecated `tl:"photo_big"`
+	PhotoBig FileLocationToBeDeprecated
 	// DC where this photo is stored
-	DCID int `tl:"dc_id"`
+	DCID int
 }
 
 // ChatPhotoTypeID is TL type id of ChatPhoto.

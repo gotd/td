@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/dialogPeer for reference.
 type DialogPeer struct {
 	// Peer
-	Peer PeerClass `tl:"peer"`
+	Peer PeerClass
 }
 
 // DialogPeerTypeID is TL type id of DialogPeer.
@@ -153,7 +153,7 @@ type DialogPeerFolder struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
-	FolderID int `tl:"folder_id"`
+	FolderID int
 }
 
 // DialogPeerFolderTypeID is TL type id of DialogPeerFolder.

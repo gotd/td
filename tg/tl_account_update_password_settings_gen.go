@@ -31,12 +31,12 @@ type AccountUpdatePasswordSettingsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	Password InputCheckPasswordSRPClass `tl:"password"`
+	Password InputCheckPasswordSRPClass
 	// The new password (see SRP¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	NewSettings AccountPasswordInputSettings `tl:"new_settings"`
+	NewSettings AccountPasswordInputSettings
 }
 
 // AccountUpdatePasswordSettingsRequestTypeID is TL type id of AccountUpdatePasswordSettingsRequest.

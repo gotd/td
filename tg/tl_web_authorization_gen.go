@@ -31,23 +31,23 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/webAuthorization for reference.
 type WebAuthorization struct {
 	// Authorization hash
-	Hash int64 `tl:"hash"`
+	Hash int64
 	// Bot ID
-	BotID int `tl:"bot_id"`
+	BotID int
 	// The domain name of the website on which the user has logged in.
-	Domain string `tl:"domain"`
+	Domain string
 	// Browser user-agent
-	Browser string `tl:"browser"`
+	Browser string
 	// Platform
-	Platform string `tl:"platform"`
+	Platform string
 	// When was the web session created
-	DateCreated int `tl:"date_created"`
+	DateCreated int
 	// When was the web session last active
-	DateActive int `tl:"date_active"`
+	DateActive int
 	// IP address
-	IP string `tl:"ip"`
+	IP string
 	// Region, determined from IP address
-	Region string `tl:"region"`
+	Region string
 }
 
 // WebAuthorizationTypeID is TL type id of WebAuthorization.

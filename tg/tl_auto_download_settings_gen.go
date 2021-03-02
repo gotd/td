@@ -31,23 +31,23 @@ type AutoDownloadSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Disable automatic media downloads?
-	Disabled bool `tl:"disabled"`
+	Disabled bool
 	// Whether to preload the first seconds of videos larger than the specified limit
-	VideoPreloadLarge bool `tl:"video_preload_large"`
+	VideoPreloadLarge bool
 	// Whether to preload the next audio track when you're listening to music
-	AudioPreloadNext bool `tl:"audio_preload_next"`
+	AudioPreloadNext bool
 	// Whether to enable data saving mode in phone calls
-	PhonecallsLessData bool `tl:"phonecalls_less_data"`
+	PhonecallsLessData bool
 	// Maximum size of photos to preload
-	PhotoSizeMax int `tl:"photo_size_max"`
+	PhotoSizeMax int
 	// Maximum size of videos to preload
-	VideoSizeMax int `tl:"video_size_max"`
+	VideoSizeMax int
 	// Maximum size of other files to preload
-	FileSizeMax int `tl:"file_size_max"`
+	FileSizeMax int
 	// Maximum suggested bitrate for uploading videos
-	VideoUploadMaxbitrate int `tl:"video_upload_maxbitrate"`
+	VideoUploadMaxbitrate int
 }
 
 // AutoDownloadSettingsTypeID is TL type id of AutoDownloadSettings.

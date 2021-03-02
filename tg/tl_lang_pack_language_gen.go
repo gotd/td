@@ -31,34 +31,34 @@ type LangPackLanguage struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the language pack is official
-	Official bool `tl:"official"`
+	Official bool
 	// Is this a localization pack for an RTL language
-	Rtl bool `tl:"rtl"`
+	Rtl bool
 	// Is this a beta localization pack?
-	Beta bool `tl:"beta"`
+	Beta bool
 	// Language name
-	Name string `tl:"name"`
+	Name string
 	// Language name in the language itself
-	NativeName string `tl:"native_name"`
+	NativeName string
 	// Language code (pack identifier)
-	LangCode string `tl:"lang_code"`
+	LangCode string
 	// Identifier of a base language pack; may be empty. If a string is missed in the language pack, then it should be fetched from base language pack. Unsupported in custom language packs
 	//
 	// Use SetBaseLangCode and GetBaseLangCode helpers.
-	BaseLangCode string `tl:"base_lang_code"`
+	BaseLangCode string
 	// A language code to be used to apply plural forms. See https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html¹ for more info
 	//
 	// Links:
 	//  1) https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html
-	PluralCode string `tl:"plural_code"`
+	PluralCode string
 	// Total number of non-deleted strings from the language pack
-	StringsCount int `tl:"strings_count"`
+	StringsCount int
 	// Total number of translated strings from the language pack
-	TranslatedCount int `tl:"translated_count"`
+	TranslatedCount int
 	// Link to language translation interface; empty for custom local language packs
-	TranslationsURL string `tl:"translations_url"`
+	TranslationsURL string
 }
 
 // LangPackLanguageTypeID is TL type id of LangPackLanguage.

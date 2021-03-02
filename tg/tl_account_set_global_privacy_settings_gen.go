@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.setGlobalPrivacySettings for reference.
 type AccountSetGlobalPrivacySettingsRequest struct {
 	// Global privacy settings
-	Settings GlobalPrivacySettings `tl:"settings"`
+	Settings GlobalPrivacySettings
 }
 
 // AccountSetGlobalPrivacySettingsRequestTypeID is TL type id of AccountSetGlobalPrivacySettingsRequest.

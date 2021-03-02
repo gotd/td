@@ -31,9 +31,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/auth.loginToken for reference.
 type AuthLoginToken struct {
 	// Expiry date of QR code
-	Expires int `tl:"expires"`
+	Expires int
 	// Token to render in QR code
-	Token []byte `tl:"token"`
+	Token []byte
 }
 
 // AuthLoginTokenTypeID is TL type id of AuthLoginToken.
@@ -169,9 +169,9 @@ var (
 // See https://core.telegram.org/constructor/auth.loginTokenMigrateTo for reference.
 type AuthLoginTokenMigrateTo struct {
 	// DC ID
-	DCID int `tl:"dc_id"`
+	DCID int
 	// Token to use for login
-	Token []byte `tl:"token"`
+	Token []byte
 }
 
 // AuthLoginTokenMigrateToTypeID is TL type id of AuthLoginTokenMigrateTo.
@@ -307,7 +307,7 @@ var (
 // See https://core.telegram.org/constructor/auth.loginTokenSuccess for reference.
 type AuthLoginTokenSuccess struct {
 	// Authorization info
-	Authorization AuthAuthorizationClass `tl:"authorization"`
+	Authorization AuthAuthorizationClass
 }
 
 // AuthLoginTokenSuccessTypeID is TL type id of AuthLoginTokenSuccess.

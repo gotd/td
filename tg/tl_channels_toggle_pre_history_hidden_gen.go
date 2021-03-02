@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/channels.togglePreHistoryHidden for reference.
 type ChannelsTogglePreHistoryHiddenRequest struct {
 	// Channel/supergroup
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// Hide/unhide
-	Enabled bool `tl:"enabled"`
+	Enabled bool
 }
 
 // ChannelsTogglePreHistoryHiddenRequestTypeID is TL type id of ChannelsTogglePreHistoryHiddenRequest.

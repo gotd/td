@@ -32,7 +32,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.getSecureValue for reference.
 type AccountGetSecureValueRequest struct {
 	// Requested value types
-	Types []SecureValueTypeClass `tl:"types"`
+	Types []SecureValueTypeClass
 }
 
 // AccountGetSecureValueRequestTypeID is TL type id of AccountGetSecureValueRequest.

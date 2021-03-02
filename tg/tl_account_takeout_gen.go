@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/account.takeout for reference.
 type AccountTakeout struct {
 	// Takeout ID
-	ID int64 `tl:"id"`
+	ID int64
 }
 
 // AccountTakeoutTypeID is TL type id of AccountTakeout.

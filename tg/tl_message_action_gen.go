@@ -112,9 +112,9 @@ var (
 // See https://core.telegram.org/constructor/messageActionChatCreate for reference.
 type MessageActionChatCreate struct {
 	// Group name
-	Title string `tl:"title"`
+	Title string
 	// List of group members
-	Users []int `tl:"users"`
+	Users []int
 }
 
 // MessageActionChatCreateTypeID is TL type id of MessageActionChatCreate.
@@ -259,7 +259,7 @@ var (
 // See https://core.telegram.org/constructor/messageActionChatEditTitle for reference.
 type MessageActionChatEditTitle struct {
 	// New group name
-	Title string `tl:"title"`
+	Title string
 }
 
 // MessageActionChatEditTitleTypeID is TL type id of MessageActionChatEditTitle.
@@ -373,7 +373,7 @@ var (
 // See https://core.telegram.org/constructor/messageActionChatEditPhoto for reference.
 type MessageActionChatEditPhoto struct {
 	// New group pofile photo
-	Photo PhotoClass `tl:"photo"`
+	Photo PhotoClass
 }
 
 // MessageActionChatEditPhotoTypeID is TL type id of MessageActionChatEditPhoto.
@@ -576,7 +576,7 @@ var (
 // See https://core.telegram.org/constructor/messageActionChatAddUser for reference.
 type MessageActionChatAddUser struct {
 	// Users that were invited to the chat
-	Users []int `tl:"users"`
+	Users []int
 }
 
 // MessageActionChatAddUserTypeID is TL type id of MessageActionChatAddUser.
@@ -699,7 +699,7 @@ var (
 // See https://core.telegram.org/constructor/messageActionChatDeleteUser for reference.
 type MessageActionChatDeleteUser struct {
 	// Leaving user ID
-	UserID int `tl:"user_id"`
+	UserID int
 }
 
 // MessageActionChatDeleteUserTypeID is TL type id of MessageActionChatDeleteUser.
@@ -813,7 +813,7 @@ var (
 // See https://core.telegram.org/constructor/messageActionChatJoinedByLink for reference.
 type MessageActionChatJoinedByLink struct {
 	// ID of the user that created the invite link
-	InviterID int `tl:"inviter_id"`
+	InviterID int
 }
 
 // MessageActionChatJoinedByLinkTypeID is TL type id of MessageActionChatJoinedByLink.
@@ -927,7 +927,7 @@ var (
 // See https://core.telegram.org/constructor/messageActionChannelCreate for reference.
 type MessageActionChannelCreate struct {
 	// Original channel/supergroup title
-	Title string `tl:"title"`
+	Title string
 }
 
 // MessageActionChannelCreateTypeID is TL type id of MessageActionChannelCreate.
@@ -1044,7 +1044,7 @@ var (
 // See https://core.telegram.org/constructor/messageActionChatMigrateTo for reference.
 type MessageActionChatMigrateTo struct {
 	// The supergroup it was migrated to
-	ChannelID int `tl:"channel_id"`
+	ChannelID int
 }
 
 // MessageActionChatMigrateToTypeID is TL type id of MessageActionChatMigrateTo.
@@ -1161,9 +1161,9 @@ var (
 // See https://core.telegram.org/constructor/messageActionChannelMigrateFrom for reference.
 type MessageActionChannelMigrateFrom struct {
 	// The old chat tite
-	Title string `tl:"title"`
+	Title string
 	// The old chat ID
-	ChatID int `tl:"chat_id"`
+	ChatID int
 }
 
 // MessageActionChannelMigrateFromTypeID is TL type id of MessageActionChannelMigrateFrom.
@@ -1467,9 +1467,9 @@ var (
 // See https://core.telegram.org/constructor/messageActionGameScore for reference.
 type MessageActionGameScore struct {
 	// Game ID
-	GameID int64 `tl:"game_id"`
+	GameID int64
 	// Score
-	Score int `tl:"score"`
+	Score int
 }
 
 // MessageActionGameScoreTypeID is TL type id of MessageActionGameScore.
@@ -1608,29 +1608,29 @@ type MessageActionPaymentSentMe struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Three-letter ISO 4217 currency¹ code
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments#supported-currencies
-	Currency string `tl:"currency"`
+	Currency string
 	// Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json¹, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments/currencies.json
-	TotalAmount int64 `tl:"total_amount"`
+	TotalAmount int64
 	// Bot specified invoice payload
-	Payload []byte `tl:"payload"`
+	Payload []byte
 	// Order info provided by the user
 	//
 	// Use SetInfo and GetInfo helpers.
-	Info PaymentRequestedInfo `tl:"info"`
+	Info PaymentRequestedInfo
 	// Identifier of the shipping option chosen by the user
 	//
 	// Use SetShippingOptionID and GetShippingOptionID helpers.
-	ShippingOptionID string `tl:"shipping_option_id"`
+	ShippingOptionID string
 	// Provider payment identifier
-	Charge PaymentCharge `tl:"charge"`
+	Charge PaymentCharge
 }
 
 // MessageActionPaymentSentMeTypeID is TL type id of MessageActionPaymentSentMe.
@@ -1910,12 +1910,12 @@ type MessageActionPaymentSent struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments#supported-currencies
-	Currency string `tl:"currency"`
+	Currency string
 	// Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json¹, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments/currencies.json
-	TotalAmount int64 `tl:"total_amount"`
+	TotalAmount int64
 }
 
 // MessageActionPaymentSentTypeID is TL type id of MessageActionPaymentSent.
@@ -2054,19 +2054,19 @@ type MessageActionPhoneCall struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Is this a video call?
-	Video bool `tl:"video"`
+	Video bool
 	// Call ID
-	CallID int64 `tl:"call_id"`
+	CallID int64
 	// If the call has ended, the reason why it ended
 	//
 	// Use SetReason and GetReason helpers.
-	Reason PhoneCallDiscardReasonClass `tl:"reason"`
+	Reason PhoneCallDiscardReasonClass
 	// Duration of the call in seconds
 	//
 	// Use SetDuration and GetDuration helpers.
-	Duration int `tl:"duration"`
+	Duration int
 }
 
 // MessageActionPhoneCallTypeID is TL type id of MessageActionPhoneCall.
@@ -2396,7 +2396,7 @@ var (
 // See https://core.telegram.org/constructor/messageActionCustomAction for reference.
 type MessageActionCustomAction struct {
 	// Action message
-	Message string `tl:"message"`
+	Message string
 }
 
 // MessageActionCustomActionTypeID is TL type id of MessageActionCustomAction.
@@ -2513,7 +2513,7 @@ var (
 // See https://core.telegram.org/constructor/messageActionBotAllowed for reference.
 type MessageActionBotAllowed struct {
 	// The domain name of the website on which the user has logged in.
-	Domain string `tl:"domain"`
+	Domain string
 }
 
 // MessageActionBotAllowedTypeID is TL type id of MessageActionBotAllowed.
@@ -2630,9 +2630,9 @@ var (
 // See https://core.telegram.org/constructor/messageActionSecureValuesSentMe for reference.
 type MessageActionSecureValuesSentMe struct {
 	// Vector with information about documents and other Telegram Passport elements that were shared with the bot
-	Values []SecureValue `tl:"values"`
+	Values []SecureValue
 	// Encrypted credentials required to decrypt the data
-	Credentials SecureCredentialsEncrypted `tl:"credentials"`
+	Credentials SecureCredentialsEncrypted
 }
 
 // MessageActionSecureValuesSentMeTypeID is TL type id of MessageActionSecureValuesSentMe.
@@ -2782,7 +2782,7 @@ var (
 // See https://core.telegram.org/constructor/messageActionSecureValuesSent for reference.
 type MessageActionSecureValuesSent struct {
 	// Secure value types
-	Types []SecureValueTypeClass `tl:"types"`
+	Types []SecureValueTypeClass
 }
 
 // MessageActionSecureValuesSentTypeID is TL type id of MessageActionSecureValuesSent.
@@ -2999,14 +2999,14 @@ var (
 // See https://core.telegram.org/constructor/messageActionGeoProximityReached for reference.
 type MessageActionGeoProximityReached struct {
 	// The user or chat that is now in proximity of to_id
-	FromID PeerClass `tl:"from_id"`
+	FromID PeerClass
 	// The user or chat that subscribed to live geolocation proximity alerts¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/live-location#proximity-alert
-	ToID PeerClass `tl:"to_id"`
+	ToID PeerClass
 	// Distance, in meters (0-100000)
-	Distance int `tl:"distance"`
+	Distance int
 }
 
 // MessageActionGeoProximityReachedTypeID is TL type id of MessageActionGeoProximityReached.
@@ -3173,13 +3173,13 @@ var (
 // See https://core.telegram.org/constructor/messageActionGroupCall for reference.
 type MessageActionGroupCall struct {
 	// Flags field of MessageActionGroupCall.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Call field of MessageActionGroupCall.
-	Call InputGroupCall `tl:"call"`
+	Call InputGroupCall
 	// Duration field of MessageActionGroupCall.
 	//
 	// Use SetDuration and GetDuration helpers.
-	Duration int `tl:"duration"`
+	Duration int
 }
 
 // MessageActionGroupCallTypeID is TL type id of MessageActionGroupCall.
@@ -3348,9 +3348,9 @@ var (
 // See https://core.telegram.org/constructor/messageActionInviteToGroupCall for reference.
 type MessageActionInviteToGroupCall struct {
 	// Call field of MessageActionInviteToGroupCall.
-	Call InputGroupCall `tl:"call"`
+	Call InputGroupCall
 	// Users field of MessageActionInviteToGroupCall.
-	Users []int `tl:"users"`
+	Users []int
 }
 
 // MessageActionInviteToGroupCallTypeID is TL type id of MessageActionInviteToGroupCall.
@@ -3494,7 +3494,7 @@ var (
 // See https://core.telegram.org/constructor/messageActionSetMessagesTTL for reference.
 type MessageActionSetMessagesTTL struct {
 	// Period field of MessageActionSetMessagesTTL.
-	Period int `tl:"period"`
+	Period int
 }
 
 // MessageActionSetMessagesTTLTypeID is TL type id of MessageActionSetMessagesTTL.

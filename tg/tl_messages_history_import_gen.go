@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/messages.historyImport for reference.
 type MessagesHistoryImport struct {
 	// ID field of MessagesHistoryImport.
-	ID int64 `tl:"id"`
+	ID int64
 }
 
 // MessagesHistoryImportTypeID is TL type id of MessagesHistoryImport.

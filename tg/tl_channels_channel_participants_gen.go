@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/channels.channelParticipants for reference.
 type ChannelsChannelParticipants struct {
 	// Total number of participants that correspond to the given query
-	Count int `tl:"count"`
+	Count int
 	// Participants
-	Participants []ChannelParticipantClass `tl:"participants"`
+	Participants []ChannelParticipantClass
 	// Users mentioned in participant info
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // ChannelsChannelParticipantsTypeID is TL type id of ChannelsChannelParticipants.

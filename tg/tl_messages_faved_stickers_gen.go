@@ -115,11 +115,11 @@ type MessagesFavedStickers struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 	// Emojis associated to stickers
-	Packs []StickerPack `tl:"packs"`
+	Packs []StickerPack
 	// Favorited stickers
-	Stickers []DocumentClass `tl:"stickers"`
+	Stickers []DocumentClass
 }
 
 // MessagesFavedStickersTypeID is TL type id of MessagesFavedStickers.

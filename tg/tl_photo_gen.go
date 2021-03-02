@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/photoEmpty for reference.
 type PhotoEmpty struct {
 	// Photo identifier
-	ID int64 `tl:"id"`
+	ID int64
 }
 
 // PhotoEmptyTypeID is TL type id of PhotoEmpty.
@@ -145,31 +145,31 @@ type Photo struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the photo has mask stickers attached to it
-	HasStickers bool `tl:"has_stickers"`
+	HasStickers bool
 	// ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// file reference¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/file_reference
-	FileReference []byte `tl:"file_reference"`
+	FileReference []byte
 	// Date of upload
-	Date int `tl:"date"`
+	Date int
 	// Available sizes for download
-	Sizes []PhotoSizeClass `tl:"sizes"`
+	Sizes []PhotoSizeClass
 	// For animated profiles¹, the MPEG4 videos
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files#animated-profile-pictures
 	//
 	// Use SetVideoSizes and GetVideoSizes helpers.
-	VideoSizes []VideoSize `tl:"video_sizes"`
+	VideoSizes []VideoSize
 	// DC ID to use for download
-	DCID int `tl:"dc_id"`
+	DCID int
 }
 
 // PhotoTypeID is TL type id of Photo.

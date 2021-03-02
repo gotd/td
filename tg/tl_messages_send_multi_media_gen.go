@@ -34,28 +34,28 @@ type MessagesSendMultiMediaRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to send the album silently (no notification triggered)
-	Silent bool `tl:"silent"`
+	Silent bool
 	// Send in background?
-	Background bool `tl:"background"`
+	Background bool
 	// Whether to clear drafts¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/drafts
-	ClearDraft bool `tl:"clear_draft"`
+	ClearDraft bool
 	// The destination chat
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// The message to reply to
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
-	ReplyToMsgID int `tl:"reply_to_msg_id"`
+	ReplyToMsgID int
 	// The medias to send
-	MultiMedia []InputSingleMedia `tl:"multi_media"`
+	MultiMedia []InputSingleMedia
 	// Scheduled message date for scheduled messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
-	ScheduleDate int `tl:"schedule_date"`
+	ScheduleDate int
 }
 
 // MessagesSendMultiMediaRequestTypeID is TL type id of MessagesSendMultiMediaRequest.

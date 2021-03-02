@@ -31,25 +31,25 @@ type MessagesForwardMessagesRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to send messages silently (no notification will be triggered on the destination clients)
-	Silent bool `tl:"silent"`
+	Silent bool
 	// Whether to send the message in background
-	Background bool `tl:"background"`
+	Background bool
 	// When forwarding games, whether to include your score in the game
-	WithMyScore bool `tl:"with_my_score"`
+	WithMyScore bool
 	// Source of messages
-	FromPeer InputPeerClass `tl:"from_peer"`
+	FromPeer InputPeerClass
 	// IDs of messages
-	ID []int `tl:"id"`
+	ID []int
 	// Random ID to prevent resending of messages
-	RandomID []int64 `tl:"random_id"`
+	RandomID []int64
 	// Destination peer
-	ToPeer InputPeerClass `tl:"to_peer"`
+	ToPeer InputPeerClass
 	// Scheduled message date for scheduled messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
-	ScheduleDate int `tl:"schedule_date"`
+	ScheduleDate int
 }
 
 // MessagesForwardMessagesRequestTypeID is TL type id of MessagesForwardMessagesRequest.

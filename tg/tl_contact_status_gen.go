@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/contactStatus for reference.
 type ContactStatus struct {
 	// User identifier
-	UserID int `tl:"user_id"`
+	UserID int
 	// Online status
-	Status UserStatusClass `tl:"status"`
+	Status UserStatusClass
 }
 
 // ContactStatusTypeID is TL type id of ContactStatus.

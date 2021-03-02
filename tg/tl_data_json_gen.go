@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/dataJSON for reference.
 type DataJSON struct {
 	// JSON-encoded object
-	Data string `tl:"data"`
+	Data string
 }
 
 // DataJSONTypeID is TL type id of DataJSON.

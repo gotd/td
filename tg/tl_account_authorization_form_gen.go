@@ -34,28 +34,28 @@ type AccountAuthorizationForm struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Required Telegram Passport¹ documents
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
-	RequiredTypes []SecureRequiredTypeClass `tl:"required_types"`
+	RequiredTypes []SecureRequiredTypeClass
 	// Already submitted Telegram Passport¹ documents
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
-	Values []SecureValue `tl:"values"`
+	Values []SecureValue
 	// Telegram Passport¹ errors
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
-	Errors []SecureValueErrorClass `tl:"errors"`
+	Errors []SecureValueErrorClass
 	// Info about the bot to which the form will be submitted
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 	// URL of the service's privacy policy
 	//
 	// Use SetPrivacyPolicyURL and GetPrivacyPolicyURL helpers.
-	PrivacyPolicyURL string `tl:"privacy_policy_url"`
+	PrivacyPolicyURL string
 }
 
 // AccountAuthorizationFormTypeID is TL type id of AccountAuthorizationForm.

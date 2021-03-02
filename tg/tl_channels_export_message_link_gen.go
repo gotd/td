@@ -34,15 +34,15 @@ type ChannelsExportMessageLinkRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to include other grouped media (for albums)
-	Grouped bool `tl:"grouped"`
+	Grouped bool
 	// Whether to also include a thread ID, if available, inside of the link
-	Thread bool `tl:"thread"`
+	Thread bool
 	// Channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// Message ID
-	ID int `tl:"id"`
+	ID int
 }
 
 // ChannelsExportMessageLinkRequestTypeID is TL type id of ChannelsExportMessageLinkRequest.

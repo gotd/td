@@ -31,17 +31,17 @@ type PhoneDiscardCallRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether this is a video call
-	Video bool `tl:"video"`
+	Video bool
 	// The phone call
-	Peer InputPhoneCall `tl:"peer"`
+	Peer InputPhoneCall
 	// Call duration
-	Duration int `tl:"duration"`
+	Duration int
 	// Why was the call discarded
-	Reason PhoneCallDiscardReasonClass `tl:"reason"`
+	Reason PhoneCallDiscardReasonClass
 	// Preferred libtgvoip relay ID
-	ConnectionID int64 `tl:"connection_id"`
+	ConnectionID int64
 }
 
 // PhoneDiscardCallRequestTypeID is TL type id of PhoneDiscardCallRequest.

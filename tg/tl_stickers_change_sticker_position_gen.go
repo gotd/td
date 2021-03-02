@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/stickers.changeStickerPosition for reference.
 type StickersChangeStickerPositionRequest struct {
 	// The sticker
-	Sticker InputDocumentClass `tl:"sticker"`
+	Sticker InputDocumentClass
 	// The new position of the sticker, zero-based
-	Position int `tl:"position"`
+	Position int
 }
 
 // StickersChangeStickerPositionRequestTypeID is TL type id of StickersChangeStickerPositionRequest.

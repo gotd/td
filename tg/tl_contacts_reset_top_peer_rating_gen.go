@@ -31,9 +31,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/contacts.resetTopPeerRating for reference.
 type ContactsResetTopPeerRatingRequest struct {
 	// Top peer category
-	Category TopPeerCategoryClass `tl:"category"`
+	Category TopPeerCategoryClass
 	// Peer whose rating should be reset
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 }
 
 // ContactsResetTopPeerRatingRequestTypeID is TL type id of ContactsResetTopPeerRatingRequest.

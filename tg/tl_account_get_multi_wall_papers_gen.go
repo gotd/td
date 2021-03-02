@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.getMultiWallPapers for reference.
 type AccountGetMultiWallPapersRequest struct {
 	// Wallpapers to fetch info about
-	Wallpapers []InputWallPaperClass `tl:"wallpapers"`
+	Wallpapers []InputWallPaperClass
 }
 
 // AccountGetMultiWallPapersRequestTypeID is TL type id of AccountGetMultiWallPapersRequest.

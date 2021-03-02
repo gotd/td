@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/messages.chats for reference.
 type MessagesChats struct {
 	// List of chats
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 }
 
 // MessagesChatsTypeID is TL type id of MessagesChats.
@@ -164,9 +164,9 @@ var (
 // See https://core.telegram.org/constructor/messages.chatsSlice for reference.
 type MessagesChatsSlice struct {
 	// Total number of results that were found server-side (not all are included in chats)
-	Count int `tl:"count"`
+	Count int
 	// Chats
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 }
 
 // MessagesChatsSliceTypeID is TL type id of MessagesChatsSlice.

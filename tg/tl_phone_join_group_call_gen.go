@@ -27,13 +27,13 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/phone.joinGroupCall for reference.
 type PhoneJoinGroupCallRequest struct {
 	// Flags field of PhoneJoinGroupCallRequest.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Muted field of PhoneJoinGroupCallRequest.
-	Muted bool `tl:"muted"`
+	Muted bool
 	// Call field of PhoneJoinGroupCallRequest.
-	Call InputGroupCall `tl:"call"`
+	Call InputGroupCall
 	// Params field of PhoneJoinGroupCallRequest.
-	Params DataJSON `tl:"params"`
+	Params DataJSON
 }
 
 // PhoneJoinGroupCallRequestTypeID is TL type id of PhoneJoinGroupCallRequest.

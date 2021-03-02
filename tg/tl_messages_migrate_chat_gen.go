@@ -31,7 +31,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.migrateChat for reference.
 type MessagesMigrateChatRequest struct {
 	// Legacy group to migrate
-	ChatID int `tl:"chat_id"`
+	ChatID int
 }
 
 // MessagesMigrateChatRequestTypeID is TL type id of MessagesMigrateChatRequest.

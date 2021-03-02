@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.setAccountTTL for reference.
 type AccountSetAccountTTLRequest struct {
 	// Time to live in days
-	TTL AccountDaysTTL `tl:"ttl"`
+	TTL AccountDaysTTL
 }
 
 // AccountSetAccountTTLRequestTypeID is TL type id of AccountSetAccountTTLRequest.

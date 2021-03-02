@@ -31,15 +31,15 @@ type SecureRequiredType struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Native names
-	NativeNames bool `tl:"native_names"`
+	NativeNames bool
 	// Is a selfie required
-	SelfieRequired bool `tl:"selfie_required"`
+	SelfieRequired bool
 	// Is a translation required
-	TranslationRequired bool `tl:"translation_required"`
+	TranslationRequired bool
 	// Secure value type
-	Type SecureValueTypeClass `tl:"type"`
+	Type SecureValueTypeClass
 }
 
 // SecureRequiredTypeTypeID is TL type id of SecureRequiredType.
@@ -263,7 +263,7 @@ var (
 // See https://core.telegram.org/constructor/secureRequiredTypeOneOf for reference.
 type SecureRequiredTypeOneOf struct {
 	// Secure required value types
-	Types []SecureRequiredTypeClass `tl:"types"`
+	Types []SecureRequiredTypeClass
 }
 
 // SecureRequiredTypeOneOfTypeID is TL type id of SecureRequiredTypeOneOf.

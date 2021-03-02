@@ -31,9 +31,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/upload.reuploadCdnFile for reference.
 type UploadReuploadCdnFileRequest struct {
 	// File token
-	FileToken []byte `tl:"file_token"`
+	FileToken []byte
 	// Request token
-	RequestToken []byte `tl:"request_token"`
+	RequestToken []byte
 }
 
 // UploadReuploadCdnFileRequestTypeID is TL type id of UploadReuploadCdnFileRequest.

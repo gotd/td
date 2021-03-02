@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/pageTableRow for reference.
 type PageTableRow struct {
 	// Table cells
-	Cells []PageTableCell `tl:"cells"`
+	Cells []PageTableCell
 }
 
 // PageTableRowTypeID is TL type id of PageTableRow.

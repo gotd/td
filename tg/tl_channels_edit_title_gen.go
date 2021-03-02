@@ -31,9 +31,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/channels.editTitle for reference.
 type ChannelsEditTitleRequest struct {
 	// Channel/supergroup
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// New name
-	Title string `tl:"title"`
+	Title string
 }
 
 // ChannelsEditTitleRequestTypeID is TL type id of ChannelsEditTitleRequest.

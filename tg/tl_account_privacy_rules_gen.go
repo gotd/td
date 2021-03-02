@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/account.privacyRules for reference.
 type AccountPrivacyRules struct {
 	// Privacy rules
-	Rules []PrivacyRuleClass `tl:"rules"`
+	Rules []PrivacyRuleClass
 	// Chats to which the rules apply
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// Users to which the rules apply
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // AccountPrivacyRulesTypeID is TL type id of AccountPrivacyRules.

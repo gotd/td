@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/help.acceptTermsOfService for reference.
 type HelpAcceptTermsOfServiceRequest struct {
 	// ID of terms of service
-	ID DataJSON `tl:"id"`
+	ID DataJSON
 }
 
 // HelpAcceptTermsOfServiceRequestTypeID is TL type id of HelpAcceptTermsOfServiceRequest.

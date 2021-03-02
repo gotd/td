@@ -31,20 +31,20 @@ type UpdatesGetChannelDifferenceRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Set to true to skip some possibly unneeded updates and reduce server-side load
-	Force bool `tl:"force"`
+	Force bool
 	// The channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// Messsage filter
-	Filter ChannelMessagesFilterClass `tl:"filter"`
+	Filter ChannelMessagesFilterClass
 	// Persistent timestamp (see updates¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int `tl:"pts"`
+	Pts int
 	// How many updates to fetch, max 100000Ordinary (non-bot) users are supposed to pass 10-100
-	Limit int `tl:"limit"`
+	Limit int
 }
 
 // UpdatesGetChannelDifferenceRequestTypeID is TL type id of UpdatesGetChannelDifferenceRequest.

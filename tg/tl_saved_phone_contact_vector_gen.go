@@ -25,7 +25,7 @@ var _ = tdp.Format
 // SavedPhoneContactVector is a box for Vector<SavedContact>
 type SavedPhoneContactVector struct {
 	// Elements of Vector<SavedContact>
-	Elems []SavedPhoneContact `tl:"Elems"`
+	Elems []SavedPhoneContact
 }
 
 // SavedPhoneContactVectorTypeID is TL type id of SavedPhoneContactVector.

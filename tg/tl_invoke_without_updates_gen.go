@@ -32,7 +32,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/invokeWithoutUpdates for reference.
 type InvokeWithoutUpdatesRequest struct {
 	// The query
-	Query bin.Object `tl:"query"`
+	Query bin.Object
 }
 
 // InvokeWithoutUpdatesRequestTypeID is TL type id of InvokeWithoutUpdatesRequest.

@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/payments.getBankCardData for reference.
 type PaymentsGetBankCardDataRequest struct {
 	// Credit card number
-	Number string `tl:"number"`
+	Number string
 }
 
 // PaymentsGetBankCardDataRequestTypeID is TL type id of PaymentsGetBankCardDataRequest.

@@ -27,15 +27,15 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/decryptedMessageLayer for reference.
 type DecryptedMessageLayer struct {
 	// RandomBytes field of DecryptedMessageLayer.
-	RandomBytes []byte `tl:"random_bytes"`
+	RandomBytes []byte
 	// Layer field of DecryptedMessageLayer.
-	Layer int `tl:"layer"`
+	Layer int
 	// InSeqNo field of DecryptedMessageLayer.
-	InSeqNo int `tl:"in_seq_no"`
+	InSeqNo int
 	// OutSeqNo field of DecryptedMessageLayer.
-	OutSeqNo int `tl:"out_seq_no"`
+	OutSeqNo int
 	// Message field of DecryptedMessageLayer.
-	Message DecryptedMessageClass `tl:"message"`
+	Message DecryptedMessageClass
 }
 
 // DecryptedMessageLayerTypeID is TL type id of DecryptedMessageLayer.

@@ -34,9 +34,9 @@ type AccountSendConfirmPhoneCodeRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/account-deletion
-	Hash string `tl:"hash"`
+	Hash string
 	// Phone code settings
-	Settings CodeSettings `tl:"settings"`
+	Settings CodeSettings
 }
 
 // AccountSendConfirmPhoneCodeRequestTypeID is TL type id of AccountSendConfirmPhoneCodeRequest.

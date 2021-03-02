@@ -31,16 +31,16 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.startBot for reference.
 type MessagesStartBotRequest struct {
 	// The bot
-	Bot InputUserClass `tl:"bot"`
+	Bot InputUserClass
 	// The chat where to start the bot, can be the bot's private chat or a group
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Random ID to avoid resending the same message
-	RandomID int64 `tl:"random_id"`
+	RandomID int64
 	// Deep linking parameter¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots#deep-linking
-	StartParam string `tl:"start_param"`
+	StartParam string
 }
 
 // MessagesStartBotRequestTypeID is TL type id of MessagesStartBotRequest.

@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/contact for reference.
 type Contact struct {
 	// User identifier
-	UserID int `tl:"user_id"`
+	UserID int
 	// Current user is in the user's contact list
-	Mutual bool `tl:"mutual"`
+	Mutual bool
 }
 
 // ContactTypeID is TL type id of Contact.

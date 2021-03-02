@@ -115,9 +115,9 @@ type AccountThemes struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 	// Themes
-	Themes []Theme `tl:"themes"`
+	Themes []Theme
 }
 
 // AccountThemesTypeID is TL type id of AccountThemes.

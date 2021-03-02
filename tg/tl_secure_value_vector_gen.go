@@ -25,7 +25,7 @@ var _ = tdp.Format
 // SecureValueVector is a box for Vector<SecureValue>
 type SecureValueVector struct {
 	// Elements of Vector<SecureValue>
-	Elems []SecureValue `tl:"Elems"`
+	Elems []SecureValue
 }
 
 // SecureValueVectorTypeID is TL type id of SecureValueVector.

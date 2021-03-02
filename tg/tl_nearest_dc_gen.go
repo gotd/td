@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/nearestDc for reference.
 type NearestDc struct {
 	// Country code determined by geo-ip
-	Country string `tl:"country"`
+	Country string
 	// Number of current data centre
-	ThisDC int `tl:"this_dc"`
+	ThisDC int
 	// Number of nearest data centre
-	NearestDC int `tl:"nearest_dc"`
+	NearestDC int
 }
 
 // NearestDcTypeID is TL type id of NearestDc.

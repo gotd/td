@@ -31,17 +31,17 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.verifyPhone for reference.
 type AccountVerifyPhoneRequest struct {
 	// Phone number
-	PhoneNumber string `tl:"phone_number"`
+	PhoneNumber string
 	// Phone code hash received from the call to account.sendVerifyPhoneCode¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/account.sendVerifyPhoneCode
-	PhoneCodeHash string `tl:"phone_code_hash"`
+	PhoneCodeHash string
 	// Code received after the call to account.sendVerifyPhoneCode¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/account.sendVerifyPhoneCode
-	PhoneCode string `tl:"phone_code"`
+	PhoneCode string
 }
 
 // AccountVerifyPhoneRequestTypeID is TL type id of AccountVerifyPhoneRequest.

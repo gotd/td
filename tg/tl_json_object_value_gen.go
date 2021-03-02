@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/jsonObjectValue for reference.
 type JsonObjectValue struct {
 	// Key
-	Key string `tl:"key"`
+	Key string
 	// Value
-	Value JSONValueClass `tl:"value"`
+	Value JSONValueClass
 }
 
 // JsonObjectValueTypeID is TL type id of JsonObjectValue.

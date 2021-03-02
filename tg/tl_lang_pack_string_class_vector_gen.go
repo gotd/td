@@ -25,7 +25,7 @@ var _ = tdp.Format
 // LangPackStringClassVector is a box for Vector<LangPackString>
 type LangPackStringClassVector struct {
 	// Elements of Vector<LangPackString>
-	Elems []LangPackStringClass `tl:"Elems"`
+	Elems []LangPackStringClass
 }
 
 // LangPackStringClassVectorTypeID is TL type id of LangPackStringClassVector.

@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/messageUserVote for reference.
 type MessageUserVote struct {
 	// User ID
-	UserID int `tl:"user_id"`
+	UserID int
 	// The option chosen by the user
-	Option []byte `tl:"option"`
+	Option []byte
 	// When did the user cast the vote
-	Date int `tl:"date"`
+	Date int
 }
 
 // MessageUserVoteTypeID is TL type id of MessageUserVote.
@@ -193,9 +193,9 @@ var (
 // See https://core.telegram.org/constructor/messageUserVoteInputOption for reference.
 type MessageUserVoteInputOption struct {
 	// The user that voted for the queried option
-	UserID int `tl:"user_id"`
+	UserID int
 	// When did the user cast the vote
-	Date int `tl:"date"`
+	Date int
 }
 
 // MessageUserVoteInputOptionTypeID is TL type id of MessageUserVoteInputOption.
@@ -331,11 +331,11 @@ var (
 // See https://core.telegram.org/constructor/messageUserVoteMultiple for reference.
 type MessageUserVoteMultiple struct {
 	// User ID
-	UserID int `tl:"user_id"`
+	UserID int
 	// Options chosen by the user
-	Options [][]byte `tl:"options"`
+	Options [][]byte
 	// When did the user cast their votes
-	Date int `tl:"date"`
+	Date int
 }
 
 // MessageUserVoteMultipleTypeID is TL type id of MessageUserVoteMultiple.

@@ -34,43 +34,43 @@ type MessagesSendInlineBotResultRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to send the message silently (no notification will be triggered on the other client)
-	Silent bool `tl:"silent"`
+	Silent bool
 	// Whether to send the message in background
-	Background bool `tl:"background"`
+	Background bool
 	// Whether to clear the draft¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/drafts
-	ClearDraft bool `tl:"clear_draft"`
+	ClearDraft bool
 	// Whether to hide the via @botname in the resulting message (only for bot usernames encountered in the config¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/config
-	HideVia bool `tl:"hide_via"`
+	HideVia bool
 	// Destination
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// ID of the message this message should reply to
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
-	ReplyToMsgID int `tl:"reply_to_msg_id"`
+	ReplyToMsgID int
 	// Random ID to avoid resending the same query
-	RandomID int64 `tl:"random_id"`
+	RandomID int64
 	// Query ID from messages.getInlineBotResults¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.getInlineBotResults
-	QueryID int64 `tl:"query_id"`
+	QueryID int64
 	// Result ID from messages.getInlineBotResults¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.getInlineBotResults
-	ID string `tl:"id"`
+	ID string
 	// Scheduled message date for scheduled messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
-	ScheduleDate int `tl:"schedule_date"`
+	ScheduleDate int
 }
 
 // MessagesSendInlineBotResultRequestTypeID is TL type id of MessagesSendInlineBotResultRequest.

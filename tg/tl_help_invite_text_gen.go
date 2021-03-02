@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/help.inviteText for reference.
 type HelpInviteText struct {
 	// Text of the message
-	Message string `tl:"message"`
+	Message string
 }
 
 // HelpInviteTextTypeID is TL type id of HelpInviteText.

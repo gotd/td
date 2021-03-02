@@ -27,15 +27,15 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/payments.validatedRequestedInfo for reference.
 type PaymentsValidatedRequestedInfo struct {
 	// Flags field of PaymentsValidatedRequestedInfo.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// ID field of PaymentsValidatedRequestedInfo.
 	//
 	// Use SetID and GetID helpers.
-	ID string `tl:"id"`
+	ID string
 	// ShippingOptions field of PaymentsValidatedRequestedInfo.
 	//
 	// Use SetShippingOptions and GetShippingOptions helpers.
-	ShippingOptions []ShippingOption `tl:"shipping_options"`
+	ShippingOptions []ShippingOption
 }
 
 // PaymentsValidatedRequestedInfoTypeID is TL type id of PaymentsValidatedRequestedInfo.

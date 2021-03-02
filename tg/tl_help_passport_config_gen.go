@@ -118,9 +118,9 @@ type HelpPassportConfig struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 	// Localization
-	CountriesLangs DataJSON `tl:"countries_langs"`
+	CountriesLangs DataJSON
 }
 
 // HelpPassportConfigTypeID is TL type id of HelpPassportConfig.

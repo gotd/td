@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/langPackString for reference.
 type LangPackString struct {
 	// Language key
-	Key string `tl:"key"`
+	Key string
 	// Value
-	Value string `tl:"value"`
+	Value string
 }
 
 // LangPackStringTypeID is TL type id of LangPackString.
@@ -172,31 +172,31 @@ type LangPackStringPluralized struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Localization key
-	Key string `tl:"key"`
+	Key string
 	// Value for zero objects
 	//
 	// Use SetZeroValue and GetZeroValue helpers.
-	ZeroValue string `tl:"zero_value"`
+	ZeroValue string
 	// Value for one object
 	//
 	// Use SetOneValue and GetOneValue helpers.
-	OneValue string `tl:"one_value"`
+	OneValue string
 	// Value for two objects
 	//
 	// Use SetTwoValue and GetTwoValue helpers.
-	TwoValue string `tl:"two_value"`
+	TwoValue string
 	// Value for a few objects
 	//
 	// Use SetFewValue and GetFewValue helpers.
-	FewValue string `tl:"few_value"`
+	FewValue string
 	// Value for many objects
 	//
 	// Use SetManyValue and GetManyValue helpers.
-	ManyValue string `tl:"many_value"`
+	ManyValue string
 	// Default value
-	OtherValue string `tl:"other_value"`
+	OtherValue string
 }
 
 // LangPackStringPluralizedTypeID is TL type id of LangPackStringPluralized.
@@ -552,7 +552,7 @@ var (
 // See https://core.telegram.org/constructor/langPackStringDeleted for reference.
 type LangPackStringDeleted struct {
 	// Localization key
-	Key string `tl:"key"`
+	Key string
 }
 
 // LangPackStringDeletedTypeID is TL type id of LangPackStringDeleted.

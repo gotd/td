@@ -31,16 +31,16 @@ type MessagesSearchStickerSetsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Exclude featured stickersets from results
-	ExcludeFeatured bool `tl:"exclude_featured"`
+	ExcludeFeatured bool
 	// Query string
-	Q string `tl:"q"`
+	Q string
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 }
 
 // MessagesSearchStickerSetsRequestTypeID is TL type id of MessagesSearchStickerSetsRequest.

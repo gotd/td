@@ -37,14 +37,14 @@ type AuthExportLoginTokenRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/myapp
-	APIID int `tl:"api_id"`
+	APIID int
 	// Application identifier hash (see. App configuration¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/myapp
-	APIHash string `tl:"api_hash"`
+	APIHash string
 	// List of already logged-in user IDs, to prevent logging in twice with the same user
-	ExceptIds []int `tl:"except_ids"`
+	ExceptIds []int
 }
 
 // AuthExportLoginTokenRequestTypeID is TL type id of AuthExportLoginTokenRequest.

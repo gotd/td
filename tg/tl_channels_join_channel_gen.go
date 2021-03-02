@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/channels.joinChannel for reference.
 type ChannelsJoinChannelRequest struct {
 	// Channel/supergroup to join
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 }
 
 // ChannelsJoinChannelRequestTypeID is TL type id of ChannelsJoinChannelRequest.

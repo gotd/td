@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/upload.file for reference.
 type UploadFile struct {
 	// File type
-	Type StorageFileTypeClass `tl:"type"`
+	Type StorageFileTypeClass
 	// Modification type
-	Mtime int `tl:"mtime"`
+	Mtime int
 	// Binary data, file content
-	Bytes []byte `tl:"bytes"`
+	Bytes []byte
 }
 
 // UploadFileTypeID is TL type id of UploadFile.
@@ -201,27 +201,27 @@ type UploadFileCdnRedirect struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	DCID int `tl:"dc_id"`
+	DCID int
 	// File token (see CDN files¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	FileToken []byte `tl:"file_token"`
+	FileToken []byte
 	// Encryption key (see CDN files¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	EncryptionKey []byte `tl:"encryption_key"`
+	EncryptionKey []byte
 	// Encryption IV (see CDN files¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	EncryptionIv []byte `tl:"encryption_iv"`
+	EncryptionIv []byte
 	// File hashes (see CDN files¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	FileHashes []FileHash `tl:"file_hashes"`
+	FileHashes []FileHash
 }
 
 // UploadFileCdnRedirectTypeID is TL type id of UploadFileCdnRedirect.

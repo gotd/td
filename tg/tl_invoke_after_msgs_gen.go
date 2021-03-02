@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/invokeAfterMsgs for reference.
 type InvokeAfterMsgsRequest struct {
 	// List of messages on which a current query depends
-	MsgIds []int64 `tl:"msg_ids"`
+	MsgIds []int64
 	// The query itself
-	Query bin.Object `tl:"query"`
+	Query bin.Object
 }
 
 // InvokeAfterMsgsRequestTypeID is TL type id of InvokeAfterMsgsRequest.

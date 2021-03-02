@@ -31,20 +31,20 @@ type PhoneRequestCallRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to start a video call
-	Video bool `tl:"video"`
+	Video bool
 	// Destination of the phone call
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 	// Random ID to avoid resending the same object
-	RandomID int `tl:"random_id"`
+	RandomID int
 	// Parameter for E2E encryption key exchange »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/end-to-end/voice-calls
-	GAHash []byte `tl:"g_a_hash"`
+	GAHash []byte
 	// Phone call settings
-	Protocol PhoneCallProtocol `tl:"protocol"`
+	Protocol PhoneCallProtocol
 }
 
 // PhoneRequestCallRequestTypeID is TL type id of PhoneRequestCallRequest.

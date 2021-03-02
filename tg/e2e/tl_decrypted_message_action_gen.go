@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/decryptedMessageActionSetMessageTTL for reference.
 type DecryptedMessageActionSetMessageTTL struct {
 	// TTLSeconds field of DecryptedMessageActionSetMessageTTL.
-	TTLSeconds int `tl:"ttl_seconds"`
+	TTLSeconds int
 }
 
 // DecryptedMessageActionSetMessageTTLTypeID is TL type id of DecryptedMessageActionSetMessageTTL.
@@ -140,7 +140,7 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionReadMessages for reference.
 type DecryptedMessageActionReadMessages struct {
 	// RandomIds field of DecryptedMessageActionReadMessages.
-	RandomIds []int64 `tl:"random_ids"`
+	RandomIds []int64
 }
 
 // DecryptedMessageActionReadMessagesTypeID is TL type id of DecryptedMessageActionReadMessages.
@@ -262,7 +262,7 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionDeleteMessages for reference.
 type DecryptedMessageActionDeleteMessages struct {
 	// RandomIds field of DecryptedMessageActionDeleteMessages.
-	RandomIds []int64 `tl:"random_ids"`
+	RandomIds []int64
 }
 
 // DecryptedMessageActionDeleteMessagesTypeID is TL type id of DecryptedMessageActionDeleteMessages.
@@ -384,7 +384,7 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionScreenshotMessages for reference.
 type DecryptedMessageActionScreenshotMessages struct {
 	// RandomIds field of DecryptedMessageActionScreenshotMessages.
-	RandomIds []int64 `tl:"random_ids"`
+	RandomIds []int64
 }
 
 // DecryptedMessageActionScreenshotMessagesTypeID is TL type id of DecryptedMessageActionScreenshotMessages.
@@ -589,9 +589,9 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionResend for reference.
 type DecryptedMessageActionResend struct {
 	// StartSeqNo field of DecryptedMessageActionResend.
-	StartSeqNo int `tl:"start_seq_no"`
+	StartSeqNo int
 	// EndSeqNo field of DecryptedMessageActionResend.
-	EndSeqNo int `tl:"end_seq_no"`
+	EndSeqNo int
 }
 
 // DecryptedMessageActionResendTypeID is TL type id of DecryptedMessageActionResend.
@@ -726,7 +726,7 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionNotifyLayer for reference.
 type DecryptedMessageActionNotifyLayer struct {
 	// Layer field of DecryptedMessageActionNotifyLayer.
-	Layer int `tl:"layer"`
+	Layer int
 }
 
 // DecryptedMessageActionNotifyLayerTypeID is TL type id of DecryptedMessageActionNotifyLayer.
@@ -839,7 +839,7 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionTyping for reference.
 type DecryptedMessageActionTyping struct {
 	// Action field of DecryptedMessageActionTyping.
-	Action SendMessageActionClass `tl:"action"`
+	Action SendMessageActionClass
 }
 
 // DecryptedMessageActionTypingTypeID is TL type id of DecryptedMessageActionTyping.
@@ -957,9 +957,9 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionRequestKey for reference.
 type DecryptedMessageActionRequestKey struct {
 	// ExchangeID field of DecryptedMessageActionRequestKey.
-	ExchangeID int64 `tl:"exchange_id"`
+	ExchangeID int64
 	// GA field of DecryptedMessageActionRequestKey.
-	GA []byte `tl:"g_a"`
+	GA []byte
 }
 
 // DecryptedMessageActionRequestKeyTypeID is TL type id of DecryptedMessageActionRequestKey.
@@ -1094,11 +1094,11 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionAcceptKey for reference.
 type DecryptedMessageActionAcceptKey struct {
 	// ExchangeID field of DecryptedMessageActionAcceptKey.
-	ExchangeID int64 `tl:"exchange_id"`
+	ExchangeID int64
 	// GB field of DecryptedMessageActionAcceptKey.
-	GB []byte `tl:"g_b"`
+	GB []byte
 	// KeyFingerprint field of DecryptedMessageActionAcceptKey.
-	KeyFingerprint int64 `tl:"key_fingerprint"`
+	KeyFingerprint int64
 }
 
 // DecryptedMessageActionAcceptKeyTypeID is TL type id of DecryptedMessageActionAcceptKey.
@@ -1255,7 +1255,7 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionAbortKey for reference.
 type DecryptedMessageActionAbortKey struct {
 	// ExchangeID field of DecryptedMessageActionAbortKey.
-	ExchangeID int64 `tl:"exchange_id"`
+	ExchangeID int64
 }
 
 // DecryptedMessageActionAbortKeyTypeID is TL type id of DecryptedMessageActionAbortKey.
@@ -1368,9 +1368,9 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageActionCommitKey for reference.
 type DecryptedMessageActionCommitKey struct {
 	// ExchangeID field of DecryptedMessageActionCommitKey.
-	ExchangeID int64 `tl:"exchange_id"`
+	ExchangeID int64
 	// KeyFingerprint field of DecryptedMessageActionCommitKey.
-	KeyFingerprint int64 `tl:"key_fingerprint"`
+	KeyFingerprint int64
 }
 
 // DecryptedMessageActionCommitKeyTypeID is TL type id of DecryptedMessageActionCommitKey.

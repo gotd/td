@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/phone.sendSignalingData for reference.
 type PhoneSendSignalingDataRequest struct {
 	// Phone call
-	Peer InputPhoneCall `tl:"peer"`
+	Peer InputPhoneCall
 	// Signaling payload
-	Data []byte `tl:"data"`
+	Data []byte
 }
 
 // PhoneSendSignalingDataRequestTypeID is TL type id of PhoneSendSignalingDataRequest.

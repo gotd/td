@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/help.getDeepLinkInfo for reference.
 type HelpGetDeepLinkInfoRequest struct {
 	// Path in t.me/path
-	Path string `tl:"path"`
+	Path string
 }
 
 // HelpGetDeepLinkInfoRequestTypeID is TL type id of HelpGetDeepLinkInfoRequest.

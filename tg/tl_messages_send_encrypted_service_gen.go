@@ -28,14 +28,14 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.sendEncryptedService for reference.
 type MessagesSendEncryptedServiceRequest struct {
 	// Secret chat ID
-	Peer InputEncryptedChat `tl:"peer"`
+	Peer InputEncryptedChat
 	// Unique client message ID required to prevent message resending
-	RandomID int64 `tl:"random_id"`
+	RandomID int64
 	// TL-serialization of  DecryptedMessage¹ type, encrypted with a key generated during chat initialization
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/DecryptedMessage
-	Data []byte `tl:"data"`
+	Data []byte
 }
 
 // MessagesSendEncryptedServiceRequestTypeID is TL type id of MessagesSendEncryptedServiceRequest.

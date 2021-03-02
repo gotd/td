@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/notifyPeer for reference.
 type NotifyPeer struct {
 	// user or group
-	Peer PeerClass `tl:"peer"`
+	Peer PeerClass
 }
 
 // NotifyPeerTypeID is TL type id of NotifyPeer.

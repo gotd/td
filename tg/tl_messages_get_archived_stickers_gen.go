@@ -31,19 +31,19 @@ type MessagesGetArchivedStickersRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Get mask stickers
-	Masks bool `tl:"masks"`
+	Masks bool
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetID int64 `tl:"offset_id"`
+	OffsetID int64
 	// Maximum number of results to return, see pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int `tl:"limit"`
+	Limit int
 }
 
 // MessagesGetArchivedStickersRequestTypeID is TL type id of MessagesGetArchivedStickersRequest.

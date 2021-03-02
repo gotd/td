@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/channels.toggleSignatures for reference.
 type ChannelsToggleSignaturesRequest struct {
 	// Channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// Value
-	Enabled bool `tl:"enabled"`
+	Enabled bool
 }
 
 // ChannelsToggleSignaturesRequestTypeID is TL type id of ChannelsToggleSignaturesRequest.

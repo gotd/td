@@ -28,14 +28,14 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/statsGroupTopPoster for reference.
 type StatsGroupTopPoster struct {
 	// User ID
-	UserID int `tl:"user_id"`
+	UserID int
 	// Number of messages for statistics¹ period in consideration
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/stats
-	Messages int `tl:"messages"`
+	Messages int
 	// Average number of characters per message
-	AvgChars int `tl:"avg_chars"`
+	AvgChars int
 }
 
 // StatsGroupTopPosterTypeID is TL type id of StatsGroupTopPoster.

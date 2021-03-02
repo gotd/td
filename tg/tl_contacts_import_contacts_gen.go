@@ -32,7 +32,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/contacts.importContacts for reference.
 type ContactsImportContactsRequest struct {
 	// List of contacts to import
-	Contacts []InputPhoneContact `tl:"contacts"`
+	Contacts []InputPhoneContact
 }
 
 // ContactsImportContactsRequestTypeID is TL type id of ContactsImportContactsRequest.

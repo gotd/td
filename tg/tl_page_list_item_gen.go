@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/pageListItemText for reference.
 type PageListItemText struct {
 	// Text
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 }
 
 // PageListItemTextTypeID is TL type id of PageListItemText.
@@ -147,7 +147,7 @@ var (
 // See https://core.telegram.org/constructor/pageListItemBlocks for reference.
 type PageListItemBlocks struct {
 	// Blocks
-	Blocks []PageBlockClass `tl:"blocks"`
+	Blocks []PageBlockClass
 }
 
 // PageListItemBlocksTypeID is TL type id of PageListItemBlocks.

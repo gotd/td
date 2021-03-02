@@ -25,7 +25,7 @@ var _ = tdp.Format
 // EmojiLanguageVector is a box for Vector<EmojiLanguage>
 type EmojiLanguageVector struct {
 	// Elements of Vector<EmojiLanguage>
-	Elems []EmojiLanguage `tl:"Elems"`
+	Elems []EmojiLanguage
 }
 
 // EmojiLanguageVectorTypeID is TL type id of EmojiLanguageVector.

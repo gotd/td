@@ -31,9 +31,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/channels.editPhoto for reference.
 type ChannelsEditPhotoRequest struct {
 	// Channel/supergroup whose photo should be edited
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// New photo
-	Photo InputChatPhotoClass `tl:"photo"`
+	Photo InputChatPhotoClass
 }
 
 // ChannelsEditPhotoRequestTypeID is TL type id of ChannelsEditPhotoRequest.

@@ -33,7 +33,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/help.getAppChangelog for reference.
 type HelpGetAppChangelogRequest struct {
 	// Previous app version
-	PrevAppVersion string `tl:"prev_app_version"`
+	PrevAppVersion string
 }
 
 // HelpGetAppChangelogRequestTypeID is TL type id of HelpGetAppChangelogRequest.

@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.editChatTitle for reference.
 type MessagesEditChatTitleRequest struct {
 	// Chat ID
-	ChatID int `tl:"chat_id"`
+	ChatID int
 	// New chat name, different from the old one
-	Title string `tl:"title"`
+	Title string
 }
 
 // MessagesEditChatTitleRequestTypeID is TL type id of MessagesEditChatTitleRequest.

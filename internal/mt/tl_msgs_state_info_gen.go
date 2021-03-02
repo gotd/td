@@ -25,9 +25,9 @@ var _ = tdp.Format
 // MsgsStateInfo represents TL type `msgs_state_info#4deb57d`.
 type MsgsStateInfo struct {
 	// ReqMsgID field of MsgsStateInfo.
-	ReqMsgID int64 `tl:"req_msg_id"`
+	ReqMsgID int64
 	// Info field of MsgsStateInfo.
-	Info []byte `tl:"info"`
+	Info []byte
 }
 
 // MsgsStateInfoTypeID is TL type id of MsgsStateInfo.

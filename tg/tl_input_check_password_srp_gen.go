@@ -118,17 +118,17 @@ type InputCheckPasswordSRP struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	SRPID int64 `tl:"srp_id"`
+	SRPID int64
 	// A parameter (see SRP¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	A []byte `tl:"A"`
+	A []byte
 	// M1 parameter (see SRP¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	M1 []byte `tl:"M1"`
+	M1 []byte
 }
 
 // InputCheckPasswordSRPTypeID is TL type id of InputCheckPasswordSRP.

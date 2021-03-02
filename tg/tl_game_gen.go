@@ -31,23 +31,23 @@ type Game struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// ID of the game
-	ID int64 `tl:"id"`
+	ID int64
 	// Access hash of the game
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// Short name for the game
-	ShortName string `tl:"short_name"`
+	ShortName string
 	// Title of the game
-	Title string `tl:"title"`
+	Title string
 	// Game description
-	Description string `tl:"description"`
+	Description string
 	// Game preview
-	Photo PhotoClass `tl:"photo"`
+	Photo PhotoClass
 	// Optional attached document
 	//
 	// Use SetDocument and GetDocument helpers.
-	Document DocumentClass `tl:"document"`
+	Document DocumentClass
 }
 
 // GameTypeID is TL type id of Game.

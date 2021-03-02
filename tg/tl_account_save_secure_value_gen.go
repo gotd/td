@@ -35,12 +35,12 @@ type AccountSaveSecureValueRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport/encryption#encryption
-	Value InputSecureValue `tl:"value"`
+	Value InputSecureValue
 	// Passport secret hash, for more info see the passport docs »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport/encryption#encryption
-	SecureSecretID int64 `tl:"secure_secret_id"`
+	SecureSecretID int64
 }
 
 // AccountSaveSecureValueRequestTypeID is TL type id of AccountSaveSecureValueRequest.

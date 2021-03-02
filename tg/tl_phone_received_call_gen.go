@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/phone.receivedCall for reference.
 type PhoneReceivedCallRequest struct {
 	// The phone call we're currently in
-	Peer InputPhoneCall `tl:"peer"`
+	Peer InputPhoneCall
 }
 
 // PhoneReceivedCallRequestTypeID is TL type id of PhoneReceivedCallRequest.

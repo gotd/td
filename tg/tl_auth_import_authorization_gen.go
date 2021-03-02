@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/auth.importAuthorization for reference.
 type AuthImportAuthorizationRequest struct {
 	// User ID
-	ID int `tl:"id"`
+	ID int
 	// Authorization key
-	Bytes []byte `tl:"bytes"`
+	Bytes []byte
 }
 
 // AuthImportAuthorizationRequestTypeID is TL type id of AuthImportAuthorizationRequest.

@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/payments.bankCardData for reference.
 type PaymentsBankCardData struct {
 	// Credit card title
-	Title string `tl:"title"`
+	Title string
 	// Info URL(s) provided by the card's bank(s)
-	OpenUrls []BankCardOpenUrl `tl:"open_urls"`
+	OpenUrls []BankCardOpenUrl
 }
 
 // PaymentsBankCardDataTypeID is TL type id of PaymentsBankCardData.

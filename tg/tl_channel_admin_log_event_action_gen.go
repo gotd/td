@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeTitle for reference.
 type ChannelAdminLogEventActionChangeTitle struct {
 	// Previous title
-	PrevValue string `tl:"prev_value"`
+	PrevValue string
 	// New title
-	NewValue string `tl:"new_value"`
+	NewValue string
 }
 
 // ChannelAdminLogEventActionChangeTitleTypeID is TL type id of ChannelAdminLogEventActionChangeTitle.
@@ -166,9 +166,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeAbout for reference.
 type ChannelAdminLogEventActionChangeAbout struct {
 	// Previous description
-	PrevValue string `tl:"prev_value"`
+	PrevValue string
 	// New description
-	NewValue string `tl:"new_value"`
+	NewValue string
 }
 
 // ChannelAdminLogEventActionChangeAboutTypeID is TL type id of ChannelAdminLogEventActionChangeAbout.
@@ -304,9 +304,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeUsername for reference.
 type ChannelAdminLogEventActionChangeUsername struct {
 	// Old username
-	PrevValue string `tl:"prev_value"`
+	PrevValue string
 	// New username
-	NewValue string `tl:"new_value"`
+	NewValue string
 }
 
 // ChannelAdminLogEventActionChangeUsernameTypeID is TL type id of ChannelAdminLogEventActionChangeUsername.
@@ -444,9 +444,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangePhoto for reference.
 type ChannelAdminLogEventActionChangePhoto struct {
 	// Previous picture
-	PrevPhoto PhotoClass `tl:"prev_photo"`
+	PrevPhoto PhotoClass
 	// New picture
-	NewPhoto PhotoClass `tl:"new_photo"`
+	NewPhoto PhotoClass
 }
 
 // ChannelAdminLogEventActionChangePhotoTypeID is TL type id of ChannelAdminLogEventActionChangePhoto.
@@ -592,7 +592,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleInvites for reference.
 type ChannelAdminLogEventActionToggleInvites struct {
 	// New value
-	NewValue bool `tl:"new_value"`
+	NewValue bool
 }
 
 // ChannelAdminLogEventActionToggleInvitesTypeID is TL type id of ChannelAdminLogEventActionToggleInvites.
@@ -708,7 +708,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleSignatures for reference.
 type ChannelAdminLogEventActionToggleSignatures struct {
 	// New value
-	NewValue bool `tl:"new_value"`
+	NewValue bool
 }
 
 // ChannelAdminLogEventActionToggleSignaturesTypeID is TL type id of ChannelAdminLogEventActionToggleSignatures.
@@ -824,7 +824,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionUpdatePinned for reference.
 type ChannelAdminLogEventActionUpdatePinned struct {
 	// The message that was pinned
-	Message MessageClass `tl:"message"`
+	Message MessageClass
 }
 
 // ChannelAdminLogEventActionUpdatePinnedTypeID is TL type id of ChannelAdminLogEventActionUpdatePinned.
@@ -945,9 +945,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionEditMessage for reference.
 type ChannelAdminLogEventActionEditMessage struct {
 	// Old message
-	PrevMessage MessageClass `tl:"prev_message"`
+	PrevMessage MessageClass
 	// New message
-	NewMessage MessageClass `tl:"new_message"`
+	NewMessage MessageClass
 }
 
 // ChannelAdminLogEventActionEditMessageTypeID is TL type id of ChannelAdminLogEventActionEditMessage.
@@ -1093,7 +1093,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionDeleteMessage for reference.
 type ChannelAdminLogEventActionDeleteMessage struct {
 	// The message that was deleted
-	Message MessageClass `tl:"message"`
+	Message MessageClass
 }
 
 // ChannelAdminLogEventActionDeleteMessageTypeID is TL type id of ChannelAdminLogEventActionDeleteMessage.
@@ -1386,7 +1386,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantInvite for reference.
 type ChannelAdminLogEventActionParticipantInvite struct {
 	// The user that was invited
-	Participant ChannelParticipantClass `tl:"participant"`
+	Participant ChannelParticipantClass
 }
 
 // ChannelAdminLogEventActionParticipantInviteTypeID is TL type id of ChannelAdminLogEventActionParticipantInvite.
@@ -1510,9 +1510,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan for reference.
 type ChannelAdminLogEventActionParticipantToggleBan struct {
 	// Old banned rights of user
-	PrevParticipant ChannelParticipantClass `tl:"prev_participant"`
+	PrevParticipant ChannelParticipantClass
 	// New banned rights of user
-	NewParticipant ChannelParticipantClass `tl:"new_participant"`
+	NewParticipant ChannelParticipantClass
 }
 
 // ChannelAdminLogEventActionParticipantToggleBanTypeID is TL type id of ChannelAdminLogEventActionParticipantToggleBan.
@@ -1663,9 +1663,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleAdmin for reference.
 type ChannelAdminLogEventActionParticipantToggleAdmin struct {
 	// Previous admin rights
-	PrevParticipant ChannelParticipantClass `tl:"prev_participant"`
+	PrevParticipant ChannelParticipantClass
 	// New admin rights
-	NewParticipant ChannelParticipantClass `tl:"new_participant"`
+	NewParticipant ChannelParticipantClass
 }
 
 // ChannelAdminLogEventActionParticipantToggleAdminTypeID is TL type id of ChannelAdminLogEventActionParticipantToggleAdmin.
@@ -1813,9 +1813,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeStickerSet for reference.
 type ChannelAdminLogEventActionChangeStickerSet struct {
 	// Previous stickerset
-	PrevStickerset InputStickerSetClass `tl:"prev_stickerset"`
+	PrevStickerset InputStickerSetClass
 	// New stickerset
-	NewStickerset InputStickerSetClass `tl:"new_stickerset"`
+	NewStickerset InputStickerSetClass
 }
 
 // ChannelAdminLogEventActionChangeStickerSetTypeID is TL type id of ChannelAdminLogEventActionChangeStickerSet.
@@ -1966,7 +1966,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionTogglePreHistoryHidden for reference.
 type ChannelAdminLogEventActionTogglePreHistoryHidden struct {
 	// New value
-	NewValue bool `tl:"new_value"`
+	NewValue bool
 }
 
 // ChannelAdminLogEventActionTogglePreHistoryHiddenTypeID is TL type id of ChannelAdminLogEventActionTogglePreHistoryHidden.
@@ -2085,12 +2085,12 @@ type ChannelAdminLogEventActionDefaultBannedRights struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
-	PrevBannedRights ChatBannedRights `tl:"prev_banned_rights"`
+	PrevBannedRights ChatBannedRights
 	// New glboal banned rights¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
-	NewBannedRights ChatBannedRights `tl:"new_banned_rights"`
+	NewBannedRights ChatBannedRights
 }
 
 // ChannelAdminLogEventActionDefaultBannedRightsTypeID is TL type id of ChannelAdminLogEventActionDefaultBannedRights.
@@ -2228,7 +2228,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionStopPoll for reference.
 type ChannelAdminLogEventActionStopPoll struct {
 	// The poll that was stopped
-	Message MessageClass `tl:"message"`
+	Message MessageClass
 }
 
 // ChannelAdminLogEventActionStopPollTypeID is TL type id of ChannelAdminLogEventActionStopPoll.
@@ -2347,9 +2347,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeLinkedChat for reference.
 type ChannelAdminLogEventActionChangeLinkedChat struct {
 	// Previous linked chat
-	PrevValue int `tl:"prev_value"`
+	PrevValue int
 	// New linked chat
-	NewValue int `tl:"new_value"`
+	NewValue int
 }
 
 // ChannelAdminLogEventActionChangeLinkedChatTypeID is TL type id of ChannelAdminLogEventActionChangeLinkedChat.
@@ -2487,9 +2487,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeLocation for reference.
 type ChannelAdminLogEventActionChangeLocation struct {
 	// Previous location
-	PrevValue ChannelLocationClass `tl:"prev_value"`
+	PrevValue ChannelLocationClass
 	// New location
-	NewValue ChannelLocationClass `tl:"new_value"`
+	NewValue ChannelLocationClass
 }
 
 // ChannelAdminLogEventActionChangeLocationTypeID is TL type id of ChannelAdminLogEventActionChangeLocation.
@@ -2640,9 +2640,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleSlowMode for reference.
 type ChannelAdminLogEventActionToggleSlowMode struct {
 	// Previous slow mode value
-	PrevValue int `tl:"prev_value"`
+	PrevValue int
 	// New slow mode value
-	NewValue int `tl:"new_value"`
+	NewValue int
 }
 
 // ChannelAdminLogEventActionToggleSlowModeTypeID is TL type id of ChannelAdminLogEventActionToggleSlowMode.
@@ -2779,7 +2779,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionStartGroupCall for reference.
 type ChannelAdminLogEventActionStartGroupCall struct {
 	// Call field of ChannelAdminLogEventActionStartGroupCall.
-	Call InputGroupCall `tl:"call"`
+	Call InputGroupCall
 }
 
 // ChannelAdminLogEventActionStartGroupCallTypeID is TL type id of ChannelAdminLogEventActionStartGroupCall.
@@ -2894,7 +2894,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionDiscardGroupCall for reference.
 type ChannelAdminLogEventActionDiscardGroupCall struct {
 	// Call field of ChannelAdminLogEventActionDiscardGroupCall.
-	Call InputGroupCall `tl:"call"`
+	Call InputGroupCall
 }
 
 // ChannelAdminLogEventActionDiscardGroupCallTypeID is TL type id of ChannelAdminLogEventActionDiscardGroupCall.
@@ -3009,7 +3009,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantMute for reference.
 type ChannelAdminLogEventActionParticipantMute struct {
 	// Participant field of ChannelAdminLogEventActionParticipantMute.
-	Participant GroupCallParticipant `tl:"participant"`
+	Participant GroupCallParticipant
 }
 
 // ChannelAdminLogEventActionParticipantMuteTypeID is TL type id of ChannelAdminLogEventActionParticipantMute.
@@ -3124,7 +3124,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantUnmute for reference.
 type ChannelAdminLogEventActionParticipantUnmute struct {
 	// Participant field of ChannelAdminLogEventActionParticipantUnmute.
-	Participant GroupCallParticipant `tl:"participant"`
+	Participant GroupCallParticipant
 }
 
 // ChannelAdminLogEventActionParticipantUnmuteTypeID is TL type id of ChannelAdminLogEventActionParticipantUnmute.
@@ -3239,7 +3239,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionToggleGroupCallSetting for reference.
 type ChannelAdminLogEventActionToggleGroupCallSetting struct {
 	// JoinMuted field of ChannelAdminLogEventActionToggleGroupCallSetting.
-	JoinMuted bool `tl:"join_muted"`
+	JoinMuted bool
 }
 
 // ChannelAdminLogEventActionToggleGroupCallSettingTypeID is TL type id of ChannelAdminLogEventActionToggleGroupCallSetting.
@@ -3354,7 +3354,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantJoinByInvite for reference.
 type ChannelAdminLogEventActionParticipantJoinByInvite struct {
 	// Invite field of ChannelAdminLogEventActionParticipantJoinByInvite.
-	Invite ChatInviteExported `tl:"invite"`
+	Invite ChatInviteExported
 }
 
 // ChannelAdminLogEventActionParticipantJoinByInviteTypeID is TL type id of ChannelAdminLogEventActionParticipantJoinByInvite.
@@ -3469,7 +3469,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionExportedInviteDelete for reference.
 type ChannelAdminLogEventActionExportedInviteDelete struct {
 	// Invite field of ChannelAdminLogEventActionExportedInviteDelete.
-	Invite ChatInviteExported `tl:"invite"`
+	Invite ChatInviteExported
 }
 
 // ChannelAdminLogEventActionExportedInviteDeleteTypeID is TL type id of ChannelAdminLogEventActionExportedInviteDelete.
@@ -3584,7 +3584,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionExportedInviteRevoke for reference.
 type ChannelAdminLogEventActionExportedInviteRevoke struct {
 	// Invite field of ChannelAdminLogEventActionExportedInviteRevoke.
-	Invite ChatInviteExported `tl:"invite"`
+	Invite ChatInviteExported
 }
 
 // ChannelAdminLogEventActionExportedInviteRevokeTypeID is TL type id of ChannelAdminLogEventActionExportedInviteRevoke.
@@ -3699,9 +3699,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionExportedInviteEdit for reference.
 type ChannelAdminLogEventActionExportedInviteEdit struct {
 	// PrevInvite field of ChannelAdminLogEventActionExportedInviteEdit.
-	PrevInvite ChatInviteExported `tl:"prev_invite"`
+	PrevInvite ChatInviteExported
 	// NewInvite field of ChannelAdminLogEventActionExportedInviteEdit.
-	NewInvite ChatInviteExported `tl:"new_invite"`
+	NewInvite ChatInviteExported
 }
 
 // ChannelAdminLogEventActionExportedInviteEditTypeID is TL type id of ChannelAdminLogEventActionExportedInviteEdit.
@@ -3838,7 +3838,7 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantVolume for reference.
 type ChannelAdminLogEventActionParticipantVolume struct {
 	// Participant field of ChannelAdminLogEventActionParticipantVolume.
-	Participant GroupCallParticipant `tl:"participant"`
+	Participant GroupCallParticipant
 }
 
 // ChannelAdminLogEventActionParticipantVolumeTypeID is TL type id of ChannelAdminLogEventActionParticipantVolume.
@@ -3953,9 +3953,9 @@ var (
 // See https://core.telegram.org/constructor/channelAdminLogEventActionChangeHistoryTTL for reference.
 type ChannelAdminLogEventActionChangeHistoryTTL struct {
 	// PrevValue field of ChannelAdminLogEventActionChangeHistoryTTL.
-	PrevValue int `tl:"prev_value"`
+	PrevValue int
 	// NewValue field of ChannelAdminLogEventActionChangeHistoryTTL.
-	NewValue int `tl:"new_value"`
+	NewValue int
 }
 
 // ChannelAdminLogEventActionChangeHistoryTTLTypeID is TL type id of ChannelAdminLogEventActionChangeHistoryTTL.

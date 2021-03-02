@@ -34,12 +34,12 @@ type DialogFilterSuggested struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	Filter DialogFilter `tl:"filter"`
+	Filter DialogFilter
 	// Folder¹ description
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	Description string `tl:"description"`
+	Description string
 }
 
 // DialogFilterSuggestedTypeID is TL type id of DialogFilterSuggested.

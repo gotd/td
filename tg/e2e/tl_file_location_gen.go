@@ -27,11 +27,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/fileLocationUnavailable for reference.
 type FileLocationUnavailable struct {
 	// VolumeID field of FileLocationUnavailable.
-	VolumeID int64 `tl:"volume_id"`
+	VolumeID int64
 	// LocalID field of FileLocationUnavailable.
-	LocalID int `tl:"local_id"`
+	LocalID int
 	// Secret field of FileLocationUnavailable.
-	Secret int64 `tl:"secret"`
+	Secret int64
 }
 
 // FileLocationUnavailableTypeID is TL type id of FileLocationUnavailable.
@@ -188,13 +188,13 @@ var (
 // See https://core.telegram.org/constructor/fileLocation for reference.
 type FileLocation struct {
 	// DCID field of FileLocation.
-	DCID int `tl:"dc_id"`
+	DCID int
 	// VolumeID field of FileLocation.
-	VolumeID int64 `tl:"volume_id"`
+	VolumeID int64
 	// LocalID field of FileLocation.
-	LocalID int `tl:"local_id"`
+	LocalID int
 	// Secret field of FileLocation.
-	Secret int64 `tl:"secret"`
+	Secret int64
 }
 
 // FileLocationTypeID is TL type id of FileLocation.

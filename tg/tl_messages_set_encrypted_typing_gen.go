@@ -28,13 +28,13 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.setEncryptedTyping for reference.
 type MessagesSetEncryptedTypingRequest struct {
 	// Secret chat ID
-	Peer InputEncryptedChat `tl:"peer"`
+	Peer InputEncryptedChat
 	// Typing.Possible values:(boolTrue)¹, if the user started typing and more than 5 seconds have passed since the last request(boolFalse)², if the user stopped typing
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/boolTrue
 	//  2) https://core.telegram.org/constructor/boolFalse
-	Typing bool `tl:"typing"`
+	Typing bool
 }
 
 // MessagesSetEncryptedTypingRequestTypeID is TL type id of MessagesSetEncryptedTypingRequest.

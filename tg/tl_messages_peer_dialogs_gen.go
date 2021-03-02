@@ -28,18 +28,18 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/messages.peerDialogs for reference.
 type MessagesPeerDialogs struct {
 	// Dialog info
-	Dialogs []DialogClass `tl:"dialogs"`
+	Dialogs []DialogClass
 	// Messages mentioned in dialog info
-	Messages []MessageClass `tl:"messages"`
+	Messages []MessageClass
 	// Chats
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// Users
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 	// Current update state of dialog¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	State UpdatesState `tl:"state"`
+	State UpdatesState
 }
 
 // MessagesPeerDialogsTypeID is TL type id of MessagesPeerDialogs.

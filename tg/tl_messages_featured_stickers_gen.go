@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/messages.featuredStickersNotModified for reference.
 type MessagesFeaturedStickersNotModified struct {
 	// Total number of featured stickers
-	Count int `tl:"count"`
+	Count int
 }
 
 // MessagesFeaturedStickersNotModifiedTypeID is TL type id of MessagesFeaturedStickersNotModified.
@@ -145,13 +145,13 @@ type MessagesFeaturedStickers struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 	// Total number of featured stickers
-	Count int `tl:"count"`
+	Count int
 	// Featured stickersets
-	Sets []StickerSetCoveredClass `tl:"sets"`
+	Sets []StickerSetCoveredClass
 	// IDs of new featured stickersets
-	Unread []int64 `tl:"unread"`
+	Unread []int64
 }
 
 // MessagesFeaturedStickersTypeID is TL type id of MessagesFeaturedStickers.

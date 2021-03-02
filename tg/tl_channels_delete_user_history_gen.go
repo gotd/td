@@ -34,9 +34,9 @@ type ChannelsDeleteUserHistoryRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// User whose messages should be deleted
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 }
 
 // ChannelsDeleteUserHistoryRequestTypeID is TL type id of ChannelsDeleteUserHistoryRequest.

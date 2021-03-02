@@ -112,11 +112,11 @@ var (
 // See https://core.telegram.org/constructor/contacts.topPeers for reference.
 type ContactsTopPeers struct {
 	// Top peers by top peer category
-	Categories []TopPeerCategoryPeers `tl:"categories"`
+	Categories []TopPeerCategoryPeers
 	// Chats
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// Users
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // ContactsTopPeersTypeID is TL type id of ContactsTopPeers.

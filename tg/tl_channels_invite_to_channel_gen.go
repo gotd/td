@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/channels.inviteToChannel for reference.
 type ChannelsInviteToChannelRequest struct {
 	// Channel/supergroup
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// Users to invite
-	Users []InputUserClass `tl:"users"`
+	Users []InputUserClass
 }
 
 // ChannelsInviteToChannelRequestTypeID is TL type id of ChannelsInviteToChannelRequest.

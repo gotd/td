@@ -31,60 +31,60 @@ type UserFull struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether you have blocked this user
-	Blocked bool `tl:"blocked"`
+	Blocked bool
 	// Whether this user can make VoIP calls
-	PhoneCallsAvailable bool `tl:"phone_calls_available"`
+	PhoneCallsAvailable bool
 	// Whether this user's privacy settings allow you to call him
-	PhoneCallsPrivate bool `tl:"phone_calls_private"`
+	PhoneCallsPrivate bool
 	// Whether you can pin messages in the chat with this user, you can do this only for a chat with yourself
-	CanPinMessage bool `tl:"can_pin_message"`
+	CanPinMessage bool
 	// Whether scheduled messages¹ are available
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/scheduled-messages
-	HasScheduled bool `tl:"has_scheduled"`
+	HasScheduled bool
 	// Whether the user can receive video calls
-	VideoCallsAvailable bool `tl:"video_calls_available"`
+	VideoCallsAvailable bool
 	// Remaining user info
-	User UserClass `tl:"user"`
+	User UserClass
 	// Bio of the user
 	//
 	// Use SetAbout and GetAbout helpers.
-	About string `tl:"about"`
+	About string
 	// Peer settings
-	Settings PeerSettings `tl:"settings"`
+	Settings PeerSettings
 	// Profile photo
 	//
 	// Use SetProfilePhoto and GetProfilePhoto helpers.
-	ProfilePhoto PhotoClass `tl:"profile_photo"`
+	ProfilePhoto PhotoClass
 	// Notification settings
-	NotifySettings PeerNotifySettings `tl:"notify_settings"`
+	NotifySettings PeerNotifySettings
 	// For bots, info about the bot (bot commands, etc)
 	//
 	// Use SetBotInfo and GetBotInfo helpers.
-	BotInfo BotInfo `tl:"bot_info"`
+	BotInfo BotInfo
 	// Message ID of the last pinned message¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/pin
 	//
 	// Use SetPinnedMsgID and GetPinnedMsgID helpers.
-	PinnedMsgID int `tl:"pinned_msg_id"`
+	PinnedMsgID int
 	// Chats in common with this user
-	CommonChatsCount int `tl:"common_chats_count"`
+	CommonChatsCount int
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int `tl:"folder_id"`
+	FolderID int
 	// TTLPeriod field of UserFull.
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
-	TTLPeriod int `tl:"ttl_period"`
+	TTLPeriod int
 }
 
 // UserFullTypeID is TL type id of UserFull.

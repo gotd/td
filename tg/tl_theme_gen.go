@@ -31,29 +31,29 @@ type Theme struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the current user is the creator of this theme
-	Creator bool `tl:"creator"`
+	Creator bool
 	// Whether this is the default theme
-	Default bool `tl:"default"`
+	Default bool
 	// Theme ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Theme access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// Unique theme ID
-	Slug string `tl:"slug"`
+	Slug string
 	// Theme name
-	Title string `tl:"title"`
+	Title string
 	// Theme
 	//
 	// Use SetDocument and GetDocument helpers.
-	Document DocumentClass `tl:"document"`
+	Document DocumentClass
 	// Theme settings
 	//
 	// Use SetSettings and GetSettings helpers.
-	Settings ThemeSettings `tl:"settings"`
+	Settings ThemeSettings
 	// Installation count
-	InstallsCount int `tl:"installs_count"`
+	InstallsCount int
 }
 
 // ThemeTypeID is TL type id of Theme.

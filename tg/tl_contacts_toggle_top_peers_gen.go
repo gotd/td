@@ -31,7 +31,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/contacts.toggleTopPeers for reference.
 type ContactsToggleTopPeersRequest struct {
 	// Enable/disable
-	Enabled bool `tl:"enabled"`
+	Enabled bool
 }
 
 // ContactsToggleTopPeersRequestTypeID is TL type id of ContactsToggleTopPeersRequest.

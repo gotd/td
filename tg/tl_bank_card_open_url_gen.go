@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/bankCardOpenUrl for reference.
 type BankCardOpenUrl struct {
 	// Info URL
-	URL string `tl:"url"`
+	URL string
 	// Bank name
-	Name string `tl:"name"`
+	Name string
 }
 
 // BankCardOpenUrlTypeID is TL type id of BankCardOpenUrl.

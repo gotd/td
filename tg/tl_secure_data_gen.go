@@ -32,11 +32,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/secureData for reference.
 type SecureData struct {
 	// Data
-	Data []byte `tl:"data"`
+	Data []byte
 	// Data hash
-	DataHash []byte `tl:"data_hash"`
+	DataHash []byte
 	// Secret
-	Secret []byte `tl:"secret"`
+	Secret []byte
 }
 
 // SecureDataTypeID is TL type id of SecureData.

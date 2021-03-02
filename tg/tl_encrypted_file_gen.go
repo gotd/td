@@ -112,15 +112,15 @@ var (
 // See https://core.telegram.org/constructor/encryptedFile for reference.
 type EncryptedFile struct {
 	// File ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Checking sum depending on user ID
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// File size in bytes
-	Size int `tl:"size"`
+	Size int
 	// Number of data centre
-	DCID int `tl:"dc_id"`
+	DCID int
 	// 32-bit fingerprint of key used for file encryption
-	KeyFingerprint int `tl:"key_fingerprint"`
+	KeyFingerprint int
 }
 
 // EncryptedFileTypeID is TL type id of EncryptedFile.

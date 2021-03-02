@@ -31,23 +31,23 @@ type MessagesVotesList struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Total number of votes for all options (or only for the chosen option, if provided to messages.getPollVotes¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.getPollVotes
-	Count int `tl:"count"`
+	Count int
 	// Vote info for each user
-	Votes []MessageUserVoteClass `tl:"votes"`
+	Votes []MessageUserVoteClass
 	// Info about users that voted in the poll
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 	// Offset to use with the next messages.getPollVotes¹ request, empty string if no more results are available.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.getPollVotes
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
-	NextOffset string `tl:"next_offset"`
+	NextOffset string
 }
 
 // MessagesVotesListTypeID is TL type id of MessagesVotesList.

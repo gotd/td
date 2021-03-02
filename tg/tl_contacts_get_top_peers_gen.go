@@ -31,38 +31,38 @@ type ContactsGetTopPeersRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Users we've chatted most frequently with
-	Correspondents bool `tl:"correspondents"`
+	Correspondents bool
 	// Most used bots
-	BotsPm bool `tl:"bots_pm"`
+	BotsPm bool
 	// Most used inline bots
-	BotsInline bool `tl:"bots_inline"`
+	BotsInline bool
 	// Most frequently called users
-	PhoneCalls bool `tl:"phone_calls"`
+	PhoneCalls bool
 	// Users to which the users often forwards messages to
-	ForwardUsers bool `tl:"forward_users"`
+	ForwardUsers bool
 	// Chats to which the users often forwards messages to
-	ForwardChats bool `tl:"forward_chats"`
+	ForwardChats bool
 	// Often-opened groups and supergroups
-	Groups bool `tl:"groups"`
+	Groups bool
 	// Most frequently visited channels
-	Channels bool `tl:"channels"`
+	Channels bool
 	// Offset for pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Offset int `tl:"offset"`
+	Offset int
 	// Maximum number of results to return, see pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int `tl:"limit"`
+	Limit int
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 }
 
 // ContactsGetTopPeersRequestTypeID is TL type id of ContactsGetTopPeersRequest.

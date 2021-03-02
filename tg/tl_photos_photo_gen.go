@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/photos.photo for reference.
 type PhotosPhoto struct {
 	// Photo
-	Photo PhotoClass `tl:"photo"`
+	Photo PhotoClass
 	// Users
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // PhotosPhotoTypeID is TL type id of PhotosPhoto.

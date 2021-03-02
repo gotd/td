@@ -31,7 +31,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.sendVerifyEmailCode for reference.
 type AccountSendVerifyEmailCodeRequest struct {
 	// The email where to send the code
-	Email string `tl:"email"`
+	Email string
 }
 
 // AccountSendVerifyEmailCodeRequestTypeID is TL type id of AccountSendVerifyEmailCodeRequest.

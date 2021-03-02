@@ -115,23 +115,23 @@ type UserProfilePhoto struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether an animated profile picture¹ is available for this user
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files#animated-profile-pictures
-	HasVideo bool `tl:"has_video"`
+	HasVideo bool
 	// Identifier of the respective photoParameter added in Layer 2¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/layers#layer-2
-	PhotoID int64 `tl:"photo_id"`
+	PhotoID int64
 	// Location of the file, corresponding to the small profile photo thumbnail
-	PhotoSmall FileLocationToBeDeprecated `tl:"photo_small"`
+	PhotoSmall FileLocationToBeDeprecated
 	// Location of the file, corresponding to the big profile photo thumbnail
-	PhotoBig FileLocationToBeDeprecated `tl:"photo_big"`
+	PhotoBig FileLocationToBeDeprecated
 	// DC ID where the photo is stored
-	DCID int `tl:"dc_id"`
+	DCID int
 }
 
 // UserProfilePhotoTypeID is TL type id of UserProfilePhoto.

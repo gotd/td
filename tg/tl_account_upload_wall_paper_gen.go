@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.uploadWallPaper for reference.
 type AccountUploadWallPaperRequest struct {
 	// The JPG/PNG wallpaper
-	File InputFileClass `tl:"file"`
+	File InputFileClass
 	// MIME type of uploaded wallpaper
-	MimeType string `tl:"mime_type"`
+	MimeType string
 	// Wallpaper settings
-	Settings WallPaperSettings `tl:"settings"`
+	Settings WallPaperSettings
 }
 
 // AccountUploadWallPaperRequestTypeID is TL type id of AccountUploadWallPaperRequest.

@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.getGameHighScores for reference.
 type MessagesGetGameHighScoresRequest struct {
 	// Where was the game sent
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// ID of message with game media attachment
-	ID int `tl:"id"`
+	ID int
 	// Get high scores made by a certain user
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 }
 
 // MessagesGetGameHighScoresRequestTypeID is TL type id of MessagesGetGameHighScoresRequest.

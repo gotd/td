@@ -25,7 +25,7 @@ var _ = tdp.Format
 // UserClassVector is a box for Vector<User>
 type UserClassVector struct {
 	// Elements of Vector<User>
-	Elems []UserClass `tl:"Elems"`
+	Elems []UserClass
 }
 
 // UserClassVectorTypeID is TL type id of UserClassVector.

@@ -31,16 +31,16 @@ type AuthAuthorization struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Temporary passport¹ sessions
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetTmpSessions and GetTmpSessions helpers.
-	TmpSessions int `tl:"tmp_sessions"`
+	TmpSessions int
 	// Info on authorized user
-	User UserClass `tl:"user"`
+	User UserClass
 }
 
 // AuthAuthorizationTypeID is TL type id of AuthAuthorization.
@@ -221,11 +221,11 @@ type AuthAuthorizationSignUpRequired struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Telegram's terms of service: the user must read and accept the terms of service before signing up to telegram
 	//
 	// Use SetTermsOfService and GetTermsOfService helpers.
-	TermsOfService HelpTermsOfService `tl:"terms_of_service"`
+	TermsOfService HelpTermsOfService
 }
 
 // AuthAuthorizationSignUpRequiredTypeID is TL type id of AuthAuthorizationSignUpRequired.

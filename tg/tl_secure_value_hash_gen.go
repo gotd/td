@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/secureValueHash for reference.
 type SecureValueHash struct {
 	// Secure value type
-	Type SecureValueTypeClass `tl:"type"`
+	Type SecureValueTypeClass
 	// Hash
-	Hash []byte `tl:"hash"`
+	Hash []byte
 }
 
 // SecureValueHashTypeID is TL type id of SecureValueHash.

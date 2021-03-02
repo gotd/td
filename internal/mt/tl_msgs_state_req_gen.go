@@ -25,7 +25,7 @@ var _ = tdp.Format
 // MsgsStateReq represents TL type `msgs_state_req#da69fb52`.
 type MsgsStateReq struct {
 	// MsgIds field of MsgsStateReq.
-	MsgIds []int64 `tl:"msg_ids"`
+	MsgIds []int64
 }
 
 // MsgsStateReqTypeID is TL type id of MsgsStateReq.

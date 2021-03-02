@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/payments.getPaymentReceipt for reference.
 type PaymentsGetPaymentReceiptRequest struct {
 	// Message ID of receipt
-	MsgID int `tl:"msg_id"`
+	MsgID int
 }
 
 // PaymentsGetPaymentReceiptRequestTypeID is TL type id of PaymentsGetPaymentReceiptRequest.

@@ -27,15 +27,15 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/messages.historyImportParsed for reference.
 type MessagesHistoryImportParsed struct {
 	// Flags field of MessagesHistoryImportParsed.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Pm field of MessagesHistoryImportParsed.
-	Pm bool `tl:"pm"`
+	Pm bool
 	// Group field of MessagesHistoryImportParsed.
-	Group bool `tl:"group"`
+	Group bool
 	// Title field of MessagesHistoryImportParsed.
 	//
 	// Use SetTitle and GetTitle helpers.
-	Title string `tl:"title"`
+	Title string
 }
 
 // MessagesHistoryImportParsedTypeID is TL type id of MessagesHistoryImportParsed.

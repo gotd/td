@@ -110,21 +110,21 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaPhoto23 for reference.
 type DecryptedMessageMediaPhoto23 struct {
 	// Thumb field of DecryptedMessageMediaPhoto23.
-	Thumb []byte `tl:"thumb"`
+	Thumb []byte
 	// ThumbW field of DecryptedMessageMediaPhoto23.
-	ThumbW int `tl:"thumb_w"`
+	ThumbW int
 	// ThumbH field of DecryptedMessageMediaPhoto23.
-	ThumbH int `tl:"thumb_h"`
+	ThumbH int
 	// W field of DecryptedMessageMediaPhoto23.
-	W int `tl:"w"`
+	W int
 	// H field of DecryptedMessageMediaPhoto23.
-	H int `tl:"h"`
+	H int
 	// Size field of DecryptedMessageMediaPhoto23.
-	Size int `tl:"size"`
+	Size int
 	// Key field of DecryptedMessageMediaPhoto23.
-	Key []byte `tl:"key"`
+	Key []byte
 	// Iv field of DecryptedMessageMediaPhoto23.
-	Iv []byte `tl:"iv"`
+	Iv []byte
 }
 
 // DecryptedMessageMediaPhoto23TypeID is TL type id of DecryptedMessageMediaPhoto23.
@@ -391,23 +391,23 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaVideo8 for reference.
 type DecryptedMessageMediaVideo8 struct {
 	// Thumb field of DecryptedMessageMediaVideo8.
-	Thumb []byte `tl:"thumb"`
+	Thumb []byte
 	// ThumbW field of DecryptedMessageMediaVideo8.
-	ThumbW int `tl:"thumb_w"`
+	ThumbW int
 	// ThumbH field of DecryptedMessageMediaVideo8.
-	ThumbH int `tl:"thumb_h"`
+	ThumbH int
 	// Duration field of DecryptedMessageMediaVideo8.
-	Duration int `tl:"duration"`
+	Duration int
 	// W field of DecryptedMessageMediaVideo8.
-	W int `tl:"w"`
+	W int
 	// H field of DecryptedMessageMediaVideo8.
-	H int `tl:"h"`
+	H int
 	// Size field of DecryptedMessageMediaVideo8.
-	Size int `tl:"size"`
+	Size int
 	// Key field of DecryptedMessageMediaVideo8.
-	Key []byte `tl:"key"`
+	Key []byte
 	// Iv field of DecryptedMessageMediaVideo8.
-	Iv []byte `tl:"iv"`
+	Iv []byte
 }
 
 // DecryptedMessageMediaVideo8TypeID is TL type id of DecryptedMessageMediaVideo8.
@@ -696,9 +696,9 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaGeoPoint for reference.
 type DecryptedMessageMediaGeoPoint struct {
 	// Lat field of DecryptedMessageMediaGeoPoint.
-	Lat float64 `tl:"lat"`
+	Lat float64
 	// Long field of DecryptedMessageMediaGeoPoint.
-	Long float64 `tl:"long"`
+	Long float64
 }
 
 // DecryptedMessageMediaGeoPointTypeID is TL type id of DecryptedMessageMediaGeoPoint.
@@ -833,13 +833,13 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaContact for reference.
 type DecryptedMessageMediaContact struct {
 	// PhoneNumber field of DecryptedMessageMediaContact.
-	PhoneNumber string `tl:"phone_number"`
+	PhoneNumber string
 	// FirstName field of DecryptedMessageMediaContact.
-	FirstName string `tl:"first_name"`
+	FirstName string
 	// LastName field of DecryptedMessageMediaContact.
-	LastName string `tl:"last_name"`
+	LastName string
 	// UserID field of DecryptedMessageMediaContact.
-	UserID int `tl:"user_id"`
+	UserID int
 }
 
 // DecryptedMessageMediaContactTypeID is TL type id of DecryptedMessageMediaContact.
@@ -1018,21 +1018,21 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaDocument23 for reference.
 type DecryptedMessageMediaDocument23 struct {
 	// Thumb field of DecryptedMessageMediaDocument23.
-	Thumb []byte `tl:"thumb"`
+	Thumb []byte
 	// ThumbW field of DecryptedMessageMediaDocument23.
-	ThumbW int `tl:"thumb_w"`
+	ThumbW int
 	// ThumbH field of DecryptedMessageMediaDocument23.
-	ThumbH int `tl:"thumb_h"`
+	ThumbH int
 	// FileName field of DecryptedMessageMediaDocument23.
-	FileName string `tl:"file_name"`
+	FileName string
 	// MimeType field of DecryptedMessageMediaDocument23.
-	MimeType string `tl:"mime_type"`
+	MimeType string
 	// Size field of DecryptedMessageMediaDocument23.
-	Size int `tl:"size"`
+	Size int
 	// Key field of DecryptedMessageMediaDocument23.
-	Key []byte `tl:"key"`
+	Key []byte
 	// Iv field of DecryptedMessageMediaDocument23.
-	Iv []byte `tl:"iv"`
+	Iv []byte
 }
 
 // DecryptedMessageMediaDocument23TypeID is TL type id of DecryptedMessageMediaDocument23.
@@ -1299,13 +1299,13 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaAudio8 for reference.
 type DecryptedMessageMediaAudio8 struct {
 	// Duration field of DecryptedMessageMediaAudio8.
-	Duration int `tl:"duration"`
+	Duration int
 	// Size field of DecryptedMessageMediaAudio8.
-	Size int `tl:"size"`
+	Size int
 	// Key field of DecryptedMessageMediaAudio8.
-	Key []byte `tl:"key"`
+	Key []byte
 	// Iv field of DecryptedMessageMediaAudio8.
-	Iv []byte `tl:"iv"`
+	Iv []byte
 }
 
 // DecryptedMessageMediaAudio8TypeID is TL type id of DecryptedMessageMediaAudio8.
@@ -1484,25 +1484,25 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaVideo23 for reference.
 type DecryptedMessageMediaVideo23 struct {
 	// Thumb field of DecryptedMessageMediaVideo23.
-	Thumb []byte `tl:"thumb"`
+	Thumb []byte
 	// ThumbW field of DecryptedMessageMediaVideo23.
-	ThumbW int `tl:"thumb_w"`
+	ThumbW int
 	// ThumbH field of DecryptedMessageMediaVideo23.
-	ThumbH int `tl:"thumb_h"`
+	ThumbH int
 	// Duration field of DecryptedMessageMediaVideo23.
-	Duration int `tl:"duration"`
+	Duration int
 	// MimeType field of DecryptedMessageMediaVideo23.
-	MimeType string `tl:"mime_type"`
+	MimeType string
 	// W field of DecryptedMessageMediaVideo23.
-	W int `tl:"w"`
+	W int
 	// H field of DecryptedMessageMediaVideo23.
-	H int `tl:"h"`
+	H int
 	// Size field of DecryptedMessageMediaVideo23.
-	Size int `tl:"size"`
+	Size int
 	// Key field of DecryptedMessageMediaVideo23.
-	Key []byte `tl:"key"`
+	Key []byte
 	// Iv field of DecryptedMessageMediaVideo23.
-	Iv []byte `tl:"iv"`
+	Iv []byte
 }
 
 // DecryptedMessageMediaVideo23TypeID is TL type id of DecryptedMessageMediaVideo23.
@@ -1813,15 +1813,15 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaAudio for reference.
 type DecryptedMessageMediaAudio struct {
 	// Duration field of DecryptedMessageMediaAudio.
-	Duration int `tl:"duration"`
+	Duration int
 	// MimeType field of DecryptedMessageMediaAudio.
-	MimeType string `tl:"mime_type"`
+	MimeType string
 	// Size field of DecryptedMessageMediaAudio.
-	Size int `tl:"size"`
+	Size int
 	// Key field of DecryptedMessageMediaAudio.
-	Key []byte `tl:"key"`
+	Key []byte
 	// Iv field of DecryptedMessageMediaAudio.
-	Iv []byte `tl:"iv"`
+	Iv []byte
 }
 
 // DecryptedMessageMediaAudioTypeID is TL type id of DecryptedMessageMediaAudio.
@@ -2022,21 +2022,21 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaExternalDocument for reference.
 type DecryptedMessageMediaExternalDocument struct {
 	// ID field of DecryptedMessageMediaExternalDocument.
-	ID int64 `tl:"id"`
+	ID int64
 	// AccessHash field of DecryptedMessageMediaExternalDocument.
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// Date field of DecryptedMessageMediaExternalDocument.
-	Date int `tl:"date"`
+	Date int
 	// MimeType field of DecryptedMessageMediaExternalDocument.
-	MimeType string `tl:"mime_type"`
+	MimeType string
 	// Size field of DecryptedMessageMediaExternalDocument.
-	Size int `tl:"size"`
+	Size int
 	// Thumb field of DecryptedMessageMediaExternalDocument.
-	Thumb PhotoSizeClass `tl:"thumb"`
+	Thumb PhotoSizeClass
 	// DCID field of DecryptedMessageMediaExternalDocument.
-	DCID int `tl:"dc_id"`
+	DCID int
 	// Attributes field of DecryptedMessageMediaExternalDocument.
-	Attributes []DocumentAttributeClass `tl:"attributes"`
+	Attributes []DocumentAttributeClass
 }
 
 // DecryptedMessageMediaExternalDocumentTypeID is TL type id of DecryptedMessageMediaExternalDocument.
@@ -2327,23 +2327,23 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaPhoto for reference.
 type DecryptedMessageMediaPhoto struct {
 	// Thumb field of DecryptedMessageMediaPhoto.
-	Thumb []byte `tl:"thumb"`
+	Thumb []byte
 	// ThumbW field of DecryptedMessageMediaPhoto.
-	ThumbW int `tl:"thumb_w"`
+	ThumbW int
 	// ThumbH field of DecryptedMessageMediaPhoto.
-	ThumbH int `tl:"thumb_h"`
+	ThumbH int
 	// W field of DecryptedMessageMediaPhoto.
-	W int `tl:"w"`
+	W int
 	// H field of DecryptedMessageMediaPhoto.
-	H int `tl:"h"`
+	H int
 	// Size field of DecryptedMessageMediaPhoto.
-	Size int `tl:"size"`
+	Size int
 	// Key field of DecryptedMessageMediaPhoto.
-	Key []byte `tl:"key"`
+	Key []byte
 	// Iv field of DecryptedMessageMediaPhoto.
-	Iv []byte `tl:"iv"`
+	Iv []byte
 	// Caption field of DecryptedMessageMediaPhoto.
-	Caption string `tl:"caption"`
+	Caption string
 }
 
 // DecryptedMessageMediaPhotoTypeID is TL type id of DecryptedMessageMediaPhoto.
@@ -2632,27 +2632,27 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaVideo for reference.
 type DecryptedMessageMediaVideo struct {
 	// Thumb field of DecryptedMessageMediaVideo.
-	Thumb []byte `tl:"thumb"`
+	Thumb []byte
 	// ThumbW field of DecryptedMessageMediaVideo.
-	ThumbW int `tl:"thumb_w"`
+	ThumbW int
 	// ThumbH field of DecryptedMessageMediaVideo.
-	ThumbH int `tl:"thumb_h"`
+	ThumbH int
 	// Duration field of DecryptedMessageMediaVideo.
-	Duration int `tl:"duration"`
+	Duration int
 	// MimeType field of DecryptedMessageMediaVideo.
-	MimeType string `tl:"mime_type"`
+	MimeType string
 	// W field of DecryptedMessageMediaVideo.
-	W int `tl:"w"`
+	W int
 	// H field of DecryptedMessageMediaVideo.
-	H int `tl:"h"`
+	H int
 	// Size field of DecryptedMessageMediaVideo.
-	Size int `tl:"size"`
+	Size int
 	// Key field of DecryptedMessageMediaVideo.
-	Key []byte `tl:"key"`
+	Key []byte
 	// Iv field of DecryptedMessageMediaVideo.
-	Iv []byte `tl:"iv"`
+	Iv []byte
 	// Caption field of DecryptedMessageMediaVideo.
-	Caption string `tl:"caption"`
+	Caption string
 }
 
 // DecryptedMessageMediaVideoTypeID is TL type id of DecryptedMessageMediaVideo.
@@ -2985,23 +2985,23 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaDocument for reference.
 type DecryptedMessageMediaDocument struct {
 	// Thumb field of DecryptedMessageMediaDocument.
-	Thumb []byte `tl:"thumb"`
+	Thumb []byte
 	// ThumbW field of DecryptedMessageMediaDocument.
-	ThumbW int `tl:"thumb_w"`
+	ThumbW int
 	// ThumbH field of DecryptedMessageMediaDocument.
-	ThumbH int `tl:"thumb_h"`
+	ThumbH int
 	// MimeType field of DecryptedMessageMediaDocument.
-	MimeType string `tl:"mime_type"`
+	MimeType string
 	// Size field of DecryptedMessageMediaDocument.
-	Size int `tl:"size"`
+	Size int
 	// Key field of DecryptedMessageMediaDocument.
-	Key []byte `tl:"key"`
+	Key []byte
 	// Iv field of DecryptedMessageMediaDocument.
-	Iv []byte `tl:"iv"`
+	Iv []byte
 	// Attributes field of DecryptedMessageMediaDocument.
-	Attributes []DocumentAttributeClass `tl:"attributes"`
+	Attributes []DocumentAttributeClass
 	// Caption field of DecryptedMessageMediaDocument.
-	Caption string `tl:"caption"`
+	Caption string
 }
 
 // DecryptedMessageMediaDocumentTypeID is TL type id of DecryptedMessageMediaDocument.
@@ -3309,17 +3309,17 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaVenue for reference.
 type DecryptedMessageMediaVenue struct {
 	// Lat field of DecryptedMessageMediaVenue.
-	Lat float64 `tl:"lat"`
+	Lat float64
 	// Long field of DecryptedMessageMediaVenue.
-	Long float64 `tl:"long"`
+	Long float64
 	// Title field of DecryptedMessageMediaVenue.
-	Title string `tl:"title"`
+	Title string
 	// Address field of DecryptedMessageMediaVenue.
-	Address string `tl:"address"`
+	Address string
 	// Provider field of DecryptedMessageMediaVenue.
-	Provider string `tl:"provider"`
+	Provider string
 	// VenueID field of DecryptedMessageMediaVenue.
-	VenueID string `tl:"venue_id"`
+	VenueID string
 }
 
 // DecryptedMessageMediaVenueTypeID is TL type id of DecryptedMessageMediaVenue.
@@ -3542,7 +3542,7 @@ var (
 // See https://core.telegram.org/constructor/decryptedMessageMediaWebPage for reference.
 type DecryptedMessageMediaWebPage struct {
 	// URL field of DecryptedMessageMediaWebPage.
-	URL string `tl:"url"`
+	URL string
 }
 
 // DecryptedMessageMediaWebPageTypeID is TL type id of DecryptedMessageMediaWebPage.

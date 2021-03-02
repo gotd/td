@@ -31,25 +31,25 @@ type PhotosUploadProfilePhotoRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// File saved in parts by means of upload.saveFilePart¹ method
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/upload.saveFilePart
 	//
 	// Use SetFile and GetFile helpers.
-	File InputFileClass `tl:"file"`
+	File InputFileClass
 	// Animated profile picture¹ video
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files#animated-profile-pictures
 	//
 	// Use SetVideo and GetVideo helpers.
-	Video InputFileClass `tl:"video"`
+	Video InputFileClass
 	// Floating point UNIX timestamp in seconds, indicating the frame of the video that should be used as static preview.
 	//
 	// Use SetVideoStartTs and GetVideoStartTs helpers.
-	VideoStartTs float64 `tl:"video_start_ts"`
+	VideoStartTs float64
 }
 
 // PhotosUploadProfilePhotoRequestTypeID is TL type id of PhotosUploadProfilePhotoRequest.

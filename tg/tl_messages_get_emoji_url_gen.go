@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.getEmojiURL for reference.
 type MessagesGetEmojiURLRequest struct {
 	// Language code for which the emoji replacements will be suggested
-	LangCode string `tl:"lang_code"`
+	LangCode string
 }
 
 // MessagesGetEmojiURLRequestTypeID is TL type id of MessagesGetEmojiURLRequest.

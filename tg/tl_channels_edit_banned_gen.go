@@ -34,11 +34,11 @@ type ChannelsEditBannedRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// The ID of the user whose banned rights should be modified
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 	// The banned rights
-	BannedRights ChatBannedRights `tl:"banned_rights"`
+	BannedRights ChatBannedRights
 }
 
 // ChannelsEditBannedRequestTypeID is TL type id of ChannelsEditBannedRequest.

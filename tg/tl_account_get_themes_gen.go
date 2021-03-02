@@ -28,12 +28,12 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.getThemes for reference.
 type AccountGetThemesRequest struct {
 	// Theme format, a string that identifies the theming engines supported by the client
-	Format string `tl:"format"`
+	Format string
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 }
 
 // AccountGetThemesRequestTypeID is TL type id of AccountGetThemesRequest.

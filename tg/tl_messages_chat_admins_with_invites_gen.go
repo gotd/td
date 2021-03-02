@@ -27,9 +27,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/messages.chatAdminsWithInvites for reference.
 type MessagesChatAdminsWithInvites struct {
 	// Admins field of MessagesChatAdminsWithInvites.
-	Admins []ChatAdminWithInvites `tl:"admins"`
+	Admins []ChatAdminWithInvites
 	// Users field of MessagesChatAdminsWithInvites.
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // MessagesChatAdminsWithInvitesTypeID is TL type id of MessagesChatAdminsWithInvites.

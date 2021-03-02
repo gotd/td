@@ -27,11 +27,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/groupCallDiscarded for reference.
 type GroupCallDiscarded struct {
 	// ID field of GroupCallDiscarded.
-	ID int64 `tl:"id"`
+	ID int64
 	// AccessHash field of GroupCallDiscarded.
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// Duration field of GroupCallDiscarded.
-	Duration int `tl:"duration"`
+	Duration int
 }
 
 // GroupCallDiscardedTypeID is TL type id of GroupCallDiscarded.
@@ -188,23 +188,23 @@ var (
 // See https://core.telegram.org/constructor/groupCall for reference.
 type GroupCall struct {
 	// Flags field of GroupCall.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// JoinMuted field of GroupCall.
-	JoinMuted bool `tl:"join_muted"`
+	JoinMuted bool
 	// CanChangeJoinMuted field of GroupCall.
-	CanChangeJoinMuted bool `tl:"can_change_join_muted"`
+	CanChangeJoinMuted bool
 	// ID field of GroupCall.
-	ID int64 `tl:"id"`
+	ID int64
 	// AccessHash field of GroupCall.
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// ParticipantsCount field of GroupCall.
-	ParticipantsCount int `tl:"participants_count"`
+	ParticipantsCount int
 	// Params field of GroupCall.
 	//
 	// Use SetParams and GetParams helpers.
-	Params DataJSON `tl:"params"`
+	Params DataJSON
 	// Version field of GroupCall.
-	Version int `tl:"version"`
+	Version int
 }
 
 // GroupCallTypeID is TL type id of GroupCall.

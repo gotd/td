@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.saveTheme for reference.
 type AccountSaveThemeRequest struct {
 	// Theme to save
-	Theme InputThemeClass `tl:"theme"`
+	Theme InputThemeClass
 	// Unsave
-	Unsave bool `tl:"unsave"`
+	Unsave bool
 }
 
 // AccountSaveThemeRequestTypeID is TL type id of AccountSaveThemeRequest.

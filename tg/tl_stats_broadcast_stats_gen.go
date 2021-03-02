@@ -31,35 +31,35 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/stats.broadcastStats for reference.
 type StatsBroadcastStats struct {
 	// Period in consideration
-	Period StatsDateRangeDays `tl:"period"`
+	Period StatsDateRangeDays
 	// Follower count change for period in consideration
-	Followers StatsAbsValueAndPrev `tl:"followers"`
+	Followers StatsAbsValueAndPrev
 	// total_viewcount/postcount, for posts posted during the period in consideration (views_per_post). Note that in this case, current refers to the period in consideration (min_date till max_date), and prev refers to the previous period ((min_date - (max_date - min_date)) till min_date).
-	ViewsPerPost StatsAbsValueAndPrev `tl:"views_per_post"`
+	ViewsPerPost StatsAbsValueAndPrev
 	// total_viewcount/postcount, for posts posted during the period in consideration (views_per_post). Note that in this case, current refers to the period in consideration (min_date till max_date), and prev refers to the previous period ((min_date - (max_date - min_date)) till min_date)
-	SharesPerPost StatsAbsValueAndPrev `tl:"shares_per_post"`
+	SharesPerPost StatsAbsValueAndPrev
 	// Percentage of subscribers with enabled notifications
-	EnabledNotifications StatsPercentValue `tl:"enabled_notifications"`
+	EnabledNotifications StatsPercentValue
 	// Channel growth graph (absolute subscriber count)
-	GrowthGraph StatsGraphClass `tl:"growth_graph"`
+	GrowthGraph StatsGraphClass
 	// Followers growth graph (relative subscriber count)
-	FollowersGraph StatsGraphClass `tl:"followers_graph"`
+	FollowersGraph StatsGraphClass
 	// Muted users graph (relative)
-	MuteGraph StatsGraphClass `tl:"mute_graph"`
+	MuteGraph StatsGraphClass
 	// Views per hour graph (absolute)
-	TopHoursGraph StatsGraphClass `tl:"top_hours_graph"`
+	TopHoursGraph StatsGraphClass
 	// Interactions graph (absolute)
-	InteractionsGraph StatsGraphClass `tl:"interactions_graph"`
+	InteractionsGraph StatsGraphClass
 	// IV interactions graph (absolute)
-	IvInteractionsGraph StatsGraphClass `tl:"iv_interactions_graph"`
+	IvInteractionsGraph StatsGraphClass
 	// Views by source graph (absolute)
-	ViewsBySourceGraph StatsGraphClass `tl:"views_by_source_graph"`
+	ViewsBySourceGraph StatsGraphClass
 	// New followers by source graph (absolute)
-	NewFollowersBySourceGraph StatsGraphClass `tl:"new_followers_by_source_graph"`
+	NewFollowersBySourceGraph StatsGraphClass
 	// Subscriber language graph (piechart)
-	LanguagesGraph StatsGraphClass `tl:"languages_graph"`
+	LanguagesGraph StatsGraphClass
 	// Recent message interactions
-	RecentMessageInteractions []MessageInteractionCounters `tl:"recent_message_interactions"`
+	RecentMessageInteractions []MessageInteractionCounters
 }
 
 // StatsBroadcastStatsTypeID is TL type id of StatsBroadcastStats.

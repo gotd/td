@@ -31,9 +31,9 @@ type ChannelsCheckUsernameRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// The username to check
-	Username string `tl:"username"`
+	Username string
 }
 
 // ChannelsCheckUsernameRequestTypeID is TL type id of ChannelsCheckUsernameRequest.

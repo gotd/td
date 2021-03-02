@@ -112,7 +112,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockTitle for reference.
 type PageBlockTitle struct {
 	// Title
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 }
 
 // PageBlockTitleTypeID is TL type id of PageBlockTitle.
@@ -231,7 +231,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockSubtitle for reference.
 type PageBlockSubtitle struct {
 	// Text
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 }
 
 // PageBlockSubtitleTypeID is TL type id of PageBlockSubtitle.
@@ -350,9 +350,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockAuthorDate for reference.
 type PageBlockAuthorDate struct {
 	// Author name
-	Author RichTextClass `tl:"author"`
+	Author RichTextClass
 	// Date of pubblication
-	PublishedDate int `tl:"published_date"`
+	PublishedDate int
 }
 
 // PageBlockAuthorDateTypeID is TL type id of PageBlockAuthorDate.
@@ -493,7 +493,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockHeader for reference.
 type PageBlockHeader struct {
 	// Contents
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 }
 
 // PageBlockHeaderTypeID is TL type id of PageBlockHeader.
@@ -612,7 +612,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockSubheader for reference.
 type PageBlockSubheader struct {
 	// Subheader
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 }
 
 // PageBlockSubheaderTypeID is TL type id of PageBlockSubheader.
@@ -731,7 +731,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockParagraph for reference.
 type PageBlockParagraph struct {
 	// Text
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 }
 
 // PageBlockParagraphTypeID is TL type id of PageBlockParagraph.
@@ -850,9 +850,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockPreformatted for reference.
 type PageBlockPreformatted struct {
 	// Text
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 	// Programming language of preformatted text
-	Language string `tl:"language"`
+	Language string
 }
 
 // PageBlockPreformattedTypeID is TL type id of PageBlockPreformatted.
@@ -993,7 +993,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockFooter for reference.
 type PageBlockFooter struct {
 	// Contents
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 }
 
 // PageBlockFooterTypeID is TL type id of PageBlockFooter.
@@ -1196,7 +1196,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockAnchor for reference.
 type PageBlockAnchor struct {
 	// Name of target section
-	Name string `tl:"name"`
+	Name string
 }
 
 // PageBlockAnchorTypeID is TL type id of PageBlockAnchor.
@@ -1310,7 +1310,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockList for reference.
 type PageBlockList struct {
 	// List of blocks in an IV page
-	Items []PageListItemClass `tl:"items"`
+	Items []PageListItemClass
 }
 
 // PageBlockListTypeID is TL type id of PageBlockList.
@@ -1443,9 +1443,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockBlockquote for reference.
 type PageBlockBlockquote struct {
 	// Quote contents
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 	// Caption
-	Caption RichTextClass `tl:"caption"`
+	Caption RichTextClass
 }
 
 // PageBlockBlockquoteTypeID is TL type id of PageBlockBlockquote.
@@ -1591,9 +1591,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockPullquote for reference.
 type PageBlockPullquote struct {
 	// Text
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 	// Caption
-	Caption RichTextClass `tl:"caption"`
+	Caption RichTextClass
 }
 
 // PageBlockPullquoteTypeID is TL type id of PageBlockPullquote.
@@ -1742,19 +1742,19 @@ type PageBlockPhoto struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Photo ID
-	PhotoID int64 `tl:"photo_id"`
+	PhotoID int64
 	// Caption
-	Caption PageCaption `tl:"caption"`
+	Caption PageCaption
 	// HTTP URL of page the photo leads to when clicked
 	//
 	// Use SetURL and GetURL helpers.
-	URL string `tl:"url"`
+	URL string
 	// ID of preview of the page the photo leads to when clicked
 	//
 	// Use SetWebpageID and GetWebpageID helpers.
-	WebpageID int64 `tl:"webpage_id"`
+	WebpageID int64
 }
 
 // PageBlockPhotoTypeID is TL type id of PageBlockPhoto.
@@ -1990,15 +1990,15 @@ type PageBlockVideo struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the video is set to autoplay
-	Autoplay bool `tl:"autoplay"`
+	Autoplay bool
 	// Whether the video is set to loop
-	Loop bool `tl:"loop"`
+	Loop bool
 	// Video ID
-	VideoID int64 `tl:"video_id"`
+	VideoID int64
 	// Caption
-	Caption PageCaption `tl:"caption"`
+	Caption PageCaption
 }
 
 // PageBlockVideoTypeID is TL type id of PageBlockVideo.
@@ -2209,7 +2209,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockCover for reference.
 type PageBlockCover struct {
 	// Cover
-	Cover PageBlockClass `tl:"cover"`
+	Cover PageBlockClass
 }
 
 // PageBlockCoverTypeID is TL type id of PageBlockCover.
@@ -2331,33 +2331,33 @@ type PageBlockEmbed struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the block should be full width
-	FullWidth bool `tl:"full_width"`
+	FullWidth bool
 	// Whether scrolling should be allowed
-	AllowScrolling bool `tl:"allow_scrolling"`
+	AllowScrolling bool
 	// Web page URL, if available
 	//
 	// Use SetURL and GetURL helpers.
-	URL string `tl:"url"`
+	URL string
 	// HTML-markup of the embedded page
 	//
 	// Use SetHTML and GetHTML helpers.
-	HTML string `tl:"html"`
+	HTML string
 	// Poster photo, if available
 	//
 	// Use SetPosterPhotoID and GetPosterPhotoID helpers.
-	PosterPhotoID int64 `tl:"poster_photo_id"`
+	PosterPhotoID int64
 	// Block width, if known
 	//
 	// Use SetW and GetW helpers.
-	W int `tl:"w"`
+	W int
 	// Block height, if known
 	//
 	// Use SetH and GetH helpers.
-	H int `tl:"h"`
+	H int
 	// Caption
-	Caption PageCaption `tl:"caption"`
+	Caption PageCaption
 }
 
 // PageBlockEmbedTypeID is TL type id of PageBlockEmbed.
@@ -2751,19 +2751,19 @@ var (
 // See https://core.telegram.org/constructor/pageBlockEmbedPost for reference.
 type PageBlockEmbedPost struct {
 	// Web page URL
-	URL string `tl:"url"`
+	URL string
 	// ID of generated webpage preview
-	WebpageID int64 `tl:"webpage_id"`
+	WebpageID int64
 	// ID of the author's photo
-	AuthorPhotoID int64 `tl:"author_photo_id"`
+	AuthorPhotoID int64
 	// Author name
-	Author string `tl:"author"`
+	Author string
 	// Creation date
-	Date int `tl:"date"`
+	Date int
 	// Post contents
-	Blocks []PageBlockClass `tl:"blocks"`
+	Blocks []PageBlockClass
 	// Caption
-	Caption PageCaption `tl:"caption"`
+	Caption PageCaption
 }
 
 // PageBlockEmbedPostTypeID is TL type id of PageBlockEmbedPost.
@@ -3028,9 +3028,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockCollage for reference.
 type PageBlockCollage struct {
 	// Media elements
-	Items []PageBlockClass `tl:"items"`
+	Items []PageBlockClass
 	// Caption
-	Caption PageCaption `tl:"caption"`
+	Caption PageCaption
 }
 
 // PageBlockCollageTypeID is TL type id of PageBlockCollage.
@@ -3185,9 +3185,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockSlideshow for reference.
 type PageBlockSlideshow struct {
 	// Slideshow items
-	Items []PageBlockClass `tl:"items"`
+	Items []PageBlockClass
 	// Caption
-	Caption PageCaption `tl:"caption"`
+	Caption PageCaption
 }
 
 // PageBlockSlideshowTypeID is TL type id of PageBlockSlideshow.
@@ -3342,7 +3342,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockChannel for reference.
 type PageBlockChannel struct {
 	// The channel/supergroup/chat
-	Channel ChatClass `tl:"channel"`
+	Channel ChatClass
 }
 
 // PageBlockChannelTypeID is TL type id of PageBlockChannel.
@@ -3464,9 +3464,9 @@ type PageBlockAudio struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/page
-	AudioID int64 `tl:"audio_id"`
+	AudioID int64
 	// Audio caption
-	Caption PageCaption `tl:"caption"`
+	Caption PageCaption
 }
 
 // PageBlockAudioTypeID is TL type id of PageBlockAudio.
@@ -3602,7 +3602,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockKicker for reference.
 type PageBlockKicker struct {
 	// Contents
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 }
 
 // PageBlockKickerTypeID is TL type id of PageBlockKicker.
@@ -3724,15 +3724,15 @@ type PageBlockTable struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Does the table have a visible border?
-	Bordered bool `tl:"bordered"`
+	Bordered bool
 	// Is the table striped?
-	Striped bool `tl:"striped"`
+	Striped bool
 	// Title
-	Title RichTextClass `tl:"title"`
+	Title RichTextClass
 	// Table rows
-	Rows []PageTableRow `tl:"rows"`
+	Rows []PageTableRow
 }
 
 // PageBlockTableTypeID is TL type id of PageBlockTable.
@@ -3959,7 +3959,7 @@ var (
 // See https://core.telegram.org/constructor/pageBlockOrderedList for reference.
 type PageBlockOrderedList struct {
 	// List items
-	Items []PageListOrderedItemClass `tl:"items"`
+	Items []PageListOrderedItemClass
 }
 
 // PageBlockOrderedListTypeID is TL type id of PageBlockOrderedList.
@@ -4095,13 +4095,13 @@ type PageBlockDetails struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the block is open by default
-	Open bool `tl:"open"`
+	Open bool
 	// Block contents
-	Blocks []PageBlockClass `tl:"blocks"`
+	Blocks []PageBlockClass
 	// Always visible heading for the block
-	Title RichTextClass `tl:"title"`
+	Title RichTextClass
 }
 
 // PageBlockDetailsTypeID is TL type id of PageBlockDetails.
@@ -4306,9 +4306,9 @@ var (
 // See https://core.telegram.org/constructor/pageBlockRelatedArticles for reference.
 type PageBlockRelatedArticles struct {
 	// Title
-	Title RichTextClass `tl:"title"`
+	Title RichTextClass
 	// Related articles
-	Articles []PageRelatedArticle `tl:"articles"`
+	Articles []PageRelatedArticle
 }
 
 // PageBlockRelatedArticlesTypeID is TL type id of PageBlockRelatedArticles.
@@ -4460,15 +4460,15 @@ var (
 // See https://core.telegram.org/constructor/pageBlockMap for reference.
 type PageBlockMap struct {
 	// Location of the map center
-	Geo GeoPointClass `tl:"geo"`
+	Geo GeoPointClass
 	// Map zoom level; 13-20
-	Zoom int `tl:"zoom"`
+	Zoom int
 	// Map width in pixels before applying scale; 16-102
-	W int `tl:"w"`
+	W int
 	// Map height in pixels before applying scale; 16-1024
-	H int `tl:"h"`
+	H int
 	// Caption
-	Caption PageCaption `tl:"caption"`
+	Caption PageCaption
 }
 
 // PageBlockMapTypeID is TL type id of PageBlockMap.

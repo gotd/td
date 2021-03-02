@@ -112,17 +112,17 @@ var (
 // See https://core.telegram.org/constructor/inputDocument for reference.
 type InputDocument struct {
 	// Document ID
-	ID int64 `tl:"id"`
+	ID int64
 	// access_hash parameter from the document¹ constructor
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/document
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// File reference¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/file_reference
-	FileReference []byte `tl:"file_reference"`
+	FileReference []byte
 }
 
 // InputDocumentTypeID is TL type id of InputDocument.

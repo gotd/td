@@ -31,20 +31,20 @@ type MessagesSendEncryptedFileRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to send the file without triggering a notification
-	Silent bool `tl:"silent"`
+	Silent bool
 	// Secret chat ID
-	Peer InputEncryptedChat `tl:"peer"`
+	Peer InputEncryptedChat
 	// Unique client message ID necessary to prevent message resending
-	RandomID int64 `tl:"random_id"`
+	RandomID int64
 	// TL-serialization of DecryptedMessage¹ type, encrypted with a key generated during chat initialization
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/DecryptedMessage
-	Data []byte `tl:"data"`
+	Data []byte
 	// File attachment for the secret chat
-	File InputEncryptedFileClass `tl:"file"`
+	File InputEncryptedFileClass
 }
 
 // MessagesSendEncryptedFileRequestTypeID is TL type id of MessagesSendEncryptedFileRequest.

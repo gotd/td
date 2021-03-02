@@ -32,9 +32,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/statsPercentValue for reference.
 type StatsPercentValue struct {
 	// Partial value
-	Part float64 `tl:"part"`
+	Part float64
 	// Total value
-	Total float64 `tl:"total"`
+	Total float64
 }
 
 // StatsPercentValueTypeID is TL type id of StatsPercentValue.

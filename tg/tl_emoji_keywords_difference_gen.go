@@ -28,13 +28,13 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/emojiKeywordsDifference for reference.
 type EmojiKeywordsDifference struct {
 	// Language code for keywords
-	LangCode string `tl:"lang_code"`
+	LangCode string
 	// Previous emoji keyword list version
-	FromVersion int `tl:"from_version"`
+	FromVersion int
 	// Current version of emoji keyword list
-	Version int `tl:"version"`
+	Version int
 	// Emojis associated to keywords
-	Keywords []EmojiKeywordClass `tl:"keywords"`
+	Keywords []EmojiKeywordClass
 }
 
 // EmojiKeywordsDifferenceTypeID is TL type id of EmojiKeywordsDifference.

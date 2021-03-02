@@ -31,23 +31,23 @@ type StickersCreateStickerSetRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether this is a mask stickerset
-	Masks bool `tl:"masks"`
+	Masks bool
 	// Whether this is an animated stickerset
-	Animated bool `tl:"animated"`
+	Animated bool
 	// Stickerset owner
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 	// Stickerset name, 1-64 chars
-	Title string `tl:"title"`
+	Title string
 	// Sticker set name. Can contain only English letters, digits and underscores. Must end with "by" ( is case insensitive); 1-64 characters
-	ShortName string `tl:"short_name"`
+	ShortName string
 	// Thumbnail
 	//
 	// Use SetThumb and GetThumb helpers.
-	Thumb InputDocumentClass `tl:"thumb"`
+	Thumb InputDocumentClass
 	// Stickers
-	Stickers []InputStickerSetItem `tl:"stickers"`
+	Stickers []InputStickerSetItem
 }
 
 // StickersCreateStickerSetRequestTypeID is TL type id of StickersCreateStickerSetRequest.

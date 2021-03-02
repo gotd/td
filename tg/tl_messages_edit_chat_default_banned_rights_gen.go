@@ -31,9 +31,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.editChatDefaultBannedRights for reference.
 type MessagesEditChatDefaultBannedRightsRequest struct {
 	// The peer
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// The new global rights
-	BannedRights ChatBannedRights `tl:"banned_rights"`
+	BannedRights ChatBannedRights
 }
 
 // MessagesEditChatDefaultBannedRightsRequestTypeID is TL type id of MessagesEditChatDefaultBannedRightsRequest.

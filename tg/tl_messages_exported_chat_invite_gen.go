@@ -27,9 +27,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/messages.exportedChatInvite for reference.
 type MessagesExportedChatInvite struct {
 	// Invite field of MessagesExportedChatInvite.
-	Invite ChatInviteExported `tl:"invite"`
+	Invite ChatInviteExported
 	// Users field of MessagesExportedChatInvite.
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // MessagesExportedChatInviteTypeID is TL type id of MessagesExportedChatInvite.
@@ -183,11 +183,11 @@ var (
 // See https://core.telegram.org/constructor/messages.exportedChatInviteReplaced for reference.
 type MessagesExportedChatInviteReplaced struct {
 	// Invite field of MessagesExportedChatInviteReplaced.
-	Invite ChatInviteExported `tl:"invite"`
+	Invite ChatInviteExported
 	// NewInvite field of MessagesExportedChatInviteReplaced.
-	NewInvite ChatInviteExported `tl:"new_invite"`
+	NewInvite ChatInviteExported
 	// Users field of MessagesExportedChatInviteReplaced.
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // MessagesExportedChatInviteReplacedTypeID is TL type id of MessagesExportedChatInviteReplaced.

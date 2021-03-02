@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/stickers.setStickerSetThumb for reference.
 type StickersSetStickerSetThumbRequest struct {
 	// Stickerset
-	Stickerset InputStickerSetClass `tl:"stickerset"`
+	Stickerset InputStickerSetClass
 	// Thumbnail
-	Thumb InputDocumentClass `tl:"thumb"`
+	Thumb InputDocumentClass
 }
 
 // StickersSetStickerSetThumbRequestTypeID is TL type id of StickersSetStickerSetThumbRequest.

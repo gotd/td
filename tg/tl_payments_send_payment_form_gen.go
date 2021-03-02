@@ -31,22 +31,22 @@ type PaymentsSendPaymentFormRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Message ID of form
-	MsgID int `tl:"msg_id"`
+	MsgID int
 	// ID of saved and validated order info¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/payments.validatedRequestedInfo
 	//
 	// Use SetRequestedInfoID and GetRequestedInfoID helpers.
-	RequestedInfoID string `tl:"requested_info_id"`
+	RequestedInfoID string
 	// Chosen shipping option ID
 	//
 	// Use SetShippingOptionID and GetShippingOptionID helpers.
-	ShippingOptionID string `tl:"shipping_option_id"`
+	ShippingOptionID string
 	// Payment credentials
-	Credentials InputPaymentCredentialsClass `tl:"credentials"`
+	Credentials InputPaymentCredentialsClass
 }
 
 // PaymentsSendPaymentFormRequestTypeID is TL type id of PaymentsSendPaymentFormRequest.

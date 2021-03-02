@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/popularContact for reference.
 type PopularContact struct {
 	// Contact identifier
-	ClientID int64 `tl:"client_id"`
+	ClientID int64
 	// How many people imported this contact
-	Importers int `tl:"importers"`
+	Importers int
 }
 
 // PopularContactTypeID is TL type id of PopularContact.

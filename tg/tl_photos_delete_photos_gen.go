@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/photos.deletePhotos for reference.
 type PhotosDeletePhotosRequest struct {
 	// Input photos to delete
-	ID []InputPhotoClass `tl:"id"`
+	ID []InputPhotoClass
 }
 
 // PhotosDeletePhotosRequestTypeID is TL type id of PhotosDeletePhotosRequest.

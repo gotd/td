@@ -34,7 +34,7 @@ type ChannelsLeaveChannelRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 }
 
 // ChannelsLeaveChannelRequestTypeID is TL type id of ChannelsLeaveChannelRequest.

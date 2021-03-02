@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/messages.sentEncryptedMessage for reference.
 type MessagesSentEncryptedMessage struct {
 	// Date of sending
-	Date int `tl:"date"`
+	Date int
 }
 
 // MessagesSentEncryptedMessageTypeID is TL type id of MessagesSentEncryptedMessage.
@@ -142,9 +142,9 @@ var (
 // See https://core.telegram.org/constructor/messages.sentEncryptedFile for reference.
 type MessagesSentEncryptedFile struct {
 	// Sending date
-	Date int `tl:"date"`
+	Date int
 	// Attached file
-	File EncryptedFileClass `tl:"file"`
+	File EncryptedFileClass
 }
 
 // MessagesSentEncryptedFileTypeID is TL type id of MessagesSentEncryptedFile.

@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/botCommand for reference.
 type BotCommand struct {
 	// /command name
-	Command string `tl:"command"`
+	Command string
 	// Description of the command
-	Description string `tl:"description"`
+	Description string
 }
 
 // BotCommandTypeID is TL type id of BotCommand.

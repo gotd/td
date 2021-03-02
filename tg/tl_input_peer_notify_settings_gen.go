@@ -31,23 +31,23 @@ type InputPeerNotifySettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// If the text of the message shall be displayed in notification
 	//
 	// Use SetShowPreviews and GetShowPreviews helpers.
-	ShowPreviews bool `tl:"show_previews"`
+	ShowPreviews bool
 	// Peer was muted?
 	//
 	// Use SetSilent and GetSilent helpers.
-	Silent bool `tl:"silent"`
+	Silent bool
 	// Date until which all notifications shall be switched off
 	//
 	// Use SetMuteUntil and GetMuteUntil helpers.
-	MuteUntil int `tl:"mute_until"`
+	MuteUntil int
 	// Name of an audio file for notification
 	//
 	// Use SetSound and GetSound helpers.
-	Sound string `tl:"sound"`
+	Sound string
 }
 
 // InputPeerNotifySettingsTypeID is TL type id of InputPeerNotifySettings.

@@ -114,7 +114,7 @@ var (
 // See https://core.telegram.org/constructor/messages.stickerSetInstallResultArchive for reference.
 type MessagesStickerSetInstallResultArchive struct {
 	// Archived stickersets
-	Sets []StickerSetCoveredClass `tl:"sets"`
+	Sets []StickerSetCoveredClass
 }
 
 // MessagesStickerSetInstallResultArchiveTypeID is TL type id of MessagesStickerSetInstallResultArchive.

@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.deleteChat for reference.
 type MessagesDeleteChatRequest struct {
 	// ChatID field of MessagesDeleteChatRequest.
-	ChatID int `tl:"chat_id"`
+	ChatID int
 }
 
 // MessagesDeleteChatRequestTypeID is TL type id of MessagesDeleteChatRequest.

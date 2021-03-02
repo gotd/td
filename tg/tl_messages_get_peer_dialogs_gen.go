@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.getPeerDialogs for reference.
 type MessagesGetPeerDialogsRequest struct {
 	// Peers
-	Peers []InputDialogPeerClass `tl:"peers"`
+	Peers []InputDialogPeerClass
 }
 
 // MessagesGetPeerDialogsRequestTypeID is TL type id of MessagesGetPeerDialogsRequest.

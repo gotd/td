@@ -28,13 +28,13 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/upload.saveBigFilePart for reference.
 type UploadSaveBigFilePartRequest struct {
 	// Random file id, created by the client
-	FileID int64 `tl:"file_id"`
+	FileID int64
 	// Part sequence number
-	FilePart int `tl:"file_part"`
+	FilePart int
 	// Total number of parts
-	FileTotalParts int `tl:"file_total_parts"`
+	FileTotalParts int
 	// Binary data, part contents
-	Bytes []byte `tl:"bytes"`
+	Bytes []byte
 }
 
 // UploadSaveBigFilePartRequestTypeID is TL type id of UploadSaveBigFilePartRequest.

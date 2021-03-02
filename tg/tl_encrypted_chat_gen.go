@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/encryptedChatEmpty for reference.
 type EncryptedChatEmpty struct {
 	// Chat ID
-	ID int `tl:"id"`
+	ID int
 }
 
 // EncryptedChatEmptyTypeID is TL type id of EncryptedChatEmpty.
@@ -142,15 +142,15 @@ var (
 // See https://core.telegram.org/constructor/encryptedChatWaiting for reference.
 type EncryptedChatWaiting struct {
 	// Chat ID
-	ID int `tl:"id"`
+	ID int
 	// Checking sum depending on user ID
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// Date of chat creation
-	Date int `tl:"date"`
+	Date int
 	// Chat creator ID
-	AdminID int `tl:"admin_id"`
+	AdminID int
 	// ID of second chat participant
-	ParticipantID int `tl:"participant_id"`
+	ParticipantID int
 }
 
 // EncryptedChatWaitingTypeID is TL type id of EncryptedChatWaiting.
@@ -355,29 +355,29 @@ type EncryptedChatRequested struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int `tl:"folder_id"`
+	FolderID int
 	// Chat ID
-	ID int `tl:"id"`
+	ID int
 	// Check sum depending on user ID
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// Chat creation date
-	Date int `tl:"date"`
+	Date int
 	// Chat creator ID
-	AdminID int `tl:"admin_id"`
+	AdminID int
 	// ID of second chat participant
-	ParticipantID int `tl:"participant_id"`
+	ParticipantID int
 	// A = g ^ a mod p, see Wikipedia¹
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
-	GA []byte `tl:"g_a"`
+	GA []byte
 }
 
 // EncryptedChatRequestedTypeID is TL type id of EncryptedChatRequested.
@@ -657,22 +657,22 @@ var (
 // See https://core.telegram.org/constructor/encryptedChat for reference.
 type EncryptedChat struct {
 	// Chat ID
-	ID int `tl:"id"`
+	ID int
 	// Check sum dependant on the user ID
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// Date chat was created
-	Date int `tl:"date"`
+	Date int
 	// Chat creator ID
-	AdminID int `tl:"admin_id"`
+	AdminID int
 	// ID of the second chat participant
-	ParticipantID int `tl:"participant_id"`
+	ParticipantID int
 	// B = g ^ b mod p, if the currently authorized user is the chat's creator,or A = g ^ a mod p otherwiseSee Wikipedia¹ for more info
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
-	GAOrB []byte `tl:"g_a_or_b"`
+	GAOrB []byte
 	// 64-bit fingerprint of received key
-	KeyFingerprint int64 `tl:"key_fingerprint"`
+	KeyFingerprint int64
 }
 
 // EncryptedChatTypeID is TL type id of EncryptedChat.
@@ -918,11 +918,11 @@ var (
 // See https://core.telegram.org/constructor/encryptedChatDiscarded for reference.
 type EncryptedChatDiscarded struct {
 	// Flags field of EncryptedChatDiscarded.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// HistoryDeleted field of EncryptedChatDiscarded.
-	HistoryDeleted bool `tl:"history_deleted"`
+	HistoryDeleted bool
 	// Chat ID
-	ID int `tl:"id"`
+	ID int
 }
 
 // EncryptedChatDiscardedTypeID is TL type id of EncryptedChatDiscarded.

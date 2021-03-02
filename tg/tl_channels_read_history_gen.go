@@ -34,9 +34,9 @@ type ChannelsReadHistoryRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// ID of message up to which messages should be marked as read
-	MaxID int `tl:"max_id"`
+	MaxID int
 }
 
 // ChannelsReadHistoryRequestTypeID is TL type id of ChannelsReadHistoryRequest.

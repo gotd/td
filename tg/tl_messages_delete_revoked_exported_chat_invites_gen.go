@@ -27,9 +27,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.deleteRevokedExportedChatInvites for reference.
 type MessagesDeleteRevokedExportedChatInvitesRequest struct {
 	// Peer field of MessagesDeleteRevokedExportedChatInvitesRequest.
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// AdminID field of MessagesDeleteRevokedExportedChatInvitesRequest.
-	AdminID InputUserClass `tl:"admin_id"`
+	AdminID InputUserClass
 }
 
 // MessagesDeleteRevokedExportedChatInvitesRequestTypeID is TL type id of MessagesDeleteRevokedExportedChatInvitesRequest.

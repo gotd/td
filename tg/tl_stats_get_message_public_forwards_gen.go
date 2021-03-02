@@ -32,29 +32,29 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/stats.getMessagePublicForwards for reference.
 type StatsGetMessagePublicForwardsRequest struct {
 	// Source channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// Source message ID
-	MsgID int `tl:"msg_id"`
+	MsgID int
 	// Initially 0, then set to the next_rate parameter of messages.messagesSlice¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/messages.messagesSlice
-	OffsetRate int `tl:"offset_rate"`
+	OffsetRate int
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetPeer InputPeerClass `tl:"offset_peer"`
+	OffsetPeer InputPeerClass
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetID int `tl:"offset_id"`
+	OffsetID int
 	// Maximum number of results to return, see pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int `tl:"limit"`
+	Limit int
 }
 
 // StatsGetMessagePublicForwardsRequestTypeID is TL type id of StatsGetMessagePublicForwardsRequest.

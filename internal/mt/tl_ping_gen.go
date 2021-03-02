@@ -25,7 +25,7 @@ var _ = tdp.Format
 // PingRequest represents TL type `ping#7abe77ec`.
 type PingRequest struct {
 	// PingID field of PingRequest.
-	PingID int64 `tl:"ping_id"`
+	PingID int64
 }
 
 // PingRequestTypeID is TL type id of PingRequest.

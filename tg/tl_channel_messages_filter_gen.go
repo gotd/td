@@ -115,11 +115,11 @@ type ChannelMessagesFilter struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to exclude new messages from the search
-	ExcludeNewMessages bool `tl:"exclude_new_messages"`
+	ExcludeNewMessages bool
 	// A range of messages to fetch
-	Ranges []MessageRange `tl:"ranges"`
+	Ranges []MessageRange
 }
 
 // ChannelMessagesFilterTypeID is TL type id of ChannelMessagesFilter.

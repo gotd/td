@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/botInfo for reference.
 type BotInfo struct {
 	// ID of the bot
-	UserID int `tl:"user_id"`
+	UserID int
 	// Description of the bot
-	Description string `tl:"description"`
+	Description string
 	// Bot commands that can be used in the chat
-	Commands []BotCommand `tl:"commands"`
+	Commands []BotCommand
 }
 
 // BotInfoTypeID is TL type id of BotInfo.

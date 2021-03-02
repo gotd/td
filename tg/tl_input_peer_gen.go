@@ -196,7 +196,7 @@ var (
 // See https://core.telegram.org/constructor/inputPeerChat for reference.
 type InputPeerChat struct {
 	// Chat idientifier
-	ChatID int `tl:"chat_id"`
+	ChatID int
 }
 
 // InputPeerChatTypeID is TL type id of InputPeerChat.
@@ -310,12 +310,12 @@ var (
 // See https://core.telegram.org/constructor/inputPeerUser for reference.
 type InputPeerUser struct {
 	// User identifier
-	UserID int `tl:"user_id"`
+	UserID int
 	// access_hash value from the user¹ constructor
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/user
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 }
 
 // InputPeerUserTypeID is TL type id of InputPeerUser.
@@ -451,12 +451,12 @@ var (
 // See https://core.telegram.org/constructor/inputPeerChannel for reference.
 type InputPeerChannel struct {
 	// Channel identifier
-	ChannelID int `tl:"channel_id"`
+	ChannelID int
 	// access_hash value from the channel¹ constructor
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channel
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 }
 
 // InputPeerChannelTypeID is TL type id of InputPeerChannel.
@@ -595,11 +595,11 @@ var (
 // See https://core.telegram.org/constructor/inputPeerUserFromMessage for reference.
 type InputPeerUserFromMessage struct {
 	// The chat where the user was seen
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// The message ID
-	MsgID int `tl:"msg_id"`
+	MsgID int
 	// The identifier of the user that was seen
-	UserID int `tl:"user_id"`
+	UserID int
 }
 
 // InputPeerUserFromMessageTypeID is TL type id of InputPeerUserFromMessage.
@@ -765,11 +765,11 @@ var (
 // See https://core.telegram.org/constructor/inputPeerChannelFromMessage for reference.
 type InputPeerChannelFromMessage struct {
 	// The chat where the channel's message was seen
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// The message ID
-	MsgID int `tl:"msg_id"`
+	MsgID int
 	// The identifier of the channel that was seen
-	ChannelID int `tl:"channel_id"`
+	ChannelID int
 }
 
 // InputPeerChannelFromMessageTypeID is TL type id of InputPeerChannelFromMessage.

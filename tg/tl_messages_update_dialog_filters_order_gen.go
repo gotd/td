@@ -34,7 +34,7 @@ type MessagesUpdateDialogFiltersOrderRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	Order []int `tl:"order"`
+	Order []int
 }
 
 // MessagesUpdateDialogFiltersOrderRequestTypeID is TL type id of MessagesUpdateDialogFiltersOrderRequest.

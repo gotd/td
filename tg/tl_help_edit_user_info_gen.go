@@ -28,14 +28,14 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/help.editUserInfo for reference.
 type HelpEditUserInfoRequest struct {
 	// User
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 	// Message
-	Message string `tl:"message"`
+	Message string
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
-	Entities []MessageEntityClass `tl:"entities"`
+	Entities []MessageEntityClass
 }
 
 // HelpEditUserInfoRequestTypeID is TL type id of HelpEditUserInfoRequest.

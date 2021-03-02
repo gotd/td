@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/contacts.getBlocked for reference.
 type ContactsGetBlockedRequest struct {
 	// The number of list elements to be skipped
-	Offset int `tl:"offset"`
+	Offset int
 	// The number of list elements to be returned
-	Limit int `tl:"limit"`
+	Limit int
 }
 
 // ContactsGetBlockedRequestTypeID is TL type id of ContactsGetBlockedRequest.

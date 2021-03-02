@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/emojiKeyword for reference.
 type EmojiKeyword struct {
 	// Keyword
-	Keyword string `tl:"keyword"`
+	Keyword string
 	// Emojis associated to keyword
-	Emoticons []string `tl:"emoticons"`
+	Emoticons []string
 }
 
 // EmojiKeywordTypeID is TL type id of EmojiKeyword.
@@ -175,9 +175,9 @@ var (
 // See https://core.telegram.org/constructor/emojiKeywordDeleted for reference.
 type EmojiKeywordDeleted struct {
 	// Keyword
-	Keyword string `tl:"keyword"`
+	Keyword string
 	// Emojis that were associated to keyword
-	Emoticons []string `tl:"emoticons"`
+	Emoticons []string
 }
 
 // EmojiKeywordDeletedTypeID is TL type id of EmojiKeywordDeleted.

@@ -31,12 +31,12 @@ type MessagesUploadMediaRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/inputPeerEmpty
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// File uploaded in chunks as described in files »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files
-	Media InputMediaClass `tl:"media"`
+	Media InputMediaClass
 }
 
 // MessagesUploadMediaRequestTypeID is TL type id of MessagesUploadMediaRequest.

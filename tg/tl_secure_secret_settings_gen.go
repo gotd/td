@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/secureSecretSettings for reference.
 type SecureSecretSettings struct {
 	// Secure KDF algo
-	SecureAlgo SecurePasswordKdfAlgoClass `tl:"secure_algo"`
+	SecureAlgo SecurePasswordKdfAlgoClass
 	// Secure secret
-	SecureSecret []byte `tl:"secure_secret"`
+	SecureSecret []byte
 	// Secret ID
-	SecureSecretID int64 `tl:"secure_secret_id"`
+	SecureSecretID int64
 }
 
 // SecureSecretSettingsTypeID is TL type id of SecureSecretSettings.

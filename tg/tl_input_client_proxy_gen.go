@@ -31,9 +31,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/inputClientProxy for reference.
 type InputClientProxy struct {
 	// Proxy address
-	Address string `tl:"address"`
+	Address string
 	// Proxy port
-	Port int `tl:"port"`
+	Port int
 }
 
 // InputClientProxyTypeID is TL type id of InputClientProxy.

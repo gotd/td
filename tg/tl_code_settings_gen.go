@@ -36,19 +36,19 @@ type CodeSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to allow phone verification via phone calls¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/auth
-	AllowFlashcall bool `tl:"allow_flashcall"`
+	AllowFlashcall bool
 	// Pass true if the phone number is used on the current device. Ignored if allow_flashcall is not set.
-	CurrentNumber bool `tl:"current_number"`
+	CurrentNumber bool
 	// If a token that will be included in eventually sent SMSs is required: required in newer versions of android, to use the android SMS receiver APIs¹
 	//
 	// Links:
 	//  1) https://developers.google.com/identity/sms-retriever/overview
-	AllowAppHash bool `tl:"allow_app_hash"`
+	AllowAppHash bool
 }
 
 // CodeSettingsTypeID is TL type id of CodeSettings.

@@ -31,9 +31,9 @@ type MessagesMessageEditData struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Media caption, if the specified media's caption can be edited
-	Caption bool `tl:"caption"`
+	Caption bool
 }
 
 // MessagesMessageEditDataTypeID is TL type id of MessagesMessageEditData.

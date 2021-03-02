@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/help.promoDataEmpty for reference.
 type HelpPromoDataEmpty struct {
 	// Re-fetch PSA/MTProxy info after the specified number of seconds
-	Expires int `tl:"expires"`
+	Expires int
 }
 
 // HelpPromoDataEmptyTypeID is TL type id of HelpPromoDataEmpty.
@@ -145,25 +145,25 @@ type HelpPromoData struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// MTProxy-related channel
-	Proxy bool `tl:"proxy"`
+	Proxy bool
 	// Expiry of PSA/MTProxy info
-	Expires int `tl:"expires"`
+	Expires int
 	// MTProxy/PSA peer
-	Peer PeerClass `tl:"peer"`
+	Peer PeerClass
 	// Chat info
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// User info
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 	// PSA type
 	//
 	// Use SetPsaType and GetPsaType helpers.
-	PsaType string `tl:"psa_type"`
+	PsaType string
 	// PSA message
 	//
 	// Use SetPsaMessage and GetPsaMessage helpers.
-	PsaMessage string `tl:"psa_message"`
+	PsaMessage string
 }
 
 // HelpPromoDataTypeID is TL type id of HelpPromoData.

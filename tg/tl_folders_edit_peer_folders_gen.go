@@ -31,7 +31,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/folders.editPeerFolders for reference.
 type FoldersEditPeerFoldersRequest struct {
 	// New peer list
-	FolderPeers []InputFolderPeer `tl:"folder_peers"`
+	FolderPeers []InputFolderPeer
 }
 
 // FoldersEditPeerFoldersRequestTypeID is TL type id of FoldersEditPeerFoldersRequest.

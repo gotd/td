@@ -34,9 +34,9 @@ type ChannelsDeleteHistoryRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// ID of message up to which the history must be deleted
-	MaxID int `tl:"max_id"`
+	MaxID int
 }
 
 // ChannelsDeleteHistoryRequestTypeID is TL type id of ChannelsDeleteHistoryRequest.

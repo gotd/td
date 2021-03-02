@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.getMessageEditData for reference.
 type MessagesGetMessageEditDataRequest struct {
 	// Peer where the media was sent
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// ID of message
-	ID int `tl:"id"`
+	ID int
 }
 
 // MessagesGetMessageEditDataRequestTypeID is TL type id of MessagesGetMessageEditDataRequest.

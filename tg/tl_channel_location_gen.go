@@ -112,9 +112,9 @@ var (
 // See https://core.telegram.org/constructor/channelLocation for reference.
 type ChannelLocation struct {
 	// Geographical location of supergrup
-	GeoPoint GeoPointClass `tl:"geo_point"`
+	GeoPoint GeoPointClass
 	// Textual description of the address
-	Address string `tl:"address"`
+	Address string
 }
 
 // ChannelLocationTypeID is TL type id of ChannelLocation.

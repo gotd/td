@@ -31,30 +31,30 @@ type Invoice struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Test invoice
-	Test bool `tl:"test"`
+	Test bool
 	// Set this flag if you require the user's full name to complete the order
-	NameRequested bool `tl:"name_requested"`
+	NameRequested bool
 	// Set this flag if you require the user's phone number to complete the order
-	PhoneRequested bool `tl:"phone_requested"`
+	PhoneRequested bool
 	// Set this flag if you require the user's email address to complete the order
-	EmailRequested bool `tl:"email_requested"`
+	EmailRequested bool
 	// Set this flag if you require the user's shipping address to complete the order
-	ShippingAddressRequested bool `tl:"shipping_address_requested"`
+	ShippingAddressRequested bool
 	// Set this flag if the final price depends on the shipping method
-	Flexible bool `tl:"flexible"`
+	Flexible bool
 	// Set this flag if user's phone number should be sent to provider
-	PhoneToProvider bool `tl:"phone_to_provider"`
+	PhoneToProvider bool
 	// Set this flag if user's email address should be sent to provider
-	EmailToProvider bool `tl:"email_to_provider"`
+	EmailToProvider bool
 	// Three-letter ISO 4217 currency¹ code
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments#supported-currencies
-	Currency string `tl:"currency"`
+	Currency string
 	// Price breakdown, a list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
-	Prices []LabeledPrice `tl:"prices"`
+	Prices []LabeledPrice
 }
 
 // InvoiceTypeID is TL type id of Invoice.

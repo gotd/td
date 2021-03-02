@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/bots.setBotCommands for reference.
 type BotsSetBotCommandsRequest struct {
 	// Bot commands
-	Commands []BotCommand `tl:"commands"`
+	Commands []BotCommand
 }
 
 // BotsSetBotCommandsRequestTypeID is TL type id of BotsSetBotCommandsRequest.

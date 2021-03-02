@@ -112,11 +112,11 @@ var (
 // See https://core.telegram.org/constructor/contacts.contacts for reference.
 type ContactsContacts struct {
 	// Contact list
-	Contacts []Contact `tl:"contacts"`
+	Contacts []Contact
 	// Number of contacts that were saved successfully
-	SavedCount int `tl:"saved_count"`
+	SavedCount int
 	// User list
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // ContactsContactsTypeID is TL type id of ContactsContacts.

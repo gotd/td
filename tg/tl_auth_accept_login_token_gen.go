@@ -36,7 +36,7 @@ type AuthAcceptLoginTokenRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/qr-login
-	Token []byte `tl:"token"`
+	Token []byte
 }
 
 // AuthAcceptLoginTokenRequestTypeID is TL type id of AuthAcceptLoginTokenRequest.

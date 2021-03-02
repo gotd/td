@@ -34,31 +34,31 @@ type ChannelsCreateChannelRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to create a channel¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Broadcast bool `tl:"broadcast"`
+	Broadcast bool
 	// Whether to create a supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Megagroup bool `tl:"megagroup"`
+	Megagroup bool
 	// ForImport field of ChannelsCreateChannelRequest.
-	ForImport bool `tl:"for_import"`
+	ForImport bool
 	// Channel title
-	Title string `tl:"title"`
+	Title string
 	// Channel description
-	About string `tl:"about"`
+	About string
 	// Geogroup location
 	//
 	// Use SetGeoPoint and GetGeoPoint helpers.
-	GeoPoint InputGeoPointClass `tl:"geo_point"`
+	GeoPoint InputGeoPointClass
 	// Geogroup address
 	//
 	// Use SetAddress and GetAddress helpers.
-	Address string `tl:"address"`
+	Address string
 }
 
 // ChannelsCreateChannelRequestTypeID is TL type id of ChannelsCreateChannelRequest.

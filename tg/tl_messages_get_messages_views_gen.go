@@ -31,11 +31,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.getMessagesViews for reference.
 type MessagesGetMessagesViewsRequest struct {
 	// Peer where the message was found
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// ID of message
-	ID []int `tl:"id"`
+	ID []int
 	// Whether to mark the message as viewed and increment the view counter
-	Increment bool `tl:"increment"`
+	Increment bool
 }
 
 // MessagesGetMessagesViewsRequestTypeID is TL type id of MessagesGetMessagesViewsRequest.

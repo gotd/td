@@ -31,9 +31,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/channels.getMessages for reference.
 type ChannelsGetMessagesRequest struct {
 	// Channel/supergroup
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// IDs of messages to get
-	ID []InputMessageClass `tl:"id"`
+	ID []InputMessageClass
 }
 
 // ChannelsGetMessagesRequestTypeID is TL type id of ChannelsGetMessagesRequest.

@@ -31,7 +31,7 @@ type PhotoSizeEmpty struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/photoSize
-	Type string `tl:"type"`
+	Type string
 }
 
 // PhotoSizeEmptyTypeID is TL type id of PhotoSizeEmpty.
@@ -145,15 +145,15 @@ var (
 // See https://core.telegram.org/constructor/photoSize for reference.
 type PhotoSize struct {
 	// Thumbnail type
-	Type string `tl:"type"`
+	Type string
 	// File location
-	Location FileLocationClass `tl:"location"`
+	Location FileLocationClass
 	// Image width
-	W int `tl:"w"`
+	W int
 	// Image height
-	H int `tl:"h"`
+	H int
 	// File size
-	Size int `tl:"size"`
+	Size int
 }
 
 // PhotoSizeTypeID is TL type id of PhotoSize.
@@ -360,15 +360,15 @@ var (
 // See https://core.telegram.org/constructor/photoCachedSize for reference.
 type PhotoCachedSize struct {
 	// Thumbnail type
-	Type string `tl:"type"`
+	Type string
 	// File location
-	Location FileLocationClass `tl:"location"`
+	Location FileLocationClass
 	// Image width
-	W int `tl:"w"`
+	W int
 	// Image height
-	H int `tl:"h"`
+	H int
 	// Binary data, file content
-	Bytes []byte `tl:"bytes"`
+	Bytes []byte
 }
 
 // PhotoCachedSizeTypeID is TL type id of PhotoCachedSize.

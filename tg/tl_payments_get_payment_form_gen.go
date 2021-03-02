@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/payments.getPaymentForm for reference.
 type PaymentsGetPaymentFormRequest struct {
 	// Message ID of payment form
-	MsgID int `tl:"msg_id"`
+	MsgID int
 }
 
 // PaymentsGetPaymentFormRequestTypeID is TL type id of PaymentsGetPaymentFormRequest.

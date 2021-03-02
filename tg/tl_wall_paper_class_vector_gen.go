@@ -25,7 +25,7 @@ var _ = tdp.Format
 // WallPaperClassVector is a box for Vector<WallPaper>
 type WallPaperClassVector struct {
 	// Elements of Vector<WallPaper>
-	Elems []WallPaperClass `tl:"Elems"`
+	Elems []WallPaperClass
 }
 
 // WallPaperClassVectorTypeID is TL type id of WallPaperClassVector.

@@ -118,22 +118,22 @@ type PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	Salt1 []byte `tl:"salt1"`
+	Salt1 []byte
 	// One of two salts used by the derivation function (see SRP 2FA login¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	Salt2 []byte `tl:"salt2"`
+	Salt2 []byte
 	// Base (see SRP 2FA login¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	G int `tl:"g"`
+	G int
 	// 2048-bit modulus (see SRP 2FA login¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	P []byte `tl:"p"`
+	P []byte
 }
 
 // PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPowTypeID is TL type id of PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow.

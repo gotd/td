@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.getPrivacy for reference.
 type AccountGetPrivacyRequest struct {
 	// Peer category whose privacy settings should be fetched
-	Key InputPrivacyKeyClass `tl:"key"`
+	Key InputPrivacyKeyClass
 }
 
 // AccountGetPrivacyRequestTypeID is TL type id of AccountGetPrivacyRequest.

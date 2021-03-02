@@ -31,17 +31,17 @@ type AccountInstallThemeRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to install the dark version
-	Dark bool `tl:"dark"`
+	Dark bool
 	// Theme format, a string that identifies the theming engines supported by the client
 	//
 	// Use SetFormat and GetFormat helpers.
-	Format string `tl:"format"`
+	Format string
 	// Theme to install
 	//
 	// Use SetTheme and GetTheme helpers.
-	Theme InputThemeClass `tl:"theme"`
+	Theme InputThemeClass
 }
 
 // AccountInstallThemeRequestTypeID is TL type id of AccountInstallThemeRequest.

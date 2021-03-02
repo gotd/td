@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/inputStickerSetShortName for reference.
 type InputStickerSetShortName struct {
 	// From tg://addstickers?set=short_name
-	ShortName string `tl:"short_name"`
+	ShortName string
 }
 
 // InputStickerSetShortNameTypeID is TL type id of InputStickerSetShortName.

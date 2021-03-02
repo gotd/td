@@ -112,17 +112,17 @@ var (
 // See https://core.telegram.org/constructor/inputPhoto for reference.
 type InputPhoto struct {
 	// Photo identifier
-	ID int64 `tl:"id"`
+	ID int64
 	// access_hash value from the photo¹ constructor
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/photo
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// File reference¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/file_reference
-	FileReference []byte `tl:"file_reference"`
+	FileReference []byte
 }
 
 // InputPhotoTypeID is TL type id of InputPhoto.

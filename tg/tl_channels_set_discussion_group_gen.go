@@ -31,12 +31,12 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/channels.setDiscussionGroup for reference.
 type ChannelsSetDiscussionGroupRequest struct {
 	// Channel
-	Broadcast InputChannelClass `tl:"broadcast"`
+	Broadcast InputChannelClass
 	// Discussion group¹ to associate to the channel
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/discussion
-	Group InputChannelClass `tl:"group"`
+	Group InputChannelClass
 }
 
 // ChannelsSetDiscussionGroupRequestTypeID is TL type id of ChannelsSetDiscussionGroupRequest.

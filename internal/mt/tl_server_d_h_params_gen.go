@@ -25,11 +25,11 @@ var _ = tdp.Format
 // ServerDHParamsFail represents TL type `server_DH_params_fail#79cb045d`.
 type ServerDHParamsFail struct {
 	// Nonce field of ServerDHParamsFail.
-	Nonce bin.Int128 `tl:"nonce"`
+	Nonce bin.Int128
 	// ServerNonce field of ServerDHParamsFail.
-	ServerNonce bin.Int128 `tl:"server_nonce"`
+	ServerNonce bin.Int128
 	// NewNonceHash field of ServerDHParamsFail.
-	NewNonceHash bin.Int128 `tl:"new_nonce_hash"`
+	NewNonceHash bin.Int128
 }
 
 // ServerDHParamsFailTypeID is TL type id of ServerDHParamsFail.
@@ -184,11 +184,11 @@ var (
 // ServerDHParamsOk represents TL type `server_DH_params_ok#d0e8075c`.
 type ServerDHParamsOk struct {
 	// Nonce field of ServerDHParamsOk.
-	Nonce bin.Int128 `tl:"nonce"`
+	Nonce bin.Int128
 	// ServerNonce field of ServerDHParamsOk.
-	ServerNonce bin.Int128 `tl:"server_nonce"`
+	ServerNonce bin.Int128
 	// EncryptedAnswer field of ServerDHParamsOk.
-	EncryptedAnswer []byte `tl:"encrypted_answer"`
+	EncryptedAnswer []byte
 }
 
 // ServerDHParamsOkTypeID is TL type id of ServerDHParamsOk.

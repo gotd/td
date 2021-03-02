@@ -25,13 +25,13 @@ var _ = tdp.Format
 // ClientDHInnerData represents TL type `client_DH_inner_data#6643b654`.
 type ClientDHInnerData struct {
 	// Nonce field of ClientDHInnerData.
-	Nonce bin.Int128 `tl:"nonce"`
+	Nonce bin.Int128
 	// ServerNonce field of ClientDHInnerData.
-	ServerNonce bin.Int128 `tl:"server_nonce"`
+	ServerNonce bin.Int128
 	// RetryID field of ClientDHInnerData.
-	RetryID int64 `tl:"retry_id"`
+	RetryID int64
 	// GB field of ClientDHInnerData.
-	GB []byte `tl:"g_b"`
+	GB []byte
 }
 
 // ClientDHInnerDataTypeID is TL type id of ClientDHInnerData.

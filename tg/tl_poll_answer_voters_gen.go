@@ -31,18 +31,18 @@ type PollAnswerVoters struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether we have chosen this answer
-	Chosen bool `tl:"chosen"`
+	Chosen bool
 	// For quizes, whether the option we have chosen is correct
-	Correct bool `tl:"correct"`
+	Correct bool
 	// The param that has to be passed to messages.sendVote¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.sendVote
-	Option []byte `tl:"option"`
+	Option []byte
 	// How many users voted for this option
-	Voters int `tl:"voters"`
+	Voters int
 }
 
 // PollAnswerVotersTypeID is TL type id of PollAnswerVoters.

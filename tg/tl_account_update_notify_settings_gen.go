@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.updateNotifySettings for reference.
 type AccountUpdateNotifySettingsRequest struct {
 	// Notification source
-	Peer InputNotifyPeerClass `tl:"peer"`
+	Peer InputNotifyPeerClass
 	// Notification settings
-	Settings InputPeerNotifySettings `tl:"settings"`
+	Settings InputPeerNotifySettings
 }
 
 // AccountUpdateNotifySettingsRequestTypeID is TL type id of AccountUpdateNotifySettingsRequest.

@@ -31,52 +31,52 @@ type ChannelAdminLogEventsFilter struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Join events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantJoin
-	Join bool `tl:"join"`
+	Join bool
 	// Leave events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantLeave
-	Leave bool `tl:"leave"`
+	Leave bool
 	// Invite events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantInvite
-	Invite bool `tl:"invite"`
+	Invite bool
 	// Ban events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan
-	Ban bool `tl:"ban"`
+	Ban bool
 	// Unban events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan
-	Unban bool `tl:"unban"`
+	Unban bool
 	// Kick events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan
-	Kick bool `tl:"kick"`
+	Kick bool
 	// Unkick events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleBan
-	Unkick bool `tl:"unkick"`
+	Unkick bool
 	// Admin promotion events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleAdmin
-	Promote bool `tl:"promote"`
+	Promote bool
 	// Admin demotion events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleAdmin
-	Demote bool `tl:"demote"`
+	Demote bool
 	// Info change events (when about¹, linked chat², location³, photo⁴, stickerset⁵, title⁶ or username⁷ data of a channel gets modified)
 	//
 	// Links:
@@ -87,7 +87,7 @@ type ChannelAdminLogEventsFilter struct {
 	//  5) https://core.telegram.org/constructor/channelAdminLogEventActionChangeStickerSet
 	//  6) https://core.telegram.org/constructor/channelAdminLogEventActionChangeTitle
 	//  7) https://core.telegram.org/constructor/channelAdminLogEventActionChangeUsername
-	Info bool `tl:"info"`
+	Info bool
 	// Settings change events (invites¹, hidden prehistory², signatures³, default banned rights⁴)
 	//
 	// Links:
@@ -95,26 +95,26 @@ type ChannelAdminLogEventsFilter struct {
 	//  2) https://core.telegram.org/constructor/channelAdminLogEventActionTogglePreHistoryHidden
 	//  3) https://core.telegram.org/constructor/channelAdminLogEventActionToggleSignatures
 	//  4) https://core.telegram.org/constructor/channelAdminLogEventActionDefaultBannedRights
-	Settings bool `tl:"settings"`
+	Settings bool
 	// Message pin events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionUpdatePinned
-	Pinned bool `tl:"pinned"`
+	Pinned bool
 	// Message edit events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionEditMessage
-	Edit bool `tl:"edit"`
+	Edit bool
 	// Message deletion events¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionDeleteMessage
-	Delete bool `tl:"delete"`
+	Delete bool
 	// GroupCall field of ChannelAdminLogEventsFilter.
-	GroupCall bool `tl:"group_call"`
+	GroupCall bool
 	// Invites field of ChannelAdminLogEventsFilter.
-	Invites bool `tl:"invites"`
+	Invites bool
 }
 
 // ChannelAdminLogEventsFilterTypeID is TL type id of ChannelAdminLogEventsFilter.

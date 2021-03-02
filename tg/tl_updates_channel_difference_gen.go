@@ -31,18 +31,18 @@ type UpdatesChannelDifferenceEmpty struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether there are more updates that must be fetched (always false)
-	Final bool `tl:"final"`
+	Final bool
 	// The latest PTS¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int `tl:"pts"`
+	Pts int
 	// Clients are supposed to refetch the channel difference after timeout seconds have elapsed
 	//
 	// Use SetTimeout and GetTimeout helpers.
-	Timeout int `tl:"timeout"`
+	Timeout int
 }
 
 // UpdatesChannelDifferenceEmptyTypeID is TL type id of UpdatesChannelDifferenceEmpty.
@@ -245,24 +245,24 @@ type UpdatesChannelDifferenceTooLong struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether there are more updates that must be fetched (always false)
-	Final bool `tl:"final"`
+	Final bool
 	// Clients are supposed to refetch the channel difference after timeout seconds have elapsed
 	//
 	// Use SetTimeout and GetTimeout helpers.
-	Timeout int `tl:"timeout"`
+	Timeout int
 	// Dialog containing the latest PTS¹ that can be used to reset the channel state
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Dialog DialogClass `tl:"dialog"`
+	Dialog DialogClass
 	// The latest messages
-	Messages []MessageClass `tl:"messages"`
+	Messages []MessageClass
 	// Chats from messages
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// Users from messages
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // UpdatesChannelDifferenceTooLongTypeID is TL type id of UpdatesChannelDifferenceTooLong.
@@ -593,26 +593,26 @@ type UpdatesChannelDifference struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether there are more updates to be fetched using getDifference, starting from the provided pts
-	Final bool `tl:"final"`
+	Final bool
 	// The PTS¹ from which to start getting updates the next time
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int `tl:"pts"`
+	Pts int
 	// Clients are supposed to refetch the channel difference after timeout seconds have elapsed
 	//
 	// Use SetTimeout and GetTimeout helpers.
-	Timeout int `tl:"timeout"`
+	Timeout int
 	// New messages
-	NewMessages []MessageClass `tl:"new_messages"`
+	NewMessages []MessageClass
 	// Other updates
-	OtherUpdates []UpdateClass `tl:"other_updates"`
+	OtherUpdates []UpdateClass
 	// Chats
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// Users
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // UpdatesChannelDifferenceTypeID is TL type id of UpdatesChannelDifference.

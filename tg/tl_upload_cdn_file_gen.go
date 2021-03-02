@@ -34,7 +34,7 @@ type UploadCdnFileReuploadNeeded struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	RequestToken []byte `tl:"request_token"`
+	RequestToken []byte
 }
 
 // UploadCdnFileReuploadNeededTypeID is TL type id of UploadCdnFileReuploadNeeded.
@@ -151,7 +151,7 @@ var (
 // See https://core.telegram.org/constructor/upload.cdnFile for reference.
 type UploadCdnFile struct {
 	// The data
-	Bytes []byte `tl:"bytes"`
+	Bytes []byte
 }
 
 // UploadCdnFileTypeID is TL type id of UploadCdnFile.

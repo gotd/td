@@ -28,17 +28,17 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.getRecentLocations for reference.
 type MessagesGetRecentLocationsRequest struct {
 	// User
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Maximum number of results to return, see pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int `tl:"limit"`
+	Limit int
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 }
 
 // MessagesGetRecentLocationsRequestTypeID is TL type id of MessagesGetRecentLocationsRequest.

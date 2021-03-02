@@ -31,15 +31,15 @@ type MessagesGetPollVotesRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Chat where the poll was sent
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Message ID
-	ID int `tl:"id"`
+	ID int
 	// Get only results for the specified poll option
 	//
 	// Use SetOption and GetOption helpers.
-	Option []byte `tl:"option"`
+	Option []byte
 	// Offset for results, taken from the next_offset field of messages.votesList¹, initially an empty string. Note: if no more results are available, the method call will return an empty next_offset; thus, avoid providing the next_offset returned in messages.votesList² if it is empty, to avoid an infinite loop.
 	//
 	// Links:
@@ -47,9 +47,9 @@ type MessagesGetPollVotesRequest struct {
 	//  2) https://core.telegram.org/constructor/messages.votesList
 	//
 	// Use SetOffset and GetOffset helpers.
-	Offset string `tl:"offset"`
+	Offset string
 	// Number of results to return
-	Limit int `tl:"limit"`
+	Limit int
 }
 
 // MessagesGetPollVotesRequestTypeID is TL type id of MessagesGetPollVotesRequest.

@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.setPrivacy for reference.
 type AccountSetPrivacyRequest struct {
 	// Peers to which the privacy rules apply
-	Key InputPrivacyKeyClass `tl:"key"`
+	Key InputPrivacyKeyClass
 	// New privacy rules
-	Rules []InputPrivacyRuleClass `tl:"rules"`
+	Rules []InputPrivacyRuleClass
 }
 
 // AccountSetPrivacyRequestTypeID is TL type id of AccountSetPrivacyRequest.

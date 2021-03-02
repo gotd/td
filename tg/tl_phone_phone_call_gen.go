@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/phone.phoneCall for reference.
 type PhonePhoneCall struct {
 	// The VoIP phone call
-	PhoneCall PhoneCallClass `tl:"phone_call"`
+	PhoneCall PhoneCallClass
 	// VoIP phone call participants
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // PhonePhoneCallTypeID is TL type id of PhonePhoneCall.

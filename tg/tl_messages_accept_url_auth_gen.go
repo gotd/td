@@ -34,15 +34,15 @@ type MessagesAcceptUrlAuthRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Set this flag to allow the bot to send messages to you (if requested)
-	WriteAllowed bool `tl:"write_allowed"`
+	WriteAllowed bool
 	// The location of the message
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Message ID of the message with the login button
-	MsgID int `tl:"msg_id"`
+	MsgID int
 	// ID of the login button
-	ButtonID int `tl:"button_id"`
+	ButtonID int
 }
 
 // MessagesAcceptUrlAuthRequestTypeID is TL type id of MessagesAcceptUrlAuthRequest.

@@ -28,16 +28,16 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/contacts.importedContacts for reference.
 type ContactsImportedContacts struct {
 	// List of succesfully imported contacts
-	Imported []ImportedContact `tl:"imported"`
+	Imported []ImportedContact
 	// Popular contacts
-	PopularInvites []PopularContact `tl:"popular_invites"`
+	PopularInvites []PopularContact
 	// List of contact ids that could not be imported due to system limitation and will need to be imported at a later date.Parameter added in Layer 13¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/layers#layer-13
-	RetryContacts []int64 `tl:"retry_contacts"`
+	RetryContacts []int64
 	// List of users
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // ContactsImportedContactsTypeID is TL type id of ContactsImportedContacts.

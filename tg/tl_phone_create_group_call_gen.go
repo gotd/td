@@ -27,9 +27,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/phone.createGroupCall for reference.
 type PhoneCreateGroupCallRequest struct {
 	// Peer field of PhoneCreateGroupCallRequest.
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// RandomID field of PhoneCreateGroupCallRequest.
-	RandomID int `tl:"random_id"`
+	RandomID int
 }
 
 // PhoneCreateGroupCallRequestTypeID is TL type id of PhoneCreateGroupCallRequest.

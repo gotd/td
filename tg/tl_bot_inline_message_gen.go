@@ -34,20 +34,20 @@ type BotInlineMessageMediaAuto struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Caption
-	Message string `tl:"message"`
+	Message string
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `tl:"entities"`
+	Entities []MessageEntityClass
 	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass
 }
 
 // BotInlineMessageMediaAutoTypeID is TL type id of BotInlineMessageMediaAuto.
@@ -288,22 +288,22 @@ type BotInlineMessageText struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Disable webpage preview
-	NoWebpage bool `tl:"no_webpage"`
+	NoWebpage bool
 	// The message
-	Message string `tl:"message"`
+	Message string
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `tl:"entities"`
+	Entities []MessageEntityClass
 	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass
 }
 
 // BotInlineMessageTextTypeID is TL type id of BotInlineMessageText.
@@ -574,31 +574,31 @@ type BotInlineMessageMediaGeo struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Geolocation
-	Geo GeoPointClass `tl:"geo"`
+	Geo GeoPointClass
 	// For live locations¹, a direction in which the location moves, in degrees; 1-360.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/live-location
 	//
 	// Use SetHeading and GetHeading helpers.
-	Heading int `tl:"heading"`
+	Heading int
 	// Validity period
 	//
 	// Use SetPeriod and GetPeriod helpers.
-	Period int `tl:"period"`
+	Period int
 	// For live locations¹, a maximum distance to another chat member for proximity alerts, in meters (0-100000).
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/live-location
 	//
 	// Use SetProximityNotificationRadius and GetProximityNotificationRadius helpers.
-	ProximityNotificationRadius int `tl:"proximity_notification_radius"`
+	ProximityNotificationRadius int
 	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass
 }
 
 // BotInlineMessageMediaGeoTypeID is TL type id of BotInlineMessageMediaGeo.
@@ -904,23 +904,23 @@ type BotInlineMessageMediaVenue struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Geolocation of venue
-	Geo GeoPointClass `tl:"geo"`
+	Geo GeoPointClass
 	// Venue name
-	Title string `tl:"title"`
+	Title string
 	// Address
-	Address string `tl:"address"`
+	Address string
 	// Venue provider: currently only "foursquare" needs to be supported
-	Provider string `tl:"provider"`
+	Provider string
 	// Venue ID in the provider's database
-	VenueID string `tl:"venue_id"`
+	VenueID string
 	// Venue type in the provider's database
-	VenueType string `tl:"venue_type"`
+	VenueType string
 	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass
 }
 
 // BotInlineMessageMediaVenueTypeID is TL type id of BotInlineMessageMediaVenue.
@@ -1213,19 +1213,19 @@ type BotInlineMessageMediaContact struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Phone number
-	PhoneNumber string `tl:"phone_number"`
+	PhoneNumber string
 	// First name
-	FirstName string `tl:"first_name"`
+	FirstName string
 	// Last name
-	LastName string `tl:"last_name"`
+	LastName string
 	// VCard info
-	Vcard string `tl:"vcard"`
+	Vcard string
 	// Inline keyboard
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass
 }
 
 // BotInlineMessageMediaContactTypeID is TL type id of BotInlineMessageMediaContact.

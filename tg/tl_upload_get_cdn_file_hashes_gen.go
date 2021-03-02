@@ -31,9 +31,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/upload.getCdnFileHashes for reference.
 type UploadGetCdnFileHashesRequest struct {
 	// File
-	FileToken []byte `tl:"file_token"`
+	FileToken []byte
 	// Offset from which to start getting hashes
-	Offset int `tl:"offset"`
+	Offset int
 }
 
 // UploadGetCdnFileHashesRequestTypeID is TL type id of UploadGetCdnFileHashesRequest.

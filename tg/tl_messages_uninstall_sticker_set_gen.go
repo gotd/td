@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.uninstallStickerSet for reference.
 type MessagesUninstallStickerSetRequest struct {
 	// The stickerset to uninstall
-	Stickerset InputStickerSetClass `tl:"stickerset"`
+	Stickerset InputStickerSetClass
 }
 
 // MessagesUninstallStickerSetRequestTypeID is TL type id of MessagesUninstallStickerSetRequest.

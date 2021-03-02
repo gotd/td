@@ -32,7 +32,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.deleteSecureValue for reference.
 type AccountDeleteSecureValueRequest struct {
 	// Document types to delete
-	Types []SecureValueTypeClass `tl:"types"`
+	Types []SecureValueTypeClass
 }
 
 // AccountDeleteSecureValueRequestTypeID is TL type id of AccountDeleteSecureValueRequest.

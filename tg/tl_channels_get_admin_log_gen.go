@@ -34,34 +34,34 @@ type ChannelsGetAdminLogRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// Search query, can be empty
-	Q string `tl:"q"`
+	Q string
 	// Event filter
 	//
 	// Use SetEventsFilter and GetEventsFilter helpers.
-	EventsFilter ChannelAdminLogEventsFilter `tl:"events_filter"`
+	EventsFilter ChannelAdminLogEventsFilter
 	// Only show events from these admins
 	//
 	// Use SetAdmins and GetAdmins helpers.
-	Admins []InputUserClass `tl:"admins"`
+	Admins []InputUserClass
 	// Maximum ID of message to return (see pagination¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	MaxID int64 `tl:"max_id"`
+	MaxID int64
 	// Minimum ID of message to return (see pagination¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	MinID int64 `tl:"min_id"`
+	MinID int64
 	// Maximum number of results to return, see pagination¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int `tl:"limit"`
+	Limit int
 }
 
 // ChannelsGetAdminLogRequestTypeID is TL type id of ChannelsGetAdminLogRequest.

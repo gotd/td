@@ -115,9 +115,9 @@ type AccountWallPapers struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 	// Wallpapers
-	Wallpapers []WallPaperClass `tl:"wallpapers"`
+	Wallpapers []WallPaperClass
 }
 
 // AccountWallPapersTypeID is TL type id of AccountWallPapers.

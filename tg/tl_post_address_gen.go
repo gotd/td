@@ -28,17 +28,17 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/postAddress for reference.
 type PostAddress struct {
 	// First line for the address
-	StreetLine1 string `tl:"street_line1"`
+	StreetLine1 string
 	// Second line for the address
-	StreetLine2 string `tl:"street_line2"`
+	StreetLine2 string
 	// City
-	City string `tl:"city"`
+	City string
 	// State, if applicable (empty otherwise)
-	State string `tl:"state"`
+	State string
 	// ISO 3166-1 alpha-2 country code
-	CountryIso2 string `tl:"country_iso2"`
+	CountryIso2 string
 	// Address post code
-	PostCode string `tl:"post_code"`
+	PostCode string
 }
 
 // PostAddressTypeID is TL type id of PostAddress.

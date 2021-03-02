@@ -112,16 +112,16 @@ var (
 // See https://core.telegram.org/constructor/help.userInfo for reference.
 type HelpUserInfo struct {
 	// Info
-	Message string `tl:"message"`
+	Message string
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
-	Entities []MessageEntityClass `tl:"entities"`
+	Entities []MessageEntityClass
 	// Author
-	Author string `tl:"author"`
+	Author string
 	// Date
-	Date int `tl:"date"`
+	Date int
 }
 
 // HelpUserInfoTypeID is TL type id of HelpUserInfo.

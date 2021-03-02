@@ -32,7 +32,7 @@ type AccountUpdateStatusRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/constructor/boolTrue
 	//  2) https://core.telegram.org/constructor/userStatusOffline
-	Offline bool `tl:"offline"`
+	Offline bool
 }
 
 // AccountUpdateStatusRequestTypeID is TL type id of AccountUpdateStatusRequest.

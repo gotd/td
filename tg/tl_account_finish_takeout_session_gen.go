@@ -31,9 +31,9 @@ type AccountFinishTakeoutSessionRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Data exported successfully
-	Success bool `tl:"success"`
+	Success bool
 }
 
 // AccountFinishTakeoutSessionRequestTypeID is TL type id of AccountFinishTakeoutSessionRequest.

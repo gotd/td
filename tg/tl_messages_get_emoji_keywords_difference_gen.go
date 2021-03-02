@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.getEmojiKeywordsDifference for reference.
 type MessagesGetEmojiKeywordsDifferenceRequest struct {
 	// Language code
-	LangCode string `tl:"lang_code"`
+	LangCode string
 	// Previous emoji keyword localization version
-	FromVersion int `tl:"from_version"`
+	FromVersion int
 }
 
 // MessagesGetEmojiKeywordsDifferenceRequestTypeID is TL type id of MessagesGetEmojiKeywordsDifferenceRequest.

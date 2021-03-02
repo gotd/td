@@ -27,9 +27,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.startHistoryImport for reference.
 type MessagesStartHistoryImportRequest struct {
 	// Peer field of MessagesStartHistoryImportRequest.
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// ImportID field of MessagesStartHistoryImportRequest.
-	ImportID int64 `tl:"import_id"`
+	ImportID int64
 }
 
 // MessagesStartHistoryImportRequestTypeID is TL type id of MessagesStartHistoryImportRequest.

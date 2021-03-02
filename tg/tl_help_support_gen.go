@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/help.support for reference.
 type HelpSupport struct {
 	// Phone number
-	PhoneNumber string `tl:"phone_number"`
+	PhoneNumber string
 	// User
-	User UserClass `tl:"user"`
+	User UserClass
 }
 
 // HelpSupportTypeID is TL type id of HelpSupport.

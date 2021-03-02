@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.getFullChat for reference.
 type MessagesGetFullChatRequest struct {
 	// Chat ID
-	ChatID int `tl:"chat_id"`
+	ChatID int
 }
 
 // MessagesGetFullChatRequestTypeID is TL type id of MessagesGetFullChatRequest.

@@ -25,7 +25,7 @@ var _ = tdp.Format
 // FileHashVector is a box for Vector<FileHash>
 type FileHashVector struct {
 	// Elements of Vector<FileHash>
-	Elems []FileHash `tl:"Elems"`
+	Elems []FileHash
 }
 
 // FileHashVectorTypeID is TL type id of FileHashVector.

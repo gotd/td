@@ -32,7 +32,7 @@ type ContactsGetContactsRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
 	//  2) https://core.telegram.org/constructor/contacts.contactsNotModified
-	Hash int `tl:"hash"`
+	Hash int
 }
 
 // ContactsGetContactsRequestTypeID is TL type id of ContactsGetContactsRequest.

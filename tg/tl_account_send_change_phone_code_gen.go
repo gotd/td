@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.sendChangePhoneCode for reference.
 type AccountSendChangePhoneCodeRequest struct {
 	// New phone number
-	PhoneNumber string `tl:"phone_number"`
+	PhoneNumber string
 	// Phone code settings
-	Settings CodeSettings `tl:"settings"`
+	Settings CodeSettings
 }
 
 // AccountSendChangePhoneCodeRequestTypeID is TL type id of AccountSendChangePhoneCodeRequest.

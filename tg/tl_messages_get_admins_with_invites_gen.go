@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.getAdminsWithInvites for reference.
 type MessagesGetAdminsWithInvitesRequest struct {
 	// Peer field of MessagesGetAdminsWithInvitesRequest.
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 }
 
 // MessagesGetAdminsWithInvitesRequestTypeID is TL type id of MessagesGetAdminsWithInvitesRequest.

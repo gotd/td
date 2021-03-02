@@ -112,16 +112,16 @@ var (
 // See https://core.telegram.org/constructor/inputEncryptedFileUploaded for reference.
 type InputEncryptedFileUploaded struct {
 	// Random file ID created by clien
-	ID int64 `tl:"id"`
+	ID int64
 	// Number of saved parts
-	Parts int `tl:"parts"`
+	Parts int
 	// In case md5-HASH¹ of the (already encrypted) file was transmitted, file content will be checked prior to use
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/MD5
-	MD5Checksum string `tl:"md5_checksum"`
+	MD5Checksum string
 	// 32-bit fingerprint of the key used to encrypt a file
-	KeyFingerprint int `tl:"key_fingerprint"`
+	KeyFingerprint int
 }
 
 // InputEncryptedFileUploadedTypeID is TL type id of InputEncryptedFileUploaded.
@@ -304,12 +304,12 @@ type InputEncryptedFile struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/encryptedFile
-	ID int64 `tl:"id"`
+	ID int64
 	// Checking sum, value of access_hash parameter from encryptedFile¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/encryptedFile
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 }
 
 // InputEncryptedFileTypeID is TL type id of InputEncryptedFile.
@@ -448,11 +448,11 @@ var (
 // See https://core.telegram.org/constructor/inputEncryptedFileBigUploaded for reference.
 type InputEncryptedFileBigUploaded struct {
 	// Random file id, created by the client
-	ID int64 `tl:"id"`
+	ID int64
 	// Number of saved parts
-	Parts int `tl:"parts"`
+	Parts int
 	// 32-bit imprint of the key used to encrypt the file
-	KeyFingerprint int `tl:"key_fingerprint"`
+	KeyFingerprint int
 }
 
 // InputEncryptedFileBigUploadedTypeID is TL type id of InputEncryptedFileBigUploaded.

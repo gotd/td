@@ -27,9 +27,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.deletePhoneCallHistory for reference.
 type MessagesDeletePhoneCallHistoryRequest struct {
 	// Flags field of MessagesDeletePhoneCallHistoryRequest.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Revoke field of MessagesDeletePhoneCallHistoryRequest.
-	Revoke bool `tl:"revoke"`
+	Revoke bool
 }
 
 // MessagesDeletePhoneCallHistoryRequestTypeID is TL type id of MessagesDeletePhoneCallHistoryRequest.

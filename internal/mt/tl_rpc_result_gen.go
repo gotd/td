@@ -25,9 +25,9 @@ var _ = tdp.Format
 // RPCResult represents TL type `rpc_result#f35c6d01`.
 type RPCResult struct {
 	// ReqMsgID field of RPCResult.
-	ReqMsgID int64 `tl:"req_msg_id"`
+	ReqMsgID int64
 	// Result field of RPCResult.
-	Result GzipPacked `tl:"result"`
+	Result GzipPacked
 }
 
 // RPCResultTypeID is TL type id of RPCResult.

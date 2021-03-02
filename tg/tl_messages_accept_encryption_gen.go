@@ -28,14 +28,14 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.acceptEncryption for reference.
 type MessagesAcceptEncryptionRequest struct {
 	// Secret chat ID
-	Peer InputEncryptedChat `tl:"peer"`
+	Peer InputEncryptedChat
 	// B = g ^ b mod p, see Wikipedia¹
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
-	GB []byte `tl:"g_b"`
+	GB []byte
 	// 64-bit fingerprint of the received key
-	KeyFingerprint int64 `tl:"key_fingerprint"`
+	KeyFingerprint int64
 }
 
 // MessagesAcceptEncryptionRequestTypeID is TL type id of MessagesAcceptEncryptionRequest.

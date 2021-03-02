@@ -34,7 +34,7 @@ type ChannelsGetLeftChannelsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Offset int `tl:"offset"`
+	Offset int
 }
 
 // ChannelsGetLeftChannelsRequestTypeID is TL type id of ChannelsGetLeftChannelsRequest.

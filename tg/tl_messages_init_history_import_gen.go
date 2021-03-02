@@ -27,11 +27,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.initHistoryImport for reference.
 type MessagesInitHistoryImportRequest struct {
 	// Peer field of MessagesInitHistoryImportRequest.
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// File field of MessagesInitHistoryImportRequest.
-	File InputFileClass `tl:"file"`
+	File InputFileClass
 	// MediaCount field of MessagesInitHistoryImportRequest.
-	MediaCount int `tl:"media_count"`
+	MediaCount int
 }
 
 // MessagesInitHistoryImportRequestTypeID is TL type id of MessagesInitHistoryImportRequest.

@@ -27,13 +27,13 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.reportProfilePhoto for reference.
 type AccountReportProfilePhotoRequest struct {
 	// Peer field of AccountReportProfilePhotoRequest.
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// PhotoID field of AccountReportProfilePhotoRequest.
-	PhotoID InputPhotoClass `tl:"photo_id"`
+	PhotoID InputPhotoClass
 	// Reason field of AccountReportProfilePhotoRequest.
-	Reason ReportReasonClass `tl:"reason"`
+	Reason ReportReasonClass
 	// Message field of AccountReportProfilePhotoRequest.
-	Message string `tl:"message"`
+	Message string
 }
 
 // AccountReportProfilePhotoRequestTypeID is TL type id of AccountReportProfilePhotoRequest.

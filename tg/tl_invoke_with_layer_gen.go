@@ -31,9 +31,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/invokeWithLayer for reference.
 type InvokeWithLayerRequest struct {
 	// The layer to use
-	Layer int `tl:"layer"`
+	Layer int
 	// The query
-	Query bin.Object `tl:"query"`
+	Query bin.Object
 }
 
 // InvokeWithLayerRequestTypeID is TL type id of InvokeWithLayerRequest.

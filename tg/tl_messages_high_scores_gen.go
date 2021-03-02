@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/messages.highScores for reference.
 type MessagesHighScores struct {
 	// Highscores
-	Scores []HighScore `tl:"scores"`
+	Scores []HighScore
 	// Users, associated to the highscores
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // MessagesHighScoresTypeID is TL type id of MessagesHighScores.

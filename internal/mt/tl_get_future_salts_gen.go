@@ -25,7 +25,7 @@ var _ = tdp.Format
 // GetFutureSaltsRequest represents TL type `get_future_salts#b921bd04`.
 type GetFutureSaltsRequest struct {
 	// Num field of GetFutureSaltsRequest.
-	Num int `tl:"num"`
+	Num int
 }
 
 // GetFutureSaltsRequestTypeID is TL type id of GetFutureSaltsRequest.

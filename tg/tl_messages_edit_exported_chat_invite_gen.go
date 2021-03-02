@@ -27,21 +27,21 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.editExportedChatInvite for reference.
 type MessagesEditExportedChatInviteRequest struct {
 	// Flags field of MessagesEditExportedChatInviteRequest.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Revoked field of MessagesEditExportedChatInviteRequest.
-	Revoked bool `tl:"revoked"`
+	Revoked bool
 	// Peer field of MessagesEditExportedChatInviteRequest.
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Link field of MessagesEditExportedChatInviteRequest.
-	Link string `tl:"link"`
+	Link string
 	// ExpireDate field of MessagesEditExportedChatInviteRequest.
 	//
 	// Use SetExpireDate and GetExpireDate helpers.
-	ExpireDate int `tl:"expire_date"`
+	ExpireDate int
 	// UsageLimit field of MessagesEditExportedChatInviteRequest.
 	//
 	// Use SetUsageLimit and GetUsageLimit helpers.
-	UsageLimit int `tl:"usage_limit"`
+	UsageLimit int
 }
 
 // MessagesEditExportedChatInviteRequestTypeID is TL type id of MessagesEditExportedChatInviteRequest.

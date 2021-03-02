@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/inputPaymentCredentialsSaved for reference.
 type InputPaymentCredentialsSaved struct {
 	// Credential ID
-	ID string `tl:"id"`
+	ID string
 	// Temporary password
-	TmpPassword []byte `tl:"tmp_password"`
+	TmpPassword []byte
 }
 
 // InputPaymentCredentialsSavedTypeID is TL type id of InputPaymentCredentialsSaved.
@@ -169,11 +169,11 @@ type InputPaymentCredentials struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Save payment credential for future use
-	Save bool `tl:"save"`
+	Save bool
 	// Payment credentials
-	Data DataJSON `tl:"data"`
+	Data DataJSON
 }
 
 // InputPaymentCredentialsTypeID is TL type id of InputPaymentCredentials.
@@ -332,7 +332,7 @@ var (
 // See https://core.telegram.org/constructor/inputPaymentCredentialsApplePay for reference.
 type InputPaymentCredentialsApplePay struct {
 	// Payment data
-	PaymentData DataJSON `tl:"payment_data"`
+	PaymentData DataJSON
 }
 
 // InputPaymentCredentialsApplePayTypeID is TL type id of InputPaymentCredentialsApplePay.
@@ -445,7 +445,7 @@ var (
 // See https://core.telegram.org/constructor/inputPaymentCredentialsGooglePay for reference.
 type InputPaymentCredentialsGooglePay struct {
 	// PaymentToken field of InputPaymentCredentialsGooglePay.
-	PaymentToken DataJSON `tl:"payment_token"`
+	PaymentToken DataJSON
 }
 
 // InputPaymentCredentialsGooglePayTypeID is TL type id of InputPaymentCredentialsGooglePay.

@@ -115,15 +115,15 @@ type MessageMediaPhoto struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Photo
 	//
 	// Use SetPhoto and GetPhoto helpers.
-	Photo PhotoClass `tl:"photo"`
+	Photo PhotoClass
 	// Time to live in seconds of self-destructing photo
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
-	TTLSeconds int `tl:"ttl_seconds"`
+	TTLSeconds int
 }
 
 // MessageMediaPhotoTypeID is TL type id of MessageMediaPhoto.
@@ -317,7 +317,7 @@ var (
 // See https://core.telegram.org/constructor/messageMediaGeo for reference.
 type MessageMediaGeo struct {
 	// GeoPoint
-	Geo GeoPointClass `tl:"geo"`
+	Geo GeoPointClass
 }
 
 // MessageMediaGeoTypeID is TL type id of MessageMediaGeo.
@@ -436,15 +436,15 @@ var (
 // See https://core.telegram.org/constructor/messageMediaContact for reference.
 type MessageMediaContact struct {
 	// Phone number
-	PhoneNumber string `tl:"phone_number"`
+	PhoneNumber string
 	// Contact's first name
-	FirstName string `tl:"first_name"`
+	FirstName string
 	// Contact's last name
-	LastName string `tl:"last_name"`
+	LastName string
 	// VCARD of contact
-	Vcard string `tl:"vcard"`
+	Vcard string
 	// User identifier or 0, if the user with the given phone number is not registered
-	UserID int `tl:"user_id"`
+	UserID int
 }
 
 // MessageMediaContactTypeID is TL type id of MessageMediaContact.
@@ -733,15 +733,15 @@ type MessageMediaDocument struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Attached document
 	//
 	// Use SetDocument and GetDocument helpers.
-	Document DocumentClass `tl:"document"`
+	Document DocumentClass
 	// Time to live of self-destructing document
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
-	TTLSeconds int `tl:"ttl_seconds"`
+	TTLSeconds int
 }
 
 // MessageMediaDocumentTypeID is TL type id of MessageMediaDocument.
@@ -935,7 +935,7 @@ var (
 // See https://core.telegram.org/constructor/messageMediaWebPage for reference.
 type MessageMediaWebPage struct {
 	// Webpage preview
-	Webpage WebPageClass `tl:"webpage"`
+	Webpage WebPageClass
 }
 
 // MessageMediaWebPageTypeID is TL type id of MessageMediaWebPage.
@@ -1054,17 +1054,17 @@ var (
 // See https://core.telegram.org/constructor/messageMediaVenue for reference.
 type MessageMediaVenue struct {
 	// Geolocation of venue
-	Geo GeoPointClass `tl:"geo"`
+	Geo GeoPointClass
 	// Venue name
-	Title string `tl:"title"`
+	Title string
 	// Address
-	Address string `tl:"address"`
+	Address string
 	// Venue provider: currently only "foursquare" needs to be supported
-	Provider string `tl:"provider"`
+	Provider string
 	// Venue ID in the provider's database
-	VenueID string `tl:"venue_id"`
+	VenueID string
 	// Venue type in the provider's database
-	VenueType string `tl:"venue_type"`
+	VenueType string
 }
 
 // MessageMediaVenueTypeID is TL type id of MessageMediaVenue.
@@ -1293,7 +1293,7 @@ var (
 // See https://core.telegram.org/constructor/messageMediaGame for reference.
 type MessageMediaGame struct {
 	// Game
-	Game Game `tl:"game"`
+	Game Game
 }
 
 // MessageMediaGameTypeID is TL type id of MessageMediaGame.
@@ -1410,19 +1410,19 @@ type MessageMediaInvoice struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the shipping address was requested
-	ShippingAddressRequested bool `tl:"shipping_address_requested"`
+	ShippingAddressRequested bool
 	// Whether this is an example invoice
-	Test bool `tl:"test"`
+	Test bool
 	// Product name, 1-32 characters
-	Title string `tl:"title"`
+	Title string
 	// Product description, 1-255 characters
-	Description string `tl:"description"`
+	Description string
 	// URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for.
 	//
 	// Use SetPhoto and GetPhoto helpers.
-	Photo WebDocumentClass `tl:"photo"`
+	Photo WebDocumentClass
 	// Message ID of receipt: if set, clients should change the text of the first keyboardButtonBuy¹ button always attached to the message² to a localized version of the word Receipt
 	//
 	// Links:
@@ -1430,19 +1430,19 @@ type MessageMediaInvoice struct {
 	//  2) https://core.telegram.org/constructor/message
 	//
 	// Use SetReceiptMsgID and GetReceiptMsgID helpers.
-	ReceiptMsgID int `tl:"receipt_msg_id"`
+	ReceiptMsgID int
 	// Three-letter ISO 4217 currency¹ code
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments#supported-currencies
-	Currency string `tl:"currency"`
+	Currency string
 	// Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json¹, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments/currencies.json
-	TotalAmount int64 `tl:"total_amount"`
+	TotalAmount int64
 	// Unique bot deep-linking parameter that can be used to generate this invoice
-	StartParam string `tl:"start_param"`
+	StartParam string
 }
 
 // MessageMediaInvoiceTypeID is TL type id of MessageMediaInvoice.
@@ -1812,25 +1812,25 @@ type MessageMediaGeoLive struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Geolocation
-	Geo GeoPointClass `tl:"geo"`
+	Geo GeoPointClass
 	// For live locations¹, a direction in which the location moves, in degrees; 1-360
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/live-location
 	//
 	// Use SetHeading and GetHeading helpers.
-	Heading int `tl:"heading"`
+	Heading int
 	// Validity period of provided geolocation
-	Period int `tl:"period"`
+	Period int
 	// For live locations¹, a maximum distance to another chat member for proximity alerts, in meters (0-100000).
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/live-location
 	//
 	// Use SetProximityNotificationRadius and GetProximityNotificationRadius helpers.
-	ProximityNotificationRadius int `tl:"proximity_notification_radius"`
+	ProximityNotificationRadius int
 }
 
 // MessageMediaGeoLiveTypeID is TL type id of MessageMediaGeoLive.
@@ -2068,9 +2068,9 @@ var (
 // See https://core.telegram.org/constructor/messageMediaPoll for reference.
 type MessageMediaPoll struct {
 	// The poll
-	Poll Poll `tl:"poll"`
+	Poll Poll
 	// The results of the poll
-	Results PollResults `tl:"results"`
+	Results PollResults
 }
 
 // MessageMediaPollTypeID is TL type id of MessageMediaPoll.
@@ -2212,9 +2212,9 @@ type MessageMediaDice struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/dice
-	Value int `tl:"value"`
+	Value int
 	// The emoji, for now ,  and  are supported
-	Emoticon string `tl:"emoticon"`
+	Emoticon string
 }
 
 // MessageMediaDiceTypeID is TL type id of MessageMediaDice.

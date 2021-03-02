@@ -27,9 +27,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/chatInviteImporter for reference.
 type ChatInviteImporter struct {
 	// UserID field of ChatInviteImporter.
-	UserID int `tl:"user_id"`
+	UserID int
 	// Date field of ChatInviteImporter.
-	Date int `tl:"date"`
+	Date int
 }
 
 // ChatInviteImporterTypeID is TL type id of ChatInviteImporter.

@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/messages.chatFull for reference.
 type MessagesChatFull struct {
 	// Extended info on a chat
-	FullChat ChatFullClass `tl:"full_chat"`
+	FullChat ChatFullClass
 	// List containing basic info on chat
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// List of users mentioned above
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // MessagesChatFullTypeID is TL type id of MessagesChatFull.

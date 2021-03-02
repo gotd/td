@@ -28,24 +28,24 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.getHistory for reference.
 type MessagesGetHistoryRequest struct {
 	// Target peer
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Only return messages starting from the specified message ID
-	OffsetID int `tl:"offset_id"`
+	OffsetID int
 	// Only return messages sent before the specified date
-	OffsetDate int `tl:"offset_date"`
+	OffsetDate int
 	// Number of list elements to be skipped, negative values are also accepted.
-	AddOffset int `tl:"add_offset"`
+	AddOffset int
 	// Number of results to return
-	Limit int `tl:"limit"`
+	Limit int
 	// If a positive value was transferred, the method will return only messages with IDs less than max_id
-	MaxID int `tl:"max_id"`
+	MaxID int
 	// If a positive value was transferred, the method will return only messages with IDs more than min_id
-	MinID int `tl:"min_id"`
+	MinID int
 	// Result hash¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Hash int `tl:"hash"`
+	Hash int
 }
 
 // MessagesGetHistoryRequestTypeID is TL type id of MessagesGetHistoryRequest.

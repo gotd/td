@@ -25,7 +25,7 @@ var _ = tdp.Format
 // MessageRangeVector is a box for Vector<MessageRange>
 type MessageRangeVector struct {
 	// Elements of Vector<MessageRange>
-	Elems []MessageRange `tl:"Elems"`
+	Elems []MessageRange
 }
 
 // MessageRangeVectorTypeID is TL type id of MessageRangeVector.

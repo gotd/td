@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.installStickerSet for reference.
 type MessagesInstallStickerSetRequest struct {
 	// Stickerset to install
-	Stickerset InputStickerSetClass `tl:"stickerset"`
+	Stickerset InputStickerSetClass
 	// Whether to archive stickerset
-	Archived bool `tl:"archived"`
+	Archived bool
 }
 
 // MessagesInstallStickerSetRequestTypeID is TL type id of MessagesInstallStickerSetRequest.

@@ -28,12 +28,12 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/topPeer for reference.
 type TopPeer struct {
 	// Peer
-	Peer PeerClass `tl:"peer"`
+	Peer PeerClass
 	// Rating as computed in top peer rating »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/top-rating
-	Rating float64 `tl:"rating"`
+	Rating float64
 }
 
 // TopPeerTypeID is TL type id of TopPeer.

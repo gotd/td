@@ -34,31 +34,31 @@ type Page struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Indicates that not full page preview is available to the client and it will need to fetch full Instant View from the server using messages.getWebPagePreview¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.getWebPagePreview
-	Part bool `tl:"part"`
+	Part bool
 	// Whether the page contains RTL text
-	Rtl bool `tl:"rtl"`
+	Rtl bool
 	// Whether this is an IV v2¹ page
 	//
 	// Links:
 	//  1) https://instantview.telegram.org/docs#what-39s-new-in-2-0
-	V2 bool `tl:"v2"`
+	V2 bool
 	// Original page HTTP URL
-	URL string `tl:"url"`
+	URL string
 	// Page elements (like with HTML elements, only as TL constructors)
-	Blocks []PageBlockClass `tl:"blocks"`
+	Blocks []PageBlockClass
 	// Photos in page
-	Photos []PhotoClass `tl:"photos"`
+	Photos []PhotoClass
 	// Media in page
-	Documents []DocumentClass `tl:"documents"`
+	Documents []DocumentClass
 	// Viewcount
 	//
 	// Use SetViews and GetViews helpers.
-	Views int `tl:"views"`
+	Views int
 }
 
 // PageTypeID is TL type id of Page.

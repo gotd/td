@@ -28,13 +28,13 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/langPackDifference for reference.
 type LangPackDifference struct {
 	// Language code
-	LangCode string `tl:"lang_code"`
+	LangCode string
 	// Previous version number
-	FromVersion int `tl:"from_version"`
+	FromVersion int
 	// New version number
-	Version int `tl:"version"`
+	Version int
 	// Localized strings
-	Strings []LangPackStringClass `tl:"strings"`
+	Strings []LangPackStringClass
 }
 
 // LangPackDifferenceTypeID is TL type id of LangPackDifference.

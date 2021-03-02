@@ -871,9 +871,9 @@ type InputMessagesFilterPhoneCalls struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Return only missed phone calls
-	Missed bool `tl:"missed"`
+	Missed bool
 }
 
 // InputMessagesFilterPhoneCallsTypeID is TL type id of InputMessagesFilterPhoneCalls.

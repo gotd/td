@@ -25,13 +25,13 @@ var _ = tdp.Format
 // Message represents TL type `message#5bb8e511`.
 type Message struct {
 	// MsgID field of Message.
-	MsgID int64 `tl:"msg_id"`
+	MsgID int64
 	// Seqno field of Message.
-	Seqno int `tl:"seqno"`
+	Seqno int
 	// Bytes field of Message.
-	Bytes int `tl:"bytes"`
+	Bytes int
 	// Body field of Message.
-	Body GzipPacked `tl:"body"`
+	Body GzipPacked
 }
 
 // MessageTypeID is TL type id of Message.

@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.importChatInvite for reference.
 type MessagesImportChatInviteRequest struct {
 	// hash from t.me/joinchat/hash
-	Hash string `tl:"hash"`
+	Hash string
 }
 
 // MessagesImportChatInviteRequestTypeID is TL type id of MessagesImportChatInviteRequest.

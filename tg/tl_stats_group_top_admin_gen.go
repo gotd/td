@@ -28,22 +28,22 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/statsGroupTopAdmin for reference.
 type StatsGroupTopAdmin struct {
 	// User ID
-	UserID int `tl:"user_id"`
+	UserID int
 	// Number of deleted messages for statistics¹ period in consideration
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/stats
-	Deleted int `tl:"deleted"`
+	Deleted int
 	// Number of kicked users for statistics¹ period in consideration
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/stats
-	Kicked int `tl:"kicked"`
+	Kicked int
 	// Number of banned users for statistics¹ period in consideration
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/stats
-	Banned int `tl:"banned"`
+	Banned int
 }
 
 // StatsGroupTopAdminTypeID is TL type id of StatsGroupTopAdmin.

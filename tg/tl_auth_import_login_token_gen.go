@@ -33,7 +33,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/auth.importLoginToken for reference.
 type AuthImportLoginTokenRequest struct {
 	// Login token
-	Token []byte `tl:"token"`
+	Token []byte
 }
 
 // AuthImportLoginTokenRequestTypeID is TL type id of AuthImportLoginTokenRequest.

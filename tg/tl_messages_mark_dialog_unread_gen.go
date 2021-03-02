@@ -31,11 +31,11 @@ type MessagesMarkDialogUnreadRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Mark as unread/read
-	Unread bool `tl:"unread"`
+	Unread bool
 	// Dialog
-	Peer InputDialogPeerClass `tl:"peer"`
+	Peer InputDialogPeerClass
 }
 
 // MessagesMarkDialogUnreadRequestTypeID is TL type id of MessagesMarkDialogUnreadRequest.

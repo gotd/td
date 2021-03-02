@@ -25,11 +25,11 @@ var _ = tdp.Format
 // SetClientDHParamsRequest represents TL type `set_client_DH_params#f5045f1f`.
 type SetClientDHParamsRequest struct {
 	// Nonce field of SetClientDHParamsRequest.
-	Nonce bin.Int128 `tl:"nonce"`
+	Nonce bin.Int128
 	// ServerNonce field of SetClientDHParamsRequest.
-	ServerNonce bin.Int128 `tl:"server_nonce"`
+	ServerNonce bin.Int128
 	// EncryptedData field of SetClientDHParamsRequest.
-	EncryptedData []byte `tl:"encrypted_data"`
+	EncryptedData []byte
 }
 
 // SetClientDHParamsRequestTypeID is TL type id of SetClientDHParamsRequest.

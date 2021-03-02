@@ -31,9 +31,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.sendVerifyPhoneCode for reference.
 type AccountSendVerifyPhoneCodeRequest struct {
 	// The phone number to verify
-	PhoneNumber string `tl:"phone_number"`
+	PhoneNumber string
 	// Phone code settings
-	Settings CodeSettings `tl:"settings"`
+	Settings CodeSettings
 }
 
 // AccountSendVerifyPhoneCodeRequestTypeID is TL type id of AccountSendVerifyPhoneCodeRequest.

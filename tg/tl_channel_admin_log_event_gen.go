@@ -28,13 +28,13 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/channelAdminLogEvent for reference.
 type ChannelAdminLogEvent struct {
 	// Event ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Date
-	Date int `tl:"date"`
+	Date int
 	// User ID
-	UserID int `tl:"user_id"`
+	UserID int
 	// Action
-	Action ChannelAdminLogEventActionClass `tl:"action"`
+	Action ChannelAdminLogEventActionClass
 }
 
 // ChannelAdminLogEventTypeID is TL type id of ChannelAdminLogEvent.

@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/peerLocated for reference.
 type PeerLocated struct {
 	// Peer
-	Peer PeerClass `tl:"peer"`
+	Peer PeerClass
 	// Validity period of current data
-	Expires int `tl:"expires"`
+	Expires int
 	// Distance from the peer in meters
-	Distance int `tl:"distance"`
+	Distance int
 }
 
 // PeerLocatedTypeID is TL type id of PeerLocated.
@@ -195,7 +195,7 @@ var (
 // See https://core.telegram.org/constructor/peerSelfLocated for reference.
 type PeerSelfLocated struct {
 	// Expiry of geolocation info for current peer
-	Expires int `tl:"expires"`
+	Expires int
 }
 
 // PeerSelfLocatedTypeID is TL type id of PeerSelfLocated.

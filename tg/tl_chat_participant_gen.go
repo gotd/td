@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/chatParticipant for reference.
 type ChatParticipant struct {
 	// Member user ID
-	UserID int `tl:"user_id"`
+	UserID int
 	// ID of the user that added the member to the group
-	InviterID int `tl:"inviter_id"`
+	InviterID int
 	// Date added to the group
-	Date int `tl:"date"`
+	Date int
 }
 
 // ChatParticipantTypeID is TL type id of ChatParticipant.
@@ -190,7 +190,7 @@ var (
 // See https://core.telegram.org/constructor/chatParticipantCreator for reference.
 type ChatParticipantCreator struct {
 	// ID of the user that created the group
-	UserID int `tl:"user_id"`
+	UserID int
 }
 
 // ChatParticipantCreatorTypeID is TL type id of ChatParticipantCreator.
@@ -304,11 +304,11 @@ var (
 // See https://core.telegram.org/constructor/chatParticipantAdmin for reference.
 type ChatParticipantAdmin struct {
 	// ID of a group member that is admin
-	UserID int `tl:"user_id"`
+	UserID int
 	// ID of the user that added the member to the group
-	InviterID int `tl:"inviter_id"`
+	InviterID int
 	// Date when the user was added
-	Date int `tl:"date"`
+	Date int
 }
 
 // ChatParticipantAdminTypeID is TL type id of ChatParticipantAdmin.

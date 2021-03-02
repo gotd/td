@@ -31,16 +31,16 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/inputFile for reference.
 type InputFile struct {
 	// Random file identifier created by the client
-	ID int64 `tl:"id"`
+	ID int64
 	// Number of parts saved
-	Parts int `tl:"parts"`
+	Parts int
 	// Full name of the file
-	Name string `tl:"name"`
+	Name string
 	// In case the file's md5-hash¹ was passed, contents of the file will be checked prior to use
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/MD5#MD5_hashes
-	MD5Checksum string `tl:"md5_checksum"`
+	MD5Checksum string
 }
 
 // InputFileTypeID is TL type id of InputFile.
@@ -223,11 +223,11 @@ var (
 // See https://core.telegram.org/constructor/inputFileBig for reference.
 type InputFileBig struct {
 	// Random file id, created by the client
-	ID int64 `tl:"id"`
+	ID int64
 	// Number of parts saved
-	Parts int `tl:"parts"`
+	Parts int
 	// Full file name
-	Name string `tl:"name"`
+	Name string
 }
 
 // InputFileBigTypeID is TL type id of InputFileBig.

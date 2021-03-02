@@ -27,23 +27,23 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.getExportedChatInvites for reference.
 type MessagesGetExportedChatInvitesRequest struct {
 	// Flags field of MessagesGetExportedChatInvitesRequest.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Revoked field of MessagesGetExportedChatInvitesRequest.
-	Revoked bool `tl:"revoked"`
+	Revoked bool
 	// Peer field of MessagesGetExportedChatInvitesRequest.
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// AdminID field of MessagesGetExportedChatInvitesRequest.
-	AdminID InputUserClass `tl:"admin_id"`
+	AdminID InputUserClass
 	// OffsetDate field of MessagesGetExportedChatInvitesRequest.
 	//
 	// Use SetOffsetDate and GetOffsetDate helpers.
-	OffsetDate int `tl:"offset_date"`
+	OffsetDate int
 	// OffsetLink field of MessagesGetExportedChatInvitesRequest.
 	//
 	// Use SetOffsetLink and GetOffsetLink helpers.
-	OffsetLink string `tl:"offset_link"`
+	OffsetLink string
 	// Limit field of MessagesGetExportedChatInvitesRequest.
-	Limit int `tl:"limit"`
+	Limit int
 }
 
 // MessagesGetExportedChatInvitesRequestTypeID is TL type id of MessagesGetExportedChatInvitesRequest.

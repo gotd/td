@@ -28,14 +28,14 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/auth.signIn for reference.
 type AuthSignInRequest struct {
 	// Phone number in the international format
-	PhoneNumber string `tl:"phone_number"`
+	PhoneNumber string
 	// SMS-message ID, obtained from auth.sendCode¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/auth.sendCode
-	PhoneCodeHash string `tl:"phone_code_hash"`
+	PhoneCodeHash string
 	// Valid numerical code from the SMS-message
-	PhoneCode string `tl:"phone_code"`
+	PhoneCode string
 }
 
 // AuthSignInRequestTypeID is TL type id of AuthSignInRequest.

@@ -28,13 +28,13 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.deleteChatUser for reference.
 type MessagesDeleteChatUserRequest struct {
 	// Flags field of MessagesDeleteChatUserRequest.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// RevokeHistory field of MessagesDeleteChatUserRequest.
-	RevokeHistory bool `tl:"revoke_history"`
+	RevokeHistory bool
 	// Chat ID
-	ChatID int `tl:"chat_id"`
+	ChatID int
 	// User ID to be deleted
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 }
 
 // MessagesDeleteChatUserRequestTypeID is TL type id of MessagesDeleteChatUserRequest.

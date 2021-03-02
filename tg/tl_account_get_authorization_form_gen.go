@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.getAuthorizationForm for reference.
 type AccountGetAuthorizationFormRequest struct {
 	// User identifier of the service's bot
-	BotID int `tl:"bot_id"`
+	BotID int
 	// Telegram Passport element types requested by the service
-	Scope string `tl:"scope"`
+	Scope string
 	// Service's public key
-	PublicKey string `tl:"public_key"`
+	PublicKey string
 }
 
 // AccountGetAuthorizationFormRequestTypeID is TL type id of AccountGetAuthorizationFormRequest.

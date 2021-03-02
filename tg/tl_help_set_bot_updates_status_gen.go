@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/help.setBotUpdatesStatus for reference.
 type HelpSetBotUpdatesStatusRequest struct {
 	// Number of pending updates
-	PendingUpdatesCount int `tl:"pending_updates_count"`
+	PendingUpdatesCount int
 	// Error message, if present
-	Message string `tl:"message"`
+	Message string
 }
 
 // HelpSetBotUpdatesStatusRequestTypeID is TL type id of HelpSetBotUpdatesStatusRequest.

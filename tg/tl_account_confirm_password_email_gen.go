@@ -34,7 +34,7 @@ type AccountConfirmPasswordEmailRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp#email-verification
-	Code string `tl:"code"`
+	Code string
 }
 
 // AccountConfirmPasswordEmailRequestTypeID is TL type id of AccountConfirmPasswordEmailRequest.

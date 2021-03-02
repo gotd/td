@@ -34,13 +34,13 @@ type ChannelsEditAdminRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// The ID of the user whose admin rights should be modified
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 	// The admin rights
-	AdminRights ChatAdminRights `tl:"admin_rights"`
+	AdminRights ChatAdminRights
 	// Indicates the role (rank) of the admin in the group: just an arbitrary string
-	Rank string `tl:"rank"`
+	Rank string
 }
 
 // ChannelsEditAdminRequestTypeID is TL type id of ChannelsEditAdminRequest.

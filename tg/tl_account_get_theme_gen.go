@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.getTheme for reference.
 type AccountGetThemeRequest struct {
 	// Theme format, a string that identifies the theming engines supported by the client
-	Format string `tl:"format"`
+	Format string
 	// Theme
-	Theme InputThemeClass `tl:"theme"`
+	Theme InputThemeClass
 	// Document ID
-	DocumentID int64 `tl:"document_id"`
+	DocumentID int64
 }
 
 // AccountGetThemeRequestTypeID is TL type id of AccountGetThemeRequest.

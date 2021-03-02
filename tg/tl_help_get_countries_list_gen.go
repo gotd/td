@@ -28,12 +28,12 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/help.getCountriesList for reference.
 type HelpGetCountriesListRequest struct {
 	// Language code of the current user
-	LangCode string `tl:"lang_code"`
+	LangCode string
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 }
 
 // HelpGetCountriesListRequestTypeID is TL type id of HelpGetCountriesListRequest.

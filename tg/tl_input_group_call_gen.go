@@ -27,9 +27,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/inputGroupCall for reference.
 type InputGroupCall struct {
 	// ID field of InputGroupCall.
-	ID int64 `tl:"id"`
+	ID int64
 	// AccessHash field of InputGroupCall.
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 }
 
 // InputGroupCallTypeID is TL type id of InputGroupCall.

@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/help.getUserInfo for reference.
 type HelpGetUserInfoRequest struct {
 	// User ID
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 }
 
 // HelpGetUserInfoRequestTypeID is TL type id of HelpGetUserInfoRequest.

@@ -32,9 +32,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/stickerPack for reference.
 type StickerPack struct {
 	// Emoji
-	Emoticon string `tl:"emoticon"`
+	Emoticon string
 	// Stickers
-	Documents []int64 `tl:"documents"`
+	Documents []int64
 }
 
 // StickerPackTypeID is TL type id of StickerPack.

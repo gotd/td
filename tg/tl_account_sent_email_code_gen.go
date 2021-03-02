@@ -31,9 +31,9 @@ type AccountSentEmailCode struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/pattern
-	EmailPattern string `tl:"email_pattern"`
+	EmailPattern string
 	// The length of the verification code
-	Length int `tl:"length"`
+	Length int
 }
 
 // AccountSentEmailCodeTypeID is TL type id of AccountSentEmailCode.

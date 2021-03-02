@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/messages.affectedHistory for reference.
 type MessagesAffectedHistory struct {
 	// Number of events occured in a text box
-	Pts int `tl:"pts"`
+	Pts int
 	// Number of affected events
-	PtsCount int `tl:"pts_count"`
+	PtsCount int
 	// If a parameter contains positive value, it is necessary to repeat the method call using the given value; during the proceeding of all the history the value itself shall gradually decrease
-	Offset int `tl:"offset"`
+	Offset int
 }
 
 // MessagesAffectedHistoryTypeID is TL type id of MessagesAffectedHistory.

@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/langpack.getStrings for reference.
 type LangpackGetStringsRequest struct {
 	// Language pack name
-	LangPack string `tl:"lang_pack"`
+	LangPack string
 	// Language code
-	LangCode string `tl:"lang_code"`
+	LangCode string
 	// Strings to get
-	Keys []string `tl:"keys"`
+	Keys []string
 }
 
 // LangpackGetStringsRequestTypeID is TL type id of LangpackGetStringsRequest.

@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/statsURL for reference.
 type StatsURL struct {
 	// Chat statistics
-	URL string `tl:"url"`
+	URL string
 }
 
 // StatsURLTypeID is TL type id of StatsURL.

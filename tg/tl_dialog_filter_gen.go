@@ -34,79 +34,79 @@ type DialogFilter struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to include all contacts in this folder¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	Contacts bool `tl:"contacts"`
+	Contacts bool
 	// Whether to include all non-contacts in this folder¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	NonContacts bool `tl:"non_contacts"`
+	NonContacts bool
 	// Whether to include all groups in this folder¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	Groups bool `tl:"groups"`
+	Groups bool
 	// Whether to include all channels in this folder¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	Broadcasts bool `tl:"broadcasts"`
+	Broadcasts bool
 	// Whether to include all bots in this folder¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	Bots bool `tl:"bots"`
+	Bots bool
 	// Whether to exclude muted chats from this folder¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	ExcludeMuted bool `tl:"exclude_muted"`
+	ExcludeMuted bool
 	// Whether to exclude read chats from this folder¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	ExcludeRead bool `tl:"exclude_read"`
+	ExcludeRead bool
 	// Whether to exclude archived chats from this folder¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	ExcludeArchived bool `tl:"exclude_archived"`
+	ExcludeArchived bool
 	// Folder¹ ID
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	ID int `tl:"id"`
+	ID int
 	// Folder¹ name
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	Title string `tl:"title"`
+	Title string
 	// Folder¹ emoticon
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
 	//
 	// Use SetEmoticon and GetEmoticon helpers.
-	Emoticon string `tl:"emoticon"`
+	Emoticon string
 	// Pinned chats, folders¹ can have unlimited pinned chats
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	PinnedPeers []InputPeerClass `tl:"pinned_peers"`
+	PinnedPeers []InputPeerClass
 	// Include the following chats in this folder¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	IncludePeers []InputPeerClass `tl:"include_peers"`
+	IncludePeers []InputPeerClass
 	// Exclude the following chats from this folder¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders
-	ExcludePeers []InputPeerClass `tl:"exclude_peers"`
+	ExcludePeers []InputPeerClass
 }
 
 // DialogFilterTypeID is TL type id of DialogFilter.

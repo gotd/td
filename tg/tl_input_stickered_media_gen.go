@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/inputStickeredMediaPhoto for reference.
 type InputStickeredMediaPhoto struct {
 	// The photo
-	ID InputPhotoClass `tl:"id"`
+	ID InputPhotoClass
 }
 
 // InputStickeredMediaPhotoTypeID is TL type id of InputStickeredMediaPhoto.
@@ -147,7 +147,7 @@ var (
 // See https://core.telegram.org/constructor/inputStickeredMediaDocument for reference.
 type InputStickeredMediaDocument struct {
 	// The document
-	ID InputDocumentClass `tl:"id"`
+	ID InputDocumentClass
 }
 
 // InputStickeredMediaDocumentTypeID is TL type id of InputStickeredMediaDocument.

@@ -31,56 +31,56 @@ type ChatFull struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Can we change the username of this chat
-	CanSetUsername bool `tl:"can_set_username"`
+	CanSetUsername bool
 	// Whether scheduled messages¹ are available
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/scheduled-messages
-	HasScheduled bool `tl:"has_scheduled"`
+	HasScheduled bool
 	// ID of the chat
-	ID int `tl:"id"`
+	ID int
 	// About string for this chat
-	About string `tl:"about"`
+	About string
 	// Participant list
-	Participants ChatParticipantsClass `tl:"participants"`
+	Participants ChatParticipantsClass
 	// Chat photo
 	//
 	// Use SetChatPhoto and GetChatPhoto helpers.
-	ChatPhoto PhotoClass `tl:"chat_photo"`
+	ChatPhoto PhotoClass
 	// Notification settings
-	NotifySettings PeerNotifySettings `tl:"notify_settings"`
+	NotifySettings PeerNotifySettings
 	// Chat invite
 	//
 	// Use SetExportedInvite and GetExportedInvite helpers.
-	ExportedInvite ChatInviteExported `tl:"exported_invite"`
+	ExportedInvite ChatInviteExported
 	// Info about bots that are in this chat
 	//
 	// Use SetBotInfo and GetBotInfo helpers.
-	BotInfo []BotInfo `tl:"bot_info"`
+	BotInfo []BotInfo
 	// Message ID of the last pinned message¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/pin
 	//
 	// Use SetPinnedMsgID and GetPinnedMsgID helpers.
-	PinnedMsgID int `tl:"pinned_msg_id"`
+	PinnedMsgID int
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int `tl:"folder_id"`
+	FolderID int
 	// Call field of ChatFull.
 	//
 	// Use SetCall and GetCall helpers.
-	Call InputGroupCall `tl:"call"`
+	Call InputGroupCall
 	// TTLPeriod field of ChatFull.
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
-	TTLPeriod int `tl:"ttl_period"`
+	TTLPeriod int
 }
 
 // ChatFullTypeID is TL type id of ChatFull.
@@ -649,154 +649,154 @@ type ChannelFull struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Can we vew the participant list?
-	CanViewParticipants bool `tl:"can_view_participants"`
+	CanViewParticipants bool
 	// Can we set the channel's username?
-	CanSetUsername bool `tl:"can_set_username"`
+	CanSetUsername bool
 	// Can we associate¹ a stickerpack to the supergroup?
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/channels.setStickers
-	CanSetStickers bool `tl:"can_set_stickers"`
+	CanSetStickers bool
 	// Is the history before we joined hidden to us?
-	HiddenPrehistory bool `tl:"hidden_prehistory"`
+	HiddenPrehistory bool
 	// Can we set the geolocation of this group (for geogroups)
-	CanSetLocation bool `tl:"can_set_location"`
+	CanSetLocation bool
 	// Whether scheduled messages are available
-	HasScheduled bool `tl:"has_scheduled"`
+	HasScheduled bool
 	// Can the user view channel/supergroup statistics¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/stats
-	CanViewStats bool `tl:"can_view_stats"`
+	CanViewStats bool
 	// Whether any anonymous admin of this supergroup was blocked: if set, you won't receive messages from anonymous group admins in discussion replies via @replies¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/discussion
-	Blocked bool `tl:"blocked"`
+	Blocked bool
 	// ID of the channel
-	ID int `tl:"id"`
+	ID int
 	// Info about the channel
-	About string `tl:"about"`
+	About string
 	// Number of participants of the channel
 	//
 	// Use SetParticipantsCount and GetParticipantsCount helpers.
-	ParticipantsCount int `tl:"participants_count"`
+	ParticipantsCount int
 	// Number of channel admins
 	//
 	// Use SetAdminsCount and GetAdminsCount helpers.
-	AdminsCount int `tl:"admins_count"`
+	AdminsCount int
 	// Number of users kicked¹ from the channel
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetKickedCount and GetKickedCount helpers.
-	KickedCount int `tl:"kicked_count"`
+	KickedCount int
 	// Number of users banned¹ from the channel
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
 	//
 	// Use SetBannedCount and GetBannedCount helpers.
-	BannedCount int `tl:"banned_count"`
+	BannedCount int
 	// Number of users currently online
 	//
 	// Use SetOnlineCount and GetOnlineCount helpers.
-	OnlineCount int `tl:"online_count"`
+	OnlineCount int
 	// Position up to which all incoming messages are read.
-	ReadInboxMaxID int `tl:"read_inbox_max_id"`
+	ReadInboxMaxID int
 	// Position up to which all outgoing messages are read.
-	ReadOutboxMaxID int `tl:"read_outbox_max_id"`
+	ReadOutboxMaxID int
 	// Count of unread messages
-	UnreadCount int `tl:"unread_count"`
+	UnreadCount int
 	// Channel picture
-	ChatPhoto PhotoClass `tl:"chat_photo"`
+	ChatPhoto PhotoClass
 	// Notification settings
-	NotifySettings PeerNotifySettings `tl:"notify_settings"`
+	NotifySettings PeerNotifySettings
 	// Invite link
 	//
 	// Use SetExportedInvite and GetExportedInvite helpers.
-	ExportedInvite ChatInviteExported `tl:"exported_invite"`
+	ExportedInvite ChatInviteExported
 	// Info about bots in the channel/supergrup
-	BotInfo []BotInfo `tl:"bot_info"`
+	BotInfo []BotInfo
 	// The chat ID from which this group was migrated¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	//
 	// Use SetMigratedFromChatID and GetMigratedFromChatID helpers.
-	MigratedFromChatID int `tl:"migrated_from_chat_id"`
+	MigratedFromChatID int
 	// The message ID in the original chat at which this group was migrated¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	//
 	// Use SetMigratedFromMaxID and GetMigratedFromMaxID helpers.
-	MigratedFromMaxID int `tl:"migrated_from_max_id"`
+	MigratedFromMaxID int
 	// Message ID of the last pinned message¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/pin
 	//
 	// Use SetPinnedMsgID and GetPinnedMsgID helpers.
-	PinnedMsgID int `tl:"pinned_msg_id"`
+	PinnedMsgID int
 	// Associated stickerset
 	//
 	// Use SetStickerset and GetStickerset helpers.
-	Stickerset StickerSet `tl:"stickerset"`
+	Stickerset StickerSet
 	// Identifier of a maximum unavailable message in a channel due to hidden history.
 	//
 	// Use SetAvailableMinID and GetAvailableMinID helpers.
-	AvailableMinID int `tl:"available_min_id"`
+	AvailableMinID int
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int `tl:"folder_id"`
+	FolderID int
 	// ID of the linked discussion chat¹ for channels
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/discussion
 	//
 	// Use SetLinkedChatID and GetLinkedChatID helpers.
-	LinkedChatID int `tl:"linked_chat_id"`
+	LinkedChatID int
 	// Location of the geogroup
 	//
 	// Use SetLocation and GetLocation helpers.
-	Location ChannelLocationClass `tl:"location"`
+	Location ChannelLocationClass
 	// If specified, users in supergroups will only be able to send one message every slowmode_seconds seconds
 	//
 	// Use SetSlowmodeSeconds and GetSlowmodeSeconds helpers.
-	SlowmodeSeconds int `tl:"slowmode_seconds"`
+	SlowmodeSeconds int
 	// Indicates when the user will be allowed to send another message in the supergroup (unixdate)
 	//
 	// Use SetSlowmodeNextSendDate and GetSlowmodeNextSendDate helpers.
-	SlowmodeNextSendDate int `tl:"slowmode_next_send_date"`
+	SlowmodeNextSendDate int
 	// If set, specifies the DC to use for fetching channel statistics
 	//
 	// Use SetStatsDC and GetStatsDC helpers.
-	StatsDC int `tl:"stats_dc"`
+	StatsDC int
 	// Latest PTS¹ for this channel
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int `tl:"pts"`
+	Pts int
 	// Call field of ChannelFull.
 	//
 	// Use SetCall and GetCall helpers.
-	Call InputGroupCall `tl:"call"`
+	Call InputGroupCall
 	// TTLPeriod field of ChannelFull.
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
-	TTLPeriod int `tl:"ttl_period"`
+	TTLPeriod int
 	// PendingSuggestions field of ChannelFull.
 	//
 	// Use SetPendingSuggestions and GetPendingSuggestions helpers.
-	PendingSuggestions []string `tl:"pending_suggestions"`
+	PendingSuggestions []string
 }
 
 // ChannelFullTypeID is TL type id of ChannelFull.

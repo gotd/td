@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/messageEntityUnknown for reference.
 type MessageEntityUnknown struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int `tl:"offset"`
+	Offset int
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int `tl:"length"`
+	Length int
 }
 
 // MessageEntityUnknownTypeID is TL type id of MessageEntityUnknown.
@@ -169,9 +169,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityMention for reference.
 type MessageEntityMention struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int `tl:"offset"`
+	Offset int
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int `tl:"length"`
+	Length int
 }
 
 // MessageEntityMentionTypeID is TL type id of MessageEntityMention.
@@ -307,9 +307,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityHashtag for reference.
 type MessageEntityHashtag struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int `tl:"offset"`
+	Offset int
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int `tl:"length"`
+	Length int
 }
 
 // MessageEntityHashtagTypeID is TL type id of MessageEntityHashtag.
@@ -445,9 +445,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityBotCommand for reference.
 type MessageEntityBotCommand struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int `tl:"offset"`
+	Offset int
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int `tl:"length"`
+	Length int
 }
 
 // MessageEntityBotCommandTypeID is TL type id of MessageEntityBotCommand.
@@ -588,9 +588,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityUrl for reference.
 type MessageEntityUrl struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int `tl:"offset"`
+	Offset int
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int `tl:"length"`
+	Length int
 }
 
 // MessageEntityUrlTypeID is TL type id of MessageEntityUrl.
@@ -729,9 +729,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityEmail for reference.
 type MessageEntityEmail struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int `tl:"offset"`
+	Offset int
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int `tl:"length"`
+	Length int
 }
 
 // MessageEntityEmailTypeID is TL type id of MessageEntityEmail.
@@ -867,9 +867,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityBold for reference.
 type MessageEntityBold struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int `tl:"offset"`
+	Offset int
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int `tl:"length"`
+	Length int
 }
 
 // MessageEntityBoldTypeID is TL type id of MessageEntityBold.
@@ -1005,9 +1005,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityItalic for reference.
 type MessageEntityItalic struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int `tl:"offset"`
+	Offset int
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int `tl:"length"`
+	Length int
 }
 
 // MessageEntityItalicTypeID is TL type id of MessageEntityItalic.
@@ -1143,9 +1143,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityCode for reference.
 type MessageEntityCode struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int `tl:"offset"`
+	Offset int
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int `tl:"length"`
+	Length int
 }
 
 // MessageEntityCodeTypeID is TL type id of MessageEntityCode.
@@ -1281,11 +1281,11 @@ var (
 // See https://core.telegram.org/constructor/messageEntityPre for reference.
 type MessageEntityPre struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int `tl:"offset"`
+	Offset int
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int `tl:"length"`
+	Length int
 	// Programming language of the code
-	Language string `tl:"language"`
+	Language string
 }
 
 // MessageEntityPreTypeID is TL type id of MessageEntityPre.
@@ -1448,11 +1448,11 @@ var (
 // See https://core.telegram.org/constructor/messageEntityTextUrl for reference.
 type MessageEntityTextUrl struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int `tl:"offset"`
+	Offset int
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int `tl:"length"`
+	Length int
 	// The actual URL
-	URL string `tl:"url"`
+	URL string
 }
 
 // MessageEntityTextUrlTypeID is TL type id of MessageEntityTextUrl.
@@ -1614,11 +1614,11 @@ var (
 // See https://core.telegram.org/constructor/messageEntityMentionName for reference.
 type MessageEntityMentionName struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int `tl:"offset"`
+	Offset int
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int `tl:"length"`
+	Length int
 	// Identifier of the user that was mentioned
-	UserID int `tl:"user_id"`
+	UserID int
 }
 
 // MessageEntityMentionNameTypeID is TL type id of MessageEntityMentionName.
@@ -1780,11 +1780,11 @@ var (
 // See https://core.telegram.org/constructor/inputMessageEntityMentionName for reference.
 type InputMessageEntityMentionName struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int `tl:"offset"`
+	Offset int
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int `tl:"length"`
+	Length int
 	// Identifier of the user that was mentioned
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 }
 
 // InputMessageEntityMentionNameTypeID is TL type id of InputMessageEntityMentionName.
@@ -1947,9 +1947,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityPhone for reference.
 type MessageEntityPhone struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int `tl:"offset"`
+	Offset int
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int `tl:"length"`
+	Length int
 }
 
 // MessageEntityPhoneTypeID is TL type id of MessageEntityPhone.
@@ -2085,9 +2085,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityCashtag for reference.
 type MessageEntityCashtag struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int `tl:"offset"`
+	Offset int
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int `tl:"length"`
+	Length int
 }
 
 // MessageEntityCashtagTypeID is TL type id of MessageEntityCashtag.
@@ -2223,9 +2223,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityUnderline for reference.
 type MessageEntityUnderline struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int `tl:"offset"`
+	Offset int
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int `tl:"length"`
+	Length int
 }
 
 // MessageEntityUnderlineTypeID is TL type id of MessageEntityUnderline.
@@ -2361,9 +2361,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityStrike for reference.
 type MessageEntityStrike struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int `tl:"offset"`
+	Offset int
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int `tl:"length"`
+	Length int
 }
 
 // MessageEntityStrikeTypeID is TL type id of MessageEntityStrike.
@@ -2499,9 +2499,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityBlockquote for reference.
 type MessageEntityBlockquote struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int `tl:"offset"`
+	Offset int
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int `tl:"length"`
+	Length int
 }
 
 // MessageEntityBlockquoteTypeID is TL type id of MessageEntityBlockquote.
@@ -2637,9 +2637,9 @@ var (
 // See https://core.telegram.org/constructor/messageEntityBankCard for reference.
 type MessageEntityBankCard struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
-	Offset int `tl:"offset"`
+	Offset int
 	// Length of message entity within message (in UTF-8 codepoints)
-	Length int `tl:"length"`
+	Length int
 }
 
 // MessageEntityBankCardTypeID is TL type id of MessageEntityBankCard.

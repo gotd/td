@@ -27,11 +27,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/fileHash for reference.
 type FileHash struct {
 	// Offset field of FileHash.
-	Offset int `tl:"offset"`
+	Offset int
 	// Limit field of FileHash.
-	Limit int `tl:"limit"`
+	Limit int
 	// Hash field of FileHash.
-	Hash []byte `tl:"hash"`
+	Hash []byte
 }
 
 // FileHashTypeID is TL type id of FileHash.

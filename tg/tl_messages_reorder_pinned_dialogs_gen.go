@@ -31,16 +31,16 @@ type MessagesReorderPinnedDialogsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// If set, dialogs pinned server-side but not present in the order field will be unpinned.
-	Force bool `tl:"force"`
+	Force bool
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
-	FolderID int `tl:"folder_id"`
+	FolderID int
 	// New dialog order
-	Order []InputDialogPeerClass `tl:"order"`
+	Order []InputDialogPeerClass
 }
 
 // MessagesReorderPinnedDialogsRequestTypeID is TL type id of MessagesReorderPinnedDialogsRequest.

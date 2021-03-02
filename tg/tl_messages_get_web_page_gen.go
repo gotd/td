@@ -31,12 +31,12 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.getWebPage for reference.
 type MessagesGetWebPageRequest struct {
 	// URL of IV page to fetch
-	URL string `tl:"url"`
+	URL string
 	// Hash for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 }
 
 // MessagesGetWebPageRequestTypeID is TL type id of MessagesGetWebPageRequest.

@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.readMessageContents for reference.
 type MessagesReadMessageContentsRequest struct {
 	// Message ID list
-	ID []int `tl:"id"`
+	ID []int
 }
 
 // MessagesReadMessageContentsRequestTypeID is TL type id of MessagesReadMessageContentsRequest.

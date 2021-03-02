@@ -31,15 +31,15 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/inputSecureFileUploaded for reference.
 type InputSecureFileUploaded struct {
 	// Secure file ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Secure file part count
-	Parts int `tl:"parts"`
+	Parts int
 	// MD5 hash of encrypted uploaded file, to be checked server-side
-	MD5Checksum string `tl:"md5_checksum"`
+	MD5Checksum string
 	// File hash
-	FileHash []byte `tl:"file_hash"`
+	FileHash []byte
 	// Secret
-	Secret []byte `tl:"secret"`
+	Secret []byte
 }
 
 // InputSecureFileUploadedTypeID is TL type id of InputSecureFileUploaded.
@@ -245,9 +245,9 @@ var (
 // See https://core.telegram.org/constructor/inputSecureFile for reference.
 type InputSecureFile struct {
 	// Secure file ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Secure file access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 }
 
 // InputSecureFileTypeID is TL type id of InputSecureFile.

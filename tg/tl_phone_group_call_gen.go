@@ -27,13 +27,13 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/phone.groupCall for reference.
 type PhoneGroupCall struct {
 	// Call field of PhoneGroupCall.
-	Call GroupCallClass `tl:"call"`
+	Call GroupCallClass
 	// Participants field of PhoneGroupCall.
-	Participants []GroupCallParticipant `tl:"participants"`
+	Participants []GroupCallParticipant
 	// ParticipantsNextOffset field of PhoneGroupCall.
-	ParticipantsNextOffset string `tl:"participants_next_offset"`
+	ParticipantsNextOffset string
 	// Users field of PhoneGroupCall.
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // PhoneGroupCallTypeID is TL type id of PhoneGroupCall.

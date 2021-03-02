@@ -31,46 +31,46 @@ type Dialog struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Is the dialog pinned
-	Pinned bool `tl:"pinned"`
+	Pinned bool
 	// Whether the chat was manually marked as unread
-	UnreadMark bool `tl:"unread_mark"`
+	UnreadMark bool
 	// The chat
-	Peer PeerClass `tl:"peer"`
+	Peer PeerClass
 	// The latest message ID
-	TopMessage int `tl:"top_message"`
+	TopMessage int
 	// Position up to which all incoming messages are read.
-	ReadInboxMaxID int `tl:"read_inbox_max_id"`
+	ReadInboxMaxID int
 	// Position up to which all outgoing messages are read.
-	ReadOutboxMaxID int `tl:"read_outbox_max_id"`
+	ReadOutboxMaxID int
 	// Number of unread messages
-	UnreadCount int `tl:"unread_count"`
+	UnreadCount int
 	// Number of unread mentions¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/mentions
-	UnreadMentionsCount int `tl:"unread_mentions_count"`
+	UnreadMentionsCount int
 	// Notification settings
-	NotifySettings PeerNotifySettings `tl:"notify_settings"`
+	NotifySettings PeerNotifySettings
 	// PTS¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
 	//
 	// Use SetPts and GetPts helpers.
-	Pts int `tl:"pts"`
+	Pts int
 	// Message draft
 	//
 	// Use SetDraft and GetDraft helpers.
-	Draft DraftMessageClass `tl:"draft"`
+	Draft DraftMessageClass
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int `tl:"folder_id"`
+	FolderID int
 }
 
 // DialogTypeID is TL type id of Dialog.
@@ -527,23 +527,23 @@ type DialogFolder struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Is this folder pinned
-	Pinned bool `tl:"pinned"`
+	Pinned bool
 	// The folder
-	Folder Folder `tl:"folder"`
+	Folder Folder
 	// Peer in folder
-	Peer PeerClass `tl:"peer"`
+	Peer PeerClass
 	// Latest message ID of dialog
-	TopMessage int `tl:"top_message"`
+	TopMessage int
 	// Number of unread muted peers in folder
-	UnreadMutedPeersCount int `tl:"unread_muted_peers_count"`
+	UnreadMutedPeersCount int
 	// Number of unread unmuted peers in folder
-	UnreadUnmutedPeersCount int `tl:"unread_unmuted_peers_count"`
+	UnreadUnmutedPeersCount int
 	// Number of unread messages from muted peers in folder
-	UnreadMutedMessagesCount int `tl:"unread_muted_messages_count"`
+	UnreadMutedMessagesCount int
 	// Number of unread messages from unmuted peers in folder
-	UnreadUnmutedMessagesCount int `tl:"unread_unmuted_messages_count"`
+	UnreadUnmutedMessagesCount int
 }
 
 // DialogFolderTypeID is TL type id of DialogFolder.

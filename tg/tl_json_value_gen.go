@@ -112,7 +112,7 @@ var (
 // See https://core.telegram.org/constructor/jsonBool for reference.
 type JsonBool struct {
 	// Value
-	Value bool `tl:"value"`
+	Value bool
 }
 
 // JsonBoolTypeID is TL type id of JsonBool.
@@ -226,7 +226,7 @@ var (
 // See https://core.telegram.org/constructor/jsonNumber for reference.
 type JsonNumber struct {
 	// Value
-	Value float64 `tl:"value"`
+	Value float64
 }
 
 // JsonNumberTypeID is TL type id of JsonNumber.
@@ -340,7 +340,7 @@ var (
 // See https://core.telegram.org/constructor/jsonString for reference.
 type JsonString struct {
 	// Value
-	Value string `tl:"value"`
+	Value string
 }
 
 // JsonStringTypeID is TL type id of JsonString.
@@ -454,7 +454,7 @@ var (
 // See https://core.telegram.org/constructor/jsonArray for reference.
 type JsonArray struct {
 	// JSON values
-	Value []JSONValueClass `tl:"value"`
+	Value []JSONValueClass
 }
 
 // JsonArrayTypeID is TL type id of JsonArray.
@@ -587,7 +587,7 @@ var (
 // See https://core.telegram.org/constructor/jsonObject for reference.
 type JsonObject struct {
 	// Values
-	Value []JsonObjectValue `tl:"value"`
+	Value []JsonObjectValue
 }
 
 // JsonObjectTypeID is TL type id of JsonObject.

@@ -34,21 +34,21 @@ type MessagesSetTypingRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Target user or group
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Thread ID¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetTopMsgID and GetTopMsgID helpers.
-	TopMsgID int `tl:"top_msg_id"`
+	TopMsgID int
 	// Type of actionParameter added in Layer 17¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/layers#layer-17
-	Action SendMessageActionClass `tl:"action"`
+	Action SendMessageActionClass
 }
 
 // MessagesSetTypingRequestTypeID is TL type id of MessagesSetTypingRequest.

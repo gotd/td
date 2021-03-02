@@ -25,7 +25,7 @@ var _ = tdp.Format
 // ReqPqRequest represents TL type `req_pq#60469778`.
 type ReqPqRequest struct {
 	// Nonce field of ReqPqRequest.
-	Nonce bin.Int128 `tl:"nonce"`
+	Nonce bin.Int128
 }
 
 // ReqPqRequestTypeID is TL type id of ReqPqRequest.

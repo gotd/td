@@ -31,19 +31,19 @@ type MessagesSetGameScoreRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Set this flag if the game message should be automatically edited to include the current scoreboard
-	EditMessage bool `tl:"edit_message"`
+	EditMessage bool
 	// Set this flag if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters
-	Force bool `tl:"force"`
+	Force bool
 	// Unique identifier of target chat
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Identifier of the sent message
-	ID int `tl:"id"`
+	ID int
 	// User identifier
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 	// New score
-	Score int `tl:"score"`
+	Score int
 }
 
 // MessagesSetGameScoreRequestTypeID is TL type id of MessagesSetGameScoreRequest.

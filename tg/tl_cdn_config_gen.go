@@ -34,7 +34,7 @@ type CdnConfig struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	PublicKeys []CdnPublicKey `tl:"public_keys"`
+	PublicKeys []CdnPublicKey
 }
 
 // CdnConfigTypeID is TL type id of CdnConfig.

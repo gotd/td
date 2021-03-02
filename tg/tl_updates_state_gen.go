@@ -28,19 +28,19 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/updates.state for reference.
 type UpdatesState struct {
 	// Number of events occured in a text box
-	Pts int `tl:"pts"`
+	Pts int
 	// Position in a sequence of updates in secret chats. For further detailes refer to article secret chats¹Parameter was added in eigth layer².
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/end-to-end
 	//  2) https://core.telegram.org/api/layers#layer-8
-	Qts int `tl:"qts"`
+	Qts int
 	// Date of condition
-	Date int `tl:"date"`
+	Date int
 	// Number of sent updates
-	Seq int `tl:"seq"`
+	Seq int
 	// Number of unread messages
-	UnreadCount int `tl:"unread_count"`
+	UnreadCount int
 }
 
 // UpdatesStateTypeID is TL type id of UpdatesState.

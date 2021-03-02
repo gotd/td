@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/phoneCallEmpty for reference.
 type PhoneCallEmpty struct {
 	// Call ID
-	ID int64 `tl:"id"`
+	ID int64
 }
 
 // PhoneCallEmptyTypeID is TL type id of PhoneCallEmpty.
@@ -145,25 +145,25 @@ type PhoneCallWaiting struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Is this a video call
-	Video bool `tl:"video"`
+	Video bool
 	// Call ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// Date
-	Date int `tl:"date"`
+	Date int
 	// Admin ID
-	AdminID int `tl:"admin_id"`
+	AdminID int
 	// Participant ID
-	ParticipantID int `tl:"participant_id"`
+	ParticipantID int
 	// Phone call protocol info
-	Protocol PhoneCallProtocol `tl:"protocol"`
+	Protocol PhoneCallProtocol
 	// When was the phone call received
 	//
 	// Use SetReceiveDate and GetReceiveDate helpers.
-	ReceiveDate int `tl:"receive_date"`
+	ReceiveDate int
 }
 
 // PhoneCallWaitingTypeID is TL type id of PhoneCallWaiting.
@@ -476,26 +476,26 @@ type PhoneCallRequested struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether this is a video call
-	Video bool `tl:"video"`
+	Video bool
 	// Phone call ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// When was the phone call created
-	Date int `tl:"date"`
+	Date int
 	// ID of the creator of the phone call
-	AdminID int `tl:"admin_id"`
+	AdminID int
 	// ID of the other participant of the phone call
-	ParticipantID int `tl:"participant_id"`
+	ParticipantID int
 	// Parameter for key exchange¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/end-to-end/voice-calls
-	GAHash []byte `tl:"g_a_hash"`
+	GAHash []byte
 	// Call protocol info to be passed to libtgvoip
-	Protocol PhoneCallProtocol `tl:"protocol"`
+	Protocol PhoneCallProtocol
 }
 
 // PhoneCallRequestedTypeID is TL type id of PhoneCallRequested.
@@ -789,26 +789,26 @@ type PhoneCallAccepted struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether this is a video call
-	Video bool `tl:"video"`
+	Video bool
 	// ID of accepted phone call
-	ID int64 `tl:"id"`
+	ID int64
 	// Access hash of phone call
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// When was the call accepted
-	Date int `tl:"date"`
+	Date int
 	// ID of the call creator
-	AdminID int `tl:"admin_id"`
+	AdminID int
 	// ID of the other user in the call
-	ParticipantID int `tl:"participant_id"`
+	ParticipantID int
 	// B parameter for secure E2E phone call key exchange¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/end-to-end/voice-calls
-	GB []byte `tl:"g_b"`
+	GB []byte
 	// Protocol to use for phone call
-	Protocol PhoneCallProtocol `tl:"protocol"`
+	Protocol PhoneCallProtocol
 }
 
 // PhoneCallAcceptedTypeID is TL type id of PhoneCallAccepted.
@@ -1102,37 +1102,37 @@ type PhoneCall struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether P2P connection to the other peer is allowed
-	P2PAllowed bool `tl:"p2p_allowed"`
+	P2PAllowed bool
 	// Whether this is a video call
-	Video bool `tl:"video"`
+	Video bool
 	// Call ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// Date of creation of the call
-	Date int `tl:"date"`
+	Date int
 	// User ID of the creator of the call
-	AdminID int `tl:"admin_id"`
+	AdminID int
 	// User ID of the other participant in the call
-	ParticipantID int `tl:"participant_id"`
+	ParticipantID int
 	// Parameter for key exchange¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/end-to-end/voice-calls
-	GAOrB []byte `tl:"g_a_or_b"`
+	GAOrB []byte
 	// Key fingerprint¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/end-to-end/voice-calls
-	KeyFingerprint int64 `tl:"key_fingerprint"`
+	KeyFingerprint int64
 	// Call protocol info to be passed to libtgvoip
-	Protocol PhoneCallProtocol `tl:"protocol"`
+	Protocol PhoneCallProtocol
 	// List of endpoints the user can connect to to exchange call data
-	Connections []PhoneConnectionClass `tl:"connections"`
+	Connections []PhoneConnectionClass
 	// When was the call actually started
-	StartDate int `tl:"start_date"`
+	StartDate int
 }
 
 // PhoneCallTypeID is TL type id of PhoneCall.
@@ -1541,29 +1541,29 @@ type PhoneCallDiscarded struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the server required the user to rate¹ the call
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/phone.setCallRating
-	NeedRating bool `tl:"need_rating"`
+	NeedRating bool
 	// Whether the server required the client to send¹ the libtgvoip call debug data
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/phone.saveCallDebug
-	NeedDebug bool `tl:"need_debug"`
+	NeedDebug bool
 	// Whether the call was a video call
-	Video bool `tl:"video"`
+	Video bool
 	// Call ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Why was the phone call discarded
 	//
 	// Use SetReason and GetReason helpers.
-	Reason PhoneCallDiscardReasonClass `tl:"reason"`
+	Reason PhoneCallDiscardReasonClass
 	// Duration of the phone call in seconds
 	//
 	// Use SetDuration and GetDuration helpers.
-	Duration int `tl:"duration"`
+	Duration int
 }
 
 // PhoneCallDiscardedTypeID is TL type id of PhoneCallDiscarded.

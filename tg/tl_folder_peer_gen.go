@@ -28,12 +28,12 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/folderPeer for reference.
 type FolderPeer struct {
 	// Folder peer info
-	Peer PeerClass `tl:"peer"`
+	Peer PeerClass
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
-	FolderID int `tl:"folder_id"`
+	FolderID int
 }
 
 // FolderPeerTypeID is TL type id of FolderPeer.

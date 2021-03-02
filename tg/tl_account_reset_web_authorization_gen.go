@@ -34,7 +34,7 @@ type AccountResetWebAuthorizationRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/webAuthorization
-	Hash int64 `tl:"hash"`
+	Hash int64
 }
 
 // AccountResetWebAuthorizationRequestTypeID is TL type id of AccountResetWebAuthorizationRequest.

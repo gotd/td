@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/inputTheme for reference.
 type InputTheme struct {
 	// ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 }
 
 // InputThemeTypeID is TL type id of InputTheme.
@@ -166,7 +166,7 @@ var (
 // See https://core.telegram.org/constructor/inputThemeSlug for reference.
 type InputThemeSlug struct {
 	// Unique theme ID
-	Slug string `tl:"slug"`
+	Slug string
 }
 
 // InputThemeSlugTypeID is TL type id of InputThemeSlug.

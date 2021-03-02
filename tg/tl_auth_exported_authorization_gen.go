@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/auth.exportedAuthorization for reference.
 type AuthExportedAuthorization struct {
 	// current user identifier
-	ID int `tl:"id"`
+	ID int
 	// authorizes key
-	Bytes []byte `tl:"bytes"`
+	Bytes []byte
 }
 
 // AuthExportedAuthorizationTypeID is TL type id of AuthExportedAuthorization.

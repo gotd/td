@@ -35,17 +35,17 @@ type ContactsAddContactRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Allow the other user to see our phone number?
-	AddPhonePrivacyException bool `tl:"add_phone_privacy_exception"`
+	AddPhonePrivacyException bool
 	// Telegram ID of the other user
-	ID InputUserClass `tl:"id"`
+	ID InputUserClass
 	// First name
-	FirstName string `tl:"first_name"`
+	FirstName string
 	// Last name
-	LastName string `tl:"last_name"`
+	LastName string
 	// User's phone number
-	Phone string `tl:"phone"`
+	Phone string
 }
 
 // ContactsAddContactRequestTypeID is TL type id of ContactsAddContactRequest.

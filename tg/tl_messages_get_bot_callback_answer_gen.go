@@ -31,17 +31,17 @@ type MessagesGetBotCallbackAnswerRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether this is a "play game" button
-	Game bool `tl:"game"`
+	Game bool
 	// Where was the inline keyboard sent
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// ID of the Message with the inline keyboard
-	MsgID int `tl:"msg_id"`
+	MsgID int
 	// Callback data
 	//
 	// Use SetData and GetData helpers.
-	Data []byte `tl:"data"`
+	Data []byte
 	// For buttons requiring you to verify your identity with your 2FA password¹, the SRP payload generated using SRP².
 	//
 	// Links:
@@ -49,7 +49,7 @@ type MessagesGetBotCallbackAnswerRequest struct {
 	//  2) https://core.telegram.org/api/srp
 	//
 	// Use SetPassword and GetPassword helpers.
-	Password InputCheckPasswordSRPClass `tl:"password"`
+	Password InputCheckPasswordSRPClass
 }
 
 // MessagesGetBotCallbackAnswerRequestTypeID is TL type id of MessagesGetBotCallbackAnswerRequest.

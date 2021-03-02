@@ -31,15 +31,15 @@ type WebPageAttributeTheme struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Theme files
 	//
 	// Use SetDocuments and GetDocuments helpers.
-	Documents []DocumentClass `tl:"documents"`
+	Documents []DocumentClass
 	// Theme settings
 	//
 	// Use SetSettings and GetSettings helpers.
-	Settings ThemeSettings `tl:"settings"`
+	Settings ThemeSettings
 }
 
 // WebPageAttributeThemeTypeID is TL type id of WebPageAttributeTheme.

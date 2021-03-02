@@ -25,11 +25,11 @@ var _ = tdp.Format
 // FutureSalt represents TL type `future_salt#949d9dc`.
 type FutureSalt struct {
 	// ValidSince field of FutureSalt.
-	ValidSince int `tl:"valid_since"`
+	ValidSince int
 	// ValidUntil field of FutureSalt.
-	ValidUntil int `tl:"valid_until"`
+	ValidUntil int
 	// Salt field of FutureSalt.
-	Salt int64 `tl:"salt"`
+	Salt int64
 }
 
 // FutureSaltTypeID is TL type id of FutureSalt.

@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/accountDaysTTL for reference.
 type AccountDaysTTL struct {
 	// This account will self-destruct in the specified number of days
-	Days int `tl:"days"`
+	Days int
 }
 
 // AccountDaysTTLTypeID is TL type id of AccountDaysTTL.

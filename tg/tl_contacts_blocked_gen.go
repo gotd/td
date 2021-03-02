@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/contacts.blocked for reference.
 type ContactsBlocked struct {
 	// List of blocked users
-	Blocked []PeerBlocked `tl:"blocked"`
+	Blocked []PeerBlocked
 	// Blocked chats
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// List of users
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // ContactsBlockedTypeID is TL type id of ContactsBlocked.
@@ -239,13 +239,13 @@ var (
 // See https://core.telegram.org/constructor/contacts.blockedSlice for reference.
 type ContactsBlockedSlice struct {
 	// Total number of elements in the list
-	Count int `tl:"count"`
+	Count int
 	// List of blocked users
-	Blocked []PeerBlocked `tl:"blocked"`
+	Blocked []PeerBlocked
 	// Blocked chats
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// List of users
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // ContactsBlockedSliceTypeID is TL type id of ContactsBlockedSlice.

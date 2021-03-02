@@ -31,39 +31,39 @@ type StickerSet struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether this stickerset was archived (due to too many saved stickers in the current account)
-	Archived bool `tl:"archived"`
+	Archived bool
 	// Is this stickerset official
-	Official bool `tl:"official"`
+	Official bool
 	// Is this a mask stickerset
-	Masks bool `tl:"masks"`
+	Masks bool
 	// Is this an animated stickerpack
-	Animated bool `tl:"animated"`
+	Animated bool
 	// When was this stickerset installed
 	//
 	// Use SetInstalledDate and GetInstalledDate helpers.
-	InstalledDate int `tl:"installed_date"`
+	InstalledDate int
 	// ID of the stickerset
-	ID int64 `tl:"id"`
+	ID int64
 	// Access hash of stickerset
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// Title of stickerset
-	Title string `tl:"title"`
+	Title string
 	// Short name of stickerset to use in tg://addstickers?set=short_name
-	ShortName string `tl:"short_name"`
+	ShortName string
 	// Thumbs field of StickerSet.
 	//
 	// Use SetThumbs and GetThumbs helpers.
-	Thumbs []PhotoSizeClass `tl:"thumbs"`
+	Thumbs []PhotoSizeClass
 	// DC ID of thumbnail
 	//
 	// Use SetThumbDCID and GetThumbDCID helpers.
-	ThumbDCID int `tl:"thumb_dc_id"`
+	ThumbDCID int
 	// Number of stickers in pack
-	Count int `tl:"count"`
+	Count int
 	// Hash
-	Hash int `tl:"hash"`
+	Hash int
 }
 
 // StickerSetTypeID is TL type id of StickerSet.

@@ -31,19 +31,19 @@ type MessagesGetInlineBotResultsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// The bot to query
-	Bot InputUserClass `tl:"bot"`
+	Bot InputUserClass
 	// The currently opened chat
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// The geolocation, if requested
 	//
 	// Use SetGeoPoint and GetGeoPoint helpers.
-	GeoPoint InputGeoPointClass `tl:"geo_point"`
+	GeoPoint InputGeoPointClass
 	// The query
-	Query string `tl:"query"`
+	Query string
 	// The offset within the results, will be passed directly as-is to the bot.
-	Offset string `tl:"offset"`
+	Offset string
 }
 
 // MessagesGetInlineBotResultsRequestTypeID is TL type id of MessagesGetInlineBotResultsRequest.

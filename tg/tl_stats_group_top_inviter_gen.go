@@ -28,12 +28,12 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/statsGroupTopInviter for reference.
 type StatsGroupTopInviter struct {
 	// User ID
-	UserID int `tl:"user_id"`
+	UserID int
 	// Number of invitations for statistics¹ period in consideration
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/stats
-	Invitations int `tl:"invitations"`
+	Invitations int
 }
 
 // StatsGroupTopInviterTypeID is TL type id of StatsGroupTopInviter.

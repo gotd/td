@@ -31,24 +31,24 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/channels.getParticipants for reference.
 type ChannelsGetParticipantsRequest struct {
 	// Channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// Which participant types to fetch
-	Filter ChannelParticipantsFilterClass `tl:"filter"`
+	Filter ChannelParticipantsFilterClass
 	// Offset¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Offset int `tl:"offset"`
+	Offset int
 	// Limit¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int `tl:"limit"`
+	Limit int
 	// Hash¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Hash int `tl:"hash"`
+	Hash int
 }
 
 // ChannelsGetParticipantsRequestTypeID is TL type id of ChannelsGetParticipantsRequest.

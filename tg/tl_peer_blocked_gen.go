@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/peerBlocked for reference.
 type PeerBlocked struct {
 	// Peer ID
-	PeerID PeerClass `tl:"peer_id"`
+	PeerID PeerClass
 	// When was the peer blocked
-	Date int `tl:"date"`
+	Date int
 }
 
 // PeerBlockedTypeID is TL type id of PeerBlocked.

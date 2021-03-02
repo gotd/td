@@ -25,11 +25,11 @@ var _ = tdp.Format
 // FutureSalts represents TL type `future_salts#ae500895`.
 type FutureSalts struct {
 	// ReqMsgID field of FutureSalts.
-	ReqMsgID int64 `tl:"req_msg_id"`
+	ReqMsgID int64
 	// Now field of FutureSalts.
-	Now int `tl:"now"`
+	Now int
 	// Salts field of FutureSalts.
-	Salts []FutureSalt `tl:"salts"`
+	Salts []FutureSalt
 }
 
 // FutureSaltsTypeID is TL type id of FutureSalts.

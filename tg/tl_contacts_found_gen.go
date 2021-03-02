@@ -28,13 +28,13 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/contacts.found for reference.
 type ContactsFound struct {
 	// Personalized results
-	MyResults []PeerClass `tl:"my_results"`
+	MyResults []PeerClass
 	// List of found user identifiers
-	Results []PeerClass `tl:"results"`
+	Results []PeerClass
 	// Found chats
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// List of users
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // ContactsFoundTypeID is TL type id of ContactsFound.

@@ -28,13 +28,13 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/savedPhoneContact for reference.
 type SavedPhoneContact struct {
 	// Phone number
-	Phone string `tl:"phone"`
+	Phone string
 	// First name
-	FirstName string `tl:"first_name"`
+	FirstName string
 	// Last name
-	LastName string `tl:"last_name"`
+	LastName string
 	// Date added
-	Date int `tl:"date"`
+	Date int
 }
 
 // SavedPhoneContactTypeID is TL type id of SavedPhoneContact.

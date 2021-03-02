@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.getAttachedStickers for reference.
 type MessagesGetAttachedStickersRequest struct {
 	// Stickered media
-	Media InputStickeredMediaClass `tl:"media"`
+	Media InputStickeredMediaClass
 }
 
 // MessagesGetAttachedStickersRequestTypeID is TL type id of MessagesGetAttachedStickersRequest.

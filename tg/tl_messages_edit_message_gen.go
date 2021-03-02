@@ -31,39 +31,39 @@ type MessagesEditMessageRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Disable webpage preview
-	NoWebpage bool `tl:"no_webpage"`
+	NoWebpage bool
 	// Where was the message sent
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// ID of the message to edit
-	ID int `tl:"id"`
+	ID int
 	// New message
 	//
 	// Use SetMessage and GetMessage helpers.
-	Message string `tl:"message"`
+	Message string
 	// New attached media
 	//
 	// Use SetMedia and GetMedia helpers.
-	Media InputMediaClass `tl:"media"`
+	Media InputMediaClass
 	// Reply markup for inline keyboards
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `tl:"entities"`
+	Entities []MessageEntityClass
 	// Scheduled message date for scheduled messages¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/scheduled-messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
-	ScheduleDate int `tl:"schedule_date"`
+	ScheduleDate int
 }
 
 // MessagesEditMessageRequestTypeID is TL type id of MessagesEditMessageRequest.

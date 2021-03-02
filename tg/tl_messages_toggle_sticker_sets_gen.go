@@ -31,15 +31,15 @@ type MessagesToggleStickerSetsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Uninstall the specified stickersets
-	Uninstall bool `tl:"uninstall"`
+	Uninstall bool
 	// Archive the specified stickersets
-	Archive bool `tl:"archive"`
+	Archive bool
 	// Unarchive the specified stickersets
-	Unarchive bool `tl:"unarchive"`
+	Unarchive bool
 	// Stickersets to act upon
-	Stickersets []InputStickerSetClass `tl:"stickersets"`
+	Stickersets []InputStickerSetClass
 }
 
 // MessagesToggleStickerSetsRequestTypeID is TL type id of MessagesToggleStickerSetsRequest.

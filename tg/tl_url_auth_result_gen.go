@@ -34,16 +34,16 @@ type UrlAuthResultRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the bot would like to send messages to the user
-	RequestWriteAccess bool `tl:"request_write_access"`
+	RequestWriteAccess bool
 	// Username of a bot, which will be used for user authorization. If not specified, the current bot's username will be assumed. The url's domain must be the same as the domain linked with the bot. See Linking your domain to the bot¹ for more details.
 	//
 	// Links:
 	//  1) https://core.telegram.org/widgets/login#linking-your-domain-to-the-bot
-	Bot UserClass `tl:"bot"`
+	Bot UserClass
 	// The domain name of the website on which the user will log in.
-	Domain string `tl:"domain"`
+	Domain string
 }
 
 // UrlAuthResultRequestTypeID is TL type id of UrlAuthResultRequest.
@@ -232,7 +232,7 @@ var (
 // See https://core.telegram.org/constructor/urlAuthResultAccepted for reference.
 type UrlAuthResultAccepted struct {
 	// The URL name of the website on which the user has logged in.
-	URL string `tl:"url"`
+	URL string
 }
 
 // UrlAuthResultAcceptedTypeID is TL type id of UrlAuthResultAccepted.

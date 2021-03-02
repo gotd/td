@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/error for reference.
 type Error struct {
 	// Error code
-	Code int `tl:"code"`
+	Code int
 	// Message
-	Text string `tl:"text"`
+	Text string
 }
 
 // ErrorTypeID is TL type id of Error.

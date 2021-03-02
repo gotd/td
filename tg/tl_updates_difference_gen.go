@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/updates.differenceEmpty for reference.
 type UpdatesDifferenceEmpty struct {
 	// Current date
-	Date int `tl:"date"`
+	Date int
 	// Number of sent updates
-	Seq int `tl:"seq"`
+	Seq int
 }
 
 // UpdatesDifferenceEmptyTypeID is TL type id of UpdatesDifferenceEmpty.
@@ -166,17 +166,17 @@ var (
 // See https://core.telegram.org/constructor/updates.difference for reference.
 type UpdatesDifference struct {
 	// List of new messages
-	NewMessages []MessageClass `tl:"new_messages"`
+	NewMessages []MessageClass
 	// List of new encrypted secret chat messages
-	NewEncryptedMessages []EncryptedMessageClass `tl:"new_encrypted_messages"`
+	NewEncryptedMessages []EncryptedMessageClass
 	// List of updates
-	OtherUpdates []UpdateClass `tl:"other_updates"`
+	OtherUpdates []UpdateClass
 	// List of chats mentioned in events
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// List of users mentioned in events
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 	// Current state
-	State UpdatesState `tl:"state"`
+	State UpdatesState
 }
 
 // UpdatesDifferenceTypeID is TL type id of UpdatesDifference.
@@ -495,20 +495,20 @@ var (
 // See https://core.telegram.org/constructor/updates.differenceSlice for reference.
 type UpdatesDifferenceSlice struct {
 	// List of new messgaes
-	NewMessages []MessageClass `tl:"new_messages"`
+	NewMessages []MessageClass
 	// New messages from the encrypted event sequence¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	NewEncryptedMessages []EncryptedMessageClass `tl:"new_encrypted_messages"`
+	NewEncryptedMessages []EncryptedMessageClass
 	// List of updates
-	OtherUpdates []UpdateClass `tl:"other_updates"`
+	OtherUpdates []UpdateClass
 	// List of chats mentioned in events
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// List of users mentioned in events
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 	// Intermediary state
-	IntermediateState UpdatesState `tl:"intermediate_state"`
+	IntermediateState UpdatesState
 }
 
 // UpdatesDifferenceSliceTypeID is TL type id of UpdatesDifferenceSlice.
@@ -830,7 +830,7 @@ var (
 // See https://core.telegram.org/constructor/updates.differenceTooLong for reference.
 type UpdatesDifferenceTooLong struct {
 	// The new state to use.
-	Pts int `tl:"pts"`
+	Pts int
 }
 
 // UpdatesDifferenceTooLongTypeID is TL type id of UpdatesDifferenceTooLong.

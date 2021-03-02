@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/channels.setStickers for reference.
 type ChannelsSetStickersRequest struct {
 	// Supergroup
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// The stickerset to associate
-	Stickerset InputStickerSetClass `tl:"stickerset"`
+	Stickerset InputStickerSetClass
 }
 
 // ChannelsSetStickersRequestTypeID is TL type id of ChannelsSetStickersRequest.

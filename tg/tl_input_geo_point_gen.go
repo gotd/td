@@ -115,15 +115,15 @@ type InputGeoPoint struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Latitide
-	Lat float64 `tl:"lat"`
+	Lat float64
 	// Longtitude
-	Long float64 `tl:"long"`
+	Long float64
 	// The estimated horizontal accuracy of the location, in meters; as defined by the sender.
 	//
 	// Use SetAccuracyRadius and GetAccuracyRadius helpers.
-	AccuracyRadius int `tl:"accuracy_radius"`
+	AccuracyRadius int
 }
 
 // InputGeoPointTypeID is TL type id of InputGeoPoint.

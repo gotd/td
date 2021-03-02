@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/help.saveAppLog for reference.
 type HelpSaveAppLogRequest struct {
 	// List of input events
-	Events []InputAppEvent `tl:"events"`
+	Events []InputAppEvent
 }
 
 // HelpSaveAppLogRequestTypeID is TL type id of HelpSaveAppLogRequest.

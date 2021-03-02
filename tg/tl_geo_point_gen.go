@@ -115,17 +115,17 @@ type GeoPoint struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Longtitude
-	Long float64 `tl:"long"`
+	Long float64
 	// Latitude
-	Lat float64 `tl:"lat"`
+	Lat float64
 	// Access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// The estimated horizontal accuracy of the location, in meters; as defined by the sender.
 	//
 	// Use SetAccuracyRadius and GetAccuracyRadius helpers.
-	AccuracyRadius int `tl:"accuracy_radius"`
+	AccuracyRadius int
 }
 
 // GeoPointTypeID is TL type id of GeoPoint.

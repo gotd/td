@@ -25,7 +25,7 @@ var _ = tdp.Format
 // ContactStatusVector is a box for Vector<ContactStatus>
 type ContactStatusVector struct {
 	// Elements of Vector<ContactStatus>
-	Elems []ContactStatus `tl:"Elems"`
+	Elems []ContactStatus
 }
 
 // ContactStatusVectorTypeID is TL type id of ContactStatusVector.

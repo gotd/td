@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/upload.getFileHashes for reference.
 type UploadGetFileHashesRequest struct {
 	// File
-	Location InputFileLocationClass `tl:"location"`
+	Location InputFileLocationClass
 	// Offset from which to get file hashes
-	Offset int `tl:"offset"`
+	Offset int
 }
 
 // UploadGetFileHashesRequestTypeID is TL type id of UploadGetFileHashesRequest.

@@ -32,7 +32,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/statsGraphAsync for reference.
 type StatsGraphAsync struct {
 	// Token to use for fetching the async graph
-	Token string `tl:"token"`
+	Token string
 }
 
 // StatsGraphAsyncTypeID is TL type id of StatsGraphAsync.
@@ -149,7 +149,7 @@ var (
 // See https://core.telegram.org/constructor/statsGraphError for reference.
 type StatsGraphError struct {
 	// The error
-	Error string `tl:"error"`
+	Error string
 }
 
 // StatsGraphErrorTypeID is TL type id of StatsGraphError.
@@ -269,13 +269,13 @@ type StatsGraph struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Statistics data
-	JSON DataJSON `tl:"json"`
+	JSON DataJSON
 	// Zoom token
 	//
 	// Use SetZoomToken and GetZoomToken helpers.
-	ZoomToken string `tl:"zoom_token"`
+	ZoomToken string
 }
 
 // StatsGraphTypeID is TL type id of StatsGraph.

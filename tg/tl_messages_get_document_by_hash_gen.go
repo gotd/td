@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.getDocumentByHash for reference.
 type MessagesGetDocumentByHashRequest struct {
 	// SHA256 of file
-	SHA256 []byte `tl:"sha256"`
+	SHA256 []byte
 	// Size of the file in bytes
-	Size int `tl:"size"`
+	Size int
 	// Mime type
-	MimeType string `tl:"mime_type"`
+	MimeType string
 }
 
 // MessagesGetDocumentByHashRequestTypeID is TL type id of MessagesGetDocumentByHashRequest.

@@ -27,9 +27,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.deleteExportedChatInvite for reference.
 type MessagesDeleteExportedChatInviteRequest struct {
 	// Peer field of MessagesDeleteExportedChatInviteRequest.
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Link field of MessagesDeleteExportedChatInviteRequest.
-	Link string `tl:"link"`
+	Link string
 }
 
 // MessagesDeleteExportedChatInviteRequestTypeID is TL type id of MessagesDeleteExportedChatInviteRequest.

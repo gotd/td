@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.reportPeer for reference.
 type AccountReportPeerRequest struct {
 	// The peer to report
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// The reason why this peer is being reported
-	Reason ReportReasonClass `tl:"reason"`
+	Reason ReportReasonClass
 	// Message field of AccountReportPeerRequest.
-	Message string `tl:"message"`
+	Message string
 }
 
 // AccountReportPeerRequestTypeID is TL type id of AccountReportPeerRequest.

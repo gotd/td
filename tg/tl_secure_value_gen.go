@@ -31,63 +31,63 @@ type SecureValue struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Secure passport¹ value type
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
-	Type SecureValueTypeClass `tl:"type"`
+	Type SecureValueTypeClass
 	// Encrypted Telegram Passport¹ element data
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetData and GetData helpers.
-	Data SecureData `tl:"data"`
+	Data SecureData
 	// Encrypted passport¹ file with the front side of the document
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetFrontSide and GetFrontSide helpers.
-	FrontSide SecureFileClass `tl:"front_side"`
+	FrontSide SecureFileClass
 	// Encrypted passport¹ file with the reverse side of the document
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetReverseSide and GetReverseSide helpers.
-	ReverseSide SecureFileClass `tl:"reverse_side"`
+	ReverseSide SecureFileClass
 	// Encrypted passport¹ file with a selfie of the user holding the document
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetSelfie and GetSelfie helpers.
-	Selfie SecureFileClass `tl:"selfie"`
+	Selfie SecureFileClass
 	// Array of encrypted passport¹ files with translated versions of the provided documents
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetTranslation and GetTranslation helpers.
-	Translation []SecureFileClass `tl:"translation"`
+	Translation []SecureFileClass
 	// Array of encrypted passport¹ files with photos the of the documents
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetFiles and GetFiles helpers.
-	Files []SecureFileClass `tl:"files"`
+	Files []SecureFileClass
 	// Plaintext verified passport¹ data
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
 	//
 	// Use SetPlainData and GetPlainData helpers.
-	PlainData SecurePlainDataClass `tl:"plain_data"`
+	PlainData SecurePlainDataClass
 	// Data hash
-	Hash []byte `tl:"hash"`
+	Hash []byte
 }
 
 // SecureValueTypeID is TL type id of SecureValue.

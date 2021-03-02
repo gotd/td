@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/stats.messageStats for reference.
 type StatsMessageStats struct {
 	// Message view graph
-	ViewsGraph StatsGraphClass `tl:"views_graph"`
+	ViewsGraph StatsGraphClass
 }
 
 // StatsMessageStatsTypeID is TL type id of StatsMessageStats.

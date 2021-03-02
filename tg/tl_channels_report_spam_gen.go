@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/channels.reportSpam for reference.
 type ChannelsReportSpamRequest struct {
 	// Supergroup
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// ID of the user that sent the spam messages
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 	// IDs of spam messages
-	ID []int `tl:"id"`
+	ID []int
 }
 
 // ChannelsReportSpamRequestTypeID is TL type id of ChannelsReportSpamRequest.

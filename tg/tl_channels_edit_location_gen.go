@@ -31,11 +31,11 @@ type ChannelsEditLocationRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// New geolocation
-	GeoPoint InputGeoPointClass `tl:"geo_point"`
+	GeoPoint InputGeoPointClass
 	// Address string
-	Address string `tl:"address"`
+	Address string
 }
 
 // ChannelsEditLocationRequestTypeID is TL type id of ChannelsEditLocationRequest.

@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/chatOnlines for reference.
 type ChatOnlines struct {
 	// Number of online users
-	Onlines int `tl:"onlines"`
+	Onlines int
 }
 
 // ChatOnlinesTypeID is TL type id of ChatOnlines.

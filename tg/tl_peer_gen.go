@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/peerUser for reference.
 type PeerUser struct {
 	// User identifier
-	UserID int `tl:"user_id"`
+	UserID int
 }
 
 // PeerUserTypeID is TL type id of PeerUser.
@@ -142,7 +142,7 @@ var (
 // See https://core.telegram.org/constructor/peerChat for reference.
 type PeerChat struct {
 	// Group identifier
-	ChatID int `tl:"chat_id"`
+	ChatID int
 }
 
 // PeerChatTypeID is TL type id of PeerChat.
@@ -256,7 +256,7 @@ var (
 // See https://core.telegram.org/constructor/peerChannel for reference.
 type PeerChannel struct {
 	// Channel ID
-	ChannelID int `tl:"channel_id"`
+	ChannelID int
 }
 
 // PeerChannelTypeID is TL type id of PeerChannel.

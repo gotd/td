@@ -25,11 +25,11 @@ var _ = tdp.Format
 // HTTPWaitRequest represents TL type `http_wait#9299359f`.
 type HTTPWaitRequest struct {
 	// MaxDelay field of HTTPWaitRequest.
-	MaxDelay int `tl:"max_delay"`
+	MaxDelay int
 	// WaitAfter field of HTTPWaitRequest.
-	WaitAfter int `tl:"wait_after"`
+	WaitAfter int
 	// MaxWait field of HTTPWaitRequest.
-	MaxWait int `tl:"max_wait"`
+	MaxWait int
 }
 
 // HTTPWaitRequestTypeID is TL type id of HTTPWaitRequest.

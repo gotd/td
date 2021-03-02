@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.uploadEncryptedFile for reference.
 type MessagesUploadEncryptedFileRequest struct {
 	// The secret chat to associate the file to
-	Peer InputEncryptedChat `tl:"peer"`
+	Peer InputEncryptedChat
 	// The file
-	File InputEncryptedFileClass `tl:"file"`
+	File InputEncryptedFileClass
 }
 
 // MessagesUploadEncryptedFileRequestTypeID is TL type id of MessagesUploadEncryptedFileRequest.

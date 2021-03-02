@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/topPeerCategoryPeers for reference.
 type TopPeerCategoryPeers struct {
 	// Top peer category of peers
-	Category TopPeerCategoryClass `tl:"category"`
+	Category TopPeerCategoryClass
 	// Count of peers
-	Count int `tl:"count"`
+	Count int
 	// Peers
-	Peers []TopPeer `tl:"peers"`
+	Peers []TopPeer
 }
 
 // TopPeerCategoryPeersTypeID is TL type id of TopPeerCategoryPeers.

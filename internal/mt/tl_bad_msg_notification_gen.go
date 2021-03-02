@@ -25,11 +25,11 @@ var _ = tdp.Format
 // BadMsgNotification represents TL type `bad_msg_notification#a7eff811`.
 type BadMsgNotification struct {
 	// BadMsgID field of BadMsgNotification.
-	BadMsgID int64 `tl:"bad_msg_id"`
+	BadMsgID int64
 	// BadMsgSeqno field of BadMsgNotification.
-	BadMsgSeqno int `tl:"bad_msg_seqno"`
+	BadMsgSeqno int
 	// ErrorCode field of BadMsgNotification.
-	ErrorCode int `tl:"error_code"`
+	ErrorCode int
 }
 
 // BadMsgNotificationTypeID is TL type id of BadMsgNotification.
@@ -184,13 +184,13 @@ var (
 // BadServerSalt represents TL type `bad_server_salt#edab447b`.
 type BadServerSalt struct {
 	// BadMsgID field of BadServerSalt.
-	BadMsgID int64 `tl:"bad_msg_id"`
+	BadMsgID int64
 	// BadMsgSeqno field of BadServerSalt.
-	BadMsgSeqno int `tl:"bad_msg_seqno"`
+	BadMsgSeqno int
 	// ErrorCode field of BadServerSalt.
-	ErrorCode int `tl:"error_code"`
+	ErrorCode int
 	// NewServerSalt field of BadServerSalt.
-	NewServerSalt int64 `tl:"new_server_salt"`
+	NewServerSalt int64
 }
 
 // BadServerSaltTypeID is TL type id of BadServerSalt.

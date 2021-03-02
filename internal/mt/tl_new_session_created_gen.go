@@ -25,11 +25,11 @@ var _ = tdp.Format
 // NewSessionCreated represents TL type `new_session_created#9ec20908`.
 type NewSessionCreated struct {
 	// FirstMsgID field of NewSessionCreated.
-	FirstMsgID int64 `tl:"first_msg_id"`
+	FirstMsgID int64
 	// UniqueID field of NewSessionCreated.
-	UniqueID int64 `tl:"unique_id"`
+	UniqueID int64
 	// ServerSalt field of NewSessionCreated.
-	ServerSalt int64 `tl:"server_salt"`
+	ServerSalt int64
 }
 
 // NewSessionCreatedTypeID is TL type id of NewSessionCreated.

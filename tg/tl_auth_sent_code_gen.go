@@ -31,25 +31,25 @@ type AuthSentCode struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Phone code type
-	Type AuthSentCodeTypeClass `tl:"type"`
+	Type AuthSentCodeTypeClass
 	// Phone code hash, to be stored and later re-used with auth.signIn¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/auth.signIn
-	PhoneCodeHash string `tl:"phone_code_hash"`
+	PhoneCodeHash string
 	// Phone code type that will be sent next, if the phone code is not received within timeout seconds: to send it use auth.resendCode¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/auth.resendCode
 	//
 	// Use SetNextType and GetNextType helpers.
-	NextType AuthCodeTypeClass `tl:"next_type"`
+	NextType AuthCodeTypeClass
 	// Timeout for reception of the phone code
 	//
 	// Use SetTimeout and GetTimeout helpers.
-	Timeout int `tl:"timeout"`
+	Timeout int
 }
 
 // AuthSentCodeTypeID is TL type id of AuthSentCode.

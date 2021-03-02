@@ -27,11 +27,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/messages.chatInviteImporters for reference.
 type MessagesChatInviteImporters struct {
 	// Count field of MessagesChatInviteImporters.
-	Count int `tl:"count"`
+	Count int
 	// Importers field of MessagesChatInviteImporters.
-	Importers []ChatInviteImporter `tl:"importers"`
+	Importers []ChatInviteImporter
 	// Users field of MessagesChatInviteImporters.
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // MessagesChatInviteImportersTypeID is TL type id of MessagesChatInviteImporters.

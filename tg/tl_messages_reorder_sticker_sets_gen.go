@@ -31,11 +31,11 @@ type MessagesReorderStickerSetsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Reorder mask stickersets
-	Masks bool `tl:"masks"`
+	Masks bool
 	// New stickerset order by stickerset IDs
-	Order []int64 `tl:"order"`
+	Order []int64
 }
 
 // MessagesReorderStickerSetsRequestTypeID is TL type id of MessagesReorderStickerSetsRequest.

@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/photos.updateProfilePhoto for reference.
 type PhotosUpdateProfilePhotoRequest struct {
 	// Input photo
-	ID InputPhotoClass `tl:"id"`
+	ID InputPhotoClass
 }
 
 // PhotosUpdateProfilePhotoRequestTypeID is TL type id of PhotosUpdateProfilePhotoRequest.

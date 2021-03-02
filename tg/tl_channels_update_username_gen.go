@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/channels.updateUsername for reference.
 type ChannelsUpdateUsernameRequest struct {
 	// Channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// New username
-	Username string `tl:"username"`
+	Username string
 }
 
 // ChannelsUpdateUsernameRequestTypeID is TL type id of ChannelsUpdateUsernameRequest.

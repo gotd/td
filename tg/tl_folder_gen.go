@@ -31,21 +31,21 @@ type Folder struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Automatically add new channels to this folder
-	AutofillNewBroadcasts bool `tl:"autofill_new_broadcasts"`
+	AutofillNewBroadcasts bool
 	// Automatically add joined new public supergroups to this folder
-	AutofillPublicGroups bool `tl:"autofill_public_groups"`
+	AutofillPublicGroups bool
 	// Automatically add new private chats to this folder
-	AutofillNewCorrespondents bool `tl:"autofill_new_correspondents"`
+	AutofillNewCorrespondents bool
 	// Folder ID
-	ID int `tl:"id"`
+	ID int
 	// Folder title
-	Title string `tl:"title"`
+	Title string
 	// Folder picture
 	//
 	// Use SetPhoto and GetPhoto helpers.
-	Photo ChatPhotoClass `tl:"photo"`
+	Photo ChatPhotoClass
 }
 
 // FolderTypeID is TL type id of Folder.

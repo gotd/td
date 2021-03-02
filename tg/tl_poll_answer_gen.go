@@ -28,12 +28,12 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/pollAnswer for reference.
 type PollAnswer struct {
 	// Textual representation of the answer
-	Text string `tl:"text"`
+	Text string
 	// The param that has to be passed to messages.sendVote¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.sendVote
-	Option []byte `tl:"option"`
+	Option []byte
 }
 
 // PollAnswerTypeID is TL type id of PollAnswer.

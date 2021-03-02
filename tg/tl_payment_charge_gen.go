@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/paymentCharge for reference.
 type PaymentCharge struct {
 	// Telegram payment identifier
-	ID string `tl:"id"`
+	ID string
 	// Provider payment identifier
-	ProviderChargeID string `tl:"provider_charge_id"`
+	ProviderChargeID string
 }
 
 // PaymentChargeTypeID is TL type id of PaymentCharge.

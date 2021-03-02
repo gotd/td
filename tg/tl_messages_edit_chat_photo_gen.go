@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.editChatPhoto for reference.
 type MessagesEditChatPhotoRequest struct {
 	// Chat ID
-	ChatID int `tl:"chat_id"`
+	ChatID int
 	// Photo to be set
-	Photo InputChatPhotoClass `tl:"photo"`
+	Photo InputChatPhotoClass
 }
 
 // MessagesEditChatPhotoRequestTypeID is TL type id of MessagesEditChatPhotoRequest.

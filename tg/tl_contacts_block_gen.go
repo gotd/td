@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/contacts.block for reference.
 type ContactsBlockRequest struct {
 	// User ID
-	ID InputPeerClass `tl:"id"`
+	ID InputPeerClass
 }
 
 // ContactsBlockRequestTypeID is TL type id of ContactsBlockRequest.

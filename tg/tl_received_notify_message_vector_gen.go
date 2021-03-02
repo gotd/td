@@ -25,7 +25,7 @@ var _ = tdp.Format
 // ReceivedNotifyMessageVector is a box for Vector<ReceivedNotifyMessage>
 type ReceivedNotifyMessageVector struct {
 	// Elements of Vector<ReceivedNotifyMessage>
-	Elems []ReceivedNotifyMessage `tl:"Elems"`
+	Elems []ReceivedNotifyMessage
 }
 
 // ReceivedNotifyMessageVectorTypeID is TL type id of ReceivedNotifyMessageVector.

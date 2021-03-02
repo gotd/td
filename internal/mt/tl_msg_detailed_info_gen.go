@@ -25,13 +25,13 @@ var _ = tdp.Format
 // MsgDetailedInfo represents TL type `msg_detailed_info#276d3ec6`.
 type MsgDetailedInfo struct {
 	// MsgID field of MsgDetailedInfo.
-	MsgID int64 `tl:"msg_id"`
+	MsgID int64
 	// AnswerMsgID field of MsgDetailedInfo.
-	AnswerMsgID int64 `tl:"answer_msg_id"`
+	AnswerMsgID int64
 	// Bytes field of MsgDetailedInfo.
-	Bytes int `tl:"bytes"`
+	Bytes int
 	// Status field of MsgDetailedInfo.
-	Status int `tl:"status"`
+	Status int
 }
 
 // MsgDetailedInfoTypeID is TL type id of MsgDetailedInfo.
@@ -208,11 +208,11 @@ var (
 // MsgNewDetailedInfo represents TL type `msg_new_detailed_info#809db6df`.
 type MsgNewDetailedInfo struct {
 	// AnswerMsgID field of MsgNewDetailedInfo.
-	AnswerMsgID int64 `tl:"answer_msg_id"`
+	AnswerMsgID int64
 	// Bytes field of MsgNewDetailedInfo.
-	Bytes int `tl:"bytes"`
+	Bytes int
 	// Status field of MsgNewDetailedInfo.
-	Status int `tl:"status"`
+	Status int
 }
 
 // MsgNewDetailedInfoTypeID is TL type id of MsgNewDetailedInfo.

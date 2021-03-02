@@ -31,15 +31,15 @@ type MessagesDeleteHistoryRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Just clear history for the current user, without actually removing messages for every chat user
-	JustClear bool `tl:"just_clear"`
+	JustClear bool
 	// Whether to delete the message history for all chat participants
-	Revoke bool `tl:"revoke"`
+	Revoke bool
 	// User or chat, communication history of which will be deleted
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Maximum ID of message to delete
-	MaxID int `tl:"max_id"`
+	MaxID int
 }
 
 // MessagesDeleteHistoryRequestTypeID is TL type id of MessagesDeleteHistoryRequest.

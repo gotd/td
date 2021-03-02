@@ -112,12 +112,12 @@ var (
 // See https://core.telegram.org/constructor/inputChannel for reference.
 type InputChannel struct {
 	// Channel ID
-	ChannelID int `tl:"channel_id"`
+	ChannelID int
 	// Access hash taken from the channel¹ constructor
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channel
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 }
 
 // InputChannelTypeID is TL type id of InputChannel.
@@ -256,11 +256,11 @@ var (
 // See https://core.telegram.org/constructor/inputChannelFromMessage for reference.
 type InputChannelFromMessage struct {
 	// The chat where the channel was seen
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// The message ID in the chat where the channel was seen
-	MsgID int `tl:"msg_id"`
+	MsgID int
 	// The channel ID
-	ChannelID int `tl:"channel_id"`
+	ChannelID int
 }
 
 // InputChannelFromMessageTypeID is TL type id of InputChannelFromMessage.

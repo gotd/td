@@ -31,20 +31,20 @@ type UploadGetFileRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Disable some checks on limit and offset values, useful for example to stream videos by keyframes
-	Precise bool `tl:"precise"`
+	Precise bool
 	// Whether the current client supports CDN downloads¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	CDNSupported bool `tl:"cdn_supported"`
+	CDNSupported bool
 	// File location
-	Location InputFileLocationClass `tl:"location"`
+	Location InputFileLocationClass
 	// Number of bytes to be skipped
-	Offset int `tl:"offset"`
+	Offset int
 	// Number of bytes to be returned
-	Limit int `tl:"limit"`
+	Limit int
 }
 
 // UploadGetFileRequestTypeID is TL type id of UploadGetFileRequest.

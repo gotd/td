@@ -28,14 +28,14 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.requestEncryption for reference.
 type MessagesRequestEncryptionRequest struct {
 	// User ID
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 	// Unique client request ID required to prevent resending. This also doubles as the chat ID.
-	RandomID int `tl:"random_id"`
+	RandomID int
 	// A = g ^ a mod p, see Wikipedia¹
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
-	GA []byte `tl:"g_a"`
+	GA []byte
 }
 
 // MessagesRequestEncryptionRequestTypeID is TL type id of MessagesRequestEncryptionRequest.

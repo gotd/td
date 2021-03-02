@@ -27,9 +27,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.setHistoryTTL for reference.
 type MessagesSetHistoryTTLRequest struct {
 	// Peer field of MessagesSetHistoryTTLRequest.
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Period field of MessagesSetHistoryTTLRequest.
-	Period int `tl:"period"`
+	Period int
 }
 
 // MessagesSetHistoryTTLRequestTypeID is TL type id of MessagesSetHistoryTTLRequest.

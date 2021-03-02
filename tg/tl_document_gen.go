@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/documentEmpty for reference.
 type DocumentEmpty struct {
 	// Document ID or 0
-	ID int64 `tl:"id"`
+	ID int64
 }
 
 // DocumentEmptyTypeID is TL type id of DocumentEmpty.
@@ -145,34 +145,34 @@ type Document struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Document ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Check sum, dependant on document ID
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// File reference¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/file_reference
-	FileReference []byte `tl:"file_reference"`
+	FileReference []byte
 	// Creation date
-	Date int `tl:"date"`
+	Date int
 	// MIME type
-	MimeType string `tl:"mime_type"`
+	MimeType string
 	// Size
-	Size int `tl:"size"`
+	Size int
 	// Thumbnails
 	//
 	// Use SetThumbs and GetThumbs helpers.
-	Thumbs []PhotoSizeClass `tl:"thumbs"`
+	Thumbs []PhotoSizeClass
 	// Video thumbnails
 	//
 	// Use SetVideoThumbs and GetVideoThumbs helpers.
-	VideoThumbs []VideoSize `tl:"video_thumbs"`
+	VideoThumbs []VideoSize
 	// DC ID
-	DCID int `tl:"dc_id"`
+	DCID int
 	// Attributes
-	Attributes []DocumentAttributeClass `tl:"attributes"`
+	Attributes []DocumentAttributeClass
 }
 
 // DocumentTypeID is TL type id of Document.

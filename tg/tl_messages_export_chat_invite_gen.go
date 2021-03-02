@@ -28,19 +28,19 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.exportChatInvite for reference.
 type MessagesExportChatInviteRequest struct {
 	// Flags field of MessagesExportChatInviteRequest.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// LegacyRevokePermanent field of MessagesExportChatInviteRequest.
-	LegacyRevokePermanent bool `tl:"legacy_revoke_permanent"`
+	LegacyRevokePermanent bool
 	// Chat
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// ExpireDate field of MessagesExportChatInviteRequest.
 	//
 	// Use SetExpireDate and GetExpireDate helpers.
-	ExpireDate int `tl:"expire_date"`
+	ExpireDate int
 	// UsageLimit field of MessagesExportChatInviteRequest.
 	//
 	// Use SetUsageLimit and GetUsageLimit helpers.
-	UsageLimit int `tl:"usage_limit"`
+	UsageLimit int
 }
 
 // MessagesExportChatInviteRequestTypeID is TL type id of MessagesExportChatInviteRequest.

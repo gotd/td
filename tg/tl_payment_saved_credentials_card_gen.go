@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/paymentSavedCredentialsCard for reference.
 type PaymentSavedCredentialsCard struct {
 	// Card ID
-	ID string `tl:"id"`
+	ID string
 	// Title
-	Title string `tl:"title"`
+	Title string
 }
 
 // PaymentSavedCredentialsCardTypeID is TL type id of PaymentSavedCredentialsCard.

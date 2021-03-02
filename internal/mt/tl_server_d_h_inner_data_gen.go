@@ -25,17 +25,17 @@ var _ = tdp.Format
 // ServerDHInnerData represents TL type `server_DH_inner_data#b5890dba`.
 type ServerDHInnerData struct {
 	// Nonce field of ServerDHInnerData.
-	Nonce bin.Int128 `tl:"nonce"`
+	Nonce bin.Int128
 	// ServerNonce field of ServerDHInnerData.
-	ServerNonce bin.Int128 `tl:"server_nonce"`
+	ServerNonce bin.Int128
 	// G field of ServerDHInnerData.
-	G int `tl:"g"`
+	G int
 	// DhPrime field of ServerDHInnerData.
-	DhPrime []byte `tl:"dh_prime"`
+	DhPrime []byte
 	// GA field of ServerDHInnerData.
-	GA []byte `tl:"g_a"`
+	GA []byte
 	// ServerTime field of ServerDHInnerData.
-	ServerTime int `tl:"server_time"`
+	ServerTime int
 }
 
 // ServerDHInnerDataTypeID is TL type id of ServerDHInnerData.

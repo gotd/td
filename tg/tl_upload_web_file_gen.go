@@ -31,15 +31,15 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/upload.webFile for reference.
 type UploadWebFile struct {
 	// File size
-	Size int `tl:"size"`
+	Size int
 	// Mime type
-	MimeType string `tl:"mime_type"`
+	MimeType string
 	// File type
-	FileType StorageFileTypeClass `tl:"file_type"`
+	FileType StorageFileTypeClass
 	// Modified time
-	Mtime int `tl:"mtime"`
+	Mtime int
 	// Data
-	Bytes []byte `tl:"bytes"`
+	Bytes []byte
 }
 
 // UploadWebFileTypeID is TL type id of UploadWebFile.

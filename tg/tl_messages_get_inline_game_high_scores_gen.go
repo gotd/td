@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.getInlineGameHighScores for reference.
 type MessagesGetInlineGameHighScoresRequest struct {
 	// ID of inline message
-	ID InputBotInlineMessageID `tl:"id"`
+	ID InputBotInlineMessageID
 	// Get high scores of a certain user
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 }
 
 // MessagesGetInlineGameHighScoresRequestTypeID is TL type id of MessagesGetInlineGameHighScoresRequest.

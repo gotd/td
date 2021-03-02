@@ -31,11 +31,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.editChatAdmin for reference.
 type MessagesEditChatAdminRequest struct {
 	// The ID of the group
-	ChatID int `tl:"chat_id"`
+	ChatID int
 	// The user to make admin
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 	// Whether to make him admin
-	IsAdmin bool `tl:"is_admin"`
+	IsAdmin bool
 }
 
 // MessagesEditChatAdminRequestTypeID is TL type id of MessagesEditChatAdminRequest.

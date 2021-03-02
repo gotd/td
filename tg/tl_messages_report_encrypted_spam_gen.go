@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.reportEncryptedSpam for reference.
 type MessagesReportEncryptedSpamRequest struct {
 	// The secret chat to report
-	Peer InputEncryptedChat `tl:"peer"`
+	Peer InputEncryptedChat
 }
 
 // MessagesReportEncryptedSpamRequestTypeID is TL type id of MessagesReportEncryptedSpamRequest.

@@ -28,13 +28,13 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/auth.signUp for reference.
 type AuthSignUpRequest struct {
 	// Phone number in the international format
-	PhoneNumber string `tl:"phone_number"`
+	PhoneNumber string
 	// SMS-message ID
-	PhoneCodeHash string `tl:"phone_code_hash"`
+	PhoneCodeHash string
 	// New user first name
-	FirstName string `tl:"first_name"`
+	FirstName string
 	// New user last name
-	LastName string `tl:"last_name"`
+	LastName string
 }
 
 // AuthSignUpRequestTypeID is TL type id of AuthSignUpRequest.

@@ -31,9 +31,9 @@ type AccountSetContentSettingsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Enable NSFW content
-	SensitiveEnabled bool `tl:"sensitive_enabled"`
+	SensitiveEnabled bool
 }
 
 // AccountSetContentSettingsRequestTypeID is TL type id of AccountSetContentSettingsRequest.

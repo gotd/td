@@ -31,20 +31,20 @@ type AccountUploadThemeRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Theme file uploaded as described in files »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files
-	File InputFileClass `tl:"file"`
+	File InputFileClass
 	// Thumbnail
 	//
 	// Use SetThumb and GetThumb helpers.
-	Thumb InputFileClass `tl:"thumb"`
+	Thumb InputFileClass
 	// File name
-	FileName string `tl:"file_name"`
+	FileName string
 	// MIME type, must be application/x-tgtheme-{format}, where format depends on the client
-	MimeType string `tl:"mime_type"`
+	MimeType string
 }
 
 // AccountUploadThemeRequestTypeID is TL type id of AccountUploadThemeRequest.

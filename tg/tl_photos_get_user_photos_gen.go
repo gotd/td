@@ -28,13 +28,13 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/photos.getUserPhotos for reference.
 type PhotosGetUserPhotosRequest struct {
 	// User ID
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 	// Number of list elements to be skipped
-	Offset int `tl:"offset"`
+	Offset int
 	// If a positive value was transferred, the method will return only photos with IDs less than the set one
-	MaxID int64 `tl:"max_id"`
+	MaxID int64
 	// Number of list elements to be returned
-	Limit int `tl:"limit"`
+	Limit int
 }
 
 // PhotosGetUserPhotosRequestTypeID is TL type id of PhotosGetUserPhotosRequest.

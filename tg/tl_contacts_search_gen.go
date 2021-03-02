@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/contacts.search for reference.
 type ContactsSearchRequest struct {
 	// Target substring
-	Q string `tl:"q"`
+	Q string
 	// Maximum number of users to be returned
-	Limit int `tl:"limit"`
+	Limit int
 }
 
 // ContactsSearchRequestTypeID is TL type id of ContactsSearchRequest.

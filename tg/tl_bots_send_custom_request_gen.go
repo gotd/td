@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/bots.sendCustomRequest for reference.
 type BotsSendCustomRequestRequest struct {
 	// The method name
-	CustomMethod string `tl:"custom_method"`
+	CustomMethod string
 	// JSON-serialized method parameters
-	Params DataJSON `tl:"params"`
+	Params DataJSON
 }
 
 // BotsSendCustomRequestRequestTypeID is TL type id of BotsSendCustomRequestRequest.

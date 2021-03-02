@@ -28,7 +28,7 @@ type {{ $s.Name }} struct {
 //
 // Use Set{{ $f.Name }} and Get{{ $f.Name }} helpers.
 {{- end }}
-    {{ $f.Name }} {{ template "print_type" $f }} `tl:"{{ $f.RawName }}"`
+    {{ $f.Name }} {{ template "print_type" $f }}
 {{- end }}
 }
 

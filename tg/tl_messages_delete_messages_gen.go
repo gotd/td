@@ -31,11 +31,11 @@ type MessagesDeleteMessagesRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to delete messages for all participants of the chat
-	Revoke bool `tl:"revoke"`
+	Revoke bool
 	// Message ID list
-	ID []int `tl:"id"`
+	ID []int
 }
 
 // MessagesDeleteMessagesRequestTypeID is TL type id of MessagesDeleteMessagesRequest.

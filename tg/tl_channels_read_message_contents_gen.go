@@ -34,9 +34,9 @@ type ChannelsReadMessageContentsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// IDs of messages whose contents should be marked as read
-	ID []int `tl:"id"`
+	ID []int
 }
 
 // ChannelsReadMessageContentsRequestTypeID is TL type id of ChannelsReadMessageContentsRequest.

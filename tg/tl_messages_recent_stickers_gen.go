@@ -115,13 +115,13 @@ type MessagesRecentStickers struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 	// Emojis associated to stickers
-	Packs []StickerPack `tl:"packs"`
+	Packs []StickerPack
 	// Recent stickers
-	Stickers []DocumentClass `tl:"stickers"`
+	Stickers []DocumentClass
 	// When was each sticker last used
-	Dates []int `tl:"dates"`
+	Dates []int
 }
 
 // MessagesRecentStickersTypeID is TL type id of MessagesRecentStickers.

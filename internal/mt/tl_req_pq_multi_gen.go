@@ -25,7 +25,7 @@ var _ = tdp.Format
 // ReqPqMultiRequest represents TL type `req_pq_multi#be7e8ef1`.
 type ReqPqMultiRequest struct {
 	// Nonce field of ReqPqMultiRequest.
-	Nonce bin.Int128 `tl:"nonce"`
+	Nonce bin.Int128
 }
 
 // ReqPqMultiRequestTypeID is TL type id of ReqPqMultiRequest.

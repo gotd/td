@@ -28,15 +28,15 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/webDocument for reference.
 type WebDocument struct {
 	// Document URL
-	URL string `tl:"url"`
+	URL string
 	// Access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// File size
-	Size int `tl:"size"`
+	Size int
 	// MIME type
-	MimeType string `tl:"mime_type"`
+	MimeType string
 	// Attributes for media types
-	Attributes []DocumentAttributeClass `tl:"attributes"`
+	Attributes []DocumentAttributeClass
 }
 
 // WebDocumentTypeID is TL type id of WebDocument.
@@ -260,13 +260,13 @@ var (
 // See https://core.telegram.org/constructor/webDocumentNoProxy for reference.
 type WebDocumentNoProxy struct {
 	// Document URL
-	URL string `tl:"url"`
+	URL string
 	// File size
-	Size int `tl:"size"`
+	Size int
 	// MIME type
-	MimeType string `tl:"mime_type"`
+	MimeType string
 	// Attributes for media types
-	Attributes []DocumentAttributeClass `tl:"attributes"`
+	Attributes []DocumentAttributeClass
 }
 
 // WebDocumentNoProxyTypeID is TL type id of WebDocumentNoProxy.

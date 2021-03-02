@@ -196,7 +196,7 @@ var (
 // See https://core.telegram.org/constructor/privacyValueAllowUsers for reference.
 type PrivacyValueAllowUsers struct {
 	// Allowed users
-	Users []int `tl:"users"`
+	Users []int
 }
 
 // PrivacyValueAllowUsersTypeID is TL type id of PrivacyValueAllowUsers.
@@ -487,7 +487,7 @@ var (
 // See https://core.telegram.org/constructor/privacyValueDisallowUsers for reference.
 type PrivacyValueDisallowUsers struct {
 	// Disallowed users
-	Users []int `tl:"users"`
+	Users []int
 }
 
 // PrivacyValueDisallowUsersTypeID is TL type id of PrivacyValueDisallowUsers.
@@ -610,7 +610,7 @@ var (
 // See https://core.telegram.org/constructor/privacyValueAllowChatParticipants for reference.
 type PrivacyValueAllowChatParticipants struct {
 	// Allowed chats
-	Chats []int `tl:"chats"`
+	Chats []int
 }
 
 // PrivacyValueAllowChatParticipantsTypeID is TL type id of PrivacyValueAllowChatParticipants.
@@ -733,7 +733,7 @@ var (
 // See https://core.telegram.org/constructor/privacyValueDisallowChatParticipants for reference.
 type PrivacyValueDisallowChatParticipants struct {
 	// Disallowed chats
-	Chats []int `tl:"chats"`
+	Chats []int
 }
 
 // PrivacyValueDisallowChatParticipantsTypeID is TL type id of PrivacyValueDisallowChatParticipants.

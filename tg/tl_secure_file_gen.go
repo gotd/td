@@ -116,19 +116,19 @@ var (
 // See https://core.telegram.org/constructor/secureFile for reference.
 type SecureFile struct {
 	// ID
-	ID int64 `tl:"id"`
+	ID int64
 	// Access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// File size
-	Size int `tl:"size"`
+	Size int
 	// DC ID
-	DCID int `tl:"dc_id"`
+	DCID int
 	// Date of upload
-	Date int `tl:"date"`
+	Date int
 	// File hash
-	FileHash []byte `tl:"file_hash"`
+	FileHash []byte
 	// Secret
-	Secret []byte `tl:"secret"`
+	Secret []byte
 }
 
 // SecureFileTypeID is TL type id of SecureFile.

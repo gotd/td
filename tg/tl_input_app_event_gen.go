@@ -28,13 +28,13 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/inputAppEvent for reference.
 type InputAppEvent struct {
 	// Client's exact timestamp for the event
-	Time float64 `tl:"time"`
+	Time float64
 	// Type of event
-	Type string `tl:"type"`
+	Type string
 	// Arbitrary numeric value for more convenient selection of certain event types, or events referring to a certain object
-	Peer int64 `tl:"peer"`
+	Peer int64
 	// Details of the event
-	Data JSONValueClass `tl:"data"`
+	Data JSONValueClass
 }
 
 // InputAppEventTypeID is TL type id of InputAppEvent.

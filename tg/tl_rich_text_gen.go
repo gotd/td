@@ -112,7 +112,7 @@ var (
 // See https://core.telegram.org/constructor/textPlain for reference.
 type TextPlain struct {
 	// Text
-	Text string `tl:"text"`
+	Text string
 }
 
 // TextPlainTypeID is TL type id of TextPlain.
@@ -226,7 +226,7 @@ var (
 // See https://core.telegram.org/constructor/textBold for reference.
 type TextBold struct {
 	// Text
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 }
 
 // TextBoldTypeID is TL type id of TextBold.
@@ -345,7 +345,7 @@ var (
 // See https://core.telegram.org/constructor/textItalic for reference.
 type TextItalic struct {
 	// Text
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 }
 
 // TextItalicTypeID is TL type id of TextItalic.
@@ -464,7 +464,7 @@ var (
 // See https://core.telegram.org/constructor/textUnderline for reference.
 type TextUnderline struct {
 	// Text
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 }
 
 // TextUnderlineTypeID is TL type id of TextUnderline.
@@ -583,7 +583,7 @@ var (
 // See https://core.telegram.org/constructor/textStrike for reference.
 type TextStrike struct {
 	// Text
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 }
 
 // TextStrikeTypeID is TL type id of TextStrike.
@@ -702,7 +702,7 @@ var (
 // See https://core.telegram.org/constructor/textFixed for reference.
 type TextFixed struct {
 	// Text
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 }
 
 // TextFixedTypeID is TL type id of TextFixed.
@@ -821,11 +821,11 @@ var (
 // See https://core.telegram.org/constructor/textUrl for reference.
 type TextUrl struct {
 	// Text of link
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 	// Webpage HTTP URL
-	URL string `tl:"url"`
+	URL string
 	// If a preview was already generated for the page, the page ID
-	WebpageID int64 `tl:"webpage_id"`
+	WebpageID int64
 }
 
 // TextUrlTypeID is TL type id of TextUrl.
@@ -988,9 +988,9 @@ var (
 // See https://core.telegram.org/constructor/textEmail for reference.
 type TextEmail struct {
 	// Link text
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 	// Email address
-	Email string `tl:"email"`
+	Email string
 }
 
 // TextEmailTypeID is TL type id of TextEmail.
@@ -1131,7 +1131,7 @@ var (
 // See https://core.telegram.org/constructor/textConcat for reference.
 type TextConcat struct {
 	// Concatenated rich texts
-	Texts []RichTextClass `tl:"texts"`
+	Texts []RichTextClass
 }
 
 // TextConcatTypeID is TL type id of TextConcat.
@@ -1264,7 +1264,7 @@ var (
 // See https://core.telegram.org/constructor/textSubscript for reference.
 type TextSubscript struct {
 	// Text
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 }
 
 // TextSubscriptTypeID is TL type id of TextSubscript.
@@ -1383,7 +1383,7 @@ var (
 // See https://core.telegram.org/constructor/textSuperscript for reference.
 type TextSuperscript struct {
 	// Text
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 }
 
 // TextSuperscriptTypeID is TL type id of TextSuperscript.
@@ -1502,7 +1502,7 @@ var (
 // See https://core.telegram.org/constructor/textMarked for reference.
 type TextMarked struct {
 	// Text
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 }
 
 // TextMarkedTypeID is TL type id of TextMarked.
@@ -1621,9 +1621,9 @@ var (
 // See https://core.telegram.org/constructor/textPhone for reference.
 type TextPhone struct {
 	// Text
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 	// Phone number
-	Phone string `tl:"phone"`
+	Phone string
 }
 
 // TextPhoneTypeID is TL type id of TextPhone.
@@ -1764,11 +1764,11 @@ var (
 // See https://core.telegram.org/constructor/textImage for reference.
 type TextImage struct {
 	// Document ID
-	DocumentID int64 `tl:"document_id"`
+	DocumentID int64
 	// Width
-	W int `tl:"w"`
+	W int
 	// Height
-	H int `tl:"h"`
+	H int
 }
 
 // TextImageTypeID is TL type id of TextImage.
@@ -1926,9 +1926,9 @@ var (
 // See https://core.telegram.org/constructor/textAnchor for reference.
 type TextAnchor struct {
 	// Text
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 	// Section name
-	Name string `tl:"name"`
+	Name string
 }
 
 // TextAnchorTypeID is TL type id of TextAnchor.

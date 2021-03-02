@@ -31,7 +31,7 @@ type HelpTermsOfServiceUpdateEmpty struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/help.getTermsOfServiceUpdate
-	Expires int `tl:"expires"`
+	Expires int
 }
 
 // HelpTermsOfServiceUpdateEmptyTypeID is TL type id of HelpTermsOfServiceUpdateEmpty.
@@ -151,9 +151,9 @@ type HelpTermsOfServiceUpdate struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/help.getTermsOfServiceUpdate
-	Expires int `tl:"expires"`
+	Expires int
 	// New terms of service
-	TermsOfService HelpTermsOfService `tl:"terms_of_service"`
+	TermsOfService HelpTermsOfService
 }
 
 // HelpTermsOfServiceUpdateTypeID is TL type id of HelpTermsOfServiceUpdate.

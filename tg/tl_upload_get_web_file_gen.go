@@ -27,11 +27,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/upload.getWebFile for reference.
 type UploadGetWebFileRequest struct {
 	// Location field of UploadGetWebFileRequest.
-	Location InputWebFileLocationClass `tl:"location"`
+	Location InputWebFileLocationClass
 	// Offset field of UploadGetWebFileRequest.
-	Offset int `tl:"offset"`
+	Offset int
 	// Limit field of UploadGetWebFileRequest.
-	Limit int `tl:"limit"`
+	Limit int
 }
 
 // UploadGetWebFileRequestTypeID is TL type id of UploadGetWebFileRequest.

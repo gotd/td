@@ -31,9 +31,9 @@ type ChannelsToggleSlowModeRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// Users will only be able to send one message every seconds seconds, 0 to disable the limitation
-	Seconds int `tl:"seconds"`
+	Seconds int
 }
 
 // ChannelsToggleSlowModeRequestTypeID is TL type id of ChannelsToggleSlowModeRequest.

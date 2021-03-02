@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/receivedNotifyMessage for reference.
 type ReceivedNotifyMessage struct {
 	// Message ID, for which PUSH-notifications were canceled
-	ID int `tl:"id"`
+	ID int
 	// Reserved for future use
-	Flags int `tl:"flags"`
+	Flags int
 }
 
 // ReceivedNotifyMessageTypeID is TL type id of ReceivedNotifyMessage.

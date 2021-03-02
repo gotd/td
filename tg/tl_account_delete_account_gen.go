@@ -31,7 +31,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.deleteAccount for reference.
 type AccountDeleteAccountRequest struct {
 	// Why is the account being deleted, can be empty
-	Reason string `tl:"reason"`
+	Reason string
 }
 
 // AccountDeleteAccountRequestTypeID is TL type id of AccountDeleteAccountRequest.

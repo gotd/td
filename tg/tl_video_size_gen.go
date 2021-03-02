@@ -34,21 +34,21 @@ type VideoSize struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// u for animated profile pictures, and v for trimmed and downscaled video previews
-	Type string `tl:"type"`
+	Type string
 	// File location
-	Location FileLocationToBeDeprecated `tl:"location"`
+	Location FileLocationToBeDeprecated
 	// Video width
-	W int `tl:"w"`
+	W int
 	// Video height
-	H int `tl:"h"`
+	H int
 	// File size
-	Size int `tl:"size"`
+	Size int
 	// Timestamp that should be shown as static preview to the user (seconds)
 	//
 	// Use SetVideoStartTs and GetVideoStartTs helpers.
-	VideoStartTs float64 `tl:"video_start_ts"`
+	VideoStartTs float64
 }
 
 // VideoSizeTypeID is TL type id of VideoSize.

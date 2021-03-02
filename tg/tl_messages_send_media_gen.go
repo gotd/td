@@ -31,43 +31,43 @@ type MessagesSendMediaRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Send message silently (no notification should be triggered)
-	Silent bool `tl:"silent"`
+	Silent bool
 	// Send message in background
-	Background bool `tl:"background"`
+	Background bool
 	// Clear the draft
-	ClearDraft bool `tl:"clear_draft"`
+	ClearDraft bool
 	// Destination
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Message ID to which this message should reply to
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
-	ReplyToMsgID int `tl:"reply_to_msg_id"`
+	ReplyToMsgID int
 	// Attached media
-	Media InputMediaClass `tl:"media"`
+	Media InputMediaClass
 	// Caption
-	Message string `tl:"message"`
+	Message string
 	// Random ID to avoid resending the same message
-	RandomID int64 `tl:"random_id"`
+	RandomID int64
 	// Reply markup for bot keyboards
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass
 	// Message entities¹ for styled text
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `tl:"entities"`
+	Entities []MessageEntityClass
 	// Scheduled message date for scheduled messages¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/scheduled-messages
 	//
 	// Use SetScheduleDate and GetScheduleDate helpers.
-	ScheduleDate int `tl:"schedule_date"`
+	ScheduleDate int
 }
 
 // MessagesSendMediaRequestTypeID is TL type id of MessagesSendMediaRequest.

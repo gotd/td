@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.checkUsername for reference.
 type AccountCheckUsernameRequest struct {
 	// usernameAccepted characters: A-z (case-insensitive), 0-9 and underscores.Length: 5-32 characters.
-	Username string `tl:"username"`
+	Username string
 }
 
 // AccountCheckUsernameRequestTypeID is TL type id of AccountCheckUsernameRequest.

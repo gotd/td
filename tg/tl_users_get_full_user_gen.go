@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/users.getFullUser for reference.
 type UsersGetFullUserRequest struct {
 	// User ID
-	ID InputUserClass `tl:"id"`
+	ID InputUserClass
 }
 
 // UsersGetFullUserRequestTypeID is TL type id of UsersGetFullUserRequest.

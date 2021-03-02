@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/keyboardButtonRow for reference.
 type KeyboardButtonRow struct {
 	// Bot or inline keyboard buttons
-	Buttons []KeyboardButtonClass `tl:"buttons"`
+	Buttons []KeyboardButtonClass
 }
 
 // KeyboardButtonRowTypeID is TL type id of KeyboardButtonRow.

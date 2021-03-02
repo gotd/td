@@ -28,30 +28,30 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/wallPaper for reference.
 type WallPaper struct {
 	// Identifier
-	ID int64 `tl:"id"`
+	ID int64
 	// Flags, see TL conditional fields¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Creator of the wallpaper
-	Creator bool `tl:"creator"`
+	Creator bool
 	// Whether this is the default wallpaper
-	Default bool `tl:"default"`
+	Default bool
 	// Pattern
-	Pattern bool `tl:"pattern"`
+	Pattern bool
 	// Dark mode
-	Dark bool `tl:"dark"`
+	Dark bool
 	// Access hash
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 	// Unique wallpaper ID
-	Slug string `tl:"slug"`
+	Slug string
 	// The actual wallpaper
-	Document DocumentClass `tl:"document"`
+	Document DocumentClass
 	// Wallpaper settings
 	//
 	// Use SetSettings and GetSettings helpers.
-	Settings WallPaperSettings `tl:"settings"`
+	Settings WallPaperSettings
 }
 
 // WallPaperTypeID is TL type id of WallPaper.
@@ -415,15 +415,15 @@ type WallPaperNoFile struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether this is the default wallpaper
-	Default bool `tl:"default"`
+	Default bool
 	// Dark mode
-	Dark bool `tl:"dark"`
+	Dark bool
 	// Wallpaper settings
 	//
 	// Use SetSettings and GetSettings helpers.
-	Settings WallPaperSettings `tl:"settings"`
+	Settings WallPaperSettings
 }
 
 // WallPaperNoFileTypeID is TL type id of WallPaperNoFile.

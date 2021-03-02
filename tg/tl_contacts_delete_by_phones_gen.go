@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/contacts.deleteByPhones for reference.
 type ContactsDeleteByPhonesRequest struct {
 	// Phone numbers
-	Phones []string `tl:"phones"`
+	Phones []string
 }
 
 // ContactsDeleteByPhonesRequestTypeID is TL type id of ContactsDeleteByPhonesRequest.

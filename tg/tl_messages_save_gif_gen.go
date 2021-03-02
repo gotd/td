@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.saveGif for reference.
 type MessagesSaveGifRequest struct {
 	// GIF to save
-	ID InputDocumentClass `tl:"id"`
+	ID InputDocumentClass
 	// Whether to remove GIF from saved gifs list
-	Unsave bool `tl:"unsave"`
+	Unsave bool
 }
 
 // MessagesSaveGifRequestTypeID is TL type id of MessagesSaveGifRequest.

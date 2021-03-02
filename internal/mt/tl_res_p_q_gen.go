@@ -25,13 +25,13 @@ var _ = tdp.Format
 // ResPQ represents TL type `resPQ#5162463`.
 type ResPQ struct {
 	// Nonce field of ResPQ.
-	Nonce bin.Int128 `tl:"nonce"`
+	Nonce bin.Int128
 	// ServerNonce field of ResPQ.
-	ServerNonce bin.Int128 `tl:"server_nonce"`
+	ServerNonce bin.Int128
 	// Pq field of ResPQ.
-	Pq []byte `tl:"pq"`
+	Pq []byte
 	// ServerPublicKeyFingerprints field of ResPQ.
-	ServerPublicKeyFingerprints []int64 `tl:"server_public_key_fingerprints"`
+	ServerPublicKeyFingerprints []int64
 }
 
 // ResPQTypeID is TL type id of ResPQ.

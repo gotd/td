@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.installWallPaper for reference.
 type AccountInstallWallPaperRequest struct {
 	// Wallpaper to install
-	Wallpaper InputWallPaperClass `tl:"wallpaper"`
+	Wallpaper InputWallPaperClass
 	// Wallpaper settings
-	Settings WallPaperSettings `tl:"settings"`
+	Settings WallPaperSettings
 }
 
 // AccountInstallWallPaperRequestTypeID is TL type id of AccountInstallWallPaperRequest.

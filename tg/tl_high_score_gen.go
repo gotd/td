@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/highScore for reference.
 type HighScore struct {
 	// Position in highscore list
-	Pos int `tl:"pos"`
+	Pos int
 	// User ID
-	UserID int `tl:"user_id"`
+	UserID int
 	// Score
-	Score int `tl:"score"`
+	Score int
 }
 
 // HighScoreTypeID is TL type id of HighScore.

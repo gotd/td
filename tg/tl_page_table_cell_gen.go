@@ -31,29 +31,29 @@ type PageTableCell struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Is this element part of the column header
-	Header bool `tl:"header"`
+	Header bool
 	// Horizontally centered block
-	AlignCenter bool `tl:"align_center"`
+	AlignCenter bool
 	// Right-aligned block
-	AlignRight bool `tl:"align_right"`
+	AlignRight bool
 	// Vertically centered block
-	ValignMiddle bool `tl:"valign_middle"`
+	ValignMiddle bool
 	// Block vertically-alligned to the bottom
-	ValignBottom bool `tl:"valign_bottom"`
+	ValignBottom bool
 	// Content
 	//
 	// Use SetText and GetText helpers.
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 	// For how many columns should this cell extend
 	//
 	// Use SetColspan and GetColspan helpers.
-	Colspan int `tl:"colspan"`
+	Colspan int
 	// For how many rows should this cell extend
 	//
 	// Use SetRowspan and GetRowspan helpers.
-	Rowspan int `tl:"rowspan"`
+	Rowspan int
 }
 
 // PageTableCellTypeID is TL type id of PageTableCell.

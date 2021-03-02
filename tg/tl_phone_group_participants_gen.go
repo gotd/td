@@ -27,15 +27,15 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/phone.groupParticipants for reference.
 type PhoneGroupParticipants struct {
 	// Count field of PhoneGroupParticipants.
-	Count int `tl:"count"`
+	Count int
 	// Participants field of PhoneGroupParticipants.
-	Participants []GroupCallParticipant `tl:"participants"`
+	Participants []GroupCallParticipant
 	// NextOffset field of PhoneGroupParticipants.
-	NextOffset string `tl:"next_offset"`
+	NextOffset string
 	// Users field of PhoneGroupParticipants.
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 	// Version field of PhoneGroupParticipants.
-	Version int `tl:"version"`
+	Version int
 }
 
 // PhoneGroupParticipantsTypeID is TL type id of PhoneGroupParticipants.

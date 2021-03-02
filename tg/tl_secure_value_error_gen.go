@@ -36,13 +36,13 @@ type SecureValueErrorData struct {
 	//  4) https://core.telegram.org/constructor/secureValueTypeIdentityCard
 	//  5) https://core.telegram.org/constructor/secureValueTypeInternalPassport
 	//  6) https://core.telegram.org/constructor/secureValueTypeAddress
-	Type SecureValueTypeClass `tl:"type"`
+	Type SecureValueTypeClass
 	// Data hash
-	DataHash []byte `tl:"data_hash"`
+	DataHash []byte
 	// Name of the data field which has the error
-	Field string `tl:"field"`
+	Field string
 	// Error message
-	Text string `tl:"text"`
+	Text string
 }
 
 // SecureValueErrorDataTypeID is TL type id of SecureValueErrorData.
@@ -233,11 +233,11 @@ type SecureValueErrorFrontSide struct {
 	//  2) https://core.telegram.org/constructor/secureValueTypeDriverLicense
 	//  3) https://core.telegram.org/constructor/secureValueTypeIdentityCard
 	//  4) https://core.telegram.org/constructor/secureValueTypeInternalPassport
-	Type SecureValueTypeClass `tl:"type"`
+	Type SecureValueTypeClass
 	// File hash
-	FileHash []byte `tl:"file_hash"`
+	FileHash []byte
 	// Error message
-	Text string `tl:"text"`
+	Text string
 }
 
 // SecureValueErrorFrontSideTypeID is TL type id of SecureValueErrorFrontSide.
@@ -404,11 +404,11 @@ type SecureValueErrorReverseSide struct {
 	// Links:
 	//  1) https://core.telegram.org/constructor/secureValueTypeDriverLicense
 	//  2) https://core.telegram.org/constructor/secureValueTypeIdentityCard
-	Type SecureValueTypeClass `tl:"type"`
+	Type SecureValueTypeClass
 	// File hash
-	FileHash []byte `tl:"file_hash"`
+	FileHash []byte
 	// Error message
-	Text string `tl:"text"`
+	Text string
 }
 
 // SecureValueErrorReverseSideTypeID is TL type id of SecureValueErrorReverseSide.
@@ -577,11 +577,11 @@ type SecureValueErrorSelfie struct {
 	//  2) https://core.telegram.org/constructor/secureValueTypeDriverLicense
 	//  3) https://core.telegram.org/constructor/secureValueTypeIdentityCard
 	//  4) https://core.telegram.org/constructor/secureValueTypeInternalPassport
-	Type SecureValueTypeClass `tl:"type"`
+	Type SecureValueTypeClass
 	// File hash
-	FileHash []byte `tl:"file_hash"`
+	FileHash []byte
 	// Error message
-	Text string `tl:"text"`
+	Text string
 }
 
 // SecureValueErrorSelfieTypeID is TL type id of SecureValueErrorSelfie.
@@ -751,11 +751,11 @@ type SecureValueErrorFile struct {
 	//  3) https://core.telegram.org/constructor/secureValueTypeRentalAgreement
 	//  4) https://core.telegram.org/constructor/secureValueTypePassportRegistration
 	//  5) https://core.telegram.org/constructor/secureValueTypeTemporaryRegistration
-	Type SecureValueTypeClass `tl:"type"`
+	Type SecureValueTypeClass
 	// File hash
-	FileHash []byte `tl:"file_hash"`
+	FileHash []byte
 	// Error message
-	Text string `tl:"text"`
+	Text string
 }
 
 // SecureValueErrorFileTypeID is TL type id of SecureValueErrorFile.
@@ -925,11 +925,11 @@ type SecureValueErrorFiles struct {
 	//  3) https://core.telegram.org/constructor/secureValueTypeRentalAgreement
 	//  4) https://core.telegram.org/constructor/secureValueTypePassportRegistration
 	//  5) https://core.telegram.org/constructor/secureValueTypeTemporaryRegistration
-	Type SecureValueTypeClass `tl:"type"`
+	Type SecureValueTypeClass
 	// File hash
-	FileHash [][]byte `tl:"file_hash"`
+	FileHash [][]byte
 	// Error message
-	Text string `tl:"text"`
+	Text string
 }
 
 // SecureValueErrorFilesTypeID is TL type id of SecureValueErrorFiles.
@@ -1101,11 +1101,11 @@ var (
 // See https://core.telegram.org/constructor/secureValueError for reference.
 type SecureValueError struct {
 	// Type of element which has the issue
-	Type SecureValueTypeClass `tl:"type"`
+	Type SecureValueTypeClass
 	// Hash
-	Hash []byte `tl:"hash"`
+	Hash []byte
 	// Error message
-	Text string `tl:"text"`
+	Text string
 }
 
 // SecureValueErrorTypeID is TL type id of SecureValueError.
@@ -1280,11 +1280,11 @@ type SecureValueErrorTranslationFile struct {
 	//  8) https://core.telegram.org/constructor/secureValueTypeRentalAgreement
 	//  9) https://core.telegram.org/constructor/secureValueTypePassportRegistration
 	//  10) https://core.telegram.org/constructor/secureValueTypeTemporaryRegistration
-	Type SecureValueTypeClass `tl:"type"`
+	Type SecureValueTypeClass
 	// File hash
-	FileHash []byte `tl:"file_hash"`
+	FileHash []byte
 	// Error message
-	Text string `tl:"text"`
+	Text string
 }
 
 // SecureValueErrorTranslationFileTypeID is TL type id of SecureValueErrorTranslationFile.
@@ -1459,11 +1459,11 @@ type SecureValueErrorTranslationFiles struct {
 	//  8) https://core.telegram.org/constructor/secureValueTypeRentalAgreement
 	//  9) https://core.telegram.org/constructor/secureValueTypePassportRegistration
 	//  10) https://core.telegram.org/constructor/secureValueTypeTemporaryRegistration
-	Type SecureValueTypeClass `tl:"type"`
+	Type SecureValueTypeClass
 	// Hash
-	FileHash [][]byte `tl:"file_hash"`
+	FileHash [][]byte
 	// Error message
-	Text string `tl:"text"`
+	Text string
 }
 
 // SecureValueErrorTranslationFilesTypeID is TL type id of SecureValueErrorTranslationFiles.

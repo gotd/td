@@ -25,7 +25,7 @@ var _ = tdp.Format
 // RPCDropAnswerRequest represents TL type `rpc_drop_answer#58e4a740`.
 type RPCDropAnswerRequest struct {
 	// ReqMsgID field of RPCDropAnswerRequest.
-	ReqMsgID int64 `tl:"req_msg_id"`
+	ReqMsgID int64
 }
 
 // RPCDropAnswerRequestTypeID is TL type id of RPCDropAnswerRequest.

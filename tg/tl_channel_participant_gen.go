@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/channelParticipant for reference.
 type ChannelParticipant struct {
 	// Pariticipant user ID
-	UserID int `tl:"user_id"`
+	UserID int
 	// Date joined
-	Date int `tl:"date"`
+	Date int
 }
 
 // ChannelParticipantTypeID is TL type id of ChannelParticipant.
@@ -166,11 +166,11 @@ var (
 // See https://core.telegram.org/constructor/channelParticipantSelf for reference.
 type ChannelParticipantSelf struct {
 	// User ID
-	UserID int `tl:"user_id"`
+	UserID int
 	// User that invited me to the channel/supergroup
-	InviterID int `tl:"inviter_id"`
+	InviterID int
 	// When did I join the channel/supergroup
-	Date int `tl:"date"`
+	Date int
 }
 
 // ChannelParticipantSelfTypeID is TL type id of ChannelParticipantSelf.
@@ -331,15 +331,15 @@ type ChannelParticipantCreator struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// User ID
-	UserID int `tl:"user_id"`
+	UserID int
 	// Creator admin rights
-	AdminRights ChatAdminRights `tl:"admin_rights"`
+	AdminRights ChatAdminRights
 	// The role (rank) of the group creator in the group: just an arbitrary string, admin by default
 	//
 	// Use SetRank and GetRank helpers.
-	Rank string `tl:"rank"`
+	Rank string
 }
 
 // ChannelParticipantCreatorTypeID is TL type id of ChannelParticipantCreator.
@@ -534,30 +534,30 @@ type ChannelParticipantAdmin struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Can this admin promote other admins with the same permissions?
-	CanEdit bool `tl:"can_edit"`
+	CanEdit bool
 	// Is this the current user
-	Self bool `tl:"self"`
+	Self bool
 	// Admin user ID
-	UserID int `tl:"user_id"`
+	UserID int
 	// User that invited the admin to the channel/group
 	//
 	// Use SetInviterID and GetInviterID helpers.
-	InviterID int `tl:"inviter_id"`
+	InviterID int
 	// User that promoted the user to admin
-	PromotedBy int `tl:"promoted_by"`
+	PromotedBy int
 	// When did the user join
-	Date int `tl:"date"`
+	Date int
 	// Admin rights¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
-	AdminRights ChatAdminRights `tl:"admin_rights"`
+	AdminRights ChatAdminRights
 	// The role (rank) of the admin in the group: just an arbitrary string, admin by default
 	//
 	// Use SetRank and GetRank helpers.
-	Rank string `tl:"rank"`
+	Rank string
 }
 
 // ChannelParticipantAdminTypeID is TL type id of ChannelParticipantAdmin.
@@ -897,20 +897,20 @@ type ChannelParticipantBanned struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the user has left the group
-	Left bool `tl:"left"`
+	Left bool
 	// User ID
-	UserID int `tl:"user_id"`
+	UserID int
 	// User was kicked by the specified admin
-	KickedBy int `tl:"kicked_by"`
+	KickedBy int
 	// When did the user join the group
-	Date int `tl:"date"`
+	Date int
 	// Banned rights¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
-	BannedRights ChatBannedRights `tl:"banned_rights"`
+	BannedRights ChatBannedRights
 }
 
 // ChannelParticipantBannedTypeID is TL type id of ChannelParticipantBanned.
@@ -1135,7 +1135,7 @@ var (
 // See https://core.telegram.org/constructor/channelParticipantLeft for reference.
 type ChannelParticipantLeft struct {
 	// User ID
-	UserID int `tl:"user_id"`
+	UserID int
 }
 
 // ChannelParticipantLeftTypeID is TL type id of ChannelParticipantLeft.

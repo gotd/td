@@ -28,17 +28,17 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.changePhone for reference.
 type AccountChangePhoneRequest struct {
 	// New phone number
-	PhoneNumber string `tl:"phone_number"`
+	PhoneNumber string
 	// Phone code hash received when calling account.sendChangePhoneCode¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/account.sendChangePhoneCode
-	PhoneCodeHash string `tl:"phone_code_hash"`
+	PhoneCodeHash string
 	// Phone code received when calling account.sendChangePhoneCode¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/account.sendChangePhoneCode
-	PhoneCode string `tl:"phone_code"`
+	PhoneCode string
 }
 
 // AccountChangePhoneRequestTypeID is TL type id of AccountChangePhoneRequest.

@@ -34,13 +34,13 @@ type StatsGetMessageStatsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to enable dark theme for graph colors
-	Dark bool `tl:"dark"`
+	Dark bool
 	// Channel ID
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// Message ID
-	MsgID int `tl:"msg_id"`
+	MsgID int
 }
 
 // StatsGetMessageStatsRequestTypeID is TL type id of StatsGetMessageStatsRequest.

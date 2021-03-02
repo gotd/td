@@ -28,13 +28,13 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.report for reference.
 type MessagesReportRequest struct {
 	// Peer
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// IDs of messages to report
-	ID []int `tl:"id"`
+	ID []int
 	// Why are these messages being reported
-	Reason ReportReasonClass `tl:"reason"`
+	Reason ReportReasonClass
 	// Message field of MessagesReportRequest.
-	Message string `tl:"message"`
+	Message string
 }
 
 // MessagesReportRequestTypeID is TL type id of MessagesReportRequest.

@@ -115,20 +115,20 @@ type InputMediaUploadedPhoto struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// The uploaded file¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files
-	File InputFileClass `tl:"file"`
+	File InputFileClass
 	// Attached mask stickers
 	//
 	// Use SetStickers and GetStickers helpers.
-	Stickers []InputDocumentClass `tl:"stickers"`
+	Stickers []InputDocumentClass
 	// Time to live in seconds of self-destructing photo
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
-	TTLSeconds int `tl:"ttl_seconds"`
+	TTLSeconds int
 }
 
 // InputMediaUploadedPhotoTypeID is TL type id of InputMediaUploadedPhoto.
@@ -369,13 +369,13 @@ type InputMediaPhoto struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Photo to be forwarded
-	ID InputPhotoClass `tl:"id"`
+	ID InputPhotoClass
 	// Time to live in seconds of self-destructing photo
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
-	TTLSeconds int `tl:"ttl_seconds"`
+	TTLSeconds int
 }
 
 // InputMediaPhotoTypeID is TL type id of InputMediaPhoto.
@@ -550,7 +550,7 @@ var (
 // See https://core.telegram.org/constructor/inputMediaGeoPoint for reference.
 type InputMediaGeoPoint struct {
 	// GeoPoint
-	GeoPoint InputGeoPointClass `tl:"geo_point"`
+	GeoPoint InputGeoPointClass
 }
 
 // InputMediaGeoPointTypeID is TL type id of InputMediaGeoPoint.
@@ -669,13 +669,13 @@ var (
 // See https://core.telegram.org/constructor/inputMediaContact for reference.
 type InputMediaContact struct {
 	// Phone number
-	PhoneNumber string `tl:"phone_number"`
+	PhoneNumber string
 	// Contact's first name
-	FirstName string `tl:"first_name"`
+	FirstName string
 	// Contact's last name
-	LastName string `tl:"last_name"`
+	LastName string
 	// Contact vcard
-	Vcard string `tl:"vcard"`
+	Vcard string
 }
 
 // InputMediaContactTypeID is TL type id of InputMediaContact.
@@ -858,32 +858,32 @@ type InputMediaUploadedDocument struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the specified document is a video file with no audio tracks (a GIF animation (even as MPEG4), for example)
-	NosoundVideo bool `tl:"nosound_video"`
+	NosoundVideo bool
 	// Force the media file to be uploaded as document
-	ForceFile bool `tl:"force_file"`
+	ForceFile bool
 	// The uploaded file¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/files
-	File InputFileClass `tl:"file"`
+	File InputFileClass
 	// Thumbnail of the document, uploaded as for the file
 	//
 	// Use SetThumb and GetThumb helpers.
-	Thumb InputFileClass `tl:"thumb"`
+	Thumb InputFileClass
 	// MIME type of document
-	MimeType string `tl:"mime_type"`
+	MimeType string
 	// Attributes that specify the type of the document (video, audio, voice, sticker, etc.)
-	Attributes []DocumentAttributeClass `tl:"attributes"`
+	Attributes []DocumentAttributeClass
 	// Attached stickers
 	//
 	// Use SetStickers and GetStickers helpers.
-	Stickers []InputDocumentClass `tl:"stickers"`
+	Stickers []InputDocumentClass
 	// Time to live in seconds of self-destructing document
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
-	TTLSeconds int `tl:"ttl_seconds"`
+	TTLSeconds int
 }
 
 // InputMediaUploadedDocumentTypeID is TL type id of InputMediaUploadedDocument.
@@ -1293,17 +1293,17 @@ type InputMediaDocument struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// The document to be forwarded.
-	ID InputDocumentClass `tl:"id"`
+	ID InputDocumentClass
 	// Time to live of self-destructing document
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
-	TTLSeconds int `tl:"ttl_seconds"`
+	TTLSeconds int
 	// Query field of InputMediaDocument.
 	//
 	// Use SetQuery and GetQuery helpers.
-	Query string `tl:"query"`
+	Query string
 }
 
 // InputMediaDocumentTypeID is TL type id of InputMediaDocument.
@@ -1519,17 +1519,17 @@ var (
 // See https://core.telegram.org/constructor/inputMediaVenue for reference.
 type InputMediaVenue struct {
 	// Geolocation
-	GeoPoint InputGeoPointClass `tl:"geo_point"`
+	GeoPoint InputGeoPointClass
 	// Venue name
-	Title string `tl:"title"`
+	Title string
 	// Physical address of the venue
-	Address string `tl:"address"`
+	Address string
 	// Venue provider: currently only "foursquare" needs to be supported
-	Provider string `tl:"provider"`
+	Provider string
 	// Venue ID in the provider's database
-	VenueID string `tl:"venue_id"`
+	VenueID string
 	// Venue type in the provider's database
-	VenueType string `tl:"venue_type"`
+	VenueType string
 }
 
 // InputMediaVenueTypeID is TL type id of InputMediaVenue.
@@ -1761,13 +1761,13 @@ type InputMediaPhotoExternal struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// URL of the photo
-	URL string `tl:"url"`
+	URL string
 	// Self-destruct time to live of photo
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
-	TTLSeconds int `tl:"ttl_seconds"`
+	TTLSeconds int
 }
 
 // InputMediaPhotoExternalTypeID is TL type id of InputMediaPhotoExternal.
@@ -1940,13 +1940,13 @@ type InputMediaDocumentExternal struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// URL of the document
-	URL string `tl:"url"`
+	URL string
 	// Self-destruct time to live of document
 	//
 	// Use SetTTLSeconds and GetTTLSeconds helpers.
-	TTLSeconds int `tl:"ttl_seconds"`
+	TTLSeconds int
 }
 
 // InputMediaDocumentExternalTypeID is TL type id of InputMediaDocumentExternal.
@@ -2116,7 +2116,7 @@ var (
 // See https://core.telegram.org/constructor/inputMediaGame for reference.
 type InputMediaGame struct {
 	// The game to forward
-	ID InputGameClass `tl:"id"`
+	ID InputGameClass
 }
 
 // InputMediaGameTypeID is TL type id of InputMediaGame.
@@ -2241,28 +2241,28 @@ type InputMediaInvoice struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Product name, 1-32 characters
-	Title string `tl:"title"`
+	Title string
 	// Product description, 1-255 characters
-	Description string `tl:"description"`
+	Description string
 	// URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for.
 	//
 	// Use SetPhoto and GetPhoto helpers.
-	Photo InputWebDocument `tl:"photo"`
+	Photo InputWebDocument
 	// The actual invoice
-	Invoice Invoice `tl:"invoice"`
+	Invoice Invoice
 	// Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes.
-	Payload []byte `tl:"payload"`
+	Payload []byte
 	// Payments provider token, obtained via Botfather¹
 	//
 	// Links:
 	//  1) https://t.me/botfather
-	Provider string `tl:"provider"`
+	Provider string
 	// JSON-encoded data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
-	ProviderData DataJSON `tl:"provider_data"`
+	ProviderData DataJSON
 	// Start parameter
-	StartParam string `tl:"start_param"`
+	StartParam string
 }
 
 // InputMediaInvoiceTypeID is TL type id of InputMediaInvoice.
@@ -2570,29 +2570,29 @@ type InputMediaGeoLive struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether sending of the geolocation was stopped
-	Stopped bool `tl:"stopped"`
+	Stopped bool
 	// Current geolocation
-	GeoPoint InputGeoPointClass `tl:"geo_point"`
+	GeoPoint InputGeoPointClass
 	// For live locations¹, a direction in which the location moves, in degrees; 1-360.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/live-location
 	//
 	// Use SetHeading and GetHeading helpers.
-	Heading int `tl:"heading"`
+	Heading int
 	// Validity period of the current location
 	//
 	// Use SetPeriod and GetPeriod helpers.
-	Period int `tl:"period"`
+	Period int
 	// For live locations¹, a maximum distance to another chat member for proximity alerts, in meters (0-100000)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/live-location
 	//
 	// Use SetProximityNotificationRadius and GetProximityNotificationRadius helpers.
-	ProximityNotificationRadius int `tl:"proximity_notification_radius"`
+	ProximityNotificationRadius int
 }
 
 // InputMediaGeoLiveTypeID is TL type id of InputMediaGeoLive.
@@ -2882,24 +2882,24 @@ type InputMediaPoll struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// The poll to send
-	Poll Poll `tl:"poll"`
+	Poll Poll
 	// Correct answer IDs (for quiz polls)
 	//
 	// Use SetCorrectAnswers and GetCorrectAnswers helpers.
-	CorrectAnswers [][]byte `tl:"correct_answers"`
+	CorrectAnswers [][]byte
 	// Explanation of quiz solution
 	//
 	// Use SetSolution and GetSolution helpers.
-	Solution string `tl:"solution"`
+	Solution string
 	// Message entities for styled text¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetSolutionEntities and GetSolutionEntities helpers.
-	SolutionEntities []MessageEntityClass `tl:"solution_entities"`
+	SolutionEntities []MessageEntityClass
 }
 
 // InputMediaPollTypeID is TL type id of InputMediaPoll.
@@ -3185,7 +3185,7 @@ var (
 // See https://core.telegram.org/constructor/inputMediaDice for reference.
 type InputMediaDice struct {
 	// The emoji, for now ,  and  are supported
-	Emoticon string `tl:"emoticon"`
+	Emoticon string
 }
 
 // InputMediaDiceTypeID is TL type id of InputMediaDice.

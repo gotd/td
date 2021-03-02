@@ -27,15 +27,15 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/phone.getGroupParticipants for reference.
 type PhoneGetGroupParticipantsRequest struct {
 	// Call field of PhoneGetGroupParticipantsRequest.
-	Call InputGroupCall `tl:"call"`
+	Call InputGroupCall
 	// Ids field of PhoneGetGroupParticipantsRequest.
-	Ids []int `tl:"ids"`
+	Ids []int
 	// Sources field of PhoneGetGroupParticipantsRequest.
-	Sources []int `tl:"sources"`
+	Sources []int
 	// Offset field of PhoneGetGroupParticipantsRequest.
-	Offset string `tl:"offset"`
+	Offset string
 	// Limit field of PhoneGetGroupParticipantsRequest.
-	Limit int `tl:"limit"`
+	Limit int
 }
 
 // PhoneGetGroupParticipantsRequestTypeID is TL type id of PhoneGetGroupParticipantsRequest.

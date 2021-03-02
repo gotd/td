@@ -25,9 +25,9 @@ var _ = tdp.Format
 // RPCError represents TL type `rpc_error#2144ca19`.
 type RPCError struct {
 	// ErrorCode field of RPCError.
-	ErrorCode int `tl:"error_code"`
+	ErrorCode int
 	// ErrorMessage field of RPCError.
-	ErrorMessage string `tl:"error_message"`
+	ErrorMessage string
 }
 
 // RPCErrorTypeID is TL type id of RPCError.

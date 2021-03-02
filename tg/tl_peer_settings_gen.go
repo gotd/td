@@ -31,30 +31,30 @@ type PeerSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether we can still report the user for spam
-	ReportSpam bool `tl:"report_spam"`
+	ReportSpam bool
 	// Whether we can add the user as contact
-	AddContact bool `tl:"add_contact"`
+	AddContact bool
 	// Whether we can block the user
-	BlockContact bool `tl:"block_contact"`
+	BlockContact bool
 	// Whether we can share the user's contact
-	ShareContact bool `tl:"share_contact"`
+	ShareContact bool
 	// Whether a special exception for contacts is needed
-	NeedContactsException bool `tl:"need_contacts_exception"`
+	NeedContactsException bool
 	// Whether we can report a geogroup is irrelevant for this location
-	ReportGeo bool `tl:"report_geo"`
+	ReportGeo bool
 	// Whether this peer was automatically archived according to privacy settings¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/globalPrivacySettings
-	Autoarchived bool `tl:"autoarchived"`
+	Autoarchived bool
 	// InviteMembers field of PeerSettings.
-	InviteMembers bool `tl:"invite_members"`
+	InviteMembers bool
 	// Distance in meters between us and this peer
 	//
 	// Use SetGeoDistance and GetGeoDistance helpers.
-	GeoDistance int `tl:"geo_distance"`
+	GeoDistance int
 }
 
 // PeerSettingsTypeID is TL type id of PeerSettings.

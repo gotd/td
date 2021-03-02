@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.faveSticker for reference.
 type MessagesFaveStickerRequest struct {
 	// Sticker to mark as favorite
-	ID InputDocumentClass `tl:"id"`
+	ID InputDocumentClass
 	// Unfavorite
-	Unfave bool `tl:"unfave"`
+	Unfave bool
 }
 
 // MessagesFaveStickerRequestTypeID is TL type id of MessagesFaveStickerRequest.

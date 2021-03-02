@@ -118,62 +118,62 @@ type UpdateShortMessage struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the message is outgoing
-	Out bool `tl:"out"`
+	Out bool
 	// Whether we were mentioned in the message
-	Mentioned bool `tl:"mentioned"`
+	Mentioned bool
 	// Whether there are some unread mentions in this message
-	MediaUnread bool `tl:"media_unread"`
+	MediaUnread bool
 	// If true, the message is a silent message, no notifications should be triggered
-	Silent bool `tl:"silent"`
+	Silent bool
 	// The message ID
-	ID int `tl:"id"`
+	ID int
 	// The ID of the sender (if outgoing will be the ID of the destination) of the message
-	UserID int `tl:"user_id"`
+	UserID int
 	// The message
-	Message string `tl:"message"`
+	Message string
 	// PTS¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int `tl:"pts"`
+	Pts int
 	// PTS count¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	PtsCount int `tl:"pts_count"`
+	PtsCount int
 	// date¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Date int `tl:"date"`
+	Date int
 	// Info about a forwarded message
 	//
 	// Use SetFwdFrom and GetFwdFrom helpers.
-	FwdFrom MessageFwdHeader `tl:"fwd_from"`
+	FwdFrom MessageFwdHeader
 	// Info about the inline bot used to generate this message
 	//
 	// Use SetViaBotID and GetViaBotID helpers.
-	ViaBotID int `tl:"via_bot_id"`
+	ViaBotID int
 	// Reply and thread¹ information
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
-	ReplyTo MessageReplyHeader `tl:"reply_to"`
+	ReplyTo MessageReplyHeader
 	// Entities¹ for styled text
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `tl:"entities"`
+	Entities []MessageEntityClass
 	// TTLPeriod field of UpdateShortMessage.
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
-	TTLPeriod int `tl:"ttl_period"`
+	TTLPeriod int
 }
 
 // UpdateShortMessageTypeID is TL type id of UpdateShortMessage.
@@ -762,61 +762,61 @@ type UpdateShortChatMessage struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the message is outgoing
-	Out bool `tl:"out"`
+	Out bool
 	// Whether we were mentioned in this message
-	Mentioned bool `tl:"mentioned"`
+	Mentioned bool
 	// Whether the message contains some unread mentions
-	MediaUnread bool `tl:"media_unread"`
+	MediaUnread bool
 	// If true, the message is a silent message, no notifications should be triggered
-	Silent bool `tl:"silent"`
+	Silent bool
 	// ID of the message
-	ID int `tl:"id"`
+	ID int
 	// ID of the sender of the message
-	FromID int `tl:"from_id"`
+	FromID int
 	// ID of the chat where the message was sent
-	ChatID int `tl:"chat_id"`
+	ChatID int
 	// Message
-	Message string `tl:"message"`
+	Message string
 	// PTS¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int `tl:"pts"`
+	Pts int
 	// PTS count¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	PtsCount int `tl:"pts_count"`
+	PtsCount int
 	// date¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Date int `tl:"date"`
+	Date int
 	// Info about a forwarded message
 	//
 	// Use SetFwdFrom and GetFwdFrom helpers.
-	FwdFrom MessageFwdHeader `tl:"fwd_from"`
+	FwdFrom MessageFwdHeader
 	// Info about the inline bot used to generate this message
 	//
 	// Use SetViaBotID and GetViaBotID helpers.
-	ViaBotID int `tl:"via_bot_id"`
+	ViaBotID int
 	// Reply (thread) information
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
-	ReplyTo MessageReplyHeader `tl:"reply_to"`
+	ReplyTo MessageReplyHeader
 	// Entities¹ for styled text
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `tl:"entities"`
+	Entities []MessageEntityClass
 	// TTLPeriod field of UpdateShortChatMessage.
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
-	TTLPeriod int `tl:"ttl_period"`
+	TTLPeriod int
 }
 
 // UpdateShortChatMessageTypeID is TL type id of UpdateShortChatMessage.
@@ -1424,9 +1424,9 @@ var (
 // See https://core.telegram.org/constructor/updateShort for reference.
 type UpdateShort struct {
 	// Update
-	Update UpdateClass `tl:"update"`
+	Update UpdateClass
 	// Date of event
-	Date int `tl:"date"`
+	Date int
 }
 
 // UpdateShortTypeID is TL type id of UpdateShort.
@@ -1567,17 +1567,17 @@ var (
 // See https://core.telegram.org/constructor/updatesCombined for reference.
 type UpdatesCombined struct {
 	// List of updates
-	Updates []UpdateClass `tl:"updates"`
+	Updates []UpdateClass
 	// List of users mentioned in updates
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 	// List of chats mentioned in updates
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// Current date
-	Date int `tl:"date"`
+	Date int
 	// Value seq for the earliest update in a group
-	SeqStart int `tl:"seq_start"`
+	SeqStart int
 	// Value seq for the latest update in a group
-	Seq int `tl:"seq"`
+	Seq int
 }
 
 // UpdatesCombinedTypeID is TL type id of UpdatesCombined.
@@ -1857,15 +1857,15 @@ var (
 // See https://core.telegram.org/constructor/updates for reference.
 type Updates struct {
 	// Updates field of Updates.
-	Updates []UpdateClass `tl:"updates"`
+	Updates []UpdateClass
 	// Users field of Updates.
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 	// Chats field of Updates.
-	Chats []ChatClass `tl:"chats"`
+	Chats []ChatClass
 	// Date field of Updates.
-	Date int `tl:"date"`
+	Date int
 	// Seq field of Updates.
-	Seq int `tl:"seq"`
+	Seq int
 }
 
 // UpdatesTypeID is TL type id of Updates.
@@ -2127,41 +2127,41 @@ type UpdateShortSentMessage struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the message is outgoing
-	Out bool `tl:"out"`
+	Out bool
 	// ID of the sent message
-	ID int `tl:"id"`
+	ID int
 	// PTS¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int `tl:"pts"`
+	Pts int
 	// PTS count¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	PtsCount int `tl:"pts_count"`
+	PtsCount int
 	// date¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Date int `tl:"date"`
+	Date int
 	// Attached media
 	//
 	// Use SetMedia and GetMedia helpers.
-	Media MessageMediaClass `tl:"media"`
+	Media MessageMediaClass
 	// Entities¹ for styled text
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `tl:"entities"`
+	Entities []MessageEntityClass
 	// TTLPeriod field of UpdateShortSentMessage.
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
-	TTLPeriod int `tl:"ttl_period"`
+	TTLPeriod int
 }
 
 // UpdateShortSentMessageTypeID is TL type id of UpdateShortSentMessage.

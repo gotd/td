@@ -31,27 +31,27 @@ type InputThemeSettings struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Default theme on which this theme is based
-	BaseTheme BaseThemeClass `tl:"base_theme"`
+	BaseTheme BaseThemeClass
 	// Accent color, RGB24 format
-	AccentColor int `tl:"accent_color"`
+	AccentColor int
 	// Message gradient color (top), RGB24 format
 	//
 	// Use SetMessageTopColor and GetMessageTopColor helpers.
-	MessageTopColor int `tl:"message_top_color"`
+	MessageTopColor int
 	// Message gradient color (bottom), RGB24 format
 	//
 	// Use SetMessageBottomColor and GetMessageBottomColor helpers.
-	MessageBottomColor int `tl:"message_bottom_color"`
+	MessageBottomColor int
 	// Wallpaper
 	//
 	// Use SetWallpaper and GetWallpaper helpers.
-	Wallpaper InputWallPaperClass `tl:"wallpaper"`
+	Wallpaper InputWallPaperClass
 	// Wallpaper settings
 	//
 	// Use SetWallpaperSettings and GetWallpaperSettings helpers.
-	WallpaperSettings WallPaperSettings `tl:"wallpaper_settings"`
+	WallpaperSettings WallPaperSettings
 }
 
 // InputThemeSettingsTypeID is TL type id of InputThemeSettings.

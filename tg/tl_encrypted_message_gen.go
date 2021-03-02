@@ -28,18 +28,18 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/encryptedMessage for reference.
 type EncryptedMessage struct {
 	// Random message ID, assigned by the author of message
-	RandomID int64 `tl:"random_id"`
+	RandomID int64
 	// ID of encrypted chat
-	ChatID int `tl:"chat_id"`
+	ChatID int
 	// Date of sending
-	Date int `tl:"date"`
+	Date int
 	// TL-serialising of DecryptedMessage¹ type, encrypted with the key creatied at stage of chat initialization
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/DecryptedMessage
-	Bytes []byte `tl:"bytes"`
+	Bytes []byte
 	// Attached encrypted file
-	File EncryptedFileClass `tl:"file"`
+	File EncryptedFileClass
 }
 
 // EncryptedMessageTypeID is TL type id of EncryptedMessage.
@@ -246,16 +246,16 @@ var (
 // See https://core.telegram.org/constructor/encryptedMessageService for reference.
 type EncryptedMessageService struct {
 	// Random message ID, assigned by the author of message
-	RandomID int64 `tl:"random_id"`
+	RandomID int64
 	// ID of encrypted chat
-	ChatID int `tl:"chat_id"`
+	ChatID int
 	// Date of sending
-	Date int `tl:"date"`
+	Date int
 	// TL-serialising of DecryptedMessage¹ type, encrypted with the key creatied at stage of chat initialization
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/DecryptedMessage
-	Bytes []byte `tl:"bytes"`
+	Bytes []byte
 }
 
 // EncryptedMessageServiceTypeID is TL type id of EncryptedMessageService.

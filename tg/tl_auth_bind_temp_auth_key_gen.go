@@ -32,22 +32,22 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/auth.bindTempAuthKey for reference.
 type AuthBindTempAuthKeyRequest struct {
 	// Permanent auth_key_id to bind to
-	PermAuthKeyID int64 `tl:"perm_auth_key_id"`
+	PermAuthKeyID int64
 	// Random long from Binding message contents¹
 	//
 	// Links:
 	//  1) https://core.telegram.org#binding-message-contents
-	Nonce int64 `tl:"nonce"`
+	Nonce int64
 	// Unix timestamp to invalidate temporary key, see Binding message contents¹
 	//
 	// Links:
 	//  1) https://core.telegram.org#binding-message-contents
-	ExpiresAt int `tl:"expires_at"`
+	ExpiresAt int
 	// See Generating encrypted_message¹
 	//
 	// Links:
 	//  1) https://core.telegram.org#generating-encrypted-message
-	EncryptedMessage []byte `tl:"encrypted_message"`
+	EncryptedMessage []byte
 }
 
 // AuthBindTempAuthKeyRequestTypeID is TL type id of AuthBindTempAuthKeyRequest.

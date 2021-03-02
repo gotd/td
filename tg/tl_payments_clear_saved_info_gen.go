@@ -31,11 +31,11 @@ type PaymentsClearSavedInfoRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Remove saved payment credentials
-	Credentials bool `tl:"credentials"`
+	Credentials bool
 	// Clear the last order settings saved by the user
-	Info bool `tl:"info"`
+	Info bool
 }
 
 // PaymentsClearSavedInfoRequestTypeID is TL type id of PaymentsClearSavedInfoRequest.

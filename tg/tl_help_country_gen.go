@@ -31,19 +31,19 @@ type HelpCountry struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether this country should not be shown in the list
-	Hidden bool `tl:"hidden"`
+	Hidden bool
 	// ISO code of country
-	Iso2 string `tl:"iso2"`
+	Iso2 string
 	// Name of the country in the country's language
-	DefaultName string `tl:"default_name"`
+	DefaultName string
 	// Name of the country in the user's language, if different from the original name
 	//
 	// Use SetName and GetName helpers.
-	Name string `tl:"name"`
+	Name string
 	// Phone codes/patterns
-	CountryCodes []HelpCountryCode `tl:"country_codes"`
+	CountryCodes []HelpCountryCode
 }
 
 // HelpCountryTypeID is TL type id of HelpCountry.

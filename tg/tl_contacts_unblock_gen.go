@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/contacts.unblock for reference.
 type ContactsUnblockRequest struct {
 	// User ID
-	ID InputPeerClass `tl:"id"`
+	ID InputPeerClass
 }
 
 // ContactsUnblockRequestTypeID is TL type id of ContactsUnblockRequest.

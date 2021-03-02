@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/messages.dhConfigNotModified for reference.
 type MessagesDhConfigNotModified struct {
 	// Random sequence of bytes of assigned length
-	Random []byte `tl:"random"`
+	Random []byte
 }
 
 // MessagesDhConfigNotModifiedTypeID is TL type id of MessagesDhConfigNotModified.
@@ -145,16 +145,16 @@ type MessagesDhConfig struct {
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
-	G int `tl:"g"`
+	G int
 	// New value primitive root, see Wikipedia¹
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
-	P []byte `tl:"p"`
+	P []byte
 	// Vestion of set of parameters
-	Version int `tl:"version"`
+	Version int
 	// Random sequence of bytes of assigned length
-	Random []byte `tl:"random"`
+	Random []byte
 }
 
 // MessagesDhConfigTypeID is TL type id of MessagesDhConfig.

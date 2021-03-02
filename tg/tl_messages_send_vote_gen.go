@@ -31,11 +31,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.sendVote for reference.
 type MessagesSendVoteRequest struct {
 	// The chat where the poll was sent
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// The message ID of the poll
-	MsgID int `tl:"msg_id"`
+	MsgID int
 	// The options that were chosen
-	Options [][]byte `tl:"options"`
+	Options [][]byte
 }
 
 // MessagesSendVoteRequestTypeID is TL type id of MessagesSendVoteRequest.

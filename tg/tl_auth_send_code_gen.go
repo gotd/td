@@ -28,19 +28,19 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/auth.sendCode for reference.
 type AuthSendCodeRequest struct {
 	// Phone number in international format
-	PhoneNumber string `tl:"phone_number"`
+	PhoneNumber string
 	// Application identifier (see App configuration¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/myapp
-	APIID int `tl:"api_id"`
+	APIID int
 	// Application secret hash (see App configuration¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/myapp
-	APIHash string `tl:"api_hash"`
+	APIHash string
 	// Settings for the code type to send
-	Settings CodeSettings `tl:"settings"`
+	Settings CodeSettings
 }
 
 // AuthSendCodeRequestTypeID is TL type id of AuthSendCodeRequest.

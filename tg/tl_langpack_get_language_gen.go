@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/langpack.getLanguage for reference.
 type LangpackGetLanguageRequest struct {
 	// Language pack name
-	LangPack string `tl:"lang_pack"`
+	LangPack string
 	// Language code
-	LangCode string `tl:"lang_code"`
+	LangCode string
 }
 
 // LangpackGetLanguageRequestTypeID is TL type id of LangpackGetLanguageRequest.

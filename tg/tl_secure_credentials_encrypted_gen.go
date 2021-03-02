@@ -34,17 +34,17 @@ type SecureCredentialsEncrypted struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport#decrypting-data
-	Data []byte `tl:"data"`
+	Data []byte
 	// Data hash for data authentication as described in decrypting data »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport#decrypting-data
-	Hash []byte `tl:"hash"`
+	Hash []byte
 	// Secret, encrypted with the bot's public RSA key, required for data decryption as described in decrypting data »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport#decrypting-data
-	Secret []byte `tl:"secret"`
+	Secret []byte
 }
 
 // SecureCredentialsEncryptedTypeID is TL type id of SecureCredentialsEncrypted.

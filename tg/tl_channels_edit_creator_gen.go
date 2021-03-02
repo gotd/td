@@ -28,14 +28,14 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/channels.editCreator for reference.
 type ChannelsEditCreatorRequest struct {
 	// Channel
-	Channel InputChannelClass `tl:"channel"`
+	Channel InputChannelClass
 	// New channel owner
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 	// 2FA password¹ of account
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	Password InputCheckPasswordSRPClass `tl:"password"`
+	Password InputCheckPasswordSRPClass
 }
 
 // ChannelsEditCreatorRequestTypeID is TL type id of ChannelsEditCreatorRequest.

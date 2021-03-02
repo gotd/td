@@ -31,36 +31,36 @@ type InputBotInlineResult struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// ID of result
-	ID string `tl:"id"`
+	ID string
 	// Result type (see bot API docs¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/api#inlinequeryresult
-	Type string `tl:"type"`
+	Type string
 	// Result title
 	//
 	// Use SetTitle and GetTitle helpers.
-	Title string `tl:"title"`
+	Title string
 	// Result description
 	//
 	// Use SetDescription and GetDescription helpers.
-	Description string `tl:"description"`
+	Description string
 	// URL of result
 	//
 	// Use SetURL and GetURL helpers.
-	URL string `tl:"url"`
+	URL string
 	// Thumbnail for result
 	//
 	// Use SetThumb and GetThumb helpers.
-	Thumb InputWebDocument `tl:"thumb"`
+	Thumb InputWebDocument
 	// Result contents
 	//
 	// Use SetContent and GetContent helpers.
-	Content InputWebDocument `tl:"content"`
+	Content InputWebDocument
 	// Message to send when the result is selected
-	SendMessage InputBotInlineMessageClass `tl:"send_message"`
+	SendMessage InputBotInlineMessageClass
 }
 
 // InputBotInlineResultTypeID is TL type id of InputBotInlineResult.
@@ -443,16 +443,16 @@ var (
 // See https://core.telegram.org/constructor/inputBotInlineResultPhoto for reference.
 type InputBotInlineResultPhoto struct {
 	// Result ID
-	ID string `tl:"id"`
+	ID string
 	// Result type (see bot API docs¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/api#inlinequeryresult
-	Type string `tl:"type"`
+	Type string
 	// Photo to send
-	Photo InputPhotoClass `tl:"photo"`
+	Photo InputPhotoClass
 	// Message to send when the result is selected
-	SendMessage InputBotInlineMessageClass `tl:"send_message"`
+	SendMessage InputBotInlineMessageClass
 }
 
 // InputBotInlineResultPhotoTypeID is TL type id of InputBotInlineResultPhoto.
@@ -645,26 +645,26 @@ type InputBotInlineResultDocument struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Result ID
-	ID string `tl:"id"`
+	ID string
 	// Result type (see bot API docs¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/api#inlinequeryresult
-	Type string `tl:"type"`
+	Type string
 	// Result title
 	//
 	// Use SetTitle and GetTitle helpers.
-	Title string `tl:"title"`
+	Title string
 	// Result description
 	//
 	// Use SetDescription and GetDescription helpers.
-	Description string `tl:"description"`
+	Description string
 	// Document to send
-	Document InputDocumentClass `tl:"document"`
+	Document InputDocumentClass
 	// Message to send when the result is selected
-	SendMessage InputBotInlineMessageClass `tl:"send_message"`
+	SendMessage InputBotInlineMessageClass
 }
 
 // InputBotInlineResultDocumentTypeID is TL type id of InputBotInlineResultDocument.
@@ -951,11 +951,11 @@ var (
 // See https://core.telegram.org/constructor/inputBotInlineResultGame for reference.
 type InputBotInlineResultGame struct {
 	// Result ID
-	ID string `tl:"id"`
+	ID string
 	// Game short name
-	ShortName string `tl:"short_name"`
+	ShortName string
 	// Message to send when the result is selected
-	SendMessage InputBotInlineMessageClass `tl:"send_message"`
+	SendMessage InputBotInlineMessageClass
 }
 
 // InputBotInlineResultGameTypeID is TL type id of InputBotInlineResultGame.

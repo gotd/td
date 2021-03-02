@@ -27,7 +27,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/phone.discardGroupCall for reference.
 type PhoneDiscardGroupCallRequest struct {
 	// Call field of PhoneDiscardGroupCallRequest.
-	Call InputGroupCall `tl:"call"`
+	Call InputGroupCall
 }
 
 // PhoneDiscardGroupCallRequestTypeID is TL type id of PhoneDiscardGroupCallRequest.

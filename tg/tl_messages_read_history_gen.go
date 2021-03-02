@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.readHistory for reference.
 type MessagesReadHistoryRequest struct {
 	// Target user or group
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// If a positive value is passed, only messages with identifiers less or equal than the given one will be read
-	MaxID int `tl:"max_id"`
+	MaxID int
 }
 
 // MessagesReadHistoryRequestTypeID is TL type id of MessagesReadHistoryRequest.

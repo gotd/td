@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/messages.archivedStickers for reference.
 type MessagesArchivedStickers struct {
 	// Number of archived stickers
-	Count int `tl:"count"`
+	Count int
 	// Archived stickersets
-	Sets []StickerSetCoveredClass `tl:"sets"`
+	Sets []StickerSetCoveredClass
 }
 
 // MessagesArchivedStickersTypeID is TL type id of MessagesArchivedStickers.

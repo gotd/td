@@ -27,15 +27,15 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.getChatInviteImporters for reference.
 type MessagesGetChatInviteImportersRequest struct {
 	// Peer field of MessagesGetChatInviteImportersRequest.
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Link field of MessagesGetChatInviteImportersRequest.
-	Link string `tl:"link"`
+	Link string
 	// OffsetDate field of MessagesGetChatInviteImportersRequest.
-	OffsetDate int `tl:"offset_date"`
+	OffsetDate int
 	// OffsetUser field of MessagesGetChatInviteImportersRequest.
-	OffsetUser InputUserClass `tl:"offset_user"`
+	OffsetUser InputUserClass
 	// Limit field of MessagesGetChatInviteImportersRequest.
-	Limit int `tl:"limit"`
+	Limit int
 }
 
 // MessagesGetChatInviteImportersRequestTypeID is TL type id of MessagesGetChatInviteImportersRequest.

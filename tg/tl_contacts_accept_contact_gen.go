@@ -31,7 +31,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/contacts.acceptContact for reference.
 type ContactsAcceptContactRequest struct {
 	// The user to add as contact
-	ID InputUserClass `tl:"id"`
+	ID InputUserClass
 }
 
 // ContactsAcceptContactRequestTypeID is TL type id of ContactsAcceptContactRequest.

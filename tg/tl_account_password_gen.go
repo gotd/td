@@ -31,41 +31,41 @@ type AccountPassword struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the user has a recovery method configured
-	HasRecovery bool `tl:"has_recovery"`
+	HasRecovery bool
 	// Whether telegram passport¹ is enabled
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
-	HasSecureValues bool `tl:"has_secure_values"`
+	HasSecureValues bool
 	// Whether the user has a password
-	HasPassword bool `tl:"has_password"`
+	HasPassword bool
 	// The KDF algorithm for SRP two-factor authentication¹ of the current password
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
 	//
 	// Use SetCurrentAlgo and GetCurrentAlgo helpers.
-	CurrentAlgo PasswordKdfAlgoClass `tl:"current_algo"`
+	CurrentAlgo PasswordKdfAlgoClass
 	// Srp B param for SRP authorization¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
 	//
 	// Use SetSRPB and GetSRPB helpers.
-	SRPB []byte `tl:"srp_B"`
+	SRPB []byte
 	// Srp ID param for SRP authorization¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
 	//
 	// Use SetSRPID and GetSRPID helpers.
-	SRPID int64 `tl:"srp_id"`
+	SRPID int64
 	// Text hint for the password
 	//
 	// Use SetHint and GetHint helpers.
-	Hint string `tl:"hint"`
+	Hint string
 	// A password recovery email¹ with the specified pattern² is still awaiting verification
 	//
 	// Links:
@@ -73,19 +73,19 @@ type AccountPassword struct {
 	//  2) https://core.telegram.org/api/pattern
 	//
 	// Use SetEmailUnconfirmedPattern and GetEmailUnconfirmedPattern helpers.
-	EmailUnconfirmedPattern string `tl:"email_unconfirmed_pattern"`
+	EmailUnconfirmedPattern string
 	// The KDF algorithm for SRP two-factor authentication¹ to use when creating new passwords
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
-	NewAlgo PasswordKdfAlgoClass `tl:"new_algo"`
+	NewAlgo PasswordKdfAlgoClass
 	// The KDF algorithm for telegram passport¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport
-	NewSecureAlgo SecurePasswordKdfAlgoClass `tl:"new_secure_algo"`
+	NewSecureAlgo SecurePasswordKdfAlgoClass
 	// Secure random string
-	SecureRandom []byte `tl:"secure_random"`
+	SecureRandom []byte
 }
 
 // AccountPasswordTypeID is TL type id of AccountPassword.

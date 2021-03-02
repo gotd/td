@@ -31,11 +31,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.requestUrlAuth for reference.
 type MessagesRequestUrlAuthRequest struct {
 	// Peer where the message is located
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// The message
-	MsgID int `tl:"msg_id"`
+	MsgID int
 	// The ID of the button with the authorization request
-	ButtonID int `tl:"button_id"`
+	ButtonID int
 }
 
 // MessagesRequestUrlAuthRequestTypeID is TL type id of MessagesRequestUrlAuthRequest.

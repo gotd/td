@@ -31,12 +31,12 @@ type MessagesAffectedMessages struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	Pts int `tl:"pts"`
+	Pts int
 	// Number of events that were generated¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
-	PtsCount int `tl:"pts_count"`
+	PtsCount int
 }
 
 // MessagesAffectedMessagesTypeID is TL type id of MessagesAffectedMessages.

@@ -34,7 +34,7 @@ type AccountUpdateDeviceLockedRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/push-updates
-	Period int `tl:"period"`
+	Period int
 }
 
 // AccountUpdateDeviceLockedRequestTypeID is TL type id of AccountUpdateDeviceLockedRequest.

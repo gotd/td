@@ -115,9 +115,9 @@ type MessagesStickers struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
-	Hash int `tl:"hash"`
+	Hash int
 	// Stickers
-	Stickers []DocumentClass `tl:"stickers"`
+	Stickers []DocumentClass
 }
 
 // MessagesStickersTypeID is TL type id of MessagesStickers.

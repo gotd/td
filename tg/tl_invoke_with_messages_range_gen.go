@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/invokeWithMessagesRange for reference.
 type InvokeWithMessagesRangeRequest struct {
 	// Message range
-	Range MessageRange `tl:"range"`
+	Range MessageRange
 	// Query
-	Query bin.Object `tl:"query"`
+	Query bin.Object
 }
 
 // InvokeWithMessagesRangeRequestTypeID is TL type id of InvokeWithMessagesRangeRequest.

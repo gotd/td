@@ -34,18 +34,18 @@ type ContactsBlockFromRepliesRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to delete the specified message as well
-	DeleteMessage bool `tl:"delete_message"`
+	DeleteMessage bool
 	// Whether to delete all @replies messages from this user as well
-	DeleteHistory bool `tl:"delete_history"`
+	DeleteHistory bool
 	// Whether to also report this user for spam
-	ReportSpam bool `tl:"report_spam"`
+	ReportSpam bool
 	// ID of the message in the @replies¹ chat
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads#replies
-	MsgID int `tl:"msg_id"`
+	MsgID int
 }
 
 // ContactsBlockFromRepliesRequestTypeID is TL type id of ContactsBlockFromRepliesRequest.

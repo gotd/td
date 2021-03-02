@@ -34,9 +34,9 @@ type CdnPublicKey struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	DCID int `tl:"dc_id"`
+	DCID int
 	// RSA public key
-	PublicKey string `tl:"public_key"`
+	PublicKey string
 }
 
 // CdnPublicKeyTypeID is TL type id of CdnPublicKey.

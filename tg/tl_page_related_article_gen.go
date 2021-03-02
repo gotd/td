@@ -31,31 +31,31 @@ type PageRelatedArticle struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// URL of article
-	URL string `tl:"url"`
+	URL string
 	// Webpage ID of generated IV preview
-	WebpageID int64 `tl:"webpage_id"`
+	WebpageID int64
 	// Title
 	//
 	// Use SetTitle and GetTitle helpers.
-	Title string `tl:"title"`
+	Title string
 	// Description
 	//
 	// Use SetDescription and GetDescription helpers.
-	Description string `tl:"description"`
+	Description string
 	// ID of preview photo
 	//
 	// Use SetPhotoID and GetPhotoID helpers.
-	PhotoID int64 `tl:"photo_id"`
+	PhotoID int64
 	// Author name
 	//
 	// Use SetAuthor and GetAuthor helpers.
-	Author string `tl:"author"`
+	Author string
 	// Date of pubblication
 	//
 	// Use SetPublishedDate and GetPublishedDate helpers.
-	PublishedDate int `tl:"published_date"`
+	PublishedDate int
 }
 
 // PageRelatedArticleTypeID is TL type id of PageRelatedArticle.

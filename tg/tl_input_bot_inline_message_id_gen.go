@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/inputBotInlineMessageID for reference.
 type InputBotInlineMessageID struct {
 	// DC ID to use when working with this inline message
-	DCID int `tl:"dc_id"`
+	DCID int
 	// ID of message
-	ID int64 `tl:"id"`
+	ID int64
 	// Access hash of message
-	AccessHash int64 `tl:"access_hash"`
+	AccessHash int64
 }
 
 // InputBotInlineMessageIDTypeID is TL type id of InputBotInlineMessageID.

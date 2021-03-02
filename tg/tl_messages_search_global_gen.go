@@ -31,42 +31,42 @@ type MessagesSearchGlobalRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	//
 	// Use SetFolderID and GetFolderID helpers.
-	FolderID int `tl:"folder_id"`
+	FolderID int
 	// Query
-	Q string `tl:"q"`
+	Q string
 	// Global search filter
-	Filter MessagesFilterClass `tl:"filter"`
+	Filter MessagesFilterClass
 	// If a positive value was specified, the method will return only messages with date bigger than min_date
-	MinDate int `tl:"min_date"`
+	MinDate int
 	// If a positive value was transferred, the method will return only messages with date smaller than max_date
-	MaxDate int `tl:"max_date"`
+	MaxDate int
 	// Initially 0, then set to the next_rate parameter of messages.messagesSlice¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/messages.messagesSlice
-	OffsetRate int `tl:"offset_rate"`
+	OffsetRate int
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetPeer InputPeerClass `tl:"offset_peer"`
+	OffsetPeer InputPeerClass
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	OffsetID int `tl:"offset_id"`
+	OffsetID int
 	// Offsets for pagination, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
-	Limit int `tl:"limit"`
+	Limit int
 }
 
 // MessagesSearchGlobalRequestTypeID is TL type id of MessagesSearchGlobalRequest.

@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/help.getAppUpdate for reference.
 type HelpGetAppUpdateRequest struct {
 	// Source
-	Source string `tl:"source"`
+	Source string
 }
 
 // HelpGetAppUpdateRequestTypeID is TL type id of HelpGetAppUpdateRequest.

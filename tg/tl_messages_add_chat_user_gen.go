@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.addChatUser for reference.
 type MessagesAddChatUserRequest struct {
 	// Chat ID
-	ChatID int `tl:"chat_id"`
+	ChatID int
 	// User ID to be added
-	UserID InputUserClass `tl:"user_id"`
+	UserID InputUserClass
 	// Number of last messages to be forwarded
-	FwdLimit int `tl:"fwd_limit"`
+	FwdLimit int
 }
 
 // MessagesAddChatUserRequestTypeID is TL type id of MessagesAddChatUserRequest.

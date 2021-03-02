@@ -34,24 +34,24 @@ type MessagesSaveDraftRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Disable generation of the webpage preview
-	NoWebpage bool `tl:"no_webpage"`
+	NoWebpage bool
 	// Message ID the message should reply to
 	//
 	// Use SetReplyToMsgID and GetReplyToMsgID helpers.
-	ReplyToMsgID int `tl:"reply_to_msg_id"`
+	ReplyToMsgID int
 	// Destination of the message that should be sent
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// The draft
-	Message string `tl:"message"`
+	Message string
 	// Message entities¹ for styled text
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `tl:"entities"`
+	Entities []MessageEntityClass
 }
 
 // MessagesSaveDraftRequestTypeID is TL type id of MessagesSaveDraftRequest.

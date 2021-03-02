@@ -25,9 +25,9 @@ var _ = tdp.Format
 // Pong represents TL type `pong#347773c5`.
 type Pong struct {
 	// MsgID field of Pong.
-	MsgID int64 `tl:"msg_id"`
+	MsgID int64
 	// PingID field of Pong.
-	PingID int64 `tl:"ping_id"`
+	PingID int64
 }
 
 // PongTypeID is TL type id of Pong.

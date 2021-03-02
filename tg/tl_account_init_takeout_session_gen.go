@@ -31,32 +31,32 @@ type AccountInitTakeoutSessionRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to export contacts
-	Contacts bool `tl:"contacts"`
+	Contacts bool
 	// Whether to export messages in private chats
-	MessageUsers bool `tl:"message_users"`
+	MessageUsers bool
 	// Whether to export messages in legacy groups¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	MessageChats bool `tl:"message_chats"`
+	MessageChats bool
 	// Whether to export messages in supergroups¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	MessageMegagroups bool `tl:"message_megagroups"`
+	MessageMegagroups bool
 	// Whether to export messages in channels¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	MessageChannels bool `tl:"message_channels"`
+	MessageChannels bool
 	// Whether to export files
-	Files bool `tl:"files"`
+	Files bool
 	// Maximum size of files to export
 	//
 	// Use SetFileMaxSize and GetFileMaxSize helpers.
-	FileMaxSize int `tl:"file_max_size"`
+	FileMaxSize int
 }
 
 // AccountInitTakeoutSessionRequestTypeID is TL type id of AccountInitTakeoutSessionRequest.

@@ -28,15 +28,15 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.acceptAuthorization for reference.
 type AccountAcceptAuthorizationRequest struct {
 	// Bot ID
-	BotID int `tl:"bot_id"`
+	BotID int
 	// Telegram Passport element types requested by the service
-	Scope string `tl:"scope"`
+	Scope string
 	// Service's public key
-	PublicKey string `tl:"public_key"`
+	PublicKey string
 	// Types of values sent and their hashes
-	ValueHashes []SecureValueHash `tl:"value_hashes"`
+	ValueHashes []SecureValueHash
 	// Encrypted values
-	Credentials SecureCredentialsEncrypted `tl:"credentials"`
+	Credentials SecureCredentialsEncrypted
 }
 
 // AccountAcceptAuthorizationRequestTypeID is TL type id of AccountAcceptAuthorizationRequest.

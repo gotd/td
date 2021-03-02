@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/pageListOrderedItemText for reference.
 type PageListOrderedItemText struct {
 	// Number of element within ordered list
-	Num string `tl:"num"`
+	Num string
 	// Text
-	Text RichTextClass `tl:"text"`
+	Text RichTextClass
 }
 
 // PageListOrderedItemTextTypeID is TL type id of PageListOrderedItemText.
@@ -174,9 +174,9 @@ var (
 // See https://core.telegram.org/constructor/pageListOrderedItemBlocks for reference.
 type PageListOrderedItemBlocks struct {
 	// Number of element within ordered list
-	Num string `tl:"num"`
+	Num string
 	// Item contents
-	Blocks []PageBlockClass `tl:"blocks"`
+	Blocks []PageBlockClass
 }
 
 // PageListOrderedItemBlocksTypeID is TL type id of PageListOrderedItemBlocks.

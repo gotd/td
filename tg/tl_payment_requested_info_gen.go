@@ -31,23 +31,23 @@ type PaymentRequestedInfo struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// User's full name
 	//
 	// Use SetName and GetName helpers.
-	Name string `tl:"name"`
+	Name string
 	// User's phone number
 	//
 	// Use SetPhone and GetPhone helpers.
-	Phone string `tl:"phone"`
+	Phone string
 	// User's email address
 	//
 	// Use SetEmail and GetEmail helpers.
-	Email string `tl:"email"`
+	Email string
 	// User's shipping address
 	//
 	// Use SetShippingAddress and GetShippingAddress helpers.
-	ShippingAddress PostAddress `tl:"shipping_address"`
+	ShippingAddress PostAddress
 }
 
 // PaymentRequestedInfoTypeID is TL type id of PaymentRequestedInfo.

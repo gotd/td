@@ -28,13 +28,13 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/messageEmpty for reference.
 type MessageEmpty struct {
 	// Flags field of MessageEmpty.
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Message identifier
-	ID int `tl:"id"`
+	ID int
 	// PeerID field of MessageEmpty.
 	//
 	// Use SetPeerID and GetPeerID helpers.
-	PeerID PeerClass `tl:"peer_id"`
+	PeerID PeerClass
 }
 
 // MessageEmptyTypeID is TL type id of MessageEmpty.
@@ -212,96 +212,96 @@ type Message struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Is this an outgoing message
-	Out bool `tl:"out"`
+	Out bool
 	// Whether we were mentioned¹ in this message
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/mentions
-	Mentioned bool `tl:"mentioned"`
+	Mentioned bool
 	// Whether there are unread media attachments in this message
-	MediaUnread bool `tl:"media_unread"`
+	MediaUnread bool
 	// Whether this is a silent message (no notification triggered)
-	Silent bool `tl:"silent"`
+	Silent bool
 	// Whether this is a channel post
-	Post bool `tl:"post"`
+	Post bool
 	// Whether this is a scheduled message¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/scheduled-messages
-	FromScheduled bool `tl:"from_scheduled"`
+	FromScheduled bool
 	// This is a legacy message: it has to be refetched with the new layer
-	Legacy bool `tl:"legacy"`
+	Legacy bool
 	// Whether the message should be shown as not modified to the user, even if an edit date is present
-	EditHide bool `tl:"edit_hide"`
+	EditHide bool
 	// Whether this message is pinned¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/pin
-	Pinned bool `tl:"pinned"`
+	Pinned bool
 	// ID of the message
-	ID int `tl:"id"`
+	ID int
 	// ID of the sender of the message
 	//
 	// Use SetFromID and GetFromID helpers.
-	FromID PeerClass `tl:"from_id"`
+	FromID PeerClass
 	// Peer ID, the chat where this message was sent
-	PeerID PeerClass `tl:"peer_id"`
+	PeerID PeerClass
 	// Info about forwarded messages
 	//
 	// Use SetFwdFrom and GetFwdFrom helpers.
-	FwdFrom MessageFwdHeader `tl:"fwd_from"`
+	FwdFrom MessageFwdHeader
 	// ID of the inline bot that generated the message
 	//
 	// Use SetViaBotID and GetViaBotID helpers.
-	ViaBotID int `tl:"via_bot_id"`
+	ViaBotID int
 	// Reply information
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
-	ReplyTo MessageReplyHeader `tl:"reply_to"`
+	ReplyTo MessageReplyHeader
 	// Date of the message
-	Date int `tl:"date"`
+	Date int
 	// The message
-	Message string `tl:"message"`
+	Message string
 	// Media attachment
 	//
 	// Use SetMedia and GetMedia helpers.
-	Media MessageMediaClass `tl:"media"`
+	Media MessageMediaClass
 	// Reply markup (bot/inline keyboards)
 	//
 	// Use SetReplyMarkup and GetReplyMarkup helpers.
-	ReplyMarkup ReplyMarkupClass `tl:"reply_markup"`
+	ReplyMarkup ReplyMarkupClass
 	// Message entities¹ for styled text
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	//
 	// Use SetEntities and GetEntities helpers.
-	Entities []MessageEntityClass `tl:"entities"`
+	Entities []MessageEntityClass
 	// View count for channel posts
 	//
 	// Use SetViews and GetViews helpers.
-	Views int `tl:"views"`
+	Views int
 	// Forward counter
 	//
 	// Use SetForwards and GetForwards helpers.
-	Forwards int `tl:"forwards"`
+	Forwards int
 	// Info about post comments (for channels) or message replies (for groups)¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	//
 	// Use SetReplies and GetReplies helpers.
-	Replies MessageReplies `tl:"replies"`
+	Replies MessageReplies
 	// Last edit date of this message
 	//
 	// Use SetEditDate and GetEditDate helpers.
-	EditDate int `tl:"edit_date"`
+	EditDate int
 	// Name of the author of this message for channel posts (with signatures enabled)
 	//
 	// Use SetPostAuthor and GetPostAuthor helpers.
-	PostAuthor string `tl:"post_author"`
+	PostAuthor string
 	// Multiple media messages sent using messages.sendMultiMedia¹ with the same grouped ID indicate an album or media group²
 	//
 	// Links:
@@ -309,15 +309,15 @@ type Message struct {
 	//  2) https://core.telegram.org/api/files#albums-grouped-media
 	//
 	// Use SetGroupedID and GetGroupedID helpers.
-	GroupedID int64 `tl:"grouped_id"`
+	GroupedID int64
 	// Contains the reason why access to this message must be restricted.
 	//
 	// Use SetRestrictionReason and GetRestrictionReason helpers.
-	RestrictionReason []RestrictionReason `tl:"restriction_reason"`
+	RestrictionReason []RestrictionReason
 	// TTLPeriod field of Message.
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
-	TTLPeriod int `tl:"ttl_period"`
+	TTLPeriod int
 }
 
 // MessageTypeID is TL type id of Message.
@@ -1453,39 +1453,39 @@ type MessageService struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether the message is outgoing
-	Out bool `tl:"out"`
+	Out bool
 	// Whether we were mentioned in the message
-	Mentioned bool `tl:"mentioned"`
+	Mentioned bool
 	// Whether the message contains unread media
-	MediaUnread bool `tl:"media_unread"`
+	MediaUnread bool
 	// Whether the message is silent
-	Silent bool `tl:"silent"`
+	Silent bool
 	// Whether it's a channel post
-	Post bool `tl:"post"`
+	Post bool
 	// This is a legacy message: it has to be refetched with the new layer
-	Legacy bool `tl:"legacy"`
+	Legacy bool
 	// Message ID
-	ID int `tl:"id"`
+	ID int
 	// ID of the sender of this message
 	//
 	// Use SetFromID and GetFromID helpers.
-	FromID PeerClass `tl:"from_id"`
+	FromID PeerClass
 	// Sender of service message
-	PeerID PeerClass `tl:"peer_id"`
+	PeerID PeerClass
 	// Reply (thread) information
 	//
 	// Use SetReplyTo and GetReplyTo helpers.
-	ReplyTo MessageReplyHeader `tl:"reply_to"`
+	ReplyTo MessageReplyHeader
 	// Message date
-	Date int `tl:"date"`
+	Date int
 	// Event connected with the service message
-	Action MessageActionClass `tl:"action"`
+	Action MessageActionClass
 	// TTLPeriod field of MessageService.
 	//
 	// Use SetTTLPeriod and GetTTLPeriod helpers.
-	TTLPeriod int `tl:"ttl_period"`
+	TTLPeriod int
 }
 
 // MessageServiceTypeID is TL type id of MessageService.

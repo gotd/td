@@ -31,39 +31,39 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/stats.megagroupStats for reference.
 type StatsMegagroupStats struct {
 	// Period in consideration
-	Period StatsDateRangeDays `tl:"period"`
+	Period StatsDateRangeDays
 	// Member count change for period in consideration
-	Members StatsAbsValueAndPrev `tl:"members"`
+	Members StatsAbsValueAndPrev
 	// Message number change for period in consideration
-	Messages StatsAbsValueAndPrev `tl:"messages"`
+	Messages StatsAbsValueAndPrev
 	// Number of users that viewed messages, for range in consideration
-	Viewers StatsAbsValueAndPrev `tl:"viewers"`
+	Viewers StatsAbsValueAndPrev
 	// Number of users that posted messages, for range in consideration
-	Posters StatsAbsValueAndPrev `tl:"posters"`
+	Posters StatsAbsValueAndPrev
 	// Supergroup growth graph (absolute subscriber count)
-	GrowthGraph StatsGraphClass `tl:"growth_graph"`
+	GrowthGraph StatsGraphClass
 	// Members growth (relative subscriber count)
-	MembersGraph StatsGraphClass `tl:"members_graph"`
+	MembersGraph StatsGraphClass
 	// New members by source graph
-	NewMembersBySourceGraph StatsGraphClass `tl:"new_members_by_source_graph"`
+	NewMembersBySourceGraph StatsGraphClass
 	// Subscriber language graph (piechart)
-	LanguagesGraph StatsGraphClass `tl:"languages_graph"`
+	LanguagesGraph StatsGraphClass
 	// Message activity graph (stacked bar graph, message type)
-	MessagesGraph StatsGraphClass `tl:"messages_graph"`
+	MessagesGraph StatsGraphClass
 	// Group activity graph (deleted, modified messages, blocked users)
-	ActionsGraph StatsGraphClass `tl:"actions_graph"`
+	ActionsGraph StatsGraphClass
 	// Activity per hour graph (absolute)
-	TopHoursGraph StatsGraphClass `tl:"top_hours_graph"`
+	TopHoursGraph StatsGraphClass
 	// Activity per day of week graph (absolute)
-	WeekdaysGraph StatsGraphClass `tl:"weekdays_graph"`
+	WeekdaysGraph StatsGraphClass
 	// Info about most active group members
-	TopPosters []StatsGroupTopPoster `tl:"top_posters"`
+	TopPosters []StatsGroupTopPoster
 	// Info about most active group admins
-	TopAdmins []StatsGroupTopAdmin `tl:"top_admins"`
+	TopAdmins []StatsGroupTopAdmin
 	// Info about most active group inviters
-	TopInviters []StatsGroupTopInviter `tl:"top_inviters"`
+	TopInviters []StatsGroupTopInviter
 	// Info about users mentioned in statistics
-	Users []UserClass `tl:"users"`
+	Users []UserClass
 }
 
 // StatsMegagroupStatsTypeID is TL type id of StatsMegagroupStats.

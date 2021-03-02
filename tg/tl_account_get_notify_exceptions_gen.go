@@ -31,13 +31,13 @@ type AccountGetNotifyExceptionsRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// If true, chats with non-default sound will also be returned
-	CompareSound bool `tl:"compare_sound"`
+	CompareSound bool
 	// If specified, only chats of the specified category will be returned
 	//
 	// Use SetPeer and GetPeer helpers.
-	Peer InputNotifyPeerClass `tl:"peer"`
+	Peer InputNotifyPeerClass
 }
 
 // AccountGetNotifyExceptionsRequestTypeID is TL type id of AccountGetNotifyExceptionsRequest.

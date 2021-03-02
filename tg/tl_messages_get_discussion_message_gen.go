@@ -35,9 +35,9 @@ type MessagesGetDiscussionMessageRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Message ID
-	MsgID int `tl:"msg_id"`
+	MsgID int
 }
 
 // MessagesGetDiscussionMessageRequestTypeID is TL type id of MessagesGetDiscussionMessageRequest.

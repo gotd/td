@@ -34,53 +34,53 @@ type ChatAdminRights struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// If set, allows the admin to modify the description of the channel/supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	ChangeInfo bool `tl:"change_info"`
+	ChangeInfo bool
 	// If set, allows the admin to post messages in the channel¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	PostMessages bool `tl:"post_messages"`
+	PostMessages bool
 	// If set, allows the admin to also edit messages from other admins in the channel¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	EditMessages bool `tl:"edit_messages"`
+	EditMessages bool
 	// If set, allows the admin to also delete messages from other admins in the channel¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	DeleteMessages bool `tl:"delete_messages"`
+	DeleteMessages bool
 	// If set, allows the admin to ban users from the channel/supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	BanUsers bool `tl:"ban_users"`
+	BanUsers bool
 	// If set, allows the admin to invite users in the channel/supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	InviteUsers bool `tl:"invite_users"`
+	InviteUsers bool
 	// If set, allows the admin to pin messages in the channel/supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	PinMessages bool `tl:"pin_messages"`
+	PinMessages bool
 	// If set, allows the admin to add other admins with the same (or more limited) permissions in the channel/supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel
-	AddAdmins bool `tl:"add_admins"`
+	AddAdmins bool
 	// Whether this admin is anonymous
-	Anonymous bool `tl:"anonymous"`
+	Anonymous bool
 	// ManageCall field of ChatAdminRights.
-	ManageCall bool `tl:"manage_call"`
+	ManageCall bool
 	// Other field of ChatAdminRights.
-	Other bool `tl:"other"`
+	Other bool
 }
 
 // ChatAdminRightsTypeID is TL type id of ChatAdminRights.

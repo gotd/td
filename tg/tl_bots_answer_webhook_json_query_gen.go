@@ -28,9 +28,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/bots.answerWebhookJSONQuery for reference.
 type BotsAnswerWebhookJSONQueryRequest struct {
 	// Identifier of a custom query
-	QueryID int64 `tl:"query_id"`
+	QueryID int64
 	// JSON-serialized answer to the query
-	Data DataJSON `tl:"data"`
+	Data DataJSON
 }
 
 // BotsAnswerWebhookJSONQueryRequestTypeID is TL type id of BotsAnswerWebhookJSONQueryRequest.

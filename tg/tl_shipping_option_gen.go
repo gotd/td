@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/shippingOption for reference.
 type ShippingOption struct {
 	// Option ID
-	ID string `tl:"id"`
+	ID string
 	// Title
-	Title string `tl:"title"`
+	Title string
 	// List of price portions
-	Prices []LabeledPrice `tl:"prices"`
+	Prices []LabeledPrice
 }
 
 // ShippingOptionTypeID is TL type id of ShippingOption.

@@ -31,13 +31,13 @@ type MessagesSaveRecentStickerRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Whether to add/remove stickers recently attached to photo or video files
-	Attached bool `tl:"attached"`
+	Attached bool
 	// Sticker
-	ID InputDocumentClass `tl:"id"`
+	ID InputDocumentClass
 	// Whether to save or unsave the sticker
-	Unsave bool `tl:"unsave"`
+	Unsave bool
 }
 
 // MessagesSaveRecentStickerRequestTypeID is TL type id of MessagesSaveRecentStickerRequest.

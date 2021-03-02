@@ -31,13 +31,13 @@ type PaymentsValidateRequestedInfoRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Save order information to re-use it for future orders
-	Save bool `tl:"save"`
+	Save bool
 	// Message ID of payment form
-	MsgID int `tl:"msg_id"`
+	MsgID int
 	// Requested order information
-	Info PaymentRequestedInfo `tl:"info"`
+	Info PaymentRequestedInfo
 }
 
 // PaymentsValidateRequestedInfoRequestTypeID is TL type id of PaymentsValidateRequestedInfoRequest.

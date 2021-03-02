@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/auth.exportAuthorization for reference.
 type AuthExportAuthorizationRequest struct {
 	// Number of a target data-centre
-	DCID int `tl:"dc_id"`
+	DCID int
 }
 
 // AuthExportAuthorizationRequestTypeID is TL type id of AuthExportAuthorizationRequest.

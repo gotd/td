@@ -31,39 +31,39 @@ type MessageFwdHeader struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// Imported field of MessageFwdHeader.
-	Imported bool `tl:"imported"`
+	Imported bool
 	// The ID of the user that originally sent the message
 	//
 	// Use SetFromID and GetFromID helpers.
-	FromID PeerClass `tl:"from_id"`
+	FromID PeerClass
 	// The name of the user that originally sent the message
 	//
 	// Use SetFromName and GetFromName helpers.
-	FromName string `tl:"from_name"`
+	FromName string
 	// When was the message originally sent
-	Date int `tl:"date"`
+	Date int
 	// ID of the channel message that was forwarded
 	//
 	// Use SetChannelPost and GetChannelPost helpers.
-	ChannelPost int `tl:"channel_post"`
+	ChannelPost int
 	// For channels and if signatures are enabled, author of the channel message
 	//
 	// Use SetPostAuthor and GetPostAuthor helpers.
-	PostAuthor string `tl:"post_author"`
+	PostAuthor string
 	// Only for messages forwarded to the current user (inputPeerSelf), full info about the user/channel that originally sent the message
 	//
 	// Use SetSavedFromPeer and GetSavedFromPeer helpers.
-	SavedFromPeer PeerClass `tl:"saved_from_peer"`
+	SavedFromPeer PeerClass
 	// Only for messages forwarded to the current user (inputPeerSelf), ID of the message that was forwarded from the original user/channel
 	//
 	// Use SetSavedFromMsgID and GetSavedFromMsgID helpers.
-	SavedFromMsgID int `tl:"saved_from_msg_id"`
+	SavedFromMsgID int
 	// PSA type
 	//
 	// Use SetPsaType and GetPsaType helpers.
-	PsaType string `tl:"psa_type"`
+	PsaType string
 }
 
 // MessageFwdHeaderTypeID is TL type id of MessageFwdHeader.

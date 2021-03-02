@@ -34,13 +34,13 @@ type MessagesSearchCounter struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
-	Flags bin.Fields `tl:"flags"`
+	Flags bin.Fields
 	// If set, the results may be inexact
-	Inexact bool `tl:"inexact"`
+	Inexact bool
 	// Provided message filter
-	Filter MessagesFilterClass `tl:"filter"`
+	Filter MessagesFilterClass
 	// Number of results that were found server-side
-	Count int `tl:"count"`
+	Count int
 }
 
 // MessagesSearchCounterTypeID is TL type id of MessagesSearchCounter.

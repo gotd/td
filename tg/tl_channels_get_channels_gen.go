@@ -31,7 +31,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/channels.getChannels for reference.
 type ChannelsGetChannelsRequest struct {
 	// IDs of channels/supergroups to get info about
-	ID []InputChannelClass `tl:"id"`
+	ID []InputChannelClass
 }
 
 // ChannelsGetChannelsRequestTypeID is TL type id of ChannelsGetChannelsRequest.

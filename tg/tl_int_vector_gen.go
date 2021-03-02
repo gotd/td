@@ -25,7 +25,7 @@ var _ = tdp.Format
 // IntVector is a box for Vector<int>
 type IntVector struct {
 	// Elements of Vector<int>
-	Elems []int `tl:"Elems"`
+	Elems []int
 }
 
 // IntVectorTypeID is TL type id of IntVector.

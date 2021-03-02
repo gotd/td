@@ -28,11 +28,11 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.saveWallPaper for reference.
 type AccountSaveWallPaperRequest struct {
 	// Wallpaper to save
-	Wallpaper InputWallPaperClass `tl:"wallpaper"`
+	Wallpaper InputWallPaperClass
 	// Uninstall wallpaper?
-	Unsave bool `tl:"unsave"`
+	Unsave bool
 	// Wallpaper settings
-	Settings WallPaperSettings `tl:"settings"`
+	Settings WallPaperSettings
 }
 
 // AccountSaveWallPaperRequestTypeID is TL type id of AccountSaveWallPaperRequest.

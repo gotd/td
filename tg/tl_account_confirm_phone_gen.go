@@ -34,12 +34,12 @@ type AccountConfirmPhoneRequest struct {
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/account-deletion
-	PhoneCodeHash string `tl:"phone_code_hash"`
+	PhoneCodeHash string
 	// SMS code, for more info click here »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/account-deletion
-	PhoneCode string `tl:"phone_code"`
+	PhoneCode string
 }
 
 // AccountConfirmPhoneRequestTypeID is TL type id of AccountConfirmPhoneRequest.

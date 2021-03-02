@@ -31,9 +31,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/account.verifyEmail for reference.
 type AccountVerifyEmailRequest struct {
 	// The email to verify
-	Email string `tl:"email"`
+	Email string
 	// The verification code that was received
-	Code string `tl:"code"`
+	Code string
 }
 
 // AccountVerifyEmailRequestTypeID is TL type id of AccountVerifyEmailRequest.

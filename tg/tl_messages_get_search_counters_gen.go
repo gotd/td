@@ -31,9 +31,9 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.getSearchCounters for reference.
 type MessagesGetSearchCountersRequest struct {
 	// Peer where to search
-	Peer InputPeerClass `tl:"peer"`
+	Peer InputPeerClass
 	// Search filters
-	Filters []MessagesFilterClass `tl:"filters"`
+	Filters []MessagesFilterClass
 }
 
 // MessagesGetSearchCountersRequestTypeID is TL type id of MessagesGetSearchCountersRequest.

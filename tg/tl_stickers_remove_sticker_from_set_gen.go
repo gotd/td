@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/stickers.removeStickerFromSet for reference.
 type StickersRemoveStickerFromSetRequest struct {
 	// The sticker to remove
-	Sticker InputDocumentClass `tl:"sticker"`
+	Sticker InputDocumentClass
 }
 
 // StickersRemoveStickerFromSetRequestTypeID is TL type id of StickersRemoveStickerFromSetRequest.
