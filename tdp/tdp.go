@@ -3,6 +3,7 @@
 package tdp
 
 import (
+	"encoding/base64"
 	"fmt"
 	"reflect"
 	"strconv"
@@ -37,13 +38,19 @@ func formatValue(b *strings.Builder, prefix string, opt options, v reflect.Value
 			formatValue(b, prefix, opt, v.Addr())
 		}
 	case reflect.Slice:
+		if buf, ok := v.Interface().([]byte); ok {
+			b.WriteString(base64.RawURLEncoding.EncodeToString(buf))
+			return
+		}
+
 		b.WriteRune('\n')
-		b.WriteString(prefix)
 		for i := 0; i < v.Len(); i++ {
 			vi := v.Index(i)
+			b.WriteString(prefix)
 			b.WriteString(defaultIdent)
 			b.WriteString("- ")
 			formatValue(b, prefix+defaultIdent, opt, vi)
+			b.WriteRune('\n')
 		}
 	default:
 		b.WriteString(fmt.Sprint(v.Interface()))
