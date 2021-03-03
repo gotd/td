@@ -25,6 +25,10 @@ func (b *Builder) Complete() (string, []tg.MessageEntityClass) {
 	entities := b.entities
 	b.reset()
 
+	if len(entities) == 0 {
+		return msg, nil
+	}
+
 	if len(entities) > 1 {
 		last := entities[len(entities)-1]
 		offset := last.GetOffset()
