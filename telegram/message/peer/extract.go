@@ -115,6 +115,8 @@ func (ent Entities) ExtractPeer(peerID tg.PeerClass) (tg.InputPeerClass, error) 
 			ChannelID:  dialog.ID,
 			AccessHash: dialog.AccessHash,
 		}
+	default:
+		return nil, xerrors.Errorf("unexpected peer type %T", peerID)
 	}
 
 	return peer, nil

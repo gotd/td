@@ -58,10 +58,6 @@ func (l *LRUResolver) get(key string) (v tg.InputPeerClass, ok bool) {
 }
 
 func (l *LRUResolver) put(key string, value tg.InputPeerClass) {
-	if l.capacity == 0 {
-		return
-	}
-
 	l.mux.Lock()
 	defer l.mux.Unlock()
 
