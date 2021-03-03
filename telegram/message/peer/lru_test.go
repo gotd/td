@@ -110,9 +110,8 @@ func TestLRUResolver_Resolve(t *testing.T) {
 
 		lru := NewLRUResolver(ResolverFunc(resolver), 10)
 
-		r, err := lru.Resolve(ctx, expectedDomain)
+		_, err := lru.Resolve(ctx, expectedDomain)
 		a.Error(err)
-		a.Equal(expected, r)
 
 		r2, err := lru.Resolve(ctx, expectedDomain)
 		a.NoError(err)
