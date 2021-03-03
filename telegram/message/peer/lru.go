@@ -78,9 +78,6 @@ func (l *LRUResolver) put(key string, value tg.InputPeerClass) {
 }
 
 func (l *LRUResolver) delete(key string) bool {
-	l.mux.Lock()
-	defer l.mux.Unlock()
-
 	found, ok := l.cache[key]
 	if !ok {
 		return false
