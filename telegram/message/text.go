@@ -34,7 +34,11 @@ func (b *Builder) Text(ctx context.Context, msg string) error {
 		return xerrors.Errorf("peer: %w", err)
 	}
 
-	return b.sender.sendMessage(ctx, b.sendRequest(p, msg, nil))
+	if err := b.sender.sendMessage(ctx, b.sendRequest(p, msg, nil)); err != nil {
+		return xerrors.Errorf("send text: %w", err)
+	}
+
+	return nil
 }
 
 // StyledText sends styled text message.
@@ -47,5 +51,10 @@ func (b *Builder) StyledText(ctx context.Context, text StyledTextOption, texts .
 	tb := textBuilder{}
 	tb.Perform(text, texts...)
 	msg, entities := tb.Complete()
-	return b.sender.sendMessage(ctx, b.sendRequest(p, msg, entities))
+
+	if err := b.sender.sendMessage(ctx, b.sendRequest(p, msg, entities)); err != nil {
+		return xerrors.Errorf("send styled text: %w", err)
+	}
+
+	return nil
 }

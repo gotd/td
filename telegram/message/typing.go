@@ -36,11 +36,15 @@ func (b *TypingActionBuilder) send(ctx context.Context, action tg.SendMessageAct
 		return xerrors.Errorf("peer: %w", err)
 	}
 
-	return b.sender.setTyping(ctx, &tg.MessagesSetTypingRequest{
+	if err := b.sender.setTyping(ctx, &tg.MessagesSetTypingRequest{
 		Peer:     p,
 		TopMsgID: b.topMsgID,
 		Action:   action,
-	})
+	}); err != nil {
+		return xerrors.Errorf("set typing: %w", err)
+	}
+
+	return nil
 }
 
 // Typing sends SendMessageTypingAction.
