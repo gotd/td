@@ -2,6 +2,7 @@ package peer
 
 import (
 	"context"
+	"sync"
 
 	"github.com/gotd/td/tg"
 )
@@ -14,6 +15,8 @@ type LRUResolver struct {
 	capacity int
 	cache    map[string]*linkedNode
 	lruList  *linkedList
+
+	mux sync.Mutex
 }
 
 // NewLRUResolver creates new LRUResolver.
@@ -29,6 +32,7 @@ func NewLRUResolver(next Resolver, capacity int) *LRUResolver {
 // Resolve implements Resolver.
 func (l *LRUResolver) Resolve(ctx context.Context, domain string) (tg.InputPeerClass, error) {
 	// TODO(tdakkota): expiration support
+	// TODO(tdakkota): resolve race conditions in case when two and more goroutines tries to fetch same domain.
 	if v, ok := l.get(domain); ok {
 		return v, nil
 	}
@@ -43,6 +47,9 @@ func (l *LRUResolver) Resolve(ctx context.Context, domain string) (tg.InputPeerC
 }
 
 func (l *LRUResolver) get(key string) (v tg.InputPeerClass, ok bool) {
+	l.mux.Lock()
+	defer l.mux.Unlock()
+
 	if found, ok := l.cache[key]; ok {
 		l.lruList.MoveToFront(found)
 		return found.value, true
@@ -54,6 +61,9 @@ func (l *LRUResolver) put(key string, value tg.InputPeerClass) {
 	if l.capacity == 0 {
 		return
 	}
+
+	l.mux.Lock()
+	defer l.mux.Unlock()
 
 	if found, ok := l.cache[key]; ok {
 		found.value = value
@@ -68,6 +78,9 @@ func (l *LRUResolver) put(key string, value tg.InputPeerClass) {
 }
 
 func (l *LRUResolver) delete(key string) bool {
+	l.mux.Lock()
+	defer l.mux.Unlock()
+
 	found, ok := l.cache[key]
 	if !ok {
 		return false
