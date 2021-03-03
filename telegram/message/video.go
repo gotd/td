@@ -65,6 +65,11 @@ func (u *VideoDocumentBuilder) apply(ctx context.Context, b *multiMediaBuilder) 
 	return u.doc.Attributes(&u.attr).apply(ctx, b)
 }
 
+// applyMulti implements MultiMediaOption.
+func (u *VideoDocumentBuilder) applyMulti(ctx context.Context, b *multiMediaBuilder) error {
+	return u.doc.Attributes(&u.attr).applyMulti(ctx, b)
+}
+
 // Video adds video attachment.
 func Video(file tg.InputFileClass, caption ...StyledTextOption) *VideoDocumentBuilder {
 	// TODO(tdakkota): better MIME and attributes building.

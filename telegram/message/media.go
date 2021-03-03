@@ -8,25 +8,6 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-type multiMediaBuilder struct {
-	sender *Sender
-	// Attached media.
-	media []tg.InputSingleMedia
-}
-
-// MediaOption is a option for setting media attachments.
-type MediaOption interface {
-	apply(ctx context.Context, b *multiMediaBuilder) error
-}
-
-// mediaOptionFunc is a function adapter for MediaOption.
-type mediaOptionFunc func(ctx context.Context, b *multiMediaBuilder) error
-
-// apply implements MediaOption.
-func (m mediaOptionFunc) apply(ctx context.Context, b *multiMediaBuilder) error {
-	return m(ctx, b)
-}
-
 func performTextOptions(media *tg.InputSingleMedia, opts []StyledTextOption) {
 	if len(opts) > 0 {
 		captionBuilder := textBuilder{}
@@ -68,19 +49,24 @@ func Contact(contact tg.InputMediaContact, caption ...StyledTextOption) MediaOpt
 	return Media(&contact, caption...)
 }
 
-func (b *Builder) applyMedia(ctx context.Context, media MediaOption, album ...MediaOption) ([]tg.InputSingleMedia, error) {
+func (b *Builder) applyMedia(
+	ctx context.Context,
+	p tg.InputPeerClass,
+	media MultiMediaOption, album ...MultiMediaOption,
+) ([]tg.InputSingleMedia, error) {
 	mb := multiMediaBuilder{
 		sender: b.sender,
+		peer:   p,
 		media:  make([]tg.InputSingleMedia, 0, len(album)+1),
 	}
 
-	if err := media.apply(ctx, &mb); err != nil {
+	if err := media.applyMulti(ctx, &mb); err != nil {
 		return nil, xerrors.Errorf("media first option: %w", err)
 	}
 
 	if len(album) > 0 {
 		for i, opt := range album {
-			if err := opt.apply(ctx, &mb); err != nil {
+			if err := opt.applyMulti(ctx, &mb); err != nil {
 				return nil, xerrors.Errorf("media option %d: %w", i+2, err)
 			}
 		}
@@ -89,49 +75,68 @@ func (b *Builder) applyMedia(ctx context.Context, media MediaOption, album ...Me
 	return mb.media, nil
 }
 
-func (b *Builder) applySingleMedia(ctx context.Context, media MediaOption) (tg.InputSingleMedia, error) {
-	r, err := b.applyMedia(ctx, media)
-	if err != nil {
-		return tg.InputSingleMedia{}, err
+func (b *Builder) applySingleMedia(
+	ctx context.Context,
+	p tg.InputPeerClass,
+	media MediaOption,
+) (tg.InputSingleMedia, error) {
+	mb := multiMediaBuilder{
+		sender: b.sender,
+		peer:   p,
+		media:  make([]tg.InputSingleMedia, 0, 1),
 	}
 
-	if len(r) < 1 {
-		panic("unreachable: there are should be at least one media attachment")
+	if err := media.apply(ctx, &mb); err != nil {
+		return tg.InputSingleMedia{}, xerrors.Errorf("media first option: %w", err)
 	}
 
-	return r[0], nil
+	return mb.media[0], nil
 }
 
-// Media sends message with media attachments.
-func (b *Builder) Media(ctx context.Context, media MediaOption, album ...MediaOption) error {
+// Album sends message with multiple media attachments.
+func (b *Builder) Album(ctx context.Context, media MultiMediaOption, album ...MultiMediaOption) error {
 	p, err := b.peer(ctx)
 	if err != nil {
 		return xerrors.Errorf("peer: %w", err)
 	}
 
-	if len(album) > 0 {
-		mb, err := b.applyMedia(ctx, media, album...)
-		if err != nil {
-			return err
-		}
-
-		return b.sender.sendMultiMedia(ctx, &tg.MessagesSendMultiMediaRequest{
-			Silent:       b.silent,
-			Background:   b.background,
-			ClearDraft:   b.clearDraft,
-			Peer:         p,
-			ReplyToMsgID: b.replyToMsgID,
-			MultiMedia:   mb,
-			ScheduleDate: b.scheduleDate,
-		})
+	if len(album) < 1 {
+		return b.Media(ctx, media)
 	}
 
-	attachment, err := b.applySingleMedia(ctx, media)
+	mb, err := b.applyMedia(ctx, p, media, album...)
 	if err != nil {
 		return err
 	}
 
-	return b.sender.sendMedia(ctx, &tg.MessagesSendMediaRequest{
+	if err := b.sender.sendMultiMedia(ctx, &tg.MessagesSendMultiMediaRequest{
+		Silent:       b.silent,
+		Background:   b.background,
+		ClearDraft:   b.clearDraft,
+		Peer:         p,
+		ReplyToMsgID: b.replyToMsgID,
+		MultiMedia:   mb,
+		ScheduleDate: b.scheduleDate,
+	}); err != nil {
+		return xerrors.Errorf("send album: %w", err)
+	}
+
+	return nil
+}
+
+// Media sends message with media attachment.
+func (b *Builder) Media(ctx context.Context, media MediaOption) error {
+	p, err := b.peer(ctx)
+	if err != nil {
+		return xerrors.Errorf("peer: %w", err)
+	}
+
+	attachment, err := b.applySingleMedia(ctx, p, media)
+	if err != nil {
+		return err
+	}
+
+	if err := b.sender.sendMedia(ctx, &tg.MessagesSendMediaRequest{
 		Silent:       b.silent,
 		Background:   b.background,
 		ClearDraft:   b.clearDraft,
@@ -142,7 +147,11 @@ func (b *Builder) Media(ctx context.Context, media MediaOption, album ...MediaOp
 		ReplyMarkup:  b.replyMarkup,
 		Entities:     attachment.Entities,
 		ScheduleDate: b.scheduleDate,
-	})
+	}); err != nil {
+		return xerrors.Errorf("send media: %w", err)
+	}
+
+	return nil
 }
 
 // UploadMedia uses messages.uploadMedia to upload a file and associate it to
@@ -155,7 +164,7 @@ func (b *Builder) UploadMedia(ctx context.Context, media MediaOption) (tg.Messag
 		return nil, xerrors.Errorf("peer: %w", err)
 	}
 
-	attachment, err := b.applySingleMedia(ctx, media)
+	attachment, err := b.applySingleMedia(ctx, p, media)
 	if err != nil {
 		return nil, err
 	}

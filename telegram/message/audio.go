@@ -70,6 +70,11 @@ func (u *AudioDocumentBuilder) apply(ctx context.Context, b *multiMediaBuilder) 
 	return u.doc.Attributes(&u.attr).apply(ctx, b)
 }
 
+// applyMulti implements MultiMediaOption.
+func (u *AudioDocumentBuilder) applyMulti(ctx context.Context, b *multiMediaBuilder) error {
+	return u.doc.Attributes(&u.attr).applyMulti(ctx, b)
+}
+
 // Audio adds audio attachment.
 func Audio(file tg.InputFileClass, caption ...StyledTextOption) *AudioDocumentBuilder {
 	return UploadedDocument(file, caption...).Audio()

@@ -38,6 +38,11 @@ func (u *DocumentBuilder) apply(ctx context.Context, b *multiMediaBuilder) error
 	return Media(&u.doc, u.caption...).apply(ctx, b)
 }
 
+// applyMulti implements MultiMediaOption.
+func (u *DocumentBuilder) applyMulti(ctx context.Context, b *multiMediaBuilder) error {
+	return u.apply(ctx, b)
+}
+
 // Document adds document attachment.
 func Document(doc FileLocation, caption ...StyledTextOption) *DocumentBuilder {
 	v := new(tg.InputDocument)
@@ -89,6 +94,11 @@ func (u *SearchDocumentBuilder) apply(ctx context.Context, b *multiMediaBuilder)
 	v.FillFrom(doc)
 	u.doc.ID = v
 	return Media(&u.doc, u.caption...).apply(ctx, b)
+}
+
+// applyMulti implements MultiMediaOption.
+func (u *SearchDocumentBuilder) applyMulti(ctx context.Context, b *multiMediaBuilder) error {
+	return u.apply(ctx, b)
 }
 
 // DocumentByHash finds document by hash and adds as attachment.
@@ -221,6 +231,24 @@ func (u *UploadedDocumentBuilder) TTLSeconds(ttl int) *UploadedDocumentBuilder {
 // apply implements MediaOption.
 func (u *UploadedDocumentBuilder) apply(ctx context.Context, b *multiMediaBuilder) error {
 	return Media(&u.doc, u.caption...).apply(ctx, b)
+}
+
+// applyMulti implements MultiMediaOption.
+func (u *UploadedDocumentBuilder) applyMulti(ctx context.Context, b *multiMediaBuilder) error {
+	m, err := b.sender.uploadMedia(ctx, &tg.MessagesUploadMediaRequest{
+		Peer:  b.peer,
+		Media: &u.doc,
+	})
+	if err != nil {
+		return xerrors.Errorf("upload media: %w", err)
+	}
+
+	input, err := convertMessageMediaToInput(m)
+	if err != nil {
+		return xerrors.Errorf("convert: %w", err)
+	}
+
+	return Media(input, u.caption...).apply(ctx, b)
 }
 
 // UploadedDocument adds document attachment.

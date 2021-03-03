@@ -4,6 +4,8 @@ import (
 	"context"
 	"time"
 
+	"golang.org/x/xerrors"
+
 	"github.com/gotd/td/tg"
 )
 
@@ -27,6 +29,11 @@ func (u *PhotoBuilder) TTLSeconds(ttl int) *PhotoBuilder {
 // apply implements MediaOption.
 func (u *PhotoBuilder) apply(ctx context.Context, b *multiMediaBuilder) error {
 	return Media(&u.photo, u.caption...).apply(ctx, b)
+}
+
+// applyMulti implements MultiMediaOption.
+func (u *PhotoBuilder) applyMulti(ctx context.Context, b *multiMediaBuilder) error {
+	return u.apply(ctx, b)
 }
 
 // Photo adds photo attachment.
@@ -110,6 +117,24 @@ func (u *UploadedPhotoBuilder) TTLSeconds(ttl int) *UploadedPhotoBuilder {
 // apply implements MediaOption.
 func (u *UploadedPhotoBuilder) apply(ctx context.Context, b *multiMediaBuilder) error {
 	return Media(&u.photo, u.caption...).apply(ctx, b)
+}
+
+// applyMulti implements MultiMediaOption.
+func (u *UploadedPhotoBuilder) applyMulti(ctx context.Context, b *multiMediaBuilder) error {
+	m, err := b.sender.uploadMedia(ctx, &tg.MessagesUploadMediaRequest{
+		Peer:  b.peer,
+		Media: &u.photo,
+	})
+	if err != nil {
+		return xerrors.Errorf("upload media: %w", err)
+	}
+
+	input, err := convertMessageMediaToInput(m)
+	if err != nil {
+		return xerrors.Errorf("convert: %w", err)
+	}
+
+	return Media(input, u.caption...).apply(ctx, b)
 }
 
 // UploadedPhoto adds photo attachment.
