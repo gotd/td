@@ -22,6 +22,7 @@ func sendAudio(ctx context.Context) error {
 
 	return client.Run(ctx, func(ctx context.Context) error {
 		raw := tg.NewClient(client)
+		// Upload file.
 		f, err := uploader.NewUploader(raw).FromPath(ctx, "vsyo idyot po planu.mp3")
 		if err != nil {
 			return xerrors.Errorf("upload: %w", err)
@@ -30,18 +31,19 @@ func sendAudio(ctx context.Context) error {
 		sender := message.NewSender(raw)
 		r := sender.Resolve("@durovschat")
 
-		// Uploads and sends audio to the @durovschat.
+		// Sends audio to the @durovschat.
 		if err := r.Audio(ctx, f); err != nil {
 			return err
 		}
 
-		// Uploads and sends audio with title to the @durovschat.
+		// Sends audio with title to the @durovschat.
 		if err := r.Media(ctx, message.Audio(f).
-			Title("Yegor Letov — Everything is going according to plan")); err != nil {
+			Performer("Yegor Letov").
+			Title("Everything is going according to plan")); err != nil {
 			return err
 		}
 
-		// Uploads and sends voice message to the @durovschat.
+		// Sends voice message to the @durovschat.
 		if err := r.Voice(ctx, f); err != nil {
 			return err
 		}

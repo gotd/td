@@ -9,4 +9,7 @@ const (
 
 	// DefaultVideoMIME is a default video MIME to use.
 	DefaultVideoMIME = "video/mp4"
+
+	// DefaultGifMIME is a default gif MIME to use.
+	DefaultGifMIME = "image/gif"
 )

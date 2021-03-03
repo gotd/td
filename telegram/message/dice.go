@@ -13,19 +13,28 @@ func MediaDice(emoticon string) MediaOption {
 	})
 }
 
+const (
+	// DiceEmoticon is a emoticon to send dice sticker.
+	DiceEmoticon = "🎲"
+	// DartsEmoticon is a emoticon to send darts sticker.
+	DartsEmoticon = "🎯"
+	// BasketballEmoticon is a emoticon to send basketball sticker.
+	BasketballEmoticon = "🏀"
+)
+
 // Dice adds a dice animated sticker.
 func Dice() MediaOption {
-	return MediaDice("🎲")
+	return MediaDice(DiceEmoticon)
 }
 
 // Darts adds a darts animated sticker.
 func Darts() MediaOption {
-	return MediaDice("🎯")
+	return MediaDice(DartsEmoticon)
 }
 
 // Basketball adds a basketball animated sticker.
 func Basketball() MediaOption {
-	return MediaDice("🏀")
+	return MediaDice(BasketballEmoticon)
 }
 
 // Dice sends a dice animated sticker.

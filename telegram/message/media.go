@@ -32,67 +32,6 @@ func Media(media tg.InputMediaClass, caption ...StyledTextOption) MediaOption {
 	})
 }
 
-// GeoPoint adds geo point attachment.
-// NB: parameter accuracy may be zero and will not be used.
-func GeoPoint(lat, long float64, accuracy int, caption ...StyledTextOption) MediaOption {
-	return Media(&tg.InputMediaGeoPoint{
-		GeoPoint: &tg.InputGeoPoint{
-			Lat:            lat,
-			Long:           long,
-			AccuracyRadius: accuracy,
-		},
-	}, caption...)
-}
-
-// Contact adds contact attachment.
-func Contact(contact tg.InputMediaContact, caption ...StyledTextOption) MediaOption {
-	return Media(&contact, caption...)
-}
-
-func (b *Builder) applyMedia(
-	ctx context.Context,
-	p tg.InputPeerClass,
-	media MultiMediaOption, album ...MultiMediaOption,
-) ([]tg.InputSingleMedia, error) {
-	mb := multiMediaBuilder{
-		sender: b.sender,
-		peer:   p,
-		media:  make([]tg.InputSingleMedia, 0, len(album)+1),
-	}
-
-	if err := media.applyMulti(ctx, &mb); err != nil {
-		return nil, xerrors.Errorf("media first option: %w", err)
-	}
-
-	if len(album) > 0 {
-		for i, opt := range album {
-			if err := opt.applyMulti(ctx, &mb); err != nil {
-				return nil, xerrors.Errorf("media option %d: %w", i+2, err)
-			}
-		}
-	}
-
-	return mb.media, nil
-}
-
-func (b *Builder) applySingleMedia(
-	ctx context.Context,
-	p tg.InputPeerClass,
-	media MediaOption,
-) (tg.InputSingleMedia, error) {
-	mb := multiMediaBuilder{
-		sender: b.sender,
-		peer:   p,
-		media:  make([]tg.InputSingleMedia, 0, 1),
-	}
-
-	if err := media.apply(ctx, &mb); err != nil {
-		return tg.InputSingleMedia{}, xerrors.Errorf("media first option: %w", err)
-	}
-
-	return mb.media[0], nil
-}
-
 // Album sends message with multiple media attachments.
 func (b *Builder) Album(ctx context.Context, media MultiMediaOption, album ...MultiMediaOption) error {
 	p, err := b.peer(ctx)
@@ -124,6 +63,32 @@ func (b *Builder) Album(ctx context.Context, media MultiMediaOption, album ...Mu
 	return nil
 }
 
+func (b *Builder) applyMedia(
+	ctx context.Context,
+	p tg.InputPeerClass,
+	media MultiMediaOption, album ...MultiMediaOption,
+) ([]tg.InputSingleMedia, error) {
+	mb := multiMediaBuilder{
+		sender: b.sender,
+		peer:   p,
+		media:  make([]tg.InputSingleMedia, 0, len(album)+1),
+	}
+
+	if err := media.applyMulti(ctx, &mb); err != nil {
+		return nil, xerrors.Errorf("media first option: %w", err)
+	}
+
+	if len(album) > 0 {
+		for i, opt := range album {
+			if err := opt.applyMulti(ctx, &mb); err != nil {
+				return nil, xerrors.Errorf("media option %d: %w", i+2, err)
+			}
+		}
+	}
+
+	return mb.media, nil
+}
+
 // Media sends message with media attachment.
 func (b *Builder) Media(ctx context.Context, media MediaOption) error {
 	p, err := b.peer(ctx)
@@ -152,6 +117,24 @@ func (b *Builder) Media(ctx context.Context, media MediaOption) error {
 	}
 
 	return nil
+}
+
+func (b *Builder) applySingleMedia(
+	ctx context.Context,
+	p tg.InputPeerClass,
+	media MediaOption,
+) (tg.InputSingleMedia, error) {
+	mb := multiMediaBuilder{
+		sender: b.sender,
+		peer:   p,
+		media:  make([]tg.InputSingleMedia, 0, 1),
+	}
+
+	if err := media.apply(ctx, &mb); err != nil {
+		return tg.InputSingleMedia{}, xerrors.Errorf("media first option: %w", err)
+	}
+
+	return mb.media[0], nil
 }
 
 // UploadMedia uses messages.uploadMedia to upload a file and associate it to

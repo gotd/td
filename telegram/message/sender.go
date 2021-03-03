@@ -18,7 +18,7 @@ type Sender struct {
 	raw  *tg.Client
 	rand io.Reader
 
-	uploader *uploader.Uploader
+	uploader Uploader
 	resolver peer.Resolver
 }
 
@@ -33,7 +33,7 @@ func NewSender(raw *tg.Client) *Sender {
 }
 
 // WithUploader sets file uploader to use.
-func (s *Sender) WithUploader(u *uploader.Uploader) *Sender {
+func (s *Sender) WithUploader(u Uploader) *Sender {
 	s.uploader = u
 	return s
 }

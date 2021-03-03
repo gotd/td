@@ -38,7 +38,7 @@ func (m mockResult) MapChats() (r tg.ChatClassArray) {
 
 func TestEntities(t *testing.T) {
 	users := map[int]*tg.User{
-		10: {ID: 10, AccessHash: 10,},
+		10: {ID: 10, AccessHash: 10},
 	}
 	chats := map[int]*tg.Chat{
 		10: {ID: 10},
@@ -102,16 +102,16 @@ func TestEntities(t *testing.T) {
 			}
 			a.Equal(peerUser, user)
 			a.NoError(err)
-			user, err = e.ExtractPeer(&tg.PeerUser{UserID: 11})
+			_, err = e.ExtractPeer(&tg.PeerUser{UserID: 11})
 			a.Error(err)
 
 			chat, err := e.ExtractPeer(&tg.PeerChat{ChatID: 10})
 			peerChat := &tg.InputPeerChat{
-				ChatID:     10,
+				ChatID: 10,
 			}
 			a.Equal(peerChat, chat)
 			a.NoError(err)
-			chat, err = e.ExtractPeer(&tg.PeerChat{ChatID: 11})
+			_, err = e.ExtractPeer(&tg.PeerChat{ChatID: 11})
 			a.Error(err)
 
 			channel, err := e.ExtractPeer(&tg.PeerChannel{ChannelID: 10})
@@ -121,7 +121,7 @@ func TestEntities(t *testing.T) {
 			}
 			a.Equal(peerChannel, channel)
 			a.NoError(err)
-			channel, err = e.ExtractPeer(&tg.PeerChannel{ChannelID: 11})
+			_, err = e.ExtractPeer(&tg.PeerChannel{ChannelID: 11})
 			a.Error(err)
 		})
 	}

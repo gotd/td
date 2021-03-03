@@ -2,17 +2,24 @@ package rpcmock
 
 import (
 	"context"
-	"math/rand"
+	"crypto/rand"
 
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/crypto"
 )
 
 // InvokeRaw implements tg.Invoker.
 func (i *Mock) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	h := i.Handler()
-	body, err := h(rand.Int63(), input)
+
+	id, err := crypto.RandInt64(rand.Reader)
+	if err != nil {
+		return xerrors.Errorf("generate id: %w", err)
+	}
+
+	body, err := h(id, input)
 	if err != nil {
 		return xerrors.Errorf("mock invoke: %w", err)
 	}

@@ -9,8 +9,17 @@ import (
 	"github.com/gotd/td/tg"
 )
 
+// Uploader is a abstraction for Telegram file uploader.
+type Uploader interface {
+	FromFile(ctx context.Context, f uploader.File) (tg.InputFileClass, error)
+	FromPath(ctx context.Context, path string) (tg.InputFileClass, error)
+	FromFS(ctx context.Context, filesystem fs.FS, path string) (tg.InputFileClass, error)
+	FromReader(ctx context.Context, name string, f io.Reader) (tg.InputFileClass, error)
+	FromBytes(ctx context.Context, name string, b []byte) (tg.InputFileClass, error)
+}
+
 type uploadBuilder struct {
-	upload *uploader.Uploader
+	upload Uploader
 }
 
 // UploadOption is a UploadBuilder creation option.

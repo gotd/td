@@ -39,6 +39,6 @@ func Test_plainResolver_Resolve(t *testing.T) {
 	mock.Equal(10, r.(*tg.InputPeerUser).UserID)
 	mock.NoError(err)
 
-	r, err = resolver.Resolve(ctx, domain)
+	_, err = resolver.Resolve(ctx, domain)
 	mock.Error(err)
 }

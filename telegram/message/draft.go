@@ -26,7 +26,7 @@ func (b *Builder) saveDraftRequest(
 // Also, you can use Clear() builder option with any other message send method.
 //
 // See https://core.telegram.org/api/drafts#clearing-drafts.
-func (b *Builder) ClearDraft(ctx context.Context, msg string) error {
+func (b *Builder) ClearDraft(ctx context.Context) error {
 	p, err := b.peer(ctx)
 	if err != nil {
 		return xerrors.Errorf("peer: %w", err)

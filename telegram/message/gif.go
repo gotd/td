@@ -10,7 +10,7 @@ import (
 func GIF(file tg.InputFileClass, caption ...StyledTextOption) *UploadedDocumentBuilder {
 	return UploadedDocument(file, caption...).
 		Attributes(&tg.DocumentAttributeAnimated{}).
-		MIME("image/gif")
+		MIME(DefaultGifMIME)
 }
 
 // GIF sends gif.

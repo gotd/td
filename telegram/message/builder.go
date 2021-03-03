@@ -75,11 +75,16 @@ func (b *Builder) ReplyMsg(msg tg.MessageClass) *Builder {
 	return b.Reply(msg.GetID())
 }
 
+// ScheduleTS sets scheduled message timestamp for scheduled messages.
+func (b *Builder) ScheduleTS(date int) *Builder {
+	r := b.copy()
+	r.scheduleDate = date
+	return r
+}
+
 // Schedule sets scheduled message date for scheduled messages.
 func (b *Builder) Schedule(date time.Time) *Builder {
-	r := b.copy()
-	r.scheduleDate = int(date.Unix())
-	return r
+	return b.ScheduleTS(int(date.Unix()))
 }
 
 // NoWebpage sets flag to disable generation of the webpage preview.
