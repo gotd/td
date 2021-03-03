@@ -33,7 +33,7 @@ func TestRequestBuilder_Report(t *testing.T) {
 	id := int(id64)
 	msg := "abc" + strconv.Itoa(id)
 
-	report := sender.Self().Report(10).Message(msg)
+	report := sender.Self().Report(id).Message(msg)
 
 	var r bool
 	expectSendReport(&tg.InputReportReasonSpam{}, mock, id, msg)
