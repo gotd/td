@@ -6,13 +6,14 @@ import (
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/mtproto"
+	"github.com/gotd/td/tg"
 )
 
-func (i *Mock) request(body bin.Encoder) *RequestBuilder {
+func (i *Mock) request(fn func(b bin.Encoder)) *RequestBuilder {
 	return &RequestBuilder{
-		mock:   i,
-		expect: body,
-		times:  1,
+		mock:     i,
+		expectFn: fn,
+		times:    1,
 	}
 }
 
@@ -21,16 +22,23 @@ func (i *Mock) Expect() *RequestBuilder {
 	return i.request(nil)
 }
 
+// ExpectFunc creates builder of new expected call with given input checker.
+func (i *Mock) ExpectFunc(fn func(b bin.Encoder)) *RequestBuilder {
+	return i.request(fn)
+}
+
 // ExpectCall creates builder of new expected call with given input.
 func (i *Mock) ExpectCall(body bin.Encoder) *RequestBuilder {
-	return i.request(body)
+	return i.request(func(got bin.Encoder) {
+		i.Assertions.Equal(body, got)
+	})
 }
 
 // RequestBuilder is builder of expected RPC request.
 type RequestBuilder struct {
-	mock   *Mock
-	expect bin.Encoder
-	times  int
+	mock     *Mock
+	expectFn func(b bin.Encoder)
+	times    int
 }
 
 // N sets count of expected calls.
@@ -42,6 +50,16 @@ func (b *RequestBuilder) N(times int) *RequestBuilder {
 // ThenResult adds call result to the end of call stack.
 func (b *RequestBuilder) ThenResult(body bin.Encoder) *Mock {
 	return b.result(body, nil)
+}
+
+// ThenTrue adds call tg.BoolTrue result to the end of call stack.
+func (b *RequestBuilder) ThenTrue() *Mock {
+	return b.result(&tg.BoolTrue{}, nil)
+}
+
+// ThenFalse adds call tg.BoolFalse result to the end of call stack.
+func (b *RequestBuilder) ThenFalse() *Mock {
+	return b.result(&tg.BoolFalse{}, nil)
 }
 
 // ThenErr adds call result to the end of call stack.
@@ -87,8 +105,8 @@ func (b *RequestBuilder) ThenUnregistered() *Mock {
 func (b *RequestBuilder) result(r bin.Encoder, err error) *Mock {
 	for i := 0; i < b.times; i++ {
 		b.mock.add(HandlerFunc(func(id int64, body bin.Encoder) (bin.Encoder, error) {
-			if b.expect != nil {
-				b.mock.Assertions.Equal(b.expect, body)
+			if b.expectFn != nil {
+				b.expectFn(body)
 			}
 			return r, err
 		}))
