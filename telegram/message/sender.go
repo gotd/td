@@ -98,6 +98,49 @@ func (s *Sender) sendMultiMedia(ctx context.Context, req *tg.MessagesSendMultiMe
 	return err
 }
 
+// forwardMessages forwards message to peer.
+func (s *Sender) forwardMessages(ctx context.Context, req *tg.MessagesForwardMessagesRequest) error {
+	req.RandomID = make([]int64, len(req.ID))
+	for i := range req.RandomID {
+		id, err := crypto.RandInt64(s.rand)
+		if err != nil {
+			return xerrors.Errorf("generate random_id: %w", err)
+		}
+		req.RandomID[i] = id
+	}
+
+	_, err := s.raw.MessagesForwardMessages(ctx, req)
+	return err
+}
+
+// startBot starts a conversation with a bot using a deep linking parameter.
+func (s *Sender) startBot(ctx context.Context, req *tg.MessagesStartBotRequest) error {
+	if req.RandomID == 0 {
+		id, err := crypto.RandInt64(s.rand)
+		if err != nil {
+			return xerrors.Errorf("generate random_id: %w", err)
+		}
+		req.RandomID = id
+	}
+
+	_, err := s.raw.MessagesStartBot(ctx, req)
+	return err
+}
+
+// sendInlineBotResult sends inline query result message to peer.
+func (s *Sender) sendInlineBotResult(ctx context.Context, req *tg.MessagesSendInlineBotResultRequest) error {
+	if req.RandomID == 0 {
+		id, err := crypto.RandInt64(s.rand)
+		if err != nil {
+			return xerrors.Errorf("generate random_id: %w", err)
+		}
+		req.RandomID = id
+	}
+
+	_, err := s.raw.MessagesSendInlineBotResult(ctx, req)
+	return err
+}
+
 // uploadMedia uploads file and associate it to a chat (without actually sending it to the chat).
 func (s *Sender) uploadMedia(ctx context.Context, req *tg.MessagesUploadMediaRequest) (tg.MessageMediaClass, error) {
 	return s.raw.MessagesUploadMedia(ctx, req)
@@ -114,6 +157,12 @@ func (s *Sender) getDocumentByHash(
 // saveDraft saves a message draft associated to a chat.
 func (s *Sender) saveDraft(ctx context.Context, req *tg.MessagesSaveDraftRequest) error {
 	_, err := s.raw.MessagesSaveDraft(ctx, req)
+	return err
+}
+
+// sendVote votes in a poll.
+func (s *Sender) sendVote(ctx context.Context, req *tg.MessagesSendVoteRequest) error {
+	_, err := s.raw.MessagesSendVote(ctx, req)
 	return err
 }
 

@@ -12,4 +12,7 @@ const (
 
 	// DefaultGifMIME is a default gif MIME to use.
 	DefaultGifMIME = "image/gif"
+
+	// DefaultStickerMIME is a default sticker MIME to use.
+	DefaultStickerMIME = "image/webp"
 )
