@@ -24,7 +24,7 @@ func TestDocument(t *testing.T) {
 
 	mock.NoError(sender.Self().Document(ctx, loc))
 	mock.NoError(sender.Self().Media(ctx, Document(loc).
-		TTL(10*time.Second).Query("10")))
+		TTL(10 * time.Second).Query("10")))
 }
 
 func TestDocumentExternal(t *testing.T) {
@@ -39,6 +39,42 @@ func TestDocumentExternal(t *testing.T) {
 
 	mock.NoError(sender.Self().DocumentExternal(ctx, "https://google.com"))
 	mock.NoError(sender.Self().Media(ctx, DocumentExternal("https://github.com").TTL(10*time.Second)))
+}
+
+func TestDocumentByHash(t *testing.T) {
+	ctx := context.Background()
+	sender, mock := testSender(t)
+	doc := &tg.Document{
+		ID: 10,
+		FileReference: []byte{10},
+	}
+	loc := new(tg.InputDocument)
+	loc.FillFrom(doc)
+
+	hash := []byte{1, 2, 3}
+	size := 10
+	mime := "rustmustdie"
+
+	mock.ExpectCall(&tg.MessagesGetDocumentByHashRequest{
+		SHA256:   hash,
+		Size:     size,
+		MimeType: mime,
+	}).ThenResult(doc)
+	expectSendMedia(&tg.InputMediaDocument{ID: loc}, mock)
+	mock.NoError(sender.Self().DocumentByHash(ctx, hash, size, mime))
+
+	mock.ExpectCall(&tg.MessagesGetDocumentByHashRequest{
+		SHA256:   hash,
+		Size:     size,
+		MimeType: mime,
+	}).ThenResult(doc)
+	expectSendMedia(&tg.InputMediaDocument{
+		ID:         loc,
+		TTLSeconds: 10,
+		Query:      "10",
+	}, mock)
+	mock.NoError(sender.Self().Media(ctx, DocumentByHash(hash, size, mime).
+		TTL(10 * time.Second).Query("10")))
 }
 
 func TestUploadedDocument(t *testing.T) {
@@ -74,7 +110,7 @@ func TestUploadedDocument(t *testing.T) {
 	}, mock)
 
 	mock.NoError(sender.Self().File(ctx, file))
-	mock.NoError(sender.Self().Media(ctx, UploadedDocument(file).TTL(10*time.Second).
+	mock.NoError(sender.Self().Media(ctx, UploadedDocument(file).TTL(10 * time.Second).
 		Filename("abc.jpg")))
 	mock.NoError(sender.Self().Media(ctx, UploadedDocument(file).Thumb(file).Stickers(loc).HasStickers()))
 }

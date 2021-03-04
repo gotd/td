@@ -68,10 +68,27 @@ func (b *Builder) Document(ctx context.Context, file FileLocation, caption ...St
 //
 // See https://core.telegram.org/api/files#re-using-pre-uploaded-files.
 type SearchDocumentBuilder struct {
-	hash []byte
-	size int
-	mime string
-	*DocumentBuilder
+	hash    []byte
+	size    int
+	mime    string
+	builder *DocumentBuilder
+}
+
+// TTL sets time to live of self-destructing document.
+func (u *SearchDocumentBuilder) TTL(ttl time.Duration) *SearchDocumentBuilder {
+	return u.TTLSeconds(int(ttl.Seconds()))
+}
+
+// TTLSeconds sets time to live in seconds of self-destructing document.
+func (u *SearchDocumentBuilder) TTLSeconds(ttl int) *SearchDocumentBuilder {
+	u.builder.doc.TTLSeconds = ttl
+	return u
+}
+
+// Query sets query field of InputMediaDocument.
+func (u *SearchDocumentBuilder) Query(query string) *SearchDocumentBuilder {
+	u.builder.doc.Query = query
+	return u
 }
 
 // apply implements MediaOption.
@@ -92,8 +109,8 @@ func (u *SearchDocumentBuilder) apply(ctx context.Context, b *multiMediaBuilder)
 
 	v := new(tg.InputDocument)
 	v.FillFrom(doc)
-	u.doc.ID = v
-	return Media(&u.doc, u.caption...).apply(ctx, b)
+	u.builder.doc.ID = v
+	return Media(&u.builder.doc, u.builder.caption...).apply(ctx, b)
 }
 
 // applyMulti implements MultiMediaOption.
@@ -114,7 +131,7 @@ func DocumentByHash(
 		hash: hash,
 		size: size,
 		mime: mime,
-		DocumentBuilder: &DocumentBuilder{
+		builder: &DocumentBuilder{
 			caption: caption,
 		},
 	}
