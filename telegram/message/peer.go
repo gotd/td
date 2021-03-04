@@ -22,7 +22,7 @@ func (r *resolvedCache) Load() (result tg.InputPeerClass, ok bool) {
 }
 
 func (s *Sender) builder(promise peerPromise) *RequestBuilder {
-	once := resolvedCache{}
+	once := &resolvedCache{}
 
 	return &RequestBuilder{
 		Builder: Builder{
@@ -65,7 +65,7 @@ type AnswerableMessageUpdate interface {
 // Answer uses given message update to create message for same chat.
 func (s *Sender) Answer(uctx tg.UpdateContext, upd AnswerableMessageUpdate) *RequestBuilder {
 	entities := peer.EntitiesFromUpdate(uctx)
-	return s.builder(func(ctx context.Context) (r tg.InputPeerClass, err error) {
+	return s.builder(func(ctx context.Context) (tg.InputPeerClass, error) {
 		updMsg := upd.GetMessage()
 		msg, ok := updMsg.AsNotEmpty()
 		if !ok {

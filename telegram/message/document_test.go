@@ -68,10 +68,13 @@ func TestUploadedDocument(t *testing.T) {
 		Stickers: []tg.InputDocumentClass{&tg.InputDocument{
 			ID: loc.GetID(),
 		}},
+		Attributes: []tg.DocumentAttributeClass{
+			&tg.DocumentAttributeHasStickers{},
+		},
 	}, mock)
 
 	mock.NoError(sender.Self().File(ctx, file))
 	mock.NoError(sender.Self().Media(ctx, UploadedDocument(file).TTL(10*time.Second).
 		Filename("abc.jpg")))
-	mock.NoError(sender.Self().Media(ctx, UploadedDocument(file).Thumb(file).Stickers(loc)))
+	mock.NoError(sender.Self().Media(ctx, UploadedDocument(file).Thumb(file).Stickers(loc).HasStickers()))
 }

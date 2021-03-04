@@ -22,6 +22,15 @@ func TestBuilder_Text(t *testing.T) {
 	}).ThenResult(&tg.Updates{})
 
 	mock.NoError(sender.Self().Text(ctx, msg))
+
+	mock.ExpectFunc(func(b bin.Encoder) {
+		req, ok := b.(*tg.MessagesSendMessageRequest)
+		mock.True(ok)
+		mock.Equal(&tg.InputPeerSelf{}, req.Peer)
+		mock.Equal(msg, req.Message)
+	}).ThenRPCErr(testRPCError())
+
+	mock.Error(sender.Self().Text(ctx, msg))
 }
 
 func TestBuilder_StyledText(t *testing.T) {
@@ -91,6 +100,18 @@ func TestBuilder_StyledText(t *testing.T) {
 			}).ThenResult(&tg.Updates{})
 
 			mock.NoError(sender.Self().StyledText(ctx, test.format(msg)))
+
+			mock.ExpectFunc(func(b bin.Encoder) {
+				req, ok := b.(*tg.MessagesSendMessageRequest)
+				mock.True(ok)
+				mock.Equal(&tg.InputPeerSelf{}, req.Peer)
+				mock.Equal(msg, req.Message)
+
+				mock.NotEmpty(len(req.Entities))
+				mock.Equal(test.creator(utf8.RuneCountInString(msg)), req.Entities[0])
+			}).ThenRPCErr(testRPCError())
+
+			mock.Error(sender.Self().StyledText(ctx, test.format(msg)))
 		})
 	}
 }

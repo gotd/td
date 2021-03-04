@@ -6,6 +6,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/telegram/internal/rpcmock"
 	"github.com/gotd/td/tg"
 )
@@ -14,6 +15,14 @@ func testSender(t *testing.T) (*Sender, *rpcmock.Mock) {
 	mock := rpcmock.NewMock(t, require.New(t))
 	sender := NewSender(tg.NewClient(mock))
 	return sender, mock
+}
+
+func testRPCError() *mtproto.Error {
+	return &mtproto.Error{
+		Code:    1337,
+		Message: "TEST_ERROR",
+		Type:    "TEST_ERROR",
+	}
 }
 
 func expectSendMedia(attachment tg.InputMediaClass, mock *rpcmock.Mock) {

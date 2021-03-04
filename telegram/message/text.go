@@ -9,7 +9,7 @@ import (
 )
 
 func (b *Builder) sendRequest(
-	peer tg.InputPeerClass,
+	p tg.InputPeerClass,
 	msg string,
 	entities []tg.MessageEntityClass,
 ) *tg.MessagesSendMessageRequest {
@@ -18,7 +18,7 @@ func (b *Builder) sendRequest(
 		Silent:       b.silent,
 		Background:   b.background,
 		ClearDraft:   b.clearDraft,
-		Peer:         peer,
+		Peer:         p,
 		ReplyToMsgID: b.replyToMsgID,
 		Message:      msg,
 		ReplyMarkup:  b.replyMarkup,

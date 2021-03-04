@@ -27,8 +27,8 @@ func Test_plainResolver_Resolve(t *testing.T) {
 		Username: domain,
 	}).ThenRPCErr(&mtproto.Error{
 		Code:    1337,
-		Message: "TEST_ERR",
-		Type:    "TEST_ERR",
+		Message: "TEST_ERROR",
+		Type:    "TEST_ERROR",
 	})
 
 	ctx := context.Background()

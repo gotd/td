@@ -5,6 +5,8 @@ import (
 	"io"
 	"io/fs"
 
+	"go.uber.org/atomic"
+
 	"github.com/gotd/td/telegram/uploader"
 	"github.com/gotd/td/tg"
 )
@@ -34,24 +36,51 @@ func (f uploadOptionFunc) apply(ctx context.Context, b uploadBuilder) (tg.InputF
 	return f(ctx, b)
 }
 
+type fileCache atomic.Value
+
+func (r *fileCache) Store(result tg.InputFileClass) {
+	r.Value.Store(result)
+}
+
+func (r *fileCache) Load() (result tg.InputFileClass, ok bool) {
+	result, ok = r.Value.Load().(tg.InputFileClass)
+	return
+}
+
+func uploadOption(promise func(ctx context.Context, b uploadBuilder) (tg.InputFileClass, error)) UploadOption {
+	once := &fileCache{}
+	return uploadOptionFunc(func(ctx context.Context, b uploadBuilder) (r tg.InputFileClass, err error) {
+		if v, ok := once.Load(); ok {
+			return v, nil
+		}
+		defer func() {
+			if err == nil && r != nil {
+				once.Store(r)
+			}
+		}()
+
+		return promise(ctx, b)
+	})
+}
+
 // FromFile uploads given File.
-// NB: UploadFromFile does not close given file.
+// NB: FromFile does not close given file.
 func FromFile(f uploader.File) UploadOption {
-	return uploadOptionFunc(func(ctx context.Context, b uploadBuilder) (tg.InputFileClass, error) {
+	return uploadOption(func(ctx context.Context, b uploadBuilder) (tg.InputFileClass, error) {
 		return b.upload.FromFile(ctx, f)
 	})
 }
 
 // FromPath uploads file from given path.
 func FromPath(path string) UploadOption {
-	return uploadOptionFunc(func(ctx context.Context, b uploadBuilder) (tg.InputFileClass, error) {
+	return uploadOption(func(ctx context.Context, b uploadBuilder) (tg.InputFileClass, error) {
 		return b.upload.FromPath(ctx, path)
 	})
 }
 
 // FromFS uploads file from given path using given fs.FS.
 func FromFS(filesystem fs.FS, path string) UploadOption {
-	return uploadOptionFunc(func(ctx context.Context, b uploadBuilder) (tg.InputFileClass, error) {
+	return uploadOption(func(ctx context.Context, b uploadBuilder) (tg.InputFileClass, error) {
 		return b.upload.FromFS(ctx, filesystem, path)
 	})
 }
@@ -60,14 +89,14 @@ func FromFS(filesystem fs.FS, path string) UploadOption {
 // NB: totally stream should not exceed the limit for
 // small files (10 MB as docs says, may be a bit bigger).
 func FromReader(name string, r io.Reader) UploadOption {
-	return uploadOptionFunc(func(ctx context.Context, b uploadBuilder) (tg.InputFileClass, error) {
+	return uploadOption(func(ctx context.Context, b uploadBuilder) (tg.InputFileClass, error) {
 		return b.upload.FromReader(ctx, name, r)
 	})
 }
 
 // FromBytes uploads file from given byte slice.
 func FromBytes(name string, data []byte) UploadOption {
-	return uploadOptionFunc(func(ctx context.Context, b uploadBuilder) (tg.InputFileClass, error) {
+	return uploadOption(func(ctx context.Context, b uploadBuilder) (tg.InputFileClass, error) {
 		return b.upload.FromBytes(ctx, name, data)
 	})
 }

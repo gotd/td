@@ -10,6 +10,7 @@ import (
 )
 
 // Upload creates new UploadBuilder to upload and send attachments.
+// Given option will be called only once, even if you call upload functions .
 func (b *RequestBuilder) Upload(upd UploadOption) *UploadBuilder {
 	return &UploadBuilder{
 		builder: *b,
@@ -137,6 +138,11 @@ func (u *UploadBuilder) RoundVideo(ctx context.Context, caption ...StyledTextOpt
 // GIF uploads and sends gif file.
 func (u *UploadBuilder) GIF(ctx context.Context, caption ...StyledTextOption) error {
 	return u.send(ctx, u.builder.GIF, caption)
+}
+
+// Sticker uploads and sends sticker.
+func (u *UploadBuilder) Sticker(ctx context.Context, caption ...StyledTextOption) error {
+	return u.send(ctx, u.builder.UploadedSticker, caption)
 }
 
 // File uploads and sends plain file.

@@ -211,6 +211,11 @@ func (u *UploadedDocumentBuilder) Filename(name string) *UploadedDocumentBuilder
 	})
 }
 
+// HasStickers sets flag that document attachment has stickers.
+func (u *UploadedDocumentBuilder) HasStickers() *UploadedDocumentBuilder {
+	return u.Attributes(&tg.DocumentAttributeHasStickers{})
+}
+
 // Stickers adds attached mask stickers.
 func (u *UploadedDocumentBuilder) Stickers(stickers ...FileLocation) *UploadedDocumentBuilder {
 	u.doc.Stickers = append(u.doc.Stickers, inputDocuments(stickers...)...)
