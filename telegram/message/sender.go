@@ -98,6 +98,12 @@ func (s *Sender) sendMultiMedia(ctx context.Context, req *tg.MessagesSendMultiMe
 	return err
 }
 
+// editMessage edits message.
+func (s *Sender) editMessage(ctx context.Context, req *tg.MessagesEditMessageRequest) error {
+	_, err := s.raw.MessagesEditMessage(ctx, req)
+	return err
+}
+
 // forwardMessages forwards message to peer.
 func (s *Sender) forwardMessages(ctx context.Context, req *tg.MessagesForwardMessagesRequest) error {
 	req.RandomID = make([]int64, len(req.ID))

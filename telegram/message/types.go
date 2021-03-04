@@ -34,21 +34,6 @@ type MultiMediaOption interface {
 	applyMulti(ctx context.Context, b *multiMediaBuilder) error
 }
 
-var _ MultiMediaOption = multiMediaOptionFunc(nil)
-
-// multiMediaOptionFunc is a function adapter for MediaOption.
-type multiMediaOptionFunc func(ctx context.Context, b *multiMediaBuilder) error
-
-// apply implements MediaOption.
-func (m multiMediaOptionFunc) apply(ctx context.Context, b *multiMediaBuilder) error {
-	return m(ctx, b)
-}
-
-// applyMulti implements MultiMediaOption.
-func (m multiMediaOptionFunc) applyMulti(ctx context.Context, b *multiMediaBuilder) error {
-	return m(ctx, b)
-}
-
 type multiMediaWrapper struct {
 	MediaOption
 }
