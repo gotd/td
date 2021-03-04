@@ -5,12 +5,11 @@ import (
 	"context"
 	"crypto/rand"
 	"io"
-	"os"
 	"runtime"
 	"strconv"
 	"sync"
 	"testing"
-	"time"
+	"testing/fstest"
 
 	"github.com/stretchr/testify/require"
 	"go.uber.org/atomic"
@@ -92,52 +91,6 @@ func (m *mockClient) UploadSaveBigFilePart(ctx context.Context, request *tg.Uplo
 	return true, nil
 }
 
-type file struct {
-	name string
-	data *bytes.Buffer
-}
-
-type fileInfo struct {
-	name string
-	size int64
-}
-
-func (f fileInfo) Name() string {
-	return f.name
-}
-
-func (f fileInfo) Size() int64 {
-	return f.size
-}
-
-func (f fileInfo) Mode() os.FileMode {
-	panic("implement me")
-}
-
-func (f fileInfo) ModTime() time.Time {
-	panic("implement me")
-}
-
-func (f fileInfo) IsDir() bool {
-	panic("implement me")
-}
-
-func (f fileInfo) Sys() interface{} {
-	panic("implement me")
-}
-
-func (f file) Name() string {
-	return f.name
-}
-
-func (f file) Stat() (os.FileInfo, error) {
-	return fileInfo{size: int64(f.data.Len()), name: f.name}, nil
-}
-
-func (f file) Read(p []byte) (int, error) {
-	return f.data.Read(p)
-}
-
 func TestUploader(t *testing.T) {
 	ctx := context.Background()
 
@@ -168,15 +121,24 @@ func TestUploader(t *testing.T) {
 			_, err := b.FromReader(ctx, "10.jpg", bytes.NewReader(data))
 			return err
 		}},
-		{"FromFile", func(b *Uploader, data []byte) error {
+		{"FromBytes", func(b *Uploader, data []byte) error {
 			if len(data) == len(testData) {
 				b = b.WithPartSize(MaximumPartSize)
 			}
 
-			_, err := b.FromFile(ctx, file{
-				name: "10.jpg",
-				data: bytes.NewBuffer(data),
-			})
+			_, err := b.FromBytes(ctx, "10.jpg", data)
+			return err
+		}},
+		{"FromFS", func(b *Uploader, data []byte) error {
+			if len(data) == len(testData) {
+				b = b.WithPartSize(MaximumPartSize)
+			}
+
+			_, err := b.FromFS(ctx, fstest.MapFS{
+				"10.jpg": &fstest.MapFile{
+					Data: data,
+				},
+			}, "10.jpg")
 			return err
 		}},
 	}

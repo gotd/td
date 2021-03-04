@@ -19,10 +19,8 @@ type File interface {
 	io.Reader
 }
 
-var _ File = (*os.File)(nil)
-
 // FromFile uploads given File.
-// NB: UploadFromFile does not close given file.
+// NB: FromFile does not close given file.
 func (u *Uploader) FromFile(ctx context.Context, f File) (tg.InputFileClass, error) {
 	info, err := f.Stat()
 	if err != nil {
@@ -34,15 +32,13 @@ func (u *Uploader) FromFile(ctx context.Context, f File) (tg.InputFileClass, err
 
 // FromPath uploads file from given path.
 func (u *Uploader) FromPath(ctx context.Context, path string) (tg.InputFileClass, error) {
-	f, err := os.Open(filepath.Clean(path))
-	if err != nil {
-		return nil, xerrors.Errorf("open: %w", err)
-	}
-	defer func() {
-		_ = f.Close()
-	}()
+	return u.FromFS(ctx, osFS{}, path)
+}
 
-	return u.FromFile(ctx, f)
+type osFS struct{}
+
+func (o osFS) Open(name string) (fs.File, error) {
+	return os.Open(filepath.Clean(name))
 }
 
 // FromFS uploads file from fs using given path.
