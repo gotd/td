@@ -95,33 +95,6 @@ func ClientFromEnvironment(opts Options) (*Client, error) {
 	return NewClient(appID, appHash, opts), nil
 }
 
-// BotFromEnvironment creates bot client using ClientFromEnvironment
-// connects to server and authenticates it.
-//
-// Variables:
-// BOT_TOKEN — token from BotFather.
-func BotFromEnvironment(ctx context.Context, opts Options, cb func(ctx context.Context, client *Client) error) error {
-	client, err := ClientFromEnvironment(opts)
-	if err != nil {
-		return err
-	}
-
-	return client.Run(ctx, func(ctx context.Context) error {
-		status, err := client.AuthStatus(ctx)
-		if err != nil {
-			return xerrors.Errorf("auth status: %w", err)
-		}
-
-		if !status.Authorized {
-			if err := client.AuthBot(ctx, os.Getenv("BOT_TOKEN")); err != nil {
-				return xerrors.Errorf("login: %w", err)
-			}
-		}
-
-		return cb(ctx, client)
-	})
-}
-
 func retry(ctx context.Context, logger *zap.Logger, cb func(ctx context.Context) error) error {
 	b := backoff.WithContext(backoff.NewExponentialBackOff(), ctx)
 

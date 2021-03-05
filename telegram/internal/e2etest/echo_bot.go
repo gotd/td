@@ -12,6 +12,7 @@ import (
 
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/telegram"
+	"github.com/gotd/td/telegram/message"
 	"github.com/gotd/td/tg"
 )
 
@@ -107,6 +108,8 @@ func (b EchoBot) login(ctx context.Context, client *telegram.Client) (*tg.User, 
 func (b EchoBot) handler(client *telegram.Client) tg.NewMessageHandler {
 	dialogsUsers := newUsers()
 
+	raw := tg.NewClient(client)
+	sender := message.NewSender(raw)
 	return func(ctx tg.UpdateContext, update *tg.UpdateNewMessage) error {
 		if filterMessage(update) {
 			return nil
@@ -118,7 +121,6 @@ func (b EchoBot) handler(client *telegram.Client) tg.NewMessageHandler {
 		}
 
 		if dialogsUsers.empty() {
-			raw := tg.NewClient(client)
 			dialogs, err := raw.MessagesGetDialogs(ctx, &tg.MessagesGetDialogsRequest{
 				Limit:      100,
 				OffsetPeer: &tg.InputPeerEmpty{},
@@ -148,22 +150,7 @@ func (b EchoBot) handler(client *telegram.Client) tg.NewMessageHandler {
 					zap.String("username", user.Username),
 				)
 
-				randomID, err := client.RandInt64()
-				if err != nil {
-					return err
-				}
-
-				msg := &tg.MessagesSendMessageRequest{
-					RandomID: randomID,
-					Message:  m.Message,
-					Peer: &tg.InputPeerUserFromMessage{
-						Peer:   user.AsInputPeer(),
-						UserID: peer.UserID,
-						MsgID:  m.ID,
-					},
-				}
-
-				if err := client.SendMessage(ctx, msg); err != nil {
+				if err := sender.Peer(user.AsInputPeer()).Text(ctx, m.Message); err != nil {
 					return xerrors.Errorf("send message: %w", err)
 				}
 				return nil

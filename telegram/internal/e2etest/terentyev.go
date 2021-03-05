@@ -8,8 +8,8 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/internal/helpers"
+	"github.com/gotd/td/telegram/message"
 	"github.com/gotd/td/tg"
 )
 
@@ -32,21 +32,6 @@ func NewUser(suite *Suite, text []string, username string) User {
 		logger:   suite.Log.Named("terentyev"),
 		message:  make(chan string, 1),
 	}
-}
-
-func (u User) resolveBotPeer(ctx context.Context, client *telegram.Client) (*tg.User, error) {
-	raw := tg.NewClient(client)
-	peer, err := raw.ContactsResolveUsername(ctx, u.username)
-	if err != nil {
-		return nil, err
-	}
-
-	user, ok := peer.MapUsers().FirstAsNotEmpty()
-	if !ok {
-		return nil, xerrors.Errorf("unexpected peer type %T", peer.GetPeer())
-	}
-
-	return user, nil
 }
 
 func (u User) messageHandler(ctx tg.UpdateContext, update *tg.UpdateNewMessage) error {
@@ -77,29 +62,22 @@ func (u User) Run(ctx context.Context) error {
 	dispatcher := tg.NewUpdateDispatcher()
 	dispatcher.OnNewMessage(u.messageHandler)
 	client := u.suite.Client(u.logger, dispatcher)
+	sender := message.NewSender(tg.NewClient(client))
 
 	return client.Run(ctx, func(ctx context.Context) error {
 		if err := u.suite.RetryAuthenticate(ctx, client); err != nil {
 			return xerrors.Errorf("authenticate: %w", err)
 		}
 
-		peer, err := u.resolveBotPeer(ctx, client)
+		peer, err := sender.Resolve(u.username).AsInputPeer(ctx)
 		if err != nil {
 			return xerrors.Errorf("resolve bot username %q: %w", u.username, err)
 		}
 
-		for _, message := range u.text {
-			randomID, err := client.RandInt64()
-			if err != nil {
-				return err
-			}
-
+		for _, line := range u.text {
 			time.Sleep(2 * time.Second)
-			err = client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
-				RandomID: randomID,
-				Message:  message,
-				Peer:     peer.AsInputPeer(),
-			})
+
+			err = sender.Peer(peer).Text(ctx, line)
 			if flood, err := helpers.FloodWait(ctx, err); err != nil {
 				if flood {
 					continue
@@ -109,7 +87,7 @@ func (u User) Run(ctx context.Context) error {
 
 			select {
 			case gotMessage := <-u.message:
-				require.Equal(u.suite.TB, message, gotMessage)
+				require.Equal(u.suite.TB, line, gotMessage)
 			case <-ctx.Done():
 				return ctx.Err()
 			}

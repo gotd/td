@@ -5,7 +5,7 @@ import "sync"
 // ResetReady is like Ready, but can be Reset.
 type ResetReady struct {
 	ready Ready
-	lock  sync.RWMutex
+	lock  sync.Mutex
 }
 
 // NewResetReady creates new ResetReady.
