@@ -4,6 +4,7 @@ import (
 	"context"
 	"time"
 
+	"github.com/gotd/td/telegram/message/markup"
 	"github.com/gotd/td/tg"
 )
 
@@ -96,8 +97,14 @@ func (b *Builder) NoWebpage() *Builder {
 
 // Markup sets reply markup for sending bot buttons.
 // NB: markup will not be used, if you send multiple media attachments.
-func (b *Builder) Markup(markup tg.ReplyMarkupClass) *Builder {
+func (b *Builder) Markup(m tg.ReplyMarkupClass) *Builder {
 	r := b.copy()
-	r.replyMarkup = markup
+	r.replyMarkup = m
 	return r
+}
+
+// Row sets single row keyboard markup  for sending bot buttons.
+// NB: markup will not be used, if you send multiple media attachments.
+func (b *Builder) Row(button tg.KeyboardButtonClass, buttons ...tg.KeyboardButtonClass) *Builder {
+	return b.Markup(markup.SingleRow(button, buttons...))
 }

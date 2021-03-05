@@ -1,3 +1,2 @@
-// Package keyboard contain bots inline markup builder.
+// Package markup contain bots inline markup builder.
 package markup
-

@@ -13,4 +13,3 @@ func InlineKeyboard(row tg.KeyboardButtonRow, rows ...tg.KeyboardButtonRow) tg.R
 		Rows: append([]tg.KeyboardButtonRow{row}, rows...),
 	}
 }
-

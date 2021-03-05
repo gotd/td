@@ -24,7 +24,7 @@ func TestDocument(t *testing.T) {
 
 	mock.NoError(sender.Self().Document(ctx, loc))
 	mock.NoError(sender.Self().Media(ctx, Document(loc).
-		TTL(10 * time.Second).Query("10")))
+		TTL(10*time.Second).Query("10")))
 }
 
 func TestDocumentExternal(t *testing.T) {
@@ -45,7 +45,7 @@ func TestDocumentByHash(t *testing.T) {
 	ctx := context.Background()
 	sender, mock := testSender(t)
 	doc := &tg.Document{
-		ID: 10,
+		ID:            10,
 		FileReference: []byte{10},
 	}
 	loc := new(tg.InputDocument)
@@ -74,7 +74,7 @@ func TestDocumentByHash(t *testing.T) {
 		Query:      "10",
 	}, mock)
 	mock.NoError(sender.Self().Media(ctx, DocumentByHash(hash, size, mime).
-		TTL(10 * time.Second).Query("10")))
+		TTL(10*time.Second).Query("10")))
 }
 
 func TestUploadedDocument(t *testing.T) {
@@ -110,7 +110,7 @@ func TestUploadedDocument(t *testing.T) {
 	}, mock)
 
 	mock.NoError(sender.Self().File(ctx, file))
-	mock.NoError(sender.Self().Media(ctx, UploadedDocument(file).TTL(10 * time.Second).
+	mock.NoError(sender.Self().Media(ctx, UploadedDocument(file).TTL(10*time.Second).
 		Filename("abc.jpg")))
 	mock.NoError(sender.Self().Media(ctx, UploadedDocument(file).Thumb(file).Stickers(loc).HasStickers()))
 }
