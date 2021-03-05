@@ -11,9 +11,7 @@ import (
 func performTextOptions(media *tg.InputSingleMedia, opts []StyledTextOption) {
 	if len(opts) > 0 {
 		captionBuilder := textBuilder{}
-		for _, opt := range opts {
-			opt(&captionBuilder)
-		}
+		captionBuilder.Perform(opts[0], opts[1:]...)
 
 		media.Message, media.Entities = captionBuilder.Complete()
 	}

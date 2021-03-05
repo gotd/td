@@ -114,15 +114,9 @@ func (p *PollBuilder) Explanation(msg string) *PollBuilder {
 }
 
 // StyledExplanation sets styled explanation message.
-func (p *PollBuilder) StyledExplanation(text StyledTextOption, opts ...StyledTextOption) *PollBuilder {
+func (p *PollBuilder) StyledExplanation(text StyledTextOption, texts ...StyledTextOption) *PollBuilder {
 	captionBuilder := textBuilder{}
-
-	text(&captionBuilder)
-	if len(opts) > 0 {
-		for _, opt := range opts {
-			opt(&captionBuilder)
-		}
-	}
+	captionBuilder.Perform(text, texts...)
 
 	p.input.Solution, p.input.SolutionEntities = captionBuilder.Complete()
 	return p

@@ -14,6 +14,22 @@ type Builder struct {
 	message  strings.Builder
 }
 
+// GrowText grows internal buffer capacity.
+func (b *Builder) GrowText(n int) {
+	b.message.Grow(n)
+}
+
+// GrowEntities grows internal buffer capacity.
+func (b *Builder) GrowEntities(n int) {
+	if n < 0 {
+		panic("entity.Builder.GrowEntities: negative count")
+	}
+
+	buf := make([]tg.MessageEntityClass, len(b.entities), 2*cap(b.entities)+n)
+	copy(buf, b.entities)
+	b.entities = buf
+}
+
 func (b *Builder) reset() {
 	b.message.Reset()
 	b.entities = nil
