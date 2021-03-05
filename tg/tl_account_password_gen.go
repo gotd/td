@@ -210,10 +210,6 @@ func (p *AccountPassword) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "HasRecovery",
 			SchemaName: "has_recovery",
 			Null:       !p.Flags.Has(0),

@@ -124,10 +124,6 @@ func (r *PhoneRequestCallRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Video",
 			SchemaName: "video",
 			Null:       !r.Flags.Has(0),

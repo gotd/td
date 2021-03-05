@@ -133,10 +133,6 @@ func (f *Folder) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "AutofillNewBroadcasts",
 			SchemaName: "autofill_new_broadcasts",
 			Null:       !f.Flags.Has(0),

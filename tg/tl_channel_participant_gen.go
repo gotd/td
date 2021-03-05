@@ -412,10 +412,6 @@ func (c *ChannelParticipantCreator) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "UserID",
 			SchemaName: "user_id",
 		},
@@ -657,10 +653,6 @@ func (c *ChannelParticipantAdmin) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "CanEdit",
 			SchemaName: "can_edit",
@@ -989,10 +981,6 @@ func (c *ChannelParticipantBanned) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "Left",
 			SchemaName: "left",

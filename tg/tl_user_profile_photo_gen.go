@@ -211,10 +211,6 @@ func (u *UserProfilePhoto) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "HasVideo",
 			SchemaName: "has_video",
 			Null:       !u.Flags.Has(0),

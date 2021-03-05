@@ -159,10 +159,6 @@ func (i *Invoice) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Test",
 			SchemaName: "test",
 			Null:       !i.Flags.Has(0),

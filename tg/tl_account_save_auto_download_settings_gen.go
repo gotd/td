@@ -107,10 +107,6 @@ func (s *AccountSaveAutoDownloadSettingsRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Low",
 			SchemaName: "low",
 			Null:       !s.Flags.Has(0),

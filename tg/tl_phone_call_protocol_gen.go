@@ -127,10 +127,6 @@ func (p *PhoneCallProtocol) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "UDPP2P",
 			SchemaName: "udp_p2p",
 			Null:       !p.Flags.Has(0),

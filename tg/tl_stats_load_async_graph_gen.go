@@ -111,10 +111,6 @@ func (l *StatsLoadAsyncGraphRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Token",
 			SchemaName: "token",
 		},

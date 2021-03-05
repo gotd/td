@@ -108,10 +108,6 @@ func (a *AuthAuthorization) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "TmpSessions",
 			SchemaName: "tmp_sessions",
 			Null:       !a.Flags.Has(0),
@@ -287,10 +283,6 @@ func (a *AuthAuthorizationSignUpRequired) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "TermsOfService",
 			SchemaName: "terms_of_service",

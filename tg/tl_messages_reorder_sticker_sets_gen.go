@@ -100,10 +100,6 @@ func (r *MessagesReorderStickerSetsRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Masks",
 			SchemaName: "masks",
 			Null:       !r.Flags.Has(0),

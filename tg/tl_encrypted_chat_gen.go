@@ -470,10 +470,6 @@ func (e *EncryptedChatRequested) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "FolderID",
 			SchemaName: "folder_id",
 			Null:       !e.Flags.Has(0),
@@ -986,10 +982,6 @@ func (e *EncryptedChatDiscarded) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "HistoryDeleted",
 			SchemaName: "history_deleted",

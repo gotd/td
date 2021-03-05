@@ -61,6 +61,7 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) TypeInfo() tdp.Type {
     }
     typ.Fields = []tdp.Field{
 {{- range $f := $s.Fields }}
+{{- if ne ($f.Type) ("bin.Fields") }}
         {
             Name: "{{ $f.Name }}",
             SchemaName: "{{ $f.RawName }}",
@@ -68,6 +69,7 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) TypeInfo() tdp.Type {
             Null: !{{ $s.Receiver }}.{{ $f.ConditionalField }}.Has({{ $f.ConditionalIndex }}),
         {{- end }}
         },
+{{- end }}
 {{- end }}
     }
     return typ

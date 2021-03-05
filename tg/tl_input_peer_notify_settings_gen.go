@@ -134,10 +134,6 @@ func (i *InputPeerNotifySettings) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "ShowPreviews",
 			SchemaName: "show_previews",
 			Null:       !i.Flags.Has(0),

@@ -122,10 +122,6 @@ func (u *AccountUpdateProfileRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "FirstName",
 			SchemaName: "first_name",
 			Null:       !u.Flags.Has(0),

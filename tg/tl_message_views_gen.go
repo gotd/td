@@ -125,10 +125,6 @@ func (m *MessageViews) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Views",
 			SchemaName: "views",
 			Null:       !m.Flags.Has(0),

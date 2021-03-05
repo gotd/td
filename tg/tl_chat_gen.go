@@ -332,10 +332,6 @@ func (c *Chat) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Creator",
 			SchemaName: "creator",
 			Null:       !c.Flags.Has(0),
@@ -1183,10 +1179,6 @@ func (c *Channel) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "Creator",
 			SchemaName: "creator",
@@ -2072,10 +2064,6 @@ func (c *ChannelForbidden) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "Broadcast",
 			SchemaName: "broadcast",

@@ -100,10 +100,6 @@ func (m *MessagesMarkDialogUnreadRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Unread",
 			SchemaName: "unread",
 			Null:       !m.Flags.Has(0),

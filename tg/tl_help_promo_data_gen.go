@@ -259,10 +259,6 @@ func (p *HelpPromoData) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Proxy",
 			SchemaName: "proxy",
 			Null:       !p.Flags.Has(0),

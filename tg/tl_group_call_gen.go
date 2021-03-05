@@ -297,10 +297,6 @@ func (g *GroupCall) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "JoinMuted",
 			SchemaName: "join_muted",
 			Null:       !g.Flags.Has(1),

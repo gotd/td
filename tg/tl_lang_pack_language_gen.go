@@ -171,10 +171,6 @@ func (l *LangPackLanguage) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Official",
 			SchemaName: "official",
 			Null:       !l.Flags.Has(0),

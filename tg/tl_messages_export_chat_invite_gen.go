@@ -121,10 +121,6 @@ func (e *MessagesExportChatInviteRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "LegacyRevokePermanent",
 			SchemaName: "legacy_revoke_permanent",
 			Null:       !e.Flags.Has(2),

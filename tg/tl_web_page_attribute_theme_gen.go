@@ -110,10 +110,6 @@ func (w *WebPageAttributeTheme) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Documents",
 			SchemaName: "documents",
 			Null:       !w.Flags.Has(0),

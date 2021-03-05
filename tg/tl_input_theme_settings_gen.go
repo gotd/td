@@ -148,10 +148,6 @@ func (i *InputThemeSettings) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "BaseTheme",
 			SchemaName: "base_theme",
 		},

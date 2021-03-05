@@ -105,10 +105,6 @@ func (g *AccountGetNotifyExceptionsRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "CompareSound",
 			SchemaName: "compare_sound",
 			Null:       !g.Flags.Has(1),

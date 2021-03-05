@@ -148,10 +148,6 @@ func (w *WallPaperSettings) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Blur",
 			SchemaName: "blur",
 			Null:       !w.Flags.Has(1),

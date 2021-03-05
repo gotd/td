@@ -120,10 +120,6 @@ func (i *InputBotInlineMessageMediaAuto) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Message",
 			SchemaName: "message",
 		},
@@ -380,10 +376,6 @@ func (i *InputBotInlineMessageText) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "NoWebpage",
 			SchemaName: "no_webpage",
@@ -686,10 +678,6 @@ func (i *InputBotInlineMessageMediaGeo) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "GeoPoint",
 			SchemaName: "geo_point",
@@ -1010,10 +998,6 @@ func (i *InputBotInlineMessageMediaVenue) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "GeoPoint",
 			SchemaName: "geo_point",
 		},
@@ -1305,10 +1289,6 @@ func (i *InputBotInlineMessageMediaContact) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "PhoneNumber",
 			SchemaName: "phone_number",
 		},
@@ -1532,10 +1512,6 @@ func (i *InputBotInlineMessageGame) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "ReplyMarkup",
 			SchemaName: "reply_markup",

@@ -110,10 +110,6 @@ func (s *MessagesSearchStickerSetsRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "ExcludeFeatured",
 			SchemaName: "exclude_featured",
 			Null:       !s.Flags.Has(0),

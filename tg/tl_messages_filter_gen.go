@@ -933,10 +933,6 @@ func (i *InputMessagesFilterPhoneCalls) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Missed",
 			SchemaName: "missed",
 			Null:       !i.Flags.Has(0),

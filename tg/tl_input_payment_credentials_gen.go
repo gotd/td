@@ -238,10 +238,6 @@ func (i *InputPaymentCredentials) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Save",
 			SchemaName: "save",
 			Null:       !i.Flags.Has(0),

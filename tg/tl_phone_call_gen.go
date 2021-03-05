@@ -261,10 +261,6 @@ func (p *PhoneCallWaiting) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Video",
 			SchemaName: "video",
 			Null:       !p.Flags.Has(6),
@@ -590,10 +586,6 @@ func (p *PhoneCallRequested) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Video",
 			SchemaName: "video",
 			Null:       !p.Flags.Has(6),
@@ -902,10 +894,6 @@ func (p *PhoneCallAccepted) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "Video",
 			SchemaName: "video",
@@ -1246,10 +1234,6 @@ func (p *PhoneCall) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "P2PAllowed",
 			SchemaName: "p2p_allowed",
@@ -1653,10 +1637,6 @@ func (p *PhoneCallDiscarded) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "NeedRating",
 			SchemaName: "need_rating",

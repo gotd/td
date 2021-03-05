@@ -156,10 +156,6 @@ func (p *Page) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Part",
 			SchemaName: "part",
 			Null:       !p.Flags.Has(0),

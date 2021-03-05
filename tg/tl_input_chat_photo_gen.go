@@ -209,10 +209,6 @@ func (i *InputChatUploadedPhoto) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "File",
 			SchemaName: "file",
 			Null:       !i.Flags.Has(0),

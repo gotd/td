@@ -155,10 +155,6 @@ func (g *MessagesGetDialogsRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "ExcludePinned",
 			SchemaName: "exclude_pinned",
 			Null:       !g.Flags.Has(0),

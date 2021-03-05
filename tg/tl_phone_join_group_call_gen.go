@@ -103,10 +103,6 @@ func (j *PhoneJoinGroupCallRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Muted",
 			SchemaName: "muted",
 			Null:       !j.Flags.Has(0),

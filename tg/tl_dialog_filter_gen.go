@@ -234,10 +234,6 @@ func (d *DialogFilter) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Contacts",
 			SchemaName: "contacts",
 			Null:       !d.Flags.Has(0),

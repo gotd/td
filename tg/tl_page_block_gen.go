@@ -1835,10 +1835,6 @@ func (p *PageBlockPhoto) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "PhotoID",
 			SchemaName: "photo_id",
 		},
@@ -2072,10 +2068,6 @@ func (p *PageBlockVideo) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "Autoplay",
 			SchemaName: "autoplay",
@@ -2466,10 +2458,6 @@ func (p *PageBlockEmbed) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "FullWidth",
 			SchemaName: "full_width",
@@ -3807,10 +3795,6 @@ func (p *PageBlockTable) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Bordered",
 			SchemaName: "bordered",
 			Null:       !p.Flags.Has(0),
@@ -4170,10 +4154,6 @@ func (p *PageBlockDetails) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "Open",
 			SchemaName: "open",

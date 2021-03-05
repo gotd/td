@@ -117,10 +117,6 @@ func (a *MessagesAcceptUrlAuthRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "WriteAllowed",
 			SchemaName: "write_allowed",
 			Null:       !a.Flags.Has(0),

@@ -157,10 +157,6 @@ func (p *PageTableCell) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Header",
 			SchemaName: "header",
 			Null:       !p.Flags.Has(0),

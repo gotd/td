@@ -102,10 +102,6 @@ func (m *MessageEmpty) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -556,10 +552,6 @@ func (m *Message) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "Out",
 			SchemaName: "out",
@@ -1613,10 +1605,6 @@ func (m *MessageService) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "Out",
 			SchemaName: "out",

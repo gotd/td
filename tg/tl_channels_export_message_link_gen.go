@@ -117,10 +117,6 @@ func (e *ChannelsExportMessageLinkRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Grouped",
 			SchemaName: "grouped",
 			Null:       !e.Flags.Has(0),

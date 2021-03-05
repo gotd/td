@@ -190,10 +190,6 @@ func (c *ChatAdminRights) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "ChangeInfo",
 			SchemaName: "change_info",
 			Null:       !c.Flags.Has(0),

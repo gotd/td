@@ -365,10 +365,6 @@ func (k *KeyboardButtonCallback) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "RequiresPassword",
 			SchemaName: "requires_password",
 			Null:       !k.Flags.Has(0),
@@ -782,10 +778,6 @@ func (k *KeyboardButtonSwitchInline) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "SamePeer",
 			SchemaName: "same_peer",
@@ -1228,10 +1220,6 @@ func (k *KeyboardButtonUrlAuth) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Text",
 			SchemaName: "text",
 		},
@@ -1474,10 +1462,6 @@ func (i *InputKeyboardButtonUrlAuth) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "RequestWriteAccess",
 			SchemaName: "request_write_access",
 			Null:       !i.Flags.Has(0),
@@ -1716,10 +1700,6 @@ func (k *KeyboardButtonRequestPoll) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "Quiz",
 			SchemaName: "quiz",

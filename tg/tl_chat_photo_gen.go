@@ -198,10 +198,6 @@ func (c *ChatPhoto) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "HasVideo",
 			SchemaName: "has_video",
 			Null:       !c.Flags.Has(0),

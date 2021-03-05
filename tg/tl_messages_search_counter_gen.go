@@ -110,10 +110,6 @@ func (s *MessagesSearchCounter) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Inexact",
 			SchemaName: "inexact",
 			Null:       !s.Flags.Has(1),

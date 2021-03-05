@@ -159,10 +159,6 @@ func (t *Theme) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Creator",
 			SchemaName: "creator",
 			Null:       !t.Flags.Has(0),

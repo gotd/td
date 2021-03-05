@@ -134,10 +134,6 @@ func (p *PaymentRequestedInfo) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Name",
 			SchemaName: "name",
 			Null:       !p.Flags.Has(0),

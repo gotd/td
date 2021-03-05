@@ -216,10 +216,6 @@ func (c *ChatBannedRights) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "ViewMessages",
 			SchemaName: "view_messages",
 			Null:       !c.Flags.Has(0),

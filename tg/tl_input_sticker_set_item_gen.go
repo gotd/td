@@ -112,10 +112,6 @@ func (i *InputStickerSetItem) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Document",
 			SchemaName: "document",
 		},

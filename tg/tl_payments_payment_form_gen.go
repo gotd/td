@@ -187,10 +187,6 @@ func (p *PaymentsPaymentForm) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "CanSaveCredentials",
 			SchemaName: "can_save_credentials",
 			Null:       !p.Flags.Has(2),

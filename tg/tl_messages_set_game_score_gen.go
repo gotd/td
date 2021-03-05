@@ -128,10 +128,6 @@ func (s *MessagesSetGameScoreRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "EditMessage",
 			SchemaName: "edit_message",
 			Null:       !s.Flags.Has(0),

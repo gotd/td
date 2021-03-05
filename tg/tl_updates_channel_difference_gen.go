@@ -115,10 +115,6 @@ func (c *UpdatesChannelDifferenceEmpty) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Final",
 			SchemaName: "final",
 			Null:       !c.Flags.Has(0),
@@ -349,10 +345,6 @@ func (c *UpdatesChannelDifferenceTooLong) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "Final",
 			SchemaName: "final",
@@ -704,10 +696,6 @@ func (c *UpdatesChannelDifference) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "Final",
 			SchemaName: "final",

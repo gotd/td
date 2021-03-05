@@ -279,10 +279,6 @@ func (c *ChatInvite) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Channel",
 			SchemaName: "channel",
 			Null:       !c.Flags.Has(0),

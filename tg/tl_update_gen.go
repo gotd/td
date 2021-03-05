@@ -2794,10 +2794,6 @@ func (u *UpdateServiceNotification) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Popup",
 			SchemaName: "popup",
 			Null:       !u.Flags.Has(0),
@@ -3409,10 +3405,6 @@ func (u *UpdateReadHistoryInbox) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "FolderID",
 			SchemaName: "folder_id",
@@ -4219,10 +4211,6 @@ func (u *UpdateChannelTooLong) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "ChannelID",
 			SchemaName: "channel_id",
 		},
@@ -4717,10 +4705,6 @@ func (u *UpdateReadChannelInbox) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "FolderID",
 			SchemaName: "folder_id",
@@ -5612,10 +5596,6 @@ func (u *UpdateStickerSetsOrder) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Masks",
 			SchemaName: "masks",
 			Null:       !u.Flags.Has(0),
@@ -5999,10 +5979,6 @@ func (u *UpdateBotInlineQuery) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "QueryID",
 			SchemaName: "query_id",
 		},
@@ -6300,10 +6276,6 @@ func (u *UpdateBotInlineSend) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "UserID",
 			SchemaName: "user_id",
@@ -6767,10 +6739,6 @@ func (u *UpdateBotCallbackQuery) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "QueryID",
 			SchemaName: "query_id",
@@ -7258,10 +7226,6 @@ func (u *UpdateInlineBotCallbackQuery) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "QueryID",
 			SchemaName: "query_id",
@@ -8370,10 +8334,6 @@ func (u *UpdateDialogPinned) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Pinned",
 			SchemaName: "pinned",
 			Null:       !u.Flags.Has(0),
@@ -8586,10 +8546,6 @@ func (u *UpdatePinnedDialogs) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "FolderID",
 			SchemaName: "folder_id",
@@ -9311,10 +9267,6 @@ func (u *UpdateBotPrecheckoutQuery) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "QueryID",
 			SchemaName: "query_id",
@@ -10402,10 +10354,6 @@ func (u *UpdateDialogUnreadMark) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Unread",
 			SchemaName: "unread",
 			Null:       !u.Flags.Has(0),
@@ -10584,10 +10532,6 @@ func (u *UpdateMessagePoll) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "PollID",
 			SchemaName: "poll_id",
@@ -12207,10 +12151,6 @@ func (u *UpdateDialogFilter) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -12947,10 +12887,6 @@ func (u *UpdateReadChannelDiscussionInbox) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "ChannelID",
 			SchemaName: "channel_id",
 		},
@@ -13531,10 +13467,6 @@ func (u *UpdateChannelUserTyping) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "ChannelID",
 			SchemaName: "channel_id",
 		},
@@ -13770,10 +13702,6 @@ func (u *UpdatePinnedMessages) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "Pinned",
 			SchemaName: "pinned",
@@ -14031,10 +13959,6 @@ func (u *UpdatePinnedChannelMessages) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "Pinned",
 			SchemaName: "pinned",
@@ -14686,10 +14610,6 @@ func (u *UpdatePeerHistoryTTL) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Peer",
 			SchemaName: "peer",
 		},
@@ -14898,10 +14818,6 @@ func (u *UpdateChatParticipant) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "ChatID",
 			SchemaName: "chat_id",
@@ -15210,10 +15126,6 @@ func (u *UpdateChannelParticipant) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "ChannelID",
 			SchemaName: "channel_id",

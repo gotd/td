@@ -125,10 +125,6 @@ func (v *MessagesVotesList) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Count",
 			SchemaName: "count",
 		},

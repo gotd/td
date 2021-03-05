@@ -155,10 +155,6 @@ func (p *AccountPasswordInputSettings) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "NewAlgo",
 			SchemaName: "new_algo",
 			Null:       !p.Flags.Has(0),

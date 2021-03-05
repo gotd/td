@@ -140,10 +140,6 @@ func (c *StickersCreateStickerSetRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Masks",
 			SchemaName: "masks",
 			Null:       !c.Flags.Has(0),

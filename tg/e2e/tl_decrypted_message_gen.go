@@ -839,10 +839,6 @@ func (d *DecryptedMessage46) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "RandomID",
 			SchemaName: "random_id",
 		},
@@ -1242,10 +1238,6 @@ func (d *DecryptedMessage) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "Silent",
 			SchemaName: "silent",

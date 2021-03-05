@@ -147,10 +147,6 @@ func (f *MessagesForwardMessagesRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Silent",
 			SchemaName: "silent",
 			Null:       !f.Flags.Has(5),
