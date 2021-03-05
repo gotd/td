@@ -100,11 +100,8 @@ func (c *DC) dead(r *poolConn, deadErr error) {
 		return // Already deleted.
 	}
 
-	c.stuck.Reset()
 	c.mu.Lock()
 	defer c.mu.Unlock()
-	r.dead.Signal()
-
 	c.total--
 	remaining := c.total
 	if remaining < 0 {
@@ -126,6 +123,9 @@ func (c *DC) dead(r *poolConn, deadErr error) {
 		c.free[len(c.free)-1] = nil
 		c.free = c.free[:len(c.free)-1]
 	}
+
+	r.dead.Signal()
+	c.stuck.Signal()
 
 	c.log.Debug("Connection died",
 		zap.Int64("remaining", remaining),
@@ -216,6 +216,7 @@ retry:
 		)
 		return conn, nil
 	case <-c.stuck.Ready():
+		c.stuck.Reset()
 		c.log.Debug("Some connection dead, try to create new connection, cancel waiting")
 
 		c.freeReq.delete(key)
@@ -267,13 +268,6 @@ func (c *DC) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decode
 
 		c.log.Debug("DC Invoke")
 		err = conn.InvokeRaw(ctx, input, output)
-		if err != nil {
-			select {
-			case <-conn.Dead():
-				continue
-			default:
-			}
-		}
 		c.release(conn)
 		if err != nil {
 			c.log.Debug("DC Invoke failed", zap.Error(err))
