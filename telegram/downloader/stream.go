@@ -15,10 +15,10 @@ func (d *Downloader) stream(ctx context.Context, r *reader, w io.Writer) (tg.Sto
 	var typ tg.StorageFileTypeClass
 	typOnce := &sync.Once{}
 
-	grp := tdsync.NewCancellableGroup(ctx)
+	g := tdsync.NewCancellableGroup(ctx)
 	toWrite := make(chan block, 1)
 	// Download loop
-	grp.Go(func(groupCtx context.Context) error {
+	g.Go(func(ctx context.Context) error {
 		for {
 			b, err := r.Next(ctx)
 			if err != nil {
@@ -35,15 +35,15 @@ func (d *Downloader) stream(ctx context.Context, r *reader, w io.Writer) (tg.Sto
 			}
 
 			select {
-			case <-groupCtx.Done():
-				return groupCtx.Err()
+			case <-ctx.Done():
+				return ctx.Err()
 			case toWrite <- b:
 			}
 		}
 	})
 
 	// Write loop
-	grp.Go(writeLoop(w, toWrite))
+	g.Go(writeLoop(w, toWrite))
 
-	return typ, grp.Wait()
+	return typ, g.Wait()
 }

@@ -31,25 +31,25 @@ func TestExchange(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 	defer cancel()
 
-	grp := tdsync.NewCancellableGroup(ctx)
-	grp.Go(func(groupCtx context.Context) error {
+	g := tdsync.NewCancellableGroup(ctx)
+	g.Go(func(ctx context.Context) error {
 		_, err := NewExchanger(client).
 			WithLogger(log.Named("client")).
 			WithRand(reader).
 			Client([]*rsa.PublicKey{&key.PublicKey}).
-			Run(groupCtx)
+			Run(ctx)
 		return err
 	})
-	grp.Go(func(groupCtx context.Context) error {
+	g.Go(func(ctx context.Context) error {
 		_, err := NewExchanger(server).
 			WithLogger(log.Named("server")).
 			WithRand(reader).
 			Server(key).
-			Run(groupCtx)
+			Run(ctx)
 		return err
 	})
 
-	require.NoError(t, grp.Wait())
+	require.NoError(t, g.Wait())
 }
 
 func TestExchangeCorpus(t *testing.T) {
