@@ -84,14 +84,14 @@ func testMTProxy(secretType string, m mtg, storage session.Storage) func(t *test
 			}
 		})
 
-		grp := tdsync.NewCancellableGroup(ctx)
+		g := tdsync.NewCancellableGroup(ctx)
 		ready := tdsync.NewReady()
-		grp.Go(func(groupCtx context.Context) error {
-			_ = m.run(groupCtx, hex.EncodeToString(secret), w, w, ready)
+		g.Go(func(ctx context.Context) error {
+			_ = m.run(ctx, hex.EncodeToString(secret), w, w, ready)
 			return nil
 		})
-		grp.Go(func(groupCtx context.Context) error {
-			defer grp.Cancel()
+		g.Go(func(ctx context.Context) error {
+			defer g.Cancel()
 			<-ready.Ready()
 
 			trp, err := transport.MTProxy(nil, m.addr, secret)
@@ -113,7 +113,7 @@ func testMTProxy(secretType string, m mtg, storage session.Storage) func(t *test
 			})
 		})
 
-		a.NoError(grp.Wait())
+		a.NoError(g.Wait())
 	}
 }
 

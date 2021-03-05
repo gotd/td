@@ -253,7 +253,7 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 func (c *Client) runUntilRestart(ctx context.Context) error {
 	g := tdsync.NewCancellableGroup(ctx)
 	g.Go(c.conn.Run)
-	g.Go(func(groupCtx context.Context) error {
+	g.Go(func(ctx context.Context) error {
 		self, err := c.Self(ctx)
 		if err != nil {
 			// Ignore unauthorized errors.
@@ -266,10 +266,10 @@ func (c *Client) runUntilRestart(ctx context.Context) error {
 		c.log.Info("Got self", zap.String("username", self.Username))
 		return nil
 	})
-	g.Go(func(gCtx context.Context) error {
+	g.Go(func(ctx context.Context) error {
 		select {
-		case <-gCtx.Done():
-			return gCtx.Err()
+		case <-ctx.Done():
+			return ctx.Err()
 		case <-c.restart:
 			c.log.Debug("Restart triggered")
 			// Should call cancel() to cancel group.
@@ -352,12 +352,12 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) err
 
 	g := tdsync.NewCancellableGroup(ctx)
 	g.Go(c.reconnectUntilClosed)
-	g.Go(func(gCtx context.Context) error {
+	g.Go(func(ctx context.Context) error {
 		select {
-		case <-gCtx.Done():
-			return gCtx.Err()
+		case <-ctx.Done():
+			return ctx.Err()
 		case <-c.ready.Ready():
-			if err := f(gCtx); err != nil {
+			if err := f(ctx); err != nil {
 				return xerrors.Errorf("callback: %w", err)
 			}
 			// Should call cancel() to cancel gCtx.

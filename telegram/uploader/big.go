@@ -46,12 +46,12 @@ func (u *Uploader) uploadBigFilePart(ctx context.Context, p part) (int, error) {
 }
 
 func (u *Uploader) bigLoop(ctx context.Context, threads int, upload *Upload) error { // nolint:gocognit
-	grp := tdsync.NewCancellableGroup(ctx)
+	g := tdsync.NewCancellableGroup(ctx)
 	toSend := make(chan part, threads)
 
 	// Run read loop
 	r := syncio.NewReader(upload.from)
-	grp.Go(func(groupCtx context.Context) error {
+	g.Go(func(ctx context.Context) error {
 		last := false
 
 		for {
@@ -85,26 +85,26 @@ func (u *Uploader) bigLoop(ctx context.Context, threads int, upload *Upload) err
 					close(toSend)
 					return nil
 				}
-			case <-groupCtx.Done():
+			case <-ctx.Done():
 				u.pool.Put(buf)
 
-				return groupCtx.Err()
+				return ctx.Err()
 			}
 		}
 	})
 
 	for i := 0; i < threads; i++ {
-		grp.Go(func(groupCtx context.Context) error {
+		g.Go(func(ctx context.Context) error {
 			for {
 				select {
-				case <-groupCtx.Done():
-					return groupCtx.Err()
+				case <-ctx.Done():
+					return ctx.Err()
 				case part, ok := <-toSend:
 					if !ok {
 						return nil
 					}
 
-					n, err := u.uploadBigFilePart(groupCtx, part)
+					n, err := u.uploadBigFilePart(ctx, part)
 					if err != nil {
 						return xerrors.Errorf("upload part: %w", err)
 					}
@@ -117,5 +117,5 @@ func (u *Uploader) bigLoop(ctx context.Context, threads int, upload *Upload) err
 		})
 	}
 
-	return grp.Wait()
+	return g.Wait()
 }

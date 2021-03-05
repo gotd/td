@@ -29,18 +29,18 @@ func TestExchangeTimeout(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 	defer cancel()
 
-	grp := tdsync.NewCancellableGroup(ctx)
-	grp.Go(func(groupCtx context.Context) error {
+	g := tdsync.NewCancellableGroup(ctx)
+	g.Go(func(ctx context.Context) error {
 		_, err := NewExchanger(client).
 			WithLogger(log.Named("client")).
 			WithRand(reader).
 			WithTimeout(1 * time.Second).
 			Client([]*rsa.PublicKey{&key.PublicKey}).
-			Run(groupCtx)
+			Run(ctx)
 		return err
 	})
 
-	err = grp.Wait()
+	err = g.Wait()
 	if err, ok := err.(net.Error); !ok || !err.Timeout() {
 		require.NoError(t, err)
 	}

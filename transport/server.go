@@ -43,8 +43,8 @@ type Server struct {
 	codec    func() Codec
 	listener net.Listener
 
-	serveMx sync.Mutex
-	serve   *tdsync.CancellableGroup
+	serveMux sync.Mutex
+	serve    *tdsync.CancellableGroup
 }
 
 func (s *Server) serveConn(ctx context.Context, handler Handler, c net.Conn) error {
@@ -70,25 +70,24 @@ func (s *Server) Addr() net.Addr {
 }
 
 // Serve runs server using given listener.
-func (s *Server) Serve(ctx context.Context, handler Handler) error {
-	s.serveMx.Lock()
-	s.serve = tdsync.NewCancellableGroup(ctx)
-	s.serveMx.Unlock()
+func (s *Server) Serve(serveCtx context.Context, handler Handler) error {
+	s.serveMux.Lock()
+	s.serve = tdsync.NewCancellableGroup(serveCtx)
+	s.serveMux.Unlock()
 
-	s.serve.Go(func(groupCtx context.Context) error {
+	s.serve.Go(func(ctx context.Context) error {
 		<-ctx.Done()
 		_ = s.listener.Close()
 		return nil
 	})
-	s.serve.Go(func(gCtx context.Context) error {
+	s.serve.Go(func(ctx context.Context) error {
 		for {
 			conn, err := s.listener.Accept()
 			if err != nil {
 				select {
+				case <-serveCtx.Done():
+					return serveCtx.Err()
 				case <-ctx.Done():
-					return ctx.Err()
-
-				case <-gCtx.Done():
 					// If parent context is not done, so
 					// serve group context is canceled by Close.
 					return nil
@@ -108,11 +107,11 @@ func (s *Server) Serve(ctx context.Context, handler Handler) error {
 
 // Close stops server and closes given listener.
 func (s *Server) Close() error {
-	s.serveMx.Lock()
+	s.serveMux.Lock()
 	if s.serve != nil {
 		s.serve.Cancel()
 	}
-	s.serveMx.Unlock()
+	s.serveMux.Unlock()
 
 	return s.listener.Close()
 }

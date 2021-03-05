@@ -21,7 +21,7 @@ func (d *Downloader) parallel(
 	typOnce := &sync.Once{}
 
 	ready := tdsync.NewReady()
-	grp := tdsync.NewCancellableGroup(ctx)
+	g := tdsync.NewCancellableGroup(ctx)
 	toWrite := make(chan block, threads)
 
 	stop := func(t tg.StorageFileTypeClass) {
@@ -32,22 +32,22 @@ func (d *Downloader) parallel(
 	}
 
 	// Download loop
-	grp.Go(func(groupCtx context.Context) error {
-		downloads := tdsync.NewCancellableGroup(groupCtx)
+	g.Go(func(ctx context.Context) error {
+		downloads := tdsync.NewCancellableGroup(ctx)
 		defer close(toWrite)
 
 		for i := 0; i < threads; i++ {
-			downloads.Go(func(downloadCtx context.Context) error {
+			downloads.Go(func(ctx context.Context) error {
 				for {
 					select {
-					case <-downloadCtx.Done():
-						return downloadCtx.Err()
+					case <-ctx.Done():
+						return ctx.Err()
 					case <-ready.Ready():
 						return nil
 					default:
 					}
 
-					b, err := r.Next(downloadCtx)
+					b, err := r.Next(ctx)
 					if err != nil {
 						return xerrors.Errorf("get file: %w", err)
 					}
@@ -60,8 +60,8 @@ func (d *Downloader) parallel(
 					}
 
 					select {
-					case <-downloadCtx.Done():
-						return downloadCtx.Err()
+					case <-ctx.Done():
+						return ctx.Err()
 					case toWrite <- b:
 					}
 				}
@@ -72,7 +72,7 @@ func (d *Downloader) parallel(
 	})
 
 	// Write loop
-	grp.Go(writeAtLoop(syncio.NewWriterAt(w), toWrite))
+	g.Go(writeAtLoop(syncio.NewWriterAt(w), toWrite))
 
-	return typ, grp.Wait()
+	return typ, g.Wait()
 }

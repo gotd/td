@@ -7,15 +7,15 @@ import (
 )
 
 func TestCancellableGroup(t *testing.T) {
-	grp := NewCancellableGroup(context.Background())
+	g := NewCancellableGroup(context.Background())
 
-	grp.Go(func(groupCtx context.Context) error {
-		<-groupCtx.Done()
-		return groupCtx.Err()
+	g.Go(func(ctx context.Context) error {
+		<-ctx.Done()
+		return ctx.Err()
 	})
 
-	grp.Cancel()
-	if err := grp.Wait(); !errors.Is(err, context.Canceled) {
+	g.Cancel()
+	if err := g.Wait(); !errors.Is(err, context.Canceled) {
 		t.Error(err)
 	}
 }

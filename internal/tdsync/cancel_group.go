@@ -13,19 +13,28 @@ import (
 type CancellableGroup struct {
 	cancel context.CancelFunc
 
-	grp  *errgroup.Group
-	gCtx context.Context
+	group *errgroup.Group
+	ctx   context.Context
 }
 
 // NewCancellableGroup creates new CancellableGroup.
+//
+// Example:
+//		g := NewCancellableGroup(ctx)
+//		g.Go(func(ctx context.Context) error {
+//			<-ctx.Done()
+//			return ctx.Err()
+//		})
+//		g.Cancel()
+//		g.Wait()
 func NewCancellableGroup(parent context.Context) *CancellableGroup {
 	ctx, cancel := context.WithCancel(parent)
-	grp, gCtx := errgroup.WithContext(ctx)
+	group, groupCtx := errgroup.WithContext(ctx)
 
 	return &CancellableGroup{
 		cancel: cancel,
-		grp:    grp,
-		gCtx:   gCtx,
+		group:  group,
+		ctx:    groupCtx,
 	}
 }
 
@@ -33,9 +42,9 @@ func NewCancellableGroup(parent context.Context) *CancellableGroup {
 //
 // The first call to return a non-nil error cancels the group; its error will be
 // returned by Wait.
-func (g *CancellableGroup) Go(f func(groupCtx context.Context) error) {
-	g.grp.Go(func() error {
-		return f(g.gCtx)
+func (g *CancellableGroup) Go(f func(ctx context.Context) error) {
+	g.group.Go(func() error {
+		return f(g.ctx)
 	})
 }
 
@@ -49,5 +58,5 @@ func (g *CancellableGroup) Cancel() {
 // Wait blocks until all function calls from the Go method have returned, then
 // returns the first non-nil error (if any) from them.
 func (g *CancellableGroup) Wait() error {
-	return g.grp.Wait()
+	return g.group.Wait()
 }

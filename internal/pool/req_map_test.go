@@ -14,26 +14,26 @@ func TestReqMap(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
 
-	grp := tdsync.NewCancellableGroup(ctx)
+	g := tdsync.NewCancellableGroup(ctx)
 	req := newReqMap()
 
 	key, ch := req.request()
-	grp.Go(func(groupCtx context.Context) error {
+	g.Go(func(ctx context.Context) error {
 		defer req.delete(key)
 
 		select {
 		case <-ch:
 			return nil
-		case <-groupCtx.Done():
-			return groupCtx.Err()
+		case <-ctx.Done():
+			return ctx.Err()
 		}
 	})
 
-	grp.Go(func(groupCtx context.Context) error {
+	g.Go(func(ctx context.Context) error {
 		require.True(t, req.transfer(&poolConn{}))
 		require.False(t, req.transfer(&poolConn{}))
 		return nil
 	})
 
-	require.NoError(t, grp.Wait())
+	require.NoError(t, g.Wait())
 }
