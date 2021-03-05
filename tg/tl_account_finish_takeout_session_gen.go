@@ -93,10 +93,6 @@ func (f *AccountFinishTakeoutSessionRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Success",
 			SchemaName: "success",
 			Null:       !f.Flags.Has(0),

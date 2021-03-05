@@ -93,10 +93,6 @@ func (r *ReplyKeyboardHide) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Selective",
 			SchemaName: "selective",
 			Null:       !r.Flags.Has(2),
@@ -241,10 +237,6 @@ func (r *ReplyKeyboardForceReply) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "SingleUse",
 			SchemaName: "single_use",
@@ -429,10 +421,6 @@ func (r *ReplyKeyboardMarkup) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "Resize",
 			SchemaName: "resize",

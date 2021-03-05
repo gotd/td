@@ -540,10 +540,6 @@ func (w *WebPage) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -1212,10 +1208,6 @@ func (w *WebPageNotModified) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "CachedPageViews",
 			SchemaName: "cached_page_views",

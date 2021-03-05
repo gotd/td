@@ -172,10 +172,6 @@ func (g *ContactsGetTopPeersRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Correspondents",
 			SchemaName: "correspondents",
 			Null:       !g.Flags.Has(0),

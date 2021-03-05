@@ -160,10 +160,6 @@ func (p *PollResults) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Min",
 			SchemaName: "min",
 			Null:       !p.Flags.Has(0),

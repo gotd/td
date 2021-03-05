@@ -93,10 +93,6 @@ func (m *MessagesMessageEditData) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Caption",
 			SchemaName: "caption",
 			Null:       !m.Flags.Has(0),

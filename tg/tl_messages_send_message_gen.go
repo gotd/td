@@ -189,10 +189,6 @@ func (s *MessagesSendMessageRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "NoWebpage",
 			SchemaName: "no_webpage",
 			Null:       !s.Flags.Has(1),

@@ -520,10 +520,6 @@ func (f *FieldsMessage) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Escape",
 			SchemaName: "escape",
 			Null:       !f.Flags.Has(0),

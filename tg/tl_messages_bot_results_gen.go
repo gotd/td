@@ -145,10 +145,6 @@ func (b *MessagesBotResults) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Gallery",
 			SchemaName: "gallery",
 			Null:       !b.Flags.Has(0),

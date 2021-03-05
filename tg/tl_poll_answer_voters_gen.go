@@ -117,10 +117,6 @@ func (p *PollAnswerVoters) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Chosen",
 			SchemaName: "chosen",
 			Null:       !p.Flags.Has(0),

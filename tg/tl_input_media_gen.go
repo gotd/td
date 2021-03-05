@@ -204,10 +204,6 @@ func (i *InputMediaUploadedPhoto) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "File",
 			SchemaName: "file",
 		},
@@ -442,10 +438,6 @@ func (i *InputMediaPhoto) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "ID",
 			SchemaName: "id",
@@ -987,10 +979,6 @@ func (i *InputMediaUploadedDocument) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "NosoundVideo",
 			SchemaName: "nosound_video",
 			Null:       !i.Flags.Has(3),
@@ -1378,10 +1366,6 @@ func (i *InputMediaDocument) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "ID",
 			SchemaName: "id",
@@ -1835,10 +1819,6 @@ func (i *InputMediaPhotoExternal) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "URL",
 			SchemaName: "url",
 		},
@@ -2013,10 +1993,6 @@ func (i *InputMediaDocumentExternal) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "URL",
 			SchemaName: "url",
@@ -2360,10 +2336,6 @@ func (i *InputMediaInvoice) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Title",
 			SchemaName: "title",
 		},
@@ -2681,10 +2653,6 @@ func (i *InputMediaGeoLive) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Stopped",
 			SchemaName: "stopped",
 			Null:       !i.Flags.Has(0),
@@ -2982,10 +2950,6 @@ func (i *InputMediaPoll) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "Poll",
 			SchemaName: "poll",

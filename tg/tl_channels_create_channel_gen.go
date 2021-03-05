@@ -154,10 +154,6 @@ func (c *ChannelsCreateChannelRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Broadcast",
 			SchemaName: "broadcast",
 			Null:       !c.Flags.Has(0),

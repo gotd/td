@@ -1134,10 +1134,6 @@ func (d *DocumentAttributeAudio) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Voice",
 			SchemaName: "voice",
 			Null:       !d.Flags.Has(10),
@@ -1408,10 +1404,6 @@ func (d *DocumentAttributeVideo66) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "RoundMessage",
 			SchemaName: "round_message",

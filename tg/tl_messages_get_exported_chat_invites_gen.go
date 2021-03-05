@@ -134,10 +134,6 @@ func (g *MessagesGetExportedChatInvitesRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Revoked",
 			SchemaName: "revoked",
 			Null:       !g.Flags.Has(3),

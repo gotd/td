@@ -318,10 +318,6 @@ func (u *UpdateShortMessage) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Out",
 			SchemaName: "out",
 			Null:       !u.Flags.Has(1),
@@ -965,10 +961,6 @@ func (u *UpdateShortChatMessage) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "Out",
 			SchemaName: "out",
@@ -2264,10 +2256,6 @@ func (u *UpdateShortSentMessage) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "Out",
 			SchemaName: "out",

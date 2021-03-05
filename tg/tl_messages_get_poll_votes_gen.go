@@ -135,10 +135,6 @@ func (g *MessagesGetPollVotesRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Peer",
 			SchemaName: "peer",
 		},

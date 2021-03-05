@@ -112,10 +112,6 @@ func (g *ContactsGetLocatedRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Background",
 			SchemaName: "background",
 			Null:       !g.Flags.Has(1),

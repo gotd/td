@@ -93,10 +93,6 @@ func (s *AccountSetContentSettingsRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "SensitiveEnabled",
 			SchemaName: "sensitive_enabled",
 			Null:       !s.Flags.Has(0),

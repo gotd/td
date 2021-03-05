@@ -117,10 +117,6 @@ func (i *AccountInstallThemeRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Dark",
 			SchemaName: "dark",
 			Null:       !i.Flags.Has(0),

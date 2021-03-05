@@ -343,10 +343,6 @@ func (s *StatsGraph) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "JSON",
 			SchemaName: "json",
 		},

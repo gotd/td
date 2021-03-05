@@ -184,10 +184,6 @@ func (m *MessageFwdHeader) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Imported",
 			SchemaName: "imported",
 			Null:       !m.Flags.Has(7),

@@ -119,10 +119,6 @@ func (p *AccountPasswordSettings) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Email",
 			SchemaName: "email",
 			Null:       !p.Flags.Has(0),

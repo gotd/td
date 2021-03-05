@@ -114,10 +114,6 @@ func (d *MessagesDeleteHistoryRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "JustClear",
 			SchemaName: "just_clear",
 			Null:       !d.Flags.Has(0),

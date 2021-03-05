@@ -104,10 +104,6 @@ func (d *MessagesDeleteChatUserRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "RevokeHistory",
 			SchemaName: "revoke_history",
 			Null:       !d.Flags.Has(0),

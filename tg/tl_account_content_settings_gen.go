@@ -100,10 +100,6 @@ func (c *AccountContentSettings) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "SensitiveEnabled",
 			SchemaName: "sensitive_enabled",
 			Null:       !c.Flags.Has(0),

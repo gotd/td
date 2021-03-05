@@ -137,10 +137,6 @@ func (r *AccountRegisterDeviceRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "NoMuted",
 			SchemaName: "no_muted",
 			Null:       !r.Flags.Has(0),

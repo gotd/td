@@ -194,10 +194,6 @@ func (a *Authorization) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Current",
 			SchemaName: "current",
 			Null:       !a.Flags.Has(0),

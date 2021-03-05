@@ -170,10 +170,6 @@ func (i *InputBotInlineResult) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "ID",
 			SchemaName: "id",
 		},
@@ -754,10 +750,6 @@ func (i *InputBotInlineResultDocument) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "ID",
 			SchemaName: "id",

@@ -367,10 +367,6 @@ func (m *MessagesMessagesSlice) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Inexact",
 			SchemaName: "inexact",
 			Null:       !m.Flags.Has(1),
@@ -749,10 +745,6 @@ func (c *MessagesChannelMessages) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "Inexact",
 			SchemaName: "inexact",

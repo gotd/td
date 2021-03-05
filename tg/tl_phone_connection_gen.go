@@ -352,10 +352,6 @@ func (p *PhoneConnectionWebrtc) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Turn",
 			SchemaName: "turn",
 			Null:       !p.Flags.Has(0),

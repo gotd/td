@@ -194,10 +194,6 @@ func (m *MessageMediaPhoto) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Photo",
 			SchemaName: "photo",
 			Null:       !m.Flags.Has(0),
@@ -811,10 +807,6 @@ func (m *MessageMediaDocument) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "Document",
 			SchemaName: "document",
@@ -1548,10 +1540,6 @@ func (m *MessageMediaInvoice) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "ShippingAddressRequested",
 			SchemaName: "shipping_address_requested",
 			Null:       !m.Flags.Has(1),
@@ -1910,10 +1898,6 @@ func (m *MessageMediaGeoLive) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "Geo",
 			SchemaName: "geo",

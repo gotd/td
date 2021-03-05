@@ -120,10 +120,6 @@ func (b *ContactsBlockFromRepliesRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "DeleteMessage",
 			SchemaName: "delete_message",
 			Null:       !b.Flags.Has(0),

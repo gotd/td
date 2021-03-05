@@ -126,10 +126,6 @@ func (g *MessagesGetInlineBotResultsRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Bot",
 			SchemaName: "bot",
 		},

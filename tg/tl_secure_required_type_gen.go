@@ -114,10 +114,6 @@ func (s *SecureRequiredType) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "NativeNames",
 			SchemaName: "native_names",
 			Null:       !s.Flags.Has(0),

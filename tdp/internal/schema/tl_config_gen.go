@@ -482,10 +482,6 @@ func (c *Config) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "PhonecallsEnabled",
 			SchemaName: "phonecalls_enabled",
 			Null:       !c.Flags.Has(1),

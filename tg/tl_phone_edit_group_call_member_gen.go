@@ -115,10 +115,6 @@ func (e *PhoneEditGroupCallMemberRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Muted",
 			SchemaName: "muted",
 			Null:       !e.Flags.Has(0),

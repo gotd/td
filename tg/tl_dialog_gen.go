@@ -194,10 +194,6 @@ func (d *Dialog) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Pinned",
 			SchemaName: "pinned",
 			Null:       !d.Flags.Has(2),
@@ -637,10 +633,6 @@ func (d *DialogFolder) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "Pinned",
 			SchemaName: "pinned",

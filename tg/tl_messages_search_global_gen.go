@@ -169,10 +169,6 @@ func (s *MessagesSearchGlobalRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "FolderID",
 			SchemaName: "folder_id",
 			Null:       !s.Flags.Has(0),

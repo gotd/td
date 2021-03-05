@@ -126,10 +126,6 @@ func (m *MessageReplyHeader) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "ReplyToMsgID",
 			SchemaName: "reply_to_msg_id",
 		},

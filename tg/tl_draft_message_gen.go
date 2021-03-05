@@ -98,10 +98,6 @@ func (d *DraftMessageEmpty) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Date",
 			SchemaName: "date",
 			Null:       !d.Flags.Has(0),
@@ -291,10 +287,6 @@ func (d *DraftMessage) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "NoWebpage",
 			SchemaName: "no_webpage",

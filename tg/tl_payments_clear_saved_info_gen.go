@@ -100,10 +100,6 @@ func (c *PaymentsClearSavedInfoRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Credentials",
 			SchemaName: "credentials",
 			Null:       !c.Flags.Has(0),

@@ -341,10 +341,6 @@ func (d *DocumentAttributeSticker) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Mask",
 			SchemaName: "mask",
 			Null:       !d.Flags.Has(1),
@@ -582,10 +578,6 @@ func (d *DocumentAttributeVideo) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "RoundMessage",
 			SchemaName: "round_message",
@@ -843,10 +835,6 @@ func (d *DocumentAttributeAudio) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "Voice",
 			SchemaName: "voice",

@@ -127,10 +127,6 @@ func (s *PaymentsSendPaymentFormRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "MsgID",
 			SchemaName: "msg_id",
 		},

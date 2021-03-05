@@ -118,10 +118,6 @@ func (c *CodeSettings) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "AllowFlashcall",
 			SchemaName: "allow_flashcall",
 			Null:       !c.Flags.Has(0),

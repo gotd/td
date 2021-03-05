@@ -208,10 +208,6 @@ func (s *SecureValue) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Type",
 			SchemaName: "type",
 		},

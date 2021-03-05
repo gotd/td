@@ -181,10 +181,6 @@ func (s *MessagesSendInlineBotResultRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Silent",
 			SchemaName: "silent",
 			Null:       !s.Flags.Has(5),

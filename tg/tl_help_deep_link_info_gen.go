@@ -199,10 +199,6 @@ func (d *HelpDeepLinkInfo) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "UpdateApp",
 			SchemaName: "update_app",
 			Null:       !d.Flags.Has(0),

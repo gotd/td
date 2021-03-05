@@ -158,10 +158,6 @@ func (w *WallPaper) TypeInfo() tdp.Type {
 			SchemaName: "id",
 		},
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Creator",
 			SchemaName: "creator",
 			Null:       !w.Flags.Has(0),
@@ -495,10 +491,6 @@ func (w *WallPaperNoFile) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "Default",
 			SchemaName: "default",

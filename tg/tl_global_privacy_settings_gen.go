@@ -98,10 +98,6 @@ func (g *GlobalPrivacySettings) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "ArchiveAndMuteNewNoncontactPeers",
 			SchemaName: "archive_and_mute_new_noncontact_peers",
 			Null:       !g.Flags.Has(0),

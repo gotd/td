@@ -105,10 +105,6 @@ func (s *PaymentsSavedInfo) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "HasSavedCredentials",
 			SchemaName: "has_saved_credentials",
 			Null:       !s.Flags.Has(1),

@@ -267,10 +267,6 @@ func (p *Photo) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "HasStickers",
 			SchemaName: "has_stickers",
 			Null:       !p.Flags.Has(0),

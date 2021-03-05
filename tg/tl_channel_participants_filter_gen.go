@@ -826,10 +826,6 @@ func (c *ChannelParticipantsMentions) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Q",
 			SchemaName: "q",
 			Null:       !c.Flags.Has(0),

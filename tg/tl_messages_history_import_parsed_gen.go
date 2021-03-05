@@ -108,10 +108,6 @@ func (h *MessagesHistoryImportParsed) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Pm",
 			SchemaName: "pm",
 			Null:       !h.Flags.Has(0),

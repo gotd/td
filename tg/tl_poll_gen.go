@@ -166,10 +166,6 @@ func (p *Poll) TypeInfo() tdp.Type {
 			SchemaName: "id",
 		},
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Closed",
 			SchemaName: "closed",
 			Null:       !p.Flags.Has(0),

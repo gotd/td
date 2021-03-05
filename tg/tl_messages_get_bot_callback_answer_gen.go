@@ -135,10 +135,6 @@ func (g *MessagesGetBotCallbackAnswerRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Game",
 			SchemaName: "game",
 			Null:       !g.Flags.Has(1),

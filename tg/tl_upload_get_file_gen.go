@@ -124,10 +124,6 @@ func (g *UploadGetFileRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Precise",
 			SchemaName: "precise",
 			Null:       !g.Flags.Has(0),

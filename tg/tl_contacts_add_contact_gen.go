@@ -125,10 +125,6 @@ func (a *ContactsAddContactRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "AddPhonePrivacyException",
 			SchemaName: "add_phone_privacy_exception",
 			Null:       !a.Flags.Has(0),

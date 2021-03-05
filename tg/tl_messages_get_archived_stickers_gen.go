@@ -113,10 +113,6 @@ func (g *MessagesGetArchivedStickersRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Masks",
 			SchemaName: "masks",
 			Null:       !g.Flags.Has(0),

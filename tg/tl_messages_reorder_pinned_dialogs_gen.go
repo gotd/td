@@ -110,10 +110,6 @@ func (r *MessagesReorderPinnedDialogsRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "Force",
 			SchemaName: "force",
 			Null:       !r.Flags.Has(0),

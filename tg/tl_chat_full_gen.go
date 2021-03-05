@@ -221,10 +221,6 @@ func (c *ChatFull) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "CanSetUsername",
 			SchemaName: "can_set_username",
 			Null:       !c.Flags.Has(7),
@@ -1095,10 +1091,6 @@ func (c *ChannelFull) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
-		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
 		{
 			Name:       "CanViewParticipants",
 			SchemaName: "can_view_participants",

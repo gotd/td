@@ -113,10 +113,6 @@ func (u *UrlAuthResultRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "RequestWriteAccess",
 			SchemaName: "request_write_access",
 			Null:       !u.Flags.Has(0),

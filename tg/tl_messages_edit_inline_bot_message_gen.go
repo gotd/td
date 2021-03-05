@@ -151,10 +151,6 @@ func (e *MessagesEditInlineBotMessageRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Flags",
-			SchemaName: "flags",
-		},
-		{
 			Name:       "NoWebpage",
 			SchemaName: "no_webpage",
 			Null:       !e.Flags.Has(1),
