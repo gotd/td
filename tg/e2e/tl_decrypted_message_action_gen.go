@@ -139,8 +139,8 @@ var (
 //
 // See https://core.telegram.org/constructor/decryptedMessageActionReadMessages for reference.
 type DecryptedMessageActionReadMessages struct {
-	// RandomIds field of DecryptedMessageActionReadMessages.
-	RandomIds []int64
+	// RandomIDs field of DecryptedMessageActionReadMessages.
+	RandomIDs []int64
 }
 
 // DecryptedMessageActionReadMessagesTypeID is TL type id of DecryptedMessageActionReadMessages.
@@ -150,7 +150,7 @@ func (d *DecryptedMessageActionReadMessages) Zero() bool {
 	if d == nil {
 		return true
 	}
-	if !(d.RandomIds == nil) {
+	if !(d.RandomIDs == nil) {
 		return false
 	}
 
@@ -168,9 +168,9 @@ func (d *DecryptedMessageActionReadMessages) String() string {
 
 // FillFrom fills DecryptedMessageActionReadMessages from given interface.
 func (d *DecryptedMessageActionReadMessages) FillFrom(from interface {
-	GetRandomIds() (value []int64)
+	GetRandomIDs() (value []int64)
 }) {
-	d.RandomIds = from.GetRandomIds()
+	d.RandomIDs = from.GetRandomIDs()
 }
 
 // TypeID returns type id in TL schema.
@@ -197,7 +197,7 @@ func (d *DecryptedMessageActionReadMessages) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "RandomIds",
+			Name:       "RandomIDs",
 			SchemaName: "random_ids",
 		},
 	}
@@ -210,16 +210,16 @@ func (d *DecryptedMessageActionReadMessages) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageActionReadMessages#c4f40be as nil")
 	}
 	b.PutID(DecryptedMessageActionReadMessagesTypeID)
-	b.PutVectorHeader(len(d.RandomIds))
-	for _, v := range d.RandomIds {
+	b.PutVectorHeader(len(d.RandomIDs))
+	for _, v := range d.RandomIDs {
 		b.PutLong(v)
 	}
 	return nil
 }
 
-// GetRandomIds returns value of RandomIds field.
-func (d *DecryptedMessageActionReadMessages) GetRandomIds() (value []int64) {
-	return d.RandomIds
+// GetRandomIDs returns value of RandomIDs field.
+func (d *DecryptedMessageActionReadMessages) GetRandomIDs() (value []int64) {
+	return d.RandomIDs
 }
 
 // Decode implements bin.Decoder.
@@ -240,7 +240,7 @@ func (d *DecryptedMessageActionReadMessages) Decode(b *bin.Buffer) error {
 			if err != nil {
 				return fmt.Errorf("unable to decode decryptedMessageActionReadMessages#c4f40be: field random_ids: %w", err)
 			}
-			d.RandomIds = append(d.RandomIds, value)
+			d.RandomIDs = append(d.RandomIDs, value)
 		}
 	}
 	return nil
@@ -261,8 +261,8 @@ var (
 //
 // See https://core.telegram.org/constructor/decryptedMessageActionDeleteMessages for reference.
 type DecryptedMessageActionDeleteMessages struct {
-	// RandomIds field of DecryptedMessageActionDeleteMessages.
-	RandomIds []int64
+	// RandomIDs field of DecryptedMessageActionDeleteMessages.
+	RandomIDs []int64
 }
 
 // DecryptedMessageActionDeleteMessagesTypeID is TL type id of DecryptedMessageActionDeleteMessages.
@@ -272,7 +272,7 @@ func (d *DecryptedMessageActionDeleteMessages) Zero() bool {
 	if d == nil {
 		return true
 	}
-	if !(d.RandomIds == nil) {
+	if !(d.RandomIDs == nil) {
 		return false
 	}
 
@@ -290,9 +290,9 @@ func (d *DecryptedMessageActionDeleteMessages) String() string {
 
 // FillFrom fills DecryptedMessageActionDeleteMessages from given interface.
 func (d *DecryptedMessageActionDeleteMessages) FillFrom(from interface {
-	GetRandomIds() (value []int64)
+	GetRandomIDs() (value []int64)
 }) {
-	d.RandomIds = from.GetRandomIds()
+	d.RandomIDs = from.GetRandomIDs()
 }
 
 // TypeID returns type id in TL schema.
@@ -319,7 +319,7 @@ func (d *DecryptedMessageActionDeleteMessages) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "RandomIds",
+			Name:       "RandomIDs",
 			SchemaName: "random_ids",
 		},
 	}
@@ -332,16 +332,16 @@ func (d *DecryptedMessageActionDeleteMessages) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageActionDeleteMessages#65614304 as nil")
 	}
 	b.PutID(DecryptedMessageActionDeleteMessagesTypeID)
-	b.PutVectorHeader(len(d.RandomIds))
-	for _, v := range d.RandomIds {
+	b.PutVectorHeader(len(d.RandomIDs))
+	for _, v := range d.RandomIDs {
 		b.PutLong(v)
 	}
 	return nil
 }
 
-// GetRandomIds returns value of RandomIds field.
-func (d *DecryptedMessageActionDeleteMessages) GetRandomIds() (value []int64) {
-	return d.RandomIds
+// GetRandomIDs returns value of RandomIDs field.
+func (d *DecryptedMessageActionDeleteMessages) GetRandomIDs() (value []int64) {
+	return d.RandomIDs
 }
 
 // Decode implements bin.Decoder.
@@ -362,7 +362,7 @@ func (d *DecryptedMessageActionDeleteMessages) Decode(b *bin.Buffer) error {
 			if err != nil {
 				return fmt.Errorf("unable to decode decryptedMessageActionDeleteMessages#65614304: field random_ids: %w", err)
 			}
-			d.RandomIds = append(d.RandomIds, value)
+			d.RandomIDs = append(d.RandomIDs, value)
 		}
 	}
 	return nil
@@ -383,8 +383,8 @@ var (
 //
 // See https://core.telegram.org/constructor/decryptedMessageActionScreenshotMessages for reference.
 type DecryptedMessageActionScreenshotMessages struct {
-	// RandomIds field of DecryptedMessageActionScreenshotMessages.
-	RandomIds []int64
+	// RandomIDs field of DecryptedMessageActionScreenshotMessages.
+	RandomIDs []int64
 }
 
 // DecryptedMessageActionScreenshotMessagesTypeID is TL type id of DecryptedMessageActionScreenshotMessages.
@@ -394,7 +394,7 @@ func (d *DecryptedMessageActionScreenshotMessages) Zero() bool {
 	if d == nil {
 		return true
 	}
-	if !(d.RandomIds == nil) {
+	if !(d.RandomIDs == nil) {
 		return false
 	}
 
@@ -412,9 +412,9 @@ func (d *DecryptedMessageActionScreenshotMessages) String() string {
 
 // FillFrom fills DecryptedMessageActionScreenshotMessages from given interface.
 func (d *DecryptedMessageActionScreenshotMessages) FillFrom(from interface {
-	GetRandomIds() (value []int64)
+	GetRandomIDs() (value []int64)
 }) {
-	d.RandomIds = from.GetRandomIds()
+	d.RandomIDs = from.GetRandomIDs()
 }
 
 // TypeID returns type id in TL schema.
@@ -441,7 +441,7 @@ func (d *DecryptedMessageActionScreenshotMessages) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "RandomIds",
+			Name:       "RandomIDs",
 			SchemaName: "random_ids",
 		},
 	}
@@ -454,16 +454,16 @@ func (d *DecryptedMessageActionScreenshotMessages) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageActionScreenshotMessages#8ac1f475 as nil")
 	}
 	b.PutID(DecryptedMessageActionScreenshotMessagesTypeID)
-	b.PutVectorHeader(len(d.RandomIds))
-	for _, v := range d.RandomIds {
+	b.PutVectorHeader(len(d.RandomIDs))
+	for _, v := range d.RandomIDs {
 		b.PutLong(v)
 	}
 	return nil
 }
 
-// GetRandomIds returns value of RandomIds field.
-func (d *DecryptedMessageActionScreenshotMessages) GetRandomIds() (value []int64) {
-	return d.RandomIds
+// GetRandomIDs returns value of RandomIDs field.
+func (d *DecryptedMessageActionScreenshotMessages) GetRandomIDs() (value []int64) {
+	return d.RandomIDs
 }
 
 // Decode implements bin.Decoder.
@@ -484,7 +484,7 @@ func (d *DecryptedMessageActionScreenshotMessages) Decode(b *bin.Buffer) error {
 			if err != nil {
 				return fmt.Errorf("unable to decode decryptedMessageActionScreenshotMessages#8ac1f475: field random_ids: %w", err)
 			}
-			d.RandomIds = append(d.RandomIds, value)
+			d.RandomIDs = append(d.RandomIDs, value)
 		}
 	}
 	return nil

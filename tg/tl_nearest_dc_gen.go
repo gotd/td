@@ -22,11 +22,11 @@ var _ = errors.Is
 var _ = sort.Ints
 var _ = tdp.Format
 
-// NearestDc represents TL type `nearestDc#8e1a1775`.
+// NearestDC represents TL type `nearestDc#8e1a1775`.
 // Nearest data centre, according to geo-ip.
 //
 // See https://core.telegram.org/constructor/nearestDc for reference.
-type NearestDc struct {
+type NearestDC struct {
 	// Country code determined by geo-ip
 	Country string
 	// Number of current data centre
@@ -35,10 +35,10 @@ type NearestDc struct {
 	NearestDC int
 }
 
-// NearestDcTypeID is TL type id of NearestDc.
-const NearestDcTypeID = 0x8e1a1775
+// NearestDCTypeID is TL type id of NearestDC.
+const NearestDCTypeID = 0x8e1a1775
 
-func (n *NearestDc) Zero() bool {
+func (n *NearestDC) Zero() bool {
 	if n == nil {
 		return true
 	}
@@ -56,16 +56,16 @@ func (n *NearestDc) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (n *NearestDc) String() string {
+func (n *NearestDC) String() string {
 	if n == nil {
-		return "NearestDc(nil)"
+		return "NearestDC(nil)"
 	}
-	type Alias NearestDc
-	return fmt.Sprintf("NearestDc%+v", Alias(*n))
+	type Alias NearestDC
+	return fmt.Sprintf("NearestDC%+v", Alias(*n))
 }
 
-// FillFrom fills NearestDc from given interface.
-func (n *NearestDc) FillFrom(from interface {
+// FillFrom fills NearestDC from given interface.
+func (n *NearestDC) FillFrom(from interface {
 	GetCountry() (value string)
 	GetThisDC() (value int)
 	GetNearestDC() (value int)
@@ -78,20 +78,20 @@ func (n *NearestDc) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*NearestDc) TypeID() uint32 {
-	return NearestDcTypeID
+func (*NearestDC) TypeID() uint32 {
+	return NearestDCTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*NearestDc) TypeName() string {
+func (*NearestDC) TypeName() string {
 	return "nearestDc"
 }
 
 // TypeInfo returns info about TL type.
-func (n *NearestDc) TypeInfo() tdp.Type {
+func (n *NearestDC) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "nearestDc",
-		ID:   NearestDcTypeID,
+		ID:   NearestDCTypeID,
 	}
 	if n == nil {
 		typ.Null = true
@@ -115,11 +115,11 @@ func (n *NearestDc) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (n *NearestDc) Encode(b *bin.Buffer) error {
+func (n *NearestDC) Encode(b *bin.Buffer) error {
 	if n == nil {
 		return fmt.Errorf("can't encode nearestDc#8e1a1775 as nil")
 	}
-	b.PutID(NearestDcTypeID)
+	b.PutID(NearestDCTypeID)
 	b.PutString(n.Country)
 	b.PutInt(n.ThisDC)
 	b.PutInt(n.NearestDC)
@@ -127,26 +127,26 @@ func (n *NearestDc) Encode(b *bin.Buffer) error {
 }
 
 // GetCountry returns value of Country field.
-func (n *NearestDc) GetCountry() (value string) {
+func (n *NearestDC) GetCountry() (value string) {
 	return n.Country
 }
 
 // GetThisDC returns value of ThisDC field.
-func (n *NearestDc) GetThisDC() (value int) {
+func (n *NearestDC) GetThisDC() (value int) {
 	return n.ThisDC
 }
 
 // GetNearestDC returns value of NearestDC field.
-func (n *NearestDc) GetNearestDC() (value int) {
+func (n *NearestDC) GetNearestDC() (value int) {
 	return n.NearestDC
 }
 
 // Decode implements bin.Decoder.
-func (n *NearestDc) Decode(b *bin.Buffer) error {
+func (n *NearestDC) Decode(b *bin.Buffer) error {
 	if n == nil {
 		return fmt.Errorf("can't decode nearestDc#8e1a1775 to nil")
 	}
-	if err := b.ConsumeID(NearestDcTypeID); err != nil {
+	if err := b.ConsumeID(NearestDCTypeID); err != nil {
 		return fmt.Errorf("unable to decode nearestDc#8e1a1775: %w", err)
 	}
 	{
@@ -173,8 +173,8 @@ func (n *NearestDc) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for NearestDc.
+// Ensuring interfaces in compile-time for NearestDC.
 var (
-	_ bin.Encoder = &NearestDc{}
-	_ bin.Decoder = &NearestDc{}
+	_ bin.Encoder = &NearestDC{}
+	_ bin.Decoder = &NearestDC{}
 )

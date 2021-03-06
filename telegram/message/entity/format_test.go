@@ -37,7 +37,7 @@ func TestFormat(t *testing.T) {
 	t.Run("URL", func(t *testing.T) {
 		_, ent := b.URL("abc").Complete()
 		r := ent[0]
-		require.Equal(t, &tg.MessageEntityUrl{
+		require.Equal(t, &tg.MessageEntityURL{
 			Offset: 0,
 			Length: len("abc"),
 		}, r)
@@ -86,7 +86,7 @@ func TestFormat(t *testing.T) {
 	t.Run("TextURL", func(t *testing.T) {
 		_, ent := b.TextURL("abc", "url").Complete()
 		r := ent[0]
-		require.Equal(t, &tg.MessageEntityTextUrl{
+		require.Equal(t, &tg.MessageEntityTextURL{
 			Offset: 0,
 			Length: len("abc"),
 			URL:    "url",

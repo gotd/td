@@ -242,7 +242,7 @@ func testMigrate(trp Transport) func(t *testing.T) {
 		migrateAddr, ok := migrate.Addr().(*net.TCPAddr)
 		require.Truef(t, ok, "unexpected type %T", migrate.Addr())
 		dcOps := &tg.Config{
-			DCOptions: []tg.DcOption{
+			DCOptions: []tg.DCOption{
 				{
 					ID:        1,
 					IPAddress: srvAddr.IP.String(),

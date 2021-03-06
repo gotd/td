@@ -15,7 +15,7 @@ import (
 // ExpiredTokenError error is returned when Downloader get expired file token for CDN.
 // See https://core.telegram.org/constructor/upload.fileCdnRedirect.
 type ExpiredTokenError struct {
-	*tg.UploadCdnFileReuploadNeeded
+	*tg.UploadCDNFileReuploadNeeded
 }
 
 // Error implements error interface.
@@ -29,7 +29,7 @@ type cdn struct {
 	cdn      CDN
 	client   Client
 	pool     *bin.Pool
-	redirect *tg.UploadFileCdnRedirect
+	redirect *tg.UploadFileCDNRedirect
 }
 
 var _ schema = cdn{}
@@ -64,7 +64,7 @@ func (c cdn) decrypt(src []byte, offset int) ([]byte, error) {
 }
 
 func (c cdn) Chunk(ctx context.Context, offset, limit int) (chunk, error) {
-	r, err := c.cdn.UploadGetCdnFile(ctx, &tg.UploadGetCdnFileRequest{
+	r, err := c.cdn.UploadGetCdnFile(ctx, &tg.UploadGetCDNFileRequest{
 		Offset:    offset,
 		Limit:     limit,
 		FileToken: c.redirect.FileToken,
@@ -74,7 +74,7 @@ func (c cdn) Chunk(ctx context.Context, offset, limit int) (chunk, error) {
 	}
 
 	switch result := r.(type) {
-	case *tg.UploadCdnFile:
+	case *tg.UploadCDNFile:
 		data, err := c.decrypt(result.Bytes, offset)
 		if err != nil {
 			return chunk{}, err
@@ -83,15 +83,15 @@ func (c cdn) Chunk(ctx context.Context, offset, limit int) (chunk, error) {
 		return chunk{
 			data: data,
 		}, nil
-	case *tg.UploadCdnFileReuploadNeeded:
-		return chunk{}, &ExpiredTokenError{UploadCdnFileReuploadNeeded: result}
+	case *tg.UploadCDNFileReuploadNeeded:
+		return chunk{}, &ExpiredTokenError{UploadCDNFileReuploadNeeded: result}
 	default:
 		return chunk{}, xerrors.Errorf("unexpected type %T", r)
 	}
 }
 
 func (c cdn) Hashes(ctx context.Context, offset int) ([]tg.FileHash, error) {
-	return c.client.UploadGetCdnFileHashes(ctx, &tg.UploadGetCdnFileHashesRequest{
+	return c.client.UploadGetCdnFileHashes(ctx, &tg.UploadGetCDNFileHashesRequest{
 		FileToken: c.redirect.FileToken,
 		Offset:    offset,
 	})

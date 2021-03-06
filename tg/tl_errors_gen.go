@@ -1193,12 +1193,12 @@ func IsMessageEmpty(err error) bool {
 	return errors.Is(err, typedErrChecker{t: ErrMessageEmpty})
 }
 
-// ErrMessageIdsEmpty is error type for "MESSAGE_IDS_EMPTY".
-const ErrMessageIdsEmpty = "MESSAGE_IDS_EMPTY"
+// ErrMessageIDsEmpty is error type for "MESSAGE_IDS_EMPTY".
+const ErrMessageIDsEmpty = "MESSAGE_IDS_EMPTY"
 
-// IsMessageIdsEmpty reports whether err is MESSAGE_IDS_EMPTY.
-func IsMessageIdsEmpty(err error) bool {
-	return errors.Is(err, typedErrChecker{t: ErrMessageIdsEmpty})
+// IsMessageIDsEmpty reports whether err is MESSAGE_IDS_EMPTY.
+func IsMessageIDsEmpty(err error) bool {
+	return errors.Is(err, typedErrChecker{t: ErrMessageIDsEmpty})
 }
 
 // ErrMessageIDInvalid is error type for "MESSAGE_ID_INVALID".

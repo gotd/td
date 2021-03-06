@@ -35,7 +35,7 @@ type AccountUnregisterDeviceRequest struct {
 	// Device token
 	Token string
 	// List of user identifiers of other users currently using the client
-	OtherUids []int
+	OtherUIDs []int
 }
 
 // AccountUnregisterDeviceRequestTypeID is TL type id of AccountUnregisterDeviceRequest.
@@ -51,7 +51,7 @@ func (u *AccountUnregisterDeviceRequest) Zero() bool {
 	if !(u.Token == "") {
 		return false
 	}
-	if !(u.OtherUids == nil) {
+	if !(u.OtherUIDs == nil) {
 		return false
 	}
 
@@ -71,11 +71,11 @@ func (u *AccountUnregisterDeviceRequest) String() string {
 func (u *AccountUnregisterDeviceRequest) FillFrom(from interface {
 	GetTokenType() (value int)
 	GetToken() (value string)
-	GetOtherUids() (value []int)
+	GetOtherUIDs() (value []int)
 }) {
 	u.TokenType = from.GetTokenType()
 	u.Token = from.GetToken()
-	u.OtherUids = from.GetOtherUids()
+	u.OtherUIDs = from.GetOtherUIDs()
 }
 
 // TypeID returns type id in TL schema.
@@ -110,7 +110,7 @@ func (u *AccountUnregisterDeviceRequest) TypeInfo() tdp.Type {
 			SchemaName: "token",
 		},
 		{
-			Name:       "OtherUids",
+			Name:       "OtherUIDs",
 			SchemaName: "other_uids",
 		},
 	}
@@ -125,8 +125,8 @@ func (u *AccountUnregisterDeviceRequest) Encode(b *bin.Buffer) error {
 	b.PutID(AccountUnregisterDeviceRequestTypeID)
 	b.PutInt(u.TokenType)
 	b.PutString(u.Token)
-	b.PutVectorHeader(len(u.OtherUids))
-	for _, v := range u.OtherUids {
+	b.PutVectorHeader(len(u.OtherUIDs))
+	for _, v := range u.OtherUIDs {
 		b.PutInt(v)
 	}
 	return nil
@@ -142,9 +142,9 @@ func (u *AccountUnregisterDeviceRequest) GetToken() (value string) {
 	return u.Token
 }
 
-// GetOtherUids returns value of OtherUids field.
-func (u *AccountUnregisterDeviceRequest) GetOtherUids() (value []int) {
-	return u.OtherUids
+// GetOtherUIDs returns value of OtherUIDs field.
+func (u *AccountUnregisterDeviceRequest) GetOtherUIDs() (value []int) {
+	return u.OtherUIDs
 }
 
 // Decode implements bin.Decoder.
@@ -179,7 +179,7 @@ func (u *AccountUnregisterDeviceRequest) Decode(b *bin.Buffer) error {
 			if err != nil {
 				return fmt.Errorf("unable to decode account.unregisterDevice#3076c4bf: field other_uids: %w", err)
 			}
-			u.OtherUids = append(u.OtherUids, value)
+			u.OtherUIDs = append(u.OtherUIDs, value)
 		}
 	}
 	return nil

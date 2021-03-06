@@ -354,16 +354,16 @@ var (
 	_ TextEntityTypeClass = &TextEntityTypeBotCommand{}
 )
 
-// TextEntityTypeUrl represents TL type `textEntityTypeUrl#b1c0d47c`.
+// TextEntityTypeURL represents TL type `textEntityTypeUrl#b1c0d47c`.
 //
 // See https://localhost:80/doc/constructor/textEntityTypeUrl for reference.
-type TextEntityTypeUrl struct {
+type TextEntityTypeURL struct {
 }
 
-// TextEntityTypeUrlTypeID is TL type id of TextEntityTypeUrl.
-const TextEntityTypeUrlTypeID = 0xb1c0d47c
+// TextEntityTypeURLTypeID is TL type id of TextEntityTypeURL.
+const TextEntityTypeURLTypeID = 0xb1c0d47c
 
-func (t *TextEntityTypeUrl) Zero() bool {
+func (t *TextEntityTypeURL) Zero() bool {
 	if t == nil {
 		return true
 	}
@@ -372,31 +372,31 @@ func (t *TextEntityTypeUrl) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (t *TextEntityTypeUrl) String() string {
+func (t *TextEntityTypeURL) String() string {
 	if t == nil {
-		return "TextEntityTypeUrl(nil)"
+		return "TextEntityTypeURL(nil)"
 	}
-	type Alias TextEntityTypeUrl
-	return fmt.Sprintf("TextEntityTypeUrl%+v", Alias(*t))
+	type Alias TextEntityTypeURL
+	return fmt.Sprintf("TextEntityTypeURL%+v", Alias(*t))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*TextEntityTypeUrl) TypeID() uint32 {
-	return TextEntityTypeUrlTypeID
+func (*TextEntityTypeURL) TypeID() uint32 {
+	return TextEntityTypeURLTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*TextEntityTypeUrl) TypeName() string {
+func (*TextEntityTypeURL) TypeName() string {
 	return "textEntityTypeUrl"
 }
 
 // TypeInfo returns info about TL type.
-func (t *TextEntityTypeUrl) TypeInfo() tdp.Type {
+func (t *TextEntityTypeURL) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "textEntityTypeUrl",
-		ID:   TextEntityTypeUrlTypeID,
+		ID:   TextEntityTypeURLTypeID,
 	}
 	if t == nil {
 		typ.Null = true
@@ -407,34 +407,34 @@ func (t *TextEntityTypeUrl) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (t *TextEntityTypeUrl) Encode(b *bin.Buffer) error {
+func (t *TextEntityTypeURL) Encode(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't encode textEntityTypeUrl#b1c0d47c as nil")
 	}
-	b.PutID(TextEntityTypeUrlTypeID)
+	b.PutID(TextEntityTypeURLTypeID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (t *TextEntityTypeUrl) Decode(b *bin.Buffer) error {
+func (t *TextEntityTypeURL) Decode(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypeUrl#b1c0d47c to nil")
 	}
-	if err := b.ConsumeID(TextEntityTypeUrlTypeID); err != nil {
+	if err := b.ConsumeID(TextEntityTypeURLTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeUrl#b1c0d47c: %w", err)
 	}
 	return nil
 }
 
 // construct implements constructor of TextEntityTypeClass.
-func (t TextEntityTypeUrl) construct() TextEntityTypeClass { return &t }
+func (t TextEntityTypeURL) construct() TextEntityTypeClass { return &t }
 
-// Ensuring interfaces in compile-time for TextEntityTypeUrl.
+// Ensuring interfaces in compile-time for TextEntityTypeURL.
 var (
-	_ bin.Encoder = &TextEntityTypeUrl{}
-	_ bin.Decoder = &TextEntityTypeUrl{}
+	_ bin.Encoder = &TextEntityTypeURL{}
+	_ bin.Decoder = &TextEntityTypeURL{}
 
-	_ TextEntityTypeClass = &TextEntityTypeUrl{}
+	_ TextEntityTypeClass = &TextEntityTypeURL{}
 )
 
 // TextEntityTypeEmailAddress represents TL type `textEntityTypeEmailAddress#54f81821`.
@@ -1297,18 +1297,18 @@ var (
 	_ TextEntityTypeClass = &TextEntityTypePreCode{}
 )
 
-// TextEntityTypeTextUrl represents TL type `textEntityTypeTextUrl#1a912463`.
+// TextEntityTypeTextURL represents TL type `textEntityTypeTextUrl#1a912463`.
 //
 // See https://localhost:80/doc/constructor/textEntityTypeTextUrl for reference.
-type TextEntityTypeTextUrl struct {
+type TextEntityTypeTextURL struct {
 	// HTTP or tg:// URL to be opened when the link is clicked
 	URL string
 }
 
-// TextEntityTypeTextUrlTypeID is TL type id of TextEntityTypeTextUrl.
-const TextEntityTypeTextUrlTypeID = 0x1a912463
+// TextEntityTypeTextURLTypeID is TL type id of TextEntityTypeTextURL.
+const TextEntityTypeTextURLTypeID = 0x1a912463
 
-func (t *TextEntityTypeTextUrl) Zero() bool {
+func (t *TextEntityTypeTextURL) Zero() bool {
 	if t == nil {
 		return true
 	}
@@ -1320,16 +1320,16 @@ func (t *TextEntityTypeTextUrl) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (t *TextEntityTypeTextUrl) String() string {
+func (t *TextEntityTypeTextURL) String() string {
 	if t == nil {
-		return "TextEntityTypeTextUrl(nil)"
+		return "TextEntityTypeTextURL(nil)"
 	}
-	type Alias TextEntityTypeTextUrl
-	return fmt.Sprintf("TextEntityTypeTextUrl%+v", Alias(*t))
+	type Alias TextEntityTypeTextURL
+	return fmt.Sprintf("TextEntityTypeTextURL%+v", Alias(*t))
 }
 
-// FillFrom fills TextEntityTypeTextUrl from given interface.
-func (t *TextEntityTypeTextUrl) FillFrom(from interface {
+// FillFrom fills TextEntityTypeTextURL from given interface.
+func (t *TextEntityTypeTextURL) FillFrom(from interface {
 	GetURL() (value string)
 }) {
 	t.URL = from.GetURL()
@@ -1338,20 +1338,20 @@ func (t *TextEntityTypeTextUrl) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*TextEntityTypeTextUrl) TypeID() uint32 {
-	return TextEntityTypeTextUrlTypeID
+func (*TextEntityTypeTextURL) TypeID() uint32 {
+	return TextEntityTypeTextURLTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*TextEntityTypeTextUrl) TypeName() string {
+func (*TextEntityTypeTextURL) TypeName() string {
 	return "textEntityTypeTextUrl"
 }
 
 // TypeInfo returns info about TL type.
-func (t *TextEntityTypeTextUrl) TypeInfo() tdp.Type {
+func (t *TextEntityTypeTextURL) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "textEntityTypeTextUrl",
-		ID:   TextEntityTypeTextUrlTypeID,
+		ID:   TextEntityTypeTextURLTypeID,
 	}
 	if t == nil {
 		typ.Null = true
@@ -1367,26 +1367,26 @@ func (t *TextEntityTypeTextUrl) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (t *TextEntityTypeTextUrl) Encode(b *bin.Buffer) error {
+func (t *TextEntityTypeTextURL) Encode(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't encode textEntityTypeTextUrl#1a912463 as nil")
 	}
-	b.PutID(TextEntityTypeTextUrlTypeID)
+	b.PutID(TextEntityTypeTextURLTypeID)
 	b.PutString(t.URL)
 	return nil
 }
 
 // GetURL returns value of URL field.
-func (t *TextEntityTypeTextUrl) GetURL() (value string) {
+func (t *TextEntityTypeTextURL) GetURL() (value string) {
 	return t.URL
 }
 
 // Decode implements bin.Decoder.
-func (t *TextEntityTypeTextUrl) Decode(b *bin.Buffer) error {
+func (t *TextEntityTypeTextURL) Decode(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textEntityTypeTextUrl#1a912463 to nil")
 	}
-	if err := b.ConsumeID(TextEntityTypeTextUrlTypeID); err != nil {
+	if err := b.ConsumeID(TextEntityTypeTextURLTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeTextUrl#1a912463: %w", err)
 	}
 	{
@@ -1400,14 +1400,14 @@ func (t *TextEntityTypeTextUrl) Decode(b *bin.Buffer) error {
 }
 
 // construct implements constructor of TextEntityTypeClass.
-func (t TextEntityTypeTextUrl) construct() TextEntityTypeClass { return &t }
+func (t TextEntityTypeTextURL) construct() TextEntityTypeClass { return &t }
 
-// Ensuring interfaces in compile-time for TextEntityTypeTextUrl.
+// Ensuring interfaces in compile-time for TextEntityTypeTextURL.
 var (
-	_ bin.Encoder = &TextEntityTypeTextUrl{}
-	_ bin.Decoder = &TextEntityTypeTextUrl{}
+	_ bin.Encoder = &TextEntityTypeTextURL{}
+	_ bin.Decoder = &TextEntityTypeTextURL{}
 
-	_ TextEntityTypeClass = &TextEntityTypeTextUrl{}
+	_ TextEntityTypeClass = &TextEntityTypeTextURL{}
 )
 
 // TextEntityTypeMentionName represents TL type `textEntityTypeMentionName#d0d2685d`.
@@ -1537,7 +1537,7 @@ var (
 //  case *td.TextEntityTypeHashtag: // textEntityTypeHashtag#c2f7a2dd
 //  case *td.TextEntityTypeCashtag: // textEntityTypeCashtag#48e4374b
 //  case *td.TextEntityTypeBotCommand: // textEntityTypeBotCommand#bb652bb3
-//  case *td.TextEntityTypeUrl: // textEntityTypeUrl#b1c0d47c
+//  case *td.TextEntityTypeURL: // textEntityTypeUrl#b1c0d47c
 //  case *td.TextEntityTypeEmailAddress: // textEntityTypeEmailAddress#54f81821
 //  case *td.TextEntityTypePhoneNumber: // textEntityTypePhoneNumber#bad9aa2a
 //  case *td.TextEntityTypeBankCardNumber: // textEntityTypeBankCardNumber#6513910
@@ -1548,7 +1548,7 @@ var (
 //  case *td.TextEntityTypeCode: // textEntityTypeCode#c5e9c94a
 //  case *td.TextEntityTypePre: // textEntityTypePre#62491c8e
 //  case *td.TextEntityTypePreCode: // textEntityTypePreCode#c7a77aab
-//  case *td.TextEntityTypeTextUrl: // textEntityTypeTextUrl#1a912463
+//  case *td.TextEntityTypeTextURL: // textEntityTypeTextUrl#1a912463
 //  case *td.TextEntityTypeMentionName: // textEntityTypeMentionName#d0d2685d
 //  default: panic(v)
 //  }
@@ -1604,9 +1604,9 @@ func DecodeTextEntityType(buf *bin.Buffer) (TextEntityTypeClass, error) {
 			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
 		}
 		return &v, nil
-	case TextEntityTypeUrlTypeID:
+	case TextEntityTypeURLTypeID:
 		// Decoding textEntityTypeUrl#b1c0d47c.
-		v := TextEntityTypeUrl{}
+		v := TextEntityTypeURL{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
 		}
@@ -1681,9 +1681,9 @@ func DecodeTextEntityType(buf *bin.Buffer) (TextEntityTypeClass, error) {
 			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
 		}
 		return &v, nil
-	case TextEntityTypeTextUrlTypeID:
+	case TextEntityTypeTextURLTypeID:
 		// Decoding textEntityTypeTextUrl#1a912463.
-		v := TextEntityTypeTextUrl{}
+		v := TextEntityTypeTextURL{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode TextEntityTypeClass: %w", err)
 		}
@@ -1821,10 +1821,10 @@ func (s TextEntityTypeClassArray) AsTextEntityTypePreCode() (to TextEntityTypePr
 	return to
 }
 
-// AsTextEntityTypeTextUrl returns copy with only TextEntityTypeTextUrl constructors.
-func (s TextEntityTypeClassArray) AsTextEntityTypeTextUrl() (to TextEntityTypeTextUrlArray) {
+// AsTextEntityTypeTextURL returns copy with only TextEntityTypeTextURL constructors.
+func (s TextEntityTypeClassArray) AsTextEntityTypeTextURL() (to TextEntityTypeTextURLArray) {
 	for _, elem := range s {
-		value, ok := elem.(*TextEntityTypeTextUrl)
+		value, ok := elem.(*TextEntityTypeTextURL)
 		if !ok {
 			continue
 		}
@@ -1929,27 +1929,27 @@ func (s *TextEntityTypePreCodeArray) Pop() (v TextEntityTypePreCode, ok bool) {
 	return v, true
 }
 
-// TextEntityTypeTextUrlArray is adapter for slice of TextEntityTypeTextUrl.
-type TextEntityTypeTextUrlArray []TextEntityTypeTextUrl
+// TextEntityTypeTextURLArray is adapter for slice of TextEntityTypeTextURL.
+type TextEntityTypeTextURLArray []TextEntityTypeTextURL
 
-// Sort sorts slice of TextEntityTypeTextUrl.
-func (s TextEntityTypeTextUrlArray) Sort(less func(a, b TextEntityTypeTextUrl) bool) TextEntityTypeTextUrlArray {
+// Sort sorts slice of TextEntityTypeTextURL.
+func (s TextEntityTypeTextURLArray) Sort(less func(a, b TextEntityTypeTextURL) bool) TextEntityTypeTextURLArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of TextEntityTypeTextUrl.
-func (s TextEntityTypeTextUrlArray) SortStable(less func(a, b TextEntityTypeTextUrl) bool) TextEntityTypeTextUrlArray {
+// SortStable sorts slice of TextEntityTypeTextURL.
+func (s TextEntityTypeTextURLArray) SortStable(less func(a, b TextEntityTypeTextURL) bool) TextEntityTypeTextURLArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of TextEntityTypeTextUrl.
-func (s TextEntityTypeTextUrlArray) Retain(keep func(x TextEntityTypeTextUrl) bool) TextEntityTypeTextUrlArray {
+// Retain filters in-place slice of TextEntityTypeTextURL.
+func (s TextEntityTypeTextURLArray) Retain(keep func(x TextEntityTypeTextURL) bool) TextEntityTypeTextURLArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -1963,7 +1963,7 @@ func (s TextEntityTypeTextUrlArray) Retain(keep func(x TextEntityTypeTextUrl) bo
 }
 
 // First returns first element of slice (if exists).
-func (s TextEntityTypeTextUrlArray) First() (v TextEntityTypeTextUrl, ok bool) {
+func (s TextEntityTypeTextURLArray) First() (v TextEntityTypeTextURL, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1971,7 +1971,7 @@ func (s TextEntityTypeTextUrlArray) First() (v TextEntityTypeTextUrl, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s TextEntityTypeTextUrlArray) Last() (v TextEntityTypeTextUrl, ok bool) {
+func (s TextEntityTypeTextURLArray) Last() (v TextEntityTypeTextURL, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1979,7 +1979,7 @@ func (s TextEntityTypeTextUrlArray) Last() (v TextEntityTypeTextUrl, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *TextEntityTypeTextUrlArray) PopFirst() (v TextEntityTypeTextUrl, ok bool) {
+func (s *TextEntityTypeTextURLArray) PopFirst() (v TextEntityTypeTextURL, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1989,7 +1989,7 @@ func (s *TextEntityTypeTextUrlArray) PopFirst() (v TextEntityTypeTextUrl, ok boo
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero TextEntityTypeTextUrl
+	var zero TextEntityTypeTextURL
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -1998,7 +1998,7 @@ func (s *TextEntityTypeTextUrlArray) PopFirst() (v TextEntityTypeTextUrl, ok boo
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *TextEntityTypeTextUrlArray) Pop() (v TextEntityTypeTextUrl, ok bool) {
+func (s *TextEntityTypeTextURLArray) Pop() (v TextEntityTypeTextURL, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

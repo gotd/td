@@ -49,7 +49,7 @@ type Config struct {
 	// ThisDC field of Config.
 	ThisDC int
 	// DCOptions field of Config.
-	DCOptions []DcOption
+	DCOptions []DCOption
 	// DCTxtDomainName field of Config.
 	DCTxtDomainName string
 	// ChatSizeMax field of Config.
@@ -337,7 +337,7 @@ func (c *Config) FillFrom(from interface {
 	GetExpires() (value int)
 	GetTestMode() (value bool)
 	GetThisDC() (value int)
-	GetDCOptions() (value []DcOption)
+	GetDCOptions() (value []DCOption)
 	GetDCTxtDomainName() (value string)
 	GetChatSizeMax() (value int)
 	GetMegagroupSizeMax() (value int)
@@ -965,7 +965,7 @@ func (c *Config) GetThisDC() (value int) {
 }
 
 // GetDCOptions returns value of DCOptions field.
-func (c *Config) GetDCOptions() (value []DcOption) {
+func (c *Config) GetDCOptions() (value []DCOption) {
 	return c.DCOptions
 }
 
@@ -1308,7 +1308,7 @@ func (c *Config) Decode(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode config#330b4067: field dc_options: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			var value DcOption
+			var value DCOption
 			if err := value.Decode(b); err != nil {
 				return fmt.Errorf("unable to decode config#330b4067: field dc_options: %w", err)
 			}

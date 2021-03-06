@@ -24,8 +24,8 @@ var _ = tdp.Format
 
 // MsgsAck represents TL type `msgs_ack#62d6b459`.
 type MsgsAck struct {
-	// MsgIds field of MsgsAck.
-	MsgIds []int64
+	// MsgIDs field of MsgsAck.
+	MsgIDs []int64
 }
 
 // MsgsAckTypeID is TL type id of MsgsAck.
@@ -35,7 +35,7 @@ func (m *MsgsAck) Zero() bool {
 	if m == nil {
 		return true
 	}
-	if !(m.MsgIds == nil) {
+	if !(m.MsgIDs == nil) {
 		return false
 	}
 
@@ -53,9 +53,9 @@ func (m *MsgsAck) String() string {
 
 // FillFrom fills MsgsAck from given interface.
 func (m *MsgsAck) FillFrom(from interface {
-	GetMsgIds() (value []int64)
+	GetMsgIDs() (value []int64)
 }) {
-	m.MsgIds = from.GetMsgIds()
+	m.MsgIDs = from.GetMsgIDs()
 }
 
 // TypeID returns type id in TL schema.
@@ -82,7 +82,7 @@ func (m *MsgsAck) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "MsgIds",
+			Name:       "MsgIDs",
 			SchemaName: "msg_ids",
 		},
 	}
@@ -95,16 +95,16 @@ func (m *MsgsAck) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode msgs_ack#62d6b459 as nil")
 	}
 	b.PutID(MsgsAckTypeID)
-	b.PutVectorHeader(len(m.MsgIds))
-	for _, v := range m.MsgIds {
+	b.PutVectorHeader(len(m.MsgIDs))
+	for _, v := range m.MsgIDs {
 		b.PutLong(v)
 	}
 	return nil
 }
 
-// GetMsgIds returns value of MsgIds field.
-func (m *MsgsAck) GetMsgIds() (value []int64) {
-	return m.MsgIds
+// GetMsgIDs returns value of MsgIDs field.
+func (m *MsgsAck) GetMsgIDs() (value []int64) {
+	return m.MsgIDs
 }
 
 // Decode implements bin.Decoder.
@@ -125,7 +125,7 @@ func (m *MsgsAck) Decode(b *bin.Buffer) error {
 			if err != nil {
 				return fmt.Errorf("unable to decode msgs_ack#62d6b459: field msg_ids: %w", err)
 			}
-			m.MsgIds = append(m.MsgIds, value)
+			m.MsgIDs = append(m.MsgIDs, value)
 		}
 	}
 	return nil

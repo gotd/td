@@ -48,7 +48,7 @@ func (c *Conn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Deco
 }
 
 func (c *Conn) dropRPC(req rpc.Request) error {
-	var resp mt.RpcDropAnswerBox
+	var resp mt.RPCDropAnswerBox
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
 	defer cancel()

@@ -22,14 +22,14 @@ var _ = errors.Is
 var _ = sort.Ints
 var _ = tdp.Format
 
-// UploadCdnFileReuploadNeeded represents TL type `upload.cdnFileReuploadNeeded#eea8e46e`.
+// UploadCDNFileReuploadNeeded represents TL type `upload.cdnFileReuploadNeeded#eea8e46e`.
 // The file was cleared from the temporary RAM cache of the CDN¹ and has to be reuploaded.
 //
 // Links:
 //  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/constructor/upload.cdnFileReuploadNeeded for reference.
-type UploadCdnFileReuploadNeeded struct {
+type UploadCDNFileReuploadNeeded struct {
 	// Request token (see CDN¹)
 	//
 	// Links:
@@ -37,10 +37,10 @@ type UploadCdnFileReuploadNeeded struct {
 	RequestToken []byte
 }
 
-// UploadCdnFileReuploadNeededTypeID is TL type id of UploadCdnFileReuploadNeeded.
-const UploadCdnFileReuploadNeededTypeID = 0xeea8e46e
+// UploadCDNFileReuploadNeededTypeID is TL type id of UploadCDNFileReuploadNeeded.
+const UploadCDNFileReuploadNeededTypeID = 0xeea8e46e
 
-func (c *UploadCdnFileReuploadNeeded) Zero() bool {
+func (c *UploadCDNFileReuploadNeeded) Zero() bool {
 	if c == nil {
 		return true
 	}
@@ -52,16 +52,16 @@ func (c *UploadCdnFileReuploadNeeded) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (c *UploadCdnFileReuploadNeeded) String() string {
+func (c *UploadCDNFileReuploadNeeded) String() string {
 	if c == nil {
-		return "UploadCdnFileReuploadNeeded(nil)"
+		return "UploadCDNFileReuploadNeeded(nil)"
 	}
-	type Alias UploadCdnFileReuploadNeeded
-	return fmt.Sprintf("UploadCdnFileReuploadNeeded%+v", Alias(*c))
+	type Alias UploadCDNFileReuploadNeeded
+	return fmt.Sprintf("UploadCDNFileReuploadNeeded%+v", Alias(*c))
 }
 
-// FillFrom fills UploadCdnFileReuploadNeeded from given interface.
-func (c *UploadCdnFileReuploadNeeded) FillFrom(from interface {
+// FillFrom fills UploadCDNFileReuploadNeeded from given interface.
+func (c *UploadCDNFileReuploadNeeded) FillFrom(from interface {
 	GetRequestToken() (value []byte)
 }) {
 	c.RequestToken = from.GetRequestToken()
@@ -70,20 +70,20 @@ func (c *UploadCdnFileReuploadNeeded) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UploadCdnFileReuploadNeeded) TypeID() uint32 {
-	return UploadCdnFileReuploadNeededTypeID
+func (*UploadCDNFileReuploadNeeded) TypeID() uint32 {
+	return UploadCDNFileReuploadNeededTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*UploadCdnFileReuploadNeeded) TypeName() string {
+func (*UploadCDNFileReuploadNeeded) TypeName() string {
 	return "upload.cdnFileReuploadNeeded"
 }
 
 // TypeInfo returns info about TL type.
-func (c *UploadCdnFileReuploadNeeded) TypeInfo() tdp.Type {
+func (c *UploadCDNFileReuploadNeeded) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "upload.cdnFileReuploadNeeded",
-		ID:   UploadCdnFileReuploadNeededTypeID,
+		ID:   UploadCDNFileReuploadNeededTypeID,
 	}
 	if c == nil {
 		typ.Null = true
@@ -99,26 +99,26 @@ func (c *UploadCdnFileReuploadNeeded) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (c *UploadCdnFileReuploadNeeded) Encode(b *bin.Buffer) error {
+func (c *UploadCDNFileReuploadNeeded) Encode(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode upload.cdnFileReuploadNeeded#eea8e46e as nil")
 	}
-	b.PutID(UploadCdnFileReuploadNeededTypeID)
+	b.PutID(UploadCDNFileReuploadNeededTypeID)
 	b.PutBytes(c.RequestToken)
 	return nil
 }
 
 // GetRequestToken returns value of RequestToken field.
-func (c *UploadCdnFileReuploadNeeded) GetRequestToken() (value []byte) {
+func (c *UploadCDNFileReuploadNeeded) GetRequestToken() (value []byte) {
 	return c.RequestToken
 }
 
 // Decode implements bin.Decoder.
-func (c *UploadCdnFileReuploadNeeded) Decode(b *bin.Buffer) error {
+func (c *UploadCDNFileReuploadNeeded) Decode(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode upload.cdnFileReuploadNeeded#eea8e46e to nil")
 	}
-	if err := b.ConsumeID(UploadCdnFileReuploadNeededTypeID); err != nil {
+	if err := b.ConsumeID(UploadCDNFileReuploadNeededTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.cdnFileReuploadNeeded#eea8e46e: %w", err)
 	}
 	{
@@ -131,33 +131,33 @@ func (c *UploadCdnFileReuploadNeeded) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UploadCdnFileClass.
-func (c UploadCdnFileReuploadNeeded) construct() UploadCdnFileClass { return &c }
+// construct implements constructor of UploadCDNFileClass.
+func (c UploadCDNFileReuploadNeeded) construct() UploadCDNFileClass { return &c }
 
-// Ensuring interfaces in compile-time for UploadCdnFileReuploadNeeded.
+// Ensuring interfaces in compile-time for UploadCDNFileReuploadNeeded.
 var (
-	_ bin.Encoder = &UploadCdnFileReuploadNeeded{}
-	_ bin.Decoder = &UploadCdnFileReuploadNeeded{}
+	_ bin.Encoder = &UploadCDNFileReuploadNeeded{}
+	_ bin.Decoder = &UploadCDNFileReuploadNeeded{}
 
-	_ UploadCdnFileClass = &UploadCdnFileReuploadNeeded{}
+	_ UploadCDNFileClass = &UploadCDNFileReuploadNeeded{}
 )
 
-// UploadCdnFile represents TL type `upload.cdnFile#a99fca4f`.
+// UploadCDNFile represents TL type `upload.cdnFile#a99fca4f`.
 // Represent a chunk of a CDN¹ file.
 //
 // Links:
 //  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/constructor/upload.cdnFile for reference.
-type UploadCdnFile struct {
+type UploadCDNFile struct {
 	// The data
 	Bytes []byte
 }
 
-// UploadCdnFileTypeID is TL type id of UploadCdnFile.
-const UploadCdnFileTypeID = 0xa99fca4f
+// UploadCDNFileTypeID is TL type id of UploadCDNFile.
+const UploadCDNFileTypeID = 0xa99fca4f
 
-func (c *UploadCdnFile) Zero() bool {
+func (c *UploadCDNFile) Zero() bool {
 	if c == nil {
 		return true
 	}
@@ -169,16 +169,16 @@ func (c *UploadCdnFile) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (c *UploadCdnFile) String() string {
+func (c *UploadCDNFile) String() string {
 	if c == nil {
-		return "UploadCdnFile(nil)"
+		return "UploadCDNFile(nil)"
 	}
-	type Alias UploadCdnFile
-	return fmt.Sprintf("UploadCdnFile%+v", Alias(*c))
+	type Alias UploadCDNFile
+	return fmt.Sprintf("UploadCDNFile%+v", Alias(*c))
 }
 
-// FillFrom fills UploadCdnFile from given interface.
-func (c *UploadCdnFile) FillFrom(from interface {
+// FillFrom fills UploadCDNFile from given interface.
+func (c *UploadCDNFile) FillFrom(from interface {
 	GetBytes() (value []byte)
 }) {
 	c.Bytes = from.GetBytes()
@@ -187,20 +187,20 @@ func (c *UploadCdnFile) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UploadCdnFile) TypeID() uint32 {
-	return UploadCdnFileTypeID
+func (*UploadCDNFile) TypeID() uint32 {
+	return UploadCDNFileTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*UploadCdnFile) TypeName() string {
+func (*UploadCDNFile) TypeName() string {
 	return "upload.cdnFile"
 }
 
 // TypeInfo returns info about TL type.
-func (c *UploadCdnFile) TypeInfo() tdp.Type {
+func (c *UploadCDNFile) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "upload.cdnFile",
-		ID:   UploadCdnFileTypeID,
+		ID:   UploadCDNFileTypeID,
 	}
 	if c == nil {
 		typ.Null = true
@@ -216,26 +216,26 @@ func (c *UploadCdnFile) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (c *UploadCdnFile) Encode(b *bin.Buffer) error {
+func (c *UploadCDNFile) Encode(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode upload.cdnFile#a99fca4f as nil")
 	}
-	b.PutID(UploadCdnFileTypeID)
+	b.PutID(UploadCDNFileTypeID)
 	b.PutBytes(c.Bytes)
 	return nil
 }
 
 // GetBytes returns value of Bytes field.
-func (c *UploadCdnFile) GetBytes() (value []byte) {
+func (c *UploadCDNFile) GetBytes() (value []byte) {
 	return c.Bytes
 }
 
 // Decode implements bin.Decoder.
-func (c *UploadCdnFile) Decode(b *bin.Buffer) error {
+func (c *UploadCDNFile) Decode(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode upload.cdnFile#a99fca4f to nil")
 	}
-	if err := b.ConsumeID(UploadCdnFileTypeID); err != nil {
+	if err := b.ConsumeID(UploadCDNFileTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.cdnFile#a99fca4f: %w", err)
 	}
 	{
@@ -248,35 +248,35 @@ func (c *UploadCdnFile) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of UploadCdnFileClass.
-func (c UploadCdnFile) construct() UploadCdnFileClass { return &c }
+// construct implements constructor of UploadCDNFileClass.
+func (c UploadCDNFile) construct() UploadCDNFileClass { return &c }
 
-// Ensuring interfaces in compile-time for UploadCdnFile.
+// Ensuring interfaces in compile-time for UploadCDNFile.
 var (
-	_ bin.Encoder = &UploadCdnFile{}
-	_ bin.Decoder = &UploadCdnFile{}
+	_ bin.Encoder = &UploadCDNFile{}
+	_ bin.Decoder = &UploadCDNFile{}
 
-	_ UploadCdnFileClass = &UploadCdnFile{}
+	_ UploadCDNFileClass = &UploadCDNFile{}
 )
 
-// UploadCdnFileClass represents upload.CdnFile generic type.
+// UploadCDNFileClass represents upload.CdnFile generic type.
 //
 // See https://core.telegram.org/type/upload.CdnFile for reference.
 //
 // Example:
-//  g, err := tg.DecodeUploadCdnFile(buf)
+//  g, err := tg.DecodeUploadCDNFile(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *tg.UploadCdnFileReuploadNeeded: // upload.cdnFileReuploadNeeded#eea8e46e
-//  case *tg.UploadCdnFile: // upload.cdnFile#a99fca4f
+//  case *tg.UploadCDNFileReuploadNeeded: // upload.cdnFileReuploadNeeded#eea8e46e
+//  case *tg.UploadCDNFile: // upload.cdnFile#a99fca4f
 //  default: panic(v)
 //  }
-type UploadCdnFileClass interface {
+type UploadCDNFileClass interface {
 	bin.Encoder
 	bin.Decoder
-	construct() UploadCdnFileClass
+	construct() UploadCDNFileClass
 
 	// TypeID returns type id in TL schema.
 	//
@@ -290,43 +290,43 @@ type UploadCdnFileClass interface {
 	Zero() bool
 }
 
-// DecodeUploadCdnFile implements binary de-serialization for UploadCdnFileClass.
-func DecodeUploadCdnFile(buf *bin.Buffer) (UploadCdnFileClass, error) {
+// DecodeUploadCDNFile implements binary de-serialization for UploadCDNFileClass.
+func DecodeUploadCDNFile(buf *bin.Buffer) (UploadCDNFileClass, error) {
 	id, err := buf.PeekID()
 	if err != nil {
 		return nil, err
 	}
 	switch id {
-	case UploadCdnFileReuploadNeededTypeID:
+	case UploadCDNFileReuploadNeededTypeID:
 		// Decoding upload.cdnFileReuploadNeeded#eea8e46e.
-		v := UploadCdnFileReuploadNeeded{}
+		v := UploadCDNFileReuploadNeeded{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UploadCdnFileClass: %w", err)
+			return nil, fmt.Errorf("unable to decode UploadCDNFileClass: %w", err)
 		}
 		return &v, nil
-	case UploadCdnFileTypeID:
+	case UploadCDNFileTypeID:
 		// Decoding upload.cdnFile#a99fca4f.
-		v := UploadCdnFile{}
+		v := UploadCDNFile{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode UploadCdnFileClass: %w", err)
+			return nil, fmt.Errorf("unable to decode UploadCDNFileClass: %w", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode UploadCdnFileClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode UploadCDNFileClass: %w", bin.NewUnexpectedID(id))
 	}
 }
 
-// UploadCdnFile boxes the UploadCdnFileClass providing a helper.
-type UploadCdnFileBox struct {
-	CdnFile UploadCdnFileClass
+// UploadCDNFile boxes the UploadCDNFileClass providing a helper.
+type UploadCDNFileBox struct {
+	CdnFile UploadCDNFileClass
 }
 
-// Decode implements bin.Decoder for UploadCdnFileBox.
-func (b *UploadCdnFileBox) Decode(buf *bin.Buffer) error {
+// Decode implements bin.Decoder for UploadCDNFileBox.
+func (b *UploadCDNFileBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode UploadCdnFileBox to nil")
+		return fmt.Errorf("unable to decode UploadCDNFileBox to nil")
 	}
-	v, err := DecodeUploadCdnFile(buf)
+	v, err := DecodeUploadCDNFile(buf)
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
@@ -334,35 +334,35 @@ func (b *UploadCdnFileBox) Decode(buf *bin.Buffer) error {
 	return nil
 }
 
-// Encode implements bin.Encode for UploadCdnFileBox.
-func (b *UploadCdnFileBox) Encode(buf *bin.Buffer) error {
+// Encode implements bin.Encode for UploadCDNFileBox.
+func (b *UploadCDNFileBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.CdnFile == nil {
-		return fmt.Errorf("unable to encode UploadCdnFileClass as nil")
+		return fmt.Errorf("unable to encode UploadCDNFileClass as nil")
 	}
 	return b.CdnFile.Encode(buf)
 }
 
-// UploadCdnFileClassArray is adapter for slice of UploadCdnFileClass.
-type UploadCdnFileClassArray []UploadCdnFileClass
+// UploadCDNFileClassArray is adapter for slice of UploadCDNFileClass.
+type UploadCDNFileClassArray []UploadCDNFileClass
 
-// Sort sorts slice of UploadCdnFileClass.
-func (s UploadCdnFileClassArray) Sort(less func(a, b UploadCdnFileClass) bool) UploadCdnFileClassArray {
+// Sort sorts slice of UploadCDNFileClass.
+func (s UploadCDNFileClassArray) Sort(less func(a, b UploadCDNFileClass) bool) UploadCDNFileClassArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of UploadCdnFileClass.
-func (s UploadCdnFileClassArray) SortStable(less func(a, b UploadCdnFileClass) bool) UploadCdnFileClassArray {
+// SortStable sorts slice of UploadCDNFileClass.
+func (s UploadCDNFileClassArray) SortStable(less func(a, b UploadCDNFileClass) bool) UploadCDNFileClassArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of UploadCdnFileClass.
-func (s UploadCdnFileClassArray) Retain(keep func(x UploadCdnFileClass) bool) UploadCdnFileClassArray {
+// Retain filters in-place slice of UploadCDNFileClass.
+func (s UploadCDNFileClassArray) Retain(keep func(x UploadCDNFileClass) bool) UploadCDNFileClassArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -376,7 +376,7 @@ func (s UploadCdnFileClassArray) Retain(keep func(x UploadCdnFileClass) bool) Up
 }
 
 // First returns first element of slice (if exists).
-func (s UploadCdnFileClassArray) First() (v UploadCdnFileClass, ok bool) {
+func (s UploadCDNFileClassArray) First() (v UploadCDNFileClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -384,7 +384,7 @@ func (s UploadCdnFileClassArray) First() (v UploadCdnFileClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s UploadCdnFileClassArray) Last() (v UploadCdnFileClass, ok bool) {
+func (s UploadCDNFileClassArray) Last() (v UploadCDNFileClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -392,7 +392,7 @@ func (s UploadCdnFileClassArray) Last() (v UploadCdnFileClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UploadCdnFileClassArray) PopFirst() (v UploadCdnFileClass, ok bool) {
+func (s *UploadCDNFileClassArray) PopFirst() (v UploadCDNFileClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -402,7 +402,7 @@ func (s *UploadCdnFileClassArray) PopFirst() (v UploadCdnFileClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero UploadCdnFileClass
+	var zero UploadCDNFileClass
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -411,7 +411,7 @@ func (s *UploadCdnFileClassArray) PopFirst() (v UploadCdnFileClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *UploadCdnFileClassArray) Pop() (v UploadCdnFileClass, ok bool) {
+func (s *UploadCDNFileClassArray) Pop() (v UploadCDNFileClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -424,10 +424,10 @@ func (s *UploadCdnFileClassArray) Pop() (v UploadCdnFileClass, ok bool) {
 	return v, true
 }
 
-// AsUploadCdnFileReuploadNeeded returns copy with only UploadCdnFileReuploadNeeded constructors.
-func (s UploadCdnFileClassArray) AsUploadCdnFileReuploadNeeded() (to UploadCdnFileReuploadNeededArray) {
+// AsUploadCDNFileReuploadNeeded returns copy with only UploadCDNFileReuploadNeeded constructors.
+func (s UploadCDNFileClassArray) AsUploadCDNFileReuploadNeeded() (to UploadCDNFileReuploadNeededArray) {
 	for _, elem := range s {
-		value, ok := elem.(*UploadCdnFileReuploadNeeded)
+		value, ok := elem.(*UploadCDNFileReuploadNeeded)
 		if !ok {
 			continue
 		}
@@ -437,10 +437,10 @@ func (s UploadCdnFileClassArray) AsUploadCdnFileReuploadNeeded() (to UploadCdnFi
 	return to
 }
 
-// AsUploadCdnFile returns copy with only UploadCdnFile constructors.
-func (s UploadCdnFileClassArray) AsUploadCdnFile() (to UploadCdnFileArray) {
+// AsUploadCDNFile returns copy with only UploadCDNFile constructors.
+func (s UploadCDNFileClassArray) AsUploadCDNFile() (to UploadCDNFileArray) {
 	for _, elem := range s {
-		value, ok := elem.(*UploadCdnFile)
+		value, ok := elem.(*UploadCDNFile)
 		if !ok {
 			continue
 		}
@@ -450,27 +450,27 @@ func (s UploadCdnFileClassArray) AsUploadCdnFile() (to UploadCdnFileArray) {
 	return to
 }
 
-// UploadCdnFileReuploadNeededArray is adapter for slice of UploadCdnFileReuploadNeeded.
-type UploadCdnFileReuploadNeededArray []UploadCdnFileReuploadNeeded
+// UploadCDNFileReuploadNeededArray is adapter for slice of UploadCDNFileReuploadNeeded.
+type UploadCDNFileReuploadNeededArray []UploadCDNFileReuploadNeeded
 
-// Sort sorts slice of UploadCdnFileReuploadNeeded.
-func (s UploadCdnFileReuploadNeededArray) Sort(less func(a, b UploadCdnFileReuploadNeeded) bool) UploadCdnFileReuploadNeededArray {
+// Sort sorts slice of UploadCDNFileReuploadNeeded.
+func (s UploadCDNFileReuploadNeededArray) Sort(less func(a, b UploadCDNFileReuploadNeeded) bool) UploadCDNFileReuploadNeededArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of UploadCdnFileReuploadNeeded.
-func (s UploadCdnFileReuploadNeededArray) SortStable(less func(a, b UploadCdnFileReuploadNeeded) bool) UploadCdnFileReuploadNeededArray {
+// SortStable sorts slice of UploadCDNFileReuploadNeeded.
+func (s UploadCDNFileReuploadNeededArray) SortStable(less func(a, b UploadCDNFileReuploadNeeded) bool) UploadCDNFileReuploadNeededArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of UploadCdnFileReuploadNeeded.
-func (s UploadCdnFileReuploadNeededArray) Retain(keep func(x UploadCdnFileReuploadNeeded) bool) UploadCdnFileReuploadNeededArray {
+// Retain filters in-place slice of UploadCDNFileReuploadNeeded.
+func (s UploadCDNFileReuploadNeededArray) Retain(keep func(x UploadCDNFileReuploadNeeded) bool) UploadCDNFileReuploadNeededArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -484,7 +484,7 @@ func (s UploadCdnFileReuploadNeededArray) Retain(keep func(x UploadCdnFileReuplo
 }
 
 // First returns first element of slice (if exists).
-func (s UploadCdnFileReuploadNeededArray) First() (v UploadCdnFileReuploadNeeded, ok bool) {
+func (s UploadCDNFileReuploadNeededArray) First() (v UploadCDNFileReuploadNeeded, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -492,7 +492,7 @@ func (s UploadCdnFileReuploadNeededArray) First() (v UploadCdnFileReuploadNeeded
 }
 
 // Last returns last element of slice (if exists).
-func (s UploadCdnFileReuploadNeededArray) Last() (v UploadCdnFileReuploadNeeded, ok bool) {
+func (s UploadCDNFileReuploadNeededArray) Last() (v UploadCDNFileReuploadNeeded, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -500,7 +500,7 @@ func (s UploadCdnFileReuploadNeededArray) Last() (v UploadCdnFileReuploadNeeded,
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UploadCdnFileReuploadNeededArray) PopFirst() (v UploadCdnFileReuploadNeeded, ok bool) {
+func (s *UploadCDNFileReuploadNeededArray) PopFirst() (v UploadCDNFileReuploadNeeded, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -510,7 +510,7 @@ func (s *UploadCdnFileReuploadNeededArray) PopFirst() (v UploadCdnFileReuploadNe
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero UploadCdnFileReuploadNeeded
+	var zero UploadCDNFileReuploadNeeded
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -519,7 +519,7 @@ func (s *UploadCdnFileReuploadNeededArray) PopFirst() (v UploadCdnFileReuploadNe
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *UploadCdnFileReuploadNeededArray) Pop() (v UploadCdnFileReuploadNeeded, ok bool) {
+func (s *UploadCDNFileReuploadNeededArray) Pop() (v UploadCDNFileReuploadNeeded, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -532,27 +532,27 @@ func (s *UploadCdnFileReuploadNeededArray) Pop() (v UploadCdnFileReuploadNeeded,
 	return v, true
 }
 
-// UploadCdnFileArray is adapter for slice of UploadCdnFile.
-type UploadCdnFileArray []UploadCdnFile
+// UploadCDNFileArray is adapter for slice of UploadCDNFile.
+type UploadCDNFileArray []UploadCDNFile
 
-// Sort sorts slice of UploadCdnFile.
-func (s UploadCdnFileArray) Sort(less func(a, b UploadCdnFile) bool) UploadCdnFileArray {
+// Sort sorts slice of UploadCDNFile.
+func (s UploadCDNFileArray) Sort(less func(a, b UploadCDNFile) bool) UploadCDNFileArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of UploadCdnFile.
-func (s UploadCdnFileArray) SortStable(less func(a, b UploadCdnFile) bool) UploadCdnFileArray {
+// SortStable sorts slice of UploadCDNFile.
+func (s UploadCDNFileArray) SortStable(less func(a, b UploadCDNFile) bool) UploadCDNFileArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of UploadCdnFile.
-func (s UploadCdnFileArray) Retain(keep func(x UploadCdnFile) bool) UploadCdnFileArray {
+// Retain filters in-place slice of UploadCDNFile.
+func (s UploadCDNFileArray) Retain(keep func(x UploadCDNFile) bool) UploadCDNFileArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -566,7 +566,7 @@ func (s UploadCdnFileArray) Retain(keep func(x UploadCdnFile) bool) UploadCdnFil
 }
 
 // First returns first element of slice (if exists).
-func (s UploadCdnFileArray) First() (v UploadCdnFile, ok bool) {
+func (s UploadCDNFileArray) First() (v UploadCDNFile, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -574,7 +574,7 @@ func (s UploadCdnFileArray) First() (v UploadCdnFile, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s UploadCdnFileArray) Last() (v UploadCdnFile, ok bool) {
+func (s UploadCDNFileArray) Last() (v UploadCDNFile, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -582,7 +582,7 @@ func (s UploadCdnFileArray) Last() (v UploadCdnFile, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UploadCdnFileArray) PopFirst() (v UploadCdnFile, ok bool) {
+func (s *UploadCDNFileArray) PopFirst() (v UploadCDNFile, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -592,7 +592,7 @@ func (s *UploadCdnFileArray) PopFirst() (v UploadCdnFile, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero UploadCdnFile
+	var zero UploadCDNFile
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -601,7 +601,7 @@ func (s *UploadCdnFileArray) PopFirst() (v UploadCdnFile, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *UploadCdnFileArray) Pop() (v UploadCdnFile, ok bool) {
+func (s *UploadCDNFileArray) Pop() (v UploadCDNFile, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

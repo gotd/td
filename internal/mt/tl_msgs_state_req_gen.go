@@ -24,8 +24,8 @@ var _ = tdp.Format
 
 // MsgsStateReq represents TL type `msgs_state_req#da69fb52`.
 type MsgsStateReq struct {
-	// MsgIds field of MsgsStateReq.
-	MsgIds []int64
+	// MsgIDs field of MsgsStateReq.
+	MsgIDs []int64
 }
 
 // MsgsStateReqTypeID is TL type id of MsgsStateReq.
@@ -35,7 +35,7 @@ func (m *MsgsStateReq) Zero() bool {
 	if m == nil {
 		return true
 	}
-	if !(m.MsgIds == nil) {
+	if !(m.MsgIDs == nil) {
 		return false
 	}
 
@@ -53,9 +53,9 @@ func (m *MsgsStateReq) String() string {
 
 // FillFrom fills MsgsStateReq from given interface.
 func (m *MsgsStateReq) FillFrom(from interface {
-	GetMsgIds() (value []int64)
+	GetMsgIDs() (value []int64)
 }) {
-	m.MsgIds = from.GetMsgIds()
+	m.MsgIDs = from.GetMsgIDs()
 }
 
 // TypeID returns type id in TL schema.
@@ -82,7 +82,7 @@ func (m *MsgsStateReq) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "MsgIds",
+			Name:       "MsgIDs",
 			SchemaName: "msg_ids",
 		},
 	}
@@ -95,16 +95,16 @@ func (m *MsgsStateReq) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode msgs_state_req#da69fb52 as nil")
 	}
 	b.PutID(MsgsStateReqTypeID)
-	b.PutVectorHeader(len(m.MsgIds))
-	for _, v := range m.MsgIds {
+	b.PutVectorHeader(len(m.MsgIDs))
+	for _, v := range m.MsgIDs {
 		b.PutLong(v)
 	}
 	return nil
 }
 
-// GetMsgIds returns value of MsgIds field.
-func (m *MsgsStateReq) GetMsgIds() (value []int64) {
-	return m.MsgIds
+// GetMsgIDs returns value of MsgIDs field.
+func (m *MsgsStateReq) GetMsgIDs() (value []int64) {
+	return m.MsgIDs
 }
 
 // Decode implements bin.Decoder.
@@ -125,7 +125,7 @@ func (m *MsgsStateReq) Decode(b *bin.Buffer) error {
 			if err != nil {
 				return fmt.Errorf("unable to decode msgs_state_req#da69fb52: field msg_ids: %w", err)
 			}
-			m.MsgIds = append(m.MsgIds, value)
+			m.MsgIDs = append(m.MsgIDs, value)
 		}
 	}
 	return nil

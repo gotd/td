@@ -25,7 +25,7 @@ type mock struct {
 	migrate   bool
 	err       bool
 	hashesErr bool
-	redirect  *tg.UploadFileCdnRedirect
+	redirect  *tg.UploadFileCDNRedirect
 }
 
 var testErr = xerrors.New("test err")
@@ -68,17 +68,17 @@ func (m mock) UploadGetFileHashes(ctx context.Context, request *tg.UploadGetFile
 	return m.hashes.Hashes(ctx, request.Offset)
 }
 
-func (m mock) UploadReuploadCdnFile(ctx context.Context, request *tg.UploadReuploadCdnFileRequest) ([]tg.FileHash, error) {
+func (m mock) UploadReuploadCdnFile(ctx context.Context, request *tg.UploadReuploadCDNFileRequest) ([]tg.FileHash, error) {
 	panic("implement me")
 }
 
-func (m mock) UploadGetCdnFile(ctx context.Context, request *tg.UploadGetCdnFileRequest) (tg.UploadCdnFileClass, error) {
+func (m mock) UploadGetCdnFile(ctx context.Context, request *tg.UploadGetCDNFileRequest) (tg.UploadCDNFileClass, error) {
 	if m.err {
 		return nil, testErr
 	}
 
 	if m.migrate {
-		return &tg.UploadCdnFileReuploadNeeded{
+		return &tg.UploadCDNFileReuploadNeeded{
 			RequestToken: []byte{1, 2, 3},
 		}, nil
 	}
@@ -95,12 +95,12 @@ func (m mock) UploadGetCdnFile(ctx context.Context, request *tg.UploadGetCdnFile
 	part := m.getPart(request.Offset, request.Limit)
 	r := make([]byte, len(part))
 	cipher.NewCTR(block, iv).XORKeyStream(r, part)
-	return &tg.UploadCdnFile{
+	return &tg.UploadCDNFile{
 		Bytes: r,
 	}, nil
 }
 
-func (m mock) UploadGetCdnFileHashes(ctx context.Context, request *tg.UploadGetCdnFileHashesRequest) ([]tg.FileHash, error) {
+func (m mock) UploadGetCdnFileHashes(ctx context.Context, request *tg.UploadGetCDNFileHashesRequest) ([]tg.FileHash, error) {
 	if m.hashesErr {
 		return nil, testErr
 	}
@@ -179,7 +179,7 @@ func TestDownloader(t *testing.T) {
 	if _, err := io.ReadFull(rand.Reader, iv); err != nil {
 		t.Fatal(err)
 	}
-	redirect := &tg.UploadFileCdnRedirect{
+	redirect := &tg.UploadFileCDNRedirect{
 		DCID:          1,
 		FileToken:     []byte{10},
 		EncryptionKey: key,

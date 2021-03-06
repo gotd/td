@@ -22,14 +22,14 @@ var _ = errors.Is
 var _ = sort.Ints
 var _ = tdp.Format
 
-// UploadGetCdnFileRequest represents TL type `upload.getCdnFile#2000bcc3`.
+// UploadGetCDNFileRequest represents TL type `upload.getCdnFile#2000bcc3`.
 // Download a CDN¹ file.
 //
 // Links:
 //  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/method/upload.getCdnFile for reference.
-type UploadGetCdnFileRequest struct {
+type UploadGetCDNFileRequest struct {
 	// File token
 	FileToken []byte
 	// Offset of chunk to download
@@ -38,10 +38,10 @@ type UploadGetCdnFileRequest struct {
 	Limit int
 }
 
-// UploadGetCdnFileRequestTypeID is TL type id of UploadGetCdnFileRequest.
-const UploadGetCdnFileRequestTypeID = 0x2000bcc3
+// UploadGetCDNFileRequestTypeID is TL type id of UploadGetCDNFileRequest.
+const UploadGetCDNFileRequestTypeID = 0x2000bcc3
 
-func (g *UploadGetCdnFileRequest) Zero() bool {
+func (g *UploadGetCDNFileRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
@@ -59,16 +59,16 @@ func (g *UploadGetCdnFileRequest) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (g *UploadGetCdnFileRequest) String() string {
+func (g *UploadGetCDNFileRequest) String() string {
 	if g == nil {
-		return "UploadGetCdnFileRequest(nil)"
+		return "UploadGetCDNFileRequest(nil)"
 	}
-	type Alias UploadGetCdnFileRequest
-	return fmt.Sprintf("UploadGetCdnFileRequest%+v", Alias(*g))
+	type Alias UploadGetCDNFileRequest
+	return fmt.Sprintf("UploadGetCDNFileRequest%+v", Alias(*g))
 }
 
-// FillFrom fills UploadGetCdnFileRequest from given interface.
-func (g *UploadGetCdnFileRequest) FillFrom(from interface {
+// FillFrom fills UploadGetCDNFileRequest from given interface.
+func (g *UploadGetCDNFileRequest) FillFrom(from interface {
 	GetFileToken() (value []byte)
 	GetOffset() (value int)
 	GetLimit() (value int)
@@ -81,20 +81,20 @@ func (g *UploadGetCdnFileRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UploadGetCdnFileRequest) TypeID() uint32 {
-	return UploadGetCdnFileRequestTypeID
+func (*UploadGetCDNFileRequest) TypeID() uint32 {
+	return UploadGetCDNFileRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*UploadGetCdnFileRequest) TypeName() string {
+func (*UploadGetCDNFileRequest) TypeName() string {
 	return "upload.getCdnFile"
 }
 
 // TypeInfo returns info about TL type.
-func (g *UploadGetCdnFileRequest) TypeInfo() tdp.Type {
+func (g *UploadGetCDNFileRequest) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "upload.getCdnFile",
-		ID:   UploadGetCdnFileRequestTypeID,
+		ID:   UploadGetCDNFileRequestTypeID,
 	}
 	if g == nil {
 		typ.Null = true
@@ -118,11 +118,11 @@ func (g *UploadGetCdnFileRequest) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (g *UploadGetCdnFileRequest) Encode(b *bin.Buffer) error {
+func (g *UploadGetCDNFileRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode upload.getCdnFile#2000bcc3 as nil")
 	}
-	b.PutID(UploadGetCdnFileRequestTypeID)
+	b.PutID(UploadGetCDNFileRequestTypeID)
 	b.PutBytes(g.FileToken)
 	b.PutInt(g.Offset)
 	b.PutInt(g.Limit)
@@ -130,26 +130,26 @@ func (g *UploadGetCdnFileRequest) Encode(b *bin.Buffer) error {
 }
 
 // GetFileToken returns value of FileToken field.
-func (g *UploadGetCdnFileRequest) GetFileToken() (value []byte) {
+func (g *UploadGetCDNFileRequest) GetFileToken() (value []byte) {
 	return g.FileToken
 }
 
 // GetOffset returns value of Offset field.
-func (g *UploadGetCdnFileRequest) GetOffset() (value int) {
+func (g *UploadGetCDNFileRequest) GetOffset() (value int) {
 	return g.Offset
 }
 
 // GetLimit returns value of Limit field.
-func (g *UploadGetCdnFileRequest) GetLimit() (value int) {
+func (g *UploadGetCDNFileRequest) GetLimit() (value int) {
 	return g.Limit
 }
 
 // Decode implements bin.Decoder.
-func (g *UploadGetCdnFileRequest) Decode(b *bin.Buffer) error {
+func (g *UploadGetCDNFileRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't decode upload.getCdnFile#2000bcc3 to nil")
 	}
-	if err := b.ConsumeID(UploadGetCdnFileRequestTypeID); err != nil {
+	if err := b.ConsumeID(UploadGetCDNFileRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.getCdnFile#2000bcc3: %w", err)
 	}
 	{
@@ -176,21 +176,21 @@ func (g *UploadGetCdnFileRequest) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for UploadGetCdnFileRequest.
+// Ensuring interfaces in compile-time for UploadGetCDNFileRequest.
 var (
-	_ bin.Encoder = &UploadGetCdnFileRequest{}
-	_ bin.Decoder = &UploadGetCdnFileRequest{}
+	_ bin.Encoder = &UploadGetCDNFileRequest{}
+	_ bin.Decoder = &UploadGetCDNFileRequest{}
 )
 
-// UploadGetCdnFile invokes method upload.getCdnFile#2000bcc3 returning error if any.
+// UploadGetCDNFile invokes method upload.getCdnFile#2000bcc3 returning error if any.
 // Download a CDN¹ file.
 //
 // Links:
 //  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/method/upload.getCdnFile for reference.
-func (c *Client) UploadGetCdnFile(ctx context.Context, request *UploadGetCdnFileRequest) (UploadCdnFileClass, error) {
-	var result UploadCdnFileBox
+func (c *Client) UploadGetCDNFile(ctx context.Context, request *UploadGetCDNFileRequest) (UploadCDNFileClass, error) {
+	var result UploadCDNFileBox
 
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err

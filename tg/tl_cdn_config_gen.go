@@ -22,25 +22,25 @@ var _ = errors.Is
 var _ = sort.Ints
 var _ = tdp.Format
 
-// CdnConfig represents TL type `cdnConfig#5725e40a`.
+// CDNConfig represents TL type `cdnConfig#5725e40a`.
 // Configuration for CDN¹ file downloads.
 //
 // Links:
 //  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/constructor/cdnConfig for reference.
-type CdnConfig struct {
+type CDNConfig struct {
 	// Vector of public keys to use only during handshakes to CDN¹ DCs.
 	//
 	// Links:
 	//  1) https://core.telegram.org/cdn
-	PublicKeys []CdnPublicKey
+	PublicKeys []CDNPublicKey
 }
 
-// CdnConfigTypeID is TL type id of CdnConfig.
-const CdnConfigTypeID = 0x5725e40a
+// CDNConfigTypeID is TL type id of CDNConfig.
+const CDNConfigTypeID = 0x5725e40a
 
-func (c *CdnConfig) Zero() bool {
+func (c *CDNConfig) Zero() bool {
 	if c == nil {
 		return true
 	}
@@ -52,17 +52,17 @@ func (c *CdnConfig) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (c *CdnConfig) String() string {
+func (c *CDNConfig) String() string {
 	if c == nil {
-		return "CdnConfig(nil)"
+		return "CDNConfig(nil)"
 	}
-	type Alias CdnConfig
-	return fmt.Sprintf("CdnConfig%+v", Alias(*c))
+	type Alias CDNConfig
+	return fmt.Sprintf("CDNConfig%+v", Alias(*c))
 }
 
-// FillFrom fills CdnConfig from given interface.
-func (c *CdnConfig) FillFrom(from interface {
-	GetPublicKeys() (value []CdnPublicKey)
+// FillFrom fills CDNConfig from given interface.
+func (c *CDNConfig) FillFrom(from interface {
+	GetPublicKeys() (value []CDNPublicKey)
 }) {
 	c.PublicKeys = from.GetPublicKeys()
 }
@@ -70,20 +70,20 @@ func (c *CdnConfig) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*CdnConfig) TypeID() uint32 {
-	return CdnConfigTypeID
+func (*CDNConfig) TypeID() uint32 {
+	return CDNConfigTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*CdnConfig) TypeName() string {
+func (*CDNConfig) TypeName() string {
 	return "cdnConfig"
 }
 
 // TypeInfo returns info about TL type.
-func (c *CdnConfig) TypeInfo() tdp.Type {
+func (c *CDNConfig) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "cdnConfig",
-		ID:   CdnConfigTypeID,
+		ID:   CDNConfigTypeID,
 	}
 	if c == nil {
 		typ.Null = true
@@ -99,11 +99,11 @@ func (c *CdnConfig) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (c *CdnConfig) Encode(b *bin.Buffer) error {
+func (c *CDNConfig) Encode(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode cdnConfig#5725e40a as nil")
 	}
-	b.PutID(CdnConfigTypeID)
+	b.PutID(CDNConfigTypeID)
 	b.PutVectorHeader(len(c.PublicKeys))
 	for idx, v := range c.PublicKeys {
 		if err := v.Encode(b); err != nil {
@@ -114,16 +114,16 @@ func (c *CdnConfig) Encode(b *bin.Buffer) error {
 }
 
 // GetPublicKeys returns value of PublicKeys field.
-func (c *CdnConfig) GetPublicKeys() (value []CdnPublicKey) {
+func (c *CDNConfig) GetPublicKeys() (value []CDNPublicKey) {
 	return c.PublicKeys
 }
 
 // Decode implements bin.Decoder.
-func (c *CdnConfig) Decode(b *bin.Buffer) error {
+func (c *CDNConfig) Decode(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode cdnConfig#5725e40a to nil")
 	}
-	if err := b.ConsumeID(CdnConfigTypeID); err != nil {
+	if err := b.ConsumeID(CDNConfigTypeID); err != nil {
 		return fmt.Errorf("unable to decode cdnConfig#5725e40a: %w", err)
 	}
 	{
@@ -132,7 +132,7 @@ func (c *CdnConfig) Decode(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode cdnConfig#5725e40a: field public_keys: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			var value CdnPublicKey
+			var value CDNPublicKey
 			if err := value.Decode(b); err != nil {
 				return fmt.Errorf("unable to decode cdnConfig#5725e40a: field public_keys: %w", err)
 			}
@@ -142,8 +142,8 @@ func (c *CdnConfig) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for CdnConfig.
+// Ensuring interfaces in compile-time for CDNConfig.
 var (
-	_ bin.Encoder = &CdnConfig{}
-	_ bin.Decoder = &CdnConfig{}
+	_ bin.Encoder = &CDNConfig{}
+	_ bin.Decoder = &CDNConfig{}
 )

@@ -40,7 +40,7 @@ func (c *Client) ensureRestart(ctx context.Context, export *tg.AuthExportedAutho
 	}
 }
 
-func findDC(cfg tg.Config, dcID int, noIPv6 bool) (dc tg.DcOption, ok bool) {
+func findDC(cfg tg.Config, dcID int, noIPv6 bool) (dc tg.DCOption, ok bool) {
 	for _, dc := range cfg.DCOptions {
 		if noIPv6 && dc.Ipv6 {
 			continue
@@ -83,7 +83,7 @@ func (c *Client) migrateToDc(ctx context.Context, dcID int, transfer bool) error
 		return xerrors.Errorf("failed to find DC %d", dcID)
 	}
 
-	if dc.TcpoOnly {
+	if dc.TCPObfuscatedOnly {
 		return xerrors.Errorf("can't migrate to obfuscated transport only DC %d", dcID)
 	}
 

@@ -22,14 +22,14 @@ var _ = errors.Is
 var _ = sort.Ints
 var _ = tdp.Format
 
-// CdnPublicKey represents TL type `cdnPublicKey#c982eaba`.
+// CDNPublicKey represents TL type `cdnPublicKey#c982eaba`.
 // Public key to use only during handshakes to CDN¹ DCs.
 //
 // Links:
 //  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/constructor/cdnPublicKey for reference.
-type CdnPublicKey struct {
+type CDNPublicKey struct {
 	// CDN DC¹ ID
 	//
 	// Links:
@@ -39,10 +39,10 @@ type CdnPublicKey struct {
 	PublicKey string
 }
 
-// CdnPublicKeyTypeID is TL type id of CdnPublicKey.
-const CdnPublicKeyTypeID = 0xc982eaba
+// CDNPublicKeyTypeID is TL type id of CDNPublicKey.
+const CDNPublicKeyTypeID = 0xc982eaba
 
-func (c *CdnPublicKey) Zero() bool {
+func (c *CDNPublicKey) Zero() bool {
 	if c == nil {
 		return true
 	}
@@ -57,16 +57,16 @@ func (c *CdnPublicKey) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (c *CdnPublicKey) String() string {
+func (c *CDNPublicKey) String() string {
 	if c == nil {
-		return "CdnPublicKey(nil)"
+		return "CDNPublicKey(nil)"
 	}
-	type Alias CdnPublicKey
-	return fmt.Sprintf("CdnPublicKey%+v", Alias(*c))
+	type Alias CDNPublicKey
+	return fmt.Sprintf("CDNPublicKey%+v", Alias(*c))
 }
 
-// FillFrom fills CdnPublicKey from given interface.
-func (c *CdnPublicKey) FillFrom(from interface {
+// FillFrom fills CDNPublicKey from given interface.
+func (c *CDNPublicKey) FillFrom(from interface {
 	GetDCID() (value int)
 	GetPublicKey() (value string)
 }) {
@@ -77,20 +77,20 @@ func (c *CdnPublicKey) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*CdnPublicKey) TypeID() uint32 {
-	return CdnPublicKeyTypeID
+func (*CDNPublicKey) TypeID() uint32 {
+	return CDNPublicKeyTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*CdnPublicKey) TypeName() string {
+func (*CDNPublicKey) TypeName() string {
 	return "cdnPublicKey"
 }
 
 // TypeInfo returns info about TL type.
-func (c *CdnPublicKey) TypeInfo() tdp.Type {
+func (c *CDNPublicKey) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "cdnPublicKey",
-		ID:   CdnPublicKeyTypeID,
+		ID:   CDNPublicKeyTypeID,
 	}
 	if c == nil {
 		typ.Null = true
@@ -110,32 +110,32 @@ func (c *CdnPublicKey) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (c *CdnPublicKey) Encode(b *bin.Buffer) error {
+func (c *CDNPublicKey) Encode(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode cdnPublicKey#c982eaba as nil")
 	}
-	b.PutID(CdnPublicKeyTypeID)
+	b.PutID(CDNPublicKeyTypeID)
 	b.PutInt(c.DCID)
 	b.PutString(c.PublicKey)
 	return nil
 }
 
 // GetDCID returns value of DCID field.
-func (c *CdnPublicKey) GetDCID() (value int) {
+func (c *CDNPublicKey) GetDCID() (value int) {
 	return c.DCID
 }
 
 // GetPublicKey returns value of PublicKey field.
-func (c *CdnPublicKey) GetPublicKey() (value string) {
+func (c *CDNPublicKey) GetPublicKey() (value string) {
 	return c.PublicKey
 }
 
 // Decode implements bin.Decoder.
-func (c *CdnPublicKey) Decode(b *bin.Buffer) error {
+func (c *CDNPublicKey) Decode(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode cdnPublicKey#c982eaba to nil")
 	}
-	if err := b.ConsumeID(CdnPublicKeyTypeID); err != nil {
+	if err := b.ConsumeID(CDNPublicKeyTypeID); err != nil {
 		return fmt.Errorf("unable to decode cdnPublicKey#c982eaba: %w", err)
 	}
 	{
@@ -155,8 +155,8 @@ func (c *CdnPublicKey) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for CdnPublicKey.
+// Ensuring interfaces in compile-time for CDNPublicKey.
 var (
-	_ bin.Encoder = &CdnPublicKey{}
-	_ bin.Decoder = &CdnPublicKey{}
+	_ bin.Encoder = &CDNPublicKey{}
+	_ bin.Decoder = &CDNPublicKey{}
 )

@@ -52,7 +52,7 @@ func TestBuilder_StyledText(t *testing.T) {
 			return &tg.MessageEntityBotCommand{Length: o}
 		}},
 		{"URL", URL, func(o int) tg.MessageEntityClass {
-			return &tg.MessageEntityUrl{Length: o}
+			return &tg.MessageEntityURL{Length: o}
 		}},
 		{"Email", Email, func(o int) tg.MessageEntityClass {
 			return &tg.MessageEntityEmail{Length: o}

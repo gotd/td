@@ -26,8 +26,8 @@ var _ = tdp.Format
 //
 // See https://localhost:80/doc/method/echoVector for reference.
 type EchoVectorRequest struct {
-	// Ids field of EchoVectorRequest.
-	Ids []int
+	// IDs field of EchoVectorRequest.
+	IDs []int
 }
 
 // EchoVectorRequestTypeID is TL type id of EchoVectorRequest.
@@ -37,7 +37,7 @@ func (e *EchoVectorRequest) Zero() bool {
 	if e == nil {
 		return true
 	}
-	if !(e.Ids == nil) {
+	if !(e.IDs == nil) {
 		return false
 	}
 
@@ -55,9 +55,9 @@ func (e *EchoVectorRequest) String() string {
 
 // FillFrom fills EchoVectorRequest from given interface.
 func (e *EchoVectorRequest) FillFrom(from interface {
-	GetIds() (value []int)
+	GetIDs() (value []int)
 }) {
-	e.Ids = from.GetIds()
+	e.IDs = from.GetIDs()
 }
 
 // TypeID returns type id in TL schema.
@@ -84,7 +84,7 @@ func (e *EchoVectorRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Ids",
+			Name:       "IDs",
 			SchemaName: "ids",
 		},
 	}
@@ -97,16 +97,16 @@ func (e *EchoVectorRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode echoVector#d4785939 as nil")
 	}
 	b.PutID(EchoVectorRequestTypeID)
-	b.PutVectorHeader(len(e.Ids))
-	for _, v := range e.Ids {
+	b.PutVectorHeader(len(e.IDs))
+	for _, v := range e.IDs {
 		b.PutInt(v)
 	}
 	return nil
 }
 
-// GetIds returns value of Ids field.
-func (e *EchoVectorRequest) GetIds() (value []int) {
-	return e.Ids
+// GetIDs returns value of IDs field.
+func (e *EchoVectorRequest) GetIDs() (value []int) {
+	return e.IDs
 }
 
 // Decode implements bin.Decoder.
@@ -127,7 +127,7 @@ func (e *EchoVectorRequest) Decode(b *bin.Buffer) error {
 			if err != nil {
 				return fmt.Errorf("unable to decode echoVector#d4785939: field ids: %w", err)
 			}
-			e.Ids = append(e.Ids, value)
+			e.IDs = append(e.IDs, value)
 		}
 	}
 	return nil
@@ -146,7 +146,7 @@ func (c *Client) EchoVector(ctx context.Context, ids []int) ([]int, error) {
 	var result IntVector
 
 	request := &EchoVectorRequest{
-		Ids: ids,
+		IDs: ids,
 	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err

@@ -22,19 +22,19 @@ var _ = errors.Is
 var _ = sort.Ints
 var _ = tdp.Format
 
-// RecentMeUrlUnknown represents TL type `recentMeUrlUnknown#46e1d13d`.
+// RecentMeURLUnknown represents TL type `recentMeUrlUnknown#46e1d13d`.
 // Unknown t.me url
 //
 // See https://core.telegram.org/constructor/recentMeUrlUnknown for reference.
-type RecentMeUrlUnknown struct {
+type RecentMeURLUnknown struct {
 	// URL
 	URL string
 }
 
-// RecentMeUrlUnknownTypeID is TL type id of RecentMeUrlUnknown.
-const RecentMeUrlUnknownTypeID = 0x46e1d13d
+// RecentMeURLUnknownTypeID is TL type id of RecentMeURLUnknown.
+const RecentMeURLUnknownTypeID = 0x46e1d13d
 
-func (r *RecentMeUrlUnknown) Zero() bool {
+func (r *RecentMeURLUnknown) Zero() bool {
 	if r == nil {
 		return true
 	}
@@ -46,16 +46,16 @@ func (r *RecentMeUrlUnknown) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (r *RecentMeUrlUnknown) String() string {
+func (r *RecentMeURLUnknown) String() string {
 	if r == nil {
-		return "RecentMeUrlUnknown(nil)"
+		return "RecentMeURLUnknown(nil)"
 	}
-	type Alias RecentMeUrlUnknown
-	return fmt.Sprintf("RecentMeUrlUnknown%+v", Alias(*r))
+	type Alias RecentMeURLUnknown
+	return fmt.Sprintf("RecentMeURLUnknown%+v", Alias(*r))
 }
 
-// FillFrom fills RecentMeUrlUnknown from given interface.
-func (r *RecentMeUrlUnknown) FillFrom(from interface {
+// FillFrom fills RecentMeURLUnknown from given interface.
+func (r *RecentMeURLUnknown) FillFrom(from interface {
 	GetURL() (value string)
 }) {
 	r.URL = from.GetURL()
@@ -64,20 +64,20 @@ func (r *RecentMeUrlUnknown) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*RecentMeUrlUnknown) TypeID() uint32 {
-	return RecentMeUrlUnknownTypeID
+func (*RecentMeURLUnknown) TypeID() uint32 {
+	return RecentMeURLUnknownTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*RecentMeUrlUnknown) TypeName() string {
+func (*RecentMeURLUnknown) TypeName() string {
 	return "recentMeUrlUnknown"
 }
 
 // TypeInfo returns info about TL type.
-func (r *RecentMeUrlUnknown) TypeInfo() tdp.Type {
+func (r *RecentMeURLUnknown) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "recentMeUrlUnknown",
-		ID:   RecentMeUrlUnknownTypeID,
+		ID:   RecentMeURLUnknownTypeID,
 	}
 	if r == nil {
 		typ.Null = true
@@ -93,26 +93,26 @@ func (r *RecentMeUrlUnknown) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (r *RecentMeUrlUnknown) Encode(b *bin.Buffer) error {
+func (r *RecentMeURLUnknown) Encode(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode recentMeUrlUnknown#46e1d13d as nil")
 	}
-	b.PutID(RecentMeUrlUnknownTypeID)
+	b.PutID(RecentMeURLUnknownTypeID)
 	b.PutString(r.URL)
 	return nil
 }
 
 // GetURL returns value of URL field.
-func (r *RecentMeUrlUnknown) GetURL() (value string) {
+func (r *RecentMeURLUnknown) GetURL() (value string) {
 	return r.URL
 }
 
 // Decode implements bin.Decoder.
-func (r *RecentMeUrlUnknown) Decode(b *bin.Buffer) error {
+func (r *RecentMeURLUnknown) Decode(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't decode recentMeUrlUnknown#46e1d13d to nil")
 	}
-	if err := b.ConsumeID(RecentMeUrlUnknownTypeID); err != nil {
+	if err := b.ConsumeID(RecentMeURLUnknownTypeID); err != nil {
 		return fmt.Errorf("unable to decode recentMeUrlUnknown#46e1d13d: %w", err)
 	}
 	{
@@ -125,32 +125,32 @@ func (r *RecentMeUrlUnknown) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RecentMeUrlClass.
-func (r RecentMeUrlUnknown) construct() RecentMeUrlClass { return &r }
+// construct implements constructor of RecentMeURLClass.
+func (r RecentMeURLUnknown) construct() RecentMeURLClass { return &r }
 
-// Ensuring interfaces in compile-time for RecentMeUrlUnknown.
+// Ensuring interfaces in compile-time for RecentMeURLUnknown.
 var (
-	_ bin.Encoder = &RecentMeUrlUnknown{}
-	_ bin.Decoder = &RecentMeUrlUnknown{}
+	_ bin.Encoder = &RecentMeURLUnknown{}
+	_ bin.Decoder = &RecentMeURLUnknown{}
 
-	_ RecentMeUrlClass = &RecentMeUrlUnknown{}
+	_ RecentMeURLClass = &RecentMeURLUnknown{}
 )
 
-// RecentMeUrlUser represents TL type `recentMeUrlUser#8dbc3336`.
+// RecentMeURLUser represents TL type `recentMeUrlUser#8dbc3336`.
 // Recent t.me link to a user
 //
 // See https://core.telegram.org/constructor/recentMeUrlUser for reference.
-type RecentMeUrlUser struct {
+type RecentMeURLUser struct {
 	// URL
 	URL string
 	// User ID
 	UserID int
 }
 
-// RecentMeUrlUserTypeID is TL type id of RecentMeUrlUser.
-const RecentMeUrlUserTypeID = 0x8dbc3336
+// RecentMeURLUserTypeID is TL type id of RecentMeURLUser.
+const RecentMeURLUserTypeID = 0x8dbc3336
 
-func (r *RecentMeUrlUser) Zero() bool {
+func (r *RecentMeURLUser) Zero() bool {
 	if r == nil {
 		return true
 	}
@@ -165,16 +165,16 @@ func (r *RecentMeUrlUser) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (r *RecentMeUrlUser) String() string {
+func (r *RecentMeURLUser) String() string {
 	if r == nil {
-		return "RecentMeUrlUser(nil)"
+		return "RecentMeURLUser(nil)"
 	}
-	type Alias RecentMeUrlUser
-	return fmt.Sprintf("RecentMeUrlUser%+v", Alias(*r))
+	type Alias RecentMeURLUser
+	return fmt.Sprintf("RecentMeURLUser%+v", Alias(*r))
 }
 
-// FillFrom fills RecentMeUrlUser from given interface.
-func (r *RecentMeUrlUser) FillFrom(from interface {
+// FillFrom fills RecentMeURLUser from given interface.
+func (r *RecentMeURLUser) FillFrom(from interface {
 	GetURL() (value string)
 	GetUserID() (value int)
 }) {
@@ -185,20 +185,20 @@ func (r *RecentMeUrlUser) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*RecentMeUrlUser) TypeID() uint32 {
-	return RecentMeUrlUserTypeID
+func (*RecentMeURLUser) TypeID() uint32 {
+	return RecentMeURLUserTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*RecentMeUrlUser) TypeName() string {
+func (*RecentMeURLUser) TypeName() string {
 	return "recentMeUrlUser"
 }
 
 // TypeInfo returns info about TL type.
-func (r *RecentMeUrlUser) TypeInfo() tdp.Type {
+func (r *RecentMeURLUser) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "recentMeUrlUser",
-		ID:   RecentMeUrlUserTypeID,
+		ID:   RecentMeURLUserTypeID,
 	}
 	if r == nil {
 		typ.Null = true
@@ -218,32 +218,32 @@ func (r *RecentMeUrlUser) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (r *RecentMeUrlUser) Encode(b *bin.Buffer) error {
+func (r *RecentMeURLUser) Encode(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode recentMeUrlUser#8dbc3336 as nil")
 	}
-	b.PutID(RecentMeUrlUserTypeID)
+	b.PutID(RecentMeURLUserTypeID)
 	b.PutString(r.URL)
 	b.PutInt(r.UserID)
 	return nil
 }
 
 // GetURL returns value of URL field.
-func (r *RecentMeUrlUser) GetURL() (value string) {
+func (r *RecentMeURLUser) GetURL() (value string) {
 	return r.URL
 }
 
 // GetUserID returns value of UserID field.
-func (r *RecentMeUrlUser) GetUserID() (value int) {
+func (r *RecentMeURLUser) GetUserID() (value int) {
 	return r.UserID
 }
 
 // Decode implements bin.Decoder.
-func (r *RecentMeUrlUser) Decode(b *bin.Buffer) error {
+func (r *RecentMeURLUser) Decode(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't decode recentMeUrlUser#8dbc3336 to nil")
 	}
-	if err := b.ConsumeID(RecentMeUrlUserTypeID); err != nil {
+	if err := b.ConsumeID(RecentMeURLUserTypeID); err != nil {
 		return fmt.Errorf("unable to decode recentMeUrlUser#8dbc3336: %w", err)
 	}
 	{
@@ -263,32 +263,32 @@ func (r *RecentMeUrlUser) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RecentMeUrlClass.
-func (r RecentMeUrlUser) construct() RecentMeUrlClass { return &r }
+// construct implements constructor of RecentMeURLClass.
+func (r RecentMeURLUser) construct() RecentMeURLClass { return &r }
 
-// Ensuring interfaces in compile-time for RecentMeUrlUser.
+// Ensuring interfaces in compile-time for RecentMeURLUser.
 var (
-	_ bin.Encoder = &RecentMeUrlUser{}
-	_ bin.Decoder = &RecentMeUrlUser{}
+	_ bin.Encoder = &RecentMeURLUser{}
+	_ bin.Decoder = &RecentMeURLUser{}
 
-	_ RecentMeUrlClass = &RecentMeUrlUser{}
+	_ RecentMeURLClass = &RecentMeURLUser{}
 )
 
-// RecentMeUrlChat represents TL type `recentMeUrlChat#a01b22f9`.
+// RecentMeURLChat represents TL type `recentMeUrlChat#a01b22f9`.
 // Recent t.me link to a chat
 //
 // See https://core.telegram.org/constructor/recentMeUrlChat for reference.
-type RecentMeUrlChat struct {
+type RecentMeURLChat struct {
 	// t.me URL
 	URL string
 	// Chat ID
 	ChatID int
 }
 
-// RecentMeUrlChatTypeID is TL type id of RecentMeUrlChat.
-const RecentMeUrlChatTypeID = 0xa01b22f9
+// RecentMeURLChatTypeID is TL type id of RecentMeURLChat.
+const RecentMeURLChatTypeID = 0xa01b22f9
 
-func (r *RecentMeUrlChat) Zero() bool {
+func (r *RecentMeURLChat) Zero() bool {
 	if r == nil {
 		return true
 	}
@@ -303,16 +303,16 @@ func (r *RecentMeUrlChat) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (r *RecentMeUrlChat) String() string {
+func (r *RecentMeURLChat) String() string {
 	if r == nil {
-		return "RecentMeUrlChat(nil)"
+		return "RecentMeURLChat(nil)"
 	}
-	type Alias RecentMeUrlChat
-	return fmt.Sprintf("RecentMeUrlChat%+v", Alias(*r))
+	type Alias RecentMeURLChat
+	return fmt.Sprintf("RecentMeURLChat%+v", Alias(*r))
 }
 
-// FillFrom fills RecentMeUrlChat from given interface.
-func (r *RecentMeUrlChat) FillFrom(from interface {
+// FillFrom fills RecentMeURLChat from given interface.
+func (r *RecentMeURLChat) FillFrom(from interface {
 	GetURL() (value string)
 	GetChatID() (value int)
 }) {
@@ -323,20 +323,20 @@ func (r *RecentMeUrlChat) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*RecentMeUrlChat) TypeID() uint32 {
-	return RecentMeUrlChatTypeID
+func (*RecentMeURLChat) TypeID() uint32 {
+	return RecentMeURLChatTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*RecentMeUrlChat) TypeName() string {
+func (*RecentMeURLChat) TypeName() string {
 	return "recentMeUrlChat"
 }
 
 // TypeInfo returns info about TL type.
-func (r *RecentMeUrlChat) TypeInfo() tdp.Type {
+func (r *RecentMeURLChat) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "recentMeUrlChat",
-		ID:   RecentMeUrlChatTypeID,
+		ID:   RecentMeURLChatTypeID,
 	}
 	if r == nil {
 		typ.Null = true
@@ -356,32 +356,32 @@ func (r *RecentMeUrlChat) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (r *RecentMeUrlChat) Encode(b *bin.Buffer) error {
+func (r *RecentMeURLChat) Encode(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode recentMeUrlChat#a01b22f9 as nil")
 	}
-	b.PutID(RecentMeUrlChatTypeID)
+	b.PutID(RecentMeURLChatTypeID)
 	b.PutString(r.URL)
 	b.PutInt(r.ChatID)
 	return nil
 }
 
 // GetURL returns value of URL field.
-func (r *RecentMeUrlChat) GetURL() (value string) {
+func (r *RecentMeURLChat) GetURL() (value string) {
 	return r.URL
 }
 
 // GetChatID returns value of ChatID field.
-func (r *RecentMeUrlChat) GetChatID() (value int) {
+func (r *RecentMeURLChat) GetChatID() (value int) {
 	return r.ChatID
 }
 
 // Decode implements bin.Decoder.
-func (r *RecentMeUrlChat) Decode(b *bin.Buffer) error {
+func (r *RecentMeURLChat) Decode(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't decode recentMeUrlChat#a01b22f9 to nil")
 	}
-	if err := b.ConsumeID(RecentMeUrlChatTypeID); err != nil {
+	if err := b.ConsumeID(RecentMeURLChatTypeID); err != nil {
 		return fmt.Errorf("unable to decode recentMeUrlChat#a01b22f9: %w", err)
 	}
 	{
@@ -401,32 +401,32 @@ func (r *RecentMeUrlChat) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RecentMeUrlClass.
-func (r RecentMeUrlChat) construct() RecentMeUrlClass { return &r }
+// construct implements constructor of RecentMeURLClass.
+func (r RecentMeURLChat) construct() RecentMeURLClass { return &r }
 
-// Ensuring interfaces in compile-time for RecentMeUrlChat.
+// Ensuring interfaces in compile-time for RecentMeURLChat.
 var (
-	_ bin.Encoder = &RecentMeUrlChat{}
-	_ bin.Decoder = &RecentMeUrlChat{}
+	_ bin.Encoder = &RecentMeURLChat{}
+	_ bin.Decoder = &RecentMeURLChat{}
 
-	_ RecentMeUrlClass = &RecentMeUrlChat{}
+	_ RecentMeURLClass = &RecentMeURLChat{}
 )
 
-// RecentMeUrlChatInvite represents TL type `recentMeUrlChatInvite#eb49081d`.
+// RecentMeURLChatInvite represents TL type `recentMeUrlChatInvite#eb49081d`.
 // Recent t.me invite link to a chat
 //
 // See https://core.telegram.org/constructor/recentMeUrlChatInvite for reference.
-type RecentMeUrlChatInvite struct {
+type RecentMeURLChatInvite struct {
 	// t.me URL
 	URL string
 	// Chat invitation
 	ChatInvite ChatInviteClass
 }
 
-// RecentMeUrlChatInviteTypeID is TL type id of RecentMeUrlChatInvite.
-const RecentMeUrlChatInviteTypeID = 0xeb49081d
+// RecentMeURLChatInviteTypeID is TL type id of RecentMeURLChatInvite.
+const RecentMeURLChatInviteTypeID = 0xeb49081d
 
-func (r *RecentMeUrlChatInvite) Zero() bool {
+func (r *RecentMeURLChatInvite) Zero() bool {
 	if r == nil {
 		return true
 	}
@@ -441,16 +441,16 @@ func (r *RecentMeUrlChatInvite) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (r *RecentMeUrlChatInvite) String() string {
+func (r *RecentMeURLChatInvite) String() string {
 	if r == nil {
-		return "RecentMeUrlChatInvite(nil)"
+		return "RecentMeURLChatInvite(nil)"
 	}
-	type Alias RecentMeUrlChatInvite
-	return fmt.Sprintf("RecentMeUrlChatInvite%+v", Alias(*r))
+	type Alias RecentMeURLChatInvite
+	return fmt.Sprintf("RecentMeURLChatInvite%+v", Alias(*r))
 }
 
-// FillFrom fills RecentMeUrlChatInvite from given interface.
-func (r *RecentMeUrlChatInvite) FillFrom(from interface {
+// FillFrom fills RecentMeURLChatInvite from given interface.
+func (r *RecentMeURLChatInvite) FillFrom(from interface {
 	GetURL() (value string)
 	GetChatInvite() (value ChatInviteClass)
 }) {
@@ -461,20 +461,20 @@ func (r *RecentMeUrlChatInvite) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*RecentMeUrlChatInvite) TypeID() uint32 {
-	return RecentMeUrlChatInviteTypeID
+func (*RecentMeURLChatInvite) TypeID() uint32 {
+	return RecentMeURLChatInviteTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*RecentMeUrlChatInvite) TypeName() string {
+func (*RecentMeURLChatInvite) TypeName() string {
 	return "recentMeUrlChatInvite"
 }
 
 // TypeInfo returns info about TL type.
-func (r *RecentMeUrlChatInvite) TypeInfo() tdp.Type {
+func (r *RecentMeURLChatInvite) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "recentMeUrlChatInvite",
-		ID:   RecentMeUrlChatInviteTypeID,
+		ID:   RecentMeURLChatInviteTypeID,
 	}
 	if r == nil {
 		typ.Null = true
@@ -494,11 +494,11 @@ func (r *RecentMeUrlChatInvite) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (r *RecentMeUrlChatInvite) Encode(b *bin.Buffer) error {
+func (r *RecentMeURLChatInvite) Encode(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode recentMeUrlChatInvite#eb49081d as nil")
 	}
-	b.PutID(RecentMeUrlChatInviteTypeID)
+	b.PutID(RecentMeURLChatInviteTypeID)
 	b.PutString(r.URL)
 	if r.ChatInvite == nil {
 		return fmt.Errorf("unable to encode recentMeUrlChatInvite#eb49081d: field chat_invite is nil")
@@ -510,21 +510,21 @@ func (r *RecentMeUrlChatInvite) Encode(b *bin.Buffer) error {
 }
 
 // GetURL returns value of URL field.
-func (r *RecentMeUrlChatInvite) GetURL() (value string) {
+func (r *RecentMeURLChatInvite) GetURL() (value string) {
 	return r.URL
 }
 
 // GetChatInvite returns value of ChatInvite field.
-func (r *RecentMeUrlChatInvite) GetChatInvite() (value ChatInviteClass) {
+func (r *RecentMeURLChatInvite) GetChatInvite() (value ChatInviteClass) {
 	return r.ChatInvite
 }
 
 // Decode implements bin.Decoder.
-func (r *RecentMeUrlChatInvite) Decode(b *bin.Buffer) error {
+func (r *RecentMeURLChatInvite) Decode(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't decode recentMeUrlChatInvite#eb49081d to nil")
 	}
-	if err := b.ConsumeID(RecentMeUrlChatInviteTypeID); err != nil {
+	if err := b.ConsumeID(RecentMeURLChatInviteTypeID); err != nil {
 		return fmt.Errorf("unable to decode recentMeUrlChatInvite#eb49081d: %w", err)
 	}
 	{
@@ -544,32 +544,32 @@ func (r *RecentMeUrlChatInvite) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RecentMeUrlClass.
-func (r RecentMeUrlChatInvite) construct() RecentMeUrlClass { return &r }
+// construct implements constructor of RecentMeURLClass.
+func (r RecentMeURLChatInvite) construct() RecentMeURLClass { return &r }
 
-// Ensuring interfaces in compile-time for RecentMeUrlChatInvite.
+// Ensuring interfaces in compile-time for RecentMeURLChatInvite.
 var (
-	_ bin.Encoder = &RecentMeUrlChatInvite{}
-	_ bin.Decoder = &RecentMeUrlChatInvite{}
+	_ bin.Encoder = &RecentMeURLChatInvite{}
+	_ bin.Decoder = &RecentMeURLChatInvite{}
 
-	_ RecentMeUrlClass = &RecentMeUrlChatInvite{}
+	_ RecentMeURLClass = &RecentMeURLChatInvite{}
 )
 
-// RecentMeUrlStickerSet represents TL type `recentMeUrlStickerSet#bc0a57dc`.
+// RecentMeURLStickerSet represents TL type `recentMeUrlStickerSet#bc0a57dc`.
 // Recent t.me stickerset installation URL
 //
 // See https://core.telegram.org/constructor/recentMeUrlStickerSet for reference.
-type RecentMeUrlStickerSet struct {
+type RecentMeURLStickerSet struct {
 	// t.me URL
 	URL string
 	// Stickerset
 	Set StickerSetCoveredClass
 }
 
-// RecentMeUrlStickerSetTypeID is TL type id of RecentMeUrlStickerSet.
-const RecentMeUrlStickerSetTypeID = 0xbc0a57dc
+// RecentMeURLStickerSetTypeID is TL type id of RecentMeURLStickerSet.
+const RecentMeURLStickerSetTypeID = 0xbc0a57dc
 
-func (r *RecentMeUrlStickerSet) Zero() bool {
+func (r *RecentMeURLStickerSet) Zero() bool {
 	if r == nil {
 		return true
 	}
@@ -584,16 +584,16 @@ func (r *RecentMeUrlStickerSet) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (r *RecentMeUrlStickerSet) String() string {
+func (r *RecentMeURLStickerSet) String() string {
 	if r == nil {
-		return "RecentMeUrlStickerSet(nil)"
+		return "RecentMeURLStickerSet(nil)"
 	}
-	type Alias RecentMeUrlStickerSet
-	return fmt.Sprintf("RecentMeUrlStickerSet%+v", Alias(*r))
+	type Alias RecentMeURLStickerSet
+	return fmt.Sprintf("RecentMeURLStickerSet%+v", Alias(*r))
 }
 
-// FillFrom fills RecentMeUrlStickerSet from given interface.
-func (r *RecentMeUrlStickerSet) FillFrom(from interface {
+// FillFrom fills RecentMeURLStickerSet from given interface.
+func (r *RecentMeURLStickerSet) FillFrom(from interface {
 	GetURL() (value string)
 	GetSet() (value StickerSetCoveredClass)
 }) {
@@ -604,20 +604,20 @@ func (r *RecentMeUrlStickerSet) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*RecentMeUrlStickerSet) TypeID() uint32 {
-	return RecentMeUrlStickerSetTypeID
+func (*RecentMeURLStickerSet) TypeID() uint32 {
+	return RecentMeURLStickerSetTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*RecentMeUrlStickerSet) TypeName() string {
+func (*RecentMeURLStickerSet) TypeName() string {
 	return "recentMeUrlStickerSet"
 }
 
 // TypeInfo returns info about TL type.
-func (r *RecentMeUrlStickerSet) TypeInfo() tdp.Type {
+func (r *RecentMeURLStickerSet) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "recentMeUrlStickerSet",
-		ID:   RecentMeUrlStickerSetTypeID,
+		ID:   RecentMeURLStickerSetTypeID,
 	}
 	if r == nil {
 		typ.Null = true
@@ -637,11 +637,11 @@ func (r *RecentMeUrlStickerSet) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (r *RecentMeUrlStickerSet) Encode(b *bin.Buffer) error {
+func (r *RecentMeURLStickerSet) Encode(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode recentMeUrlStickerSet#bc0a57dc as nil")
 	}
-	b.PutID(RecentMeUrlStickerSetTypeID)
+	b.PutID(RecentMeURLStickerSetTypeID)
 	b.PutString(r.URL)
 	if r.Set == nil {
 		return fmt.Errorf("unable to encode recentMeUrlStickerSet#bc0a57dc: field set is nil")
@@ -653,21 +653,21 @@ func (r *RecentMeUrlStickerSet) Encode(b *bin.Buffer) error {
 }
 
 // GetURL returns value of URL field.
-func (r *RecentMeUrlStickerSet) GetURL() (value string) {
+func (r *RecentMeURLStickerSet) GetURL() (value string) {
 	return r.URL
 }
 
 // GetSet returns value of Set field.
-func (r *RecentMeUrlStickerSet) GetSet() (value StickerSetCoveredClass) {
+func (r *RecentMeURLStickerSet) GetSet() (value StickerSetCoveredClass) {
 	return r.Set
 }
 
 // Decode implements bin.Decoder.
-func (r *RecentMeUrlStickerSet) Decode(b *bin.Buffer) error {
+func (r *RecentMeURLStickerSet) Decode(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't decode recentMeUrlStickerSet#bc0a57dc to nil")
 	}
-	if err := b.ConsumeID(RecentMeUrlStickerSetTypeID); err != nil {
+	if err := b.ConsumeID(RecentMeURLStickerSetTypeID); err != nil {
 		return fmt.Errorf("unable to decode recentMeUrlStickerSet#bc0a57dc: %w", err)
 	}
 	{
@@ -687,38 +687,38 @@ func (r *RecentMeUrlStickerSet) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RecentMeUrlClass.
-func (r RecentMeUrlStickerSet) construct() RecentMeUrlClass { return &r }
+// construct implements constructor of RecentMeURLClass.
+func (r RecentMeURLStickerSet) construct() RecentMeURLClass { return &r }
 
-// Ensuring interfaces in compile-time for RecentMeUrlStickerSet.
+// Ensuring interfaces in compile-time for RecentMeURLStickerSet.
 var (
-	_ bin.Encoder = &RecentMeUrlStickerSet{}
-	_ bin.Decoder = &RecentMeUrlStickerSet{}
+	_ bin.Encoder = &RecentMeURLStickerSet{}
+	_ bin.Decoder = &RecentMeURLStickerSet{}
 
-	_ RecentMeUrlClass = &RecentMeUrlStickerSet{}
+	_ RecentMeURLClass = &RecentMeURLStickerSet{}
 )
 
-// RecentMeUrlClass represents RecentMeUrl generic type.
+// RecentMeURLClass represents RecentMeUrl generic type.
 //
 // See https://core.telegram.org/type/RecentMeUrl for reference.
 //
 // Example:
-//  g, err := tg.DecodeRecentMeUrl(buf)
+//  g, err := tg.DecodeRecentMeURL(buf)
 //  if err != nil {
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *tg.RecentMeUrlUnknown: // recentMeUrlUnknown#46e1d13d
-//  case *tg.RecentMeUrlUser: // recentMeUrlUser#8dbc3336
-//  case *tg.RecentMeUrlChat: // recentMeUrlChat#a01b22f9
-//  case *tg.RecentMeUrlChatInvite: // recentMeUrlChatInvite#eb49081d
-//  case *tg.RecentMeUrlStickerSet: // recentMeUrlStickerSet#bc0a57dc
+//  case *tg.RecentMeURLUnknown: // recentMeUrlUnknown#46e1d13d
+//  case *tg.RecentMeURLUser: // recentMeUrlUser#8dbc3336
+//  case *tg.RecentMeURLChat: // recentMeUrlChat#a01b22f9
+//  case *tg.RecentMeURLChatInvite: // recentMeUrlChatInvite#eb49081d
+//  case *tg.RecentMeURLStickerSet: // recentMeUrlStickerSet#bc0a57dc
 //  default: panic(v)
 //  }
-type RecentMeUrlClass interface {
+type RecentMeURLClass interface {
 	bin.Encoder
 	bin.Decoder
-	construct() RecentMeUrlClass
+	construct() RecentMeURLClass
 
 	// TypeID returns type id in TL schema.
 	//
@@ -735,64 +735,64 @@ type RecentMeUrlClass interface {
 	GetURL() (value string)
 }
 
-// DecodeRecentMeUrl implements binary de-serialization for RecentMeUrlClass.
-func DecodeRecentMeUrl(buf *bin.Buffer) (RecentMeUrlClass, error) {
+// DecodeRecentMeURL implements binary de-serialization for RecentMeURLClass.
+func DecodeRecentMeURL(buf *bin.Buffer) (RecentMeURLClass, error) {
 	id, err := buf.PeekID()
 	if err != nil {
 		return nil, err
 	}
 	switch id {
-	case RecentMeUrlUnknownTypeID:
+	case RecentMeURLUnknownTypeID:
 		// Decoding recentMeUrlUnknown#46e1d13d.
-		v := RecentMeUrlUnknown{}
+		v := RecentMeURLUnknown{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RecentMeUrlClass: %w", err)
+			return nil, fmt.Errorf("unable to decode RecentMeURLClass: %w", err)
 		}
 		return &v, nil
-	case RecentMeUrlUserTypeID:
+	case RecentMeURLUserTypeID:
 		// Decoding recentMeUrlUser#8dbc3336.
-		v := RecentMeUrlUser{}
+		v := RecentMeURLUser{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RecentMeUrlClass: %w", err)
+			return nil, fmt.Errorf("unable to decode RecentMeURLClass: %w", err)
 		}
 		return &v, nil
-	case RecentMeUrlChatTypeID:
+	case RecentMeURLChatTypeID:
 		// Decoding recentMeUrlChat#a01b22f9.
-		v := RecentMeUrlChat{}
+		v := RecentMeURLChat{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RecentMeUrlClass: %w", err)
+			return nil, fmt.Errorf("unable to decode RecentMeURLClass: %w", err)
 		}
 		return &v, nil
-	case RecentMeUrlChatInviteTypeID:
+	case RecentMeURLChatInviteTypeID:
 		// Decoding recentMeUrlChatInvite#eb49081d.
-		v := RecentMeUrlChatInvite{}
+		v := RecentMeURLChatInvite{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RecentMeUrlClass: %w", err)
+			return nil, fmt.Errorf("unable to decode RecentMeURLClass: %w", err)
 		}
 		return &v, nil
-	case RecentMeUrlStickerSetTypeID:
+	case RecentMeURLStickerSetTypeID:
 		// Decoding recentMeUrlStickerSet#bc0a57dc.
-		v := RecentMeUrlStickerSet{}
+		v := RecentMeURLStickerSet{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RecentMeUrlClass: %w", err)
+			return nil, fmt.Errorf("unable to decode RecentMeURLClass: %w", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode RecentMeUrlClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode RecentMeURLClass: %w", bin.NewUnexpectedID(id))
 	}
 }
 
-// RecentMeUrl boxes the RecentMeUrlClass providing a helper.
-type RecentMeUrlBox struct {
-	RecentMeUrl RecentMeUrlClass
+// RecentMeURL boxes the RecentMeURLClass providing a helper.
+type RecentMeURLBox struct {
+	RecentMeUrl RecentMeURLClass
 }
 
-// Decode implements bin.Decoder for RecentMeUrlBox.
-func (b *RecentMeUrlBox) Decode(buf *bin.Buffer) error {
+// Decode implements bin.Decoder for RecentMeURLBox.
+func (b *RecentMeURLBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode RecentMeUrlBox to nil")
+		return fmt.Errorf("unable to decode RecentMeURLBox to nil")
 	}
-	v, err := DecodeRecentMeUrl(buf)
+	v, err := DecodeRecentMeURL(buf)
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
@@ -800,35 +800,35 @@ func (b *RecentMeUrlBox) Decode(buf *bin.Buffer) error {
 	return nil
 }
 
-// Encode implements bin.Encode for RecentMeUrlBox.
-func (b *RecentMeUrlBox) Encode(buf *bin.Buffer) error {
+// Encode implements bin.Encode for RecentMeURLBox.
+func (b *RecentMeURLBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.RecentMeUrl == nil {
-		return fmt.Errorf("unable to encode RecentMeUrlClass as nil")
+		return fmt.Errorf("unable to encode RecentMeURLClass as nil")
 	}
 	return b.RecentMeUrl.Encode(buf)
 }
 
-// RecentMeUrlClassArray is adapter for slice of RecentMeUrlClass.
-type RecentMeUrlClassArray []RecentMeUrlClass
+// RecentMeURLClassArray is adapter for slice of RecentMeURLClass.
+type RecentMeURLClassArray []RecentMeURLClass
 
-// Sort sorts slice of RecentMeUrlClass.
-func (s RecentMeUrlClassArray) Sort(less func(a, b RecentMeUrlClass) bool) RecentMeUrlClassArray {
+// Sort sorts slice of RecentMeURLClass.
+func (s RecentMeURLClassArray) Sort(less func(a, b RecentMeURLClass) bool) RecentMeURLClassArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of RecentMeUrlClass.
-func (s RecentMeUrlClassArray) SortStable(less func(a, b RecentMeUrlClass) bool) RecentMeUrlClassArray {
+// SortStable sorts slice of RecentMeURLClass.
+func (s RecentMeURLClassArray) SortStable(less func(a, b RecentMeURLClass) bool) RecentMeURLClassArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of RecentMeUrlClass.
-func (s RecentMeUrlClassArray) Retain(keep func(x RecentMeUrlClass) bool) RecentMeUrlClassArray {
+// Retain filters in-place slice of RecentMeURLClass.
+func (s RecentMeURLClassArray) Retain(keep func(x RecentMeURLClass) bool) RecentMeURLClassArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -842,7 +842,7 @@ func (s RecentMeUrlClassArray) Retain(keep func(x RecentMeUrlClass) bool) Recent
 }
 
 // First returns first element of slice (if exists).
-func (s RecentMeUrlClassArray) First() (v RecentMeUrlClass, ok bool) {
+func (s RecentMeURLClassArray) First() (v RecentMeURLClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -850,7 +850,7 @@ func (s RecentMeUrlClassArray) First() (v RecentMeUrlClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s RecentMeUrlClassArray) Last() (v RecentMeUrlClass, ok bool) {
+func (s RecentMeURLClassArray) Last() (v RecentMeURLClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -858,7 +858,7 @@ func (s RecentMeUrlClassArray) Last() (v RecentMeUrlClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *RecentMeUrlClassArray) PopFirst() (v RecentMeUrlClass, ok bool) {
+func (s *RecentMeURLClassArray) PopFirst() (v RecentMeURLClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -868,7 +868,7 @@ func (s *RecentMeUrlClassArray) PopFirst() (v RecentMeUrlClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero RecentMeUrlClass
+	var zero RecentMeURLClass
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -877,7 +877,7 @@ func (s *RecentMeUrlClassArray) PopFirst() (v RecentMeUrlClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *RecentMeUrlClassArray) Pop() (v RecentMeUrlClass, ok bool) {
+func (s *RecentMeURLClassArray) Pop() (v RecentMeURLClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -890,10 +890,10 @@ func (s *RecentMeUrlClassArray) Pop() (v RecentMeUrlClass, ok bool) {
 	return v, true
 }
 
-// AsRecentMeUrlUnknown returns copy with only RecentMeUrlUnknown constructors.
-func (s RecentMeUrlClassArray) AsRecentMeUrlUnknown() (to RecentMeUrlUnknownArray) {
+// AsRecentMeURLUnknown returns copy with only RecentMeURLUnknown constructors.
+func (s RecentMeURLClassArray) AsRecentMeURLUnknown() (to RecentMeURLUnknownArray) {
 	for _, elem := range s {
-		value, ok := elem.(*RecentMeUrlUnknown)
+		value, ok := elem.(*RecentMeURLUnknown)
 		if !ok {
 			continue
 		}
@@ -903,10 +903,10 @@ func (s RecentMeUrlClassArray) AsRecentMeUrlUnknown() (to RecentMeUrlUnknownArra
 	return to
 }
 
-// AsRecentMeUrlUser returns copy with only RecentMeUrlUser constructors.
-func (s RecentMeUrlClassArray) AsRecentMeUrlUser() (to RecentMeUrlUserArray) {
+// AsRecentMeURLUser returns copy with only RecentMeURLUser constructors.
+func (s RecentMeURLClassArray) AsRecentMeURLUser() (to RecentMeURLUserArray) {
 	for _, elem := range s {
-		value, ok := elem.(*RecentMeUrlUser)
+		value, ok := elem.(*RecentMeURLUser)
 		if !ok {
 			continue
 		}
@@ -916,10 +916,10 @@ func (s RecentMeUrlClassArray) AsRecentMeUrlUser() (to RecentMeUrlUserArray) {
 	return to
 }
 
-// AsRecentMeUrlChat returns copy with only RecentMeUrlChat constructors.
-func (s RecentMeUrlClassArray) AsRecentMeUrlChat() (to RecentMeUrlChatArray) {
+// AsRecentMeURLChat returns copy with only RecentMeURLChat constructors.
+func (s RecentMeURLClassArray) AsRecentMeURLChat() (to RecentMeURLChatArray) {
 	for _, elem := range s {
-		value, ok := elem.(*RecentMeUrlChat)
+		value, ok := elem.(*RecentMeURLChat)
 		if !ok {
 			continue
 		}
@@ -929,10 +929,10 @@ func (s RecentMeUrlClassArray) AsRecentMeUrlChat() (to RecentMeUrlChatArray) {
 	return to
 }
 
-// AsRecentMeUrlChatInvite returns copy with only RecentMeUrlChatInvite constructors.
-func (s RecentMeUrlClassArray) AsRecentMeUrlChatInvite() (to RecentMeUrlChatInviteArray) {
+// AsRecentMeURLChatInvite returns copy with only RecentMeURLChatInvite constructors.
+func (s RecentMeURLClassArray) AsRecentMeURLChatInvite() (to RecentMeURLChatInviteArray) {
 	for _, elem := range s {
-		value, ok := elem.(*RecentMeUrlChatInvite)
+		value, ok := elem.(*RecentMeURLChatInvite)
 		if !ok {
 			continue
 		}
@@ -942,10 +942,10 @@ func (s RecentMeUrlClassArray) AsRecentMeUrlChatInvite() (to RecentMeUrlChatInvi
 	return to
 }
 
-// AsRecentMeUrlStickerSet returns copy with only RecentMeUrlStickerSet constructors.
-func (s RecentMeUrlClassArray) AsRecentMeUrlStickerSet() (to RecentMeUrlStickerSetArray) {
+// AsRecentMeURLStickerSet returns copy with only RecentMeURLStickerSet constructors.
+func (s RecentMeURLClassArray) AsRecentMeURLStickerSet() (to RecentMeURLStickerSetArray) {
 	for _, elem := range s {
-		value, ok := elem.(*RecentMeUrlStickerSet)
+		value, ok := elem.(*RecentMeURLStickerSet)
 		if !ok {
 			continue
 		}
@@ -955,27 +955,27 @@ func (s RecentMeUrlClassArray) AsRecentMeUrlStickerSet() (to RecentMeUrlStickerS
 	return to
 }
 
-// RecentMeUrlUnknownArray is adapter for slice of RecentMeUrlUnknown.
-type RecentMeUrlUnknownArray []RecentMeUrlUnknown
+// RecentMeURLUnknownArray is adapter for slice of RecentMeURLUnknown.
+type RecentMeURLUnknownArray []RecentMeURLUnknown
 
-// Sort sorts slice of RecentMeUrlUnknown.
-func (s RecentMeUrlUnknownArray) Sort(less func(a, b RecentMeUrlUnknown) bool) RecentMeUrlUnknownArray {
+// Sort sorts slice of RecentMeURLUnknown.
+func (s RecentMeURLUnknownArray) Sort(less func(a, b RecentMeURLUnknown) bool) RecentMeURLUnknownArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of RecentMeUrlUnknown.
-func (s RecentMeUrlUnknownArray) SortStable(less func(a, b RecentMeUrlUnknown) bool) RecentMeUrlUnknownArray {
+// SortStable sorts slice of RecentMeURLUnknown.
+func (s RecentMeURLUnknownArray) SortStable(less func(a, b RecentMeURLUnknown) bool) RecentMeURLUnknownArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of RecentMeUrlUnknown.
-func (s RecentMeUrlUnknownArray) Retain(keep func(x RecentMeUrlUnknown) bool) RecentMeUrlUnknownArray {
+// Retain filters in-place slice of RecentMeURLUnknown.
+func (s RecentMeURLUnknownArray) Retain(keep func(x RecentMeURLUnknown) bool) RecentMeURLUnknownArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -989,7 +989,7 @@ func (s RecentMeUrlUnknownArray) Retain(keep func(x RecentMeUrlUnknown) bool) Re
 }
 
 // First returns first element of slice (if exists).
-func (s RecentMeUrlUnknownArray) First() (v RecentMeUrlUnknown, ok bool) {
+func (s RecentMeURLUnknownArray) First() (v RecentMeURLUnknown, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -997,7 +997,7 @@ func (s RecentMeUrlUnknownArray) First() (v RecentMeUrlUnknown, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s RecentMeUrlUnknownArray) Last() (v RecentMeUrlUnknown, ok bool) {
+func (s RecentMeURLUnknownArray) Last() (v RecentMeURLUnknown, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1005,7 +1005,7 @@ func (s RecentMeUrlUnknownArray) Last() (v RecentMeUrlUnknown, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *RecentMeUrlUnknownArray) PopFirst() (v RecentMeUrlUnknown, ok bool) {
+func (s *RecentMeURLUnknownArray) PopFirst() (v RecentMeURLUnknown, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1015,7 +1015,7 @@ func (s *RecentMeUrlUnknownArray) PopFirst() (v RecentMeUrlUnknown, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero RecentMeUrlUnknown
+	var zero RecentMeURLUnknown
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -1024,7 +1024,7 @@ func (s *RecentMeUrlUnknownArray) PopFirst() (v RecentMeUrlUnknown, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *RecentMeUrlUnknownArray) Pop() (v RecentMeUrlUnknown, ok bool) {
+func (s *RecentMeURLUnknownArray) Pop() (v RecentMeURLUnknown, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1037,27 +1037,27 @@ func (s *RecentMeUrlUnknownArray) Pop() (v RecentMeUrlUnknown, ok bool) {
 	return v, true
 }
 
-// RecentMeUrlUserArray is adapter for slice of RecentMeUrlUser.
-type RecentMeUrlUserArray []RecentMeUrlUser
+// RecentMeURLUserArray is adapter for slice of RecentMeURLUser.
+type RecentMeURLUserArray []RecentMeURLUser
 
-// Sort sorts slice of RecentMeUrlUser.
-func (s RecentMeUrlUserArray) Sort(less func(a, b RecentMeUrlUser) bool) RecentMeUrlUserArray {
+// Sort sorts slice of RecentMeURLUser.
+func (s RecentMeURLUserArray) Sort(less func(a, b RecentMeURLUser) bool) RecentMeURLUserArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of RecentMeUrlUser.
-func (s RecentMeUrlUserArray) SortStable(less func(a, b RecentMeUrlUser) bool) RecentMeUrlUserArray {
+// SortStable sorts slice of RecentMeURLUser.
+func (s RecentMeURLUserArray) SortStable(less func(a, b RecentMeURLUser) bool) RecentMeURLUserArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of RecentMeUrlUser.
-func (s RecentMeUrlUserArray) Retain(keep func(x RecentMeUrlUser) bool) RecentMeUrlUserArray {
+// Retain filters in-place slice of RecentMeURLUser.
+func (s RecentMeURLUserArray) Retain(keep func(x RecentMeURLUser) bool) RecentMeURLUserArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -1071,7 +1071,7 @@ func (s RecentMeUrlUserArray) Retain(keep func(x RecentMeUrlUser) bool) RecentMe
 }
 
 // First returns first element of slice (if exists).
-func (s RecentMeUrlUserArray) First() (v RecentMeUrlUser, ok bool) {
+func (s RecentMeURLUserArray) First() (v RecentMeURLUser, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1079,7 +1079,7 @@ func (s RecentMeUrlUserArray) First() (v RecentMeUrlUser, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s RecentMeUrlUserArray) Last() (v RecentMeUrlUser, ok bool) {
+func (s RecentMeURLUserArray) Last() (v RecentMeURLUser, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1087,7 +1087,7 @@ func (s RecentMeUrlUserArray) Last() (v RecentMeUrlUser, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *RecentMeUrlUserArray) PopFirst() (v RecentMeUrlUser, ok bool) {
+func (s *RecentMeURLUserArray) PopFirst() (v RecentMeURLUser, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1097,7 +1097,7 @@ func (s *RecentMeUrlUserArray) PopFirst() (v RecentMeUrlUser, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero RecentMeUrlUser
+	var zero RecentMeURLUser
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -1106,7 +1106,7 @@ func (s *RecentMeUrlUserArray) PopFirst() (v RecentMeUrlUser, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *RecentMeUrlUserArray) Pop() (v RecentMeUrlUser, ok bool) {
+func (s *RecentMeURLUserArray) Pop() (v RecentMeURLUser, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1119,27 +1119,27 @@ func (s *RecentMeUrlUserArray) Pop() (v RecentMeUrlUser, ok bool) {
 	return v, true
 }
 
-// RecentMeUrlChatArray is adapter for slice of RecentMeUrlChat.
-type RecentMeUrlChatArray []RecentMeUrlChat
+// RecentMeURLChatArray is adapter for slice of RecentMeURLChat.
+type RecentMeURLChatArray []RecentMeURLChat
 
-// Sort sorts slice of RecentMeUrlChat.
-func (s RecentMeUrlChatArray) Sort(less func(a, b RecentMeUrlChat) bool) RecentMeUrlChatArray {
+// Sort sorts slice of RecentMeURLChat.
+func (s RecentMeURLChatArray) Sort(less func(a, b RecentMeURLChat) bool) RecentMeURLChatArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of RecentMeUrlChat.
-func (s RecentMeUrlChatArray) SortStable(less func(a, b RecentMeUrlChat) bool) RecentMeUrlChatArray {
+// SortStable sorts slice of RecentMeURLChat.
+func (s RecentMeURLChatArray) SortStable(less func(a, b RecentMeURLChat) bool) RecentMeURLChatArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of RecentMeUrlChat.
-func (s RecentMeUrlChatArray) Retain(keep func(x RecentMeUrlChat) bool) RecentMeUrlChatArray {
+// Retain filters in-place slice of RecentMeURLChat.
+func (s RecentMeURLChatArray) Retain(keep func(x RecentMeURLChat) bool) RecentMeURLChatArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -1153,7 +1153,7 @@ func (s RecentMeUrlChatArray) Retain(keep func(x RecentMeUrlChat) bool) RecentMe
 }
 
 // First returns first element of slice (if exists).
-func (s RecentMeUrlChatArray) First() (v RecentMeUrlChat, ok bool) {
+func (s RecentMeURLChatArray) First() (v RecentMeURLChat, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1161,7 +1161,7 @@ func (s RecentMeUrlChatArray) First() (v RecentMeUrlChat, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s RecentMeUrlChatArray) Last() (v RecentMeUrlChat, ok bool) {
+func (s RecentMeURLChatArray) Last() (v RecentMeURLChat, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1169,7 +1169,7 @@ func (s RecentMeUrlChatArray) Last() (v RecentMeUrlChat, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *RecentMeUrlChatArray) PopFirst() (v RecentMeUrlChat, ok bool) {
+func (s *RecentMeURLChatArray) PopFirst() (v RecentMeURLChat, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1179,7 +1179,7 @@ func (s *RecentMeUrlChatArray) PopFirst() (v RecentMeUrlChat, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero RecentMeUrlChat
+	var zero RecentMeURLChat
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -1188,7 +1188,7 @@ func (s *RecentMeUrlChatArray) PopFirst() (v RecentMeUrlChat, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *RecentMeUrlChatArray) Pop() (v RecentMeUrlChat, ok bool) {
+func (s *RecentMeURLChatArray) Pop() (v RecentMeURLChat, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1201,27 +1201,27 @@ func (s *RecentMeUrlChatArray) Pop() (v RecentMeUrlChat, ok bool) {
 	return v, true
 }
 
-// RecentMeUrlChatInviteArray is adapter for slice of RecentMeUrlChatInvite.
-type RecentMeUrlChatInviteArray []RecentMeUrlChatInvite
+// RecentMeURLChatInviteArray is adapter for slice of RecentMeURLChatInvite.
+type RecentMeURLChatInviteArray []RecentMeURLChatInvite
 
-// Sort sorts slice of RecentMeUrlChatInvite.
-func (s RecentMeUrlChatInviteArray) Sort(less func(a, b RecentMeUrlChatInvite) bool) RecentMeUrlChatInviteArray {
+// Sort sorts slice of RecentMeURLChatInvite.
+func (s RecentMeURLChatInviteArray) Sort(less func(a, b RecentMeURLChatInvite) bool) RecentMeURLChatInviteArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of RecentMeUrlChatInvite.
-func (s RecentMeUrlChatInviteArray) SortStable(less func(a, b RecentMeUrlChatInvite) bool) RecentMeUrlChatInviteArray {
+// SortStable sorts slice of RecentMeURLChatInvite.
+func (s RecentMeURLChatInviteArray) SortStable(less func(a, b RecentMeURLChatInvite) bool) RecentMeURLChatInviteArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of RecentMeUrlChatInvite.
-func (s RecentMeUrlChatInviteArray) Retain(keep func(x RecentMeUrlChatInvite) bool) RecentMeUrlChatInviteArray {
+// Retain filters in-place slice of RecentMeURLChatInvite.
+func (s RecentMeURLChatInviteArray) Retain(keep func(x RecentMeURLChatInvite) bool) RecentMeURLChatInviteArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -1235,7 +1235,7 @@ func (s RecentMeUrlChatInviteArray) Retain(keep func(x RecentMeUrlChatInvite) bo
 }
 
 // First returns first element of slice (if exists).
-func (s RecentMeUrlChatInviteArray) First() (v RecentMeUrlChatInvite, ok bool) {
+func (s RecentMeURLChatInviteArray) First() (v RecentMeURLChatInvite, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1243,7 +1243,7 @@ func (s RecentMeUrlChatInviteArray) First() (v RecentMeUrlChatInvite, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s RecentMeUrlChatInviteArray) Last() (v RecentMeUrlChatInvite, ok bool) {
+func (s RecentMeURLChatInviteArray) Last() (v RecentMeURLChatInvite, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1251,7 +1251,7 @@ func (s RecentMeUrlChatInviteArray) Last() (v RecentMeUrlChatInvite, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *RecentMeUrlChatInviteArray) PopFirst() (v RecentMeUrlChatInvite, ok bool) {
+func (s *RecentMeURLChatInviteArray) PopFirst() (v RecentMeURLChatInvite, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1261,7 +1261,7 @@ func (s *RecentMeUrlChatInviteArray) PopFirst() (v RecentMeUrlChatInvite, ok boo
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero RecentMeUrlChatInvite
+	var zero RecentMeURLChatInvite
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -1270,7 +1270,7 @@ func (s *RecentMeUrlChatInviteArray) PopFirst() (v RecentMeUrlChatInvite, ok boo
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *RecentMeUrlChatInviteArray) Pop() (v RecentMeUrlChatInvite, ok bool) {
+func (s *RecentMeURLChatInviteArray) Pop() (v RecentMeURLChatInvite, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1283,27 +1283,27 @@ func (s *RecentMeUrlChatInviteArray) Pop() (v RecentMeUrlChatInvite, ok bool) {
 	return v, true
 }
 
-// RecentMeUrlStickerSetArray is adapter for slice of RecentMeUrlStickerSet.
-type RecentMeUrlStickerSetArray []RecentMeUrlStickerSet
+// RecentMeURLStickerSetArray is adapter for slice of RecentMeURLStickerSet.
+type RecentMeURLStickerSetArray []RecentMeURLStickerSet
 
-// Sort sorts slice of RecentMeUrlStickerSet.
-func (s RecentMeUrlStickerSetArray) Sort(less func(a, b RecentMeUrlStickerSet) bool) RecentMeUrlStickerSetArray {
+// Sort sorts slice of RecentMeURLStickerSet.
+func (s RecentMeURLStickerSetArray) Sort(less func(a, b RecentMeURLStickerSet) bool) RecentMeURLStickerSetArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of RecentMeUrlStickerSet.
-func (s RecentMeUrlStickerSetArray) SortStable(less func(a, b RecentMeUrlStickerSet) bool) RecentMeUrlStickerSetArray {
+// SortStable sorts slice of RecentMeURLStickerSet.
+func (s RecentMeURLStickerSetArray) SortStable(less func(a, b RecentMeURLStickerSet) bool) RecentMeURLStickerSetArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of RecentMeUrlStickerSet.
-func (s RecentMeUrlStickerSetArray) Retain(keep func(x RecentMeUrlStickerSet) bool) RecentMeUrlStickerSetArray {
+// Retain filters in-place slice of RecentMeURLStickerSet.
+func (s RecentMeURLStickerSetArray) Retain(keep func(x RecentMeURLStickerSet) bool) RecentMeURLStickerSetArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -1317,7 +1317,7 @@ func (s RecentMeUrlStickerSetArray) Retain(keep func(x RecentMeUrlStickerSet) bo
 }
 
 // First returns first element of slice (if exists).
-func (s RecentMeUrlStickerSetArray) First() (v RecentMeUrlStickerSet, ok bool) {
+func (s RecentMeURLStickerSetArray) First() (v RecentMeURLStickerSet, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1325,7 +1325,7 @@ func (s RecentMeUrlStickerSetArray) First() (v RecentMeUrlStickerSet, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s RecentMeUrlStickerSetArray) Last() (v RecentMeUrlStickerSet, ok bool) {
+func (s RecentMeURLStickerSetArray) Last() (v RecentMeURLStickerSet, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1333,7 +1333,7 @@ func (s RecentMeUrlStickerSetArray) Last() (v RecentMeUrlStickerSet, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *RecentMeUrlStickerSetArray) PopFirst() (v RecentMeUrlStickerSet, ok bool) {
+func (s *RecentMeURLStickerSetArray) PopFirst() (v RecentMeURLStickerSet, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1343,7 +1343,7 @@ func (s *RecentMeUrlStickerSetArray) PopFirst() (v RecentMeUrlStickerSet, ok boo
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero RecentMeUrlStickerSet
+	var zero RecentMeURLStickerSet
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -1352,7 +1352,7 @@ func (s *RecentMeUrlStickerSetArray) PopFirst() (v RecentMeUrlStickerSet, ok boo
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *RecentMeUrlStickerSetArray) Pop() (v RecentMeUrlStickerSet, ok bool) {
+func (s *RecentMeURLStickerSetArray) Pop() (v RecentMeURLStickerSet, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

@@ -56,7 +56,7 @@ func (d *Downloader) DownloadDirect(rpc Client, location tg.InputFileLocationCla
 }
 
 // CDN creates Builder for CDN downloads.
-func (d *Downloader) CDN(rpc Client, cdnRPC CDN, redirect *tg.UploadFileCdnRedirect) *Builder {
+func (d *Downloader) CDN(rpc Client, cdnRPC CDN, redirect *tg.UploadFileCDNRedirect) *Builder {
 	b := newBuilder(d, cdn{
 		cdn:      cdnRPC,
 		client:   rpc,

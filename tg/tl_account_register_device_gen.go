@@ -52,7 +52,7 @@ type AccountRegisterDeviceRequest struct {
 	// For FCM and APNS VoIP, optional encryption key used to encrypt push notifications
 	Secret []byte
 	// List of user identifiers of other users currently using the client
-	OtherUids []int
+	OtherUIDs []int
 }
 
 // AccountRegisterDeviceRequestTypeID is TL type id of AccountRegisterDeviceRequest.
@@ -80,7 +80,7 @@ func (r *AccountRegisterDeviceRequest) Zero() bool {
 	if !(r.Secret == nil) {
 		return false
 	}
-	if !(r.OtherUids == nil) {
+	if !(r.OtherUIDs == nil) {
 		return false
 	}
 
@@ -103,14 +103,14 @@ func (r *AccountRegisterDeviceRequest) FillFrom(from interface {
 	GetToken() (value string)
 	GetAppSandbox() (value bool)
 	GetSecret() (value []byte)
-	GetOtherUids() (value []int)
+	GetOtherUIDs() (value []int)
 }) {
 	r.NoMuted = from.GetNoMuted()
 	r.TokenType = from.GetTokenType()
 	r.Token = from.GetToken()
 	r.AppSandbox = from.GetAppSandbox()
 	r.Secret = from.GetSecret()
-	r.OtherUids = from.GetOtherUids()
+	r.OtherUIDs = from.GetOtherUIDs()
 }
 
 // TypeID returns type id in TL schema.
@@ -158,7 +158,7 @@ func (r *AccountRegisterDeviceRequest) TypeInfo() tdp.Type {
 			SchemaName: "secret",
 		},
 		{
-			Name:       "OtherUids",
+			Name:       "OtherUIDs",
 			SchemaName: "other_uids",
 		},
 	}
@@ -181,8 +181,8 @@ func (r *AccountRegisterDeviceRequest) Encode(b *bin.Buffer) error {
 	b.PutString(r.Token)
 	b.PutBool(r.AppSandbox)
 	b.PutBytes(r.Secret)
-	b.PutVectorHeader(len(r.OtherUids))
-	for _, v := range r.OtherUids {
+	b.PutVectorHeader(len(r.OtherUIDs))
+	for _, v := range r.OtherUIDs {
 		b.PutInt(v)
 	}
 	return nil
@@ -224,9 +224,9 @@ func (r *AccountRegisterDeviceRequest) GetSecret() (value []byte) {
 	return r.Secret
 }
 
-// GetOtherUids returns value of OtherUids field.
-func (r *AccountRegisterDeviceRequest) GetOtherUids() (value []int) {
-	return r.OtherUids
+// GetOtherUIDs returns value of OtherUIDs field.
+func (r *AccountRegisterDeviceRequest) GetOtherUIDs() (value []int) {
+	return r.OtherUIDs
 }
 
 // Decode implements bin.Decoder.
@@ -281,7 +281,7 @@ func (r *AccountRegisterDeviceRequest) Decode(b *bin.Buffer) error {
 			if err != nil {
 				return fmt.Errorf("unable to decode account.registerDevice#68976c6f: field other_uids: %w", err)
 			}
-			r.OtherUids = append(r.OtherUids, value)
+			r.OtherUIDs = append(r.OtherUIDs, value)
 		}
 	}
 	return nil

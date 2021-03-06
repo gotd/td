@@ -22,17 +22,17 @@ var _ = errors.Is
 var _ = sort.Ints
 var _ = tdp.Format
 
-// JsonNull represents TL type `jsonNull#3f6d7b68`.
+// JSONNull represents TL type `jsonNull#3f6d7b68`.
 // null JSON value
 //
 // See https://core.telegram.org/constructor/jsonNull for reference.
-type JsonNull struct {
+type JSONNull struct {
 }
 
-// JsonNullTypeID is TL type id of JsonNull.
-const JsonNullTypeID = 0x3f6d7b68
+// JSONNullTypeID is TL type id of JSONNull.
+const JSONNullTypeID = 0x3f6d7b68
 
-func (j *JsonNull) Zero() bool {
+func (j *JSONNull) Zero() bool {
 	if j == nil {
 		return true
 	}
@@ -41,31 +41,31 @@ func (j *JsonNull) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (j *JsonNull) String() string {
+func (j *JSONNull) String() string {
 	if j == nil {
-		return "JsonNull(nil)"
+		return "JSONNull(nil)"
 	}
-	type Alias JsonNull
-	return fmt.Sprintf("JsonNull%+v", Alias(*j))
+	type Alias JSONNull
+	return fmt.Sprintf("JSONNull%+v", Alias(*j))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*JsonNull) TypeID() uint32 {
-	return JsonNullTypeID
+func (*JSONNull) TypeID() uint32 {
+	return JSONNullTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*JsonNull) TypeName() string {
+func (*JSONNull) TypeName() string {
 	return "jsonNull"
 }
 
 // TypeInfo returns info about TL type.
-func (j *JsonNull) TypeInfo() tdp.Type {
+func (j *JSONNull) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "jsonNull",
-		ID:   JsonNullTypeID,
+		ID:   JSONNullTypeID,
 	}
 	if j == nil {
 		typ.Null = true
@@ -76,49 +76,49 @@ func (j *JsonNull) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (j *JsonNull) Encode(b *bin.Buffer) error {
+func (j *JSONNull) Encode(b *bin.Buffer) error {
 	if j == nil {
 		return fmt.Errorf("can't encode jsonNull#3f6d7b68 as nil")
 	}
-	b.PutID(JsonNullTypeID)
+	b.PutID(JSONNullTypeID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (j *JsonNull) Decode(b *bin.Buffer) error {
+func (j *JSONNull) Decode(b *bin.Buffer) error {
 	if j == nil {
 		return fmt.Errorf("can't decode jsonNull#3f6d7b68 to nil")
 	}
-	if err := b.ConsumeID(JsonNullTypeID); err != nil {
+	if err := b.ConsumeID(JSONNullTypeID); err != nil {
 		return fmt.Errorf("unable to decode jsonNull#3f6d7b68: %w", err)
 	}
 	return nil
 }
 
 // construct implements constructor of JSONValueClass.
-func (j JsonNull) construct() JSONValueClass { return &j }
+func (j JSONNull) construct() JSONValueClass { return &j }
 
-// Ensuring interfaces in compile-time for JsonNull.
+// Ensuring interfaces in compile-time for JSONNull.
 var (
-	_ bin.Encoder = &JsonNull{}
-	_ bin.Decoder = &JsonNull{}
+	_ bin.Encoder = &JSONNull{}
+	_ bin.Decoder = &JSONNull{}
 
-	_ JSONValueClass = &JsonNull{}
+	_ JSONValueClass = &JSONNull{}
 )
 
-// JsonBool represents TL type `jsonBool#c7345e6a`.
+// JSONBool represents TL type `jsonBool#c7345e6a`.
 // JSON boolean value
 //
 // See https://core.telegram.org/constructor/jsonBool for reference.
-type JsonBool struct {
+type JSONBool struct {
 	// Value
 	Value bool
 }
 
-// JsonBoolTypeID is TL type id of JsonBool.
-const JsonBoolTypeID = 0xc7345e6a
+// JSONBoolTypeID is TL type id of JSONBool.
+const JSONBoolTypeID = 0xc7345e6a
 
-func (j *JsonBool) Zero() bool {
+func (j *JSONBool) Zero() bool {
 	if j == nil {
 		return true
 	}
@@ -130,16 +130,16 @@ func (j *JsonBool) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (j *JsonBool) String() string {
+func (j *JSONBool) String() string {
 	if j == nil {
-		return "JsonBool(nil)"
+		return "JSONBool(nil)"
 	}
-	type Alias JsonBool
-	return fmt.Sprintf("JsonBool%+v", Alias(*j))
+	type Alias JSONBool
+	return fmt.Sprintf("JSONBool%+v", Alias(*j))
 }
 
-// FillFrom fills JsonBool from given interface.
-func (j *JsonBool) FillFrom(from interface {
+// FillFrom fills JSONBool from given interface.
+func (j *JSONBool) FillFrom(from interface {
 	GetValue() (value bool)
 }) {
 	j.Value = from.GetValue()
@@ -148,20 +148,20 @@ func (j *JsonBool) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*JsonBool) TypeID() uint32 {
-	return JsonBoolTypeID
+func (*JSONBool) TypeID() uint32 {
+	return JSONBoolTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*JsonBool) TypeName() string {
+func (*JSONBool) TypeName() string {
 	return "jsonBool"
 }
 
 // TypeInfo returns info about TL type.
-func (j *JsonBool) TypeInfo() tdp.Type {
+func (j *JSONBool) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "jsonBool",
-		ID:   JsonBoolTypeID,
+		ID:   JSONBoolTypeID,
 	}
 	if j == nil {
 		typ.Null = true
@@ -177,26 +177,26 @@ func (j *JsonBool) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (j *JsonBool) Encode(b *bin.Buffer) error {
+func (j *JSONBool) Encode(b *bin.Buffer) error {
 	if j == nil {
 		return fmt.Errorf("can't encode jsonBool#c7345e6a as nil")
 	}
-	b.PutID(JsonBoolTypeID)
+	b.PutID(JSONBoolTypeID)
 	b.PutBool(j.Value)
 	return nil
 }
 
 // GetValue returns value of Value field.
-func (j *JsonBool) GetValue() (value bool) {
+func (j *JSONBool) GetValue() (value bool) {
 	return j.Value
 }
 
 // Decode implements bin.Decoder.
-func (j *JsonBool) Decode(b *bin.Buffer) error {
+func (j *JSONBool) Decode(b *bin.Buffer) error {
 	if j == nil {
 		return fmt.Errorf("can't decode jsonBool#c7345e6a to nil")
 	}
-	if err := b.ConsumeID(JsonBoolTypeID); err != nil {
+	if err := b.ConsumeID(JSONBoolTypeID); err != nil {
 		return fmt.Errorf("unable to decode jsonBool#c7345e6a: %w", err)
 	}
 	{
@@ -210,29 +210,29 @@ func (j *JsonBool) Decode(b *bin.Buffer) error {
 }
 
 // construct implements constructor of JSONValueClass.
-func (j JsonBool) construct() JSONValueClass { return &j }
+func (j JSONBool) construct() JSONValueClass { return &j }
 
-// Ensuring interfaces in compile-time for JsonBool.
+// Ensuring interfaces in compile-time for JSONBool.
 var (
-	_ bin.Encoder = &JsonBool{}
-	_ bin.Decoder = &JsonBool{}
+	_ bin.Encoder = &JSONBool{}
+	_ bin.Decoder = &JSONBool{}
 
-	_ JSONValueClass = &JsonBool{}
+	_ JSONValueClass = &JSONBool{}
 )
 
-// JsonNumber represents TL type `jsonNumber#2be0dfa4`.
+// JSONNumber represents TL type `jsonNumber#2be0dfa4`.
 // JSON numeric value
 //
 // See https://core.telegram.org/constructor/jsonNumber for reference.
-type JsonNumber struct {
+type JSONNumber struct {
 	// Value
 	Value float64
 }
 
-// JsonNumberTypeID is TL type id of JsonNumber.
-const JsonNumberTypeID = 0x2be0dfa4
+// JSONNumberTypeID is TL type id of JSONNumber.
+const JSONNumberTypeID = 0x2be0dfa4
 
-func (j *JsonNumber) Zero() bool {
+func (j *JSONNumber) Zero() bool {
 	if j == nil {
 		return true
 	}
@@ -244,16 +244,16 @@ func (j *JsonNumber) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (j *JsonNumber) String() string {
+func (j *JSONNumber) String() string {
 	if j == nil {
-		return "JsonNumber(nil)"
+		return "JSONNumber(nil)"
 	}
-	type Alias JsonNumber
-	return fmt.Sprintf("JsonNumber%+v", Alias(*j))
+	type Alias JSONNumber
+	return fmt.Sprintf("JSONNumber%+v", Alias(*j))
 }
 
-// FillFrom fills JsonNumber from given interface.
-func (j *JsonNumber) FillFrom(from interface {
+// FillFrom fills JSONNumber from given interface.
+func (j *JSONNumber) FillFrom(from interface {
 	GetValue() (value float64)
 }) {
 	j.Value = from.GetValue()
@@ -262,20 +262,20 @@ func (j *JsonNumber) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*JsonNumber) TypeID() uint32 {
-	return JsonNumberTypeID
+func (*JSONNumber) TypeID() uint32 {
+	return JSONNumberTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*JsonNumber) TypeName() string {
+func (*JSONNumber) TypeName() string {
 	return "jsonNumber"
 }
 
 // TypeInfo returns info about TL type.
-func (j *JsonNumber) TypeInfo() tdp.Type {
+func (j *JSONNumber) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "jsonNumber",
-		ID:   JsonNumberTypeID,
+		ID:   JSONNumberTypeID,
 	}
 	if j == nil {
 		typ.Null = true
@@ -291,26 +291,26 @@ func (j *JsonNumber) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (j *JsonNumber) Encode(b *bin.Buffer) error {
+func (j *JSONNumber) Encode(b *bin.Buffer) error {
 	if j == nil {
 		return fmt.Errorf("can't encode jsonNumber#2be0dfa4 as nil")
 	}
-	b.PutID(JsonNumberTypeID)
+	b.PutID(JSONNumberTypeID)
 	b.PutDouble(j.Value)
 	return nil
 }
 
 // GetValue returns value of Value field.
-func (j *JsonNumber) GetValue() (value float64) {
+func (j *JSONNumber) GetValue() (value float64) {
 	return j.Value
 }
 
 // Decode implements bin.Decoder.
-func (j *JsonNumber) Decode(b *bin.Buffer) error {
+func (j *JSONNumber) Decode(b *bin.Buffer) error {
 	if j == nil {
 		return fmt.Errorf("can't decode jsonNumber#2be0dfa4 to nil")
 	}
-	if err := b.ConsumeID(JsonNumberTypeID); err != nil {
+	if err := b.ConsumeID(JSONNumberTypeID); err != nil {
 		return fmt.Errorf("unable to decode jsonNumber#2be0dfa4: %w", err)
 	}
 	{
@@ -324,29 +324,29 @@ func (j *JsonNumber) Decode(b *bin.Buffer) error {
 }
 
 // construct implements constructor of JSONValueClass.
-func (j JsonNumber) construct() JSONValueClass { return &j }
+func (j JSONNumber) construct() JSONValueClass { return &j }
 
-// Ensuring interfaces in compile-time for JsonNumber.
+// Ensuring interfaces in compile-time for JSONNumber.
 var (
-	_ bin.Encoder = &JsonNumber{}
-	_ bin.Decoder = &JsonNumber{}
+	_ bin.Encoder = &JSONNumber{}
+	_ bin.Decoder = &JSONNumber{}
 
-	_ JSONValueClass = &JsonNumber{}
+	_ JSONValueClass = &JSONNumber{}
 )
 
-// JsonString represents TL type `jsonString#b71e767a`.
+// JSONString represents TL type `jsonString#b71e767a`.
 // JSON string
 //
 // See https://core.telegram.org/constructor/jsonString for reference.
-type JsonString struct {
+type JSONString struct {
 	// Value
 	Value string
 }
 
-// JsonStringTypeID is TL type id of JsonString.
-const JsonStringTypeID = 0xb71e767a
+// JSONStringTypeID is TL type id of JSONString.
+const JSONStringTypeID = 0xb71e767a
 
-func (j *JsonString) Zero() bool {
+func (j *JSONString) Zero() bool {
 	if j == nil {
 		return true
 	}
@@ -358,16 +358,16 @@ func (j *JsonString) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (j *JsonString) String() string {
+func (j *JSONString) String() string {
 	if j == nil {
-		return "JsonString(nil)"
+		return "JSONString(nil)"
 	}
-	type Alias JsonString
-	return fmt.Sprintf("JsonString%+v", Alias(*j))
+	type Alias JSONString
+	return fmt.Sprintf("JSONString%+v", Alias(*j))
 }
 
-// FillFrom fills JsonString from given interface.
-func (j *JsonString) FillFrom(from interface {
+// FillFrom fills JSONString from given interface.
+func (j *JSONString) FillFrom(from interface {
 	GetValue() (value string)
 }) {
 	j.Value = from.GetValue()
@@ -376,20 +376,20 @@ func (j *JsonString) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*JsonString) TypeID() uint32 {
-	return JsonStringTypeID
+func (*JSONString) TypeID() uint32 {
+	return JSONStringTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*JsonString) TypeName() string {
+func (*JSONString) TypeName() string {
 	return "jsonString"
 }
 
 // TypeInfo returns info about TL type.
-func (j *JsonString) TypeInfo() tdp.Type {
+func (j *JSONString) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "jsonString",
-		ID:   JsonStringTypeID,
+		ID:   JSONStringTypeID,
 	}
 	if j == nil {
 		typ.Null = true
@@ -405,26 +405,26 @@ func (j *JsonString) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (j *JsonString) Encode(b *bin.Buffer) error {
+func (j *JSONString) Encode(b *bin.Buffer) error {
 	if j == nil {
 		return fmt.Errorf("can't encode jsonString#b71e767a as nil")
 	}
-	b.PutID(JsonStringTypeID)
+	b.PutID(JSONStringTypeID)
 	b.PutString(j.Value)
 	return nil
 }
 
 // GetValue returns value of Value field.
-func (j *JsonString) GetValue() (value string) {
+func (j *JSONString) GetValue() (value string) {
 	return j.Value
 }
 
 // Decode implements bin.Decoder.
-func (j *JsonString) Decode(b *bin.Buffer) error {
+func (j *JSONString) Decode(b *bin.Buffer) error {
 	if j == nil {
 		return fmt.Errorf("can't decode jsonString#b71e767a to nil")
 	}
-	if err := b.ConsumeID(JsonStringTypeID); err != nil {
+	if err := b.ConsumeID(JSONStringTypeID); err != nil {
 		return fmt.Errorf("unable to decode jsonString#b71e767a: %w", err)
 	}
 	{
@@ -438,29 +438,29 @@ func (j *JsonString) Decode(b *bin.Buffer) error {
 }
 
 // construct implements constructor of JSONValueClass.
-func (j JsonString) construct() JSONValueClass { return &j }
+func (j JSONString) construct() JSONValueClass { return &j }
 
-// Ensuring interfaces in compile-time for JsonString.
+// Ensuring interfaces in compile-time for JSONString.
 var (
-	_ bin.Encoder = &JsonString{}
-	_ bin.Decoder = &JsonString{}
+	_ bin.Encoder = &JSONString{}
+	_ bin.Decoder = &JSONString{}
 
-	_ JSONValueClass = &JsonString{}
+	_ JSONValueClass = &JSONString{}
 )
 
-// JsonArray represents TL type `jsonArray#f7444763`.
+// JSONArray represents TL type `jsonArray#f7444763`.
 // JSON array
 //
 // See https://core.telegram.org/constructor/jsonArray for reference.
-type JsonArray struct {
+type JSONArray struct {
 	// JSON values
 	Value []JSONValueClass
 }
 
-// JsonArrayTypeID is TL type id of JsonArray.
-const JsonArrayTypeID = 0xf7444763
+// JSONArrayTypeID is TL type id of JSONArray.
+const JSONArrayTypeID = 0xf7444763
 
-func (j *JsonArray) Zero() bool {
+func (j *JSONArray) Zero() bool {
 	if j == nil {
 		return true
 	}
@@ -472,16 +472,16 @@ func (j *JsonArray) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (j *JsonArray) String() string {
+func (j *JSONArray) String() string {
 	if j == nil {
-		return "JsonArray(nil)"
+		return "JSONArray(nil)"
 	}
-	type Alias JsonArray
-	return fmt.Sprintf("JsonArray%+v", Alias(*j))
+	type Alias JSONArray
+	return fmt.Sprintf("JSONArray%+v", Alias(*j))
 }
 
-// FillFrom fills JsonArray from given interface.
-func (j *JsonArray) FillFrom(from interface {
+// FillFrom fills JSONArray from given interface.
+func (j *JSONArray) FillFrom(from interface {
 	GetValue() (value []JSONValueClass)
 }) {
 	j.Value = from.GetValue()
@@ -490,20 +490,20 @@ func (j *JsonArray) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*JsonArray) TypeID() uint32 {
-	return JsonArrayTypeID
+func (*JSONArray) TypeID() uint32 {
+	return JSONArrayTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*JsonArray) TypeName() string {
+func (*JSONArray) TypeName() string {
 	return "jsonArray"
 }
 
 // TypeInfo returns info about TL type.
-func (j *JsonArray) TypeInfo() tdp.Type {
+func (j *JSONArray) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "jsonArray",
-		ID:   JsonArrayTypeID,
+		ID:   JSONArrayTypeID,
 	}
 	if j == nil {
 		typ.Null = true
@@ -519,11 +519,11 @@ func (j *JsonArray) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (j *JsonArray) Encode(b *bin.Buffer) error {
+func (j *JSONArray) Encode(b *bin.Buffer) error {
 	if j == nil {
 		return fmt.Errorf("can't encode jsonArray#f7444763 as nil")
 	}
-	b.PutID(JsonArrayTypeID)
+	b.PutID(JSONArrayTypeID)
 	b.PutVectorHeader(len(j.Value))
 	for idx, v := range j.Value {
 		if v == nil {
@@ -537,21 +537,21 @@ func (j *JsonArray) Encode(b *bin.Buffer) error {
 }
 
 // GetValue returns value of Value field.
-func (j *JsonArray) GetValue() (value []JSONValueClass) {
+func (j *JSONArray) GetValue() (value []JSONValueClass) {
 	return j.Value
 }
 
 // MapValue returns field Value wrapped in JSONValueClassArray helper.
-func (j *JsonArray) MapValue() (value JSONValueClassArray) {
+func (j *JSONArray) MapValue() (value JSONValueClassArray) {
 	return JSONValueClassArray(j.Value)
 }
 
 // Decode implements bin.Decoder.
-func (j *JsonArray) Decode(b *bin.Buffer) error {
+func (j *JSONArray) Decode(b *bin.Buffer) error {
 	if j == nil {
 		return fmt.Errorf("can't decode jsonArray#f7444763 to nil")
 	}
-	if err := b.ConsumeID(JsonArrayTypeID); err != nil {
+	if err := b.ConsumeID(JSONArrayTypeID); err != nil {
 		return fmt.Errorf("unable to decode jsonArray#f7444763: %w", err)
 	}
 	{
@@ -571,29 +571,29 @@ func (j *JsonArray) Decode(b *bin.Buffer) error {
 }
 
 // construct implements constructor of JSONValueClass.
-func (j JsonArray) construct() JSONValueClass { return &j }
+func (j JSONArray) construct() JSONValueClass { return &j }
 
-// Ensuring interfaces in compile-time for JsonArray.
+// Ensuring interfaces in compile-time for JSONArray.
 var (
-	_ bin.Encoder = &JsonArray{}
-	_ bin.Decoder = &JsonArray{}
+	_ bin.Encoder = &JSONArray{}
+	_ bin.Decoder = &JSONArray{}
 
-	_ JSONValueClass = &JsonArray{}
+	_ JSONValueClass = &JSONArray{}
 )
 
-// JsonObject represents TL type `jsonObject#99c1d49d`.
+// JSONObject represents TL type `jsonObject#99c1d49d`.
 // JSON object value
 //
 // See https://core.telegram.org/constructor/jsonObject for reference.
-type JsonObject struct {
+type JSONObject struct {
 	// Values
-	Value []JsonObjectValue
+	Value []JSONObjectValue
 }
 
-// JsonObjectTypeID is TL type id of JsonObject.
-const JsonObjectTypeID = 0x99c1d49d
+// JSONObjectTypeID is TL type id of JSONObject.
+const JSONObjectTypeID = 0x99c1d49d
 
-func (j *JsonObject) Zero() bool {
+func (j *JSONObject) Zero() bool {
 	if j == nil {
 		return true
 	}
@@ -605,17 +605,17 @@ func (j *JsonObject) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (j *JsonObject) String() string {
+func (j *JSONObject) String() string {
 	if j == nil {
-		return "JsonObject(nil)"
+		return "JSONObject(nil)"
 	}
-	type Alias JsonObject
-	return fmt.Sprintf("JsonObject%+v", Alias(*j))
+	type Alias JSONObject
+	return fmt.Sprintf("JSONObject%+v", Alias(*j))
 }
 
-// FillFrom fills JsonObject from given interface.
-func (j *JsonObject) FillFrom(from interface {
-	GetValue() (value []JsonObjectValue)
+// FillFrom fills JSONObject from given interface.
+func (j *JSONObject) FillFrom(from interface {
+	GetValue() (value []JSONObjectValue)
 }) {
 	j.Value = from.GetValue()
 }
@@ -623,20 +623,20 @@ func (j *JsonObject) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*JsonObject) TypeID() uint32 {
-	return JsonObjectTypeID
+func (*JSONObject) TypeID() uint32 {
+	return JSONObjectTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*JsonObject) TypeName() string {
+func (*JSONObject) TypeName() string {
 	return "jsonObject"
 }
 
 // TypeInfo returns info about TL type.
-func (j *JsonObject) TypeInfo() tdp.Type {
+func (j *JSONObject) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "jsonObject",
-		ID:   JsonObjectTypeID,
+		ID:   JSONObjectTypeID,
 	}
 	if j == nil {
 		typ.Null = true
@@ -652,11 +652,11 @@ func (j *JsonObject) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (j *JsonObject) Encode(b *bin.Buffer) error {
+func (j *JSONObject) Encode(b *bin.Buffer) error {
 	if j == nil {
 		return fmt.Errorf("can't encode jsonObject#99c1d49d as nil")
 	}
-	b.PutID(JsonObjectTypeID)
+	b.PutID(JSONObjectTypeID)
 	b.PutVectorHeader(len(j.Value))
 	for idx, v := range j.Value {
 		if err := v.Encode(b); err != nil {
@@ -667,16 +667,16 @@ func (j *JsonObject) Encode(b *bin.Buffer) error {
 }
 
 // GetValue returns value of Value field.
-func (j *JsonObject) GetValue() (value []JsonObjectValue) {
+func (j *JSONObject) GetValue() (value []JSONObjectValue) {
 	return j.Value
 }
 
 // Decode implements bin.Decoder.
-func (j *JsonObject) Decode(b *bin.Buffer) error {
+func (j *JSONObject) Decode(b *bin.Buffer) error {
 	if j == nil {
 		return fmt.Errorf("can't decode jsonObject#99c1d49d to nil")
 	}
-	if err := b.ConsumeID(JsonObjectTypeID); err != nil {
+	if err := b.ConsumeID(JSONObjectTypeID); err != nil {
 		return fmt.Errorf("unable to decode jsonObject#99c1d49d: %w", err)
 	}
 	{
@@ -685,7 +685,7 @@ func (j *JsonObject) Decode(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode jsonObject#99c1d49d: field value: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			var value JsonObjectValue
+			var value JSONObjectValue
 			if err := value.Decode(b); err != nil {
 				return fmt.Errorf("unable to decode jsonObject#99c1d49d: field value: %w", err)
 			}
@@ -696,14 +696,14 @@ func (j *JsonObject) Decode(b *bin.Buffer) error {
 }
 
 // construct implements constructor of JSONValueClass.
-func (j JsonObject) construct() JSONValueClass { return &j }
+func (j JSONObject) construct() JSONValueClass { return &j }
 
-// Ensuring interfaces in compile-time for JsonObject.
+// Ensuring interfaces in compile-time for JSONObject.
 var (
-	_ bin.Encoder = &JsonObject{}
-	_ bin.Decoder = &JsonObject{}
+	_ bin.Encoder = &JSONObject{}
+	_ bin.Decoder = &JSONObject{}
 
-	_ JSONValueClass = &JsonObject{}
+	_ JSONValueClass = &JSONObject{}
 )
 
 // JSONValueClass represents JSONValue generic type.
@@ -716,12 +716,12 @@ var (
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *tg.JsonNull: // jsonNull#3f6d7b68
-//  case *tg.JsonBool: // jsonBool#c7345e6a
-//  case *tg.JsonNumber: // jsonNumber#2be0dfa4
-//  case *tg.JsonString: // jsonString#b71e767a
-//  case *tg.JsonArray: // jsonArray#f7444763
-//  case *tg.JsonObject: // jsonObject#99c1d49d
+//  case *tg.JSONNull: // jsonNull#3f6d7b68
+//  case *tg.JSONBool: // jsonBool#c7345e6a
+//  case *tg.JSONNumber: // jsonNumber#2be0dfa4
+//  case *tg.JSONString: // jsonString#b71e767a
+//  case *tg.JSONArray: // jsonArray#f7444763
+//  case *tg.JSONObject: // jsonObject#99c1d49d
 //  default: panic(v)
 //  }
 type JSONValueClass interface {
@@ -748,44 +748,44 @@ func DecodeJSONValue(buf *bin.Buffer) (JSONValueClass, error) {
 		return nil, err
 	}
 	switch id {
-	case JsonNullTypeID:
+	case JSONNullTypeID:
 		// Decoding jsonNull#3f6d7b68.
-		v := JsonNull{}
+		v := JSONNull{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode JSONValueClass: %w", err)
 		}
 		return &v, nil
-	case JsonBoolTypeID:
+	case JSONBoolTypeID:
 		// Decoding jsonBool#c7345e6a.
-		v := JsonBool{}
+		v := JSONBool{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode JSONValueClass: %w", err)
 		}
 		return &v, nil
-	case JsonNumberTypeID:
+	case JSONNumberTypeID:
 		// Decoding jsonNumber#2be0dfa4.
-		v := JsonNumber{}
+		v := JSONNumber{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode JSONValueClass: %w", err)
 		}
 		return &v, nil
-	case JsonStringTypeID:
+	case JSONStringTypeID:
 		// Decoding jsonString#b71e767a.
-		v := JsonString{}
+		v := JSONString{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode JSONValueClass: %w", err)
 		}
 		return &v, nil
-	case JsonArrayTypeID:
+	case JSONArrayTypeID:
 		// Decoding jsonArray#f7444763.
-		v := JsonArray{}
+		v := JSONArray{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode JSONValueClass: %w", err)
 		}
 		return &v, nil
-	case JsonObjectTypeID:
+	case JSONObjectTypeID:
 		// Decoding jsonObject#99c1d49d.
-		v := JsonObject{}
+		v := JSONObject{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode JSONValueClass: %w", err)
 		}
@@ -903,10 +903,10 @@ func (s *JSONValueClassArray) Pop() (v JSONValueClass, ok bool) {
 	return v, true
 }
 
-// AsJsonBool returns copy with only JsonBool constructors.
-func (s JSONValueClassArray) AsJsonBool() (to JsonBoolArray) {
+// AsJSONBool returns copy with only JSONBool constructors.
+func (s JSONValueClassArray) AsJSONBool() (to JSONBoolArray) {
 	for _, elem := range s {
-		value, ok := elem.(*JsonBool)
+		value, ok := elem.(*JSONBool)
 		if !ok {
 			continue
 		}
@@ -916,10 +916,10 @@ func (s JSONValueClassArray) AsJsonBool() (to JsonBoolArray) {
 	return to
 }
 
-// AsJsonNumber returns copy with only JsonNumber constructors.
-func (s JSONValueClassArray) AsJsonNumber() (to JsonNumberArray) {
+// AsJSONNumber returns copy with only JSONNumber constructors.
+func (s JSONValueClassArray) AsJSONNumber() (to JSONNumberArray) {
 	for _, elem := range s {
-		value, ok := elem.(*JsonNumber)
+		value, ok := elem.(*JSONNumber)
 		if !ok {
 			continue
 		}
@@ -929,10 +929,10 @@ func (s JSONValueClassArray) AsJsonNumber() (to JsonNumberArray) {
 	return to
 }
 
-// AsJsonString returns copy with only JsonString constructors.
-func (s JSONValueClassArray) AsJsonString() (to JsonStringArray) {
+// AsJSONString returns copy with only JSONString constructors.
+func (s JSONValueClassArray) AsJSONString() (to JSONStringArray) {
 	for _, elem := range s {
-		value, ok := elem.(*JsonString)
+		value, ok := elem.(*JSONString)
 		if !ok {
 			continue
 		}
@@ -942,10 +942,10 @@ func (s JSONValueClassArray) AsJsonString() (to JsonStringArray) {
 	return to
 }
 
-// AsJsonArray returns copy with only JsonArray constructors.
-func (s JSONValueClassArray) AsJsonArray() (to JsonArrayArray) {
+// AsJSONArray returns copy with only JSONArray constructors.
+func (s JSONValueClassArray) AsJSONArray() (to JSONArrayArray) {
 	for _, elem := range s {
-		value, ok := elem.(*JsonArray)
+		value, ok := elem.(*JSONArray)
 		if !ok {
 			continue
 		}
@@ -955,10 +955,10 @@ func (s JSONValueClassArray) AsJsonArray() (to JsonArrayArray) {
 	return to
 }
 
-// AsJsonObject returns copy with only JsonObject constructors.
-func (s JSONValueClassArray) AsJsonObject() (to JsonObjectArray) {
+// AsJSONObject returns copy with only JSONObject constructors.
+func (s JSONValueClassArray) AsJSONObject() (to JSONObjectArray) {
 	for _, elem := range s {
-		value, ok := elem.(*JsonObject)
+		value, ok := elem.(*JSONObject)
 		if !ok {
 			continue
 		}
@@ -968,27 +968,27 @@ func (s JSONValueClassArray) AsJsonObject() (to JsonObjectArray) {
 	return to
 }
 
-// JsonBoolArray is adapter for slice of JsonBool.
-type JsonBoolArray []JsonBool
+// JSONBoolArray is adapter for slice of JSONBool.
+type JSONBoolArray []JSONBool
 
-// Sort sorts slice of JsonBool.
-func (s JsonBoolArray) Sort(less func(a, b JsonBool) bool) JsonBoolArray {
+// Sort sorts slice of JSONBool.
+func (s JSONBoolArray) Sort(less func(a, b JSONBool) bool) JSONBoolArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of JsonBool.
-func (s JsonBoolArray) SortStable(less func(a, b JsonBool) bool) JsonBoolArray {
+// SortStable sorts slice of JSONBool.
+func (s JSONBoolArray) SortStable(less func(a, b JSONBool) bool) JSONBoolArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of JsonBool.
-func (s JsonBoolArray) Retain(keep func(x JsonBool) bool) JsonBoolArray {
+// Retain filters in-place slice of JSONBool.
+func (s JSONBoolArray) Retain(keep func(x JSONBool) bool) JSONBoolArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -1002,7 +1002,7 @@ func (s JsonBoolArray) Retain(keep func(x JsonBool) bool) JsonBoolArray {
 }
 
 // First returns first element of slice (if exists).
-func (s JsonBoolArray) First() (v JsonBool, ok bool) {
+func (s JSONBoolArray) First() (v JSONBool, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1010,7 +1010,7 @@ func (s JsonBoolArray) First() (v JsonBool, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s JsonBoolArray) Last() (v JsonBool, ok bool) {
+func (s JSONBoolArray) Last() (v JSONBool, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1018,7 +1018,7 @@ func (s JsonBoolArray) Last() (v JsonBool, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *JsonBoolArray) PopFirst() (v JsonBool, ok bool) {
+func (s *JSONBoolArray) PopFirst() (v JSONBool, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1028,7 +1028,7 @@ func (s *JsonBoolArray) PopFirst() (v JsonBool, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero JsonBool
+	var zero JSONBool
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -1037,7 +1037,7 @@ func (s *JsonBoolArray) PopFirst() (v JsonBool, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *JsonBoolArray) Pop() (v JsonBool, ok bool) {
+func (s *JSONBoolArray) Pop() (v JSONBool, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1050,27 +1050,27 @@ func (s *JsonBoolArray) Pop() (v JsonBool, ok bool) {
 	return v, true
 }
 
-// JsonNumberArray is adapter for slice of JsonNumber.
-type JsonNumberArray []JsonNumber
+// JSONNumberArray is adapter for slice of JSONNumber.
+type JSONNumberArray []JSONNumber
 
-// Sort sorts slice of JsonNumber.
-func (s JsonNumberArray) Sort(less func(a, b JsonNumber) bool) JsonNumberArray {
+// Sort sorts slice of JSONNumber.
+func (s JSONNumberArray) Sort(less func(a, b JSONNumber) bool) JSONNumberArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of JsonNumber.
-func (s JsonNumberArray) SortStable(less func(a, b JsonNumber) bool) JsonNumberArray {
+// SortStable sorts slice of JSONNumber.
+func (s JSONNumberArray) SortStable(less func(a, b JSONNumber) bool) JSONNumberArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of JsonNumber.
-func (s JsonNumberArray) Retain(keep func(x JsonNumber) bool) JsonNumberArray {
+// Retain filters in-place slice of JSONNumber.
+func (s JSONNumberArray) Retain(keep func(x JSONNumber) bool) JSONNumberArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -1084,7 +1084,7 @@ func (s JsonNumberArray) Retain(keep func(x JsonNumber) bool) JsonNumberArray {
 }
 
 // First returns first element of slice (if exists).
-func (s JsonNumberArray) First() (v JsonNumber, ok bool) {
+func (s JSONNumberArray) First() (v JSONNumber, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1092,7 +1092,7 @@ func (s JsonNumberArray) First() (v JsonNumber, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s JsonNumberArray) Last() (v JsonNumber, ok bool) {
+func (s JSONNumberArray) Last() (v JSONNumber, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1100,7 +1100,7 @@ func (s JsonNumberArray) Last() (v JsonNumber, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *JsonNumberArray) PopFirst() (v JsonNumber, ok bool) {
+func (s *JSONNumberArray) PopFirst() (v JSONNumber, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1110,7 +1110,7 @@ func (s *JsonNumberArray) PopFirst() (v JsonNumber, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero JsonNumber
+	var zero JSONNumber
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -1119,7 +1119,7 @@ func (s *JsonNumberArray) PopFirst() (v JsonNumber, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *JsonNumberArray) Pop() (v JsonNumber, ok bool) {
+func (s *JSONNumberArray) Pop() (v JSONNumber, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1132,27 +1132,27 @@ func (s *JsonNumberArray) Pop() (v JsonNumber, ok bool) {
 	return v, true
 }
 
-// JsonStringArray is adapter for slice of JsonString.
-type JsonStringArray []JsonString
+// JSONStringArray is adapter for slice of JSONString.
+type JSONStringArray []JSONString
 
-// Sort sorts slice of JsonString.
-func (s JsonStringArray) Sort(less func(a, b JsonString) bool) JsonStringArray {
+// Sort sorts slice of JSONString.
+func (s JSONStringArray) Sort(less func(a, b JSONString) bool) JSONStringArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of JsonString.
-func (s JsonStringArray) SortStable(less func(a, b JsonString) bool) JsonStringArray {
+// SortStable sorts slice of JSONString.
+func (s JSONStringArray) SortStable(less func(a, b JSONString) bool) JSONStringArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of JsonString.
-func (s JsonStringArray) Retain(keep func(x JsonString) bool) JsonStringArray {
+// Retain filters in-place slice of JSONString.
+func (s JSONStringArray) Retain(keep func(x JSONString) bool) JSONStringArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -1166,7 +1166,7 @@ func (s JsonStringArray) Retain(keep func(x JsonString) bool) JsonStringArray {
 }
 
 // First returns first element of slice (if exists).
-func (s JsonStringArray) First() (v JsonString, ok bool) {
+func (s JSONStringArray) First() (v JSONString, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1174,7 +1174,7 @@ func (s JsonStringArray) First() (v JsonString, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s JsonStringArray) Last() (v JsonString, ok bool) {
+func (s JSONStringArray) Last() (v JSONString, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1182,7 +1182,7 @@ func (s JsonStringArray) Last() (v JsonString, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *JsonStringArray) PopFirst() (v JsonString, ok bool) {
+func (s *JSONStringArray) PopFirst() (v JSONString, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1192,7 +1192,7 @@ func (s *JsonStringArray) PopFirst() (v JsonString, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero JsonString
+	var zero JSONString
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -1201,7 +1201,7 @@ func (s *JsonStringArray) PopFirst() (v JsonString, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *JsonStringArray) Pop() (v JsonString, ok bool) {
+func (s *JSONStringArray) Pop() (v JSONString, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1214,27 +1214,27 @@ func (s *JsonStringArray) Pop() (v JsonString, ok bool) {
 	return v, true
 }
 
-// JsonArrayArray is adapter for slice of JsonArray.
-type JsonArrayArray []JsonArray
+// JSONArrayArray is adapter for slice of JSONArray.
+type JSONArrayArray []JSONArray
 
-// Sort sorts slice of JsonArray.
-func (s JsonArrayArray) Sort(less func(a, b JsonArray) bool) JsonArrayArray {
+// Sort sorts slice of JSONArray.
+func (s JSONArrayArray) Sort(less func(a, b JSONArray) bool) JSONArrayArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of JsonArray.
-func (s JsonArrayArray) SortStable(less func(a, b JsonArray) bool) JsonArrayArray {
+// SortStable sorts slice of JSONArray.
+func (s JSONArrayArray) SortStable(less func(a, b JSONArray) bool) JSONArrayArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of JsonArray.
-func (s JsonArrayArray) Retain(keep func(x JsonArray) bool) JsonArrayArray {
+// Retain filters in-place slice of JSONArray.
+func (s JSONArrayArray) Retain(keep func(x JSONArray) bool) JSONArrayArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -1248,7 +1248,7 @@ func (s JsonArrayArray) Retain(keep func(x JsonArray) bool) JsonArrayArray {
 }
 
 // First returns first element of slice (if exists).
-func (s JsonArrayArray) First() (v JsonArray, ok bool) {
+func (s JSONArrayArray) First() (v JSONArray, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1256,7 +1256,7 @@ func (s JsonArrayArray) First() (v JsonArray, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s JsonArrayArray) Last() (v JsonArray, ok bool) {
+func (s JSONArrayArray) Last() (v JSONArray, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1264,7 +1264,7 @@ func (s JsonArrayArray) Last() (v JsonArray, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *JsonArrayArray) PopFirst() (v JsonArray, ok bool) {
+func (s *JSONArrayArray) PopFirst() (v JSONArray, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1274,7 +1274,7 @@ func (s *JsonArrayArray) PopFirst() (v JsonArray, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero JsonArray
+	var zero JSONArray
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -1283,7 +1283,7 @@ func (s *JsonArrayArray) PopFirst() (v JsonArray, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *JsonArrayArray) Pop() (v JsonArray, ok bool) {
+func (s *JSONArrayArray) Pop() (v JSONArray, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1296,27 +1296,27 @@ func (s *JsonArrayArray) Pop() (v JsonArray, ok bool) {
 	return v, true
 }
 
-// JsonObjectArray is adapter for slice of JsonObject.
-type JsonObjectArray []JsonObject
+// JSONObjectArray is adapter for slice of JSONObject.
+type JSONObjectArray []JSONObject
 
-// Sort sorts slice of JsonObject.
-func (s JsonObjectArray) Sort(less func(a, b JsonObject) bool) JsonObjectArray {
+// Sort sorts slice of JSONObject.
+func (s JSONObjectArray) Sort(less func(a, b JSONObject) bool) JSONObjectArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of JsonObject.
-func (s JsonObjectArray) SortStable(less func(a, b JsonObject) bool) JsonObjectArray {
+// SortStable sorts slice of JSONObject.
+func (s JSONObjectArray) SortStable(less func(a, b JSONObject) bool) JSONObjectArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of JsonObject.
-func (s JsonObjectArray) Retain(keep func(x JsonObject) bool) JsonObjectArray {
+// Retain filters in-place slice of JSONObject.
+func (s JSONObjectArray) Retain(keep func(x JSONObject) bool) JSONObjectArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -1330,7 +1330,7 @@ func (s JsonObjectArray) Retain(keep func(x JsonObject) bool) JsonObjectArray {
 }
 
 // First returns first element of slice (if exists).
-func (s JsonObjectArray) First() (v JsonObject, ok bool) {
+func (s JSONObjectArray) First() (v JSONObject, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1338,7 +1338,7 @@ func (s JsonObjectArray) First() (v JsonObject, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s JsonObjectArray) Last() (v JsonObject, ok bool) {
+func (s JSONObjectArray) Last() (v JSONObject, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -1346,7 +1346,7 @@ func (s JsonObjectArray) Last() (v JsonObject, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *JsonObjectArray) PopFirst() (v JsonObject, ok bool) {
+func (s *JSONObjectArray) PopFirst() (v JSONObject, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -1356,7 +1356,7 @@ func (s *JsonObjectArray) PopFirst() (v JsonObject, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero JsonObject
+	var zero JSONObject
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -1365,7 +1365,7 @@ func (s *JsonObjectArray) PopFirst() (v JsonObject, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *JsonObjectArray) Pop() (v JsonObject, ok bool) {
+func (s *JSONObjectArray) Pop() (v JSONObject, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

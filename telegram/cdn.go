@@ -9,7 +9,7 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-func parseCDNKeys(keys ...tg.CdnPublicKey) ([]*rsa.PublicKey, error) {
+func parseCDNKeys(keys ...tg.CDNPublicKey) ([]*rsa.PublicKey, error) {
 	r := make([]*rsa.PublicKey, 0, len(keys))
 
 	for _, key := range keys {

@@ -28,8 +28,8 @@ var _ = tdp.Format
 type PhoneGetGroupParticipantsRequest struct {
 	// Call field of PhoneGetGroupParticipantsRequest.
 	Call InputGroupCall
-	// Ids field of PhoneGetGroupParticipantsRequest.
-	Ids []int
+	// IDs field of PhoneGetGroupParticipantsRequest.
+	IDs []int
 	// Sources field of PhoneGetGroupParticipantsRequest.
 	Sources []int
 	// Offset field of PhoneGetGroupParticipantsRequest.
@@ -48,7 +48,7 @@ func (g *PhoneGetGroupParticipantsRequest) Zero() bool {
 	if !(g.Call.Zero()) {
 		return false
 	}
-	if !(g.Ids == nil) {
+	if !(g.IDs == nil) {
 		return false
 	}
 	if !(g.Sources == nil) {
@@ -76,13 +76,13 @@ func (g *PhoneGetGroupParticipantsRequest) String() string {
 // FillFrom fills PhoneGetGroupParticipantsRequest from given interface.
 func (g *PhoneGetGroupParticipantsRequest) FillFrom(from interface {
 	GetCall() (value InputGroupCall)
-	GetIds() (value []int)
+	GetIDs() (value []int)
 	GetSources() (value []int)
 	GetOffset() (value string)
 	GetLimit() (value int)
 }) {
 	g.Call = from.GetCall()
-	g.Ids = from.GetIds()
+	g.IDs = from.GetIDs()
 	g.Sources = from.GetSources()
 	g.Offset = from.GetOffset()
 	g.Limit = from.GetLimit()
@@ -116,7 +116,7 @@ func (g *PhoneGetGroupParticipantsRequest) TypeInfo() tdp.Type {
 			SchemaName: "call",
 		},
 		{
-			Name:       "Ids",
+			Name:       "IDs",
 			SchemaName: "ids",
 		},
 		{
@@ -144,8 +144,8 @@ func (g *PhoneGetGroupParticipantsRequest) Encode(b *bin.Buffer) error {
 	if err := g.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.getGroupParticipants#c9f1d285: field call: %w", err)
 	}
-	b.PutVectorHeader(len(g.Ids))
-	for _, v := range g.Ids {
+	b.PutVectorHeader(len(g.IDs))
+	for _, v := range g.IDs {
 		b.PutInt(v)
 	}
 	b.PutVectorHeader(len(g.Sources))
@@ -162,9 +162,9 @@ func (g *PhoneGetGroupParticipantsRequest) GetCall() (value InputGroupCall) {
 	return g.Call
 }
 
-// GetIds returns value of Ids field.
-func (g *PhoneGetGroupParticipantsRequest) GetIds() (value []int) {
-	return g.Ids
+// GetIDs returns value of IDs field.
+func (g *PhoneGetGroupParticipantsRequest) GetIDs() (value []int) {
+	return g.IDs
 }
 
 // GetSources returns value of Sources field.
@@ -205,7 +205,7 @@ func (g *PhoneGetGroupParticipantsRequest) Decode(b *bin.Buffer) error {
 			if err != nil {
 				return fmt.Errorf("unable to decode phone.getGroupParticipants#c9f1d285: field ids: %w", err)
 			}
-			g.Ids = append(g.Ids, value)
+			g.IDs = append(g.IDs, value)
 		}
 	}
 	{

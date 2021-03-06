@@ -92,15 +92,15 @@ func (r *RPCAnswerUnknown) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RpcDropAnswerClass.
-func (r RPCAnswerUnknown) construct() RpcDropAnswerClass { return &r }
+// construct implements constructor of RPCDropAnswerClass.
+func (r RPCAnswerUnknown) construct() RPCDropAnswerClass { return &r }
 
 // Ensuring interfaces in compile-time for RPCAnswerUnknown.
 var (
 	_ bin.Encoder = &RPCAnswerUnknown{}
 	_ bin.Decoder = &RPCAnswerUnknown{}
 
-	_ RpcDropAnswerClass = &RPCAnswerUnknown{}
+	_ RPCDropAnswerClass = &RPCAnswerUnknown{}
 )
 
 // RPCAnswerDroppedRunning represents TL type `rpc_answer_dropped_running#cd78e586`.
@@ -173,15 +173,15 @@ func (r *RPCAnswerDroppedRunning) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RpcDropAnswerClass.
-func (r RPCAnswerDroppedRunning) construct() RpcDropAnswerClass { return &r }
+// construct implements constructor of RPCDropAnswerClass.
+func (r RPCAnswerDroppedRunning) construct() RPCDropAnswerClass { return &r }
 
 // Ensuring interfaces in compile-time for RPCAnswerDroppedRunning.
 var (
 	_ bin.Encoder = &RPCAnswerDroppedRunning{}
 	_ bin.Decoder = &RPCAnswerDroppedRunning{}
 
-	_ RpcDropAnswerClass = &RPCAnswerDroppedRunning{}
+	_ RPCDropAnswerClass = &RPCAnswerDroppedRunning{}
 )
 
 // RPCAnswerDropped represents TL type `rpc_answer_dropped#a43ad8b7`.
@@ -332,21 +332,21 @@ func (r *RPCAnswerDropped) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// construct implements constructor of RpcDropAnswerClass.
-func (r RPCAnswerDropped) construct() RpcDropAnswerClass { return &r }
+// construct implements constructor of RPCDropAnswerClass.
+func (r RPCAnswerDropped) construct() RPCDropAnswerClass { return &r }
 
 // Ensuring interfaces in compile-time for RPCAnswerDropped.
 var (
 	_ bin.Encoder = &RPCAnswerDropped{}
 	_ bin.Decoder = &RPCAnswerDropped{}
 
-	_ RpcDropAnswerClass = &RPCAnswerDropped{}
+	_ RPCDropAnswerClass = &RPCAnswerDropped{}
 )
 
-// RpcDropAnswerClass represents RpcDropAnswer generic type.
+// RPCDropAnswerClass represents RpcDropAnswer generic type.
 //
 // Example:
-//  g, err := mt.DecodeRpcDropAnswer(buf)
+//  g, err := mt.DecodeRPCDropAnswer(buf)
 //  if err != nil {
 //      panic(err)
 //  }
@@ -356,10 +356,10 @@ var (
 //  case *mt.RPCAnswerDropped: // rpc_answer_dropped#a43ad8b7
 //  default: panic(v)
 //  }
-type RpcDropAnswerClass interface {
+type RPCDropAnswerClass interface {
 	bin.Encoder
 	bin.Decoder
-	construct() RpcDropAnswerClass
+	construct() RPCDropAnswerClass
 
 	// TypeID returns type id in TL schema.
 	//
@@ -373,8 +373,8 @@ type RpcDropAnswerClass interface {
 	Zero() bool
 }
 
-// DecodeRpcDropAnswer implements binary de-serialization for RpcDropAnswerClass.
-func DecodeRpcDropAnswer(buf *bin.Buffer) (RpcDropAnswerClass, error) {
+// DecodeRPCDropAnswer implements binary de-serialization for RPCDropAnswerClass.
+func DecodeRPCDropAnswer(buf *bin.Buffer) (RPCDropAnswerClass, error) {
 	id, err := buf.PeekID()
 	if err != nil {
 		return nil, err
@@ -384,39 +384,39 @@ func DecodeRpcDropAnswer(buf *bin.Buffer) (RpcDropAnswerClass, error) {
 		// Decoding rpc_answer_unknown#5e2ad36e.
 		v := RPCAnswerUnknown{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RpcDropAnswerClass: %w", err)
+			return nil, fmt.Errorf("unable to decode RPCDropAnswerClass: %w", err)
 		}
 		return &v, nil
 	case RPCAnswerDroppedRunningTypeID:
 		// Decoding rpc_answer_dropped_running#cd78e586.
 		v := RPCAnswerDroppedRunning{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RpcDropAnswerClass: %w", err)
+			return nil, fmt.Errorf("unable to decode RPCDropAnswerClass: %w", err)
 		}
 		return &v, nil
 	case RPCAnswerDroppedTypeID:
 		// Decoding rpc_answer_dropped#a43ad8b7.
 		v := RPCAnswerDropped{}
 		if err := v.Decode(buf); err != nil {
-			return nil, fmt.Errorf("unable to decode RpcDropAnswerClass: %w", err)
+			return nil, fmt.Errorf("unable to decode RPCDropAnswerClass: %w", err)
 		}
 		return &v, nil
 	default:
-		return nil, fmt.Errorf("unable to decode RpcDropAnswerClass: %w", bin.NewUnexpectedID(id))
+		return nil, fmt.Errorf("unable to decode RPCDropAnswerClass: %w", bin.NewUnexpectedID(id))
 	}
 }
 
-// RpcDropAnswer boxes the RpcDropAnswerClass providing a helper.
-type RpcDropAnswerBox struct {
-	RpcDropAnswer RpcDropAnswerClass
+// RPCDropAnswer boxes the RPCDropAnswerClass providing a helper.
+type RPCDropAnswerBox struct {
+	RpcDropAnswer RPCDropAnswerClass
 }
 
-// Decode implements bin.Decoder for RpcDropAnswerBox.
-func (b *RpcDropAnswerBox) Decode(buf *bin.Buffer) error {
+// Decode implements bin.Decoder for RPCDropAnswerBox.
+func (b *RPCDropAnswerBox) Decode(buf *bin.Buffer) error {
 	if b == nil {
-		return fmt.Errorf("unable to decode RpcDropAnswerBox to nil")
+		return fmt.Errorf("unable to decode RPCDropAnswerBox to nil")
 	}
-	v, err := DecodeRpcDropAnswer(buf)
+	v, err := DecodeRPCDropAnswer(buf)
 	if err != nil {
 		return fmt.Errorf("unable to decode boxed value: %w", err)
 	}
@@ -424,35 +424,35 @@ func (b *RpcDropAnswerBox) Decode(buf *bin.Buffer) error {
 	return nil
 }
 
-// Encode implements bin.Encode for RpcDropAnswerBox.
-func (b *RpcDropAnswerBox) Encode(buf *bin.Buffer) error {
+// Encode implements bin.Encode for RPCDropAnswerBox.
+func (b *RPCDropAnswerBox) Encode(buf *bin.Buffer) error {
 	if b == nil || b.RpcDropAnswer == nil {
-		return fmt.Errorf("unable to encode RpcDropAnswerClass as nil")
+		return fmt.Errorf("unable to encode RPCDropAnswerClass as nil")
 	}
 	return b.RpcDropAnswer.Encode(buf)
 }
 
-// RpcDropAnswerClassArray is adapter for slice of RpcDropAnswerClass.
-type RpcDropAnswerClassArray []RpcDropAnswerClass
+// RPCDropAnswerClassArray is adapter for slice of RPCDropAnswerClass.
+type RPCDropAnswerClassArray []RPCDropAnswerClass
 
-// Sort sorts slice of RpcDropAnswerClass.
-func (s RpcDropAnswerClassArray) Sort(less func(a, b RpcDropAnswerClass) bool) RpcDropAnswerClassArray {
+// Sort sorts slice of RPCDropAnswerClass.
+func (s RPCDropAnswerClassArray) Sort(less func(a, b RPCDropAnswerClass) bool) RPCDropAnswerClassArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of RpcDropAnswerClass.
-func (s RpcDropAnswerClassArray) SortStable(less func(a, b RpcDropAnswerClass) bool) RpcDropAnswerClassArray {
+// SortStable sorts slice of RPCDropAnswerClass.
+func (s RPCDropAnswerClassArray) SortStable(less func(a, b RPCDropAnswerClass) bool) RPCDropAnswerClassArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of RpcDropAnswerClass.
-func (s RpcDropAnswerClassArray) Retain(keep func(x RpcDropAnswerClass) bool) RpcDropAnswerClassArray {
+// Retain filters in-place slice of RPCDropAnswerClass.
+func (s RPCDropAnswerClassArray) Retain(keep func(x RPCDropAnswerClass) bool) RPCDropAnswerClassArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -466,7 +466,7 @@ func (s RpcDropAnswerClassArray) Retain(keep func(x RpcDropAnswerClass) bool) Rp
 }
 
 // First returns first element of slice (if exists).
-func (s RpcDropAnswerClassArray) First() (v RpcDropAnswerClass, ok bool) {
+func (s RPCDropAnswerClassArray) First() (v RPCDropAnswerClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -474,7 +474,7 @@ func (s RpcDropAnswerClassArray) First() (v RpcDropAnswerClass, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s RpcDropAnswerClassArray) Last() (v RpcDropAnswerClass, ok bool) {
+func (s RPCDropAnswerClassArray) Last() (v RPCDropAnswerClass, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -482,7 +482,7 @@ func (s RpcDropAnswerClassArray) Last() (v RpcDropAnswerClass, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *RpcDropAnswerClassArray) PopFirst() (v RpcDropAnswerClass, ok bool) {
+func (s *RPCDropAnswerClassArray) PopFirst() (v RPCDropAnswerClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -492,7 +492,7 @@ func (s *RpcDropAnswerClassArray) PopFirst() (v RpcDropAnswerClass, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero RpcDropAnswerClass
+	var zero RPCDropAnswerClass
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -501,7 +501,7 @@ func (s *RpcDropAnswerClassArray) PopFirst() (v RpcDropAnswerClass, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *RpcDropAnswerClassArray) Pop() (v RpcDropAnswerClass, ok bool) {
+func (s *RPCDropAnswerClassArray) Pop() (v RPCDropAnswerClass, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -515,7 +515,7 @@ func (s *RpcDropAnswerClassArray) Pop() (v RpcDropAnswerClass, ok bool) {
 }
 
 // AsRPCAnswerDropped returns copy with only RPCAnswerDropped constructors.
-func (s RpcDropAnswerClassArray) AsRPCAnswerDropped() (to RPCAnswerDroppedArray) {
+func (s RPCDropAnswerClassArray) AsRPCAnswerDropped() (to RPCAnswerDroppedArray) {
 	for _, elem := range s {
 		value, ok := elem.(*RPCAnswerDropped)
 		if !ok {

@@ -109,7 +109,7 @@ func TestGetUpdatesResp(t *testing.T) {
 	b := new(bin.Buffer)
 	v := GetUpdatesResp{
 		Updates: []AbstractMessageClass{
-			&BigMessage{ID: 12, Count: 3, Escape: true, Summary: true, TargetId: 1},
+			&BigMessage{ID: 12, Count: 3, Escape: true, Summary: true, TargetID: 1},
 			&NoMessage{},
 			&BytesMessage{Data: []byte{0x1, 0xf3, 104, 205}},
 			&TargetsMessage{Targets: []int32{1, 2, 3, 4}},
@@ -139,7 +139,7 @@ func TestGetUpdatesRespNilElem(t *testing.T) {
 	var tMessage *TargetsMessage
 	v := GetUpdatesResp{
 		Updates: []AbstractMessageClass{
-			&BigMessage{ID: 12, Count: 3, Escape: true, Summary: true, TargetId: 1},
+			&BigMessage{ID: 12, Count: 3, Escape: true, Summary: true, TargetID: 1},
 			&NoMessage{},
 			&TargetsMessage{Targets: []int32{1, 2, 3, 4}},
 			tMessage,
