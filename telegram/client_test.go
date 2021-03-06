@@ -10,14 +10,14 @@ import (
 	"strings"
 	"testing"
 
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"go.uber.org/atomic"
+	"go.uber.org/zap"
 
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/telegram/internal/rpcmock"
-
-	"github.com/stretchr/testify/assert"
-	"go.uber.org/zap"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mt"
@@ -34,7 +34,7 @@ func testError(err tg.Error) (bin.Encoder, error) {
 }
 
 type testConn struct {
-	id     int64
+	id     atomic.Int64
 	engine *rpc.Engine
 	ready  *tdsync.Ready
 }
@@ -44,12 +44,12 @@ func (t *testConn) Ready() <-chan struct{} {
 }
 
 func (t *testConn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
-	t.id++
+	id := t.id.Inc() - 1
 	return t.engine.Do(ctx, rpc.Request{
 		Input:    input,
 		Output:   output,
-		ID:       t.id,
-		Sequence: int32(t.id),
+		ID:       id,
+		Sequence: int32(id),
 	})
 }
 
