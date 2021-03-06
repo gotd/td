@@ -109,14 +109,28 @@ func convertUpdateShortSentMessage(u *tg.UpdateShortSentMessage) *tg.UpdateShort
 	}
 }
 
-func (c *Client) processUpdates(updates tg.UpdatesClass) error {
-	if c.updateHandler == nil {
-		return nil
+func (c *Client) updateInterceptor(updates ...tg.UpdateClass) {
+	for _, update := range updates {
+		_, ok := update.(*tg.UpdateConfig)
+		if ok {
+			c.fetchConfig(c.ctx)
+		}
 	}
+}
+
+func (c *Client) processUpdates(updates tg.UpdatesClass) error {
 	switch u := updates.(type) {
 	case *tg.Updates:
+		c.updateInterceptor(u.Updates...)
+		if c.updateHandler == nil {
+			return nil
+		}
 		return c.updateHandler.Handle(c.ctx, u)
 	case *tg.UpdateShort:
+		c.updateInterceptor(u.Update)
+		if c.updateHandler == nil {
+			return nil
+		}
 		return c.updateHandler.HandleShort(c.ctx, u)
 	case *tg.UpdateShortMessage:
 		return c.processUpdates(convertUpdateShortMessage(u))

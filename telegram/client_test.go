@@ -71,8 +71,10 @@ func newTestClient(h testHandler) *Client {
 		appID:   TestAppID,
 		appHash: TestAppHash,
 		conn:    &testConn{engine: engine},
+		ctx:     context.Background(),
+		cancel:  func() {},
 	}
-	client.tg = tg.NewClient(client)
+	client.init()
 
 	return client
 }
