@@ -12,6 +12,12 @@ import (
 	"github.com/gotd/td/tg"
 )
 
+// CloseInvoker is a closeable tg.Invoker.
+type CloseInvoker interface {
+	tg.Invoker
+	Close(ctx context.Context) error
+}
+
 func (c *Client) createPool(dc int, max int64, creator func() pool.Conn) (*pool.DC, error) {
 	select {
 	case <-c.ctx.Done():
@@ -28,7 +34,7 @@ func (c *Client) createPool(dc int, max int64, creator func() pool.Conn) (*pool.
 }
 
 // Pool creates new multi-connection invoker to current DC.
-func (c *Client) Pool(max int64) (tg.Invoker, error) {
+func (c *Client) Pool(max int64) (CloseInvoker, error) {
 	if max < 0 {
 		return nil, xerrors.Errorf("invalid max value %d", max)
 	}
@@ -105,6 +111,6 @@ func (c *Client) dc(ctx context.Context, id int, max int64) (*pool.DC, error) {
 }
 
 // DC creates new multi-connection invoker to given DC.
-func (c *Client) DC(ctx context.Context, id int, max int64) (tg.Invoker, error) {
+func (c *Client) DC(ctx context.Context, id int, max int64) (CloseInvoker, error) {
 	return c.dc(ctx, id, max)
 }
