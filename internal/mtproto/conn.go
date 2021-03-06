@@ -21,12 +21,6 @@ import (
 	"github.com/gotd/td/transport"
 )
 
-// Handler will be called on received message from Telegram.
-type Handler interface {
-	OnMessage(b *bin.Buffer) error
-	OnSession(session Session) error
-}
-
 // MessageIDSource is message id generator.
 type MessageIDSource interface {
 	New(t proto.MessageType) int64
@@ -43,7 +37,8 @@ type Conn struct {
 	transport     Transport
 	conn          transport.Conn
 	addr          string
-	handler       Handler
+	onMessage     func(b *bin.Buffer) error
+	onSession     func(session Session) error
 	rpc           *rpc.Engine
 	rsaPublicKeys []*rsa.PublicKey
 	types         *tmap.Map
@@ -108,7 +103,8 @@ func New(addr string, opt Options) *Conn {
 		ackBatchSize: opt.AckBatchSize,
 
 		rsaPublicKeys: opt.PublicKeys,
-		handler:       opt.Handler,
+		onMessage:     opt.MessageHandler,
+		onSession:     opt.SessionHandler,
 		types:         opt.Types,
 
 		authKey: opt.Key,

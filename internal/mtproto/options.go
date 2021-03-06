@@ -44,8 +44,11 @@ type Options struct {
 	Random io.Reader
 	// Logger is instance of zap.Logger. No logs by default.
 	Logger *zap.Logger
-	// Handler will be called on received message.
-	Handler Handler
+	// MessageHandler will be called on received non-mtproto message.
+	MessageHandler func(b *bin.Buffer) error
+	// SessionHandler will be called on received MTProto session.
+	// As far as we know server send it on successful authorization.
+	SessionHandler func(session Session) error
 	// AckBatchSize is maximum ack-s to buffer.
 	AckBatchSize int
 	// AckInterval is maximum time to buffer ack.
@@ -81,11 +84,6 @@ type Options struct {
 	// engine for replacing RPC engine.
 	engine *rpc.Engine
 }
-
-type nopHandler struct{}
-
-func (nopHandler) OnMessage(b *bin.Buffer) error   { return nil }
-func (nopHandler) OnSession(session Session) error { return nil }
 
 func (opt *Options) setDefaultPublicKeys() {
 	// Using public keys that are included with distribution if not
@@ -153,8 +151,11 @@ func (opt *Options) setDefaults() {
 	if len(opt.PublicKeys) == 0 {
 		opt.setDefaultPublicKeys()
 	}
-	if opt.Handler == nil {
-		opt.Handler = nopHandler{}
+	if opt.MessageHandler == nil {
+		opt.MessageHandler = func(b *bin.Buffer) error { return nil }
+	}
+	if opt.SessionHandler == nil {
+		opt.SessionHandler = func(session Session) error { return nil }
 	}
 	if opt.ReadConcurrency == 0 {
 		opt.setDefaultConcurrency()

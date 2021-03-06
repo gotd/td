@@ -17,7 +17,7 @@ func (c *Conn) handleSessionCreated(b *bin.Buffer) error {
 		zap.Int64("unique_id", s.UniqueID),
 		zap.Int64("first_msg_id", s.FirstMsgID),
 	)
-	if err := c.handler.OnSession(c.session()); err != nil {
+	if err := c.onSession(c.session()); err != nil {
 		return xerrors.Errorf("handler.OnSession: %w", err)
 	}
 	return nil

@@ -61,7 +61,8 @@ func CreateConn(
 		zap.Int64("conn_id", conn.id),
 		zap.Int("dc_id", connOpts.DC),
 	)
-	opts.Handler = conn
+	opts.MessageHandler = conn.OnMessage
+	opts.SessionHandler = conn.OnSession
 	opts.Logger = conn.log.Named("mtproto").With(zap.String("addr", conn.addr))
 	conn.proto = mtproto.New(strconv.Itoa(connOpts.DC)+"|"+conn.addr, opts)
 

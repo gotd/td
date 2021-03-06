@@ -32,6 +32,6 @@ func (c *Conn) handleMessage(b *bin.Buffer) error {
 	case proto.GZIPTypeID:
 		return c.handleGZIP(b)
 	default:
-		return c.handler.OnMessage(b)
+		return c.onMessage(b)
 	}
 }
