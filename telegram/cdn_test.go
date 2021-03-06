@@ -29,9 +29,9 @@ FRX7DdwIA/FdOzfWyXYLlCFaSX8K/6CnSQIDAQAB
 -----END RSA PUBLIC KEY-----`,
 	}
 
-	cdnKeys := make([]tg.CdnPublicKey, 0, len(keys))
+	cdnKeys := make([]tg.CDNPublicKey, 0, len(keys))
 	for i, key := range keys {
-		cdnKeys = append(cdnKeys, tg.CdnPublicKey{
+		cdnKeys = append(cdnKeys, tg.CDNPublicKey{
 			DCID:      i + 1,
 			PublicKey: key,
 		})

@@ -22,7 +22,7 @@ func Test_cdn_decrypt(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
 			c := &cdn{
-				redirect: &tg.UploadFileCdnRedirect{
+				redirect: &tg.UploadFileCDNRedirect{
 					EncryptionKey: test.key,
 					EncryptionIv:  test.iv,
 				},

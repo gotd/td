@@ -53,7 +53,7 @@ func (c *Client) dc(ctx context.Context, id int, max int64) (*pool.DC, error) {
 	}
 
 	if dc.CDN {
-		cdnCfg, err := c.tg.HelpGetCdnConfig(ctx)
+		cdnCfg, err := c.tg.HelpGetCDNConfig(ctx)
 		if err != nil {
 			return nil, xerrors.Errorf("get CDN config: %w", err)
 		}

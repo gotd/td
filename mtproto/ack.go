@@ -17,7 +17,7 @@ func (c *Conn) ackLoop(ctx context.Context) error {
 	send := func() {
 		defer func() { buf = buf[:0] }()
 
-		if err := c.writeServiceMessage(ctx, &mt.MsgsAck{MsgIds: buf}); err != nil {
+		if err := c.writeServiceMessage(ctx, &mt.MsgsAck{MsgIDs: buf}); err != nil {
 			c.log.Error("Failed to ACK", zap.Error(err))
 			return
 		}

@@ -17,8 +17,8 @@ func Button(text string) *tg.KeyboardButton {
 }
 
 // URL creates new URL button.
-func URL(text, url string) *tg.KeyboardButtonUrl {
-	return &tg.KeyboardButtonUrl{
+func URL(text, url string) *tg.KeyboardButtonURL {
+	return &tg.KeyboardButtonURL{
 		Text: text,
 		URL:  url,
 	}
@@ -76,8 +76,8 @@ func Buy(text string) *tg.KeyboardButtonBuy {
 }
 
 // URLAuth creates button to request a user to authorize via URL using Seamless Telegram Login.
-func URLAuth(text, url string, buttonID int, fwdText string) *tg.KeyboardButtonUrlAuth {
-	return &tg.KeyboardButtonUrlAuth{
+func URLAuth(text, url string, buttonID int, fwdText string) *tg.KeyboardButtonURLAuth {
+	return &tg.KeyboardButtonURLAuth{
 		Text:     text,
 		URL:      url,
 		ButtonID: buttonID,

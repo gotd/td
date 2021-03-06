@@ -93,7 +93,7 @@ func (b *Builder) BotCommand(s string) *Builder {
 // See https://core.telegram.org/constructor/messageEntityUrl.
 func (b *Builder) URL(s string) *Builder {
 	return b.appendMessage(s, func(offset, limit int) tg.MessageEntityClass {
-		return &tg.MessageEntityUrl{Offset: offset, Length: limit}
+		return &tg.MessageEntityURL{Offset: offset, Length: limit}
 	})
 }
 
@@ -141,7 +141,7 @@ func (b *Builder) Pre(s, lang string) *Builder {
 // See https://core.telegram.org/constructor/messageEntityTextUrl.
 func (b *Builder) TextURL(s, url string) *Builder {
 	return b.appendMessage(s, func(offset, limit int) tg.MessageEntityClass {
-		return &tg.MessageEntityTextUrl{Offset: offset, Length: limit, URL: url}
+		return &tg.MessageEntityTextURL{Offset: offset, Length: limit, URL: url}
 	})
 }
 

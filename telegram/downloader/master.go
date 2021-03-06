@@ -12,7 +12,7 @@ import (
 // RedirectError error is returned when Downloader get CDN redirect.
 // See https://core.telegram.org/constructor/upload.fileCdnRedirect.
 type RedirectError struct {
-	Redirect *tg.UploadFileCdnRedirect
+	Redirect *tg.UploadFileCDNRedirect
 }
 
 // Error implements error interface.
@@ -49,7 +49,7 @@ func (c master) Chunk(ctx context.Context, offset, limit int) (chunk, error) {
 	switch result := r.(type) {
 	case *tg.UploadFile:
 		return chunk{data: result.Bytes, tag: result.Type}, nil
-	case *tg.UploadFileCdnRedirect:
+	case *tg.UploadFileCDNRedirect:
 		return chunk{}, &RedirectError{Redirect: result}
 	default:
 		return chunk{}, xerrors.Errorf("unexpected type %T", r)

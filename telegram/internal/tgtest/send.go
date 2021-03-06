@@ -95,7 +95,7 @@ func (s *Server) SendUpdates(k Session, updates ...tg.UpdateClass) error {
 }
 
 func (s *Server) SendAck(k Session, ids ...int64) error {
-	if err := s.Send(k, proto.MessageFromServer, &mt.MsgsAck{MsgIds: ids}); err != nil {
+	if err := s.Send(k, proto.MessageFromServer, &mt.MsgsAck{MsgIDs: ids}); err != nil {
 		return xerrors.Errorf("send ack: %w", err)
 	}
 

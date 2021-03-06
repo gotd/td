@@ -19,7 +19,7 @@ func TestFormat(t *testing.T) {
 			Output: "<nil>",
 		},
 		{
-			Input: &schema.DcOption{
+			Input: &schema.DCOption{
 				ID:        10,
 				IPAddress: "127.0.0.1",
 				Port:      1010,
@@ -30,7 +30,7 @@ func TestFormat(t *testing.T) {
 
 		{
 			Input: &schema.Config{
-				DCOptions: []schema.DcOption{
+				DCOptions: []schema.DCOption{
 					{
 						ID:        1,
 						IPAddress: "127.0.0.1",
