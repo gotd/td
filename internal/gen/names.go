@@ -2,6 +2,7 @@ package gen
 
 import (
 	"strings"
+	"unicode"
 
 	"github.com/go-openapi/inflect"
 )
@@ -9,12 +10,25 @@ import (
 func pascalWords(words []string) string {
 	for i, w := range words {
 		upper := strings.ToUpper(w)
+		if alias, ok := aliases[upper]; ok {
+			words[i] = alias
+			continue
+		}
+
 		if _, ok := acronyms[upper]; ok {
 			words[i] = upper
-		} else {
-			words[i] = rules.Capitalize(w)
+			continue
 		}
+
+		// check for acronym + any letter: IDs, IPs, UIDs
+		if _, ok := acronyms[upper[:len(upper)-1]]; ok {
+			words[i] = upper[:len(upper)-1] + strings.ToLower(upper[len(upper)-1:])
+			continue
+		}
+
+		words[i] = rules.Capitalize(w)
 	}
+
 	return strings.Join(words, "")
 }
 
@@ -22,21 +36,69 @@ func pascalWords(words []string) string {
 var (
 	rules    = ruleset()
 	acronyms = make(map[string]struct{})
+	aliases  = make(map[string]string)
 )
 
-func isSeparator(r rune) bool {
-	return r == '_' || r == '-'
+// CodeMD5Test -> cODEmd5tEST
+
+// splitByWords split name into words by separators and capital letters
+func splitByWords(s string) []string {
+	if s == "" {
+		return []string{s}
+	}
+
+	if strings.ContainsAny(s, "_-") {
+		return strings.FieldsFunc(s, func(r rune) bool {
+			return r == '_' || r == '-'
+		})
+	}
+
+	words := make([]string, 0)
+	word := make([]rune, 0, len(s))
+	var prev rune
+
+	for i, current := range s {
+		if i == 0 {
+			prev = current
+			continue
+		}
+
+		switch {
+		case unicode.IsNumber(prev) || unicode.IsNumber(current):
+			word = append(word, prev)
+		case unicode.IsUpper(prev) && unicode.IsLower(current): // Ab
+			if len(word) != 0 {
+				words = append(words, string(word))
+				word = word[:0]
+			}
+
+			word = append(word, prev)
+		case unicode.IsLower(prev) && unicode.IsUpper(current): // aB
+			words = append(words, string(append(word, prev)))
+			word = word[:0]
+		default:
+			word = append(word, prev)
+		}
+
+		prev = current
+	}
+
+	words = append(words, string(append(word, prev)))
+
+	return words
 }
 
 // pascal converts the given name into a PascalCase.
 //
-//	user_info 	=> UserInfo
-//	full_name 	=> FullName
-//	user_id   	=> UserID
-//	full-admin	=> FullAdmin
+//	user_info 	 => UserInfo
+//	full_name 	 => FullName
+//	user_id   	 => UserID
+//	full-admin	 => FullAdmin
+//  cdnConfig    => CDNConfig
+//  cdn_1_config => CDN1Config
 //
 func pascal(s string) string {
-	words := strings.FieldsFunc(s, isSeparator)
+	words := splitByWords(s)
 	return pascalWords(words)
 }
 
@@ -48,7 +110,7 @@ func pascal(s string) string {
 //	full-admin => fullAdmin
 //
 func camel(s string) string {
-	words := strings.FieldsFunc(s, isSeparator)
+	words := splitByWords(s)
 	if len(words) == 1 {
 		return strings.ToLower(words[0])
 	}
@@ -72,5 +134,10 @@ func ruleset() *inflect.Ruleset {
 		acronyms[w] = struct{}{}
 		r.AddAcronym(w)
 	}
+
+	aliases = map[string]string{
+		"TCPO": "TCPObfuscated",
+	}
+
 	return r
 }
