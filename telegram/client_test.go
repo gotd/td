@@ -12,6 +12,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
+	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/telegram/internal/rpcmock"
 
@@ -35,6 +36,11 @@ func testError(err tg.Error) (bin.Encoder, error) {
 type testConn struct {
 	id     int64
 	engine *rpc.Engine
+	ready  *tdsync.Ready
+}
+
+func (t *testConn) Ready() <-chan struct{} {
+	return t.ready.Ready()
 }
 
 func (t *testConn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
@@ -65,12 +71,14 @@ func newTestClient(h testHandler) *Client {
 		return nil
 	}, rpc.Options{})
 
+	ready := tdsync.NewReady()
+	ready.Signal()
 	client := &Client{
 		log:     zap.NewNop(),
 		rand:    rand.New(rand.NewSource(1)),
 		appID:   TestAppID,
 		appHash: TestAppHash,
-		conn:    &testConn{engine: engine},
+		conn:    &testConn{engine: engine, ready: ready},
 		ctx:     context.Background(),
 		cancel:  func() {},
 	}

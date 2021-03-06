@@ -24,6 +24,7 @@ import (
 	"github.com/gotd/td/internal/tmap"
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/session"
+	"github.com/gotd/td/telegram/internal/manager"
 	"github.com/gotd/td/tg"
 )
 
@@ -78,6 +79,7 @@ type Client struct {
 	conn      clientConn
 	connMux   sync.Mutex
 	primaryDC atomic.Int64
+	create    connConstructor
 
 	// Restart signal channel.
 	restart chan struct{} // immutable
@@ -161,6 +163,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 			DC:   opt.DC,
 		}),
 		primaryDC: *atomic.NewInt64(int64(opt.DC)),
+		create:    defaultConstructor(),
 		clock:     opt.Clock,
 		device:    opt.Device,
 	}
@@ -196,7 +199,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 			proto.TypesMap(),
 		),
 	}
-	client.conn = client.createConn(connModeUpdates)
+	client.conn = client.createConn(0, manager.ConnModeUpdates, nil)
 
 	return client
 }
@@ -250,7 +253,7 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 		Salt:    data.Salt,
 	})
 	c.primaryDC.Store(int64(data.DC))
-	c.conn = c.createConn(connModeUpdates)
+	c.conn = c.createConn(0, manager.ConnModeUpdates, nil)
 	c.connMux.Unlock()
 
 	return nil
@@ -308,7 +311,7 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 			c.log.Info("Restarting connection", zap.Error(err))
 
 			c.connMux.Lock()
-			c.conn = c.buildConn(connModeUpdates, c.session).WithSetup(func(ctx context.Context, invoker tg.Invoker) error {
+			setup := func(ctx context.Context, invoker tg.Invoker) error {
 				select {
 				case export := <-c.exported:
 					_, err := tg.NewClient(invoker).AuthImportAuthorization(ctx, &tg.AuthImportAuthorizationRequest{
@@ -319,7 +322,8 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 				default:
 				}
 				return nil
-			}).Build()
+			}
+			c.conn = c.createConn(0, manager.ConnModeUpdates, setup)
 			c.connMux.Unlock()
 		}
 	}
@@ -457,8 +461,4 @@ func (c *Client) onSession(addr string, cfg tg.Config, s mtproto.Session) error 
 	c.connMux.Unlock()
 
 	return nil
-}
-
-func (c *Client) createConn(mode connMode) *conn {
-	return c.buildConn(mode, c.session).Build()
 }

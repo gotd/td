@@ -1,4 +1,4 @@
-package telegram
+package manager
 
 import (
 	"context"
@@ -21,25 +21,26 @@ type protoConn interface {
 	Run(ctx context.Context, f func(ctx context.Context) error) error
 }
 
-//go:generate go run golang.org/x/tools/cmd/stringer -type=connMode
-type connMode byte
+//go:generate go run golang.org/x/tools/cmd/stringer -type=ConnMode
+
+// ConnMode represents connection mode.
+type ConnMode byte
 
 const (
-	connModeUpdates connMode = iota
-	connModeData
-	connModeCDN
+	// ConnModeUpdates is update connection mode.
+	ConnModeUpdates ConnMode = iota
+	// ConnModeData is data connection mode.
+	ConnModeData
+	// ConnModeCDN is CDN connection mode.
+	ConnModeCDN
 )
 
-type connHandler interface {
-	onSession(addr string, cfg tg.Config, s mtproto.Session) error
-	onMessage(b *bin.Buffer) error
-}
-
-type conn struct {
+// Conn is a Telegram client connection.
+type Conn struct {
 	id int64
 	// Connection parameters.
 	addr string   // immutable
-	mode connMode // immutable
+	mode ConnMode // immutable
 	// MTProto connection.
 	proto protoConn // immutable
 
@@ -57,7 +58,7 @@ type conn struct {
 	log   *zap.Logger // immutable
 
 	// Handler passed by client.
-	handler connHandler // immutable
+	handler Handler // immutable
 
 	// State fields.
 	cfg     tg.Config
@@ -70,7 +71,8 @@ type conn struct {
 	dead        *tdsync.Ready // immutable
 }
 
-func (c *conn) OnSession(session mtproto.Session) error {
+// OnSession implements mtproto.Handler.
+func (c *Conn) OnSession(session mtproto.Session) error {
 	c.log.Info("SessionInit")
 	c.sessionInit.Signal()
 
@@ -84,10 +86,10 @@ func (c *conn) OnSession(session mtproto.Session) error {
 	cfg := c.cfg
 	c.mux.Unlock()
 
-	return c.handler.onSession(c.addr, cfg, session)
+	return c.handler.OnSession(c.addr, cfg, session)
 }
 
-func (c *conn) trackInvoke() func() {
+func (c *Conn) trackInvoke() func() {
 	start := c.clock.Now()
 
 	c.mux.Lock()
@@ -111,7 +113,8 @@ func (c *conn) trackInvoke() func() {
 	}
 }
 
-func (c *conn) Run(ctx context.Context) (err error) {
+// Run initialize connection.
+func (c *Conn) Run(ctx context.Context) (err error) {
 	defer c.dead.Signal()
 	defer func() {
 		c.log.Info("Connection dead", zap.Error(err))
@@ -119,7 +122,7 @@ func (c *conn) Run(ctx context.Context) (err error) {
 	return c.proto.Run(ctx, c.init)
 }
 
-func (c *conn) waitSession(ctx context.Context) error {
+func (c *Conn) waitSession(ctx context.Context) error {
 	select {
 	case <-c.sessionInit.Ready():
 		return nil
@@ -130,11 +133,14 @@ func (c *conn) waitSession(ctx context.Context) error {
 	}
 }
 
-func (c *conn) Ready() <-chan struct{} {
+// Ready returns channel to determine connection readiness.
+// Useful for pooling.
+func (c *Conn) Ready() <-chan struct{} {
 	return c.sessionInit.Ready()
 }
 
-func (c *conn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+// InvokeRaw implements Invoker.
+func (c *Conn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	// Tracking ongoing invokes.
 	defer c.trackInvoke()()
 	if err := c.waitSession(ctx); err != nil {
@@ -144,8 +150,9 @@ func (c *conn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Deco
 	return c.proto.InvokeRaw(ctx, c.wrapRequest(noopDecoder{input}), output)
 }
 
-func (c *conn) OnMessage(b *bin.Buffer) error {
-	return c.handler.onMessage(b)
+// OnMessage implements mtproto.Handler.
+func (c *Conn) OnMessage(b *bin.Buffer) error {
+	return c.handler.OnMessage(b)
 }
 
 type noopDecoder struct {
@@ -156,8 +163,8 @@ func (n noopDecoder) Decode(b *bin.Buffer) error {
 	return xerrors.New("not implemented")
 }
 
-func (c *conn) wrapRequest(req bin.Object) bin.Object {
-	if c.mode != connModeUpdates {
+func (c *Conn) wrapRequest(req bin.Object) bin.Object {
+	if c.mode != ConnModeUpdates {
 		return &tg.InvokeWithoutUpdatesRequest{
 			Query: req,
 		}
@@ -166,7 +173,7 @@ func (c *conn) wrapRequest(req bin.Object) bin.Object {
 	return req
 }
 
-func (c *conn) init(ctx context.Context) error {
+func (c *Conn) init(ctx context.Context) error {
 	defer c.gotConfig.Signal()
 	c.log.Debug("Initializing")
 

@@ -108,7 +108,7 @@ func (opt *Options) setDefaults() {
 	if opt.MaxRetries == 0 {
 		opt.MaxRetries = 5
 	}
-	opt.Device.setDefaults()
+	opt.Device.SetDefaults()
 	if opt.Clock == nil {
 		opt.Clock = clock.System
 	}

@@ -9,6 +9,7 @@ import (
 
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/pool"
+	"github.com/gotd/td/telegram/internal/manager"
 	"github.com/gotd/td/tg"
 )
 
@@ -41,11 +42,12 @@ func (c *Client) Pool(max int64) (CloseInvoker, error) {
 
 	s := c.session.Load()
 	return c.createPool(s.DC, max, func() pool.Conn {
-		return c.buildConn(connModeData, c.session).Build()
+		id := c.connsCounter.Inc()
+		return c.createConn(id, manager.ConnModeData, nil)
 	})
 }
 
-func (c *Client) dc(ctx context.Context, id int, max int64) (*pool.DC, error) {
+func (c *Client) dc(ctx context.Context, dcID int, max int64) (*pool.DC, error) {
 	if max < 0 {
 		return nil, xerrors.Errorf("invalid max value %d", max)
 	}
@@ -53,9 +55,9 @@ func (c *Client) dc(ctx context.Context, id int, max int64) (*pool.DC, error) {
 	cfg := c.cfg.Load()
 	opts := c.opts
 
-	dc, ok := findDC(cfg, id, true)
+	dc, ok := findDC(cfg, dcID, true)
 	if !ok {
-		return nil, xerrors.Errorf("failed to find DC %d", id)
+		return nil, xerrors.Errorf("failed to find DC %d", dcID)
 	}
 
 	if dc.CDN {
@@ -78,25 +80,30 @@ func (c *Client) dc(ctx context.Context, id int, max int64) (*pool.DC, error) {
 	addr := fmt.Sprintf("%s:%d", dc.IPAddress, dc.Port)
 
 	c.sessionsMux.Lock()
-	session, ok := c.sessions[id]
+	session, ok := c.sessions[dcID]
 	if !ok {
 		session = pool.NewSyncSession(pool.Session{})
-		c.sessions[id] = session
+		c.sessions[dcID] = session
 	}
 	c.sessionsMux.Unlock()
 
-	p, err := c.createPool(id, max, func() pool.Conn {
-		return c.buildConn(connModeData, session).
-			WithNoopHandler().
-			WithOptions(id, addr, opts).
-			Build()
+	p, err := c.createPool(dcID, max, func() pool.Conn {
+		id := c.connsCounter.Inc()
+		options, _ := session.Options(opts)
+		return c.create(
+			id, manager.ConnModeData, c.appID,
+			addr, options, manager.ConnOptions{
+				DC:     dcID,
+				Device: c.device,
+			},
+		)
 	})
 	if err != nil {
 		return nil, xerrors.Errorf("create pool: %w", err)
 	}
 
 	if !dc.CDN {
-		_, err = c.transfer(ctx, tg.NewClient(p), id)
+		_, err = c.transfer(ctx, tg.NewClient(p), dcID)
 		if err != nil {
 			// Ignore case then we are not authorized.
 			if unauthorized(err) {
