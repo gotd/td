@@ -209,3 +209,32 @@ func (s *Sender) sendScreenshotNotification(
 	_, err := s.raw.MessagesSendScreenshotNotification(ctx, req)
 	return err
 }
+
+// sendScheduledMessages sends scheduled messages using given ids.
+func (s *Sender) sendScheduledMessages(ctx context.Context, req *tg.MessagesSendScheduledMessagesRequest) error {
+	_, err := s.raw.MessagesSendScheduledMessages(ctx, req)
+	return err
+}
+
+// deleteScheduledMessages deletes scheduled messages using given ids.
+func (s *Sender) deleteScheduledMessages(ctx context.Context, req *tg.MessagesDeleteScheduledMessagesRequest) error {
+	_, err := s.raw.MessagesDeleteScheduledMessages(ctx, req)
+	return err
+}
+
+// getScheduledHistory gets scheduled messages history.
+func (s *Sender) getScheduledHistory(
+	ctx context.Context,
+	req *tg.MessagesGetScheduledHistoryRequest,
+) (tg.MessagesMessagesClass, error) {
+	return s.raw.MessagesGetScheduledHistory(ctx, req)
+}
+
+
+// getScheduledMessages gets scheduled messages using given ids.
+func (s *Sender) getScheduledMessages(
+	ctx context.Context,
+	req *tg.MessagesGetScheduledMessagesRequest,
+) (tg.MessagesMessagesClass, error) {
+	return s.raw.MessagesGetScheduledMessages(ctx, req)
+}
