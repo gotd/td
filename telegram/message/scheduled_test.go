@@ -47,7 +47,7 @@ func TestScheduledManager_Get(t *testing.T) {
 	expected := &tg.MessagesMessagesSlice{
 		Messages: []tg.MessageClass{
 			&tg.Message{
-				ID:     10,
+				ID: 10,
 				PeerID: &tg.PeerUser{
 					UserID: 10,
 				},
@@ -77,7 +77,7 @@ func TestScheduledManager_History(t *testing.T) {
 	expected := &tg.MessagesMessagesSlice{
 		Messages: []tg.MessageClass{
 			&tg.Message{
-				ID:     10,
+				ID: 10,
 				PeerID: &tg.PeerUser{
 					UserID: 10,
 				},

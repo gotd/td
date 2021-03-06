@@ -230,7 +230,6 @@ func (s *Sender) getScheduledHistory(
 	return s.raw.MessagesGetScheduledHistory(ctx, req)
 }
 
-
 // getScheduledMessages gets scheduled messages using given ids.
 func (s *Sender) getScheduledMessages(
 	ctx context.Context,
