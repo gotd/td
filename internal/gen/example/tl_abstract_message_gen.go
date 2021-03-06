@@ -30,8 +30,8 @@ type BigMessage struct {
 	ID int32
 	// Count field of BigMessage.
 	Count int32
-	// TargetId field of BigMessage.
-	TargetId int32
+	// TargetID field of BigMessage.
+	TargetID int32
 	// Escape field of BigMessage.
 	Escape bool
 	// Summary field of BigMessage.
@@ -51,7 +51,7 @@ func (b *BigMessage) Zero() bool {
 	if !(b.Count == 0) {
 		return false
 	}
-	if !(b.TargetId == 0) {
+	if !(b.TargetID == 0) {
 		return false
 	}
 	if !(b.Escape == false) {
@@ -77,13 +77,13 @@ func (b *BigMessage) String() string {
 func (b *BigMessage) FillFrom(from interface {
 	GetID() (value int32)
 	GetCount() (value int32)
-	GetTargetId() (value int32)
+	GetTargetID() (value int32)
 	GetEscape() (value bool)
 	GetSummary() (value bool)
 }) {
 	b.ID = from.GetID()
 	b.Count = from.GetCount()
-	b.TargetId = from.GetTargetId()
+	b.TargetID = from.GetTargetID()
 	b.Escape = from.GetEscape()
 	b.Summary = from.GetSummary()
 }
@@ -120,7 +120,7 @@ func (b *BigMessage) TypeInfo() tdp.Type {
 			SchemaName: "count",
 		},
 		{
-			Name:       "TargetId",
+			Name:       "TargetID",
 			SchemaName: "targetId",
 		},
 		{
@@ -143,7 +143,7 @@ func (b *BigMessage) Encode(buf *bin.Buffer) error {
 	buf.PutID(BigMessageTypeID)
 	buf.PutInt32(b.ID)
 	buf.PutInt32(b.Count)
-	buf.PutInt32(b.TargetId)
+	buf.PutInt32(b.TargetID)
 	buf.PutBool(b.Escape)
 	buf.PutBool(b.Summary)
 	return nil
@@ -159,9 +159,9 @@ func (b *BigMessage) GetCount() (value int32) {
 	return b.Count
 }
 
-// GetTargetId returns value of TargetId field.
-func (b *BigMessage) GetTargetId() (value int32) {
-	return b.TargetId
+// GetTargetID returns value of TargetID field.
+func (b *BigMessage) GetTargetID() (value int32) {
+	return b.TargetID
 }
 
 // GetEscape returns value of Escape field.
@@ -201,7 +201,7 @@ func (b *BigMessage) Decode(buf *bin.Buffer) error {
 		if err != nil {
 			return fmt.Errorf("unable to decode bigMessage#7490dcc5: field targetId: %w", err)
 		}
-		b.TargetId = value
+		b.TargetID = value
 	}
 	{
 		value, err := buf.Bool()

@@ -22,24 +22,24 @@ var _ = errors.Is
 var _ = sort.Ints
 var _ = tdp.Format
 
-// UploadGetCdnFileHashesRequest represents TL type `upload.getCdnFileHashes#4da54231`.
+// UploadGetCDNFileHashesRequest represents TL type `upload.getCdnFileHashes#4da54231`.
 // Get SHA256 hashes for verifying downloaded CDN¹ files
 //
 // Links:
 //  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/method/upload.getCdnFileHashes for reference.
-type UploadGetCdnFileHashesRequest struct {
+type UploadGetCDNFileHashesRequest struct {
 	// File
 	FileToken []byte
 	// Offset from which to start getting hashes
 	Offset int
 }
 
-// UploadGetCdnFileHashesRequestTypeID is TL type id of UploadGetCdnFileHashesRequest.
-const UploadGetCdnFileHashesRequestTypeID = 0x4da54231
+// UploadGetCDNFileHashesRequestTypeID is TL type id of UploadGetCDNFileHashesRequest.
+const UploadGetCDNFileHashesRequestTypeID = 0x4da54231
 
-func (g *UploadGetCdnFileHashesRequest) Zero() bool {
+func (g *UploadGetCDNFileHashesRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
@@ -54,16 +54,16 @@ func (g *UploadGetCdnFileHashesRequest) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (g *UploadGetCdnFileHashesRequest) String() string {
+func (g *UploadGetCDNFileHashesRequest) String() string {
 	if g == nil {
-		return "UploadGetCdnFileHashesRequest(nil)"
+		return "UploadGetCDNFileHashesRequest(nil)"
 	}
-	type Alias UploadGetCdnFileHashesRequest
-	return fmt.Sprintf("UploadGetCdnFileHashesRequest%+v", Alias(*g))
+	type Alias UploadGetCDNFileHashesRequest
+	return fmt.Sprintf("UploadGetCDNFileHashesRequest%+v", Alias(*g))
 }
 
-// FillFrom fills UploadGetCdnFileHashesRequest from given interface.
-func (g *UploadGetCdnFileHashesRequest) FillFrom(from interface {
+// FillFrom fills UploadGetCDNFileHashesRequest from given interface.
+func (g *UploadGetCDNFileHashesRequest) FillFrom(from interface {
 	GetFileToken() (value []byte)
 	GetOffset() (value int)
 }) {
@@ -74,20 +74,20 @@ func (g *UploadGetCdnFileHashesRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UploadGetCdnFileHashesRequest) TypeID() uint32 {
-	return UploadGetCdnFileHashesRequestTypeID
+func (*UploadGetCDNFileHashesRequest) TypeID() uint32 {
+	return UploadGetCDNFileHashesRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*UploadGetCdnFileHashesRequest) TypeName() string {
+func (*UploadGetCDNFileHashesRequest) TypeName() string {
 	return "upload.getCdnFileHashes"
 }
 
 // TypeInfo returns info about TL type.
-func (g *UploadGetCdnFileHashesRequest) TypeInfo() tdp.Type {
+func (g *UploadGetCDNFileHashesRequest) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "upload.getCdnFileHashes",
-		ID:   UploadGetCdnFileHashesRequestTypeID,
+		ID:   UploadGetCDNFileHashesRequestTypeID,
 	}
 	if g == nil {
 		typ.Null = true
@@ -107,32 +107,32 @@ func (g *UploadGetCdnFileHashesRequest) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (g *UploadGetCdnFileHashesRequest) Encode(b *bin.Buffer) error {
+func (g *UploadGetCDNFileHashesRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode upload.getCdnFileHashes#4da54231 as nil")
 	}
-	b.PutID(UploadGetCdnFileHashesRequestTypeID)
+	b.PutID(UploadGetCDNFileHashesRequestTypeID)
 	b.PutBytes(g.FileToken)
 	b.PutInt(g.Offset)
 	return nil
 }
 
 // GetFileToken returns value of FileToken field.
-func (g *UploadGetCdnFileHashesRequest) GetFileToken() (value []byte) {
+func (g *UploadGetCDNFileHashesRequest) GetFileToken() (value []byte) {
 	return g.FileToken
 }
 
 // GetOffset returns value of Offset field.
-func (g *UploadGetCdnFileHashesRequest) GetOffset() (value int) {
+func (g *UploadGetCDNFileHashesRequest) GetOffset() (value int) {
 	return g.Offset
 }
 
 // Decode implements bin.Decoder.
-func (g *UploadGetCdnFileHashesRequest) Decode(b *bin.Buffer) error {
+func (g *UploadGetCDNFileHashesRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't decode upload.getCdnFileHashes#4da54231 to nil")
 	}
-	if err := b.ConsumeID(UploadGetCdnFileHashesRequestTypeID); err != nil {
+	if err := b.ConsumeID(UploadGetCDNFileHashesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.getCdnFileHashes#4da54231: %w", err)
 	}
 	{
@@ -152,13 +152,13 @@ func (g *UploadGetCdnFileHashesRequest) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for UploadGetCdnFileHashesRequest.
+// Ensuring interfaces in compile-time for UploadGetCDNFileHashesRequest.
 var (
-	_ bin.Encoder = &UploadGetCdnFileHashesRequest{}
-	_ bin.Decoder = &UploadGetCdnFileHashesRequest{}
+	_ bin.Encoder = &UploadGetCDNFileHashesRequest{}
+	_ bin.Decoder = &UploadGetCDNFileHashesRequest{}
 )
 
-// UploadGetCdnFileHashes invokes method upload.getCdnFileHashes#4da54231 returning error if any.
+// UploadGetCDNFileHashes invokes method upload.getCdnFileHashes#4da54231 returning error if any.
 // Get SHA256 hashes for verifying downloaded CDN¹ files
 //
 // Links:
@@ -170,7 +170,7 @@ var (
 //
 // See https://core.telegram.org/method/upload.getCdnFileHashes for reference.
 // Can be used by bots.
-func (c *Client) UploadGetCdnFileHashes(ctx context.Context, request *UploadGetCdnFileHashesRequest) ([]FileHash, error) {
+func (c *Client) UploadGetCDNFileHashes(ctx context.Context, request *UploadGetCDNFileHashesRequest) ([]FileHash, error) {
 	var result FileHashVector
 
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

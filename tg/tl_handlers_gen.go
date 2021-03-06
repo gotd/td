@@ -183,8 +183,8 @@ func (u UpdateDispatcher) dispatch(uctx UpdateContext, update UpdateClass) error
 				return err
 			}
 		}
-	case *UpdateDcOptions:
-		if handler, ok := u.handlers[UpdateDcOptionsTypeID]; ok {
+	case *UpdateDCOptions:
+		if handler, ok := u.handlers[UpdateDCOptionsTypeID]; ok {
 			if err := handler(uctx, update); err != nil {
 				return err
 			}
@@ -794,13 +794,13 @@ func (u UpdateDispatcher) OnChatParticipantDelete(handler ChatParticipantDeleteH
 	}
 }
 
-// DcOptionsHandler is a DcOptions event handler.
-type DcOptionsHandler func(ctx UpdateContext, update *UpdateDcOptions) error
+// DCOptionsHandler is a DCOptions event handler.
+type DCOptionsHandler func(ctx UpdateContext, update *UpdateDCOptions) error
 
-// OnDcOptions sets DcOptions handler.
-func (u UpdateDispatcher) OnDcOptions(handler DcOptionsHandler) {
-	u.handlers[UpdateDcOptionsTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateDcOptions))
+// OnDCOptions sets DCOptions handler.
+func (u UpdateDispatcher) OnDCOptions(handler DCOptionsHandler) {
+	u.handlers[UpdateDCOptionsTypeID] = func(ctx UpdateContext, update UpdateClass) error {
+		return handler(ctx, update.(*UpdateDCOptions))
 	}
 }
 

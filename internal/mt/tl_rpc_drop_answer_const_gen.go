@@ -129,8 +129,8 @@ var (
 )
 
 // RPCDropAnswer invokes method rpc_drop_answer#58e4a740 returning error if any.
-func (c *Client) RPCDropAnswer(ctx context.Context, reqmsgid int64) (RpcDropAnswerClass, error) {
-	var result RpcDropAnswerBox
+func (c *Client) RPCDropAnswer(ctx context.Context, reqmsgid int64) (RPCDropAnswerClass, error) {
+	var result RPCDropAnswerBox
 
 	request := &RPCDropAnswerRequest{
 		ReqMsgID: reqmsgid,

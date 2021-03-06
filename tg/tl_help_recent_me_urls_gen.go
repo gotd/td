@@ -22,27 +22,27 @@ var _ = errors.Is
 var _ = sort.Ints
 var _ = tdp.Format
 
-// HelpRecentMeUrls represents TL type `help.recentMeUrls#e0310d7`.
+// HelpRecentMeURLs represents TL type `help.recentMeUrls#e0310d7`.
 // Recent t.me URLs
 //
 // See https://core.telegram.org/constructor/help.recentMeUrls for reference.
-type HelpRecentMeUrls struct {
+type HelpRecentMeURLs struct {
 	// URLs
-	Urls []RecentMeUrlClass
+	URLs []RecentMeURLClass
 	// Chats
 	Chats []ChatClass
 	// Users
 	Users []UserClass
 }
 
-// HelpRecentMeUrlsTypeID is TL type id of HelpRecentMeUrls.
-const HelpRecentMeUrlsTypeID = 0xe0310d7
+// HelpRecentMeURLsTypeID is TL type id of HelpRecentMeURLs.
+const HelpRecentMeURLsTypeID = 0xe0310d7
 
-func (r *HelpRecentMeUrls) Zero() bool {
+func (r *HelpRecentMeURLs) Zero() bool {
 	if r == nil {
 		return true
 	}
-	if !(r.Urls == nil) {
+	if !(r.URLs == nil) {
 		return false
 	}
 	if !(r.Chats == nil) {
@@ -56,21 +56,21 @@ func (r *HelpRecentMeUrls) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (r *HelpRecentMeUrls) String() string {
+func (r *HelpRecentMeURLs) String() string {
 	if r == nil {
-		return "HelpRecentMeUrls(nil)"
+		return "HelpRecentMeURLs(nil)"
 	}
-	type Alias HelpRecentMeUrls
-	return fmt.Sprintf("HelpRecentMeUrls%+v", Alias(*r))
+	type Alias HelpRecentMeURLs
+	return fmt.Sprintf("HelpRecentMeURLs%+v", Alias(*r))
 }
 
-// FillFrom fills HelpRecentMeUrls from given interface.
-func (r *HelpRecentMeUrls) FillFrom(from interface {
-	GetUrls() (value []RecentMeUrlClass)
+// FillFrom fills HelpRecentMeURLs from given interface.
+func (r *HelpRecentMeURLs) FillFrom(from interface {
+	GetURLs() (value []RecentMeURLClass)
 	GetChats() (value []ChatClass)
 	GetUsers() (value []UserClass)
 }) {
-	r.Urls = from.GetUrls()
+	r.URLs = from.GetURLs()
 	r.Chats = from.GetChats()
 	r.Users = from.GetUsers()
 }
@@ -78,20 +78,20 @@ func (r *HelpRecentMeUrls) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*HelpRecentMeUrls) TypeID() uint32 {
-	return HelpRecentMeUrlsTypeID
+func (*HelpRecentMeURLs) TypeID() uint32 {
+	return HelpRecentMeURLsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*HelpRecentMeUrls) TypeName() string {
+func (*HelpRecentMeURLs) TypeName() string {
 	return "help.recentMeUrls"
 }
 
 // TypeInfo returns info about TL type.
-func (r *HelpRecentMeUrls) TypeInfo() tdp.Type {
+func (r *HelpRecentMeURLs) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "help.recentMeUrls",
-		ID:   HelpRecentMeUrlsTypeID,
+		ID:   HelpRecentMeURLsTypeID,
 	}
 	if r == nil {
 		typ.Null = true
@@ -99,7 +99,7 @@ func (r *HelpRecentMeUrls) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "Urls",
+			Name:       "URLs",
 			SchemaName: "urls",
 		},
 		{
@@ -115,13 +115,13 @@ func (r *HelpRecentMeUrls) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (r *HelpRecentMeUrls) Encode(b *bin.Buffer) error {
+func (r *HelpRecentMeURLs) Encode(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode help.recentMeUrls#e0310d7 as nil")
 	}
-	b.PutID(HelpRecentMeUrlsTypeID)
-	b.PutVectorHeader(len(r.Urls))
-	for idx, v := range r.Urls {
+	b.PutID(HelpRecentMeURLsTypeID)
+	b.PutVectorHeader(len(r.URLs))
+	for idx, v := range r.URLs {
 		if v == nil {
 			return fmt.Errorf("unable to encode help.recentMeUrls#e0310d7: field urls element with index %d is nil", idx)
 		}
@@ -150,42 +150,42 @@ func (r *HelpRecentMeUrls) Encode(b *bin.Buffer) error {
 	return nil
 }
 
-// GetUrls returns value of Urls field.
-func (r *HelpRecentMeUrls) GetUrls() (value []RecentMeUrlClass) {
-	return r.Urls
+// GetURLs returns value of URLs field.
+func (r *HelpRecentMeURLs) GetURLs() (value []RecentMeURLClass) {
+	return r.URLs
 }
 
-// MapUrls returns field Urls wrapped in RecentMeUrlClassArray helper.
-func (r *HelpRecentMeUrls) MapUrls() (value RecentMeUrlClassArray) {
-	return RecentMeUrlClassArray(r.Urls)
+// MapURLs returns field URLs wrapped in RecentMeURLClassArray helper.
+func (r *HelpRecentMeURLs) MapURLs() (value RecentMeURLClassArray) {
+	return RecentMeURLClassArray(r.URLs)
 }
 
 // GetChats returns value of Chats field.
-func (r *HelpRecentMeUrls) GetChats() (value []ChatClass) {
+func (r *HelpRecentMeURLs) GetChats() (value []ChatClass) {
 	return r.Chats
 }
 
 // MapChats returns field Chats wrapped in ChatClassArray helper.
-func (r *HelpRecentMeUrls) MapChats() (value ChatClassArray) {
+func (r *HelpRecentMeURLs) MapChats() (value ChatClassArray) {
 	return ChatClassArray(r.Chats)
 }
 
 // GetUsers returns value of Users field.
-func (r *HelpRecentMeUrls) GetUsers() (value []UserClass) {
+func (r *HelpRecentMeURLs) GetUsers() (value []UserClass) {
 	return r.Users
 }
 
 // MapUsers returns field Users wrapped in UserClassArray helper.
-func (r *HelpRecentMeUrls) MapUsers() (value UserClassArray) {
+func (r *HelpRecentMeURLs) MapUsers() (value UserClassArray) {
 	return UserClassArray(r.Users)
 }
 
 // Decode implements bin.Decoder.
-func (r *HelpRecentMeUrls) Decode(b *bin.Buffer) error {
+func (r *HelpRecentMeURLs) Decode(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't decode help.recentMeUrls#e0310d7 to nil")
 	}
-	if err := b.ConsumeID(HelpRecentMeUrlsTypeID); err != nil {
+	if err := b.ConsumeID(HelpRecentMeURLsTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.recentMeUrls#e0310d7: %w", err)
 	}
 	{
@@ -194,11 +194,11 @@ func (r *HelpRecentMeUrls) Decode(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode help.recentMeUrls#e0310d7: field urls: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := DecodeRecentMeUrl(b)
+			value, err := DecodeRecentMeURL(b)
 			if err != nil {
 				return fmt.Errorf("unable to decode help.recentMeUrls#e0310d7: field urls: %w", err)
 			}
-			r.Urls = append(r.Urls, value)
+			r.URLs = append(r.URLs, value)
 		}
 	}
 	{
@@ -230,8 +230,8 @@ func (r *HelpRecentMeUrls) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for HelpRecentMeUrls.
+// Ensuring interfaces in compile-time for HelpRecentMeURLs.
 var (
-	_ bin.Encoder = &HelpRecentMeUrls{}
-	_ bin.Decoder = &HelpRecentMeUrls{}
+	_ bin.Encoder = &HelpRecentMeURLs{}
+	_ bin.Decoder = &HelpRecentMeURLs{}
 )

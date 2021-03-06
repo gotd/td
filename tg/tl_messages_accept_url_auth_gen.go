@@ -22,14 +22,14 @@ var _ = errors.Is
 var _ = sort.Ints
 var _ = tdp.Format
 
-// MessagesAcceptUrlAuthRequest represents TL type `messages.acceptUrlAuth#f729ea98`.
+// MessagesAcceptURLAuthRequest represents TL type `messages.acceptUrlAuth#f729ea98`.
 // Use this to accept a Seamless Telegram Login authorization request, for more info click here »¹
 //
 // Links:
 //  1) https://core.telegram.org/api/url-authorization
 //
 // See https://core.telegram.org/method/messages.acceptUrlAuth for reference.
-type MessagesAcceptUrlAuthRequest struct {
+type MessagesAcceptURLAuthRequest struct {
 	// Flags, see TL conditional fields¹
 	//
 	// Links:
@@ -45,10 +45,10 @@ type MessagesAcceptUrlAuthRequest struct {
 	ButtonID int
 }
 
-// MessagesAcceptUrlAuthRequestTypeID is TL type id of MessagesAcceptUrlAuthRequest.
-const MessagesAcceptUrlAuthRequestTypeID = 0xf729ea98
+// MessagesAcceptURLAuthRequestTypeID is TL type id of MessagesAcceptURLAuthRequest.
+const MessagesAcceptURLAuthRequestTypeID = 0xf729ea98
 
-func (a *MessagesAcceptUrlAuthRequest) Zero() bool {
+func (a *MessagesAcceptURLAuthRequest) Zero() bool {
 	if a == nil {
 		return true
 	}
@@ -72,16 +72,16 @@ func (a *MessagesAcceptUrlAuthRequest) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (a *MessagesAcceptUrlAuthRequest) String() string {
+func (a *MessagesAcceptURLAuthRequest) String() string {
 	if a == nil {
-		return "MessagesAcceptUrlAuthRequest(nil)"
+		return "MessagesAcceptURLAuthRequest(nil)"
 	}
-	type Alias MessagesAcceptUrlAuthRequest
-	return fmt.Sprintf("MessagesAcceptUrlAuthRequest%+v", Alias(*a))
+	type Alias MessagesAcceptURLAuthRequest
+	return fmt.Sprintf("MessagesAcceptURLAuthRequest%+v", Alias(*a))
 }
 
-// FillFrom fills MessagesAcceptUrlAuthRequest from given interface.
-func (a *MessagesAcceptUrlAuthRequest) FillFrom(from interface {
+// FillFrom fills MessagesAcceptURLAuthRequest from given interface.
+func (a *MessagesAcceptURLAuthRequest) FillFrom(from interface {
 	GetWriteAllowed() (value bool)
 	GetPeer() (value InputPeerClass)
 	GetMsgID() (value int)
@@ -96,20 +96,20 @@ func (a *MessagesAcceptUrlAuthRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*MessagesAcceptUrlAuthRequest) TypeID() uint32 {
-	return MessagesAcceptUrlAuthRequestTypeID
+func (*MessagesAcceptURLAuthRequest) TypeID() uint32 {
+	return MessagesAcceptURLAuthRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*MessagesAcceptUrlAuthRequest) TypeName() string {
+func (*MessagesAcceptURLAuthRequest) TypeName() string {
 	return "messages.acceptUrlAuth"
 }
 
 // TypeInfo returns info about TL type.
-func (a *MessagesAcceptUrlAuthRequest) TypeInfo() tdp.Type {
+func (a *MessagesAcceptURLAuthRequest) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "messages.acceptUrlAuth",
-		ID:   MessagesAcceptUrlAuthRequestTypeID,
+		ID:   MessagesAcceptURLAuthRequestTypeID,
 	}
 	if a == nil {
 		typ.Null = true
@@ -138,11 +138,11 @@ func (a *MessagesAcceptUrlAuthRequest) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (a *MessagesAcceptUrlAuthRequest) Encode(b *bin.Buffer) error {
+func (a *MessagesAcceptURLAuthRequest) Encode(b *bin.Buffer) error {
 	if a == nil {
 		return fmt.Errorf("can't encode messages.acceptUrlAuth#f729ea98 as nil")
 	}
-	b.PutID(MessagesAcceptUrlAuthRequestTypeID)
+	b.PutID(MessagesAcceptURLAuthRequestTypeID)
 	if !(a.WriteAllowed == false) {
 		a.Flags.Set(0)
 	}
@@ -161,7 +161,7 @@ func (a *MessagesAcceptUrlAuthRequest) Encode(b *bin.Buffer) error {
 }
 
 // SetWriteAllowed sets value of WriteAllowed conditional field.
-func (a *MessagesAcceptUrlAuthRequest) SetWriteAllowed(value bool) {
+func (a *MessagesAcceptURLAuthRequest) SetWriteAllowed(value bool) {
 	if value {
 		a.Flags.Set(0)
 		a.WriteAllowed = true
@@ -172,31 +172,31 @@ func (a *MessagesAcceptUrlAuthRequest) SetWriteAllowed(value bool) {
 }
 
 // GetWriteAllowed returns value of WriteAllowed conditional field.
-func (a *MessagesAcceptUrlAuthRequest) GetWriteAllowed() (value bool) {
+func (a *MessagesAcceptURLAuthRequest) GetWriteAllowed() (value bool) {
 	return a.Flags.Has(0)
 }
 
 // GetPeer returns value of Peer field.
-func (a *MessagesAcceptUrlAuthRequest) GetPeer() (value InputPeerClass) {
+func (a *MessagesAcceptURLAuthRequest) GetPeer() (value InputPeerClass) {
 	return a.Peer
 }
 
 // GetMsgID returns value of MsgID field.
-func (a *MessagesAcceptUrlAuthRequest) GetMsgID() (value int) {
+func (a *MessagesAcceptURLAuthRequest) GetMsgID() (value int) {
 	return a.MsgID
 }
 
 // GetButtonID returns value of ButtonID field.
-func (a *MessagesAcceptUrlAuthRequest) GetButtonID() (value int) {
+func (a *MessagesAcceptURLAuthRequest) GetButtonID() (value int) {
 	return a.ButtonID
 }
 
 // Decode implements bin.Decoder.
-func (a *MessagesAcceptUrlAuthRequest) Decode(b *bin.Buffer) error {
+func (a *MessagesAcceptURLAuthRequest) Decode(b *bin.Buffer) error {
 	if a == nil {
 		return fmt.Errorf("can't decode messages.acceptUrlAuth#f729ea98 to nil")
 	}
-	if err := b.ConsumeID(MessagesAcceptUrlAuthRequestTypeID); err != nil {
+	if err := b.ConsumeID(MessagesAcceptURLAuthRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.acceptUrlAuth#f729ea98: %w", err)
 	}
 	{
@@ -229,21 +229,21 @@ func (a *MessagesAcceptUrlAuthRequest) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesAcceptUrlAuthRequest.
+// Ensuring interfaces in compile-time for MessagesAcceptURLAuthRequest.
 var (
-	_ bin.Encoder = &MessagesAcceptUrlAuthRequest{}
-	_ bin.Decoder = &MessagesAcceptUrlAuthRequest{}
+	_ bin.Encoder = &MessagesAcceptURLAuthRequest{}
+	_ bin.Decoder = &MessagesAcceptURLAuthRequest{}
 )
 
-// MessagesAcceptUrlAuth invokes method messages.acceptUrlAuth#f729ea98 returning error if any.
+// MessagesAcceptURLAuth invokes method messages.acceptUrlAuth#f729ea98 returning error if any.
 // Use this to accept a Seamless Telegram Login authorization request, for more info click here »¹
 //
 // Links:
 //  1) https://core.telegram.org/api/url-authorization
 //
 // See https://core.telegram.org/method/messages.acceptUrlAuth for reference.
-func (c *Client) MessagesAcceptUrlAuth(ctx context.Context, request *MessagesAcceptUrlAuthRequest) (UrlAuthResultClass, error) {
-	var result UrlAuthResultBox
+func (c *Client) MessagesAcceptURLAuth(ctx context.Context, request *MessagesAcceptURLAuthRequest) (URLAuthResultClass, error) {
+	var result URLAuthResultBox
 
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err

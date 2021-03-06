@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/method/messages.getAllChats for reference.
 type MessagesGetAllChatsRequest struct {
 	// Except these chats/channels/supergroups
-	ExceptIds []int
+	ExceptIDs []int
 }
 
 // MessagesGetAllChatsRequestTypeID is TL type id of MessagesGetAllChatsRequest.
@@ -38,7 +38,7 @@ func (g *MessagesGetAllChatsRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
-	if !(g.ExceptIds == nil) {
+	if !(g.ExceptIDs == nil) {
 		return false
 	}
 
@@ -56,9 +56,9 @@ func (g *MessagesGetAllChatsRequest) String() string {
 
 // FillFrom fills MessagesGetAllChatsRequest from given interface.
 func (g *MessagesGetAllChatsRequest) FillFrom(from interface {
-	GetExceptIds() (value []int)
+	GetExceptIDs() (value []int)
 }) {
-	g.ExceptIds = from.GetExceptIds()
+	g.ExceptIDs = from.GetExceptIDs()
 }
 
 // TypeID returns type id in TL schema.
@@ -85,7 +85,7 @@ func (g *MessagesGetAllChatsRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "ExceptIds",
+			Name:       "ExceptIDs",
 			SchemaName: "except_ids",
 		},
 	}
@@ -98,16 +98,16 @@ func (g *MessagesGetAllChatsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getAllChats#eba80ff0 as nil")
 	}
 	b.PutID(MessagesGetAllChatsRequestTypeID)
-	b.PutVectorHeader(len(g.ExceptIds))
-	for _, v := range g.ExceptIds {
+	b.PutVectorHeader(len(g.ExceptIDs))
+	for _, v := range g.ExceptIDs {
 		b.PutInt(v)
 	}
 	return nil
 }
 
-// GetExceptIds returns value of ExceptIds field.
-func (g *MessagesGetAllChatsRequest) GetExceptIds() (value []int) {
-	return g.ExceptIds
+// GetExceptIDs returns value of ExceptIDs field.
+func (g *MessagesGetAllChatsRequest) GetExceptIDs() (value []int) {
+	return g.ExceptIDs
 }
 
 // Decode implements bin.Decoder.
@@ -128,7 +128,7 @@ func (g *MessagesGetAllChatsRequest) Decode(b *bin.Buffer) error {
 			if err != nil {
 				return fmt.Errorf("unable to decode messages.getAllChats#eba80ff0: field except_ids: %w", err)
 			}
-			g.ExceptIds = append(g.ExceptIds, value)
+			g.ExceptIDs = append(g.ExceptIDs, value)
 		}
 	}
 	return nil
@@ -148,7 +148,7 @@ func (c *Client) MessagesGetAllChats(ctx context.Context, exceptids []int) (Mess
 	var result MessagesChatsBox
 
 	request := &MessagesGetAllChatsRequest{
-		ExceptIds: exceptids,
+		ExceptIDs: exceptids,
 	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err

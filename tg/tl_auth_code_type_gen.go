@@ -22,17 +22,17 @@ var _ = errors.Is
 var _ = sort.Ints
 var _ = tdp.Format
 
-// AuthCodeTypeSms represents TL type `auth.codeTypeSms#72a3158c`.
+// AuthCodeTypeSMS represents TL type `auth.codeTypeSms#72a3158c`.
 // Type of verification code that will be sent next if you call the resendCode method: SMS code
 //
 // See https://core.telegram.org/constructor/auth.codeTypeSms for reference.
-type AuthCodeTypeSms struct {
+type AuthCodeTypeSMS struct {
 }
 
-// AuthCodeTypeSmsTypeID is TL type id of AuthCodeTypeSms.
-const AuthCodeTypeSmsTypeID = 0x72a3158c
+// AuthCodeTypeSMSTypeID is TL type id of AuthCodeTypeSMS.
+const AuthCodeTypeSMSTypeID = 0x72a3158c
 
-func (c *AuthCodeTypeSms) Zero() bool {
+func (c *AuthCodeTypeSMS) Zero() bool {
 	if c == nil {
 		return true
 	}
@@ -41,31 +41,31 @@ func (c *AuthCodeTypeSms) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (c *AuthCodeTypeSms) String() string {
+func (c *AuthCodeTypeSMS) String() string {
 	if c == nil {
-		return "AuthCodeTypeSms(nil)"
+		return "AuthCodeTypeSMS(nil)"
 	}
-	type Alias AuthCodeTypeSms
-	return fmt.Sprintf("AuthCodeTypeSms%+v", Alias(*c))
+	type Alias AuthCodeTypeSMS
+	return fmt.Sprintf("AuthCodeTypeSMS%+v", Alias(*c))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*AuthCodeTypeSms) TypeID() uint32 {
-	return AuthCodeTypeSmsTypeID
+func (*AuthCodeTypeSMS) TypeID() uint32 {
+	return AuthCodeTypeSMSTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*AuthCodeTypeSms) TypeName() string {
+func (*AuthCodeTypeSMS) TypeName() string {
 	return "auth.codeTypeSms"
 }
 
 // TypeInfo returns info about TL type.
-func (c *AuthCodeTypeSms) TypeInfo() tdp.Type {
+func (c *AuthCodeTypeSMS) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "auth.codeTypeSms",
-		ID:   AuthCodeTypeSmsTypeID,
+		ID:   AuthCodeTypeSMSTypeID,
 	}
 	if c == nil {
 		typ.Null = true
@@ -76,34 +76,34 @@ func (c *AuthCodeTypeSms) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (c *AuthCodeTypeSms) Encode(b *bin.Buffer) error {
+func (c *AuthCodeTypeSMS) Encode(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't encode auth.codeTypeSms#72a3158c as nil")
 	}
-	b.PutID(AuthCodeTypeSmsTypeID)
+	b.PutID(AuthCodeTypeSMSTypeID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (c *AuthCodeTypeSms) Decode(b *bin.Buffer) error {
+func (c *AuthCodeTypeSMS) Decode(b *bin.Buffer) error {
 	if c == nil {
 		return fmt.Errorf("can't decode auth.codeTypeSms#72a3158c to nil")
 	}
-	if err := b.ConsumeID(AuthCodeTypeSmsTypeID); err != nil {
+	if err := b.ConsumeID(AuthCodeTypeSMSTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.codeTypeSms#72a3158c: %w", err)
 	}
 	return nil
 }
 
 // construct implements constructor of AuthCodeTypeClass.
-func (c AuthCodeTypeSms) construct() AuthCodeTypeClass { return &c }
+func (c AuthCodeTypeSMS) construct() AuthCodeTypeClass { return &c }
 
-// Ensuring interfaces in compile-time for AuthCodeTypeSms.
+// Ensuring interfaces in compile-time for AuthCodeTypeSMS.
 var (
-	_ bin.Encoder = &AuthCodeTypeSms{}
-	_ bin.Decoder = &AuthCodeTypeSms{}
+	_ bin.Encoder = &AuthCodeTypeSMS{}
+	_ bin.Decoder = &AuthCodeTypeSMS{}
 
-	_ AuthCodeTypeClass = &AuthCodeTypeSms{}
+	_ AuthCodeTypeClass = &AuthCodeTypeSMS{}
 )
 
 // AuthCodeTypeCall represents TL type `auth.codeTypeCall#741cd3e3`.
@@ -284,7 +284,7 @@ var (
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *tg.AuthCodeTypeSms: // auth.codeTypeSms#72a3158c
+//  case *tg.AuthCodeTypeSMS: // auth.codeTypeSms#72a3158c
 //  case *tg.AuthCodeTypeCall: // auth.codeTypeCall#741cd3e3
 //  case *tg.AuthCodeTypeFlashCall: // auth.codeTypeFlashCall#226ccefb
 //  default: panic(v)
@@ -313,9 +313,9 @@ func DecodeAuthCodeType(buf *bin.Buffer) (AuthCodeTypeClass, error) {
 		return nil, err
 	}
 	switch id {
-	case AuthCodeTypeSmsTypeID:
+	case AuthCodeTypeSMSTypeID:
 		// Decoding auth.codeTypeSms#72a3158c.
-		v := AuthCodeTypeSms{}
+		v := AuthCodeTypeSMS{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AuthCodeTypeClass: %w", err)
 		}

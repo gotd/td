@@ -22,19 +22,19 @@ var _ = errors.Is
 var _ = sort.Ints
 var _ = tdp.Format
 
-// HelpGetRecentMeUrlsRequest represents TL type `help.getRecentMeUrls#3dc0f114`.
+// HelpGetRecentMeURLsRequest represents TL type `help.getRecentMeUrls#3dc0f114`.
 // Get recently used t.me links
 //
 // See https://core.telegram.org/method/help.getRecentMeUrls for reference.
-type HelpGetRecentMeUrlsRequest struct {
+type HelpGetRecentMeURLsRequest struct {
 	// Referer
 	Referer string
 }
 
-// HelpGetRecentMeUrlsRequestTypeID is TL type id of HelpGetRecentMeUrlsRequest.
-const HelpGetRecentMeUrlsRequestTypeID = 0x3dc0f114
+// HelpGetRecentMeURLsRequestTypeID is TL type id of HelpGetRecentMeURLsRequest.
+const HelpGetRecentMeURLsRequestTypeID = 0x3dc0f114
 
-func (g *HelpGetRecentMeUrlsRequest) Zero() bool {
+func (g *HelpGetRecentMeURLsRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
@@ -46,16 +46,16 @@ func (g *HelpGetRecentMeUrlsRequest) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (g *HelpGetRecentMeUrlsRequest) String() string {
+func (g *HelpGetRecentMeURLsRequest) String() string {
 	if g == nil {
-		return "HelpGetRecentMeUrlsRequest(nil)"
+		return "HelpGetRecentMeURLsRequest(nil)"
 	}
-	type Alias HelpGetRecentMeUrlsRequest
-	return fmt.Sprintf("HelpGetRecentMeUrlsRequest%+v", Alias(*g))
+	type Alias HelpGetRecentMeURLsRequest
+	return fmt.Sprintf("HelpGetRecentMeURLsRequest%+v", Alias(*g))
 }
 
-// FillFrom fills HelpGetRecentMeUrlsRequest from given interface.
-func (g *HelpGetRecentMeUrlsRequest) FillFrom(from interface {
+// FillFrom fills HelpGetRecentMeURLsRequest from given interface.
+func (g *HelpGetRecentMeURLsRequest) FillFrom(from interface {
 	GetReferer() (value string)
 }) {
 	g.Referer = from.GetReferer()
@@ -64,20 +64,20 @@ func (g *HelpGetRecentMeUrlsRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*HelpGetRecentMeUrlsRequest) TypeID() uint32 {
-	return HelpGetRecentMeUrlsRequestTypeID
+func (*HelpGetRecentMeURLsRequest) TypeID() uint32 {
+	return HelpGetRecentMeURLsRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*HelpGetRecentMeUrlsRequest) TypeName() string {
+func (*HelpGetRecentMeURLsRequest) TypeName() string {
 	return "help.getRecentMeUrls"
 }
 
 // TypeInfo returns info about TL type.
-func (g *HelpGetRecentMeUrlsRequest) TypeInfo() tdp.Type {
+func (g *HelpGetRecentMeURLsRequest) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "help.getRecentMeUrls",
-		ID:   HelpGetRecentMeUrlsRequestTypeID,
+		ID:   HelpGetRecentMeURLsRequestTypeID,
 	}
 	if g == nil {
 		typ.Null = true
@@ -93,26 +93,26 @@ func (g *HelpGetRecentMeUrlsRequest) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (g *HelpGetRecentMeUrlsRequest) Encode(b *bin.Buffer) error {
+func (g *HelpGetRecentMeURLsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode help.getRecentMeUrls#3dc0f114 as nil")
 	}
-	b.PutID(HelpGetRecentMeUrlsRequestTypeID)
+	b.PutID(HelpGetRecentMeURLsRequestTypeID)
 	b.PutString(g.Referer)
 	return nil
 }
 
 // GetReferer returns value of Referer field.
-func (g *HelpGetRecentMeUrlsRequest) GetReferer() (value string) {
+func (g *HelpGetRecentMeURLsRequest) GetReferer() (value string) {
 	return g.Referer
 }
 
 // Decode implements bin.Decoder.
-func (g *HelpGetRecentMeUrlsRequest) Decode(b *bin.Buffer) error {
+func (g *HelpGetRecentMeURLsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't decode help.getRecentMeUrls#3dc0f114 to nil")
 	}
-	if err := b.ConsumeID(HelpGetRecentMeUrlsRequestTypeID); err != nil {
+	if err := b.ConsumeID(HelpGetRecentMeURLsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getRecentMeUrls#3dc0f114: %w", err)
 	}
 	{
@@ -125,20 +125,20 @@ func (g *HelpGetRecentMeUrlsRequest) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for HelpGetRecentMeUrlsRequest.
+// Ensuring interfaces in compile-time for HelpGetRecentMeURLsRequest.
 var (
-	_ bin.Encoder = &HelpGetRecentMeUrlsRequest{}
-	_ bin.Decoder = &HelpGetRecentMeUrlsRequest{}
+	_ bin.Encoder = &HelpGetRecentMeURLsRequest{}
+	_ bin.Decoder = &HelpGetRecentMeURLsRequest{}
 )
 
-// HelpGetRecentMeUrls invokes method help.getRecentMeUrls#3dc0f114 returning error if any.
+// HelpGetRecentMeURLs invokes method help.getRecentMeUrls#3dc0f114 returning error if any.
 // Get recently used t.me links
 //
 // See https://core.telegram.org/method/help.getRecentMeUrls for reference.
-func (c *Client) HelpGetRecentMeUrls(ctx context.Context, referer string) (*HelpRecentMeUrls, error) {
-	var result HelpRecentMeUrls
+func (c *Client) HelpGetRecentMeURLs(ctx context.Context, referer string) (*HelpRecentMeURLs, error) {
+	var result HelpRecentMeURLs
 
-	request := &HelpGetRecentMeUrlsRequest{
+	request := &HelpGetRecentMeURLsRequest{
 		Referer: referer,
 	}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

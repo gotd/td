@@ -136,19 +136,19 @@ var (
 	_ AuthSentCodeTypeClass = &AuthSentCodeTypeApp{}
 )
 
-// AuthSentCodeTypeSms represents TL type `auth.sentCodeTypeSms#c000bba2`.
+// AuthSentCodeTypeSMS represents TL type `auth.sentCodeTypeSms#c000bba2`.
 // The code was sent via SMS
 //
 // See https://core.telegram.org/constructor/auth.sentCodeTypeSms for reference.
-type AuthSentCodeTypeSms struct {
+type AuthSentCodeTypeSMS struct {
 	// Length of the code in bytes
 	Length int
 }
 
-// AuthSentCodeTypeSmsTypeID is TL type id of AuthSentCodeTypeSms.
-const AuthSentCodeTypeSmsTypeID = 0xc000bba2
+// AuthSentCodeTypeSMSTypeID is TL type id of AuthSentCodeTypeSMS.
+const AuthSentCodeTypeSMSTypeID = 0xc000bba2
 
-func (s *AuthSentCodeTypeSms) Zero() bool {
+func (s *AuthSentCodeTypeSMS) Zero() bool {
 	if s == nil {
 		return true
 	}
@@ -160,16 +160,16 @@ func (s *AuthSentCodeTypeSms) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (s *AuthSentCodeTypeSms) String() string {
+func (s *AuthSentCodeTypeSMS) String() string {
 	if s == nil {
-		return "AuthSentCodeTypeSms(nil)"
+		return "AuthSentCodeTypeSMS(nil)"
 	}
-	type Alias AuthSentCodeTypeSms
-	return fmt.Sprintf("AuthSentCodeTypeSms%+v", Alias(*s))
+	type Alias AuthSentCodeTypeSMS
+	return fmt.Sprintf("AuthSentCodeTypeSMS%+v", Alias(*s))
 }
 
-// FillFrom fills AuthSentCodeTypeSms from given interface.
-func (s *AuthSentCodeTypeSms) FillFrom(from interface {
+// FillFrom fills AuthSentCodeTypeSMS from given interface.
+func (s *AuthSentCodeTypeSMS) FillFrom(from interface {
 	GetLength() (value int)
 }) {
 	s.Length = from.GetLength()
@@ -178,20 +178,20 @@ func (s *AuthSentCodeTypeSms) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*AuthSentCodeTypeSms) TypeID() uint32 {
-	return AuthSentCodeTypeSmsTypeID
+func (*AuthSentCodeTypeSMS) TypeID() uint32 {
+	return AuthSentCodeTypeSMSTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*AuthSentCodeTypeSms) TypeName() string {
+func (*AuthSentCodeTypeSMS) TypeName() string {
 	return "auth.sentCodeTypeSms"
 }
 
 // TypeInfo returns info about TL type.
-func (s *AuthSentCodeTypeSms) TypeInfo() tdp.Type {
+func (s *AuthSentCodeTypeSMS) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "auth.sentCodeTypeSms",
-		ID:   AuthSentCodeTypeSmsTypeID,
+		ID:   AuthSentCodeTypeSMSTypeID,
 	}
 	if s == nil {
 		typ.Null = true
@@ -207,26 +207,26 @@ func (s *AuthSentCodeTypeSms) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (s *AuthSentCodeTypeSms) Encode(b *bin.Buffer) error {
+func (s *AuthSentCodeTypeSMS) Encode(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't encode auth.sentCodeTypeSms#c000bba2 as nil")
 	}
-	b.PutID(AuthSentCodeTypeSmsTypeID)
+	b.PutID(AuthSentCodeTypeSMSTypeID)
 	b.PutInt(s.Length)
 	return nil
 }
 
 // GetLength returns value of Length field.
-func (s *AuthSentCodeTypeSms) GetLength() (value int) {
+func (s *AuthSentCodeTypeSMS) GetLength() (value int) {
 	return s.Length
 }
 
 // Decode implements bin.Decoder.
-func (s *AuthSentCodeTypeSms) Decode(b *bin.Buffer) error {
+func (s *AuthSentCodeTypeSMS) Decode(b *bin.Buffer) error {
 	if s == nil {
 		return fmt.Errorf("can't decode auth.sentCodeTypeSms#c000bba2 to nil")
 	}
-	if err := b.ConsumeID(AuthSentCodeTypeSmsTypeID); err != nil {
+	if err := b.ConsumeID(AuthSentCodeTypeSMSTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.sentCodeTypeSms#c000bba2: %w", err)
 	}
 	{
@@ -240,14 +240,14 @@ func (s *AuthSentCodeTypeSms) Decode(b *bin.Buffer) error {
 }
 
 // construct implements constructor of AuthSentCodeTypeClass.
-func (s AuthSentCodeTypeSms) construct() AuthSentCodeTypeClass { return &s }
+func (s AuthSentCodeTypeSMS) construct() AuthSentCodeTypeClass { return &s }
 
-// Ensuring interfaces in compile-time for AuthSentCodeTypeSms.
+// Ensuring interfaces in compile-time for AuthSentCodeTypeSMS.
 var (
-	_ bin.Encoder = &AuthSentCodeTypeSms{}
-	_ bin.Decoder = &AuthSentCodeTypeSms{}
+	_ bin.Encoder = &AuthSentCodeTypeSMS{}
+	_ bin.Decoder = &AuthSentCodeTypeSMS{}
 
-	_ AuthSentCodeTypeClass = &AuthSentCodeTypeSms{}
+	_ AuthSentCodeTypeClass = &AuthSentCodeTypeSMS{}
 )
 
 // AuthSentCodeTypeCall represents TL type `auth.sentCodeTypeCall#5353e5a7`.
@@ -492,7 +492,7 @@ var (
 //  }
 //  switch v := g.(type) {
 //  case *tg.AuthSentCodeTypeApp: // auth.sentCodeTypeApp#3dbb5986
-//  case *tg.AuthSentCodeTypeSms: // auth.sentCodeTypeSms#c000bba2
+//  case *tg.AuthSentCodeTypeSMS: // auth.sentCodeTypeSms#c000bba2
 //  case *tg.AuthSentCodeTypeCall: // auth.sentCodeTypeCall#5353e5a7
 //  case *tg.AuthSentCodeTypeFlashCall: // auth.sentCodeTypeFlashCall#ab03c6d9
 //  default: panic(v)
@@ -528,9 +528,9 @@ func DecodeAuthSentCodeType(buf *bin.Buffer) (AuthSentCodeTypeClass, error) {
 			return nil, fmt.Errorf("unable to decode AuthSentCodeTypeClass: %w", err)
 		}
 		return &v, nil
-	case AuthSentCodeTypeSmsTypeID:
+	case AuthSentCodeTypeSMSTypeID:
 		// Decoding auth.sentCodeTypeSms#c000bba2.
-		v := AuthSentCodeTypeSms{}
+		v := AuthSentCodeTypeSMS{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode AuthSentCodeTypeClass: %w", err)
 		}
@@ -675,10 +675,10 @@ func (s AuthSentCodeTypeClassArray) AsAuthSentCodeTypeApp() (to AuthSentCodeType
 	return to
 }
 
-// AsAuthSentCodeTypeSms returns copy with only AuthSentCodeTypeSms constructors.
-func (s AuthSentCodeTypeClassArray) AsAuthSentCodeTypeSms() (to AuthSentCodeTypeSmsArray) {
+// AsAuthSentCodeTypeSMS returns copy with only AuthSentCodeTypeSMS constructors.
+func (s AuthSentCodeTypeClassArray) AsAuthSentCodeTypeSMS() (to AuthSentCodeTypeSMSArray) {
 	for _, elem := range s {
-		value, ok := elem.(*AuthSentCodeTypeSms)
+		value, ok := elem.(*AuthSentCodeTypeSMS)
 		if !ok {
 			continue
 		}
@@ -796,27 +796,27 @@ func (s *AuthSentCodeTypeAppArray) Pop() (v AuthSentCodeTypeApp, ok bool) {
 	return v, true
 }
 
-// AuthSentCodeTypeSmsArray is adapter for slice of AuthSentCodeTypeSms.
-type AuthSentCodeTypeSmsArray []AuthSentCodeTypeSms
+// AuthSentCodeTypeSMSArray is adapter for slice of AuthSentCodeTypeSMS.
+type AuthSentCodeTypeSMSArray []AuthSentCodeTypeSMS
 
-// Sort sorts slice of AuthSentCodeTypeSms.
-func (s AuthSentCodeTypeSmsArray) Sort(less func(a, b AuthSentCodeTypeSms) bool) AuthSentCodeTypeSmsArray {
+// Sort sorts slice of AuthSentCodeTypeSMS.
+func (s AuthSentCodeTypeSMSArray) Sort(less func(a, b AuthSentCodeTypeSMS) bool) AuthSentCodeTypeSMSArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of AuthSentCodeTypeSms.
-func (s AuthSentCodeTypeSmsArray) SortStable(less func(a, b AuthSentCodeTypeSms) bool) AuthSentCodeTypeSmsArray {
+// SortStable sorts slice of AuthSentCodeTypeSMS.
+func (s AuthSentCodeTypeSMSArray) SortStable(less func(a, b AuthSentCodeTypeSMS) bool) AuthSentCodeTypeSMSArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of AuthSentCodeTypeSms.
-func (s AuthSentCodeTypeSmsArray) Retain(keep func(x AuthSentCodeTypeSms) bool) AuthSentCodeTypeSmsArray {
+// Retain filters in-place slice of AuthSentCodeTypeSMS.
+func (s AuthSentCodeTypeSMSArray) Retain(keep func(x AuthSentCodeTypeSMS) bool) AuthSentCodeTypeSMSArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -830,7 +830,7 @@ func (s AuthSentCodeTypeSmsArray) Retain(keep func(x AuthSentCodeTypeSms) bool) 
 }
 
 // First returns first element of slice (if exists).
-func (s AuthSentCodeTypeSmsArray) First() (v AuthSentCodeTypeSms, ok bool) {
+func (s AuthSentCodeTypeSMSArray) First() (v AuthSentCodeTypeSMS, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -838,7 +838,7 @@ func (s AuthSentCodeTypeSmsArray) First() (v AuthSentCodeTypeSms, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s AuthSentCodeTypeSmsArray) Last() (v AuthSentCodeTypeSms, ok bool) {
+func (s AuthSentCodeTypeSMSArray) Last() (v AuthSentCodeTypeSMS, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -846,7 +846,7 @@ func (s AuthSentCodeTypeSmsArray) Last() (v AuthSentCodeTypeSms, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *AuthSentCodeTypeSmsArray) PopFirst() (v AuthSentCodeTypeSms, ok bool) {
+func (s *AuthSentCodeTypeSMSArray) PopFirst() (v AuthSentCodeTypeSMS, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -856,7 +856,7 @@ func (s *AuthSentCodeTypeSmsArray) PopFirst() (v AuthSentCodeTypeSms, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero AuthSentCodeTypeSms
+	var zero AuthSentCodeTypeSMS
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -865,7 +865,7 @@ func (s *AuthSentCodeTypeSmsArray) PopFirst() (v AuthSentCodeTypeSms, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *AuthSentCodeTypeSmsArray) Pop() (v AuthSentCodeTypeSms, ok bool) {
+func (s *AuthSentCodeTypeSMSArray) Pop() (v AuthSentCodeTypeSMS, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

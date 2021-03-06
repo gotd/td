@@ -2408,19 +2408,19 @@ var (
 	_ UpdateClass = &UpdateChatParticipantDelete{}
 )
 
-// UpdateDcOptions represents TL type `updateDcOptions#8e5e9873`.
+// UpdateDCOptions represents TL type `updateDcOptions#8e5e9873`.
 // Changes in the data center configuration options.
 //
 // See https://core.telegram.org/constructor/updateDcOptions for reference.
-type UpdateDcOptions struct {
+type UpdateDCOptions struct {
 	// New connection options
-	DCOptions []DcOption
+	DCOptions []DCOption
 }
 
-// UpdateDcOptionsTypeID is TL type id of UpdateDcOptions.
-const UpdateDcOptionsTypeID = 0x8e5e9873
+// UpdateDCOptionsTypeID is TL type id of UpdateDCOptions.
+const UpdateDCOptionsTypeID = 0x8e5e9873
 
-func (u *UpdateDcOptions) Zero() bool {
+func (u *UpdateDCOptions) Zero() bool {
 	if u == nil {
 		return true
 	}
@@ -2432,17 +2432,17 @@ func (u *UpdateDcOptions) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (u *UpdateDcOptions) String() string {
+func (u *UpdateDCOptions) String() string {
 	if u == nil {
-		return "UpdateDcOptions(nil)"
+		return "UpdateDCOptions(nil)"
 	}
-	type Alias UpdateDcOptions
-	return fmt.Sprintf("UpdateDcOptions%+v", Alias(*u))
+	type Alias UpdateDCOptions
+	return fmt.Sprintf("UpdateDCOptions%+v", Alias(*u))
 }
 
-// FillFrom fills UpdateDcOptions from given interface.
-func (u *UpdateDcOptions) FillFrom(from interface {
-	GetDCOptions() (value []DcOption)
+// FillFrom fills UpdateDCOptions from given interface.
+func (u *UpdateDCOptions) FillFrom(from interface {
+	GetDCOptions() (value []DCOption)
 }) {
 	u.DCOptions = from.GetDCOptions()
 }
@@ -2450,20 +2450,20 @@ func (u *UpdateDcOptions) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UpdateDcOptions) TypeID() uint32 {
-	return UpdateDcOptionsTypeID
+func (*UpdateDCOptions) TypeID() uint32 {
+	return UpdateDCOptionsTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*UpdateDcOptions) TypeName() string {
+func (*UpdateDCOptions) TypeName() string {
 	return "updateDcOptions"
 }
 
 // TypeInfo returns info about TL type.
-func (u *UpdateDcOptions) TypeInfo() tdp.Type {
+func (u *UpdateDCOptions) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "updateDcOptions",
-		ID:   UpdateDcOptionsTypeID,
+		ID:   UpdateDCOptionsTypeID,
 	}
 	if u == nil {
 		typ.Null = true
@@ -2479,11 +2479,11 @@ func (u *UpdateDcOptions) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (u *UpdateDcOptions) Encode(b *bin.Buffer) error {
+func (u *UpdateDCOptions) Encode(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't encode updateDcOptions#8e5e9873 as nil")
 	}
-	b.PutID(UpdateDcOptionsTypeID)
+	b.PutID(UpdateDCOptionsTypeID)
 	b.PutVectorHeader(len(u.DCOptions))
 	for idx, v := range u.DCOptions {
 		if err := v.Encode(b); err != nil {
@@ -2494,16 +2494,16 @@ func (u *UpdateDcOptions) Encode(b *bin.Buffer) error {
 }
 
 // GetDCOptions returns value of DCOptions field.
-func (u *UpdateDcOptions) GetDCOptions() (value []DcOption) {
+func (u *UpdateDCOptions) GetDCOptions() (value []DCOption) {
 	return u.DCOptions
 }
 
 // Decode implements bin.Decoder.
-func (u *UpdateDcOptions) Decode(b *bin.Buffer) error {
+func (u *UpdateDCOptions) Decode(b *bin.Buffer) error {
 	if u == nil {
 		return fmt.Errorf("can't decode updateDcOptions#8e5e9873 to nil")
 	}
-	if err := b.ConsumeID(UpdateDcOptionsTypeID); err != nil {
+	if err := b.ConsumeID(UpdateDCOptionsTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateDcOptions#8e5e9873: %w", err)
 	}
 	{
@@ -2512,7 +2512,7 @@ func (u *UpdateDcOptions) Decode(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode updateDcOptions#8e5e9873: field dc_options: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			var value DcOption
+			var value DCOption
 			if err := value.Decode(b); err != nil {
 				return fmt.Errorf("unable to decode updateDcOptions#8e5e9873: field dc_options: %w", err)
 			}
@@ -2523,14 +2523,14 @@ func (u *UpdateDcOptions) Decode(b *bin.Buffer) error {
 }
 
 // construct implements constructor of UpdateClass.
-func (u UpdateDcOptions) construct() UpdateClass { return &u }
+func (u UpdateDCOptions) construct() UpdateClass { return &u }
 
-// Ensuring interfaces in compile-time for UpdateDcOptions.
+// Ensuring interfaces in compile-time for UpdateDCOptions.
 var (
-	_ bin.Encoder = &UpdateDcOptions{}
-	_ bin.Decoder = &UpdateDcOptions{}
+	_ bin.Encoder = &UpdateDCOptions{}
+	_ bin.Decoder = &UpdateDCOptions{}
 
-	_ UpdateClass = &UpdateDcOptions{}
+	_ UpdateClass = &UpdateDCOptions{}
 )
 
 // UpdateNotifySettings represents TL type `updateNotifySettings#bec268ef`.
@@ -15499,7 +15499,7 @@ var (
 //  case *tg.UpdateEncryptedMessagesRead: // updateEncryptedMessagesRead#38fe25b7
 //  case *tg.UpdateChatParticipantAdd: // updateChatParticipantAdd#ea4b0e5c
 //  case *tg.UpdateChatParticipantDelete: // updateChatParticipantDelete#6e5f8c22
-//  case *tg.UpdateDcOptions: // updateDcOptions#8e5e9873
+//  case *tg.UpdateDCOptions: // updateDcOptions#8e5e9873
 //  case *tg.UpdateNotifySettings: // updateNotifySettings#bec268ef
 //  case *tg.UpdateServiceNotification: // updateServiceNotification#ebe46819
 //  case *tg.UpdatePrivacy: // updatePrivacy#ee3b272a
@@ -15706,9 +15706,9 @@ func DecodeUpdate(buf *bin.Buffer) (UpdateClass, error) {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
 		return &v, nil
-	case UpdateDcOptionsTypeID:
+	case UpdateDCOptionsTypeID:
 		// Decoding updateDcOptions#8e5e9873.
-		v := UpdateDcOptions{}
+		v := UpdateDCOptions{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UpdateClass: %w", err)
 		}
@@ -16546,10 +16546,10 @@ func (s UpdateClassArray) AsUpdateChatParticipantDelete() (to UpdateChatParticip
 	return to
 }
 
-// AsUpdateDcOptions returns copy with only UpdateDcOptions constructors.
-func (s UpdateClassArray) AsUpdateDcOptions() (to UpdateDcOptionsArray) {
+// AsUpdateDCOptions returns copy with only UpdateDCOptions constructors.
+func (s UpdateClassArray) AsUpdateDCOptions() (to UpdateDCOptionsArray) {
 	for _, elem := range s {
-		value, ok := elem.(*UpdateDcOptions)
+		value, ok := elem.(*UpdateDCOptions)
 		if !ok {
 			continue
 		}
@@ -18718,27 +18718,27 @@ func (s *UpdateChatParticipantDeleteArray) Pop() (v UpdateChatParticipantDelete,
 	return v, true
 }
 
-// UpdateDcOptionsArray is adapter for slice of UpdateDcOptions.
-type UpdateDcOptionsArray []UpdateDcOptions
+// UpdateDCOptionsArray is adapter for slice of UpdateDCOptions.
+type UpdateDCOptionsArray []UpdateDCOptions
 
-// Sort sorts slice of UpdateDcOptions.
-func (s UpdateDcOptionsArray) Sort(less func(a, b UpdateDcOptions) bool) UpdateDcOptionsArray {
+// Sort sorts slice of UpdateDCOptions.
+func (s UpdateDCOptionsArray) Sort(less func(a, b UpdateDCOptions) bool) UpdateDCOptionsArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of UpdateDcOptions.
-func (s UpdateDcOptionsArray) SortStable(less func(a, b UpdateDcOptions) bool) UpdateDcOptionsArray {
+// SortStable sorts slice of UpdateDCOptions.
+func (s UpdateDCOptionsArray) SortStable(less func(a, b UpdateDCOptions) bool) UpdateDCOptionsArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of UpdateDcOptions.
-func (s UpdateDcOptionsArray) Retain(keep func(x UpdateDcOptions) bool) UpdateDcOptionsArray {
+// Retain filters in-place slice of UpdateDCOptions.
+func (s UpdateDCOptionsArray) Retain(keep func(x UpdateDCOptions) bool) UpdateDCOptionsArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -18752,7 +18752,7 @@ func (s UpdateDcOptionsArray) Retain(keep func(x UpdateDcOptions) bool) UpdateDc
 }
 
 // First returns first element of slice (if exists).
-func (s UpdateDcOptionsArray) First() (v UpdateDcOptions, ok bool) {
+func (s UpdateDCOptionsArray) First() (v UpdateDCOptions, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -18760,7 +18760,7 @@ func (s UpdateDcOptionsArray) First() (v UpdateDcOptions, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s UpdateDcOptionsArray) Last() (v UpdateDcOptions, ok bool) {
+func (s UpdateDCOptionsArray) Last() (v UpdateDCOptions, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -18768,7 +18768,7 @@ func (s UpdateDcOptionsArray) Last() (v UpdateDcOptions, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UpdateDcOptionsArray) PopFirst() (v UpdateDcOptions, ok bool) {
+func (s *UpdateDCOptionsArray) PopFirst() (v UpdateDCOptions, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -18778,7 +18778,7 @@ func (s *UpdateDcOptionsArray) PopFirst() (v UpdateDcOptions, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero UpdateDcOptions
+	var zero UpdateDCOptions
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -18787,7 +18787,7 @@ func (s *UpdateDcOptionsArray) PopFirst() (v UpdateDcOptions, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *UpdateDcOptionsArray) Pop() (v UpdateDcOptions, ok bool) {
+func (s *UpdateDCOptionsArray) Pop() (v UpdateDCOptions, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

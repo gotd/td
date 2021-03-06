@@ -22,14 +22,14 @@ var _ = errors.Is
 var _ = sort.Ints
 var _ = tdp.Format
 
-// MessagesRequestUrlAuthRequest represents TL type `messages.requestUrlAuth#e33f5613`.
+// MessagesRequestURLAuthRequest represents TL type `messages.requestUrlAuth#e33f5613`.
 // Get more info about a Seamless Telegram Login authorization request, for more info click here »¹
 //
 // Links:
 //  1) https://core.telegram.org/api/url-authorization
 //
 // See https://core.telegram.org/method/messages.requestUrlAuth for reference.
-type MessagesRequestUrlAuthRequest struct {
+type MessagesRequestURLAuthRequest struct {
 	// Peer where the message is located
 	Peer InputPeerClass
 	// The message
@@ -38,10 +38,10 @@ type MessagesRequestUrlAuthRequest struct {
 	ButtonID int
 }
 
-// MessagesRequestUrlAuthRequestTypeID is TL type id of MessagesRequestUrlAuthRequest.
-const MessagesRequestUrlAuthRequestTypeID = 0xe33f5613
+// MessagesRequestURLAuthRequestTypeID is TL type id of MessagesRequestURLAuthRequest.
+const MessagesRequestURLAuthRequestTypeID = 0xe33f5613
 
-func (r *MessagesRequestUrlAuthRequest) Zero() bool {
+func (r *MessagesRequestURLAuthRequest) Zero() bool {
 	if r == nil {
 		return true
 	}
@@ -59,16 +59,16 @@ func (r *MessagesRequestUrlAuthRequest) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (r *MessagesRequestUrlAuthRequest) String() string {
+func (r *MessagesRequestURLAuthRequest) String() string {
 	if r == nil {
-		return "MessagesRequestUrlAuthRequest(nil)"
+		return "MessagesRequestURLAuthRequest(nil)"
 	}
-	type Alias MessagesRequestUrlAuthRequest
-	return fmt.Sprintf("MessagesRequestUrlAuthRequest%+v", Alias(*r))
+	type Alias MessagesRequestURLAuthRequest
+	return fmt.Sprintf("MessagesRequestURLAuthRequest%+v", Alias(*r))
 }
 
-// FillFrom fills MessagesRequestUrlAuthRequest from given interface.
-func (r *MessagesRequestUrlAuthRequest) FillFrom(from interface {
+// FillFrom fills MessagesRequestURLAuthRequest from given interface.
+func (r *MessagesRequestURLAuthRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
 	GetMsgID() (value int)
 	GetButtonID() (value int)
@@ -81,20 +81,20 @@ func (r *MessagesRequestUrlAuthRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*MessagesRequestUrlAuthRequest) TypeID() uint32 {
-	return MessagesRequestUrlAuthRequestTypeID
+func (*MessagesRequestURLAuthRequest) TypeID() uint32 {
+	return MessagesRequestURLAuthRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*MessagesRequestUrlAuthRequest) TypeName() string {
+func (*MessagesRequestURLAuthRequest) TypeName() string {
 	return "messages.requestUrlAuth"
 }
 
 // TypeInfo returns info about TL type.
-func (r *MessagesRequestUrlAuthRequest) TypeInfo() tdp.Type {
+func (r *MessagesRequestURLAuthRequest) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "messages.requestUrlAuth",
-		ID:   MessagesRequestUrlAuthRequestTypeID,
+		ID:   MessagesRequestURLAuthRequestTypeID,
 	}
 	if r == nil {
 		typ.Null = true
@@ -118,11 +118,11 @@ func (r *MessagesRequestUrlAuthRequest) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (r *MessagesRequestUrlAuthRequest) Encode(b *bin.Buffer) error {
+func (r *MessagesRequestURLAuthRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode messages.requestUrlAuth#e33f5613 as nil")
 	}
-	b.PutID(MessagesRequestUrlAuthRequestTypeID)
+	b.PutID(MessagesRequestURLAuthRequestTypeID)
 	if r.Peer == nil {
 		return fmt.Errorf("unable to encode messages.requestUrlAuth#e33f5613: field peer is nil")
 	}
@@ -135,26 +135,26 @@ func (r *MessagesRequestUrlAuthRequest) Encode(b *bin.Buffer) error {
 }
 
 // GetPeer returns value of Peer field.
-func (r *MessagesRequestUrlAuthRequest) GetPeer() (value InputPeerClass) {
+func (r *MessagesRequestURLAuthRequest) GetPeer() (value InputPeerClass) {
 	return r.Peer
 }
 
 // GetMsgID returns value of MsgID field.
-func (r *MessagesRequestUrlAuthRequest) GetMsgID() (value int) {
+func (r *MessagesRequestURLAuthRequest) GetMsgID() (value int) {
 	return r.MsgID
 }
 
 // GetButtonID returns value of ButtonID field.
-func (r *MessagesRequestUrlAuthRequest) GetButtonID() (value int) {
+func (r *MessagesRequestURLAuthRequest) GetButtonID() (value int) {
 	return r.ButtonID
 }
 
 // Decode implements bin.Decoder.
-func (r *MessagesRequestUrlAuthRequest) Decode(b *bin.Buffer) error {
+func (r *MessagesRequestURLAuthRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't decode messages.requestUrlAuth#e33f5613 to nil")
 	}
-	if err := b.ConsumeID(MessagesRequestUrlAuthRequestTypeID); err != nil {
+	if err := b.ConsumeID(MessagesRequestURLAuthRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.requestUrlAuth#e33f5613: %w", err)
 	}
 	{
@@ -181,21 +181,21 @@ func (r *MessagesRequestUrlAuthRequest) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for MessagesRequestUrlAuthRequest.
+// Ensuring interfaces in compile-time for MessagesRequestURLAuthRequest.
 var (
-	_ bin.Encoder = &MessagesRequestUrlAuthRequest{}
-	_ bin.Decoder = &MessagesRequestUrlAuthRequest{}
+	_ bin.Encoder = &MessagesRequestURLAuthRequest{}
+	_ bin.Decoder = &MessagesRequestURLAuthRequest{}
 )
 
-// MessagesRequestUrlAuth invokes method messages.requestUrlAuth#e33f5613 returning error if any.
+// MessagesRequestURLAuth invokes method messages.requestUrlAuth#e33f5613 returning error if any.
 // Get more info about a Seamless Telegram Login authorization request, for more info click here »¹
 //
 // Links:
 //  1) https://core.telegram.org/api/url-authorization
 //
 // See https://core.telegram.org/method/messages.requestUrlAuth for reference.
-func (c *Client) MessagesRequestUrlAuth(ctx context.Context, request *MessagesRequestUrlAuthRequest) (UrlAuthResultClass, error) {
-	var result UrlAuthResultBox
+func (c *Client) MessagesRequestURLAuth(ctx context.Context, request *MessagesRequestURLAuthRequest) (URLAuthResultClass, error) {
+	var result URLAuthResultBox
 
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err

@@ -30,7 +30,7 @@ type PaymentsBankCardData struct {
 	// Credit card title
 	Title string
 	// Info URL(s) provided by the card's bank(s)
-	OpenUrls []BankCardOpenUrl
+	OpenURLs []BankCardOpenURL
 }
 
 // PaymentsBankCardDataTypeID is TL type id of PaymentsBankCardData.
@@ -43,7 +43,7 @@ func (b *PaymentsBankCardData) Zero() bool {
 	if !(b.Title == "") {
 		return false
 	}
-	if !(b.OpenUrls == nil) {
+	if !(b.OpenURLs == nil) {
 		return false
 	}
 
@@ -62,10 +62,10 @@ func (b *PaymentsBankCardData) String() string {
 // FillFrom fills PaymentsBankCardData from given interface.
 func (b *PaymentsBankCardData) FillFrom(from interface {
 	GetTitle() (value string)
-	GetOpenUrls() (value []BankCardOpenUrl)
+	GetOpenURLs() (value []BankCardOpenURL)
 }) {
 	b.Title = from.GetTitle()
-	b.OpenUrls = from.GetOpenUrls()
+	b.OpenURLs = from.GetOpenURLs()
 }
 
 // TypeID returns type id in TL schema.
@@ -96,7 +96,7 @@ func (b *PaymentsBankCardData) TypeInfo() tdp.Type {
 			SchemaName: "title",
 		},
 		{
-			Name:       "OpenUrls",
+			Name:       "OpenURLs",
 			SchemaName: "open_urls",
 		},
 	}
@@ -110,8 +110,8 @@ func (b *PaymentsBankCardData) Encode(buf *bin.Buffer) error {
 	}
 	buf.PutID(PaymentsBankCardDataTypeID)
 	buf.PutString(b.Title)
-	buf.PutVectorHeader(len(b.OpenUrls))
-	for idx, v := range b.OpenUrls {
+	buf.PutVectorHeader(len(b.OpenURLs))
+	for idx, v := range b.OpenURLs {
 		if err := v.Encode(buf); err != nil {
 			return fmt.Errorf("unable to encode payments.bankCardData#3e24e573: field open_urls element with index %d: %w", idx, err)
 		}
@@ -124,9 +124,9 @@ func (b *PaymentsBankCardData) GetTitle() (value string) {
 	return b.Title
 }
 
-// GetOpenUrls returns value of OpenUrls field.
-func (b *PaymentsBankCardData) GetOpenUrls() (value []BankCardOpenUrl) {
-	return b.OpenUrls
+// GetOpenURLs returns value of OpenURLs field.
+func (b *PaymentsBankCardData) GetOpenURLs() (value []BankCardOpenURL) {
+	return b.OpenURLs
 }
 
 // Decode implements bin.Decoder.
@@ -150,11 +150,11 @@ func (b *PaymentsBankCardData) Decode(buf *bin.Buffer) error {
 			return fmt.Errorf("unable to decode payments.bankCardData#3e24e573: field open_urls: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			var value BankCardOpenUrl
+			var value BankCardOpenURL
 			if err := value.Decode(buf); err != nil {
 				return fmt.Errorf("unable to decode payments.bankCardData#3e24e573: field open_urls: %w", err)
 			}
-			b.OpenUrls = append(b.OpenUrls, value)
+			b.OpenURLs = append(b.OpenURLs, value)
 		}
 	}
 	return nil

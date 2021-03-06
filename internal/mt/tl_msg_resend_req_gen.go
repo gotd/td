@@ -24,8 +24,8 @@ var _ = tdp.Format
 
 // MsgResendReq represents TL type `msg_resend_req#7d861a08`.
 type MsgResendReq struct {
-	// MsgIds field of MsgResendReq.
-	MsgIds []int64
+	// MsgIDs field of MsgResendReq.
+	MsgIDs []int64
 }
 
 // MsgResendReqTypeID is TL type id of MsgResendReq.
@@ -35,7 +35,7 @@ func (m *MsgResendReq) Zero() bool {
 	if m == nil {
 		return true
 	}
-	if !(m.MsgIds == nil) {
+	if !(m.MsgIDs == nil) {
 		return false
 	}
 
@@ -53,9 +53,9 @@ func (m *MsgResendReq) String() string {
 
 // FillFrom fills MsgResendReq from given interface.
 func (m *MsgResendReq) FillFrom(from interface {
-	GetMsgIds() (value []int64)
+	GetMsgIDs() (value []int64)
 }) {
-	m.MsgIds = from.GetMsgIds()
+	m.MsgIDs = from.GetMsgIDs()
 }
 
 // TypeID returns type id in TL schema.
@@ -82,7 +82,7 @@ func (m *MsgResendReq) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "MsgIds",
+			Name:       "MsgIDs",
 			SchemaName: "msg_ids",
 		},
 	}
@@ -95,16 +95,16 @@ func (m *MsgResendReq) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode msg_resend_req#7d861a08 as nil")
 	}
 	b.PutID(MsgResendReqTypeID)
-	b.PutVectorHeader(len(m.MsgIds))
-	for _, v := range m.MsgIds {
+	b.PutVectorHeader(len(m.MsgIDs))
+	for _, v := range m.MsgIDs {
 		b.PutLong(v)
 	}
 	return nil
 }
 
-// GetMsgIds returns value of MsgIds field.
-func (m *MsgResendReq) GetMsgIds() (value []int64) {
-	return m.MsgIds
+// GetMsgIDs returns value of MsgIDs field.
+func (m *MsgResendReq) GetMsgIDs() (value []int64) {
+	return m.MsgIDs
 }
 
 // Decode implements bin.Decoder.
@@ -125,7 +125,7 @@ func (m *MsgResendReq) Decode(b *bin.Buffer) error {
 			if err != nil {
 				return fmt.Errorf("unable to decode msg_resend_req#7d861a08: field msg_ids: %w", err)
 			}
-			m.MsgIds = append(m.MsgIds, value)
+			m.MsgIDs = append(m.MsgIDs, value)
 		}
 	}
 	return nil

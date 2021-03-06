@@ -22,36 +22,36 @@ var _ = errors.Is
 var _ = sort.Ints
 var _ = tdp.Format
 
-// DcOption represents TL type `dcOption#18b7a10d`.
-type DcOption struct {
-	// Flags field of DcOption.
+// DCOption represents TL type `dcOption#18b7a10d`.
+type DCOption struct {
+	// Flags field of DCOption.
 	Flags bin.Fields
-	// Ipv6 field of DcOption.
+	// Ipv6 field of DCOption.
 	Ipv6 bool
-	// MediaOnly field of DcOption.
+	// MediaOnly field of DCOption.
 	MediaOnly bool
-	// TcpoOnly field of DcOption.
-	TcpoOnly bool
-	// CDN field of DcOption.
+	// TCPObfuscatedOnly field of DCOption.
+	TCPObfuscatedOnly bool
+	// CDN field of DCOption.
 	CDN bool
-	// Static field of DcOption.
+	// Static field of DCOption.
 	Static bool
-	// ID field of DcOption.
+	// ID field of DCOption.
 	ID int
-	// IPAddress field of DcOption.
+	// IPAddress field of DCOption.
 	IPAddress string
-	// Port field of DcOption.
+	// Port field of DCOption.
 	Port int
-	// Secret field of DcOption.
+	// Secret field of DCOption.
 	//
 	// Use SetSecret and GetSecret helpers.
 	Secret []byte
 }
 
-// DcOptionTypeID is TL type id of DcOption.
-const DcOptionTypeID = 0x18b7a10d
+// DCOptionTypeID is TL type id of DCOption.
+const DCOptionTypeID = 0x18b7a10d
 
-func (d *DcOption) Zero() bool {
+func (d *DCOption) Zero() bool {
 	if d == nil {
 		return true
 	}
@@ -64,7 +64,7 @@ func (d *DcOption) Zero() bool {
 	if !(d.MediaOnly == false) {
 		return false
 	}
-	if !(d.TcpoOnly == false) {
+	if !(d.TCPObfuscatedOnly == false) {
 		return false
 	}
 	if !(d.CDN == false) {
@@ -90,19 +90,19 @@ func (d *DcOption) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (d *DcOption) String() string {
+func (d *DCOption) String() string {
 	if d == nil {
-		return "DcOption(nil)"
+		return "DCOption(nil)"
 	}
-	type Alias DcOption
-	return fmt.Sprintf("DcOption%+v", Alias(*d))
+	type Alias DCOption
+	return fmt.Sprintf("DCOption%+v", Alias(*d))
 }
 
-// FillFrom fills DcOption from given interface.
-func (d *DcOption) FillFrom(from interface {
+// FillFrom fills DCOption from given interface.
+func (d *DCOption) FillFrom(from interface {
 	GetIpv6() (value bool)
 	GetMediaOnly() (value bool)
-	GetTcpoOnly() (value bool)
+	GetTCPObfuscatedOnly() (value bool)
 	GetCDN() (value bool)
 	GetStatic() (value bool)
 	GetID() (value int)
@@ -112,7 +112,7 @@ func (d *DcOption) FillFrom(from interface {
 }) {
 	d.Ipv6 = from.GetIpv6()
 	d.MediaOnly = from.GetMediaOnly()
-	d.TcpoOnly = from.GetTcpoOnly()
+	d.TCPObfuscatedOnly = from.GetTCPObfuscatedOnly()
 	d.CDN = from.GetCDN()
 	d.Static = from.GetStatic()
 	d.ID = from.GetID()
@@ -127,20 +127,20 @@ func (d *DcOption) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*DcOption) TypeID() uint32 {
-	return DcOptionTypeID
+func (*DCOption) TypeID() uint32 {
+	return DCOptionTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*DcOption) TypeName() string {
+func (*DCOption) TypeName() string {
 	return "dcOption"
 }
 
 // TypeInfo returns info about TL type.
-func (d *DcOption) TypeInfo() tdp.Type {
+func (d *DCOption) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "dcOption",
-		ID:   DcOptionTypeID,
+		ID:   DCOptionTypeID,
 	}
 	if d == nil {
 		typ.Null = true
@@ -158,7 +158,7 @@ func (d *DcOption) TypeInfo() tdp.Type {
 			Null:       !d.Flags.Has(1),
 		},
 		{
-			Name:       "TcpoOnly",
+			Name:       "TCPObfuscatedOnly",
 			SchemaName: "tcpo_only",
 			Null:       !d.Flags.Has(2),
 		},
@@ -194,18 +194,18 @@ func (d *DcOption) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (d *DcOption) Encode(b *bin.Buffer) error {
+func (d *DCOption) Encode(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't encode dcOption#18b7a10d as nil")
 	}
-	b.PutID(DcOptionTypeID)
+	b.PutID(DCOptionTypeID)
 	if !(d.Ipv6 == false) {
 		d.Flags.Set(0)
 	}
 	if !(d.MediaOnly == false) {
 		d.Flags.Set(1)
 	}
-	if !(d.TcpoOnly == false) {
+	if !(d.TCPObfuscatedOnly == false) {
 		d.Flags.Set(2)
 	}
 	if !(d.CDN == false) {
@@ -230,7 +230,7 @@ func (d *DcOption) Encode(b *bin.Buffer) error {
 }
 
 // SetIpv6 sets value of Ipv6 conditional field.
-func (d *DcOption) SetIpv6(value bool) {
+func (d *DCOption) SetIpv6(value bool) {
 	if value {
 		d.Flags.Set(0)
 		d.Ipv6 = true
@@ -241,12 +241,12 @@ func (d *DcOption) SetIpv6(value bool) {
 }
 
 // GetIpv6 returns value of Ipv6 conditional field.
-func (d *DcOption) GetIpv6() (value bool) {
+func (d *DCOption) GetIpv6() (value bool) {
 	return d.Flags.Has(0)
 }
 
 // SetMediaOnly sets value of MediaOnly conditional field.
-func (d *DcOption) SetMediaOnly(value bool) {
+func (d *DCOption) SetMediaOnly(value bool) {
 	if value {
 		d.Flags.Set(1)
 		d.MediaOnly = true
@@ -257,28 +257,28 @@ func (d *DcOption) SetMediaOnly(value bool) {
 }
 
 // GetMediaOnly returns value of MediaOnly conditional field.
-func (d *DcOption) GetMediaOnly() (value bool) {
+func (d *DCOption) GetMediaOnly() (value bool) {
 	return d.Flags.Has(1)
 }
 
-// SetTcpoOnly sets value of TcpoOnly conditional field.
-func (d *DcOption) SetTcpoOnly(value bool) {
+// SetTCPObfuscatedOnly sets value of TCPObfuscatedOnly conditional field.
+func (d *DCOption) SetTCPObfuscatedOnly(value bool) {
 	if value {
 		d.Flags.Set(2)
-		d.TcpoOnly = true
+		d.TCPObfuscatedOnly = true
 	} else {
 		d.Flags.Unset(2)
-		d.TcpoOnly = false
+		d.TCPObfuscatedOnly = false
 	}
 }
 
-// GetTcpoOnly returns value of TcpoOnly conditional field.
-func (d *DcOption) GetTcpoOnly() (value bool) {
+// GetTCPObfuscatedOnly returns value of TCPObfuscatedOnly conditional field.
+func (d *DCOption) GetTCPObfuscatedOnly() (value bool) {
 	return d.Flags.Has(2)
 }
 
 // SetCDN sets value of CDN conditional field.
-func (d *DcOption) SetCDN(value bool) {
+func (d *DCOption) SetCDN(value bool) {
 	if value {
 		d.Flags.Set(3)
 		d.CDN = true
@@ -289,12 +289,12 @@ func (d *DcOption) SetCDN(value bool) {
 }
 
 // GetCDN returns value of CDN conditional field.
-func (d *DcOption) GetCDN() (value bool) {
+func (d *DCOption) GetCDN() (value bool) {
 	return d.Flags.Has(3)
 }
 
 // SetStatic sets value of Static conditional field.
-func (d *DcOption) SetStatic(value bool) {
+func (d *DCOption) SetStatic(value bool) {
 	if value {
 		d.Flags.Set(4)
 		d.Static = true
@@ -305,34 +305,34 @@ func (d *DcOption) SetStatic(value bool) {
 }
 
 // GetStatic returns value of Static conditional field.
-func (d *DcOption) GetStatic() (value bool) {
+func (d *DCOption) GetStatic() (value bool) {
 	return d.Flags.Has(4)
 }
 
 // GetID returns value of ID field.
-func (d *DcOption) GetID() (value int) {
+func (d *DCOption) GetID() (value int) {
 	return d.ID
 }
 
 // GetIPAddress returns value of IPAddress field.
-func (d *DcOption) GetIPAddress() (value string) {
+func (d *DCOption) GetIPAddress() (value string) {
 	return d.IPAddress
 }
 
 // GetPort returns value of Port field.
-func (d *DcOption) GetPort() (value int) {
+func (d *DCOption) GetPort() (value int) {
 	return d.Port
 }
 
 // SetSecret sets value of Secret conditional field.
-func (d *DcOption) SetSecret(value []byte) {
+func (d *DCOption) SetSecret(value []byte) {
 	d.Flags.Set(10)
 	d.Secret = value
 }
 
 // GetSecret returns value of Secret conditional field and
 // boolean which is true if field was set.
-func (d *DcOption) GetSecret() (value []byte, ok bool) {
+func (d *DCOption) GetSecret() (value []byte, ok bool) {
 	if !d.Flags.Has(10) {
 		return value, false
 	}
@@ -340,11 +340,11 @@ func (d *DcOption) GetSecret() (value []byte, ok bool) {
 }
 
 // Decode implements bin.Decoder.
-func (d *DcOption) Decode(b *bin.Buffer) error {
+func (d *DCOption) Decode(b *bin.Buffer) error {
 	if d == nil {
 		return fmt.Errorf("can't decode dcOption#18b7a10d to nil")
 	}
-	if err := b.ConsumeID(DcOptionTypeID); err != nil {
+	if err := b.ConsumeID(DCOptionTypeID); err != nil {
 		return fmt.Errorf("unable to decode dcOption#18b7a10d: %w", err)
 	}
 	{
@@ -354,7 +354,7 @@ func (d *DcOption) Decode(b *bin.Buffer) error {
 	}
 	d.Ipv6 = d.Flags.Has(0)
 	d.MediaOnly = d.Flags.Has(1)
-	d.TcpoOnly = d.Flags.Has(2)
+	d.TCPObfuscatedOnly = d.Flags.Has(2)
 	d.CDN = d.Flags.Has(3)
 	d.Static = d.Flags.Has(4)
 	{
@@ -388,8 +388,8 @@ func (d *DcOption) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for DcOption.
+// Ensuring interfaces in compile-time for DCOption.
 var (
-	_ bin.Encoder = &DcOption{}
-	_ bin.Decoder = &DcOption{}
+	_ bin.Encoder = &DCOption{}
+	_ bin.Decoder = &DCOption{}
 )

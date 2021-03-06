@@ -22,20 +22,20 @@ var _ = errors.Is
 var _ = sort.Ints
 var _ = tdp.Format
 
-// HelpGetCdnConfigRequest represents TL type `help.getCdnConfig#52029342`.
+// HelpGetCDNConfigRequest represents TL type `help.getCdnConfig#52029342`.
 // Get configuration for CDN¹ file downloads.
 //
 // Links:
 //  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/method/help.getCdnConfig for reference.
-type HelpGetCdnConfigRequest struct {
+type HelpGetCDNConfigRequest struct {
 }
 
-// HelpGetCdnConfigRequestTypeID is TL type id of HelpGetCdnConfigRequest.
-const HelpGetCdnConfigRequestTypeID = 0x52029342
+// HelpGetCDNConfigRequestTypeID is TL type id of HelpGetCDNConfigRequest.
+const HelpGetCDNConfigRequestTypeID = 0x52029342
 
-func (g *HelpGetCdnConfigRequest) Zero() bool {
+func (g *HelpGetCDNConfigRequest) Zero() bool {
 	if g == nil {
 		return true
 	}
@@ -44,31 +44,31 @@ func (g *HelpGetCdnConfigRequest) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (g *HelpGetCdnConfigRequest) String() string {
+func (g *HelpGetCDNConfigRequest) String() string {
 	if g == nil {
-		return "HelpGetCdnConfigRequest(nil)"
+		return "HelpGetCDNConfigRequest(nil)"
 	}
-	type Alias HelpGetCdnConfigRequest
-	return fmt.Sprintf("HelpGetCdnConfigRequest%+v", Alias(*g))
+	type Alias HelpGetCDNConfigRequest
+	return fmt.Sprintf("HelpGetCDNConfigRequest%+v", Alias(*g))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*HelpGetCdnConfigRequest) TypeID() uint32 {
-	return HelpGetCdnConfigRequestTypeID
+func (*HelpGetCDNConfigRequest) TypeID() uint32 {
+	return HelpGetCDNConfigRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*HelpGetCdnConfigRequest) TypeName() string {
+func (*HelpGetCDNConfigRequest) TypeName() string {
 	return "help.getCdnConfig"
 }
 
 // TypeInfo returns info about TL type.
-func (g *HelpGetCdnConfigRequest) TypeInfo() tdp.Type {
+func (g *HelpGetCDNConfigRequest) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "help.getCdnConfig",
-		ID:   HelpGetCdnConfigRequestTypeID,
+		ID:   HelpGetCDNConfigRequestTypeID,
 	}
 	if g == nil {
 		typ.Null = true
@@ -79,32 +79,32 @@ func (g *HelpGetCdnConfigRequest) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (g *HelpGetCdnConfigRequest) Encode(b *bin.Buffer) error {
+func (g *HelpGetCDNConfigRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't encode help.getCdnConfig#52029342 as nil")
 	}
-	b.PutID(HelpGetCdnConfigRequestTypeID)
+	b.PutID(HelpGetCDNConfigRequestTypeID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (g *HelpGetCdnConfigRequest) Decode(b *bin.Buffer) error {
+func (g *HelpGetCDNConfigRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
 		return fmt.Errorf("can't decode help.getCdnConfig#52029342 to nil")
 	}
-	if err := b.ConsumeID(HelpGetCdnConfigRequestTypeID); err != nil {
+	if err := b.ConsumeID(HelpGetCDNConfigRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getCdnConfig#52029342: %w", err)
 	}
 	return nil
 }
 
-// Ensuring interfaces in compile-time for HelpGetCdnConfigRequest.
+// Ensuring interfaces in compile-time for HelpGetCDNConfigRequest.
 var (
-	_ bin.Encoder = &HelpGetCdnConfigRequest{}
-	_ bin.Decoder = &HelpGetCdnConfigRequest{}
+	_ bin.Encoder = &HelpGetCDNConfigRequest{}
+	_ bin.Decoder = &HelpGetCDNConfigRequest{}
 )
 
-// HelpGetCdnConfig invokes method help.getCdnConfig#52029342 returning error if any.
+// HelpGetCDNConfig invokes method help.getCdnConfig#52029342 returning error if any.
 // Get configuration for CDN¹ file downloads.
 //
 // Links:
@@ -115,10 +115,10 @@ var (
 //
 // See https://core.telegram.org/method/help.getCdnConfig for reference.
 // Can be used by bots.
-func (c *Client) HelpGetCdnConfig(ctx context.Context) (*CdnConfig, error) {
-	var result CdnConfig
+func (c *Client) HelpGetCDNConfig(ctx context.Context) (*CDNConfig, error) {
+	var result CDNConfig
 
-	request := &HelpGetCdnConfigRequest{}
+	request := &HelpGetCDNConfigRequest{}
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {
 		return nil, err
 	}

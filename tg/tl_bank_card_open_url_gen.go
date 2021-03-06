@@ -22,21 +22,21 @@ var _ = errors.Is
 var _ = sort.Ints
 var _ = tdp.Format
 
-// BankCardOpenUrl represents TL type `bankCardOpenUrl#f568028a`.
+// BankCardOpenURL represents TL type `bankCardOpenUrl#f568028a`.
 // Credit card info URL provided by the bank
 //
 // See https://core.telegram.org/constructor/bankCardOpenUrl for reference.
-type BankCardOpenUrl struct {
+type BankCardOpenURL struct {
 	// Info URL
 	URL string
 	// Bank name
 	Name string
 }
 
-// BankCardOpenUrlTypeID is TL type id of BankCardOpenUrl.
-const BankCardOpenUrlTypeID = 0xf568028a
+// BankCardOpenURLTypeID is TL type id of BankCardOpenURL.
+const BankCardOpenURLTypeID = 0xf568028a
 
-func (b *BankCardOpenUrl) Zero() bool {
+func (b *BankCardOpenURL) Zero() bool {
 	if b == nil {
 		return true
 	}
@@ -51,16 +51,16 @@ func (b *BankCardOpenUrl) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (b *BankCardOpenUrl) String() string {
+func (b *BankCardOpenURL) String() string {
 	if b == nil {
-		return "BankCardOpenUrl(nil)"
+		return "BankCardOpenURL(nil)"
 	}
-	type Alias BankCardOpenUrl
-	return fmt.Sprintf("BankCardOpenUrl%+v", Alias(*b))
+	type Alias BankCardOpenURL
+	return fmt.Sprintf("BankCardOpenURL%+v", Alias(*b))
 }
 
-// FillFrom fills BankCardOpenUrl from given interface.
-func (b *BankCardOpenUrl) FillFrom(from interface {
+// FillFrom fills BankCardOpenURL from given interface.
+func (b *BankCardOpenURL) FillFrom(from interface {
 	GetURL() (value string)
 	GetName() (value string)
 }) {
@@ -71,20 +71,20 @@ func (b *BankCardOpenUrl) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*BankCardOpenUrl) TypeID() uint32 {
-	return BankCardOpenUrlTypeID
+func (*BankCardOpenURL) TypeID() uint32 {
+	return BankCardOpenURLTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*BankCardOpenUrl) TypeName() string {
+func (*BankCardOpenURL) TypeName() string {
 	return "bankCardOpenUrl"
 }
 
 // TypeInfo returns info about TL type.
-func (b *BankCardOpenUrl) TypeInfo() tdp.Type {
+func (b *BankCardOpenURL) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "bankCardOpenUrl",
-		ID:   BankCardOpenUrlTypeID,
+		ID:   BankCardOpenURLTypeID,
 	}
 	if b == nil {
 		typ.Null = true
@@ -104,32 +104,32 @@ func (b *BankCardOpenUrl) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (b *BankCardOpenUrl) Encode(buf *bin.Buffer) error {
+func (b *BankCardOpenURL) Encode(buf *bin.Buffer) error {
 	if b == nil {
 		return fmt.Errorf("can't encode bankCardOpenUrl#f568028a as nil")
 	}
-	buf.PutID(BankCardOpenUrlTypeID)
+	buf.PutID(BankCardOpenURLTypeID)
 	buf.PutString(b.URL)
 	buf.PutString(b.Name)
 	return nil
 }
 
 // GetURL returns value of URL field.
-func (b *BankCardOpenUrl) GetURL() (value string) {
+func (b *BankCardOpenURL) GetURL() (value string) {
 	return b.URL
 }
 
 // GetName returns value of Name field.
-func (b *BankCardOpenUrl) GetName() (value string) {
+func (b *BankCardOpenURL) GetName() (value string) {
 	return b.Name
 }
 
 // Decode implements bin.Decoder.
-func (b *BankCardOpenUrl) Decode(buf *bin.Buffer) error {
+func (b *BankCardOpenURL) Decode(buf *bin.Buffer) error {
 	if b == nil {
 		return fmt.Errorf("can't decode bankCardOpenUrl#f568028a to nil")
 	}
-	if err := buf.ConsumeID(BankCardOpenUrlTypeID); err != nil {
+	if err := buf.ConsumeID(BankCardOpenURLTypeID); err != nil {
 		return fmt.Errorf("unable to decode bankCardOpenUrl#f568028a: %w", err)
 	}
 	{
@@ -149,8 +149,8 @@ func (b *BankCardOpenUrl) Decode(buf *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for BankCardOpenUrl.
+// Ensuring interfaces in compile-time for BankCardOpenURL.
 var (
-	_ bin.Encoder = &BankCardOpenUrl{}
-	_ bin.Decoder = &BankCardOpenUrl{}
+	_ bin.Encoder = &BankCardOpenURL{}
+	_ bin.Decoder = &BankCardOpenURL{}
 )

@@ -41,7 +41,7 @@ func NamesMap() map[string]uint32 {
 // TypesConstructorMap maps type ids to constructors.
 func TypesConstructorMap() map[uint32]func() bin.Object {
 	return map[uint32]func() bin.Object{
-		0x18b7a10d: func() bin.Object { return &DcOption{} },
+		0x18b7a10d: func() bin.Object { return &DCOption{} },
 		0x330b4067: func() bin.Object { return &Config{} },
 	}
 }

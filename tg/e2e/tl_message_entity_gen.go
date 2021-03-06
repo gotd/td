@@ -577,7 +577,7 @@ var (
 	_ MessageEntityClass = &MessageEntityBotCommand{}
 )
 
-// MessageEntityUrl represents TL type `messageEntityUrl#6ed02538`.
+// MessageEntityURL represents TL type `messageEntityUrl#6ed02538`.
 // Message entity representing an in-text url: https://google.com¹; for text urls², use messageEntityTextUrl³.
 //
 // Links:
@@ -586,17 +586,17 @@ var (
 //  3) https://core.telegram.org/constructor/messageEntityTextUrl
 //
 // See https://core.telegram.org/constructor/messageEntityUrl for reference.
-type MessageEntityUrl struct {
+type MessageEntityURL struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
 	Offset int
 	// Length of message entity within message (in UTF-8 codepoints)
 	Length int
 }
 
-// MessageEntityUrlTypeID is TL type id of MessageEntityUrl.
-const MessageEntityUrlTypeID = 0x6ed02538
+// MessageEntityURLTypeID is TL type id of MessageEntityURL.
+const MessageEntityURLTypeID = 0x6ed02538
 
-func (m *MessageEntityUrl) Zero() bool {
+func (m *MessageEntityURL) Zero() bool {
 	if m == nil {
 		return true
 	}
@@ -611,16 +611,16 @@ func (m *MessageEntityUrl) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (m *MessageEntityUrl) String() string {
+func (m *MessageEntityURL) String() string {
 	if m == nil {
-		return "MessageEntityUrl(nil)"
+		return "MessageEntityURL(nil)"
 	}
-	type Alias MessageEntityUrl
-	return fmt.Sprintf("MessageEntityUrl%+v", Alias(*m))
+	type Alias MessageEntityURL
+	return fmt.Sprintf("MessageEntityURL%+v", Alias(*m))
 }
 
-// FillFrom fills MessageEntityUrl from given interface.
-func (m *MessageEntityUrl) FillFrom(from interface {
+// FillFrom fills MessageEntityURL from given interface.
+func (m *MessageEntityURL) FillFrom(from interface {
 	GetOffset() (value int)
 	GetLength() (value int)
 }) {
@@ -631,20 +631,20 @@ func (m *MessageEntityUrl) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*MessageEntityUrl) TypeID() uint32 {
-	return MessageEntityUrlTypeID
+func (*MessageEntityURL) TypeID() uint32 {
+	return MessageEntityURLTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*MessageEntityUrl) TypeName() string {
+func (*MessageEntityURL) TypeName() string {
 	return "messageEntityUrl"
 }
 
 // TypeInfo returns info about TL type.
-func (m *MessageEntityUrl) TypeInfo() tdp.Type {
+func (m *MessageEntityURL) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "messageEntityUrl",
-		ID:   MessageEntityUrlTypeID,
+		ID:   MessageEntityURLTypeID,
 	}
 	if m == nil {
 		typ.Null = true
@@ -664,32 +664,32 @@ func (m *MessageEntityUrl) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (m *MessageEntityUrl) Encode(b *bin.Buffer) error {
+func (m *MessageEntityURL) Encode(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageEntityUrl#6ed02538 as nil")
 	}
-	b.PutID(MessageEntityUrlTypeID)
+	b.PutID(MessageEntityURLTypeID)
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
 	return nil
 }
 
 // GetOffset returns value of Offset field.
-func (m *MessageEntityUrl) GetOffset() (value int) {
+func (m *MessageEntityURL) GetOffset() (value int) {
 	return m.Offset
 }
 
 // GetLength returns value of Length field.
-func (m *MessageEntityUrl) GetLength() (value int) {
+func (m *MessageEntityURL) GetLength() (value int) {
 	return m.Length
 }
 
 // Decode implements bin.Decoder.
-func (m *MessageEntityUrl) Decode(b *bin.Buffer) error {
+func (m *MessageEntityURL) Decode(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't decode messageEntityUrl#6ed02538 to nil")
 	}
-	if err := b.ConsumeID(MessageEntityUrlTypeID); err != nil {
+	if err := b.ConsumeID(MessageEntityURLTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageEntityUrl#6ed02538: %w", err)
 	}
 	{
@@ -710,14 +710,14 @@ func (m *MessageEntityUrl) Decode(b *bin.Buffer) error {
 }
 
 // construct implements constructor of MessageEntityClass.
-func (m MessageEntityUrl) construct() MessageEntityClass { return &m }
+func (m MessageEntityURL) construct() MessageEntityClass { return &m }
 
-// Ensuring interfaces in compile-time for MessageEntityUrl.
+// Ensuring interfaces in compile-time for MessageEntityURL.
 var (
-	_ bin.Encoder = &MessageEntityUrl{}
-	_ bin.Decoder = &MessageEntityUrl{}
+	_ bin.Encoder = &MessageEntityURL{}
+	_ bin.Decoder = &MessageEntityURL{}
 
-	_ MessageEntityClass = &MessageEntityUrl{}
+	_ MessageEntityClass = &MessageEntityURL{}
 )
 
 // MessageEntityEmail represents TL type `messageEntityEmail#64e475c2`.
@@ -1437,7 +1437,7 @@ var (
 	_ MessageEntityClass = &MessageEntityPre{}
 )
 
-// MessageEntityTextUrl represents TL type `messageEntityTextUrl#76a6d327`.
+// MessageEntityTextURL represents TL type `messageEntityTextUrl#76a6d327`.
 // Message entity representing a text url¹: for in-text urls like https://google.com² use messageEntityUrl³.
 //
 // Links:
@@ -1446,7 +1446,7 @@ var (
 //  3) https://core.telegram.org/constructor/messageEntityUrl
 //
 // See https://core.telegram.org/constructor/messageEntityTextUrl for reference.
-type MessageEntityTextUrl struct {
+type MessageEntityTextURL struct {
 	// Offset of message entity within message (in UTF-8 codepoints)
 	Offset int
 	// Length of message entity within message (in UTF-8 codepoints)
@@ -1455,10 +1455,10 @@ type MessageEntityTextUrl struct {
 	URL string
 }
 
-// MessageEntityTextUrlTypeID is TL type id of MessageEntityTextUrl.
-const MessageEntityTextUrlTypeID = 0x76a6d327
+// MessageEntityTextURLTypeID is TL type id of MessageEntityTextURL.
+const MessageEntityTextURLTypeID = 0x76a6d327
 
-func (m *MessageEntityTextUrl) Zero() bool {
+func (m *MessageEntityTextURL) Zero() bool {
 	if m == nil {
 		return true
 	}
@@ -1476,16 +1476,16 @@ func (m *MessageEntityTextUrl) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (m *MessageEntityTextUrl) String() string {
+func (m *MessageEntityTextURL) String() string {
 	if m == nil {
-		return "MessageEntityTextUrl(nil)"
+		return "MessageEntityTextURL(nil)"
 	}
-	type Alias MessageEntityTextUrl
-	return fmt.Sprintf("MessageEntityTextUrl%+v", Alias(*m))
+	type Alias MessageEntityTextURL
+	return fmt.Sprintf("MessageEntityTextURL%+v", Alias(*m))
 }
 
-// FillFrom fills MessageEntityTextUrl from given interface.
-func (m *MessageEntityTextUrl) FillFrom(from interface {
+// FillFrom fills MessageEntityTextURL from given interface.
+func (m *MessageEntityTextURL) FillFrom(from interface {
 	GetOffset() (value int)
 	GetLength() (value int)
 	GetURL() (value string)
@@ -1498,20 +1498,20 @@ func (m *MessageEntityTextUrl) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*MessageEntityTextUrl) TypeID() uint32 {
-	return MessageEntityTextUrlTypeID
+func (*MessageEntityTextURL) TypeID() uint32 {
+	return MessageEntityTextURLTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*MessageEntityTextUrl) TypeName() string {
+func (*MessageEntityTextURL) TypeName() string {
 	return "messageEntityTextUrl"
 }
 
 // TypeInfo returns info about TL type.
-func (m *MessageEntityTextUrl) TypeInfo() tdp.Type {
+func (m *MessageEntityTextURL) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "messageEntityTextUrl",
-		ID:   MessageEntityTextUrlTypeID,
+		ID:   MessageEntityTextURLTypeID,
 	}
 	if m == nil {
 		typ.Null = true
@@ -1535,11 +1535,11 @@ func (m *MessageEntityTextUrl) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (m *MessageEntityTextUrl) Encode(b *bin.Buffer) error {
+func (m *MessageEntityTextURL) Encode(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't encode messageEntityTextUrl#76a6d327 as nil")
 	}
-	b.PutID(MessageEntityTextUrlTypeID)
+	b.PutID(MessageEntityTextURLTypeID)
 	b.PutInt(m.Offset)
 	b.PutInt(m.Length)
 	b.PutString(m.URL)
@@ -1547,26 +1547,26 @@ func (m *MessageEntityTextUrl) Encode(b *bin.Buffer) error {
 }
 
 // GetOffset returns value of Offset field.
-func (m *MessageEntityTextUrl) GetOffset() (value int) {
+func (m *MessageEntityTextURL) GetOffset() (value int) {
 	return m.Offset
 }
 
 // GetLength returns value of Length field.
-func (m *MessageEntityTextUrl) GetLength() (value int) {
+func (m *MessageEntityTextURL) GetLength() (value int) {
 	return m.Length
 }
 
 // GetURL returns value of URL field.
-func (m *MessageEntityTextUrl) GetURL() (value string) {
+func (m *MessageEntityTextURL) GetURL() (value string) {
 	return m.URL
 }
 
 // Decode implements bin.Decoder.
-func (m *MessageEntityTextUrl) Decode(b *bin.Buffer) error {
+func (m *MessageEntityTextURL) Decode(b *bin.Buffer) error {
 	if m == nil {
 		return fmt.Errorf("can't decode messageEntityTextUrl#76a6d327 to nil")
 	}
-	if err := b.ConsumeID(MessageEntityTextUrlTypeID); err != nil {
+	if err := b.ConsumeID(MessageEntityTextURLTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageEntityTextUrl#76a6d327: %w", err)
 	}
 	{
@@ -1594,14 +1594,14 @@ func (m *MessageEntityTextUrl) Decode(b *bin.Buffer) error {
 }
 
 // construct implements constructor of MessageEntityClass.
-func (m MessageEntityTextUrl) construct() MessageEntityClass { return &m }
+func (m MessageEntityTextURL) construct() MessageEntityClass { return &m }
 
-// Ensuring interfaces in compile-time for MessageEntityTextUrl.
+// Ensuring interfaces in compile-time for MessageEntityTextURL.
 var (
-	_ bin.Encoder = &MessageEntityTextUrl{}
-	_ bin.Decoder = &MessageEntityTextUrl{}
+	_ bin.Encoder = &MessageEntityTextURL{}
+	_ bin.Decoder = &MessageEntityTextURL{}
 
-	_ MessageEntityClass = &MessageEntityTextUrl{}
+	_ MessageEntityClass = &MessageEntityTextURL{}
 )
 
 // MessageEntityMentionName represents TL type `messageEntityMentionName#352dca58`.
@@ -2612,13 +2612,13 @@ var (
 //  case *e2e.MessageEntityMention: // messageEntityMention#fa04579d
 //  case *e2e.MessageEntityHashtag: // messageEntityHashtag#6f635b0d
 //  case *e2e.MessageEntityBotCommand: // messageEntityBotCommand#6cef8ac7
-//  case *e2e.MessageEntityUrl: // messageEntityUrl#6ed02538
+//  case *e2e.MessageEntityURL: // messageEntityUrl#6ed02538
 //  case *e2e.MessageEntityEmail: // messageEntityEmail#64e475c2
 //  case *e2e.MessageEntityBold: // messageEntityBold#bd610bc9
 //  case *e2e.MessageEntityItalic: // messageEntityItalic#826f8b60
 //  case *e2e.MessageEntityCode: // messageEntityCode#28a20571
 //  case *e2e.MessageEntityPre: // messageEntityPre#73924be0
-//  case *e2e.MessageEntityTextUrl: // messageEntityTextUrl#76a6d327
+//  case *e2e.MessageEntityTextURL: // messageEntityTextUrl#76a6d327
 //  case *e2e.MessageEntityMentionName: // messageEntityMentionName#352dca58
 //  case *e2e.MessageEntityPhone: // messageEntityPhone#9b69e34b
 //  case *e2e.MessageEntityCashtag: // messageEntityCashtag#4c4e743f
@@ -2685,9 +2685,9 @@ func DecodeMessageEntity(buf *bin.Buffer) (MessageEntityClass, error) {
 			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
 		}
 		return &v, nil
-	case MessageEntityUrlTypeID:
+	case MessageEntityURLTypeID:
 		// Decoding messageEntityUrl#6ed02538.
-		v := MessageEntityUrl{}
+		v := MessageEntityURL{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
 		}
@@ -2727,9 +2727,9 @@ func DecodeMessageEntity(buf *bin.Buffer) (MessageEntityClass, error) {
 			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
 		}
 		return &v, nil
-	case MessageEntityTextUrlTypeID:
+	case MessageEntityTextURLTypeID:
 		// Decoding messageEntityTextUrl#76a6d327.
-		v := MessageEntityTextUrl{}
+		v := MessageEntityTextURL{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageEntityClass: %w", err)
 		}
@@ -2948,10 +2948,10 @@ func (s MessageEntityClassArray) AsMessageEntityBotCommand() (to MessageEntityBo
 	return to
 }
 
-// AsMessageEntityUrl returns copy with only MessageEntityUrl constructors.
-func (s MessageEntityClassArray) AsMessageEntityUrl() (to MessageEntityUrlArray) {
+// AsMessageEntityURL returns copy with only MessageEntityURL constructors.
+func (s MessageEntityClassArray) AsMessageEntityURL() (to MessageEntityURLArray) {
 	for _, elem := range s {
-		value, ok := elem.(*MessageEntityUrl)
+		value, ok := elem.(*MessageEntityURL)
 		if !ok {
 			continue
 		}
@@ -3026,10 +3026,10 @@ func (s MessageEntityClassArray) AsMessageEntityPre() (to MessageEntityPreArray)
 	return to
 }
 
-// AsMessageEntityTextUrl returns copy with only MessageEntityTextUrl constructors.
-func (s MessageEntityClassArray) AsMessageEntityTextUrl() (to MessageEntityTextUrlArray) {
+// AsMessageEntityTextURL returns copy with only MessageEntityTextURL constructors.
+func (s MessageEntityClassArray) AsMessageEntityTextURL() (to MessageEntityTextURLArray) {
 	for _, elem := range s {
-		value, ok := elem.(*MessageEntityTextUrl)
+		value, ok := elem.(*MessageEntityTextURL)
 		if !ok {
 			continue
 		}
@@ -3458,27 +3458,27 @@ func (s *MessageEntityBotCommandArray) Pop() (v MessageEntityBotCommand, ok bool
 	return v, true
 }
 
-// MessageEntityUrlArray is adapter for slice of MessageEntityUrl.
-type MessageEntityUrlArray []MessageEntityUrl
+// MessageEntityURLArray is adapter for slice of MessageEntityURL.
+type MessageEntityURLArray []MessageEntityURL
 
-// Sort sorts slice of MessageEntityUrl.
-func (s MessageEntityUrlArray) Sort(less func(a, b MessageEntityUrl) bool) MessageEntityUrlArray {
+// Sort sorts slice of MessageEntityURL.
+func (s MessageEntityURLArray) Sort(less func(a, b MessageEntityURL) bool) MessageEntityURLArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of MessageEntityUrl.
-func (s MessageEntityUrlArray) SortStable(less func(a, b MessageEntityUrl) bool) MessageEntityUrlArray {
+// SortStable sorts slice of MessageEntityURL.
+func (s MessageEntityURLArray) SortStable(less func(a, b MessageEntityURL) bool) MessageEntityURLArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of MessageEntityUrl.
-func (s MessageEntityUrlArray) Retain(keep func(x MessageEntityUrl) bool) MessageEntityUrlArray {
+// Retain filters in-place slice of MessageEntityURL.
+func (s MessageEntityURLArray) Retain(keep func(x MessageEntityURL) bool) MessageEntityURLArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -3492,7 +3492,7 @@ func (s MessageEntityUrlArray) Retain(keep func(x MessageEntityUrl) bool) Messag
 }
 
 // First returns first element of slice (if exists).
-func (s MessageEntityUrlArray) First() (v MessageEntityUrl, ok bool) {
+func (s MessageEntityURLArray) First() (v MessageEntityURL, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -3500,7 +3500,7 @@ func (s MessageEntityUrlArray) First() (v MessageEntityUrl, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s MessageEntityUrlArray) Last() (v MessageEntityUrl, ok bool) {
+func (s MessageEntityURLArray) Last() (v MessageEntityURL, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -3508,7 +3508,7 @@ func (s MessageEntityUrlArray) Last() (v MessageEntityUrl, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageEntityUrlArray) PopFirst() (v MessageEntityUrl, ok bool) {
+func (s *MessageEntityURLArray) PopFirst() (v MessageEntityURL, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -3518,7 +3518,7 @@ func (s *MessageEntityUrlArray) PopFirst() (v MessageEntityUrl, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero MessageEntityUrl
+	var zero MessageEntityURL
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -3527,7 +3527,7 @@ func (s *MessageEntityUrlArray) PopFirst() (v MessageEntityUrl, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageEntityUrlArray) Pop() (v MessageEntityUrl, ok bool) {
+func (s *MessageEntityURLArray) Pop() (v MessageEntityURL, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -3950,27 +3950,27 @@ func (s *MessageEntityPreArray) Pop() (v MessageEntityPre, ok bool) {
 	return v, true
 }
 
-// MessageEntityTextUrlArray is adapter for slice of MessageEntityTextUrl.
-type MessageEntityTextUrlArray []MessageEntityTextUrl
+// MessageEntityTextURLArray is adapter for slice of MessageEntityTextURL.
+type MessageEntityTextURLArray []MessageEntityTextURL
 
-// Sort sorts slice of MessageEntityTextUrl.
-func (s MessageEntityTextUrlArray) Sort(less func(a, b MessageEntityTextUrl) bool) MessageEntityTextUrlArray {
+// Sort sorts slice of MessageEntityTextURL.
+func (s MessageEntityTextURLArray) Sort(less func(a, b MessageEntityTextURL) bool) MessageEntityTextURLArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of MessageEntityTextUrl.
-func (s MessageEntityTextUrlArray) SortStable(less func(a, b MessageEntityTextUrl) bool) MessageEntityTextUrlArray {
+// SortStable sorts slice of MessageEntityTextURL.
+func (s MessageEntityTextURLArray) SortStable(less func(a, b MessageEntityTextURL) bool) MessageEntityTextURLArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of MessageEntityTextUrl.
-func (s MessageEntityTextUrlArray) Retain(keep func(x MessageEntityTextUrl) bool) MessageEntityTextUrlArray {
+// Retain filters in-place slice of MessageEntityTextURL.
+func (s MessageEntityTextURLArray) Retain(keep func(x MessageEntityTextURL) bool) MessageEntityTextURLArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -3984,7 +3984,7 @@ func (s MessageEntityTextUrlArray) Retain(keep func(x MessageEntityTextUrl) bool
 }
 
 // First returns first element of slice (if exists).
-func (s MessageEntityTextUrlArray) First() (v MessageEntityTextUrl, ok bool) {
+func (s MessageEntityTextURLArray) First() (v MessageEntityTextURL, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -3992,7 +3992,7 @@ func (s MessageEntityTextUrlArray) First() (v MessageEntityTextUrl, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s MessageEntityTextUrlArray) Last() (v MessageEntityTextUrl, ok bool) {
+func (s MessageEntityTextURLArray) Last() (v MessageEntityTextURL, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -4000,7 +4000,7 @@ func (s MessageEntityTextUrlArray) Last() (v MessageEntityTextUrl, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *MessageEntityTextUrlArray) PopFirst() (v MessageEntityTextUrl, ok bool) {
+func (s *MessageEntityTextURLArray) PopFirst() (v MessageEntityTextURL, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -4010,7 +4010,7 @@ func (s *MessageEntityTextUrlArray) PopFirst() (v MessageEntityTextUrl, ok bool)
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero MessageEntityTextUrl
+	var zero MessageEntityTextURL
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -4019,7 +4019,7 @@ func (s *MessageEntityTextUrlArray) PopFirst() (v MessageEntityTextUrl, ok bool)
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *MessageEntityTextUrlArray) Pop() (v MessageEntityTextUrl, ok bool) {
+func (s *MessageEntityTextURLArray) Pop() (v MessageEntityTextURL, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

@@ -22,24 +22,24 @@ var _ = errors.Is
 var _ = sort.Ints
 var _ = tdp.Format
 
-// UploadReuploadCdnFileRequest represents TL type `upload.reuploadCdnFile#9b2754a8`.
+// UploadReuploadCDNFileRequest represents TL type `upload.reuploadCdnFile#9b2754a8`.
 // Request a reupload of a certain file to a CDN DC¹.
 //
 // Links:
 //  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/method/upload.reuploadCdnFile for reference.
-type UploadReuploadCdnFileRequest struct {
+type UploadReuploadCDNFileRequest struct {
 	// File token
 	FileToken []byte
 	// Request token
 	RequestToken []byte
 }
 
-// UploadReuploadCdnFileRequestTypeID is TL type id of UploadReuploadCdnFileRequest.
-const UploadReuploadCdnFileRequestTypeID = 0x9b2754a8
+// UploadReuploadCDNFileRequestTypeID is TL type id of UploadReuploadCDNFileRequest.
+const UploadReuploadCDNFileRequestTypeID = 0x9b2754a8
 
-func (r *UploadReuploadCdnFileRequest) Zero() bool {
+func (r *UploadReuploadCDNFileRequest) Zero() bool {
 	if r == nil {
 		return true
 	}
@@ -54,16 +54,16 @@ func (r *UploadReuploadCdnFileRequest) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (r *UploadReuploadCdnFileRequest) String() string {
+func (r *UploadReuploadCDNFileRequest) String() string {
 	if r == nil {
-		return "UploadReuploadCdnFileRequest(nil)"
+		return "UploadReuploadCDNFileRequest(nil)"
 	}
-	type Alias UploadReuploadCdnFileRequest
-	return fmt.Sprintf("UploadReuploadCdnFileRequest%+v", Alias(*r))
+	type Alias UploadReuploadCDNFileRequest
+	return fmt.Sprintf("UploadReuploadCDNFileRequest%+v", Alias(*r))
 }
 
-// FillFrom fills UploadReuploadCdnFileRequest from given interface.
-func (r *UploadReuploadCdnFileRequest) FillFrom(from interface {
+// FillFrom fills UploadReuploadCDNFileRequest from given interface.
+func (r *UploadReuploadCDNFileRequest) FillFrom(from interface {
 	GetFileToken() (value []byte)
 	GetRequestToken() (value []byte)
 }) {
@@ -74,20 +74,20 @@ func (r *UploadReuploadCdnFileRequest) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UploadReuploadCdnFileRequest) TypeID() uint32 {
-	return UploadReuploadCdnFileRequestTypeID
+func (*UploadReuploadCDNFileRequest) TypeID() uint32 {
+	return UploadReuploadCDNFileRequestTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*UploadReuploadCdnFileRequest) TypeName() string {
+func (*UploadReuploadCDNFileRequest) TypeName() string {
 	return "upload.reuploadCdnFile"
 }
 
 // TypeInfo returns info about TL type.
-func (r *UploadReuploadCdnFileRequest) TypeInfo() tdp.Type {
+func (r *UploadReuploadCDNFileRequest) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "upload.reuploadCdnFile",
-		ID:   UploadReuploadCdnFileRequestTypeID,
+		ID:   UploadReuploadCDNFileRequestTypeID,
 	}
 	if r == nil {
 		typ.Null = true
@@ -107,32 +107,32 @@ func (r *UploadReuploadCdnFileRequest) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (r *UploadReuploadCdnFileRequest) Encode(b *bin.Buffer) error {
+func (r *UploadReuploadCDNFileRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't encode upload.reuploadCdnFile#9b2754a8 as nil")
 	}
-	b.PutID(UploadReuploadCdnFileRequestTypeID)
+	b.PutID(UploadReuploadCDNFileRequestTypeID)
 	b.PutBytes(r.FileToken)
 	b.PutBytes(r.RequestToken)
 	return nil
 }
 
 // GetFileToken returns value of FileToken field.
-func (r *UploadReuploadCdnFileRequest) GetFileToken() (value []byte) {
+func (r *UploadReuploadCDNFileRequest) GetFileToken() (value []byte) {
 	return r.FileToken
 }
 
 // GetRequestToken returns value of RequestToken field.
-func (r *UploadReuploadCdnFileRequest) GetRequestToken() (value []byte) {
+func (r *UploadReuploadCDNFileRequest) GetRequestToken() (value []byte) {
 	return r.RequestToken
 }
 
 // Decode implements bin.Decoder.
-func (r *UploadReuploadCdnFileRequest) Decode(b *bin.Buffer) error {
+func (r *UploadReuploadCDNFileRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
 		return fmt.Errorf("can't decode upload.reuploadCdnFile#9b2754a8 to nil")
 	}
-	if err := b.ConsumeID(UploadReuploadCdnFileRequestTypeID); err != nil {
+	if err := b.ConsumeID(UploadReuploadCDNFileRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.reuploadCdnFile#9b2754a8: %w", err)
 	}
 	{
@@ -152,13 +152,13 @@ func (r *UploadReuploadCdnFileRequest) Decode(b *bin.Buffer) error {
 	return nil
 }
 
-// Ensuring interfaces in compile-time for UploadReuploadCdnFileRequest.
+// Ensuring interfaces in compile-time for UploadReuploadCDNFileRequest.
 var (
-	_ bin.Encoder = &UploadReuploadCdnFileRequest{}
-	_ bin.Decoder = &UploadReuploadCdnFileRequest{}
+	_ bin.Encoder = &UploadReuploadCDNFileRequest{}
+	_ bin.Decoder = &UploadReuploadCDNFileRequest{}
 )
 
-// UploadReuploadCdnFile invokes method upload.reuploadCdnFile#9b2754a8 returning error if any.
+// UploadReuploadCDNFile invokes method upload.reuploadCdnFile#9b2754a8 returning error if any.
 // Request a reupload of a certain file to a CDN DC¹.
 //
 // Links:
@@ -169,7 +169,7 @@ var (
 //
 // See https://core.telegram.org/method/upload.reuploadCdnFile for reference.
 // Can be used by bots.
-func (c *Client) UploadReuploadCdnFile(ctx context.Context, request *UploadReuploadCdnFileRequest) ([]FileHash, error) {
+func (c *Client) UploadReuploadCDNFile(ctx context.Context, request *UploadReuploadCDNFileRequest) ([]FileHash, error) {
 	var result FileHashVector
 
 	if err := c.rpc.InvokeRaw(ctx, request, &result); err != nil {

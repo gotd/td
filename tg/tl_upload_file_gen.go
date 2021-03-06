@@ -189,14 +189,14 @@ var (
 	_ UploadFileClass = &UploadFile{}
 )
 
-// UploadFileCdnRedirect represents TL type `upload.fileCdnRedirect#f18cda44`.
+// UploadFileCDNRedirect represents TL type `upload.fileCdnRedirect#f18cda44`.
 // The file must be downloaded from a CDN DC¹.
 //
 // Links:
 //  1) https://core.telegram.org/cdn
 //
 // See https://core.telegram.org/constructor/upload.fileCdnRedirect for reference.
-type UploadFileCdnRedirect struct {
+type UploadFileCDNRedirect struct {
 	// CDN DC¹ ID
 	//
 	// Links:
@@ -224,10 +224,10 @@ type UploadFileCdnRedirect struct {
 	FileHashes []FileHash
 }
 
-// UploadFileCdnRedirectTypeID is TL type id of UploadFileCdnRedirect.
-const UploadFileCdnRedirectTypeID = 0xf18cda44
+// UploadFileCDNRedirectTypeID is TL type id of UploadFileCDNRedirect.
+const UploadFileCDNRedirectTypeID = 0xf18cda44
 
-func (f *UploadFileCdnRedirect) Zero() bool {
+func (f *UploadFileCDNRedirect) Zero() bool {
 	if f == nil {
 		return true
 	}
@@ -251,16 +251,16 @@ func (f *UploadFileCdnRedirect) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (f *UploadFileCdnRedirect) String() string {
+func (f *UploadFileCDNRedirect) String() string {
 	if f == nil {
-		return "UploadFileCdnRedirect(nil)"
+		return "UploadFileCDNRedirect(nil)"
 	}
-	type Alias UploadFileCdnRedirect
-	return fmt.Sprintf("UploadFileCdnRedirect%+v", Alias(*f))
+	type Alias UploadFileCDNRedirect
+	return fmt.Sprintf("UploadFileCDNRedirect%+v", Alias(*f))
 }
 
-// FillFrom fills UploadFileCdnRedirect from given interface.
-func (f *UploadFileCdnRedirect) FillFrom(from interface {
+// FillFrom fills UploadFileCDNRedirect from given interface.
+func (f *UploadFileCDNRedirect) FillFrom(from interface {
 	GetDCID() (value int)
 	GetFileToken() (value []byte)
 	GetEncryptionKey() (value []byte)
@@ -277,20 +277,20 @@ func (f *UploadFileCdnRedirect) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*UploadFileCdnRedirect) TypeID() uint32 {
-	return UploadFileCdnRedirectTypeID
+func (*UploadFileCDNRedirect) TypeID() uint32 {
+	return UploadFileCDNRedirectTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*UploadFileCdnRedirect) TypeName() string {
+func (*UploadFileCDNRedirect) TypeName() string {
 	return "upload.fileCdnRedirect"
 }
 
 // TypeInfo returns info about TL type.
-func (f *UploadFileCdnRedirect) TypeInfo() tdp.Type {
+func (f *UploadFileCDNRedirect) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "upload.fileCdnRedirect",
-		ID:   UploadFileCdnRedirectTypeID,
+		ID:   UploadFileCDNRedirectTypeID,
 	}
 	if f == nil {
 		typ.Null = true
@@ -322,11 +322,11 @@ func (f *UploadFileCdnRedirect) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (f *UploadFileCdnRedirect) Encode(b *bin.Buffer) error {
+func (f *UploadFileCDNRedirect) Encode(b *bin.Buffer) error {
 	if f == nil {
 		return fmt.Errorf("can't encode upload.fileCdnRedirect#f18cda44 as nil")
 	}
-	b.PutID(UploadFileCdnRedirectTypeID)
+	b.PutID(UploadFileCDNRedirectTypeID)
 	b.PutInt(f.DCID)
 	b.PutBytes(f.FileToken)
 	b.PutBytes(f.EncryptionKey)
@@ -341,36 +341,36 @@ func (f *UploadFileCdnRedirect) Encode(b *bin.Buffer) error {
 }
 
 // GetDCID returns value of DCID field.
-func (f *UploadFileCdnRedirect) GetDCID() (value int) {
+func (f *UploadFileCDNRedirect) GetDCID() (value int) {
 	return f.DCID
 }
 
 // GetFileToken returns value of FileToken field.
-func (f *UploadFileCdnRedirect) GetFileToken() (value []byte) {
+func (f *UploadFileCDNRedirect) GetFileToken() (value []byte) {
 	return f.FileToken
 }
 
 // GetEncryptionKey returns value of EncryptionKey field.
-func (f *UploadFileCdnRedirect) GetEncryptionKey() (value []byte) {
+func (f *UploadFileCDNRedirect) GetEncryptionKey() (value []byte) {
 	return f.EncryptionKey
 }
 
 // GetEncryptionIv returns value of EncryptionIv field.
-func (f *UploadFileCdnRedirect) GetEncryptionIv() (value []byte) {
+func (f *UploadFileCDNRedirect) GetEncryptionIv() (value []byte) {
 	return f.EncryptionIv
 }
 
 // GetFileHashes returns value of FileHashes field.
-func (f *UploadFileCdnRedirect) GetFileHashes() (value []FileHash) {
+func (f *UploadFileCDNRedirect) GetFileHashes() (value []FileHash) {
 	return f.FileHashes
 }
 
 // Decode implements bin.Decoder.
-func (f *UploadFileCdnRedirect) Decode(b *bin.Buffer) error {
+func (f *UploadFileCDNRedirect) Decode(b *bin.Buffer) error {
 	if f == nil {
 		return fmt.Errorf("can't decode upload.fileCdnRedirect#f18cda44 to nil")
 	}
-	if err := b.ConsumeID(UploadFileCdnRedirectTypeID); err != nil {
+	if err := b.ConsumeID(UploadFileCDNRedirectTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.fileCdnRedirect#f18cda44: %w", err)
 	}
 	{
@@ -418,14 +418,14 @@ func (f *UploadFileCdnRedirect) Decode(b *bin.Buffer) error {
 }
 
 // construct implements constructor of UploadFileClass.
-func (f UploadFileCdnRedirect) construct() UploadFileClass { return &f }
+func (f UploadFileCDNRedirect) construct() UploadFileClass { return &f }
 
-// Ensuring interfaces in compile-time for UploadFileCdnRedirect.
+// Ensuring interfaces in compile-time for UploadFileCDNRedirect.
 var (
-	_ bin.Encoder = &UploadFileCdnRedirect{}
-	_ bin.Decoder = &UploadFileCdnRedirect{}
+	_ bin.Encoder = &UploadFileCDNRedirect{}
+	_ bin.Decoder = &UploadFileCDNRedirect{}
 
-	_ UploadFileClass = &UploadFileCdnRedirect{}
+	_ UploadFileClass = &UploadFileCDNRedirect{}
 )
 
 // UploadFileClass represents upload.File generic type.
@@ -439,7 +439,7 @@ var (
 //  }
 //  switch v := g.(type) {
 //  case *tg.UploadFile: // upload.file#96a18d5
-//  case *tg.UploadFileCdnRedirect: // upload.fileCdnRedirect#f18cda44
+//  case *tg.UploadFileCDNRedirect: // upload.fileCdnRedirect#f18cda44
 //  default: panic(v)
 //  }
 type UploadFileClass interface {
@@ -473,9 +473,9 @@ func DecodeUploadFile(buf *bin.Buffer) (UploadFileClass, error) {
 			return nil, fmt.Errorf("unable to decode UploadFileClass: %w", err)
 		}
 		return &v, nil
-	case UploadFileCdnRedirectTypeID:
+	case UploadFileCDNRedirectTypeID:
 		// Decoding upload.fileCdnRedirect#f18cda44.
-		v := UploadFileCdnRedirect{}
+		v := UploadFileCDNRedirect{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode UploadFileClass: %w", err)
 		}
@@ -606,10 +606,10 @@ func (s UploadFileClassArray) AsUploadFile() (to UploadFileArray) {
 	return to
 }
 
-// AsUploadFileCdnRedirect returns copy with only UploadFileCdnRedirect constructors.
-func (s UploadFileClassArray) AsUploadFileCdnRedirect() (to UploadFileCdnRedirectArray) {
+// AsUploadFileCDNRedirect returns copy with only UploadFileCDNRedirect constructors.
+func (s UploadFileClassArray) AsUploadFileCDNRedirect() (to UploadFileCDNRedirectArray) {
 	for _, elem := range s {
-		value, ok := elem.(*UploadFileCdnRedirect)
+		value, ok := elem.(*UploadFileCDNRedirect)
 		if !ok {
 			continue
 		}
@@ -701,27 +701,27 @@ func (s *UploadFileArray) Pop() (v UploadFile, ok bool) {
 	return v, true
 }
 
-// UploadFileCdnRedirectArray is adapter for slice of UploadFileCdnRedirect.
-type UploadFileCdnRedirectArray []UploadFileCdnRedirect
+// UploadFileCDNRedirectArray is adapter for slice of UploadFileCDNRedirect.
+type UploadFileCDNRedirectArray []UploadFileCDNRedirect
 
-// Sort sorts slice of UploadFileCdnRedirect.
-func (s UploadFileCdnRedirectArray) Sort(less func(a, b UploadFileCdnRedirect) bool) UploadFileCdnRedirectArray {
+// Sort sorts slice of UploadFileCDNRedirect.
+func (s UploadFileCDNRedirectArray) Sort(less func(a, b UploadFileCDNRedirect) bool) UploadFileCDNRedirectArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of UploadFileCdnRedirect.
-func (s UploadFileCdnRedirectArray) SortStable(less func(a, b UploadFileCdnRedirect) bool) UploadFileCdnRedirectArray {
+// SortStable sorts slice of UploadFileCDNRedirect.
+func (s UploadFileCDNRedirectArray) SortStable(less func(a, b UploadFileCDNRedirect) bool) UploadFileCDNRedirectArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of UploadFileCdnRedirect.
-func (s UploadFileCdnRedirectArray) Retain(keep func(x UploadFileCdnRedirect) bool) UploadFileCdnRedirectArray {
+// Retain filters in-place slice of UploadFileCDNRedirect.
+func (s UploadFileCDNRedirectArray) Retain(keep func(x UploadFileCDNRedirect) bool) UploadFileCDNRedirectArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -735,7 +735,7 @@ func (s UploadFileCdnRedirectArray) Retain(keep func(x UploadFileCdnRedirect) bo
 }
 
 // First returns first element of slice (if exists).
-func (s UploadFileCdnRedirectArray) First() (v UploadFileCdnRedirect, ok bool) {
+func (s UploadFileCDNRedirectArray) First() (v UploadFileCDNRedirect, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -743,7 +743,7 @@ func (s UploadFileCdnRedirectArray) First() (v UploadFileCdnRedirect, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s UploadFileCdnRedirectArray) Last() (v UploadFileCdnRedirect, ok bool) {
+func (s UploadFileCDNRedirectArray) Last() (v UploadFileCDNRedirect, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -751,7 +751,7 @@ func (s UploadFileCdnRedirectArray) Last() (v UploadFileCdnRedirect, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *UploadFileCdnRedirectArray) PopFirst() (v UploadFileCdnRedirect, ok bool) {
+func (s *UploadFileCDNRedirectArray) PopFirst() (v UploadFileCDNRedirect, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -761,7 +761,7 @@ func (s *UploadFileCdnRedirectArray) PopFirst() (v UploadFileCdnRedirect, ok boo
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero UploadFileCdnRedirect
+	var zero UploadFileCDNRedirect
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -770,7 +770,7 @@ func (s *UploadFileCdnRedirectArray) PopFirst() (v UploadFileCdnRedirect, ok boo
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *UploadFileCdnRedirectArray) Pop() (v UploadFileCdnRedirect, ok bool) {
+func (s *UploadFileCDNRedirectArray) Pop() (v UploadFileCDNRedirect, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

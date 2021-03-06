@@ -136,21 +136,21 @@ var (
 	_ KeyboardButtonClass = &KeyboardButton{}
 )
 
-// KeyboardButtonUrl represents TL type `keyboardButtonUrl#258aff05`.
+// KeyboardButtonURL represents TL type `keyboardButtonUrl#258aff05`.
 // URL button
 //
 // See https://core.telegram.org/constructor/keyboardButtonUrl for reference.
-type KeyboardButtonUrl struct {
+type KeyboardButtonURL struct {
 	// Button label
 	Text string
 	// URL
 	URL string
 }
 
-// KeyboardButtonUrlTypeID is TL type id of KeyboardButtonUrl.
-const KeyboardButtonUrlTypeID = 0x258aff05
+// KeyboardButtonURLTypeID is TL type id of KeyboardButtonURL.
+const KeyboardButtonURLTypeID = 0x258aff05
 
-func (k *KeyboardButtonUrl) Zero() bool {
+func (k *KeyboardButtonURL) Zero() bool {
 	if k == nil {
 		return true
 	}
@@ -165,16 +165,16 @@ func (k *KeyboardButtonUrl) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (k *KeyboardButtonUrl) String() string {
+func (k *KeyboardButtonURL) String() string {
 	if k == nil {
-		return "KeyboardButtonUrl(nil)"
+		return "KeyboardButtonURL(nil)"
 	}
-	type Alias KeyboardButtonUrl
-	return fmt.Sprintf("KeyboardButtonUrl%+v", Alias(*k))
+	type Alias KeyboardButtonURL
+	return fmt.Sprintf("KeyboardButtonURL%+v", Alias(*k))
 }
 
-// FillFrom fills KeyboardButtonUrl from given interface.
-func (k *KeyboardButtonUrl) FillFrom(from interface {
+// FillFrom fills KeyboardButtonURL from given interface.
+func (k *KeyboardButtonURL) FillFrom(from interface {
 	GetText() (value string)
 	GetURL() (value string)
 }) {
@@ -185,20 +185,20 @@ func (k *KeyboardButtonUrl) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*KeyboardButtonUrl) TypeID() uint32 {
-	return KeyboardButtonUrlTypeID
+func (*KeyboardButtonURL) TypeID() uint32 {
+	return KeyboardButtonURLTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*KeyboardButtonUrl) TypeName() string {
+func (*KeyboardButtonURL) TypeName() string {
 	return "keyboardButtonUrl"
 }
 
 // TypeInfo returns info about TL type.
-func (k *KeyboardButtonUrl) TypeInfo() tdp.Type {
+func (k *KeyboardButtonURL) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "keyboardButtonUrl",
-		ID:   KeyboardButtonUrlTypeID,
+		ID:   KeyboardButtonURLTypeID,
 	}
 	if k == nil {
 		typ.Null = true
@@ -218,32 +218,32 @@ func (k *KeyboardButtonUrl) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (k *KeyboardButtonUrl) Encode(b *bin.Buffer) error {
+func (k *KeyboardButtonURL) Encode(b *bin.Buffer) error {
 	if k == nil {
 		return fmt.Errorf("can't encode keyboardButtonUrl#258aff05 as nil")
 	}
-	b.PutID(KeyboardButtonUrlTypeID)
+	b.PutID(KeyboardButtonURLTypeID)
 	b.PutString(k.Text)
 	b.PutString(k.URL)
 	return nil
 }
 
 // GetText returns value of Text field.
-func (k *KeyboardButtonUrl) GetText() (value string) {
+func (k *KeyboardButtonURL) GetText() (value string) {
 	return k.Text
 }
 
 // GetURL returns value of URL field.
-func (k *KeyboardButtonUrl) GetURL() (value string) {
+func (k *KeyboardButtonURL) GetURL() (value string) {
 	return k.URL
 }
 
 // Decode implements bin.Decoder.
-func (k *KeyboardButtonUrl) Decode(b *bin.Buffer) error {
+func (k *KeyboardButtonURL) Decode(b *bin.Buffer) error {
 	if k == nil {
 		return fmt.Errorf("can't decode keyboardButtonUrl#258aff05 to nil")
 	}
-	if err := b.ConsumeID(KeyboardButtonUrlTypeID); err != nil {
+	if err := b.ConsumeID(KeyboardButtonURLTypeID); err != nil {
 		return fmt.Errorf("unable to decode keyboardButtonUrl#258aff05: %w", err)
 	}
 	{
@@ -264,14 +264,14 @@ func (k *KeyboardButtonUrl) Decode(b *bin.Buffer) error {
 }
 
 // construct implements constructor of KeyboardButtonClass.
-func (k KeyboardButtonUrl) construct() KeyboardButtonClass { return &k }
+func (k KeyboardButtonURL) construct() KeyboardButtonClass { return &k }
 
-// Ensuring interfaces in compile-time for KeyboardButtonUrl.
+// Ensuring interfaces in compile-time for KeyboardButtonURL.
 var (
-	_ bin.Encoder = &KeyboardButtonUrl{}
-	_ bin.Decoder = &KeyboardButtonUrl{}
+	_ bin.Encoder = &KeyboardButtonURL{}
+	_ bin.Decoder = &KeyboardButtonURL{}
 
-	_ KeyboardButtonClass = &KeyboardButtonUrl{}
+	_ KeyboardButtonClass = &KeyboardButtonURL{}
 )
 
 // KeyboardButtonCallback represents TL type `keyboardButtonCallback#35bbdb6b`.
@@ -1108,7 +1108,7 @@ var (
 	_ KeyboardButtonClass = &KeyboardButtonBuy{}
 )
 
-// KeyboardButtonUrlAuth represents TL type `keyboardButtonUrlAuth#10b78d29`.
+// KeyboardButtonURLAuth represents TL type `keyboardButtonUrlAuth#10b78d29`.
 // Button to request a user to authorize via URL using Seamless Telegram Login¹. When the user clicks on such a button, messages.requestUrlAuth² should be called, providing the button_id and the ID of the container message. The returned urlAuthResultRequest³ object will contain more details about the authorization request (request_write_access if the bot would like to send messages to the user along with the username of the bot which will be used for user authorization). Finally, the user can choose to call messages.acceptUrlAuth⁴ to get a urlAuthResultAccepted⁵ with the URL to open instead of the url of this constructor, or a urlAuthResultDefault⁶, in which case the url of this constructor must be opened, instead. If the user refuses the authorization request but still wants to open the link, the url of this constructor must be used.
 //
 // Links:
@@ -1120,7 +1120,7 @@ var (
 //  6) https://core.telegram.org/constructor/urlAuthResultDefault
 //
 // See https://core.telegram.org/constructor/keyboardButtonUrlAuth for reference.
-type KeyboardButtonUrlAuth struct {
+type KeyboardButtonURLAuth struct {
 	// Flags, see TL conditional fields¹
 	//
 	// Links:
@@ -1145,10 +1145,10 @@ type KeyboardButtonUrlAuth struct {
 	ButtonID int
 }
 
-// KeyboardButtonUrlAuthTypeID is TL type id of KeyboardButtonUrlAuth.
-const KeyboardButtonUrlAuthTypeID = 0x10b78d29
+// KeyboardButtonURLAuthTypeID is TL type id of KeyboardButtonURLAuth.
+const KeyboardButtonURLAuthTypeID = 0x10b78d29
 
-func (k *KeyboardButtonUrlAuth) Zero() bool {
+func (k *KeyboardButtonURLAuth) Zero() bool {
 	if k == nil {
 		return true
 	}
@@ -1172,16 +1172,16 @@ func (k *KeyboardButtonUrlAuth) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (k *KeyboardButtonUrlAuth) String() string {
+func (k *KeyboardButtonURLAuth) String() string {
 	if k == nil {
-		return "KeyboardButtonUrlAuth(nil)"
+		return "KeyboardButtonURLAuth(nil)"
 	}
-	type Alias KeyboardButtonUrlAuth
-	return fmt.Sprintf("KeyboardButtonUrlAuth%+v", Alias(*k))
+	type Alias KeyboardButtonURLAuth
+	return fmt.Sprintf("KeyboardButtonURLAuth%+v", Alias(*k))
 }
 
-// FillFrom fills KeyboardButtonUrlAuth from given interface.
-func (k *KeyboardButtonUrlAuth) FillFrom(from interface {
+// FillFrom fills KeyboardButtonURLAuth from given interface.
+func (k *KeyboardButtonURLAuth) FillFrom(from interface {
 	GetText() (value string)
 	GetFwdText() (value string, ok bool)
 	GetURL() (value string)
@@ -1199,20 +1199,20 @@ func (k *KeyboardButtonUrlAuth) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*KeyboardButtonUrlAuth) TypeID() uint32 {
-	return KeyboardButtonUrlAuthTypeID
+func (*KeyboardButtonURLAuth) TypeID() uint32 {
+	return KeyboardButtonURLAuthTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*KeyboardButtonUrlAuth) TypeName() string {
+func (*KeyboardButtonURLAuth) TypeName() string {
 	return "keyboardButtonUrlAuth"
 }
 
 // TypeInfo returns info about TL type.
-func (k *KeyboardButtonUrlAuth) TypeInfo() tdp.Type {
+func (k *KeyboardButtonURLAuth) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "keyboardButtonUrlAuth",
-		ID:   KeyboardButtonUrlAuthTypeID,
+		ID:   KeyboardButtonURLAuthTypeID,
 	}
 	if k == nil {
 		typ.Null = true
@@ -1241,11 +1241,11 @@ func (k *KeyboardButtonUrlAuth) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (k *KeyboardButtonUrlAuth) Encode(b *bin.Buffer) error {
+func (k *KeyboardButtonURLAuth) Encode(b *bin.Buffer) error {
 	if k == nil {
 		return fmt.Errorf("can't encode keyboardButtonUrlAuth#10b78d29 as nil")
 	}
-	b.PutID(KeyboardButtonUrlAuthTypeID)
+	b.PutID(KeyboardButtonURLAuthTypeID)
 	if !(k.FwdText == "") {
 		k.Flags.Set(0)
 	}
@@ -1262,19 +1262,19 @@ func (k *KeyboardButtonUrlAuth) Encode(b *bin.Buffer) error {
 }
 
 // GetText returns value of Text field.
-func (k *KeyboardButtonUrlAuth) GetText() (value string) {
+func (k *KeyboardButtonURLAuth) GetText() (value string) {
 	return k.Text
 }
 
 // SetFwdText sets value of FwdText conditional field.
-func (k *KeyboardButtonUrlAuth) SetFwdText(value string) {
+func (k *KeyboardButtonURLAuth) SetFwdText(value string) {
 	k.Flags.Set(0)
 	k.FwdText = value
 }
 
 // GetFwdText returns value of FwdText conditional field and
 // boolean which is true if field was set.
-func (k *KeyboardButtonUrlAuth) GetFwdText() (value string, ok bool) {
+func (k *KeyboardButtonURLAuth) GetFwdText() (value string, ok bool) {
 	if !k.Flags.Has(0) {
 		return value, false
 	}
@@ -1282,21 +1282,21 @@ func (k *KeyboardButtonUrlAuth) GetFwdText() (value string, ok bool) {
 }
 
 // GetURL returns value of URL field.
-func (k *KeyboardButtonUrlAuth) GetURL() (value string) {
+func (k *KeyboardButtonURLAuth) GetURL() (value string) {
 	return k.URL
 }
 
 // GetButtonID returns value of ButtonID field.
-func (k *KeyboardButtonUrlAuth) GetButtonID() (value int) {
+func (k *KeyboardButtonURLAuth) GetButtonID() (value int) {
 	return k.ButtonID
 }
 
 // Decode implements bin.Decoder.
-func (k *KeyboardButtonUrlAuth) Decode(b *bin.Buffer) error {
+func (k *KeyboardButtonURLAuth) Decode(b *bin.Buffer) error {
 	if k == nil {
 		return fmt.Errorf("can't decode keyboardButtonUrlAuth#10b78d29 to nil")
 	}
-	if err := b.ConsumeID(KeyboardButtonUrlAuthTypeID); err != nil {
+	if err := b.ConsumeID(KeyboardButtonURLAuthTypeID); err != nil {
 		return fmt.Errorf("unable to decode keyboardButtonUrlAuth#10b78d29: %w", err)
 	}
 	{
@@ -1336,17 +1336,17 @@ func (k *KeyboardButtonUrlAuth) Decode(b *bin.Buffer) error {
 }
 
 // construct implements constructor of KeyboardButtonClass.
-func (k KeyboardButtonUrlAuth) construct() KeyboardButtonClass { return &k }
+func (k KeyboardButtonURLAuth) construct() KeyboardButtonClass { return &k }
 
-// Ensuring interfaces in compile-time for KeyboardButtonUrlAuth.
+// Ensuring interfaces in compile-time for KeyboardButtonURLAuth.
 var (
-	_ bin.Encoder = &KeyboardButtonUrlAuth{}
-	_ bin.Decoder = &KeyboardButtonUrlAuth{}
+	_ bin.Encoder = &KeyboardButtonURLAuth{}
+	_ bin.Decoder = &KeyboardButtonURLAuth{}
 
-	_ KeyboardButtonClass = &KeyboardButtonUrlAuth{}
+	_ KeyboardButtonClass = &KeyboardButtonURLAuth{}
 )
 
-// InputKeyboardButtonUrlAuth represents TL type `inputKeyboardButtonUrlAuth#d02e7fd4`.
+// InputKeyboardButtonURLAuth represents TL type `inputKeyboardButtonUrlAuth#d02e7fd4`.
 // Button to request a user to authorize¹ via URL using Seamless Telegram Login².
 //
 // Links:
@@ -1354,7 +1354,7 @@ var (
 //  2) https://telegram.org/blog/privacy-discussions-web-bots#meet-seamless-web-bots
 //
 // See https://core.telegram.org/constructor/inputKeyboardButtonUrlAuth for reference.
-type InputKeyboardButtonUrlAuth struct {
+type InputKeyboardButtonURLAuth struct {
 	// Flags, see TL conditional fields¹
 	//
 	// Links:
@@ -1382,10 +1382,10 @@ type InputKeyboardButtonUrlAuth struct {
 	Bot InputUserClass
 }
 
-// InputKeyboardButtonUrlAuthTypeID is TL type id of InputKeyboardButtonUrlAuth.
-const InputKeyboardButtonUrlAuthTypeID = 0xd02e7fd4
+// InputKeyboardButtonURLAuthTypeID is TL type id of InputKeyboardButtonURLAuth.
+const InputKeyboardButtonURLAuthTypeID = 0xd02e7fd4
 
-func (i *InputKeyboardButtonUrlAuth) Zero() bool {
+func (i *InputKeyboardButtonURLAuth) Zero() bool {
 	if i == nil {
 		return true
 	}
@@ -1412,16 +1412,16 @@ func (i *InputKeyboardButtonUrlAuth) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (i *InputKeyboardButtonUrlAuth) String() string {
+func (i *InputKeyboardButtonURLAuth) String() string {
 	if i == nil {
-		return "InputKeyboardButtonUrlAuth(nil)"
+		return "InputKeyboardButtonURLAuth(nil)"
 	}
-	type Alias InputKeyboardButtonUrlAuth
-	return fmt.Sprintf("InputKeyboardButtonUrlAuth%+v", Alias(*i))
+	type Alias InputKeyboardButtonURLAuth
+	return fmt.Sprintf("InputKeyboardButtonURLAuth%+v", Alias(*i))
 }
 
-// FillFrom fills InputKeyboardButtonUrlAuth from given interface.
-func (i *InputKeyboardButtonUrlAuth) FillFrom(from interface {
+// FillFrom fills InputKeyboardButtonURLAuth from given interface.
+func (i *InputKeyboardButtonURLAuth) FillFrom(from interface {
 	GetRequestWriteAccess() (value bool)
 	GetText() (value string)
 	GetFwdText() (value string, ok bool)
@@ -1441,20 +1441,20 @@ func (i *InputKeyboardButtonUrlAuth) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*InputKeyboardButtonUrlAuth) TypeID() uint32 {
-	return InputKeyboardButtonUrlAuthTypeID
+func (*InputKeyboardButtonURLAuth) TypeID() uint32 {
+	return InputKeyboardButtonURLAuthTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*InputKeyboardButtonUrlAuth) TypeName() string {
+func (*InputKeyboardButtonURLAuth) TypeName() string {
 	return "inputKeyboardButtonUrlAuth"
 }
 
 // TypeInfo returns info about TL type.
-func (i *InputKeyboardButtonUrlAuth) TypeInfo() tdp.Type {
+func (i *InputKeyboardButtonURLAuth) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "inputKeyboardButtonUrlAuth",
-		ID:   InputKeyboardButtonUrlAuthTypeID,
+		ID:   InputKeyboardButtonURLAuthTypeID,
 	}
 	if i == nil {
 		typ.Null = true
@@ -1488,11 +1488,11 @@ func (i *InputKeyboardButtonUrlAuth) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (i *InputKeyboardButtonUrlAuth) Encode(b *bin.Buffer) error {
+func (i *InputKeyboardButtonURLAuth) Encode(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputKeyboardButtonUrlAuth#d02e7fd4 as nil")
 	}
-	b.PutID(InputKeyboardButtonUrlAuthTypeID)
+	b.PutID(InputKeyboardButtonURLAuthTypeID)
 	if !(i.RequestWriteAccess == false) {
 		i.Flags.Set(0)
 	}
@@ -1517,7 +1517,7 @@ func (i *InputKeyboardButtonUrlAuth) Encode(b *bin.Buffer) error {
 }
 
 // SetRequestWriteAccess sets value of RequestWriteAccess conditional field.
-func (i *InputKeyboardButtonUrlAuth) SetRequestWriteAccess(value bool) {
+func (i *InputKeyboardButtonURLAuth) SetRequestWriteAccess(value bool) {
 	if value {
 		i.Flags.Set(0)
 		i.RequestWriteAccess = true
@@ -1528,24 +1528,24 @@ func (i *InputKeyboardButtonUrlAuth) SetRequestWriteAccess(value bool) {
 }
 
 // GetRequestWriteAccess returns value of RequestWriteAccess conditional field.
-func (i *InputKeyboardButtonUrlAuth) GetRequestWriteAccess() (value bool) {
+func (i *InputKeyboardButtonURLAuth) GetRequestWriteAccess() (value bool) {
 	return i.Flags.Has(0)
 }
 
 // GetText returns value of Text field.
-func (i *InputKeyboardButtonUrlAuth) GetText() (value string) {
+func (i *InputKeyboardButtonURLAuth) GetText() (value string) {
 	return i.Text
 }
 
 // SetFwdText sets value of FwdText conditional field.
-func (i *InputKeyboardButtonUrlAuth) SetFwdText(value string) {
+func (i *InputKeyboardButtonURLAuth) SetFwdText(value string) {
 	i.Flags.Set(1)
 	i.FwdText = value
 }
 
 // GetFwdText returns value of FwdText conditional field and
 // boolean which is true if field was set.
-func (i *InputKeyboardButtonUrlAuth) GetFwdText() (value string, ok bool) {
+func (i *InputKeyboardButtonURLAuth) GetFwdText() (value string, ok bool) {
 	if !i.Flags.Has(1) {
 		return value, false
 	}
@@ -1553,21 +1553,21 @@ func (i *InputKeyboardButtonUrlAuth) GetFwdText() (value string, ok bool) {
 }
 
 // GetURL returns value of URL field.
-func (i *InputKeyboardButtonUrlAuth) GetURL() (value string) {
+func (i *InputKeyboardButtonURLAuth) GetURL() (value string) {
 	return i.URL
 }
 
 // GetBot returns value of Bot field.
-func (i *InputKeyboardButtonUrlAuth) GetBot() (value InputUserClass) {
+func (i *InputKeyboardButtonURLAuth) GetBot() (value InputUserClass) {
 	return i.Bot
 }
 
 // Decode implements bin.Decoder.
-func (i *InputKeyboardButtonUrlAuth) Decode(b *bin.Buffer) error {
+func (i *InputKeyboardButtonURLAuth) Decode(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inputKeyboardButtonUrlAuth#d02e7fd4 to nil")
 	}
-	if err := b.ConsumeID(InputKeyboardButtonUrlAuthTypeID); err != nil {
+	if err := b.ConsumeID(InputKeyboardButtonURLAuthTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputKeyboardButtonUrlAuth#d02e7fd4: %w", err)
 	}
 	{
@@ -1608,14 +1608,14 @@ func (i *InputKeyboardButtonUrlAuth) Decode(b *bin.Buffer) error {
 }
 
 // construct implements constructor of KeyboardButtonClass.
-func (i InputKeyboardButtonUrlAuth) construct() KeyboardButtonClass { return &i }
+func (i InputKeyboardButtonURLAuth) construct() KeyboardButtonClass { return &i }
 
-// Ensuring interfaces in compile-time for InputKeyboardButtonUrlAuth.
+// Ensuring interfaces in compile-time for InputKeyboardButtonURLAuth.
 var (
-	_ bin.Encoder = &InputKeyboardButtonUrlAuth{}
-	_ bin.Decoder = &InputKeyboardButtonUrlAuth{}
+	_ bin.Encoder = &InputKeyboardButtonURLAuth{}
+	_ bin.Decoder = &InputKeyboardButtonURLAuth{}
 
-	_ KeyboardButtonClass = &InputKeyboardButtonUrlAuth{}
+	_ KeyboardButtonClass = &InputKeyboardButtonURLAuth{}
 )
 
 // KeyboardButtonRequestPoll represents TL type `keyboardButtonRequestPoll#bbc7515d`.
@@ -1804,15 +1804,15 @@ var (
 //  }
 //  switch v := g.(type) {
 //  case *tg.KeyboardButton: // keyboardButton#a2fa4880
-//  case *tg.KeyboardButtonUrl: // keyboardButtonUrl#258aff05
+//  case *tg.KeyboardButtonURL: // keyboardButtonUrl#258aff05
 //  case *tg.KeyboardButtonCallback: // keyboardButtonCallback#35bbdb6b
 //  case *tg.KeyboardButtonRequestPhone: // keyboardButtonRequestPhone#b16a6c29
 //  case *tg.KeyboardButtonRequestGeoLocation: // keyboardButtonRequestGeoLocation#fc796b3f
 //  case *tg.KeyboardButtonSwitchInline: // keyboardButtonSwitchInline#568a748
 //  case *tg.KeyboardButtonGame: // keyboardButtonGame#50f41ccf
 //  case *tg.KeyboardButtonBuy: // keyboardButtonBuy#afd93fbb
-//  case *tg.KeyboardButtonUrlAuth: // keyboardButtonUrlAuth#10b78d29
-//  case *tg.InputKeyboardButtonUrlAuth: // inputKeyboardButtonUrlAuth#d02e7fd4
+//  case *tg.KeyboardButtonURLAuth: // keyboardButtonUrlAuth#10b78d29
+//  case *tg.InputKeyboardButtonURLAuth: // inputKeyboardButtonUrlAuth#d02e7fd4
 //  case *tg.KeyboardButtonRequestPoll: // keyboardButtonRequestPoll#bbc7515d
 //  default: panic(v)
 //  }
@@ -1850,9 +1850,9 @@ func DecodeKeyboardButton(buf *bin.Buffer) (KeyboardButtonClass, error) {
 			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
 		}
 		return &v, nil
-	case KeyboardButtonUrlTypeID:
+	case KeyboardButtonURLTypeID:
 		// Decoding keyboardButtonUrl#258aff05.
-		v := KeyboardButtonUrl{}
+		v := KeyboardButtonURL{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
 		}
@@ -1899,16 +1899,16 @@ func DecodeKeyboardButton(buf *bin.Buffer) (KeyboardButtonClass, error) {
 			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
 		}
 		return &v, nil
-	case KeyboardButtonUrlAuthTypeID:
+	case KeyboardButtonURLAuthTypeID:
 		// Decoding keyboardButtonUrlAuth#10b78d29.
-		v := KeyboardButtonUrlAuth{}
+		v := KeyboardButtonURLAuth{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
 		}
 		return &v, nil
-	case InputKeyboardButtonUrlAuthTypeID:
+	case InputKeyboardButtonURLAuthTypeID:
 		// Decoding inputKeyboardButtonUrlAuth#d02e7fd4.
-		v := InputKeyboardButtonUrlAuth{}
+		v := InputKeyboardButtonURLAuth{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode KeyboardButtonClass: %w", err)
 		}
@@ -2046,10 +2046,10 @@ func (s KeyboardButtonClassArray) AsKeyboardButton() (to KeyboardButtonArray) {
 	return to
 }
 
-// AsKeyboardButtonUrl returns copy with only KeyboardButtonUrl constructors.
-func (s KeyboardButtonClassArray) AsKeyboardButtonUrl() (to KeyboardButtonUrlArray) {
+// AsKeyboardButtonURL returns copy with only KeyboardButtonURL constructors.
+func (s KeyboardButtonClassArray) AsKeyboardButtonURL() (to KeyboardButtonURLArray) {
 	for _, elem := range s {
-		value, ok := elem.(*KeyboardButtonUrl)
+		value, ok := elem.(*KeyboardButtonURL)
 		if !ok {
 			continue
 		}
@@ -2137,10 +2137,10 @@ func (s KeyboardButtonClassArray) AsKeyboardButtonBuy() (to KeyboardButtonBuyArr
 	return to
 }
 
-// AsKeyboardButtonUrlAuth returns copy with only KeyboardButtonUrlAuth constructors.
-func (s KeyboardButtonClassArray) AsKeyboardButtonUrlAuth() (to KeyboardButtonUrlAuthArray) {
+// AsKeyboardButtonURLAuth returns copy with only KeyboardButtonURLAuth constructors.
+func (s KeyboardButtonClassArray) AsKeyboardButtonURLAuth() (to KeyboardButtonURLAuthArray) {
 	for _, elem := range s {
-		value, ok := elem.(*KeyboardButtonUrlAuth)
+		value, ok := elem.(*KeyboardButtonURLAuth)
 		if !ok {
 			continue
 		}
@@ -2150,10 +2150,10 @@ func (s KeyboardButtonClassArray) AsKeyboardButtonUrlAuth() (to KeyboardButtonUr
 	return to
 }
 
-// AsInputKeyboardButtonUrlAuth returns copy with only InputKeyboardButtonUrlAuth constructors.
-func (s KeyboardButtonClassArray) AsInputKeyboardButtonUrlAuth() (to InputKeyboardButtonUrlAuthArray) {
+// AsInputKeyboardButtonURLAuth returns copy with only InputKeyboardButtonURLAuth constructors.
+func (s KeyboardButtonClassArray) AsInputKeyboardButtonURLAuth() (to InputKeyboardButtonURLAuthArray) {
 	for _, elem := range s {
-		value, ok := elem.(*InputKeyboardButtonUrlAuth)
+		value, ok := elem.(*InputKeyboardButtonURLAuth)
 		if !ok {
 			continue
 		}
@@ -2258,27 +2258,27 @@ func (s *KeyboardButtonArray) Pop() (v KeyboardButton, ok bool) {
 	return v, true
 }
 
-// KeyboardButtonUrlArray is adapter for slice of KeyboardButtonUrl.
-type KeyboardButtonUrlArray []KeyboardButtonUrl
+// KeyboardButtonURLArray is adapter for slice of KeyboardButtonURL.
+type KeyboardButtonURLArray []KeyboardButtonURL
 
-// Sort sorts slice of KeyboardButtonUrl.
-func (s KeyboardButtonUrlArray) Sort(less func(a, b KeyboardButtonUrl) bool) KeyboardButtonUrlArray {
+// Sort sorts slice of KeyboardButtonURL.
+func (s KeyboardButtonURLArray) Sort(less func(a, b KeyboardButtonURL) bool) KeyboardButtonURLArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of KeyboardButtonUrl.
-func (s KeyboardButtonUrlArray) SortStable(less func(a, b KeyboardButtonUrl) bool) KeyboardButtonUrlArray {
+// SortStable sorts slice of KeyboardButtonURL.
+func (s KeyboardButtonURLArray) SortStable(less func(a, b KeyboardButtonURL) bool) KeyboardButtonURLArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of KeyboardButtonUrl.
-func (s KeyboardButtonUrlArray) Retain(keep func(x KeyboardButtonUrl) bool) KeyboardButtonUrlArray {
+// Retain filters in-place slice of KeyboardButtonURL.
+func (s KeyboardButtonURLArray) Retain(keep func(x KeyboardButtonURL) bool) KeyboardButtonURLArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -2292,7 +2292,7 @@ func (s KeyboardButtonUrlArray) Retain(keep func(x KeyboardButtonUrl) bool) Keyb
 }
 
 // First returns first element of slice (if exists).
-func (s KeyboardButtonUrlArray) First() (v KeyboardButtonUrl, ok bool) {
+func (s KeyboardButtonURLArray) First() (v KeyboardButtonURL, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -2300,7 +2300,7 @@ func (s KeyboardButtonUrlArray) First() (v KeyboardButtonUrl, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s KeyboardButtonUrlArray) Last() (v KeyboardButtonUrl, ok bool) {
+func (s KeyboardButtonURLArray) Last() (v KeyboardButtonURL, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -2308,7 +2308,7 @@ func (s KeyboardButtonUrlArray) Last() (v KeyboardButtonUrl, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *KeyboardButtonUrlArray) PopFirst() (v KeyboardButtonUrl, ok bool) {
+func (s *KeyboardButtonURLArray) PopFirst() (v KeyboardButtonURL, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -2318,7 +2318,7 @@ func (s *KeyboardButtonUrlArray) PopFirst() (v KeyboardButtonUrl, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero KeyboardButtonUrl
+	var zero KeyboardButtonURL
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -2327,7 +2327,7 @@ func (s *KeyboardButtonUrlArray) PopFirst() (v KeyboardButtonUrl, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *KeyboardButtonUrlArray) Pop() (v KeyboardButtonUrl, ok bool) {
+func (s *KeyboardButtonURLArray) Pop() (v KeyboardButtonURL, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -2832,27 +2832,27 @@ func (s *KeyboardButtonBuyArray) Pop() (v KeyboardButtonBuy, ok bool) {
 	return v, true
 }
 
-// KeyboardButtonUrlAuthArray is adapter for slice of KeyboardButtonUrlAuth.
-type KeyboardButtonUrlAuthArray []KeyboardButtonUrlAuth
+// KeyboardButtonURLAuthArray is adapter for slice of KeyboardButtonURLAuth.
+type KeyboardButtonURLAuthArray []KeyboardButtonURLAuth
 
-// Sort sorts slice of KeyboardButtonUrlAuth.
-func (s KeyboardButtonUrlAuthArray) Sort(less func(a, b KeyboardButtonUrlAuth) bool) KeyboardButtonUrlAuthArray {
+// Sort sorts slice of KeyboardButtonURLAuth.
+func (s KeyboardButtonURLAuthArray) Sort(less func(a, b KeyboardButtonURLAuth) bool) KeyboardButtonURLAuthArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of KeyboardButtonUrlAuth.
-func (s KeyboardButtonUrlAuthArray) SortStable(less func(a, b KeyboardButtonUrlAuth) bool) KeyboardButtonUrlAuthArray {
+// SortStable sorts slice of KeyboardButtonURLAuth.
+func (s KeyboardButtonURLAuthArray) SortStable(less func(a, b KeyboardButtonURLAuth) bool) KeyboardButtonURLAuthArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of KeyboardButtonUrlAuth.
-func (s KeyboardButtonUrlAuthArray) Retain(keep func(x KeyboardButtonUrlAuth) bool) KeyboardButtonUrlAuthArray {
+// Retain filters in-place slice of KeyboardButtonURLAuth.
+func (s KeyboardButtonURLAuthArray) Retain(keep func(x KeyboardButtonURLAuth) bool) KeyboardButtonURLAuthArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -2866,7 +2866,7 @@ func (s KeyboardButtonUrlAuthArray) Retain(keep func(x KeyboardButtonUrlAuth) bo
 }
 
 // First returns first element of slice (if exists).
-func (s KeyboardButtonUrlAuthArray) First() (v KeyboardButtonUrlAuth, ok bool) {
+func (s KeyboardButtonURLAuthArray) First() (v KeyboardButtonURLAuth, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -2874,7 +2874,7 @@ func (s KeyboardButtonUrlAuthArray) First() (v KeyboardButtonUrlAuth, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s KeyboardButtonUrlAuthArray) Last() (v KeyboardButtonUrlAuth, ok bool) {
+func (s KeyboardButtonURLAuthArray) Last() (v KeyboardButtonURLAuth, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -2882,7 +2882,7 @@ func (s KeyboardButtonUrlAuthArray) Last() (v KeyboardButtonUrlAuth, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *KeyboardButtonUrlAuthArray) PopFirst() (v KeyboardButtonUrlAuth, ok bool) {
+func (s *KeyboardButtonURLAuthArray) PopFirst() (v KeyboardButtonURLAuth, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -2892,7 +2892,7 @@ func (s *KeyboardButtonUrlAuthArray) PopFirst() (v KeyboardButtonUrlAuth, ok boo
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero KeyboardButtonUrlAuth
+	var zero KeyboardButtonURLAuth
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -2901,7 +2901,7 @@ func (s *KeyboardButtonUrlAuthArray) PopFirst() (v KeyboardButtonUrlAuth, ok boo
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *KeyboardButtonUrlAuthArray) Pop() (v KeyboardButtonUrlAuth, ok bool) {
+func (s *KeyboardButtonURLAuthArray) Pop() (v KeyboardButtonURLAuth, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -2914,27 +2914,27 @@ func (s *KeyboardButtonUrlAuthArray) Pop() (v KeyboardButtonUrlAuth, ok bool) {
 	return v, true
 }
 
-// InputKeyboardButtonUrlAuthArray is adapter for slice of InputKeyboardButtonUrlAuth.
-type InputKeyboardButtonUrlAuthArray []InputKeyboardButtonUrlAuth
+// InputKeyboardButtonURLAuthArray is adapter for slice of InputKeyboardButtonURLAuth.
+type InputKeyboardButtonURLAuthArray []InputKeyboardButtonURLAuth
 
-// Sort sorts slice of InputKeyboardButtonUrlAuth.
-func (s InputKeyboardButtonUrlAuthArray) Sort(less func(a, b InputKeyboardButtonUrlAuth) bool) InputKeyboardButtonUrlAuthArray {
+// Sort sorts slice of InputKeyboardButtonURLAuth.
+func (s InputKeyboardButtonURLAuthArray) Sort(less func(a, b InputKeyboardButtonURLAuth) bool) InputKeyboardButtonURLAuthArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of InputKeyboardButtonUrlAuth.
-func (s InputKeyboardButtonUrlAuthArray) SortStable(less func(a, b InputKeyboardButtonUrlAuth) bool) InputKeyboardButtonUrlAuthArray {
+// SortStable sorts slice of InputKeyboardButtonURLAuth.
+func (s InputKeyboardButtonURLAuthArray) SortStable(less func(a, b InputKeyboardButtonURLAuth) bool) InputKeyboardButtonURLAuthArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of InputKeyboardButtonUrlAuth.
-func (s InputKeyboardButtonUrlAuthArray) Retain(keep func(x InputKeyboardButtonUrlAuth) bool) InputKeyboardButtonUrlAuthArray {
+// Retain filters in-place slice of InputKeyboardButtonURLAuth.
+func (s InputKeyboardButtonURLAuthArray) Retain(keep func(x InputKeyboardButtonURLAuth) bool) InputKeyboardButtonURLAuthArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -2948,7 +2948,7 @@ func (s InputKeyboardButtonUrlAuthArray) Retain(keep func(x InputKeyboardButtonU
 }
 
 // First returns first element of slice (if exists).
-func (s InputKeyboardButtonUrlAuthArray) First() (v InputKeyboardButtonUrlAuth, ok bool) {
+func (s InputKeyboardButtonURLAuthArray) First() (v InputKeyboardButtonURLAuth, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -2956,7 +2956,7 @@ func (s InputKeyboardButtonUrlAuthArray) First() (v InputKeyboardButtonUrlAuth, 
 }
 
 // Last returns last element of slice (if exists).
-func (s InputKeyboardButtonUrlAuthArray) Last() (v InputKeyboardButtonUrlAuth, ok bool) {
+func (s InputKeyboardButtonURLAuthArray) Last() (v InputKeyboardButtonURLAuth, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -2964,7 +2964,7 @@ func (s InputKeyboardButtonUrlAuthArray) Last() (v InputKeyboardButtonUrlAuth, o
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *InputKeyboardButtonUrlAuthArray) PopFirst() (v InputKeyboardButtonUrlAuth, ok bool) {
+func (s *InputKeyboardButtonURLAuthArray) PopFirst() (v InputKeyboardButtonURLAuth, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -2974,7 +2974,7 @@ func (s *InputKeyboardButtonUrlAuthArray) PopFirst() (v InputKeyboardButtonUrlAu
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero InputKeyboardButtonUrlAuth
+	var zero InputKeyboardButtonURLAuth
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -2983,7 +2983,7 @@ func (s *InputKeyboardButtonUrlAuthArray) PopFirst() (v InputKeyboardButtonUrlAu
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *InputKeyboardButtonUrlAuthArray) Pop() (v InputKeyboardButtonUrlAuth, ok bool) {
+func (s *InputKeyboardButtonURLAuthArray) Pop() (v InputKeyboardButtonURLAuth, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

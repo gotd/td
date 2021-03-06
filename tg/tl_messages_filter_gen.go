@@ -442,17 +442,17 @@ var (
 	_ MessagesFilterClass = &InputMessagesFilterDocument{}
 )
 
-// InputMessagesFilterUrl represents TL type `inputMessagesFilterUrl#7ef0dd87`.
+// InputMessagesFilterURL represents TL type `inputMessagesFilterUrl#7ef0dd87`.
 // Return only messages containing URLs
 //
 // See https://core.telegram.org/constructor/inputMessagesFilterUrl for reference.
-type InputMessagesFilterUrl struct {
+type InputMessagesFilterURL struct {
 }
 
-// InputMessagesFilterUrlTypeID is TL type id of InputMessagesFilterUrl.
-const InputMessagesFilterUrlTypeID = 0x7ef0dd87
+// InputMessagesFilterURLTypeID is TL type id of InputMessagesFilterURL.
+const InputMessagesFilterURLTypeID = 0x7ef0dd87
 
-func (i *InputMessagesFilterUrl) Zero() bool {
+func (i *InputMessagesFilterURL) Zero() bool {
 	if i == nil {
 		return true
 	}
@@ -461,31 +461,31 @@ func (i *InputMessagesFilterUrl) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (i *InputMessagesFilterUrl) String() string {
+func (i *InputMessagesFilterURL) String() string {
 	if i == nil {
-		return "InputMessagesFilterUrl(nil)"
+		return "InputMessagesFilterURL(nil)"
 	}
-	type Alias InputMessagesFilterUrl
-	return fmt.Sprintf("InputMessagesFilterUrl%+v", Alias(*i))
+	type Alias InputMessagesFilterURL
+	return fmt.Sprintf("InputMessagesFilterURL%+v", Alias(*i))
 }
 
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*InputMessagesFilterUrl) TypeID() uint32 {
-	return InputMessagesFilterUrlTypeID
+func (*InputMessagesFilterURL) TypeID() uint32 {
+	return InputMessagesFilterURLTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*InputMessagesFilterUrl) TypeName() string {
+func (*InputMessagesFilterURL) TypeName() string {
 	return "inputMessagesFilterUrl"
 }
 
 // TypeInfo returns info about TL type.
-func (i *InputMessagesFilterUrl) TypeInfo() tdp.Type {
+func (i *InputMessagesFilterURL) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "inputMessagesFilterUrl",
-		ID:   InputMessagesFilterUrlTypeID,
+		ID:   InputMessagesFilterURLTypeID,
 	}
 	if i == nil {
 		typ.Null = true
@@ -496,34 +496,34 @@ func (i *InputMessagesFilterUrl) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (i *InputMessagesFilterUrl) Encode(b *bin.Buffer) error {
+func (i *InputMessagesFilterURL) Encode(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMessagesFilterUrl#7ef0dd87 as nil")
 	}
-	b.PutID(InputMessagesFilterUrlTypeID)
+	b.PutID(InputMessagesFilterURLTypeID)
 	return nil
 }
 
 // Decode implements bin.Decoder.
-func (i *InputMessagesFilterUrl) Decode(b *bin.Buffer) error {
+func (i *InputMessagesFilterURL) Decode(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't decode inputMessagesFilterUrl#7ef0dd87 to nil")
 	}
-	if err := b.ConsumeID(InputMessagesFilterUrlTypeID); err != nil {
+	if err := b.ConsumeID(InputMessagesFilterURLTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterUrl#7ef0dd87: %w", err)
 	}
 	return nil
 }
 
 // construct implements constructor of MessagesFilterClass.
-func (i InputMessagesFilterUrl) construct() MessagesFilterClass { return &i }
+func (i InputMessagesFilterURL) construct() MessagesFilterClass { return &i }
 
-// Ensuring interfaces in compile-time for InputMessagesFilterUrl.
+// Ensuring interfaces in compile-time for InputMessagesFilterURL.
 var (
-	_ bin.Encoder = &InputMessagesFilterUrl{}
-	_ bin.Decoder = &InputMessagesFilterUrl{}
+	_ bin.Encoder = &InputMessagesFilterURL{}
+	_ bin.Decoder = &InputMessagesFilterURL{}
 
-	_ MessagesFilterClass = &InputMessagesFilterUrl{}
+	_ MessagesFilterClass = &InputMessagesFilterURL{}
 )
 
 // InputMessagesFilterGif represents TL type `inputMessagesFilterGif#ffc86587`.
@@ -1522,7 +1522,7 @@ var (
 //  case *tg.InputMessagesFilterVideo: // inputMessagesFilterVideo#9fc00e65
 //  case *tg.InputMessagesFilterPhotoVideo: // inputMessagesFilterPhotoVideo#56e9f0e4
 //  case *tg.InputMessagesFilterDocument: // inputMessagesFilterDocument#9eddf188
-//  case *tg.InputMessagesFilterUrl: // inputMessagesFilterUrl#7ef0dd87
+//  case *tg.InputMessagesFilterURL: // inputMessagesFilterUrl#7ef0dd87
 //  case *tg.InputMessagesFilterGif: // inputMessagesFilterGif#ffc86587
 //  case *tg.InputMessagesFilterVoice: // inputMessagesFilterVoice#50f5c392
 //  case *tg.InputMessagesFilterMusic: // inputMessagesFilterMusic#3751b49e
@@ -1595,9 +1595,9 @@ func DecodeMessagesFilter(buf *bin.Buffer) (MessagesFilterClass, error) {
 			return nil, fmt.Errorf("unable to decode MessagesFilterClass: %w", err)
 		}
 		return &v, nil
-	case InputMessagesFilterUrlTypeID:
+	case InputMessagesFilterURLTypeID:
 		// Decoding inputMessagesFilterUrl#7ef0dd87.
-		v := InputMessagesFilterUrl{}
+		v := InputMessagesFilterURL{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessagesFilterClass: %w", err)
 		}

@@ -815,11 +815,11 @@ var (
 	_ RichTextClass = &TextFixed{}
 )
 
-// TextUrl represents TL type `textUrl#3c2884c1`.
+// TextURL represents TL type `textUrl#3c2884c1`.
 // Link
 //
 // See https://core.telegram.org/constructor/textUrl for reference.
-type TextUrl struct {
+type TextURL struct {
 	// Text of link
 	Text RichTextClass
 	// Webpage HTTP URL
@@ -828,10 +828,10 @@ type TextUrl struct {
 	WebpageID int64
 }
 
-// TextUrlTypeID is TL type id of TextUrl.
-const TextUrlTypeID = 0x3c2884c1
+// TextURLTypeID is TL type id of TextURL.
+const TextURLTypeID = 0x3c2884c1
 
-func (t *TextUrl) Zero() bool {
+func (t *TextURL) Zero() bool {
 	if t == nil {
 		return true
 	}
@@ -849,16 +849,16 @@ func (t *TextUrl) Zero() bool {
 }
 
 // String implements fmt.Stringer.
-func (t *TextUrl) String() string {
+func (t *TextURL) String() string {
 	if t == nil {
-		return "TextUrl(nil)"
+		return "TextURL(nil)"
 	}
-	type Alias TextUrl
-	return fmt.Sprintf("TextUrl%+v", Alias(*t))
+	type Alias TextURL
+	return fmt.Sprintf("TextURL%+v", Alias(*t))
 }
 
-// FillFrom fills TextUrl from given interface.
-func (t *TextUrl) FillFrom(from interface {
+// FillFrom fills TextURL from given interface.
+func (t *TextURL) FillFrom(from interface {
 	GetText() (value RichTextClass)
 	GetURL() (value string)
 	GetWebpageID() (value int64)
@@ -871,20 +871,20 @@ func (t *TextUrl) FillFrom(from interface {
 // TypeID returns type id in TL schema.
 //
 // See https://core.telegram.org/mtproto/TL-tl#remarks.
-func (*TextUrl) TypeID() uint32 {
-	return TextUrlTypeID
+func (*TextURL) TypeID() uint32 {
+	return TextURLTypeID
 }
 
 // TypeName returns name of type in TL schema.
-func (*TextUrl) TypeName() string {
+func (*TextURL) TypeName() string {
 	return "textUrl"
 }
 
 // TypeInfo returns info about TL type.
-func (t *TextUrl) TypeInfo() tdp.Type {
+func (t *TextURL) TypeInfo() tdp.Type {
 	typ := tdp.Type{
 		Name: "textUrl",
-		ID:   TextUrlTypeID,
+		ID:   TextURLTypeID,
 	}
 	if t == nil {
 		typ.Null = true
@@ -908,11 +908,11 @@ func (t *TextUrl) TypeInfo() tdp.Type {
 }
 
 // Encode implements bin.Encoder.
-func (t *TextUrl) Encode(b *bin.Buffer) error {
+func (t *TextURL) Encode(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't encode textUrl#3c2884c1 as nil")
 	}
-	b.PutID(TextUrlTypeID)
+	b.PutID(TextURLTypeID)
 	if t.Text == nil {
 		return fmt.Errorf("unable to encode textUrl#3c2884c1: field text is nil")
 	}
@@ -925,26 +925,26 @@ func (t *TextUrl) Encode(b *bin.Buffer) error {
 }
 
 // GetText returns value of Text field.
-func (t *TextUrl) GetText() (value RichTextClass) {
+func (t *TextURL) GetText() (value RichTextClass) {
 	return t.Text
 }
 
 // GetURL returns value of URL field.
-func (t *TextUrl) GetURL() (value string) {
+func (t *TextURL) GetURL() (value string) {
 	return t.URL
 }
 
 // GetWebpageID returns value of WebpageID field.
-func (t *TextUrl) GetWebpageID() (value int64) {
+func (t *TextURL) GetWebpageID() (value int64) {
 	return t.WebpageID
 }
 
 // Decode implements bin.Decoder.
-func (t *TextUrl) Decode(b *bin.Buffer) error {
+func (t *TextURL) Decode(b *bin.Buffer) error {
 	if t == nil {
 		return fmt.Errorf("can't decode textUrl#3c2884c1 to nil")
 	}
-	if err := b.ConsumeID(TextUrlTypeID); err != nil {
+	if err := b.ConsumeID(TextURLTypeID); err != nil {
 		return fmt.Errorf("unable to decode textUrl#3c2884c1: %w", err)
 	}
 	{
@@ -972,14 +972,14 @@ func (t *TextUrl) Decode(b *bin.Buffer) error {
 }
 
 // construct implements constructor of RichTextClass.
-func (t TextUrl) construct() RichTextClass { return &t }
+func (t TextURL) construct() RichTextClass { return &t }
 
-// Ensuring interfaces in compile-time for TextUrl.
+// Ensuring interfaces in compile-time for TextURL.
 var (
-	_ bin.Encoder = &TextUrl{}
-	_ bin.Decoder = &TextUrl{}
+	_ bin.Encoder = &TextURL{}
+	_ bin.Decoder = &TextURL{}
 
-	_ RichTextClass = &TextUrl{}
+	_ RichTextClass = &TextURL{}
 )
 
 // TextEmail represents TL type `textEmail#de5a0dd6`.
@@ -2080,7 +2080,7 @@ var (
 //  case *tg.TextUnderline: // textUnderline#c12622c4
 //  case *tg.TextStrike: // textStrike#9bf8bb95
 //  case *tg.TextFixed: // textFixed#6c3f19b9
-//  case *tg.TextUrl: // textUrl#3c2884c1
+//  case *tg.TextURL: // textUrl#3c2884c1
 //  case *tg.TextEmail: // textEmail#de5a0dd6
 //  case *tg.TextConcat: // textConcat#7e6260d7
 //  case *tg.TextSubscript: // textSubscript#ed6a8504
@@ -2164,9 +2164,9 @@ func DecodeRichText(buf *bin.Buffer) (RichTextClass, error) {
 			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
 		}
 		return &v, nil
-	case TextUrlTypeID:
+	case TextURLTypeID:
 		// Decoding textUrl#3c2884c1.
-		v := TextUrl{}
+		v := TextURL{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode RichTextClass: %w", err)
 		}
@@ -2418,10 +2418,10 @@ func (s RichTextClassArray) AsTextFixed() (to TextFixedArray) {
 	return to
 }
 
-// AsTextUrl returns copy with only TextUrl constructors.
-func (s RichTextClassArray) AsTextUrl() (to TextUrlArray) {
+// AsTextURL returns copy with only TextURL constructors.
+func (s RichTextClassArray) AsTextURL() (to TextURLArray) {
 	for _, elem := range s {
-		value, ok := elem.(*TextUrl)
+		value, ok := elem.(*TextURL)
 		if !ok {
 			continue
 		}
@@ -3027,27 +3027,27 @@ func (s *TextFixedArray) Pop() (v TextFixed, ok bool) {
 	return v, true
 }
 
-// TextUrlArray is adapter for slice of TextUrl.
-type TextUrlArray []TextUrl
+// TextURLArray is adapter for slice of TextURL.
+type TextURLArray []TextURL
 
-// Sort sorts slice of TextUrl.
-func (s TextUrlArray) Sort(less func(a, b TextUrl) bool) TextUrlArray {
+// Sort sorts slice of TextURL.
+func (s TextURLArray) Sort(less func(a, b TextURL) bool) TextURLArray {
 	sort.Slice(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// SortStable sorts slice of TextUrl.
-func (s TextUrlArray) SortStable(less func(a, b TextUrl) bool) TextUrlArray {
+// SortStable sorts slice of TextURL.
+func (s TextURLArray) SortStable(less func(a, b TextURL) bool) TextURLArray {
 	sort.SliceStable(s, func(i, j int) bool {
 		return less(s[i], s[j])
 	})
 	return s
 }
 
-// Retain filters in-place slice of TextUrl.
-func (s TextUrlArray) Retain(keep func(x TextUrl) bool) TextUrlArray {
+// Retain filters in-place slice of TextURL.
+func (s TextURLArray) Retain(keep func(x TextURL) bool) TextURLArray {
 	n := 0
 	for _, x := range s {
 		if keep(x) {
@@ -3061,7 +3061,7 @@ func (s TextUrlArray) Retain(keep func(x TextUrl) bool) TextUrlArray {
 }
 
 // First returns first element of slice (if exists).
-func (s TextUrlArray) First() (v TextUrl, ok bool) {
+func (s TextURLArray) First() (v TextURL, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -3069,7 +3069,7 @@ func (s TextUrlArray) First() (v TextUrl, ok bool) {
 }
 
 // Last returns last element of slice (if exists).
-func (s TextUrlArray) Last() (v TextUrl, ok bool) {
+func (s TextURLArray) Last() (v TextURL, ok bool) {
 	if len(s) < 1 {
 		return
 	}
@@ -3077,7 +3077,7 @@ func (s TextUrlArray) Last() (v TextUrl, ok bool) {
 }
 
 // PopFirst returns first element of slice (if exists) and deletes it.
-func (s *TextUrlArray) PopFirst() (v TextUrl, ok bool) {
+func (s *TextURLArray) PopFirst() (v TextURL, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
@@ -3087,7 +3087,7 @@ func (s *TextUrlArray) PopFirst() (v TextUrl, ok bool) {
 
 	// Delete by index from SliceTricks.
 	copy(a[0:], a[1:])
-	var zero TextUrl
+	var zero TextURL
 	a[len(a)-1] = zero
 	a = a[:len(a)-1]
 	*s = a
@@ -3096,7 +3096,7 @@ func (s *TextUrlArray) PopFirst() (v TextUrl, ok bool) {
 }
 
 // Pop returns last element of slice (if exists) and deletes it.
-func (s *TextUrlArray) Pop() (v TextUrl, ok bool) {
+func (s *TextURLArray) Pop() (v TextURL, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

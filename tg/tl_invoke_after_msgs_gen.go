@@ -28,7 +28,7 @@ var _ = tdp.Format
 // See https://core.telegram.org/constructor/invokeAfterMsgs for reference.
 type InvokeAfterMsgsRequest struct {
 	// List of messages on which a current query depends
-	MsgIds []int64
+	MsgIDs []int64
 	// The query itself
 	Query bin.Object
 }
@@ -40,7 +40,7 @@ func (i *InvokeAfterMsgsRequest) Zero() bool {
 	if i == nil {
 		return true
 	}
-	if !(i.MsgIds == nil) {
+	if !(i.MsgIDs == nil) {
 		return false
 	}
 	if !(i.Query == nil) {
@@ -61,10 +61,10 @@ func (i *InvokeAfterMsgsRequest) String() string {
 
 // FillFrom fills InvokeAfterMsgsRequest from given interface.
 func (i *InvokeAfterMsgsRequest) FillFrom(from interface {
-	GetMsgIds() (value []int64)
+	GetMsgIDs() (value []int64)
 	GetQuery() (value bin.Object)
 }) {
-	i.MsgIds = from.GetMsgIds()
+	i.MsgIDs = from.GetMsgIDs()
 	i.Query = from.GetQuery()
 }
 
@@ -92,7 +92,7 @@ func (i *InvokeAfterMsgsRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "MsgIds",
+			Name:       "MsgIDs",
 			SchemaName: "msg_ids",
 		},
 		{
@@ -109,8 +109,8 @@ func (i *InvokeAfterMsgsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode invokeAfterMsgs#3dc4b4f0 as nil")
 	}
 	b.PutID(InvokeAfterMsgsRequestTypeID)
-	b.PutVectorHeader(len(i.MsgIds))
-	for _, v := range i.MsgIds {
+	b.PutVectorHeader(len(i.MsgIDs))
+	for _, v := range i.MsgIDs {
 		b.PutLong(v)
 	}
 	if err := i.Query.Encode(b); err != nil {
@@ -119,9 +119,9 @@ func (i *InvokeAfterMsgsRequest) Encode(b *bin.Buffer) error {
 	return nil
 }
 
-// GetMsgIds returns value of MsgIds field.
-func (i *InvokeAfterMsgsRequest) GetMsgIds() (value []int64) {
-	return i.MsgIds
+// GetMsgIDs returns value of MsgIDs field.
+func (i *InvokeAfterMsgsRequest) GetMsgIDs() (value []int64) {
+	return i.MsgIDs
 }
 
 // GetQuery returns value of Query field.
@@ -147,7 +147,7 @@ func (i *InvokeAfterMsgsRequest) Decode(b *bin.Buffer) error {
 			if err != nil {
 				return fmt.Errorf("unable to decode invokeAfterMsgs#3dc4b4f0: field msg_ids: %w", err)
 			}
-			i.MsgIds = append(i.MsgIds, value)
+			i.MsgIDs = append(i.MsgIDs, value)
 		}
 	}
 	{

@@ -44,7 +44,7 @@ type AuthExportLoginTokenRequest struct {
 	//  1) https://core.telegram.org/myapp
 	APIHash string
 	// List of already logged-in user IDs, to prevent logging in twice with the same user
-	ExceptIds []int
+	ExceptIDs []int
 }
 
 // AuthExportLoginTokenRequestTypeID is TL type id of AuthExportLoginTokenRequest.
@@ -60,7 +60,7 @@ func (e *AuthExportLoginTokenRequest) Zero() bool {
 	if !(e.APIHash == "") {
 		return false
 	}
-	if !(e.ExceptIds == nil) {
+	if !(e.ExceptIDs == nil) {
 		return false
 	}
 
@@ -80,11 +80,11 @@ func (e *AuthExportLoginTokenRequest) String() string {
 func (e *AuthExportLoginTokenRequest) FillFrom(from interface {
 	GetAPIID() (value int)
 	GetAPIHash() (value string)
-	GetExceptIds() (value []int)
+	GetExceptIDs() (value []int)
 }) {
 	e.APIID = from.GetAPIID()
 	e.APIHash = from.GetAPIHash()
-	e.ExceptIds = from.GetExceptIds()
+	e.ExceptIDs = from.GetExceptIDs()
 }
 
 // TypeID returns type id in TL schema.
@@ -119,7 +119,7 @@ func (e *AuthExportLoginTokenRequest) TypeInfo() tdp.Type {
 			SchemaName: "api_hash",
 		},
 		{
-			Name:       "ExceptIds",
+			Name:       "ExceptIDs",
 			SchemaName: "except_ids",
 		},
 	}
@@ -134,8 +134,8 @@ func (e *AuthExportLoginTokenRequest) Encode(b *bin.Buffer) error {
 	b.PutID(AuthExportLoginTokenRequestTypeID)
 	b.PutInt(e.APIID)
 	b.PutString(e.APIHash)
-	b.PutVectorHeader(len(e.ExceptIds))
-	for _, v := range e.ExceptIds {
+	b.PutVectorHeader(len(e.ExceptIDs))
+	for _, v := range e.ExceptIDs {
 		b.PutInt(v)
 	}
 	return nil
@@ -151,9 +151,9 @@ func (e *AuthExportLoginTokenRequest) GetAPIHash() (value string) {
 	return e.APIHash
 }
 
-// GetExceptIds returns value of ExceptIds field.
-func (e *AuthExportLoginTokenRequest) GetExceptIds() (value []int) {
-	return e.ExceptIds
+// GetExceptIDs returns value of ExceptIDs field.
+func (e *AuthExportLoginTokenRequest) GetExceptIDs() (value []int) {
+	return e.ExceptIDs
 }
 
 // Decode implements bin.Decoder.
@@ -188,7 +188,7 @@ func (e *AuthExportLoginTokenRequest) Decode(b *bin.Buffer) error {
 			if err != nil {
 				return fmt.Errorf("unable to decode auth.exportLoginToken#b1b41517: field except_ids: %w", err)
 			}
-			e.ExceptIds = append(e.ExceptIds, value)
+			e.ExceptIDs = append(e.ExceptIDs, value)
 		}
 	}
 	return nil
