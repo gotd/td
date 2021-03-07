@@ -99,7 +99,6 @@ func (b *dcBuilder) Connect(ctx context.Context) (*mtp.Conn, error) {
 	}
 
 	if !dc.CDN && b.transfer {
-		// Setup session handlers for transfer result check.
 		opts.SessionHandler = func(sess mtproto.Session) error {
 			once.Do(func() { close(gotSession) })
 			return nil
@@ -143,18 +142,18 @@ func (b *dcBuilder) Connect(ctx context.Context) (*mtp.Conn, error) {
 		return nil, err
 	}
 
+	select {
+	case <-gotSession:
+		break
+	case <-time.After(time.Second * 20):
+		_ = mtconn.Close()
+		return nil, xerrors.Errorf("session timeout")
+	}
+
 	if !dc.CDN && b.transfer {
 		if err := m.transfer(ctx, mtconn, dc.ID); err != nil {
 			_ = mtconn.Close()
 			return nil, xerrors.Errorf("transfer: %w", err)
-		}
-
-		select {
-		case <-gotSession:
-			break
-		case <-time.After(time.Second * 20):
-			_ = mtconn.Close()
-			return nil, xerrors.Errorf("session timeout")
 		}
 	}
 
