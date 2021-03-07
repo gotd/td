@@ -7,6 +7,7 @@ import (
 )
 
 type Options struct {
+	ConnCreator   CreateConnFunc
 	UpdateHandler func(b *bin.Buffer) error
 	ConfigHandler func(Config) error
 
@@ -20,6 +21,9 @@ type Options struct {
 }
 
 func (o *Options) setDefaults() {
+	if o.ConnCreator == nil {
+		panic("ConnCreator is nil")
+	}
 	if o.UpdateHandler == nil {
 		// TODO(ccln): disable updates using tg.InvokeWithoutUpdates on primary dc?
 		o.UpdateHandler = func(b *bin.Buffer) error { return nil }

@@ -10,12 +10,10 @@ import (
 // transfer exports current authorization and imports it to another DC.
 // See https://core.telegram.org/api/datacenter#authorization-transfer.
 func (m *Manager) transfer(ctx context.Context, conn Conn, dc int) error {
-	m.mux.RLock()
 	var (
 		from = tg.NewClient(m.primary)
 		to   = tg.NewClient(conn)
 	)
-	m.mux.RUnlock()
 
 	auth, err := from.AuthExportAuthorization(ctx, dc)
 	if err != nil {

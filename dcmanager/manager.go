@@ -14,15 +14,21 @@ import (
 )
 
 type Manager struct {
-	primary Conn
-	others  map[int]Conn
-	cfg     Config
-	mux     sync.RWMutex
+	primary   Conn
+	migrating bool
+	callbacks []func()
+	migmux    sync.RWMutex
+
+	others map[int]Conn
+	omux   sync.Mutex
+
+	cfg    Config
+	cfgMux sync.RWMutex
 
 	g *errgroup.Group
 
 	// Immutable fields
-	fetchConfig bool                      // Indicates whether we should fetch config
+	fetchConfig bool                      // Indicates whether we should fetch config from server
 	createConn  CreateConnFunc            // Creates connections
 	onMessage   func(b *bin.Buffer) error // Updates handler for primary connection
 	saveConfig  func(cfg Config) error    // Config saver function
@@ -38,6 +44,8 @@ func New(appID int, opts Options) *Manager {
 
 	m := &Manager{
 		others:     map[int]Conn{},
+		g:          &errgroup.Group{},
+		createConn: opts.ConnCreator,
 		onMessage:  opts.UpdateHandler,
 		saveConfig: opts.ConfigHandler,
 		appID:      appID,
@@ -60,27 +68,26 @@ func (m *Manager) Run(ctx context.Context, f func(context.Context) error) error 
 	if m.fetchConfig {
 		// 149.154.175.55
 		// "2|" + telegram.AddrProduction
+		m.log.Info("Fetching config from server")
 		if err := m.initWithoutConfig(ctx, "1|149.154.175.55:443"); err != nil {
 			return err
 		}
 	} else {
+		m.log.Info("Using loaded config")
 		if err := m.initWithConfig(ctx); err != nil {
 			return err
 		}
 	}
 
-	m.g.Go(func() error {
-		<-ctx.Done()
-		return ctx.Err()
-	})
-
+	m.g.Go(func() error { return f(ctx) })
 	return m.g.Wait()
 }
 
 func (m *Manager) InvokeRaw(ctx context.Context, in bin.Encoder, out bin.Decoder) error {
-	m.mux.RLock()
+	m.migmux.RLock()
 	primary := m.primary
-	m.mux.RUnlock()
+	m.migmux.RUnlock()
+
 	if err := primary.InvokeRaw(ctx, in, out); err != nil {
 		// Handling datacenter migration request.
 		if rpcErr, ok := mtproto.AsErr(err); ok && rpcErr.IsCode(303) {
@@ -94,47 +101,60 @@ func (m *Manager) InvokeRaw(ctx context.Context, in bin.Encoder, out bin.Decoder
 				return m.invokeDC(ctx, rpcErr.Argument, in, out)
 			}
 
-			m.log.Info("Got migrate error: Starting migration to another DC",
+			m.log.Info("Got migrate error",
 				zap.String("error", rpcErr.Type), zap.Int("dc", rpcErr.Argument),
 			)
 
+			// Prevent parallel migrations.
+			cb, migrate := m.tryMigrate()
+			if !migrate {
+				m.log.Info("Other goroutine has already started migration (waiting for completion)")
+				cb()
+				m.log.Info("Other goroutine has completed the migration, re-invoking request on new DC")
+				return m.InvokeRaw(ctx, in, out)
+			}
+
+			m.log.Info("Starting migration to another DC", zap.Int("dc", rpcErr.Argument))
+			defer cb()
 			dcInfo, err := m.lookupDC(rpcErr.Argument)
 			if err != nil {
 				return err
 			}
 
-			// Otherwise we should change primary DC.
+			// Change primary DC.
+			// TODO(ccln): change ctx
 			if _, err := m.dc(dcInfo).AsPrimary().Connect(ctx); err != nil {
 				return xerrors.Errorf("migrate to dc %d: %w", rpcErr.Argument, err)
 			}
 
+			m.log.Info("Migration completed, re-invoking request on new DC")
 			return m.InvokeRaw(ctx, in, out)
 		}
-
 		return err
 	}
 	return nil
 }
 
 func (m *Manager) invokeDC(ctx context.Context, dcID int, in bin.Encoder, out bin.Decoder) (err error) {
-	m.mux.RLock()
+	m.omux.Lock()
 	conn, found := m.others[dcID]
-	m.mux.RUnlock()
 	if !found {
 		dcInfo, err := m.lookupDC(dcID)
 		if err != nil {
+			m.omux.Unlock()
 			return err
 		}
 
+		// TODO(ccln): change ctx
 		conn, err = m.dc(dcInfo).WithAuthTransfer().Connect(ctx)
 		if err != nil {
+			m.omux.Unlock()
 			return xerrors.Errorf("dial dc %d: %w", dcID, err)
 		}
 
-		m.mux.Lock()
 		m.others[dcID] = conn
-		m.mux.Unlock()
 	}
+	m.omux.Unlock()
 
 	return conn.InvokeRaw(ctx, &tg.InvokeWithoutUpdatesRequest{
 		Query: nopDecoder{in},

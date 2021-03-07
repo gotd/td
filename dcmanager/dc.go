@@ -110,11 +110,7 @@ func (b *dcBuilder) Connect(ctx context.Context) (Conn, error) {
 			}
 		}
 	} else if dc.CDN {
-		m.mux.RLock()
-		primary := m.primary
-		m.mux.RUnlock()
-
-		cdnCfg, err := tg.NewClient(primary).HelpGetCDNConfig(ctx)
+		cdnCfg, err := tg.NewClient(m.primary).HelpGetCDNConfig(ctx)
 		if err != nil {
 			return nil, xerrors.Errorf("get CDN config: %w", err)
 		}
@@ -131,30 +127,32 @@ func (b *dcBuilder) Connect(ctx context.Context) (Conn, error) {
 	}
 
 	conn := m.createConn(fmt.Sprintf("%d|%s:%d", dc.ID, dc.IPAddress, dc.Port), opts)
-	m.runConn(ctx, conn)
+	if err := m.startConn(ctx, conn); err != nil {
+		return nil, err
+	}
 
 	cfg, err := m.initConn(ctx, conn, !asPrimary)
 	if err != nil {
 		return nil, err
 	}
 
-	select {
-	case <-gotSession:
-		break
-	case <-time.After(time.Second * 20):
-		return nil, xerrors.Errorf("session timeout")
-	}
-
 	if !dc.CDN && b.transfer {
 		if err := m.transfer(ctx, conn, dc.ID); err != nil {
 			return nil, xerrors.Errorf("transfer: %w", err)
+		}
+
+		select {
+		case <-gotSession:
+			break
+		case <-time.After(time.Second * 10):
+			return nil, xerrors.Errorf("session timeout")
 		}
 	}
 
 	if asPrimary {
 		// TODO(ccln): recheck cfg dc id
-		m.mux.Lock()
-		defer m.mux.Unlock()
+		m.cfgMux.Lock()
+		defer m.cfgMux.Unlock()
 		m.cfg.PrimaryDC = dc.ID
 		m.cfg.TGConfig = cfg
 
@@ -162,7 +160,10 @@ func (b *dcBuilder) Connect(ctx context.Context) (Conn, error) {
 			return nil, err
 		}
 
+		// TODO(ccln): destroy previous connection
+		m.migmux.Lock()
 		m.primary = conn
+		m.migmux.Unlock()
 	}
 
 	return conn, nil
@@ -201,8 +202,8 @@ func (m *Manager) initConn(ctx context.Context, conn Conn, noUpdates bool) (tg.C
 }
 
 func (m *Manager) onPrimarySessionUpdate(sess mtproto.Session) error {
-	m.mux.Lock()
-	defer m.mux.Unlock()
+	m.cfgMux.Lock()
+	defer m.cfgMux.Unlock()
 	m.cfg.AuthKey = sess.Key
 	m.cfg.Salt = sess.Salt
 	return m.saveConfig(m.cfg)

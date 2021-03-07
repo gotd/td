@@ -10,8 +10,8 @@ import (
 )
 
 func (m *Manager) lookupDC(id int) (tg.DCOption, error) {
-	m.mux.RLock()
-	defer m.mux.RUnlock()
+	m.cfgMux.RLock()
+	defer m.cfgMux.RUnlock()
 
 	// TODO(ccln): support IPv6?
 	return m.cfg.findDC(id, true)
