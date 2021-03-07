@@ -7,7 +7,6 @@ import (
 	"time"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/dcmanager/mtp"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/tg"
@@ -50,7 +49,7 @@ func (b *dcBuilder) WithCreds(key crypto.AuthKey, salt int64) *dcBuilder {
 	return b
 }
 
-func (b *dcBuilder) Connect(ctx context.Context) (*mtp.Conn, error) {
+func (b *dcBuilder) Connect(ctx context.Context) (Conn, error) {
 	var (
 		m         = b.m
 		dc        = b.dc
@@ -131,14 +130,11 @@ func (b *dcBuilder) Connect(ctx context.Context) (*mtp.Conn, error) {
 		opts.Salt = 0
 	}
 
-	mtconn, err := mtp.New(fmt.Sprintf("%d|%s:%d", dc.ID, dc.IPAddress, dc.Port), opts)
-	if err != nil {
-		return nil, err
-	}
+	conn := m.createConn(fmt.Sprintf("%d|%s:%d", dc.ID, dc.IPAddress, dc.Port), opts)
+	m.runConn(ctx, conn)
 
-	cfg, err := m.initConn(ctx, mtconn, !asPrimary)
+	cfg, err := m.initConn(ctx, conn, !asPrimary)
 	if err != nil {
-		_ = mtconn.Close()
 		return nil, err
 	}
 
@@ -146,13 +142,11 @@ func (b *dcBuilder) Connect(ctx context.Context) (*mtp.Conn, error) {
 	case <-gotSession:
 		break
 	case <-time.After(time.Second * 20):
-		_ = mtconn.Close()
 		return nil, xerrors.Errorf("session timeout")
 	}
 
 	if !dc.CDN && b.transfer {
-		if err := m.transfer(ctx, mtconn, dc.ID); err != nil {
-			_ = mtconn.Close()
+		if err := m.transfer(ctx, conn, dc.ID); err != nil {
 			return nil, xerrors.Errorf("transfer: %w", err)
 		}
 	}
@@ -165,18 +159,16 @@ func (b *dcBuilder) Connect(ctx context.Context) (*mtp.Conn, error) {
 		m.cfg.TGConfig = cfg
 
 		if err := m.saveConfig(m.cfg); err != nil {
-			_ = mtconn.Close()
 			return nil, err
 		}
 
-		_ = m.primary.Close()
-		m.primary = mtconn
+		m.primary = conn
 	}
 
-	return mtconn, nil
+	return conn, nil
 }
 
-func (m *Manager) initConn(ctx context.Context, conn *mtp.Conn, noUpdates bool) (tg.Config, error) {
+func (m *Manager) initConn(ctx context.Context, conn Conn, noUpdates bool) (tg.Config, error) {
 	wrap := func(req bin.Object) bin.Object { return req }
 	if noUpdates {
 		wrap = func(req bin.Object) bin.Object {

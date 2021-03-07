@@ -5,35 +5,39 @@ import (
 	"sync"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/dcmanager/mtp"
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
 	"go.uber.org/zap"
+	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 )
 
 type Manager struct {
-	primary *mtp.Conn
-	others  map[int]*mtp.Conn
+	primary Conn
+	others  map[int]Conn
 	cfg     Config
 	mux     sync.RWMutex
 
+	g *errgroup.Group
+
 	// Immutable fields
-	onMessage  func(b *bin.Buffer) error // Updates handler for primary connection
-	saveConfig func(cfg Config) error    // Config saver function
-	appID      int                       // For connection init
-	device     DeviceConfig              // For connection init
-	transport  *transport.Transport      // MTProto optional param
-	network    string                    // MTProto optional param
-	log        *zap.Logger               // Logger
+	fetchConfig bool                      // Indicates whether we should fetch config
+	createConn  CreateConnFunc            // Creates connections
+	onMessage   func(b *bin.Buffer) error // Updates handler for primary connection
+	saveConfig  func(cfg Config) error    // Config saver function
+	appID       int                       // For connection init
+	device      DeviceConfig              // For connection init
+	transport   *transport.Transport      // MTProto optional param
+	network     string                    // MTProto optional param
+	log         *zap.Logger               // Logger
 }
 
-func New(appID int, opts Options) (*Manager, error) {
+func New(appID int, opts Options) *Manager {
 	opts.setDefaults()
 
 	m := &Manager{
-		others:     map[int]*mtp.Conn{},
+		others:     map[int]Conn{},
 		onMessage:  opts.UpdateHandler,
 		saveConfig: opts.ConfigHandler,
 		appID:      appID,
@@ -43,21 +47,34 @@ func New(appID int, opts Options) (*Manager, error) {
 		log:        opts.Logger,
 	}
 
-	if opts.Config == nil {
+	if opts.Config != nil {
+		m.cfg = *opts.Config
+	} else {
+		m.fetchConfig = true
+	}
+
+	return m
+}
+
+func (m *Manager) Run(ctx context.Context, f func(context.Context) error) error {
+	if m.fetchConfig {
 		// 149.154.175.55
 		// "2|" + telegram.AddrProduction
-		if err := m.initWithoutConfig("1|149.154.175.55:443"); err != nil {
-			return nil, err
+		if err := m.initWithoutConfig(ctx, "1|149.154.175.55:443"); err != nil {
+			return err
 		}
-
-		return m, nil
+	} else {
+		if err := m.initWithConfig(ctx); err != nil {
+			return err
+		}
 	}
 
-	if err := m.initWithConfig(*opts.Config); err != nil {
-		return nil, err
-	}
+	m.g.Go(func() error {
+		<-ctx.Done()
+		return ctx.Err()
+	})
 
-	return m, nil
+	return m.g.Wait()
 }
 
 func (m *Manager) InvokeRaw(ctx context.Context, in bin.Encoder, out bin.Decoder) error {

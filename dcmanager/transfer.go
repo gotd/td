@@ -3,14 +3,13 @@ package dcmanager
 import (
 	"context"
 
-	"github.com/gotd/td/dcmanager/mtp"
 	"github.com/gotd/td/tg"
 	"golang.org/x/xerrors"
 )
 
 // transfer exports current authorization and imports it to another DC.
 // See https://core.telegram.org/api/datacenter#authorization-transfer.
-func (m *Manager) transfer(ctx context.Context, conn *mtp.Conn, dc int) error {
+func (m *Manager) transfer(ctx context.Context, conn Conn, dc int) error {
 	m.mux.RLock()
 	var (
 		from = tg.NewClient(m.primary)

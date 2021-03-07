@@ -3,49 +3,54 @@ package dcmanager
 import (
 	"context"
 
-	"github.com/gotd/td/dcmanager/mtp"
 	"github.com/gotd/td/mtproto"
 	"go.uber.org/zap"
 )
 
-func (m *Manager) initWithoutConfig(addr string) error {
-	mtconn, err := mtp.New(addr, mtproto.Options{
+func (m *Manager) initWithoutConfig(ctx context.Context, addr string) error {
+	conn := m.createConn(addr, mtproto.Options{
 		//Transport: m.transport,
 		//Network:   m.network,
 
 		Logger: m.log.With(zap.String("dc_addr", addr), zap.String("dc_type", "primary")),
 	})
-	if err != nil {
-		return err
-	}
 
-	cfg, err := m.initConn(context.TODO(), mtconn, false)
+	m.runConn(ctx, conn)
+
+	cfg, err := m.initConn(ctx, conn, false)
 	if err != nil {
-		_ = mtconn.Close()
 		return err
 	}
 
 	m.cfg.TGConfig = cfg
-	m.primary = mtconn
+	m.primary = conn
 	return nil
 }
 
-func (m *Manager) initWithConfig(cfg Config) error {
-	m.cfg = cfg
-
-	dcInfo, err := cfg.findDC(m.cfg.PrimaryDC, true)
+func (m *Manager) initWithConfig(ctx context.Context) error {
+	dcInfo, err := m.cfg.findDC(m.cfg.PrimaryDC, true)
 	if err != nil {
 		return err
 	}
 
-	mtconn, err := m.dc(dcInfo).
+	conn, err := m.dc(dcInfo).
 		AsPrimary().
-		WithCreds(cfg.AuthKey, cfg.Salt).
-		Connect(context.TODO())
+		WithCreds(m.cfg.AuthKey, m.cfg.Salt).
+		Connect(ctx)
 	if err != nil {
 		return err
 	}
 
-	m.primary = mtconn
+	m.primary = conn
 	return nil
+}
+
+func (m *Manager) runConn(ctx context.Context, conn Conn) {
+	m.g.Go(func() error {
+		return conn.Run(ctx, func(ctx context.Context) error {
+			// Dumb function.
+			<-ctx.Done()
+			return ctx.Err()
+		})
+	})
 }
