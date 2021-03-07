@@ -20,5 +20,6 @@ func TestContact(t *testing.T) {
 	expectSendMediaAndText(&contact, mock, "че с деньгами?", &tg.MessageEntityBold{
 		Length: utf8.RuneCountInString("че с деньгами?"),
 	})
-	mock.NoError(sender.Self().Media(ctx, Contact(contact, Bold("че с деньгами?"))))
+	_, err := sender.Self().Media(ctx, Contact(contact, Bold("че с деньгами?")))
+	mock.NoError(err)
 }

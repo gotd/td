@@ -38,10 +38,12 @@ func TestRoundVideo(t *testing.T) {
 		},
 	}, mock)
 
-	mock.NoError(sender.Self().RoundVideo(ctx, file))
-	mock.NoError(sender.Self().Media(ctx, RoundVideo(file).
+	_, err := sender.Self().RoundVideo(ctx, file)
+	mock.NoError(err)
+	_, err = sender.Self().Media(ctx, RoundVideo(file).
 		Duration(10*time.Second).
 		Resolution(10, 10).
 		SupportsStreaming(),
-	))
+	)
+	mock.NoError(err)
 }

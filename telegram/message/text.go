@@ -28,33 +28,37 @@ func (b *Builder) sendRequest(
 }
 
 // Text sends text message.
-func (b *Builder) Text(ctx context.Context, msg string) error {
+func (b *Builder) Text(ctx context.Context, msg string) (tg.UpdatesClass, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return xerrors.Errorf("peer: %w", err)
+		return nil, xerrors.Errorf("peer: %w", err)
 	}
 
-	if err := b.sender.sendMessage(ctx, b.sendRequest(p, msg, nil)); err != nil {
-		return xerrors.Errorf("send text: %w", err)
+	upd, err := b.sender.sendMessage(ctx, b.sendRequest(p, msg, nil))
+	if err != nil {
+		return nil, xerrors.Errorf("send text: %w", err)
 	}
 
-	return nil
+	return upd, nil
 }
 
 // StyledText sends styled text message.
-func (b *Builder) StyledText(ctx context.Context, text StyledTextOption, texts ...StyledTextOption) error {
+func (b *Builder) StyledText(
+	ctx context.Context, text StyledTextOption, texts ...StyledTextOption,
+) (tg.UpdatesClass, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return xerrors.Errorf("peer: %w", err)
+		return nil, xerrors.Errorf("peer: %w", err)
 	}
 
 	tb := textBuilder{}
 	tb.Perform(text, texts...)
 	msg, entities := tb.Complete()
 
-	if err := b.sender.sendMessage(ctx, b.sendRequest(p, msg, entities)); err != nil {
-		return xerrors.Errorf("send styled text: %w", err)
+	upd, err := b.sender.sendMessage(ctx, b.sendRequest(p, msg, entities))
+	if err != nil {
+		return nil, xerrors.Errorf("send text: %w", err)
 	}
 
-	return nil
+	return upd, nil
 }

@@ -20,7 +20,8 @@ func TestBuilder_InlineResult(t *testing.T) {
 		mock.Equal("10", req.ID)
 		mock.True(req.HideVia)
 	}).ThenResult(&tg.Updates{})
-	mock.NoError(sender.Self().InlineResult(ctx, "10", 10, true))
+	_, err := sender.Self().InlineResult(ctx, "10", 10, true)
+	mock.NoError(err)
 
 	mock.ExpectFunc(func(b bin.Encoder) {
 		req, ok := b.(*tg.MessagesSendInlineBotResultRequest)
@@ -30,5 +31,6 @@ func TestBuilder_InlineResult(t *testing.T) {
 		mock.Equal("10", req.ID)
 		mock.False(req.HideVia)
 	}).ThenRPCErr(testRPCError())
-	mock.Error(sender.Self().InlineResult(ctx, "10", 10, false))
+	_, err = sender.Self().InlineResult(ctx, "10", 10, false)
+	mock.Error(err)
 }

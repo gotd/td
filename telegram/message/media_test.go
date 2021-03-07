@@ -25,7 +25,8 @@ func TestBuilder_Album(t *testing.T) {
 			mock.NotZero(req.MultiMedia[i].RandomID)
 		}
 	}).ThenResult(&tg.Updates{})
-	mock.NoError(sender.Self().Album(ctx, Photo(loc), Photo(loc)))
+	_, err := sender.Self().Album(ctx, Photo(loc), Photo(loc))
+	mock.NoError(err)
 
 	doc := &tg.InputDocument{
 		ID: 10,
@@ -40,7 +41,8 @@ func TestBuilder_Album(t *testing.T) {
 			mock.NotZero(req.MultiMedia[i].RandomID)
 		}
 	}).ThenResult(&tg.Updates{})
-	mock.NoError(sender.Self().Album(ctx, Document(doc), Document(doc)))
+	_, err = sender.Self().Album(ctx, Document(doc), Document(doc))
+	mock.NoError(err)
 }
 
 func TestBuilder_UploadMedia(t *testing.T) {

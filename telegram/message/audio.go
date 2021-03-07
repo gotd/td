@@ -86,11 +86,14 @@ func Voice(file tg.InputFileClass) *AudioDocumentBuilder {
 }
 
 // Audio sends audio file.
-func (b *Builder) Audio(ctx context.Context, file tg.InputFileClass, caption ...StyledTextOption) error {
+func (b *Builder) Audio(
+	ctx context.Context,
+	file tg.InputFileClass, caption ...StyledTextOption,
+) (tg.UpdatesClass, error) {
 	return b.Media(ctx, Audio(file, caption...))
 }
 
 // Voice sends voice message.
-func (b *Builder) Voice(ctx context.Context, file tg.InputFileClass) error {
+func (b *Builder) Voice(ctx context.Context, file tg.InputFileClass) (tg.UpdatesClass, error) {
 	return b.Media(ctx, Voice(file))
 }

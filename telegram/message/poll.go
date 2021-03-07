@@ -153,19 +153,23 @@ func Poll(question string, a, b PollAnswerOption, answers ...PollAnswerOption) *
 }
 
 // PollVote votes in a poll.
-func (b *RequestBuilder) PollVote(ctx context.Context, msgID int, answer []byte, answers ...[]byte) error {
+func (b *RequestBuilder) PollVote(
+	ctx context.Context, msgID int,
+	answer []byte, answers ...[]byte,
+) (tg.UpdatesClass, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return xerrors.Errorf("peer: %w", err)
+		return nil, xerrors.Errorf("peer: %w", err)
 	}
 
-	if err := b.sender.sendVote(ctx, &tg.MessagesSendVoteRequest{
+	upd, err := b.sender.sendVote(ctx, &tg.MessagesSendVoteRequest{
 		Peer:    p,
 		MsgID:   msgID,
 		Options: append([][]byte{answer}, answers...),
-	}); err != nil {
-		return xerrors.Errorf("start bot: %w", err)
+	})
+	if err != nil {
+		return nil, xerrors.Errorf("start bot: %w", err)
 	}
 
-	return nil
+	return upd, nil
 }

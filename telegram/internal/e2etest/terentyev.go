@@ -77,7 +77,7 @@ func (u User) Run(ctx context.Context) error {
 		for _, line := range u.text {
 			time.Sleep(2 * time.Second)
 
-			err = sender.Peer(peer).Text(ctx, line)
+			_, err = sender.Peer(peer).Text(ctx, line)
 			if flood, err := helpers.FloodWait(ctx, err); err != nil {
 				if flood {
 					continue

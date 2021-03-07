@@ -57,94 +57,90 @@ func (s *Sender) ClearAllDrafts(ctx context.Context) error {
 }
 
 // sendMessage sends message to peer.
-func (s *Sender) sendMessage(ctx context.Context, req *tg.MessagesSendMessageRequest) error {
+func (s *Sender) sendMessage(ctx context.Context, req *tg.MessagesSendMessageRequest) (tg.UpdatesClass, error) {
 	if req.RandomID == 0 {
 		id, err := crypto.RandInt64(s.rand)
 		if err != nil {
-			return xerrors.Errorf("generate random_id: %w", err)
+			return nil, xerrors.Errorf("generate random_id: %w", err)
 		}
 		req.RandomID = id
 	}
 
-	_, err := s.raw.MessagesSendMessage(ctx, req)
-	return err
+	return s.raw.MessagesSendMessage(ctx, req)
 }
 
 // sendMedia sends message with single media to peer.
-func (s *Sender) sendMedia(ctx context.Context, req *tg.MessagesSendMediaRequest) error {
+func (s *Sender) sendMedia(ctx context.Context, req *tg.MessagesSendMediaRequest) (tg.UpdatesClass, error) {
 	if req.RandomID == 0 {
 		id, err := crypto.RandInt64(s.rand)
 		if err != nil {
-			return xerrors.Errorf("generate random_id: %w", err)
+			return nil, xerrors.Errorf("generate random_id: %w", err)
 		}
 		req.RandomID = id
 	}
 
-	_, err := s.raw.MessagesSendMedia(ctx, req)
-	return err
+	return s.raw.MessagesSendMedia(ctx, req)
 }
 
 // sendMultiMedia sends message with multiple media to peer.
-func (s *Sender) sendMultiMedia(ctx context.Context, req *tg.MessagesSendMultiMediaRequest) error {
+func (s *Sender) sendMultiMedia(ctx context.Context, req *tg.MessagesSendMultiMediaRequest) (tg.UpdatesClass, error) {
 	for i := range req.MultiMedia {
 		id, err := crypto.RandInt64(s.rand)
 		if err != nil {
-			return xerrors.Errorf("generate random_id: %w", err)
+			return nil, xerrors.Errorf("generate random_id: %w", err)
 		}
 		req.MultiMedia[i].RandomID = id
 	}
 
-	_, err := s.raw.MessagesSendMultiMedia(ctx, req)
-	return err
+	return s.raw.MessagesSendMultiMedia(ctx, req)
 }
 
 // editMessage edits message.
-func (s *Sender) editMessage(ctx context.Context, req *tg.MessagesEditMessageRequest) error {
-	_, err := s.raw.MessagesEditMessage(ctx, req)
-	return err
+func (s *Sender) editMessage(ctx context.Context, req *tg.MessagesEditMessageRequest) (tg.UpdatesClass, error) {
+	return s.raw.MessagesEditMessage(ctx, req)
 }
 
 // forwardMessages forwards message to peer.
-func (s *Sender) forwardMessages(ctx context.Context, req *tg.MessagesForwardMessagesRequest) error {
+func (s *Sender) forwardMessages(ctx context.Context, req *tg.MessagesForwardMessagesRequest) (tg.UpdatesClass, error) {
 	req.RandomID = make([]int64, len(req.ID))
 	for i := range req.RandomID {
 		id, err := crypto.RandInt64(s.rand)
 		if err != nil {
-			return xerrors.Errorf("generate random_id: %w", err)
+			return nil, xerrors.Errorf("generate random_id: %w", err)
 		}
 		req.RandomID[i] = id
 	}
 
-	_, err := s.raw.MessagesForwardMessages(ctx, req)
-	return err
+	return s.raw.MessagesForwardMessages(ctx, req)
 }
 
 // startBot starts a conversation with a bot using a deep linking parameter.
-func (s *Sender) startBot(ctx context.Context, req *tg.MessagesStartBotRequest) error {
+func (s *Sender) startBot(ctx context.Context, req *tg.MessagesStartBotRequest) (tg.UpdatesClass, error) {
 	if req.RandomID == 0 {
 		id, err := crypto.RandInt64(s.rand)
 		if err != nil {
-			return xerrors.Errorf("generate random_id: %w", err)
+			return nil, xerrors.Errorf("generate random_id: %w", err)
 		}
 		req.RandomID = id
 	}
 
-	_, err := s.raw.MessagesStartBot(ctx, req)
-	return err
+	return s.raw.MessagesStartBot(ctx, req)
 }
 
 // sendInlineBotResult sends inline query result message to peer.
-func (s *Sender) sendInlineBotResult(ctx context.Context, req *tg.MessagesSendInlineBotResultRequest) error {
+func (s *Sender) sendInlineBotResult(
+	ctx context.Context,
+	req *tg.MessagesSendInlineBotResultRequest,
+) (tg.UpdatesClass, error) {
 	if req.RandomID == 0 {
 		id, err := crypto.RandInt64(s.rand)
 		if err != nil {
-			return xerrors.Errorf("generate random_id: %w", err)
+			return nil, xerrors.Errorf("generate random_id: %w", err)
 		}
 		req.RandomID = id
 	}
 
-	_, err := s.raw.MessagesSendInlineBotResult(ctx, req)
-	return err
+	return s.raw.MessagesSendInlineBotResult(ctx, req)
 }
 
 // uploadMedia uploads file and associate it to a chat (without actually sending it to the chat).
@@ -167,9 +163,8 @@ func (s *Sender) saveDraft(ctx context.Context, req *tg.MessagesSaveDraftRequest
 }
 
 // sendVote votes in a poll.
-func (s *Sender) sendVote(ctx context.Context, req *tg.MessagesSendVoteRequest) error {
-	_, err := s.raw.MessagesSendVote(ctx, req)
-	return err
+func (s *Sender) sendVote(ctx context.Context, req *tg.MessagesSendVoteRequest) (tg.UpdatesClass, error) {
+	return s.raw.MessagesSendVote(ctx, req)
 }
 
 // setTyping sends a typing event to a conversation partner or group.
@@ -197,29 +192,32 @@ func (s *Sender) getPeerSettings(ctx context.Context, p tg.InputPeerClass) (*tg.
 func (s *Sender) sendScreenshotNotification(
 	ctx context.Context,
 	req *tg.MessagesSendScreenshotNotificationRequest,
-) error {
+) (tg.UpdatesClass, error) {
 	if req.RandomID == 0 {
 		id, err := crypto.RandInt64(s.rand)
 		if err != nil {
-			return xerrors.Errorf("generate random_id: %w", err)
+			return nil, xerrors.Errorf("generate random_id: %w", err)
 		}
 		req.RandomID = id
 	}
 
-	_, err := s.raw.MessagesSendScreenshotNotification(ctx, req)
-	return err
+	return s.raw.MessagesSendScreenshotNotification(ctx, req)
 }
 
 // sendScheduledMessages sends scheduled messages using given ids.
-func (s *Sender) sendScheduledMessages(ctx context.Context, req *tg.MessagesSendScheduledMessagesRequest) error {
-	_, err := s.raw.MessagesSendScheduledMessages(ctx, req)
-	return err
+func (s *Sender) sendScheduledMessages(
+	ctx context.Context,
+	req *tg.MessagesSendScheduledMessagesRequest,
+) (tg.UpdatesClass, error) {
+	return s.raw.MessagesSendScheduledMessages(ctx, req)
 }
 
 // deleteScheduledMessages deletes scheduled messages using given ids.
-func (s *Sender) deleteScheduledMessages(ctx context.Context, req *tg.MessagesDeleteScheduledMessagesRequest) error {
-	_, err := s.raw.MessagesDeleteScheduledMessages(ctx, req)
-	return err
+func (s *Sender) deleteScheduledMessages(
+	ctx context.Context,
+	req *tg.MessagesDeleteScheduledMessagesRequest,
+) (tg.UpdatesClass, error) {
+	return s.raw.MessagesDeleteScheduledMessages(ctx, req)
 }
 
 // getScheduledHistory gets scheduled messages history.

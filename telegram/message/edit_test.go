@@ -19,7 +19,8 @@ func TestEditMessageBuilder_Text(t *testing.T) {
 		Message: msg,
 	}).ThenResult(&tg.Updates{})
 
-	mock.NoError(sender.Self().Edit(10).Text(ctx, msg))
+	_, err := sender.Self().Edit(10).Text(ctx, msg)
+	mock.NoError(err)
 
 	mock.ExpectCall(&tg.MessagesEditMessageRequest{
 		Peer:    &tg.InputPeerSelf{},
@@ -27,7 +28,8 @@ func TestEditMessageBuilder_Text(t *testing.T) {
 		Message: msg,
 	}).ThenRPCErr(testRPCError())
 
-	mock.Error(sender.Self().Edit(10).Text(ctx, msg))
+	_, err = sender.Self().Edit(10).Text(ctx, msg)
+	mock.Error(err)
 }
 
 func TestEditMessageBuilder_StyledText(t *testing.T) {
@@ -46,7 +48,8 @@ func TestEditMessageBuilder_StyledText(t *testing.T) {
 		},
 	}).ThenResult(&tg.Updates{})
 
-	mock.NoError(sender.Self().Edit(10).StyledText(ctx, Bold(msg)))
+	_, err := sender.Self().Edit(10).StyledText(ctx, Bold(msg))
+	mock.NoError(err)
 
 	mock.ExpectCall(&tg.MessagesEditMessageRequest{
 		Peer:    &tg.InputPeerSelf{},
@@ -59,7 +62,8 @@ func TestEditMessageBuilder_StyledText(t *testing.T) {
 		},
 	}).ThenRPCErr(testRPCError())
 
-	mock.Error(sender.Self().Edit(10).StyledText(ctx, Bold(msg)))
+	_, err = sender.Self().Edit(10).StyledText(ctx, Bold(msg))
+	mock.Error(err)
 }
 
 func TestEditMessageBuilder_Media(t *testing.T) {
@@ -77,7 +81,8 @@ func TestEditMessageBuilder_Media(t *testing.T) {
 		},
 	}).ThenResult(&tg.Updates{})
 
-	mock.NoError(sender.Self().Edit(10).Media(ctx, Photo(loc)))
+	_, err := sender.Self().Edit(10).Media(ctx, Photo(loc))
+	mock.NoError(err)
 
 	mock.ExpectCall(&tg.MessagesEditMessageRequest{
 		Peer: &tg.InputPeerSelf{},
@@ -87,5 +92,6 @@ func TestEditMessageBuilder_Media(t *testing.T) {
 		},
 	}).ThenRPCErr(testRPCError())
 
-	mock.Error(sender.Self().Edit(10).Media(ctx, Photo(loc)))
+	_, err = sender.Self().Edit(10).Media(ctx, Photo(loc))
+	mock.Error(err)
 }

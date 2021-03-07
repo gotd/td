@@ -31,7 +31,8 @@ func run(ctx context.Context) error {
 				return nil
 			}
 
-			return sender.Reply(ctx, u).Text(ctx, m.Message)
+			_, err := sender.Reply(ctx, u).Text(ctx, m.Message)
+			return err
 		})
 		return nil
 	}, telegram.RunUntilCanceled)

@@ -15,13 +15,15 @@ func TestScheduledManager_Send(t *testing.T) {
 		Peer: &tg.InputPeerSelf{},
 		ID:   []int{10},
 	}).ThenResult(&tg.Updates{})
-	mock.NoError(sender.Self().Scheduled().Send(ctx, 10))
+	_, err := sender.Self().Scheduled().Send(ctx, 10)
+	mock.NoError(err)
 
 	mock.ExpectCall(&tg.MessagesSendScheduledMessagesRequest{
 		Peer: &tg.InputPeerSelf{},
 		ID:   []int{10},
 	}).ThenRPCErr(testRPCError())
-	mock.Error(sender.Self().Scheduled().Send(ctx, 10))
+	_, err = sender.Self().Scheduled().Send(ctx, 10)
+	mock.Error(err)
 }
 
 func TestScheduledManager_Delete(t *testing.T) {
@@ -32,13 +34,15 @@ func TestScheduledManager_Delete(t *testing.T) {
 		Peer: &tg.InputPeerSelf{},
 		ID:   []int{10},
 	}).ThenResult(&tg.Updates{})
-	mock.NoError(sender.Self().Scheduled().Delete(ctx, 10))
+	_, err := sender.Self().Scheduled().Delete(ctx, 10)
+	mock.NoError(err)
 
 	mock.ExpectCall(&tg.MessagesDeleteScheduledMessagesRequest{
 		Peer: &tg.InputPeerSelf{},
 		ID:   []int{10},
 	}).ThenRPCErr(testRPCError())
-	mock.Error(sender.Self().Scheduled().Delete(ctx, 10))
+	_, err = sender.Self().Scheduled().Delete(ctx, 10)
+	mock.Error(err)
 }
 
 func TestScheduledManager_Get(t *testing.T) {

@@ -21,8 +21,10 @@ func TestPhoto(t *testing.T) {
 		TTLSeconds: 10,
 	}, mock)
 
-	mock.NoError(sender.Self().Photo(ctx, loc))
-	mock.NoError(sender.Self().Media(ctx, Photo(loc).TTL(10*time.Second)))
+	_, err := sender.Self().Photo(ctx, loc)
+	mock.NoError(err)
+	_, err = sender.Self().Media(ctx, Photo(loc).TTL(10*time.Second))
+	mock.NoError(err)
 }
 
 func TestPhotoExternal(t *testing.T) {
@@ -35,8 +37,10 @@ func TestPhotoExternal(t *testing.T) {
 		TTLSeconds: 10,
 	}, mock)
 
-	mock.NoError(sender.Self().PhotoExternal(ctx, "https://google.com"))
-	mock.NoError(sender.Self().Media(ctx, PhotoExternal("https://github.com").TTL(10*time.Second)))
+	_, err := sender.Self().PhotoExternal(ctx, "https://google.com")
+	mock.NoError(err)
+	_, err = sender.Self().Media(ctx, PhotoExternal("https://github.com").TTL(10*time.Second))
+	mock.NoError(err)
 }
 
 func TestUploadedPhoto(t *testing.T) {
@@ -63,7 +67,10 @@ func TestUploadedPhoto(t *testing.T) {
 		}},
 	}, mock)
 
-	mock.NoError(sender.Self().UploadedPhoto(ctx, file))
-	mock.NoError(sender.Self().Media(ctx, UploadedPhoto(file).TTL(10*time.Second)))
-	mock.NoError(sender.Self().Media(ctx, UploadedPhoto(file).Stickers(loc)))
+	_, err := sender.Self().UploadedPhoto(ctx, file)
+	mock.NoError(err)
+	_, err = sender.Self().Media(ctx, UploadedPhoto(file).TTL(10*time.Second))
+	mock.NoError(err)
+	_, err = sender.Self().Media(ctx, UploadedPhoto(file).Stickers(loc))
+	mock.NoError(err)
 }

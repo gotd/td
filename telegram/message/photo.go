@@ -50,7 +50,10 @@ func Photo(photo FileLocation, caption ...StyledTextOption) *PhotoBuilder {
 }
 
 // Photo sends photo.
-func (b *Builder) Photo(ctx context.Context, photo FileLocation, caption ...StyledTextOption) error {
+func (b *Builder) Photo(
+	ctx context.Context,
+	photo FileLocation, caption ...StyledTextOption,
+) (tg.UpdatesClass, error) {
 	return b.Media(ctx, Photo(photo, caption...))
 }
 
@@ -87,7 +90,10 @@ func PhotoExternal(url string, caption ...StyledTextOption) *PhotoExternalBuilde
 }
 
 // PhotoExternal sends photo attachment which will be downloaded by the Telegram servers.
-func (b *Builder) PhotoExternal(ctx context.Context, url string, caption ...StyledTextOption) error {
+func (b *Builder) PhotoExternal(
+	ctx context.Context,
+	url string, caption ...StyledTextOption,
+) (tg.UpdatesClass, error) {
 	return b.Media(ctx, PhotoExternal(url, caption...))
 }
 
@@ -148,6 +154,9 @@ func UploadedPhoto(file tg.InputFileClass, caption ...StyledTextOption) *Uploade
 }
 
 // UploadedPhoto sends uploaded file as photo.
-func (b *Builder) UploadedPhoto(ctx context.Context, file tg.InputFileClass, caption ...StyledTextOption) error {
+func (b *Builder) UploadedPhoto(
+	ctx context.Context,
+	file tg.InputFileClass, caption ...StyledTextOption,
+) (tg.UpdatesClass, error) {
 	return b.Media(ctx, UploadedPhoto(file, caption...))
 }

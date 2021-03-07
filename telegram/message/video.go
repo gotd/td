@@ -82,11 +82,17 @@ func RoundVideo(file tg.InputFileClass, caption ...StyledTextOption) *VideoDocum
 }
 
 // Video sends video.
-func (b *Builder) Video(ctx context.Context, file tg.InputFileClass, caption ...StyledTextOption) error {
+func (b *Builder) Video(
+	ctx context.Context,
+	file tg.InputFileClass, caption ...StyledTextOption,
+) (tg.UpdatesClass, error) {
 	return b.Media(ctx, Video(file, caption...))
 }
 
 // RoundVideo sends round video.
-func (b *Builder) RoundVideo(ctx context.Context, file tg.InputFileClass, caption ...StyledTextOption) error {
+func (b *Builder) RoundVideo(
+	ctx context.Context,
+	file tg.InputFileClass, caption ...StyledTextOption,
+) (tg.UpdatesClass, error) {
 	return b.Media(ctx, RoundVideo(file, caption...))
 }

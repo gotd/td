@@ -21,7 +21,8 @@ func TestBuilder_Text(t *testing.T) {
 		mock.Equal(msg, req.Message)
 	}).ThenResult(&tg.Updates{})
 
-	mock.NoError(sender.Self().Text(ctx, msg))
+	_, err := sender.Self().Text(ctx, msg)
+	mock.NoError(err)
 
 	mock.ExpectFunc(func(b bin.Encoder) {
 		req, ok := b.(*tg.MessagesSendMessageRequest)
@@ -30,7 +31,8 @@ func TestBuilder_Text(t *testing.T) {
 		mock.Equal(msg, req.Message)
 	}).ThenRPCErr(testRPCError())
 
-	mock.Error(sender.Self().Text(ctx, msg))
+	_, err = sender.Self().Text(ctx, msg)
+	mock.Error(err)
 }
 
 func TestBuilder_StyledText(t *testing.T) {
@@ -99,7 +101,8 @@ func TestBuilder_StyledText(t *testing.T) {
 				mock.Equal(test.creator(utf8.RuneCountInString(msg)), req.Entities[0])
 			}).ThenResult(&tg.Updates{})
 
-			mock.NoError(sender.Self().StyledText(ctx, test.format(msg)))
+			_, err := sender.Self().StyledText(ctx, test.format(msg))
+			mock.NoError(err)
 
 			mock.ExpectFunc(func(b bin.Encoder) {
 				req, ok := b.(*tg.MessagesSendMessageRequest)
@@ -111,7 +114,8 @@ func TestBuilder_StyledText(t *testing.T) {
 				mock.Equal(test.creator(utf8.RuneCountInString(msg)), req.Entities[0])
 			}).ThenRPCErr(testRPCError())
 
-			mock.Error(sender.Self().StyledText(ctx, test.format(msg)))
+			_, err = sender.Self().StyledText(ctx, test.format(msg))
+			mock.Error(err)
 		})
 	}
 }

@@ -15,37 +15,39 @@ type ScheduledManager struct {
 }
 
 // Send sends scheduled messages.
-func (m *ScheduledManager) Send(ctx context.Context, id int, ids ...int) error {
+func (m *ScheduledManager) Send(ctx context.Context, id int, ids ...int) (tg.UpdatesClass, error) {
 	p, err := m.peer(ctx)
 	if err != nil {
-		return xerrors.Errorf("peer: %w", err)
+		return nil, xerrors.Errorf("peer: %w", err)
 	}
 
-	if err := m.sender.sendScheduledMessages(ctx, &tg.MessagesSendScheduledMessagesRequest{
+	upd, err := m.sender.sendScheduledMessages(ctx, &tg.MessagesSendScheduledMessagesRequest{
 		Peer: p,
 		ID:   append([]int{id}, ids...),
-	}); err != nil {
-		return xerrors.Errorf("send scheduled messages: %w", err)
+	})
+	if err != nil {
+		return nil, xerrors.Errorf("send scheduled messages: %w", err)
 	}
 
-	return nil
+	return upd, nil
 }
 
 // Delete deletes scheduled messages.
-func (m *ScheduledManager) Delete(ctx context.Context, id int, ids ...int) error {
+func (m *ScheduledManager) Delete(ctx context.Context, id int, ids ...int) (tg.UpdatesClass, error) {
 	p, err := m.peer(ctx)
 	if err != nil {
-		return xerrors.Errorf("peer: %w", err)
+		return nil, xerrors.Errorf("peer: %w", err)
 	}
 
-	if err := m.sender.deleteScheduledMessages(ctx, &tg.MessagesDeleteScheduledMessagesRequest{
+	upd, err := m.sender.deleteScheduledMessages(ctx, &tg.MessagesDeleteScheduledMessagesRequest{
 		Peer: p,
 		ID:   append([]int{id}, ids...),
-	}); err != nil {
-		return xerrors.Errorf("delete scheduled messages: %w", err)
+	})
+	if err != nil {
+		return nil, xerrors.Errorf("delete scheduled messages: %w", err)
 	}
 
-	return nil
+	return upd, nil
 }
 
 // Get gets scheduled messages.
