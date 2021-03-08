@@ -127,7 +127,7 @@ func (b *dcBuilder) Connect(ctx context.Context) (Conn, error) {
 	}
 
 	conn := m.createConn(fmt.Sprintf("%d|%s:%d", dc.ID, dc.IPAddress, dc.Port), opts)
-	if err := m.startConn(ctx, conn); err != nil {
+	if err := m.conns.Start(conn); err != nil {
 		return nil, err
 	}
 
@@ -160,8 +160,10 @@ func (b *dcBuilder) Connect(ctx context.Context) (Conn, error) {
 			return nil, err
 		}
 
-		// TODO(ccln): destroy previous connection
 		m.migmux.Lock()
+		if err := m.conns.Stop(m.primary); err != nil {
+			m.log.Warn("Failed to cleanup connection", zap.Error(err))
+		}
 		m.primary = conn
 		m.migmux.Unlock()
 	}

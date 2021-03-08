@@ -5,11 +5,11 @@ import (
 	"sync"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/dcmanager/internal/lifetime"
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
 	"go.uber.org/zap"
-	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 )
 
@@ -25,7 +25,7 @@ type Manager struct {
 	cfg    Config
 	cfgMux sync.RWMutex
 
-	g *errgroup.Group
+	conns *lifetime.Lifetimer
 
 	// Immutable fields
 	fetchConfig bool                      // Indicates whether we should fetch config from server
@@ -44,7 +44,7 @@ func New(appID int, opts Options) *Manager {
 
 	m := &Manager{
 		others:     map[int]Conn{},
-		g:          &errgroup.Group{},
+		conns:      lifetime.New(),
 		createConn: opts.ConnCreator,
 		onMessage:  opts.UpdateHandler,
 		saveConfig: opts.ConfigHandler,
@@ -79,8 +79,7 @@ func (m *Manager) Run(ctx context.Context, f func(context.Context) error) error 
 		}
 	}
 
-	m.g.Go(func() error { return f(ctx) })
-	return m.g.Wait()
+	return m.conns.Wait(ctx)
 }
 
 func (m *Manager) InvokeRaw(ctx context.Context, in bin.Encoder, out bin.Decoder) error {
@@ -145,7 +144,6 @@ func (m *Manager) invokeDC(ctx context.Context, dcID int, in bin.Encoder, out bi
 			return err
 		}
 
-		// TODO(ccln): change ctx
 		conn, err = m.dc(dcInfo).WithAuthTransfer().Connect(ctx)
 		if err != nil {
 			m.omux.Unlock()

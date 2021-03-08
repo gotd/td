@@ -15,7 +15,7 @@ func (m *Manager) initWithoutConfig(ctx context.Context, addr string) error {
 		Logger: m.log.With(zap.String("dc_addr", addr), zap.String("dc_type", "primary")),
 	})
 
-	if err := m.startConn(ctx, conn); err != nil {
+	if err := m.conns.Start(conn); err != nil {
 		return err
 	}
 
@@ -45,26 +45,4 @@ func (m *Manager) initWithConfig(ctx context.Context) error {
 
 	m.primary = conn
 	return nil
-}
-
-func (m *Manager) startConn(ctx context.Context, conn Conn) error {
-	connected := make(chan struct{})
-	runResult := make(chan error)
-	m.g.Go(func() error {
-		err := conn.Run(ctx, func(ctx context.Context) error {
-			close(connected)
-			<-ctx.Done()
-			return ctx.Err()
-		})
-
-		runResult <- err
-		return err
-	})
-
-	select {
-	case <-connected:
-		return nil
-	case err := <-runResult:
-		return err
-	}
 }
