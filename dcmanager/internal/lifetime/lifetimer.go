@@ -20,6 +20,7 @@ type Runner interface {
 type Lifetimer struct {
 	runners map[Runner]life
 	g       errgroup.Group
+	started bool
 	closed  bool
 	mux     sync.Mutex
 }
@@ -99,6 +100,8 @@ func (lf *Lifetimer) Stop(r Runner) error {
 		return xerrors.Errorf("not found")
 	}
 
+	delete(lf.runners, r)
+
 	life.stop()
 	return <-life.result
 }
@@ -109,6 +112,13 @@ func (lf *Lifetimer) Wait(ctx context.Context) error {
 		lf.mux.Unlock()
 		return ErrClosed
 	}
+
+	if lf.started {
+		lf.mux.Unlock()
+		return xerrors.Errorf("Multiple wait calls not allowed")
+	}
+
+	lf.started = true
 	lf.mux.Unlock()
 
 	defer func() {
@@ -116,12 +126,20 @@ func (lf *Lifetimer) Wait(ctx context.Context) error {
 		defer lf.mux.Unlock()
 
 		lf.closed = true
-
 		for _, life := range lf.runners {
 			life.stop()
 			_ = <-life.result
 		}
+		lf.runners = nil
 	}()
 
-	return lf.g.Wait()
+	wgerr := make(chan error)
+	go func() { wgerr <- lf.g.Wait() }()
+
+	select {
+	case <-ctx.Done():
+		return ctx.Err()
+	case err := <-wgerr:
+		return err
+	}
 }

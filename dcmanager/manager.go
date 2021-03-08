@@ -79,6 +79,9 @@ func (m *Manager) Run(ctx context.Context, f func(context.Context) error) error 
 		}
 	}
 
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+	go f(ctx)
 	return m.conns.Wait(ctx)
 }
 
