@@ -67,7 +67,8 @@ func (c *Client) invokeMigrate(ctx context.Context, dcID int, input bin.Encoder,
 
 	if err := c.migrateToDc(
 		c.ctx, dcID,
-		// TODO(tdakkota): Is it may be necessary to migrate if error is not FILE_MIGRATE or STATS_MIGRATE?
+		// TODO(tdakkota): Is it may be necessary to transfer auth
+		//  if error is not FILE_MIGRATE or STATS_MIGRATE?
 		false,
 	); err != nil {
 		return xerrors.Errorf("migrate to dc: %w", err)

@@ -114,15 +114,9 @@ func (p *PollBuilder) Explanation(msg string) *PollBuilder {
 }
 
 // StyledExplanation sets styled explanation message.
-func (p *PollBuilder) StyledExplanation(text StyledTextOption, opts ...StyledTextOption) *PollBuilder {
+func (p *PollBuilder) StyledExplanation(text StyledTextOption, texts ...StyledTextOption) *PollBuilder {
 	captionBuilder := textBuilder{}
-
-	text(&captionBuilder)
-	if len(opts) > 0 {
-		for _, opt := range opts {
-			opt(&captionBuilder)
-		}
-	}
+	captionBuilder.Perform(text, texts...)
 
 	p.input.Solution, p.input.SolutionEntities = captionBuilder.Complete()
 	return p
@@ -159,19 +153,23 @@ func Poll(question string, a, b PollAnswerOption, answers ...PollAnswerOption) *
 }
 
 // PollVote votes in a poll.
-func (b *RequestBuilder) PollVote(ctx context.Context, msgID int, answer []byte, answers ...[]byte) error {
+func (b *RequestBuilder) PollVote(
+	ctx context.Context, msgID int,
+	answer []byte, answers ...[]byte,
+) (tg.UpdatesClass, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return xerrors.Errorf("peer: %w", err)
+		return nil, xerrors.Errorf("peer: %w", err)
 	}
 
-	if err := b.sender.sendVote(ctx, &tg.MessagesSendVoteRequest{
+	upd, err := b.sender.sendVote(ctx, &tg.MessagesSendVoteRequest{
 		Peer:    p,
 		MsgID:   msgID,
 		Options: append([][]byte{answer}, answers...),
-	}); err != nil {
-		return xerrors.Errorf("start bot: %w", err)
+	})
+	if err != nil {
+		return nil, xerrors.Errorf("start bot: %w", err)
 	}
 
-	return nil
+	return upd, nil
 }

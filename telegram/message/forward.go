@@ -23,13 +23,13 @@ func (b *ForwardBuilder) WithMyScore() *ForwardBuilder {
 }
 
 // Send sends forwarded messages.
-func (b *ForwardBuilder) Send(ctx context.Context) error {
+func (b *ForwardBuilder) Send(ctx context.Context) (tg.UpdatesClass, error) {
 	p, err := b.builder.peer(ctx)
 	if err != nil {
-		return xerrors.Errorf("peer: %w", err)
+		return nil, xerrors.Errorf("peer: %w", err)
 	}
 
-	if err := b.builder.sender.forwardMessages(ctx, &tg.MessagesForwardMessagesRequest{
+	upd, err := b.builder.sender.forwardMessages(ctx, &tg.MessagesForwardMessagesRequest{
 		Silent:       b.builder.silent,
 		Background:   b.builder.background,
 		WithMyScore:  b.withMyScore,
@@ -37,11 +37,12 @@ func (b *ForwardBuilder) Send(ctx context.Context) error {
 		ID:           b.ids,
 		ToPeer:       p,
 		ScheduleDate: b.builder.scheduleDate,
-	}); err != nil {
-		return xerrors.Errorf("send inline bot result: %w", err)
+	})
+	if err != nil {
+		return nil, xerrors.Errorf("send inline bot result: %w", err)
 	}
 
-	return nil
+	return upd, nil
 }
 
 // ForwardIDs creates builder to forward messages by ID.

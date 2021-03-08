@@ -20,5 +20,6 @@ func TestGeoPoint(t *testing.T) {
 		GeoPoint: &point,
 	}, mock)
 
-	mock.NoError(sender.Self().Media(ctx, GeoPoint(11, 12, 10)))
+	_, err := sender.Self().Media(ctx, GeoPoint(11, 12, 10))
+	mock.NoError(err)
 }

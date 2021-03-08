@@ -11,9 +11,7 @@ import (
 func performTextOptions(media *tg.InputSingleMedia, opts []StyledTextOption) {
 	if len(opts) > 0 {
 		captionBuilder := textBuilder{}
-		for _, opt := range opts {
-			opt(&captionBuilder)
-		}
+		captionBuilder.Perform(opts[0], opts[1:]...)
 
 		media.Message, media.Entities = captionBuilder.Complete()
 	}
@@ -33,10 +31,10 @@ func Media(media tg.InputMediaClass, caption ...StyledTextOption) MediaOption {
 }
 
 // Album sends message with multiple media attachments.
-func (b *Builder) Album(ctx context.Context, media MultiMediaOption, album ...MultiMediaOption) error {
+func (b *Builder) Album(ctx context.Context, media MultiMediaOption, album ...MultiMediaOption) (tg.UpdatesClass, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return xerrors.Errorf("peer: %w", err)
+		return nil, xerrors.Errorf("peer: %w", err)
 	}
 
 	if len(album) < 1 {
@@ -45,10 +43,10 @@ func (b *Builder) Album(ctx context.Context, media MultiMediaOption, album ...Mu
 
 	mb, err := b.applyMedia(ctx, p, media, album...)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	if err := b.sender.sendMultiMedia(ctx, &tg.MessagesSendMultiMediaRequest{
+	upd, err := b.sender.sendMultiMedia(ctx, &tg.MessagesSendMultiMediaRequest{
 		Silent:       b.silent,
 		Background:   b.background,
 		ClearDraft:   b.clearDraft,
@@ -56,11 +54,12 @@ func (b *Builder) Album(ctx context.Context, media MultiMediaOption, album ...Mu
 		ReplyToMsgID: b.replyToMsgID,
 		MultiMedia:   mb,
 		ScheduleDate: b.scheduleDate,
-	}); err != nil {
-		return xerrors.Errorf("send album: %w", err)
+	})
+	if err != nil {
+		return nil, xerrors.Errorf("send album: %w", err)
 	}
 
-	return nil
+	return upd, nil
 }
 
 func (b *Builder) applyMedia(
@@ -90,18 +89,18 @@ func (b *Builder) applyMedia(
 }
 
 // Media sends message with media attachment.
-func (b *Builder) Media(ctx context.Context, media MediaOption) error {
+func (b *Builder) Media(ctx context.Context, media MediaOption) (tg.UpdatesClass, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return xerrors.Errorf("peer: %w", err)
+		return nil, xerrors.Errorf("peer: %w", err)
 	}
 
 	attachment, err := b.applySingleMedia(ctx, p, media)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	if err := b.sender.sendMedia(ctx, &tg.MessagesSendMediaRequest{
+	upd, err := b.sender.sendMedia(ctx, &tg.MessagesSendMediaRequest{
 		Silent:       b.silent,
 		Background:   b.background,
 		ClearDraft:   b.clearDraft,
@@ -112,11 +111,12 @@ func (b *Builder) Media(ctx context.Context, media MediaOption) error {
 		ReplyMarkup:  b.replyMarkup,
 		Entities:     attachment.Entities,
 		ScheduleDate: b.scheduleDate,
-	}); err != nil {
-		return xerrors.Errorf("send media: %w", err)
+	})
+	if err != nil {
+		return nil, xerrors.Errorf("send media: %w", err)
 	}
 
-	return nil
+	return upd, nil
 }
 
 func (b *Builder) applySingleMedia(

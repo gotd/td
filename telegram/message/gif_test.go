@@ -31,6 +31,8 @@ func TestGIF(t *testing.T) {
 		TTLSeconds: 10,
 	}, mock)
 
-	mock.NoError(sender.Self().GIF(ctx, file))
-	mock.NoError(sender.Self().Media(ctx, GIF(file).TTL(10*time.Second)))
+	_, err := sender.Self().GIF(ctx, file)
+	mock.NoError(err)
+	_, err = sender.Self().Media(ctx, GIF(file).TTL(10*time.Second))
+	mock.NoError(err)
 }

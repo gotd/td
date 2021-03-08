@@ -24,6 +24,7 @@ import (
 	"github.com/gotd/td/internal/tmap"
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/session"
+	"github.com/gotd/td/telegram/internal/manager"
 	"github.com/gotd/td/tg"
 )
 
@@ -78,6 +79,7 @@ type Client struct {
 	conn      clientConn
 	connMux   sync.Mutex
 	primaryDC atomic.Int64
+	create    connConstructor
 
 	// Restart signal channel.
 	restart chan struct{} // immutable
@@ -86,7 +88,7 @@ type Client struct {
 	migration sync.Mutex
 
 	// Connections to non-primary DC.
-	subConns    map[int]tg.Invoker
+	subConns    map[int]CloseInvoker
 	subConnsMux sync.Mutex
 	sessions    map[int]*pool.SyncSession
 	sessionsMux sync.Mutex
@@ -160,16 +162,12 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 			Addr: opt.Addr,
 			DC:   opt.DC,
 		}),
-		cfg:       &atomicConfig{},
 		primaryDC: *atomic.NewInt64(int64(opt.DC)),
+		create:    defaultConstructor(),
 		clock:     opt.Clock,
 		device:    opt.Device,
-		ready:     tdsync.NewResetReady(),
-		restart:   make(chan struct{}),
-		exported:  make(chan *tg.AuthExportedAuthorization, 1),
-		sessions:  map[int]*pool.SyncSession{},
-		subConns:  map[int]tg.Invoker{},
 	}
+	client.init()
 
 	// Including version into client logger to help with debugging.
 	if v := getVersion(); v != "" {
@@ -201,12 +199,23 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 			proto.TypesMap(),
 		),
 	}
-	client.conn = client.createConn(connModeUpdates)
-
-	// Initializing internal RPC caller.
-	client.tg = tg.NewClient(client)
+	client.conn = client.createConn(0, manager.ConnModeUpdates, nil)
 
 	return client
+}
+
+// init sets fields which needs explicit initialization, like maps or channels.
+func (c *Client) init() {
+	c.cfg = &atomicConfig{}
+	c.cfg.Store(tg.Config{})
+
+	c.ready = tdsync.NewResetReady()
+	c.restart = make(chan struct{})
+	c.exported = make(chan *tg.AuthExportedAuthorization, 1)
+	c.sessions = map[int]*pool.SyncSession{}
+	c.subConns = map[int]CloseInvoker{}
+	// Initializing internal RPC caller.
+	c.tg = tg.NewClient(c)
 }
 
 func (c *Client) restoreConnection(ctx context.Context) error {
@@ -244,7 +253,7 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 		Salt:    data.Salt,
 	})
 	c.primaryDC.Store(int64(data.DC))
-	c.conn = c.createConn(connModeUpdates)
+	c.conn = c.createConn(0, manager.ConnModeUpdates, nil)
 	c.connMux.Unlock()
 
 	return nil
@@ -302,7 +311,7 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 			c.log.Info("Restarting connection", zap.Error(err))
 
 			c.connMux.Lock()
-			c.conn = c.buildConn(connModeUpdates, c.session).WithSetup(func(ctx context.Context, invoker tg.Invoker) error {
+			setup := func(ctx context.Context, invoker tg.Invoker) error {
 				select {
 				case export := <-c.exported:
 					_, err := tg.NewClient(invoker).AuthImportAuthorization(ctx, &tg.AuthImportAuthorizationRequest{
@@ -313,7 +322,8 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 				default:
 				}
 				return nil
-			}).Build()
+			}
+			c.conn = c.createConn(0, manager.ConnModeUpdates, setup)
 			c.connMux.Unlock()
 		}
 	}
@@ -326,6 +336,11 @@ func (c *Client) onReady() {
 
 func (c *Client) resetReady() {
 	c.ready.Reset()
+}
+
+// Config returns current config.
+func (c *Client) Config() tg.Config {
+	return c.cfg.Load()
 }
 
 // Run starts client session and block until connection close.
@@ -344,6 +359,14 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) err
 	defer c.log.Info("Closed")
 	// Cancel client on exit.
 	defer c.cancel()
+	defer func() {
+		c.subConnsMux.Lock()
+		defer c.subConnsMux.Unlock()
+
+		for _, conn := range c.subConns {
+			_ = conn.Close(c.ctx)
+		}
+	}()
 
 	c.resetReady()
 	if err := c.restoreConnection(ctx); err != nil {
@@ -360,7 +383,7 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) err
 			if err := f(ctx); err != nil {
 				return xerrors.Errorf("callback: %w", err)
 			}
-			// Should call cancel() to cancel gCtx.
+			// Should call cancel() to cancel ctx.
 			// This will terminate c.conn.Run().
 			c.log.Debug("Callback returned, stopping")
 			g.Cancel()
@@ -438,8 +461,4 @@ func (c *Client) onSession(addr string, cfg tg.Config, s mtproto.Session) error 
 	c.connMux.Unlock()
 
 	return nil
-}
-
-func (c *Client) createConn(mode connMode) *conn {
-	return c.buildConn(mode, c.session).Build()
 }

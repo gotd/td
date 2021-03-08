@@ -17,5 +17,6 @@ func TestGame(t *testing.T) {
 	expectSendMedia(&tg.InputMediaGame{
 		ID: game,
 	}, mock)
-	mock.NoError(sender.Self().Media(ctx, Game(game)))
+	_, err := sender.Self().Media(ctx, Game(game))
+	mock.NoError(err)
 }

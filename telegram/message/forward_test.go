@@ -21,7 +21,8 @@ func TestBuilder_ForwardIDs(t *testing.T) {
 		mock.Equal(10, req.ID[0])
 		mock.True(req.WithMyScore)
 	}).ThenResult(&tg.Updates{})
-	mock.NoError(sender.Self().ForwardIDs(&tg.InputPeerSelf{}, 10).WithMyScore().Send(ctx))
+	_, err := sender.Self().ForwardIDs(&tg.InputPeerSelf{}, 10).WithMyScore().Send(ctx)
+	mock.NoError(err)
 
 	mock.ExpectFunc(func(b bin.Encoder) {
 		req, ok := b.(*tg.MessagesForwardMessagesRequest)
@@ -32,5 +33,6 @@ func TestBuilder_ForwardIDs(t *testing.T) {
 		mock.Equal(10, req.ID[0])
 		mock.True(req.WithMyScore)
 	}).ThenRPCErr(testRPCError())
-	mock.Error(sender.Self().ForwardIDs(&tg.InputPeerSelf{}, 10).WithMyScore().Send(ctx))
+	_, err = sender.Self().ForwardIDs(&tg.InputPeerSelf{}, 10).WithMyScore().Send(ctx)
+	mock.Error(err)
 }

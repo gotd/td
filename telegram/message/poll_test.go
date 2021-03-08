@@ -45,8 +45,10 @@ func TestPoll(t *testing.T) {
 			Plain("See"), TextURL("https://youtu.be/PYzX7SDKhd0.", "https://youtu.be/PYzX7SDKhd0"),
 		)
 
-	mock.NoError(sender.Self().Media(ctx, poll))
-	mock.NoError(sender.Self().Media(ctx, poll.Close()))
+	_, err := sender.Self().Media(ctx, poll)
+	mock.NoError(err)
+	_, err = sender.Self().Media(ctx, poll.Close())
+	mock.NoError(err)
 }
 
 func TestRequestBuilder_PollVote(t *testing.T) {
@@ -58,12 +60,14 @@ func TestRequestBuilder_PollVote(t *testing.T) {
 		MsgID:   10,
 		Options: [][]byte{[]byte("abc")},
 	}).ThenResult(&tg.Updates{})
-	mock.NoError(sender.Self().PollVote(ctx, 10, []byte("abc")))
+	_, err := sender.Self().PollVote(ctx, 10, []byte("abc"))
+	mock.NoError(err)
 
 	mock.ExpectCall(&tg.MessagesSendVoteRequest{
 		Peer:    &tg.InputPeerSelf{},
 		MsgID:   10,
 		Options: [][]byte{[]byte("abc")},
 	}).ThenRPCErr(testRPCError())
-	mock.Error(sender.Self().PollVote(ctx, 10, []byte("abc")))
+	_, err = sender.Self().PollVote(ctx, 10, []byte("abc"))
+	mock.Error(err)
 }

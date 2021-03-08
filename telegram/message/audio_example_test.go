@@ -32,19 +32,19 @@ func sendAudio(ctx context.Context) error {
 		r := sender.Resolve("@durovschat")
 
 		// Sends audio to the @durovschat.
-		if err := r.Audio(ctx, f); err != nil {
+		if _, err := r.Audio(ctx, f); err != nil {
 			return err
 		}
 
 		// Sends audio with title to the @durovschat.
-		if err := r.Media(ctx, message.Audio(f).
+		if _, err := r.Media(ctx, message.Audio(f).
 			Performer("Yegor Letov").
 			Title("Everything is going according to plan")); err != nil {
 			return err
 		}
 
 		// Sends voice message to the @durovschat.
-		if err := r.Voice(ctx, f); err != nil {
+		if _, err := r.Voice(ctx, f); err != nil {
 			return err
 		}
 

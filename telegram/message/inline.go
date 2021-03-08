@@ -9,13 +9,13 @@ import (
 )
 
 // InlineResult sends inline query result message.
-func (b *Builder) InlineResult(ctx context.Context, id string, queryID int64, hideVia bool) error {
+func (b *Builder) InlineResult(ctx context.Context, id string, queryID int64, hideVia bool) (tg.UpdatesClass, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return xerrors.Errorf("peer: %w", err)
+		return nil, xerrors.Errorf("peer: %w", err)
 	}
 
-	if err := b.sender.sendInlineBotResult(ctx, &tg.MessagesSendInlineBotResultRequest{
+	upd, err := b.sender.sendInlineBotResult(ctx, &tg.MessagesSendInlineBotResultRequest{
 		Silent:       b.silent,
 		Background:   b.background,
 		ClearDraft:   b.clearDraft,
@@ -25,9 +25,10 @@ func (b *Builder) InlineResult(ctx context.Context, id string, queryID int64, hi
 		QueryID:      queryID,
 		ID:           id,
 		ScheduleDate: b.scheduleDate,
-	}); err != nil {
-		return xerrors.Errorf("send inline bot result: %w", err)
+	})
+	if err != nil {
+		return nil, xerrors.Errorf("send inline bot result: %w", err)
 	}
 
-	return nil
+	return upd, nil
 }

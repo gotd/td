@@ -31,58 +31,63 @@ func (b *EditMessageBuilder) editTextRequest(
 }
 
 // Text edits message using given message.
-func (b *EditMessageBuilder) Text(ctx context.Context, msg string) error {
+func (b *EditMessageBuilder) Text(ctx context.Context, msg string) (tg.UpdatesClass, error) {
 	p, err := b.builder.peer(ctx)
 	if err != nil {
-		return xerrors.Errorf("peer: %w", err)
+		return nil, xerrors.Errorf("peer: %w", err)
 	}
 
-	if err := b.builder.sender.editMessage(ctx,
-		b.editTextRequest(p, msg, nil)); err != nil {
-		return xerrors.Errorf("edit text message: %w", err)
+	upd, err := b.builder.sender.editMessage(ctx, b.editTextRequest(p, msg, nil))
+	if err != nil {
+		return nil, xerrors.Errorf("edit styled text message: %w", err)
 	}
 
-	return nil
+	return upd, nil
 }
 
 // StyledText edits message using given message.
-func (b *EditMessageBuilder) StyledText(ctx context.Context, text StyledTextOption, texts ...StyledTextOption) error {
+func (b *EditMessageBuilder) StyledText(
+	ctx context.Context,
+	text StyledTextOption, texts ...StyledTextOption,
+) (tg.UpdatesClass, error) {
 	p, err := b.builder.peer(ctx)
 	if err != nil {
-		return xerrors.Errorf("peer: %w", err)
+		return nil, xerrors.Errorf("peer: %w", err)
 	}
 
 	tb := textBuilder{}
 	tb.Perform(text, texts...)
 	msg, entities := tb.Complete()
 
-	if err := b.builder.sender.editMessage(ctx,
-		b.editTextRequest(p, msg, entities)); err != nil {
-		return xerrors.Errorf("edit styled text message: %w", err)
+	upd, err := b.builder.sender.editMessage(ctx, b.editTextRequest(p, msg, entities))
+	if err != nil {
+		return nil, xerrors.Errorf("edit styled text message: %w", err)
 	}
 
-	return nil
+	return upd, nil
 }
 
 // Media edits message using given media and text.
-func (b *EditMessageBuilder) Media(ctx context.Context, media MediaOption) error {
+func (b *EditMessageBuilder) Media(ctx context.Context, media MediaOption) (tg.UpdatesClass, error) {
 	p, err := b.builder.peer(ctx)
 	if err != nil {
-		return xerrors.Errorf("peer: %w", err)
+		return nil, xerrors.Errorf("peer: %w", err)
 	}
 
 	attachment, err := b.builder.applySingleMedia(ctx, p, media)
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	req := b.editTextRequest(p, attachment.Message, attachment.Entities)
 	req.Media = attachment.Media
-	if err := b.builder.sender.editMessage(ctx, req); err != nil {
-		return xerrors.Errorf("send media: %w", err)
+
+	upd, err := b.builder.sender.editMessage(ctx, req)
+	if err != nil {
+		return nil, xerrors.Errorf("send media: %w", err)
 	}
 
-	return nil
+	return upd, nil
 }
 
 // Edit edits message by ID.

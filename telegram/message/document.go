@@ -57,7 +57,9 @@ func Document(doc FileLocation, caption ...StyledTextOption) *DocumentBuilder {
 }
 
 // Document sends document.
-func (b *Builder) Document(ctx context.Context, file FileLocation, caption ...StyledTextOption) error {
+func (b *Builder) Document(
+	ctx context.Context, file FileLocation, caption ...StyledTextOption,
+) (tg.UpdatesClass, error) {
 	return b.Media(ctx, Document(file, caption...))
 }
 
@@ -139,10 +141,9 @@ func DocumentByHash(
 
 // DocumentByHash finds document by hash and sends as attachment.
 func (b *Builder) DocumentByHash(
-	ctx context.Context,
-	hash []byte, size int, mime string,
+	ctx context.Context, hash []byte, size int, mime string,
 	caption ...StyledTextOption,
-) error {
+) (tg.UpdatesClass, error) {
 	return b.Media(ctx, DocumentByHash(hash, size, mime, caption...))
 }
 
@@ -179,7 +180,7 @@ func DocumentExternal(url string, caption ...StyledTextOption) *DocumentExternal
 }
 
 // DocumentExternal sends document attachment that will be downloaded by the Telegram servers.
-func (b *Builder) DocumentExternal(ctx context.Context, url string, caption ...StyledTextOption) error {
+func (b *Builder) DocumentExternal(ctx context.Context, url string, caption ...StyledTextOption) (tg.UpdatesClass, error) {
 	return b.Media(ctx, DocumentExternal(url, caption...))
 }
 
@@ -289,6 +290,6 @@ func File(file tg.InputFileClass, caption ...StyledTextOption) *UploadedDocument
 }
 
 // File sends uploaded file as document and forces it to be used as plain file, not media.
-func (b *Builder) File(ctx context.Context, file tg.InputFileClass, caption ...StyledTextOption) error {
+func (b *Builder) File(ctx context.Context, file tg.InputFileClass, caption ...StyledTextOption) (tg.UpdatesClass, error) {
 	return b.Media(ctx, File(file, caption...))
 }

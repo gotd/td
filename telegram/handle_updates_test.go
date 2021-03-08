@@ -25,11 +25,6 @@ func (m *mockHandler) HandleShort(ctx context.Context, u *tg.UpdateShort) error 
 }
 
 func TestClient_processUpdates(t *testing.T) {
-	t.Run("Nil handler", func(t *testing.T) {
-		c := new(Client)
-		require.NoError(t, c.processUpdates(nil))
-	})
-
 	msg := &tg.Message{
 		ID: 1,
 	}

@@ -37,11 +37,14 @@ func TestVoice(t *testing.T) {
 		},
 	}, mock)
 
-	mock.NoError(sender.Self().Voice(ctx, file))
-	mock.NoError(sender.Self().Media(ctx, Audio(file).
+	_, err := sender.Self().Voice(ctx, file)
+	mock.NoError(err)
+
+	_, err = sender.Self().Media(ctx, Audio(file).
 		Duration(10*time.Second).
 		Title("Big Iron").
 		Performer("Marty Robbins").
 		Waveform([]byte{10}),
-	))
+	)
+	mock.NoError(err)
 }

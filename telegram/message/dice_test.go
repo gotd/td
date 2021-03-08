@@ -19,7 +19,10 @@ func TestMediaDice(t *testing.T) {
 	expectDice(DartsEmoticon)
 	expectDice(BasketballEmoticon)
 
-	mock.NoError(sender.Self().Dice(ctx))
-	mock.NoError(sender.Self().Darts(ctx))
-	mock.NoError(sender.Self().Basketball(ctx))
+	_, err := sender.Self().Dice(ctx)
+	mock.NoError(err)
+	_, err = sender.Self().Darts(ctx)
+	mock.NoError(err)
+	_, err = sender.Self().Basketball(ctx)
+	mock.NoError(err)
 }

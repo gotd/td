@@ -38,16 +38,16 @@ func Basketball() MediaOption {
 }
 
 // Dice sends a dice animated sticker.
-func (b *Builder) Dice(ctx context.Context) error {
+func (b *Builder) Dice(ctx context.Context) (tg.UpdatesClass, error) {
 	return b.Media(ctx, Dice())
 }
 
 // Darts sends a darts animated sticker.
-func (b *Builder) Darts(ctx context.Context) error {
+func (b *Builder) Darts(ctx context.Context) (tg.UpdatesClass, error) {
 	return b.Media(ctx, Darts())
 }
 
 // Basketball sends a basketball animated sticker.
-func (b *Builder) Basketball(ctx context.Context) error {
+func (b *Builder) Basketball(ctx context.Context) (tg.UpdatesClass, error) {
 	return b.Media(ctx, Basketball())
 }

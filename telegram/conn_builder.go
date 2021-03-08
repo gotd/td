@@ -1,83 +1,63 @@
 package telegram
 
 import (
-	"context"
-	"strconv"
-
-	"go.uber.org/zap"
-
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/pool"
-	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/mtproto"
+	"github.com/gotd/td/telegram/internal/manager"
 	"github.com/gotd/td/tg"
 )
 
-type connBuilder struct {
-	conn *conn
+type clientHandler struct {
+	client *Client
 }
 
-func (b connBuilder) WithSetup(f func(ctx context.Context, invoker tg.Invoker) error) connBuilder {
-	b.conn.setup = f
-	return b
+func (c clientHandler) OnSession(addr string, cfg tg.Config, s mtproto.Session) error {
+	return c.client.onSession(addr, cfg, s)
 }
 
-func (b connBuilder) WithOptions(dc int, addr string, opts mtproto.Options) connBuilder {
-	b.conn.log = opts.Logger.Named("conn").With(
-		zap.Int64("conn_id", b.conn.id),
-		zap.Int("dc_id", dc),
+func (c clientHandler) OnMessage(b *bin.Buffer) error {
+	return c.client.onMessage(b)
+}
+
+func (c *Client) asHandler() manager.Handler {
+	return clientHandler{
+		client: c,
+	}
+}
+
+type connConstructor func(
+	id int64,
+	mode manager.ConnMode,
+	appID int,
+	addr string,
+	opts mtproto.Options,
+	connOpts manager.ConnOptions,
+) pool.Conn
+
+func defaultConstructor() connConstructor {
+	return func(
+		id int64,
+		mode manager.ConnMode,
+		appID int,
+		addr string,
+		opts mtproto.Options,
+		connOpts manager.ConnOptions,
+	) pool.Conn {
+		return manager.CreateConn(id, mode, appID, addr, opts, connOpts)
+	}
+}
+
+func (c *Client) createConn(id int64, mode manager.ConnMode, setup manager.SetupCallback) pool.Conn {
+	opts, s := c.session.Options(c.opts)
+
+	return c.create(
+		id, mode, c.appID,
+		s.Addr, opts, manager.ConnOptions{
+			DC:      s.DC,
+			Device:  c.device,
+			Handler: c.asHandler(),
+			Setup:   setup,
+		},
 	)
-
-	b.conn.addr = addr
-	opts.Handler = b.conn
-	opts.Logger = b.conn.log.Named("mtproto").With(zap.String("addr", b.conn.addr))
-	b.conn.proto = mtproto.New(strconv.Itoa(dc)+"|"+b.conn.addr, opts)
-	return b
-}
-
-type noopHandler struct{}
-
-func (n noopHandler) onSession(addr string, cfg tg.Config, s mtproto.Session) error {
-	return nil
-}
-
-func (n noopHandler) onMessage(b *bin.Buffer) error {
-	return nil
-}
-
-func (b connBuilder) WithNoopHandler() connBuilder {
-	return b.WithHandler(noopHandler{})
-}
-
-func (b connBuilder) WithHandler(handler connHandler) connBuilder {
-	b.conn.handler = handler
-	return b
-}
-
-func (b connBuilder) Build() *conn {
-	return b.conn
-}
-
-func (c *Client) buildConn(mode connMode, session *pool.SyncSession) connBuilder {
-	opts, s := session.Options(c.opts)
-
-	var id int64
-	if mode != connModeUpdates {
-		id = c.connsCounter.Inc()
-	}
-
-	connection := &conn{
-		id:          id,
-		addr:        s.Addr,
-		mode:        mode,
-		appID:       c.appID,
-		device:      c.device,
-		clock:       opts.Clock,
-		handler:     c,
-		sessionInit: tdsync.NewReady(),
-		gotConfig:   tdsync.NewReady(),
-		dead:        tdsync.NewReady(),
-	}
-
-	return connBuilder{conn: connection}.WithOptions(s.DC, s.Addr, opts)
 }

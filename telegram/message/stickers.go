@@ -59,6 +59,9 @@ func (u *UploadedStickerBuilder) apply(ctx context.Context, b *multiMediaBuilder
 }
 
 // UploadedSticker sends uploaded file as sticker.
-func (b *Builder) UploadedSticker(ctx context.Context, file tg.InputFileClass, caption ...StyledTextOption) error {
+func (b *Builder) UploadedSticker(
+	ctx context.Context,
+	file tg.InputFileClass, caption ...StyledTextOption,
+) (tg.UpdatesClass, error) {
 	return b.Media(ctx, UploadedSticker(file, caption...))
 }

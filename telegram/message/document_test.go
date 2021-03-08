@@ -22,9 +22,11 @@ func TestDocument(t *testing.T) {
 		Query:      "10",
 	}, mock)
 
-	mock.NoError(sender.Self().Document(ctx, loc))
-	mock.NoError(sender.Self().Media(ctx, Document(loc).
-		TTL(10*time.Second).Query("10")))
+	_, err := sender.Self().Document(ctx, loc)
+	mock.NoError(err)
+	_, err = sender.Self().Media(ctx, Document(loc).
+		TTL(10*time.Second).Query("10"))
+	mock.NoError(err)
 }
 
 func TestDocumentExternal(t *testing.T) {
@@ -37,8 +39,10 @@ func TestDocumentExternal(t *testing.T) {
 		TTLSeconds: 10,
 	}, mock)
 
-	mock.NoError(sender.Self().DocumentExternal(ctx, "https://google.com"))
-	mock.NoError(sender.Self().Media(ctx, DocumentExternal("https://github.com").TTL(10*time.Second)))
+	_, err := sender.Self().DocumentExternal(ctx, "https://google.com")
+	mock.NoError(err)
+	_, err = sender.Self().Media(ctx, DocumentExternal("https://github.com").TTL(10*time.Second))
+	mock.NoError(err)
 }
 
 func TestDocumentByHash(t *testing.T) {
@@ -61,7 +65,8 @@ func TestDocumentByHash(t *testing.T) {
 		MimeType: mime,
 	}).ThenResult(doc)
 	expectSendMedia(&tg.InputMediaDocument{ID: loc}, mock)
-	mock.NoError(sender.Self().DocumentByHash(ctx, hash, size, mime))
+	_, err := sender.Self().DocumentByHash(ctx, hash, size, mime)
+	mock.NoError(err)
 
 	mock.ExpectCall(&tg.MessagesGetDocumentByHashRequest{
 		SHA256:   hash,
@@ -73,8 +78,9 @@ func TestDocumentByHash(t *testing.T) {
 		TTLSeconds: 10,
 		Query:      "10",
 	}, mock)
-	mock.NoError(sender.Self().Media(ctx, DocumentByHash(hash, size, mime).
-		TTL(10*time.Second).Query("10")))
+	_, err = sender.Self().Media(ctx, DocumentByHash(hash, size, mime).
+		TTL(10*time.Second).Query("10"))
+	mock.NoError(err)
 }
 
 func TestUploadedDocument(t *testing.T) {
@@ -109,8 +115,11 @@ func TestUploadedDocument(t *testing.T) {
 		},
 	}, mock)
 
-	mock.NoError(sender.Self().File(ctx, file))
-	mock.NoError(sender.Self().Media(ctx, UploadedDocument(file).TTL(10*time.Second).
-		Filename("abc.jpg")))
-	mock.NoError(sender.Self().Media(ctx, UploadedDocument(file).Thumb(file).Stickers(loc).HasStickers()))
+	_, err := sender.Self().File(ctx, file)
+	mock.NoError(err)
+	_, err = sender.Self().Media(ctx, UploadedDocument(file).TTL(10*time.Second).
+		Filename("abc.jpg"))
+	mock.NoError(err)
+	_, err = sender.Self().Media(ctx, UploadedDocument(file).Thumb(file).Stickers(loc).HasStickers())
+	mock.NoError(err)
 }

@@ -15,20 +15,21 @@ type RequestBuilder struct {
 
 // ScreenshotNotify sends notification about screenshot.
 // Parameter msgID is a ID of message that was screenshotted, can be 0.
-func (b *RequestBuilder) ScreenshotNotify(ctx context.Context, msgID int) error {
+func (b *RequestBuilder) ScreenshotNotify(ctx context.Context, msgID int) (tg.UpdatesClass, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return xerrors.Errorf("peer: %w", err)
+		return nil, xerrors.Errorf("peer: %w", err)
 	}
 
-	if err := b.sender.sendScreenshotNotification(ctx, &tg.MessagesSendScreenshotNotificationRequest{
+	upd, err := b.sender.sendScreenshotNotification(ctx, &tg.MessagesSendScreenshotNotificationRequest{
 		Peer:         p,
 		ReplyToMsgID: msgID,
-	}); err != nil {
-		return xerrors.Errorf("send screenshot notify: %w", err)
+	})
+	if err != nil {
+		return nil, xerrors.Errorf("send screenshot notify: %w", err)
 	}
 
-	return nil
+	return upd, nil
 }
 
 // PeerSettings returns peer settings.
@@ -69,10 +70,10 @@ func StartBotParam(param string) func(s *startBotBuilder) {
 }
 
 // StartBot starts a conversation with a bot using a deep linking parameter.
-func (b *RequestBuilder) StartBot(ctx context.Context, opts ...StartBotOption) error {
+func (b *RequestBuilder) StartBot(ctx context.Context, opts ...StartBotOption) (tg.UpdatesClass, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
-		return xerrors.Errorf("peer: %w", err)
+		return nil, xerrors.Errorf("peer: %w", err)
 	}
 
 	sb := startBotBuilder{}
@@ -91,17 +92,18 @@ func (b *RequestBuilder) StartBot(ctx context.Context, opts ...StartBotOption) e
 			v.FillFrom(u)
 			sb.bot = v
 		default:
-			return xerrors.Errorf("unexpected peer type %T, try to pass input user manually", p)
+			return nil, xerrors.Errorf("unexpected peer type %T, try to pass input user manually", p)
 		}
 	}
 
-	if err := b.sender.startBot(ctx, &tg.MessagesStartBotRequest{
+	upd, err := b.sender.startBot(ctx, &tg.MessagesStartBotRequest{
 		Peer:       p,
 		Bot:        sb.bot,
 		StartParam: sb.param,
-	}); err != nil {
-		return xerrors.Errorf("start bot: %w", err)
+	})
+	if err != nil {
+		return nil, xerrors.Errorf("start bot: %w", err)
 	}
 
-	return nil
+	return upd, nil
 }

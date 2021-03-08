@@ -14,6 +14,9 @@ func GIF(file tg.InputFileClass, caption ...StyledTextOption) *UploadedDocumentB
 }
 
 // GIF sends gif.
-func (b *Builder) GIF(ctx context.Context, file tg.InputFileClass, caption ...StyledTextOption) error {
+func (b *Builder) GIF(
+	ctx context.Context,
+	file tg.InputFileClass, caption ...StyledTextOption,
+) (tg.UpdatesClass, error) {
 	return b.Media(ctx, GIF(file, caption...))
 }

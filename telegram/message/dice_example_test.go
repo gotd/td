@@ -21,12 +21,12 @@ func sendDice(ctx context.Context) error {
 		sender := message.NewSender(tg.NewClient(client))
 
 		// Sends dice "🎲" to the @durovschat.
-		if err := sender.Resolve("@durovschat").Dice(ctx); err != nil {
+		if _, err := sender.Resolve("@durovschat").Dice(ctx); err != nil {
 			return err
 		}
 
 		// Sends darts "🎯" to the @durovschat.
-		if err := sender.Resolve("https://t.me/durovschat").Darts(ctx); err != nil {
+		if _, err := sender.Resolve("https://t.me/durovschat").Darts(ctx); err != nil {
 			return err
 		}
 

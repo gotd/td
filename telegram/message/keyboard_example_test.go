@@ -22,7 +22,7 @@ func sendKeyboard(ctx context.Context) error {
 		sender := message.NewSender(tg.NewClient(client))
 
 		// Uploads and sends keyboard result to the @durovschat.
-		if err := sender.Resolve("@durovschat").Row(
+		if _, err := sender.Resolve("@durovschat").Row(
 			markup.URL("Blue", "https://github.com/xelaj/mtproto"),
 			markup.URL("Red", "https://github.com/gotd/td"),
 		).Text(ctx, "Choose the pill"); err != nil {
