@@ -6,7 +6,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gotd/td/dcmanager/internal/lifetime"
+	"github.com/gotd/td/internal/lifetime"
 	"github.com/stretchr/testify/require"
 )
 
@@ -31,8 +31,8 @@ func (m *mockRunner) Run(ctx context.Context, f func(context.Context) error) err
 	return f(ctx)
 }
 
-func TestLf(t *testing.T) {
-	lf := lifetime.New()
+func TestManager(t *testing.T) {
+	m := lifetime.NewManager()
 
 	started, stopped := false, false
 	r := &mockRunner{
@@ -40,14 +40,14 @@ func TestLf(t *testing.T) {
 		onExit:  func() { stopped = true },
 	}
 
-	require.NoError(t, lf.Start(r))
+	require.NoError(t, m.Start(r))
 	require.Equal(t, true, started)
 
-	require.NoError(t, lf.Stop(r))
+	require.NoError(t, m.Stop(r))
 	require.Equal(t, true, stopped)
 
 	wgerr := make(chan error)
-	go func() { wgerr <- lf.Wait(context.Background()) }()
+	go func() { wgerr <- m.Wait() }()
 
 	require.Eventually(t, func() bool {
 		select {

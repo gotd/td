@@ -5,7 +5,8 @@ import (
 	"sync"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/dcmanager/internal/lifetime"
+	"github.com/gotd/td/internal/lifetime"
+	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
@@ -15,17 +16,13 @@ import (
 
 type Manager struct {
 	primary   Conn
-	migrating bool
-	callbacks []func()
-	migmux    sync.RWMutex
-
-	others map[int]Conn
-	omux   sync.Mutex
-
-	cfg    Config
-	cfgMux sync.RWMutex
-
-	conns *lifetime.Lifetimer
+	pmux      sync.RWMutex
+	migrateOp *tdsync.SinglePerformer
+	others    map[int]Conn
+	omux      sync.Mutex
+	cfg       Config
+	cfgMux    sync.RWMutex
+	conns     *lifetime.Manager
 
 	// Immutable fields
 	fetchConfig bool                      // Indicates whether we should fetch config from server
@@ -43,8 +40,9 @@ func New(appID int, opts Options) *Manager {
 	opts.setDefaults()
 
 	m := &Manager{
+		migrateOp:  new(tdsync.SinglePerformer),
 		others:     map[int]Conn{},
-		conns:      lifetime.New(),
+		conns:      lifetime.NewManager(),
 		createConn: opts.ConnCreator,
 		onMessage:  opts.UpdateHandler,
 		saveConfig: opts.ConfigHandler,
@@ -79,16 +77,14 @@ func (m *Manager) Run(ctx context.Context, f func(context.Context) error) error 
 		}
 	}
 
-	ctx, cancel := context.WithCancel(ctx)
-	defer cancel()
-	go f(ctx)
-	return m.conns.Wait(ctx)
+	m.conns.Go(func() error { return f(ctx) })
+	return m.conns.Wait()
 }
 
 func (m *Manager) InvokeRaw(ctx context.Context, in bin.Encoder, out bin.Decoder) error {
-	m.migmux.RLock()
+	m.pmux.RLock()
 	primary := m.primary
-	m.migmux.RUnlock()
+	m.pmux.RUnlock()
 
 	if err := primary.InvokeRaw(ctx, in, out); err != nil {
 		// Handling datacenter migration request.
@@ -108,9 +104,9 @@ func (m *Manager) InvokeRaw(ctx context.Context, in bin.Encoder, out bin.Decoder
 			)
 
 			// Prevent parallel migrations.
-			cb, migrate := m.tryMigrate()
-			if !migrate {
-				m.log.Info("Other goroutine has already started migration (waiting for completion)")
+			cb, perform := m.migrateOp.Try()
+			if !perform {
+				m.log.Info("Other goroutine has already started migration, waiting for completion")
 				cb()
 				m.log.Info("Other goroutine has completed the migration, re-invoking request on new DC")
 				return m.InvokeRaw(ctx, in, out)
@@ -124,7 +120,6 @@ func (m *Manager) InvokeRaw(ctx context.Context, in bin.Encoder, out bin.Decoder
 			}
 
 			// Change primary DC.
-			// TODO(ccln): change ctx
 			if _, err := m.dc(dcInfo).AsPrimary().Connect(ctx); err != nil {
 				return xerrors.Errorf("migrate to dc %d: %w", rpcErr.Argument, err)
 			}
@@ -166,4 +161,4 @@ type nopDecoder struct {
 	bin.Encoder
 }
 
-func (n nopDecoder) Decode(b *bin.Buffer) error { return xerrors.New("not implemented") }
+func (n nopDecoder) Decode(b *bin.Buffer) error { panic("unreachable") }

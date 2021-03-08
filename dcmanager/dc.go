@@ -131,41 +131,52 @@ func (b *dcBuilder) Connect(ctx context.Context) (Conn, error) {
 		return nil, err
 	}
 
-	cfg, err := m.initConn(ctx, conn, !asPrimary)
-	if err != nil {
-		return nil, err
-	}
-
-	if !dc.CDN && b.transfer {
-		if err := m.transfer(ctx, conn, dc.ID); err != nil {
-			return nil, xerrors.Errorf("transfer: %w", err)
+	if err := func() error {
+		cfg, err := m.initConn(ctx, conn, !asPrimary)
+		if err != nil {
+			return err
 		}
 
-		select {
-		case <-gotSession:
-			break
-		case <-time.After(time.Second * 10):
-			return nil, xerrors.Errorf("session timeout")
-		}
-	}
+		if !dc.CDN && b.transfer {
+			if err := m.transfer(ctx, conn, dc.ID); err != nil {
+				return xerrors.Errorf("transfer: %w", err)
+			}
 
-	if asPrimary {
-		// TODO(ccln): recheck cfg dc id
-		m.cfgMux.Lock()
-		defer m.cfgMux.Unlock()
-		m.cfg.PrimaryDC = dc.ID
-		m.cfg.TGConfig = cfg
-
-		if err := m.saveConfig(m.cfg); err != nil {
-			return nil, err
+			select {
+			case <-gotSession:
+				break
+			case <-time.After(time.Second * 10):
+				return xerrors.Errorf("session timeout")
+			}
 		}
 
-		m.migmux.Lock()
-		if err := m.conns.Stop(m.primary); err != nil {
+		if asPrimary {
+			// TODO(ccln): recheck cfg dc id
+			m.cfgMux.Lock()
+			defer m.cfgMux.Unlock()
+			m.cfg.PrimaryDC = dc.ID
+			m.cfg.TGConfig = cfg
+
+			if err := m.saveConfig(m.cfg); err != nil {
+				return err
+			}
+
+			m.pmux.Lock()
+			if err := m.conns.Stop(m.primary); err != nil {
+				m.log.Warn("Failed to cleanup connection", zap.Error(err))
+			}
+			m.primary = conn
+			m.pmux.Unlock()
+		}
+
+		return nil
+	}(); err != nil {
+		m.log.Warn("Failed to initialize connection", zap.Error(err))
+		if err := m.conns.Stop(conn); err != nil {
 			m.log.Warn("Failed to cleanup connection", zap.Error(err))
 		}
-		m.primary = conn
-		m.migmux.Unlock()
+
+		return nil, err
 	}
 
 	return conn, nil
