@@ -62,8 +62,18 @@ func (b *dcBuilder) Connect(ctx context.Context) (Conn, error) {
 		zap.Bool("as_primary", asPrimary),
 	)
 
-	if dc.CDN && asPrimary {
-		return nil, xerrors.Errorf("CDN could not be a primary DC")
+	if asPrimary {
+		if dc.TCPObfuscatedOnly {
+			return nil, xerrors.Errorf("can't migrate to obfuscated transport only DC %d", dc.ID)
+		}
+
+		if dc.MediaOnly {
+			return nil, xerrors.Errorf("can't migrate to Media-only DC %d", dc.ID)
+		}
+
+		if dc.CDN {
+			return nil, xerrors.Errorf("CDN could not be a primary DC %d", dc.ID)
+		}
 	}
 
 	if dc.CDN {
