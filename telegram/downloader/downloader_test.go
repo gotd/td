@@ -68,11 +68,11 @@ func (m mock) UploadGetFileHashes(ctx context.Context, request *tg.UploadGetFile
 	return m.hashes.Hashes(ctx, request.Offset)
 }
 
-func (m mock) UploadReuploadCdnFile(ctx context.Context, request *tg.UploadReuploadCDNFileRequest) ([]tg.FileHash, error) {
+func (m mock) UploadReuploadCDNFile(ctx context.Context, request *tg.UploadReuploadCDNFileRequest) ([]tg.FileHash, error) {
 	panic("implement me")
 }
 
-func (m mock) UploadGetCdnFile(ctx context.Context, request *tg.UploadGetCDNFileRequest) (tg.UploadCDNFileClass, error) {
+func (m mock) UploadGetCDNFile(ctx context.Context, request *tg.UploadGetCDNFileRequest) (tg.UploadCDNFileClass, error) {
 	if m.err {
 		return nil, testErr
 	}
@@ -100,7 +100,7 @@ func (m mock) UploadGetCdnFile(ctx context.Context, request *tg.UploadGetCDNFile
 	}, nil
 }
 
-func (m mock) UploadGetCdnFileHashes(ctx context.Context, request *tg.UploadGetCDNFileHashesRequest) ([]tg.FileHash, error) {
+func (m mock) UploadGetCDNFileHashes(ctx context.Context, request *tg.UploadGetCDNFileHashesRequest) ([]tg.FileHash, error) {
 	if m.hashesErr {
 		return nil, testErr
 	}
