@@ -8,6 +8,7 @@ import (
 	"reflect"
 	"strconv"
 	"strings"
+	"time"
 )
 
 // options for formatting.
@@ -28,14 +29,14 @@ const (
 	noIdent      = ""
 )
 
-func formatValue(b *strings.Builder, prefix string, opt options, v reflect.Value) {
+func formatValue(b *strings.Builder, prefix, fieldName string, opt options, v reflect.Value) {
 	switch v.Kind() {
 	case reflect.Struct, reflect.Ptr, reflect.Interface:
 		i, ok := v.Interface().(Object)
 		if ok {
 			format(b, prefix+defaultIdent, opt, i)
 		} else if v.CanAddr() {
-			formatValue(b, prefix, opt, v.Addr())
+			formatValue(b, prefix, fieldName, opt, v.Addr())
 		}
 	case reflect.Slice:
 		if buf, ok := v.Interface().([]byte); ok {
@@ -49,8 +50,21 @@ func formatValue(b *strings.Builder, prefix string, opt options, v reflect.Value
 			b.WriteString(prefix)
 			b.WriteString(defaultIdent)
 			b.WriteString("- ")
-			formatValue(b, prefix+defaultIdent, opt, vi)
+			formatValue(b, prefix+defaultIdent, fieldName, opt, vi)
 			b.WriteRune('\n')
+		}
+	case reflect.Int:
+		// Special case for date.
+		var (
+			now = time.Now()
+			max = now.AddDate(0, 0, 7).Unix()
+			min = now.AddDate(-2, 0, 0).Unix()
+		)
+		i := v.Int()
+		if i > min && i < max && strings.Contains(fieldName, "date") {
+			b.WriteString(time.Unix(i, 0).UTC().Format(time.RFC3339))
+		} else {
+			b.WriteString(strconv.FormatInt(i, 10))
 		}
 	default:
 		b.WriteString(fmt.Sprint(v.Interface()))
@@ -91,7 +105,7 @@ func format(b *strings.Builder, prefix string, opt options, obj Object) {
 		b.WriteString(f.SchemaName)
 		b.WriteString(": ")
 
-		formatValue(b, prefix, opt, v.FieldByName(f.Name))
+		formatValue(b, prefix, f.SchemaName, opt, v.FieldByName(f.Name))
 	}
 }
 
