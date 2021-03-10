@@ -64,7 +64,7 @@ func (c cdn) decrypt(src []byte, offset int) ([]byte, error) {
 }
 
 func (c cdn) Chunk(ctx context.Context, offset, limit int) (chunk, error) {
-	r, err := c.cdn.UploadGetCdnFile(ctx, &tg.UploadGetCDNFileRequest{
+	r, err := c.cdn.UploadGetCDNFile(ctx, &tg.UploadGetCDNFileRequest{
 		Offset:    offset,
 		Limit:     limit,
 		FileToken: c.redirect.FileToken,
@@ -91,7 +91,7 @@ func (c cdn) Chunk(ctx context.Context, offset, limit int) (chunk, error) {
 }
 
 func (c cdn) Hashes(ctx context.Context, offset int) ([]tg.FileHash, error) {
-	return c.client.UploadGetCdnFileHashes(ctx, &tg.UploadGetCDNFileHashesRequest{
+	return c.client.UploadGetCDNFileHashes(ctx, &tg.UploadGetCDNFileHashesRequest{
 		FileToken: c.redirect.FileToken,
 		Offset:    offset,
 	})
