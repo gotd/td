@@ -1,10 +1,13 @@
 package mtproto
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/gotd/td/tg"
 )
 
 func TestErrorParse(t *testing.T) {
@@ -51,5 +54,18 @@ func TestHelpers(t *testing.T) {
 		assert.True(t, IsErrCode(err, 169))
 		assert.True(t, IsErrCode(err, 1, 169))
 		assert.False(t, IsErrCode(err, 168))
+	})
+	t.Run("ErrorIs", func(t *testing.T) {
+		typ := tg.ErrorType("GO_METERS_AWAY")
+		wrongType := tg.ErrorType("GO_1337_METERS_AWAY")
+
+		err := NewError(169, "GO_1337_METERS_AWAY")
+		wrapErr := fmt.Errorf("oops: %w", err)
+
+		require.ErrorIs(t, err, typ)
+		require.ErrorIs(t, wrapErr, typ)
+
+		require.NotErrorIs(t, err, wrongType)
+		require.NotErrorIs(t, wrapErr, wrongType)
 	})
 }
