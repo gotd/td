@@ -13,11 +13,11 @@ var _ = context.Background()
 
 // Request is a parameter for Query.
 type Request struct {
-	OffsetID   int
-	OffsetDate int
-	AddOffset  int
 	OffsetRate int
 	OffsetPeer tg.InputPeerClass
+	OffsetID   int
+	AddOffset  int
+	OffsetDate int
 	Limit      int
 }
 
@@ -50,9 +50,9 @@ type GetHistoryQueryBuilder struct {
 	raw        *tg.Client
 	req        tg.MessagesGetHistoryRequest
 	batchSize  int
-	offsetID   int
-	offsetDate int
 	addOffset  int
+	offsetDate int
+	offsetID   int
 }
 
 // GetHistory creates query builder of MessagesGetHistory.
@@ -77,15 +77,15 @@ func (b *GetHistoryQueryBuilder) BatchSize(batchSize int) *GetHistoryQueryBuilde
 	return b
 }
 
-// OffsetID sets offsetID from which iterate start.
-func (b *GetHistoryQueryBuilder) OffsetID(offsetID int) *GetHistoryQueryBuilder {
-	b.offsetID = offsetID
-	return b
-}
-
 // OffsetDate sets offsetDate from which iterate start.
 func (b *GetHistoryQueryBuilder) OffsetDate(offsetDate int) *GetHistoryQueryBuilder {
 	b.offsetDate = offsetDate
+	return b
+}
+
+// OffsetID sets offsetID from which iterate start.
+func (b *GetHistoryQueryBuilder) OffsetID(offsetID int) *GetHistoryQueryBuilder {
+	b.offsetID = offsetID
 	return b
 }
 
@@ -102,17 +102,17 @@ func (b *GetHistoryQueryBuilder) Query(ctx context.Context, req Request) (tg.Mes
 	}
 
 	r.Peer = b.req.Peer
-	r.OffsetID = req.OffsetID
-	r.OffsetDate = req.OffsetDate
 	r.AddOffset = req.AddOffset
+	r.OffsetDate = req.OffsetDate
+	r.OffsetID = req.OffsetID
 	return b.raw.MessagesGetHistory(ctx, r)
 }
 
 // Iter returns iterator using built query.
 func (b *GetHistoryQueryBuilder) Iter() *Iterator {
 	iter := NewIterator(b, b.batchSize)
-	iter = iter.OffsetID(b.offsetID)
 	iter = iter.OffsetDate(b.offsetDate)
+	iter = iter.OffsetID(b.offsetID)
 	return iter
 }
 
@@ -194,9 +194,9 @@ type GetRepliesQueryBuilder struct {
 	raw        *tg.Client
 	req        tg.MessagesGetRepliesRequest
 	batchSize  int
-	offsetID   int
-	offsetDate int
 	addOffset  int
+	offsetDate int
+	offsetID   int
 }
 
 // GetReplies creates query builder of MessagesGetReplies.
@@ -221,21 +221,15 @@ func (b *GetRepliesQueryBuilder) BatchSize(batchSize int) *GetRepliesQueryBuilde
 	return b
 }
 
-// OffsetID sets offsetID from which iterate start.
-func (b *GetRepliesQueryBuilder) OffsetID(offsetID int) *GetRepliesQueryBuilder {
-	b.offsetID = offsetID
-	return b
-}
-
 // OffsetDate sets offsetDate from which iterate start.
 func (b *GetRepliesQueryBuilder) OffsetDate(offsetDate int) *GetRepliesQueryBuilder {
 	b.offsetDate = offsetDate
 	return b
 }
 
-// Peer sets Peer field of GetReplies query.
-func (b *GetRepliesQueryBuilder) Peer(paramPeer tg.InputPeerClass) *GetRepliesQueryBuilder {
-	b.req.Peer = paramPeer
+// OffsetID sets offsetID from which iterate start.
+func (b *GetRepliesQueryBuilder) OffsetID(offsetID int) *GetRepliesQueryBuilder {
+	b.offsetID = offsetID
 	return b
 }
 
@@ -245,25 +239,31 @@ func (b *GetRepliesQueryBuilder) MsgID(paramMsgID int) *GetRepliesQueryBuilder {
 	return b
 }
 
+// Peer sets Peer field of GetReplies query.
+func (b *GetRepliesQueryBuilder) Peer(paramPeer tg.InputPeerClass) *GetRepliesQueryBuilder {
+	b.req.Peer = paramPeer
+	return b
+}
+
 // Query implements Query interface.
 func (b *GetRepliesQueryBuilder) Query(ctx context.Context, req Request) (tg.MessagesMessagesClass, error) {
 	r := &tg.MessagesGetRepliesRequest{
 		Limit: req.Limit,
 	}
 
-	r.Peer = b.req.Peer
 	r.MsgID = b.req.MsgID
-	r.OffsetID = req.OffsetID
-	r.OffsetDate = req.OffsetDate
+	r.Peer = b.req.Peer
 	r.AddOffset = req.AddOffset
+	r.OffsetDate = req.OffsetDate
+	r.OffsetID = req.OffsetID
 	return b.raw.MessagesGetReplies(ctx, r)
 }
 
 // Iter returns iterator using built query.
 func (b *GetRepliesQueryBuilder) Iter() *Iterator {
 	iter := NewIterator(b, b.batchSize)
-	iter = iter.OffsetID(b.offsetID)
 	iter = iter.OffsetDate(b.offsetDate)
+	iter = iter.OffsetID(b.offsetID)
 	return iter
 }
 
@@ -283,8 +283,8 @@ type GetUnreadMentionsQueryBuilder struct {
 	raw       *tg.Client
 	req       tg.MessagesGetUnreadMentionsRequest
 	batchSize int
-	offsetID  int
 	addOffset int
+	offsetID  int
 }
 
 // GetUnreadMentions creates query builder of MessagesGetUnreadMentions.
@@ -328,8 +328,8 @@ func (b *GetUnreadMentionsQueryBuilder) Query(ctx context.Context, req Request) 
 	}
 
 	r.Peer = b.req.Peer
-	r.OffsetID = req.OffsetID
 	r.AddOffset = req.AddOffset
+	r.OffsetID = req.OffsetID
 	return b.raw.MessagesGetUnreadMentions(ctx, r)
 }
 
@@ -356,8 +356,8 @@ type SearchQueryBuilder struct {
 	raw       *tg.Client
 	req       tg.MessagesSearchRequest
 	batchSize int
-	offsetID  int
 	addOffset int
+	offsetID  int
 }
 
 // Search creates query builder of MessagesSearch.
@@ -366,9 +366,9 @@ func (q *QueryBuilder) Search(paramPeer tg.InputPeerClass) *SearchQueryBuilder {
 		raw:       q.raw,
 		batchSize: 1,
 		req: tg.MessagesSearchRequest{
-			Peer:   &tg.InputPeerEmpty{},
-			FromID: &tg.InputPeerEmpty{},
 			Filter: &tg.InputMessagesFilterEmpty{},
+			FromID: &tg.InputPeerEmpty{},
+			Peer:   &tg.InputPeerEmpty{},
 		},
 	}
 
@@ -390,6 +390,30 @@ func (b *SearchQueryBuilder) OffsetID(offsetID int) *SearchQueryBuilder {
 	return b
 }
 
+// Filter sets Filter field of Search query.
+func (b *SearchQueryBuilder) Filter(paramFilter tg.MessagesFilterClass) *SearchQueryBuilder {
+	b.req.Filter = paramFilter
+	return b
+}
+
+// FromID sets FromID field of Search query.
+func (b *SearchQueryBuilder) FromID(paramFromID tg.InputPeerClass) *SearchQueryBuilder {
+	b.req.FromID = paramFromID
+	return b
+}
+
+// MaxDate sets MaxDate field of Search query.
+func (b *SearchQueryBuilder) MaxDate(paramMaxDate int) *SearchQueryBuilder {
+	b.req.MaxDate = paramMaxDate
+	return b
+}
+
+// MinDate sets MinDate field of Search query.
+func (b *SearchQueryBuilder) MinDate(paramMinDate int) *SearchQueryBuilder {
+	b.req.MinDate = paramMinDate
+	return b
+}
+
 // Peer sets Peer field of Search query.
 func (b *SearchQueryBuilder) Peer(paramPeer tg.InputPeerClass) *SearchQueryBuilder {
 	b.req.Peer = paramPeer
@@ -402,75 +426,9 @@ func (b *SearchQueryBuilder) Q(paramQ string) *SearchQueryBuilder {
 	return b
 }
 
-// FromID sets FromID field of Search query.
-func (b *SearchQueryBuilder) FromID(paramFromID tg.InputPeerClass) *SearchQueryBuilder {
-	b.req.FromID = paramFromID
-	return b
-}
-
 // TopMsgID sets TopMsgID field of Search query.
 func (b *SearchQueryBuilder) TopMsgID(paramTopMsgID int) *SearchQueryBuilder {
 	b.req.TopMsgID = paramTopMsgID
-	return b
-}
-
-// Filter sets Filter field of Search query.
-func (b *SearchQueryBuilder) Filter(paramFilter tg.MessagesFilterClass) *SearchQueryBuilder {
-	b.req.Filter = paramFilter
-	return b
-}
-
-// MinDate sets MinDate field of Search query.
-func (b *SearchQueryBuilder) MinDate(paramMinDate int) *SearchQueryBuilder {
-	b.req.MinDate = paramMinDate
-	return b
-}
-
-// MaxDate sets MaxDate field of Search query.
-func (b *SearchQueryBuilder) MaxDate(paramMaxDate int) *SearchQueryBuilder {
-	b.req.MaxDate = paramMaxDate
-	return b
-}
-
-// Music sets Filter field of Search query.
-func (b *SearchQueryBuilder) Music() *SearchQueryBuilder {
-	b.req.Filter = &tg.InputMessagesFilterMusic{}
-	return b
-}
-
-// Gif sets Filter field of Search query.
-func (b *SearchQueryBuilder) Gif() *SearchQueryBuilder {
-	b.req.Filter = &tg.InputMessagesFilterGif{}
-	return b
-}
-
-// Pinned sets Filter field of Search query.
-func (b *SearchQueryBuilder) Pinned() *SearchQueryBuilder {
-	b.req.Filter = &tg.InputMessagesFilterPinned{}
-	return b
-}
-
-// RoundVideo sets Filter field of Search query.
-func (b *SearchQueryBuilder) RoundVideo() *SearchQueryBuilder {
-	b.req.Filter = &tg.InputMessagesFilterRoundVideo{}
-	return b
-}
-
-// Voice sets Filter field of Search query.
-func (b *SearchQueryBuilder) Voice() *SearchQueryBuilder {
-	b.req.Filter = &tg.InputMessagesFilterVoice{}
-	return b
-}
-
-// Photos sets Filter field of Search query.
-func (b *SearchQueryBuilder) Photos() *SearchQueryBuilder {
-	b.req.Filter = &tg.InputMessagesFilterPhotos{}
-	return b
-}
-
-// Contacts sets Filter field of Search query.
-func (b *SearchQueryBuilder) Contacts() *SearchQueryBuilder {
-	b.req.Filter = &tg.InputMessagesFilterContacts{}
 	return b
 }
 
@@ -480,27 +438,15 @@ func (b *SearchQueryBuilder) ChatPhotos() *SearchQueryBuilder {
 	return b
 }
 
+// Contacts sets Filter field of Search query.
+func (b *SearchQueryBuilder) Contacts() *SearchQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterContacts{}
+	return b
+}
+
 // Document sets Filter field of Search query.
 func (b *SearchQueryBuilder) Document() *SearchQueryBuilder {
 	b.req.Filter = &tg.InputMessagesFilterDocument{}
-	return b
-}
-
-// MyMentions sets Filter field of Search query.
-func (b *SearchQueryBuilder) MyMentions() *SearchQueryBuilder {
-	b.req.Filter = &tg.InputMessagesFilterMyMentions{}
-	return b
-}
-
-// URL sets Filter field of Search query.
-func (b *SearchQueryBuilder) URL() *SearchQueryBuilder {
-	b.req.Filter = &tg.InputMessagesFilterURL{}
-	return b
-}
-
-// RoundVoice sets Filter field of Search query.
-func (b *SearchQueryBuilder) RoundVoice() *SearchQueryBuilder {
-	b.req.Filter = &tg.InputMessagesFilterRoundVoice{}
 	return b
 }
 
@@ -510,9 +456,21 @@ func (b *SearchQueryBuilder) Geo() *SearchQueryBuilder {
 	return b
 }
 
-// Video sets Filter field of Search query.
-func (b *SearchQueryBuilder) Video() *SearchQueryBuilder {
-	b.req.Filter = &tg.InputMessagesFilterVideo{}
+// Gif sets Filter field of Search query.
+func (b *SearchQueryBuilder) Gif() *SearchQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterGif{}
+	return b
+}
+
+// Music sets Filter field of Search query.
+func (b *SearchQueryBuilder) Music() *SearchQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterMusic{}
+	return b
+}
+
+// MyMentions sets Filter field of Search query.
+func (b *SearchQueryBuilder) MyMentions() *SearchQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterMyMentions{}
 	return b
 }
 
@@ -530,21 +488,63 @@ func (b *SearchQueryBuilder) PhotoVideo() *SearchQueryBuilder {
 	return b
 }
 
+// Photos sets Filter field of Search query.
+func (b *SearchQueryBuilder) Photos() *SearchQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterPhotos{}
+	return b
+}
+
+// Pinned sets Filter field of Search query.
+func (b *SearchQueryBuilder) Pinned() *SearchQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterPinned{}
+	return b
+}
+
+// RoundVideo sets Filter field of Search query.
+func (b *SearchQueryBuilder) RoundVideo() *SearchQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterRoundVideo{}
+	return b
+}
+
+// RoundVoice sets Filter field of Search query.
+func (b *SearchQueryBuilder) RoundVoice() *SearchQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterRoundVoice{}
+	return b
+}
+
+// URL sets Filter field of Search query.
+func (b *SearchQueryBuilder) URL() *SearchQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterURL{}
+	return b
+}
+
+// Video sets Filter field of Search query.
+func (b *SearchQueryBuilder) Video() *SearchQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterVideo{}
+	return b
+}
+
+// Voice sets Filter field of Search query.
+func (b *SearchQueryBuilder) Voice() *SearchQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterVoice{}
+	return b
+}
+
 // Query implements Query interface.
 func (b *SearchQueryBuilder) Query(ctx context.Context, req Request) (tg.MessagesMessagesClass, error) {
 	r := &tg.MessagesSearchRequest{
 		Limit: req.Limit,
 	}
 
+	r.Filter = b.req.Filter
+	r.FromID = b.req.FromID
+	r.MaxDate = b.req.MaxDate
+	r.MinDate = b.req.MinDate
 	r.Peer = b.req.Peer
 	r.Q = b.req.Q
-	r.FromID = b.req.FromID
 	r.TopMsgID = b.req.TopMsgID
-	r.Filter = b.req.Filter
-	r.MinDate = b.req.MinDate
-	r.MaxDate = b.req.MaxDate
-	r.OffsetID = req.OffsetID
 	r.AddOffset = req.AddOffset
+	r.OffsetID = req.OffsetID
 	return b.raw.MessagesSearch(ctx, r)
 }
 
@@ -571,9 +571,9 @@ type SearchGlobalQueryBuilder struct {
 	raw        *tg.Client
 	req        tg.MessagesSearchGlobalRequest
 	batchSize  int
-	offsetRate int
-	offsetPeer tg.InputPeerClass
 	offsetID   int
+	offsetPeer tg.InputPeerClass
+	offsetRate int
 }
 
 // SearchGlobal creates query builder of MessagesSearchGlobal.
@@ -603,27 +603,15 @@ func (b *SearchGlobalQueryBuilder) OffsetID(offsetID int) *SearchGlobalQueryBuil
 	return b
 }
 
-// FolderID sets FolderID field of SearchGlobal query.
-func (b *SearchGlobalQueryBuilder) FolderID(paramFolderID int) *SearchGlobalQueryBuilder {
-	b.req.FolderID = paramFolderID
-	return b
-}
-
-// Q sets Q field of SearchGlobal query.
-func (b *SearchGlobalQueryBuilder) Q(paramQ string) *SearchGlobalQueryBuilder {
-	b.req.Q = paramQ
-	return b
-}
-
 // Filter sets Filter field of SearchGlobal query.
 func (b *SearchGlobalQueryBuilder) Filter(paramFilter tg.MessagesFilterClass) *SearchGlobalQueryBuilder {
 	b.req.Filter = paramFilter
 	return b
 }
 
-// MinDate sets MinDate field of SearchGlobal query.
-func (b *SearchGlobalQueryBuilder) MinDate(paramMinDate int) *SearchGlobalQueryBuilder {
-	b.req.MinDate = paramMinDate
+// FolderID sets FolderID field of SearchGlobal query.
+func (b *SearchGlobalQueryBuilder) FolderID(paramFolderID int) *SearchGlobalQueryBuilder {
+	b.req.FolderID = paramFolderID
 	return b
 }
 
@@ -633,33 +621,15 @@ func (b *SearchGlobalQueryBuilder) MaxDate(paramMaxDate int) *SearchGlobalQueryB
 	return b
 }
 
-// Pinned sets Filter field of SearchGlobal query.
-func (b *SearchGlobalQueryBuilder) Pinned() *SearchGlobalQueryBuilder {
-	b.req.Filter = &tg.InputMessagesFilterPinned{}
+// MinDate sets MinDate field of SearchGlobal query.
+func (b *SearchGlobalQueryBuilder) MinDate(paramMinDate int) *SearchGlobalQueryBuilder {
+	b.req.MinDate = paramMinDate
 	return b
 }
 
-// RoundVideo sets Filter field of SearchGlobal query.
-func (b *SearchGlobalQueryBuilder) RoundVideo() *SearchGlobalQueryBuilder {
-	b.req.Filter = &tg.InputMessagesFilterRoundVideo{}
-	return b
-}
-
-// Voice sets Filter field of SearchGlobal query.
-func (b *SearchGlobalQueryBuilder) Voice() *SearchGlobalQueryBuilder {
-	b.req.Filter = &tg.InputMessagesFilterVoice{}
-	return b
-}
-
-// Photos sets Filter field of SearchGlobal query.
-func (b *SearchGlobalQueryBuilder) Photos() *SearchGlobalQueryBuilder {
-	b.req.Filter = &tg.InputMessagesFilterPhotos{}
-	return b
-}
-
-// Contacts sets Filter field of SearchGlobal query.
-func (b *SearchGlobalQueryBuilder) Contacts() *SearchGlobalQueryBuilder {
-	b.req.Filter = &tg.InputMessagesFilterContacts{}
+// Q sets Q field of SearchGlobal query.
+func (b *SearchGlobalQueryBuilder) Q(paramQ string) *SearchGlobalQueryBuilder {
+	b.req.Q = paramQ
 	return b
 }
 
@@ -669,27 +639,15 @@ func (b *SearchGlobalQueryBuilder) ChatPhotos() *SearchGlobalQueryBuilder {
 	return b
 }
 
+// Contacts sets Filter field of SearchGlobal query.
+func (b *SearchGlobalQueryBuilder) Contacts() *SearchGlobalQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterContacts{}
+	return b
+}
+
 // Document sets Filter field of SearchGlobal query.
 func (b *SearchGlobalQueryBuilder) Document() *SearchGlobalQueryBuilder {
 	b.req.Filter = &tg.InputMessagesFilterDocument{}
-	return b
-}
-
-// MyMentions sets Filter field of SearchGlobal query.
-func (b *SearchGlobalQueryBuilder) MyMentions() *SearchGlobalQueryBuilder {
-	b.req.Filter = &tg.InputMessagesFilterMyMentions{}
-	return b
-}
-
-// URL sets Filter field of SearchGlobal query.
-func (b *SearchGlobalQueryBuilder) URL() *SearchGlobalQueryBuilder {
-	b.req.Filter = &tg.InputMessagesFilterURL{}
-	return b
-}
-
-// RoundVoice sets Filter field of SearchGlobal query.
-func (b *SearchGlobalQueryBuilder) RoundVoice() *SearchGlobalQueryBuilder {
-	b.req.Filter = &tg.InputMessagesFilterRoundVoice{}
 	return b
 }
 
@@ -699,9 +657,21 @@ func (b *SearchGlobalQueryBuilder) Geo() *SearchGlobalQueryBuilder {
 	return b
 }
 
-// Video sets Filter field of SearchGlobal query.
-func (b *SearchGlobalQueryBuilder) Video() *SearchGlobalQueryBuilder {
-	b.req.Filter = &tg.InputMessagesFilterVideo{}
+// Gif sets Filter field of SearchGlobal query.
+func (b *SearchGlobalQueryBuilder) Gif() *SearchGlobalQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterGif{}
+	return b
+}
+
+// Music sets Filter field of SearchGlobal query.
+func (b *SearchGlobalQueryBuilder) Music() *SearchGlobalQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterMusic{}
+	return b
+}
+
+// MyMentions sets Filter field of SearchGlobal query.
+func (b *SearchGlobalQueryBuilder) MyMentions() *SearchGlobalQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterMyMentions{}
 	return b
 }
 
@@ -719,15 +689,45 @@ func (b *SearchGlobalQueryBuilder) PhotoVideo() *SearchGlobalQueryBuilder {
 	return b
 }
 
-// Music sets Filter field of SearchGlobal query.
-func (b *SearchGlobalQueryBuilder) Music() *SearchGlobalQueryBuilder {
-	b.req.Filter = &tg.InputMessagesFilterMusic{}
+// Photos sets Filter field of SearchGlobal query.
+func (b *SearchGlobalQueryBuilder) Photos() *SearchGlobalQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterPhotos{}
 	return b
 }
 
-// Gif sets Filter field of SearchGlobal query.
-func (b *SearchGlobalQueryBuilder) Gif() *SearchGlobalQueryBuilder {
-	b.req.Filter = &tg.InputMessagesFilterGif{}
+// Pinned sets Filter field of SearchGlobal query.
+func (b *SearchGlobalQueryBuilder) Pinned() *SearchGlobalQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterPinned{}
+	return b
+}
+
+// RoundVideo sets Filter field of SearchGlobal query.
+func (b *SearchGlobalQueryBuilder) RoundVideo() *SearchGlobalQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterRoundVideo{}
+	return b
+}
+
+// RoundVoice sets Filter field of SearchGlobal query.
+func (b *SearchGlobalQueryBuilder) RoundVoice() *SearchGlobalQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterRoundVoice{}
+	return b
+}
+
+// URL sets Filter field of SearchGlobal query.
+func (b *SearchGlobalQueryBuilder) URL() *SearchGlobalQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterURL{}
+	return b
+}
+
+// Video sets Filter field of SearchGlobal query.
+func (b *SearchGlobalQueryBuilder) Video() *SearchGlobalQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterVideo{}
+	return b
+}
+
+// Voice sets Filter field of SearchGlobal query.
+func (b *SearchGlobalQueryBuilder) Voice() *SearchGlobalQueryBuilder {
+	b.req.Filter = &tg.InputMessagesFilterVoice{}
 	return b
 }
 
@@ -737,14 +737,14 @@ func (b *SearchGlobalQueryBuilder) Query(ctx context.Context, req Request) (tg.M
 		Limit: req.Limit,
 	}
 
-	r.FolderID = b.req.FolderID
-	r.Q = b.req.Q
 	r.Filter = b.req.Filter
-	r.MinDate = b.req.MinDate
+	r.FolderID = b.req.FolderID
 	r.MaxDate = b.req.MaxDate
-	r.OffsetRate = req.OffsetRate
-	r.OffsetPeer = req.OffsetPeer
+	r.MinDate = b.req.MinDate
+	r.Q = b.req.Q
 	r.OffsetID = req.OffsetID
+	r.OffsetPeer = req.OffsetPeer
+	r.OffsetRate = req.OffsetRate
 	return b.raw.MessagesSearchGlobal(ctx, r)
 }
 
@@ -771,9 +771,9 @@ type StatsGetMessagePublicForwardsQueryBuilder struct {
 	raw        *tg.Client
 	req        tg.StatsGetMessagePublicForwardsRequest
 	batchSize  int
-	offsetRate int
-	offsetPeer tg.InputPeerClass
 	offsetID   int
+	offsetPeer tg.InputPeerClass
+	offsetRate int
 }
 
 // StatsGetMessagePublicForwards creates query builder of StatsGetMessagePublicForwards.
@@ -821,9 +821,9 @@ func (b *StatsGetMessagePublicForwardsQueryBuilder) Query(ctx context.Context, r
 
 	r.Channel = b.req.Channel
 	r.MsgID = b.req.MsgID
-	r.OffsetRate = req.OffsetRate
-	r.OffsetPeer = req.OffsetPeer
 	r.OffsetID = req.OffsetID
+	r.OffsetPeer = req.OffsetPeer
+	r.OffsetRate = req.OffsetRate
 	return b.raw.StatsGetMessagePublicForwards(ctx, r)
 }
 
