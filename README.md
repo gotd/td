@@ -12,11 +12,11 @@ Before using this library, read [How Not To Get Banned](https://github.com/gotd/
 
 ## Status
 
-Work is still in progress, but basic functionality were tested in production and works fine.
+Work is still in progress (mostly helpers and convenience wrappers), but basic functionality were tested in production and works fine.
 Only go1.16 is supported and no backward compatibility is provided for now.
 
 Goal of this project is to implement stable, performant and safe client for Telegram in go while
-providing simple and convenient API.
+providing simple and convenient API, including feature parity with TDLib.
 
 This project is fully non-commercial and not affiliated with any commercial organization
 (including Telegram LLC).
