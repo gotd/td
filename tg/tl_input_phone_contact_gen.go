@@ -11,16 +11,20 @@ import (
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tdp"
+	"github.com/gotd/td/tgerr"
 )
 
 // No-op definition for keeping imports.
-var _ = bin.Buffer{}
-var _ = context.Background()
-var _ = fmt.Stringer(nil)
-var _ = strings.Builder{}
-var _ = errors.Is
-var _ = sort.Ints
-var _ = tdp.Format
+var (
+	_ = bin.Buffer{}
+	_ = context.Background()
+	_ = fmt.Stringer(nil)
+	_ = strings.Builder{}
+	_ = errors.Is
+	_ = sort.Ints
+	_ = tdp.Format
+	_ = tgerr.Error{}
+)
 
 // InputPhoneContact represents TL type `inputPhoneContact#f392b7f4`.
 // Phone contact. The client_id is just an arbitrary contact ID: it should be set, for example, to an incremental number when using contacts.importContacts¹, in order to retry importing only the contacts that weren't imported successfully.

@@ -11,16 +11,20 @@ import (
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tdp"
+	"github.com/gotd/td/tgerr"
 )
 
 // No-op definition for keeping imports.
-var _ = bin.Buffer{}
-var _ = context.Background()
-var _ = fmt.Stringer(nil)
-var _ = strings.Builder{}
-var _ = errors.Is
-var _ = sort.Ints
-var _ = tdp.Format
+var (
+	_ = bin.Buffer{}
+	_ = context.Background()
+	_ = fmt.Stringer(nil)
+	_ = strings.Builder{}
+	_ = errors.Is
+	_ = sort.Ints
+	_ = tdp.Format
+	_ = tgerr.Error{}
+)
 
 // AccountDeleteAccountRequest represents TL type `account.deleteAccount#418d4e0b`.
 // Delete the user's account from the telegram servers. Can be used, for example, to delete the account of a user that provided the login code, but forgot the 2FA password and no recovery method is configured¹.

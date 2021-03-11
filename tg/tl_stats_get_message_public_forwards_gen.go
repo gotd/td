@@ -11,16 +11,20 @@ import (
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tdp"
+	"github.com/gotd/td/tgerr"
 )
 
 // No-op definition for keeping imports.
-var _ = bin.Buffer{}
-var _ = context.Background()
-var _ = fmt.Stringer(nil)
-var _ = strings.Builder{}
-var _ = errors.Is
-var _ = sort.Ints
-var _ = tdp.Format
+var (
+	_ = bin.Buffer{}
+	_ = context.Background()
+	_ = fmt.Stringer(nil)
+	_ = strings.Builder{}
+	_ = errors.Is
+	_ = sort.Ints
+	_ = tdp.Format
+	_ = tgerr.Error{}
+)
 
 // StatsGetMessagePublicForwardsRequest represents TL type `stats.getMessagePublicForwards#5630281b`.
 // Obtains a list of messages, indicating to which other public channels was a channel message forwarded.
