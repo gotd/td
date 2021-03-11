@@ -4,33 +4,21 @@
 {{ $pkg := $.Package }}
 {{ template "header" $ }}
 
-type typedErrChecker struct {
-  t string
+// ErrorType wraps error type string as Go error.
+type ErrorType string
+
+func (err ErrorType) Error() string {
+  return string(err)
 }
 
-type typedErr interface {
-  IsType(string) bool
-}
-
-func (e typedErrChecker) Is(err error) bool {
-  if x, ok := err.(typedErr); ok {
-    return x.IsType(e.t)
-  }
-  return false
-}
-
-func (e typedErrChecker) Error() string {
-  return e.t
-}
-
-{{- range $s:= $.Errors }}
+{{- range $s := $.Errors }}
 
 // Err{{ $s.Name }} is error type for "{{ $s.Type }}".
 const Err{{ $s.Name }} = "{{ $s.Type }}"
 
 // Is{{ $s.Name }} reports whether err is {{ $s.Type }}.
 func Is{{ $s.Name }}(err error) bool {
-  return errors.Is(err, typedErrChecker{t: Err{{ $s.Name }}})
+  return errors.Is(err, ErrorType(Err{{ $s.Name }}))
 }
 {{ end }}
 

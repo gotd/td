@@ -6,6 +6,8 @@ import (
 	"strconv"
 	"strings"
 	"unicode"
+
+	"github.com/gotd/td/tg"
 )
 
 // Error represents RPC error returned to request.
@@ -25,6 +27,15 @@ func NewError(code int, msg string) *Error {
 	}
 	e.extractArgument()
 	return e
+}
+
+// Is reports whether e matches target error.
+func (e *Error) Is(target error) bool {
+	if e == nil {
+		return false
+	}
+	var typ tg.ErrorType
+	return errors.As(target, &typ) && e.IsType(string(typ))
 }
 
 // IsType reports whether error has type t.
