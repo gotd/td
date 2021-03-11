@@ -1,4 +1,5 @@
-package mtproto
+// Package tgerr implements helpers for error handling.
+package tgerr
 
 import (
 	"errors"
@@ -6,11 +7,9 @@ import (
 	"strconv"
 	"strings"
 	"unicode"
-
-	"github.com/gotd/td/tg"
 )
 
-// Error represents RPC error returned to request.
+// Error represents RPC error returned as result to request.
 type Error struct {
 	Code     int    // 420
 	Message  string // FLOOD_WAIT_3
@@ -18,24 +17,15 @@ type Error struct {
 	Argument int    // 3
 }
 
-// NewError creates new *Error from code and message, extracting argument
+// New creates new *Error from code and message, extracting argument
 // and type.
-func NewError(code int, msg string) *Error {
+func New(code int, msg string) *Error {
 	e := &Error{
 		Code:    code,
 		Message: msg,
 	}
 	e.extractArgument()
 	return e
-}
-
-// Is reports whether e matches target error.
-func (e *Error) Is(target error) bool {
-	if e == nil {
-		return false
-	}
-	var typ tg.ErrorType
-	return errors.As(target, &typ) && e.IsType(string(typ))
 }
 
 // IsType reports whether error has type t.
@@ -127,33 +117,33 @@ func (e *Error) Error() string {
 	return fmt.Sprintf("rpc error code %d: %s", e.Code, e.Message)
 }
 
-// AsTypeErr returns *Error from err if rpc error type is t.
-func AsTypeErr(err error, t string) (rpcErr *Error, ok bool) {
+// AsType returns *Error from err if rpc error type is t.
+func AsType(err error, t string) (rpcErr *Error, ok bool) {
 	if errors.As(err, &rpcErr) && rpcErr.Type == t {
 		return rpcErr, true
 	}
 	return nil, false
 }
 
-// AsErr extracts *Error from err if possible.
-func AsErr(err error) (rpcErr *Error, ok bool) {
+// As extracts *Error from err if possible.
+func As(err error) (rpcErr *Error, ok bool) {
 	if errors.As(err, &rpcErr) {
 		return rpcErr, true
 	}
 	return nil, false
 }
 
-// IsErr returns true if err type is t.
-func IsErr(err error, tt ...string) bool {
-	if rpcErr, ok := AsErr(err); ok {
+// Is returns true if err type is t.
+func Is(err error, tt ...string) bool {
+	if rpcErr, ok := As(err); ok {
 		return rpcErr.IsOneOf(tt...)
 	}
 	return false
 }
 
-// IsErrCode returns true of error code is as provided.
-func IsErrCode(err error, code ...int) bool {
-	if rpcErr, ok := AsErr(err); ok {
+// IsCode returns true of error code is as provided.
+func IsCode(err error, code ...int) bool {
+	if rpcErr, ok := As(err); ok {
 		return rpcErr.IsCodeOneOf(code...)
 	}
 	return false

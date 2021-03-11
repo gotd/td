@@ -10,7 +10,8 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/mtproto"
+	"github.com/gotd/td/tgerr"
+
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/message"
 	"github.com/gotd/td/tg"
@@ -80,7 +81,7 @@ func (b EchoBot) login(ctx context.Context, client *telegram.Client) (*tg.User, 
 	raw := tg.NewClient(client)
 	_, err = raw.AccountUpdateUsername(ctx, expectedUsername)
 	if err != nil {
-		var rpcErr *mtproto.Error
+		var rpcErr *tgerr.Error
 		if !errors.As(err, &rpcErr) || rpcErr.Message != "USERNAME_NOT_MODIFIED" {
 			return nil, xerrors.Errorf("update username: %w", err)
 		}

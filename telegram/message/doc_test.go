@@ -6,9 +6,9 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/telegram/internal/rpcmock"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 )
 
 func testSender(t *testing.T) (*Sender, *rpcmock.Mock) {
@@ -17,8 +17,8 @@ func testSender(t *testing.T) (*Sender, *rpcmock.Mock) {
 	return sender, mock
 }
 
-func testRPCError() *mtproto.Error {
-	return &mtproto.Error{
+func testRPCError() *tgerr.Error {
+	return &tgerr.Error{
 		Code:    1337,
 		Message: "TEST_ERROR",
 		Type:    "TEST_ERROR",

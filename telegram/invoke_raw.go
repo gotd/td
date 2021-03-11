@@ -6,7 +6,7 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/mtproto"
+	"github.com/gotd/td/tgerr"
 )
 
 // InvokeRaw sens input and decodes result into output.
@@ -15,7 +15,7 @@ import (
 func (c *Client) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	if err := c.invokeRaw(ctx, input, output); err != nil {
 		// Handling datacenter migration request.
-		if rpcErr, ok := mtproto.AsErr(err); ok && rpcErr.IsCode(303) {
+		if rpcErr, ok := tgerr.As(err); ok && rpcErr.IsCode(303) {
 			// If migration error is FILE_MIGRATE or STATS_MIGRATE, then the method
 			// called by authorized client, so we should try to transfer auth to new DC
 			// and create new connection.

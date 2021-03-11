@@ -7,6 +7,7 @@ import (
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
+	"github.com/gotd/td/tgerr"
 )
 
 func (c *Conn) handleResult(b *bin.Buffer) error {
@@ -49,7 +50,7 @@ func (c *Conn) handleResult(b *bin.Buffer) error {
 		}
 		c.rpc.NotifyError(
 			res.RequestMessageID,
-			NewError(rpcErr.ErrorCode, rpcErr.ErrorMessage),
+			tgerr.New(rpcErr.ErrorCode, rpcErr.ErrorMessage),
 		)
 
 		return nil

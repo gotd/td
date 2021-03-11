@@ -2,6 +2,8 @@ package mtproto
 
 import (
 	"time"
+
+	"github.com/gotd/td/tgerr"
 )
 
 // ErrFloodWait is error type of "FLOOD_WAIT" error.
@@ -13,7 +15,7 @@ const ErrFloodWait = "FLOOD_WAIT"
 // Client should wait for that duration before issuing new requests with
 // same method.
 func AsFloodWait(err error) (d time.Duration, ok bool) {
-	if rpcErr, ok := AsTypeErr(err, ErrFloodWait); ok {
+	if rpcErr, ok := tgerr.AsType(err, ErrFloodWait); ok {
 		return time.Second * time.Duration(rpcErr.Argument), true
 	}
 	return 0, false

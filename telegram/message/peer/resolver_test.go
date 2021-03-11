@@ -6,9 +6,9 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/telegram/internal/rpcmock"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 )
 
 func Test_plainResolver_Resolve(t *testing.T) {
@@ -25,7 +25,7 @@ func Test_plainResolver_Resolve(t *testing.T) {
 		},
 	}).ExpectCall(&tg.ContactsResolveUsernameRequest{
 		Username: domain,
-	}).ThenRPCErr(&mtproto.Error{
+	}).ThenRPCErr(&tgerr.Error{
 		Code:    1337,
 		Message: "TEST_ERROR",
 		Type:    "TEST_ERROR",

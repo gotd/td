@@ -5,8 +5,8 @@ import (
 	"strings"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 )
 
 func (i *Mock) request(fn func(b bin.Encoder)) *RequestBuilder {
@@ -68,14 +68,14 @@ func (b *RequestBuilder) ThenErr(err error) *Mock {
 }
 
 // ThenRPCErr adds call result to the end of call stack.
-func (b *RequestBuilder) ThenRPCErr(err *mtproto.Error) *Mock {
+func (b *RequestBuilder) ThenRPCErr(err *tgerr.Error) *Mock {
 	return b.ThenErr(err)
 }
 
 // ThenMigrate adds call result to the end of call stack.
 func (b *RequestBuilder) ThenMigrate(typ string, arg int) *Mock {
 	t := strings.ToUpper(typ) + "_MIGRATE"
-	return b.ThenRPCErr(&mtproto.Error{
+	return b.ThenRPCErr(&tgerr.Error{
 		Code:     303,
 		Message:  t + "_" + strconv.Itoa(arg),
 		Type:     t,
@@ -85,7 +85,7 @@ func (b *RequestBuilder) ThenMigrate(typ string, arg int) *Mock {
 
 // ThenFlood adds call result to the end of call stack.
 func (b *RequestBuilder) ThenFlood(arg int) *Mock {
-	return b.ThenRPCErr(&mtproto.Error{
+	return b.ThenRPCErr(&tgerr.Error{
 		Code:     420,
 		Message:  "FLOOD_WAIT_" + strconv.Itoa(arg),
 		Type:     "FLOOD_WAIT",
@@ -95,7 +95,7 @@ func (b *RequestBuilder) ThenFlood(arg int) *Mock {
 
 // ThenUnregistered adds call result to the end of call stack.
 func (b *RequestBuilder) ThenUnregistered() *Mock {
-	return b.ThenRPCErr(&mtproto.Error{
+	return b.ThenRPCErr(&tgerr.Error{
 		Code:    401,
 		Message: "AUTH_KEY_UNREGISTERED",
 		Type:    "AUTH_KEY_UNREGISTERED",

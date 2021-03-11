@@ -15,22 +15,21 @@ import (
 	"go.uber.org/atomic"
 	"go.uber.org/zap"
 
-	"github.com/gotd/td/internal/tdsync"
-	"github.com/gotd/td/mtproto"
-	"github.com/gotd/td/telegram/internal/rpcmock"
-
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/internal/rpc"
+	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/internal/tmap"
+	"github.com/gotd/td/telegram/internal/rpcmock"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 )
 
 type testHandler func(id int64, body bin.Encoder) (bin.Encoder, error)
 
 func testError(err tg.Error) (bin.Encoder, error) {
-	return nil, mtproto.NewError(err.Code, err.Text)
+	return nil, tgerr.New(err.Code, err.Text)
 }
 
 type testConn struct {

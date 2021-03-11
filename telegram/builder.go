@@ -102,14 +102,14 @@ func retry(ctx context.Context, logger *zap.Logger, cb func(ctx context.Context)
 		if err := cb(ctx); err != nil {
 			logger.Warn("TestClient run failed", zap.Error(err))
 
-			var rpcErr *mtproto.Error
+			var rpcErr *Error
 			if errors.As(err, &rpcErr) {
 				switch rpcErr.Type {
 				case "NEED_MEMBER_INVALID",
 					"AUTH_KEY_UNREGISTERED",
 					"API_ID_PUBLISHED_FLOOD":
 					return err
-				case "FLOOD_WAIT":
+				case mtproto.ErrFloodWait:
 					select {
 					case <-time.After(time.Duration(rpcErr.Argument+1) * time.Second):
 						return err

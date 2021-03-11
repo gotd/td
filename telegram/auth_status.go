@@ -5,8 +5,8 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 )
 
 // AuthStatus represents authorization status.
@@ -18,7 +18,7 @@ type AuthStatus struct {
 }
 
 func unauthorized(err error) bool {
-	return mtproto.IsErr(err, "AUTH_KEY_UNREGISTERED")
+	return tgerr.Is(err, "AUTH_KEY_UNREGISTERED")
 }
 
 // AuthStatus gets authorization status of client.

@@ -10,6 +10,8 @@ import (
 	"go.uber.org/zap/zaptest"
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/tgerr"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/internal/pool"
@@ -123,10 +125,10 @@ func TestMigration(t *testing.T) {
 	client := newMigrationClient(t, func(conn, id int64, dc int, body bin.Encoder) (bin.Encoder, error) {
 		switch body.(type) {
 		case *tg.UsersGetUsersRequest:
-			return nil, mtproto.NewError(401, "AUTH_KEY_UNREGISTERED")
+			return nil, tgerr.New(401, "AUTH_KEY_UNREGISTERED")
 		case *tg.AuthLogOutRequest:
 			if dc == 2 {
-				return nil, mtproto.NewError(303, "USER_MIGRATE_10")
+				return nil, tgerr.New(303, "USER_MIGRATE_10")
 			}
 
 			a.Equal(10, dc)

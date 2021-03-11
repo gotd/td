@@ -4,9 +4,9 @@ import (
 	"context"
 	"testing"
 
-	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/telegram/internal/rpcmock"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 )
 
 func TestClient_AuthStatus(t *testing.T) {
@@ -33,7 +33,7 @@ func TestClient_AuthStatus(t *testing.T) {
 	}))
 
 	t.Run("Error", mockClient(func(a *rpcmock.Mock, client *Client) {
-		a.Expect().ThenRPCErr(&mtproto.Error{
+		a.Expect().ThenRPCErr(&tgerr.Error{
 			Code:    500,
 			Message: "BRUH",
 			Type:    "BRUH",

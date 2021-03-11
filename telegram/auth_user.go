@@ -7,7 +7,6 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/crypto/srp"
-	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/tg"
 )
 
@@ -103,7 +102,7 @@ func (c *Client) AuthSignIn(ctx context.Context, phone, code, codeHash string) e
 		PhoneCodeHash: codeHash,
 		PhoneCode:     code,
 	})
-	var rpcErr *mtproto.Error
+	var rpcErr *Error
 	if errors.As(err, &rpcErr) && rpcErr.Message == "SESSION_PASSWORD_NEEDED" {
 		return ErrPasswordAuthNeeded
 	}
