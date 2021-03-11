@@ -2,6 +2,7 @@ package main
 
 import (
 	"go/types"
+	"sort"
 	"strings"
 
 	"golang.org/x/tools/go/packages"
@@ -43,9 +44,14 @@ func (c *collector) collectSpecial(pkg *packages.Package, m Method) ([]SpecialCa
 					cse.Args = append(cse.Args, varToParam(field))
 				}
 
+				cse.Args = sortParams(cse.Args)
 				r = append(r, cse)
 			}
 		}
 	}
+
+	sort.SliceStable(r, func(i, j int) bool {
+		return r[i].ConstructorName < r[j].ConstructorName
+	})
 	return r, nil
 }

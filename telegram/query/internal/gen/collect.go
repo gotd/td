@@ -200,20 +200,25 @@ func (c *collector) methods(pkg *packages.Package) ([]method, error) { // nolint
 	return result, nil
 }
 
+func sortParams(p []Param) []Param {
+	sort.SliceStable(p, func(i, j int) bool {
+		return p[i].Name < p[j].Name
+	})
+
+	return p
+}
+
 func (c *collector) Config(pkg *packages.Package) (Config, error) {
 	methods, err := c.Collect(pkg)
 	if err != nil {
 		return Config{}, xerrors.Errorf("collect: %w", err)
 	}
 
-	sort.Slice(c.requestFields, func(i, j int) bool {
-		return c.requestFields[i].OriginalName < c.requestFields[j].OriginalName
-	})
 	return Config{
 		Methods:       methods,
 		Package:       c.pkgName,
 		ResultName:    c.resultTypeName,
-		RequestFields: c.requestFields,
+		RequestFields: sortParams(c.requestFields),
 	}, nil
 }
 
@@ -225,13 +230,18 @@ func (c *collector) Collect(pkg *packages.Package) ([]Method, error) {
 
 	result := make([]Method, 0, len(methods))
 	for _, method := range methods {
+		mapping := method.fromRequest
+		sort.SliceStable(mapping, func(i, j int) bool {
+			return mapping[i].Arg.Name < mapping[j].Arg.Name
+		})
+
 		m := Method{
 			Name:              method.name,
 			OriginalName:      method.f.Name(),
 			RequestName:       printType(method.reqType),
 			ResultName:        printType(method.resultType),
-			AdditionalMapping: method.fromRequest,
-			AdditionalParams:  method.params,
+			AdditionalMapping: mapping,
+			AdditionalParams:  sortParams(method.params),
 			IteratorName:      "Iterator",
 			ElemName:          c.elemName,
 		}
@@ -241,6 +251,7 @@ func (c *collector) Collect(pkg *packages.Package) ([]Method, error) {
 				m.RequiredParams = append(m.RequiredParams, field)
 			}
 		}
+		m.RequiredParams = sortParams(m.RequiredParams)
 
 		cases, err := c.collectSpecial(pkg, m)
 		if err != nil {
