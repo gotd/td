@@ -21,7 +21,7 @@ func (r *resolvedCache) Load() (result tg.InputPeerClass, ok bool) {
 	return
 }
 
-func (s *Sender) builder(promise peerPromise) *RequestBuilder {
+func (s *Sender) builder(promise peer.Promise) *RequestBuilder {
 	once := &resolvedCache{}
 
 	return &RequestBuilder{
@@ -45,9 +45,14 @@ func (s *Sender) builder(promise peerPromise) *RequestBuilder {
 
 // Peer uses given peer to create new message builder.
 func (s *Sender) Peer(p tg.InputPeerClass) *RequestBuilder {
-	return s.builder(func(ctx context.Context) (tg.InputPeerClass, error) {
+	return s.PeerPromise(func(ctx context.Context) (tg.InputPeerClass, error) {
 		return p, nil
 	})
+}
+
+// PeerPromise uses given peer promise to create new message builder.
+func (s *Sender) PeerPromise(p peer.Promise) *RequestBuilder {
+	return s.builder(p)
 }
 
 // Self creates a new message builder to send it to yourself.

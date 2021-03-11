@@ -6,6 +6,7 @@ import (
 
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/telegram/message/markup"
 	"github.com/gotd/td/tg"
 )
 
@@ -81,6 +82,12 @@ func (u *UploadBuilder) Markup(markup tg.ReplyMarkupClass) *UploadBuilder {
 	r := u.next()
 	r.builder.replyMarkup = markup
 	return r
+}
+
+// Row sets single row keyboard markup for sending bot buttons.
+// NB: markup will not be used, if you send multiple media attachments.
+func (u *UploadBuilder) Row(button tg.KeyboardButtonClass, buttons ...tg.KeyboardButtonClass) *UploadBuilder {
+	return u.Markup(markup.SingleRow(button, buttons...))
 }
 
 func (u *UploadBuilder) file(ctx context.Context) (tg.InputFileClass, error) {

@@ -1,4 +1,4 @@
-package message
+package peer
 
 import (
 	"context"
@@ -7,11 +7,10 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/gotd/td/telegram/message/peer"
 	"github.com/gotd/td/tg"
 )
 
-func resolver(t *testing.T, expectedDomain string, expected tg.InputPeerClass) peer.ResolverFunc {
+func resolver(t *testing.T, expectedDomain string, expected tg.InputPeerClass) ResolverFunc {
 	return func(ctx context.Context, domain string) (tg.InputPeerClass, error) {
 		if domain != expectedDomain {
 			err := fmt.Errorf("expected domain %q, got %q", expectedDomain, domain)
@@ -73,11 +72,11 @@ func TestSender_Resolve(t *testing.T) {
 				}
 				t.Run(name, func(t *testing.T) {
 					a := require.New(t)
-					s := &Sender{
-						resolver: resolver(t, tt.domain, expected),
-					}
 
-					p, err := s.Resolve(fmt.Sprintf(format.fmt, tt.domain)).AsInputPeer(context.Background())
+					p, err := Resolve(
+						resolver(t, tt.domain, expected),
+						fmt.Sprintf(format.fmt, tt.domain),
+					)(context.Background())
 					if tt.wantErr || format.wantErr {
 						a.Error(err)
 						return
