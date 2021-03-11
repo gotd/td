@@ -42,6 +42,7 @@ func CreateConn(
 	opts mtproto.Options,
 	connOpts ConnOptions,
 ) *Conn {
+	connOpts.SetDefaults()
 	conn := &Conn{
 		id:          id,
 		addr:        addr,
