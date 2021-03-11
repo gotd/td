@@ -39,7 +39,6 @@ func (s *Sender) ResolveDomain(domain string) *RequestBuilder {
 	return s.builder(peer.ResolveDomain(s.resolver, domain))
 }
 
-
 // ResolveDeeplink uses given deeplink to create new message builder.
 // Deeplink is a URL like https://t.me/telegram.
 // It resolves peer of message using Sender's PeerResolver.
@@ -53,4 +52,3 @@ func (s *Sender) ResolveDomain(domain string) *RequestBuilder {
 func (s *Sender) ResolveDeeplink(deeplink string) *RequestBuilder {
 	return s.builder(peer.ResolveDeeplink(s.resolver, deeplink))
 }
-

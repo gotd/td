@@ -78,9 +78,9 @@ func (u *UploadBuilder) NoWebpage() *UploadBuilder {
 
 // Markup sets reply markup for sending bot buttons.
 // NB: markup will not be used, if you send multiple media attachments.
-func (u *UploadBuilder) Markup(markup tg.ReplyMarkupClass) *UploadBuilder {
+func (u *UploadBuilder) Markup(m tg.ReplyMarkupClass) *UploadBuilder {
 	r := u.next()
-	r.builder.replyMarkup = markup
+	r.builder.replyMarkup = m
 	return r
 }
 
