@@ -2,7 +2,8 @@ package telegram
 
 import (
 	"context"
-	"fmt"
+	"net"
+	"strconv"
 
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
@@ -40,18 +41,19 @@ func (c *Client) ensureRestart(ctx context.Context, export *tg.AuthExportedAutho
 	}
 }
 
-func findDC(cfg tg.Config, dcID int, noIPv6 bool) (dc tg.DCOption, ok bool) {
-	for _, dc := range cfg.DCOptions {
-		if noIPv6 && dc.Ipv6 {
+func findDC(cfg tg.Config, dcID int, preferIPv6 bool) (dc tg.DCOption, ok bool) {
+	for _, candidateDC := range cfg.DCOptions {
+		if candidateDC.ID != dcID {
 			continue
 		}
-
-		if dc.ID == dcID {
-			return dc, true
+		dc = candidateDC
+		ok = true
+		if preferIPv6 == dc.Ipv6 {
+			break
 		}
+		// We’ve found a matching DC but still need to consider
+		// other candidates to honor caller preferences.
 	}
-
-	ok = false
 	return
 }
 
@@ -79,7 +81,7 @@ func (c *Client) invokeMigrate(ctx context.Context, dcID int, input bin.Encoder,
 }
 
 func (c *Client) migrateToDc(ctx context.Context, dcID int, transfer bool) error {
-	dc, ok := findDC(c.cfg.Load(), dcID, true)
+	dc, ok := findDC(c.cfg.Load(), dcID, c.opts.PreferIPv6)
 	if !ok {
 		return xerrors.Errorf("failed to find DC %d", dcID)
 	}
@@ -92,7 +94,7 @@ func (c *Client) migrateToDc(ctx context.Context, dcID int, transfer bool) error
 		return xerrors.Errorf("can't migrate to CDN/Media-only DC %d", dcID)
 	}
 
-	addr := fmt.Sprintf("%s:%d", dc.IPAddress, dc.Port)
+	addr := net.JoinHostPort(dc.IPAddress, strconv.Itoa(dc.Port))
 	c.log.Info("Selected new addr from config", zap.String("addr", addr))
 
 	var export *tg.AuthExportedAuthorization

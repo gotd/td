@@ -184,6 +184,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		PublicKeys:    opt.PublicKeys,
 		Transport:     opt.Transport,
 		Network:       opt.Network,
+		PreferIPv6:    opt.PreferIPv6,
 		Random:        opt.Random,
 		Logger:        opt.Logger,
 		AckBatchSize:  opt.AckBatchSize,
