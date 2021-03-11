@@ -50,12 +50,14 @@ func (b *Builder) Complete() (string, []tg.MessageEntityClass) {
 		offset := last.GetOffset()
 
 		entityText := msg[offset:]
-		trimed := strings.TrimRight(entityText, "\n") + "\n"
-		if len(trimed) != len(entityText) {
-			reflect.ValueOf(&entities[len(entities)-1]).
-				Elem().Elem().Elem().
-				FieldByName("Length").
-				SetInt(int64(utf8.RuneCountInString(trimed)))
+		if strings.HasSuffix(entityText, "\n") {
+			trimmed := strings.TrimRight(entityText, "\n") + "\n"
+			if len(trimmed) != len(entityText) {
+				reflect.ValueOf(&entities[len(entities)-1]).
+					Elem().Elem().Elem().
+					FieldByName("Length").
+					SetInt(int64(utf8.RuneCountInString(trimmed)))
+			}
 		}
 	}
 
