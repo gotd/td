@@ -20,4 +20,5 @@ func TestError(t *testing.T) {
 		return xerrors.Errorf("failed to perform operation: %w", rpcErr)
 	}()
 	require.True(t, mtproto.IsErr(err, tg.ErrAccessTokenExpired))
+	require.True(t, tg.IsAccessTokenExpired(err))
 }
