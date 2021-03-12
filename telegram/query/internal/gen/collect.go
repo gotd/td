@@ -28,6 +28,8 @@ type collector struct {
 	requiredByIter     []string
 	required           map[string]string
 
+	implsCache map[string][]*types.Named
+
 	iface          *types.Interface
 	resultTypeName string
 	elemName       string
@@ -45,7 +47,7 @@ type collectorConfig struct {
 
 func (c *collectorConfig) fromFlags(set *flag.FlagSet) {
 	set.StringVar(&c.ResultName, "result", "MessagesMessagesClass", "result type name")
-	set.StringVar(&c.ElemName, "elem", "Message", "element type name")
+	set.StringVar(&c.ElemName, "elem", "Elem", "element type name")
 	set.StringVar(&c.Prefix, "prefix", "Messages", "prefix of methods to trim")
 	set.StringVar(&c.PkgName, "package", "messages", "name of package name to generate")
 }
@@ -85,6 +87,8 @@ func newCollector(cfg collectorConfig) *collector {
 	}
 	required := map[string]string{
 		"Peer": "InputPeerClass",
+		"Channel": "InputChannelClass",
+		"UserID": "InputUserClass",
 	}
 
 	return &collector{
@@ -92,6 +96,7 @@ func newCollector(cfg collectorConfig) *collector {
 		canFillFromRequest: canFillFromRequest,
 		requiredByIter:     requiredByIter,
 		required:           required,
+		implsCache:         map[string][]*types.Named{},
 		iface:              match,
 		resultTypeName:     cfg.ResultName,
 		elemName:           cfg.ElemName,

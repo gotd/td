@@ -71,6 +71,8 @@ func (q *QueryBuilder) {{ $.Name }}({{ range $arg := $.RequiredParams }}param{{ 
             {{ $f.OriginalName }}: &tg.InputMessagesFilterEmpty{},
         {{- end }}{{ if eq ($f.Type) ("tg.InputPeerClass") }}
             {{ $f.OriginalName }}: &tg.InputPeerEmpty{},
+        {{- end }}{{ if eq ($f.Type) ("tg.ChannelParticipantsFilterClass") }}
+            {{ $f.OriginalName }}: &tg.ChannelParticipantsRecent{},
         {{- end }}{{ end }}
         },
     }

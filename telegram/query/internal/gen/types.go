@@ -52,7 +52,7 @@ func printType(typ types.Type) string {
 	})
 }
 
-func findInterface(pkg *packages.Package, name string) (*types.Interface, error) {
+func (c *collector) findInterface(pkg *packages.Package, name string) (*types.Interface, error) {
 	obj := pkg.Types.Scope().Lookup(name)
 	if obj == nil {
 		return nil, xerrors.Errorf("%q not found", name)
@@ -66,17 +66,7 @@ func findInterface(pkg *packages.Package, name string) (*types.Interface, error)
 	return v, nil
 }
 
-func varToParam(field *types.Var) Param {
-	fieldName := field.Name()
-	fieldName = strings.ToLower(fieldName[:1]) + fieldName[1:]
-	return Param{
-		Name:         fieldName,
-		OriginalName: field.Name(),
-		Type:         printType(field.Type()),
-	}
-}
-
-func collectImplementations(pkg *packages.Package, iface *types.Interface) []*types.Named {
+func  (c *collector)  collectImplementations(pkg *packages.Package, iface *types.Interface) []*types.Named {
 	var r []*types.Named
 
 	for _, def := range pkg.TypesInfo.Defs {
@@ -97,4 +87,30 @@ func collectImplementations(pkg *packages.Package, iface *types.Interface) []*ty
 	}
 
 	return r
+}
+
+func  (c *collector) findImplementations(pkg *packages.Package, name string) ([]*types.Named, error) {
+	impls, ok := c.implsCache[name]
+	if ok {
+		return impls, nil
+	}
+
+	iface, err := c.findInterface(pkg, name)
+	if err != nil {
+		return nil, xerrors.Errorf("find %q: %w", name, err)
+	}
+
+	impls = c.collectImplementations(pkg, iface)
+	c.implsCache[name] = impls
+	return impls, nil
+}
+
+func varToParam(field *types.Var) Param {
+	fieldName := field.Name()
+	fieldName = strings.ToLower(fieldName[:1]) + fieldName[1:]
+	return Param{
+		Name:         fieldName,
+		OriginalName: field.Name(),
+		Type:         printType(field.Type()),
+	}
 }
