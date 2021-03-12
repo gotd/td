@@ -1,4 +1,4 @@
-package message
+package peer
 
 import (
 	"context"
@@ -10,10 +10,8 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-// AsInputPeer returns resolve result as InputPeerClass.
-func (b *RequestBuilder) AsInputPeer(ctx context.Context) (tg.InputPeerClass, error) {
-	return b.peer(ctx)
-}
+// Promise is a peer promise.
+type Promise func(ctx context.Context) (tg.InputPeerClass, error)
 
 // Resolve uses given text to create new message builder.
 // It resolves peer of message using Sender's PeerResolver.
@@ -26,16 +24,16 @@ func (b *RequestBuilder) AsInputPeer(ctx context.Context) (tg.InputPeerClass, er
 //	tg:resolve?domain=telegram
 //	tg://resolve?domain=telegram
 //
-func (s *Sender) Resolve(from string) *RequestBuilder {
+func Resolve(r Resolver, from string) Promise {
 	from = strings.TrimSpace(from)
 
 	if strings.HasPrefix(from, "tg:") ||
 		strings.HasPrefix(from, "t.me") ||
 		strings.HasPrefix(from, "https://") {
-		return s.ResolveDeeplink(from)
+		return ResolveDeeplink(r, from)
 	}
 
-	return s.ResolveDomain(from)
+	return ResolveDomain(r, from)
 }
 
 // ResolveDomain uses given domain to create new message builder.
@@ -46,18 +44,18 @@ func (s *Sender) Resolve(from string) *RequestBuilder {
 //	@telegram
 //	telegram
 //
-func (s *Sender) ResolveDomain(domain string) *RequestBuilder {
+func ResolveDomain(r Resolver, domain string) Promise {
 	if strings.HasPrefix(domain, "@") {
 		domain = strings.TrimPrefix(domain, "@")
 	}
 
-	return s.builder(func(ctx context.Context) (tg.InputPeerClass, error) {
+	return func(ctx context.Context) (tg.InputPeerClass, error) {
 		if err := validateDomain(domain); err != nil {
 			return nil, xerrors.Errorf("validate domain: %w", err)
 		}
 
-		return s.resolver.Resolve(ctx, domain)
-	})
+		return r.Resolve(ctx, domain)
+	}
 }
 
 func validateDomain(domain string) error {
@@ -113,8 +111,8 @@ func checkDomainSymbols(domain string) error {
 //	tg:resolve?domain=telegram
 //	tg://resolve?domain=telegram
 //
-func (s *Sender) ResolveDeeplink(deeplink string) *RequestBuilder {
-	return s.builder(func(ctx context.Context) (tg.InputPeerClass, error) {
+func ResolveDeeplink(r Resolver, deeplink string) Promise {
+	return func(ctx context.Context) (tg.InputPeerClass, error) {
 		domain, err := parseDeeplink(deeplink)
 		if err != nil {
 			return nil, err
@@ -124,8 +122,8 @@ func (s *Sender) ResolveDeeplink(deeplink string) *RequestBuilder {
 			return nil, xerrors.Errorf("validate domain: %w", err)
 		}
 
-		return s.resolver.Resolve(ctx, domain)
-	})
+		return r.Resolve(ctx, domain)
+	}
 }
 
 func parseDeeplink(deeplink string) (string, error) {

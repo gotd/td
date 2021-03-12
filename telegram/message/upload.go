@@ -2,7 +2,6 @@ package message
 
 import (
 	"context"
-	"time"
 
 	"golang.org/x/xerrors"
 
@@ -11,76 +10,17 @@ import (
 
 // Upload creates new UploadBuilder to upload and send attachments.
 // Given option will be called only once, even if you call upload functions .
-func (b *RequestBuilder) Upload(upd UploadOption) *UploadBuilder {
+func (b *Builder) Upload(upd UploadOption) *UploadBuilder {
 	return &UploadBuilder{
-		builder: *b,
+		builder: b.copy(),
 		option:  upd,
 	}
 }
 
 // UploadBuilder is a attachment uploading helper.
 type UploadBuilder struct {
-	builder RequestBuilder
+	builder *Builder
 	option  UploadOption
-}
-
-func (u *UploadBuilder) next() *UploadBuilder {
-	return u
-}
-
-// Silent sets flag to send this message silently (no notifications for the receivers).
-func (u *UploadBuilder) Silent() *UploadBuilder {
-	r := u.next()
-	r.builder.silent = true
-	return r
-}
-
-// Background sets flag to send this message as background message.
-func (u *UploadBuilder) Background() *UploadBuilder {
-	r := u.next()
-	r.builder.background = true
-	return r
-}
-
-// ClearDraft sets flag to clear the draft field.
-func (u *UploadBuilder) ClearDraft() *UploadBuilder {
-	r := u.next()
-	r.builder.clearDraft = true
-	return r
-}
-
-// Reply sets message ID to reply.
-func (u *UploadBuilder) Reply(id int) *UploadBuilder {
-	r := u.next()
-	r.builder.replyToMsgID = id
-	return r
-}
-
-// ReplyMsg sets message to reply.
-func (u *UploadBuilder) ReplyMsg(msg tg.MessageClass) *UploadBuilder {
-	return u.Reply(msg.GetID())
-}
-
-// Schedule sets scheduled message date for scheduled messages.
-func (u *UploadBuilder) Schedule(date time.Time) *UploadBuilder {
-	r := u.next()
-	r.builder.scheduleDate = int(date.Unix())
-	return r
-}
-
-// NoWebpage sets flag to disable generation of the webpage preview.
-func (u *UploadBuilder) NoWebpage() *UploadBuilder {
-	r := u.next()
-	r.builder.noWebpage = true
-	return r
-}
-
-// Markup sets reply markup for sending bot buttons.
-// NB: markup will not be used, if you send multiple media attachments.
-func (u *UploadBuilder) Markup(markup tg.ReplyMarkupClass) *UploadBuilder {
-	r := u.next()
-	r.builder.replyMarkup = markup
-	return r
 }
 
 func (u *UploadBuilder) file(ctx context.Context) (tg.InputFileClass, error) {

@@ -1,14 +1,14 @@
 package message
 
 import (
-	"context"
 	"time"
 
 	"github.com/gotd/td/telegram/message/markup"
+	"github.com/gotd/td/telegram/message/peer"
 	"github.com/gotd/td/tg"
 )
 
-type peerPromise func(ctx context.Context) (tg.InputPeerClass, error)
+type peerPromise = peer.Promise
 
 // Builder is a message builder.
 type Builder struct {

@@ -45,16 +45,19 @@ func (b *Builder) Complete() (string, []tg.MessageEntityClass) {
 		return msg, nil
 	}
 
-	if len(entities) > 1 {
+	if len(entities) >= 1 {
 		last := entities[len(entities)-1]
 		offset := last.GetOffset()
 
-		entityText := msg[offset : offset+last.GetLength()]
-		trimed := strings.TrimSpace(entityText)
-		if len(trimed) != len(entityText) {
-			reflect.ValueOf(&entities[len(entities)-1]).Elem().Elem().Elem().
-				FieldByName("Length").
-				SetInt(int64(len(trimed)))
+		entityText := msg[offset:]
+		if strings.HasSuffix(entityText, "\n") {
+			trimmed := strings.TrimRight(entityText, "\n") + "\n"
+			if len(trimmed) != len(entityText) {
+				reflect.ValueOf(&entities[len(entities)-1]).
+					Elem().Elem().Elem().
+					FieldByName("Length").
+					SetInt(int64(utf8.RuneCountInString(trimmed)))
+			}
 		}
 	}
 
@@ -65,9 +68,6 @@ type formatter func(offset, limit int) tg.MessageEntityClass
 
 func (b *Builder) appendMessage(s string, format formatter) *Builder {
 	offset := b.message.Len()
-	if offset == 0 { // This is a first line.
-		s = strings.TrimSpace(s)
-	}
 	length := utf8.RuneCountInString(s)
 
 	b.entities = append(b.entities, format(offset, length))
