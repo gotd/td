@@ -15,7 +15,6 @@ import (
 	"golang.org/x/net/proxy"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/transport"
 )
@@ -109,7 +108,7 @@ func retry(ctx context.Context, logger *zap.Logger, cb func(ctx context.Context)
 					"AUTH_KEY_UNREGISTERED",
 					"API_ID_PUBLISHED_FLOOD":
 					return err
-				case mtproto.ErrFloodWait:
+				case ErrFloodWait:
 					select {
 					case <-time.After(time.Duration(rpcErr.Argument+1) * time.Second):
 						return err

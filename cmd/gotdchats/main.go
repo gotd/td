@@ -14,7 +14,6 @@ import (
 	"golang.org/x/net/proxy"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
@@ -68,7 +67,7 @@ func run(ctx context.Context) error {
 		for range time.NewTicker(time.Second * 5).C {
 			chats, err := c.MessagesGetAllChats(ctx, nil)
 
-			if d, ok := mtproto.AsFloodWait(err); ok {
+			if d, ok := telegram.AsFloodWait(err); ok {
 				// Server told us to wait N seconds before sending next message.
 				logger.Info("Sleeping", zap.Duration("duration", d))
 				time.Sleep(d)
