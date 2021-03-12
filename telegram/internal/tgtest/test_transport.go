@@ -90,6 +90,8 @@ func (h *testTransportHandler) OnMessage(k Session, msgID int64, in *bin.Buffer)
 		}
 
 		return h.hello(k, h.message)
+	case tg.HelpGetConfigRequestTypeID:
+		return h.server.SendConfig(k, msgID)
 	case tg.MessagesSendMessageRequestTypeID:
 		m := &tg.MessagesSendMessageRequest{}
 		if err := m.Decode(in); err != nil {

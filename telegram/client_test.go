@@ -47,7 +47,10 @@ func (t *testConn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.
 	})
 }
 
-func (testConn) Run(ctx context.Context) error { return nil }
+func (t *testConn) Run(ctx context.Context, f func(context.Context) error) error {
+	//return f(ctx)
+	return nil
+}
 
 func newTestClient(h testHandler) *Client {
 	var engine *rpc.Engine
@@ -72,11 +75,8 @@ func newTestClient(h testHandler) *Client {
 		rand:    rand.New(rand.NewSource(1)),
 		appID:   TestAppID,
 		appHash: TestAppHash,
-		conn:    &testConn{engine: engine, ready: ready},
-		ctx:     context.Background(),
-		cancel:  func() {},
+		dcm:     &testConn{engine: engine},
 	}
-	client.init()
 
 	return client
 }

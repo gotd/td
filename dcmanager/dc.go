@@ -8,7 +8,8 @@ import (
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/mtproto"
+	"github.com/gotd/td/internal/mtproto"
+	"github.com/gotd/td/internal/mtproto/reliable"
 	"github.com/gotd/td/tg"
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
@@ -49,7 +50,7 @@ func (b *dcBuilder) WithCreds(key crypto.AuthKey, salt int64) *dcBuilder {
 	return b
 }
 
-func (b *dcBuilder) Connect(ctx context.Context) (Conn, error) {
+func (b *dcBuilder) Connect(ctx context.Context) (*reliable.Conn, error) {
 	var (
 		m         = b.m
 		dc        = b.dc
@@ -91,20 +92,19 @@ func (b *dcBuilder) Connect(ctx context.Context) (Conn, error) {
 	}
 
 	var (
-		opts = mtproto.Options{
-			//Transport: m.transport,
-			//Network:   m.network,
-			Key:    b.authKey,
-			Salt:   b.salt,
-			Logger: log,
-		}
-
+		opts       = b.m.mtopts
 		gotSession = make(chan struct{})
 		once       sync.Once
 	)
 
+	opts.Key = b.authKey
+	opts.Salt = b.salt
+	opts.Logger = log
+
 	if asPrimary {
 		opts.MessageHandler = m.onMessage
+		b.m.pmux.Lock()
+		defer b.m.pmux.Unlock()
 	}
 
 	if !dc.CDN && b.transfer {
@@ -136,19 +136,26 @@ func (b *dcBuilder) Connect(ctx context.Context) (Conn, error) {
 		opts.Salt = 0
 	}
 
-	conn := m.createConn(fmt.Sprintf("%d|%s:%d", dc.ID, dc.IPAddress, dc.Port), opts)
+	conn := reliable.New(reliable.Config{
+		Addr:   fmt.Sprintf("%s:%d", dc.IPAddress, dc.Port),
+		MTOpts: opts,
+		OnConnected: func(conn reliable.MTConn) error {
+			_, err := m.initConn(context.TODO(), conn, !asPrimary)
+			return err
+		},
+	})
 	if err := m.conns.Start(conn); err != nil {
 		return nil, err
 	}
 
 	if err := func() error {
-		cfg, err := m.initConn(ctx, conn, !asPrimary)
+		cfg, err := tg.NewClient(conn).HelpGetConfig(ctx)
 		if err != nil {
 			return err
 		}
 
 		if !dc.CDN && b.transfer {
-			if err := m.transfer(ctx, conn, dc.ID); err != nil {
+			if err := transfer(ctx, m.primary, conn, dc.ID); err != nil {
 				return xerrors.Errorf("transfer: %w", err)
 			}
 
@@ -165,18 +172,16 @@ func (b *dcBuilder) Connect(ctx context.Context) (Conn, error) {
 			m.cfgMux.Lock()
 			defer m.cfgMux.Unlock()
 			m.cfg.PrimaryDC = dc.ID
-			m.cfg.TGConfig = cfg
+			m.cfg.TGConfig = *cfg
 
 			if err := m.saveConfig(m.cfg); err != nil {
 				return err
 			}
 
-			m.pmux.Lock()
 			if err := m.conns.Stop(m.primary); err != nil {
 				m.log.Warn("Failed to cleanup connection", zap.Error(err))
 			}
 			m.primary = conn
-			m.pmux.Unlock()
 		}
 
 		return nil
@@ -192,7 +197,7 @@ func (b *dcBuilder) Connect(ctx context.Context) (Conn, error) {
 	return conn, nil
 }
 
-func (m *Manager) initConn(ctx context.Context, conn Conn, noUpdates bool) (tg.Config, error) {
+func (m *Manager) initConn(ctx context.Context, conn reliable.MTConn, noUpdates bool) (tg.Config, error) {
 	wrap := func(req bin.Object) bin.Object { return req }
 	if noUpdates {
 		wrap = func(req bin.Object) bin.Object {

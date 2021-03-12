@@ -13,6 +13,7 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/clock"
+	"github.com/gotd/td/dcmanager"
 	"github.com/gotd/td/internal/mtproto"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/transport"
@@ -68,7 +69,7 @@ type Options struct {
 
 	// Device is device config.
 	// Will be sent with session creation request.
-	Device DeviceConfig
+	Device dcmanager.DeviceConfig
 
 	MessageID mtproto.MessageIDSource
 	Clock     clock.Clock
@@ -111,7 +112,6 @@ func (opt *Options) setDefaults() {
 	if opt.MaxRetries == 0 {
 		opt.MaxRetries = 5
 	}
-	opt.Device.SetDefaults()
 	if opt.Clock == nil {
 		opt.Clock = clock.System
 	}

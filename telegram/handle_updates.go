@@ -113,7 +113,7 @@ func (c *Client) updateInterceptor(updates ...tg.UpdateClass) {
 	for _, update := range updates {
 		_, ok := update.(*tg.UpdateConfig)
 		if ok {
-			c.fetchConfig(c.ctx)
+			// TODO(ccln): Handle this.
 		}
 	}
 }

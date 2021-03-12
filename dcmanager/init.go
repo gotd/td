@@ -3,28 +3,38 @@ package dcmanager
 import (
 	"context"
 
-	"github.com/gotd/td/mtproto"
+	"github.com/gotd/td/internal/mtproto/reliable"
+	"github.com/gotd/td/tg"
 	"go.uber.org/zap"
 )
 
 func (m *Manager) initWithoutConfig(ctx context.Context, addr string) error {
-	conn := m.createConn(addr, mtproto.Options{
-		//Transport: m.transport,
-		//Network:   m.network,
+	m.pmux.Lock()
+	defer m.pmux.Unlock()
 
-		Logger: m.log.With(zap.String("dc_addr", addr), zap.String("dc_type", "primary")),
+	opts := m.mtopts
+	opts.MessageHandler = m.onMessage
+	opts.SessionHandler = m.onPrimarySessionUpdate
+	opts.Logger = m.log.With(zap.String("dc_addr", addr), zap.String("dc_type", "primary"))
+
+	conn := reliable.New(reliable.Config{
+		Addr:   addr,
+		MTOpts: opts,
+		OnConnected: func(conn reliable.MTConn) error {
+			_, err := m.initConn(context.TODO(), conn, false)
+			return err
+		},
 	})
-
 	if err := m.conns.Start(conn); err != nil {
 		return err
 	}
 
-	cfg, err := m.initConn(ctx, conn, false)
+	cfg, err := tg.NewClient(conn).HelpGetConfig(ctx)
 	if err != nil {
 		return err
 	}
 
-	m.cfg.TGConfig = cfg
+	m.cfg.TGConfig = *cfg
 	m.primary = conn
 	return nil
 }

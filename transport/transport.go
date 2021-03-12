@@ -97,16 +97,15 @@ func splitAddr(input string, del byte) (dc int, addr string, err error) {
 
 // DialContext creates new MTProto connection.
 func (t *Transport) DialContext(ctx context.Context, network, address string) (Conn, error) {
-	dc, addr, err := splitAddr(address, '|')
-	if err != nil {
-		return nil, xerrors.Errorf("invalid address: %w", err)
-	}
-
 	if td, ok := t.dialer.(telegramDialer); ok {
+		dc, err := strconv.Atoi(address)
+		if err != nil {
+			return nil, xerrors.Errorf("invalid dc id: %w", err)
+		}
 		return td.DialTelegram(ctx, network, dc)
 	}
 
-	conn, err := t.dialer.DialContext(ctx, network, addr)
+	conn, err := t.dialer.DialContext(ctx, network, address)
 	if err != nil {
 		return nil, xerrors.Errorf("dial: %w", err)
 	}

@@ -36,3 +36,9 @@ func (cfg Config) findDC(id int, noIPv6 bool) (tg.DCOption, error) {
 
 // 	return 0, xerrors.Errorf("dc not found in config: %s", addr)
 // }
+
+func (m *Manager) UpdateConfig(cfg Config) {
+	m.cfgMux.Lock()
+	defer m.cfgMux.Unlock()
+	m.cfg = cfg
+}

@@ -6,79 +6,83 @@ import (
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/lifetime"
+	"github.com/gotd/td/internal/mtproto"
+	"github.com/gotd/td/internal/mtproto/reliable"
 	"github.com/gotd/td/internal/tdsync"
-	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/tg"
-	"github.com/gotd/td/transport"
+	"github.com/gotd/td/tgerr"
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 )
 
 type Manager struct {
-	primary   Conn
+	primary   *reliable.Conn
 	pmux      sync.RWMutex
 	migrateOp *tdsync.SinglePerformer
-	others    map[int]Conn
+	others    map[int]*reliable.Conn
 	omux      sync.Mutex
 	cfg       Config
 	cfgMux    sync.RWMutex
 	conns     *lifetime.Manager
 
 	// Immutable fields
-	fetchConfig bool                      // Indicates whether we should fetch config from server
-	createConn  CreateConnFunc            // Creates connections
-	onMessage   func(b *bin.Buffer) error // Updates handler for primary connection
-	saveConfig  func(cfg Config) error    // Config saver function
-	appID       int                       // For connection init
-	device      DeviceConfig              // For connection init
-	transport   *transport.Transport      // MTProto optional param
-	network     string                    // MTProto optional param
-	log         *zap.Logger               // Logger
+	addr        string
+	fetchConfig bool // Indicates whether we should fetch config from server
+	//createConn  CreateConnFunc            // Creates connections
+	onMessage  func(b *bin.Buffer) error // Updates handler for primary connection
+	saveConfig func(cfg Config) error    // Config saver function
+	appID      int                       // For connection init
+	device     DeviceConfig              // For connection init
+	mtopts     mtproto.Options           // MTProto options
+	log        *zap.Logger               // Logger
 }
 
 func New(appID int, opts Options) *Manager {
 	opts.setDefaults()
 
 	m := &Manager{
-		migrateOp:  new(tdsync.SinglePerformer),
-		others:     map[int]Conn{},
-		conns:      lifetime.NewManager(),
-		createConn: opts.ConnCreator,
+		migrateOp: new(tdsync.SinglePerformer),
+		others:    map[int]*reliable.Conn{},
+		conns:     lifetime.NewManager(),
+		addr:      opts.Addr,
+		//createConn: opts.ConnCreator,
 		onMessage:  opts.UpdateHandler,
-		saveConfig: opts.ConfigHandler,
+		saveConfig: opts.ConfigSaver,
 		appID:      appID,
 		device:     opts.Device,
-		transport:  opts.Transport,
-		network:    opts.Network,
+		mtopts:     opts.MTOptions,
 		log:        opts.Logger,
-	}
-
-	if opts.Config != nil {
-		m.cfg = *opts.Config
-	} else {
-		m.fetchConfig = true
 	}
 
 	return m
 }
 
 func (m *Manager) Run(ctx context.Context, f func(context.Context) error) error {
-	if m.fetchConfig {
-		// 149.154.175.55
-		// "2|" + telegram.AddrProduction
-		m.log.Info("Fetching config from server")
-		if err := m.initWithoutConfig(ctx, "1|149.154.175.55:443"); err != nil {
-			return err
+	if err := func() error {
+		if m.cfg.TGConfig.Zero() {
+			// 149.154.175.55
+			// "2|" + telegram.AddrProduction
+			m.log.Info("Fetching config from server")
+			if err := m.initWithoutConfig(ctx, m.addr); err != nil {
+				m.log.Warn("Fetch config", zap.Error(err))
+				return err
+			}
+			return nil
 		}
-	} else {
+
 		m.log.Info("Using loaded config")
-		if err := m.initWithConfig(ctx); err != nil {
-			return err
-		}
+		return m.initWithConfig(ctx)
+	}(); err != nil {
+		return err
 	}
 
-	m.conns.Go(func() error { return f(ctx) })
-	return m.conns.Wait()
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+	echan := make(chan error)
+	go func() { echan <- f(ctx) }()
+	go func() { echan <- m.conns.Wait(ctx) }()
+
+	return <-echan
 }
 
 func (m *Manager) InvokeRaw(ctx context.Context, in bin.Encoder, out bin.Decoder) error {
@@ -88,7 +92,7 @@ func (m *Manager) InvokeRaw(ctx context.Context, in bin.Encoder, out bin.Decoder
 
 	if err := primary.InvokeRaw(ctx, in, out); err != nil {
 		// Handling datacenter migration request.
-		if rpcErr, ok := mtproto.AsErr(err); ok && rpcErr.IsCode(303) {
+		if rpcErr, ok := tgerr.As(err); ok && rpcErr.IsCode(303) {
 			// If migration error is FILE_MIGRATE or STATS_MIGRATE, then the method
 			// called by authorized client, so we should try to transfer auth to new DC
 			// and create new connection.
