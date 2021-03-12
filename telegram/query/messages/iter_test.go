@@ -16,7 +16,6 @@ func generateMessages(count int) []tg.MessageClass {
 
 	for i := 0; i < count; i++ {
 		r = append(r, &tg.Message{
-			Flags:   0,
 			ID:      i,
 			PeerID:  &tg.PeerUser{UserID: 10},
 			Message: strconv.Itoa(i),
