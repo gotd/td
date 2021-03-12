@@ -2,7 +2,8 @@ package telegram
 
 import (
 	"context"
-	"fmt"
+	"net"
+	"strconv"
 
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
@@ -55,7 +56,7 @@ func (c *Client) dc(ctx context.Context, dcID int, max int64) (*pool.DC, error) 
 	cfg := c.cfg.Load()
 	opts := c.opts
 
-	dc, ok := findDC(cfg, dcID, true)
+	dc, ok := findDC(cfg, dcID, opts.PreferIPv6)
 	if !ok {
 		return nil, xerrors.Errorf("failed to find DC %d", dcID)
 	}
@@ -77,7 +78,7 @@ func (c *Client) dc(ctx context.Context, dcID int, max int64) (*pool.DC, error) 
 		opts.Salt = 0
 	}
 
-	addr := fmt.Sprintf("%s:%d", dc.IPAddress, dc.Port)
+	addr := net.JoinHostPort(dc.IPAddress, strconv.Itoa(dc.Port))
 
 	c.sessionsMux.Lock()
 	session, ok := c.sessions[dcID]

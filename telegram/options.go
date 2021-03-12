@@ -45,6 +45,9 @@ type Options struct {
 	Transport Transport
 	// Network to use. Defaults to tcp.
 	Network string
+	// PreferIPv6 gives IPv6 DCs higher precedence.
+	// Default is to prefer IPv4 DCs over IPv6.
+	PreferIPv6 bool
 	// Random is random source. Defaults to crypto.
 	Random io.Reader
 	// Logger is instance of zap.Logger. No logs by default.
