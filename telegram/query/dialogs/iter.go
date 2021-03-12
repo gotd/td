@@ -195,7 +195,8 @@ func (m *Iterator) Total(ctx context.Context) (int, error) {
 // FetchTotal fetches and returns count of elements.
 func (m *Iterator) FetchTotal(ctx context.Context) (int, error) {
 	r, err := m.query.Query(ctx, Request{
-		Limit: 1,
+		Limit:      1,
+		OffsetPeer: &tg.InputPeerEmpty{},
 	})
 	if err != nil {
 		return 0, xerrors.Errorf("fetch total: %w", err)
