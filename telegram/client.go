@@ -106,7 +106,7 @@ type Client struct {
 	appID   int    // immutable
 	appHash string // immutable
 	// Session storage.
-	storage clientStorage // immutable,nilable
+	storage clientStorage // immutable, nillable
 
 	// Ready signal channel, sends signal when client connection is ready.
 	// Resets on reconnect.
