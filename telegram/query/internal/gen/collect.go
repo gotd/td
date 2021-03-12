@@ -86,9 +86,9 @@ func newCollector(cfg collectorConfig) *collector {
 		"Offset",
 	}
 	required := map[string]string{
-		"Peer": "InputPeerClass",
+		"Peer":    "InputPeerClass",
 		"Channel": "InputChannelClass",
-		"UserID": "InputUserClass",
+		"UserID":  "InputUserClass",
 	}
 
 	return &collector{

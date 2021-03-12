@@ -18,7 +18,7 @@ func generateBlocked(count int) []tg.PeerBlocked {
 			PeerID: &tg.PeerUser{
 				UserID: i + 1,
 			},
-			Date:   i,
+			Date: i,
 		})
 	}
 
@@ -28,7 +28,7 @@ func generateBlocked(count int) []tg.PeerBlocked {
 func result(r []tg.PeerBlocked, count int) tg.ContactsBlockedClass {
 	return &tg.ContactsBlockedSlice{
 		Blocked: r,
-		Count:        count,
+		Count:   count,
 	}
 }
 
@@ -41,20 +41,20 @@ func TestIterator(t *testing.T) {
 	raw := tg.NewClient(mock)
 
 	mock.ExpectCall(&tg.ContactsGetBlockedRequest{
-		Offset:  0,
-		Limit:   limit,
+		Offset: 0,
+		Limit:  limit,
 	}).ThenResult(result(expected[0:limit], totalRecords))
 	mock.ExpectCall(&tg.ContactsGetBlockedRequest{
-		Offset:  limit,
-		Limit:   limit,
+		Offset: limit,
+		Limit:  limit,
 	}).ThenResult(result(expected[limit:2*limit], totalRecords))
 	mock.ExpectCall(&tg.ContactsGetBlockedRequest{
-		Offset:  2 * limit,
-		Limit:   limit,
+		Offset: 2 * limit,
+		Limit:  limit,
 	}).ThenResult(result(expected[2*limit:3*limit], totalRecords))
 	mock.ExpectCall(&tg.ContactsGetBlockedRequest{
-		Offset:  3 * limit,
-		Limit:   limit,
+		Offset: 3 * limit,
+		Limit:  limit,
 	}).ThenResult(result(expected[3*limit:], totalRecords))
 
 	iter := NewQueryBuilder(raw).GetBlocked().BatchSize(10).Iter()
@@ -71,8 +71,8 @@ func TestIterator(t *testing.T) {
 	mock.Equal(totalRecords, total)
 
 	mock.ExpectCall(&tg.ContactsGetBlockedRequest{
-		Offset:  0,
-		Limit:   1,
+		Offset: 0,
+		Limit:  1,
 	}).ThenResult(result(expected[:0], totalRecords))
 	total, err = iter.FetchTotal(ctx)
 	mock.NoError(err)

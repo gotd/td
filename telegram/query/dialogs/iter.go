@@ -10,8 +10,8 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-// Dialog is a dialog iterator element.
-type Dialog struct {
+// Elem is a dialog iterator element.
+type Elem struct {
 	Dialog   tg.DialogClass
 	Last     tg.NotEmptyMessage
 	Entities peer.Entities
@@ -22,7 +22,7 @@ type Iterator struct {
 	// Current state.
 	lastErr error
 	// Buffer state.
-	buf    []Dialog
+	buf    []Elem
 	bufCur int
 	// Request state.
 	limit     int
@@ -42,7 +42,7 @@ type Iterator struct {
 // NewIterator creates new iterator.
 func NewIterator(query Query, limit int) *Iterator {
 	return &Iterator{
-		buf:        make([]Dialog, 0, limit),
+		buf:        make([]Elem, 0, limit),
 		bufCur:     -1,
 		limit:      limit,
 		query:      query,
@@ -136,7 +136,7 @@ func (m *Iterator) apply(r tg.MessagesDialogsClass) error {
 			last = msgMap[key]
 		}
 
-		m.buf = append(m.buf, Dialog{
+		m.buf = append(m.buf, Elem{
 			Dialog:   dlg,
 			Last:     last,
 			Entities: entities,
@@ -236,7 +236,7 @@ func (m *Iterator) Next(ctx context.Context) bool {
 }
 
 // Value returns current message.
-func (m *Iterator) Value() Dialog {
+func (m *Iterator) Value() Elem {
 	return m.buf[m.bufCur]
 }
 

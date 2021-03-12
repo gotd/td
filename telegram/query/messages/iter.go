@@ -10,8 +10,8 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-// Message is a message iterator element.
-type Message struct {
+// Elem is a message iterator element.
+type Elem struct {
 	Msg      tg.MessageClass
 	Entities peer.Entities
 }
@@ -21,7 +21,7 @@ type Iterator struct {
 	// Current state.
 	lastErr error
 	// Buffer state.
-	buf    []Message
+	buf    []Elem
 	bufCur int
 	// Request state.
 	addOffset int
@@ -43,7 +43,7 @@ type Iterator struct {
 // NewIterator creates new iterator.
 func NewIterator(query Query, limit int) *Iterator {
 	return &Iterator{
-		buf:        make([]Message, 0, limit),
+		buf:        make([]Elem, 0, limit),
 		bufCur:     -1,
 		limit:      limit,
 		query:      query,
@@ -156,7 +156,7 @@ func (m *Iterator) apply(r tg.MessagesMessagesClass) error {
 	m.bufCur = -1
 	m.buf = m.buf[:0]
 	for i := range messages {
-		m.buf = append(m.buf, Message{Msg: messages[i], Entities: entities})
+		m.buf = append(m.buf, Elem{Msg: messages[i], Entities: entities})
 	}
 
 	return nil
@@ -243,7 +243,7 @@ func (m *Iterator) Next(ctx context.Context) bool {
 }
 
 // Value returns current message.
-func (m *Iterator) Value() Message {
+func (m *Iterator) Value() Elem {
 	return m.buf[m.bufCur]
 }
 

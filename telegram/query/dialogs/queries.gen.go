@@ -112,7 +112,7 @@ func (b *GetDialogsQueryBuilder) Iter() *Iterator {
 }
 
 // ForEach calls given callback on each iterator element.
-func (b *GetDialogsQueryBuilder) ForEach(ctx context.Context, cb func(context.Context, Dialog) error) error {
+func (b *GetDialogsQueryBuilder) ForEach(ctx context.Context, cb func(context.Context, Elem) error) error {
 	iter := b.Iter()
 	for iter.Next(ctx) {
 		if err := cb(ctx, iter.Value()); err != nil {

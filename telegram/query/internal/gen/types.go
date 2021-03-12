@@ -66,7 +66,7 @@ func (c *collector) findInterface(pkg *packages.Package, name string) (*types.In
 	return v, nil
 }
 
-func  (c *collector)  collectImplementations(pkg *packages.Package, iface *types.Interface) []*types.Named {
+func (c *collector) collectImplementations(pkg *packages.Package, iface *types.Interface) []*types.Named {
 	var r []*types.Named
 
 	for _, def := range pkg.TypesInfo.Defs {
@@ -89,7 +89,7 @@ func  (c *collector)  collectImplementations(pkg *packages.Package, iface *types
 	return r
 }
 
-func  (c *collector) findImplementations(pkg *packages.Package, name string) ([]*types.Named, error) {
+func (c *collector) findImplementations(pkg *packages.Package, name string) ([]*types.Named, error) {
 	impls, ok := c.implsCache[name]
 	if ok {
 		return impls, nil

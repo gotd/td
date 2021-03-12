@@ -26,13 +26,14 @@ func generateMessages(count int) []tg.MessageClass {
 	return r
 }
 
-func messagesClass(r []tg.MessageClass) tg.MessagesMessagesClass {
+func messagesClass(r []tg.MessageClass, count int) tg.MessagesMessagesClass {
 	return &tg.MessagesChannelMessages{
 		Messages: r,
+		Count:    count,
 	}
 }
 
-func TestMessagesIterator(t *testing.T) {
+func TestIterator(t *testing.T) {
 	ctx := context.Background()
 	mock := rpcmock.NewMock(t, require.New(t))
 	limit := 10
@@ -47,7 +48,7 @@ func TestMessagesIterator(t *testing.T) {
 		FromID:   &tg.InputPeerEmpty{},
 		Filter:   &tg.InputMessagesFilterEmpty{},
 		Limit:    limit,
-	}).ThenResult(messagesClass(expected[2*limit : 3*limit]))
+	}).ThenResult(messagesClass(expected[2*limit:3*limit], totalMessages))
 	mock.ExpectCall(&tg.MessagesSearchRequest{
 		Q:        "query",
 		Peer:     &tg.InputPeerSelf{},
@@ -55,7 +56,7 @@ func TestMessagesIterator(t *testing.T) {
 		FromID:   &tg.InputPeerEmpty{},
 		Filter:   &tg.InputMessagesFilterEmpty{},
 		Limit:    limit,
-	}).ThenResult(messagesClass(expected[limit : 2*limit]))
+	}).ThenResult(messagesClass(expected[limit:2*limit], totalMessages))
 	mock.ExpectCall(&tg.MessagesSearchRequest{
 		Q:        "query",
 		Peer:     &tg.InputPeerSelf{},
@@ -63,7 +64,7 @@ func TestMessagesIterator(t *testing.T) {
 		FromID:   &tg.InputPeerEmpty{},
 		Filter:   &tg.InputMessagesFilterEmpty{},
 		Limit:    limit,
-	}).ThenResult(messagesClass(expected[:limit]))
+	}).ThenResult(messagesClass(expected[:limit], totalMessages))
 	mock.ExpectCall(&tg.MessagesSearchRequest{
 		Q:        "query",
 		Peer:     &tg.InputPeerSelf{},
@@ -71,7 +72,7 @@ func TestMessagesIterator(t *testing.T) {
 		FromID:   &tg.InputPeerEmpty{},
 		Filter:   &tg.InputMessagesFilterEmpty{},
 		Limit:    limit,
-	}).ThenResult(messagesClass(expected[:0]))
+	}).ThenResult(messagesClass(expected[:0], totalMessages))
 
 	iter := NewQueryBuilder(raw).Search(&tg.InputPeerSelf{}).
 		Filter(&tg.InputMessagesFilterEmpty{}).
@@ -83,4 +84,20 @@ func TestMessagesIterator(t *testing.T) {
 	}
 	mock.NoError(iter.Err())
 	mock.Equal(totalMessages, i)
+
+	total, err := iter.Total(ctx)
+	mock.NoError(err)
+	mock.Equal(totalMessages, total)
+
+	mock.ExpectCall(&tg.MessagesSearchRequest{
+		Q:        "query",
+		Peer:     &tg.InputPeerSelf{},
+		OffsetID: 0,
+		FromID:   &tg.InputPeerEmpty{},
+		Filter:   &tg.InputMessagesFilterEmpty{},
+		Limit:    1,
+	}).ThenResult(messagesClass(expected[:0], totalMessages))
+	total, err = iter.FetchTotal(ctx)
+	mock.NoError(err)
+	mock.Equal(totalMessages, total)
 }

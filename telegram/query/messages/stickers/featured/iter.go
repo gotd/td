@@ -58,7 +58,7 @@ func (m *Iterator) apply(r tg.MessagesFeaturedStickersClass) error {
 	}
 
 	var (
-		stickers [] tg.StickerSetCoveredClass
+		stickers []tg.StickerSetCoveredClass
 		unread   []int64
 	)
 	switch stks := r.(type) {

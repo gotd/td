@@ -117,7 +117,7 @@ func (b *GetHistoryQueryBuilder) Iter() *Iterator {
 }
 
 // ForEach calls given callback on each iterator element.
-func (b *GetHistoryQueryBuilder) ForEach(ctx context.Context, cb func(context.Context, Message) error) error {
+func (b *GetHistoryQueryBuilder) ForEach(ctx context.Context, cb func(context.Context, Elem) error) error {
 	iter := b.Iter()
 	for iter.Next(ctx) {
 		if err := cb(ctx, iter.Value()); err != nil {
@@ -179,7 +179,7 @@ func (b *GetRecentLocationsQueryBuilder) Iter() *Iterator {
 }
 
 // ForEach calls given callback on each iterator element.
-func (b *GetRecentLocationsQueryBuilder) ForEach(ctx context.Context, cb func(context.Context, Message) error) error {
+func (b *GetRecentLocationsQueryBuilder) ForEach(ctx context.Context, cb func(context.Context, Elem) error) error {
 	iter := b.Iter()
 	for iter.Next(ctx) {
 		if err := cb(ctx, iter.Value()); err != nil {
@@ -268,7 +268,7 @@ func (b *GetRepliesQueryBuilder) Iter() *Iterator {
 }
 
 // ForEach calls given callback on each iterator element.
-func (b *GetRepliesQueryBuilder) ForEach(ctx context.Context, cb func(context.Context, Message) error) error {
+func (b *GetRepliesQueryBuilder) ForEach(ctx context.Context, cb func(context.Context, Elem) error) error {
 	iter := b.Iter()
 	for iter.Next(ctx) {
 		if err := cb(ctx, iter.Value()); err != nil {
@@ -341,7 +341,7 @@ func (b *GetUnreadMentionsQueryBuilder) Iter() *Iterator {
 }
 
 // ForEach calls given callback on each iterator element.
-func (b *GetUnreadMentionsQueryBuilder) ForEach(ctx context.Context, cb func(context.Context, Message) error) error {
+func (b *GetUnreadMentionsQueryBuilder) ForEach(ctx context.Context, cb func(context.Context, Elem) error) error {
 	iter := b.Iter()
 	for iter.Next(ctx) {
 		if err := cb(ctx, iter.Value()); err != nil {
@@ -556,7 +556,7 @@ func (b *SearchQueryBuilder) Iter() *Iterator {
 }
 
 // ForEach calls given callback on each iterator element.
-func (b *SearchQueryBuilder) ForEach(ctx context.Context, cb func(context.Context, Message) error) error {
+func (b *SearchQueryBuilder) ForEach(ctx context.Context, cb func(context.Context, Elem) error) error {
 	iter := b.Iter()
 	for iter.Next(ctx) {
 		if err := cb(ctx, iter.Value()); err != nil {
@@ -756,7 +756,7 @@ func (b *SearchGlobalQueryBuilder) Iter() *Iterator {
 }
 
 // ForEach calls given callback on each iterator element.
-func (b *SearchGlobalQueryBuilder) ForEach(ctx context.Context, cb func(context.Context, Message) error) error {
+func (b *SearchGlobalQueryBuilder) ForEach(ctx context.Context, cb func(context.Context, Elem) error) error {
 	iter := b.Iter()
 	for iter.Next(ctx) {
 		if err := cb(ctx, iter.Value()); err != nil {
@@ -777,13 +777,14 @@ type StatsGetMessagePublicForwardsQueryBuilder struct {
 }
 
 // StatsGetMessagePublicForwards creates query builder of StatsGetMessagePublicForwards.
-func (q *QueryBuilder) StatsGetMessagePublicForwards() *StatsGetMessagePublicForwardsQueryBuilder {
+func (q *QueryBuilder) StatsGetMessagePublicForwards(paramChannel tg.InputChannelClass) *StatsGetMessagePublicForwardsQueryBuilder {
 	b := &StatsGetMessagePublicForwardsQueryBuilder{
 		raw:       q.raw,
 		batchSize: 1,
 		req:       tg.StatsGetMessagePublicForwardsRequest{},
 	}
 
+	b.req.Channel = paramChannel
 	return b
 }
 
@@ -835,7 +836,7 @@ func (b *StatsGetMessagePublicForwardsQueryBuilder) Iter() *Iterator {
 }
 
 // ForEach calls given callback on each iterator element.
-func (b *StatsGetMessagePublicForwardsQueryBuilder) ForEach(ctx context.Context, cb func(context.Context, Message) error) error {
+func (b *StatsGetMessagePublicForwardsQueryBuilder) ForEach(ctx context.Context, cb func(context.Context, Elem) error) error {
 	iter := b.Iter()
 	for iter.Next(ctx) {
 		if err := cb(ctx, iter.Value()); err != nil {
