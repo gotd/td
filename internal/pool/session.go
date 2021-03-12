@@ -4,7 +4,7 @@ import (
 	"sync"
 
 	"github.com/gotd/td/internal/crypto"
-	"github.com/gotd/td/mtproto"
+	"github.com/gotd/td/internal/mtproto"
 )
 
 // Session represents DC session.

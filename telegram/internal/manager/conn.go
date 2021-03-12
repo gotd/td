@@ -10,9 +10,9 @@ import (
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
+	"github.com/gotd/td/internal/mtproto"
 	"github.com/gotd/td/internal/pool"
 	"github.com/gotd/td/internal/tdsync"
-	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/tg"
 )
 

@@ -6,8 +6,8 @@ import (
 
 	"go.uber.org/zap"
 
+	"github.com/gotd/td/internal/mtproto"
 	"github.com/gotd/td/internal/tdsync"
-	"github.com/gotd/td/mtproto"
 	"github.com/gotd/td/tg"
 )
 
