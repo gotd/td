@@ -13,7 +13,7 @@ import (
 
 func TestClient_Self(t *testing.T) {
 	ctx := context.Background()
-	self, err := newTestClient(func(id int64, body bin.Encoder) (bin.Encoder, error) {
+	self, err := newTestClient(func(body bin.Encoder) (bin.Encoder, error) {
 		assert.IsType(t, &tg.UsersGetUsersRequest{}, body)
 		u := &tg.User{ID: 1}
 		u.SetBot(true)

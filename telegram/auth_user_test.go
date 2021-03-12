@@ -33,7 +33,7 @@ func TestClient_AuthSignIn(t *testing.T) {
 		codeHash = "hash"
 	)
 	ctx := context.Background()
-	client := newTestClient(func(id int64, body bin.Encoder) (bin.Encoder, error) {
+	client := newTestClient(func(body bin.Encoder) (bin.Encoder, error) {
 		switch req := body.(type) {
 		case *tg.AuthSendCodeRequest:
 			settings := tg.CodeSettings{}
@@ -121,7 +121,7 @@ func TestClientTestAuth(t *testing.T) {
 		dcID     = 2
 	)
 	ctx := context.Background()
-	client := newTestClient(func(id int64, body bin.Encoder) (bin.Encoder, error) {
+	client := newTestClient(func(body bin.Encoder) (bin.Encoder, error) {
 		switch req := body.(type) {
 		case *tg.AuthSendCodeRequest:
 			assert.Equal(t, &tg.AuthSendCodeRequest{
@@ -164,7 +164,7 @@ func TestClientTestSignUp(t *testing.T) {
 		tosID    = "foo"
 	)
 	ctx := context.Background()
-	client := newTestClient(func(id int64, body bin.Encoder) (bin.Encoder, error) {
+	client := newTestClient(func(body bin.Encoder) (bin.Encoder, error) {
 		switch req := body.(type) {
 		case *tg.AuthSendCodeRequest:
 			assert.Equal(t, &tg.AuthSendCodeRequest{
