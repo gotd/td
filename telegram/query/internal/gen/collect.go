@@ -214,7 +214,7 @@ func sortParams(p []Param) []Param {
 }
 
 func (c *collector) Config(pkg *packages.Package) (Config, error) {
-	methods, err := c.Collect(pkg)
+	methods, err := c.collect(pkg)
 	if err != nil {
 		return Config{}, xerrors.Errorf("collect: %w", err)
 	}
@@ -227,7 +227,7 @@ func (c *collector) Config(pkg *packages.Package) (Config, error) {
 	}, nil
 }
 
-func (c *collector) Collect(pkg *packages.Package) ([]Method, error) {
+func (c *collector) collect(pkg *packages.Package) ([]Method, error) {
 	methods, err := c.methods(pkg)
 	if err != nil {
 		return nil, xerrors.Errorf("collect types: %w", err)

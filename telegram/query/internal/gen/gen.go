@@ -26,7 +26,7 @@ func generate(ctx context.Context, out io.Writer, c *collector) error {
 		return xerrors.Errorf("load: %w", err)
 	}
 
-	methods, err := c.Collect(pkg)
+	config, err := c.Config(pkg)
 	if err != nil {
 		return xerrors.Errorf("collect: %w", err)
 	}
@@ -34,12 +34,7 @@ func generate(ctx context.Context, out io.Writer, c *collector) error {
 	tmpl := template.New("templates").Funcs(gen.Funcs())
 	tmpl = template.Must(tmpl.ParseFS(templates, "_template/*.tmpl"))
 	var buf bytes.Buffer
-	if err := tmpl.ExecuteTemplate(&buf, "header", Config{
-		Methods:       methods,
-		Package:       c.pkgName,
-		ResultName:    c.resultTypeName,
-		RequestFields: c.requestFields,
-	}); err != nil {
+	if err := tmpl.ExecuteTemplate(&buf, "header", config); err != nil {
 		return xerrors.Errorf("template: %w", err)
 	}
 

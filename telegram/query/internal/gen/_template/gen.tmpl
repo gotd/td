@@ -6,6 +6,8 @@ package {{ $.Package }}
 import (
     "context"
 
+    "golang.org/x/xerrors"
+
     "github.com/gotd/td/tg"
 )
 
@@ -153,4 +155,29 @@ func (b *{{ $.Name }}QueryBuilder) ForEach(ctx context.Context, cb func(context.
     return iter.Err()
 }
 
+// Count fetches remote state to get number of elements.
+func (b *{{ $.Name }}QueryBuilder) Count(ctx context.Context) (int, error) {
+    iter := b.Iter()
+    c, err := iter.Total(ctx)
+    if err != nil {
+        return 0, xerrors.Errorf("get total: %w", err)
+    }
+    return c, nil
+}
+
+// Collect creates iterator and collects all elements to slice.
+func (b *{{ $.Name }}QueryBuilder) Collect(ctx context.Context) ([]{{ $.ElemName }}, error) {
+    iter := b.Iter()
+    c, err := iter.Total(ctx)
+    if err != nil {
+        return nil, xerrors.Errorf("get total: %w", err)
+    }
+
+    r := make([]{{ $.ElemName }}, 0, c)
+	for iter.Next(ctx) {
+        r = append(r, iter.Value())
+	}
+
+    return r, iter.Err()
+}
 {{ end }}
