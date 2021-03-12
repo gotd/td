@@ -5,6 +5,8 @@ package messages
 import (
 	"context"
 
+	"golang.org/x/xerrors"
+
 	"github.com/gotd/td/tg"
 )
 
@@ -13,11 +15,11 @@ var _ = context.Background()
 
 // Request is a parameter for Query.
 type Request struct {
-	OffsetRate int
-	OffsetPeer tg.InputPeerClass
-	OffsetID   int
 	AddOffset  int
 	OffsetDate int
+	OffsetID   int
+	OffsetPeer tg.InputPeerClass
+	OffsetRate int
 	Limit      int
 }
 
@@ -127,6 +129,32 @@ func (b *GetHistoryQueryBuilder) ForEach(ctx context.Context, cb func(context.Co
 	return iter.Err()
 }
 
+// Count fetches remote state to get number of elements.
+func (b *GetHistoryQueryBuilder) Count(ctx context.Context) (int, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return 0, xerrors.Errorf("get total: %w", err)
+	}
+	return c, nil
+}
+
+// Collect creates iterator and collects all elements to slice.
+func (b *GetHistoryQueryBuilder) Collect(ctx context.Context) ([]Elem, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return nil, xerrors.Errorf("get total: %w", err)
+	}
+
+	r := make([]Elem, 0, c)
+	for iter.Next(ctx) {
+		r = append(r, iter.Value())
+	}
+
+	return r, iter.Err()
+}
+
 // GetRecentLocationsQueryBuilder is query builder of MessagesGetRecentLocations.
 type GetRecentLocationsQueryBuilder struct {
 	raw       *tg.Client
@@ -187,6 +215,32 @@ func (b *GetRecentLocationsQueryBuilder) ForEach(ctx context.Context, cb func(co
 		}
 	}
 	return iter.Err()
+}
+
+// Count fetches remote state to get number of elements.
+func (b *GetRecentLocationsQueryBuilder) Count(ctx context.Context) (int, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return 0, xerrors.Errorf("get total: %w", err)
+	}
+	return c, nil
+}
+
+// Collect creates iterator and collects all elements to slice.
+func (b *GetRecentLocationsQueryBuilder) Collect(ctx context.Context) ([]Elem, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return nil, xerrors.Errorf("get total: %w", err)
+	}
+
+	r := make([]Elem, 0, c)
+	for iter.Next(ctx) {
+		r = append(r, iter.Value())
+	}
+
+	return r, iter.Err()
 }
 
 // GetRepliesQueryBuilder is query builder of MessagesGetReplies.
@@ -278,6 +332,32 @@ func (b *GetRepliesQueryBuilder) ForEach(ctx context.Context, cb func(context.Co
 	return iter.Err()
 }
 
+// Count fetches remote state to get number of elements.
+func (b *GetRepliesQueryBuilder) Count(ctx context.Context) (int, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return 0, xerrors.Errorf("get total: %w", err)
+	}
+	return c, nil
+}
+
+// Collect creates iterator and collects all elements to slice.
+func (b *GetRepliesQueryBuilder) Collect(ctx context.Context) ([]Elem, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return nil, xerrors.Errorf("get total: %w", err)
+	}
+
+	r := make([]Elem, 0, c)
+	for iter.Next(ctx) {
+		r = append(r, iter.Value())
+	}
+
+	return r, iter.Err()
+}
+
 // GetUnreadMentionsQueryBuilder is query builder of MessagesGetUnreadMentions.
 type GetUnreadMentionsQueryBuilder struct {
 	raw       *tg.Client
@@ -349,6 +429,32 @@ func (b *GetUnreadMentionsQueryBuilder) ForEach(ctx context.Context, cb func(con
 		}
 	}
 	return iter.Err()
+}
+
+// Count fetches remote state to get number of elements.
+func (b *GetUnreadMentionsQueryBuilder) Count(ctx context.Context) (int, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return 0, xerrors.Errorf("get total: %w", err)
+	}
+	return c, nil
+}
+
+// Collect creates iterator and collects all elements to slice.
+func (b *GetUnreadMentionsQueryBuilder) Collect(ctx context.Context) ([]Elem, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return nil, xerrors.Errorf("get total: %w", err)
+	}
+
+	r := make([]Elem, 0, c)
+	for iter.Next(ctx) {
+		r = append(r, iter.Value())
+	}
+
+	return r, iter.Err()
 }
 
 // SearchQueryBuilder is query builder of MessagesSearch.
@@ -566,6 +672,32 @@ func (b *SearchQueryBuilder) ForEach(ctx context.Context, cb func(context.Contex
 	return iter.Err()
 }
 
+// Count fetches remote state to get number of elements.
+func (b *SearchQueryBuilder) Count(ctx context.Context) (int, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return 0, xerrors.Errorf("get total: %w", err)
+	}
+	return c, nil
+}
+
+// Collect creates iterator and collects all elements to slice.
+func (b *SearchQueryBuilder) Collect(ctx context.Context) ([]Elem, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return nil, xerrors.Errorf("get total: %w", err)
+	}
+
+	r := make([]Elem, 0, c)
+	for iter.Next(ctx) {
+		r = append(r, iter.Value())
+	}
+
+	return r, iter.Err()
+}
+
 // SearchGlobalQueryBuilder is query builder of MessagesSearchGlobal.
 type SearchGlobalQueryBuilder struct {
 	raw        *tg.Client
@@ -766,6 +898,32 @@ func (b *SearchGlobalQueryBuilder) ForEach(ctx context.Context, cb func(context.
 	return iter.Err()
 }
 
+// Count fetches remote state to get number of elements.
+func (b *SearchGlobalQueryBuilder) Count(ctx context.Context) (int, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return 0, xerrors.Errorf("get total: %w", err)
+	}
+	return c, nil
+}
+
+// Collect creates iterator and collects all elements to slice.
+func (b *SearchGlobalQueryBuilder) Collect(ctx context.Context) ([]Elem, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return nil, xerrors.Errorf("get total: %w", err)
+	}
+
+	r := make([]Elem, 0, c)
+	for iter.Next(ctx) {
+		r = append(r, iter.Value())
+	}
+
+	return r, iter.Err()
+}
+
 // StatsGetMessagePublicForwardsQueryBuilder is query builder of StatsGetMessagePublicForwards.
 type StatsGetMessagePublicForwardsQueryBuilder struct {
 	raw        *tg.Client
@@ -844,4 +1002,30 @@ func (b *StatsGetMessagePublicForwardsQueryBuilder) ForEach(ctx context.Context,
 		}
 	}
 	return iter.Err()
+}
+
+// Count fetches remote state to get number of elements.
+func (b *StatsGetMessagePublicForwardsQueryBuilder) Count(ctx context.Context) (int, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return 0, xerrors.Errorf("get total: %w", err)
+	}
+	return c, nil
+}
+
+// Collect creates iterator and collects all elements to slice.
+func (b *StatsGetMessagePublicForwardsQueryBuilder) Collect(ctx context.Context) ([]Elem, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return nil, xerrors.Errorf("get total: %w", err)
+	}
+
+	r := make([]Elem, 0, c)
+	for iter.Next(ctx) {
+		r = append(r, iter.Value())
+	}
+
+	return r, iter.Err()
 }

@@ -5,6 +5,8 @@ package dialogs
 import (
 	"context"
 
+	"golang.org/x/xerrors"
+
 	"github.com/gotd/td/tg"
 )
 
@@ -120,4 +122,30 @@ func (b *GetDialogsQueryBuilder) ForEach(ctx context.Context, cb func(context.Co
 		}
 	}
 	return iter.Err()
+}
+
+// Count fetches remote state to get number of elements.
+func (b *GetDialogsQueryBuilder) Count(ctx context.Context) (int, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return 0, xerrors.Errorf("get total: %w", err)
+	}
+	return c, nil
+}
+
+// Collect creates iterator and collects all elements to slice.
+func (b *GetDialogsQueryBuilder) Collect(ctx context.Context) ([]Elem, error) {
+	iter := b.Iter()
+	c, err := iter.Total(ctx)
+	if err != nil {
+		return nil, xerrors.Errorf("get total: %w", err)
+	}
+
+	r := make([]Elem, 0, c)
+	for iter.Next(ctx) {
+		r = append(r, iter.Value())
+	}
+
+	return r, iter.Err()
 }
