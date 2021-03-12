@@ -23,14 +23,9 @@ import (
 	"github.com/gotd/td/internal/tmap"
 	"github.com/gotd/td/telegram/internal/rpcmock"
 	"github.com/gotd/td/tg"
-	"github.com/gotd/td/tgerr"
 )
 
 type testHandler func(id int64, body bin.Encoder) (bin.Encoder, error)
-
-func testError(err tg.Error) (bin.Encoder, error) {
-	return nil, tgerr.New(err.Code, err.Text)
-}
 
 type testConn struct {
 	id     atomic.Int64

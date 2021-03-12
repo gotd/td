@@ -8,6 +8,7 @@ import (
 
 	"github.com/gotd/td/internal/crypto/srp"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 )
 
 // AuthPassword performs login via secure remote password (aka 2FA).
@@ -102,8 +103,7 @@ func (c *Client) AuthSignIn(ctx context.Context, phone, code, codeHash string) e
 		PhoneCodeHash: codeHash,
 		PhoneCode:     code,
 	})
-	var rpcErr *Error
-	if errors.As(err, &rpcErr) && rpcErr.Message == "SESSION_PASSWORD_NEEDED" {
+	if tgerr.Is(err, "SESSION_PASSWORD_NEEDED") {
 		return ErrPasswordAuthNeeded
 	}
 	if err != nil {

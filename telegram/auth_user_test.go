@@ -14,6 +14,7 @@ import (
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 )
 
 func getHex(t testing.TB, in string) []byte {
@@ -53,10 +54,7 @@ func TestClient_AuthSignIn(t *testing.T) {
 				PhoneCodeHash: codeHash,
 				PhoneCode:     code,
 			}, req)
-			return testError(tg.Error{
-				Code: 401,
-				Text: "SESSION_PASSWORD_NEEDED",
-			})
+			return nil, tgerr.New(401, "SESSION_PASSWORD_NEEDED")
 		case *tg.AccountGetPasswordRequest:
 			algo := &tg.PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow{
 				Salt1: getHex(t, "4D11FB6BEC38F9D2546BB0F61E4F1C99A1BC0DB8F0D5F35B1291B37B213123D7ED48F3C6794D495B"),
