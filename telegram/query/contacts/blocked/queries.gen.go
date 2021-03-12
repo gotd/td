@@ -86,7 +86,7 @@ func (b *GetBlockedQueryBuilder) Iter() *Iterator {
 }
 
 // ForEach calls given callback on each iterator element.
-func (b *GetBlockedQueryBuilder) ForEach(ctx context.Context, cb func(context.Context, Contact) error) error {
+func (b *GetBlockedQueryBuilder) ForEach(ctx context.Context, cb func(context.Context, Elem) error) error {
 	iter := b.Iter()
 	for iter.Next(ctx) {
 		if err := cb(ctx, iter.Value()); err != nil {

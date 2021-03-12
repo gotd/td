@@ -10,8 +10,8 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-// Contact is a contact iterator element.
-type Contact struct {
+// Elem is a contact iterator element.
+type Elem struct {
 	Contact  tg.PeerBlocked
 	Entities peer.Entities
 }
@@ -21,7 +21,7 @@ type Iterator struct {
 	// Current state.
 	lastErr error
 	// Buffer state.
-	buf    []Contact
+	buf    []Elem
 	bufCur int
 	// Request state.
 	limit     int
@@ -39,7 +39,7 @@ type Iterator struct {
 // NewIterator creates new iterator.
 func NewIterator(query Query, limit int) *Iterator {
 	return &Iterator{
-		buf:    make([]Contact, 0, limit),
+		buf:    make([]Elem, 0, limit),
 		bufCur: -1,
 		limit:  limit,
 		query:  query,
@@ -83,7 +83,7 @@ func (m *Iterator) apply(r tg.ContactsBlockedClass) error {
 	m.bufCur = -1
 	m.buf = m.buf[:0]
 	for i := range blocked {
-		m.buf = append(m.buf, Contact{Contact: blocked[i], Entities: entities})
+		m.buf = append(m.buf, Elem{Contact: blocked[i], Entities: entities})
 	}
 
 	return nil
@@ -164,7 +164,7 @@ func (m *Iterator) Next(ctx context.Context) bool {
 }
 
 // Value returns current message.
-func (m *Iterator) Value() Contact {
+func (m *Iterator) Value() Elem {
 	return m.buf[m.bufCur]
 }
 
