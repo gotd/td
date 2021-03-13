@@ -3,6 +3,7 @@ package reliable_test
 import (
 	"context"
 	"fmt"
+	"sync"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -47,25 +48,32 @@ func TestConn(t *testing.T) {
 		conn             *UnstableMTConn
 		createConnCalls  = 0
 		onConnectedCalls = 0
-		onConnected      = make(chan struct{}, 10)
 		requests         = 0
 		connected        = false
+		mux              sync.Mutex
+		onConnected      = make(chan struct{}, 10)
 	)
 
 	reli := reliable.New(reliable.Config{
 		CreateConn: func(addr string, opts mtproto.Options) reliable.MTConn {
+			mux.Lock()
+			defer mux.Unlock()
+
 			if connected {
 				t.Fatal("multiple create conn calls")
 			}
+
 			createConnCalls++
 			return NewUnstableConn(func() { requests++ })
 		},
 		OnConnected: func(m reliable.MTConn) error {
 			if !connected {
+				mux.Lock()
+				defer mux.Unlock()
 				onConnectedCalls++
 				connected = true
-				onConnected <- struct{}{}
 				conn = m.(*UnstableMTConn)
+				onConnected <- struct{}{}
 				return nil
 			}
 			t.Fatal("multiple onConnected calls")
@@ -77,23 +85,29 @@ func TestConn(t *testing.T) {
 	require.NoError(t, err)
 
 	<-onConnected
+	mux.Lock()
 	require.True(t, connected)
 	require.Equal(t, 1, createConnCalls)
 	require.Equal(t, 1, onConnectedCalls)
 	require.NotNil(t, conn)
+	mux.Unlock()
 
 	require.NoError(t, reli.InvokeRaw(context.TODO(), nil, nil))
 	require.NoError(t, reli.InvokeRaw(context.TODO(), nil, nil))
 	require.Equal(t, 2, requests)
 
-	connected = false
+	mux.Lock()
 	conn.Break(fmt.Errorf("break error"))
+	connected = false
+	mux.Unlock()
 
 	<-onConnected
+	mux.Lock()
 	require.True(t, connected)
 	require.Equal(t, 2, createConnCalls)
 	require.Equal(t, 2, onConnectedCalls)
 	require.NotNil(t, conn)
+	mux.Unlock()
 
 	require.NoError(t, reli.InvokeRaw(context.TODO(), nil, nil))
 	require.NoError(t, reli.InvokeRaw(context.TODO(), nil, nil))
