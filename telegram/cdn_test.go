@@ -1,4 +1,4 @@
-package dcmanager
+package telegram
 
 import (
 	"testing"

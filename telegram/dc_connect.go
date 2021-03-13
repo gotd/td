@@ -1,4 +1,4 @@
-package dcmanager
+package telegram
 
 import (
 	"context"
@@ -24,13 +24,13 @@ type dcBuilder struct {
 	authKey   crypto.AuthKey
 	salt      int64
 
-	m *Manager
+	c *Client
 }
 
-func (m *Manager) dc(dc tg.DCOption) *dcBuilder {
+func (c *Client) dc(dc tg.DCOption) *dcBuilder {
 	return &dcBuilder{
 		dc: dc,
-		m:  m,
+		c:  c,
 	}
 }
 
@@ -50,14 +50,14 @@ func (b *dcBuilder) WithCreds(key crypto.AuthKey, salt int64) *dcBuilder {
 	return b
 }
 
-func (b *dcBuilder) Connect(ctx context.Context) (*reliable.Conn, error) {
+func (b *dcBuilder) Connect(ctx context.Context) (conn, error) {
 	var (
-		m         = b.m
+		c         = b.c
 		dc        = b.dc
 		asPrimary = b.asPrimary
 	)
 
-	m.log.Info("Connecting",
+	c.log.Info("Connecting",
 		zap.Any("dc_info", dc),
 		zap.Bool("transfer", b.transfer),
 		zap.Bool("as_primary", asPrimary),
@@ -81,7 +81,7 @@ func (b *dcBuilder) Connect(ctx context.Context) (*reliable.Conn, error) {
 		b.transfer = false
 	}
 
-	log := m.log.With(zap.Int("dc_id", dc.ID))
+	log := c.log.With(zap.Int("dc_id", dc.ID))
 	switch {
 	case dc.CDN:
 		log = log.With(zap.String("dc_type", "cdn"))
@@ -92,7 +92,7 @@ func (b *dcBuilder) Connect(ctx context.Context) (*reliable.Conn, error) {
 	}
 
 	var (
-		opts       = b.m.mtopts
+		opts       = b.c.opts
 		gotSession = make(chan struct{})
 		once       sync.Once
 	)
@@ -102,9 +102,11 @@ func (b *dcBuilder) Connect(ctx context.Context) (*reliable.Conn, error) {
 	opts.Logger = log
 
 	if asPrimary {
-		opts.MessageHandler = m.onMessage
-		b.m.pmux.Lock()
-		defer b.m.pmux.Unlock()
+		opts.MessageHandler = c.onPrimaryMessage
+		opts.SessionHandler = c.onPrimarySession
+
+		c.pmux.Lock()
+		defer c.pmux.Unlock()
 	}
 
 	if !dc.CDN && b.transfer {
@@ -116,11 +118,11 @@ func (b *dcBuilder) Connect(ctx context.Context) (*reliable.Conn, error) {
 		if asPrimary {
 			opts.SessionHandler = func(sess mtproto.Session) error {
 				once.Do(func() { close(gotSession) })
-				return m.onPrimarySessionUpdate(sess)
+				return c.onPrimarySession(sess)
 			}
 		}
 	} else if dc.CDN {
-		cdnCfg, err := tg.NewClient(m.primary).HelpGetCDNConfig(ctx)
+		cdnCfg, err := tg.NewClient(c.primary).HelpGetCDNConfig(ctx)
 		if err != nil {
 			return nil, xerrors.Errorf("get CDN config: %w", err)
 		}
@@ -137,14 +139,15 @@ func (b *dcBuilder) Connect(ctx context.Context) (*reliable.Conn, error) {
 	}
 
 	conn := reliable.New(reliable.Config{
-		Addr:   fmt.Sprintf("%s:%d", dc.IPAddress, dc.Port),
+		Addr:   fmt.Sprintf("%d|%s:%d", dc.ID, dc.IPAddress, dc.Port),
 		MTOpts: opts,
 		OnConnected: func(conn reliable.MTConn) error {
-			_, err := m.initConn(context.TODO(), conn, !asPrimary)
+			_, err := c.initConn(c.ctx, conn, !asPrimary)
 			return err
 		},
 	})
-	if err := m.conns.Start(conn); err != nil {
+
+	if err := c.lf.Start(conn); err != nil {
 		return nil, err
 	}
 
@@ -155,7 +158,7 @@ func (b *dcBuilder) Connect(ctx context.Context) (*reliable.Conn, error) {
 		}
 
 		if !dc.CDN && b.transfer {
-			if err := transfer(ctx, m.primary, conn, dc.ID); err != nil {
+			if err := transfer(ctx, c.primary, conn, dc.ID); err != nil {
 				return xerrors.Errorf("transfer: %w", err)
 			}
 
@@ -168,27 +171,24 @@ func (b *dcBuilder) Connect(ctx context.Context) (*reliable.Conn, error) {
 		}
 
 		if asPrimary {
-			// TODO(ccln): recheck cfg dc id
-			m.cfgMux.Lock()
-			defer m.cfgMux.Unlock()
-			m.cfg.PrimaryDC = dc.ID
-			m.cfg.TGConfig = *cfg
+			c.primaryDC = dc.ID
 
-			if err := m.saveConfig(m.cfg); err != nil {
+			// TODO(ccln): recheck cfg dc id
+			if err := c.onPrimaryConfig(*cfg); err != nil {
 				return err
 			}
 
-			if err := m.conns.Stop(m.primary); err != nil {
-				m.log.Warn("Failed to cleanup connection", zap.Error(err))
+			if err := c.lf.Stop(c.primary); err != nil {
+				c.log.Warn("Failed to cleanup connection", zap.Error(err))
 			}
-			m.primary = conn
+			c.primary = conn
 		}
 
 		return nil
 	}(); err != nil {
-		m.log.Warn("Failed to initialize connection", zap.Error(err))
-		if err := m.conns.Stop(conn); err != nil {
-			m.log.Warn("Failed to cleanup connection", zap.Error(err))
+		c.log.Warn("Failed to initialize connection", zap.Error(err))
+		if err := c.lf.Stop(conn); err != nil {
+			c.log.Warn("Failed to cleanup connection", zap.Error(err))
 		}
 
 		return nil, err
@@ -197,7 +197,7 @@ func (b *dcBuilder) Connect(ctx context.Context) (*reliable.Conn, error) {
 	return conn, nil
 }
 
-func (m *Manager) initConn(ctx context.Context, conn reliable.MTConn, noUpdates bool) (tg.Config, error) {
+func (c *Client) initConn(ctx context.Context, conn conn, noUpdates bool) (tg.Config, error) {
 	wrap := func(req bin.Object) bin.Object { return req }
 	if noUpdates {
 		wrap = func(req bin.Object) bin.Object {
@@ -208,13 +208,13 @@ func (m *Manager) initConn(ctx context.Context, conn reliable.MTConn, noUpdates 
 	}
 
 	q := wrap(&tg.InitConnectionRequest{
-		APIID:          m.appID,
-		DeviceModel:    m.device.DeviceModel,
-		SystemVersion:  m.device.SystemVersion,
-		AppVersion:     m.device.AppVersion,
-		SystemLangCode: m.device.SystemLangCode,
-		LangPack:       m.device.LangPack,
-		LangCode:       m.device.LangCode,
+		APIID:          c.appID,
+		DeviceModel:    c.device.DeviceModel,
+		SystemVersion:  c.device.SystemVersion,
+		AppVersion:     c.device.AppVersion,
+		SystemLangCode: c.device.SystemLangCode,
+		LangPack:       c.device.LangPack,
+		LangCode:       c.device.LangCode,
 		Query:          wrap(&tg.HelpGetConfigRequest{}),
 	})
 
@@ -227,12 +227,4 @@ func (m *Manager) initConn(ctx context.Context, conn reliable.MTConn, noUpdates 
 	}
 
 	return cfg, nil
-}
-
-func (m *Manager) onPrimarySessionUpdate(sess mtproto.Session) error {
-	m.cfgMux.Lock()
-	defer m.cfgMux.Unlock()
-	m.cfg.AuthKey = sess.Key
-	m.cfg.Salt = sess.Salt
-	return m.saveConfig(m.cfg)
 }

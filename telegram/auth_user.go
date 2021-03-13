@@ -15,7 +15,7 @@ import (
 //
 // Method can be called after AuthSignIn to provide password if requested.
 func (c *Client) AuthPassword(ctx context.Context, password string) error {
-	p, err := c.tg.AccountGetPassword(ctx)
+	p, err := c.rpc().AccountGetPassword(ctx)
 	if err != nil {
 		return xerrors.Errorf("get SRP parameters: %w", err)
 	}
@@ -31,7 +31,7 @@ func (c *Client) AuthPassword(ctx context.Context, password string) error {
 		return xerrors.Errorf("create SRP answer: %w", err)
 	}
 
-	auth, err := c.tg.AuthCheckPassword(ctx, &tg.InputCheckPasswordSRP{
+	auth, err := c.rpc().AuthCheckPassword(ctx, &tg.InputCheckPasswordSRP{
 		SRPID: p.SRPID,
 		A:     a.A,
 		M1:    a.M1,
@@ -39,7 +39,7 @@ func (c *Client) AuthPassword(ctx context.Context, password string) error {
 	if err != nil {
 		return xerrors.Errorf("check password: %w", err)
 	}
-	if err := c.checkAuthResult(auth); err != nil {
+	if err := checkAuthResult(auth); err != nil {
 		return xerrors.Errorf("check: %w", err)
 	}
 
@@ -74,7 +74,7 @@ func (c *Client) AuthSendCode(ctx context.Context, phone string, options SendCod
 		settings.SetCurrentNumber(true)
 	}
 
-	sentCode, err := c.tg.AuthSendCode(ctx, &tg.AuthSendCodeRequest{
+	sentCode, err := c.rpc().AuthSendCode(ctx, &tg.AuthSendCodeRequest{
 		PhoneNumber: phone,
 		APIID:       c.appID,
 		APIHash:     c.appHash,
@@ -98,7 +98,7 @@ var ErrPasswordAuthNeeded = errors.New("2FA required")
 //
 // To obtain codeHash, use AuthSendCode.
 func (c *Client) AuthSignIn(ctx context.Context, phone, code, codeHash string) error {
-	a, err := c.tg.AuthSignIn(ctx, &tg.AuthSignInRequest{
+	a, err := c.rpc().AuthSignIn(ctx, &tg.AuthSignInRequest{
 		PhoneNumber:   phone,
 		PhoneCodeHash: codeHash,
 		PhoneCode:     code,
@@ -109,7 +109,7 @@ func (c *Client) AuthSignIn(ctx context.Context, phone, code, codeHash string) e
 	if err != nil {
 		return xerrors.Errorf("sign in: %w", err)
 	}
-	if err := c.checkAuthResult(a); err != nil {
+	if err := checkAuthResult(a); err != nil {
 		return xerrors.Errorf("check: %w", err)
 	}
 
@@ -118,7 +118,7 @@ func (c *Client) AuthSignIn(ctx context.Context, phone, code, codeHash string) e
 
 // AuthAcceptTOS accepts version of Terms Of Service.
 func (c *Client) AuthAcceptTOS(ctx context.Context, id tg.DataJSON) error {
-	_, err := c.tg.HelpAcceptTermsOfService(ctx, id)
+	_, err := c.rpc().HelpAcceptTermsOfService(ctx, id)
 	return err
 }
 
@@ -135,7 +135,7 @@ type SignUp struct {
 // To obtain codeHash, use AuthSendCode.
 // Use AuthFlow helper to handle authentication flow.
 func (c *Client) AuthSignUp(ctx context.Context, s SignUp) error {
-	auth, err := c.tg.AuthSignUp(ctx, &tg.AuthSignUpRequest{
+	auth, err := c.rpc().AuthSignUp(ctx, &tg.AuthSignUpRequest{
 		LastName:      s.LastName,
 		PhoneCodeHash: s.PhoneCodeHash,
 		PhoneNumber:   s.PhoneNumber,
@@ -144,7 +144,7 @@ func (c *Client) AuthSignUp(ctx context.Context, s SignUp) error {
 	if err != nil {
 		return xerrors.Errorf("request: %w", err)
 	}
-	if err := c.checkAuthResult(auth); err != nil {
+	if err := checkAuthResult(auth); err != nil {
 		return xerrors.Errorf("check: %w", err)
 	}
 	return nil

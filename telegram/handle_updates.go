@@ -4,9 +4,7 @@ import (
 	"fmt"
 
 	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tg"
 )
 
@@ -113,7 +111,16 @@ func (c *Client) updateInterceptor(updates ...tg.UpdateClass) {
 	for _, update := range updates {
 		_, ok := update.(*tg.UpdateConfig)
 		if ok {
-			// TODO(ccln): Handle this.
+			cfg, err := c.rpc().HelpGetConfig(c.ctx)
+			if err != nil {
+				c.log.Warn("Fetch config", zap.Error(err))
+				continue
+			}
+
+			if err := c.onPrimaryConfig(*cfg); err != nil {
+				c.log.Warn("Save config", zap.Error(err))
+				continue
+			}
 		}
 	}
 }
@@ -144,12 +151,4 @@ func (c *Client) processUpdates(updates tg.UpdatesClass) error {
 		c.log.Warn("Ignoring update", zap.String("update_type", fmt.Sprintf("%T", u)))
 	}
 	return nil
-}
-
-func (c *Client) handleUpdates(b *bin.Buffer) error {
-	updates, err := tg.DecodeUpdates(b)
-	if err != nil {
-		return xerrors.Errorf("decode updates: %w", err)
-	}
-	return c.processUpdates(updates)
 }

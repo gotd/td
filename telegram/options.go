@@ -13,7 +13,6 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/clock"
-	"github.com/gotd/td/dcmanager"
 	"github.com/gotd/td/internal/mtproto"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/transport"
@@ -41,7 +40,6 @@ type Options struct {
 	//
 	// If not provided, 2 will be used by default.
 	DC int
-
 	// Transport to use. Default dialer will be used if not provided.
 	Transport Transport
 	// Network to use. Defaults to tcp.
@@ -69,7 +67,7 @@ type Options struct {
 
 	// Device is device config.
 	// Will be sent with session creation request.
-	Device dcmanager.DeviceConfig
+	Device DeviceConfig
 
 	MessageID mtproto.MessageIDSource
 	Clock     clock.Clock

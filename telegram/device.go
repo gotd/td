@@ -1,39 +1,4 @@
-package dcmanager
-
-import (
-	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/mtproto"
-	"go.uber.org/zap"
-)
-
-type Options struct {
-	Addr string
-	//ConnCreator   CreateConnFunc
-	UpdateHandler func(b *bin.Buffer) error
-	ConfigSaver   func(Config) error
-	Device        DeviceConfig
-
-	MTOptions mtproto.Options
-
-	Logger *zap.Logger
-}
-
-func (o *Options) setDefaults() {
-	// if o.ConnCreator == nil {
-	// 	panic("ConnCreator is nil")
-	// }
-	if o.UpdateHandler == nil {
-		// TODO(ccln): disable updates using tg.InvokeWithoutUpdates on primary dc?
-		o.UpdateHandler = func(b *bin.Buffer) error { return nil }
-	}
-	if o.ConfigSaver == nil {
-		o.ConfigSaver = func(c Config) error { return nil }
-	}
-	o.Device.setDefaults()
-	if o.Logger == nil {
-		o.Logger = zap.NewNop()
-	}
-}
+package telegram
 
 // DeviceConfig is config which send when Telegram connection session created.
 type DeviceConfig struct {

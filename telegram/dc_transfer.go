@@ -1,16 +1,15 @@
-package dcmanager
+package telegram
 
 import (
 	"context"
 
-	"github.com/gotd/td/internal/mtproto/reliable"
 	"github.com/gotd/td/tg"
 	"golang.org/x/xerrors"
 )
 
 // transfer exports current authorization and imports it to another DC.
 // See https://core.telegram.org/api/datacenter#authorization-transfer.
-func transfer(ctx context.Context, fromConn, toConn *reliable.Conn, dc int) error {
+func transfer(ctx context.Context, fromConn, toConn conn, dc int) error {
 	var (
 		from = tg.NewClient(fromConn)
 		to   = tg.NewClient(toConn)
@@ -30,21 +29,4 @@ func transfer(ctx context.Context, fromConn, toConn *reliable.Conn, dc int) erro
 	}
 
 	return checkAuthResult(result)
-}
-
-// checkAuthResult checks that a is *tg.AuthAuthorization.
-func checkAuthResult(a tg.AuthAuthorizationClass) error {
-	switch v := a.(type) {
-	case *tg.AuthAuthorization:
-		// Ok.
-		return nil
-	case *tg.AuthAuthorizationSignUpRequired:
-		// return &telegram.SignUpRequired{
-		// 	TermsOfService: v.TermsOfService,
-		// }
-		_ = v
-		return xerrors.Errorf("sign up required")
-	default:
-		return xerrors.Errorf("got unexpected response %T", a)
-	}
 }

@@ -4,7 +4,6 @@ import (
 	"context"
 	"crypto/md5"
 	"fmt"
-	"math/rand"
 	"os"
 	"path/filepath"
 	"strings"
@@ -49,11 +48,9 @@ func newTestClient(h func(body bin.Encoder) (bin.Encoder, error)) *Client {
 	conn := &testConn{h}
 	client := &Client{
 		log:     zap.NewNop(),
-		rand:    rand.New(rand.NewSource(1)),
 		appID:   TestAppID,
 		appHash: TestAppHash,
-		dcm:     conn,
-		tg:      tg.NewClient(conn),
+		primary: conn,
 	}
 
 	return client

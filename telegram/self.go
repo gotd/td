@@ -12,7 +12,7 @@ import (
 //
 // You can use tg.User.Bot to check whether current user is bot.
 func (c *Client) Self(ctx context.Context) (*tg.User, error) {
-	users, err := c.tg.UsersGetUsers(ctx, []tg.InputUserClass{&tg.InputUserSelf{}})
+	users, err := c.rpc().UsersGetUsers(ctx, []tg.InputUserClass{&tg.InputUserSelf{}})
 	if err != nil {
 		return nil, err
 	}

@@ -3,20 +3,19 @@ package telegram
 import (
 	"context"
 	"errors"
-	"fmt"
 	"io"
+	"sync"
 
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
-	"github.com/gotd/td/dcmanager"
-	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/lifetime"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/mtproto"
 	"github.com/gotd/td/internal/proto"
+	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/internal/tmap"
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/tg"
@@ -54,17 +53,28 @@ type clientStorage interface {
 	Save(ctx context.Context, data *session.Data) error
 }
 
-type invoker interface {
+type conn interface {
 	Run(ctx context.Context, f func(context.Context) error) error
 	InvokeRaw(ctx context.Context, in bin.Encoder, out bin.Decoder) error
 }
 
+type dcConn struct {
+}
+
 // Client represents a MTProto client to Telegram.
 type Client struct {
-	// tg provides RPC calls via Client.
-	tg *tg.Client // immutable
+	primary   conn
+	primaryDC int
+	pmux      sync.RWMutex
+	migrateOp *tdsync.SinglePerformer
 
-	dcm invoker
+	sess    mtproto.Session
+	cfg     tg.Config
+	dataMux sync.RWMutex
+
+	others map[int]conn
+	omux   sync.RWMutex
+	lf     *lifetime.Manager
 
 	// Wrappers for external world, like logs or PRNG.
 	rand  io.Reader   // immutable
@@ -76,8 +86,12 @@ type Client struct {
 	cancel context.CancelFunc // immutable
 
 	// Client config.
-	appID   int    // immutable
-	appHash string // immutable
+	appID       int             // immutable
+	appHash     string          // immutable
+	initialAddr string          // immutable
+	device      DeviceConfig    // immutable
+	opts        mtproto.Options // immutable
+
 	// Session storage.
 	storage clientStorage // immutable, nillable
 
@@ -92,31 +106,24 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 
 	clientCtx, clientCancel := context.WithCancel(context.Background())
 	client := &Client{
-		rand:          opt.Random,
-		log:           opt.Logger,
-		ctx:           clientCtx,
-		cancel:        clientCancel,
-		appID:         appID,
-		appHash:       appHash,
-		updateHandler: opt.UpdateHandler,
-	}
+		primaryDC: opt.DC,
+		migrateOp: &tdsync.SinglePerformer{},
+		others:    map[int]conn{},
+		lf:        lifetime.NewManager(),
 
-	// Including version into client logger to help with debugging.
-	if v := getVersion(); v != "" {
-		client.log = client.log.With(zap.String("v", v))
-	}
+		rand:  opt.Random,
+		log:   opt.Logger,
+		clock: opt.Clock,
 
-	if opt.SessionStorage != nil {
-		client.storage = &session.Loader{
-			Storage: opt.SessionStorage,
-		}
-	}
+		ctx:    clientCtx,
+		cancel: clientCancel,
 
-	client.dcm = dcmanager.New(appID, dcmanager.Options{
-		Addr:          opt.Addr,
-		UpdateHandler: client.handleUpdates,
-		ConfigSaver:   client.saveConfig,
-		MTOptions: mtproto.Options{
+		appID:       appID,
+		appHash:     appHash,
+		initialAddr: opt.Addr,
+		device:      opt.Device,
+
+		opts: mtproto.Options{
 			PublicKeys:    opt.PublicKeys,
 			Transport:     opt.Transport,
 			Network:       opt.Network,
@@ -135,11 +142,19 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 				proto.TypesMap(),
 			),
 		},
-		Logger: opt.Logger.Named("dc_manager"),
-	})
+		updateHandler: opt.UpdateHandler,
+	}
 
-	// Initializing internal RPC caller.
-	client.tg = tg.NewClient(client)
+	// Including version into client logger to help with debugging.
+	if v := getVersion(); v != "" {
+		client.log = client.log.With(zap.String("v", v))
+	}
+
+	if opt.SessionStorage != nil {
+		client.storage = &session.Loader{
+			Storage: opt.SessionStorage,
+		}
+	}
 
 	return client
 }
@@ -150,76 +165,38 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 //
 // Context of callback will be canceled if fatal error is detected.
 func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) error {
-	if dcm, ok := c.dcm.(interface {
-		UpdateConfig(cfg dcmanager.Config)
-	}); ok && c.storage != nil {
-		sess, err := c.storage.Load(ctx)
-		if err != nil {
-			if !errors.Is(err, session.ErrNotFound) {
-				return err
-			}
-		} else {
-			dcm.UpdateConfig(dcmanager.Config{
-				TGConfig:  sess.Config,
-				PrimaryDC: sess.DC,
-				AuthKey: crypto.AuthKey{
-					Value: sess.AuthKey,
-					ID:    sess.AuthKeyID,
-				},
-				Salt: sess.Salt,
-			})
-		}
-	}
-
 	select {
 	case <-c.ctx.Done():
 		return xerrors.Errorf("client already closed: %w", c.ctx.Err())
 	default:
 	}
 
-	c.log.Info("Starting")
-	defer c.log.Info("Closed")
+	defer c.cancel()
 
-	life, err := lifetime.Start(c.dcm)
-	if err != nil {
+	// Try to load previous session.
+	if err := c.storageLoad(ctx); err != nil {
+		if errors.Is(err, session.ErrNotFound) {
+			// Session not found. Dial to the server provided in opts.
+			if err := c.dialPrimaryFirst(ctx); err != nil {
+				return err
+			}
+		} else {
+			// Something bad happened with storage.
+			return err
+		}
+
+	} else if err := c.dialPrimary(ctx); err != nil {
 		return err
 	}
-	defer life.Stop()
 
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
+	c.log.Info("Started")
+	defer c.log.Info("Closed")
+
 	echan := make(chan error)
-	go func() { echan <- f(ctx) }()
-	go func() { echan <- life.Wait() }()
+	go func() { defer cancel(); echan <- f(ctx); c.log.Warn("F EXIT") }()
+	go func() { echan <- c.lf.Wait(ctx); c.log.Warn("LF EXIT") }()
 	return <-echan
-}
-
-// InvokeRaw sens input and decodes result into output.
-//
-// NOTE: Assuming that call contains content message (seqno increment).
-func (c *Client) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
-	return c.dcm.InvokeRaw(ctx, input, output)
-}
-
-func (c *Client) saveConfig(cfg dcmanager.Config) error {
-	if c.storage == nil {
-		return nil
-	}
-
-	if err := c.storage.Save(c.ctx, &session.Data{
-		Config:    cfg.TGConfig,
-		DC:        cfg.PrimaryDC,
-		Addr:      "",
-		AuthKey:   cfg.AuthKey.Value,
-		AuthKeyID: cfg.AuthKey.ID,
-		Salt:      cfg.Salt,
-	}); err != nil {
-		return xerrors.Errorf("save: %w", err)
-	}
-
-	c.log.Debug("Data saved",
-		zap.String("key_id", fmt.Sprintf("%x", cfg.AuthKey.ID)),
-	)
-	return nil
 }
