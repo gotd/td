@@ -116,6 +116,7 @@ func (opt *Options) setDefaults() {
 	if opt.MessageID == nil {
 		opt.MessageID = proto.NewMessageIDGen(opt.Clock.Now, 100)
 	}
+	opt.Device.setDefaults()
 
 	opt.normalizeAddr()
 }

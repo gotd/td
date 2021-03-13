@@ -5,18 +5,18 @@ import (
 	"sync"
 	"time"
 
+	"go.uber.org/zap"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/lifetime"
 	"github.com/gotd/td/internal/mtproto"
-	"go.uber.org/zap"
 )
 
-// Conn is an abstraction over mtproto.Conn
-// which provides some reliability from network errors.
+// Conn is a reliable MTProto connection.
 type Conn struct {
 	addr        string
 	opts        mtproto.Options
-	createConn  MTCreateFunc
+	createConn  func(addr string, opts mtproto.Options) MTConn
 	onConnected func(MTConn) error
 
 	conn MTConn
@@ -25,6 +25,7 @@ type Conn struct {
 	log *zap.Logger
 }
 
+// New creates new reliable MTProto conn.
 func New(cfg Config) *Conn {
 	cfg.setDefaults()
 	opts := cfg.MTOpts
@@ -50,6 +51,7 @@ func New(cfg Config) *Conn {
 	return conn
 }
 
+// Run starts the connection.
 func (c *Conn) Run(ctx context.Context, f func(context.Context) error) error {
 	life, err := c.connect(1)
 	if err != nil {
@@ -65,6 +67,7 @@ func (c *Conn) Run(ctx context.Context, f func(context.Context) error) error {
 	return <-e
 }
 
+// InvokeRaw sens input and decodes result into output.
 func (c *Conn) InvokeRaw(ctx context.Context, in bin.Encoder, out bin.Decoder) error {
 	c.mux.RLock()
 	conn := c.conn

@@ -3,11 +3,12 @@ package telegram
 import (
 	"context"
 
+	"go.uber.org/zap"
+	"golang.org/x/xerrors"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/tgerr"
-	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 )
 
 // InvokeRaw sens input and decodes result into output.

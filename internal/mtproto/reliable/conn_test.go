@@ -5,11 +5,12 @@ import (
 	"fmt"
 	"testing"
 
+	"github.com/stretchr/testify/require"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/lifetime"
 	"github.com/gotd/td/internal/mtproto"
 	"github.com/gotd/td/internal/mtproto/reliable"
-	"github.com/stretchr/testify/require"
 )
 
 type UnstableMTConn struct {

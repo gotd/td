@@ -58,9 +58,6 @@ type conn interface {
 	InvokeRaw(ctx context.Context, in bin.Encoder, out bin.Decoder) error
 }
 
-type dcConn struct {
-}
-
 // Client represents a MTProto client to Telegram.
 type Client struct {
 	tg        *tg.Client
@@ -183,17 +180,25 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) err
 	if err := c.storageLoad(ctx); err != nil {
 		// Something bad happened with storage.
 		if !errors.Is(err, session.ErrNotFound) {
+			c.log.Error("Storage failure", zap.Error(err))
 			return err
 		}
 
-		// Session not found.
-		// Using server provided in opts as primary DC.
+		c.log.Info("Session not found. Using server provided in opts as primary DC.",
+			zap.Int("dc_id", c.primaryDC),
+			zap.String("dc_addr", c.addr),
+		)
+
 		dcInfo, err = c.primaryDCOption()
 		if err != nil {
 			return err
 		}
 	} else {
-		// Have info about previous session.
+		c.log.Info("Previous session restored from storage.",
+			zap.Int("dc_id", c.primaryDC),
+			zap.String("dc_addr", c.addr),
+		)
+
 		dcInfo, err = c.lookupDC(c.primaryDC)
 		if err != nil {
 			return err

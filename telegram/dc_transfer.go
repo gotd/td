@@ -3,8 +3,9 @@ package telegram
 import (
 	"context"
 
-	"github.com/gotd/td/tg"
 	"golang.org/x/xerrors"
+
+	"github.com/gotd/td/tg"
 )
 
 // transfer exports current authorization and imports it to another DC.

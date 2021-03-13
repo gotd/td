@@ -9,9 +9,10 @@ import (
 	"strconv"
 	"strings"
 
+	"golang.org/x/xerrors"
+
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/tg"
-	"golang.org/x/xerrors"
 )
 
 // getVersion optimistically gets current client version.
@@ -71,10 +72,11 @@ func (c *Client) lookupDC(id int) (tg.DCOption, error) {
 	return tg.DCOption{}, xerrors.Errorf("dc not found in config: %d", id)
 }
 
-func (c *Client) primaryCreds() (crypto.AuthKey, int64) {
+func (c *Client) primaryCreds() (key crypto.AuthKey, salt int64) {
 	c.dataMux.RLock()
 	defer c.dataMux.RUnlock()
-	return c.sess.Key, c.sess.Salt
+	key, salt = c.sess.Key, c.sess.Salt
+	return
 }
 
 func (c *Client) primaryDCOption() (tg.DCOption, error) {

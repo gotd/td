@@ -66,8 +66,7 @@ func (m *Manager) Stop(r Runner) error {
 	}
 
 	delete(m.runners, r)
-	life.Stop()
-	return life.Wait()
+	return life.Stop()
 }
 
 // Go is equivalent to errgroup's Go() func.
@@ -84,12 +83,13 @@ func (m *Manager) Wait() error {
 	return m.g.Wait()
 }
 
+// Close closes all runners.
 func (m *Manager) Close() {
 	m.mux.Lock()
 	defer m.mux.Unlock()
 
 	for _, life := range m.runners {
-		life.Stop()
+		_ = life.Stop()
 	}
 	m.runners = map[Runner]*Life{}
 }

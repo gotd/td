@@ -6,13 +6,14 @@ import (
 	"sync"
 	"time"
 
+	"go.uber.org/zap"
+	"golang.org/x/xerrors"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mtproto"
 	"github.com/gotd/td/internal/mtproto/reliable"
 	"github.com/gotd/td/tg"
-	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 )
 
 type dcBuilder struct {

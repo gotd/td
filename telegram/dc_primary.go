@@ -3,11 +3,12 @@ package telegram
 import (
 	"context"
 
+	"go.uber.org/zap"
+	"golang.org/x/xerrors"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mtproto"
 	"github.com/gotd/td/tg"
-	"go.uber.org/zap"
-	"golang.org/x/xerrors"
 )
 
 func (c *Client) connectPrimary(ctx context.Context, dc tg.DCOption, reuseCreds bool) error {
@@ -17,7 +18,7 @@ func (c *Client) connectPrimary(ctx context.Context, dc tg.DCOption, reuseCreds 
 	switch {
 	case dc.TCPObfuscatedOnly:
 		return xerrors.Errorf("can't use tcpo DC as primary (%d)", dc.ID)
-	case dc.TCPObfuscatedOnly:
+	case dc.MediaOnly:
 		return xerrors.Errorf("can't use media-only DC as primary (%d)", dc.ID)
 	case dc.CDN:
 		return xerrors.Errorf("cdn could not be a primary DC (%d)", dc.ID)
@@ -49,8 +50,7 @@ func (c *Client) connectPrimary(ctx context.Context, dc tg.DCOption, reuseCreds 
 		}
 	}
 
-	// TODO(ccln): Recheck cfg ID.
-	c.primaryDC = dc.ID
+	c.primaryDC = cfg.ThisDC
 	c.primary = conn
 
 	return c.onPrimaryConfig(*cfg)

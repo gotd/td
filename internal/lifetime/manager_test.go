@@ -6,8 +6,9 @@ import (
 	"testing"
 	"time"
 
-	"github.com/gotd/td/internal/lifetime"
 	"github.com/stretchr/testify/require"
+
+	"github.com/gotd/td/internal/lifetime"
 )
 
 type mockRunner struct {

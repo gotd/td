@@ -30,6 +30,7 @@ func (c *Client) storageLoad(ctx context.Context) error {
 
 	c.primaryDC = data.DC
 	c.addr = data.Addr
+	c.cfg = data.Config
 	return nil
 }
 
