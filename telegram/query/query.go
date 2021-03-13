@@ -16,6 +16,11 @@ type Query struct {
 	raw *tg.Client
 }
 
+// NewQuery creates Query.
+func NewQuery(raw *tg.Client) *Query {
+	return &Query{raw: raw}
+}
+
 // Participants creates participants.QueryBuilder
 func (q *Query) Participants() *participants.QueryBuilder {
 	return participants.NewQueryBuilder(q.raw)
