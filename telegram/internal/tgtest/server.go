@@ -110,8 +110,7 @@ func (s *Server) serve() error {
 			// Client disconnected.
 			var syscallErr *net.OpError
 			if xerrors.Is(err, io.EOF) ||
-				xerrors.As(err, &syscallErr) && syscallErr.Op == "write" ||
-				syscallErr.Op == "read" {
+				xerrors.As(err, &syscallErr) && (syscallErr.Op == "write" || syscallErr.Op == "read") {
 				return nil
 			}
 			s.log.Info("Serving handler error", zap.Error(err))

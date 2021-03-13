@@ -29,7 +29,7 @@ func (c *Client) storageLoad(ctx context.Context) error {
 	}
 
 	c.primaryDC = data.DC
-	c.initialAddr = data.Addr
+	c.addr = data.Addr
 	return nil
 }
 
@@ -40,7 +40,7 @@ func (c *Client) storageSave() error {
 
 	cfg := c.cfg
 	primaryDC := c.primaryDC
-	addr := c.initialAddr
+	addr := c.addr
 	sess := c.sess
 
 	return c.storage.Save(c.ctx, &session.Data{

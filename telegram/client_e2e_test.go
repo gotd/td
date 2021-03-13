@@ -349,7 +349,6 @@ func testMigrate(trp Transport) func(t *testing.T) {
 					Peer:    &tg.InputPeerUser{},
 					Message: "abc",
 				}); err != nil {
-					log.Warn("ASDASD", zap.Error(err))
 					return xerrors.Errorf("send: %w", err)
 				}
 				close(gotResponse)

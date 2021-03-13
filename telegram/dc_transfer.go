@@ -9,12 +9,7 @@ import (
 
 // transfer exports current authorization and imports it to another DC.
 // See https://core.telegram.org/api/datacenter#authorization-transfer.
-func transfer(ctx context.Context, fromConn, toConn conn, dc int) error {
-	var (
-		from = tg.NewClient(fromConn)
-		to   = tg.NewClient(toConn)
-	)
-
+func transfer(ctx context.Context, from, to *tg.Client, dc int) error {
 	auth, err := from.AuthExportAuthorization(ctx, dc)
 	if err != nil {
 		return xerrors.Errorf("export auth: %w", err)

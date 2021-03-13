@@ -10,7 +10,7 @@ import (
 
 // AuthBot performs bot authentication request.
 func (c *Client) AuthBot(ctx context.Context, token string) error {
-	auth, err := c.rpc().AuthImportBotAuthorization(ctx, &tg.AuthImportBotAuthorizationRequest{
+	auth, err := c.tg.AuthImportBotAuthorization(ctx, &tg.AuthImportBotAuthorizationRequest{
 		APIID:        c.appID,
 		APIHash:      c.appHash,
 		BotAuthToken: token,

@@ -46,13 +46,13 @@ func (c *Client) InvokeRaw(ctx context.Context, in bin.Encoder, out bin.Decoder)
 
 			c.log.Info("Starting migration to another DC", zap.Int("dc", rpcErr.Argument))
 			defer cb()
+
 			dcInfo, err := c.lookupDC(rpcErr.Argument)
 			if err != nil {
 				return err
 			}
 
-			// Change primary DC.
-			if _, err := c.dc(dcInfo).AsPrimary().Connect(ctx); err != nil {
+			if err := c.connectPrimary(ctx, dcInfo, false); err != nil {
 				return xerrors.Errorf("migrate to dc %d: %w", rpcErr.Argument, err)
 			}
 

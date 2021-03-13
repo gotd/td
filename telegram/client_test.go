@@ -53,6 +53,7 @@ func newTestClient(h func(body bin.Encoder) (bin.Encoder, error)) *Client {
 		primary: conn,
 	}
 
+	client.tg = tg.NewClient(client)
 	return client
 }
 

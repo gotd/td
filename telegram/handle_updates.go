@@ -111,7 +111,7 @@ func (c *Client) updateInterceptor(updates ...tg.UpdateClass) {
 	for _, update := range updates {
 		_, ok := update.(*tg.UpdateConfig)
 		if ok {
-			cfg, err := c.rpc().HelpGetConfig(c.ctx)
+			cfg, err := c.tg.HelpGetConfig(c.ctx)
 			if err != nil {
 				c.log.Warn("Fetch config", zap.Error(err))
 				continue

@@ -47,7 +47,7 @@ func TestManager(t *testing.T) {
 	require.Equal(t, true, stopped)
 
 	wgerr := make(chan error)
-	go func() { wgerr <- m.Wait(context.TODO()) }()
+	go func() { wgerr <- m.Wait() }()
 
 	require.Eventually(t, func() bool {
 		select {

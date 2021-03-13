@@ -78,23 +78,18 @@ func (m *Manager) Go(f func() error) {
 // Wait waits for one of the runners to return an error
 // (at startup, at work or shutdown stage) and returns this error.
 // All other runners will be stopped.
-func (m *Manager) Wait(ctx context.Context) error {
-	defer func() {
-		m.mux.Lock()
-		defer m.mux.Unlock()
+func (m *Manager) Wait() error {
+	defer m.Close()
 
-		for _, life := range m.runners {
-			life.Stop()
-		}
-		m.runners = map[Runner]*Life{}
-	}()
+	return m.g.Wait()
+}
 
-	wchan := make(chan error)
-	go func() { wchan <- m.g.Wait() }()
-	select {
-	case <-ctx.Done():
-		return ctx.Err()
-	case err := <-wchan:
-		return err
+func (m *Manager) Close() {
+	m.mux.Lock()
+	defer m.mux.Unlock()
+
+	for _, life := range m.runners {
+		life.Stop()
 	}
+	m.runners = map[Runner]*Life{}
 }

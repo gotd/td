@@ -19,8 +19,9 @@ type dcBuilder struct {
 	dc       tg.DCOption
 	transfer bool // Export authorization from primary DC.
 
-	// For primary connection migration.
-	asPrimary bool
+	// For primary connection.
+	onMessage func(b *bin.Buffer) error
+	onSession func(sess mtproto.Session) error
 	authKey   crypto.AuthKey
 	salt      int64
 
@@ -34,8 +35,13 @@ func (c *Client) dc(dc tg.DCOption) *dcBuilder {
 	}
 }
 
-func (b *dcBuilder) AsPrimary() *dcBuilder {
-	b.asPrimary = true
+func (b *dcBuilder) WithMessageHandler(h func(b *bin.Buffer) error) *dcBuilder {
+	b.onMessage = h
+	return b
+}
+
+func (b *dcBuilder) WithSessionHandler(h func(sess mtproto.Session) error) *dcBuilder {
+	b.onSession = h
 	return b
 }
 
@@ -54,75 +60,28 @@ func (b *dcBuilder) Connect(ctx context.Context) (conn, error) {
 	var (
 		c         = b.c
 		dc        = b.dc
-		asPrimary = b.asPrimary
+		noUpdates = b.onMessage == nil
+		opts      = c.opts
+		log       = c.log.With(zap.Int("dc_id", dc.ID), zap.Bool("with_updates", !noUpdates))
+
+		gotSession = make(chan struct{}) // Session transfer check.
+		once       sync.Once             // Session transfer check.
 	)
 
-	c.log.Info("Connecting",
-		zap.Any("dc_info", dc),
-		zap.Bool("transfer", b.transfer),
-		zap.Bool("as_primary", asPrimary),
-	)
-
-	if asPrimary {
-		if dc.TCPObfuscatedOnly {
-			return nil, xerrors.Errorf("can't migrate to obfuscated transport only DC %d", dc.ID)
-		}
-
-		if dc.MediaOnly {
-			return nil, xerrors.Errorf("can't migrate to Media-only DC %d", dc.ID)
-		}
-
-		if dc.CDN {
-			return nil, xerrors.Errorf("CDN could not be a primary DC %d", dc.ID)
-		}
+	if attrs := dcAttrs(dc); len(attrs) > 0 {
+		log = log.With(zap.Strings("dc_attributes", attrs))
 	}
 
-	if dc.CDN {
-		b.transfer = false
-	}
-
-	log := c.log.With(zap.Int("dc_id", dc.ID))
-	switch {
-	case dc.CDN:
-		log = log.With(zap.String("dc_type", "cdn"))
-	case asPrimary:
-		log = log.With(zap.String("dc_type", "primary"))
-	default:
-		log = log.With(zap.String("dc_type", "data"))
-	}
-
-	var (
-		opts       = b.c.opts
-		gotSession = make(chan struct{})
-		once       sync.Once
-	)
-
+	// Overwrite options.
+	opts.MessageHandler = b.onMessage
+	opts.SessionHandler = b.onSession
 	opts.Key = b.authKey
 	opts.Salt = b.salt
 	opts.Logger = log
 
-	if asPrimary {
-		opts.MessageHandler = c.onPrimaryMessage
-		opts.SessionHandler = c.onPrimarySession
-
-		c.pmux.Lock()
-		defer c.pmux.Unlock()
-	}
-
-	if !dc.CDN && b.transfer {
-		opts.SessionHandler = func(sess mtproto.Session) error {
-			once.Do(func() { close(gotSession) })
-			return nil
-		}
-
-		if asPrimary {
-			opts.SessionHandler = func(sess mtproto.Session) error {
-				once.Do(func() { close(gotSession) })
-				return c.onPrimarySession(sess)
-			}
-		}
-	} else if dc.CDN {
-		cdnCfg, err := tg.NewClient(c.primary).HelpGetCDNConfig(ctx)
+	if dc.CDN {
+		b.transfer = false
+		cdnCfg, err := c.tg.HelpGetCDNConfig(ctx)
 		if err != nil {
 			return nil, xerrors.Errorf("get CDN config: %w", err)
 		}
@@ -138,11 +97,18 @@ func (b *dcBuilder) Connect(ctx context.Context) (conn, error) {
 		opts.Salt = 0
 	}
 
+	if b.transfer {
+		opts.SessionHandler = func(sess mtproto.Session) error {
+			once.Do(func() { close(gotSession) })
+			return b.onSession(sess)
+		}
+	}
+
 	conn := reliable.New(reliable.Config{
 		Addr:   fmt.Sprintf("%d|%s:%d", dc.ID, dc.IPAddress, dc.Port),
 		MTOpts: opts,
 		OnConnected: func(conn reliable.MTConn) error {
-			_, err := c.initConn(c.ctx, conn, !asPrimary)
+			_, err := c.initConn(c.ctx, conn, noUpdates)
 			return err
 		},
 	})
@@ -151,47 +117,35 @@ func (b *dcBuilder) Connect(ctx context.Context) (conn, error) {
 		return nil, err
 	}
 
-	if err := func() error {
-		cfg, err := tg.NewClient(conn).HelpGetConfig(ctx)
-		if err != nil {
-			return err
-		}
-
-		if !dc.CDN && b.transfer {
-			if err := transfer(ctx, c.primary, conn, dc.ID); err != nil {
-				return xerrors.Errorf("transfer: %w", err)
+	if b.transfer {
+		if err := func() error {
+			if err := transfer(ctx, c.tg, tg.NewClient(conn), dc.ID); err != nil {
+				return err
 			}
 
 			select {
 			case <-gotSession:
-				break
+				return nil
 			case <-time.After(time.Second * 10):
 				return xerrors.Errorf("session timeout")
 			}
-		}
+		}(); err != nil {
+			c.pmux.RLock()
+			primaryDC := c.primaryDC
+			c.pmux.RUnlock()
 
-		if asPrimary {
-			c.primaryDC = dc.ID
+			c.log.Warn("Failed to transfer auth",
+				zap.Int("from", primaryDC),
+				zap.Int("to", dc.ID),
+				zap.Error(err),
+			)
 
-			// TODO(ccln): recheck cfg dc id
-			if err := c.onPrimaryConfig(*cfg); err != nil {
-				return err
-			}
-
-			if err := c.lf.Stop(c.primary); err != nil {
+			if err := c.lf.Stop(conn); err != nil {
 				c.log.Warn("Failed to cleanup connection", zap.Error(err))
 			}
-			c.primary = conn
-		}
 
-		return nil
-	}(); err != nil {
-		c.log.Warn("Failed to initialize connection", zap.Error(err))
-		if err := c.lf.Stop(conn); err != nil {
-			c.log.Warn("Failed to cleanup connection", zap.Error(err))
+			return nil, err
 		}
-
-		return nil, err
 	}
 
 	return conn, nil
@@ -227,4 +181,21 @@ func (c *Client) initConn(ctx context.Context, conn conn, noUpdates bool) (tg.Co
 	}
 
 	return cfg, nil
+}
+
+func dcAttrs(dc tg.DCOption) (attrs []string) {
+	switch {
+	case dc.CDN:
+		attrs = append(attrs, "cdn")
+		fallthrough
+	case dc.MediaOnly:
+		attrs = append(attrs, "media_only")
+		fallthrough
+	case dc.Static:
+		attrs = append(attrs, "static")
+		fallthrough
+	case dc.TCPObfuscatedOnly:
+		attrs = append(attrs, "tcpo")
+	}
+	return
 }

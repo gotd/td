@@ -63,6 +63,7 @@ type dcConn struct {
 
 // Client represents a MTProto client to Telegram.
 type Client struct {
+	tg        *tg.Client
 	primary   conn
 	primaryDC int
 	pmux      sync.RWMutex
@@ -86,11 +87,11 @@ type Client struct {
 	cancel context.CancelFunc // immutable
 
 	// Client config.
-	appID       int             // immutable
-	appHash     string          // immutable
-	initialAddr string          // immutable
-	device      DeviceConfig    // immutable
-	opts        mtproto.Options // immutable
+	appID   int             // immutable
+	appHash string          // immutable
+	addr    string          // immutable
+	device  DeviceConfig    // immutable
+	opts    mtproto.Options // immutable
 
 	// Session storage.
 	storage clientStorage // immutable, nillable
@@ -118,10 +119,10 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		ctx:    clientCtx,
 		cancel: clientCancel,
 
-		appID:       appID,
-		appHash:     appHash,
-		initialAddr: opt.Addr,
-		device:      opt.Device,
+		appID:   appID,
+		appHash: appHash,
+		addr:    opt.Addr,
+		device:  opt.Device,
 
 		opts: mtproto.Options{
 			PublicKeys:    opt.PublicKeys,
@@ -156,6 +157,8 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		}
 	}
 
+	client.tg = tg.NewClient(client)
+
 	return client
 }
 
@@ -171,32 +174,53 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) err
 	default:
 	}
 
-	defer c.cancel()
+	var (
+		dcInfo     tg.DCOption
+		reuseCreds bool
+	)
 
 	// Try to load previous session.
 	if err := c.storageLoad(ctx); err != nil {
-		if errors.Is(err, session.ErrNotFound) {
-			// Session not found. Dial to the server provided in opts.
-			if err := c.dialPrimaryFirst(ctx); err != nil {
-				return err
-			}
-		} else {
-			// Something bad happened with storage.
+		// Something bad happened with storage.
+		if !errors.Is(err, session.ErrNotFound) {
 			return err
 		}
 
-	} else if err := c.dialPrimary(ctx); err != nil {
-		return err
+		// Session not found.
+		// Using server provided in opts as primary DC.
+		dcInfo, err = c.primaryDCOption()
+		if err != nil {
+			return err
+		}
+	} else {
+		// Have info about previous session.
+		dcInfo, err = c.lookupDC(c.primaryDC)
+		if err != nil {
+			return err
+		}
+
+		reuseCreds = true
 	}
 
-	ctx, cancel := context.WithCancel(ctx)
-	defer cancel()
+	if err := c.connectPrimary(ctx, dcInfo, reuseCreds); err != nil {
+		return err
+	}
 
 	c.log.Info("Started")
 	defer c.log.Info("Closed")
 
-	echan := make(chan error)
-	go func() { defer cancel(); echan <- f(ctx); c.log.Warn("F EXIT") }()
-	go func() { echan <- c.lf.Wait(ctx); c.log.Warn("LF EXIT") }()
-	return <-echan
+	// Close client context on exit.
+	defer c.cancel()
+
+	// Close connections on exit.
+	defer c.lf.Close()
+
+	// Close 'f' ctx on exit.
+	ctx, cancel := context.WithCancel(ctx)
+	defer cancel()
+
+	e := make(chan error)
+	go func() { e <- f(ctx) }()
+	go func() { e <- c.lf.Wait() }()
+	return <-e
 }

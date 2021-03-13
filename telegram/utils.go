@@ -4,7 +4,9 @@ import (
 	"crypto/rsa"
 	"encoding/pem"
 	"fmt"
+	"net"
 	"runtime/debug"
+	"strconv"
 	"strings"
 
 	"github.com/gotd/td/internal/crypto"
@@ -69,6 +71,26 @@ func (c *Client) lookupDC(id int) (tg.DCOption, error) {
 	return tg.DCOption{}, xerrors.Errorf("dc not found in config: %d", id)
 }
 
-func (c *Client) rpc() *tg.Client {
-	return tg.NewClient(c)
+func (c *Client) primaryCreds() (crypto.AuthKey, int64) {
+	c.dataMux.RLock()
+	defer c.dataMux.RUnlock()
+	return c.sess.Key, c.sess.Salt
+}
+
+func (c *Client) primaryDCOption() (tg.DCOption, error) {
+	addr, port, err := net.SplitHostPort(c.addr)
+	if err != nil {
+		return tg.DCOption{}, err
+	}
+
+	p, err := strconv.Atoi(port)
+	if err != nil {
+		return tg.DCOption{}, err
+	}
+
+	return tg.DCOption{
+		ID:        c.primaryDC,
+		IPAddress: addr,
+		Port:      p,
+	}, nil
 }

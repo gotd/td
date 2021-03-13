@@ -9,7 +9,6 @@ import (
 	"github.com/gotd/td/internal/lifetime"
 	"github.com/gotd/td/internal/mtproto"
 	"go.uber.org/zap"
-	"golang.org/x/sync/errgroup"
 )
 
 // Conn is an abstraction over mtproto.Conn
@@ -60,10 +59,10 @@ func (c *Conn) Run(ctx context.Context, f func(context.Context) error) error {
 	ctx, cancel := context.WithCancel(ctx)
 	defer cancel()
 
-	var g errgroup.Group
-	g.Go(func() error { return c.loop(ctx, life, 5) })
-	g.Go(func() error { defer cancel(); return f(ctx) })
-	return g.Wait()
+	e := make(chan error)
+	go func() { e <- f(ctx) }()
+	go func() { e <- c.loop(ctx, life, 5) }()
+	return <-e
 }
 
 func (c *Conn) InvokeRaw(ctx context.Context, in bin.Encoder, out bin.Decoder) error {
@@ -77,10 +76,12 @@ func (c *Conn) InvokeRaw(ctx context.Context, in bin.Encoder, out bin.Decoder) e
 
 func (c *Conn) loop(ctx context.Context, life *lifetime.Life, maxAttempts int) error {
 waitUntilDisconnect:
-	echan := make(chan error)
-	go func() { echan <- life.Wait() }()
+
+	e := make(chan error)
+	go func() { e <- life.Wait() }()
+
 	select {
-	case err := <-echan:
+	case err := <-e:
 		if err == nil {
 			c.log.Info("Disconnected")
 			return nil

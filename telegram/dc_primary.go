@@ -2,50 +2,38 @@ package telegram
 
 import (
 	"context"
-	"fmt"
-	"sync"
-	"time"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mtproto"
-	"github.com/gotd/td/internal/mtproto/reliable"
 	"github.com/gotd/td/tg"
+	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 )
 
-func (c *Client) dialPrimaryFirst(ctx context.Context) error {
+func (c *Client) connectPrimary(ctx context.Context, dc tg.DCOption, reuseCreds bool) error {
 	c.pmux.Lock()
 	defer c.pmux.Unlock()
 
-	// TODO(ccln): wait session?
-	opts := c.opts
-	opts.MessageHandler = c.onPrimaryMessage
-
-	var once sync.Once
-	gotSession := make(chan struct{})
-	opts.SessionHandler = func(session mtproto.Session) error {
-		once.Do(func() { close(gotSession) })
-		return c.onPrimarySession(session)
+	switch {
+	case dc.TCPObfuscatedOnly:
+		return xerrors.Errorf("can't use tcpo DC as primary (%d)", dc.ID)
+	case dc.TCPObfuscatedOnly:
+		return xerrors.Errorf("can't use media-only DC as primary (%d)", dc.ID)
+	case dc.CDN:
+		return xerrors.Errorf("cdn could not be a primary DC (%d)", dc.ID)
 	}
 
-	conn := reliable.New(reliable.Config{
-		Addr:   fmt.Sprintf("%d|%s", c.primaryDC, c.initialAddr),
-		MTOpts: opts,
-		OnConnected: func(conn reliable.MTConn) error {
-			_, err := c.initConn(ctx, conn, false)
-			return err
-		},
-	})
+	dcBuilder := c.dc(dc).
+		WithMessageHandler(c.onPrimaryMessage).
+		WithSessionHandler(c.onPrimarySession)
 
-	if err := c.lf.Start(conn); err != nil {
+	if reuseCreds {
+		dcBuilder = dcBuilder.WithCreds(c.primaryCreds())
+	}
+
+	conn, err := dcBuilder.Connect(ctx)
+	if err != nil {
 		return err
-	}
-
-	select {
-	case <-gotSession:
-		break
-	case <-time.After(time.Second * 10):
-		return xerrors.Errorf("session timeout")
 	}
 
 	cfg, err := tg.NewClient(conn).HelpGetConfig(ctx)
@@ -53,35 +41,25 @@ func (c *Client) dialPrimaryFirst(ctx context.Context) error {
 		return err
 	}
 
+	if c.primary != nil {
+		// Cleanup previous connection.
+		if err := c.lf.Stop(c.primary); err != nil {
+			c.log.Warn("Failed to cleanup connection", zap.Error(err))
+			return err
+		}
+	}
+
+	// TODO(ccln): Recheck cfg ID.
+	c.primaryDC = dc.ID
 	c.primary = conn
-	c.cfg = *cfg
-	return nil
-}
 
-func (c *Client) dialPrimary(ctx context.Context) error {
-	dcInfo, err := c.lookupDC(c.primaryDC)
-	if err != nil {
-		return err
-	}
-
-	if _, err := c.dc(dcInfo).WithCreds(c.sess.Key, c.sess.Salt).AsPrimary().Connect(ctx); err != nil {
-		return err
-	}
-
-	return nil
+	return c.onPrimaryConfig(*cfg)
 }
 
 func (c *Client) onPrimarySession(session mtproto.Session) error {
 	c.dataMux.Lock()
 	defer c.dataMux.Unlock()
 	c.sess = session
-	return c.storageSave()
-}
-
-func (c *Client) onPrimaryConfig(cfg tg.Config) error {
-	c.dataMux.Lock()
-	defer c.dataMux.Unlock()
-	c.cfg = cfg
 	return c.storageSave()
 }
 
@@ -92,4 +70,11 @@ func (c *Client) onPrimaryMessage(b *bin.Buffer) error {
 	}
 
 	return c.processUpdates(updates)
+}
+
+func (c *Client) onPrimaryConfig(cfg tg.Config) error {
+	c.dataMux.Lock()
+	defer c.dataMux.Unlock()
+	c.cfg = cfg
+	return c.storageSave()
 }
