@@ -43,8 +43,10 @@ func (m *Manager) Start(r Runner) error {
 	life, err := Start(r)
 	if err != nil {
 		err = xerrors.Errorf("start runner: %w", err)
-		// Shutdown all other runners.
+
+		// TODO(ccln): Find a better way.
 		m.g.Go(func() error { return err })
+		m.Close()
 		return err
 	}
 

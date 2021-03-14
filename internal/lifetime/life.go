@@ -14,10 +14,12 @@ var errRunnerStopped = xerrors.Errorf("runner was stopped")
 // Life represents a runner life.
 type Life struct {
 	waiters []func(e error)
-	stop    func()
 	err     error
 	stopped bool
 	mux     sync.Mutex
+
+	stop func()
+	once sync.Once
 }
 
 func (l *Life) waiter() func() error {
@@ -47,10 +49,27 @@ func (l *Life) Stop() error {
 		return l.err
 	}
 
-	l.stop()
+	l.once.Do(l.stop)
 	wait := l.waiter()
 	l.mux.Unlock()
 	return wait()
+}
+
+func (l *Life) shutdown(err error) {
+	l.mux.Lock()
+	defer l.mux.Unlock()
+
+	if l.stopped {
+		panic("unreachable")
+	}
+
+	for _, cb := range l.waiters {
+		cb(err)
+	}
+
+	l.err = err
+	l.stopped = true
+	l.waiters = nil
 }
 
 // Start starts the runner.
@@ -59,11 +78,10 @@ func Start(r Runner) (*Life, error) {
 		runResult = make(chan error)
 		started   = make(chan struct{})
 		stopper   = make(chan struct{})
-		once      sync.Once
 	)
 
 	go func() {
-		err := r.Run(context.Background(), func(ctx context.Context) error {
+		runResult <- r.Run(context.Background(), func(ctx context.Context) error {
 			close(started)
 			select {
 			case <-ctx.Done():
@@ -72,14 +90,13 @@ func Start(r Runner) (*Life, error) {
 				return errRunnerStopped
 			}
 		})
-		runResult <- err
 		close(runResult)
 	}()
 
 	select {
 	case <-started:
-		l := &Life{
-			stop: func() { once.Do(func() { close(stopper) }) },
+		life := &Life{
+			stop: func() { close(stopper) },
 		}
 
 		go func() {
@@ -88,17 +105,10 @@ func Start(r Runner) (*Life, error) {
 				err = nil
 			}
 
-			l.mux.Lock()
-			defer l.mux.Unlock()
-			l.err = err
-			l.stopped = true
-			for _, cb := range l.waiters {
-				cb(err)
-			}
-			l.waiters = nil
+			life.shutdown(err)
 		}()
 
-		return l, nil
+		return life, nil
 	case err := <-runResult:
 		return nil, err
 	}
