@@ -60,15 +60,17 @@ type conn interface {
 
 // Client represents a MTProto client to Telegram.
 type Client struct {
-	tg        *tg.Client
+	tg *tg.Client
+
+	// Primary connection data.
+	// Protected by pmux.
 	primary   conn
 	primaryDC int
+	sess      mtproto.Session
+	cfg       tg.Config
 	pmux      sync.RWMutex
-	migrateOp *tdsync.SinglePerformer
 
-	sess    mtproto.Session
-	cfg     tg.Config
-	dataMux sync.RWMutex
+	migrateOp *tdsync.SinglePerformer
 
 	others map[int]conn
 	omux   sync.RWMutex

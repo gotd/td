@@ -10,6 +10,7 @@ import (
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/lifetime"
 	"github.com/gotd/td/internal/mtproto"
+	"github.com/gotd/td/internal/tdsync"
 )
 
 // Conn is a reliable MTProto connection.
@@ -58,13 +59,18 @@ func (c *Conn) Run(ctx context.Context, f func(context.Context) error) error {
 		return err
 	}
 
-	ctx, cancel := context.WithCancel(ctx)
-	defer cancel()
+	g := tdsync.NewCancellableGroup(ctx)
+	defer g.Cancel()
 
-	e := make(chan error)
-	go func() { e <- f(ctx) }()
-	go func() { e <- c.loop(ctx, life, 5) }()
-	return <-e
+	g.Go(func(ctx context.Context) error {
+		return f(ctx)
+	})
+
+	g.Go(func(ctx context.Context) error {
+		return c.loop(ctx, life, 5)
+	})
+
+	return g.Wait()
 }
 
 // InvokeRaw sens input and decodes result into output.
@@ -138,10 +144,10 @@ retry:
 func (c *Conn) wrapSessionHandler(f func(mtproto.Session) error) func(mtproto.Session) error {
 	return func(s mtproto.Session) error {
 		c.mux.Lock()
-		defer c.mux.Unlock()
 		// TODO(ccln): session id?
 		c.opts.Key = s.Key
 		c.opts.Salt = s.Salt
+		c.mux.Unlock()
 		return f(s)
 	}
 }

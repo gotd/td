@@ -232,8 +232,8 @@ func testMigrate(trp Transport) func(t *testing.T) {
 
 		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 		defer cancel()
-		g, gCtx := errgroup.WithContext(ctx)
-		suite := tgtest.NewSuite(gCtx, t, log)
+		g, ctx := errgroup.WithContext(ctx)
+		suite := tgtest.NewSuite(ctx, t, log)
 
 		srv := tgtest.NewUnstartedServer("server", suite, trp.Codec)
 		migrate := tgtest.NewUnstartedServer("migrate", suite, trp.Codec)
@@ -344,7 +344,7 @@ func testMigrate(trp Transport) func(t *testing.T) {
 				SessionStorage: &session.StorageMemory{},
 			})
 
-			return client.Run(gCtx, func(ctx context.Context) error {
+			return client.Run(ctx, func(ctx context.Context) error {
 				if err := client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
 					Peer:    &tg.InputPeerUser{},
 					Message: "abc",
@@ -360,9 +360,9 @@ func testMigrate(trp Transport) func(t *testing.T) {
 			case <-gotResponse:
 				cancel()
 				return nil
-			case <-gCtx.Done():
+			case <-ctx.Done():
 				t.Error("failed to wait")
-				return gCtx.Err()
+				return ctx.Err()
 			}
 		})
 

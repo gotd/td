@@ -72,13 +72,6 @@ func (c *Client) lookupDC(id int) (tg.DCOption, error) {
 	return tg.DCOption{}, xerrors.Errorf("dc not found in config: %d", id)
 }
 
-func (c *Client) primaryCreds() (key crypto.AuthKey, salt int64) {
-	c.dataMux.RLock()
-	defer c.dataMux.RUnlock()
-	key, salt = c.sess.Key, c.sess.Salt
-	return
-}
-
 func (c *Client) primaryDCOption() (tg.DCOption, error) {
 	addr, port, err := net.SplitHostPort(c.addr)
 	if err != nil {

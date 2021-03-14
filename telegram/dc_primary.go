@@ -29,7 +29,7 @@ func (c *Client) connectPrimary(ctx context.Context, dc tg.DCOption, reuseCreds 
 		WithSessionHandler(c.onPrimarySession)
 
 	if reuseCreds {
-		dcBuilder = dcBuilder.WithCreds(c.primaryCreds())
+		dcBuilder = dcBuilder.WithCreds(c.sess.Key, c.sess.Salt)
 	}
 
 	conn, err := dcBuilder.Connect(ctx)
@@ -50,15 +50,16 @@ func (c *Client) connectPrimary(ctx context.Context, dc tg.DCOption, reuseCreds 
 		}
 	}
 
-	c.primaryDC = cfg.ThisDC
 	c.primary = conn
+	c.primaryDC = cfg.ThisDC
+	c.cfg = *cfg
 
-	return c.onPrimaryConfig(*cfg)
+	return c.storageSave()
 }
 
 func (c *Client) onPrimarySession(session mtproto.Session) error {
-	c.dataMux.Lock()
-	defer c.dataMux.Unlock()
+	c.pmux.Lock()
+	defer c.pmux.Unlock()
 	c.sess = session
 	return c.storageSave()
 }
@@ -73,8 +74,8 @@ func (c *Client) onPrimaryMessage(b *bin.Buffer) error {
 }
 
 func (c *Client) onPrimaryConfig(cfg tg.Config) error {
-	c.dataMux.Lock()
-	defer c.dataMux.Unlock()
+	c.pmux.Lock()
+	defer c.pmux.Unlock()
 	c.cfg = cfg
 	return c.storageSave()
 }

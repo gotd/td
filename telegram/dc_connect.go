@@ -21,23 +21,27 @@ type dcBuilder struct {
 	transfer bool // Export authorization from primary DC.
 
 	// For primary connection.
-	onMessage func(b *bin.Buffer) error
-	onSession func(sess mtproto.Session) error
-	authKey   crypto.AuthKey
-	salt      int64
+	withUpdates bool
+	onMessage   func(b *bin.Buffer) error
+	onSession   func(sess mtproto.Session) error
+	authKey     crypto.AuthKey
+	salt        int64
 
 	c *Client
 }
 
 func (c *Client) dc(dc tg.DCOption) *dcBuilder {
 	return &dcBuilder{
-		dc: dc,
-		c:  c,
+		dc:        dc,
+		c:         c,
+		onMessage: func(*bin.Buffer) error { return nil },
+		onSession: func(mtproto.Session) error { return nil },
 	}
 }
 
 func (b *dcBuilder) WithMessageHandler(h func(b *bin.Buffer) error) *dcBuilder {
 	b.onMessage = h
+	b.withUpdates = true
 	return b
 }
 
@@ -59,11 +63,10 @@ func (b *dcBuilder) WithCreds(key crypto.AuthKey, salt int64) *dcBuilder {
 
 func (b *dcBuilder) Connect(ctx context.Context) (conn, error) {
 	var (
-		c         = b.c
-		dc        = b.dc
-		noUpdates = b.onMessage == nil
-		opts      = c.opts
-		log       = c.log.With(zap.Int("dc_id", dc.ID), zap.Bool("with_updates", !noUpdates))
+		c    = b.c
+		dc   = b.dc
+		opts = c.opts
+		log  = c.log.With(zap.Int("dc_id", dc.ID), zap.Bool("with_updates", b.withUpdates))
 
 		gotSession = make(chan struct{}) // Session transfer check.
 		once       sync.Once             // Session transfer check.
@@ -109,7 +112,7 @@ func (b *dcBuilder) Connect(ctx context.Context) (conn, error) {
 		Addr:   fmt.Sprintf("%d|%s:%d", dc.ID, dc.IPAddress, dc.Port),
 		MTOpts: opts,
 		OnConnected: func(conn reliable.MTConn) error {
-			_, err := c.initConn(c.ctx, conn, noUpdates)
+			_, err := c.initConn(c.ctx, conn, !b.withUpdates)
 			return err
 		},
 	})
