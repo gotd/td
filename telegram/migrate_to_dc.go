@@ -109,6 +109,5 @@ func (c *Client) migrateToDc(ctx context.Context, dcID int, transfer bool) error
 	}
 
 	c.session.Migrate(dcID, addr)
-	c.primaryDC.Store(int64(dcID))
 	return c.ensureRestart(ctx, export)
 }

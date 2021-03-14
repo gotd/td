@@ -84,6 +84,14 @@ func (s *Server) handle(session Session, msgID int64, in *bin.Buffer) error {
 		}
 
 		return s.SendPong(session, msgID, pingReq.PingID)
+
+	case mt.GetFutureSaltsRequestTypeID:
+		saltsRequest := mt.GetFutureSaltsRequest{}
+		if err := saltsRequest.Decode(in); err != nil {
+			return err
+		}
+
+		return s.SendEternalSalt(session, msgID)
 	}
 
 	if err := s.handler.OnMessage(session, msgID, in); err != nil {

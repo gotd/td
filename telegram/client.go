@@ -74,12 +74,11 @@ type Client struct {
 	opts mtproto.Options // immutable
 
 	// Connection state. Guarded by connMux.
-	session   *pool.SyncSession
-	cfg       *atomicConfig
-	conn      clientConn
-	connMux   sync.Mutex
-	primaryDC atomic.Int64
-	create    connConstructor
+	session *pool.SyncSession
+	cfg     *atomicConfig
+	conn    clientConn
+	connMux sync.Mutex
+	create  connConstructor
 
 	// Restart signal channel.
 	restart chan struct{} // immutable
@@ -161,10 +160,9 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 			Addr: opt.Addr,
 			DC:   opt.DC,
 		}),
-		primaryDC: *atomic.NewInt64(int64(opt.DC)),
-		create:    defaultConstructor(),
-		clock:     opt.Clock,
-		device:    opt.Device,
+		create: defaultConstructor(),
+		clock:  opt.Clock,
+		device: opt.Device,
 	}
 	client.init()
 
@@ -252,7 +250,6 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 		AuthKey: key,
 		Salt:    data.Salt,
 	})
-	c.primaryDC.Store(int64(data.DC))
 	c.conn = c.createConn(0, manager.ConnModeUpdates, nil)
 	c.connMux.Unlock()
 
@@ -440,8 +437,9 @@ func (c *Client) onSession(addr string, cfg tg.Config, s mtproto.Session) error 
 	})
 	c.sessionsMux.Unlock()
 
+	dc := c.session.Load().DC
 	// Do not save session for non-primary DC.
-	if cfg.ThisDC != 0 && c.primaryDC.Load() != int64(cfg.ThisDC) {
+	if cfg.ThisDC != 0 && dc != 0 && dc != cfg.ThisDC {
 		return nil
 	}
 
