@@ -26,7 +26,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// PhoneGroupCall represents TL type `phone.groupCall#66ab0bfc`.
+// PhoneGroupCall represents TL type `phone.groupCall#9e727aad`.
 //
 // See https://core.telegram.org/constructor/phone.groupCall for reference.
 type PhoneGroupCall struct {
@@ -36,12 +36,14 @@ type PhoneGroupCall struct {
 	Participants []GroupCallParticipant
 	// ParticipantsNextOffset field of PhoneGroupCall.
 	ParticipantsNextOffset string
+	// Chats field of PhoneGroupCall.
+	Chats []ChatClass
 	// Users field of PhoneGroupCall.
 	Users []UserClass
 }
 
 // PhoneGroupCallTypeID is TL type id of PhoneGroupCall.
-const PhoneGroupCallTypeID = 0x66ab0bfc
+const PhoneGroupCallTypeID = 0x9e727aad
 
 func (g *PhoneGroupCall) Zero() bool {
 	if g == nil {
@@ -54,6 +56,9 @@ func (g *PhoneGroupCall) Zero() bool {
 		return false
 	}
 	if !(g.ParticipantsNextOffset == "") {
+		return false
+	}
+	if !(g.Chats == nil) {
 		return false
 	}
 	if !(g.Users == nil) {
@@ -77,11 +82,13 @@ func (g *PhoneGroupCall) FillFrom(from interface {
 	GetCall() (value GroupCallClass)
 	GetParticipants() (value []GroupCallParticipant)
 	GetParticipantsNextOffset() (value string)
+	GetChats() (value []ChatClass)
 	GetUsers() (value []UserClass)
 }) {
 	g.Call = from.GetCall()
 	g.Participants = from.GetParticipants()
 	g.ParticipantsNextOffset = from.GetParticipantsNextOffset()
+	g.Chats = from.GetChats()
 	g.Users = from.GetUsers()
 }
 
@@ -121,6 +128,10 @@ func (g *PhoneGroupCall) TypeInfo() tdp.Type {
 			SchemaName: "participants_next_offset",
 		},
 		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
 			Name:       "Users",
 			SchemaName: "users",
 		},
@@ -131,29 +142,38 @@ func (g *PhoneGroupCall) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *PhoneGroupCall) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode phone.groupCall#66ab0bfc as nil")
+		return fmt.Errorf("can't encode phone.groupCall#9e727aad as nil")
 	}
 	b.PutID(PhoneGroupCallTypeID)
 	if g.Call == nil {
-		return fmt.Errorf("unable to encode phone.groupCall#66ab0bfc: field call is nil")
+		return fmt.Errorf("unable to encode phone.groupCall#9e727aad: field call is nil")
 	}
 	if err := g.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.groupCall#66ab0bfc: field call: %w", err)
+		return fmt.Errorf("unable to encode phone.groupCall#9e727aad: field call: %w", err)
 	}
 	b.PutVectorHeader(len(g.Participants))
 	for idx, v := range g.Participants {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode phone.groupCall#66ab0bfc: field participants element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode phone.groupCall#9e727aad: field participants element with index %d: %w", idx, err)
 		}
 	}
 	b.PutString(g.ParticipantsNextOffset)
+	b.PutVectorHeader(len(g.Chats))
+	for idx, v := range g.Chats {
+		if v == nil {
+			return fmt.Errorf("unable to encode phone.groupCall#9e727aad: field chats element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode phone.groupCall#9e727aad: field chats element with index %d: %w", idx, err)
+		}
+	}
 	b.PutVectorHeader(len(g.Users))
 	for idx, v := range g.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode phone.groupCall#66ab0bfc: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode phone.groupCall#9e727aad: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode phone.groupCall#66ab0bfc: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode phone.groupCall#9e727aad: field users element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -174,6 +194,16 @@ func (g *PhoneGroupCall) GetParticipantsNextOffset() (value string) {
 	return g.ParticipantsNextOffset
 }
 
+// GetChats returns value of Chats field.
+func (g *PhoneGroupCall) GetChats() (value []ChatClass) {
+	return g.Chats
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (g *PhoneGroupCall) MapChats() (value ChatClassArray) {
+	return ChatClassArray(g.Chats)
+}
+
 // GetUsers returns value of Users field.
 func (g *PhoneGroupCall) GetUsers() (value []UserClass) {
 	return g.Users
@@ -187,27 +217,27 @@ func (g *PhoneGroupCall) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (g *PhoneGroupCall) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode phone.groupCall#66ab0bfc to nil")
+		return fmt.Errorf("can't decode phone.groupCall#9e727aad to nil")
 	}
 	if err := b.ConsumeID(PhoneGroupCallTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.groupCall#66ab0bfc: %w", err)
+		return fmt.Errorf("unable to decode phone.groupCall#9e727aad: %w", err)
 	}
 	{
 		value, err := DecodeGroupCall(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.groupCall#66ab0bfc: field call: %w", err)
+			return fmt.Errorf("unable to decode phone.groupCall#9e727aad: field call: %w", err)
 		}
 		g.Call = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.groupCall#66ab0bfc: field participants: %w", err)
+			return fmt.Errorf("unable to decode phone.groupCall#9e727aad: field participants: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value GroupCallParticipant
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode phone.groupCall#66ab0bfc: field participants: %w", err)
+				return fmt.Errorf("unable to decode phone.groupCall#9e727aad: field participants: %w", err)
 			}
 			g.Participants = append(g.Participants, value)
 		}
@@ -215,19 +245,32 @@ func (g *PhoneGroupCall) Decode(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.groupCall#66ab0bfc: field participants_next_offset: %w", err)
+			return fmt.Errorf("unable to decode phone.groupCall#9e727aad: field participants_next_offset: %w", err)
 		}
 		g.ParticipantsNextOffset = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.groupCall#66ab0bfc: field users: %w", err)
+			return fmt.Errorf("unable to decode phone.groupCall#9e727aad: field chats: %w", err)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeChat(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode phone.groupCall#9e727aad: field chats: %w", err)
+			}
+			g.Chats = append(g.Chats, value)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode phone.groupCall#9e727aad: field users: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode phone.groupCall#66ab0bfc: field users: %w", err)
+				return fmt.Errorf("unable to decode phone.groupCall#9e727aad: field users: %w", err)
 			}
 			g.Users = append(g.Users, value)
 		}

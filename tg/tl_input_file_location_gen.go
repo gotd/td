@@ -1609,6 +1609,167 @@ var (
 	_ InputFileLocationClass = &InputStickerSetThumb{}
 )
 
+// InputGroupCallStream represents TL type `inputGroupCallStream#bba51639`.
+//
+// See https://core.telegram.org/constructor/inputGroupCallStream for reference.
+type InputGroupCallStream struct {
+	// Call field of InputGroupCallStream.
+	Call InputGroupCall
+	// TimeMs field of InputGroupCallStream.
+	TimeMs int64
+	// Scale field of InputGroupCallStream.
+	Scale int
+}
+
+// InputGroupCallStreamTypeID is TL type id of InputGroupCallStream.
+const InputGroupCallStreamTypeID = 0xbba51639
+
+func (i *InputGroupCallStream) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Call.Zero()) {
+		return false
+	}
+	if !(i.TimeMs == 0) {
+		return false
+	}
+	if !(i.Scale == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputGroupCallStream) String() string {
+	if i == nil {
+		return "InputGroupCallStream(nil)"
+	}
+	type Alias InputGroupCallStream
+	return fmt.Sprintf("InputGroupCallStream%+v", Alias(*i))
+}
+
+// FillFrom fills InputGroupCallStream from given interface.
+func (i *InputGroupCallStream) FillFrom(from interface {
+	GetCall() (value InputGroupCall)
+	GetTimeMs() (value int64)
+	GetScale() (value int)
+}) {
+	i.Call = from.GetCall()
+	i.TimeMs = from.GetTimeMs()
+	i.Scale = from.GetScale()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputGroupCallStream) TypeID() uint32 {
+	return InputGroupCallStreamTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputGroupCallStream) TypeName() string {
+	return "inputGroupCallStream"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputGroupCallStream) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputGroupCallStream",
+		ID:   InputGroupCallStreamTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Call",
+			SchemaName: "call",
+		},
+		{
+			Name:       "TimeMs",
+			SchemaName: "time_ms",
+		},
+		{
+			Name:       "Scale",
+			SchemaName: "scale",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputGroupCallStream) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputGroupCallStream#bba51639 as nil")
+	}
+	b.PutID(InputGroupCallStreamTypeID)
+	if err := i.Call.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputGroupCallStream#bba51639: field call: %w", err)
+	}
+	b.PutLong(i.TimeMs)
+	b.PutInt(i.Scale)
+	return nil
+}
+
+// GetCall returns value of Call field.
+func (i *InputGroupCallStream) GetCall() (value InputGroupCall) {
+	return i.Call
+}
+
+// GetTimeMs returns value of TimeMs field.
+func (i *InputGroupCallStream) GetTimeMs() (value int64) {
+	return i.TimeMs
+}
+
+// GetScale returns value of Scale field.
+func (i *InputGroupCallStream) GetScale() (value int) {
+	return i.Scale
+}
+
+// Decode implements bin.Decoder.
+func (i *InputGroupCallStream) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputGroupCallStream#bba51639 to nil")
+	}
+	if err := b.ConsumeID(InputGroupCallStreamTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputGroupCallStream#bba51639: %w", err)
+	}
+	{
+		if err := i.Call.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputGroupCallStream#bba51639: field call: %w", err)
+		}
+	}
+	{
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputGroupCallStream#bba51639: field time_ms: %w", err)
+		}
+		i.TimeMs = value
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputGroupCallStream#bba51639: field scale: %w", err)
+		}
+		i.Scale = value
+	}
+	return nil
+}
+
+// construct implements constructor of InputFileLocationClass.
+func (i InputGroupCallStream) construct() InputFileLocationClass { return &i }
+
+// Ensuring interfaces in compile-time for InputGroupCallStream.
+var (
+	_ bin.Encoder = &InputGroupCallStream{}
+	_ bin.Decoder = &InputGroupCallStream{}
+
+	_ InputFileLocationClass = &InputGroupCallStream{}
+)
+
 // InputFileLocationClass represents InputFileLocation generic type.
 //
 // See https://core.telegram.org/type/InputFileLocation for reference.
@@ -1628,6 +1789,7 @@ var (
 //  case *tg.InputPhotoLegacyFileLocation: // inputPhotoLegacyFileLocation#d83466f3
 //  case *tg.InputPeerPhotoFileLocation: // inputPeerPhotoFileLocation#27d69997
 //  case *tg.InputStickerSetThumb: // inputStickerSetThumb#dbaeae9
+//  case *tg.InputGroupCallStream: // inputGroupCallStream#bba51639
 //  default: panic(v)
 //  }
 type InputFileLocationClass interface {
@@ -1713,6 +1875,13 @@ func DecodeInputFileLocation(buf *bin.Buffer) (InputFileLocationClass, error) {
 	case InputStickerSetThumbTypeID:
 		// Decoding inputStickerSetThumb#dbaeae9.
 		v := InputStickerSetThumb{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputFileLocationClass: %w", err)
+		}
+		return &v, nil
+	case InputGroupCallStreamTypeID:
+		// Decoding inputGroupCallStream#bba51639.
+		v := InputGroupCallStream{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputFileLocationClass: %w", err)
 		}
@@ -1925,6 +2094,19 @@ func (s InputFileLocationClassArray) AsInputPeerPhotoFileLocation() (to InputPee
 func (s InputFileLocationClassArray) AsInputStickerSetThumb() (to InputStickerSetThumbArray) {
 	for _, elem := range s {
 		value, ok := elem.(*InputStickerSetThumb)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputGroupCallStream returns copy with only InputGroupCallStream constructors.
+func (s InputFileLocationClassArray) AsInputGroupCallStream() (to InputGroupCallStreamArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputGroupCallStream)
 		if !ok {
 			continue
 		}
@@ -2578,6 +2760,88 @@ func (s *InputStickerSetThumbArray) PopFirst() (v InputStickerSetThumb, ok bool)
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *InputStickerSetThumbArray) Pop() (v InputStickerSetThumb, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputGroupCallStreamArray is adapter for slice of InputGroupCallStream.
+type InputGroupCallStreamArray []InputGroupCallStream
+
+// Sort sorts slice of InputGroupCallStream.
+func (s InputGroupCallStreamArray) Sort(less func(a, b InputGroupCallStream) bool) InputGroupCallStreamArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputGroupCallStream.
+func (s InputGroupCallStreamArray) SortStable(less func(a, b InputGroupCallStream) bool) InputGroupCallStreamArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputGroupCallStream.
+func (s InputGroupCallStreamArray) Retain(keep func(x InputGroupCallStream) bool) InputGroupCallStreamArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputGroupCallStreamArray) First() (v InputGroupCallStream, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputGroupCallStreamArray) Last() (v InputGroupCallStream, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputGroupCallStreamArray) PopFirst() (v InputGroupCallStream, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputGroupCallStream
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputGroupCallStreamArray) Pop() (v InputGroupCallStream, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}
