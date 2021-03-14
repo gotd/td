@@ -22,13 +22,16 @@ func (c *Client) InvokeRaw(ctx context.Context, in bin.Encoder, out bin.Decoder)
 	if err := primary.InvokeRaw(ctx, in, out); err != nil {
 		// Handling datacenter migration request.
 		if rpcErr, ok := tgerr.As(err); ok && rpcErr.IsCode(303) {
+			targetDC := rpcErr.Argument
+			log := c.log.With(
+				zap.String("error_type", rpcErr.Type),
+				zap.Int("target_dc", targetDC),
+			)
 			// If migration error is FILE_MIGRATE or STATS_MIGRATE, then the method
 			// called by authorized client, so we should try to transfer auth to new DC
 			// and create new connection.
 			if rpcErr.IsOneOf("FILE_MIGRATE", "STATS_MIGRATE") {
-				c.log.Info("Got migrate error: Creating sub-connection",
-					zap.String("error", rpcErr.Type), zap.Int("dc", rpcErr.Argument),
-				)
+				log.Debug("Invoking on target DC", zap.Int("dc_id", rpcErr.Argument))
 				return c.invokeDC(ctx, rpcErr.Argument, in, out)
 			}
 
@@ -75,6 +78,7 @@ func (c *Client) invokeDC(ctx context.Context, dcID int, in bin.Encoder, out bin
 			return err
 		}
 
+		c.log.Info("Creating sub-connection", zap.Any("dc_info", dcInfo))
 		conn, err = c.dc(dcInfo).WithAuthTransfer().Connect(ctx)
 		if err != nil {
 			c.omux.Unlock()

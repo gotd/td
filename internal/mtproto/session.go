@@ -11,6 +11,8 @@ type Session struct {
 
 // Session returns current connection session info.
 func (c *Conn) session() Session {
+	c.updateSalt()
+
 	c.sessionMux.RLock()
 	defer c.sessionMux.RUnlock()
 	return Session{

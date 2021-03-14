@@ -21,6 +21,8 @@ func (c *Conn) handleMessage(b *bin.Buffer) error {
 		return c.handleSessionCreated(b)
 	case mt.BadMsgNotificationTypeID, mt.BadServerSaltTypeID:
 		return c.handleBadMsg(b)
+	case proto.FutureSaltsTypeID:
+		return c.handleFutureSalts(b)
 	case proto.MessageContainerTypeID:
 		return c.handleContainer(b)
 	case proto.ResultTypeID:

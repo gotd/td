@@ -26,7 +26,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// MessagesRequestURLAuthRequest represents TL type `messages.requestUrlAuth#e33f5613`.
+// MessagesRequestURLAuthRequest represents TL type `messages.requestUrlAuth#198fb446`.
 // Get more info about a Seamless Telegram Login authorization request, for more info click here »¹
 //
 // Links:
@@ -34,20 +34,35 @@ var (
 //
 // See https://core.telegram.org/method/messages.requestUrlAuth for reference.
 type MessagesRequestURLAuthRequest struct {
+	// Flags field of MessagesRequestURLAuthRequest.
+	Flags bin.Fields
 	// Peer where the message is located
+	//
+	// Use SetPeer and GetPeer helpers.
 	Peer InputPeerClass
 	// The message
+	//
+	// Use SetMsgID and GetMsgID helpers.
 	MsgID int
 	// The ID of the button with the authorization request
+	//
+	// Use SetButtonID and GetButtonID helpers.
 	ButtonID int
+	// URL field of MessagesRequestURLAuthRequest.
+	//
+	// Use SetURL and GetURL helpers.
+	URL string
 }
 
 // MessagesRequestURLAuthRequestTypeID is TL type id of MessagesRequestURLAuthRequest.
-const MessagesRequestURLAuthRequestTypeID = 0xe33f5613
+const MessagesRequestURLAuthRequestTypeID = 0x198fb446
 
 func (r *MessagesRequestURLAuthRequest) Zero() bool {
 	if r == nil {
 		return true
+	}
+	if !(r.Flags.Zero()) {
+		return false
 	}
 	if !(r.Peer == nil) {
 		return false
@@ -56,6 +71,9 @@ func (r *MessagesRequestURLAuthRequest) Zero() bool {
 		return false
 	}
 	if !(r.ButtonID == 0) {
+		return false
+	}
+	if !(r.URL == "") {
 		return false
 	}
 
@@ -73,13 +91,27 @@ func (r *MessagesRequestURLAuthRequest) String() string {
 
 // FillFrom fills MessagesRequestURLAuthRequest from given interface.
 func (r *MessagesRequestURLAuthRequest) FillFrom(from interface {
-	GetPeer() (value InputPeerClass)
-	GetMsgID() (value int)
-	GetButtonID() (value int)
+	GetPeer() (value InputPeerClass, ok bool)
+	GetMsgID() (value int, ok bool)
+	GetButtonID() (value int, ok bool)
+	GetURL() (value string, ok bool)
 }) {
-	r.Peer = from.GetPeer()
-	r.MsgID = from.GetMsgID()
-	r.ButtonID = from.GetButtonID()
+	if val, ok := from.GetPeer(); ok {
+		r.Peer = val
+	}
+
+	if val, ok := from.GetMsgID(); ok {
+		r.MsgID = val
+	}
+
+	if val, ok := from.GetButtonID(); ok {
+		r.ButtonID = val
+	}
+
+	if val, ok := from.GetURL(); ok {
+		r.URL = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -108,14 +140,22 @@ func (r *MessagesRequestURLAuthRequest) TypeInfo() tdp.Type {
 		{
 			Name:       "Peer",
 			SchemaName: "peer",
+			Null:       !r.Flags.Has(1),
 		},
 		{
 			Name:       "MsgID",
 			SchemaName: "msg_id",
+			Null:       !r.Flags.Has(1),
 		},
 		{
 			Name:       "ButtonID",
 			SchemaName: "button_id",
+			Null:       !r.Flags.Has(1),
+		},
+		{
+			Name:       "URL",
+			SchemaName: "url",
+			Null:       !r.Flags.Has(2),
 		},
 	}
 	return typ
@@ -124,63 +164,144 @@ func (r *MessagesRequestURLAuthRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (r *MessagesRequestURLAuthRequest) Encode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't encode messages.requestUrlAuth#e33f5613 as nil")
+		return fmt.Errorf("can't encode messages.requestUrlAuth#198fb446 as nil")
 	}
 	b.PutID(MessagesRequestURLAuthRequestTypeID)
-	if r.Peer == nil {
-		return fmt.Errorf("unable to encode messages.requestUrlAuth#e33f5613: field peer is nil")
+	if !(r.Peer == nil) {
+		r.Flags.Set(1)
 	}
-	if err := r.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode messages.requestUrlAuth#e33f5613: field peer: %w", err)
+	if !(r.MsgID == 0) {
+		r.Flags.Set(1)
 	}
-	b.PutInt(r.MsgID)
-	b.PutInt(r.ButtonID)
+	if !(r.ButtonID == 0) {
+		r.Flags.Set(1)
+	}
+	if !(r.URL == "") {
+		r.Flags.Set(2)
+	}
+	if err := r.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messages.requestUrlAuth#198fb446: field flags: %w", err)
+	}
+	if r.Flags.Has(1) {
+		if r.Peer == nil {
+			return fmt.Errorf("unable to encode messages.requestUrlAuth#198fb446: field peer is nil")
+		}
+		if err := r.Peer.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode messages.requestUrlAuth#198fb446: field peer: %w", err)
+		}
+	}
+	if r.Flags.Has(1) {
+		b.PutInt(r.MsgID)
+	}
+	if r.Flags.Has(1) {
+		b.PutInt(r.ButtonID)
+	}
+	if r.Flags.Has(2) {
+		b.PutString(r.URL)
+	}
 	return nil
 }
 
-// GetPeer returns value of Peer field.
-func (r *MessagesRequestURLAuthRequest) GetPeer() (value InputPeerClass) {
-	return r.Peer
+// SetPeer sets value of Peer conditional field.
+func (r *MessagesRequestURLAuthRequest) SetPeer(value InputPeerClass) {
+	r.Flags.Set(1)
+	r.Peer = value
 }
 
-// GetMsgID returns value of MsgID field.
-func (r *MessagesRequestURLAuthRequest) GetMsgID() (value int) {
-	return r.MsgID
+// GetPeer returns value of Peer conditional field and
+// boolean which is true if field was set.
+func (r *MessagesRequestURLAuthRequest) GetPeer() (value InputPeerClass, ok bool) {
+	if !r.Flags.Has(1) {
+		return value, false
+	}
+	return r.Peer, true
 }
 
-// GetButtonID returns value of ButtonID field.
-func (r *MessagesRequestURLAuthRequest) GetButtonID() (value int) {
-	return r.ButtonID
+// SetMsgID sets value of MsgID conditional field.
+func (r *MessagesRequestURLAuthRequest) SetMsgID(value int) {
+	r.Flags.Set(1)
+	r.MsgID = value
+}
+
+// GetMsgID returns value of MsgID conditional field and
+// boolean which is true if field was set.
+func (r *MessagesRequestURLAuthRequest) GetMsgID() (value int, ok bool) {
+	if !r.Flags.Has(1) {
+		return value, false
+	}
+	return r.MsgID, true
+}
+
+// SetButtonID sets value of ButtonID conditional field.
+func (r *MessagesRequestURLAuthRequest) SetButtonID(value int) {
+	r.Flags.Set(1)
+	r.ButtonID = value
+}
+
+// GetButtonID returns value of ButtonID conditional field and
+// boolean which is true if field was set.
+func (r *MessagesRequestURLAuthRequest) GetButtonID() (value int, ok bool) {
+	if !r.Flags.Has(1) {
+		return value, false
+	}
+	return r.ButtonID, true
+}
+
+// SetURL sets value of URL conditional field.
+func (r *MessagesRequestURLAuthRequest) SetURL(value string) {
+	r.Flags.Set(2)
+	r.URL = value
+}
+
+// GetURL returns value of URL conditional field and
+// boolean which is true if field was set.
+func (r *MessagesRequestURLAuthRequest) GetURL() (value string, ok bool) {
+	if !r.Flags.Has(2) {
+		return value, false
+	}
+	return r.URL, true
 }
 
 // Decode implements bin.Decoder.
 func (r *MessagesRequestURLAuthRequest) Decode(b *bin.Buffer) error {
 	if r == nil {
-		return fmt.Errorf("can't decode messages.requestUrlAuth#e33f5613 to nil")
+		return fmt.Errorf("can't decode messages.requestUrlAuth#198fb446 to nil")
 	}
 	if err := b.ConsumeID(MessagesRequestURLAuthRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode messages.requestUrlAuth#e33f5613: %w", err)
+		return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: %w", err)
 	}
 	{
+		if err := r.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: field flags: %w", err)
+		}
+	}
+	if r.Flags.Has(1) {
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestUrlAuth#e33f5613: field peer: %w", err)
+			return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: field peer: %w", err)
 		}
 		r.Peer = value
 	}
-	{
+	if r.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestUrlAuth#e33f5613: field msg_id: %w", err)
+			return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: field msg_id: %w", err)
 		}
 		r.MsgID = value
 	}
-	{
+	if r.Flags.Has(1) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode messages.requestUrlAuth#e33f5613: field button_id: %w", err)
+			return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: field button_id: %w", err)
 		}
 		r.ButtonID = value
+	}
+	if r.Flags.Has(2) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode messages.requestUrlAuth#198fb446: field url: %w", err)
+		}
+		r.URL = value
 	}
 	return nil
 }
@@ -191,7 +312,7 @@ var (
 	_ bin.Decoder = &MessagesRequestURLAuthRequest{}
 )
 
-// MessagesRequestURLAuth invokes method messages.requestUrlAuth#e33f5613 returning error if any.
+// MessagesRequestURLAuth invokes method messages.requestUrlAuth#198fb446 returning error if any.
 // Get more info about a Seamless Telegram Login authorization request, for more info click here »¹
 //
 // Links:

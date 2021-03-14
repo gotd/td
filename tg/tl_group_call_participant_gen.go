@@ -26,7 +26,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// GroupCallParticipant represents TL type `groupCallParticipant#64c62a15`.
+// GroupCallParticipant represents TL type `groupCallParticipant#19adba89`.
 //
 // See https://core.telegram.org/constructor/groupCallParticipant for reference.
 type GroupCallParticipant struct {
@@ -48,8 +48,10 @@ type GroupCallParticipant struct {
 	MutedByYou bool
 	// VolumeByAdmin field of GroupCallParticipant.
 	VolumeByAdmin bool
-	// UserID field of GroupCallParticipant.
-	UserID int
+	// Self field of GroupCallParticipant.
+	Self bool
+	// Peer field of GroupCallParticipant.
+	Peer PeerClass
 	// Date field of GroupCallParticipant.
 	Date int
 	// ActiveDate field of GroupCallParticipant.
@@ -62,10 +64,18 @@ type GroupCallParticipant struct {
 	//
 	// Use SetVolume and GetVolume helpers.
 	Volume int
+	// About field of GroupCallParticipant.
+	//
+	// Use SetAbout and GetAbout helpers.
+	About string
+	// RaiseHandRating field of GroupCallParticipant.
+	//
+	// Use SetRaiseHandRating and GetRaiseHandRating helpers.
+	RaiseHandRating int64
 }
 
 // GroupCallParticipantTypeID is TL type id of GroupCallParticipant.
-const GroupCallParticipantTypeID = 0x64c62a15
+const GroupCallParticipantTypeID = 0x19adba89
 
 func (g *GroupCallParticipant) Zero() bool {
 	if g == nil {
@@ -98,7 +108,10 @@ func (g *GroupCallParticipant) Zero() bool {
 	if !(g.VolumeByAdmin == false) {
 		return false
 	}
-	if !(g.UserID == 0) {
+	if !(g.Self == false) {
+		return false
+	}
+	if !(g.Peer == nil) {
 		return false
 	}
 	if !(g.Date == 0) {
@@ -111,6 +124,12 @@ func (g *GroupCallParticipant) Zero() bool {
 		return false
 	}
 	if !(g.Volume == 0) {
+		return false
+	}
+	if !(g.About == "") {
+		return false
+	}
+	if !(g.RaiseHandRating == 0) {
 		return false
 	}
 
@@ -136,11 +155,14 @@ func (g *GroupCallParticipant) FillFrom(from interface {
 	GetMin() (value bool)
 	GetMutedByYou() (value bool)
 	GetVolumeByAdmin() (value bool)
-	GetUserID() (value int)
+	GetSelf() (value bool)
+	GetPeer() (value PeerClass)
 	GetDate() (value int)
 	GetActiveDate() (value int, ok bool)
 	GetSource() (value int)
 	GetVolume() (value int, ok bool)
+	GetAbout() (value string, ok bool)
+	GetRaiseHandRating() (value int64, ok bool)
 }) {
 	g.Muted = from.GetMuted()
 	g.Left = from.GetLeft()
@@ -150,7 +172,8 @@ func (g *GroupCallParticipant) FillFrom(from interface {
 	g.Min = from.GetMin()
 	g.MutedByYou = from.GetMutedByYou()
 	g.VolumeByAdmin = from.GetVolumeByAdmin()
-	g.UserID = from.GetUserID()
+	g.Self = from.GetSelf()
+	g.Peer = from.GetPeer()
 	g.Date = from.GetDate()
 	if val, ok := from.GetActiveDate(); ok {
 		g.ActiveDate = val
@@ -159,6 +182,14 @@ func (g *GroupCallParticipant) FillFrom(from interface {
 	g.Source = from.GetSource()
 	if val, ok := from.GetVolume(); ok {
 		g.Volume = val
+	}
+
+	if val, ok := from.GetAbout(); ok {
+		g.About = val
+	}
+
+	if val, ok := from.GetRaiseHandRating(); ok {
+		g.RaiseHandRating = val
 	}
 
 }
@@ -227,8 +258,13 @@ func (g *GroupCallParticipant) TypeInfo() tdp.Type {
 			Null:       !g.Flags.Has(10),
 		},
 		{
-			Name:       "UserID",
-			SchemaName: "user_id",
+			Name:       "Self",
+			SchemaName: "self",
+			Null:       !g.Flags.Has(12),
+		},
+		{
+			Name:       "Peer",
+			SchemaName: "peer",
 		},
 		{
 			Name:       "Date",
@@ -248,6 +284,16 @@ func (g *GroupCallParticipant) TypeInfo() tdp.Type {
 			SchemaName: "volume",
 			Null:       !g.Flags.Has(7),
 		},
+		{
+			Name:       "About",
+			SchemaName: "about",
+			Null:       !g.Flags.Has(11),
+		},
+		{
+			Name:       "RaiseHandRating",
+			SchemaName: "raise_hand_rating",
+			Null:       !g.Flags.Has(13),
+		},
 	}
 	return typ
 }
@@ -255,7 +301,7 @@ func (g *GroupCallParticipant) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GroupCallParticipant) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode groupCallParticipant#64c62a15 as nil")
+		return fmt.Errorf("can't encode groupCallParticipant#19adba89 as nil")
 	}
 	b.PutID(GroupCallParticipantTypeID)
 	if !(g.Muted == false) {
@@ -282,16 +328,30 @@ func (g *GroupCallParticipant) Encode(b *bin.Buffer) error {
 	if !(g.VolumeByAdmin == false) {
 		g.Flags.Set(10)
 	}
+	if !(g.Self == false) {
+		g.Flags.Set(12)
+	}
 	if !(g.ActiveDate == 0) {
 		g.Flags.Set(3)
 	}
 	if !(g.Volume == 0) {
 		g.Flags.Set(7)
 	}
-	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode groupCallParticipant#64c62a15: field flags: %w", err)
+	if !(g.About == "") {
+		g.Flags.Set(11)
 	}
-	b.PutInt(g.UserID)
+	if !(g.RaiseHandRating == 0) {
+		g.Flags.Set(13)
+	}
+	if err := g.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode groupCallParticipant#19adba89: field flags: %w", err)
+	}
+	if g.Peer == nil {
+		return fmt.Errorf("unable to encode groupCallParticipant#19adba89: field peer is nil")
+	}
+	if err := g.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode groupCallParticipant#19adba89: field peer: %w", err)
+	}
 	b.PutInt(g.Date)
 	if g.Flags.Has(3) {
 		b.PutInt(g.ActiveDate)
@@ -299,6 +359,12 @@ func (g *GroupCallParticipant) Encode(b *bin.Buffer) error {
 	b.PutInt(g.Source)
 	if g.Flags.Has(7) {
 		b.PutInt(g.Volume)
+	}
+	if g.Flags.Has(11) {
+		b.PutString(g.About)
+	}
+	if g.Flags.Has(13) {
+		b.PutLong(g.RaiseHandRating)
 	}
 	return nil
 }
@@ -431,9 +497,25 @@ func (g *GroupCallParticipant) GetVolumeByAdmin() (value bool) {
 	return g.Flags.Has(10)
 }
 
-// GetUserID returns value of UserID field.
-func (g *GroupCallParticipant) GetUserID() (value int) {
-	return g.UserID
+// SetSelf sets value of Self conditional field.
+func (g *GroupCallParticipant) SetSelf(value bool) {
+	if value {
+		g.Flags.Set(12)
+		g.Self = true
+	} else {
+		g.Flags.Unset(12)
+		g.Self = false
+	}
+}
+
+// GetSelf returns value of Self conditional field.
+func (g *GroupCallParticipant) GetSelf() (value bool) {
+	return g.Flags.Has(12)
+}
+
+// GetPeer returns value of Peer field.
+func (g *GroupCallParticipant) GetPeer() (value PeerClass) {
+	return g.Peer
 }
 
 // GetDate returns value of Date field.
@@ -476,17 +558,47 @@ func (g *GroupCallParticipant) GetVolume() (value int, ok bool) {
 	return g.Volume, true
 }
 
+// SetAbout sets value of About conditional field.
+func (g *GroupCallParticipant) SetAbout(value string) {
+	g.Flags.Set(11)
+	g.About = value
+}
+
+// GetAbout returns value of About conditional field and
+// boolean which is true if field was set.
+func (g *GroupCallParticipant) GetAbout() (value string, ok bool) {
+	if !g.Flags.Has(11) {
+		return value, false
+	}
+	return g.About, true
+}
+
+// SetRaiseHandRating sets value of RaiseHandRating conditional field.
+func (g *GroupCallParticipant) SetRaiseHandRating(value int64) {
+	g.Flags.Set(13)
+	g.RaiseHandRating = value
+}
+
+// GetRaiseHandRating returns value of RaiseHandRating conditional field and
+// boolean which is true if field was set.
+func (g *GroupCallParticipant) GetRaiseHandRating() (value int64, ok bool) {
+	if !g.Flags.Has(13) {
+		return value, false
+	}
+	return g.RaiseHandRating, true
+}
+
 // Decode implements bin.Decoder.
 func (g *GroupCallParticipant) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode groupCallParticipant#64c62a15 to nil")
+		return fmt.Errorf("can't decode groupCallParticipant#19adba89 to nil")
 	}
 	if err := b.ConsumeID(GroupCallParticipantTypeID); err != nil {
-		return fmt.Errorf("unable to decode groupCallParticipant#64c62a15: %w", err)
+		return fmt.Errorf("unable to decode groupCallParticipant#19adba89: %w", err)
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#64c62a15: field flags: %w", err)
+			return fmt.Errorf("unable to decode groupCallParticipant#19adba89: field flags: %w", err)
 		}
 	}
 	g.Muted = g.Flags.Has(0)
@@ -497,40 +609,55 @@ func (g *GroupCallParticipant) Decode(b *bin.Buffer) error {
 	g.Min = g.Flags.Has(8)
 	g.MutedByYou = g.Flags.Has(9)
 	g.VolumeByAdmin = g.Flags.Has(10)
+	g.Self = g.Flags.Has(12)
 	{
-		value, err := b.Int()
+		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#64c62a15: field user_id: %w", err)
+			return fmt.Errorf("unable to decode groupCallParticipant#19adba89: field peer: %w", err)
 		}
-		g.UserID = value
+		g.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#64c62a15: field date: %w", err)
+			return fmt.Errorf("unable to decode groupCallParticipant#19adba89: field date: %w", err)
 		}
 		g.Date = value
 	}
 	if g.Flags.Has(3) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#64c62a15: field active_date: %w", err)
+			return fmt.Errorf("unable to decode groupCallParticipant#19adba89: field active_date: %w", err)
 		}
 		g.ActiveDate = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#64c62a15: field source: %w", err)
+			return fmt.Errorf("unable to decode groupCallParticipant#19adba89: field source: %w", err)
 		}
 		g.Source = value
 	}
 	if g.Flags.Has(7) {
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCallParticipant#64c62a15: field volume: %w", err)
+			return fmt.Errorf("unable to decode groupCallParticipant#19adba89: field volume: %w", err)
 		}
 		g.Volume = value
+	}
+	if g.Flags.Has(11) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCallParticipant#19adba89: field about: %w", err)
+		}
+		g.About = value
+	}
+	if g.Flags.Has(13) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCallParticipant#19adba89: field raise_hand_rating: %w", err)
+		}
+		g.RaiseHandRating = value
 	}
 	return nil
 }

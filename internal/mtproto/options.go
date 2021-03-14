@@ -59,6 +59,10 @@ type Options struct {
 	DialTimeout time.Duration
 	// ExchangeTimeout is timeout of every key exchange request.
 	ExchangeTimeout time.Duration
+	// SaltFetchInterval is duration between get_future_salts request.
+	SaltFetchInterval time.Duration
+	// RequestTimeout is function which returns request timeout for given type ID.
+	RequestTimeout func(req uint32) time.Duration
 	// MaxRetries is max retry count until rpc request failure.
 	MaxRetries int
 	// MessageID is message id source. Share source between connection to
@@ -138,6 +142,14 @@ func (opt *Options) setDefaults() {
 	}
 	if opt.ExchangeTimeout == 0 {
 		opt.ExchangeTimeout = exchange.DefaultTimeout
+	}
+	if opt.SaltFetchInterval == 0 {
+		opt.SaltFetchInterval = 1 * time.Hour
+	}
+	if opt.RequestTimeout == nil {
+		opt.RequestTimeout = func(req uint32) time.Duration {
+			return 15 * time.Second
+		}
 	}
 	if opt.MaxRetries == 0 {
 		opt.MaxRetries = 5

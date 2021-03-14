@@ -101,7 +101,6 @@ type Client struct {
 
 // NewClient creates new unstarted client.
 func NewClient(appID int, appHash string, opt Options) *Client {
-	// Set default values, if user does not set.
 	opt.setDefaults()
 
 	clientCtx, clientCancel := context.WithCancel(context.Background())
