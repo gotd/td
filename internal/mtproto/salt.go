@@ -2,7 +2,6 @@ package mtproto
 
 import (
 	"context"
-	"sync/atomic"
 	"time"
 
 	"golang.org/x/xerrors"
@@ -10,12 +9,19 @@ import (
 	"github.com/gotd/td/internal/mt"
 )
 
+func (c *Conn) storeSalt(salt int64) {
+	c.sessionMux.Lock()
+	c.salt = salt
+	c.sessionMux.Unlock()
+}
+
 func (c *Conn) updateSalt() {
 	salt, ok := c.salts.Get(5 * time.Minute)
 	if !ok {
 		return
 	}
-	atomic.StoreInt64(&c.salt, salt)
+
+	c.storeSalt(salt)
 }
 
 const defaultSaltsNum = 64

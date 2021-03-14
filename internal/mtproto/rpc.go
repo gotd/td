@@ -3,7 +3,6 @@ package mtproto
 import (
 	"context"
 	"errors"
-	"sync/atomic"
 
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
@@ -37,7 +36,7 @@ func (c *Conn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Deco
 			// Should retry with new salt.
 			c.log.Debug("Setting server salt")
 			// Store salt from server.
-			atomic.StoreInt64(&c.salt, badMsgErr.NewSalt)
+			c.storeSalt(badMsgErr.NewSalt)
 			// Reset saved salts to fetch new.
 			c.salts.Reset()
 			c.log.Info("Retrying request after basMsgErr", zap.Int64("msg_id", req.ID))
