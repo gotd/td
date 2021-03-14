@@ -26,7 +26,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// PhoneGroupParticipants represents TL type `phone.groupParticipants#9cfeb92d`.
+// PhoneGroupParticipants represents TL type `phone.groupParticipants#f47751b6`.
 //
 // See https://core.telegram.org/constructor/phone.groupParticipants for reference.
 type PhoneGroupParticipants struct {
@@ -36,6 +36,8 @@ type PhoneGroupParticipants struct {
 	Participants []GroupCallParticipant
 	// NextOffset field of PhoneGroupParticipants.
 	NextOffset string
+	// Chats field of PhoneGroupParticipants.
+	Chats []ChatClass
 	// Users field of PhoneGroupParticipants.
 	Users []UserClass
 	// Version field of PhoneGroupParticipants.
@@ -43,7 +45,7 @@ type PhoneGroupParticipants struct {
 }
 
 // PhoneGroupParticipantsTypeID is TL type id of PhoneGroupParticipants.
-const PhoneGroupParticipantsTypeID = 0x9cfeb92d
+const PhoneGroupParticipantsTypeID = 0xf47751b6
 
 func (g *PhoneGroupParticipants) Zero() bool {
 	if g == nil {
@@ -56,6 +58,9 @@ func (g *PhoneGroupParticipants) Zero() bool {
 		return false
 	}
 	if !(g.NextOffset == "") {
+		return false
+	}
+	if !(g.Chats == nil) {
 		return false
 	}
 	if !(g.Users == nil) {
@@ -82,12 +87,14 @@ func (g *PhoneGroupParticipants) FillFrom(from interface {
 	GetCount() (value int)
 	GetParticipants() (value []GroupCallParticipant)
 	GetNextOffset() (value string)
+	GetChats() (value []ChatClass)
 	GetUsers() (value []UserClass)
 	GetVersion() (value int)
 }) {
 	g.Count = from.GetCount()
 	g.Participants = from.GetParticipants()
 	g.NextOffset = from.GetNextOffset()
+	g.Chats = from.GetChats()
 	g.Users = from.GetUsers()
 	g.Version = from.GetVersion()
 }
@@ -128,6 +135,10 @@ func (g *PhoneGroupParticipants) TypeInfo() tdp.Type {
 			SchemaName: "next_offset",
 		},
 		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
 			Name:       "Users",
 			SchemaName: "users",
 		},
@@ -142,24 +153,33 @@ func (g *PhoneGroupParticipants) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *PhoneGroupParticipants) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode phone.groupParticipants#9cfeb92d as nil")
+		return fmt.Errorf("can't encode phone.groupParticipants#f47751b6 as nil")
 	}
 	b.PutID(PhoneGroupParticipantsTypeID)
 	b.PutInt(g.Count)
 	b.PutVectorHeader(len(g.Participants))
 	for idx, v := range g.Participants {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode phone.groupParticipants#9cfeb92d: field participants element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode phone.groupParticipants#f47751b6: field participants element with index %d: %w", idx, err)
 		}
 	}
 	b.PutString(g.NextOffset)
+	b.PutVectorHeader(len(g.Chats))
+	for idx, v := range g.Chats {
+		if v == nil {
+			return fmt.Errorf("unable to encode phone.groupParticipants#f47751b6: field chats element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode phone.groupParticipants#f47751b6: field chats element with index %d: %w", idx, err)
+		}
+	}
 	b.PutVectorHeader(len(g.Users))
 	for idx, v := range g.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode phone.groupParticipants#9cfeb92d: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode phone.groupParticipants#f47751b6: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode phone.groupParticipants#9cfeb92d: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode phone.groupParticipants#f47751b6: field users element with index %d: %w", idx, err)
 		}
 	}
 	b.PutInt(g.Version)
@@ -181,6 +201,16 @@ func (g *PhoneGroupParticipants) GetNextOffset() (value string) {
 	return g.NextOffset
 }
 
+// GetChats returns value of Chats field.
+func (g *PhoneGroupParticipants) GetChats() (value []ChatClass) {
+	return g.Chats
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (g *PhoneGroupParticipants) MapChats() (value ChatClassArray) {
+	return ChatClassArray(g.Chats)
+}
+
 // GetUsers returns value of Users field.
 func (g *PhoneGroupParticipants) GetUsers() (value []UserClass) {
 	return g.Users
@@ -199,27 +229,27 @@ func (g *PhoneGroupParticipants) GetVersion() (value int) {
 // Decode implements bin.Decoder.
 func (g *PhoneGroupParticipants) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode phone.groupParticipants#9cfeb92d to nil")
+		return fmt.Errorf("can't decode phone.groupParticipants#f47751b6 to nil")
 	}
 	if err := b.ConsumeID(PhoneGroupParticipantsTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.groupParticipants#9cfeb92d: %w", err)
+		return fmt.Errorf("unable to decode phone.groupParticipants#f47751b6: %w", err)
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.groupParticipants#9cfeb92d: field count: %w", err)
+			return fmt.Errorf("unable to decode phone.groupParticipants#f47751b6: field count: %w", err)
 		}
 		g.Count = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.groupParticipants#9cfeb92d: field participants: %w", err)
+			return fmt.Errorf("unable to decode phone.groupParticipants#f47751b6: field participants: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value GroupCallParticipant
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode phone.groupParticipants#9cfeb92d: field participants: %w", err)
+				return fmt.Errorf("unable to decode phone.groupParticipants#f47751b6: field participants: %w", err)
 			}
 			g.Participants = append(g.Participants, value)
 		}
@@ -227,19 +257,32 @@ func (g *PhoneGroupParticipants) Decode(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.groupParticipants#9cfeb92d: field next_offset: %w", err)
+			return fmt.Errorf("unable to decode phone.groupParticipants#f47751b6: field next_offset: %w", err)
 		}
 		g.NextOffset = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.groupParticipants#9cfeb92d: field users: %w", err)
+			return fmt.Errorf("unable to decode phone.groupParticipants#f47751b6: field chats: %w", err)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeChat(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode phone.groupParticipants#f47751b6: field chats: %w", err)
+			}
+			g.Chats = append(g.Chats, value)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode phone.groupParticipants#f47751b6: field users: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode phone.groupParticipants#9cfeb92d: field users: %w", err)
+				return fmt.Errorf("unable to decode phone.groupParticipants#f47751b6: field users: %w", err)
 			}
 			g.Users = append(g.Users, value)
 		}
@@ -247,7 +290,7 @@ func (g *PhoneGroupParticipants) Decode(b *bin.Buffer) error {
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.groupParticipants#9cfeb92d: field version: %w", err)
+			return fmt.Errorf("unable to decode phone.groupParticipants#f47751b6: field version: %w", err)
 		}
 		g.Version = value
 	}

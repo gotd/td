@@ -187,7 +187,7 @@ var (
 	_ GroupCallClass = &GroupCallDiscarded{}
 )
 
-// GroupCall represents TL type `groupCall#55903081`.
+// GroupCall represents TL type `groupCall#c0c2052e`.
 //
 // See https://core.telegram.org/constructor/groupCall for reference.
 type GroupCall struct {
@@ -207,12 +207,24 @@ type GroupCall struct {
 	//
 	// Use SetParams and GetParams helpers.
 	Params DataJSON
+	// Title field of GroupCall.
+	//
+	// Use SetTitle and GetTitle helpers.
+	Title string
+	// StreamDCID field of GroupCall.
+	//
+	// Use SetStreamDCID and GetStreamDCID helpers.
+	StreamDCID int
+	// RecordStartDate field of GroupCall.
+	//
+	// Use SetRecordStartDate and GetRecordStartDate helpers.
+	RecordStartDate int
 	// Version field of GroupCall.
 	Version int
 }
 
 // GroupCallTypeID is TL type id of GroupCall.
-const GroupCallTypeID = 0x55903081
+const GroupCallTypeID = 0xc0c2052e
 
 func (g *GroupCall) Zero() bool {
 	if g == nil {
@@ -239,6 +251,15 @@ func (g *GroupCall) Zero() bool {
 	if !(g.Params.Zero()) {
 		return false
 	}
+	if !(g.Title == "") {
+		return false
+	}
+	if !(g.StreamDCID == 0) {
+		return false
+	}
+	if !(g.RecordStartDate == 0) {
+		return false
+	}
 	if !(g.Version == 0) {
 		return false
 	}
@@ -263,6 +284,9 @@ func (g *GroupCall) FillFrom(from interface {
 	GetAccessHash() (value int64)
 	GetParticipantsCount() (value int)
 	GetParams() (value DataJSON, ok bool)
+	GetTitle() (value string, ok bool)
+	GetStreamDCID() (value int, ok bool)
+	GetRecordStartDate() (value int, ok bool)
 	GetVersion() (value int)
 }) {
 	g.JoinMuted = from.GetJoinMuted()
@@ -272,6 +296,18 @@ func (g *GroupCall) FillFrom(from interface {
 	g.ParticipantsCount = from.GetParticipantsCount()
 	if val, ok := from.GetParams(); ok {
 		g.Params = val
+	}
+
+	if val, ok := from.GetTitle(); ok {
+		g.Title = val
+	}
+
+	if val, ok := from.GetStreamDCID(); ok {
+		g.StreamDCID = val
+	}
+
+	if val, ok := from.GetRecordStartDate(); ok {
+		g.RecordStartDate = val
 	}
 
 	g.Version = from.GetVersion()
@@ -328,6 +364,21 @@ func (g *GroupCall) TypeInfo() tdp.Type {
 			Null:       !g.Flags.Has(0),
 		},
 		{
+			Name:       "Title",
+			SchemaName: "title",
+			Null:       !g.Flags.Has(3),
+		},
+		{
+			Name:       "StreamDCID",
+			SchemaName: "stream_dc_id",
+			Null:       !g.Flags.Has(4),
+		},
+		{
+			Name:       "RecordStartDate",
+			SchemaName: "record_start_date",
+			Null:       !g.Flags.Has(5),
+		},
+		{
 			Name:       "Version",
 			SchemaName: "version",
 		},
@@ -338,7 +389,7 @@ func (g *GroupCall) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *GroupCall) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode groupCall#55903081 as nil")
+		return fmt.Errorf("can't encode groupCall#c0c2052e as nil")
 	}
 	b.PutID(GroupCallTypeID)
 	if !(g.JoinMuted == false) {
@@ -350,16 +401,34 @@ func (g *GroupCall) Encode(b *bin.Buffer) error {
 	if !(g.Params.Zero()) {
 		g.Flags.Set(0)
 	}
+	if !(g.Title == "") {
+		g.Flags.Set(3)
+	}
+	if !(g.StreamDCID == 0) {
+		g.Flags.Set(4)
+	}
+	if !(g.RecordStartDate == 0) {
+		g.Flags.Set(5)
+	}
 	if err := g.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode groupCall#55903081: field flags: %w", err)
+		return fmt.Errorf("unable to encode groupCall#c0c2052e: field flags: %w", err)
 	}
 	b.PutLong(g.ID)
 	b.PutLong(g.AccessHash)
 	b.PutInt(g.ParticipantsCount)
 	if g.Flags.Has(0) {
 		if err := g.Params.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode groupCall#55903081: field params: %w", err)
+			return fmt.Errorf("unable to encode groupCall#c0c2052e: field params: %w", err)
 		}
+	}
+	if g.Flags.Has(3) {
+		b.PutString(g.Title)
+	}
+	if g.Flags.Has(4) {
+		b.PutInt(g.StreamDCID)
+	}
+	if g.Flags.Has(5) {
+		b.PutInt(g.RecordStartDate)
 	}
 	b.PutInt(g.Version)
 	return nil
@@ -427,6 +496,51 @@ func (g *GroupCall) GetParams() (value DataJSON, ok bool) {
 	return g.Params, true
 }
 
+// SetTitle sets value of Title conditional field.
+func (g *GroupCall) SetTitle(value string) {
+	g.Flags.Set(3)
+	g.Title = value
+}
+
+// GetTitle returns value of Title conditional field and
+// boolean which is true if field was set.
+func (g *GroupCall) GetTitle() (value string, ok bool) {
+	if !g.Flags.Has(3) {
+		return value, false
+	}
+	return g.Title, true
+}
+
+// SetStreamDCID sets value of StreamDCID conditional field.
+func (g *GroupCall) SetStreamDCID(value int) {
+	g.Flags.Set(4)
+	g.StreamDCID = value
+}
+
+// GetStreamDCID returns value of StreamDCID conditional field and
+// boolean which is true if field was set.
+func (g *GroupCall) GetStreamDCID() (value int, ok bool) {
+	if !g.Flags.Has(4) {
+		return value, false
+	}
+	return g.StreamDCID, true
+}
+
+// SetRecordStartDate sets value of RecordStartDate conditional field.
+func (g *GroupCall) SetRecordStartDate(value int) {
+	g.Flags.Set(5)
+	g.RecordStartDate = value
+}
+
+// GetRecordStartDate returns value of RecordStartDate conditional field and
+// boolean which is true if field was set.
+func (g *GroupCall) GetRecordStartDate() (value int, ok bool) {
+	if !g.Flags.Has(5) {
+		return value, false
+	}
+	return g.RecordStartDate, true
+}
+
 // GetVersion returns value of Version field.
 func (g *GroupCall) GetVersion() (value int) {
 	return g.Version
@@ -435,14 +549,14 @@ func (g *GroupCall) GetVersion() (value int) {
 // Decode implements bin.Decoder.
 func (g *GroupCall) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode groupCall#55903081 to nil")
+		return fmt.Errorf("can't decode groupCall#c0c2052e to nil")
 	}
 	if err := b.ConsumeID(GroupCallTypeID); err != nil {
-		return fmt.Errorf("unable to decode groupCall#55903081: %w", err)
+		return fmt.Errorf("unable to decode groupCall#c0c2052e: %w", err)
 	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode groupCall#55903081: field flags: %w", err)
+			return fmt.Errorf("unable to decode groupCall#c0c2052e: field flags: %w", err)
 		}
 	}
 	g.JoinMuted = g.Flags.Has(1)
@@ -450,33 +564,54 @@ func (g *GroupCall) Decode(b *bin.Buffer) error {
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#55903081: field id: %w", err)
+			return fmt.Errorf("unable to decode groupCall#c0c2052e: field id: %w", err)
 		}
 		g.ID = value
 	}
 	{
 		value, err := b.Long()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#55903081: field access_hash: %w", err)
+			return fmt.Errorf("unable to decode groupCall#c0c2052e: field access_hash: %w", err)
 		}
 		g.AccessHash = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#55903081: field participants_count: %w", err)
+			return fmt.Errorf("unable to decode groupCall#c0c2052e: field participants_count: %w", err)
 		}
 		g.ParticipantsCount = value
 	}
 	if g.Flags.Has(0) {
 		if err := g.Params.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode groupCall#55903081: field params: %w", err)
+			return fmt.Errorf("unable to decode groupCall#c0c2052e: field params: %w", err)
 		}
+	}
+	if g.Flags.Has(3) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#c0c2052e: field title: %w", err)
+		}
+		g.Title = value
+	}
+	if g.Flags.Has(4) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#c0c2052e: field stream_dc_id: %w", err)
+		}
+		g.StreamDCID = value
+	}
+	if g.Flags.Has(5) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode groupCall#c0c2052e: field record_start_date: %w", err)
+		}
+		g.RecordStartDate = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode groupCall#55903081: field version: %w", err)
+			return fmt.Errorf("unable to decode groupCall#c0c2052e: field version: %w", err)
 		}
 		g.Version = value
 	}
@@ -505,7 +640,7 @@ var (
 //  }
 //  switch v := g.(type) {
 //  case *tg.GroupCallDiscarded: // groupCallDiscarded#7780bcb4
-//  case *tg.GroupCall: // groupCall#55903081
+//  case *tg.GroupCall: // groupCall#c0c2052e
 //  default: panic(v)
 //  }
 type GroupCallClass interface {
@@ -554,7 +689,7 @@ func DecodeGroupCall(buf *bin.Buffer) (GroupCallClass, error) {
 		}
 		return &v, nil
 	case GroupCallTypeID:
-		// Decoding groupCall#55903081.
+		// Decoding groupCall#c0c2052e.
 		v := GroupCall{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode GroupCallClass: %w", err)

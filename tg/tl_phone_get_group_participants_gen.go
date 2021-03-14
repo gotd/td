@@ -26,14 +26,14 @@ var (
 	_ = tgerr.Error{}
 )
 
-// PhoneGetGroupParticipantsRequest represents TL type `phone.getGroupParticipants#c9f1d285`.
+// PhoneGetGroupParticipantsRequest represents TL type `phone.getGroupParticipants#c558d8ab`.
 //
 // See https://core.telegram.org/method/phone.getGroupParticipants for reference.
 type PhoneGetGroupParticipantsRequest struct {
 	// Call field of PhoneGetGroupParticipantsRequest.
 	Call InputGroupCall
 	// IDs field of PhoneGetGroupParticipantsRequest.
-	IDs []int
+	IDs []InputPeerClass
 	// Sources field of PhoneGetGroupParticipantsRequest.
 	Sources []int
 	// Offset field of PhoneGetGroupParticipantsRequest.
@@ -43,7 +43,7 @@ type PhoneGetGroupParticipantsRequest struct {
 }
 
 // PhoneGetGroupParticipantsRequestTypeID is TL type id of PhoneGetGroupParticipantsRequest.
-const PhoneGetGroupParticipantsRequestTypeID = 0xc9f1d285
+const PhoneGetGroupParticipantsRequestTypeID = 0xc558d8ab
 
 func (g *PhoneGetGroupParticipantsRequest) Zero() bool {
 	if g == nil {
@@ -80,7 +80,7 @@ func (g *PhoneGetGroupParticipantsRequest) String() string {
 // FillFrom fills PhoneGetGroupParticipantsRequest from given interface.
 func (g *PhoneGetGroupParticipantsRequest) FillFrom(from interface {
 	GetCall() (value InputGroupCall)
-	GetIDs() (value []int)
+	GetIDs() (value []InputPeerClass)
 	GetSources() (value []int)
 	GetOffset() (value string)
 	GetLimit() (value int)
@@ -142,15 +142,20 @@ func (g *PhoneGetGroupParticipantsRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *PhoneGetGroupParticipantsRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode phone.getGroupParticipants#c9f1d285 as nil")
+		return fmt.Errorf("can't encode phone.getGroupParticipants#c558d8ab as nil")
 	}
 	b.PutID(PhoneGetGroupParticipantsRequestTypeID)
 	if err := g.Call.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.getGroupParticipants#c9f1d285: field call: %w", err)
+		return fmt.Errorf("unable to encode phone.getGroupParticipants#c558d8ab: field call: %w", err)
 	}
 	b.PutVectorHeader(len(g.IDs))
-	for _, v := range g.IDs {
-		b.PutInt(v)
+	for idx, v := range g.IDs {
+		if v == nil {
+			return fmt.Errorf("unable to encode phone.getGroupParticipants#c558d8ab: field ids element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode phone.getGroupParticipants#c558d8ab: field ids element with index %d: %w", idx, err)
+		}
 	}
 	b.PutVectorHeader(len(g.Sources))
 	for _, v := range g.Sources {
@@ -167,8 +172,13 @@ func (g *PhoneGetGroupParticipantsRequest) GetCall() (value InputGroupCall) {
 }
 
 // GetIDs returns value of IDs field.
-func (g *PhoneGetGroupParticipantsRequest) GetIDs() (value []int) {
+func (g *PhoneGetGroupParticipantsRequest) GetIDs() (value []InputPeerClass) {
 	return g.IDs
+}
+
+// MapIDs returns field IDs wrapped in InputPeerClassArray helper.
+func (g *PhoneGetGroupParticipantsRequest) MapIDs() (value InputPeerClassArray) {
+	return InputPeerClassArray(g.IDs)
 }
 
 // GetSources returns value of Sources field.
@@ -189,25 +199,25 @@ func (g *PhoneGetGroupParticipantsRequest) GetLimit() (value int) {
 // Decode implements bin.Decoder.
 func (g *PhoneGetGroupParticipantsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode phone.getGroupParticipants#c9f1d285 to nil")
+		return fmt.Errorf("can't decode phone.getGroupParticipants#c558d8ab to nil")
 	}
 	if err := b.ConsumeID(PhoneGetGroupParticipantsRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.getGroupParticipants#c9f1d285: %w", err)
+		return fmt.Errorf("unable to decode phone.getGroupParticipants#c558d8ab: %w", err)
 	}
 	{
 		if err := g.Call.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode phone.getGroupParticipants#c9f1d285: field call: %w", err)
+			return fmt.Errorf("unable to decode phone.getGroupParticipants#c558d8ab: field call: %w", err)
 		}
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.getGroupParticipants#c9f1d285: field ids: %w", err)
+			return fmt.Errorf("unable to decode phone.getGroupParticipants#c558d8ab: field ids: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
-			value, err := b.Int()
+			value, err := DecodeInputPeer(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode phone.getGroupParticipants#c9f1d285: field ids: %w", err)
+				return fmt.Errorf("unable to decode phone.getGroupParticipants#c558d8ab: field ids: %w", err)
 			}
 			g.IDs = append(g.IDs, value)
 		}
@@ -215,12 +225,12 @@ func (g *PhoneGetGroupParticipantsRequest) Decode(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.getGroupParticipants#c9f1d285: field sources: %w", err)
+			return fmt.Errorf("unable to decode phone.getGroupParticipants#c558d8ab: field sources: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := b.Int()
 			if err != nil {
-				return fmt.Errorf("unable to decode phone.getGroupParticipants#c9f1d285: field sources: %w", err)
+				return fmt.Errorf("unable to decode phone.getGroupParticipants#c558d8ab: field sources: %w", err)
 			}
 			g.Sources = append(g.Sources, value)
 		}
@@ -228,14 +238,14 @@ func (g *PhoneGetGroupParticipantsRequest) Decode(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.getGroupParticipants#c9f1d285: field offset: %w", err)
+			return fmt.Errorf("unable to decode phone.getGroupParticipants#c558d8ab: field offset: %w", err)
 		}
 		g.Offset = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.getGroupParticipants#c9f1d285: field limit: %w", err)
+			return fmt.Errorf("unable to decode phone.getGroupParticipants#c558d8ab: field limit: %w", err)
 		}
 		g.Limit = value
 	}
@@ -248,7 +258,7 @@ var (
 	_ bin.Decoder = &PhoneGetGroupParticipantsRequest{}
 )
 
-// PhoneGetGroupParticipants invokes method phone.getGroupParticipants#c9f1d285 returning error if any.
+// PhoneGetGroupParticipants invokes method phone.getGroupParticipants#c558d8ab returning error if any.
 //
 // See https://core.telegram.org/method/phone.getGroupParticipants for reference.
 func (c *Client) PhoneGetGroupParticipants(ctx context.Context, request *PhoneGetGroupParticipantsRequest) (*PhoneGroupParticipants, error) {

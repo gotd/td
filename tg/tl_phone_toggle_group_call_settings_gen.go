@@ -32,6 +32,8 @@ var (
 type PhoneToggleGroupCallSettingsRequest struct {
 	// Flags field of PhoneToggleGroupCallSettingsRequest.
 	Flags bin.Fields
+	// ResetInviteHash field of PhoneToggleGroupCallSettingsRequest.
+	ResetInviteHash bool
 	// Call field of PhoneToggleGroupCallSettingsRequest.
 	Call InputGroupCall
 	// JoinMuted field of PhoneToggleGroupCallSettingsRequest.
@@ -48,6 +50,9 @@ func (t *PhoneToggleGroupCallSettingsRequest) Zero() bool {
 		return true
 	}
 	if !(t.Flags.Zero()) {
+		return false
+	}
+	if !(t.ResetInviteHash == false) {
 		return false
 	}
 	if !(t.Call.Zero()) {
@@ -71,9 +76,11 @@ func (t *PhoneToggleGroupCallSettingsRequest) String() string {
 
 // FillFrom fills PhoneToggleGroupCallSettingsRequest from given interface.
 func (t *PhoneToggleGroupCallSettingsRequest) FillFrom(from interface {
+	GetResetInviteHash() (value bool)
 	GetCall() (value InputGroupCall)
 	GetJoinMuted() (value bool, ok bool)
 }) {
+	t.ResetInviteHash = from.GetResetInviteHash()
 	t.Call = from.GetCall()
 	if val, ok := from.GetJoinMuted(); ok {
 		t.JoinMuted = val
@@ -105,6 +112,11 @@ func (t *PhoneToggleGroupCallSettingsRequest) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
+			Name:       "ResetInviteHash",
+			SchemaName: "reset_invite_hash",
+			Null:       !t.Flags.Has(1),
+		},
+		{
 			Name:       "Call",
 			SchemaName: "call",
 		},
@@ -123,6 +135,9 @@ func (t *PhoneToggleGroupCallSettingsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.toggleGroupCallSettings#74bbb43d as nil")
 	}
 	b.PutID(PhoneToggleGroupCallSettingsRequestTypeID)
+	if !(t.ResetInviteHash == false) {
+		t.Flags.Set(1)
+	}
 	if !(t.JoinMuted == false) {
 		t.Flags.Set(0)
 	}
@@ -136,6 +151,22 @@ func (t *PhoneToggleGroupCallSettingsRequest) Encode(b *bin.Buffer) error {
 		b.PutBool(t.JoinMuted)
 	}
 	return nil
+}
+
+// SetResetInviteHash sets value of ResetInviteHash conditional field.
+func (t *PhoneToggleGroupCallSettingsRequest) SetResetInviteHash(value bool) {
+	if value {
+		t.Flags.Set(1)
+		t.ResetInviteHash = true
+	} else {
+		t.Flags.Unset(1)
+		t.ResetInviteHash = false
+	}
+}
+
+// GetResetInviteHash returns value of ResetInviteHash conditional field.
+func (t *PhoneToggleGroupCallSettingsRequest) GetResetInviteHash() (value bool) {
+	return t.Flags.Has(1)
 }
 
 // GetCall returns value of Call field.
@@ -171,6 +202,7 @@ func (t *PhoneToggleGroupCallSettingsRequest) Decode(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode phone.toggleGroupCallSettings#74bbb43d: field flags: %w", err)
 		}
 	}
+	t.ResetInviteHash = t.Flags.Has(1)
 	{
 		if err := t.Call.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phone.toggleGroupCallSettings#74bbb43d: field call: %w", err)
