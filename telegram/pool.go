@@ -79,23 +79,24 @@ func (c *Client) dc(ctx context.Context, dcID int, max int64) (*pool.DC, error) 
 	}
 
 	addr := net.JoinHostPort(dc.IPAddress, strconv.Itoa(dc.Port))
-
-	c.sessionsMux.Lock()
-	session, ok := c.sessions[dcID]
-	if !ok {
-		session = pool.NewSyncSession(pool.Session{})
-		c.sessions[dcID] = session
-	}
-	c.sessionsMux.Unlock()
-
 	p, err := c.createPool(dcID, max, func() pool.Conn {
 		id := c.connsCounter.Inc()
+
+		c.sessionsMux.Lock()
+		session, ok := c.sessions[dcID]
+		if !ok {
+			session = pool.NewSyncSession(pool.Session{})
+			c.sessions[dcID] = session
+		}
+		c.sessionsMux.Unlock()
+
 		options, _ := session.Options(opts)
 		return c.create(
 			id, manager.ConnModeData, c.appID,
 			addr, options, manager.ConnOptions{
-				DC:     dcID,
-				Device: c.device,
+				DC:      dcID,
+				Device:  c.device,
+				Handler: c.asHandler(),
 			},
 		)
 	})
