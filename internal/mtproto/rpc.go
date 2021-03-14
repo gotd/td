@@ -4,7 +4,6 @@ import (
 	"context"
 	"errors"
 	"sync/atomic"
-	"time"
 
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
@@ -50,12 +49,15 @@ func (c *Conn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Deco
 func (c *Conn) dropRPC(req rpc.Request) error {
 	var resp mt.RPCDropAnswerBox
 
-	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
+	dropReq := &mt.RPCDropAnswerRequest{
+		ReqMsgID: req.ID,
+	}
+	ctx, cancel := context.WithTimeout(context.Background(),
+		c.getTimeout(dropReq.TypeID()),
+	)
 	defer cancel()
 
-	if err := c.InvokeRaw(ctx, &mt.RPCDropAnswerRequest{
-		ReqMsgID: req.ID,
-	}, &resp); err != nil {
+	if err := c.InvokeRaw(ctx, dropReq, &resp); err != nil {
 		return err
 	}
 

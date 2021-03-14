@@ -63,6 +63,10 @@ type Conn struct {
 	salt       int64
 	sessionID  int64
 
+	// server salts fetched by getSalts.
+	salts    []proto.FutureSalt
+	saltsMux sync.Mutex
+
 	// sentContentMessages is count of created content messages, used to
 	// compute sequence number within session.
 	sentContentMessages    int32
@@ -81,10 +85,13 @@ type Conn struct {
 
 	readConcurrency int
 	messages        chan *crypto.EncryptedMessageData
+	gotSession      *tdsync.Ready
 
-	dialTimeout     time.Duration
-	exchangeTimeout time.Duration
-	closed          bool
+	dialTimeout       time.Duration
+	exchangeTimeout   time.Duration
+	saltFetchInterval time.Duration
+	getTimeout        func(req uint32) time.Duration
+	closed            bool
 }
 
 // New creates new unstarted connection.
@@ -116,10 +123,13 @@ func New(addr string, opt Options) *Conn {
 
 		readConcurrency: opt.ReadConcurrency,
 		messages:        make(chan *crypto.EncryptedMessageData, opt.ReadConcurrency),
+		gotSession:      tdsync.NewReady(),
 
-		rpc:             opt.engine,
-		dialTimeout:     opt.DialTimeout,
-		exchangeTimeout: opt.ExchangeTimeout,
+		rpc:               opt.engine,
+		dialTimeout:       opt.DialTimeout,
+		exchangeTimeout:   opt.ExchangeTimeout,
+		saltFetchInterval: opt.SaltFetchInterval,
+		getTimeout:        opt.RequestTimeout,
 	}
 	if conn.rpc == nil {
 		conn.rpc = rpc.New(conn.write, rpc.Options{
@@ -176,6 +186,7 @@ func (c *Conn) Run(ctx context.Context, f func(ctx context.Context) error) error
 		g.Go("pingLoop", c.pingLoop)
 		g.Go("readLoop", c.readLoop)
 		g.Go("ackLoop", c.ackLoop)
+		g.Go("saltsLoop", c.saltLoop)
 		g.Go("userCallback", f)
 
 		for i := 0; i < c.readConcurrency; i++ {
