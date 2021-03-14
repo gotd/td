@@ -146,7 +146,7 @@ func (opt *Options) setDefaults() {
 		opt.ExchangeTimeout = exchange.DefaultTimeout
 	}
 	if opt.SaltFetchInterval == 0 {
-		opt.SaltFetchInterval = 12 * time.Hour
+		opt.SaltFetchInterval = 1 * time.Hour
 	}
 	if opt.RequestTimeout == nil {
 		opt.RequestTimeout = func(req uint32) time.Duration {

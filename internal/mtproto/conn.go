@@ -14,6 +14,7 @@ import (
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/internal/crypto"
+	"github.com/gotd/td/internal/mtproto/salts"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/internal/rpc"
 	"github.com/gotd/td/internal/tdsync"
@@ -64,8 +65,7 @@ type Conn struct {
 	sessionID  int64
 
 	// server salts fetched by getSalts.
-	salts    []proto.FutureSalt
-	saltsMux sync.Mutex
+	salts salts.Salts
 
 	// sentContentMessages is count of created content messages, used to
 	// compute sequence number within session.
@@ -213,7 +213,6 @@ func (c *Conn) connect(ctx context.Context) error {
 	c.conn = conn
 
 	session := c.session()
-
 	if session.Key.Zero() {
 		c.log.Info("Generating new auth key")
 		start := c.clock.Now()

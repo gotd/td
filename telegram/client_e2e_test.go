@@ -5,7 +5,6 @@ import (
 	"crypto/rsa"
 	"errors"
 	"net"
-	"sync"
 	"testing"
 	"time"
 
@@ -99,28 +98,6 @@ func testTransport(trp Transport) func(t *testing.T) {
 
 func TestClientE2E(t *testing.T) {
 	testAllTransports(t, testTransport)
-}
-
-type syncHashSet struct {
-	set map[[8]byte]struct{}
-	m   sync.Mutex
-}
-
-func newSyncHashSet() *syncHashSet {
-	return &syncHashSet{set: map[[8]byte]struct{}{}}
-}
-
-func (s *syncHashSet) Add(k [8]byte) {
-	s.m.Lock()
-	s.set[k] = struct{}{}
-	s.m.Unlock()
-}
-
-func (s *syncHashSet) Has(k [8]byte) (ok bool) {
-	s.m.Lock()
-	_, ok = s.set[k]
-	s.m.Unlock()
-	return
 }
 
 func testMigrate(trp Transport) func(t *testing.T) {

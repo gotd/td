@@ -14,9 +14,6 @@ func (c *Conn) handleFutureSalts(b *bin.Buffer) error {
 		return xerrors.Errorf("error decode: %w", err)
 	}
 
-	c.saltsMux.Lock()
-	c.salts = append(c.salts, res.Salts...)
-	c.saltsMux.Unlock()
-
+	c.salts.Store(res.Salts)
 	return nil
 }
