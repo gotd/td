@@ -54,7 +54,7 @@ func New(cfg Config) *Conn {
 
 // Run starts the connection.
 func (c *Conn) Run(ctx context.Context, f func(context.Context) error) error {
-	life, err := c.connect(1)
+	life, err := c.connect(5)
 	if err != nil {
 		return err
 	}
