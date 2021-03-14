@@ -6,7 +6,6 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
-	"go.uber.org/atomic"
 	"go.uber.org/zap/zaptest"
 	"golang.org/x/xerrors"
 
@@ -107,9 +106,8 @@ func newMigrationClient(t *testing.T, h migrationTestHandler) *Client {
 		session: pool.NewSyncSession(pool.Session{
 			DC: 2,
 		}),
-		primaryDC: *atomic.NewInt64(2),
-		ctx:       context.Background(),
-		cancel:    func() {},
+		ctx:    context.Background(),
+		cancel: func() {},
 	}
 	client.init()
 	client.conn = client.createConn(0, manager.ConnModeUpdates, nil)
