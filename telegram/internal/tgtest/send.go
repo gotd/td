@@ -1,6 +1,8 @@
 package tgtest
 
 import (
+	"math"
+
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
@@ -74,6 +76,26 @@ func (s *Server) SendPong(k Session, msgID, pingID int64) error {
 		PingID: pingID,
 	}); err != nil {
 		return xerrors.Errorf("send pong: %w", err)
+	}
+
+	return nil
+}
+
+func (s *Server) SendEternalSalt(k Session, msgID int64) error {
+	return s.SendFutureSalts(k, msgID, proto.FutureSalt{
+		ValidSince: 1,
+		ValidUntil: math.MaxInt32,
+		Salt:       10,
+	})
+}
+
+func (s *Server) SendFutureSalts(k Session, msgID int64, salts ...proto.FutureSalt) error {
+	if err := s.Send(k, proto.MessageServerResponse, &proto.FutureSalts{
+		ReqMsgID: msgID,
+		Now:      int(s.clock.Now().Unix()),
+		Salts:    salts,
+	}); err != nil {
+		return xerrors.Errorf("send future salts: %w", err)
 	}
 
 	return nil
