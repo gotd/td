@@ -75,7 +75,7 @@ type Client struct {
 
 	// Connection state. Guarded by connMux.
 	session *pool.SyncSession
-	cfg     *atomicConfig
+	cfg     *manager.AtomicConfig
 	conn    clientConn
 	connMux sync.Mutex
 	// Connection factory fields.
@@ -213,9 +213,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 
 // init sets fields which needs explicit initialization, like maps or channels.
 func (c *Client) init() {
-	c.cfg = &atomicConfig{}
-	c.cfg.Store(tg.Config{})
-
+	c.cfg = manager.NewAtomicConfig(tg.Config{})
 	c.ready = tdsync.NewResetReady()
 	c.restart = make(chan struct{})
 	c.migration = make(chan struct{}, 1)
@@ -345,11 +343,6 @@ func (c *Client) onReady() {
 
 func (c *Client) resetReady() {
 	c.ready.Reset()
-}
-
-// Config returns current config.
-func (c *Client) Config() tg.Config {
-	return c.cfg.Load()
 }
 
 // Run starts client session and block until connection close.

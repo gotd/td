@@ -56,7 +56,7 @@ func (c *Client) dc(ctx context.Context, dcID int, max int64) (*pool.DC, error) 
 	cfg := c.cfg.Load()
 	opts := c.opts
 
-	dc, ok := findDC(cfg, dcID, opts.PreferIPv6)
+	dc, ok := manager.FindDC(cfg, dcID, opts.PreferIPv6)
 	if !ok {
 		return nil, xerrors.Errorf("failed to find DC %d", dcID)
 	}
