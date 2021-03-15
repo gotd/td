@@ -39,7 +39,7 @@ func (c *Client) AuthPassword(ctx context.Context, password string) error {
 	if err != nil {
 		return xerrors.Errorf("check password: %w", err)
 	}
-	if err := c.checkAuthResult(auth); err != nil {
+	if err := checkAuthResult(auth); err != nil {
 		return xerrors.Errorf("check: %w", err)
 	}
 
@@ -109,7 +109,7 @@ func (c *Client) AuthSignIn(ctx context.Context, phone, code, codeHash string) e
 	if err != nil {
 		return xerrors.Errorf("sign in: %w", err)
 	}
-	if err := c.checkAuthResult(a); err != nil {
+	if err := checkAuthResult(a); err != nil {
 		return xerrors.Errorf("check: %w", err)
 	}
 
@@ -144,7 +144,7 @@ func (c *Client) AuthSignUp(ctx context.Context, s SignUp) error {
 	if err != nil {
 		return xerrors.Errorf("request: %w", err)
 	}
-	if err := c.checkAuthResult(auth); err != nil {
+	if err := checkAuthResult(auth); err != nil {
 		return xerrors.Errorf("check: %w", err)
 	}
 	return nil

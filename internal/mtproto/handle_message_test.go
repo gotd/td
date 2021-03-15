@@ -18,41 +18,34 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-type testUpdateHandler struct {
-	types *tmap.Constructor
-}
+func newTestMessageHandler() func(b *bin.Buffer) error {
+	types := tmap.NewConstructor(
+		tg.TypesConstructorMap(),
+		mt.TypesConstructorMap(),
+	)
 
-func (h testUpdateHandler) OnMessage(b *bin.Buffer) error {
-	id, err := b.PeekID()
-	if err != nil {
-		return err
-	}
-	v := h.types.New(id)
-	if v == nil {
-		return xerrors.New("not found")
-	}
-	if err := v.Decode(b); err != nil {
-		return xerrors.Errorf("decode: %w", err)
-	}
-	return nil
-}
-
-func (testUpdateHandler) OnSession(session Session) error { return nil }
-
-func newTestHandler() Handler {
-	return &testUpdateHandler{
-		types: tmap.NewConstructor(
-			tg.TypesConstructorMap(),
-			mt.TypesConstructorMap(),
-		),
+	return func(b *bin.Buffer) error {
+		id, err := b.PeekID()
+		if err != nil {
+			return err
+		}
+		v := types.New(id)
+		if v == nil {
+			return xerrors.New("not found")
+		}
+		if err := v.Decode(b); err != nil {
+			return xerrors.Errorf("decode: %w", err)
+		}
+		return nil
 	}
 }
 
 func TestConnHandleMessage(t *testing.T) {
 	c := &Conn{
-		rand:    Zero{},
-		log:     zap.NewNop(),
-		handler: newTestHandler(),
+		rand:      Zero{},
+		log:       zap.NewNop(),
+		onMessage: newTestMessageHandler(),
+		onSession: func(Session) error { return nil },
 	}
 
 	for i, input := range []string{
@@ -91,10 +84,11 @@ func TestConnHandleMessage(t *testing.T) {
 
 func TestConnHandleMessageCorpus(t *testing.T) {
 	c := &Conn{
-		rand:    Zero{},
-		log:     zap.NewNop(),
-		rpc:     rpc.New(rpc.NopSend, rpc.Options{}),
-		handler: newTestHandler(),
+		rand:      Zero{},
+		log:       zap.NewNop(),
+		rpc:       rpc.New(rpc.NopSend, rpc.Options{}),
+		onMessage: newTestMessageHandler(),
+		onSession: func(Session) error { return nil },
 	}
 
 	corpusDir := filepath.Join("..", "_fuzz", "handle_message", "corpus")

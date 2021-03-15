@@ -16,8 +16,8 @@ type Data struct {
 	Config    tg.Config
 	DC        int
 	Addr      string
-	AuthKey   []byte
-	AuthKeyID []byte
+	AuthKey   [256]byte
+	AuthKeyID [8]byte
 	Salt      int64
 }
 

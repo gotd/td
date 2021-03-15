@@ -104,7 +104,7 @@ func (b *RequestBuilder) ThenUnregistered() *Mock {
 
 func (b *RequestBuilder) result(r bin.Encoder, err error) *Mock {
 	for i := 0; i < b.times; i++ {
-		b.mock.add(HandlerFunc(func(id int64, body bin.Encoder) (bin.Encoder, error) {
+		b.mock.add(HandlerFunc(func(body bin.Encoder) (bin.Encoder, error) {
 			if b.expectFn != nil {
 				b.expectFn(body)
 			}

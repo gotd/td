@@ -33,13 +33,12 @@ func testAllTransports(t *testing.T, test func(trp Transport) func(t *testing.T)
 func testTransport(trp Transport) func(t *testing.T) {
 	return func(t *testing.T) {
 		log := zaptest.NewLogger(t)
-
 		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 		defer cancel()
-		g, gCtx := errgroup.WithContext(ctx)
+		g, ctx := errgroup.WithContext(ctx)
 
 		testMessage := "ну че там с деньгами?"
-		suite := tgtest.NewSuite(gCtx, t, log)
+		suite := tgtest.NewSuite(ctx, t, log)
 		srv := tgtest.TestTransport(suite, testMessage, trp.Codec)
 		g.Go(func() error {
 			defer srv.Close()
@@ -76,7 +75,7 @@ func testTransport(trp Transport) func(t *testing.T) {
 				return nil
 			})
 
-			return client.Run(gCtx, func(ctx context.Context) error {
+			return client.Run(ctx, func(ctx context.Context) error {
 				select {
 				case <-ctx.Done():
 					t.Error("Failed to wait for message")
@@ -107,8 +106,8 @@ func testMigrate(trp Transport) func(t *testing.T) {
 
 		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 		defer cancel()
-		g, gCtx := errgroup.WithContext(ctx)
-		suite := tgtest.NewSuite(gCtx, t, log)
+		g, ctx := errgroup.WithContext(ctx)
+		suite := tgtest.NewSuite(ctx, t, log)
 
 		srv := tgtest.NewUnstartedServer("server", suite, trp.Codec)
 		migrate := tgtest.NewUnstartedServer("migrate", suite, trp.Codec)
@@ -132,7 +131,6 @@ func testMigrate(trp Transport) func(t *testing.T) {
 			},
 		}
 
-		wait := make(chan struct{})
 		srv.SetHandlerFunc(func(s tgtest.Session, msgID int64, in *bin.Buffer) error {
 			id, err := in.PeekID()
 			if err != nil {
@@ -152,14 +150,14 @@ func testMigrate(trp Transport) func(t *testing.T) {
 				}
 
 				return srv.SendResult(s, msgID, dcOps)
-
+			case tg.HelpGetConfigRequestTypeID:
+				return srv.SendResult(s, msgID, dcOps)
 			case tg.MessagesSendMessageRequestTypeID:
 				m := &tg.MessagesSendMessageRequest{}
 				if err := m.Decode(in); err != nil {
 					return err
 				}
 
-				wait <- struct{}{}
 				return srv.SendResult(s, msgID, &tg.Updates{})
 			}
 
@@ -189,7 +187,8 @@ func testMigrate(trp Transport) func(t *testing.T) {
 				}
 
 				return migrate.SendResult(s, msgID, dcOps)
-
+			case tg.HelpGetConfigRequestTypeID:
+				return migrate.SendResult(s, msgID, dcOps)
 			case tg.MessagesSendMessageRequestTypeID:
 				m := &tg.MessagesSendMessageRequest{}
 				if err := m.Decode(in); err != nil {
@@ -209,6 +208,7 @@ func testMigrate(trp Transport) func(t *testing.T) {
 			return migrate.Serve()
 		})
 
+		gotResponse := make(chan struct{})
 		g.Go(func() error {
 			client := NewClient(1, "hash", Options{
 				PublicKeys:     []*rsa.PublicKey{migrate.Key(), srv.Key()},
@@ -218,25 +218,25 @@ func testMigrate(trp Transport) func(t *testing.T) {
 				SessionStorage: &session.StorageMemory{},
 			})
 
-			return client.Run(gCtx, func(ctx context.Context) error {
+			return client.Run(ctx, func(ctx context.Context) error {
 				if err := client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
 					Peer:    &tg.InputPeerUser{},
 					Message: "abc",
 				}); err != nil {
 					return xerrors.Errorf("send: %w", err)
 				}
-
+				close(gotResponse)
 				return nil
 			})
 		})
 		g.Go(func() error {
 			select {
-			case <-wait:
+			case <-gotResponse:
 				cancel()
 				return nil
-			case <-gCtx.Done():
+			case <-ctx.Done():
 				t.Error("failed to wait")
-				return gCtx.Err()
+				return ctx.Err()
 			}
 		})
 

@@ -20,7 +20,7 @@ func (c *Conn) handleSessionCreated(b *bin.Buffer) error {
 	)
 
 	c.storeSalt(s.ServerSalt)
-	if err := c.handler.OnSession(c.session()); err != nil {
+	if err := c.onSession(c.session()); err != nil {
 		return xerrors.Errorf("handler.OnSession: %w", err)
 	}
 	return nil

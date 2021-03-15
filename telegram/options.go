@@ -40,7 +40,6 @@ type Options struct {
 	//
 	// If not provided, 2 will be used by default.
 	DC int
-
 	// Transport to use. Default dialer will be used if not provided.
 	Transport Transport
 	// Network to use. Defaults to tcp.
@@ -111,13 +110,13 @@ func (opt *Options) setDefaults() {
 	if opt.MaxRetries == 0 {
 		opt.MaxRetries = 5
 	}
-	opt.Device.SetDefaults()
 	if opt.Clock == nil {
 		opt.Clock = clock.System
 	}
 	if opt.MessageID == nil {
 		opt.MessageID = proto.NewMessageIDGen(opt.Clock.Now, 100)
 	}
+	opt.Device.setDefaults()
 
 	opt.normalizeAddr()
 }

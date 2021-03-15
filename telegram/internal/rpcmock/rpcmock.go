@@ -58,10 +58,10 @@ func (i *Mock) pop() (Handler, bool) {
 
 // Handler returns HandlerFunc of Mock.
 func (i *Mock) Handler() HandlerFunc {
-	return func(id int64, body bin.Encoder) (bin.Encoder, error) {
+	return func(body bin.Encoder) (bin.Encoder, error) {
 		h, ok := i.pop()
 		i.Assertions.Truef(ok, "unexpected call")
 
-		return h.Handle(id, body)
+		return h.Handle(body)
 	}
 }

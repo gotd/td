@@ -23,7 +23,7 @@ func (s *SignUpRequired) Error() string {
 }
 
 // checkAuthResult checks that a is *tg.AuthAuthorization.
-func (c *Client) checkAuthResult(a tg.AuthAuthorizationClass) error {
+func checkAuthResult(a tg.AuthAuthorizationClass) error {
 	switch v := a.(type) {
 	case *tg.AuthAuthorization:
 		// Ok.
