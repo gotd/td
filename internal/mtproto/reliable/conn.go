@@ -63,20 +63,14 @@ func (c *Conn) Run(ctx context.Context, f func(context.Context) error) error {
 	defer g.Cancel()
 
 	g.Go(func(ctx context.Context) error {
-		err := f(ctx)
-		c.log.Debug("f exit", zap.Error(err))
-		return err
+		return f(ctx)
 	})
 
 	g.Go(func(ctx context.Context) error {
-		err := c.loop(ctx, life, 5)
-		c.log.Debug("loop exit", zap.Error(err))
-		return err
+		return c.loop(ctx, life, 5)
 	})
 
-	e := g.Wait()
-	c.log.Debug("run exit", zap.Error(err))
-	return e
+	return g.Wait()
 }
 
 // InvokeRaw sens input and decodes result into output.

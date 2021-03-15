@@ -74,6 +74,8 @@ type Client struct {
 
 	others map[int]conn
 	omux   sync.RWMutex
+
+	// Connection lifetimes.
 	lf     *lifetime.Manager
 
 	// Wrappers for external world, like logs or PRNG.

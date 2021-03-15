@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"net"
 	"runtime/debug"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -58,18 +59,12 @@ func (c *Client) lookupDC(id int) (tg.DCOption, error) {
 	c.pmux.RLock()
 	defer c.pmux.RUnlock()
 
-	for _, dc := range c.cfg.DCOptions {
-		// TODO(ccln): support IPv6?
-		if dc.Ipv6 {
-			continue
-		}
-
-		if dc.ID == id {
-			return dc, nil
-		}
+	dc, ok := findDC(c.cfg, id, c.opts.PreferIPv6)
+	if !ok {
+		return tg.DCOption{}, xerrors.Errorf("dc not found in config: %d", id)
 	}
 
-	return tg.DCOption{}, xerrors.Errorf("dc not found in config: %d", id)
+	return dc, nil
 }
 
 func (c *Client) currentDC() (tg.DCOption, error) {
@@ -88,6 +83,43 @@ func (c *Client) currentDC() (tg.DCOption, error) {
 		IPAddress: addr,
 		Port:      p,
 	}, nil
+}
+
+func findDC(cfg tg.Config, dcID int, preferIPv6 bool) (tg.DCOption, bool) {
+	// Preallocate slice.
+	candidates := make([]int, 0, 32)
+
+	opts := cfg.DCOptions
+	for idx, candidateDC := range opts {
+		if candidateDC.ID != dcID {
+			continue
+		}
+		candidates = append(candidates, idx)
+	}
+
+	if len(candidates) < 1 {
+		return tg.DCOption{}, false
+	}
+
+	sort.Slice(candidates, func(i, j int) bool {
+		l, r := opts[candidates[i]], opts[candidates[j]]
+
+		// If we prefer IPv6 and left is IPv6 and right is not, so then
+		// left is smaller (would be before right).
+		if preferIPv6 {
+			if l.Ipv6 && !r.Ipv6 {
+				return true
+			}
+			if !l.Ipv6 && r.Ipv6 {
+				return false
+			}
+		}
+
+		// Also we prefer static addresses.
+		return l.Static && !r.Static
+	})
+
+	return opts[candidates[0]], true
 }
 
 func dcAttrs(dc tg.DCOption) (attrs []string) {

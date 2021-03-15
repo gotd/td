@@ -19,7 +19,7 @@ func (c *Client) storageLoad(ctx context.Context) error {
 	}
 
 	c.sess = mtproto.Session{
-		// TODO(ccln): Save session ID.
+		// TODO(ccln): Save session ID?
 		ID: 0,
 		Key: crypto.AuthKey{
 			Value: data.AuthKey,
