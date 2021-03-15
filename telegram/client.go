@@ -172,43 +172,16 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) err
 	default:
 	}
 
-	var (
-		dcInfo     tg.DCOption
-		reuseCreds bool
-	)
-
-	// Try to load previous session.
-	if err := c.storageLoad(ctx); err != nil {
-		// Something bad happened with storage.
-		if !errors.Is(err, session.ErrNotFound) {
-			c.log.Error("Storage failure", zap.Error(err))
-			return err
-		}
-
-		c.log.Info("Session not found. Using server provided in opts as primary DC.",
-			zap.Int("dc_id", c.primaryDC),
-			zap.String("dc_addr", c.addr),
-		)
-
-		dcInfo, err = c.primaryDCOption()
-		if err != nil {
-			return err
-		}
-	} else {
-		c.log.Info("Previous session restored from storage.",
-			zap.Int("dc_id", c.primaryDC),
-			zap.String("dc_addr", c.addr),
-		)
-
-		dcInfo, err = c.lookupDC(c.primaryDC)
-		if err != nil {
-			return err
-		}
-
-		reuseCreds = true
+	// Try to restore information about previous session.
+	primaryDC, err := c.restoreSession(ctx)
+	if err != nil {
+		return err
 	}
 
-	if err := c.connectPrimary(ctx, dcInfo, reuseCreds); err != nil {
+	// Reuse credentials from previous session if not empty.
+	reuseCreds := !c.sess.Key.Zero()
+
+	if err := c.connectPrimary(ctx, primaryDC, reuseCreds); err != nil {
 		return err
 	}
 
@@ -229,4 +202,40 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) err
 	go func() { e <- f(ctx) }()
 	go func() { e <- c.lf.Wait() }()
 	return <-e
+}
+
+func (c *Client) restoreSession(ctx context.Context) (tg.DCOption, error) {
+	// Try to load previous session data.
+	if err := c.storageLoad(ctx); err != nil {
+		// Something bad happened with storage.
+		if !errors.Is(err, session.ErrNotFound) {
+			c.log.Error("Storage failure", zap.Error(err))
+			return tg.DCOption{}, err
+		}
+
+		c.log.Info("Session not found. Using server provided in opts as primary DC.",
+			zap.Int("dc_id", c.primaryDC),
+			zap.String("dc_addr", c.addr),
+		)
+
+		return c.currentDC()
+	}
+
+	// Loaded state from storage.
+	// Find primary DC address in config.
+	dcInfo, err := c.lookupDC(c.primaryDC)
+	if err != nil {
+		c.log.Error("Primary DC from storage not found in config. Using server provided in opts as primary DC.",
+			zap.Int("primaryDC", c.primaryDC),
+			zap.Any("config", c.cfg),
+		)
+		return c.currentDC()
+	}
+
+	c.log.Info("Previous session restored from storage.",
+		zap.Int("dc_id", c.primaryDC),
+		zap.String("dc_addr", c.addr),
+	)
+
+	return dcInfo, nil
 }

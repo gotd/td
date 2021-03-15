@@ -54,7 +54,7 @@ func New(cfg Config) *Conn {
 
 // Run starts the connection.
 func (c *Conn) Run(ctx context.Context, f func(context.Context) error) error {
-	life, err := c.connect(5)
+	life, err := c.connect(ctx, 5)
 	if err != nil {
 		return err
 	}
@@ -63,14 +63,20 @@ func (c *Conn) Run(ctx context.Context, f func(context.Context) error) error {
 	defer g.Cancel()
 
 	g.Go(func(ctx context.Context) error {
-		return f(ctx)
+		err := f(ctx)
+		c.log.Debug("f exit", zap.Error(err))
+		return err
 	})
 
 	g.Go(func(ctx context.Context) error {
-		return c.loop(ctx, life, 5)
+		err := c.loop(ctx, life, 5)
+		c.log.Debug("loop exit", zap.Error(err))
+		return err
 	})
 
-	return g.Wait()
+	e := g.Wait()
+	c.log.Debug("run exit", zap.Error(err))
+	return e
 }
 
 // InvokeRaw sens input and decodes result into output.
@@ -104,7 +110,7 @@ waitUntilDisconnect:
 
 	c.log.Info("Reconnecting")
 	var err error
-	life, err = c.connect(maxAttempts)
+	life, err = c.connect(ctx, maxAttempts)
 	if err != nil {
 		return err
 	}
@@ -112,7 +118,7 @@ waitUntilDisconnect:
 	goto waitUntilDisconnect
 }
 
-func (c *Conn) connect(maxAttempts int) (*lifetime.Life, error) {
+func (c *Conn) connect(ctx context.Context, maxAttempts int) (*lifetime.Life, error) {
 	c.mux.Lock()
 	defer c.mux.Unlock()
 
@@ -127,12 +133,19 @@ retry:
 			return nil, err
 		}
 
+		select {
+		case <-ctx.Done():
+			return nil, ctx.Err()
+		default:
+		}
+
 		time.Sleep(time.Second)
 		attempt++
 		goto retry
 	}
 
 	if err := c.onConnected(conn); err != nil {
+		_ = life.Stop()
 		return nil, err
 	}
 

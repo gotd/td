@@ -3,6 +3,8 @@ package telegram
 import (
 	"context"
 	"fmt"
+	"net"
+	"strconv"
 	"sync"
 	"time"
 
@@ -24,6 +26,7 @@ type dcBuilder struct {
 	withUpdates bool
 	onMessage   func(b *bin.Buffer) error
 	onSession   func(sess mtproto.Session) error
+	onConfig    func(tg.Config)
 	authKey     crypto.AuthKey
 	salt        int64
 
@@ -50,6 +53,11 @@ func (b *dcBuilder) WithSessionHandler(h func(sess mtproto.Session) error) *dcBu
 	return b
 }
 
+func (b *dcBuilder) OnConfig(h func(tg.Config)) *dcBuilder {
+	b.onConfig = h
+	return b
+}
+
 func (b *dcBuilder) WithAuthTransfer() *dcBuilder {
 	b.transfer = true
 	return b
@@ -66,19 +74,29 @@ func (b *dcBuilder) Connect(ctx context.Context) (conn, error) {
 		c    = b.c
 		dc   = b.dc
 		opts = c.opts
-		log  = c.log.With(zap.Int("dc_id", dc.ID), zap.Bool("with_updates", b.withUpdates))
+		log  = c.log.With(
+			zap.Int("dc_id", dc.ID),
+			zap.String("dc_addr", net.JoinHostPort(dc.IPAddress, strconv.Itoa(dc.Port))),
+		)
 
-		gotSession = make(chan struct{}) // Session transfer check.
-		once       sync.Once             // Session transfer check.
+		gotSession = make(chan struct{})
 	)
+
+	if b.withUpdates {
+		log = log.Named("primary")
+	}
 
 	if attrs := dcAttrs(dc); len(attrs) > 0 {
 		log = log.With(zap.Strings("dc_attributes", attrs))
 	}
 
 	// Overwrite options.
+	var sessOnce sync.Once
+	opts.SessionHandler = func(sess mtproto.Session) error {
+		sessOnce.Do(func() { close(gotSession) })
+		return b.onSession(sess)
+	}
 	opts.MessageHandler = b.onMessage
-	opts.SessionHandler = b.onSession
 	opts.Key = b.authKey
 	opts.Salt = b.salt
 	opts.Logger = log
@@ -101,19 +119,18 @@ func (b *dcBuilder) Connect(ctx context.Context) (conn, error) {
 		opts.Salt = 0
 	}
 
-	if b.transfer {
-		opts.SessionHandler = func(sess mtproto.Session) error {
-			once.Do(func() { close(gotSession) })
-			return b.onSession(sess)
-		}
-	}
-
+	var cfgOnce sync.Once
 	conn := reliable.New(reliable.Config{
 		Addr:   fmt.Sprintf("%d|%s:%d", dc.ID, dc.IPAddress, dc.Port),
 		MTOpts: opts,
 		OnConnected: func(conn reliable.MTConn) error {
-			_, err := c.initConn(c.ctx, conn, !b.withUpdates)
-			return err
+			cfg, err := c.initConn(c.ctx, conn, !b.withUpdates)
+			if err != nil {
+				return err
+			}
+
+			cfgOnce.Do(func() { b.onConfig(cfg) })
+			return nil
 		},
 	})
 
@@ -121,19 +138,16 @@ func (b *dcBuilder) Connect(ctx context.Context) (conn, error) {
 		return nil, err
 	}
 
-	if b.transfer {
-		if err := func() error {
-			if err := transfer(ctx, c.tg, tg.NewClient(conn), dc.ID); err != nil {
-				return err
-			}
+	select {
+	case <-gotSession:
+		break
+	case <-time.After(time.Second * 10):
+		return nil, xerrors.Errorf("session timeout")
+	}
 
-			select {
-			case <-gotSession:
-				return nil
-			case <-time.After(time.Second * 10):
-				return xerrors.Errorf("session timeout")
-			}
-		}(); err != nil {
+	if b.transfer {
+		err := transfer(ctx, c.tg, tg.NewClient(conn), dc.ID)
+		if err != nil {
 			c.pmux.RLock()
 			primaryDC := c.primaryDC
 			c.pmux.RUnlock()
@@ -185,21 +199,4 @@ func (c *Client) initConn(ctx context.Context, conn conn, noUpdates bool) (tg.Co
 	}
 
 	return cfg, nil
-}
-
-func dcAttrs(dc tg.DCOption) (attrs []string) {
-	switch {
-	case dc.CDN:
-		attrs = append(attrs, "cdn")
-		fallthrough
-	case dc.MediaOnly:
-		attrs = append(attrs, "media_only")
-		fallthrough
-	case dc.Static:
-		attrs = append(attrs, "static")
-		fallthrough
-	case dc.TCPObfuscatedOnly:
-		attrs = append(attrs, "tcpo")
-	}
-	return
 }

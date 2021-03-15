@@ -46,7 +46,10 @@ func (m *Manager) Start(r Runner) error {
 
 		// TODO(ccln): Find a better way.
 		m.g.Go(func() error { return err })
-		m.Close()
+		for _, life := range m.runners {
+			_ = life.Stop()
+		}
+		m.runners = map[Runner]*Life{}
 		return err
 	}
 

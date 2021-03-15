@@ -72,7 +72,7 @@ func (c *Client) lookupDC(id int) (tg.DCOption, error) {
 	return tg.DCOption{}, xerrors.Errorf("dc not found in config: %d", id)
 }
 
-func (c *Client) primaryDCOption() (tg.DCOption, error) {
+func (c *Client) currentDC() (tg.DCOption, error) {
 	addr, port, err := net.SplitHostPort(c.addr)
 	if err != nil {
 		return tg.DCOption{}, err
@@ -88,4 +88,20 @@ func (c *Client) primaryDCOption() (tg.DCOption, error) {
 		IPAddress: addr,
 		Port:      p,
 	}, nil
+}
+
+func dcAttrs(dc tg.DCOption) (attrs []string) {
+	if dc.CDN {
+		attrs = append(attrs, "cdn")
+	}
+	if dc.MediaOnly {
+		attrs = append(attrs, "media_only")
+	}
+	if dc.Static {
+		attrs = append(attrs, "static")
+	}
+	if dc.TCPObfuscatedOnly {
+		attrs = append(attrs, "tcpo")
+	}
+	return
 }

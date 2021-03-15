@@ -2,6 +2,7 @@ package telegram
 
 import (
 	"context"
+	"time"
 
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
@@ -24,9 +25,11 @@ func (c *Client) connectPrimary(ctx context.Context, dc tg.DCOption, reuseCreds 
 		return xerrors.Errorf("cdn could not be a primary DC (%d)", dc.ID)
 	}
 
+	cfgchan := make(chan tg.Config)
 	dcBuilder := c.dc(dc).
 		WithMessageHandler(c.onPrimaryMessage).
-		WithSessionHandler(c.onPrimarySession)
+		WithSessionHandler(c.onPrimarySession).
+		OnConfig(func(c tg.Config) { <-cfgchan })
 
 	if reuseCreds {
 		dcBuilder = dcBuilder.WithCreds(c.sess.Key, c.sess.Salt)
@@ -37,22 +40,28 @@ func (c *Client) connectPrimary(ctx context.Context, dc tg.DCOption, reuseCreds 
 		return err
 	}
 
-	cfg, err := tg.NewClient(conn).HelpGetConfig(ctx)
-	if err != nil {
-		return err
-	}
-
 	if c.primary != nil {
 		// Cleanup previous connection.
 		if err := c.lf.Stop(c.primary); err != nil {
 			c.log.Warn("Failed to cleanup connection", zap.Error(err))
-			return err
 		}
+	}
+
+	var cfg tg.Config
+	select {
+	case c := <-cfgchan:
+		cfg = c
+	case <-c.clock.After(time.Second * 5):
+		if err := c.lf.Stop(conn); err != nil {
+			c.log.Warn("Failed to cleanup connection", zap.Error(err))
+		}
+
+		return xerrors.Errorf("Config timeout")
 	}
 
 	c.primary = conn
 	c.primaryDC = cfg.ThisDC
-	c.cfg = *cfg
+	c.cfg = cfg
 
 	return c.storageSave()
 }
