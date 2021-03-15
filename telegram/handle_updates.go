@@ -109,8 +109,8 @@ func convertUpdateShortSentMessage(u *tg.UpdateShortSentMessage) *tg.UpdateShort
 
 func (c *Client) updateInterceptor(updates ...tg.UpdateClass) {
 	for _, update := range updates {
-		_, ok := update.(*tg.UpdateConfig)
-		if ok {
+		switch update.(type) {
+		case *tg.UpdateConfig, *tg.UpdateDCOptions:
 			cfg, err := c.tg.HelpGetConfig(c.ctx)
 			if err != nil {
 				c.log.Warn("Fetch config", zap.Error(err))
