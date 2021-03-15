@@ -87,7 +87,7 @@ func (f *FutureSalts) Encode(b *bin.Buffer) error {
 	b.PutID(FutureSaltsTypeID)
 	b.PutLong(f.ReqMsgID)
 	b.PutInt(f.Now)
-	b.PutVectorHeader(len(f.Salts))
+	b.PutInt(len(f.Salts))
 	for idx, v := range f.Salts {
 		if err := v.Encode(b); err != nil {
 			return fmt.Errorf("unable to encode future_salts#ae500895: field salts element with index %d: %w", idx, err)
