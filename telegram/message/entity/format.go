@@ -62,6 +62,10 @@ func (b *Builder) Complete() (string, []tg.MessageEntityClass) {
 	return msg, entities
 }
 
+// computeLength returns length of s encoded as UTF-16 string.
+//
+// While Telegram API docs state that they expect the number of UTF-8
+// code points, in fact they are talking about UTF-16 code units.
 func computeLength(s string) int {
 	const (
 		surrSelf = 0x10000
