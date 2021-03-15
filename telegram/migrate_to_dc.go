@@ -3,6 +3,7 @@ package telegram
 import (
 	"context"
 	"net"
+	"sort"
 	"strconv"
 
 	"go.uber.org/zap"
@@ -41,20 +42,41 @@ func (c *Client) ensureRestart(ctx context.Context, export *tg.AuthExportedAutho
 	}
 }
 
-func findDC(cfg tg.Config, dcID int, preferIPv6 bool) (dc tg.DCOption, ok bool) {
-	for _, candidateDC := range cfg.DCOptions {
+func findDC(cfg tg.Config, dcID int, preferIPv6 bool) (tg.DCOption, bool) {
+	// Preallocate slice.
+	candidates := make([]int, 0, 32)
+
+	opts := cfg.DCOptions
+	for idx, candidateDC := range opts {
 		if candidateDC.ID != dcID {
 			continue
 		}
-		dc = candidateDC
-		ok = true
-		if preferIPv6 == dc.Ipv6 {
-			break
-		}
-		// We’ve found a matching DC but still need to consider
-		// other candidates to honor caller preferences.
+		candidates = append(candidates, idx)
 	}
-	return
+
+	if len(candidates) < 1 {
+		return tg.DCOption{}, false
+	}
+
+	sort.Slice(candidates, func(i, j int) bool {
+		l, r := opts[candidates[i]], opts[candidates[j]]
+
+		// If we prefer IPv6 and left is IPv6 and right is not, so then
+		// left is smaller (would be before right).
+		if preferIPv6 {
+			if l.Ipv6 && !r.Ipv6 {
+				return true
+			}
+			if !l.Ipv6 && r.Ipv6 {
+				return false
+			}
+		}
+
+		// Also we prefer static addresses.
+		return l.Static && !r.Static
+	})
+
+	return opts[candidates[0]], true
 }
 
 func (c *Client) invokeMigrate(ctx context.Context, dcID int, input bin.Encoder, output bin.Decoder) error {
