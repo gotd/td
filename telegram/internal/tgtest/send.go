@@ -38,21 +38,25 @@ func (s *Server) Send(k Session, t proto.MessageType, encoder bin.Encoder) error
 	return conn.Send(s.ctx, &b)
 }
 
-func (s *Server) SendResult(k Session, id int64, msg bin.Encoder) error {
+func (s *Server) SendResult(req *Request, msg bin.Encoder) error {
 	var buf bin.Buffer
 
 	if err := msg.Encode(&buf); err != nil {
 		return xerrors.Errorf("failed to encode result data: %w", err)
 	}
 
-	if err := s.Send(k, proto.MessageServerResponse, &proto.Result{
-		RequestMessageID: id,
+	if err := s.Send(req.Session, proto.MessageServerResponse, &proto.Result{
+		RequestMessageID: req.MsgID,
 		Result:           buf.Raw(),
 	}); err != nil {
 		return xerrors.Errorf("send result [%T]: %w", msg, err)
 	}
 
 	return nil
+}
+
+func (s *Server) SendVector(req *Request, msgs ...bin.Encoder) error {
+	return s.SendResult(req, &genericVector{Elems: msgs})
 }
 
 func (s *Server) sendSessionCreated(k Session, serverSalt int64) error {
@@ -65,9 +69,9 @@ func (s *Server) sendSessionCreated(k Session, serverSalt int64) error {
 	return nil
 }
 
-func (s *Server) SendConfig(k Session, id int64) error {
+func (s *Server) SendConfig(req *Request) error {
 	s.log.Debug("SendConfig")
-	return s.SendResult(k, id, &tg.Config{})
+	return s.SendResult(req, &tg.Config{})
 }
 
 func (s *Server) SendPong(k Session, msgID, pingID int64) error {

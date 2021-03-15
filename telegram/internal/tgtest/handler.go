@@ -4,13 +4,19 @@ import (
 	"github.com/gotd/td/bin"
 )
 
+type Request struct {
+	Session Session
+	MsgID   int64
+	Buf     *bin.Buffer
+}
+
 type Handler interface {
-	OnMessage(s Session, msgID int64, in *bin.Buffer) error
+	OnMessage(server *Server, req *Request) error
 }
 
 // HandlerFunc is functional adapter for Handler.OnMessage method.
-type HandlerFunc func(s Session, msgID int64, in *bin.Buffer) error
+type HandlerFunc func(server *Server, req *Request) error
 
-func (h HandlerFunc) OnMessage(s Session, msgID int64, in *bin.Buffer) error {
-	return h(s, msgID, in)
+func (h HandlerFunc) OnMessage(server *Server, req *Request) error {
+	return h(server, req)
 }

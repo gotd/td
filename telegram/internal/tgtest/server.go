@@ -11,7 +11,6 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/proto"
@@ -21,9 +20,9 @@ import (
 type Server struct {
 	server *transport.Server
 
-	key     *rsa.PrivateKey
-	cipher  crypto.Cipher
-	handler Handler
+	key        *rsa.PrivateKey
+	cipher     crypto.Cipher
+	dispatcher *Dispatcher
 
 	ctx   context.Context
 	clock clock.Clock
@@ -59,9 +58,8 @@ func (s *Server) Close() {
 	_ = s.server.Close()
 }
 
-func NewServer(name string, suite Suite, codec func() transport.Codec, h Handler) *Server {
+func NewServer(name string, suite Suite, codec func() transport.Codec) *Server {
 	s := NewUnstartedServer(name, suite, codec)
-	s.SetHandler(h)
 	s.Start()
 	return s
 }
@@ -74,24 +72,21 @@ func NewUnstartedServer(name string, suite Suite, codec func() transport.Codec) 
 	log := suite.Log.Named(name)
 
 	s := &Server{
-		server: transport.NewCustomServer(codec, newLocalListener(suite.Ctx)),
-		key:    k,
-		cipher: crypto.NewServerCipher(rand.Reader),
-		ctx:    suite.Ctx,
-		clock:  clock.System,
-		log:    log,
-		users:  newUsers(),
-		msgID:  proto.NewMessageIDGen(clock.System.Now, 100),
+		server:     transport.NewCustomServer(codec, newLocalListener(suite.Ctx)),
+		key:        k,
+		cipher:     crypto.NewServerCipher(rand.Reader),
+		ctx:        suite.Ctx,
+		clock:      clock.System,
+		log:        log,
+		dispatcher: NewDispatcher(),
+		users:      newUsers(),
+		msgID:      proto.NewMessageIDGen(clock.System.Now, 100),
 	}
 	return s
 }
 
-func (s *Server) SetHandler(handler Handler) {
-	s.handler = handler
-}
-
-func (s *Server) SetHandlerFunc(handler func(s Session, msgID int64, in *bin.Buffer) error) {
-	s.handler = HandlerFunc(handler)
+func (s *Server) Dispatcher() *Dispatcher {
+	return s.dispatcher
 }
 
 func (s *Server) serve() error {
