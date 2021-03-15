@@ -32,7 +32,9 @@ type testTransportHandler struct {
 func TestTransport(s Suite, message string, codec func() transport.Codec) *Server {
 	srv := NewUnstartedServer("server", s, codec)
 	h := testTransport(s, srv, message)
-	srv.Dispatcher().Fallback(h)
+	srv.Dispatcher().
+		Handle(tg.InvokeWithLayerRequestTypeID, h).
+		Handle(tg.MessagesSendMessageRequestTypeID, h)
 
 	return srv
 }

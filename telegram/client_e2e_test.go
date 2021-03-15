@@ -22,6 +22,40 @@ import (
 	"github.com/gotd/td/transport"
 )
 
+func fallbackHandler(dcOps *tg.Config) tgtest.HandlerFunc {
+	return func(srv *tgtest.Server, req *tgtest.Request) error {
+		id, err := req.Buf.PeekID()
+		if err != nil {
+			return err
+		}
+
+		switch id {
+		case tg.InvokeWithLayerRequestTypeID:
+			layerInvoke := tg.InvokeWithLayerRequest{
+				Query: &tg.InitConnectionRequest{
+					Query: &tg.HelpGetConfigRequest{},
+				},
+			}
+
+			if err := layerInvoke.Decode(req.Buf); err != nil {
+				return err
+			}
+
+			return srv.SendResult(req, dcOps)
+		case tg.UsersGetUsersRequestTypeID:
+			return srv.SendVector(req, &tg.User{
+				ID:         10,
+				AccessHash: 10,
+				Username:   "jit_rs",
+			})
+		case tg.HelpGetConfigRequestTypeID:
+			return srv.SendResult(req, dcOps)
+		default:
+			return xerrors.Errorf("unexpected TypeID %x call", id)
+		}
+	}
+}
+
 func testAllTransports(t *testing.T, test func(trp Transport) func(t *testing.T)) {
 	t.Run("Abridged", test(transport.Abridged(nil)))
 	t.Run("Intermediate", test(transport.Intermediate(nil)))
@@ -40,6 +74,10 @@ func testTransport(trp Transport) func(t *testing.T) {
 		testMessage := "ну че там с деньгами?"
 		suite := tgtest.NewSuite(gCtx, t, log)
 		srv := tgtest.TestTransport(suite, testMessage, trp.Codec)
+		srv.Dispatcher().Fallback(fallbackHandler(&tg.Config{
+			ThisDC: 2,
+		}))
+
 		g.Go(func() error {
 			defer srv.Close()
 			return srv.Serve()
@@ -99,40 +137,6 @@ func TestClientE2E(t *testing.T) {
 	testAllTransports(t, testTransport)
 }
 
-func defaultMigrationHandler(dcOps *tg.Config) tgtest.HandlerFunc {
-	return func(srv *tgtest.Server, req *tgtest.Request) error {
-		id, err := req.Buf.PeekID()
-		if err != nil {
-			return err
-		}
-
-		switch id {
-		case tg.InvokeWithLayerRequestTypeID:
-			layerInvoke := tg.InvokeWithLayerRequest{
-				Query: &tg.InitConnectionRequest{
-					Query: &tg.HelpGetConfigRequest{},
-				},
-			}
-
-			if err := layerInvoke.Decode(req.Buf); err != nil {
-				return err
-			}
-
-			return srv.SendResult(req, dcOps)
-		case tg.UsersGetUsersRequestTypeID:
-			return srv.SendVector(req, &tg.User{
-				ID:         10,
-				AccessHash: 10,
-				Username:   "jit_rs",
-			})
-		case tg.HelpGetConfigRequestTypeID:
-			return srv.SendResult(req, dcOps)
-		default:
-			return xerrors.Errorf("unexpected TypeID %x call", id)
-		}
-	}
-}
-
 func testMigrate(trp Transport) func(t *testing.T) {
 	return func(t *testing.T) {
 		log := zaptest.NewLogger(t)
@@ -176,7 +180,7 @@ func testMigrate(trp Transport) func(t *testing.T) {
 				wait <- struct{}{}
 				return srv.SendResult(req, &tg.Updates{})
 			},
-		).Fallback(defaultMigrationHandler(dcOps))
+		).Fallback(fallbackHandler(dcOps))
 		g.Go(func() error {
 			defer srv.Close()
 			return srv.Serve()
@@ -193,7 +197,7 @@ func testMigrate(trp Transport) func(t *testing.T) {
 					ErrorCode:    303,
 					ErrorMessage: "NETWORK_MIGRATE_1",
 				})
-			}).Fallback(defaultMigrationHandler(dcOps))
+			}).Fallback(fallbackHandler(dcOps))
 		g.Go(func() error {
 			defer migrate.Close()
 			return migrate.Serve()

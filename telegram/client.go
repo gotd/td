@@ -264,7 +264,7 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 	return nil
 }
 
-func (c *Client) runUntilRestart(ctx context.Context, b backoff.BackOff) error {
+func (c *Client) runUntilRestart(ctx context.Context) error {
 	g := tdsync.NewCancellableGroup(ctx)
 	g.Go(c.conn.Run)
 	g.Go(func(ctx context.Context) error {
@@ -302,7 +302,7 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 	b := tdsync.SyncBackoff(c.connBackoff())
 
 	for {
-		err := c.runUntilRestart(ctx, b)
+		err := c.runUntilRestart(ctx)
 		if err == nil {
 			return nil
 		}

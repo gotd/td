@@ -130,10 +130,10 @@ func (opt *Options) setDefaults() {
 	opt.normalizeAddr()
 }
 
-func defaultBackoff(clock clock.Clock) func() backoff.BackOff {
+func defaultBackoff(c clock.Clock) func() backoff.BackOff {
 	return func() backoff.BackOff {
 		b := backoff.NewExponentialBackOff()
-		b.Clock = clock
+		b.Clock = c
 		b.MaxElapsedTime = 0
 		return b
 	}
