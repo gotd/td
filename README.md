@@ -30,7 +30,7 @@ This project is fully non-commercial and not affiliated with any commercial orga
 * Vendored Telegram public keys that are kept up-to-date
 * Rigorously tested
   * End-to-end with real Telegram server in CI
-  * End-to-End with gotd Telegram server (in go)
+  * End-to-end with gotd Telegram server (in go)
   * Lots of unit testing
   * Fuzzing
   * 24/7 canary bot in production that tests reconnects, update handling, memory leaks and performance
