@@ -64,12 +64,6 @@ func (b *Builder) Complete() (string, []tg.MessageEntityClass) {
 
 func computeLength(s string) int {
 	const (
-		// 0xd800-0xdc00 encodes the high 10 bits of a pair.
-		// 0xdc00-0xe000 encodes the low 10 bits of a pair.
-		// the value is those 20 bits plus 0x10000.
-		surr1 = 0xd800
-		surr3 = 0xe000
-
 		surrSelf = 0x10000
 		maxRune  = '\U0010FFFF' // Maximum valid Unicode code point.
 	)

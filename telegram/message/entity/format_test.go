@@ -13,18 +13,13 @@ func Test_computeLength(t *testing.T) {
 		s    string
 		want int
 	}{
-		{"a🏳️‍🌈", 7},
-		{"a🏳️‍🌈🏳️‍🌈", 13},
-		{"a🏳️‍🌈🏳️‍🌈a🏳️‍🌈🏳️‍🌈", 26},
-		{"a👨‍👦‍👦", 9},
-		{`message#bce383d2
-  id: 1939
-  from_id: 🏳️‍🌈
-  date: 2021-03-15T10:01:41Z`, 74},
+		{string([]rune{97, 127987, 65039, 8205, 127752}), 7},
+		{string([]int32{97, 127987, 65039, 8205, 127752, 127987, 65039, 8205, 127752}), 13},
+		{string([]int32{97, 128104, 8205, 128102, 8205, 128102}), 9},
 	}
 	for _, tt := range tests {
 		testutil.ZeroAlloc(t, func() {
-			computeLength(tt.s)
+			_ = computeLength(tt.s)
 		})
 		t.Run(tt.s, func(t *testing.T) {
 			require.Equal(t, tt.want, computeLength(tt.s))
