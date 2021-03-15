@@ -84,7 +84,6 @@ func (f *FutureSalt) Encode(b *bin.Buffer) error {
 	if f == nil {
 		return fmt.Errorf("can't encode future_salt#949d9dc as nil")
 	}
-	b.PutID(FutureSaltTypeID)
 	b.PutInt(f.ValidSince)
 	b.PutInt(f.ValidUntil)
 	b.PutLong(f.Salt)
