@@ -58,6 +58,10 @@ type Options struct {
 	ExchangeTimeout time.Duration
 	// SaltFetchInterval is duration between get_future_salts request.
 	SaltFetchInterval time.Duration
+	// PingTimeout sets ping_delay_disconnect timeout.
+	PingTimeout time.Duration
+	// PingInterval is duration between ping_delay_disconnect request.
+	PingInterval time.Duration
 	// RequestTimeout is function which returns request timeout for given type ID.
 	RequestTimeout func(req uint32) time.Duration
 	// MaxRetries is max retry count until rpc request failure.
@@ -147,6 +151,12 @@ func (opt *Options) setDefaults() {
 	}
 	if opt.SaltFetchInterval == 0 {
 		opt.SaltFetchInterval = 1 * time.Hour
+	}
+	if opt.PingTimeout == 0 {
+		opt.PingTimeout = 15 * time.Second
+	}
+	if opt.PingInterval == 0 {
+		opt.PingInterval = 1 * time.Minute
 	}
 	if opt.RequestTimeout == nil {
 		opt.RequestTimeout = func(req uint32) time.Duration {

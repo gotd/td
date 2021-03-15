@@ -95,15 +95,11 @@ func (c *Conn) removePong(pingID int64) {
 }
 
 func (c *Conn) pingLoop(ctx context.Context) error {
-	const (
-		timeout   = time.Second * 15
-		frequency = time.Minute
-		// If the client sends these pings once every 60 seconds,
-		// for example, it may set disconnect_delay equal to 75 seconds.
-		disconnectDelay = 75 // in seconds
-	)
+	// If the client sends these pings once every 60 seconds,
+	// for example, it may set disconnect_delay equal to 75 seconds.
+	delay := c.pingInterval + c.pingTimeout
 
-	ticker := time.NewTicker(frequency)
+	ticker := time.NewTicker(c.pingInterval)
 	defer ticker.Stop()
 
 	for {
@@ -112,10 +108,10 @@ func (c *Conn) pingLoop(ctx context.Context) error {
 			return xerrors.Errorf("ping loop: %w", ctx.Err())
 		case <-ticker.C:
 			if err := func() error {
-				ctx, cancel := context.WithTimeout(ctx, timeout)
+				ctx, cancel := context.WithTimeout(ctx, c.pingTimeout)
 				defer cancel()
 
-				return c.pingDelayDisconnect(ctx, disconnectDelay)
+				return c.pingDelayDisconnect(ctx, int(delay.Seconds()))
 			}(); err != nil {
 				return xerrors.Errorf("disconnect (pong missed): %w", err)
 			}
