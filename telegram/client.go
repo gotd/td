@@ -78,7 +78,10 @@ type Client struct {
 	cfg     *atomicConfig
 	conn    clientConn
 	connMux sync.Mutex
-	create  connConstructor
+	// Connection factory fields.
+	create      connConstructor        // immutable
+	connBackoff func() backoff.BackOff // immutable
+	defaultMode manager.ConnMode       // immutable
 
 	// Restart signal channel.
 	restart chan struct{} // immutable
@@ -147,6 +150,10 @@ const Port = 443
 func NewClient(appID int, appHash string, opt Options) *Client {
 	opt.setDefaults()
 
+	mode := manager.ConnModeUpdates
+	if opt.NoUpdates {
+		mode = manager.ConnModeData
+	}
 	clientCtx, clientCancel := context.WithCancel(context.Background())
 	client := &Client{
 		rand:          opt.Random,
@@ -160,9 +167,11 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 			Addr: opt.Addr,
 			DC:   opt.DC,
 		}),
-		create: defaultConstructor(),
-		clock:  opt.Clock,
-		device: opt.Device,
+		create:      defaultConstructor(),
+		defaultMode: mode,
+		connBackoff: opt.ReconnectionBackoff,
+		clock:       opt.Clock,
+		device:      opt.Device,
 	}
 	client.init()
 
@@ -197,7 +206,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 			proto.TypesMap(),
 		),
 	}
-	client.conn = client.createConn(0, manager.ConnModeUpdates, nil)
+	client.conn = client.createConn(0, client.defaultMode, nil)
 
 	return client
 }
@@ -250,13 +259,13 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 		AuthKey: key,
 		Salt:    data.Salt,
 	})
-	c.conn = c.createConn(0, manager.ConnModeUpdates, nil)
+	c.conn = c.createConn(0, c.defaultMode, nil)
 	c.connMux.Unlock()
 
 	return nil
 }
 
-func (c *Client) runUntilRestart(ctx context.Context) error {
+func (c *Client) runUntilRestart(ctx context.Context, b backoff.BackOff) error {
 	g := tdsync.NewCancellableGroup(ctx)
 	g.Go(c.conn.Run)
 	g.Go(func(ctx context.Context) error {
@@ -289,15 +298,12 @@ func (c *Client) runUntilRestart(ctx context.Context) error {
 }
 
 func (c *Client) reconnectUntilClosed(ctx context.Context) error {
-	// TODO: Make this configurable.
 	// Note that we currently have no timeout on connection, so this is
 	// potentially eternal.
-	b := backoff.NewExponentialBackOff()
-	b.Clock = c.clock
-	b.MaxElapsedTime = 0
+	b := tdsync.SyncBackoff(c.connBackoff())
 
 	for {
-		err := c.runUntilRestart(ctx)
+		err := c.runUntilRestart(ctx, b)
 		if err == nil {
 			return nil
 		}
@@ -309,9 +315,14 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 
 			c.connMux.Lock()
 			setup := func(ctx context.Context, invoker tg.Invoker) error {
+				// Setup function call means successful connection
+				// initialization, so we can reset backoff.
+				b.Reset()
+
+				raw := tg.NewClient(invoker)
 				select {
 				case export := <-c.exported:
-					_, err := tg.NewClient(invoker).AuthImportAuthorization(ctx, &tg.AuthImportAuthorizationRequest{
+					_, err := raw.AuthImportAuthorization(ctx, &tg.AuthImportAuthorizationRequest{
 						ID:    export.ID,
 						Bytes: export.Bytes,
 					})
@@ -320,7 +331,7 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 				}
 				return nil
 			}
-			c.conn = c.createConn(0, manager.ConnModeUpdates, setup)
+			c.conn = c.createConn(0, c.defaultMode, setup)
 			c.connMux.Unlock()
 		}
 	}

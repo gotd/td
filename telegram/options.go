@@ -10,6 +10,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/cenkalti/backoff/v4"
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/clock"
@@ -48,6 +49,10 @@ type Options struct {
 	// PreferIPv6 gives IPv6 DCs higher precedence.
 	// Default is to prefer IPv4 DCs over IPv6.
 	PreferIPv6 bool
+	// NoUpdates enables no updates mode.
+	NoUpdates bool
+	// ReconnectionBackoff configures and returns reconnection backoff object.
+	ReconnectionBackoff func() backoff.BackOff
 	// Random is random source. Defaults to crypto.
 	Random io.Reader
 	// Logger is instance of zap.Logger. No logs by default.
@@ -115,9 +120,21 @@ func (opt *Options) setDefaults() {
 	if opt.Clock == nil {
 		opt.Clock = clock.System
 	}
+	if opt.ReconnectionBackoff == nil {
+		opt.ReconnectionBackoff = defaultBackoff(opt.Clock)
+	}
 	if opt.MessageID == nil {
 		opt.MessageID = proto.NewMessageIDGen(opt.Clock.Now, 100)
 	}
 
 	opt.normalizeAddr()
+}
+
+func defaultBackoff(clock clock.Clock) func() backoff.BackOff {
+	return func() backoff.BackOff {
+		b := backoff.NewExponentialBackOff()
+		b.Clock = clock
+		b.MaxElapsedTime = 0
+		return b
+	}
 }
