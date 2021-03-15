@@ -25,11 +25,11 @@ func (c *Client) connectPrimary(ctx context.Context, dc tg.DCOption, reuseCreds 
 		return xerrors.Errorf("cdn could not be a primary DC (%d)", dc.ID)
 	}
 
-	cfgchan := make(chan tg.Config)
+	cfgchan := make(chan tg.Config, 1)
 	dcBuilder := c.dc(dc).
 		WithMessageHandler(c.onPrimaryMessage).
 		WithSessionHandler(c.onPrimarySession).
-		OnConfig(func(c tg.Config) { <-cfgchan })
+		OnConfig(func(c tg.Config) { cfgchan <- c })
 
 	if reuseCreds {
 		dcBuilder = dcBuilder.WithCreds(c.sess.Key, c.sess.Salt)
