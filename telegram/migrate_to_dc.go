@@ -80,8 +80,16 @@ func findDC(cfg tg.Config, dcID int, preferIPv6 bool) (tg.DCOption, bool) {
 }
 
 func (c *Client) invokeMigrate(ctx context.Context, dcID int, input bin.Encoder, output bin.Decoder) error {
-	c.migration.Lock()
-	defer c.migration.Unlock()
+	// Acquire or cancel.
+	select {
+	case c.migration <- struct{}{}:
+	case <-ctx.Done():
+		return ctx.Err()
+	}
+	// Release.
+	defer func() {
+		<-c.migration
+	}()
 
 	// Check if someone already migrated.
 	s := c.session.Load()

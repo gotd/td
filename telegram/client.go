@@ -87,7 +87,7 @@ type Client struct {
 	restart chan struct{} // immutable
 	// Migration state.
 	exported  chan *tg.AuthExportedAuthorization // immutable
-	migration sync.Mutex
+	migration chan struct{}
 
 	// Connections to non-primary DC.
 	subConns    map[int]CloseInvoker
@@ -218,6 +218,7 @@ func (c *Client) init() {
 
 	c.ready = tdsync.NewResetReady()
 	c.restart = make(chan struct{})
+	c.migration = make(chan struct{}, 1)
 	c.exported = make(chan *tg.AuthExportedAuthorization, 1)
 	c.sessions = map[int]*pool.SyncSession{}
 	c.subConns = map[int]CloseInvoker{}
