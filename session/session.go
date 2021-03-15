@@ -52,6 +52,10 @@ func (l *Loader) Load(ctx context.Context) (*Data, error) {
 	if err != nil {
 		return nil, xerrors.Errorf("load: %w", err)
 	}
+	if len(buf) == 0 {
+		return nil, ErrNotFound
+	}
+
 	var v jsonData
 	if err := json.Unmarshal(buf, &v); err != nil {
 		return nil, xerrors.Errorf("unmarshal: %w", err)
