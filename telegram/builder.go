@@ -16,6 +16,7 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/session"
+	"github.com/gotd/td/tgerr"
 	"github.com/gotd/td/transport"
 )
 
@@ -97,27 +98,28 @@ func ClientFromEnvironment(opts Options) (*Client, error) {
 func retry(ctx context.Context, logger *zap.Logger, cb func(ctx context.Context) error) error {
 	b := backoff.WithContext(backoff.NewExponentialBackOff(), ctx)
 
+	// List of known retryable RPC error types.
+	retryableErrors := []string{
+		"NEED_MEMBER_INVALID",
+		"AUTH_KEY_UNREGISTERED",
+		"API_ID_PUBLISHED_FLOOD",
+	}
+
 	return backoff.Retry(func() error {
 		if err := cb(ctx); err != nil {
 			logger.Warn("TestClient run failed", zap.Error(err))
 
-			var rpcErr *Error
-			if errors.As(err, &rpcErr) {
-				switch rpcErr.Type {
-				case "NEED_MEMBER_INVALID",
-					"AUTH_KEY_UNREGISTERED",
-					"API_ID_PUBLISHED_FLOOD":
+			if tgerr.Is(err, retryableErrors...) {
+				return err
+			}
+			if d, ok := AsFloodWait(err); ok {
+				select {
+				case <-time.After(d + time.Second):
 					return err
-				case ErrFloodWait:
-					select {
-					case <-time.After(time.Duration(rpcErr.Argument+1) * time.Second):
-						return err
-					case <-ctx.Done():
-						return ctx.Err()
-					}
+				case <-ctx.Done():
+					return ctx.Err()
 				}
 			}
-
 			if errors.Is(err, io.EOF) || errors.Is(err, io.ErrUnexpectedEOF) {
 				// Possibly server closed connection.
 				return err
