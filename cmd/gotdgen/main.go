@@ -37,6 +37,7 @@ func main() {
 	performFormat := flag.Bool("format", true, "perform code formatting")
 	docBase := flag.String("doc", "", "base documentation url")
 	clean := flag.Bool("clean", false, "Clean generated files before generation")
+	server := flag.Bool("server", false, "Generate server handlers")
 	flag.Parse()
 	if *schemaPath == "" {
 		panic("no schema provided")
@@ -86,6 +87,8 @@ func main() {
 	if err != nil {
 		panic(fmt.Sprintf("%+v", err))
 	}
+	g.GenerateServer = *server
+
 	if err := g.WriteSource(fs, *packageName, gen.Template()); err != nil {
 		panic(fmt.Sprintf("%+v", err))
 	}
