@@ -43,6 +43,8 @@ type Generator struct {
 	// docBase is base url for documentation.
 	docBase *url.URL
 	doc     *getdoc.Doc
+
+	GenerateServer bool
 }
 
 // NewGenerator initializes and returns new Generator from tl.Schema.
