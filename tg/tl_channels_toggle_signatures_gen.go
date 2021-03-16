@@ -113,6 +113,14 @@ func (t *ChannelsToggleSignaturesRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.toggleSignatures#1f69b606 as nil")
 	}
 	b.PutID(ChannelsToggleSignaturesRequestTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *ChannelsToggleSignaturesRequest) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode channels.toggleSignatures#1f69b606 as nil")
+	}
 	if t.Channel == nil {
 		return fmt.Errorf("unable to encode channels.toggleSignatures#1f69b606: field channel is nil")
 	}
@@ -146,6 +154,14 @@ func (t *ChannelsToggleSignaturesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsToggleSignaturesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.toggleSignatures#1f69b606: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *ChannelsToggleSignaturesRequest) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode channels.toggleSignatures#1f69b606 to nil")
+	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
@@ -165,8 +181,10 @@ func (t *ChannelsToggleSignaturesRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsToggleSignaturesRequest.
 var (
-	_ bin.Encoder = &ChannelsToggleSignaturesRequest{}
-	_ bin.Decoder = &ChannelsToggleSignaturesRequest{}
+	_ bin.Encoder     = &ChannelsToggleSignaturesRequest{}
+	_ bin.Decoder     = &ChannelsToggleSignaturesRequest{}
+	_ bin.BareEncoder = &ChannelsToggleSignaturesRequest{}
+	_ bin.BareDecoder = &ChannelsToggleSignaturesRequest{}
 )
 
 // ChannelsToggleSignatures invokes method channels.toggleSignatures#1f69b606 returning error if any.

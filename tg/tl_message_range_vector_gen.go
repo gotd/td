@@ -98,6 +98,15 @@ func (vec *MessageRangeVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't encode Vector<MessageRange> as nil")
 	}
+
+	return vec.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (vec *MessageRangeVector) EncodeBare(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't encode Vector<MessageRange> as nil")
+	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if err := v.Encode(b); err != nil {
@@ -114,6 +123,15 @@ func (vec *MessageRangeVector) GetElems() (value []MessageRange) {
 
 // Decode implements bin.Decoder.
 func (vec *MessageRangeVector) Decode(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't decode Vector<MessageRange> to nil")
+	}
+
+	return vec.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (vec *MessageRangeVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't decode Vector<MessageRange> to nil")
 	}
@@ -135,6 +153,8 @@ func (vec *MessageRangeVector) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessageRangeVector.
 var (
-	_ bin.Encoder = &MessageRangeVector{}
-	_ bin.Decoder = &MessageRangeVector{}
+	_ bin.Encoder     = &MessageRangeVector{}
+	_ bin.Decoder     = &MessageRangeVector{}
+	_ bin.BareEncoder = &MessageRangeVector{}
+	_ bin.BareDecoder = &MessageRangeVector{}
 )

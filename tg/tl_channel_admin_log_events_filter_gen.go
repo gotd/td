@@ -342,6 +342,14 @@ func (c *ChannelAdminLogEventsFilter) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelAdminLogEventsFilter#ea107ae4 as nil")
 	}
 	b.PutID(ChannelAdminLogEventsFilterTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventsFilter) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventsFilter#ea107ae4 as nil")
+	}
 	if !(c.Join == false) {
 		c.Flags.Set(0)
 	}
@@ -660,6 +668,14 @@ func (c *ChannelAdminLogEventsFilter) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelAdminLogEventsFilterTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventsFilter#ea107ae4: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventsFilter) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventsFilter#ea107ae4 to nil")
+	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channelAdminLogEventsFilter#ea107ae4: field flags: %w", err)
@@ -686,6 +702,8 @@ func (c *ChannelAdminLogEventsFilter) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventsFilter.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventsFilter{}
-	_ bin.Decoder = &ChannelAdminLogEventsFilter{}
+	_ bin.Encoder     = &ChannelAdminLogEventsFilter{}
+	_ bin.Decoder     = &ChannelAdminLogEventsFilter{}
+	_ bin.BareEncoder = &ChannelAdminLogEventsFilter{}
+	_ bin.BareDecoder = &ChannelAdminLogEventsFilter{}
 )

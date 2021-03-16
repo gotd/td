@@ -113,6 +113,14 @@ func (c *ChannelAdminLogEventActionChangeTitle) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelAdminLogEventActionChangeTitle#e6dfb825 as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionChangeTitleTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionChangeTitle) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionChangeTitle#e6dfb825 as nil")
+	}
 	b.PutString(c.PrevValue)
 	b.PutString(c.NewValue)
 	return nil
@@ -136,6 +144,14 @@ func (c *ChannelAdminLogEventActionChangeTitle) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelAdminLogEventActionChangeTitleTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionChangeTitle#e6dfb825: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionChangeTitle) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionChangeTitle#e6dfb825 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -158,8 +174,10 @@ func (c ChannelAdminLogEventActionChangeTitle) construct() ChannelAdminLogEventA
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangeTitle.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionChangeTitle{}
-	_ bin.Decoder = &ChannelAdminLogEventActionChangeTitle{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionChangeTitle{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionChangeTitle{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionChangeTitle{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionChangeTitle{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangeTitle{}
 )
@@ -251,6 +269,14 @@ func (c *ChannelAdminLogEventActionChangeAbout) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelAdminLogEventActionChangeAbout#55188a2e as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionChangeAboutTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionChangeAbout) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionChangeAbout#55188a2e as nil")
+	}
 	b.PutString(c.PrevValue)
 	b.PutString(c.NewValue)
 	return nil
@@ -274,6 +300,14 @@ func (c *ChannelAdminLogEventActionChangeAbout) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelAdminLogEventActionChangeAboutTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionChangeAbout#55188a2e: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionChangeAbout) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionChangeAbout#55188a2e to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -296,8 +330,10 @@ func (c ChannelAdminLogEventActionChangeAbout) construct() ChannelAdminLogEventA
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangeAbout.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionChangeAbout{}
-	_ bin.Decoder = &ChannelAdminLogEventActionChangeAbout{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionChangeAbout{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionChangeAbout{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionChangeAbout{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionChangeAbout{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangeAbout{}
 )
@@ -389,6 +425,14 @@ func (c *ChannelAdminLogEventActionChangeUsername) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelAdminLogEventActionChangeUsername#6a4afc38 as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionChangeUsernameTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionChangeUsername) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionChangeUsername#6a4afc38 as nil")
+	}
 	b.PutString(c.PrevValue)
 	b.PutString(c.NewValue)
 	return nil
@@ -411,6 +455,14 @@ func (c *ChannelAdminLogEventActionChangeUsername) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(ChannelAdminLogEventActionChangeUsernameTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionChangeUsername#6a4afc38: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionChangeUsername) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionChangeUsername#6a4afc38 to nil")
 	}
 	{
 		value, err := b.String()
@@ -436,8 +488,10 @@ func (c ChannelAdminLogEventActionChangeUsername) construct() ChannelAdminLogEve
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangeUsername.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionChangeUsername{}
-	_ bin.Decoder = &ChannelAdminLogEventActionChangeUsername{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionChangeUsername{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionChangeUsername{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionChangeUsername{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionChangeUsername{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangeUsername{}
 )
@@ -529,6 +583,14 @@ func (c *ChannelAdminLogEventActionChangePhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelAdminLogEventActionChangePhoto#434bd2af as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionChangePhotoTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionChangePhoto) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionChangePhoto#434bd2af as nil")
+	}
 	if c.PrevPhoto == nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionChangePhoto#434bd2af: field prev_photo is nil")
 	}
@@ -562,6 +624,14 @@ func (c *ChannelAdminLogEventActionChangePhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelAdminLogEventActionChangePhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionChangePhoto#434bd2af: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionChangePhoto) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionChangePhoto#434bd2af to nil")
+	}
 	{
 		value, err := DecodePhoto(b)
 		if err != nil {
@@ -584,8 +654,10 @@ func (c ChannelAdminLogEventActionChangePhoto) construct() ChannelAdminLogEventA
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangePhoto.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionChangePhoto{}
-	_ bin.Decoder = &ChannelAdminLogEventActionChangePhoto{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionChangePhoto{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionChangePhoto{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionChangePhoto{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionChangePhoto{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangePhoto{}
 )
@@ -666,6 +738,14 @@ func (c *ChannelAdminLogEventActionToggleInvites) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelAdminLogEventActionToggleInvites#1b7907ae as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionToggleInvitesTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionToggleInvites) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionToggleInvites#1b7907ae as nil")
+	}
 	b.PutBool(c.NewValue)
 	return nil
 }
@@ -682,6 +762,14 @@ func (c *ChannelAdminLogEventActionToggleInvites) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(ChannelAdminLogEventActionToggleInvitesTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionToggleInvites#1b7907ae: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionToggleInvites) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionToggleInvites#1b7907ae to nil")
 	}
 	{
 		value, err := b.Bool()
@@ -700,8 +788,10 @@ func (c ChannelAdminLogEventActionToggleInvites) construct() ChannelAdminLogEven
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionToggleInvites.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionToggleInvites{}
-	_ bin.Decoder = &ChannelAdminLogEventActionToggleInvites{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionToggleInvites{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionToggleInvites{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionToggleInvites{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionToggleInvites{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionToggleInvites{}
 )
@@ -782,6 +872,14 @@ func (c *ChannelAdminLogEventActionToggleSignatures) Encode(b *bin.Buffer) error
 		return fmt.Errorf("can't encode channelAdminLogEventActionToggleSignatures#26ae0971 as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionToggleSignaturesTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionToggleSignatures) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionToggleSignatures#26ae0971 as nil")
+	}
 	b.PutBool(c.NewValue)
 	return nil
 }
@@ -798,6 +896,14 @@ func (c *ChannelAdminLogEventActionToggleSignatures) Decode(b *bin.Buffer) error
 	}
 	if err := b.ConsumeID(ChannelAdminLogEventActionToggleSignaturesTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionToggleSignatures#26ae0971: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionToggleSignatures) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionToggleSignatures#26ae0971 to nil")
 	}
 	{
 		value, err := b.Bool()
@@ -816,8 +922,10 @@ func (c ChannelAdminLogEventActionToggleSignatures) construct() ChannelAdminLogE
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionToggleSignatures.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionToggleSignatures{}
-	_ bin.Decoder = &ChannelAdminLogEventActionToggleSignatures{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionToggleSignatures{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionToggleSignatures{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionToggleSignatures{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionToggleSignatures{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionToggleSignatures{}
 )
@@ -898,6 +1006,14 @@ func (c *ChannelAdminLogEventActionUpdatePinned) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelAdminLogEventActionUpdatePinned#e9e82c18 as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionUpdatePinnedTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionUpdatePinned) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionUpdatePinned#e9e82c18 as nil")
+	}
 	if c.Message == nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionUpdatePinned#e9e82c18: field message is nil")
 	}
@@ -920,6 +1036,14 @@ func (c *ChannelAdminLogEventActionUpdatePinned) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelAdminLogEventActionUpdatePinnedTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionUpdatePinned#e9e82c18: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionUpdatePinned) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionUpdatePinned#e9e82c18 to nil")
+	}
 	{
 		value, err := DecodeMessage(b)
 		if err != nil {
@@ -937,8 +1061,10 @@ func (c ChannelAdminLogEventActionUpdatePinned) construct() ChannelAdminLogEvent
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionUpdatePinned.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionUpdatePinned{}
-	_ bin.Decoder = &ChannelAdminLogEventActionUpdatePinned{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionUpdatePinned{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionUpdatePinned{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionUpdatePinned{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionUpdatePinned{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionUpdatePinned{}
 )
@@ -1030,6 +1156,14 @@ func (c *ChannelAdminLogEventActionEditMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelAdminLogEventActionEditMessage#709b2405 as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionEditMessageTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionEditMessage) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionEditMessage#709b2405 as nil")
+	}
 	if c.PrevMessage == nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionEditMessage#709b2405: field prev_message is nil")
 	}
@@ -1063,6 +1197,14 @@ func (c *ChannelAdminLogEventActionEditMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelAdminLogEventActionEditMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionEditMessage#709b2405: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionEditMessage) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionEditMessage#709b2405 to nil")
+	}
 	{
 		value, err := DecodeMessage(b)
 		if err != nil {
@@ -1085,8 +1227,10 @@ func (c ChannelAdminLogEventActionEditMessage) construct() ChannelAdminLogEventA
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionEditMessage.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionEditMessage{}
-	_ bin.Decoder = &ChannelAdminLogEventActionEditMessage{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionEditMessage{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionEditMessage{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionEditMessage{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionEditMessage{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionEditMessage{}
 )
@@ -1167,6 +1311,14 @@ func (c *ChannelAdminLogEventActionDeleteMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelAdminLogEventActionDeleteMessage#42e047bb as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionDeleteMessageTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionDeleteMessage) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionDeleteMessage#42e047bb as nil")
+	}
 	if c.Message == nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionDeleteMessage#42e047bb: field message is nil")
 	}
@@ -1189,6 +1341,14 @@ func (c *ChannelAdminLogEventActionDeleteMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelAdminLogEventActionDeleteMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionDeleteMessage#42e047bb: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionDeleteMessage) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionDeleteMessage#42e047bb to nil")
+	}
 	{
 		value, err := DecodeMessage(b)
 		if err != nil {
@@ -1206,8 +1366,10 @@ func (c ChannelAdminLogEventActionDeleteMessage) construct() ChannelAdminLogEven
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionDeleteMessage.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionDeleteMessage{}
-	_ bin.Decoder = &ChannelAdminLogEventActionDeleteMessage{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionDeleteMessage{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionDeleteMessage{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionDeleteMessage{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionDeleteMessage{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionDeleteMessage{}
 )
@@ -1271,6 +1433,14 @@ func (c *ChannelAdminLogEventActionParticipantJoin) Encode(b *bin.Buffer) error 
 		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantJoin#183040d3 as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionParticipantJoinTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionParticipantJoin) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantJoin#183040d3 as nil")
+	}
 	return nil
 }
 
@@ -1282,6 +1452,14 @@ func (c *ChannelAdminLogEventActionParticipantJoin) Decode(b *bin.Buffer) error 
 	if err := b.ConsumeID(ChannelAdminLogEventActionParticipantJoinTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantJoin#183040d3: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionParticipantJoin) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionParticipantJoin#183040d3 to nil")
+	}
 	return nil
 }
 
@@ -1292,8 +1470,10 @@ func (c ChannelAdminLogEventActionParticipantJoin) construct() ChannelAdminLogEv
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantJoin.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionParticipantJoin{}
-	_ bin.Decoder = &ChannelAdminLogEventActionParticipantJoin{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantJoin{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantJoin{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantJoin{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantJoin{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantJoin{}
 )
@@ -1357,6 +1537,14 @@ func (c *ChannelAdminLogEventActionParticipantLeave) Encode(b *bin.Buffer) error
 		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantLeave#f89777f2 as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionParticipantLeaveTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionParticipantLeave) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantLeave#f89777f2 as nil")
+	}
 	return nil
 }
 
@@ -1368,6 +1556,14 @@ func (c *ChannelAdminLogEventActionParticipantLeave) Decode(b *bin.Buffer) error
 	if err := b.ConsumeID(ChannelAdminLogEventActionParticipantLeaveTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantLeave#f89777f2: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionParticipantLeave) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionParticipantLeave#f89777f2 to nil")
+	}
 	return nil
 }
 
@@ -1378,8 +1574,10 @@ func (c ChannelAdminLogEventActionParticipantLeave) construct() ChannelAdminLogE
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantLeave.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionParticipantLeave{}
-	_ bin.Decoder = &ChannelAdminLogEventActionParticipantLeave{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantLeave{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantLeave{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantLeave{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantLeave{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantLeave{}
 )
@@ -1460,6 +1658,14 @@ func (c *ChannelAdminLogEventActionParticipantInvite) Encode(b *bin.Buffer) erro
 		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantInvite#e31c34d8 as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionParticipantInviteTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionParticipantInvite) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantInvite#e31c34d8 as nil")
+	}
 	if c.Participant == nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionParticipantInvite#e31c34d8: field participant is nil")
 	}
@@ -1482,6 +1688,14 @@ func (c *ChannelAdminLogEventActionParticipantInvite) Decode(b *bin.Buffer) erro
 	if err := b.ConsumeID(ChannelAdminLogEventActionParticipantInviteTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantInvite#e31c34d8: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionParticipantInvite) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionParticipantInvite#e31c34d8 to nil")
+	}
 	{
 		value, err := DecodeChannelParticipant(b)
 		if err != nil {
@@ -1499,8 +1713,10 @@ func (c ChannelAdminLogEventActionParticipantInvite) construct() ChannelAdminLog
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantInvite.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionParticipantInvite{}
-	_ bin.Decoder = &ChannelAdminLogEventActionParticipantInvite{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantInvite{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantInvite{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantInvite{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantInvite{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantInvite{}
 )
@@ -1595,6 +1811,14 @@ func (c *ChannelAdminLogEventActionParticipantToggleBan) Encode(b *bin.Buffer) e
 		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantToggleBan#e6d83d7e as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionParticipantToggleBanTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionParticipantToggleBan) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantToggleBan#e6d83d7e as nil")
+	}
 	if c.PrevParticipant == nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionParticipantToggleBan#e6d83d7e: field prev_participant is nil")
 	}
@@ -1628,6 +1852,14 @@ func (c *ChannelAdminLogEventActionParticipantToggleBan) Decode(b *bin.Buffer) e
 	if err := b.ConsumeID(ChannelAdminLogEventActionParticipantToggleBanTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantToggleBan#e6d83d7e: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionParticipantToggleBan) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionParticipantToggleBan#e6d83d7e to nil")
+	}
 	{
 		value, err := DecodeChannelParticipant(b)
 		if err != nil {
@@ -1652,8 +1884,10 @@ func (c ChannelAdminLogEventActionParticipantToggleBan) construct() ChannelAdmin
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantToggleBan.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionParticipantToggleBan{}
-	_ bin.Decoder = &ChannelAdminLogEventActionParticipantToggleBan{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantToggleBan{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantToggleBan{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantToggleBan{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantToggleBan{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantToggleBan{}
 )
@@ -1748,6 +1982,14 @@ func (c *ChannelAdminLogEventActionParticipantToggleAdmin) Encode(b *bin.Buffer)
 		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantToggleAdmin#d5676710 as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionParticipantToggleAdminTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionParticipantToggleAdmin) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantToggleAdmin#d5676710 as nil")
+	}
 	if c.PrevParticipant == nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionParticipantToggleAdmin#d5676710: field prev_participant is nil")
 	}
@@ -1781,6 +2023,14 @@ func (c *ChannelAdminLogEventActionParticipantToggleAdmin) Decode(b *bin.Buffer)
 	if err := b.ConsumeID(ChannelAdminLogEventActionParticipantToggleAdminTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantToggleAdmin#d5676710: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionParticipantToggleAdmin) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionParticipantToggleAdmin#d5676710 to nil")
+	}
 	{
 		value, err := DecodeChannelParticipant(b)
 		if err != nil {
@@ -1805,8 +2055,10 @@ func (c ChannelAdminLogEventActionParticipantToggleAdmin) construct() ChannelAdm
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantToggleAdmin.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionParticipantToggleAdmin{}
-	_ bin.Decoder = &ChannelAdminLogEventActionParticipantToggleAdmin{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantToggleAdmin{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantToggleAdmin{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantToggleAdmin{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantToggleAdmin{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantToggleAdmin{}
 )
@@ -1898,6 +2150,14 @@ func (c *ChannelAdminLogEventActionChangeStickerSet) Encode(b *bin.Buffer) error
 		return fmt.Errorf("can't encode channelAdminLogEventActionChangeStickerSet#b1c3caa7 as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionChangeStickerSetTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionChangeStickerSet) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionChangeStickerSet#b1c3caa7 as nil")
+	}
 	if c.PrevStickerset == nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionChangeStickerSet#b1c3caa7: field prev_stickerset is nil")
 	}
@@ -1931,6 +2191,14 @@ func (c *ChannelAdminLogEventActionChangeStickerSet) Decode(b *bin.Buffer) error
 	if err := b.ConsumeID(ChannelAdminLogEventActionChangeStickerSetTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionChangeStickerSet#b1c3caa7: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionChangeStickerSet) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionChangeStickerSet#b1c3caa7 to nil")
+	}
 	{
 		value, err := DecodeInputStickerSet(b)
 		if err != nil {
@@ -1955,8 +2223,10 @@ func (c ChannelAdminLogEventActionChangeStickerSet) construct() ChannelAdminLogE
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangeStickerSet.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionChangeStickerSet{}
-	_ bin.Decoder = &ChannelAdminLogEventActionChangeStickerSet{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionChangeStickerSet{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionChangeStickerSet{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionChangeStickerSet{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionChangeStickerSet{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangeStickerSet{}
 )
@@ -2040,6 +2310,14 @@ func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) Encode(b *bin.Buffer)
 		return fmt.Errorf("can't encode channelAdminLogEventActionTogglePreHistoryHidden#5f5c95f1 as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionTogglePreHistoryHiddenTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionTogglePreHistoryHidden#5f5c95f1 as nil")
+	}
 	b.PutBool(c.NewValue)
 	return nil
 }
@@ -2056,6 +2334,14 @@ func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) Decode(b *bin.Buffer)
 	}
 	if err := b.ConsumeID(ChannelAdminLogEventActionTogglePreHistoryHiddenTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionTogglePreHistoryHidden#5f5c95f1: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionTogglePreHistoryHidden) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionTogglePreHistoryHidden#5f5c95f1 to nil")
 	}
 	{
 		value, err := b.Bool()
@@ -2074,8 +2360,10 @@ func (c ChannelAdminLogEventActionTogglePreHistoryHidden) construct() ChannelAdm
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionTogglePreHistoryHidden.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionTogglePreHistoryHidden{}
-	_ bin.Decoder = &ChannelAdminLogEventActionTogglePreHistoryHidden{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionTogglePreHistoryHidden{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionTogglePreHistoryHidden{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionTogglePreHistoryHidden{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionTogglePreHistoryHidden{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionTogglePreHistoryHidden{}
 )
@@ -2173,6 +2461,14 @@ func (c *ChannelAdminLogEventActionDefaultBannedRights) Encode(b *bin.Buffer) er
 		return fmt.Errorf("can't encode channelAdminLogEventActionDefaultBannedRights#2df5fc0a as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionDefaultBannedRightsTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionDefaultBannedRights) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionDefaultBannedRights#2df5fc0a as nil")
+	}
 	if err := c.PrevBannedRights.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionDefaultBannedRights#2df5fc0a: field prev_banned_rights: %w", err)
 	}
@@ -2200,6 +2496,14 @@ func (c *ChannelAdminLogEventActionDefaultBannedRights) Decode(b *bin.Buffer) er
 	if err := b.ConsumeID(ChannelAdminLogEventActionDefaultBannedRightsTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionDefaultBannedRights#2df5fc0a: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionDefaultBannedRights) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionDefaultBannedRights#2df5fc0a to nil")
+	}
 	{
 		if err := c.PrevBannedRights.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channelAdminLogEventActionDefaultBannedRights#2df5fc0a: field prev_banned_rights: %w", err)
@@ -2220,8 +2524,10 @@ func (c ChannelAdminLogEventActionDefaultBannedRights) construct() ChannelAdminL
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionDefaultBannedRights.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionDefaultBannedRights{}
-	_ bin.Decoder = &ChannelAdminLogEventActionDefaultBannedRights{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionDefaultBannedRights{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionDefaultBannedRights{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionDefaultBannedRights{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionDefaultBannedRights{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionDefaultBannedRights{}
 )
@@ -2302,6 +2608,14 @@ func (c *ChannelAdminLogEventActionStopPoll) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelAdminLogEventActionStopPoll#8f079643 as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionStopPollTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionStopPoll) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionStopPoll#8f079643 as nil")
+	}
 	if c.Message == nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionStopPoll#8f079643: field message is nil")
 	}
@@ -2324,6 +2638,14 @@ func (c *ChannelAdminLogEventActionStopPoll) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelAdminLogEventActionStopPollTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionStopPoll#8f079643: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionStopPoll) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionStopPoll#8f079643 to nil")
+	}
 	{
 		value, err := DecodeMessage(b)
 		if err != nil {
@@ -2339,8 +2661,10 @@ func (c ChannelAdminLogEventActionStopPoll) construct() ChannelAdminLogEventActi
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionStopPoll.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionStopPoll{}
-	_ bin.Decoder = &ChannelAdminLogEventActionStopPoll{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionStopPoll{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionStopPoll{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionStopPoll{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionStopPoll{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionStopPoll{}
 )
@@ -2432,6 +2756,14 @@ func (c *ChannelAdminLogEventActionChangeLinkedChat) Encode(b *bin.Buffer) error
 		return fmt.Errorf("can't encode channelAdminLogEventActionChangeLinkedChat#a26f881b as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionChangeLinkedChatTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionChangeLinkedChat) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionChangeLinkedChat#a26f881b as nil")
+	}
 	b.PutInt(c.PrevValue)
 	b.PutInt(c.NewValue)
 	return nil
@@ -2454,6 +2786,14 @@ func (c *ChannelAdminLogEventActionChangeLinkedChat) Decode(b *bin.Buffer) error
 	}
 	if err := b.ConsumeID(ChannelAdminLogEventActionChangeLinkedChatTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionChangeLinkedChat#a26f881b: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionChangeLinkedChat) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionChangeLinkedChat#a26f881b to nil")
 	}
 	{
 		value, err := b.Int()
@@ -2479,8 +2819,10 @@ func (c ChannelAdminLogEventActionChangeLinkedChat) construct() ChannelAdminLogE
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangeLinkedChat.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionChangeLinkedChat{}
-	_ bin.Decoder = &ChannelAdminLogEventActionChangeLinkedChat{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionChangeLinkedChat{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionChangeLinkedChat{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionChangeLinkedChat{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionChangeLinkedChat{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangeLinkedChat{}
 )
@@ -2572,6 +2914,14 @@ func (c *ChannelAdminLogEventActionChangeLocation) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelAdminLogEventActionChangeLocation#e6b76ae as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionChangeLocationTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionChangeLocation) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionChangeLocation#e6b76ae as nil")
+	}
 	if c.PrevValue == nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionChangeLocation#e6b76ae: field prev_value is nil")
 	}
@@ -2605,6 +2955,14 @@ func (c *ChannelAdminLogEventActionChangeLocation) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelAdminLogEventActionChangeLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionChangeLocation#e6b76ae: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionChangeLocation) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionChangeLocation#e6b76ae to nil")
+	}
 	{
 		value, err := DecodeChannelLocation(b)
 		if err != nil {
@@ -2629,8 +2987,10 @@ func (c ChannelAdminLogEventActionChangeLocation) construct() ChannelAdminLogEve
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangeLocation.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionChangeLocation{}
-	_ bin.Decoder = &ChannelAdminLogEventActionChangeLocation{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionChangeLocation{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionChangeLocation{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionChangeLocation{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionChangeLocation{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangeLocation{}
 )
@@ -2725,6 +3085,14 @@ func (c *ChannelAdminLogEventActionToggleSlowMode) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelAdminLogEventActionToggleSlowMode#53909779 as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionToggleSlowModeTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionToggleSlowMode) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionToggleSlowMode#53909779 as nil")
+	}
 	b.PutInt(c.PrevValue)
 	b.PutInt(c.NewValue)
 	return nil
@@ -2747,6 +3115,14 @@ func (c *ChannelAdminLogEventActionToggleSlowMode) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(ChannelAdminLogEventActionToggleSlowModeTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionToggleSlowMode#53909779: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionToggleSlowMode) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionToggleSlowMode#53909779 to nil")
 	}
 	{
 		value, err := b.Int()
@@ -2772,8 +3148,10 @@ func (c ChannelAdminLogEventActionToggleSlowMode) construct() ChannelAdminLogEve
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionToggleSlowMode.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionToggleSlowMode{}
-	_ bin.Decoder = &ChannelAdminLogEventActionToggleSlowMode{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionToggleSlowMode{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionToggleSlowMode{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionToggleSlowMode{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionToggleSlowMode{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionToggleSlowMode{}
 )
@@ -2853,6 +3231,14 @@ func (c *ChannelAdminLogEventActionStartGroupCall) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelAdminLogEventActionStartGroupCall#23209745 as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionStartGroupCallTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionStartGroupCall) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionStartGroupCall#23209745 as nil")
+	}
 	if err := c.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionStartGroupCall#23209745: field call: %w", err)
 	}
@@ -2872,6 +3258,14 @@ func (c *ChannelAdminLogEventActionStartGroupCall) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelAdminLogEventActionStartGroupCallTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionStartGroupCall#23209745: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionStartGroupCall) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionStartGroupCall#23209745 to nil")
+	}
 	{
 		if err := c.Call.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channelAdminLogEventActionStartGroupCall#23209745: field call: %w", err)
@@ -2887,8 +3281,10 @@ func (c ChannelAdminLogEventActionStartGroupCall) construct() ChannelAdminLogEve
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionStartGroupCall.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionStartGroupCall{}
-	_ bin.Decoder = &ChannelAdminLogEventActionStartGroupCall{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionStartGroupCall{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionStartGroupCall{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionStartGroupCall{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionStartGroupCall{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionStartGroupCall{}
 )
@@ -2968,6 +3364,14 @@ func (c *ChannelAdminLogEventActionDiscardGroupCall) Encode(b *bin.Buffer) error
 		return fmt.Errorf("can't encode channelAdminLogEventActionDiscardGroupCall#db9f9140 as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionDiscardGroupCallTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionDiscardGroupCall) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionDiscardGroupCall#db9f9140 as nil")
+	}
 	if err := c.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionDiscardGroupCall#db9f9140: field call: %w", err)
 	}
@@ -2987,6 +3391,14 @@ func (c *ChannelAdminLogEventActionDiscardGroupCall) Decode(b *bin.Buffer) error
 	if err := b.ConsumeID(ChannelAdminLogEventActionDiscardGroupCallTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionDiscardGroupCall#db9f9140: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionDiscardGroupCall) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionDiscardGroupCall#db9f9140 to nil")
+	}
 	{
 		if err := c.Call.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channelAdminLogEventActionDiscardGroupCall#db9f9140: field call: %w", err)
@@ -3002,8 +3414,10 @@ func (c ChannelAdminLogEventActionDiscardGroupCall) construct() ChannelAdminLogE
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionDiscardGroupCall.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionDiscardGroupCall{}
-	_ bin.Decoder = &ChannelAdminLogEventActionDiscardGroupCall{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionDiscardGroupCall{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionDiscardGroupCall{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionDiscardGroupCall{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionDiscardGroupCall{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionDiscardGroupCall{}
 )
@@ -3083,6 +3497,14 @@ func (c *ChannelAdminLogEventActionParticipantMute) Encode(b *bin.Buffer) error 
 		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantMute#f92424d2 as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionParticipantMuteTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionParticipantMute) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantMute#f92424d2 as nil")
+	}
 	if err := c.Participant.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionParticipantMute#f92424d2: field participant: %w", err)
 	}
@@ -3102,6 +3524,14 @@ func (c *ChannelAdminLogEventActionParticipantMute) Decode(b *bin.Buffer) error 
 	if err := b.ConsumeID(ChannelAdminLogEventActionParticipantMuteTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantMute#f92424d2: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionParticipantMute) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionParticipantMute#f92424d2 to nil")
+	}
 	{
 		if err := c.Participant.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantMute#f92424d2: field participant: %w", err)
@@ -3117,8 +3547,10 @@ func (c ChannelAdminLogEventActionParticipantMute) construct() ChannelAdminLogEv
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantMute.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionParticipantMute{}
-	_ bin.Decoder = &ChannelAdminLogEventActionParticipantMute{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantMute{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantMute{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantMute{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantMute{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantMute{}
 )
@@ -3198,6 +3630,14 @@ func (c *ChannelAdminLogEventActionParticipantUnmute) Encode(b *bin.Buffer) erro
 		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantUnmute#e64429c0 as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionParticipantUnmuteTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionParticipantUnmute) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantUnmute#e64429c0 as nil")
+	}
 	if err := c.Participant.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionParticipantUnmute#e64429c0: field participant: %w", err)
 	}
@@ -3217,6 +3657,14 @@ func (c *ChannelAdminLogEventActionParticipantUnmute) Decode(b *bin.Buffer) erro
 	if err := b.ConsumeID(ChannelAdminLogEventActionParticipantUnmuteTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantUnmute#e64429c0: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionParticipantUnmute) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionParticipantUnmute#e64429c0 to nil")
+	}
 	{
 		if err := c.Participant.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantUnmute#e64429c0: field participant: %w", err)
@@ -3232,8 +3680,10 @@ func (c ChannelAdminLogEventActionParticipantUnmute) construct() ChannelAdminLog
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantUnmute.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionParticipantUnmute{}
-	_ bin.Decoder = &ChannelAdminLogEventActionParticipantUnmute{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantUnmute{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantUnmute{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantUnmute{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantUnmute{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantUnmute{}
 )
@@ -3313,6 +3763,14 @@ func (c *ChannelAdminLogEventActionToggleGroupCallSetting) Encode(b *bin.Buffer)
 		return fmt.Errorf("can't encode channelAdminLogEventActionToggleGroupCallSetting#56d6a247 as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionToggleGroupCallSettingTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionToggleGroupCallSetting) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionToggleGroupCallSetting#56d6a247 as nil")
+	}
 	b.PutBool(c.JoinMuted)
 	return nil
 }
@@ -3329,6 +3787,14 @@ func (c *ChannelAdminLogEventActionToggleGroupCallSetting) Decode(b *bin.Buffer)
 	}
 	if err := b.ConsumeID(ChannelAdminLogEventActionToggleGroupCallSettingTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionToggleGroupCallSetting#56d6a247: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionToggleGroupCallSetting) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionToggleGroupCallSetting#56d6a247 to nil")
 	}
 	{
 		value, err := b.Bool()
@@ -3347,8 +3813,10 @@ func (c ChannelAdminLogEventActionToggleGroupCallSetting) construct() ChannelAdm
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionToggleGroupCallSetting.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionToggleGroupCallSetting{}
-	_ bin.Decoder = &ChannelAdminLogEventActionToggleGroupCallSetting{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionToggleGroupCallSetting{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionToggleGroupCallSetting{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionToggleGroupCallSetting{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionToggleGroupCallSetting{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionToggleGroupCallSetting{}
 )
@@ -3428,6 +3896,14 @@ func (c *ChannelAdminLogEventActionParticipantJoinByInvite) Encode(b *bin.Buffer
 		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantJoinByInvite#5cdada77 as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionParticipantJoinByInviteTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionParticipantJoinByInvite) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantJoinByInvite#5cdada77 as nil")
+	}
 	if err := c.Invite.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionParticipantJoinByInvite#5cdada77: field invite: %w", err)
 	}
@@ -3447,6 +3923,14 @@ func (c *ChannelAdminLogEventActionParticipantJoinByInvite) Decode(b *bin.Buffer
 	if err := b.ConsumeID(ChannelAdminLogEventActionParticipantJoinByInviteTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantJoinByInvite#5cdada77: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionParticipantJoinByInvite) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionParticipantJoinByInvite#5cdada77 to nil")
+	}
 	{
 		if err := c.Invite.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantJoinByInvite#5cdada77: field invite: %w", err)
@@ -3462,8 +3946,10 @@ func (c ChannelAdminLogEventActionParticipantJoinByInvite) construct() ChannelAd
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantJoinByInvite.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionParticipantJoinByInvite{}
-	_ bin.Decoder = &ChannelAdminLogEventActionParticipantJoinByInvite{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantJoinByInvite{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantJoinByInvite{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantJoinByInvite{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantJoinByInvite{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantJoinByInvite{}
 )
@@ -3543,6 +4029,14 @@ func (c *ChannelAdminLogEventActionExportedInviteDelete) Encode(b *bin.Buffer) e
 		return fmt.Errorf("can't encode channelAdminLogEventActionExportedInviteDelete#5a50fca4 as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionExportedInviteDeleteTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionExportedInviteDelete) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionExportedInviteDelete#5a50fca4 as nil")
+	}
 	if err := c.Invite.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionExportedInviteDelete#5a50fca4: field invite: %w", err)
 	}
@@ -3562,6 +4056,14 @@ func (c *ChannelAdminLogEventActionExportedInviteDelete) Decode(b *bin.Buffer) e
 	if err := b.ConsumeID(ChannelAdminLogEventActionExportedInviteDeleteTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionExportedInviteDelete#5a50fca4: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionExportedInviteDelete) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionExportedInviteDelete#5a50fca4 to nil")
+	}
 	{
 		if err := c.Invite.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channelAdminLogEventActionExportedInviteDelete#5a50fca4: field invite: %w", err)
@@ -3577,8 +4079,10 @@ func (c ChannelAdminLogEventActionExportedInviteDelete) construct() ChannelAdmin
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionExportedInviteDelete.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionExportedInviteDelete{}
-	_ bin.Decoder = &ChannelAdminLogEventActionExportedInviteDelete{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionExportedInviteDelete{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionExportedInviteDelete{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionExportedInviteDelete{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionExportedInviteDelete{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionExportedInviteDelete{}
 )
@@ -3658,6 +4162,14 @@ func (c *ChannelAdminLogEventActionExportedInviteRevoke) Encode(b *bin.Buffer) e
 		return fmt.Errorf("can't encode channelAdminLogEventActionExportedInviteRevoke#410a134e as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionExportedInviteRevokeTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionExportedInviteRevoke) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionExportedInviteRevoke#410a134e as nil")
+	}
 	if err := c.Invite.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionExportedInviteRevoke#410a134e: field invite: %w", err)
 	}
@@ -3677,6 +4189,14 @@ func (c *ChannelAdminLogEventActionExportedInviteRevoke) Decode(b *bin.Buffer) e
 	if err := b.ConsumeID(ChannelAdminLogEventActionExportedInviteRevokeTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionExportedInviteRevoke#410a134e: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionExportedInviteRevoke) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionExportedInviteRevoke#410a134e to nil")
+	}
 	{
 		if err := c.Invite.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channelAdminLogEventActionExportedInviteRevoke#410a134e: field invite: %w", err)
@@ -3692,8 +4212,10 @@ func (c ChannelAdminLogEventActionExportedInviteRevoke) construct() ChannelAdmin
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionExportedInviteRevoke.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionExportedInviteRevoke{}
-	_ bin.Decoder = &ChannelAdminLogEventActionExportedInviteRevoke{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionExportedInviteRevoke{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionExportedInviteRevoke{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionExportedInviteRevoke{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionExportedInviteRevoke{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionExportedInviteRevoke{}
 )
@@ -3784,6 +4306,14 @@ func (c *ChannelAdminLogEventActionExportedInviteEdit) Encode(b *bin.Buffer) err
 		return fmt.Errorf("can't encode channelAdminLogEventActionExportedInviteEdit#e90ebb59 as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionExportedInviteEditTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionExportedInviteEdit) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionExportedInviteEdit#e90ebb59 as nil")
+	}
 	if err := c.PrevInvite.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionExportedInviteEdit#e90ebb59: field prev_invite: %w", err)
 	}
@@ -3811,6 +4341,14 @@ func (c *ChannelAdminLogEventActionExportedInviteEdit) Decode(b *bin.Buffer) err
 	if err := b.ConsumeID(ChannelAdminLogEventActionExportedInviteEditTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionExportedInviteEdit#e90ebb59: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionExportedInviteEdit) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionExportedInviteEdit#e90ebb59 to nil")
+	}
 	{
 		if err := c.PrevInvite.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channelAdminLogEventActionExportedInviteEdit#e90ebb59: field prev_invite: %w", err)
@@ -3831,8 +4369,10 @@ func (c ChannelAdminLogEventActionExportedInviteEdit) construct() ChannelAdminLo
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionExportedInviteEdit.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionExportedInviteEdit{}
-	_ bin.Decoder = &ChannelAdminLogEventActionExportedInviteEdit{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionExportedInviteEdit{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionExportedInviteEdit{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionExportedInviteEdit{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionExportedInviteEdit{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionExportedInviteEdit{}
 )
@@ -3912,6 +4452,14 @@ func (c *ChannelAdminLogEventActionParticipantVolume) Encode(b *bin.Buffer) erro
 		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantVolume#3e7f6847 as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionParticipantVolumeTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionParticipantVolume) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionParticipantVolume#3e7f6847 as nil")
+	}
 	if err := c.Participant.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channelAdminLogEventActionParticipantVolume#3e7f6847: field participant: %w", err)
 	}
@@ -3931,6 +4479,14 @@ func (c *ChannelAdminLogEventActionParticipantVolume) Decode(b *bin.Buffer) erro
 	if err := b.ConsumeID(ChannelAdminLogEventActionParticipantVolumeTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantVolume#3e7f6847: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionParticipantVolume) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionParticipantVolume#3e7f6847 to nil")
+	}
 	{
 		if err := c.Participant.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channelAdminLogEventActionParticipantVolume#3e7f6847: field participant: %w", err)
@@ -3946,8 +4502,10 @@ func (c ChannelAdminLogEventActionParticipantVolume) construct() ChannelAdminLog
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionParticipantVolume.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionParticipantVolume{}
-	_ bin.Decoder = &ChannelAdminLogEventActionParticipantVolume{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionParticipantVolume{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionParticipantVolume{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionParticipantVolume{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionParticipantVolume{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionParticipantVolume{}
 )
@@ -4038,6 +4596,14 @@ func (c *ChannelAdminLogEventActionChangeHistoryTTL) Encode(b *bin.Buffer) error
 		return fmt.Errorf("can't encode channelAdminLogEventActionChangeHistoryTTL#6e941a38 as nil")
 	}
 	b.PutID(ChannelAdminLogEventActionChangeHistoryTTLTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEventActionChangeHistoryTTL) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEventActionChangeHistoryTTL#6e941a38 as nil")
+	}
 	b.PutInt(c.PrevValue)
 	b.PutInt(c.NewValue)
 	return nil
@@ -4060,6 +4626,14 @@ func (c *ChannelAdminLogEventActionChangeHistoryTTL) Decode(b *bin.Buffer) error
 	}
 	if err := b.ConsumeID(ChannelAdminLogEventActionChangeHistoryTTLTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEventActionChangeHistoryTTL#6e941a38: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEventActionChangeHistoryTTL) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEventActionChangeHistoryTTL#6e941a38 to nil")
 	}
 	{
 		value, err := b.Int()
@@ -4085,8 +4659,10 @@ func (c ChannelAdminLogEventActionChangeHistoryTTL) construct() ChannelAdminLogE
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEventActionChangeHistoryTTL.
 var (
-	_ bin.Encoder = &ChannelAdminLogEventActionChangeHistoryTTL{}
-	_ bin.Decoder = &ChannelAdminLogEventActionChangeHistoryTTL{}
+	_ bin.Encoder     = &ChannelAdminLogEventActionChangeHistoryTTL{}
+	_ bin.Decoder     = &ChannelAdminLogEventActionChangeHistoryTTL{}
+	_ bin.BareEncoder = &ChannelAdminLogEventActionChangeHistoryTTL{}
+	_ bin.BareDecoder = &ChannelAdminLogEventActionChangeHistoryTTL{}
 
 	_ ChannelAdminLogEventActionClass = &ChannelAdminLogEventActionChangeHistoryTTL{}
 )
@@ -4138,6 +4714,8 @@ var (
 type ChannelAdminLogEventActionClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() ChannelAdminLogEventActionClass
 
 	// TypeID returns type id in TL schema.

@@ -99,6 +99,14 @@ func (m *MsgCopy) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode msg_copy#e06046b2 as nil")
 	}
 	b.PutID(MsgCopyTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MsgCopy) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode msg_copy#e06046b2 as nil")
+	}
 	if err := m.OrigMessage.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode msg_copy#e06046b2: field orig_message: %w", err)
 	}
@@ -118,6 +126,14 @@ func (m *MsgCopy) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MsgCopyTypeID); err != nil {
 		return fmt.Errorf("unable to decode msg_copy#e06046b2: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MsgCopy) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode msg_copy#e06046b2 to nil")
+	}
 	{
 		if err := m.OrigMessage.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode msg_copy#e06046b2: field orig_message: %w", err)
@@ -128,6 +144,8 @@ func (m *MsgCopy) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MsgCopy.
 var (
-	_ bin.Encoder = &MsgCopy{}
-	_ bin.Decoder = &MsgCopy{}
+	_ bin.Encoder     = &MsgCopy{}
+	_ bin.Decoder     = &MsgCopy{}
+	_ bin.BareEncoder = &MsgCopy{}
+	_ bin.BareDecoder = &MsgCopy{}
 )

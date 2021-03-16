@@ -102,6 +102,14 @@ func (c *ChatEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chatEmpty#9ba2d800 as nil")
 	}
 	b.PutID(ChatEmptyTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatEmpty) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatEmpty#9ba2d800 as nil")
+	}
 	b.PutInt(c.ID)
 	return nil
 }
@@ -119,6 +127,14 @@ func (c *ChatEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatEmpty#9ba2d800: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatEmpty) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatEmpty#9ba2d800 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -134,8 +150,10 @@ func (c ChatEmpty) construct() ChatClass { return &c }
 
 // Ensuring interfaces in compile-time for ChatEmpty.
 var (
-	_ bin.Encoder = &ChatEmpty{}
-	_ bin.Decoder = &ChatEmpty{}
+	_ bin.Encoder     = &ChatEmpty{}
+	_ bin.Decoder     = &ChatEmpty{}
+	_ bin.BareEncoder = &ChatEmpty{}
+	_ bin.BareDecoder = &ChatEmpty{}
 
 	_ ChatClass = &ChatEmpty{}
 )
@@ -414,6 +432,14 @@ func (c *Chat) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chat#3bda1bde as nil")
 	}
 	b.PutID(ChatTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *Chat) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chat#3bda1bde as nil")
+	}
 	if !(c.Creator == false) {
 		c.Flags.Set(0)
 	}
@@ -655,6 +681,14 @@ func (c *Chat) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatTypeID); err != nil {
 		return fmt.Errorf("unable to decode chat#3bda1bde: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *Chat) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chat#3bda1bde to nil")
+	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode chat#3bda1bde: field flags: %w", err)
@@ -733,8 +767,10 @@ func (c Chat) construct() ChatClass { return &c }
 
 // Ensuring interfaces in compile-time for Chat.
 var (
-	_ bin.Encoder = &Chat{}
-	_ bin.Decoder = &Chat{}
+	_ bin.Encoder     = &Chat{}
+	_ bin.Decoder     = &Chat{}
+	_ bin.BareEncoder = &Chat{}
+	_ bin.BareDecoder = &Chat{}
 
 	_ ChatClass = &Chat{}
 )
@@ -826,6 +862,14 @@ func (c *ChatForbidden) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chatForbidden#7328bdb as nil")
 	}
 	b.PutID(ChatForbiddenTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatForbidden) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatForbidden#7328bdb as nil")
+	}
 	b.PutInt(c.ID)
 	b.PutString(c.Title)
 	return nil
@@ -849,6 +893,14 @@ func (c *ChatForbidden) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatForbiddenTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatForbidden#7328bdb: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatForbidden) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatForbidden#7328bdb to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -871,8 +923,10 @@ func (c ChatForbidden) construct() ChatClass { return &c }
 
 // Ensuring interfaces in compile-time for ChatForbidden.
 var (
-	_ bin.Encoder = &ChatForbidden{}
-	_ bin.Decoder = &ChatForbidden{}
+	_ bin.Encoder     = &ChatForbidden{}
+	_ bin.Decoder     = &ChatForbidden{}
+	_ bin.BareEncoder = &ChatForbidden{}
+	_ bin.BareDecoder = &ChatForbidden{}
 
 	_ ChatClass = &ChatForbidden{}
 )
@@ -1328,6 +1382,14 @@ func (c *Channel) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channel#d31a961e as nil")
 	}
 	b.PutID(ChannelTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *Channel) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channel#d31a961e as nil")
+	}
 	if !(c.Creator == false) {
 		c.Flags.Set(0)
 	}
@@ -1839,6 +1901,14 @@ func (c *Channel) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelTypeID); err != nil {
 		return fmt.Errorf("unable to decode channel#d31a961e: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *Channel) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channel#d31a961e to nil")
+	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channel#d31a961e: field flags: %w", err)
@@ -1952,8 +2022,10 @@ func (c Channel) construct() ChatClass { return &c }
 
 // Ensuring interfaces in compile-time for Channel.
 var (
-	_ bin.Encoder = &Channel{}
-	_ bin.Decoder = &Channel{}
+	_ bin.Encoder     = &Channel{}
+	_ bin.Decoder     = &Channel{}
+	_ bin.BareEncoder = &Channel{}
+	_ bin.BareDecoder = &Channel{}
 
 	_ ChatClass = &Channel{}
 )
@@ -2105,6 +2177,14 @@ func (c *ChannelForbidden) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelForbidden#289da732 as nil")
 	}
 	b.PutID(ChannelForbiddenTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelForbidden) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelForbidden#289da732 as nil")
+	}
 	if !(c.Broadcast == false) {
 		c.Flags.Set(5)
 	}
@@ -2196,6 +2276,14 @@ func (c *ChannelForbidden) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelForbiddenTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelForbidden#289da732: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelForbidden) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelForbidden#289da732 to nil")
+	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channelForbidden#289da732: field flags: %w", err)
@@ -2239,8 +2327,10 @@ func (c ChannelForbidden) construct() ChatClass { return &c }
 
 // Ensuring interfaces in compile-time for ChannelForbidden.
 var (
-	_ bin.Encoder = &ChannelForbidden{}
-	_ bin.Decoder = &ChannelForbidden{}
+	_ bin.Encoder     = &ChannelForbidden{}
+	_ bin.Decoder     = &ChannelForbidden{}
+	_ bin.BareEncoder = &ChannelForbidden{}
+	_ bin.BareDecoder = &ChannelForbidden{}
 
 	_ ChatClass = &ChannelForbidden{}
 )
@@ -2265,6 +2355,8 @@ var (
 type ChatClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() ChatClass
 
 	// TypeID returns type id in TL schema.
@@ -2322,6 +2414,8 @@ func (c *Channel) AsInput() *InputChannel {
 type NotEmptyChat interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() ChatClass
 
 	// TypeID returns type id in TL schema.
@@ -2375,6 +2469,8 @@ func (c *ChannelForbidden) AsNotEmpty() (NotEmptyChat, bool) {
 type NotForbiddenChat interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() ChatClass
 
 	// TypeID returns type id in TL schema.
@@ -2426,6 +2522,8 @@ func (c *ChannelForbidden) AsNotForbidden() (NotForbiddenChat, bool) {
 type FullChat interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() ChatClass
 
 	// TypeID returns type id in TL schema.

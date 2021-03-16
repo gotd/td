@@ -85,6 +85,14 @@ func (g *HelpGetSupportRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.getSupport#9cdf08cd as nil")
 	}
 	b.PutID(HelpGetSupportRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *HelpGetSupportRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode help.getSupport#9cdf08cd as nil")
+	}
 	return nil
 }
 
@@ -96,13 +104,23 @@ func (g *HelpGetSupportRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetSupportRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getSupport#9cdf08cd: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *HelpGetSupportRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode help.getSupport#9cdf08cd to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for HelpGetSupportRequest.
 var (
-	_ bin.Encoder = &HelpGetSupportRequest{}
-	_ bin.Decoder = &HelpGetSupportRequest{}
+	_ bin.Encoder     = &HelpGetSupportRequest{}
+	_ bin.Decoder     = &HelpGetSupportRequest{}
+	_ bin.BareEncoder = &HelpGetSupportRequest{}
+	_ bin.BareDecoder = &HelpGetSupportRequest{}
 )
 
 // HelpGetSupport invokes method help.getSupport#9cdf08cd returning error if any.

@@ -113,6 +113,14 @@ func (g *ContactsGetBlockedRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode contacts.getBlocked#f57c350f as nil")
 	}
 	b.PutID(ContactsGetBlockedRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *ContactsGetBlockedRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode contacts.getBlocked#f57c350f as nil")
+	}
 	b.PutInt(g.Offset)
 	b.PutInt(g.Limit)
 	return nil
@@ -136,6 +144,14 @@ func (g *ContactsGetBlockedRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsGetBlockedRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.getBlocked#f57c350f: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *ContactsGetBlockedRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode contacts.getBlocked#f57c350f to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -155,8 +171,10 @@ func (g *ContactsGetBlockedRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ContactsGetBlockedRequest.
 var (
-	_ bin.Encoder = &ContactsGetBlockedRequest{}
-	_ bin.Decoder = &ContactsGetBlockedRequest{}
+	_ bin.Encoder     = &ContactsGetBlockedRequest{}
+	_ bin.Decoder     = &ContactsGetBlockedRequest{}
+	_ bin.BareEncoder = &ContactsGetBlockedRequest{}
+	_ bin.BareDecoder = &ContactsGetBlockedRequest{}
 )
 
 // ContactsGetBlocked invokes method contacts.getBlocked#f57c350f returning error if any.

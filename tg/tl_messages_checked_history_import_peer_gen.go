@@ -101,6 +101,14 @@ func (c *MessagesCheckedHistoryImportPeer) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.checkedHistoryImportPeer#a24de717 as nil")
 	}
 	b.PutID(MessagesCheckedHistoryImportPeerTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *MessagesCheckedHistoryImportPeer) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode messages.checkedHistoryImportPeer#a24de717 as nil")
+	}
 	b.PutString(c.ConfirmText)
 	return nil
 }
@@ -118,6 +126,14 @@ func (c *MessagesCheckedHistoryImportPeer) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesCheckedHistoryImportPeerTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.checkedHistoryImportPeer#a24de717: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *MessagesCheckedHistoryImportPeer) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode messages.checkedHistoryImportPeer#a24de717 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -130,6 +146,8 @@ func (c *MessagesCheckedHistoryImportPeer) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesCheckedHistoryImportPeer.
 var (
-	_ bin.Encoder = &MessagesCheckedHistoryImportPeer{}
-	_ bin.Decoder = &MessagesCheckedHistoryImportPeer{}
+	_ bin.Encoder     = &MessagesCheckedHistoryImportPeer{}
+	_ bin.Decoder     = &MessagesCheckedHistoryImportPeer{}
+	_ bin.BareEncoder = &MessagesCheckedHistoryImportPeer{}
+	_ bin.BareDecoder = &MessagesCheckedHistoryImportPeer{}
 )

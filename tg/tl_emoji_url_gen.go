@@ -102,6 +102,14 @@ func (e *EmojiURL) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode emojiURL#a575739d as nil")
 	}
 	b.PutID(EmojiURLTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *EmojiURL) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode emojiURL#a575739d as nil")
+	}
 	b.PutString(e.URL)
 	return nil
 }
@@ -119,6 +127,14 @@ func (e *EmojiURL) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(EmojiURLTypeID); err != nil {
 		return fmt.Errorf("unable to decode emojiURL#a575739d: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *EmojiURL) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode emojiURL#a575739d to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -131,6 +147,8 @@ func (e *EmojiURL) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for EmojiURL.
 var (
-	_ bin.Encoder = &EmojiURL{}
-	_ bin.Decoder = &EmojiURL{}
+	_ bin.Encoder     = &EmojiURL{}
+	_ bin.Decoder     = &EmojiURL{}
+	_ bin.BareEncoder = &EmojiURL{}
+	_ bin.BareDecoder = &EmojiURL{}
 )

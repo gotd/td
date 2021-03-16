@@ -198,6 +198,14 @@ func (g *MessagesGetDialogsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getDialogs#a0ee3b73 as nil")
 	}
 	b.PutID(MessagesGetDialogsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetDialogsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getDialogs#a0ee3b73 as nil")
+	}
 	if !(g.ExcludePinned == false) {
 		g.Flags.Set(0)
 	}
@@ -287,6 +295,14 @@ func (g *MessagesGetDialogsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetDialogsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getDialogs#a0ee3b73: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetDialogsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getDialogs#a0ee3b73 to nil")
+	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.getDialogs#a0ee3b73: field flags: %w", err)
@@ -340,8 +356,10 @@ func (g *MessagesGetDialogsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetDialogsRequest.
 var (
-	_ bin.Encoder = &MessagesGetDialogsRequest{}
-	_ bin.Decoder = &MessagesGetDialogsRequest{}
+	_ bin.Encoder     = &MessagesGetDialogsRequest{}
+	_ bin.Decoder     = &MessagesGetDialogsRequest{}
+	_ bin.BareEncoder = &MessagesGetDialogsRequest{}
+	_ bin.BareDecoder = &MessagesGetDialogsRequest{}
 )
 
 // MessagesGetDialogs invokes method messages.getDialogs#a0ee3b73 returning error if any.

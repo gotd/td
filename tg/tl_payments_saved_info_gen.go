@@ -128,6 +128,14 @@ func (s *PaymentsSavedInfo) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode payments.savedInfo#fb8fe43c as nil")
 	}
 	b.PutID(PaymentsSavedInfoTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *PaymentsSavedInfo) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode payments.savedInfo#fb8fe43c as nil")
+	}
 	if !(s.HasSavedCredentials == false) {
 		s.Flags.Set(1)
 	}
@@ -184,6 +192,14 @@ func (s *PaymentsSavedInfo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PaymentsSavedInfoTypeID); err != nil {
 		return fmt.Errorf("unable to decode payments.savedInfo#fb8fe43c: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *PaymentsSavedInfo) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode payments.savedInfo#fb8fe43c to nil")
+	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode payments.savedInfo#fb8fe43c: field flags: %w", err)
@@ -200,6 +216,8 @@ func (s *PaymentsSavedInfo) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PaymentsSavedInfo.
 var (
-	_ bin.Encoder = &PaymentsSavedInfo{}
-	_ bin.Decoder = &PaymentsSavedInfo{}
+	_ bin.Encoder     = &PaymentsSavedInfo{}
+	_ bin.Decoder     = &PaymentsSavedInfo{}
+	_ bin.BareEncoder = &PaymentsSavedInfo{}
+	_ bin.BareDecoder = &PaymentsSavedInfo{}
 )

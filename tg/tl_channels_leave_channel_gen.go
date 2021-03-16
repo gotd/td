@@ -108,6 +108,14 @@ func (l *ChannelsLeaveChannelRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.leaveChannel#f836aa95 as nil")
 	}
 	b.PutID(ChannelsLeaveChannelRequestTypeID)
+	return l.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (l *ChannelsLeaveChannelRequest) EncodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't encode channels.leaveChannel#f836aa95 as nil")
+	}
 	if l.Channel == nil {
 		return fmt.Errorf("unable to encode channels.leaveChannel#f836aa95: field channel is nil")
 	}
@@ -135,6 +143,14 @@ func (l *ChannelsLeaveChannelRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsLeaveChannelRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.leaveChannel#f836aa95: %w", err)
 	}
+	return l.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (l *ChannelsLeaveChannelRequest) DecodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't decode channels.leaveChannel#f836aa95 to nil")
+	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
@@ -147,8 +163,10 @@ func (l *ChannelsLeaveChannelRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsLeaveChannelRequest.
 var (
-	_ bin.Encoder = &ChannelsLeaveChannelRequest{}
-	_ bin.Decoder = &ChannelsLeaveChannelRequest{}
+	_ bin.Encoder     = &ChannelsLeaveChannelRequest{}
+	_ bin.Decoder     = &ChannelsLeaveChannelRequest{}
+	_ bin.BareEncoder = &ChannelsLeaveChannelRequest{}
+	_ bin.BareDecoder = &ChannelsLeaveChannelRequest{}
 )
 
 // ChannelsLeaveChannel invokes method channels.leaveChannel#f836aa95 returning error if any.

@@ -130,6 +130,14 @@ func (e *ChannelsEditBannedRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.editBanned#72796912 as nil")
 	}
 	b.PutID(ChannelsEditBannedRequestTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *ChannelsEditBannedRequest) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode channels.editBanned#72796912 as nil")
+	}
 	if e.Channel == nil {
 		return fmt.Errorf("unable to encode channels.editBanned#72796912: field channel is nil")
 	}
@@ -176,6 +184,14 @@ func (e *ChannelsEditBannedRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsEditBannedRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.editBanned#72796912: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *ChannelsEditBannedRequest) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode channels.editBanned#72796912 to nil")
+	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
@@ -200,8 +216,10 @@ func (e *ChannelsEditBannedRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsEditBannedRequest.
 var (
-	_ bin.Encoder = &ChannelsEditBannedRequest{}
-	_ bin.Decoder = &ChannelsEditBannedRequest{}
+	_ bin.Encoder     = &ChannelsEditBannedRequest{}
+	_ bin.Decoder     = &ChannelsEditBannedRequest{}
+	_ bin.BareEncoder = &ChannelsEditBannedRequest{}
+	_ bin.BareDecoder = &ChannelsEditBannedRequest{}
 )
 
 // ChannelsEditBanned invokes method channels.editBanned#72796912 returning error if any.

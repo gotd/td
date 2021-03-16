@@ -113,6 +113,14 @@ func (l *LangPackString) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode langPackString#cad181f6 as nil")
 	}
 	b.PutID(LangPackStringTypeID)
+	return l.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (l *LangPackString) EncodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't encode langPackString#cad181f6 as nil")
+	}
 	b.PutString(l.Key)
 	b.PutString(l.Value)
 	return nil
@@ -136,6 +144,14 @@ func (l *LangPackString) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(LangPackStringTypeID); err != nil {
 		return fmt.Errorf("unable to decode langPackString#cad181f6: %w", err)
 	}
+	return l.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (l *LangPackString) DecodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't decode langPackString#cad181f6 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -158,8 +174,10 @@ func (l LangPackString) construct() LangPackStringClass { return &l }
 
 // Ensuring interfaces in compile-time for LangPackString.
 var (
-	_ bin.Encoder = &LangPackString{}
-	_ bin.Decoder = &LangPackString{}
+	_ bin.Encoder     = &LangPackString{}
+	_ bin.Decoder     = &LangPackString{}
+	_ bin.BareEncoder = &LangPackString{}
+	_ bin.BareDecoder = &LangPackString{}
 
 	_ LangPackStringClass = &LangPackString{}
 )
@@ -347,6 +365,14 @@ func (l *LangPackStringPluralized) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode langPackStringPluralized#6c47ac9f as nil")
 	}
 	b.PutID(LangPackStringPluralizedTypeID)
+	return l.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (l *LangPackStringPluralized) EncodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't encode langPackStringPluralized#6c47ac9f as nil")
+	}
 	if !(l.ZeroValue == "") {
 		l.Flags.Set(0)
 	}
@@ -478,6 +504,14 @@ func (l *LangPackStringPluralized) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(LangPackStringPluralizedTypeID); err != nil {
 		return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: %w", err)
 	}
+	return l.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (l *LangPackStringPluralized) DecodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't decode langPackStringPluralized#6c47ac9f to nil")
+	}
 	{
 		if err := l.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode langPackStringPluralized#6c47ac9f: field flags: %w", err)
@@ -540,8 +574,10 @@ func (l LangPackStringPluralized) construct() LangPackStringClass { return &l }
 
 // Ensuring interfaces in compile-time for LangPackStringPluralized.
 var (
-	_ bin.Encoder = &LangPackStringPluralized{}
-	_ bin.Decoder = &LangPackStringPluralized{}
+	_ bin.Encoder     = &LangPackStringPluralized{}
+	_ bin.Decoder     = &LangPackStringPluralized{}
+	_ bin.BareEncoder = &LangPackStringPluralized{}
+	_ bin.BareDecoder = &LangPackStringPluralized{}
 
 	_ LangPackStringClass = &LangPackStringPluralized{}
 )
@@ -622,6 +658,14 @@ func (l *LangPackStringDeleted) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode langPackStringDeleted#2979eeb2 as nil")
 	}
 	b.PutID(LangPackStringDeletedTypeID)
+	return l.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (l *LangPackStringDeleted) EncodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't encode langPackStringDeleted#2979eeb2 as nil")
+	}
 	b.PutString(l.Key)
 	return nil
 }
@@ -639,6 +683,14 @@ func (l *LangPackStringDeleted) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(LangPackStringDeletedTypeID); err != nil {
 		return fmt.Errorf("unable to decode langPackStringDeleted#2979eeb2: %w", err)
 	}
+	return l.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (l *LangPackStringDeleted) DecodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't decode langPackStringDeleted#2979eeb2 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -654,8 +706,10 @@ func (l LangPackStringDeleted) construct() LangPackStringClass { return &l }
 
 // Ensuring interfaces in compile-time for LangPackStringDeleted.
 var (
-	_ bin.Encoder = &LangPackStringDeleted{}
-	_ bin.Decoder = &LangPackStringDeleted{}
+	_ bin.Encoder     = &LangPackStringDeleted{}
+	_ bin.Decoder     = &LangPackStringDeleted{}
+	_ bin.BareEncoder = &LangPackStringDeleted{}
+	_ bin.BareDecoder = &LangPackStringDeleted{}
 
 	_ LangPackStringClass = &LangPackStringDeleted{}
 )
@@ -678,6 +732,8 @@ var (
 type LangPackStringClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() LangPackStringClass
 
 	// TypeID returns type id in TL schema.

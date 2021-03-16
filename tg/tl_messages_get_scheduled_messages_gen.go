@@ -113,6 +113,14 @@ func (g *MessagesGetScheduledMessagesRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getScheduledMessages#bdbb0464 as nil")
 	}
 	b.PutID(MessagesGetScheduledMessagesRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetScheduledMessagesRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getScheduledMessages#bdbb0464 as nil")
+	}
 	if g.Peer == nil {
 		return fmt.Errorf("unable to encode messages.getScheduledMessages#bdbb0464: field peer is nil")
 	}
@@ -144,6 +152,14 @@ func (g *MessagesGetScheduledMessagesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetScheduledMessagesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getScheduledMessages#bdbb0464: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetScheduledMessagesRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getScheduledMessages#bdbb0464 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -169,8 +185,10 @@ func (g *MessagesGetScheduledMessagesRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetScheduledMessagesRequest.
 var (
-	_ bin.Encoder = &MessagesGetScheduledMessagesRequest{}
-	_ bin.Decoder = &MessagesGetScheduledMessagesRequest{}
+	_ bin.Encoder     = &MessagesGetScheduledMessagesRequest{}
+	_ bin.Decoder     = &MessagesGetScheduledMessagesRequest{}
+	_ bin.BareEncoder = &MessagesGetScheduledMessagesRequest{}
+	_ bin.BareDecoder = &MessagesGetScheduledMessagesRequest{}
 )
 
 // MessagesGetScheduledMessages invokes method messages.getScheduledMessages#bdbb0464 returning error if any.

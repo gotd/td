@@ -205,6 +205,14 @@ func (p *Page) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode page#98657f0d as nil")
 	}
 	b.PutID(PageTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *Page) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode page#98657f0d as nil")
+	}
 	if !(p.Part == false) {
 		p.Flags.Set(0)
 	}
@@ -360,6 +368,14 @@ func (p *Page) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageTypeID); err != nil {
 		return fmt.Errorf("unable to decode page#98657f0d: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *Page) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode page#98657f0d to nil")
+	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode page#98657f0d: field flags: %w", err)
@@ -426,6 +442,8 @@ func (p *Page) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for Page.
 var (
-	_ bin.Encoder = &Page{}
-	_ bin.Decoder = &Page{}
+	_ bin.Encoder     = &Page{}
+	_ bin.Decoder     = &Page{}
+	_ bin.BareEncoder = &Page{}
+	_ bin.BareDecoder = &Page{}
 )

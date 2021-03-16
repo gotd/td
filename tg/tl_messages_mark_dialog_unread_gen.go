@@ -122,6 +122,14 @@ func (m *MessagesMarkDialogUnreadRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.markDialogUnread#c286d98f as nil")
 	}
 	b.PutID(MessagesMarkDialogUnreadRequestTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessagesMarkDialogUnreadRequest) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messages.markDialogUnread#c286d98f as nil")
+	}
 	if !(m.Unread == false) {
 		m.Flags.Set(0)
 	}
@@ -166,6 +174,14 @@ func (m *MessagesMarkDialogUnreadRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesMarkDialogUnreadRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.markDialogUnread#c286d98f: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessagesMarkDialogUnreadRequest) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messages.markDialogUnread#c286d98f to nil")
+	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.markDialogUnread#c286d98f: field flags: %w", err)
@@ -184,8 +200,10 @@ func (m *MessagesMarkDialogUnreadRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesMarkDialogUnreadRequest.
 var (
-	_ bin.Encoder = &MessagesMarkDialogUnreadRequest{}
-	_ bin.Decoder = &MessagesMarkDialogUnreadRequest{}
+	_ bin.Encoder     = &MessagesMarkDialogUnreadRequest{}
+	_ bin.Decoder     = &MessagesMarkDialogUnreadRequest{}
+	_ bin.BareEncoder = &MessagesMarkDialogUnreadRequest{}
+	_ bin.BareDecoder = &MessagesMarkDialogUnreadRequest{}
 )
 
 // MessagesMarkDialogUnread invokes method messages.markDialogUnread#c286d98f returning error if any.

@@ -88,6 +88,14 @@ func (u *UpdatesTooLong) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updatesTooLong#e317af7e as nil")
 	}
 	b.PutID(UpdatesTooLongTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdatesTooLong) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updatesTooLong#e317af7e as nil")
+	}
 	return nil
 }
 
@@ -99,6 +107,14 @@ func (u *UpdatesTooLong) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesTooLongTypeID); err != nil {
 		return fmt.Errorf("unable to decode updatesTooLong#e317af7e: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdatesTooLong) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updatesTooLong#e317af7e to nil")
+	}
 	return nil
 }
 
@@ -107,8 +123,10 @@ func (u UpdatesTooLong) construct() UpdatesClass { return &u }
 
 // Ensuring interfaces in compile-time for UpdatesTooLong.
 var (
-	_ bin.Encoder = &UpdatesTooLong{}
-	_ bin.Decoder = &UpdatesTooLong{}
+	_ bin.Encoder     = &UpdatesTooLong{}
+	_ bin.Decoder     = &UpdatesTooLong{}
+	_ bin.BareEncoder = &UpdatesTooLong{}
+	_ bin.BareDecoder = &UpdatesTooLong{}
 
 	_ UpdatesClass = &UpdatesTooLong{}
 )
@@ -400,6 +418,14 @@ func (u *UpdateShortMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updateShortMessage#faeff833 as nil")
 	}
 	b.PutID(UpdateShortMessageTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateShortMessage) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateShortMessage#faeff833 as nil")
+	}
 	if !(u.Out == false) {
 		u.Flags.Set(1)
 	}
@@ -651,6 +677,14 @@ func (u *UpdateShortMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateShortMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateShortMessage#faeff833: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateShortMessage) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateShortMessage#faeff833 to nil")
+	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateShortMessage#faeff833: field flags: %w", err)
@@ -747,8 +781,10 @@ func (u UpdateShortMessage) construct() UpdatesClass { return &u }
 
 // Ensuring interfaces in compile-time for UpdateShortMessage.
 var (
-	_ bin.Encoder = &UpdateShortMessage{}
-	_ bin.Decoder = &UpdateShortMessage{}
+	_ bin.Encoder     = &UpdateShortMessage{}
+	_ bin.Decoder     = &UpdateShortMessage{}
+	_ bin.BareEncoder = &UpdateShortMessage{}
+	_ bin.BareDecoder = &UpdateShortMessage{}
 
 	_ UpdatesClass = &UpdateShortMessage{}
 )
@@ -1048,6 +1084,14 @@ func (u *UpdateShortChatMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updateShortChatMessage#1157b858 as nil")
 	}
 	b.PutID(UpdateShortChatMessageTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateShortChatMessage) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateShortChatMessage#1157b858 as nil")
+	}
 	if !(u.Out == false) {
 		u.Flags.Set(1)
 	}
@@ -1305,6 +1349,14 @@ func (u *UpdateShortChatMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateShortChatMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateShortChatMessage) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateShortChatMessage#1157b858 to nil")
+	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateShortChatMessage#1157b858: field flags: %w", err)
@@ -1408,8 +1460,10 @@ func (u UpdateShortChatMessage) construct() UpdatesClass { return &u }
 
 // Ensuring interfaces in compile-time for UpdateShortChatMessage.
 var (
-	_ bin.Encoder = &UpdateShortChatMessage{}
-	_ bin.Decoder = &UpdateShortChatMessage{}
+	_ bin.Encoder     = &UpdateShortChatMessage{}
+	_ bin.Decoder     = &UpdateShortChatMessage{}
+	_ bin.BareEncoder = &UpdateShortChatMessage{}
+	_ bin.BareDecoder = &UpdateShortChatMessage{}
 
 	_ UpdatesClass = &UpdateShortChatMessage{}
 )
@@ -1501,6 +1555,14 @@ func (u *UpdateShort) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updateShort#78d4dec1 as nil")
 	}
 	b.PutID(UpdateShortTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateShort) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateShort#78d4dec1 as nil")
+	}
 	if u.Update == nil {
 		return fmt.Errorf("unable to encode updateShort#78d4dec1: field update is nil")
 	}
@@ -1529,6 +1591,14 @@ func (u *UpdateShort) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateShortTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateShort#78d4dec1: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateShort) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateShort#78d4dec1 to nil")
+	}
 	{
 		value, err := DecodeUpdate(b)
 		if err != nil {
@@ -1551,8 +1621,10 @@ func (u UpdateShort) construct() UpdatesClass { return &u }
 
 // Ensuring interfaces in compile-time for UpdateShort.
 var (
-	_ bin.Encoder = &UpdateShort{}
-	_ bin.Decoder = &UpdateShort{}
+	_ bin.Encoder     = &UpdateShort{}
+	_ bin.Decoder     = &UpdateShort{}
+	_ bin.BareEncoder = &UpdateShort{}
+	_ bin.BareDecoder = &UpdateShort{}
 
 	_ UpdatesClass = &UpdateShort{}
 )
@@ -1688,6 +1760,14 @@ func (u *UpdatesCombined) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updatesCombined#725b04c3 as nil")
 	}
 	b.PutID(UpdatesCombinedTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdatesCombined) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updatesCombined#725b04c3 as nil")
+	}
 	b.PutVectorHeader(len(u.Updates))
 	for idx, v := range u.Updates {
 		if v == nil {
@@ -1774,6 +1854,14 @@ func (u *UpdatesCombined) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesCombinedTypeID); err != nil {
 		return fmt.Errorf("unable to decode updatesCombined#725b04c3: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdatesCombined) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updatesCombined#725b04c3 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -1842,8 +1930,10 @@ func (u UpdatesCombined) construct() UpdatesClass { return &u }
 
 // Ensuring interfaces in compile-time for UpdatesCombined.
 var (
-	_ bin.Encoder = &UpdatesCombined{}
-	_ bin.Decoder = &UpdatesCombined{}
+	_ bin.Encoder     = &UpdatesCombined{}
+	_ bin.Decoder     = &UpdatesCombined{}
+	_ bin.BareEncoder = &UpdatesCombined{}
+	_ bin.BareDecoder = &UpdatesCombined{}
 
 	_ UpdatesClass = &UpdatesCombined{}
 )
@@ -1967,6 +2057,14 @@ func (u *Updates) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updates#74ae4240 as nil")
 	}
 	b.PutID(UpdatesTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *Updates) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updates#74ae4240 as nil")
+	}
 	b.PutVectorHeader(len(u.Updates))
 	for idx, v := range u.Updates {
 		if v == nil {
@@ -2047,6 +2145,14 @@ func (u *Updates) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesTypeID); err != nil {
 		return fmt.Errorf("unable to decode updates#74ae4240: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *Updates) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updates#74ae4240 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -2108,8 +2214,10 @@ func (u Updates) construct() UpdatesClass { return &u }
 
 // Ensuring interfaces in compile-time for Updates.
 var (
-	_ bin.Encoder = &Updates{}
-	_ bin.Decoder = &Updates{}
+	_ bin.Encoder     = &Updates{}
+	_ bin.Decoder     = &Updates{}
+	_ bin.BareEncoder = &Updates{}
+	_ bin.BareDecoder = &Updates{}
 
 	_ UpdatesClass = &Updates{}
 )
@@ -2306,6 +2414,14 @@ func (u *UpdateShortSentMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updateShortSentMessage#9015e101 as nil")
 	}
 	b.PutID(UpdateShortSentMessageTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UpdateShortSentMessage) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode updateShortSentMessage#9015e101 as nil")
+	}
 	if !(u.Out == false) {
 		u.Flags.Set(1)
 	}
@@ -2447,6 +2563,14 @@ func (u *UpdateShortSentMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateShortSentMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode updateShortSentMessage#9015e101: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UpdateShortSentMessage) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode updateShortSentMessage#9015e101 to nil")
+	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updateShortSentMessage#9015e101: field flags: %w", err)
@@ -2516,8 +2640,10 @@ func (u UpdateShortSentMessage) construct() UpdatesClass { return &u }
 
 // Ensuring interfaces in compile-time for UpdateShortSentMessage.
 var (
-	_ bin.Encoder = &UpdateShortSentMessage{}
-	_ bin.Decoder = &UpdateShortSentMessage{}
+	_ bin.Encoder     = &UpdateShortSentMessage{}
+	_ bin.Decoder     = &UpdateShortSentMessage{}
+	_ bin.BareEncoder = &UpdateShortSentMessage{}
+	_ bin.BareDecoder = &UpdateShortSentMessage{}
 
 	_ UpdatesClass = &UpdateShortSentMessage{}
 )
@@ -2544,6 +2670,8 @@ var (
 type UpdatesClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() UpdatesClass
 
 	// TypeID returns type id in TL schema.

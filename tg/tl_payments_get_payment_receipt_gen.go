@@ -102,6 +102,14 @@ func (g *PaymentsGetPaymentReceiptRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode payments.getPaymentReceipt#a092a980 as nil")
 	}
 	b.PutID(PaymentsGetPaymentReceiptRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *PaymentsGetPaymentReceiptRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode payments.getPaymentReceipt#a092a980 as nil")
+	}
 	b.PutInt(g.MsgID)
 	return nil
 }
@@ -119,6 +127,14 @@ func (g *PaymentsGetPaymentReceiptRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PaymentsGetPaymentReceiptRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode payments.getPaymentReceipt#a092a980: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *PaymentsGetPaymentReceiptRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode payments.getPaymentReceipt#a092a980 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -131,8 +147,10 @@ func (g *PaymentsGetPaymentReceiptRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PaymentsGetPaymentReceiptRequest.
 var (
-	_ bin.Encoder = &PaymentsGetPaymentReceiptRequest{}
-	_ bin.Decoder = &PaymentsGetPaymentReceiptRequest{}
+	_ bin.Encoder     = &PaymentsGetPaymentReceiptRequest{}
+	_ bin.Decoder     = &PaymentsGetPaymentReceiptRequest{}
+	_ bin.BareEncoder = &PaymentsGetPaymentReceiptRequest{}
+	_ bin.BareDecoder = &PaymentsGetPaymentReceiptRequest{}
 )
 
 // PaymentsGetPaymentReceipt invokes method payments.getPaymentReceipt#a092a980 returning error if any.

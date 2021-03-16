@@ -99,6 +99,14 @@ func (m *MsgResendReq) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode msg_resend_req#7d861a08 as nil")
 	}
 	b.PutID(MsgResendReqTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MsgResendReq) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode msg_resend_req#7d861a08 as nil")
+	}
 	b.PutVectorHeader(len(m.MsgIDs))
 	for _, v := range m.MsgIDs {
 		b.PutLong(v)
@@ -119,6 +127,14 @@ func (m *MsgResendReq) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MsgResendReqTypeID); err != nil {
 		return fmt.Errorf("unable to decode msg_resend_req#7d861a08: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MsgResendReq) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode msg_resend_req#7d861a08 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -137,6 +153,8 @@ func (m *MsgResendReq) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MsgResendReq.
 var (
-	_ bin.Encoder = &MsgResendReq{}
-	_ bin.Decoder = &MsgResendReq{}
+	_ bin.Encoder     = &MsgResendReq{}
+	_ bin.Decoder     = &MsgResendReq{}
+	_ bin.BareEncoder = &MsgResendReq{}
+	_ bin.BareDecoder = &MsgResendReq{}
 )

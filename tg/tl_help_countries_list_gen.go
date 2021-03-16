@@ -85,6 +85,14 @@ func (c *HelpCountriesListNotModified) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.countriesListNotModified#93cc1f32 as nil")
 	}
 	b.PutID(HelpCountriesListNotModifiedTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *HelpCountriesListNotModified) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode help.countriesListNotModified#93cc1f32 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (c *HelpCountriesListNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpCountriesListNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.countriesListNotModified#93cc1f32: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *HelpCountriesListNotModified) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode help.countriesListNotModified#93cc1f32 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (c HelpCountriesListNotModified) construct() HelpCountriesListClass { retur
 
 // Ensuring interfaces in compile-time for HelpCountriesListNotModified.
 var (
-	_ bin.Encoder = &HelpCountriesListNotModified{}
-	_ bin.Decoder = &HelpCountriesListNotModified{}
+	_ bin.Encoder     = &HelpCountriesListNotModified{}
+	_ bin.Decoder     = &HelpCountriesListNotModified{}
+	_ bin.BareEncoder = &HelpCountriesListNotModified{}
+	_ bin.BareDecoder = &HelpCountriesListNotModified{}
 
 	_ HelpCountriesListClass = &HelpCountriesListNotModified{}
 )
@@ -200,6 +218,14 @@ func (c *HelpCountriesList) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.countriesList#87d0759e as nil")
 	}
 	b.PutID(HelpCountriesListTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *HelpCountriesList) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode help.countriesList#87d0759e as nil")
+	}
 	b.PutVectorHeader(len(c.Countries))
 	for idx, v := range c.Countries {
 		if err := v.Encode(b); err != nil {
@@ -227,6 +253,14 @@ func (c *HelpCountriesList) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(HelpCountriesListTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.countriesList#87d0759e: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *HelpCountriesList) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode help.countriesList#87d0759e to nil")
 	}
 	{
 		headerLen, err := b.VectorHeader()
@@ -256,8 +290,10 @@ func (c HelpCountriesList) construct() HelpCountriesListClass { return &c }
 
 // Ensuring interfaces in compile-time for HelpCountriesList.
 var (
-	_ bin.Encoder = &HelpCountriesList{}
-	_ bin.Decoder = &HelpCountriesList{}
+	_ bin.Encoder     = &HelpCountriesList{}
+	_ bin.Decoder     = &HelpCountriesList{}
+	_ bin.BareEncoder = &HelpCountriesList{}
+	_ bin.BareDecoder = &HelpCountriesList{}
 
 	_ HelpCountriesListClass = &HelpCountriesList{}
 )
@@ -279,6 +315,8 @@ var (
 type HelpCountriesListClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() HelpCountriesListClass
 
 	// TypeID returns type id in TL schema.

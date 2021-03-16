@@ -108,6 +108,14 @@ func (c *CDNConfig) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode cdnConfig#5725e40a as nil")
 	}
 	b.PutID(CDNConfigTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *CDNConfig) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode cdnConfig#5725e40a as nil")
+	}
 	b.PutVectorHeader(len(c.PublicKeys))
 	for idx, v := range c.PublicKeys {
 		if err := v.Encode(b); err != nil {
@@ -130,6 +138,14 @@ func (c *CDNConfig) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(CDNConfigTypeID); err != nil {
 		return fmt.Errorf("unable to decode cdnConfig#5725e40a: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *CDNConfig) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode cdnConfig#5725e40a to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -148,6 +164,8 @@ func (c *CDNConfig) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for CDNConfig.
 var (
-	_ bin.Encoder = &CDNConfig{}
-	_ bin.Decoder = &CDNConfig{}
+	_ bin.Encoder     = &CDNConfig{}
+	_ bin.Decoder     = &CDNConfig{}
+	_ bin.BareEncoder = &CDNConfig{}
+	_ bin.BareDecoder = &CDNConfig{}
 )

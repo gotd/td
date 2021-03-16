@@ -119,6 +119,14 @@ func (c *CDNPublicKey) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode cdnPublicKey#c982eaba as nil")
 	}
 	b.PutID(CDNPublicKeyTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *CDNPublicKey) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode cdnPublicKey#c982eaba as nil")
+	}
 	b.PutInt(c.DCID)
 	b.PutString(c.PublicKey)
 	return nil
@@ -142,6 +150,14 @@ func (c *CDNPublicKey) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(CDNPublicKeyTypeID); err != nil {
 		return fmt.Errorf("unable to decode cdnPublicKey#c982eaba: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *CDNPublicKey) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode cdnPublicKey#c982eaba to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -161,6 +177,8 @@ func (c *CDNPublicKey) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for CDNPublicKey.
 var (
-	_ bin.Encoder = &CDNPublicKey{}
-	_ bin.Decoder = &CDNPublicKey{}
+	_ bin.Encoder     = &CDNPublicKey{}
+	_ bin.Decoder     = &CDNPublicKey{}
+	_ bin.BareEncoder = &CDNPublicKey{}
+	_ bin.BareDecoder = &CDNPublicKey{}
 )

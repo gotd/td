@@ -172,6 +172,14 @@ func (g *MessagesGetUnreadMentionsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getUnreadMentions#46578472 as nil")
 	}
 	b.PutID(MessagesGetUnreadMentionsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetUnreadMentionsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getUnreadMentions#46578472 as nil")
+	}
 	if g.Peer == nil {
 		return fmt.Errorf("unable to encode messages.getUnreadMentions#46578472: field peer is nil")
 	}
@@ -224,6 +232,14 @@ func (g *MessagesGetUnreadMentionsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetUnreadMentionsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getUnreadMentions#46578472: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetUnreadMentionsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getUnreadMentions#46578472 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -271,8 +287,10 @@ func (g *MessagesGetUnreadMentionsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetUnreadMentionsRequest.
 var (
-	_ bin.Encoder = &MessagesGetUnreadMentionsRequest{}
-	_ bin.Decoder = &MessagesGetUnreadMentionsRequest{}
+	_ bin.Encoder     = &MessagesGetUnreadMentionsRequest{}
+	_ bin.Decoder     = &MessagesGetUnreadMentionsRequest{}
+	_ bin.BareEncoder = &MessagesGetUnreadMentionsRequest{}
+	_ bin.BareDecoder = &MessagesGetUnreadMentionsRequest{}
 )
 
 // MessagesGetUnreadMentions invokes method messages.getUnreadMentions#46578472 returning error if any.

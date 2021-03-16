@@ -206,6 +206,14 @@ func (p *PageRelatedArticle) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageRelatedArticle#b390dc08 as nil")
 	}
 	b.PutID(PageRelatedArticleTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageRelatedArticle) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageRelatedArticle#b390dc08 as nil")
+	}
 	if !(p.Title == "") {
 		p.Flags.Set(0)
 	}
@@ -337,6 +345,14 @@ func (p *PageRelatedArticle) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageRelatedArticleTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageRelatedArticle) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageRelatedArticle#b390dc08 to nil")
+	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode pageRelatedArticle#b390dc08: field flags: %w", err)
@@ -396,6 +412,8 @@ func (p *PageRelatedArticle) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PageRelatedArticle.
 var (
-	_ bin.Encoder = &PageRelatedArticle{}
-	_ bin.Decoder = &PageRelatedArticle{}
+	_ bin.Encoder     = &PageRelatedArticle{}
+	_ bin.Decoder     = &PageRelatedArticle{}
+	_ bin.BareEncoder = &PageRelatedArticle{}
+	_ bin.BareDecoder = &PageRelatedArticle{}
 )

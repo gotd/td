@@ -127,6 +127,14 @@ func (a *MessagesAcceptEncryptionRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.acceptEncryption#3dbc0415 as nil")
 	}
 	b.PutID(MessagesAcceptEncryptionRequestTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *MessagesAcceptEncryptionRequest) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode messages.acceptEncryption#3dbc0415 as nil")
+	}
 	if err := a.Peer.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.acceptEncryption#3dbc0415: field peer: %w", err)
 	}
@@ -158,6 +166,14 @@ func (a *MessagesAcceptEncryptionRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesAcceptEncryptionRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.acceptEncryption#3dbc0415: %w", err)
 	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *MessagesAcceptEncryptionRequest) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode messages.acceptEncryption#3dbc0415 to nil")
+	}
 	{
 		if err := a.Peer.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.acceptEncryption#3dbc0415: field peer: %w", err)
@@ -182,8 +198,10 @@ func (a *MessagesAcceptEncryptionRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesAcceptEncryptionRequest.
 var (
-	_ bin.Encoder = &MessagesAcceptEncryptionRequest{}
-	_ bin.Decoder = &MessagesAcceptEncryptionRequest{}
+	_ bin.Encoder     = &MessagesAcceptEncryptionRequest{}
+	_ bin.Decoder     = &MessagesAcceptEncryptionRequest{}
+	_ bin.BareEncoder = &MessagesAcceptEncryptionRequest{}
+	_ bin.BareDecoder = &MessagesAcceptEncryptionRequest{}
 )
 
 // MessagesAcceptEncryption invokes method messages.acceptEncryption#3dbc0415 returning error if any.

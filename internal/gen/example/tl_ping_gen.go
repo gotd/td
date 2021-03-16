@@ -101,6 +101,14 @@ func (p *PingRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode ping#ce73048f as nil")
 	}
 	b.PutID(PingRequestTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PingRequest) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode ping#ce73048f as nil")
+	}
 	b.PutInt32(p.ID)
 	return nil
 }
@@ -118,6 +126,14 @@ func (p *PingRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PingRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode ping#ce73048f: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PingRequest) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode ping#ce73048f to nil")
+	}
 	{
 		value, err := b.Int32()
 		if err != nil {
@@ -130,8 +146,10 @@ func (p *PingRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PingRequest.
 var (
-	_ bin.Encoder = &PingRequest{}
-	_ bin.Decoder = &PingRequest{}
+	_ bin.Encoder     = &PingRequest{}
+	_ bin.Decoder     = &PingRequest{}
+	_ bin.BareEncoder = &PingRequest{}
+	_ bin.BareDecoder = &PingRequest{}
 )
 
 // Ping invokes method ping#ce73048f returning error if any.

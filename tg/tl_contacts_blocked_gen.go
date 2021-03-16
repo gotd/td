@@ -124,6 +124,14 @@ func (b *ContactsBlocked) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode contacts.blocked#ade1591 as nil")
 	}
 	buf.PutID(ContactsBlockedTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *ContactsBlocked) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode contacts.blocked#ade1591 as nil")
+	}
 	buf.PutVectorHeader(len(b.Blocked))
 	for idx, v := range b.Blocked {
 		if err := v.Encode(buf); err != nil {
@@ -184,6 +192,14 @@ func (b *ContactsBlocked) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(ContactsBlockedTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.blocked#ade1591: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *ContactsBlocked) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode contacts.blocked#ade1591 to nil")
+	}
 	{
 		headerLen, err := buf.VectorHeader()
 		if err != nil {
@@ -231,8 +247,10 @@ func (b ContactsBlocked) construct() ContactsBlockedClass { return &b }
 
 // Ensuring interfaces in compile-time for ContactsBlocked.
 var (
-	_ bin.Encoder = &ContactsBlocked{}
-	_ bin.Decoder = &ContactsBlocked{}
+	_ bin.Encoder     = &ContactsBlocked{}
+	_ bin.Decoder     = &ContactsBlocked{}
+	_ bin.BareEncoder = &ContactsBlocked{}
+	_ bin.BareDecoder = &ContactsBlocked{}
 
 	_ ContactsBlockedClass = &ContactsBlocked{}
 )
@@ -346,6 +364,14 @@ func (b *ContactsBlockedSlice) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode contacts.blockedSlice#e1664194 as nil")
 	}
 	buf.PutID(ContactsBlockedSliceTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *ContactsBlockedSlice) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode contacts.blockedSlice#e1664194 as nil")
+	}
 	buf.PutInt(b.Count)
 	buf.PutVectorHeader(len(b.Blocked))
 	for idx, v := range b.Blocked {
@@ -412,6 +438,14 @@ func (b *ContactsBlockedSlice) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(ContactsBlockedSliceTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.blockedSlice#e1664194: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *ContactsBlockedSlice) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode contacts.blockedSlice#e1664194 to nil")
+	}
 	{
 		value, err := buf.Int()
 		if err != nil {
@@ -466,8 +500,10 @@ func (b ContactsBlockedSlice) construct() ContactsBlockedClass { return &b }
 
 // Ensuring interfaces in compile-time for ContactsBlockedSlice.
 var (
-	_ bin.Encoder = &ContactsBlockedSlice{}
-	_ bin.Decoder = &ContactsBlockedSlice{}
+	_ bin.Encoder     = &ContactsBlockedSlice{}
+	_ bin.Decoder     = &ContactsBlockedSlice{}
+	_ bin.BareEncoder = &ContactsBlockedSlice{}
+	_ bin.BareDecoder = &ContactsBlockedSlice{}
 
 	_ ContactsBlockedClass = &ContactsBlockedSlice{}
 )
@@ -489,6 +525,8 @@ var (
 type ContactsBlockedClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() ContactsBlockedClass
 
 	// TypeID returns type id in TL schema.

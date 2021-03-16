@@ -116,6 +116,14 @@ func (i *InputFolderPeer) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputFolderPeer#fbd2c296 as nil")
 	}
 	b.PutID(InputFolderPeerTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputFolderPeer) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputFolderPeer#fbd2c296 as nil")
+	}
 	if i.Peer == nil {
 		return fmt.Errorf("unable to encode inputFolderPeer#fbd2c296: field peer is nil")
 	}
@@ -144,6 +152,14 @@ func (i *InputFolderPeer) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputFolderPeerTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputFolderPeer#fbd2c296: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputFolderPeer) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputFolderPeer#fbd2c296 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -163,6 +179,8 @@ func (i *InputFolderPeer) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for InputFolderPeer.
 var (
-	_ bin.Encoder = &InputFolderPeer{}
-	_ bin.Decoder = &InputFolderPeer{}
+	_ bin.Encoder     = &InputFolderPeer{}
+	_ bin.Decoder     = &InputFolderPeer{}
+	_ bin.BareEncoder = &InputFolderPeer{}
+	_ bin.BareDecoder = &InputFolderPeer{}
 )

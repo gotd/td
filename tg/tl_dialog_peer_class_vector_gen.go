@@ -98,6 +98,15 @@ func (vec *DialogPeerClassVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't encode Vector<DialogPeer> as nil")
 	}
+
+	return vec.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (vec *DialogPeerClassVector) EncodeBare(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't encode Vector<DialogPeer> as nil")
+	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if v == nil {
@@ -125,6 +134,15 @@ func (vec *DialogPeerClassVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't decode Vector<DialogPeer> to nil")
 	}
+
+	return vec.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (vec *DialogPeerClassVector) DecodeBare(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't decode Vector<DialogPeer> to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -143,6 +161,8 @@ func (vec *DialogPeerClassVector) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for DialogPeerClassVector.
 var (
-	_ bin.Encoder = &DialogPeerClassVector{}
-	_ bin.Decoder = &DialogPeerClassVector{}
+	_ bin.Encoder     = &DialogPeerClassVector{}
+	_ bin.Decoder     = &DialogPeerClassVector{}
+	_ bin.BareEncoder = &DialogPeerClassVector{}
+	_ bin.BareDecoder = &DialogPeerClassVector{}
 )

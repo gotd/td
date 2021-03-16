@@ -105,6 +105,14 @@ func (p *PhotoSizeEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode photoSizeEmpty#e17e23c as nil")
 	}
 	b.PutID(PhotoSizeEmptyTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PhotoSizeEmpty) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode photoSizeEmpty#e17e23c as nil")
+	}
 	b.PutString(p.Type)
 	return nil
 }
@@ -122,6 +130,14 @@ func (p *PhotoSizeEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotoSizeEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode photoSizeEmpty#e17e23c: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PhotoSizeEmpty) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode photoSizeEmpty#e17e23c to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -137,8 +153,10 @@ func (p PhotoSizeEmpty) construct() PhotoSizeClass { return &p }
 
 // Ensuring interfaces in compile-time for PhotoSizeEmpty.
 var (
-	_ bin.Encoder = &PhotoSizeEmpty{}
-	_ bin.Decoder = &PhotoSizeEmpty{}
+	_ bin.Encoder     = &PhotoSizeEmpty{}
+	_ bin.Decoder     = &PhotoSizeEmpty{}
+	_ bin.BareEncoder = &PhotoSizeEmpty{}
+	_ bin.BareDecoder = &PhotoSizeEmpty{}
 
 	_ PhotoSizeClass = &PhotoSizeEmpty{}
 )
@@ -263,6 +281,14 @@ func (p *PhotoSize) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode photoSize#77bfb61b as nil")
 	}
 	b.PutID(PhotoSizeTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PhotoSize) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode photoSize#77bfb61b as nil")
+	}
 	b.PutString(p.Type)
 	if p.Location == nil {
 		return fmt.Errorf("unable to encode photoSize#77bfb61b: field location is nil")
@@ -309,6 +335,14 @@ func (p *PhotoSize) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotoSizeTypeID); err != nil {
 		return fmt.Errorf("unable to decode photoSize#77bfb61b: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PhotoSize) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode photoSize#77bfb61b to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -352,8 +386,10 @@ func (p PhotoSize) construct() PhotoSizeClass { return &p }
 
 // Ensuring interfaces in compile-time for PhotoSize.
 var (
-	_ bin.Encoder = &PhotoSize{}
-	_ bin.Decoder = &PhotoSize{}
+	_ bin.Encoder     = &PhotoSize{}
+	_ bin.Decoder     = &PhotoSize{}
+	_ bin.BareEncoder = &PhotoSize{}
+	_ bin.BareDecoder = &PhotoSize{}
 
 	_ PhotoSizeClass = &PhotoSize{}
 )
@@ -478,6 +514,14 @@ func (p *PhotoCachedSize) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode photoCachedSize#e9a734fa as nil")
 	}
 	b.PutID(PhotoCachedSizeTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PhotoCachedSize) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode photoCachedSize#e9a734fa as nil")
+	}
 	b.PutString(p.Type)
 	if p.Location == nil {
 		return fmt.Errorf("unable to encode photoCachedSize#e9a734fa: field location is nil")
@@ -524,6 +568,14 @@ func (p *PhotoCachedSize) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotoCachedSizeTypeID); err != nil {
 		return fmt.Errorf("unable to decode photoCachedSize#e9a734fa: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PhotoCachedSize) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode photoCachedSize#e9a734fa to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -567,8 +619,10 @@ func (p PhotoCachedSize) construct() PhotoSizeClass { return &p }
 
 // Ensuring interfaces in compile-time for PhotoCachedSize.
 var (
-	_ bin.Encoder = &PhotoCachedSize{}
-	_ bin.Decoder = &PhotoCachedSize{}
+	_ bin.Encoder     = &PhotoCachedSize{}
+	_ bin.Decoder     = &PhotoCachedSize{}
+	_ bin.BareEncoder = &PhotoCachedSize{}
+	_ bin.BareDecoder = &PhotoCachedSize{}
 
 	_ PhotoSizeClass = &PhotoCachedSize{}
 )
@@ -591,6 +645,8 @@ var (
 type PhotoSizeClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() PhotoSizeClass
 
 	// TypeID returns type id in TL schema.
@@ -617,6 +673,8 @@ type PhotoSizeClass interface {
 type NotEmptyPhotoSize interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() PhotoSizeClass
 
 	// TypeID returns type id in TL schema.

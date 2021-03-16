@@ -118,6 +118,14 @@ func (e *PhoneExportGroupCallInviteRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.exportGroupCallInvite#e6aa647f as nil")
 	}
 	b.PutID(PhoneExportGroupCallInviteRequestTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *PhoneExportGroupCallInviteRequest) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode phone.exportGroupCallInvite#e6aa647f as nil")
+	}
 	if !(e.CanSelfUnmute == false) {
 		e.Flags.Set(0)
 	}
@@ -159,6 +167,14 @@ func (e *PhoneExportGroupCallInviteRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneExportGroupCallInviteRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.exportGroupCallInvite#e6aa647f: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *PhoneExportGroupCallInviteRequest) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode phone.exportGroupCallInvite#e6aa647f to nil")
+	}
 	{
 		if err := e.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phone.exportGroupCallInvite#e6aa647f: field flags: %w", err)
@@ -175,8 +191,10 @@ func (e *PhoneExportGroupCallInviteRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhoneExportGroupCallInviteRequest.
 var (
-	_ bin.Encoder = &PhoneExportGroupCallInviteRequest{}
-	_ bin.Decoder = &PhoneExportGroupCallInviteRequest{}
+	_ bin.Encoder     = &PhoneExportGroupCallInviteRequest{}
+	_ bin.Decoder     = &PhoneExportGroupCallInviteRequest{}
+	_ bin.BareEncoder = &PhoneExportGroupCallInviteRequest{}
+	_ bin.BareDecoder = &PhoneExportGroupCallInviteRequest{}
 )
 
 // PhoneExportGroupCallInvite invokes method phone.exportGroupCallInvite#e6aa647f returning error if any.

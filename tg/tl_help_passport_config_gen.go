@@ -85,6 +85,14 @@ func (p *HelpPassportConfigNotModified) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.passportConfigNotModified#bfb9f457 as nil")
 	}
 	b.PutID(HelpPassportConfigNotModifiedTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *HelpPassportConfigNotModified) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode help.passportConfigNotModified#bfb9f457 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (p *HelpPassportConfigNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpPassportConfigNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.passportConfigNotModified#bfb9f457: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *HelpPassportConfigNotModified) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode help.passportConfigNotModified#bfb9f457 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (p HelpPassportConfigNotModified) construct() HelpPassportConfigClass { ret
 
 // Ensuring interfaces in compile-time for HelpPassportConfigNotModified.
 var (
-	_ bin.Encoder = &HelpPassportConfigNotModified{}
-	_ bin.Decoder = &HelpPassportConfigNotModified{}
+	_ bin.Encoder     = &HelpPassportConfigNotModified{}
+	_ bin.Decoder     = &HelpPassportConfigNotModified{}
+	_ bin.BareEncoder = &HelpPassportConfigNotModified{}
+	_ bin.BareDecoder = &HelpPassportConfigNotModified{}
 
 	_ HelpPassportConfigClass = &HelpPassportConfigNotModified{}
 )
@@ -203,6 +221,14 @@ func (p *HelpPassportConfig) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.passportConfig#a098d6af as nil")
 	}
 	b.PutID(HelpPassportConfigTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *HelpPassportConfig) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode help.passportConfig#a098d6af as nil")
+	}
 	b.PutInt(p.Hash)
 	if err := p.CountriesLangs.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode help.passportConfig#a098d6af: field countries_langs: %w", err)
@@ -228,6 +254,14 @@ func (p *HelpPassportConfig) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpPassportConfigTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.passportConfig#a098d6af: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *HelpPassportConfig) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode help.passportConfig#a098d6af to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -248,8 +282,10 @@ func (p HelpPassportConfig) construct() HelpPassportConfigClass { return &p }
 
 // Ensuring interfaces in compile-time for HelpPassportConfig.
 var (
-	_ bin.Encoder = &HelpPassportConfig{}
-	_ bin.Decoder = &HelpPassportConfig{}
+	_ bin.Encoder     = &HelpPassportConfig{}
+	_ bin.Decoder     = &HelpPassportConfig{}
+	_ bin.BareEncoder = &HelpPassportConfig{}
+	_ bin.BareDecoder = &HelpPassportConfig{}
 
 	_ HelpPassportConfigClass = &HelpPassportConfig{}
 )
@@ -271,6 +307,8 @@ var (
 type HelpPassportConfigClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() HelpPassportConfigClass
 
 	// TypeID returns type id in TL schema.

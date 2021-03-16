@@ -123,6 +123,14 @@ func (j *PhoneJoinAsPeers) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.joinAsPeers#afe5623f as nil")
 	}
 	b.PutID(PhoneJoinAsPeersTypeID)
+	return j.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (j *PhoneJoinAsPeers) EncodeBare(b *bin.Buffer) error {
+	if j == nil {
+		return fmt.Errorf("can't encode phone.joinAsPeers#afe5623f as nil")
+	}
 	b.PutVectorHeader(len(j.Peers))
 	for idx, v := range j.Peers {
 		if v == nil {
@@ -191,6 +199,14 @@ func (j *PhoneJoinAsPeers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneJoinAsPeersTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.joinAsPeers#afe5623f: %w", err)
 	}
+	return j.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (j *PhoneJoinAsPeers) DecodeBare(b *bin.Buffer) error {
+	if j == nil {
+		return fmt.Errorf("can't decode phone.joinAsPeers#afe5623f to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -235,6 +251,8 @@ func (j *PhoneJoinAsPeers) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhoneJoinAsPeers.
 var (
-	_ bin.Encoder = &PhoneJoinAsPeers{}
-	_ bin.Decoder = &PhoneJoinAsPeers{}
+	_ bin.Encoder     = &PhoneJoinAsPeers{}
+	_ bin.Decoder     = &PhoneJoinAsPeers{}
+	_ bin.BareEncoder = &PhoneJoinAsPeers{}
+	_ bin.BareDecoder = &PhoneJoinAsPeers{}
 )

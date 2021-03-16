@@ -110,6 +110,14 @@ func (p *Pong) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pong#347773c5 as nil")
 	}
 	b.PutID(PongTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *Pong) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pong#347773c5 as nil")
+	}
 	b.PutLong(p.MsgID)
 	b.PutLong(p.PingID)
 	return nil
@@ -133,6 +141,14 @@ func (p *Pong) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PongTypeID); err != nil {
 		return fmt.Errorf("unable to decode pong#347773c5: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *Pong) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pong#347773c5 to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -152,6 +168,8 @@ func (p *Pong) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for Pong.
 var (
-	_ bin.Encoder = &Pong{}
-	_ bin.Decoder = &Pong{}
+	_ bin.Encoder     = &Pong{}
+	_ bin.Decoder     = &Pong{}
+	_ bin.BareEncoder = &Pong{}
+	_ bin.BareDecoder = &Pong{}
 )

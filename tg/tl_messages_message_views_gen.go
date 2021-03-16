@@ -124,6 +124,14 @@ func (m *MessagesMessageViews) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.messageViews#b6c4f543 as nil")
 	}
 	b.PutID(MessagesMessageViewsTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessagesMessageViews) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messages.messageViews#b6c4f543 as nil")
+	}
 	b.PutVectorHeader(len(m.Views))
 	for idx, v := range m.Views {
 		if err := v.Encode(b); err != nil {
@@ -184,6 +192,14 @@ func (m *MessagesMessageViews) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesMessageViewsTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.messageViews#b6c4f543: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessagesMessageViews) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messages.messageViews#b6c4f543 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -228,6 +244,8 @@ func (m *MessagesMessageViews) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesMessageViews.
 var (
-	_ bin.Encoder = &MessagesMessageViews{}
-	_ bin.Decoder = &MessagesMessageViews{}
+	_ bin.Encoder     = &MessagesMessageViews{}
+	_ bin.Decoder     = &MessagesMessageViews{}
+	_ bin.BareEncoder = &MessagesMessageViews{}
+	_ bin.BareDecoder = &MessagesMessageViews{}
 )

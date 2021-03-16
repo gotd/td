@@ -105,6 +105,14 @@ func (t *HelpTermsOfServiceUpdateEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.termsOfServiceUpdateEmpty#e3309f7f as nil")
 	}
 	b.PutID(HelpTermsOfServiceUpdateEmptyTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *HelpTermsOfServiceUpdateEmpty) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode help.termsOfServiceUpdateEmpty#e3309f7f as nil")
+	}
 	b.PutInt(t.Expires)
 	return nil
 }
@@ -122,6 +130,14 @@ func (t *HelpTermsOfServiceUpdateEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpTermsOfServiceUpdateEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.termsOfServiceUpdateEmpty#e3309f7f: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *HelpTermsOfServiceUpdateEmpty) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode help.termsOfServiceUpdateEmpty#e3309f7f to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -137,8 +153,10 @@ func (t HelpTermsOfServiceUpdateEmpty) construct() HelpTermsOfServiceUpdateClass
 
 // Ensuring interfaces in compile-time for HelpTermsOfServiceUpdateEmpty.
 var (
-	_ bin.Encoder = &HelpTermsOfServiceUpdateEmpty{}
-	_ bin.Decoder = &HelpTermsOfServiceUpdateEmpty{}
+	_ bin.Encoder     = &HelpTermsOfServiceUpdateEmpty{}
+	_ bin.Decoder     = &HelpTermsOfServiceUpdateEmpty{}
+	_ bin.BareEncoder = &HelpTermsOfServiceUpdateEmpty{}
+	_ bin.BareDecoder = &HelpTermsOfServiceUpdateEmpty{}
 
 	_ HelpTermsOfServiceUpdateClass = &HelpTermsOfServiceUpdateEmpty{}
 )
@@ -236,6 +254,14 @@ func (t *HelpTermsOfServiceUpdate) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.termsOfServiceUpdate#28ecf961 as nil")
 	}
 	b.PutID(HelpTermsOfServiceUpdateTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *HelpTermsOfServiceUpdate) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode help.termsOfServiceUpdate#28ecf961 as nil")
+	}
 	b.PutInt(t.Expires)
 	if err := t.TermsOfService.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode help.termsOfServiceUpdate#28ecf961: field terms_of_service: %w", err)
@@ -261,6 +287,14 @@ func (t *HelpTermsOfServiceUpdate) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpTermsOfServiceUpdateTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.termsOfServiceUpdate#28ecf961: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *HelpTermsOfServiceUpdate) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode help.termsOfServiceUpdate#28ecf961 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -281,8 +315,10 @@ func (t HelpTermsOfServiceUpdate) construct() HelpTermsOfServiceUpdateClass { re
 
 // Ensuring interfaces in compile-time for HelpTermsOfServiceUpdate.
 var (
-	_ bin.Encoder = &HelpTermsOfServiceUpdate{}
-	_ bin.Decoder = &HelpTermsOfServiceUpdate{}
+	_ bin.Encoder     = &HelpTermsOfServiceUpdate{}
+	_ bin.Decoder     = &HelpTermsOfServiceUpdate{}
+	_ bin.BareEncoder = &HelpTermsOfServiceUpdate{}
+	_ bin.BareDecoder = &HelpTermsOfServiceUpdate{}
 
 	_ HelpTermsOfServiceUpdateClass = &HelpTermsOfServiceUpdate{}
 )
@@ -304,6 +340,8 @@ var (
 type HelpTermsOfServiceUpdateClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() HelpTermsOfServiceUpdateClass
 
 	// TypeID returns type id in TL schema.

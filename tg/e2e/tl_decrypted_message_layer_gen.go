@@ -145,6 +145,14 @@ func (d *DecryptedMessageLayer) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageLayer#1be31789 as nil")
 	}
 	b.PutID(DecryptedMessageLayerTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageLayer) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageLayer#1be31789 as nil")
+	}
 	b.PutBytes(d.RandomBytes)
 	b.PutInt(d.Layer)
 	b.PutInt(d.InSeqNo)
@@ -191,6 +199,14 @@ func (d *DecryptedMessageLayer) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DecryptedMessageLayerTypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageLayer#1be31789: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageLayer) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageLayer#1be31789 to nil")
+	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
@@ -231,6 +247,8 @@ func (d *DecryptedMessageLayer) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for DecryptedMessageLayer.
 var (
-	_ bin.Encoder = &DecryptedMessageLayer{}
-	_ bin.Decoder = &DecryptedMessageLayer{}
+	_ bin.Encoder     = &DecryptedMessageLayer{}
+	_ bin.Decoder     = &DecryptedMessageLayer{}
+	_ bin.BareEncoder = &DecryptedMessageLayer{}
+	_ bin.BareDecoder = &DecryptedMessageLayer{}
 )

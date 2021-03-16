@@ -102,6 +102,14 @@ func (s *HelpSaveAppLogRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.saveAppLog#6f02f748 as nil")
 	}
 	b.PutID(HelpSaveAppLogRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *HelpSaveAppLogRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode help.saveAppLog#6f02f748 as nil")
+	}
 	b.PutVectorHeader(len(s.Events))
 	for idx, v := range s.Events {
 		if err := v.Encode(b); err != nil {
@@ -124,6 +132,14 @@ func (s *HelpSaveAppLogRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpSaveAppLogRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.saveAppLog#6f02f748: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *HelpSaveAppLogRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode help.saveAppLog#6f02f748 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -142,8 +158,10 @@ func (s *HelpSaveAppLogRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for HelpSaveAppLogRequest.
 var (
-	_ bin.Encoder = &HelpSaveAppLogRequest{}
-	_ bin.Decoder = &HelpSaveAppLogRequest{}
+	_ bin.Encoder     = &HelpSaveAppLogRequest{}
+	_ bin.Decoder     = &HelpSaveAppLogRequest{}
+	_ bin.BareEncoder = &HelpSaveAppLogRequest{}
+	_ bin.BareDecoder = &HelpSaveAppLogRequest{}
 )
 
 // HelpSaveAppLog invokes method help.saveAppLog#6f02f748 returning error if any.

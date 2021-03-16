@@ -116,6 +116,14 @@ func (p *PollAnswer) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pollAnswer#6ca9c2e9 as nil")
 	}
 	b.PutID(PollAnswerTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PollAnswer) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pollAnswer#6ca9c2e9 as nil")
+	}
 	b.PutString(p.Text)
 	b.PutBytes(p.Option)
 	return nil
@@ -139,6 +147,14 @@ func (p *PollAnswer) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PollAnswerTypeID); err != nil {
 		return fmt.Errorf("unable to decode pollAnswer#6ca9c2e9: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PollAnswer) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pollAnswer#6ca9c2e9 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -158,6 +174,8 @@ func (p *PollAnswer) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PollAnswer.
 var (
-	_ bin.Encoder = &PollAnswer{}
-	_ bin.Decoder = &PollAnswer{}
+	_ bin.Encoder     = &PollAnswer{}
+	_ bin.Decoder     = &PollAnswer{}
+	_ bin.BareEncoder = &PollAnswer{}
+	_ bin.BareDecoder = &PollAnswer{}
 )

@@ -106,6 +106,14 @@ func (d *AccountDeleteSecureValueRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.deleteSecureValue#b880bc4b as nil")
 	}
 	b.PutID(AccountDeleteSecureValueRequestTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *AccountDeleteSecureValueRequest) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode account.deleteSecureValue#b880bc4b as nil")
+	}
 	b.PutVectorHeader(len(d.Types))
 	for idx, v := range d.Types {
 		if v == nil {
@@ -136,6 +144,14 @@ func (d *AccountDeleteSecureValueRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountDeleteSecureValueRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.deleteSecureValue#b880bc4b: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *AccountDeleteSecureValueRequest) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode account.deleteSecureValue#b880bc4b to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -154,8 +170,10 @@ func (d *AccountDeleteSecureValueRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountDeleteSecureValueRequest.
 var (
-	_ bin.Encoder = &AccountDeleteSecureValueRequest{}
-	_ bin.Decoder = &AccountDeleteSecureValueRequest{}
+	_ bin.Encoder     = &AccountDeleteSecureValueRequest{}
+	_ bin.Decoder     = &AccountDeleteSecureValueRequest{}
+	_ bin.BareEncoder = &AccountDeleteSecureValueRequest{}
+	_ bin.BareDecoder = &AccountDeleteSecureValueRequest{}
 )
 
 // AccountDeleteSecureValue invokes method account.deleteSecureValue#b880bc4b returning error if any.

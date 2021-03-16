@@ -123,6 +123,14 @@ func (c *ChatAdminWithInvites) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chatAdminWithInvites#dfd2330f as nil")
 	}
 	b.PutID(ChatAdminWithInvitesTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatAdminWithInvites) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatAdminWithInvites#dfd2330f as nil")
+	}
 	b.PutInt(c.AdminID)
 	b.PutInt(c.InvitesCount)
 	b.PutInt(c.RevokedInvitesCount)
@@ -152,6 +160,14 @@ func (c *ChatAdminWithInvites) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatAdminWithInvitesTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatAdminWithInvites#dfd2330f: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatAdminWithInvites) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatAdminWithInvites#dfd2330f to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -178,6 +194,8 @@ func (c *ChatAdminWithInvites) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChatAdminWithInvites.
 var (
-	_ bin.Encoder = &ChatAdminWithInvites{}
-	_ bin.Decoder = &ChatAdminWithInvites{}
+	_ bin.Encoder     = &ChatAdminWithInvites{}
+	_ bin.Decoder     = &ChatAdminWithInvites{}
+	_ bin.BareEncoder = &ChatAdminWithInvites{}
+	_ bin.BareDecoder = &ChatAdminWithInvites{}
 )

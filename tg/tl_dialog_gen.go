@@ -260,6 +260,14 @@ func (d *Dialog) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode dialog#2c171f72 as nil")
 	}
 	b.PutID(DialogTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *Dialog) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode dialog#2c171f72 as nil")
+	}
 	if !(d.Pinned == false) {
 		d.Flags.Set(2)
 	}
@@ -429,6 +437,14 @@ func (d *Dialog) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DialogTypeID); err != nil {
 		return fmt.Errorf("unable to decode dialog#2c171f72: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *Dialog) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode dialog#2c171f72 to nil")
+	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode dialog#2c171f72: field flags: %w", err)
@@ -512,8 +528,10 @@ func (d Dialog) construct() DialogClass { return &d }
 
 // Ensuring interfaces in compile-time for Dialog.
 var (
-	_ bin.Encoder = &Dialog{}
-	_ bin.Decoder = &Dialog{}
+	_ bin.Encoder     = &Dialog{}
+	_ bin.Decoder     = &Dialog{}
+	_ bin.BareEncoder = &Dialog{}
+	_ bin.BareDecoder = &Dialog{}
 
 	_ DialogClass = &Dialog{}
 )
@@ -680,6 +698,14 @@ func (d *DialogFolder) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode dialogFolder#71bd134c as nil")
 	}
 	b.PutID(DialogFolderTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DialogFolder) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode dialogFolder#71bd134c as nil")
+	}
 	if !(d.Pinned == false) {
 		d.Flags.Set(2)
 	}
@@ -762,6 +788,14 @@ func (d *DialogFolder) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DialogFolderTypeID); err != nil {
 		return fmt.Errorf("unable to decode dialogFolder#71bd134c: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DialogFolder) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode dialogFolder#71bd134c to nil")
+	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode dialogFolder#71bd134c: field flags: %w", err)
@@ -823,8 +857,10 @@ func (d DialogFolder) construct() DialogClass { return &d }
 
 // Ensuring interfaces in compile-time for DialogFolder.
 var (
-	_ bin.Encoder = &DialogFolder{}
-	_ bin.Decoder = &DialogFolder{}
+	_ bin.Encoder     = &DialogFolder{}
+	_ bin.Decoder     = &DialogFolder{}
+	_ bin.BareEncoder = &DialogFolder{}
+	_ bin.BareDecoder = &DialogFolder{}
 
 	_ DialogClass = &DialogFolder{}
 )
@@ -846,6 +882,8 @@ var (
 type DialogClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() DialogClass
 
 	// TypeID returns type id in TL schema.

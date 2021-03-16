@@ -85,6 +85,14 @@ func (c *ChannelMessagesFilterEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelMessagesFilterEmpty#94d42ee7 as nil")
 	}
 	b.PutID(ChannelMessagesFilterEmptyTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelMessagesFilterEmpty) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelMessagesFilterEmpty#94d42ee7 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (c *ChannelMessagesFilterEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelMessagesFilterEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelMessagesFilterEmpty#94d42ee7: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelMessagesFilterEmpty) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelMessagesFilterEmpty#94d42ee7 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (c ChannelMessagesFilterEmpty) construct() ChannelMessagesFilterClass { ret
 
 // Ensuring interfaces in compile-time for ChannelMessagesFilterEmpty.
 var (
-	_ bin.Encoder = &ChannelMessagesFilterEmpty{}
-	_ bin.Decoder = &ChannelMessagesFilterEmpty{}
+	_ bin.Encoder     = &ChannelMessagesFilterEmpty{}
+	_ bin.Decoder     = &ChannelMessagesFilterEmpty{}
+	_ bin.BareEncoder = &ChannelMessagesFilterEmpty{}
+	_ bin.BareDecoder = &ChannelMessagesFilterEmpty{}
 
 	_ ChannelMessagesFilterClass = &ChannelMessagesFilterEmpty{}
 )
@@ -206,6 +224,14 @@ func (c *ChannelMessagesFilter) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelMessagesFilter#cd77d957 as nil")
 	}
 	b.PutID(ChannelMessagesFilterTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelMessagesFilter) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelMessagesFilter#cd77d957 as nil")
+	}
 	if !(c.ExcludeNewMessages == false) {
 		c.Flags.Set(1)
 	}
@@ -250,6 +276,14 @@ func (c *ChannelMessagesFilter) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelMessagesFilterTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelMessagesFilter#cd77d957: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelMessagesFilter) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelMessagesFilter#cd77d957 to nil")
+	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channelMessagesFilter#cd77d957: field flags: %w", err)
@@ -277,8 +311,10 @@ func (c ChannelMessagesFilter) construct() ChannelMessagesFilterClass { return &
 
 // Ensuring interfaces in compile-time for ChannelMessagesFilter.
 var (
-	_ bin.Encoder = &ChannelMessagesFilter{}
-	_ bin.Decoder = &ChannelMessagesFilter{}
+	_ bin.Encoder     = &ChannelMessagesFilter{}
+	_ bin.Decoder     = &ChannelMessagesFilter{}
+	_ bin.BareEncoder = &ChannelMessagesFilter{}
+	_ bin.BareDecoder = &ChannelMessagesFilter{}
 
 	_ ChannelMessagesFilterClass = &ChannelMessagesFilter{}
 )
@@ -300,6 +336,8 @@ var (
 type ChannelMessagesFilterClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() ChannelMessagesFilterClass
 
 	// TypeID returns type id in TL schema.

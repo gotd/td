@@ -127,6 +127,14 @@ func (c *ChatParticipantsForbidden) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chatParticipantsForbidden#fc900c2b as nil")
 	}
 	b.PutID(ChatParticipantsForbiddenTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatParticipantsForbidden) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatParticipantsForbidden#fc900c2b as nil")
+	}
 	if !(c.SelfParticipant == nil) {
 		c.Flags.Set(0)
 	}
@@ -173,6 +181,14 @@ func (c *ChatParticipantsForbidden) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatParticipantsForbiddenTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatParticipantsForbidden#fc900c2b: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatParticipantsForbidden) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatParticipantsForbidden#fc900c2b to nil")
+	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode chatParticipantsForbidden#fc900c2b: field flags: %w", err)
@@ -200,8 +216,10 @@ func (c ChatParticipantsForbidden) construct() ChatParticipantsClass { return &c
 
 // Ensuring interfaces in compile-time for ChatParticipantsForbidden.
 var (
-	_ bin.Encoder = &ChatParticipantsForbidden{}
-	_ bin.Decoder = &ChatParticipantsForbidden{}
+	_ bin.Encoder     = &ChatParticipantsForbidden{}
+	_ bin.Decoder     = &ChatParticipantsForbidden{}
+	_ bin.BareEncoder = &ChatParticipantsForbidden{}
+	_ bin.BareDecoder = &ChatParticipantsForbidden{}
 
 	_ ChatParticipantsClass = &ChatParticipantsForbidden{}
 )
@@ -304,6 +322,14 @@ func (c *ChatParticipants) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chatParticipants#3f460fed as nil")
 	}
 	b.PutID(ChatParticipantsTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatParticipants) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatParticipants#3f460fed as nil")
+	}
 	b.PutInt(c.ChatID)
 	b.PutVectorHeader(len(c.Participants))
 	for idx, v := range c.Participants {
@@ -346,6 +372,14 @@ func (c *ChatParticipants) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatParticipantsTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatParticipants#3f460fed: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatParticipants) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatParticipants#3f460fed to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -381,8 +415,10 @@ func (c ChatParticipants) construct() ChatParticipantsClass { return &c }
 
 // Ensuring interfaces in compile-time for ChatParticipants.
 var (
-	_ bin.Encoder = &ChatParticipants{}
-	_ bin.Decoder = &ChatParticipants{}
+	_ bin.Encoder     = &ChatParticipants{}
+	_ bin.Decoder     = &ChatParticipants{}
+	_ bin.BareEncoder = &ChatParticipants{}
+	_ bin.BareDecoder = &ChatParticipants{}
 
 	_ ChatParticipantsClass = &ChatParticipants{}
 )
@@ -404,6 +440,8 @@ var (
 type ChatParticipantsClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() ChatParticipantsClass
 
 	// TypeID returns type id in TL schema.

@@ -121,6 +121,14 @@ func (s *ServerDHParamsFail) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode server_DH_params_fail#79cb045d as nil")
 	}
 	b.PutID(ServerDHParamsFailTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *ServerDHParamsFail) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode server_DH_params_fail#79cb045d as nil")
+	}
 	b.PutInt128(s.Nonce)
 	b.PutInt128(s.ServerNonce)
 	b.PutInt128(s.NewNonceHash)
@@ -149,6 +157,14 @@ func (s *ServerDHParamsFail) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(ServerDHParamsFailTypeID); err != nil {
 		return fmt.Errorf("unable to decode server_DH_params_fail#79cb045d: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *ServerDHParamsFail) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode server_DH_params_fail#79cb045d to nil")
 	}
 	{
 		value, err := b.Int128()
@@ -179,8 +195,10 @@ func (s ServerDHParamsFail) construct() ServerDHParamsClass { return &s }
 
 // Ensuring interfaces in compile-time for ServerDHParamsFail.
 var (
-	_ bin.Encoder = &ServerDHParamsFail{}
-	_ bin.Decoder = &ServerDHParamsFail{}
+	_ bin.Encoder     = &ServerDHParamsFail{}
+	_ bin.Decoder     = &ServerDHParamsFail{}
+	_ bin.BareEncoder = &ServerDHParamsFail{}
+	_ bin.BareDecoder = &ServerDHParamsFail{}
 
 	_ ServerDHParamsClass = &ServerDHParamsFail{}
 )
@@ -280,6 +298,14 @@ func (s *ServerDHParamsOk) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode server_DH_params_ok#d0e8075c as nil")
 	}
 	b.PutID(ServerDHParamsOkTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *ServerDHParamsOk) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode server_DH_params_ok#d0e8075c as nil")
+	}
 	b.PutInt128(s.Nonce)
 	b.PutInt128(s.ServerNonce)
 	b.PutBytes(s.EncryptedAnswer)
@@ -308,6 +334,14 @@ func (s *ServerDHParamsOk) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(ServerDHParamsOkTypeID); err != nil {
 		return fmt.Errorf("unable to decode server_DH_params_ok#d0e8075c: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *ServerDHParamsOk) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode server_DH_params_ok#d0e8075c to nil")
 	}
 	{
 		value, err := b.Int128()
@@ -338,8 +372,10 @@ func (s ServerDHParamsOk) construct() ServerDHParamsClass { return &s }
 
 // Ensuring interfaces in compile-time for ServerDHParamsOk.
 var (
-	_ bin.Encoder = &ServerDHParamsOk{}
-	_ bin.Decoder = &ServerDHParamsOk{}
+	_ bin.Encoder     = &ServerDHParamsOk{}
+	_ bin.Decoder     = &ServerDHParamsOk{}
+	_ bin.BareEncoder = &ServerDHParamsOk{}
+	_ bin.BareDecoder = &ServerDHParamsOk{}
 
 	_ ServerDHParamsClass = &ServerDHParamsOk{}
 )
@@ -359,6 +395,8 @@ var (
 type ServerDHParamsClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() ServerDHParamsClass
 
 	// TypeID returns type id in TL schema.

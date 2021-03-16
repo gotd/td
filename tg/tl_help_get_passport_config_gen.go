@@ -108,6 +108,14 @@ func (g *HelpGetPassportConfigRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.getPassportConfig#c661ad08 as nil")
 	}
 	b.PutID(HelpGetPassportConfigRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *HelpGetPassportConfigRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode help.getPassportConfig#c661ad08 as nil")
+	}
 	b.PutInt(g.Hash)
 	return nil
 }
@@ -125,6 +133,14 @@ func (g *HelpGetPassportConfigRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetPassportConfigRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getPassportConfig#c661ad08: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *HelpGetPassportConfigRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode help.getPassportConfig#c661ad08 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -137,8 +153,10 @@ func (g *HelpGetPassportConfigRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for HelpGetPassportConfigRequest.
 var (
-	_ bin.Encoder = &HelpGetPassportConfigRequest{}
-	_ bin.Decoder = &HelpGetPassportConfigRequest{}
+	_ bin.Encoder     = &HelpGetPassportConfigRequest{}
+	_ bin.Decoder     = &HelpGetPassportConfigRequest{}
+	_ bin.BareEncoder = &HelpGetPassportConfigRequest{}
+	_ bin.BareDecoder = &HelpGetPassportConfigRequest{}
 )
 
 // HelpGetPassportConfig invokes method help.getPassportConfig#c661ad08 returning error if any.

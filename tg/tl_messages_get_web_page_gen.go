@@ -119,6 +119,14 @@ func (g *MessagesGetWebPageRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getWebPage#32ca8f91 as nil")
 	}
 	b.PutID(MessagesGetWebPageRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetWebPageRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getWebPage#32ca8f91 as nil")
+	}
 	b.PutString(g.URL)
 	b.PutInt(g.Hash)
 	return nil
@@ -142,6 +150,14 @@ func (g *MessagesGetWebPageRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetWebPageRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getWebPage#32ca8f91: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetWebPageRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getWebPage#32ca8f91 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -161,8 +177,10 @@ func (g *MessagesGetWebPageRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetWebPageRequest.
 var (
-	_ bin.Encoder = &MessagesGetWebPageRequest{}
-	_ bin.Decoder = &MessagesGetWebPageRequest{}
+	_ bin.Encoder     = &MessagesGetWebPageRequest{}
+	_ bin.Decoder     = &MessagesGetWebPageRequest{}
+	_ bin.BareEncoder = &MessagesGetWebPageRequest{}
+	_ bin.BareDecoder = &MessagesGetWebPageRequest{}
 )
 
 // MessagesGetWebPage invokes method messages.getWebPage#32ca8f91 returning error if any.

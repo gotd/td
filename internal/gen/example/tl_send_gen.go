@@ -101,6 +101,14 @@ func (s *SendRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode send#f74488a as nil")
 	}
 	b.PutID(SendRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SendRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode send#f74488a as nil")
+	}
 	if err := s.Msg.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode send#f74488a: field msg: %w", err)
 	}
@@ -120,6 +128,14 @@ func (s *SendRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode send#f74488a: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SendRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode send#f74488a to nil")
+	}
 	{
 		if err := s.Msg.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode send#f74488a: field msg: %w", err)
@@ -130,8 +146,10 @@ func (s *SendRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for SendRequest.
 var (
-	_ bin.Encoder = &SendRequest{}
-	_ bin.Decoder = &SendRequest{}
+	_ bin.Encoder     = &SendRequest{}
+	_ bin.Decoder     = &SendRequest{}
+	_ bin.BareEncoder = &SendRequest{}
+	_ bin.BareDecoder = &SendRequest{}
 )
 
 // Send invokes method send#f74488a returning error if any.

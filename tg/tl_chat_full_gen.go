@@ -312,6 +312,14 @@ func (c *ChatFull) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chatFull#8a1e2983 as nil")
 	}
 	b.PutID(ChatFullTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatFull) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatFull#8a1e2983 as nil")
+	}
 	if !(c.CanSetUsername == false) {
 		c.Flags.Set(7)
 	}
@@ -582,6 +590,14 @@ func (c *ChatFull) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatFullTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatFull#8a1e2983: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatFull) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatFull#8a1e2983 to nil")
+	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode chatFull#8a1e2983: field flags: %w", err)
@@ -681,8 +697,10 @@ func (c ChatFull) construct() ChatFullClass { return &c }
 
 // Ensuring interfaces in compile-time for ChatFull.
 var (
-	_ bin.Encoder = &ChatFull{}
-	_ bin.Decoder = &ChatFull{}
+	_ bin.Encoder     = &ChatFull{}
+	_ bin.Decoder     = &ChatFull{}
+	_ bin.BareEncoder = &ChatFull{}
+	_ bin.BareDecoder = &ChatFull{}
 
 	_ ChatFullClass = &ChatFull{}
 )
@@ -1348,6 +1366,14 @@ func (c *ChannelFull) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelFull#548c3f93 as nil")
 	}
 	b.PutID(ChannelFullTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelFull) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelFull#548c3f93 as nil")
+	}
 	if !(c.CanViewParticipants == false) {
 		c.Flags.Set(3)
 	}
@@ -2040,6 +2066,14 @@ func (c *ChannelFull) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelFullTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelFull#548c3f93: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelFull) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelFull#548c3f93 to nil")
+	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channelFull#548c3f93: field flags: %w", err)
@@ -2275,8 +2309,10 @@ func (c ChannelFull) construct() ChatFullClass { return &c }
 
 // Ensuring interfaces in compile-time for ChannelFull.
 var (
-	_ bin.Encoder = &ChannelFull{}
-	_ bin.Decoder = &ChannelFull{}
+	_ bin.Encoder     = &ChannelFull{}
+	_ bin.Decoder     = &ChannelFull{}
+	_ bin.BareEncoder = &ChannelFull{}
+	_ bin.BareDecoder = &ChannelFull{}
 
 	_ ChatFullClass = &ChannelFull{}
 )
@@ -2298,6 +2334,8 @@ var (
 type ChatFullClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() ChatFullClass
 
 	// TypeID returns type id in TL schema.

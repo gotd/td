@@ -102,6 +102,14 @@ func (i *InputDialogPeer) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputDialogPeer#fcaafeb7 as nil")
 	}
 	b.PutID(InputDialogPeerTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputDialogPeer) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputDialogPeer#fcaafeb7 as nil")
+	}
 	if i.Peer == nil {
 		return fmt.Errorf("unable to encode inputDialogPeer#fcaafeb7: field peer is nil")
 	}
@@ -124,6 +132,14 @@ func (i *InputDialogPeer) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputDialogPeerTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputDialogPeer#fcaafeb7: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputDialogPeer) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputDialogPeer#fcaafeb7 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -139,8 +155,10 @@ func (i InputDialogPeer) construct() InputDialogPeerClass { return &i }
 
 // Ensuring interfaces in compile-time for InputDialogPeer.
 var (
-	_ bin.Encoder = &InputDialogPeer{}
-	_ bin.Decoder = &InputDialogPeer{}
+	_ bin.Encoder     = &InputDialogPeer{}
+	_ bin.Decoder     = &InputDialogPeer{}
+	_ bin.BareEncoder = &InputDialogPeer{}
+	_ bin.BareDecoder = &InputDialogPeer{}
 
 	_ InputDialogPeerClass = &InputDialogPeer{}
 )
@@ -227,6 +245,14 @@ func (i *InputDialogPeerFolder) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputDialogPeerFolder#64600527 as nil")
 	}
 	b.PutID(InputDialogPeerFolderTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputDialogPeerFolder) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputDialogPeerFolder#64600527 as nil")
+	}
 	b.PutInt(i.FolderID)
 	return nil
 }
@@ -244,6 +270,14 @@ func (i *InputDialogPeerFolder) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputDialogPeerFolderTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputDialogPeerFolder#64600527: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputDialogPeerFolder) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputDialogPeerFolder#64600527 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -259,8 +293,10 @@ func (i InputDialogPeerFolder) construct() InputDialogPeerClass { return &i }
 
 // Ensuring interfaces in compile-time for InputDialogPeerFolder.
 var (
-	_ bin.Encoder = &InputDialogPeerFolder{}
-	_ bin.Decoder = &InputDialogPeerFolder{}
+	_ bin.Encoder     = &InputDialogPeerFolder{}
+	_ bin.Decoder     = &InputDialogPeerFolder{}
+	_ bin.BareEncoder = &InputDialogPeerFolder{}
+	_ bin.BareDecoder = &InputDialogPeerFolder{}
 
 	_ InputDialogPeerClass = &InputDialogPeerFolder{}
 )
@@ -282,6 +318,8 @@ var (
 type InputDialogPeerClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() InputDialogPeerClass
 
 	// TypeID returns type id in TL schema.

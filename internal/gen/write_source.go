@@ -2,7 +2,6 @@ package gen
 
 import (
 	"bytes"
-	"io"
 	"os"
 	"strings"
 	"text/template"
@@ -73,7 +72,7 @@ func (w *writer) Generate(templateName, fileName string, cfg config) error {
 		return xerrors.Errorf("failed to execute template %s for %s: %w", templateName, fileName, err)
 	}
 	if err := w.fs.WriteFile(fileName, w.buf.Bytes()); err != nil {
-		_, _ = io.Copy(os.Stderr, w.buf)
+		_ = os.WriteFile(fileName+".dump", w.buf.Bytes(), 0755)
 		return xerrors.Errorf("failed to write file %s: %w", fileName, err)
 	}
 	w.wrote[fileName] = true

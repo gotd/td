@@ -85,6 +85,14 @@ func (s *MessagesStickerSetInstallResultSuccess) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.stickerSetInstallResultSuccess#38641628 as nil")
 	}
 	b.PutID(MessagesStickerSetInstallResultSuccessTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesStickerSetInstallResultSuccess) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.stickerSetInstallResultSuccess#38641628 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (s *MessagesStickerSetInstallResultSuccess) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesStickerSetInstallResultSuccessTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.stickerSetInstallResultSuccess#38641628: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesStickerSetInstallResultSuccess) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.stickerSetInstallResultSuccess#38641628 to nil")
+	}
 	return nil
 }
 
@@ -106,8 +122,10 @@ func (s MessagesStickerSetInstallResultSuccess) construct() MessagesStickerSetIn
 
 // Ensuring interfaces in compile-time for MessagesStickerSetInstallResultSuccess.
 var (
-	_ bin.Encoder = &MessagesStickerSetInstallResultSuccess{}
-	_ bin.Decoder = &MessagesStickerSetInstallResultSuccess{}
+	_ bin.Encoder     = &MessagesStickerSetInstallResultSuccess{}
+	_ bin.Decoder     = &MessagesStickerSetInstallResultSuccess{}
+	_ bin.BareEncoder = &MessagesStickerSetInstallResultSuccess{}
+	_ bin.BareDecoder = &MessagesStickerSetInstallResultSuccess{}
 
 	_ MessagesStickerSetInstallResultClass = &MessagesStickerSetInstallResultSuccess{}
 )
@@ -188,6 +206,14 @@ func (s *MessagesStickerSetInstallResultArchive) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.stickerSetInstallResultArchive#35e410a8 as nil")
 	}
 	b.PutID(MessagesStickerSetInstallResultArchiveTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesStickerSetInstallResultArchive) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.stickerSetInstallResultArchive#35e410a8 as nil")
+	}
 	b.PutVectorHeader(len(s.Sets))
 	for idx, v := range s.Sets {
 		if v == nil {
@@ -218,6 +244,14 @@ func (s *MessagesStickerSetInstallResultArchive) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesStickerSetInstallResultArchiveTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.stickerSetInstallResultArchive#35e410a8: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesStickerSetInstallResultArchive) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.stickerSetInstallResultArchive#35e410a8 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -241,8 +275,10 @@ func (s MessagesStickerSetInstallResultArchive) construct() MessagesStickerSetIn
 
 // Ensuring interfaces in compile-time for MessagesStickerSetInstallResultArchive.
 var (
-	_ bin.Encoder = &MessagesStickerSetInstallResultArchive{}
-	_ bin.Decoder = &MessagesStickerSetInstallResultArchive{}
+	_ bin.Encoder     = &MessagesStickerSetInstallResultArchive{}
+	_ bin.Decoder     = &MessagesStickerSetInstallResultArchive{}
+	_ bin.BareEncoder = &MessagesStickerSetInstallResultArchive{}
+	_ bin.BareDecoder = &MessagesStickerSetInstallResultArchive{}
 
 	_ MessagesStickerSetInstallResultClass = &MessagesStickerSetInstallResultArchive{}
 )
@@ -264,6 +300,8 @@ var (
 type MessagesStickerSetInstallResultClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() MessagesStickerSetInstallResultClass
 
 	// TypeID returns type id in TL schema.

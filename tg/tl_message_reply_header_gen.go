@@ -153,6 +153,14 @@ func (m *MessageReplyHeader) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageReplyHeader#a6d57763 as nil")
 	}
 	b.PutID(MessageReplyHeaderTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageReplyHeader) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageReplyHeader#a6d57763 as nil")
+	}
 	if !(m.ReplyToPeerID == nil) {
 		m.Flags.Set(0)
 	}
@@ -220,6 +228,14 @@ func (m *MessageReplyHeader) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageReplyHeaderTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageReplyHeader#a6d57763: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageReplyHeader) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageReplyHeader#a6d57763 to nil")
+	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messageReplyHeader#a6d57763: field flags: %w", err)
@@ -251,6 +267,8 @@ func (m *MessageReplyHeader) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessageReplyHeader.
 var (
-	_ bin.Encoder = &MessageReplyHeader{}
-	_ bin.Decoder = &MessageReplyHeader{}
+	_ bin.Encoder     = &MessageReplyHeader{}
+	_ bin.Decoder     = &MessageReplyHeader{}
+	_ bin.BareEncoder = &MessageReplyHeader{}
+	_ bin.BareDecoder = &MessageReplyHeader{}
 )

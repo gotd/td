@@ -155,6 +155,14 @@ func (v *MessagesVotesList) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.votesList#823f649 as nil")
 	}
 	b.PutID(MessagesVotesListTypeID)
+	return v.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (v *MessagesVotesList) EncodeBare(b *bin.Buffer) error {
+	if v == nil {
+		return fmt.Errorf("can't encode messages.votesList#823f649 as nil")
+	}
 	if !(v.NextOffset == "") {
 		v.Flags.Set(0)
 	}
@@ -234,6 +242,14 @@ func (v *MessagesVotesList) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesVotesListTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.votesList#823f649: %w", err)
 	}
+	return v.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (v *MessagesVotesList) DecodeBare(b *bin.Buffer) error {
+	if v == nil {
+		return fmt.Errorf("can't decode messages.votesList#823f649 to nil")
+	}
 	{
 		if err := v.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.votesList#823f649: field flags: %w", err)
@@ -284,6 +300,8 @@ func (v *MessagesVotesList) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesVotesList.
 var (
-	_ bin.Encoder = &MessagesVotesList{}
-	_ bin.Decoder = &MessagesVotesList{}
+	_ bin.Encoder     = &MessagesVotesList{}
+	_ bin.Decoder     = &MessagesVotesList{}
+	_ bin.BareEncoder = &MessagesVotesList{}
+	_ bin.BareDecoder = &MessagesVotesList{}
 )

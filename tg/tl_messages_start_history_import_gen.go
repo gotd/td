@@ -112,6 +112,14 @@ func (s *MessagesStartHistoryImportRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.startHistoryImport#b43df344 as nil")
 	}
 	b.PutID(MessagesStartHistoryImportRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesStartHistoryImportRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.startHistoryImport#b43df344 as nil")
+	}
 	if s.Peer == nil {
 		return fmt.Errorf("unable to encode messages.startHistoryImport#b43df344: field peer is nil")
 	}
@@ -140,6 +148,14 @@ func (s *MessagesStartHistoryImportRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesStartHistoryImportRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.startHistoryImport#b43df344: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesStartHistoryImportRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.startHistoryImport#b43df344 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -159,8 +175,10 @@ func (s *MessagesStartHistoryImportRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesStartHistoryImportRequest.
 var (
-	_ bin.Encoder = &MessagesStartHistoryImportRequest{}
-	_ bin.Decoder = &MessagesStartHistoryImportRequest{}
+	_ bin.Encoder     = &MessagesStartHistoryImportRequest{}
+	_ bin.Decoder     = &MessagesStartHistoryImportRequest{}
+	_ bin.BareEncoder = &MessagesStartHistoryImportRequest{}
+	_ bin.BareDecoder = &MessagesStartHistoryImportRequest{}
 )
 
 // MessagesStartHistoryImport invokes method messages.startHistoryImport#b43df344 returning error if any.

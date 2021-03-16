@@ -101,6 +101,14 @@ func (m *Message) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode message#ec200d96 as nil")
 	}
 	b.PutID(MessageTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *Message) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode message#ec200d96 as nil")
+	}
 	if err := m.Err.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode message#ec200d96: field err: %w", err)
 	}
@@ -120,6 +128,14 @@ func (m *Message) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode message#ec200d96: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *Message) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode message#ec200d96 to nil")
+	}
 	{
 		if err := m.Err.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode message#ec200d96: field err: %w", err)
@@ -130,6 +146,8 @@ func (m *Message) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for Message.
 var (
-	_ bin.Encoder = &Message{}
-	_ bin.Decoder = &Message{}
+	_ bin.Encoder     = &Message{}
+	_ bin.Decoder     = &Message{}
+	_ bin.BareEncoder = &Message{}
+	_ bin.BareDecoder = &Message{}
 )

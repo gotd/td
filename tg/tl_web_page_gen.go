@@ -102,6 +102,14 @@ func (w *WebPageEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode webPageEmpty#eb1477e8 as nil")
 	}
 	b.PutID(WebPageEmptyTypeID)
+	return w.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (w *WebPageEmpty) EncodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode webPageEmpty#eb1477e8 as nil")
+	}
 	b.PutLong(w.ID)
 	return nil
 }
@@ -119,6 +127,14 @@ func (w *WebPageEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(WebPageEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode webPageEmpty#eb1477e8: %w", err)
 	}
+	return w.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (w *WebPageEmpty) DecodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode webPageEmpty#eb1477e8 to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -134,8 +150,10 @@ func (w WebPageEmpty) construct() WebPageClass { return &w }
 
 // Ensuring interfaces in compile-time for WebPageEmpty.
 var (
-	_ bin.Encoder = &WebPageEmpty{}
-	_ bin.Decoder = &WebPageEmpty{}
+	_ bin.Encoder     = &WebPageEmpty{}
+	_ bin.Decoder     = &WebPageEmpty{}
+	_ bin.BareEncoder = &WebPageEmpty{}
+	_ bin.BareDecoder = &WebPageEmpty{}
 
 	_ WebPageClass = &WebPageEmpty{}
 )
@@ -227,6 +245,14 @@ func (w *WebPagePending) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode webPagePending#c586da1c as nil")
 	}
 	b.PutID(WebPagePendingTypeID)
+	return w.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (w *WebPagePending) EncodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode webPagePending#c586da1c as nil")
+	}
 	b.PutLong(w.ID)
 	b.PutInt(w.Date)
 	return nil
@@ -250,6 +276,14 @@ func (w *WebPagePending) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(WebPagePendingTypeID); err != nil {
 		return fmt.Errorf("unable to decode webPagePending#c586da1c: %w", err)
 	}
+	return w.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (w *WebPagePending) DecodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode webPagePending#c586da1c to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -272,8 +306,10 @@ func (w WebPagePending) construct() WebPageClass { return &w }
 
 // Ensuring interfaces in compile-time for WebPagePending.
 var (
-	_ bin.Encoder = &WebPagePending{}
-	_ bin.Decoder = &WebPagePending{}
+	_ bin.Encoder     = &WebPagePending{}
+	_ bin.Decoder     = &WebPagePending{}
+	_ bin.BareEncoder = &WebPagePending{}
+	_ bin.BareDecoder = &WebPagePending{}
 
 	_ WebPageClass = &WebPagePending{}
 )
@@ -639,6 +675,14 @@ func (w *WebPage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode webPage#e89c45b2 as nil")
 	}
 	b.PutID(WebPageTypeID)
+	return w.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (w *WebPage) EncodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode webPage#e89c45b2 as nil")
+	}
 	if !(w.Type == "") {
 		w.Flags.Set(0)
 	}
@@ -988,6 +1032,14 @@ func (w *WebPage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(WebPageTypeID); err != nil {
 		return fmt.Errorf("unable to decode webPage#e89c45b2: %w", err)
 	}
+	return w.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (w *WebPage) DecodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode webPage#e89c45b2 to nil")
+	}
 	{
 		if err := w.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode webPage#e89c45b2: field flags: %w", err)
@@ -1131,8 +1183,10 @@ func (w WebPage) construct() WebPageClass { return &w }
 
 // Ensuring interfaces in compile-time for WebPage.
 var (
-	_ bin.Encoder = &WebPage{}
-	_ bin.Decoder = &WebPage{}
+	_ bin.Encoder     = &WebPage{}
+	_ bin.Decoder     = &WebPage{}
+	_ bin.BareEncoder = &WebPage{}
+	_ bin.BareDecoder = &WebPage{}
 
 	_ WebPageClass = &WebPage{}
 )
@@ -1227,6 +1281,14 @@ func (w *WebPageNotModified) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode webPageNotModified#7311ca11 as nil")
 	}
 	b.PutID(WebPageNotModifiedTypeID)
+	return w.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (w *WebPageNotModified) EncodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode webPageNotModified#7311ca11 as nil")
+	}
 	if !(w.CachedPageViews == 0) {
 		w.Flags.Set(0)
 	}
@@ -1262,6 +1324,14 @@ func (w *WebPageNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(WebPageNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode webPageNotModified#7311ca11: %w", err)
 	}
+	return w.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (w *WebPageNotModified) DecodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode webPageNotModified#7311ca11 to nil")
+	}
 	{
 		if err := w.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode webPageNotModified#7311ca11: field flags: %w", err)
@@ -1282,8 +1352,10 @@ func (w WebPageNotModified) construct() WebPageClass { return &w }
 
 // Ensuring interfaces in compile-time for WebPageNotModified.
 var (
-	_ bin.Encoder = &WebPageNotModified{}
-	_ bin.Decoder = &WebPageNotModified{}
+	_ bin.Encoder     = &WebPageNotModified{}
+	_ bin.Decoder     = &WebPageNotModified{}
+	_ bin.BareEncoder = &WebPageNotModified{}
+	_ bin.BareDecoder = &WebPageNotModified{}
 
 	_ WebPageClass = &WebPageNotModified{}
 )
@@ -1307,6 +1379,8 @@ var (
 type WebPageClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() WebPageClass
 
 	// TypeID returns type id in TL schema.
@@ -1328,6 +1402,8 @@ type WebPageClass interface {
 type ModifiedWebPage interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() WebPageClass
 
 	// TypeID returns type id in TL schema.

@@ -121,6 +121,14 @@ func (h *HTTPWaitRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode http_wait#9299359f as nil")
 	}
 	b.PutID(HTTPWaitRequestTypeID)
+	return h.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (h *HTTPWaitRequest) EncodeBare(b *bin.Buffer) error {
+	if h == nil {
+		return fmt.Errorf("can't encode http_wait#9299359f as nil")
+	}
 	b.PutInt(h.MaxDelay)
 	b.PutInt(h.WaitAfter)
 	b.PutInt(h.MaxWait)
@@ -150,6 +158,14 @@ func (h *HTTPWaitRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HTTPWaitRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode http_wait#9299359f: %w", err)
 	}
+	return h.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (h *HTTPWaitRequest) DecodeBare(b *bin.Buffer) error {
+	if h == nil {
+		return fmt.Errorf("can't decode http_wait#9299359f to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -176,6 +192,8 @@ func (h *HTTPWaitRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for HTTPWaitRequest.
 var (
-	_ bin.Encoder = &HTTPWaitRequest{}
-	_ bin.Decoder = &HTTPWaitRequest{}
+	_ bin.Encoder     = &HTTPWaitRequest{}
+	_ bin.Decoder     = &HTTPWaitRequest{}
+	_ bin.BareEncoder = &HTTPWaitRequest{}
+	_ bin.BareDecoder = &HTTPWaitRequest{}
 )

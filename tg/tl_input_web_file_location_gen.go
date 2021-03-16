@@ -113,6 +113,14 @@ func (i *InputWebFileLocation) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputWebFileLocation#c239d686 as nil")
 	}
 	b.PutID(InputWebFileLocationTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputWebFileLocation) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputWebFileLocation#c239d686 as nil")
+	}
 	b.PutString(i.URL)
 	b.PutLong(i.AccessHash)
 	return nil
@@ -136,6 +144,14 @@ func (i *InputWebFileLocation) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputWebFileLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputWebFileLocation#c239d686: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputWebFileLocation) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputWebFileLocation#c239d686 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -158,8 +174,10 @@ func (i InputWebFileLocation) construct() InputWebFileLocationClass { return &i 
 
 // Ensuring interfaces in compile-time for InputWebFileLocation.
 var (
-	_ bin.Encoder = &InputWebFileLocation{}
-	_ bin.Decoder = &InputWebFileLocation{}
+	_ bin.Encoder     = &InputWebFileLocation{}
+	_ bin.Decoder     = &InputWebFileLocation{}
+	_ bin.BareEncoder = &InputWebFileLocation{}
+	_ bin.BareDecoder = &InputWebFileLocation{}
 
 	_ InputWebFileLocationClass = &InputWebFileLocation{}
 )
@@ -295,6 +313,14 @@ func (i *InputWebFileGeoPointLocation) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputWebFileGeoPointLocation#9f2221c9 as nil")
 	}
 	b.PutID(InputWebFileGeoPointLocationTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputWebFileGeoPointLocation) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputWebFileGeoPointLocation#9f2221c9 as nil")
+	}
 	if i.GeoPoint == nil {
 		return fmt.Errorf("unable to encode inputWebFileGeoPointLocation#9f2221c9: field geo_point is nil")
 	}
@@ -347,6 +373,14 @@ func (i *InputWebFileGeoPointLocation) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputWebFileGeoPointLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputWebFileGeoPointLocation#9f2221c9: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputWebFileGeoPointLocation) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputWebFileGeoPointLocation#9f2221c9 to nil")
+	}
 	{
 		value, err := DecodeInputGeoPoint(b)
 		if err != nil {
@@ -397,8 +431,10 @@ func (i InputWebFileGeoPointLocation) construct() InputWebFileLocationClass { re
 
 // Ensuring interfaces in compile-time for InputWebFileGeoPointLocation.
 var (
-	_ bin.Encoder = &InputWebFileGeoPointLocation{}
-	_ bin.Decoder = &InputWebFileGeoPointLocation{}
+	_ bin.Encoder     = &InputWebFileGeoPointLocation{}
+	_ bin.Decoder     = &InputWebFileGeoPointLocation{}
+	_ bin.BareEncoder = &InputWebFileGeoPointLocation{}
+	_ bin.BareDecoder = &InputWebFileGeoPointLocation{}
 
 	_ InputWebFileLocationClass = &InputWebFileGeoPointLocation{}
 )
@@ -420,6 +456,8 @@ var (
 type InputWebFileLocationClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() InputWebFileLocationClass
 
 	// TypeID returns type id in TL schema.

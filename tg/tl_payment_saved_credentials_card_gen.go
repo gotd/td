@@ -113,6 +113,14 @@ func (p *PaymentSavedCredentialsCard) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode paymentSavedCredentialsCard#cdc27a1f as nil")
 	}
 	b.PutID(PaymentSavedCredentialsCardTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PaymentSavedCredentialsCard) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode paymentSavedCredentialsCard#cdc27a1f as nil")
+	}
 	b.PutString(p.ID)
 	b.PutString(p.Title)
 	return nil
@@ -136,6 +144,14 @@ func (p *PaymentSavedCredentialsCard) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PaymentSavedCredentialsCardTypeID); err != nil {
 		return fmt.Errorf("unable to decode paymentSavedCredentialsCard#cdc27a1f: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PaymentSavedCredentialsCard) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode paymentSavedCredentialsCard#cdc27a1f to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -155,6 +171,8 @@ func (p *PaymentSavedCredentialsCard) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PaymentSavedCredentialsCard.
 var (
-	_ bin.Encoder = &PaymentSavedCredentialsCard{}
-	_ bin.Decoder = &PaymentSavedCredentialsCard{}
+	_ bin.Encoder     = &PaymentSavedCredentialsCard{}
+	_ bin.Decoder     = &PaymentSavedCredentialsCard{}
+	_ bin.BareEncoder = &PaymentSavedCredentialsCard{}
+	_ bin.BareDecoder = &PaymentSavedCredentialsCard{}
 )

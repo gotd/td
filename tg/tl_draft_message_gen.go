@@ -116,6 +116,14 @@ func (d *DraftMessageEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode draftMessageEmpty#1b0c841a as nil")
 	}
 	b.PutID(DraftMessageEmptyTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DraftMessageEmpty) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode draftMessageEmpty#1b0c841a as nil")
+	}
 	if !(d.Date == 0) {
 		d.Flags.Set(0)
 	}
@@ -151,6 +159,14 @@ func (d *DraftMessageEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DraftMessageEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode draftMessageEmpty#1b0c841a: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DraftMessageEmpty) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode draftMessageEmpty#1b0c841a to nil")
+	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode draftMessageEmpty#1b0c841a: field flags: %w", err)
@@ -171,8 +187,10 @@ func (d DraftMessageEmpty) construct() DraftMessageClass { return &d }
 
 // Ensuring interfaces in compile-time for DraftMessageEmpty.
 var (
-	_ bin.Encoder = &DraftMessageEmpty{}
-	_ bin.Decoder = &DraftMessageEmpty{}
+	_ bin.Encoder     = &DraftMessageEmpty{}
+	_ bin.Decoder     = &DraftMessageEmpty{}
+	_ bin.BareEncoder = &DraftMessageEmpty{}
+	_ bin.BareDecoder = &DraftMessageEmpty{}
 
 	_ DraftMessageClass = &DraftMessageEmpty{}
 )
@@ -324,6 +342,14 @@ func (d *DraftMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode draftMessage#fd8e711f as nil")
 	}
 	b.PutID(DraftMessageTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DraftMessage) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode draftMessage#fd8e711f as nil")
+	}
 	if !(d.NoWebpage == false) {
 		d.Flags.Set(1)
 	}
@@ -427,6 +453,14 @@ func (d *DraftMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DraftMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode draftMessage#fd8e711f: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DraftMessage) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode draftMessage#fd8e711f to nil")
+	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode draftMessage#fd8e711f: field flags: %w", err)
@@ -475,8 +509,10 @@ func (d DraftMessage) construct() DraftMessageClass { return &d }
 
 // Ensuring interfaces in compile-time for DraftMessage.
 var (
-	_ bin.Encoder = &DraftMessage{}
-	_ bin.Decoder = &DraftMessage{}
+	_ bin.Encoder     = &DraftMessage{}
+	_ bin.Decoder     = &DraftMessage{}
+	_ bin.BareEncoder = &DraftMessage{}
+	_ bin.BareDecoder = &DraftMessage{}
 
 	_ DraftMessageClass = &DraftMessage{}
 )
@@ -498,6 +534,8 @@ var (
 type DraftMessageClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() DraftMessageClass
 
 	// TypeID returns type id in TL schema.

@@ -101,10 +101,18 @@ func (t *TestVectorStringObject) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode testVectorStringObject#e5ecc0d as nil")
 	}
 	b.PutID(TestVectorStringObjectTypeID)
-	b.PutVectorHeader(len(t.Value))
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TestVectorStringObject) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode testVectorStringObject#e5ecc0d as nil")
+	}
+	b.PutInt(len(t.Value))
 	for idx, v := range t.Value {
-		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode testVectorStringObject#e5ecc0d: field value element with index %d: %w", idx, err)
+		if err := v.EncodeBare(b); err != nil {
+			return fmt.Errorf("unable to encode bare testVectorStringObject#e5ecc0d: field value element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -123,15 +131,23 @@ func (t *TestVectorStringObject) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TestVectorStringObjectTypeID); err != nil {
 		return fmt.Errorf("unable to decode testVectorStringObject#e5ecc0d: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TestVectorStringObject) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode testVectorStringObject#e5ecc0d to nil")
+	}
 	{
-		headerLen, err := b.VectorHeader()
+		headerLen, err := b.Int()
 		if err != nil {
 			return fmt.Errorf("unable to decode testVectorStringObject#e5ecc0d: field value: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value TestString
-			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode testVectorStringObject#e5ecc0d: field value: %w", err)
+			if err := value.DecodeBare(b); err != nil {
+				return fmt.Errorf("unable to decode bare testVectorStringObject#e5ecc0d: field value: %w", err)
 			}
 			t.Value = append(t.Value, value)
 		}
@@ -141,6 +157,8 @@ func (t *TestVectorStringObject) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for TestVectorStringObject.
 var (
-	_ bin.Encoder = &TestVectorStringObject{}
-	_ bin.Decoder = &TestVectorStringObject{}
+	_ bin.Encoder     = &TestVectorStringObject{}
+	_ bin.Decoder     = &TestVectorStringObject{}
+	_ bin.BareEncoder = &TestVectorStringObject{}
+	_ bin.BareDecoder = &TestVectorStringObject{}
 )

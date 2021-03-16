@@ -102,6 +102,14 @@ func (p *HelpPromoDataEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.promoDataEmpty#98f6ac75 as nil")
 	}
 	b.PutID(HelpPromoDataEmptyTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *HelpPromoDataEmpty) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode help.promoDataEmpty#98f6ac75 as nil")
+	}
 	b.PutInt(p.Expires)
 	return nil
 }
@@ -119,6 +127,14 @@ func (p *HelpPromoDataEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpPromoDataEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.promoDataEmpty#98f6ac75: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *HelpPromoDataEmpty) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode help.promoDataEmpty#98f6ac75 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -134,8 +150,10 @@ func (p HelpPromoDataEmpty) construct() HelpPromoDataClass { return &p }
 
 // Ensuring interfaces in compile-time for HelpPromoDataEmpty.
 var (
-	_ bin.Encoder = &HelpPromoDataEmpty{}
-	_ bin.Decoder = &HelpPromoDataEmpty{}
+	_ bin.Encoder     = &HelpPromoDataEmpty{}
+	_ bin.Decoder     = &HelpPromoDataEmpty{}
+	_ bin.BareEncoder = &HelpPromoDataEmpty{}
+	_ bin.BareDecoder = &HelpPromoDataEmpty{}
 
 	_ HelpPromoDataClass = &HelpPromoDataEmpty{}
 )
@@ -303,6 +321,14 @@ func (p *HelpPromoData) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.promoData#8c39793f as nil")
 	}
 	b.PutID(HelpPromoDataTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *HelpPromoData) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode help.promoData#8c39793f as nil")
+	}
 	if !(p.Proxy == false) {
 		p.Flags.Set(0)
 	}
@@ -433,6 +459,14 @@ func (p *HelpPromoData) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpPromoDataTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.promoData#8c39793f: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *HelpPromoData) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode help.promoData#8c39793f to nil")
+	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode help.promoData#8c39793f: field flags: %w", err)
@@ -501,8 +535,10 @@ func (p HelpPromoData) construct() HelpPromoDataClass { return &p }
 
 // Ensuring interfaces in compile-time for HelpPromoData.
 var (
-	_ bin.Encoder = &HelpPromoData{}
-	_ bin.Decoder = &HelpPromoData{}
+	_ bin.Encoder     = &HelpPromoData{}
+	_ bin.Decoder     = &HelpPromoData{}
+	_ bin.BareEncoder = &HelpPromoData{}
+	_ bin.BareDecoder = &HelpPromoData{}
 
 	_ HelpPromoDataClass = &HelpPromoData{}
 )
@@ -524,6 +560,8 @@ var (
 type HelpPromoDataClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() HelpPromoDataClass
 
 	// TypeID returns type id in TL schema.

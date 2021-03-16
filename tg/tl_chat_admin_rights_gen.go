@@ -258,6 +258,14 @@ func (c *ChatAdminRights) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chatAdminRights#5fb224d5 as nil")
 	}
 	b.PutID(ChatAdminRightsTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatAdminRights) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatAdminRights#5fb224d5 as nil")
+	}
 	if !(c.ChangeInfo == false) {
 		c.Flags.Set(0)
 	}
@@ -481,6 +489,14 @@ func (c *ChatAdminRights) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatAdminRightsTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatAdminRights#5fb224d5: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatAdminRights) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatAdminRights#5fb224d5 to nil")
+	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode chatAdminRights#5fb224d5: field flags: %w", err)
@@ -502,6 +518,8 @@ func (c *ChatAdminRights) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChatAdminRights.
 var (
-	_ bin.Encoder = &ChatAdminRights{}
-	_ bin.Decoder = &ChatAdminRights{}
+	_ bin.Encoder     = &ChatAdminRights{}
+	_ bin.Decoder     = &ChatAdminRights{}
+	_ bin.BareEncoder = &ChatAdminRights{}
+	_ bin.BareDecoder = &ChatAdminRights{}
 )

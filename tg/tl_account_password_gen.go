@@ -275,6 +275,14 @@ func (p *AccountPassword) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.password#ad2641f8 as nil")
 	}
 	b.PutID(AccountPasswordTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *AccountPassword) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode account.password#ad2641f8 as nil")
+	}
 	if !(p.HasRecovery == false) {
 		p.Flags.Set(0)
 	}
@@ -484,6 +492,14 @@ func (p *AccountPassword) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountPasswordTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.password#ad2641f8: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *AccountPassword) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode account.password#ad2641f8 to nil")
+	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.password#ad2641f8: field flags: %w", err)
@@ -553,6 +569,8 @@ func (p *AccountPassword) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountPassword.
 var (
-	_ bin.Encoder = &AccountPassword{}
-	_ bin.Decoder = &AccountPassword{}
+	_ bin.Encoder     = &AccountPassword{}
+	_ bin.Decoder     = &AccountPassword{}
+	_ bin.BareEncoder = &AccountPassword{}
+	_ bin.BareDecoder = &AccountPassword{}
 )

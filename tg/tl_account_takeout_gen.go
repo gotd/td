@@ -102,6 +102,14 @@ func (t *AccountTakeout) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.takeout#4dba4501 as nil")
 	}
 	b.PutID(AccountTakeoutTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *AccountTakeout) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode account.takeout#4dba4501 as nil")
+	}
 	b.PutLong(t.ID)
 	return nil
 }
@@ -119,6 +127,14 @@ func (t *AccountTakeout) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountTakeoutTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.takeout#4dba4501: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *AccountTakeout) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode account.takeout#4dba4501 to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -131,6 +147,8 @@ func (t *AccountTakeout) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountTakeout.
 var (
-	_ bin.Encoder = &AccountTakeout{}
-	_ bin.Decoder = &AccountTakeout{}
+	_ bin.Encoder     = &AccountTakeout{}
+	_ bin.Decoder     = &AccountTakeout{}
+	_ bin.BareEncoder = &AccountTakeout{}
+	_ bin.BareDecoder = &AccountTakeout{}
 )

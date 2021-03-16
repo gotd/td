@@ -159,6 +159,14 @@ func (g *UploadGetFileRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode upload.getFile#b15a9afc as nil")
 	}
 	b.PutID(UploadGetFileRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *UploadGetFileRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode upload.getFile#b15a9afc as nil")
+	}
 	if !(g.Precise == false) {
 		g.Flags.Set(0)
 	}
@@ -234,6 +242,14 @@ func (g *UploadGetFileRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UploadGetFileRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.getFile#b15a9afc: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *UploadGetFileRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode upload.getFile#b15a9afc to nil")
+	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode upload.getFile#b15a9afc: field flags: %w", err)
@@ -267,8 +283,10 @@ func (g *UploadGetFileRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for UploadGetFileRequest.
 var (
-	_ bin.Encoder = &UploadGetFileRequest{}
-	_ bin.Decoder = &UploadGetFileRequest{}
+	_ bin.Encoder     = &UploadGetFileRequest{}
+	_ bin.Decoder     = &UploadGetFileRequest{}
+	_ bin.BareEncoder = &UploadGetFileRequest{}
+	_ bin.BareDecoder = &UploadGetFileRequest{}
 )
 
 // UploadGetFile invokes method upload.getFile#b15a9afc returning error if any.

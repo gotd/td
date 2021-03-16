@@ -124,6 +124,14 @@ func (r *HelpRecentMeURLs) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.recentMeUrls#e0310d7 as nil")
 	}
 	b.PutID(HelpRecentMeURLsTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *HelpRecentMeURLs) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode help.recentMeUrls#e0310d7 as nil")
+	}
 	b.PutVectorHeader(len(r.URLs))
 	for idx, v := range r.URLs {
 		if v == nil {
@@ -192,6 +200,14 @@ func (r *HelpRecentMeURLs) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpRecentMeURLsTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.recentMeUrls#e0310d7: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *HelpRecentMeURLs) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode help.recentMeUrls#e0310d7 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -236,6 +252,8 @@ func (r *HelpRecentMeURLs) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for HelpRecentMeURLs.
 var (
-	_ bin.Encoder = &HelpRecentMeURLs{}
-	_ bin.Decoder = &HelpRecentMeURLs{}
+	_ bin.Encoder     = &HelpRecentMeURLs{}
+	_ bin.Decoder     = &HelpRecentMeURLs{}
+	_ bin.BareEncoder = &HelpRecentMeURLs{}
+	_ bin.BareDecoder = &HelpRecentMeURLs{}
 )

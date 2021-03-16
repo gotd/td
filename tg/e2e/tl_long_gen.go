@@ -84,6 +84,14 @@ func (l *Long) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode long#22076cba as nil")
 	}
 	b.PutID(LongTypeID)
+	return l.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (l *Long) EncodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't encode long#22076cba as nil")
+	}
 	return nil
 }
 
@@ -95,11 +103,21 @@ func (l *Long) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(LongTypeID); err != nil {
 		return fmt.Errorf("unable to decode long#22076cba: %w", err)
 	}
+	return l.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (l *Long) DecodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't decode long#22076cba to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for Long.
 var (
-	_ bin.Encoder = &Long{}
-	_ bin.Decoder = &Long{}
+	_ bin.Encoder     = &Long{}
+	_ bin.Decoder     = &Long{}
+	_ bin.BareEncoder = &Long{}
+	_ bin.BareDecoder = &Long{}
 )

@@ -145,6 +145,14 @@ func (b *BigMessage) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode bigMessage#7490dcc5 as nil")
 	}
 	buf.PutID(BigMessageTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *BigMessage) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode bigMessage#7490dcc5 as nil")
+	}
 	buf.PutInt32(b.ID)
 	buf.PutInt32(b.Count)
 	buf.PutInt32(b.TargetID)
@@ -185,6 +193,14 @@ func (b *BigMessage) Decode(buf *bin.Buffer) error {
 	}
 	if err := buf.ConsumeID(BigMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode bigMessage#7490dcc5: %w", err)
+	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BigMessage) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode bigMessage#7490dcc5 to nil")
 	}
 	{
 		value, err := buf.Int32()
@@ -229,8 +245,10 @@ func (b BigMessage) construct() AbstractMessageClass { return &b }
 
 // Ensuring interfaces in compile-time for BigMessage.
 var (
-	_ bin.Encoder = &BigMessage{}
-	_ bin.Decoder = &BigMessage{}
+	_ bin.Encoder     = &BigMessage{}
+	_ bin.Decoder     = &BigMessage{}
+	_ bin.BareEncoder = &BigMessage{}
+	_ bin.BareDecoder = &BigMessage{}
 
 	_ AbstractMessageClass = &BigMessage{}
 )
@@ -293,6 +311,14 @@ func (n *NoMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode noMessage#ee6324c4 as nil")
 	}
 	b.PutID(NoMessageTypeID)
+	return n.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (n *NoMessage) EncodeBare(b *bin.Buffer) error {
+	if n == nil {
+		return fmt.Errorf("can't encode noMessage#ee6324c4 as nil")
+	}
 	return nil
 }
 
@@ -304,6 +330,14 @@ func (n *NoMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(NoMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode noMessage#ee6324c4: %w", err)
 	}
+	return n.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (n *NoMessage) DecodeBare(b *bin.Buffer) error {
+	if n == nil {
+		return fmt.Errorf("can't decode noMessage#ee6324c4 to nil")
+	}
 	return nil
 }
 
@@ -312,8 +346,10 @@ func (n NoMessage) construct() AbstractMessageClass { return &n }
 
 // Ensuring interfaces in compile-time for NoMessage.
 var (
-	_ bin.Encoder = &NoMessage{}
-	_ bin.Decoder = &NoMessage{}
+	_ bin.Encoder     = &NoMessage{}
+	_ bin.Decoder     = &NoMessage{}
+	_ bin.BareEncoder = &NoMessage{}
+	_ bin.BareDecoder = &NoMessage{}
 
 	_ AbstractMessageClass = &NoMessage{}
 )
@@ -393,7 +429,15 @@ func (t *TargetsMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode targetsMessage#cc6136f1 as nil")
 	}
 	b.PutID(TargetsMessageTypeID)
-	b.PutVectorHeader(len(t.Targets))
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TargetsMessage) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode targetsMessage#cc6136f1 as nil")
+	}
+	b.PutInt(len(t.Targets))
 	for _, v := range t.Targets {
 		b.PutInt32(v)
 	}
@@ -413,8 +457,16 @@ func (t *TargetsMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TargetsMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode targetsMessage#cc6136f1: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TargetsMessage) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode targetsMessage#cc6136f1 to nil")
+	}
 	{
-		headerLen, err := b.VectorHeader()
+		headerLen, err := b.Int()
 		if err != nil {
 			return fmt.Errorf("unable to decode targetsMessage#cc6136f1: field targets: %w", err)
 		}
@@ -434,8 +486,10 @@ func (t TargetsMessage) construct() AbstractMessageClass { return &t }
 
 // Ensuring interfaces in compile-time for TargetsMessage.
 var (
-	_ bin.Encoder = &TargetsMessage{}
-	_ bin.Decoder = &TargetsMessage{}
+	_ bin.Encoder     = &TargetsMessage{}
+	_ bin.Decoder     = &TargetsMessage{}
+	_ bin.BareEncoder = &TargetsMessage{}
+	_ bin.BareDecoder = &TargetsMessage{}
 
 	_ AbstractMessageClass = &TargetsMessage{}
 )
@@ -543,6 +597,14 @@ func (f *FieldsMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode fieldsMessage#947225b5 as nil")
 	}
 	b.PutID(FieldsMessageTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *FieldsMessage) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fieldsMessage#947225b5 as nil")
+	}
 	if !(f.Escape == false) {
 		f.Flags.Set(0)
 	}
@@ -599,6 +661,14 @@ func (f *FieldsMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(FieldsMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode fieldsMessage#947225b5: %w", err)
 	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *FieldsMessage) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode fieldsMessage#947225b5 to nil")
+	}
 	{
 		if err := f.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode fieldsMessage#947225b5: field flags: %w", err)
@@ -626,8 +696,10 @@ func (f FieldsMessage) construct() AbstractMessageClass { return &f }
 
 // Ensuring interfaces in compile-time for FieldsMessage.
 var (
-	_ bin.Encoder = &FieldsMessage{}
-	_ bin.Decoder = &FieldsMessage{}
+	_ bin.Encoder     = &FieldsMessage{}
+	_ bin.Decoder     = &FieldsMessage{}
+	_ bin.BareEncoder = &FieldsMessage{}
+	_ bin.BareDecoder = &FieldsMessage{}
 
 	_ AbstractMessageClass = &FieldsMessage{}
 )
@@ -707,6 +779,14 @@ func (b *BytesMessage) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode bytesMessage#f990a67d as nil")
 	}
 	buf.PutID(BytesMessageTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *BytesMessage) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode bytesMessage#f990a67d as nil")
+	}
 	buf.PutBytes(b.Data)
 	return nil
 }
@@ -724,6 +804,14 @@ func (b *BytesMessage) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BytesMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode bytesMessage#f990a67d: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BytesMessage) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode bytesMessage#f990a67d to nil")
+	}
 	{
 		value, err := buf.Bytes()
 		if err != nil {
@@ -739,8 +827,10 @@ func (b BytesMessage) construct() AbstractMessageClass { return &b }
 
 // Ensuring interfaces in compile-time for BytesMessage.
 var (
-	_ bin.Encoder = &BytesMessage{}
-	_ bin.Decoder = &BytesMessage{}
+	_ bin.Encoder     = &BytesMessage{}
+	_ bin.Decoder     = &BytesMessage{}
+	_ bin.BareEncoder = &BytesMessage{}
+	_ bin.BareDecoder = &BytesMessage{}
 
 	_ AbstractMessageClass = &BytesMessage{}
 )
@@ -765,6 +855,8 @@ var (
 type AbstractMessageClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() AbstractMessageClass
 
 	// TypeID returns type id in TL schema.

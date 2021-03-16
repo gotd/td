@@ -116,6 +116,14 @@ func (g *AccountGetThemesRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.getThemes#285946f8 as nil")
 	}
 	b.PutID(AccountGetThemesRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *AccountGetThemesRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode account.getThemes#285946f8 as nil")
+	}
 	b.PutString(g.Format)
 	b.PutInt(g.Hash)
 	return nil
@@ -139,6 +147,14 @@ func (g *AccountGetThemesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetThemesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getThemes#285946f8: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *AccountGetThemesRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode account.getThemes#285946f8 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -158,8 +174,10 @@ func (g *AccountGetThemesRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountGetThemesRequest.
 var (
-	_ bin.Encoder = &AccountGetThemesRequest{}
-	_ bin.Decoder = &AccountGetThemesRequest{}
+	_ bin.Encoder     = &AccountGetThemesRequest{}
+	_ bin.Decoder     = &AccountGetThemesRequest{}
+	_ bin.BareEncoder = &AccountGetThemesRequest{}
+	_ bin.BareDecoder = &AccountGetThemesRequest{}
 )
 
 // AccountGetThemes invokes method account.getThemes#285946f8 returning error if any.

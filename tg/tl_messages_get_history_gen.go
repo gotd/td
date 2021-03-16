@@ -182,6 +182,14 @@ func (g *MessagesGetHistoryRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getHistory#dcbb8260 as nil")
 	}
 	b.PutID(MessagesGetHistoryRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetHistoryRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getHistory#dcbb8260 as nil")
+	}
 	if g.Peer == nil {
 		return fmt.Errorf("unable to encode messages.getHistory#dcbb8260: field peer is nil")
 	}
@@ -246,6 +254,14 @@ func (g *MessagesGetHistoryRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetHistoryRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getHistory#dcbb8260: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetHistoryRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getHistory#dcbb8260 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -307,8 +323,10 @@ func (g *MessagesGetHistoryRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetHistoryRequest.
 var (
-	_ bin.Encoder = &MessagesGetHistoryRequest{}
-	_ bin.Decoder = &MessagesGetHistoryRequest{}
+	_ bin.Encoder     = &MessagesGetHistoryRequest{}
+	_ bin.Decoder     = &MessagesGetHistoryRequest{}
+	_ bin.BareEncoder = &MessagesGetHistoryRequest{}
+	_ bin.BareDecoder = &MessagesGetHistoryRequest{}
 )
 
 // MessagesGetHistory invokes method messages.getHistory#dcbb8260 returning error if any.

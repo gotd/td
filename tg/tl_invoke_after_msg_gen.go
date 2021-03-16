@@ -113,6 +113,14 @@ func (i *InvokeAfterMsgRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode invokeAfterMsg#cb9f372d as nil")
 	}
 	b.PutID(InvokeAfterMsgRequestTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InvokeAfterMsgRequest) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode invokeAfterMsg#cb9f372d as nil")
+	}
 	b.PutLong(i.MsgID)
 	if err := i.Query.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode invokeAfterMsg#cb9f372d: field query: %w", err)
@@ -138,6 +146,14 @@ func (i *InvokeAfterMsgRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InvokeAfterMsgRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode invokeAfterMsg#cb9f372d: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InvokeAfterMsgRequest) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode invokeAfterMsg#cb9f372d to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -155,6 +171,8 @@ func (i *InvokeAfterMsgRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for InvokeAfterMsgRequest.
 var (
-	_ bin.Encoder = &InvokeAfterMsgRequest{}
-	_ bin.Decoder = &InvokeAfterMsgRequest{}
+	_ bin.Encoder     = &InvokeAfterMsgRequest{}
+	_ bin.Decoder     = &InvokeAfterMsgRequest{}
+	_ bin.BareEncoder = &InvokeAfterMsgRequest{}
+	_ bin.BareDecoder = &InvokeAfterMsgRequest{}
 )

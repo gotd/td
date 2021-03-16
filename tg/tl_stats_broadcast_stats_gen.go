@@ -259,6 +259,14 @@ func (b *StatsBroadcastStats) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode stats.broadcastStats#bdf78394 as nil")
 	}
 	buf.PutID(StatsBroadcastStatsTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *StatsBroadcastStats) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode stats.broadcastStats#bdf78394 as nil")
+	}
 	if err := b.Period.Encode(buf); err != nil {
 		return fmt.Errorf("unable to encode stats.broadcastStats#bdf78394: field period: %w", err)
 	}
@@ -420,6 +428,14 @@ func (b *StatsBroadcastStats) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(StatsBroadcastStatsTypeID); err != nil {
 		return fmt.Errorf("unable to decode stats.broadcastStats#bdf78394: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *StatsBroadcastStats) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode stats.broadcastStats#bdf78394 to nil")
+	}
 	{
 		if err := b.Period.Decode(buf); err != nil {
 			return fmt.Errorf("unable to decode stats.broadcastStats#bdf78394: field period: %w", err)
@@ -526,6 +542,8 @@ func (b *StatsBroadcastStats) Decode(buf *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for StatsBroadcastStats.
 var (
-	_ bin.Encoder = &StatsBroadcastStats{}
-	_ bin.Decoder = &StatsBroadcastStats{}
+	_ bin.Encoder     = &StatsBroadcastStats{}
+	_ bin.Decoder     = &StatsBroadcastStats{}
+	_ bin.BareEncoder = &StatsBroadcastStats{}
+	_ bin.BareDecoder = &StatsBroadcastStats{}
 )

@@ -113,6 +113,14 @@ func (e *ExportedMessageLink) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode exportedMessageLink#5dab1af4 as nil")
 	}
 	b.PutID(ExportedMessageLinkTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *ExportedMessageLink) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode exportedMessageLink#5dab1af4 as nil")
+	}
 	b.PutString(e.Link)
 	b.PutString(e.HTML)
 	return nil
@@ -136,6 +144,14 @@ func (e *ExportedMessageLink) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ExportedMessageLinkTypeID); err != nil {
 		return fmt.Errorf("unable to decode exportedMessageLink#5dab1af4: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *ExportedMessageLink) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode exportedMessageLink#5dab1af4 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -155,6 +171,8 @@ func (e *ExportedMessageLink) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ExportedMessageLink.
 var (
-	_ bin.Encoder = &ExportedMessageLink{}
-	_ bin.Decoder = &ExportedMessageLink{}
+	_ bin.Encoder     = &ExportedMessageLink{}
+	_ bin.Decoder     = &ExportedMessageLink{}
+	_ bin.BareEncoder = &ExportedMessageLink{}
+	_ bin.BareDecoder = &ExportedMessageLink{}
 )

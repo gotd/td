@@ -124,6 +124,14 @@ func (s *MessagesSendScreenshotNotificationRequest) Encode(b *bin.Buffer) error 
 		return fmt.Errorf("can't encode messages.sendScreenshotNotification#c97df020 as nil")
 	}
 	b.PutID(MessagesSendScreenshotNotificationRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesSendScreenshotNotificationRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.sendScreenshotNotification#c97df020 as nil")
+	}
 	if s.Peer == nil {
 		return fmt.Errorf("unable to encode messages.sendScreenshotNotification#c97df020: field peer is nil")
 	}
@@ -158,6 +166,14 @@ func (s *MessagesSendScreenshotNotificationRequest) Decode(b *bin.Buffer) error 
 	if err := b.ConsumeID(MessagesSendScreenshotNotificationRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.sendScreenshotNotification#c97df020: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSendScreenshotNotificationRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.sendScreenshotNotification#c97df020 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -184,8 +200,10 @@ func (s *MessagesSendScreenshotNotificationRequest) Decode(b *bin.Buffer) error 
 
 // Ensuring interfaces in compile-time for MessagesSendScreenshotNotificationRequest.
 var (
-	_ bin.Encoder = &MessagesSendScreenshotNotificationRequest{}
-	_ bin.Decoder = &MessagesSendScreenshotNotificationRequest{}
+	_ bin.Encoder     = &MessagesSendScreenshotNotificationRequest{}
+	_ bin.Decoder     = &MessagesSendScreenshotNotificationRequest{}
+	_ bin.BareEncoder = &MessagesSendScreenshotNotificationRequest{}
+	_ bin.BareDecoder = &MessagesSendScreenshotNotificationRequest{}
 )
 
 // MessagesSendScreenshotNotification invokes method messages.sendScreenshotNotification#c97df020 returning error if any.

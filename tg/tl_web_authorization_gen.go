@@ -193,6 +193,14 @@ func (w *WebAuthorization) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode webAuthorization#cac943f2 as nil")
 	}
 	b.PutID(WebAuthorizationTypeID)
+	return w.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (w *WebAuthorization) EncodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode webAuthorization#cac943f2 as nil")
+	}
 	b.PutLong(w.Hash)
 	b.PutInt(w.BotID)
 	b.PutString(w.Domain)
@@ -257,6 +265,14 @@ func (w *WebAuthorization) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(WebAuthorizationTypeID); err != nil {
 		return fmt.Errorf("unable to decode webAuthorization#cac943f2: %w", err)
+	}
+	return w.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (w *WebAuthorization) DecodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode webAuthorization#cac943f2 to nil")
 	}
 	{
 		value, err := b.Long()
@@ -326,6 +342,8 @@ func (w *WebAuthorization) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for WebAuthorization.
 var (
-	_ bin.Encoder = &WebAuthorization{}
-	_ bin.Decoder = &WebAuthorization{}
+	_ bin.Encoder     = &WebAuthorization{}
+	_ bin.Decoder     = &WebAuthorization{}
+	_ bin.BareEncoder = &WebAuthorization{}
+	_ bin.BareDecoder = &WebAuthorization{}
 )

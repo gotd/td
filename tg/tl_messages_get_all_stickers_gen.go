@@ -105,6 +105,14 @@ func (g *MessagesGetAllStickersRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getAllStickers#1c9618b1 as nil")
 	}
 	b.PutID(MessagesGetAllStickersRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetAllStickersRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getAllStickers#1c9618b1 as nil")
+	}
 	b.PutInt(g.Hash)
 	return nil
 }
@@ -122,6 +130,14 @@ func (g *MessagesGetAllStickersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetAllStickersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getAllStickers#1c9618b1: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetAllStickersRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getAllStickers#1c9618b1 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -134,8 +150,10 @@ func (g *MessagesGetAllStickersRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetAllStickersRequest.
 var (
-	_ bin.Encoder = &MessagesGetAllStickersRequest{}
-	_ bin.Decoder = &MessagesGetAllStickersRequest{}
+	_ bin.Encoder     = &MessagesGetAllStickersRequest{}
+	_ bin.Decoder     = &MessagesGetAllStickersRequest{}
+	_ bin.BareEncoder = &MessagesGetAllStickersRequest{}
+	_ bin.BareDecoder = &MessagesGetAllStickersRequest{}
 )
 
 // MessagesGetAllStickers invokes method messages.getAllStickers#1c9618b1 returning error if any.

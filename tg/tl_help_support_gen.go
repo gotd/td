@@ -113,6 +113,14 @@ func (s *HelpSupport) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.support#17c6b5f6 as nil")
 	}
 	b.PutID(HelpSupportTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *HelpSupport) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode help.support#17c6b5f6 as nil")
+	}
 	b.PutString(s.PhoneNumber)
 	if s.User == nil {
 		return fmt.Errorf("unable to encode help.support#17c6b5f6: field user is nil")
@@ -146,6 +154,14 @@ func (s *HelpSupport) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpSupportTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.support#17c6b5f6: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *HelpSupport) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode help.support#17c6b5f6 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -165,6 +181,8 @@ func (s *HelpSupport) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for HelpSupport.
 var (
-	_ bin.Encoder = &HelpSupport{}
-	_ bin.Decoder = &HelpSupport{}
+	_ bin.Encoder     = &HelpSupport{}
+	_ bin.Decoder     = &HelpSupport{}
+	_ bin.BareEncoder = &HelpSupport{}
+	_ bin.BareDecoder = &HelpSupport{}
 )

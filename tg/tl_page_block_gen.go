@@ -85,6 +85,14 @@ func (p *PageBlockUnsupported) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockUnsupported#13567e8a as nil")
 	}
 	b.PutID(PageBlockUnsupportedTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockUnsupported) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockUnsupported#13567e8a as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (p *PageBlockUnsupported) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockUnsupportedTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockUnsupported#13567e8a: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockUnsupported) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockUnsupported#13567e8a to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (p PageBlockUnsupported) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockUnsupported.
 var (
-	_ bin.Encoder = &PageBlockUnsupported{}
-	_ bin.Decoder = &PageBlockUnsupported{}
+	_ bin.Encoder     = &PageBlockUnsupported{}
+	_ bin.Decoder     = &PageBlockUnsupported{}
+	_ bin.BareEncoder = &PageBlockUnsupported{}
+	_ bin.BareDecoder = &PageBlockUnsupported{}
 
 	_ PageBlockClass = &PageBlockUnsupported{}
 )
@@ -186,6 +204,14 @@ func (p *PageBlockTitle) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockTitle#70abc3fd as nil")
 	}
 	b.PutID(PageBlockTitleTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockTitle) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockTitle#70abc3fd as nil")
+	}
 	if p.Text == nil {
 		return fmt.Errorf("unable to encode pageBlockTitle#70abc3fd: field text is nil")
 	}
@@ -208,6 +234,14 @@ func (p *PageBlockTitle) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockTitleTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockTitle#70abc3fd: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockTitle) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockTitle#70abc3fd to nil")
+	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -223,8 +257,10 @@ func (p PageBlockTitle) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockTitle.
 var (
-	_ bin.Encoder = &PageBlockTitle{}
-	_ bin.Decoder = &PageBlockTitle{}
+	_ bin.Encoder     = &PageBlockTitle{}
+	_ bin.Decoder     = &PageBlockTitle{}
+	_ bin.BareEncoder = &PageBlockTitle{}
+	_ bin.BareDecoder = &PageBlockTitle{}
 
 	_ PageBlockClass = &PageBlockTitle{}
 )
@@ -305,6 +341,14 @@ func (p *PageBlockSubtitle) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockSubtitle#8ffa9a1f as nil")
 	}
 	b.PutID(PageBlockSubtitleTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockSubtitle) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockSubtitle#8ffa9a1f as nil")
+	}
 	if p.Text == nil {
 		return fmt.Errorf("unable to encode pageBlockSubtitle#8ffa9a1f: field text is nil")
 	}
@@ -327,6 +371,14 @@ func (p *PageBlockSubtitle) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockSubtitleTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockSubtitle#8ffa9a1f: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockSubtitle) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockSubtitle#8ffa9a1f to nil")
+	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -342,8 +394,10 @@ func (p PageBlockSubtitle) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockSubtitle.
 var (
-	_ bin.Encoder = &PageBlockSubtitle{}
-	_ bin.Decoder = &PageBlockSubtitle{}
+	_ bin.Encoder     = &PageBlockSubtitle{}
+	_ bin.Decoder     = &PageBlockSubtitle{}
+	_ bin.BareEncoder = &PageBlockSubtitle{}
+	_ bin.BareDecoder = &PageBlockSubtitle{}
 
 	_ PageBlockClass = &PageBlockSubtitle{}
 )
@@ -435,6 +489,14 @@ func (p *PageBlockAuthorDate) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockAuthorDate#baafe5e0 as nil")
 	}
 	b.PutID(PageBlockAuthorDateTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockAuthorDate) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockAuthorDate#baafe5e0 as nil")
+	}
 	if p.Author == nil {
 		return fmt.Errorf("unable to encode pageBlockAuthorDate#baafe5e0: field author is nil")
 	}
@@ -463,6 +525,14 @@ func (p *PageBlockAuthorDate) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockAuthorDateTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockAuthorDate#baafe5e0: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockAuthorDate) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockAuthorDate#baafe5e0 to nil")
+	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -485,8 +555,10 @@ func (p PageBlockAuthorDate) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockAuthorDate.
 var (
-	_ bin.Encoder = &PageBlockAuthorDate{}
-	_ bin.Decoder = &PageBlockAuthorDate{}
+	_ bin.Encoder     = &PageBlockAuthorDate{}
+	_ bin.Decoder     = &PageBlockAuthorDate{}
+	_ bin.BareEncoder = &PageBlockAuthorDate{}
+	_ bin.BareDecoder = &PageBlockAuthorDate{}
 
 	_ PageBlockClass = &PageBlockAuthorDate{}
 )
@@ -567,6 +639,14 @@ func (p *PageBlockHeader) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockHeader#bfd064ec as nil")
 	}
 	b.PutID(PageBlockHeaderTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockHeader) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockHeader#bfd064ec as nil")
+	}
 	if p.Text == nil {
 		return fmt.Errorf("unable to encode pageBlockHeader#bfd064ec: field text is nil")
 	}
@@ -589,6 +669,14 @@ func (p *PageBlockHeader) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockHeaderTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockHeader#bfd064ec: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockHeader) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockHeader#bfd064ec to nil")
+	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -604,8 +692,10 @@ func (p PageBlockHeader) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockHeader.
 var (
-	_ bin.Encoder = &PageBlockHeader{}
-	_ bin.Decoder = &PageBlockHeader{}
+	_ bin.Encoder     = &PageBlockHeader{}
+	_ bin.Decoder     = &PageBlockHeader{}
+	_ bin.BareEncoder = &PageBlockHeader{}
+	_ bin.BareDecoder = &PageBlockHeader{}
 
 	_ PageBlockClass = &PageBlockHeader{}
 )
@@ -686,6 +776,14 @@ func (p *PageBlockSubheader) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockSubheader#f12bb6e1 as nil")
 	}
 	b.PutID(PageBlockSubheaderTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockSubheader) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockSubheader#f12bb6e1 as nil")
+	}
 	if p.Text == nil {
 		return fmt.Errorf("unable to encode pageBlockSubheader#f12bb6e1: field text is nil")
 	}
@@ -708,6 +806,14 @@ func (p *PageBlockSubheader) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockSubheaderTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockSubheader#f12bb6e1: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockSubheader) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockSubheader#f12bb6e1 to nil")
+	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -723,8 +829,10 @@ func (p PageBlockSubheader) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockSubheader.
 var (
-	_ bin.Encoder = &PageBlockSubheader{}
-	_ bin.Decoder = &PageBlockSubheader{}
+	_ bin.Encoder     = &PageBlockSubheader{}
+	_ bin.Decoder     = &PageBlockSubheader{}
+	_ bin.BareEncoder = &PageBlockSubheader{}
+	_ bin.BareDecoder = &PageBlockSubheader{}
 
 	_ PageBlockClass = &PageBlockSubheader{}
 )
@@ -805,6 +913,14 @@ func (p *PageBlockParagraph) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockParagraph#467a0766 as nil")
 	}
 	b.PutID(PageBlockParagraphTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockParagraph) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockParagraph#467a0766 as nil")
+	}
 	if p.Text == nil {
 		return fmt.Errorf("unable to encode pageBlockParagraph#467a0766: field text is nil")
 	}
@@ -827,6 +943,14 @@ func (p *PageBlockParagraph) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockParagraphTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockParagraph#467a0766: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockParagraph) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockParagraph#467a0766 to nil")
+	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -842,8 +966,10 @@ func (p PageBlockParagraph) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockParagraph.
 var (
-	_ bin.Encoder = &PageBlockParagraph{}
-	_ bin.Decoder = &PageBlockParagraph{}
+	_ bin.Encoder     = &PageBlockParagraph{}
+	_ bin.Decoder     = &PageBlockParagraph{}
+	_ bin.BareEncoder = &PageBlockParagraph{}
+	_ bin.BareDecoder = &PageBlockParagraph{}
 
 	_ PageBlockClass = &PageBlockParagraph{}
 )
@@ -935,6 +1061,14 @@ func (p *PageBlockPreformatted) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockPreformatted#c070d93e as nil")
 	}
 	b.PutID(PageBlockPreformattedTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockPreformatted) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockPreformatted#c070d93e as nil")
+	}
 	if p.Text == nil {
 		return fmt.Errorf("unable to encode pageBlockPreformatted#c070d93e: field text is nil")
 	}
@@ -963,6 +1097,14 @@ func (p *PageBlockPreformatted) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockPreformattedTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockPreformatted#c070d93e: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockPreformatted) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockPreformatted#c070d93e to nil")
+	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -985,8 +1127,10 @@ func (p PageBlockPreformatted) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockPreformatted.
 var (
-	_ bin.Encoder = &PageBlockPreformatted{}
-	_ bin.Decoder = &PageBlockPreformatted{}
+	_ bin.Encoder     = &PageBlockPreformatted{}
+	_ bin.Decoder     = &PageBlockPreformatted{}
+	_ bin.BareEncoder = &PageBlockPreformatted{}
+	_ bin.BareDecoder = &PageBlockPreformatted{}
 
 	_ PageBlockClass = &PageBlockPreformatted{}
 )
@@ -1067,6 +1211,14 @@ func (p *PageBlockFooter) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockFooter#48870999 as nil")
 	}
 	b.PutID(PageBlockFooterTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockFooter) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockFooter#48870999 as nil")
+	}
 	if p.Text == nil {
 		return fmt.Errorf("unable to encode pageBlockFooter#48870999: field text is nil")
 	}
@@ -1089,6 +1241,14 @@ func (p *PageBlockFooter) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockFooterTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockFooter#48870999: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockFooter) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockFooter#48870999 to nil")
+	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -1104,8 +1264,10 @@ func (p PageBlockFooter) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockFooter.
 var (
-	_ bin.Encoder = &PageBlockFooter{}
-	_ bin.Decoder = &PageBlockFooter{}
+	_ bin.Encoder     = &PageBlockFooter{}
+	_ bin.Decoder     = &PageBlockFooter{}
+	_ bin.BareEncoder = &PageBlockFooter{}
+	_ bin.BareDecoder = &PageBlockFooter{}
 
 	_ PageBlockClass = &PageBlockFooter{}
 )
@@ -1169,6 +1331,14 @@ func (p *PageBlockDivider) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockDivider#db20b188 as nil")
 	}
 	b.PutID(PageBlockDividerTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockDivider) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockDivider#db20b188 as nil")
+	}
 	return nil
 }
 
@@ -1180,6 +1350,14 @@ func (p *PageBlockDivider) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockDividerTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockDivider#db20b188: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockDivider) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockDivider#db20b188 to nil")
+	}
 	return nil
 }
 
@@ -1188,8 +1366,10 @@ func (p PageBlockDivider) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockDivider.
 var (
-	_ bin.Encoder = &PageBlockDivider{}
-	_ bin.Decoder = &PageBlockDivider{}
+	_ bin.Encoder     = &PageBlockDivider{}
+	_ bin.Decoder     = &PageBlockDivider{}
+	_ bin.BareEncoder = &PageBlockDivider{}
+	_ bin.BareDecoder = &PageBlockDivider{}
 
 	_ PageBlockClass = &PageBlockDivider{}
 )
@@ -1270,6 +1450,14 @@ func (p *PageBlockAnchor) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockAnchor#ce0d37b0 as nil")
 	}
 	b.PutID(PageBlockAnchorTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockAnchor) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockAnchor#ce0d37b0 as nil")
+	}
 	b.PutString(p.Name)
 	return nil
 }
@@ -1287,6 +1475,14 @@ func (p *PageBlockAnchor) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockAnchorTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockAnchor#ce0d37b0: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockAnchor) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockAnchor#ce0d37b0 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -1302,8 +1498,10 @@ func (p PageBlockAnchor) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockAnchor.
 var (
-	_ bin.Encoder = &PageBlockAnchor{}
-	_ bin.Decoder = &PageBlockAnchor{}
+	_ bin.Encoder     = &PageBlockAnchor{}
+	_ bin.Decoder     = &PageBlockAnchor{}
+	_ bin.BareEncoder = &PageBlockAnchor{}
+	_ bin.BareDecoder = &PageBlockAnchor{}
 
 	_ PageBlockClass = &PageBlockAnchor{}
 )
@@ -1384,6 +1582,14 @@ func (p *PageBlockList) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockList#e4e88011 as nil")
 	}
 	b.PutID(PageBlockListTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockList) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockList#e4e88011 as nil")
+	}
 	b.PutVectorHeader(len(p.Items))
 	for idx, v := range p.Items {
 		if v == nil {
@@ -1414,6 +1620,14 @@ func (p *PageBlockList) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockListTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockList#e4e88011: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockList) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockList#e4e88011 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -1435,8 +1649,10 @@ func (p PageBlockList) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockList.
 var (
-	_ bin.Encoder = &PageBlockList{}
-	_ bin.Decoder = &PageBlockList{}
+	_ bin.Encoder     = &PageBlockList{}
+	_ bin.Decoder     = &PageBlockList{}
+	_ bin.BareEncoder = &PageBlockList{}
+	_ bin.BareDecoder = &PageBlockList{}
 
 	_ PageBlockClass = &PageBlockList{}
 )
@@ -1528,6 +1744,14 @@ func (p *PageBlockBlockquote) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockBlockquote#263d7c26 as nil")
 	}
 	b.PutID(PageBlockBlockquoteTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockBlockquote) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockBlockquote#263d7c26 as nil")
+	}
 	if p.Text == nil {
 		return fmt.Errorf("unable to encode pageBlockBlockquote#263d7c26: field text is nil")
 	}
@@ -1561,6 +1785,14 @@ func (p *PageBlockBlockquote) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockBlockquoteTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockBlockquote#263d7c26: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockBlockquote) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockBlockquote#263d7c26 to nil")
+	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -1583,8 +1815,10 @@ func (p PageBlockBlockquote) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockBlockquote.
 var (
-	_ bin.Encoder = &PageBlockBlockquote{}
-	_ bin.Decoder = &PageBlockBlockquote{}
+	_ bin.Encoder     = &PageBlockBlockquote{}
+	_ bin.Decoder     = &PageBlockBlockquote{}
+	_ bin.BareEncoder = &PageBlockBlockquote{}
+	_ bin.BareDecoder = &PageBlockBlockquote{}
 
 	_ PageBlockClass = &PageBlockBlockquote{}
 )
@@ -1676,6 +1910,14 @@ func (p *PageBlockPullquote) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockPullquote#4f4456d3 as nil")
 	}
 	b.PutID(PageBlockPullquoteTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockPullquote) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockPullquote#4f4456d3 as nil")
+	}
 	if p.Text == nil {
 		return fmt.Errorf("unable to encode pageBlockPullquote#4f4456d3: field text is nil")
 	}
@@ -1709,6 +1951,14 @@ func (p *PageBlockPullquote) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockPullquoteTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockPullquote#4f4456d3: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockPullquote) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockPullquote#4f4456d3 to nil")
+	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -1731,8 +1981,10 @@ func (p PageBlockPullquote) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockPullquote.
 var (
-	_ bin.Encoder = &PageBlockPullquote{}
-	_ bin.Decoder = &PageBlockPullquote{}
+	_ bin.Encoder     = &PageBlockPullquote{}
+	_ bin.Decoder     = &PageBlockPullquote{}
+	_ bin.BareEncoder = &PageBlockPullquote{}
+	_ bin.BareDecoder = &PageBlockPullquote{}
 
 	_ PageBlockClass = &PageBlockPullquote{}
 )
@@ -1866,6 +2118,14 @@ func (p *PageBlockPhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockPhoto#1759c560 as nil")
 	}
 	b.PutID(PageBlockPhotoTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockPhoto) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockPhoto#1759c560 as nil")
+	}
 	if !(p.URL == "") {
 		p.Flags.Set(0)
 	}
@@ -1936,6 +2196,14 @@ func (p *PageBlockPhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockPhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockPhoto#1759c560: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockPhoto) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockPhoto#1759c560 to nil")
+	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode pageBlockPhoto#1759c560: field flags: %w", err)
@@ -1975,8 +2243,10 @@ func (p PageBlockPhoto) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockPhoto.
 var (
-	_ bin.Encoder = &PageBlockPhoto{}
-	_ bin.Decoder = &PageBlockPhoto{}
+	_ bin.Encoder     = &PageBlockPhoto{}
+	_ bin.Decoder     = &PageBlockPhoto{}
+	_ bin.BareEncoder = &PageBlockPhoto{}
+	_ bin.BareDecoder = &PageBlockPhoto{}
 
 	_ PageBlockClass = &PageBlockPhoto{}
 )
@@ -2100,6 +2370,14 @@ func (p *PageBlockVideo) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockVideo#7c8fe7b6 as nil")
 	}
 	b.PutID(PageBlockVideoTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockVideo) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockVideo#7c8fe7b6 as nil")
+	}
 	if !(p.Autoplay == false) {
 		p.Flags.Set(0)
 	}
@@ -2166,6 +2444,14 @@ func (p *PageBlockVideo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockVideoTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockVideo#7c8fe7b6: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockVideo) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockVideo#7c8fe7b6 to nil")
+	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode pageBlockVideo#7c8fe7b6: field flags: %w", err)
@@ -2193,8 +2479,10 @@ func (p PageBlockVideo) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockVideo.
 var (
-	_ bin.Encoder = &PageBlockVideo{}
-	_ bin.Decoder = &PageBlockVideo{}
+	_ bin.Encoder     = &PageBlockVideo{}
+	_ bin.Decoder     = &PageBlockVideo{}
+	_ bin.BareEncoder = &PageBlockVideo{}
+	_ bin.BareDecoder = &PageBlockVideo{}
 
 	_ PageBlockClass = &PageBlockVideo{}
 )
@@ -2275,6 +2563,14 @@ func (p *PageBlockCover) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockCover#39f23300 as nil")
 	}
 	b.PutID(PageBlockCoverTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockCover) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockCover#39f23300 as nil")
+	}
 	if p.Cover == nil {
 		return fmt.Errorf("unable to encode pageBlockCover#39f23300: field cover is nil")
 	}
@@ -2297,6 +2593,14 @@ func (p *PageBlockCover) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockCoverTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockCover#39f23300: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockCover) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockCover#39f23300 to nil")
+	}
 	{
 		value, err := DecodePageBlock(b)
 		if err != nil {
@@ -2312,8 +2616,10 @@ func (p PageBlockCover) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockCover.
 var (
-	_ bin.Encoder = &PageBlockCover{}
-	_ bin.Decoder = &PageBlockCover{}
+	_ bin.Encoder     = &PageBlockCover{}
+	_ bin.Decoder     = &PageBlockCover{}
+	_ bin.BareEncoder = &PageBlockCover{}
+	_ bin.BareDecoder = &PageBlockCover{}
 
 	_ PageBlockClass = &PageBlockCover{}
 )
@@ -2511,6 +2817,14 @@ func (p *PageBlockEmbed) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockEmbed#a8718dc5 as nil")
 	}
 	b.PutID(PageBlockEmbedTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockEmbed) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockEmbed#a8718dc5 as nil")
+	}
 	if !(p.FullWidth == false) {
 		p.Flags.Set(0)
 	}
@@ -2676,6 +2990,14 @@ func (p *PageBlockEmbed) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockEmbedTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockEmbed) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockEmbed#a8718dc5 to nil")
+	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode pageBlockEmbed#a8718dc5: field flags: %w", err)
@@ -2731,8 +3053,10 @@ func (p PageBlockEmbed) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockEmbed.
 var (
-	_ bin.Encoder = &PageBlockEmbed{}
-	_ bin.Decoder = &PageBlockEmbed{}
+	_ bin.Encoder     = &PageBlockEmbed{}
+	_ bin.Decoder     = &PageBlockEmbed{}
+	_ bin.BareEncoder = &PageBlockEmbed{}
+	_ bin.BareDecoder = &PageBlockEmbed{}
 
 	_ PageBlockClass = &PageBlockEmbed{}
 )
@@ -2879,6 +3203,14 @@ func (p *PageBlockEmbedPost) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockEmbedPost#f259a80b as nil")
 	}
 	b.PutID(PageBlockEmbedPostTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockEmbedPost) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockEmbedPost#f259a80b as nil")
+	}
 	b.PutString(p.URL)
 	b.PutLong(p.WebpageID)
 	b.PutLong(p.AuthorPhotoID)
@@ -2947,6 +3279,14 @@ func (p *PageBlockEmbedPost) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockEmbedPostTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockEmbedPost#f259a80b: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockEmbedPost) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockEmbedPost#f259a80b to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -3008,8 +3348,10 @@ func (p PageBlockEmbedPost) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockEmbedPost.
 var (
-	_ bin.Encoder = &PageBlockEmbedPost{}
-	_ bin.Decoder = &PageBlockEmbedPost{}
+	_ bin.Encoder     = &PageBlockEmbedPost{}
+	_ bin.Decoder     = &PageBlockEmbedPost{}
+	_ bin.BareEncoder = &PageBlockEmbedPost{}
+	_ bin.BareDecoder = &PageBlockEmbedPost{}
 
 	_ PageBlockClass = &PageBlockEmbedPost{}
 )
@@ -3101,6 +3443,14 @@ func (p *PageBlockCollage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockCollage#65a0fa4d as nil")
 	}
 	b.PutID(PageBlockCollageTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockCollage) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockCollage#65a0fa4d as nil")
+	}
 	b.PutVectorHeader(len(p.Items))
 	for idx, v := range p.Items {
 		if v == nil {
@@ -3139,6 +3489,14 @@ func (p *PageBlockCollage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockCollageTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockCollage#65a0fa4d: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockCollage) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockCollage#65a0fa4d to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -3165,8 +3523,10 @@ func (p PageBlockCollage) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockCollage.
 var (
-	_ bin.Encoder = &PageBlockCollage{}
-	_ bin.Decoder = &PageBlockCollage{}
+	_ bin.Encoder     = &PageBlockCollage{}
+	_ bin.Decoder     = &PageBlockCollage{}
+	_ bin.BareEncoder = &PageBlockCollage{}
+	_ bin.BareDecoder = &PageBlockCollage{}
 
 	_ PageBlockClass = &PageBlockCollage{}
 )
@@ -3258,6 +3618,14 @@ func (p *PageBlockSlideshow) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockSlideshow#31f9590 as nil")
 	}
 	b.PutID(PageBlockSlideshowTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockSlideshow) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockSlideshow#31f9590 as nil")
+	}
 	b.PutVectorHeader(len(p.Items))
 	for idx, v := range p.Items {
 		if v == nil {
@@ -3296,6 +3664,14 @@ func (p *PageBlockSlideshow) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockSlideshowTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockSlideshow#31f9590: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockSlideshow) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockSlideshow#31f9590 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -3322,8 +3698,10 @@ func (p PageBlockSlideshow) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockSlideshow.
 var (
-	_ bin.Encoder = &PageBlockSlideshow{}
-	_ bin.Decoder = &PageBlockSlideshow{}
+	_ bin.Encoder     = &PageBlockSlideshow{}
+	_ bin.Decoder     = &PageBlockSlideshow{}
+	_ bin.BareEncoder = &PageBlockSlideshow{}
+	_ bin.BareDecoder = &PageBlockSlideshow{}
 
 	_ PageBlockClass = &PageBlockSlideshow{}
 )
@@ -3404,6 +3782,14 @@ func (p *PageBlockChannel) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockChannel#ef1751b5 as nil")
 	}
 	b.PutID(PageBlockChannelTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockChannel) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockChannel#ef1751b5 as nil")
+	}
 	if p.Channel == nil {
 		return fmt.Errorf("unable to encode pageBlockChannel#ef1751b5: field channel is nil")
 	}
@@ -3426,6 +3812,14 @@ func (p *PageBlockChannel) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockChannelTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockChannel#ef1751b5: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockChannel) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockChannel#ef1751b5 to nil")
+	}
 	{
 		value, err := DecodeChat(b)
 		if err != nil {
@@ -3441,8 +3835,10 @@ func (p PageBlockChannel) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockChannel.
 var (
-	_ bin.Encoder = &PageBlockChannel{}
-	_ bin.Decoder = &PageBlockChannel{}
+	_ bin.Encoder     = &PageBlockChannel{}
+	_ bin.Decoder     = &PageBlockChannel{}
+	_ bin.BareEncoder = &PageBlockChannel{}
+	_ bin.BareDecoder = &PageBlockChannel{}
 
 	_ PageBlockClass = &PageBlockChannel{}
 )
@@ -3537,6 +3933,14 @@ func (p *PageBlockAudio) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockAudio#804361ea as nil")
 	}
 	b.PutID(PageBlockAudioTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockAudio) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockAudio#804361ea as nil")
+	}
 	b.PutLong(p.AudioID)
 	if err := p.Caption.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode pageBlockAudio#804361ea: field caption: %w", err)
@@ -3562,6 +3966,14 @@ func (p *PageBlockAudio) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockAudioTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockAudio#804361ea: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockAudio) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockAudio#804361ea to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -3582,8 +3994,10 @@ func (p PageBlockAudio) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockAudio.
 var (
-	_ bin.Encoder = &PageBlockAudio{}
-	_ bin.Decoder = &PageBlockAudio{}
+	_ bin.Encoder     = &PageBlockAudio{}
+	_ bin.Decoder     = &PageBlockAudio{}
+	_ bin.BareEncoder = &PageBlockAudio{}
+	_ bin.BareDecoder = &PageBlockAudio{}
 
 	_ PageBlockClass = &PageBlockAudio{}
 )
@@ -3664,6 +4078,14 @@ func (p *PageBlockKicker) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockKicker#1e148390 as nil")
 	}
 	b.PutID(PageBlockKickerTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockKicker) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockKicker#1e148390 as nil")
+	}
 	if p.Text == nil {
 		return fmt.Errorf("unable to encode pageBlockKicker#1e148390: field text is nil")
 	}
@@ -3686,6 +4108,14 @@ func (p *PageBlockKicker) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockKickerTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockKicker#1e148390: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockKicker) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockKicker#1e148390 to nil")
+	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -3701,8 +4131,10 @@ func (p PageBlockKicker) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockKicker.
 var (
-	_ bin.Encoder = &PageBlockKicker{}
-	_ bin.Decoder = &PageBlockKicker{}
+	_ bin.Encoder     = &PageBlockKicker{}
+	_ bin.Decoder     = &PageBlockKicker{}
+	_ bin.BareEncoder = &PageBlockKicker{}
+	_ bin.BareDecoder = &PageBlockKicker{}
 
 	_ PageBlockClass = &PageBlockKicker{}
 )
@@ -3826,6 +4258,14 @@ func (p *PageBlockTable) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockTable#bf4dea82 as nil")
 	}
 	b.PutID(PageBlockTableTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockTable) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockTable#bf4dea82 as nil")
+	}
 	if !(p.Bordered == false) {
 		p.Flags.Set(0)
 	}
@@ -3900,6 +4340,14 @@ func (p *PageBlockTable) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockTableTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockTable#bf4dea82: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockTable) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockTable#bf4dea82 to nil")
+	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode pageBlockTable#bf4dea82: field flags: %w", err)
@@ -3935,8 +4383,10 @@ func (p PageBlockTable) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockTable.
 var (
-	_ bin.Encoder = &PageBlockTable{}
-	_ bin.Decoder = &PageBlockTable{}
+	_ bin.Encoder     = &PageBlockTable{}
+	_ bin.Decoder     = &PageBlockTable{}
+	_ bin.BareEncoder = &PageBlockTable{}
+	_ bin.BareDecoder = &PageBlockTable{}
 
 	_ PageBlockClass = &PageBlockTable{}
 )
@@ -4017,6 +4467,14 @@ func (p *PageBlockOrderedList) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockOrderedList#9a8ae1e1 as nil")
 	}
 	b.PutID(PageBlockOrderedListTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockOrderedList) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockOrderedList#9a8ae1e1 as nil")
+	}
 	b.PutVectorHeader(len(p.Items))
 	for idx, v := range p.Items {
 		if v == nil {
@@ -4047,6 +4505,14 @@ func (p *PageBlockOrderedList) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockOrderedListTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockOrderedList#9a8ae1e1: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockOrderedList) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockOrderedList#9a8ae1e1 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -4068,8 +4534,10 @@ func (p PageBlockOrderedList) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockOrderedList.
 var (
-	_ bin.Encoder = &PageBlockOrderedList{}
-	_ bin.Decoder = &PageBlockOrderedList{}
+	_ bin.Encoder     = &PageBlockOrderedList{}
+	_ bin.Decoder     = &PageBlockOrderedList{}
+	_ bin.BareEncoder = &PageBlockOrderedList{}
+	_ bin.BareDecoder = &PageBlockOrderedList{}
 
 	_ PageBlockClass = &PageBlockOrderedList{}
 )
@@ -4181,6 +4649,14 @@ func (p *PageBlockDetails) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockDetails#76768bed as nil")
 	}
 	b.PutID(PageBlockDetailsTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockDetails) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockDetails#76768bed as nil")
+	}
 	if !(p.Open == false) {
 		p.Flags.Set(0)
 	}
@@ -4244,6 +4720,14 @@ func (p *PageBlockDetails) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockDetailsTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockDetails#76768bed: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockDetails) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockDetails#76768bed to nil")
+	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode pageBlockDetails#76768bed: field flags: %w", err)
@@ -4278,8 +4762,10 @@ func (p PageBlockDetails) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockDetails.
 var (
-	_ bin.Encoder = &PageBlockDetails{}
-	_ bin.Decoder = &PageBlockDetails{}
+	_ bin.Encoder     = &PageBlockDetails{}
+	_ bin.Decoder     = &PageBlockDetails{}
+	_ bin.BareEncoder = &PageBlockDetails{}
+	_ bin.BareDecoder = &PageBlockDetails{}
 
 	_ PageBlockClass = &PageBlockDetails{}
 )
@@ -4371,6 +4857,14 @@ func (p *PageBlockRelatedArticles) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockRelatedArticles#16115a96 as nil")
 	}
 	b.PutID(PageBlockRelatedArticlesTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockRelatedArticles) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockRelatedArticles#16115a96 as nil")
+	}
 	if p.Title == nil {
 		return fmt.Errorf("unable to encode pageBlockRelatedArticles#16115a96: field title is nil")
 	}
@@ -4404,6 +4898,14 @@ func (p *PageBlockRelatedArticles) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockRelatedArticlesTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockRelatedArticles#16115a96: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockRelatedArticles) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockRelatedArticles#16115a96 to nil")
+	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -4432,8 +4934,10 @@ func (p PageBlockRelatedArticles) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockRelatedArticles.
 var (
-	_ bin.Encoder = &PageBlockRelatedArticles{}
-	_ bin.Decoder = &PageBlockRelatedArticles{}
+	_ bin.Encoder     = &PageBlockRelatedArticles{}
+	_ bin.Decoder     = &PageBlockRelatedArticles{}
+	_ bin.BareEncoder = &PageBlockRelatedArticles{}
+	_ bin.BareDecoder = &PageBlockRelatedArticles{}
 
 	_ PageBlockClass = &PageBlockRelatedArticles{}
 )
@@ -4558,6 +5062,14 @@ func (p *PageBlockMap) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageBlockMap#a44f3ef6 as nil")
 	}
 	b.PutID(PageBlockMapTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageBlockMap) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageBlockMap#a44f3ef6 as nil")
+	}
 	if p.Geo == nil {
 		return fmt.Errorf("unable to encode pageBlockMap#a44f3ef6: field geo is nil")
 	}
@@ -4606,6 +5118,14 @@ func (p *PageBlockMap) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageBlockMapTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageBlockMap#a44f3ef6: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageBlockMap) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageBlockMap#a44f3ef6 to nil")
+	}
 	{
 		value, err := DecodeGeoPoint(b)
 		if err != nil {
@@ -4647,8 +5167,10 @@ func (p PageBlockMap) construct() PageBlockClass { return &p }
 
 // Ensuring interfaces in compile-time for PageBlockMap.
 var (
-	_ bin.Encoder = &PageBlockMap{}
-	_ bin.Decoder = &PageBlockMap{}
+	_ bin.Encoder     = &PageBlockMap{}
+	_ bin.Decoder     = &PageBlockMap{}
+	_ bin.BareEncoder = &PageBlockMap{}
+	_ bin.BareDecoder = &PageBlockMap{}
 
 	_ PageBlockClass = &PageBlockMap{}
 )
@@ -4697,6 +5219,8 @@ var (
 type PageBlockClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() PageBlockClass
 
 	// TypeID returns type id in TL schema.

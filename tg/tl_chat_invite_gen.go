@@ -102,6 +102,14 @@ func (c *ChatInviteAlready) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chatInviteAlready#5a686d7c as nil")
 	}
 	b.PutID(ChatInviteAlreadyTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatInviteAlready) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatInviteAlready#5a686d7c as nil")
+	}
 	if c.Chat == nil {
 		return fmt.Errorf("unable to encode chatInviteAlready#5a686d7c: field chat is nil")
 	}
@@ -124,6 +132,14 @@ func (c *ChatInviteAlready) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatInviteAlreadyTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatInviteAlready#5a686d7c: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatInviteAlready) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatInviteAlready#5a686d7c to nil")
+	}
 	{
 		value, err := DecodeChat(b)
 		if err != nil {
@@ -139,8 +155,10 @@ func (c ChatInviteAlready) construct() ChatInviteClass { return &c }
 
 // Ensuring interfaces in compile-time for ChatInviteAlready.
 var (
-	_ bin.Encoder = &ChatInviteAlready{}
-	_ bin.Decoder = &ChatInviteAlready{}
+	_ bin.Encoder     = &ChatInviteAlready{}
+	_ bin.Decoder     = &ChatInviteAlready{}
+	_ bin.BareEncoder = &ChatInviteAlready{}
+	_ bin.BareDecoder = &ChatInviteAlready{}
 
 	_ ChatInviteClass = &ChatInviteAlready{}
 )
@@ -329,6 +347,14 @@ func (c *ChatInvite) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chatInvite#dfc2f58e as nil")
 	}
 	b.PutID(ChatInviteTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatInvite) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatInvite#dfc2f58e as nil")
+	}
 	if !(c.Channel == false) {
 		c.Flags.Set(0)
 	}
@@ -479,6 +505,14 @@ func (c *ChatInvite) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatInviteTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatInvite#dfc2f58e: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatInvite) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatInvite#dfc2f58e to nil")
+	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode chatInvite#dfc2f58e: field flags: %w", err)
@@ -530,8 +564,10 @@ func (c ChatInvite) construct() ChatInviteClass { return &c }
 
 // Ensuring interfaces in compile-time for ChatInvite.
 var (
-	_ bin.Encoder = &ChatInvite{}
-	_ bin.Decoder = &ChatInvite{}
+	_ bin.Encoder     = &ChatInvite{}
+	_ bin.Decoder     = &ChatInvite{}
+	_ bin.BareEncoder = &ChatInvite{}
+	_ bin.BareDecoder = &ChatInvite{}
 
 	_ ChatInviteClass = &ChatInvite{}
 )
@@ -623,6 +659,14 @@ func (c *ChatInvitePeek) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chatInvitePeek#61695cb0 as nil")
 	}
 	b.PutID(ChatInvitePeekTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatInvitePeek) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatInvitePeek#61695cb0 as nil")
+	}
 	if c.Chat == nil {
 		return fmt.Errorf("unable to encode chatInvitePeek#61695cb0: field chat is nil")
 	}
@@ -651,6 +695,14 @@ func (c *ChatInvitePeek) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatInvitePeekTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatInvitePeek#61695cb0: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatInvitePeek) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatInvitePeek#61695cb0 to nil")
+	}
 	{
 		value, err := DecodeChat(b)
 		if err != nil {
@@ -673,8 +725,10 @@ func (c ChatInvitePeek) construct() ChatInviteClass { return &c }
 
 // Ensuring interfaces in compile-time for ChatInvitePeek.
 var (
-	_ bin.Encoder = &ChatInvitePeek{}
-	_ bin.Decoder = &ChatInvitePeek{}
+	_ bin.Encoder     = &ChatInvitePeek{}
+	_ bin.Decoder     = &ChatInvitePeek{}
+	_ bin.BareEncoder = &ChatInvitePeek{}
+	_ bin.BareDecoder = &ChatInvitePeek{}
 
 	_ ChatInviteClass = &ChatInvitePeek{}
 )
@@ -697,6 +751,8 @@ var (
 type ChatInviteClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() ChatInviteClass
 
 	// TypeID returns type id in TL schema.

@@ -102,6 +102,14 @@ func (g *MessagesGetEmojiKeywordsLanguagesRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getEmojiKeywordsLanguages#4e9963b2 as nil")
 	}
 	b.PutID(MessagesGetEmojiKeywordsLanguagesRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetEmojiKeywordsLanguagesRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getEmojiKeywordsLanguages#4e9963b2 as nil")
+	}
 	b.PutVectorHeader(len(g.LangCodes))
 	for _, v := range g.LangCodes {
 		b.PutString(v)
@@ -122,6 +130,14 @@ func (g *MessagesGetEmojiKeywordsLanguagesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetEmojiKeywordsLanguagesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getEmojiKeywordsLanguages#4e9963b2: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetEmojiKeywordsLanguagesRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getEmojiKeywordsLanguages#4e9963b2 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -140,8 +156,10 @@ func (g *MessagesGetEmojiKeywordsLanguagesRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetEmojiKeywordsLanguagesRequest.
 var (
-	_ bin.Encoder = &MessagesGetEmojiKeywordsLanguagesRequest{}
-	_ bin.Decoder = &MessagesGetEmojiKeywordsLanguagesRequest{}
+	_ bin.Encoder     = &MessagesGetEmojiKeywordsLanguagesRequest{}
+	_ bin.Decoder     = &MessagesGetEmojiKeywordsLanguagesRequest{}
+	_ bin.BareEncoder = &MessagesGetEmojiKeywordsLanguagesRequest{}
+	_ bin.BareDecoder = &MessagesGetEmojiKeywordsLanguagesRequest{}
 )
 
 // MessagesGetEmojiKeywordsLanguages invokes method messages.getEmojiKeywordsLanguages#4e9963b2 returning error if any.

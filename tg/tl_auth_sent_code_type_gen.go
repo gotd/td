@@ -102,6 +102,14 @@ func (s *AuthSentCodeTypeApp) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.sentCodeTypeApp#3dbb5986 as nil")
 	}
 	b.PutID(AuthSentCodeTypeAppTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *AuthSentCodeTypeApp) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode auth.sentCodeTypeApp#3dbb5986 as nil")
+	}
 	b.PutInt(s.Length)
 	return nil
 }
@@ -119,6 +127,14 @@ func (s *AuthSentCodeTypeApp) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthSentCodeTypeAppTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.sentCodeTypeApp#3dbb5986: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *AuthSentCodeTypeApp) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode auth.sentCodeTypeApp#3dbb5986 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -134,8 +150,10 @@ func (s AuthSentCodeTypeApp) construct() AuthSentCodeTypeClass { return &s }
 
 // Ensuring interfaces in compile-time for AuthSentCodeTypeApp.
 var (
-	_ bin.Encoder = &AuthSentCodeTypeApp{}
-	_ bin.Decoder = &AuthSentCodeTypeApp{}
+	_ bin.Encoder     = &AuthSentCodeTypeApp{}
+	_ bin.Decoder     = &AuthSentCodeTypeApp{}
+	_ bin.BareEncoder = &AuthSentCodeTypeApp{}
+	_ bin.BareDecoder = &AuthSentCodeTypeApp{}
 
 	_ AuthSentCodeTypeClass = &AuthSentCodeTypeApp{}
 )
@@ -216,6 +234,14 @@ func (s *AuthSentCodeTypeSMS) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.sentCodeTypeSms#c000bba2 as nil")
 	}
 	b.PutID(AuthSentCodeTypeSMSTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *AuthSentCodeTypeSMS) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode auth.sentCodeTypeSms#c000bba2 as nil")
+	}
 	b.PutInt(s.Length)
 	return nil
 }
@@ -233,6 +259,14 @@ func (s *AuthSentCodeTypeSMS) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthSentCodeTypeSMSTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.sentCodeTypeSms#c000bba2: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *AuthSentCodeTypeSMS) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode auth.sentCodeTypeSms#c000bba2 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -248,8 +282,10 @@ func (s AuthSentCodeTypeSMS) construct() AuthSentCodeTypeClass { return &s }
 
 // Ensuring interfaces in compile-time for AuthSentCodeTypeSMS.
 var (
-	_ bin.Encoder = &AuthSentCodeTypeSMS{}
-	_ bin.Decoder = &AuthSentCodeTypeSMS{}
+	_ bin.Encoder     = &AuthSentCodeTypeSMS{}
+	_ bin.Decoder     = &AuthSentCodeTypeSMS{}
+	_ bin.BareEncoder = &AuthSentCodeTypeSMS{}
+	_ bin.BareDecoder = &AuthSentCodeTypeSMS{}
 
 	_ AuthSentCodeTypeClass = &AuthSentCodeTypeSMS{}
 )
@@ -330,6 +366,14 @@ func (s *AuthSentCodeTypeCall) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.sentCodeTypeCall#5353e5a7 as nil")
 	}
 	b.PutID(AuthSentCodeTypeCallTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *AuthSentCodeTypeCall) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode auth.sentCodeTypeCall#5353e5a7 as nil")
+	}
 	b.PutInt(s.Length)
 	return nil
 }
@@ -347,6 +391,14 @@ func (s *AuthSentCodeTypeCall) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthSentCodeTypeCallTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.sentCodeTypeCall#5353e5a7: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *AuthSentCodeTypeCall) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode auth.sentCodeTypeCall#5353e5a7 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -362,8 +414,10 @@ func (s AuthSentCodeTypeCall) construct() AuthSentCodeTypeClass { return &s }
 
 // Ensuring interfaces in compile-time for AuthSentCodeTypeCall.
 var (
-	_ bin.Encoder = &AuthSentCodeTypeCall{}
-	_ bin.Decoder = &AuthSentCodeTypeCall{}
+	_ bin.Encoder     = &AuthSentCodeTypeCall{}
+	_ bin.Decoder     = &AuthSentCodeTypeCall{}
+	_ bin.BareEncoder = &AuthSentCodeTypeCall{}
+	_ bin.BareDecoder = &AuthSentCodeTypeCall{}
 
 	_ AuthSentCodeTypeClass = &AuthSentCodeTypeCall{}
 )
@@ -447,6 +501,14 @@ func (s *AuthSentCodeTypeFlashCall) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.sentCodeTypeFlashCall#ab03c6d9 as nil")
 	}
 	b.PutID(AuthSentCodeTypeFlashCallTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *AuthSentCodeTypeFlashCall) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode auth.sentCodeTypeFlashCall#ab03c6d9 as nil")
+	}
 	b.PutString(s.Pattern)
 	return nil
 }
@@ -464,6 +526,14 @@ func (s *AuthSentCodeTypeFlashCall) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthSentCodeTypeFlashCallTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.sentCodeTypeFlashCall#ab03c6d9: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *AuthSentCodeTypeFlashCall) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode auth.sentCodeTypeFlashCall#ab03c6d9 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -479,8 +549,10 @@ func (s AuthSentCodeTypeFlashCall) construct() AuthSentCodeTypeClass { return &s
 
 // Ensuring interfaces in compile-time for AuthSentCodeTypeFlashCall.
 var (
-	_ bin.Encoder = &AuthSentCodeTypeFlashCall{}
-	_ bin.Decoder = &AuthSentCodeTypeFlashCall{}
+	_ bin.Encoder     = &AuthSentCodeTypeFlashCall{}
+	_ bin.Decoder     = &AuthSentCodeTypeFlashCall{}
+	_ bin.BareEncoder = &AuthSentCodeTypeFlashCall{}
+	_ bin.BareDecoder = &AuthSentCodeTypeFlashCall{}
 
 	_ AuthSentCodeTypeClass = &AuthSentCodeTypeFlashCall{}
 )
@@ -504,6 +576,8 @@ var (
 type AuthSentCodeTypeClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() AuthSentCodeTypeClass
 
 	// TypeID returns type id in TL schema.

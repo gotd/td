@@ -85,6 +85,14 @@ func (i *InputMessagesFilterEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMessagesFilterEmpty#57e2f66c as nil")
 	}
 	b.PutID(InputMessagesFilterEmptyTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMessagesFilterEmpty) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMessagesFilterEmpty#57e2f66c as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (i *InputMessagesFilterEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterEmpty#57e2f66c: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMessagesFilterEmpty) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessagesFilterEmpty#57e2f66c to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (i InputMessagesFilterEmpty) construct() MessagesFilterClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMessagesFilterEmpty.
 var (
-	_ bin.Encoder = &InputMessagesFilterEmpty{}
-	_ bin.Decoder = &InputMessagesFilterEmpty{}
+	_ bin.Encoder     = &InputMessagesFilterEmpty{}
+	_ bin.Decoder     = &InputMessagesFilterEmpty{}
+	_ bin.BareEncoder = &InputMessagesFilterEmpty{}
+	_ bin.BareDecoder = &InputMessagesFilterEmpty{}
 
 	_ MessagesFilterClass = &InputMessagesFilterEmpty{}
 )
@@ -169,6 +187,14 @@ func (i *InputMessagesFilterPhotos) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMessagesFilterPhotos#9609a51c as nil")
 	}
 	b.PutID(InputMessagesFilterPhotosTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMessagesFilterPhotos) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMessagesFilterPhotos#9609a51c as nil")
+	}
 	return nil
 }
 
@@ -180,6 +206,14 @@ func (i *InputMessagesFilterPhotos) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterPhotosTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterPhotos#9609a51c: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMessagesFilterPhotos) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessagesFilterPhotos#9609a51c to nil")
+	}
 	return nil
 }
 
@@ -188,8 +222,10 @@ func (i InputMessagesFilterPhotos) construct() MessagesFilterClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMessagesFilterPhotos.
 var (
-	_ bin.Encoder = &InputMessagesFilterPhotos{}
-	_ bin.Decoder = &InputMessagesFilterPhotos{}
+	_ bin.Encoder     = &InputMessagesFilterPhotos{}
+	_ bin.Decoder     = &InputMessagesFilterPhotos{}
+	_ bin.BareEncoder = &InputMessagesFilterPhotos{}
+	_ bin.BareDecoder = &InputMessagesFilterPhotos{}
 
 	_ MessagesFilterClass = &InputMessagesFilterPhotos{}
 )
@@ -253,6 +289,14 @@ func (i *InputMessagesFilterVideo) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMessagesFilterVideo#9fc00e65 as nil")
 	}
 	b.PutID(InputMessagesFilterVideoTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMessagesFilterVideo) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMessagesFilterVideo#9fc00e65 as nil")
+	}
 	return nil
 }
 
@@ -264,6 +308,14 @@ func (i *InputMessagesFilterVideo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterVideoTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterVideo#9fc00e65: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMessagesFilterVideo) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessagesFilterVideo#9fc00e65 to nil")
+	}
 	return nil
 }
 
@@ -272,8 +324,10 @@ func (i InputMessagesFilterVideo) construct() MessagesFilterClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMessagesFilterVideo.
 var (
-	_ bin.Encoder = &InputMessagesFilterVideo{}
-	_ bin.Decoder = &InputMessagesFilterVideo{}
+	_ bin.Encoder     = &InputMessagesFilterVideo{}
+	_ bin.Decoder     = &InputMessagesFilterVideo{}
+	_ bin.BareEncoder = &InputMessagesFilterVideo{}
+	_ bin.BareDecoder = &InputMessagesFilterVideo{}
 
 	_ MessagesFilterClass = &InputMessagesFilterVideo{}
 )
@@ -337,6 +391,14 @@ func (i *InputMessagesFilterPhotoVideo) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMessagesFilterPhotoVideo#56e9f0e4 as nil")
 	}
 	b.PutID(InputMessagesFilterPhotoVideoTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMessagesFilterPhotoVideo) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMessagesFilterPhotoVideo#56e9f0e4 as nil")
+	}
 	return nil
 }
 
@@ -348,6 +410,14 @@ func (i *InputMessagesFilterPhotoVideo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterPhotoVideoTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterPhotoVideo#56e9f0e4: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMessagesFilterPhotoVideo) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessagesFilterPhotoVideo#56e9f0e4 to nil")
+	}
 	return nil
 }
 
@@ -356,8 +426,10 @@ func (i InputMessagesFilterPhotoVideo) construct() MessagesFilterClass { return 
 
 // Ensuring interfaces in compile-time for InputMessagesFilterPhotoVideo.
 var (
-	_ bin.Encoder = &InputMessagesFilterPhotoVideo{}
-	_ bin.Decoder = &InputMessagesFilterPhotoVideo{}
+	_ bin.Encoder     = &InputMessagesFilterPhotoVideo{}
+	_ bin.Decoder     = &InputMessagesFilterPhotoVideo{}
+	_ bin.BareEncoder = &InputMessagesFilterPhotoVideo{}
+	_ bin.BareDecoder = &InputMessagesFilterPhotoVideo{}
 
 	_ MessagesFilterClass = &InputMessagesFilterPhotoVideo{}
 )
@@ -421,6 +493,14 @@ func (i *InputMessagesFilterDocument) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMessagesFilterDocument#9eddf188 as nil")
 	}
 	b.PutID(InputMessagesFilterDocumentTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMessagesFilterDocument) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMessagesFilterDocument#9eddf188 as nil")
+	}
 	return nil
 }
 
@@ -432,6 +512,14 @@ func (i *InputMessagesFilterDocument) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterDocumentTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterDocument#9eddf188: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMessagesFilterDocument) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessagesFilterDocument#9eddf188 to nil")
+	}
 	return nil
 }
 
@@ -440,8 +528,10 @@ func (i InputMessagesFilterDocument) construct() MessagesFilterClass { return &i
 
 // Ensuring interfaces in compile-time for InputMessagesFilterDocument.
 var (
-	_ bin.Encoder = &InputMessagesFilterDocument{}
-	_ bin.Decoder = &InputMessagesFilterDocument{}
+	_ bin.Encoder     = &InputMessagesFilterDocument{}
+	_ bin.Decoder     = &InputMessagesFilterDocument{}
+	_ bin.BareEncoder = &InputMessagesFilterDocument{}
+	_ bin.BareDecoder = &InputMessagesFilterDocument{}
 
 	_ MessagesFilterClass = &InputMessagesFilterDocument{}
 )
@@ -505,6 +595,14 @@ func (i *InputMessagesFilterURL) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMessagesFilterUrl#7ef0dd87 as nil")
 	}
 	b.PutID(InputMessagesFilterURLTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMessagesFilterURL) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMessagesFilterUrl#7ef0dd87 as nil")
+	}
 	return nil
 }
 
@@ -516,6 +614,14 @@ func (i *InputMessagesFilterURL) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterURLTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterUrl#7ef0dd87: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMessagesFilterURL) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessagesFilterUrl#7ef0dd87 to nil")
+	}
 	return nil
 }
 
@@ -524,8 +630,10 @@ func (i InputMessagesFilterURL) construct() MessagesFilterClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMessagesFilterURL.
 var (
-	_ bin.Encoder = &InputMessagesFilterURL{}
-	_ bin.Decoder = &InputMessagesFilterURL{}
+	_ bin.Encoder     = &InputMessagesFilterURL{}
+	_ bin.Decoder     = &InputMessagesFilterURL{}
+	_ bin.BareEncoder = &InputMessagesFilterURL{}
+	_ bin.BareDecoder = &InputMessagesFilterURL{}
 
 	_ MessagesFilterClass = &InputMessagesFilterURL{}
 )
@@ -589,6 +697,14 @@ func (i *InputMessagesFilterGif) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMessagesFilterGif#ffc86587 as nil")
 	}
 	b.PutID(InputMessagesFilterGifTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMessagesFilterGif) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMessagesFilterGif#ffc86587 as nil")
+	}
 	return nil
 }
 
@@ -600,6 +716,14 @@ func (i *InputMessagesFilterGif) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterGifTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterGif#ffc86587: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMessagesFilterGif) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessagesFilterGif#ffc86587 to nil")
+	}
 	return nil
 }
 
@@ -608,8 +732,10 @@ func (i InputMessagesFilterGif) construct() MessagesFilterClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMessagesFilterGif.
 var (
-	_ bin.Encoder = &InputMessagesFilterGif{}
-	_ bin.Decoder = &InputMessagesFilterGif{}
+	_ bin.Encoder     = &InputMessagesFilterGif{}
+	_ bin.Decoder     = &InputMessagesFilterGif{}
+	_ bin.BareEncoder = &InputMessagesFilterGif{}
+	_ bin.BareDecoder = &InputMessagesFilterGif{}
 
 	_ MessagesFilterClass = &InputMessagesFilterGif{}
 )
@@ -673,6 +799,14 @@ func (i *InputMessagesFilterVoice) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMessagesFilterVoice#50f5c392 as nil")
 	}
 	b.PutID(InputMessagesFilterVoiceTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMessagesFilterVoice) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMessagesFilterVoice#50f5c392 as nil")
+	}
 	return nil
 }
 
@@ -684,6 +818,14 @@ func (i *InputMessagesFilterVoice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterVoiceTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterVoice#50f5c392: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMessagesFilterVoice) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessagesFilterVoice#50f5c392 to nil")
+	}
 	return nil
 }
 
@@ -692,8 +834,10 @@ func (i InputMessagesFilterVoice) construct() MessagesFilterClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMessagesFilterVoice.
 var (
-	_ bin.Encoder = &InputMessagesFilterVoice{}
-	_ bin.Decoder = &InputMessagesFilterVoice{}
+	_ bin.Encoder     = &InputMessagesFilterVoice{}
+	_ bin.Decoder     = &InputMessagesFilterVoice{}
+	_ bin.BareEncoder = &InputMessagesFilterVoice{}
+	_ bin.BareDecoder = &InputMessagesFilterVoice{}
 
 	_ MessagesFilterClass = &InputMessagesFilterVoice{}
 )
@@ -757,6 +901,14 @@ func (i *InputMessagesFilterMusic) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMessagesFilterMusic#3751b49e as nil")
 	}
 	b.PutID(InputMessagesFilterMusicTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMessagesFilterMusic) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMessagesFilterMusic#3751b49e as nil")
+	}
 	return nil
 }
 
@@ -768,6 +920,14 @@ func (i *InputMessagesFilterMusic) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterMusicTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterMusic#3751b49e: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMessagesFilterMusic) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessagesFilterMusic#3751b49e to nil")
+	}
 	return nil
 }
 
@@ -776,8 +936,10 @@ func (i InputMessagesFilterMusic) construct() MessagesFilterClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMessagesFilterMusic.
 var (
-	_ bin.Encoder = &InputMessagesFilterMusic{}
-	_ bin.Decoder = &InputMessagesFilterMusic{}
+	_ bin.Encoder     = &InputMessagesFilterMusic{}
+	_ bin.Decoder     = &InputMessagesFilterMusic{}
+	_ bin.BareEncoder = &InputMessagesFilterMusic{}
+	_ bin.BareDecoder = &InputMessagesFilterMusic{}
 
 	_ MessagesFilterClass = &InputMessagesFilterMusic{}
 )
@@ -841,6 +1003,14 @@ func (i *InputMessagesFilterChatPhotos) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMessagesFilterChatPhotos#3a20ecb8 as nil")
 	}
 	b.PutID(InputMessagesFilterChatPhotosTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMessagesFilterChatPhotos) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMessagesFilterChatPhotos#3a20ecb8 as nil")
+	}
 	return nil
 }
 
@@ -852,6 +1022,14 @@ func (i *InputMessagesFilterChatPhotos) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterChatPhotosTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterChatPhotos#3a20ecb8: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMessagesFilterChatPhotos) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessagesFilterChatPhotos#3a20ecb8 to nil")
+	}
 	return nil
 }
 
@@ -860,8 +1038,10 @@ func (i InputMessagesFilterChatPhotos) construct() MessagesFilterClass { return 
 
 // Ensuring interfaces in compile-time for InputMessagesFilterChatPhotos.
 var (
-	_ bin.Encoder = &InputMessagesFilterChatPhotos{}
-	_ bin.Decoder = &InputMessagesFilterChatPhotos{}
+	_ bin.Encoder     = &InputMessagesFilterChatPhotos{}
+	_ bin.Decoder     = &InputMessagesFilterChatPhotos{}
+	_ bin.BareEncoder = &InputMessagesFilterChatPhotos{}
+	_ bin.BareDecoder = &InputMessagesFilterChatPhotos{}
 
 	_ MessagesFilterClass = &InputMessagesFilterChatPhotos{}
 )
@@ -951,6 +1131,14 @@ func (i *InputMessagesFilterPhoneCalls) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMessagesFilterPhoneCalls#80c99768 as nil")
 	}
 	b.PutID(InputMessagesFilterPhoneCallsTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMessagesFilterPhoneCalls) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMessagesFilterPhoneCalls#80c99768 as nil")
+	}
 	if !(i.Missed == false) {
 		i.Flags.Set(0)
 	}
@@ -984,6 +1172,14 @@ func (i *InputMessagesFilterPhoneCalls) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterPhoneCallsTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterPhoneCalls#80c99768: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMessagesFilterPhoneCalls) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessagesFilterPhoneCalls#80c99768 to nil")
+	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputMessagesFilterPhoneCalls#80c99768: field flags: %w", err)
@@ -998,8 +1194,10 @@ func (i InputMessagesFilterPhoneCalls) construct() MessagesFilterClass { return 
 
 // Ensuring interfaces in compile-time for InputMessagesFilterPhoneCalls.
 var (
-	_ bin.Encoder = &InputMessagesFilterPhoneCalls{}
-	_ bin.Decoder = &InputMessagesFilterPhoneCalls{}
+	_ bin.Encoder     = &InputMessagesFilterPhoneCalls{}
+	_ bin.Decoder     = &InputMessagesFilterPhoneCalls{}
+	_ bin.BareEncoder = &InputMessagesFilterPhoneCalls{}
+	_ bin.BareDecoder = &InputMessagesFilterPhoneCalls{}
 
 	_ MessagesFilterClass = &InputMessagesFilterPhoneCalls{}
 )
@@ -1063,6 +1261,14 @@ func (i *InputMessagesFilterRoundVoice) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMessagesFilterRoundVoice#7a7c17a4 as nil")
 	}
 	b.PutID(InputMessagesFilterRoundVoiceTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMessagesFilterRoundVoice) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMessagesFilterRoundVoice#7a7c17a4 as nil")
+	}
 	return nil
 }
 
@@ -1074,6 +1280,14 @@ func (i *InputMessagesFilterRoundVoice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterRoundVoiceTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterRoundVoice#7a7c17a4: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMessagesFilterRoundVoice) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessagesFilterRoundVoice#7a7c17a4 to nil")
+	}
 	return nil
 }
 
@@ -1082,8 +1296,10 @@ func (i InputMessagesFilterRoundVoice) construct() MessagesFilterClass { return 
 
 // Ensuring interfaces in compile-time for InputMessagesFilterRoundVoice.
 var (
-	_ bin.Encoder = &InputMessagesFilterRoundVoice{}
-	_ bin.Decoder = &InputMessagesFilterRoundVoice{}
+	_ bin.Encoder     = &InputMessagesFilterRoundVoice{}
+	_ bin.Decoder     = &InputMessagesFilterRoundVoice{}
+	_ bin.BareEncoder = &InputMessagesFilterRoundVoice{}
+	_ bin.BareDecoder = &InputMessagesFilterRoundVoice{}
 
 	_ MessagesFilterClass = &InputMessagesFilterRoundVoice{}
 )
@@ -1147,6 +1363,14 @@ func (i *InputMessagesFilterRoundVideo) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMessagesFilterRoundVideo#b549da53 as nil")
 	}
 	b.PutID(InputMessagesFilterRoundVideoTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMessagesFilterRoundVideo) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMessagesFilterRoundVideo#b549da53 as nil")
+	}
 	return nil
 }
 
@@ -1158,6 +1382,14 @@ func (i *InputMessagesFilterRoundVideo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterRoundVideoTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterRoundVideo#b549da53: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMessagesFilterRoundVideo) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessagesFilterRoundVideo#b549da53 to nil")
+	}
 	return nil
 }
 
@@ -1166,8 +1398,10 @@ func (i InputMessagesFilterRoundVideo) construct() MessagesFilterClass { return 
 
 // Ensuring interfaces in compile-time for InputMessagesFilterRoundVideo.
 var (
-	_ bin.Encoder = &InputMessagesFilterRoundVideo{}
-	_ bin.Decoder = &InputMessagesFilterRoundVideo{}
+	_ bin.Encoder     = &InputMessagesFilterRoundVideo{}
+	_ bin.Decoder     = &InputMessagesFilterRoundVideo{}
+	_ bin.BareEncoder = &InputMessagesFilterRoundVideo{}
+	_ bin.BareDecoder = &InputMessagesFilterRoundVideo{}
 
 	_ MessagesFilterClass = &InputMessagesFilterRoundVideo{}
 )
@@ -1234,6 +1468,14 @@ func (i *InputMessagesFilterMyMentions) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMessagesFilterMyMentions#c1f8e69a as nil")
 	}
 	b.PutID(InputMessagesFilterMyMentionsTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMessagesFilterMyMentions) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMessagesFilterMyMentions#c1f8e69a as nil")
+	}
 	return nil
 }
 
@@ -1245,6 +1487,14 @@ func (i *InputMessagesFilterMyMentions) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterMyMentionsTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterMyMentions#c1f8e69a: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMessagesFilterMyMentions) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessagesFilterMyMentions#c1f8e69a to nil")
+	}
 	return nil
 }
 
@@ -1253,8 +1503,10 @@ func (i InputMessagesFilterMyMentions) construct() MessagesFilterClass { return 
 
 // Ensuring interfaces in compile-time for InputMessagesFilterMyMentions.
 var (
-	_ bin.Encoder = &InputMessagesFilterMyMentions{}
-	_ bin.Decoder = &InputMessagesFilterMyMentions{}
+	_ bin.Encoder     = &InputMessagesFilterMyMentions{}
+	_ bin.Decoder     = &InputMessagesFilterMyMentions{}
+	_ bin.BareEncoder = &InputMessagesFilterMyMentions{}
+	_ bin.BareDecoder = &InputMessagesFilterMyMentions{}
 
 	_ MessagesFilterClass = &InputMessagesFilterMyMentions{}
 )
@@ -1318,6 +1570,14 @@ func (i *InputMessagesFilterGeo) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMessagesFilterGeo#e7026d0d as nil")
 	}
 	b.PutID(InputMessagesFilterGeoTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMessagesFilterGeo) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMessagesFilterGeo#e7026d0d as nil")
+	}
 	return nil
 }
 
@@ -1329,6 +1589,14 @@ func (i *InputMessagesFilterGeo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterGeoTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterGeo#e7026d0d: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMessagesFilterGeo) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessagesFilterGeo#e7026d0d to nil")
+	}
 	return nil
 }
 
@@ -1337,8 +1605,10 @@ func (i InputMessagesFilterGeo) construct() MessagesFilterClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMessagesFilterGeo.
 var (
-	_ bin.Encoder = &InputMessagesFilterGeo{}
-	_ bin.Decoder = &InputMessagesFilterGeo{}
+	_ bin.Encoder     = &InputMessagesFilterGeo{}
+	_ bin.Decoder     = &InputMessagesFilterGeo{}
+	_ bin.BareEncoder = &InputMessagesFilterGeo{}
+	_ bin.BareDecoder = &InputMessagesFilterGeo{}
 
 	_ MessagesFilterClass = &InputMessagesFilterGeo{}
 )
@@ -1402,6 +1672,14 @@ func (i *InputMessagesFilterContacts) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMessagesFilterContacts#e062db83 as nil")
 	}
 	b.PutID(InputMessagesFilterContactsTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMessagesFilterContacts) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMessagesFilterContacts#e062db83 as nil")
+	}
 	return nil
 }
 
@@ -1413,6 +1691,14 @@ func (i *InputMessagesFilterContacts) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterContactsTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterContacts#e062db83: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMessagesFilterContacts) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessagesFilterContacts#e062db83 to nil")
+	}
 	return nil
 }
 
@@ -1421,8 +1707,10 @@ func (i InputMessagesFilterContacts) construct() MessagesFilterClass { return &i
 
 // Ensuring interfaces in compile-time for InputMessagesFilterContacts.
 var (
-	_ bin.Encoder = &InputMessagesFilterContacts{}
-	_ bin.Decoder = &InputMessagesFilterContacts{}
+	_ bin.Encoder     = &InputMessagesFilterContacts{}
+	_ bin.Decoder     = &InputMessagesFilterContacts{}
+	_ bin.BareEncoder = &InputMessagesFilterContacts{}
+	_ bin.BareDecoder = &InputMessagesFilterContacts{}
 
 	_ MessagesFilterClass = &InputMessagesFilterContacts{}
 )
@@ -1486,6 +1774,14 @@ func (i *InputMessagesFilterPinned) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMessagesFilterPinned#1bb00451 as nil")
 	}
 	b.PutID(InputMessagesFilterPinnedTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMessagesFilterPinned) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMessagesFilterPinned#1bb00451 as nil")
+	}
 	return nil
 }
 
@@ -1497,6 +1793,14 @@ func (i *InputMessagesFilterPinned) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagesFilterPinnedTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagesFilterPinned#1bb00451: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMessagesFilterPinned) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessagesFilterPinned#1bb00451 to nil")
+	}
 	return nil
 }
 
@@ -1505,8 +1809,10 @@ func (i InputMessagesFilterPinned) construct() MessagesFilterClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMessagesFilterPinned.
 var (
-	_ bin.Encoder = &InputMessagesFilterPinned{}
-	_ bin.Decoder = &InputMessagesFilterPinned{}
+	_ bin.Encoder     = &InputMessagesFilterPinned{}
+	_ bin.Decoder     = &InputMessagesFilterPinned{}
+	_ bin.BareEncoder = &InputMessagesFilterPinned{}
+	_ bin.BareDecoder = &InputMessagesFilterPinned{}
 
 	_ MessagesFilterClass = &InputMessagesFilterPinned{}
 )
@@ -1543,6 +1849,8 @@ var (
 type MessagesFilterClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() MessagesFilterClass
 
 	// TypeID returns type id in TL schema.

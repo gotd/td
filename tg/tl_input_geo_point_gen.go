@@ -85,6 +85,14 @@ func (i *InputGeoPointEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputGeoPointEmpty#e4c123d6 as nil")
 	}
 	b.PutID(InputGeoPointEmptyTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputGeoPointEmpty) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputGeoPointEmpty#e4c123d6 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (i *InputGeoPointEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputGeoPointEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputGeoPointEmpty#e4c123d6: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputGeoPointEmpty) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputGeoPointEmpty#e4c123d6 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (i InputGeoPointEmpty) construct() InputGeoPointClass { return &i }
 
 // Ensuring interfaces in compile-time for InputGeoPointEmpty.
 var (
-	_ bin.Encoder = &InputGeoPointEmpty{}
-	_ bin.Decoder = &InputGeoPointEmpty{}
+	_ bin.Encoder     = &InputGeoPointEmpty{}
+	_ bin.Decoder     = &InputGeoPointEmpty{}
+	_ bin.BareEncoder = &InputGeoPointEmpty{}
+	_ bin.BareDecoder = &InputGeoPointEmpty{}
 
 	_ InputGeoPointClass = &InputGeoPointEmpty{}
 )
@@ -222,6 +240,14 @@ func (i *InputGeoPoint) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputGeoPoint#48222faf as nil")
 	}
 	b.PutID(InputGeoPointTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputGeoPoint) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputGeoPoint#48222faf as nil")
+	}
 	if !(i.AccuracyRadius == 0) {
 		i.Flags.Set(0)
 	}
@@ -269,6 +295,14 @@ func (i *InputGeoPoint) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputGeoPointTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputGeoPoint#48222faf: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputGeoPoint) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputGeoPoint#48222faf to nil")
+	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputGeoPoint#48222faf: field flags: %w", err)
@@ -303,8 +337,10 @@ func (i InputGeoPoint) construct() InputGeoPointClass { return &i }
 
 // Ensuring interfaces in compile-time for InputGeoPoint.
 var (
-	_ bin.Encoder = &InputGeoPoint{}
-	_ bin.Decoder = &InputGeoPoint{}
+	_ bin.Encoder     = &InputGeoPoint{}
+	_ bin.Decoder     = &InputGeoPoint{}
+	_ bin.BareEncoder = &InputGeoPoint{}
+	_ bin.BareDecoder = &InputGeoPoint{}
 
 	_ InputGeoPointClass = &InputGeoPoint{}
 )
@@ -326,6 +362,8 @@ var (
 type InputGeoPointClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() InputGeoPointClass
 
 	// TypeID returns type id in TL schema.

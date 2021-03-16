@@ -102,6 +102,14 @@ func (m *StatsMessageStats) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode stats.messageStats#8999f295 as nil")
 	}
 	b.PutID(StatsMessageStatsTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *StatsMessageStats) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode stats.messageStats#8999f295 as nil")
+	}
 	if m.ViewsGraph == nil {
 		return fmt.Errorf("unable to encode stats.messageStats#8999f295: field views_graph is nil")
 	}
@@ -124,6 +132,14 @@ func (m *StatsMessageStats) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsMessageStatsTypeID); err != nil {
 		return fmt.Errorf("unable to decode stats.messageStats#8999f295: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *StatsMessageStats) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode stats.messageStats#8999f295 to nil")
+	}
 	{
 		value, err := DecodeStatsGraph(b)
 		if err != nil {
@@ -136,6 +152,8 @@ func (m *StatsMessageStats) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for StatsMessageStats.
 var (
-	_ bin.Encoder = &StatsMessageStats{}
-	_ bin.Decoder = &StatsMessageStats{}
+	_ bin.Encoder     = &StatsMessageStats{}
+	_ bin.Decoder     = &StatsMessageStats{}
+	_ bin.BareEncoder = &StatsMessageStats{}
+	_ bin.BareDecoder = &StatsMessageStats{}
 )

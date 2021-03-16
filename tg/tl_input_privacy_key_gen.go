@@ -85,6 +85,14 @@ func (i *InputPrivacyKeyStatusTimestamp) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputPrivacyKeyStatusTimestamp#4f96cb18 as nil")
 	}
 	b.PutID(InputPrivacyKeyStatusTimestampTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPrivacyKeyStatusTimestamp) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPrivacyKeyStatusTimestamp#4f96cb18 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (i *InputPrivacyKeyStatusTimestamp) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPrivacyKeyStatusTimestampTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPrivacyKeyStatusTimestamp#4f96cb18: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPrivacyKeyStatusTimestamp) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPrivacyKeyStatusTimestamp#4f96cb18 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (i InputPrivacyKeyStatusTimestamp) construct() InputPrivacyKeyClass { retur
 
 // Ensuring interfaces in compile-time for InputPrivacyKeyStatusTimestamp.
 var (
-	_ bin.Encoder = &InputPrivacyKeyStatusTimestamp{}
-	_ bin.Decoder = &InputPrivacyKeyStatusTimestamp{}
+	_ bin.Encoder     = &InputPrivacyKeyStatusTimestamp{}
+	_ bin.Decoder     = &InputPrivacyKeyStatusTimestamp{}
+	_ bin.BareEncoder = &InputPrivacyKeyStatusTimestamp{}
+	_ bin.BareDecoder = &InputPrivacyKeyStatusTimestamp{}
 
 	_ InputPrivacyKeyClass = &InputPrivacyKeyStatusTimestamp{}
 )
@@ -169,6 +187,14 @@ func (i *InputPrivacyKeyChatInvite) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputPrivacyKeyChatInvite#bdfb0426 as nil")
 	}
 	b.PutID(InputPrivacyKeyChatInviteTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPrivacyKeyChatInvite) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPrivacyKeyChatInvite#bdfb0426 as nil")
+	}
 	return nil
 }
 
@@ -180,6 +206,14 @@ func (i *InputPrivacyKeyChatInvite) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPrivacyKeyChatInviteTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPrivacyKeyChatInvite#bdfb0426: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPrivacyKeyChatInvite) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPrivacyKeyChatInvite#bdfb0426 to nil")
+	}
 	return nil
 }
 
@@ -188,8 +222,10 @@ func (i InputPrivacyKeyChatInvite) construct() InputPrivacyKeyClass { return &i 
 
 // Ensuring interfaces in compile-time for InputPrivacyKeyChatInvite.
 var (
-	_ bin.Encoder = &InputPrivacyKeyChatInvite{}
-	_ bin.Decoder = &InputPrivacyKeyChatInvite{}
+	_ bin.Encoder     = &InputPrivacyKeyChatInvite{}
+	_ bin.Decoder     = &InputPrivacyKeyChatInvite{}
+	_ bin.BareEncoder = &InputPrivacyKeyChatInvite{}
+	_ bin.BareDecoder = &InputPrivacyKeyChatInvite{}
 
 	_ InputPrivacyKeyClass = &InputPrivacyKeyChatInvite{}
 )
@@ -253,6 +289,14 @@ func (i *InputPrivacyKeyPhoneCall) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputPrivacyKeyPhoneCall#fabadc5f as nil")
 	}
 	b.PutID(InputPrivacyKeyPhoneCallTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPrivacyKeyPhoneCall) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPrivacyKeyPhoneCall#fabadc5f as nil")
+	}
 	return nil
 }
 
@@ -264,6 +308,14 @@ func (i *InputPrivacyKeyPhoneCall) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPrivacyKeyPhoneCallTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPrivacyKeyPhoneCall#fabadc5f: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPrivacyKeyPhoneCall) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPrivacyKeyPhoneCall#fabadc5f to nil")
+	}
 	return nil
 }
 
@@ -272,8 +324,10 @@ func (i InputPrivacyKeyPhoneCall) construct() InputPrivacyKeyClass { return &i }
 
 // Ensuring interfaces in compile-time for InputPrivacyKeyPhoneCall.
 var (
-	_ bin.Encoder = &InputPrivacyKeyPhoneCall{}
-	_ bin.Decoder = &InputPrivacyKeyPhoneCall{}
+	_ bin.Encoder     = &InputPrivacyKeyPhoneCall{}
+	_ bin.Decoder     = &InputPrivacyKeyPhoneCall{}
+	_ bin.BareEncoder = &InputPrivacyKeyPhoneCall{}
+	_ bin.BareDecoder = &InputPrivacyKeyPhoneCall{}
 
 	_ InputPrivacyKeyClass = &InputPrivacyKeyPhoneCall{}
 )
@@ -337,6 +391,14 @@ func (i *InputPrivacyKeyPhoneP2P) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputPrivacyKeyPhoneP2P#db9e70d2 as nil")
 	}
 	b.PutID(InputPrivacyKeyPhoneP2PTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPrivacyKeyPhoneP2P) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPrivacyKeyPhoneP2P#db9e70d2 as nil")
+	}
 	return nil
 }
 
@@ -348,6 +410,14 @@ func (i *InputPrivacyKeyPhoneP2P) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPrivacyKeyPhoneP2PTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPrivacyKeyPhoneP2P#db9e70d2: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPrivacyKeyPhoneP2P) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPrivacyKeyPhoneP2P#db9e70d2 to nil")
+	}
 	return nil
 }
 
@@ -356,8 +426,10 @@ func (i InputPrivacyKeyPhoneP2P) construct() InputPrivacyKeyClass { return &i }
 
 // Ensuring interfaces in compile-time for InputPrivacyKeyPhoneP2P.
 var (
-	_ bin.Encoder = &InputPrivacyKeyPhoneP2P{}
-	_ bin.Decoder = &InputPrivacyKeyPhoneP2P{}
+	_ bin.Encoder     = &InputPrivacyKeyPhoneP2P{}
+	_ bin.Decoder     = &InputPrivacyKeyPhoneP2P{}
+	_ bin.BareEncoder = &InputPrivacyKeyPhoneP2P{}
+	_ bin.BareDecoder = &InputPrivacyKeyPhoneP2P{}
 
 	_ InputPrivacyKeyClass = &InputPrivacyKeyPhoneP2P{}
 )
@@ -424,6 +496,14 @@ func (i *InputPrivacyKeyForwards) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputPrivacyKeyForwards#a4dd4c08 as nil")
 	}
 	b.PutID(InputPrivacyKeyForwardsTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPrivacyKeyForwards) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPrivacyKeyForwards#a4dd4c08 as nil")
+	}
 	return nil
 }
 
@@ -435,6 +515,14 @@ func (i *InputPrivacyKeyForwards) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPrivacyKeyForwardsTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPrivacyKeyForwards#a4dd4c08: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPrivacyKeyForwards) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPrivacyKeyForwards#a4dd4c08 to nil")
+	}
 	return nil
 }
 
@@ -443,8 +531,10 @@ func (i InputPrivacyKeyForwards) construct() InputPrivacyKeyClass { return &i }
 
 // Ensuring interfaces in compile-time for InputPrivacyKeyForwards.
 var (
-	_ bin.Encoder = &InputPrivacyKeyForwards{}
-	_ bin.Decoder = &InputPrivacyKeyForwards{}
+	_ bin.Encoder     = &InputPrivacyKeyForwards{}
+	_ bin.Decoder     = &InputPrivacyKeyForwards{}
+	_ bin.BareEncoder = &InputPrivacyKeyForwards{}
+	_ bin.BareDecoder = &InputPrivacyKeyForwards{}
 
 	_ InputPrivacyKeyClass = &InputPrivacyKeyForwards{}
 )
@@ -508,6 +598,14 @@ func (i *InputPrivacyKeyProfilePhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputPrivacyKeyProfilePhoto#5719bacc as nil")
 	}
 	b.PutID(InputPrivacyKeyProfilePhotoTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPrivacyKeyProfilePhoto) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPrivacyKeyProfilePhoto#5719bacc as nil")
+	}
 	return nil
 }
 
@@ -519,6 +617,14 @@ func (i *InputPrivacyKeyProfilePhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPrivacyKeyProfilePhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPrivacyKeyProfilePhoto#5719bacc: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPrivacyKeyProfilePhoto) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPrivacyKeyProfilePhoto#5719bacc to nil")
+	}
 	return nil
 }
 
@@ -527,8 +633,10 @@ func (i InputPrivacyKeyProfilePhoto) construct() InputPrivacyKeyClass { return &
 
 // Ensuring interfaces in compile-time for InputPrivacyKeyProfilePhoto.
 var (
-	_ bin.Encoder = &InputPrivacyKeyProfilePhoto{}
-	_ bin.Decoder = &InputPrivacyKeyProfilePhoto{}
+	_ bin.Encoder     = &InputPrivacyKeyProfilePhoto{}
+	_ bin.Decoder     = &InputPrivacyKeyProfilePhoto{}
+	_ bin.BareEncoder = &InputPrivacyKeyProfilePhoto{}
+	_ bin.BareDecoder = &InputPrivacyKeyProfilePhoto{}
 
 	_ InputPrivacyKeyClass = &InputPrivacyKeyProfilePhoto{}
 )
@@ -592,6 +700,14 @@ func (i *InputPrivacyKeyPhoneNumber) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputPrivacyKeyPhoneNumber#352dafa as nil")
 	}
 	b.PutID(InputPrivacyKeyPhoneNumberTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPrivacyKeyPhoneNumber) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPrivacyKeyPhoneNumber#352dafa as nil")
+	}
 	return nil
 }
 
@@ -603,6 +719,14 @@ func (i *InputPrivacyKeyPhoneNumber) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPrivacyKeyPhoneNumberTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPrivacyKeyPhoneNumber#352dafa: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPrivacyKeyPhoneNumber) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPrivacyKeyPhoneNumber#352dafa to nil")
+	}
 	return nil
 }
 
@@ -611,8 +735,10 @@ func (i InputPrivacyKeyPhoneNumber) construct() InputPrivacyKeyClass { return &i
 
 // Ensuring interfaces in compile-time for InputPrivacyKeyPhoneNumber.
 var (
-	_ bin.Encoder = &InputPrivacyKeyPhoneNumber{}
-	_ bin.Decoder = &InputPrivacyKeyPhoneNumber{}
+	_ bin.Encoder     = &InputPrivacyKeyPhoneNumber{}
+	_ bin.Decoder     = &InputPrivacyKeyPhoneNumber{}
+	_ bin.BareEncoder = &InputPrivacyKeyPhoneNumber{}
+	_ bin.BareDecoder = &InputPrivacyKeyPhoneNumber{}
 
 	_ InputPrivacyKeyClass = &InputPrivacyKeyPhoneNumber{}
 )
@@ -676,6 +802,14 @@ func (i *InputPrivacyKeyAddedByPhone) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputPrivacyKeyAddedByPhone#d1219bdd as nil")
 	}
 	b.PutID(InputPrivacyKeyAddedByPhoneTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPrivacyKeyAddedByPhone) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPrivacyKeyAddedByPhone#d1219bdd as nil")
+	}
 	return nil
 }
 
@@ -687,6 +821,14 @@ func (i *InputPrivacyKeyAddedByPhone) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPrivacyKeyAddedByPhoneTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPrivacyKeyAddedByPhone#d1219bdd: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPrivacyKeyAddedByPhone) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPrivacyKeyAddedByPhone#d1219bdd to nil")
+	}
 	return nil
 }
 
@@ -695,8 +837,10 @@ func (i InputPrivacyKeyAddedByPhone) construct() InputPrivacyKeyClass { return &
 
 // Ensuring interfaces in compile-time for InputPrivacyKeyAddedByPhone.
 var (
-	_ bin.Encoder = &InputPrivacyKeyAddedByPhone{}
-	_ bin.Decoder = &InputPrivacyKeyAddedByPhone{}
+	_ bin.Encoder     = &InputPrivacyKeyAddedByPhone{}
+	_ bin.Decoder     = &InputPrivacyKeyAddedByPhone{}
+	_ bin.BareEncoder = &InputPrivacyKeyAddedByPhone{}
+	_ bin.BareDecoder = &InputPrivacyKeyAddedByPhone{}
 
 	_ InputPrivacyKeyClass = &InputPrivacyKeyAddedByPhone{}
 )
@@ -724,6 +868,8 @@ var (
 type InputPrivacyKeyClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() InputPrivacyKeyClass
 
 	// TypeID returns type id in TL schema.

@@ -128,6 +128,14 @@ func (s *SecureData) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureData#8aeabec3 as nil")
 	}
 	b.PutID(SecureDataTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureData) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureData#8aeabec3 as nil")
+	}
 	b.PutBytes(s.Data)
 	b.PutBytes(s.DataHash)
 	b.PutBytes(s.Secret)
@@ -157,6 +165,14 @@ func (s *SecureData) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureDataTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureData#8aeabec3: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureData) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureData#8aeabec3 to nil")
+	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
@@ -183,6 +199,8 @@ func (s *SecureData) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for SecureData.
 var (
-	_ bin.Encoder = &SecureData{}
-	_ bin.Decoder = &SecureData{}
+	_ bin.Encoder     = &SecureData{}
+	_ bin.Decoder     = &SecureData{}
+	_ bin.BareEncoder = &SecureData{}
+	_ bin.BareDecoder = &SecureData{}
 )

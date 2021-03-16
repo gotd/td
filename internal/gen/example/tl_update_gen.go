@@ -112,6 +112,14 @@ func (u *Update) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode update#b03e2ef8 as nil")
 	}
 	b.PutID(UpdateTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *Update) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode update#b03e2ef8 as nil")
+	}
 	if u.Msg == nil {
 		return fmt.Errorf("unable to encode update#b03e2ef8: field msg is nil")
 	}
@@ -140,6 +148,14 @@ func (u *Update) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdateTypeID); err != nil {
 		return fmt.Errorf("unable to decode update#b03e2ef8: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *Update) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode update#b03e2ef8 to nil")
+	}
 	{
 		value, err := DecodeAbstractMessage(b)
 		if err != nil {
@@ -159,6 +175,8 @@ func (u *Update) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for Update.
 var (
-	_ bin.Encoder = &Update{}
-	_ bin.Decoder = &Update{}
+	_ bin.Encoder     = &Update{}
+	_ bin.Decoder     = &Update{}
+	_ bin.BareEncoder = &Update{}
+	_ bin.BareDecoder = &Update{}
 )

@@ -161,6 +161,14 @@ func (s *AuthSentCode) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.sentCode#5e002502 as nil")
 	}
 	b.PutID(AuthSentCodeTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *AuthSentCode) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode auth.sentCode#5e002502 as nil")
+	}
 	if !(s.NextType == nil) {
 		s.Flags.Set(1)
 	}
@@ -239,6 +247,14 @@ func (s *AuthSentCode) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthSentCodeTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.sentCode#5e002502: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *AuthSentCode) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode auth.sentCode#5e002502 to nil")
+	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode auth.sentCode#5e002502: field flags: %w", err)
@@ -277,6 +293,8 @@ func (s *AuthSentCode) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AuthSentCode.
 var (
-	_ bin.Encoder = &AuthSentCode{}
-	_ bin.Decoder = &AuthSentCode{}
+	_ bin.Encoder     = &AuthSentCode{}
+	_ bin.Decoder     = &AuthSentCode{}
+	_ bin.BareEncoder = &AuthSentCode{}
+	_ bin.BareDecoder = &AuthSentCode{}
 )

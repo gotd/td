@@ -102,6 +102,14 @@ func (g *MessagesGetEmojiKeywordsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getEmojiKeywords#35a0e062 as nil")
 	}
 	b.PutID(MessagesGetEmojiKeywordsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetEmojiKeywordsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getEmojiKeywords#35a0e062 as nil")
+	}
 	b.PutString(g.LangCode)
 	return nil
 }
@@ -119,6 +127,14 @@ func (g *MessagesGetEmojiKeywordsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetEmojiKeywordsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getEmojiKeywords#35a0e062: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetEmojiKeywordsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getEmojiKeywords#35a0e062 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -131,8 +147,10 @@ func (g *MessagesGetEmojiKeywordsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetEmojiKeywordsRequest.
 var (
-	_ bin.Encoder = &MessagesGetEmojiKeywordsRequest{}
-	_ bin.Decoder = &MessagesGetEmojiKeywordsRequest{}
+	_ bin.Encoder     = &MessagesGetEmojiKeywordsRequest{}
+	_ bin.Decoder     = &MessagesGetEmojiKeywordsRequest{}
+	_ bin.BareEncoder = &MessagesGetEmojiKeywordsRequest{}
+	_ bin.BareDecoder = &MessagesGetEmojiKeywordsRequest{}
 )
 
 // MessagesGetEmojiKeywords invokes method messages.getEmojiKeywords#35a0e062 returning error if any.

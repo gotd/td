@@ -171,6 +171,14 @@ func (g *MessagesGetBotCallbackAnswerRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getBotCallbackAnswer#9342ca07 as nil")
 	}
 	b.PutID(MessagesGetBotCallbackAnswerRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetBotCallbackAnswerRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getBotCallbackAnswer#9342ca07 as nil")
+	}
 	if !(g.Game == false) {
 		g.Flags.Set(1)
 	}
@@ -277,6 +285,14 @@ func (g *MessagesGetBotCallbackAnswerRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetBotCallbackAnswerRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getBotCallbackAnswer#9342ca07: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetBotCallbackAnswerRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getBotCallbackAnswer#9342ca07 to nil")
+	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.getBotCallbackAnswer#9342ca07: field flags: %w", err)
@@ -316,8 +332,10 @@ func (g *MessagesGetBotCallbackAnswerRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetBotCallbackAnswerRequest.
 var (
-	_ bin.Encoder = &MessagesGetBotCallbackAnswerRequest{}
-	_ bin.Decoder = &MessagesGetBotCallbackAnswerRequest{}
+	_ bin.Encoder     = &MessagesGetBotCallbackAnswerRequest{}
+	_ bin.Decoder     = &MessagesGetBotCallbackAnswerRequest{}
+	_ bin.BareEncoder = &MessagesGetBotCallbackAnswerRequest{}
+	_ bin.BareDecoder = &MessagesGetBotCallbackAnswerRequest{}
 )
 
 // MessagesGetBotCallbackAnswer invokes method messages.getBotCallbackAnswer#9342ca07 returning error if any.

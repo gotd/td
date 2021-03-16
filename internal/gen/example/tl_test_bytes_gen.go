@@ -101,6 +101,14 @@ func (t *TestBytes) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode testBytes#a422c4de as nil")
 	}
 	b.PutID(TestBytesTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TestBytes) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode testBytes#a422c4de as nil")
+	}
 	b.PutBytes(t.Value)
 	return nil
 }
@@ -118,6 +126,14 @@ func (t *TestBytes) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TestBytesTypeID); err != nil {
 		return fmt.Errorf("unable to decode testBytes#a422c4de: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TestBytes) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode testBytes#a422c4de to nil")
+	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
@@ -130,6 +146,8 @@ func (t *TestBytes) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for TestBytes.
 var (
-	_ bin.Encoder = &TestBytes{}
-	_ bin.Decoder = &TestBytes{}
+	_ bin.Encoder     = &TestBytes{}
+	_ bin.Decoder     = &TestBytes{}
+	_ bin.BareEncoder = &TestBytes{}
+	_ bin.BareDecoder = &TestBytes{}
 )

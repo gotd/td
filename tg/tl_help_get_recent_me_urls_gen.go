@@ -102,6 +102,14 @@ func (g *HelpGetRecentMeURLsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.getRecentMeUrls#3dc0f114 as nil")
 	}
 	b.PutID(HelpGetRecentMeURLsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *HelpGetRecentMeURLsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode help.getRecentMeUrls#3dc0f114 as nil")
+	}
 	b.PutString(g.Referer)
 	return nil
 }
@@ -119,6 +127,14 @@ func (g *HelpGetRecentMeURLsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetRecentMeURLsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getRecentMeUrls#3dc0f114: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *HelpGetRecentMeURLsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode help.getRecentMeUrls#3dc0f114 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -131,8 +147,10 @@ func (g *HelpGetRecentMeURLsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for HelpGetRecentMeURLsRequest.
 var (
-	_ bin.Encoder = &HelpGetRecentMeURLsRequest{}
-	_ bin.Decoder = &HelpGetRecentMeURLsRequest{}
+	_ bin.Encoder     = &HelpGetRecentMeURLsRequest{}
+	_ bin.Decoder     = &HelpGetRecentMeURLsRequest{}
+	_ bin.BareEncoder = &HelpGetRecentMeURLsRequest{}
+	_ bin.BareDecoder = &HelpGetRecentMeURLsRequest{}
 )
 
 // HelpGetRecentMeURLs invokes method help.getRecentMeUrls#3dc0f114 returning error if any.

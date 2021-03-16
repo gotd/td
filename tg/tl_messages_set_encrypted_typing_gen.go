@@ -117,6 +117,14 @@ func (s *MessagesSetEncryptedTypingRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.setEncryptedTyping#791451ed as nil")
 	}
 	b.PutID(MessagesSetEncryptedTypingRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesSetEncryptedTypingRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.setEncryptedTyping#791451ed as nil")
+	}
 	if err := s.Peer.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.setEncryptedTyping#791451ed: field peer: %w", err)
 	}
@@ -142,6 +150,14 @@ func (s *MessagesSetEncryptedTypingRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSetEncryptedTypingRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.setEncryptedTyping#791451ed: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSetEncryptedTypingRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.setEncryptedTyping#791451ed to nil")
+	}
 	{
 		if err := s.Peer.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.setEncryptedTyping#791451ed: field peer: %w", err)
@@ -159,8 +175,10 @@ func (s *MessagesSetEncryptedTypingRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesSetEncryptedTypingRequest.
 var (
-	_ bin.Encoder = &MessagesSetEncryptedTypingRequest{}
-	_ bin.Decoder = &MessagesSetEncryptedTypingRequest{}
+	_ bin.Encoder     = &MessagesSetEncryptedTypingRequest{}
+	_ bin.Decoder     = &MessagesSetEncryptedTypingRequest{}
+	_ bin.BareEncoder = &MessagesSetEncryptedTypingRequest{}
+	_ bin.BareDecoder = &MessagesSetEncryptedTypingRequest{}
 )
 
 // MessagesSetEncryptedTyping invokes method messages.setEncryptedTyping#791451ed returning error if any.

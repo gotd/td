@@ -144,6 +144,14 @@ func (i *AuthImportBotAuthorizationRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.importBotAuthorization#67a3ff2c as nil")
 	}
 	b.PutID(AuthImportBotAuthorizationRequestTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *AuthImportBotAuthorizationRequest) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode auth.importBotAuthorization#67a3ff2c as nil")
+	}
 	b.PutInt(i.Flags)
 	b.PutInt(i.APIID)
 	b.PutString(i.APIHash)
@@ -179,6 +187,14 @@ func (i *AuthImportBotAuthorizationRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthImportBotAuthorizationRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.importBotAuthorization#67a3ff2c: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *AuthImportBotAuthorizationRequest) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode auth.importBotAuthorization#67a3ff2c to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -212,8 +228,10 @@ func (i *AuthImportBotAuthorizationRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AuthImportBotAuthorizationRequest.
 var (
-	_ bin.Encoder = &AuthImportBotAuthorizationRequest{}
-	_ bin.Decoder = &AuthImportBotAuthorizationRequest{}
+	_ bin.Encoder     = &AuthImportBotAuthorizationRequest{}
+	_ bin.Decoder     = &AuthImportBotAuthorizationRequest{}
+	_ bin.BareEncoder = &AuthImportBotAuthorizationRequest{}
+	_ bin.BareDecoder = &AuthImportBotAuthorizationRequest{}
 )
 
 // AuthImportBotAuthorization invokes method auth.importBotAuthorization#67a3ff2c returning error if any.

@@ -85,6 +85,14 @@ func (g *MessagesGetDialogUnreadMarksRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getDialogUnreadMarks#22e24e22 as nil")
 	}
 	b.PutID(MessagesGetDialogUnreadMarksRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetDialogUnreadMarksRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getDialogUnreadMarks#22e24e22 as nil")
+	}
 	return nil
 }
 
@@ -96,13 +104,23 @@ func (g *MessagesGetDialogUnreadMarksRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetDialogUnreadMarksRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getDialogUnreadMarks#22e24e22: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetDialogUnreadMarksRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getDialogUnreadMarks#22e24e22 to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for MessagesGetDialogUnreadMarksRequest.
 var (
-	_ bin.Encoder = &MessagesGetDialogUnreadMarksRequest{}
-	_ bin.Decoder = &MessagesGetDialogUnreadMarksRequest{}
+	_ bin.Encoder     = &MessagesGetDialogUnreadMarksRequest{}
+	_ bin.Decoder     = &MessagesGetDialogUnreadMarksRequest{}
+	_ bin.BareEncoder = &MessagesGetDialogUnreadMarksRequest{}
+	_ bin.BareDecoder = &MessagesGetDialogUnreadMarksRequest{}
 )
 
 // MessagesGetDialogUnreadMarks invokes method messages.getDialogUnreadMarks#22e24e22 returning error if any.

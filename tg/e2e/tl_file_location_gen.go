@@ -123,6 +123,14 @@ func (f *FileLocationUnavailable) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode fileLocationUnavailable#7c596b46 as nil")
 	}
 	b.PutID(FileLocationUnavailableTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *FileLocationUnavailable) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileLocationUnavailable#7c596b46 as nil")
+	}
 	b.PutLong(f.VolumeID)
 	b.PutInt(f.LocalID)
 	b.PutLong(f.Secret)
@@ -151,6 +159,14 @@ func (f *FileLocationUnavailable) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(FileLocationUnavailableTypeID); err != nil {
 		return fmt.Errorf("unable to decode fileLocationUnavailable#7c596b46: %w", err)
+	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *FileLocationUnavailable) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode fileLocationUnavailable#7c596b46 to nil")
 	}
 	{
 		value, err := b.Long()
@@ -181,8 +197,10 @@ func (f FileLocationUnavailable) construct() FileLocationClass { return &f }
 
 // Ensuring interfaces in compile-time for FileLocationUnavailable.
 var (
-	_ bin.Encoder = &FileLocationUnavailable{}
-	_ bin.Decoder = &FileLocationUnavailable{}
+	_ bin.Encoder     = &FileLocationUnavailable{}
+	_ bin.Decoder     = &FileLocationUnavailable{}
+	_ bin.BareEncoder = &FileLocationUnavailable{}
+	_ bin.BareDecoder = &FileLocationUnavailable{}
 
 	_ FileLocationClass = &FileLocationUnavailable{}
 )
@@ -295,6 +313,14 @@ func (f *FileLocation) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode fileLocation#53d69076 as nil")
 	}
 	b.PutID(FileLocationTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *FileLocation) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileLocation#53d69076 as nil")
+	}
 	b.PutInt(f.DCID)
 	b.PutLong(f.VolumeID)
 	b.PutInt(f.LocalID)
@@ -329,6 +355,14 @@ func (f *FileLocation) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(FileLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode fileLocation#53d69076: %w", err)
+	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *FileLocation) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode fileLocation#53d69076 to nil")
 	}
 	{
 		value, err := b.Int()
@@ -366,8 +400,10 @@ func (f FileLocation) construct() FileLocationClass { return &f }
 
 // Ensuring interfaces in compile-time for FileLocation.
 var (
-	_ bin.Encoder = &FileLocation{}
-	_ bin.Decoder = &FileLocation{}
+	_ bin.Encoder     = &FileLocation{}
+	_ bin.Decoder     = &FileLocation{}
+	_ bin.BareEncoder = &FileLocation{}
+	_ bin.BareDecoder = &FileLocation{}
 
 	_ FileLocationClass = &FileLocation{}
 )
@@ -389,6 +425,8 @@ var (
 type FileLocationClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() FileLocationClass
 
 	// TypeID returns type id in TL schema.

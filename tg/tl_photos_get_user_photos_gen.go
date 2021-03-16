@@ -135,6 +135,14 @@ func (g *PhotosGetUserPhotosRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode photos.getUserPhotos#91cd32a8 as nil")
 	}
 	b.PutID(PhotosGetUserPhotosRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *PhotosGetUserPhotosRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode photos.getUserPhotos#91cd32a8 as nil")
+	}
 	if g.UserID == nil {
 		return fmt.Errorf("unable to encode photos.getUserPhotos#91cd32a8: field user_id is nil")
 	}
@@ -175,6 +183,14 @@ func (g *PhotosGetUserPhotosRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotosGetUserPhotosRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode photos.getUserPhotos#91cd32a8: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *PhotosGetUserPhotosRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode photos.getUserPhotos#91cd32a8 to nil")
+	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
@@ -208,8 +224,10 @@ func (g *PhotosGetUserPhotosRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhotosGetUserPhotosRequest.
 var (
-	_ bin.Encoder = &PhotosGetUserPhotosRequest{}
-	_ bin.Decoder = &PhotosGetUserPhotosRequest{}
+	_ bin.Encoder     = &PhotosGetUserPhotosRequest{}
+	_ bin.Decoder     = &PhotosGetUserPhotosRequest{}
+	_ bin.BareEncoder = &PhotosGetUserPhotosRequest{}
+	_ bin.BareDecoder = &PhotosGetUserPhotosRequest{}
 )
 
 // PhotosGetUserPhotos invokes method photos.getUserPhotos#91cd32a8 returning error if any.

@@ -85,6 +85,14 @@ func (n *Null) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode null#56730bcc as nil")
 	}
 	b.PutID(NullTypeID)
+	return n.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (n *Null) EncodeBare(b *bin.Buffer) error {
+	if n == nil {
+		return fmt.Errorf("can't encode null#56730bcc as nil")
+	}
 	return nil
 }
 
@@ -96,11 +104,21 @@ func (n *Null) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(NullTypeID); err != nil {
 		return fmt.Errorf("unable to decode null#56730bcc: %w", err)
 	}
+	return n.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (n *Null) DecodeBare(b *bin.Buffer) error {
+	if n == nil {
+		return fmt.Errorf("can't decode null#56730bcc to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for Null.
 var (
-	_ bin.Encoder = &Null{}
-	_ bin.Decoder = &Null{}
+	_ bin.Encoder     = &Null{}
+	_ bin.Decoder     = &Null{}
+	_ bin.BareEncoder = &Null{}
+	_ bin.BareDecoder = &Null{}
 )

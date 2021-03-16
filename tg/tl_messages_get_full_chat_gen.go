@@ -102,6 +102,14 @@ func (g *MessagesGetFullChatRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getFullChat#3b831c66 as nil")
 	}
 	b.PutID(MessagesGetFullChatRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetFullChatRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getFullChat#3b831c66 as nil")
+	}
 	b.PutInt(g.ChatID)
 	return nil
 }
@@ -119,6 +127,14 @@ func (g *MessagesGetFullChatRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetFullChatRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getFullChat#3b831c66: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetFullChatRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getFullChat#3b831c66 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -131,8 +147,10 @@ func (g *MessagesGetFullChatRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetFullChatRequest.
 var (
-	_ bin.Encoder = &MessagesGetFullChatRequest{}
-	_ bin.Decoder = &MessagesGetFullChatRequest{}
+	_ bin.Encoder     = &MessagesGetFullChatRequest{}
+	_ bin.Decoder     = &MessagesGetFullChatRequest{}
+	_ bin.BareEncoder = &MessagesGetFullChatRequest{}
+	_ bin.BareDecoder = &MessagesGetFullChatRequest{}
 )
 
 // MessagesGetFullChat invokes method messages.getFullChat#3b831c66 returning error if any.

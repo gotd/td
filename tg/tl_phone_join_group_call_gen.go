@@ -157,6 +157,14 @@ func (j *PhoneJoinGroupCallRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.joinGroupCall#b132ff7b as nil")
 	}
 	b.PutID(PhoneJoinGroupCallRequestTypeID)
+	return j.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (j *PhoneJoinGroupCallRequest) EncodeBare(b *bin.Buffer) error {
+	if j == nil {
+		return fmt.Errorf("can't encode phone.joinGroupCall#b132ff7b as nil")
+	}
 	if !(j.Muted == false) {
 		j.Flags.Set(0)
 	}
@@ -238,6 +246,14 @@ func (j *PhoneJoinGroupCallRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneJoinGroupCallRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.joinGroupCall#b132ff7b: %w", err)
 	}
+	return j.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (j *PhoneJoinGroupCallRequest) DecodeBare(b *bin.Buffer) error {
+	if j == nil {
+		return fmt.Errorf("can't decode phone.joinGroupCall#b132ff7b to nil")
+	}
 	{
 		if err := j.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phone.joinGroupCall#b132ff7b: field flags: %w", err)
@@ -273,8 +289,10 @@ func (j *PhoneJoinGroupCallRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhoneJoinGroupCallRequest.
 var (
-	_ bin.Encoder = &PhoneJoinGroupCallRequest{}
-	_ bin.Decoder = &PhoneJoinGroupCallRequest{}
+	_ bin.Encoder     = &PhoneJoinGroupCallRequest{}
+	_ bin.Decoder     = &PhoneJoinGroupCallRequest{}
+	_ bin.BareEncoder = &PhoneJoinGroupCallRequest{}
+	_ bin.BareDecoder = &PhoneJoinGroupCallRequest{}
 )
 
 // PhoneJoinGroupCall invokes method phone.joinGroupCall#b132ff7b returning error if any.

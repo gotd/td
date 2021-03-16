@@ -125,6 +125,14 @@ func (g *MessagesGetRecentStickersRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getRecentStickers#5ea192c9 as nil")
 	}
 	b.PutID(MessagesGetRecentStickersRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetRecentStickersRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getRecentStickers#5ea192c9 as nil")
+	}
 	if !(g.Attached == false) {
 		g.Flags.Set(0)
 	}
@@ -164,6 +172,14 @@ func (g *MessagesGetRecentStickersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetRecentStickersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getRecentStickers#5ea192c9: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetRecentStickersRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getRecentStickers#5ea192c9 to nil")
+	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.getRecentStickers#5ea192c9: field flags: %w", err)
@@ -182,8 +198,10 @@ func (g *MessagesGetRecentStickersRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetRecentStickersRequest.
 var (
-	_ bin.Encoder = &MessagesGetRecentStickersRequest{}
-	_ bin.Decoder = &MessagesGetRecentStickersRequest{}
+	_ bin.Encoder     = &MessagesGetRecentStickersRequest{}
+	_ bin.Decoder     = &MessagesGetRecentStickersRequest{}
+	_ bin.BareEncoder = &MessagesGetRecentStickersRequest{}
+	_ bin.BareDecoder = &MessagesGetRecentStickersRequest{}
 )
 
 // MessagesGetRecentStickers invokes method messages.getRecentStickers#5ea192c9 returning error if any.

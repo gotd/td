@@ -113,6 +113,14 @@ func (a *MessagesArchivedStickers) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.archivedStickers#4fcba9c8 as nil")
 	}
 	b.PutID(MessagesArchivedStickersTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *MessagesArchivedStickers) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode messages.archivedStickers#4fcba9c8 as nil")
+	}
 	b.PutInt(a.Count)
 	b.PutVectorHeader(len(a.Sets))
 	for idx, v := range a.Sets {
@@ -149,6 +157,14 @@ func (a *MessagesArchivedStickers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesArchivedStickersTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.archivedStickers#4fcba9c8: %w", err)
 	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *MessagesArchivedStickers) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode messages.archivedStickers#4fcba9c8 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -174,6 +190,8 @@ func (a *MessagesArchivedStickers) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesArchivedStickers.
 var (
-	_ bin.Encoder = &MessagesArchivedStickers{}
-	_ bin.Decoder = &MessagesArchivedStickers{}
+	_ bin.Encoder     = &MessagesArchivedStickers{}
+	_ bin.Decoder     = &MessagesArchivedStickers{}
+	_ bin.BareEncoder = &MessagesArchivedStickers{}
+	_ bin.BareDecoder = &MessagesArchivedStickers{}
 )

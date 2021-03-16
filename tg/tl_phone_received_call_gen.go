@@ -102,6 +102,14 @@ func (r *PhoneReceivedCallRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.receivedCall#17d54f61 as nil")
 	}
 	b.PutID(PhoneReceivedCallRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *PhoneReceivedCallRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode phone.receivedCall#17d54f61 as nil")
+	}
 	if err := r.Peer.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.receivedCall#17d54f61: field peer: %w", err)
 	}
@@ -121,6 +129,14 @@ func (r *PhoneReceivedCallRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneReceivedCallRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.receivedCall#17d54f61: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *PhoneReceivedCallRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode phone.receivedCall#17d54f61 to nil")
+	}
 	{
 		if err := r.Peer.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phone.receivedCall#17d54f61: field peer: %w", err)
@@ -131,8 +147,10 @@ func (r *PhoneReceivedCallRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhoneReceivedCallRequest.
 var (
-	_ bin.Encoder = &PhoneReceivedCallRequest{}
-	_ bin.Decoder = &PhoneReceivedCallRequest{}
+	_ bin.Encoder     = &PhoneReceivedCallRequest{}
+	_ bin.Decoder     = &PhoneReceivedCallRequest{}
+	_ bin.BareEncoder = &PhoneReceivedCallRequest{}
+	_ bin.BareDecoder = &PhoneReceivedCallRequest{}
 )
 
 // PhoneReceivedCall invokes method phone.receivedCall#17d54f61 returning error if any.

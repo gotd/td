@@ -85,6 +85,14 @@ func (g *HelpGetTermsOfServiceUpdateRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.getTermsOfServiceUpdate#2ca51fd1 as nil")
 	}
 	b.PutID(HelpGetTermsOfServiceUpdateRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *HelpGetTermsOfServiceUpdateRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode help.getTermsOfServiceUpdate#2ca51fd1 as nil")
+	}
 	return nil
 }
 
@@ -96,13 +104,23 @@ func (g *HelpGetTermsOfServiceUpdateRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetTermsOfServiceUpdateRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getTermsOfServiceUpdate#2ca51fd1: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *HelpGetTermsOfServiceUpdateRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode help.getTermsOfServiceUpdate#2ca51fd1 to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for HelpGetTermsOfServiceUpdateRequest.
 var (
-	_ bin.Encoder = &HelpGetTermsOfServiceUpdateRequest{}
-	_ bin.Decoder = &HelpGetTermsOfServiceUpdateRequest{}
+	_ bin.Encoder     = &HelpGetTermsOfServiceUpdateRequest{}
+	_ bin.Decoder     = &HelpGetTermsOfServiceUpdateRequest{}
+	_ bin.BareEncoder = &HelpGetTermsOfServiceUpdateRequest{}
+	_ bin.BareDecoder = &HelpGetTermsOfServiceUpdateRequest{}
 )
 
 // HelpGetTermsOfServiceUpdate invokes method help.getTermsOfServiceUpdate#2ca51fd1 returning error if any.

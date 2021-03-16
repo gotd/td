@@ -142,6 +142,14 @@ func (p *AccountPasswordSettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.passwordSettings#9a5c33e5 as nil")
 	}
 	b.PutID(AccountPasswordSettingsTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *AccountPasswordSettings) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode account.passwordSettings#9a5c33e5 as nil")
+	}
 	if !(p.Email == "") {
 		p.Flags.Set(0)
 	}
@@ -200,6 +208,14 @@ func (p *AccountPasswordSettings) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountPasswordSettingsTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.passwordSettings#9a5c33e5: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *AccountPasswordSettings) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode account.passwordSettings#9a5c33e5 to nil")
+	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.passwordSettings#9a5c33e5: field flags: %w", err)
@@ -222,6 +238,8 @@ func (p *AccountPasswordSettings) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountPasswordSettings.
 var (
-	_ bin.Encoder = &AccountPasswordSettings{}
-	_ bin.Decoder = &AccountPasswordSettings{}
+	_ bin.Encoder     = &AccountPasswordSettings{}
+	_ bin.Decoder     = &AccountPasswordSettings{}
+	_ bin.BareEncoder = &AccountPasswordSettings{}
+	_ bin.BareDecoder = &AccountPasswordSettings{}
 )

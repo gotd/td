@@ -132,6 +132,14 @@ func (c *ClientDHInnerData) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode client_DH_inner_data#6643b654 as nil")
 	}
 	b.PutID(ClientDHInnerDataTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ClientDHInnerData) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode client_DH_inner_data#6643b654 as nil")
+	}
 	b.PutInt128(c.Nonce)
 	b.PutInt128(c.ServerNonce)
 	b.PutLong(c.RetryID)
@@ -167,6 +175,14 @@ func (c *ClientDHInnerData) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ClientDHInnerDataTypeID); err != nil {
 		return fmt.Errorf("unable to decode client_DH_inner_data#6643b654: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ClientDHInnerData) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode client_DH_inner_data#6643b654 to nil")
+	}
 	{
 		value, err := b.Int128()
 		if err != nil {
@@ -200,6 +216,8 @@ func (c *ClientDHInnerData) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ClientDHInnerData.
 var (
-	_ bin.Encoder = &ClientDHInnerData{}
-	_ bin.Decoder = &ClientDHInnerData{}
+	_ bin.Encoder     = &ClientDHInnerData{}
+	_ bin.Decoder     = &ClientDHInnerData{}
+	_ bin.BareEncoder = &ClientDHInnerData{}
+	_ bin.BareDecoder = &ClientDHInnerData{}
 )

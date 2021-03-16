@@ -98,6 +98,15 @@ func (vec *UserClassVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't encode Vector<User> as nil")
 	}
+
+	return vec.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (vec *UserClassVector) EncodeBare(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't encode Vector<User> as nil")
+	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if v == nil {
@@ -125,6 +134,15 @@ func (vec *UserClassVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't decode Vector<User> to nil")
 	}
+
+	return vec.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (vec *UserClassVector) DecodeBare(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't decode Vector<User> to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -143,6 +161,8 @@ func (vec *UserClassVector) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for UserClassVector.
 var (
-	_ bin.Encoder = &UserClassVector{}
-	_ bin.Decoder = &UserClassVector{}
+	_ bin.Encoder     = &UserClassVector{}
+	_ bin.Decoder     = &UserClassVector{}
+	_ bin.BareEncoder = &UserClassVector{}
+	_ bin.BareDecoder = &UserClassVector{}
 )

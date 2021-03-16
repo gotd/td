@@ -119,6 +119,14 @@ func (u *AccountUpdatePasswordSettingsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.updatePasswordSettings#a59b102f as nil")
 	}
 	b.PutID(AccountUpdatePasswordSettingsRequestTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *AccountUpdatePasswordSettingsRequest) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode account.updatePasswordSettings#a59b102f as nil")
+	}
 	if u.Password == nil {
 		return fmt.Errorf("unable to encode account.updatePasswordSettings#a59b102f: field password is nil")
 	}
@@ -154,6 +162,14 @@ func (u *AccountUpdatePasswordSettingsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountUpdatePasswordSettingsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.updatePasswordSettings#a59b102f: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *AccountUpdatePasswordSettingsRequest) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode account.updatePasswordSettings#a59b102f to nil")
+	}
 	{
 		value, err := DecodeInputCheckPasswordSRP(b)
 		if err != nil {
@@ -171,8 +187,10 @@ func (u *AccountUpdatePasswordSettingsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountUpdatePasswordSettingsRequest.
 var (
-	_ bin.Encoder = &AccountUpdatePasswordSettingsRequest{}
-	_ bin.Decoder = &AccountUpdatePasswordSettingsRequest{}
+	_ bin.Encoder     = &AccountUpdatePasswordSettingsRequest{}
+	_ bin.Decoder     = &AccountUpdatePasswordSettingsRequest{}
+	_ bin.BareEncoder = &AccountUpdatePasswordSettingsRequest{}
+	_ bin.BareDecoder = &AccountUpdatePasswordSettingsRequest{}
 )
 
 // AccountUpdatePasswordSettings invokes method account.updatePasswordSettings#a59b102f returning error if any.

@@ -112,6 +112,14 @@ func (i *InputGroupCall) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputGroupCall#d8aa840f as nil")
 	}
 	b.PutID(InputGroupCallTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputGroupCall) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputGroupCall#d8aa840f as nil")
+	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
 	return nil
@@ -135,6 +143,14 @@ func (i *InputGroupCall) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputGroupCallTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputGroupCall#d8aa840f: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputGroupCall) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputGroupCall#d8aa840f to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -154,6 +170,8 @@ func (i *InputGroupCall) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for InputGroupCall.
 var (
-	_ bin.Encoder = &InputGroupCall{}
-	_ bin.Decoder = &InputGroupCall{}
+	_ bin.Encoder     = &InputGroupCall{}
+	_ bin.Decoder     = &InputGroupCall{}
+	_ bin.BareEncoder = &InputGroupCall{}
+	_ bin.BareDecoder = &InputGroupCall{}
 )

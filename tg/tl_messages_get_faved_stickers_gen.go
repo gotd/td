@@ -105,6 +105,14 @@ func (g *MessagesGetFavedStickersRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getFavedStickers#21ce0b0e as nil")
 	}
 	b.PutID(MessagesGetFavedStickersRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetFavedStickersRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getFavedStickers#21ce0b0e as nil")
+	}
 	b.PutInt(g.Hash)
 	return nil
 }
@@ -122,6 +130,14 @@ func (g *MessagesGetFavedStickersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetFavedStickersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getFavedStickers#21ce0b0e: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetFavedStickersRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getFavedStickers#21ce0b0e to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -134,8 +150,10 @@ func (g *MessagesGetFavedStickersRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetFavedStickersRequest.
 var (
-	_ bin.Encoder = &MessagesGetFavedStickersRequest{}
-	_ bin.Decoder = &MessagesGetFavedStickersRequest{}
+	_ bin.Encoder     = &MessagesGetFavedStickersRequest{}
+	_ bin.Decoder     = &MessagesGetFavedStickersRequest{}
+	_ bin.BareEncoder = &MessagesGetFavedStickersRequest{}
+	_ bin.BareDecoder = &MessagesGetFavedStickersRequest{}
 )
 
 // MessagesGetFavedStickers invokes method messages.getFavedStickers#21ce0b0e returning error if any.

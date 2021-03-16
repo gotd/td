@@ -293,6 +293,14 @@ func (c *ChatBannedRights) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chatBannedRights#9f120418 as nil")
 	}
 	b.PutID(ChatBannedRightsTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatBannedRights) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatBannedRights#9f120418 as nil")
+	}
 	if !(c.ViewMessages == false) {
 		c.Flags.Set(0)
 	}
@@ -541,6 +549,14 @@ func (c *ChatBannedRights) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatBannedRightsTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatBannedRights#9f120418: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatBannedRights) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatBannedRights#9f120418 to nil")
+	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode chatBannedRights#9f120418: field flags: %w", err)
@@ -570,6 +586,8 @@ func (c *ChatBannedRights) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChatBannedRights.
 var (
-	_ bin.Encoder = &ChatBannedRights{}
-	_ bin.Decoder = &ChatBannedRights{}
+	_ bin.Encoder     = &ChatBannedRights{}
+	_ bin.Decoder     = &ChatBannedRights{}
+	_ bin.BareEncoder = &ChatBannedRights{}
+	_ bin.BareDecoder = &ChatBannedRights{}
 )

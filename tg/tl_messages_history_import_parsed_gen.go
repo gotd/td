@@ -136,6 +136,14 @@ func (h *MessagesHistoryImportParsed) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.historyImportParsed#5e0fb7b9 as nil")
 	}
 	b.PutID(MessagesHistoryImportParsedTypeID)
+	return h.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (h *MessagesHistoryImportParsed) EncodeBare(b *bin.Buffer) error {
+	if h == nil {
+		return fmt.Errorf("can't encode messages.historyImportParsed#5e0fb7b9 as nil")
+	}
 	if !(h.Pm == false) {
 		h.Flags.Set(0)
 	}
@@ -209,6 +217,14 @@ func (h *MessagesHistoryImportParsed) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesHistoryImportParsedTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.historyImportParsed#5e0fb7b9: %w", err)
 	}
+	return h.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (h *MessagesHistoryImportParsed) DecodeBare(b *bin.Buffer) error {
+	if h == nil {
+		return fmt.Errorf("can't decode messages.historyImportParsed#5e0fb7b9 to nil")
+	}
 	{
 		if err := h.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.historyImportParsed#5e0fb7b9: field flags: %w", err)
@@ -228,6 +244,8 @@ func (h *MessagesHistoryImportParsed) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesHistoryImportParsed.
 var (
-	_ bin.Encoder = &MessagesHistoryImportParsed{}
-	_ bin.Decoder = &MessagesHistoryImportParsed{}
+	_ bin.Encoder     = &MessagesHistoryImportParsed{}
+	_ bin.Decoder     = &MessagesHistoryImportParsed{}
+	_ bin.BareEncoder = &MessagesHistoryImportParsed{}
+	_ bin.BareDecoder = &MessagesHistoryImportParsed{}
 )

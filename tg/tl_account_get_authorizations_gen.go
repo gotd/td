@@ -85,6 +85,14 @@ func (g *AccountGetAuthorizationsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.getAuthorizations#e320c158 as nil")
 	}
 	b.PutID(AccountGetAuthorizationsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *AccountGetAuthorizationsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode account.getAuthorizations#e320c158 as nil")
+	}
 	return nil
 }
 
@@ -96,13 +104,23 @@ func (g *AccountGetAuthorizationsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetAuthorizationsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getAuthorizations#e320c158: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *AccountGetAuthorizationsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode account.getAuthorizations#e320c158 to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for AccountGetAuthorizationsRequest.
 var (
-	_ bin.Encoder = &AccountGetAuthorizationsRequest{}
-	_ bin.Decoder = &AccountGetAuthorizationsRequest{}
+	_ bin.Encoder     = &AccountGetAuthorizationsRequest{}
+	_ bin.Decoder     = &AccountGetAuthorizationsRequest{}
+	_ bin.BareEncoder = &AccountGetAuthorizationsRequest{}
+	_ bin.BareDecoder = &AccountGetAuthorizationsRequest{}
 )
 
 // AccountGetAuthorizations invokes method account.getAuthorizations#e320c158 returning error if any.

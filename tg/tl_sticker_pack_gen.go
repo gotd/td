@@ -117,6 +117,14 @@ func (s *StickerPack) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode stickerPack#12b299d4 as nil")
 	}
 	b.PutID(StickerPackTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StickerPack) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode stickerPack#12b299d4 as nil")
+	}
 	b.PutString(s.Emoticon)
 	b.PutVectorHeader(len(s.Documents))
 	for _, v := range s.Documents {
@@ -143,6 +151,14 @@ func (s *StickerPack) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StickerPackTypeID); err != nil {
 		return fmt.Errorf("unable to decode stickerPack#12b299d4: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StickerPack) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode stickerPack#12b299d4 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -168,6 +184,8 @@ func (s *StickerPack) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for StickerPack.
 var (
-	_ bin.Encoder = &StickerPack{}
-	_ bin.Decoder = &StickerPack{}
+	_ bin.Encoder     = &StickerPack{}
+	_ bin.Decoder     = &StickerPack{}
+	_ bin.BareEncoder = &StickerPack{}
+	_ bin.BareDecoder = &StickerPack{}
 )

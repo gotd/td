@@ -85,6 +85,14 @@ func (g *AccountGetGlobalPrivacySettingsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.getGlobalPrivacySettings#eb2b4cf6 as nil")
 	}
 	b.PutID(AccountGetGlobalPrivacySettingsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *AccountGetGlobalPrivacySettingsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode account.getGlobalPrivacySettings#eb2b4cf6 as nil")
+	}
 	return nil
 }
 
@@ -96,13 +104,23 @@ func (g *AccountGetGlobalPrivacySettingsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetGlobalPrivacySettingsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getGlobalPrivacySettings#eb2b4cf6: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *AccountGetGlobalPrivacySettingsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode account.getGlobalPrivacySettings#eb2b4cf6 to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for AccountGetGlobalPrivacySettingsRequest.
 var (
-	_ bin.Encoder = &AccountGetGlobalPrivacySettingsRequest{}
-	_ bin.Decoder = &AccountGetGlobalPrivacySettingsRequest{}
+	_ bin.Encoder     = &AccountGetGlobalPrivacySettingsRequest{}
+	_ bin.Decoder     = &AccountGetGlobalPrivacySettingsRequest{}
+	_ bin.BareEncoder = &AccountGetGlobalPrivacySettingsRequest{}
+	_ bin.BareDecoder = &AccountGetGlobalPrivacySettingsRequest{}
 )
 
 // AccountGetGlobalPrivacySettings invokes method account.getGlobalPrivacySettings#eb2b4cf6 returning error if any.

@@ -132,6 +132,14 @@ func (m *MsgDetailedInfo) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode msg_detailed_info#276d3ec6 as nil")
 	}
 	b.PutID(MsgDetailedInfoTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MsgDetailedInfo) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode msg_detailed_info#276d3ec6 as nil")
+	}
 	b.PutLong(m.MsgID)
 	b.PutLong(m.AnswerMsgID)
 	b.PutInt(m.Bytes)
@@ -166,6 +174,14 @@ func (m *MsgDetailedInfo) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(MsgDetailedInfoTypeID); err != nil {
 		return fmt.Errorf("unable to decode msg_detailed_info#276d3ec6: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MsgDetailedInfo) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode msg_detailed_info#276d3ec6 to nil")
 	}
 	{
 		value, err := b.Long()
@@ -203,8 +219,10 @@ func (m MsgDetailedInfo) construct() MsgDetailedInfoClass { return &m }
 
 // Ensuring interfaces in compile-time for MsgDetailedInfo.
 var (
-	_ bin.Encoder = &MsgDetailedInfo{}
-	_ bin.Decoder = &MsgDetailedInfo{}
+	_ bin.Encoder     = &MsgDetailedInfo{}
+	_ bin.Decoder     = &MsgDetailedInfo{}
+	_ bin.BareEncoder = &MsgDetailedInfo{}
+	_ bin.BareDecoder = &MsgDetailedInfo{}
 
 	_ MsgDetailedInfoClass = &MsgDetailedInfo{}
 )
@@ -304,6 +322,14 @@ func (m *MsgNewDetailedInfo) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode msg_new_detailed_info#809db6df as nil")
 	}
 	b.PutID(MsgNewDetailedInfoTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MsgNewDetailedInfo) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode msg_new_detailed_info#809db6df as nil")
+	}
 	b.PutLong(m.AnswerMsgID)
 	b.PutInt(m.Bytes)
 	b.PutInt(m.Status)
@@ -332,6 +358,14 @@ func (m *MsgNewDetailedInfo) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(MsgNewDetailedInfoTypeID); err != nil {
 		return fmt.Errorf("unable to decode msg_new_detailed_info#809db6df: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MsgNewDetailedInfo) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode msg_new_detailed_info#809db6df to nil")
 	}
 	{
 		value, err := b.Long()
@@ -362,8 +396,10 @@ func (m MsgNewDetailedInfo) construct() MsgDetailedInfoClass { return &m }
 
 // Ensuring interfaces in compile-time for MsgNewDetailedInfo.
 var (
-	_ bin.Encoder = &MsgNewDetailedInfo{}
-	_ bin.Decoder = &MsgNewDetailedInfo{}
+	_ bin.Encoder     = &MsgNewDetailedInfo{}
+	_ bin.Decoder     = &MsgNewDetailedInfo{}
+	_ bin.BareEncoder = &MsgNewDetailedInfo{}
+	_ bin.BareDecoder = &MsgNewDetailedInfo{}
 
 	_ MsgDetailedInfoClass = &MsgNewDetailedInfo{}
 )
@@ -383,6 +419,8 @@ var (
 type MsgDetailedInfoClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() MsgDetailedInfoClass
 
 	// TypeID returns type id in TL schema.

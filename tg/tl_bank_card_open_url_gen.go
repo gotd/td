@@ -113,6 +113,14 @@ func (b *BankCardOpenURL) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode bankCardOpenUrl#f568028a as nil")
 	}
 	buf.PutID(BankCardOpenURLTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *BankCardOpenURL) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode bankCardOpenUrl#f568028a as nil")
+	}
 	buf.PutString(b.URL)
 	buf.PutString(b.Name)
 	return nil
@@ -136,6 +144,14 @@ func (b *BankCardOpenURL) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BankCardOpenURLTypeID); err != nil {
 		return fmt.Errorf("unable to decode bankCardOpenUrl#f568028a: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BankCardOpenURL) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode bankCardOpenUrl#f568028a to nil")
+	}
 	{
 		value, err := buf.String()
 		if err != nil {
@@ -155,6 +171,8 @@ func (b *BankCardOpenURL) Decode(buf *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for BankCardOpenURL.
 var (
-	_ bin.Encoder = &BankCardOpenURL{}
-	_ bin.Decoder = &BankCardOpenURL{}
+	_ bin.Encoder     = &BankCardOpenURL{}
+	_ bin.Decoder     = &BankCardOpenURL{}
+	_ bin.BareEncoder = &BankCardOpenURL{}
+	_ bin.BareDecoder = &BankCardOpenURL{}
 )

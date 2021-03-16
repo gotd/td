@@ -113,6 +113,14 @@ func (i *InputWallPaper) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputWallPaper#e630b979 as nil")
 	}
 	b.PutID(InputWallPaperTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputWallPaper) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputWallPaper#e630b979 as nil")
+	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
 	return nil
@@ -136,6 +144,14 @@ func (i *InputWallPaper) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputWallPaperTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputWallPaper#e630b979: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputWallPaper) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputWallPaper#e630b979 to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -158,8 +174,10 @@ func (i InputWallPaper) construct() InputWallPaperClass { return &i }
 
 // Ensuring interfaces in compile-time for InputWallPaper.
 var (
-	_ bin.Encoder = &InputWallPaper{}
-	_ bin.Decoder = &InputWallPaper{}
+	_ bin.Encoder     = &InputWallPaper{}
+	_ bin.Decoder     = &InputWallPaper{}
+	_ bin.BareEncoder = &InputWallPaper{}
+	_ bin.BareDecoder = &InputWallPaper{}
 
 	_ InputWallPaperClass = &InputWallPaper{}
 )
@@ -240,6 +258,14 @@ func (i *InputWallPaperSlug) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputWallPaperSlug#72091c80 as nil")
 	}
 	b.PutID(InputWallPaperSlugTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputWallPaperSlug) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputWallPaperSlug#72091c80 as nil")
+	}
 	b.PutString(i.Slug)
 	return nil
 }
@@ -257,6 +283,14 @@ func (i *InputWallPaperSlug) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputWallPaperSlugTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputWallPaperSlug#72091c80: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputWallPaperSlug) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputWallPaperSlug#72091c80 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -272,8 +306,10 @@ func (i InputWallPaperSlug) construct() InputWallPaperClass { return &i }
 
 // Ensuring interfaces in compile-time for InputWallPaperSlug.
 var (
-	_ bin.Encoder = &InputWallPaperSlug{}
-	_ bin.Decoder = &InputWallPaperSlug{}
+	_ bin.Encoder     = &InputWallPaperSlug{}
+	_ bin.Decoder     = &InputWallPaperSlug{}
+	_ bin.BareEncoder = &InputWallPaperSlug{}
+	_ bin.BareDecoder = &InputWallPaperSlug{}
 
 	_ InputWallPaperClass = &InputWallPaperSlug{}
 )
@@ -337,6 +373,14 @@ func (i *InputWallPaperNoFile) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputWallPaperNoFile#8427bbac as nil")
 	}
 	b.PutID(InputWallPaperNoFileTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputWallPaperNoFile) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputWallPaperNoFile#8427bbac as nil")
+	}
 	return nil
 }
 
@@ -348,6 +392,14 @@ func (i *InputWallPaperNoFile) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputWallPaperNoFileTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputWallPaperNoFile#8427bbac: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputWallPaperNoFile) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputWallPaperNoFile#8427bbac to nil")
+	}
 	return nil
 }
 
@@ -356,8 +408,10 @@ func (i InputWallPaperNoFile) construct() InputWallPaperClass { return &i }
 
 // Ensuring interfaces in compile-time for InputWallPaperNoFile.
 var (
-	_ bin.Encoder = &InputWallPaperNoFile{}
-	_ bin.Decoder = &InputWallPaperNoFile{}
+	_ bin.Encoder     = &InputWallPaperNoFile{}
+	_ bin.Decoder     = &InputWallPaperNoFile{}
+	_ bin.BareEncoder = &InputWallPaperNoFile{}
+	_ bin.BareDecoder = &InputWallPaperNoFile{}
 
 	_ InputWallPaperClass = &InputWallPaperNoFile{}
 )
@@ -380,6 +434,8 @@ var (
 type InputWallPaperClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() InputWallPaperClass
 
 	// TypeID returns type id in TL schema.

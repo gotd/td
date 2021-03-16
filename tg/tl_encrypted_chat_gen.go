@@ -102,6 +102,14 @@ func (e *EncryptedChatEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode encryptedChatEmpty#ab7ec0a0 as nil")
 	}
 	b.PutID(EncryptedChatEmptyTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *EncryptedChatEmpty) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode encryptedChatEmpty#ab7ec0a0 as nil")
+	}
 	b.PutInt(e.ID)
 	return nil
 }
@@ -119,6 +127,14 @@ func (e *EncryptedChatEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(EncryptedChatEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode encryptedChatEmpty#ab7ec0a0: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *EncryptedChatEmpty) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode encryptedChatEmpty#ab7ec0a0 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -134,8 +150,10 @@ func (e EncryptedChatEmpty) construct() EncryptedChatClass { return &e }
 
 // Ensuring interfaces in compile-time for EncryptedChatEmpty.
 var (
-	_ bin.Encoder = &EncryptedChatEmpty{}
-	_ bin.Decoder = &EncryptedChatEmpty{}
+	_ bin.Encoder     = &EncryptedChatEmpty{}
+	_ bin.Decoder     = &EncryptedChatEmpty{}
+	_ bin.BareEncoder = &EncryptedChatEmpty{}
+	_ bin.BareDecoder = &EncryptedChatEmpty{}
 
 	_ EncryptedChatClass = &EncryptedChatEmpty{}
 )
@@ -260,6 +278,14 @@ func (e *EncryptedChatWaiting) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode encryptedChatWaiting#3bf703dc as nil")
 	}
 	b.PutID(EncryptedChatWaitingTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *EncryptedChatWaiting) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode encryptedChatWaiting#3bf703dc as nil")
+	}
 	b.PutInt(e.ID)
 	b.PutLong(e.AccessHash)
 	b.PutInt(e.Date)
@@ -300,6 +326,14 @@ func (e *EncryptedChatWaiting) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(EncryptedChatWaitingTypeID); err != nil {
 		return fmt.Errorf("unable to decode encryptedChatWaiting#3bf703dc: %w", err)
+	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *EncryptedChatWaiting) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode encryptedChatWaiting#3bf703dc to nil")
 	}
 	{
 		value, err := b.Int()
@@ -344,8 +378,10 @@ func (e EncryptedChatWaiting) construct() EncryptedChatClass { return &e }
 
 // Ensuring interfaces in compile-time for EncryptedChatWaiting.
 var (
-	_ bin.Encoder = &EncryptedChatWaiting{}
-	_ bin.Decoder = &EncryptedChatWaiting{}
+	_ bin.Encoder     = &EncryptedChatWaiting{}
+	_ bin.Decoder     = &EncryptedChatWaiting{}
+	_ bin.BareEncoder = &EncryptedChatWaiting{}
+	_ bin.BareDecoder = &EncryptedChatWaiting{}
 
 	_ EncryptedChatClass = &EncryptedChatWaiting{}
 )
@@ -512,6 +548,14 @@ func (e *EncryptedChatRequested) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode encryptedChatRequested#62718a82 as nil")
 	}
 	b.PutID(EncryptedChatRequestedTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *EncryptedChatRequested) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode encryptedChatRequested#62718a82 as nil")
+	}
 	if !(e.FolderID == 0) {
 		e.Flags.Set(0)
 	}
@@ -583,6 +627,14 @@ func (e *EncryptedChatRequested) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(EncryptedChatRequestedTypeID); err != nil {
 		return fmt.Errorf("unable to decode encryptedChatRequested#62718a82: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *EncryptedChatRequested) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode encryptedChatRequested#62718a82 to nil")
+	}
 	{
 		if err := e.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode encryptedChatRequested#62718a82: field flags: %w", err)
@@ -645,8 +697,10 @@ func (e EncryptedChatRequested) construct() EncryptedChatClass { return &e }
 
 // Ensuring interfaces in compile-time for EncryptedChatRequested.
 var (
-	_ bin.Encoder = &EncryptedChatRequested{}
-	_ bin.Decoder = &EncryptedChatRequested{}
+	_ bin.Encoder     = &EncryptedChatRequested{}
+	_ bin.Decoder     = &EncryptedChatRequested{}
+	_ bin.BareEncoder = &EncryptedChatRequested{}
+	_ bin.BareDecoder = &EncryptedChatRequested{}
 
 	_ EncryptedChatClass = &EncryptedChatRequested{}
 )
@@ -796,6 +850,14 @@ func (e *EncryptedChat) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode encryptedChat#fa56ce36 as nil")
 	}
 	b.PutID(EncryptedChatTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *EncryptedChat) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode encryptedChat#fa56ce36 as nil")
+	}
 	b.PutInt(e.ID)
 	b.PutLong(e.AccessHash)
 	b.PutInt(e.Date)
@@ -848,6 +910,14 @@ func (e *EncryptedChat) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(EncryptedChatTypeID); err != nil {
 		return fmt.Errorf("unable to decode encryptedChat#fa56ce36: %w", err)
+	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *EncryptedChat) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode encryptedChat#fa56ce36 to nil")
 	}
 	{
 		value, err := b.Int()
@@ -906,8 +976,10 @@ func (e EncryptedChat) construct() EncryptedChatClass { return &e }
 
 // Ensuring interfaces in compile-time for EncryptedChat.
 var (
-	_ bin.Encoder = &EncryptedChat{}
-	_ bin.Decoder = &EncryptedChat{}
+	_ bin.Encoder     = &EncryptedChat{}
+	_ bin.Decoder     = &EncryptedChat{}
+	_ bin.BareEncoder = &EncryptedChat{}
+	_ bin.BareDecoder = &EncryptedChat{}
 
 	_ EncryptedChatClass = &EncryptedChat{}
 )
@@ -1005,6 +1077,14 @@ func (e *EncryptedChatDiscarded) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode encryptedChatDiscarded#1e1c7c45 as nil")
 	}
 	b.PutID(EncryptedChatDiscardedTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *EncryptedChatDiscarded) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode encryptedChatDiscarded#1e1c7c45 as nil")
+	}
 	if !(e.HistoryDeleted == false) {
 		e.Flags.Set(0)
 	}
@@ -1044,6 +1124,14 @@ func (e *EncryptedChatDiscarded) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(EncryptedChatDiscardedTypeID); err != nil {
 		return fmt.Errorf("unable to decode encryptedChatDiscarded#1e1c7c45: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *EncryptedChatDiscarded) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode encryptedChatDiscarded#1e1c7c45 to nil")
+	}
 	{
 		if err := e.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode encryptedChatDiscarded#1e1c7c45: field flags: %w", err)
@@ -1065,8 +1153,10 @@ func (e EncryptedChatDiscarded) construct() EncryptedChatClass { return &e }
 
 // Ensuring interfaces in compile-time for EncryptedChatDiscarded.
 var (
-	_ bin.Encoder = &EncryptedChatDiscarded{}
-	_ bin.Decoder = &EncryptedChatDiscarded{}
+	_ bin.Encoder     = &EncryptedChatDiscarded{}
+	_ bin.Decoder     = &EncryptedChatDiscarded{}
+	_ bin.BareEncoder = &EncryptedChatDiscarded{}
+	_ bin.BareDecoder = &EncryptedChatDiscarded{}
 
 	_ EncryptedChatClass = &EncryptedChatDiscarded{}
 )
@@ -1091,6 +1181,8 @@ var (
 type EncryptedChatClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() EncryptedChatClass
 
 	// TypeID returns type id in TL schema.
@@ -1123,6 +1215,8 @@ func (e *EncryptedChat) AsInput() *InputEncryptedChat {
 type NotEmptyEncryptedChat interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() EncryptedChatClass
 
 	// TypeID returns type id in TL schema.

@@ -99,6 +99,14 @@ func (m *MsgsStateReq) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode msgs_state_req#da69fb52 as nil")
 	}
 	b.PutID(MsgsStateReqTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MsgsStateReq) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode msgs_state_req#da69fb52 as nil")
+	}
 	b.PutVectorHeader(len(m.MsgIDs))
 	for _, v := range m.MsgIDs {
 		b.PutLong(v)
@@ -119,6 +127,14 @@ func (m *MsgsStateReq) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MsgsStateReqTypeID); err != nil {
 		return fmt.Errorf("unable to decode msgs_state_req#da69fb52: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MsgsStateReq) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode msgs_state_req#da69fb52 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -137,6 +153,8 @@ func (m *MsgsStateReq) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MsgsStateReq.
 var (
-	_ bin.Encoder = &MsgsStateReq{}
-	_ bin.Decoder = &MsgsStateReq{}
+	_ bin.Encoder     = &MsgsStateReq{}
+	_ bin.Decoder     = &MsgsStateReq{}
+	_ bin.BareEncoder = &MsgsStateReq{}
+	_ bin.BareDecoder = &MsgsStateReq{}
 )

@@ -110,6 +110,14 @@ func (p *PingDelayDisconnectRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode ping_delay_disconnect#f3427b8c as nil")
 	}
 	b.PutID(PingDelayDisconnectRequestTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PingDelayDisconnectRequest) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode ping_delay_disconnect#f3427b8c as nil")
+	}
 	b.PutLong(p.PingID)
 	b.PutInt(p.DisconnectDelay)
 	return nil
@@ -133,6 +141,14 @@ func (p *PingDelayDisconnectRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PingDelayDisconnectRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode ping_delay_disconnect#f3427b8c: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PingDelayDisconnectRequest) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode ping_delay_disconnect#f3427b8c to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -152,8 +168,10 @@ func (p *PingDelayDisconnectRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PingDelayDisconnectRequest.
 var (
-	_ bin.Encoder = &PingDelayDisconnectRequest{}
-	_ bin.Decoder = &PingDelayDisconnectRequest{}
+	_ bin.Encoder     = &PingDelayDisconnectRequest{}
+	_ bin.Decoder     = &PingDelayDisconnectRequest{}
+	_ bin.BareEncoder = &PingDelayDisconnectRequest{}
+	_ bin.BareDecoder = &PingDelayDisconnectRequest{}
 )
 
 // PingDelayDisconnect invokes method ping_delay_disconnect#f3427b8c returning error if any.

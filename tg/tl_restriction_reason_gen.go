@@ -125,6 +125,14 @@ func (r *RestrictionReason) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode restrictionReason#d072acb4 as nil")
 	}
 	b.PutID(RestrictionReasonTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *RestrictionReason) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode restrictionReason#d072acb4 as nil")
+	}
 	b.PutString(r.Platform)
 	b.PutString(r.Reason)
 	b.PutString(r.Text)
@@ -154,6 +162,14 @@ func (r *RestrictionReason) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(RestrictionReasonTypeID); err != nil {
 		return fmt.Errorf("unable to decode restrictionReason#d072acb4: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *RestrictionReason) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode restrictionReason#d072acb4 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -180,6 +196,8 @@ func (r *RestrictionReason) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for RestrictionReason.
 var (
-	_ bin.Encoder = &RestrictionReason{}
-	_ bin.Decoder = &RestrictionReason{}
+	_ bin.Encoder     = &RestrictionReason{}
+	_ bin.Decoder     = &RestrictionReason{}
+	_ bin.BareEncoder = &RestrictionReason{}
+	_ bin.BareDecoder = &RestrictionReason{}
 )

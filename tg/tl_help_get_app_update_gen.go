@@ -102,6 +102,14 @@ func (g *HelpGetAppUpdateRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.getAppUpdate#522d5a7d as nil")
 	}
 	b.PutID(HelpGetAppUpdateRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *HelpGetAppUpdateRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode help.getAppUpdate#522d5a7d as nil")
+	}
 	b.PutString(g.Source)
 	return nil
 }
@@ -119,6 +127,14 @@ func (g *HelpGetAppUpdateRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetAppUpdateRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getAppUpdate#522d5a7d: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *HelpGetAppUpdateRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode help.getAppUpdate#522d5a7d to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -131,8 +147,10 @@ func (g *HelpGetAppUpdateRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for HelpGetAppUpdateRequest.
 var (
-	_ bin.Encoder = &HelpGetAppUpdateRequest{}
-	_ bin.Decoder = &HelpGetAppUpdateRequest{}
+	_ bin.Encoder     = &HelpGetAppUpdateRequest{}
+	_ bin.Decoder     = &HelpGetAppUpdateRequest{}
+	_ bin.BareEncoder = &HelpGetAppUpdateRequest{}
+	_ bin.BareDecoder = &HelpGetAppUpdateRequest{}
 )
 
 // HelpGetAppUpdate invokes method help.getAppUpdate#522d5a7d returning error if any.

@@ -196,6 +196,14 @@ func (f *MessagesForwardMessagesRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.forwardMessages#d9fee60e as nil")
 	}
 	b.PutID(MessagesForwardMessagesRequestTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *MessagesForwardMessagesRequest) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode messages.forwardMessages#d9fee60e as nil")
+	}
 	if !(f.Silent == false) {
 		f.Flags.Set(5)
 	}
@@ -328,6 +336,14 @@ func (f *MessagesForwardMessagesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesForwardMessagesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.forwardMessages#d9fee60e: %w", err)
 	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *MessagesForwardMessagesRequest) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode messages.forwardMessages#d9fee60e to nil")
+	}
 	{
 		if err := f.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.forwardMessages#d9fee60e: field flags: %w", err)
@@ -388,8 +404,10 @@ func (f *MessagesForwardMessagesRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesForwardMessagesRequest.
 var (
-	_ bin.Encoder = &MessagesForwardMessagesRequest{}
-	_ bin.Decoder = &MessagesForwardMessagesRequest{}
+	_ bin.Encoder     = &MessagesForwardMessagesRequest{}
+	_ bin.Decoder     = &MessagesForwardMessagesRequest{}
+	_ bin.BareEncoder = &MessagesForwardMessagesRequest{}
+	_ bin.BareDecoder = &MessagesForwardMessagesRequest{}
 )
 
 // MessagesForwardMessages invokes method messages.forwardMessages#d9fee60e returning error if any.

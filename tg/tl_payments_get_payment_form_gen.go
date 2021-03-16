@@ -102,6 +102,14 @@ func (g *PaymentsGetPaymentFormRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode payments.getPaymentForm#99f09745 as nil")
 	}
 	b.PutID(PaymentsGetPaymentFormRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *PaymentsGetPaymentFormRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode payments.getPaymentForm#99f09745 as nil")
+	}
 	b.PutInt(g.MsgID)
 	return nil
 }
@@ -119,6 +127,14 @@ func (g *PaymentsGetPaymentFormRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PaymentsGetPaymentFormRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode payments.getPaymentForm#99f09745: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *PaymentsGetPaymentFormRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode payments.getPaymentForm#99f09745 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -131,8 +147,10 @@ func (g *PaymentsGetPaymentFormRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PaymentsGetPaymentFormRequest.
 var (
-	_ bin.Encoder = &PaymentsGetPaymentFormRequest{}
-	_ bin.Decoder = &PaymentsGetPaymentFormRequest{}
+	_ bin.Encoder     = &PaymentsGetPaymentFormRequest{}
+	_ bin.Decoder     = &PaymentsGetPaymentFormRequest{}
+	_ bin.BareEncoder = &PaymentsGetPaymentFormRequest{}
+	_ bin.BareDecoder = &PaymentsGetPaymentFormRequest{}
 )
 
 // PaymentsGetPaymentForm invokes method payments.getPaymentForm#99f09745 returning error if any.

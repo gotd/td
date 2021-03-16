@@ -146,6 +146,14 @@ func (p *PhoneConnection) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phoneConnection#9d4c17c0 as nil")
 	}
 	b.PutID(PhoneConnectionTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PhoneConnection) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode phoneConnection#9d4c17c0 as nil")
+	}
 	b.PutLong(p.ID)
 	b.PutString(p.IP)
 	b.PutString(p.Ipv6)
@@ -186,6 +194,14 @@ func (p *PhoneConnection) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(PhoneConnectionTypeID); err != nil {
 		return fmt.Errorf("unable to decode phoneConnection#9d4c17c0: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PhoneConnection) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode phoneConnection#9d4c17c0 to nil")
 	}
 	{
 		value, err := b.Long()
@@ -230,8 +246,10 @@ func (p PhoneConnection) construct() PhoneConnectionClass { return &p }
 
 // Ensuring interfaces in compile-time for PhoneConnection.
 var (
-	_ bin.Encoder = &PhoneConnection{}
-	_ bin.Decoder = &PhoneConnection{}
+	_ bin.Encoder     = &PhoneConnection{}
+	_ bin.Decoder     = &PhoneConnection{}
+	_ bin.BareEncoder = &PhoneConnection{}
+	_ bin.BareDecoder = &PhoneConnection{}
 
 	_ PhoneConnectionClass = &PhoneConnection{}
 )
@@ -399,6 +417,14 @@ func (p *PhoneConnectionWebrtc) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phoneConnectionWebrtc#635fe375 as nil")
 	}
 	b.PutID(PhoneConnectionWebrtcTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PhoneConnectionWebrtc) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode phoneConnectionWebrtc#635fe375 as nil")
+	}
 	if !(p.Turn == false) {
 		p.Flags.Set(0)
 	}
@@ -487,6 +513,14 @@ func (p *PhoneConnectionWebrtc) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneConnectionWebrtcTypeID); err != nil {
 		return fmt.Errorf("unable to decode phoneConnectionWebrtc#635fe375: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PhoneConnectionWebrtc) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode phoneConnectionWebrtc#635fe375 to nil")
+	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phoneConnectionWebrtc#635fe375: field flags: %w", err)
@@ -544,8 +578,10 @@ func (p PhoneConnectionWebrtc) construct() PhoneConnectionClass { return &p }
 
 // Ensuring interfaces in compile-time for PhoneConnectionWebrtc.
 var (
-	_ bin.Encoder = &PhoneConnectionWebrtc{}
-	_ bin.Decoder = &PhoneConnectionWebrtc{}
+	_ bin.Encoder     = &PhoneConnectionWebrtc{}
+	_ bin.Decoder     = &PhoneConnectionWebrtc{}
+	_ bin.BareEncoder = &PhoneConnectionWebrtc{}
+	_ bin.BareDecoder = &PhoneConnectionWebrtc{}
 
 	_ PhoneConnectionClass = &PhoneConnectionWebrtc{}
 )
@@ -567,6 +603,8 @@ var (
 type PhoneConnectionClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() PhoneConnectionClass
 
 	// TypeID returns type id in TL schema.

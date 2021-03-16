@@ -124,6 +124,14 @@ func (n *NearestDC) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode nearestDc#8e1a1775 as nil")
 	}
 	b.PutID(NearestDCTypeID)
+	return n.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (n *NearestDC) EncodeBare(b *bin.Buffer) error {
+	if n == nil {
+		return fmt.Errorf("can't encode nearestDc#8e1a1775 as nil")
+	}
 	b.PutString(n.Country)
 	b.PutInt(n.ThisDC)
 	b.PutInt(n.NearestDC)
@@ -153,6 +161,14 @@ func (n *NearestDC) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(NearestDCTypeID); err != nil {
 		return fmt.Errorf("unable to decode nearestDc#8e1a1775: %w", err)
 	}
+	return n.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (n *NearestDC) DecodeBare(b *bin.Buffer) error {
+	if n == nil {
+		return fmt.Errorf("can't decode nearestDc#8e1a1775 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -179,6 +195,8 @@ func (n *NearestDC) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for NearestDC.
 var (
-	_ bin.Encoder = &NearestDC{}
-	_ bin.Decoder = &NearestDC{}
+	_ bin.Encoder     = &NearestDC{}
+	_ bin.Decoder     = &NearestDC{}
+	_ bin.BareEncoder = &NearestDC{}
+	_ bin.BareDecoder = &NearestDC{}
 )

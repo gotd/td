@@ -84,6 +84,14 @@ func (o *Ok) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode ok#d4edbe69 as nil")
 	}
 	b.PutID(OkTypeID)
+	return o.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (o *Ok) EncodeBare(b *bin.Buffer) error {
+	if o == nil {
+		return fmt.Errorf("can't encode ok#d4edbe69 as nil")
+	}
 	return nil
 }
 
@@ -95,11 +103,21 @@ func (o *Ok) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(OkTypeID); err != nil {
 		return fmt.Errorf("unable to decode ok#d4edbe69: %w", err)
 	}
+	return o.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (o *Ok) DecodeBare(b *bin.Buffer) error {
+	if o == nil {
+		return fmt.Errorf("can't decode ok#d4edbe69 to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for Ok.
 var (
-	_ bin.Encoder = &Ok{}
-	_ bin.Decoder = &Ok{}
+	_ bin.Encoder     = &Ok{}
+	_ bin.Decoder     = &Ok{}
+	_ bin.BareEncoder = &Ok{}
+	_ bin.BareDecoder = &Ok{}
 )

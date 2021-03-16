@@ -113,6 +113,14 @@ func (s *SecureValueHash) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureValueHash#ed1ecdb0 as nil")
 	}
 	b.PutID(SecureValueHashTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureValueHash) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureValueHash#ed1ecdb0 as nil")
+	}
 	if s.Type == nil {
 		return fmt.Errorf("unable to encode secureValueHash#ed1ecdb0: field type is nil")
 	}
@@ -141,6 +149,14 @@ func (s *SecureValueHash) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueHashTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueHash#ed1ecdb0: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureValueHash) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureValueHash#ed1ecdb0 to nil")
+	}
 	{
 		value, err := DecodeSecureValueType(b)
 		if err != nil {
@@ -160,6 +176,8 @@ func (s *SecureValueHash) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for SecureValueHash.
 var (
-	_ bin.Encoder = &SecureValueHash{}
-	_ bin.Decoder = &SecureValueHash{}
+	_ bin.Encoder     = &SecureValueHash{}
+	_ bin.Decoder     = &SecureValueHash{}
+	_ bin.BareEncoder = &SecureValueHash{}
+	_ bin.BareDecoder = &SecureValueHash{}
 )

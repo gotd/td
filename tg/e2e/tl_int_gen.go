@@ -84,6 +84,14 @@ func (i *Int) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode int#a8509bda as nil")
 	}
 	b.PutID(IntTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *Int) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode int#a8509bda as nil")
+	}
 	return nil
 }
 
@@ -95,11 +103,21 @@ func (i *Int) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(IntTypeID); err != nil {
 		return fmt.Errorf("unable to decode int#a8509bda: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *Int) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode int#a8509bda to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for Int.
 var (
-	_ bin.Encoder = &Int{}
-	_ bin.Decoder = &Int{}
+	_ bin.Encoder     = &Int{}
+	_ bin.Decoder     = &Int{}
+	_ bin.BareEncoder = &Int{}
+	_ bin.BareDecoder = &Int{}
 )

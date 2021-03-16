@@ -102,6 +102,14 @@ func (k *KeyboardButtonRow) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode keyboardButtonRow#77608b83 as nil")
 	}
 	b.PutID(KeyboardButtonRowTypeID)
+	return k.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (k *KeyboardButtonRow) EncodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonRow#77608b83 as nil")
+	}
 	b.PutVectorHeader(len(k.Buttons))
 	for idx, v := range k.Buttons {
 		if v == nil {
@@ -132,6 +140,14 @@ func (k *KeyboardButtonRow) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(KeyboardButtonRowTypeID); err != nil {
 		return fmt.Errorf("unable to decode keyboardButtonRow#77608b83: %w", err)
 	}
+	return k.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (k *KeyboardButtonRow) DecodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonRow#77608b83 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -150,6 +166,8 @@ func (k *KeyboardButtonRow) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for KeyboardButtonRow.
 var (
-	_ bin.Encoder = &KeyboardButtonRow{}
-	_ bin.Decoder = &KeyboardButtonRow{}
+	_ bin.Encoder     = &KeyboardButtonRow{}
+	_ bin.Decoder     = &KeyboardButtonRow{}
+	_ bin.BareEncoder = &KeyboardButtonRow{}
+	_ bin.BareDecoder = &KeyboardButtonRow{}
 )

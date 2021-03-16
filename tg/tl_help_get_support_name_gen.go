@@ -85,6 +85,14 @@ func (g *HelpGetSupportNameRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.getSupportName#d360e72c as nil")
 	}
 	b.PutID(HelpGetSupportNameRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *HelpGetSupportNameRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode help.getSupportName#d360e72c as nil")
+	}
 	return nil
 }
 
@@ -96,13 +104,23 @@ func (g *HelpGetSupportNameRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetSupportNameRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getSupportName#d360e72c: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *HelpGetSupportNameRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode help.getSupportName#d360e72c to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for HelpGetSupportNameRequest.
 var (
-	_ bin.Encoder = &HelpGetSupportNameRequest{}
-	_ bin.Decoder = &HelpGetSupportNameRequest{}
+	_ bin.Encoder     = &HelpGetSupportNameRequest{}
+	_ bin.Decoder     = &HelpGetSupportNameRequest{}
+	_ bin.BareEncoder = &HelpGetSupportNameRequest{}
+	_ bin.BareDecoder = &HelpGetSupportNameRequest{}
 )
 
 // HelpGetSupportName invokes method help.getSupportName#d360e72c returning error if any.

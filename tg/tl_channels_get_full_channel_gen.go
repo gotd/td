@@ -102,6 +102,14 @@ func (g *ChannelsGetFullChannelRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.getFullChannel#8736a09 as nil")
 	}
 	b.PutID(ChannelsGetFullChannelRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *ChannelsGetFullChannelRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode channels.getFullChannel#8736a09 as nil")
+	}
 	if g.Channel == nil {
 		return fmt.Errorf("unable to encode channels.getFullChannel#8736a09: field channel is nil")
 	}
@@ -129,6 +137,14 @@ func (g *ChannelsGetFullChannelRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsGetFullChannelRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.getFullChannel#8736a09: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *ChannelsGetFullChannelRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode channels.getFullChannel#8736a09 to nil")
+	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
@@ -141,8 +157,10 @@ func (g *ChannelsGetFullChannelRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsGetFullChannelRequest.
 var (
-	_ bin.Encoder = &ChannelsGetFullChannelRequest{}
-	_ bin.Decoder = &ChannelsGetFullChannelRequest{}
+	_ bin.Encoder     = &ChannelsGetFullChannelRequest{}
+	_ bin.Decoder     = &ChannelsGetFullChannelRequest{}
+	_ bin.BareEncoder = &ChannelsGetFullChannelRequest{}
+	_ bin.BareDecoder = &ChannelsGetFullChannelRequest{}
 )
 
 // ChannelsGetFullChannel invokes method channels.getFullChannel#8736a09 returning error if any.

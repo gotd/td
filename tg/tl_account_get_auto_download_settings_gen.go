@@ -85,6 +85,14 @@ func (g *AccountGetAutoDownloadSettingsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.getAutoDownloadSettings#56da0b3f as nil")
 	}
 	b.PutID(AccountGetAutoDownloadSettingsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *AccountGetAutoDownloadSettingsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode account.getAutoDownloadSettings#56da0b3f as nil")
+	}
 	return nil
 }
 
@@ -96,13 +104,23 @@ func (g *AccountGetAutoDownloadSettingsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetAutoDownloadSettingsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getAutoDownloadSettings#56da0b3f: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *AccountGetAutoDownloadSettingsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode account.getAutoDownloadSettings#56da0b3f to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for AccountGetAutoDownloadSettingsRequest.
 var (
-	_ bin.Encoder = &AccountGetAutoDownloadSettingsRequest{}
-	_ bin.Decoder = &AccountGetAutoDownloadSettingsRequest{}
+	_ bin.Encoder     = &AccountGetAutoDownloadSettingsRequest{}
+	_ bin.Decoder     = &AccountGetAutoDownloadSettingsRequest{}
+	_ bin.BareEncoder = &AccountGetAutoDownloadSettingsRequest{}
+	_ bin.BareDecoder = &AccountGetAutoDownloadSettingsRequest{}
 )
 
 // AccountGetAutoDownloadSettings invokes method account.getAutoDownloadSettings#56da0b3f returning error if any.

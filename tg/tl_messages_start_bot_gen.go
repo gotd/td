@@ -141,6 +141,14 @@ func (s *MessagesStartBotRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.startBot#e6df7378 as nil")
 	}
 	b.PutID(MessagesStartBotRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesStartBotRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.startBot#e6df7378 as nil")
+	}
 	if s.Bot == nil {
 		return fmt.Errorf("unable to encode messages.startBot#e6df7378: field bot is nil")
 	}
@@ -186,6 +194,14 @@ func (s *MessagesStartBotRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesStartBotRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.startBot#e6df7378: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesStartBotRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.startBot#e6df7378 to nil")
+	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
@@ -219,8 +235,10 @@ func (s *MessagesStartBotRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesStartBotRequest.
 var (
-	_ bin.Encoder = &MessagesStartBotRequest{}
-	_ bin.Decoder = &MessagesStartBotRequest{}
+	_ bin.Encoder     = &MessagesStartBotRequest{}
+	_ bin.Decoder     = &MessagesStartBotRequest{}
+	_ bin.BareEncoder = &MessagesStartBotRequest{}
+	_ bin.BareDecoder = &MessagesStartBotRequest{}
 )
 
 // MessagesStartBot invokes method messages.startBot#e6df7378 returning error if any.

@@ -192,6 +192,14 @@ func (a *HelpAppUpdate) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.appUpdate#1da7158f as nil")
 	}
 	b.PutID(HelpAppUpdateTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *HelpAppUpdate) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode help.appUpdate#1da7158f as nil")
+	}
 	if !(a.CanNotSkip == false) {
 		a.Flags.Set(0)
 	}
@@ -309,6 +317,14 @@ func (a *HelpAppUpdate) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpAppUpdateTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.appUpdate#1da7158f: %w", err)
 	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *HelpAppUpdate) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode help.appUpdate#1da7158f to nil")
+	}
 	{
 		if err := a.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode help.appUpdate#1da7158f: field flags: %w", err)
@@ -371,8 +387,10 @@ func (a HelpAppUpdate) construct() HelpAppUpdateClass { return &a }
 
 // Ensuring interfaces in compile-time for HelpAppUpdate.
 var (
-	_ bin.Encoder = &HelpAppUpdate{}
-	_ bin.Decoder = &HelpAppUpdate{}
+	_ bin.Encoder     = &HelpAppUpdate{}
+	_ bin.Decoder     = &HelpAppUpdate{}
+	_ bin.BareEncoder = &HelpAppUpdate{}
+	_ bin.BareDecoder = &HelpAppUpdate{}
 
 	_ HelpAppUpdateClass = &HelpAppUpdate{}
 )
@@ -436,6 +454,14 @@ func (n *HelpNoAppUpdate) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.noAppUpdate#c45a6536 as nil")
 	}
 	b.PutID(HelpNoAppUpdateTypeID)
+	return n.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (n *HelpNoAppUpdate) EncodeBare(b *bin.Buffer) error {
+	if n == nil {
+		return fmt.Errorf("can't encode help.noAppUpdate#c45a6536 as nil")
+	}
 	return nil
 }
 
@@ -447,6 +473,14 @@ func (n *HelpNoAppUpdate) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpNoAppUpdateTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.noAppUpdate#c45a6536: %w", err)
 	}
+	return n.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (n *HelpNoAppUpdate) DecodeBare(b *bin.Buffer) error {
+	if n == nil {
+		return fmt.Errorf("can't decode help.noAppUpdate#c45a6536 to nil")
+	}
 	return nil
 }
 
@@ -455,8 +489,10 @@ func (n HelpNoAppUpdate) construct() HelpAppUpdateClass { return &n }
 
 // Ensuring interfaces in compile-time for HelpNoAppUpdate.
 var (
-	_ bin.Encoder = &HelpNoAppUpdate{}
-	_ bin.Decoder = &HelpNoAppUpdate{}
+	_ bin.Encoder     = &HelpNoAppUpdate{}
+	_ bin.Decoder     = &HelpNoAppUpdate{}
+	_ bin.BareEncoder = &HelpNoAppUpdate{}
+	_ bin.BareDecoder = &HelpNoAppUpdate{}
 
 	_ HelpAppUpdateClass = &HelpNoAppUpdate{}
 )
@@ -478,6 +514,8 @@ var (
 type HelpAppUpdateClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() HelpAppUpdateClass
 
 	// TypeID returns type id in TL schema.

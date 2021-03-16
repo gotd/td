@@ -102,6 +102,14 @@ func (g *MessagesGetStickerSetRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getStickerSet#2619a90e as nil")
 	}
 	b.PutID(MessagesGetStickerSetRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetStickerSetRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getStickerSet#2619a90e as nil")
+	}
 	if g.Stickerset == nil {
 		return fmt.Errorf("unable to encode messages.getStickerSet#2619a90e: field stickerset is nil")
 	}
@@ -124,6 +132,14 @@ func (g *MessagesGetStickerSetRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetStickerSetRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getStickerSet#2619a90e: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetStickerSetRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getStickerSet#2619a90e to nil")
+	}
 	{
 		value, err := DecodeInputStickerSet(b)
 		if err != nil {
@@ -136,8 +152,10 @@ func (g *MessagesGetStickerSetRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetStickerSetRequest.
 var (
-	_ bin.Encoder = &MessagesGetStickerSetRequest{}
-	_ bin.Decoder = &MessagesGetStickerSetRequest{}
+	_ bin.Encoder     = &MessagesGetStickerSetRequest{}
+	_ bin.Decoder     = &MessagesGetStickerSetRequest{}
+	_ bin.BareEncoder = &MessagesGetStickerSetRequest{}
+	_ bin.BareDecoder = &MessagesGetStickerSetRequest{}
 )
 
 // MessagesGetStickerSet invokes method messages.getStickerSet#2619a90e returning error if any.

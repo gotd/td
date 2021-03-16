@@ -182,6 +182,14 @@ func (g *Game) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode game#bdf9653b as nil")
 	}
 	b.PutID(GameTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *Game) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode game#bdf9653b as nil")
+	}
 	if !(g.Document == nil) {
 		g.Flags.Set(0)
 	}
@@ -277,6 +285,14 @@ func (g *Game) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(GameTypeID); err != nil {
 		return fmt.Errorf("unable to decode game#bdf9653b: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *Game) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode game#bdf9653b to nil")
+	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode game#bdf9653b: field flags: %w", err)
@@ -336,6 +352,8 @@ func (g *Game) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for Game.
 var (
-	_ bin.Encoder = &Game{}
-	_ bin.Decoder = &Game{}
+	_ bin.Encoder     = &Game{}
+	_ bin.Decoder     = &Game{}
+	_ bin.BareEncoder = &Game{}
+	_ bin.BareDecoder = &Game{}
 )

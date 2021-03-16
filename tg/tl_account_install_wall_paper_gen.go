@@ -113,6 +113,14 @@ func (i *AccountInstallWallPaperRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.installWallPaper#feed5769 as nil")
 	}
 	b.PutID(AccountInstallWallPaperRequestTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *AccountInstallWallPaperRequest) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode account.installWallPaper#feed5769 as nil")
+	}
 	if i.Wallpaper == nil {
 		return fmt.Errorf("unable to encode account.installWallPaper#feed5769: field wallpaper is nil")
 	}
@@ -143,6 +151,14 @@ func (i *AccountInstallWallPaperRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountInstallWallPaperRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.installWallPaper#feed5769: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *AccountInstallWallPaperRequest) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode account.installWallPaper#feed5769 to nil")
+	}
 	{
 		value, err := DecodeInputWallPaper(b)
 		if err != nil {
@@ -160,8 +176,10 @@ func (i *AccountInstallWallPaperRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountInstallWallPaperRequest.
 var (
-	_ bin.Encoder = &AccountInstallWallPaperRequest{}
-	_ bin.Decoder = &AccountInstallWallPaperRequest{}
+	_ bin.Encoder     = &AccountInstallWallPaperRequest{}
+	_ bin.Decoder     = &AccountInstallWallPaperRequest{}
+	_ bin.BareEncoder = &AccountInstallWallPaperRequest{}
+	_ bin.BareDecoder = &AccountInstallWallPaperRequest{}
 )
 
 // AccountInstallWallPaper invokes method account.installWallPaper#feed5769 returning error if any.

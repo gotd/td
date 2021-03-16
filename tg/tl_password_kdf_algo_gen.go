@@ -85,6 +85,14 @@ func (p *PasswordKdfAlgoUnknown) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode passwordKdfAlgoUnknown#d45ab096 as nil")
 	}
 	b.PutID(PasswordKdfAlgoUnknownTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PasswordKdfAlgoUnknown) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passwordKdfAlgoUnknown#d45ab096 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (p *PasswordKdfAlgoUnknown) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PasswordKdfAlgoUnknownTypeID); err != nil {
 		return fmt.Errorf("unable to decode passwordKdfAlgoUnknown#d45ab096: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PasswordKdfAlgoUnknown) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode passwordKdfAlgoUnknown#d45ab096 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (p PasswordKdfAlgoUnknown) construct() PasswordKdfAlgoClass { return &p }
 
 // Ensuring interfaces in compile-time for PasswordKdfAlgoUnknown.
 var (
-	_ bin.Encoder = &PasswordKdfAlgoUnknown{}
-	_ bin.Decoder = &PasswordKdfAlgoUnknown{}
+	_ bin.Encoder     = &PasswordKdfAlgoUnknown{}
+	_ bin.Decoder     = &PasswordKdfAlgoUnknown{}
+	_ bin.BareEncoder = &PasswordKdfAlgoUnknown{}
+	_ bin.BareDecoder = &PasswordKdfAlgoUnknown{}
 
 	_ PasswordKdfAlgoClass = &PasswordKdfAlgoUnknown{}
 )
@@ -234,6 +252,14 @@ func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) Enco
 		return fmt.Errorf("can't encode passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow#3a912d4a as nil")
 	}
 	b.PutID(PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPowTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow#3a912d4a as nil")
+	}
 	b.PutBytes(p.Salt1)
 	b.PutBytes(p.Salt2)
 	b.PutInt(p.G)
@@ -268,6 +294,14 @@ func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) Deco
 	}
 	if err := b.ConsumeID(PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPowTypeID); err != nil {
 		return fmt.Errorf("unable to decode passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow#3a912d4a: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode passwordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow#3a912d4a to nil")
 	}
 	{
 		value, err := b.Bytes()
@@ -307,8 +341,10 @@ func (p PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow) const
 
 // Ensuring interfaces in compile-time for PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow.
 var (
-	_ bin.Encoder = &PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow{}
-	_ bin.Decoder = &PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow{}
+	_ bin.Encoder     = &PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow{}
+	_ bin.Decoder     = &PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow{}
+	_ bin.BareEncoder = &PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow{}
+	_ bin.BareDecoder = &PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow{}
 
 	_ PasswordKdfAlgoClass = &PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow{}
 )
@@ -330,6 +366,8 @@ var (
 type PasswordKdfAlgoClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() PasswordKdfAlgoClass
 
 	// TypeID returns type id in TL schema.

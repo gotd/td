@@ -102,6 +102,14 @@ func (g *MessagesGetOnlinesRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getOnlines#6e2be050 as nil")
 	}
 	b.PutID(MessagesGetOnlinesRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetOnlinesRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getOnlines#6e2be050 as nil")
+	}
 	if g.Peer == nil {
 		return fmt.Errorf("unable to encode messages.getOnlines#6e2be050: field peer is nil")
 	}
@@ -124,6 +132,14 @@ func (g *MessagesGetOnlinesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetOnlinesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getOnlines#6e2be050: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetOnlinesRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getOnlines#6e2be050 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -136,8 +152,10 @@ func (g *MessagesGetOnlinesRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetOnlinesRequest.
 var (
-	_ bin.Encoder = &MessagesGetOnlinesRequest{}
-	_ bin.Decoder = &MessagesGetOnlinesRequest{}
+	_ bin.Encoder     = &MessagesGetOnlinesRequest{}
+	_ bin.Decoder     = &MessagesGetOnlinesRequest{}
+	_ bin.BareEncoder = &MessagesGetOnlinesRequest{}
+	_ bin.BareDecoder = &MessagesGetOnlinesRequest{}
 )
 
 // MessagesGetOnlines invokes method messages.getOnlines#6e2be050 returning error if any.

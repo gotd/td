@@ -85,6 +85,14 @@ func (g *HelpGetNearestDCRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.getNearestDc#1fb33026 as nil")
 	}
 	b.PutID(HelpGetNearestDCRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *HelpGetNearestDCRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode help.getNearestDc#1fb33026 as nil")
+	}
 	return nil
 }
 
@@ -96,13 +104,23 @@ func (g *HelpGetNearestDCRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetNearestDCRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getNearestDc#1fb33026: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *HelpGetNearestDCRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode help.getNearestDc#1fb33026 to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for HelpGetNearestDCRequest.
 var (
-	_ bin.Encoder = &HelpGetNearestDCRequest{}
-	_ bin.Decoder = &HelpGetNearestDCRequest{}
+	_ bin.Encoder     = &HelpGetNearestDCRequest{}
+	_ bin.Decoder     = &HelpGetNearestDCRequest{}
+	_ bin.BareEncoder = &HelpGetNearestDCRequest{}
+	_ bin.BareDecoder = &HelpGetNearestDCRequest{}
 )
 
 // HelpGetNearestDC invokes method help.getNearestDc#1fb33026 returning error if any.

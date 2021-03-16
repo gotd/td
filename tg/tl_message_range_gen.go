@@ -113,6 +113,14 @@ func (m *MessageRange) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageRange#ae30253 as nil")
 	}
 	b.PutID(MessageRangeTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageRange) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageRange#ae30253 as nil")
+	}
 	b.PutInt(m.MinID)
 	b.PutInt(m.MaxID)
 	return nil
@@ -136,6 +144,14 @@ func (m *MessageRange) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageRangeTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageRange#ae30253: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageRange) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageRange#ae30253 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -155,6 +171,8 @@ func (m *MessageRange) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessageRange.
 var (
-	_ bin.Encoder = &MessageRange{}
-	_ bin.Decoder = &MessageRange{}
+	_ bin.Encoder     = &MessageRange{}
+	_ bin.Decoder     = &MessageRange{}
+	_ bin.BareEncoder = &MessageRange{}
+	_ bin.BareDecoder = &MessageRange{}
 )

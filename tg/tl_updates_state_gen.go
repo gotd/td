@@ -150,6 +150,14 @@ func (s *UpdatesState) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updates.state#a56c2a3e as nil")
 	}
 	b.PutID(UpdatesStateTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *UpdatesState) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode updates.state#a56c2a3e as nil")
+	}
 	b.PutInt(s.Pts)
 	b.PutInt(s.Qts)
 	b.PutInt(s.Date)
@@ -191,6 +199,14 @@ func (s *UpdatesState) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesStateTypeID); err != nil {
 		return fmt.Errorf("unable to decode updates.state#a56c2a3e: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *UpdatesState) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode updates.state#a56c2a3e to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -231,6 +247,8 @@ func (s *UpdatesState) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for UpdatesState.
 var (
-	_ bin.Encoder = &UpdatesState{}
-	_ bin.Decoder = &UpdatesState{}
+	_ bin.Encoder     = &UpdatesState{}
+	_ bin.Decoder     = &UpdatesState{}
+	_ bin.BareEncoder = &UpdatesState{}
+	_ bin.BareDecoder = &UpdatesState{}
 )

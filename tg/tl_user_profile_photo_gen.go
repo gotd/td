@@ -85,6 +85,14 @@ func (u *UserProfilePhotoEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode userProfilePhotoEmpty#4f11bae1 as nil")
 	}
 	b.PutID(UserProfilePhotoEmptyTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UserProfilePhotoEmpty) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userProfilePhotoEmpty#4f11bae1 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (u *UserProfilePhotoEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UserProfilePhotoEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode userProfilePhotoEmpty#4f11bae1: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UserProfilePhotoEmpty) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userProfilePhotoEmpty#4f11bae1 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (u UserProfilePhotoEmpty) construct() UserProfilePhotoClass { return &u }
 
 // Ensuring interfaces in compile-time for UserProfilePhotoEmpty.
 var (
-	_ bin.Encoder = &UserProfilePhotoEmpty{}
-	_ bin.Decoder = &UserProfilePhotoEmpty{}
+	_ bin.Encoder     = &UserProfilePhotoEmpty{}
+	_ bin.Decoder     = &UserProfilePhotoEmpty{}
+	_ bin.BareEncoder = &UserProfilePhotoEmpty{}
+	_ bin.BareDecoder = &UserProfilePhotoEmpty{}
 
 	_ UserProfilePhotoClass = &UserProfilePhotoEmpty{}
 )
@@ -245,6 +263,14 @@ func (u *UserProfilePhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode userProfilePhoto#69d3ab26 as nil")
 	}
 	b.PutID(UserProfilePhotoTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UserProfilePhoto) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userProfilePhoto#69d3ab26 as nil")
+	}
 	if !(u.HasVideo == false) {
 		u.Flags.Set(0)
 	}
@@ -306,6 +332,14 @@ func (u *UserProfilePhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UserProfilePhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode userProfilePhoto#69d3ab26: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UserProfilePhoto) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userProfilePhoto#69d3ab26 to nil")
+	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode userProfilePhoto#69d3ab26: field flags: %w", err)
@@ -344,8 +378,10 @@ func (u UserProfilePhoto) construct() UserProfilePhotoClass { return &u }
 
 // Ensuring interfaces in compile-time for UserProfilePhoto.
 var (
-	_ bin.Encoder = &UserProfilePhoto{}
-	_ bin.Decoder = &UserProfilePhoto{}
+	_ bin.Encoder     = &UserProfilePhoto{}
+	_ bin.Decoder     = &UserProfilePhoto{}
+	_ bin.BareEncoder = &UserProfilePhoto{}
+	_ bin.BareDecoder = &UserProfilePhoto{}
 
 	_ UserProfilePhotoClass = &UserProfilePhoto{}
 )
@@ -367,6 +403,8 @@ var (
 type UserProfilePhotoClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() UserProfilePhotoClass
 
 	// TypeID returns type id in TL schema.

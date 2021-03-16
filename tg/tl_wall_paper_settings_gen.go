@@ -191,6 +191,14 @@ func (w *WallPaperSettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode wallPaperSettings#5086cf8 as nil")
 	}
 	b.PutID(WallPaperSettingsTypeID)
+	return w.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (w *WallPaperSettings) EncodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode wallPaperSettings#5086cf8 as nil")
+	}
 	if !(w.Blur == false) {
 		w.Flags.Set(1)
 	}
@@ -327,6 +335,14 @@ func (w *WallPaperSettings) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(WallPaperSettingsTypeID); err != nil {
 		return fmt.Errorf("unable to decode wallPaperSettings#5086cf8: %w", err)
 	}
+	return w.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (w *WallPaperSettings) DecodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode wallPaperSettings#5086cf8 to nil")
+	}
 	{
 		if err := w.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode wallPaperSettings#5086cf8: field flags: %w", err)
@@ -367,6 +383,8 @@ func (w *WallPaperSettings) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for WallPaperSettings.
 var (
-	_ bin.Encoder = &WallPaperSettings{}
-	_ bin.Decoder = &WallPaperSettings{}
+	_ bin.Encoder     = &WallPaperSettings{}
+	_ bin.Decoder     = &WallPaperSettings{}
+	_ bin.BareEncoder = &WallPaperSettings{}
+	_ bin.BareDecoder = &WallPaperSettings{}
 )

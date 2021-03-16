@@ -111,6 +111,14 @@ func (c *MessagesClearRecentStickersRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.clearRecentStickers#8999602d as nil")
 	}
 	b.PutID(MessagesClearRecentStickersRequestTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *MessagesClearRecentStickersRequest) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode messages.clearRecentStickers#8999602d as nil")
+	}
 	if !(c.Attached == false) {
 		c.Flags.Set(0)
 	}
@@ -144,6 +152,14 @@ func (c *MessagesClearRecentStickersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesClearRecentStickersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.clearRecentStickers#8999602d: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *MessagesClearRecentStickersRequest) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode messages.clearRecentStickers#8999602d to nil")
+	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.clearRecentStickers#8999602d: field flags: %w", err)
@@ -155,8 +171,10 @@ func (c *MessagesClearRecentStickersRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesClearRecentStickersRequest.
 var (
-	_ bin.Encoder = &MessagesClearRecentStickersRequest{}
-	_ bin.Decoder = &MessagesClearRecentStickersRequest{}
+	_ bin.Encoder     = &MessagesClearRecentStickersRequest{}
+	_ bin.Decoder     = &MessagesClearRecentStickersRequest{}
+	_ bin.BareEncoder = &MessagesClearRecentStickersRequest{}
+	_ bin.BareDecoder = &MessagesClearRecentStickersRequest{}
 )
 
 // MessagesClearRecentStickers invokes method messages.clearRecentStickers#8999602d returning error if any.

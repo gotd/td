@@ -158,6 +158,14 @@ func (s *MessagesSendEncryptedFileRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.sendEncryptedFile#5559481d as nil")
 	}
 	b.PutID(MessagesSendEncryptedFileRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesSendEncryptedFileRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.sendEncryptedFile#5559481d as nil")
+	}
 	if !(s.Silent == false) {
 		s.Flags.Set(0)
 	}
@@ -227,6 +235,14 @@ func (s *MessagesSendEncryptedFileRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSendEncryptedFileRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.sendEncryptedFile#5559481d: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSendEncryptedFileRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.sendEncryptedFile#5559481d to nil")
+	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.sendEncryptedFile#5559481d: field flags: %w", err)
@@ -264,8 +280,10 @@ func (s *MessagesSendEncryptedFileRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesSendEncryptedFileRequest.
 var (
-	_ bin.Encoder = &MessagesSendEncryptedFileRequest{}
-	_ bin.Decoder = &MessagesSendEncryptedFileRequest{}
+	_ bin.Encoder     = &MessagesSendEncryptedFileRequest{}
+	_ bin.Decoder     = &MessagesSendEncryptedFileRequest{}
+	_ bin.BareEncoder = &MessagesSendEncryptedFileRequest{}
+	_ bin.BareDecoder = &MessagesSendEncryptedFileRequest{}
 )
 
 // MessagesSendEncryptedFile invokes method messages.sendEncryptedFile#5559481d returning error if any.

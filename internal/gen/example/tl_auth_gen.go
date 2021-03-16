@@ -101,6 +101,14 @@ func (a *Auth) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth#f8bb4a38 as nil")
 	}
 	b.PutID(AuthTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *Auth) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode auth#f8bb4a38 as nil")
+	}
 	b.PutString(a.Name)
 	return nil
 }
@@ -118,6 +126,14 @@ func (a *Auth) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth#f8bb4a38: %w", err)
 	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *Auth) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode auth#f8bb4a38 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -133,8 +149,10 @@ func (a Auth) construct() AuthClass { return &a }
 
 // Ensuring interfaces in compile-time for Auth.
 var (
-	_ bin.Encoder = &Auth{}
-	_ bin.Decoder = &Auth{}
+	_ bin.Encoder     = &Auth{}
+	_ bin.Decoder     = &Auth{}
+	_ bin.BareEncoder = &Auth{}
+	_ bin.BareDecoder = &Auth{}
 
 	_ AuthClass = &Auth{}
 )
@@ -225,6 +243,14 @@ func (a *AuthPassword) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode authPassword#29bacabb as nil")
 	}
 	b.PutID(AuthPasswordTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *AuthPassword) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authPassword#29bacabb as nil")
+	}
 	b.PutString(a.Name)
 	b.PutString(a.Password)
 	return nil
@@ -248,6 +274,14 @@ func (a *AuthPassword) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthPasswordTypeID); err != nil {
 		return fmt.Errorf("unable to decode authPassword#29bacabb: %w", err)
 	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *AuthPassword) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authPassword#29bacabb to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -270,8 +304,10 @@ func (a AuthPassword) construct() AuthClass { return &a }
 
 // Ensuring interfaces in compile-time for AuthPassword.
 var (
-	_ bin.Encoder = &AuthPassword{}
-	_ bin.Decoder = &AuthPassword{}
+	_ bin.Encoder     = &AuthPassword{}
+	_ bin.Decoder     = &AuthPassword{}
+	_ bin.BareEncoder = &AuthPassword{}
+	_ bin.BareDecoder = &AuthPassword{}
 
 	_ AuthClass = &AuthPassword{}
 )
@@ -293,6 +329,8 @@ var (
 type AuthClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() AuthClass
 
 	// TypeID returns type id in TL schema.

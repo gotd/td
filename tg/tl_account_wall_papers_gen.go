@@ -85,6 +85,14 @@ func (w *AccountWallPapersNotModified) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.wallPapersNotModified#1c199183 as nil")
 	}
 	b.PutID(AccountWallPapersNotModifiedTypeID)
+	return w.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (w *AccountWallPapersNotModified) EncodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode account.wallPapersNotModified#1c199183 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (w *AccountWallPapersNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountWallPapersNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.wallPapersNotModified#1c199183: %w", err)
 	}
+	return w.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (w *AccountWallPapersNotModified) DecodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode account.wallPapersNotModified#1c199183 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (w AccountWallPapersNotModified) construct() AccountWallPapersClass { retur
 
 // Ensuring interfaces in compile-time for AccountWallPapersNotModified.
 var (
-	_ bin.Encoder = &AccountWallPapersNotModified{}
-	_ bin.Decoder = &AccountWallPapersNotModified{}
+	_ bin.Encoder     = &AccountWallPapersNotModified{}
+	_ bin.Decoder     = &AccountWallPapersNotModified{}
+	_ bin.BareEncoder = &AccountWallPapersNotModified{}
+	_ bin.BareDecoder = &AccountWallPapersNotModified{}
 
 	_ AccountWallPapersClass = &AccountWallPapersNotModified{}
 )
@@ -200,6 +218,14 @@ func (w *AccountWallPapers) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.wallPapers#702b65a9 as nil")
 	}
 	b.PutID(AccountWallPapersTypeID)
+	return w.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (w *AccountWallPapers) EncodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode account.wallPapers#702b65a9 as nil")
+	}
 	b.PutInt(w.Hash)
 	b.PutVectorHeader(len(w.Wallpapers))
 	for idx, v := range w.Wallpapers {
@@ -236,6 +262,14 @@ func (w *AccountWallPapers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountWallPapersTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.wallPapers#702b65a9: %w", err)
 	}
+	return w.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (w *AccountWallPapers) DecodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode account.wallPapers#702b65a9 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -264,8 +298,10 @@ func (w AccountWallPapers) construct() AccountWallPapersClass { return &w }
 
 // Ensuring interfaces in compile-time for AccountWallPapers.
 var (
-	_ bin.Encoder = &AccountWallPapers{}
-	_ bin.Decoder = &AccountWallPapers{}
+	_ bin.Encoder     = &AccountWallPapers{}
+	_ bin.Decoder     = &AccountWallPapers{}
+	_ bin.BareEncoder = &AccountWallPapers{}
+	_ bin.BareDecoder = &AccountWallPapers{}
 
 	_ AccountWallPapersClass = &AccountWallPapers{}
 )
@@ -287,6 +323,8 @@ var (
 type AccountWallPapersClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() AccountWallPapersClass
 
 	// TypeID returns type id in TL schema.

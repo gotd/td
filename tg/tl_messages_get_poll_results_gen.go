@@ -113,6 +113,14 @@ func (g *MessagesGetPollResultsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getPollResults#73bb643b as nil")
 	}
 	b.PutID(MessagesGetPollResultsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetPollResultsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getPollResults#73bb643b as nil")
+	}
 	if g.Peer == nil {
 		return fmt.Errorf("unable to encode messages.getPollResults#73bb643b: field peer is nil")
 	}
@@ -141,6 +149,14 @@ func (g *MessagesGetPollResultsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetPollResultsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getPollResults#73bb643b: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetPollResultsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getPollResults#73bb643b to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -160,8 +176,10 @@ func (g *MessagesGetPollResultsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetPollResultsRequest.
 var (
-	_ bin.Encoder = &MessagesGetPollResultsRequest{}
-	_ bin.Decoder = &MessagesGetPollResultsRequest{}
+	_ bin.Encoder     = &MessagesGetPollResultsRequest{}
+	_ bin.Decoder     = &MessagesGetPollResultsRequest{}
+	_ bin.BareEncoder = &MessagesGetPollResultsRequest{}
+	_ bin.BareDecoder = &MessagesGetPollResultsRequest{}
 )
 
 // MessagesGetPollResults invokes method messages.getPollResults#73bb643b returning error if any.

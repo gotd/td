@@ -173,6 +173,14 @@ func (s *MessagesSaveDraftRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.saveDraft#bc39e14b as nil")
 	}
 	b.PutID(MessagesSaveDraftRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesSaveDraftRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.saveDraft#bc39e14b as nil")
+	}
 	if !(s.NoWebpage == false) {
 		s.Flags.Set(1)
 	}
@@ -281,6 +289,14 @@ func (s *MessagesSaveDraftRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSaveDraftRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.saveDraft#bc39e14b: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSaveDraftRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.saveDraft#bc39e14b to nil")
+	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.saveDraft#bc39e14b: field flags: %w", err)
@@ -326,8 +342,10 @@ func (s *MessagesSaveDraftRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesSaveDraftRequest.
 var (
-	_ bin.Encoder = &MessagesSaveDraftRequest{}
-	_ bin.Decoder = &MessagesSaveDraftRequest{}
+	_ bin.Encoder     = &MessagesSaveDraftRequest{}
+	_ bin.Decoder     = &MessagesSaveDraftRequest{}
+	_ bin.BareEncoder = &MessagesSaveDraftRequest{}
+	_ bin.BareDecoder = &MessagesSaveDraftRequest{}
 )
 
 // MessagesSaveDraft invokes method messages.saveDraft#bc39e14b returning error if any.

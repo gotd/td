@@ -113,6 +113,14 @@ func (b *BotCommand) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode botCommand#c27ac8c7 as nil")
 	}
 	buf.PutID(BotCommandTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *BotCommand) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode botCommand#c27ac8c7 as nil")
+	}
 	buf.PutString(b.Command)
 	buf.PutString(b.Description)
 	return nil
@@ -136,6 +144,14 @@ func (b *BotCommand) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BotCommandTypeID); err != nil {
 		return fmt.Errorf("unable to decode botCommand#c27ac8c7: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BotCommand) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode botCommand#c27ac8c7 to nil")
+	}
 	{
 		value, err := buf.String()
 		if err != nil {
@@ -155,6 +171,8 @@ func (b *BotCommand) Decode(buf *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for BotCommand.
 var (
-	_ bin.Encoder = &BotCommand{}
-	_ bin.Decoder = &BotCommand{}
+	_ bin.Encoder     = &BotCommand{}
+	_ bin.Decoder     = &BotCommand{}
+	_ bin.BareEncoder = &BotCommand{}
+	_ bin.BareDecoder = &BotCommand{}
 )

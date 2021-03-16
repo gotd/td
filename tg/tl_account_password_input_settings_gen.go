@@ -193,6 +193,14 @@ func (p *AccountPasswordInputSettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.passwordInputSettings#c23727c9 as nil")
 	}
 	b.PutID(AccountPasswordInputSettingsTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *AccountPasswordInputSettings) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode account.passwordInputSettings#c23727c9 as nil")
+	}
 	if !(p.NewAlgo == nil) {
 		p.Flags.Set(0)
 	}
@@ -319,6 +327,14 @@ func (p *AccountPasswordInputSettings) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountPasswordInputSettingsTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.passwordInputSettings#c23727c9: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *AccountPasswordInputSettings) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode account.passwordInputSettings#c23727c9 to nil")
+	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.passwordInputSettings#c23727c9: field flags: %w", err)
@@ -362,6 +378,8 @@ func (p *AccountPasswordInputSettings) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountPasswordInputSettings.
 var (
-	_ bin.Encoder = &AccountPasswordInputSettings{}
-	_ bin.Decoder = &AccountPasswordInputSettings{}
+	_ bin.Encoder     = &AccountPasswordInputSettings{}
+	_ bin.Decoder     = &AccountPasswordInputSettings{}
+	_ bin.BareEncoder = &AccountPasswordInputSettings{}
+	_ bin.BareDecoder = &AccountPasswordInputSettings{}
 )

@@ -105,6 +105,14 @@ func (t *ContactsToggleTopPeersRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode contacts.toggleTopPeers#8514bdda as nil")
 	}
 	b.PutID(ContactsToggleTopPeersRequestTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *ContactsToggleTopPeersRequest) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode contacts.toggleTopPeers#8514bdda as nil")
+	}
 	b.PutBool(t.Enabled)
 	return nil
 }
@@ -122,6 +130,14 @@ func (t *ContactsToggleTopPeersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsToggleTopPeersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.toggleTopPeers#8514bdda: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *ContactsToggleTopPeersRequest) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode contacts.toggleTopPeers#8514bdda to nil")
+	}
 	{
 		value, err := b.Bool()
 		if err != nil {
@@ -134,8 +150,10 @@ func (t *ContactsToggleTopPeersRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ContactsToggleTopPeersRequest.
 var (
-	_ bin.Encoder = &ContactsToggleTopPeersRequest{}
-	_ bin.Decoder = &ContactsToggleTopPeersRequest{}
+	_ bin.Encoder     = &ContactsToggleTopPeersRequest{}
+	_ bin.Decoder     = &ContactsToggleTopPeersRequest{}
+	_ bin.BareEncoder = &ContactsToggleTopPeersRequest{}
+	_ bin.BareDecoder = &ContactsToggleTopPeersRequest{}
 )
 
 // ContactsToggleTopPeers invokes method contacts.toggleTopPeers#8514bdda returning error if any.

@@ -101,10 +101,18 @@ func (t *TestVectorIntObject) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode testVectorIntObject#f152999b as nil")
 	}
 	b.PutID(TestVectorIntObjectTypeID)
-	b.PutVectorHeader(len(t.Value))
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TestVectorIntObject) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode testVectorIntObject#f152999b as nil")
+	}
+	b.PutInt(len(t.Value))
 	for idx, v := range t.Value {
-		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode testVectorIntObject#f152999b: field value element with index %d: %w", idx, err)
+		if err := v.EncodeBare(b); err != nil {
+			return fmt.Errorf("unable to encode bare testVectorIntObject#f152999b: field value element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -123,15 +131,23 @@ func (t *TestVectorIntObject) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TestVectorIntObjectTypeID); err != nil {
 		return fmt.Errorf("unable to decode testVectorIntObject#f152999b: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TestVectorIntObject) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode testVectorIntObject#f152999b to nil")
+	}
 	{
-		headerLen, err := b.VectorHeader()
+		headerLen, err := b.Int()
 		if err != nil {
 			return fmt.Errorf("unable to decode testVectorIntObject#f152999b: field value: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value TestInt
-			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode testVectorIntObject#f152999b: field value: %w", err)
+			if err := value.DecodeBare(b); err != nil {
+				return fmt.Errorf("unable to decode bare testVectorIntObject#f152999b: field value: %w", err)
 			}
 			t.Value = append(t.Value, value)
 		}
@@ -141,6 +157,8 @@ func (t *TestVectorIntObject) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for TestVectorIntObject.
 var (
-	_ bin.Encoder = &TestVectorIntObject{}
-	_ bin.Decoder = &TestVectorIntObject{}
+	_ bin.Encoder     = &TestVectorIntObject{}
+	_ bin.Decoder     = &TestVectorIntObject{}
+	_ bin.BareEncoder = &TestVectorIntObject{}
+	_ bin.BareDecoder = &TestVectorIntObject{}
 )

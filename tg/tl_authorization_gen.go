@@ -270,6 +270,14 @@ func (a *Authorization) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode authorization#ad01d61d as nil")
 	}
 	b.PutID(AuthorizationTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *Authorization) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode authorization#ad01d61d as nil")
+	}
 	if !(a.Current == false) {
 		a.Flags.Set(0)
 	}
@@ -413,6 +421,14 @@ func (a *Authorization) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthorizationTypeID); err != nil {
 		return fmt.Errorf("unable to decode authorization#ad01d61d: %w", err)
 	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *Authorization) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode authorization#ad01d61d to nil")
+	}
 	{
 		if err := a.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode authorization#ad01d61d: field flags: %w", err)
@@ -510,6 +526,8 @@ func (a *Authorization) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for Authorization.
 var (
-	_ bin.Encoder = &Authorization{}
-	_ bin.Decoder = &Authorization{}
+	_ bin.Encoder     = &Authorization{}
+	_ bin.Decoder     = &Authorization{}
+	_ bin.BareEncoder = &Authorization{}
+	_ bin.BareDecoder = &Authorization{}
 )

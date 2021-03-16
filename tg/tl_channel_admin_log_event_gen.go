@@ -135,6 +135,14 @@ func (c *ChannelAdminLogEvent) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelAdminLogEvent#3b5a3e40 as nil")
 	}
 	b.PutID(ChannelAdminLogEventTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelAdminLogEvent) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelAdminLogEvent#3b5a3e40 as nil")
+	}
 	b.PutLong(c.ID)
 	b.PutInt(c.Date)
 	b.PutInt(c.UserID)
@@ -175,6 +183,14 @@ func (c *ChannelAdminLogEvent) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelAdminLogEventTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelAdminLogEvent#3b5a3e40: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelAdminLogEvent) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelAdminLogEvent#3b5a3e40 to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -208,6 +224,8 @@ func (c *ChannelAdminLogEvent) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelAdminLogEvent.
 var (
-	_ bin.Encoder = &ChannelAdminLogEvent{}
-	_ bin.Decoder = &ChannelAdminLogEvent{}
+	_ bin.Encoder     = &ChannelAdminLogEvent{}
+	_ bin.Decoder     = &ChannelAdminLogEvent{}
+	_ bin.BareEncoder = &ChannelAdminLogEvent{}
+	_ bin.BareDecoder = &ChannelAdminLogEvent{}
 )

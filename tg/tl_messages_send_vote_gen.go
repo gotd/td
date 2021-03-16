@@ -127,6 +127,14 @@ func (s *MessagesSendVoteRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.sendVote#10ea6184 as nil")
 	}
 	b.PutID(MessagesSendVoteRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesSendVoteRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.sendVote#10ea6184 as nil")
+	}
 	if s.Peer == nil {
 		return fmt.Errorf("unable to encode messages.sendVote#10ea6184: field peer is nil")
 	}
@@ -164,6 +172,14 @@ func (s *MessagesSendVoteRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSendVoteRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.sendVote#10ea6184: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSendVoteRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.sendVote#10ea6184 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -196,8 +212,10 @@ func (s *MessagesSendVoteRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesSendVoteRequest.
 var (
-	_ bin.Encoder = &MessagesSendVoteRequest{}
-	_ bin.Decoder = &MessagesSendVoteRequest{}
+	_ bin.Encoder     = &MessagesSendVoteRequest{}
+	_ bin.Decoder     = &MessagesSendVoteRequest{}
+	_ bin.BareEncoder = &MessagesSendVoteRequest{}
+	_ bin.BareDecoder = &MessagesSendVoteRequest{}
 )
 
 // MessagesSendVote invokes method messages.sendVote#10ea6184 returning error if any.

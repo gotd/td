@@ -174,6 +174,14 @@ func (f *Folder) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode folder#ff544e65 as nil")
 	}
 	b.PutID(FolderTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *Folder) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode folder#ff544e65 as nil")
+	}
 	if !(f.AutofillNewBroadcasts == false) {
 		f.Flags.Set(0)
 	}
@@ -292,6 +300,14 @@ func (f *Folder) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(FolderTypeID); err != nil {
 		return fmt.Errorf("unable to decode folder#ff544e65: %w", err)
 	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *Folder) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode folder#ff544e65 to nil")
+	}
 	{
 		if err := f.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode folder#ff544e65: field flags: %w", err)
@@ -326,6 +342,8 @@ func (f *Folder) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for Folder.
 var (
-	_ bin.Encoder = &Folder{}
-	_ bin.Decoder = &Folder{}
+	_ bin.Encoder     = &Folder{}
+	_ bin.Decoder     = &Folder{}
+	_ bin.BareEncoder = &Folder{}
+	_ bin.BareDecoder = &Folder{}
 )

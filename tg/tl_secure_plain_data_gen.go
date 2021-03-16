@@ -106,6 +106,14 @@ func (s *SecurePlainPhone) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode securePlainPhone#7d6099dd as nil")
 	}
 	b.PutID(SecurePlainPhoneTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecurePlainPhone) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode securePlainPhone#7d6099dd as nil")
+	}
 	b.PutString(s.Phone)
 	return nil
 }
@@ -123,6 +131,14 @@ func (s *SecurePlainPhone) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecurePlainPhoneTypeID); err != nil {
 		return fmt.Errorf("unable to decode securePlainPhone#7d6099dd: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecurePlainPhone) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode securePlainPhone#7d6099dd to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -138,8 +154,10 @@ func (s SecurePlainPhone) construct() SecurePlainDataClass { return &s }
 
 // Ensuring interfaces in compile-time for SecurePlainPhone.
 var (
-	_ bin.Encoder = &SecurePlainPhone{}
-	_ bin.Decoder = &SecurePlainPhone{}
+	_ bin.Encoder     = &SecurePlainPhone{}
+	_ bin.Decoder     = &SecurePlainPhone{}
+	_ bin.BareEncoder = &SecurePlainPhone{}
+	_ bin.BareDecoder = &SecurePlainPhone{}
 
 	_ SecurePlainDataClass = &SecurePlainPhone{}
 )
@@ -224,6 +242,14 @@ func (s *SecurePlainEmail) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode securePlainEmail#21ec5a5f as nil")
 	}
 	b.PutID(SecurePlainEmailTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecurePlainEmail) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode securePlainEmail#21ec5a5f as nil")
+	}
 	b.PutString(s.Email)
 	return nil
 }
@@ -241,6 +267,14 @@ func (s *SecurePlainEmail) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecurePlainEmailTypeID); err != nil {
 		return fmt.Errorf("unable to decode securePlainEmail#21ec5a5f: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecurePlainEmail) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode securePlainEmail#21ec5a5f to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -256,8 +290,10 @@ func (s SecurePlainEmail) construct() SecurePlainDataClass { return &s }
 
 // Ensuring interfaces in compile-time for SecurePlainEmail.
 var (
-	_ bin.Encoder = &SecurePlainEmail{}
-	_ bin.Decoder = &SecurePlainEmail{}
+	_ bin.Encoder     = &SecurePlainEmail{}
+	_ bin.Decoder     = &SecurePlainEmail{}
+	_ bin.BareEncoder = &SecurePlainEmail{}
+	_ bin.BareDecoder = &SecurePlainEmail{}
 
 	_ SecurePlainDataClass = &SecurePlainEmail{}
 )
@@ -279,6 +315,8 @@ var (
 type SecurePlainDataClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() SecurePlainDataClass
 
 	// TypeID returns type id in TL schema.

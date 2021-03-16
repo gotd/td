@@ -135,6 +135,14 @@ func (s *SavedPhoneContact) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode savedPhoneContact#1142bd56 as nil")
 	}
 	b.PutID(SavedPhoneContactTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SavedPhoneContact) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode savedPhoneContact#1142bd56 as nil")
+	}
 	b.PutString(s.Phone)
 	b.PutString(s.FirstName)
 	b.PutString(s.LastName)
@@ -170,6 +178,14 @@ func (s *SavedPhoneContact) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SavedPhoneContactTypeID); err != nil {
 		return fmt.Errorf("unable to decode savedPhoneContact#1142bd56: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SavedPhoneContact) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode savedPhoneContact#1142bd56 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -203,6 +219,8 @@ func (s *SavedPhoneContact) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for SavedPhoneContact.
 var (
-	_ bin.Encoder = &SavedPhoneContact{}
-	_ bin.Decoder = &SavedPhoneContact{}
+	_ bin.Encoder     = &SavedPhoneContact{}
+	_ bin.Decoder     = &SavedPhoneContact{}
+	_ bin.BareEncoder = &SavedPhoneContact{}
+	_ bin.BareDecoder = &SavedPhoneContact{}
 )

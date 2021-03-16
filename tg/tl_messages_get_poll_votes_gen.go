@@ -170,6 +170,14 @@ func (g *MessagesGetPollVotesRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getPollVotes#b86e380e as nil")
 	}
 	b.PutID(MessagesGetPollVotesRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetPollVotesRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getPollVotes#b86e380e as nil")
+	}
 	if !(g.Option == nil) {
 		g.Flags.Set(0)
 	}
@@ -249,6 +257,14 @@ func (g *MessagesGetPollVotesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetPollVotesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getPollVotes#b86e380e: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetPollVotesRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getPollVotes#b86e380e to nil")
+	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.getPollVotes#b86e380e: field flags: %w", err)
@@ -294,8 +310,10 @@ func (g *MessagesGetPollVotesRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetPollVotesRequest.
 var (
-	_ bin.Encoder = &MessagesGetPollVotesRequest{}
-	_ bin.Decoder = &MessagesGetPollVotesRequest{}
+	_ bin.Encoder     = &MessagesGetPollVotesRequest{}
+	_ bin.Decoder     = &MessagesGetPollVotesRequest{}
+	_ bin.BareEncoder = &MessagesGetPollVotesRequest{}
+	_ bin.BareDecoder = &MessagesGetPollVotesRequest{}
 )
 
 // MessagesGetPollVotes invokes method messages.getPollVotes#b86e380e returning error if any.

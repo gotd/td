@@ -312,6 +312,14 @@ func (d *DialogFilter) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode dialogFilter#7438f7e8 as nil")
 	}
 	b.PutID(DialogFilterTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DialogFilter) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode dialogFilter#7438f7e8 as nil")
+	}
 	if !(d.Contacts == false) {
 		d.Flags.Set(0)
 	}
@@ -568,6 +576,14 @@ func (d *DialogFilter) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DialogFilterTypeID); err != nil {
 		return fmt.Errorf("unable to decode dialogFilter#7438f7e8: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DialogFilter) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode dialogFilter#7438f7e8 to nil")
+	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode dialogFilter#7438f7e8: field flags: %w", err)
@@ -646,6 +662,8 @@ func (d *DialogFilter) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for DialogFilter.
 var (
-	_ bin.Encoder = &DialogFilter{}
-	_ bin.Decoder = &DialogFilter{}
+	_ bin.Encoder     = &DialogFilter{}
+	_ bin.Decoder     = &DialogFilter{}
+	_ bin.BareEncoder = &DialogFilter{}
+	_ bin.BareDecoder = &DialogFilter{}
 )

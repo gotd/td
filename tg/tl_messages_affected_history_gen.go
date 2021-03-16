@@ -124,6 +124,14 @@ func (a *MessagesAffectedHistory) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.affectedHistory#b45c69d1 as nil")
 	}
 	b.PutID(MessagesAffectedHistoryTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *MessagesAffectedHistory) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode messages.affectedHistory#b45c69d1 as nil")
+	}
 	b.PutInt(a.Pts)
 	b.PutInt(a.PtsCount)
 	b.PutInt(a.Offset)
@@ -153,6 +161,14 @@ func (a *MessagesAffectedHistory) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesAffectedHistoryTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.affectedHistory#b45c69d1: %w", err)
 	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *MessagesAffectedHistory) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode messages.affectedHistory#b45c69d1 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -179,6 +195,8 @@ func (a *MessagesAffectedHistory) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesAffectedHistory.
 var (
-	_ bin.Encoder = &MessagesAffectedHistory{}
-	_ bin.Decoder = &MessagesAffectedHistory{}
+	_ bin.Encoder     = &MessagesAffectedHistory{}
+	_ bin.Decoder     = &MessagesAffectedHistory{}
+	_ bin.BareEncoder = &MessagesAffectedHistory{}
+	_ bin.BareDecoder = &MessagesAffectedHistory{}
 )

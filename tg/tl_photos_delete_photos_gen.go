@@ -102,6 +102,14 @@ func (d *PhotosDeletePhotosRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode photos.deletePhotos#87cf7f2f as nil")
 	}
 	b.PutID(PhotosDeletePhotosRequestTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *PhotosDeletePhotosRequest) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode photos.deletePhotos#87cf7f2f as nil")
+	}
 	b.PutVectorHeader(len(d.ID))
 	for idx, v := range d.ID {
 		if v == nil {
@@ -132,6 +140,14 @@ func (d *PhotosDeletePhotosRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotosDeletePhotosRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode photos.deletePhotos#87cf7f2f: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *PhotosDeletePhotosRequest) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode photos.deletePhotos#87cf7f2f to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -150,8 +166,10 @@ func (d *PhotosDeletePhotosRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhotosDeletePhotosRequest.
 var (
-	_ bin.Encoder = &PhotosDeletePhotosRequest{}
-	_ bin.Decoder = &PhotosDeletePhotosRequest{}
+	_ bin.Encoder     = &PhotosDeletePhotosRequest{}
+	_ bin.Decoder     = &PhotosDeletePhotosRequest{}
+	_ bin.BareEncoder = &PhotosDeletePhotosRequest{}
+	_ bin.BareDecoder = &PhotosDeletePhotosRequest{}
 )
 
 // PhotosDeletePhotos invokes method photos.deletePhotos#87cf7f2f returning error if any.

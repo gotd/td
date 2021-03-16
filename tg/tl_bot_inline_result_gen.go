@@ -220,6 +220,14 @@ func (b *BotInlineResult) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode botInlineResult#11965f3a as nil")
 	}
 	buf.PutID(BotInlineResultTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *BotInlineResult) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode botInlineResult#11965f3a as nil")
+	}
 	if !(b.Title == "") {
 		b.Flags.Set(1)
 	}
@@ -372,6 +380,14 @@ func (b *BotInlineResult) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BotInlineResultTypeID); err != nil {
 		return fmt.Errorf("unable to decode botInlineResult#11965f3a: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BotInlineResult) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode botInlineResult#11965f3a to nil")
+	}
 	{
 		if err := b.Flags.Decode(buf); err != nil {
 			return fmt.Errorf("unable to decode botInlineResult#11965f3a: field flags: %w", err)
@@ -441,8 +457,10 @@ func (b BotInlineResult) construct() BotInlineResultClass { return &b }
 
 // Ensuring interfaces in compile-time for BotInlineResult.
 var (
-	_ bin.Encoder = &BotInlineResult{}
-	_ bin.Decoder = &BotInlineResult{}
+	_ bin.Encoder     = &BotInlineResult{}
+	_ bin.Decoder     = &BotInlineResult{}
+	_ bin.BareEncoder = &BotInlineResult{}
+	_ bin.BareDecoder = &BotInlineResult{}
 
 	_ BotInlineResultClass = &BotInlineResult{}
 )
@@ -627,6 +645,14 @@ func (b *BotInlineMediaResult) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode botInlineMediaResult#17db940b as nil")
 	}
 	buf.PutID(BotInlineMediaResultTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *BotInlineMediaResult) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode botInlineMediaResult#17db940b as nil")
+	}
 	if !(b.Photo == nil) {
 		b.Flags.Set(0)
 	}
@@ -758,6 +784,14 @@ func (b *BotInlineMediaResult) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BotInlineMediaResultTypeID); err != nil {
 		return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BotInlineMediaResult) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode botInlineMediaResult#17db940b to nil")
+	}
 	{
 		if err := b.Flags.Decode(buf); err != nil {
 			return fmt.Errorf("unable to decode botInlineMediaResult#17db940b: field flags: %w", err)
@@ -820,8 +854,10 @@ func (b BotInlineMediaResult) construct() BotInlineResultClass { return &b }
 
 // Ensuring interfaces in compile-time for BotInlineMediaResult.
 var (
-	_ bin.Encoder = &BotInlineMediaResult{}
-	_ bin.Decoder = &BotInlineMediaResult{}
+	_ bin.Encoder     = &BotInlineMediaResult{}
+	_ bin.Decoder     = &BotInlineMediaResult{}
+	_ bin.BareEncoder = &BotInlineMediaResult{}
+	_ bin.BareDecoder = &BotInlineMediaResult{}
 
 	_ BotInlineResultClass = &BotInlineMediaResult{}
 )
@@ -843,6 +879,8 @@ var (
 type BotInlineResultClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() BotInlineResultClass
 
 	// TypeID returns type id in TL schema.

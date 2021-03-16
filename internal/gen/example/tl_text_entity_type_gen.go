@@ -84,6 +84,14 @@ func (t *TextEntityTypeMention) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textEntityTypeMention#37b3df65 as nil")
 	}
 	b.PutID(TextEntityTypeMentionTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextEntityTypeMention) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeMention#37b3df65 as nil")
+	}
 	return nil
 }
 
@@ -95,6 +103,14 @@ func (t *TextEntityTypeMention) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeMentionTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeMention#37b3df65: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextEntityTypeMention) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypeMention#37b3df65 to nil")
+	}
 	return nil
 }
 
@@ -103,8 +119,10 @@ func (t TextEntityTypeMention) construct() TextEntityTypeClass { return &t }
 
 // Ensuring interfaces in compile-time for TextEntityTypeMention.
 var (
-	_ bin.Encoder = &TextEntityTypeMention{}
-	_ bin.Decoder = &TextEntityTypeMention{}
+	_ bin.Encoder     = &TextEntityTypeMention{}
+	_ bin.Decoder     = &TextEntityTypeMention{}
+	_ bin.BareEncoder = &TextEntityTypeMention{}
+	_ bin.BareDecoder = &TextEntityTypeMention{}
 
 	_ TextEntityTypeClass = &TextEntityTypeMention{}
 )
@@ -167,6 +185,14 @@ func (t *TextEntityTypeHashtag) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textEntityTypeHashtag#c2f7a2dd as nil")
 	}
 	b.PutID(TextEntityTypeHashtagTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextEntityTypeHashtag) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeHashtag#c2f7a2dd as nil")
+	}
 	return nil
 }
 
@@ -178,6 +204,14 @@ func (t *TextEntityTypeHashtag) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeHashtagTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeHashtag#c2f7a2dd: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextEntityTypeHashtag) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypeHashtag#c2f7a2dd to nil")
+	}
 	return nil
 }
 
@@ -186,8 +220,10 @@ func (t TextEntityTypeHashtag) construct() TextEntityTypeClass { return &t }
 
 // Ensuring interfaces in compile-time for TextEntityTypeHashtag.
 var (
-	_ bin.Encoder = &TextEntityTypeHashtag{}
-	_ bin.Decoder = &TextEntityTypeHashtag{}
+	_ bin.Encoder     = &TextEntityTypeHashtag{}
+	_ bin.Decoder     = &TextEntityTypeHashtag{}
+	_ bin.BareEncoder = &TextEntityTypeHashtag{}
+	_ bin.BareDecoder = &TextEntityTypeHashtag{}
 
 	_ TextEntityTypeClass = &TextEntityTypeHashtag{}
 )
@@ -250,6 +286,14 @@ func (t *TextEntityTypeCashtag) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textEntityTypeCashtag#48e4374b as nil")
 	}
 	b.PutID(TextEntityTypeCashtagTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextEntityTypeCashtag) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeCashtag#48e4374b as nil")
+	}
 	return nil
 }
 
@@ -261,6 +305,14 @@ func (t *TextEntityTypeCashtag) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeCashtagTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeCashtag#48e4374b: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextEntityTypeCashtag) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypeCashtag#48e4374b to nil")
+	}
 	return nil
 }
 
@@ -269,8 +321,10 @@ func (t TextEntityTypeCashtag) construct() TextEntityTypeClass { return &t }
 
 // Ensuring interfaces in compile-time for TextEntityTypeCashtag.
 var (
-	_ bin.Encoder = &TextEntityTypeCashtag{}
-	_ bin.Decoder = &TextEntityTypeCashtag{}
+	_ bin.Encoder     = &TextEntityTypeCashtag{}
+	_ bin.Decoder     = &TextEntityTypeCashtag{}
+	_ bin.BareEncoder = &TextEntityTypeCashtag{}
+	_ bin.BareDecoder = &TextEntityTypeCashtag{}
 
 	_ TextEntityTypeClass = &TextEntityTypeCashtag{}
 )
@@ -333,6 +387,14 @@ func (t *TextEntityTypeBotCommand) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textEntityTypeBotCommand#bb652bb3 as nil")
 	}
 	b.PutID(TextEntityTypeBotCommandTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextEntityTypeBotCommand) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeBotCommand#bb652bb3 as nil")
+	}
 	return nil
 }
 
@@ -344,6 +406,14 @@ func (t *TextEntityTypeBotCommand) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeBotCommandTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeBotCommand#bb652bb3: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextEntityTypeBotCommand) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypeBotCommand#bb652bb3 to nil")
+	}
 	return nil
 }
 
@@ -352,8 +422,10 @@ func (t TextEntityTypeBotCommand) construct() TextEntityTypeClass { return &t }
 
 // Ensuring interfaces in compile-time for TextEntityTypeBotCommand.
 var (
-	_ bin.Encoder = &TextEntityTypeBotCommand{}
-	_ bin.Decoder = &TextEntityTypeBotCommand{}
+	_ bin.Encoder     = &TextEntityTypeBotCommand{}
+	_ bin.Decoder     = &TextEntityTypeBotCommand{}
+	_ bin.BareEncoder = &TextEntityTypeBotCommand{}
+	_ bin.BareDecoder = &TextEntityTypeBotCommand{}
 
 	_ TextEntityTypeClass = &TextEntityTypeBotCommand{}
 )
@@ -416,6 +488,14 @@ func (t *TextEntityTypeURL) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textEntityTypeUrl#b1c0d47c as nil")
 	}
 	b.PutID(TextEntityTypeURLTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextEntityTypeURL) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeUrl#b1c0d47c as nil")
+	}
 	return nil
 }
 
@@ -427,6 +507,14 @@ func (t *TextEntityTypeURL) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeURLTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeUrl#b1c0d47c: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextEntityTypeURL) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypeUrl#b1c0d47c to nil")
+	}
 	return nil
 }
 
@@ -435,8 +523,10 @@ func (t TextEntityTypeURL) construct() TextEntityTypeClass { return &t }
 
 // Ensuring interfaces in compile-time for TextEntityTypeURL.
 var (
-	_ bin.Encoder = &TextEntityTypeURL{}
-	_ bin.Decoder = &TextEntityTypeURL{}
+	_ bin.Encoder     = &TextEntityTypeURL{}
+	_ bin.Decoder     = &TextEntityTypeURL{}
+	_ bin.BareEncoder = &TextEntityTypeURL{}
+	_ bin.BareDecoder = &TextEntityTypeURL{}
 
 	_ TextEntityTypeClass = &TextEntityTypeURL{}
 )
@@ -499,6 +589,14 @@ func (t *TextEntityTypeEmailAddress) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textEntityTypeEmailAddress#54f81821 as nil")
 	}
 	b.PutID(TextEntityTypeEmailAddressTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextEntityTypeEmailAddress) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeEmailAddress#54f81821 as nil")
+	}
 	return nil
 }
 
@@ -510,6 +608,14 @@ func (t *TextEntityTypeEmailAddress) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeEmailAddressTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeEmailAddress#54f81821: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextEntityTypeEmailAddress) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypeEmailAddress#54f81821 to nil")
+	}
 	return nil
 }
 
@@ -518,8 +624,10 @@ func (t TextEntityTypeEmailAddress) construct() TextEntityTypeClass { return &t 
 
 // Ensuring interfaces in compile-time for TextEntityTypeEmailAddress.
 var (
-	_ bin.Encoder = &TextEntityTypeEmailAddress{}
-	_ bin.Decoder = &TextEntityTypeEmailAddress{}
+	_ bin.Encoder     = &TextEntityTypeEmailAddress{}
+	_ bin.Decoder     = &TextEntityTypeEmailAddress{}
+	_ bin.BareEncoder = &TextEntityTypeEmailAddress{}
+	_ bin.BareDecoder = &TextEntityTypeEmailAddress{}
 
 	_ TextEntityTypeClass = &TextEntityTypeEmailAddress{}
 )
@@ -582,6 +690,14 @@ func (t *TextEntityTypePhoneNumber) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textEntityTypePhoneNumber#bad9aa2a as nil")
 	}
 	b.PutID(TextEntityTypePhoneNumberTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextEntityTypePhoneNumber) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypePhoneNumber#bad9aa2a as nil")
+	}
 	return nil
 }
 
@@ -593,6 +709,14 @@ func (t *TextEntityTypePhoneNumber) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypePhoneNumberTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypePhoneNumber#bad9aa2a: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextEntityTypePhoneNumber) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypePhoneNumber#bad9aa2a to nil")
+	}
 	return nil
 }
 
@@ -601,8 +725,10 @@ func (t TextEntityTypePhoneNumber) construct() TextEntityTypeClass { return &t }
 
 // Ensuring interfaces in compile-time for TextEntityTypePhoneNumber.
 var (
-	_ bin.Encoder = &TextEntityTypePhoneNumber{}
-	_ bin.Decoder = &TextEntityTypePhoneNumber{}
+	_ bin.Encoder     = &TextEntityTypePhoneNumber{}
+	_ bin.Decoder     = &TextEntityTypePhoneNumber{}
+	_ bin.BareEncoder = &TextEntityTypePhoneNumber{}
+	_ bin.BareDecoder = &TextEntityTypePhoneNumber{}
 
 	_ TextEntityTypeClass = &TextEntityTypePhoneNumber{}
 )
@@ -665,6 +791,14 @@ func (t *TextEntityTypeBankCardNumber) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textEntityTypeBankCardNumber#6513910 as nil")
 	}
 	b.PutID(TextEntityTypeBankCardNumberTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextEntityTypeBankCardNumber) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeBankCardNumber#6513910 as nil")
+	}
 	return nil
 }
 
@@ -676,6 +810,14 @@ func (t *TextEntityTypeBankCardNumber) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeBankCardNumberTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeBankCardNumber#6513910: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextEntityTypeBankCardNumber) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypeBankCardNumber#6513910 to nil")
+	}
 	return nil
 }
 
@@ -684,8 +826,10 @@ func (t TextEntityTypeBankCardNumber) construct() TextEntityTypeClass { return &
 
 // Ensuring interfaces in compile-time for TextEntityTypeBankCardNumber.
 var (
-	_ bin.Encoder = &TextEntityTypeBankCardNumber{}
-	_ bin.Decoder = &TextEntityTypeBankCardNumber{}
+	_ bin.Encoder     = &TextEntityTypeBankCardNumber{}
+	_ bin.Decoder     = &TextEntityTypeBankCardNumber{}
+	_ bin.BareEncoder = &TextEntityTypeBankCardNumber{}
+	_ bin.BareDecoder = &TextEntityTypeBankCardNumber{}
 
 	_ TextEntityTypeClass = &TextEntityTypeBankCardNumber{}
 )
@@ -748,6 +892,14 @@ func (t *TextEntityTypeBold) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textEntityTypeBold#bcc0e1b0 as nil")
 	}
 	b.PutID(TextEntityTypeBoldTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextEntityTypeBold) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeBold#bcc0e1b0 as nil")
+	}
 	return nil
 }
 
@@ -759,6 +911,14 @@ func (t *TextEntityTypeBold) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeBoldTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeBold#bcc0e1b0: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextEntityTypeBold) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypeBold#bcc0e1b0 to nil")
+	}
 	return nil
 }
 
@@ -767,8 +927,10 @@ func (t TextEntityTypeBold) construct() TextEntityTypeClass { return &t }
 
 // Ensuring interfaces in compile-time for TextEntityTypeBold.
 var (
-	_ bin.Encoder = &TextEntityTypeBold{}
-	_ bin.Decoder = &TextEntityTypeBold{}
+	_ bin.Encoder     = &TextEntityTypeBold{}
+	_ bin.Decoder     = &TextEntityTypeBold{}
+	_ bin.BareEncoder = &TextEntityTypeBold{}
+	_ bin.BareDecoder = &TextEntityTypeBold{}
 
 	_ TextEntityTypeClass = &TextEntityTypeBold{}
 )
@@ -831,6 +993,14 @@ func (t *TextEntityTypeItalic) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textEntityTypeItalic#f8f3965d as nil")
 	}
 	b.PutID(TextEntityTypeItalicTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextEntityTypeItalic) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeItalic#f8f3965d as nil")
+	}
 	return nil
 }
 
@@ -842,6 +1012,14 @@ func (t *TextEntityTypeItalic) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeItalicTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeItalic#f8f3965d: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextEntityTypeItalic) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypeItalic#f8f3965d to nil")
+	}
 	return nil
 }
 
@@ -850,8 +1028,10 @@ func (t TextEntityTypeItalic) construct() TextEntityTypeClass { return &t }
 
 // Ensuring interfaces in compile-time for TextEntityTypeItalic.
 var (
-	_ bin.Encoder = &TextEntityTypeItalic{}
-	_ bin.Decoder = &TextEntityTypeItalic{}
+	_ bin.Encoder     = &TextEntityTypeItalic{}
+	_ bin.Decoder     = &TextEntityTypeItalic{}
+	_ bin.BareEncoder = &TextEntityTypeItalic{}
+	_ bin.BareDecoder = &TextEntityTypeItalic{}
 
 	_ TextEntityTypeClass = &TextEntityTypeItalic{}
 )
@@ -914,6 +1094,14 @@ func (t *TextEntityTypeUnderline) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textEntityTypeUnderline#2f39cf92 as nil")
 	}
 	b.PutID(TextEntityTypeUnderlineTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextEntityTypeUnderline) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeUnderline#2f39cf92 as nil")
+	}
 	return nil
 }
 
@@ -925,6 +1113,14 @@ func (t *TextEntityTypeUnderline) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeUnderlineTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeUnderline#2f39cf92: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextEntityTypeUnderline) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypeUnderline#2f39cf92 to nil")
+	}
 	return nil
 }
 
@@ -933,8 +1129,10 @@ func (t TextEntityTypeUnderline) construct() TextEntityTypeClass { return &t }
 
 // Ensuring interfaces in compile-time for TextEntityTypeUnderline.
 var (
-	_ bin.Encoder = &TextEntityTypeUnderline{}
-	_ bin.Decoder = &TextEntityTypeUnderline{}
+	_ bin.Encoder     = &TextEntityTypeUnderline{}
+	_ bin.Decoder     = &TextEntityTypeUnderline{}
+	_ bin.BareEncoder = &TextEntityTypeUnderline{}
+	_ bin.BareDecoder = &TextEntityTypeUnderline{}
 
 	_ TextEntityTypeClass = &TextEntityTypeUnderline{}
 )
@@ -997,6 +1195,14 @@ func (t *TextEntityTypeStrikethrough) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textEntityTypeStrikethrough#394fc4fa as nil")
 	}
 	b.PutID(TextEntityTypeStrikethroughTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextEntityTypeStrikethrough) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeStrikethrough#394fc4fa as nil")
+	}
 	return nil
 }
 
@@ -1008,6 +1214,14 @@ func (t *TextEntityTypeStrikethrough) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeStrikethroughTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeStrikethrough#394fc4fa: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextEntityTypeStrikethrough) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypeStrikethrough#394fc4fa to nil")
+	}
 	return nil
 }
 
@@ -1016,8 +1230,10 @@ func (t TextEntityTypeStrikethrough) construct() TextEntityTypeClass { return &t
 
 // Ensuring interfaces in compile-time for TextEntityTypeStrikethrough.
 var (
-	_ bin.Encoder = &TextEntityTypeStrikethrough{}
-	_ bin.Decoder = &TextEntityTypeStrikethrough{}
+	_ bin.Encoder     = &TextEntityTypeStrikethrough{}
+	_ bin.Decoder     = &TextEntityTypeStrikethrough{}
+	_ bin.BareEncoder = &TextEntityTypeStrikethrough{}
+	_ bin.BareDecoder = &TextEntityTypeStrikethrough{}
 
 	_ TextEntityTypeClass = &TextEntityTypeStrikethrough{}
 )
@@ -1080,6 +1296,14 @@ func (t *TextEntityTypeCode) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textEntityTypeCode#c5e9c94a as nil")
 	}
 	b.PutID(TextEntityTypeCodeTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextEntityTypeCode) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeCode#c5e9c94a as nil")
+	}
 	return nil
 }
 
@@ -1091,6 +1315,14 @@ func (t *TextEntityTypeCode) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeCodeTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeCode#c5e9c94a: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextEntityTypeCode) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypeCode#c5e9c94a to nil")
+	}
 	return nil
 }
 
@@ -1099,8 +1331,10 @@ func (t TextEntityTypeCode) construct() TextEntityTypeClass { return &t }
 
 // Ensuring interfaces in compile-time for TextEntityTypeCode.
 var (
-	_ bin.Encoder = &TextEntityTypeCode{}
-	_ bin.Decoder = &TextEntityTypeCode{}
+	_ bin.Encoder     = &TextEntityTypeCode{}
+	_ bin.Decoder     = &TextEntityTypeCode{}
+	_ bin.BareEncoder = &TextEntityTypeCode{}
+	_ bin.BareDecoder = &TextEntityTypeCode{}
 
 	_ TextEntityTypeClass = &TextEntityTypeCode{}
 )
@@ -1163,6 +1397,14 @@ func (t *TextEntityTypePre) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textEntityTypePre#62491c8e as nil")
 	}
 	b.PutID(TextEntityTypePreTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextEntityTypePre) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypePre#62491c8e as nil")
+	}
 	return nil
 }
 
@@ -1174,6 +1416,14 @@ func (t *TextEntityTypePre) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypePreTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypePre#62491c8e: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextEntityTypePre) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypePre#62491c8e to nil")
+	}
 	return nil
 }
 
@@ -1182,8 +1432,10 @@ func (t TextEntityTypePre) construct() TextEntityTypeClass { return &t }
 
 // Ensuring interfaces in compile-time for TextEntityTypePre.
 var (
-	_ bin.Encoder = &TextEntityTypePre{}
-	_ bin.Decoder = &TextEntityTypePre{}
+	_ bin.Encoder     = &TextEntityTypePre{}
+	_ bin.Decoder     = &TextEntityTypePre{}
+	_ bin.BareEncoder = &TextEntityTypePre{}
+	_ bin.BareDecoder = &TextEntityTypePre{}
 
 	_ TextEntityTypeClass = &TextEntityTypePre{}
 )
@@ -1263,6 +1515,14 @@ func (t *TextEntityTypePreCode) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textEntityTypePreCode#c7a77aab as nil")
 	}
 	b.PutID(TextEntityTypePreCodeTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextEntityTypePreCode) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypePreCode#c7a77aab as nil")
+	}
 	b.PutString(t.Language)
 	return nil
 }
@@ -1280,6 +1540,14 @@ func (t *TextEntityTypePreCode) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypePreCodeTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypePreCode#c7a77aab: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextEntityTypePreCode) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypePreCode#c7a77aab to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -1295,8 +1563,10 @@ func (t TextEntityTypePreCode) construct() TextEntityTypeClass { return &t }
 
 // Ensuring interfaces in compile-time for TextEntityTypePreCode.
 var (
-	_ bin.Encoder = &TextEntityTypePreCode{}
-	_ bin.Decoder = &TextEntityTypePreCode{}
+	_ bin.Encoder     = &TextEntityTypePreCode{}
+	_ bin.Decoder     = &TextEntityTypePreCode{}
+	_ bin.BareEncoder = &TextEntityTypePreCode{}
+	_ bin.BareDecoder = &TextEntityTypePreCode{}
 
 	_ TextEntityTypeClass = &TextEntityTypePreCode{}
 )
@@ -1376,6 +1646,14 @@ func (t *TextEntityTypeTextURL) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textEntityTypeTextUrl#1a912463 as nil")
 	}
 	b.PutID(TextEntityTypeTextURLTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextEntityTypeTextURL) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeTextUrl#1a912463 as nil")
+	}
 	b.PutString(t.URL)
 	return nil
 }
@@ -1393,6 +1671,14 @@ func (t *TextEntityTypeTextURL) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeTextURLTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeTextUrl#1a912463: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextEntityTypeTextURL) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypeTextUrl#1a912463 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -1408,8 +1694,10 @@ func (t TextEntityTypeTextURL) construct() TextEntityTypeClass { return &t }
 
 // Ensuring interfaces in compile-time for TextEntityTypeTextURL.
 var (
-	_ bin.Encoder = &TextEntityTypeTextURL{}
-	_ bin.Decoder = &TextEntityTypeTextURL{}
+	_ bin.Encoder     = &TextEntityTypeTextURL{}
+	_ bin.Decoder     = &TextEntityTypeTextURL{}
+	_ bin.BareEncoder = &TextEntityTypeTextURL{}
+	_ bin.BareDecoder = &TextEntityTypeTextURL{}
 
 	_ TextEntityTypeClass = &TextEntityTypeTextURL{}
 )
@@ -1489,6 +1777,14 @@ func (t *TextEntityTypeMentionName) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textEntityTypeMentionName#d0d2685d as nil")
 	}
 	b.PutID(TextEntityTypeMentionNameTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextEntityTypeMentionName) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntityTypeMentionName#d0d2685d as nil")
+	}
 	b.PutInt32(t.UserID)
 	return nil
 }
@@ -1506,6 +1802,14 @@ func (t *TextEntityTypeMentionName) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeMentionNameTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntityTypeMentionName#d0d2685d: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextEntityTypeMentionName) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntityTypeMentionName#d0d2685d to nil")
+	}
 	{
 		value, err := b.Int32()
 		if err != nil {
@@ -1521,8 +1825,10 @@ func (t TextEntityTypeMentionName) construct() TextEntityTypeClass { return &t }
 
 // Ensuring interfaces in compile-time for TextEntityTypeMentionName.
 var (
-	_ bin.Encoder = &TextEntityTypeMentionName{}
-	_ bin.Decoder = &TextEntityTypeMentionName{}
+	_ bin.Encoder     = &TextEntityTypeMentionName{}
+	_ bin.Decoder     = &TextEntityTypeMentionName{}
+	_ bin.BareEncoder = &TextEntityTypeMentionName{}
+	_ bin.BareDecoder = &TextEntityTypeMentionName{}
 
 	_ TextEntityTypeClass = &TextEntityTypeMentionName{}
 )
@@ -1559,6 +1865,8 @@ var (
 type TextEntityTypeClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() TextEntityTypeClass
 
 	// TypeID returns type id in TL schema.

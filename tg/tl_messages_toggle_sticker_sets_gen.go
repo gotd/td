@@ -146,6 +146,14 @@ func (t *MessagesToggleStickerSetsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.toggleStickerSets#b5052fea as nil")
 	}
 	b.PutID(MessagesToggleStickerSetsRequestTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *MessagesToggleStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode messages.toggleStickerSets#b5052fea as nil")
+	}
 	if !(t.Uninstall == false) {
 		t.Flags.Set(0)
 	}
@@ -236,6 +244,14 @@ func (t *MessagesToggleStickerSetsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesToggleStickerSetsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.toggleStickerSets#b5052fea: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *MessagesToggleStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode messages.toggleStickerSets#b5052fea to nil")
+	}
 	{
 		if err := t.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.toggleStickerSets#b5052fea: field flags: %w", err)
@@ -262,8 +278,10 @@ func (t *MessagesToggleStickerSetsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesToggleStickerSetsRequest.
 var (
-	_ bin.Encoder = &MessagesToggleStickerSetsRequest{}
-	_ bin.Decoder = &MessagesToggleStickerSetsRequest{}
+	_ bin.Encoder     = &MessagesToggleStickerSetsRequest{}
+	_ bin.Decoder     = &MessagesToggleStickerSetsRequest{}
+	_ bin.BareEncoder = &MessagesToggleStickerSetsRequest{}
+	_ bin.BareDecoder = &MessagesToggleStickerSetsRequest{}
 )
 
 // MessagesToggleStickerSets invokes method messages.toggleStickerSets#b5052fea returning error if any.

@@ -101,6 +101,14 @@ func (c *ChannelsConvertToGigagroupRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.convertToGigagroup#b290c69 as nil")
 	}
 	b.PutID(ChannelsConvertToGigagroupRequestTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelsConvertToGigagroupRequest) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channels.convertToGigagroup#b290c69 as nil")
+	}
 	if c.Channel == nil {
 		return fmt.Errorf("unable to encode channels.convertToGigagroup#b290c69: field channel is nil")
 	}
@@ -128,6 +136,14 @@ func (c *ChannelsConvertToGigagroupRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsConvertToGigagroupRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.convertToGigagroup#b290c69: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelsConvertToGigagroupRequest) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channels.convertToGigagroup#b290c69 to nil")
+	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
@@ -140,8 +156,10 @@ func (c *ChannelsConvertToGigagroupRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsConvertToGigagroupRequest.
 var (
-	_ bin.Encoder = &ChannelsConvertToGigagroupRequest{}
-	_ bin.Decoder = &ChannelsConvertToGigagroupRequest{}
+	_ bin.Encoder     = &ChannelsConvertToGigagroupRequest{}
+	_ bin.Decoder     = &ChannelsConvertToGigagroupRequest{}
+	_ bin.BareEncoder = &ChannelsConvertToGigagroupRequest{}
+	_ bin.BareDecoder = &ChannelsConvertToGigagroupRequest{}
 )
 
 // ChannelsConvertToGigagroup invokes method channels.convertToGigagroup#b290c69 returning error if any.

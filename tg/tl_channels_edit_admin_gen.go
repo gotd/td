@@ -141,6 +141,14 @@ func (e *ChannelsEditAdminRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.editAdmin#d33c8902 as nil")
 	}
 	b.PutID(ChannelsEditAdminRequestTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *ChannelsEditAdminRequest) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode channels.editAdmin#d33c8902 as nil")
+	}
 	if e.Channel == nil {
 		return fmt.Errorf("unable to encode channels.editAdmin#d33c8902: field channel is nil")
 	}
@@ -193,6 +201,14 @@ func (e *ChannelsEditAdminRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsEditAdminRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.editAdmin#d33c8902: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *ChannelsEditAdminRequest) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode channels.editAdmin#d33c8902 to nil")
+	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
@@ -224,8 +240,10 @@ func (e *ChannelsEditAdminRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsEditAdminRequest.
 var (
-	_ bin.Encoder = &ChannelsEditAdminRequest{}
-	_ bin.Decoder = &ChannelsEditAdminRequest{}
+	_ bin.Encoder     = &ChannelsEditAdminRequest{}
+	_ bin.Decoder     = &ChannelsEditAdminRequest{}
+	_ bin.BareEncoder = &ChannelsEditAdminRequest{}
+	_ bin.BareDecoder = &ChannelsEditAdminRequest{}
 )
 
 // ChannelsEditAdmin invokes method channels.editAdmin#d33c8902 returning error if any.

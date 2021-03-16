@@ -124,6 +124,14 @@ func (g *MessagesGetGameHighScoresRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getGameHighScores#e822649d as nil")
 	}
 	b.PutID(MessagesGetGameHighScoresRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetGameHighScoresRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getGameHighScores#e822649d as nil")
+	}
 	if g.Peer == nil {
 		return fmt.Errorf("unable to encode messages.getGameHighScores#e822649d: field peer is nil")
 	}
@@ -163,6 +171,14 @@ func (g *MessagesGetGameHighScoresRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetGameHighScoresRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getGameHighScores#e822649d: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetGameHighScoresRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getGameHighScores#e822649d to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -189,8 +205,10 @@ func (g *MessagesGetGameHighScoresRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetGameHighScoresRequest.
 var (
-	_ bin.Encoder = &MessagesGetGameHighScoresRequest{}
-	_ bin.Decoder = &MessagesGetGameHighScoresRequest{}
+	_ bin.Encoder     = &MessagesGetGameHighScoresRequest{}
+	_ bin.Decoder     = &MessagesGetGameHighScoresRequest{}
+	_ bin.BareEncoder = &MessagesGetGameHighScoresRequest{}
+	_ bin.BareDecoder = &MessagesGetGameHighScoresRequest{}
 )
 
 // MessagesGetGameHighScores invokes method messages.getGameHighScores#e822649d returning error if any.

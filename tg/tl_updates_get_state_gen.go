@@ -85,6 +85,14 @@ func (g *UpdatesGetStateRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updates.getState#edd4882a as nil")
 	}
 	b.PutID(UpdatesGetStateRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *UpdatesGetStateRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode updates.getState#edd4882a as nil")
+	}
 	return nil
 }
 
@@ -96,13 +104,23 @@ func (g *UpdatesGetStateRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesGetStateRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode updates.getState#edd4882a: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *UpdatesGetStateRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode updates.getState#edd4882a to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for UpdatesGetStateRequest.
 var (
-	_ bin.Encoder = &UpdatesGetStateRequest{}
-	_ bin.Decoder = &UpdatesGetStateRequest{}
+	_ bin.Encoder     = &UpdatesGetStateRequest{}
+	_ bin.Decoder     = &UpdatesGetStateRequest{}
+	_ bin.BareEncoder = &UpdatesGetStateRequest{}
+	_ bin.BareDecoder = &UpdatesGetStateRequest{}
 )
 
 // UpdatesGetState invokes method updates.getState#edd4882a returning error if any.

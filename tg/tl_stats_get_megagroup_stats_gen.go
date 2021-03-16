@@ -128,6 +128,14 @@ func (g *StatsGetMegagroupStatsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode stats.getMegagroupStats#dcdf8607 as nil")
 	}
 	b.PutID(StatsGetMegagroupStatsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *StatsGetMegagroupStatsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode stats.getMegagroupStats#dcdf8607 as nil")
+	}
 	if !(g.Dark == false) {
 		g.Flags.Set(0)
 	}
@@ -177,6 +185,14 @@ func (g *StatsGetMegagroupStatsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsGetMegagroupStatsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode stats.getMegagroupStats#dcdf8607: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *StatsGetMegagroupStatsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode stats.getMegagroupStats#dcdf8607 to nil")
+	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode stats.getMegagroupStats#dcdf8607: field flags: %w", err)
@@ -195,8 +211,10 @@ func (g *StatsGetMegagroupStatsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for StatsGetMegagroupStatsRequest.
 var (
-	_ bin.Encoder = &StatsGetMegagroupStatsRequest{}
-	_ bin.Decoder = &StatsGetMegagroupStatsRequest{}
+	_ bin.Encoder     = &StatsGetMegagroupStatsRequest{}
+	_ bin.Decoder     = &StatsGetMegagroupStatsRequest{}
+	_ bin.BareEncoder = &StatsGetMegagroupStatsRequest{}
+	_ bin.BareDecoder = &StatsGetMegagroupStatsRequest{}
 )
 
 // StatsGetMegagroupStats invokes method stats.getMegagroupStats#dcdf8607 returning error if any.

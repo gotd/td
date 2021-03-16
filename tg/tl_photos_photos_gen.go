@@ -113,6 +113,14 @@ func (p *PhotosPhotos) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode photos.photos#8dca6aa5 as nil")
 	}
 	b.PutID(PhotosPhotosTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PhotosPhotos) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode photos.photos#8dca6aa5 as nil")
+	}
 	b.PutVectorHeader(len(p.Photos))
 	for idx, v := range p.Photos {
 		if v == nil {
@@ -162,6 +170,14 @@ func (p *PhotosPhotos) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotosPhotosTypeID); err != nil {
 		return fmt.Errorf("unable to decode photos.photos#8dca6aa5: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PhotosPhotos) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode photos.photos#8dca6aa5 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -196,8 +212,10 @@ func (p PhotosPhotos) construct() PhotosPhotosClass { return &p }
 
 // Ensuring interfaces in compile-time for PhotosPhotos.
 var (
-	_ bin.Encoder = &PhotosPhotos{}
-	_ bin.Decoder = &PhotosPhotos{}
+	_ bin.Encoder     = &PhotosPhotos{}
+	_ bin.Decoder     = &PhotosPhotos{}
+	_ bin.BareEncoder = &PhotosPhotos{}
+	_ bin.BareDecoder = &PhotosPhotos{}
 
 	_ PhotosPhotosClass = &PhotosPhotos{}
 )
@@ -300,6 +318,14 @@ func (p *PhotosPhotosSlice) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode photos.photosSlice#15051f54 as nil")
 	}
 	b.PutID(PhotosPhotosSliceTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PhotosPhotosSlice) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode photos.photosSlice#15051f54 as nil")
+	}
 	b.PutInt(p.Count)
 	b.PutVectorHeader(len(p.Photos))
 	for idx, v := range p.Photos {
@@ -355,6 +381,14 @@ func (p *PhotosPhotosSlice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotosPhotosSliceTypeID); err != nil {
 		return fmt.Errorf("unable to decode photos.photosSlice#15051f54: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PhotosPhotosSlice) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode photos.photosSlice#15051f54 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -396,8 +430,10 @@ func (p PhotosPhotosSlice) construct() PhotosPhotosClass { return &p }
 
 // Ensuring interfaces in compile-time for PhotosPhotosSlice.
 var (
-	_ bin.Encoder = &PhotosPhotosSlice{}
-	_ bin.Decoder = &PhotosPhotosSlice{}
+	_ bin.Encoder     = &PhotosPhotosSlice{}
+	_ bin.Decoder     = &PhotosPhotosSlice{}
+	_ bin.BareEncoder = &PhotosPhotosSlice{}
+	_ bin.BareDecoder = &PhotosPhotosSlice{}
 
 	_ PhotosPhotosClass = &PhotosPhotosSlice{}
 )
@@ -419,6 +455,8 @@ var (
 type PhotosPhotosClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() PhotosPhotosClass
 
 	// TypeID returns type id in TL schema.

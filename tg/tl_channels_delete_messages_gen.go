@@ -119,6 +119,14 @@ func (d *ChannelsDeleteMessagesRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.deleteMessages#84c1fd4e as nil")
 	}
 	b.PutID(ChannelsDeleteMessagesRequestTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *ChannelsDeleteMessagesRequest) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode channels.deleteMessages#84c1fd4e as nil")
+	}
 	if d.Channel == nil {
 		return fmt.Errorf("unable to encode channels.deleteMessages#84c1fd4e: field channel is nil")
 	}
@@ -155,6 +163,14 @@ func (d *ChannelsDeleteMessagesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsDeleteMessagesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.deleteMessages#84c1fd4e: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *ChannelsDeleteMessagesRequest) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode channels.deleteMessages#84c1fd4e to nil")
+	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
@@ -180,8 +196,10 @@ func (d *ChannelsDeleteMessagesRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsDeleteMessagesRequest.
 var (
-	_ bin.Encoder = &ChannelsDeleteMessagesRequest{}
-	_ bin.Decoder = &ChannelsDeleteMessagesRequest{}
+	_ bin.Encoder     = &ChannelsDeleteMessagesRequest{}
+	_ bin.Decoder     = &ChannelsDeleteMessagesRequest{}
+	_ bin.BareEncoder = &ChannelsDeleteMessagesRequest{}
+	_ bin.BareDecoder = &ChannelsDeleteMessagesRequest{}
 )
 
 // ChannelsDeleteMessages invokes method channels.deleteMessages#84c1fd4e returning error if any.

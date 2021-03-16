@@ -119,6 +119,14 @@ func (i *InputGameID) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputGameID#32c3e77 as nil")
 	}
 	b.PutID(InputGameIDTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputGameID) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputGameID#32c3e77 as nil")
+	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
 	return nil
@@ -142,6 +150,14 @@ func (i *InputGameID) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputGameIDTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputGameID#32c3e77: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputGameID) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputGameID#32c3e77 to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -164,8 +180,10 @@ func (i InputGameID) construct() InputGameClass { return &i }
 
 // Ensuring interfaces in compile-time for InputGameID.
 var (
-	_ bin.Encoder = &InputGameID{}
-	_ bin.Decoder = &InputGameID{}
+	_ bin.Encoder     = &InputGameID{}
+	_ bin.Decoder     = &InputGameID{}
+	_ bin.BareEncoder = &InputGameID{}
+	_ bin.BareDecoder = &InputGameID{}
 
 	_ InputGameClass = &InputGameID{}
 )
@@ -257,6 +275,14 @@ func (i *InputGameShortName) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputGameShortName#c331e80a as nil")
 	}
 	b.PutID(InputGameShortNameTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputGameShortName) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputGameShortName#c331e80a as nil")
+	}
 	if i.BotID == nil {
 		return fmt.Errorf("unable to encode inputGameShortName#c331e80a: field bot_id is nil")
 	}
@@ -285,6 +311,14 @@ func (i *InputGameShortName) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputGameShortNameTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputGameShortName#c331e80a: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputGameShortName) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputGameShortName#c331e80a to nil")
+	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
@@ -307,8 +341,10 @@ func (i InputGameShortName) construct() InputGameClass { return &i }
 
 // Ensuring interfaces in compile-time for InputGameShortName.
 var (
-	_ bin.Encoder = &InputGameShortName{}
-	_ bin.Decoder = &InputGameShortName{}
+	_ bin.Encoder     = &InputGameShortName{}
+	_ bin.Decoder     = &InputGameShortName{}
+	_ bin.BareEncoder = &InputGameShortName{}
+	_ bin.BareDecoder = &InputGameShortName{}
 
 	_ InputGameClass = &InputGameShortName{}
 )
@@ -330,6 +366,8 @@ var (
 type InputGameClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() InputGameClass
 
 	// TypeID returns type id in TL schema.

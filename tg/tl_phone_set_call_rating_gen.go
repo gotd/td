@@ -144,6 +144,14 @@ func (s *PhoneSetCallRatingRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.setCallRating#59ead627 as nil")
 	}
 	b.PutID(PhoneSetCallRatingRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *PhoneSetCallRatingRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode phone.setCallRating#59ead627 as nil")
+	}
 	if !(s.UserInitiative == false) {
 		s.Flags.Set(0)
 	}
@@ -197,6 +205,14 @@ func (s *PhoneSetCallRatingRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneSetCallRatingRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.setCallRating#59ead627: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *PhoneSetCallRatingRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode phone.setCallRating#59ead627 to nil")
+	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phone.setCallRating#59ead627: field flags: %w", err)
@@ -227,8 +243,10 @@ func (s *PhoneSetCallRatingRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhoneSetCallRatingRequest.
 var (
-	_ bin.Encoder = &PhoneSetCallRatingRequest{}
-	_ bin.Decoder = &PhoneSetCallRatingRequest{}
+	_ bin.Encoder     = &PhoneSetCallRatingRequest{}
+	_ bin.Decoder     = &PhoneSetCallRatingRequest{}
+	_ bin.BareEncoder = &PhoneSetCallRatingRequest{}
+	_ bin.BareDecoder = &PhoneSetCallRatingRequest{}
 )
 
 // PhoneSetCallRating invokes method phone.setCallRating#59ead627 returning error if any.

@@ -163,6 +163,14 @@ func (e *PhoneEditGroupCallParticipantRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.editGroupCallParticipant#d975eb80 as nil")
 	}
 	b.PutID(PhoneEditGroupCallParticipantRequestTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *PhoneEditGroupCallParticipantRequest) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode phone.editGroupCallParticipant#d975eb80 as nil")
+	}
 	if !(e.Muted == false) {
 		e.Flags.Set(0)
 	}
@@ -257,6 +265,14 @@ func (e *PhoneEditGroupCallParticipantRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneEditGroupCallParticipantRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.editGroupCallParticipant#d975eb80: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *PhoneEditGroupCallParticipantRequest) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode phone.editGroupCallParticipant#d975eb80 to nil")
+	}
 	{
 		if err := e.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phone.editGroupCallParticipant#d975eb80: field flags: %w", err)
@@ -294,8 +310,10 @@ func (e *PhoneEditGroupCallParticipantRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhoneEditGroupCallParticipantRequest.
 var (
-	_ bin.Encoder = &PhoneEditGroupCallParticipantRequest{}
-	_ bin.Decoder = &PhoneEditGroupCallParticipantRequest{}
+	_ bin.Encoder     = &PhoneEditGroupCallParticipantRequest{}
+	_ bin.Decoder     = &PhoneEditGroupCallParticipantRequest{}
+	_ bin.BareEncoder = &PhoneEditGroupCallParticipantRequest{}
+	_ bin.BareDecoder = &PhoneEditGroupCallParticipantRequest{}
 )
 
 // PhoneEditGroupCallParticipant invokes method phone.editGroupCallParticipant#d975eb80 returning error if any.

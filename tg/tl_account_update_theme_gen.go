@@ -189,6 +189,14 @@ func (u *AccountUpdateThemeRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.updateTheme#5cb367d5 as nil")
 	}
 	b.PutID(AccountUpdateThemeRequestTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *AccountUpdateThemeRequest) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode account.updateTheme#5cb367d5 as nil")
+	}
 	if !(u.Slug == "") {
 		u.Flags.Set(0)
 	}
@@ -320,6 +328,14 @@ func (u *AccountUpdateThemeRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountUpdateThemeRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.updateTheme#5cb367d5: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *AccountUpdateThemeRequest) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode account.updateTheme#5cb367d5 to nil")
+	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.updateTheme#5cb367d5: field flags: %w", err)
@@ -370,8 +386,10 @@ func (u *AccountUpdateThemeRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountUpdateThemeRequest.
 var (
-	_ bin.Encoder = &AccountUpdateThemeRequest{}
-	_ bin.Decoder = &AccountUpdateThemeRequest{}
+	_ bin.Encoder     = &AccountUpdateThemeRequest{}
+	_ bin.Decoder     = &AccountUpdateThemeRequest{}
+	_ bin.BareEncoder = &AccountUpdateThemeRequest{}
+	_ bin.BareDecoder = &AccountUpdateThemeRequest{}
 )
 
 // AccountUpdateTheme invokes method account.updateTheme#5cb367d5 returning error if any.

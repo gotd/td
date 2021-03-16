@@ -113,6 +113,14 @@ func (p *PeerBlocked) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode peerBlocked#e8fd8014 as nil")
 	}
 	b.PutID(PeerBlockedTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PeerBlocked) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode peerBlocked#e8fd8014 as nil")
+	}
 	if p.PeerID == nil {
 		return fmt.Errorf("unable to encode peerBlocked#e8fd8014: field peer_id is nil")
 	}
@@ -141,6 +149,14 @@ func (p *PeerBlocked) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PeerBlockedTypeID); err != nil {
 		return fmt.Errorf("unable to decode peerBlocked#e8fd8014: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PeerBlocked) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode peerBlocked#e8fd8014 to nil")
+	}
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
@@ -160,6 +176,8 @@ func (p *PeerBlocked) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PeerBlocked.
 var (
-	_ bin.Encoder = &PeerBlocked{}
-	_ bin.Decoder = &PeerBlocked{}
+	_ bin.Encoder     = &PeerBlocked{}
+	_ bin.Decoder     = &PeerBlocked{}
+	_ bin.BareEncoder = &PeerBlocked{}
+	_ bin.BareDecoder = &PeerBlocked{}
 )

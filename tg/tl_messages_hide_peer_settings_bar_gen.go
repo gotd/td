@@ -105,6 +105,14 @@ func (h *MessagesHidePeerSettingsBarRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.hidePeerSettingsBar#4facb138 as nil")
 	}
 	b.PutID(MessagesHidePeerSettingsBarRequestTypeID)
+	return h.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (h *MessagesHidePeerSettingsBarRequest) EncodeBare(b *bin.Buffer) error {
+	if h == nil {
+		return fmt.Errorf("can't encode messages.hidePeerSettingsBar#4facb138 as nil")
+	}
 	if h.Peer == nil {
 		return fmt.Errorf("unable to encode messages.hidePeerSettingsBar#4facb138: field peer is nil")
 	}
@@ -127,6 +135,14 @@ func (h *MessagesHidePeerSettingsBarRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesHidePeerSettingsBarRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.hidePeerSettingsBar#4facb138: %w", err)
 	}
+	return h.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (h *MessagesHidePeerSettingsBarRequest) DecodeBare(b *bin.Buffer) error {
+	if h == nil {
+		return fmt.Errorf("can't decode messages.hidePeerSettingsBar#4facb138 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -139,8 +155,10 @@ func (h *MessagesHidePeerSettingsBarRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesHidePeerSettingsBarRequest.
 var (
-	_ bin.Encoder = &MessagesHidePeerSettingsBarRequest{}
-	_ bin.Decoder = &MessagesHidePeerSettingsBarRequest{}
+	_ bin.Encoder     = &MessagesHidePeerSettingsBarRequest{}
+	_ bin.Decoder     = &MessagesHidePeerSettingsBarRequest{}
+	_ bin.BareEncoder = &MessagesHidePeerSettingsBarRequest{}
+	_ bin.BareDecoder = &MessagesHidePeerSettingsBarRequest{}
 )
 
 // MessagesHidePeerSettingsBar invokes method messages.hidePeerSettingsBar#4facb138 returning error if any.

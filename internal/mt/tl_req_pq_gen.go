@@ -99,6 +99,14 @@ func (r *ReqPqRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode req_pq#60469778 as nil")
 	}
 	b.PutID(ReqPqRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *ReqPqRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode req_pq#60469778 as nil")
+	}
 	b.PutInt128(r.Nonce)
 	return nil
 }
@@ -116,6 +124,14 @@ func (r *ReqPqRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ReqPqRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode req_pq#60469778: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *ReqPqRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode req_pq#60469778 to nil")
+	}
 	{
 		value, err := b.Int128()
 		if err != nil {
@@ -128,8 +144,10 @@ func (r *ReqPqRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ReqPqRequest.
 var (
-	_ bin.Encoder = &ReqPqRequest{}
-	_ bin.Decoder = &ReqPqRequest{}
+	_ bin.Encoder     = &ReqPqRequest{}
+	_ bin.Decoder     = &ReqPqRequest{}
+	_ bin.BareEncoder = &ReqPqRequest{}
+	_ bin.BareDecoder = &ReqPqRequest{}
 )
 
 // ReqPq invokes method req_pq#60469778 returning error if any.

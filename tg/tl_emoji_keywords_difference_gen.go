@@ -135,6 +135,14 @@ func (e *EmojiKeywordsDifference) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode emojiKeywordsDifference#5cc761bd as nil")
 	}
 	b.PutID(EmojiKeywordsDifferenceTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *EmojiKeywordsDifference) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode emojiKeywordsDifference#5cc761bd as nil")
+	}
 	b.PutString(e.LangCode)
 	b.PutInt(e.FromVersion)
 	b.PutInt(e.Version)
@@ -183,6 +191,14 @@ func (e *EmojiKeywordsDifference) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(EmojiKeywordsDifferenceTypeID); err != nil {
 		return fmt.Errorf("unable to decode emojiKeywordsDifference#5cc761bd: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *EmojiKeywordsDifference) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode emojiKeywordsDifference#5cc761bd to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -222,6 +238,8 @@ func (e *EmojiKeywordsDifference) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for EmojiKeywordsDifference.
 var (
-	_ bin.Encoder = &EmojiKeywordsDifference{}
-	_ bin.Decoder = &EmojiKeywordsDifference{}
+	_ bin.Encoder     = &EmojiKeywordsDifference{}
+	_ bin.Decoder     = &EmojiKeywordsDifference{}
+	_ bin.BareEncoder = &EmojiKeywordsDifference{}
+	_ bin.BareDecoder = &EmojiKeywordsDifference{}
 )

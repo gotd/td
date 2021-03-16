@@ -111,6 +111,14 @@ func (r *ReplyKeyboardHide) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode replyKeyboardHide#a03e5b85 as nil")
 	}
 	b.PutID(ReplyKeyboardHideTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *ReplyKeyboardHide) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode replyKeyboardHide#a03e5b85 as nil")
+	}
 	if !(r.Selective == false) {
 		r.Flags.Set(2)
 	}
@@ -144,6 +152,14 @@ func (r *ReplyKeyboardHide) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ReplyKeyboardHideTypeID); err != nil {
 		return fmt.Errorf("unable to decode replyKeyboardHide#a03e5b85: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *ReplyKeyboardHide) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode replyKeyboardHide#a03e5b85 to nil")
+	}
 	{
 		if err := r.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode replyKeyboardHide#a03e5b85: field flags: %w", err)
@@ -158,8 +174,10 @@ func (r ReplyKeyboardHide) construct() ReplyMarkupClass { return &r }
 
 // Ensuring interfaces in compile-time for ReplyKeyboardHide.
 var (
-	_ bin.Encoder = &ReplyKeyboardHide{}
-	_ bin.Decoder = &ReplyKeyboardHide{}
+	_ bin.Encoder     = &ReplyKeyboardHide{}
+	_ bin.Decoder     = &ReplyKeyboardHide{}
+	_ bin.BareEncoder = &ReplyKeyboardHide{}
+	_ bin.BareDecoder = &ReplyKeyboardHide{}
 
 	_ ReplyMarkupClass = &ReplyKeyboardHide{}
 )
@@ -261,6 +279,14 @@ func (r *ReplyKeyboardForceReply) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode replyKeyboardForceReply#f4108aa0 as nil")
 	}
 	b.PutID(ReplyKeyboardForceReplyTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *ReplyKeyboardForceReply) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode replyKeyboardForceReply#f4108aa0 as nil")
+	}
 	if !(r.SingleUse == false) {
 		r.Flags.Set(1)
 	}
@@ -313,6 +339,14 @@ func (r *ReplyKeyboardForceReply) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ReplyKeyboardForceReplyTypeID); err != nil {
 		return fmt.Errorf("unable to decode replyKeyboardForceReply#f4108aa0: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *ReplyKeyboardForceReply) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode replyKeyboardForceReply#f4108aa0 to nil")
+	}
 	{
 		if err := r.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode replyKeyboardForceReply#f4108aa0: field flags: %w", err)
@@ -328,8 +362,10 @@ func (r ReplyKeyboardForceReply) construct() ReplyMarkupClass { return &r }
 
 // Ensuring interfaces in compile-time for ReplyKeyboardForceReply.
 var (
-	_ bin.Encoder = &ReplyKeyboardForceReply{}
-	_ bin.Decoder = &ReplyKeyboardForceReply{}
+	_ bin.Encoder     = &ReplyKeyboardForceReply{}
+	_ bin.Decoder     = &ReplyKeyboardForceReply{}
+	_ bin.BareEncoder = &ReplyKeyboardForceReply{}
+	_ bin.BareDecoder = &ReplyKeyboardForceReply{}
 
 	_ ReplyMarkupClass = &ReplyKeyboardForceReply{}
 )
@@ -454,6 +490,14 @@ func (r *ReplyKeyboardMarkup) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode replyKeyboardMarkup#3502758c as nil")
 	}
 	b.PutID(ReplyKeyboardMarkupTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *ReplyKeyboardMarkup) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode replyKeyboardMarkup#3502758c as nil")
+	}
 	if !(r.Resize == false) {
 		r.Flags.Set(0)
 	}
@@ -536,6 +580,14 @@ func (r *ReplyKeyboardMarkup) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ReplyKeyboardMarkupTypeID); err != nil {
 		return fmt.Errorf("unable to decode replyKeyboardMarkup#3502758c: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *ReplyKeyboardMarkup) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode replyKeyboardMarkup#3502758c to nil")
+	}
 	{
 		if err := r.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode replyKeyboardMarkup#3502758c: field flags: %w", err)
@@ -565,8 +617,10 @@ func (r ReplyKeyboardMarkup) construct() ReplyMarkupClass { return &r }
 
 // Ensuring interfaces in compile-time for ReplyKeyboardMarkup.
 var (
-	_ bin.Encoder = &ReplyKeyboardMarkup{}
-	_ bin.Decoder = &ReplyKeyboardMarkup{}
+	_ bin.Encoder     = &ReplyKeyboardMarkup{}
+	_ bin.Decoder     = &ReplyKeyboardMarkup{}
+	_ bin.BareEncoder = &ReplyKeyboardMarkup{}
+	_ bin.BareDecoder = &ReplyKeyboardMarkup{}
 
 	_ ReplyMarkupClass = &ReplyKeyboardMarkup{}
 )
@@ -647,6 +701,14 @@ func (r *ReplyInlineMarkup) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode replyInlineMarkup#48a30254 as nil")
 	}
 	b.PutID(ReplyInlineMarkupTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *ReplyInlineMarkup) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode replyInlineMarkup#48a30254 as nil")
+	}
 	b.PutVectorHeader(len(r.Rows))
 	for idx, v := range r.Rows {
 		if err := v.Encode(b); err != nil {
@@ -669,6 +731,14 @@ func (r *ReplyInlineMarkup) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ReplyInlineMarkupTypeID); err != nil {
 		return fmt.Errorf("unable to decode replyInlineMarkup#48a30254: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *ReplyInlineMarkup) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode replyInlineMarkup#48a30254 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -690,8 +760,10 @@ func (r ReplyInlineMarkup) construct() ReplyMarkupClass { return &r }
 
 // Ensuring interfaces in compile-time for ReplyInlineMarkup.
 var (
-	_ bin.Encoder = &ReplyInlineMarkup{}
-	_ bin.Decoder = &ReplyInlineMarkup{}
+	_ bin.Encoder     = &ReplyInlineMarkup{}
+	_ bin.Decoder     = &ReplyInlineMarkup{}
+	_ bin.BareEncoder = &ReplyInlineMarkup{}
+	_ bin.BareDecoder = &ReplyInlineMarkup{}
 
 	_ ReplyMarkupClass = &ReplyInlineMarkup{}
 )
@@ -715,6 +787,8 @@ var (
 type ReplyMarkupClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() ReplyMarkupClass
 
 	// TypeID returns type id in TL schema.

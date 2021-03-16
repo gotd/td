@@ -200,6 +200,14 @@ func (g *ChannelsGetAdminLogRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.getAdminLog#33ddf480 as nil")
 	}
 	b.PutID(ChannelsGetAdminLogRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *ChannelsGetAdminLogRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode channels.getAdminLog#33ddf480 as nil")
+	}
 	if !(g.EventsFilter.Zero()) {
 		g.Flags.Set(0)
 	}
@@ -314,6 +322,14 @@ func (g *ChannelsGetAdminLogRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsGetAdminLogRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.getAdminLog#33ddf480: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *ChannelsGetAdminLogRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode channels.getAdminLog#33ddf480 to nil")
+	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channels.getAdminLog#33ddf480: field flags: %w", err)
@@ -377,8 +393,10 @@ func (g *ChannelsGetAdminLogRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsGetAdminLogRequest.
 var (
-	_ bin.Encoder = &ChannelsGetAdminLogRequest{}
-	_ bin.Decoder = &ChannelsGetAdminLogRequest{}
+	_ bin.Encoder     = &ChannelsGetAdminLogRequest{}
+	_ bin.Decoder     = &ChannelsGetAdminLogRequest{}
+	_ bin.BareEncoder = &ChannelsGetAdminLogRequest{}
+	_ bin.BareDecoder = &ChannelsGetAdminLogRequest{}
 )
 
 // ChannelsGetAdminLog invokes method channels.getAdminLog#33ddf480 returning error if any.

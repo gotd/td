@@ -152,6 +152,14 @@ func (b *ContactsBlockFromRepliesRequest) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode contacts.blockFromReplies#29a8962c as nil")
 	}
 	buf.PutID(ContactsBlockFromRepliesRequestTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *ContactsBlockFromRepliesRequest) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode contacts.blockFromReplies#29a8962c as nil")
+	}
 	if !(b.DeleteMessage == false) {
 		b.Flags.Set(0)
 	}
@@ -229,6 +237,14 @@ func (b *ContactsBlockFromRepliesRequest) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(ContactsBlockFromRepliesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.blockFromReplies#29a8962c: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *ContactsBlockFromRepliesRequest) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode contacts.blockFromReplies#29a8962c to nil")
+	}
 	{
 		if err := b.Flags.Decode(buf); err != nil {
 			return fmt.Errorf("unable to decode contacts.blockFromReplies#29a8962c: field flags: %w", err)
@@ -249,8 +265,10 @@ func (b *ContactsBlockFromRepliesRequest) Decode(buf *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ContactsBlockFromRepliesRequest.
 var (
-	_ bin.Encoder = &ContactsBlockFromRepliesRequest{}
-	_ bin.Decoder = &ContactsBlockFromRepliesRequest{}
+	_ bin.Encoder     = &ContactsBlockFromRepliesRequest{}
+	_ bin.Decoder     = &ContactsBlockFromRepliesRequest{}
+	_ bin.BareEncoder = &ContactsBlockFromRepliesRequest{}
+	_ bin.BareDecoder = &ContactsBlockFromRepliesRequest{}
 )
 
 // ContactsBlockFromReplies invokes method contacts.blockFromReplies#29a8962c returning error if any.

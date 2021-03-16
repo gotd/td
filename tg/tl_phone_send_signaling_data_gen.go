@@ -113,6 +113,14 @@ func (s *PhoneSendSignalingDataRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.sendSignalingData#ff7a9383 as nil")
 	}
 	b.PutID(PhoneSendSignalingDataRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *PhoneSendSignalingDataRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode phone.sendSignalingData#ff7a9383 as nil")
+	}
 	if err := s.Peer.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.sendSignalingData#ff7a9383: field peer: %w", err)
 	}
@@ -138,6 +146,14 @@ func (s *PhoneSendSignalingDataRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneSendSignalingDataRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.sendSignalingData#ff7a9383: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *PhoneSendSignalingDataRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode phone.sendSignalingData#ff7a9383 to nil")
+	}
 	{
 		if err := s.Peer.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phone.sendSignalingData#ff7a9383: field peer: %w", err)
@@ -155,8 +171,10 @@ func (s *PhoneSendSignalingDataRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhoneSendSignalingDataRequest.
 var (
-	_ bin.Encoder = &PhoneSendSignalingDataRequest{}
-	_ bin.Decoder = &PhoneSendSignalingDataRequest{}
+	_ bin.Encoder     = &PhoneSendSignalingDataRequest{}
+	_ bin.Decoder     = &PhoneSendSignalingDataRequest{}
+	_ bin.BareEncoder = &PhoneSendSignalingDataRequest{}
+	_ bin.BareDecoder = &PhoneSendSignalingDataRequest{}
 )
 
 // PhoneSendSignalingData invokes method phone.sendSignalingData#ff7a9383 returning error if any.

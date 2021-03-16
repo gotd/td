@@ -85,6 +85,14 @@ func (g *PhoneGetCallConfigRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.getCallConfig#55451fa9 as nil")
 	}
 	b.PutID(PhoneGetCallConfigRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *PhoneGetCallConfigRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode phone.getCallConfig#55451fa9 as nil")
+	}
 	return nil
 }
 
@@ -96,13 +104,23 @@ func (g *PhoneGetCallConfigRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneGetCallConfigRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.getCallConfig#55451fa9: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *PhoneGetCallConfigRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode phone.getCallConfig#55451fa9 to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for PhoneGetCallConfigRequest.
 var (
-	_ bin.Encoder = &PhoneGetCallConfigRequest{}
-	_ bin.Decoder = &PhoneGetCallConfigRequest{}
+	_ bin.Encoder     = &PhoneGetCallConfigRequest{}
+	_ bin.Decoder     = &PhoneGetCallConfigRequest{}
+	_ bin.BareEncoder = &PhoneGetCallConfigRequest{}
+	_ bin.BareDecoder = &PhoneGetCallConfigRequest{}
 )
 
 // PhoneGetCallConfig invokes method phone.getCallConfig#55451fa9 returning error if any.

@@ -136,6 +136,14 @@ func (s *SecureCredentialsEncrypted) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureCredentialsEncrypted#33f0ea47 as nil")
 	}
 	b.PutID(SecureCredentialsEncryptedTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureCredentialsEncrypted) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureCredentialsEncrypted#33f0ea47 as nil")
+	}
 	b.PutBytes(s.Data)
 	b.PutBytes(s.Hash)
 	b.PutBytes(s.Secret)
@@ -165,6 +173,14 @@ func (s *SecureCredentialsEncrypted) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureCredentialsEncryptedTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureCredentialsEncrypted#33f0ea47: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureCredentialsEncrypted) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureCredentialsEncrypted#33f0ea47 to nil")
+	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
@@ -191,6 +207,8 @@ func (s *SecureCredentialsEncrypted) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for SecureCredentialsEncrypted.
 var (
-	_ bin.Encoder = &SecureCredentialsEncrypted{}
-	_ bin.Decoder = &SecureCredentialsEncrypted{}
+	_ bin.Encoder     = &SecureCredentialsEncrypted{}
+	_ bin.Decoder     = &SecureCredentialsEncrypted{}
+	_ bin.BareEncoder = &SecureCredentialsEncrypted{}
+	_ bin.BareDecoder = &SecureCredentialsEncrypted{}
 )

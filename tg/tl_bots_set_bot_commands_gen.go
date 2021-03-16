@@ -102,6 +102,14 @@ func (s *BotsSetBotCommandsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode bots.setBotCommands#805d46f6 as nil")
 	}
 	b.PutID(BotsSetBotCommandsRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *BotsSetBotCommandsRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode bots.setBotCommands#805d46f6 as nil")
+	}
 	b.PutVectorHeader(len(s.Commands))
 	for idx, v := range s.Commands {
 		if err := v.Encode(b); err != nil {
@@ -124,6 +132,14 @@ func (s *BotsSetBotCommandsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(BotsSetBotCommandsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode bots.setBotCommands#805d46f6: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *BotsSetBotCommandsRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode bots.setBotCommands#805d46f6 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -142,8 +158,10 @@ func (s *BotsSetBotCommandsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for BotsSetBotCommandsRequest.
 var (
-	_ bin.Encoder = &BotsSetBotCommandsRequest{}
-	_ bin.Decoder = &BotsSetBotCommandsRequest{}
+	_ bin.Encoder     = &BotsSetBotCommandsRequest{}
+	_ bin.Decoder     = &BotsSetBotCommandsRequest{}
+	_ bin.BareEncoder = &BotsSetBotCommandsRequest{}
+	_ bin.BareDecoder = &BotsSetBotCommandsRequest{}
 )
 
 // BotsSetBotCommands invokes method bots.setBotCommands#805d46f6 returning error if any.

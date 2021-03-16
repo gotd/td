@@ -123,6 +123,14 @@ func (f *FileHash) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode fileHash#6242c773 as nil")
 	}
 	b.PutID(FileHashTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *FileHash) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileHash#6242c773 as nil")
+	}
 	b.PutInt(f.Offset)
 	b.PutInt(f.Limit)
 	b.PutBytes(f.Hash)
@@ -152,6 +160,14 @@ func (f *FileHash) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(FileHashTypeID); err != nil {
 		return fmt.Errorf("unable to decode fileHash#6242c773: %w", err)
 	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *FileHash) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode fileHash#6242c773 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -178,6 +194,8 @@ func (f *FileHash) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for FileHash.
 var (
-	_ bin.Encoder = &FileHash{}
-	_ bin.Decoder = &FileHash{}
+	_ bin.Encoder     = &FileHash{}
+	_ bin.Decoder     = &FileHash{}
+	_ bin.BareEncoder = &FileHash{}
+	_ bin.BareDecoder = &FileHash{}
 )

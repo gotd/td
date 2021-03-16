@@ -85,6 +85,14 @@ func (g *AccountGetPasswordRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.getPassword#548a30f5 as nil")
 	}
 	b.PutID(AccountGetPasswordRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *AccountGetPasswordRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode account.getPassword#548a30f5 as nil")
+	}
 	return nil
 }
 
@@ -96,13 +104,23 @@ func (g *AccountGetPasswordRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetPasswordRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getPassword#548a30f5: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *AccountGetPasswordRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode account.getPassword#548a30f5 to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for AccountGetPasswordRequest.
 var (
-	_ bin.Encoder = &AccountGetPasswordRequest{}
-	_ bin.Decoder = &AccountGetPasswordRequest{}
+	_ bin.Encoder     = &AccountGetPasswordRequest{}
+	_ bin.Decoder     = &AccountGetPasswordRequest{}
+	_ bin.BareEncoder = &AccountGetPasswordRequest{}
+	_ bin.BareDecoder = &AccountGetPasswordRequest{}
 )
 
 // AccountGetPassword invokes method account.getPassword#548a30f5 returning error if any.

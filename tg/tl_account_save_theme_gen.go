@@ -113,6 +113,14 @@ func (s *AccountSaveThemeRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.saveTheme#f257106c as nil")
 	}
 	b.PutID(AccountSaveThemeRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *AccountSaveThemeRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode account.saveTheme#f257106c as nil")
+	}
 	if s.Theme == nil {
 		return fmt.Errorf("unable to encode account.saveTheme#f257106c: field theme is nil")
 	}
@@ -141,6 +149,14 @@ func (s *AccountSaveThemeRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountSaveThemeRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.saveTheme#f257106c: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *AccountSaveThemeRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode account.saveTheme#f257106c to nil")
+	}
 	{
 		value, err := DecodeInputTheme(b)
 		if err != nil {
@@ -160,8 +176,10 @@ func (s *AccountSaveThemeRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountSaveThemeRequest.
 var (
-	_ bin.Encoder = &AccountSaveThemeRequest{}
-	_ bin.Decoder = &AccountSaveThemeRequest{}
+	_ bin.Encoder     = &AccountSaveThemeRequest{}
+	_ bin.Decoder     = &AccountSaveThemeRequest{}
+	_ bin.BareEncoder = &AccountSaveThemeRequest{}
+	_ bin.BareDecoder = &AccountSaveThemeRequest{}
 )
 
 // AccountSaveTheme invokes method account.saveTheme#f257106c returning error if any.

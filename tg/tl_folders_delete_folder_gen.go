@@ -108,6 +108,14 @@ func (d *FoldersDeleteFolderRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode folders.deleteFolder#1c295881 as nil")
 	}
 	b.PutID(FoldersDeleteFolderRequestTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *FoldersDeleteFolderRequest) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode folders.deleteFolder#1c295881 as nil")
+	}
 	b.PutInt(d.FolderID)
 	return nil
 }
@@ -125,6 +133,14 @@ func (d *FoldersDeleteFolderRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(FoldersDeleteFolderRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode folders.deleteFolder#1c295881: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *FoldersDeleteFolderRequest) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode folders.deleteFolder#1c295881 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -137,8 +153,10 @@ func (d *FoldersDeleteFolderRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for FoldersDeleteFolderRequest.
 var (
-	_ bin.Encoder = &FoldersDeleteFolderRequest{}
-	_ bin.Decoder = &FoldersDeleteFolderRequest{}
+	_ bin.Encoder     = &FoldersDeleteFolderRequest{}
+	_ bin.Decoder     = &FoldersDeleteFolderRequest{}
+	_ bin.BareEncoder = &FoldersDeleteFolderRequest{}
+	_ bin.BareDecoder = &FoldersDeleteFolderRequest{}
 )
 
 // FoldersDeleteFolder invokes method folders.deleteFolder#1c295881 returning error if any.

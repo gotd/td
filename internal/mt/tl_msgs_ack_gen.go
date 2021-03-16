@@ -99,6 +99,14 @@ func (m *MsgsAck) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode msgs_ack#62d6b459 as nil")
 	}
 	b.PutID(MsgsAckTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MsgsAck) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode msgs_ack#62d6b459 as nil")
+	}
 	b.PutVectorHeader(len(m.MsgIDs))
 	for _, v := range m.MsgIDs {
 		b.PutLong(v)
@@ -119,6 +127,14 @@ func (m *MsgsAck) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MsgsAckTypeID); err != nil {
 		return fmt.Errorf("unable to decode msgs_ack#62d6b459: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MsgsAck) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode msgs_ack#62d6b459 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -137,6 +153,8 @@ func (m *MsgsAck) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MsgsAck.
 var (
-	_ bin.Encoder = &MsgsAck{}
-	_ bin.Decoder = &MsgsAck{}
+	_ bin.Encoder     = &MsgsAck{}
+	_ bin.Decoder     = &MsgsAck{}
+	_ bin.BareEncoder = &MsgsAck{}
+	_ bin.BareDecoder = &MsgsAck{}
 )

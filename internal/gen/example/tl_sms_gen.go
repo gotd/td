@@ -101,6 +101,14 @@ func (s *SMS) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode sms#ed8bebfe as nil")
 	}
 	b.PutID(SMSTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SMS) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sms#ed8bebfe as nil")
+	}
 	b.PutString(s.Text)
 	return nil
 }
@@ -118,6 +126,14 @@ func (s *SMS) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SMSTypeID); err != nil {
 		return fmt.Errorf("unable to decode sms#ed8bebfe: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SMS) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sms#ed8bebfe to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -130,6 +146,8 @@ func (s *SMS) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for SMS.
 var (
-	_ bin.Encoder = &SMS{}
-	_ bin.Decoder = &SMS{}
+	_ bin.Encoder     = &SMS{}
+	_ bin.Decoder     = &SMS{}
+	_ bin.BareEncoder = &SMS{}
+	_ bin.BareDecoder = &SMS{}
 )

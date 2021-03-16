@@ -107,6 +107,14 @@ func (i *AuthImportLoginTokenRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.importLoginToken#95ac5ce4 as nil")
 	}
 	b.PutID(AuthImportLoginTokenRequestTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *AuthImportLoginTokenRequest) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode auth.importLoginToken#95ac5ce4 as nil")
+	}
 	b.PutBytes(i.Token)
 	return nil
 }
@@ -124,6 +132,14 @@ func (i *AuthImportLoginTokenRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthImportLoginTokenRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.importLoginToken#95ac5ce4: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *AuthImportLoginTokenRequest) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode auth.importLoginToken#95ac5ce4 to nil")
+	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
@@ -136,8 +152,10 @@ func (i *AuthImportLoginTokenRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AuthImportLoginTokenRequest.
 var (
-	_ bin.Encoder = &AuthImportLoginTokenRequest{}
-	_ bin.Decoder = &AuthImportLoginTokenRequest{}
+	_ bin.Encoder     = &AuthImportLoginTokenRequest{}
+	_ bin.Decoder     = &AuthImportLoginTokenRequest{}
+	_ bin.BareEncoder = &AuthImportLoginTokenRequest{}
+	_ bin.BareDecoder = &AuthImportLoginTokenRequest{}
 )
 
 // AuthImportLoginToken invokes method auth.importLoginToken#95ac5ce4 returning error if any.

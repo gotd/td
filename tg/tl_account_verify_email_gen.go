@@ -116,6 +116,14 @@ func (v *AccountVerifyEmailRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.verifyEmail#ecba39db as nil")
 	}
 	b.PutID(AccountVerifyEmailRequestTypeID)
+	return v.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (v *AccountVerifyEmailRequest) EncodeBare(b *bin.Buffer) error {
+	if v == nil {
+		return fmt.Errorf("can't encode account.verifyEmail#ecba39db as nil")
+	}
 	b.PutString(v.Email)
 	b.PutString(v.Code)
 	return nil
@@ -139,6 +147,14 @@ func (v *AccountVerifyEmailRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountVerifyEmailRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.verifyEmail#ecba39db: %w", err)
 	}
+	return v.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (v *AccountVerifyEmailRequest) DecodeBare(b *bin.Buffer) error {
+	if v == nil {
+		return fmt.Errorf("can't decode account.verifyEmail#ecba39db to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -158,8 +174,10 @@ func (v *AccountVerifyEmailRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountVerifyEmailRequest.
 var (
-	_ bin.Encoder = &AccountVerifyEmailRequest{}
-	_ bin.Decoder = &AccountVerifyEmailRequest{}
+	_ bin.Encoder     = &AccountVerifyEmailRequest{}
+	_ bin.Decoder     = &AccountVerifyEmailRequest{}
+	_ bin.BareEncoder = &AccountVerifyEmailRequest{}
+	_ bin.BareDecoder = &AccountVerifyEmailRequest{}
 )
 
 // AccountVerifyEmail invokes method account.verifyEmail#ecba39db returning error if any.

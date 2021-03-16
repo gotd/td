@@ -304,6 +304,14 @@ func (g *GroupCallParticipant) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode groupCallParticipant#19adba89 as nil")
 	}
 	b.PutID(GroupCallParticipantTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *GroupCallParticipant) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode groupCallParticipant#19adba89 as nil")
+	}
 	if !(g.Muted == false) {
 		g.Flags.Set(0)
 	}
@@ -596,6 +604,14 @@ func (g *GroupCallParticipant) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(GroupCallParticipantTypeID); err != nil {
 		return fmt.Errorf("unable to decode groupCallParticipant#19adba89: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *GroupCallParticipant) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode groupCallParticipant#19adba89 to nil")
+	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode groupCallParticipant#19adba89: field flags: %w", err)
@@ -664,6 +680,8 @@ func (g *GroupCallParticipant) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for GroupCallParticipant.
 var (
-	_ bin.Encoder = &GroupCallParticipant{}
-	_ bin.Decoder = &GroupCallParticipant{}
+	_ bin.Encoder     = &GroupCallParticipant{}
+	_ bin.Decoder     = &GroupCallParticipant{}
+	_ bin.BareEncoder = &GroupCallParticipant{}
+	_ bin.BareDecoder = &GroupCallParticipant{}
 )

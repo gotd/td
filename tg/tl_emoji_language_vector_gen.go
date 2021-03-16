@@ -98,6 +98,15 @@ func (vec *EmojiLanguageVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't encode Vector<EmojiLanguage> as nil")
 	}
+
+	return vec.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (vec *EmojiLanguageVector) EncodeBare(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't encode Vector<EmojiLanguage> as nil")
+	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if err := v.Encode(b); err != nil {
@@ -114,6 +123,15 @@ func (vec *EmojiLanguageVector) GetElems() (value []EmojiLanguage) {
 
 // Decode implements bin.Decoder.
 func (vec *EmojiLanguageVector) Decode(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't decode Vector<EmojiLanguage> to nil")
+	}
+
+	return vec.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (vec *EmojiLanguageVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't decode Vector<EmojiLanguage> to nil")
 	}
@@ -135,6 +153,8 @@ func (vec *EmojiLanguageVector) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for EmojiLanguageVector.
 var (
-	_ bin.Encoder = &EmojiLanguageVector{}
-	_ bin.Decoder = &EmojiLanguageVector{}
+	_ bin.Encoder     = &EmojiLanguageVector{}
+	_ bin.Decoder     = &EmojiLanguageVector{}
+	_ bin.BareEncoder = &EmojiLanguageVector{}
+	_ bin.BareDecoder = &EmojiLanguageVector{}
 )

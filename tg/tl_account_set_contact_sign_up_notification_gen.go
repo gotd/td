@@ -102,6 +102,14 @@ func (s *AccountSetContactSignUpNotificationRequest) Encode(b *bin.Buffer) error
 		return fmt.Errorf("can't encode account.setContactSignUpNotification#cff43f61 as nil")
 	}
 	b.PutID(AccountSetContactSignUpNotificationRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *AccountSetContactSignUpNotificationRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode account.setContactSignUpNotification#cff43f61 as nil")
+	}
 	b.PutBool(s.Silent)
 	return nil
 }
@@ -119,6 +127,14 @@ func (s *AccountSetContactSignUpNotificationRequest) Decode(b *bin.Buffer) error
 	if err := b.ConsumeID(AccountSetContactSignUpNotificationRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.setContactSignUpNotification#cff43f61: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *AccountSetContactSignUpNotificationRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode account.setContactSignUpNotification#cff43f61 to nil")
+	}
 	{
 		value, err := b.Bool()
 		if err != nil {
@@ -131,8 +147,10 @@ func (s *AccountSetContactSignUpNotificationRequest) Decode(b *bin.Buffer) error
 
 // Ensuring interfaces in compile-time for AccountSetContactSignUpNotificationRequest.
 var (
-	_ bin.Encoder = &AccountSetContactSignUpNotificationRequest{}
-	_ bin.Decoder = &AccountSetContactSignUpNotificationRequest{}
+	_ bin.Encoder     = &AccountSetContactSignUpNotificationRequest{}
+	_ bin.Decoder     = &AccountSetContactSignUpNotificationRequest{}
+	_ bin.BareEncoder = &AccountSetContactSignUpNotificationRequest{}
+	_ bin.BareDecoder = &AccountSetContactSignUpNotificationRequest{}
 )
 
 // AccountSetContactSignUpNotification invokes method account.setContactSignUpNotification#cff43f61 returning error if any.

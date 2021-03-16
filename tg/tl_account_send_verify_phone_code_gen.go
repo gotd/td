@@ -116,6 +116,14 @@ func (s *AccountSendVerifyPhoneCodeRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.sendVerifyPhoneCode#a5a356f9 as nil")
 	}
 	b.PutID(AccountSendVerifyPhoneCodeRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *AccountSendVerifyPhoneCodeRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode account.sendVerifyPhoneCode#a5a356f9 as nil")
+	}
 	b.PutString(s.PhoneNumber)
 	if err := s.Settings.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.sendVerifyPhoneCode#a5a356f9: field settings: %w", err)
@@ -141,6 +149,14 @@ func (s *AccountSendVerifyPhoneCodeRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountSendVerifyPhoneCodeRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.sendVerifyPhoneCode#a5a356f9: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *AccountSendVerifyPhoneCodeRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode account.sendVerifyPhoneCode#a5a356f9 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -158,8 +174,10 @@ func (s *AccountSendVerifyPhoneCodeRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountSendVerifyPhoneCodeRequest.
 var (
-	_ bin.Encoder = &AccountSendVerifyPhoneCodeRequest{}
-	_ bin.Decoder = &AccountSendVerifyPhoneCodeRequest{}
+	_ bin.Encoder     = &AccountSendVerifyPhoneCodeRequest{}
+	_ bin.Decoder     = &AccountSendVerifyPhoneCodeRequest{}
+	_ bin.BareEncoder = &AccountSendVerifyPhoneCodeRequest{}
+	_ bin.BareDecoder = &AccountSendVerifyPhoneCodeRequest{}
 )
 
 // AccountSendVerifyPhoneCode invokes method account.sendVerifyPhoneCode#a5a356f9 returning error if any.

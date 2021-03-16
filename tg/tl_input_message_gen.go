@@ -102,6 +102,14 @@ func (i *InputMessageID) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMessageID#a676a322 as nil")
 	}
 	b.PutID(InputMessageIDTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMessageID) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMessageID#a676a322 as nil")
+	}
 	b.PutInt(i.ID)
 	return nil
 }
@@ -119,6 +127,14 @@ func (i *InputMessageID) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessageIDTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessageID#a676a322: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMessageID) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessageID#a676a322 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -134,8 +150,10 @@ func (i InputMessageID) construct() InputMessageClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMessageID.
 var (
-	_ bin.Encoder = &InputMessageID{}
-	_ bin.Decoder = &InputMessageID{}
+	_ bin.Encoder     = &InputMessageID{}
+	_ bin.Decoder     = &InputMessageID{}
+	_ bin.BareEncoder = &InputMessageID{}
+	_ bin.BareDecoder = &InputMessageID{}
 
 	_ InputMessageClass = &InputMessageID{}
 )
@@ -216,6 +234,14 @@ func (i *InputMessageReplyTo) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMessageReplyTo#bad88395 as nil")
 	}
 	b.PutID(InputMessageReplyToTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMessageReplyTo) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMessageReplyTo#bad88395 as nil")
+	}
 	b.PutInt(i.ID)
 	return nil
 }
@@ -233,6 +259,14 @@ func (i *InputMessageReplyTo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessageReplyToTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessageReplyTo#bad88395: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMessageReplyTo) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessageReplyTo#bad88395 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -248,8 +282,10 @@ func (i InputMessageReplyTo) construct() InputMessageClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMessageReplyTo.
 var (
-	_ bin.Encoder = &InputMessageReplyTo{}
-	_ bin.Decoder = &InputMessageReplyTo{}
+	_ bin.Encoder     = &InputMessageReplyTo{}
+	_ bin.Decoder     = &InputMessageReplyTo{}
+	_ bin.BareEncoder = &InputMessageReplyTo{}
+	_ bin.BareDecoder = &InputMessageReplyTo{}
 
 	_ InputMessageClass = &InputMessageReplyTo{}
 )
@@ -313,6 +349,14 @@ func (i *InputMessagePinned) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMessagePinned#86872538 as nil")
 	}
 	b.PutID(InputMessagePinnedTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMessagePinned) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMessagePinned#86872538 as nil")
+	}
 	return nil
 }
 
@@ -324,6 +368,14 @@ func (i *InputMessagePinned) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessagePinnedTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessagePinned#86872538: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMessagePinned) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessagePinned#86872538 to nil")
+	}
 	return nil
 }
 
@@ -332,8 +384,10 @@ func (i InputMessagePinned) construct() InputMessageClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMessagePinned.
 var (
-	_ bin.Encoder = &InputMessagePinned{}
-	_ bin.Decoder = &InputMessagePinned{}
+	_ bin.Encoder     = &InputMessagePinned{}
+	_ bin.Decoder     = &InputMessagePinned{}
+	_ bin.BareEncoder = &InputMessagePinned{}
+	_ bin.BareDecoder = &InputMessagePinned{}
 
 	_ InputMessageClass = &InputMessagePinned{}
 )
@@ -425,6 +479,14 @@ func (i *InputMessageCallbackQuery) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMessageCallbackQuery#acfa1a7e as nil")
 	}
 	b.PutID(InputMessageCallbackQueryTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMessageCallbackQuery) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMessageCallbackQuery#acfa1a7e as nil")
+	}
 	b.PutInt(i.ID)
 	b.PutLong(i.QueryID)
 	return nil
@@ -448,6 +510,14 @@ func (i *InputMessageCallbackQuery) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMessageCallbackQueryTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMessageCallbackQuery#acfa1a7e: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMessageCallbackQuery) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMessageCallbackQuery#acfa1a7e to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -470,8 +540,10 @@ func (i InputMessageCallbackQuery) construct() InputMessageClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMessageCallbackQuery.
 var (
-	_ bin.Encoder = &InputMessageCallbackQuery{}
-	_ bin.Decoder = &InputMessageCallbackQuery{}
+	_ bin.Encoder     = &InputMessageCallbackQuery{}
+	_ bin.Decoder     = &InputMessageCallbackQuery{}
+	_ bin.BareEncoder = &InputMessageCallbackQuery{}
+	_ bin.BareDecoder = &InputMessageCallbackQuery{}
 
 	_ InputMessageClass = &InputMessageCallbackQuery{}
 )
@@ -495,6 +567,8 @@ var (
 type InputMessageClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() InputMessageClass
 
 	// TypeID returns type id in TL schema.

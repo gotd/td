@@ -157,6 +157,14 @@ func (u *MessagesUpdatePinnedMessageRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.updatePinnedMessage#d2aaf7ec as nil")
 	}
 	b.PutID(MessagesUpdatePinnedMessageRequestTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *MessagesUpdatePinnedMessageRequest) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode messages.updatePinnedMessage#d2aaf7ec as nil")
+	}
 	if !(u.Silent == false) {
 		u.Flags.Set(0)
 	}
@@ -245,6 +253,14 @@ func (u *MessagesUpdatePinnedMessageRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesUpdatePinnedMessageRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.updatePinnedMessage#d2aaf7ec: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *MessagesUpdatePinnedMessageRequest) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode messages.updatePinnedMessage#d2aaf7ec to nil")
+	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.updatePinnedMessage#d2aaf7ec: field flags: %w", err)
@@ -272,8 +288,10 @@ func (u *MessagesUpdatePinnedMessageRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesUpdatePinnedMessageRequest.
 var (
-	_ bin.Encoder = &MessagesUpdatePinnedMessageRequest{}
-	_ bin.Decoder = &MessagesUpdatePinnedMessageRequest{}
+	_ bin.Encoder     = &MessagesUpdatePinnedMessageRequest{}
+	_ bin.Decoder     = &MessagesUpdatePinnedMessageRequest{}
+	_ bin.BareEncoder = &MessagesUpdatePinnedMessageRequest{}
+	_ bin.BareDecoder = &MessagesUpdatePinnedMessageRequest{}
 )
 
 // MessagesUpdatePinnedMessage invokes method messages.updatePinnedMessage#d2aaf7ec returning error if any.

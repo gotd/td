@@ -113,6 +113,14 @@ func (u *AccountUpdateNotifySettingsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.updateNotifySettings#84be5b93 as nil")
 	}
 	b.PutID(AccountUpdateNotifySettingsRequestTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *AccountUpdateNotifySettingsRequest) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode account.updateNotifySettings#84be5b93 as nil")
+	}
 	if u.Peer == nil {
 		return fmt.Errorf("unable to encode account.updateNotifySettings#84be5b93: field peer is nil")
 	}
@@ -143,6 +151,14 @@ func (u *AccountUpdateNotifySettingsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountUpdateNotifySettingsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.updateNotifySettings#84be5b93: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *AccountUpdateNotifySettingsRequest) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode account.updateNotifySettings#84be5b93 to nil")
+	}
 	{
 		value, err := DecodeInputNotifyPeer(b)
 		if err != nil {
@@ -160,8 +176,10 @@ func (u *AccountUpdateNotifySettingsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountUpdateNotifySettingsRequest.
 var (
-	_ bin.Encoder = &AccountUpdateNotifySettingsRequest{}
-	_ bin.Decoder = &AccountUpdateNotifySettingsRequest{}
+	_ bin.Encoder     = &AccountUpdateNotifySettingsRequest{}
+	_ bin.Decoder     = &AccountUpdateNotifySettingsRequest{}
+	_ bin.BareEncoder = &AccountUpdateNotifySettingsRequest{}
+	_ bin.BareDecoder = &AccountUpdateNotifySettingsRequest{}
 )
 
 // AccountUpdateNotifySettings invokes method account.updateNotifySettings#84be5b93 returning error if any.

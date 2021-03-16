@@ -117,6 +117,14 @@ func (s *StatsPercentValue) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode statsPercentValue#cbce2fe0 as nil")
 	}
 	b.PutID(StatsPercentValueTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StatsPercentValue) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode statsPercentValue#cbce2fe0 as nil")
+	}
 	b.PutDouble(s.Part)
 	b.PutDouble(s.Total)
 	return nil
@@ -140,6 +148,14 @@ func (s *StatsPercentValue) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsPercentValueTypeID); err != nil {
 		return fmt.Errorf("unable to decode statsPercentValue#cbce2fe0: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StatsPercentValue) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode statsPercentValue#cbce2fe0 to nil")
+	}
 	{
 		value, err := b.Double()
 		if err != nil {
@@ -159,6 +175,8 @@ func (s *StatsPercentValue) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for StatsPercentValue.
 var (
-	_ bin.Encoder = &StatsPercentValue{}
-	_ bin.Decoder = &StatsPercentValue{}
+	_ bin.Encoder     = &StatsPercentValue{}
+	_ bin.Decoder     = &StatsPercentValue{}
+	_ bin.BareEncoder = &StatsPercentValue{}
+	_ bin.BareDecoder = &StatsPercentValue{}
 )

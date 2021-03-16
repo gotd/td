@@ -751,6 +751,14 @@ func (c *Config) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode config#330b4067 as nil")
 	}
 	b.PutID(ConfigTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *Config) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode config#330b4067 as nil")
+	}
 	if !(c.PhonecallsEnabled == false) {
 		c.Flags.Set(1)
 	}
@@ -1302,6 +1310,14 @@ func (c *Config) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ConfigTypeID); err != nil {
 		return fmt.Errorf("unable to decode config#330b4067: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *Config) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode config#330b4067 to nil")
+	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode config#330b4067: field flags: %w", err)
@@ -1633,6 +1649,8 @@ func (c *Config) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for Config.
 var (
-	_ bin.Encoder = &Config{}
-	_ bin.Decoder = &Config{}
+	_ bin.Encoder     = &Config{}
+	_ bin.Decoder     = &Config{}
+	_ bin.BareEncoder = &Config{}
+	_ bin.BareDecoder = &Config{}
 )

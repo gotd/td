@@ -264,6 +264,14 @@ func (s *StickerSet) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode stickerSet#40e237a8 as nil")
 	}
 	b.PutID(StickerSetTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StickerSet) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode stickerSet#40e237a8 as nil")
+	}
 	if !(s.Archived == false) {
 		s.Flags.Set(1)
 	}
@@ -469,6 +477,14 @@ func (s *StickerSet) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StickerSetTypeID); err != nil {
 		return fmt.Errorf("unable to decode stickerSet#40e237a8: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StickerSet) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode stickerSet#40e237a8 to nil")
+	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode stickerSet#40e237a8: field flags: %w", err)
@@ -552,6 +568,8 @@ func (s *StickerSet) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for StickerSet.
 var (
-	_ bin.Encoder = &StickerSet{}
-	_ bin.Decoder = &StickerSet{}
+	_ bin.Encoder     = &StickerSet{}
+	_ bin.Decoder     = &StickerSet{}
+	_ bin.BareEncoder = &StickerSet{}
+	_ bin.BareDecoder = &StickerSet{}
 )

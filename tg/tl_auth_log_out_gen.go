@@ -85,6 +85,14 @@ func (l *AuthLogOutRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.logOut#5717da40 as nil")
 	}
 	b.PutID(AuthLogOutRequestTypeID)
+	return l.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (l *AuthLogOutRequest) EncodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't encode auth.logOut#5717da40 as nil")
+	}
 	return nil
 }
 
@@ -96,13 +104,23 @@ func (l *AuthLogOutRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthLogOutRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.logOut#5717da40: %w", err)
 	}
+	return l.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (l *AuthLogOutRequest) DecodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't decode auth.logOut#5717da40 to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for AuthLogOutRequest.
 var (
-	_ bin.Encoder = &AuthLogOutRequest{}
-	_ bin.Decoder = &AuthLogOutRequest{}
+	_ bin.Encoder     = &AuthLogOutRequest{}
+	_ bin.Decoder     = &AuthLogOutRequest{}
+	_ bin.BareEncoder = &AuthLogOutRequest{}
+	_ bin.BareDecoder = &AuthLogOutRequest{}
 )
 
 // AuthLogOut invokes method auth.logOut#5717da40 returning error if any.

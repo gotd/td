@@ -135,6 +135,14 @@ func (d *MessagesDialogs) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.dialogs#15ba6c40 as nil")
 	}
 	b.PutID(MessagesDialogsTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *MessagesDialogs) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode messages.dialogs#15ba6c40 as nil")
+	}
 	b.PutVectorHeader(len(d.Dialogs))
 	for idx, v := range d.Dialogs {
 		if v == nil {
@@ -222,6 +230,14 @@ func (d *MessagesDialogs) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesDialogsTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.dialogs#15ba6c40: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *MessagesDialogs) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode messages.dialogs#15ba6c40 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -282,8 +298,10 @@ func (d MessagesDialogs) construct() MessagesDialogsClass { return &d }
 
 // Ensuring interfaces in compile-time for MessagesDialogs.
 var (
-	_ bin.Encoder = &MessagesDialogs{}
-	_ bin.Decoder = &MessagesDialogs{}
+	_ bin.Encoder     = &MessagesDialogs{}
+	_ bin.Decoder     = &MessagesDialogs{}
+	_ bin.BareEncoder = &MessagesDialogs{}
+	_ bin.BareDecoder = &MessagesDialogs{}
 
 	_ MessagesDialogsClass = &MessagesDialogs{}
 )
@@ -408,6 +426,14 @@ func (d *MessagesDialogsSlice) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.dialogsSlice#71e094f3 as nil")
 	}
 	b.PutID(MessagesDialogsSliceTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *MessagesDialogsSlice) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode messages.dialogsSlice#71e094f3 as nil")
+	}
 	b.PutInt(d.Count)
 	b.PutVectorHeader(len(d.Dialogs))
 	for idx, v := range d.Dialogs {
@@ -501,6 +527,14 @@ func (d *MessagesDialogsSlice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesDialogsSliceTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.dialogsSlice#71e094f3: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *MessagesDialogsSlice) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode messages.dialogsSlice#71e094f3 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -568,8 +602,10 @@ func (d MessagesDialogsSlice) construct() MessagesDialogsClass { return &d }
 
 // Ensuring interfaces in compile-time for MessagesDialogsSlice.
 var (
-	_ bin.Encoder = &MessagesDialogsSlice{}
-	_ bin.Decoder = &MessagesDialogsSlice{}
+	_ bin.Encoder     = &MessagesDialogsSlice{}
+	_ bin.Decoder     = &MessagesDialogsSlice{}
+	_ bin.BareEncoder = &MessagesDialogsSlice{}
+	_ bin.BareDecoder = &MessagesDialogsSlice{}
 
 	_ MessagesDialogsClass = &MessagesDialogsSlice{}
 )
@@ -650,6 +686,14 @@ func (d *MessagesDialogsNotModified) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.dialogsNotModified#f0e3e596 as nil")
 	}
 	b.PutID(MessagesDialogsNotModifiedTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *MessagesDialogsNotModified) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode messages.dialogsNotModified#f0e3e596 as nil")
+	}
 	b.PutInt(d.Count)
 	return nil
 }
@@ -667,6 +711,14 @@ func (d *MessagesDialogsNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesDialogsNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.dialogsNotModified#f0e3e596: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *MessagesDialogsNotModified) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode messages.dialogsNotModified#f0e3e596 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -682,8 +734,10 @@ func (d MessagesDialogsNotModified) construct() MessagesDialogsClass { return &d
 
 // Ensuring interfaces in compile-time for MessagesDialogsNotModified.
 var (
-	_ bin.Encoder = &MessagesDialogsNotModified{}
-	_ bin.Decoder = &MessagesDialogsNotModified{}
+	_ bin.Encoder     = &MessagesDialogsNotModified{}
+	_ bin.Decoder     = &MessagesDialogsNotModified{}
+	_ bin.BareEncoder = &MessagesDialogsNotModified{}
+	_ bin.BareDecoder = &MessagesDialogsNotModified{}
 
 	_ MessagesDialogsClass = &MessagesDialogsNotModified{}
 )
@@ -706,6 +760,8 @@ var (
 type MessagesDialogsClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() MessagesDialogsClass
 
 	// TypeID returns type id in TL schema.
@@ -727,6 +783,8 @@ type MessagesDialogsClass interface {
 type ModifiedMessagesDialogs interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() MessagesDialogsClass
 
 	// TypeID returns type id in TL schema.

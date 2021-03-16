@@ -113,6 +113,14 @@ func (f *FileLocationToBeDeprecated) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode fileLocationToBeDeprecated#bc7fc6cd as nil")
 	}
 	b.PutID(FileLocationToBeDeprecatedTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *FileLocationToBeDeprecated) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode fileLocationToBeDeprecated#bc7fc6cd as nil")
+	}
 	b.PutLong(f.VolumeID)
 	b.PutInt(f.LocalID)
 	return nil
@@ -136,6 +144,14 @@ func (f *FileLocationToBeDeprecated) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(FileLocationToBeDeprecatedTypeID); err != nil {
 		return fmt.Errorf("unable to decode fileLocationToBeDeprecated#bc7fc6cd: %w", err)
 	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *FileLocationToBeDeprecated) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode fileLocationToBeDeprecated#bc7fc6cd to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -155,6 +171,8 @@ func (f *FileLocationToBeDeprecated) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for FileLocationToBeDeprecated.
 var (
-	_ bin.Encoder = &FileLocationToBeDeprecated{}
-	_ bin.Decoder = &FileLocationToBeDeprecated{}
+	_ bin.Encoder     = &FileLocationToBeDeprecated{}
+	_ bin.Decoder     = &FileLocationToBeDeprecated{}
+	_ bin.BareEncoder = &FileLocationToBeDeprecated{}
+	_ bin.BareDecoder = &FileLocationToBeDeprecated{}
 )

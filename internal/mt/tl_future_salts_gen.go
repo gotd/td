@@ -121,12 +121,20 @@ func (f *FutureSalts) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode future_salts#ae500895 as nil")
 	}
 	b.PutID(FutureSaltsTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *FutureSalts) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode future_salts#ae500895 as nil")
+	}
 	b.PutLong(f.ReqMsgID)
 	b.PutInt(f.Now)
-	b.PutVectorHeader(len(f.Salts))
+	b.PutInt(len(f.Salts))
 	for idx, v := range f.Salts {
-		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode future_salts#ae500895: field salts element with index %d: %w", idx, err)
+		if err := v.EncodeBare(b); err != nil {
+			return fmt.Errorf("unable to encode bare future_salts#ae500895: field salts element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -155,6 +163,14 @@ func (f *FutureSalts) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(FutureSaltsTypeID); err != nil {
 		return fmt.Errorf("unable to decode future_salts#ae500895: %w", err)
 	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *FutureSalts) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode future_salts#ae500895 to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -170,14 +186,14 @@ func (f *FutureSalts) Decode(b *bin.Buffer) error {
 		f.Now = value
 	}
 	{
-		headerLen, err := b.VectorHeader()
+		headerLen, err := b.Int()
 		if err != nil {
 			return fmt.Errorf("unable to decode future_salts#ae500895: field salts: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value FutureSalt
-			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode future_salts#ae500895: field salts: %w", err)
+			if err := value.DecodeBare(b); err != nil {
+				return fmt.Errorf("unable to decode bare future_salts#ae500895: field salts: %w", err)
 			}
 			f.Salts = append(f.Salts, value)
 		}
@@ -187,6 +203,8 @@ func (f *FutureSalts) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for FutureSalts.
 var (
-	_ bin.Encoder = &FutureSalts{}
-	_ bin.Decoder = &FutureSalts{}
+	_ bin.Encoder     = &FutureSalts{}
+	_ bin.Decoder     = &FutureSalts{}
+	_ bin.BareEncoder = &FutureSalts{}
+	_ bin.BareDecoder = &FutureSalts{}
 )

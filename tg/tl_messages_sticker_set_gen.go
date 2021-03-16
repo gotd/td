@@ -124,6 +124,14 @@ func (s *MessagesStickerSet) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.stickerSet#b60a24a6 as nil")
 	}
 	b.PutID(MessagesStickerSetTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesStickerSet) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.stickerSet#b60a24a6 as nil")
+	}
 	if err := s.Set.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.stickerSet#b60a24a6: field set: %w", err)
 	}
@@ -173,6 +181,14 @@ func (s *MessagesStickerSet) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesStickerSetTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.stickerSet#b60a24a6: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesStickerSet) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.stickerSet#b60a24a6 to nil")
+	}
 	{
 		if err := s.Set.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.stickerSet#b60a24a6: field set: %w", err)
@@ -209,6 +225,8 @@ func (s *MessagesStickerSet) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesStickerSet.
 var (
-	_ bin.Encoder = &MessagesStickerSet{}
-	_ bin.Decoder = &MessagesStickerSet{}
+	_ bin.Encoder     = &MessagesStickerSet{}
+	_ bin.Decoder     = &MessagesStickerSet{}
+	_ bin.BareEncoder = &MessagesStickerSet{}
+	_ bin.BareDecoder = &MessagesStickerSet{}
 )

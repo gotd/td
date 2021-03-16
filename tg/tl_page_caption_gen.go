@@ -113,6 +113,14 @@ func (p *PageCaption) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageCaption#6f747657 as nil")
 	}
 	b.PutID(PageCaptionTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageCaption) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageCaption#6f747657 as nil")
+	}
 	if p.Text == nil {
 		return fmt.Errorf("unable to encode pageCaption#6f747657: field text is nil")
 	}
@@ -146,6 +154,14 @@ func (p *PageCaption) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageCaptionTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageCaption#6f747657: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageCaption) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageCaption#6f747657 to nil")
+	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -165,6 +181,8 @@ func (p *PageCaption) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PageCaption.
 var (
-	_ bin.Encoder = &PageCaption{}
-	_ bin.Decoder = &PageCaption{}
+	_ bin.Encoder     = &PageCaption{}
+	_ bin.Decoder     = &PageCaption{}
+	_ bin.BareEncoder = &PageCaption{}
+	_ bin.BareDecoder = &PageCaption{}
 )

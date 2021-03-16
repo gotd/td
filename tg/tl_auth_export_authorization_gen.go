@@ -102,6 +102,14 @@ func (e *AuthExportAuthorizationRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.exportAuthorization#e5bfffcd as nil")
 	}
 	b.PutID(AuthExportAuthorizationRequestTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *AuthExportAuthorizationRequest) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode auth.exportAuthorization#e5bfffcd as nil")
+	}
 	b.PutInt(e.DCID)
 	return nil
 }
@@ -119,6 +127,14 @@ func (e *AuthExportAuthorizationRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthExportAuthorizationRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.exportAuthorization#e5bfffcd: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *AuthExportAuthorizationRequest) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode auth.exportAuthorization#e5bfffcd to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -131,8 +147,10 @@ func (e *AuthExportAuthorizationRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AuthExportAuthorizationRequest.
 var (
-	_ bin.Encoder = &AuthExportAuthorizationRequest{}
-	_ bin.Decoder = &AuthExportAuthorizationRequest{}
+	_ bin.Encoder     = &AuthExportAuthorizationRequest{}
+	_ bin.Decoder     = &AuthExportAuthorizationRequest{}
+	_ bin.BareEncoder = &AuthExportAuthorizationRequest{}
+	_ bin.BareDecoder = &AuthExportAuthorizationRequest{}
 )
 
 // AuthExportAuthorization invokes method auth.exportAuthorization#e5bfffcd returning error if any.

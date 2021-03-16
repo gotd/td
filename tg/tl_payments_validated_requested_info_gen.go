@@ -129,6 +129,14 @@ func (v *PaymentsValidatedRequestedInfo) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode payments.validatedRequestedInfo#d1451883 as nil")
 	}
 	b.PutID(PaymentsValidatedRequestedInfoTypeID)
+	return v.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (v *PaymentsValidatedRequestedInfo) EncodeBare(b *bin.Buffer) error {
+	if v == nil {
+		return fmt.Errorf("can't encode payments.validatedRequestedInfo#d1451883 as nil")
+	}
 	if !(v.ID == "") {
 		v.Flags.Set(0)
 	}
@@ -190,6 +198,14 @@ func (v *PaymentsValidatedRequestedInfo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PaymentsValidatedRequestedInfoTypeID); err != nil {
 		return fmt.Errorf("unable to decode payments.validatedRequestedInfo#d1451883: %w", err)
 	}
+	return v.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (v *PaymentsValidatedRequestedInfo) DecodeBare(b *bin.Buffer) error {
+	if v == nil {
+		return fmt.Errorf("can't decode payments.validatedRequestedInfo#d1451883 to nil")
+	}
 	{
 		if err := v.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode payments.validatedRequestedInfo#d1451883: field flags: %w", err)
@@ -220,6 +236,8 @@ func (v *PaymentsValidatedRequestedInfo) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PaymentsValidatedRequestedInfo.
 var (
-	_ bin.Encoder = &PaymentsValidatedRequestedInfo{}
-	_ bin.Decoder = &PaymentsValidatedRequestedInfo{}
+	_ bin.Encoder     = &PaymentsValidatedRequestedInfo{}
+	_ bin.Decoder     = &PaymentsValidatedRequestedInfo{}
+	_ bin.BareEncoder = &PaymentsValidatedRequestedInfo{}
+	_ bin.BareDecoder = &PaymentsValidatedRequestedInfo{}
 )

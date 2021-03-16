@@ -167,6 +167,14 @@ func (i *InputPeerNotifySettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputPeerNotifySettings#9c3d198e as nil")
 	}
 	b.PutID(InputPeerNotifySettingsTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPeerNotifySettings) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPeerNotifySettings#9c3d198e as nil")
+	}
 	if !(i.ShowPreviews == false) {
 		i.Flags.Set(0)
 	}
@@ -265,6 +273,14 @@ func (i *InputPeerNotifySettings) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPeerNotifySettingsTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPeerNotifySettings) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPeerNotifySettings#9c3d198e to nil")
+	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputPeerNotifySettings#9c3d198e: field flags: %w", err)
@@ -303,6 +319,8 @@ func (i *InputPeerNotifySettings) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for InputPeerNotifySettings.
 var (
-	_ bin.Encoder = &InputPeerNotifySettings{}
-	_ bin.Decoder = &InputPeerNotifySettings{}
+	_ bin.Encoder     = &InputPeerNotifySettings{}
+	_ bin.Decoder     = &InputPeerNotifySettings{}
+	_ bin.BareEncoder = &InputPeerNotifySettings{}
+	_ bin.BareDecoder = &InputPeerNotifySettings{}
 )

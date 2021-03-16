@@ -124,6 +124,14 @@ func (u *AccountUploadWallPaperRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.uploadWallPaper#dd853661 as nil")
 	}
 	b.PutID(AccountUploadWallPaperRequestTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *AccountUploadWallPaperRequest) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode account.uploadWallPaper#dd853661 as nil")
+	}
 	if u.File == nil {
 		return fmt.Errorf("unable to encode account.uploadWallPaper#dd853661: field file is nil")
 	}
@@ -160,6 +168,14 @@ func (u *AccountUploadWallPaperRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountUploadWallPaperRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.uploadWallPaper#dd853661: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *AccountUploadWallPaperRequest) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode account.uploadWallPaper#dd853661 to nil")
+	}
 	{
 		value, err := DecodeInputFile(b)
 		if err != nil {
@@ -184,8 +200,10 @@ func (u *AccountUploadWallPaperRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountUploadWallPaperRequest.
 var (
-	_ bin.Encoder = &AccountUploadWallPaperRequest{}
-	_ bin.Decoder = &AccountUploadWallPaperRequest{}
+	_ bin.Encoder     = &AccountUploadWallPaperRequest{}
+	_ bin.Decoder     = &AccountUploadWallPaperRequest{}
+	_ bin.BareEncoder = &AccountUploadWallPaperRequest{}
+	_ bin.BareDecoder = &AccountUploadWallPaperRequest{}
 )
 
 // AccountUploadWallPaper invokes method account.uploadWallPaper#dd853661 returning error if any.

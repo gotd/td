@@ -189,6 +189,14 @@ func (b *MessagesBotResults) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.botResults#947ca848 as nil")
 	}
 	buf.PutID(MessagesBotResultsTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *MessagesBotResults) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode messages.botResults#947ca848 as nil")
+	}
 	if !(b.Gallery == false) {
 		b.Flags.Set(0)
 	}
@@ -316,6 +324,14 @@ func (b *MessagesBotResults) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(MessagesBotResultsTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.botResults#947ca848: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *MessagesBotResults) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode messages.botResults#947ca848 to nil")
+	}
 	{
 		if err := b.Flags.Decode(buf); err != nil {
 			return fmt.Errorf("unable to decode messages.botResults#947ca848: field flags: %w", err)
@@ -379,6 +395,8 @@ func (b *MessagesBotResults) Decode(buf *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesBotResults.
 var (
-	_ bin.Encoder = &MessagesBotResults{}
-	_ bin.Decoder = &MessagesBotResults{}
+	_ bin.Encoder     = &MessagesBotResults{}
+	_ bin.Decoder     = &MessagesBotResults{}
+	_ bin.BareEncoder = &MessagesBotResults{}
+	_ bin.BareDecoder = &MessagesBotResults{}
 )

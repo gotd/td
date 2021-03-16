@@ -85,6 +85,14 @@ func (e *EncryptedFileEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode encryptedFileEmpty#c21f497e as nil")
 	}
 	b.PutID(EncryptedFileEmptyTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *EncryptedFileEmpty) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode encryptedFileEmpty#c21f497e as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (e *EncryptedFileEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(EncryptedFileEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode encryptedFileEmpty#c21f497e: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *EncryptedFileEmpty) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode encryptedFileEmpty#c21f497e to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (e EncryptedFileEmpty) construct() EncryptedFileClass { return &e }
 
 // Ensuring interfaces in compile-time for EncryptedFileEmpty.
 var (
-	_ bin.Encoder = &EncryptedFileEmpty{}
-	_ bin.Decoder = &EncryptedFileEmpty{}
+	_ bin.Encoder     = &EncryptedFileEmpty{}
+	_ bin.Decoder     = &EncryptedFileEmpty{}
+	_ bin.BareEncoder = &EncryptedFileEmpty{}
+	_ bin.BareDecoder = &EncryptedFileEmpty{}
 
 	_ EncryptedFileClass = &EncryptedFileEmpty{}
 )
@@ -230,6 +248,14 @@ func (e *EncryptedFile) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode encryptedFile#4a70994c as nil")
 	}
 	b.PutID(EncryptedFileTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *EncryptedFile) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode encryptedFile#4a70994c as nil")
+	}
 	b.PutLong(e.ID)
 	b.PutLong(e.AccessHash)
 	b.PutInt(e.Size)
@@ -270,6 +296,14 @@ func (e *EncryptedFile) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(EncryptedFileTypeID); err != nil {
 		return fmt.Errorf("unable to decode encryptedFile#4a70994c: %w", err)
+	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *EncryptedFile) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode encryptedFile#4a70994c to nil")
 	}
 	{
 		value, err := b.Long()
@@ -314,8 +348,10 @@ func (e EncryptedFile) construct() EncryptedFileClass { return &e }
 
 // Ensuring interfaces in compile-time for EncryptedFile.
 var (
-	_ bin.Encoder = &EncryptedFile{}
-	_ bin.Decoder = &EncryptedFile{}
+	_ bin.Encoder     = &EncryptedFile{}
+	_ bin.Decoder     = &EncryptedFile{}
+	_ bin.BareEncoder = &EncryptedFile{}
+	_ bin.BareDecoder = &EncryptedFile{}
 
 	_ EncryptedFileClass = &EncryptedFile{}
 )
@@ -337,6 +373,8 @@ var (
 type EncryptedFileClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() EncryptedFileClass
 
 	// TypeID returns type id in TL schema.

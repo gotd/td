@@ -102,6 +102,14 @@ func (c *ChatOnlines) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chatOnlines#f041e250 as nil")
 	}
 	b.PutID(ChatOnlinesTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatOnlines) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatOnlines#f041e250 as nil")
+	}
 	b.PutInt(c.Onlines)
 	return nil
 }
@@ -119,6 +127,14 @@ func (c *ChatOnlines) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatOnlinesTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatOnlines#f041e250: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatOnlines) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatOnlines#f041e250 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -131,6 +147,8 @@ func (c *ChatOnlines) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChatOnlines.
 var (
-	_ bin.Encoder = &ChatOnlines{}
-	_ bin.Decoder = &ChatOnlines{}
+	_ bin.Encoder     = &ChatOnlines{}
+	_ bin.Decoder     = &ChatOnlines{}
+	_ bin.BareEncoder = &ChatOnlines{}
+	_ bin.BareDecoder = &ChatOnlines{}
 )

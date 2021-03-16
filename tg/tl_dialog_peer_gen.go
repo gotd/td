@@ -102,6 +102,14 @@ func (d *DialogPeer) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode dialogPeer#e56dbf05 as nil")
 	}
 	b.PutID(DialogPeerTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DialogPeer) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode dialogPeer#e56dbf05 as nil")
+	}
 	if d.Peer == nil {
 		return fmt.Errorf("unable to encode dialogPeer#e56dbf05: field peer is nil")
 	}
@@ -124,6 +132,14 @@ func (d *DialogPeer) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DialogPeerTypeID); err != nil {
 		return fmt.Errorf("unable to decode dialogPeer#e56dbf05: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DialogPeer) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode dialogPeer#e56dbf05 to nil")
+	}
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
@@ -139,8 +155,10 @@ func (d DialogPeer) construct() DialogPeerClass { return &d }
 
 // Ensuring interfaces in compile-time for DialogPeer.
 var (
-	_ bin.Encoder = &DialogPeer{}
-	_ bin.Decoder = &DialogPeer{}
+	_ bin.Encoder     = &DialogPeer{}
+	_ bin.Decoder     = &DialogPeer{}
+	_ bin.BareEncoder = &DialogPeer{}
+	_ bin.BareDecoder = &DialogPeer{}
 
 	_ DialogPeerClass = &DialogPeer{}
 )
@@ -227,6 +245,14 @@ func (d *DialogPeerFolder) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode dialogPeerFolder#514519e2 as nil")
 	}
 	b.PutID(DialogPeerFolderTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DialogPeerFolder) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode dialogPeerFolder#514519e2 as nil")
+	}
 	b.PutInt(d.FolderID)
 	return nil
 }
@@ -244,6 +270,14 @@ func (d *DialogPeerFolder) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DialogPeerFolderTypeID); err != nil {
 		return fmt.Errorf("unable to decode dialogPeerFolder#514519e2: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DialogPeerFolder) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode dialogPeerFolder#514519e2 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -259,8 +293,10 @@ func (d DialogPeerFolder) construct() DialogPeerClass { return &d }
 
 // Ensuring interfaces in compile-time for DialogPeerFolder.
 var (
-	_ bin.Encoder = &DialogPeerFolder{}
-	_ bin.Decoder = &DialogPeerFolder{}
+	_ bin.Encoder     = &DialogPeerFolder{}
+	_ bin.Decoder     = &DialogPeerFolder{}
+	_ bin.BareEncoder = &DialogPeerFolder{}
+	_ bin.BareDecoder = &DialogPeerFolder{}
 
 	_ DialogPeerClass = &DialogPeerFolder{}
 )
@@ -282,6 +318,8 @@ var (
 type DialogPeerClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() DialogPeerClass
 
 	// TypeID returns type id in TL schema.

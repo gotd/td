@@ -99,6 +99,14 @@ func (r *RPCDropAnswerRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode rpc_drop_answer#58e4a740 as nil")
 	}
 	b.PutID(RPCDropAnswerRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *RPCDropAnswerRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode rpc_drop_answer#58e4a740 as nil")
+	}
 	b.PutLong(r.ReqMsgID)
 	return nil
 }
@@ -116,6 +124,14 @@ func (r *RPCDropAnswerRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(RPCDropAnswerRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode rpc_drop_answer#58e4a740: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *RPCDropAnswerRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode rpc_drop_answer#58e4a740 to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -128,8 +144,10 @@ func (r *RPCDropAnswerRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for RPCDropAnswerRequest.
 var (
-	_ bin.Encoder = &RPCDropAnswerRequest{}
-	_ bin.Decoder = &RPCDropAnswerRequest{}
+	_ bin.Encoder     = &RPCDropAnswerRequest{}
+	_ bin.Decoder     = &RPCDropAnswerRequest{}
+	_ bin.BareEncoder = &RPCDropAnswerRequest{}
+	_ bin.BareDecoder = &RPCDropAnswerRequest{}
 )
 
 // RPCDropAnswer invokes method rpc_drop_answer#58e4a740 returning error if any.

@@ -85,6 +85,14 @@ func (r *MessagesRecentStickersNotModified) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.recentStickersNotModified#b17f890 as nil")
 	}
 	b.PutID(MessagesRecentStickersNotModifiedTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *MessagesRecentStickersNotModified) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode messages.recentStickersNotModified#b17f890 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (r *MessagesRecentStickersNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesRecentStickersNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.recentStickersNotModified#b17f890: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *MessagesRecentStickersNotModified) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode messages.recentStickersNotModified#b17f890 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (r MessagesRecentStickersNotModified) construct() MessagesRecentStickersCla
 
 // Ensuring interfaces in compile-time for MessagesRecentStickersNotModified.
 var (
-	_ bin.Encoder = &MessagesRecentStickersNotModified{}
-	_ bin.Decoder = &MessagesRecentStickersNotModified{}
+	_ bin.Encoder     = &MessagesRecentStickersNotModified{}
+	_ bin.Decoder     = &MessagesRecentStickersNotModified{}
+	_ bin.BareEncoder = &MessagesRecentStickersNotModified{}
+	_ bin.BareDecoder = &MessagesRecentStickersNotModified{}
 
 	_ MessagesRecentStickersClass = &MessagesRecentStickersNotModified{}
 )
@@ -222,6 +240,14 @@ func (r *MessagesRecentStickers) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.recentStickers#22f3afb3 as nil")
 	}
 	b.PutID(MessagesRecentStickersTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *MessagesRecentStickers) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode messages.recentStickers#22f3afb3 as nil")
+	}
 	b.PutInt(r.Hash)
 	b.PutVectorHeader(len(r.Packs))
 	for idx, v := range r.Packs {
@@ -278,6 +304,14 @@ func (r *MessagesRecentStickers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesRecentStickersTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.recentStickers#22f3afb3: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *MessagesRecentStickers) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode messages.recentStickers#22f3afb3 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -332,8 +366,10 @@ func (r MessagesRecentStickers) construct() MessagesRecentStickersClass { return
 
 // Ensuring interfaces in compile-time for MessagesRecentStickers.
 var (
-	_ bin.Encoder = &MessagesRecentStickers{}
-	_ bin.Decoder = &MessagesRecentStickers{}
+	_ bin.Encoder     = &MessagesRecentStickers{}
+	_ bin.Decoder     = &MessagesRecentStickers{}
+	_ bin.BareEncoder = &MessagesRecentStickers{}
+	_ bin.BareDecoder = &MessagesRecentStickers{}
 
 	_ MessagesRecentStickersClass = &MessagesRecentStickers{}
 )
@@ -355,6 +391,8 @@ var (
 type MessagesRecentStickersClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() MessagesRecentStickersClass
 
 	// TypeID returns type id in TL schema.

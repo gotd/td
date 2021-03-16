@@ -85,6 +85,14 @@ func (c *AuthCodeTypeSMS) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.codeTypeSms#72a3158c as nil")
 	}
 	b.PutID(AuthCodeTypeSMSTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *AuthCodeTypeSMS) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode auth.codeTypeSms#72a3158c as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (c *AuthCodeTypeSMS) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthCodeTypeSMSTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.codeTypeSms#72a3158c: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *AuthCodeTypeSMS) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode auth.codeTypeSms#72a3158c to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (c AuthCodeTypeSMS) construct() AuthCodeTypeClass { return &c }
 
 // Ensuring interfaces in compile-time for AuthCodeTypeSMS.
 var (
-	_ bin.Encoder = &AuthCodeTypeSMS{}
-	_ bin.Decoder = &AuthCodeTypeSMS{}
+	_ bin.Encoder     = &AuthCodeTypeSMS{}
+	_ bin.Decoder     = &AuthCodeTypeSMS{}
+	_ bin.BareEncoder = &AuthCodeTypeSMS{}
+	_ bin.BareDecoder = &AuthCodeTypeSMS{}
 
 	_ AuthCodeTypeClass = &AuthCodeTypeSMS{}
 )
@@ -169,6 +187,14 @@ func (c *AuthCodeTypeCall) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.codeTypeCall#741cd3e3 as nil")
 	}
 	b.PutID(AuthCodeTypeCallTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *AuthCodeTypeCall) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode auth.codeTypeCall#741cd3e3 as nil")
+	}
 	return nil
 }
 
@@ -180,6 +206,14 @@ func (c *AuthCodeTypeCall) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthCodeTypeCallTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.codeTypeCall#741cd3e3: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *AuthCodeTypeCall) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode auth.codeTypeCall#741cd3e3 to nil")
+	}
 	return nil
 }
 
@@ -188,8 +222,10 @@ func (c AuthCodeTypeCall) construct() AuthCodeTypeClass { return &c }
 
 // Ensuring interfaces in compile-time for AuthCodeTypeCall.
 var (
-	_ bin.Encoder = &AuthCodeTypeCall{}
-	_ bin.Decoder = &AuthCodeTypeCall{}
+	_ bin.Encoder     = &AuthCodeTypeCall{}
+	_ bin.Decoder     = &AuthCodeTypeCall{}
+	_ bin.BareEncoder = &AuthCodeTypeCall{}
+	_ bin.BareDecoder = &AuthCodeTypeCall{}
 
 	_ AuthCodeTypeClass = &AuthCodeTypeCall{}
 )
@@ -253,6 +289,14 @@ func (c *AuthCodeTypeFlashCall) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.codeTypeFlashCall#226ccefb as nil")
 	}
 	b.PutID(AuthCodeTypeFlashCallTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *AuthCodeTypeFlashCall) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode auth.codeTypeFlashCall#226ccefb as nil")
+	}
 	return nil
 }
 
@@ -264,6 +308,14 @@ func (c *AuthCodeTypeFlashCall) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthCodeTypeFlashCallTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.codeTypeFlashCall#226ccefb: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *AuthCodeTypeFlashCall) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode auth.codeTypeFlashCall#226ccefb to nil")
+	}
 	return nil
 }
 
@@ -272,8 +324,10 @@ func (c AuthCodeTypeFlashCall) construct() AuthCodeTypeClass { return &c }
 
 // Ensuring interfaces in compile-time for AuthCodeTypeFlashCall.
 var (
-	_ bin.Encoder = &AuthCodeTypeFlashCall{}
-	_ bin.Decoder = &AuthCodeTypeFlashCall{}
+	_ bin.Encoder     = &AuthCodeTypeFlashCall{}
+	_ bin.Decoder     = &AuthCodeTypeFlashCall{}
+	_ bin.BareEncoder = &AuthCodeTypeFlashCall{}
+	_ bin.BareDecoder = &AuthCodeTypeFlashCall{}
 
 	_ AuthCodeTypeClass = &AuthCodeTypeFlashCall{}
 )
@@ -296,6 +350,8 @@ var (
 type AuthCodeTypeClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() AuthCodeTypeClass
 
 	// TypeID returns type id in TL schema.

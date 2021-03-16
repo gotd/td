@@ -108,6 +108,14 @@ func (d *ChannelsDeleteChannelRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.deleteChannel#c0111fe3 as nil")
 	}
 	b.PutID(ChannelsDeleteChannelRequestTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *ChannelsDeleteChannelRequest) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode channels.deleteChannel#c0111fe3 as nil")
+	}
 	if d.Channel == nil {
 		return fmt.Errorf("unable to encode channels.deleteChannel#c0111fe3: field channel is nil")
 	}
@@ -135,6 +143,14 @@ func (d *ChannelsDeleteChannelRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsDeleteChannelRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.deleteChannel#c0111fe3: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *ChannelsDeleteChannelRequest) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode channels.deleteChannel#c0111fe3 to nil")
+	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
@@ -147,8 +163,10 @@ func (d *ChannelsDeleteChannelRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsDeleteChannelRequest.
 var (
-	_ bin.Encoder = &ChannelsDeleteChannelRequest{}
-	_ bin.Decoder = &ChannelsDeleteChannelRequest{}
+	_ bin.Encoder     = &ChannelsDeleteChannelRequest{}
+	_ bin.Decoder     = &ChannelsDeleteChannelRequest{}
+	_ bin.BareEncoder = &ChannelsDeleteChannelRequest{}
+	_ bin.BareDecoder = &ChannelsDeleteChannelRequest{}
 )
 
 // ChannelsDeleteChannel invokes method channels.deleteChannel#c0111fe3 returning error if any.

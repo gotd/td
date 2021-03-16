@@ -102,6 +102,14 @@ func (k *KeyboardButton) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode keyboardButton#a2fa4880 as nil")
 	}
 	b.PutID(KeyboardButtonTypeID)
+	return k.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (k *KeyboardButton) EncodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButton#a2fa4880 as nil")
+	}
 	b.PutString(k.Text)
 	return nil
 }
@@ -119,6 +127,14 @@ func (k *KeyboardButton) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(KeyboardButtonTypeID); err != nil {
 		return fmt.Errorf("unable to decode keyboardButton#a2fa4880: %w", err)
 	}
+	return k.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (k *KeyboardButton) DecodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButton#a2fa4880 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -134,8 +150,10 @@ func (k KeyboardButton) construct() KeyboardButtonClass { return &k }
 
 // Ensuring interfaces in compile-time for KeyboardButton.
 var (
-	_ bin.Encoder = &KeyboardButton{}
-	_ bin.Decoder = &KeyboardButton{}
+	_ bin.Encoder     = &KeyboardButton{}
+	_ bin.Decoder     = &KeyboardButton{}
+	_ bin.BareEncoder = &KeyboardButton{}
+	_ bin.BareDecoder = &KeyboardButton{}
 
 	_ KeyboardButtonClass = &KeyboardButton{}
 )
@@ -227,6 +245,14 @@ func (k *KeyboardButtonURL) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode keyboardButtonUrl#258aff05 as nil")
 	}
 	b.PutID(KeyboardButtonURLTypeID)
+	return k.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (k *KeyboardButtonURL) EncodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonUrl#258aff05 as nil")
+	}
 	b.PutString(k.Text)
 	b.PutString(k.URL)
 	return nil
@@ -250,6 +276,14 @@ func (k *KeyboardButtonURL) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(KeyboardButtonURLTypeID); err != nil {
 		return fmt.Errorf("unable to decode keyboardButtonUrl#258aff05: %w", err)
 	}
+	return k.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (k *KeyboardButtonURL) DecodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonUrl#258aff05 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -272,8 +306,10 @@ func (k KeyboardButtonURL) construct() KeyboardButtonClass { return &k }
 
 // Ensuring interfaces in compile-time for KeyboardButtonURL.
 var (
-	_ bin.Encoder = &KeyboardButtonURL{}
-	_ bin.Decoder = &KeyboardButtonURL{}
+	_ bin.Encoder     = &KeyboardButtonURL{}
+	_ bin.Decoder     = &KeyboardButtonURL{}
+	_ bin.BareEncoder = &KeyboardButtonURL{}
+	_ bin.BareDecoder = &KeyboardButtonURL{}
 
 	_ KeyboardButtonClass = &KeyboardButtonURL{}
 )
@@ -391,6 +427,14 @@ func (k *KeyboardButtonCallback) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode keyboardButtonCallback#35bbdb6b as nil")
 	}
 	b.PutID(KeyboardButtonCallbackTypeID)
+	return k.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (k *KeyboardButtonCallback) EncodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonCallback#35bbdb6b as nil")
+	}
 	if !(k.RequiresPassword == false) {
 		k.Flags.Set(0)
 	}
@@ -436,6 +480,14 @@ func (k *KeyboardButtonCallback) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(KeyboardButtonCallbackTypeID); err != nil {
 		return fmt.Errorf("unable to decode keyboardButtonCallback#35bbdb6b: %w", err)
 	}
+	return k.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (k *KeyboardButtonCallback) DecodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonCallback#35bbdb6b to nil")
+	}
 	{
 		if err := k.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode keyboardButtonCallback#35bbdb6b: field flags: %w", err)
@@ -464,8 +516,10 @@ func (k KeyboardButtonCallback) construct() KeyboardButtonClass { return &k }
 
 // Ensuring interfaces in compile-time for KeyboardButtonCallback.
 var (
-	_ bin.Encoder = &KeyboardButtonCallback{}
-	_ bin.Decoder = &KeyboardButtonCallback{}
+	_ bin.Encoder     = &KeyboardButtonCallback{}
+	_ bin.Decoder     = &KeyboardButtonCallback{}
+	_ bin.BareEncoder = &KeyboardButtonCallback{}
+	_ bin.BareDecoder = &KeyboardButtonCallback{}
 
 	_ KeyboardButtonClass = &KeyboardButtonCallback{}
 )
@@ -546,6 +600,14 @@ func (k *KeyboardButtonRequestPhone) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode keyboardButtonRequestPhone#b16a6c29 as nil")
 	}
 	b.PutID(KeyboardButtonRequestPhoneTypeID)
+	return k.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (k *KeyboardButtonRequestPhone) EncodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonRequestPhone#b16a6c29 as nil")
+	}
 	b.PutString(k.Text)
 	return nil
 }
@@ -563,6 +625,14 @@ func (k *KeyboardButtonRequestPhone) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(KeyboardButtonRequestPhoneTypeID); err != nil {
 		return fmt.Errorf("unable to decode keyboardButtonRequestPhone#b16a6c29: %w", err)
 	}
+	return k.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (k *KeyboardButtonRequestPhone) DecodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonRequestPhone#b16a6c29 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -578,8 +648,10 @@ func (k KeyboardButtonRequestPhone) construct() KeyboardButtonClass { return &k 
 
 // Ensuring interfaces in compile-time for KeyboardButtonRequestPhone.
 var (
-	_ bin.Encoder = &KeyboardButtonRequestPhone{}
-	_ bin.Decoder = &KeyboardButtonRequestPhone{}
+	_ bin.Encoder     = &KeyboardButtonRequestPhone{}
+	_ bin.Decoder     = &KeyboardButtonRequestPhone{}
+	_ bin.BareEncoder = &KeyboardButtonRequestPhone{}
+	_ bin.BareDecoder = &KeyboardButtonRequestPhone{}
 
 	_ KeyboardButtonClass = &KeyboardButtonRequestPhone{}
 )
@@ -660,6 +732,14 @@ func (k *KeyboardButtonRequestGeoLocation) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode keyboardButtonRequestGeoLocation#fc796b3f as nil")
 	}
 	b.PutID(KeyboardButtonRequestGeoLocationTypeID)
+	return k.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (k *KeyboardButtonRequestGeoLocation) EncodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonRequestGeoLocation#fc796b3f as nil")
+	}
 	b.PutString(k.Text)
 	return nil
 }
@@ -677,6 +757,14 @@ func (k *KeyboardButtonRequestGeoLocation) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(KeyboardButtonRequestGeoLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode keyboardButtonRequestGeoLocation#fc796b3f: %w", err)
 	}
+	return k.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (k *KeyboardButtonRequestGeoLocation) DecodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonRequestGeoLocation#fc796b3f to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -692,8 +780,10 @@ func (k KeyboardButtonRequestGeoLocation) construct() KeyboardButtonClass { retu
 
 // Ensuring interfaces in compile-time for KeyboardButtonRequestGeoLocation.
 var (
-	_ bin.Encoder = &KeyboardButtonRequestGeoLocation{}
-	_ bin.Decoder = &KeyboardButtonRequestGeoLocation{}
+	_ bin.Encoder     = &KeyboardButtonRequestGeoLocation{}
+	_ bin.Decoder     = &KeyboardButtonRequestGeoLocation{}
+	_ bin.BareEncoder = &KeyboardButtonRequestGeoLocation{}
+	_ bin.BareDecoder = &KeyboardButtonRequestGeoLocation{}
 
 	_ KeyboardButtonClass = &KeyboardButtonRequestGeoLocation{}
 )
@@ -805,6 +895,14 @@ func (k *KeyboardButtonSwitchInline) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode keyboardButtonSwitchInline#568a748 as nil")
 	}
 	b.PutID(KeyboardButtonSwitchInlineTypeID)
+	return k.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (k *KeyboardButtonSwitchInline) EncodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonSwitchInline#568a748 as nil")
+	}
 	if !(k.SamePeer == false) {
 		k.Flags.Set(0)
 	}
@@ -850,6 +948,14 @@ func (k *KeyboardButtonSwitchInline) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(KeyboardButtonSwitchInlineTypeID); err != nil {
 		return fmt.Errorf("unable to decode keyboardButtonSwitchInline#568a748: %w", err)
 	}
+	return k.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (k *KeyboardButtonSwitchInline) DecodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonSwitchInline#568a748 to nil")
+	}
 	{
 		if err := k.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode keyboardButtonSwitchInline#568a748: field flags: %w", err)
@@ -878,8 +984,10 @@ func (k KeyboardButtonSwitchInline) construct() KeyboardButtonClass { return &k 
 
 // Ensuring interfaces in compile-time for KeyboardButtonSwitchInline.
 var (
-	_ bin.Encoder = &KeyboardButtonSwitchInline{}
-	_ bin.Decoder = &KeyboardButtonSwitchInline{}
+	_ bin.Encoder     = &KeyboardButtonSwitchInline{}
+	_ bin.Decoder     = &KeyboardButtonSwitchInline{}
+	_ bin.BareEncoder = &KeyboardButtonSwitchInline{}
+	_ bin.BareDecoder = &KeyboardButtonSwitchInline{}
 
 	_ KeyboardButtonClass = &KeyboardButtonSwitchInline{}
 )
@@ -960,6 +1068,14 @@ func (k *KeyboardButtonGame) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode keyboardButtonGame#50f41ccf as nil")
 	}
 	b.PutID(KeyboardButtonGameTypeID)
+	return k.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (k *KeyboardButtonGame) EncodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonGame#50f41ccf as nil")
+	}
 	b.PutString(k.Text)
 	return nil
 }
@@ -977,6 +1093,14 @@ func (k *KeyboardButtonGame) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(KeyboardButtonGameTypeID); err != nil {
 		return fmt.Errorf("unable to decode keyboardButtonGame#50f41ccf: %w", err)
 	}
+	return k.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (k *KeyboardButtonGame) DecodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonGame#50f41ccf to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -992,8 +1116,10 @@ func (k KeyboardButtonGame) construct() KeyboardButtonClass { return &k }
 
 // Ensuring interfaces in compile-time for KeyboardButtonGame.
 var (
-	_ bin.Encoder = &KeyboardButtonGame{}
-	_ bin.Decoder = &KeyboardButtonGame{}
+	_ bin.Encoder     = &KeyboardButtonGame{}
+	_ bin.Decoder     = &KeyboardButtonGame{}
+	_ bin.BareEncoder = &KeyboardButtonGame{}
+	_ bin.BareDecoder = &KeyboardButtonGame{}
 
 	_ KeyboardButtonClass = &KeyboardButtonGame{}
 )
@@ -1074,6 +1200,14 @@ func (k *KeyboardButtonBuy) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode keyboardButtonBuy#afd93fbb as nil")
 	}
 	b.PutID(KeyboardButtonBuyTypeID)
+	return k.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (k *KeyboardButtonBuy) EncodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonBuy#afd93fbb as nil")
+	}
 	b.PutString(k.Text)
 	return nil
 }
@@ -1091,6 +1225,14 @@ func (k *KeyboardButtonBuy) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(KeyboardButtonBuyTypeID); err != nil {
 		return fmt.Errorf("unable to decode keyboardButtonBuy#afd93fbb: %w", err)
 	}
+	return k.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (k *KeyboardButtonBuy) DecodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonBuy#afd93fbb to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -1106,8 +1248,10 @@ func (k KeyboardButtonBuy) construct() KeyboardButtonClass { return &k }
 
 // Ensuring interfaces in compile-time for KeyboardButtonBuy.
 var (
-	_ bin.Encoder = &KeyboardButtonBuy{}
-	_ bin.Decoder = &KeyboardButtonBuy{}
+	_ bin.Encoder     = &KeyboardButtonBuy{}
+	_ bin.Decoder     = &KeyboardButtonBuy{}
+	_ bin.BareEncoder = &KeyboardButtonBuy{}
+	_ bin.BareDecoder = &KeyboardButtonBuy{}
 
 	_ KeyboardButtonClass = &KeyboardButtonBuy{}
 )
@@ -1250,6 +1394,14 @@ func (k *KeyboardButtonURLAuth) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode keyboardButtonUrlAuth#10b78d29 as nil")
 	}
 	b.PutID(KeyboardButtonURLAuthTypeID)
+	return k.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (k *KeyboardButtonURLAuth) EncodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonUrlAuth#10b78d29 as nil")
+	}
 	if !(k.FwdText == "") {
 		k.Flags.Set(0)
 	}
@@ -1303,6 +1455,14 @@ func (k *KeyboardButtonURLAuth) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(KeyboardButtonURLAuthTypeID); err != nil {
 		return fmt.Errorf("unable to decode keyboardButtonUrlAuth#10b78d29: %w", err)
 	}
+	return k.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (k *KeyboardButtonURLAuth) DecodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonUrlAuth#10b78d29 to nil")
+	}
 	{
 		if err := k.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode keyboardButtonUrlAuth#10b78d29: field flags: %w", err)
@@ -1344,8 +1504,10 @@ func (k KeyboardButtonURLAuth) construct() KeyboardButtonClass { return &k }
 
 // Ensuring interfaces in compile-time for KeyboardButtonURLAuth.
 var (
-	_ bin.Encoder = &KeyboardButtonURLAuth{}
-	_ bin.Decoder = &KeyboardButtonURLAuth{}
+	_ bin.Encoder     = &KeyboardButtonURLAuth{}
+	_ bin.Decoder     = &KeyboardButtonURLAuth{}
+	_ bin.BareEncoder = &KeyboardButtonURLAuth{}
+	_ bin.BareDecoder = &KeyboardButtonURLAuth{}
 
 	_ KeyboardButtonClass = &KeyboardButtonURLAuth{}
 )
@@ -1497,6 +1659,14 @@ func (i *InputKeyboardButtonURLAuth) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputKeyboardButtonUrlAuth#d02e7fd4 as nil")
 	}
 	b.PutID(InputKeyboardButtonURLAuthTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputKeyboardButtonURLAuth) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputKeyboardButtonUrlAuth#d02e7fd4 as nil")
+	}
 	if !(i.RequestWriteAccess == false) {
 		i.Flags.Set(0)
 	}
@@ -1574,6 +1744,14 @@ func (i *InputKeyboardButtonURLAuth) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputKeyboardButtonURLAuthTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputKeyboardButtonUrlAuth#d02e7fd4: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputKeyboardButtonURLAuth) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputKeyboardButtonUrlAuth#d02e7fd4 to nil")
+	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputKeyboardButtonUrlAuth#d02e7fd4: field flags: %w", err)
@@ -1616,8 +1794,10 @@ func (i InputKeyboardButtonURLAuth) construct() KeyboardButtonClass { return &i 
 
 // Ensuring interfaces in compile-time for InputKeyboardButtonURLAuth.
 var (
-	_ bin.Encoder = &InputKeyboardButtonURLAuth{}
-	_ bin.Decoder = &InputKeyboardButtonURLAuth{}
+	_ bin.Encoder     = &InputKeyboardButtonURLAuth{}
+	_ bin.Decoder     = &InputKeyboardButtonURLAuth{}
+	_ bin.BareEncoder = &InputKeyboardButtonURLAuth{}
+	_ bin.BareDecoder = &InputKeyboardButtonURLAuth{}
 
 	_ KeyboardButtonClass = &InputKeyboardButtonURLAuth{}
 )
@@ -1723,6 +1903,14 @@ func (k *KeyboardButtonRequestPoll) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode keyboardButtonRequestPoll#bbc7515d as nil")
 	}
 	b.PutID(KeyboardButtonRequestPollTypeID)
+	return k.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (k *KeyboardButtonRequestPoll) EncodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't encode keyboardButtonRequestPoll#bbc7515d as nil")
+	}
 	if !(k.Quiz == false) {
 		k.Flags.Set(0)
 	}
@@ -1764,6 +1952,14 @@ func (k *KeyboardButtonRequestPoll) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(KeyboardButtonRequestPollTypeID); err != nil {
 		return fmt.Errorf("unable to decode keyboardButtonRequestPoll#bbc7515d: %w", err)
 	}
+	return k.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (k *KeyboardButtonRequestPoll) DecodeBare(b *bin.Buffer) error {
+	if k == nil {
+		return fmt.Errorf("can't decode keyboardButtonRequestPoll#bbc7515d to nil")
+	}
 	{
 		if err := k.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode keyboardButtonRequestPoll#bbc7515d: field flags: %w", err)
@@ -1791,8 +1987,10 @@ func (k KeyboardButtonRequestPoll) construct() KeyboardButtonClass { return &k }
 
 // Ensuring interfaces in compile-time for KeyboardButtonRequestPoll.
 var (
-	_ bin.Encoder = &KeyboardButtonRequestPoll{}
-	_ bin.Decoder = &KeyboardButtonRequestPoll{}
+	_ bin.Encoder     = &KeyboardButtonRequestPoll{}
+	_ bin.Decoder     = &KeyboardButtonRequestPoll{}
+	_ bin.BareEncoder = &KeyboardButtonRequestPoll{}
+	_ bin.BareDecoder = &KeyboardButtonRequestPoll{}
 
 	_ KeyboardButtonClass = &KeyboardButtonRequestPoll{}
 )
@@ -1823,6 +2021,8 @@ var (
 type KeyboardButtonClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() KeyboardButtonClass
 
 	// TypeID returns type id in TL schema.

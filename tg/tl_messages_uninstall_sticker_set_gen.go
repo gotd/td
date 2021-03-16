@@ -102,6 +102,14 @@ func (u *MessagesUninstallStickerSetRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.uninstallStickerSet#f96e55de as nil")
 	}
 	b.PutID(MessagesUninstallStickerSetRequestTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *MessagesUninstallStickerSetRequest) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode messages.uninstallStickerSet#f96e55de as nil")
+	}
 	if u.Stickerset == nil {
 		return fmt.Errorf("unable to encode messages.uninstallStickerSet#f96e55de: field stickerset is nil")
 	}
@@ -124,6 +132,14 @@ func (u *MessagesUninstallStickerSetRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesUninstallStickerSetRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.uninstallStickerSet#f96e55de: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *MessagesUninstallStickerSetRequest) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode messages.uninstallStickerSet#f96e55de to nil")
+	}
 	{
 		value, err := DecodeInputStickerSet(b)
 		if err != nil {
@@ -136,8 +152,10 @@ func (u *MessagesUninstallStickerSetRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesUninstallStickerSetRequest.
 var (
-	_ bin.Encoder = &MessagesUninstallStickerSetRequest{}
-	_ bin.Decoder = &MessagesUninstallStickerSetRequest{}
+	_ bin.Encoder     = &MessagesUninstallStickerSetRequest{}
+	_ bin.Decoder     = &MessagesUninstallStickerSetRequest{}
+	_ bin.BareEncoder = &MessagesUninstallStickerSetRequest{}
+	_ bin.BareDecoder = &MessagesUninstallStickerSetRequest{}
 )
 
 // MessagesUninstallStickerSet invokes method messages.uninstallStickerSet#f96e55de returning error if any.

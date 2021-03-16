@@ -102,6 +102,14 @@ func (a *AccountDaysTTL) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode accountDaysTTL#b8d0afdf as nil")
 	}
 	b.PutID(AccountDaysTTLTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *AccountDaysTTL) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode accountDaysTTL#b8d0afdf as nil")
+	}
 	b.PutInt(a.Days)
 	return nil
 }
@@ -119,6 +127,14 @@ func (a *AccountDaysTTL) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountDaysTTLTypeID); err != nil {
 		return fmt.Errorf("unable to decode accountDaysTTL#b8d0afdf: %w", err)
 	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *AccountDaysTTL) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode accountDaysTTL#b8d0afdf to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -131,6 +147,8 @@ func (a *AccountDaysTTL) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountDaysTTL.
 var (
-	_ bin.Encoder = &AccountDaysTTL{}
-	_ bin.Decoder = &AccountDaysTTL{}
+	_ bin.Encoder     = &AccountDaysTTL{}
+	_ bin.Decoder     = &AccountDaysTTL{}
+	_ bin.BareEncoder = &AccountDaysTTL{}
+	_ bin.BareDecoder = &AccountDaysTTL{}
 )

@@ -85,6 +85,14 @@ func (b *BoolFalse) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode boolFalse#bc799737 as nil")
 	}
 	buf.PutID(BoolFalseTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *BoolFalse) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode boolFalse#bc799737 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (b *BoolFalse) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BoolFalseTypeID); err != nil {
 		return fmt.Errorf("unable to decode boolFalse#bc799737: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BoolFalse) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode boolFalse#bc799737 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (b BoolFalse) construct() BoolClass { return &b }
 
 // Ensuring interfaces in compile-time for BoolFalse.
 var (
-	_ bin.Encoder = &BoolFalse{}
-	_ bin.Decoder = &BoolFalse{}
+	_ bin.Encoder     = &BoolFalse{}
+	_ bin.Decoder     = &BoolFalse{}
+	_ bin.BareEncoder = &BoolFalse{}
+	_ bin.BareDecoder = &BoolFalse{}
 
 	_ BoolClass = &BoolFalse{}
 )
@@ -169,6 +187,14 @@ func (b *BoolTrue) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode boolTrue#997275b5 as nil")
 	}
 	buf.PutID(BoolTrueTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *BoolTrue) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode boolTrue#997275b5 as nil")
+	}
 	return nil
 }
 
@@ -180,6 +206,14 @@ func (b *BoolTrue) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BoolTrueTypeID); err != nil {
 		return fmt.Errorf("unable to decode boolTrue#997275b5: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BoolTrue) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode boolTrue#997275b5 to nil")
+	}
 	return nil
 }
 
@@ -188,8 +222,10 @@ func (b BoolTrue) construct() BoolClass { return &b }
 
 // Ensuring interfaces in compile-time for BoolTrue.
 var (
-	_ bin.Encoder = &BoolTrue{}
-	_ bin.Decoder = &BoolTrue{}
+	_ bin.Encoder     = &BoolTrue{}
+	_ bin.Decoder     = &BoolTrue{}
+	_ bin.BareEncoder = &BoolTrue{}
+	_ bin.BareDecoder = &BoolTrue{}
 
 	_ BoolClass = &BoolTrue{}
 )
@@ -211,6 +247,8 @@ var (
 type BoolClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() BoolClass
 
 	// TypeID returns type id in TL schema.

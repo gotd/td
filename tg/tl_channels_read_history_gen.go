@@ -119,6 +119,14 @@ func (r *ChannelsReadHistoryRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.readHistory#cc104937 as nil")
 	}
 	b.PutID(ChannelsReadHistoryRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *ChannelsReadHistoryRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode channels.readHistory#cc104937 as nil")
+	}
 	if r.Channel == nil {
 		return fmt.Errorf("unable to encode channels.readHistory#cc104937: field channel is nil")
 	}
@@ -152,6 +160,14 @@ func (r *ChannelsReadHistoryRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsReadHistoryRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.readHistory#cc104937: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *ChannelsReadHistoryRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode channels.readHistory#cc104937 to nil")
+	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
@@ -171,8 +187,10 @@ func (r *ChannelsReadHistoryRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsReadHistoryRequest.
 var (
-	_ bin.Encoder = &ChannelsReadHistoryRequest{}
-	_ bin.Decoder = &ChannelsReadHistoryRequest{}
+	_ bin.Encoder     = &ChannelsReadHistoryRequest{}
+	_ bin.Decoder     = &ChannelsReadHistoryRequest{}
+	_ bin.BareEncoder = &ChannelsReadHistoryRequest{}
+	_ bin.BareDecoder = &ChannelsReadHistoryRequest{}
 )
 
 // ChannelsReadHistory invokes method channels.readHistory#cc104937 returning error if any.

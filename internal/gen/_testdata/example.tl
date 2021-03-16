@@ -30,7 +30,7 @@ targetsMessage targets:vector<int32> = AbstractMessage;
 
 update msg:AbstractMessage delay:int32 = Update;
 
-getUpdatesResp updates:vector<AbstractMessage> = GetUpdatesResp;
+getUpdatesResp updates:Vector<AbstractMessage> = GetUpdatesResp;
 
 fieldsMessage#947225b5 flags:# escape:flags.0?Bool ttl_seconds:flags.1?int = AbstractMessage;
 

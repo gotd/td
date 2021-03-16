@@ -85,6 +85,14 @@ func (g *MessagesGetSplitRangesRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getSplitRanges#1cff7e08 as nil")
 	}
 	b.PutID(MessagesGetSplitRangesRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetSplitRangesRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getSplitRanges#1cff7e08 as nil")
+	}
 	return nil
 }
 
@@ -96,13 +104,23 @@ func (g *MessagesGetSplitRangesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetSplitRangesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getSplitRanges#1cff7e08: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetSplitRangesRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getSplitRanges#1cff7e08 to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for MessagesGetSplitRangesRequest.
 var (
-	_ bin.Encoder = &MessagesGetSplitRangesRequest{}
-	_ bin.Decoder = &MessagesGetSplitRangesRequest{}
+	_ bin.Encoder     = &MessagesGetSplitRangesRequest{}
+	_ bin.Decoder     = &MessagesGetSplitRangesRequest{}
+	_ bin.BareEncoder = &MessagesGetSplitRangesRequest{}
+	_ bin.BareDecoder = &MessagesGetSplitRangesRequest{}
 )
 
 // MessagesGetSplitRanges invokes method messages.getSplitRanges#1cff7e08 returning error if any.

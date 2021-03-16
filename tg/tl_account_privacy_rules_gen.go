@@ -124,6 +124,14 @@ func (p *AccountPrivacyRules) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.privacyRules#50a04e45 as nil")
 	}
 	b.PutID(AccountPrivacyRulesTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *AccountPrivacyRules) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode account.privacyRules#50a04e45 as nil")
+	}
 	b.PutVectorHeader(len(p.Rules))
 	for idx, v := range p.Rules {
 		if v == nil {
@@ -192,6 +200,14 @@ func (p *AccountPrivacyRules) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountPrivacyRulesTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.privacyRules#50a04e45: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *AccountPrivacyRules) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode account.privacyRules#50a04e45 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -236,6 +252,8 @@ func (p *AccountPrivacyRules) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountPrivacyRules.
 var (
-	_ bin.Encoder = &AccountPrivacyRules{}
-	_ bin.Decoder = &AccountPrivacyRules{}
+	_ bin.Encoder     = &AccountPrivacyRules{}
+	_ bin.Decoder     = &AccountPrivacyRules{}
+	_ bin.BareEncoder = &AccountPrivacyRules{}
+	_ bin.BareDecoder = &AccountPrivacyRules{}
 )

@@ -102,6 +102,14 @@ func (r *RecentMeURLUnknown) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode recentMeUrlUnknown#46e1d13d as nil")
 	}
 	b.PutID(RecentMeURLUnknownTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *RecentMeURLUnknown) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode recentMeUrlUnknown#46e1d13d as nil")
+	}
 	b.PutString(r.URL)
 	return nil
 }
@@ -119,6 +127,14 @@ func (r *RecentMeURLUnknown) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(RecentMeURLUnknownTypeID); err != nil {
 		return fmt.Errorf("unable to decode recentMeUrlUnknown#46e1d13d: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *RecentMeURLUnknown) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode recentMeUrlUnknown#46e1d13d to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -134,8 +150,10 @@ func (r RecentMeURLUnknown) construct() RecentMeURLClass { return &r }
 
 // Ensuring interfaces in compile-time for RecentMeURLUnknown.
 var (
-	_ bin.Encoder = &RecentMeURLUnknown{}
-	_ bin.Decoder = &RecentMeURLUnknown{}
+	_ bin.Encoder     = &RecentMeURLUnknown{}
+	_ bin.Decoder     = &RecentMeURLUnknown{}
+	_ bin.BareEncoder = &RecentMeURLUnknown{}
+	_ bin.BareDecoder = &RecentMeURLUnknown{}
 
 	_ RecentMeURLClass = &RecentMeURLUnknown{}
 )
@@ -227,6 +245,14 @@ func (r *RecentMeURLUser) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode recentMeUrlUser#8dbc3336 as nil")
 	}
 	b.PutID(RecentMeURLUserTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *RecentMeURLUser) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode recentMeUrlUser#8dbc3336 as nil")
+	}
 	b.PutString(r.URL)
 	b.PutInt(r.UserID)
 	return nil
@@ -250,6 +276,14 @@ func (r *RecentMeURLUser) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(RecentMeURLUserTypeID); err != nil {
 		return fmt.Errorf("unable to decode recentMeUrlUser#8dbc3336: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *RecentMeURLUser) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode recentMeUrlUser#8dbc3336 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -272,8 +306,10 @@ func (r RecentMeURLUser) construct() RecentMeURLClass { return &r }
 
 // Ensuring interfaces in compile-time for RecentMeURLUser.
 var (
-	_ bin.Encoder = &RecentMeURLUser{}
-	_ bin.Decoder = &RecentMeURLUser{}
+	_ bin.Encoder     = &RecentMeURLUser{}
+	_ bin.Decoder     = &RecentMeURLUser{}
+	_ bin.BareEncoder = &RecentMeURLUser{}
+	_ bin.BareDecoder = &RecentMeURLUser{}
 
 	_ RecentMeURLClass = &RecentMeURLUser{}
 )
@@ -365,6 +401,14 @@ func (r *RecentMeURLChat) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode recentMeUrlChat#a01b22f9 as nil")
 	}
 	b.PutID(RecentMeURLChatTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *RecentMeURLChat) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode recentMeUrlChat#a01b22f9 as nil")
+	}
 	b.PutString(r.URL)
 	b.PutInt(r.ChatID)
 	return nil
@@ -388,6 +432,14 @@ func (r *RecentMeURLChat) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(RecentMeURLChatTypeID); err != nil {
 		return fmt.Errorf("unable to decode recentMeUrlChat#a01b22f9: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *RecentMeURLChat) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode recentMeUrlChat#a01b22f9 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -410,8 +462,10 @@ func (r RecentMeURLChat) construct() RecentMeURLClass { return &r }
 
 // Ensuring interfaces in compile-time for RecentMeURLChat.
 var (
-	_ bin.Encoder = &RecentMeURLChat{}
-	_ bin.Decoder = &RecentMeURLChat{}
+	_ bin.Encoder     = &RecentMeURLChat{}
+	_ bin.Decoder     = &RecentMeURLChat{}
+	_ bin.BareEncoder = &RecentMeURLChat{}
+	_ bin.BareDecoder = &RecentMeURLChat{}
 
 	_ RecentMeURLClass = &RecentMeURLChat{}
 )
@@ -503,6 +557,14 @@ func (r *RecentMeURLChatInvite) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode recentMeUrlChatInvite#eb49081d as nil")
 	}
 	b.PutID(RecentMeURLChatInviteTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *RecentMeURLChatInvite) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode recentMeUrlChatInvite#eb49081d as nil")
+	}
 	b.PutString(r.URL)
 	if r.ChatInvite == nil {
 		return fmt.Errorf("unable to encode recentMeUrlChatInvite#eb49081d: field chat_invite is nil")
@@ -531,6 +593,14 @@ func (r *RecentMeURLChatInvite) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(RecentMeURLChatInviteTypeID); err != nil {
 		return fmt.Errorf("unable to decode recentMeUrlChatInvite#eb49081d: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *RecentMeURLChatInvite) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode recentMeUrlChatInvite#eb49081d to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -553,8 +623,10 @@ func (r RecentMeURLChatInvite) construct() RecentMeURLClass { return &r }
 
 // Ensuring interfaces in compile-time for RecentMeURLChatInvite.
 var (
-	_ bin.Encoder = &RecentMeURLChatInvite{}
-	_ bin.Decoder = &RecentMeURLChatInvite{}
+	_ bin.Encoder     = &RecentMeURLChatInvite{}
+	_ bin.Decoder     = &RecentMeURLChatInvite{}
+	_ bin.BareEncoder = &RecentMeURLChatInvite{}
+	_ bin.BareDecoder = &RecentMeURLChatInvite{}
 
 	_ RecentMeURLClass = &RecentMeURLChatInvite{}
 )
@@ -646,6 +718,14 @@ func (r *RecentMeURLStickerSet) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode recentMeUrlStickerSet#bc0a57dc as nil")
 	}
 	b.PutID(RecentMeURLStickerSetTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *RecentMeURLStickerSet) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode recentMeUrlStickerSet#bc0a57dc as nil")
+	}
 	b.PutString(r.URL)
 	if r.Set == nil {
 		return fmt.Errorf("unable to encode recentMeUrlStickerSet#bc0a57dc: field set is nil")
@@ -674,6 +754,14 @@ func (r *RecentMeURLStickerSet) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(RecentMeURLStickerSetTypeID); err != nil {
 		return fmt.Errorf("unable to decode recentMeUrlStickerSet#bc0a57dc: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *RecentMeURLStickerSet) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode recentMeUrlStickerSet#bc0a57dc to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -696,8 +784,10 @@ func (r RecentMeURLStickerSet) construct() RecentMeURLClass { return &r }
 
 // Ensuring interfaces in compile-time for RecentMeURLStickerSet.
 var (
-	_ bin.Encoder = &RecentMeURLStickerSet{}
-	_ bin.Decoder = &RecentMeURLStickerSet{}
+	_ bin.Encoder     = &RecentMeURLStickerSet{}
+	_ bin.Decoder     = &RecentMeURLStickerSet{}
+	_ bin.BareEncoder = &RecentMeURLStickerSet{}
+	_ bin.BareDecoder = &RecentMeURLStickerSet{}
 
 	_ RecentMeURLClass = &RecentMeURLStickerSet{}
 )
@@ -722,6 +812,8 @@ var (
 type RecentMeURLClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() RecentMeURLClass
 
 	// TypeID returns type id in TL schema.

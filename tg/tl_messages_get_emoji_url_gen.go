@@ -102,6 +102,14 @@ func (g *MessagesGetEmojiURLRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getEmojiURL#d5b10c26 as nil")
 	}
 	b.PutID(MessagesGetEmojiURLRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetEmojiURLRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getEmojiURL#d5b10c26 as nil")
+	}
 	b.PutString(g.LangCode)
 	return nil
 }
@@ -119,6 +127,14 @@ func (g *MessagesGetEmojiURLRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetEmojiURLRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getEmojiURL#d5b10c26: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetEmojiURLRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getEmojiURL#d5b10c26 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -131,8 +147,10 @@ func (g *MessagesGetEmojiURLRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetEmojiURLRequest.
 var (
-	_ bin.Encoder = &MessagesGetEmojiURLRequest{}
-	_ bin.Decoder = &MessagesGetEmojiURLRequest{}
+	_ bin.Encoder     = &MessagesGetEmojiURLRequest{}
+	_ bin.Decoder     = &MessagesGetEmojiURLRequest{}
+	_ bin.BareEncoder = &MessagesGetEmojiURLRequest{}
+	_ bin.BareDecoder = &MessagesGetEmojiURLRequest{}
 )
 
 // MessagesGetEmojiURL invokes method messages.getEmojiURL#d5b10c26 returning error if any.

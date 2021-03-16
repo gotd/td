@@ -102,6 +102,14 @@ func (p *PeerUser) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode peerUser#9db1bc6d as nil")
 	}
 	b.PutID(PeerUserTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PeerUser) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode peerUser#9db1bc6d as nil")
+	}
 	b.PutInt(p.UserID)
 	return nil
 }
@@ -119,6 +127,14 @@ func (p *PeerUser) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PeerUserTypeID); err != nil {
 		return fmt.Errorf("unable to decode peerUser#9db1bc6d: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PeerUser) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode peerUser#9db1bc6d to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -134,8 +150,10 @@ func (p PeerUser) construct() PeerClass { return &p }
 
 // Ensuring interfaces in compile-time for PeerUser.
 var (
-	_ bin.Encoder = &PeerUser{}
-	_ bin.Decoder = &PeerUser{}
+	_ bin.Encoder     = &PeerUser{}
+	_ bin.Decoder     = &PeerUser{}
+	_ bin.BareEncoder = &PeerUser{}
+	_ bin.BareDecoder = &PeerUser{}
 
 	_ PeerClass = &PeerUser{}
 )
@@ -216,6 +234,14 @@ func (p *PeerChat) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode peerChat#bad0e5bb as nil")
 	}
 	b.PutID(PeerChatTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PeerChat) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode peerChat#bad0e5bb as nil")
+	}
 	b.PutInt(p.ChatID)
 	return nil
 }
@@ -233,6 +259,14 @@ func (p *PeerChat) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PeerChatTypeID); err != nil {
 		return fmt.Errorf("unable to decode peerChat#bad0e5bb: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PeerChat) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode peerChat#bad0e5bb to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -248,8 +282,10 @@ func (p PeerChat) construct() PeerClass { return &p }
 
 // Ensuring interfaces in compile-time for PeerChat.
 var (
-	_ bin.Encoder = &PeerChat{}
-	_ bin.Decoder = &PeerChat{}
+	_ bin.Encoder     = &PeerChat{}
+	_ bin.Decoder     = &PeerChat{}
+	_ bin.BareEncoder = &PeerChat{}
+	_ bin.BareDecoder = &PeerChat{}
 
 	_ PeerClass = &PeerChat{}
 )
@@ -330,6 +366,14 @@ func (p *PeerChannel) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode peerChannel#bddde532 as nil")
 	}
 	b.PutID(PeerChannelTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PeerChannel) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode peerChannel#bddde532 as nil")
+	}
 	b.PutInt(p.ChannelID)
 	return nil
 }
@@ -347,6 +391,14 @@ func (p *PeerChannel) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PeerChannelTypeID); err != nil {
 		return fmt.Errorf("unable to decode peerChannel#bddde532: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PeerChannel) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode peerChannel#bddde532 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -362,8 +414,10 @@ func (p PeerChannel) construct() PeerClass { return &p }
 
 // Ensuring interfaces in compile-time for PeerChannel.
 var (
-	_ bin.Encoder = &PeerChannel{}
-	_ bin.Decoder = &PeerChannel{}
+	_ bin.Encoder     = &PeerChannel{}
+	_ bin.Decoder     = &PeerChannel{}
+	_ bin.BareEncoder = &PeerChannel{}
+	_ bin.BareDecoder = &PeerChannel{}
 
 	_ PeerClass = &PeerChannel{}
 )
@@ -386,6 +440,8 @@ var (
 type PeerClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() PeerClass
 
 	// TypeID returns type id in TL schema.

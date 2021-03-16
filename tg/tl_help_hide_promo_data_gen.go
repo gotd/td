@@ -102,6 +102,14 @@ func (h *HelpHidePromoDataRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.hidePromoData#1e251c95 as nil")
 	}
 	b.PutID(HelpHidePromoDataRequestTypeID)
+	return h.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (h *HelpHidePromoDataRequest) EncodeBare(b *bin.Buffer) error {
+	if h == nil {
+		return fmt.Errorf("can't encode help.hidePromoData#1e251c95 as nil")
+	}
 	if h.Peer == nil {
 		return fmt.Errorf("unable to encode help.hidePromoData#1e251c95: field peer is nil")
 	}
@@ -124,6 +132,14 @@ func (h *HelpHidePromoDataRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpHidePromoDataRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.hidePromoData#1e251c95: %w", err)
 	}
+	return h.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (h *HelpHidePromoDataRequest) DecodeBare(b *bin.Buffer) error {
+	if h == nil {
+		return fmt.Errorf("can't decode help.hidePromoData#1e251c95 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -136,8 +152,10 @@ func (h *HelpHidePromoDataRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for HelpHidePromoDataRequest.
 var (
-	_ bin.Encoder = &HelpHidePromoDataRequest{}
-	_ bin.Decoder = &HelpHidePromoDataRequest{}
+	_ bin.Encoder     = &HelpHidePromoDataRequest{}
+	_ bin.Decoder     = &HelpHidePromoDataRequest{}
+	_ bin.BareEncoder = &HelpHidePromoDataRequest{}
+	_ bin.BareDecoder = &HelpHidePromoDataRequest{}
 )
 
 // HelpHidePromoData invokes method help.hidePromoData#1e251c95 returning error if any.

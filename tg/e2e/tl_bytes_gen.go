@@ -84,6 +84,14 @@ func (b *Bytes) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode bytes#e937bb82 as nil")
 	}
 	buf.PutID(BytesTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *Bytes) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode bytes#e937bb82 as nil")
+	}
 	return nil
 }
 
@@ -95,11 +103,21 @@ func (b *Bytes) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BytesTypeID); err != nil {
 		return fmt.Errorf("unable to decode bytes#e937bb82: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *Bytes) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode bytes#e937bb82 to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for Bytes.
 var (
-	_ bin.Encoder = &Bytes{}
-	_ bin.Decoder = &Bytes{}
+	_ bin.Encoder     = &Bytes{}
+	_ bin.Decoder     = &Bytes{}
+	_ bin.BareEncoder = &Bytes{}
+	_ bin.BareDecoder = &Bytes{}
 )

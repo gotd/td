@@ -108,6 +108,14 @@ func (c *AuthCheckPasswordRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.checkPassword#d18b4d16 as nil")
 	}
 	b.PutID(AuthCheckPasswordRequestTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *AuthCheckPasswordRequest) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode auth.checkPassword#d18b4d16 as nil")
+	}
 	if c.Password == nil {
 		return fmt.Errorf("unable to encode auth.checkPassword#d18b4d16: field password is nil")
 	}
@@ -135,6 +143,14 @@ func (c *AuthCheckPasswordRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthCheckPasswordRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.checkPassword#d18b4d16: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *AuthCheckPasswordRequest) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode auth.checkPassword#d18b4d16 to nil")
+	}
 	{
 		value, err := DecodeInputCheckPasswordSRP(b)
 		if err != nil {
@@ -147,8 +163,10 @@ func (c *AuthCheckPasswordRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AuthCheckPasswordRequest.
 var (
-	_ bin.Encoder = &AuthCheckPasswordRequest{}
-	_ bin.Decoder = &AuthCheckPasswordRequest{}
+	_ bin.Encoder     = &AuthCheckPasswordRequest{}
+	_ bin.Decoder     = &AuthCheckPasswordRequest{}
+	_ bin.BareEncoder = &AuthCheckPasswordRequest{}
+	_ bin.BareDecoder = &AuthCheckPasswordRequest{}
 )
 
 // AuthCheckPassword invokes method auth.checkPassword#d18b4d16 returning error if any.

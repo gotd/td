@@ -116,6 +116,14 @@ func (i *InputClientProxy) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputClientProxy#75588b3f as nil")
 	}
 	b.PutID(InputClientProxyTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputClientProxy) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputClientProxy#75588b3f as nil")
+	}
 	b.PutString(i.Address)
 	b.PutInt(i.Port)
 	return nil
@@ -139,6 +147,14 @@ func (i *InputClientProxy) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputClientProxyTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputClientProxy#75588b3f: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputClientProxy) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputClientProxy#75588b3f to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -158,6 +174,8 @@ func (i *InputClientProxy) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for InputClientProxy.
 var (
-	_ bin.Encoder = &InputClientProxy{}
-	_ bin.Decoder = &InputClientProxy{}
+	_ bin.Encoder     = &InputClientProxy{}
+	_ bin.Decoder     = &InputClientProxy{}
+	_ bin.BareEncoder = &InputClientProxy{}
+	_ bin.BareDecoder = &InputClientProxy{}
 )

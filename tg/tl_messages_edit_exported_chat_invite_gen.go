@@ -163,6 +163,14 @@ func (e *MessagesEditExportedChatInviteRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.editExportedChatInvite#2e4ffbe as nil")
 	}
 	b.PutID(MessagesEditExportedChatInviteRequestTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *MessagesEditExportedChatInviteRequest) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode messages.editExportedChatInvite#2e4ffbe as nil")
+	}
 	if !(e.Revoked == false) {
 		e.Flags.Set(2)
 	}
@@ -255,6 +263,14 @@ func (e *MessagesEditExportedChatInviteRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesEditExportedChatInviteRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.editExportedChatInvite#2e4ffbe: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *MessagesEditExportedChatInviteRequest) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode messages.editExportedChatInvite#2e4ffbe to nil")
+	}
 	{
 		if err := e.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.editExportedChatInvite#2e4ffbe: field flags: %w", err)
@@ -294,8 +310,10 @@ func (e *MessagesEditExportedChatInviteRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesEditExportedChatInviteRequest.
 var (
-	_ bin.Encoder = &MessagesEditExportedChatInviteRequest{}
-	_ bin.Decoder = &MessagesEditExportedChatInviteRequest{}
+	_ bin.Encoder     = &MessagesEditExportedChatInviteRequest{}
+	_ bin.Decoder     = &MessagesEditExportedChatInviteRequest{}
+	_ bin.BareEncoder = &MessagesEditExportedChatInviteRequest{}
+	_ bin.BareDecoder = &MessagesEditExportedChatInviteRequest{}
 )
 
 // MessagesEditExportedChatInvite invokes method messages.editExportedChatInvite#2e4ffbe returning error if any.

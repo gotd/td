@@ -124,6 +124,14 @@ func (a *ChannelsAdminLogResults) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.adminLogResults#ed8af74d as nil")
 	}
 	b.PutID(ChannelsAdminLogResultsTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *ChannelsAdminLogResults) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode channels.adminLogResults#ed8af74d as nil")
+	}
 	b.PutVectorHeader(len(a.Events))
 	for idx, v := range a.Events {
 		if err := v.Encode(b); err != nil {
@@ -184,6 +192,14 @@ func (a *ChannelsAdminLogResults) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsAdminLogResultsTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.adminLogResults#ed8af74d: %w", err)
 	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *ChannelsAdminLogResults) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode channels.adminLogResults#ed8af74d to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -228,6 +244,8 @@ func (a *ChannelsAdminLogResults) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsAdminLogResults.
 var (
-	_ bin.Encoder = &ChannelsAdminLogResults{}
-	_ bin.Decoder = &ChannelsAdminLogResults{}
+	_ bin.Encoder     = &ChannelsAdminLogResults{}
+	_ bin.Decoder     = &ChannelsAdminLogResults{}
+	_ bin.BareEncoder = &ChannelsAdminLogResults{}
+	_ bin.BareDecoder = &ChannelsAdminLogResults{}
 )

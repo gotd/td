@@ -124,6 +124,14 @@ func (r *AccountReportPeerRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.reportPeer#c5ba3d86 as nil")
 	}
 	b.PutID(AccountReportPeerRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *AccountReportPeerRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode account.reportPeer#c5ba3d86 as nil")
+	}
 	if r.Peer == nil {
 		return fmt.Errorf("unable to encode account.reportPeer#c5ba3d86: field peer is nil")
 	}
@@ -163,6 +171,14 @@ func (r *AccountReportPeerRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountReportPeerRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.reportPeer#c5ba3d86: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *AccountReportPeerRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode account.reportPeer#c5ba3d86 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -189,8 +205,10 @@ func (r *AccountReportPeerRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountReportPeerRequest.
 var (
-	_ bin.Encoder = &AccountReportPeerRequest{}
-	_ bin.Decoder = &AccountReportPeerRequest{}
+	_ bin.Encoder     = &AccountReportPeerRequest{}
+	_ bin.Decoder     = &AccountReportPeerRequest{}
+	_ bin.BareEncoder = &AccountReportPeerRequest{}
+	_ bin.BareDecoder = &AccountReportPeerRequest{}
 )
 
 // AccountReportPeer invokes method account.reportPeer#c5ba3d86 returning error if any.

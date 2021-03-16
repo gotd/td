@@ -138,6 +138,14 @@ func (i *InputFileLocation) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputFileLocation#dfdaabe1 as nil")
 	}
 	b.PutID(InputFileLocationTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputFileLocation) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputFileLocation#dfdaabe1 as nil")
+	}
 	b.PutLong(i.VolumeID)
 	b.PutInt(i.LocalID)
 	b.PutLong(i.Secret)
@@ -172,6 +180,14 @@ func (i *InputFileLocation) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(InputFileLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputFileLocation#dfdaabe1: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputFileLocation) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputFileLocation#dfdaabe1 to nil")
 	}
 	{
 		value, err := b.Long()
@@ -209,8 +225,10 @@ func (i InputFileLocation) construct() InputFileLocationClass { return &i }
 
 // Ensuring interfaces in compile-time for InputFileLocation.
 var (
-	_ bin.Encoder = &InputFileLocation{}
-	_ bin.Decoder = &InputFileLocation{}
+	_ bin.Encoder     = &InputFileLocation{}
+	_ bin.Decoder     = &InputFileLocation{}
+	_ bin.BareEncoder = &InputFileLocation{}
+	_ bin.BareDecoder = &InputFileLocation{}
 
 	_ InputFileLocationClass = &InputFileLocation{}
 )
@@ -308,6 +326,14 @@ func (i *InputEncryptedFileLocation) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputEncryptedFileLocation#f5235d55 as nil")
 	}
 	b.PutID(InputEncryptedFileLocationTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputEncryptedFileLocation) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputEncryptedFileLocation#f5235d55 as nil")
+	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
 	return nil
@@ -331,6 +357,14 @@ func (i *InputEncryptedFileLocation) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputEncryptedFileLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputEncryptedFileLocation#f5235d55: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputEncryptedFileLocation) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputEncryptedFileLocation#f5235d55 to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -353,8 +387,10 @@ func (i InputEncryptedFileLocation) construct() InputFileLocationClass { return 
 
 // Ensuring interfaces in compile-time for InputEncryptedFileLocation.
 var (
-	_ bin.Encoder = &InputEncryptedFileLocation{}
-	_ bin.Decoder = &InputEncryptedFileLocation{}
+	_ bin.Encoder     = &InputEncryptedFileLocation{}
+	_ bin.Decoder     = &InputEncryptedFileLocation{}
+	_ bin.BareEncoder = &InputEncryptedFileLocation{}
+	_ bin.BareDecoder = &InputEncryptedFileLocation{}
 
 	_ InputFileLocationClass = &InputEncryptedFileLocation{}
 )
@@ -474,6 +510,14 @@ func (i *InputDocumentFileLocation) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputDocumentFileLocation#bad07584 as nil")
 	}
 	b.PutID(InputDocumentFileLocationTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputDocumentFileLocation) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputDocumentFileLocation#bad07584 as nil")
+	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
 	b.PutBytes(i.FileReference)
@@ -508,6 +552,14 @@ func (i *InputDocumentFileLocation) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(InputDocumentFileLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputDocumentFileLocation#bad07584: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputDocumentFileLocation) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputDocumentFileLocation#bad07584 to nil")
 	}
 	{
 		value, err := b.Long()
@@ -545,8 +597,10 @@ func (i InputDocumentFileLocation) construct() InputFileLocationClass { return &
 
 // Ensuring interfaces in compile-time for InputDocumentFileLocation.
 var (
-	_ bin.Encoder = &InputDocumentFileLocation{}
-	_ bin.Decoder = &InputDocumentFileLocation{}
+	_ bin.Encoder     = &InputDocumentFileLocation{}
+	_ bin.Decoder     = &InputDocumentFileLocation{}
+	_ bin.BareEncoder = &InputDocumentFileLocation{}
+	_ bin.BareDecoder = &InputDocumentFileLocation{}
 
 	_ InputFileLocationClass = &InputDocumentFileLocation{}
 )
@@ -647,6 +701,14 @@ func (i *InputSecureFileLocation) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputSecureFileLocation#cbc7ee28 as nil")
 	}
 	b.PutID(InputSecureFileLocationTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputSecureFileLocation) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputSecureFileLocation#cbc7ee28 as nil")
+	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
 	return nil
@@ -670,6 +732,14 @@ func (i *InputSecureFileLocation) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputSecureFileLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputSecureFileLocation#cbc7ee28: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputSecureFileLocation) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputSecureFileLocation#cbc7ee28 to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -692,8 +762,10 @@ func (i InputSecureFileLocation) construct() InputFileLocationClass { return &i 
 
 // Ensuring interfaces in compile-time for InputSecureFileLocation.
 var (
-	_ bin.Encoder = &InputSecureFileLocation{}
-	_ bin.Decoder = &InputSecureFileLocation{}
+	_ bin.Encoder     = &InputSecureFileLocation{}
+	_ bin.Decoder     = &InputSecureFileLocation{}
+	_ bin.BareEncoder = &InputSecureFileLocation{}
+	_ bin.BareDecoder = &InputSecureFileLocation{}
 
 	_ InputFileLocationClass = &InputSecureFileLocation{}
 )
@@ -757,6 +829,14 @@ func (i *InputTakeoutFileLocation) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputTakeoutFileLocation#29be5899 as nil")
 	}
 	b.PutID(InputTakeoutFileLocationTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputTakeoutFileLocation) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputTakeoutFileLocation#29be5899 as nil")
+	}
 	return nil
 }
 
@@ -768,6 +848,14 @@ func (i *InputTakeoutFileLocation) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputTakeoutFileLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputTakeoutFileLocation#29be5899: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputTakeoutFileLocation) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputTakeoutFileLocation#29be5899 to nil")
+	}
 	return nil
 }
 
@@ -776,8 +864,10 @@ func (i InputTakeoutFileLocation) construct() InputFileLocationClass { return &i
 
 // Ensuring interfaces in compile-time for InputTakeoutFileLocation.
 var (
-	_ bin.Encoder = &InputTakeoutFileLocation{}
-	_ bin.Decoder = &InputTakeoutFileLocation{}
+	_ bin.Encoder     = &InputTakeoutFileLocation{}
+	_ bin.Decoder     = &InputTakeoutFileLocation{}
+	_ bin.BareEncoder = &InputTakeoutFileLocation{}
+	_ bin.BareDecoder = &InputTakeoutFileLocation{}
 
 	_ InputFileLocationClass = &InputTakeoutFileLocation{}
 )
@@ -907,6 +997,14 @@ func (i *InputPhotoFileLocation) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputPhotoFileLocation#40181ffe as nil")
 	}
 	b.PutID(InputPhotoFileLocationTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPhotoFileLocation) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPhotoFileLocation#40181ffe as nil")
+	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
 	b.PutBytes(i.FileReference)
@@ -941,6 +1039,14 @@ func (i *InputPhotoFileLocation) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(InputPhotoFileLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPhotoFileLocation#40181ffe: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPhotoFileLocation) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPhotoFileLocation#40181ffe to nil")
 	}
 	{
 		value, err := b.Long()
@@ -978,8 +1084,10 @@ func (i InputPhotoFileLocation) construct() InputFileLocationClass { return &i }
 
 // Ensuring interfaces in compile-time for InputPhotoFileLocation.
 var (
-	_ bin.Encoder = &InputPhotoFileLocation{}
-	_ bin.Decoder = &InputPhotoFileLocation{}
+	_ bin.Encoder     = &InputPhotoFileLocation{}
+	_ bin.Decoder     = &InputPhotoFileLocation{}
+	_ bin.BareEncoder = &InputPhotoFileLocation{}
+	_ bin.BareDecoder = &InputPhotoFileLocation{}
 
 	_ InputFileLocationClass = &InputPhotoFileLocation{}
 )
@@ -1115,6 +1223,14 @@ func (i *InputPhotoLegacyFileLocation) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputPhotoLegacyFileLocation#d83466f3 as nil")
 	}
 	b.PutID(InputPhotoLegacyFileLocationTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPhotoLegacyFileLocation) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPhotoLegacyFileLocation#d83466f3 as nil")
+	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
 	b.PutBytes(i.FileReference)
@@ -1161,6 +1277,14 @@ func (i *InputPhotoLegacyFileLocation) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(InputPhotoLegacyFileLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPhotoLegacyFileLocation#d83466f3: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPhotoLegacyFileLocation) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPhotoLegacyFileLocation#d83466f3 to nil")
 	}
 	{
 		value, err := b.Long()
@@ -1212,8 +1336,10 @@ func (i InputPhotoLegacyFileLocation) construct() InputFileLocationClass { retur
 
 // Ensuring interfaces in compile-time for InputPhotoLegacyFileLocation.
 var (
-	_ bin.Encoder = &InputPhotoLegacyFileLocation{}
-	_ bin.Decoder = &InputPhotoLegacyFileLocation{}
+	_ bin.Encoder     = &InputPhotoLegacyFileLocation{}
+	_ bin.Decoder     = &InputPhotoLegacyFileLocation{}
+	_ bin.BareEncoder = &InputPhotoLegacyFileLocation{}
+	_ bin.BareDecoder = &InputPhotoLegacyFileLocation{}
 
 	_ InputFileLocationClass = &InputPhotoLegacyFileLocation{}
 )
@@ -1342,6 +1468,14 @@ func (i *InputPeerPhotoFileLocation) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputPeerPhotoFileLocation#27d69997 as nil")
 	}
 	b.PutID(InputPeerPhotoFileLocationTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPeerPhotoFileLocation) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPeerPhotoFileLocation#27d69997 as nil")
+	}
 	if !(i.Big == false) {
 		i.Flags.Set(0)
 	}
@@ -1398,6 +1532,14 @@ func (i *InputPeerPhotoFileLocation) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPeerPhotoFileLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPeerPhotoFileLocation#27d69997: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPeerPhotoFileLocation) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPeerPhotoFileLocation#27d69997 to nil")
+	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputPeerPhotoFileLocation#27d69997: field flags: %w", err)
@@ -1433,8 +1575,10 @@ func (i InputPeerPhotoFileLocation) construct() InputFileLocationClass { return 
 
 // Ensuring interfaces in compile-time for InputPeerPhotoFileLocation.
 var (
-	_ bin.Encoder = &InputPeerPhotoFileLocation{}
-	_ bin.Decoder = &InputPeerPhotoFileLocation{}
+	_ bin.Encoder     = &InputPeerPhotoFileLocation{}
+	_ bin.Decoder     = &InputPeerPhotoFileLocation{}
+	_ bin.BareEncoder = &InputPeerPhotoFileLocation{}
+	_ bin.BareDecoder = &InputPeerPhotoFileLocation{}
 
 	_ InputFileLocationClass = &InputPeerPhotoFileLocation{}
 )
@@ -1540,6 +1684,14 @@ func (i *InputStickerSetThumb) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputStickerSetThumb#dbaeae9 as nil")
 	}
 	b.PutID(InputStickerSetThumbTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputStickerSetThumb) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputStickerSetThumb#dbaeae9 as nil")
+	}
 	if i.Stickerset == nil {
 		return fmt.Errorf("unable to encode inputStickerSetThumb#dbaeae9: field stickerset is nil")
 	}
@@ -1574,6 +1726,14 @@ func (i *InputStickerSetThumb) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputStickerSetThumbTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputStickerSetThumb#dbaeae9: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputStickerSetThumb) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputStickerSetThumb#dbaeae9 to nil")
+	}
 	{
 		value, err := DecodeInputStickerSet(b)
 		if err != nil {
@@ -1603,8 +1763,10 @@ func (i InputStickerSetThumb) construct() InputFileLocationClass { return &i }
 
 // Ensuring interfaces in compile-time for InputStickerSetThumb.
 var (
-	_ bin.Encoder = &InputStickerSetThumb{}
-	_ bin.Decoder = &InputStickerSetThumb{}
+	_ bin.Encoder     = &InputStickerSetThumb{}
+	_ bin.Decoder     = &InputStickerSetThumb{}
+	_ bin.BareEncoder = &InputStickerSetThumb{}
+	_ bin.BareDecoder = &InputStickerSetThumb{}
 
 	_ InputFileLocationClass = &InputStickerSetThumb{}
 )
@@ -1706,6 +1868,14 @@ func (i *InputGroupCallStream) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputGroupCallStream#bba51639 as nil")
 	}
 	b.PutID(InputGroupCallStreamTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputGroupCallStream) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputGroupCallStream#bba51639 as nil")
+	}
 	if err := i.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputGroupCallStream#bba51639: field call: %w", err)
 	}
@@ -1737,6 +1907,14 @@ func (i *InputGroupCallStream) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputGroupCallStreamTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputGroupCallStream#bba51639: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputGroupCallStream) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputGroupCallStream#bba51639 to nil")
+	}
 	{
 		if err := i.Call.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputGroupCallStream#bba51639: field call: %w", err)
@@ -1764,8 +1942,10 @@ func (i InputGroupCallStream) construct() InputFileLocationClass { return &i }
 
 // Ensuring interfaces in compile-time for InputGroupCallStream.
 var (
-	_ bin.Encoder = &InputGroupCallStream{}
-	_ bin.Decoder = &InputGroupCallStream{}
+	_ bin.Encoder     = &InputGroupCallStream{}
+	_ bin.Decoder     = &InputGroupCallStream{}
+	_ bin.BareEncoder = &InputGroupCallStream{}
+	_ bin.BareDecoder = &InputGroupCallStream{}
 
 	_ InputFileLocationClass = &InputGroupCallStream{}
 )
@@ -1795,6 +1975,8 @@ var (
 type InputFileLocationClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() InputFileLocationClass
 
 	// TypeID returns type id in TL schema.

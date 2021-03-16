@@ -85,6 +85,14 @@ func (c *ChannelParticipantsRecent) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelParticipantsRecent#de3f3c79 as nil")
 	}
 	b.PutID(ChannelParticipantsRecentTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelParticipantsRecent) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelParticipantsRecent#de3f3c79 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (c *ChannelParticipantsRecent) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelParticipantsRecentTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelParticipantsRecent#de3f3c79: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelParticipantsRecent) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelParticipantsRecent#de3f3c79 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (c ChannelParticipantsRecent) construct() ChannelParticipantsFilterClass { 
 
 // Ensuring interfaces in compile-time for ChannelParticipantsRecent.
 var (
-	_ bin.Encoder = &ChannelParticipantsRecent{}
-	_ bin.Decoder = &ChannelParticipantsRecent{}
+	_ bin.Encoder     = &ChannelParticipantsRecent{}
+	_ bin.Decoder     = &ChannelParticipantsRecent{}
+	_ bin.BareEncoder = &ChannelParticipantsRecent{}
+	_ bin.BareDecoder = &ChannelParticipantsRecent{}
 
 	_ ChannelParticipantsFilterClass = &ChannelParticipantsRecent{}
 )
@@ -169,6 +187,14 @@ func (c *ChannelParticipantsAdmins) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelParticipantsAdmins#b4608969 as nil")
 	}
 	b.PutID(ChannelParticipantsAdminsTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelParticipantsAdmins) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelParticipantsAdmins#b4608969 as nil")
+	}
 	return nil
 }
 
@@ -180,6 +206,14 @@ func (c *ChannelParticipantsAdmins) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelParticipantsAdminsTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelParticipantsAdmins#b4608969: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelParticipantsAdmins) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelParticipantsAdmins#b4608969 to nil")
+	}
 	return nil
 }
 
@@ -188,8 +222,10 @@ func (c ChannelParticipantsAdmins) construct() ChannelParticipantsFilterClass { 
 
 // Ensuring interfaces in compile-time for ChannelParticipantsAdmins.
 var (
-	_ bin.Encoder = &ChannelParticipantsAdmins{}
-	_ bin.Decoder = &ChannelParticipantsAdmins{}
+	_ bin.Encoder     = &ChannelParticipantsAdmins{}
+	_ bin.Decoder     = &ChannelParticipantsAdmins{}
+	_ bin.BareEncoder = &ChannelParticipantsAdmins{}
+	_ bin.BareDecoder = &ChannelParticipantsAdmins{}
 
 	_ ChannelParticipantsFilterClass = &ChannelParticipantsAdmins{}
 )
@@ -270,6 +306,14 @@ func (c *ChannelParticipantsKicked) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelParticipantsKicked#a3b54985 as nil")
 	}
 	b.PutID(ChannelParticipantsKickedTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelParticipantsKicked) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelParticipantsKicked#a3b54985 as nil")
+	}
 	b.PutString(c.Q)
 	return nil
 }
@@ -287,6 +331,14 @@ func (c *ChannelParticipantsKicked) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelParticipantsKickedTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelParticipantsKicked#a3b54985: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelParticipantsKicked) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelParticipantsKicked#a3b54985 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -302,8 +354,10 @@ func (c ChannelParticipantsKicked) construct() ChannelParticipantsFilterClass { 
 
 // Ensuring interfaces in compile-time for ChannelParticipantsKicked.
 var (
-	_ bin.Encoder = &ChannelParticipantsKicked{}
-	_ bin.Decoder = &ChannelParticipantsKicked{}
+	_ bin.Encoder     = &ChannelParticipantsKicked{}
+	_ bin.Decoder     = &ChannelParticipantsKicked{}
+	_ bin.BareEncoder = &ChannelParticipantsKicked{}
+	_ bin.BareDecoder = &ChannelParticipantsKicked{}
 
 	_ ChannelParticipantsFilterClass = &ChannelParticipantsKicked{}
 )
@@ -367,6 +421,14 @@ func (c *ChannelParticipantsBots) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelParticipantsBots#b0d1865b as nil")
 	}
 	b.PutID(ChannelParticipantsBotsTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelParticipantsBots) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelParticipantsBots#b0d1865b as nil")
+	}
 	return nil
 }
 
@@ -378,6 +440,14 @@ func (c *ChannelParticipantsBots) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelParticipantsBotsTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelParticipantsBots#b0d1865b: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelParticipantsBots) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelParticipantsBots#b0d1865b to nil")
+	}
 	return nil
 }
 
@@ -386,8 +456,10 @@ func (c ChannelParticipantsBots) construct() ChannelParticipantsFilterClass { re
 
 // Ensuring interfaces in compile-time for ChannelParticipantsBots.
 var (
-	_ bin.Encoder = &ChannelParticipantsBots{}
-	_ bin.Decoder = &ChannelParticipantsBots{}
+	_ bin.Encoder     = &ChannelParticipantsBots{}
+	_ bin.Decoder     = &ChannelParticipantsBots{}
+	_ bin.BareEncoder = &ChannelParticipantsBots{}
+	_ bin.BareDecoder = &ChannelParticipantsBots{}
 
 	_ ChannelParticipantsFilterClass = &ChannelParticipantsBots{}
 )
@@ -468,6 +540,14 @@ func (c *ChannelParticipantsBanned) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelParticipantsBanned#1427a5e1 as nil")
 	}
 	b.PutID(ChannelParticipantsBannedTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelParticipantsBanned) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelParticipantsBanned#1427a5e1 as nil")
+	}
 	b.PutString(c.Q)
 	return nil
 }
@@ -485,6 +565,14 @@ func (c *ChannelParticipantsBanned) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelParticipantsBannedTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelParticipantsBanned#1427a5e1: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelParticipantsBanned) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelParticipantsBanned#1427a5e1 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -500,8 +588,10 @@ func (c ChannelParticipantsBanned) construct() ChannelParticipantsFilterClass { 
 
 // Ensuring interfaces in compile-time for ChannelParticipantsBanned.
 var (
-	_ bin.Encoder = &ChannelParticipantsBanned{}
-	_ bin.Decoder = &ChannelParticipantsBanned{}
+	_ bin.Encoder     = &ChannelParticipantsBanned{}
+	_ bin.Decoder     = &ChannelParticipantsBanned{}
+	_ bin.BareEncoder = &ChannelParticipantsBanned{}
+	_ bin.BareDecoder = &ChannelParticipantsBanned{}
 
 	_ ChannelParticipantsFilterClass = &ChannelParticipantsBanned{}
 )
@@ -582,6 +672,14 @@ func (c *ChannelParticipantsSearch) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelParticipantsSearch#656ac4b as nil")
 	}
 	b.PutID(ChannelParticipantsSearchTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelParticipantsSearch) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelParticipantsSearch#656ac4b as nil")
+	}
 	b.PutString(c.Q)
 	return nil
 }
@@ -599,6 +697,14 @@ func (c *ChannelParticipantsSearch) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelParticipantsSearchTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelParticipantsSearch#656ac4b: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelParticipantsSearch) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelParticipantsSearch#656ac4b to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -614,8 +720,10 @@ func (c ChannelParticipantsSearch) construct() ChannelParticipantsFilterClass { 
 
 // Ensuring interfaces in compile-time for ChannelParticipantsSearch.
 var (
-	_ bin.Encoder = &ChannelParticipantsSearch{}
-	_ bin.Decoder = &ChannelParticipantsSearch{}
+	_ bin.Encoder     = &ChannelParticipantsSearch{}
+	_ bin.Decoder     = &ChannelParticipantsSearch{}
+	_ bin.BareEncoder = &ChannelParticipantsSearch{}
+	_ bin.BareDecoder = &ChannelParticipantsSearch{}
 
 	_ ChannelParticipantsFilterClass = &ChannelParticipantsSearch{}
 )
@@ -696,6 +804,14 @@ func (c *ChannelParticipantsContacts) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelParticipantsContacts#bb6ae88d as nil")
 	}
 	b.PutID(ChannelParticipantsContactsTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelParticipantsContacts) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelParticipantsContacts#bb6ae88d as nil")
+	}
 	b.PutString(c.Q)
 	return nil
 }
@@ -713,6 +829,14 @@ func (c *ChannelParticipantsContacts) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelParticipantsContactsTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelParticipantsContacts#bb6ae88d: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelParticipantsContacts) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelParticipantsContacts#bb6ae88d to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -728,8 +852,10 @@ func (c ChannelParticipantsContacts) construct() ChannelParticipantsFilterClass 
 
 // Ensuring interfaces in compile-time for ChannelParticipantsContacts.
 var (
-	_ bin.Encoder = &ChannelParticipantsContacts{}
-	_ bin.Decoder = &ChannelParticipantsContacts{}
+	_ bin.Encoder     = &ChannelParticipantsContacts{}
+	_ bin.Decoder     = &ChannelParticipantsContacts{}
+	_ bin.BareEncoder = &ChannelParticipantsContacts{}
+	_ bin.BareDecoder = &ChannelParticipantsContacts{}
 
 	_ ChannelParticipantsFilterClass = &ChannelParticipantsContacts{}
 )
@@ -849,6 +975,14 @@ func (c *ChannelParticipantsMentions) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelParticipantsMentions#e04b5ceb as nil")
 	}
 	b.PutID(ChannelParticipantsMentionsTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelParticipantsMentions) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelParticipantsMentions#e04b5ceb as nil")
+	}
 	if !(c.Q == "") {
 		c.Flags.Set(0)
 	}
@@ -905,6 +1039,14 @@ func (c *ChannelParticipantsMentions) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelParticipantsMentionsTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelParticipantsMentions#e04b5ceb: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelParticipantsMentions) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelParticipantsMentions#e04b5ceb to nil")
+	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channelParticipantsMentions#e04b5ceb: field flags: %w", err)
@@ -932,8 +1074,10 @@ func (c ChannelParticipantsMentions) construct() ChannelParticipantsFilterClass 
 
 // Ensuring interfaces in compile-time for ChannelParticipantsMentions.
 var (
-	_ bin.Encoder = &ChannelParticipantsMentions{}
-	_ bin.Decoder = &ChannelParticipantsMentions{}
+	_ bin.Encoder     = &ChannelParticipantsMentions{}
+	_ bin.Decoder     = &ChannelParticipantsMentions{}
+	_ bin.BareEncoder = &ChannelParticipantsMentions{}
+	_ bin.BareDecoder = &ChannelParticipantsMentions{}
 
 	_ ChannelParticipantsFilterClass = &ChannelParticipantsMentions{}
 )
@@ -961,6 +1105,8 @@ var (
 type ChannelParticipantsFilterClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() ChannelParticipantsFilterClass
 
 	// TypeID returns type id in TL schema.

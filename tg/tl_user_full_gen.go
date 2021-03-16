@@ -326,6 +326,14 @@ func (u *UserFull) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode userFull#139a9a77 as nil")
 	}
 	b.PutID(UserFullTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UserFull) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userFull#139a9a77 as nil")
+	}
 	if !(u.Blocked == false) {
 		u.Flags.Set(0)
 	}
@@ -634,6 +642,14 @@ func (u *UserFull) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UserFullTypeID); err != nil {
 		return fmt.Errorf("unable to decode userFull#139a9a77: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UserFull) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userFull#139a9a77 to nil")
+	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode userFull#139a9a77: field flags: %w", err)
@@ -714,6 +730,8 @@ func (u *UserFull) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for UserFull.
 var (
-	_ bin.Encoder = &UserFull{}
-	_ bin.Decoder = &UserFull{}
+	_ bin.Encoder     = &UserFull{}
+	_ bin.Decoder     = &UserFull{}
+	_ bin.BareEncoder = &UserFull{}
+	_ bin.BareDecoder = &UserFull{}
 )

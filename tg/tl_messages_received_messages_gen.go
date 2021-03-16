@@ -102,6 +102,14 @@ func (r *MessagesReceivedMessagesRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.receivedMessages#5a954c0 as nil")
 	}
 	b.PutID(MessagesReceivedMessagesRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *MessagesReceivedMessagesRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode messages.receivedMessages#5a954c0 as nil")
+	}
 	b.PutInt(r.MaxID)
 	return nil
 }
@@ -119,6 +127,14 @@ func (r *MessagesReceivedMessagesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesReceivedMessagesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.receivedMessages#5a954c0: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *MessagesReceivedMessagesRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode messages.receivedMessages#5a954c0 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -131,8 +147,10 @@ func (r *MessagesReceivedMessagesRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesReceivedMessagesRequest.
 var (
-	_ bin.Encoder = &MessagesReceivedMessagesRequest{}
-	_ bin.Decoder = &MessagesReceivedMessagesRequest{}
+	_ bin.Encoder     = &MessagesReceivedMessagesRequest{}
+	_ bin.Decoder     = &MessagesReceivedMessagesRequest{}
+	_ bin.BareEncoder = &MessagesReceivedMessagesRequest{}
+	_ bin.BareDecoder = &MessagesReceivedMessagesRequest{}
 )
 
 // MessagesReceivedMessages invokes method messages.receivedMessages#5a954c0 returning error if any.

@@ -112,6 +112,14 @@ func (e *MessagesExportedChatInvite) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.exportedChatInvite#1871be50 as nil")
 	}
 	b.PutID(MessagesExportedChatInviteTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *MessagesExportedChatInvite) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode messages.exportedChatInvite#1871be50 as nil")
+	}
 	if err := e.Invite.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.exportedChatInvite#1871be50: field invite: %w", err)
 	}
@@ -150,6 +158,14 @@ func (e *MessagesExportedChatInvite) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesExportedChatInviteTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.exportedChatInvite#1871be50: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *MessagesExportedChatInvite) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode messages.exportedChatInvite#1871be50 to nil")
+	}
 	{
 		if err := e.Invite.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.exportedChatInvite#1871be50: field invite: %w", err)
@@ -176,8 +192,10 @@ func (e MessagesExportedChatInvite) construct() MessagesExportedChatInviteClass 
 
 // Ensuring interfaces in compile-time for MessagesExportedChatInvite.
 var (
-	_ bin.Encoder = &MessagesExportedChatInvite{}
-	_ bin.Decoder = &MessagesExportedChatInvite{}
+	_ bin.Encoder     = &MessagesExportedChatInvite{}
+	_ bin.Decoder     = &MessagesExportedChatInvite{}
+	_ bin.BareEncoder = &MessagesExportedChatInvite{}
+	_ bin.BareDecoder = &MessagesExportedChatInvite{}
 
 	_ MessagesExportedChatInviteClass = &MessagesExportedChatInvite{}
 )
@@ -279,6 +297,14 @@ func (e *MessagesExportedChatInviteReplaced) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.exportedChatInviteReplaced#222600ef as nil")
 	}
 	b.PutID(MessagesExportedChatInviteReplacedTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *MessagesExportedChatInviteReplaced) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode messages.exportedChatInviteReplaced#222600ef as nil")
+	}
 	if err := e.Invite.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.exportedChatInviteReplaced#222600ef: field invite: %w", err)
 	}
@@ -325,6 +351,14 @@ func (e *MessagesExportedChatInviteReplaced) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesExportedChatInviteReplacedTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.exportedChatInviteReplaced#222600ef: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *MessagesExportedChatInviteReplaced) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode messages.exportedChatInviteReplaced#222600ef to nil")
+	}
 	{
 		if err := e.Invite.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.exportedChatInviteReplaced#222600ef: field invite: %w", err)
@@ -356,8 +390,10 @@ func (e MessagesExportedChatInviteReplaced) construct() MessagesExportedChatInvi
 
 // Ensuring interfaces in compile-time for MessagesExportedChatInviteReplaced.
 var (
-	_ bin.Encoder = &MessagesExportedChatInviteReplaced{}
-	_ bin.Decoder = &MessagesExportedChatInviteReplaced{}
+	_ bin.Encoder     = &MessagesExportedChatInviteReplaced{}
+	_ bin.Decoder     = &MessagesExportedChatInviteReplaced{}
+	_ bin.BareEncoder = &MessagesExportedChatInviteReplaced{}
+	_ bin.BareDecoder = &MessagesExportedChatInviteReplaced{}
 
 	_ MessagesExportedChatInviteClass = &MessagesExportedChatInviteReplaced{}
 )
@@ -379,6 +415,8 @@ var (
 type MessagesExportedChatInviteClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() MessagesExportedChatInviteClass
 
 	// TypeID returns type id in TL schema.

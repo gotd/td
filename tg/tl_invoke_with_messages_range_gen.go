@@ -113,6 +113,14 @@ func (i *InvokeWithMessagesRangeRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode invokeWithMessagesRange#365275f2 as nil")
 	}
 	b.PutID(InvokeWithMessagesRangeRequestTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InvokeWithMessagesRangeRequest) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode invokeWithMessagesRange#365275f2 as nil")
+	}
 	if err := i.Range.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode invokeWithMessagesRange#365275f2: field range: %w", err)
 	}
@@ -140,6 +148,14 @@ func (i *InvokeWithMessagesRangeRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InvokeWithMessagesRangeRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode invokeWithMessagesRange#365275f2: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InvokeWithMessagesRangeRequest) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode invokeWithMessagesRange#365275f2 to nil")
+	}
 	{
 		if err := i.Range.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode invokeWithMessagesRange#365275f2: field range: %w", err)
@@ -155,6 +171,8 @@ func (i *InvokeWithMessagesRangeRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for InvokeWithMessagesRangeRequest.
 var (
-	_ bin.Encoder = &InvokeWithMessagesRangeRequest{}
-	_ bin.Decoder = &InvokeWithMessagesRangeRequest{}
+	_ bin.Encoder     = &InvokeWithMessagesRangeRequest{}
+	_ bin.Decoder     = &InvokeWithMessagesRangeRequest{}
+	_ bin.BareEncoder = &InvokeWithMessagesRangeRequest{}
+	_ bin.BareDecoder = &InvokeWithMessagesRangeRequest{}
 )

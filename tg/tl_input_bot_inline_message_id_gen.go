@@ -124,6 +124,14 @@ func (i *InputBotInlineMessageID) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputBotInlineMessageID#890c3d89 as nil")
 	}
 	b.PutID(InputBotInlineMessageIDTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputBotInlineMessageID) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputBotInlineMessageID#890c3d89 as nil")
+	}
 	b.PutInt(i.DCID)
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
@@ -153,6 +161,14 @@ func (i *InputBotInlineMessageID) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputBotInlineMessageIDTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputBotInlineMessageID#890c3d89: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputBotInlineMessageID) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputBotInlineMessageID#890c3d89 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -179,6 +195,8 @@ func (i *InputBotInlineMessageID) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for InputBotInlineMessageID.
 var (
-	_ bin.Encoder = &InputBotInlineMessageID{}
-	_ bin.Decoder = &InputBotInlineMessageID{}
+	_ bin.Encoder     = &InputBotInlineMessageID{}
+	_ bin.Decoder     = &InputBotInlineMessageID{}
+	_ bin.BareEncoder = &InputBotInlineMessageID{}
+	_ bin.BareDecoder = &InputBotInlineMessageID{}
 )

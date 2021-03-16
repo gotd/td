@@ -184,6 +184,14 @@ func (c *StickersCreateStickerSetRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode stickers.createStickerSet#f1036780 as nil")
 	}
 	b.PutID(StickersCreateStickerSetRequestTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *StickersCreateStickerSetRequest) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode stickers.createStickerSet#f1036780 as nil")
+	}
 	if !(c.Masks == false) {
 		c.Flags.Set(0)
 	}
@@ -305,6 +313,14 @@ func (c *StickersCreateStickerSetRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StickersCreateStickerSetRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode stickers.createStickerSet#f1036780: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *StickersCreateStickerSetRequest) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode stickers.createStickerSet#f1036780 to nil")
+	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode stickers.createStickerSet#f1036780: field flags: %w", err)
@@ -358,8 +374,10 @@ func (c *StickersCreateStickerSetRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for StickersCreateStickerSetRequest.
 var (
-	_ bin.Encoder = &StickersCreateStickerSetRequest{}
-	_ bin.Decoder = &StickersCreateStickerSetRequest{}
+	_ bin.Encoder     = &StickersCreateStickerSetRequest{}
+	_ bin.Decoder     = &StickersCreateStickerSetRequest{}
+	_ bin.BareEncoder = &StickersCreateStickerSetRequest{}
+	_ bin.BareDecoder = &StickersCreateStickerSetRequest{}
 )
 
 // StickersCreateStickerSet invokes method stickers.createStickerSet#f1036780 returning error if any.

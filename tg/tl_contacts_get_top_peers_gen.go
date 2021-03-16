@@ -237,6 +237,14 @@ func (g *ContactsGetTopPeersRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode contacts.getTopPeers#d4982db5 as nil")
 	}
 	b.PutID(ContactsGetTopPeersRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *ContactsGetTopPeersRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode contacts.getTopPeers#d4982db5 as nil")
+	}
 	if !(g.Correspondents == false) {
 		g.Flags.Set(0)
 	}
@@ -421,6 +429,14 @@ func (g *ContactsGetTopPeersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsGetTopPeersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.getTopPeers#d4982db5: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *ContactsGetTopPeersRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode contacts.getTopPeers#d4982db5 to nil")
+	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode contacts.getTopPeers#d4982db5: field flags: %w", err)
@@ -460,8 +476,10 @@ func (g *ContactsGetTopPeersRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ContactsGetTopPeersRequest.
 var (
-	_ bin.Encoder = &ContactsGetTopPeersRequest{}
-	_ bin.Decoder = &ContactsGetTopPeersRequest{}
+	_ bin.Encoder     = &ContactsGetTopPeersRequest{}
+	_ bin.Decoder     = &ContactsGetTopPeersRequest{}
+	_ bin.BareEncoder = &ContactsGetTopPeersRequest{}
+	_ bin.BareDecoder = &ContactsGetTopPeersRequest{}
 )
 
 // ContactsGetTopPeers invokes method contacts.getTopPeers#d4982db5 returning error if any.

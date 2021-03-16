@@ -102,6 +102,14 @@ func (p *PhoneCallEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phoneCallEmpty#5366c915 as nil")
 	}
 	b.PutID(PhoneCallEmptyTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PhoneCallEmpty) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode phoneCallEmpty#5366c915 as nil")
+	}
 	b.PutLong(p.ID)
 	return nil
 }
@@ -119,6 +127,14 @@ func (p *PhoneCallEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneCallEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode phoneCallEmpty#5366c915: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PhoneCallEmpty) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode phoneCallEmpty#5366c915 to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -134,8 +150,10 @@ func (p PhoneCallEmpty) construct() PhoneCallClass { return &p }
 
 // Ensuring interfaces in compile-time for PhoneCallEmpty.
 var (
-	_ bin.Encoder = &PhoneCallEmpty{}
-	_ bin.Decoder = &PhoneCallEmpty{}
+	_ bin.Encoder     = &PhoneCallEmpty{}
+	_ bin.Decoder     = &PhoneCallEmpty{}
+	_ bin.BareEncoder = &PhoneCallEmpty{}
+	_ bin.BareDecoder = &PhoneCallEmpty{}
 
 	_ PhoneCallClass = &PhoneCallEmpty{}
 )
@@ -308,6 +326,14 @@ func (p *PhoneCallWaiting) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phoneCallWaiting#1b8f4ad1 as nil")
 	}
 	b.PutID(PhoneCallWaitingTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PhoneCallWaiting) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode phoneCallWaiting#1b8f4ad1 as nil")
+	}
 	if !(p.Video == false) {
 		p.Flags.Set(6)
 	}
@@ -400,6 +426,14 @@ func (p *PhoneCallWaiting) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneCallWaitingTypeID); err != nil {
 		return fmt.Errorf("unable to decode phoneCallWaiting#1b8f4ad1: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PhoneCallWaiting) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode phoneCallWaiting#1b8f4ad1 to nil")
+	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phoneCallWaiting#1b8f4ad1: field flags: %w", err)
@@ -461,8 +495,10 @@ func (p PhoneCallWaiting) construct() PhoneCallClass { return &p }
 
 // Ensuring interfaces in compile-time for PhoneCallWaiting.
 var (
-	_ bin.Encoder = &PhoneCallWaiting{}
-	_ bin.Decoder = &PhoneCallWaiting{}
+	_ bin.Encoder     = &PhoneCallWaiting{}
+	_ bin.Decoder     = &PhoneCallWaiting{}
+	_ bin.BareEncoder = &PhoneCallWaiting{}
+	_ bin.BareDecoder = &PhoneCallWaiting{}
 
 	_ PhoneCallClass = &PhoneCallWaiting{}
 )
@@ -632,6 +668,14 @@ func (p *PhoneCallRequested) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phoneCallRequested#87eabb53 as nil")
 	}
 	b.PutID(PhoneCallRequestedTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PhoneCallRequested) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode phoneCallRequested#87eabb53 as nil")
+	}
 	if !(p.Video == false) {
 		p.Flags.Set(6)
 	}
@@ -709,6 +753,14 @@ func (p *PhoneCallRequested) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneCallRequestedTypeID); err != nil {
 		return fmt.Errorf("unable to decode phoneCallRequested#87eabb53: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PhoneCallRequested) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode phoneCallRequested#87eabb53 to nil")
+	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phoneCallRequested#87eabb53: field flags: %w", err)
@@ -770,8 +822,10 @@ func (p PhoneCallRequested) construct() PhoneCallClass { return &p }
 
 // Ensuring interfaces in compile-time for PhoneCallRequested.
 var (
-	_ bin.Encoder = &PhoneCallRequested{}
-	_ bin.Decoder = &PhoneCallRequested{}
+	_ bin.Encoder     = &PhoneCallRequested{}
+	_ bin.Decoder     = &PhoneCallRequested{}
+	_ bin.BareEncoder = &PhoneCallRequested{}
+	_ bin.BareDecoder = &PhoneCallRequested{}
 
 	_ PhoneCallClass = &PhoneCallRequested{}
 )
@@ -941,6 +995,14 @@ func (p *PhoneCallAccepted) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phoneCallAccepted#997c454a as nil")
 	}
 	b.PutID(PhoneCallAcceptedTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PhoneCallAccepted) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode phoneCallAccepted#997c454a as nil")
+	}
 	if !(p.Video == false) {
 		p.Flags.Set(6)
 	}
@@ -1018,6 +1080,14 @@ func (p *PhoneCallAccepted) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneCallAcceptedTypeID); err != nil {
 		return fmt.Errorf("unable to decode phoneCallAccepted#997c454a: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PhoneCallAccepted) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode phoneCallAccepted#997c454a to nil")
+	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phoneCallAccepted#997c454a: field flags: %w", err)
@@ -1079,8 +1149,10 @@ func (p PhoneCallAccepted) construct() PhoneCallClass { return &p }
 
 // Ensuring interfaces in compile-time for PhoneCallAccepted.
 var (
-	_ bin.Encoder = &PhoneCallAccepted{}
-	_ bin.Decoder = &PhoneCallAccepted{}
+	_ bin.Encoder     = &PhoneCallAccepted{}
+	_ bin.Decoder     = &PhoneCallAccepted{}
+	_ bin.BareEncoder = &PhoneCallAccepted{}
+	_ bin.BareDecoder = &PhoneCallAccepted{}
 
 	_ PhoneCallClass = &PhoneCallAccepted{}
 )
@@ -1298,6 +1370,14 @@ func (p *PhoneCall) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phoneCall#8742ae7f as nil")
 	}
 	b.PutID(PhoneCallTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PhoneCall) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode phoneCall#8742ae7f as nil")
+	}
 	if !(p.P2PAllowed == false) {
 		p.Flags.Set(5)
 	}
@@ -1425,6 +1505,14 @@ func (p *PhoneCall) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneCallTypeID); err != nil {
 		return fmt.Errorf("unable to decode phoneCall#8742ae7f: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PhoneCall) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode phoneCall#8742ae7f to nil")
+	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phoneCall#8742ae7f: field flags: %w", err)
@@ -1514,8 +1602,10 @@ func (p PhoneCall) construct() PhoneCallClass { return &p }
 
 // Ensuring interfaces in compile-time for PhoneCall.
 var (
-	_ bin.Encoder = &PhoneCall{}
-	_ bin.Decoder = &PhoneCall{}
+	_ bin.Encoder     = &PhoneCall{}
+	_ bin.Decoder     = &PhoneCall{}
+	_ bin.BareEncoder = &PhoneCall{}
+	_ bin.BareDecoder = &PhoneCall{}
 
 	_ PhoneCallClass = &PhoneCall{}
 )
@@ -1680,6 +1770,14 @@ func (p *PhoneCallDiscarded) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phoneCallDiscarded#50ca4de1 as nil")
 	}
 	b.PutID(PhoneCallDiscardedTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PhoneCallDiscarded) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode phoneCallDiscarded#50ca4de1 as nil")
+	}
 	if !(p.NeedRating == false) {
 		p.Flags.Set(2)
 	}
@@ -1804,6 +1902,14 @@ func (p *PhoneCallDiscarded) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneCallDiscardedTypeID); err != nil {
 		return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PhoneCallDiscarded) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode phoneCallDiscarded#50ca4de1 to nil")
+	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phoneCallDiscarded#50ca4de1: field flags: %w", err)
@@ -1841,8 +1947,10 @@ func (p PhoneCallDiscarded) construct() PhoneCallClass { return &p }
 
 // Ensuring interfaces in compile-time for PhoneCallDiscarded.
 var (
-	_ bin.Encoder = &PhoneCallDiscarded{}
-	_ bin.Decoder = &PhoneCallDiscarded{}
+	_ bin.Encoder     = &PhoneCallDiscarded{}
+	_ bin.Decoder     = &PhoneCallDiscarded{}
+	_ bin.BareEncoder = &PhoneCallDiscarded{}
+	_ bin.BareDecoder = &PhoneCallDiscarded{}
 
 	_ PhoneCallClass = &PhoneCallDiscarded{}
 )
@@ -1868,6 +1976,8 @@ var (
 type PhoneCallClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() PhoneCallClass
 
 	// TypeID returns type id in TL schema.
@@ -1900,6 +2010,8 @@ func (p *PhoneCall) AsInput() *InputPhoneCall {
 type NotEmptyPhoneCall interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() PhoneCallClass
 
 	// TypeID returns type id in TL schema.

@@ -101,6 +101,14 @@ func (g *PhoneGetGroupCallJoinAsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.getGroupCallJoinAs#ef7c213a as nil")
 	}
 	b.PutID(PhoneGetGroupCallJoinAsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *PhoneGetGroupCallJoinAsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode phone.getGroupCallJoinAs#ef7c213a as nil")
+	}
 	if g.Peer == nil {
 		return fmt.Errorf("unable to encode phone.getGroupCallJoinAs#ef7c213a: field peer is nil")
 	}
@@ -123,6 +131,14 @@ func (g *PhoneGetGroupCallJoinAsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneGetGroupCallJoinAsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.getGroupCallJoinAs#ef7c213a: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *PhoneGetGroupCallJoinAsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode phone.getGroupCallJoinAs#ef7c213a to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -135,8 +151,10 @@ func (g *PhoneGetGroupCallJoinAsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhoneGetGroupCallJoinAsRequest.
 var (
-	_ bin.Encoder = &PhoneGetGroupCallJoinAsRequest{}
-	_ bin.Decoder = &PhoneGetGroupCallJoinAsRequest{}
+	_ bin.Encoder     = &PhoneGetGroupCallJoinAsRequest{}
+	_ bin.Decoder     = &PhoneGetGroupCallJoinAsRequest{}
+	_ bin.BareEncoder = &PhoneGetGroupCallJoinAsRequest{}
+	_ bin.BareDecoder = &PhoneGetGroupCallJoinAsRequest{}
 )
 
 // PhoneGetGroupCallJoinAs invokes method phone.getGroupCallJoinAs#ef7c213a returning error if any.

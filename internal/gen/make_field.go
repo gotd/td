@@ -27,6 +27,8 @@ type fieldDef struct {
 	RawName string
 	// RawType is type from TL Schema.
 	RawType string
+	// BareVector denotes whether fieldDef TL type is a bare vector.
+	BareVector bool
 	// Vector denotes whether fieldDef TL type is vector.
 	Vector bool
 	// DoubleVector denotes whether fieldDef TL type is vector of vectors.
@@ -100,6 +102,8 @@ func (f fieldDef) EqualAsField(b fieldDef) bool {
 //
 // TODO(ernado) Split into multiple sections: base type, encoder and conditional.
 func (g *Generator) makeField(param tl.Parameter, annotations []tl.Annotation) (fieldDef, error) {
+	const bareVectorName = "vector"
+
 	f := fieldDef{
 		Name:    pascal(param.Name),
 		RawName: param.Name,
@@ -112,12 +116,14 @@ func (g *Generator) makeField(param tl.Parameter, annotations []tl.Annotation) (
 			f.Comment = a.Value
 		}
 	}
-	if baseType.Name == "vector" || baseType.Name == "Vector" {
+	if baseType.Name == bareVectorName || baseType.Name == "Vector" {
+		f.BareVector = baseType.Name == bareVectorName
 		baseType = *baseType.GenericArg
 		f.Vector = true
 		f.Slice = true
+		f.BareVector = f.BareVector || baseType.Percent
 	}
-	if baseType.Name == "vector" || baseType.Name == "Vector" {
+	if baseType.Name == bareVectorName || baseType.Name == "Vector" {
 		baseType = *baseType.GenericArg
 		f.DoubleSlice = true
 		f.DoubleVector = true
@@ -164,7 +170,8 @@ func (g *Generator) makeField(param tl.Parameter, annotations []tl.Annotation) (
 
 		if baseType.Bare {
 			// Using exact go type for bare types.
-			t, ok := g.types[baseType.String()]
+			tn := strings.TrimPrefix(baseType.String(), "%")
+			t, ok := g.types[tn]
 			if !ok {
 				return fieldDef{}, xerrors.Errorf("types[%s] not found", baseType)
 			}

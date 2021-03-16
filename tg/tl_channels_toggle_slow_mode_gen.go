@@ -116,6 +116,14 @@ func (t *ChannelsToggleSlowModeRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.toggleSlowMode#edd49ef0 as nil")
 	}
 	b.PutID(ChannelsToggleSlowModeRequestTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *ChannelsToggleSlowModeRequest) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode channels.toggleSlowMode#edd49ef0 as nil")
+	}
 	if t.Channel == nil {
 		return fmt.Errorf("unable to encode channels.toggleSlowMode#edd49ef0: field channel is nil")
 	}
@@ -149,6 +157,14 @@ func (t *ChannelsToggleSlowModeRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsToggleSlowModeRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.toggleSlowMode#edd49ef0: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *ChannelsToggleSlowModeRequest) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode channels.toggleSlowMode#edd49ef0 to nil")
+	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
@@ -168,8 +184,10 @@ func (t *ChannelsToggleSlowModeRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsToggleSlowModeRequest.
 var (
-	_ bin.Encoder = &ChannelsToggleSlowModeRequest{}
-	_ bin.Decoder = &ChannelsToggleSlowModeRequest{}
+	_ bin.Encoder     = &ChannelsToggleSlowModeRequest{}
+	_ bin.Decoder     = &ChannelsToggleSlowModeRequest{}
+	_ bin.BareEncoder = &ChannelsToggleSlowModeRequest{}
+	_ bin.BareDecoder = &ChannelsToggleSlowModeRequest{}
 )
 
 // ChannelsToggleSlowMode invokes method channels.toggleSlowMode#edd49ef0 returning error if any.

@@ -135,6 +135,14 @@ func (i *InputAppEvent) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputAppEvent#1d1b1245 as nil")
 	}
 	b.PutID(InputAppEventTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputAppEvent) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputAppEvent#1d1b1245 as nil")
+	}
 	b.PutDouble(i.Time)
 	b.PutString(i.Type)
 	b.PutLong(i.Peer)
@@ -175,6 +183,14 @@ func (i *InputAppEvent) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputAppEventTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputAppEvent#1d1b1245: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputAppEvent) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputAppEvent#1d1b1245 to nil")
+	}
 	{
 		value, err := b.Double()
 		if err != nil {
@@ -208,6 +224,8 @@ func (i *InputAppEvent) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for InputAppEvent.
 var (
-	_ bin.Encoder = &InputAppEvent{}
-	_ bin.Decoder = &InputAppEvent{}
+	_ bin.Encoder     = &InputAppEvent{}
+	_ bin.Decoder     = &InputAppEvent{}
+	_ bin.BareEncoder = &InputAppEvent{}
+	_ bin.BareDecoder = &InputAppEvent{}
 )

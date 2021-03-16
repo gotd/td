@@ -136,6 +136,14 @@ func (g *StatsGetMessageStatsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode stats.getMessageStats#b6e0a3f5 as nil")
 	}
 	b.PutID(StatsGetMessageStatsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *StatsGetMessageStatsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode stats.getMessageStats#b6e0a3f5 as nil")
+	}
 	if !(g.Dark == false) {
 		g.Flags.Set(0)
 	}
@@ -191,6 +199,14 @@ func (g *StatsGetMessageStatsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsGetMessageStatsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode stats.getMessageStats#b6e0a3f5: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *StatsGetMessageStatsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode stats.getMessageStats#b6e0a3f5 to nil")
+	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode stats.getMessageStats#b6e0a3f5: field flags: %w", err)
@@ -216,8 +232,10 @@ func (g *StatsGetMessageStatsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for StatsGetMessageStatsRequest.
 var (
-	_ bin.Encoder = &StatsGetMessageStatsRequest{}
-	_ bin.Decoder = &StatsGetMessageStatsRequest{}
+	_ bin.Encoder     = &StatsGetMessageStatsRequest{}
+	_ bin.Decoder     = &StatsGetMessageStatsRequest{}
+	_ bin.BareEncoder = &StatsGetMessageStatsRequest{}
+	_ bin.BareDecoder = &StatsGetMessageStatsRequest{}
 )
 
 // StatsGetMessageStats invokes method stats.getMessageStats#b6e0a3f5 returning error if any.

@@ -111,6 +111,14 @@ func (s *AccountSetContentSettingsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.setContentSettings#b574b16b as nil")
 	}
 	b.PutID(AccountSetContentSettingsRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *AccountSetContentSettingsRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode account.setContentSettings#b574b16b as nil")
+	}
 	if !(s.SensitiveEnabled == false) {
 		s.Flags.Set(0)
 	}
@@ -144,6 +152,14 @@ func (s *AccountSetContentSettingsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountSetContentSettingsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.setContentSettings#b574b16b: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *AccountSetContentSettingsRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode account.setContentSettings#b574b16b to nil")
+	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.setContentSettings#b574b16b: field flags: %w", err)
@@ -155,8 +171,10 @@ func (s *AccountSetContentSettingsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountSetContentSettingsRequest.
 var (
-	_ bin.Encoder = &AccountSetContentSettingsRequest{}
-	_ bin.Decoder = &AccountSetContentSettingsRequest{}
+	_ bin.Encoder     = &AccountSetContentSettingsRequest{}
+	_ bin.Decoder     = &AccountSetContentSettingsRequest{}
+	_ bin.BareEncoder = &AccountSetContentSettingsRequest{}
+	_ bin.BareDecoder = &AccountSetContentSettingsRequest{}
 )
 
 // AccountSetContentSettings invokes method account.setContentSettings#b574b16b returning error if any.

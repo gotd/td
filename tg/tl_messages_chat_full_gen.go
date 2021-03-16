@@ -124,6 +124,14 @@ func (c *MessagesChatFull) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.chatFull#e5d7d19c as nil")
 	}
 	b.PutID(MessagesChatFullTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *MessagesChatFull) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode messages.chatFull#e5d7d19c as nil")
+	}
 	if c.FullChat == nil {
 		return fmt.Errorf("unable to encode messages.chatFull#e5d7d19c: field full_chat is nil")
 	}
@@ -184,6 +192,14 @@ func (c *MessagesChatFull) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesChatFullTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.chatFull#e5d7d19c: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *MessagesChatFull) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode messages.chatFull#e5d7d19c to nil")
+	}
 	{
 		value, err := DecodeChatFull(b)
 		if err != nil {
@@ -222,6 +238,8 @@ func (c *MessagesChatFull) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesChatFull.
 var (
-	_ bin.Encoder = &MessagesChatFull{}
-	_ bin.Decoder = &MessagesChatFull{}
+	_ bin.Encoder     = &MessagesChatFull{}
+	_ bin.Decoder     = &MessagesChatFull{}
+	_ bin.BareEncoder = &MessagesChatFull{}
+	_ bin.BareDecoder = &MessagesChatFull{}
 )

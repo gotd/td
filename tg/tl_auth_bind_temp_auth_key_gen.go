@@ -148,6 +148,14 @@ func (b *AuthBindTempAuthKeyRequest) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.bindTempAuthKey#cdd42a05 as nil")
 	}
 	buf.PutID(AuthBindTempAuthKeyRequestTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *AuthBindTempAuthKeyRequest) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode auth.bindTempAuthKey#cdd42a05 as nil")
+	}
 	buf.PutLong(b.PermAuthKeyID)
 	buf.PutLong(b.Nonce)
 	buf.PutInt(b.ExpiresAt)
@@ -183,6 +191,14 @@ func (b *AuthBindTempAuthKeyRequest) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(AuthBindTempAuthKeyRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.bindTempAuthKey#cdd42a05: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *AuthBindTempAuthKeyRequest) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode auth.bindTempAuthKey#cdd42a05 to nil")
+	}
 	{
 		value, err := buf.Long()
 		if err != nil {
@@ -216,8 +232,10 @@ func (b *AuthBindTempAuthKeyRequest) Decode(buf *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AuthBindTempAuthKeyRequest.
 var (
-	_ bin.Encoder = &AuthBindTempAuthKeyRequest{}
-	_ bin.Decoder = &AuthBindTempAuthKeyRequest{}
+	_ bin.Encoder     = &AuthBindTempAuthKeyRequest{}
+	_ bin.Decoder     = &AuthBindTempAuthKeyRequest{}
+	_ bin.BareEncoder = &AuthBindTempAuthKeyRequest{}
+	_ bin.BareDecoder = &AuthBindTempAuthKeyRequest{}
 )
 
 // AuthBindTempAuthKey invokes method auth.bindTempAuthKey#cdd42a05 returning error if any.

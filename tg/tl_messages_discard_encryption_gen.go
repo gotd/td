@@ -119,6 +119,14 @@ func (d *MessagesDiscardEncryptionRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.discardEncryption#f393aea0 as nil")
 	}
 	b.PutID(MessagesDiscardEncryptionRequestTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *MessagesDiscardEncryptionRequest) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode messages.discardEncryption#f393aea0 as nil")
+	}
 	if !(d.DeleteHistory == false) {
 		d.Flags.Set(0)
 	}
@@ -158,6 +166,14 @@ func (d *MessagesDiscardEncryptionRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesDiscardEncryptionRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.discardEncryption#f393aea0: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *MessagesDiscardEncryptionRequest) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode messages.discardEncryption#f393aea0 to nil")
+	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.discardEncryption#f393aea0: field flags: %w", err)
@@ -176,8 +192,10 @@ func (d *MessagesDiscardEncryptionRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesDiscardEncryptionRequest.
 var (
-	_ bin.Encoder = &MessagesDiscardEncryptionRequest{}
-	_ bin.Decoder = &MessagesDiscardEncryptionRequest{}
+	_ bin.Encoder     = &MessagesDiscardEncryptionRequest{}
+	_ bin.Decoder     = &MessagesDiscardEncryptionRequest{}
+	_ bin.BareEncoder = &MessagesDiscardEncryptionRequest{}
+	_ bin.BareDecoder = &MessagesDiscardEncryptionRequest{}
 )
 
 // MessagesDiscardEncryption invokes method messages.discardEncryption#f393aea0 returning error if any.

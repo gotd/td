@@ -98,6 +98,15 @@ func (vec *FileHashVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't encode Vector<FileHash> as nil")
 	}
+
+	return vec.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (vec *FileHashVector) EncodeBare(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't encode Vector<FileHash> as nil")
+	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if err := v.Encode(b); err != nil {
@@ -114,6 +123,15 @@ func (vec *FileHashVector) GetElems() (value []FileHash) {
 
 // Decode implements bin.Decoder.
 func (vec *FileHashVector) Decode(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't decode Vector<FileHash> to nil")
+	}
+
+	return vec.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (vec *FileHashVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't decode Vector<FileHash> to nil")
 	}
@@ -135,6 +153,8 @@ func (vec *FileHashVector) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for FileHashVector.
 var (
-	_ bin.Encoder = &FileHashVector{}
-	_ bin.Decoder = &FileHashVector{}
+	_ bin.Encoder     = &FileHashVector{}
+	_ bin.Decoder     = &FileHashVector{}
+	_ bin.BareEncoder = &FileHashVector{}
+	_ bin.BareDecoder = &FileHashVector{}
 )

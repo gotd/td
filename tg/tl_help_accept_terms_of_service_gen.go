@@ -102,6 +102,14 @@ func (a *HelpAcceptTermsOfServiceRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.acceptTermsOfService#ee72f79a as nil")
 	}
 	b.PutID(HelpAcceptTermsOfServiceRequestTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *HelpAcceptTermsOfServiceRequest) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode help.acceptTermsOfService#ee72f79a as nil")
+	}
 	if err := a.ID.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode help.acceptTermsOfService#ee72f79a: field id: %w", err)
 	}
@@ -121,6 +129,14 @@ func (a *HelpAcceptTermsOfServiceRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpAcceptTermsOfServiceRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.acceptTermsOfService#ee72f79a: %w", err)
 	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *HelpAcceptTermsOfServiceRequest) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode help.acceptTermsOfService#ee72f79a to nil")
+	}
 	{
 		if err := a.ID.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode help.acceptTermsOfService#ee72f79a: field id: %w", err)
@@ -131,8 +147,10 @@ func (a *HelpAcceptTermsOfServiceRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for HelpAcceptTermsOfServiceRequest.
 var (
-	_ bin.Encoder = &HelpAcceptTermsOfServiceRequest{}
-	_ bin.Decoder = &HelpAcceptTermsOfServiceRequest{}
+	_ bin.Encoder     = &HelpAcceptTermsOfServiceRequest{}
+	_ bin.Decoder     = &HelpAcceptTermsOfServiceRequest{}
+	_ bin.BareEncoder = &HelpAcceptTermsOfServiceRequest{}
+	_ bin.BareDecoder = &HelpAcceptTermsOfServiceRequest{}
 )
 
 // HelpAcceptTermsOfService invokes method help.acceptTermsOfService#ee72f79a returning error if any.

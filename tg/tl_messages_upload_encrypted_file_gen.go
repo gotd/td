@@ -113,6 +113,14 @@ func (u *MessagesUploadEncryptedFileRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.uploadEncryptedFile#5057c497 as nil")
 	}
 	b.PutID(MessagesUploadEncryptedFileRequestTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *MessagesUploadEncryptedFileRequest) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode messages.uploadEncryptedFile#5057c497 as nil")
+	}
 	if err := u.Peer.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.uploadEncryptedFile#5057c497: field peer: %w", err)
 	}
@@ -148,6 +156,14 @@ func (u *MessagesUploadEncryptedFileRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesUploadEncryptedFileRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.uploadEncryptedFile#5057c497: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *MessagesUploadEncryptedFileRequest) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode messages.uploadEncryptedFile#5057c497 to nil")
+	}
 	{
 		if err := u.Peer.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.uploadEncryptedFile#5057c497: field peer: %w", err)
@@ -165,8 +181,10 @@ func (u *MessagesUploadEncryptedFileRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesUploadEncryptedFileRequest.
 var (
-	_ bin.Encoder = &MessagesUploadEncryptedFileRequest{}
-	_ bin.Decoder = &MessagesUploadEncryptedFileRequest{}
+	_ bin.Encoder     = &MessagesUploadEncryptedFileRequest{}
+	_ bin.Decoder     = &MessagesUploadEncryptedFileRequest{}
+	_ bin.BareEncoder = &MessagesUploadEncryptedFileRequest{}
+	_ bin.BareDecoder = &MessagesUploadEncryptedFileRequest{}
 )
 
 // MessagesUploadEncryptedFile invokes method messages.uploadEncryptedFile#5057c497 returning error if any.

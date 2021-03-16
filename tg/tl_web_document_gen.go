@@ -146,6 +146,14 @@ func (w *WebDocument) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode webDocument#1c570ed1 as nil")
 	}
 	b.PutID(WebDocumentTypeID)
+	return w.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (w *WebDocument) EncodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode webDocument#1c570ed1 as nil")
+	}
 	b.PutString(w.URL)
 	b.PutLong(w.AccessHash)
 	b.PutInt(w.Size)
@@ -200,6 +208,14 @@ func (w *WebDocument) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(WebDocumentTypeID); err != nil {
 		return fmt.Errorf("unable to decode webDocument#1c570ed1: %w", err)
 	}
+	return w.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (w *WebDocument) DecodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode webDocument#1c570ed1 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -249,8 +265,10 @@ func (w WebDocument) construct() WebDocumentClass { return &w }
 
 // Ensuring interfaces in compile-time for WebDocument.
 var (
-	_ bin.Encoder = &WebDocument{}
-	_ bin.Decoder = &WebDocument{}
+	_ bin.Encoder     = &WebDocument{}
+	_ bin.Decoder     = &WebDocument{}
+	_ bin.BareEncoder = &WebDocument{}
+	_ bin.BareDecoder = &WebDocument{}
 
 	_ WebDocumentClass = &WebDocument{}
 )
@@ -367,6 +385,14 @@ func (w *WebDocumentNoProxy) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode webDocumentNoProxy#f9c8bcc6 as nil")
 	}
 	b.PutID(WebDocumentNoProxyTypeID)
+	return w.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (w *WebDocumentNoProxy) EncodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode webDocumentNoProxy#f9c8bcc6 as nil")
+	}
 	b.PutString(w.URL)
 	b.PutInt(w.Size)
 	b.PutString(w.MimeType)
@@ -415,6 +441,14 @@ func (w *WebDocumentNoProxy) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(WebDocumentNoProxyTypeID); err != nil {
 		return fmt.Errorf("unable to decode webDocumentNoProxy#f9c8bcc6: %w", err)
 	}
+	return w.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (w *WebDocumentNoProxy) DecodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode webDocumentNoProxy#f9c8bcc6 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -457,8 +491,10 @@ func (w WebDocumentNoProxy) construct() WebDocumentClass { return &w }
 
 // Ensuring interfaces in compile-time for WebDocumentNoProxy.
 var (
-	_ bin.Encoder = &WebDocumentNoProxy{}
-	_ bin.Decoder = &WebDocumentNoProxy{}
+	_ bin.Encoder     = &WebDocumentNoProxy{}
+	_ bin.Decoder     = &WebDocumentNoProxy{}
+	_ bin.BareEncoder = &WebDocumentNoProxy{}
+	_ bin.BareDecoder = &WebDocumentNoProxy{}
 
 	_ WebDocumentClass = &WebDocumentNoProxy{}
 )
@@ -480,6 +516,8 @@ var (
 type WebDocumentClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() WebDocumentClass
 
 	// TypeID returns type id in TL schema.

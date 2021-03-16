@@ -102,6 +102,14 @@ func (c *MessagesChats) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.chats#64ff9fd5 as nil")
 	}
 	b.PutID(MessagesChatsTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *MessagesChats) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode messages.chats#64ff9fd5 as nil")
+	}
 	b.PutVectorHeader(len(c.Chats))
 	for idx, v := range c.Chats {
 		if v == nil {
@@ -132,6 +140,14 @@ func (c *MessagesChats) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesChatsTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.chats#64ff9fd5: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *MessagesChats) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode messages.chats#64ff9fd5 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -153,8 +169,10 @@ func (c MessagesChats) construct() MessagesChatsClass { return &c }
 
 // Ensuring interfaces in compile-time for MessagesChats.
 var (
-	_ bin.Encoder = &MessagesChats{}
-	_ bin.Decoder = &MessagesChats{}
+	_ bin.Encoder     = &MessagesChats{}
+	_ bin.Decoder     = &MessagesChats{}
+	_ bin.BareEncoder = &MessagesChats{}
+	_ bin.BareDecoder = &MessagesChats{}
 
 	_ MessagesChatsClass = &MessagesChats{}
 )
@@ -249,6 +267,14 @@ func (c *MessagesChatsSlice) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.chatsSlice#9cd81144 as nil")
 	}
 	b.PutID(MessagesChatsSliceTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *MessagesChatsSlice) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode messages.chatsSlice#9cd81144 as nil")
+	}
 	b.PutInt(c.Count)
 	b.PutVectorHeader(len(c.Chats))
 	for idx, v := range c.Chats {
@@ -285,6 +311,14 @@ func (c *MessagesChatsSlice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesChatsSliceTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.chatsSlice#9cd81144: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *MessagesChatsSlice) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode messages.chatsSlice#9cd81144 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -313,8 +347,10 @@ func (c MessagesChatsSlice) construct() MessagesChatsClass { return &c }
 
 // Ensuring interfaces in compile-time for MessagesChatsSlice.
 var (
-	_ bin.Encoder = &MessagesChatsSlice{}
-	_ bin.Decoder = &MessagesChatsSlice{}
+	_ bin.Encoder     = &MessagesChatsSlice{}
+	_ bin.Decoder     = &MessagesChatsSlice{}
+	_ bin.BareEncoder = &MessagesChatsSlice{}
+	_ bin.BareDecoder = &MessagesChatsSlice{}
 
 	_ MessagesChatsClass = &MessagesChatsSlice{}
 )
@@ -336,6 +372,8 @@ var (
 type MessagesChatsClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() MessagesChatsClass
 
 	// TypeID returns type id in TL schema.

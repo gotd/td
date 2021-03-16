@@ -143,6 +143,14 @@ func (s *SecureValueErrorData) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureValueErrorData#e8a40bd9 as nil")
 	}
 	b.PutID(SecureValueErrorDataTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureValueErrorData) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureValueErrorData#e8a40bd9 as nil")
+	}
 	if s.Type == nil {
 		return fmt.Errorf("unable to encode secureValueErrorData#e8a40bd9: field type is nil")
 	}
@@ -183,6 +191,14 @@ func (s *SecureValueErrorData) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueErrorDataTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueErrorData#e8a40bd9: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureValueErrorData) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureValueErrorData#e8a40bd9 to nil")
+	}
 	{
 		value, err := DecodeSecureValueType(b)
 		if err != nil {
@@ -219,8 +235,10 @@ func (s SecureValueErrorData) construct() SecureValueErrorClass { return &s }
 
 // Ensuring interfaces in compile-time for SecureValueErrorData.
 var (
-	_ bin.Encoder = &SecureValueErrorData{}
-	_ bin.Decoder = &SecureValueErrorData{}
+	_ bin.Encoder     = &SecureValueErrorData{}
+	_ bin.Decoder     = &SecureValueErrorData{}
+	_ bin.BareEncoder = &SecureValueErrorData{}
+	_ bin.BareDecoder = &SecureValueErrorData{}
 
 	_ SecureValueErrorClass = &SecureValueErrorData{}
 )
@@ -329,6 +347,14 @@ func (s *SecureValueErrorFrontSide) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureValueErrorFrontSide#be3dfa as nil")
 	}
 	b.PutID(SecureValueErrorFrontSideTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureValueErrorFrontSide) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureValueErrorFrontSide#be3dfa as nil")
+	}
 	if s.Type == nil {
 		return fmt.Errorf("unable to encode secureValueErrorFrontSide#be3dfa: field type is nil")
 	}
@@ -363,6 +389,14 @@ func (s *SecureValueErrorFrontSide) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueErrorFrontSideTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueErrorFrontSide#be3dfa: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureValueErrorFrontSide) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureValueErrorFrontSide#be3dfa to nil")
+	}
 	{
 		value, err := DecodeSecureValueType(b)
 		if err != nil {
@@ -392,8 +426,10 @@ func (s SecureValueErrorFrontSide) construct() SecureValueErrorClass { return &s
 
 // Ensuring interfaces in compile-time for SecureValueErrorFrontSide.
 var (
-	_ bin.Encoder = &SecureValueErrorFrontSide{}
-	_ bin.Decoder = &SecureValueErrorFrontSide{}
+	_ bin.Encoder     = &SecureValueErrorFrontSide{}
+	_ bin.Decoder     = &SecureValueErrorFrontSide{}
+	_ bin.BareEncoder = &SecureValueErrorFrontSide{}
+	_ bin.BareDecoder = &SecureValueErrorFrontSide{}
 
 	_ SecureValueErrorClass = &SecureValueErrorFrontSide{}
 )
@@ -500,6 +536,14 @@ func (s *SecureValueErrorReverseSide) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureValueErrorReverseSide#868a2aa5 as nil")
 	}
 	b.PutID(SecureValueErrorReverseSideTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureValueErrorReverseSide) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureValueErrorReverseSide#868a2aa5 as nil")
+	}
 	if s.Type == nil {
 		return fmt.Errorf("unable to encode secureValueErrorReverseSide#868a2aa5: field type is nil")
 	}
@@ -534,6 +578,14 @@ func (s *SecureValueErrorReverseSide) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueErrorReverseSideTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueErrorReverseSide#868a2aa5: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureValueErrorReverseSide) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureValueErrorReverseSide#868a2aa5 to nil")
+	}
 	{
 		value, err := DecodeSecureValueType(b)
 		if err != nil {
@@ -563,8 +615,10 @@ func (s SecureValueErrorReverseSide) construct() SecureValueErrorClass { return 
 
 // Ensuring interfaces in compile-time for SecureValueErrorReverseSide.
 var (
-	_ bin.Encoder = &SecureValueErrorReverseSide{}
-	_ bin.Decoder = &SecureValueErrorReverseSide{}
+	_ bin.Encoder     = &SecureValueErrorReverseSide{}
+	_ bin.Decoder     = &SecureValueErrorReverseSide{}
+	_ bin.BareEncoder = &SecureValueErrorReverseSide{}
+	_ bin.BareDecoder = &SecureValueErrorReverseSide{}
 
 	_ SecureValueErrorClass = &SecureValueErrorReverseSide{}
 )
@@ -673,6 +727,14 @@ func (s *SecureValueErrorSelfie) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureValueErrorSelfie#e537ced6 as nil")
 	}
 	b.PutID(SecureValueErrorSelfieTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureValueErrorSelfie) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureValueErrorSelfie#e537ced6 as nil")
+	}
 	if s.Type == nil {
 		return fmt.Errorf("unable to encode secureValueErrorSelfie#e537ced6: field type is nil")
 	}
@@ -707,6 +769,14 @@ func (s *SecureValueErrorSelfie) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueErrorSelfieTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueErrorSelfie#e537ced6: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureValueErrorSelfie) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureValueErrorSelfie#e537ced6 to nil")
+	}
 	{
 		value, err := DecodeSecureValueType(b)
 		if err != nil {
@@ -736,8 +806,10 @@ func (s SecureValueErrorSelfie) construct() SecureValueErrorClass { return &s }
 
 // Ensuring interfaces in compile-time for SecureValueErrorSelfie.
 var (
-	_ bin.Encoder = &SecureValueErrorSelfie{}
-	_ bin.Decoder = &SecureValueErrorSelfie{}
+	_ bin.Encoder     = &SecureValueErrorSelfie{}
+	_ bin.Decoder     = &SecureValueErrorSelfie{}
+	_ bin.BareEncoder = &SecureValueErrorSelfie{}
+	_ bin.BareDecoder = &SecureValueErrorSelfie{}
 
 	_ SecureValueErrorClass = &SecureValueErrorSelfie{}
 )
@@ -847,6 +919,14 @@ func (s *SecureValueErrorFile) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureValueErrorFile#7a700873 as nil")
 	}
 	b.PutID(SecureValueErrorFileTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureValueErrorFile) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureValueErrorFile#7a700873 as nil")
+	}
 	if s.Type == nil {
 		return fmt.Errorf("unable to encode secureValueErrorFile#7a700873: field type is nil")
 	}
@@ -881,6 +961,14 @@ func (s *SecureValueErrorFile) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueErrorFileTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueErrorFile#7a700873: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureValueErrorFile) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureValueErrorFile#7a700873 to nil")
+	}
 	{
 		value, err := DecodeSecureValueType(b)
 		if err != nil {
@@ -910,8 +998,10 @@ func (s SecureValueErrorFile) construct() SecureValueErrorClass { return &s }
 
 // Ensuring interfaces in compile-time for SecureValueErrorFile.
 var (
-	_ bin.Encoder = &SecureValueErrorFile{}
-	_ bin.Decoder = &SecureValueErrorFile{}
+	_ bin.Encoder     = &SecureValueErrorFile{}
+	_ bin.Decoder     = &SecureValueErrorFile{}
+	_ bin.BareEncoder = &SecureValueErrorFile{}
+	_ bin.BareDecoder = &SecureValueErrorFile{}
 
 	_ SecureValueErrorClass = &SecureValueErrorFile{}
 )
@@ -1021,6 +1111,14 @@ func (s *SecureValueErrorFiles) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureValueErrorFiles#666220e9 as nil")
 	}
 	b.PutID(SecureValueErrorFilesTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureValueErrorFiles) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureValueErrorFiles#666220e9 as nil")
+	}
 	if s.Type == nil {
 		return fmt.Errorf("unable to encode secureValueErrorFiles#666220e9: field type is nil")
 	}
@@ -1058,6 +1156,14 @@ func (s *SecureValueErrorFiles) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueErrorFilesTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueErrorFiles#666220e9: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureValueErrorFiles) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureValueErrorFiles#666220e9 to nil")
+	}
 	{
 		value, err := DecodeSecureValueType(b)
 		if err != nil {
@@ -1093,8 +1199,10 @@ func (s SecureValueErrorFiles) construct() SecureValueErrorClass { return &s }
 
 // Ensuring interfaces in compile-time for SecureValueErrorFiles.
 var (
-	_ bin.Encoder = &SecureValueErrorFiles{}
-	_ bin.Decoder = &SecureValueErrorFiles{}
+	_ bin.Encoder     = &SecureValueErrorFiles{}
+	_ bin.Decoder     = &SecureValueErrorFiles{}
+	_ bin.BareEncoder = &SecureValueErrorFiles{}
+	_ bin.BareDecoder = &SecureValueErrorFiles{}
 
 	_ SecureValueErrorClass = &SecureValueErrorFiles{}
 )
@@ -1197,6 +1305,14 @@ func (s *SecureValueError) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureValueError#869d758f as nil")
 	}
 	b.PutID(SecureValueErrorTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureValueError) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureValueError#869d758f as nil")
+	}
 	if s.Type == nil {
 		return fmt.Errorf("unable to encode secureValueError#869d758f: field type is nil")
 	}
@@ -1231,6 +1347,14 @@ func (s *SecureValueError) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueErrorTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueError#869d758f: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureValueError) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureValueError#869d758f to nil")
+	}
 	{
 		value, err := DecodeSecureValueType(b)
 		if err != nil {
@@ -1260,8 +1384,10 @@ func (s SecureValueError) construct() SecureValueErrorClass { return &s }
 
 // Ensuring interfaces in compile-time for SecureValueError.
 var (
-	_ bin.Encoder = &SecureValueError{}
-	_ bin.Decoder = &SecureValueError{}
+	_ bin.Encoder     = &SecureValueError{}
+	_ bin.Decoder     = &SecureValueError{}
+	_ bin.BareEncoder = &SecureValueError{}
+	_ bin.BareDecoder = &SecureValueError{}
 
 	_ SecureValueErrorClass = &SecureValueError{}
 )
@@ -1376,6 +1502,14 @@ func (s *SecureValueErrorTranslationFile) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureValueErrorTranslationFile#a1144770 as nil")
 	}
 	b.PutID(SecureValueErrorTranslationFileTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureValueErrorTranslationFile) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureValueErrorTranslationFile#a1144770 as nil")
+	}
 	if s.Type == nil {
 		return fmt.Errorf("unable to encode secureValueErrorTranslationFile#a1144770: field type is nil")
 	}
@@ -1410,6 +1544,14 @@ func (s *SecureValueErrorTranslationFile) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueErrorTranslationFileTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueErrorTranslationFile#a1144770: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureValueErrorTranslationFile) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureValueErrorTranslationFile#a1144770 to nil")
+	}
 	{
 		value, err := DecodeSecureValueType(b)
 		if err != nil {
@@ -1439,8 +1581,10 @@ func (s SecureValueErrorTranslationFile) construct() SecureValueErrorClass { ret
 
 // Ensuring interfaces in compile-time for SecureValueErrorTranslationFile.
 var (
-	_ bin.Encoder = &SecureValueErrorTranslationFile{}
-	_ bin.Decoder = &SecureValueErrorTranslationFile{}
+	_ bin.Encoder     = &SecureValueErrorTranslationFile{}
+	_ bin.Decoder     = &SecureValueErrorTranslationFile{}
+	_ bin.BareEncoder = &SecureValueErrorTranslationFile{}
+	_ bin.BareDecoder = &SecureValueErrorTranslationFile{}
 
 	_ SecureValueErrorClass = &SecureValueErrorTranslationFile{}
 )
@@ -1555,6 +1699,14 @@ func (s *SecureValueErrorTranslationFiles) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureValueErrorTranslationFiles#34636dd8 as nil")
 	}
 	b.PutID(SecureValueErrorTranslationFilesTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureValueErrorTranslationFiles) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureValueErrorTranslationFiles#34636dd8 as nil")
+	}
 	if s.Type == nil {
 		return fmt.Errorf("unable to encode secureValueErrorTranslationFiles#34636dd8: field type is nil")
 	}
@@ -1592,6 +1744,14 @@ func (s *SecureValueErrorTranslationFiles) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueErrorTranslationFilesTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueErrorTranslationFiles#34636dd8: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureValueErrorTranslationFiles) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureValueErrorTranslationFiles#34636dd8 to nil")
+	}
 	{
 		value, err := DecodeSecureValueType(b)
 		if err != nil {
@@ -1627,8 +1787,10 @@ func (s SecureValueErrorTranslationFiles) construct() SecureValueErrorClass { re
 
 // Ensuring interfaces in compile-time for SecureValueErrorTranslationFiles.
 var (
-	_ bin.Encoder = &SecureValueErrorTranslationFiles{}
-	_ bin.Decoder = &SecureValueErrorTranslationFiles{}
+	_ bin.Encoder     = &SecureValueErrorTranslationFiles{}
+	_ bin.Decoder     = &SecureValueErrorTranslationFiles{}
+	_ bin.BareEncoder = &SecureValueErrorTranslationFiles{}
+	_ bin.BareDecoder = &SecureValueErrorTranslationFiles{}
 
 	_ SecureValueErrorClass = &SecureValueErrorTranslationFiles{}
 )
@@ -1657,6 +1819,8 @@ var (
 type SecureValueErrorClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() SecureValueErrorClass
 
 	// TypeID returns type id in TL schema.

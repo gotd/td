@@ -122,6 +122,14 @@ func (d *MessagesDeleteMessagesRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.deleteMessages#e58e95d2 as nil")
 	}
 	b.PutID(MessagesDeleteMessagesRequestTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *MessagesDeleteMessagesRequest) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode messages.deleteMessages#e58e95d2 as nil")
+	}
 	if !(d.Revoke == false) {
 		d.Flags.Set(0)
 	}
@@ -164,6 +172,14 @@ func (d *MessagesDeleteMessagesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesDeleteMessagesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.deleteMessages#e58e95d2: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *MessagesDeleteMessagesRequest) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode messages.deleteMessages#e58e95d2 to nil")
+	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.deleteMessages#e58e95d2: field flags: %w", err)
@@ -188,8 +204,10 @@ func (d *MessagesDeleteMessagesRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesDeleteMessagesRequest.
 var (
-	_ bin.Encoder = &MessagesDeleteMessagesRequest{}
-	_ bin.Decoder = &MessagesDeleteMessagesRequest{}
+	_ bin.Encoder     = &MessagesDeleteMessagesRequest{}
+	_ bin.Decoder     = &MessagesDeleteMessagesRequest{}
+	_ bin.BareEncoder = &MessagesDeleteMessagesRequest{}
+	_ bin.BareDecoder = &MessagesDeleteMessagesRequest{}
 )
 
 // MessagesDeleteMessages invokes method messages.deleteMessages#e58e95d2 returning error if any.

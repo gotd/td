@@ -164,6 +164,14 @@ func (t *HelpTermsOfService) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.termsOfService#780a0310 as nil")
 	}
 	b.PutID(HelpTermsOfServiceTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *HelpTermsOfService) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode help.termsOfService#780a0310 as nil")
+	}
 	if !(t.Popup == false) {
 		t.Flags.Set(0)
 	}
@@ -251,6 +259,14 @@ func (t *HelpTermsOfService) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpTermsOfServiceTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.termsOfService#780a0310: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *HelpTermsOfService) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode help.termsOfService#780a0310 to nil")
+	}
 	{
 		if err := t.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode help.termsOfService#780a0310: field flags: %w", err)
@@ -294,6 +310,8 @@ func (t *HelpTermsOfService) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for HelpTermsOfService.
 var (
-	_ bin.Encoder = &HelpTermsOfService{}
-	_ bin.Decoder = &HelpTermsOfService{}
+	_ bin.Encoder     = &HelpTermsOfService{}
+	_ bin.Decoder     = &HelpTermsOfService{}
+	_ bin.BareEncoder = &HelpTermsOfService{}
+	_ bin.BareDecoder = &HelpTermsOfService{}
 )

@@ -212,6 +212,14 @@ func (t *Theme) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode theme#28f1114 as nil")
 	}
 	b.PutID(ThemeTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *Theme) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode theme#28f1114 as nil")
+	}
 	if !(t.Creator == false) {
 		t.Flags.Set(0)
 	}
@@ -352,6 +360,14 @@ func (t *Theme) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ThemeTypeID); err != nil {
 		return fmt.Errorf("unable to decode theme#28f1114: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *Theme) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode theme#28f1114 to nil")
+	}
 	{
 		if err := t.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode theme#28f1114: field flags: %w", err)
@@ -411,6 +427,8 @@ func (t *Theme) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for Theme.
 var (
-	_ bin.Encoder = &Theme{}
-	_ bin.Decoder = &Theme{}
+	_ bin.Encoder     = &Theme{}
+	_ bin.Decoder     = &Theme{}
+	_ bin.BareEncoder = &Theme{}
+	_ bin.BareDecoder = &Theme{}
 )

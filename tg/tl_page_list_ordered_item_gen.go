@@ -113,6 +113,14 @@ func (p *PageListOrderedItemText) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageListOrderedItemText#5e068047 as nil")
 	}
 	b.PutID(PageListOrderedItemTextTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageListOrderedItemText) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageListOrderedItemText#5e068047 as nil")
+	}
 	b.PutString(p.Num)
 	if p.Text == nil {
 		return fmt.Errorf("unable to encode pageListOrderedItemText#5e068047: field text is nil")
@@ -141,6 +149,14 @@ func (p *PageListOrderedItemText) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageListOrderedItemTextTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageListOrderedItemText#5e068047: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageListOrderedItemText) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageListOrderedItemText#5e068047 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -163,8 +179,10 @@ func (p PageListOrderedItemText) construct() PageListOrderedItemClass { return &
 
 // Ensuring interfaces in compile-time for PageListOrderedItemText.
 var (
-	_ bin.Encoder = &PageListOrderedItemText{}
-	_ bin.Decoder = &PageListOrderedItemText{}
+	_ bin.Encoder     = &PageListOrderedItemText{}
+	_ bin.Decoder     = &PageListOrderedItemText{}
+	_ bin.BareEncoder = &PageListOrderedItemText{}
+	_ bin.BareDecoder = &PageListOrderedItemText{}
 
 	_ PageListOrderedItemClass = &PageListOrderedItemText{}
 )
@@ -259,6 +277,14 @@ func (p *PageListOrderedItemBlocks) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageListOrderedItemBlocks#98dd8936 as nil")
 	}
 	b.PutID(PageListOrderedItemBlocksTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageListOrderedItemBlocks) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageListOrderedItemBlocks#98dd8936 as nil")
+	}
 	b.PutString(p.Num)
 	b.PutVectorHeader(len(p.Blocks))
 	for idx, v := range p.Blocks {
@@ -295,6 +321,14 @@ func (p *PageListOrderedItemBlocks) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageListOrderedItemBlocksTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageListOrderedItemBlocks#98dd8936: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageListOrderedItemBlocks) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageListOrderedItemBlocks#98dd8936 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -323,8 +357,10 @@ func (p PageListOrderedItemBlocks) construct() PageListOrderedItemClass { return
 
 // Ensuring interfaces in compile-time for PageListOrderedItemBlocks.
 var (
-	_ bin.Encoder = &PageListOrderedItemBlocks{}
-	_ bin.Decoder = &PageListOrderedItemBlocks{}
+	_ bin.Encoder     = &PageListOrderedItemBlocks{}
+	_ bin.Decoder     = &PageListOrderedItemBlocks{}
+	_ bin.BareEncoder = &PageListOrderedItemBlocks{}
+	_ bin.BareDecoder = &PageListOrderedItemBlocks{}
 
 	_ PageListOrderedItemClass = &PageListOrderedItemBlocks{}
 )
@@ -346,6 +382,8 @@ var (
 type PageListOrderedItemClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() PageListOrderedItemClass
 
 	// TypeID returns type id in TL schema.

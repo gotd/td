@@ -113,6 +113,14 @@ func (s *ContactsSearchRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode contacts.search#11f812d8 as nil")
 	}
 	b.PutID(ContactsSearchRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *ContactsSearchRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode contacts.search#11f812d8 as nil")
+	}
 	b.PutString(s.Q)
 	b.PutInt(s.Limit)
 	return nil
@@ -136,6 +144,14 @@ func (s *ContactsSearchRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsSearchRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.search#11f812d8: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *ContactsSearchRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode contacts.search#11f812d8 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -155,8 +171,10 @@ func (s *ContactsSearchRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ContactsSearchRequest.
 var (
-	_ bin.Encoder = &ContactsSearchRequest{}
-	_ bin.Decoder = &ContactsSearchRequest{}
+	_ bin.Encoder     = &ContactsSearchRequest{}
+	_ bin.Decoder     = &ContactsSearchRequest{}
+	_ bin.BareEncoder = &ContactsSearchRequest{}
+	_ bin.BareDecoder = &ContactsSearchRequest{}
 )
 
 // ContactsSearch invokes method contacts.search#11f812d8 returning error if any.

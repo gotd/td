@@ -197,6 +197,14 @@ func (s *MessagesSendMultiMediaRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.sendMultiMedia#cc0110cb as nil")
 	}
 	b.PutID(MessagesSendMultiMediaRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesSendMultiMediaRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.sendMultiMedia#cc0110cb as nil")
+	}
 	if !(s.Silent == false) {
 		s.Flags.Set(5)
 	}
@@ -332,6 +340,14 @@ func (s *MessagesSendMultiMediaRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSendMultiMediaRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.sendMultiMedia#cc0110cb: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSendMultiMediaRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.sendMultiMedia#cc0110cb to nil")
+	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.sendMultiMedia#cc0110cb: field flags: %w", err)
@@ -379,8 +395,10 @@ func (s *MessagesSendMultiMediaRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesSendMultiMediaRequest.
 var (
-	_ bin.Encoder = &MessagesSendMultiMediaRequest{}
-	_ bin.Decoder = &MessagesSendMultiMediaRequest{}
+	_ bin.Encoder     = &MessagesSendMultiMediaRequest{}
+	_ bin.Decoder     = &MessagesSendMultiMediaRequest{}
+	_ bin.BareEncoder = &MessagesSendMultiMediaRequest{}
+	_ bin.BareDecoder = &MessagesSendMultiMediaRequest{}
 )
 
 // MessagesSendMultiMedia invokes method messages.sendMultiMedia#cc0110cb returning error if any.

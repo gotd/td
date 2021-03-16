@@ -101,6 +101,14 @@ func (t *TestString) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode testString#fe56688c as nil")
 	}
 	b.PutID(TestStringTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TestString) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode testString#fe56688c as nil")
+	}
 	b.PutString(t.Value)
 	return nil
 }
@@ -118,6 +126,14 @@ func (t *TestString) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TestStringTypeID); err != nil {
 		return fmt.Errorf("unable to decode testString#fe56688c: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TestString) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode testString#fe56688c to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -130,6 +146,8 @@ func (t *TestString) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for TestString.
 var (
-	_ bin.Encoder = &TestString{}
-	_ bin.Decoder = &TestString{}
+	_ bin.Encoder     = &TestString{}
+	_ bin.Decoder     = &TestString{}
+	_ bin.BareEncoder = &TestString{}
+	_ bin.BareDecoder = &TestString{}
 )

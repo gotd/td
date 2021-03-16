@@ -145,6 +145,14 @@ func (g *MessagesGetChatInviteImportersRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getChatInviteImporters#26fb7289 as nil")
 	}
 	b.PutID(MessagesGetChatInviteImportersRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetChatInviteImportersRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getChatInviteImporters#26fb7289 as nil")
+	}
 	if g.Peer == nil {
 		return fmt.Errorf("unable to encode messages.getChatInviteImporters#26fb7289: field peer is nil")
 	}
@@ -196,6 +204,14 @@ func (g *MessagesGetChatInviteImportersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetChatInviteImportersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getChatInviteImporters#26fb7289: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetChatInviteImportersRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getChatInviteImporters#26fb7289 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -236,8 +252,10 @@ func (g *MessagesGetChatInviteImportersRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetChatInviteImportersRequest.
 var (
-	_ bin.Encoder = &MessagesGetChatInviteImportersRequest{}
-	_ bin.Decoder = &MessagesGetChatInviteImportersRequest{}
+	_ bin.Encoder     = &MessagesGetChatInviteImportersRequest{}
+	_ bin.Decoder     = &MessagesGetChatInviteImportersRequest{}
+	_ bin.BareEncoder = &MessagesGetChatInviteImportersRequest{}
+	_ bin.BareDecoder = &MessagesGetChatInviteImportersRequest{}
 )
 
 // MessagesGetChatInviteImporters invokes method messages.getChatInviteImporters#26fb7289 returning error if any.

@@ -113,6 +113,14 @@ func (a *StickersAddStickerToSetRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode stickers.addStickerToSet#8653febe as nil")
 	}
 	b.PutID(StickersAddStickerToSetRequestTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *StickersAddStickerToSetRequest) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode stickers.addStickerToSet#8653febe as nil")
+	}
 	if a.Stickerset == nil {
 		return fmt.Errorf("unable to encode stickers.addStickerToSet#8653febe: field stickerset is nil")
 	}
@@ -143,6 +151,14 @@ func (a *StickersAddStickerToSetRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StickersAddStickerToSetRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode stickers.addStickerToSet#8653febe: %w", err)
 	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *StickersAddStickerToSetRequest) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode stickers.addStickerToSet#8653febe to nil")
+	}
 	{
 		value, err := DecodeInputStickerSet(b)
 		if err != nil {
@@ -160,8 +176,10 @@ func (a *StickersAddStickerToSetRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for StickersAddStickerToSetRequest.
 var (
-	_ bin.Encoder = &StickersAddStickerToSetRequest{}
-	_ bin.Decoder = &StickersAddStickerToSetRequest{}
+	_ bin.Encoder     = &StickersAddStickerToSetRequest{}
+	_ bin.Decoder     = &StickersAddStickerToSetRequest{}
+	_ bin.BareEncoder = &StickersAddStickerToSetRequest{}
+	_ bin.BareDecoder = &StickersAddStickerToSetRequest{}
 )
 
 // StickersAddStickerToSet invokes method stickers.addStickerToSet#8653febe returning error if any.

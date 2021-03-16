@@ -113,6 +113,14 @@ func (s *MessagesSaveGifRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.saveGif#327a30cb as nil")
 	}
 	b.PutID(MessagesSaveGifRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesSaveGifRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.saveGif#327a30cb as nil")
+	}
 	if s.ID == nil {
 		return fmt.Errorf("unable to encode messages.saveGif#327a30cb: field id is nil")
 	}
@@ -146,6 +154,14 @@ func (s *MessagesSaveGifRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSaveGifRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.saveGif#327a30cb: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSaveGifRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.saveGif#327a30cb to nil")
+	}
 	{
 		value, err := DecodeInputDocument(b)
 		if err != nil {
@@ -165,8 +181,10 @@ func (s *MessagesSaveGifRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesSaveGifRequest.
 var (
-	_ bin.Encoder = &MessagesSaveGifRequest{}
-	_ bin.Decoder = &MessagesSaveGifRequest{}
+	_ bin.Encoder     = &MessagesSaveGifRequest{}
+	_ bin.Decoder     = &MessagesSaveGifRequest{}
+	_ bin.BareEncoder = &MessagesSaveGifRequest{}
+	_ bin.BareDecoder = &MessagesSaveGifRequest{}
 )
 
 // MessagesSaveGif invokes method messages.saveGif#327a30cb returning error if any.

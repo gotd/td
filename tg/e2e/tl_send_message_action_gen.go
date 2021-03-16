@@ -85,6 +85,14 @@ func (s *SendMessageTypingAction) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode sendMessageTypingAction#16bf744e as nil")
 	}
 	b.PutID(SendMessageTypingActionTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SendMessageTypingAction) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendMessageTypingAction#16bf744e as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (s *SendMessageTypingAction) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMessageTypingActionTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMessageTypingAction#16bf744e: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SendMessageTypingAction) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendMessageTypingAction#16bf744e to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (s SendMessageTypingAction) construct() SendMessageActionClass { return &s 
 
 // Ensuring interfaces in compile-time for SendMessageTypingAction.
 var (
-	_ bin.Encoder = &SendMessageTypingAction{}
-	_ bin.Decoder = &SendMessageTypingAction{}
+	_ bin.Encoder     = &SendMessageTypingAction{}
+	_ bin.Decoder     = &SendMessageTypingAction{}
+	_ bin.BareEncoder = &SendMessageTypingAction{}
+	_ bin.BareDecoder = &SendMessageTypingAction{}
 
 	_ SendMessageActionClass = &SendMessageTypingAction{}
 )
@@ -169,6 +187,14 @@ func (s *SendMessageCancelAction) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode sendMessageCancelAction#fd5ec8f5 as nil")
 	}
 	b.PutID(SendMessageCancelActionTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SendMessageCancelAction) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendMessageCancelAction#fd5ec8f5 as nil")
+	}
 	return nil
 }
 
@@ -180,6 +206,14 @@ func (s *SendMessageCancelAction) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMessageCancelActionTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMessageCancelAction#fd5ec8f5: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SendMessageCancelAction) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendMessageCancelAction#fd5ec8f5 to nil")
+	}
 	return nil
 }
 
@@ -188,8 +222,10 @@ func (s SendMessageCancelAction) construct() SendMessageActionClass { return &s 
 
 // Ensuring interfaces in compile-time for SendMessageCancelAction.
 var (
-	_ bin.Encoder = &SendMessageCancelAction{}
-	_ bin.Decoder = &SendMessageCancelAction{}
+	_ bin.Encoder     = &SendMessageCancelAction{}
+	_ bin.Decoder     = &SendMessageCancelAction{}
+	_ bin.BareEncoder = &SendMessageCancelAction{}
+	_ bin.BareDecoder = &SendMessageCancelAction{}
 
 	_ SendMessageActionClass = &SendMessageCancelAction{}
 )
@@ -253,6 +289,14 @@ func (s *SendMessageRecordVideoAction) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode sendMessageRecordVideoAction#a187d66f as nil")
 	}
 	b.PutID(SendMessageRecordVideoActionTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SendMessageRecordVideoAction) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendMessageRecordVideoAction#a187d66f as nil")
+	}
 	return nil
 }
 
@@ -264,6 +308,14 @@ func (s *SendMessageRecordVideoAction) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMessageRecordVideoActionTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMessageRecordVideoAction#a187d66f: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SendMessageRecordVideoAction) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendMessageRecordVideoAction#a187d66f to nil")
+	}
 	return nil
 }
 
@@ -272,8 +324,10 @@ func (s SendMessageRecordVideoAction) construct() SendMessageActionClass { retur
 
 // Ensuring interfaces in compile-time for SendMessageRecordVideoAction.
 var (
-	_ bin.Encoder = &SendMessageRecordVideoAction{}
-	_ bin.Decoder = &SendMessageRecordVideoAction{}
+	_ bin.Encoder     = &SendMessageRecordVideoAction{}
+	_ bin.Decoder     = &SendMessageRecordVideoAction{}
+	_ bin.BareEncoder = &SendMessageRecordVideoAction{}
+	_ bin.BareDecoder = &SendMessageRecordVideoAction{}
 
 	_ SendMessageActionClass = &SendMessageRecordVideoAction{}
 )
@@ -337,6 +391,14 @@ func (s *SendMessageUploadVideoAction) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode sendMessageUploadVideoAction#92042ff7 as nil")
 	}
 	b.PutID(SendMessageUploadVideoActionTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SendMessageUploadVideoAction) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendMessageUploadVideoAction#92042ff7 as nil")
+	}
 	return nil
 }
 
@@ -348,6 +410,14 @@ func (s *SendMessageUploadVideoAction) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMessageUploadVideoActionTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMessageUploadVideoAction#92042ff7: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SendMessageUploadVideoAction) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendMessageUploadVideoAction#92042ff7 to nil")
+	}
 	return nil
 }
 
@@ -356,8 +426,10 @@ func (s SendMessageUploadVideoAction) construct() SendMessageActionClass { retur
 
 // Ensuring interfaces in compile-time for SendMessageUploadVideoAction.
 var (
-	_ bin.Encoder = &SendMessageUploadVideoAction{}
-	_ bin.Decoder = &SendMessageUploadVideoAction{}
+	_ bin.Encoder     = &SendMessageUploadVideoAction{}
+	_ bin.Decoder     = &SendMessageUploadVideoAction{}
+	_ bin.BareEncoder = &SendMessageUploadVideoAction{}
+	_ bin.BareDecoder = &SendMessageUploadVideoAction{}
 
 	_ SendMessageActionClass = &SendMessageUploadVideoAction{}
 )
@@ -421,6 +493,14 @@ func (s *SendMessageRecordAudioAction) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode sendMessageRecordAudioAction#d52f73f7 as nil")
 	}
 	b.PutID(SendMessageRecordAudioActionTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SendMessageRecordAudioAction) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendMessageRecordAudioAction#d52f73f7 as nil")
+	}
 	return nil
 }
 
@@ -432,6 +512,14 @@ func (s *SendMessageRecordAudioAction) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMessageRecordAudioActionTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMessageRecordAudioAction#d52f73f7: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SendMessageRecordAudioAction) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendMessageRecordAudioAction#d52f73f7 to nil")
+	}
 	return nil
 }
 
@@ -440,8 +528,10 @@ func (s SendMessageRecordAudioAction) construct() SendMessageActionClass { retur
 
 // Ensuring interfaces in compile-time for SendMessageRecordAudioAction.
 var (
-	_ bin.Encoder = &SendMessageRecordAudioAction{}
-	_ bin.Decoder = &SendMessageRecordAudioAction{}
+	_ bin.Encoder     = &SendMessageRecordAudioAction{}
+	_ bin.Decoder     = &SendMessageRecordAudioAction{}
+	_ bin.BareEncoder = &SendMessageRecordAudioAction{}
+	_ bin.BareDecoder = &SendMessageRecordAudioAction{}
 
 	_ SendMessageActionClass = &SendMessageRecordAudioAction{}
 )
@@ -505,6 +595,14 @@ func (s *SendMessageUploadAudioAction) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode sendMessageUploadAudioAction#e6ac8a6f as nil")
 	}
 	b.PutID(SendMessageUploadAudioActionTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SendMessageUploadAudioAction) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendMessageUploadAudioAction#e6ac8a6f as nil")
+	}
 	return nil
 }
 
@@ -516,6 +614,14 @@ func (s *SendMessageUploadAudioAction) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMessageUploadAudioActionTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMessageUploadAudioAction#e6ac8a6f: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SendMessageUploadAudioAction) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendMessageUploadAudioAction#e6ac8a6f to nil")
+	}
 	return nil
 }
 
@@ -524,8 +630,10 @@ func (s SendMessageUploadAudioAction) construct() SendMessageActionClass { retur
 
 // Ensuring interfaces in compile-time for SendMessageUploadAudioAction.
 var (
-	_ bin.Encoder = &SendMessageUploadAudioAction{}
-	_ bin.Decoder = &SendMessageUploadAudioAction{}
+	_ bin.Encoder     = &SendMessageUploadAudioAction{}
+	_ bin.Decoder     = &SendMessageUploadAudioAction{}
+	_ bin.BareEncoder = &SendMessageUploadAudioAction{}
+	_ bin.BareDecoder = &SendMessageUploadAudioAction{}
 
 	_ SendMessageActionClass = &SendMessageUploadAudioAction{}
 )
@@ -589,6 +697,14 @@ func (s *SendMessageUploadPhotoAction) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode sendMessageUploadPhotoAction#990a3c1a as nil")
 	}
 	b.PutID(SendMessageUploadPhotoActionTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SendMessageUploadPhotoAction) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendMessageUploadPhotoAction#990a3c1a as nil")
+	}
 	return nil
 }
 
@@ -600,6 +716,14 @@ func (s *SendMessageUploadPhotoAction) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMessageUploadPhotoActionTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMessageUploadPhotoAction#990a3c1a: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SendMessageUploadPhotoAction) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendMessageUploadPhotoAction#990a3c1a to nil")
+	}
 	return nil
 }
 
@@ -608,8 +732,10 @@ func (s SendMessageUploadPhotoAction) construct() SendMessageActionClass { retur
 
 // Ensuring interfaces in compile-time for SendMessageUploadPhotoAction.
 var (
-	_ bin.Encoder = &SendMessageUploadPhotoAction{}
-	_ bin.Decoder = &SendMessageUploadPhotoAction{}
+	_ bin.Encoder     = &SendMessageUploadPhotoAction{}
+	_ bin.Decoder     = &SendMessageUploadPhotoAction{}
+	_ bin.BareEncoder = &SendMessageUploadPhotoAction{}
+	_ bin.BareDecoder = &SendMessageUploadPhotoAction{}
 
 	_ SendMessageActionClass = &SendMessageUploadPhotoAction{}
 )
@@ -673,6 +799,14 @@ func (s *SendMessageUploadDocumentAction) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode sendMessageUploadDocumentAction#8faee98e as nil")
 	}
 	b.PutID(SendMessageUploadDocumentActionTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SendMessageUploadDocumentAction) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendMessageUploadDocumentAction#8faee98e as nil")
+	}
 	return nil
 }
 
@@ -684,6 +818,14 @@ func (s *SendMessageUploadDocumentAction) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMessageUploadDocumentActionTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMessageUploadDocumentAction#8faee98e: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SendMessageUploadDocumentAction) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendMessageUploadDocumentAction#8faee98e to nil")
+	}
 	return nil
 }
 
@@ -692,8 +834,10 @@ func (s SendMessageUploadDocumentAction) construct() SendMessageActionClass { re
 
 // Ensuring interfaces in compile-time for SendMessageUploadDocumentAction.
 var (
-	_ bin.Encoder = &SendMessageUploadDocumentAction{}
-	_ bin.Decoder = &SendMessageUploadDocumentAction{}
+	_ bin.Encoder     = &SendMessageUploadDocumentAction{}
+	_ bin.Decoder     = &SendMessageUploadDocumentAction{}
+	_ bin.BareEncoder = &SendMessageUploadDocumentAction{}
+	_ bin.BareDecoder = &SendMessageUploadDocumentAction{}
 
 	_ SendMessageActionClass = &SendMessageUploadDocumentAction{}
 )
@@ -757,6 +901,14 @@ func (s *SendMessageGeoLocationAction) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode sendMessageGeoLocationAction#176f8ba1 as nil")
 	}
 	b.PutID(SendMessageGeoLocationActionTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SendMessageGeoLocationAction) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendMessageGeoLocationAction#176f8ba1 as nil")
+	}
 	return nil
 }
 
@@ -768,6 +920,14 @@ func (s *SendMessageGeoLocationAction) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMessageGeoLocationActionTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMessageGeoLocationAction#176f8ba1: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SendMessageGeoLocationAction) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendMessageGeoLocationAction#176f8ba1 to nil")
+	}
 	return nil
 }
 
@@ -776,8 +936,10 @@ func (s SendMessageGeoLocationAction) construct() SendMessageActionClass { retur
 
 // Ensuring interfaces in compile-time for SendMessageGeoLocationAction.
 var (
-	_ bin.Encoder = &SendMessageGeoLocationAction{}
-	_ bin.Decoder = &SendMessageGeoLocationAction{}
+	_ bin.Encoder     = &SendMessageGeoLocationAction{}
+	_ bin.Decoder     = &SendMessageGeoLocationAction{}
+	_ bin.BareEncoder = &SendMessageGeoLocationAction{}
+	_ bin.BareDecoder = &SendMessageGeoLocationAction{}
 
 	_ SendMessageActionClass = &SendMessageGeoLocationAction{}
 )
@@ -841,6 +1003,14 @@ func (s *SendMessageChooseContactAction) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode sendMessageChooseContactAction#628cbc6f as nil")
 	}
 	b.PutID(SendMessageChooseContactActionTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SendMessageChooseContactAction) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendMessageChooseContactAction#628cbc6f as nil")
+	}
 	return nil
 }
 
@@ -852,6 +1022,14 @@ func (s *SendMessageChooseContactAction) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMessageChooseContactActionTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMessageChooseContactAction#628cbc6f: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SendMessageChooseContactAction) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendMessageChooseContactAction#628cbc6f to nil")
+	}
 	return nil
 }
 
@@ -860,8 +1038,10 @@ func (s SendMessageChooseContactAction) construct() SendMessageActionClass { ret
 
 // Ensuring interfaces in compile-time for SendMessageChooseContactAction.
 var (
-	_ bin.Encoder = &SendMessageChooseContactAction{}
-	_ bin.Decoder = &SendMessageChooseContactAction{}
+	_ bin.Encoder     = &SendMessageChooseContactAction{}
+	_ bin.Decoder     = &SendMessageChooseContactAction{}
+	_ bin.BareEncoder = &SendMessageChooseContactAction{}
+	_ bin.BareDecoder = &SendMessageChooseContactAction{}
 
 	_ SendMessageActionClass = &SendMessageChooseContactAction{}
 )
@@ -925,6 +1105,14 @@ func (s *SendMessageRecordRoundAction) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode sendMessageRecordRoundAction#88f27fbc as nil")
 	}
 	b.PutID(SendMessageRecordRoundActionTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SendMessageRecordRoundAction) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendMessageRecordRoundAction#88f27fbc as nil")
+	}
 	return nil
 }
 
@@ -936,6 +1124,14 @@ func (s *SendMessageRecordRoundAction) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMessageRecordRoundActionTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMessageRecordRoundAction#88f27fbc: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SendMessageRecordRoundAction) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendMessageRecordRoundAction#88f27fbc to nil")
+	}
 	return nil
 }
 
@@ -944,8 +1140,10 @@ func (s SendMessageRecordRoundAction) construct() SendMessageActionClass { retur
 
 // Ensuring interfaces in compile-time for SendMessageRecordRoundAction.
 var (
-	_ bin.Encoder = &SendMessageRecordRoundAction{}
-	_ bin.Decoder = &SendMessageRecordRoundAction{}
+	_ bin.Encoder     = &SendMessageRecordRoundAction{}
+	_ bin.Decoder     = &SendMessageRecordRoundAction{}
+	_ bin.BareEncoder = &SendMessageRecordRoundAction{}
+	_ bin.BareDecoder = &SendMessageRecordRoundAction{}
 
 	_ SendMessageActionClass = &SendMessageRecordRoundAction{}
 )
@@ -1009,6 +1207,14 @@ func (s *SendMessageUploadRoundAction) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode sendMessageUploadRoundAction#bb718624 as nil")
 	}
 	b.PutID(SendMessageUploadRoundActionTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SendMessageUploadRoundAction) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendMessageUploadRoundAction#bb718624 as nil")
+	}
 	return nil
 }
 
@@ -1020,6 +1226,14 @@ func (s *SendMessageUploadRoundAction) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMessageUploadRoundActionTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMessageUploadRoundAction#bb718624: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SendMessageUploadRoundAction) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendMessageUploadRoundAction#bb718624 to nil")
+	}
 	return nil
 }
 
@@ -1028,8 +1242,10 @@ func (s SendMessageUploadRoundAction) construct() SendMessageActionClass { retur
 
 // Ensuring interfaces in compile-time for SendMessageUploadRoundAction.
 var (
-	_ bin.Encoder = &SendMessageUploadRoundAction{}
-	_ bin.Decoder = &SendMessageUploadRoundAction{}
+	_ bin.Encoder     = &SendMessageUploadRoundAction{}
+	_ bin.Decoder     = &SendMessageUploadRoundAction{}
+	_ bin.BareEncoder = &SendMessageUploadRoundAction{}
+	_ bin.BareDecoder = &SendMessageUploadRoundAction{}
 
 	_ SendMessageActionClass = &SendMessageUploadRoundAction{}
 )
@@ -1061,6 +1277,8 @@ var (
 type SendMessageActionClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() SendMessageActionClass
 
 	// TypeID returns type id in TL schema.

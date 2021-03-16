@@ -84,6 +84,14 @@ func (s *String) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode string#b5286e24 as nil")
 	}
 	b.PutID(StringTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *String) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode string#b5286e24 as nil")
+	}
 	return nil
 }
 
@@ -95,11 +103,21 @@ func (s *String) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StringTypeID); err != nil {
 		return fmt.Errorf("unable to decode string#b5286e24: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *String) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode string#b5286e24 to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for String.
 var (
-	_ bin.Encoder = &String{}
-	_ bin.Decoder = &String{}
+	_ bin.Encoder     = &String{}
+	_ bin.Decoder     = &String{}
+	_ bin.BareEncoder = &String{}
+	_ bin.BareDecoder = &String{}
 )

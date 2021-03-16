@@ -113,6 +113,14 @@ func (d *DocumentAttributeImageSize) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode documentAttributeImageSize#6c37c15c as nil")
 	}
 	b.PutID(DocumentAttributeImageSizeTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DocumentAttributeImageSize) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode documentAttributeImageSize#6c37c15c as nil")
+	}
 	b.PutInt(d.W)
 	b.PutInt(d.H)
 	return nil
@@ -136,6 +144,14 @@ func (d *DocumentAttributeImageSize) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DocumentAttributeImageSizeTypeID); err != nil {
 		return fmt.Errorf("unable to decode documentAttributeImageSize#6c37c15c: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DocumentAttributeImageSize) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode documentAttributeImageSize#6c37c15c to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -158,8 +174,10 @@ func (d DocumentAttributeImageSize) construct() DocumentAttributeClass { return 
 
 // Ensuring interfaces in compile-time for DocumentAttributeImageSize.
 var (
-	_ bin.Encoder = &DocumentAttributeImageSize{}
-	_ bin.Decoder = &DocumentAttributeImageSize{}
+	_ bin.Encoder     = &DocumentAttributeImageSize{}
+	_ bin.Decoder     = &DocumentAttributeImageSize{}
+	_ bin.BareEncoder = &DocumentAttributeImageSize{}
+	_ bin.BareDecoder = &DocumentAttributeImageSize{}
 
 	_ DocumentAttributeClass = &DocumentAttributeImageSize{}
 )
@@ -223,6 +241,14 @@ func (d *DocumentAttributeAnimated) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode documentAttributeAnimated#11b58939 as nil")
 	}
 	b.PutID(DocumentAttributeAnimatedTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DocumentAttributeAnimated) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode documentAttributeAnimated#11b58939 as nil")
+	}
 	return nil
 }
 
@@ -234,6 +260,14 @@ func (d *DocumentAttributeAnimated) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DocumentAttributeAnimatedTypeID); err != nil {
 		return fmt.Errorf("unable to decode documentAttributeAnimated#11b58939: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DocumentAttributeAnimated) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode documentAttributeAnimated#11b58939 to nil")
+	}
 	return nil
 }
 
@@ -242,8 +276,10 @@ func (d DocumentAttributeAnimated) construct() DocumentAttributeClass { return &
 
 // Ensuring interfaces in compile-time for DocumentAttributeAnimated.
 var (
-	_ bin.Encoder = &DocumentAttributeAnimated{}
-	_ bin.Decoder = &DocumentAttributeAnimated{}
+	_ bin.Encoder     = &DocumentAttributeAnimated{}
+	_ bin.Decoder     = &DocumentAttributeAnimated{}
+	_ bin.BareEncoder = &DocumentAttributeAnimated{}
+	_ bin.BareDecoder = &DocumentAttributeAnimated{}
 
 	_ DocumentAttributeClass = &DocumentAttributeAnimated{}
 )
@@ -372,6 +408,14 @@ func (d *DocumentAttributeSticker) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode documentAttributeSticker#6319d612 as nil")
 	}
 	b.PutID(DocumentAttributeStickerTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DocumentAttributeSticker) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode documentAttributeSticker#6319d612 as nil")
+	}
 	if !(d.Mask == false) {
 		d.Flags.Set(1)
 	}
@@ -445,6 +489,14 @@ func (d *DocumentAttributeSticker) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DocumentAttributeStickerTypeID); err != nil {
 		return fmt.Errorf("unable to decode documentAttributeSticker#6319d612: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DocumentAttributeSticker) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode documentAttributeSticker#6319d612 to nil")
+	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode documentAttributeSticker#6319d612: field flags: %w", err)
@@ -478,8 +530,10 @@ func (d DocumentAttributeSticker) construct() DocumentAttributeClass { return &d
 
 // Ensuring interfaces in compile-time for DocumentAttributeSticker.
 var (
-	_ bin.Encoder = &DocumentAttributeSticker{}
-	_ bin.Decoder = &DocumentAttributeSticker{}
+	_ bin.Encoder     = &DocumentAttributeSticker{}
+	_ bin.Decoder     = &DocumentAttributeSticker{}
+	_ bin.BareEncoder = &DocumentAttributeSticker{}
+	_ bin.BareDecoder = &DocumentAttributeSticker{}
 
 	_ DocumentAttributeClass = &DocumentAttributeSticker{}
 )
@@ -614,6 +668,14 @@ func (d *DocumentAttributeVideo) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode documentAttributeVideo#ef02ce6 as nil")
 	}
 	b.PutID(DocumentAttributeVideoTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DocumentAttributeVideo) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode documentAttributeVideo#ef02ce6 as nil")
+	}
 	if !(d.RoundMessage == false) {
 		d.Flags.Set(0)
 	}
@@ -684,6 +746,14 @@ func (d *DocumentAttributeVideo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DocumentAttributeVideoTypeID); err != nil {
 		return fmt.Errorf("unable to decode documentAttributeVideo#ef02ce6: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DocumentAttributeVideo) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode documentAttributeVideo#ef02ce6 to nil")
+	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode documentAttributeVideo#ef02ce6: field flags: %w", err)
@@ -720,8 +790,10 @@ func (d DocumentAttributeVideo) construct() DocumentAttributeClass { return &d }
 
 // Ensuring interfaces in compile-time for DocumentAttributeVideo.
 var (
-	_ bin.Encoder = &DocumentAttributeVideo{}
-	_ bin.Decoder = &DocumentAttributeVideo{}
+	_ bin.Encoder     = &DocumentAttributeVideo{}
+	_ bin.Decoder     = &DocumentAttributeVideo{}
+	_ bin.BareEncoder = &DocumentAttributeVideo{}
+	_ bin.BareDecoder = &DocumentAttributeVideo{}
 
 	_ DocumentAttributeClass = &DocumentAttributeVideo{}
 )
@@ -873,6 +945,14 @@ func (d *DocumentAttributeAudio) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode documentAttributeAudio#9852f9c6 as nil")
 	}
 	b.PutID(DocumentAttributeAudioTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DocumentAttributeAudio) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode documentAttributeAudio#9852f9c6 as nil")
+	}
 	if !(d.Voice == false) {
 		d.Flags.Set(10)
 	}
@@ -975,6 +1055,14 @@ func (d *DocumentAttributeAudio) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DocumentAttributeAudioTypeID); err != nil {
 		return fmt.Errorf("unable to decode documentAttributeAudio#9852f9c6: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DocumentAttributeAudio) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode documentAttributeAudio#9852f9c6 to nil")
+	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode documentAttributeAudio#9852f9c6: field flags: %w", err)
@@ -1017,8 +1105,10 @@ func (d DocumentAttributeAudio) construct() DocumentAttributeClass { return &d }
 
 // Ensuring interfaces in compile-time for DocumentAttributeAudio.
 var (
-	_ bin.Encoder = &DocumentAttributeAudio{}
-	_ bin.Decoder = &DocumentAttributeAudio{}
+	_ bin.Encoder     = &DocumentAttributeAudio{}
+	_ bin.Decoder     = &DocumentAttributeAudio{}
+	_ bin.BareEncoder = &DocumentAttributeAudio{}
+	_ bin.BareDecoder = &DocumentAttributeAudio{}
 
 	_ DocumentAttributeClass = &DocumentAttributeAudio{}
 )
@@ -1099,6 +1189,14 @@ func (d *DocumentAttributeFilename) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode documentAttributeFilename#15590068 as nil")
 	}
 	b.PutID(DocumentAttributeFilenameTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DocumentAttributeFilename) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode documentAttributeFilename#15590068 as nil")
+	}
 	b.PutString(d.FileName)
 	return nil
 }
@@ -1116,6 +1214,14 @@ func (d *DocumentAttributeFilename) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DocumentAttributeFilenameTypeID); err != nil {
 		return fmt.Errorf("unable to decode documentAttributeFilename#15590068: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DocumentAttributeFilename) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode documentAttributeFilename#15590068 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -1131,8 +1237,10 @@ func (d DocumentAttributeFilename) construct() DocumentAttributeClass { return &
 
 // Ensuring interfaces in compile-time for DocumentAttributeFilename.
 var (
-	_ bin.Encoder = &DocumentAttributeFilename{}
-	_ bin.Decoder = &DocumentAttributeFilename{}
+	_ bin.Encoder     = &DocumentAttributeFilename{}
+	_ bin.Decoder     = &DocumentAttributeFilename{}
+	_ bin.BareEncoder = &DocumentAttributeFilename{}
+	_ bin.BareDecoder = &DocumentAttributeFilename{}
 
 	_ DocumentAttributeClass = &DocumentAttributeFilename{}
 )
@@ -1196,6 +1304,14 @@ func (d *DocumentAttributeHasStickers) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode documentAttributeHasStickers#9801d2f7 as nil")
 	}
 	b.PutID(DocumentAttributeHasStickersTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DocumentAttributeHasStickers) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode documentAttributeHasStickers#9801d2f7 as nil")
+	}
 	return nil
 }
 
@@ -1207,6 +1323,14 @@ func (d *DocumentAttributeHasStickers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DocumentAttributeHasStickersTypeID); err != nil {
 		return fmt.Errorf("unable to decode documentAttributeHasStickers#9801d2f7: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DocumentAttributeHasStickers) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode documentAttributeHasStickers#9801d2f7 to nil")
+	}
 	return nil
 }
 
@@ -1215,8 +1339,10 @@ func (d DocumentAttributeHasStickers) construct() DocumentAttributeClass { retur
 
 // Ensuring interfaces in compile-time for DocumentAttributeHasStickers.
 var (
-	_ bin.Encoder = &DocumentAttributeHasStickers{}
-	_ bin.Decoder = &DocumentAttributeHasStickers{}
+	_ bin.Encoder     = &DocumentAttributeHasStickers{}
+	_ bin.Decoder     = &DocumentAttributeHasStickers{}
+	_ bin.BareEncoder = &DocumentAttributeHasStickers{}
+	_ bin.BareDecoder = &DocumentAttributeHasStickers{}
 
 	_ DocumentAttributeClass = &DocumentAttributeHasStickers{}
 )
@@ -1243,6 +1369,8 @@ var (
 type DocumentAttributeClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() DocumentAttributeClass
 
 	// TypeID returns type id in TL schema.

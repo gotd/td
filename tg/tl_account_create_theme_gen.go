@@ -155,6 +155,14 @@ func (c *AccountCreateThemeRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.createTheme#8432c21f as nil")
 	}
 	b.PutID(AccountCreateThemeRequestTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *AccountCreateThemeRequest) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode account.createTheme#8432c21f as nil")
+	}
 	if !(c.Document == nil) {
 		c.Flags.Set(2)
 	}
@@ -239,6 +247,14 @@ func (c *AccountCreateThemeRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountCreateThemeRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.createTheme#8432c21f: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *AccountCreateThemeRequest) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode account.createTheme#8432c21f to nil")
+	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.createTheme#8432c21f: field flags: %w", err)
@@ -275,8 +291,10 @@ func (c *AccountCreateThemeRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountCreateThemeRequest.
 var (
-	_ bin.Encoder = &AccountCreateThemeRequest{}
-	_ bin.Decoder = &AccountCreateThemeRequest{}
+	_ bin.Encoder     = &AccountCreateThemeRequest{}
+	_ bin.Decoder     = &AccountCreateThemeRequest{}
+	_ bin.BareEncoder = &AccountCreateThemeRequest{}
+	_ bin.BareDecoder = &AccountCreateThemeRequest{}
 )
 
 // AccountCreateTheme invokes method account.createTheme#8432c21f returning error if any.

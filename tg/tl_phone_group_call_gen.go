@@ -145,6 +145,14 @@ func (g *PhoneGroupCall) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.groupCall#9e727aad as nil")
 	}
 	b.PutID(PhoneGroupCallTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *PhoneGroupCall) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode phone.groupCall#9e727aad as nil")
+	}
 	if g.Call == nil {
 		return fmt.Errorf("unable to encode phone.groupCall#9e727aad: field call is nil")
 	}
@@ -222,6 +230,14 @@ func (g *PhoneGroupCall) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneGroupCallTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.groupCall#9e727aad: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *PhoneGroupCall) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode phone.groupCall#9e727aad to nil")
+	}
 	{
 		value, err := DecodeGroupCall(b)
 		if err != nil {
@@ -280,6 +296,8 @@ func (g *PhoneGroupCall) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhoneGroupCall.
 var (
-	_ bin.Encoder = &PhoneGroupCall{}
-	_ bin.Decoder = &PhoneGroupCall{}
+	_ bin.Encoder     = &PhoneGroupCall{}
+	_ bin.Decoder     = &PhoneGroupCall{}
+	_ bin.BareEncoder = &PhoneGroupCall{}
+	_ bin.BareDecoder = &PhoneGroupCall{}
 )

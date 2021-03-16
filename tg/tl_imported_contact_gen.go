@@ -116,6 +116,14 @@ func (i *ImportedContact) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode importedContact#d0028438 as nil")
 	}
 	b.PutID(ImportedContactTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *ImportedContact) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode importedContact#d0028438 as nil")
+	}
 	b.PutInt(i.UserID)
 	b.PutLong(i.ClientID)
 	return nil
@@ -139,6 +147,14 @@ func (i *ImportedContact) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ImportedContactTypeID); err != nil {
 		return fmt.Errorf("unable to decode importedContact#d0028438: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *ImportedContact) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode importedContact#d0028438 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -158,6 +174,8 @@ func (i *ImportedContact) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ImportedContact.
 var (
-	_ bin.Encoder = &ImportedContact{}
-	_ bin.Decoder = &ImportedContact{}
+	_ bin.Encoder     = &ImportedContact{}
+	_ bin.Decoder     = &ImportedContact{}
+	_ bin.BareEncoder = &ImportedContact{}
+	_ bin.BareDecoder = &ImportedContact{}
 )

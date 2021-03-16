@@ -160,6 +160,14 @@ func (g *MessagesGetInlineBotResultsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getInlineBotResults#514e999d as nil")
 	}
 	b.PutID(MessagesGetInlineBotResultsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetInlineBotResultsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getInlineBotResults#514e999d as nil")
+	}
 	if !(g.GeoPoint == nil) {
 		g.Flags.Set(0)
 	}
@@ -243,6 +251,14 @@ func (g *MessagesGetInlineBotResultsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetInlineBotResultsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getInlineBotResults#514e999d: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetInlineBotResultsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getInlineBotResults#514e999d to nil")
+	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.getInlineBotResults#514e999d: field flags: %w", err)
@@ -288,8 +304,10 @@ func (g *MessagesGetInlineBotResultsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetInlineBotResultsRequest.
 var (
-	_ bin.Encoder = &MessagesGetInlineBotResultsRequest{}
-	_ bin.Decoder = &MessagesGetInlineBotResultsRequest{}
+	_ bin.Encoder     = &MessagesGetInlineBotResultsRequest{}
+	_ bin.Decoder     = &MessagesGetInlineBotResultsRequest{}
+	_ bin.BareEncoder = &MessagesGetInlineBotResultsRequest{}
+	_ bin.BareDecoder = &MessagesGetInlineBotResultsRequest{}
 )
 
 // MessagesGetInlineBotResults invokes method messages.getInlineBotResults#514e999d returning error if any.

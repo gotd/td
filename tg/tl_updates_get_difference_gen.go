@@ -164,6 +164,14 @@ func (g *UpdatesGetDifferenceRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updates.getDifference#25939651 as nil")
 	}
 	b.PutID(UpdatesGetDifferenceRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *UpdatesGetDifferenceRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode updates.getDifference#25939651 as nil")
+	}
 	if !(g.PtsTotalLimit == 0) {
 		g.Flags.Set(0)
 	}
@@ -217,6 +225,14 @@ func (g *UpdatesGetDifferenceRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesGetDifferenceRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode updates.getDifference#25939651: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *UpdatesGetDifferenceRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode updates.getDifference#25939651 to nil")
+	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updates.getDifference#25939651: field flags: %w", err)
@@ -255,8 +271,10 @@ func (g *UpdatesGetDifferenceRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for UpdatesGetDifferenceRequest.
 var (
-	_ bin.Encoder = &UpdatesGetDifferenceRequest{}
-	_ bin.Decoder = &UpdatesGetDifferenceRequest{}
+	_ bin.Encoder     = &UpdatesGetDifferenceRequest{}
+	_ bin.Decoder     = &UpdatesGetDifferenceRequest{}
+	_ bin.BareEncoder = &UpdatesGetDifferenceRequest{}
+	_ bin.BareDecoder = &UpdatesGetDifferenceRequest{}
 )
 
 // UpdatesGetDifference invokes method updates.getDifference#25939651 returning error if any.

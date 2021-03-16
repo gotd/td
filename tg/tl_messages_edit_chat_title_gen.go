@@ -113,6 +113,14 @@ func (e *MessagesEditChatTitleRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.editChatTitle#dc452855 as nil")
 	}
 	b.PutID(MessagesEditChatTitleRequestTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *MessagesEditChatTitleRequest) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode messages.editChatTitle#dc452855 as nil")
+	}
 	b.PutInt(e.ChatID)
 	b.PutString(e.Title)
 	return nil
@@ -136,6 +144,14 @@ func (e *MessagesEditChatTitleRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesEditChatTitleRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.editChatTitle#dc452855: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *MessagesEditChatTitleRequest) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode messages.editChatTitle#dc452855 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -155,8 +171,10 @@ func (e *MessagesEditChatTitleRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesEditChatTitleRequest.
 var (
-	_ bin.Encoder = &MessagesEditChatTitleRequest{}
-	_ bin.Decoder = &MessagesEditChatTitleRequest{}
+	_ bin.Encoder     = &MessagesEditChatTitleRequest{}
+	_ bin.Decoder     = &MessagesEditChatTitleRequest{}
+	_ bin.BareEncoder = &MessagesEditChatTitleRequest{}
+	_ bin.BareDecoder = &MessagesEditChatTitleRequest{}
 )
 
 // MessagesEditChatTitle invokes method messages.editChatTitle#dc452855 returning error if any.

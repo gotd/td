@@ -106,6 +106,14 @@ func (i *InvokeWithoutUpdatesRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode invokeWithoutUpdates#bf9459b7 as nil")
 	}
 	b.PutID(InvokeWithoutUpdatesRequestTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InvokeWithoutUpdatesRequest) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode invokeWithoutUpdates#bf9459b7 as nil")
+	}
 	if err := i.Query.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode invokeWithoutUpdates#bf9459b7: field query: %w", err)
 	}
@@ -125,6 +133,14 @@ func (i *InvokeWithoutUpdatesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InvokeWithoutUpdatesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode invokeWithoutUpdates#bf9459b7: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InvokeWithoutUpdatesRequest) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode invokeWithoutUpdates#bf9459b7 to nil")
+	}
 	{
 		if err := i.Query.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode invokeWithoutUpdates#bf9459b7: field query: %w", err)
@@ -135,6 +151,8 @@ func (i *InvokeWithoutUpdatesRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for InvokeWithoutUpdatesRequest.
 var (
-	_ bin.Encoder = &InvokeWithoutUpdatesRequest{}
-	_ bin.Decoder = &InvokeWithoutUpdatesRequest{}
+	_ bin.Encoder     = &InvokeWithoutUpdatesRequest{}
+	_ bin.Decoder     = &InvokeWithoutUpdatesRequest{}
+	_ bin.BareEncoder = &InvokeWithoutUpdatesRequest{}
+	_ bin.BareDecoder = &InvokeWithoutUpdatesRequest{}
 )

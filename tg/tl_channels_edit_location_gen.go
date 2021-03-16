@@ -127,6 +127,14 @@ func (e *ChannelsEditLocationRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.editLocation#58e63f6d as nil")
 	}
 	b.PutID(ChannelsEditLocationRequestTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *ChannelsEditLocationRequest) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode channels.editLocation#58e63f6d as nil")
+	}
 	if e.Channel == nil {
 		return fmt.Errorf("unable to encode channels.editLocation#58e63f6d: field channel is nil")
 	}
@@ -176,6 +184,14 @@ func (e *ChannelsEditLocationRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsEditLocationRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.editLocation#58e63f6d: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *ChannelsEditLocationRequest) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode channels.editLocation#58e63f6d to nil")
+	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
@@ -202,8 +218,10 @@ func (e *ChannelsEditLocationRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsEditLocationRequest.
 var (
-	_ bin.Encoder = &ChannelsEditLocationRequest{}
-	_ bin.Decoder = &ChannelsEditLocationRequest{}
+	_ bin.Encoder     = &ChannelsEditLocationRequest{}
+	_ bin.Decoder     = &ChannelsEditLocationRequest{}
+	_ bin.BareEncoder = &ChannelsEditLocationRequest{}
+	_ bin.BareDecoder = &ChannelsEditLocationRequest{}
 )
 
 // ChannelsEditLocation invokes method channels.editLocation#58e63f6d returning error if any.

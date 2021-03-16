@@ -130,6 +130,14 @@ func (g *MessagesGetCommonChatsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getCommonChats#d0a48c4 as nil")
 	}
 	b.PutID(MessagesGetCommonChatsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetCommonChatsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getCommonChats#d0a48c4 as nil")
+	}
 	if g.UserID == nil {
 		return fmt.Errorf("unable to encode messages.getCommonChats#d0a48c4: field user_id is nil")
 	}
@@ -164,6 +172,14 @@ func (g *MessagesGetCommonChatsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetCommonChatsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getCommonChats#d0a48c4: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetCommonChatsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getCommonChats#d0a48c4 to nil")
+	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
@@ -190,8 +206,10 @@ func (g *MessagesGetCommonChatsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetCommonChatsRequest.
 var (
-	_ bin.Encoder = &MessagesGetCommonChatsRequest{}
-	_ bin.Decoder = &MessagesGetCommonChatsRequest{}
+	_ bin.Encoder     = &MessagesGetCommonChatsRequest{}
+	_ bin.Decoder     = &MessagesGetCommonChatsRequest{}
+	_ bin.BareEncoder = &MessagesGetCommonChatsRequest{}
+	_ bin.BareDecoder = &MessagesGetCommonChatsRequest{}
 )
 
 // MessagesGetCommonChats invokes method messages.getCommonChats#d0a48c4 returning error if any.

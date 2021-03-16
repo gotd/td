@@ -113,6 +113,14 @@ func (b *PaymentsBankCardData) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode payments.bankCardData#3e24e573 as nil")
 	}
 	buf.PutID(PaymentsBankCardDataTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *PaymentsBankCardData) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode payments.bankCardData#3e24e573 as nil")
+	}
 	buf.PutString(b.Title)
 	buf.PutVectorHeader(len(b.OpenURLs))
 	for idx, v := range b.OpenURLs {
@@ -141,6 +149,14 @@ func (b *PaymentsBankCardData) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(PaymentsBankCardDataTypeID); err != nil {
 		return fmt.Errorf("unable to decode payments.bankCardData#3e24e573: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *PaymentsBankCardData) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode payments.bankCardData#3e24e573 to nil")
+	}
 	{
 		value, err := buf.String()
 		if err != nil {
@@ -166,6 +182,8 @@ func (b *PaymentsBankCardData) Decode(buf *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PaymentsBankCardData.
 var (
-	_ bin.Encoder = &PaymentsBankCardData{}
-	_ bin.Decoder = &PaymentsBankCardData{}
+	_ bin.Encoder     = &PaymentsBankCardData{}
+	_ bin.Decoder     = &PaymentsBankCardData{}
+	_ bin.BareEncoder = &PaymentsBankCardData{}
+	_ bin.BareDecoder = &PaymentsBankCardData{}
 )

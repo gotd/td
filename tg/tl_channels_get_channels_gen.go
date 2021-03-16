@@ -105,6 +105,14 @@ func (g *ChannelsGetChannelsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.getChannels#a7f6bbb as nil")
 	}
 	b.PutID(ChannelsGetChannelsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *ChannelsGetChannelsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode channels.getChannels#a7f6bbb as nil")
+	}
 	b.PutVectorHeader(len(g.ID))
 	for idx, v := range g.ID {
 		if v == nil {
@@ -135,6 +143,14 @@ func (g *ChannelsGetChannelsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsGetChannelsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.getChannels#a7f6bbb: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *ChannelsGetChannelsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode channels.getChannels#a7f6bbb to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -153,8 +169,10 @@ func (g *ChannelsGetChannelsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsGetChannelsRequest.
 var (
-	_ bin.Encoder = &ChannelsGetChannelsRequest{}
-	_ bin.Decoder = &ChannelsGetChannelsRequest{}
+	_ bin.Encoder     = &ChannelsGetChannelsRequest{}
+	_ bin.Decoder     = &ChannelsGetChannelsRequest{}
+	_ bin.BareEncoder = &ChannelsGetChannelsRequest{}
+	_ bin.BareDecoder = &ChannelsGetChannelsRequest{}
 )
 
 // ChannelsGetChannels invokes method channels.getChannels#a7f6bbb returning error if any.

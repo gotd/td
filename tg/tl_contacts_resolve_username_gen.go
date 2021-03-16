@@ -102,6 +102,14 @@ func (r *ContactsResolveUsernameRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode contacts.resolveUsername#f93ccba3 as nil")
 	}
 	b.PutID(ContactsResolveUsernameRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *ContactsResolveUsernameRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode contacts.resolveUsername#f93ccba3 as nil")
+	}
 	b.PutString(r.Username)
 	return nil
 }
@@ -119,6 +127,14 @@ func (r *ContactsResolveUsernameRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsResolveUsernameRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.resolveUsername#f93ccba3: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *ContactsResolveUsernameRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode contacts.resolveUsername#f93ccba3 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -131,8 +147,10 @@ func (r *ContactsResolveUsernameRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ContactsResolveUsernameRequest.
 var (
-	_ bin.Encoder = &ContactsResolveUsernameRequest{}
-	_ bin.Decoder = &ContactsResolveUsernameRequest{}
+	_ bin.Encoder     = &ContactsResolveUsernameRequest{}
+	_ bin.Decoder     = &ContactsResolveUsernameRequest{}
+	_ bin.BareEncoder = &ContactsResolveUsernameRequest{}
+	_ bin.BareDecoder = &ContactsResolveUsernameRequest{}
 )
 
 // ContactsResolveUsername invokes method contacts.resolveUsername#f93ccba3 returning error if any.

@@ -124,6 +124,14 @@ func (g *LangpackGetDifferenceRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode langpack.getDifference#cd984aa5 as nil")
 	}
 	b.PutID(LangpackGetDifferenceRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *LangpackGetDifferenceRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode langpack.getDifference#cd984aa5 as nil")
+	}
 	b.PutString(g.LangPack)
 	b.PutString(g.LangCode)
 	b.PutInt(g.FromVersion)
@@ -153,6 +161,14 @@ func (g *LangpackGetDifferenceRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(LangpackGetDifferenceRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode langpack.getDifference#cd984aa5: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *LangpackGetDifferenceRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode langpack.getDifference#cd984aa5 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -179,8 +195,10 @@ func (g *LangpackGetDifferenceRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for LangpackGetDifferenceRequest.
 var (
-	_ bin.Encoder = &LangpackGetDifferenceRequest{}
-	_ bin.Decoder = &LangpackGetDifferenceRequest{}
+	_ bin.Encoder     = &LangpackGetDifferenceRequest{}
+	_ bin.Decoder     = &LangpackGetDifferenceRequest{}
+	_ bin.BareEncoder = &LangpackGetDifferenceRequest{}
+	_ bin.BareDecoder = &LangpackGetDifferenceRequest{}
 )
 
 // LangpackGetDifference invokes method langpack.getDifference#cd984aa5 returning error if any.

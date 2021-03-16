@@ -111,6 +111,14 @@ func (m *MessagesMessageEditData) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.messageEditData#26b5dde6 as nil")
 	}
 	b.PutID(MessagesMessageEditDataTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessagesMessageEditData) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messages.messageEditData#26b5dde6 as nil")
+	}
 	if !(m.Caption == false) {
 		m.Flags.Set(0)
 	}
@@ -144,6 +152,14 @@ func (m *MessagesMessageEditData) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesMessageEditDataTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.messageEditData#26b5dde6: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessagesMessageEditData) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messages.messageEditData#26b5dde6 to nil")
+	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.messageEditData#26b5dde6: field flags: %w", err)
@@ -155,6 +171,8 @@ func (m *MessagesMessageEditData) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesMessageEditData.
 var (
-	_ bin.Encoder = &MessagesMessageEditData{}
-	_ bin.Decoder = &MessagesMessageEditData{}
+	_ bin.Encoder     = &MessagesMessageEditData{}
+	_ bin.Decoder     = &MessagesMessageEditData{}
+	_ bin.BareEncoder = &MessagesMessageEditData{}
+	_ bin.BareDecoder = &MessagesMessageEditData{}
 )

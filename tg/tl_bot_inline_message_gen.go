@@ -150,6 +150,14 @@ func (b *BotInlineMessageMediaAuto) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode botInlineMessageMediaAuto#764cf810 as nil")
 	}
 	buf.PutID(BotInlineMessageMediaAutoTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *BotInlineMessageMediaAuto) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode botInlineMessageMediaAuto#764cf810 as nil")
+	}
 	if !(b.Entities == nil) {
 		b.Flags.Set(1)
 	}
@@ -233,6 +241,14 @@ func (b *BotInlineMessageMediaAuto) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BotInlineMessageMediaAutoTypeID); err != nil {
 		return fmt.Errorf("unable to decode botInlineMessageMediaAuto#764cf810: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BotInlineMessageMediaAuto) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode botInlineMessageMediaAuto#764cf810 to nil")
+	}
 	{
 		if err := b.Flags.Decode(buf); err != nil {
 			return fmt.Errorf("unable to decode botInlineMessageMediaAuto#764cf810: field flags: %w", err)
@@ -273,8 +289,10 @@ func (b BotInlineMessageMediaAuto) construct() BotInlineMessageClass { return &b
 
 // Ensuring interfaces in compile-time for BotInlineMessageMediaAuto.
 var (
-	_ bin.Encoder = &BotInlineMessageMediaAuto{}
-	_ bin.Decoder = &BotInlineMessageMediaAuto{}
+	_ bin.Encoder     = &BotInlineMessageMediaAuto{}
+	_ bin.Decoder     = &BotInlineMessageMediaAuto{}
+	_ bin.BareEncoder = &BotInlineMessageMediaAuto{}
+	_ bin.BareDecoder = &BotInlineMessageMediaAuto{}
 
 	_ BotInlineMessageClass = &BotInlineMessageMediaAuto{}
 )
@@ -412,6 +430,14 @@ func (b *BotInlineMessageText) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode botInlineMessageText#8c7f65e2 as nil")
 	}
 	buf.PutID(BotInlineMessageTextTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *BotInlineMessageText) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode botInlineMessageText#8c7f65e2 as nil")
+	}
 	if !(b.NoWebpage == false) {
 		b.Flags.Set(0)
 	}
@@ -514,6 +540,14 @@ func (b *BotInlineMessageText) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BotInlineMessageTextTypeID); err != nil {
 		return fmt.Errorf("unable to decode botInlineMessageText#8c7f65e2: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BotInlineMessageText) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode botInlineMessageText#8c7f65e2 to nil")
+	}
 	{
 		if err := b.Flags.Decode(buf); err != nil {
 			return fmt.Errorf("unable to decode botInlineMessageText#8c7f65e2: field flags: %w", err)
@@ -555,8 +589,10 @@ func (b BotInlineMessageText) construct() BotInlineMessageClass { return &b }
 
 // Ensuring interfaces in compile-time for BotInlineMessageText.
 var (
-	_ bin.Encoder = &BotInlineMessageText{}
-	_ bin.Decoder = &BotInlineMessageText{}
+	_ bin.Encoder     = &BotInlineMessageText{}
+	_ bin.Decoder     = &BotInlineMessageText{}
+	_ bin.BareEncoder = &BotInlineMessageText{}
+	_ bin.BareDecoder = &BotInlineMessageText{}
 
 	_ BotInlineMessageClass = &BotInlineMessageText{}
 )
@@ -719,6 +755,14 @@ func (b *BotInlineMessageMediaGeo) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode botInlineMessageMediaGeo#51846fd as nil")
 	}
 	buf.PutID(BotInlineMessageMediaGeoTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *BotInlineMessageMediaGeo) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode botInlineMessageMediaGeo#51846fd as nil")
+	}
 	if !(b.Heading == 0) {
 		b.Flags.Set(0)
 	}
@@ -833,6 +877,14 @@ func (b *BotInlineMessageMediaGeo) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BotInlineMessageMediaGeoTypeID); err != nil {
 		return fmt.Errorf("unable to decode botInlineMessageMediaGeo#51846fd: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BotInlineMessageMediaGeo) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode botInlineMessageMediaGeo#51846fd to nil")
+	}
 	{
 		if err := b.Flags.Decode(buf); err != nil {
 			return fmt.Errorf("unable to decode botInlineMessageMediaGeo#51846fd: field flags: %w", err)
@@ -881,8 +933,10 @@ func (b BotInlineMessageMediaGeo) construct() BotInlineMessageClass { return &b 
 
 // Ensuring interfaces in compile-time for BotInlineMessageMediaGeo.
 var (
-	_ bin.Encoder = &BotInlineMessageMediaGeo{}
-	_ bin.Decoder = &BotInlineMessageMediaGeo{}
+	_ bin.Encoder     = &BotInlineMessageMediaGeo{}
+	_ bin.Decoder     = &BotInlineMessageMediaGeo{}
+	_ bin.BareEncoder = &BotInlineMessageMediaGeo{}
+	_ bin.BareDecoder = &BotInlineMessageMediaGeo{}
 
 	_ BotInlineMessageClass = &BotInlineMessageMediaGeo{}
 )
@@ -1043,6 +1097,14 @@ func (b *BotInlineMessageMediaVenue) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode botInlineMessageMediaVenue#8a86659c as nil")
 	}
 	buf.PutID(BotInlineMessageMediaVenueTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *BotInlineMessageMediaVenue) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode botInlineMessageMediaVenue#8a86659c as nil")
+	}
 	if !(b.ReplyMarkup == nil) {
 		b.Flags.Set(2)
 	}
@@ -1124,6 +1186,14 @@ func (b *BotInlineMessageMediaVenue) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BotInlineMessageMediaVenueTypeID); err != nil {
 		return fmt.Errorf("unable to decode botInlineMessageMediaVenue#8a86659c: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BotInlineMessageMediaVenue) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode botInlineMessageMediaVenue#8a86659c to nil")
+	}
 	{
 		if err := b.Flags.Decode(buf); err != nil {
 			return fmt.Errorf("unable to decode botInlineMessageMediaVenue#8a86659c: field flags: %w", err)
@@ -1186,8 +1256,10 @@ func (b BotInlineMessageMediaVenue) construct() BotInlineMessageClass { return &
 
 // Ensuring interfaces in compile-time for BotInlineMessageMediaVenue.
 var (
-	_ bin.Encoder = &BotInlineMessageMediaVenue{}
-	_ bin.Decoder = &BotInlineMessageMediaVenue{}
+	_ bin.Encoder     = &BotInlineMessageMediaVenue{}
+	_ bin.Decoder     = &BotInlineMessageMediaVenue{}
+	_ bin.BareEncoder = &BotInlineMessageMediaVenue{}
+	_ bin.BareDecoder = &BotInlineMessageMediaVenue{}
 
 	_ BotInlineMessageClass = &BotInlineMessageMediaVenue{}
 )
@@ -1326,6 +1398,14 @@ func (b *BotInlineMessageMediaContact) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode botInlineMessageMediaContact#18d1cdc2 as nil")
 	}
 	buf.PutID(BotInlineMessageMediaContactTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *BotInlineMessageMediaContact) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode botInlineMessageMediaContact#18d1cdc2 as nil")
+	}
 	if !(b.ReplyMarkup == nil) {
 		b.Flags.Set(2)
 	}
@@ -1390,6 +1470,14 @@ func (b *BotInlineMessageMediaContact) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BotInlineMessageMediaContactTypeID); err != nil {
 		return fmt.Errorf("unable to decode botInlineMessageMediaContact#18d1cdc2: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BotInlineMessageMediaContact) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode botInlineMessageMediaContact#18d1cdc2 to nil")
+	}
 	{
 		if err := b.Flags.Decode(buf); err != nil {
 			return fmt.Errorf("unable to decode botInlineMessageMediaContact#18d1cdc2: field flags: %w", err)
@@ -1438,8 +1526,10 @@ func (b BotInlineMessageMediaContact) construct() BotInlineMessageClass { return
 
 // Ensuring interfaces in compile-time for BotInlineMessageMediaContact.
 var (
-	_ bin.Encoder = &BotInlineMessageMediaContact{}
-	_ bin.Decoder = &BotInlineMessageMediaContact{}
+	_ bin.Encoder     = &BotInlineMessageMediaContact{}
+	_ bin.Decoder     = &BotInlineMessageMediaContact{}
+	_ bin.BareEncoder = &BotInlineMessageMediaContact{}
+	_ bin.BareDecoder = &BotInlineMessageMediaContact{}
 
 	_ BotInlineMessageClass = &BotInlineMessageMediaContact{}
 )
@@ -1464,6 +1554,8 @@ var (
 type BotInlineMessageClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() BotInlineMessageClass
 
 	// TypeID returns type id in TL schema.

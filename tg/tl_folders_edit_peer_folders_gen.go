@@ -105,6 +105,14 @@ func (e *FoldersEditPeerFoldersRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode folders.editPeerFolders#6847d0ab as nil")
 	}
 	b.PutID(FoldersEditPeerFoldersRequestTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *FoldersEditPeerFoldersRequest) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode folders.editPeerFolders#6847d0ab as nil")
+	}
 	b.PutVectorHeader(len(e.FolderPeers))
 	for idx, v := range e.FolderPeers {
 		if err := v.Encode(b); err != nil {
@@ -127,6 +135,14 @@ func (e *FoldersEditPeerFoldersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(FoldersEditPeerFoldersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode folders.editPeerFolders#6847d0ab: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *FoldersEditPeerFoldersRequest) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode folders.editPeerFolders#6847d0ab to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -145,8 +161,10 @@ func (e *FoldersEditPeerFoldersRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for FoldersEditPeerFoldersRequest.
 var (
-	_ bin.Encoder = &FoldersEditPeerFoldersRequest{}
-	_ bin.Decoder = &FoldersEditPeerFoldersRequest{}
+	_ bin.Encoder     = &FoldersEditPeerFoldersRequest{}
+	_ bin.Decoder     = &FoldersEditPeerFoldersRequest{}
+	_ bin.BareEncoder = &FoldersEditPeerFoldersRequest{}
+	_ bin.BareDecoder = &FoldersEditPeerFoldersRequest{}
 )
 
 // FoldersEditPeerFolders invokes method folders.editPeerFolders#6847d0ab returning error if any.

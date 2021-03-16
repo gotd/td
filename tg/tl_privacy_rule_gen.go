@@ -85,6 +85,14 @@ func (p *PrivacyValueAllowContacts) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode privacyValueAllowContacts#fffe1bac as nil")
 	}
 	b.PutID(PrivacyValueAllowContactsTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PrivacyValueAllowContacts) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyValueAllowContacts#fffe1bac as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (p *PrivacyValueAllowContacts) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyValueAllowContactsTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyValueAllowContacts#fffe1bac: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PrivacyValueAllowContacts) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyValueAllowContacts#fffe1bac to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (p PrivacyValueAllowContacts) construct() PrivacyRuleClass { return &p }
 
 // Ensuring interfaces in compile-time for PrivacyValueAllowContacts.
 var (
-	_ bin.Encoder = &PrivacyValueAllowContacts{}
-	_ bin.Decoder = &PrivacyValueAllowContacts{}
+	_ bin.Encoder     = &PrivacyValueAllowContacts{}
+	_ bin.Decoder     = &PrivacyValueAllowContacts{}
+	_ bin.BareEncoder = &PrivacyValueAllowContacts{}
+	_ bin.BareDecoder = &PrivacyValueAllowContacts{}
 
 	_ PrivacyRuleClass = &PrivacyValueAllowContacts{}
 )
@@ -169,6 +187,14 @@ func (p *PrivacyValueAllowAll) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode privacyValueAllowAll#65427b82 as nil")
 	}
 	b.PutID(PrivacyValueAllowAllTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PrivacyValueAllowAll) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyValueAllowAll#65427b82 as nil")
+	}
 	return nil
 }
 
@@ -180,6 +206,14 @@ func (p *PrivacyValueAllowAll) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyValueAllowAllTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyValueAllowAll#65427b82: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PrivacyValueAllowAll) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyValueAllowAll#65427b82 to nil")
+	}
 	return nil
 }
 
@@ -188,8 +222,10 @@ func (p PrivacyValueAllowAll) construct() PrivacyRuleClass { return &p }
 
 // Ensuring interfaces in compile-time for PrivacyValueAllowAll.
 var (
-	_ bin.Encoder = &PrivacyValueAllowAll{}
-	_ bin.Decoder = &PrivacyValueAllowAll{}
+	_ bin.Encoder     = &PrivacyValueAllowAll{}
+	_ bin.Decoder     = &PrivacyValueAllowAll{}
+	_ bin.BareEncoder = &PrivacyValueAllowAll{}
+	_ bin.BareDecoder = &PrivacyValueAllowAll{}
 
 	_ PrivacyRuleClass = &PrivacyValueAllowAll{}
 )
@@ -270,6 +306,14 @@ func (p *PrivacyValueAllowUsers) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode privacyValueAllowUsers#4d5bbe0c as nil")
 	}
 	b.PutID(PrivacyValueAllowUsersTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PrivacyValueAllowUsers) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyValueAllowUsers#4d5bbe0c as nil")
+	}
 	b.PutVectorHeader(len(p.Users))
 	for _, v := range p.Users {
 		b.PutInt(v)
@@ -289,6 +333,14 @@ func (p *PrivacyValueAllowUsers) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(PrivacyValueAllowUsersTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyValueAllowUsers#4d5bbe0c: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PrivacyValueAllowUsers) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyValueAllowUsers#4d5bbe0c to nil")
 	}
 	{
 		headerLen, err := b.VectorHeader()
@@ -311,8 +363,10 @@ func (p PrivacyValueAllowUsers) construct() PrivacyRuleClass { return &p }
 
 // Ensuring interfaces in compile-time for PrivacyValueAllowUsers.
 var (
-	_ bin.Encoder = &PrivacyValueAllowUsers{}
-	_ bin.Decoder = &PrivacyValueAllowUsers{}
+	_ bin.Encoder     = &PrivacyValueAllowUsers{}
+	_ bin.Decoder     = &PrivacyValueAllowUsers{}
+	_ bin.BareEncoder = &PrivacyValueAllowUsers{}
+	_ bin.BareDecoder = &PrivacyValueAllowUsers{}
 
 	_ PrivacyRuleClass = &PrivacyValueAllowUsers{}
 )
@@ -376,6 +430,14 @@ func (p *PrivacyValueDisallowContacts) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode privacyValueDisallowContacts#f888fa1a as nil")
 	}
 	b.PutID(PrivacyValueDisallowContactsTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PrivacyValueDisallowContacts) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyValueDisallowContacts#f888fa1a as nil")
+	}
 	return nil
 }
 
@@ -387,6 +449,14 @@ func (p *PrivacyValueDisallowContacts) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyValueDisallowContactsTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyValueDisallowContacts#f888fa1a: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PrivacyValueDisallowContacts) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyValueDisallowContacts#f888fa1a to nil")
+	}
 	return nil
 }
 
@@ -395,8 +465,10 @@ func (p PrivacyValueDisallowContacts) construct() PrivacyRuleClass { return &p }
 
 // Ensuring interfaces in compile-time for PrivacyValueDisallowContacts.
 var (
-	_ bin.Encoder = &PrivacyValueDisallowContacts{}
-	_ bin.Decoder = &PrivacyValueDisallowContacts{}
+	_ bin.Encoder     = &PrivacyValueDisallowContacts{}
+	_ bin.Decoder     = &PrivacyValueDisallowContacts{}
+	_ bin.BareEncoder = &PrivacyValueDisallowContacts{}
+	_ bin.BareDecoder = &PrivacyValueDisallowContacts{}
 
 	_ PrivacyRuleClass = &PrivacyValueDisallowContacts{}
 )
@@ -460,6 +532,14 @@ func (p *PrivacyValueDisallowAll) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode privacyValueDisallowAll#8b73e763 as nil")
 	}
 	b.PutID(PrivacyValueDisallowAllTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PrivacyValueDisallowAll) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyValueDisallowAll#8b73e763 as nil")
+	}
 	return nil
 }
 
@@ -471,6 +551,14 @@ func (p *PrivacyValueDisallowAll) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyValueDisallowAllTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyValueDisallowAll#8b73e763: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PrivacyValueDisallowAll) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyValueDisallowAll#8b73e763 to nil")
+	}
 	return nil
 }
 
@@ -479,8 +567,10 @@ func (p PrivacyValueDisallowAll) construct() PrivacyRuleClass { return &p }
 
 // Ensuring interfaces in compile-time for PrivacyValueDisallowAll.
 var (
-	_ bin.Encoder = &PrivacyValueDisallowAll{}
-	_ bin.Decoder = &PrivacyValueDisallowAll{}
+	_ bin.Encoder     = &PrivacyValueDisallowAll{}
+	_ bin.Decoder     = &PrivacyValueDisallowAll{}
+	_ bin.BareEncoder = &PrivacyValueDisallowAll{}
+	_ bin.BareDecoder = &PrivacyValueDisallowAll{}
 
 	_ PrivacyRuleClass = &PrivacyValueDisallowAll{}
 )
@@ -561,6 +651,14 @@ func (p *PrivacyValueDisallowUsers) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode privacyValueDisallowUsers#c7f49b7 as nil")
 	}
 	b.PutID(PrivacyValueDisallowUsersTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PrivacyValueDisallowUsers) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyValueDisallowUsers#c7f49b7 as nil")
+	}
 	b.PutVectorHeader(len(p.Users))
 	for _, v := range p.Users {
 		b.PutInt(v)
@@ -580,6 +678,14 @@ func (p *PrivacyValueDisallowUsers) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(PrivacyValueDisallowUsersTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyValueDisallowUsers#c7f49b7: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PrivacyValueDisallowUsers) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyValueDisallowUsers#c7f49b7 to nil")
 	}
 	{
 		headerLen, err := b.VectorHeader()
@@ -602,8 +708,10 @@ func (p PrivacyValueDisallowUsers) construct() PrivacyRuleClass { return &p }
 
 // Ensuring interfaces in compile-time for PrivacyValueDisallowUsers.
 var (
-	_ bin.Encoder = &PrivacyValueDisallowUsers{}
-	_ bin.Decoder = &PrivacyValueDisallowUsers{}
+	_ bin.Encoder     = &PrivacyValueDisallowUsers{}
+	_ bin.Decoder     = &PrivacyValueDisallowUsers{}
+	_ bin.BareEncoder = &PrivacyValueDisallowUsers{}
+	_ bin.BareDecoder = &PrivacyValueDisallowUsers{}
 
 	_ PrivacyRuleClass = &PrivacyValueDisallowUsers{}
 )
@@ -684,6 +792,14 @@ func (p *PrivacyValueAllowChatParticipants) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode privacyValueAllowChatParticipants#18be796b as nil")
 	}
 	b.PutID(PrivacyValueAllowChatParticipantsTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PrivacyValueAllowChatParticipants) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyValueAllowChatParticipants#18be796b as nil")
+	}
 	b.PutVectorHeader(len(p.Chats))
 	for _, v := range p.Chats {
 		b.PutInt(v)
@@ -703,6 +819,14 @@ func (p *PrivacyValueAllowChatParticipants) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(PrivacyValueAllowChatParticipantsTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyValueAllowChatParticipants#18be796b: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PrivacyValueAllowChatParticipants) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyValueAllowChatParticipants#18be796b to nil")
 	}
 	{
 		headerLen, err := b.VectorHeader()
@@ -725,8 +849,10 @@ func (p PrivacyValueAllowChatParticipants) construct() PrivacyRuleClass { return
 
 // Ensuring interfaces in compile-time for PrivacyValueAllowChatParticipants.
 var (
-	_ bin.Encoder = &PrivacyValueAllowChatParticipants{}
-	_ bin.Decoder = &PrivacyValueAllowChatParticipants{}
+	_ bin.Encoder     = &PrivacyValueAllowChatParticipants{}
+	_ bin.Decoder     = &PrivacyValueAllowChatParticipants{}
+	_ bin.BareEncoder = &PrivacyValueAllowChatParticipants{}
+	_ bin.BareDecoder = &PrivacyValueAllowChatParticipants{}
 
 	_ PrivacyRuleClass = &PrivacyValueAllowChatParticipants{}
 )
@@ -807,6 +933,14 @@ func (p *PrivacyValueDisallowChatParticipants) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode privacyValueDisallowChatParticipants#acae0690 as nil")
 	}
 	b.PutID(PrivacyValueDisallowChatParticipantsTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PrivacyValueDisallowChatParticipants) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyValueDisallowChatParticipants#acae0690 as nil")
+	}
 	b.PutVectorHeader(len(p.Chats))
 	for _, v := range p.Chats {
 		b.PutInt(v)
@@ -826,6 +960,14 @@ func (p *PrivacyValueDisallowChatParticipants) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(PrivacyValueDisallowChatParticipantsTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyValueDisallowChatParticipants#acae0690: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PrivacyValueDisallowChatParticipants) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyValueDisallowChatParticipants#acae0690 to nil")
 	}
 	{
 		headerLen, err := b.VectorHeader()
@@ -848,8 +990,10 @@ func (p PrivacyValueDisallowChatParticipants) construct() PrivacyRuleClass { ret
 
 // Ensuring interfaces in compile-time for PrivacyValueDisallowChatParticipants.
 var (
-	_ bin.Encoder = &PrivacyValueDisallowChatParticipants{}
-	_ bin.Decoder = &PrivacyValueDisallowChatParticipants{}
+	_ bin.Encoder     = &PrivacyValueDisallowChatParticipants{}
+	_ bin.Decoder     = &PrivacyValueDisallowChatParticipants{}
+	_ bin.BareEncoder = &PrivacyValueDisallowChatParticipants{}
+	_ bin.BareDecoder = &PrivacyValueDisallowChatParticipants{}
 
 	_ PrivacyRuleClass = &PrivacyValueDisallowChatParticipants{}
 )
@@ -877,6 +1021,8 @@ var (
 type PrivacyRuleClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() PrivacyRuleClass
 
 	// TypeID returns type id in TL schema.

@@ -105,6 +105,14 @@ func (g *MessagesGetSavedGifsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getSavedGifs#83bf3d52 as nil")
 	}
 	b.PutID(MessagesGetSavedGifsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetSavedGifsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getSavedGifs#83bf3d52 as nil")
+	}
 	b.PutInt(g.Hash)
 	return nil
 }
@@ -122,6 +130,14 @@ func (g *MessagesGetSavedGifsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetSavedGifsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getSavedGifs#83bf3d52: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetSavedGifsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getSavedGifs#83bf3d52 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -134,8 +150,10 @@ func (g *MessagesGetSavedGifsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetSavedGifsRequest.
 var (
-	_ bin.Encoder = &MessagesGetSavedGifsRequest{}
-	_ bin.Decoder = &MessagesGetSavedGifsRequest{}
+	_ bin.Encoder     = &MessagesGetSavedGifsRequest{}
+	_ bin.Decoder     = &MessagesGetSavedGifsRequest{}
+	_ bin.BareEncoder = &MessagesGetSavedGifsRequest{}
+	_ bin.BareDecoder = &MessagesGetSavedGifsRequest{}
 )
 
 // MessagesGetSavedGifs invokes method messages.getSavedGifs#83bf3d52 returning error if any.

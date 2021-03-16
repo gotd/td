@@ -98,6 +98,15 @@ func (vec *ContactStatusVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't encode Vector<ContactStatus> as nil")
 	}
+
+	return vec.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (vec *ContactStatusVector) EncodeBare(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't encode Vector<ContactStatus> as nil")
+	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if err := v.Encode(b); err != nil {
@@ -114,6 +123,15 @@ func (vec *ContactStatusVector) GetElems() (value []ContactStatus) {
 
 // Decode implements bin.Decoder.
 func (vec *ContactStatusVector) Decode(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't decode Vector<ContactStatus> to nil")
+	}
+
+	return vec.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (vec *ContactStatusVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't decode Vector<ContactStatus> to nil")
 	}
@@ -135,6 +153,8 @@ func (vec *ContactStatusVector) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ContactStatusVector.
 var (
-	_ bin.Encoder = &ContactStatusVector{}
-	_ bin.Decoder = &ContactStatusVector{}
+	_ bin.Encoder     = &ContactStatusVector{}
+	_ bin.Decoder     = &ContactStatusVector{}
+	_ bin.BareEncoder = &ContactStatusVector{}
+	_ bin.BareDecoder = &ContactStatusVector{}
 )

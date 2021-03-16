@@ -116,6 +116,14 @@ func (r *ContactsResetTopPeerRatingRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode contacts.resetTopPeerRating#1ae373ac as nil")
 	}
 	b.PutID(ContactsResetTopPeerRatingRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *ContactsResetTopPeerRatingRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode contacts.resetTopPeerRating#1ae373ac as nil")
+	}
 	if r.Category == nil {
 		return fmt.Errorf("unable to encode contacts.resetTopPeerRating#1ae373ac: field category is nil")
 	}
@@ -149,6 +157,14 @@ func (r *ContactsResetTopPeerRatingRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsResetTopPeerRatingRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.resetTopPeerRating#1ae373ac: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *ContactsResetTopPeerRatingRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode contacts.resetTopPeerRating#1ae373ac to nil")
+	}
 	{
 		value, err := DecodeTopPeerCategory(b)
 		if err != nil {
@@ -168,8 +184,10 @@ func (r *ContactsResetTopPeerRatingRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ContactsResetTopPeerRatingRequest.
 var (
-	_ bin.Encoder = &ContactsResetTopPeerRatingRequest{}
-	_ bin.Decoder = &ContactsResetTopPeerRatingRequest{}
+	_ bin.Encoder     = &ContactsResetTopPeerRatingRequest{}
+	_ bin.Decoder     = &ContactsResetTopPeerRatingRequest{}
+	_ bin.BareEncoder = &ContactsResetTopPeerRatingRequest{}
+	_ bin.BareDecoder = &ContactsResetTopPeerRatingRequest{}
 )
 
 // ContactsResetTopPeerRating invokes method contacts.resetTopPeerRating#1ae373ac returning error if any.

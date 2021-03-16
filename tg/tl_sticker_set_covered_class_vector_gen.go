@@ -98,6 +98,15 @@ func (vec *StickerSetCoveredClassVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't encode Vector<StickerSetCovered> as nil")
 	}
+
+	return vec.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (vec *StickerSetCoveredClassVector) EncodeBare(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't encode Vector<StickerSetCovered> as nil")
+	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if v == nil {
@@ -125,6 +134,15 @@ func (vec *StickerSetCoveredClassVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't decode Vector<StickerSetCovered> to nil")
 	}
+
+	return vec.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (vec *StickerSetCoveredClassVector) DecodeBare(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't decode Vector<StickerSetCovered> to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -143,6 +161,8 @@ func (vec *StickerSetCoveredClassVector) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for StickerSetCoveredClassVector.
 var (
-	_ bin.Encoder = &StickerSetCoveredClassVector{}
-	_ bin.Decoder = &StickerSetCoveredClassVector{}
+	_ bin.Encoder     = &StickerSetCoveredClassVector{}
+	_ bin.Decoder     = &StickerSetCoveredClassVector{}
+	_ bin.BareEncoder = &StickerSetCoveredClassVector{}
+	_ bin.BareDecoder = &StickerSetCoveredClassVector{}
 )

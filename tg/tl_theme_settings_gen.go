@@ -172,6 +172,14 @@ func (t *ThemeSettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode themeSettings#9c14984a as nil")
 	}
 	b.PutID(ThemeSettingsTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *ThemeSettings) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode themeSettings#9c14984a as nil")
+	}
 	if !(t.MessageTopColor == 0) {
 		t.Flags.Set(0)
 	}
@@ -271,6 +279,14 @@ func (t *ThemeSettings) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ThemeSettingsTypeID); err != nil {
 		return fmt.Errorf("unable to decode themeSettings#9c14984a: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *ThemeSettings) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode themeSettings#9c14984a to nil")
+	}
 	{
 		if err := t.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode themeSettings#9c14984a: field flags: %w", err)
@@ -316,6 +332,8 @@ func (t *ThemeSettings) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ThemeSettings.
 var (
-	_ bin.Encoder = &ThemeSettings{}
-	_ bin.Decoder = &ThemeSettings{}
+	_ bin.Encoder     = &ThemeSettings{}
+	_ bin.Decoder     = &ThemeSettings{}
+	_ bin.BareEncoder = &ThemeSettings{}
+	_ bin.BareDecoder = &ThemeSettings{}
 )

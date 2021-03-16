@@ -136,6 +136,14 @@ func (m *MaskCoords) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode maskCoords#aed6dbb2 as nil")
 	}
 	b.PutID(MaskCoordsTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MaskCoords) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode maskCoords#aed6dbb2 as nil")
+	}
 	b.PutInt(m.N)
 	b.PutDouble(m.X)
 	b.PutDouble(m.Y)
@@ -171,6 +179,14 @@ func (m *MaskCoords) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MaskCoordsTypeID); err != nil {
 		return fmt.Errorf("unable to decode maskCoords#aed6dbb2: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MaskCoords) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode maskCoords#aed6dbb2 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -204,6 +220,8 @@ func (m *MaskCoords) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MaskCoords.
 var (
-	_ bin.Encoder = &MaskCoords{}
-	_ bin.Decoder = &MaskCoords{}
+	_ bin.Encoder     = &MaskCoords{}
+	_ bin.Decoder     = &MaskCoords{}
+	_ bin.BareEncoder = &MaskCoords{}
+	_ bin.BareDecoder = &MaskCoords{}
 )

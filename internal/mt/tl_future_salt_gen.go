@@ -121,6 +121,14 @@ func (f *FutureSalt) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode future_salt#949d9dc as nil")
 	}
 	b.PutID(FutureSaltTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *FutureSalt) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode future_salt#949d9dc as nil")
+	}
 	b.PutInt(f.ValidSince)
 	b.PutInt(f.ValidUntil)
 	b.PutLong(f.Salt)
@@ -150,6 +158,14 @@ func (f *FutureSalt) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(FutureSaltTypeID); err != nil {
 		return fmt.Errorf("unable to decode future_salt#949d9dc: %w", err)
 	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *FutureSalt) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode future_salt#949d9dc to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -176,6 +192,8 @@ func (f *FutureSalt) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for FutureSalt.
 var (
-	_ bin.Encoder = &FutureSalt{}
-	_ bin.Decoder = &FutureSalt{}
+	_ bin.Encoder     = &FutureSalt{}
+	_ bin.Decoder     = &FutureSalt{}
+	_ bin.BareEncoder = &FutureSalt{}
+	_ bin.BareDecoder = &FutureSalt{}
 )

@@ -88,6 +88,14 @@ func (c *AccountCancelPasswordEmailRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.cancelPasswordEmail#c1cbd5b6 as nil")
 	}
 	b.PutID(AccountCancelPasswordEmailRequestTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *AccountCancelPasswordEmailRequest) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode account.cancelPasswordEmail#c1cbd5b6 as nil")
+	}
 	return nil
 }
 
@@ -99,13 +107,23 @@ func (c *AccountCancelPasswordEmailRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountCancelPasswordEmailRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.cancelPasswordEmail#c1cbd5b6: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *AccountCancelPasswordEmailRequest) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode account.cancelPasswordEmail#c1cbd5b6 to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for AccountCancelPasswordEmailRequest.
 var (
-	_ bin.Encoder = &AccountCancelPasswordEmailRequest{}
-	_ bin.Decoder = &AccountCancelPasswordEmailRequest{}
+	_ bin.Encoder     = &AccountCancelPasswordEmailRequest{}
+	_ bin.Decoder     = &AccountCancelPasswordEmailRequest{}
+	_ bin.BareEncoder = &AccountCancelPasswordEmailRequest{}
+	_ bin.BareDecoder = &AccountCancelPasswordEmailRequest{}
 )
 
 // AccountCancelPasswordEmail invokes method account.cancelPasswordEmail#c1cbd5b6 returning error if any.

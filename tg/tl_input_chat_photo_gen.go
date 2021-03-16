@@ -85,6 +85,14 @@ func (i *InputChatPhotoEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputChatPhotoEmpty#1ca48f57 as nil")
 	}
 	b.PutID(InputChatPhotoEmptyTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputChatPhotoEmpty) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputChatPhotoEmpty#1ca48f57 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (i *InputChatPhotoEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputChatPhotoEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputChatPhotoEmpty#1ca48f57: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputChatPhotoEmpty) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputChatPhotoEmpty#1ca48f57 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (i InputChatPhotoEmpty) construct() InputChatPhotoClass { return &i }
 
 // Ensuring interfaces in compile-time for InputChatPhotoEmpty.
 var (
-	_ bin.Encoder = &InputChatPhotoEmpty{}
-	_ bin.Decoder = &InputChatPhotoEmpty{}
+	_ bin.Encoder     = &InputChatPhotoEmpty{}
+	_ bin.Decoder     = &InputChatPhotoEmpty{}
+	_ bin.BareEncoder = &InputChatPhotoEmpty{}
+	_ bin.BareDecoder = &InputChatPhotoEmpty{}
 
 	_ InputChatPhotoClass = &InputChatPhotoEmpty{}
 )
@@ -237,6 +255,14 @@ func (i *InputChatUploadedPhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputChatUploadedPhoto#c642724e as nil")
 	}
 	b.PutID(InputChatUploadedPhotoTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputChatUploadedPhoto) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputChatUploadedPhoto#c642724e as nil")
+	}
 	if !(i.File == nil) {
 		i.Flags.Set(0)
 	}
@@ -324,6 +350,14 @@ func (i *InputChatUploadedPhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputChatUploadedPhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputChatUploadedPhoto#c642724e: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputChatUploadedPhoto) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputChatUploadedPhoto#c642724e to nil")
+	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputChatUploadedPhoto#c642724e: field flags: %w", err)
@@ -358,8 +392,10 @@ func (i InputChatUploadedPhoto) construct() InputChatPhotoClass { return &i }
 
 // Ensuring interfaces in compile-time for InputChatUploadedPhoto.
 var (
-	_ bin.Encoder = &InputChatUploadedPhoto{}
-	_ bin.Decoder = &InputChatUploadedPhoto{}
+	_ bin.Encoder     = &InputChatUploadedPhoto{}
+	_ bin.Decoder     = &InputChatUploadedPhoto{}
+	_ bin.BareEncoder = &InputChatUploadedPhoto{}
+	_ bin.BareDecoder = &InputChatUploadedPhoto{}
 
 	_ InputChatPhotoClass = &InputChatUploadedPhoto{}
 )
@@ -440,6 +476,14 @@ func (i *InputChatPhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputChatPhoto#8953ad37 as nil")
 	}
 	b.PutID(InputChatPhotoTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputChatPhoto) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputChatPhoto#8953ad37 as nil")
+	}
 	if i.ID == nil {
 		return fmt.Errorf("unable to encode inputChatPhoto#8953ad37: field id is nil")
 	}
@@ -462,6 +506,14 @@ func (i *InputChatPhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputChatPhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputChatPhoto#8953ad37: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputChatPhoto) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputChatPhoto#8953ad37 to nil")
+	}
 	{
 		value, err := DecodeInputPhoto(b)
 		if err != nil {
@@ -477,8 +529,10 @@ func (i InputChatPhoto) construct() InputChatPhotoClass { return &i }
 
 // Ensuring interfaces in compile-time for InputChatPhoto.
 var (
-	_ bin.Encoder = &InputChatPhoto{}
-	_ bin.Decoder = &InputChatPhoto{}
+	_ bin.Encoder     = &InputChatPhoto{}
+	_ bin.Decoder     = &InputChatPhoto{}
+	_ bin.BareEncoder = &InputChatPhoto{}
+	_ bin.BareDecoder = &InputChatPhoto{}
 
 	_ InputChatPhotoClass = &InputChatPhoto{}
 )
@@ -501,6 +555,8 @@ var (
 type InputChatPhotoClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() InputChatPhotoClass
 
 	// TypeID returns type id in TL schema.

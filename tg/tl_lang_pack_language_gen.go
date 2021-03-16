@@ -232,6 +232,14 @@ func (l *LangPackLanguage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode langPackLanguage#eeca5ce3 as nil")
 	}
 	b.PutID(LangPackLanguageTypeID)
+	return l.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (l *LangPackLanguage) EncodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't encode langPackLanguage#eeca5ce3 as nil")
+	}
 	if !(l.Official == false) {
 		l.Flags.Set(0)
 	}
@@ -366,6 +374,14 @@ func (l *LangPackLanguage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(LangPackLanguageTypeID); err != nil {
 		return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: %w", err)
 	}
+	return l.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (l *LangPackLanguage) DecodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't decode langPackLanguage#eeca5ce3 to nil")
+	}
 	{
 		if err := l.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode langPackLanguage#eeca5ce3: field flags: %w", err)
@@ -435,6 +451,8 @@ func (l *LangPackLanguage) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for LangPackLanguage.
 var (
-	_ bin.Encoder = &LangPackLanguage{}
-	_ bin.Decoder = &LangPackLanguage{}
+	_ bin.Encoder     = &LangPackLanguage{}
+	_ bin.Decoder     = &LangPackLanguage{}
+	_ bin.BareEncoder = &LangPackLanguage{}
+	_ bin.BareDecoder = &LangPackLanguage{}
 )

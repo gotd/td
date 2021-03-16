@@ -85,6 +85,14 @@ func (u *UserStatusEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode userStatusEmpty#9d05049 as nil")
 	}
 	b.PutID(UserStatusEmptyTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UserStatusEmpty) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userStatusEmpty#9d05049 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (u *UserStatusEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UserStatusEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode userStatusEmpty#9d05049: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UserStatusEmpty) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userStatusEmpty#9d05049 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (u UserStatusEmpty) construct() UserStatusClass { return &u }
 
 // Ensuring interfaces in compile-time for UserStatusEmpty.
 var (
-	_ bin.Encoder = &UserStatusEmpty{}
-	_ bin.Decoder = &UserStatusEmpty{}
+	_ bin.Encoder     = &UserStatusEmpty{}
+	_ bin.Decoder     = &UserStatusEmpty{}
+	_ bin.BareEncoder = &UserStatusEmpty{}
+	_ bin.BareDecoder = &UserStatusEmpty{}
 
 	_ UserStatusClass = &UserStatusEmpty{}
 )
@@ -186,6 +204,14 @@ func (u *UserStatusOnline) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode userStatusOnline#edb93949 as nil")
 	}
 	b.PutID(UserStatusOnlineTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UserStatusOnline) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userStatusOnline#edb93949 as nil")
+	}
 	b.PutInt(u.Expires)
 	return nil
 }
@@ -203,6 +229,14 @@ func (u *UserStatusOnline) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UserStatusOnlineTypeID); err != nil {
 		return fmt.Errorf("unable to decode userStatusOnline#edb93949: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UserStatusOnline) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userStatusOnline#edb93949 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -218,8 +252,10 @@ func (u UserStatusOnline) construct() UserStatusClass { return &u }
 
 // Ensuring interfaces in compile-time for UserStatusOnline.
 var (
-	_ bin.Encoder = &UserStatusOnline{}
-	_ bin.Decoder = &UserStatusOnline{}
+	_ bin.Encoder     = &UserStatusOnline{}
+	_ bin.Decoder     = &UserStatusOnline{}
+	_ bin.BareEncoder = &UserStatusOnline{}
+	_ bin.BareDecoder = &UserStatusOnline{}
 
 	_ UserStatusClass = &UserStatusOnline{}
 )
@@ -300,6 +336,14 @@ func (u *UserStatusOffline) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode userStatusOffline#8c703f as nil")
 	}
 	b.PutID(UserStatusOfflineTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UserStatusOffline) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userStatusOffline#8c703f as nil")
+	}
 	b.PutInt(u.WasOnline)
 	return nil
 }
@@ -317,6 +361,14 @@ func (u *UserStatusOffline) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UserStatusOfflineTypeID); err != nil {
 		return fmt.Errorf("unable to decode userStatusOffline#8c703f: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UserStatusOffline) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userStatusOffline#8c703f to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -332,8 +384,10 @@ func (u UserStatusOffline) construct() UserStatusClass { return &u }
 
 // Ensuring interfaces in compile-time for UserStatusOffline.
 var (
-	_ bin.Encoder = &UserStatusOffline{}
-	_ bin.Decoder = &UserStatusOffline{}
+	_ bin.Encoder     = &UserStatusOffline{}
+	_ bin.Decoder     = &UserStatusOffline{}
+	_ bin.BareEncoder = &UserStatusOffline{}
+	_ bin.BareDecoder = &UserStatusOffline{}
 
 	_ UserStatusClass = &UserStatusOffline{}
 )
@@ -397,6 +451,14 @@ func (u *UserStatusRecently) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode userStatusRecently#e26f42f1 as nil")
 	}
 	b.PutID(UserStatusRecentlyTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UserStatusRecently) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userStatusRecently#e26f42f1 as nil")
+	}
 	return nil
 }
 
@@ -408,6 +470,14 @@ func (u *UserStatusRecently) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UserStatusRecentlyTypeID); err != nil {
 		return fmt.Errorf("unable to decode userStatusRecently#e26f42f1: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UserStatusRecently) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userStatusRecently#e26f42f1 to nil")
+	}
 	return nil
 }
 
@@ -416,8 +486,10 @@ func (u UserStatusRecently) construct() UserStatusClass { return &u }
 
 // Ensuring interfaces in compile-time for UserStatusRecently.
 var (
-	_ bin.Encoder = &UserStatusRecently{}
-	_ bin.Decoder = &UserStatusRecently{}
+	_ bin.Encoder     = &UserStatusRecently{}
+	_ bin.Decoder     = &UserStatusRecently{}
+	_ bin.BareEncoder = &UserStatusRecently{}
+	_ bin.BareDecoder = &UserStatusRecently{}
 
 	_ UserStatusClass = &UserStatusRecently{}
 )
@@ -481,6 +553,14 @@ func (u *UserStatusLastWeek) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode userStatusLastWeek#7bf09fc as nil")
 	}
 	b.PutID(UserStatusLastWeekTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UserStatusLastWeek) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userStatusLastWeek#7bf09fc as nil")
+	}
 	return nil
 }
 
@@ -492,6 +572,14 @@ func (u *UserStatusLastWeek) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UserStatusLastWeekTypeID); err != nil {
 		return fmt.Errorf("unable to decode userStatusLastWeek#7bf09fc: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UserStatusLastWeek) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userStatusLastWeek#7bf09fc to nil")
+	}
 	return nil
 }
 
@@ -500,8 +588,10 @@ func (u UserStatusLastWeek) construct() UserStatusClass { return &u }
 
 // Ensuring interfaces in compile-time for UserStatusLastWeek.
 var (
-	_ bin.Encoder = &UserStatusLastWeek{}
-	_ bin.Decoder = &UserStatusLastWeek{}
+	_ bin.Encoder     = &UserStatusLastWeek{}
+	_ bin.Decoder     = &UserStatusLastWeek{}
+	_ bin.BareEncoder = &UserStatusLastWeek{}
+	_ bin.BareDecoder = &UserStatusLastWeek{}
 
 	_ UserStatusClass = &UserStatusLastWeek{}
 )
@@ -565,6 +655,14 @@ func (u *UserStatusLastMonth) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode userStatusLastMonth#77ebc742 as nil")
 	}
 	b.PutID(UserStatusLastMonthTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UserStatusLastMonth) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userStatusLastMonth#77ebc742 as nil")
+	}
 	return nil
 }
 
@@ -576,6 +674,14 @@ func (u *UserStatusLastMonth) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UserStatusLastMonthTypeID); err != nil {
 		return fmt.Errorf("unable to decode userStatusLastMonth#77ebc742: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UserStatusLastMonth) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userStatusLastMonth#77ebc742 to nil")
+	}
 	return nil
 }
 
@@ -584,8 +690,10 @@ func (u UserStatusLastMonth) construct() UserStatusClass { return &u }
 
 // Ensuring interfaces in compile-time for UserStatusLastMonth.
 var (
-	_ bin.Encoder = &UserStatusLastMonth{}
-	_ bin.Decoder = &UserStatusLastMonth{}
+	_ bin.Encoder     = &UserStatusLastMonth{}
+	_ bin.Decoder     = &UserStatusLastMonth{}
+	_ bin.BareEncoder = &UserStatusLastMonth{}
+	_ bin.BareDecoder = &UserStatusLastMonth{}
 
 	_ UserStatusClass = &UserStatusLastMonth{}
 )
@@ -611,6 +719,8 @@ var (
 type UserStatusClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() UserStatusClass
 
 	// TypeID returns type id in TL schema.

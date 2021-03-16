@@ -85,6 +85,14 @@ func (g *GeoPointEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode geoPointEmpty#1117dd5f as nil")
 	}
 	b.PutID(GeoPointEmptyTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *GeoPointEmpty) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode geoPointEmpty#1117dd5f as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (g *GeoPointEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(GeoPointEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode geoPointEmpty#1117dd5f: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *GeoPointEmpty) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode geoPointEmpty#1117dd5f to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (g GeoPointEmpty) construct() GeoPointClass { return &g }
 
 // Ensuring interfaces in compile-time for GeoPointEmpty.
 var (
-	_ bin.Encoder = &GeoPointEmpty{}
-	_ bin.Decoder = &GeoPointEmpty{}
+	_ bin.Encoder     = &GeoPointEmpty{}
+	_ bin.Decoder     = &GeoPointEmpty{}
+	_ bin.BareEncoder = &GeoPointEmpty{}
+	_ bin.BareDecoder = &GeoPointEmpty{}
 
 	_ GeoPointClass = &GeoPointEmpty{}
 )
@@ -233,6 +251,14 @@ func (g *GeoPoint) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode geoPoint#b2a2f663 as nil")
 	}
 	b.PutID(GeoPointTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *GeoPoint) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode geoPoint#b2a2f663 as nil")
+	}
 	if !(g.AccuracyRadius == 0) {
 		g.Flags.Set(0)
 	}
@@ -286,6 +312,14 @@ func (g *GeoPoint) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(GeoPointTypeID); err != nil {
 		return fmt.Errorf("unable to decode geoPoint#b2a2f663: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *GeoPoint) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode geoPoint#b2a2f663 to nil")
+	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode geoPoint#b2a2f663: field flags: %w", err)
@@ -327,8 +361,10 @@ func (g GeoPoint) construct() GeoPointClass { return &g }
 
 // Ensuring interfaces in compile-time for GeoPoint.
 var (
-	_ bin.Encoder = &GeoPoint{}
-	_ bin.Decoder = &GeoPoint{}
+	_ bin.Encoder     = &GeoPoint{}
+	_ bin.Decoder     = &GeoPoint{}
+	_ bin.BareEncoder = &GeoPoint{}
+	_ bin.BareDecoder = &GeoPoint{}
 
 	_ GeoPointClass = &GeoPoint{}
 )
@@ -350,6 +386,8 @@ var (
 type GeoPointClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() GeoPointClass
 
 	// TypeID returns type id in TL schema.

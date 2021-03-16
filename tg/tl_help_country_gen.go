@@ -161,6 +161,14 @@ func (c *HelpCountry) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.country#c3878e23 as nil")
 	}
 	b.PutID(HelpCountryTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *HelpCountry) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode help.country#c3878e23 as nil")
+	}
 	if !(c.Hidden == false) {
 		c.Flags.Set(0)
 	}
@@ -238,6 +246,14 @@ func (c *HelpCountry) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpCountryTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.country#c3878e23: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *HelpCountry) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode help.country#c3878e23 to nil")
+	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode help.country#c3878e23: field flags: %w", err)
@@ -283,6 +299,8 @@ func (c *HelpCountry) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for HelpCountry.
 var (
-	_ bin.Encoder = &HelpCountry{}
-	_ bin.Decoder = &HelpCountry{}
+	_ bin.Encoder     = &HelpCountry{}
+	_ bin.Decoder     = &HelpCountry{}
+	_ bin.BareEncoder = &HelpCountry{}
+	_ bin.BareDecoder = &HelpCountry{}
 )

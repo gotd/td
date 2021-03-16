@@ -224,6 +224,14 @@ func (e *MessagesEditMessageRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.editMessage#48f71778 as nil")
 	}
 	b.PutID(MessagesEditMessageRequestTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *MessagesEditMessageRequest) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode messages.editMessage#48f71778 as nil")
+	}
 	if !(e.NoWebpage == false) {
 		e.Flags.Set(1)
 	}
@@ -405,6 +413,14 @@ func (e *MessagesEditMessageRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesEditMessageRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.editMessage#48f71778: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *MessagesEditMessageRequest) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode messages.editMessage#48f71778 to nil")
+	}
 	{
 		if err := e.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.editMessage#48f71778: field flags: %w", err)
@@ -471,8 +487,10 @@ func (e *MessagesEditMessageRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesEditMessageRequest.
 var (
-	_ bin.Encoder = &MessagesEditMessageRequest{}
-	_ bin.Decoder = &MessagesEditMessageRequest{}
+	_ bin.Encoder     = &MessagesEditMessageRequest{}
+	_ bin.Decoder     = &MessagesEditMessageRequest{}
+	_ bin.BareEncoder = &MessagesEditMessageRequest{}
+	_ bin.BareDecoder = &MessagesEditMessageRequest{}
 )
 
 // MessagesEditMessage invokes method messages.editMessage#48f71778 returning error if any.

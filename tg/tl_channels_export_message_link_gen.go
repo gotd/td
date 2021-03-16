@@ -148,6 +148,14 @@ func (e *ChannelsExportMessageLinkRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.exportMessageLink#e63fadeb as nil")
 	}
 	b.PutID(ChannelsExportMessageLinkRequestTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *ChannelsExportMessageLinkRequest) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode channels.exportMessageLink#e63fadeb as nil")
+	}
 	if !(e.Grouped == false) {
 		e.Flags.Set(0)
 	}
@@ -222,6 +230,14 @@ func (e *ChannelsExportMessageLinkRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsExportMessageLinkRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.exportMessageLink#e63fadeb: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *ChannelsExportMessageLinkRequest) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode channels.exportMessageLink#e63fadeb to nil")
+	}
 	{
 		if err := e.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channels.exportMessageLink#e63fadeb: field flags: %w", err)
@@ -248,8 +264,10 @@ func (e *ChannelsExportMessageLinkRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsExportMessageLinkRequest.
 var (
-	_ bin.Encoder = &ChannelsExportMessageLinkRequest{}
-	_ bin.Decoder = &ChannelsExportMessageLinkRequest{}
+	_ bin.Encoder     = &ChannelsExportMessageLinkRequest{}
+	_ bin.Decoder     = &ChannelsExportMessageLinkRequest{}
+	_ bin.BareEncoder = &ChannelsExportMessageLinkRequest{}
+	_ bin.BareDecoder = &ChannelsExportMessageLinkRequest{}
 )
 
 // ChannelsExportMessageLink invokes method channels.exportMessageLink#e63fadeb returning error if any.

@@ -127,6 +127,14 @@ func (g *UploadGetCDNFileRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode upload.getCdnFile#2000bcc3 as nil")
 	}
 	b.PutID(UploadGetCDNFileRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *UploadGetCDNFileRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode upload.getCdnFile#2000bcc3 as nil")
+	}
 	b.PutBytes(g.FileToken)
 	b.PutInt(g.Offset)
 	b.PutInt(g.Limit)
@@ -156,6 +164,14 @@ func (g *UploadGetCDNFileRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UploadGetCDNFileRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.getCdnFile#2000bcc3: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *UploadGetCDNFileRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode upload.getCdnFile#2000bcc3 to nil")
+	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
@@ -182,8 +198,10 @@ func (g *UploadGetCDNFileRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for UploadGetCDNFileRequest.
 var (
-	_ bin.Encoder = &UploadGetCDNFileRequest{}
-	_ bin.Decoder = &UploadGetCDNFileRequest{}
+	_ bin.Encoder     = &UploadGetCDNFileRequest{}
+	_ bin.Decoder     = &UploadGetCDNFileRequest{}
+	_ bin.BareEncoder = &UploadGetCDNFileRequest{}
+	_ bin.BareDecoder = &UploadGetCDNFileRequest{}
 )
 
 // UploadGetCDNFile invokes method upload.getCdnFile#2000bcc3 returning error if any.

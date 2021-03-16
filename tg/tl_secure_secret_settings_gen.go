@@ -124,6 +124,14 @@ func (s *SecureSecretSettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureSecretSettings#1527bcac as nil")
 	}
 	b.PutID(SecureSecretSettingsTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureSecretSettings) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureSecretSettings#1527bcac as nil")
+	}
 	if s.SecureAlgo == nil {
 		return fmt.Errorf("unable to encode secureSecretSettings#1527bcac: field secure_algo is nil")
 	}
@@ -158,6 +166,14 @@ func (s *SecureSecretSettings) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureSecretSettingsTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureSecretSettings#1527bcac: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureSecretSettings) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureSecretSettings#1527bcac to nil")
+	}
 	{
 		value, err := DecodeSecurePasswordKdfAlgo(b)
 		if err != nil {
@@ -184,6 +200,8 @@ func (s *SecureSecretSettings) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for SecureSecretSettings.
 var (
-	_ bin.Encoder = &SecureSecretSettings{}
-	_ bin.Decoder = &SecureSecretSettings{}
+	_ bin.Encoder     = &SecureSecretSettings{}
+	_ bin.Decoder     = &SecureSecretSettings{}
+	_ bin.BareEncoder = &SecureSecretSettings{}
+	_ bin.BareDecoder = &SecureSecretSettings{}
 )

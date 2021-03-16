@@ -152,6 +152,14 @@ func (u *AccountUploadThemeRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.uploadTheme#1c3db333 as nil")
 	}
 	b.PutID(AccountUploadThemeRequestTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *AccountUploadThemeRequest) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode account.uploadTheme#1c3db333 as nil")
+	}
 	if !(u.Thumb == nil) {
 		u.Flags.Set(0)
 	}
@@ -215,6 +223,14 @@ func (u *AccountUploadThemeRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountUploadThemeRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.uploadTheme#1c3db333: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *AccountUploadThemeRequest) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode account.uploadTheme#1c3db333 to nil")
+	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.uploadTheme#1c3db333: field flags: %w", err)
@@ -253,8 +269,10 @@ func (u *AccountUploadThemeRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountUploadThemeRequest.
 var (
-	_ bin.Encoder = &AccountUploadThemeRequest{}
-	_ bin.Decoder = &AccountUploadThemeRequest{}
+	_ bin.Encoder     = &AccountUploadThemeRequest{}
+	_ bin.Decoder     = &AccountUploadThemeRequest{}
+	_ bin.BareEncoder = &AccountUploadThemeRequest{}
+	_ bin.BareDecoder = &AccountUploadThemeRequest{}
 )
 
 // AccountUploadTheme invokes method account.uploadTheme#1c3db333 returning error if any.

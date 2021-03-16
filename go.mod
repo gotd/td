@@ -10,7 +10,7 @@ require (
 	github.com/gotd/getdoc v0.6.1
 	github.com/gotd/ige v0.1.5
 	github.com/gotd/neo v0.1.1
-	github.com/gotd/tl v0.3.0
+	github.com/gotd/tl v0.4.0
 	github.com/gotd/xor v0.1.1
 	github.com/k0kubun/colorstring v0.0.0-20150214042306-9440f1994b88 // indirect
 	github.com/k0kubun/pp v2.4.0+incompatible

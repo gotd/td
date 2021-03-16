@@ -85,6 +85,14 @@ func (i *InputUserEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputUserEmpty#b98886cf as nil")
 	}
 	b.PutID(InputUserEmptyTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputUserEmpty) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputUserEmpty#b98886cf as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (i *InputUserEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputUserEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputUserEmpty#b98886cf: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputUserEmpty) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputUserEmpty#b98886cf to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (i InputUserEmpty) construct() InputUserClass { return &i }
 
 // Ensuring interfaces in compile-time for InputUserEmpty.
 var (
-	_ bin.Encoder = &InputUserEmpty{}
-	_ bin.Decoder = &InputUserEmpty{}
+	_ bin.Encoder     = &InputUserEmpty{}
+	_ bin.Decoder     = &InputUserEmpty{}
+	_ bin.BareEncoder = &InputUserEmpty{}
+	_ bin.BareDecoder = &InputUserEmpty{}
 
 	_ InputUserClass = &InputUserEmpty{}
 )
@@ -169,6 +187,14 @@ func (i *InputUserSelf) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputUserSelf#f7c1b13f as nil")
 	}
 	b.PutID(InputUserSelfTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputUserSelf) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputUserSelf#f7c1b13f as nil")
+	}
 	return nil
 }
 
@@ -180,6 +206,14 @@ func (i *InputUserSelf) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputUserSelfTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputUserSelf#f7c1b13f: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputUserSelf) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputUserSelf#f7c1b13f to nil")
+	}
 	return nil
 }
 
@@ -188,8 +222,10 @@ func (i InputUserSelf) construct() InputUserClass { return &i }
 
 // Ensuring interfaces in compile-time for InputUserSelf.
 var (
-	_ bin.Encoder = &InputUserSelf{}
-	_ bin.Decoder = &InputUserSelf{}
+	_ bin.Encoder     = &InputUserSelf{}
+	_ bin.Decoder     = &InputUserSelf{}
+	_ bin.BareEncoder = &InputUserSelf{}
+	_ bin.BareDecoder = &InputUserSelf{}
 
 	_ InputUserClass = &InputUserSelf{}
 )
@@ -284,6 +320,14 @@ func (i *InputUser) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputUser#d8292816 as nil")
 	}
 	b.PutID(InputUserTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputUser) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputUser#d8292816 as nil")
+	}
 	b.PutInt(i.UserID)
 	b.PutLong(i.AccessHash)
 	return nil
@@ -307,6 +351,14 @@ func (i *InputUser) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputUserTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputUser#d8292816: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputUser) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputUser#d8292816 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -329,8 +381,10 @@ func (i InputUser) construct() InputUserClass { return &i }
 
 // Ensuring interfaces in compile-time for InputUser.
 var (
-	_ bin.Encoder = &InputUser{}
-	_ bin.Decoder = &InputUser{}
+	_ bin.Encoder     = &InputUser{}
+	_ bin.Decoder     = &InputUser{}
+	_ bin.BareEncoder = &InputUser{}
+	_ bin.BareDecoder = &InputUser{}
 
 	_ InputUserClass = &InputUser{}
 )
@@ -436,6 +490,14 @@ func (i *InputUserFromMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputUserFromMessage#2d117597 as nil")
 	}
 	b.PutID(InputUserFromMessageTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputUserFromMessage) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputUserFromMessage#2d117597 as nil")
+	}
 	if i.Peer == nil {
 		return fmt.Errorf("unable to encode inputUserFromMessage#2d117597: field peer is nil")
 	}
@@ -470,6 +532,14 @@ func (i *InputUserFromMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputUserFromMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputUserFromMessage#2d117597: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputUserFromMessage) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputUserFromMessage#2d117597 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -499,8 +569,10 @@ func (i InputUserFromMessage) construct() InputUserClass { return &i }
 
 // Ensuring interfaces in compile-time for InputUserFromMessage.
 var (
-	_ bin.Encoder = &InputUserFromMessage{}
-	_ bin.Decoder = &InputUserFromMessage{}
+	_ bin.Encoder     = &InputUserFromMessage{}
+	_ bin.Decoder     = &InputUserFromMessage{}
+	_ bin.BareEncoder = &InputUserFromMessage{}
+	_ bin.BareDecoder = &InputUserFromMessage{}
 
 	_ InputUserClass = &InputUserFromMessage{}
 )
@@ -524,6 +596,8 @@ var (
 type InputUserClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() InputUserClass
 
 	// TypeID returns type id in TL schema.

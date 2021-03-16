@@ -113,6 +113,14 @@ func (i *InputPaymentCredentialsSaved) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputPaymentCredentialsSaved#c10eb2cf as nil")
 	}
 	b.PutID(InputPaymentCredentialsSavedTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPaymentCredentialsSaved) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPaymentCredentialsSaved#c10eb2cf as nil")
+	}
 	b.PutString(i.ID)
 	b.PutBytes(i.TmpPassword)
 	return nil
@@ -136,6 +144,14 @@ func (i *InputPaymentCredentialsSaved) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPaymentCredentialsSavedTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPaymentCredentialsSaved#c10eb2cf: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPaymentCredentialsSaved) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPaymentCredentialsSaved#c10eb2cf to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -158,8 +174,10 @@ func (i InputPaymentCredentialsSaved) construct() InputPaymentCredentialsClass {
 
 // Ensuring interfaces in compile-time for InputPaymentCredentialsSaved.
 var (
-	_ bin.Encoder = &InputPaymentCredentialsSaved{}
-	_ bin.Decoder = &InputPaymentCredentialsSaved{}
+	_ bin.Encoder     = &InputPaymentCredentialsSaved{}
+	_ bin.Decoder     = &InputPaymentCredentialsSaved{}
+	_ bin.BareEncoder = &InputPaymentCredentialsSaved{}
+	_ bin.BareDecoder = &InputPaymentCredentialsSaved{}
 
 	_ InputPaymentCredentialsClass = &InputPaymentCredentialsSaved{}
 )
@@ -260,6 +278,14 @@ func (i *InputPaymentCredentials) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputPaymentCredentials#3417d728 as nil")
 	}
 	b.PutID(InputPaymentCredentialsTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPaymentCredentials) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPaymentCredentials#3417d728 as nil")
+	}
 	if !(i.Save == false) {
 		i.Flags.Set(0)
 	}
@@ -301,6 +327,14 @@ func (i *InputPaymentCredentials) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPaymentCredentialsTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPaymentCredentials#3417d728: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPaymentCredentials) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPaymentCredentials#3417d728 to nil")
+	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputPaymentCredentials#3417d728: field flags: %w", err)
@@ -320,8 +354,10 @@ func (i InputPaymentCredentials) construct() InputPaymentCredentialsClass { retu
 
 // Ensuring interfaces in compile-time for InputPaymentCredentials.
 var (
-	_ bin.Encoder = &InputPaymentCredentials{}
-	_ bin.Decoder = &InputPaymentCredentials{}
+	_ bin.Encoder     = &InputPaymentCredentials{}
+	_ bin.Decoder     = &InputPaymentCredentials{}
+	_ bin.BareEncoder = &InputPaymentCredentials{}
+	_ bin.BareDecoder = &InputPaymentCredentials{}
 
 	_ InputPaymentCredentialsClass = &InputPaymentCredentials{}
 )
@@ -402,6 +438,14 @@ func (i *InputPaymentCredentialsApplePay) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputPaymentCredentialsApplePay#aa1c39f as nil")
 	}
 	b.PutID(InputPaymentCredentialsApplePayTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPaymentCredentialsApplePay) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPaymentCredentialsApplePay#aa1c39f as nil")
+	}
 	if err := i.PaymentData.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputPaymentCredentialsApplePay#aa1c39f: field payment_data: %w", err)
 	}
@@ -421,6 +465,14 @@ func (i *InputPaymentCredentialsApplePay) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPaymentCredentialsApplePayTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPaymentCredentialsApplePay#aa1c39f: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPaymentCredentialsApplePay) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPaymentCredentialsApplePay#aa1c39f to nil")
+	}
 	{
 		if err := i.PaymentData.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputPaymentCredentialsApplePay#aa1c39f: field payment_data: %w", err)
@@ -434,8 +486,10 @@ func (i InputPaymentCredentialsApplePay) construct() InputPaymentCredentialsClas
 
 // Ensuring interfaces in compile-time for InputPaymentCredentialsApplePay.
 var (
-	_ bin.Encoder = &InputPaymentCredentialsApplePay{}
-	_ bin.Decoder = &InputPaymentCredentialsApplePay{}
+	_ bin.Encoder     = &InputPaymentCredentialsApplePay{}
+	_ bin.Decoder     = &InputPaymentCredentialsApplePay{}
+	_ bin.BareEncoder = &InputPaymentCredentialsApplePay{}
+	_ bin.BareDecoder = &InputPaymentCredentialsApplePay{}
 
 	_ InputPaymentCredentialsClass = &InputPaymentCredentialsApplePay{}
 )
@@ -515,6 +569,14 @@ func (i *InputPaymentCredentialsGooglePay) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputPaymentCredentialsGooglePay#8ac32801 as nil")
 	}
 	b.PutID(InputPaymentCredentialsGooglePayTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPaymentCredentialsGooglePay) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPaymentCredentialsGooglePay#8ac32801 as nil")
+	}
 	if err := i.PaymentToken.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode inputPaymentCredentialsGooglePay#8ac32801: field payment_token: %w", err)
 	}
@@ -534,6 +596,14 @@ func (i *InputPaymentCredentialsGooglePay) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPaymentCredentialsGooglePayTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPaymentCredentialsGooglePay#8ac32801: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPaymentCredentialsGooglePay) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPaymentCredentialsGooglePay#8ac32801 to nil")
+	}
 	{
 		if err := i.PaymentToken.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputPaymentCredentialsGooglePay#8ac32801: field payment_token: %w", err)
@@ -547,8 +617,10 @@ func (i InputPaymentCredentialsGooglePay) construct() InputPaymentCredentialsCla
 
 // Ensuring interfaces in compile-time for InputPaymentCredentialsGooglePay.
 var (
-	_ bin.Encoder = &InputPaymentCredentialsGooglePay{}
-	_ bin.Decoder = &InputPaymentCredentialsGooglePay{}
+	_ bin.Encoder     = &InputPaymentCredentialsGooglePay{}
+	_ bin.Decoder     = &InputPaymentCredentialsGooglePay{}
+	_ bin.BareEncoder = &InputPaymentCredentialsGooglePay{}
+	_ bin.BareDecoder = &InputPaymentCredentialsGooglePay{}
 
 	_ InputPaymentCredentialsClass = &InputPaymentCredentialsGooglePay{}
 )
@@ -572,6 +644,8 @@ var (
 type InputPaymentCredentialsClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() InputPaymentCredentialsClass
 
 	// TypeID returns type id in TL schema.
