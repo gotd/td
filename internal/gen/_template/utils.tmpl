@@ -1,5 +1,5 @@
-{{ define "request_params" }}ctx context.Context{{- if .UnpackParameters }}{{- if .Fields }},
-{{- range $f := .Fields }}{{ lower $f.Name }} {{ template "print_type" $f }},{{- end}}
+{{ define "request_params" }}ctx context.Context{{- if .UnpackParameters }}{{- if .Fields }}
+{{- range $f := .Fields }}, {{ lower $f.Name }} {{ template "print_type" $f }}{{- end }}
 {{- end }}
 {{- else }}, request *{{ .Name }}{{- end }}
 {{- end }}
@@ -11,6 +11,12 @@
         {{- end }}
     }
 {{- end }}{{- end }}
+
+{{ define "unpack_request" }}ctx{{- if .UnpackParameters }}{{- if .Fields }}
+{{- range $f := $.Fields }}, request.{{ $f.Name }}
+{{- end }}{{- end }}
+{{- else }}, &request{{- end }}
+{{- end }}
 
 {{ define "print_type" }}
 {{- /*gotype: github.com/gotd/td/internal/gen.fieldDef*/ -}}

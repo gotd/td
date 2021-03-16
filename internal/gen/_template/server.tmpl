@@ -1,0 +1,102 @@
+{{ define "server" }}
+{{ $pkg := $.Package }}
+{{ template "header" $ }}
+
+type ServerDispatcher struct{
+    fallback func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error)
+    handlers map[uint32]func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error)
+}
+
+func NewServerDispatcher(fallback func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error)) *ServerDispatcher {
+    return &ServerDispatcher{
+        fallback: fallback,
+        handlers: map[uint32]func(context.Context, *bin.Buffer) (bin.Encoder, error){},
+    }
+}
+
+func (s *ServerDispatcher) Handle(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+    id, err := b.PeekID()
+    if err != nil{
+        return nil, err
+    }
+
+    f, ok := s.handlers[id]
+    if !ok {
+        return s.fallback(ctx, b)
+    }
+
+    return f(ctx, b)
+}
+
+{{ range $s:= $.Structs }}{{- if notEmpty $s.Method }}
+{{- if $s.Result }}
+{{- if $s.ResultSingular }}
+func (s *ServerDispatcher) On{{ $s.Method }}(f func({{ template "request_params" $s }}) ({{ if not $s.ResultVector }}*{{ $s.Result }}{{ else }}{{ template "slice_result_name" $s }}{{ end }}, error)) {
+    handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+        var request {{ $s.Name }}
+        if err := request.Decode(b); err != nil{
+            return nil, err
+        }
+
+        response, err := f({{- template "unpack_request" $s }})
+        if err != nil{
+            return nil, err
+        }
+
+        {{- if $s.ResultVector }}
+        return &{{ $s.Result }}{Elems: response}, nil
+        {{- else }}
+        return response, nil
+        {{- end }}
+    }
+
+    s.handlers[{{ $s.Name }}TypeID] = handler
+}
+{{- else }}
+func (s *ServerDispatcher) On{{ $s.Method }}(f func({{ template "request_params" $s }}) ({{if ne $s.Result "BoolClass"}}{{ $s.Result }}{{ else }}bool{{ end }}, error)) {
+    handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+        var request {{ $s.Name }}
+        if err := request.Decode(b); err != nil{
+            return nil, err
+        }
+
+        response, err := f({{- template "unpack_request" $s }})
+        if err != nil{
+            return nil, err
+        }
+
+        {{- if ne $s.Result "BoolClass" }}
+        return &{{ $s.ResultFunc }}Box{ {{ $s.ResultBaseName }}: response }, nil
+        {{- else }}
+        if response {
+            return &{{ $s.ResultFunc }}Box{ {{ $s.ResultBaseName }}: &BoolTrue{} }, nil
+        }
+
+        return &{{ $s.ResultFunc }}Box{ {{ $s.ResultBaseName }}: &BoolFalse{} }, nil
+        {{- end }}
+    }
+
+    s.handlers[{{ $s.Name }}TypeID] = handler
+}
+{{- end }}
+{{- else }}
+func (s *ServerDispatcher) On{{ $s.Method }}(f func({{ template "request_params" $s }}) error) {
+    handler := func(ctx context.Context, b *bin.Buffer) (bin.Encoder, error) {
+        var request {{ $s.Name }}
+        if err := request.Decode(b); err != nil{
+            return nil, err
+        }
+
+        if err := err := f({{- template "unpack_request" $s }}); err != nil{
+            return nil, err
+        }
+
+        return &Ok{}, nil
+    }
+
+    s.handlers[{{ $s.Name }}TypeID] = handler
+}
+{{- end }}
+{{ end }}
+{{- end }}
+{{- end }}
