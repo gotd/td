@@ -112,6 +112,14 @@ func (i *PhoneInviteToGroupCallRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.inviteToGroupCall#7b393160 as nil")
 	}
 	b.PutID(PhoneInviteToGroupCallRequestTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *PhoneInviteToGroupCallRequest) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode phone.inviteToGroupCall#7b393160 as nil")
+	}
 	if err := i.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.inviteToGroupCall#7b393160: field call: %w", err)
 	}
@@ -150,6 +158,14 @@ func (i *PhoneInviteToGroupCallRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneInviteToGroupCallRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.inviteToGroupCall#7b393160: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *PhoneInviteToGroupCallRequest) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode phone.inviteToGroupCall#7b393160 to nil")
+	}
 	{
 		if err := i.Call.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phone.inviteToGroupCall#7b393160: field call: %w", err)
@@ -173,8 +189,10 @@ func (i *PhoneInviteToGroupCallRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhoneInviteToGroupCallRequest.
 var (
-	_ bin.Encoder = &PhoneInviteToGroupCallRequest{}
-	_ bin.Decoder = &PhoneInviteToGroupCallRequest{}
+	_ bin.Encoder     = &PhoneInviteToGroupCallRequest{}
+	_ bin.Decoder     = &PhoneInviteToGroupCallRequest{}
+	_ bin.BareEncoder = &PhoneInviteToGroupCallRequest{}
+	_ bin.BareDecoder = &PhoneInviteToGroupCallRequest{}
 )
 
 // PhoneInviteToGroupCall invokes method phone.inviteToGroupCall#7b393160 returning error if any.

@@ -85,6 +85,14 @@ func (i *InputMediaEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMediaEmpty#9664f57f as nil")
 	}
 	b.PutID(InputMediaEmptyTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMediaEmpty) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaEmpty#9664f57f as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (i *InputMediaEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaEmpty#9664f57f: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMediaEmpty) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaEmpty#9664f57f to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (i InputMediaEmpty) construct() InputMediaClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMediaEmpty.
 var (
-	_ bin.Encoder = &InputMediaEmpty{}
-	_ bin.Decoder = &InputMediaEmpty{}
+	_ bin.Encoder     = &InputMediaEmpty{}
+	_ bin.Decoder     = &InputMediaEmpty{}
+	_ bin.BareEncoder = &InputMediaEmpty{}
+	_ bin.BareDecoder = &InputMediaEmpty{}
 
 	_ InputMediaClass = &InputMediaEmpty{}
 )
@@ -231,6 +249,14 @@ func (i *InputMediaUploadedPhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMediaUploadedPhoto#1e287d04 as nil")
 	}
 	b.PutID(InputMediaUploadedPhotoTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMediaUploadedPhoto) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaUploadedPhoto#1e287d04 as nil")
+	}
 	if !(i.Stickers == nil) {
 		i.Flags.Set(0)
 	}
@@ -314,6 +340,14 @@ func (i *InputMediaUploadedPhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaUploadedPhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaUploadedPhoto#1e287d04: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMediaUploadedPhoto) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaUploadedPhoto#1e287d04 to nil")
+	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputMediaUploadedPhoto#1e287d04: field flags: %w", err)
@@ -354,8 +388,10 @@ func (i InputMediaUploadedPhoto) construct() InputMediaClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMediaUploadedPhoto.
 var (
-	_ bin.Encoder = &InputMediaUploadedPhoto{}
-	_ bin.Decoder = &InputMediaUploadedPhoto{}
+	_ bin.Encoder     = &InputMediaUploadedPhoto{}
+	_ bin.Decoder     = &InputMediaUploadedPhoto{}
+	_ bin.BareEncoder = &InputMediaUploadedPhoto{}
+	_ bin.BareDecoder = &InputMediaUploadedPhoto{}
 
 	_ InputMediaClass = &InputMediaUploadedPhoto{}
 )
@@ -461,6 +497,14 @@ func (i *InputMediaPhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMediaPhoto#b3ba0635 as nil")
 	}
 	b.PutID(InputMediaPhotoTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMediaPhoto) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaPhoto#b3ba0635 as nil")
+	}
 	if !(i.TTLSeconds == 0) {
 		i.Flags.Set(0)
 	}
@@ -507,6 +551,14 @@ func (i *InputMediaPhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaPhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaPhoto#b3ba0635: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMediaPhoto) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaPhoto#b3ba0635 to nil")
+	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputMediaPhoto#b3ba0635: field flags: %w", err)
@@ -534,8 +586,10 @@ func (i InputMediaPhoto) construct() InputMediaClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMediaPhoto.
 var (
-	_ bin.Encoder = &InputMediaPhoto{}
-	_ bin.Decoder = &InputMediaPhoto{}
+	_ bin.Encoder     = &InputMediaPhoto{}
+	_ bin.Decoder     = &InputMediaPhoto{}
+	_ bin.BareEncoder = &InputMediaPhoto{}
+	_ bin.BareDecoder = &InputMediaPhoto{}
 
 	_ InputMediaClass = &InputMediaPhoto{}
 )
@@ -616,6 +670,14 @@ func (i *InputMediaGeoPoint) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMediaGeoPoint#f9c44144 as nil")
 	}
 	b.PutID(InputMediaGeoPointTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMediaGeoPoint) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaGeoPoint#f9c44144 as nil")
+	}
 	if i.GeoPoint == nil {
 		return fmt.Errorf("unable to encode inputMediaGeoPoint#f9c44144: field geo_point is nil")
 	}
@@ -638,6 +700,14 @@ func (i *InputMediaGeoPoint) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaGeoPointTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaGeoPoint#f9c44144: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMediaGeoPoint) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaGeoPoint#f9c44144 to nil")
+	}
 	{
 		value, err := DecodeInputGeoPoint(b)
 		if err != nil {
@@ -653,8 +723,10 @@ func (i InputMediaGeoPoint) construct() InputMediaClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMediaGeoPoint.
 var (
-	_ bin.Encoder = &InputMediaGeoPoint{}
-	_ bin.Decoder = &InputMediaGeoPoint{}
+	_ bin.Encoder     = &InputMediaGeoPoint{}
+	_ bin.Decoder     = &InputMediaGeoPoint{}
+	_ bin.BareEncoder = &InputMediaGeoPoint{}
+	_ bin.BareDecoder = &InputMediaGeoPoint{}
 
 	_ InputMediaClass = &InputMediaGeoPoint{}
 )
@@ -768,6 +840,14 @@ func (i *InputMediaContact) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMediaContact#f8ab7dfb as nil")
 	}
 	b.PutID(InputMediaContactTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMediaContact) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaContact#f8ab7dfb as nil")
+	}
 	b.PutString(i.PhoneNumber)
 	b.PutString(i.FirstName)
 	b.PutString(i.LastName)
@@ -802,6 +882,14 @@ func (i *InputMediaContact) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(InputMediaContactTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaContact#f8ab7dfb: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMediaContact) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaContact#f8ab7dfb to nil")
 	}
 	{
 		value, err := b.String()
@@ -839,8 +927,10 @@ func (i InputMediaContact) construct() InputMediaClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMediaContact.
 var (
-	_ bin.Encoder = &InputMediaContact{}
-	_ bin.Decoder = &InputMediaContact{}
+	_ bin.Encoder     = &InputMediaContact{}
+	_ bin.Decoder     = &InputMediaContact{}
+	_ bin.BareEncoder = &InputMediaContact{}
+	_ bin.BareDecoder = &InputMediaContact{}
 
 	_ InputMediaClass = &InputMediaContact{}
 )
@@ -1029,6 +1119,14 @@ func (i *InputMediaUploadedDocument) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMediaUploadedDocument#5b38c6c1 as nil")
 	}
 	b.PutID(InputMediaUploadedDocumentTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMediaUploadedDocument) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaUploadedDocument#5b38c6c1 as nil")
+	}
 	if !(i.NosoundVideo == false) {
 		i.Flags.Set(3)
 	}
@@ -1201,6 +1299,14 @@ func (i *InputMediaUploadedDocument) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaUploadedDocumentTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMediaUploadedDocument) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaUploadedDocument#5b38c6c1 to nil")
+	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputMediaUploadedDocument#5b38c6c1: field flags: %w", err)
@@ -1270,8 +1376,10 @@ func (i InputMediaUploadedDocument) construct() InputMediaClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMediaUploadedDocument.
 var (
-	_ bin.Encoder = &InputMediaUploadedDocument{}
-	_ bin.Decoder = &InputMediaUploadedDocument{}
+	_ bin.Encoder     = &InputMediaUploadedDocument{}
+	_ bin.Decoder     = &InputMediaUploadedDocument{}
+	_ bin.BareEncoder = &InputMediaUploadedDocument{}
+	_ bin.BareDecoder = &InputMediaUploadedDocument{}
 
 	_ InputMediaClass = &InputMediaUploadedDocument{}
 )
@@ -1394,6 +1502,14 @@ func (i *InputMediaDocument) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMediaDocument#33473058 as nil")
 	}
 	b.PutID(InputMediaDocumentTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMediaDocument) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaDocument#33473058 as nil")
+	}
 	if !(i.TTLSeconds == 0) {
 		i.Flags.Set(0)
 	}
@@ -1461,6 +1577,14 @@ func (i *InputMediaDocument) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaDocumentTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaDocument#33473058: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMediaDocument) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaDocument#33473058 to nil")
+	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputMediaDocument#33473058: field flags: %w", err)
@@ -1495,8 +1619,10 @@ func (i InputMediaDocument) construct() InputMediaClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMediaDocument.
 var (
-	_ bin.Encoder = &InputMediaDocument{}
-	_ bin.Decoder = &InputMediaDocument{}
+	_ bin.Encoder     = &InputMediaDocument{}
+	_ bin.Decoder     = &InputMediaDocument{}
+	_ bin.BareEncoder = &InputMediaDocument{}
+	_ bin.BareDecoder = &InputMediaDocument{}
 
 	_ InputMediaClass = &InputMediaDocument{}
 )
@@ -1632,6 +1758,14 @@ func (i *InputMediaVenue) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMediaVenue#c13d1c11 as nil")
 	}
 	b.PutID(InputMediaVenueTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMediaVenue) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaVenue#c13d1c11 as nil")
+	}
 	if i.GeoPoint == nil {
 		return fmt.Errorf("unable to encode inputMediaVenue#c13d1c11: field geo_point is nil")
 	}
@@ -1684,6 +1818,14 @@ func (i *InputMediaVenue) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaVenueTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaVenue#c13d1c11: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMediaVenue) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaVenue#c13d1c11 to nil")
+	}
 	{
 		value, err := DecodeInputGeoPoint(b)
 		if err != nil {
@@ -1734,8 +1876,10 @@ func (i InputMediaVenue) construct() InputMediaClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMediaVenue.
 var (
-	_ bin.Encoder = &InputMediaVenue{}
-	_ bin.Decoder = &InputMediaVenue{}
+	_ bin.Encoder     = &InputMediaVenue{}
+	_ bin.Decoder     = &InputMediaVenue{}
+	_ bin.BareEncoder = &InputMediaVenue{}
+	_ bin.BareDecoder = &InputMediaVenue{}
 
 	_ InputMediaClass = &InputMediaVenue{}
 )
@@ -1841,6 +1985,14 @@ func (i *InputMediaPhotoExternal) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMediaPhotoExternal#e5bbfe1a as nil")
 	}
 	b.PutID(InputMediaPhotoExternalTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMediaPhotoExternal) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaPhotoExternal#e5bbfe1a as nil")
+	}
 	if !(i.TTLSeconds == 0) {
 		i.Flags.Set(0)
 	}
@@ -1882,6 +2034,14 @@ func (i *InputMediaPhotoExternal) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaPhotoExternalTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaPhotoExternal#e5bbfe1a: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMediaPhotoExternal) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaPhotoExternal#e5bbfe1a to nil")
+	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputMediaPhotoExternal#e5bbfe1a: field flags: %w", err)
@@ -1909,8 +2069,10 @@ func (i InputMediaPhotoExternal) construct() InputMediaClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMediaPhotoExternal.
 var (
-	_ bin.Encoder = &InputMediaPhotoExternal{}
-	_ bin.Decoder = &InputMediaPhotoExternal{}
+	_ bin.Encoder     = &InputMediaPhotoExternal{}
+	_ bin.Decoder     = &InputMediaPhotoExternal{}
+	_ bin.BareEncoder = &InputMediaPhotoExternal{}
+	_ bin.BareDecoder = &InputMediaPhotoExternal{}
 
 	_ InputMediaClass = &InputMediaPhotoExternal{}
 )
@@ -2016,6 +2178,14 @@ func (i *InputMediaDocumentExternal) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMediaDocumentExternal#fb52dc99 as nil")
 	}
 	b.PutID(InputMediaDocumentExternalTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMediaDocumentExternal) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaDocumentExternal#fb52dc99 as nil")
+	}
 	if !(i.TTLSeconds == 0) {
 		i.Flags.Set(0)
 	}
@@ -2057,6 +2227,14 @@ func (i *InputMediaDocumentExternal) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaDocumentExternalTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaDocumentExternal#fb52dc99: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMediaDocumentExternal) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaDocumentExternal#fb52dc99 to nil")
+	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputMediaDocumentExternal#fb52dc99: field flags: %w", err)
@@ -2084,8 +2262,10 @@ func (i InputMediaDocumentExternal) construct() InputMediaClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMediaDocumentExternal.
 var (
-	_ bin.Encoder = &InputMediaDocumentExternal{}
-	_ bin.Decoder = &InputMediaDocumentExternal{}
+	_ bin.Encoder     = &InputMediaDocumentExternal{}
+	_ bin.Decoder     = &InputMediaDocumentExternal{}
+	_ bin.BareEncoder = &InputMediaDocumentExternal{}
+	_ bin.BareDecoder = &InputMediaDocumentExternal{}
 
 	_ InputMediaClass = &InputMediaDocumentExternal{}
 )
@@ -2166,6 +2346,14 @@ func (i *InputMediaGame) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMediaGame#d33f43f3 as nil")
 	}
 	b.PutID(InputMediaGameTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMediaGame) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaGame#d33f43f3 as nil")
+	}
 	if i.ID == nil {
 		return fmt.Errorf("unable to encode inputMediaGame#d33f43f3: field id is nil")
 	}
@@ -2188,6 +2376,14 @@ func (i *InputMediaGame) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaGameTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaGame#d33f43f3: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMediaGame) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaGame#d33f43f3 to nil")
+	}
 	{
 		value, err := DecodeInputGame(b)
 		if err != nil {
@@ -2203,8 +2399,10 @@ func (i InputMediaGame) construct() InputMediaClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMediaGame.
 var (
-	_ bin.Encoder = &InputMediaGame{}
-	_ bin.Decoder = &InputMediaGame{}
+	_ bin.Encoder     = &InputMediaGame{}
+	_ bin.Decoder     = &InputMediaGame{}
+	_ bin.BareEncoder = &InputMediaGame{}
+	_ bin.BareDecoder = &InputMediaGame{}
 
 	_ InputMediaClass = &InputMediaGame{}
 )
@@ -2382,6 +2580,14 @@ func (i *InputMediaInvoice) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMediaInvoice#f4e096c3 as nil")
 	}
 	b.PutID(InputMediaInvoiceTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMediaInvoice) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaInvoice#f4e096c3 as nil")
+	}
 	if !(i.Photo.Zero()) {
 		i.Flags.Set(0)
 	}
@@ -2465,6 +2671,14 @@ func (i *InputMediaInvoice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaInvoiceTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaInvoice#f4e096c3: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMediaInvoice) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaInvoice#f4e096c3 to nil")
+	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputMediaInvoice#f4e096c3: field flags: %w", err)
@@ -2528,8 +2742,10 @@ func (i InputMediaInvoice) construct() InputMediaClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMediaInvoice.
 var (
-	_ bin.Encoder = &InputMediaInvoice{}
-	_ bin.Decoder = &InputMediaInvoice{}
+	_ bin.Encoder     = &InputMediaInvoice{}
+	_ bin.Decoder     = &InputMediaInvoice{}
+	_ bin.BareEncoder = &InputMediaInvoice{}
+	_ bin.BareDecoder = &InputMediaInvoice{}
 
 	_ InputMediaClass = &InputMediaInvoice{}
 )
@@ -2690,6 +2906,14 @@ func (i *InputMediaGeoLive) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMediaGeoLive#971fa843 as nil")
 	}
 	b.PutID(InputMediaGeoLiveTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMediaGeoLive) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaGeoLive#971fa843 as nil")
+	}
 	if !(i.Stopped == false) {
 		i.Flags.Set(0)
 	}
@@ -2797,6 +3021,14 @@ func (i *InputMediaGeoLive) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaGeoLiveTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaGeoLive#971fa843: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMediaGeoLive) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaGeoLive#971fa843 to nil")
+	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputMediaGeoLive#971fa843: field flags: %w", err)
@@ -2839,8 +3071,10 @@ func (i InputMediaGeoLive) construct() InputMediaClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMediaGeoLive.
 var (
-	_ bin.Encoder = &InputMediaGeoLive{}
-	_ bin.Decoder = &InputMediaGeoLive{}
+	_ bin.Encoder     = &InputMediaGeoLive{}
+	_ bin.Decoder     = &InputMediaGeoLive{}
+	_ bin.BareEncoder = &InputMediaGeoLive{}
+	_ bin.BareDecoder = &InputMediaGeoLive{}
 
 	_ InputMediaClass = &InputMediaGeoLive{}
 )
@@ -2983,6 +3217,14 @@ func (i *InputMediaPoll) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMediaPoll#f94e5f1 as nil")
 	}
 	b.PutID(InputMediaPollTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMediaPoll) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaPoll#f94e5f1 as nil")
+	}
 	if !(i.CorrectAnswers == nil) {
 		i.Flags.Set(0)
 	}
@@ -3087,6 +3329,14 @@ func (i *InputMediaPoll) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaPollTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaPoll#f94e5f1: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMediaPoll) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaPoll#f94e5f1 to nil")
+	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputMediaPoll#f94e5f1: field flags: %w", err)
@@ -3138,8 +3388,10 @@ func (i InputMediaPoll) construct() InputMediaClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMediaPoll.
 var (
-	_ bin.Encoder = &InputMediaPoll{}
-	_ bin.Decoder = &InputMediaPoll{}
+	_ bin.Encoder     = &InputMediaPoll{}
+	_ bin.Decoder     = &InputMediaPoll{}
+	_ bin.BareEncoder = &InputMediaPoll{}
+	_ bin.BareDecoder = &InputMediaPoll{}
 
 	_ InputMediaClass = &InputMediaPoll{}
 )
@@ -3223,6 +3475,14 @@ func (i *InputMediaDice) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputMediaDice#e66fbf7b as nil")
 	}
 	b.PutID(InputMediaDiceTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputMediaDice) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputMediaDice#e66fbf7b as nil")
+	}
 	b.PutString(i.Emoticon)
 	return nil
 }
@@ -3240,6 +3500,14 @@ func (i *InputMediaDice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputMediaDiceTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputMediaDice#e66fbf7b: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputMediaDice) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputMediaDice#e66fbf7b to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -3255,8 +3523,10 @@ func (i InputMediaDice) construct() InputMediaClass { return &i }
 
 // Ensuring interfaces in compile-time for InputMediaDice.
 var (
-	_ bin.Encoder = &InputMediaDice{}
-	_ bin.Decoder = &InputMediaDice{}
+	_ bin.Encoder     = &InputMediaDice{}
+	_ bin.Decoder     = &InputMediaDice{}
+	_ bin.BareEncoder = &InputMediaDice{}
+	_ bin.BareDecoder = &InputMediaDice{}
 
 	_ InputMediaClass = &InputMediaDice{}
 )
@@ -3291,6 +3561,8 @@ var (
 type InputMediaClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() InputMediaClass
 
 	// TypeID returns type id in TL schema.

@@ -130,6 +130,14 @@ func (g *MessagesGetWebPagePreviewRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getWebPagePreview#8b68b0cc as nil")
 	}
 	b.PutID(MessagesGetWebPagePreviewRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetWebPagePreviewRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getWebPagePreview#8b68b0cc as nil")
+	}
 	if !(g.Entities == nil) {
 		g.Flags.Set(3)
 	}
@@ -187,6 +195,14 @@ func (g *MessagesGetWebPagePreviewRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetWebPagePreviewRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getWebPagePreview#8b68b0cc: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetWebPagePreviewRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getWebPagePreview#8b68b0cc to nil")
+	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.getWebPagePreview#8b68b0cc: field flags: %w", err)
@@ -217,8 +233,10 @@ func (g *MessagesGetWebPagePreviewRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetWebPagePreviewRequest.
 var (
-	_ bin.Encoder = &MessagesGetWebPagePreviewRequest{}
-	_ bin.Decoder = &MessagesGetWebPagePreviewRequest{}
+	_ bin.Encoder     = &MessagesGetWebPagePreviewRequest{}
+	_ bin.Decoder     = &MessagesGetWebPagePreviewRequest{}
+	_ bin.BareEncoder = &MessagesGetWebPagePreviewRequest{}
+	_ bin.BareDecoder = &MessagesGetWebPagePreviewRequest{}
 )
 
 // MessagesGetWebPagePreview invokes method messages.getWebPagePreview#8b68b0cc returning error if any.

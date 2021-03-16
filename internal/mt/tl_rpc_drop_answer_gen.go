@@ -82,6 +82,14 @@ func (r *RPCAnswerUnknown) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode rpc_answer_unknown#5e2ad36e as nil")
 	}
 	b.PutID(RPCAnswerUnknownTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *RPCAnswerUnknown) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode rpc_answer_unknown#5e2ad36e as nil")
+	}
 	return nil
 }
 
@@ -93,6 +101,14 @@ func (r *RPCAnswerUnknown) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(RPCAnswerUnknownTypeID); err != nil {
 		return fmt.Errorf("unable to decode rpc_answer_unknown#5e2ad36e: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *RPCAnswerUnknown) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode rpc_answer_unknown#5e2ad36e to nil")
+	}
 	return nil
 }
 
@@ -101,8 +117,10 @@ func (r RPCAnswerUnknown) construct() RPCDropAnswerClass { return &r }
 
 // Ensuring interfaces in compile-time for RPCAnswerUnknown.
 var (
-	_ bin.Encoder = &RPCAnswerUnknown{}
-	_ bin.Decoder = &RPCAnswerUnknown{}
+	_ bin.Encoder     = &RPCAnswerUnknown{}
+	_ bin.Decoder     = &RPCAnswerUnknown{}
+	_ bin.BareEncoder = &RPCAnswerUnknown{}
+	_ bin.BareDecoder = &RPCAnswerUnknown{}
 
 	_ RPCDropAnswerClass = &RPCAnswerUnknown{}
 )
@@ -163,6 +181,14 @@ func (r *RPCAnswerDroppedRunning) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode rpc_answer_dropped_running#cd78e586 as nil")
 	}
 	b.PutID(RPCAnswerDroppedRunningTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *RPCAnswerDroppedRunning) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode rpc_answer_dropped_running#cd78e586 as nil")
+	}
 	return nil
 }
 
@@ -174,6 +200,14 @@ func (r *RPCAnswerDroppedRunning) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(RPCAnswerDroppedRunningTypeID); err != nil {
 		return fmt.Errorf("unable to decode rpc_answer_dropped_running#cd78e586: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *RPCAnswerDroppedRunning) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode rpc_answer_dropped_running#cd78e586 to nil")
+	}
 	return nil
 }
 
@@ -182,8 +216,10 @@ func (r RPCAnswerDroppedRunning) construct() RPCDropAnswerClass { return &r }
 
 // Ensuring interfaces in compile-time for RPCAnswerDroppedRunning.
 var (
-	_ bin.Encoder = &RPCAnswerDroppedRunning{}
-	_ bin.Decoder = &RPCAnswerDroppedRunning{}
+	_ bin.Encoder     = &RPCAnswerDroppedRunning{}
+	_ bin.Decoder     = &RPCAnswerDroppedRunning{}
+	_ bin.BareEncoder = &RPCAnswerDroppedRunning{}
+	_ bin.BareDecoder = &RPCAnswerDroppedRunning{}
 
 	_ RPCDropAnswerClass = &RPCAnswerDroppedRunning{}
 )
@@ -283,6 +319,14 @@ func (r *RPCAnswerDropped) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode rpc_answer_dropped#a43ad8b7 as nil")
 	}
 	b.PutID(RPCAnswerDroppedTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *RPCAnswerDropped) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode rpc_answer_dropped#a43ad8b7 as nil")
+	}
 	b.PutLong(r.MsgID)
 	b.PutInt(r.SeqNo)
 	b.PutInt(r.Bytes)
@@ -311,6 +355,14 @@ func (r *RPCAnswerDropped) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(RPCAnswerDroppedTypeID); err != nil {
 		return fmt.Errorf("unable to decode rpc_answer_dropped#a43ad8b7: %w", err)
+	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *RPCAnswerDropped) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode rpc_answer_dropped#a43ad8b7 to nil")
 	}
 	{
 		value, err := b.Long()
@@ -341,8 +393,10 @@ func (r RPCAnswerDropped) construct() RPCDropAnswerClass { return &r }
 
 // Ensuring interfaces in compile-time for RPCAnswerDropped.
 var (
-	_ bin.Encoder = &RPCAnswerDropped{}
-	_ bin.Decoder = &RPCAnswerDropped{}
+	_ bin.Encoder     = &RPCAnswerDropped{}
+	_ bin.Decoder     = &RPCAnswerDropped{}
+	_ bin.BareEncoder = &RPCAnswerDropped{}
+	_ bin.BareDecoder = &RPCAnswerDropped{}
 
 	_ RPCDropAnswerClass = &RPCAnswerDropped{}
 )
@@ -363,6 +417,8 @@ var (
 type RPCDropAnswerClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() RPCDropAnswerClass
 
 	// TypeID returns type id in TL schema.

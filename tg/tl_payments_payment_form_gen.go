@@ -250,6 +250,14 @@ func (p *PaymentsPaymentForm) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode payments.paymentForm#3f56aea3 as nil")
 	}
 	b.PutID(PaymentsPaymentFormTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PaymentsPaymentForm) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode payments.paymentForm#3f56aea3 as nil")
+	}
 	if !(p.CanSaveCredentials == false) {
 		p.Flags.Set(2)
 	}
@@ -437,6 +445,14 @@ func (p *PaymentsPaymentForm) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PaymentsPaymentFormTypeID); err != nil {
 		return fmt.Errorf("unable to decode payments.paymentForm#3f56aea3: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PaymentsPaymentForm) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode payments.paymentForm#3f56aea3 to nil")
+	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode payments.paymentForm#3f56aea3: field flags: %w", err)
@@ -510,6 +526,8 @@ func (p *PaymentsPaymentForm) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PaymentsPaymentForm.
 var (
-	_ bin.Encoder = &PaymentsPaymentForm{}
-	_ bin.Decoder = &PaymentsPaymentForm{}
+	_ bin.Encoder     = &PaymentsPaymentForm{}
+	_ bin.Decoder     = &PaymentsPaymentForm{}
+	_ bin.BareEncoder = &PaymentsPaymentForm{}
+	_ bin.BareDecoder = &PaymentsPaymentForm{}
 )

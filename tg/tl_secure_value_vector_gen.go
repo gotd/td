@@ -98,6 +98,15 @@ func (vec *SecureValueVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't encode Vector<SecureValue> as nil")
 	}
+
+	return vec.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (vec *SecureValueVector) EncodeBare(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't encode Vector<SecureValue> as nil")
+	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if err := v.Encode(b); err != nil {
@@ -114,6 +123,15 @@ func (vec *SecureValueVector) GetElems() (value []SecureValue) {
 
 // Decode implements bin.Decoder.
 func (vec *SecureValueVector) Decode(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't decode Vector<SecureValue> to nil")
+	}
+
+	return vec.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (vec *SecureValueVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't decode Vector<SecureValue> to nil")
 	}
@@ -135,6 +153,8 @@ func (vec *SecureValueVector) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for SecureValueVector.
 var (
-	_ bin.Encoder = &SecureValueVector{}
-	_ bin.Decoder = &SecureValueVector{}
+	_ bin.Encoder     = &SecureValueVector{}
+	_ bin.Decoder     = &SecureValueVector{}
+	_ bin.BareEncoder = &SecureValueVector{}
+	_ bin.BareDecoder = &SecureValueVector{}
 )

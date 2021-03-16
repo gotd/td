@@ -116,6 +116,14 @@ func (l *AuthLoginToken) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.loginToken#629f1980 as nil")
 	}
 	b.PutID(AuthLoginTokenTypeID)
+	return l.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (l *AuthLoginToken) EncodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't encode auth.loginToken#629f1980 as nil")
+	}
 	b.PutInt(l.Expires)
 	b.PutBytes(l.Token)
 	return nil
@@ -139,6 +147,14 @@ func (l *AuthLoginToken) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthLoginTokenTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.loginToken#629f1980: %w", err)
 	}
+	return l.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (l *AuthLoginToken) DecodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't decode auth.loginToken#629f1980 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -161,8 +177,10 @@ func (l AuthLoginToken) construct() AuthLoginTokenClass { return &l }
 
 // Ensuring interfaces in compile-time for AuthLoginToken.
 var (
-	_ bin.Encoder = &AuthLoginToken{}
-	_ bin.Decoder = &AuthLoginToken{}
+	_ bin.Encoder     = &AuthLoginToken{}
+	_ bin.Decoder     = &AuthLoginToken{}
+	_ bin.BareEncoder = &AuthLoginToken{}
+	_ bin.BareDecoder = &AuthLoginToken{}
 
 	_ AuthLoginTokenClass = &AuthLoginToken{}
 )
@@ -254,6 +272,14 @@ func (l *AuthLoginTokenMigrateTo) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.loginTokenMigrateTo#68e9916 as nil")
 	}
 	b.PutID(AuthLoginTokenMigrateToTypeID)
+	return l.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (l *AuthLoginTokenMigrateTo) EncodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't encode auth.loginTokenMigrateTo#68e9916 as nil")
+	}
 	b.PutInt(l.DCID)
 	b.PutBytes(l.Token)
 	return nil
@@ -277,6 +303,14 @@ func (l *AuthLoginTokenMigrateTo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthLoginTokenMigrateToTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.loginTokenMigrateTo#68e9916: %w", err)
 	}
+	return l.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (l *AuthLoginTokenMigrateTo) DecodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't decode auth.loginTokenMigrateTo#68e9916 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -299,8 +333,10 @@ func (l AuthLoginTokenMigrateTo) construct() AuthLoginTokenClass { return &l }
 
 // Ensuring interfaces in compile-time for AuthLoginTokenMigrateTo.
 var (
-	_ bin.Encoder = &AuthLoginTokenMigrateTo{}
-	_ bin.Decoder = &AuthLoginTokenMigrateTo{}
+	_ bin.Encoder     = &AuthLoginTokenMigrateTo{}
+	_ bin.Decoder     = &AuthLoginTokenMigrateTo{}
+	_ bin.BareEncoder = &AuthLoginTokenMigrateTo{}
+	_ bin.BareDecoder = &AuthLoginTokenMigrateTo{}
 
 	_ AuthLoginTokenClass = &AuthLoginTokenMigrateTo{}
 )
@@ -381,6 +417,14 @@ func (l *AuthLoginTokenSuccess) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.loginTokenSuccess#390d5c5e as nil")
 	}
 	b.PutID(AuthLoginTokenSuccessTypeID)
+	return l.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (l *AuthLoginTokenSuccess) EncodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't encode auth.loginTokenSuccess#390d5c5e as nil")
+	}
 	if l.Authorization == nil {
 		return fmt.Errorf("unable to encode auth.loginTokenSuccess#390d5c5e: field authorization is nil")
 	}
@@ -403,6 +447,14 @@ func (l *AuthLoginTokenSuccess) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthLoginTokenSuccessTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.loginTokenSuccess#390d5c5e: %w", err)
 	}
+	return l.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (l *AuthLoginTokenSuccess) DecodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't decode auth.loginTokenSuccess#390d5c5e to nil")
+	}
 	{
 		value, err := DecodeAuthAuthorization(b)
 		if err != nil {
@@ -418,8 +470,10 @@ func (l AuthLoginTokenSuccess) construct() AuthLoginTokenClass { return &l }
 
 // Ensuring interfaces in compile-time for AuthLoginTokenSuccess.
 var (
-	_ bin.Encoder = &AuthLoginTokenSuccess{}
-	_ bin.Decoder = &AuthLoginTokenSuccess{}
+	_ bin.Encoder     = &AuthLoginTokenSuccess{}
+	_ bin.Decoder     = &AuthLoginTokenSuccess{}
+	_ bin.BareEncoder = &AuthLoginTokenSuccess{}
+	_ bin.BareDecoder = &AuthLoginTokenSuccess{}
 
 	_ AuthLoginTokenClass = &AuthLoginTokenSuccess{}
 )
@@ -442,6 +496,8 @@ var (
 type AuthLoginTokenClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() AuthLoginTokenClass
 
 	// TypeID returns type id in TL schema.

@@ -102,6 +102,14 @@ func (d *ContactsDeleteContactsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode contacts.deleteContacts#96a0e00 as nil")
 	}
 	b.PutID(ContactsDeleteContactsRequestTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *ContactsDeleteContactsRequest) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode contacts.deleteContacts#96a0e00 as nil")
+	}
 	b.PutVectorHeader(len(d.ID))
 	for idx, v := range d.ID {
 		if v == nil {
@@ -132,6 +140,14 @@ func (d *ContactsDeleteContactsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsDeleteContactsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.deleteContacts#96a0e00: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *ContactsDeleteContactsRequest) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode contacts.deleteContacts#96a0e00 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -150,8 +166,10 @@ func (d *ContactsDeleteContactsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ContactsDeleteContactsRequest.
 var (
-	_ bin.Encoder = &ContactsDeleteContactsRequest{}
-	_ bin.Decoder = &ContactsDeleteContactsRequest{}
+	_ bin.Encoder     = &ContactsDeleteContactsRequest{}
+	_ bin.Decoder     = &ContactsDeleteContactsRequest{}
+	_ bin.BareEncoder = &ContactsDeleteContactsRequest{}
+	_ bin.BareDecoder = &ContactsDeleteContactsRequest{}
 )
 
 // ContactsDeleteContacts invokes method contacts.deleteContacts#96a0e00 returning error if any.

@@ -116,6 +116,14 @@ func (g *UploadGetCDNFileHashesRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode upload.getCdnFileHashes#4da54231 as nil")
 	}
 	b.PutID(UploadGetCDNFileHashesRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *UploadGetCDNFileHashesRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode upload.getCdnFileHashes#4da54231 as nil")
+	}
 	b.PutBytes(g.FileToken)
 	b.PutInt(g.Offset)
 	return nil
@@ -139,6 +147,14 @@ func (g *UploadGetCDNFileHashesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UploadGetCDNFileHashesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.getCdnFileHashes#4da54231: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *UploadGetCDNFileHashesRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode upload.getCdnFileHashes#4da54231 to nil")
+	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
@@ -158,8 +174,10 @@ func (g *UploadGetCDNFileHashesRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for UploadGetCDNFileHashesRequest.
 var (
-	_ bin.Encoder = &UploadGetCDNFileHashesRequest{}
-	_ bin.Decoder = &UploadGetCDNFileHashesRequest{}
+	_ bin.Encoder     = &UploadGetCDNFileHashesRequest{}
+	_ bin.Decoder     = &UploadGetCDNFileHashesRequest{}
+	_ bin.BareEncoder = &UploadGetCDNFileHashesRequest{}
+	_ bin.BareDecoder = &UploadGetCDNFileHashesRequest{}
 )
 
 // UploadGetCDNFileHashes invokes method upload.getCdnFileHashes#4da54231 returning error if any.

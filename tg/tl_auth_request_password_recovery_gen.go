@@ -89,6 +89,14 @@ func (r *AuthRequestPasswordRecoveryRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.requestPasswordRecovery#d897bc66 as nil")
 	}
 	b.PutID(AuthRequestPasswordRecoveryRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *AuthRequestPasswordRecoveryRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode auth.requestPasswordRecovery#d897bc66 as nil")
+	}
 	return nil
 }
 
@@ -100,13 +108,23 @@ func (r *AuthRequestPasswordRecoveryRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthRequestPasswordRecoveryRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.requestPasswordRecovery#d897bc66: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *AuthRequestPasswordRecoveryRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode auth.requestPasswordRecovery#d897bc66 to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for AuthRequestPasswordRecoveryRequest.
 var (
-	_ bin.Encoder = &AuthRequestPasswordRecoveryRequest{}
-	_ bin.Decoder = &AuthRequestPasswordRecoveryRequest{}
+	_ bin.Encoder     = &AuthRequestPasswordRecoveryRequest{}
+	_ bin.Decoder     = &AuthRequestPasswordRecoveryRequest{}
+	_ bin.BareEncoder = &AuthRequestPasswordRecoveryRequest{}
+	_ bin.BareDecoder = &AuthRequestPasswordRecoveryRequest{}
 )
 
 // AuthRequestPasswordRecovery invokes method auth.requestPasswordRecovery#d897bc66 returning error if any.

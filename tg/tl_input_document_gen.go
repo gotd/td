@@ -85,6 +85,14 @@ func (i *InputDocumentEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputDocumentEmpty#72f0eaae as nil")
 	}
 	b.PutID(InputDocumentEmptyTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputDocumentEmpty) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputDocumentEmpty#72f0eaae as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (i *InputDocumentEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputDocumentEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputDocumentEmpty#72f0eaae: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputDocumentEmpty) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputDocumentEmpty#72f0eaae to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (i InputDocumentEmpty) construct() InputDocumentClass { return &i }
 
 // Ensuring interfaces in compile-time for InputDocumentEmpty.
 var (
-	_ bin.Encoder = &InputDocumentEmpty{}
-	_ bin.Decoder = &InputDocumentEmpty{}
+	_ bin.Encoder     = &InputDocumentEmpty{}
+	_ bin.Decoder     = &InputDocumentEmpty{}
+	_ bin.BareEncoder = &InputDocumentEmpty{}
+	_ bin.BareDecoder = &InputDocumentEmpty{}
 
 	_ InputDocumentClass = &InputDocumentEmpty{}
 )
@@ -214,6 +232,14 @@ func (i *InputDocument) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputDocument#1abfb575 as nil")
 	}
 	b.PutID(InputDocumentTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputDocument) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputDocument#1abfb575 as nil")
+	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
 	b.PutBytes(i.FileReference)
@@ -242,6 +268,14 @@ func (i *InputDocument) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(InputDocumentTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputDocument#1abfb575: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputDocument) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputDocument#1abfb575 to nil")
 	}
 	{
 		value, err := b.Long()
@@ -272,8 +306,10 @@ func (i InputDocument) construct() InputDocumentClass { return &i }
 
 // Ensuring interfaces in compile-time for InputDocument.
 var (
-	_ bin.Encoder = &InputDocument{}
-	_ bin.Decoder = &InputDocument{}
+	_ bin.Encoder     = &InputDocument{}
+	_ bin.Decoder     = &InputDocument{}
+	_ bin.BareEncoder = &InputDocument{}
+	_ bin.BareDecoder = &InputDocument{}
 
 	_ InputDocumentClass = &InputDocument{}
 )
@@ -295,6 +331,8 @@ var (
 type InputDocumentClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() InputDocumentClass
 
 	// TypeID returns type id in TL schema.

@@ -158,6 +158,14 @@ func (g *ChannelsGetParticipantsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.getParticipants#123e05e9 as nil")
 	}
 	b.PutID(ChannelsGetParticipantsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *ChannelsGetParticipantsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode channels.getParticipants#123e05e9 as nil")
+	}
 	if g.Channel == nil {
 		return fmt.Errorf("unable to encode channels.getParticipants#123e05e9: field channel is nil")
 	}
@@ -214,6 +222,14 @@ func (g *ChannelsGetParticipantsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsGetParticipantsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.getParticipants#123e05e9: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *ChannelsGetParticipantsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode channels.getParticipants#123e05e9 to nil")
+	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
@@ -254,8 +270,10 @@ func (g *ChannelsGetParticipantsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsGetParticipantsRequest.
 var (
-	_ bin.Encoder = &ChannelsGetParticipantsRequest{}
-	_ bin.Decoder = &ChannelsGetParticipantsRequest{}
+	_ bin.Encoder     = &ChannelsGetParticipantsRequest{}
+	_ bin.Decoder     = &ChannelsGetParticipantsRequest{}
+	_ bin.BareEncoder = &ChannelsGetParticipantsRequest{}
+	_ bin.BareDecoder = &ChannelsGetParticipantsRequest{}
 )
 
 // ChannelsGetParticipants invokes method channels.getParticipants#123e05e9 returning error if any.

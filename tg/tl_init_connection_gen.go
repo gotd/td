@@ -224,6 +224,14 @@ func (i *InitConnectionRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode initConnection#c1cd5ea9 as nil")
 	}
 	b.PutID(InitConnectionRequestTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InitConnectionRequest) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode initConnection#c1cd5ea9 as nil")
+	}
 	if !(i.Proxy.Zero()) {
 		i.Flags.Set(0)
 	}
@@ -337,6 +345,14 @@ func (i *InitConnectionRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InitConnectionRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode initConnection#c1cd5ea9: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InitConnectionRequest) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode initConnection#c1cd5ea9 to nil")
+	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode initConnection#c1cd5ea9: field flags: %w", err)
@@ -413,6 +429,8 @@ func (i *InitConnectionRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for InitConnectionRequest.
 var (
-	_ bin.Encoder = &InitConnectionRequest{}
-	_ bin.Decoder = &InitConnectionRequest{}
+	_ bin.Encoder     = &InitConnectionRequest{}
+	_ bin.Decoder     = &InitConnectionRequest{}
+	_ bin.BareEncoder = &InitConnectionRequest{}
+	_ bin.BareDecoder = &InitConnectionRequest{}
 )

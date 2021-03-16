@@ -112,6 +112,14 @@ func (s *MessagesSetHistoryTTLRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.setHistoryTTL#b80e5fe4 as nil")
 	}
 	b.PutID(MessagesSetHistoryTTLRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesSetHistoryTTLRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.setHistoryTTL#b80e5fe4 as nil")
+	}
 	if s.Peer == nil {
 		return fmt.Errorf("unable to encode messages.setHistoryTTL#b80e5fe4: field peer is nil")
 	}
@@ -140,6 +148,14 @@ func (s *MessagesSetHistoryTTLRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSetHistoryTTLRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.setHistoryTTL#b80e5fe4: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSetHistoryTTLRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.setHistoryTTL#b80e5fe4 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -159,8 +175,10 @@ func (s *MessagesSetHistoryTTLRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesSetHistoryTTLRequest.
 var (
-	_ bin.Encoder = &MessagesSetHistoryTTLRequest{}
-	_ bin.Decoder = &MessagesSetHistoryTTLRequest{}
+	_ bin.Encoder     = &MessagesSetHistoryTTLRequest{}
+	_ bin.Decoder     = &MessagesSetHistoryTTLRequest{}
+	_ bin.BareEncoder = &MessagesSetHistoryTTLRequest{}
+	_ bin.BareDecoder = &MessagesSetHistoryTTLRequest{}
 )
 
 // MessagesSetHistoryTTL invokes method messages.setHistoryTTL#b80e5fe4 returning error if any.

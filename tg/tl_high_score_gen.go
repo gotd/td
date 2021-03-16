@@ -124,6 +124,14 @@ func (h *HighScore) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode highScore#58fffcd0 as nil")
 	}
 	b.PutID(HighScoreTypeID)
+	return h.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (h *HighScore) EncodeBare(b *bin.Buffer) error {
+	if h == nil {
+		return fmt.Errorf("can't encode highScore#58fffcd0 as nil")
+	}
 	b.PutInt(h.Pos)
 	b.PutInt(h.UserID)
 	b.PutInt(h.Score)
@@ -153,6 +161,14 @@ func (h *HighScore) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HighScoreTypeID); err != nil {
 		return fmt.Errorf("unable to decode highScore#58fffcd0: %w", err)
 	}
+	return h.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (h *HighScore) DecodeBare(b *bin.Buffer) error {
+	if h == nil {
+		return fmt.Errorf("can't decode highScore#58fffcd0 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -179,6 +195,8 @@ func (h *HighScore) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for HighScore.
 var (
-	_ bin.Encoder = &HighScore{}
-	_ bin.Decoder = &HighScore{}
+	_ bin.Encoder     = &HighScore{}
+	_ bin.Decoder     = &HighScore{}
+	_ bin.BareEncoder = &HighScore{}
+	_ bin.BareDecoder = &HighScore{}
 )

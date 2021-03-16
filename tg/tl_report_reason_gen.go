@@ -85,6 +85,14 @@ func (i *InputReportReasonSpam) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputReportReasonSpam#58dbcab8 as nil")
 	}
 	b.PutID(InputReportReasonSpamTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputReportReasonSpam) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputReportReasonSpam#58dbcab8 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (i *InputReportReasonSpam) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputReportReasonSpamTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputReportReasonSpam#58dbcab8: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputReportReasonSpam) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputReportReasonSpam#58dbcab8 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (i InputReportReasonSpam) construct() ReportReasonClass { return &i }
 
 // Ensuring interfaces in compile-time for InputReportReasonSpam.
 var (
-	_ bin.Encoder = &InputReportReasonSpam{}
-	_ bin.Decoder = &InputReportReasonSpam{}
+	_ bin.Encoder     = &InputReportReasonSpam{}
+	_ bin.Decoder     = &InputReportReasonSpam{}
+	_ bin.BareEncoder = &InputReportReasonSpam{}
+	_ bin.BareDecoder = &InputReportReasonSpam{}
 
 	_ ReportReasonClass = &InputReportReasonSpam{}
 )
@@ -169,6 +187,14 @@ func (i *InputReportReasonViolence) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputReportReasonViolence#1e22c78d as nil")
 	}
 	b.PutID(InputReportReasonViolenceTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputReportReasonViolence) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputReportReasonViolence#1e22c78d as nil")
+	}
 	return nil
 }
 
@@ -180,6 +206,14 @@ func (i *InputReportReasonViolence) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputReportReasonViolenceTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputReportReasonViolence#1e22c78d: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputReportReasonViolence) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputReportReasonViolence#1e22c78d to nil")
+	}
 	return nil
 }
 
@@ -188,8 +222,10 @@ func (i InputReportReasonViolence) construct() ReportReasonClass { return &i }
 
 // Ensuring interfaces in compile-time for InputReportReasonViolence.
 var (
-	_ bin.Encoder = &InputReportReasonViolence{}
-	_ bin.Decoder = &InputReportReasonViolence{}
+	_ bin.Encoder     = &InputReportReasonViolence{}
+	_ bin.Decoder     = &InputReportReasonViolence{}
+	_ bin.BareEncoder = &InputReportReasonViolence{}
+	_ bin.BareDecoder = &InputReportReasonViolence{}
 
 	_ ReportReasonClass = &InputReportReasonViolence{}
 )
@@ -253,6 +289,14 @@ func (i *InputReportReasonPornography) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputReportReasonPornography#2e59d922 as nil")
 	}
 	b.PutID(InputReportReasonPornographyTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputReportReasonPornography) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputReportReasonPornography#2e59d922 as nil")
+	}
 	return nil
 }
 
@@ -264,6 +308,14 @@ func (i *InputReportReasonPornography) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputReportReasonPornographyTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputReportReasonPornography#2e59d922: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputReportReasonPornography) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputReportReasonPornography#2e59d922 to nil")
+	}
 	return nil
 }
 
@@ -272,8 +324,10 @@ func (i InputReportReasonPornography) construct() ReportReasonClass { return &i 
 
 // Ensuring interfaces in compile-time for InputReportReasonPornography.
 var (
-	_ bin.Encoder = &InputReportReasonPornography{}
-	_ bin.Decoder = &InputReportReasonPornography{}
+	_ bin.Encoder     = &InputReportReasonPornography{}
+	_ bin.Decoder     = &InputReportReasonPornography{}
+	_ bin.BareEncoder = &InputReportReasonPornography{}
+	_ bin.BareDecoder = &InputReportReasonPornography{}
 
 	_ ReportReasonClass = &InputReportReasonPornography{}
 )
@@ -337,6 +391,14 @@ func (i *InputReportReasonChildAbuse) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputReportReasonChildAbuse#adf44ee3 as nil")
 	}
 	b.PutID(InputReportReasonChildAbuseTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputReportReasonChildAbuse) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputReportReasonChildAbuse#adf44ee3 as nil")
+	}
 	return nil
 }
 
@@ -348,6 +410,14 @@ func (i *InputReportReasonChildAbuse) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputReportReasonChildAbuseTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputReportReasonChildAbuse#adf44ee3: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputReportReasonChildAbuse) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputReportReasonChildAbuse#adf44ee3 to nil")
+	}
 	return nil
 }
 
@@ -356,8 +426,10 @@ func (i InputReportReasonChildAbuse) construct() ReportReasonClass { return &i }
 
 // Ensuring interfaces in compile-time for InputReportReasonChildAbuse.
 var (
-	_ bin.Encoder = &InputReportReasonChildAbuse{}
-	_ bin.Decoder = &InputReportReasonChildAbuse{}
+	_ bin.Encoder     = &InputReportReasonChildAbuse{}
+	_ bin.Decoder     = &InputReportReasonChildAbuse{}
+	_ bin.BareEncoder = &InputReportReasonChildAbuse{}
+	_ bin.BareDecoder = &InputReportReasonChildAbuse{}
 
 	_ ReportReasonClass = &InputReportReasonChildAbuse{}
 )
@@ -421,6 +493,14 @@ func (i *InputReportReasonOther) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputReportReasonOther#c1e4a2b1 as nil")
 	}
 	b.PutID(InputReportReasonOtherTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputReportReasonOther) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputReportReasonOther#c1e4a2b1 as nil")
+	}
 	return nil
 }
 
@@ -432,6 +512,14 @@ func (i *InputReportReasonOther) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputReportReasonOtherTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputReportReasonOther#c1e4a2b1: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputReportReasonOther) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputReportReasonOther#c1e4a2b1 to nil")
+	}
 	return nil
 }
 
@@ -440,8 +528,10 @@ func (i InputReportReasonOther) construct() ReportReasonClass { return &i }
 
 // Ensuring interfaces in compile-time for InputReportReasonOther.
 var (
-	_ bin.Encoder = &InputReportReasonOther{}
-	_ bin.Decoder = &InputReportReasonOther{}
+	_ bin.Encoder     = &InputReportReasonOther{}
+	_ bin.Decoder     = &InputReportReasonOther{}
+	_ bin.BareEncoder = &InputReportReasonOther{}
+	_ bin.BareDecoder = &InputReportReasonOther{}
 
 	_ ReportReasonClass = &InputReportReasonOther{}
 )
@@ -505,6 +595,14 @@ func (i *InputReportReasonCopyright) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputReportReasonCopyright#9b89f93a as nil")
 	}
 	b.PutID(InputReportReasonCopyrightTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputReportReasonCopyright) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputReportReasonCopyright#9b89f93a as nil")
+	}
 	return nil
 }
 
@@ -516,6 +614,14 @@ func (i *InputReportReasonCopyright) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputReportReasonCopyrightTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputReportReasonCopyright#9b89f93a: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputReportReasonCopyright) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputReportReasonCopyright#9b89f93a to nil")
+	}
 	return nil
 }
 
@@ -524,8 +630,10 @@ func (i InputReportReasonCopyright) construct() ReportReasonClass { return &i }
 
 // Ensuring interfaces in compile-time for InputReportReasonCopyright.
 var (
-	_ bin.Encoder = &InputReportReasonCopyright{}
-	_ bin.Decoder = &InputReportReasonCopyright{}
+	_ bin.Encoder     = &InputReportReasonCopyright{}
+	_ bin.Decoder     = &InputReportReasonCopyright{}
+	_ bin.BareEncoder = &InputReportReasonCopyright{}
+	_ bin.BareDecoder = &InputReportReasonCopyright{}
 
 	_ ReportReasonClass = &InputReportReasonCopyright{}
 )
@@ -589,6 +697,14 @@ func (i *InputReportReasonGeoIrrelevant) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputReportReasonGeoIrrelevant#dbd4feed as nil")
 	}
 	b.PutID(InputReportReasonGeoIrrelevantTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputReportReasonGeoIrrelevant) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputReportReasonGeoIrrelevant#dbd4feed as nil")
+	}
 	return nil
 }
 
@@ -600,6 +716,14 @@ func (i *InputReportReasonGeoIrrelevant) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputReportReasonGeoIrrelevantTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputReportReasonGeoIrrelevant#dbd4feed: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputReportReasonGeoIrrelevant) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputReportReasonGeoIrrelevant#dbd4feed to nil")
+	}
 	return nil
 }
 
@@ -608,8 +732,10 @@ func (i InputReportReasonGeoIrrelevant) construct() ReportReasonClass { return &
 
 // Ensuring interfaces in compile-time for InputReportReasonGeoIrrelevant.
 var (
-	_ bin.Encoder = &InputReportReasonGeoIrrelevant{}
-	_ bin.Decoder = &InputReportReasonGeoIrrelevant{}
+	_ bin.Encoder     = &InputReportReasonGeoIrrelevant{}
+	_ bin.Decoder     = &InputReportReasonGeoIrrelevant{}
+	_ bin.BareEncoder = &InputReportReasonGeoIrrelevant{}
+	_ bin.BareDecoder = &InputReportReasonGeoIrrelevant{}
 
 	_ ReportReasonClass = &InputReportReasonGeoIrrelevant{}
 )
@@ -672,6 +798,14 @@ func (i *InputReportReasonFake) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputReportReasonFake#f5ddd6e7 as nil")
 	}
 	b.PutID(InputReportReasonFakeTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputReportReasonFake) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputReportReasonFake#f5ddd6e7 as nil")
+	}
 	return nil
 }
 
@@ -683,6 +817,14 @@ func (i *InputReportReasonFake) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputReportReasonFakeTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputReportReasonFake#f5ddd6e7: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputReportReasonFake) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputReportReasonFake#f5ddd6e7 to nil")
+	}
 	return nil
 }
 
@@ -691,8 +833,10 @@ func (i InputReportReasonFake) construct() ReportReasonClass { return &i }
 
 // Ensuring interfaces in compile-time for InputReportReasonFake.
 var (
-	_ bin.Encoder = &InputReportReasonFake{}
-	_ bin.Decoder = &InputReportReasonFake{}
+	_ bin.Encoder     = &InputReportReasonFake{}
+	_ bin.Decoder     = &InputReportReasonFake{}
+	_ bin.BareEncoder = &InputReportReasonFake{}
+	_ bin.BareDecoder = &InputReportReasonFake{}
 
 	_ ReportReasonClass = &InputReportReasonFake{}
 )
@@ -720,6 +864,8 @@ var (
 type ReportReasonClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() ReportReasonClass
 
 	// TypeID returns type id in TL schema.

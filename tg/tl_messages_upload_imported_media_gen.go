@@ -134,6 +134,14 @@ func (u *MessagesUploadImportedMediaRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.uploadImportedMedia#2a862092 as nil")
 	}
 	b.PutID(MessagesUploadImportedMediaRequestTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *MessagesUploadImportedMediaRequest) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode messages.uploadImportedMedia#2a862092 as nil")
+	}
 	if u.Peer == nil {
 		return fmt.Errorf("unable to encode messages.uploadImportedMedia#2a862092: field peer is nil")
 	}
@@ -179,6 +187,14 @@ func (u *MessagesUploadImportedMediaRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesUploadImportedMediaRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.uploadImportedMedia#2a862092: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *MessagesUploadImportedMediaRequest) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode messages.uploadImportedMedia#2a862092 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -212,8 +228,10 @@ func (u *MessagesUploadImportedMediaRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesUploadImportedMediaRequest.
 var (
-	_ bin.Encoder = &MessagesUploadImportedMediaRequest{}
-	_ bin.Decoder = &MessagesUploadImportedMediaRequest{}
+	_ bin.Encoder     = &MessagesUploadImportedMediaRequest{}
+	_ bin.Decoder     = &MessagesUploadImportedMediaRequest{}
+	_ bin.BareEncoder = &MessagesUploadImportedMediaRequest{}
+	_ bin.BareDecoder = &MessagesUploadImportedMediaRequest{}
 )
 
 // MessagesUploadImportedMedia invokes method messages.uploadImportedMedia#2a862092 returning error if any.

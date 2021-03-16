@@ -108,6 +108,14 @@ func (g *ChannelsGetLeftChannelsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.getLeftChannels#8341ecc0 as nil")
 	}
 	b.PutID(ChannelsGetLeftChannelsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *ChannelsGetLeftChannelsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode channels.getLeftChannels#8341ecc0 as nil")
+	}
 	b.PutInt(g.Offset)
 	return nil
 }
@@ -125,6 +133,14 @@ func (g *ChannelsGetLeftChannelsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsGetLeftChannelsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.getLeftChannels#8341ecc0: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *ChannelsGetLeftChannelsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode channels.getLeftChannels#8341ecc0 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -137,8 +153,10 @@ func (g *ChannelsGetLeftChannelsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsGetLeftChannelsRequest.
 var (
-	_ bin.Encoder = &ChannelsGetLeftChannelsRequest{}
-	_ bin.Decoder = &ChannelsGetLeftChannelsRequest{}
+	_ bin.Encoder     = &ChannelsGetLeftChannelsRequest{}
+	_ bin.Decoder     = &ChannelsGetLeftChannelsRequest{}
+	_ bin.BareEncoder = &ChannelsGetLeftChannelsRequest{}
+	_ bin.BareDecoder = &ChannelsGetLeftChannelsRequest{}
 )
 
 // ChannelsGetLeftChannels invokes method channels.getLeftChannels#8341ecc0 returning error if any.

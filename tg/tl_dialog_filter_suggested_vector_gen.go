@@ -98,6 +98,15 @@ func (vec *DialogFilterSuggestedVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't encode Vector<DialogFilterSuggested> as nil")
 	}
+
+	return vec.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (vec *DialogFilterSuggestedVector) EncodeBare(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't encode Vector<DialogFilterSuggested> as nil")
+	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if err := v.Encode(b); err != nil {
@@ -114,6 +123,15 @@ func (vec *DialogFilterSuggestedVector) GetElems() (value []DialogFilterSuggeste
 
 // Decode implements bin.Decoder.
 func (vec *DialogFilterSuggestedVector) Decode(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't decode Vector<DialogFilterSuggested> to nil")
+	}
+
+	return vec.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (vec *DialogFilterSuggestedVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't decode Vector<DialogFilterSuggested> to nil")
 	}
@@ -135,6 +153,8 @@ func (vec *DialogFilterSuggestedVector) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for DialogFilterSuggestedVector.
 var (
-	_ bin.Encoder = &DialogFilterSuggestedVector{}
-	_ bin.Decoder = &DialogFilterSuggestedVector{}
+	_ bin.Encoder     = &DialogFilterSuggestedVector{}
+	_ bin.Decoder     = &DialogFilterSuggestedVector{}
+	_ bin.BareEncoder = &DialogFilterSuggestedVector{}
+	_ bin.BareDecoder = &DialogFilterSuggestedVector{}
 )

@@ -123,6 +123,14 @@ func (g *GroupCallDiscarded) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode groupCallDiscarded#7780bcb4 as nil")
 	}
 	b.PutID(GroupCallDiscardedTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *GroupCallDiscarded) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode groupCallDiscarded#7780bcb4 as nil")
+	}
 	b.PutLong(g.ID)
 	b.PutLong(g.AccessHash)
 	b.PutInt(g.Duration)
@@ -151,6 +159,14 @@ func (g *GroupCallDiscarded) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(GroupCallDiscardedTypeID); err != nil {
 		return fmt.Errorf("unable to decode groupCallDiscarded#7780bcb4: %w", err)
+	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *GroupCallDiscarded) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode groupCallDiscarded#7780bcb4 to nil")
 	}
 	{
 		value, err := b.Long()
@@ -181,8 +197,10 @@ func (g GroupCallDiscarded) construct() GroupCallClass { return &g }
 
 // Ensuring interfaces in compile-time for GroupCallDiscarded.
 var (
-	_ bin.Encoder = &GroupCallDiscarded{}
-	_ bin.Decoder = &GroupCallDiscarded{}
+	_ bin.Encoder     = &GroupCallDiscarded{}
+	_ bin.Decoder     = &GroupCallDiscarded{}
+	_ bin.BareEncoder = &GroupCallDiscarded{}
+	_ bin.BareDecoder = &GroupCallDiscarded{}
 
 	_ GroupCallClass = &GroupCallDiscarded{}
 )
@@ -392,6 +410,14 @@ func (g *GroupCall) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode groupCall#c0c2052e as nil")
 	}
 	b.PutID(GroupCallTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *GroupCall) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode groupCall#c0c2052e as nil")
+	}
 	if !(g.JoinMuted == false) {
 		g.Flags.Set(1)
 	}
@@ -554,6 +580,14 @@ func (g *GroupCall) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(GroupCallTypeID); err != nil {
 		return fmt.Errorf("unable to decode groupCall#c0c2052e: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *GroupCall) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode groupCall#c0c2052e to nil")
+	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode groupCall#c0c2052e: field flags: %w", err)
@@ -623,8 +657,10 @@ func (g GroupCall) construct() GroupCallClass { return &g }
 
 // Ensuring interfaces in compile-time for GroupCall.
 var (
-	_ bin.Encoder = &GroupCall{}
-	_ bin.Decoder = &GroupCall{}
+	_ bin.Encoder     = &GroupCall{}
+	_ bin.Decoder     = &GroupCall{}
+	_ bin.BareEncoder = &GroupCall{}
+	_ bin.BareDecoder = &GroupCall{}
 
 	_ GroupCallClass = &GroupCall{}
 )
@@ -646,6 +682,8 @@ var (
 type GroupCallClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() GroupCallClass
 
 	// TypeID returns type id in TL schema.

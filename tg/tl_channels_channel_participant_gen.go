@@ -113,6 +113,14 @@ func (c *ChannelsChannelParticipant) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.channelParticipant#d0d9b163 as nil")
 	}
 	b.PutID(ChannelsChannelParticipantTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelsChannelParticipant) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channels.channelParticipant#d0d9b163 as nil")
+	}
 	if c.Participant == nil {
 		return fmt.Errorf("unable to encode channels.channelParticipant#d0d9b163: field participant is nil")
 	}
@@ -154,6 +162,14 @@ func (c *ChannelsChannelParticipant) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsChannelParticipantTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.channelParticipant#d0d9b163: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelsChannelParticipant) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channels.channelParticipant#d0d9b163 to nil")
+	}
 	{
 		value, err := DecodeChannelParticipant(b)
 		if err != nil {
@@ -179,6 +195,8 @@ func (c *ChannelsChannelParticipant) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsChannelParticipant.
 var (
-	_ bin.Encoder = &ChannelsChannelParticipant{}
-	_ bin.Decoder = &ChannelsChannelParticipant{}
+	_ bin.Encoder     = &ChannelsChannelParticipant{}
+	_ bin.Decoder     = &ChannelsChannelParticipant{}
+	_ bin.BareEncoder = &ChannelsChannelParticipant{}
+	_ bin.BareDecoder = &ChannelsChannelParticipant{}
 )

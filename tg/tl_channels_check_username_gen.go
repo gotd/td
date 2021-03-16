@@ -116,6 +116,14 @@ func (c *ChannelsCheckUsernameRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.checkUsername#10e6bd2c as nil")
 	}
 	b.PutID(ChannelsCheckUsernameRequestTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelsCheckUsernameRequest) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channels.checkUsername#10e6bd2c as nil")
+	}
 	if c.Channel == nil {
 		return fmt.Errorf("unable to encode channels.checkUsername#10e6bd2c: field channel is nil")
 	}
@@ -149,6 +157,14 @@ func (c *ChannelsCheckUsernameRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsCheckUsernameRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.checkUsername#10e6bd2c: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelsCheckUsernameRequest) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channels.checkUsername#10e6bd2c to nil")
+	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
@@ -168,8 +184,10 @@ func (c *ChannelsCheckUsernameRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsCheckUsernameRequest.
 var (
-	_ bin.Encoder = &ChannelsCheckUsernameRequest{}
-	_ bin.Decoder = &ChannelsCheckUsernameRequest{}
+	_ bin.Encoder     = &ChannelsCheckUsernameRequest{}
+	_ bin.Decoder     = &ChannelsCheckUsernameRequest{}
+	_ bin.BareEncoder = &ChannelsCheckUsernameRequest{}
+	_ bin.BareDecoder = &ChannelsCheckUsernameRequest{}
 )
 
 // ChannelsCheckUsername invokes method channels.checkUsername#10e6bd2c returning error if any.

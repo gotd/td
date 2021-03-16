@@ -107,6 +107,14 @@ func (g *HelpGetAppChangelogRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.getAppChangelog#9010ef6f as nil")
 	}
 	b.PutID(HelpGetAppChangelogRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *HelpGetAppChangelogRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode help.getAppChangelog#9010ef6f as nil")
+	}
 	b.PutString(g.PrevAppVersion)
 	return nil
 }
@@ -124,6 +132,14 @@ func (g *HelpGetAppChangelogRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetAppChangelogRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getAppChangelog#9010ef6f: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *HelpGetAppChangelogRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode help.getAppChangelog#9010ef6f to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -136,8 +152,10 @@ func (g *HelpGetAppChangelogRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for HelpGetAppChangelogRequest.
 var (
-	_ bin.Encoder = &HelpGetAppChangelogRequest{}
-	_ bin.Decoder = &HelpGetAppChangelogRequest{}
+	_ bin.Encoder     = &HelpGetAppChangelogRequest{}
+	_ bin.Decoder     = &HelpGetAppChangelogRequest{}
+	_ bin.BareEncoder = &HelpGetAppChangelogRequest{}
+	_ bin.BareDecoder = &HelpGetAppChangelogRequest{}
 )
 
 // HelpGetAppChangelog invokes method help.getAppChangelog#9010ef6f returning error if any.

@@ -145,6 +145,14 @@ func (d *MessagesDeleteHistoryRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.deleteHistory#1c015b09 as nil")
 	}
 	b.PutID(MessagesDeleteHistoryRequestTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *MessagesDeleteHistoryRequest) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode messages.deleteHistory#1c015b09 as nil")
+	}
 	if !(d.JustClear == false) {
 		d.Flags.Set(0)
 	}
@@ -214,6 +222,14 @@ func (d *MessagesDeleteHistoryRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesDeleteHistoryRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.deleteHistory#1c015b09: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *MessagesDeleteHistoryRequest) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode messages.deleteHistory#1c015b09 to nil")
+	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.deleteHistory#1c015b09: field flags: %w", err)
@@ -240,8 +256,10 @@ func (d *MessagesDeleteHistoryRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesDeleteHistoryRequest.
 var (
-	_ bin.Encoder = &MessagesDeleteHistoryRequest{}
-	_ bin.Decoder = &MessagesDeleteHistoryRequest{}
+	_ bin.Encoder     = &MessagesDeleteHistoryRequest{}
+	_ bin.Decoder     = &MessagesDeleteHistoryRequest{}
+	_ bin.BareEncoder = &MessagesDeleteHistoryRequest{}
+	_ bin.BareDecoder = &MessagesDeleteHistoryRequest{}
 )
 
 // MessagesDeleteHistory invokes method messages.deleteHistory#1c015b09 returning error if any.

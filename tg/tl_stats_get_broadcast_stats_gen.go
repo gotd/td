@@ -125,6 +125,14 @@ func (g *StatsGetBroadcastStatsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode stats.getBroadcastStats#ab42441a as nil")
 	}
 	b.PutID(StatsGetBroadcastStatsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *StatsGetBroadcastStatsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode stats.getBroadcastStats#ab42441a as nil")
+	}
 	if !(g.Dark == false) {
 		g.Flags.Set(0)
 	}
@@ -174,6 +182,14 @@ func (g *StatsGetBroadcastStatsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsGetBroadcastStatsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode stats.getBroadcastStats#ab42441a: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *StatsGetBroadcastStatsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode stats.getBroadcastStats#ab42441a to nil")
+	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode stats.getBroadcastStats#ab42441a: field flags: %w", err)
@@ -192,8 +208,10 @@ func (g *StatsGetBroadcastStatsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for StatsGetBroadcastStatsRequest.
 var (
-	_ bin.Encoder = &StatsGetBroadcastStatsRequest{}
-	_ bin.Decoder = &StatsGetBroadcastStatsRequest{}
+	_ bin.Encoder     = &StatsGetBroadcastStatsRequest{}
+	_ bin.Decoder     = &StatsGetBroadcastStatsRequest{}
+	_ bin.BareEncoder = &StatsGetBroadcastStatsRequest{}
+	_ bin.BareDecoder = &StatsGetBroadcastStatsRequest{}
 )
 
 // StatsGetBroadcastStats invokes method stats.getBroadcastStats#ab42441a returning error if any.

@@ -197,6 +197,14 @@ func (i *AccountInitTakeoutSessionRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.initTakeoutSession#f05b4804 as nil")
 	}
 	b.PutID(AccountInitTakeoutSessionRequestTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *AccountInitTakeoutSessionRequest) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode account.initTakeoutSession#f05b4804 as nil")
+	}
 	if !(i.Contacts == false) {
 		i.Flags.Set(0)
 	}
@@ -346,6 +354,14 @@ func (i *AccountInitTakeoutSessionRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountInitTakeoutSessionRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.initTakeoutSession#f05b4804: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *AccountInitTakeoutSessionRequest) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode account.initTakeoutSession#f05b4804 to nil")
+	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.initTakeoutSession#f05b4804: field flags: %w", err)
@@ -369,8 +385,10 @@ func (i *AccountInitTakeoutSessionRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountInitTakeoutSessionRequest.
 var (
-	_ bin.Encoder = &AccountInitTakeoutSessionRequest{}
-	_ bin.Decoder = &AccountInitTakeoutSessionRequest{}
+	_ bin.Encoder     = &AccountInitTakeoutSessionRequest{}
+	_ bin.Decoder     = &AccountInitTakeoutSessionRequest{}
+	_ bin.BareEncoder = &AccountInitTakeoutSessionRequest{}
+	_ bin.BareDecoder = &AccountInitTakeoutSessionRequest{}
 )
 
 // AccountInitTakeoutSession invokes method account.initTakeoutSession#f05b4804 returning error if any.

@@ -85,6 +85,14 @@ func (b *BaseThemeClassic) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode baseThemeClassic#c3a12462 as nil")
 	}
 	buf.PutID(BaseThemeClassicTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *BaseThemeClassic) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode baseThemeClassic#c3a12462 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (b *BaseThemeClassic) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BaseThemeClassicTypeID); err != nil {
 		return fmt.Errorf("unable to decode baseThemeClassic#c3a12462: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BaseThemeClassic) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode baseThemeClassic#c3a12462 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (b BaseThemeClassic) construct() BaseThemeClass { return &b }
 
 // Ensuring interfaces in compile-time for BaseThemeClassic.
 var (
-	_ bin.Encoder = &BaseThemeClassic{}
-	_ bin.Decoder = &BaseThemeClassic{}
+	_ bin.Encoder     = &BaseThemeClassic{}
+	_ bin.Decoder     = &BaseThemeClassic{}
+	_ bin.BareEncoder = &BaseThemeClassic{}
+	_ bin.BareDecoder = &BaseThemeClassic{}
 
 	_ BaseThemeClass = &BaseThemeClassic{}
 )
@@ -169,6 +187,14 @@ func (b *BaseThemeDay) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode baseThemeDay#fbd81688 as nil")
 	}
 	buf.PutID(BaseThemeDayTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *BaseThemeDay) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode baseThemeDay#fbd81688 as nil")
+	}
 	return nil
 }
 
@@ -180,6 +206,14 @@ func (b *BaseThemeDay) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BaseThemeDayTypeID); err != nil {
 		return fmt.Errorf("unable to decode baseThemeDay#fbd81688: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BaseThemeDay) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode baseThemeDay#fbd81688 to nil")
+	}
 	return nil
 }
 
@@ -188,8 +222,10 @@ func (b BaseThemeDay) construct() BaseThemeClass { return &b }
 
 // Ensuring interfaces in compile-time for BaseThemeDay.
 var (
-	_ bin.Encoder = &BaseThemeDay{}
-	_ bin.Decoder = &BaseThemeDay{}
+	_ bin.Encoder     = &BaseThemeDay{}
+	_ bin.Decoder     = &BaseThemeDay{}
+	_ bin.BareEncoder = &BaseThemeDay{}
+	_ bin.BareDecoder = &BaseThemeDay{}
 
 	_ BaseThemeClass = &BaseThemeDay{}
 )
@@ -253,6 +289,14 @@ func (b *BaseThemeNight) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode baseThemeNight#b7b31ea8 as nil")
 	}
 	buf.PutID(BaseThemeNightTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *BaseThemeNight) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode baseThemeNight#b7b31ea8 as nil")
+	}
 	return nil
 }
 
@@ -264,6 +308,14 @@ func (b *BaseThemeNight) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BaseThemeNightTypeID); err != nil {
 		return fmt.Errorf("unable to decode baseThemeNight#b7b31ea8: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BaseThemeNight) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode baseThemeNight#b7b31ea8 to nil")
+	}
 	return nil
 }
 
@@ -272,8 +324,10 @@ func (b BaseThemeNight) construct() BaseThemeClass { return &b }
 
 // Ensuring interfaces in compile-time for BaseThemeNight.
 var (
-	_ bin.Encoder = &BaseThemeNight{}
-	_ bin.Decoder = &BaseThemeNight{}
+	_ bin.Encoder     = &BaseThemeNight{}
+	_ bin.Decoder     = &BaseThemeNight{}
+	_ bin.BareEncoder = &BaseThemeNight{}
+	_ bin.BareDecoder = &BaseThemeNight{}
 
 	_ BaseThemeClass = &BaseThemeNight{}
 )
@@ -337,6 +391,14 @@ func (b *BaseThemeTinted) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode baseThemeTinted#6d5f77ee as nil")
 	}
 	buf.PutID(BaseThemeTintedTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *BaseThemeTinted) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode baseThemeTinted#6d5f77ee as nil")
+	}
 	return nil
 }
 
@@ -348,6 +410,14 @@ func (b *BaseThemeTinted) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BaseThemeTintedTypeID); err != nil {
 		return fmt.Errorf("unable to decode baseThemeTinted#6d5f77ee: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BaseThemeTinted) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode baseThemeTinted#6d5f77ee to nil")
+	}
 	return nil
 }
 
@@ -356,8 +426,10 @@ func (b BaseThemeTinted) construct() BaseThemeClass { return &b }
 
 // Ensuring interfaces in compile-time for BaseThemeTinted.
 var (
-	_ bin.Encoder = &BaseThemeTinted{}
-	_ bin.Decoder = &BaseThemeTinted{}
+	_ bin.Encoder     = &BaseThemeTinted{}
+	_ bin.Decoder     = &BaseThemeTinted{}
+	_ bin.BareEncoder = &BaseThemeTinted{}
+	_ bin.BareDecoder = &BaseThemeTinted{}
 
 	_ BaseThemeClass = &BaseThemeTinted{}
 )
@@ -421,6 +493,14 @@ func (b *BaseThemeArctic) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode baseThemeArctic#5b11125a as nil")
 	}
 	buf.PutID(BaseThemeArcticTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *BaseThemeArctic) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode baseThemeArctic#5b11125a as nil")
+	}
 	return nil
 }
 
@@ -432,6 +512,14 @@ func (b *BaseThemeArctic) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(BaseThemeArcticTypeID); err != nil {
 		return fmt.Errorf("unable to decode baseThemeArctic#5b11125a: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BaseThemeArctic) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode baseThemeArctic#5b11125a to nil")
+	}
 	return nil
 }
 
@@ -440,8 +528,10 @@ func (b BaseThemeArctic) construct() BaseThemeClass { return &b }
 
 // Ensuring interfaces in compile-time for BaseThemeArctic.
 var (
-	_ bin.Encoder = &BaseThemeArctic{}
-	_ bin.Decoder = &BaseThemeArctic{}
+	_ bin.Encoder     = &BaseThemeArctic{}
+	_ bin.Decoder     = &BaseThemeArctic{}
+	_ bin.BareEncoder = &BaseThemeArctic{}
+	_ bin.BareDecoder = &BaseThemeArctic{}
 
 	_ BaseThemeClass = &BaseThemeArctic{}
 )
@@ -466,6 +556,8 @@ var (
 type BaseThemeClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() BaseThemeClass
 
 	// TypeID returns type id in TL schema.

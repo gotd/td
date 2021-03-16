@@ -102,6 +102,14 @@ func (g *AccountGetNotifySettingsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.getNotifySettings#12b3ad31 as nil")
 	}
 	b.PutID(AccountGetNotifySettingsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *AccountGetNotifySettingsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode account.getNotifySettings#12b3ad31 as nil")
+	}
 	if g.Peer == nil {
 		return fmt.Errorf("unable to encode account.getNotifySettings#12b3ad31: field peer is nil")
 	}
@@ -124,6 +132,14 @@ func (g *AccountGetNotifySettingsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetNotifySettingsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getNotifySettings#12b3ad31: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *AccountGetNotifySettingsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode account.getNotifySettings#12b3ad31 to nil")
+	}
 	{
 		value, err := DecodeInputNotifyPeer(b)
 		if err != nil {
@@ -136,8 +152,10 @@ func (g *AccountGetNotifySettingsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountGetNotifySettingsRequest.
 var (
-	_ bin.Encoder = &AccountGetNotifySettingsRequest{}
-	_ bin.Decoder = &AccountGetNotifySettingsRequest{}
+	_ bin.Encoder     = &AccountGetNotifySettingsRequest{}
+	_ bin.Decoder     = &AccountGetNotifySettingsRequest{}
+	_ bin.BareEncoder = &AccountGetNotifySettingsRequest{}
+	_ bin.BareDecoder = &AccountGetNotifySettingsRequest{}
 )
 
 // AccountGetNotifySettings invokes method account.getNotifySettings#12b3ad31 returning error if any.

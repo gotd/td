@@ -116,6 +116,14 @@ func (s *StatsGroupTopInviter) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode statsGroupTopInviter#31962a4c as nil")
 	}
 	b.PutID(StatsGroupTopInviterTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StatsGroupTopInviter) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode statsGroupTopInviter#31962a4c as nil")
+	}
 	b.PutInt(s.UserID)
 	b.PutInt(s.Invitations)
 	return nil
@@ -139,6 +147,14 @@ func (s *StatsGroupTopInviter) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsGroupTopInviterTypeID); err != nil {
 		return fmt.Errorf("unable to decode statsGroupTopInviter#31962a4c: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StatsGroupTopInviter) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode statsGroupTopInviter#31962a4c to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -158,6 +174,8 @@ func (s *StatsGroupTopInviter) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for StatsGroupTopInviter.
 var (
-	_ bin.Encoder = &StatsGroupTopInviter{}
-	_ bin.Decoder = &StatsGroupTopInviter{}
+	_ bin.Encoder     = &StatsGroupTopInviter{}
+	_ bin.Decoder     = &StatsGroupTopInviter{}
+	_ bin.BareEncoder = &StatsGroupTopInviter{}
+	_ bin.BareDecoder = &StatsGroupTopInviter{}
 )

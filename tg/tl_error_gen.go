@@ -113,6 +113,14 @@ func (e *Error) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode error#c4b9f9bb as nil")
 	}
 	b.PutID(ErrorTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *Error) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode error#c4b9f9bb as nil")
+	}
 	b.PutInt(e.Code)
 	b.PutString(e.Text)
 	return nil
@@ -136,6 +144,14 @@ func (e *Error) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ErrorTypeID); err != nil {
 		return fmt.Errorf("unable to decode error#c4b9f9bb: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *Error) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode error#c4b9f9bb to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -155,6 +171,8 @@ func (e *Error) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for Error.
 var (
-	_ bin.Encoder = &Error{}
-	_ bin.Decoder = &Error{}
+	_ bin.Encoder     = &Error{}
+	_ bin.Decoder     = &Error{}
+	_ bin.BareEncoder = &Error{}
+	_ bin.BareDecoder = &Error{}
 )

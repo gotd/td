@@ -118,6 +118,14 @@ func (i *InputEncryptedChat) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputEncryptedChat#f141b5e1 as nil")
 	}
 	b.PutID(InputEncryptedChatTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputEncryptedChat) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputEncryptedChat#f141b5e1 as nil")
+	}
 	b.PutInt(i.ChatID)
 	b.PutLong(i.AccessHash)
 	return nil
@@ -141,6 +149,14 @@ func (i *InputEncryptedChat) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputEncryptedChatTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputEncryptedChat#f141b5e1: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputEncryptedChat) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputEncryptedChat#f141b5e1 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -160,6 +176,8 @@ func (i *InputEncryptedChat) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for InputEncryptedChat.
 var (
-	_ bin.Encoder = &InputEncryptedChat{}
-	_ bin.Decoder = &InputEncryptedChat{}
+	_ bin.Encoder     = &InputEncryptedChat{}
+	_ bin.Decoder     = &InputEncryptedChat{}
+	_ bin.BareEncoder = &InputEncryptedChat{}
+	_ bin.BareDecoder = &InputEncryptedChat{}
 )

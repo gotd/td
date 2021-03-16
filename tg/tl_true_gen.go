@@ -88,6 +88,14 @@ func (t *True) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode true#3fedd339 as nil")
 	}
 	b.PutID(TrueTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *True) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode true#3fedd339 as nil")
+	}
 	return nil
 }
 
@@ -99,11 +107,21 @@ func (t *True) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TrueTypeID); err != nil {
 		return fmt.Errorf("unable to decode true#3fedd339: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *True) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode true#3fedd339 to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for True.
 var (
-	_ bin.Encoder = &True{}
-	_ bin.Decoder = &True{}
+	_ bin.Encoder     = &True{}
+	_ bin.Decoder     = &True{}
+	_ bin.BareEncoder = &True{}
+	_ bin.BareDecoder = &True{}
 )

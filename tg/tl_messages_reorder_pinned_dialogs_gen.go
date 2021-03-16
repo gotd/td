@@ -136,6 +136,14 @@ func (r *MessagesReorderPinnedDialogsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.reorderPinnedDialogs#3b1adf37 as nil")
 	}
 	b.PutID(MessagesReorderPinnedDialogsRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *MessagesReorderPinnedDialogsRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode messages.reorderPinnedDialogs#3b1adf37 as nil")
+	}
 	if !(r.Force == false) {
 		r.Flags.Set(0)
 	}
@@ -194,6 +202,14 @@ func (r *MessagesReorderPinnedDialogsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesReorderPinnedDialogsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.reorderPinnedDialogs#3b1adf37: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *MessagesReorderPinnedDialogsRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode messages.reorderPinnedDialogs#3b1adf37 to nil")
+	}
 	{
 		if err := r.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.reorderPinnedDialogs#3b1adf37: field flags: %w", err)
@@ -225,8 +241,10 @@ func (r *MessagesReorderPinnedDialogsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesReorderPinnedDialogsRequest.
 var (
-	_ bin.Encoder = &MessagesReorderPinnedDialogsRequest{}
-	_ bin.Decoder = &MessagesReorderPinnedDialogsRequest{}
+	_ bin.Encoder     = &MessagesReorderPinnedDialogsRequest{}
+	_ bin.Decoder     = &MessagesReorderPinnedDialogsRequest{}
+	_ bin.BareEncoder = &MessagesReorderPinnedDialogsRequest{}
+	_ bin.BareDecoder = &MessagesReorderPinnedDialogsRequest{}
 )
 
 // MessagesReorderPinnedDialogs invokes method messages.reorderPinnedDialogs#3b1adf37 returning error if any.

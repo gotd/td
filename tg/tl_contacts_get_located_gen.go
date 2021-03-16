@@ -139,6 +139,14 @@ func (g *ContactsGetLocatedRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode contacts.getLocated#d348bc44 as nil")
 	}
 	b.PutID(ContactsGetLocatedRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *ContactsGetLocatedRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode contacts.getLocated#d348bc44 as nil")
+	}
 	if !(g.Background == false) {
 		g.Flags.Set(1)
 	}
@@ -209,6 +217,14 @@ func (g *ContactsGetLocatedRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsGetLocatedRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.getLocated#d348bc44: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *ContactsGetLocatedRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode contacts.getLocated#d348bc44 to nil")
+	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode contacts.getLocated#d348bc44: field flags: %w", err)
@@ -234,8 +250,10 @@ func (g *ContactsGetLocatedRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ContactsGetLocatedRequest.
 var (
-	_ bin.Encoder = &ContactsGetLocatedRequest{}
-	_ bin.Decoder = &ContactsGetLocatedRequest{}
+	_ bin.Encoder     = &ContactsGetLocatedRequest{}
+	_ bin.Decoder     = &ContactsGetLocatedRequest{}
+	_ bin.BareEncoder = &ContactsGetLocatedRequest{}
+	_ bin.BareDecoder = &ContactsGetLocatedRequest{}
 )
 
 // ContactsGetLocated invokes method contacts.getLocated#d348bc44 returning error if any.

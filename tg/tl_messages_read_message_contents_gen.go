@@ -102,6 +102,14 @@ func (r *MessagesReadMessageContentsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.readMessageContents#36a73f77 as nil")
 	}
 	b.PutID(MessagesReadMessageContentsRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *MessagesReadMessageContentsRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode messages.readMessageContents#36a73f77 as nil")
+	}
 	b.PutVectorHeader(len(r.ID))
 	for _, v := range r.ID {
 		b.PutInt(v)
@@ -122,6 +130,14 @@ func (r *MessagesReadMessageContentsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesReadMessageContentsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.readMessageContents#36a73f77: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *MessagesReadMessageContentsRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode messages.readMessageContents#36a73f77 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -140,8 +156,10 @@ func (r *MessagesReadMessageContentsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesReadMessageContentsRequest.
 var (
-	_ bin.Encoder = &MessagesReadMessageContentsRequest{}
-	_ bin.Decoder = &MessagesReadMessageContentsRequest{}
+	_ bin.Encoder     = &MessagesReadMessageContentsRequest{}
+	_ bin.Decoder     = &MessagesReadMessageContentsRequest{}
+	_ bin.BareEncoder = &MessagesReadMessageContentsRequest{}
+	_ bin.BareDecoder = &MessagesReadMessageContentsRequest{}
 )
 
 // MessagesReadMessageContents invokes method messages.readMessageContents#36a73f77 returning error if any.

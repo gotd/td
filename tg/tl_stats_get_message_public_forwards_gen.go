@@ -173,6 +173,14 @@ func (g *StatsGetMessagePublicForwardsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode stats.getMessagePublicForwards#5630281b as nil")
 	}
 	b.PutID(StatsGetMessagePublicForwardsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *StatsGetMessagePublicForwardsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode stats.getMessagePublicForwards#5630281b as nil")
+	}
 	if g.Channel == nil {
 		return fmt.Errorf("unable to encode stats.getMessagePublicForwards#5630281b: field channel is nil")
 	}
@@ -235,6 +243,14 @@ func (g *StatsGetMessagePublicForwardsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsGetMessagePublicForwardsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode stats.getMessagePublicForwards#5630281b: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *StatsGetMessagePublicForwardsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode stats.getMessagePublicForwards#5630281b to nil")
+	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
@@ -282,8 +298,10 @@ func (g *StatsGetMessagePublicForwardsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for StatsGetMessagePublicForwardsRequest.
 var (
-	_ bin.Encoder = &StatsGetMessagePublicForwardsRequest{}
-	_ bin.Decoder = &StatsGetMessagePublicForwardsRequest{}
+	_ bin.Encoder     = &StatsGetMessagePublicForwardsRequest{}
+	_ bin.Decoder     = &StatsGetMessagePublicForwardsRequest{}
+	_ bin.BareEncoder = &StatsGetMessagePublicForwardsRequest{}
+	_ bin.BareDecoder = &StatsGetMessagePublicForwardsRequest{}
 )
 
 // StatsGetMessagePublicForwards invokes method stats.getMessagePublicForwards#5630281b returning error if any.

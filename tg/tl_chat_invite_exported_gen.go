@@ -221,6 +221,14 @@ func (c *ChatInviteExported) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chatInviteExported#6e24fc9d as nil")
 	}
 	b.PutID(ChatInviteExportedTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatInviteExported) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatInviteExported#6e24fc9d as nil")
+	}
 	if !(c.Revoked == false) {
 		c.Flags.Set(0)
 	}
@@ -375,6 +383,14 @@ func (c *ChatInviteExported) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatInviteExportedTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatInviteExported#6e24fc9d: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatInviteExported) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatInviteExported#6e24fc9d to nil")
+	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode chatInviteExported#6e24fc9d: field flags: %w", err)
@@ -436,6 +452,8 @@ func (c *ChatInviteExported) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChatInviteExported.
 var (
-	_ bin.Encoder = &ChatInviteExported{}
-	_ bin.Decoder = &ChatInviteExported{}
+	_ bin.Encoder     = &ChatInviteExported{}
+	_ bin.Decoder     = &ChatInviteExported{}
+	_ bin.BareEncoder = &ChatInviteExported{}
+	_ bin.BareDecoder = &ChatInviteExported{}
 )

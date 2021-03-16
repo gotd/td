@@ -85,6 +85,14 @@ func (s *SecureValueTypePersonalDetails) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureValueTypePersonalDetails#9d2a81e3 as nil")
 	}
 	b.PutID(SecureValueTypePersonalDetailsTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureValueTypePersonalDetails) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureValueTypePersonalDetails#9d2a81e3 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (s *SecureValueTypePersonalDetails) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypePersonalDetailsTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueTypePersonalDetails#9d2a81e3: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureValueTypePersonalDetails) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureValueTypePersonalDetails#9d2a81e3 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (s SecureValueTypePersonalDetails) construct() SecureValueTypeClass { retur
 
 // Ensuring interfaces in compile-time for SecureValueTypePersonalDetails.
 var (
-	_ bin.Encoder = &SecureValueTypePersonalDetails{}
-	_ bin.Decoder = &SecureValueTypePersonalDetails{}
+	_ bin.Encoder     = &SecureValueTypePersonalDetails{}
+	_ bin.Decoder     = &SecureValueTypePersonalDetails{}
+	_ bin.BareEncoder = &SecureValueTypePersonalDetails{}
+	_ bin.BareDecoder = &SecureValueTypePersonalDetails{}
 
 	_ SecureValueTypeClass = &SecureValueTypePersonalDetails{}
 )
@@ -169,6 +187,14 @@ func (s *SecureValueTypePassport) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureValueTypePassport#3dac6a00 as nil")
 	}
 	b.PutID(SecureValueTypePassportTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureValueTypePassport) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureValueTypePassport#3dac6a00 as nil")
+	}
 	return nil
 }
 
@@ -180,6 +206,14 @@ func (s *SecureValueTypePassport) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypePassportTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueTypePassport#3dac6a00: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureValueTypePassport) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureValueTypePassport#3dac6a00 to nil")
+	}
 	return nil
 }
 
@@ -188,8 +222,10 @@ func (s SecureValueTypePassport) construct() SecureValueTypeClass { return &s }
 
 // Ensuring interfaces in compile-time for SecureValueTypePassport.
 var (
-	_ bin.Encoder = &SecureValueTypePassport{}
-	_ bin.Decoder = &SecureValueTypePassport{}
+	_ bin.Encoder     = &SecureValueTypePassport{}
+	_ bin.Decoder     = &SecureValueTypePassport{}
+	_ bin.BareEncoder = &SecureValueTypePassport{}
+	_ bin.BareDecoder = &SecureValueTypePassport{}
 
 	_ SecureValueTypeClass = &SecureValueTypePassport{}
 )
@@ -253,6 +289,14 @@ func (s *SecureValueTypeDriverLicense) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureValueTypeDriverLicense#6e425c4 as nil")
 	}
 	b.PutID(SecureValueTypeDriverLicenseTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureValueTypeDriverLicense) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureValueTypeDriverLicense#6e425c4 as nil")
+	}
 	return nil
 }
 
@@ -264,6 +308,14 @@ func (s *SecureValueTypeDriverLicense) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypeDriverLicenseTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueTypeDriverLicense#6e425c4: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureValueTypeDriverLicense) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureValueTypeDriverLicense#6e425c4 to nil")
+	}
 	return nil
 }
 
@@ -272,8 +324,10 @@ func (s SecureValueTypeDriverLicense) construct() SecureValueTypeClass { return 
 
 // Ensuring interfaces in compile-time for SecureValueTypeDriverLicense.
 var (
-	_ bin.Encoder = &SecureValueTypeDriverLicense{}
-	_ bin.Decoder = &SecureValueTypeDriverLicense{}
+	_ bin.Encoder     = &SecureValueTypeDriverLicense{}
+	_ bin.Decoder     = &SecureValueTypeDriverLicense{}
+	_ bin.BareEncoder = &SecureValueTypeDriverLicense{}
+	_ bin.BareDecoder = &SecureValueTypeDriverLicense{}
 
 	_ SecureValueTypeClass = &SecureValueTypeDriverLicense{}
 )
@@ -337,6 +391,14 @@ func (s *SecureValueTypeIdentityCard) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureValueTypeIdentityCard#a0d0744b as nil")
 	}
 	b.PutID(SecureValueTypeIdentityCardTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureValueTypeIdentityCard) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureValueTypeIdentityCard#a0d0744b as nil")
+	}
 	return nil
 }
 
@@ -348,6 +410,14 @@ func (s *SecureValueTypeIdentityCard) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypeIdentityCardTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueTypeIdentityCard#a0d0744b: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureValueTypeIdentityCard) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureValueTypeIdentityCard#a0d0744b to nil")
+	}
 	return nil
 }
 
@@ -356,8 +426,10 @@ func (s SecureValueTypeIdentityCard) construct() SecureValueTypeClass { return &
 
 // Ensuring interfaces in compile-time for SecureValueTypeIdentityCard.
 var (
-	_ bin.Encoder = &SecureValueTypeIdentityCard{}
-	_ bin.Decoder = &SecureValueTypeIdentityCard{}
+	_ bin.Encoder     = &SecureValueTypeIdentityCard{}
+	_ bin.Decoder     = &SecureValueTypeIdentityCard{}
+	_ bin.BareEncoder = &SecureValueTypeIdentityCard{}
+	_ bin.BareDecoder = &SecureValueTypeIdentityCard{}
 
 	_ SecureValueTypeClass = &SecureValueTypeIdentityCard{}
 )
@@ -424,6 +496,14 @@ func (s *SecureValueTypeInternalPassport) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureValueTypeInternalPassport#99a48f23 as nil")
 	}
 	b.PutID(SecureValueTypeInternalPassportTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureValueTypeInternalPassport) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureValueTypeInternalPassport#99a48f23 as nil")
+	}
 	return nil
 }
 
@@ -435,6 +515,14 @@ func (s *SecureValueTypeInternalPassport) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypeInternalPassportTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueTypeInternalPassport#99a48f23: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureValueTypeInternalPassport) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureValueTypeInternalPassport#99a48f23 to nil")
+	}
 	return nil
 }
 
@@ -443,8 +531,10 @@ func (s SecureValueTypeInternalPassport) construct() SecureValueTypeClass { retu
 
 // Ensuring interfaces in compile-time for SecureValueTypeInternalPassport.
 var (
-	_ bin.Encoder = &SecureValueTypeInternalPassport{}
-	_ bin.Decoder = &SecureValueTypeInternalPassport{}
+	_ bin.Encoder     = &SecureValueTypeInternalPassport{}
+	_ bin.Decoder     = &SecureValueTypeInternalPassport{}
+	_ bin.BareEncoder = &SecureValueTypeInternalPassport{}
+	_ bin.BareDecoder = &SecureValueTypeInternalPassport{}
 
 	_ SecureValueTypeClass = &SecureValueTypeInternalPassport{}
 )
@@ -508,6 +598,14 @@ func (s *SecureValueTypeAddress) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureValueTypeAddress#cbe31e26 as nil")
 	}
 	b.PutID(SecureValueTypeAddressTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureValueTypeAddress) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureValueTypeAddress#cbe31e26 as nil")
+	}
 	return nil
 }
 
@@ -519,6 +617,14 @@ func (s *SecureValueTypeAddress) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypeAddressTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueTypeAddress#cbe31e26: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureValueTypeAddress) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureValueTypeAddress#cbe31e26 to nil")
+	}
 	return nil
 }
 
@@ -527,8 +633,10 @@ func (s SecureValueTypeAddress) construct() SecureValueTypeClass { return &s }
 
 // Ensuring interfaces in compile-time for SecureValueTypeAddress.
 var (
-	_ bin.Encoder = &SecureValueTypeAddress{}
-	_ bin.Decoder = &SecureValueTypeAddress{}
+	_ bin.Encoder     = &SecureValueTypeAddress{}
+	_ bin.Decoder     = &SecureValueTypeAddress{}
+	_ bin.BareEncoder = &SecureValueTypeAddress{}
+	_ bin.BareDecoder = &SecureValueTypeAddress{}
 
 	_ SecureValueTypeClass = &SecureValueTypeAddress{}
 )
@@ -592,6 +700,14 @@ func (s *SecureValueTypeUtilityBill) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureValueTypeUtilityBill#fc36954e as nil")
 	}
 	b.PutID(SecureValueTypeUtilityBillTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureValueTypeUtilityBill) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureValueTypeUtilityBill#fc36954e as nil")
+	}
 	return nil
 }
 
@@ -603,6 +719,14 @@ func (s *SecureValueTypeUtilityBill) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypeUtilityBillTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueTypeUtilityBill#fc36954e: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureValueTypeUtilityBill) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureValueTypeUtilityBill#fc36954e to nil")
+	}
 	return nil
 }
 
@@ -611,8 +735,10 @@ func (s SecureValueTypeUtilityBill) construct() SecureValueTypeClass { return &s
 
 // Ensuring interfaces in compile-time for SecureValueTypeUtilityBill.
 var (
-	_ bin.Encoder = &SecureValueTypeUtilityBill{}
-	_ bin.Decoder = &SecureValueTypeUtilityBill{}
+	_ bin.Encoder     = &SecureValueTypeUtilityBill{}
+	_ bin.Decoder     = &SecureValueTypeUtilityBill{}
+	_ bin.BareEncoder = &SecureValueTypeUtilityBill{}
+	_ bin.BareDecoder = &SecureValueTypeUtilityBill{}
 
 	_ SecureValueTypeClass = &SecureValueTypeUtilityBill{}
 )
@@ -676,6 +802,14 @@ func (s *SecureValueTypeBankStatement) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureValueTypeBankStatement#89137c0d as nil")
 	}
 	b.PutID(SecureValueTypeBankStatementTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureValueTypeBankStatement) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureValueTypeBankStatement#89137c0d as nil")
+	}
 	return nil
 }
 
@@ -687,6 +821,14 @@ func (s *SecureValueTypeBankStatement) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypeBankStatementTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueTypeBankStatement#89137c0d: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureValueTypeBankStatement) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureValueTypeBankStatement#89137c0d to nil")
+	}
 	return nil
 }
 
@@ -695,8 +837,10 @@ func (s SecureValueTypeBankStatement) construct() SecureValueTypeClass { return 
 
 // Ensuring interfaces in compile-time for SecureValueTypeBankStatement.
 var (
-	_ bin.Encoder = &SecureValueTypeBankStatement{}
-	_ bin.Decoder = &SecureValueTypeBankStatement{}
+	_ bin.Encoder     = &SecureValueTypeBankStatement{}
+	_ bin.Decoder     = &SecureValueTypeBankStatement{}
+	_ bin.BareEncoder = &SecureValueTypeBankStatement{}
+	_ bin.BareDecoder = &SecureValueTypeBankStatement{}
 
 	_ SecureValueTypeClass = &SecureValueTypeBankStatement{}
 )
@@ -760,6 +904,14 @@ func (s *SecureValueTypeRentalAgreement) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureValueTypeRentalAgreement#8b883488 as nil")
 	}
 	b.PutID(SecureValueTypeRentalAgreementTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureValueTypeRentalAgreement) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureValueTypeRentalAgreement#8b883488 as nil")
+	}
 	return nil
 }
 
@@ -771,6 +923,14 @@ func (s *SecureValueTypeRentalAgreement) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypeRentalAgreementTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueTypeRentalAgreement#8b883488: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureValueTypeRentalAgreement) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureValueTypeRentalAgreement#8b883488 to nil")
+	}
 	return nil
 }
 
@@ -779,8 +939,10 @@ func (s SecureValueTypeRentalAgreement) construct() SecureValueTypeClass { retur
 
 // Ensuring interfaces in compile-time for SecureValueTypeRentalAgreement.
 var (
-	_ bin.Encoder = &SecureValueTypeRentalAgreement{}
-	_ bin.Decoder = &SecureValueTypeRentalAgreement{}
+	_ bin.Encoder     = &SecureValueTypeRentalAgreement{}
+	_ bin.Decoder     = &SecureValueTypeRentalAgreement{}
+	_ bin.BareEncoder = &SecureValueTypeRentalAgreement{}
+	_ bin.BareDecoder = &SecureValueTypeRentalAgreement{}
 
 	_ SecureValueTypeClass = &SecureValueTypeRentalAgreement{}
 )
@@ -847,6 +1009,14 @@ func (s *SecureValueTypePassportRegistration) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureValueTypePassportRegistration#99e3806a as nil")
 	}
 	b.PutID(SecureValueTypePassportRegistrationTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureValueTypePassportRegistration) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureValueTypePassportRegistration#99e3806a as nil")
+	}
 	return nil
 }
 
@@ -858,6 +1028,14 @@ func (s *SecureValueTypePassportRegistration) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypePassportRegistrationTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueTypePassportRegistration#99e3806a: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureValueTypePassportRegistration) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureValueTypePassportRegistration#99e3806a to nil")
+	}
 	return nil
 }
 
@@ -866,8 +1044,10 @@ func (s SecureValueTypePassportRegistration) construct() SecureValueTypeClass { 
 
 // Ensuring interfaces in compile-time for SecureValueTypePassportRegistration.
 var (
-	_ bin.Encoder = &SecureValueTypePassportRegistration{}
-	_ bin.Decoder = &SecureValueTypePassportRegistration{}
+	_ bin.Encoder     = &SecureValueTypePassportRegistration{}
+	_ bin.Decoder     = &SecureValueTypePassportRegistration{}
+	_ bin.BareEncoder = &SecureValueTypePassportRegistration{}
+	_ bin.BareDecoder = &SecureValueTypePassportRegistration{}
 
 	_ SecureValueTypeClass = &SecureValueTypePassportRegistration{}
 )
@@ -931,6 +1111,14 @@ func (s *SecureValueTypeTemporaryRegistration) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureValueTypeTemporaryRegistration#ea02ec33 as nil")
 	}
 	b.PutID(SecureValueTypeTemporaryRegistrationTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureValueTypeTemporaryRegistration) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureValueTypeTemporaryRegistration#ea02ec33 as nil")
+	}
 	return nil
 }
 
@@ -942,6 +1130,14 @@ func (s *SecureValueTypeTemporaryRegistration) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypeTemporaryRegistrationTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueTypeTemporaryRegistration#ea02ec33: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureValueTypeTemporaryRegistration) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureValueTypeTemporaryRegistration#ea02ec33 to nil")
+	}
 	return nil
 }
 
@@ -950,8 +1146,10 @@ func (s SecureValueTypeTemporaryRegistration) construct() SecureValueTypeClass {
 
 // Ensuring interfaces in compile-time for SecureValueTypeTemporaryRegistration.
 var (
-	_ bin.Encoder = &SecureValueTypeTemporaryRegistration{}
-	_ bin.Decoder = &SecureValueTypeTemporaryRegistration{}
+	_ bin.Encoder     = &SecureValueTypeTemporaryRegistration{}
+	_ bin.Decoder     = &SecureValueTypeTemporaryRegistration{}
+	_ bin.BareEncoder = &SecureValueTypeTemporaryRegistration{}
+	_ bin.BareDecoder = &SecureValueTypeTemporaryRegistration{}
 
 	_ SecureValueTypeClass = &SecureValueTypeTemporaryRegistration{}
 )
@@ -1015,6 +1213,14 @@ func (s *SecureValueTypePhone) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureValueTypePhone#b320aadb as nil")
 	}
 	b.PutID(SecureValueTypePhoneTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureValueTypePhone) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureValueTypePhone#b320aadb as nil")
+	}
 	return nil
 }
 
@@ -1026,6 +1232,14 @@ func (s *SecureValueTypePhone) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypePhoneTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueTypePhone#b320aadb: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureValueTypePhone) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureValueTypePhone#b320aadb to nil")
+	}
 	return nil
 }
 
@@ -1034,8 +1248,10 @@ func (s SecureValueTypePhone) construct() SecureValueTypeClass { return &s }
 
 // Ensuring interfaces in compile-time for SecureValueTypePhone.
 var (
-	_ bin.Encoder = &SecureValueTypePhone{}
-	_ bin.Decoder = &SecureValueTypePhone{}
+	_ bin.Encoder     = &SecureValueTypePhone{}
+	_ bin.Decoder     = &SecureValueTypePhone{}
+	_ bin.BareEncoder = &SecureValueTypePhone{}
+	_ bin.BareDecoder = &SecureValueTypePhone{}
 
 	_ SecureValueTypeClass = &SecureValueTypePhone{}
 )
@@ -1099,6 +1315,14 @@ func (s *SecureValueTypeEmail) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureValueTypeEmail#8e3ca7ee as nil")
 	}
 	b.PutID(SecureValueTypeEmailTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureValueTypeEmail) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureValueTypeEmail#8e3ca7ee as nil")
+	}
 	return nil
 }
 
@@ -1110,6 +1334,14 @@ func (s *SecureValueTypeEmail) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypeEmailTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValueTypeEmail#8e3ca7ee: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureValueTypeEmail) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureValueTypeEmail#8e3ca7ee to nil")
+	}
 	return nil
 }
 
@@ -1118,8 +1350,10 @@ func (s SecureValueTypeEmail) construct() SecureValueTypeClass { return &s }
 
 // Ensuring interfaces in compile-time for SecureValueTypeEmail.
 var (
-	_ bin.Encoder = &SecureValueTypeEmail{}
-	_ bin.Decoder = &SecureValueTypeEmail{}
+	_ bin.Encoder     = &SecureValueTypeEmail{}
+	_ bin.Decoder     = &SecureValueTypeEmail{}
+	_ bin.BareEncoder = &SecureValueTypeEmail{}
+	_ bin.BareDecoder = &SecureValueTypeEmail{}
 
 	_ SecureValueTypeClass = &SecureValueTypeEmail{}
 )
@@ -1152,6 +1386,8 @@ var (
 type SecureValueTypeClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() SecureValueTypeClass
 
 	// TypeID returns type id in TL schema.

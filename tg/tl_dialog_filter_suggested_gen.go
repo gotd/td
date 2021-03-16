@@ -122,6 +122,14 @@ func (d *DialogFilterSuggested) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode dialogFilterSuggested#77744d4a as nil")
 	}
 	b.PutID(DialogFilterSuggestedTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DialogFilterSuggested) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode dialogFilterSuggested#77744d4a as nil")
+	}
 	if err := d.Filter.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode dialogFilterSuggested#77744d4a: field filter: %w", err)
 	}
@@ -147,6 +155,14 @@ func (d *DialogFilterSuggested) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DialogFilterSuggestedTypeID); err != nil {
 		return fmt.Errorf("unable to decode dialogFilterSuggested#77744d4a: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DialogFilterSuggested) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode dialogFilterSuggested#77744d4a to nil")
+	}
 	{
 		if err := d.Filter.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode dialogFilterSuggested#77744d4a: field filter: %w", err)
@@ -164,6 +180,8 @@ func (d *DialogFilterSuggested) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for DialogFilterSuggested.
 var (
-	_ bin.Encoder = &DialogFilterSuggested{}
-	_ bin.Decoder = &DialogFilterSuggested{}
+	_ bin.Encoder     = &DialogFilterSuggested{}
+	_ bin.Decoder     = &DialogFilterSuggested{}
+	_ bin.BareEncoder = &DialogFilterSuggested{}
+	_ bin.BareDecoder = &DialogFilterSuggested{}
 )

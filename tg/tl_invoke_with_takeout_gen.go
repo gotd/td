@@ -113,6 +113,14 @@ func (i *InvokeWithTakeoutRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode invokeWithTakeout#aca9fd2e as nil")
 	}
 	b.PutID(InvokeWithTakeoutRequestTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InvokeWithTakeoutRequest) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode invokeWithTakeout#aca9fd2e as nil")
+	}
 	b.PutLong(i.TakeoutID)
 	if err := i.Query.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode invokeWithTakeout#aca9fd2e: field query: %w", err)
@@ -138,6 +146,14 @@ func (i *InvokeWithTakeoutRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InvokeWithTakeoutRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode invokeWithTakeout#aca9fd2e: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InvokeWithTakeoutRequest) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode invokeWithTakeout#aca9fd2e to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -155,6 +171,8 @@ func (i *InvokeWithTakeoutRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for InvokeWithTakeoutRequest.
 var (
-	_ bin.Encoder = &InvokeWithTakeoutRequest{}
-	_ bin.Decoder = &InvokeWithTakeoutRequest{}
+	_ bin.Encoder     = &InvokeWithTakeoutRequest{}
+	_ bin.Decoder     = &InvokeWithTakeoutRequest{}
+	_ bin.BareEncoder = &InvokeWithTakeoutRequest{}
+	_ bin.BareDecoder = &InvokeWithTakeoutRequest{}
 )

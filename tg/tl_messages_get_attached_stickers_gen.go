@@ -102,6 +102,14 @@ func (g *MessagesGetAttachedStickersRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getAttachedStickers#cc5b67cc as nil")
 	}
 	b.PutID(MessagesGetAttachedStickersRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetAttachedStickersRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getAttachedStickers#cc5b67cc as nil")
+	}
 	if g.Media == nil {
 		return fmt.Errorf("unable to encode messages.getAttachedStickers#cc5b67cc: field media is nil")
 	}
@@ -124,6 +132,14 @@ func (g *MessagesGetAttachedStickersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetAttachedStickersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getAttachedStickers#cc5b67cc: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetAttachedStickersRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getAttachedStickers#cc5b67cc to nil")
+	}
 	{
 		value, err := DecodeInputStickeredMedia(b)
 		if err != nil {
@@ -136,8 +152,10 @@ func (g *MessagesGetAttachedStickersRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetAttachedStickersRequest.
 var (
-	_ bin.Encoder = &MessagesGetAttachedStickersRequest{}
-	_ bin.Decoder = &MessagesGetAttachedStickersRequest{}
+	_ bin.Encoder     = &MessagesGetAttachedStickersRequest{}
+	_ bin.Decoder     = &MessagesGetAttachedStickersRequest{}
+	_ bin.BareEncoder = &MessagesGetAttachedStickersRequest{}
+	_ bin.BareDecoder = &MessagesGetAttachedStickersRequest{}
 )
 
 // MessagesGetAttachedStickers invokes method messages.getAttachedStickers#cc5b67cc returning error if any.

@@ -112,6 +112,14 @@ func (l *PhoneLeaveGroupCallRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.leaveGroupCall#500377f9 as nil")
 	}
 	b.PutID(PhoneLeaveGroupCallRequestTypeID)
+	return l.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (l *PhoneLeaveGroupCallRequest) EncodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't encode phone.leaveGroupCall#500377f9 as nil")
+	}
 	if err := l.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.leaveGroupCall#500377f9: field call: %w", err)
 	}
@@ -137,6 +145,14 @@ func (l *PhoneLeaveGroupCallRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneLeaveGroupCallRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.leaveGroupCall#500377f9: %w", err)
 	}
+	return l.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (l *PhoneLeaveGroupCallRequest) DecodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't decode phone.leaveGroupCall#500377f9 to nil")
+	}
 	{
 		if err := l.Call.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phone.leaveGroupCall#500377f9: field call: %w", err)
@@ -154,8 +170,10 @@ func (l *PhoneLeaveGroupCallRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhoneLeaveGroupCallRequest.
 var (
-	_ bin.Encoder = &PhoneLeaveGroupCallRequest{}
-	_ bin.Decoder = &PhoneLeaveGroupCallRequest{}
+	_ bin.Encoder     = &PhoneLeaveGroupCallRequest{}
+	_ bin.Decoder     = &PhoneLeaveGroupCallRequest{}
+	_ bin.BareEncoder = &PhoneLeaveGroupCallRequest{}
+	_ bin.BareDecoder = &PhoneLeaveGroupCallRequest{}
 )
 
 // PhoneLeaveGroupCall invokes method phone.leaveGroupCall#500377f9 returning error if any.

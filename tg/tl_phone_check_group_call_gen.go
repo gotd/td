@@ -112,6 +112,14 @@ func (c *PhoneCheckGroupCallRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.checkGroupCall#b74a7bea as nil")
 	}
 	b.PutID(PhoneCheckGroupCallRequestTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *PhoneCheckGroupCallRequest) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode phone.checkGroupCall#b74a7bea as nil")
+	}
 	if err := c.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.checkGroupCall#b74a7bea: field call: %w", err)
 	}
@@ -137,6 +145,14 @@ func (c *PhoneCheckGroupCallRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneCheckGroupCallRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.checkGroupCall#b74a7bea: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *PhoneCheckGroupCallRequest) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode phone.checkGroupCall#b74a7bea to nil")
+	}
 	{
 		if err := c.Call.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phone.checkGroupCall#b74a7bea: field call: %w", err)
@@ -154,8 +170,10 @@ func (c *PhoneCheckGroupCallRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhoneCheckGroupCallRequest.
 var (
-	_ bin.Encoder = &PhoneCheckGroupCallRequest{}
-	_ bin.Decoder = &PhoneCheckGroupCallRequest{}
+	_ bin.Encoder     = &PhoneCheckGroupCallRequest{}
+	_ bin.Decoder     = &PhoneCheckGroupCallRequest{}
+	_ bin.BareEncoder = &PhoneCheckGroupCallRequest{}
+	_ bin.BareDecoder = &PhoneCheckGroupCallRequest{}
 )
 
 // PhoneCheckGroupCall invokes method phone.checkGroupCall#b74a7bea returning error if any.

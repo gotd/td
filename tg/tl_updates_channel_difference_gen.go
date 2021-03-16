@@ -142,6 +142,14 @@ func (c *UpdatesChannelDifferenceEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updates.channelDifferenceEmpty#3e11affb as nil")
 	}
 	b.PutID(UpdatesChannelDifferenceEmptyTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *UpdatesChannelDifferenceEmpty) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode updates.channelDifferenceEmpty#3e11affb as nil")
+	}
 	if !(c.Final == false) {
 		c.Flags.Set(0)
 	}
@@ -202,6 +210,14 @@ func (c *UpdatesChannelDifferenceEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesChannelDifferenceEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode updates.channelDifferenceEmpty#3e11affb: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *UpdatesChannelDifferenceEmpty) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode updates.channelDifferenceEmpty#3e11affb to nil")
+	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updates.channelDifferenceEmpty#3e11affb: field flags: %w", err)
@@ -230,8 +246,10 @@ func (c UpdatesChannelDifferenceEmpty) construct() UpdatesChannelDifferenceClass
 
 // Ensuring interfaces in compile-time for UpdatesChannelDifferenceEmpty.
 var (
-	_ bin.Encoder = &UpdatesChannelDifferenceEmpty{}
-	_ bin.Decoder = &UpdatesChannelDifferenceEmpty{}
+	_ bin.Encoder     = &UpdatesChannelDifferenceEmpty{}
+	_ bin.Decoder     = &UpdatesChannelDifferenceEmpty{}
+	_ bin.BareEncoder = &UpdatesChannelDifferenceEmpty{}
+	_ bin.BareDecoder = &UpdatesChannelDifferenceEmpty{}
 
 	_ UpdatesChannelDifferenceClass = &UpdatesChannelDifferenceEmpty{}
 )
@@ -385,6 +403,14 @@ func (c *UpdatesChannelDifferenceTooLong) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updates.channelDifferenceTooLong#a4bcc6fe as nil")
 	}
 	b.PutID(UpdatesChannelDifferenceTooLongTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *UpdatesChannelDifferenceTooLong) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode updates.channelDifferenceTooLong#a4bcc6fe as nil")
+	}
 	if !(c.Final == false) {
 		c.Flags.Set(0)
 	}
@@ -507,6 +533,14 @@ func (c *UpdatesChannelDifferenceTooLong) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesChannelDifferenceTooLongTypeID); err != nil {
 		return fmt.Errorf("unable to decode updates.channelDifferenceTooLong#a4bcc6fe: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *UpdatesChannelDifferenceTooLong) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode updates.channelDifferenceTooLong#a4bcc6fe to nil")
+	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updates.channelDifferenceTooLong#a4bcc6fe: field flags: %w", err)
@@ -574,8 +608,10 @@ func (c UpdatesChannelDifferenceTooLong) construct() UpdatesChannelDifferenceCla
 
 // Ensuring interfaces in compile-time for UpdatesChannelDifferenceTooLong.
 var (
-	_ bin.Encoder = &UpdatesChannelDifferenceTooLong{}
-	_ bin.Decoder = &UpdatesChannelDifferenceTooLong{}
+	_ bin.Encoder     = &UpdatesChannelDifferenceTooLong{}
+	_ bin.Decoder     = &UpdatesChannelDifferenceTooLong{}
+	_ bin.BareEncoder = &UpdatesChannelDifferenceTooLong{}
+	_ bin.BareDecoder = &UpdatesChannelDifferenceTooLong{}
 
 	_ UpdatesChannelDifferenceClass = &UpdatesChannelDifferenceTooLong{}
 )
@@ -740,6 +776,14 @@ func (c *UpdatesChannelDifference) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updates.channelDifference#2064674e as nil")
 	}
 	b.PutID(UpdatesChannelDifferenceTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *UpdatesChannelDifference) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode updates.channelDifference#2064674e as nil")
+	}
 	if !(c.Final == false) {
 		c.Flags.Set(0)
 	}
@@ -876,6 +920,14 @@ func (c *UpdatesChannelDifference) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesChannelDifferenceTypeID); err != nil {
 		return fmt.Errorf("unable to decode updates.channelDifference#2064674e: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *UpdatesChannelDifference) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode updates.channelDifference#2064674e to nil")
+	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updates.channelDifference#2064674e: field flags: %w", err)
@@ -956,8 +1008,10 @@ func (c UpdatesChannelDifference) construct() UpdatesChannelDifferenceClass { re
 
 // Ensuring interfaces in compile-time for UpdatesChannelDifference.
 var (
-	_ bin.Encoder = &UpdatesChannelDifference{}
-	_ bin.Decoder = &UpdatesChannelDifference{}
+	_ bin.Encoder     = &UpdatesChannelDifference{}
+	_ bin.Decoder     = &UpdatesChannelDifference{}
+	_ bin.BareEncoder = &UpdatesChannelDifference{}
+	_ bin.BareDecoder = &UpdatesChannelDifference{}
 
 	_ UpdatesChannelDifferenceClass = &UpdatesChannelDifference{}
 )
@@ -980,6 +1034,8 @@ var (
 type UpdatesChannelDifferenceClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() UpdatesChannelDifferenceClass
 
 	// TypeID returns type id in TL schema.
@@ -1005,6 +1061,8 @@ type UpdatesChannelDifferenceClass interface {
 type NotEmptyUpdatesChannelDifference interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() UpdatesChannelDifferenceClass
 
 	// TypeID returns type id in TL schema.

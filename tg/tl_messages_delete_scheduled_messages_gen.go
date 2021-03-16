@@ -113,6 +113,14 @@ func (d *MessagesDeleteScheduledMessagesRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.deleteScheduledMessages#59ae2b16 as nil")
 	}
 	b.PutID(MessagesDeleteScheduledMessagesRequestTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *MessagesDeleteScheduledMessagesRequest) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode messages.deleteScheduledMessages#59ae2b16 as nil")
+	}
 	if d.Peer == nil {
 		return fmt.Errorf("unable to encode messages.deleteScheduledMessages#59ae2b16: field peer is nil")
 	}
@@ -144,6 +152,14 @@ func (d *MessagesDeleteScheduledMessagesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesDeleteScheduledMessagesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.deleteScheduledMessages#59ae2b16: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *MessagesDeleteScheduledMessagesRequest) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode messages.deleteScheduledMessages#59ae2b16 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -169,8 +185,10 @@ func (d *MessagesDeleteScheduledMessagesRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesDeleteScheduledMessagesRequest.
 var (
-	_ bin.Encoder = &MessagesDeleteScheduledMessagesRequest{}
-	_ bin.Decoder = &MessagesDeleteScheduledMessagesRequest{}
+	_ bin.Encoder     = &MessagesDeleteScheduledMessagesRequest{}
+	_ bin.Decoder     = &MessagesDeleteScheduledMessagesRequest{}
+	_ bin.BareEncoder = &MessagesDeleteScheduledMessagesRequest{}
+	_ bin.BareDecoder = &MessagesDeleteScheduledMessagesRequest{}
 )
 
 // MessagesDeleteScheduledMessages invokes method messages.deleteScheduledMessages#59ae2b16 returning error if any.

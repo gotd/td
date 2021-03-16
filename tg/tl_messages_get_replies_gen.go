@@ -205,6 +205,14 @@ func (g *MessagesGetRepliesRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getReplies#24b581ba as nil")
 	}
 	b.PutID(MessagesGetRepliesRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetRepliesRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getReplies#24b581ba as nil")
+	}
 	if g.Peer == nil {
 		return fmt.Errorf("unable to encode messages.getReplies#24b581ba: field peer is nil")
 	}
@@ -275,6 +283,14 @@ func (g *MessagesGetRepliesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetRepliesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getReplies#24b581ba: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetRepliesRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getReplies#24b581ba to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -343,8 +359,10 @@ func (g *MessagesGetRepliesRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetRepliesRequest.
 var (
-	_ bin.Encoder = &MessagesGetRepliesRequest{}
-	_ bin.Decoder = &MessagesGetRepliesRequest{}
+	_ bin.Encoder     = &MessagesGetRepliesRequest{}
+	_ bin.Decoder     = &MessagesGetRepliesRequest{}
+	_ bin.BareEncoder = &MessagesGetRepliesRequest{}
+	_ bin.BareDecoder = &MessagesGetRepliesRequest{}
 )
 
 // MessagesGetReplies invokes method messages.getReplies#24b581ba returning error if any.

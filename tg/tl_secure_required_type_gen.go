@@ -146,6 +146,14 @@ func (s *SecureRequiredType) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureRequiredType#829d99da as nil")
 	}
 	b.PutID(SecureRequiredTypeTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureRequiredType) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureRequiredType#829d99da as nil")
+	}
 	if !(s.NativeNames == false) {
 		s.Flags.Set(0)
 	}
@@ -228,6 +236,14 @@ func (s *SecureRequiredType) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureRequiredTypeTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureRequiredType#829d99da: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureRequiredType) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureRequiredType#829d99da to nil")
+	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode secureRequiredType#829d99da: field flags: %w", err)
@@ -251,8 +267,10 @@ func (s SecureRequiredType) construct() SecureRequiredTypeClass { return &s }
 
 // Ensuring interfaces in compile-time for SecureRequiredType.
 var (
-	_ bin.Encoder = &SecureRequiredType{}
-	_ bin.Decoder = &SecureRequiredType{}
+	_ bin.Encoder     = &SecureRequiredType{}
+	_ bin.Decoder     = &SecureRequiredType{}
+	_ bin.BareEncoder = &SecureRequiredType{}
+	_ bin.BareDecoder = &SecureRequiredType{}
 
 	_ SecureRequiredTypeClass = &SecureRequiredType{}
 )
@@ -333,6 +351,14 @@ func (s *SecureRequiredTypeOneOf) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureRequiredTypeOneOf#27477b4 as nil")
 	}
 	b.PutID(SecureRequiredTypeOneOfTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureRequiredTypeOneOf) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureRequiredTypeOneOf#27477b4 as nil")
+	}
 	b.PutVectorHeader(len(s.Types))
 	for idx, v := range s.Types {
 		if v == nil {
@@ -363,6 +389,14 @@ func (s *SecureRequiredTypeOneOf) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureRequiredTypeOneOfTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureRequiredTypeOneOf#27477b4: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureRequiredTypeOneOf) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureRequiredTypeOneOf#27477b4 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -384,8 +418,10 @@ func (s SecureRequiredTypeOneOf) construct() SecureRequiredTypeClass { return &s
 
 // Ensuring interfaces in compile-time for SecureRequiredTypeOneOf.
 var (
-	_ bin.Encoder = &SecureRequiredTypeOneOf{}
-	_ bin.Decoder = &SecureRequiredTypeOneOf{}
+	_ bin.Encoder     = &SecureRequiredTypeOneOf{}
+	_ bin.Decoder     = &SecureRequiredTypeOneOf{}
+	_ bin.BareEncoder = &SecureRequiredTypeOneOf{}
+	_ bin.BareDecoder = &SecureRequiredTypeOneOf{}
 
 	_ SecureRequiredTypeClass = &SecureRequiredTypeOneOf{}
 )
@@ -407,6 +443,8 @@ var (
 type SecureRequiredTypeClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() SecureRequiredTypeClass
 
 	// TypeID returns type id in TL schema.

@@ -158,6 +158,14 @@ func (s *PaymentsSendPaymentFormRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode payments.sendPaymentForm#2b8879b3 as nil")
 	}
 	b.PutID(PaymentsSendPaymentFormRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *PaymentsSendPaymentFormRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode payments.sendPaymentForm#2b8879b3 as nil")
+	}
 	if !(s.RequestedInfoID == "") {
 		s.Flags.Set(0)
 	}
@@ -231,6 +239,14 @@ func (s *PaymentsSendPaymentFormRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PaymentsSendPaymentFormRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode payments.sendPaymentForm#2b8879b3: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *PaymentsSendPaymentFormRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode payments.sendPaymentForm#2b8879b3 to nil")
+	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode payments.sendPaymentForm#2b8879b3: field flags: %w", err)
@@ -269,8 +285,10 @@ func (s *PaymentsSendPaymentFormRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PaymentsSendPaymentFormRequest.
 var (
-	_ bin.Encoder = &PaymentsSendPaymentFormRequest{}
-	_ bin.Decoder = &PaymentsSendPaymentFormRequest{}
+	_ bin.Encoder     = &PaymentsSendPaymentFormRequest{}
+	_ bin.Decoder     = &PaymentsSendPaymentFormRequest{}
+	_ bin.BareEncoder = &PaymentsSendPaymentFormRequest{}
+	_ bin.BareDecoder = &PaymentsSendPaymentFormRequest{}
 )
 
 // PaymentsSendPaymentForm invokes method payments.sendPaymentForm#2b8879b3 returning error if any.

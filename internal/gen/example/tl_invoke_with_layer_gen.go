@@ -112,6 +112,14 @@ func (i *InvokeWithLayer) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode invokeWithLayer#da9b0d0d as nil")
 	}
 	b.PutID(InvokeWithLayerTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InvokeWithLayer) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode invokeWithLayer#da9b0d0d as nil")
+	}
 	b.PutInt(i.Layer)
 	if err := i.Query.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode invokeWithLayer#da9b0d0d: field query: %w", err)
@@ -137,6 +145,14 @@ func (i *InvokeWithLayer) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InvokeWithLayerTypeID); err != nil {
 		return fmt.Errorf("unable to decode invokeWithLayer#da9b0d0d: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InvokeWithLayer) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode invokeWithLayer#da9b0d0d to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -154,6 +170,8 @@ func (i *InvokeWithLayer) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for InvokeWithLayer.
 var (
-	_ bin.Encoder = &InvokeWithLayer{}
-	_ bin.Decoder = &InvokeWithLayer{}
+	_ bin.Encoder     = &InvokeWithLayer{}
+	_ bin.Decoder     = &InvokeWithLayer{}
+	_ bin.BareEncoder = &InvokeWithLayer{}
+	_ bin.BareDecoder = &InvokeWithLayer{}
 )

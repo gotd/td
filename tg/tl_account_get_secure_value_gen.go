@@ -106,6 +106,14 @@ func (g *AccountGetSecureValueRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.getSecureValue#73665bc2 as nil")
 	}
 	b.PutID(AccountGetSecureValueRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *AccountGetSecureValueRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode account.getSecureValue#73665bc2 as nil")
+	}
 	b.PutVectorHeader(len(g.Types))
 	for idx, v := range g.Types {
 		if v == nil {
@@ -136,6 +144,14 @@ func (g *AccountGetSecureValueRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetSecureValueRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getSecureValue#73665bc2: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *AccountGetSecureValueRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode account.getSecureValue#73665bc2 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -154,8 +170,10 @@ func (g *AccountGetSecureValueRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountGetSecureValueRequest.
 var (
-	_ bin.Encoder = &AccountGetSecureValueRequest{}
-	_ bin.Decoder = &AccountGetSecureValueRequest{}
+	_ bin.Encoder     = &AccountGetSecureValueRequest{}
+	_ bin.Decoder     = &AccountGetSecureValueRequest{}
+	_ bin.BareEncoder = &AccountGetSecureValueRequest{}
+	_ bin.BareDecoder = &AccountGetSecureValueRequest{}
 )
 
 // AccountGetSecureValue invokes method account.getSecureValue#73665bc2 returning error if any.

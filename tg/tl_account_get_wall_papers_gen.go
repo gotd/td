@@ -105,6 +105,14 @@ func (g *AccountGetWallPapersRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.getWallPapers#aabb1763 as nil")
 	}
 	b.PutID(AccountGetWallPapersRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *AccountGetWallPapersRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode account.getWallPapers#aabb1763 as nil")
+	}
 	b.PutInt(g.Hash)
 	return nil
 }
@@ -122,6 +130,14 @@ func (g *AccountGetWallPapersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetWallPapersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getWallPapers#aabb1763: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *AccountGetWallPapersRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode account.getWallPapers#aabb1763 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -134,8 +150,10 @@ func (g *AccountGetWallPapersRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountGetWallPapersRequest.
 var (
-	_ bin.Encoder = &AccountGetWallPapersRequest{}
-	_ bin.Decoder = &AccountGetWallPapersRequest{}
+	_ bin.Encoder     = &AccountGetWallPapersRequest{}
+	_ bin.Decoder     = &AccountGetWallPapersRequest{}
+	_ bin.BareEncoder = &AccountGetWallPapersRequest{}
+	_ bin.BareDecoder = &AccountGetWallPapersRequest{}
 )
 
 // AccountGetWallPapers invokes method account.getWallPapers#aabb1763 returning error if any.

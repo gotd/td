@@ -102,6 +102,14 @@ func (r *MessagesReadMentionsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.readMentions#f0189d3 as nil")
 	}
 	b.PutID(MessagesReadMentionsRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *MessagesReadMentionsRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode messages.readMentions#f0189d3 as nil")
+	}
 	if r.Peer == nil {
 		return fmt.Errorf("unable to encode messages.readMentions#f0189d3: field peer is nil")
 	}
@@ -124,6 +132,14 @@ func (r *MessagesReadMentionsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesReadMentionsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.readMentions#f0189d3: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *MessagesReadMentionsRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode messages.readMentions#f0189d3 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -136,8 +152,10 @@ func (r *MessagesReadMentionsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesReadMentionsRequest.
 var (
-	_ bin.Encoder = &MessagesReadMentionsRequest{}
-	_ bin.Decoder = &MessagesReadMentionsRequest{}
+	_ bin.Encoder     = &MessagesReadMentionsRequest{}
+	_ bin.Decoder     = &MessagesReadMentionsRequest{}
+	_ bin.BareEncoder = &MessagesReadMentionsRequest{}
+	_ bin.BareDecoder = &MessagesReadMentionsRequest{}
 )
 
 // MessagesReadMentions invokes method messages.readMentions#f0189d3 returning error if any.

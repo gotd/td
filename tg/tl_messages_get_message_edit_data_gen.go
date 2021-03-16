@@ -113,6 +113,14 @@ func (g *MessagesGetMessageEditDataRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getMessageEditData#fda68d36 as nil")
 	}
 	b.PutID(MessagesGetMessageEditDataRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetMessageEditDataRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getMessageEditData#fda68d36 as nil")
+	}
 	if g.Peer == nil {
 		return fmt.Errorf("unable to encode messages.getMessageEditData#fda68d36: field peer is nil")
 	}
@@ -141,6 +149,14 @@ func (g *MessagesGetMessageEditDataRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetMessageEditDataRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getMessageEditData#fda68d36: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetMessageEditDataRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getMessageEditData#fda68d36 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -160,8 +176,10 @@ func (g *MessagesGetMessageEditDataRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetMessageEditDataRequest.
 var (
-	_ bin.Encoder = &MessagesGetMessageEditDataRequest{}
-	_ bin.Decoder = &MessagesGetMessageEditDataRequest{}
+	_ bin.Encoder     = &MessagesGetMessageEditDataRequest{}
+	_ bin.Decoder     = &MessagesGetMessageEditDataRequest{}
+	_ bin.BareEncoder = &MessagesGetMessageEditDataRequest{}
+	_ bin.BareDecoder = &MessagesGetMessageEditDataRequest{}
 )
 
 // MessagesGetMessageEditData invokes method messages.getMessageEditData#fda68d36 returning error if any.

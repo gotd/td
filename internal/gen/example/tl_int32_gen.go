@@ -84,6 +84,14 @@ func (i *Int32) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode int32#5cb934fa as nil")
 	}
 	b.PutID(Int32TypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *Int32) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode int32#5cb934fa as nil")
+	}
 	return nil
 }
 
@@ -95,11 +103,21 @@ func (i *Int32) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(Int32TypeID); err != nil {
 		return fmt.Errorf("unable to decode int32#5cb934fa: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *Int32) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode int32#5cb934fa to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for Int32.
 var (
-	_ bin.Encoder = &Int32{}
-	_ bin.Decoder = &Int32{}
+	_ bin.Encoder     = &Int32{}
+	_ bin.Decoder     = &Int32{}
+	_ bin.BareEncoder = &Int32{}
+	_ bin.BareDecoder = &Int32{}
 )

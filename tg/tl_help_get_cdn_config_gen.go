@@ -88,6 +88,14 @@ func (g *HelpGetCDNConfigRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.getCdnConfig#52029342 as nil")
 	}
 	b.PutID(HelpGetCDNConfigRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *HelpGetCDNConfigRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode help.getCdnConfig#52029342 as nil")
+	}
 	return nil
 }
 
@@ -99,13 +107,23 @@ func (g *HelpGetCDNConfigRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetCDNConfigRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getCdnConfig#52029342: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *HelpGetCDNConfigRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode help.getCdnConfig#52029342 to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for HelpGetCDNConfigRequest.
 var (
-	_ bin.Encoder = &HelpGetCDNConfigRequest{}
-	_ bin.Decoder = &HelpGetCDNConfigRequest{}
+	_ bin.Encoder     = &HelpGetCDNConfigRequest{}
+	_ bin.Decoder     = &HelpGetCDNConfigRequest{}
+	_ bin.BareEncoder = &HelpGetCDNConfigRequest{}
+	_ bin.BareDecoder = &HelpGetCDNConfigRequest{}
 )
 
 // HelpGetCDNConfig invokes method help.getCdnConfig#52029342 returning error if any.

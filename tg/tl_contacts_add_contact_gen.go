@@ -159,6 +159,14 @@ func (a *ContactsAddContactRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode contacts.addContact#e8f463d0 as nil")
 	}
 	b.PutID(ContactsAddContactRequestTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *ContactsAddContactRequest) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode contacts.addContact#e8f463d0 as nil")
+	}
 	if !(a.AddPhonePrivacyException == false) {
 		a.Flags.Set(0)
 	}
@@ -221,6 +229,14 @@ func (a *ContactsAddContactRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsAddContactRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.addContact#e8f463d0: %w", err)
 	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *ContactsAddContactRequest) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode contacts.addContact#e8f463d0 to nil")
+	}
 	{
 		if err := a.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode contacts.addContact#e8f463d0: field flags: %w", err)
@@ -260,8 +276,10 @@ func (a *ContactsAddContactRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ContactsAddContactRequest.
 var (
-	_ bin.Encoder = &ContactsAddContactRequest{}
-	_ bin.Decoder = &ContactsAddContactRequest{}
+	_ bin.Encoder     = &ContactsAddContactRequest{}
+	_ bin.Decoder     = &ContactsAddContactRequest{}
+	_ bin.BareEncoder = &ContactsAddContactRequest{}
+	_ bin.BareDecoder = &ContactsAddContactRequest{}
 )
 
 // ContactsAddContact invokes method contacts.addContact#e8f463d0 returning error if any.

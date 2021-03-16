@@ -113,6 +113,14 @@ func (d *HelpDismissSuggestionRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.dismissSuggestion#f50dbaa1 as nil")
 	}
 	b.PutID(HelpDismissSuggestionRequestTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *HelpDismissSuggestionRequest) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode help.dismissSuggestion#f50dbaa1 as nil")
+	}
 	if d.Peer == nil {
 		return fmt.Errorf("unable to encode help.dismissSuggestion#f50dbaa1: field peer is nil")
 	}
@@ -141,6 +149,14 @@ func (d *HelpDismissSuggestionRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpDismissSuggestionRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.dismissSuggestion#f50dbaa1: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *HelpDismissSuggestionRequest) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode help.dismissSuggestion#f50dbaa1 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -160,8 +176,10 @@ func (d *HelpDismissSuggestionRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for HelpDismissSuggestionRequest.
 var (
-	_ bin.Encoder = &HelpDismissSuggestionRequest{}
-	_ bin.Decoder = &HelpDismissSuggestionRequest{}
+	_ bin.Encoder     = &HelpDismissSuggestionRequest{}
+	_ bin.Decoder     = &HelpDismissSuggestionRequest{}
+	_ bin.BareEncoder = &HelpDismissSuggestionRequest{}
+	_ bin.BareDecoder = &HelpDismissSuggestionRequest{}
 )
 
 // HelpDismissSuggestion invokes method help.dismissSuggestion#f50dbaa1 returning error if any.

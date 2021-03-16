@@ -121,6 +121,14 @@ func (b *BadMsgNotification) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode bad_msg_notification#a7eff811 as nil")
 	}
 	buf.PutID(BadMsgNotificationTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *BadMsgNotification) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode bad_msg_notification#a7eff811 as nil")
+	}
 	buf.PutLong(b.BadMsgID)
 	buf.PutInt(b.BadMsgSeqno)
 	buf.PutInt(b.ErrorCode)
@@ -149,6 +157,14 @@ func (b *BadMsgNotification) Decode(buf *bin.Buffer) error {
 	}
 	if err := buf.ConsumeID(BadMsgNotificationTypeID); err != nil {
 		return fmt.Errorf("unable to decode bad_msg_notification#a7eff811: %w", err)
+	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BadMsgNotification) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode bad_msg_notification#a7eff811 to nil")
 	}
 	{
 		value, err := buf.Long()
@@ -179,8 +195,10 @@ func (b BadMsgNotification) construct() BadMsgNotificationClass { return &b }
 
 // Ensuring interfaces in compile-time for BadMsgNotification.
 var (
-	_ bin.Encoder = &BadMsgNotification{}
-	_ bin.Decoder = &BadMsgNotification{}
+	_ bin.Encoder     = &BadMsgNotification{}
+	_ bin.Decoder     = &BadMsgNotification{}
+	_ bin.BareEncoder = &BadMsgNotification{}
+	_ bin.BareDecoder = &BadMsgNotification{}
 
 	_ BadMsgNotificationClass = &BadMsgNotification{}
 )
@@ -291,6 +309,14 @@ func (b *BadServerSalt) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode bad_server_salt#edab447b as nil")
 	}
 	buf.PutID(BadServerSaltTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *BadServerSalt) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode bad_server_salt#edab447b as nil")
+	}
 	buf.PutLong(b.BadMsgID)
 	buf.PutInt(b.BadMsgSeqno)
 	buf.PutInt(b.ErrorCode)
@@ -325,6 +351,14 @@ func (b *BadServerSalt) Decode(buf *bin.Buffer) error {
 	}
 	if err := buf.ConsumeID(BadServerSaltTypeID); err != nil {
 		return fmt.Errorf("unable to decode bad_server_salt#edab447b: %w", err)
+	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *BadServerSalt) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode bad_server_salt#edab447b to nil")
 	}
 	{
 		value, err := buf.Long()
@@ -362,8 +396,10 @@ func (b BadServerSalt) construct() BadMsgNotificationClass { return &b }
 
 // Ensuring interfaces in compile-time for BadServerSalt.
 var (
-	_ bin.Encoder = &BadServerSalt{}
-	_ bin.Decoder = &BadServerSalt{}
+	_ bin.Encoder     = &BadServerSalt{}
+	_ bin.Decoder     = &BadServerSalt{}
+	_ bin.BareEncoder = &BadServerSalt{}
+	_ bin.BareDecoder = &BadServerSalt{}
 
 	_ BadMsgNotificationClass = &BadServerSalt{}
 )
@@ -383,6 +419,8 @@ var (
 type BadMsgNotificationClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() BadMsgNotificationClass
 
 	// TypeID returns type id in TL schema.

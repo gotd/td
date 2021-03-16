@@ -127,6 +127,14 @@ func (g *MessagesGetMessagesViewsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getMessagesViews#5784d3e1 as nil")
 	}
 	b.PutID(MessagesGetMessagesViewsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetMessagesViewsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getMessagesViews#5784d3e1 as nil")
+	}
 	if g.Peer == nil {
 		return fmt.Errorf("unable to encode messages.getMessagesViews#5784d3e1: field peer is nil")
 	}
@@ -164,6 +172,14 @@ func (g *MessagesGetMessagesViewsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetMessagesViewsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getMessagesViews#5784d3e1: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetMessagesViewsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getMessagesViews#5784d3e1 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -196,8 +212,10 @@ func (g *MessagesGetMessagesViewsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetMessagesViewsRequest.
 var (
-	_ bin.Encoder = &MessagesGetMessagesViewsRequest{}
-	_ bin.Decoder = &MessagesGetMessagesViewsRequest{}
+	_ bin.Encoder     = &MessagesGetMessagesViewsRequest{}
+	_ bin.Decoder     = &MessagesGetMessagesViewsRequest{}
+	_ bin.BareEncoder = &MessagesGetMessagesViewsRequest{}
+	_ bin.BareDecoder = &MessagesGetMessagesViewsRequest{}
 )
 
 // MessagesGetMessagesViews invokes method messages.getMessagesViews#5784d3e1 returning error if any.

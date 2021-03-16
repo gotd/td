@@ -102,6 +102,14 @@ func (p *PhotoEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode photoEmpty#2331b22d as nil")
 	}
 	b.PutID(PhotoEmptyTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PhotoEmpty) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode photoEmpty#2331b22d as nil")
+	}
 	b.PutLong(p.ID)
 	return nil
 }
@@ -119,6 +127,14 @@ func (p *PhotoEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotoEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode photoEmpty#2331b22d: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PhotoEmpty) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode photoEmpty#2331b22d to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -134,8 +150,10 @@ func (p PhotoEmpty) construct() PhotoClass { return &p }
 
 // Ensuring interfaces in compile-time for PhotoEmpty.
 var (
-	_ bin.Encoder = &PhotoEmpty{}
-	_ bin.Decoder = &PhotoEmpty{}
+	_ bin.Encoder     = &PhotoEmpty{}
+	_ bin.Decoder     = &PhotoEmpty{}
+	_ bin.BareEncoder = &PhotoEmpty{}
+	_ bin.BareDecoder = &PhotoEmpty{}
 
 	_ PhotoClass = &PhotoEmpty{}
 )
@@ -314,6 +332,14 @@ func (p *Photo) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode photo#fb197a65 as nil")
 	}
 	b.PutID(PhotoTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *Photo) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode photo#fb197a65 as nil")
+	}
 	if !(p.HasStickers == false) {
 		p.Flags.Set(0)
 	}
@@ -422,6 +448,14 @@ func (p *Photo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode photo#fb197a65: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *Photo) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode photo#fb197a65 to nil")
+	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode photo#fb197a65: field flags: %w", err)
@@ -497,8 +531,10 @@ func (p Photo) construct() PhotoClass { return &p }
 
 // Ensuring interfaces in compile-time for Photo.
 var (
-	_ bin.Encoder = &Photo{}
-	_ bin.Decoder = &Photo{}
+	_ bin.Encoder     = &Photo{}
+	_ bin.Decoder     = &Photo{}
+	_ bin.BareEncoder = &Photo{}
+	_ bin.BareDecoder = &Photo{}
 
 	_ PhotoClass = &Photo{}
 )
@@ -520,6 +556,8 @@ var (
 type PhotoClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() PhotoClass
 
 	// TypeID returns type id in TL schema.

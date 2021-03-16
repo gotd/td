@@ -124,6 +124,14 @@ func (c *ChatParticipant) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chatParticipant#c8d7493e as nil")
 	}
 	b.PutID(ChatParticipantTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatParticipant) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatParticipant#c8d7493e as nil")
+	}
 	b.PutInt(c.UserID)
 	b.PutInt(c.InviterID)
 	b.PutInt(c.Date)
@@ -152,6 +160,14 @@ func (c *ChatParticipant) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(ChatParticipantTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatParticipant#c8d7493e: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatParticipant) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatParticipant#c8d7493e to nil")
 	}
 	{
 		value, err := b.Int()
@@ -182,8 +198,10 @@ func (c ChatParticipant) construct() ChatParticipantClass { return &c }
 
 // Ensuring interfaces in compile-time for ChatParticipant.
 var (
-	_ bin.Encoder = &ChatParticipant{}
-	_ bin.Decoder = &ChatParticipant{}
+	_ bin.Encoder     = &ChatParticipant{}
+	_ bin.Decoder     = &ChatParticipant{}
+	_ bin.BareEncoder = &ChatParticipant{}
+	_ bin.BareDecoder = &ChatParticipant{}
 
 	_ ChatParticipantClass = &ChatParticipant{}
 )
@@ -264,6 +282,14 @@ func (c *ChatParticipantCreator) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chatParticipantCreator#da13538a as nil")
 	}
 	b.PutID(ChatParticipantCreatorTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatParticipantCreator) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatParticipantCreator#da13538a as nil")
+	}
 	b.PutInt(c.UserID)
 	return nil
 }
@@ -281,6 +307,14 @@ func (c *ChatParticipantCreator) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatParticipantCreatorTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatParticipantCreator#da13538a: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatParticipantCreator) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatParticipantCreator#da13538a to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -296,8 +330,10 @@ func (c ChatParticipantCreator) construct() ChatParticipantClass { return &c }
 
 // Ensuring interfaces in compile-time for ChatParticipantCreator.
 var (
-	_ bin.Encoder = &ChatParticipantCreator{}
-	_ bin.Decoder = &ChatParticipantCreator{}
+	_ bin.Encoder     = &ChatParticipantCreator{}
+	_ bin.Decoder     = &ChatParticipantCreator{}
+	_ bin.BareEncoder = &ChatParticipantCreator{}
+	_ bin.BareDecoder = &ChatParticipantCreator{}
 
 	_ ChatParticipantClass = &ChatParticipantCreator{}
 )
@@ -400,6 +436,14 @@ func (c *ChatParticipantAdmin) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chatParticipantAdmin#e2d6e436 as nil")
 	}
 	b.PutID(ChatParticipantAdminTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatParticipantAdmin) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatParticipantAdmin#e2d6e436 as nil")
+	}
 	b.PutInt(c.UserID)
 	b.PutInt(c.InviterID)
 	b.PutInt(c.Date)
@@ -428,6 +472,14 @@ func (c *ChatParticipantAdmin) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(ChatParticipantAdminTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatParticipantAdmin#e2d6e436: %w", err)
+	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatParticipantAdmin) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatParticipantAdmin#e2d6e436 to nil")
 	}
 	{
 		value, err := b.Int()
@@ -458,8 +510,10 @@ func (c ChatParticipantAdmin) construct() ChatParticipantClass { return &c }
 
 // Ensuring interfaces in compile-time for ChatParticipantAdmin.
 var (
-	_ bin.Encoder = &ChatParticipantAdmin{}
-	_ bin.Decoder = &ChatParticipantAdmin{}
+	_ bin.Encoder     = &ChatParticipantAdmin{}
+	_ bin.Decoder     = &ChatParticipantAdmin{}
+	_ bin.BareEncoder = &ChatParticipantAdmin{}
+	_ bin.BareDecoder = &ChatParticipantAdmin{}
 
 	_ ChatParticipantClass = &ChatParticipantAdmin{}
 )
@@ -482,6 +536,8 @@ var (
 type ChatParticipantClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() ChatParticipantClass
 
 	// TypeID returns type id in TL schema.

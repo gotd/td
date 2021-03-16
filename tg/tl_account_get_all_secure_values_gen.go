@@ -89,6 +89,14 @@ func (g *AccountGetAllSecureValuesRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.getAllSecureValues#b288bc7d as nil")
 	}
 	b.PutID(AccountGetAllSecureValuesRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *AccountGetAllSecureValuesRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode account.getAllSecureValues#b288bc7d as nil")
+	}
 	return nil
 }
 
@@ -100,13 +108,23 @@ func (g *AccountGetAllSecureValuesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetAllSecureValuesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getAllSecureValues#b288bc7d: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *AccountGetAllSecureValuesRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode account.getAllSecureValues#b288bc7d to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for AccountGetAllSecureValuesRequest.
 var (
-	_ bin.Encoder = &AccountGetAllSecureValuesRequest{}
-	_ bin.Decoder = &AccountGetAllSecureValuesRequest{}
+	_ bin.Encoder     = &AccountGetAllSecureValuesRequest{}
+	_ bin.Decoder     = &AccountGetAllSecureValuesRequest{}
+	_ bin.BareEncoder = &AccountGetAllSecureValuesRequest{}
+	_ bin.BareDecoder = &AccountGetAllSecureValuesRequest{}
 )
 
 // AccountGetAllSecureValues invokes method account.getAllSecureValues#b288bc7d returning error if any.

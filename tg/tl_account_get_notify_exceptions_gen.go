@@ -128,6 +128,14 @@ func (g *AccountGetNotifyExceptionsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.getNotifyExceptions#53577479 as nil")
 	}
 	b.PutID(AccountGetNotifyExceptionsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *AccountGetNotifyExceptionsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode account.getNotifyExceptions#53577479 as nil")
+	}
 	if !(g.CompareSound == false) {
 		g.Flags.Set(1)
 	}
@@ -187,6 +195,14 @@ func (g *AccountGetNotifyExceptionsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetNotifyExceptionsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getNotifyExceptions#53577479: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *AccountGetNotifyExceptionsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode account.getNotifyExceptions#53577479 to nil")
+	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.getNotifyExceptions#53577479: field flags: %w", err)
@@ -205,8 +221,10 @@ func (g *AccountGetNotifyExceptionsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountGetNotifyExceptionsRequest.
 var (
-	_ bin.Encoder = &AccountGetNotifyExceptionsRequest{}
-	_ bin.Decoder = &AccountGetNotifyExceptionsRequest{}
+	_ bin.Encoder     = &AccountGetNotifyExceptionsRequest{}
+	_ bin.Decoder     = &AccountGetNotifyExceptionsRequest{}
+	_ bin.BareEncoder = &AccountGetNotifyExceptionsRequest{}
+	_ bin.BareDecoder = &AccountGetNotifyExceptionsRequest{}
 )
 
 // AccountGetNotifyExceptions invokes method account.getNotifyExceptions#53577479 returning error if any.

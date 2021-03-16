@@ -139,6 +139,14 @@ func (u *URLAuthResultRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode urlAuthResultRequest#92d33a0e as nil")
 	}
 	b.PutID(URLAuthResultRequestTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *URLAuthResultRequest) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode urlAuthResultRequest#92d33a0e as nil")
+	}
 	if !(u.RequestWriteAccess == false) {
 		u.Flags.Set(0)
 	}
@@ -189,6 +197,14 @@ func (u *URLAuthResultRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(URLAuthResultRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode urlAuthResultRequest#92d33a0e: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *URLAuthResultRequest) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode urlAuthResultRequest#92d33a0e to nil")
+	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode urlAuthResultRequest#92d33a0e: field flags: %w", err)
@@ -217,8 +233,10 @@ func (u URLAuthResultRequest) construct() URLAuthResultClass { return &u }
 
 // Ensuring interfaces in compile-time for URLAuthResultRequest.
 var (
-	_ bin.Encoder = &URLAuthResultRequest{}
-	_ bin.Decoder = &URLAuthResultRequest{}
+	_ bin.Encoder     = &URLAuthResultRequest{}
+	_ bin.Decoder     = &URLAuthResultRequest{}
+	_ bin.BareEncoder = &URLAuthResultRequest{}
+	_ bin.BareDecoder = &URLAuthResultRequest{}
 
 	_ URLAuthResultClass = &URLAuthResultRequest{}
 )
@@ -302,6 +320,14 @@ func (u *URLAuthResultAccepted) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode urlAuthResultAccepted#8f8c0e4e as nil")
 	}
 	b.PutID(URLAuthResultAcceptedTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *URLAuthResultAccepted) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode urlAuthResultAccepted#8f8c0e4e as nil")
+	}
 	b.PutString(u.URL)
 	return nil
 }
@@ -319,6 +345,14 @@ func (u *URLAuthResultAccepted) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(URLAuthResultAcceptedTypeID); err != nil {
 		return fmt.Errorf("unable to decode urlAuthResultAccepted#8f8c0e4e: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *URLAuthResultAccepted) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode urlAuthResultAccepted#8f8c0e4e to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -334,8 +368,10 @@ func (u URLAuthResultAccepted) construct() URLAuthResultClass { return &u }
 
 // Ensuring interfaces in compile-time for URLAuthResultAccepted.
 var (
-	_ bin.Encoder = &URLAuthResultAccepted{}
-	_ bin.Decoder = &URLAuthResultAccepted{}
+	_ bin.Encoder     = &URLAuthResultAccepted{}
+	_ bin.Decoder     = &URLAuthResultAccepted{}
+	_ bin.BareEncoder = &URLAuthResultAccepted{}
+	_ bin.BareDecoder = &URLAuthResultAccepted{}
 
 	_ URLAuthResultClass = &URLAuthResultAccepted{}
 )
@@ -402,6 +438,14 @@ func (u *URLAuthResultDefault) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode urlAuthResultDefault#a9d6db1f as nil")
 	}
 	b.PutID(URLAuthResultDefaultTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *URLAuthResultDefault) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode urlAuthResultDefault#a9d6db1f as nil")
+	}
 	return nil
 }
 
@@ -413,6 +457,14 @@ func (u *URLAuthResultDefault) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(URLAuthResultDefaultTypeID); err != nil {
 		return fmt.Errorf("unable to decode urlAuthResultDefault#a9d6db1f: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *URLAuthResultDefault) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode urlAuthResultDefault#a9d6db1f to nil")
+	}
 	return nil
 }
 
@@ -421,8 +473,10 @@ func (u URLAuthResultDefault) construct() URLAuthResultClass { return &u }
 
 // Ensuring interfaces in compile-time for URLAuthResultDefault.
 var (
-	_ bin.Encoder = &URLAuthResultDefault{}
-	_ bin.Decoder = &URLAuthResultDefault{}
+	_ bin.Encoder     = &URLAuthResultDefault{}
+	_ bin.Decoder     = &URLAuthResultDefault{}
+	_ bin.BareEncoder = &URLAuthResultDefault{}
+	_ bin.BareDecoder = &URLAuthResultDefault{}
 
 	_ URLAuthResultClass = &URLAuthResultDefault{}
 )
@@ -445,6 +499,8 @@ var (
 type URLAuthResultClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() URLAuthResultClass
 
 	// TypeID returns type id in TL schema.

@@ -85,6 +85,14 @@ func (i *InputCheckPasswordEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputCheckPasswordEmpty#9880f658 as nil")
 	}
 	b.PutID(InputCheckPasswordEmptyTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputCheckPasswordEmpty) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputCheckPasswordEmpty#9880f658 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (i *InputCheckPasswordEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputCheckPasswordEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputCheckPasswordEmpty#9880f658: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputCheckPasswordEmpty) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputCheckPasswordEmpty#9880f658 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (i InputCheckPasswordEmpty) construct() InputCheckPasswordSRPClass { return
 
 // Ensuring interfaces in compile-time for InputCheckPasswordEmpty.
 var (
-	_ bin.Encoder = &InputCheckPasswordEmpty{}
-	_ bin.Decoder = &InputCheckPasswordEmpty{}
+	_ bin.Encoder     = &InputCheckPasswordEmpty{}
+	_ bin.Decoder     = &InputCheckPasswordEmpty{}
+	_ bin.BareEncoder = &InputCheckPasswordEmpty{}
+	_ bin.BareDecoder = &InputCheckPasswordEmpty{}
 
 	_ InputCheckPasswordSRPClass = &InputCheckPasswordEmpty{}
 )
@@ -220,6 +238,14 @@ func (i *InputCheckPasswordSRP) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputCheckPasswordSRP#d27ff082 as nil")
 	}
 	b.PutID(InputCheckPasswordSRPTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputCheckPasswordSRP) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputCheckPasswordSRP#d27ff082 as nil")
+	}
 	b.PutLong(i.SRPID)
 	b.PutBytes(i.A)
 	b.PutBytes(i.M1)
@@ -248,6 +274,14 @@ func (i *InputCheckPasswordSRP) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(InputCheckPasswordSRPTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputCheckPasswordSRP#d27ff082: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputCheckPasswordSRP) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputCheckPasswordSRP#d27ff082 to nil")
 	}
 	{
 		value, err := b.Long()
@@ -278,8 +312,10 @@ func (i InputCheckPasswordSRP) construct() InputCheckPasswordSRPClass { return &
 
 // Ensuring interfaces in compile-time for InputCheckPasswordSRP.
 var (
-	_ bin.Encoder = &InputCheckPasswordSRP{}
-	_ bin.Decoder = &InputCheckPasswordSRP{}
+	_ bin.Encoder     = &InputCheckPasswordSRP{}
+	_ bin.Decoder     = &InputCheckPasswordSRP{}
+	_ bin.BareEncoder = &InputCheckPasswordSRP{}
+	_ bin.BareDecoder = &InputCheckPasswordSRP{}
 
 	_ InputCheckPasswordSRPClass = &InputCheckPasswordSRP{}
 )
@@ -301,6 +337,8 @@ var (
 type InputCheckPasswordSRPClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() InputCheckPasswordSRPClass
 
 	// TypeID returns type id in TL schema.

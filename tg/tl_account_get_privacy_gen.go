@@ -102,6 +102,14 @@ func (g *AccountGetPrivacyRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.getPrivacy#dadbc950 as nil")
 	}
 	b.PutID(AccountGetPrivacyRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *AccountGetPrivacyRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode account.getPrivacy#dadbc950 as nil")
+	}
 	if g.Key == nil {
 		return fmt.Errorf("unable to encode account.getPrivacy#dadbc950: field key is nil")
 	}
@@ -124,6 +132,14 @@ func (g *AccountGetPrivacyRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetPrivacyRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getPrivacy#dadbc950: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *AccountGetPrivacyRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode account.getPrivacy#dadbc950 to nil")
+	}
 	{
 		value, err := DecodeInputPrivacyKey(b)
 		if err != nil {
@@ -136,8 +152,10 @@ func (g *AccountGetPrivacyRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountGetPrivacyRequest.
 var (
-	_ bin.Encoder = &AccountGetPrivacyRequest{}
-	_ bin.Decoder = &AccountGetPrivacyRequest{}
+	_ bin.Encoder     = &AccountGetPrivacyRequest{}
+	_ bin.Decoder     = &AccountGetPrivacyRequest{}
+	_ bin.BareEncoder = &AccountGetPrivacyRequest{}
+	_ bin.BareDecoder = &AccountGetPrivacyRequest{}
 )
 
 // AccountGetPrivacy invokes method account.getPrivacy#dadbc950 returning error if any.

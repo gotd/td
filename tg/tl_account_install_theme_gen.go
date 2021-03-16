@@ -145,6 +145,14 @@ func (i *AccountInstallThemeRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.installTheme#7ae43737 as nil")
 	}
 	b.PutID(AccountInstallThemeRequestTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *AccountInstallThemeRequest) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode account.installTheme#7ae43737 as nil")
+	}
 	if !(i.Dark == false) {
 		i.Flags.Set(0)
 	}
@@ -225,6 +233,14 @@ func (i *AccountInstallThemeRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountInstallThemeRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.installTheme#7ae43737: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *AccountInstallThemeRequest) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode account.installTheme#7ae43737 to nil")
+	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.installTheme#7ae43737: field flags: %w", err)
@@ -250,8 +266,10 @@ func (i *AccountInstallThemeRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountInstallThemeRequest.
 var (
-	_ bin.Encoder = &AccountInstallThemeRequest{}
-	_ bin.Decoder = &AccountInstallThemeRequest{}
+	_ bin.Encoder     = &AccountInstallThemeRequest{}
+	_ bin.Decoder     = &AccountInstallThemeRequest{}
+	_ bin.BareEncoder = &AccountInstallThemeRequest{}
+	_ bin.BareDecoder = &AccountInstallThemeRequest{}
 )
 
 // AccountInstallTheme invokes method account.installTheme#7ae43737 returning error if any.

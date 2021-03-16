@@ -102,6 +102,14 @@ func (u *UserEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode userEmpty#200250ba as nil")
 	}
 	b.PutID(UserEmptyTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *UserEmpty) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode userEmpty#200250ba as nil")
+	}
 	b.PutInt(u.ID)
 	return nil
 }
@@ -119,6 +127,14 @@ func (u *UserEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UserEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode userEmpty#200250ba: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *UserEmpty) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode userEmpty#200250ba to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -134,8 +150,10 @@ func (u UserEmpty) construct() UserClass { return &u }
 
 // Ensuring interfaces in compile-time for UserEmpty.
 var (
-	_ bin.Encoder = &UserEmpty{}
-	_ bin.Decoder = &UserEmpty{}
+	_ bin.Encoder     = &UserEmpty{}
+	_ bin.Decoder     = &UserEmpty{}
+	_ bin.BareEncoder = &UserEmpty{}
+	_ bin.BareDecoder = &UserEmpty{}
 
 	_ UserClass = &UserEmpty{}
 )
@@ -597,6 +615,14 @@ func (u *User) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode user#938458c1 as nil")
 	}
 	b.PutID(UserTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *User) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode user#938458c1 as nil")
+	}
 	if !(u.Self == false) {
 		u.Flags.Set(10)
 	}
@@ -1148,6 +1174,14 @@ func (u *User) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UserTypeID); err != nil {
 		return fmt.Errorf("unable to decode user#938458c1: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *User) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode user#938458c1 to nil")
+	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode user#938458c1: field flags: %w", err)
@@ -1266,8 +1300,10 @@ func (u User) construct() UserClass { return &u }
 
 // Ensuring interfaces in compile-time for User.
 var (
-	_ bin.Encoder = &User{}
-	_ bin.Decoder = &User{}
+	_ bin.Encoder     = &User{}
+	_ bin.Decoder     = &User{}
+	_ bin.BareEncoder = &User{}
+	_ bin.BareDecoder = &User{}
 
 	_ UserClass = &User{}
 )
@@ -1289,6 +1325,8 @@ var (
 type UserClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() UserClass
 
 	// TypeID returns type id in TL schema.

@@ -203,6 +203,14 @@ func (p *PollResults) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pollResults#badcc1a3 as nil")
 	}
 	b.PutID(PollResultsTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PollResults) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pollResults#badcc1a3 as nil")
+	}
 	if !(p.Min == false) {
 		p.Flags.Set(0)
 	}
@@ -365,6 +373,14 @@ func (p *PollResults) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PollResultsTypeID); err != nil {
 		return fmt.Errorf("unable to decode pollResults#badcc1a3: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PollResults) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pollResults#badcc1a3 to nil")
+	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode pollResults#badcc1a3: field flags: %w", err)
@@ -429,6 +445,8 @@ func (p *PollResults) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PollResults.
 var (
-	_ bin.Encoder = &PollResults{}
-	_ bin.Decoder = &PollResults{}
+	_ bin.Encoder     = &PollResults{}
+	_ bin.Decoder     = &PollResults{}
+	_ bin.BareEncoder = &PollResults{}
+	_ bin.BareDecoder = &PollResults{}
 )

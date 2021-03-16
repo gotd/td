@@ -85,6 +85,14 @@ func (c *ChatPhotoEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chatPhotoEmpty#37c1011c as nil")
 	}
 	b.PutID(ChatPhotoEmptyTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatPhotoEmpty) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatPhotoEmpty#37c1011c as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (c *ChatPhotoEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatPhotoEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatPhotoEmpty#37c1011c: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatPhotoEmpty) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatPhotoEmpty#37c1011c to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (c ChatPhotoEmpty) construct() ChatPhotoClass { return &c }
 
 // Ensuring interfaces in compile-time for ChatPhotoEmpty.
 var (
-	_ bin.Encoder = &ChatPhotoEmpty{}
-	_ bin.Decoder = &ChatPhotoEmpty{}
+	_ bin.Encoder     = &ChatPhotoEmpty{}
+	_ bin.Decoder     = &ChatPhotoEmpty{}
+	_ bin.BareEncoder = &ChatPhotoEmpty{}
+	_ bin.BareDecoder = &ChatPhotoEmpty{}
 
 	_ ChatPhotoClass = &ChatPhotoEmpty{}
 )
@@ -228,6 +246,14 @@ func (c *ChatPhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chatPhoto#d20b9f3c as nil")
 	}
 	b.PutID(ChatPhotoTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatPhoto) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatPhoto#d20b9f3c as nil")
+	}
 	if !(c.HasVideo == false) {
 		c.Flags.Set(0)
 	}
@@ -283,6 +309,14 @@ func (c *ChatPhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatPhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatPhoto#d20b9f3c: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatPhoto) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatPhoto#d20b9f3c to nil")
+	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode chatPhoto#d20b9f3c: field flags: %w", err)
@@ -314,8 +348,10 @@ func (c ChatPhoto) construct() ChatPhotoClass { return &c }
 
 // Ensuring interfaces in compile-time for ChatPhoto.
 var (
-	_ bin.Encoder = &ChatPhoto{}
-	_ bin.Decoder = &ChatPhoto{}
+	_ bin.Encoder     = &ChatPhoto{}
+	_ bin.Decoder     = &ChatPhoto{}
+	_ bin.BareEncoder = &ChatPhoto{}
+	_ bin.BareDecoder = &ChatPhoto{}
 
 	_ ChatPhotoClass = &ChatPhoto{}
 )
@@ -337,6 +373,8 @@ var (
 type ChatPhotoClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() ChatPhotoClass
 
 	// TypeID returns type id in TL schema.

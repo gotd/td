@@ -105,6 +105,14 @@ func (g *MessagesGetPinnedDialogsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getPinnedDialogs#d6b94df2 as nil")
 	}
 	b.PutID(MessagesGetPinnedDialogsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetPinnedDialogsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getPinnedDialogs#d6b94df2 as nil")
+	}
 	b.PutInt(g.FolderID)
 	return nil
 }
@@ -122,6 +130,14 @@ func (g *MessagesGetPinnedDialogsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetPinnedDialogsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getPinnedDialogs#d6b94df2: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetPinnedDialogsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getPinnedDialogs#d6b94df2 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -134,8 +150,10 @@ func (g *MessagesGetPinnedDialogsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetPinnedDialogsRequest.
 var (
-	_ bin.Encoder = &MessagesGetPinnedDialogsRequest{}
-	_ bin.Decoder = &MessagesGetPinnedDialogsRequest{}
+	_ bin.Encoder     = &MessagesGetPinnedDialogsRequest{}
+	_ bin.Decoder     = &MessagesGetPinnedDialogsRequest{}
+	_ bin.BareEncoder = &MessagesGetPinnedDialogsRequest{}
+	_ bin.BareDecoder = &MessagesGetPinnedDialogsRequest{}
 )
 
 // MessagesGetPinnedDialogs invokes method messages.getPinnedDialogs#d6b94df2 returning error if any.

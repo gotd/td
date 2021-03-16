@@ -102,6 +102,14 @@ func (g *PaymentsGetBankCardDataRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode payments.getBankCardData#2e79d779 as nil")
 	}
 	b.PutID(PaymentsGetBankCardDataRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *PaymentsGetBankCardDataRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode payments.getBankCardData#2e79d779 as nil")
+	}
 	b.PutString(g.Number)
 	return nil
 }
@@ -119,6 +127,14 @@ func (g *PaymentsGetBankCardDataRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PaymentsGetBankCardDataRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode payments.getBankCardData#2e79d779: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *PaymentsGetBankCardDataRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode payments.getBankCardData#2e79d779 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -131,8 +147,10 @@ func (g *PaymentsGetBankCardDataRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PaymentsGetBankCardDataRequest.
 var (
-	_ bin.Encoder = &PaymentsGetBankCardDataRequest{}
-	_ bin.Decoder = &PaymentsGetBankCardDataRequest{}
+	_ bin.Encoder     = &PaymentsGetBankCardDataRequest{}
+	_ bin.Decoder     = &PaymentsGetBankCardDataRequest{}
+	_ bin.BareEncoder = &PaymentsGetBankCardDataRequest{}
+	_ bin.BareDecoder = &PaymentsGetBankCardDataRequest{}
 )
 
 // PaymentsGetBankCardData invokes method payments.getBankCardData#2e79d779 returning error if any.

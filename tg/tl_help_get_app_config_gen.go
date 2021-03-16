@@ -88,6 +88,14 @@ func (g *HelpGetAppConfigRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.getAppConfig#98914110 as nil")
 	}
 	b.PutID(HelpGetAppConfigRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *HelpGetAppConfigRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode help.getAppConfig#98914110 as nil")
+	}
 	return nil
 }
 
@@ -99,13 +107,23 @@ func (g *HelpGetAppConfigRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetAppConfigRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getAppConfig#98914110: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *HelpGetAppConfigRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode help.getAppConfig#98914110 to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for HelpGetAppConfigRequest.
 var (
-	_ bin.Encoder = &HelpGetAppConfigRequest{}
-	_ bin.Decoder = &HelpGetAppConfigRequest{}
+	_ bin.Encoder     = &HelpGetAppConfigRequest{}
+	_ bin.Decoder     = &HelpGetAppConfigRequest{}
+	_ bin.BareEncoder = &HelpGetAppConfigRequest{}
+	_ bin.BareDecoder = &HelpGetAppConfigRequest{}
 )
 
 // HelpGetAppConfig invokes method help.getAppConfig#98914110 returning error if any.

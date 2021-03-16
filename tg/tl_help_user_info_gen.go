@@ -85,6 +85,14 @@ func (u *HelpUserInfoEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.userInfoEmpty#f3ae2eed as nil")
 	}
 	b.PutID(HelpUserInfoEmptyTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *HelpUserInfoEmpty) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode help.userInfoEmpty#f3ae2eed as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (u *HelpUserInfoEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpUserInfoEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.userInfoEmpty#f3ae2eed: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *HelpUserInfoEmpty) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode help.userInfoEmpty#f3ae2eed to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (u HelpUserInfoEmpty) construct() HelpUserInfoClass { return &u }
 
 // Ensuring interfaces in compile-time for HelpUserInfoEmpty.
 var (
-	_ bin.Encoder = &HelpUserInfoEmpty{}
-	_ bin.Decoder = &HelpUserInfoEmpty{}
+	_ bin.Encoder     = &HelpUserInfoEmpty{}
+	_ bin.Decoder     = &HelpUserInfoEmpty{}
+	_ bin.BareEncoder = &HelpUserInfoEmpty{}
+	_ bin.BareDecoder = &HelpUserInfoEmpty{}
 
 	_ HelpUserInfoClass = &HelpUserInfoEmpty{}
 )
@@ -222,6 +240,14 @@ func (u *HelpUserInfo) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.userInfo#1eb3758 as nil")
 	}
 	b.PutID(HelpUserInfoTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *HelpUserInfo) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode help.userInfo#1eb3758 as nil")
+	}
 	b.PutString(u.Message)
 	b.PutVectorHeader(len(u.Entities))
 	for idx, v := range u.Entities {
@@ -270,6 +296,14 @@ func (u *HelpUserInfo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpUserInfoTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.userInfo#1eb3758: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *HelpUserInfo) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode help.userInfo#1eb3758 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -312,8 +346,10 @@ func (u HelpUserInfo) construct() HelpUserInfoClass { return &u }
 
 // Ensuring interfaces in compile-time for HelpUserInfo.
 var (
-	_ bin.Encoder = &HelpUserInfo{}
-	_ bin.Decoder = &HelpUserInfo{}
+	_ bin.Encoder     = &HelpUserInfo{}
+	_ bin.Decoder     = &HelpUserInfo{}
+	_ bin.BareEncoder = &HelpUserInfo{}
+	_ bin.BareDecoder = &HelpUserInfo{}
 
 	_ HelpUserInfoClass = &HelpUserInfo{}
 )
@@ -335,6 +371,8 @@ var (
 type HelpUserInfoClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() HelpUserInfoClass
 
 	// TypeID returns type id in TL schema.

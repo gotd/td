@@ -113,6 +113,14 @@ func (c *Contact) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode contact#f911c994 as nil")
 	}
 	b.PutID(ContactTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *Contact) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode contact#f911c994 as nil")
+	}
 	b.PutInt(c.UserID)
 	b.PutBool(c.Mutual)
 	return nil
@@ -136,6 +144,14 @@ func (c *Contact) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactTypeID); err != nil {
 		return fmt.Errorf("unable to decode contact#f911c994: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *Contact) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode contact#f911c994 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -155,6 +171,8 @@ func (c *Contact) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for Contact.
 var (
-	_ bin.Encoder = &Contact{}
-	_ bin.Decoder = &Contact{}
+	_ bin.Encoder     = &Contact{}
+	_ bin.Decoder     = &Contact{}
+	_ bin.BareEncoder = &Contact{}
+	_ bin.BareDecoder = &Contact{}
 )

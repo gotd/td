@@ -101,6 +101,14 @@ func (c *MessagesCheckHistoryImportPeerRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.checkHistoryImportPeer#5dc60f03 as nil")
 	}
 	b.PutID(MessagesCheckHistoryImportPeerRequestTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *MessagesCheckHistoryImportPeerRequest) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode messages.checkHistoryImportPeer#5dc60f03 as nil")
+	}
 	if c.Peer == nil {
 		return fmt.Errorf("unable to encode messages.checkHistoryImportPeer#5dc60f03: field peer is nil")
 	}
@@ -123,6 +131,14 @@ func (c *MessagesCheckHistoryImportPeerRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesCheckHistoryImportPeerRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.checkHistoryImportPeer#5dc60f03: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *MessagesCheckHistoryImportPeerRequest) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode messages.checkHistoryImportPeer#5dc60f03 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -135,8 +151,10 @@ func (c *MessagesCheckHistoryImportPeerRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesCheckHistoryImportPeerRequest.
 var (
-	_ bin.Encoder = &MessagesCheckHistoryImportPeerRequest{}
-	_ bin.Decoder = &MessagesCheckHistoryImportPeerRequest{}
+	_ bin.Encoder     = &MessagesCheckHistoryImportPeerRequest{}
+	_ bin.Decoder     = &MessagesCheckHistoryImportPeerRequest{}
+	_ bin.BareEncoder = &MessagesCheckHistoryImportPeerRequest{}
+	_ bin.BareDecoder = &MessagesCheckHistoryImportPeerRequest{}
 )
 
 // MessagesCheckHistoryImportPeer invokes method messages.checkHistoryImportPeer#5dc60f03 returning error if any.

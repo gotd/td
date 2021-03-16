@@ -124,6 +124,14 @@ func (t *TopPeerCategoryPeers) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode topPeerCategoryPeers#fb834291 as nil")
 	}
 	b.PutID(TopPeerCategoryPeersTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TopPeerCategoryPeers) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode topPeerCategoryPeers#fb834291 as nil")
+	}
 	if t.Category == nil {
 		return fmt.Errorf("unable to encode topPeerCategoryPeers#fb834291: field category is nil")
 	}
@@ -163,6 +171,14 @@ func (t *TopPeerCategoryPeers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TopPeerCategoryPeersTypeID); err != nil {
 		return fmt.Errorf("unable to decode topPeerCategoryPeers#fb834291: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TopPeerCategoryPeers) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode topPeerCategoryPeers#fb834291 to nil")
+	}
 	{
 		value, err := DecodeTopPeerCategory(b)
 		if err != nil {
@@ -195,6 +211,8 @@ func (t *TopPeerCategoryPeers) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for TopPeerCategoryPeers.
 var (
-	_ bin.Encoder = &TopPeerCategoryPeers{}
-	_ bin.Decoder = &TopPeerCategoryPeers{}
+	_ bin.Encoder     = &TopPeerCategoryPeers{}
+	_ bin.Decoder     = &TopPeerCategoryPeers{}
+	_ bin.BareEncoder = &TopPeerCategoryPeers{}
+	_ bin.BareDecoder = &TopPeerCategoryPeers{}
 )

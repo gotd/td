@@ -254,6 +254,14 @@ func (s *MessagesSendMessageRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.sendMessage#520c3870 as nil")
 	}
 	b.PutID(MessagesSendMessageRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesSendMessageRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.sendMessage#520c3870 as nil")
+	}
 	if !(s.NoWebpage == false) {
 		s.Flags.Set(1)
 	}
@@ -472,6 +480,14 @@ func (s *MessagesSendMessageRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSendMessageRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.sendMessage#520c3870: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSendMessageRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.sendMessage#520c3870 to nil")
+	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.sendMessage#520c3870: field flags: %w", err)
@@ -541,8 +557,10 @@ func (s *MessagesSendMessageRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesSendMessageRequest.
 var (
-	_ bin.Encoder = &MessagesSendMessageRequest{}
-	_ bin.Decoder = &MessagesSendMessageRequest{}
+	_ bin.Encoder     = &MessagesSendMessageRequest{}
+	_ bin.Decoder     = &MessagesSendMessageRequest{}
+	_ bin.BareEncoder = &MessagesSendMessageRequest{}
+	_ bin.BareDecoder = &MessagesSendMessageRequest{}
 )
 
 // MessagesSendMessage invokes method messages.sendMessage#520c3870 returning error if any.

@@ -102,6 +102,14 @@ func (r *MessagesReportEncryptedSpamRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.reportEncryptedSpam#4b0c8c0f as nil")
 	}
 	b.PutID(MessagesReportEncryptedSpamRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *MessagesReportEncryptedSpamRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode messages.reportEncryptedSpam#4b0c8c0f as nil")
+	}
 	if err := r.Peer.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.reportEncryptedSpam#4b0c8c0f: field peer: %w", err)
 	}
@@ -121,6 +129,14 @@ func (r *MessagesReportEncryptedSpamRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesReportEncryptedSpamRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.reportEncryptedSpam#4b0c8c0f: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *MessagesReportEncryptedSpamRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode messages.reportEncryptedSpam#4b0c8c0f to nil")
+	}
 	{
 		if err := r.Peer.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.reportEncryptedSpam#4b0c8c0f: field peer: %w", err)
@@ -131,8 +147,10 @@ func (r *MessagesReportEncryptedSpamRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesReportEncryptedSpamRequest.
 var (
-	_ bin.Encoder = &MessagesReportEncryptedSpamRequest{}
-	_ bin.Decoder = &MessagesReportEncryptedSpamRequest{}
+	_ bin.Encoder     = &MessagesReportEncryptedSpamRequest{}
+	_ bin.Decoder     = &MessagesReportEncryptedSpamRequest{}
+	_ bin.BareEncoder = &MessagesReportEncryptedSpamRequest{}
+	_ bin.BareDecoder = &MessagesReportEncryptedSpamRequest{}
 )
 
 // MessagesReportEncryptedSpam invokes method messages.reportEncryptedSpam#4b0c8c0f returning error if any.

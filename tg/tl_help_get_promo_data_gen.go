@@ -85,6 +85,14 @@ func (g *HelpGetPromoDataRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.getPromoData#c0977421 as nil")
 	}
 	b.PutID(HelpGetPromoDataRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *HelpGetPromoDataRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode help.getPromoData#c0977421 as nil")
+	}
 	return nil
 }
 
@@ -96,13 +104,23 @@ func (g *HelpGetPromoDataRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetPromoDataRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getPromoData#c0977421: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *HelpGetPromoDataRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode help.getPromoData#c0977421 to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for HelpGetPromoDataRequest.
 var (
-	_ bin.Encoder = &HelpGetPromoDataRequest{}
-	_ bin.Decoder = &HelpGetPromoDataRequest{}
+	_ bin.Encoder     = &HelpGetPromoDataRequest{}
+	_ bin.Decoder     = &HelpGetPromoDataRequest{}
+	_ bin.BareEncoder = &HelpGetPromoDataRequest{}
+	_ bin.BareDecoder = &HelpGetPromoDataRequest{}
 )
 
 // HelpGetPromoData invokes method help.getPromoData#c0977421 returning error if any.

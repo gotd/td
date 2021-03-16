@@ -88,6 +88,14 @@ func (c *MessagesClearAllDraftsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.clearAllDrafts#7e58ee9c as nil")
 	}
 	b.PutID(MessagesClearAllDraftsRequestTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *MessagesClearAllDraftsRequest) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode messages.clearAllDrafts#7e58ee9c as nil")
+	}
 	return nil
 }
 
@@ -99,13 +107,23 @@ func (c *MessagesClearAllDraftsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesClearAllDraftsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.clearAllDrafts#7e58ee9c: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *MessagesClearAllDraftsRequest) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode messages.clearAllDrafts#7e58ee9c to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for MessagesClearAllDraftsRequest.
 var (
-	_ bin.Encoder = &MessagesClearAllDraftsRequest{}
-	_ bin.Decoder = &MessagesClearAllDraftsRequest{}
+	_ bin.Encoder     = &MessagesClearAllDraftsRequest{}
+	_ bin.Decoder     = &MessagesClearAllDraftsRequest{}
+	_ bin.BareEncoder = &MessagesClearAllDraftsRequest{}
+	_ bin.BareDecoder = &MessagesClearAllDraftsRequest{}
 )
 
 // MessagesClearAllDrafts invokes method messages.clearAllDrafts#7e58ee9c returning error if any.

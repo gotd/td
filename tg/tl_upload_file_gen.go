@@ -124,6 +124,14 @@ func (f *UploadFile) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode upload.file#96a18d5 as nil")
 	}
 	b.PutID(UploadFileTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *UploadFile) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode upload.file#96a18d5 as nil")
+	}
 	if f.Type == nil {
 		return fmt.Errorf("unable to encode upload.file#96a18d5: field type is nil")
 	}
@@ -158,6 +166,14 @@ func (f *UploadFile) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UploadFileTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.file#96a18d5: %w", err)
 	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *UploadFile) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode upload.file#96a18d5 to nil")
+	}
 	{
 		value, err := DecodeStorageFileType(b)
 		if err != nil {
@@ -187,8 +203,10 @@ func (f UploadFile) construct() UploadFileClass { return &f }
 
 // Ensuring interfaces in compile-time for UploadFile.
 var (
-	_ bin.Encoder = &UploadFile{}
-	_ bin.Decoder = &UploadFile{}
+	_ bin.Encoder     = &UploadFile{}
+	_ bin.Decoder     = &UploadFile{}
+	_ bin.BareEncoder = &UploadFile{}
+	_ bin.BareDecoder = &UploadFile{}
 
 	_ UploadFileClass = &UploadFile{}
 )
@@ -331,6 +349,14 @@ func (f *UploadFileCDNRedirect) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode upload.fileCdnRedirect#f18cda44 as nil")
 	}
 	b.PutID(UploadFileCDNRedirectTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *UploadFileCDNRedirect) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode upload.fileCdnRedirect#f18cda44 as nil")
+	}
 	b.PutInt(f.DCID)
 	b.PutBytes(f.FileToken)
 	b.PutBytes(f.EncryptionKey)
@@ -376,6 +402,14 @@ func (f *UploadFileCDNRedirect) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(UploadFileCDNRedirectTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.fileCdnRedirect#f18cda44: %w", err)
+	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *UploadFileCDNRedirect) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode upload.fileCdnRedirect#f18cda44 to nil")
 	}
 	{
 		value, err := b.Int()
@@ -426,8 +460,10 @@ func (f UploadFileCDNRedirect) construct() UploadFileClass { return &f }
 
 // Ensuring interfaces in compile-time for UploadFileCDNRedirect.
 var (
-	_ bin.Encoder = &UploadFileCDNRedirect{}
-	_ bin.Decoder = &UploadFileCDNRedirect{}
+	_ bin.Encoder     = &UploadFileCDNRedirect{}
+	_ bin.Decoder     = &UploadFileCDNRedirect{}
+	_ bin.BareEncoder = &UploadFileCDNRedirect{}
+	_ bin.BareDecoder = &UploadFileCDNRedirect{}
 
 	_ UploadFileClass = &UploadFileCDNRedirect{}
 )
@@ -449,6 +485,8 @@ var (
 type UploadFileClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() UploadFileClass
 
 	// TypeID returns type id in TL schema.

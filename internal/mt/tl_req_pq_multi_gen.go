@@ -99,6 +99,14 @@ func (r *ReqPqMultiRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode req_pq_multi#be7e8ef1 as nil")
 	}
 	b.PutID(ReqPqMultiRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *ReqPqMultiRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode req_pq_multi#be7e8ef1 as nil")
+	}
 	b.PutInt128(r.Nonce)
 	return nil
 }
@@ -116,6 +124,14 @@ func (r *ReqPqMultiRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ReqPqMultiRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode req_pq_multi#be7e8ef1: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *ReqPqMultiRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode req_pq_multi#be7e8ef1 to nil")
+	}
 	{
 		value, err := b.Int128()
 		if err != nil {
@@ -128,8 +144,10 @@ func (r *ReqPqMultiRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ReqPqMultiRequest.
 var (
-	_ bin.Encoder = &ReqPqMultiRequest{}
-	_ bin.Decoder = &ReqPqMultiRequest{}
+	_ bin.Encoder     = &ReqPqMultiRequest{}
+	_ bin.Decoder     = &ReqPqMultiRequest{}
+	_ bin.BareEncoder = &ReqPqMultiRequest{}
+	_ bin.BareDecoder = &ReqPqMultiRequest{}
 )
 
 // ReqPqMulti invokes method req_pq_multi#be7e8ef1 returning error if any.

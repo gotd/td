@@ -149,6 +149,14 @@ func (i *InputSecureFileUploaded) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputSecureFileUploaded#3334b0f0 as nil")
 	}
 	b.PutID(InputSecureFileUploadedTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputSecureFileUploaded) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputSecureFileUploaded#3334b0f0 as nil")
+	}
 	b.PutLong(i.ID)
 	b.PutInt(i.Parts)
 	b.PutString(i.MD5Checksum)
@@ -189,6 +197,14 @@ func (i *InputSecureFileUploaded) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(InputSecureFileUploadedTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputSecureFileUploaded#3334b0f0: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputSecureFileUploaded) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputSecureFileUploaded#3334b0f0 to nil")
 	}
 	{
 		value, err := b.Long()
@@ -233,8 +249,10 @@ func (i InputSecureFileUploaded) construct() InputSecureFileClass { return &i }
 
 // Ensuring interfaces in compile-time for InputSecureFileUploaded.
 var (
-	_ bin.Encoder = &InputSecureFileUploaded{}
-	_ bin.Decoder = &InputSecureFileUploaded{}
+	_ bin.Encoder     = &InputSecureFileUploaded{}
+	_ bin.Decoder     = &InputSecureFileUploaded{}
+	_ bin.BareEncoder = &InputSecureFileUploaded{}
+	_ bin.BareDecoder = &InputSecureFileUploaded{}
 
 	_ InputSecureFileClass = &InputSecureFileUploaded{}
 )
@@ -330,6 +348,14 @@ func (i *InputSecureFile) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputSecureFile#5367e5be as nil")
 	}
 	b.PutID(InputSecureFileTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputSecureFile) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputSecureFile#5367e5be as nil")
+	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
 	return nil
@@ -353,6 +379,14 @@ func (i *InputSecureFile) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputSecureFileTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputSecureFile#5367e5be: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputSecureFile) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputSecureFile#5367e5be to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -375,8 +409,10 @@ func (i InputSecureFile) construct() InputSecureFileClass { return &i }
 
 // Ensuring interfaces in compile-time for InputSecureFile.
 var (
-	_ bin.Encoder = &InputSecureFile{}
-	_ bin.Decoder = &InputSecureFile{}
+	_ bin.Encoder     = &InputSecureFile{}
+	_ bin.Decoder     = &InputSecureFile{}
+	_ bin.BareEncoder = &InputSecureFile{}
+	_ bin.BareDecoder = &InputSecureFile{}
 
 	_ InputSecureFileClass = &InputSecureFile{}
 )
@@ -398,6 +434,8 @@ var (
 type InputSecureFileClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() InputSecureFileClass
 
 	// TypeID returns type id in TL schema.

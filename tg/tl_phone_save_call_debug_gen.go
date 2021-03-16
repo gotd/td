@@ -113,6 +113,14 @@ func (s *PhoneSaveCallDebugRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.saveCallDebug#277add7e as nil")
 	}
 	b.PutID(PhoneSaveCallDebugRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *PhoneSaveCallDebugRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode phone.saveCallDebug#277add7e as nil")
+	}
 	if err := s.Peer.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.saveCallDebug#277add7e: field peer: %w", err)
 	}
@@ -140,6 +148,14 @@ func (s *PhoneSaveCallDebugRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneSaveCallDebugRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.saveCallDebug#277add7e: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *PhoneSaveCallDebugRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode phone.saveCallDebug#277add7e to nil")
+	}
 	{
 		if err := s.Peer.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phone.saveCallDebug#277add7e: field peer: %w", err)
@@ -155,8 +171,10 @@ func (s *PhoneSaveCallDebugRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhoneSaveCallDebugRequest.
 var (
-	_ bin.Encoder = &PhoneSaveCallDebugRequest{}
-	_ bin.Decoder = &PhoneSaveCallDebugRequest{}
+	_ bin.Encoder     = &PhoneSaveCallDebugRequest{}
+	_ bin.Decoder     = &PhoneSaveCallDebugRequest{}
+	_ bin.BareEncoder = &PhoneSaveCallDebugRequest{}
+	_ bin.BareDecoder = &PhoneSaveCallDebugRequest{}
 )
 
 // PhoneSaveCallDebug invokes method phone.saveCallDebug#277add7e returning error if any.

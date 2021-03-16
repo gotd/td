@@ -134,6 +134,14 @@ func (a *MessagesAffectedFoundMessages) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.affectedFoundMessages#ef8d3e6c as nil")
 	}
 	b.PutID(MessagesAffectedFoundMessagesTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *MessagesAffectedFoundMessages) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode messages.affectedFoundMessages#ef8d3e6c as nil")
+	}
 	b.PutInt(a.Pts)
 	b.PutInt(a.PtsCount)
 	b.PutInt(a.Offset)
@@ -171,6 +179,14 @@ func (a *MessagesAffectedFoundMessages) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(MessagesAffectedFoundMessagesTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.affectedFoundMessages#ef8d3e6c: %w", err)
+	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *MessagesAffectedFoundMessages) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode messages.affectedFoundMessages#ef8d3e6c to nil")
 	}
 	{
 		value, err := b.Int()
@@ -211,6 +227,8 @@ func (a *MessagesAffectedFoundMessages) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesAffectedFoundMessages.
 var (
-	_ bin.Encoder = &MessagesAffectedFoundMessages{}
-	_ bin.Decoder = &MessagesAffectedFoundMessages{}
+	_ bin.Encoder     = &MessagesAffectedFoundMessages{}
+	_ bin.Decoder     = &MessagesAffectedFoundMessages{}
+	_ bin.BareEncoder = &MessagesAffectedFoundMessages{}
+	_ bin.BareDecoder = &MessagesAffectedFoundMessages{}
 )

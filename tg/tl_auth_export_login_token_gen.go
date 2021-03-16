@@ -136,6 +136,14 @@ func (e *AuthExportLoginTokenRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.exportLoginToken#b1b41517 as nil")
 	}
 	b.PutID(AuthExportLoginTokenRequestTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *AuthExportLoginTokenRequest) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode auth.exportLoginToken#b1b41517 as nil")
+	}
 	b.PutInt(e.APIID)
 	b.PutString(e.APIHash)
 	b.PutVectorHeader(len(e.ExceptIDs))
@@ -167,6 +175,14 @@ func (e *AuthExportLoginTokenRequest) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(AuthExportLoginTokenRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.exportLoginToken#b1b41517: %w", err)
+	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *AuthExportLoginTokenRequest) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode auth.exportLoginToken#b1b41517 to nil")
 	}
 	{
 		value, err := b.Int()
@@ -200,8 +216,10 @@ func (e *AuthExportLoginTokenRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AuthExportLoginTokenRequest.
 var (
-	_ bin.Encoder = &AuthExportLoginTokenRequest{}
-	_ bin.Decoder = &AuthExportLoginTokenRequest{}
+	_ bin.Encoder     = &AuthExportLoginTokenRequest{}
+	_ bin.Decoder     = &AuthExportLoginTokenRequest{}
+	_ bin.BareEncoder = &AuthExportLoginTokenRequest{}
+	_ bin.BareDecoder = &AuthExportLoginTokenRequest{}
 )
 
 // AuthExportLoginToken invokes method auth.exportLoginToken#b1b41517 returning error if any.

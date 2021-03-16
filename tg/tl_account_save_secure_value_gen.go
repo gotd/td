@@ -123,6 +123,14 @@ func (s *AccountSaveSecureValueRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.saveSecureValue#899fe31d as nil")
 	}
 	b.PutID(AccountSaveSecureValueRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *AccountSaveSecureValueRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode account.saveSecureValue#899fe31d as nil")
+	}
 	if err := s.Value.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.saveSecureValue#899fe31d: field value: %w", err)
 	}
@@ -148,6 +156,14 @@ func (s *AccountSaveSecureValueRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountSaveSecureValueRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.saveSecureValue#899fe31d: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *AccountSaveSecureValueRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode account.saveSecureValue#899fe31d to nil")
+	}
 	{
 		if err := s.Value.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.saveSecureValue#899fe31d: field value: %w", err)
@@ -165,8 +181,10 @@ func (s *AccountSaveSecureValueRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountSaveSecureValueRequest.
 var (
-	_ bin.Encoder = &AccountSaveSecureValueRequest{}
-	_ bin.Decoder = &AccountSaveSecureValueRequest{}
+	_ bin.Encoder     = &AccountSaveSecureValueRequest{}
+	_ bin.Decoder     = &AccountSaveSecureValueRequest{}
+	_ bin.BareEncoder = &AccountSaveSecureValueRequest{}
+	_ bin.BareDecoder = &AccountSaveSecureValueRequest{}
 )
 
 // AccountSaveSecureValue invokes method account.saveSecureValue#899fe31d returning error if any.

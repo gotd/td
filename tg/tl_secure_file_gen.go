@@ -85,6 +85,14 @@ func (s *SecureFileEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureFileEmpty#64199744 as nil")
 	}
 	b.PutID(SecureFileEmptyTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureFileEmpty) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureFileEmpty#64199744 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (s *SecureFileEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureFileEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureFileEmpty#64199744: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureFileEmpty) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureFileEmpty#64199744 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (s SecureFileEmpty) construct() SecureFileClass { return &s }
 
 // Ensuring interfaces in compile-time for SecureFileEmpty.
 var (
-	_ bin.Encoder = &SecureFileEmpty{}
-	_ bin.Decoder = &SecureFileEmpty{}
+	_ bin.Encoder     = &SecureFileEmpty{}
+	_ bin.Decoder     = &SecureFileEmpty{}
+	_ bin.BareEncoder = &SecureFileEmpty{}
+	_ bin.BareDecoder = &SecureFileEmpty{}
 
 	_ SecureFileClass = &SecureFileEmpty{}
 )
@@ -256,6 +274,14 @@ func (s *SecureFile) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureFile#e0277a62 as nil")
 	}
 	b.PutID(SecureFileTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureFile) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureFile#e0277a62 as nil")
+	}
 	b.PutLong(s.ID)
 	b.PutLong(s.AccessHash)
 	b.PutInt(s.Size)
@@ -308,6 +334,14 @@ func (s *SecureFile) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(SecureFileTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureFile#e0277a62: %w", err)
+	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureFile) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureFile#e0277a62 to nil")
 	}
 	{
 		value, err := b.Long()
@@ -366,8 +400,10 @@ func (s SecureFile) construct() SecureFileClass { return &s }
 
 // Ensuring interfaces in compile-time for SecureFile.
 var (
-	_ bin.Encoder = &SecureFile{}
-	_ bin.Decoder = &SecureFile{}
+	_ bin.Encoder     = &SecureFile{}
+	_ bin.Decoder     = &SecureFile{}
+	_ bin.BareEncoder = &SecureFile{}
+	_ bin.BareDecoder = &SecureFile{}
 
 	_ SecureFileClass = &SecureFile{}
 )
@@ -389,6 +425,8 @@ var (
 type SecureFileClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() SecureFileClass
 
 	// TypeID returns type id in TL schema.

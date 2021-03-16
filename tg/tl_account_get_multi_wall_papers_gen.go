@@ -102,6 +102,14 @@ func (g *AccountGetMultiWallPapersRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.getMultiWallPapers#65ad71dc as nil")
 	}
 	b.PutID(AccountGetMultiWallPapersRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *AccountGetMultiWallPapersRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode account.getMultiWallPapers#65ad71dc as nil")
+	}
 	b.PutVectorHeader(len(g.Wallpapers))
 	for idx, v := range g.Wallpapers {
 		if v == nil {
@@ -132,6 +140,14 @@ func (g *AccountGetMultiWallPapersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetMultiWallPapersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getMultiWallPapers#65ad71dc: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *AccountGetMultiWallPapersRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode account.getMultiWallPapers#65ad71dc to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -150,8 +166,10 @@ func (g *AccountGetMultiWallPapersRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountGetMultiWallPapersRequest.
 var (
-	_ bin.Encoder = &AccountGetMultiWallPapersRequest{}
-	_ bin.Decoder = &AccountGetMultiWallPapersRequest{}
+	_ bin.Encoder     = &AccountGetMultiWallPapersRequest{}
+	_ bin.Decoder     = &AccountGetMultiWallPapersRequest{}
+	_ bin.BareEncoder = &AccountGetMultiWallPapersRequest{}
+	_ bin.BareDecoder = &AccountGetMultiWallPapersRequest{}
 )
 
 // AccountGetMultiWallPapers invokes method account.getMultiWallPapers#65ad71dc returning error if any.

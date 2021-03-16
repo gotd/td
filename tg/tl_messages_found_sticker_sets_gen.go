@@ -85,6 +85,14 @@ func (f *MessagesFoundStickerSetsNotModified) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.foundStickerSetsNotModified#d54b65d as nil")
 	}
 	b.PutID(MessagesFoundStickerSetsNotModifiedTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *MessagesFoundStickerSetsNotModified) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode messages.foundStickerSetsNotModified#d54b65d as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (f *MessagesFoundStickerSetsNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesFoundStickerSetsNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.foundStickerSetsNotModified#d54b65d: %w", err)
 	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *MessagesFoundStickerSetsNotModified) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode messages.foundStickerSetsNotModified#d54b65d to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (f MessagesFoundStickerSetsNotModified) construct() MessagesFoundStickerSet
 
 // Ensuring interfaces in compile-time for MessagesFoundStickerSetsNotModified.
 var (
-	_ bin.Encoder = &MessagesFoundStickerSetsNotModified{}
-	_ bin.Decoder = &MessagesFoundStickerSetsNotModified{}
+	_ bin.Encoder     = &MessagesFoundStickerSetsNotModified{}
+	_ bin.Decoder     = &MessagesFoundStickerSetsNotModified{}
+	_ bin.BareEncoder = &MessagesFoundStickerSetsNotModified{}
+	_ bin.BareDecoder = &MessagesFoundStickerSetsNotModified{}
 
 	_ MessagesFoundStickerSetsClass = &MessagesFoundStickerSetsNotModified{}
 )
@@ -200,6 +218,14 @@ func (f *MessagesFoundStickerSets) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.foundStickerSets#5108d648 as nil")
 	}
 	b.PutID(MessagesFoundStickerSetsTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *MessagesFoundStickerSets) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode messages.foundStickerSets#5108d648 as nil")
+	}
 	b.PutInt(f.Hash)
 	b.PutVectorHeader(len(f.Sets))
 	for idx, v := range f.Sets {
@@ -236,6 +262,14 @@ func (f *MessagesFoundStickerSets) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesFoundStickerSetsTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.foundStickerSets#5108d648: %w", err)
 	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *MessagesFoundStickerSets) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode messages.foundStickerSets#5108d648 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -264,8 +298,10 @@ func (f MessagesFoundStickerSets) construct() MessagesFoundStickerSetsClass { re
 
 // Ensuring interfaces in compile-time for MessagesFoundStickerSets.
 var (
-	_ bin.Encoder = &MessagesFoundStickerSets{}
-	_ bin.Decoder = &MessagesFoundStickerSets{}
+	_ bin.Encoder     = &MessagesFoundStickerSets{}
+	_ bin.Decoder     = &MessagesFoundStickerSets{}
+	_ bin.BareEncoder = &MessagesFoundStickerSets{}
+	_ bin.BareDecoder = &MessagesFoundStickerSets{}
 
 	_ MessagesFoundStickerSetsClass = &MessagesFoundStickerSets{}
 )
@@ -287,6 +323,8 @@ var (
 type MessagesFoundStickerSetsClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() MessagesFoundStickerSetsClass
 
 	// TypeID returns type id in TL schema.

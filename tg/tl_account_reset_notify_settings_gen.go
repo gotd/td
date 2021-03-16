@@ -85,6 +85,14 @@ func (r *AccountResetNotifySettingsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.resetNotifySettings#db7e1747 as nil")
 	}
 	b.PutID(AccountResetNotifySettingsRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *AccountResetNotifySettingsRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode account.resetNotifySettings#db7e1747 as nil")
+	}
 	return nil
 }
 
@@ -96,13 +104,23 @@ func (r *AccountResetNotifySettingsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountResetNotifySettingsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.resetNotifySettings#db7e1747: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *AccountResetNotifySettingsRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode account.resetNotifySettings#db7e1747 to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for AccountResetNotifySettingsRequest.
 var (
-	_ bin.Encoder = &AccountResetNotifySettingsRequest{}
-	_ bin.Decoder = &AccountResetNotifySettingsRequest{}
+	_ bin.Encoder     = &AccountResetNotifySettingsRequest{}
+	_ bin.Decoder     = &AccountResetNotifySettingsRequest{}
+	_ bin.BareEncoder = &AccountResetNotifySettingsRequest{}
+	_ bin.BareDecoder = &AccountResetNotifySettingsRequest{}
 )
 
 // AccountResetNotifySettings invokes method account.resetNotifySettings#db7e1747 returning error if any.

@@ -107,6 +107,14 @@ func (d *MessagesDeletePhoneCallHistoryRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.deletePhoneCallHistory#f9cbe409 as nil")
 	}
 	b.PutID(MessagesDeletePhoneCallHistoryRequestTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *MessagesDeletePhoneCallHistoryRequest) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode messages.deletePhoneCallHistory#f9cbe409 as nil")
+	}
 	if !(d.Revoke == false) {
 		d.Flags.Set(0)
 	}
@@ -140,6 +148,14 @@ func (d *MessagesDeletePhoneCallHistoryRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesDeletePhoneCallHistoryRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.deletePhoneCallHistory#f9cbe409: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *MessagesDeletePhoneCallHistoryRequest) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode messages.deletePhoneCallHistory#f9cbe409 to nil")
+	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.deletePhoneCallHistory#f9cbe409: field flags: %w", err)
@@ -151,8 +167,10 @@ func (d *MessagesDeletePhoneCallHistoryRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesDeletePhoneCallHistoryRequest.
 var (
-	_ bin.Encoder = &MessagesDeletePhoneCallHistoryRequest{}
-	_ bin.Decoder = &MessagesDeletePhoneCallHistoryRequest{}
+	_ bin.Encoder     = &MessagesDeletePhoneCallHistoryRequest{}
+	_ bin.Decoder     = &MessagesDeletePhoneCallHistoryRequest{}
+	_ bin.BareEncoder = &MessagesDeletePhoneCallHistoryRequest{}
+	_ bin.BareDecoder = &MessagesDeletePhoneCallHistoryRequest{}
 )
 
 // MessagesDeletePhoneCallHistory invokes method messages.deletePhoneCallHistory#f9cbe409 returning error if any.

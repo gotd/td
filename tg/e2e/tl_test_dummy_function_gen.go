@@ -84,6 +84,14 @@ func (d *TestDummyFunctionRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode test.dummyFunction#c8357709 as nil")
 	}
 	b.PutID(TestDummyFunctionRequestTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *TestDummyFunctionRequest) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode test.dummyFunction#c8357709 as nil")
+	}
 	return nil
 }
 
@@ -95,13 +103,23 @@ func (d *TestDummyFunctionRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TestDummyFunctionRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode test.dummyFunction#c8357709: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *TestDummyFunctionRequest) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode test.dummyFunction#c8357709 to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for TestDummyFunctionRequest.
 var (
-	_ bin.Encoder = &TestDummyFunctionRequest{}
-	_ bin.Decoder = &TestDummyFunctionRequest{}
+	_ bin.Encoder     = &TestDummyFunctionRequest{}
+	_ bin.Decoder     = &TestDummyFunctionRequest{}
+	_ bin.BareEncoder = &TestDummyFunctionRequest{}
+	_ bin.BareDecoder = &TestDummyFunctionRequest{}
 )
 
 // TestDummyFunction invokes method test.dummyFunction#c8357709 returning error if any.

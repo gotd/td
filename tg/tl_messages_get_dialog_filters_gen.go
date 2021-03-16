@@ -88,6 +88,14 @@ func (g *MessagesGetDialogFiltersRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getDialogFilters#f19ed96d as nil")
 	}
 	b.PutID(MessagesGetDialogFiltersRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetDialogFiltersRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getDialogFilters#f19ed96d as nil")
+	}
 	return nil
 }
 
@@ -99,13 +107,23 @@ func (g *MessagesGetDialogFiltersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetDialogFiltersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getDialogFilters#f19ed96d: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetDialogFiltersRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getDialogFilters#f19ed96d to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for MessagesGetDialogFiltersRequest.
 var (
-	_ bin.Encoder = &MessagesGetDialogFiltersRequest{}
-	_ bin.Decoder = &MessagesGetDialogFiltersRequest{}
+	_ bin.Encoder     = &MessagesGetDialogFiltersRequest{}
+	_ bin.Decoder     = &MessagesGetDialogFiltersRequest{}
+	_ bin.BareEncoder = &MessagesGetDialogFiltersRequest{}
+	_ bin.BareDecoder = &MessagesGetDialogFiltersRequest{}
 )
 
 // MessagesGetDialogFilters invokes method messages.getDialogFilters#f19ed96d returning error if any.

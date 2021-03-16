@@ -85,6 +85,14 @@ func (m *MessageMediaEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageMediaEmpty#3ded6320 as nil")
 	}
 	b.PutID(MessageMediaEmptyTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageMediaEmpty) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageMediaEmpty#3ded6320 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (m *MessageMediaEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageMediaEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageMediaEmpty#3ded6320: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageMediaEmpty) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageMediaEmpty#3ded6320 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (m MessageMediaEmpty) construct() MessageMediaClass { return &m }
 
 // Ensuring interfaces in compile-time for MessageMediaEmpty.
 var (
-	_ bin.Encoder = &MessageMediaEmpty{}
-	_ bin.Decoder = &MessageMediaEmpty{}
+	_ bin.Encoder     = &MessageMediaEmpty{}
+	_ bin.Decoder     = &MessageMediaEmpty{}
+	_ bin.BareEncoder = &MessageMediaEmpty{}
+	_ bin.BareDecoder = &MessageMediaEmpty{}
 
 	_ MessageMediaClass = &MessageMediaEmpty{}
 )
@@ -217,6 +235,14 @@ func (m *MessageMediaPhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageMediaPhoto#695150d7 as nil")
 	}
 	b.PutID(MessageMediaPhotoTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageMediaPhoto) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageMediaPhoto#695150d7 as nil")
+	}
 	if !(m.Photo == nil) {
 		m.Flags.Set(0)
 	}
@@ -278,6 +304,14 @@ func (m *MessageMediaPhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageMediaPhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageMediaPhoto#695150d7: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageMediaPhoto) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageMediaPhoto#695150d7 to nil")
+	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messageMediaPhoto#695150d7: field flags: %w", err)
@@ -305,8 +339,10 @@ func (m MessageMediaPhoto) construct() MessageMediaClass { return &m }
 
 // Ensuring interfaces in compile-time for MessageMediaPhoto.
 var (
-	_ bin.Encoder = &MessageMediaPhoto{}
-	_ bin.Decoder = &MessageMediaPhoto{}
+	_ bin.Encoder     = &MessageMediaPhoto{}
+	_ bin.Decoder     = &MessageMediaPhoto{}
+	_ bin.BareEncoder = &MessageMediaPhoto{}
+	_ bin.BareDecoder = &MessageMediaPhoto{}
 
 	_ MessageMediaClass = &MessageMediaPhoto{}
 )
@@ -387,6 +423,14 @@ func (m *MessageMediaGeo) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageMediaGeo#56e0d474 as nil")
 	}
 	b.PutID(MessageMediaGeoTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageMediaGeo) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageMediaGeo#56e0d474 as nil")
+	}
 	if m.Geo == nil {
 		return fmt.Errorf("unable to encode messageMediaGeo#56e0d474: field geo is nil")
 	}
@@ -409,6 +453,14 @@ func (m *MessageMediaGeo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageMediaGeoTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageMediaGeo#56e0d474: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageMediaGeo) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageMediaGeo#56e0d474 to nil")
+	}
 	{
 		value, err := DecodeGeoPoint(b)
 		if err != nil {
@@ -424,8 +476,10 @@ func (m MessageMediaGeo) construct() MessageMediaClass { return &m }
 
 // Ensuring interfaces in compile-time for MessageMediaGeo.
 var (
-	_ bin.Encoder = &MessageMediaGeo{}
-	_ bin.Decoder = &MessageMediaGeo{}
+	_ bin.Encoder     = &MessageMediaGeo{}
+	_ bin.Decoder     = &MessageMediaGeo{}
+	_ bin.BareEncoder = &MessageMediaGeo{}
+	_ bin.BareDecoder = &MessageMediaGeo{}
 
 	_ MessageMediaClass = &MessageMediaGeo{}
 )
@@ -550,6 +604,14 @@ func (m *MessageMediaContact) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageMediaContact#cbf24940 as nil")
 	}
 	b.PutID(MessageMediaContactTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageMediaContact) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageMediaContact#cbf24940 as nil")
+	}
 	b.PutString(m.PhoneNumber)
 	b.PutString(m.FirstName)
 	b.PutString(m.LastName)
@@ -590,6 +652,14 @@ func (m *MessageMediaContact) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(MessageMediaContactTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageMediaContact#cbf24940: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageMediaContact) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageMediaContact#cbf24940 to nil")
 	}
 	{
 		value, err := b.String()
@@ -634,8 +704,10 @@ func (m MessageMediaContact) construct() MessageMediaClass { return &m }
 
 // Ensuring interfaces in compile-time for MessageMediaContact.
 var (
-	_ bin.Encoder = &MessageMediaContact{}
-	_ bin.Decoder = &MessageMediaContact{}
+	_ bin.Encoder     = &MessageMediaContact{}
+	_ bin.Decoder     = &MessageMediaContact{}
+	_ bin.BareEncoder = &MessageMediaContact{}
+	_ bin.BareDecoder = &MessageMediaContact{}
 
 	_ MessageMediaClass = &MessageMediaContact{}
 )
@@ -699,6 +771,14 @@ func (m *MessageMediaUnsupported) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageMediaUnsupported#9f84f49e as nil")
 	}
 	b.PutID(MessageMediaUnsupportedTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageMediaUnsupported) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageMediaUnsupported#9f84f49e as nil")
+	}
 	return nil
 }
 
@@ -710,6 +790,14 @@ func (m *MessageMediaUnsupported) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageMediaUnsupportedTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageMediaUnsupported#9f84f49e: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageMediaUnsupported) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageMediaUnsupported#9f84f49e to nil")
+	}
 	return nil
 }
 
@@ -718,8 +806,10 @@ func (m MessageMediaUnsupported) construct() MessageMediaClass { return &m }
 
 // Ensuring interfaces in compile-time for MessageMediaUnsupported.
 var (
-	_ bin.Encoder = &MessageMediaUnsupported{}
-	_ bin.Decoder = &MessageMediaUnsupported{}
+	_ bin.Encoder     = &MessageMediaUnsupported{}
+	_ bin.Decoder     = &MessageMediaUnsupported{}
+	_ bin.BareEncoder = &MessageMediaUnsupported{}
+	_ bin.BareDecoder = &MessageMediaUnsupported{}
 
 	_ MessageMediaClass = &MessageMediaUnsupported{}
 )
@@ -831,6 +921,14 @@ func (m *MessageMediaDocument) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageMediaDocument#9cb070d7 as nil")
 	}
 	b.PutID(MessageMediaDocumentTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageMediaDocument) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageMediaDocument#9cb070d7 as nil")
+	}
 	if !(m.Document == nil) {
 		m.Flags.Set(0)
 	}
@@ -892,6 +990,14 @@ func (m *MessageMediaDocument) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageMediaDocumentTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageMediaDocument#9cb070d7: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageMediaDocument) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageMediaDocument#9cb070d7 to nil")
+	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messageMediaDocument#9cb070d7: field flags: %w", err)
@@ -919,8 +1025,10 @@ func (m MessageMediaDocument) construct() MessageMediaClass { return &m }
 
 // Ensuring interfaces in compile-time for MessageMediaDocument.
 var (
-	_ bin.Encoder = &MessageMediaDocument{}
-	_ bin.Decoder = &MessageMediaDocument{}
+	_ bin.Encoder     = &MessageMediaDocument{}
+	_ bin.Decoder     = &MessageMediaDocument{}
+	_ bin.BareEncoder = &MessageMediaDocument{}
+	_ bin.BareDecoder = &MessageMediaDocument{}
 
 	_ MessageMediaClass = &MessageMediaDocument{}
 )
@@ -1001,6 +1109,14 @@ func (m *MessageMediaWebPage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageMediaWebPage#a32dd600 as nil")
 	}
 	b.PutID(MessageMediaWebPageTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageMediaWebPage) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageMediaWebPage#a32dd600 as nil")
+	}
 	if m.Webpage == nil {
 		return fmt.Errorf("unable to encode messageMediaWebPage#a32dd600: field webpage is nil")
 	}
@@ -1023,6 +1139,14 @@ func (m *MessageMediaWebPage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageMediaWebPageTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageMediaWebPage#a32dd600: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageMediaWebPage) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageMediaWebPage#a32dd600 to nil")
+	}
 	{
 		value, err := DecodeWebPage(b)
 		if err != nil {
@@ -1038,8 +1162,10 @@ func (m MessageMediaWebPage) construct() MessageMediaClass { return &m }
 
 // Ensuring interfaces in compile-time for MessageMediaWebPage.
 var (
-	_ bin.Encoder = &MessageMediaWebPage{}
-	_ bin.Decoder = &MessageMediaWebPage{}
+	_ bin.Encoder     = &MessageMediaWebPage{}
+	_ bin.Decoder     = &MessageMediaWebPage{}
+	_ bin.BareEncoder = &MessageMediaWebPage{}
+	_ bin.BareDecoder = &MessageMediaWebPage{}
 
 	_ MessageMediaClass = &MessageMediaWebPage{}
 )
@@ -1175,6 +1301,14 @@ func (m *MessageMediaVenue) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageMediaVenue#2ec0533f as nil")
 	}
 	b.PutID(MessageMediaVenueTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageMediaVenue) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageMediaVenue#2ec0533f as nil")
+	}
 	if m.Geo == nil {
 		return fmt.Errorf("unable to encode messageMediaVenue#2ec0533f: field geo is nil")
 	}
@@ -1227,6 +1361,14 @@ func (m *MessageMediaVenue) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageMediaVenueTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageMediaVenue#2ec0533f: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageMediaVenue) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageMediaVenue#2ec0533f to nil")
+	}
 	{
 		value, err := DecodeGeoPoint(b)
 		if err != nil {
@@ -1277,8 +1419,10 @@ func (m MessageMediaVenue) construct() MessageMediaClass { return &m }
 
 // Ensuring interfaces in compile-time for MessageMediaVenue.
 var (
-	_ bin.Encoder = &MessageMediaVenue{}
-	_ bin.Decoder = &MessageMediaVenue{}
+	_ bin.Encoder     = &MessageMediaVenue{}
+	_ bin.Decoder     = &MessageMediaVenue{}
+	_ bin.BareEncoder = &MessageMediaVenue{}
+	_ bin.BareDecoder = &MessageMediaVenue{}
 
 	_ MessageMediaClass = &MessageMediaVenue{}
 )
@@ -1359,6 +1503,14 @@ func (m *MessageMediaGame) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageMediaGame#fdb19008 as nil")
 	}
 	b.PutID(MessageMediaGameTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageMediaGame) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageMediaGame#fdb19008 as nil")
+	}
 	if err := m.Game.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageMediaGame#fdb19008: field game: %w", err)
 	}
@@ -1378,6 +1530,14 @@ func (m *MessageMediaGame) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageMediaGameTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageMediaGame#fdb19008: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageMediaGame) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageMediaGame#fdb19008 to nil")
+	}
 	{
 		if err := m.Game.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messageMediaGame#fdb19008: field game: %w", err)
@@ -1391,8 +1551,10 @@ func (m MessageMediaGame) construct() MessageMediaClass { return &m }
 
 // Ensuring interfaces in compile-time for MessageMediaGame.
 var (
-	_ bin.Encoder = &MessageMediaGame{}
-	_ bin.Decoder = &MessageMediaGame{}
+	_ bin.Encoder     = &MessageMediaGame{}
+	_ bin.Decoder     = &MessageMediaGame{}
+	_ bin.BareEncoder = &MessageMediaGame{}
+	_ bin.BareDecoder = &MessageMediaGame{}
 
 	_ MessageMediaClass = &MessageMediaGame{}
 )
@@ -1593,6 +1755,14 @@ func (m *MessageMediaInvoice) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageMediaInvoice#84551347 as nil")
 	}
 	b.PutID(MessageMediaInvoiceTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageMediaInvoice) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageMediaInvoice#84551347 as nil")
+	}
 	if !(m.ShippingAddressRequested == false) {
 		m.Flags.Set(1)
 	}
@@ -1722,6 +1892,14 @@ func (m *MessageMediaInvoice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageMediaInvoiceTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageMediaInvoice#84551347: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageMediaInvoice) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageMediaInvoice#84551347 to nil")
+	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messageMediaInvoice#84551347: field flags: %w", err)
@@ -1786,8 +1964,10 @@ func (m MessageMediaInvoice) construct() MessageMediaClass { return &m }
 
 // Ensuring interfaces in compile-time for MessageMediaInvoice.
 var (
-	_ bin.Encoder = &MessageMediaInvoice{}
-	_ bin.Decoder = &MessageMediaInvoice{}
+	_ bin.Encoder     = &MessageMediaInvoice{}
+	_ bin.Decoder     = &MessageMediaInvoice{}
+	_ bin.BareEncoder = &MessageMediaInvoice{}
+	_ bin.BareDecoder = &MessageMediaInvoice{}
 
 	_ MessageMediaClass = &MessageMediaInvoice{}
 )
@@ -1930,6 +2110,14 @@ func (m *MessageMediaGeoLive) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageMediaGeoLive#b940c666 as nil")
 	}
 	b.PutID(MessageMediaGeoLiveTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageMediaGeoLive) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageMediaGeoLive#b940c666 as nil")
+	}
 	if !(m.Heading == 0) {
 		m.Flags.Set(0)
 	}
@@ -2003,6 +2191,14 @@ func (m *MessageMediaGeoLive) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageMediaGeoLiveTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageMediaGeoLive#b940c666: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageMediaGeoLive) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageMediaGeoLive#b940c666 to nil")
+	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messageMediaGeoLive#b940c666: field flags: %w", err)
@@ -2044,8 +2240,10 @@ func (m MessageMediaGeoLive) construct() MessageMediaClass { return &m }
 
 // Ensuring interfaces in compile-time for MessageMediaGeoLive.
 var (
-	_ bin.Encoder = &MessageMediaGeoLive{}
-	_ bin.Decoder = &MessageMediaGeoLive{}
+	_ bin.Encoder     = &MessageMediaGeoLive{}
+	_ bin.Decoder     = &MessageMediaGeoLive{}
+	_ bin.BareEncoder = &MessageMediaGeoLive{}
+	_ bin.BareDecoder = &MessageMediaGeoLive{}
 
 	_ MessageMediaClass = &MessageMediaGeoLive{}
 )
@@ -2137,6 +2335,14 @@ func (m *MessageMediaPoll) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageMediaPoll#4bd6e798 as nil")
 	}
 	b.PutID(MessageMediaPollTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageMediaPoll) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageMediaPoll#4bd6e798 as nil")
+	}
 	if err := m.Poll.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messageMediaPoll#4bd6e798: field poll: %w", err)
 	}
@@ -2164,6 +2370,14 @@ func (m *MessageMediaPoll) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageMediaPollTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageMediaPoll#4bd6e798: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageMediaPoll) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageMediaPoll#4bd6e798 to nil")
+	}
 	{
 		if err := m.Poll.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messageMediaPoll#4bd6e798: field poll: %w", err)
@@ -2182,8 +2396,10 @@ func (m MessageMediaPoll) construct() MessageMediaClass { return &m }
 
 // Ensuring interfaces in compile-time for MessageMediaPoll.
 var (
-	_ bin.Encoder = &MessageMediaPoll{}
-	_ bin.Decoder = &MessageMediaPoll{}
+	_ bin.Encoder     = &MessageMediaPoll{}
+	_ bin.Decoder     = &MessageMediaPoll{}
+	_ bin.BareEncoder = &MessageMediaPoll{}
+	_ bin.BareDecoder = &MessageMediaPoll{}
 
 	_ MessageMediaClass = &MessageMediaPoll{}
 )
@@ -2281,6 +2497,14 @@ func (m *MessageMediaDice) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageMediaDice#3f7ee58b as nil")
 	}
 	b.PutID(MessageMediaDiceTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageMediaDice) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageMediaDice#3f7ee58b as nil")
+	}
 	b.PutInt(m.Value)
 	b.PutString(m.Emoticon)
 	return nil
@@ -2304,6 +2528,14 @@ func (m *MessageMediaDice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageMediaDiceTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageMediaDice#3f7ee58b: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageMediaDice) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageMediaDice#3f7ee58b to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -2326,8 +2558,10 @@ func (m MessageMediaDice) construct() MessageMediaClass { return &m }
 
 // Ensuring interfaces in compile-time for MessageMediaDice.
 var (
-	_ bin.Encoder = &MessageMediaDice{}
-	_ bin.Decoder = &MessageMediaDice{}
+	_ bin.Encoder     = &MessageMediaDice{}
+	_ bin.Decoder     = &MessageMediaDice{}
+	_ bin.BareEncoder = &MessageMediaDice{}
+	_ bin.BareDecoder = &MessageMediaDice{}
 
 	_ MessageMediaClass = &MessageMediaDice{}
 )
@@ -2360,6 +2594,8 @@ var (
 type MessageMediaClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() MessageMediaClass
 
 	// TypeID returns type id in TL schema.

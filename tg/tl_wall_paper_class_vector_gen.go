@@ -98,6 +98,15 @@ func (vec *WallPaperClassVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't encode Vector<WallPaper> as nil")
 	}
+
+	return vec.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (vec *WallPaperClassVector) EncodeBare(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't encode Vector<WallPaper> as nil")
+	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if v == nil {
@@ -125,6 +134,15 @@ func (vec *WallPaperClassVector) Decode(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't decode Vector<WallPaper> to nil")
 	}
+
+	return vec.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (vec *WallPaperClassVector) DecodeBare(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't decode Vector<WallPaper> to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -143,6 +161,8 @@ func (vec *WallPaperClassVector) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for WallPaperClassVector.
 var (
-	_ bin.Encoder = &WallPaperClassVector{}
-	_ bin.Decoder = &WallPaperClassVector{}
+	_ bin.Encoder     = &WallPaperClassVector{}
+	_ bin.Decoder     = &WallPaperClassVector{}
+	_ bin.BareEncoder = &WallPaperClassVector{}
+	_ bin.BareDecoder = &WallPaperClassVector{}
 )

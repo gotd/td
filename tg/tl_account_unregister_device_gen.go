@@ -127,6 +127,14 @@ func (u *AccountUnregisterDeviceRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.unregisterDevice#3076c4bf as nil")
 	}
 	b.PutID(AccountUnregisterDeviceRequestTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *AccountUnregisterDeviceRequest) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode account.unregisterDevice#3076c4bf as nil")
+	}
 	b.PutInt(u.TokenType)
 	b.PutString(u.Token)
 	b.PutVectorHeader(len(u.OtherUIDs))
@@ -158,6 +166,14 @@ func (u *AccountUnregisterDeviceRequest) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(AccountUnregisterDeviceRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.unregisterDevice#3076c4bf: %w", err)
+	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *AccountUnregisterDeviceRequest) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode account.unregisterDevice#3076c4bf to nil")
 	}
 	{
 		value, err := b.Int()
@@ -191,8 +207,10 @@ func (u *AccountUnregisterDeviceRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountUnregisterDeviceRequest.
 var (
-	_ bin.Encoder = &AccountUnregisterDeviceRequest{}
-	_ bin.Decoder = &AccountUnregisterDeviceRequest{}
+	_ bin.Encoder     = &AccountUnregisterDeviceRequest{}
+	_ bin.Decoder     = &AccountUnregisterDeviceRequest{}
+	_ bin.BareEncoder = &AccountUnregisterDeviceRequest{}
+	_ bin.BareDecoder = &AccountUnregisterDeviceRequest{}
 )
 
 // AccountUnregisterDevice invokes method account.unregisterDevice#3076c4bf returning error if any.

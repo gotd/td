@@ -157,6 +157,14 @@ func (p *PostAddress) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode postAddress#1e8caaeb as nil")
 	}
 	b.PutID(PostAddressTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PostAddress) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode postAddress#1e8caaeb as nil")
+	}
 	b.PutString(p.StreetLine1)
 	b.PutString(p.StreetLine2)
 	b.PutString(p.City)
@@ -203,6 +211,14 @@ func (p *PostAddress) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(PostAddressTypeID); err != nil {
 		return fmt.Errorf("unable to decode postAddress#1e8caaeb: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PostAddress) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode postAddress#1e8caaeb to nil")
 	}
 	{
 		value, err := b.String()
@@ -251,6 +267,8 @@ func (p *PostAddress) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PostAddress.
 var (
-	_ bin.Encoder = &PostAddress{}
-	_ bin.Decoder = &PostAddress{}
+	_ bin.Encoder     = &PostAddress{}
+	_ bin.Decoder     = &PostAddress{}
+	_ bin.BareEncoder = &PostAddress{}
+	_ bin.BareDecoder = &PostAddress{}
 )

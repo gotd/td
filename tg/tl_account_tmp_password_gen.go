@@ -113,6 +113,14 @@ func (t *AccountTmpPassword) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.tmpPassword#db64fd34 as nil")
 	}
 	b.PutID(AccountTmpPasswordTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *AccountTmpPassword) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode account.tmpPassword#db64fd34 as nil")
+	}
 	b.PutBytes(t.TmpPassword)
 	b.PutInt(t.ValidUntil)
 	return nil
@@ -136,6 +144,14 @@ func (t *AccountTmpPassword) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountTmpPasswordTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.tmpPassword#db64fd34: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *AccountTmpPassword) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode account.tmpPassword#db64fd34 to nil")
+	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
@@ -155,6 +171,8 @@ func (t *AccountTmpPassword) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountTmpPassword.
 var (
-	_ bin.Encoder = &AccountTmpPassword{}
-	_ bin.Decoder = &AccountTmpPassword{}
+	_ bin.Encoder     = &AccountTmpPassword{}
+	_ bin.Decoder     = &AccountTmpPassword{}
+	_ bin.BareEncoder = &AccountTmpPassword{}
+	_ bin.BareDecoder = &AccountTmpPassword{}
 )

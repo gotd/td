@@ -113,6 +113,14 @@ func (f *MessagesFaveStickerRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.faveSticker#b9ffc55b as nil")
 	}
 	b.PutID(MessagesFaveStickerRequestTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *MessagesFaveStickerRequest) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode messages.faveSticker#b9ffc55b as nil")
+	}
 	if f.ID == nil {
 		return fmt.Errorf("unable to encode messages.faveSticker#b9ffc55b: field id is nil")
 	}
@@ -146,6 +154,14 @@ func (f *MessagesFaveStickerRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesFaveStickerRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.faveSticker#b9ffc55b: %w", err)
 	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *MessagesFaveStickerRequest) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode messages.faveSticker#b9ffc55b to nil")
+	}
 	{
 		value, err := DecodeInputDocument(b)
 		if err != nil {
@@ -165,8 +181,10 @@ func (f *MessagesFaveStickerRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesFaveStickerRequest.
 var (
-	_ bin.Encoder = &MessagesFaveStickerRequest{}
-	_ bin.Decoder = &MessagesFaveStickerRequest{}
+	_ bin.Encoder     = &MessagesFaveStickerRequest{}
+	_ bin.Decoder     = &MessagesFaveStickerRequest{}
+	_ bin.BareEncoder = &MessagesFaveStickerRequest{}
+	_ bin.BareDecoder = &MessagesFaveStickerRequest{}
 )
 
 // MessagesFaveSticker invokes method messages.faveSticker#b9ffc55b returning error if any.

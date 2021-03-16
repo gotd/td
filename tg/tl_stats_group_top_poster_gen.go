@@ -127,6 +127,14 @@ func (s *StatsGroupTopPoster) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode statsGroupTopPoster#18f3d0f7 as nil")
 	}
 	b.PutID(StatsGroupTopPosterTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StatsGroupTopPoster) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode statsGroupTopPoster#18f3d0f7 as nil")
+	}
 	b.PutInt(s.UserID)
 	b.PutInt(s.Messages)
 	b.PutInt(s.AvgChars)
@@ -156,6 +164,14 @@ func (s *StatsGroupTopPoster) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsGroupTopPosterTypeID); err != nil {
 		return fmt.Errorf("unable to decode statsGroupTopPoster#18f3d0f7: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StatsGroupTopPoster) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode statsGroupTopPoster#18f3d0f7 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -182,6 +198,8 @@ func (s *StatsGroupTopPoster) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for StatsGroupTopPoster.
 var (
-	_ bin.Encoder = &StatsGroupTopPoster{}
-	_ bin.Decoder = &StatsGroupTopPoster{}
+	_ bin.Encoder     = &StatsGroupTopPoster{}
+	_ bin.Decoder     = &StatsGroupTopPoster{}
+	_ bin.BareEncoder = &StatsGroupTopPoster{}
+	_ bin.BareDecoder = &StatsGroupTopPoster{}
 )

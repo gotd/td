@@ -116,6 +116,14 @@ func (g *GlobalPrivacySettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode globalPrivacySettings#bea2f424 as nil")
 	}
 	b.PutID(GlobalPrivacySettingsTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *GlobalPrivacySettings) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode globalPrivacySettings#bea2f424 as nil")
+	}
 	if !(g.ArchiveAndMuteNewNoncontactPeers == false) {
 		g.Flags.Set(0)
 	}
@@ -151,6 +159,14 @@ func (g *GlobalPrivacySettings) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(GlobalPrivacySettingsTypeID); err != nil {
 		return fmt.Errorf("unable to decode globalPrivacySettings#bea2f424: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *GlobalPrivacySettings) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode globalPrivacySettings#bea2f424 to nil")
+	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode globalPrivacySettings#bea2f424: field flags: %w", err)
@@ -168,6 +184,8 @@ func (g *GlobalPrivacySettings) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for GlobalPrivacySettings.
 var (
-	_ bin.Encoder = &GlobalPrivacySettings{}
-	_ bin.Decoder = &GlobalPrivacySettings{}
+	_ bin.Encoder     = &GlobalPrivacySettings{}
+	_ bin.Decoder     = &GlobalPrivacySettings{}
+	_ bin.BareEncoder = &GlobalPrivacySettings{}
+	_ bin.BareDecoder = &GlobalPrivacySettings{}
 )

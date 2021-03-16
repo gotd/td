@@ -85,6 +85,14 @@ func (i *InputChannelEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputChannelEmpty#ee8c1e86 as nil")
 	}
 	b.PutID(InputChannelEmptyTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputChannelEmpty) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputChannelEmpty#ee8c1e86 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (i *InputChannelEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputChannelEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputChannelEmpty#ee8c1e86: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputChannelEmpty) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputChannelEmpty#ee8c1e86 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (i InputChannelEmpty) construct() InputChannelClass { return &i }
 
 // Ensuring interfaces in compile-time for InputChannelEmpty.
 var (
-	_ bin.Encoder = &InputChannelEmpty{}
-	_ bin.Decoder = &InputChannelEmpty{}
+	_ bin.Encoder     = &InputChannelEmpty{}
+	_ bin.Decoder     = &InputChannelEmpty{}
+	_ bin.BareEncoder = &InputChannelEmpty{}
+	_ bin.BareDecoder = &InputChannelEmpty{}
 
 	_ InputChannelClass = &InputChannelEmpty{}
 )
@@ -200,6 +218,14 @@ func (i *InputChannel) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputChannel#afeb712e as nil")
 	}
 	b.PutID(InputChannelTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputChannel) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputChannel#afeb712e as nil")
+	}
 	b.PutInt(i.ChannelID)
 	b.PutLong(i.AccessHash)
 	return nil
@@ -223,6 +249,14 @@ func (i *InputChannel) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputChannelTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputChannel#afeb712e: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputChannel) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputChannel#afeb712e to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -245,8 +279,10 @@ func (i InputChannel) construct() InputChannelClass { return &i }
 
 // Ensuring interfaces in compile-time for InputChannel.
 var (
-	_ bin.Encoder = &InputChannel{}
-	_ bin.Decoder = &InputChannel{}
+	_ bin.Encoder     = &InputChannel{}
+	_ bin.Decoder     = &InputChannel{}
+	_ bin.BareEncoder = &InputChannel{}
+	_ bin.BareDecoder = &InputChannel{}
 
 	_ InputChannelClass = &InputChannel{}
 )
@@ -352,6 +388,14 @@ func (i *InputChannelFromMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputChannelFromMessage#2a286531 as nil")
 	}
 	b.PutID(InputChannelFromMessageTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputChannelFromMessage) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputChannelFromMessage#2a286531 as nil")
+	}
 	if i.Peer == nil {
 		return fmt.Errorf("unable to encode inputChannelFromMessage#2a286531: field peer is nil")
 	}
@@ -386,6 +430,14 @@ func (i *InputChannelFromMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputChannelFromMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputChannelFromMessage#2a286531: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputChannelFromMessage) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputChannelFromMessage#2a286531 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -415,8 +467,10 @@ func (i InputChannelFromMessage) construct() InputChannelClass { return &i }
 
 // Ensuring interfaces in compile-time for InputChannelFromMessage.
 var (
-	_ bin.Encoder = &InputChannelFromMessage{}
-	_ bin.Decoder = &InputChannelFromMessage{}
+	_ bin.Encoder     = &InputChannelFromMessage{}
+	_ bin.Decoder     = &InputChannelFromMessage{}
+	_ bin.BareEncoder = &InputChannelFromMessage{}
+	_ bin.BareDecoder = &InputChannelFromMessage{}
 
 	_ InputChannelClass = &InputChannelFromMessage{}
 )
@@ -439,6 +493,8 @@ var (
 type InputChannelClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() InputChannelClass
 
 	// TypeID returns type id in TL schema.
@@ -460,6 +516,8 @@ type InputChannelClass interface {
 type NotEmptyInputChannel interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() InputChannelClass
 
 	// TypeID returns type id in TL schema.

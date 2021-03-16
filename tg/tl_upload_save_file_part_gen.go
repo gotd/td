@@ -124,6 +124,14 @@ func (s *UploadSaveFilePartRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode upload.saveFilePart#b304a621 as nil")
 	}
 	b.PutID(UploadSaveFilePartRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *UploadSaveFilePartRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode upload.saveFilePart#b304a621 as nil")
+	}
 	b.PutLong(s.FileID)
 	b.PutInt(s.FilePart)
 	b.PutBytes(s.Bytes)
@@ -153,6 +161,14 @@ func (s *UploadSaveFilePartRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UploadSaveFilePartRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.saveFilePart#b304a621: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *UploadSaveFilePartRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode upload.saveFilePart#b304a621 to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -179,8 +195,10 @@ func (s *UploadSaveFilePartRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for UploadSaveFilePartRequest.
 var (
-	_ bin.Encoder = &UploadSaveFilePartRequest{}
-	_ bin.Decoder = &UploadSaveFilePartRequest{}
+	_ bin.Encoder     = &UploadSaveFilePartRequest{}
+	_ bin.Decoder     = &UploadSaveFilePartRequest{}
+	_ bin.BareEncoder = &UploadSaveFilePartRequest{}
+	_ bin.BareDecoder = &UploadSaveFilePartRequest{}
 )
 
 // UploadSaveFilePart invokes method upload.saveFilePart#b304a621 returning error if any.

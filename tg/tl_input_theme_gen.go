@@ -113,6 +113,14 @@ func (i *InputTheme) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputTheme#3c5693e9 as nil")
 	}
 	b.PutID(InputThemeTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputTheme) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputTheme#3c5693e9 as nil")
+	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
 	return nil
@@ -136,6 +144,14 @@ func (i *InputTheme) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputThemeTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputTheme#3c5693e9: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputTheme) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputTheme#3c5693e9 to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -158,8 +174,10 @@ func (i InputTheme) construct() InputThemeClass { return &i }
 
 // Ensuring interfaces in compile-time for InputTheme.
 var (
-	_ bin.Encoder = &InputTheme{}
-	_ bin.Decoder = &InputTheme{}
+	_ bin.Encoder     = &InputTheme{}
+	_ bin.Decoder     = &InputTheme{}
+	_ bin.BareEncoder = &InputTheme{}
+	_ bin.BareDecoder = &InputTheme{}
 
 	_ InputThemeClass = &InputTheme{}
 )
@@ -240,6 +258,14 @@ func (i *InputThemeSlug) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputThemeSlug#f5890df1 as nil")
 	}
 	b.PutID(InputThemeSlugTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputThemeSlug) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputThemeSlug#f5890df1 as nil")
+	}
 	b.PutString(i.Slug)
 	return nil
 }
@@ -257,6 +283,14 @@ func (i *InputThemeSlug) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputThemeSlugTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputThemeSlug#f5890df1: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputThemeSlug) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputThemeSlug#f5890df1 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -272,8 +306,10 @@ func (i InputThemeSlug) construct() InputThemeClass { return &i }
 
 // Ensuring interfaces in compile-time for InputThemeSlug.
 var (
-	_ bin.Encoder = &InputThemeSlug{}
-	_ bin.Decoder = &InputThemeSlug{}
+	_ bin.Encoder     = &InputThemeSlug{}
+	_ bin.Decoder     = &InputThemeSlug{}
+	_ bin.BareEncoder = &InputThemeSlug{}
+	_ bin.BareDecoder = &InputThemeSlug{}
 
 	_ InputThemeClass = &InputThemeSlug{}
 )
@@ -295,6 +331,8 @@ var (
 type InputThemeClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() InputThemeClass
 
 	// TypeID returns type id in TL schema.

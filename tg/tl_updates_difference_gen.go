@@ -113,6 +113,14 @@ func (d *UpdatesDifferenceEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updates.differenceEmpty#5d75a138 as nil")
 	}
 	b.PutID(UpdatesDifferenceEmptyTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *UpdatesDifferenceEmpty) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode updates.differenceEmpty#5d75a138 as nil")
+	}
 	b.PutInt(d.Date)
 	b.PutInt(d.Seq)
 	return nil
@@ -136,6 +144,14 @@ func (d *UpdatesDifferenceEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesDifferenceEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode updates.differenceEmpty#5d75a138: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *UpdatesDifferenceEmpty) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode updates.differenceEmpty#5d75a138 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -158,8 +174,10 @@ func (d UpdatesDifferenceEmpty) construct() UpdatesDifferenceClass { return &d }
 
 // Ensuring interfaces in compile-time for UpdatesDifferenceEmpty.
 var (
-	_ bin.Encoder = &UpdatesDifferenceEmpty{}
-	_ bin.Decoder = &UpdatesDifferenceEmpty{}
+	_ bin.Encoder     = &UpdatesDifferenceEmpty{}
+	_ bin.Decoder     = &UpdatesDifferenceEmpty{}
+	_ bin.BareEncoder = &UpdatesDifferenceEmpty{}
+	_ bin.BareDecoder = &UpdatesDifferenceEmpty{}
 
 	_ UpdatesDifferenceClass = &UpdatesDifferenceEmpty{}
 )
@@ -295,6 +313,14 @@ func (d *UpdatesDifference) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updates.difference#f49ca0 as nil")
 	}
 	b.PutID(UpdatesDifferenceTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *UpdatesDifference) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode updates.difference#f49ca0 as nil")
+	}
 	b.PutVectorHeader(len(d.NewMessages))
 	for idx, v := range d.NewMessages {
 		if v == nil {
@@ -409,6 +435,14 @@ func (d *UpdatesDifference) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesDifferenceTypeID); err != nil {
 		return fmt.Errorf("unable to decode updates.difference#f49ca0: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *UpdatesDifference) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode updates.difference#f49ca0 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -487,8 +521,10 @@ func (d UpdatesDifference) construct() UpdatesDifferenceClass { return &d }
 
 // Ensuring interfaces in compile-time for UpdatesDifference.
 var (
-	_ bin.Encoder = &UpdatesDifference{}
-	_ bin.Decoder = &UpdatesDifference{}
+	_ bin.Encoder     = &UpdatesDifference{}
+	_ bin.Decoder     = &UpdatesDifference{}
+	_ bin.BareEncoder = &UpdatesDifference{}
+	_ bin.BareDecoder = &UpdatesDifference{}
 
 	_ UpdatesDifferenceClass = &UpdatesDifference{}
 )
@@ -627,6 +663,14 @@ func (d *UpdatesDifferenceSlice) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updates.differenceSlice#a8fb1981 as nil")
 	}
 	b.PutID(UpdatesDifferenceSliceTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *UpdatesDifferenceSlice) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode updates.differenceSlice#a8fb1981 as nil")
+	}
 	b.PutVectorHeader(len(d.NewMessages))
 	for idx, v := range d.NewMessages {
 		if v == nil {
@@ -741,6 +785,14 @@ func (d *UpdatesDifferenceSlice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesDifferenceSliceTypeID); err != nil {
 		return fmt.Errorf("unable to decode updates.differenceSlice#a8fb1981: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *UpdatesDifferenceSlice) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode updates.differenceSlice#a8fb1981 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -819,8 +871,10 @@ func (d UpdatesDifferenceSlice) construct() UpdatesDifferenceClass { return &d }
 
 // Ensuring interfaces in compile-time for UpdatesDifferenceSlice.
 var (
-	_ bin.Encoder = &UpdatesDifferenceSlice{}
-	_ bin.Decoder = &UpdatesDifferenceSlice{}
+	_ bin.Encoder     = &UpdatesDifferenceSlice{}
+	_ bin.Decoder     = &UpdatesDifferenceSlice{}
+	_ bin.BareEncoder = &UpdatesDifferenceSlice{}
+	_ bin.BareDecoder = &UpdatesDifferenceSlice{}
 
 	_ UpdatesDifferenceClass = &UpdatesDifferenceSlice{}
 )
@@ -904,6 +958,14 @@ func (d *UpdatesDifferenceTooLong) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updates.differenceTooLong#4afe8f6d as nil")
 	}
 	b.PutID(UpdatesDifferenceTooLongTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *UpdatesDifferenceTooLong) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode updates.differenceTooLong#4afe8f6d as nil")
+	}
 	b.PutInt(d.Pts)
 	return nil
 }
@@ -921,6 +983,14 @@ func (d *UpdatesDifferenceTooLong) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesDifferenceTooLongTypeID); err != nil {
 		return fmt.Errorf("unable to decode updates.differenceTooLong#4afe8f6d: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *UpdatesDifferenceTooLong) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode updates.differenceTooLong#4afe8f6d to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -936,8 +1006,10 @@ func (d UpdatesDifferenceTooLong) construct() UpdatesDifferenceClass { return &d
 
 // Ensuring interfaces in compile-time for UpdatesDifferenceTooLong.
 var (
-	_ bin.Encoder = &UpdatesDifferenceTooLong{}
-	_ bin.Decoder = &UpdatesDifferenceTooLong{}
+	_ bin.Encoder     = &UpdatesDifferenceTooLong{}
+	_ bin.Decoder     = &UpdatesDifferenceTooLong{}
+	_ bin.BareEncoder = &UpdatesDifferenceTooLong{}
+	_ bin.BareDecoder = &UpdatesDifferenceTooLong{}
 
 	_ UpdatesDifferenceClass = &UpdatesDifferenceTooLong{}
 )
@@ -961,6 +1033,8 @@ var (
 type UpdatesDifferenceClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() UpdatesDifferenceClass
 
 	// TypeID returns type id in TL schema.

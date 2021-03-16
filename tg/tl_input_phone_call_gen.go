@@ -113,6 +113,14 @@ func (i *InputPhoneCall) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputPhoneCall#1e36fded as nil")
 	}
 	b.PutID(InputPhoneCallTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPhoneCall) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPhoneCall#1e36fded as nil")
+	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
 	return nil
@@ -136,6 +144,14 @@ func (i *InputPhoneCall) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPhoneCallTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPhoneCall#1e36fded: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPhoneCall) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPhoneCall#1e36fded to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -155,6 +171,8 @@ func (i *InputPhoneCall) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for InputPhoneCall.
 var (
-	_ bin.Encoder = &InputPhoneCall{}
-	_ bin.Decoder = &InputPhoneCall{}
+	_ bin.Encoder     = &InputPhoneCall{}
+	_ bin.Decoder     = &InputPhoneCall{}
+	_ bin.BareEncoder = &InputPhoneCall{}
+	_ bin.BareDecoder = &InputPhoneCall{}
 )

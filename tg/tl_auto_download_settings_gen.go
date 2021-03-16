@@ -191,6 +191,14 @@ func (a *AutoDownloadSettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode autoDownloadSettings#e04232f3 as nil")
 	}
 	b.PutID(AutoDownloadSettingsTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *AutoDownloadSettings) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode autoDownloadSettings#e04232f3 as nil")
+	}
 	if !(a.Disabled == false) {
 		a.Flags.Set(0)
 	}
@@ -305,6 +313,14 @@ func (a *AutoDownloadSettings) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AutoDownloadSettingsTypeID); err != nil {
 		return fmt.Errorf("unable to decode autoDownloadSettings#e04232f3: %w", err)
 	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *AutoDownloadSettings) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode autoDownloadSettings#e04232f3 to nil")
+	}
 	{
 		if err := a.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode autoDownloadSettings#e04232f3: field flags: %w", err)
@@ -347,6 +363,8 @@ func (a *AutoDownloadSettings) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AutoDownloadSettings.
 var (
-	_ bin.Encoder = &AutoDownloadSettings{}
-	_ bin.Decoder = &AutoDownloadSettings{}
+	_ bin.Encoder     = &AutoDownloadSettings{}
+	_ bin.Decoder     = &AutoDownloadSettings{}
+	_ bin.BareEncoder = &AutoDownloadSettings{}
+	_ bin.BareDecoder = &AutoDownloadSettings{}
 )

@@ -105,6 +105,14 @@ func (d *AccountDeleteAccountRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.deleteAccount#418d4e0b as nil")
 	}
 	b.PutID(AccountDeleteAccountRequestTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *AccountDeleteAccountRequest) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode account.deleteAccount#418d4e0b as nil")
+	}
 	b.PutString(d.Reason)
 	return nil
 }
@@ -122,6 +130,14 @@ func (d *AccountDeleteAccountRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountDeleteAccountRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.deleteAccount#418d4e0b: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *AccountDeleteAccountRequest) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode account.deleteAccount#418d4e0b to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -134,8 +150,10 @@ func (d *AccountDeleteAccountRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountDeleteAccountRequest.
 var (
-	_ bin.Encoder = &AccountDeleteAccountRequest{}
-	_ bin.Decoder = &AccountDeleteAccountRequest{}
+	_ bin.Encoder     = &AccountDeleteAccountRequest{}
+	_ bin.Decoder     = &AccountDeleteAccountRequest{}
+	_ bin.BareEncoder = &AccountDeleteAccountRequest{}
+	_ bin.BareDecoder = &AccountDeleteAccountRequest{}
 )
 
 // AccountDeleteAccount invokes method account.deleteAccount#418d4e0b returning error if any.

@@ -210,6 +210,14 @@ func (p *PageTableCell) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageTableCell#34566b6a as nil")
 	}
 	b.PutID(PageTableCellTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageTableCell) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageTableCell#34566b6a as nil")
+	}
 	if !(p.Header == false) {
 		p.Flags.Set(0)
 	}
@@ -387,6 +395,14 @@ func (p *PageTableCell) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageTableCellTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageTableCell#34566b6a: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageTableCell) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageTableCell#34566b6a to nil")
+	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode pageTableCell#34566b6a: field flags: %w", err)
@@ -423,6 +439,8 @@ func (p *PageTableCell) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PageTableCell.
 var (
-	_ bin.Encoder = &PageTableCell{}
-	_ bin.Decoder = &PageTableCell{}
+	_ bin.Encoder     = &PageTableCell{}
+	_ bin.Decoder     = &PageTableCell{}
+	_ bin.BareEncoder = &PageTableCell{}
+	_ bin.BareDecoder = &PageTableCell{}
 )

@@ -227,6 +227,14 @@ func (p *PaymentsPaymentReceipt) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode payments.paymentReceipt#500911e1 as nil")
 	}
 	b.PutID(PaymentsPaymentReceiptTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PaymentsPaymentReceipt) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode payments.paymentReceipt#500911e1 as nil")
+	}
 	if !(p.Info.Zero()) {
 		p.Flags.Set(0)
 	}
@@ -350,6 +358,14 @@ func (p *PaymentsPaymentReceipt) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PaymentsPaymentReceiptTypeID); err != nil {
 		return fmt.Errorf("unable to decode payments.paymentReceipt#500911e1: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PaymentsPaymentReceipt) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode payments.paymentReceipt#500911e1 to nil")
+	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode payments.paymentReceipt#500911e1: field flags: %w", err)
@@ -430,6 +446,8 @@ func (p *PaymentsPaymentReceipt) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PaymentsPaymentReceipt.
 var (
-	_ bin.Encoder = &PaymentsPaymentReceipt{}
-	_ bin.Decoder = &PaymentsPaymentReceipt{}
+	_ bin.Encoder     = &PaymentsPaymentReceipt{}
+	_ bin.Decoder     = &PaymentsPaymentReceipt{}
+	_ bin.BareEncoder = &PaymentsPaymentReceipt{}
+	_ bin.BareDecoder = &PaymentsPaymentReceipt{}
 )

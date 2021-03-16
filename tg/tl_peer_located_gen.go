@@ -124,6 +124,14 @@ func (p *PeerLocated) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode peerLocated#ca461b5d as nil")
 	}
 	b.PutID(PeerLocatedTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PeerLocated) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode peerLocated#ca461b5d as nil")
+	}
 	if p.Peer == nil {
 		return fmt.Errorf("unable to encode peerLocated#ca461b5d: field peer is nil")
 	}
@@ -158,6 +166,14 @@ func (p *PeerLocated) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PeerLocatedTypeID); err != nil {
 		return fmt.Errorf("unable to decode peerLocated#ca461b5d: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PeerLocated) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode peerLocated#ca461b5d to nil")
+	}
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
@@ -187,8 +203,10 @@ func (p PeerLocated) construct() PeerLocatedClass { return &p }
 
 // Ensuring interfaces in compile-time for PeerLocated.
 var (
-	_ bin.Encoder = &PeerLocated{}
-	_ bin.Decoder = &PeerLocated{}
+	_ bin.Encoder     = &PeerLocated{}
+	_ bin.Decoder     = &PeerLocated{}
+	_ bin.BareEncoder = &PeerLocated{}
+	_ bin.BareDecoder = &PeerLocated{}
 
 	_ PeerLocatedClass = &PeerLocated{}
 )
@@ -269,6 +287,14 @@ func (p *PeerSelfLocated) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode peerSelfLocated#f8ec284b as nil")
 	}
 	b.PutID(PeerSelfLocatedTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PeerSelfLocated) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode peerSelfLocated#f8ec284b as nil")
+	}
 	b.PutInt(p.Expires)
 	return nil
 }
@@ -286,6 +312,14 @@ func (p *PeerSelfLocated) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PeerSelfLocatedTypeID); err != nil {
 		return fmt.Errorf("unable to decode peerSelfLocated#f8ec284b: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PeerSelfLocated) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode peerSelfLocated#f8ec284b to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -301,8 +335,10 @@ func (p PeerSelfLocated) construct() PeerLocatedClass { return &p }
 
 // Ensuring interfaces in compile-time for PeerSelfLocated.
 var (
-	_ bin.Encoder = &PeerSelfLocated{}
-	_ bin.Decoder = &PeerSelfLocated{}
+	_ bin.Encoder     = &PeerSelfLocated{}
+	_ bin.Decoder     = &PeerSelfLocated{}
+	_ bin.BareEncoder = &PeerSelfLocated{}
+	_ bin.BareDecoder = &PeerSelfLocated{}
 
 	_ PeerLocatedClass = &PeerSelfLocated{}
 )
@@ -324,6 +360,8 @@ var (
 type PeerLocatedClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() PeerLocatedClass
 
 	// TypeID returns type id in TL schema.

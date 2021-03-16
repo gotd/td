@@ -130,6 +130,14 @@ func (a *AuthAuthorization) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.authorization#cd050916 as nil")
 	}
 	b.PutID(AuthAuthorizationTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *AuthAuthorization) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode auth.authorization#cd050916 as nil")
+	}
 	if !(a.TmpSessions == 0) {
 		a.Flags.Set(0)
 	}
@@ -176,6 +184,14 @@ func (a *AuthAuthorization) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthAuthorizationTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.authorization#cd050916: %w", err)
 	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *AuthAuthorization) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode auth.authorization#cd050916 to nil")
+	}
 	{
 		if err := a.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode auth.authorization#cd050916: field flags: %w", err)
@@ -203,8 +219,10 @@ func (a AuthAuthorization) construct() AuthAuthorizationClass { return &a }
 
 // Ensuring interfaces in compile-time for AuthAuthorization.
 var (
-	_ bin.Encoder = &AuthAuthorization{}
-	_ bin.Decoder = &AuthAuthorization{}
+	_ bin.Encoder     = &AuthAuthorization{}
+	_ bin.Decoder     = &AuthAuthorization{}
+	_ bin.BareEncoder = &AuthAuthorization{}
+	_ bin.BareDecoder = &AuthAuthorization{}
 
 	_ AuthAuthorizationClass = &AuthAuthorization{}
 )
@@ -302,6 +320,14 @@ func (a *AuthAuthorizationSignUpRequired) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.authorizationSignUpRequired#44747e9a as nil")
 	}
 	b.PutID(AuthAuthorizationSignUpRequiredTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *AuthAuthorizationSignUpRequired) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode auth.authorizationSignUpRequired#44747e9a as nil")
+	}
 	if !(a.TermsOfService.Zero()) {
 		a.Flags.Set(0)
 	}
@@ -339,6 +365,14 @@ func (a *AuthAuthorizationSignUpRequired) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthAuthorizationSignUpRequiredTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.authorizationSignUpRequired#44747e9a: %w", err)
 	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *AuthAuthorizationSignUpRequired) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode auth.authorizationSignUpRequired#44747e9a to nil")
+	}
 	{
 		if err := a.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode auth.authorizationSignUpRequired#44747e9a: field flags: %w", err)
@@ -357,8 +391,10 @@ func (a AuthAuthorizationSignUpRequired) construct() AuthAuthorizationClass { re
 
 // Ensuring interfaces in compile-time for AuthAuthorizationSignUpRequired.
 var (
-	_ bin.Encoder = &AuthAuthorizationSignUpRequired{}
-	_ bin.Decoder = &AuthAuthorizationSignUpRequired{}
+	_ bin.Encoder     = &AuthAuthorizationSignUpRequired{}
+	_ bin.Decoder     = &AuthAuthorizationSignUpRequired{}
+	_ bin.BareEncoder = &AuthAuthorizationSignUpRequired{}
+	_ bin.BareDecoder = &AuthAuthorizationSignUpRequired{}
 
 	_ AuthAuthorizationClass = &AuthAuthorizationSignUpRequired{}
 )
@@ -380,6 +416,8 @@ var (
 type AuthAuthorizationClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() AuthAuthorizationClass
 
 	// TypeID returns type id in TL schema.

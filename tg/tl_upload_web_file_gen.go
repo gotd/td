@@ -149,6 +149,14 @@ func (w *UploadWebFile) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode upload.webFile#21e753bc as nil")
 	}
 	b.PutID(UploadWebFileTypeID)
+	return w.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (w *UploadWebFile) EncodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode upload.webFile#21e753bc as nil")
+	}
 	b.PutInt(w.Size)
 	b.PutString(w.MimeType)
 	if w.FileType == nil {
@@ -195,6 +203,14 @@ func (w *UploadWebFile) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UploadWebFileTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.webFile#21e753bc: %w", err)
 	}
+	return w.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (w *UploadWebFile) DecodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode upload.webFile#21e753bc to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -235,6 +251,8 @@ func (w *UploadWebFile) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for UploadWebFile.
 var (
-	_ bin.Encoder = &UploadWebFile{}
-	_ bin.Decoder = &UploadWebFile{}
+	_ bin.Encoder     = &UploadWebFile{}
+	_ bin.Decoder     = &UploadWebFile{}
+	_ bin.BareEncoder = &UploadWebFile{}
+	_ bin.BareDecoder = &UploadWebFile{}
 )

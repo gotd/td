@@ -133,6 +133,14 @@ func (w *WebPageAttributeTheme) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode webPageAttributeTheme#54b56617 as nil")
 	}
 	b.PutID(WebPageAttributeThemeTypeID)
+	return w.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (w *WebPageAttributeTheme) EncodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode webPageAttributeTheme#54b56617 as nil")
+	}
 	if !(w.Documents == nil) {
 		w.Flags.Set(0)
 	}
@@ -207,6 +215,14 @@ func (w *WebPageAttributeTheme) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(WebPageAttributeThemeTypeID); err != nil {
 		return fmt.Errorf("unable to decode webPageAttributeTheme#54b56617: %w", err)
 	}
+	return w.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (w *WebPageAttributeTheme) DecodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode webPageAttributeTheme#54b56617 to nil")
+	}
 	{
 		if err := w.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode webPageAttributeTheme#54b56617: field flags: %w", err)
@@ -235,6 +251,8 @@ func (w *WebPageAttributeTheme) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for WebPageAttributeTheme.
 var (
-	_ bin.Encoder = &WebPageAttributeTheme{}
-	_ bin.Decoder = &WebPageAttributeTheme{}
+	_ bin.Encoder     = &WebPageAttributeTheme{}
+	_ bin.Decoder     = &WebPageAttributeTheme{}
+	_ bin.BareEncoder = &WebPageAttributeTheme{}
+	_ bin.BareDecoder = &WebPageAttributeTheme{}
 )

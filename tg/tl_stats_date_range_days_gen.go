@@ -116,6 +116,14 @@ func (s *StatsDateRangeDays) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode statsDateRangeDays#b637edaf as nil")
 	}
 	b.PutID(StatsDateRangeDaysTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StatsDateRangeDays) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode statsDateRangeDays#b637edaf as nil")
+	}
 	b.PutInt(s.MinDate)
 	b.PutInt(s.MaxDate)
 	return nil
@@ -139,6 +147,14 @@ func (s *StatsDateRangeDays) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsDateRangeDaysTypeID); err != nil {
 		return fmt.Errorf("unable to decode statsDateRangeDays#b637edaf: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StatsDateRangeDays) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode statsDateRangeDays#b637edaf to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -158,6 +174,8 @@ func (s *StatsDateRangeDays) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for StatsDateRangeDays.
 var (
-	_ bin.Encoder = &StatsDateRangeDays{}
-	_ bin.Decoder = &StatsDateRangeDays{}
+	_ bin.Encoder     = &StatsDateRangeDays{}
+	_ bin.Decoder     = &StatsDateRangeDays{}
+	_ bin.BareEncoder = &StatsDateRangeDays{}
+	_ bin.BareDecoder = &StatsDateRangeDays{}
 )

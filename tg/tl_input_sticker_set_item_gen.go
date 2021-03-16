@@ -138,6 +138,14 @@ func (i *InputStickerSetItem) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputStickerSetItem#ffa0a496 as nil")
 	}
 	b.PutID(InputStickerSetItemTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputStickerSetItem) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputStickerSetItem#ffa0a496 as nil")
+	}
 	if !(i.MaskCoords.Zero()) {
 		i.Flags.Set(0)
 	}
@@ -197,6 +205,14 @@ func (i *InputStickerSetItem) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputStickerSetItemTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputStickerSetItem#ffa0a496: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputStickerSetItem) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputStickerSetItem#ffa0a496 to nil")
+	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputStickerSetItem#ffa0a496: field flags: %w", err)
@@ -226,6 +242,8 @@ func (i *InputStickerSetItem) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for InputStickerSetItem.
 var (
-	_ bin.Encoder = &InputStickerSetItem{}
-	_ bin.Decoder = &InputStickerSetItem{}
+	_ bin.Encoder     = &InputStickerSetItem{}
+	_ bin.Decoder     = &InputStickerSetItem{}
+	_ bin.BareEncoder = &InputStickerSetItem{}
+	_ bin.BareDecoder = &InputStickerSetItem{}
 )

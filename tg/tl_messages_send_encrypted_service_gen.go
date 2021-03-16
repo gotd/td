@@ -127,6 +127,14 @@ func (s *MessagesSendEncryptedServiceRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.sendEncryptedService#32d439a4 as nil")
 	}
 	b.PutID(MessagesSendEncryptedServiceRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesSendEncryptedServiceRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.sendEncryptedService#32d439a4 as nil")
+	}
 	if err := s.Peer.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.sendEncryptedService#32d439a4: field peer: %w", err)
 	}
@@ -158,6 +166,14 @@ func (s *MessagesSendEncryptedServiceRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSendEncryptedServiceRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.sendEncryptedService#32d439a4: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSendEncryptedServiceRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.sendEncryptedService#32d439a4 to nil")
+	}
 	{
 		if err := s.Peer.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.sendEncryptedService#32d439a4: field peer: %w", err)
@@ -182,8 +198,10 @@ func (s *MessagesSendEncryptedServiceRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesSendEncryptedServiceRequest.
 var (
-	_ bin.Encoder = &MessagesSendEncryptedServiceRequest{}
-	_ bin.Decoder = &MessagesSendEncryptedServiceRequest{}
+	_ bin.Encoder     = &MessagesSendEncryptedServiceRequest{}
+	_ bin.Decoder     = &MessagesSendEncryptedServiceRequest{}
+	_ bin.BareEncoder = &MessagesSendEncryptedServiceRequest{}
+	_ bin.BareDecoder = &MessagesSendEncryptedServiceRequest{}
 )
 
 // MessagesSendEncryptedService invokes method messages.sendEncryptedService#32d439a4 returning error if any.

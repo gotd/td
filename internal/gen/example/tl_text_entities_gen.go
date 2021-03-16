@@ -101,10 +101,18 @@ func (t *TextEntities) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textEntities#cf89c258 as nil")
 	}
 	b.PutID(TextEntitiesTypeID)
-	b.PutVectorHeader(len(t.Entities))
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextEntities) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntities#cf89c258 as nil")
+	}
+	b.PutInt(len(t.Entities))
 	for idx, v := range t.Entities {
-		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode textEntities#cf89c258: field entities element with index %d: %w", idx, err)
+		if err := v.EncodeBare(b); err != nil {
+			return fmt.Errorf("unable to encode bare textEntities#cf89c258: field entities element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -123,15 +131,23 @@ func (t *TextEntities) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntitiesTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntities#cf89c258: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextEntities) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntities#cf89c258 to nil")
+	}
 	{
-		headerLen, err := b.VectorHeader()
+		headerLen, err := b.Int()
 		if err != nil {
 			return fmt.Errorf("unable to decode textEntities#cf89c258: field entities: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value TextEntity
-			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode textEntities#cf89c258: field entities: %w", err)
+			if err := value.DecodeBare(b); err != nil {
+				return fmt.Errorf("unable to decode bare textEntities#cf89c258: field entities: %w", err)
 			}
 			t.Entities = append(t.Entities, value)
 		}
@@ -141,6 +157,8 @@ func (t *TextEntities) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for TextEntities.
 var (
-	_ bin.Encoder = &TextEntities{}
-	_ bin.Decoder = &TextEntities{}
+	_ bin.Encoder     = &TextEntities{}
+	_ bin.Decoder     = &TextEntities{}
+	_ bin.BareEncoder = &TextEntities{}
+	_ bin.BareDecoder = &TextEntities{}
 )

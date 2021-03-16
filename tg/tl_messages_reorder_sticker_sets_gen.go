@@ -122,6 +122,14 @@ func (r *MessagesReorderStickerSetsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.reorderStickerSets#78337739 as nil")
 	}
 	b.PutID(MessagesReorderStickerSetsRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *MessagesReorderStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode messages.reorderStickerSets#78337739 as nil")
+	}
 	if !(r.Masks == false) {
 		r.Flags.Set(0)
 	}
@@ -164,6 +172,14 @@ func (r *MessagesReorderStickerSetsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesReorderStickerSetsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.reorderStickerSets#78337739: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *MessagesReorderStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode messages.reorderStickerSets#78337739 to nil")
+	}
 	{
 		if err := r.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.reorderStickerSets#78337739: field flags: %w", err)
@@ -188,8 +204,10 @@ func (r *MessagesReorderStickerSetsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesReorderStickerSetsRequest.
 var (
-	_ bin.Encoder = &MessagesReorderStickerSetsRequest{}
-	_ bin.Decoder = &MessagesReorderStickerSetsRequest{}
+	_ bin.Encoder     = &MessagesReorderStickerSetsRequest{}
+	_ bin.Decoder     = &MessagesReorderStickerSetsRequest{}
+	_ bin.BareEncoder = &MessagesReorderStickerSetsRequest{}
+	_ bin.BareDecoder = &MessagesReorderStickerSetsRequest{}
 )
 
 // MessagesReorderStickerSets invokes method messages.reorderStickerSets#78337739 returning error if any.

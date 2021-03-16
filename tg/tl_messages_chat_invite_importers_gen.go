@@ -123,6 +123,14 @@ func (c *MessagesChatInviteImporters) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.chatInviteImporters#81b6b00a as nil")
 	}
 	b.PutID(MessagesChatInviteImportersTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *MessagesChatInviteImporters) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode messages.chatInviteImporters#81b6b00a as nil")
+	}
 	b.PutInt(c.Count)
 	b.PutVectorHeader(len(c.Importers))
 	for idx, v := range c.Importers {
@@ -170,6 +178,14 @@ func (c *MessagesChatInviteImporters) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesChatInviteImportersTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.chatInviteImporters#81b6b00a: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *MessagesChatInviteImporters) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode messages.chatInviteImporters#81b6b00a to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -208,6 +224,8 @@ func (c *MessagesChatInviteImporters) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesChatInviteImporters.
 var (
-	_ bin.Encoder = &MessagesChatInviteImporters{}
-	_ bin.Decoder = &MessagesChatInviteImporters{}
+	_ bin.Encoder     = &MessagesChatInviteImporters{}
+	_ bin.Decoder     = &MessagesChatInviteImporters{}
+	_ bin.BareEncoder = &MessagesChatInviteImporters{}
+	_ bin.BareDecoder = &MessagesChatInviteImporters{}
 )

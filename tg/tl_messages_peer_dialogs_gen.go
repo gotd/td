@@ -149,6 +149,14 @@ func (p *MessagesPeerDialogs) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.peerDialogs#3371c354 as nil")
 	}
 	b.PutID(MessagesPeerDialogsTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *MessagesPeerDialogs) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode messages.peerDialogs#3371c354 as nil")
+	}
 	b.PutVectorHeader(len(p.Dialogs))
 	for idx, v := range p.Dialogs {
 		if v == nil {
@@ -244,6 +252,14 @@ func (p *MessagesPeerDialogs) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesPeerDialogsTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.peerDialogs#3371c354: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *MessagesPeerDialogs) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode messages.peerDialogs#3371c354 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -306,6 +322,8 @@ func (p *MessagesPeerDialogs) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesPeerDialogs.
 var (
-	_ bin.Encoder = &MessagesPeerDialogs{}
-	_ bin.Decoder = &MessagesPeerDialogs{}
+	_ bin.Encoder     = &MessagesPeerDialogs{}
+	_ bin.Decoder     = &MessagesPeerDialogs{}
+	_ bin.BareEncoder = &MessagesPeerDialogs{}
+	_ bin.BareDecoder = &MessagesPeerDialogs{}
 )

@@ -113,6 +113,14 @@ func (t *ChannelsTogglePreHistoryHiddenRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.togglePreHistoryHidden#eabbb94c as nil")
 	}
 	b.PutID(ChannelsTogglePreHistoryHiddenRequestTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *ChannelsTogglePreHistoryHiddenRequest) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode channels.togglePreHistoryHidden#eabbb94c as nil")
+	}
 	if t.Channel == nil {
 		return fmt.Errorf("unable to encode channels.togglePreHistoryHidden#eabbb94c: field channel is nil")
 	}
@@ -146,6 +154,14 @@ func (t *ChannelsTogglePreHistoryHiddenRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsTogglePreHistoryHiddenRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.togglePreHistoryHidden#eabbb94c: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *ChannelsTogglePreHistoryHiddenRequest) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode channels.togglePreHistoryHidden#eabbb94c to nil")
+	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
@@ -165,8 +181,10 @@ func (t *ChannelsTogglePreHistoryHiddenRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsTogglePreHistoryHiddenRequest.
 var (
-	_ bin.Encoder = &ChannelsTogglePreHistoryHiddenRequest{}
-	_ bin.Decoder = &ChannelsTogglePreHistoryHiddenRequest{}
+	_ bin.Encoder     = &ChannelsTogglePreHistoryHiddenRequest{}
+	_ bin.Decoder     = &ChannelsTogglePreHistoryHiddenRequest{}
+	_ bin.BareEncoder = &ChannelsTogglePreHistoryHiddenRequest{}
+	_ bin.BareDecoder = &ChannelsTogglePreHistoryHiddenRequest{}
 )
 
 // ChannelsTogglePreHistoryHidden invokes method channels.togglePreHistoryHidden#eabbb94c returning error if any.

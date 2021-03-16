@@ -110,6 +110,14 @@ func (m *MsgsStateInfo) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode msgs_state_info#4deb57d as nil")
 	}
 	b.PutID(MsgsStateInfoTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MsgsStateInfo) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode msgs_state_info#4deb57d as nil")
+	}
 	b.PutLong(m.ReqMsgID)
 	b.PutBytes(m.Info)
 	return nil
@@ -133,6 +141,14 @@ func (m *MsgsStateInfo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MsgsStateInfoTypeID); err != nil {
 		return fmt.Errorf("unable to decode msgs_state_info#4deb57d: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MsgsStateInfo) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode msgs_state_info#4deb57d to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -152,6 +168,8 @@ func (m *MsgsStateInfo) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MsgsStateInfo.
 var (
-	_ bin.Encoder = &MsgsStateInfo{}
-	_ bin.Decoder = &MsgsStateInfo{}
+	_ bin.Encoder     = &MsgsStateInfo{}
+	_ bin.Decoder     = &MsgsStateInfo{}
+	_ bin.BareEncoder = &MsgsStateInfo{}
+	_ bin.BareDecoder = &MsgsStateInfo{}
 )

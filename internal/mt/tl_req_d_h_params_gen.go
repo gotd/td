@@ -154,6 +154,14 @@ func (r *ReqDHParamsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode req_DH_params#d712e4be as nil")
 	}
 	b.PutID(ReqDHParamsRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *ReqDHParamsRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode req_DH_params#d712e4be as nil")
+	}
 	b.PutInt128(r.Nonce)
 	b.PutInt128(r.ServerNonce)
 	b.PutBytes(r.P)
@@ -200,6 +208,14 @@ func (r *ReqDHParamsRequest) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(ReqDHParamsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode req_DH_params#d712e4be: %w", err)
+	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *ReqDHParamsRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode req_DH_params#d712e4be to nil")
 	}
 	{
 		value, err := b.Int128()
@@ -248,8 +264,10 @@ func (r *ReqDHParamsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ReqDHParamsRequest.
 var (
-	_ bin.Encoder = &ReqDHParamsRequest{}
-	_ bin.Decoder = &ReqDHParamsRequest{}
+	_ bin.Encoder     = &ReqDHParamsRequest{}
+	_ bin.Decoder     = &ReqDHParamsRequest{}
+	_ bin.BareEncoder = &ReqDHParamsRequest{}
+	_ bin.BareDecoder = &ReqDHParamsRequest{}
 )
 
 // ReqDHParams invokes method req_DH_params#d712e4be returning error if any.

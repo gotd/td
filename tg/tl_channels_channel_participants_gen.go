@@ -124,6 +124,14 @@ func (c *ChannelsChannelParticipants) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.channelParticipants#f56ee2a8 as nil")
 	}
 	b.PutID(ChannelsChannelParticipantsTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelsChannelParticipants) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channels.channelParticipants#f56ee2a8 as nil")
+	}
 	b.PutInt(c.Count)
 	b.PutVectorHeader(len(c.Participants))
 	for idx, v := range c.Participants {
@@ -179,6 +187,14 @@ func (c *ChannelsChannelParticipants) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsChannelParticipantsTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.channelParticipants#f56ee2a8: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelsChannelParticipants) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channels.channelParticipants#f56ee2a8 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -220,8 +236,10 @@ func (c ChannelsChannelParticipants) construct() ChannelsChannelParticipantsClas
 
 // Ensuring interfaces in compile-time for ChannelsChannelParticipants.
 var (
-	_ bin.Encoder = &ChannelsChannelParticipants{}
-	_ bin.Decoder = &ChannelsChannelParticipants{}
+	_ bin.Encoder     = &ChannelsChannelParticipants{}
+	_ bin.Decoder     = &ChannelsChannelParticipants{}
+	_ bin.BareEncoder = &ChannelsChannelParticipants{}
+	_ bin.BareDecoder = &ChannelsChannelParticipants{}
 
 	_ ChannelsChannelParticipantsClass = &ChannelsChannelParticipants{}
 )
@@ -285,6 +303,14 @@ func (c *ChannelsChannelParticipantsNotModified) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.channelParticipantsNotModified#f0173fe9 as nil")
 	}
 	b.PutID(ChannelsChannelParticipantsNotModifiedTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelsChannelParticipantsNotModified) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channels.channelParticipantsNotModified#f0173fe9 as nil")
+	}
 	return nil
 }
 
@@ -296,6 +322,14 @@ func (c *ChannelsChannelParticipantsNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsChannelParticipantsNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.channelParticipantsNotModified#f0173fe9: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelsChannelParticipantsNotModified) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channels.channelParticipantsNotModified#f0173fe9 to nil")
+	}
 	return nil
 }
 
@@ -306,8 +340,10 @@ func (c ChannelsChannelParticipantsNotModified) construct() ChannelsChannelParti
 
 // Ensuring interfaces in compile-time for ChannelsChannelParticipantsNotModified.
 var (
-	_ bin.Encoder = &ChannelsChannelParticipantsNotModified{}
-	_ bin.Decoder = &ChannelsChannelParticipantsNotModified{}
+	_ bin.Encoder     = &ChannelsChannelParticipantsNotModified{}
+	_ bin.Decoder     = &ChannelsChannelParticipantsNotModified{}
+	_ bin.BareEncoder = &ChannelsChannelParticipantsNotModified{}
+	_ bin.BareDecoder = &ChannelsChannelParticipantsNotModified{}
 
 	_ ChannelsChannelParticipantsClass = &ChannelsChannelParticipantsNotModified{}
 )
@@ -329,6 +365,8 @@ var (
 type ChannelsChannelParticipantsClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() ChannelsChannelParticipantsClass
 
 	// TypeID returns type id in TL schema.

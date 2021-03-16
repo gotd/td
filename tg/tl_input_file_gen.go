@@ -141,6 +141,14 @@ func (i *InputFile) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputFile#f52ff27f as nil")
 	}
 	b.PutID(InputFileTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputFile) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputFile#f52ff27f as nil")
+	}
 	b.PutLong(i.ID)
 	b.PutInt(i.Parts)
 	b.PutString(i.Name)
@@ -175,6 +183,14 @@ func (i *InputFile) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(InputFileTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputFile#f52ff27f: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputFile) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputFile#f52ff27f to nil")
 	}
 	{
 		value, err := b.Long()
@@ -212,8 +228,10 @@ func (i InputFile) construct() InputFileClass { return &i }
 
 // Ensuring interfaces in compile-time for InputFile.
 var (
-	_ bin.Encoder = &InputFile{}
-	_ bin.Decoder = &InputFile{}
+	_ bin.Encoder     = &InputFile{}
+	_ bin.Decoder     = &InputFile{}
+	_ bin.BareEncoder = &InputFile{}
+	_ bin.BareDecoder = &InputFile{}
 
 	_ InputFileClass = &InputFile{}
 )
@@ -319,6 +337,14 @@ func (i *InputFileBig) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputFileBig#fa4f0bb5 as nil")
 	}
 	b.PutID(InputFileBigTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputFileBig) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputFileBig#fa4f0bb5 as nil")
+	}
 	b.PutLong(i.ID)
 	b.PutInt(i.Parts)
 	b.PutString(i.Name)
@@ -347,6 +373,14 @@ func (i *InputFileBig) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(InputFileBigTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputFileBig#fa4f0bb5: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputFileBig) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputFileBig#fa4f0bb5 to nil")
 	}
 	{
 		value, err := b.Long()
@@ -377,8 +411,10 @@ func (i InputFileBig) construct() InputFileClass { return &i }
 
 // Ensuring interfaces in compile-time for InputFileBig.
 var (
-	_ bin.Encoder = &InputFileBig{}
-	_ bin.Decoder = &InputFileBig{}
+	_ bin.Encoder     = &InputFileBig{}
+	_ bin.Decoder     = &InputFileBig{}
+	_ bin.BareEncoder = &InputFileBig{}
+	_ bin.BareDecoder = &InputFileBig{}
 
 	_ InputFileClass = &InputFileBig{}
 )
@@ -400,6 +436,8 @@ var (
 type InputFileClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() InputFileClass
 
 	// TypeID returns type id in TL schema.

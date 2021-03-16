@@ -98,6 +98,15 @@ func (vec *IntVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't encode Vector<int> as nil")
 	}
+
+	return vec.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (vec *IntVector) EncodeBare(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't encode Vector<int> as nil")
+	}
 	b.PutVectorHeader(len(vec.Elems))
 	for _, v := range vec.Elems {
 		b.PutInt(v)
@@ -112,6 +121,15 @@ func (vec *IntVector) GetElems() (value []int) {
 
 // Decode implements bin.Decoder.
 func (vec *IntVector) Decode(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't decode Vector<int> to nil")
+	}
+
+	return vec.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (vec *IntVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't decode Vector<int> to nil")
 	}
@@ -133,6 +151,8 @@ func (vec *IntVector) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for IntVector.
 var (
-	_ bin.Encoder = &IntVector{}
-	_ bin.Decoder = &IntVector{}
+	_ bin.Encoder     = &IntVector{}
+	_ bin.Decoder     = &IntVector{}
+	_ bin.BareEncoder = &IntVector{}
+	_ bin.BareDecoder = &IntVector{}
 )

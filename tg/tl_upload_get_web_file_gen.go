@@ -123,6 +123,14 @@ func (g *UploadGetWebFileRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode upload.getWebFile#24e6818d as nil")
 	}
 	b.PutID(UploadGetWebFileRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *UploadGetWebFileRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode upload.getWebFile#24e6818d as nil")
+	}
 	if g.Location == nil {
 		return fmt.Errorf("unable to encode upload.getWebFile#24e6818d: field location is nil")
 	}
@@ -157,6 +165,14 @@ func (g *UploadGetWebFileRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UploadGetWebFileRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.getWebFile#24e6818d: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *UploadGetWebFileRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode upload.getWebFile#24e6818d to nil")
+	}
 	{
 		value, err := DecodeInputWebFileLocation(b)
 		if err != nil {
@@ -183,8 +199,10 @@ func (g *UploadGetWebFileRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for UploadGetWebFileRequest.
 var (
-	_ bin.Encoder = &UploadGetWebFileRequest{}
-	_ bin.Decoder = &UploadGetWebFileRequest{}
+	_ bin.Encoder     = &UploadGetWebFileRequest{}
+	_ bin.Decoder     = &UploadGetWebFileRequest{}
+	_ bin.BareEncoder = &UploadGetWebFileRequest{}
+	_ bin.BareDecoder = &UploadGetWebFileRequest{}
 )
 
 // UploadGetWebFile invokes method upload.getWebFile#24e6818d returning error if any.

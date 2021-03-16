@@ -102,6 +102,14 @@ func (p *PaymentsPaymentResult) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode payments.paymentResult#4e5f810d as nil")
 	}
 	b.PutID(PaymentsPaymentResultTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PaymentsPaymentResult) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode payments.paymentResult#4e5f810d as nil")
+	}
 	if p.Updates == nil {
 		return fmt.Errorf("unable to encode payments.paymentResult#4e5f810d: field updates is nil")
 	}
@@ -124,6 +132,14 @@ func (p *PaymentsPaymentResult) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PaymentsPaymentResultTypeID); err != nil {
 		return fmt.Errorf("unable to decode payments.paymentResult#4e5f810d: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PaymentsPaymentResult) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode payments.paymentResult#4e5f810d to nil")
+	}
 	{
 		value, err := DecodeUpdates(b)
 		if err != nil {
@@ -139,8 +155,10 @@ func (p PaymentsPaymentResult) construct() PaymentsPaymentResultClass { return &
 
 // Ensuring interfaces in compile-time for PaymentsPaymentResult.
 var (
-	_ bin.Encoder = &PaymentsPaymentResult{}
-	_ bin.Decoder = &PaymentsPaymentResult{}
+	_ bin.Encoder     = &PaymentsPaymentResult{}
+	_ bin.Decoder     = &PaymentsPaymentResult{}
+	_ bin.BareEncoder = &PaymentsPaymentResult{}
+	_ bin.BareDecoder = &PaymentsPaymentResult{}
 
 	_ PaymentsPaymentResultClass = &PaymentsPaymentResult{}
 )
@@ -221,6 +239,14 @@ func (p *PaymentsPaymentVerificationNeeded) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode payments.paymentVerificationNeeded#d8411139 as nil")
 	}
 	b.PutID(PaymentsPaymentVerificationNeededTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PaymentsPaymentVerificationNeeded) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode payments.paymentVerificationNeeded#d8411139 as nil")
+	}
 	b.PutString(p.URL)
 	return nil
 }
@@ -238,6 +264,14 @@ func (p *PaymentsPaymentVerificationNeeded) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PaymentsPaymentVerificationNeededTypeID); err != nil {
 		return fmt.Errorf("unable to decode payments.paymentVerificationNeeded#d8411139: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PaymentsPaymentVerificationNeeded) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode payments.paymentVerificationNeeded#d8411139 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -253,8 +287,10 @@ func (p PaymentsPaymentVerificationNeeded) construct() PaymentsPaymentResultClas
 
 // Ensuring interfaces in compile-time for PaymentsPaymentVerificationNeeded.
 var (
-	_ bin.Encoder = &PaymentsPaymentVerificationNeeded{}
-	_ bin.Decoder = &PaymentsPaymentVerificationNeeded{}
+	_ bin.Encoder     = &PaymentsPaymentVerificationNeeded{}
+	_ bin.Decoder     = &PaymentsPaymentVerificationNeeded{}
+	_ bin.BareEncoder = &PaymentsPaymentVerificationNeeded{}
+	_ bin.BareDecoder = &PaymentsPaymentVerificationNeeded{}
 
 	_ PaymentsPaymentResultClass = &PaymentsPaymentVerificationNeeded{}
 )
@@ -276,6 +312,8 @@ var (
 type PaymentsPaymentResultClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() PaymentsPaymentResultClass
 
 	// TypeID returns type id in TL schema.

@@ -108,6 +108,14 @@ func (u *AccountUpdateDeviceLockedRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.updateDeviceLocked#38df3532 as nil")
 	}
 	b.PutID(AccountUpdateDeviceLockedRequestTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *AccountUpdateDeviceLockedRequest) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode account.updateDeviceLocked#38df3532 as nil")
+	}
 	b.PutInt(u.Period)
 	return nil
 }
@@ -125,6 +133,14 @@ func (u *AccountUpdateDeviceLockedRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountUpdateDeviceLockedRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.updateDeviceLocked#38df3532: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *AccountUpdateDeviceLockedRequest) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode account.updateDeviceLocked#38df3532 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -137,8 +153,10 @@ func (u *AccountUpdateDeviceLockedRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountUpdateDeviceLockedRequest.
 var (
-	_ bin.Encoder = &AccountUpdateDeviceLockedRequest{}
-	_ bin.Decoder = &AccountUpdateDeviceLockedRequest{}
+	_ bin.Encoder     = &AccountUpdateDeviceLockedRequest{}
+	_ bin.Decoder     = &AccountUpdateDeviceLockedRequest{}
+	_ bin.BareEncoder = &AccountUpdateDeviceLockedRequest{}
+	_ bin.BareDecoder = &AccountUpdateDeviceLockedRequest{}
 )
 
 // AccountUpdateDeviceLocked invokes method account.updateDeviceLocked#38df3532 returning error if any.

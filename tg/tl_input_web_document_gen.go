@@ -138,6 +138,14 @@ func (i *InputWebDocument) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputWebDocument#9bed434d as nil")
 	}
 	b.PutID(InputWebDocumentTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputWebDocument) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputWebDocument#9bed434d as nil")
+	}
 	b.PutString(i.URL)
 	b.PutInt(i.Size)
 	b.PutString(i.MimeType)
@@ -186,6 +194,14 @@ func (i *InputWebDocument) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputWebDocumentTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputWebDocument#9bed434d: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputWebDocument) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputWebDocument#9bed434d to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -225,6 +241,8 @@ func (i *InputWebDocument) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for InputWebDocument.
 var (
-	_ bin.Encoder = &InputWebDocument{}
-	_ bin.Decoder = &InputWebDocument{}
+	_ bin.Encoder     = &InputWebDocument{}
+	_ bin.Decoder     = &InputWebDocument{}
+	_ bin.BareEncoder = &InputWebDocument{}
+	_ bin.BareDecoder = &InputWebDocument{}
 )

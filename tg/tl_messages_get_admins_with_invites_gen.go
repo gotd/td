@@ -101,6 +101,14 @@ func (g *MessagesGetAdminsWithInvitesRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getAdminsWithInvites#3920e6ef as nil")
 	}
 	b.PutID(MessagesGetAdminsWithInvitesRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetAdminsWithInvitesRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getAdminsWithInvites#3920e6ef as nil")
+	}
 	if g.Peer == nil {
 		return fmt.Errorf("unable to encode messages.getAdminsWithInvites#3920e6ef: field peer is nil")
 	}
@@ -123,6 +131,14 @@ func (g *MessagesGetAdminsWithInvitesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetAdminsWithInvitesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getAdminsWithInvites#3920e6ef: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetAdminsWithInvitesRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getAdminsWithInvites#3920e6ef to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -135,8 +151,10 @@ func (g *MessagesGetAdminsWithInvitesRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetAdminsWithInvitesRequest.
 var (
-	_ bin.Encoder = &MessagesGetAdminsWithInvitesRequest{}
-	_ bin.Decoder = &MessagesGetAdminsWithInvitesRequest{}
+	_ bin.Encoder     = &MessagesGetAdminsWithInvitesRequest{}
+	_ bin.Decoder     = &MessagesGetAdminsWithInvitesRequest{}
+	_ bin.BareEncoder = &MessagesGetAdminsWithInvitesRequest{}
+	_ bin.BareDecoder = &MessagesGetAdminsWithInvitesRequest{}
 )
 
 // MessagesGetAdminsWithInvites invokes method messages.getAdminsWithInvites#3920e6ef returning error if any.

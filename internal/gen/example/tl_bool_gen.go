@@ -84,6 +84,14 @@ func (f *False) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode false#bc799737 as nil")
 	}
 	b.PutID(FalseTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *False) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode false#bc799737 as nil")
+	}
 	return nil
 }
 
@@ -95,6 +103,14 @@ func (f *False) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(FalseTypeID); err != nil {
 		return fmt.Errorf("unable to decode false#bc799737: %w", err)
 	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *False) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode false#bc799737 to nil")
+	}
 	return nil
 }
 
@@ -103,8 +119,10 @@ func (f False) construct() BoolClass { return &f }
 
 // Ensuring interfaces in compile-time for False.
 var (
-	_ bin.Encoder = &False{}
-	_ bin.Decoder = &False{}
+	_ bin.Encoder     = &False{}
+	_ bin.Decoder     = &False{}
+	_ bin.BareEncoder = &False{}
+	_ bin.BareDecoder = &False{}
 
 	_ BoolClass = &False{}
 )
@@ -167,6 +185,14 @@ func (t *True) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode true#997275b5 as nil")
 	}
 	b.PutID(TrueTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *True) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode true#997275b5 as nil")
+	}
 	return nil
 }
 
@@ -178,6 +204,14 @@ func (t *True) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TrueTypeID); err != nil {
 		return fmt.Errorf("unable to decode true#997275b5: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *True) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode true#997275b5 to nil")
+	}
 	return nil
 }
 
@@ -186,8 +220,10 @@ func (t True) construct() BoolClass { return &t }
 
 // Ensuring interfaces in compile-time for True.
 var (
-	_ bin.Encoder = &True{}
-	_ bin.Decoder = &True{}
+	_ bin.Encoder     = &True{}
+	_ bin.Decoder     = &True{}
+	_ bin.BareEncoder = &True{}
+	_ bin.BareDecoder = &True{}
 
 	_ BoolClass = &True{}
 )
@@ -209,6 +245,8 @@ var (
 type BoolClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() BoolClass
 
 	// TypeID returns type id in TL schema.

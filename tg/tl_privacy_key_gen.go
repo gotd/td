@@ -85,6 +85,14 @@ func (p *PrivacyKeyStatusTimestamp) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode privacyKeyStatusTimestamp#bc2eab30 as nil")
 	}
 	b.PutID(PrivacyKeyStatusTimestampTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PrivacyKeyStatusTimestamp) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyKeyStatusTimestamp#bc2eab30 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (p *PrivacyKeyStatusTimestamp) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyKeyStatusTimestampTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyKeyStatusTimestamp#bc2eab30: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PrivacyKeyStatusTimestamp) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyKeyStatusTimestamp#bc2eab30 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (p PrivacyKeyStatusTimestamp) construct() PrivacyKeyClass { return &p }
 
 // Ensuring interfaces in compile-time for PrivacyKeyStatusTimestamp.
 var (
-	_ bin.Encoder = &PrivacyKeyStatusTimestamp{}
-	_ bin.Decoder = &PrivacyKeyStatusTimestamp{}
+	_ bin.Encoder     = &PrivacyKeyStatusTimestamp{}
+	_ bin.Decoder     = &PrivacyKeyStatusTimestamp{}
+	_ bin.BareEncoder = &PrivacyKeyStatusTimestamp{}
+	_ bin.BareDecoder = &PrivacyKeyStatusTimestamp{}
 
 	_ PrivacyKeyClass = &PrivacyKeyStatusTimestamp{}
 )
@@ -169,6 +187,14 @@ func (p *PrivacyKeyChatInvite) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode privacyKeyChatInvite#500e6dfa as nil")
 	}
 	b.PutID(PrivacyKeyChatInviteTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PrivacyKeyChatInvite) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyKeyChatInvite#500e6dfa as nil")
+	}
 	return nil
 }
 
@@ -180,6 +206,14 @@ func (p *PrivacyKeyChatInvite) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyKeyChatInviteTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyKeyChatInvite#500e6dfa: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PrivacyKeyChatInvite) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyKeyChatInvite#500e6dfa to nil")
+	}
 	return nil
 }
 
@@ -188,8 +222,10 @@ func (p PrivacyKeyChatInvite) construct() PrivacyKeyClass { return &p }
 
 // Ensuring interfaces in compile-time for PrivacyKeyChatInvite.
 var (
-	_ bin.Encoder = &PrivacyKeyChatInvite{}
-	_ bin.Decoder = &PrivacyKeyChatInvite{}
+	_ bin.Encoder     = &PrivacyKeyChatInvite{}
+	_ bin.Decoder     = &PrivacyKeyChatInvite{}
+	_ bin.BareEncoder = &PrivacyKeyChatInvite{}
+	_ bin.BareDecoder = &PrivacyKeyChatInvite{}
 
 	_ PrivacyKeyClass = &PrivacyKeyChatInvite{}
 )
@@ -253,6 +289,14 @@ func (p *PrivacyKeyPhoneCall) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode privacyKeyPhoneCall#3d662b7b as nil")
 	}
 	b.PutID(PrivacyKeyPhoneCallTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PrivacyKeyPhoneCall) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyKeyPhoneCall#3d662b7b as nil")
+	}
 	return nil
 }
 
@@ -264,6 +308,14 @@ func (p *PrivacyKeyPhoneCall) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyKeyPhoneCallTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyKeyPhoneCall#3d662b7b: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PrivacyKeyPhoneCall) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyKeyPhoneCall#3d662b7b to nil")
+	}
 	return nil
 }
 
@@ -272,8 +324,10 @@ func (p PrivacyKeyPhoneCall) construct() PrivacyKeyClass { return &p }
 
 // Ensuring interfaces in compile-time for PrivacyKeyPhoneCall.
 var (
-	_ bin.Encoder = &PrivacyKeyPhoneCall{}
-	_ bin.Decoder = &PrivacyKeyPhoneCall{}
+	_ bin.Encoder     = &PrivacyKeyPhoneCall{}
+	_ bin.Decoder     = &PrivacyKeyPhoneCall{}
+	_ bin.BareEncoder = &PrivacyKeyPhoneCall{}
+	_ bin.BareDecoder = &PrivacyKeyPhoneCall{}
 
 	_ PrivacyKeyClass = &PrivacyKeyPhoneCall{}
 )
@@ -337,6 +391,14 @@ func (p *PrivacyKeyPhoneP2P) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode privacyKeyPhoneP2P#39491cc8 as nil")
 	}
 	b.PutID(PrivacyKeyPhoneP2PTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PrivacyKeyPhoneP2P) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyKeyPhoneP2P#39491cc8 as nil")
+	}
 	return nil
 }
 
@@ -348,6 +410,14 @@ func (p *PrivacyKeyPhoneP2P) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyKeyPhoneP2PTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyKeyPhoneP2P#39491cc8: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PrivacyKeyPhoneP2P) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyKeyPhoneP2P#39491cc8 to nil")
+	}
 	return nil
 }
 
@@ -356,8 +426,10 @@ func (p PrivacyKeyPhoneP2P) construct() PrivacyKeyClass { return &p }
 
 // Ensuring interfaces in compile-time for PrivacyKeyPhoneP2P.
 var (
-	_ bin.Encoder = &PrivacyKeyPhoneP2P{}
-	_ bin.Decoder = &PrivacyKeyPhoneP2P{}
+	_ bin.Encoder     = &PrivacyKeyPhoneP2P{}
+	_ bin.Decoder     = &PrivacyKeyPhoneP2P{}
+	_ bin.BareEncoder = &PrivacyKeyPhoneP2P{}
+	_ bin.BareDecoder = &PrivacyKeyPhoneP2P{}
 
 	_ PrivacyKeyClass = &PrivacyKeyPhoneP2P{}
 )
@@ -424,6 +496,14 @@ func (p *PrivacyKeyForwards) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode privacyKeyForwards#69ec56a3 as nil")
 	}
 	b.PutID(PrivacyKeyForwardsTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PrivacyKeyForwards) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyKeyForwards#69ec56a3 as nil")
+	}
 	return nil
 }
 
@@ -435,6 +515,14 @@ func (p *PrivacyKeyForwards) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyKeyForwardsTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyKeyForwards#69ec56a3: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PrivacyKeyForwards) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyKeyForwards#69ec56a3 to nil")
+	}
 	return nil
 }
 
@@ -443,8 +531,10 @@ func (p PrivacyKeyForwards) construct() PrivacyKeyClass { return &p }
 
 // Ensuring interfaces in compile-time for PrivacyKeyForwards.
 var (
-	_ bin.Encoder = &PrivacyKeyForwards{}
-	_ bin.Decoder = &PrivacyKeyForwards{}
+	_ bin.Encoder     = &PrivacyKeyForwards{}
+	_ bin.Decoder     = &PrivacyKeyForwards{}
+	_ bin.BareEncoder = &PrivacyKeyForwards{}
+	_ bin.BareDecoder = &PrivacyKeyForwards{}
 
 	_ PrivacyKeyClass = &PrivacyKeyForwards{}
 )
@@ -508,6 +598,14 @@ func (p *PrivacyKeyProfilePhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode privacyKeyProfilePhoto#96151fed as nil")
 	}
 	b.PutID(PrivacyKeyProfilePhotoTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PrivacyKeyProfilePhoto) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyKeyProfilePhoto#96151fed as nil")
+	}
 	return nil
 }
 
@@ -519,6 +617,14 @@ func (p *PrivacyKeyProfilePhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyKeyProfilePhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyKeyProfilePhoto#96151fed: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PrivacyKeyProfilePhoto) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyKeyProfilePhoto#96151fed to nil")
+	}
 	return nil
 }
 
@@ -527,8 +633,10 @@ func (p PrivacyKeyProfilePhoto) construct() PrivacyKeyClass { return &p }
 
 // Ensuring interfaces in compile-time for PrivacyKeyProfilePhoto.
 var (
-	_ bin.Encoder = &PrivacyKeyProfilePhoto{}
-	_ bin.Decoder = &PrivacyKeyProfilePhoto{}
+	_ bin.Encoder     = &PrivacyKeyProfilePhoto{}
+	_ bin.Decoder     = &PrivacyKeyProfilePhoto{}
+	_ bin.BareEncoder = &PrivacyKeyProfilePhoto{}
+	_ bin.BareDecoder = &PrivacyKeyProfilePhoto{}
 
 	_ PrivacyKeyClass = &PrivacyKeyProfilePhoto{}
 )
@@ -592,6 +700,14 @@ func (p *PrivacyKeyPhoneNumber) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode privacyKeyPhoneNumber#d19ae46d as nil")
 	}
 	b.PutID(PrivacyKeyPhoneNumberTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PrivacyKeyPhoneNumber) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyKeyPhoneNumber#d19ae46d as nil")
+	}
 	return nil
 }
 
@@ -603,6 +719,14 @@ func (p *PrivacyKeyPhoneNumber) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyKeyPhoneNumberTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyKeyPhoneNumber#d19ae46d: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PrivacyKeyPhoneNumber) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyKeyPhoneNumber#d19ae46d to nil")
+	}
 	return nil
 }
 
@@ -611,8 +735,10 @@ func (p PrivacyKeyPhoneNumber) construct() PrivacyKeyClass { return &p }
 
 // Ensuring interfaces in compile-time for PrivacyKeyPhoneNumber.
 var (
-	_ bin.Encoder = &PrivacyKeyPhoneNumber{}
-	_ bin.Decoder = &PrivacyKeyPhoneNumber{}
+	_ bin.Encoder     = &PrivacyKeyPhoneNumber{}
+	_ bin.Decoder     = &PrivacyKeyPhoneNumber{}
+	_ bin.BareEncoder = &PrivacyKeyPhoneNumber{}
+	_ bin.BareDecoder = &PrivacyKeyPhoneNumber{}
 
 	_ PrivacyKeyClass = &PrivacyKeyPhoneNumber{}
 )
@@ -676,6 +802,14 @@ func (p *PrivacyKeyAddedByPhone) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode privacyKeyAddedByPhone#42ffd42b as nil")
 	}
 	b.PutID(PrivacyKeyAddedByPhoneTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PrivacyKeyAddedByPhone) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode privacyKeyAddedByPhone#42ffd42b as nil")
+	}
 	return nil
 }
 
@@ -687,6 +821,14 @@ func (p *PrivacyKeyAddedByPhone) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PrivacyKeyAddedByPhoneTypeID); err != nil {
 		return fmt.Errorf("unable to decode privacyKeyAddedByPhone#42ffd42b: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PrivacyKeyAddedByPhone) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode privacyKeyAddedByPhone#42ffd42b to nil")
+	}
 	return nil
 }
 
@@ -695,8 +837,10 @@ func (p PrivacyKeyAddedByPhone) construct() PrivacyKeyClass { return &p }
 
 // Ensuring interfaces in compile-time for PrivacyKeyAddedByPhone.
 var (
-	_ bin.Encoder = &PrivacyKeyAddedByPhone{}
-	_ bin.Decoder = &PrivacyKeyAddedByPhone{}
+	_ bin.Encoder     = &PrivacyKeyAddedByPhone{}
+	_ bin.Decoder     = &PrivacyKeyAddedByPhone{}
+	_ bin.BareEncoder = &PrivacyKeyAddedByPhone{}
+	_ bin.BareDecoder = &PrivacyKeyAddedByPhone{}
 
 	_ PrivacyKeyClass = &PrivacyKeyAddedByPhone{}
 )
@@ -724,6 +868,8 @@ var (
 type PrivacyKeyClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() PrivacyKeyClass
 
 	// TypeID returns type id in TL schema.

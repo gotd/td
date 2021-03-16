@@ -113,6 +113,14 @@ func (w *AccountWebAuthorizations) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.webAuthorizations#ed56c9fc as nil")
 	}
 	b.PutID(AccountWebAuthorizationsTypeID)
+	return w.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (w *AccountWebAuthorizations) EncodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode account.webAuthorizations#ed56c9fc as nil")
+	}
 	b.PutVectorHeader(len(w.Authorizations))
 	for idx, v := range w.Authorizations {
 		if err := v.Encode(b); err != nil {
@@ -154,6 +162,14 @@ func (w *AccountWebAuthorizations) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountWebAuthorizationsTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.webAuthorizations#ed56c9fc: %w", err)
 	}
+	return w.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (w *AccountWebAuthorizations) DecodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode account.webAuthorizations#ed56c9fc to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -185,6 +201,8 @@ func (w *AccountWebAuthorizations) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountWebAuthorizations.
 var (
-	_ bin.Encoder = &AccountWebAuthorizations{}
-	_ bin.Decoder = &AccountWebAuthorizations{}
+	_ bin.Encoder     = &AccountWebAuthorizations{}
+	_ bin.Decoder     = &AccountWebAuthorizations{}
+	_ bin.BareEncoder = &AccountWebAuthorizations{}
+	_ bin.BareDecoder = &AccountWebAuthorizations{}
 )

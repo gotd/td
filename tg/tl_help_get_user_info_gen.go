@@ -102,6 +102,14 @@ func (g *HelpGetUserInfoRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.getUserInfo#38a08d3 as nil")
 	}
 	b.PutID(HelpGetUserInfoRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *HelpGetUserInfoRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode help.getUserInfo#38a08d3 as nil")
+	}
 	if g.UserID == nil {
 		return fmt.Errorf("unable to encode help.getUserInfo#38a08d3: field user_id is nil")
 	}
@@ -124,6 +132,14 @@ func (g *HelpGetUserInfoRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetUserInfoRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getUserInfo#38a08d3: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *HelpGetUserInfoRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode help.getUserInfo#38a08d3 to nil")
+	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
@@ -136,8 +152,10 @@ func (g *HelpGetUserInfoRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for HelpGetUserInfoRequest.
 var (
-	_ bin.Encoder = &HelpGetUserInfoRequest{}
-	_ bin.Decoder = &HelpGetUserInfoRequest{}
+	_ bin.Encoder     = &HelpGetUserInfoRequest{}
+	_ bin.Decoder     = &HelpGetUserInfoRequest{}
+	_ bin.BareEncoder = &HelpGetUserInfoRequest{}
+	_ bin.BareDecoder = &HelpGetUserInfoRequest{}
 )
 
 // HelpGetUserInfo invokes method help.getUserInfo#38a08d3 returning error if any.

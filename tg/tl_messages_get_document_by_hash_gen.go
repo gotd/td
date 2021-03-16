@@ -124,6 +124,14 @@ func (g *MessagesGetDocumentByHashRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getDocumentByHash#338e2464 as nil")
 	}
 	b.PutID(MessagesGetDocumentByHashRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetDocumentByHashRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getDocumentByHash#338e2464 as nil")
+	}
 	b.PutBytes(g.SHA256)
 	b.PutInt(g.Size)
 	b.PutString(g.MimeType)
@@ -153,6 +161,14 @@ func (g *MessagesGetDocumentByHashRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetDocumentByHashRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getDocumentByHash#338e2464: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetDocumentByHashRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getDocumentByHash#338e2464 to nil")
+	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
@@ -179,8 +195,10 @@ func (g *MessagesGetDocumentByHashRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetDocumentByHashRequest.
 var (
-	_ bin.Encoder = &MessagesGetDocumentByHashRequest{}
-	_ bin.Decoder = &MessagesGetDocumentByHashRequest{}
+	_ bin.Encoder     = &MessagesGetDocumentByHashRequest{}
+	_ bin.Decoder     = &MessagesGetDocumentByHashRequest{}
+	_ bin.BareEncoder = &MessagesGetDocumentByHashRequest{}
+	_ bin.BareDecoder = &MessagesGetDocumentByHashRequest{}
 )
 
 // MessagesGetDocumentByHash invokes method messages.getDocumentByHash#338e2464 returning error if any.

@@ -101,6 +101,14 @@ func (r *ResponseID) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode responseID#85d7fd8b as nil")
 	}
 	b.PutID(ResponseIDTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *ResponseID) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode responseID#85d7fd8b as nil")
+	}
 	b.PutInt32(r.ID)
 	return nil
 }
@@ -118,6 +126,14 @@ func (r *ResponseID) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ResponseIDTypeID); err != nil {
 		return fmt.Errorf("unable to decode responseID#85d7fd8b: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *ResponseID) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode responseID#85d7fd8b to nil")
+	}
 	{
 		value, err := b.Int32()
 		if err != nil {
@@ -133,8 +149,10 @@ func (r ResponseID) construct() ResponseClass { return &r }
 
 // Ensuring interfaces in compile-time for ResponseID.
 var (
-	_ bin.Encoder = &ResponseID{}
-	_ bin.Decoder = &ResponseID{}
+	_ bin.Encoder     = &ResponseID{}
+	_ bin.Decoder     = &ResponseID{}
+	_ bin.BareEncoder = &ResponseID{}
+	_ bin.BareDecoder = &ResponseID{}
 
 	_ ResponseClass = &ResponseID{}
 )
@@ -214,6 +232,14 @@ func (r *ResponseText) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode responseText#cb0244f2 as nil")
 	}
 	b.PutID(ResponseTextTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *ResponseText) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode responseText#cb0244f2 as nil")
+	}
 	b.PutString(r.Text)
 	return nil
 }
@@ -231,6 +257,14 @@ func (r *ResponseText) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ResponseTextTypeID); err != nil {
 		return fmt.Errorf("unable to decode responseText#cb0244f2: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *ResponseText) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode responseText#cb0244f2 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -246,8 +280,10 @@ func (r ResponseText) construct() ResponseClass { return &r }
 
 // Ensuring interfaces in compile-time for ResponseText.
 var (
-	_ bin.Encoder = &ResponseText{}
-	_ bin.Decoder = &ResponseText{}
+	_ bin.Encoder     = &ResponseText{}
+	_ bin.Decoder     = &ResponseText{}
+	_ bin.BareEncoder = &ResponseText{}
+	_ bin.BareDecoder = &ResponseText{}
 
 	_ ResponseClass = &ResponseText{}
 )
@@ -269,6 +305,8 @@ var (
 type ResponseClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() ResponseClass
 
 	// TypeID returns type id in TL schema.

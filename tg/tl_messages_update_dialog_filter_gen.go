@@ -136,6 +136,14 @@ func (u *MessagesUpdateDialogFilterRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.updateDialogFilter#1ad4a04a as nil")
 	}
 	b.PutID(MessagesUpdateDialogFilterRequestTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *MessagesUpdateDialogFilterRequest) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode messages.updateDialogFilter#1ad4a04a as nil")
+	}
 	if !(u.Filter.Zero()) {
 		u.Flags.Set(0)
 	}
@@ -179,6 +187,14 @@ func (u *MessagesUpdateDialogFilterRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesUpdateDialogFilterRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.updateDialogFilter#1ad4a04a: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *MessagesUpdateDialogFilterRequest) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode messages.updateDialogFilter#1ad4a04a to nil")
+	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.updateDialogFilter#1ad4a04a: field flags: %w", err)
@@ -201,8 +217,10 @@ func (u *MessagesUpdateDialogFilterRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesUpdateDialogFilterRequest.
 var (
-	_ bin.Encoder = &MessagesUpdateDialogFilterRequest{}
-	_ bin.Decoder = &MessagesUpdateDialogFilterRequest{}
+	_ bin.Encoder     = &MessagesUpdateDialogFilterRequest{}
+	_ bin.Decoder     = &MessagesUpdateDialogFilterRequest{}
+	_ bin.BareEncoder = &MessagesUpdateDialogFilterRequest{}
+	_ bin.BareDecoder = &MessagesUpdateDialogFilterRequest{}
 )
 
 // MessagesUpdateDialogFilter invokes method messages.updateDialogFilter#1ad4a04a returning error if any.

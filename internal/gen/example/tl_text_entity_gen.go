@@ -123,6 +123,14 @@ func (t *TextEntity) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textEntity#8bab99a8 as nil")
 	}
 	b.PutID(TextEntityTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextEntity) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEntity#8bab99a8 as nil")
+	}
 	b.PutInt32(t.Offset)
 	b.PutInt32(t.Length)
 	if t.Type == nil {
@@ -157,6 +165,14 @@ func (t *TextEntity) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEntityTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEntity#8bab99a8: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextEntity) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEntity#8bab99a8 to nil")
+	}
 	{
 		value, err := b.Int32()
 		if err != nil {
@@ -183,6 +199,8 @@ func (t *TextEntity) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for TextEntity.
 var (
-	_ bin.Encoder = &TextEntity{}
-	_ bin.Decoder = &TextEntity{}
+	_ bin.Encoder     = &TextEntity{}
+	_ bin.Decoder     = &TextEntity{}
+	_ bin.BareEncoder = &TextEntity{}
+	_ bin.BareDecoder = &TextEntity{}
 )

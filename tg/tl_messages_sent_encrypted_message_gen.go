@@ -102,6 +102,14 @@ func (s *MessagesSentEncryptedMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.sentEncryptedMessage#560f8935 as nil")
 	}
 	b.PutID(MessagesSentEncryptedMessageTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesSentEncryptedMessage) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.sentEncryptedMessage#560f8935 as nil")
+	}
 	b.PutInt(s.Date)
 	return nil
 }
@@ -119,6 +127,14 @@ func (s *MessagesSentEncryptedMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSentEncryptedMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.sentEncryptedMessage#560f8935: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSentEncryptedMessage) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.sentEncryptedMessage#560f8935 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -134,8 +150,10 @@ func (s MessagesSentEncryptedMessage) construct() MessagesSentEncryptedMessageCl
 
 // Ensuring interfaces in compile-time for MessagesSentEncryptedMessage.
 var (
-	_ bin.Encoder = &MessagesSentEncryptedMessage{}
-	_ bin.Decoder = &MessagesSentEncryptedMessage{}
+	_ bin.Encoder     = &MessagesSentEncryptedMessage{}
+	_ bin.Decoder     = &MessagesSentEncryptedMessage{}
+	_ bin.BareEncoder = &MessagesSentEncryptedMessage{}
+	_ bin.BareDecoder = &MessagesSentEncryptedMessage{}
 
 	_ MessagesSentEncryptedMessageClass = &MessagesSentEncryptedMessage{}
 )
@@ -227,6 +245,14 @@ func (s *MessagesSentEncryptedFile) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.sentEncryptedFile#9493ff32 as nil")
 	}
 	b.PutID(MessagesSentEncryptedFileTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesSentEncryptedFile) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.sentEncryptedFile#9493ff32 as nil")
+	}
 	b.PutInt(s.Date)
 	if s.File == nil {
 		return fmt.Errorf("unable to encode messages.sentEncryptedFile#9493ff32: field file is nil")
@@ -255,6 +281,14 @@ func (s *MessagesSentEncryptedFile) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSentEncryptedFileTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.sentEncryptedFile#9493ff32: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSentEncryptedFile) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.sentEncryptedFile#9493ff32 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -277,8 +311,10 @@ func (s MessagesSentEncryptedFile) construct() MessagesSentEncryptedMessageClass
 
 // Ensuring interfaces in compile-time for MessagesSentEncryptedFile.
 var (
-	_ bin.Encoder = &MessagesSentEncryptedFile{}
-	_ bin.Decoder = &MessagesSentEncryptedFile{}
+	_ bin.Encoder     = &MessagesSentEncryptedFile{}
+	_ bin.Decoder     = &MessagesSentEncryptedFile{}
+	_ bin.BareEncoder = &MessagesSentEncryptedFile{}
+	_ bin.BareDecoder = &MessagesSentEncryptedFile{}
 
 	_ MessagesSentEncryptedMessageClass = &MessagesSentEncryptedFile{}
 )
@@ -300,6 +336,8 @@ var (
 type MessagesSentEncryptedMessageClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() MessagesSentEncryptedMessageClass
 
 	// TypeID returns type id in TL schema.

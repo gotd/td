@@ -99,6 +99,14 @@ func (g *GzipPacked) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode gzip_packed#3072cfa1 as nil")
 	}
 	b.PutID(GzipPackedTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *GzipPacked) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode gzip_packed#3072cfa1 as nil")
+	}
 	b.PutBytes(g.PackedData)
 	return nil
 }
@@ -116,6 +124,14 @@ func (g *GzipPacked) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(GzipPackedTypeID); err != nil {
 		return fmt.Errorf("unable to decode gzip_packed#3072cfa1: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *GzipPacked) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode gzip_packed#3072cfa1 to nil")
+	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
@@ -128,6 +144,8 @@ func (g *GzipPacked) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for GzipPacked.
 var (
-	_ bin.Encoder = &GzipPacked{}
-	_ bin.Decoder = &GzipPacked{}
+	_ bin.Encoder     = &GzipPacked{}
+	_ bin.Decoder     = &GzipPacked{}
+	_ bin.BareEncoder = &GzipPacked{}
+	_ bin.BareDecoder = &GzipPacked{}
 )

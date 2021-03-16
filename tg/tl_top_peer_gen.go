@@ -116,6 +116,14 @@ func (t *TopPeer) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode topPeer#edcdc05b as nil")
 	}
 	b.PutID(TopPeerTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TopPeer) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode topPeer#edcdc05b as nil")
+	}
 	if t.Peer == nil {
 		return fmt.Errorf("unable to encode topPeer#edcdc05b: field peer is nil")
 	}
@@ -144,6 +152,14 @@ func (t *TopPeer) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TopPeerTypeID); err != nil {
 		return fmt.Errorf("unable to decode topPeer#edcdc05b: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TopPeer) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode topPeer#edcdc05b to nil")
+	}
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
@@ -163,6 +179,8 @@ func (t *TopPeer) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for TopPeer.
 var (
-	_ bin.Encoder = &TopPeer{}
-	_ bin.Decoder = &TopPeer{}
+	_ bin.Encoder     = &TopPeer{}
+	_ bin.Decoder     = &TopPeer{}
+	_ bin.BareEncoder = &TopPeer{}
+	_ bin.BareDecoder = &TopPeer{}
 )

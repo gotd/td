@@ -158,6 +158,14 @@ func (r *PhoneRequestCallRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.requestCall#42ff96ed as nil")
 	}
 	b.PutID(PhoneRequestCallRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *PhoneRequestCallRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode phone.requestCall#42ff96ed as nil")
+	}
 	if !(r.Video == false) {
 		r.Flags.Set(0)
 	}
@@ -222,6 +230,14 @@ func (r *PhoneRequestCallRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneRequestCallRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.requestCall#42ff96ed: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *PhoneRequestCallRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode phone.requestCall#42ff96ed to nil")
+	}
 	{
 		if err := r.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phone.requestCall#42ff96ed: field flags: %w", err)
@@ -259,8 +275,10 @@ func (r *PhoneRequestCallRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhoneRequestCallRequest.
 var (
-	_ bin.Encoder = &PhoneRequestCallRequest{}
-	_ bin.Decoder = &PhoneRequestCallRequest{}
+	_ bin.Encoder     = &PhoneRequestCallRequest{}
+	_ bin.Decoder     = &PhoneRequestCallRequest{}
+	_ bin.BareEncoder = &PhoneRequestCallRequest{}
+	_ bin.BareDecoder = &PhoneRequestCallRequest{}
 )
 
 // PhoneRequestCall invokes method phone.requestCall#42ff96ed returning error if any.

@@ -133,6 +133,14 @@ func (l *StatsLoadAsyncGraphRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode stats.loadAsyncGraph#621d5fa0 as nil")
 	}
 	b.PutID(StatsLoadAsyncGraphRequestTypeID)
+	return l.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (l *StatsLoadAsyncGraphRequest) EncodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't encode stats.loadAsyncGraph#621d5fa0 as nil")
+	}
 	if !(l.X == 0) {
 		l.Flags.Set(0)
 	}
@@ -174,6 +182,14 @@ func (l *StatsLoadAsyncGraphRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsLoadAsyncGraphRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode stats.loadAsyncGraph#621d5fa0: %w", err)
 	}
+	return l.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (l *StatsLoadAsyncGraphRequest) DecodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't decode stats.loadAsyncGraph#621d5fa0 to nil")
+	}
 	{
 		if err := l.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode stats.loadAsyncGraph#621d5fa0: field flags: %w", err)
@@ -198,8 +214,10 @@ func (l *StatsLoadAsyncGraphRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for StatsLoadAsyncGraphRequest.
 var (
-	_ bin.Encoder = &StatsLoadAsyncGraphRequest{}
-	_ bin.Decoder = &StatsLoadAsyncGraphRequest{}
+	_ bin.Encoder     = &StatsLoadAsyncGraphRequest{}
+	_ bin.Decoder     = &StatsLoadAsyncGraphRequest{}
+	_ bin.BareEncoder = &StatsLoadAsyncGraphRequest{}
+	_ bin.BareDecoder = &StatsLoadAsyncGraphRequest{}
 )
 
 // StatsLoadAsyncGraph invokes method stats.loadAsyncGraph#621d5fa0 returning error if any.

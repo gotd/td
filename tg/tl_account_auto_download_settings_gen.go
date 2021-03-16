@@ -124,6 +124,14 @@ func (a *AccountAutoDownloadSettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.autoDownloadSettings#63cacf26 as nil")
 	}
 	b.PutID(AccountAutoDownloadSettingsTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *AccountAutoDownloadSettings) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode account.autoDownloadSettings#63cacf26 as nil")
+	}
 	if err := a.Low.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.autoDownloadSettings#63cacf26: field low: %w", err)
 	}
@@ -159,6 +167,14 @@ func (a *AccountAutoDownloadSettings) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountAutoDownloadSettingsTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.autoDownloadSettings#63cacf26: %w", err)
 	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *AccountAutoDownloadSettings) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode account.autoDownloadSettings#63cacf26 to nil")
+	}
 	{
 		if err := a.Low.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.autoDownloadSettings#63cacf26: field low: %w", err)
@@ -179,6 +195,8 @@ func (a *AccountAutoDownloadSettings) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountAutoDownloadSettings.
 var (
-	_ bin.Encoder = &AccountAutoDownloadSettings{}
-	_ bin.Decoder = &AccountAutoDownloadSettings{}
+	_ bin.Encoder     = &AccountAutoDownloadSettings{}
+	_ bin.Decoder     = &AccountAutoDownloadSettings{}
+	_ bin.BareEncoder = &AccountAutoDownloadSettings{}
+	_ bin.BareDecoder = &AccountAutoDownloadSettings{}
 )

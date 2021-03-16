@@ -102,6 +102,14 @@ func (s *StatsURL) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode statsURL#47a971e0 as nil")
 	}
 	b.PutID(StatsURLTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StatsURL) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode statsURL#47a971e0 as nil")
+	}
 	b.PutString(s.URL)
 	return nil
 }
@@ -119,6 +127,14 @@ func (s *StatsURL) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsURLTypeID); err != nil {
 		return fmt.Errorf("unable to decode statsURL#47a971e0: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StatsURL) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode statsURL#47a971e0 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -131,6 +147,8 @@ func (s *StatsURL) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for StatsURL.
 var (
-	_ bin.Encoder = &StatsURL{}
-	_ bin.Decoder = &StatsURL{}
+	_ bin.Encoder     = &StatsURL{}
+	_ bin.Decoder     = &StatsURL{}
+	_ bin.BareEncoder = &StatsURL{}
+	_ bin.BareDecoder = &StatsURL{}
 )

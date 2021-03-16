@@ -116,6 +116,14 @@ func (c *AuthCancelCodeRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.cancelCode#1f040578 as nil")
 	}
 	b.PutID(AuthCancelCodeRequestTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *AuthCancelCodeRequest) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode auth.cancelCode#1f040578 as nil")
+	}
 	b.PutString(c.PhoneNumber)
 	b.PutString(c.PhoneCodeHash)
 	return nil
@@ -139,6 +147,14 @@ func (c *AuthCancelCodeRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthCancelCodeRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.cancelCode#1f040578: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *AuthCancelCodeRequest) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode auth.cancelCode#1f040578 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -158,8 +174,10 @@ func (c *AuthCancelCodeRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AuthCancelCodeRequest.
 var (
-	_ bin.Encoder = &AuthCancelCodeRequest{}
-	_ bin.Decoder = &AuthCancelCodeRequest{}
+	_ bin.Encoder     = &AuthCancelCodeRequest{}
+	_ bin.Decoder     = &AuthCancelCodeRequest{}
+	_ bin.BareEncoder = &AuthCancelCodeRequest{}
+	_ bin.BareDecoder = &AuthCancelCodeRequest{}
 )
 
 // AuthCancelCode invokes method auth.cancelCode#1f040578 returning error if any.

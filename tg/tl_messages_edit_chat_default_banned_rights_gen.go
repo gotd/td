@@ -116,6 +116,14 @@ func (e *MessagesEditChatDefaultBannedRightsRequest) Encode(b *bin.Buffer) error
 		return fmt.Errorf("can't encode messages.editChatDefaultBannedRights#a5866b41 as nil")
 	}
 	b.PutID(MessagesEditChatDefaultBannedRightsRequestTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *MessagesEditChatDefaultBannedRightsRequest) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode messages.editChatDefaultBannedRights#a5866b41 as nil")
+	}
 	if e.Peer == nil {
 		return fmt.Errorf("unable to encode messages.editChatDefaultBannedRights#a5866b41: field peer is nil")
 	}
@@ -146,6 +154,14 @@ func (e *MessagesEditChatDefaultBannedRightsRequest) Decode(b *bin.Buffer) error
 	if err := b.ConsumeID(MessagesEditChatDefaultBannedRightsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.editChatDefaultBannedRights#a5866b41: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *MessagesEditChatDefaultBannedRightsRequest) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode messages.editChatDefaultBannedRights#a5866b41 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -163,8 +179,10 @@ func (e *MessagesEditChatDefaultBannedRightsRequest) Decode(b *bin.Buffer) error
 
 // Ensuring interfaces in compile-time for MessagesEditChatDefaultBannedRightsRequest.
 var (
-	_ bin.Encoder = &MessagesEditChatDefaultBannedRightsRequest{}
-	_ bin.Decoder = &MessagesEditChatDefaultBannedRightsRequest{}
+	_ bin.Encoder     = &MessagesEditChatDefaultBannedRightsRequest{}
+	_ bin.Decoder     = &MessagesEditChatDefaultBannedRightsRequest{}
+	_ bin.BareEncoder = &MessagesEditChatDefaultBannedRightsRequest{}
+	_ bin.BareDecoder = &MessagesEditChatDefaultBannedRightsRequest{}
 )
 
 // MessagesEditChatDefaultBannedRights invokes method messages.editChatDefaultBannedRights#a5866b41 returning error if any.

@@ -155,6 +155,14 @@ func (d *PhoneDiscardCallRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.discardCall#b2cbc1c0 as nil")
 	}
 	b.PutID(PhoneDiscardCallRequestTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *PhoneDiscardCallRequest) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode phone.discardCall#b2cbc1c0 as nil")
+	}
 	if !(d.Video == false) {
 		d.Flags.Set(0)
 	}
@@ -219,6 +227,14 @@ func (d *PhoneDiscardCallRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneDiscardCallRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.discardCall#b2cbc1c0: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *PhoneDiscardCallRequest) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode phone.discardCall#b2cbc1c0 to nil")
+	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phone.discardCall#b2cbc1c0: field flags: %w", err)
@@ -256,8 +272,10 @@ func (d *PhoneDiscardCallRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhoneDiscardCallRequest.
 var (
-	_ bin.Encoder = &PhoneDiscardCallRequest{}
-	_ bin.Decoder = &PhoneDiscardCallRequest{}
+	_ bin.Encoder     = &PhoneDiscardCallRequest{}
+	_ bin.Decoder     = &PhoneDiscardCallRequest{}
+	_ bin.BareEncoder = &PhoneDiscardCallRequest{}
+	_ bin.BareDecoder = &PhoneDiscardCallRequest{}
 )
 
 // PhoneDiscardCall invokes method phone.discardCall#b2cbc1c0 returning error if any.

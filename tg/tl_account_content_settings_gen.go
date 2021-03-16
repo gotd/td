@@ -123,6 +123,14 @@ func (c *AccountContentSettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.contentSettings#57e28221 as nil")
 	}
 	b.PutID(AccountContentSettingsTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *AccountContentSettings) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode account.contentSettings#57e28221 as nil")
+	}
 	if !(c.SensitiveEnabled == false) {
 		c.Flags.Set(0)
 	}
@@ -175,6 +183,14 @@ func (c *AccountContentSettings) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountContentSettingsTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.contentSettings#57e28221: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *AccountContentSettings) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode account.contentSettings#57e28221 to nil")
+	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.contentSettings#57e28221: field flags: %w", err)
@@ -187,6 +203,8 @@ func (c *AccountContentSettings) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountContentSettings.
 var (
-	_ bin.Encoder = &AccountContentSettings{}
-	_ bin.Decoder = &AccountContentSettings{}
+	_ bin.Encoder     = &AccountContentSettings{}
+	_ bin.Decoder     = &AccountContentSettings{}
+	_ bin.BareEncoder = &AccountContentSettings{}
+	_ bin.BareDecoder = &AccountContentSettings{}
 )

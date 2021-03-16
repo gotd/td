@@ -102,6 +102,14 @@ func (d *DocumentEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode documentEmpty#36f8c871 as nil")
 	}
 	b.PutID(DocumentEmptyTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DocumentEmpty) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode documentEmpty#36f8c871 as nil")
+	}
 	b.PutLong(d.ID)
 	return nil
 }
@@ -119,6 +127,14 @@ func (d *DocumentEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DocumentEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode documentEmpty#36f8c871: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DocumentEmpty) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode documentEmpty#36f8c871 to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -134,8 +150,10 @@ func (d DocumentEmpty) construct() DocumentClass { return &d }
 
 // Ensuring interfaces in compile-time for DocumentEmpty.
 var (
-	_ bin.Encoder = &DocumentEmpty{}
-	_ bin.Decoder = &DocumentEmpty{}
+	_ bin.Encoder     = &DocumentEmpty{}
+	_ bin.Decoder     = &DocumentEmpty{}
+	_ bin.BareEncoder = &DocumentEmpty{}
+	_ bin.BareDecoder = &DocumentEmpty{}
 
 	_ DocumentClass = &DocumentEmpty{}
 )
@@ -338,6 +356,14 @@ func (d *Document) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode document#1e87342b as nil")
 	}
 	b.PutID(DocumentTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *Document) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode document#1e87342b as nil")
+	}
 	if !(d.Thumbs == nil) {
 		d.Flags.Set(0)
 	}
@@ -476,6 +502,14 @@ func (d *Document) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DocumentTypeID); err != nil {
 		return fmt.Errorf("unable to decode document#1e87342b: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *Document) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode document#1e87342b to nil")
+	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode document#1e87342b: field flags: %w", err)
@@ -577,8 +611,10 @@ func (d Document) construct() DocumentClass { return &d }
 
 // Ensuring interfaces in compile-time for Document.
 var (
-	_ bin.Encoder = &Document{}
-	_ bin.Decoder = &Document{}
+	_ bin.Encoder     = &Document{}
+	_ bin.Decoder     = &Document{}
+	_ bin.BareEncoder = &Document{}
+	_ bin.BareDecoder = &Document{}
 
 	_ DocumentClass = &Document{}
 )
@@ -600,6 +636,8 @@ var (
 type DocumentClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() DocumentClass
 
 	// TypeID returns type id in TL schema.

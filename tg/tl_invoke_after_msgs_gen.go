@@ -113,6 +113,14 @@ func (i *InvokeAfterMsgsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode invokeAfterMsgs#3dc4b4f0 as nil")
 	}
 	b.PutID(InvokeAfterMsgsRequestTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InvokeAfterMsgsRequest) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode invokeAfterMsgs#3dc4b4f0 as nil")
+	}
 	b.PutVectorHeader(len(i.MsgIDs))
 	for _, v := range i.MsgIDs {
 		b.PutLong(v)
@@ -141,6 +149,14 @@ func (i *InvokeAfterMsgsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InvokeAfterMsgsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode invokeAfterMsgs#3dc4b4f0: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InvokeAfterMsgsRequest) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode invokeAfterMsgs#3dc4b4f0 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -164,6 +180,8 @@ func (i *InvokeAfterMsgsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for InvokeAfterMsgsRequest.
 var (
-	_ bin.Encoder = &InvokeAfterMsgsRequest{}
-	_ bin.Decoder = &InvokeAfterMsgsRequest{}
+	_ bin.Encoder     = &InvokeAfterMsgsRequest{}
+	_ bin.Decoder     = &InvokeAfterMsgsRequest{}
+	_ bin.BareEncoder = &InvokeAfterMsgsRequest{}
+	_ bin.BareDecoder = &InvokeAfterMsgsRequest{}
 )

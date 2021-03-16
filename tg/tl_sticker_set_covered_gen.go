@@ -113,6 +113,14 @@ func (s *StickerSetCovered) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode stickerSetCovered#6410a5d2 as nil")
 	}
 	b.PutID(StickerSetCoveredTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StickerSetCovered) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode stickerSetCovered#6410a5d2 as nil")
+	}
 	if err := s.Set.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode stickerSetCovered#6410a5d2: field set: %w", err)
 	}
@@ -143,6 +151,14 @@ func (s *StickerSetCovered) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StickerSetCoveredTypeID); err != nil {
 		return fmt.Errorf("unable to decode stickerSetCovered#6410a5d2: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StickerSetCovered) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode stickerSetCovered#6410a5d2 to nil")
+	}
 	{
 		if err := s.Set.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode stickerSetCovered#6410a5d2: field set: %w", err)
@@ -163,8 +179,10 @@ func (s StickerSetCovered) construct() StickerSetCoveredClass { return &s }
 
 // Ensuring interfaces in compile-time for StickerSetCovered.
 var (
-	_ bin.Encoder = &StickerSetCovered{}
-	_ bin.Decoder = &StickerSetCovered{}
+	_ bin.Encoder     = &StickerSetCovered{}
+	_ bin.Decoder     = &StickerSetCovered{}
+	_ bin.BareEncoder = &StickerSetCovered{}
+	_ bin.BareDecoder = &StickerSetCovered{}
 
 	_ StickerSetCoveredClass = &StickerSetCovered{}
 )
@@ -256,6 +274,14 @@ func (s *StickerSetMultiCovered) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode stickerSetMultiCovered#3407e51b as nil")
 	}
 	b.PutID(StickerSetMultiCoveredTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StickerSetMultiCovered) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode stickerSetMultiCovered#3407e51b as nil")
+	}
 	if err := s.Set.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode stickerSetMultiCovered#3407e51b: field set: %w", err)
 	}
@@ -294,6 +320,14 @@ func (s *StickerSetMultiCovered) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StickerSetMultiCoveredTypeID); err != nil {
 		return fmt.Errorf("unable to decode stickerSetMultiCovered#3407e51b: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StickerSetMultiCovered) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode stickerSetMultiCovered#3407e51b to nil")
+	}
 	{
 		if err := s.Set.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode stickerSetMultiCovered#3407e51b: field set: %w", err)
@@ -320,8 +354,10 @@ func (s StickerSetMultiCovered) construct() StickerSetCoveredClass { return &s }
 
 // Ensuring interfaces in compile-time for StickerSetMultiCovered.
 var (
-	_ bin.Encoder = &StickerSetMultiCovered{}
-	_ bin.Decoder = &StickerSetMultiCovered{}
+	_ bin.Encoder     = &StickerSetMultiCovered{}
+	_ bin.Decoder     = &StickerSetMultiCovered{}
+	_ bin.BareEncoder = &StickerSetMultiCovered{}
+	_ bin.BareDecoder = &StickerSetMultiCovered{}
 
 	_ StickerSetCoveredClass = &StickerSetMultiCovered{}
 )
@@ -343,6 +379,8 @@ var (
 type StickerSetCoveredClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() StickerSetCoveredClass
 
 	// TypeID returns type id in TL schema.

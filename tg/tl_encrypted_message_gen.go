@@ -149,6 +149,14 @@ func (e *EncryptedMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode encryptedMessage#ed18c118 as nil")
 	}
 	b.PutID(EncryptedMessageTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *EncryptedMessage) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode encryptedMessage#ed18c118 as nil")
+	}
 	b.PutLong(e.RandomID)
 	b.PutInt(e.ChatID)
 	b.PutInt(e.Date)
@@ -195,6 +203,14 @@ func (e *EncryptedMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(EncryptedMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode encryptedMessage#ed18c118: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *EncryptedMessage) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode encryptedMessage#ed18c118 to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -238,8 +254,10 @@ func (e EncryptedMessage) construct() EncryptedMessageClass { return &e }
 
 // Ensuring interfaces in compile-time for EncryptedMessage.
 var (
-	_ bin.Encoder = &EncryptedMessage{}
-	_ bin.Decoder = &EncryptedMessage{}
+	_ bin.Encoder     = &EncryptedMessage{}
+	_ bin.Decoder     = &EncryptedMessage{}
+	_ bin.BareEncoder = &EncryptedMessage{}
+	_ bin.BareDecoder = &EncryptedMessage{}
 
 	_ EncryptedMessageClass = &EncryptedMessage{}
 )
@@ -356,6 +374,14 @@ func (e *EncryptedMessageService) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode encryptedMessageService#23734b06 as nil")
 	}
 	b.PutID(EncryptedMessageServiceTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *EncryptedMessageService) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode encryptedMessageService#23734b06 as nil")
+	}
 	b.PutLong(e.RandomID)
 	b.PutInt(e.ChatID)
 	b.PutInt(e.Date)
@@ -390,6 +416,14 @@ func (e *EncryptedMessageService) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(EncryptedMessageServiceTypeID); err != nil {
 		return fmt.Errorf("unable to decode encryptedMessageService#23734b06: %w", err)
+	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *EncryptedMessageService) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode encryptedMessageService#23734b06 to nil")
 	}
 	{
 		value, err := b.Long()
@@ -427,8 +461,10 @@ func (e EncryptedMessageService) construct() EncryptedMessageClass { return &e }
 
 // Ensuring interfaces in compile-time for EncryptedMessageService.
 var (
-	_ bin.Encoder = &EncryptedMessageService{}
-	_ bin.Decoder = &EncryptedMessageService{}
+	_ bin.Encoder     = &EncryptedMessageService{}
+	_ bin.Decoder     = &EncryptedMessageService{}
+	_ bin.BareEncoder = &EncryptedMessageService{}
+	_ bin.BareDecoder = &EncryptedMessageService{}
 
 	_ EncryptedMessageClass = &EncryptedMessageService{}
 )
@@ -450,6 +486,8 @@ var (
 type EncryptedMessageClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() EncryptedMessageClass
 
 	// TypeID returns type id in TL schema.

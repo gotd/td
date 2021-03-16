@@ -116,6 +116,14 @@ func (s *AccountSentEmailCode) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.sentEmailCode#811f854f as nil")
 	}
 	b.PutID(AccountSentEmailCodeTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *AccountSentEmailCode) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode account.sentEmailCode#811f854f as nil")
+	}
 	b.PutString(s.EmailPattern)
 	b.PutInt(s.Length)
 	return nil
@@ -139,6 +147,14 @@ func (s *AccountSentEmailCode) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountSentEmailCodeTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.sentEmailCode#811f854f: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *AccountSentEmailCode) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode account.sentEmailCode#811f854f to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -158,6 +174,8 @@ func (s *AccountSentEmailCode) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountSentEmailCode.
 var (
-	_ bin.Encoder = &AccountSentEmailCode{}
-	_ bin.Decoder = &AccountSentEmailCode{}
+	_ bin.Encoder     = &AccountSentEmailCode{}
+	_ bin.Decoder     = &AccountSentEmailCode{}
+	_ bin.BareEncoder = &AccountSentEmailCode{}
+	_ bin.BareDecoder = &AccountSentEmailCode{}
 )

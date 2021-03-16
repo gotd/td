@@ -146,6 +146,14 @@ func (c *CodeSettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode codeSettings#debebe83 as nil")
 	}
 	b.PutID(CodeSettingsTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *CodeSettings) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode codeSettings#debebe83 as nil")
+	}
 	if !(c.AllowFlashcall == false) {
 		c.Flags.Set(0)
 	}
@@ -217,6 +225,14 @@ func (c *CodeSettings) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(CodeSettingsTypeID); err != nil {
 		return fmt.Errorf("unable to decode codeSettings#debebe83: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *CodeSettings) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode codeSettings#debebe83 to nil")
+	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode codeSettings#debebe83: field flags: %w", err)
@@ -230,6 +246,8 @@ func (c *CodeSettings) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for CodeSettings.
 var (
-	_ bin.Encoder = &CodeSettings{}
-	_ bin.Decoder = &CodeSettings{}
+	_ bin.Encoder     = &CodeSettings{}
+	_ bin.Decoder     = &CodeSettings{}
+	_ bin.BareEncoder = &CodeSettings{}
+	_ bin.BareDecoder = &CodeSettings{}
 )

@@ -84,6 +84,14 @@ func (d *DecryptedMessageMediaEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageMediaEmpty#89f5c4a as nil")
 	}
 	b.PutID(DecryptedMessageMediaEmptyTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageMediaEmpty) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageMediaEmpty#89f5c4a as nil")
+	}
 	return nil
 }
 
@@ -95,6 +103,14 @@ func (d *DecryptedMessageMediaEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DecryptedMessageMediaEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageMediaEmpty#89f5c4a: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageMediaEmpty) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageMediaEmpty#89f5c4a to nil")
+	}
 	return nil
 }
 
@@ -103,8 +119,10 @@ func (d DecryptedMessageMediaEmpty) construct() DecryptedMessageMediaClass { ret
 
 // Ensuring interfaces in compile-time for DecryptedMessageMediaEmpty.
 var (
-	_ bin.Encoder = &DecryptedMessageMediaEmpty{}
-	_ bin.Decoder = &DecryptedMessageMediaEmpty{}
+	_ bin.Encoder     = &DecryptedMessageMediaEmpty{}
+	_ bin.Decoder     = &DecryptedMessageMediaEmpty{}
+	_ bin.BareEncoder = &DecryptedMessageMediaEmpty{}
+	_ bin.BareDecoder = &DecryptedMessageMediaEmpty{}
 
 	_ DecryptedMessageMediaClass = &DecryptedMessageMediaEmpty{}
 )
@@ -261,6 +279,14 @@ func (d *DecryptedMessageMediaPhoto23) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageMediaPhoto23#32798a8c as nil")
 	}
 	b.PutID(DecryptedMessageMediaPhoto23TypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageMediaPhoto23) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageMediaPhoto23#32798a8c as nil")
+	}
 	b.PutBytes(d.Thumb)
 	b.PutInt(d.ThumbW)
 	b.PutInt(d.ThumbH)
@@ -319,6 +345,14 @@ func (d *DecryptedMessageMediaPhoto23) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(DecryptedMessageMediaPhoto23TypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageMediaPhoto23#32798a8c: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageMediaPhoto23) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageMediaPhoto23#32798a8c to nil")
 	}
 	{
 		value, err := b.Bytes()
@@ -384,8 +418,10 @@ func (d DecryptedMessageMediaPhoto23) construct() DecryptedMessageMediaClass { r
 
 // Ensuring interfaces in compile-time for DecryptedMessageMediaPhoto23.
 var (
-	_ bin.Encoder = &DecryptedMessageMediaPhoto23{}
-	_ bin.Decoder = &DecryptedMessageMediaPhoto23{}
+	_ bin.Encoder     = &DecryptedMessageMediaPhoto23{}
+	_ bin.Decoder     = &DecryptedMessageMediaPhoto23{}
+	_ bin.BareEncoder = &DecryptedMessageMediaPhoto23{}
+	_ bin.BareDecoder = &DecryptedMessageMediaPhoto23{}
 
 	_ DecryptedMessageMediaClass = &DecryptedMessageMediaPhoto23{}
 )
@@ -553,6 +589,14 @@ func (d *DecryptedMessageMediaVideo8) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageMediaVideo8#4cee6ef3 as nil")
 	}
 	b.PutID(DecryptedMessageMediaVideo8TypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageMediaVideo8) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageMediaVideo8#4cee6ef3 as nil")
+	}
 	b.PutBytes(d.Thumb)
 	b.PutInt(d.ThumbW)
 	b.PutInt(d.ThumbH)
@@ -617,6 +661,14 @@ func (d *DecryptedMessageMediaVideo8) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(DecryptedMessageMediaVideo8TypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageMediaVideo8#4cee6ef3: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageMediaVideo8) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageMediaVideo8#4cee6ef3 to nil")
 	}
 	{
 		value, err := b.Bytes()
@@ -689,8 +741,10 @@ func (d DecryptedMessageMediaVideo8) construct() DecryptedMessageMediaClass { re
 
 // Ensuring interfaces in compile-time for DecryptedMessageMediaVideo8.
 var (
-	_ bin.Encoder = &DecryptedMessageMediaVideo8{}
-	_ bin.Decoder = &DecryptedMessageMediaVideo8{}
+	_ bin.Encoder     = &DecryptedMessageMediaVideo8{}
+	_ bin.Decoder     = &DecryptedMessageMediaVideo8{}
+	_ bin.BareEncoder = &DecryptedMessageMediaVideo8{}
+	_ bin.BareDecoder = &DecryptedMessageMediaVideo8{}
 
 	_ DecryptedMessageMediaClass = &DecryptedMessageMediaVideo8{}
 )
@@ -781,6 +835,14 @@ func (d *DecryptedMessageMediaGeoPoint) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageMediaGeoPoint#35480a59 as nil")
 	}
 	b.PutID(DecryptedMessageMediaGeoPointTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageMediaGeoPoint) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageMediaGeoPoint#35480a59 as nil")
+	}
 	b.PutDouble(d.Lat)
 	b.PutDouble(d.Long)
 	return nil
@@ -804,6 +866,14 @@ func (d *DecryptedMessageMediaGeoPoint) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DecryptedMessageMediaGeoPointTypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageMediaGeoPoint#35480a59: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageMediaGeoPoint) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageMediaGeoPoint#35480a59 to nil")
+	}
 	{
 		value, err := b.Double()
 		if err != nil {
@@ -826,8 +896,10 @@ func (d DecryptedMessageMediaGeoPoint) construct() DecryptedMessageMediaClass { 
 
 // Ensuring interfaces in compile-time for DecryptedMessageMediaGeoPoint.
 var (
-	_ bin.Encoder = &DecryptedMessageMediaGeoPoint{}
-	_ bin.Decoder = &DecryptedMessageMediaGeoPoint{}
+	_ bin.Encoder     = &DecryptedMessageMediaGeoPoint{}
+	_ bin.Decoder     = &DecryptedMessageMediaGeoPoint{}
+	_ bin.BareEncoder = &DecryptedMessageMediaGeoPoint{}
+	_ bin.BareDecoder = &DecryptedMessageMediaGeoPoint{}
 
 	_ DecryptedMessageMediaClass = &DecryptedMessageMediaGeoPoint{}
 )
@@ -940,6 +1012,14 @@ func (d *DecryptedMessageMediaContact) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageMediaContact#588a0a97 as nil")
 	}
 	b.PutID(DecryptedMessageMediaContactTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageMediaContact) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageMediaContact#588a0a97 as nil")
+	}
 	b.PutString(d.PhoneNumber)
 	b.PutString(d.FirstName)
 	b.PutString(d.LastName)
@@ -974,6 +1054,14 @@ func (d *DecryptedMessageMediaContact) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(DecryptedMessageMediaContactTypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageMediaContact#588a0a97: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageMediaContact) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageMediaContact#588a0a97 to nil")
 	}
 	{
 		value, err := b.String()
@@ -1011,8 +1099,10 @@ func (d DecryptedMessageMediaContact) construct() DecryptedMessageMediaClass { r
 
 // Ensuring interfaces in compile-time for DecryptedMessageMediaContact.
 var (
-	_ bin.Encoder = &DecryptedMessageMediaContact{}
-	_ bin.Decoder = &DecryptedMessageMediaContact{}
+	_ bin.Encoder     = &DecryptedMessageMediaContact{}
+	_ bin.Decoder     = &DecryptedMessageMediaContact{}
+	_ bin.BareEncoder = &DecryptedMessageMediaContact{}
+	_ bin.BareDecoder = &DecryptedMessageMediaContact{}
 
 	_ DecryptedMessageMediaClass = &DecryptedMessageMediaContact{}
 )
@@ -1169,6 +1259,14 @@ func (d *DecryptedMessageMediaDocument23) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageMediaDocument23#b095434b as nil")
 	}
 	b.PutID(DecryptedMessageMediaDocument23TypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageMediaDocument23) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageMediaDocument23#b095434b as nil")
+	}
 	b.PutBytes(d.Thumb)
 	b.PutInt(d.ThumbW)
 	b.PutInt(d.ThumbH)
@@ -1227,6 +1325,14 @@ func (d *DecryptedMessageMediaDocument23) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(DecryptedMessageMediaDocument23TypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageMediaDocument23#b095434b: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageMediaDocument23) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageMediaDocument23#b095434b to nil")
 	}
 	{
 		value, err := b.Bytes()
@@ -1292,8 +1398,10 @@ func (d DecryptedMessageMediaDocument23) construct() DecryptedMessageMediaClass 
 
 // Ensuring interfaces in compile-time for DecryptedMessageMediaDocument23.
 var (
-	_ bin.Encoder = &DecryptedMessageMediaDocument23{}
-	_ bin.Decoder = &DecryptedMessageMediaDocument23{}
+	_ bin.Encoder     = &DecryptedMessageMediaDocument23{}
+	_ bin.Decoder     = &DecryptedMessageMediaDocument23{}
+	_ bin.BareEncoder = &DecryptedMessageMediaDocument23{}
+	_ bin.BareDecoder = &DecryptedMessageMediaDocument23{}
 
 	_ DecryptedMessageMediaClass = &DecryptedMessageMediaDocument23{}
 )
@@ -1406,6 +1514,14 @@ func (d *DecryptedMessageMediaAudio8) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageMediaAudio8#6080758f as nil")
 	}
 	b.PutID(DecryptedMessageMediaAudio8TypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageMediaAudio8) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageMediaAudio8#6080758f as nil")
+	}
 	b.PutInt(d.Duration)
 	b.PutInt(d.Size)
 	b.PutBytes(d.Key)
@@ -1440,6 +1556,14 @@ func (d *DecryptedMessageMediaAudio8) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(DecryptedMessageMediaAudio8TypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageMediaAudio8#6080758f: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageMediaAudio8) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageMediaAudio8#6080758f to nil")
 	}
 	{
 		value, err := b.Int()
@@ -1477,8 +1601,10 @@ func (d DecryptedMessageMediaAudio8) construct() DecryptedMessageMediaClass { re
 
 // Ensuring interfaces in compile-time for DecryptedMessageMediaAudio8.
 var (
-	_ bin.Encoder = &DecryptedMessageMediaAudio8{}
-	_ bin.Decoder = &DecryptedMessageMediaAudio8{}
+	_ bin.Encoder     = &DecryptedMessageMediaAudio8{}
+	_ bin.Decoder     = &DecryptedMessageMediaAudio8{}
+	_ bin.BareEncoder = &DecryptedMessageMediaAudio8{}
+	_ bin.BareDecoder = &DecryptedMessageMediaAudio8{}
 
 	_ DecryptedMessageMediaClass = &DecryptedMessageMediaAudio8{}
 )
@@ -1657,6 +1783,14 @@ func (d *DecryptedMessageMediaVideo23) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageMediaVideo23#524a415d as nil")
 	}
 	b.PutID(DecryptedMessageMediaVideo23TypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageMediaVideo23) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageMediaVideo23#524a415d as nil")
+	}
 	b.PutBytes(d.Thumb)
 	b.PutInt(d.ThumbW)
 	b.PutInt(d.ThumbH)
@@ -1727,6 +1861,14 @@ func (d *DecryptedMessageMediaVideo23) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(DecryptedMessageMediaVideo23TypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageMediaVideo23#524a415d: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageMediaVideo23) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageMediaVideo23#524a415d to nil")
 	}
 	{
 		value, err := b.Bytes()
@@ -1806,8 +1948,10 @@ func (d DecryptedMessageMediaVideo23) construct() DecryptedMessageMediaClass { r
 
 // Ensuring interfaces in compile-time for DecryptedMessageMediaVideo23.
 var (
-	_ bin.Encoder = &DecryptedMessageMediaVideo23{}
-	_ bin.Decoder = &DecryptedMessageMediaVideo23{}
+	_ bin.Encoder     = &DecryptedMessageMediaVideo23{}
+	_ bin.Decoder     = &DecryptedMessageMediaVideo23{}
+	_ bin.BareEncoder = &DecryptedMessageMediaVideo23{}
+	_ bin.BareDecoder = &DecryptedMessageMediaVideo23{}
 
 	_ DecryptedMessageMediaClass = &DecryptedMessageMediaVideo23{}
 )
@@ -1931,6 +2075,14 @@ func (d *DecryptedMessageMediaAudio) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageMediaAudio#57e0a9cb as nil")
 	}
 	b.PutID(DecryptedMessageMediaAudioTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageMediaAudio) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageMediaAudio#57e0a9cb as nil")
+	}
 	b.PutInt(d.Duration)
 	b.PutString(d.MimeType)
 	b.PutInt(d.Size)
@@ -1971,6 +2123,14 @@ func (d *DecryptedMessageMediaAudio) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(DecryptedMessageMediaAudioTypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageMediaAudio#57e0a9cb: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageMediaAudio) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageMediaAudio#57e0a9cb to nil")
 	}
 	{
 		value, err := b.Int()
@@ -2015,8 +2175,10 @@ func (d DecryptedMessageMediaAudio) construct() DecryptedMessageMediaClass { ret
 
 // Ensuring interfaces in compile-time for DecryptedMessageMediaAudio.
 var (
-	_ bin.Encoder = &DecryptedMessageMediaAudio{}
-	_ bin.Decoder = &DecryptedMessageMediaAudio{}
+	_ bin.Encoder     = &DecryptedMessageMediaAudio{}
+	_ bin.Decoder     = &DecryptedMessageMediaAudio{}
+	_ bin.BareEncoder = &DecryptedMessageMediaAudio{}
+	_ bin.BareDecoder = &DecryptedMessageMediaAudio{}
 
 	_ DecryptedMessageMediaClass = &DecryptedMessageMediaAudio{}
 )
@@ -2173,6 +2335,14 @@ func (d *DecryptedMessageMediaExternalDocument) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageMediaExternalDocument#fa95b0dd as nil")
 	}
 	b.PutID(DecryptedMessageMediaExternalDocumentTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageMediaExternalDocument) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageMediaExternalDocument#fa95b0dd as nil")
+	}
 	b.PutLong(d.ID)
 	b.PutLong(d.AccessHash)
 	b.PutInt(d.Date)
@@ -2250,6 +2420,14 @@ func (d *DecryptedMessageMediaExternalDocument) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DecryptedMessageMediaExternalDocumentTypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageMediaExternalDocument#fa95b0dd: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageMediaExternalDocument) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageMediaExternalDocument#fa95b0dd to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -2320,8 +2498,10 @@ func (d DecryptedMessageMediaExternalDocument) construct() DecryptedMessageMedia
 
 // Ensuring interfaces in compile-time for DecryptedMessageMediaExternalDocument.
 var (
-	_ bin.Encoder = &DecryptedMessageMediaExternalDocument{}
-	_ bin.Decoder = &DecryptedMessageMediaExternalDocument{}
+	_ bin.Encoder     = &DecryptedMessageMediaExternalDocument{}
+	_ bin.Decoder     = &DecryptedMessageMediaExternalDocument{}
+	_ bin.BareEncoder = &DecryptedMessageMediaExternalDocument{}
+	_ bin.BareDecoder = &DecryptedMessageMediaExternalDocument{}
 
 	_ DecryptedMessageMediaClass = &DecryptedMessageMediaExternalDocument{}
 )
@@ -2489,6 +2669,14 @@ func (d *DecryptedMessageMediaPhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageMediaPhoto#f1fa8d78 as nil")
 	}
 	b.PutID(DecryptedMessageMediaPhotoTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageMediaPhoto) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageMediaPhoto#f1fa8d78 as nil")
+	}
 	b.PutBytes(d.Thumb)
 	b.PutInt(d.ThumbW)
 	b.PutInt(d.ThumbH)
@@ -2553,6 +2741,14 @@ func (d *DecryptedMessageMediaPhoto) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(DecryptedMessageMediaPhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageMediaPhoto#f1fa8d78: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageMediaPhoto) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageMediaPhoto#f1fa8d78 to nil")
 	}
 	{
 		value, err := b.Bytes()
@@ -2625,8 +2821,10 @@ func (d DecryptedMessageMediaPhoto) construct() DecryptedMessageMediaClass { ret
 
 // Ensuring interfaces in compile-time for DecryptedMessageMediaPhoto.
 var (
-	_ bin.Encoder = &DecryptedMessageMediaPhoto{}
-	_ bin.Decoder = &DecryptedMessageMediaPhoto{}
+	_ bin.Encoder     = &DecryptedMessageMediaPhoto{}
+	_ bin.Decoder     = &DecryptedMessageMediaPhoto{}
+	_ bin.BareEncoder = &DecryptedMessageMediaPhoto{}
+	_ bin.BareDecoder = &DecryptedMessageMediaPhoto{}
 
 	_ DecryptedMessageMediaClass = &DecryptedMessageMediaPhoto{}
 )
@@ -2816,6 +3014,14 @@ func (d *DecryptedMessageMediaVideo) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageMediaVideo#970c8c0e as nil")
 	}
 	b.PutID(DecryptedMessageMediaVideoTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageMediaVideo) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageMediaVideo#970c8c0e as nil")
+	}
 	b.PutBytes(d.Thumb)
 	b.PutInt(d.ThumbW)
 	b.PutInt(d.ThumbH)
@@ -2892,6 +3098,14 @@ func (d *DecryptedMessageMediaVideo) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(DecryptedMessageMediaVideoTypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageMediaVideo#970c8c0e: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageMediaVideo) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageMediaVideo#970c8c0e to nil")
 	}
 	{
 		value, err := b.Bytes()
@@ -2978,8 +3192,10 @@ func (d DecryptedMessageMediaVideo) construct() DecryptedMessageMediaClass { ret
 
 // Ensuring interfaces in compile-time for DecryptedMessageMediaVideo.
 var (
-	_ bin.Encoder = &DecryptedMessageMediaVideo{}
-	_ bin.Decoder = &DecryptedMessageMediaVideo{}
+	_ bin.Encoder     = &DecryptedMessageMediaVideo{}
+	_ bin.Decoder     = &DecryptedMessageMediaVideo{}
+	_ bin.BareEncoder = &DecryptedMessageMediaVideo{}
+	_ bin.BareDecoder = &DecryptedMessageMediaVideo{}
 
 	_ DecryptedMessageMediaClass = &DecryptedMessageMediaVideo{}
 )
@@ -3147,6 +3363,14 @@ func (d *DecryptedMessageMediaDocument) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageMediaDocument#7afe8ae2 as nil")
 	}
 	b.PutID(DecryptedMessageMediaDocumentTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageMediaDocument) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageMediaDocument#7afe8ae2 as nil")
+	}
 	b.PutBytes(d.Thumb)
 	b.PutInt(d.ThumbW)
 	b.PutInt(d.ThumbH)
@@ -3225,6 +3449,14 @@ func (d *DecryptedMessageMediaDocument) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DecryptedMessageMediaDocumentTypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageMediaDocument#7afe8ae2: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageMediaDocument) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageMediaDocument#7afe8ae2 to nil")
+	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
@@ -3302,8 +3534,10 @@ func (d DecryptedMessageMediaDocument) construct() DecryptedMessageMediaClass { 
 
 // Ensuring interfaces in compile-time for DecryptedMessageMediaDocument.
 var (
-	_ bin.Encoder = &DecryptedMessageMediaDocument{}
-	_ bin.Decoder = &DecryptedMessageMediaDocument{}
+	_ bin.Encoder     = &DecryptedMessageMediaDocument{}
+	_ bin.Decoder     = &DecryptedMessageMediaDocument{}
+	_ bin.BareEncoder = &DecryptedMessageMediaDocument{}
+	_ bin.BareDecoder = &DecryptedMessageMediaDocument{}
 
 	_ DecryptedMessageMediaClass = &DecryptedMessageMediaDocument{}
 )
@@ -3438,6 +3672,14 @@ func (d *DecryptedMessageMediaVenue) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageMediaVenue#8a0df56f as nil")
 	}
 	b.PutID(DecryptedMessageMediaVenueTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageMediaVenue) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageMediaVenue#8a0df56f as nil")
+	}
 	b.PutDouble(d.Lat)
 	b.PutDouble(d.Long)
 	b.PutString(d.Title)
@@ -3484,6 +3726,14 @@ func (d *DecryptedMessageMediaVenue) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(DecryptedMessageMediaVenueTypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageMediaVenue#8a0df56f: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageMediaVenue) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageMediaVenue#8a0df56f to nil")
 	}
 	{
 		value, err := b.Double()
@@ -3535,8 +3785,10 @@ func (d DecryptedMessageMediaVenue) construct() DecryptedMessageMediaClass { ret
 
 // Ensuring interfaces in compile-time for DecryptedMessageMediaVenue.
 var (
-	_ bin.Encoder = &DecryptedMessageMediaVenue{}
-	_ bin.Decoder = &DecryptedMessageMediaVenue{}
+	_ bin.Encoder     = &DecryptedMessageMediaVenue{}
+	_ bin.Decoder     = &DecryptedMessageMediaVenue{}
+	_ bin.BareEncoder = &DecryptedMessageMediaVenue{}
+	_ bin.BareDecoder = &DecryptedMessageMediaVenue{}
 
 	_ DecryptedMessageMediaClass = &DecryptedMessageMediaVenue{}
 )
@@ -3616,6 +3868,14 @@ func (d *DecryptedMessageMediaWebPage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageMediaWebPage#e50511d8 as nil")
 	}
 	b.PutID(DecryptedMessageMediaWebPageTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageMediaWebPage) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageMediaWebPage#e50511d8 as nil")
+	}
 	b.PutString(d.URL)
 	return nil
 }
@@ -3633,6 +3893,14 @@ func (d *DecryptedMessageMediaWebPage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DecryptedMessageMediaWebPageTypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageMediaWebPage#e50511d8: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageMediaWebPage) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageMediaWebPage#e50511d8 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -3648,8 +3916,10 @@ func (d DecryptedMessageMediaWebPage) construct() DecryptedMessageMediaClass { r
 
 // Ensuring interfaces in compile-time for DecryptedMessageMediaWebPage.
 var (
-	_ bin.Encoder = &DecryptedMessageMediaWebPage{}
-	_ bin.Decoder = &DecryptedMessageMediaWebPage{}
+	_ bin.Encoder     = &DecryptedMessageMediaWebPage{}
+	_ bin.Decoder     = &DecryptedMessageMediaWebPage{}
+	_ bin.BareEncoder = &DecryptedMessageMediaWebPage{}
+	_ bin.BareDecoder = &DecryptedMessageMediaWebPage{}
 
 	_ DecryptedMessageMediaClass = &DecryptedMessageMediaWebPage{}
 )
@@ -3684,6 +3954,8 @@ var (
 type DecryptedMessageMediaClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() DecryptedMessageMediaClass
 
 	// TypeID returns type id in TL schema.

@@ -108,6 +108,14 @@ func (c *UploadCDNFileReuploadNeeded) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode upload.cdnFileReuploadNeeded#eea8e46e as nil")
 	}
 	b.PutID(UploadCDNFileReuploadNeededTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *UploadCDNFileReuploadNeeded) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode upload.cdnFileReuploadNeeded#eea8e46e as nil")
+	}
 	b.PutBytes(c.RequestToken)
 	return nil
 }
@@ -125,6 +133,14 @@ func (c *UploadCDNFileReuploadNeeded) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UploadCDNFileReuploadNeededTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.cdnFileReuploadNeeded#eea8e46e: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *UploadCDNFileReuploadNeeded) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode upload.cdnFileReuploadNeeded#eea8e46e to nil")
+	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
@@ -140,8 +156,10 @@ func (c UploadCDNFileReuploadNeeded) construct() UploadCDNFileClass { return &c 
 
 // Ensuring interfaces in compile-time for UploadCDNFileReuploadNeeded.
 var (
-	_ bin.Encoder = &UploadCDNFileReuploadNeeded{}
-	_ bin.Decoder = &UploadCDNFileReuploadNeeded{}
+	_ bin.Encoder     = &UploadCDNFileReuploadNeeded{}
+	_ bin.Decoder     = &UploadCDNFileReuploadNeeded{}
+	_ bin.BareEncoder = &UploadCDNFileReuploadNeeded{}
+	_ bin.BareDecoder = &UploadCDNFileReuploadNeeded{}
 
 	_ UploadCDNFileClass = &UploadCDNFileReuploadNeeded{}
 )
@@ -225,6 +243,14 @@ func (c *UploadCDNFile) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode upload.cdnFile#a99fca4f as nil")
 	}
 	b.PutID(UploadCDNFileTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *UploadCDNFile) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode upload.cdnFile#a99fca4f as nil")
+	}
 	b.PutBytes(c.Bytes)
 	return nil
 }
@@ -242,6 +268,14 @@ func (c *UploadCDNFile) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UploadCDNFileTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.cdnFile#a99fca4f: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *UploadCDNFile) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode upload.cdnFile#a99fca4f to nil")
+	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
@@ -257,8 +291,10 @@ func (c UploadCDNFile) construct() UploadCDNFileClass { return &c }
 
 // Ensuring interfaces in compile-time for UploadCDNFile.
 var (
-	_ bin.Encoder = &UploadCDNFile{}
-	_ bin.Decoder = &UploadCDNFile{}
+	_ bin.Encoder     = &UploadCDNFile{}
+	_ bin.Decoder     = &UploadCDNFile{}
+	_ bin.BareEncoder = &UploadCDNFile{}
+	_ bin.BareDecoder = &UploadCDNFile{}
 
 	_ UploadCDNFileClass = &UploadCDNFile{}
 )
@@ -280,6 +316,8 @@ var (
 type UploadCDNFileClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() UploadCDNFileClass
 
 	// TypeID returns type id in TL schema.

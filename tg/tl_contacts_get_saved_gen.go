@@ -85,6 +85,14 @@ func (g *ContactsGetSavedRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode contacts.getSaved#82f1e39f as nil")
 	}
 	b.PutID(ContactsGetSavedRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *ContactsGetSavedRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode contacts.getSaved#82f1e39f as nil")
+	}
 	return nil
 }
 
@@ -96,13 +104,23 @@ func (g *ContactsGetSavedRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsGetSavedRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.getSaved#82f1e39f: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *ContactsGetSavedRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode contacts.getSaved#82f1e39f to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for ContactsGetSavedRequest.
 var (
-	_ bin.Encoder = &ContactsGetSavedRequest{}
-	_ bin.Decoder = &ContactsGetSavedRequest{}
+	_ bin.Encoder     = &ContactsGetSavedRequest{}
+	_ bin.Decoder     = &ContactsGetSavedRequest{}
+	_ bin.BareEncoder = &ContactsGetSavedRequest{}
+	_ bin.BareDecoder = &ContactsGetSavedRequest{}
 )
 
 // ContactsGetSaved invokes method contacts.getSaved#82f1e39f returning error if any.

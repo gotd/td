@@ -213,6 +213,14 @@ func (m *MessageReplies) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageReplies#4128faac as nil")
 	}
 	b.PutID(MessageRepliesTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageReplies) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageReplies#4128faac as nil")
+	}
 	if !(m.Comments == false) {
 		m.Flags.Set(0)
 	}
@@ -358,6 +366,14 @@ func (m *MessageReplies) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageRepliesTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageReplies#4128faac: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageReplies) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageReplies#4128faac to nil")
+	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messageReplies#4128faac: field flags: %w", err)
@@ -417,6 +433,8 @@ func (m *MessageReplies) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessageReplies.
 var (
-	_ bin.Encoder = &MessageReplies{}
-	_ bin.Decoder = &MessageReplies{}
+	_ bin.Encoder     = &MessageReplies{}
+	_ bin.Decoder     = &MessageReplies{}
+	_ bin.BareEncoder = &MessageReplies{}
+	_ bin.BareDecoder = &MessageReplies{}
 )

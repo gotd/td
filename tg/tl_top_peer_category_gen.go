@@ -85,6 +85,14 @@ func (t *TopPeerCategoryBotsPM) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode topPeerCategoryBotsPM#ab661b5b as nil")
 	}
 	b.PutID(TopPeerCategoryBotsPMTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TopPeerCategoryBotsPM) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode topPeerCategoryBotsPM#ab661b5b as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (t *TopPeerCategoryBotsPM) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TopPeerCategoryBotsPMTypeID); err != nil {
 		return fmt.Errorf("unable to decode topPeerCategoryBotsPM#ab661b5b: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TopPeerCategoryBotsPM) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode topPeerCategoryBotsPM#ab661b5b to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (t TopPeerCategoryBotsPM) construct() TopPeerCategoryClass { return &t }
 
 // Ensuring interfaces in compile-time for TopPeerCategoryBotsPM.
 var (
-	_ bin.Encoder = &TopPeerCategoryBotsPM{}
-	_ bin.Decoder = &TopPeerCategoryBotsPM{}
+	_ bin.Encoder     = &TopPeerCategoryBotsPM{}
+	_ bin.Decoder     = &TopPeerCategoryBotsPM{}
+	_ bin.BareEncoder = &TopPeerCategoryBotsPM{}
+	_ bin.BareDecoder = &TopPeerCategoryBotsPM{}
 
 	_ TopPeerCategoryClass = &TopPeerCategoryBotsPM{}
 )
@@ -169,6 +187,14 @@ func (t *TopPeerCategoryBotsInline) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode topPeerCategoryBotsInline#148677e2 as nil")
 	}
 	b.PutID(TopPeerCategoryBotsInlineTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TopPeerCategoryBotsInline) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode topPeerCategoryBotsInline#148677e2 as nil")
+	}
 	return nil
 }
 
@@ -180,6 +206,14 @@ func (t *TopPeerCategoryBotsInline) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TopPeerCategoryBotsInlineTypeID); err != nil {
 		return fmt.Errorf("unable to decode topPeerCategoryBotsInline#148677e2: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TopPeerCategoryBotsInline) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode topPeerCategoryBotsInline#148677e2 to nil")
+	}
 	return nil
 }
 
@@ -188,8 +222,10 @@ func (t TopPeerCategoryBotsInline) construct() TopPeerCategoryClass { return &t 
 
 // Ensuring interfaces in compile-time for TopPeerCategoryBotsInline.
 var (
-	_ bin.Encoder = &TopPeerCategoryBotsInline{}
-	_ bin.Decoder = &TopPeerCategoryBotsInline{}
+	_ bin.Encoder     = &TopPeerCategoryBotsInline{}
+	_ bin.Decoder     = &TopPeerCategoryBotsInline{}
+	_ bin.BareEncoder = &TopPeerCategoryBotsInline{}
+	_ bin.BareDecoder = &TopPeerCategoryBotsInline{}
 
 	_ TopPeerCategoryClass = &TopPeerCategoryBotsInline{}
 )
@@ -253,6 +289,14 @@ func (t *TopPeerCategoryCorrespondents) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode topPeerCategoryCorrespondents#637b7ed as nil")
 	}
 	b.PutID(TopPeerCategoryCorrespondentsTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TopPeerCategoryCorrespondents) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode topPeerCategoryCorrespondents#637b7ed as nil")
+	}
 	return nil
 }
 
@@ -264,6 +308,14 @@ func (t *TopPeerCategoryCorrespondents) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TopPeerCategoryCorrespondentsTypeID); err != nil {
 		return fmt.Errorf("unable to decode topPeerCategoryCorrespondents#637b7ed: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TopPeerCategoryCorrespondents) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode topPeerCategoryCorrespondents#637b7ed to nil")
+	}
 	return nil
 }
 
@@ -272,8 +324,10 @@ func (t TopPeerCategoryCorrespondents) construct() TopPeerCategoryClass { return
 
 // Ensuring interfaces in compile-time for TopPeerCategoryCorrespondents.
 var (
-	_ bin.Encoder = &TopPeerCategoryCorrespondents{}
-	_ bin.Decoder = &TopPeerCategoryCorrespondents{}
+	_ bin.Encoder     = &TopPeerCategoryCorrespondents{}
+	_ bin.Decoder     = &TopPeerCategoryCorrespondents{}
+	_ bin.BareEncoder = &TopPeerCategoryCorrespondents{}
+	_ bin.BareDecoder = &TopPeerCategoryCorrespondents{}
 
 	_ TopPeerCategoryClass = &TopPeerCategoryCorrespondents{}
 )
@@ -337,6 +391,14 @@ func (t *TopPeerCategoryGroups) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode topPeerCategoryGroups#bd17a14a as nil")
 	}
 	b.PutID(TopPeerCategoryGroupsTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TopPeerCategoryGroups) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode topPeerCategoryGroups#bd17a14a as nil")
+	}
 	return nil
 }
 
@@ -348,6 +410,14 @@ func (t *TopPeerCategoryGroups) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TopPeerCategoryGroupsTypeID); err != nil {
 		return fmt.Errorf("unable to decode topPeerCategoryGroups#bd17a14a: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TopPeerCategoryGroups) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode topPeerCategoryGroups#bd17a14a to nil")
+	}
 	return nil
 }
 
@@ -356,8 +426,10 @@ func (t TopPeerCategoryGroups) construct() TopPeerCategoryClass { return &t }
 
 // Ensuring interfaces in compile-time for TopPeerCategoryGroups.
 var (
-	_ bin.Encoder = &TopPeerCategoryGroups{}
-	_ bin.Decoder = &TopPeerCategoryGroups{}
+	_ bin.Encoder     = &TopPeerCategoryGroups{}
+	_ bin.Decoder     = &TopPeerCategoryGroups{}
+	_ bin.BareEncoder = &TopPeerCategoryGroups{}
+	_ bin.BareDecoder = &TopPeerCategoryGroups{}
 
 	_ TopPeerCategoryClass = &TopPeerCategoryGroups{}
 )
@@ -421,6 +493,14 @@ func (t *TopPeerCategoryChannels) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode topPeerCategoryChannels#161d9628 as nil")
 	}
 	b.PutID(TopPeerCategoryChannelsTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TopPeerCategoryChannels) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode topPeerCategoryChannels#161d9628 as nil")
+	}
 	return nil
 }
 
@@ -432,6 +512,14 @@ func (t *TopPeerCategoryChannels) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TopPeerCategoryChannelsTypeID); err != nil {
 		return fmt.Errorf("unable to decode topPeerCategoryChannels#161d9628: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TopPeerCategoryChannels) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode topPeerCategoryChannels#161d9628 to nil")
+	}
 	return nil
 }
 
@@ -440,8 +528,10 @@ func (t TopPeerCategoryChannels) construct() TopPeerCategoryClass { return &t }
 
 // Ensuring interfaces in compile-time for TopPeerCategoryChannels.
 var (
-	_ bin.Encoder = &TopPeerCategoryChannels{}
-	_ bin.Decoder = &TopPeerCategoryChannels{}
+	_ bin.Encoder     = &TopPeerCategoryChannels{}
+	_ bin.Decoder     = &TopPeerCategoryChannels{}
+	_ bin.BareEncoder = &TopPeerCategoryChannels{}
+	_ bin.BareDecoder = &TopPeerCategoryChannels{}
 
 	_ TopPeerCategoryClass = &TopPeerCategoryChannels{}
 )
@@ -505,6 +595,14 @@ func (t *TopPeerCategoryPhoneCalls) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode topPeerCategoryPhoneCalls#1e76a78c as nil")
 	}
 	b.PutID(TopPeerCategoryPhoneCallsTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TopPeerCategoryPhoneCalls) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode topPeerCategoryPhoneCalls#1e76a78c as nil")
+	}
 	return nil
 }
 
@@ -516,6 +614,14 @@ func (t *TopPeerCategoryPhoneCalls) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TopPeerCategoryPhoneCallsTypeID); err != nil {
 		return fmt.Errorf("unable to decode topPeerCategoryPhoneCalls#1e76a78c: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TopPeerCategoryPhoneCalls) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode topPeerCategoryPhoneCalls#1e76a78c to nil")
+	}
 	return nil
 }
 
@@ -524,8 +630,10 @@ func (t TopPeerCategoryPhoneCalls) construct() TopPeerCategoryClass { return &t 
 
 // Ensuring interfaces in compile-time for TopPeerCategoryPhoneCalls.
 var (
-	_ bin.Encoder = &TopPeerCategoryPhoneCalls{}
-	_ bin.Decoder = &TopPeerCategoryPhoneCalls{}
+	_ bin.Encoder     = &TopPeerCategoryPhoneCalls{}
+	_ bin.Decoder     = &TopPeerCategoryPhoneCalls{}
+	_ bin.BareEncoder = &TopPeerCategoryPhoneCalls{}
+	_ bin.BareDecoder = &TopPeerCategoryPhoneCalls{}
 
 	_ TopPeerCategoryClass = &TopPeerCategoryPhoneCalls{}
 )
@@ -589,6 +697,14 @@ func (t *TopPeerCategoryForwardUsers) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode topPeerCategoryForwardUsers#a8406ca9 as nil")
 	}
 	b.PutID(TopPeerCategoryForwardUsersTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TopPeerCategoryForwardUsers) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode topPeerCategoryForwardUsers#a8406ca9 as nil")
+	}
 	return nil
 }
 
@@ -600,6 +716,14 @@ func (t *TopPeerCategoryForwardUsers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TopPeerCategoryForwardUsersTypeID); err != nil {
 		return fmt.Errorf("unable to decode topPeerCategoryForwardUsers#a8406ca9: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TopPeerCategoryForwardUsers) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode topPeerCategoryForwardUsers#a8406ca9 to nil")
+	}
 	return nil
 }
 
@@ -608,8 +732,10 @@ func (t TopPeerCategoryForwardUsers) construct() TopPeerCategoryClass { return &
 
 // Ensuring interfaces in compile-time for TopPeerCategoryForwardUsers.
 var (
-	_ bin.Encoder = &TopPeerCategoryForwardUsers{}
-	_ bin.Decoder = &TopPeerCategoryForwardUsers{}
+	_ bin.Encoder     = &TopPeerCategoryForwardUsers{}
+	_ bin.Decoder     = &TopPeerCategoryForwardUsers{}
+	_ bin.BareEncoder = &TopPeerCategoryForwardUsers{}
+	_ bin.BareDecoder = &TopPeerCategoryForwardUsers{}
 
 	_ TopPeerCategoryClass = &TopPeerCategoryForwardUsers{}
 )
@@ -673,6 +799,14 @@ func (t *TopPeerCategoryForwardChats) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode topPeerCategoryForwardChats#fbeec0f0 as nil")
 	}
 	b.PutID(TopPeerCategoryForwardChatsTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TopPeerCategoryForwardChats) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode topPeerCategoryForwardChats#fbeec0f0 as nil")
+	}
 	return nil
 }
 
@@ -684,6 +818,14 @@ func (t *TopPeerCategoryForwardChats) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TopPeerCategoryForwardChatsTypeID); err != nil {
 		return fmt.Errorf("unable to decode topPeerCategoryForwardChats#fbeec0f0: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TopPeerCategoryForwardChats) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode topPeerCategoryForwardChats#fbeec0f0 to nil")
+	}
 	return nil
 }
 
@@ -692,8 +834,10 @@ func (t TopPeerCategoryForwardChats) construct() TopPeerCategoryClass { return &
 
 // Ensuring interfaces in compile-time for TopPeerCategoryForwardChats.
 var (
-	_ bin.Encoder = &TopPeerCategoryForwardChats{}
-	_ bin.Decoder = &TopPeerCategoryForwardChats{}
+	_ bin.Encoder     = &TopPeerCategoryForwardChats{}
+	_ bin.Decoder     = &TopPeerCategoryForwardChats{}
+	_ bin.BareEncoder = &TopPeerCategoryForwardChats{}
+	_ bin.BareDecoder = &TopPeerCategoryForwardChats{}
 
 	_ TopPeerCategoryClass = &TopPeerCategoryForwardChats{}
 )
@@ -721,6 +865,8 @@ var (
 type TopPeerCategoryClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() TopPeerCategoryClass
 
 	// TypeID returns type id in TL schema.

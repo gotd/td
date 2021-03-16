@@ -193,6 +193,14 @@ func (e *MessagesEditInlineBotMessageRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.editInlineBotMessage#83557dba as nil")
 	}
 	b.PutID(MessagesEditInlineBotMessageRequestTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *MessagesEditInlineBotMessageRequest) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode messages.editInlineBotMessage#83557dba as nil")
+	}
 	if !(e.NoWebpage == false) {
 		e.Flags.Set(1)
 	}
@@ -344,6 +352,14 @@ func (e *MessagesEditInlineBotMessageRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesEditInlineBotMessageRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.editInlineBotMessage#83557dba: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *MessagesEditInlineBotMessageRequest) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode messages.editInlineBotMessage#83557dba to nil")
+	}
 	{
 		if err := e.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.editInlineBotMessage#83557dba: field flags: %w", err)
@@ -394,8 +410,10 @@ func (e *MessagesEditInlineBotMessageRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesEditInlineBotMessageRequest.
 var (
-	_ bin.Encoder = &MessagesEditInlineBotMessageRequest{}
-	_ bin.Decoder = &MessagesEditInlineBotMessageRequest{}
+	_ bin.Encoder     = &MessagesEditInlineBotMessageRequest{}
+	_ bin.Decoder     = &MessagesEditInlineBotMessageRequest{}
+	_ bin.BareEncoder = &MessagesEditInlineBotMessageRequest{}
+	_ bin.BareDecoder = &MessagesEditInlineBotMessageRequest{}
 )
 
 // MessagesEditInlineBotMessage invokes method messages.editInlineBotMessage#83557dba returning error if any.

@@ -153,6 +153,14 @@ func (e *MessagesExportChatInviteRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.exportChatInvite#14b9bcd7 as nil")
 	}
 	b.PutID(MessagesExportChatInviteRequestTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *MessagesExportChatInviteRequest) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode messages.exportChatInvite#14b9bcd7 as nil")
+	}
 	if !(e.LegacyRevokePermanent == false) {
 		e.Flags.Set(2)
 	}
@@ -239,6 +247,14 @@ func (e *MessagesExportChatInviteRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesExportChatInviteRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.exportChatInvite#14b9bcd7: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *MessagesExportChatInviteRequest) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode messages.exportChatInvite#14b9bcd7 to nil")
+	}
 	{
 		if err := e.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.exportChatInvite#14b9bcd7: field flags: %w", err)
@@ -271,8 +287,10 @@ func (e *MessagesExportChatInviteRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesExportChatInviteRequest.
 var (
-	_ bin.Encoder = &MessagesExportChatInviteRequest{}
-	_ bin.Decoder = &MessagesExportChatInviteRequest{}
+	_ bin.Encoder     = &MessagesExportChatInviteRequest{}
+	_ bin.Decoder     = &MessagesExportChatInviteRequest{}
+	_ bin.BareEncoder = &MessagesExportChatInviteRequest{}
+	_ bin.BareDecoder = &MessagesExportChatInviteRequest{}
 )
 
 // MessagesExportChatInvite invokes method messages.exportChatInvite#14b9bcd7 returning error if any.

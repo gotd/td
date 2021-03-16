@@ -135,6 +135,14 @@ func (r *MessagesReportRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.report#8953ab4e as nil")
 	}
 	b.PutID(MessagesReportRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *MessagesReportRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode messages.report#8953ab4e as nil")
+	}
 	if r.Peer == nil {
 		return fmt.Errorf("unable to encode messages.report#8953ab4e: field peer is nil")
 	}
@@ -183,6 +191,14 @@ func (r *MessagesReportRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesReportRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.report#8953ab4e: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *MessagesReportRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode messages.report#8953ab4e to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -222,8 +238,10 @@ func (r *MessagesReportRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesReportRequest.
 var (
-	_ bin.Encoder = &MessagesReportRequest{}
-	_ bin.Decoder = &MessagesReportRequest{}
+	_ bin.Encoder     = &MessagesReportRequest{}
+	_ bin.Decoder     = &MessagesReportRequest{}
+	_ bin.BareEncoder = &MessagesReportRequest{}
+	_ bin.BareDecoder = &MessagesReportRequest{}
 )
 
 // MessagesReport invokes method messages.report#8953ab4e returning error if any.

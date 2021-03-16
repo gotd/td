@@ -130,6 +130,14 @@ func (g *MessagesGetOldFeaturedStickersRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getOldFeaturedStickers#5fe7025b as nil")
 	}
 	b.PutID(MessagesGetOldFeaturedStickersRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetOldFeaturedStickersRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getOldFeaturedStickers#5fe7025b as nil")
+	}
 	b.PutInt(g.Offset)
 	b.PutInt(g.Limit)
 	b.PutInt(g.Hash)
@@ -159,6 +167,14 @@ func (g *MessagesGetOldFeaturedStickersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetOldFeaturedStickersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getOldFeaturedStickers#5fe7025b: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetOldFeaturedStickersRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getOldFeaturedStickers#5fe7025b to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -185,8 +201,10 @@ func (g *MessagesGetOldFeaturedStickersRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetOldFeaturedStickersRequest.
 var (
-	_ bin.Encoder = &MessagesGetOldFeaturedStickersRequest{}
-	_ bin.Decoder = &MessagesGetOldFeaturedStickersRequest{}
+	_ bin.Encoder     = &MessagesGetOldFeaturedStickersRequest{}
+	_ bin.Decoder     = &MessagesGetOldFeaturedStickersRequest{}
+	_ bin.BareEncoder = &MessagesGetOldFeaturedStickersRequest{}
+	_ bin.BareDecoder = &MessagesGetOldFeaturedStickersRequest{}
 )
 
 // MessagesGetOldFeaturedStickers invokes method messages.getOldFeaturedStickers#5fe7025b returning error if any.

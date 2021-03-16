@@ -203,6 +203,14 @@ func (d *DCOption) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode dcOption#18b7a10d as nil")
 	}
 	b.PutID(DCOptionTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DCOption) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode dcOption#18b7a10d as nil")
+	}
 	if !(d.Ipv6 == false) {
 		d.Flags.Set(0)
 	}
@@ -351,6 +359,14 @@ func (d *DCOption) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DCOptionTypeID); err != nil {
 		return fmt.Errorf("unable to decode dcOption#18b7a10d: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DCOption) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode dcOption#18b7a10d to nil")
+	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode dcOption#18b7a10d: field flags: %w", err)
@@ -394,6 +410,8 @@ func (d *DCOption) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for DCOption.
 var (
-	_ bin.Encoder = &DCOption{}
-	_ bin.Decoder = &DCOption{}
+	_ bin.Encoder     = &DCOption{}
+	_ bin.Decoder     = &DCOption{}
+	_ bin.BareEncoder = &DCOption{}
+	_ bin.BareDecoder = &DCOption{}
 )

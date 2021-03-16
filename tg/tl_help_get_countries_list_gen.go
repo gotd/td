@@ -116,6 +116,14 @@ func (g *HelpGetCountriesListRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.getCountriesList#735787a8 as nil")
 	}
 	b.PutID(HelpGetCountriesListRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *HelpGetCountriesListRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode help.getCountriesList#735787a8 as nil")
+	}
 	b.PutString(g.LangCode)
 	b.PutInt(g.Hash)
 	return nil
@@ -139,6 +147,14 @@ func (g *HelpGetCountriesListRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetCountriesListRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getCountriesList#735787a8: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *HelpGetCountriesListRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode help.getCountriesList#735787a8 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -158,8 +174,10 @@ func (g *HelpGetCountriesListRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for HelpGetCountriesListRequest.
 var (
-	_ bin.Encoder = &HelpGetCountriesListRequest{}
-	_ bin.Decoder = &HelpGetCountriesListRequest{}
+	_ bin.Encoder     = &HelpGetCountriesListRequest{}
+	_ bin.Decoder     = &HelpGetCountriesListRequest{}
+	_ bin.BareEncoder = &HelpGetCountriesListRequest{}
+	_ bin.BareDecoder = &HelpGetCountriesListRequest{}
 )
 
 // HelpGetCountriesList invokes method help.getCountriesList#735787a8 returning error if any.

@@ -85,6 +85,14 @@ func (c *ChannelLocationEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelLocationEmpty#bfb5ad8b as nil")
 	}
 	b.PutID(ChannelLocationEmptyTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelLocationEmpty) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelLocationEmpty#bfb5ad8b as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (c *ChannelLocationEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelLocationEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelLocationEmpty#bfb5ad8b: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelLocationEmpty) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelLocationEmpty#bfb5ad8b to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (c ChannelLocationEmpty) construct() ChannelLocationClass { return &c }
 
 // Ensuring interfaces in compile-time for ChannelLocationEmpty.
 var (
-	_ bin.Encoder = &ChannelLocationEmpty{}
-	_ bin.Decoder = &ChannelLocationEmpty{}
+	_ bin.Encoder     = &ChannelLocationEmpty{}
+	_ bin.Decoder     = &ChannelLocationEmpty{}
+	_ bin.BareEncoder = &ChannelLocationEmpty{}
+	_ bin.BareDecoder = &ChannelLocationEmpty{}
 
 	_ ChannelLocationClass = &ChannelLocationEmpty{}
 )
@@ -197,6 +215,14 @@ func (c *ChannelLocation) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channelLocation#209b82db as nil")
 	}
 	b.PutID(ChannelLocationTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelLocation) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channelLocation#209b82db as nil")
+	}
 	if c.GeoPoint == nil {
 		return fmt.Errorf("unable to encode channelLocation#209b82db: field geo_point is nil")
 	}
@@ -225,6 +251,14 @@ func (c *ChannelLocation) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelLocationTypeID); err != nil {
 		return fmt.Errorf("unable to decode channelLocation#209b82db: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelLocation) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channelLocation#209b82db to nil")
+	}
 	{
 		value, err := DecodeGeoPoint(b)
 		if err != nil {
@@ -247,8 +281,10 @@ func (c ChannelLocation) construct() ChannelLocationClass { return &c }
 
 // Ensuring interfaces in compile-time for ChannelLocation.
 var (
-	_ bin.Encoder = &ChannelLocation{}
-	_ bin.Decoder = &ChannelLocation{}
+	_ bin.Encoder     = &ChannelLocation{}
+	_ bin.Decoder     = &ChannelLocation{}
+	_ bin.BareEncoder = &ChannelLocation{}
+	_ bin.BareDecoder = &ChannelLocation{}
 
 	_ ChannelLocationClass = &ChannelLocation{}
 )
@@ -270,6 +306,8 @@ var (
 type ChannelLocationClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() ChannelLocationClass
 
 	// TypeID returns type id in TL schema.

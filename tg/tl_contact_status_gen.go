@@ -113,6 +113,14 @@ func (c *ContactStatus) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode contactStatus#d3680c61 as nil")
 	}
 	b.PutID(ContactStatusTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ContactStatus) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode contactStatus#d3680c61 as nil")
+	}
 	b.PutInt(c.UserID)
 	if c.Status == nil {
 		return fmt.Errorf("unable to encode contactStatus#d3680c61: field status is nil")
@@ -141,6 +149,14 @@ func (c *ContactStatus) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactStatusTypeID); err != nil {
 		return fmt.Errorf("unable to decode contactStatus#d3680c61: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ContactStatus) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode contactStatus#d3680c61 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -160,6 +176,8 @@ func (c *ContactStatus) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ContactStatus.
 var (
-	_ bin.Encoder = &ContactStatus{}
-	_ bin.Decoder = &ContactStatus{}
+	_ bin.Encoder     = &ContactStatus{}
+	_ bin.Decoder     = &ContactStatus{}
+	_ bin.BareEncoder = &ContactStatus{}
+	_ bin.BareDecoder = &ContactStatus{}
 )

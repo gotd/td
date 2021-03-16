@@ -220,6 +220,14 @@ func (i *InputBotInlineResult) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputBotInlineResult#88bf9319 as nil")
 	}
 	b.PutID(InputBotInlineResultTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputBotInlineResult) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputBotInlineResult#88bf9319 as nil")
+	}
 	if !(i.Title == "") {
 		i.Flags.Set(1)
 	}
@@ -366,6 +374,14 @@ func (i *InputBotInlineResult) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputBotInlineResultTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputBotInlineResult#88bf9319: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputBotInlineResult) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputBotInlineResult#88bf9319 to nil")
+	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputBotInlineResult#88bf9319: field flags: %w", err)
@@ -431,8 +447,10 @@ func (i InputBotInlineResult) construct() InputBotInlineResultClass { return &i 
 
 // Ensuring interfaces in compile-time for InputBotInlineResult.
 var (
-	_ bin.Encoder = &InputBotInlineResult{}
-	_ bin.Decoder = &InputBotInlineResult{}
+	_ bin.Encoder     = &InputBotInlineResult{}
+	_ bin.Decoder     = &InputBotInlineResult{}
+	_ bin.BareEncoder = &InputBotInlineResult{}
+	_ bin.BareDecoder = &InputBotInlineResult{}
 
 	_ InputBotInlineResultClass = &InputBotInlineResult{}
 )
@@ -549,6 +567,14 @@ func (i *InputBotInlineResultPhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputBotInlineResultPhoto#a8d864a7 as nil")
 	}
 	b.PutID(InputBotInlineResultPhotoTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputBotInlineResultPhoto) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputBotInlineResultPhoto#a8d864a7 as nil")
+	}
 	b.PutString(i.ID)
 	b.PutString(i.Type)
 	if i.Photo == nil {
@@ -594,6 +620,14 @@ func (i *InputBotInlineResultPhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputBotInlineResultPhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputBotInlineResultPhoto#a8d864a7: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputBotInlineResultPhoto) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputBotInlineResultPhoto#a8d864a7 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -630,8 +664,10 @@ func (i InputBotInlineResultPhoto) construct() InputBotInlineResultClass { retur
 
 // Ensuring interfaces in compile-time for InputBotInlineResultPhoto.
 var (
-	_ bin.Encoder = &InputBotInlineResultPhoto{}
-	_ bin.Decoder = &InputBotInlineResultPhoto{}
+	_ bin.Encoder     = &InputBotInlineResultPhoto{}
+	_ bin.Decoder     = &InputBotInlineResultPhoto{}
+	_ bin.BareEncoder = &InputBotInlineResultPhoto{}
+	_ bin.BareDecoder = &InputBotInlineResultPhoto{}
 
 	_ InputBotInlineResultClass = &InputBotInlineResultPhoto{}
 )
@@ -790,6 +826,14 @@ func (i *InputBotInlineResultDocument) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputBotInlineResultDocument#fff8fdc4 as nil")
 	}
 	b.PutID(InputBotInlineResultDocumentTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputBotInlineResultDocument) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputBotInlineResultDocument#fff8fdc4 as nil")
+	}
 	if !(i.Title == "") {
 		i.Flags.Set(1)
 	}
@@ -880,6 +924,14 @@ func (i *InputBotInlineResultDocument) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputBotInlineResultDocumentTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputBotInlineResultDocument#fff8fdc4: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputBotInlineResultDocument) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputBotInlineResultDocument#fff8fdc4 to nil")
+	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputBotInlineResultDocument#fff8fdc4: field flags: %w", err)
@@ -935,8 +987,10 @@ func (i InputBotInlineResultDocument) construct() InputBotInlineResultClass { re
 
 // Ensuring interfaces in compile-time for InputBotInlineResultDocument.
 var (
-	_ bin.Encoder = &InputBotInlineResultDocument{}
-	_ bin.Decoder = &InputBotInlineResultDocument{}
+	_ bin.Encoder     = &InputBotInlineResultDocument{}
+	_ bin.Decoder     = &InputBotInlineResultDocument{}
+	_ bin.BareEncoder = &InputBotInlineResultDocument{}
+	_ bin.BareDecoder = &InputBotInlineResultDocument{}
 
 	_ InputBotInlineResultClass = &InputBotInlineResultDocument{}
 )
@@ -1039,6 +1093,14 @@ func (i *InputBotInlineResultGame) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputBotInlineResultGame#4fa417f2 as nil")
 	}
 	b.PutID(InputBotInlineResultGameTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputBotInlineResultGame) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputBotInlineResultGame#4fa417f2 as nil")
+	}
 	b.PutString(i.ID)
 	b.PutString(i.ShortName)
 	if i.SendMessage == nil {
@@ -1073,6 +1135,14 @@ func (i *InputBotInlineResultGame) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputBotInlineResultGameTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputBotInlineResultGame#4fa417f2: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputBotInlineResultGame) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputBotInlineResultGame#4fa417f2 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -1102,8 +1172,10 @@ func (i InputBotInlineResultGame) construct() InputBotInlineResultClass { return
 
 // Ensuring interfaces in compile-time for InputBotInlineResultGame.
 var (
-	_ bin.Encoder = &InputBotInlineResultGame{}
-	_ bin.Decoder = &InputBotInlineResultGame{}
+	_ bin.Encoder     = &InputBotInlineResultGame{}
+	_ bin.Decoder     = &InputBotInlineResultGame{}
+	_ bin.BareEncoder = &InputBotInlineResultGame{}
+	_ bin.BareDecoder = &InputBotInlineResultGame{}
 
 	_ InputBotInlineResultClass = &InputBotInlineResultGame{}
 )
@@ -1127,6 +1199,8 @@ var (
 type InputBotInlineResultClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() InputBotInlineResultClass
 
 	// TypeID returns type id in TL schema.

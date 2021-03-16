@@ -84,6 +84,14 @@ func (d *Double) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode double#2210c154 as nil")
 	}
 	b.PutID(DoubleTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *Double) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode double#2210c154 as nil")
+	}
 	return nil
 }
 
@@ -95,11 +103,21 @@ func (d *Double) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DoubleTypeID); err != nil {
 		return fmt.Errorf("unable to decode double#2210c154: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *Double) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode double#2210c154 to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for Double.
 var (
-	_ bin.Encoder = &Double{}
-	_ bin.Decoder = &Double{}
+	_ bin.Encoder     = &Double{}
+	_ bin.Decoder     = &Double{}
+	_ bin.BareEncoder = &Double{}
+	_ bin.BareDecoder = &Double{}
 )

@@ -108,6 +108,14 @@ func (g *AccountGetPasswordSettingsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.getPasswordSettings#9cd4eaf9 as nil")
 	}
 	b.PutID(AccountGetPasswordSettingsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *AccountGetPasswordSettingsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode account.getPasswordSettings#9cd4eaf9 as nil")
+	}
 	if g.Password == nil {
 		return fmt.Errorf("unable to encode account.getPasswordSettings#9cd4eaf9: field password is nil")
 	}
@@ -135,6 +143,14 @@ func (g *AccountGetPasswordSettingsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetPasswordSettingsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getPasswordSettings#9cd4eaf9: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *AccountGetPasswordSettingsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode account.getPasswordSettings#9cd4eaf9 to nil")
+	}
 	{
 		value, err := DecodeInputCheckPasswordSRP(b)
 		if err != nil {
@@ -147,8 +163,10 @@ func (g *AccountGetPasswordSettingsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountGetPasswordSettingsRequest.
 var (
-	_ bin.Encoder = &AccountGetPasswordSettingsRequest{}
-	_ bin.Decoder = &AccountGetPasswordSettingsRequest{}
+	_ bin.Encoder     = &AccountGetPasswordSettingsRequest{}
+	_ bin.Decoder     = &AccountGetPasswordSettingsRequest{}
+	_ bin.BareEncoder = &AccountGetPasswordSettingsRequest{}
+	_ bin.BareDecoder = &AccountGetPasswordSettingsRequest{}
 )
 
 // AccountGetPasswordSettings invokes method account.getPasswordSettings#9cd4eaf9 returning error if any.

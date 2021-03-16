@@ -112,6 +112,14 @@ func (c *PhoneCreateGroupCallRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.createGroupCall#bd3dabe0 as nil")
 	}
 	b.PutID(PhoneCreateGroupCallRequestTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *PhoneCreateGroupCallRequest) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode phone.createGroupCall#bd3dabe0 as nil")
+	}
 	if c.Peer == nil {
 		return fmt.Errorf("unable to encode phone.createGroupCall#bd3dabe0: field peer is nil")
 	}
@@ -140,6 +148,14 @@ func (c *PhoneCreateGroupCallRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneCreateGroupCallRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.createGroupCall#bd3dabe0: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *PhoneCreateGroupCallRequest) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode phone.createGroupCall#bd3dabe0 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -159,8 +175,10 @@ func (c *PhoneCreateGroupCallRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhoneCreateGroupCallRequest.
 var (
-	_ bin.Encoder = &PhoneCreateGroupCallRequest{}
-	_ bin.Decoder = &PhoneCreateGroupCallRequest{}
+	_ bin.Encoder     = &PhoneCreateGroupCallRequest{}
+	_ bin.Decoder     = &PhoneCreateGroupCallRequest{}
+	_ bin.BareEncoder = &PhoneCreateGroupCallRequest{}
+	_ bin.BareDecoder = &PhoneCreateGroupCallRequest{}
 )
 
 // PhoneCreateGroupCall invokes method phone.createGroupCall#bd3dabe0 returning error if any.

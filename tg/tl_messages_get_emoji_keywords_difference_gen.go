@@ -113,6 +113,14 @@ func (g *MessagesGetEmojiKeywordsDifferenceRequest) Encode(b *bin.Buffer) error 
 		return fmt.Errorf("can't encode messages.getEmojiKeywordsDifference#1508b6af as nil")
 	}
 	b.PutID(MessagesGetEmojiKeywordsDifferenceRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetEmojiKeywordsDifferenceRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getEmojiKeywordsDifference#1508b6af as nil")
+	}
 	b.PutString(g.LangCode)
 	b.PutInt(g.FromVersion)
 	return nil
@@ -136,6 +144,14 @@ func (g *MessagesGetEmojiKeywordsDifferenceRequest) Decode(b *bin.Buffer) error 
 	if err := b.ConsumeID(MessagesGetEmojiKeywordsDifferenceRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getEmojiKeywordsDifference#1508b6af: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetEmojiKeywordsDifferenceRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getEmojiKeywordsDifference#1508b6af to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -155,8 +171,10 @@ func (g *MessagesGetEmojiKeywordsDifferenceRequest) Decode(b *bin.Buffer) error 
 
 // Ensuring interfaces in compile-time for MessagesGetEmojiKeywordsDifferenceRequest.
 var (
-	_ bin.Encoder = &MessagesGetEmojiKeywordsDifferenceRequest{}
-	_ bin.Decoder = &MessagesGetEmojiKeywordsDifferenceRequest{}
+	_ bin.Encoder     = &MessagesGetEmojiKeywordsDifferenceRequest{}
+	_ bin.Decoder     = &MessagesGetEmojiKeywordsDifferenceRequest{}
+	_ bin.BareEncoder = &MessagesGetEmojiKeywordsDifferenceRequest{}
+	_ bin.BareDecoder = &MessagesGetEmojiKeywordsDifferenceRequest{}
 )
 
 // MessagesGetEmojiKeywordsDifference invokes method messages.getEmojiKeywordsDifference#1508b6af returning error if any.

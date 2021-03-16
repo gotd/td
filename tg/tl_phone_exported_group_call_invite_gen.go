@@ -101,6 +101,14 @@ func (e *PhoneExportedGroupCallInvite) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.exportedGroupCallInvite#204bd158 as nil")
 	}
 	b.PutID(PhoneExportedGroupCallInviteTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *PhoneExportedGroupCallInvite) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode phone.exportedGroupCallInvite#204bd158 as nil")
+	}
 	b.PutString(e.Link)
 	return nil
 }
@@ -118,6 +126,14 @@ func (e *PhoneExportedGroupCallInvite) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneExportedGroupCallInviteTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.exportedGroupCallInvite#204bd158: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *PhoneExportedGroupCallInvite) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode phone.exportedGroupCallInvite#204bd158 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -130,6 +146,8 @@ func (e *PhoneExportedGroupCallInvite) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhoneExportedGroupCallInvite.
 var (
-	_ bin.Encoder = &PhoneExportedGroupCallInvite{}
-	_ bin.Decoder = &PhoneExportedGroupCallInvite{}
+	_ bin.Encoder     = &PhoneExportedGroupCallInvite{}
+	_ bin.Decoder     = &PhoneExportedGroupCallInvite{}
+	_ bin.BareEncoder = &PhoneExportedGroupCallInvite{}
+	_ bin.BareDecoder = &PhoneExportedGroupCallInvite{}
 )

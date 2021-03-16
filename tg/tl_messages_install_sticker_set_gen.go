@@ -113,6 +113,14 @@ func (i *MessagesInstallStickerSetRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.installStickerSet#c78fe460 as nil")
 	}
 	b.PutID(MessagesInstallStickerSetRequestTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *MessagesInstallStickerSetRequest) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode messages.installStickerSet#c78fe460 as nil")
+	}
 	if i.Stickerset == nil {
 		return fmt.Errorf("unable to encode messages.installStickerSet#c78fe460: field stickerset is nil")
 	}
@@ -141,6 +149,14 @@ func (i *MessagesInstallStickerSetRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesInstallStickerSetRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.installStickerSet#c78fe460: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *MessagesInstallStickerSetRequest) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode messages.installStickerSet#c78fe460 to nil")
+	}
 	{
 		value, err := DecodeInputStickerSet(b)
 		if err != nil {
@@ -160,8 +176,10 @@ func (i *MessagesInstallStickerSetRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesInstallStickerSetRequest.
 var (
-	_ bin.Encoder = &MessagesInstallStickerSetRequest{}
-	_ bin.Decoder = &MessagesInstallStickerSetRequest{}
+	_ bin.Encoder     = &MessagesInstallStickerSetRequest{}
+	_ bin.Decoder     = &MessagesInstallStickerSetRequest{}
+	_ bin.BareEncoder = &MessagesInstallStickerSetRequest{}
+	_ bin.BareDecoder = &MessagesInstallStickerSetRequest{}
 )
 
 // MessagesInstallStickerSet invokes method messages.installStickerSet#c78fe460 returning error if any.

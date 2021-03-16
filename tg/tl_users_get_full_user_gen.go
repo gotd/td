@@ -102,6 +102,14 @@ func (g *UsersGetFullUserRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode users.getFullUser#ca30a5b1 as nil")
 	}
 	b.PutID(UsersGetFullUserRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *UsersGetFullUserRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode users.getFullUser#ca30a5b1 as nil")
+	}
 	if g.ID == nil {
 		return fmt.Errorf("unable to encode users.getFullUser#ca30a5b1: field id is nil")
 	}
@@ -124,6 +132,14 @@ func (g *UsersGetFullUserRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UsersGetFullUserRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode users.getFullUser#ca30a5b1: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *UsersGetFullUserRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode users.getFullUser#ca30a5b1 to nil")
+	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
@@ -136,8 +152,10 @@ func (g *UsersGetFullUserRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for UsersGetFullUserRequest.
 var (
-	_ bin.Encoder = &UsersGetFullUserRequest{}
-	_ bin.Decoder = &UsersGetFullUserRequest{}
+	_ bin.Encoder     = &UsersGetFullUserRequest{}
+	_ bin.Decoder     = &UsersGetFullUserRequest{}
+	_ bin.BareEncoder = &UsersGetFullUserRequest{}
+	_ bin.BareDecoder = &UsersGetFullUserRequest{}
 )
 
 // UsersGetFullUser invokes method users.getFullUser#ca30a5b1 returning error if any.

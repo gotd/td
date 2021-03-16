@@ -127,6 +127,14 @@ func (e *HelpEditUserInfoRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.editUserInfo#66b91b70 as nil")
 	}
 	b.PutID(HelpEditUserInfoRequestTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *HelpEditUserInfoRequest) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode help.editUserInfo#66b91b70 as nil")
+	}
 	if e.UserID == nil {
 		return fmt.Errorf("unable to encode help.editUserInfo#66b91b70: field user_id is nil")
 	}
@@ -174,6 +182,14 @@ func (e *HelpEditUserInfoRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpEditUserInfoRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.editUserInfo#66b91b70: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *HelpEditUserInfoRequest) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode help.editUserInfo#66b91b70 to nil")
+	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
@@ -206,8 +222,10 @@ func (e *HelpEditUserInfoRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for HelpEditUserInfoRequest.
 var (
-	_ bin.Encoder = &HelpEditUserInfoRequest{}
-	_ bin.Decoder = &HelpEditUserInfoRequest{}
+	_ bin.Encoder     = &HelpEditUserInfoRequest{}
+	_ bin.Decoder     = &HelpEditUserInfoRequest{}
+	_ bin.BareEncoder = &HelpEditUserInfoRequest{}
+	_ bin.BareDecoder = &HelpEditUserInfoRequest{}
 )
 
 // HelpEditUserInfo invokes method help.editUserInfo#66b91b70 returning error if any.

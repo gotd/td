@@ -85,6 +85,14 @@ func (g *ChannelsGetInactiveChannelsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.getInactiveChannels#11e831ee as nil")
 	}
 	b.PutID(ChannelsGetInactiveChannelsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *ChannelsGetInactiveChannelsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode channels.getInactiveChannels#11e831ee as nil")
+	}
 	return nil
 }
 
@@ -96,13 +104,23 @@ func (g *ChannelsGetInactiveChannelsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsGetInactiveChannelsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.getInactiveChannels#11e831ee: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *ChannelsGetInactiveChannelsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode channels.getInactiveChannels#11e831ee to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for ChannelsGetInactiveChannelsRequest.
 var (
-	_ bin.Encoder = &ChannelsGetInactiveChannelsRequest{}
-	_ bin.Decoder = &ChannelsGetInactiveChannelsRequest{}
+	_ bin.Encoder     = &ChannelsGetInactiveChannelsRequest{}
+	_ bin.Decoder     = &ChannelsGetInactiveChannelsRequest{}
+	_ bin.BareEncoder = &ChannelsGetInactiveChannelsRequest{}
+	_ bin.BareDecoder = &ChannelsGetInactiveChannelsRequest{}
 )
 
 // ChannelsGetInactiveChannels invokes method channels.getInactiveChannels#11e831ee returning error if any.

@@ -167,6 +167,14 @@ func (p *PeerNotifySettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode peerNotifySettings#af509d20 as nil")
 	}
 	b.PutID(PeerNotifySettingsTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PeerNotifySettings) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode peerNotifySettings#af509d20 as nil")
+	}
 	if !(p.ShowPreviews == false) {
 		p.Flags.Set(0)
 	}
@@ -265,6 +273,14 @@ func (p *PeerNotifySettings) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PeerNotifySettingsTypeID); err != nil {
 		return fmt.Errorf("unable to decode peerNotifySettings#af509d20: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PeerNotifySettings) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode peerNotifySettings#af509d20 to nil")
+	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode peerNotifySettings#af509d20: field flags: %w", err)
@@ -303,6 +319,8 @@ func (p *PeerNotifySettings) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PeerNotifySettings.
 var (
-	_ bin.Encoder = &PeerNotifySettings{}
-	_ bin.Decoder = &PeerNotifySettings{}
+	_ bin.Encoder     = &PeerNotifySettings{}
+	_ bin.Decoder     = &PeerNotifySettings{}
+	_ bin.BareEncoder = &PeerNotifySettings{}
+	_ bin.BareDecoder = &PeerNotifySettings{}
 )

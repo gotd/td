@@ -101,6 +101,14 @@ func (h *MessagesHistoryImport) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.historyImport#1662af0b as nil")
 	}
 	b.PutID(MessagesHistoryImportTypeID)
+	return h.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (h *MessagesHistoryImport) EncodeBare(b *bin.Buffer) error {
+	if h == nil {
+		return fmt.Errorf("can't encode messages.historyImport#1662af0b as nil")
+	}
 	b.PutLong(h.ID)
 	return nil
 }
@@ -118,6 +126,14 @@ func (h *MessagesHistoryImport) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesHistoryImportTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.historyImport#1662af0b: %w", err)
 	}
+	return h.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (h *MessagesHistoryImport) DecodeBare(b *bin.Buffer) error {
+	if h == nil {
+		return fmt.Errorf("can't decode messages.historyImport#1662af0b to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -130,6 +146,8 @@ func (h *MessagesHistoryImport) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesHistoryImport.
 var (
-	_ bin.Encoder = &MessagesHistoryImport{}
-	_ bin.Decoder = &MessagesHistoryImport{}
+	_ bin.Encoder     = &MessagesHistoryImport{}
+	_ bin.Decoder     = &MessagesHistoryImport{}
+	_ bin.BareEncoder = &MessagesHistoryImport{}
+	_ bin.BareDecoder = &MessagesHistoryImport{}
 )

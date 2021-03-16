@@ -124,6 +124,14 @@ func (i *MessagesInactiveChats) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.inactiveChats#a927fec5 as nil")
 	}
 	b.PutID(MessagesInactiveChatsTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *MessagesInactiveChats) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode messages.inactiveChats#a927fec5 as nil")
+	}
 	b.PutVectorHeader(len(i.Dates))
 	for _, v := range i.Dates {
 		b.PutInt(v)
@@ -182,6 +190,14 @@ func (i *MessagesInactiveChats) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesInactiveChatsTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.inactiveChats#a927fec5: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *MessagesInactiveChats) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode messages.inactiveChats#a927fec5 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -226,6 +242,8 @@ func (i *MessagesInactiveChats) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesInactiveChats.
 var (
-	_ bin.Encoder = &MessagesInactiveChats{}
-	_ bin.Decoder = &MessagesInactiveChats{}
+	_ bin.Encoder     = &MessagesInactiveChats{}
+	_ bin.Decoder     = &MessagesInactiveChats{}
+	_ bin.BareEncoder = &MessagesInactiveChats{}
+	_ bin.BareDecoder = &MessagesInactiveChats{}
 )

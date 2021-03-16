@@ -146,6 +146,14 @@ func (a *AccountAcceptAuthorizationRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.acceptAuthorization#e7027c94 as nil")
 	}
 	b.PutID(AccountAcceptAuthorizationRequestTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *AccountAcceptAuthorizationRequest) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode account.acceptAuthorization#e7027c94 as nil")
+	}
 	b.PutInt(a.BotID)
 	b.PutString(a.Scope)
 	b.PutString(a.PublicKey)
@@ -194,6 +202,14 @@ func (a *AccountAcceptAuthorizationRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountAcceptAuthorizationRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.acceptAuthorization#e7027c94: %w", err)
 	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *AccountAcceptAuthorizationRequest) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode account.acceptAuthorization#e7027c94 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -238,8 +254,10 @@ func (a *AccountAcceptAuthorizationRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountAcceptAuthorizationRequest.
 var (
-	_ bin.Encoder = &AccountAcceptAuthorizationRequest{}
-	_ bin.Decoder = &AccountAcceptAuthorizationRequest{}
+	_ bin.Encoder     = &AccountAcceptAuthorizationRequest{}
+	_ bin.Decoder     = &AccountAcceptAuthorizationRequest{}
+	_ bin.BareEncoder = &AccountAcceptAuthorizationRequest{}
+	_ bin.BareDecoder = &AccountAcceptAuthorizationRequest{}
 )
 
 // AccountAcceptAuthorization invokes method account.acceptAuthorization#e7027c94 returning error if any.

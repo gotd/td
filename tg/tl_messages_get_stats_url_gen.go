@@ -133,6 +133,14 @@ func (g *MessagesGetStatsURLRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getStatsURL#812c2ae6 as nil")
 	}
 	b.PutID(MessagesGetStatsURLRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetStatsURLRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getStatsURL#812c2ae6 as nil")
+	}
 	if !(g.Dark == false) {
 		g.Flags.Set(0)
 	}
@@ -183,6 +191,14 @@ func (g *MessagesGetStatsURLRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetStatsURLRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getStatsURL#812c2ae6: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetStatsURLRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getStatsURL#812c2ae6 to nil")
+	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.getStatsURL#812c2ae6: field flags: %w", err)
@@ -208,8 +224,10 @@ func (g *MessagesGetStatsURLRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetStatsURLRequest.
 var (
-	_ bin.Encoder = &MessagesGetStatsURLRequest{}
-	_ bin.Decoder = &MessagesGetStatsURLRequest{}
+	_ bin.Encoder     = &MessagesGetStatsURLRequest{}
+	_ bin.Decoder     = &MessagesGetStatsURLRequest{}
+	_ bin.BareEncoder = &MessagesGetStatsURLRequest{}
+	_ bin.BareDecoder = &MessagesGetStatsURLRequest{}
 )
 
 // MessagesGetStatsURL invokes method messages.getStatsURL#812c2ae6 returning error if any.

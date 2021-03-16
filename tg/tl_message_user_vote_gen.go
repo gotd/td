@@ -124,6 +124,14 @@ func (m *MessageUserVote) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageUserVote#a28e5559 as nil")
 	}
 	b.PutID(MessageUserVoteTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageUserVote) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageUserVote#a28e5559 as nil")
+	}
 	b.PutInt(m.UserID)
 	b.PutBytes(m.Option)
 	b.PutInt(m.Date)
@@ -152,6 +160,14 @@ func (m *MessageUserVote) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(MessageUserVoteTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageUserVote#a28e5559: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageUserVote) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageUserVote#a28e5559 to nil")
 	}
 	{
 		value, err := b.Int()
@@ -182,8 +198,10 @@ func (m MessageUserVote) construct() MessageUserVoteClass { return &m }
 
 // Ensuring interfaces in compile-time for MessageUserVote.
 var (
-	_ bin.Encoder = &MessageUserVote{}
-	_ bin.Decoder = &MessageUserVote{}
+	_ bin.Encoder     = &MessageUserVote{}
+	_ bin.Decoder     = &MessageUserVote{}
+	_ bin.BareEncoder = &MessageUserVote{}
+	_ bin.BareDecoder = &MessageUserVote{}
 
 	_ MessageUserVoteClass = &MessageUserVote{}
 )
@@ -278,6 +296,14 @@ func (m *MessageUserVoteInputOption) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageUserVoteInputOption#36377430 as nil")
 	}
 	b.PutID(MessageUserVoteInputOptionTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageUserVoteInputOption) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageUserVoteInputOption#36377430 as nil")
+	}
 	b.PutInt(m.UserID)
 	b.PutInt(m.Date)
 	return nil
@@ -301,6 +327,14 @@ func (m *MessageUserVoteInputOption) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageUserVoteInputOptionTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageUserVoteInputOption#36377430: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageUserVoteInputOption) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageUserVoteInputOption#36377430 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -323,8 +357,10 @@ func (m MessageUserVoteInputOption) construct() MessageUserVoteClass { return &m
 
 // Ensuring interfaces in compile-time for MessageUserVoteInputOption.
 var (
-	_ bin.Encoder = &MessageUserVoteInputOption{}
-	_ bin.Decoder = &MessageUserVoteInputOption{}
+	_ bin.Encoder     = &MessageUserVoteInputOption{}
+	_ bin.Decoder     = &MessageUserVoteInputOption{}
+	_ bin.BareEncoder = &MessageUserVoteInputOption{}
+	_ bin.BareDecoder = &MessageUserVoteInputOption{}
 
 	_ MessageUserVoteClass = &MessageUserVoteInputOption{}
 )
@@ -427,6 +463,14 @@ func (m *MessageUserVoteMultiple) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageUserVoteMultiple#e8fe0de as nil")
 	}
 	b.PutID(MessageUserVoteMultipleTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageUserVoteMultiple) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageUserVoteMultiple#e8fe0de as nil")
+	}
 	b.PutInt(m.UserID)
 	b.PutVectorHeader(len(m.Options))
 	for _, v := range m.Options {
@@ -458,6 +502,14 @@ func (m *MessageUserVoteMultiple) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(MessageUserVoteMultipleTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageUserVoteMultiple#e8fe0de: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageUserVoteMultiple) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageUserVoteMultiple#e8fe0de to nil")
 	}
 	{
 		value, err := b.Int()
@@ -494,8 +546,10 @@ func (m MessageUserVoteMultiple) construct() MessageUserVoteClass { return &m }
 
 // Ensuring interfaces in compile-time for MessageUserVoteMultiple.
 var (
-	_ bin.Encoder = &MessageUserVoteMultiple{}
-	_ bin.Decoder = &MessageUserVoteMultiple{}
+	_ bin.Encoder     = &MessageUserVoteMultiple{}
+	_ bin.Decoder     = &MessageUserVoteMultiple{}
+	_ bin.BareEncoder = &MessageUserVoteMultiple{}
+	_ bin.BareDecoder = &MessageUserVoteMultiple{}
 
 	_ MessageUserVoteClass = &MessageUserVoteMultiple{}
 )
@@ -518,6 +572,8 @@ var (
 type MessageUserVoteClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() MessageUserVoteClass
 
 	// TypeID returns type id in TL schema.

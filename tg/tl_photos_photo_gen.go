@@ -113,6 +113,14 @@ func (p *PhotosPhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode photos.photo#20212ca8 as nil")
 	}
 	b.PutID(PhotosPhotoTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PhotosPhoto) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode photos.photo#20212ca8 as nil")
+	}
 	if p.Photo == nil {
 		return fmt.Errorf("unable to encode photos.photo#20212ca8: field photo is nil")
 	}
@@ -159,6 +167,14 @@ func (p *PhotosPhoto) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotosPhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode photos.photo#20212ca8: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PhotosPhoto) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode photos.photo#20212ca8 to nil")
+	}
 	{
 		value, err := DecodePhoto(b)
 		if err != nil {
@@ -184,6 +200,8 @@ func (p *PhotosPhoto) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhotosPhoto.
 var (
-	_ bin.Encoder = &PhotosPhoto{}
-	_ bin.Decoder = &PhotosPhoto{}
+	_ bin.Encoder     = &PhotosPhoto{}
+	_ bin.Decoder     = &PhotosPhoto{}
+	_ bin.BareEncoder = &PhotosPhoto{}
+	_ bin.BareDecoder = &PhotosPhoto{}
 )

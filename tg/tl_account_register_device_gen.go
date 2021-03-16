@@ -175,6 +175,14 @@ func (r *AccountRegisterDeviceRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.registerDevice#68976c6f as nil")
 	}
 	b.PutID(AccountRegisterDeviceRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *AccountRegisterDeviceRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode account.registerDevice#68976c6f as nil")
+	}
 	if !(r.NoMuted == false) {
 		r.Flags.Set(0)
 	}
@@ -241,6 +249,14 @@ func (r *AccountRegisterDeviceRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountRegisterDeviceRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.registerDevice#68976c6f: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *AccountRegisterDeviceRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode account.registerDevice#68976c6f to nil")
+	}
 	{
 		if err := r.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.registerDevice#68976c6f: field flags: %w", err)
@@ -293,8 +309,10 @@ func (r *AccountRegisterDeviceRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountRegisterDeviceRequest.
 var (
-	_ bin.Encoder = &AccountRegisterDeviceRequest{}
-	_ bin.Decoder = &AccountRegisterDeviceRequest{}
+	_ bin.Encoder     = &AccountRegisterDeviceRequest{}
+	_ bin.Decoder     = &AccountRegisterDeviceRequest{}
+	_ bin.BareEncoder = &AccountRegisterDeviceRequest{}
+	_ bin.BareDecoder = &AccountRegisterDeviceRequest{}
 )
 
 // AccountRegisterDevice invokes method account.registerDevice#68976c6f returning error if any.

@@ -156,6 +156,14 @@ func (u *PhotosUploadProfilePhotoRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode photos.uploadProfilePhoto#89f30f69 as nil")
 	}
 	b.PutID(PhotosUploadProfilePhotoRequestTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *PhotosUploadProfilePhotoRequest) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode photos.uploadProfilePhoto#89f30f69 as nil")
+	}
 	if !(u.File == nil) {
 		u.Flags.Set(0)
 	}
@@ -243,6 +251,14 @@ func (u *PhotosUploadProfilePhotoRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotosUploadProfilePhotoRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode photos.uploadProfilePhoto#89f30f69: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *PhotosUploadProfilePhotoRequest) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode photos.uploadProfilePhoto#89f30f69 to nil")
+	}
 	{
 		if err := u.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode photos.uploadProfilePhoto#89f30f69: field flags: %w", err)
@@ -274,8 +290,10 @@ func (u *PhotosUploadProfilePhotoRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhotosUploadProfilePhotoRequest.
 var (
-	_ bin.Encoder = &PhotosUploadProfilePhotoRequest{}
-	_ bin.Decoder = &PhotosUploadProfilePhotoRequest{}
+	_ bin.Encoder     = &PhotosUploadProfilePhotoRequest{}
+	_ bin.Decoder     = &PhotosUploadProfilePhotoRequest{}
+	_ bin.BareEncoder = &PhotosUploadProfilePhotoRequest{}
+	_ bin.BareDecoder = &PhotosUploadProfilePhotoRequest{}
 )
 
 // PhotosUploadProfilePhoto invokes method photos.uploadProfilePhoto#89f30f69 returning error if any.

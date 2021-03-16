@@ -190,6 +190,14 @@ func (s *MessagesSetInlineBotResultsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.setInlineBotResults#eb5ea206 as nil")
 	}
 	b.PutID(MessagesSetInlineBotResultsRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesSetInlineBotResultsRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.setInlineBotResults#eb5ea206 as nil")
+	}
 	if !(s.Gallery == false) {
 		s.Flags.Set(0)
 	}
@@ -317,6 +325,14 @@ func (s *MessagesSetInlineBotResultsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSetInlineBotResultsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.setInlineBotResults#eb5ea206: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSetInlineBotResultsRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.setInlineBotResults#eb5ea206 to nil")
+	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.setInlineBotResults#eb5ea206: field flags: %w", err)
@@ -368,8 +384,10 @@ func (s *MessagesSetInlineBotResultsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesSetInlineBotResultsRequest.
 var (
-	_ bin.Encoder = &MessagesSetInlineBotResultsRequest{}
-	_ bin.Decoder = &MessagesSetInlineBotResultsRequest{}
+	_ bin.Encoder     = &MessagesSetInlineBotResultsRequest{}
+	_ bin.Decoder     = &MessagesSetInlineBotResultsRequest{}
+	_ bin.BareEncoder = &MessagesSetInlineBotResultsRequest{}
+	_ bin.BareDecoder = &MessagesSetInlineBotResultsRequest{}
 )
 
 // MessagesSetInlineBotResults invokes method messages.setInlineBotResults#eb5ea206 returning error if any.

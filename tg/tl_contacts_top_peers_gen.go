@@ -85,6 +85,14 @@ func (t *ContactsTopPeersNotModified) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode contacts.topPeersNotModified#de266ef5 as nil")
 	}
 	b.PutID(ContactsTopPeersNotModifiedTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *ContactsTopPeersNotModified) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode contacts.topPeersNotModified#de266ef5 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (t *ContactsTopPeersNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsTopPeersNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.topPeersNotModified#de266ef5: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *ContactsTopPeersNotModified) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode contacts.topPeersNotModified#de266ef5 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (t ContactsTopPeersNotModified) construct() ContactsTopPeersClass { return 
 
 // Ensuring interfaces in compile-time for ContactsTopPeersNotModified.
 var (
-	_ bin.Encoder = &ContactsTopPeersNotModified{}
-	_ bin.Decoder = &ContactsTopPeersNotModified{}
+	_ bin.Encoder     = &ContactsTopPeersNotModified{}
+	_ bin.Decoder     = &ContactsTopPeersNotModified{}
+	_ bin.BareEncoder = &ContactsTopPeersNotModified{}
+	_ bin.BareDecoder = &ContactsTopPeersNotModified{}
 
 	_ ContactsTopPeersClass = &ContactsTopPeersNotModified{}
 )
@@ -208,6 +226,14 @@ func (t *ContactsTopPeers) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode contacts.topPeers#70b772a8 as nil")
 	}
 	b.PutID(ContactsTopPeersTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *ContactsTopPeers) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode contacts.topPeers#70b772a8 as nil")
+	}
 	b.PutVectorHeader(len(t.Categories))
 	for idx, v := range t.Categories {
 		if err := v.Encode(b); err != nil {
@@ -268,6 +294,14 @@ func (t *ContactsTopPeers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsTopPeersTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.topPeers#70b772a8: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *ContactsTopPeers) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode contacts.topPeers#70b772a8 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -315,8 +349,10 @@ func (t ContactsTopPeers) construct() ContactsTopPeersClass { return &t }
 
 // Ensuring interfaces in compile-time for ContactsTopPeers.
 var (
-	_ bin.Encoder = &ContactsTopPeers{}
-	_ bin.Decoder = &ContactsTopPeers{}
+	_ bin.Encoder     = &ContactsTopPeers{}
+	_ bin.Decoder     = &ContactsTopPeers{}
+	_ bin.BareEncoder = &ContactsTopPeers{}
+	_ bin.BareDecoder = &ContactsTopPeers{}
 
 	_ ContactsTopPeersClass = &ContactsTopPeers{}
 )
@@ -380,6 +416,14 @@ func (t *ContactsTopPeersDisabled) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode contacts.topPeersDisabled#b52c939d as nil")
 	}
 	b.PutID(ContactsTopPeersDisabledTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *ContactsTopPeersDisabled) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode contacts.topPeersDisabled#b52c939d as nil")
+	}
 	return nil
 }
 
@@ -391,6 +435,14 @@ func (t *ContactsTopPeersDisabled) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsTopPeersDisabledTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.topPeersDisabled#b52c939d: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *ContactsTopPeersDisabled) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode contacts.topPeersDisabled#b52c939d to nil")
+	}
 	return nil
 }
 
@@ -399,8 +451,10 @@ func (t ContactsTopPeersDisabled) construct() ContactsTopPeersClass { return &t 
 
 // Ensuring interfaces in compile-time for ContactsTopPeersDisabled.
 var (
-	_ bin.Encoder = &ContactsTopPeersDisabled{}
-	_ bin.Decoder = &ContactsTopPeersDisabled{}
+	_ bin.Encoder     = &ContactsTopPeersDisabled{}
+	_ bin.Decoder     = &ContactsTopPeersDisabled{}
+	_ bin.BareEncoder = &ContactsTopPeersDisabled{}
+	_ bin.BareDecoder = &ContactsTopPeersDisabled{}
 
 	_ ContactsTopPeersClass = &ContactsTopPeersDisabled{}
 )
@@ -423,6 +477,8 @@ var (
 type ContactsTopPeersClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() ContactsTopPeersClass
 
 	// TypeID returns type id in TL schema.

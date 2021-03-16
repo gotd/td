@@ -98,6 +98,15 @@ func (vec *MessagesSearchCounterVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't encode Vector<messages.SearchCounter> as nil")
 	}
+
+	return vec.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (vec *MessagesSearchCounterVector) EncodeBare(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't encode Vector<messages.SearchCounter> as nil")
+	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if err := v.Encode(b); err != nil {
@@ -114,6 +123,15 @@ func (vec *MessagesSearchCounterVector) GetElems() (value []MessagesSearchCounte
 
 // Decode implements bin.Decoder.
 func (vec *MessagesSearchCounterVector) Decode(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't decode Vector<messages.SearchCounter> to nil")
+	}
+
+	return vec.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (vec *MessagesSearchCounterVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't decode Vector<messages.SearchCounter> to nil")
 	}
@@ -135,6 +153,8 @@ func (vec *MessagesSearchCounterVector) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesSearchCounterVector.
 var (
-	_ bin.Encoder = &MessagesSearchCounterVector{}
-	_ bin.Decoder = &MessagesSearchCounterVector{}
+	_ bin.Encoder     = &MessagesSearchCounterVector{}
+	_ bin.Decoder     = &MessagesSearchCounterVector{}
+	_ bin.BareEncoder = &MessagesSearchCounterVector{}
+	_ bin.BareDecoder = &MessagesSearchCounterVector{}
 )

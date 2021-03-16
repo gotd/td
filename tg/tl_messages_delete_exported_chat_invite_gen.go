@@ -112,6 +112,14 @@ func (d *MessagesDeleteExportedChatInviteRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.deleteExportedChatInvite#d464a42b as nil")
 	}
 	b.PutID(MessagesDeleteExportedChatInviteRequestTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *MessagesDeleteExportedChatInviteRequest) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode messages.deleteExportedChatInvite#d464a42b as nil")
+	}
 	if d.Peer == nil {
 		return fmt.Errorf("unable to encode messages.deleteExportedChatInvite#d464a42b: field peer is nil")
 	}
@@ -140,6 +148,14 @@ func (d *MessagesDeleteExportedChatInviteRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesDeleteExportedChatInviteRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.deleteExportedChatInvite#d464a42b: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *MessagesDeleteExportedChatInviteRequest) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode messages.deleteExportedChatInvite#d464a42b to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -159,8 +175,10 @@ func (d *MessagesDeleteExportedChatInviteRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesDeleteExportedChatInviteRequest.
 var (
-	_ bin.Encoder = &MessagesDeleteExportedChatInviteRequest{}
-	_ bin.Decoder = &MessagesDeleteExportedChatInviteRequest{}
+	_ bin.Encoder     = &MessagesDeleteExportedChatInviteRequest{}
+	_ bin.Decoder     = &MessagesDeleteExportedChatInviteRequest{}
+	_ bin.BareEncoder = &MessagesDeleteExportedChatInviteRequest{}
+	_ bin.BareDecoder = &MessagesDeleteExportedChatInviteRequest{}
 )
 
 // MessagesDeleteExportedChatInvite invokes method messages.deleteExportedChatInvite#d464a42b returning error if any.

@@ -102,6 +102,14 @@ func (g *AccountGetWallPaperRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.getWallPaper#fc8ddbea as nil")
 	}
 	b.PutID(AccountGetWallPaperRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *AccountGetWallPaperRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode account.getWallPaper#fc8ddbea as nil")
+	}
 	if g.Wallpaper == nil {
 		return fmt.Errorf("unable to encode account.getWallPaper#fc8ddbea: field wallpaper is nil")
 	}
@@ -124,6 +132,14 @@ func (g *AccountGetWallPaperRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetWallPaperRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getWallPaper#fc8ddbea: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *AccountGetWallPaperRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode account.getWallPaper#fc8ddbea to nil")
+	}
 	{
 		value, err := DecodeInputWallPaper(b)
 		if err != nil {
@@ -136,8 +152,10 @@ func (g *AccountGetWallPaperRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountGetWallPaperRequest.
 var (
-	_ bin.Encoder = &AccountGetWallPaperRequest{}
-	_ bin.Decoder = &AccountGetWallPaperRequest{}
+	_ bin.Encoder     = &AccountGetWallPaperRequest{}
+	_ bin.Decoder     = &AccountGetWallPaperRequest{}
+	_ bin.BareEncoder = &AccountGetWallPaperRequest{}
+	_ bin.BareDecoder = &AccountGetWallPaperRequest{}
 )
 
 // AccountGetWallPaper invokes method account.getWallPaper#fc8ddbea returning error if any.

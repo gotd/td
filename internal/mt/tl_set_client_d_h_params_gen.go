@@ -121,6 +121,14 @@ func (s *SetClientDHParamsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode set_client_DH_params#f5045f1f as nil")
 	}
 	b.PutID(SetClientDHParamsRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SetClientDHParamsRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode set_client_DH_params#f5045f1f as nil")
+	}
 	b.PutInt128(s.Nonce)
 	b.PutInt128(s.ServerNonce)
 	b.PutBytes(s.EncryptedData)
@@ -150,6 +158,14 @@ func (s *SetClientDHParamsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SetClientDHParamsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode set_client_DH_params#f5045f1f: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SetClientDHParamsRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode set_client_DH_params#f5045f1f to nil")
+	}
 	{
 		value, err := b.Int128()
 		if err != nil {
@@ -176,8 +192,10 @@ func (s *SetClientDHParamsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for SetClientDHParamsRequest.
 var (
-	_ bin.Encoder = &SetClientDHParamsRequest{}
-	_ bin.Decoder = &SetClientDHParamsRequest{}
+	_ bin.Encoder     = &SetClientDHParamsRequest{}
+	_ bin.Decoder     = &SetClientDHParamsRequest{}
+	_ bin.BareEncoder = &SetClientDHParamsRequest{}
+	_ bin.BareDecoder = &SetClientDHParamsRequest{}
 )
 
 // SetClientDHParams invokes method set_client_DH_params#f5045f1f returning error if any.

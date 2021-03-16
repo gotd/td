@@ -182,6 +182,14 @@ func (a *MessagesAcceptURLAuthRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.acceptUrlAuth#b12c7125 as nil")
 	}
 	b.PutID(MessagesAcceptURLAuthRequestTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *MessagesAcceptURLAuthRequest) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode messages.acceptUrlAuth#b12c7125 as nil")
+	}
 	if !(a.WriteAllowed == false) {
 		a.Flags.Set(0)
 	}
@@ -304,6 +312,14 @@ func (a *MessagesAcceptURLAuthRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesAcceptURLAuthRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.acceptUrlAuth#b12c7125: %w", err)
 	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *MessagesAcceptURLAuthRequest) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode messages.acceptUrlAuth#b12c7125 to nil")
+	}
 	{
 		if err := a.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.acceptUrlAuth#b12c7125: field flags: %w", err)
@@ -343,8 +359,10 @@ func (a *MessagesAcceptURLAuthRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesAcceptURLAuthRequest.
 var (
-	_ bin.Encoder = &MessagesAcceptURLAuthRequest{}
-	_ bin.Decoder = &MessagesAcceptURLAuthRequest{}
+	_ bin.Encoder     = &MessagesAcceptURLAuthRequest{}
+	_ bin.Decoder     = &MessagesAcceptURLAuthRequest{}
+	_ bin.BareEncoder = &MessagesAcceptURLAuthRequest{}
+	_ bin.BareDecoder = &MessagesAcceptURLAuthRequest{}
 )
 
 // MessagesAcceptURLAuth invokes method messages.acceptUrlAuth#b12c7125 returning error if any.

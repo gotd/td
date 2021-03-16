@@ -99,6 +99,14 @@ func (d *DestroySessionOk) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode destroy_session_ok#e22045fc as nil")
 	}
 	b.PutID(DestroySessionOkTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DestroySessionOk) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode destroy_session_ok#e22045fc as nil")
+	}
 	b.PutLong(d.SessionID)
 	return nil
 }
@@ -116,6 +124,14 @@ func (d *DestroySessionOk) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DestroySessionOkTypeID); err != nil {
 		return fmt.Errorf("unable to decode destroy_session_ok#e22045fc: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DestroySessionOk) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode destroy_session_ok#e22045fc to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -131,8 +147,10 @@ func (d DestroySessionOk) construct() DestroySessionResClass { return &d }
 
 // Ensuring interfaces in compile-time for DestroySessionOk.
 var (
-	_ bin.Encoder = &DestroySessionOk{}
-	_ bin.Decoder = &DestroySessionOk{}
+	_ bin.Encoder     = &DestroySessionOk{}
+	_ bin.Decoder     = &DestroySessionOk{}
+	_ bin.BareEncoder = &DestroySessionOk{}
+	_ bin.BareDecoder = &DestroySessionOk{}
 
 	_ DestroySessionResClass = &DestroySessionOk{}
 )
@@ -210,6 +228,14 @@ func (d *DestroySessionNone) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode destroy_session_none#62d350c9 as nil")
 	}
 	b.PutID(DestroySessionNoneTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DestroySessionNone) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode destroy_session_none#62d350c9 as nil")
+	}
 	b.PutLong(d.SessionID)
 	return nil
 }
@@ -227,6 +253,14 @@ func (d *DestroySessionNone) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DestroySessionNoneTypeID); err != nil {
 		return fmt.Errorf("unable to decode destroy_session_none#62d350c9: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DestroySessionNone) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode destroy_session_none#62d350c9 to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -242,8 +276,10 @@ func (d DestroySessionNone) construct() DestroySessionResClass { return &d }
 
 // Ensuring interfaces in compile-time for DestroySessionNone.
 var (
-	_ bin.Encoder = &DestroySessionNone{}
-	_ bin.Decoder = &DestroySessionNone{}
+	_ bin.Encoder     = &DestroySessionNone{}
+	_ bin.Decoder     = &DestroySessionNone{}
+	_ bin.BareEncoder = &DestroySessionNone{}
+	_ bin.BareDecoder = &DestroySessionNone{}
 
 	_ DestroySessionResClass = &DestroySessionNone{}
 )
@@ -263,6 +299,8 @@ var (
 type DestroySessionResClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() DestroySessionResClass
 
 	// TypeID returns type id in TL schema.

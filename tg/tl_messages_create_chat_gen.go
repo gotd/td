@@ -113,6 +113,14 @@ func (c *MessagesCreateChatRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.createChat#9cb126e as nil")
 	}
 	b.PutID(MessagesCreateChatRequestTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *MessagesCreateChatRequest) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode messages.createChat#9cb126e as nil")
+	}
 	b.PutVectorHeader(len(c.Users))
 	for idx, v := range c.Users {
 		if v == nil {
@@ -149,6 +157,14 @@ func (c *MessagesCreateChatRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesCreateChatRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.createChat#9cb126e: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *MessagesCreateChatRequest) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode messages.createChat#9cb126e to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -174,8 +190,10 @@ func (c *MessagesCreateChatRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesCreateChatRequest.
 var (
-	_ bin.Encoder = &MessagesCreateChatRequest{}
-	_ bin.Decoder = &MessagesCreateChatRequest{}
+	_ bin.Encoder     = &MessagesCreateChatRequest{}
+	_ bin.Decoder     = &MessagesCreateChatRequest{}
+	_ bin.BareEncoder = &MessagesCreateChatRequest{}
+	_ bin.BareDecoder = &MessagesCreateChatRequest{}
 )
 
 // MessagesCreateChat invokes method messages.createChat#9cb126e returning error if any.

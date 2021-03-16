@@ -124,6 +124,14 @@ func (r *ChannelsReportSpamRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.reportSpam#fe087810 as nil")
 	}
 	b.PutID(ChannelsReportSpamRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *ChannelsReportSpamRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode channels.reportSpam#fe087810 as nil")
+	}
 	if r.Channel == nil {
 		return fmt.Errorf("unable to encode channels.reportSpam#fe087810: field channel is nil")
 	}
@@ -171,6 +179,14 @@ func (r *ChannelsReportSpamRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsReportSpamRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.reportSpam#fe087810: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *ChannelsReportSpamRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode channels.reportSpam#fe087810 to nil")
+	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
@@ -203,8 +219,10 @@ func (r *ChannelsReportSpamRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsReportSpamRequest.
 var (
-	_ bin.Encoder = &ChannelsReportSpamRequest{}
-	_ bin.Decoder = &ChannelsReportSpamRequest{}
+	_ bin.Encoder     = &ChannelsReportSpamRequest{}
+	_ bin.Decoder     = &ChannelsReportSpamRequest{}
+	_ bin.BareEncoder = &ChannelsReportSpamRequest{}
+	_ bin.BareDecoder = &ChannelsReportSpamRequest{}
 )
 
 // ChannelsReportSpam invokes method channels.reportSpam#fe087810 returning error if any.

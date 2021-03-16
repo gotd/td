@@ -116,6 +116,14 @@ func (l *LabeledPrice) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode labeledPrice#cb296bf8 as nil")
 	}
 	b.PutID(LabeledPriceTypeID)
+	return l.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (l *LabeledPrice) EncodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't encode labeledPrice#cb296bf8 as nil")
+	}
 	b.PutString(l.Label)
 	b.PutLong(l.Amount)
 	return nil
@@ -139,6 +147,14 @@ func (l *LabeledPrice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(LabeledPriceTypeID); err != nil {
 		return fmt.Errorf("unable to decode labeledPrice#cb296bf8: %w", err)
 	}
+	return l.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (l *LabeledPrice) DecodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't decode labeledPrice#cb296bf8 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -158,6 +174,8 @@ func (l *LabeledPrice) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for LabeledPrice.
 var (
-	_ bin.Encoder = &LabeledPrice{}
-	_ bin.Decoder = &LabeledPrice{}
+	_ bin.Encoder     = &LabeledPrice{}
+	_ bin.Decoder     = &LabeledPrice{}
+	_ bin.BareEncoder = &LabeledPrice{}
+	_ bin.BareDecoder = &LabeledPrice{}
 )

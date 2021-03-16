@@ -105,6 +105,14 @@ func (g *MessagesGetFeaturedStickersRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getFeaturedStickers#2dacca4f as nil")
 	}
 	b.PutID(MessagesGetFeaturedStickersRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetFeaturedStickersRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getFeaturedStickers#2dacca4f as nil")
+	}
 	b.PutInt(g.Hash)
 	return nil
 }
@@ -122,6 +130,14 @@ func (g *MessagesGetFeaturedStickersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetFeaturedStickersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getFeaturedStickers#2dacca4f: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetFeaturedStickersRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getFeaturedStickers#2dacca4f to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -134,8 +150,10 @@ func (g *MessagesGetFeaturedStickersRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetFeaturedStickersRequest.
 var (
-	_ bin.Encoder = &MessagesGetFeaturedStickersRequest{}
-	_ bin.Decoder = &MessagesGetFeaturedStickersRequest{}
+	_ bin.Encoder     = &MessagesGetFeaturedStickersRequest{}
+	_ bin.Decoder     = &MessagesGetFeaturedStickersRequest{}
+	_ bin.BareEncoder = &MessagesGetFeaturedStickersRequest{}
+	_ bin.BareDecoder = &MessagesGetFeaturedStickersRequest{}
 )
 
 // MessagesGetFeaturedStickers invokes method messages.getFeaturedStickers#2dacca4f returning error if any.

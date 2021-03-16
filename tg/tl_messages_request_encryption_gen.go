@@ -127,6 +127,14 @@ func (r *MessagesRequestEncryptionRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.requestEncryption#f64daf43 as nil")
 	}
 	b.PutID(MessagesRequestEncryptionRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *MessagesRequestEncryptionRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode messages.requestEncryption#f64daf43 as nil")
+	}
 	if r.UserID == nil {
 		return fmt.Errorf("unable to encode messages.requestEncryption#f64daf43: field user_id is nil")
 	}
@@ -161,6 +169,14 @@ func (r *MessagesRequestEncryptionRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesRequestEncryptionRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.requestEncryption#f64daf43: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *MessagesRequestEncryptionRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode messages.requestEncryption#f64daf43 to nil")
+	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
@@ -187,8 +203,10 @@ func (r *MessagesRequestEncryptionRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesRequestEncryptionRequest.
 var (
-	_ bin.Encoder = &MessagesRequestEncryptionRequest{}
-	_ bin.Decoder = &MessagesRequestEncryptionRequest{}
+	_ bin.Encoder     = &MessagesRequestEncryptionRequest{}
+	_ bin.Decoder     = &MessagesRequestEncryptionRequest{}
+	_ bin.BareEncoder = &MessagesRequestEncryptionRequest{}
+	_ bin.BareDecoder = &MessagesRequestEncryptionRequest{}
 )
 
 // MessagesRequestEncryption invokes method messages.requestEncryption#f64daf43 returning error if any.

@@ -112,6 +112,14 @@ func (c *ChatInviteImporter) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode chatInviteImporter#1e3e6680 as nil")
 	}
 	b.PutID(ChatInviteImporterTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChatInviteImporter) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode chatInviteImporter#1e3e6680 as nil")
+	}
 	b.PutInt(c.UserID)
 	b.PutInt(c.Date)
 	return nil
@@ -135,6 +143,14 @@ func (c *ChatInviteImporter) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChatInviteImporterTypeID); err != nil {
 		return fmt.Errorf("unable to decode chatInviteImporter#1e3e6680: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChatInviteImporter) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode chatInviteImporter#1e3e6680 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -154,6 +170,8 @@ func (c *ChatInviteImporter) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChatInviteImporter.
 var (
-	_ bin.Encoder = &ChatInviteImporter{}
-	_ bin.Decoder = &ChatInviteImporter{}
+	_ bin.Encoder     = &ChatInviteImporter{}
+	_ bin.Decoder     = &ChatInviteImporter{}
+	_ bin.BareEncoder = &ChatInviteImporter{}
+	_ bin.BareDecoder = &ChatInviteImporter{}
 )

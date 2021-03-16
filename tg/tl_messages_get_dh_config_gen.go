@@ -116,6 +116,14 @@ func (g *MessagesGetDhConfigRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getDhConfig#26cf8950 as nil")
 	}
 	b.PutID(MessagesGetDhConfigRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetDhConfigRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getDhConfig#26cf8950 as nil")
+	}
 	b.PutInt(g.Version)
 	b.PutInt(g.RandomLength)
 	return nil
@@ -139,6 +147,14 @@ func (g *MessagesGetDhConfigRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetDhConfigRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getDhConfig#26cf8950: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetDhConfigRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getDhConfig#26cf8950 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -158,8 +174,10 @@ func (g *MessagesGetDhConfigRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetDhConfigRequest.
 var (
-	_ bin.Encoder = &MessagesGetDhConfigRequest{}
-	_ bin.Decoder = &MessagesGetDhConfigRequest{}
+	_ bin.Encoder     = &MessagesGetDhConfigRequest{}
+	_ bin.Decoder     = &MessagesGetDhConfigRequest{}
+	_ bin.BareEncoder = &MessagesGetDhConfigRequest{}
+	_ bin.BareDecoder = &MessagesGetDhConfigRequest{}
 )
 
 // MessagesGetDhConfig invokes method messages.getDhConfig#26cf8950 returning error if any.

@@ -101,6 +101,14 @@ func (d *MessagesDeleteChatRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.deleteChat#83247d11 as nil")
 	}
 	b.PutID(MessagesDeleteChatRequestTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *MessagesDeleteChatRequest) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode messages.deleteChat#83247d11 as nil")
+	}
 	b.PutInt(d.ChatID)
 	return nil
 }
@@ -118,6 +126,14 @@ func (d *MessagesDeleteChatRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesDeleteChatRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.deleteChat#83247d11: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *MessagesDeleteChatRequest) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode messages.deleteChat#83247d11 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -130,8 +146,10 @@ func (d *MessagesDeleteChatRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesDeleteChatRequest.
 var (
-	_ bin.Encoder = &MessagesDeleteChatRequest{}
-	_ bin.Decoder = &MessagesDeleteChatRequest{}
+	_ bin.Encoder     = &MessagesDeleteChatRequest{}
+	_ bin.Decoder     = &MessagesDeleteChatRequest{}
+	_ bin.BareEncoder = &MessagesDeleteChatRequest{}
+	_ bin.BareDecoder = &MessagesDeleteChatRequest{}
 )
 
 // MessagesDeleteChat invokes method messages.deleteChat#83247d11 returning error if any.

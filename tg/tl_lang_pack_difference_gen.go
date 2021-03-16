@@ -135,6 +135,14 @@ func (l *LangPackDifference) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode langPackDifference#f385c1f6 as nil")
 	}
 	b.PutID(LangPackDifferenceTypeID)
+	return l.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (l *LangPackDifference) EncodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't encode langPackDifference#f385c1f6 as nil")
+	}
 	b.PutString(l.LangCode)
 	b.PutInt(l.FromVersion)
 	b.PutInt(l.Version)
@@ -183,6 +191,14 @@ func (l *LangPackDifference) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(LangPackDifferenceTypeID); err != nil {
 		return fmt.Errorf("unable to decode langPackDifference#f385c1f6: %w", err)
 	}
+	return l.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (l *LangPackDifference) DecodeBare(b *bin.Buffer) error {
+	if l == nil {
+		return fmt.Errorf("can't decode langPackDifference#f385c1f6 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -222,6 +238,8 @@ func (l *LangPackDifference) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for LangPackDifference.
 var (
-	_ bin.Encoder = &LangPackDifference{}
-	_ bin.Decoder = &LangPackDifference{}
+	_ bin.Encoder     = &LangPackDifference{}
+	_ bin.Decoder     = &LangPackDifference{}
+	_ bin.BareEncoder = &LangPackDifference{}
+	_ bin.BareDecoder = &LangPackDifference{}
 )

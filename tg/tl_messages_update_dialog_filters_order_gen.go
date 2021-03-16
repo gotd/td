@@ -108,6 +108,14 @@ func (u *MessagesUpdateDialogFiltersOrderRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.updateDialogFiltersOrder#c563c1e4 as nil")
 	}
 	b.PutID(MessagesUpdateDialogFiltersOrderRequestTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *MessagesUpdateDialogFiltersOrderRequest) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode messages.updateDialogFiltersOrder#c563c1e4 as nil")
+	}
 	b.PutVectorHeader(len(u.Order))
 	for _, v := range u.Order {
 		b.PutInt(v)
@@ -128,6 +136,14 @@ func (u *MessagesUpdateDialogFiltersOrderRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesUpdateDialogFiltersOrderRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.updateDialogFiltersOrder#c563c1e4: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *MessagesUpdateDialogFiltersOrderRequest) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode messages.updateDialogFiltersOrder#c563c1e4 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -146,8 +162,10 @@ func (u *MessagesUpdateDialogFiltersOrderRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesUpdateDialogFiltersOrderRequest.
 var (
-	_ bin.Encoder = &MessagesUpdateDialogFiltersOrderRequest{}
-	_ bin.Decoder = &MessagesUpdateDialogFiltersOrderRequest{}
+	_ bin.Encoder     = &MessagesUpdateDialogFiltersOrderRequest{}
+	_ bin.Decoder     = &MessagesUpdateDialogFiltersOrderRequest{}
+	_ bin.BareEncoder = &MessagesUpdateDialogFiltersOrderRequest{}
+	_ bin.BareDecoder = &MessagesUpdateDialogFiltersOrderRequest{}
 )
 
 // MessagesUpdateDialogFiltersOrder invokes method messages.updateDialogFiltersOrder#c563c1e4 returning error if any.

@@ -121,6 +121,14 @@ func (d *DhGenOk) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode dh_gen_ok#3bcbf734 as nil")
 	}
 	b.PutID(DhGenOkTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DhGenOk) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode dh_gen_ok#3bcbf734 as nil")
+	}
 	b.PutInt128(d.Nonce)
 	b.PutInt128(d.ServerNonce)
 	b.PutInt128(d.NewNonceHash1)
@@ -149,6 +157,14 @@ func (d *DhGenOk) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(DhGenOkTypeID); err != nil {
 		return fmt.Errorf("unable to decode dh_gen_ok#3bcbf734: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DhGenOk) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode dh_gen_ok#3bcbf734 to nil")
 	}
 	{
 		value, err := b.Int128()
@@ -179,8 +195,10 @@ func (d DhGenOk) construct() SetClientDHParamsAnswerClass { return &d }
 
 // Ensuring interfaces in compile-time for DhGenOk.
 var (
-	_ bin.Encoder = &DhGenOk{}
-	_ bin.Decoder = &DhGenOk{}
+	_ bin.Encoder     = &DhGenOk{}
+	_ bin.Decoder     = &DhGenOk{}
+	_ bin.BareEncoder = &DhGenOk{}
+	_ bin.BareDecoder = &DhGenOk{}
 
 	_ SetClientDHParamsAnswerClass = &DhGenOk{}
 )
@@ -280,6 +298,14 @@ func (d *DhGenRetry) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode dh_gen_retry#46dc1fb9 as nil")
 	}
 	b.PutID(DhGenRetryTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DhGenRetry) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode dh_gen_retry#46dc1fb9 as nil")
+	}
 	b.PutInt128(d.Nonce)
 	b.PutInt128(d.ServerNonce)
 	b.PutInt128(d.NewNonceHash2)
@@ -308,6 +334,14 @@ func (d *DhGenRetry) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(DhGenRetryTypeID); err != nil {
 		return fmt.Errorf("unable to decode dh_gen_retry#46dc1fb9: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DhGenRetry) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode dh_gen_retry#46dc1fb9 to nil")
 	}
 	{
 		value, err := b.Int128()
@@ -338,8 +372,10 @@ func (d DhGenRetry) construct() SetClientDHParamsAnswerClass { return &d }
 
 // Ensuring interfaces in compile-time for DhGenRetry.
 var (
-	_ bin.Encoder = &DhGenRetry{}
-	_ bin.Decoder = &DhGenRetry{}
+	_ bin.Encoder     = &DhGenRetry{}
+	_ bin.Decoder     = &DhGenRetry{}
+	_ bin.BareEncoder = &DhGenRetry{}
+	_ bin.BareDecoder = &DhGenRetry{}
 
 	_ SetClientDHParamsAnswerClass = &DhGenRetry{}
 )
@@ -439,6 +475,14 @@ func (d *DhGenFail) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode dh_gen_fail#a69dae02 as nil")
 	}
 	b.PutID(DhGenFailTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DhGenFail) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode dh_gen_fail#a69dae02 as nil")
+	}
 	b.PutInt128(d.Nonce)
 	b.PutInt128(d.ServerNonce)
 	b.PutInt128(d.NewNonceHash3)
@@ -467,6 +511,14 @@ func (d *DhGenFail) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(DhGenFailTypeID); err != nil {
 		return fmt.Errorf("unable to decode dh_gen_fail#a69dae02: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DhGenFail) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode dh_gen_fail#a69dae02 to nil")
 	}
 	{
 		value, err := b.Int128()
@@ -497,8 +549,10 @@ func (d DhGenFail) construct() SetClientDHParamsAnswerClass { return &d }
 
 // Ensuring interfaces in compile-time for DhGenFail.
 var (
-	_ bin.Encoder = &DhGenFail{}
-	_ bin.Decoder = &DhGenFail{}
+	_ bin.Encoder     = &DhGenFail{}
+	_ bin.Decoder     = &DhGenFail{}
+	_ bin.BareEncoder = &DhGenFail{}
+	_ bin.BareDecoder = &DhGenFail{}
 
 	_ SetClientDHParamsAnswerClass = &DhGenFail{}
 )
@@ -519,6 +573,8 @@ var (
 type SetClientDHParamsAnswerClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() SetClientDHParamsAnswerClass
 
 	// TypeID returns type id in TL schema.

@@ -99,6 +99,14 @@ func (d *DestroySessionRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode destroy_session#e7512126 as nil")
 	}
 	b.PutID(DestroySessionRequestTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DestroySessionRequest) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode destroy_session#e7512126 as nil")
+	}
 	b.PutLong(d.SessionID)
 	return nil
 }
@@ -116,6 +124,14 @@ func (d *DestroySessionRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DestroySessionRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode destroy_session#e7512126: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DestroySessionRequest) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode destroy_session#e7512126 to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -128,8 +144,10 @@ func (d *DestroySessionRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for DestroySessionRequest.
 var (
-	_ bin.Encoder = &DestroySessionRequest{}
-	_ bin.Decoder = &DestroySessionRequest{}
+	_ bin.Encoder     = &DestroySessionRequest{}
+	_ bin.Decoder     = &DestroySessionRequest{}
+	_ bin.BareEncoder = &DestroySessionRequest{}
+	_ bin.BareDecoder = &DestroySessionRequest{}
 )
 
 // DestroySession invokes method destroy_session#e7512126 returning error if any.

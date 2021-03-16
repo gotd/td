@@ -167,6 +167,14 @@ func (s *MessagesSetGameScoreRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.setGameScore#8ef8ecc0 as nil")
 	}
 	b.PutID(MessagesSetGameScoreRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesSetGameScoreRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.setGameScore#8ef8ecc0 as nil")
+	}
 	if !(s.EditMessage == false) {
 		s.Flags.Set(0)
 	}
@@ -253,6 +261,14 @@ func (s *MessagesSetGameScoreRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSetGameScoreRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.setGameScore#8ef8ecc0: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSetGameScoreRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.setGameScore#8ef8ecc0 to nil")
+	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.setGameScore#8ef8ecc0: field flags: %w", err)
@@ -293,8 +309,10 @@ func (s *MessagesSetGameScoreRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesSetGameScoreRequest.
 var (
-	_ bin.Encoder = &MessagesSetGameScoreRequest{}
-	_ bin.Decoder = &MessagesSetGameScoreRequest{}
+	_ bin.Encoder     = &MessagesSetGameScoreRequest{}
+	_ bin.Decoder     = &MessagesSetGameScoreRequest{}
+	_ bin.BareEncoder = &MessagesSetGameScoreRequest{}
+	_ bin.BareDecoder = &MessagesSetGameScoreRequest{}
 )
 
 // MessagesSetGameScore invokes method messages.setGameScore#8ef8ecc0 returning error if any.

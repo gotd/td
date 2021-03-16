@@ -154,6 +154,14 @@ func (p *PQInnerData) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode p_q_inner_data#83c95aec as nil")
 	}
 	b.PutID(PQInnerDataTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PQInnerData) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode p_q_inner_data#83c95aec as nil")
+	}
 	b.PutBytes(p.Pq)
 	b.PutBytes(p.P)
 	b.PutBytes(p.Q)
@@ -200,6 +208,14 @@ func (p *PQInnerData) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(PQInnerDataTypeID); err != nil {
 		return fmt.Errorf("unable to decode p_q_inner_data#83c95aec: %w", err)
+	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PQInnerData) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode p_q_inner_data#83c95aec to nil")
 	}
 	{
 		value, err := b.Bytes()
@@ -248,6 +264,8 @@ func (p *PQInnerData) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PQInnerData.
 var (
-	_ bin.Encoder = &PQInnerData{}
-	_ bin.Decoder = &PQInnerData{}
+	_ bin.Encoder     = &PQInnerData{}
+	_ bin.Decoder     = &PQInnerData{}
+	_ bin.BareEncoder = &PQInnerData{}
+	_ bin.BareDecoder = &PQInnerData{}
 )

@@ -85,6 +85,14 @@ func (d *HelpDeepLinkInfoEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.deepLinkInfoEmpty#66afa166 as nil")
 	}
 	b.PutID(HelpDeepLinkInfoEmptyTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *HelpDeepLinkInfoEmpty) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode help.deepLinkInfoEmpty#66afa166 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (d *HelpDeepLinkInfoEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpDeepLinkInfoEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.deepLinkInfoEmpty#66afa166: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *HelpDeepLinkInfoEmpty) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode help.deepLinkInfoEmpty#66afa166 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (d HelpDeepLinkInfoEmpty) construct() HelpDeepLinkInfoClass { return &d }
 
 // Ensuring interfaces in compile-time for HelpDeepLinkInfoEmpty.
 var (
-	_ bin.Encoder = &HelpDeepLinkInfoEmpty{}
-	_ bin.Decoder = &HelpDeepLinkInfoEmpty{}
+	_ bin.Encoder     = &HelpDeepLinkInfoEmpty{}
+	_ bin.Decoder     = &HelpDeepLinkInfoEmpty{}
+	_ bin.BareEncoder = &HelpDeepLinkInfoEmpty{}
+	_ bin.BareDecoder = &HelpDeepLinkInfoEmpty{}
 
 	_ HelpDeepLinkInfoClass = &HelpDeepLinkInfoEmpty{}
 )
@@ -226,6 +244,14 @@ func (d *HelpDeepLinkInfo) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.deepLinkInfo#6a4ee832 as nil")
 	}
 	b.PutID(HelpDeepLinkInfoTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *HelpDeepLinkInfo) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode help.deepLinkInfo#6a4ee832 as nil")
+	}
 	if !(d.UpdateApp == false) {
 		d.Flags.Set(0)
 	}
@@ -302,6 +328,14 @@ func (d *HelpDeepLinkInfo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpDeepLinkInfoTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.deepLinkInfo#6a4ee832: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *HelpDeepLinkInfo) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode help.deepLinkInfo#6a4ee832 to nil")
+	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode help.deepLinkInfo#6a4ee832: field flags: %w", err)
@@ -336,8 +370,10 @@ func (d HelpDeepLinkInfo) construct() HelpDeepLinkInfoClass { return &d }
 
 // Ensuring interfaces in compile-time for HelpDeepLinkInfo.
 var (
-	_ bin.Encoder = &HelpDeepLinkInfo{}
-	_ bin.Decoder = &HelpDeepLinkInfo{}
+	_ bin.Encoder     = &HelpDeepLinkInfo{}
+	_ bin.Decoder     = &HelpDeepLinkInfo{}
+	_ bin.BareEncoder = &HelpDeepLinkInfo{}
+	_ bin.BareDecoder = &HelpDeepLinkInfo{}
 
 	_ HelpDeepLinkInfoClass = &HelpDeepLinkInfo{}
 )
@@ -359,6 +395,8 @@ var (
 type HelpDeepLinkInfoClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() HelpDeepLinkInfoClass
 
 	// TypeID returns type id in TL schema.

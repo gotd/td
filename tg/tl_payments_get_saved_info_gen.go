@@ -85,6 +85,14 @@ func (g *PaymentsGetSavedInfoRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode payments.getSavedInfo#227d824b as nil")
 	}
 	b.PutID(PaymentsGetSavedInfoRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *PaymentsGetSavedInfoRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode payments.getSavedInfo#227d824b as nil")
+	}
 	return nil
 }
 
@@ -96,13 +104,23 @@ func (g *PaymentsGetSavedInfoRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PaymentsGetSavedInfoRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode payments.getSavedInfo#227d824b: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *PaymentsGetSavedInfoRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode payments.getSavedInfo#227d824b to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for PaymentsGetSavedInfoRequest.
 var (
-	_ bin.Encoder = &PaymentsGetSavedInfoRequest{}
-	_ bin.Decoder = &PaymentsGetSavedInfoRequest{}
+	_ bin.Encoder     = &PaymentsGetSavedInfoRequest{}
+	_ bin.Decoder     = &PaymentsGetSavedInfoRequest{}
+	_ bin.BareEncoder = &PaymentsGetSavedInfoRequest{}
+	_ bin.BareDecoder = &PaymentsGetSavedInfoRequest{}
 )
 
 // PaymentsGetSavedInfo invokes method payments.getSavedInfo#227d824b returning error if any.

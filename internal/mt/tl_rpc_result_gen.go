@@ -110,6 +110,14 @@ func (r *RPCResult) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode rpc_result#f35c6d01 as nil")
 	}
 	b.PutID(RPCResultTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *RPCResult) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode rpc_result#f35c6d01 as nil")
+	}
 	b.PutLong(r.ReqMsgID)
 	if err := r.Result.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode rpc_result#f35c6d01: field result: %w", err)
@@ -135,6 +143,14 @@ func (r *RPCResult) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(RPCResultTypeID); err != nil {
 		return fmt.Errorf("unable to decode rpc_result#f35c6d01: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *RPCResult) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode rpc_result#f35c6d01 to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -152,6 +168,8 @@ func (r *RPCResult) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for RPCResult.
 var (
-	_ bin.Encoder = &RPCResult{}
-	_ bin.Decoder = &RPCResult{}
+	_ bin.Encoder     = &RPCResult{}
+	_ bin.Decoder     = &RPCResult{}
+	_ bin.BareEncoder = &RPCResult{}
+	_ bin.BareDecoder = &RPCResult{}
 )

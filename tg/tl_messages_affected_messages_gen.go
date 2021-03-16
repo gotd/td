@@ -119,6 +119,14 @@ func (a *MessagesAffectedMessages) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.affectedMessages#84d19185 as nil")
 	}
 	b.PutID(MessagesAffectedMessagesTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *MessagesAffectedMessages) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode messages.affectedMessages#84d19185 as nil")
+	}
 	b.PutInt(a.Pts)
 	b.PutInt(a.PtsCount)
 	return nil
@@ -142,6 +150,14 @@ func (a *MessagesAffectedMessages) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesAffectedMessagesTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.affectedMessages#84d19185: %w", err)
 	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *MessagesAffectedMessages) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode messages.affectedMessages#84d19185 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -161,6 +177,8 @@ func (a *MessagesAffectedMessages) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesAffectedMessages.
 var (
-	_ bin.Encoder = &MessagesAffectedMessages{}
-	_ bin.Decoder = &MessagesAffectedMessages{}
+	_ bin.Encoder     = &MessagesAffectedMessages{}
+	_ bin.Decoder     = &MessagesAffectedMessages{}
+	_ bin.BareEncoder = &MessagesAffectedMessages{}
+	_ bin.BareDecoder = &MessagesAffectedMessages{}
 )

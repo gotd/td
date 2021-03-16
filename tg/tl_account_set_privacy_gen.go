@@ -113,6 +113,14 @@ func (s *AccountSetPrivacyRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.setPrivacy#c9f81ce8 as nil")
 	}
 	b.PutID(AccountSetPrivacyRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *AccountSetPrivacyRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode account.setPrivacy#c9f81ce8 as nil")
+	}
 	if s.Key == nil {
 		return fmt.Errorf("unable to encode account.setPrivacy#c9f81ce8: field key is nil")
 	}
@@ -154,6 +162,14 @@ func (s *AccountSetPrivacyRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountSetPrivacyRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.setPrivacy#c9f81ce8: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *AccountSetPrivacyRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode account.setPrivacy#c9f81ce8 to nil")
+	}
 	{
 		value, err := DecodeInputPrivacyKey(b)
 		if err != nil {
@@ -179,8 +195,10 @@ func (s *AccountSetPrivacyRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountSetPrivacyRequest.
 var (
-	_ bin.Encoder = &AccountSetPrivacyRequest{}
-	_ bin.Decoder = &AccountSetPrivacyRequest{}
+	_ bin.Encoder     = &AccountSetPrivacyRequest{}
+	_ bin.Decoder     = &AccountSetPrivacyRequest{}
+	_ bin.BareEncoder = &AccountSetPrivacyRequest{}
+	_ bin.BareDecoder = &AccountSetPrivacyRequest{}
 )
 
 // AccountSetPrivacy invokes method account.setPrivacy#c9f81ce8 returning error if any.

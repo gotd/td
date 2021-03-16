@@ -101,6 +101,14 @@ func (e *EchoVectorRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode echoVector#d4785939 as nil")
 	}
 	b.PutID(EchoVectorRequestTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *EchoVectorRequest) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode echoVector#d4785939 as nil")
+	}
 	b.PutVectorHeader(len(e.IDs))
 	for _, v := range e.IDs {
 		b.PutInt(v)
@@ -121,6 +129,14 @@ func (e *EchoVectorRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(EchoVectorRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode echoVector#d4785939: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *EchoVectorRequest) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode echoVector#d4785939 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -139,8 +155,10 @@ func (e *EchoVectorRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for EchoVectorRequest.
 var (
-	_ bin.Encoder = &EchoVectorRequest{}
-	_ bin.Decoder = &EchoVectorRequest{}
+	_ bin.Encoder     = &EchoVectorRequest{}
+	_ bin.Decoder     = &EchoVectorRequest{}
+	_ bin.BareEncoder = &EchoVectorRequest{}
+	_ bin.BareDecoder = &EchoVectorRequest{}
 )
 
 // EchoVector invokes method echoVector#d4785939 returning error if any.

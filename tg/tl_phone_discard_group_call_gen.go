@@ -101,6 +101,14 @@ func (d *PhoneDiscardGroupCallRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.discardGroupCall#7a777135 as nil")
 	}
 	b.PutID(PhoneDiscardGroupCallRequestTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *PhoneDiscardGroupCallRequest) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode phone.discardGroupCall#7a777135 as nil")
+	}
 	if err := d.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.discardGroupCall#7a777135: field call: %w", err)
 	}
@@ -120,6 +128,14 @@ func (d *PhoneDiscardGroupCallRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneDiscardGroupCallRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.discardGroupCall#7a777135: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *PhoneDiscardGroupCallRequest) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode phone.discardGroupCall#7a777135 to nil")
+	}
 	{
 		if err := d.Call.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phone.discardGroupCall#7a777135: field call: %w", err)
@@ -130,8 +146,10 @@ func (d *PhoneDiscardGroupCallRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhoneDiscardGroupCallRequest.
 var (
-	_ bin.Encoder = &PhoneDiscardGroupCallRequest{}
-	_ bin.Decoder = &PhoneDiscardGroupCallRequest{}
+	_ bin.Encoder     = &PhoneDiscardGroupCallRequest{}
+	_ bin.Decoder     = &PhoneDiscardGroupCallRequest{}
+	_ bin.BareEncoder = &PhoneDiscardGroupCallRequest{}
+	_ bin.BareDecoder = &PhoneDiscardGroupCallRequest{}
 )
 
 // PhoneDiscardGroupCall invokes method phone.discardGroupCall#7a777135 returning error if any.

@@ -102,6 +102,14 @@ func (p *PageTableRow) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pageTableRow#e0c0c5e5 as nil")
 	}
 	b.PutID(PageTableRowTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PageTableRow) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pageTableRow#e0c0c5e5 as nil")
+	}
 	b.PutVectorHeader(len(p.Cells))
 	for idx, v := range p.Cells {
 		if err := v.Encode(b); err != nil {
@@ -124,6 +132,14 @@ func (p *PageTableRow) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PageTableRowTypeID); err != nil {
 		return fmt.Errorf("unable to decode pageTableRow#e0c0c5e5: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PageTableRow) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pageTableRow#e0c0c5e5 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -142,6 +158,8 @@ func (p *PageTableRow) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PageTableRow.
 var (
-	_ bin.Encoder = &PageTableRow{}
-	_ bin.Decoder = &PageTableRow{}
+	_ bin.Encoder     = &PageTableRow{}
+	_ bin.Decoder     = &PageTableRow{}
+	_ bin.BareEncoder = &PageTableRow{}
+	_ bin.BareDecoder = &PageTableRow{}
 )

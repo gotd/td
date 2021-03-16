@@ -127,6 +127,14 @@ func (r *MessagesReadDiscussionRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.readDiscussion#f731a9f4 as nil")
 	}
 	b.PutID(MessagesReadDiscussionRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *MessagesReadDiscussionRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode messages.readDiscussion#f731a9f4 as nil")
+	}
 	if r.Peer == nil {
 		return fmt.Errorf("unable to encode messages.readDiscussion#f731a9f4: field peer is nil")
 	}
@@ -161,6 +169,14 @@ func (r *MessagesReadDiscussionRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesReadDiscussionRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.readDiscussion#f731a9f4: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *MessagesReadDiscussionRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode messages.readDiscussion#f731a9f4 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -187,8 +203,10 @@ func (r *MessagesReadDiscussionRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesReadDiscussionRequest.
 var (
-	_ bin.Encoder = &MessagesReadDiscussionRequest{}
-	_ bin.Decoder = &MessagesReadDiscussionRequest{}
+	_ bin.Encoder     = &MessagesReadDiscussionRequest{}
+	_ bin.Decoder     = &MessagesReadDiscussionRequest{}
+	_ bin.BareEncoder = &MessagesReadDiscussionRequest{}
+	_ bin.BareDecoder = &MessagesReadDiscussionRequest{}
 )
 
 // MessagesReadDiscussion invokes method messages.readDiscussion#f731a9f4 returning error if any.

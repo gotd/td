@@ -85,6 +85,14 @@ func (g *AccountGetAccountTTLRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.getAccountTTL#8fc711d as nil")
 	}
 	b.PutID(AccountGetAccountTTLRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *AccountGetAccountTTLRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode account.getAccountTTL#8fc711d as nil")
+	}
 	return nil
 }
 
@@ -96,13 +104,23 @@ func (g *AccountGetAccountTTLRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetAccountTTLRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getAccountTTL#8fc711d: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *AccountGetAccountTTLRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode account.getAccountTTL#8fc711d to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for AccountGetAccountTTLRequest.
 var (
-	_ bin.Encoder = &AccountGetAccountTTLRequest{}
-	_ bin.Decoder = &AccountGetAccountTTLRequest{}
+	_ bin.Encoder     = &AccountGetAccountTTLRequest{}
+	_ bin.Decoder     = &AccountGetAccountTTLRequest{}
+	_ bin.BareEncoder = &AccountGetAccountTTLRequest{}
+	_ bin.BareDecoder = &AccountGetAccountTTLRequest{}
 )
 
 // AccountGetAccountTTL invokes method account.getAccountTTL#8fc711d returning error if any.

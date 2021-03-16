@@ -113,6 +113,14 @@ func (p *PopularContact) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode popularContact#5ce14175 as nil")
 	}
 	b.PutID(PopularContactTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PopularContact) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode popularContact#5ce14175 as nil")
+	}
 	b.PutLong(p.ClientID)
 	b.PutInt(p.Importers)
 	return nil
@@ -136,6 +144,14 @@ func (p *PopularContact) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PopularContactTypeID); err != nil {
 		return fmt.Errorf("unable to decode popularContact#5ce14175: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PopularContact) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode popularContact#5ce14175 to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -155,6 +171,8 @@ func (p *PopularContact) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PopularContact.
 var (
-	_ bin.Encoder = &PopularContact{}
-	_ bin.Decoder = &PopularContact{}
+	_ bin.Encoder     = &PopularContact{}
+	_ bin.Decoder     = &PopularContact{}
+	_ bin.BareEncoder = &PopularContact{}
+	_ bin.BareDecoder = &PopularContact{}
 )

@@ -113,6 +113,14 @@ func (r *ReceivedNotifyMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode receivedNotifyMessage#a384b779 as nil")
 	}
 	b.PutID(ReceivedNotifyMessageTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *ReceivedNotifyMessage) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode receivedNotifyMessage#a384b779 as nil")
+	}
 	b.PutInt(r.ID)
 	b.PutInt(r.Flags)
 	return nil
@@ -136,6 +144,14 @@ func (r *ReceivedNotifyMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ReceivedNotifyMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode receivedNotifyMessage#a384b779: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *ReceivedNotifyMessage) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode receivedNotifyMessage#a384b779 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -155,6 +171,8 @@ func (r *ReceivedNotifyMessage) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ReceivedNotifyMessage.
 var (
-	_ bin.Encoder = &ReceivedNotifyMessage{}
-	_ bin.Decoder = &ReceivedNotifyMessage{}
+	_ bin.Encoder     = &ReceivedNotifyMessage{}
+	_ bin.Decoder     = &ReceivedNotifyMessage{}
+	_ bin.BareEncoder = &ReceivedNotifyMessage{}
+	_ bin.BareDecoder = &ReceivedNotifyMessage{}
 )

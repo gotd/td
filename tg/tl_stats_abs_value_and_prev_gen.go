@@ -113,6 +113,14 @@ func (s *StatsAbsValueAndPrev) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode statsAbsValueAndPrev#cb43acde as nil")
 	}
 	b.PutID(StatsAbsValueAndPrevTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StatsAbsValueAndPrev) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode statsAbsValueAndPrev#cb43acde as nil")
+	}
 	b.PutDouble(s.Current)
 	b.PutDouble(s.Previous)
 	return nil
@@ -136,6 +144,14 @@ func (s *StatsAbsValueAndPrev) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsAbsValueAndPrevTypeID); err != nil {
 		return fmt.Errorf("unable to decode statsAbsValueAndPrev#cb43acde: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StatsAbsValueAndPrev) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode statsAbsValueAndPrev#cb43acde to nil")
+	}
 	{
 		value, err := b.Double()
 		if err != nil {
@@ -155,6 +171,8 @@ func (s *StatsAbsValueAndPrev) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for StatsAbsValueAndPrev.
 var (
-	_ bin.Encoder = &StatsAbsValueAndPrev{}
-	_ bin.Decoder = &StatsAbsValueAndPrev{}
+	_ bin.Encoder     = &StatsAbsValueAndPrev{}
+	_ bin.Decoder     = &StatsAbsValueAndPrev{}
+	_ bin.BareEncoder = &StatsAbsValueAndPrev{}
+	_ bin.BareDecoder = &StatsAbsValueAndPrev{}
 )

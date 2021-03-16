@@ -144,6 +144,14 @@ func (s *MessagesSetBotPrecheckoutResultsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.setBotPrecheckoutResults#9c2dd95 as nil")
 	}
 	b.PutID(MessagesSetBotPrecheckoutResultsRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesSetBotPrecheckoutResultsRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.setBotPrecheckoutResults#9c2dd95 as nil")
+	}
 	if !(s.Success == false) {
 		s.Flags.Set(1)
 	}
@@ -204,6 +212,14 @@ func (s *MessagesSetBotPrecheckoutResultsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSetBotPrecheckoutResultsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.setBotPrecheckoutResults#9c2dd95: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSetBotPrecheckoutResultsRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.setBotPrecheckoutResults#9c2dd95 to nil")
+	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.setBotPrecheckoutResults#9c2dd95: field flags: %w", err)
@@ -229,8 +245,10 @@ func (s *MessagesSetBotPrecheckoutResultsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesSetBotPrecheckoutResultsRequest.
 var (
-	_ bin.Encoder = &MessagesSetBotPrecheckoutResultsRequest{}
-	_ bin.Decoder = &MessagesSetBotPrecheckoutResultsRequest{}
+	_ bin.Encoder     = &MessagesSetBotPrecheckoutResultsRequest{}
+	_ bin.Decoder     = &MessagesSetBotPrecheckoutResultsRequest{}
+	_ bin.BareEncoder = &MessagesSetBotPrecheckoutResultsRequest{}
+	_ bin.BareDecoder = &MessagesSetBotPrecheckoutResultsRequest{}
 )
 
 // MessagesSetBotPrecheckoutResults invokes method messages.setBotPrecheckoutResults#9c2dd95 returning error if any.

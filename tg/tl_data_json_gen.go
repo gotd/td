@@ -102,6 +102,14 @@ func (d *DataJSON) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode dataJSON#7d748d04 as nil")
 	}
 	b.PutID(DataJSONTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DataJSON) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode dataJSON#7d748d04 as nil")
+	}
 	b.PutString(d.Data)
 	return nil
 }
@@ -119,6 +127,14 @@ func (d *DataJSON) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DataJSONTypeID); err != nil {
 		return fmt.Errorf("unable to decode dataJSON#7d748d04: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DataJSON) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode dataJSON#7d748d04 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -131,6 +147,8 @@ func (d *DataJSON) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for DataJSON.
 var (
-	_ bin.Encoder = &DataJSON{}
-	_ bin.Decoder = &DataJSON{}
+	_ bin.Encoder     = &DataJSON{}
+	_ bin.Decoder     = &DataJSON{}
+	_ bin.BareEncoder = &DataJSON{}
+	_ bin.BareDecoder = &DataJSON{}
 )

@@ -113,6 +113,14 @@ func (i *InlineBotSwitchPM) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inlineBotSwitchPM#3c20629f as nil")
 	}
 	b.PutID(InlineBotSwitchPMTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InlineBotSwitchPM) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineBotSwitchPM#3c20629f as nil")
+	}
 	b.PutString(i.Text)
 	b.PutString(i.StartParam)
 	return nil
@@ -136,6 +144,14 @@ func (i *InlineBotSwitchPM) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InlineBotSwitchPMTypeID); err != nil {
 		return fmt.Errorf("unable to decode inlineBotSwitchPM#3c20629f: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InlineBotSwitchPM) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inlineBotSwitchPM#3c20629f to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -155,6 +171,8 @@ func (i *InlineBotSwitchPM) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for InlineBotSwitchPM.
 var (
-	_ bin.Encoder = &InlineBotSwitchPM{}
-	_ bin.Decoder = &InlineBotSwitchPM{}
+	_ bin.Encoder     = &InlineBotSwitchPM{}
+	_ bin.Decoder     = &InlineBotSwitchPM{}
+	_ bin.BareEncoder = &InlineBotSwitchPM{}
+	_ bin.BareDecoder = &InlineBotSwitchPM{}
 )

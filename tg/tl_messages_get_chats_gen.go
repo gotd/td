@@ -102,6 +102,14 @@ func (g *MessagesGetChatsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getChats#3c6aa187 as nil")
 	}
 	b.PutID(MessagesGetChatsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetChatsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getChats#3c6aa187 as nil")
+	}
 	b.PutVectorHeader(len(g.ID))
 	for _, v := range g.ID {
 		b.PutInt(v)
@@ -122,6 +130,14 @@ func (g *MessagesGetChatsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetChatsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getChats#3c6aa187: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetChatsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getChats#3c6aa187 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -140,8 +156,10 @@ func (g *MessagesGetChatsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetChatsRequest.
 var (
-	_ bin.Encoder = &MessagesGetChatsRequest{}
-	_ bin.Decoder = &MessagesGetChatsRequest{}
+	_ bin.Encoder     = &MessagesGetChatsRequest{}
+	_ bin.Decoder     = &MessagesGetChatsRequest{}
+	_ bin.BareEncoder = &MessagesGetChatsRequest{}
+	_ bin.BareDecoder = &MessagesGetChatsRequest{}
 )
 
 // MessagesGetChats invokes method messages.getChats#3c6aa187 returning error if any.

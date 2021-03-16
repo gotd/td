@@ -101,7 +101,15 @@ func (t *TestVectorBytes) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode testVectorBytes#a590fb25 as nil")
 	}
 	b.PutID(TestVectorBytesTypeID)
-	b.PutVectorHeader(len(t.Value))
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TestVectorBytes) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode testVectorBytes#a590fb25 as nil")
+	}
+	b.PutInt(len(t.Value))
 	for _, v := range t.Value {
 		b.PutBytes(v)
 	}
@@ -121,8 +129,16 @@ func (t *TestVectorBytes) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TestVectorBytesTypeID); err != nil {
 		return fmt.Errorf("unable to decode testVectorBytes#a590fb25: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TestVectorBytes) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode testVectorBytes#a590fb25 to nil")
+	}
 	{
-		headerLen, err := b.VectorHeader()
+		headerLen, err := b.Int()
 		if err != nil {
 			return fmt.Errorf("unable to decode testVectorBytes#a590fb25: field value: %w", err)
 		}
@@ -139,6 +155,8 @@ func (t *TestVectorBytes) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for TestVectorBytes.
 var (
-	_ bin.Encoder = &TestVectorBytes{}
-	_ bin.Decoder = &TestVectorBytes{}
+	_ bin.Encoder     = &TestVectorBytes{}
+	_ bin.Decoder     = &TestVectorBytes{}
+	_ bin.BareEncoder = &TestVectorBytes{}
+	_ bin.BareDecoder = &TestVectorBytes{}
 )

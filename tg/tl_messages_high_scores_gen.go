@@ -113,6 +113,14 @@ func (h *MessagesHighScores) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.highScores#9a3bfd99 as nil")
 	}
 	b.PutID(MessagesHighScoresTypeID)
+	return h.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (h *MessagesHighScores) EncodeBare(b *bin.Buffer) error {
+	if h == nil {
+		return fmt.Errorf("can't encode messages.highScores#9a3bfd99 as nil")
+	}
 	b.PutVectorHeader(len(h.Scores))
 	for idx, v := range h.Scores {
 		if err := v.Encode(b); err != nil {
@@ -154,6 +162,14 @@ func (h *MessagesHighScores) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesHighScoresTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.highScores#9a3bfd99: %w", err)
 	}
+	return h.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (h *MessagesHighScores) DecodeBare(b *bin.Buffer) error {
+	if h == nil {
+		return fmt.Errorf("can't decode messages.highScores#9a3bfd99 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -185,6 +201,8 @@ func (h *MessagesHighScores) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesHighScores.
 var (
-	_ bin.Encoder = &MessagesHighScores{}
-	_ bin.Decoder = &MessagesHighScores{}
+	_ bin.Encoder     = &MessagesHighScores{}
+	_ bin.Decoder     = &MessagesHighScores{}
+	_ bin.BareEncoder = &MessagesHighScores{}
+	_ bin.BareDecoder = &MessagesHighScores{}
 )

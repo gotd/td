@@ -116,6 +116,14 @@ func (g *MessagesGetSearchCountersRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getSearchCounters#732eef00 as nil")
 	}
 	b.PutID(MessagesGetSearchCountersRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetSearchCountersRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getSearchCounters#732eef00 as nil")
+	}
 	if g.Peer == nil {
 		return fmt.Errorf("unable to encode messages.getSearchCounters#732eef00: field peer is nil")
 	}
@@ -157,6 +165,14 @@ func (g *MessagesGetSearchCountersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetSearchCountersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getSearchCounters#732eef00: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetSearchCountersRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getSearchCounters#732eef00 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -182,8 +198,10 @@ func (g *MessagesGetSearchCountersRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetSearchCountersRequest.
 var (
-	_ bin.Encoder = &MessagesGetSearchCountersRequest{}
-	_ bin.Decoder = &MessagesGetSearchCountersRequest{}
+	_ bin.Encoder     = &MessagesGetSearchCountersRequest{}
+	_ bin.Decoder     = &MessagesGetSearchCountersRequest{}
+	_ bin.BareEncoder = &MessagesGetSearchCountersRequest{}
+	_ bin.BareDecoder = &MessagesGetSearchCountersRequest{}
 )
 
 // MessagesGetSearchCounters invokes method messages.getSearchCounters#732eef00 returning error if any.

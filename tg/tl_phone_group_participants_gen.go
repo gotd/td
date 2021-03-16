@@ -156,6 +156,14 @@ func (g *PhoneGroupParticipants) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.groupParticipants#f47751b6 as nil")
 	}
 	b.PutID(PhoneGroupParticipantsTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *PhoneGroupParticipants) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode phone.groupParticipants#f47751b6 as nil")
+	}
 	b.PutInt(g.Count)
 	b.PutVectorHeader(len(g.Participants))
 	for idx, v := range g.Participants {
@@ -234,6 +242,14 @@ func (g *PhoneGroupParticipants) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneGroupParticipantsTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.groupParticipants#f47751b6: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *PhoneGroupParticipants) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode phone.groupParticipants#f47751b6 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -299,6 +315,8 @@ func (g *PhoneGroupParticipants) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhoneGroupParticipants.
 var (
-	_ bin.Encoder = &PhoneGroupParticipants{}
-	_ bin.Decoder = &PhoneGroupParticipants{}
+	_ bin.Encoder     = &PhoneGroupParticipants{}
+	_ bin.Decoder     = &PhoneGroupParticipants{}
+	_ bin.BareEncoder = &PhoneGroupParticipants{}
+	_ bin.BareDecoder = &PhoneGroupParticipants{}
 )

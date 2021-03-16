@@ -113,6 +113,14 @@ func (u *ChannelsUpdateUsernameRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.updateUsername#3514b3de as nil")
 	}
 	b.PutID(ChannelsUpdateUsernameRequestTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *ChannelsUpdateUsernameRequest) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode channels.updateUsername#3514b3de as nil")
+	}
 	if u.Channel == nil {
 		return fmt.Errorf("unable to encode channels.updateUsername#3514b3de: field channel is nil")
 	}
@@ -146,6 +154,14 @@ func (u *ChannelsUpdateUsernameRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsUpdateUsernameRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.updateUsername#3514b3de: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *ChannelsUpdateUsernameRequest) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode channels.updateUsername#3514b3de to nil")
+	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
@@ -165,8 +181,10 @@ func (u *ChannelsUpdateUsernameRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsUpdateUsernameRequest.
 var (
-	_ bin.Encoder = &ChannelsUpdateUsernameRequest{}
-	_ bin.Decoder = &ChannelsUpdateUsernameRequest{}
+	_ bin.Encoder     = &ChannelsUpdateUsernameRequest{}
+	_ bin.Decoder     = &ChannelsUpdateUsernameRequest{}
+	_ bin.BareEncoder = &ChannelsUpdateUsernameRequest{}
+	_ bin.BareDecoder = &ChannelsUpdateUsernameRequest{}
 )
 
 // ChannelsUpdateUsername invokes method channels.updateUsername#3514b3de returning error if any.

@@ -117,6 +117,14 @@ func (s *UsersSetSecureValueErrorsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode users.setSecureValueErrors#90c894b5 as nil")
 	}
 	b.PutID(UsersSetSecureValueErrorsRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *UsersSetSecureValueErrorsRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode users.setSecureValueErrors#90c894b5 as nil")
+	}
 	if s.ID == nil {
 		return fmt.Errorf("unable to encode users.setSecureValueErrors#90c894b5: field id is nil")
 	}
@@ -158,6 +166,14 @@ func (s *UsersSetSecureValueErrorsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UsersSetSecureValueErrorsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode users.setSecureValueErrors#90c894b5: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *UsersSetSecureValueErrorsRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode users.setSecureValueErrors#90c894b5 to nil")
+	}
 	{
 		value, err := DecodeInputUser(b)
 		if err != nil {
@@ -183,8 +199,10 @@ func (s *UsersSetSecureValueErrorsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for UsersSetSecureValueErrorsRequest.
 var (
-	_ bin.Encoder = &UsersSetSecureValueErrorsRequest{}
-	_ bin.Decoder = &UsersSetSecureValueErrorsRequest{}
+	_ bin.Encoder     = &UsersSetSecureValueErrorsRequest{}
+	_ bin.Decoder     = &UsersSetSecureValueErrorsRequest{}
+	_ bin.BareEncoder = &UsersSetSecureValueErrorsRequest{}
+	_ bin.BareDecoder = &UsersSetSecureValueErrorsRequest{}
 )
 
 // UsersSetSecureValueErrors invokes method users.setSecureValueErrors#90c894b5 returning error if any.

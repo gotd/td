@@ -215,6 +215,14 @@ func (p *PeerSettings) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode peerSettings#733f2961 as nil")
 	}
 	b.PutID(PeerSettingsTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PeerSettings) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode peerSettings#733f2961 as nil")
+	}
 	if !(p.ReportSpam == false) {
 		p.Flags.Set(0)
 	}
@@ -402,6 +410,14 @@ func (p *PeerSettings) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PeerSettingsTypeID); err != nil {
 		return fmt.Errorf("unable to decode peerSettings#733f2961: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PeerSettings) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode peerSettings#733f2961 to nil")
+	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode peerSettings#733f2961: field flags: %w", err)
@@ -427,6 +443,8 @@ func (p *PeerSettings) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PeerSettings.
 var (
-	_ bin.Encoder = &PeerSettings{}
-	_ bin.Decoder = &PeerSettings{}
+	_ bin.Encoder     = &PeerSettings{}
+	_ bin.Decoder     = &PeerSettings{}
+	_ bin.BareEncoder = &PeerSettings{}
+	_ bin.BareDecoder = &PeerSettings{}
 )

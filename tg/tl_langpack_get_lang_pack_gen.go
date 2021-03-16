@@ -113,6 +113,14 @@ func (g *LangpackGetLangPackRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode langpack.getLangPack#f2f2330a as nil")
 	}
 	b.PutID(LangpackGetLangPackRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *LangpackGetLangPackRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode langpack.getLangPack#f2f2330a as nil")
+	}
 	b.PutString(g.LangPack)
 	b.PutString(g.LangCode)
 	return nil
@@ -136,6 +144,14 @@ func (g *LangpackGetLangPackRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(LangpackGetLangPackRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode langpack.getLangPack#f2f2330a: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *LangpackGetLangPackRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode langpack.getLangPack#f2f2330a to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -155,8 +171,10 @@ func (g *LangpackGetLangPackRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for LangpackGetLangPackRequest.
 var (
-	_ bin.Encoder = &LangpackGetLangPackRequest{}
-	_ bin.Decoder = &LangpackGetLangPackRequest{}
+	_ bin.Encoder     = &LangpackGetLangPackRequest{}
+	_ bin.Decoder     = &LangpackGetLangPackRequest{}
+	_ bin.BareEncoder = &LangpackGetLangPackRequest{}
+	_ bin.BareDecoder = &LangpackGetLangPackRequest{}
 )
 
 // LangpackGetLangPack invokes method langpack.getLangPack#f2f2330a returning error if any.

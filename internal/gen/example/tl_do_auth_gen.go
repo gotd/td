@@ -84,6 +84,14 @@ func (d *DoAuthRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode doAuth#fd2f6687 as nil")
 	}
 	b.PutID(DoAuthRequestTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DoAuthRequest) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode doAuth#fd2f6687 as nil")
+	}
 	return nil
 }
 
@@ -95,13 +103,23 @@ func (d *DoAuthRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DoAuthRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode doAuth#fd2f6687: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DoAuthRequest) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode doAuth#fd2f6687 to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for DoAuthRequest.
 var (
-	_ bin.Encoder = &DoAuthRequest{}
-	_ bin.Decoder = &DoAuthRequest{}
+	_ bin.Encoder     = &DoAuthRequest{}
+	_ bin.Decoder     = &DoAuthRequest{}
+	_ bin.BareEncoder = &DoAuthRequest{}
+	_ bin.BareDecoder = &DoAuthRequest{}
 )
 
 // DoAuth invokes method doAuth#fd2f6687 returning error if any.

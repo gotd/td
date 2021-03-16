@@ -116,6 +116,14 @@ func (g *MessagesGetScheduledHistoryRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getScheduledHistory#e2c2685b as nil")
 	}
 	b.PutID(MessagesGetScheduledHistoryRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetScheduledHistoryRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getScheduledHistory#e2c2685b as nil")
+	}
 	if g.Peer == nil {
 		return fmt.Errorf("unable to encode messages.getScheduledHistory#e2c2685b: field peer is nil")
 	}
@@ -144,6 +152,14 @@ func (g *MessagesGetScheduledHistoryRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetScheduledHistoryRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getScheduledHistory#e2c2685b: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetScheduledHistoryRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getScheduledHistory#e2c2685b to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -163,8 +179,10 @@ func (g *MessagesGetScheduledHistoryRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetScheduledHistoryRequest.
 var (
-	_ bin.Encoder = &MessagesGetScheduledHistoryRequest{}
-	_ bin.Decoder = &MessagesGetScheduledHistoryRequest{}
+	_ bin.Encoder     = &MessagesGetScheduledHistoryRequest{}
+	_ bin.Decoder     = &MessagesGetScheduledHistoryRequest{}
+	_ bin.BareEncoder = &MessagesGetScheduledHistoryRequest{}
+	_ bin.BareDecoder = &MessagesGetScheduledHistoryRequest{}
 )
 
 // MessagesGetScheduledHistory invokes method messages.getScheduledHistory#e2c2685b returning error if any.

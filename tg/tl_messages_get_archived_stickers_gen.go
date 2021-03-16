@@ -139,6 +139,14 @@ func (g *MessagesGetArchivedStickersRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getArchivedStickers#57f17692 as nil")
 	}
 	b.PutID(MessagesGetArchivedStickersRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetArchivedStickersRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getArchivedStickers#57f17692 as nil")
+	}
 	if !(g.Masks == false) {
 		g.Flags.Set(0)
 	}
@@ -184,6 +192,14 @@ func (g *MessagesGetArchivedStickersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetArchivedStickersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getArchivedStickers#57f17692: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetArchivedStickersRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getArchivedStickers#57f17692 to nil")
+	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.getArchivedStickers#57f17692: field flags: %w", err)
@@ -209,8 +225,10 @@ func (g *MessagesGetArchivedStickersRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetArchivedStickersRequest.
 var (
-	_ bin.Encoder = &MessagesGetArchivedStickersRequest{}
-	_ bin.Decoder = &MessagesGetArchivedStickersRequest{}
+	_ bin.Encoder     = &MessagesGetArchivedStickersRequest{}
+	_ bin.Decoder     = &MessagesGetArchivedStickersRequest{}
+	_ bin.BareEncoder = &MessagesGetArchivedStickersRequest{}
+	_ bin.BareDecoder = &MessagesGetArchivedStickersRequest{}
 )
 
 // MessagesGetArchivedStickers invokes method messages.getArchivedStickers#57f17692 returning error if any.

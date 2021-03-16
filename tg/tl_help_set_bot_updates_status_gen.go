@@ -113,6 +113,14 @@ func (s *HelpSetBotUpdatesStatusRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.setBotUpdatesStatus#ec22cfcd as nil")
 	}
 	b.PutID(HelpSetBotUpdatesStatusRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *HelpSetBotUpdatesStatusRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode help.setBotUpdatesStatus#ec22cfcd as nil")
+	}
 	b.PutInt(s.PendingUpdatesCount)
 	b.PutString(s.Message)
 	return nil
@@ -136,6 +144,14 @@ func (s *HelpSetBotUpdatesStatusRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpSetBotUpdatesStatusRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.setBotUpdatesStatus#ec22cfcd: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *HelpSetBotUpdatesStatusRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode help.setBotUpdatesStatus#ec22cfcd to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -155,8 +171,10 @@ func (s *HelpSetBotUpdatesStatusRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for HelpSetBotUpdatesStatusRequest.
 var (
-	_ bin.Encoder = &HelpSetBotUpdatesStatusRequest{}
-	_ bin.Decoder = &HelpSetBotUpdatesStatusRequest{}
+	_ bin.Encoder     = &HelpSetBotUpdatesStatusRequest{}
+	_ bin.Decoder     = &HelpSetBotUpdatesStatusRequest{}
+	_ bin.BareEncoder = &HelpSetBotUpdatesStatusRequest{}
+	_ bin.BareDecoder = &HelpSetBotUpdatesStatusRequest{}
 )
 
 // HelpSetBotUpdatesStatus invokes method help.setBotUpdatesStatus#ec22cfcd returning error if any.

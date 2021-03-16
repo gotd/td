@@ -148,6 +148,14 @@ func (p *PollAnswerVoters) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode pollAnswerVoters#3b6ddad2 as nil")
 	}
 	b.PutID(PollAnswerVotersTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PollAnswerVoters) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode pollAnswerVoters#3b6ddad2 as nil")
+	}
 	if !(p.Chosen == false) {
 		p.Flags.Set(0)
 	}
@@ -212,6 +220,14 @@ func (p *PollAnswerVoters) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PollAnswerVotersTypeID); err != nil {
 		return fmt.Errorf("unable to decode pollAnswerVoters#3b6ddad2: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PollAnswerVoters) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode pollAnswerVoters#3b6ddad2 to nil")
+	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode pollAnswerVoters#3b6ddad2: field flags: %w", err)
@@ -238,6 +254,8 @@ func (p *PollAnswerVoters) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PollAnswerVoters.
 var (
-	_ bin.Encoder = &PollAnswerVoters{}
-	_ bin.Decoder = &PollAnswerVoters{}
+	_ bin.Encoder     = &PollAnswerVoters{}
+	_ bin.Decoder     = &PollAnswerVoters{}
+	_ bin.BareEncoder = &PollAnswerVoters{}
+	_ bin.BareDecoder = &PollAnswerVoters{}
 )

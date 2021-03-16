@@ -135,6 +135,14 @@ func (t *PhoneToggleGroupCallSettingsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.toggleGroupCallSettings#74bbb43d as nil")
 	}
 	b.PutID(PhoneToggleGroupCallSettingsRequestTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *PhoneToggleGroupCallSettingsRequest) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode phone.toggleGroupCallSettings#74bbb43d as nil")
+	}
 	if !(t.ResetInviteHash == false) {
 		t.Flags.Set(1)
 	}
@@ -197,6 +205,14 @@ func (t *PhoneToggleGroupCallSettingsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneToggleGroupCallSettingsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.toggleGroupCallSettings#74bbb43d: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *PhoneToggleGroupCallSettingsRequest) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode phone.toggleGroupCallSettings#74bbb43d to nil")
+	}
 	{
 		if err := t.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phone.toggleGroupCallSettings#74bbb43d: field flags: %w", err)
@@ -220,8 +236,10 @@ func (t *PhoneToggleGroupCallSettingsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhoneToggleGroupCallSettingsRequest.
 var (
-	_ bin.Encoder = &PhoneToggleGroupCallSettingsRequest{}
-	_ bin.Decoder = &PhoneToggleGroupCallSettingsRequest{}
+	_ bin.Encoder     = &PhoneToggleGroupCallSettingsRequest{}
+	_ bin.Decoder     = &PhoneToggleGroupCallSettingsRequest{}
+	_ bin.BareEncoder = &PhoneToggleGroupCallSettingsRequest{}
+	_ bin.BareDecoder = &PhoneToggleGroupCallSettingsRequest{}
 )
 
 // PhoneToggleGroupCallSettings invokes method phone.toggleGroupCallSettings#74bbb43d returning error if any.

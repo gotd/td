@@ -124,6 +124,14 @@ func (s *ShippingOption) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode shippingOption#b6213cdf as nil")
 	}
 	b.PutID(ShippingOptionTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *ShippingOption) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode shippingOption#b6213cdf as nil")
+	}
 	b.PutString(s.ID)
 	b.PutString(s.Title)
 	b.PutVectorHeader(len(s.Prices))
@@ -158,6 +166,14 @@ func (s *ShippingOption) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ShippingOptionTypeID); err != nil {
 		return fmt.Errorf("unable to decode shippingOption#b6213cdf: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *ShippingOption) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode shippingOption#b6213cdf to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -190,6 +206,8 @@ func (s *ShippingOption) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ShippingOption.
 var (
-	_ bin.Encoder = &ShippingOption{}
-	_ bin.Decoder = &ShippingOption{}
+	_ bin.Encoder     = &ShippingOption{}
+	_ bin.Decoder     = &ShippingOption{}
+	_ bin.BareEncoder = &ShippingOption{}
+	_ bin.BareDecoder = &ShippingOption{}
 )

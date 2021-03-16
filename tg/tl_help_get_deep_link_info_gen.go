@@ -102,6 +102,14 @@ func (g *HelpGetDeepLinkInfoRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.getDeepLinkInfo#3fedc75f as nil")
 	}
 	b.PutID(HelpGetDeepLinkInfoRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *HelpGetDeepLinkInfoRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode help.getDeepLinkInfo#3fedc75f as nil")
+	}
 	b.PutString(g.Path)
 	return nil
 }
@@ -119,6 +127,14 @@ func (g *HelpGetDeepLinkInfoRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetDeepLinkInfoRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getDeepLinkInfo#3fedc75f: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *HelpGetDeepLinkInfoRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode help.getDeepLinkInfo#3fedc75f to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -131,8 +147,10 @@ func (g *HelpGetDeepLinkInfoRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for HelpGetDeepLinkInfoRequest.
 var (
-	_ bin.Encoder = &HelpGetDeepLinkInfoRequest{}
-	_ bin.Decoder = &HelpGetDeepLinkInfoRequest{}
+	_ bin.Encoder     = &HelpGetDeepLinkInfoRequest{}
+	_ bin.Decoder     = &HelpGetDeepLinkInfoRequest{}
+	_ bin.BareEncoder = &HelpGetDeepLinkInfoRequest{}
+	_ bin.BareDecoder = &HelpGetDeepLinkInfoRequest{}
 )
 
 // HelpGetDeepLinkInfo invokes method help.getDeepLinkInfo#3fedc75f returning error if any.

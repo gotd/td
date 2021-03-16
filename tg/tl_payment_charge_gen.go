@@ -113,6 +113,14 @@ func (p *PaymentCharge) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode paymentCharge#ea02c27e as nil")
 	}
 	b.PutID(PaymentChargeTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PaymentCharge) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode paymentCharge#ea02c27e as nil")
+	}
 	b.PutString(p.ID)
 	b.PutString(p.ProviderChargeID)
 	return nil
@@ -136,6 +144,14 @@ func (p *PaymentCharge) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PaymentChargeTypeID); err != nil {
 		return fmt.Errorf("unable to decode paymentCharge#ea02c27e: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PaymentCharge) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode paymentCharge#ea02c27e to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -155,6 +171,8 @@ func (p *PaymentCharge) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PaymentCharge.
 var (
-	_ bin.Encoder = &PaymentCharge{}
-	_ bin.Decoder = &PaymentCharge{}
+	_ bin.Encoder     = &PaymentCharge{}
+	_ bin.Decoder     = &PaymentCharge{}
+	_ bin.BareEncoder = &PaymentCharge{}
+	_ bin.BareDecoder = &PaymentCharge{}
 )

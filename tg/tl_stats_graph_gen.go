@@ -106,6 +106,14 @@ func (s *StatsGraphAsync) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode statsGraphAsync#4a27eb2d as nil")
 	}
 	b.PutID(StatsGraphAsyncTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StatsGraphAsync) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode statsGraphAsync#4a27eb2d as nil")
+	}
 	b.PutString(s.Token)
 	return nil
 }
@@ -123,6 +131,14 @@ func (s *StatsGraphAsync) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsGraphAsyncTypeID); err != nil {
 		return fmt.Errorf("unable to decode statsGraphAsync#4a27eb2d: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StatsGraphAsync) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode statsGraphAsync#4a27eb2d to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -138,8 +154,10 @@ func (s StatsGraphAsync) construct() StatsGraphClass { return &s }
 
 // Ensuring interfaces in compile-time for StatsGraphAsync.
 var (
-	_ bin.Encoder = &StatsGraphAsync{}
-	_ bin.Decoder = &StatsGraphAsync{}
+	_ bin.Encoder     = &StatsGraphAsync{}
+	_ bin.Decoder     = &StatsGraphAsync{}
+	_ bin.BareEncoder = &StatsGraphAsync{}
+	_ bin.BareDecoder = &StatsGraphAsync{}
 
 	_ StatsGraphClass = &StatsGraphAsync{}
 )
@@ -223,6 +241,14 @@ func (s *StatsGraphError) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode statsGraphError#bedc9822 as nil")
 	}
 	b.PutID(StatsGraphErrorTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StatsGraphError) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode statsGraphError#bedc9822 as nil")
+	}
 	b.PutString(s.Error)
 	return nil
 }
@@ -240,6 +266,14 @@ func (s *StatsGraphError) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsGraphErrorTypeID); err != nil {
 		return fmt.Errorf("unable to decode statsGraphError#bedc9822: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StatsGraphError) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode statsGraphError#bedc9822 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -255,8 +289,10 @@ func (s StatsGraphError) construct() StatsGraphClass { return &s }
 
 // Ensuring interfaces in compile-time for StatsGraphError.
 var (
-	_ bin.Encoder = &StatsGraphError{}
-	_ bin.Decoder = &StatsGraphError{}
+	_ bin.Encoder     = &StatsGraphError{}
+	_ bin.Decoder     = &StatsGraphError{}
+	_ bin.BareEncoder = &StatsGraphError{}
+	_ bin.BareDecoder = &StatsGraphError{}
 
 	_ StatsGraphClass = &StatsGraphError{}
 )
@@ -365,6 +401,14 @@ func (s *StatsGraph) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode statsGraph#8ea464b6 as nil")
 	}
 	b.PutID(StatsGraphTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StatsGraph) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode statsGraph#8ea464b6 as nil")
+	}
 	if !(s.ZoomToken == "") {
 		s.Flags.Set(0)
 	}
@@ -408,6 +452,14 @@ func (s *StatsGraph) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsGraphTypeID); err != nil {
 		return fmt.Errorf("unable to decode statsGraph#8ea464b6: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StatsGraph) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode statsGraph#8ea464b6 to nil")
+	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode statsGraph#8ea464b6: field flags: %w", err)
@@ -433,8 +485,10 @@ func (s StatsGraph) construct() StatsGraphClass { return &s }
 
 // Ensuring interfaces in compile-time for StatsGraph.
 var (
-	_ bin.Encoder = &StatsGraph{}
-	_ bin.Decoder = &StatsGraph{}
+	_ bin.Encoder     = &StatsGraph{}
+	_ bin.Decoder     = &StatsGraph{}
+	_ bin.BareEncoder = &StatsGraph{}
+	_ bin.BareDecoder = &StatsGraph{}
 
 	_ StatsGraphClass = &StatsGraph{}
 )
@@ -457,6 +511,8 @@ var (
 type StatsGraphClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() StatsGraphClass
 
 	// TypeID returns type id in TL schema.

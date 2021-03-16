@@ -133,6 +133,14 @@ func (v *AccountVerifyPhoneRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.verifyPhone#4dd3a7f6 as nil")
 	}
 	b.PutID(AccountVerifyPhoneRequestTypeID)
+	return v.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (v *AccountVerifyPhoneRequest) EncodeBare(b *bin.Buffer) error {
+	if v == nil {
+		return fmt.Errorf("can't encode account.verifyPhone#4dd3a7f6 as nil")
+	}
 	b.PutString(v.PhoneNumber)
 	b.PutString(v.PhoneCodeHash)
 	b.PutString(v.PhoneCode)
@@ -162,6 +170,14 @@ func (v *AccountVerifyPhoneRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountVerifyPhoneRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.verifyPhone#4dd3a7f6: %w", err)
 	}
+	return v.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (v *AccountVerifyPhoneRequest) DecodeBare(b *bin.Buffer) error {
+	if v == nil {
+		return fmt.Errorf("can't decode account.verifyPhone#4dd3a7f6 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -188,8 +204,10 @@ func (v *AccountVerifyPhoneRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountVerifyPhoneRequest.
 var (
-	_ bin.Encoder = &AccountVerifyPhoneRequest{}
-	_ bin.Decoder = &AccountVerifyPhoneRequest{}
+	_ bin.Encoder     = &AccountVerifyPhoneRequest{}
+	_ bin.Decoder     = &AccountVerifyPhoneRequest{}
+	_ bin.BareEncoder = &AccountVerifyPhoneRequest{}
+	_ bin.BareDecoder = &AccountVerifyPhoneRequest{}
 )
 
 // AccountVerifyPhone invokes method account.verifyPhone#4dd3a7f6 returning error if any.

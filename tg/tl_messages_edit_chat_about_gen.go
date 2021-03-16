@@ -119,6 +119,14 @@ func (e *MessagesEditChatAboutRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.editChatAbout#def60797 as nil")
 	}
 	b.PutID(MessagesEditChatAboutRequestTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *MessagesEditChatAboutRequest) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode messages.editChatAbout#def60797 as nil")
+	}
 	if e.Peer == nil {
 		return fmt.Errorf("unable to encode messages.editChatAbout#def60797: field peer is nil")
 	}
@@ -147,6 +155,14 @@ func (e *MessagesEditChatAboutRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesEditChatAboutRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.editChatAbout#def60797: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *MessagesEditChatAboutRequest) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode messages.editChatAbout#def60797 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -166,8 +182,10 @@ func (e *MessagesEditChatAboutRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesEditChatAboutRequest.
 var (
-	_ bin.Encoder = &MessagesEditChatAboutRequest{}
-	_ bin.Decoder = &MessagesEditChatAboutRequest{}
+	_ bin.Encoder     = &MessagesEditChatAboutRequest{}
+	_ bin.Decoder     = &MessagesEditChatAboutRequest{}
+	_ bin.BareEncoder = &MessagesEditChatAboutRequest{}
+	_ bin.BareDecoder = &MessagesEditChatAboutRequest{}
 )
 
 // MessagesEditChatAbout invokes method messages.editChatAbout#def60797 returning error if any.

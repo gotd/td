@@ -113,6 +113,14 @@ func (j *JSONObjectValue) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode jsonObjectValue#c0de1bd9 as nil")
 	}
 	b.PutID(JSONObjectValueTypeID)
+	return j.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (j *JSONObjectValue) EncodeBare(b *bin.Buffer) error {
+	if j == nil {
+		return fmt.Errorf("can't encode jsonObjectValue#c0de1bd9 as nil")
+	}
 	b.PutString(j.Key)
 	if j.Value == nil {
 		return fmt.Errorf("unable to encode jsonObjectValue#c0de1bd9: field value is nil")
@@ -141,6 +149,14 @@ func (j *JSONObjectValue) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(JSONObjectValueTypeID); err != nil {
 		return fmt.Errorf("unable to decode jsonObjectValue#c0de1bd9: %w", err)
 	}
+	return j.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (j *JSONObjectValue) DecodeBare(b *bin.Buffer) error {
+	if j == nil {
+		return fmt.Errorf("can't decode jsonObjectValue#c0de1bd9 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -160,6 +176,8 @@ func (j *JSONObjectValue) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for JSONObjectValue.
 var (
-	_ bin.Encoder = &JSONObjectValue{}
-	_ bin.Decoder = &JSONObjectValue{}
+	_ bin.Encoder     = &JSONObjectValue{}
+	_ bin.Decoder     = &JSONObjectValue{}
+	_ bin.BareEncoder = &JSONObjectValue{}
+	_ bin.BareDecoder = &JSONObjectValue{}
 )

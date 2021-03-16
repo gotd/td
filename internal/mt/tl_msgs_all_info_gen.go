@@ -110,6 +110,14 @@ func (m *MsgsAllInfo) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode msgs_all_info#8cc0d131 as nil")
 	}
 	b.PutID(MsgsAllInfoTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MsgsAllInfo) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode msgs_all_info#8cc0d131 as nil")
+	}
 	b.PutVectorHeader(len(m.MsgIDs))
 	for _, v := range m.MsgIDs {
 		b.PutLong(v)
@@ -136,6 +144,14 @@ func (m *MsgsAllInfo) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MsgsAllInfoTypeID); err != nil {
 		return fmt.Errorf("unable to decode msgs_all_info#8cc0d131: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MsgsAllInfo) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode msgs_all_info#8cc0d131 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -161,6 +177,8 @@ func (m *MsgsAllInfo) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MsgsAllInfo.
 var (
-	_ bin.Encoder = &MsgsAllInfo{}
-	_ bin.Decoder = &MsgsAllInfo{}
+	_ bin.Encoder     = &MsgsAllInfo{}
+	_ bin.Decoder     = &MsgsAllInfo{}
+	_ bin.BareEncoder = &MsgsAllInfo{}
+	_ bin.BareDecoder = &MsgsAllInfo{}
 )

@@ -105,6 +105,14 @@ func (r *MessagesReportSpamRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.reportSpam#cf1592db as nil")
 	}
 	b.PutID(MessagesReportSpamRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *MessagesReportSpamRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode messages.reportSpam#cf1592db as nil")
+	}
 	if r.Peer == nil {
 		return fmt.Errorf("unable to encode messages.reportSpam#cf1592db: field peer is nil")
 	}
@@ -127,6 +135,14 @@ func (r *MessagesReportSpamRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesReportSpamRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.reportSpam#cf1592db: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *MessagesReportSpamRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode messages.reportSpam#cf1592db to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -139,8 +155,10 @@ func (r *MessagesReportSpamRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesReportSpamRequest.
 var (
-	_ bin.Encoder = &MessagesReportSpamRequest{}
-	_ bin.Decoder = &MessagesReportSpamRequest{}
+	_ bin.Encoder     = &MessagesReportSpamRequest{}
+	_ bin.Decoder     = &MessagesReportSpamRequest{}
+	_ bin.BareEncoder = &MessagesReportSpamRequest{}
+	_ bin.BareDecoder = &MessagesReportSpamRequest{}
 )
 
 // MessagesReportSpam invokes method messages.reportSpam#cf1592db returning error if any.

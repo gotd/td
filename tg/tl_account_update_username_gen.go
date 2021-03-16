@@ -102,6 +102,14 @@ func (u *AccountUpdateUsernameRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.updateUsername#3e0bdd7c as nil")
 	}
 	b.PutID(AccountUpdateUsernameRequestTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *AccountUpdateUsernameRequest) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode account.updateUsername#3e0bdd7c as nil")
+	}
 	b.PutString(u.Username)
 	return nil
 }
@@ -119,6 +127,14 @@ func (u *AccountUpdateUsernameRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountUpdateUsernameRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.updateUsername#3e0bdd7c: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *AccountUpdateUsernameRequest) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode account.updateUsername#3e0bdd7c to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -131,8 +147,10 @@ func (u *AccountUpdateUsernameRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountUpdateUsernameRequest.
 var (
-	_ bin.Encoder = &AccountUpdateUsernameRequest{}
-	_ bin.Decoder = &AccountUpdateUsernameRequest{}
+	_ bin.Encoder     = &AccountUpdateUsernameRequest{}
+	_ bin.Decoder     = &AccountUpdateUsernameRequest{}
+	_ bin.BareEncoder = &AccountUpdateUsernameRequest{}
+	_ bin.BareDecoder = &AccountUpdateUsernameRequest{}
 )
 
 // AccountUpdateUsername invokes method account.updateUsername#3e0bdd7c returning error if any.

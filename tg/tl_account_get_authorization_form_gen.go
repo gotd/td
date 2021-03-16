@@ -124,6 +124,14 @@ func (g *AccountGetAuthorizationFormRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.getAuthorizationForm#b86ba8e1 as nil")
 	}
 	b.PutID(AccountGetAuthorizationFormRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *AccountGetAuthorizationFormRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode account.getAuthorizationForm#b86ba8e1 as nil")
+	}
 	b.PutInt(g.BotID)
 	b.PutString(g.Scope)
 	b.PutString(g.PublicKey)
@@ -153,6 +161,14 @@ func (g *AccountGetAuthorizationFormRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetAuthorizationFormRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getAuthorizationForm#b86ba8e1: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *AccountGetAuthorizationFormRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode account.getAuthorizationForm#b86ba8e1 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -179,8 +195,10 @@ func (g *AccountGetAuthorizationFormRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountGetAuthorizationFormRequest.
 var (
-	_ bin.Encoder = &AccountGetAuthorizationFormRequest{}
-	_ bin.Decoder = &AccountGetAuthorizationFormRequest{}
+	_ bin.Encoder     = &AccountGetAuthorizationFormRequest{}
+	_ bin.Decoder     = &AccountGetAuthorizationFormRequest{}
+	_ bin.BareEncoder = &AccountGetAuthorizationFormRequest{}
+	_ bin.BareDecoder = &AccountGetAuthorizationFormRequest{}
 )
 
 // AccountGetAuthorizationForm invokes method account.getAuthorizationForm#b86ba8e1 returning error if any.

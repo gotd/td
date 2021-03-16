@@ -200,6 +200,14 @@ func (c *ChannelsCreateChannelRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.createChannel#3d5fb10f as nil")
 	}
 	b.PutID(ChannelsCreateChannelRequestTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *ChannelsCreateChannelRequest) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode channels.createChannel#3d5fb10f as nil")
+	}
 	if !(c.Broadcast == false) {
 		c.Flags.Set(0)
 	}
@@ -339,6 +347,14 @@ func (c *ChannelsCreateChannelRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsCreateChannelRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.createChannel#3d5fb10f: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *ChannelsCreateChannelRequest) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode channels.createChannel#3d5fb10f to nil")
+	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channels.createChannel#3d5fb10f: field flags: %w", err)
@@ -380,8 +396,10 @@ func (c *ChannelsCreateChannelRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsCreateChannelRequest.
 var (
-	_ bin.Encoder = &ChannelsCreateChannelRequest{}
-	_ bin.Decoder = &ChannelsCreateChannelRequest{}
+	_ bin.Encoder     = &ChannelsCreateChannelRequest{}
+	_ bin.Decoder     = &ChannelsCreateChannelRequest{}
+	_ bin.BareEncoder = &ChannelsCreateChannelRequest{}
+	_ bin.BareDecoder = &ChannelsCreateChannelRequest{}
 )
 
 // ChannelsCreateChannel invokes method channels.createChannel#3d5fb10f returning error if any.

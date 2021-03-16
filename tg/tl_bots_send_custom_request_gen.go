@@ -113,6 +113,14 @@ func (s *BotsSendCustomRequestRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode bots.sendCustomRequest#aa2769ed as nil")
 	}
 	b.PutID(BotsSendCustomRequestRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *BotsSendCustomRequestRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode bots.sendCustomRequest#aa2769ed as nil")
+	}
 	b.PutString(s.CustomMethod)
 	if err := s.Params.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode bots.sendCustomRequest#aa2769ed: field params: %w", err)
@@ -138,6 +146,14 @@ func (s *BotsSendCustomRequestRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(BotsSendCustomRequestRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode bots.sendCustomRequest#aa2769ed: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *BotsSendCustomRequestRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode bots.sendCustomRequest#aa2769ed to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -155,8 +171,10 @@ func (s *BotsSendCustomRequestRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for BotsSendCustomRequestRequest.
 var (
-	_ bin.Encoder = &BotsSendCustomRequestRequest{}
-	_ bin.Decoder = &BotsSendCustomRequestRequest{}
+	_ bin.Encoder     = &BotsSendCustomRequestRequest{}
+	_ bin.Decoder     = &BotsSendCustomRequestRequest{}
+	_ bin.BareEncoder = &BotsSendCustomRequestRequest{}
+	_ bin.BareDecoder = &BotsSendCustomRequestRequest{}
 )
 
 // BotsSendCustomRequest invokes method bots.sendCustomRequest#aa2769ed returning error if any.

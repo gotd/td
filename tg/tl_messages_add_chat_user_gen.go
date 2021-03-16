@@ -124,6 +124,14 @@ func (a *MessagesAddChatUserRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.addChatUser#f9a0aa09 as nil")
 	}
 	b.PutID(MessagesAddChatUserRequestTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *MessagesAddChatUserRequest) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode messages.addChatUser#f9a0aa09 as nil")
+	}
 	b.PutInt(a.ChatID)
 	if a.UserID == nil {
 		return fmt.Errorf("unable to encode messages.addChatUser#f9a0aa09: field user_id is nil")
@@ -158,6 +166,14 @@ func (a *MessagesAddChatUserRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesAddChatUserRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.addChatUser#f9a0aa09: %w", err)
 	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *MessagesAddChatUserRequest) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode messages.addChatUser#f9a0aa09 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -184,8 +200,10 @@ func (a *MessagesAddChatUserRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesAddChatUserRequest.
 var (
-	_ bin.Encoder = &MessagesAddChatUserRequest{}
-	_ bin.Decoder = &MessagesAddChatUserRequest{}
+	_ bin.Encoder     = &MessagesAddChatUserRequest{}
+	_ bin.Decoder     = &MessagesAddChatUserRequest{}
+	_ bin.BareEncoder = &MessagesAddChatUserRequest{}
+	_ bin.BareDecoder = &MessagesAddChatUserRequest{}
 )
 
 // MessagesAddChatUser invokes method messages.addChatUser#f9a0aa09 returning error if any.

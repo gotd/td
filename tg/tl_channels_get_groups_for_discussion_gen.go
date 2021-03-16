@@ -93,6 +93,14 @@ func (g *ChannelsGetGroupsForDiscussionRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.getGroupsForDiscussion#f5dad378 as nil")
 	}
 	b.PutID(ChannelsGetGroupsForDiscussionRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *ChannelsGetGroupsForDiscussionRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode channels.getGroupsForDiscussion#f5dad378 as nil")
+	}
 	return nil
 }
 
@@ -104,13 +112,23 @@ func (g *ChannelsGetGroupsForDiscussionRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsGetGroupsForDiscussionRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.getGroupsForDiscussion#f5dad378: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *ChannelsGetGroupsForDiscussionRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode channels.getGroupsForDiscussion#f5dad378 to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for ChannelsGetGroupsForDiscussionRequest.
 var (
-	_ bin.Encoder = &ChannelsGetGroupsForDiscussionRequest{}
-	_ bin.Decoder = &ChannelsGetGroupsForDiscussionRequest{}
+	_ bin.Encoder     = &ChannelsGetGroupsForDiscussionRequest{}
+	_ bin.Decoder     = &ChannelsGetGroupsForDiscussionRequest{}
+	_ bin.BareEncoder = &ChannelsGetGroupsForDiscussionRequest{}
+	_ bin.BareDecoder = &ChannelsGetGroupsForDiscussionRequest{}
 )
 
 // ChannelsGetGroupsForDiscussion invokes method channels.getGroupsForDiscussion#f5dad378 returning error if any.

@@ -113,6 +113,14 @@ func (s *ChannelsSetStickersRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.setStickers#ea8ca4f9 as nil")
 	}
 	b.PutID(ChannelsSetStickersRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *ChannelsSetStickersRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode channels.setStickers#ea8ca4f9 as nil")
+	}
 	if s.Channel == nil {
 		return fmt.Errorf("unable to encode channels.setStickers#ea8ca4f9: field channel is nil")
 	}
@@ -151,6 +159,14 @@ func (s *ChannelsSetStickersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsSetStickersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.setStickers#ea8ca4f9: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *ChannelsSetStickersRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode channels.setStickers#ea8ca4f9 to nil")
+	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
@@ -170,8 +186,10 @@ func (s *ChannelsSetStickersRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsSetStickersRequest.
 var (
-	_ bin.Encoder = &ChannelsSetStickersRequest{}
-	_ bin.Decoder = &ChannelsSetStickersRequest{}
+	_ bin.Encoder     = &ChannelsSetStickersRequest{}
+	_ bin.Decoder     = &ChannelsSetStickersRequest{}
+	_ bin.BareEncoder = &ChannelsSetStickersRequest{}
+	_ bin.BareDecoder = &ChannelsSetStickersRequest{}
 )
 
 // ChannelsSetStickers invokes method channels.setStickers#ea8ca4f9 returning error if any.

@@ -102,6 +102,14 @@ func (f *MessagesFeaturedStickersNotModified) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.featuredStickersNotModified#c6dc0c66 as nil")
 	}
 	b.PutID(MessagesFeaturedStickersNotModifiedTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *MessagesFeaturedStickersNotModified) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode messages.featuredStickersNotModified#c6dc0c66 as nil")
+	}
 	b.PutInt(f.Count)
 	return nil
 }
@@ -119,6 +127,14 @@ func (f *MessagesFeaturedStickersNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesFeaturedStickersNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.featuredStickersNotModified#c6dc0c66: %w", err)
 	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *MessagesFeaturedStickersNotModified) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode messages.featuredStickersNotModified#c6dc0c66 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -134,8 +150,10 @@ func (f MessagesFeaturedStickersNotModified) construct() MessagesFeaturedSticker
 
 // Ensuring interfaces in compile-time for MessagesFeaturedStickersNotModified.
 var (
-	_ bin.Encoder = &MessagesFeaturedStickersNotModified{}
-	_ bin.Decoder = &MessagesFeaturedStickersNotModified{}
+	_ bin.Encoder     = &MessagesFeaturedStickersNotModified{}
+	_ bin.Decoder     = &MessagesFeaturedStickersNotModified{}
+	_ bin.BareEncoder = &MessagesFeaturedStickersNotModified{}
+	_ bin.BareDecoder = &MessagesFeaturedStickersNotModified{}
 
 	_ MessagesFeaturedStickersClass = &MessagesFeaturedStickersNotModified{}
 )
@@ -252,6 +270,14 @@ func (f *MessagesFeaturedStickers) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.featuredStickers#b6abc341 as nil")
 	}
 	b.PutID(MessagesFeaturedStickersTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *MessagesFeaturedStickers) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode messages.featuredStickers#b6abc341 as nil")
+	}
 	b.PutInt(f.Hash)
 	b.PutInt(f.Count)
 	b.PutVectorHeader(len(f.Sets))
@@ -303,6 +329,14 @@ func (f *MessagesFeaturedStickers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesFeaturedStickersTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.featuredStickers#b6abc341: %w", err)
 	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *MessagesFeaturedStickers) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode messages.featuredStickers#b6abc341 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -351,8 +385,10 @@ func (f MessagesFeaturedStickers) construct() MessagesFeaturedStickersClass { re
 
 // Ensuring interfaces in compile-time for MessagesFeaturedStickers.
 var (
-	_ bin.Encoder = &MessagesFeaturedStickers{}
-	_ bin.Decoder = &MessagesFeaturedStickers{}
+	_ bin.Encoder     = &MessagesFeaturedStickers{}
+	_ bin.Decoder     = &MessagesFeaturedStickers{}
+	_ bin.BareEncoder = &MessagesFeaturedStickers{}
+	_ bin.BareDecoder = &MessagesFeaturedStickers{}
 
 	_ MessagesFeaturedStickersClass = &MessagesFeaturedStickers{}
 )
@@ -374,6 +410,8 @@ var (
 type MessagesFeaturedStickersClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() MessagesFeaturedStickersClass
 
 	// TypeID returns type id in TL schema.

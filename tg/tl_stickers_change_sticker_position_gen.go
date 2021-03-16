@@ -113,6 +113,14 @@ func (c *StickersChangeStickerPositionRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode stickers.changeStickerPosition#ffb6d4ca as nil")
 	}
 	b.PutID(StickersChangeStickerPositionRequestTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *StickersChangeStickerPositionRequest) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode stickers.changeStickerPosition#ffb6d4ca as nil")
+	}
 	if c.Sticker == nil {
 		return fmt.Errorf("unable to encode stickers.changeStickerPosition#ffb6d4ca: field sticker is nil")
 	}
@@ -146,6 +154,14 @@ func (c *StickersChangeStickerPositionRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StickersChangeStickerPositionRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode stickers.changeStickerPosition#ffb6d4ca: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *StickersChangeStickerPositionRequest) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode stickers.changeStickerPosition#ffb6d4ca to nil")
+	}
 	{
 		value, err := DecodeInputDocument(b)
 		if err != nil {
@@ -165,8 +181,10 @@ func (c *StickersChangeStickerPositionRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for StickersChangeStickerPositionRequest.
 var (
-	_ bin.Encoder = &StickersChangeStickerPositionRequest{}
-	_ bin.Decoder = &StickersChangeStickerPositionRequest{}
+	_ bin.Encoder     = &StickersChangeStickerPositionRequest{}
+	_ bin.Decoder     = &StickersChangeStickerPositionRequest{}
+	_ bin.BareEncoder = &StickersChangeStickerPositionRequest{}
+	_ bin.BareDecoder = &StickersChangeStickerPositionRequest{}
 )
 
 // StickersChangeStickerPosition invokes method stickers.changeStickerPosition#ffb6d4ca returning error if any.

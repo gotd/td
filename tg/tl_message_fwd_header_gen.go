@@ -241,6 +241,14 @@ func (m *MessageFwdHeader) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageFwdHeader#5f777dce as nil")
 	}
 	b.PutID(MessageFwdHeaderTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageFwdHeader) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageFwdHeader#5f777dce as nil")
+	}
 	if !(m.Imported == false) {
 		m.Flags.Set(7)
 	}
@@ -437,6 +445,14 @@ func (m *MessageFwdHeader) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageFwdHeaderTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageFwdHeader#5f777dce: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageFwdHeader) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageFwdHeader#5f777dce to nil")
+	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messageFwdHeader#5f777dce: field flags: %w", err)
@@ -504,6 +520,8 @@ func (m *MessageFwdHeader) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessageFwdHeader.
 var (
-	_ bin.Encoder = &MessageFwdHeader{}
-	_ bin.Decoder = &MessageFwdHeader{}
+	_ bin.Encoder     = &MessageFwdHeader{}
+	_ bin.Decoder     = &MessageFwdHeader{}
+	_ bin.BareEncoder = &MessageFwdHeader{}
+	_ bin.BareDecoder = &MessageFwdHeader{}
 )

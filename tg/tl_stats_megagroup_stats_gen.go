@@ -281,6 +281,14 @@ func (m *StatsMegagroupStats) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode stats.megagroupStats#ef7ff916 as nil")
 	}
 	b.PutID(StatsMegagroupStatsTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *StatsMegagroupStats) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode stats.megagroupStats#ef7ff916 as nil")
+	}
 	if err := m.Period.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode stats.megagroupStats#ef7ff916: field period: %w", err)
 	}
@@ -472,6 +480,14 @@ func (m *StatsMegagroupStats) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsMegagroupStatsTypeID); err != nil {
 		return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *StatsMegagroupStats) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode stats.megagroupStats#ef7ff916 to nil")
+	}
 	{
 		if err := m.Period.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode stats.megagroupStats#ef7ff916: field period: %w", err)
@@ -610,6 +626,8 @@ func (m *StatsMegagroupStats) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for StatsMegagroupStats.
 var (
-	_ bin.Encoder = &StatsMegagroupStats{}
-	_ bin.Decoder = &StatsMegagroupStats{}
+	_ bin.Encoder     = &StatsMegagroupStats{}
+	_ bin.Decoder     = &StatsMegagroupStats{}
+	_ bin.BareEncoder = &StatsMegagroupStats{}
+	_ bin.BareDecoder = &StatsMegagroupStats{}
 )

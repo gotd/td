@@ -219,6 +219,14 @@ func (s *MessagesSearchGlobalRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.searchGlobal#4bc6589a as nil")
 	}
 	b.PutID(MessagesSearchGlobalRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesSearchGlobalRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.searchGlobal#4bc6589a as nil")
+	}
 	if !(s.FolderID == 0) {
 		s.Flags.Set(0)
 	}
@@ -312,6 +320,14 @@ func (s *MessagesSearchGlobalRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSearchGlobalRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSearchGlobalRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.searchGlobal#4bc6589a to nil")
+	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.searchGlobal#4bc6589a: field flags: %w", err)
@@ -385,8 +401,10 @@ func (s *MessagesSearchGlobalRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesSearchGlobalRequest.
 var (
-	_ bin.Encoder = &MessagesSearchGlobalRequest{}
-	_ bin.Decoder = &MessagesSearchGlobalRequest{}
+	_ bin.Encoder     = &MessagesSearchGlobalRequest{}
+	_ bin.Decoder     = &MessagesSearchGlobalRequest{}
+	_ bin.BareEncoder = &MessagesSearchGlobalRequest{}
+	_ bin.BareDecoder = &MessagesSearchGlobalRequest{}
 )
 
 // MessagesSearchGlobal invokes method messages.searchGlobal#4bc6589a returning error if any.

@@ -275,6 +275,14 @@ func (s *MessagesSearchRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.search#c352eec as nil")
 	}
 	b.PutID(MessagesSearchRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesSearchRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.search#c352eec as nil")
+	}
 	if !(s.FromID == nil) {
 		s.Flags.Set(0)
 	}
@@ -412,6 +420,14 @@ func (s *MessagesSearchRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSearchRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.search#c352eec: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSearchRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.search#c352eec to nil")
+	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.search#c352eec: field flags: %w", err)
@@ -513,8 +529,10 @@ func (s *MessagesSearchRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesSearchRequest.
 var (
-	_ bin.Encoder = &MessagesSearchRequest{}
-	_ bin.Decoder = &MessagesSearchRequest{}
+	_ bin.Encoder     = &MessagesSearchRequest{}
+	_ bin.Decoder     = &MessagesSearchRequest{}
+	_ bin.BareEncoder = &MessagesSearchRequest{}
+	_ bin.BareDecoder = &MessagesSearchRequest{}
 )
 
 // MessagesSearch invokes method messages.search#c352eec returning error if any.

@@ -116,6 +116,14 @@ func (e *ChannelsEditPhotoRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.editPhoto#f12e57c9 as nil")
 	}
 	b.PutID(ChannelsEditPhotoRequestTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *ChannelsEditPhotoRequest) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode channels.editPhoto#f12e57c9 as nil")
+	}
 	if e.Channel == nil {
 		return fmt.Errorf("unable to encode channels.editPhoto#f12e57c9: field channel is nil")
 	}
@@ -154,6 +162,14 @@ func (e *ChannelsEditPhotoRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsEditPhotoRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.editPhoto#f12e57c9: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *ChannelsEditPhotoRequest) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode channels.editPhoto#f12e57c9 to nil")
+	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
@@ -173,8 +189,10 @@ func (e *ChannelsEditPhotoRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsEditPhotoRequest.
 var (
-	_ bin.Encoder = &ChannelsEditPhotoRequest{}
-	_ bin.Decoder = &ChannelsEditPhotoRequest{}
+	_ bin.Encoder     = &ChannelsEditPhotoRequest{}
+	_ bin.Decoder     = &ChannelsEditPhotoRequest{}
+	_ bin.BareEncoder = &ChannelsEditPhotoRequest{}
+	_ bin.BareDecoder = &ChannelsEditPhotoRequest{}
 )
 
 // ChannelsEditPhoto invokes method channels.editPhoto#f12e57c9 returning error if any.

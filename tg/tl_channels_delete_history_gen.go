@@ -119,6 +119,14 @@ func (d *ChannelsDeleteHistoryRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.deleteHistory#af369d42 as nil")
 	}
 	b.PutID(ChannelsDeleteHistoryRequestTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *ChannelsDeleteHistoryRequest) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode channels.deleteHistory#af369d42 as nil")
+	}
 	if d.Channel == nil {
 		return fmt.Errorf("unable to encode channels.deleteHistory#af369d42: field channel is nil")
 	}
@@ -152,6 +160,14 @@ func (d *ChannelsDeleteHistoryRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsDeleteHistoryRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.deleteHistory#af369d42: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *ChannelsDeleteHistoryRequest) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode channels.deleteHistory#af369d42 to nil")
+	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
@@ -171,8 +187,10 @@ func (d *ChannelsDeleteHistoryRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsDeleteHistoryRequest.
 var (
-	_ bin.Encoder = &ChannelsDeleteHistoryRequest{}
-	_ bin.Decoder = &ChannelsDeleteHistoryRequest{}
+	_ bin.Encoder     = &ChannelsDeleteHistoryRequest{}
+	_ bin.Decoder     = &ChannelsDeleteHistoryRequest{}
+	_ bin.BareEncoder = &ChannelsDeleteHistoryRequest{}
+	_ bin.BareDecoder = &ChannelsDeleteHistoryRequest{}
 )
 
 // ChannelsDeleteHistory invokes method channels.deleteHistory#af369d42 returning error if any.

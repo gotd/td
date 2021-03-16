@@ -119,6 +119,14 @@ func (r *AuthResendCodeRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.resendCode#3ef1a9bf as nil")
 	}
 	b.PutID(AuthResendCodeRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *AuthResendCodeRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode auth.resendCode#3ef1a9bf as nil")
+	}
 	b.PutString(r.PhoneNumber)
 	b.PutString(r.PhoneCodeHash)
 	return nil
@@ -142,6 +150,14 @@ func (r *AuthResendCodeRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthResendCodeRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.resendCode#3ef1a9bf: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *AuthResendCodeRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode auth.resendCode#3ef1a9bf to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -161,8 +177,10 @@ func (r *AuthResendCodeRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AuthResendCodeRequest.
 var (
-	_ bin.Encoder = &AuthResendCodeRequest{}
-	_ bin.Decoder = &AuthResendCodeRequest{}
+	_ bin.Encoder     = &AuthResendCodeRequest{}
+	_ bin.Decoder     = &AuthResendCodeRequest{}
+	_ bin.BareEncoder = &AuthResendCodeRequest{}
+	_ bin.BareDecoder = &AuthResendCodeRequest{}
 )
 
 // AuthResendCode invokes method auth.resendCode#3ef1a9bf returning error if any.

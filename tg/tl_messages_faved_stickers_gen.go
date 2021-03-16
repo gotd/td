@@ -85,6 +85,14 @@ func (f *MessagesFavedStickersNotModified) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.favedStickersNotModified#9e8fa6d3 as nil")
 	}
 	b.PutID(MessagesFavedStickersNotModifiedTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *MessagesFavedStickersNotModified) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode messages.favedStickersNotModified#9e8fa6d3 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (f *MessagesFavedStickersNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesFavedStickersNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.favedStickersNotModified#9e8fa6d3: %w", err)
 	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *MessagesFavedStickersNotModified) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode messages.favedStickersNotModified#9e8fa6d3 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (f MessagesFavedStickersNotModified) construct() MessagesFavedStickersClass
 
 // Ensuring interfaces in compile-time for MessagesFavedStickersNotModified.
 var (
-	_ bin.Encoder = &MessagesFavedStickersNotModified{}
-	_ bin.Decoder = &MessagesFavedStickersNotModified{}
+	_ bin.Encoder     = &MessagesFavedStickersNotModified{}
+	_ bin.Decoder     = &MessagesFavedStickersNotModified{}
+	_ bin.BareEncoder = &MessagesFavedStickersNotModified{}
+	_ bin.BareDecoder = &MessagesFavedStickersNotModified{}
 
 	_ MessagesFavedStickersClass = &MessagesFavedStickersNotModified{}
 )
@@ -211,6 +229,14 @@ func (f *MessagesFavedStickers) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.favedStickers#f37f2f16 as nil")
 	}
 	b.PutID(MessagesFavedStickersTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *MessagesFavedStickers) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode messages.favedStickers#f37f2f16 as nil")
+	}
 	b.PutInt(f.Hash)
 	b.PutVectorHeader(len(f.Packs))
 	for idx, v := range f.Packs {
@@ -258,6 +284,14 @@ func (f *MessagesFavedStickers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesFavedStickersTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.favedStickers#f37f2f16: %w", err)
 	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *MessagesFavedStickers) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode messages.favedStickers#f37f2f16 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -299,8 +333,10 @@ func (f MessagesFavedStickers) construct() MessagesFavedStickersClass { return &
 
 // Ensuring interfaces in compile-time for MessagesFavedStickers.
 var (
-	_ bin.Encoder = &MessagesFavedStickers{}
-	_ bin.Decoder = &MessagesFavedStickers{}
+	_ bin.Encoder     = &MessagesFavedStickers{}
+	_ bin.Decoder     = &MessagesFavedStickers{}
+	_ bin.BareEncoder = &MessagesFavedStickers{}
+	_ bin.BareDecoder = &MessagesFavedStickers{}
 
 	_ MessagesFavedStickersClass = &MessagesFavedStickers{}
 )
@@ -322,6 +358,8 @@ var (
 type MessagesFavedStickersClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() MessagesFavedStickersClass
 
 	// TypeID returns type id in TL schema.

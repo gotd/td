@@ -123,6 +123,14 @@ func (e *MessagesExportedChatInvites) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.exportedChatInvites#bdc62dcc as nil")
 	}
 	b.PutID(MessagesExportedChatInvitesTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *MessagesExportedChatInvites) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode messages.exportedChatInvites#bdc62dcc as nil")
+	}
 	b.PutInt(e.Count)
 	b.PutVectorHeader(len(e.Invites))
 	for idx, v := range e.Invites {
@@ -170,6 +178,14 @@ func (e *MessagesExportedChatInvites) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesExportedChatInvitesTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.exportedChatInvites#bdc62dcc: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *MessagesExportedChatInvites) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode messages.exportedChatInvites#bdc62dcc to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -208,6 +224,8 @@ func (e *MessagesExportedChatInvites) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesExportedChatInvites.
 var (
-	_ bin.Encoder = &MessagesExportedChatInvites{}
-	_ bin.Decoder = &MessagesExportedChatInvites{}
+	_ bin.Encoder     = &MessagesExportedChatInvites{}
+	_ bin.Decoder     = &MessagesExportedChatInvites{}
+	_ bin.BareEncoder = &MessagesExportedChatInvites{}
+	_ bin.BareDecoder = &MessagesExportedChatInvites{}
 )

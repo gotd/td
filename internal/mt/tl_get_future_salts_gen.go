@@ -99,6 +99,14 @@ func (g *GetFutureSaltsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode get_future_salts#b921bd04 as nil")
 	}
 	b.PutID(GetFutureSaltsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *GetFutureSaltsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode get_future_salts#b921bd04 as nil")
+	}
 	b.PutInt(g.Num)
 	return nil
 }
@@ -116,6 +124,14 @@ func (g *GetFutureSaltsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(GetFutureSaltsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode get_future_salts#b921bd04: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *GetFutureSaltsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode get_future_salts#b921bd04 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -128,8 +144,10 @@ func (g *GetFutureSaltsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for GetFutureSaltsRequest.
 var (
-	_ bin.Encoder = &GetFutureSaltsRequest{}
-	_ bin.Decoder = &GetFutureSaltsRequest{}
+	_ bin.Encoder     = &GetFutureSaltsRequest{}
+	_ bin.Decoder     = &GetFutureSaltsRequest{}
+	_ bin.BareEncoder = &GetFutureSaltsRequest{}
+	_ bin.BareDecoder = &GetFutureSaltsRequest{}
 )
 
 // GetFutureSalts invokes method get_future_salts#b921bd04 returning error if any.

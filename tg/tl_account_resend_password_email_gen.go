@@ -88,6 +88,14 @@ func (r *AccountResendPasswordEmailRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.resendPasswordEmail#7a7f2a15 as nil")
 	}
 	b.PutID(AccountResendPasswordEmailRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *AccountResendPasswordEmailRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode account.resendPasswordEmail#7a7f2a15 as nil")
+	}
 	return nil
 }
 
@@ -99,13 +107,23 @@ func (r *AccountResendPasswordEmailRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountResendPasswordEmailRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.resendPasswordEmail#7a7f2a15: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *AccountResendPasswordEmailRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode account.resendPasswordEmail#7a7f2a15 to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for AccountResendPasswordEmailRequest.
 var (
-	_ bin.Encoder = &AccountResendPasswordEmailRequest{}
-	_ bin.Decoder = &AccountResendPasswordEmailRequest{}
+	_ bin.Encoder     = &AccountResendPasswordEmailRequest{}
+	_ bin.Decoder     = &AccountResendPasswordEmailRequest{}
+	_ bin.BareEncoder = &AccountResendPasswordEmailRequest{}
+	_ bin.BareDecoder = &AccountResendPasswordEmailRequest{}
 )
 
 // AccountResendPasswordEmail invokes method account.resendPasswordEmail#7a7f2a15 returning error if any.

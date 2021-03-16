@@ -162,6 +162,14 @@ func (p *PhoneCallProtocol) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phoneCallProtocol#fc878fc8 as nil")
 	}
 	b.PutID(PhoneCallProtocolTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *PhoneCallProtocol) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode phoneCallProtocol#fc878fc8 as nil")
+	}
 	if !(p.UDPP2P == false) {
 		p.Flags.Set(0)
 	}
@@ -235,6 +243,14 @@ func (p *PhoneCallProtocol) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneCallProtocolTypeID); err != nil {
 		return fmt.Errorf("unable to decode phoneCallProtocol#fc878fc8: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *PhoneCallProtocol) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode phoneCallProtocol#fc878fc8 to nil")
+	}
 	{
 		if err := p.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phoneCallProtocol#fc878fc8: field flags: %w", err)
@@ -274,6 +290,8 @@ func (p *PhoneCallProtocol) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhoneCallProtocol.
 var (
-	_ bin.Encoder = &PhoneCallProtocol{}
-	_ bin.Decoder = &PhoneCallProtocol{}
+	_ bin.Encoder     = &PhoneCallProtocol{}
+	_ bin.Decoder     = &PhoneCallProtocol{}
+	_ bin.BareEncoder = &PhoneCallProtocol{}
+	_ bin.BareDecoder = &PhoneCallProtocol{}
 )

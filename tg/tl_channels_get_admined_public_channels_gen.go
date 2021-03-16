@@ -146,6 +146,14 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.getAdminedPublicChannels#f8b036af as nil")
 	}
 	b.PutID(ChannelsGetAdminedPublicChannelsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *ChannelsGetAdminedPublicChannelsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode channels.getAdminedPublicChannels#f8b036af as nil")
+	}
 	if !(g.ByLocation == false) {
 		g.Flags.Set(0)
 	}
@@ -217,6 +225,14 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsGetAdminedPublicChannelsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.getAdminedPublicChannels#f8b036af: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *ChannelsGetAdminedPublicChannelsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode channels.getAdminedPublicChannels#f8b036af to nil")
+	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode channels.getAdminedPublicChannels#f8b036af: field flags: %w", err)
@@ -230,8 +246,10 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsGetAdminedPublicChannelsRequest.
 var (
-	_ bin.Encoder = &ChannelsGetAdminedPublicChannelsRequest{}
-	_ bin.Decoder = &ChannelsGetAdminedPublicChannelsRequest{}
+	_ bin.Encoder     = &ChannelsGetAdminedPublicChannelsRequest{}
+	_ bin.Decoder     = &ChannelsGetAdminedPublicChannelsRequest{}
+	_ bin.BareEncoder = &ChannelsGetAdminedPublicChannelsRequest{}
+	_ bin.BareDecoder = &ChannelsGetAdminedPublicChannelsRequest{}
 )
 
 // ChannelsGetAdminedPublicChannels invokes method channels.getAdminedPublicChannels#f8b036af returning error if any.

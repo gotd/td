@@ -102,6 +102,14 @@ func (g *MessagesGetPeerSettingsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getPeerSettings#3672e09c as nil")
 	}
 	b.PutID(MessagesGetPeerSettingsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetPeerSettingsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getPeerSettings#3672e09c as nil")
+	}
 	if g.Peer == nil {
 		return fmt.Errorf("unable to encode messages.getPeerSettings#3672e09c: field peer is nil")
 	}
@@ -124,6 +132,14 @@ func (g *MessagesGetPeerSettingsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetPeerSettingsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getPeerSettings#3672e09c: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetPeerSettingsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getPeerSettings#3672e09c to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -136,8 +152,10 @@ func (g *MessagesGetPeerSettingsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetPeerSettingsRequest.
 var (
-	_ bin.Encoder = &MessagesGetPeerSettingsRequest{}
-	_ bin.Decoder = &MessagesGetPeerSettingsRequest{}
+	_ bin.Encoder     = &MessagesGetPeerSettingsRequest{}
+	_ bin.Decoder     = &MessagesGetPeerSettingsRequest{}
+	_ bin.BareEncoder = &MessagesGetPeerSettingsRequest{}
+	_ bin.BareDecoder = &MessagesGetPeerSettingsRequest{}
 )
 
 // MessagesGetPeerSettings invokes method messages.getPeerSettings#3672e09c returning error if any.

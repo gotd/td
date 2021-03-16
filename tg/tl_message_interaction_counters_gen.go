@@ -124,6 +124,14 @@ func (m *MessageInteractionCounters) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageInteractionCounters#ad4fc9bd as nil")
 	}
 	b.PutID(MessageInteractionCountersTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageInteractionCounters) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageInteractionCounters#ad4fc9bd as nil")
+	}
 	b.PutInt(m.MsgID)
 	b.PutInt(m.Views)
 	b.PutInt(m.Forwards)
@@ -153,6 +161,14 @@ func (m *MessageInteractionCounters) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageInteractionCountersTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageInteractionCounters#ad4fc9bd: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageInteractionCounters) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageInteractionCounters#ad4fc9bd to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -179,6 +195,8 @@ func (m *MessageInteractionCounters) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessageInteractionCounters.
 var (
-	_ bin.Encoder = &MessageInteractionCounters{}
-	_ bin.Decoder = &MessageInteractionCounters{}
+	_ bin.Encoder     = &MessageInteractionCounters{}
+	_ bin.Decoder     = &MessageInteractionCounters{}
+	_ bin.BareEncoder = &MessageInteractionCounters{}
+	_ bin.BareDecoder = &MessageInteractionCounters{}
 )

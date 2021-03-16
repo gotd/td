@@ -85,6 +85,14 @@ func (i *InputPhotoEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputPhotoEmpty#1cd7bf0d as nil")
 	}
 	b.PutID(InputPhotoEmptyTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPhotoEmpty) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPhotoEmpty#1cd7bf0d as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (i *InputPhotoEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputPhotoEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPhotoEmpty#1cd7bf0d: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPhotoEmpty) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPhotoEmpty#1cd7bf0d to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (i InputPhotoEmpty) construct() InputPhotoClass { return &i }
 
 // Ensuring interfaces in compile-time for InputPhotoEmpty.
 var (
-	_ bin.Encoder = &InputPhotoEmpty{}
-	_ bin.Decoder = &InputPhotoEmpty{}
+	_ bin.Encoder     = &InputPhotoEmpty{}
+	_ bin.Decoder     = &InputPhotoEmpty{}
+	_ bin.BareEncoder = &InputPhotoEmpty{}
+	_ bin.BareDecoder = &InputPhotoEmpty{}
 
 	_ InputPhotoClass = &InputPhotoEmpty{}
 )
@@ -214,6 +232,14 @@ func (i *InputPhoto) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputPhoto#3bb3b94a as nil")
 	}
 	b.PutID(InputPhotoTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputPhoto) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputPhoto#3bb3b94a as nil")
+	}
 	b.PutLong(i.ID)
 	b.PutLong(i.AccessHash)
 	b.PutBytes(i.FileReference)
@@ -242,6 +268,14 @@ func (i *InputPhoto) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(InputPhotoTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputPhoto#3bb3b94a: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputPhoto) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputPhoto#3bb3b94a to nil")
 	}
 	{
 		value, err := b.Long()
@@ -272,8 +306,10 @@ func (i InputPhoto) construct() InputPhotoClass { return &i }
 
 // Ensuring interfaces in compile-time for InputPhoto.
 var (
-	_ bin.Encoder = &InputPhoto{}
-	_ bin.Decoder = &InputPhoto{}
+	_ bin.Encoder     = &InputPhoto{}
+	_ bin.Decoder     = &InputPhoto{}
+	_ bin.BareEncoder = &InputPhoto{}
+	_ bin.BareDecoder = &InputPhoto{}
 
 	_ InputPhotoClass = &InputPhoto{}
 )
@@ -295,6 +331,8 @@ var (
 type InputPhotoClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() InputPhotoClass
 
 	// TypeID returns type id in TL schema.

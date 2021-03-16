@@ -102,6 +102,14 @@ func (d *MessagesDhConfigNotModified) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.dhConfigNotModified#c0e24635 as nil")
 	}
 	b.PutID(MessagesDhConfigNotModifiedTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *MessagesDhConfigNotModified) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode messages.dhConfigNotModified#c0e24635 as nil")
+	}
 	b.PutBytes(d.Random)
 	return nil
 }
@@ -119,6 +127,14 @@ func (d *MessagesDhConfigNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesDhConfigNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.dhConfigNotModified#c0e24635: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *MessagesDhConfigNotModified) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode messages.dhConfigNotModified#c0e24635 to nil")
+	}
 	{
 		value, err := b.Bytes()
 		if err != nil {
@@ -134,8 +150,10 @@ func (d MessagesDhConfigNotModified) construct() MessagesDhConfigClass { return 
 
 // Ensuring interfaces in compile-time for MessagesDhConfigNotModified.
 var (
-	_ bin.Encoder = &MessagesDhConfigNotModified{}
-	_ bin.Decoder = &MessagesDhConfigNotModified{}
+	_ bin.Encoder     = &MessagesDhConfigNotModified{}
+	_ bin.Decoder     = &MessagesDhConfigNotModified{}
+	_ bin.BareEncoder = &MessagesDhConfigNotModified{}
+	_ bin.BareDecoder = &MessagesDhConfigNotModified{}
 
 	_ MessagesDhConfigClass = &MessagesDhConfigNotModified{}
 )
@@ -255,6 +273,14 @@ func (d *MessagesDhConfig) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.dhConfig#2c221edd as nil")
 	}
 	b.PutID(MessagesDhConfigTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *MessagesDhConfig) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode messages.dhConfig#2c221edd as nil")
+	}
 	b.PutInt(d.G)
 	b.PutBytes(d.P)
 	b.PutInt(d.Version)
@@ -289,6 +315,14 @@ func (d *MessagesDhConfig) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(MessagesDhConfigTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.dhConfig#2c221edd: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *MessagesDhConfig) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode messages.dhConfig#2c221edd to nil")
 	}
 	{
 		value, err := b.Int()
@@ -326,8 +360,10 @@ func (d MessagesDhConfig) construct() MessagesDhConfigClass { return &d }
 
 // Ensuring interfaces in compile-time for MessagesDhConfig.
 var (
-	_ bin.Encoder = &MessagesDhConfig{}
-	_ bin.Decoder = &MessagesDhConfig{}
+	_ bin.Encoder     = &MessagesDhConfig{}
+	_ bin.Decoder     = &MessagesDhConfig{}
+	_ bin.BareEncoder = &MessagesDhConfig{}
+	_ bin.BareDecoder = &MessagesDhConfig{}
 
 	_ MessagesDhConfigClass = &MessagesDhConfig{}
 )
@@ -349,6 +385,8 @@ var (
 type MessagesDhConfigClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() MessagesDhConfigClass
 
 	// TypeID returns type id in TL schema.

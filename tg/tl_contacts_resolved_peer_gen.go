@@ -124,6 +124,14 @@ func (r *ContactsResolvedPeer) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode contacts.resolvedPeer#7f077ad9 as nil")
 	}
 	b.PutID(ContactsResolvedPeerTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *ContactsResolvedPeer) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode contacts.resolvedPeer#7f077ad9 as nil")
+	}
 	if r.Peer == nil {
 		return fmt.Errorf("unable to encode contacts.resolvedPeer#7f077ad9: field peer is nil")
 	}
@@ -184,6 +192,14 @@ func (r *ContactsResolvedPeer) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsResolvedPeerTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.resolvedPeer#7f077ad9: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *ContactsResolvedPeer) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode contacts.resolvedPeer#7f077ad9 to nil")
+	}
 	{
 		value, err := DecodePeer(b)
 		if err != nil {
@@ -222,6 +238,8 @@ func (r *ContactsResolvedPeer) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ContactsResolvedPeer.
 var (
-	_ bin.Encoder = &ContactsResolvedPeer{}
-	_ bin.Decoder = &ContactsResolvedPeer{}
+	_ bin.Encoder     = &ContactsResolvedPeer{}
+	_ bin.Decoder     = &ContactsResolvedPeer{}
+	_ bin.BareEncoder = &ContactsResolvedPeer{}
+	_ bin.BareDecoder = &ContactsResolvedPeer{}
 )

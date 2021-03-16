@@ -84,6 +84,14 @@ func (i *InlineQueryPeerTypeSameBotPM) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inlineQueryPeerTypeSameBotPM#3081ed9d as nil")
 	}
 	b.PutID(InlineQueryPeerTypeSameBotPMTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InlineQueryPeerTypeSameBotPM) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineQueryPeerTypeSameBotPM#3081ed9d as nil")
+	}
 	return nil
 }
 
@@ -95,6 +103,14 @@ func (i *InlineQueryPeerTypeSameBotPM) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InlineQueryPeerTypeSameBotPMTypeID); err != nil {
 		return fmt.Errorf("unable to decode inlineQueryPeerTypeSameBotPM#3081ed9d: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InlineQueryPeerTypeSameBotPM) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inlineQueryPeerTypeSameBotPM#3081ed9d to nil")
+	}
 	return nil
 }
 
@@ -103,8 +119,10 @@ func (i InlineQueryPeerTypeSameBotPM) construct() InlineQueryPeerTypeClass { ret
 
 // Ensuring interfaces in compile-time for InlineQueryPeerTypeSameBotPM.
 var (
-	_ bin.Encoder = &InlineQueryPeerTypeSameBotPM{}
-	_ bin.Decoder = &InlineQueryPeerTypeSameBotPM{}
+	_ bin.Encoder     = &InlineQueryPeerTypeSameBotPM{}
+	_ bin.Decoder     = &InlineQueryPeerTypeSameBotPM{}
+	_ bin.BareEncoder = &InlineQueryPeerTypeSameBotPM{}
+	_ bin.BareDecoder = &InlineQueryPeerTypeSameBotPM{}
 
 	_ InlineQueryPeerTypeClass = &InlineQueryPeerTypeSameBotPM{}
 )
@@ -167,6 +185,14 @@ func (i *InlineQueryPeerTypePM) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inlineQueryPeerTypePM#833c0fac as nil")
 	}
 	b.PutID(InlineQueryPeerTypePMTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InlineQueryPeerTypePM) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineQueryPeerTypePM#833c0fac as nil")
+	}
 	return nil
 }
 
@@ -178,6 +204,14 @@ func (i *InlineQueryPeerTypePM) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InlineQueryPeerTypePMTypeID); err != nil {
 		return fmt.Errorf("unable to decode inlineQueryPeerTypePM#833c0fac: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InlineQueryPeerTypePM) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inlineQueryPeerTypePM#833c0fac to nil")
+	}
 	return nil
 }
 
@@ -186,8 +220,10 @@ func (i InlineQueryPeerTypePM) construct() InlineQueryPeerTypeClass { return &i 
 
 // Ensuring interfaces in compile-time for InlineQueryPeerTypePM.
 var (
-	_ bin.Encoder = &InlineQueryPeerTypePM{}
-	_ bin.Decoder = &InlineQueryPeerTypePM{}
+	_ bin.Encoder     = &InlineQueryPeerTypePM{}
+	_ bin.Decoder     = &InlineQueryPeerTypePM{}
+	_ bin.BareEncoder = &InlineQueryPeerTypePM{}
+	_ bin.BareDecoder = &InlineQueryPeerTypePM{}
 
 	_ InlineQueryPeerTypeClass = &InlineQueryPeerTypePM{}
 )
@@ -250,6 +286,14 @@ func (i *InlineQueryPeerTypeChat) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inlineQueryPeerTypeChat#d766c50a as nil")
 	}
 	b.PutID(InlineQueryPeerTypeChatTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InlineQueryPeerTypeChat) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineQueryPeerTypeChat#d766c50a as nil")
+	}
 	return nil
 }
 
@@ -261,6 +305,14 @@ func (i *InlineQueryPeerTypeChat) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InlineQueryPeerTypeChatTypeID); err != nil {
 		return fmt.Errorf("unable to decode inlineQueryPeerTypeChat#d766c50a: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InlineQueryPeerTypeChat) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inlineQueryPeerTypeChat#d766c50a to nil")
+	}
 	return nil
 }
 
@@ -269,8 +321,10 @@ func (i InlineQueryPeerTypeChat) construct() InlineQueryPeerTypeClass { return &
 
 // Ensuring interfaces in compile-time for InlineQueryPeerTypeChat.
 var (
-	_ bin.Encoder = &InlineQueryPeerTypeChat{}
-	_ bin.Decoder = &InlineQueryPeerTypeChat{}
+	_ bin.Encoder     = &InlineQueryPeerTypeChat{}
+	_ bin.Decoder     = &InlineQueryPeerTypeChat{}
+	_ bin.BareEncoder = &InlineQueryPeerTypeChat{}
+	_ bin.BareDecoder = &InlineQueryPeerTypeChat{}
 
 	_ InlineQueryPeerTypeClass = &InlineQueryPeerTypeChat{}
 )
@@ -333,6 +387,14 @@ func (i *InlineQueryPeerTypeMegagroup) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inlineQueryPeerTypeMegagroup#5ec4be43 as nil")
 	}
 	b.PutID(InlineQueryPeerTypeMegagroupTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InlineQueryPeerTypeMegagroup) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineQueryPeerTypeMegagroup#5ec4be43 as nil")
+	}
 	return nil
 }
 
@@ -344,6 +406,14 @@ func (i *InlineQueryPeerTypeMegagroup) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InlineQueryPeerTypeMegagroupTypeID); err != nil {
 		return fmt.Errorf("unable to decode inlineQueryPeerTypeMegagroup#5ec4be43: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InlineQueryPeerTypeMegagroup) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inlineQueryPeerTypeMegagroup#5ec4be43 to nil")
+	}
 	return nil
 }
 
@@ -352,8 +422,10 @@ func (i InlineQueryPeerTypeMegagroup) construct() InlineQueryPeerTypeClass { ret
 
 // Ensuring interfaces in compile-time for InlineQueryPeerTypeMegagroup.
 var (
-	_ bin.Encoder = &InlineQueryPeerTypeMegagroup{}
-	_ bin.Decoder = &InlineQueryPeerTypeMegagroup{}
+	_ bin.Encoder     = &InlineQueryPeerTypeMegagroup{}
+	_ bin.Decoder     = &InlineQueryPeerTypeMegagroup{}
+	_ bin.BareEncoder = &InlineQueryPeerTypeMegagroup{}
+	_ bin.BareDecoder = &InlineQueryPeerTypeMegagroup{}
 
 	_ InlineQueryPeerTypeClass = &InlineQueryPeerTypeMegagroup{}
 )
@@ -416,6 +488,14 @@ func (i *InlineQueryPeerTypeBroadcast) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inlineQueryPeerTypeBroadcast#6334ee9a as nil")
 	}
 	b.PutID(InlineQueryPeerTypeBroadcastTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InlineQueryPeerTypeBroadcast) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inlineQueryPeerTypeBroadcast#6334ee9a as nil")
+	}
 	return nil
 }
 
@@ -427,6 +507,14 @@ func (i *InlineQueryPeerTypeBroadcast) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InlineQueryPeerTypeBroadcastTypeID); err != nil {
 		return fmt.Errorf("unable to decode inlineQueryPeerTypeBroadcast#6334ee9a: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InlineQueryPeerTypeBroadcast) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inlineQueryPeerTypeBroadcast#6334ee9a to nil")
+	}
 	return nil
 }
 
@@ -435,8 +523,10 @@ func (i InlineQueryPeerTypeBroadcast) construct() InlineQueryPeerTypeClass { ret
 
 // Ensuring interfaces in compile-time for InlineQueryPeerTypeBroadcast.
 var (
-	_ bin.Encoder = &InlineQueryPeerTypeBroadcast{}
-	_ bin.Decoder = &InlineQueryPeerTypeBroadcast{}
+	_ bin.Encoder     = &InlineQueryPeerTypeBroadcast{}
+	_ bin.Decoder     = &InlineQueryPeerTypeBroadcast{}
+	_ bin.BareEncoder = &InlineQueryPeerTypeBroadcast{}
+	_ bin.BareDecoder = &InlineQueryPeerTypeBroadcast{}
 
 	_ InlineQueryPeerTypeClass = &InlineQueryPeerTypeBroadcast{}
 )
@@ -461,6 +551,8 @@ var (
 type InlineQueryPeerTypeClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() InlineQueryPeerTypeClass
 
 	// TypeID returns type id in TL schema.

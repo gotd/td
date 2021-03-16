@@ -106,6 +106,14 @@ func (i *ContactsImportContactsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode contacts.importContacts#2c800be5 as nil")
 	}
 	b.PutID(ContactsImportContactsRequestTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *ContactsImportContactsRequest) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode contacts.importContacts#2c800be5 as nil")
+	}
 	b.PutVectorHeader(len(i.Contacts))
 	for idx, v := range i.Contacts {
 		if err := v.Encode(b); err != nil {
@@ -128,6 +136,14 @@ func (i *ContactsImportContactsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsImportContactsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.importContacts#2c800be5: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *ContactsImportContactsRequest) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode contacts.importContacts#2c800be5 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -146,8 +162,10 @@ func (i *ContactsImportContactsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ContactsImportContactsRequest.
 var (
-	_ bin.Encoder = &ContactsImportContactsRequest{}
-	_ bin.Decoder = &ContactsImportContactsRequest{}
+	_ bin.Encoder     = &ContactsImportContactsRequest{}
+	_ bin.Decoder     = &ContactsImportContactsRequest{}
+	_ bin.BareEncoder = &ContactsImportContactsRequest{}
+	_ bin.BareDecoder = &ContactsImportContactsRequest{}
 )
 
 // ContactsImportContacts invokes method contacts.importContacts#2c800be5 returning error if any.

@@ -85,6 +85,14 @@ func (s *MessagesSavedGifsNotModified) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.savedGifsNotModified#e8025ca2 as nil")
 	}
 	b.PutID(MessagesSavedGifsNotModifiedTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesSavedGifsNotModified) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.savedGifsNotModified#e8025ca2 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (s *MessagesSavedGifsNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSavedGifsNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.savedGifsNotModified#e8025ca2: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSavedGifsNotModified) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.savedGifsNotModified#e8025ca2 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (s MessagesSavedGifsNotModified) construct() MessagesSavedGifsClass { retur
 
 // Ensuring interfaces in compile-time for MessagesSavedGifsNotModified.
 var (
-	_ bin.Encoder = &MessagesSavedGifsNotModified{}
-	_ bin.Decoder = &MessagesSavedGifsNotModified{}
+	_ bin.Encoder     = &MessagesSavedGifsNotModified{}
+	_ bin.Decoder     = &MessagesSavedGifsNotModified{}
+	_ bin.BareEncoder = &MessagesSavedGifsNotModified{}
+	_ bin.BareDecoder = &MessagesSavedGifsNotModified{}
 
 	_ MessagesSavedGifsClass = &MessagesSavedGifsNotModified{}
 )
@@ -200,6 +218,14 @@ func (s *MessagesSavedGifs) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.savedGifs#2e0709a5 as nil")
 	}
 	b.PutID(MessagesSavedGifsTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesSavedGifs) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.savedGifs#2e0709a5 as nil")
+	}
 	b.PutInt(s.Hash)
 	b.PutVectorHeader(len(s.Gifs))
 	for idx, v := range s.Gifs {
@@ -236,6 +262,14 @@ func (s *MessagesSavedGifs) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSavedGifsTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.savedGifs#2e0709a5: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSavedGifs) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.savedGifs#2e0709a5 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -264,8 +298,10 @@ func (s MessagesSavedGifs) construct() MessagesSavedGifsClass { return &s }
 
 // Ensuring interfaces in compile-time for MessagesSavedGifs.
 var (
-	_ bin.Encoder = &MessagesSavedGifs{}
-	_ bin.Decoder = &MessagesSavedGifs{}
+	_ bin.Encoder     = &MessagesSavedGifs{}
+	_ bin.Decoder     = &MessagesSavedGifs{}
+	_ bin.BareEncoder = &MessagesSavedGifs{}
+	_ bin.BareDecoder = &MessagesSavedGifs{}
 
 	_ MessagesSavedGifsClass = &MessagesSavedGifs{}
 )
@@ -287,6 +323,8 @@ var (
 type MessagesSavedGifsClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() MessagesSavedGifsClass
 
 	// TypeID returns type id in TL schema.

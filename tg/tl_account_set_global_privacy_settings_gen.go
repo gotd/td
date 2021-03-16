@@ -102,6 +102,14 @@ func (s *AccountSetGlobalPrivacySettingsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.setGlobalPrivacySettings#1edaaac2 as nil")
 	}
 	b.PutID(AccountSetGlobalPrivacySettingsRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *AccountSetGlobalPrivacySettingsRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode account.setGlobalPrivacySettings#1edaaac2 as nil")
+	}
 	if err := s.Settings.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode account.setGlobalPrivacySettings#1edaaac2: field settings: %w", err)
 	}
@@ -121,6 +129,14 @@ func (s *AccountSetGlobalPrivacySettingsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountSetGlobalPrivacySettingsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.setGlobalPrivacySettings#1edaaac2: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *AccountSetGlobalPrivacySettingsRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode account.setGlobalPrivacySettings#1edaaac2 to nil")
+	}
 	{
 		if err := s.Settings.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode account.setGlobalPrivacySettings#1edaaac2: field settings: %w", err)
@@ -131,8 +147,10 @@ func (s *AccountSetGlobalPrivacySettingsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountSetGlobalPrivacySettingsRequest.
 var (
-	_ bin.Encoder = &AccountSetGlobalPrivacySettingsRequest{}
-	_ bin.Decoder = &AccountSetGlobalPrivacySettingsRequest{}
+	_ bin.Encoder     = &AccountSetGlobalPrivacySettingsRequest{}
+	_ bin.Decoder     = &AccountSetGlobalPrivacySettingsRequest{}
+	_ bin.BareEncoder = &AccountSetGlobalPrivacySettingsRequest{}
+	_ bin.BareDecoder = &AccountSetGlobalPrivacySettingsRequest{}
 )
 
 // AccountSetGlobalPrivacySettings invokes method account.setGlobalPrivacySettings#1edaaac2 returning error if any.

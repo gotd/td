@@ -158,6 +158,14 @@ func (g *UpdatesGetChannelDifferenceRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode updates.getChannelDifference#3173d78 as nil")
 	}
 	b.PutID(UpdatesGetChannelDifferenceRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *UpdatesGetChannelDifferenceRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode updates.getChannelDifference#3173d78 as nil")
+	}
 	if !(g.Force == false) {
 		g.Flags.Set(0)
 	}
@@ -235,6 +243,14 @@ func (g *UpdatesGetChannelDifferenceRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UpdatesGetChannelDifferenceRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode updates.getChannelDifference#3173d78: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *UpdatesGetChannelDifferenceRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode updates.getChannelDifference#3173d78 to nil")
+	}
 	{
 		if err := g.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode updates.getChannelDifference#3173d78: field flags: %w", err)
@@ -274,8 +290,10 @@ func (g *UpdatesGetChannelDifferenceRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for UpdatesGetChannelDifferenceRequest.
 var (
-	_ bin.Encoder = &UpdatesGetChannelDifferenceRequest{}
-	_ bin.Decoder = &UpdatesGetChannelDifferenceRequest{}
+	_ bin.Encoder     = &UpdatesGetChannelDifferenceRequest{}
+	_ bin.Decoder     = &UpdatesGetChannelDifferenceRequest{}
+	_ bin.BareEncoder = &UpdatesGetChannelDifferenceRequest{}
+	_ bin.BareDecoder = &UpdatesGetChannelDifferenceRequest{}
 )
 
 // UpdatesGetChannelDifference invokes method updates.getChannelDifference#3173d78 returning error if any.

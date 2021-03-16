@@ -108,6 +108,14 @@ func (c *AccountConfirmPasswordEmailRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.confirmPasswordEmail#8fdf1920 as nil")
 	}
 	b.PutID(AccountConfirmPasswordEmailRequestTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *AccountConfirmPasswordEmailRequest) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode account.confirmPasswordEmail#8fdf1920 as nil")
+	}
 	b.PutString(c.Code)
 	return nil
 }
@@ -125,6 +133,14 @@ func (c *AccountConfirmPasswordEmailRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountConfirmPasswordEmailRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.confirmPasswordEmail#8fdf1920: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *AccountConfirmPasswordEmailRequest) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode account.confirmPasswordEmail#8fdf1920 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -137,8 +153,10 @@ func (c *AccountConfirmPasswordEmailRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountConfirmPasswordEmailRequest.
 var (
-	_ bin.Encoder = &AccountConfirmPasswordEmailRequest{}
-	_ bin.Decoder = &AccountConfirmPasswordEmailRequest{}
+	_ bin.Encoder     = &AccountConfirmPasswordEmailRequest{}
+	_ bin.Decoder     = &AccountConfirmPasswordEmailRequest{}
+	_ bin.BareEncoder = &AccountConfirmPasswordEmailRequest{}
+	_ bin.BareDecoder = &AccountConfirmPasswordEmailRequest{}
 )
 
 // AccountConfirmPasswordEmail invokes method account.confirmPasswordEmail#8fdf1920 returning error if any.

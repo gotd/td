@@ -85,6 +85,14 @@ func (t *TextEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textEmpty#dc3d824f as nil")
 	}
 	b.PutID(TextEmptyTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextEmpty) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEmpty#dc3d824f as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (t *TextEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEmpty#dc3d824f: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextEmpty) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEmpty#dc3d824f to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (t TextEmpty) construct() RichTextClass { return &t }
 
 // Ensuring interfaces in compile-time for TextEmpty.
 var (
-	_ bin.Encoder = &TextEmpty{}
-	_ bin.Decoder = &TextEmpty{}
+	_ bin.Encoder     = &TextEmpty{}
+	_ bin.Decoder     = &TextEmpty{}
+	_ bin.BareEncoder = &TextEmpty{}
+	_ bin.BareDecoder = &TextEmpty{}
 
 	_ RichTextClass = &TextEmpty{}
 )
@@ -186,6 +204,14 @@ func (t *TextPlain) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textPlain#744694e0 as nil")
 	}
 	b.PutID(TextPlainTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextPlain) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textPlain#744694e0 as nil")
+	}
 	b.PutString(t.Text)
 	return nil
 }
@@ -203,6 +229,14 @@ func (t *TextPlain) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextPlainTypeID); err != nil {
 		return fmt.Errorf("unable to decode textPlain#744694e0: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextPlain) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textPlain#744694e0 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -218,8 +252,10 @@ func (t TextPlain) construct() RichTextClass { return &t }
 
 // Ensuring interfaces in compile-time for TextPlain.
 var (
-	_ bin.Encoder = &TextPlain{}
-	_ bin.Decoder = &TextPlain{}
+	_ bin.Encoder     = &TextPlain{}
+	_ bin.Decoder     = &TextPlain{}
+	_ bin.BareEncoder = &TextPlain{}
+	_ bin.BareDecoder = &TextPlain{}
 
 	_ RichTextClass = &TextPlain{}
 )
@@ -300,6 +336,14 @@ func (t *TextBold) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textBold#6724abc4 as nil")
 	}
 	b.PutID(TextBoldTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextBold) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textBold#6724abc4 as nil")
+	}
 	if t.Text == nil {
 		return fmt.Errorf("unable to encode textBold#6724abc4: field text is nil")
 	}
@@ -322,6 +366,14 @@ func (t *TextBold) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextBoldTypeID); err != nil {
 		return fmt.Errorf("unable to decode textBold#6724abc4: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextBold) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textBold#6724abc4 to nil")
+	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -337,8 +389,10 @@ func (t TextBold) construct() RichTextClass { return &t }
 
 // Ensuring interfaces in compile-time for TextBold.
 var (
-	_ bin.Encoder = &TextBold{}
-	_ bin.Decoder = &TextBold{}
+	_ bin.Encoder     = &TextBold{}
+	_ bin.Decoder     = &TextBold{}
+	_ bin.BareEncoder = &TextBold{}
+	_ bin.BareDecoder = &TextBold{}
 
 	_ RichTextClass = &TextBold{}
 )
@@ -419,6 +473,14 @@ func (t *TextItalic) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textItalic#d912a59c as nil")
 	}
 	b.PutID(TextItalicTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextItalic) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textItalic#d912a59c as nil")
+	}
 	if t.Text == nil {
 		return fmt.Errorf("unable to encode textItalic#d912a59c: field text is nil")
 	}
@@ -441,6 +503,14 @@ func (t *TextItalic) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextItalicTypeID); err != nil {
 		return fmt.Errorf("unable to decode textItalic#d912a59c: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextItalic) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textItalic#d912a59c to nil")
+	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -456,8 +526,10 @@ func (t TextItalic) construct() RichTextClass { return &t }
 
 // Ensuring interfaces in compile-time for TextItalic.
 var (
-	_ bin.Encoder = &TextItalic{}
-	_ bin.Decoder = &TextItalic{}
+	_ bin.Encoder     = &TextItalic{}
+	_ bin.Decoder     = &TextItalic{}
+	_ bin.BareEncoder = &TextItalic{}
+	_ bin.BareDecoder = &TextItalic{}
 
 	_ RichTextClass = &TextItalic{}
 )
@@ -538,6 +610,14 @@ func (t *TextUnderline) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textUnderline#c12622c4 as nil")
 	}
 	b.PutID(TextUnderlineTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextUnderline) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textUnderline#c12622c4 as nil")
+	}
 	if t.Text == nil {
 		return fmt.Errorf("unable to encode textUnderline#c12622c4: field text is nil")
 	}
@@ -560,6 +640,14 @@ func (t *TextUnderline) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextUnderlineTypeID); err != nil {
 		return fmt.Errorf("unable to decode textUnderline#c12622c4: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextUnderline) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textUnderline#c12622c4 to nil")
+	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -575,8 +663,10 @@ func (t TextUnderline) construct() RichTextClass { return &t }
 
 // Ensuring interfaces in compile-time for TextUnderline.
 var (
-	_ bin.Encoder = &TextUnderline{}
-	_ bin.Decoder = &TextUnderline{}
+	_ bin.Encoder     = &TextUnderline{}
+	_ bin.Decoder     = &TextUnderline{}
+	_ bin.BareEncoder = &TextUnderline{}
+	_ bin.BareDecoder = &TextUnderline{}
 
 	_ RichTextClass = &TextUnderline{}
 )
@@ -657,6 +747,14 @@ func (t *TextStrike) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textStrike#9bf8bb95 as nil")
 	}
 	b.PutID(TextStrikeTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextStrike) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textStrike#9bf8bb95 as nil")
+	}
 	if t.Text == nil {
 		return fmt.Errorf("unable to encode textStrike#9bf8bb95: field text is nil")
 	}
@@ -679,6 +777,14 @@ func (t *TextStrike) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextStrikeTypeID); err != nil {
 		return fmt.Errorf("unable to decode textStrike#9bf8bb95: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextStrike) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textStrike#9bf8bb95 to nil")
+	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -694,8 +800,10 @@ func (t TextStrike) construct() RichTextClass { return &t }
 
 // Ensuring interfaces in compile-time for TextStrike.
 var (
-	_ bin.Encoder = &TextStrike{}
-	_ bin.Decoder = &TextStrike{}
+	_ bin.Encoder     = &TextStrike{}
+	_ bin.Decoder     = &TextStrike{}
+	_ bin.BareEncoder = &TextStrike{}
+	_ bin.BareDecoder = &TextStrike{}
 
 	_ RichTextClass = &TextStrike{}
 )
@@ -776,6 +884,14 @@ func (t *TextFixed) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textFixed#6c3f19b9 as nil")
 	}
 	b.PutID(TextFixedTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextFixed) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textFixed#6c3f19b9 as nil")
+	}
 	if t.Text == nil {
 		return fmt.Errorf("unable to encode textFixed#6c3f19b9: field text is nil")
 	}
@@ -798,6 +914,14 @@ func (t *TextFixed) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextFixedTypeID); err != nil {
 		return fmt.Errorf("unable to decode textFixed#6c3f19b9: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextFixed) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textFixed#6c3f19b9 to nil")
+	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -813,8 +937,10 @@ func (t TextFixed) construct() RichTextClass { return &t }
 
 // Ensuring interfaces in compile-time for TextFixed.
 var (
-	_ bin.Encoder = &TextFixed{}
-	_ bin.Decoder = &TextFixed{}
+	_ bin.Encoder     = &TextFixed{}
+	_ bin.Decoder     = &TextFixed{}
+	_ bin.BareEncoder = &TextFixed{}
+	_ bin.BareDecoder = &TextFixed{}
 
 	_ RichTextClass = &TextFixed{}
 )
@@ -917,6 +1043,14 @@ func (t *TextURL) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textUrl#3c2884c1 as nil")
 	}
 	b.PutID(TextURLTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextURL) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textUrl#3c2884c1 as nil")
+	}
 	if t.Text == nil {
 		return fmt.Errorf("unable to encode textUrl#3c2884c1: field text is nil")
 	}
@@ -951,6 +1085,14 @@ func (t *TextURL) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextURLTypeID); err != nil {
 		return fmt.Errorf("unable to decode textUrl#3c2884c1: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextURL) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textUrl#3c2884c1 to nil")
+	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -980,8 +1122,10 @@ func (t TextURL) construct() RichTextClass { return &t }
 
 // Ensuring interfaces in compile-time for TextURL.
 var (
-	_ bin.Encoder = &TextURL{}
-	_ bin.Decoder = &TextURL{}
+	_ bin.Encoder     = &TextURL{}
+	_ bin.Decoder     = &TextURL{}
+	_ bin.BareEncoder = &TextURL{}
+	_ bin.BareDecoder = &TextURL{}
 
 	_ RichTextClass = &TextURL{}
 )
@@ -1073,6 +1217,14 @@ func (t *TextEmail) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textEmail#de5a0dd6 as nil")
 	}
 	b.PutID(TextEmailTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextEmail) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textEmail#de5a0dd6 as nil")
+	}
 	if t.Text == nil {
 		return fmt.Errorf("unable to encode textEmail#de5a0dd6: field text is nil")
 	}
@@ -1101,6 +1253,14 @@ func (t *TextEmail) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextEmailTypeID); err != nil {
 		return fmt.Errorf("unable to decode textEmail#de5a0dd6: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextEmail) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textEmail#de5a0dd6 to nil")
+	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -1123,8 +1283,10 @@ func (t TextEmail) construct() RichTextClass { return &t }
 
 // Ensuring interfaces in compile-time for TextEmail.
 var (
-	_ bin.Encoder = &TextEmail{}
-	_ bin.Decoder = &TextEmail{}
+	_ bin.Encoder     = &TextEmail{}
+	_ bin.Decoder     = &TextEmail{}
+	_ bin.BareEncoder = &TextEmail{}
+	_ bin.BareDecoder = &TextEmail{}
 
 	_ RichTextClass = &TextEmail{}
 )
@@ -1205,6 +1367,14 @@ func (t *TextConcat) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textConcat#7e6260d7 as nil")
 	}
 	b.PutID(TextConcatTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextConcat) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textConcat#7e6260d7 as nil")
+	}
 	b.PutVectorHeader(len(t.Texts))
 	for idx, v := range t.Texts {
 		if v == nil {
@@ -1235,6 +1405,14 @@ func (t *TextConcat) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextConcatTypeID); err != nil {
 		return fmt.Errorf("unable to decode textConcat#7e6260d7: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextConcat) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textConcat#7e6260d7 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -1256,8 +1434,10 @@ func (t TextConcat) construct() RichTextClass { return &t }
 
 // Ensuring interfaces in compile-time for TextConcat.
 var (
-	_ bin.Encoder = &TextConcat{}
-	_ bin.Decoder = &TextConcat{}
+	_ bin.Encoder     = &TextConcat{}
+	_ bin.Decoder     = &TextConcat{}
+	_ bin.BareEncoder = &TextConcat{}
+	_ bin.BareDecoder = &TextConcat{}
 
 	_ RichTextClass = &TextConcat{}
 )
@@ -1338,6 +1518,14 @@ func (t *TextSubscript) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textSubscript#ed6a8504 as nil")
 	}
 	b.PutID(TextSubscriptTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextSubscript) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textSubscript#ed6a8504 as nil")
+	}
 	if t.Text == nil {
 		return fmt.Errorf("unable to encode textSubscript#ed6a8504: field text is nil")
 	}
@@ -1360,6 +1548,14 @@ func (t *TextSubscript) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextSubscriptTypeID); err != nil {
 		return fmt.Errorf("unable to decode textSubscript#ed6a8504: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextSubscript) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textSubscript#ed6a8504 to nil")
+	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -1375,8 +1571,10 @@ func (t TextSubscript) construct() RichTextClass { return &t }
 
 // Ensuring interfaces in compile-time for TextSubscript.
 var (
-	_ bin.Encoder = &TextSubscript{}
-	_ bin.Decoder = &TextSubscript{}
+	_ bin.Encoder     = &TextSubscript{}
+	_ bin.Decoder     = &TextSubscript{}
+	_ bin.BareEncoder = &TextSubscript{}
+	_ bin.BareDecoder = &TextSubscript{}
 
 	_ RichTextClass = &TextSubscript{}
 )
@@ -1457,6 +1655,14 @@ func (t *TextSuperscript) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textSuperscript#c7fb5e01 as nil")
 	}
 	b.PutID(TextSuperscriptTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextSuperscript) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textSuperscript#c7fb5e01 as nil")
+	}
 	if t.Text == nil {
 		return fmt.Errorf("unable to encode textSuperscript#c7fb5e01: field text is nil")
 	}
@@ -1479,6 +1685,14 @@ func (t *TextSuperscript) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextSuperscriptTypeID); err != nil {
 		return fmt.Errorf("unable to decode textSuperscript#c7fb5e01: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextSuperscript) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textSuperscript#c7fb5e01 to nil")
+	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -1494,8 +1708,10 @@ func (t TextSuperscript) construct() RichTextClass { return &t }
 
 // Ensuring interfaces in compile-time for TextSuperscript.
 var (
-	_ bin.Encoder = &TextSuperscript{}
-	_ bin.Decoder = &TextSuperscript{}
+	_ bin.Encoder     = &TextSuperscript{}
+	_ bin.Decoder     = &TextSuperscript{}
+	_ bin.BareEncoder = &TextSuperscript{}
+	_ bin.BareDecoder = &TextSuperscript{}
 
 	_ RichTextClass = &TextSuperscript{}
 )
@@ -1576,6 +1792,14 @@ func (t *TextMarked) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textMarked#34b8621 as nil")
 	}
 	b.PutID(TextMarkedTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextMarked) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textMarked#34b8621 as nil")
+	}
 	if t.Text == nil {
 		return fmt.Errorf("unable to encode textMarked#34b8621: field text is nil")
 	}
@@ -1598,6 +1822,14 @@ func (t *TextMarked) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextMarkedTypeID); err != nil {
 		return fmt.Errorf("unable to decode textMarked#34b8621: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextMarked) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textMarked#34b8621 to nil")
+	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -1613,8 +1845,10 @@ func (t TextMarked) construct() RichTextClass { return &t }
 
 // Ensuring interfaces in compile-time for TextMarked.
 var (
-	_ bin.Encoder = &TextMarked{}
-	_ bin.Decoder = &TextMarked{}
+	_ bin.Encoder     = &TextMarked{}
+	_ bin.Decoder     = &TextMarked{}
+	_ bin.BareEncoder = &TextMarked{}
+	_ bin.BareDecoder = &TextMarked{}
 
 	_ RichTextClass = &TextMarked{}
 )
@@ -1706,6 +1940,14 @@ func (t *TextPhone) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textPhone#1ccb966a as nil")
 	}
 	b.PutID(TextPhoneTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextPhone) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textPhone#1ccb966a as nil")
+	}
 	if t.Text == nil {
 		return fmt.Errorf("unable to encode textPhone#1ccb966a: field text is nil")
 	}
@@ -1734,6 +1976,14 @@ func (t *TextPhone) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextPhoneTypeID); err != nil {
 		return fmt.Errorf("unable to decode textPhone#1ccb966a: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextPhone) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textPhone#1ccb966a to nil")
+	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -1756,8 +2006,10 @@ func (t TextPhone) construct() RichTextClass { return &t }
 
 // Ensuring interfaces in compile-time for TextPhone.
 var (
-	_ bin.Encoder = &TextPhone{}
-	_ bin.Decoder = &TextPhone{}
+	_ bin.Encoder     = &TextPhone{}
+	_ bin.Decoder     = &TextPhone{}
+	_ bin.BareEncoder = &TextPhone{}
+	_ bin.BareDecoder = &TextPhone{}
 
 	_ RichTextClass = &TextPhone{}
 )
@@ -1860,6 +2112,14 @@ func (t *TextImage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textImage#81ccf4f as nil")
 	}
 	b.PutID(TextImageTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextImage) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textImage#81ccf4f as nil")
+	}
 	b.PutLong(t.DocumentID)
 	b.PutInt(t.W)
 	b.PutInt(t.H)
@@ -1888,6 +2148,14 @@ func (t *TextImage) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(TextImageTypeID); err != nil {
 		return fmt.Errorf("unable to decode textImage#81ccf4f: %w", err)
+	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextImage) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textImage#81ccf4f to nil")
 	}
 	{
 		value, err := b.Long()
@@ -1918,8 +2186,10 @@ func (t TextImage) construct() RichTextClass { return &t }
 
 // Ensuring interfaces in compile-time for TextImage.
 var (
-	_ bin.Encoder = &TextImage{}
-	_ bin.Decoder = &TextImage{}
+	_ bin.Encoder     = &TextImage{}
+	_ bin.Decoder     = &TextImage{}
+	_ bin.BareEncoder = &TextImage{}
+	_ bin.BareDecoder = &TextImage{}
 
 	_ RichTextClass = &TextImage{}
 )
@@ -2011,6 +2281,14 @@ func (t *TextAnchor) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode textAnchor#35553762 as nil")
 	}
 	b.PutID(TextAnchorTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *TextAnchor) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode textAnchor#35553762 as nil")
+	}
 	if t.Text == nil {
 		return fmt.Errorf("unable to encode textAnchor#35553762: field text is nil")
 	}
@@ -2039,6 +2317,14 @@ func (t *TextAnchor) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(TextAnchorTypeID); err != nil {
 		return fmt.Errorf("unable to decode textAnchor#35553762: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *TextAnchor) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode textAnchor#35553762 to nil")
+	}
 	{
 		value, err := DecodeRichText(b)
 		if err != nil {
@@ -2061,8 +2347,10 @@ func (t TextAnchor) construct() RichTextClass { return &t }
 
 // Ensuring interfaces in compile-time for TextAnchor.
 var (
-	_ bin.Encoder = &TextAnchor{}
-	_ bin.Decoder = &TextAnchor{}
+	_ bin.Encoder     = &TextAnchor{}
+	_ bin.Decoder     = &TextAnchor{}
+	_ bin.BareEncoder = &TextAnchor{}
+	_ bin.BareDecoder = &TextAnchor{}
 
 	_ RichTextClass = &TextAnchor{}
 )
@@ -2098,6 +2386,8 @@ var (
 type RichTextClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() RichTextClass
 
 	// TypeID returns type id in TL schema.

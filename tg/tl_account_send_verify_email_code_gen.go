@@ -105,6 +105,14 @@ func (s *AccountSendVerifyEmailCodeRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.sendVerifyEmailCode#7011509f as nil")
 	}
 	b.PutID(AccountSendVerifyEmailCodeRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *AccountSendVerifyEmailCodeRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode account.sendVerifyEmailCode#7011509f as nil")
+	}
 	b.PutString(s.Email)
 	return nil
 }
@@ -122,6 +130,14 @@ func (s *AccountSendVerifyEmailCodeRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountSendVerifyEmailCodeRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.sendVerifyEmailCode#7011509f: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *AccountSendVerifyEmailCodeRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode account.sendVerifyEmailCode#7011509f to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -134,8 +150,10 @@ func (s *AccountSendVerifyEmailCodeRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountSendVerifyEmailCodeRequest.
 var (
-	_ bin.Encoder = &AccountSendVerifyEmailCodeRequest{}
-	_ bin.Decoder = &AccountSendVerifyEmailCodeRequest{}
+	_ bin.Encoder     = &AccountSendVerifyEmailCodeRequest{}
+	_ bin.Decoder     = &AccountSendVerifyEmailCodeRequest{}
+	_ bin.BareEncoder = &AccountSendVerifyEmailCodeRequest{}
+	_ bin.BareDecoder = &AccountSendVerifyEmailCodeRequest{}
 )
 
 // AccountSendVerifyEmailCode invokes method account.sendVerifyEmailCode#7011509f returning error if any.

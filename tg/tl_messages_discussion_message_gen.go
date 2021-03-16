@@ -195,6 +195,14 @@ func (d *MessagesDiscussionMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.discussionMessage#f5dd8f9d as nil")
 	}
 	b.PutID(MessagesDiscussionMessageTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *MessagesDiscussionMessage) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode messages.discussionMessage#f5dd8f9d as nil")
+	}
 	if !(d.MaxID == 0) {
 		d.Flags.Set(0)
 	}
@@ -329,6 +337,14 @@ func (d *MessagesDiscussionMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesDiscussionMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.discussionMessage#f5dd8f9d: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *MessagesDiscussionMessage) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode messages.discussionMessage#f5dd8f9d to nil")
+	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.discussionMessage#f5dd8f9d: field flags: %w", err)
@@ -399,6 +415,8 @@ func (d *MessagesDiscussionMessage) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesDiscussionMessage.
 var (
-	_ bin.Encoder = &MessagesDiscussionMessage{}
-	_ bin.Decoder = &MessagesDiscussionMessage{}
+	_ bin.Encoder     = &MessagesDiscussionMessage{}
+	_ bin.Decoder     = &MessagesDiscussionMessage{}
+	_ bin.BareEncoder = &MessagesDiscussionMessage{}
+	_ bin.BareDecoder = &MessagesDiscussionMessage{}
 )

@@ -113,6 +113,14 @@ func (e *MessagesEditChatPhotoRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.editChatPhoto#ca4c79d8 as nil")
 	}
 	b.PutID(MessagesEditChatPhotoRequestTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *MessagesEditChatPhotoRequest) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode messages.editChatPhoto#ca4c79d8 as nil")
+	}
 	b.PutInt(e.ChatID)
 	if e.Photo == nil {
 		return fmt.Errorf("unable to encode messages.editChatPhoto#ca4c79d8: field photo is nil")
@@ -141,6 +149,14 @@ func (e *MessagesEditChatPhotoRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesEditChatPhotoRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.editChatPhoto#ca4c79d8: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *MessagesEditChatPhotoRequest) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode messages.editChatPhoto#ca4c79d8 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -160,8 +176,10 @@ func (e *MessagesEditChatPhotoRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesEditChatPhotoRequest.
 var (
-	_ bin.Encoder = &MessagesEditChatPhotoRequest{}
-	_ bin.Decoder = &MessagesEditChatPhotoRequest{}
+	_ bin.Encoder     = &MessagesEditChatPhotoRequest{}
+	_ bin.Decoder     = &MessagesEditChatPhotoRequest{}
+	_ bin.BareEncoder = &MessagesEditChatPhotoRequest{}
+	_ bin.BareDecoder = &MessagesEditChatPhotoRequest{}
 )
 
 // MessagesEditChatPhoto invokes method messages.editChatPhoto#ca4c79d8 returning error if any.

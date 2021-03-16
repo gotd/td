@@ -220,6 +220,14 @@ func (i *Invoice) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode invoice#c30aa358 as nil")
 	}
 	b.PutID(InvoiceTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *Invoice) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode invoice#c30aa358 as nil")
+	}
 	if !(i.Test == false) {
 		i.Flags.Set(0)
 	}
@@ -403,6 +411,14 @@ func (i *Invoice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InvoiceTypeID); err != nil {
 		return fmt.Errorf("unable to decode invoice#c30aa358: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *Invoice) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode invoice#c30aa358 to nil")
+	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode invoice#c30aa358: field flags: %w", err)
@@ -441,6 +457,8 @@ func (i *Invoice) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for Invoice.
 var (
-	_ bin.Encoder = &Invoice{}
-	_ bin.Decoder = &Invoice{}
+	_ bin.Encoder     = &Invoice{}
+	_ bin.Decoder     = &Invoice{}
+	_ bin.BareEncoder = &Invoice{}
+	_ bin.BareDecoder = &Invoice{}
 )

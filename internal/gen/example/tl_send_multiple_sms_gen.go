@@ -101,10 +101,18 @@ func (s *SendMultipleSMSRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode sendMultipleSMS#df18e5ca as nil")
 	}
 	b.PutID(SendMultipleSMSRequestTypeID)
-	b.PutVectorHeader(len(s.Messages))
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SendMultipleSMSRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode sendMultipleSMS#df18e5ca as nil")
+	}
+	b.PutInt(len(s.Messages))
 	for idx, v := range s.Messages {
-		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode sendMultipleSMS#df18e5ca: field messages element with index %d: %w", idx, err)
+		if err := v.EncodeBare(b); err != nil {
+			return fmt.Errorf("unable to encode bare sendMultipleSMS#df18e5ca: field messages element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -123,15 +131,23 @@ func (s *SendMultipleSMSRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SendMultipleSMSRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode sendMultipleSMS#df18e5ca: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SendMultipleSMSRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode sendMultipleSMS#df18e5ca to nil")
+	}
 	{
-		headerLen, err := b.VectorHeader()
+		headerLen, err := b.Int()
 		if err != nil {
 			return fmt.Errorf("unable to decode sendMultipleSMS#df18e5ca: field messages: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value SMS
-			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode sendMultipleSMS#df18e5ca: field messages: %w", err)
+			if err := value.DecodeBare(b); err != nil {
+				return fmt.Errorf("unable to decode bare sendMultipleSMS#df18e5ca: field messages: %w", err)
 			}
 			s.Messages = append(s.Messages, value)
 		}
@@ -141,8 +157,10 @@ func (s *SendMultipleSMSRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for SendMultipleSMSRequest.
 var (
-	_ bin.Encoder = &SendMultipleSMSRequest{}
-	_ bin.Decoder = &SendMultipleSMSRequest{}
+	_ bin.Encoder     = &SendMultipleSMSRequest{}
+	_ bin.Decoder     = &SendMultipleSMSRequest{}
+	_ bin.BareEncoder = &SendMultipleSMSRequest{}
+	_ bin.BareDecoder = &SendMultipleSMSRequest{}
 )
 
 // SendMultipleSMS invokes method sendMultipleSMS#df18e5ca returning error if any.

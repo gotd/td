@@ -113,6 +113,14 @@ func (r *MessagesReadEncryptedHistoryRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.readEncryptedHistory#7f4b690a as nil")
 	}
 	b.PutID(MessagesReadEncryptedHistoryRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *MessagesReadEncryptedHistoryRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode messages.readEncryptedHistory#7f4b690a as nil")
+	}
 	if err := r.Peer.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode messages.readEncryptedHistory#7f4b690a: field peer: %w", err)
 	}
@@ -138,6 +146,14 @@ func (r *MessagesReadEncryptedHistoryRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesReadEncryptedHistoryRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.readEncryptedHistory#7f4b690a: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *MessagesReadEncryptedHistoryRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode messages.readEncryptedHistory#7f4b690a to nil")
+	}
 	{
 		if err := r.Peer.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.readEncryptedHistory#7f4b690a: field peer: %w", err)
@@ -155,8 +171,10 @@ func (r *MessagesReadEncryptedHistoryRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesReadEncryptedHistoryRequest.
 var (
-	_ bin.Encoder = &MessagesReadEncryptedHistoryRequest{}
-	_ bin.Decoder = &MessagesReadEncryptedHistoryRequest{}
+	_ bin.Encoder     = &MessagesReadEncryptedHistoryRequest{}
+	_ bin.Decoder     = &MessagesReadEncryptedHistoryRequest{}
+	_ bin.BareEncoder = &MessagesReadEncryptedHistoryRequest{}
+	_ bin.BareDecoder = &MessagesReadEncryptedHistoryRequest{}
 )
 
 // MessagesReadEncryptedHistory invokes method messages.readEncryptedHistory#7f4b690a returning error if any.

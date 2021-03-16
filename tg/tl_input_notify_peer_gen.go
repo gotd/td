@@ -102,6 +102,14 @@ func (i *InputNotifyPeer) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputNotifyPeer#b8bc5b0c as nil")
 	}
 	b.PutID(InputNotifyPeerTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputNotifyPeer) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputNotifyPeer#b8bc5b0c as nil")
+	}
 	if i.Peer == nil {
 		return fmt.Errorf("unable to encode inputNotifyPeer#b8bc5b0c: field peer is nil")
 	}
@@ -124,6 +132,14 @@ func (i *InputNotifyPeer) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputNotifyPeerTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputNotifyPeer#b8bc5b0c: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputNotifyPeer) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputNotifyPeer#b8bc5b0c to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -139,8 +155,10 @@ func (i InputNotifyPeer) construct() InputNotifyPeerClass { return &i }
 
 // Ensuring interfaces in compile-time for InputNotifyPeer.
 var (
-	_ bin.Encoder = &InputNotifyPeer{}
-	_ bin.Decoder = &InputNotifyPeer{}
+	_ bin.Encoder     = &InputNotifyPeer{}
+	_ bin.Decoder     = &InputNotifyPeer{}
+	_ bin.BareEncoder = &InputNotifyPeer{}
+	_ bin.BareDecoder = &InputNotifyPeer{}
 
 	_ InputNotifyPeerClass = &InputNotifyPeer{}
 )
@@ -204,6 +222,14 @@ func (i *InputNotifyUsers) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputNotifyUsers#193b4417 as nil")
 	}
 	b.PutID(InputNotifyUsersTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputNotifyUsers) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputNotifyUsers#193b4417 as nil")
+	}
 	return nil
 }
 
@@ -215,6 +241,14 @@ func (i *InputNotifyUsers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputNotifyUsersTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputNotifyUsers#193b4417: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputNotifyUsers) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputNotifyUsers#193b4417 to nil")
+	}
 	return nil
 }
 
@@ -223,8 +257,10 @@ func (i InputNotifyUsers) construct() InputNotifyPeerClass { return &i }
 
 // Ensuring interfaces in compile-time for InputNotifyUsers.
 var (
-	_ bin.Encoder = &InputNotifyUsers{}
-	_ bin.Decoder = &InputNotifyUsers{}
+	_ bin.Encoder     = &InputNotifyUsers{}
+	_ bin.Decoder     = &InputNotifyUsers{}
+	_ bin.BareEncoder = &InputNotifyUsers{}
+	_ bin.BareDecoder = &InputNotifyUsers{}
 
 	_ InputNotifyPeerClass = &InputNotifyUsers{}
 )
@@ -288,6 +324,14 @@ func (i *InputNotifyChats) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputNotifyChats#4a95e84e as nil")
 	}
 	b.PutID(InputNotifyChatsTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputNotifyChats) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputNotifyChats#4a95e84e as nil")
+	}
 	return nil
 }
 
@@ -299,6 +343,14 @@ func (i *InputNotifyChats) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputNotifyChatsTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputNotifyChats#4a95e84e: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputNotifyChats) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputNotifyChats#4a95e84e to nil")
+	}
 	return nil
 }
 
@@ -307,8 +359,10 @@ func (i InputNotifyChats) construct() InputNotifyPeerClass { return &i }
 
 // Ensuring interfaces in compile-time for InputNotifyChats.
 var (
-	_ bin.Encoder = &InputNotifyChats{}
-	_ bin.Decoder = &InputNotifyChats{}
+	_ bin.Encoder     = &InputNotifyChats{}
+	_ bin.Decoder     = &InputNotifyChats{}
+	_ bin.BareEncoder = &InputNotifyChats{}
+	_ bin.BareDecoder = &InputNotifyChats{}
 
 	_ InputNotifyPeerClass = &InputNotifyChats{}
 )
@@ -375,6 +429,14 @@ func (i *InputNotifyBroadcasts) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputNotifyBroadcasts#b1db7c7e as nil")
 	}
 	b.PutID(InputNotifyBroadcastsTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputNotifyBroadcasts) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputNotifyBroadcasts#b1db7c7e as nil")
+	}
 	return nil
 }
 
@@ -386,6 +448,14 @@ func (i *InputNotifyBroadcasts) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputNotifyBroadcastsTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputNotifyBroadcasts#b1db7c7e: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputNotifyBroadcasts) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputNotifyBroadcasts#b1db7c7e to nil")
+	}
 	return nil
 }
 
@@ -394,8 +464,10 @@ func (i InputNotifyBroadcasts) construct() InputNotifyPeerClass { return &i }
 
 // Ensuring interfaces in compile-time for InputNotifyBroadcasts.
 var (
-	_ bin.Encoder = &InputNotifyBroadcasts{}
-	_ bin.Decoder = &InputNotifyBroadcasts{}
+	_ bin.Encoder     = &InputNotifyBroadcasts{}
+	_ bin.Decoder     = &InputNotifyBroadcasts{}
+	_ bin.BareEncoder = &InputNotifyBroadcasts{}
+	_ bin.BareDecoder = &InputNotifyBroadcasts{}
 
 	_ InputNotifyPeerClass = &InputNotifyBroadcasts{}
 )
@@ -419,6 +491,8 @@ var (
 type InputNotifyPeerClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() InputNotifyPeerClass
 
 	// TypeID returns type id in TL schema.

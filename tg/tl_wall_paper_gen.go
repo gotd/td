@@ -208,6 +208,14 @@ func (w *WallPaper) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode wallPaper#a437c3ed as nil")
 	}
 	b.PutID(WallPaperTypeID)
+	return w.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (w *WallPaper) EncodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode wallPaper#a437c3ed as nil")
+	}
 	if !(w.Creator == false) {
 		w.Flags.Set(0)
 	}
@@ -350,6 +358,14 @@ func (w *WallPaper) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(WallPaperTypeID); err != nil {
 		return fmt.Errorf("unable to decode wallPaper#a437c3ed: %w", err)
 	}
+	return w.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (w *WallPaper) DecodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode wallPaper#a437c3ed to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -400,8 +416,10 @@ func (w WallPaper) construct() WallPaperClass { return &w }
 
 // Ensuring interfaces in compile-time for WallPaper.
 var (
-	_ bin.Encoder = &WallPaper{}
-	_ bin.Decoder = &WallPaper{}
+	_ bin.Encoder     = &WallPaper{}
+	_ bin.Decoder     = &WallPaper{}
+	_ bin.BareEncoder = &WallPaper{}
+	_ bin.BareDecoder = &WallPaper{}
 
 	_ WallPaperClass = &WallPaper{}
 )
@@ -520,6 +538,14 @@ func (w *WallPaperNoFile) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode wallPaperNoFile#8af40b25 as nil")
 	}
 	b.PutID(WallPaperNoFileTypeID)
+	return w.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (w *WallPaperNoFile) EncodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't encode wallPaperNoFile#8af40b25 as nil")
+	}
 	if !(w.Default == false) {
 		w.Flags.Set(1)
 	}
@@ -595,6 +621,14 @@ func (w *WallPaperNoFile) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(WallPaperNoFileTypeID); err != nil {
 		return fmt.Errorf("unable to decode wallPaperNoFile#8af40b25: %w", err)
 	}
+	return w.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (w *WallPaperNoFile) DecodeBare(b *bin.Buffer) error {
+	if w == nil {
+		return fmt.Errorf("can't decode wallPaperNoFile#8af40b25 to nil")
+	}
 	{
 		if err := w.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode wallPaperNoFile#8af40b25: field flags: %w", err)
@@ -615,8 +649,10 @@ func (w WallPaperNoFile) construct() WallPaperClass { return &w }
 
 // Ensuring interfaces in compile-time for WallPaperNoFile.
 var (
-	_ bin.Encoder = &WallPaperNoFile{}
-	_ bin.Decoder = &WallPaperNoFile{}
+	_ bin.Encoder     = &WallPaperNoFile{}
+	_ bin.Decoder     = &WallPaperNoFile{}
+	_ bin.BareEncoder = &WallPaperNoFile{}
+	_ bin.BareDecoder = &WallPaperNoFile{}
 
 	_ WallPaperClass = &WallPaperNoFile{}
 )
@@ -638,6 +674,8 @@ var (
 type WallPaperClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() WallPaperClass
 
 	// TypeID returns type id in TL schema.

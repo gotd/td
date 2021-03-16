@@ -113,6 +113,14 @@ func (g *UploadGetFileHashesRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode upload.getFileHashes#c7025931 as nil")
 	}
 	b.PutID(UploadGetFileHashesRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *UploadGetFileHashesRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode upload.getFileHashes#c7025931 as nil")
+	}
 	if g.Location == nil {
 		return fmt.Errorf("unable to encode upload.getFileHashes#c7025931: field location is nil")
 	}
@@ -141,6 +149,14 @@ func (g *UploadGetFileHashesRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UploadGetFileHashesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode upload.getFileHashes#c7025931: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *UploadGetFileHashesRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode upload.getFileHashes#c7025931 to nil")
+	}
 	{
 		value, err := DecodeInputFileLocation(b)
 		if err != nil {
@@ -160,8 +176,10 @@ func (g *UploadGetFileHashesRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for UploadGetFileHashesRequest.
 var (
-	_ bin.Encoder = &UploadGetFileHashesRequest{}
-	_ bin.Decoder = &UploadGetFileHashesRequest{}
+	_ bin.Encoder     = &UploadGetFileHashesRequest{}
+	_ bin.Decoder     = &UploadGetFileHashesRequest{}
+	_ bin.BareEncoder = &UploadGetFileHashesRequest{}
+	_ bin.BareDecoder = &UploadGetFileHashesRequest{}
 )
 
 // UploadGetFileHashes invokes method upload.getFileHashes#c7025931 returning error if any.

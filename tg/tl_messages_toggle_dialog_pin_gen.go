@@ -122,6 +122,14 @@ func (t *MessagesToggleDialogPinRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.toggleDialogPin#a731e257 as nil")
 	}
 	b.PutID(MessagesToggleDialogPinRequestTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *MessagesToggleDialogPinRequest) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode messages.toggleDialogPin#a731e257 as nil")
+	}
 	if !(t.Pinned == false) {
 		t.Flags.Set(0)
 	}
@@ -166,6 +174,14 @@ func (t *MessagesToggleDialogPinRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesToggleDialogPinRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.toggleDialogPin#a731e257: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *MessagesToggleDialogPinRequest) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode messages.toggleDialogPin#a731e257 to nil")
+	}
 	{
 		if err := t.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.toggleDialogPin#a731e257: field flags: %w", err)
@@ -184,8 +200,10 @@ func (t *MessagesToggleDialogPinRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesToggleDialogPinRequest.
 var (
-	_ bin.Encoder = &MessagesToggleDialogPinRequest{}
-	_ bin.Decoder = &MessagesToggleDialogPinRequest{}
+	_ bin.Encoder     = &MessagesToggleDialogPinRequest{}
+	_ bin.Decoder     = &MessagesToggleDialogPinRequest{}
+	_ bin.BareEncoder = &MessagesToggleDialogPinRequest{}
+	_ bin.BareDecoder = &MessagesToggleDialogPinRequest{}
 )
 
 // MessagesToggleDialogPin invokes method messages.toggleDialogPin#a731e257 returning error if any.

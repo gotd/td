@@ -98,6 +98,15 @@ func (vec *LangPackLanguageVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't encode Vector<LangPackLanguage> as nil")
 	}
+
+	return vec.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (vec *LangPackLanguageVector) EncodeBare(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't encode Vector<LangPackLanguage> as nil")
+	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if err := v.Encode(b); err != nil {
@@ -114,6 +123,15 @@ func (vec *LangPackLanguageVector) GetElems() (value []LangPackLanguage) {
 
 // Decode implements bin.Decoder.
 func (vec *LangPackLanguageVector) Decode(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't decode Vector<LangPackLanguage> to nil")
+	}
+
+	return vec.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (vec *LangPackLanguageVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't decode Vector<LangPackLanguage> to nil")
 	}
@@ -135,6 +153,8 @@ func (vec *LangPackLanguageVector) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for LangPackLanguageVector.
 var (
-	_ bin.Encoder = &LangPackLanguageVector{}
-	_ bin.Decoder = &LangPackLanguageVector{}
+	_ bin.Encoder     = &LangPackLanguageVector{}
+	_ bin.Decoder     = &LangPackLanguageVector{}
+	_ bin.BareEncoder = &LangPackLanguageVector{}
+	_ bin.BareDecoder = &LangPackLanguageVector{}
 )

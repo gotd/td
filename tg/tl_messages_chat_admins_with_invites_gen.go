@@ -112,6 +112,14 @@ func (c *MessagesChatAdminsWithInvites) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.chatAdminsWithInvites#b69b72d7 as nil")
 	}
 	b.PutID(MessagesChatAdminsWithInvitesTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *MessagesChatAdminsWithInvites) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode messages.chatAdminsWithInvites#b69b72d7 as nil")
+	}
 	b.PutVectorHeader(len(c.Admins))
 	for idx, v := range c.Admins {
 		if err := v.Encode(b); err != nil {
@@ -153,6 +161,14 @@ func (c *MessagesChatAdminsWithInvites) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesChatAdminsWithInvitesTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.chatAdminsWithInvites#b69b72d7: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *MessagesChatAdminsWithInvites) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode messages.chatAdminsWithInvites#b69b72d7 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -184,6 +200,8 @@ func (c *MessagesChatAdminsWithInvites) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesChatAdminsWithInvites.
 var (
-	_ bin.Encoder = &MessagesChatAdminsWithInvites{}
-	_ bin.Decoder = &MessagesChatAdminsWithInvites{}
+	_ bin.Encoder     = &MessagesChatAdminsWithInvites{}
+	_ bin.Decoder     = &MessagesChatAdminsWithInvites{}
+	_ bin.BareEncoder = &MessagesChatAdminsWithInvites{}
+	_ bin.BareDecoder = &MessagesChatAdminsWithInvites{}
 )

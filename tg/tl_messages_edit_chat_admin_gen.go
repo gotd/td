@@ -127,6 +127,14 @@ func (e *MessagesEditChatAdminRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.editChatAdmin#a9e69f2e as nil")
 	}
 	b.PutID(MessagesEditChatAdminRequestTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *MessagesEditChatAdminRequest) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode messages.editChatAdmin#a9e69f2e as nil")
+	}
 	b.PutInt(e.ChatID)
 	if e.UserID == nil {
 		return fmt.Errorf("unable to encode messages.editChatAdmin#a9e69f2e: field user_id is nil")
@@ -161,6 +169,14 @@ func (e *MessagesEditChatAdminRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesEditChatAdminRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.editChatAdmin#a9e69f2e: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *MessagesEditChatAdminRequest) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode messages.editChatAdmin#a9e69f2e to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -187,8 +203,10 @@ func (e *MessagesEditChatAdminRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesEditChatAdminRequest.
 var (
-	_ bin.Encoder = &MessagesEditChatAdminRequest{}
-	_ bin.Decoder = &MessagesEditChatAdminRequest{}
+	_ bin.Encoder     = &MessagesEditChatAdminRequest{}
+	_ bin.Decoder     = &MessagesEditChatAdminRequest{}
+	_ bin.BareEncoder = &MessagesEditChatAdminRequest{}
+	_ bin.BareDecoder = &MessagesEditChatAdminRequest{}
 )
 
 // MessagesEditChatAdmin invokes method messages.editChatAdmin#a9e69f2e returning error if any.

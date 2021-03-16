@@ -102,6 +102,14 @@ func (b *ContactsBlockRequest) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode contacts.block#68cc1411 as nil")
 	}
 	buf.PutID(ContactsBlockRequestTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *ContactsBlockRequest) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode contacts.block#68cc1411 as nil")
+	}
 	if b.ID == nil {
 		return fmt.Errorf("unable to encode contacts.block#68cc1411: field id is nil")
 	}
@@ -124,6 +132,14 @@ func (b *ContactsBlockRequest) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(ContactsBlockRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.block#68cc1411: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *ContactsBlockRequest) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode contacts.block#68cc1411 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(buf)
 		if err != nil {
@@ -136,8 +152,10 @@ func (b *ContactsBlockRequest) Decode(buf *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ContactsBlockRequest.
 var (
-	_ bin.Encoder = &ContactsBlockRequest{}
-	_ bin.Decoder = &ContactsBlockRequest{}
+	_ bin.Encoder     = &ContactsBlockRequest{}
+	_ bin.Decoder     = &ContactsBlockRequest{}
+	_ bin.BareEncoder = &ContactsBlockRequest{}
+	_ bin.BareDecoder = &ContactsBlockRequest{}
 )
 
 // ContactsBlock invokes method contacts.block#68cc1411 returning error if any.

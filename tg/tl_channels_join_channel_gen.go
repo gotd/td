@@ -102,6 +102,14 @@ func (j *ChannelsJoinChannelRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.joinChannel#24b524c5 as nil")
 	}
 	b.PutID(ChannelsJoinChannelRequestTypeID)
+	return j.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (j *ChannelsJoinChannelRequest) EncodeBare(b *bin.Buffer) error {
+	if j == nil {
+		return fmt.Errorf("can't encode channels.joinChannel#24b524c5 as nil")
+	}
 	if j.Channel == nil {
 		return fmt.Errorf("unable to encode channels.joinChannel#24b524c5: field channel is nil")
 	}
@@ -129,6 +137,14 @@ func (j *ChannelsJoinChannelRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsJoinChannelRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.joinChannel#24b524c5: %w", err)
 	}
+	return j.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (j *ChannelsJoinChannelRequest) DecodeBare(b *bin.Buffer) error {
+	if j == nil {
+		return fmt.Errorf("can't decode channels.joinChannel#24b524c5 to nil")
+	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
@@ -141,8 +157,10 @@ func (j *ChannelsJoinChannelRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsJoinChannelRequest.
 var (
-	_ bin.Encoder = &ChannelsJoinChannelRequest{}
-	_ bin.Decoder = &ChannelsJoinChannelRequest{}
+	_ bin.Encoder     = &ChannelsJoinChannelRequest{}
+	_ bin.Decoder     = &ChannelsJoinChannelRequest{}
+	_ bin.BareEncoder = &ChannelsJoinChannelRequest{}
+	_ bin.BareDecoder = &ChannelsJoinChannelRequest{}
 )
 
 // ChannelsJoinChannel invokes method channels.joinChannel#24b524c5 returning error if any.

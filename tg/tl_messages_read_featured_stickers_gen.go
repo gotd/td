@@ -102,6 +102,14 @@ func (r *MessagesReadFeaturedStickersRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.readFeaturedStickers#5b118126 as nil")
 	}
 	b.PutID(MessagesReadFeaturedStickersRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *MessagesReadFeaturedStickersRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode messages.readFeaturedStickers#5b118126 as nil")
+	}
 	b.PutVectorHeader(len(r.ID))
 	for _, v := range r.ID {
 		b.PutLong(v)
@@ -122,6 +130,14 @@ func (r *MessagesReadFeaturedStickersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesReadFeaturedStickersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.readFeaturedStickers#5b118126: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *MessagesReadFeaturedStickersRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode messages.readFeaturedStickers#5b118126 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -140,8 +156,10 @@ func (r *MessagesReadFeaturedStickersRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesReadFeaturedStickersRequest.
 var (
-	_ bin.Encoder = &MessagesReadFeaturedStickersRequest{}
-	_ bin.Decoder = &MessagesReadFeaturedStickersRequest{}
+	_ bin.Encoder     = &MessagesReadFeaturedStickersRequest{}
+	_ bin.Decoder     = &MessagesReadFeaturedStickersRequest{}
+	_ bin.BareEncoder = &MessagesReadFeaturedStickersRequest{}
+	_ bin.BareDecoder = &MessagesReadFeaturedStickersRequest{}
 )
 
 // MessagesReadFeaturedStickers invokes method messages.readFeaturedStickers#5b118126 returning error if any.

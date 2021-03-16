@@ -127,6 +127,14 @@ func (s *AuthSignInRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.signIn#bcd51581 as nil")
 	}
 	b.PutID(AuthSignInRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *AuthSignInRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode auth.signIn#bcd51581 as nil")
+	}
 	b.PutString(s.PhoneNumber)
 	b.PutString(s.PhoneCodeHash)
 	b.PutString(s.PhoneCode)
@@ -156,6 +164,14 @@ func (s *AuthSignInRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthSignInRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.signIn#bcd51581: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *AuthSignInRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode auth.signIn#bcd51581 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -182,8 +198,10 @@ func (s *AuthSignInRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AuthSignInRequest.
 var (
-	_ bin.Encoder = &AuthSignInRequest{}
-	_ bin.Decoder = &AuthSignInRequest{}
+	_ bin.Encoder     = &AuthSignInRequest{}
+	_ bin.Decoder     = &AuthSignInRequest{}
+	_ bin.BareEncoder = &AuthSignInRequest{}
+	_ bin.BareDecoder = &AuthSignInRequest{}
 )
 
 // AuthSignIn invokes method auth.signIn#bcd51581 returning error if any.

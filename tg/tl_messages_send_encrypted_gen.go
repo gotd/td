@@ -147,6 +147,14 @@ func (s *MessagesSendEncryptedRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.sendEncrypted#44fa7a15 as nil")
 	}
 	b.PutID(MessagesSendEncryptedRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesSendEncryptedRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.sendEncrypted#44fa7a15 as nil")
+	}
 	if !(s.Silent == false) {
 		s.Flags.Set(0)
 	}
@@ -200,6 +208,14 @@ func (s *MessagesSendEncryptedRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSendEncryptedRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.sendEncrypted#44fa7a15: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSendEncryptedRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.sendEncrypted#44fa7a15 to nil")
+	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.sendEncrypted#44fa7a15: field flags: %w", err)
@@ -230,8 +246,10 @@ func (s *MessagesSendEncryptedRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesSendEncryptedRequest.
 var (
-	_ bin.Encoder = &MessagesSendEncryptedRequest{}
-	_ bin.Decoder = &MessagesSendEncryptedRequest{}
+	_ bin.Encoder     = &MessagesSendEncryptedRequest{}
+	_ bin.Decoder     = &MessagesSendEncryptedRequest{}
+	_ bin.BareEncoder = &MessagesSendEncryptedRequest{}
+	_ bin.BareDecoder = &MessagesSendEncryptedRequest{}
 )
 
 // MessagesSendEncrypted invokes method messages.sendEncrypted#44fa7a15 returning error if any.

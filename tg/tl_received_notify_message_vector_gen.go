@@ -98,6 +98,15 @@ func (vec *ReceivedNotifyMessageVector) Encode(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't encode Vector<ReceivedNotifyMessage> as nil")
 	}
+
+	return vec.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (vec *ReceivedNotifyMessageVector) EncodeBare(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't encode Vector<ReceivedNotifyMessage> as nil")
+	}
 	b.PutVectorHeader(len(vec.Elems))
 	for idx, v := range vec.Elems {
 		if err := v.Encode(b); err != nil {
@@ -114,6 +123,15 @@ func (vec *ReceivedNotifyMessageVector) GetElems() (value []ReceivedNotifyMessag
 
 // Decode implements bin.Decoder.
 func (vec *ReceivedNotifyMessageVector) Decode(b *bin.Buffer) error {
+	if vec == nil {
+		return fmt.Errorf("can't decode Vector<ReceivedNotifyMessage> to nil")
+	}
+
+	return vec.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (vec *ReceivedNotifyMessageVector) DecodeBare(b *bin.Buffer) error {
 	if vec == nil {
 		return fmt.Errorf("can't decode Vector<ReceivedNotifyMessage> to nil")
 	}
@@ -135,6 +153,8 @@ func (vec *ReceivedNotifyMessageVector) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ReceivedNotifyMessageVector.
 var (
-	_ bin.Encoder = &ReceivedNotifyMessageVector{}
-	_ bin.Decoder = &ReceivedNotifyMessageVector{}
+	_ bin.Encoder     = &ReceivedNotifyMessageVector{}
+	_ bin.Decoder     = &ReceivedNotifyMessageVector{}
+	_ bin.BareEncoder = &ReceivedNotifyMessageVector{}
+	_ bin.BareDecoder = &ReceivedNotifyMessageVector{}
 )

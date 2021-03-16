@@ -130,6 +130,14 @@ func (g *MessagesGetRecentLocationsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getRecentLocations#bbc45b09 as nil")
 	}
 	b.PutID(MessagesGetRecentLocationsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetRecentLocationsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getRecentLocations#bbc45b09 as nil")
+	}
 	if g.Peer == nil {
 		return fmt.Errorf("unable to encode messages.getRecentLocations#bbc45b09: field peer is nil")
 	}
@@ -164,6 +172,14 @@ func (g *MessagesGetRecentLocationsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetRecentLocationsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getRecentLocations#bbc45b09: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetRecentLocationsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getRecentLocations#bbc45b09 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -190,8 +206,10 @@ func (g *MessagesGetRecentLocationsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetRecentLocationsRequest.
 var (
-	_ bin.Encoder = &MessagesGetRecentLocationsRequest{}
-	_ bin.Decoder = &MessagesGetRecentLocationsRequest{}
+	_ bin.Encoder     = &MessagesGetRecentLocationsRequest{}
+	_ bin.Decoder     = &MessagesGetRecentLocationsRequest{}
+	_ bin.BareEncoder = &MessagesGetRecentLocationsRequest{}
+	_ bin.BareDecoder = &MessagesGetRecentLocationsRequest{}
 )
 
 // MessagesGetRecentLocations invokes method messages.getRecentLocations#bbc45b09 returning error if any.

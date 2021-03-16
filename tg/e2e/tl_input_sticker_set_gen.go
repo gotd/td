@@ -102,6 +102,14 @@ func (i *InputStickerSetShortName) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputStickerSetShortName#861cc8a0 as nil")
 	}
 	b.PutID(InputStickerSetShortNameTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputStickerSetShortName) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputStickerSetShortName#861cc8a0 as nil")
+	}
 	b.PutString(i.ShortName)
 	return nil
 }
@@ -119,6 +127,14 @@ func (i *InputStickerSetShortName) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputStickerSetShortNameTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputStickerSetShortName#861cc8a0: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputStickerSetShortName) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputStickerSetShortName#861cc8a0 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -134,8 +150,10 @@ func (i InputStickerSetShortName) construct() InputStickerSetClass { return &i }
 
 // Ensuring interfaces in compile-time for InputStickerSetShortName.
 var (
-	_ bin.Encoder = &InputStickerSetShortName{}
-	_ bin.Decoder = &InputStickerSetShortName{}
+	_ bin.Encoder     = &InputStickerSetShortName{}
+	_ bin.Decoder     = &InputStickerSetShortName{}
+	_ bin.BareEncoder = &InputStickerSetShortName{}
+	_ bin.BareDecoder = &InputStickerSetShortName{}
 
 	_ InputStickerSetClass = &InputStickerSetShortName{}
 )
@@ -199,6 +217,14 @@ func (i *InputStickerSetEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputStickerSetEmpty#ffb62b95 as nil")
 	}
 	b.PutID(InputStickerSetEmptyTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputStickerSetEmpty) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputStickerSetEmpty#ffb62b95 as nil")
+	}
 	return nil
 }
 
@@ -210,6 +236,14 @@ func (i *InputStickerSetEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputStickerSetEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputStickerSetEmpty#ffb62b95: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputStickerSetEmpty) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputStickerSetEmpty#ffb62b95 to nil")
+	}
 	return nil
 }
 
@@ -218,8 +252,10 @@ func (i InputStickerSetEmpty) construct() InputStickerSetClass { return &i }
 
 // Ensuring interfaces in compile-time for InputStickerSetEmpty.
 var (
-	_ bin.Encoder = &InputStickerSetEmpty{}
-	_ bin.Decoder = &InputStickerSetEmpty{}
+	_ bin.Encoder     = &InputStickerSetEmpty{}
+	_ bin.Decoder     = &InputStickerSetEmpty{}
+	_ bin.BareEncoder = &InputStickerSetEmpty{}
+	_ bin.BareDecoder = &InputStickerSetEmpty{}
 
 	_ InputStickerSetClass = &InputStickerSetEmpty{}
 )
@@ -241,6 +277,8 @@ var (
 type InputStickerSetClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() InputStickerSetClass
 
 	// TypeID returns type id in TL schema.

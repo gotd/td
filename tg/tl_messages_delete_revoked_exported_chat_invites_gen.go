@@ -112,6 +112,14 @@ func (d *MessagesDeleteRevokedExportedChatInvitesRequest) Encode(b *bin.Buffer) 
 		return fmt.Errorf("can't encode messages.deleteRevokedExportedChatInvites#56987bd5 as nil")
 	}
 	b.PutID(MessagesDeleteRevokedExportedChatInvitesRequestTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *MessagesDeleteRevokedExportedChatInvitesRequest) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode messages.deleteRevokedExportedChatInvites#56987bd5 as nil")
+	}
 	if d.Peer == nil {
 		return fmt.Errorf("unable to encode messages.deleteRevokedExportedChatInvites#56987bd5: field peer is nil")
 	}
@@ -145,6 +153,14 @@ func (d *MessagesDeleteRevokedExportedChatInvitesRequest) Decode(b *bin.Buffer) 
 	if err := b.ConsumeID(MessagesDeleteRevokedExportedChatInvitesRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.deleteRevokedExportedChatInvites#56987bd5: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *MessagesDeleteRevokedExportedChatInvitesRequest) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode messages.deleteRevokedExportedChatInvites#56987bd5 to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -164,8 +180,10 @@ func (d *MessagesDeleteRevokedExportedChatInvitesRequest) Decode(b *bin.Buffer) 
 
 // Ensuring interfaces in compile-time for MessagesDeleteRevokedExportedChatInvitesRequest.
 var (
-	_ bin.Encoder = &MessagesDeleteRevokedExportedChatInvitesRequest{}
-	_ bin.Decoder = &MessagesDeleteRevokedExportedChatInvitesRequest{}
+	_ bin.Encoder     = &MessagesDeleteRevokedExportedChatInvitesRequest{}
+	_ bin.Decoder     = &MessagesDeleteRevokedExportedChatInvitesRequest{}
+	_ bin.BareEncoder = &MessagesDeleteRevokedExportedChatInvitesRequest{}
+	_ bin.BareDecoder = &MessagesDeleteRevokedExportedChatInvitesRequest{}
 )
 
 // MessagesDeleteRevokedExportedChatInvites invokes method messages.deleteRevokedExportedChatInvites#56987bd5 returning error if any.

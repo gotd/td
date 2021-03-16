@@ -144,6 +144,14 @@ func (s *StatsGroupTopAdmin) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode statsGroupTopAdmin#6014f412 as nil")
 	}
 	b.PutID(StatsGroupTopAdminTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *StatsGroupTopAdmin) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode statsGroupTopAdmin#6014f412 as nil")
+	}
 	b.PutInt(s.UserID)
 	b.PutInt(s.Deleted)
 	b.PutInt(s.Kicked)
@@ -179,6 +187,14 @@ func (s *StatsGroupTopAdmin) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(StatsGroupTopAdminTypeID); err != nil {
 		return fmt.Errorf("unable to decode statsGroupTopAdmin#6014f412: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *StatsGroupTopAdmin) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode statsGroupTopAdmin#6014f412 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -212,6 +228,8 @@ func (s *StatsGroupTopAdmin) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for StatsGroupTopAdmin.
 var (
-	_ bin.Encoder = &StatsGroupTopAdmin{}
-	_ bin.Decoder = &StatsGroupTopAdmin{}
+	_ bin.Encoder     = &StatsGroupTopAdmin{}
+	_ bin.Decoder     = &StatsGroupTopAdmin{}
+	_ bin.BareEncoder = &StatsGroupTopAdmin{}
+	_ bin.BareDecoder = &StatsGroupTopAdmin{}
 )

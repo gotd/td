@@ -102,6 +102,14 @@ func (u *PhotosUpdateProfilePhotoRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode photos.updateProfilePhoto#72d4742c as nil")
 	}
 	b.PutID(PhotosUpdateProfilePhotoRequestTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *PhotosUpdateProfilePhotoRequest) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode photos.updateProfilePhoto#72d4742c as nil")
+	}
 	if u.ID == nil {
 		return fmt.Errorf("unable to encode photos.updateProfilePhoto#72d4742c: field id is nil")
 	}
@@ -129,6 +137,14 @@ func (u *PhotosUpdateProfilePhotoRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhotosUpdateProfilePhotoRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode photos.updateProfilePhoto#72d4742c: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *PhotosUpdateProfilePhotoRequest) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode photos.updateProfilePhoto#72d4742c to nil")
+	}
 	{
 		value, err := DecodeInputPhoto(b)
 		if err != nil {
@@ -141,8 +157,10 @@ func (u *PhotosUpdateProfilePhotoRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhotosUpdateProfilePhotoRequest.
 var (
-	_ bin.Encoder = &PhotosUpdateProfilePhotoRequest{}
-	_ bin.Decoder = &PhotosUpdateProfilePhotoRequest{}
+	_ bin.Encoder     = &PhotosUpdateProfilePhotoRequest{}
+	_ bin.Decoder     = &PhotosUpdateProfilePhotoRequest{}
+	_ bin.BareEncoder = &PhotosUpdateProfilePhotoRequest{}
+	_ bin.BareDecoder = &PhotosUpdateProfilePhotoRequest{}
 )
 
 // PhotosUpdateProfilePhoto invokes method photos.updateProfilePhoto#72d4742c returning error if any.

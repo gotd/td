@@ -85,6 +85,14 @@ func (s *MessagesStickersNotModified) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.stickersNotModified#f1749a22 as nil")
 	}
 	b.PutID(MessagesStickersNotModifiedTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesStickersNotModified) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.stickersNotModified#f1749a22 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (s *MessagesStickersNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesStickersNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.stickersNotModified#f1749a22: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesStickersNotModified) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.stickersNotModified#f1749a22 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (s MessagesStickersNotModified) construct() MessagesStickersClass { return 
 
 // Ensuring interfaces in compile-time for MessagesStickersNotModified.
 var (
-	_ bin.Encoder = &MessagesStickersNotModified{}
-	_ bin.Decoder = &MessagesStickersNotModified{}
+	_ bin.Encoder     = &MessagesStickersNotModified{}
+	_ bin.Decoder     = &MessagesStickersNotModified{}
+	_ bin.BareEncoder = &MessagesStickersNotModified{}
+	_ bin.BareDecoder = &MessagesStickersNotModified{}
 
 	_ MessagesStickersClass = &MessagesStickersNotModified{}
 )
@@ -200,6 +218,14 @@ func (s *MessagesStickers) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.stickers#e4599bbd as nil")
 	}
 	b.PutID(MessagesStickersTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesStickers) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.stickers#e4599bbd as nil")
+	}
 	b.PutInt(s.Hash)
 	b.PutVectorHeader(len(s.Stickers))
 	for idx, v := range s.Stickers {
@@ -236,6 +262,14 @@ func (s *MessagesStickers) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesStickersTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.stickers#e4599bbd: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesStickers) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.stickers#e4599bbd to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -264,8 +298,10 @@ func (s MessagesStickers) construct() MessagesStickersClass { return &s }
 
 // Ensuring interfaces in compile-time for MessagesStickers.
 var (
-	_ bin.Encoder = &MessagesStickers{}
-	_ bin.Decoder = &MessagesStickers{}
+	_ bin.Encoder     = &MessagesStickers{}
+	_ bin.Decoder     = &MessagesStickers{}
+	_ bin.BareEncoder = &MessagesStickers{}
+	_ bin.BareDecoder = &MessagesStickers{}
 
 	_ MessagesStickersClass = &MessagesStickers{}
 )
@@ -287,6 +323,8 @@ var (
 type MessagesStickersClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() MessagesStickersClass
 
 	// TypeID returns type id in TL schema.

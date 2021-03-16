@@ -113,6 +113,14 @@ func (a *BotsAnswerWebhookJSONQueryRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode bots.answerWebhookJSONQuery#e6213f4d as nil")
 	}
 	b.PutID(BotsAnswerWebhookJSONQueryRequestTypeID)
+	return a.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (a *BotsAnswerWebhookJSONQueryRequest) EncodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't encode bots.answerWebhookJSONQuery#e6213f4d as nil")
+	}
 	b.PutLong(a.QueryID)
 	if err := a.Data.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode bots.answerWebhookJSONQuery#e6213f4d: field data: %w", err)
@@ -138,6 +146,14 @@ func (a *BotsAnswerWebhookJSONQueryRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(BotsAnswerWebhookJSONQueryRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode bots.answerWebhookJSONQuery#e6213f4d: %w", err)
 	}
+	return a.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (a *BotsAnswerWebhookJSONQueryRequest) DecodeBare(b *bin.Buffer) error {
+	if a == nil {
+		return fmt.Errorf("can't decode bots.answerWebhookJSONQuery#e6213f4d to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -155,8 +171,10 @@ func (a *BotsAnswerWebhookJSONQueryRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for BotsAnswerWebhookJSONQueryRequest.
 var (
-	_ bin.Encoder = &BotsAnswerWebhookJSONQueryRequest{}
-	_ bin.Decoder = &BotsAnswerWebhookJSONQueryRequest{}
+	_ bin.Encoder     = &BotsAnswerWebhookJSONQueryRequest{}
+	_ bin.Decoder     = &BotsAnswerWebhookJSONQueryRequest{}
+	_ bin.BareEncoder = &BotsAnswerWebhookJSONQueryRequest{}
+	_ bin.BareDecoder = &BotsAnswerWebhookJSONQueryRequest{}
 )
 
 // BotsAnswerWebhookJSONQuery invokes method bots.answerWebhookJSONQuery#e6213f4d returning error if any.

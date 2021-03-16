@@ -102,6 +102,14 @@ func (e *EmojiLanguage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode emojiLanguage#b3fb5361 as nil")
 	}
 	b.PutID(EmojiLanguageTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *EmojiLanguage) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode emojiLanguage#b3fb5361 as nil")
+	}
 	b.PutString(e.LangCode)
 	return nil
 }
@@ -119,6 +127,14 @@ func (e *EmojiLanguage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(EmojiLanguageTypeID); err != nil {
 		return fmt.Errorf("unable to decode emojiLanguage#b3fb5361: %w", err)
 	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *EmojiLanguage) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode emojiLanguage#b3fb5361 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -131,6 +147,8 @@ func (e *EmojiLanguage) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for EmojiLanguage.
 var (
-	_ bin.Encoder = &EmojiLanguage{}
-	_ bin.Decoder = &EmojiLanguage{}
+	_ bin.Encoder     = &EmojiLanguage{}
+	_ bin.Decoder     = &EmojiLanguage{}
+	_ bin.BareEncoder = &EmojiLanguage{}
+	_ bin.BareDecoder = &EmojiLanguage{}
 )

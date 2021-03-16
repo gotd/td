@@ -84,6 +84,14 @@ func (t *AccountThemesNotModified) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.themesNotModified#f41eb622 as nil")
 	}
 	b.PutID(AccountThemesNotModifiedTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *AccountThemesNotModified) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode account.themesNotModified#f41eb622 as nil")
+	}
 	return nil
 }
 
@@ -95,6 +103,14 @@ func (t *AccountThemesNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountThemesNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.themesNotModified#f41eb622: %w", err)
 	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *AccountThemesNotModified) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode account.themesNotModified#f41eb622 to nil")
+	}
 	return nil
 }
 
@@ -103,8 +119,10 @@ func (t AccountThemesNotModified) construct() AccountThemesClass { return &t }
 
 // Ensuring interfaces in compile-time for AccountThemesNotModified.
 var (
-	_ bin.Encoder = &AccountThemesNotModified{}
-	_ bin.Decoder = &AccountThemesNotModified{}
+	_ bin.Encoder     = &AccountThemesNotModified{}
+	_ bin.Decoder     = &AccountThemesNotModified{}
+	_ bin.BareEncoder = &AccountThemesNotModified{}
+	_ bin.BareDecoder = &AccountThemesNotModified{}
 
 	_ AccountThemesClass = &AccountThemesNotModified{}
 )
@@ -195,6 +213,14 @@ func (t *AccountThemes) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.themes#7f676421 as nil")
 	}
 	b.PutID(AccountThemesTypeID)
+	return t.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (t *AccountThemes) EncodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't encode account.themes#7f676421 as nil")
+	}
 	b.PutInt(t.Hash)
 	b.PutVectorHeader(len(t.Themes))
 	for idx, v := range t.Themes {
@@ -222,6 +248,14 @@ func (t *AccountThemes) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(AccountThemesTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.themes#7f676421: %w", err)
+	}
+	return t.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (t *AccountThemes) DecodeBare(b *bin.Buffer) error {
+	if t == nil {
+		return fmt.Errorf("can't decode account.themes#7f676421 to nil")
 	}
 	{
 		value, err := b.Int()
@@ -251,8 +285,10 @@ func (t AccountThemes) construct() AccountThemesClass { return &t }
 
 // Ensuring interfaces in compile-time for AccountThemes.
 var (
-	_ bin.Encoder = &AccountThemes{}
-	_ bin.Decoder = &AccountThemes{}
+	_ bin.Encoder     = &AccountThemes{}
+	_ bin.Decoder     = &AccountThemes{}
+	_ bin.BareEncoder = &AccountThemes{}
+	_ bin.BareDecoder = &AccountThemes{}
 
 	_ AccountThemesClass = &AccountThemes{}
 )
@@ -274,6 +310,8 @@ var (
 type AccountThemesClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() AccountThemesClass
 
 	// TypeID returns type id in TL schema.

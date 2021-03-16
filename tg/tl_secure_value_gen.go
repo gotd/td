@@ -264,6 +264,14 @@ func (s *SecureValue) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode secureValue#187fa0ca as nil")
 	}
 	b.PutID(SecureValueTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *SecureValue) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode secureValue#187fa0ca as nil")
+	}
 	if !(s.Data.Zero()) {
 		s.Flags.Set(0)
 	}
@@ -523,6 +531,14 @@ func (s *SecureValue) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(SecureValueTypeID); err != nil {
 		return fmt.Errorf("unable to decode secureValue#187fa0ca: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *SecureValue) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode secureValue#187fa0ca to nil")
+	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode secureValue#187fa0ca: field flags: %w", err)
@@ -606,6 +622,8 @@ func (s *SecureValue) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for SecureValue.
 var (
-	_ bin.Encoder = &SecureValue{}
-	_ bin.Decoder = &SecureValue{}
+	_ bin.Encoder     = &SecureValue{}
+	_ bin.Decoder     = &SecureValue{}
+	_ bin.BareEncoder = &SecureValue{}
+	_ bin.BareDecoder = &SecureValue{}
 )

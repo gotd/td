@@ -134,6 +134,14 @@ func (d *DecryptedMessage8) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessage8#1f814f1f as nil")
 	}
 	b.PutID(DecryptedMessage8TypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessage8) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessage8#1f814f1f as nil")
+	}
 	b.PutLong(d.RandomID)
 	b.PutBytes(d.RandomBytes)
 	b.PutString(d.Message)
@@ -174,6 +182,14 @@ func (d *DecryptedMessage8) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DecryptedMessage8TypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessage8#1f814f1f: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessage8) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessage8#1f814f1f to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -210,8 +226,10 @@ func (d DecryptedMessage8) construct() DecryptedMessageClass { return &d }
 
 // Ensuring interfaces in compile-time for DecryptedMessage8.
 var (
-	_ bin.Encoder = &DecryptedMessage8{}
-	_ bin.Decoder = &DecryptedMessage8{}
+	_ bin.Encoder     = &DecryptedMessage8{}
+	_ bin.Decoder     = &DecryptedMessage8{}
+	_ bin.BareEncoder = &DecryptedMessage8{}
+	_ bin.BareDecoder = &DecryptedMessage8{}
 
 	_ DecryptedMessageClass = &DecryptedMessage8{}
 )
@@ -313,6 +331,14 @@ func (d *DecryptedMessageService8) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageService8#aa48327d as nil")
 	}
 	b.PutID(DecryptedMessageService8TypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageService8) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageService8#aa48327d as nil")
+	}
 	b.PutLong(d.RandomID)
 	b.PutBytes(d.RandomBytes)
 	if d.Action == nil {
@@ -347,6 +373,14 @@ func (d *DecryptedMessageService8) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DecryptedMessageService8TypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageService8#aa48327d: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageService8) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageService8#aa48327d to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -376,8 +410,10 @@ func (d DecryptedMessageService8) construct() DecryptedMessageClass { return &d 
 
 // Ensuring interfaces in compile-time for DecryptedMessageService8.
 var (
-	_ bin.Encoder = &DecryptedMessageService8{}
-	_ bin.Decoder = &DecryptedMessageService8{}
+	_ bin.Encoder     = &DecryptedMessageService8{}
+	_ bin.Decoder     = &DecryptedMessageService8{}
+	_ bin.BareEncoder = &DecryptedMessageService8{}
+	_ bin.BareDecoder = &DecryptedMessageService8{}
 
 	_ DecryptedMessageClass = &DecryptedMessageService8{}
 )
@@ -490,6 +526,14 @@ func (d *DecryptedMessage23) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessage23#204d3878 as nil")
 	}
 	b.PutID(DecryptedMessage23TypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessage23) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessage23#204d3878 as nil")
+	}
 	b.PutLong(d.RandomID)
 	b.PutInt(d.TTL)
 	b.PutString(d.Message)
@@ -530,6 +574,14 @@ func (d *DecryptedMessage23) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DecryptedMessage23TypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessage23#204d3878: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessage23) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessage23#204d3878 to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -566,8 +618,10 @@ func (d DecryptedMessage23) construct() DecryptedMessageClass { return &d }
 
 // Ensuring interfaces in compile-time for DecryptedMessage23.
 var (
-	_ bin.Encoder = &DecryptedMessage23{}
-	_ bin.Decoder = &DecryptedMessage23{}
+	_ bin.Encoder     = &DecryptedMessage23{}
+	_ bin.Decoder     = &DecryptedMessage23{}
+	_ bin.BareEncoder = &DecryptedMessage23{}
+	_ bin.BareDecoder = &DecryptedMessage23{}
 
 	_ DecryptedMessageClass = &DecryptedMessage23{}
 )
@@ -658,6 +712,14 @@ func (d *DecryptedMessageService) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageService#73164160 as nil")
 	}
 	b.PutID(DecryptedMessageServiceTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageService) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageService#73164160 as nil")
+	}
 	b.PutLong(d.RandomID)
 	if d.Action == nil {
 		return fmt.Errorf("unable to encode decryptedMessageService#73164160: field action is nil")
@@ -686,6 +748,14 @@ func (d *DecryptedMessageService) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DecryptedMessageServiceTypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageService#73164160: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageService) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageService#73164160 to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -708,8 +778,10 @@ func (d DecryptedMessageService) construct() DecryptedMessageClass { return &d }
 
 // Ensuring interfaces in compile-time for DecryptedMessageService.
 var (
-	_ bin.Encoder = &DecryptedMessageService{}
-	_ bin.Decoder = &DecryptedMessageService{}
+	_ bin.Encoder     = &DecryptedMessageService{}
+	_ bin.Decoder     = &DecryptedMessageService{}
+	_ bin.BareEncoder = &DecryptedMessageService{}
+	_ bin.BareDecoder = &DecryptedMessageService{}
 
 	_ DecryptedMessageClass = &DecryptedMessageService{}
 )
@@ -884,6 +956,14 @@ func (d *DecryptedMessage46) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessage46#36b091de as nil")
 	}
 	b.PutID(DecryptedMessage46TypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessage46) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessage46#36b091de as nil")
+	}
 	if !(d.Media == nil) {
 		d.Flags.Set(9)
 	}
@@ -1021,6 +1101,14 @@ func (d *DecryptedMessage46) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DecryptedMessage46TypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessage46#36b091de: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessage46) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessage46#36b091de to nil")
+	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode decryptedMessage46#36b091de: field flags: %w", err)
@@ -1089,8 +1177,10 @@ func (d DecryptedMessage46) construct() DecryptedMessageClass { return &d }
 
 // Ensuring interfaces in compile-time for DecryptedMessage46.
 var (
-	_ bin.Encoder = &DecryptedMessage46{}
-	_ bin.Decoder = &DecryptedMessage46{}
+	_ bin.Encoder     = &DecryptedMessage46{}
+	_ bin.Decoder     = &DecryptedMessage46{}
+	_ bin.BareEncoder = &DecryptedMessage46{}
+	_ bin.BareDecoder = &DecryptedMessage46{}
 
 	_ DecryptedMessageClass = &DecryptedMessage46{}
 )
@@ -1294,6 +1384,14 @@ func (d *DecryptedMessage) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessage#91cc4674 as nil")
 	}
 	b.PutID(DecryptedMessageTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessage) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessage#91cc4674 as nil")
+	}
 	if !(d.Silent == false) {
 		d.Flags.Set(5)
 	}
@@ -1471,6 +1569,14 @@ func (d *DecryptedMessage) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DecryptedMessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessage#91cc4674: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessage) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessage#91cc4674 to nil")
+	}
 	{
 		if err := d.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode decryptedMessage#91cc4674: field flags: %w", err)
@@ -1547,8 +1653,10 @@ func (d DecryptedMessage) construct() DecryptedMessageClass { return &d }
 
 // Ensuring interfaces in compile-time for DecryptedMessage.
 var (
-	_ bin.Encoder = &DecryptedMessage{}
-	_ bin.Decoder = &DecryptedMessage{}
+	_ bin.Encoder     = &DecryptedMessage{}
+	_ bin.Decoder     = &DecryptedMessage{}
+	_ bin.BareEncoder = &DecryptedMessage{}
+	_ bin.BareDecoder = &DecryptedMessage{}
 
 	_ DecryptedMessageClass = &DecryptedMessage{}
 )
@@ -1574,6 +1682,8 @@ var (
 type DecryptedMessageClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() DecryptedMessageClass
 
 	// TypeID returns type id in TL schema.

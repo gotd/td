@@ -102,6 +102,14 @@ func (c *MessagesCheckChatInviteRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.checkChatInvite#3eadb1bb as nil")
 	}
 	b.PutID(MessagesCheckChatInviteRequestTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *MessagesCheckChatInviteRequest) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode messages.checkChatInvite#3eadb1bb as nil")
+	}
 	b.PutString(c.Hash)
 	return nil
 }
@@ -119,6 +127,14 @@ func (c *MessagesCheckChatInviteRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesCheckChatInviteRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.checkChatInvite#3eadb1bb: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *MessagesCheckChatInviteRequest) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode messages.checkChatInvite#3eadb1bb to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -131,8 +147,10 @@ func (c *MessagesCheckChatInviteRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesCheckChatInviteRequest.
 var (
-	_ bin.Encoder = &MessagesCheckChatInviteRequest{}
-	_ bin.Decoder = &MessagesCheckChatInviteRequest{}
+	_ bin.Encoder     = &MessagesCheckChatInviteRequest{}
+	_ bin.Decoder     = &MessagesCheckChatInviteRequest{}
+	_ bin.BareEncoder = &MessagesCheckChatInviteRequest{}
+	_ bin.BareDecoder = &MessagesCheckChatInviteRequest{}
 )
 
 // MessagesCheckChatInvite invokes method messages.checkChatInvite#3eadb1bb returning error if any.

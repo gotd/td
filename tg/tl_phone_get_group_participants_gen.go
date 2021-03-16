@@ -145,6 +145,14 @@ func (g *PhoneGetGroupParticipantsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.getGroupParticipants#c558d8ab as nil")
 	}
 	b.PutID(PhoneGetGroupParticipantsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *PhoneGetGroupParticipantsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode phone.getGroupParticipants#c558d8ab as nil")
+	}
 	if err := g.Call.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.getGroupParticipants#c558d8ab: field call: %w", err)
 	}
@@ -204,6 +212,14 @@ func (g *PhoneGetGroupParticipantsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneGetGroupParticipantsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.getGroupParticipants#c558d8ab: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *PhoneGetGroupParticipantsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode phone.getGroupParticipants#c558d8ab to nil")
+	}
 	{
 		if err := g.Call.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phone.getGroupParticipants#c558d8ab: field call: %w", err)
@@ -254,8 +270,10 @@ func (g *PhoneGetGroupParticipantsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhoneGetGroupParticipantsRequest.
 var (
-	_ bin.Encoder = &PhoneGetGroupParticipantsRequest{}
-	_ bin.Decoder = &PhoneGetGroupParticipantsRequest{}
+	_ bin.Encoder     = &PhoneGetGroupParticipantsRequest{}
+	_ bin.Decoder     = &PhoneGetGroupParticipantsRequest{}
+	_ bin.BareEncoder = &PhoneGetGroupParticipantsRequest{}
+	_ bin.BareDecoder = &PhoneGetGroupParticipantsRequest{}
 )
 
 // PhoneGetGroupParticipants invokes method phone.getGroupParticipants#c558d8ab returning error if any.

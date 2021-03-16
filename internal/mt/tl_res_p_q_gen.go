@@ -132,6 +132,14 @@ func (r *ResPQ) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode resPQ#5162463 as nil")
 	}
 	b.PutID(ResPQTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *ResPQ) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode resPQ#5162463 as nil")
+	}
 	b.PutInt128(r.Nonce)
 	b.PutInt128(r.ServerNonce)
 	b.PutBytes(r.Pq)
@@ -169,6 +177,14 @@ func (r *ResPQ) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(ResPQTypeID); err != nil {
 		return fmt.Errorf("unable to decode resPQ#5162463: %w", err)
+	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *ResPQ) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode resPQ#5162463 to nil")
 	}
 	{
 		value, err := b.Int128()
@@ -209,6 +225,8 @@ func (r *ResPQ) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ResPQ.
 var (
-	_ bin.Encoder = &ResPQ{}
-	_ bin.Decoder = &ResPQ{}
+	_ bin.Encoder     = &ResPQ{}
+	_ bin.Decoder     = &ResPQ{}
+	_ bin.BareEncoder = &ResPQ{}
+	_ bin.BareDecoder = &ResPQ{}
 )

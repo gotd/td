@@ -85,6 +85,14 @@ func (j *JSONNull) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode jsonNull#3f6d7b68 as nil")
 	}
 	b.PutID(JSONNullTypeID)
+	return j.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (j *JSONNull) EncodeBare(b *bin.Buffer) error {
+	if j == nil {
+		return fmt.Errorf("can't encode jsonNull#3f6d7b68 as nil")
+	}
 	return nil
 }
 
@@ -96,6 +104,14 @@ func (j *JSONNull) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(JSONNullTypeID); err != nil {
 		return fmt.Errorf("unable to decode jsonNull#3f6d7b68: %w", err)
 	}
+	return j.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (j *JSONNull) DecodeBare(b *bin.Buffer) error {
+	if j == nil {
+		return fmt.Errorf("can't decode jsonNull#3f6d7b68 to nil")
+	}
 	return nil
 }
 
@@ -104,8 +120,10 @@ func (j JSONNull) construct() JSONValueClass { return &j }
 
 // Ensuring interfaces in compile-time for JSONNull.
 var (
-	_ bin.Encoder = &JSONNull{}
-	_ bin.Decoder = &JSONNull{}
+	_ bin.Encoder     = &JSONNull{}
+	_ bin.Decoder     = &JSONNull{}
+	_ bin.BareEncoder = &JSONNull{}
+	_ bin.BareDecoder = &JSONNull{}
 
 	_ JSONValueClass = &JSONNull{}
 )
@@ -186,6 +204,14 @@ func (j *JSONBool) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode jsonBool#c7345e6a as nil")
 	}
 	b.PutID(JSONBoolTypeID)
+	return j.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (j *JSONBool) EncodeBare(b *bin.Buffer) error {
+	if j == nil {
+		return fmt.Errorf("can't encode jsonBool#c7345e6a as nil")
+	}
 	b.PutBool(j.Value)
 	return nil
 }
@@ -203,6 +229,14 @@ func (j *JSONBool) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(JSONBoolTypeID); err != nil {
 		return fmt.Errorf("unable to decode jsonBool#c7345e6a: %w", err)
 	}
+	return j.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (j *JSONBool) DecodeBare(b *bin.Buffer) error {
+	if j == nil {
+		return fmt.Errorf("can't decode jsonBool#c7345e6a to nil")
+	}
 	{
 		value, err := b.Bool()
 		if err != nil {
@@ -218,8 +252,10 @@ func (j JSONBool) construct() JSONValueClass { return &j }
 
 // Ensuring interfaces in compile-time for JSONBool.
 var (
-	_ bin.Encoder = &JSONBool{}
-	_ bin.Decoder = &JSONBool{}
+	_ bin.Encoder     = &JSONBool{}
+	_ bin.Decoder     = &JSONBool{}
+	_ bin.BareEncoder = &JSONBool{}
+	_ bin.BareDecoder = &JSONBool{}
 
 	_ JSONValueClass = &JSONBool{}
 )
@@ -300,6 +336,14 @@ func (j *JSONNumber) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode jsonNumber#2be0dfa4 as nil")
 	}
 	b.PutID(JSONNumberTypeID)
+	return j.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (j *JSONNumber) EncodeBare(b *bin.Buffer) error {
+	if j == nil {
+		return fmt.Errorf("can't encode jsonNumber#2be0dfa4 as nil")
+	}
 	b.PutDouble(j.Value)
 	return nil
 }
@@ -317,6 +361,14 @@ func (j *JSONNumber) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(JSONNumberTypeID); err != nil {
 		return fmt.Errorf("unable to decode jsonNumber#2be0dfa4: %w", err)
 	}
+	return j.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (j *JSONNumber) DecodeBare(b *bin.Buffer) error {
+	if j == nil {
+		return fmt.Errorf("can't decode jsonNumber#2be0dfa4 to nil")
+	}
 	{
 		value, err := b.Double()
 		if err != nil {
@@ -332,8 +384,10 @@ func (j JSONNumber) construct() JSONValueClass { return &j }
 
 // Ensuring interfaces in compile-time for JSONNumber.
 var (
-	_ bin.Encoder = &JSONNumber{}
-	_ bin.Decoder = &JSONNumber{}
+	_ bin.Encoder     = &JSONNumber{}
+	_ bin.Decoder     = &JSONNumber{}
+	_ bin.BareEncoder = &JSONNumber{}
+	_ bin.BareDecoder = &JSONNumber{}
 
 	_ JSONValueClass = &JSONNumber{}
 )
@@ -414,6 +468,14 @@ func (j *JSONString) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode jsonString#b71e767a as nil")
 	}
 	b.PutID(JSONStringTypeID)
+	return j.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (j *JSONString) EncodeBare(b *bin.Buffer) error {
+	if j == nil {
+		return fmt.Errorf("can't encode jsonString#b71e767a as nil")
+	}
 	b.PutString(j.Value)
 	return nil
 }
@@ -431,6 +493,14 @@ func (j *JSONString) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(JSONStringTypeID); err != nil {
 		return fmt.Errorf("unable to decode jsonString#b71e767a: %w", err)
 	}
+	return j.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (j *JSONString) DecodeBare(b *bin.Buffer) error {
+	if j == nil {
+		return fmt.Errorf("can't decode jsonString#b71e767a to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -446,8 +516,10 @@ func (j JSONString) construct() JSONValueClass { return &j }
 
 // Ensuring interfaces in compile-time for JSONString.
 var (
-	_ bin.Encoder = &JSONString{}
-	_ bin.Decoder = &JSONString{}
+	_ bin.Encoder     = &JSONString{}
+	_ bin.Decoder     = &JSONString{}
+	_ bin.BareEncoder = &JSONString{}
+	_ bin.BareDecoder = &JSONString{}
 
 	_ JSONValueClass = &JSONString{}
 )
@@ -528,6 +600,14 @@ func (j *JSONArray) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode jsonArray#f7444763 as nil")
 	}
 	b.PutID(JSONArrayTypeID)
+	return j.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (j *JSONArray) EncodeBare(b *bin.Buffer) error {
+	if j == nil {
+		return fmt.Errorf("can't encode jsonArray#f7444763 as nil")
+	}
 	b.PutVectorHeader(len(j.Value))
 	for idx, v := range j.Value {
 		if v == nil {
@@ -558,6 +638,14 @@ func (j *JSONArray) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(JSONArrayTypeID); err != nil {
 		return fmt.Errorf("unable to decode jsonArray#f7444763: %w", err)
 	}
+	return j.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (j *JSONArray) DecodeBare(b *bin.Buffer) error {
+	if j == nil {
+		return fmt.Errorf("can't decode jsonArray#f7444763 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -579,8 +667,10 @@ func (j JSONArray) construct() JSONValueClass { return &j }
 
 // Ensuring interfaces in compile-time for JSONArray.
 var (
-	_ bin.Encoder = &JSONArray{}
-	_ bin.Decoder = &JSONArray{}
+	_ bin.Encoder     = &JSONArray{}
+	_ bin.Decoder     = &JSONArray{}
+	_ bin.BareEncoder = &JSONArray{}
+	_ bin.BareDecoder = &JSONArray{}
 
 	_ JSONValueClass = &JSONArray{}
 )
@@ -661,6 +751,14 @@ func (j *JSONObject) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode jsonObject#99c1d49d as nil")
 	}
 	b.PutID(JSONObjectTypeID)
+	return j.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (j *JSONObject) EncodeBare(b *bin.Buffer) error {
+	if j == nil {
+		return fmt.Errorf("can't encode jsonObject#99c1d49d as nil")
+	}
 	b.PutVectorHeader(len(j.Value))
 	for idx, v := range j.Value {
 		if err := v.Encode(b); err != nil {
@@ -683,6 +781,14 @@ func (j *JSONObject) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(JSONObjectTypeID); err != nil {
 		return fmt.Errorf("unable to decode jsonObject#99c1d49d: %w", err)
 	}
+	return j.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (j *JSONObject) DecodeBare(b *bin.Buffer) error {
+	if j == nil {
+		return fmt.Errorf("can't decode jsonObject#99c1d49d to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -704,8 +810,10 @@ func (j JSONObject) construct() JSONValueClass { return &j }
 
 // Ensuring interfaces in compile-time for JSONObject.
 var (
-	_ bin.Encoder = &JSONObject{}
-	_ bin.Decoder = &JSONObject{}
+	_ bin.Encoder     = &JSONObject{}
+	_ bin.Decoder     = &JSONObject{}
+	_ bin.BareEncoder = &JSONObject{}
+	_ bin.BareDecoder = &JSONObject{}
 
 	_ JSONValueClass = &JSONObject{}
 )
@@ -731,6 +839,8 @@ var (
 type JSONValueClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() JSONValueClass
 
 	// TypeID returns type id in TL schema.

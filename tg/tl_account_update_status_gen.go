@@ -106,6 +106,14 @@ func (u *AccountUpdateStatusRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.updateStatus#6628562c as nil")
 	}
 	b.PutID(AccountUpdateStatusRequestTypeID)
+	return u.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (u *AccountUpdateStatusRequest) EncodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't encode account.updateStatus#6628562c as nil")
+	}
 	b.PutBool(u.Offline)
 	return nil
 }
@@ -123,6 +131,14 @@ func (u *AccountUpdateStatusRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountUpdateStatusRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.updateStatus#6628562c: %w", err)
 	}
+	return u.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (u *AccountUpdateStatusRequest) DecodeBare(b *bin.Buffer) error {
+	if u == nil {
+		return fmt.Errorf("can't decode account.updateStatus#6628562c to nil")
+	}
 	{
 		value, err := b.Bool()
 		if err != nil {
@@ -135,8 +151,10 @@ func (u *AccountUpdateStatusRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountUpdateStatusRequest.
 var (
-	_ bin.Encoder = &AccountUpdateStatusRequest{}
-	_ bin.Decoder = &AccountUpdateStatusRequest{}
+	_ bin.Encoder     = &AccountUpdateStatusRequest{}
+	_ bin.Decoder     = &AccountUpdateStatusRequest{}
+	_ bin.BareEncoder = &AccountUpdateStatusRequest{}
+	_ bin.BareDecoder = &AccountUpdateStatusRequest{}
 )
 
 // AccountUpdateStatus invokes method account.updateStatus#6628562c returning error if any.

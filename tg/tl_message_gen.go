@@ -124,6 +124,14 @@ func (m *MessageEmpty) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageEmpty#90a6ca84 as nil")
 	}
 	b.PutID(MessageEmptyTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageEmpty) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageEmpty#90a6ca84 as nil")
+	}
 	if !(m.PeerID == nil) {
 		m.Flags.Set(0)
 	}
@@ -170,6 +178,14 @@ func (m *MessageEmpty) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageEmptyTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageEmpty#90a6ca84: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageEmpty) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageEmpty#90a6ca84 to nil")
+	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messageEmpty#90a6ca84: field flags: %w", err)
@@ -197,8 +213,10 @@ func (m MessageEmpty) construct() MessageClass { return &m }
 
 // Ensuring interfaces in compile-time for MessageEmpty.
 var (
-	_ bin.Encoder = &MessageEmpty{}
-	_ bin.Decoder = &MessageEmpty{}
+	_ bin.Encoder     = &MessageEmpty{}
+	_ bin.Decoder     = &MessageEmpty{}
+	_ bin.BareEncoder = &MessageEmpty{}
+	_ bin.BareDecoder = &MessageEmpty{}
 
 	_ MessageClass = &MessageEmpty{}
 )
@@ -702,6 +720,14 @@ func (m *Message) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode message#bce383d2 as nil")
 	}
 	b.PutID(MessageTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *Message) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode message#bce383d2 as nil")
+	}
 	if !(m.Out == false) {
 		m.Flags.Set(1)
 	}
@@ -1273,6 +1299,14 @@ func (m *Message) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageTypeID); err != nil {
 		return fmt.Errorf("unable to decode message#bce383d2: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *Message) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode message#bce383d2 to nil")
+	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode message#bce383d2: field flags: %w", err)
@@ -1434,8 +1468,10 @@ func (m Message) construct() MessageClass { return &m }
 
 // Ensuring interfaces in compile-time for Message.
 var (
-	_ bin.Encoder = &Message{}
-	_ bin.Decoder = &Message{}
+	_ bin.Encoder     = &Message{}
+	_ bin.Decoder     = &Message{}
+	_ bin.BareEncoder = &Message{}
+	_ bin.BareDecoder = &Message{}
 
 	_ MessageClass = &Message{}
 )
@@ -1680,6 +1716,14 @@ func (m *MessageService) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messageService#2b085862 as nil")
 	}
 	b.PutID(MessageServiceTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageService) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageService#2b085862 as nil")
+	}
 	if !(m.Out == false) {
 		m.Flags.Set(1)
 	}
@@ -1912,6 +1956,14 @@ func (m *MessageService) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessageServiceTypeID); err != nil {
 		return fmt.Errorf("unable to decode messageService#2b085862: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageService) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageService#2b085862 to nil")
+	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messageService#2b085862: field flags: %w", err)
@@ -1978,8 +2030,10 @@ func (m MessageService) construct() MessageClass { return &m }
 
 // Ensuring interfaces in compile-time for MessageService.
 var (
-	_ bin.Encoder = &MessageService{}
-	_ bin.Decoder = &MessageService{}
+	_ bin.Encoder     = &MessageService{}
+	_ bin.Decoder     = &MessageService{}
+	_ bin.BareEncoder = &MessageService{}
+	_ bin.BareDecoder = &MessageService{}
 
 	_ MessageClass = &MessageService{}
 )
@@ -2002,6 +2056,8 @@ var (
 type MessageClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() MessageClass
 
 	// TypeID returns type id in TL schema.
@@ -2041,6 +2097,8 @@ func (m *Message) AsInputMessageReplyTo() *InputMessageReplyTo {
 type NotEmptyMessage interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() MessageClass
 
 	// TypeID returns type id in TL schema.

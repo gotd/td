@@ -133,6 +133,14 @@ func (s *MessagesSaveRecentStickerRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.saveRecentSticker#392718f8 as nil")
 	}
 	b.PutID(MessagesSaveRecentStickerRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesSaveRecentStickerRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.saveRecentSticker#392718f8 as nil")
+	}
 	if !(s.Attached == false) {
 		s.Flags.Set(0)
 	}
@@ -188,6 +196,14 @@ func (s *MessagesSaveRecentStickerRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSaveRecentStickerRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.saveRecentSticker#392718f8: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSaveRecentStickerRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.saveRecentSticker#392718f8 to nil")
+	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.saveRecentSticker#392718f8: field flags: %w", err)
@@ -213,8 +229,10 @@ func (s *MessagesSaveRecentStickerRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesSaveRecentStickerRequest.
 var (
-	_ bin.Encoder = &MessagesSaveRecentStickerRequest{}
-	_ bin.Decoder = &MessagesSaveRecentStickerRequest{}
+	_ bin.Encoder     = &MessagesSaveRecentStickerRequest{}
+	_ bin.Decoder     = &MessagesSaveRecentStickerRequest{}
+	_ bin.BareEncoder = &MessagesSaveRecentStickerRequest{}
+	_ bin.BareDecoder = &MessagesSaveRecentStickerRequest{}
 )
 
 // MessagesSaveRecentSticker invokes method messages.saveRecentSticker#392718f8 returning error if any.

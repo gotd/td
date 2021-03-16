@@ -102,6 +102,14 @@ func (g *UsersGetUsersRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode users.getUsers#d91a548 as nil")
 	}
 	b.PutID(UsersGetUsersRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *UsersGetUsersRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode users.getUsers#d91a548 as nil")
+	}
 	b.PutVectorHeader(len(g.ID))
 	for idx, v := range g.ID {
 		if v == nil {
@@ -132,6 +140,14 @@ func (g *UsersGetUsersRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(UsersGetUsersRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode users.getUsers#d91a548: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *UsersGetUsersRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode users.getUsers#d91a548 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -150,8 +166,10 @@ func (g *UsersGetUsersRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for UsersGetUsersRequest.
 var (
-	_ bin.Encoder = &UsersGetUsersRequest{}
-	_ bin.Decoder = &UsersGetUsersRequest{}
+	_ bin.Encoder     = &UsersGetUsersRequest{}
+	_ bin.Decoder     = &UsersGetUsersRequest{}
+	_ bin.BareEncoder = &UsersGetUsersRequest{}
+	_ bin.BareDecoder = &UsersGetUsersRequest{}
 )
 
 // UsersGetUsers invokes method users.getUsers#d91a548 returning error if any.

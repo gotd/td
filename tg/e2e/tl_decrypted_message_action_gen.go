@@ -101,6 +101,14 @@ func (d *DecryptedMessageActionSetMessageTTL) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageActionSetMessageTTL#a1733aec as nil")
 	}
 	b.PutID(DecryptedMessageActionSetMessageTTLTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageActionSetMessageTTL) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageActionSetMessageTTL#a1733aec as nil")
+	}
 	b.PutInt(d.TTLSeconds)
 	return nil
 }
@@ -118,6 +126,14 @@ func (d *DecryptedMessageActionSetMessageTTL) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DecryptedMessageActionSetMessageTTLTypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageActionSetMessageTTL#a1733aec: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageActionSetMessageTTL) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageActionSetMessageTTL#a1733aec to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -133,8 +149,10 @@ func (d DecryptedMessageActionSetMessageTTL) construct() DecryptedMessageActionC
 
 // Ensuring interfaces in compile-time for DecryptedMessageActionSetMessageTTL.
 var (
-	_ bin.Encoder = &DecryptedMessageActionSetMessageTTL{}
-	_ bin.Decoder = &DecryptedMessageActionSetMessageTTL{}
+	_ bin.Encoder     = &DecryptedMessageActionSetMessageTTL{}
+	_ bin.Decoder     = &DecryptedMessageActionSetMessageTTL{}
+	_ bin.BareEncoder = &DecryptedMessageActionSetMessageTTL{}
+	_ bin.BareDecoder = &DecryptedMessageActionSetMessageTTL{}
 
 	_ DecryptedMessageActionClass = &DecryptedMessageActionSetMessageTTL{}
 )
@@ -214,6 +232,14 @@ func (d *DecryptedMessageActionReadMessages) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageActionReadMessages#c4f40be as nil")
 	}
 	b.PutID(DecryptedMessageActionReadMessagesTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageActionReadMessages) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageActionReadMessages#c4f40be as nil")
+	}
 	b.PutVectorHeader(len(d.RandomIDs))
 	for _, v := range d.RandomIDs {
 		b.PutLong(v)
@@ -233,6 +259,14 @@ func (d *DecryptedMessageActionReadMessages) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(DecryptedMessageActionReadMessagesTypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageActionReadMessages#c4f40be: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageActionReadMessages) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageActionReadMessages#c4f40be to nil")
 	}
 	{
 		headerLen, err := b.VectorHeader()
@@ -255,8 +289,10 @@ func (d DecryptedMessageActionReadMessages) construct() DecryptedMessageActionCl
 
 // Ensuring interfaces in compile-time for DecryptedMessageActionReadMessages.
 var (
-	_ bin.Encoder = &DecryptedMessageActionReadMessages{}
-	_ bin.Decoder = &DecryptedMessageActionReadMessages{}
+	_ bin.Encoder     = &DecryptedMessageActionReadMessages{}
+	_ bin.Decoder     = &DecryptedMessageActionReadMessages{}
+	_ bin.BareEncoder = &DecryptedMessageActionReadMessages{}
+	_ bin.BareDecoder = &DecryptedMessageActionReadMessages{}
 
 	_ DecryptedMessageActionClass = &DecryptedMessageActionReadMessages{}
 )
@@ -336,6 +372,14 @@ func (d *DecryptedMessageActionDeleteMessages) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageActionDeleteMessages#65614304 as nil")
 	}
 	b.PutID(DecryptedMessageActionDeleteMessagesTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageActionDeleteMessages) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageActionDeleteMessages#65614304 as nil")
+	}
 	b.PutVectorHeader(len(d.RandomIDs))
 	for _, v := range d.RandomIDs {
 		b.PutLong(v)
@@ -355,6 +399,14 @@ func (d *DecryptedMessageActionDeleteMessages) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(DecryptedMessageActionDeleteMessagesTypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageActionDeleteMessages#65614304: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageActionDeleteMessages) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageActionDeleteMessages#65614304 to nil")
 	}
 	{
 		headerLen, err := b.VectorHeader()
@@ -377,8 +429,10 @@ func (d DecryptedMessageActionDeleteMessages) construct() DecryptedMessageAction
 
 // Ensuring interfaces in compile-time for DecryptedMessageActionDeleteMessages.
 var (
-	_ bin.Encoder = &DecryptedMessageActionDeleteMessages{}
-	_ bin.Decoder = &DecryptedMessageActionDeleteMessages{}
+	_ bin.Encoder     = &DecryptedMessageActionDeleteMessages{}
+	_ bin.Decoder     = &DecryptedMessageActionDeleteMessages{}
+	_ bin.BareEncoder = &DecryptedMessageActionDeleteMessages{}
+	_ bin.BareDecoder = &DecryptedMessageActionDeleteMessages{}
 
 	_ DecryptedMessageActionClass = &DecryptedMessageActionDeleteMessages{}
 )
@@ -458,6 +512,14 @@ func (d *DecryptedMessageActionScreenshotMessages) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageActionScreenshotMessages#8ac1f475 as nil")
 	}
 	b.PutID(DecryptedMessageActionScreenshotMessagesTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageActionScreenshotMessages) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageActionScreenshotMessages#8ac1f475 as nil")
+	}
 	b.PutVectorHeader(len(d.RandomIDs))
 	for _, v := range d.RandomIDs {
 		b.PutLong(v)
@@ -477,6 +539,14 @@ func (d *DecryptedMessageActionScreenshotMessages) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(DecryptedMessageActionScreenshotMessagesTypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageActionScreenshotMessages#8ac1f475: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageActionScreenshotMessages) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageActionScreenshotMessages#8ac1f475 to nil")
 	}
 	{
 		headerLen, err := b.VectorHeader()
@@ -499,8 +569,10 @@ func (d DecryptedMessageActionScreenshotMessages) construct() DecryptedMessageAc
 
 // Ensuring interfaces in compile-time for DecryptedMessageActionScreenshotMessages.
 var (
-	_ bin.Encoder = &DecryptedMessageActionScreenshotMessages{}
-	_ bin.Decoder = &DecryptedMessageActionScreenshotMessages{}
+	_ bin.Encoder     = &DecryptedMessageActionScreenshotMessages{}
+	_ bin.Decoder     = &DecryptedMessageActionScreenshotMessages{}
+	_ bin.BareEncoder = &DecryptedMessageActionScreenshotMessages{}
+	_ bin.BareDecoder = &DecryptedMessageActionScreenshotMessages{}
 
 	_ DecryptedMessageActionClass = &DecryptedMessageActionScreenshotMessages{}
 )
@@ -563,6 +635,14 @@ func (d *DecryptedMessageActionFlushHistory) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageActionFlushHistory#6719e45c as nil")
 	}
 	b.PutID(DecryptedMessageActionFlushHistoryTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageActionFlushHistory) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageActionFlushHistory#6719e45c as nil")
+	}
 	return nil
 }
 
@@ -574,6 +654,14 @@ func (d *DecryptedMessageActionFlushHistory) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DecryptedMessageActionFlushHistoryTypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageActionFlushHistory#6719e45c: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageActionFlushHistory) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageActionFlushHistory#6719e45c to nil")
+	}
 	return nil
 }
 
@@ -582,8 +670,10 @@ func (d DecryptedMessageActionFlushHistory) construct() DecryptedMessageActionCl
 
 // Ensuring interfaces in compile-time for DecryptedMessageActionFlushHistory.
 var (
-	_ bin.Encoder = &DecryptedMessageActionFlushHistory{}
-	_ bin.Decoder = &DecryptedMessageActionFlushHistory{}
+	_ bin.Encoder     = &DecryptedMessageActionFlushHistory{}
+	_ bin.Decoder     = &DecryptedMessageActionFlushHistory{}
+	_ bin.BareEncoder = &DecryptedMessageActionFlushHistory{}
+	_ bin.BareDecoder = &DecryptedMessageActionFlushHistory{}
 
 	_ DecryptedMessageActionClass = &DecryptedMessageActionFlushHistory{}
 )
@@ -674,6 +764,14 @@ func (d *DecryptedMessageActionResend) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageActionResend#511110b0 as nil")
 	}
 	b.PutID(DecryptedMessageActionResendTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageActionResend) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageActionResend#511110b0 as nil")
+	}
 	b.PutInt(d.StartSeqNo)
 	b.PutInt(d.EndSeqNo)
 	return nil
@@ -697,6 +795,14 @@ func (d *DecryptedMessageActionResend) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DecryptedMessageActionResendTypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageActionResend#511110b0: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageActionResend) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageActionResend#511110b0 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -719,8 +825,10 @@ func (d DecryptedMessageActionResend) construct() DecryptedMessageActionClass { 
 
 // Ensuring interfaces in compile-time for DecryptedMessageActionResend.
 var (
-	_ bin.Encoder = &DecryptedMessageActionResend{}
-	_ bin.Decoder = &DecryptedMessageActionResend{}
+	_ bin.Encoder     = &DecryptedMessageActionResend{}
+	_ bin.Decoder     = &DecryptedMessageActionResend{}
+	_ bin.BareEncoder = &DecryptedMessageActionResend{}
+	_ bin.BareDecoder = &DecryptedMessageActionResend{}
 
 	_ DecryptedMessageActionClass = &DecryptedMessageActionResend{}
 )
@@ -800,6 +908,14 @@ func (d *DecryptedMessageActionNotifyLayer) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageActionNotifyLayer#f3048883 as nil")
 	}
 	b.PutID(DecryptedMessageActionNotifyLayerTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageActionNotifyLayer) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageActionNotifyLayer#f3048883 as nil")
+	}
 	b.PutInt(d.Layer)
 	return nil
 }
@@ -817,6 +933,14 @@ func (d *DecryptedMessageActionNotifyLayer) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DecryptedMessageActionNotifyLayerTypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageActionNotifyLayer#f3048883: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageActionNotifyLayer) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageActionNotifyLayer#f3048883 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -832,8 +956,10 @@ func (d DecryptedMessageActionNotifyLayer) construct() DecryptedMessageActionCla
 
 // Ensuring interfaces in compile-time for DecryptedMessageActionNotifyLayer.
 var (
-	_ bin.Encoder = &DecryptedMessageActionNotifyLayer{}
-	_ bin.Decoder = &DecryptedMessageActionNotifyLayer{}
+	_ bin.Encoder     = &DecryptedMessageActionNotifyLayer{}
+	_ bin.Decoder     = &DecryptedMessageActionNotifyLayer{}
+	_ bin.BareEncoder = &DecryptedMessageActionNotifyLayer{}
+	_ bin.BareDecoder = &DecryptedMessageActionNotifyLayer{}
 
 	_ DecryptedMessageActionClass = &DecryptedMessageActionNotifyLayer{}
 )
@@ -913,6 +1039,14 @@ func (d *DecryptedMessageActionTyping) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageActionTyping#ccb27641 as nil")
 	}
 	b.PutID(DecryptedMessageActionTypingTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageActionTyping) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageActionTyping#ccb27641 as nil")
+	}
 	if d.Action == nil {
 		return fmt.Errorf("unable to encode decryptedMessageActionTyping#ccb27641: field action is nil")
 	}
@@ -935,6 +1069,14 @@ func (d *DecryptedMessageActionTyping) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DecryptedMessageActionTypingTypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageActionTyping#ccb27641: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageActionTyping) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageActionTyping#ccb27641 to nil")
+	}
 	{
 		value, err := DecodeSendMessageAction(b)
 		if err != nil {
@@ -950,8 +1092,10 @@ func (d DecryptedMessageActionTyping) construct() DecryptedMessageActionClass { 
 
 // Ensuring interfaces in compile-time for DecryptedMessageActionTyping.
 var (
-	_ bin.Encoder = &DecryptedMessageActionTyping{}
-	_ bin.Decoder = &DecryptedMessageActionTyping{}
+	_ bin.Encoder     = &DecryptedMessageActionTyping{}
+	_ bin.Decoder     = &DecryptedMessageActionTyping{}
+	_ bin.BareEncoder = &DecryptedMessageActionTyping{}
+	_ bin.BareDecoder = &DecryptedMessageActionTyping{}
 
 	_ DecryptedMessageActionClass = &DecryptedMessageActionTyping{}
 )
@@ -1042,6 +1186,14 @@ func (d *DecryptedMessageActionRequestKey) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageActionRequestKey#f3c9611b as nil")
 	}
 	b.PutID(DecryptedMessageActionRequestKeyTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageActionRequestKey) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageActionRequestKey#f3c9611b as nil")
+	}
 	b.PutLong(d.ExchangeID)
 	b.PutBytes(d.GA)
 	return nil
@@ -1065,6 +1217,14 @@ func (d *DecryptedMessageActionRequestKey) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DecryptedMessageActionRequestKeyTypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageActionRequestKey#f3c9611b: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageActionRequestKey) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageActionRequestKey#f3c9611b to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -1087,8 +1247,10 @@ func (d DecryptedMessageActionRequestKey) construct() DecryptedMessageActionClas
 
 // Ensuring interfaces in compile-time for DecryptedMessageActionRequestKey.
 var (
-	_ bin.Encoder = &DecryptedMessageActionRequestKey{}
-	_ bin.Decoder = &DecryptedMessageActionRequestKey{}
+	_ bin.Encoder     = &DecryptedMessageActionRequestKey{}
+	_ bin.Decoder     = &DecryptedMessageActionRequestKey{}
+	_ bin.BareEncoder = &DecryptedMessageActionRequestKey{}
+	_ bin.BareDecoder = &DecryptedMessageActionRequestKey{}
 
 	_ DecryptedMessageActionClass = &DecryptedMessageActionRequestKey{}
 )
@@ -1190,6 +1352,14 @@ func (d *DecryptedMessageActionAcceptKey) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageActionAcceptKey#6fe1735b as nil")
 	}
 	b.PutID(DecryptedMessageActionAcceptKeyTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageActionAcceptKey) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageActionAcceptKey#6fe1735b as nil")
+	}
 	b.PutLong(d.ExchangeID)
 	b.PutBytes(d.GB)
 	b.PutLong(d.KeyFingerprint)
@@ -1218,6 +1388,14 @@ func (d *DecryptedMessageActionAcceptKey) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(DecryptedMessageActionAcceptKeyTypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageActionAcceptKey#6fe1735b: %w", err)
+	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageActionAcceptKey) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageActionAcceptKey#6fe1735b to nil")
 	}
 	{
 		value, err := b.Long()
@@ -1248,8 +1426,10 @@ func (d DecryptedMessageActionAcceptKey) construct() DecryptedMessageActionClass
 
 // Ensuring interfaces in compile-time for DecryptedMessageActionAcceptKey.
 var (
-	_ bin.Encoder = &DecryptedMessageActionAcceptKey{}
-	_ bin.Decoder = &DecryptedMessageActionAcceptKey{}
+	_ bin.Encoder     = &DecryptedMessageActionAcceptKey{}
+	_ bin.Decoder     = &DecryptedMessageActionAcceptKey{}
+	_ bin.BareEncoder = &DecryptedMessageActionAcceptKey{}
+	_ bin.BareDecoder = &DecryptedMessageActionAcceptKey{}
 
 	_ DecryptedMessageActionClass = &DecryptedMessageActionAcceptKey{}
 )
@@ -1329,6 +1509,14 @@ func (d *DecryptedMessageActionAbortKey) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageActionAbortKey#dd05ec6b as nil")
 	}
 	b.PutID(DecryptedMessageActionAbortKeyTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageActionAbortKey) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageActionAbortKey#dd05ec6b as nil")
+	}
 	b.PutLong(d.ExchangeID)
 	return nil
 }
@@ -1346,6 +1534,14 @@ func (d *DecryptedMessageActionAbortKey) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DecryptedMessageActionAbortKeyTypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageActionAbortKey#dd05ec6b: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageActionAbortKey) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageActionAbortKey#dd05ec6b to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -1361,8 +1557,10 @@ func (d DecryptedMessageActionAbortKey) construct() DecryptedMessageActionClass 
 
 // Ensuring interfaces in compile-time for DecryptedMessageActionAbortKey.
 var (
-	_ bin.Encoder = &DecryptedMessageActionAbortKey{}
-	_ bin.Decoder = &DecryptedMessageActionAbortKey{}
+	_ bin.Encoder     = &DecryptedMessageActionAbortKey{}
+	_ bin.Decoder     = &DecryptedMessageActionAbortKey{}
+	_ bin.BareEncoder = &DecryptedMessageActionAbortKey{}
+	_ bin.BareDecoder = &DecryptedMessageActionAbortKey{}
 
 	_ DecryptedMessageActionClass = &DecryptedMessageActionAbortKey{}
 )
@@ -1453,6 +1651,14 @@ func (d *DecryptedMessageActionCommitKey) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageActionCommitKey#ec2e0b9b as nil")
 	}
 	b.PutID(DecryptedMessageActionCommitKeyTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageActionCommitKey) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageActionCommitKey#ec2e0b9b as nil")
+	}
 	b.PutLong(d.ExchangeID)
 	b.PutLong(d.KeyFingerprint)
 	return nil
@@ -1476,6 +1682,14 @@ func (d *DecryptedMessageActionCommitKey) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DecryptedMessageActionCommitKeyTypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageActionCommitKey#ec2e0b9b: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageActionCommitKey) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageActionCommitKey#ec2e0b9b to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -1498,8 +1712,10 @@ func (d DecryptedMessageActionCommitKey) construct() DecryptedMessageActionClass
 
 // Ensuring interfaces in compile-time for DecryptedMessageActionCommitKey.
 var (
-	_ bin.Encoder = &DecryptedMessageActionCommitKey{}
-	_ bin.Decoder = &DecryptedMessageActionCommitKey{}
+	_ bin.Encoder     = &DecryptedMessageActionCommitKey{}
+	_ bin.Decoder     = &DecryptedMessageActionCommitKey{}
+	_ bin.BareEncoder = &DecryptedMessageActionCommitKey{}
+	_ bin.BareDecoder = &DecryptedMessageActionCommitKey{}
 
 	_ DecryptedMessageActionClass = &DecryptedMessageActionCommitKey{}
 )
@@ -1562,6 +1778,14 @@ func (d *DecryptedMessageActionNoop) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode decryptedMessageActionNoop#a82fdd63 as nil")
 	}
 	b.PutID(DecryptedMessageActionNoopTypeID)
+	return d.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (d *DecryptedMessageActionNoop) EncodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't encode decryptedMessageActionNoop#a82fdd63 as nil")
+	}
 	return nil
 }
 
@@ -1573,6 +1797,14 @@ func (d *DecryptedMessageActionNoop) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(DecryptedMessageActionNoopTypeID); err != nil {
 		return fmt.Errorf("unable to decode decryptedMessageActionNoop#a82fdd63: %w", err)
 	}
+	return d.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (d *DecryptedMessageActionNoop) DecodeBare(b *bin.Buffer) error {
+	if d == nil {
+		return fmt.Errorf("can't decode decryptedMessageActionNoop#a82fdd63 to nil")
+	}
 	return nil
 }
 
@@ -1581,8 +1813,10 @@ func (d DecryptedMessageActionNoop) construct() DecryptedMessageActionClass { re
 
 // Ensuring interfaces in compile-time for DecryptedMessageActionNoop.
 var (
-	_ bin.Encoder = &DecryptedMessageActionNoop{}
-	_ bin.Decoder = &DecryptedMessageActionNoop{}
+	_ bin.Encoder     = &DecryptedMessageActionNoop{}
+	_ bin.Decoder     = &DecryptedMessageActionNoop{}
+	_ bin.BareEncoder = &DecryptedMessageActionNoop{}
+	_ bin.BareDecoder = &DecryptedMessageActionNoop{}
 
 	_ DecryptedMessageActionClass = &DecryptedMessageActionNoop{}
 )
@@ -1615,6 +1849,8 @@ var (
 type DecryptedMessageActionClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() DecryptedMessageActionClass
 
 	// TypeID returns type id in TL schema.

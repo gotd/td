@@ -136,6 +136,14 @@ func (s *MessagesSearchStickerSetsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.searchStickerSets#c2b7d08b as nil")
 	}
 	b.PutID(MessagesSearchStickerSetsRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesSearchStickerSetsRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.searchStickerSets#c2b7d08b as nil")
+	}
 	if !(s.ExcludeFeatured == false) {
 		s.Flags.Set(0)
 	}
@@ -181,6 +189,14 @@ func (s *MessagesSearchStickerSetsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSearchStickerSetsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.searchStickerSets#c2b7d08b: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSearchStickerSetsRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.searchStickerSets#c2b7d08b to nil")
+	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.searchStickerSets#c2b7d08b: field flags: %w", err)
@@ -206,8 +222,10 @@ func (s *MessagesSearchStickerSetsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesSearchStickerSetsRequest.
 var (
-	_ bin.Encoder = &MessagesSearchStickerSetsRequest{}
-	_ bin.Decoder = &MessagesSearchStickerSetsRequest{}
+	_ bin.Encoder     = &MessagesSearchStickerSetsRequest{}
+	_ bin.Decoder     = &MessagesSearchStickerSetsRequest{}
+	_ bin.BareEncoder = &MessagesSearchStickerSetsRequest{}
+	_ bin.BareDecoder = &MessagesSearchStickerSetsRequest{}
 )
 
 // MessagesSearchStickerSets invokes method messages.searchStickerSets#c2b7d08b returning error if any.

@@ -102,6 +102,14 @@ func (r *MessagesReceivedQueueRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.receivedQueue#55a5bb66 as nil")
 	}
 	b.PutID(MessagesReceivedQueueRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *MessagesReceivedQueueRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode messages.receivedQueue#55a5bb66 as nil")
+	}
 	b.PutInt(r.MaxQts)
 	return nil
 }
@@ -119,6 +127,14 @@ func (r *MessagesReceivedQueueRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesReceivedQueueRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.receivedQueue#55a5bb66: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *MessagesReceivedQueueRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode messages.receivedQueue#55a5bb66 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -131,8 +147,10 @@ func (r *MessagesReceivedQueueRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesReceivedQueueRequest.
 var (
-	_ bin.Encoder = &MessagesReceivedQueueRequest{}
-	_ bin.Decoder = &MessagesReceivedQueueRequest{}
+	_ bin.Encoder     = &MessagesReceivedQueueRequest{}
+	_ bin.Decoder     = &MessagesReceivedQueueRequest{}
+	_ bin.BareEncoder = &MessagesReceivedQueueRequest{}
+	_ bin.BareDecoder = &MessagesReceivedQueueRequest{}
 )
 
 // MessagesReceivedQueue invokes method messages.receivedQueue#55a5bb66 returning error if any.

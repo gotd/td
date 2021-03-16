@@ -141,6 +141,14 @@ func (c *PhoneConfirmCallRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode phone.confirmCall#2efe1722 as nil")
 	}
 	b.PutID(PhoneConfirmCallRequestTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *PhoneConfirmCallRequest) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode phone.confirmCall#2efe1722 as nil")
+	}
 	if err := c.Peer.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode phone.confirmCall#2efe1722: field peer: %w", err)
 	}
@@ -180,6 +188,14 @@ func (c *PhoneConfirmCallRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(PhoneConfirmCallRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode phone.confirmCall#2efe1722: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *PhoneConfirmCallRequest) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode phone.confirmCall#2efe1722 to nil")
+	}
 	{
 		if err := c.Peer.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode phone.confirmCall#2efe1722: field peer: %w", err)
@@ -209,8 +225,10 @@ func (c *PhoneConfirmCallRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for PhoneConfirmCallRequest.
 var (
-	_ bin.Encoder = &PhoneConfirmCallRequest{}
-	_ bin.Decoder = &PhoneConfirmCallRequest{}
+	_ bin.Encoder     = &PhoneConfirmCallRequest{}
+	_ bin.Decoder     = &PhoneConfirmCallRequest{}
+	_ bin.BareEncoder = &PhoneConfirmCallRequest{}
+	_ bin.BareDecoder = &PhoneConfirmCallRequest{}
 )
 
 // PhoneConfirmCall invokes method phone.confirmCall#2efe1722 returning error if any.

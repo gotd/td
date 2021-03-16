@@ -124,6 +124,14 @@ func (m *MessagesMessages) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.messages#8c718e87 as nil")
 	}
 	b.PutID(MessagesMessagesTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessagesMessages) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messages.messages#8c718e87 as nil")
+	}
 	b.PutVectorHeader(len(m.Messages))
 	for idx, v := range m.Messages {
 		if v == nil {
@@ -192,6 +200,14 @@ func (m *MessagesMessages) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesMessagesTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.messages#8c718e87: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessagesMessages) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messages.messages#8c718e87 to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -239,8 +255,10 @@ func (m MessagesMessages) construct() MessagesMessagesClass { return &m }
 
 // Ensuring interfaces in compile-time for MessagesMessages.
 var (
-	_ bin.Encoder = &MessagesMessages{}
-	_ bin.Decoder = &MessagesMessages{}
+	_ bin.Encoder     = &MessagesMessages{}
+	_ bin.Decoder     = &MessagesMessages{}
+	_ bin.BareEncoder = &MessagesMessages{}
+	_ bin.BareDecoder = &MessagesMessages{}
 
 	_ MessagesMessagesClass = &MessagesMessages{}
 )
@@ -411,6 +429,14 @@ func (m *MessagesMessagesSlice) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.messagesSlice#3a54685e as nil")
 	}
 	b.PutID(MessagesMessagesSliceTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessagesMessagesSlice) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messages.messagesSlice#3a54685e as nil")
+	}
 	if !(m.Inexact == false) {
 		m.Flags.Set(1)
 	}
@@ -549,6 +575,14 @@ func (m *MessagesMessagesSlice) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesMessagesSliceTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.messagesSlice#3a54685e: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessagesMessagesSlice) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messages.messagesSlice#3a54685e to nil")
+	}
 	{
 		if err := m.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.messagesSlice#3a54685e: field flags: %w", err)
@@ -623,8 +657,10 @@ func (m MessagesMessagesSlice) construct() MessagesMessagesClass { return &m }
 
 // Ensuring interfaces in compile-time for MessagesMessagesSlice.
 var (
-	_ bin.Encoder = &MessagesMessagesSlice{}
-	_ bin.Decoder = &MessagesMessagesSlice{}
+	_ bin.Encoder     = &MessagesMessagesSlice{}
+	_ bin.Decoder     = &MessagesMessagesSlice{}
+	_ bin.BareEncoder = &MessagesMessagesSlice{}
+	_ bin.BareDecoder = &MessagesMessagesSlice{}
 
 	_ MessagesMessagesClass = &MessagesMessagesSlice{}
 )
@@ -789,6 +825,14 @@ func (c *MessagesChannelMessages) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.channelMessages#64479808 as nil")
 	}
 	b.PutID(MessagesChannelMessagesTypeID)
+	return c.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (c *MessagesChannelMessages) EncodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't encode messages.channelMessages#64479808 as nil")
+	}
 	if !(c.Inexact == false) {
 		c.Flags.Set(1)
 	}
@@ -912,6 +956,14 @@ func (c *MessagesChannelMessages) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesChannelMessagesTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.channelMessages#64479808: %w", err)
 	}
+	return c.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (c *MessagesChannelMessages) DecodeBare(b *bin.Buffer) error {
+	if c == nil {
+		return fmt.Errorf("can't decode messages.channelMessages#64479808 to nil")
+	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.channelMessages#64479808: field flags: %w", err)
@@ -986,8 +1038,10 @@ func (c MessagesChannelMessages) construct() MessagesMessagesClass { return &c }
 
 // Ensuring interfaces in compile-time for MessagesChannelMessages.
 var (
-	_ bin.Encoder = &MessagesChannelMessages{}
-	_ bin.Decoder = &MessagesChannelMessages{}
+	_ bin.Encoder     = &MessagesChannelMessages{}
+	_ bin.Decoder     = &MessagesChannelMessages{}
+	_ bin.BareEncoder = &MessagesChannelMessages{}
+	_ bin.BareDecoder = &MessagesChannelMessages{}
 
 	_ MessagesMessagesClass = &MessagesChannelMessages{}
 )
@@ -1068,6 +1122,14 @@ func (m *MessagesMessagesNotModified) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.messagesNotModified#74535f21 as nil")
 	}
 	b.PutID(MessagesMessagesNotModifiedTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessagesMessagesNotModified) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messages.messagesNotModified#74535f21 as nil")
+	}
 	b.PutInt(m.Count)
 	return nil
 }
@@ -1085,6 +1147,14 @@ func (m *MessagesMessagesNotModified) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesMessagesNotModifiedTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.messagesNotModified#74535f21: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessagesMessagesNotModified) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messages.messagesNotModified#74535f21 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -1100,8 +1170,10 @@ func (m MessagesMessagesNotModified) construct() MessagesMessagesClass { return 
 
 // Ensuring interfaces in compile-time for MessagesMessagesNotModified.
 var (
-	_ bin.Encoder = &MessagesMessagesNotModified{}
-	_ bin.Decoder = &MessagesMessagesNotModified{}
+	_ bin.Encoder     = &MessagesMessagesNotModified{}
+	_ bin.Decoder     = &MessagesMessagesNotModified{}
+	_ bin.BareEncoder = &MessagesMessagesNotModified{}
+	_ bin.BareDecoder = &MessagesMessagesNotModified{}
 
 	_ MessagesMessagesClass = &MessagesMessagesNotModified{}
 )
@@ -1125,6 +1197,8 @@ var (
 type MessagesMessagesClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() MessagesMessagesClass
 
 	// TypeID returns type id in TL schema.
@@ -1146,6 +1220,8 @@ type MessagesMessagesClass interface {
 type ModifiedMessagesMessages interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() MessagesMessagesClass
 
 	// TypeID returns type id in TL schema.

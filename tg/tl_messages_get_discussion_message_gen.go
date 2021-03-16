@@ -120,6 +120,14 @@ func (g *MessagesGetDiscussionMessageRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getDiscussionMessage#446972fd as nil")
 	}
 	b.PutID(MessagesGetDiscussionMessageRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetDiscussionMessageRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getDiscussionMessage#446972fd as nil")
+	}
 	if g.Peer == nil {
 		return fmt.Errorf("unable to encode messages.getDiscussionMessage#446972fd: field peer is nil")
 	}
@@ -148,6 +156,14 @@ func (g *MessagesGetDiscussionMessageRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetDiscussionMessageRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getDiscussionMessage#446972fd: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetDiscussionMessageRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getDiscussionMessage#446972fd to nil")
+	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
@@ -167,8 +183,10 @@ func (g *MessagesGetDiscussionMessageRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetDiscussionMessageRequest.
 var (
-	_ bin.Encoder = &MessagesGetDiscussionMessageRequest{}
-	_ bin.Decoder = &MessagesGetDiscussionMessageRequest{}
+	_ bin.Encoder     = &MessagesGetDiscussionMessageRequest{}
+	_ bin.Decoder     = &MessagesGetDiscussionMessageRequest{}
+	_ bin.BareEncoder = &MessagesGetDiscussionMessageRequest{}
+	_ bin.BareDecoder = &MessagesGetDiscussionMessageRequest{}
 )
 
 // MessagesGetDiscussionMessage invokes method messages.getDiscussionMessage#446972fd returning error if any.

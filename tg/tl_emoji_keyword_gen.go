@@ -113,6 +113,14 @@ func (e *EmojiKeyword) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode emojiKeyword#d5b3b9f9 as nil")
 	}
 	b.PutID(EmojiKeywordTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *EmojiKeyword) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode emojiKeyword#d5b3b9f9 as nil")
+	}
 	b.PutString(e.Keyword)
 	b.PutVectorHeader(len(e.Emoticons))
 	for _, v := range e.Emoticons {
@@ -138,6 +146,14 @@ func (e *EmojiKeyword) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(EmojiKeywordTypeID); err != nil {
 		return fmt.Errorf("unable to decode emojiKeyword#d5b3b9f9: %w", err)
+	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *EmojiKeyword) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode emojiKeyword#d5b3b9f9 to nil")
 	}
 	{
 		value, err := b.String()
@@ -167,8 +183,10 @@ func (e EmojiKeyword) construct() EmojiKeywordClass { return &e }
 
 // Ensuring interfaces in compile-time for EmojiKeyword.
 var (
-	_ bin.Encoder = &EmojiKeyword{}
-	_ bin.Decoder = &EmojiKeyword{}
+	_ bin.Encoder     = &EmojiKeyword{}
+	_ bin.Decoder     = &EmojiKeyword{}
+	_ bin.BareEncoder = &EmojiKeyword{}
+	_ bin.BareDecoder = &EmojiKeyword{}
 
 	_ EmojiKeywordClass = &EmojiKeyword{}
 )
@@ -260,6 +278,14 @@ func (e *EmojiKeywordDeleted) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode emojiKeywordDeleted#236df622 as nil")
 	}
 	b.PutID(EmojiKeywordDeletedTypeID)
+	return e.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (e *EmojiKeywordDeleted) EncodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't encode emojiKeywordDeleted#236df622 as nil")
+	}
 	b.PutString(e.Keyword)
 	b.PutVectorHeader(len(e.Emoticons))
 	for _, v := range e.Emoticons {
@@ -285,6 +311,14 @@ func (e *EmojiKeywordDeleted) Decode(b *bin.Buffer) error {
 	}
 	if err := b.ConsumeID(EmojiKeywordDeletedTypeID); err != nil {
 		return fmt.Errorf("unable to decode emojiKeywordDeleted#236df622: %w", err)
+	}
+	return e.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (e *EmojiKeywordDeleted) DecodeBare(b *bin.Buffer) error {
+	if e == nil {
+		return fmt.Errorf("can't decode emojiKeywordDeleted#236df622 to nil")
 	}
 	{
 		value, err := b.String()
@@ -314,8 +348,10 @@ func (e EmojiKeywordDeleted) construct() EmojiKeywordClass { return &e }
 
 // Ensuring interfaces in compile-time for EmojiKeywordDeleted.
 var (
-	_ bin.Encoder = &EmojiKeywordDeleted{}
-	_ bin.Decoder = &EmojiKeywordDeleted{}
+	_ bin.Encoder     = &EmojiKeywordDeleted{}
+	_ bin.Decoder     = &EmojiKeywordDeleted{}
+	_ bin.BareEncoder = &EmojiKeywordDeleted{}
+	_ bin.BareDecoder = &EmojiKeywordDeleted{}
 
 	_ EmojiKeywordClass = &EmojiKeywordDeleted{}
 )
@@ -337,6 +373,8 @@ var (
 type EmojiKeywordClass interface {
 	bin.Encoder
 	bin.Decoder
+	bin.BareEncoder
+	bin.BareDecoder
 	construct() EmojiKeywordClass
 
 	// TypeID returns type id in TL schema.

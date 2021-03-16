@@ -156,6 +156,14 @@ func (i *InputSingleMedia) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode inputSingleMedia#1cc6e91f as nil")
 	}
 	b.PutID(InputSingleMediaTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputSingleMedia) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputSingleMedia#1cc6e91f as nil")
+	}
 	if !(i.Entities == nil) {
 		i.Flags.Set(0)
 	}
@@ -230,6 +238,14 @@ func (i *InputSingleMedia) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InputSingleMediaTypeID); err != nil {
 		return fmt.Errorf("unable to decode inputSingleMedia#1cc6e91f: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputSingleMedia) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputSingleMedia#1cc6e91f to nil")
+	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode inputSingleMedia#1cc6e91f: field flags: %w", err)
@@ -274,6 +290,8 @@ func (i *InputSingleMedia) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for InputSingleMedia.
 var (
-	_ bin.Encoder = &InputSingleMedia{}
-	_ bin.Decoder = &InputSingleMedia{}
+	_ bin.Encoder     = &InputSingleMedia{}
+	_ bin.Decoder     = &InputSingleMedia{}
+	_ bin.BareEncoder = &InputSingleMedia{}
+	_ bin.BareDecoder = &InputSingleMedia{}
 )

@@ -180,6 +180,14 @@ func (b *MessagesBotCallbackAnswer) Encode(buf *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.botCallbackAnswer#36585ea4 as nil")
 	}
 	buf.PutID(MessagesBotCallbackAnswerTypeID)
+	return b.EncodeBare(buf)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (b *MessagesBotCallbackAnswer) EncodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't encode messages.botCallbackAnswer#36585ea4 as nil")
+	}
 	if !(b.Alert == false) {
 		b.Flags.Set(1)
 	}
@@ -299,6 +307,14 @@ func (b *MessagesBotCallbackAnswer) Decode(buf *bin.Buffer) error {
 	if err := buf.ConsumeID(MessagesBotCallbackAnswerTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.botCallbackAnswer#36585ea4: %w", err)
 	}
+	return b.DecodeBare(buf)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (b *MessagesBotCallbackAnswer) DecodeBare(buf *bin.Buffer) error {
+	if b == nil {
+		return fmt.Errorf("can't decode messages.botCallbackAnswer#36585ea4 to nil")
+	}
 	{
 		if err := b.Flags.Decode(buf); err != nil {
 			return fmt.Errorf("unable to decode messages.botCallbackAnswer#36585ea4: field flags: %w", err)
@@ -333,6 +349,8 @@ func (b *MessagesBotCallbackAnswer) Decode(buf *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesBotCallbackAnswer.
 var (
-	_ bin.Encoder = &MessagesBotCallbackAnswer{}
-	_ bin.Decoder = &MessagesBotCallbackAnswer{}
+	_ bin.Encoder     = &MessagesBotCallbackAnswer{}
+	_ bin.Decoder     = &MessagesBotCallbackAnswer{}
+	_ bin.BareEncoder = &MessagesBotCallbackAnswer{}
+	_ bin.BareDecoder = &MessagesBotCallbackAnswer{}
 )

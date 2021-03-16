@@ -109,6 +109,14 @@ func (p *AuthPasswordRecovery) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode auth.passwordRecovery#137948a5 as nil")
 	}
 	b.PutID(AuthPasswordRecoveryTypeID)
+	return p.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (p *AuthPasswordRecovery) EncodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't encode auth.passwordRecovery#137948a5 as nil")
+	}
 	b.PutString(p.EmailPattern)
 	return nil
 }
@@ -126,6 +134,14 @@ func (p *AuthPasswordRecovery) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AuthPasswordRecoveryTypeID); err != nil {
 		return fmt.Errorf("unable to decode auth.passwordRecovery#137948a5: %w", err)
 	}
+	return p.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (p *AuthPasswordRecovery) DecodeBare(b *bin.Buffer) error {
+	if p == nil {
+		return fmt.Errorf("can't decode auth.passwordRecovery#137948a5 to nil")
+	}
 	{
 		value, err := b.String()
 		if err != nil {
@@ -138,6 +154,8 @@ func (p *AuthPasswordRecovery) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AuthPasswordRecovery.
 var (
-	_ bin.Encoder = &AuthPasswordRecovery{}
-	_ bin.Decoder = &AuthPasswordRecovery{}
+	_ bin.Encoder     = &AuthPasswordRecovery{}
+	_ bin.Decoder     = &AuthPasswordRecovery{}
+	_ bin.BareEncoder = &AuthPasswordRecovery{}
+	_ bin.BareDecoder = &AuthPasswordRecovery{}
 )

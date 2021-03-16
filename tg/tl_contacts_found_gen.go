@@ -135,6 +135,14 @@ func (f *ContactsFound) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode contacts.found#b3134d9d as nil")
 	}
 	b.PutID(ContactsFoundTypeID)
+	return f.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (f *ContactsFound) EncodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't encode contacts.found#b3134d9d as nil")
+	}
 	b.PutVectorHeader(len(f.MyResults))
 	for idx, v := range f.MyResults {
 		if v == nil {
@@ -222,6 +230,14 @@ func (f *ContactsFound) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ContactsFoundTypeID); err != nil {
 		return fmt.Errorf("unable to decode contacts.found#b3134d9d: %w", err)
 	}
+	return f.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (f *ContactsFound) DecodeBare(b *bin.Buffer) error {
+	if f == nil {
+		return fmt.Errorf("can't decode contacts.found#b3134d9d to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -279,6 +295,8 @@ func (f *ContactsFound) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ContactsFound.
 var (
-	_ bin.Encoder = &ContactsFound{}
-	_ bin.Decoder = &ContactsFound{}
+	_ bin.Encoder     = &ContactsFound{}
+	_ bin.Decoder     = &ContactsFound{}
+	_ bin.BareEncoder = &ContactsFound{}
+	_ bin.BareDecoder = &ContactsFound{}
 )

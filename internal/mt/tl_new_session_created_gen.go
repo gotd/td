@@ -121,6 +121,14 @@ func (n *NewSessionCreated) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode new_session_created#9ec20908 as nil")
 	}
 	b.PutID(NewSessionCreatedTypeID)
+	return n.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (n *NewSessionCreated) EncodeBare(b *bin.Buffer) error {
+	if n == nil {
+		return fmt.Errorf("can't encode new_session_created#9ec20908 as nil")
+	}
 	b.PutLong(n.FirstMsgID)
 	b.PutLong(n.UniqueID)
 	b.PutLong(n.ServerSalt)
@@ -150,6 +158,14 @@ func (n *NewSessionCreated) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(NewSessionCreatedTypeID); err != nil {
 		return fmt.Errorf("unable to decode new_session_created#9ec20908: %w", err)
 	}
+	return n.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (n *NewSessionCreated) DecodeBare(b *bin.Buffer) error {
+	if n == nil {
+		return fmt.Errorf("can't decode new_session_created#9ec20908 to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -176,6 +192,8 @@ func (n *NewSessionCreated) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for NewSessionCreated.
 var (
-	_ bin.Encoder = &NewSessionCreated{}
-	_ bin.Decoder = &NewSessionCreated{}
+	_ bin.Encoder     = &NewSessionCreated{}
+	_ bin.Decoder     = &NewSessionCreated{}
+	_ bin.BareEncoder = &NewSessionCreated{}
+	_ bin.BareDecoder = &NewSessionCreated{}
 )

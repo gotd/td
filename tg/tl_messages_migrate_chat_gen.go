@@ -105,6 +105,14 @@ func (m *MessagesMigrateChatRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.migrateChat#15a3b8e3 as nil")
 	}
 	b.PutID(MessagesMigrateChatRequestTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessagesMigrateChatRequest) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messages.migrateChat#15a3b8e3 as nil")
+	}
 	b.PutInt(m.ChatID)
 	return nil
 }
@@ -122,6 +130,14 @@ func (m *MessagesMigrateChatRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesMigrateChatRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.migrateChat#15a3b8e3: %w", err)
 	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessagesMigrateChatRequest) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messages.migrateChat#15a3b8e3 to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -134,8 +150,10 @@ func (m *MessagesMigrateChatRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesMigrateChatRequest.
 var (
-	_ bin.Encoder = &MessagesMigrateChatRequest{}
-	_ bin.Decoder = &MessagesMigrateChatRequest{}
+	_ bin.Encoder     = &MessagesMigrateChatRequest{}
+	_ bin.Decoder     = &MessagesMigrateChatRequest{}
+	_ bin.BareEncoder = &MessagesMigrateChatRequest{}
+	_ bin.BareDecoder = &MessagesMigrateChatRequest{}
 )
 
 // MessagesMigrateChat invokes method messages.migrateChat#15a3b8e3 returning error if any.

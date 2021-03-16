@@ -85,6 +85,14 @@ func (g *AccountGetContentSettingsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.getContentSettings#8b9b4dae as nil")
 	}
 	b.PutID(AccountGetContentSettingsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *AccountGetContentSettingsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode account.getContentSettings#8b9b4dae as nil")
+	}
 	return nil
 }
 
@@ -96,13 +104,23 @@ func (g *AccountGetContentSettingsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountGetContentSettingsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.getContentSettings#8b9b4dae: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *AccountGetContentSettingsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode account.getContentSettings#8b9b4dae to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for AccountGetContentSettingsRequest.
 var (
-	_ bin.Encoder = &AccountGetContentSettingsRequest{}
-	_ bin.Decoder = &AccountGetContentSettingsRequest{}
+	_ bin.Encoder     = &AccountGetContentSettingsRequest{}
+	_ bin.Decoder     = &AccountGetContentSettingsRequest{}
+	_ bin.BareEncoder = &AccountGetContentSettingsRequest{}
+	_ bin.BareDecoder = &AccountGetContentSettingsRequest{}
 )
 
 // AccountGetContentSettings invokes method account.getContentSettings#8b9b4dae returning error if any.

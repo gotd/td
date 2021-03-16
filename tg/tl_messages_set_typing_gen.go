@@ -147,6 +147,14 @@ func (s *MessagesSetTypingRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.setTyping#58943ee2 as nil")
 	}
 	b.PutID(MessagesSetTypingRequestTypeID)
+	return s.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (s *MessagesSetTypingRequest) EncodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't encode messages.setTyping#58943ee2 as nil")
+	}
 	if !(s.TopMsgID == 0) {
 		s.Flags.Set(0)
 	}
@@ -204,6 +212,14 @@ func (s *MessagesSetTypingRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesSetTypingRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.setTyping#58943ee2: %w", err)
 	}
+	return s.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (s *MessagesSetTypingRequest) DecodeBare(b *bin.Buffer) error {
+	if s == nil {
+		return fmt.Errorf("can't decode messages.setTyping#58943ee2 to nil")
+	}
 	{
 		if err := s.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode messages.setTyping#58943ee2: field flags: %w", err)
@@ -235,8 +251,10 @@ func (s *MessagesSetTypingRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesSetTypingRequest.
 var (
-	_ bin.Encoder = &MessagesSetTypingRequest{}
-	_ bin.Decoder = &MessagesSetTypingRequest{}
+	_ bin.Encoder     = &MessagesSetTypingRequest{}
+	_ bin.Decoder     = &MessagesSetTypingRequest{}
+	_ bin.BareEncoder = &MessagesSetTypingRequest{}
+	_ bin.BareDecoder = &MessagesSetTypingRequest{}
 )
 
 // MessagesSetTyping invokes method messages.setTyping#58943ee2 returning error if any.

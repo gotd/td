@@ -174,6 +174,14 @@ func (v *VideoSize) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode videoSize#e831c556 as nil")
 	}
 	b.PutID(VideoSizeTypeID)
+	return v.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (v *VideoSize) EncodeBare(b *bin.Buffer) error {
+	if v == nil {
+		return fmt.Errorf("can't encode videoSize#e831c556 as nil")
+	}
 	if !(v.VideoStartTs == 0) {
 		v.Flags.Set(0)
 	}
@@ -241,6 +249,14 @@ func (v *VideoSize) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(VideoSizeTypeID); err != nil {
 		return fmt.Errorf("unable to decode videoSize#e831c556: %w", err)
 	}
+	return v.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (v *VideoSize) DecodeBare(b *bin.Buffer) error {
+	if v == nil {
+		return fmt.Errorf("can't decode videoSize#e831c556 to nil")
+	}
 	{
 		if err := v.Flags.Decode(b); err != nil {
 			return fmt.Errorf("unable to decode videoSize#e831c556: field flags: %w", err)
@@ -291,6 +307,8 @@ func (v *VideoSize) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for VideoSize.
 var (
-	_ bin.Encoder = &VideoSize{}
-	_ bin.Decoder = &VideoSize{}
+	_ bin.Encoder     = &VideoSize{}
+	_ bin.Decoder     = &VideoSize{}
+	_ bin.BareEncoder = &VideoSize{}
+	_ bin.BareDecoder = &VideoSize{}
 )

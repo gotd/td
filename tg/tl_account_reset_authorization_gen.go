@@ -105,6 +105,14 @@ func (r *AccountResetAuthorizationRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode account.resetAuthorization#df77f3bc as nil")
 	}
 	b.PutID(AccountResetAuthorizationRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *AccountResetAuthorizationRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode account.resetAuthorization#df77f3bc as nil")
+	}
 	b.PutLong(r.Hash)
 	return nil
 }
@@ -122,6 +130,14 @@ func (r *AccountResetAuthorizationRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(AccountResetAuthorizationRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode account.resetAuthorization#df77f3bc: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *AccountResetAuthorizationRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode account.resetAuthorization#df77f3bc to nil")
+	}
 	{
 		value, err := b.Long()
 		if err != nil {
@@ -134,8 +150,10 @@ func (r *AccountResetAuthorizationRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for AccountResetAuthorizationRequest.
 var (
-	_ bin.Encoder = &AccountResetAuthorizationRequest{}
-	_ bin.Decoder = &AccountResetAuthorizationRequest{}
+	_ bin.Encoder     = &AccountResetAuthorizationRequest{}
+	_ bin.Decoder     = &AccountResetAuthorizationRequest{}
+	_ bin.BareEncoder = &AccountResetAuthorizationRequest{}
+	_ bin.BareDecoder = &AccountResetAuthorizationRequest{}
 )
 
 // AccountResetAuthorization invokes method account.resetAuthorization#df77f3bc returning error if any.

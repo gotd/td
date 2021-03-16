@@ -85,6 +85,14 @@ func (g *HelpGetInviteTextRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode help.getInviteText#4d392343 as nil")
 	}
 	b.PutID(HelpGetInviteTextRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *HelpGetInviteTextRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode help.getInviteText#4d392343 as nil")
+	}
 	return nil
 }
 
@@ -96,13 +104,23 @@ func (g *HelpGetInviteTextRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(HelpGetInviteTextRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode help.getInviteText#4d392343: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *HelpGetInviteTextRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode help.getInviteText#4d392343 to nil")
+	}
 	return nil
 }
 
 // Ensuring interfaces in compile-time for HelpGetInviteTextRequest.
 var (
-	_ bin.Encoder = &HelpGetInviteTextRequest{}
-	_ bin.Decoder = &HelpGetInviteTextRequest{}
+	_ bin.Encoder     = &HelpGetInviteTextRequest{}
+	_ bin.Decoder     = &HelpGetInviteTextRequest{}
+	_ bin.BareEncoder = &HelpGetInviteTextRequest{}
+	_ bin.BareDecoder = &HelpGetInviteTextRequest{}
 )
 
 // HelpGetInviteText invokes method help.getInviteText#4d392343 returning error if any.

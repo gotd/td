@@ -116,6 +116,14 @@ func (i *InvokeWithLayerRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode invokeWithLayer#da9b0d0d as nil")
 	}
 	b.PutID(InvokeWithLayerRequestTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InvokeWithLayerRequest) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode invokeWithLayer#da9b0d0d as nil")
+	}
 	b.PutInt(i.Layer)
 	if err := i.Query.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode invokeWithLayer#da9b0d0d: field query: %w", err)
@@ -141,6 +149,14 @@ func (i *InvokeWithLayerRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(InvokeWithLayerRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode invokeWithLayer#da9b0d0d: %w", err)
 	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InvokeWithLayerRequest) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode invokeWithLayer#da9b0d0d to nil")
+	}
 	{
 		value, err := b.Int()
 		if err != nil {
@@ -158,6 +174,8 @@ func (i *InvokeWithLayerRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for InvokeWithLayerRequest.
 var (
-	_ bin.Encoder = &InvokeWithLayerRequest{}
-	_ bin.Decoder = &InvokeWithLayerRequest{}
+	_ bin.Encoder     = &InvokeWithLayerRequest{}
+	_ bin.Decoder     = &InvokeWithLayerRequest{}
+	_ bin.BareEncoder = &InvokeWithLayerRequest{}
+	_ bin.BareDecoder = &InvokeWithLayerRequest{}
 )

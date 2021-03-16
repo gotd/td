@@ -102,6 +102,14 @@ func (g *MessagesGetPeerDialogsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode messages.getPeerDialogs#e470bcfd as nil")
 	}
 	b.PutID(MessagesGetPeerDialogsRequestTypeID)
+	return g.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (g *MessagesGetPeerDialogsRequest) EncodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't encode messages.getPeerDialogs#e470bcfd as nil")
+	}
 	b.PutVectorHeader(len(g.Peers))
 	for idx, v := range g.Peers {
 		if v == nil {
@@ -132,6 +140,14 @@ func (g *MessagesGetPeerDialogsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(MessagesGetPeerDialogsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode messages.getPeerDialogs#e470bcfd: %w", err)
 	}
+	return g.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (g *MessagesGetPeerDialogsRequest) DecodeBare(b *bin.Buffer) error {
+	if g == nil {
+		return fmt.Errorf("can't decode messages.getPeerDialogs#e470bcfd to nil")
+	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
@@ -150,8 +166,10 @@ func (g *MessagesGetPeerDialogsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for MessagesGetPeerDialogsRequest.
 var (
-	_ bin.Encoder = &MessagesGetPeerDialogsRequest{}
-	_ bin.Decoder = &MessagesGetPeerDialogsRequest{}
+	_ bin.Encoder     = &MessagesGetPeerDialogsRequest{}
+	_ bin.Decoder     = &MessagesGetPeerDialogsRequest{}
+	_ bin.BareEncoder = &MessagesGetPeerDialogsRequest{}
+	_ bin.BareDecoder = &MessagesGetPeerDialogsRequest{}
 )
 
 // MessagesGetPeerDialogs invokes method messages.getPeerDialogs#e470bcfd returning error if any.

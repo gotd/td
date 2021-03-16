@@ -119,6 +119,14 @@ func (r *ChannelsReadMessageContentsRequest) Encode(b *bin.Buffer) error {
 		return fmt.Errorf("can't encode channels.readMessageContents#eab5dc38 as nil")
 	}
 	b.PutID(ChannelsReadMessageContentsRequestTypeID)
+	return r.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (r *ChannelsReadMessageContentsRequest) EncodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't encode channels.readMessageContents#eab5dc38 as nil")
+	}
 	if r.Channel == nil {
 		return fmt.Errorf("unable to encode channels.readMessageContents#eab5dc38: field channel is nil")
 	}
@@ -155,6 +163,14 @@ func (r *ChannelsReadMessageContentsRequest) Decode(b *bin.Buffer) error {
 	if err := b.ConsumeID(ChannelsReadMessageContentsRequestTypeID); err != nil {
 		return fmt.Errorf("unable to decode channels.readMessageContents#eab5dc38: %w", err)
 	}
+	return r.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (r *ChannelsReadMessageContentsRequest) DecodeBare(b *bin.Buffer) error {
+	if r == nil {
+		return fmt.Errorf("can't decode channels.readMessageContents#eab5dc38 to nil")
+	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
@@ -180,8 +196,10 @@ func (r *ChannelsReadMessageContentsRequest) Decode(b *bin.Buffer) error {
 
 // Ensuring interfaces in compile-time for ChannelsReadMessageContentsRequest.
 var (
-	_ bin.Encoder = &ChannelsReadMessageContentsRequest{}
-	_ bin.Decoder = &ChannelsReadMessageContentsRequest{}
+	_ bin.Encoder     = &ChannelsReadMessageContentsRequest{}
+	_ bin.Decoder     = &ChannelsReadMessageContentsRequest{}
+	_ bin.BareEncoder = &ChannelsReadMessageContentsRequest{}
+	_ bin.BareDecoder = &ChannelsReadMessageContentsRequest{}
 )
 
 // ChannelsReadMessageContents invokes method channels.readMessageContents#eab5dc38 returning error if any.
