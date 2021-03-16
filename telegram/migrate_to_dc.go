@@ -9,7 +9,7 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/telegram/internal/manager"
+	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/tg"
 )
 
@@ -74,7 +74,7 @@ func (c *Client) invokeMigrate(ctx context.Context, dcID int, input bin.Encoder,
 }
 
 func (c *Client) migrateToDc(ctx context.Context, dcID int, transfer bool) error {
-	dc, err := manager.FindPrimaryDC(c.cfg.Load(), dcID, c.opts.PreferIPv6)
+	dc, err := dcs.FindPrimaryDC(c.cfg.Load(), dcID, c.opts.PreferIPv6)
 	if err != nil {
 		return err
 	}

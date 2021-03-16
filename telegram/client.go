@@ -34,24 +34,6 @@ type UpdateHandler interface {
 	HandleShort(ctx context.Context, u *tg.UpdateShort) error
 }
 
-// Available MTProto default server addresses.
-//
-// See https://my.telegram.org/apps.
-const (
-	AddrProduction = "149.154.167.50:443"
-	AddrTest       = "149.154.167.40:443"
-)
-
-// Test-only credentials. Can be used with AddrTest and TestAuth to
-// test authentication.
-//
-// Reference:
-//	* https://github.com/telegramdesktop/tdesktop/blob/5f665b8ecb48802cd13cfb48ec834b946459274a/docs/api_credentials.md
-const (
-	TestAppID   = 17349
-	TestAppHash = "344583e45741c457fe1862106095a5eb"
-)
-
 type clientStorage interface {
 	Load(ctx context.Context) (*session.Data, error)
 	Save(ctx context.Context, data *session.Data) error
