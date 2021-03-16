@@ -57,13 +57,14 @@ func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
 		// Buffer now contains plaintext message payload.
 		b.ResetTo(msg.Data())
 
-		if err := s.handle(session, msg.MessageID, &b); err != nil {
+		if err := s.handle(&Request{Session: session, MsgID: msg.MessageID, Buf: &b}); err != nil {
 			return xerrors.Errorf("handle: %w", err)
 		}
 	}
 }
 
-func (s *Server) handle(session Session, msgID int64, in *bin.Buffer) error {
+func (s *Server) handle(req *Request) error {
+	in := req.Buf
 	id, err := in.PeekID()
 	if err != nil {
 		return xerrors.Errorf("peek id: %w", err)
@@ -76,14 +77,14 @@ func (s *Server) handle(session Session, msgID int64, in *bin.Buffer) error {
 			return err
 		}
 
-		return s.SendPong(session, msgID, pingReq.PingID)
+		return s.SendPong(req.Session, req.MsgID, pingReq.PingID)
 	case mt.PingRequestTypeID:
 		pingReq := mt.PingRequest{}
 		if err := pingReq.Decode(in); err != nil {
 			return err
 		}
 
-		return s.SendPong(session, msgID, pingReq.PingID)
+		return s.SendPong(req.Session, req.MsgID, pingReq.PingID)
 
 	case mt.GetFutureSaltsRequestTypeID:
 		saltsRequest := mt.GetFutureSaltsRequest{}
@@ -91,10 +92,20 @@ func (s *Server) handle(session Session, msgID int64, in *bin.Buffer) error {
 			return err
 		}
 
-		return s.SendEternalSalt(session, msgID)
+		return s.SendEternalSalt(req.Session, req.MsgID)
+
+	case mt.RPCDropAnswerRequestTypeID:
+		drop := mt.RPCDropAnswerRequest{}
+		if err := drop.Decode(in); err != nil {
+			return err
+		}
+
+		return s.SendResult(req, &mt.RPCAnswerDropped{
+			MsgID: req.MsgID,
+		})
 	}
 
-	if err := s.handler.OnMessage(session, msgID, in); err != nil {
+	if err := s.dispatcher.OnMessage(s, req); err != nil {
 		return xerrors.Errorf("failed to call handler: %w", err)
 	}
 

@@ -15,13 +15,46 @@ import (
 	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/telegram/internal/tgtest"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
 )
+
+func fallbackHandler(dcOps *tg.Config) tgtest.HandlerFunc {
+	return func(srv *tgtest.Server, req *tgtest.Request) error {
+		id, err := req.Buf.PeekID()
+		if err != nil {
+			return err
+		}
+
+		switch id {
+		case tg.InvokeWithLayerRequestTypeID:
+			layerInvoke := tg.InvokeWithLayerRequest{
+				Query: &tg.InitConnectionRequest{
+					Query: &tg.HelpGetConfigRequest{},
+				},
+			}
+
+			if err := layerInvoke.Decode(req.Buf); err != nil {
+				return err
+			}
+
+			return srv.SendResult(req, dcOps)
+		case tg.UsersGetUsersRequestTypeID:
+			return srv.SendVector(req, &tg.User{
+				ID:         10,
+				AccessHash: 10,
+				Username:   "jit_rs",
+			})
+		case tg.HelpGetConfigRequestTypeID:
+			return srv.SendResult(req, dcOps)
+		default:
+			return xerrors.Errorf("unexpected TypeID %x call", id)
+		}
+	}
+}
 
 func testAllTransports(t *testing.T, test func(trp Transport) func(t *testing.T)) {
 	t.Run("Abridged", test(transport.Abridged(nil)))
@@ -41,6 +74,10 @@ func testTransport(trp Transport) func(t *testing.T) {
 		testMessage := "ну че там с деньгами?"
 		suite := tgtest.NewSuite(gCtx, t, log)
 		srv := tgtest.TestTransport(suite, testMessage, trp.Codec)
+		srv.Dispatcher().Fallback(fallbackHandler(&tg.Config{
+			ThisDC: 2,
+		}))
+
 		g.Go(func() error {
 			defer srv.Close()
 			return srv.Serve()
@@ -133,77 +170,34 @@ func testMigrate(trp Transport) func(t *testing.T) {
 		}
 
 		wait := make(chan struct{})
-		srv.SetHandlerFunc(func(s tgtest.Session, msgID int64, in *bin.Buffer) error {
-			id, err := in.PeekID()
-			if err != nil {
-				return err
-			}
-
-			switch id {
-			case tg.InvokeWithLayerRequestTypeID:
-				layerInvoke := tg.InvokeWithLayerRequest{
-					Query: &tg.InitConnectionRequest{
-						Query: &tg.HelpGetConfigRequest{},
-					},
-				}
-
-				if err := layerInvoke.Decode(in); err != nil {
-					return err
-				}
-
-				return srv.SendResult(s, msgID, dcOps)
-
-			case tg.MessagesSendMessageRequestTypeID:
+		srv.Dispatcher().HandleFunc(tg.MessagesSendMessageRequestTypeID,
+			func(server *tgtest.Server, req *tgtest.Request) error {
 				m := &tg.MessagesSendMessageRequest{}
-				if err := m.Decode(in); err != nil {
+				if err := m.Decode(req.Buf); err != nil {
 					return err
 				}
 
 				wait <- struct{}{}
-				return srv.SendResult(s, msgID, &tg.Updates{})
-			}
-
-			return nil
-		})
+				return srv.SendResult(req, &tg.Updates{})
+			},
+		).Fallback(fallbackHandler(dcOps))
 		g.Go(func() error {
 			defer srv.Close()
 			return srv.Serve()
 		})
 
-		migrate.SetHandlerFunc(func(s tgtest.Session, msgID int64, in *bin.Buffer) error {
-			id, err := in.PeekID()
-			if err != nil {
-				return err
-			}
-
-			switch id {
-			case tg.InvokeWithLayerRequestTypeID:
-				layerInvoke := tg.InvokeWithLayerRequest{
-					Query: &tg.InitConnectionRequest{
-						Query: &tg.HelpGetConfigRequest{},
-					},
-				}
-
-				if err := layerInvoke.Decode(in); err != nil {
-					return err
-				}
-
-				return migrate.SendResult(s, msgID, dcOps)
-
-			case tg.MessagesSendMessageRequestTypeID:
+		migrate.Dispatcher().HandleFunc(tg.MessagesSendMessageRequestTypeID,
+			func(server *tgtest.Server, req *tgtest.Request) error {
 				m := &tg.MessagesSendMessageRequest{}
-				if err := m.Decode(in); err != nil {
+				if err := m.Decode(req.Buf); err != nil {
 					return err
 				}
 
-				return migrate.SendResult(s, msgID, &mt.RPCError{
+				return migrate.SendResult(req, &mt.RPCError{
 					ErrorCode:    303,
 					ErrorMessage: "NETWORK_MIGRATE_1",
 				})
-			default:
-				return nil
-			}
-		})
+			}).Fallback(fallbackHandler(dcOps))
 		g.Go(func() error {
 			defer migrate.Close()
 			return migrate.Serve()

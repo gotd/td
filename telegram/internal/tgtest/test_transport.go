@@ -8,7 +8,6 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
 
-	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/internal/tmap"
@@ -33,7 +32,9 @@ type testTransportHandler struct {
 func TestTransport(s Suite, message string, codec func() transport.Codec) *Server {
 	srv := NewUnstartedServer("server", s, codec)
 	h := testTransport(s, srv, message)
-	srv.SetHandler(h)
+	srv.Dispatcher().
+		Handle(tg.InvokeWithLayerRequestTypeID, h).
+		Handle(tg.MessagesSendMessageRequestTypeID, h)
 
 	return srv
 }
@@ -64,8 +65,8 @@ func (h *testTransportHandler) hello(k Session, message string) error {
 	})
 }
 
-func (h *testTransportHandler) OnMessage(k Session, msgID int64, in *bin.Buffer) error {
-	id, err := in.PeekID()
+func (h *testTransportHandler) OnMessage(server *Server, req *Request) error {
+	id, err := req.Buf.PeekID()
 	if err != nil {
 		return err
 	}
@@ -80,30 +81,30 @@ func (h *testTransportHandler) OnMessage(k Session, msgID int64, in *bin.Buffer)
 			},
 		}
 
-		if err := layerInvoke.Decode(in); err != nil {
+		if err := layerInvoke.Decode(req.Buf); err != nil {
 			return err
 		}
 		h.logger.Info("New client connected, invoke received")
 
-		if err := h.server.SendConfig(k, msgID); err != nil {
+		if err := h.server.SendConfig(req); err != nil {
 			return err
 		}
 
-		return h.hello(k, h.message)
+		return h.hello(req.Session, h.message)
 	case tg.MessagesSendMessageRequestTypeID:
 		m := &tg.MessagesSendMessageRequest{}
-		if err := m.Decode(in); err != nil {
+		if err := m.Decode(req.Buf); err != nil {
 			h.t.Fail()
 			return err
 		}
 
-		return h.handleMessage(k, msgID, m)
+		return h.handleMessage(req, m)
 	}
 
 	return nil
 }
 
-func (h *testTransportHandler) handleMessage(k Session, msgID int64, m *tg.MessagesSendMessageRequest) error {
+func (h *testTransportHandler) handleMessage(req *Request, m *tg.MessagesSendMessageRequest) error {
 	require.Equal(h.t, "какими деньгами?", m.Message)
 
 	h.counterMx.Lock()
@@ -114,5 +115,5 @@ func (h *testTransportHandler) handleMessage(k Session, msgID int64, m *tg.Messa
 	}
 	h.counterMx.Unlock()
 
-	return h.server.SendResult(k, msgID, &tg.Updates{})
+	return h.server.SendResult(req, &tg.Updates{})
 }

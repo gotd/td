@@ -10,6 +10,7 @@ import (
 
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/pool"
+	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/telegram/internal/manager"
 	"github.com/gotd/td/tg"
 )
@@ -56,7 +57,7 @@ func (c *Client) dc(ctx context.Context, dcID int, max int64) (*pool.DC, error) 
 	cfg := c.cfg.Load()
 	opts := c.opts
 
-	dc, ok := findDC(cfg, dcID, opts.PreferIPv6)
+	dc, ok := dcs.FindDC(cfg, dcID, opts.PreferIPv6)
 	if !ok {
 		return nil, xerrors.Errorf("failed to find DC %d", dcID)
 	}

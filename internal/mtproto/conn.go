@@ -82,6 +82,10 @@ type Conn struct {
 	// Key is ping id.
 	ping    map[int64]chan struct{}
 	pingMux sync.Mutex
+	// pingTimeout sets ping_delay_disconnect delay.
+	pingTimeout time.Duration
+	// pingInterval is duration between ping_delay_disconnect request.
+	pingInterval time.Duration
 
 	readConcurrency int
 	messages        chan *crypto.EncryptedMessageData
@@ -106,7 +110,6 @@ func New(addr string, opt Options) *Conn {
 		rand:         opt.Random,
 		cipher:       opt.Cipher,
 		log:          opt.Logger,
-		ping:         map[int64]chan struct{}{},
 		messageID:    opt.MessageID,
 		messageIDBuf: proto.NewMessageIDBuf(100),
 
@@ -120,6 +123,10 @@ func New(addr string, opt Options) *Conn {
 
 		authKey: opt.Key,
 		salt:    opt.Salt,
+
+		ping:         map[int64]chan struct{}{},
+		pingTimeout:  opt.PingTimeout,
+		pingInterval: opt.PingInterval,
 
 		readConcurrency: opt.ReadConcurrency,
 		messages:        make(chan *crypto.EncryptedMessageData, opt.ReadConcurrency),

@@ -37,7 +37,7 @@ func (s signalWriter) Write(p []byte) (n int, err error) {
 }
 
 func (m mtg) run(ctx context.Context, secret string, out, err io.Writer, wait *tdsync.Ready) error {
-	cmd := exec.CommandContext(ctx, m.path, "run", "--bind", m.addr, secret)
+	cmd := exec.CommandContext(ctx, m.path, "run", "--bind", m.addr, "-4", m.addr, secret)
 	cmd.Stdout = signalWriter{Writer: out, wait: wait}
 	cmd.Stderr = signalWriter{Writer: err, wait: wait}
 	cmd.Env = append([]string{"MTG_DEBUG=true", "MTG_TEST_DC=true"}, os.Environ()...)
@@ -87,12 +87,21 @@ func testMTProxy(secretType string, m mtg, storage session.Storage) func(t *test
 		g := tdsync.NewCancellableGroup(ctx)
 		ready := tdsync.NewReady()
 		g.Go(func(ctx context.Context) error {
-			_ = m.run(ctx, hex.EncodeToString(secret), w, w, ready)
-			return nil
+			err := m.run(ctx, hex.EncodeToString(secret), w, w, ready)
+			select {
+			case <-ctx.Done():
+				return nil
+			default:
+				return err
+			}
 		})
 		g.Go(func(ctx context.Context) error {
 			defer g.Cancel()
-			<-ready.Ready()
+			select {
+			case <-ready.Ready():
+			case <-ctx.Done():
+				return ctx.Err()
+			}
 
 			trp, err := transport.MTProxy(nil, m.addr, secret)
 			if err != nil {
