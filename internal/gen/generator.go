@@ -44,6 +44,8 @@ type Generator struct {
 	docBase      *url.URL
 	doc          *getdoc.Doc
 	docLineLimit int
+
+	GenerateServer bool
 }
 
 // NewGenerator initializes and returns new Generator from tl.Schema.
