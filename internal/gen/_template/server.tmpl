@@ -87,7 +87,7 @@ func (s *ServerDispatcher) On{{ $s.Method }}(f func({{ template "request_params"
             return nil, err
         }
 
-        if err := err := f({{- template "unpack_request" $s }}); err != nil{
+        if err := f({{- template "unpack_request" $s }}); err != nil{
             return nil, err
         }
 
