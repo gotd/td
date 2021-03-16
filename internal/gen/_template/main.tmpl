@@ -80,9 +80,17 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Encode({{ $s.BufArg }} *bin.Buffer) erro
     if {{ $s.Receiver }} == nil {
         return fmt.Errorf("can't encode {{ $s.RawType }} as nil")
     }
-{{- if not $s.Vector }}
+{{ if not $s.Vector -}}
     {{ $s.BufArg }}.PutID({{ $s.Name }}TypeID)
 {{- end }}
+    return {{ $s.Receiver }}.EncodeBare({{ $s.BufArg }})
+}
+
+// EncodeBare implements bin.BareEncoder.
+func ({{ $s.Receiver }} *{{ $s.Name }}) EncodeBare({{ $s.BufArg }} *bin.Buffer) error {
+    if {{ $s.Receiver }} == nil {
+        return fmt.Errorf("can't encode {{ $s.RawType }} as nil")
+    }
 {{- range $f := $s.Fields }}
     {{- if $f.Conditional }}
     if !({{ $s.Receiver }}.{{template "compare_zero" $f}}) {
@@ -96,7 +104,7 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Encode({{ $s.BufArg }} *bin.Buffer) erro
     if {{ $s.Receiver }}.{{ $f.ConditionalField }}.Has({{ $f.ConditionalIndex }}) {
     {{- end }}
     {{- if $f.Vector }}
-    {{ $s.BufArg }}.PutVectorHeader(len({{ $s.Receiver }}.{{ $f.Name }}))
+    {{ if not $f.BareVector }}{{ $s.BufArg }}.PutVectorHeader(len({{ $s.Receiver }}.{{ $f.Name }})){{ else }}{{ $s.BufArg }}.PutInt(len({{ $s.Receiver }}.{{ $f.Name }})){{- end }}
     for {{ if $f.Encoder }}idx{{ else }}_{{ end }}, {{- if $f.DoubleVector }}row{{else}}v{{end}} := range {{ $s.Receiver }}.{{ $f.Name }} {
     {{- if $f.DoubleVector }}
         {{ $s.BufArg }}.PutVectorHeader(len(row))
@@ -108,8 +116,8 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Encode({{ $s.BufArg }} *bin.Buffer) erro
             return fmt.Errorf("unable to encode {{ $s.RawType }}: field {{ $f.RawName }} element with index %d is nil", idx)
             }
         {{- end}}
-        if err := v.Encode({{ $s.BufArg }}); err != nil {
-            return fmt.Errorf("unable to encode {{ $s.RawType }}: field {{ $f.RawName }} element with index %d: %w", idx, err)
+        if err := v.Encode{{ if $f.BareVector }}Bare{{ end }}({{ $s.BufArg }}); err != nil {
+            return fmt.Errorf("unable to encode{{ if $f.BareVector }} bare{{ end }} {{ $s.RawType }}: field {{ $f.RawName }} element with index %d: %w", idx, err)
         }
     {{- else }}
         {{ $s.BufArg }}.Put{{ $f.Func }}(v)
@@ -228,11 +236,19 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Decode({{ $s.BufArg }} *bin.Buffer) erro
     if {{ $s.Receiver }} == nil {
         return fmt.Errorf("can't decode {{ $s.RawType }} to nil")
     }
-{{- if not $s.Vector }}
+{{ if not $s.Vector -}}
     if err := {{ $s.BufArg }}.ConsumeID({{ $s.Name }}TypeID); err != nil {
         return fmt.Errorf("unable to decode {{ $s.RawType }}: %w", err)
     }
 {{- end }}
+    return {{ $s.Receiver }}.DecodeBare({{ $s.BufArg }})
+}
+
+// DecodeBare implements bin.BareDecoder.
+func ({{ $s.Receiver }} *{{ $s.Name }}) DecodeBare({{ $s.BufArg }} *bin.Buffer) error {
+    if {{ $s.Receiver }} == nil {
+        return fmt.Errorf("can't decode {{ $s.RawType }} to nil")
+    }
 {{- range $f := $s.Fields }}
     {{- if $f.ConditionalBool }}
         {{ $s.Receiver }}.{{ $f.Name }} = {{ $s.Receiver }}.{{ $f.ConditionalField }}.Has({{ $f.ConditionalIndex }})
@@ -243,7 +259,7 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Decode({{ $s.BufArg }} *bin.Buffer) erro
             {
         {{- end }}
         {{- if $f.Vector }}
-            headerLen, err := {{ $s.BufArg }}.VectorHeader()
+            headerLen, err := {{ if $f.BareVector }}{{ $s.BufArg }}.Int(){{ else }}{{ $s.BufArg }}.VectorHeader(){{ end }}
             if err != nil {
                 return fmt.Errorf("unable to decode {{ $s.RawType }}: field {{ $f.RawName }}: %w", err)
             }
@@ -264,8 +280,8 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) Decode({{ $s.BufArg }} *bin.Buffer) erro
                 }
             {{- else if $f.Encoder }}
                 var value {{ $f.Type }}
-                if err := value.Decode({{ $s.BufArg }}); err != nil {
-                    return fmt.Errorf("unable to decode {{ $s.RawType }}: field {{ $f.RawName }}: %w", err)
+                if err := value.Decode{{ if $f.BareVector }}Bare{{ end }}({{ $s.BufArg }}); err != nil {
+                    return fmt.Errorf("unable to decode{{ if $f.BareVector }} bare{{ end }} {{ $s.RawType }}: field {{ $f.RawName }}: %w", err)
                 }
             {{- else}}
                 value, err := {{ $s.BufArg }}.{{ $f.Func }}()
@@ -315,6 +331,8 @@ func ({{ $s.Receiver }} {{ $s.Name }}) construct() {{ $s.Interface }} { return &
 var (
 _ bin.Encoder = &{{ $s.Name }}{}
 _ bin.Decoder = &{{ $s.Name }}{}
+_ bin.BareEncoder = &{{ $s.Name }}{}
+_ bin.BareDecoder = &{{ $s.Name }}{}
 {{ if $s.Interface }}
 _ {{ $s.Interface }} = &{{ $s.Name }}{}
 {{ end }}

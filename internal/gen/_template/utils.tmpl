@@ -54,6 +54,8 @@ Get{{$.Name}}() (value {{ template "print_type" $ }}{{ if and ($.Conditional) (n
 {{- /*gotype: github.com/gotd/td/internal/gen.interfaceDef*/ -}}
     bin.Encoder
     bin.Decoder
+    bin.BareEncoder
+    bin.BareDecoder
     construct() {{ $f.Name }}
 
     // TypeID returns type id in TL schema.

@@ -43,6 +43,18 @@ type Decoder interface {
 	Decode(b *Buffer) error
 }
 
+// BareEncoder can encode it's binary form to Buffer.
+// BareEncoder is like Encoder, but encodes object as bare.
+type BareEncoder interface {
+	EncodeBare(b *Buffer) error
+}
+
+// BareDecoder can decode it's binary form from Buffer.
+// BareEncoder is like Encoder, but decodes object as bare.
+type BareDecoder interface {
+	DecodeBare(b *Buffer) error
+}
+
 // Object wraps Decoder and Encoder interface and represents TL Object.
 type Object interface {
 	Decoder
