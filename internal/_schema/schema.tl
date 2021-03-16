@@ -41,7 +41,7 @@ destroy_session_none#62d350c9 session_id:long = DestroySessionRes;
 
 new_session_created#9ec20908 first_msg_id:long unique_id:long server_salt:long = NewSession;
 
-//msg_container#73f1f8dc messages:vector<%Message> = MessageContainer;
+msg_container#73f1f8dc messages:vector<%message> = MessageContainer;
 message msg_id:long seqno:int bytes:int body:Object = Message;
 msg_copy#e06046b2 orig_message:Message = MessageCopy;
 
