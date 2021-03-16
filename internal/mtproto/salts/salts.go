@@ -6,13 +6,13 @@ import (
 	"sync"
 	"time"
 
-	"github.com/gotd/td/internal/proto"
+	"github.com/gotd/td/internal/mt"
 )
 
 // Salts is a simple struct store server salts.
 type Salts struct {
 	// server salts fetched by getSalts.
-	salts    []proto.FutureSalt
+	salts    []mt.FutureSalt
 	saltsMux sync.Mutex
 }
 
@@ -48,7 +48,7 @@ func (s *Salts) Get(buffer time.Duration) (int64, bool) {
 }
 
 // Store stores all given salts.
-func (s *Salts) Store(salts []proto.FutureSalt) {
+func (s *Salts) Store(salts []mt.FutureSalt) {
 	s.saltsMux.Lock()
 	s.salts = append(s.salts, salts...)
 	s.saltsMux.Unlock()

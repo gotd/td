@@ -86,15 +86,15 @@ func (s *Server) SendPong(k Session, msgID, pingID int64) error {
 }
 
 func (s *Server) SendEternalSalt(k Session, msgID int64) error {
-	return s.SendFutureSalts(k, msgID, proto.FutureSalt{
+	return s.SendFutureSalts(k, msgID, mt.FutureSalt{
 		ValidSince: 1,
 		ValidUntil: math.MaxInt32,
 		Salt:       10,
 	})
 }
 
-func (s *Server) SendFutureSalts(k Session, msgID int64, salts ...proto.FutureSalt) error {
-	if err := s.Send(k, proto.MessageServerResponse, &proto.FutureSalts{
+func (s *Server) SendFutureSalts(k Session, msgID int64, salts ...mt.FutureSalt) error {
+	if err := s.Send(k, proto.MessageServerResponse, &mt.FutureSalts{
 		ReqMsgID: msgID,
 		Now:      int(s.clock.Now().Unix()),
 		Salts:    salts,
