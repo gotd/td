@@ -25,6 +25,9 @@ func Funcs() template.FuncMap {
 		"add": func(x, y int) int {
 			return x + y
 		},
+		"notEmpty": func(s string) bool{
+			return strings.TrimSpace(s) != ""
+		},
 	}
 }
 
