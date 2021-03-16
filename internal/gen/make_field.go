@@ -102,6 +102,8 @@ func (f fieldDef) EqualAsField(b fieldDef) bool {
 //
 // TODO(ernado) Split into multiple sections: base type, encoder and conditional.
 func (g *Generator) makeField(param tl.Parameter, annotations []tl.Annotation) (fieldDef, error) {
+	const bareVectorName = "vector"
+
 	f := fieldDef{
 		Name:    pascal(param.Name),
 		RawName: param.Name,
@@ -114,14 +116,14 @@ func (g *Generator) makeField(param tl.Parameter, annotations []tl.Annotation) (
 			f.Comment = a.Value
 		}
 	}
-	if baseType.Name == "vector" || baseType.Name == "Vector" {
-		f.BareVector = baseType.Name == "vector"
+	if baseType.Name == bareVectorName || baseType.Name == "Vector" {
+		f.BareVector = baseType.Name == bareVectorName
 		baseType = *baseType.GenericArg
 		f.Vector = true
 		f.Slice = true
 		f.BareVector = f.BareVector || baseType.Percent
 	}
-	if baseType.Name == "vector" || baseType.Name == "Vector" {
+	if baseType.Name == bareVectorName || baseType.Name == "Vector" {
 		baseType = *baseType.GenericArg
 		f.DoubleSlice = true
 		f.DoubleVector = true
