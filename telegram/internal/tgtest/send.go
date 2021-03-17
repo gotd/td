@@ -1,6 +1,7 @@
 package tgtest
 
 import (
+	"context"
 	"math"
 
 	"golang.org/x/xerrors"
@@ -12,7 +13,7 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-func (s *Server) Send(k Session, t proto.MessageType, encoder bin.Encoder) error {
+func (s *Server) Send(ctx context.Context, k Session, t proto.MessageType, encoder bin.Encoder) error {
 	conn, ok := s.users.getConnection(k.AuthKey)
 	if !ok {
 		return xerrors.Errorf("send %T: invalid key: connection not found", encoder)
@@ -35,7 +36,11 @@ func (s *Server) Send(k Session, t proto.MessageType, encoder bin.Encoder) error
 		return xerrors.Errorf("failed to encrypt message: %w", err)
 	}
 
-	return conn.Send(s.ctx, &b)
+	return conn.Send(ctx, &b)
+}
+
+func (s *Server) sendReq(req *Request, t proto.MessageType, encoder bin.Encoder) error {
+	return s.Send(req.RequestCtx, req.Session, t, encoder)
 }
 
 func (s *Server) SendResult(req *Request, msg bin.Encoder) error {
@@ -45,7 +50,7 @@ func (s *Server) SendResult(req *Request, msg bin.Encoder) error {
 		return xerrors.Errorf("failed to encode result data: %w", err)
 	}
 
-	if err := s.Send(req.Session, proto.MessageServerResponse, &proto.Result{
+	if err := s.sendReq(req, proto.MessageServerResponse, &proto.Result{
 		RequestMessageID: req.MsgID,
 		Result:           buf.Raw(),
 	}); err != nil {
@@ -59,8 +64,8 @@ func (s *Server) SendVector(req *Request, msgs ...bin.Encoder) error {
 	return s.SendResult(req, &genericVector{Elems: msgs})
 }
 
-func (s *Server) sendSessionCreated(k Session, serverSalt int64) error {
-	if err := s.Send(k, proto.MessageFromServer, &mt.NewSessionCreated{
+func (s *Server) sendSessionCreated(ctx context.Context, k Session, serverSalt int64) error {
+	if err := s.Send(ctx, k, proto.MessageFromServer, &mt.NewSessionCreated{
 		ServerSalt: serverSalt,
 	}); err != nil {
 		return xerrors.Errorf("send sessionCreated: %w", err)
@@ -74,9 +79,9 @@ func (s *Server) SendConfig(req *Request) error {
 	return s.SendResult(req, &tg.Config{})
 }
 
-func (s *Server) SendPong(k Session, msgID, pingID int64) error {
-	if err := s.Send(k, proto.MessageServerResponse, &mt.Pong{
-		MsgID:  msgID,
+func (s *Server) SendPong(req *Request, pingID int64) error {
+	if err := s.sendReq(req, proto.MessageServerResponse, &mt.Pong{
+		MsgID:  req.MsgID,
 		PingID: pingID,
 	}); err != nil {
 		return xerrors.Errorf("send pong: %w", err)
@@ -85,17 +90,17 @@ func (s *Server) SendPong(k Session, msgID, pingID int64) error {
 	return nil
 }
 
-func (s *Server) SendEternalSalt(k Session, msgID int64) error {
-	return s.SendFutureSalts(k, msgID, mt.FutureSalt{
+func (s *Server) SendEternalSalt(req *Request) error {
+	return s.SendFutureSalts(req, mt.FutureSalt{
 		ValidSince: 1,
 		ValidUntil: math.MaxInt32,
 		Salt:       10,
 	})
 }
 
-func (s *Server) SendFutureSalts(k Session, msgID int64, salts ...mt.FutureSalt) error {
-	if err := s.Send(k, proto.MessageServerResponse, &mt.FutureSalts{
-		ReqMsgID: msgID,
+func (s *Server) SendFutureSalts(req *Request, salts ...mt.FutureSalt) error {
+	if err := s.Send(req.RequestCtx, req.Session, proto.MessageServerResponse, &mt.FutureSalts{
+		ReqMsgID: req.MsgID,
 		Now:      int(s.clock.Now().Unix()),
 		Salts:    salts,
 	}); err != nil {
@@ -105,12 +110,12 @@ func (s *Server) SendFutureSalts(k Session, msgID int64, salts ...mt.FutureSalt)
 	return nil
 }
 
-func (s *Server) SendUpdates(k Session, updates ...tg.UpdateClass) error {
+func (s *Server) SendUpdates(ctx context.Context, k Session, updates ...tg.UpdateClass) error {
 	if len(updates) == 0 {
 		return nil
 	}
 
-	if err := s.Send(k, proto.MessageFromServer, &tg.Updates{
+	if err := s.Send(ctx, k, proto.MessageFromServer, &tg.Updates{
 		Updates: updates,
 		Date:    int(s.clock.Now().Unix()),
 	}); err != nil {
@@ -120,8 +125,8 @@ func (s *Server) SendUpdates(k Session, updates ...tg.UpdateClass) error {
 	return nil
 }
 
-func (s *Server) SendAck(k Session, ids ...int64) error {
-	if err := s.Send(k, proto.MessageFromServer, &mt.MsgsAck{MsgIDs: ids}); err != nil {
+func (s *Server) SendAck(ctx context.Context, k Session, ids ...int64) error {
+	if err := s.Send(ctx, k, proto.MessageFromServer, &mt.MsgsAck{MsgIDs: ids}); err != nil {
 		return xerrors.Errorf("send ack: %w", err)
 	}
 

@@ -17,6 +17,7 @@ import (
 	"github.com/gotd/td/internal/testutil"
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/telegram"
+	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/telegram/internal/e2etest"
 	"github.com/gotd/td/telegram/internal/tgtest"
 	"github.com/gotd/td/tg"
@@ -32,9 +33,11 @@ func testTransport(trp telegram.Transport, storage session.Storage) func(t *test
 		defer func() { _ = log.Sync() }()
 
 		err := telegram.TestClient(ctx, telegram.Options{
-			Transport:      trp,
 			Logger:         log.Named("client"),
 			SessionStorage: storage,
+			Resolver: dcs.PlainResolver(dcs.PlainOptions{
+				Transport: trp,
+			}),
 		}, func(ctx context.Context, client *telegram.Client) error {
 			if _, err := client.Self(ctx); err != nil {
 				return xerrors.Errorf("self: %w", err)
@@ -52,10 +55,10 @@ func TestExternalE2EConnect(t *testing.T) {
 
 	// To re-use session.
 	storage := &session.StorageMemory{}
-	t.Run("Abridged", testTransport(transport.Abridged(nil), storage))
-	t.Run("Intermediate", testTransport(transport.Intermediate(nil), storage))
-	t.Run("PaddedIntermediate", testTransport(transport.PaddedIntermediate(nil), storage))
-	t.Run("Full", testTransport(transport.Full(nil), storage))
+	t.Run("Abridged", testTransport(transport.Abridged(), storage))
+	t.Run("Intermediate", testTransport(transport.Intermediate(), storage))
+	t.Run("PaddedIntermediate", testTransport(transport.PaddedIntermediate(), storage))
+	t.Run("Full", testTransport(transport.Full(), storage))
 }
 
 const dialog = `— Да?
@@ -82,7 +85,6 @@ func TestExternalE2EUsersDialog(t *testing.T) {
 		AppID:   telegram.TestAppID,
 		AppHash: telegram.TestAppHash,
 		DcID:    2,
-		Addr:    telegram.AddrTest,
 	}
 	suite := e2etest.NewSuite(tgtest.NewSuite(ctx, t, log), cfg, rand.Reader)
 

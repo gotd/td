@@ -18,7 +18,7 @@ import (
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/telegram"
-	"github.com/gotd/td/transport"
+	"github.com/gotd/td/telegram/dcs"
 )
 
 type mtg struct {
@@ -103,14 +103,13 @@ func testMTProxy(secretType string, m mtg, storage session.Storage) func(t *test
 				return ctx.Err()
 			}
 
-			trp, err := transport.MTProxy(nil, m.addr, secret)
+			resolver, err := dcs.MTProxyResolver(m.addr, secret, dcs.MTProxyOptions{})
 			if err != nil {
 				return err
 			}
 
 			return telegram.TestClient(ctx, telegram.Options{
-				Addr:           m.addr,
-				Transport:      trp,
+				Resolver:       resolver,
 				Logger:         logger,
 				SessionStorage: storage,
 			}, func(ctx context.Context, client *telegram.Client) error {

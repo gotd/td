@@ -9,8 +9,8 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-func TestFindDC(t *testing.T) {
-	options := []tg.DCOption{
+func TestFindDCs(t *testing.T) {
+	dcOptions := []tg.DCOption{
 		{ID: 1, Ipv6: false},
 		{ID: 1, Ipv6: true},
 		{ID: 1, Ipv6: false, Static: true},
@@ -19,36 +19,32 @@ func TestFindDC(t *testing.T) {
 		{ID: 2, Ipv6: true},
 		{ID: 2, Ipv6: false},
 	}
-	for i := range options {
-		options[i].IPAddress = fmt.Sprintf("DC: %d, Index: %d", options[i].ID, i)
+	for i := range dcOptions {
+		dcOptions[i].IPAddress = fmt.Sprintf("DC: %d, Index: %d", dcOptions[i].ID, i)
 	}
-	cfg := tg.Config{DCOptions: options}
 
 	a := require.New(t)
-	_, ok := FindDC(cfg, -2, false)
-	a.False(ok)
-	_, ok = FindDC(cfg, -2, true)
-	a.False(ok)
+	dc := FindDCs(dcOptions, -2, false)
+	a.Empty(dc)
+	dc = FindDCs(dcOptions, -2, true)
+	a.Empty(dc)
 
 	// Prefer IPv6.
-	dc, ok := FindDC(cfg, 1, true)
-	a.True(ok)
-	a.True(dc.Ipv6)
+	dc = FindDCs(dcOptions, 1, true)
+	a.True(dc[0].Ipv6)
 
 	// Prefer static.
-	dc, ok = FindDC(cfg, 1, false)
-	a.True(ok)
-	a.True(dc.Static)
+	dc = FindDCs(dcOptions, 1, false)
+	a.True(dc[0].Static)
 
 	// Prefer static and IPv6.
-	dc, ok = FindDC(cfg, 2, true)
-	a.True(ok)
-	a.True(dc.Static)
-	a.True(dc.Ipv6)
+	dc = FindDCs(dcOptions, 2, true)
+	a.True(dc[0].Static)
+	a.True(dc[0].Ipv6)
 }
 
-func TestFindPrimaryDC(t *testing.T) {
-	options := []tg.DCOption{
+func TestFindPrimaryDCs(t *testing.T) {
+	dcOptions := []tg.DCOption{
 		{ID: 1, Ipv6: false},
 		{ID: 1, Ipv6: true},
 		{ID: 1, Ipv6: false, Static: true},
@@ -57,27 +53,24 @@ func TestFindPrimaryDC(t *testing.T) {
 		{ID: 2, Ipv6: true, CDN: true},
 		{ID: 2, Ipv6: false, TCPObfuscatedOnly: true},
 	}
-	for i := range options {
-		options[i].IPAddress = fmt.Sprintf("DC: %d, Index: %d", options[i].ID, i)
+	for i := range dcOptions {
+		dcOptions[i].IPAddress = fmt.Sprintf("DC: %d, Index: %d", dcOptions[i].ID, i)
 	}
-	cfg := tg.Config{DCOptions: options}
 	a := require.New(t)
-	_, err := FindPrimaryDC(cfg, -2, false)
-	a.Error(err)
-	_, err = FindPrimaryDC(cfg, -2, true)
-	a.Error(err)
+	dc := FindPrimaryDCs(dcOptions, -2, false)
+	a.Empty(dc)
+	dc = FindPrimaryDCs(dcOptions, -2, true)
+	a.Empty(dc)
 
 	// Prefer IPv6.
-	dc, err := FindPrimaryDC(cfg, 1, true)
-	a.NoError(err)
-	a.True(dc.Ipv6)
+	dc = FindPrimaryDCs(dcOptions, 1, true)
+	a.True(dc[0].Ipv6)
 
 	// Prefer static.
-	dc, err = FindPrimaryDC(cfg, 1, false)
-	a.NoError(err)
-	a.True(dc.Static)
+	dc = FindPrimaryDCs(dcOptions, 1, false)
+	a.True(dc[0].Static)
 
 	// Filter CDN/MediaOnly/TCPo.
-	dc, err = FindPrimaryDC(cfg, 2, false)
-	a.Error(err)
+	dc = FindPrimaryDCs(dcOptions, 2, false)
+	a.Empty(dc)
 }

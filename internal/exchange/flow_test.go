@@ -25,7 +25,7 @@ func TestExchange(t *testing.T) {
 	a.NoError(err)
 	log := zaptest.NewLogger(t)
 
-	i := transport.Intermediate(nil)
+	i := transport.Intermediate()
 	client, server := i.Pipe()
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
@@ -62,7 +62,7 @@ func TestExchangeCorpus(t *testing.T) {
 			reader := testutil.Rand([]byte(seed))
 			log := zaptest.NewLogger(t)
 
-			i := transport.Intermediate(nil)
+			i := transport.Intermediate()
 			client, server := i.Pipe()
 
 			ctx, cancel := context.WithTimeout(context.Background(), time.Minute)

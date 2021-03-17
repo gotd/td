@@ -41,7 +41,7 @@ func newTestClient(h testHandler) *Conn {
 		return nil
 	}, rpc.Options{})
 
-	client := New("2|localhost:443", Options{
+	client := New(nil, Options{
 		Logger:    zap.NewNop(),
 		Random:    rand.New(rand.NewSource(1)),
 		Key:       crypto.Key{}.WithID(),

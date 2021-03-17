@@ -4,6 +4,8 @@ import (
 	"sync"
 
 	"golang.org/x/xerrors"
+
+	"github.com/gotd/td/bin"
 )
 
 // Dispatcher is a plain handler to map requests by ID.
@@ -50,9 +52,25 @@ func (d *Dispatcher) Handle(id uint32, h Handler) *Dispatcher {
 	return d
 }
 
-// HandleFunc handler for given TypeID.
+// HandleFunc sets handler for given TypeID.
 func (d *Dispatcher) HandleFunc(id uint32, h func(server *Server, req *Request) error) *Dispatcher {
 	return d.Handle(id, HandlerFunc(h))
+}
+
+// Result sets constant result for given TypeID.
+// NB: it uses rpc_result to pack given encoder.
+func (d *Dispatcher) Result(id uint32, msg bin.Encoder) *Dispatcher {
+	return d.HandleFunc(id, func(server *Server, req *Request) error {
+		return server.SendResult(req, msg)
+	})
+}
+
+// Vector sets constant Vector result for given TypeID.
+// NB: it uses rpc_result to pack generic vector with given encoders..
+func (d *Dispatcher) Vector(id uint32, msgs ...bin.Encoder) *Dispatcher {
+	return d.HandleFunc(id, func(server *Server, req *Request) error {
+		return server.SendVector(req, msgs...)
+	})
 }
 
 // Fallback sets fallback handler.

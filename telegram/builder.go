@@ -16,6 +16,7 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/session"
+	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/tgerr"
 	"github.com/gotd/td/transport"
 )
@@ -63,8 +64,10 @@ func OptionsFromEnvironment(opts Options) (Options, error) {
 		}
 	}
 
-	if opts.Transport == nil {
-		opts.Transport = transport.Intermediate(transport.DialFunc(proxy.Dial))
+	if opts.Resolver == nil {
+		opts.Resolver = dcs.PlainResolver(dcs.PlainOptions{
+			Dialer: transport.DialFunc(proxy.Dial),
+		})
 	}
 
 	return opts, nil
@@ -135,8 +138,11 @@ func retry(ctx context.Context, logger *zap.Logger, cb func(ctx context.Context)
 // TestClient creates and authenticates user telegram.Client
 // using Telegram staging server.
 func TestClient(ctx context.Context, opts Options, cb func(ctx context.Context, client *Client) error) error {
-	if opts.Addr == "" {
-		opts.Addr = AddrTest
+	if opts.DC == 0 {
+		opts.DC = 2
+	}
+	if len(opts.DCList) == 0 {
+		opts.DCList = dcs.StagingDCs()
 	}
 
 	logger := zap.NewNop()
