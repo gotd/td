@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
-	"unicode"
 )
 
 // Error represents RPC error returned as result to request.
@@ -89,7 +88,7 @@ func (e *Error) extractArgument() {
 Parts:
 	for _, part := range parts {
 		for _, r := range part {
-			if unicode.IsDigit(r) {
+			if r >= '0' && r <= '9' {
 				continue
 			}
 
