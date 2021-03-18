@@ -51,8 +51,6 @@ type ChannelsGetAdminedPublicChannelsRequest struct {
 	//  3) https://core.telegram.org/method/channels.checkUsername
 	//  4) https://core.telegram.org/method/channels.updateUsername
 	CheckLimit bool
-	// ForGroupcall field of ChannelsGetAdminedPublicChannelsRequest.
-	ForGroupcall bool
 }
 
 // ChannelsGetAdminedPublicChannelsRequestTypeID is TL type id of ChannelsGetAdminedPublicChannelsRequest.
@@ -69,9 +67,6 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) Zero() bool {
 		return false
 	}
 	if !(g.CheckLimit == false) {
-		return false
-	}
-	if !(g.ForGroupcall == false) {
 		return false
 	}
 
@@ -91,11 +86,9 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) String() string {
 func (g *ChannelsGetAdminedPublicChannelsRequest) FillFrom(from interface {
 	GetByLocation() (value bool)
 	GetCheckLimit() (value bool)
-	GetForGroupcall() (value bool)
 }) {
 	g.ByLocation = from.GetByLocation()
 	g.CheckLimit = from.GetCheckLimit()
-	g.ForGroupcall = from.GetForGroupcall()
 }
 
 // TypeID returns type id in TL schema.
@@ -131,11 +124,6 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) TypeInfo() tdp.Type {
 			SchemaName: "check_limit",
 			Null:       !g.Flags.Has(1),
 		},
-		{
-			Name:       "ForGroupcall",
-			SchemaName: "for_groupcall",
-			Null:       !g.Flags.Has(2),
-		},
 	}
 	return typ
 }
@@ -159,9 +147,6 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) EncodeBare(b *bin.Buffer) erro
 	}
 	if !(g.CheckLimit == false) {
 		g.Flags.Set(1)
-	}
-	if !(g.ForGroupcall == false) {
-		g.Flags.Set(2)
 	}
 	if err := g.Flags.Encode(b); err != nil {
 		return fmt.Errorf("unable to encode channels.getAdminedPublicChannels#f8b036af: field flags: %w", err)
@@ -201,22 +186,6 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) GetCheckLimit() (value bool) {
 	return g.Flags.Has(1)
 }
 
-// SetForGroupcall sets value of ForGroupcall conditional field.
-func (g *ChannelsGetAdminedPublicChannelsRequest) SetForGroupcall(value bool) {
-	if value {
-		g.Flags.Set(2)
-		g.ForGroupcall = true
-	} else {
-		g.Flags.Unset(2)
-		g.ForGroupcall = false
-	}
-}
-
-// GetForGroupcall returns value of ForGroupcall conditional field.
-func (g *ChannelsGetAdminedPublicChannelsRequest) GetForGroupcall() (value bool) {
-	return g.Flags.Has(2)
-}
-
 // Decode implements bin.Decoder.
 func (g *ChannelsGetAdminedPublicChannelsRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
@@ -240,7 +209,6 @@ func (g *ChannelsGetAdminedPublicChannelsRequest) DecodeBare(b *bin.Buffer) erro
 	}
 	g.ByLocation = g.Flags.Has(0)
 	g.CheckLimit = g.Flags.Has(1)
-	g.ForGroupcall = g.Flags.Has(2)
 	return nil
 }
 

@@ -215,6 +215,8 @@ type GroupCall struct {
 	JoinMuted bool
 	// CanChangeJoinMuted field of GroupCall.
 	CanChangeJoinMuted bool
+	// JoinDateAsc field of GroupCall.
+	JoinDateAsc bool
 	// ID field of GroupCall.
 	ID int64
 	// AccessHash field of GroupCall.
@@ -255,6 +257,9 @@ func (g *GroupCall) Zero() bool {
 		return false
 	}
 	if !(g.CanChangeJoinMuted == false) {
+		return false
+	}
+	if !(g.JoinDateAsc == false) {
 		return false
 	}
 	if !(g.ID == 0) {
@@ -298,6 +303,7 @@ func (g *GroupCall) String() string {
 func (g *GroupCall) FillFrom(from interface {
 	GetJoinMuted() (value bool)
 	GetCanChangeJoinMuted() (value bool)
+	GetJoinDateAsc() (value bool)
 	GetID() (value int64)
 	GetAccessHash() (value int64)
 	GetParticipantsCount() (value int)
@@ -309,6 +315,7 @@ func (g *GroupCall) FillFrom(from interface {
 }) {
 	g.JoinMuted = from.GetJoinMuted()
 	g.CanChangeJoinMuted = from.GetCanChangeJoinMuted()
+	g.JoinDateAsc = from.GetJoinDateAsc()
 	g.ID = from.GetID()
 	g.AccessHash = from.GetAccessHash()
 	g.ParticipantsCount = from.GetParticipantsCount()
@@ -363,6 +370,11 @@ func (g *GroupCall) TypeInfo() tdp.Type {
 			Name:       "CanChangeJoinMuted",
 			SchemaName: "can_change_join_muted",
 			Null:       !g.Flags.Has(2),
+		},
+		{
+			Name:       "JoinDateAsc",
+			SchemaName: "join_date_asc",
+			Null:       !g.Flags.Has(6),
 		},
 		{
 			Name:       "ID",
@@ -423,6 +435,9 @@ func (g *GroupCall) EncodeBare(b *bin.Buffer) error {
 	}
 	if !(g.CanChangeJoinMuted == false) {
 		g.Flags.Set(2)
+	}
+	if !(g.JoinDateAsc == false) {
+		g.Flags.Set(6)
 	}
 	if !(g.Params.Zero()) {
 		g.Flags.Set(0)
@@ -490,6 +505,22 @@ func (g *GroupCall) SetCanChangeJoinMuted(value bool) {
 // GetCanChangeJoinMuted returns value of CanChangeJoinMuted conditional field.
 func (g *GroupCall) GetCanChangeJoinMuted() (value bool) {
 	return g.Flags.Has(2)
+}
+
+// SetJoinDateAsc sets value of JoinDateAsc conditional field.
+func (g *GroupCall) SetJoinDateAsc(value bool) {
+	if value {
+		g.Flags.Set(6)
+		g.JoinDateAsc = true
+	} else {
+		g.Flags.Unset(6)
+		g.JoinDateAsc = false
+	}
+}
+
+// GetJoinDateAsc returns value of JoinDateAsc conditional field.
+func (g *GroupCall) GetJoinDateAsc() (value bool) {
+	return g.Flags.Has(6)
 }
 
 // GetID returns value of ID field.
@@ -595,6 +626,7 @@ func (g *GroupCall) DecodeBare(b *bin.Buffer) error {
 	}
 	g.JoinMuted = g.Flags.Has(1)
 	g.CanChangeJoinMuted = g.Flags.Has(2)
+	g.JoinDateAsc = g.Flags.Has(6)
 	{
 		value, err := b.Long()
 		if err != nil {
