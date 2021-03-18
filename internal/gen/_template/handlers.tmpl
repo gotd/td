@@ -5,12 +5,12 @@
 type handler = func(UpdateContext, UpdateClass) error
 
 type UpdateDispatcher struct {
-    handlers map[int]handler
+    handlers map[uint32]handler
 }
 
 func NewUpdateDispatcher() UpdateDispatcher {
     return UpdateDispatcher{
-        handlers: map[int]handler{},
+        handlers: map[uint32]handler{},
     }
 }
 
@@ -55,13 +55,13 @@ func (u UpdateDispatcher) Handle(ctx context.Context, updates *Updates) error {
         Context:      ctx,
     }
 
-	for _, update := range updates.Updates {
+    for _, update := range updates.Updates {
         uctx.lazyInitFromUpdates(updates)
         if err := u.dispatch(uctx, update); err != nil {
             return err
         }
-	}
-	return nil
+    }
+    return nil
 }
 
 // HandleShort implements UpdateDispatcher.
@@ -72,21 +72,18 @@ func (u UpdateDispatcher) HandleShort(ctx context.Context, short *UpdateShort) e
 }
 
 func (u UpdateDispatcher) dispatch(uctx UpdateContext, update UpdateClass) error {
-    switch update.(type) {
-{{- range $s:= $.Structs }}{{ if eq $s.Interface "UpdateClass" }}
-    case *{{ $s.Name }}:
-        if handler, ok := u.handlers[{{ $s.Name }}TypeID]; ok {
-            if err := handler(uctx, update); err != nil {
-                return err
-            }
-        }
-{{- end }}{{ end }}
+    if update == nil {
+        return nil
     }
-
-    return nil
+    typeID := update.TypeID()
+    handler, ok := u.handlers[typeID]
+    if !ok {
+        return nil
+    }
+    return handler(uctx, update)
 }
 
-{{- range $s:= $.Structs }}{{ if eq $s.Interface "UpdateClass" }}
+{{- range $s := $.Structs }}{{ if eq $s.Interface "UpdateClass" }}
 {{ $eventName := trimPrefix $s.Name "Update"}}
 // {{ $eventName }}Handler is a {{ $eventName }} event handler.
 type {{ $eventName }}Handler func(ctx UpdateContext, update *{{ $s.Name }}) error

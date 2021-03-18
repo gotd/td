@@ -26,2400 +26,1804 @@ var (
 	_ = tgerr.Error{}
 )
 
-// Err2FAConfirmWait is error type for "2FA_CONFIRM_WAIT".
-const Err2FAConfirmWait = "2FA_CONFIRM_WAIT"
+// Telegram API error types.
+const (
+	Err2FAConfirmWait                   = "2FA_CONFIRM_WAIT"
+	ErrAboutTooLong                     = "ABOUT_TOO_LONG"
+	ErrAccessTokenExpired               = "ACCESS_TOKEN_EXPIRED"
+	ErrAccessTokenInvalid               = "ACCESS_TOKEN_INVALID"
+	ErrAdminsTooMuch                    = "ADMINS_TOO_MUCH"
+	ErrAPIIDInvalid                     = "API_ID_INVALID"
+	ErrAPIIDPublishedFlood              = "API_ID_PUBLISHED_FLOOD"
+	ErrArticleTitleEmpty                = "ARTICLE_TITLE_EMPTY"
+	ErrAuthBytesInvalid                 = "AUTH_BYTES_INVALID"
+	ErrAuthKeyInvalid                   = "AUTH_KEY_INVALID"
+	ErrAuthKeyPermEmpty                 = "AUTH_KEY_PERM_EMPTY"
+	ErrAuthTokenExpired                 = "AUTH_TOKEN_EXPIRED"
+	ErrAuthTokenInvalidx                = "AUTH_TOKEN_INVALIDX"
+	ErrBannedRightsInvalid              = "BANNED_RIGHTS_INVALID"
+	ErrBotsTooMuch                      = "BOTS_TOO_MUCH"
+	ErrBotChannelsNa                    = "BOT_CHANNELS_NA"
+	ErrBotDomainInvalid                 = "BOT_DOMAIN_INVALID"
+	ErrBotGroupsBlocked                 = "BOT_GROUPS_BLOCKED"
+	ErrBotInlineDisabled                = "BOT_INLINE_DISABLED"
+	ErrBotInvalid                       = "BOT_INVALID"
+	ErrBotMissing                       = "BOT_MISSING"
+	ErrBotResponseTimeout               = "BOT_RESPONSE_TIMEOUT"
+	ErrBroadcastForbidden               = "BROADCAST_FORBIDDEN"
+	ErrBroadcastIDInvalid               = "BROADCAST_ID_INVALID"
+	ErrBroadcastPublicVotersForbidden   = "BROADCAST_PUBLIC_VOTERS_FORBIDDEN"
+	ErrBroadcastRequired                = "BROADCAST_REQUIRED"
+	ErrButtonDataInvalid                = "BUTTON_DATA_INVALID"
+	ErrButtonTypeInvalid                = "BUTTON_TYPE_INVALID"
+	ErrButtonURLInvalid                 = "BUTTON_URL_INVALID"
+	ErrCallAlreadyAccepted              = "CALL_ALREADY_ACCEPTED"
+	ErrCallAlreadyDeclined              = "CALL_ALREADY_DECLINED"
+	ErrCallPeerInvalid                  = "CALL_PEER_INVALID"
+	ErrCallProtocolFlagsInvalid         = "CALL_PROTOCOL_FLAGS_INVALID"
+	ErrCDNMethodInvalid                 = "CDN_METHOD_INVALID"
+	ErrChannelsAdminLocatedTooMuch      = "CHANNELS_ADMIN_LOCATED_TOO_MUCH"
+	ErrChannelsAdminPublicTooMuch       = "CHANNELS_ADMIN_PUBLIC_TOO_MUCH"
+	ErrChannelsTooMuch                  = "CHANNELS_TOO_MUCH"
+	ErrChannelInvalid                   = "CHANNEL_INVALID"
+	ErrChannelPrivate                   = "CHANNEL_PRIVATE"
+	ErrChannelPublicGroupNa             = "CHANNEL_PUBLIC_GROUP_NA"
+	ErrChannelTooLarge                  = "CHANNEL_TOO_LARGE"
+	ErrChatAboutNotModified             = "CHAT_ABOUT_NOT_MODIFIED"
+	ErrChatAboutTooLong                 = "CHAT_ABOUT_TOO_LONG"
+	ErrChatAdminInviteRequired          = "CHAT_ADMIN_INVITE_REQUIRED"
+	ErrChatAdminRequired                = "CHAT_ADMIN_REQUIRED"
+	ErrChatIDEmpty                      = "CHAT_ID_EMPTY"
+	ErrChatIDInvalid                    = "CHAT_ID_INVALID"
+	ErrChatInvalid                      = "CHAT_INVALID"
+	ErrChatLinkExists                   = "CHAT_LINK_EXISTS"
+	ErrChatNotModified                  = "CHAT_NOT_MODIFIED"
+	ErrChatRestricted                   = "CHAT_RESTRICTED"
+	ErrChatSendGifsForbidden            = "CHAT_SEND_GIFS_FORBIDDEN"
+	ErrChatSendInlineForbidden          = "CHAT_SEND_INLINE_FORBIDDEN"
+	ErrChatSendMediaForbidden           = "CHAT_SEND_MEDIA_FORBIDDEN"
+	ErrChatSendPollForbidden            = "CHAT_SEND_POLL_FORBIDDEN"
+	ErrChatSendStickersForbidden        = "CHAT_SEND_STICKERS_FORBIDDEN"
+	ErrChatTitleEmpty                   = "CHAT_TITLE_EMPTY"
+	ErrChatWriteForbidden               = "CHAT_WRITE_FORBIDDEN"
+	ErrCodeEmpty                        = "CODE_EMPTY"
+	ErrCodeHashInvalid                  = "CODE_HASH_INVALID"
+	ErrCodeInvalid                      = "CODE_INVALID"
+	ErrConnectionAPIIDInvalid           = "CONNECTION_API_ID_INVALID"
+	ErrConnectionAppVersionEmpty        = "CONNECTION_APP_VERSION_EMPTY"
+	ErrConnectionDeviceModelEmpty       = "CONNECTION_DEVICE_MODEL_EMPTY"
+	ErrConnectionLangPackInvalid        = "CONNECTION_LANG_PACK_INVALID"
+	ErrConnectionLayerInvalid           = "CONNECTION_LAYER_INVALID"
+	ErrConnectionNotInited              = "CONNECTION_NOT_INITED"
+	ErrConnectionSystemEmpty            = "CONNECTION_SYSTEM_EMPTY"
+	ErrConnectionSystemLangCodeEmpty    = "CONNECTION_SYSTEM_LANG_CODE_EMPTY"
+	ErrContactAddMissing                = "CONTACT_ADD_MISSING"
+	ErrContactIDInvalid                 = "CONTACT_ID_INVALID"
+	ErrContactNameEmpty                 = "CONTACT_NAME_EMPTY"
+	ErrContactReqMissing                = "CONTACT_REQ_MISSING"
+	ErrDataInvalid                      = "DATA_INVALID"
+	ErrDataJSONInvalid                  = "DATA_JSON_INVALID"
+	ErrDataTooLong                      = "DATA_TOO_LONG"
+	ErrDateEmpty                        = "DATE_EMPTY"
+	ErrDCIDInvalid                      = "DC_ID_INVALID"
+	ErrDhGAInvalid                      = "DH_G_A_INVALID"
+	ErrEmailHashExpired                 = "EMAIL_HASH_EXPIRED"
+	ErrEmailUnconfirmed                 = "EMAIL_UNCONFIRMED"
+	ErrEmailVerifyExpired               = "EMAIL_VERIFY_EXPIRED"
+	ErrEncryptedMessageInvalid          = "ENCRYPTED_MESSAGE_INVALID"
+	ErrEncryptionAlreadyAccepted        = "ENCRYPTION_ALREADY_ACCEPTED"
+	ErrEncryptionAlreadyDeclined        = "ENCRYPTION_ALREADY_DECLINED"
+	ErrEncryptionDeclined               = "ENCRYPTION_DECLINED"
+	ErrEncryptionIDInvalid              = "ENCRYPTION_ID_INVALID"
+	ErrEntityMentionUserInvalid         = "ENTITY_MENTION_USER_INVALID"
+	ErrErrorTextEmpty                   = "ERROR_TEXT_EMPTY"
+	ErrExternalURLInvalid               = "EXTERNAL_URL_INVALID"
+	ErrFilerefUpgradeNeeded             = "FILEREF_UPGRADE_NEEDED"
+	ErrFileIDInvalid                    = "FILE_ID_INVALID"
+	ErrFilePartsInvalid                 = "FILE_PARTS_INVALID"
+	ErrFilePartEmpty                    = "FILE_PART_EMPTY"
+	ErrFilePartInvalid                  = "FILE_PART_INVALID"
+	ErrFilePartLengthInvalid            = "FILE_PART_LENGTH_INVALID"
+	ErrFilePartSizeChanged              = "FILE_PART_SIZE_CHANGED"
+	ErrFilePartSizeInvalid              = "FILE_PART_SIZE_INVALID"
+	ErrFilePartTooBig                   = "FILE_PART_TOO_BIG"
+	ErrFileReference                    = "FILE_REFERENCE"
+	ErrFileReferenceExpired             = "FILE_REFERENCE_EXPIRED"
+	ErrFilterIDInvalid                  = "FILTER_ID_INVALID"
+	ErrFirstnameInvalid                 = "FIRSTNAME_INVALID"
+	ErrFolderIDInvalid                  = "FOLDER_ID_INVALID"
+	ErrFreshChangeAdminsForbidden       = "FRESH_CHANGE_ADMINS_FORBIDDEN"
+	ErrFreshResetAuthorisationForbidden = "FRESH_RESET_AUTHORISATION_FORBIDDEN"
+	ErrFromMessageBotDisabled           = "FROM_MESSAGE_BOT_DISABLED"
+	ErrGeoPointInvalid                  = "GEO_POINT_INVALID"
+	ErrGifContentTypeInvalid            = "GIF_CONTENT_TYPE_INVALID"
+	ErrGifIDInvalid                     = "GIF_ID_INVALID"
+	ErrGraphInvalidReload               = "GRAPH_INVALID_RELOAD"
+	ErrGraphOutdatedReload              = "GRAPH_OUTDATED_RELOAD"
+	ErrGroupedMediaInvalid              = "GROUPED_MEDIA_INVALID"
+	ErrHashInvalid                      = "HASH_INVALID"
+	ErrImageProcessFailed               = "IMAGE_PROCESS_FAILED"
+	ErrInlineBotRequired                = "INLINE_BOT_REQUIRED"
+	ErrInlineResultExpired              = "INLINE_RESULT_EXPIRED"
+	ErrInputConstructorInvalid          = "INPUT_CONSTRUCTOR_INVALID"
+	ErrInputLayerInvalid                = "INPUT_LAYER_INVALID"
+	ErrInputMethodInvalid1192227        = "INPUT_METHOD_INVALID_1192227"
+	ErrInputMethodInvalid1400137063     = "INPUT_METHOD_INVALID_1400137063"
+	ErrInputMethodInvalid1604042050     = "INPUT_METHOD_INVALID_1604042050"
+	ErrInputRequestTooLong              = "INPUT_REQUEST_TOO_LONG"
+	ErrInputUserDeactivated             = "INPUT_USER_DEACTIVATED"
+	ErrInviteHashEmpty                  = "INVITE_HASH_EMPTY"
+	ErrInviteHashExpired                = "INVITE_HASH_EXPIRED"
+	ErrInviteHashInvalid                = "INVITE_HASH_INVALID"
+	ErrLangPackInvalid                  = "LANG_PACK_INVALID"
+	ErrLastnameInvalid                  = "LASTNAME_INVALID"
+	ErrLimitInvalid                     = "LIMIT_INVALID"
+	ErrLinkNotModified                  = "LINK_NOT_MODIFIED"
+	ErrLocationInvalid                  = "LOCATION_INVALID"
+	ErrMaxIDInvalid                     = "MAX_ID_INVALID"
+	ErrMD5ChecksumInvalid               = "MD5_CHECKSUM_INVALID"
+	ErrMediaCaptionTooLong              = "MEDIA_CAPTION_TOO_LONG"
+	ErrMediaEmpty                       = "MEDIA_EMPTY"
+	ErrMediaInvalid                     = "MEDIA_INVALID"
+	ErrMediaPrevInvalid                 = "MEDIA_PREV_INVALID"
+	ErrMegagroupIDInvalid               = "MEGAGROUP_ID_INVALID"
+	ErrMegagroupRequired                = "MEGAGROUP_REQUIRED"
+	ErrMessageAuthorRequired            = "MESSAGE_AUTHOR_REQUIRED"
+	ErrMessageDeleteForbidden           = "MESSAGE_DELETE_FORBIDDEN"
+	ErrMessageEditTimeExpired           = "MESSAGE_EDIT_TIME_EXPIRED"
+	ErrMessageEmpty                     = "MESSAGE_EMPTY"
+	ErrMessageIDsEmpty                  = "MESSAGE_IDS_EMPTY"
+	ErrMessageIDInvalid                 = "MESSAGE_ID_INVALID"
+	ErrMessageNotModified               = "MESSAGE_NOT_MODIFIED"
+	ErrMessagePollClosed                = "MESSAGE_POLL_CLOSED"
+	ErrMessageTooLong                   = "MESSAGE_TOO_LONG"
+	ErrMethodInvalid                    = "METHOD_INVALID"
+	ErrMsgIDInvalid                     = "MSG_ID_INVALID"
+	ErrMsgWaitFailed                    = "MSG_WAIT_FAILED"
+	ErrMultiMediaTooLong                = "MULTI_MEDIA_TOO_LONG"
+	ErrNetworkMigrate                   = "NETWORK_MIGRATE"
+	ErrNewSaltInvalid                   = "NEW_SALT_INVALID"
+	ErrNewSettingsInvalid               = "NEW_SETTINGS_INVALID"
+	ErrOffsetInvalid                    = "OFFSET_INVALID"
+	ErrOffsetPeerIDInvalid              = "OFFSET_PEER_ID_INVALID"
+	ErrOptionsTooMuch                   = "OPTIONS_TOO_MUCH"
+	ErrOptionInvalid                    = "OPTION_INVALID"
+	ErrP0nyFloodwait                    = "P0NY_FLOODWAIT"
+	ErrPackShortNameInvalid             = "PACK_SHORT_NAME_INVALID"
+	ErrPackShortNameOccupied            = "PACK_SHORT_NAME_OCCUPIED"
+	ErrPackTitleInvalid                 = "PACK_TITLE_INVALID"
+	ErrParticipantsTooFew               = "PARTICIPANTS_TOO_FEW"
+	ErrParticipantVersionOutdated       = "PARTICIPANT_VERSION_OUTDATED"
+	ErrPasswordEmpty                    = "PASSWORD_EMPTY"
+	ErrPasswordHashInvalid              = "PASSWORD_HASH_INVALID"
+	ErrPasswordMissing                  = "PASSWORD_MISSING"
+	ErrPasswordTooFresh                 = "PASSWORD_TOO_FRESH"
+	ErrPeerIDInvalid                    = "PEER_ID_INVALID"
+	ErrPeerIDNotSupported               = "PEER_ID_NOT_SUPPORTED"
+	ErrPersistentTimestampEmpty         = "PERSISTENT_TIMESTAMP_EMPTY"
+	ErrPersistentTimestampInvalid       = "PERSISTENT_TIMESTAMP_INVALID"
+	ErrPhoneCodeEmpty                   = "PHONE_CODE_EMPTY"
+	ErrPhoneCodeExpired                 = "PHONE_CODE_EXPIRED"
+	ErrPhoneCodeHashEmpty               = "PHONE_CODE_HASH_EMPTY"
+	ErrPhoneCodeInvalid                 = "PHONE_CODE_INVALID"
+	ErrPhoneMigrate                     = "PHONE_MIGRATE"
+	ErrPhoneNumberAppSignupForbidden    = "PHONE_NUMBER_APP_SIGNUP_FORBIDDEN"
+	ErrPhoneNumberBanned                = "PHONE_NUMBER_BANNED"
+	ErrPhoneNumberFlood                 = "PHONE_NUMBER_FLOOD"
+	ErrPhoneNumberInvalid               = "PHONE_NUMBER_INVALID"
+	ErrPhoneNumberOccupied              = "PHONE_NUMBER_OCCUPIED"
+	ErrPhoneNumberUnoccupied            = "PHONE_NUMBER_UNOCCUPIED"
+	ErrPhonePasswordFlood               = "PHONE_PASSWORD_FLOOD"
+	ErrPhonePasswordProtected           = "PHONE_PASSWORD_PROTECTED"
+	ErrPhotoContentTypeInvalid          = "PHOTO_CONTENT_TYPE_INVALID"
+	ErrPhotoContentURLEmpty             = "PHOTO_CONTENT_URL_EMPTY"
+	ErrPhotoCropFileMissing             = "PHOTO_CROP_FILE_MISSING"
+	ErrPhotoCropSizeSmall               = "PHOTO_CROP_SIZE_SMALL"
+	ErrPhotoExtInvalid                  = "PHOTO_EXT_INVALID"
+	ErrPhotoFileMissing                 = "PHOTO_FILE_MISSING"
+	ErrPhotoIDInvalid                   = "PHOTO_ID_INVALID"
+	ErrPhotoInvalid                     = "PHOTO_INVALID"
+	ErrPhotoInvalidDimensions           = "PHOTO_INVALID_DIMENSIONS"
+	ErrPhotoSaveFileInvalid             = "PHOTO_SAVE_FILE_INVALID"
+	ErrPhotoThumbURLEmpty               = "PHOTO_THUMB_URL_EMPTY"
+	ErrPinnedDialogsTooMuch             = "PINNED_DIALOGS_TOO_MUCH"
+	ErrPinRestricted                    = "PIN_RESTRICTED"
+	ErrPollAnswersInvalid               = "POLL_ANSWERS_INVALID"
+	ErrPollOptionDuplicate              = "POLL_OPTION_DUPLICATE"
+	ErrPollOptionInvalid                = "POLL_OPTION_INVALID"
+	ErrPollVoteRequired                 = "POLL_VOTE_REQUIRED"
+	ErrPrivacyKeyInvalid                = "PRIVACY_KEY_INVALID"
+	ErrPrivacyValueInvalid              = "PRIVACY_VALUE_INVALID"
+	ErrQueryIDEmpty                     = "QUERY_ID_EMPTY"
+	ErrQueryIDInvalid                   = "QUERY_ID_INVALID"
+	ErrQueryTooShort                    = "QUERY_TOO_SHORT"
+	ErrQuizCorrectAnswersEmpty          = "QUIZ_CORRECT_ANSWERS_EMPTY"
+	ErrQuizCorrectAnswerInvalid         = "QUIZ_CORRECT_ANSWER_INVALID"
+	ErrRandomIDEmpty                    = "RANDOM_ID_EMPTY"
+	ErrRandomIDInvalid                  = "RANDOM_ID_INVALID"
+	ErrRandomLengthInvalid              = "RANDOM_LENGTH_INVALID"
+	ErrRangesInvalid                    = "RANGES_INVALID"
+	ErrReplyMarkupBuyEmpty              = "REPLY_MARKUP_BUY_EMPTY"
+	ErrReplyMarkupInvalid               = "REPLY_MARKUP_INVALID"
+	ErrResultsTooMuch                   = "RESULTS_TOO_MUCH"
+	ErrResultIDDuplicate                = "RESULT_ID_DUPLICATE"
+	ErrResultIDEmpty                    = "RESULT_ID_EMPTY"
+	ErrResultTypeInvalid                = "RESULT_TYPE_INVALID"
+	ErrRevoteNotAllowed                 = "REVOTE_NOT_ALLOWED"
+	ErrRightForbidden                   = "RIGHT_FORBIDDEN"
+	ErrRsaDecryptFailed                 = "RSA_DECRYPT_FAILED"
+	ErrScheduleBotNotAllowed            = "SCHEDULE_BOT_NOT_ALLOWED"
+	ErrScheduleDateInvalid              = "SCHEDULE_DATE_INVALID"
+	ErrScheduleDateTooLate              = "SCHEDULE_DATE_TOO_LATE"
+	ErrScheduleTooMuch                  = "SCHEDULE_TOO_MUCH"
+	ErrSearchQueryEmpty                 = "SEARCH_QUERY_EMPTY"
+	ErrSecondsInvalid                   = "SECONDS_INVALID"
+	ErrSendMessageMediaInvalid          = "SEND_MESSAGE_MEDIA_INVALID"
+	ErrSendMessageTypeInvalid           = "SEND_MESSAGE_TYPE_INVALID"
+	ErrSessionTooFresh                  = "SESSION_TOO_FRESH"
+	ErrSettingsInvalid                  = "SETTINGS_INVALID"
+	ErrSHA256HashInvalid                = "SHA256_HASH_INVALID"
+	ErrShortnameOccupyFailed            = "SHORTNAME_OCCUPY_FAILED"
+	ErrSlowmodeMultiMsgsDisabled        = "SLOWMODE_MULTI_MSGS_DISABLED"
+	ErrSlowmodeWait                     = "SLOWMODE_WAIT"
+	ErrSMSCodeCreateFailed              = "SMS_CODE_CREATE_FAILED"
+	ErrSRPIDInvalid                     = "SRP_ID_INVALID"
+	ErrSRPPasswordChanged               = "SRP_PASSWORD_CHANGED"
+	ErrStartParamEmpty                  = "START_PARAM_EMPTY"
+	ErrStartParamInvalid                = "START_PARAM_INVALID"
+	ErrStartParamTooLong                = "START_PARAM_TOO_LONG"
+	ErrStickersetInvalid                = "STICKERSET_INVALID"
+	ErrStickersEmpty                    = "STICKERS_EMPTY"
+	ErrStickerEmojiInvalid              = "STICKER_EMOJI_INVALID"
+	ErrStickerFileInvalid               = "STICKER_FILE_INVALID"
+	ErrStickerIDInvalid                 = "STICKER_ID_INVALID"
+	ErrStickerInvalid                   = "STICKER_INVALID"
+	ErrStickerPngDimensions             = "STICKER_PNG_DIMENSIONS"
+	ErrStickerPngNopng                  = "STICKER_PNG_NOPNG"
+	ErrTakeoutInitDelay                 = "TAKEOUT_INIT_DELAY"
+	ErrTakeoutRequired                  = "TAKEOUT_REQUIRED"
+	ErrTempAuthKeyAlreadyBound          = "TEMP_AUTH_KEY_ALREADY_BOUND"
+	ErrTempAuthKeyEmpty                 = "TEMP_AUTH_KEY_EMPTY"
+	ErrThemeFileInvalid                 = "THEME_FILE_INVALID"
+	ErrThemeFormatInvalid               = "THEME_FORMAT_INVALID"
+	ErrThemeInvalid                     = "THEME_INVALID"
+	ErrTmpPasswordDisabled              = "TMP_PASSWORD_DISABLED"
+	ErrTokenInvalid                     = "TOKEN_INVALID"
+	ErrTTLDaysInvalid                   = "TTL_DAYS_INVALID"
+	ErrTTLMediaInvalid                  = "TTL_MEDIA_INVALID"
+	ErrTypesEmpty                       = "TYPES_EMPTY"
+	ErrTimeout                          = "Timeout"
+	ErrUntilDateInvalid                 = "UNTIL_DATE_INVALID"
+	ErrURLInvalid                       = "URL_INVALID"
+	ErrUsernameInvalid                  = "USERNAME_INVALID"
+	ErrUsernameNotModified              = "USERNAME_NOT_MODIFIED"
+	ErrUsernameNotOccupied              = "USERNAME_NOT_OCCUPIED"
+	ErrUsernameOccupied                 = "USERNAME_OCCUPIED"
+	ErrUserpicUploadRequired            = "USERPIC_UPLOAD_REQUIRED"
+	ErrUsersTooFew                      = "USERS_TOO_FEW"
+	ErrUsersTooMuch                     = "USERS_TOO_MUCH"
+	ErrUserAdminInvalid                 = "USER_ADMIN_INVALID"
+	ErrUserAlreadyParticipant           = "USER_ALREADY_PARTICIPANT"
+	ErrUserBannedInChannel              = "USER_BANNED_IN_CHANNEL"
+	ErrUserBlocked                      = "USER_BLOCKED"
+	ErrUserBot                          = "USER_BOT"
+	ErrUserBotInvalid                   = "USER_BOT_INVALID"
+	ErrUserBotRequired                  = "USER_BOT_REQUIRED"
+	ErrUserChannelsTooMuch              = "USER_CHANNELS_TOO_MUCH"
+	ErrUserCreator                      = "USER_CREATOR"
+	ErrUserIDInvalid                    = "USER_ID_INVALID"
+	ErrUserInvalid                      = "USER_INVALID"
+	ErrUserIsBlocked                    = "USER_IS_BLOCKED"
+	ErrUserIsBot                        = "USER_IS_BOT"
+	ErrUserKicked                       = "USER_KICKED"
+	ErrUserNotMutualContact             = "USER_NOT_MUTUAL_CONTACT"
+	ErrUserNotParticipant               = "USER_NOT_PARTICIPANT"
+	ErrUserPrivacyRestricted            = "USER_PRIVACY_RESTRICTED"
+	ErrUserRestricted                   = "USER_RESTRICTED"
+	ErrVideoFileInvalid                 = "VIDEO_FILE_INVALID"
+	ErrWcConvertURLInvalid              = "WC_CONVERT_URL_INVALID"
+	ErrWebdocumentInvalid               = "WEBDOCUMENT_INVALID"
+	ErrWebdocumentMimeInvalid           = "WEBDOCUMENT_MIME_INVALID"
+	ErrWebdocumentSizeTooBig            = "WEBDOCUMENT_SIZE_TOO_BIG"
+	ErrWebpageCurlFailed                = "WEBPAGE_CURL_FAILED"
+	ErrWebpageMediaEmpty                = "WEBPAGE_MEDIA_EMPTY"
+	ErrYouBlockedUser                   = "YOU_BLOCKED_USER"
+)
 
 // Is2FAConfirmWait reports whether err is 2FA_CONFIRM_WAIT.
 func Is2FAConfirmWait(err error) bool {
 	return tgerr.Is(err, Err2FAConfirmWait)
 }
 
-// ErrAboutTooLong is error type for "ABOUT_TOO_LONG".
-const ErrAboutTooLong = "ABOUT_TOO_LONG"
-
 // IsAboutTooLong reports whether err is ABOUT_TOO_LONG.
 func IsAboutTooLong(err error) bool {
 	return tgerr.Is(err, ErrAboutTooLong)
 }
-
-// ErrAccessTokenExpired is error type for "ACCESS_TOKEN_EXPIRED".
-const ErrAccessTokenExpired = "ACCESS_TOKEN_EXPIRED"
 
 // IsAccessTokenExpired reports whether err is ACCESS_TOKEN_EXPIRED.
 func IsAccessTokenExpired(err error) bool {
 	return tgerr.Is(err, ErrAccessTokenExpired)
 }
 
-// ErrAccessTokenInvalid is error type for "ACCESS_TOKEN_INVALID".
-const ErrAccessTokenInvalid = "ACCESS_TOKEN_INVALID"
-
 // IsAccessTokenInvalid reports whether err is ACCESS_TOKEN_INVALID.
 func IsAccessTokenInvalid(err error) bool {
 	return tgerr.Is(err, ErrAccessTokenInvalid)
 }
-
-// ErrAdminsTooMuch is error type for "ADMINS_TOO_MUCH".
-const ErrAdminsTooMuch = "ADMINS_TOO_MUCH"
 
 // IsAdminsTooMuch reports whether err is ADMINS_TOO_MUCH.
 func IsAdminsTooMuch(err error) bool {
 	return tgerr.Is(err, ErrAdminsTooMuch)
 }
 
-// ErrAPIIDInvalid is error type for "API_ID_INVALID".
-const ErrAPIIDInvalid = "API_ID_INVALID"
-
 // IsAPIIDInvalid reports whether err is API_ID_INVALID.
 func IsAPIIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrAPIIDInvalid)
 }
-
-// ErrAPIIDPublishedFlood is error type for "API_ID_PUBLISHED_FLOOD".
-const ErrAPIIDPublishedFlood = "API_ID_PUBLISHED_FLOOD"
 
 // IsAPIIDPublishedFlood reports whether err is API_ID_PUBLISHED_FLOOD.
 func IsAPIIDPublishedFlood(err error) bool {
 	return tgerr.Is(err, ErrAPIIDPublishedFlood)
 }
 
-// ErrArticleTitleEmpty is error type for "ARTICLE_TITLE_EMPTY".
-const ErrArticleTitleEmpty = "ARTICLE_TITLE_EMPTY"
-
 // IsArticleTitleEmpty reports whether err is ARTICLE_TITLE_EMPTY.
 func IsArticleTitleEmpty(err error) bool {
 	return tgerr.Is(err, ErrArticleTitleEmpty)
 }
-
-// ErrAuthBytesInvalid is error type for "AUTH_BYTES_INVALID".
-const ErrAuthBytesInvalid = "AUTH_BYTES_INVALID"
 
 // IsAuthBytesInvalid reports whether err is AUTH_BYTES_INVALID.
 func IsAuthBytesInvalid(err error) bool {
 	return tgerr.Is(err, ErrAuthBytesInvalid)
 }
 
-// ErrAuthKeyInvalid is error type for "AUTH_KEY_INVALID".
-const ErrAuthKeyInvalid = "AUTH_KEY_INVALID"
-
 // IsAuthKeyInvalid reports whether err is AUTH_KEY_INVALID.
 func IsAuthKeyInvalid(err error) bool {
 	return tgerr.Is(err, ErrAuthKeyInvalid)
 }
-
-// ErrAuthKeyPermEmpty is error type for "AUTH_KEY_PERM_EMPTY".
-const ErrAuthKeyPermEmpty = "AUTH_KEY_PERM_EMPTY"
 
 // IsAuthKeyPermEmpty reports whether err is AUTH_KEY_PERM_EMPTY.
 func IsAuthKeyPermEmpty(err error) bool {
 	return tgerr.Is(err, ErrAuthKeyPermEmpty)
 }
 
-// ErrAuthTokenExpired is error type for "AUTH_TOKEN_EXPIRED".
-const ErrAuthTokenExpired = "AUTH_TOKEN_EXPIRED"
-
 // IsAuthTokenExpired reports whether err is AUTH_TOKEN_EXPIRED.
 func IsAuthTokenExpired(err error) bool {
 	return tgerr.Is(err, ErrAuthTokenExpired)
 }
-
-// ErrAuthTokenInvalidx is error type for "AUTH_TOKEN_INVALIDX".
-const ErrAuthTokenInvalidx = "AUTH_TOKEN_INVALIDX"
 
 // IsAuthTokenInvalidx reports whether err is AUTH_TOKEN_INVALIDX.
 func IsAuthTokenInvalidx(err error) bool {
 	return tgerr.Is(err, ErrAuthTokenInvalidx)
 }
 
-// ErrBannedRightsInvalid is error type for "BANNED_RIGHTS_INVALID".
-const ErrBannedRightsInvalid = "BANNED_RIGHTS_INVALID"
-
 // IsBannedRightsInvalid reports whether err is BANNED_RIGHTS_INVALID.
 func IsBannedRightsInvalid(err error) bool {
 	return tgerr.Is(err, ErrBannedRightsInvalid)
 }
-
-// ErrBotsTooMuch is error type for "BOTS_TOO_MUCH".
-const ErrBotsTooMuch = "BOTS_TOO_MUCH"
 
 // IsBotsTooMuch reports whether err is BOTS_TOO_MUCH.
 func IsBotsTooMuch(err error) bool {
 	return tgerr.Is(err, ErrBotsTooMuch)
 }
 
-// ErrBotChannelsNa is error type for "BOT_CHANNELS_NA".
-const ErrBotChannelsNa = "BOT_CHANNELS_NA"
-
 // IsBotChannelsNa reports whether err is BOT_CHANNELS_NA.
 func IsBotChannelsNa(err error) bool {
 	return tgerr.Is(err, ErrBotChannelsNa)
 }
-
-// ErrBotDomainInvalid is error type for "BOT_DOMAIN_INVALID".
-const ErrBotDomainInvalid = "BOT_DOMAIN_INVALID"
 
 // IsBotDomainInvalid reports whether err is BOT_DOMAIN_INVALID.
 func IsBotDomainInvalid(err error) bool {
 	return tgerr.Is(err, ErrBotDomainInvalid)
 }
 
-// ErrBotGroupsBlocked is error type for "BOT_GROUPS_BLOCKED".
-const ErrBotGroupsBlocked = "BOT_GROUPS_BLOCKED"
-
 // IsBotGroupsBlocked reports whether err is BOT_GROUPS_BLOCKED.
 func IsBotGroupsBlocked(err error) bool {
 	return tgerr.Is(err, ErrBotGroupsBlocked)
 }
-
-// ErrBotInlineDisabled is error type for "BOT_INLINE_DISABLED".
-const ErrBotInlineDisabled = "BOT_INLINE_DISABLED"
 
 // IsBotInlineDisabled reports whether err is BOT_INLINE_DISABLED.
 func IsBotInlineDisabled(err error) bool {
 	return tgerr.Is(err, ErrBotInlineDisabled)
 }
 
-// ErrBotInvalid is error type for "BOT_INVALID".
-const ErrBotInvalid = "BOT_INVALID"
-
 // IsBotInvalid reports whether err is BOT_INVALID.
 func IsBotInvalid(err error) bool {
 	return tgerr.Is(err, ErrBotInvalid)
 }
-
-// ErrBotMissing is error type for "BOT_MISSING".
-const ErrBotMissing = "BOT_MISSING"
 
 // IsBotMissing reports whether err is BOT_MISSING.
 func IsBotMissing(err error) bool {
 	return tgerr.Is(err, ErrBotMissing)
 }
 
-// ErrBotResponseTimeout is error type for "BOT_RESPONSE_TIMEOUT".
-const ErrBotResponseTimeout = "BOT_RESPONSE_TIMEOUT"
-
 // IsBotResponseTimeout reports whether err is BOT_RESPONSE_TIMEOUT.
 func IsBotResponseTimeout(err error) bool {
 	return tgerr.Is(err, ErrBotResponseTimeout)
 }
-
-// ErrBroadcastForbidden is error type for "BROADCAST_FORBIDDEN".
-const ErrBroadcastForbidden = "BROADCAST_FORBIDDEN"
 
 // IsBroadcastForbidden reports whether err is BROADCAST_FORBIDDEN.
 func IsBroadcastForbidden(err error) bool {
 	return tgerr.Is(err, ErrBroadcastForbidden)
 }
 
-// ErrBroadcastIDInvalid is error type for "BROADCAST_ID_INVALID".
-const ErrBroadcastIDInvalid = "BROADCAST_ID_INVALID"
-
 // IsBroadcastIDInvalid reports whether err is BROADCAST_ID_INVALID.
 func IsBroadcastIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrBroadcastIDInvalid)
 }
-
-// ErrBroadcastPublicVotersForbidden is error type for "BROADCAST_PUBLIC_VOTERS_FORBIDDEN".
-const ErrBroadcastPublicVotersForbidden = "BROADCAST_PUBLIC_VOTERS_FORBIDDEN"
 
 // IsBroadcastPublicVotersForbidden reports whether err is BROADCAST_PUBLIC_VOTERS_FORBIDDEN.
 func IsBroadcastPublicVotersForbidden(err error) bool {
 	return tgerr.Is(err, ErrBroadcastPublicVotersForbidden)
 }
 
-// ErrBroadcastRequired is error type for "BROADCAST_REQUIRED".
-const ErrBroadcastRequired = "BROADCAST_REQUIRED"
-
 // IsBroadcastRequired reports whether err is BROADCAST_REQUIRED.
 func IsBroadcastRequired(err error) bool {
 	return tgerr.Is(err, ErrBroadcastRequired)
 }
-
-// ErrButtonDataInvalid is error type for "BUTTON_DATA_INVALID".
-const ErrButtonDataInvalid = "BUTTON_DATA_INVALID"
 
 // IsButtonDataInvalid reports whether err is BUTTON_DATA_INVALID.
 func IsButtonDataInvalid(err error) bool {
 	return tgerr.Is(err, ErrButtonDataInvalid)
 }
 
-// ErrButtonTypeInvalid is error type for "BUTTON_TYPE_INVALID".
-const ErrButtonTypeInvalid = "BUTTON_TYPE_INVALID"
-
 // IsButtonTypeInvalid reports whether err is BUTTON_TYPE_INVALID.
 func IsButtonTypeInvalid(err error) bool {
 	return tgerr.Is(err, ErrButtonTypeInvalid)
 }
-
-// ErrButtonURLInvalid is error type for "BUTTON_URL_INVALID".
-const ErrButtonURLInvalid = "BUTTON_URL_INVALID"
 
 // IsButtonURLInvalid reports whether err is BUTTON_URL_INVALID.
 func IsButtonURLInvalid(err error) bool {
 	return tgerr.Is(err, ErrButtonURLInvalid)
 }
 
-// ErrCallAlreadyAccepted is error type for "CALL_ALREADY_ACCEPTED".
-const ErrCallAlreadyAccepted = "CALL_ALREADY_ACCEPTED"
-
 // IsCallAlreadyAccepted reports whether err is CALL_ALREADY_ACCEPTED.
 func IsCallAlreadyAccepted(err error) bool {
 	return tgerr.Is(err, ErrCallAlreadyAccepted)
 }
-
-// ErrCallAlreadyDeclined is error type for "CALL_ALREADY_DECLINED".
-const ErrCallAlreadyDeclined = "CALL_ALREADY_DECLINED"
 
 // IsCallAlreadyDeclined reports whether err is CALL_ALREADY_DECLINED.
 func IsCallAlreadyDeclined(err error) bool {
 	return tgerr.Is(err, ErrCallAlreadyDeclined)
 }
 
-// ErrCallPeerInvalid is error type for "CALL_PEER_INVALID".
-const ErrCallPeerInvalid = "CALL_PEER_INVALID"
-
 // IsCallPeerInvalid reports whether err is CALL_PEER_INVALID.
 func IsCallPeerInvalid(err error) bool {
 	return tgerr.Is(err, ErrCallPeerInvalid)
 }
-
-// ErrCallProtocolFlagsInvalid is error type for "CALL_PROTOCOL_FLAGS_INVALID".
-const ErrCallProtocolFlagsInvalid = "CALL_PROTOCOL_FLAGS_INVALID"
 
 // IsCallProtocolFlagsInvalid reports whether err is CALL_PROTOCOL_FLAGS_INVALID.
 func IsCallProtocolFlagsInvalid(err error) bool {
 	return tgerr.Is(err, ErrCallProtocolFlagsInvalid)
 }
 
-// ErrCDNMethodInvalid is error type for "CDN_METHOD_INVALID".
-const ErrCDNMethodInvalid = "CDN_METHOD_INVALID"
-
 // IsCDNMethodInvalid reports whether err is CDN_METHOD_INVALID.
 func IsCDNMethodInvalid(err error) bool {
 	return tgerr.Is(err, ErrCDNMethodInvalid)
 }
-
-// ErrChannelsAdminLocatedTooMuch is error type for "CHANNELS_ADMIN_LOCATED_TOO_MUCH".
-const ErrChannelsAdminLocatedTooMuch = "CHANNELS_ADMIN_LOCATED_TOO_MUCH"
 
 // IsChannelsAdminLocatedTooMuch reports whether err is CHANNELS_ADMIN_LOCATED_TOO_MUCH.
 func IsChannelsAdminLocatedTooMuch(err error) bool {
 	return tgerr.Is(err, ErrChannelsAdminLocatedTooMuch)
 }
 
-// ErrChannelsAdminPublicTooMuch is error type for "CHANNELS_ADMIN_PUBLIC_TOO_MUCH".
-const ErrChannelsAdminPublicTooMuch = "CHANNELS_ADMIN_PUBLIC_TOO_MUCH"
-
 // IsChannelsAdminPublicTooMuch reports whether err is CHANNELS_ADMIN_PUBLIC_TOO_MUCH.
 func IsChannelsAdminPublicTooMuch(err error) bool {
 	return tgerr.Is(err, ErrChannelsAdminPublicTooMuch)
 }
-
-// ErrChannelsTooMuch is error type for "CHANNELS_TOO_MUCH".
-const ErrChannelsTooMuch = "CHANNELS_TOO_MUCH"
 
 // IsChannelsTooMuch reports whether err is CHANNELS_TOO_MUCH.
 func IsChannelsTooMuch(err error) bool {
 	return tgerr.Is(err, ErrChannelsTooMuch)
 }
 
-// ErrChannelInvalid is error type for "CHANNEL_INVALID".
-const ErrChannelInvalid = "CHANNEL_INVALID"
-
 // IsChannelInvalid reports whether err is CHANNEL_INVALID.
 func IsChannelInvalid(err error) bool {
 	return tgerr.Is(err, ErrChannelInvalid)
 }
-
-// ErrChannelPrivate is error type for "CHANNEL_PRIVATE".
-const ErrChannelPrivate = "CHANNEL_PRIVATE"
 
 // IsChannelPrivate reports whether err is CHANNEL_PRIVATE.
 func IsChannelPrivate(err error) bool {
 	return tgerr.Is(err, ErrChannelPrivate)
 }
 
-// ErrChannelPublicGroupNa is error type for "CHANNEL_PUBLIC_GROUP_NA".
-const ErrChannelPublicGroupNa = "CHANNEL_PUBLIC_GROUP_NA"
-
 // IsChannelPublicGroupNa reports whether err is CHANNEL_PUBLIC_GROUP_NA.
 func IsChannelPublicGroupNa(err error) bool {
 	return tgerr.Is(err, ErrChannelPublicGroupNa)
 }
-
-// ErrChannelTooLarge is error type for "CHANNEL_TOO_LARGE".
-const ErrChannelTooLarge = "CHANNEL_TOO_LARGE"
 
 // IsChannelTooLarge reports whether err is CHANNEL_TOO_LARGE.
 func IsChannelTooLarge(err error) bool {
 	return tgerr.Is(err, ErrChannelTooLarge)
 }
 
-// ErrChatAboutNotModified is error type for "CHAT_ABOUT_NOT_MODIFIED".
-const ErrChatAboutNotModified = "CHAT_ABOUT_NOT_MODIFIED"
-
 // IsChatAboutNotModified reports whether err is CHAT_ABOUT_NOT_MODIFIED.
 func IsChatAboutNotModified(err error) bool {
 	return tgerr.Is(err, ErrChatAboutNotModified)
 }
-
-// ErrChatAboutTooLong is error type for "CHAT_ABOUT_TOO_LONG".
-const ErrChatAboutTooLong = "CHAT_ABOUT_TOO_LONG"
 
 // IsChatAboutTooLong reports whether err is CHAT_ABOUT_TOO_LONG.
 func IsChatAboutTooLong(err error) bool {
 	return tgerr.Is(err, ErrChatAboutTooLong)
 }
 
-// ErrChatAdminInviteRequired is error type for "CHAT_ADMIN_INVITE_REQUIRED".
-const ErrChatAdminInviteRequired = "CHAT_ADMIN_INVITE_REQUIRED"
-
 // IsChatAdminInviteRequired reports whether err is CHAT_ADMIN_INVITE_REQUIRED.
 func IsChatAdminInviteRequired(err error) bool {
 	return tgerr.Is(err, ErrChatAdminInviteRequired)
 }
-
-// ErrChatAdminRequired is error type for "CHAT_ADMIN_REQUIRED".
-const ErrChatAdminRequired = "CHAT_ADMIN_REQUIRED"
 
 // IsChatAdminRequired reports whether err is CHAT_ADMIN_REQUIRED.
 func IsChatAdminRequired(err error) bool {
 	return tgerr.Is(err, ErrChatAdminRequired)
 }
 
-// ErrChatIDEmpty is error type for "CHAT_ID_EMPTY".
-const ErrChatIDEmpty = "CHAT_ID_EMPTY"
-
 // IsChatIDEmpty reports whether err is CHAT_ID_EMPTY.
 func IsChatIDEmpty(err error) bool {
 	return tgerr.Is(err, ErrChatIDEmpty)
 }
-
-// ErrChatIDInvalid is error type for "CHAT_ID_INVALID".
-const ErrChatIDInvalid = "CHAT_ID_INVALID"
 
 // IsChatIDInvalid reports whether err is CHAT_ID_INVALID.
 func IsChatIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrChatIDInvalid)
 }
 
-// ErrChatInvalid is error type for "CHAT_INVALID".
-const ErrChatInvalid = "CHAT_INVALID"
-
 // IsChatInvalid reports whether err is CHAT_INVALID.
 func IsChatInvalid(err error) bool {
 	return tgerr.Is(err, ErrChatInvalid)
 }
-
-// ErrChatLinkExists is error type for "CHAT_LINK_EXISTS".
-const ErrChatLinkExists = "CHAT_LINK_EXISTS"
 
 // IsChatLinkExists reports whether err is CHAT_LINK_EXISTS.
 func IsChatLinkExists(err error) bool {
 	return tgerr.Is(err, ErrChatLinkExists)
 }
 
-// ErrChatNotModified is error type for "CHAT_NOT_MODIFIED".
-const ErrChatNotModified = "CHAT_NOT_MODIFIED"
-
 // IsChatNotModified reports whether err is CHAT_NOT_MODIFIED.
 func IsChatNotModified(err error) bool {
 	return tgerr.Is(err, ErrChatNotModified)
 }
-
-// ErrChatRestricted is error type for "CHAT_RESTRICTED".
-const ErrChatRestricted = "CHAT_RESTRICTED"
 
 // IsChatRestricted reports whether err is CHAT_RESTRICTED.
 func IsChatRestricted(err error) bool {
 	return tgerr.Is(err, ErrChatRestricted)
 }
 
-// ErrChatSendGifsForbidden is error type for "CHAT_SEND_GIFS_FORBIDDEN".
-const ErrChatSendGifsForbidden = "CHAT_SEND_GIFS_FORBIDDEN"
-
 // IsChatSendGifsForbidden reports whether err is CHAT_SEND_GIFS_FORBIDDEN.
 func IsChatSendGifsForbidden(err error) bool {
 	return tgerr.Is(err, ErrChatSendGifsForbidden)
 }
-
-// ErrChatSendInlineForbidden is error type for "CHAT_SEND_INLINE_FORBIDDEN".
-const ErrChatSendInlineForbidden = "CHAT_SEND_INLINE_FORBIDDEN"
 
 // IsChatSendInlineForbidden reports whether err is CHAT_SEND_INLINE_FORBIDDEN.
 func IsChatSendInlineForbidden(err error) bool {
 	return tgerr.Is(err, ErrChatSendInlineForbidden)
 }
 
-// ErrChatSendMediaForbidden is error type for "CHAT_SEND_MEDIA_FORBIDDEN".
-const ErrChatSendMediaForbidden = "CHAT_SEND_MEDIA_FORBIDDEN"
-
 // IsChatSendMediaForbidden reports whether err is CHAT_SEND_MEDIA_FORBIDDEN.
 func IsChatSendMediaForbidden(err error) bool {
 	return tgerr.Is(err, ErrChatSendMediaForbidden)
 }
-
-// ErrChatSendPollForbidden is error type for "CHAT_SEND_POLL_FORBIDDEN".
-const ErrChatSendPollForbidden = "CHAT_SEND_POLL_FORBIDDEN"
 
 // IsChatSendPollForbidden reports whether err is CHAT_SEND_POLL_FORBIDDEN.
 func IsChatSendPollForbidden(err error) bool {
 	return tgerr.Is(err, ErrChatSendPollForbidden)
 }
 
-// ErrChatSendStickersForbidden is error type for "CHAT_SEND_STICKERS_FORBIDDEN".
-const ErrChatSendStickersForbidden = "CHAT_SEND_STICKERS_FORBIDDEN"
-
 // IsChatSendStickersForbidden reports whether err is CHAT_SEND_STICKERS_FORBIDDEN.
 func IsChatSendStickersForbidden(err error) bool {
 	return tgerr.Is(err, ErrChatSendStickersForbidden)
 }
-
-// ErrChatTitleEmpty is error type for "CHAT_TITLE_EMPTY".
-const ErrChatTitleEmpty = "CHAT_TITLE_EMPTY"
 
 // IsChatTitleEmpty reports whether err is CHAT_TITLE_EMPTY.
 func IsChatTitleEmpty(err error) bool {
 	return tgerr.Is(err, ErrChatTitleEmpty)
 }
 
-// ErrChatWriteForbidden is error type for "CHAT_WRITE_FORBIDDEN".
-const ErrChatWriteForbidden = "CHAT_WRITE_FORBIDDEN"
-
 // IsChatWriteForbidden reports whether err is CHAT_WRITE_FORBIDDEN.
 func IsChatWriteForbidden(err error) bool {
 	return tgerr.Is(err, ErrChatWriteForbidden)
 }
-
-// ErrCodeEmpty is error type for "CODE_EMPTY".
-const ErrCodeEmpty = "CODE_EMPTY"
 
 // IsCodeEmpty reports whether err is CODE_EMPTY.
 func IsCodeEmpty(err error) bool {
 	return tgerr.Is(err, ErrCodeEmpty)
 }
 
-// ErrCodeHashInvalid is error type for "CODE_HASH_INVALID".
-const ErrCodeHashInvalid = "CODE_HASH_INVALID"
-
 // IsCodeHashInvalid reports whether err is CODE_HASH_INVALID.
 func IsCodeHashInvalid(err error) bool {
 	return tgerr.Is(err, ErrCodeHashInvalid)
 }
-
-// ErrCodeInvalid is error type for "CODE_INVALID".
-const ErrCodeInvalid = "CODE_INVALID"
 
 // IsCodeInvalid reports whether err is CODE_INVALID.
 func IsCodeInvalid(err error) bool {
 	return tgerr.Is(err, ErrCodeInvalid)
 }
 
-// ErrConnectionAPIIDInvalid is error type for "CONNECTION_API_ID_INVALID".
-const ErrConnectionAPIIDInvalid = "CONNECTION_API_ID_INVALID"
-
 // IsConnectionAPIIDInvalid reports whether err is CONNECTION_API_ID_INVALID.
 func IsConnectionAPIIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrConnectionAPIIDInvalid)
 }
-
-// ErrConnectionAppVersionEmpty is error type for "CONNECTION_APP_VERSION_EMPTY".
-const ErrConnectionAppVersionEmpty = "CONNECTION_APP_VERSION_EMPTY"
 
 // IsConnectionAppVersionEmpty reports whether err is CONNECTION_APP_VERSION_EMPTY.
 func IsConnectionAppVersionEmpty(err error) bool {
 	return tgerr.Is(err, ErrConnectionAppVersionEmpty)
 }
 
-// ErrConnectionDeviceModelEmpty is error type for "CONNECTION_DEVICE_MODEL_EMPTY".
-const ErrConnectionDeviceModelEmpty = "CONNECTION_DEVICE_MODEL_EMPTY"
-
 // IsConnectionDeviceModelEmpty reports whether err is CONNECTION_DEVICE_MODEL_EMPTY.
 func IsConnectionDeviceModelEmpty(err error) bool {
 	return tgerr.Is(err, ErrConnectionDeviceModelEmpty)
 }
-
-// ErrConnectionLangPackInvalid is error type for "CONNECTION_LANG_PACK_INVALID".
-const ErrConnectionLangPackInvalid = "CONNECTION_LANG_PACK_INVALID"
 
 // IsConnectionLangPackInvalid reports whether err is CONNECTION_LANG_PACK_INVALID.
 func IsConnectionLangPackInvalid(err error) bool {
 	return tgerr.Is(err, ErrConnectionLangPackInvalid)
 }
 
-// ErrConnectionLayerInvalid is error type for "CONNECTION_LAYER_INVALID".
-const ErrConnectionLayerInvalid = "CONNECTION_LAYER_INVALID"
-
 // IsConnectionLayerInvalid reports whether err is CONNECTION_LAYER_INVALID.
 func IsConnectionLayerInvalid(err error) bool {
 	return tgerr.Is(err, ErrConnectionLayerInvalid)
 }
-
-// ErrConnectionNotInited is error type for "CONNECTION_NOT_INITED".
-const ErrConnectionNotInited = "CONNECTION_NOT_INITED"
 
 // IsConnectionNotInited reports whether err is CONNECTION_NOT_INITED.
 func IsConnectionNotInited(err error) bool {
 	return tgerr.Is(err, ErrConnectionNotInited)
 }
 
-// ErrConnectionSystemEmpty is error type for "CONNECTION_SYSTEM_EMPTY".
-const ErrConnectionSystemEmpty = "CONNECTION_SYSTEM_EMPTY"
-
 // IsConnectionSystemEmpty reports whether err is CONNECTION_SYSTEM_EMPTY.
 func IsConnectionSystemEmpty(err error) bool {
 	return tgerr.Is(err, ErrConnectionSystemEmpty)
 }
-
-// ErrConnectionSystemLangCodeEmpty is error type for "CONNECTION_SYSTEM_LANG_CODE_EMPTY".
-const ErrConnectionSystemLangCodeEmpty = "CONNECTION_SYSTEM_LANG_CODE_EMPTY"
 
 // IsConnectionSystemLangCodeEmpty reports whether err is CONNECTION_SYSTEM_LANG_CODE_EMPTY.
 func IsConnectionSystemLangCodeEmpty(err error) bool {
 	return tgerr.Is(err, ErrConnectionSystemLangCodeEmpty)
 }
 
-// ErrContactAddMissing is error type for "CONTACT_ADD_MISSING".
-const ErrContactAddMissing = "CONTACT_ADD_MISSING"
-
 // IsContactAddMissing reports whether err is CONTACT_ADD_MISSING.
 func IsContactAddMissing(err error) bool {
 	return tgerr.Is(err, ErrContactAddMissing)
 }
-
-// ErrContactIDInvalid is error type for "CONTACT_ID_INVALID".
-const ErrContactIDInvalid = "CONTACT_ID_INVALID"
 
 // IsContactIDInvalid reports whether err is CONTACT_ID_INVALID.
 func IsContactIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrContactIDInvalid)
 }
 
-// ErrContactNameEmpty is error type for "CONTACT_NAME_EMPTY".
-const ErrContactNameEmpty = "CONTACT_NAME_EMPTY"
-
 // IsContactNameEmpty reports whether err is CONTACT_NAME_EMPTY.
 func IsContactNameEmpty(err error) bool {
 	return tgerr.Is(err, ErrContactNameEmpty)
 }
-
-// ErrContactReqMissing is error type for "CONTACT_REQ_MISSING".
-const ErrContactReqMissing = "CONTACT_REQ_MISSING"
 
 // IsContactReqMissing reports whether err is CONTACT_REQ_MISSING.
 func IsContactReqMissing(err error) bool {
 	return tgerr.Is(err, ErrContactReqMissing)
 }
 
-// ErrDataInvalid is error type for "DATA_INVALID".
-const ErrDataInvalid = "DATA_INVALID"
-
 // IsDataInvalid reports whether err is DATA_INVALID.
 func IsDataInvalid(err error) bool {
 	return tgerr.Is(err, ErrDataInvalid)
 }
-
-// ErrDataJSONInvalid is error type for "DATA_JSON_INVALID".
-const ErrDataJSONInvalid = "DATA_JSON_INVALID"
 
 // IsDataJSONInvalid reports whether err is DATA_JSON_INVALID.
 func IsDataJSONInvalid(err error) bool {
 	return tgerr.Is(err, ErrDataJSONInvalid)
 }
 
-// ErrDataTooLong is error type for "DATA_TOO_LONG".
-const ErrDataTooLong = "DATA_TOO_LONG"
-
 // IsDataTooLong reports whether err is DATA_TOO_LONG.
 func IsDataTooLong(err error) bool {
 	return tgerr.Is(err, ErrDataTooLong)
 }
-
-// ErrDateEmpty is error type for "DATE_EMPTY".
-const ErrDateEmpty = "DATE_EMPTY"
 
 // IsDateEmpty reports whether err is DATE_EMPTY.
 func IsDateEmpty(err error) bool {
 	return tgerr.Is(err, ErrDateEmpty)
 }
 
-// ErrDCIDInvalid is error type for "DC_ID_INVALID".
-const ErrDCIDInvalid = "DC_ID_INVALID"
-
 // IsDCIDInvalid reports whether err is DC_ID_INVALID.
 func IsDCIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrDCIDInvalid)
 }
-
-// ErrDhGAInvalid is error type for "DH_G_A_INVALID".
-const ErrDhGAInvalid = "DH_G_A_INVALID"
 
 // IsDhGAInvalid reports whether err is DH_G_A_INVALID.
 func IsDhGAInvalid(err error) bool {
 	return tgerr.Is(err, ErrDhGAInvalid)
 }
 
-// ErrEmailHashExpired is error type for "EMAIL_HASH_EXPIRED".
-const ErrEmailHashExpired = "EMAIL_HASH_EXPIRED"
-
 // IsEmailHashExpired reports whether err is EMAIL_HASH_EXPIRED.
 func IsEmailHashExpired(err error) bool {
 	return tgerr.Is(err, ErrEmailHashExpired)
 }
-
-// ErrEmailUnconfirmed is error type for "EMAIL_UNCONFIRMED".
-const ErrEmailUnconfirmed = "EMAIL_UNCONFIRMED"
 
 // IsEmailUnconfirmed reports whether err is EMAIL_UNCONFIRMED.
 func IsEmailUnconfirmed(err error) bool {
 	return tgerr.Is(err, ErrEmailUnconfirmed)
 }
 
-// ErrEmailVerifyExpired is error type for "EMAIL_VERIFY_EXPIRED".
-const ErrEmailVerifyExpired = "EMAIL_VERIFY_EXPIRED"
-
 // IsEmailVerifyExpired reports whether err is EMAIL_VERIFY_EXPIRED.
 func IsEmailVerifyExpired(err error) bool {
 	return tgerr.Is(err, ErrEmailVerifyExpired)
 }
-
-// ErrEncryptedMessageInvalid is error type for "ENCRYPTED_MESSAGE_INVALID".
-const ErrEncryptedMessageInvalid = "ENCRYPTED_MESSAGE_INVALID"
 
 // IsEncryptedMessageInvalid reports whether err is ENCRYPTED_MESSAGE_INVALID.
 func IsEncryptedMessageInvalid(err error) bool {
 	return tgerr.Is(err, ErrEncryptedMessageInvalid)
 }
 
-// ErrEncryptionAlreadyAccepted is error type for "ENCRYPTION_ALREADY_ACCEPTED".
-const ErrEncryptionAlreadyAccepted = "ENCRYPTION_ALREADY_ACCEPTED"
-
 // IsEncryptionAlreadyAccepted reports whether err is ENCRYPTION_ALREADY_ACCEPTED.
 func IsEncryptionAlreadyAccepted(err error) bool {
 	return tgerr.Is(err, ErrEncryptionAlreadyAccepted)
 }
-
-// ErrEncryptionAlreadyDeclined is error type for "ENCRYPTION_ALREADY_DECLINED".
-const ErrEncryptionAlreadyDeclined = "ENCRYPTION_ALREADY_DECLINED"
 
 // IsEncryptionAlreadyDeclined reports whether err is ENCRYPTION_ALREADY_DECLINED.
 func IsEncryptionAlreadyDeclined(err error) bool {
 	return tgerr.Is(err, ErrEncryptionAlreadyDeclined)
 }
 
-// ErrEncryptionDeclined is error type for "ENCRYPTION_DECLINED".
-const ErrEncryptionDeclined = "ENCRYPTION_DECLINED"
-
 // IsEncryptionDeclined reports whether err is ENCRYPTION_DECLINED.
 func IsEncryptionDeclined(err error) bool {
 	return tgerr.Is(err, ErrEncryptionDeclined)
 }
-
-// ErrEncryptionIDInvalid is error type for "ENCRYPTION_ID_INVALID".
-const ErrEncryptionIDInvalid = "ENCRYPTION_ID_INVALID"
 
 // IsEncryptionIDInvalid reports whether err is ENCRYPTION_ID_INVALID.
 func IsEncryptionIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrEncryptionIDInvalid)
 }
 
-// ErrEntityMentionUserInvalid is error type for "ENTITY_MENTION_USER_INVALID".
-const ErrEntityMentionUserInvalid = "ENTITY_MENTION_USER_INVALID"
-
 // IsEntityMentionUserInvalid reports whether err is ENTITY_MENTION_USER_INVALID.
 func IsEntityMentionUserInvalid(err error) bool {
 	return tgerr.Is(err, ErrEntityMentionUserInvalid)
 }
-
-// ErrErrorTextEmpty is error type for "ERROR_TEXT_EMPTY".
-const ErrErrorTextEmpty = "ERROR_TEXT_EMPTY"
 
 // IsErrorTextEmpty reports whether err is ERROR_TEXT_EMPTY.
 func IsErrorTextEmpty(err error) bool {
 	return tgerr.Is(err, ErrErrorTextEmpty)
 }
 
-// ErrExternalURLInvalid is error type for "EXTERNAL_URL_INVALID".
-const ErrExternalURLInvalid = "EXTERNAL_URL_INVALID"
-
 // IsExternalURLInvalid reports whether err is EXTERNAL_URL_INVALID.
 func IsExternalURLInvalid(err error) bool {
 	return tgerr.Is(err, ErrExternalURLInvalid)
 }
-
-// ErrFilerefUpgradeNeeded is error type for "FILEREF_UPGRADE_NEEDED".
-const ErrFilerefUpgradeNeeded = "FILEREF_UPGRADE_NEEDED"
 
 // IsFilerefUpgradeNeeded reports whether err is FILEREF_UPGRADE_NEEDED.
 func IsFilerefUpgradeNeeded(err error) bool {
 	return tgerr.Is(err, ErrFilerefUpgradeNeeded)
 }
 
-// ErrFileIDInvalid is error type for "FILE_ID_INVALID".
-const ErrFileIDInvalid = "FILE_ID_INVALID"
-
 // IsFileIDInvalid reports whether err is FILE_ID_INVALID.
 func IsFileIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrFileIDInvalid)
 }
-
-// ErrFilePartsInvalid is error type for "FILE_PARTS_INVALID".
-const ErrFilePartsInvalid = "FILE_PARTS_INVALID"
 
 // IsFilePartsInvalid reports whether err is FILE_PARTS_INVALID.
 func IsFilePartsInvalid(err error) bool {
 	return tgerr.Is(err, ErrFilePartsInvalid)
 }
 
-// ErrFilePartEmpty is error type for "FILE_PART_EMPTY".
-const ErrFilePartEmpty = "FILE_PART_EMPTY"
-
 // IsFilePartEmpty reports whether err is FILE_PART_EMPTY.
 func IsFilePartEmpty(err error) bool {
 	return tgerr.Is(err, ErrFilePartEmpty)
 }
-
-// ErrFilePartInvalid is error type for "FILE_PART_INVALID".
-const ErrFilePartInvalid = "FILE_PART_INVALID"
 
 // IsFilePartInvalid reports whether err is FILE_PART_INVALID.
 func IsFilePartInvalid(err error) bool {
 	return tgerr.Is(err, ErrFilePartInvalid)
 }
 
-// ErrFilePartLengthInvalid is error type for "FILE_PART_LENGTH_INVALID".
-const ErrFilePartLengthInvalid = "FILE_PART_LENGTH_INVALID"
-
 // IsFilePartLengthInvalid reports whether err is FILE_PART_LENGTH_INVALID.
 func IsFilePartLengthInvalid(err error) bool {
 	return tgerr.Is(err, ErrFilePartLengthInvalid)
 }
-
-// ErrFilePartSizeChanged is error type for "FILE_PART_SIZE_CHANGED".
-const ErrFilePartSizeChanged = "FILE_PART_SIZE_CHANGED"
 
 // IsFilePartSizeChanged reports whether err is FILE_PART_SIZE_CHANGED.
 func IsFilePartSizeChanged(err error) bool {
 	return tgerr.Is(err, ErrFilePartSizeChanged)
 }
 
-// ErrFilePartSizeInvalid is error type for "FILE_PART_SIZE_INVALID".
-const ErrFilePartSizeInvalid = "FILE_PART_SIZE_INVALID"
-
 // IsFilePartSizeInvalid reports whether err is FILE_PART_SIZE_INVALID.
 func IsFilePartSizeInvalid(err error) bool {
 	return tgerr.Is(err, ErrFilePartSizeInvalid)
 }
-
-// ErrFilePartTooBig is error type for "FILE_PART_TOO_BIG".
-const ErrFilePartTooBig = "FILE_PART_TOO_BIG"
 
 // IsFilePartTooBig reports whether err is FILE_PART_TOO_BIG.
 func IsFilePartTooBig(err error) bool {
 	return tgerr.Is(err, ErrFilePartTooBig)
 }
 
-// ErrFileReference is error type for "FILE_REFERENCE".
-const ErrFileReference = "FILE_REFERENCE"
-
 // IsFileReference reports whether err is FILE_REFERENCE.
 func IsFileReference(err error) bool {
 	return tgerr.Is(err, ErrFileReference)
 }
-
-// ErrFileReferenceExpired is error type for "FILE_REFERENCE_EXPIRED".
-const ErrFileReferenceExpired = "FILE_REFERENCE_EXPIRED"
 
 // IsFileReferenceExpired reports whether err is FILE_REFERENCE_EXPIRED.
 func IsFileReferenceExpired(err error) bool {
 	return tgerr.Is(err, ErrFileReferenceExpired)
 }
 
-// ErrFilterIDInvalid is error type for "FILTER_ID_INVALID".
-const ErrFilterIDInvalid = "FILTER_ID_INVALID"
-
 // IsFilterIDInvalid reports whether err is FILTER_ID_INVALID.
 func IsFilterIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrFilterIDInvalid)
 }
-
-// ErrFirstnameInvalid is error type for "FIRSTNAME_INVALID".
-const ErrFirstnameInvalid = "FIRSTNAME_INVALID"
 
 // IsFirstnameInvalid reports whether err is FIRSTNAME_INVALID.
 func IsFirstnameInvalid(err error) bool {
 	return tgerr.Is(err, ErrFirstnameInvalid)
 }
 
-// ErrFolderIDInvalid is error type for "FOLDER_ID_INVALID".
-const ErrFolderIDInvalid = "FOLDER_ID_INVALID"
-
 // IsFolderIDInvalid reports whether err is FOLDER_ID_INVALID.
 func IsFolderIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrFolderIDInvalid)
 }
-
-// ErrFreshChangeAdminsForbidden is error type for "FRESH_CHANGE_ADMINS_FORBIDDEN".
-const ErrFreshChangeAdminsForbidden = "FRESH_CHANGE_ADMINS_FORBIDDEN"
 
 // IsFreshChangeAdminsForbidden reports whether err is FRESH_CHANGE_ADMINS_FORBIDDEN.
 func IsFreshChangeAdminsForbidden(err error) bool {
 	return tgerr.Is(err, ErrFreshChangeAdminsForbidden)
 }
 
-// ErrFreshResetAuthorisationForbidden is error type for "FRESH_RESET_AUTHORISATION_FORBIDDEN".
-const ErrFreshResetAuthorisationForbidden = "FRESH_RESET_AUTHORISATION_FORBIDDEN"
-
 // IsFreshResetAuthorisationForbidden reports whether err is FRESH_RESET_AUTHORISATION_FORBIDDEN.
 func IsFreshResetAuthorisationForbidden(err error) bool {
 	return tgerr.Is(err, ErrFreshResetAuthorisationForbidden)
 }
-
-// ErrFromMessageBotDisabled is error type for "FROM_MESSAGE_BOT_DISABLED".
-const ErrFromMessageBotDisabled = "FROM_MESSAGE_BOT_DISABLED"
 
 // IsFromMessageBotDisabled reports whether err is FROM_MESSAGE_BOT_DISABLED.
 func IsFromMessageBotDisabled(err error) bool {
 	return tgerr.Is(err, ErrFromMessageBotDisabled)
 }
 
-// ErrGeoPointInvalid is error type for "GEO_POINT_INVALID".
-const ErrGeoPointInvalid = "GEO_POINT_INVALID"
-
 // IsGeoPointInvalid reports whether err is GEO_POINT_INVALID.
 func IsGeoPointInvalid(err error) bool {
 	return tgerr.Is(err, ErrGeoPointInvalid)
 }
-
-// ErrGifContentTypeInvalid is error type for "GIF_CONTENT_TYPE_INVALID".
-const ErrGifContentTypeInvalid = "GIF_CONTENT_TYPE_INVALID"
 
 // IsGifContentTypeInvalid reports whether err is GIF_CONTENT_TYPE_INVALID.
 func IsGifContentTypeInvalid(err error) bool {
 	return tgerr.Is(err, ErrGifContentTypeInvalid)
 }
 
-// ErrGifIDInvalid is error type for "GIF_ID_INVALID".
-const ErrGifIDInvalid = "GIF_ID_INVALID"
-
 // IsGifIDInvalid reports whether err is GIF_ID_INVALID.
 func IsGifIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrGifIDInvalid)
 }
-
-// ErrGraphInvalidReload is error type for "GRAPH_INVALID_RELOAD".
-const ErrGraphInvalidReload = "GRAPH_INVALID_RELOAD"
 
 // IsGraphInvalidReload reports whether err is GRAPH_INVALID_RELOAD.
 func IsGraphInvalidReload(err error) bool {
 	return tgerr.Is(err, ErrGraphInvalidReload)
 }
 
-// ErrGraphOutdatedReload is error type for "GRAPH_OUTDATED_RELOAD".
-const ErrGraphOutdatedReload = "GRAPH_OUTDATED_RELOAD"
-
 // IsGraphOutdatedReload reports whether err is GRAPH_OUTDATED_RELOAD.
 func IsGraphOutdatedReload(err error) bool {
 	return tgerr.Is(err, ErrGraphOutdatedReload)
 }
-
-// ErrGroupedMediaInvalid is error type for "GROUPED_MEDIA_INVALID".
-const ErrGroupedMediaInvalid = "GROUPED_MEDIA_INVALID"
 
 // IsGroupedMediaInvalid reports whether err is GROUPED_MEDIA_INVALID.
 func IsGroupedMediaInvalid(err error) bool {
 	return tgerr.Is(err, ErrGroupedMediaInvalid)
 }
 
-// ErrHashInvalid is error type for "HASH_INVALID".
-const ErrHashInvalid = "HASH_INVALID"
-
 // IsHashInvalid reports whether err is HASH_INVALID.
 func IsHashInvalid(err error) bool {
 	return tgerr.Is(err, ErrHashInvalid)
 }
-
-// ErrImageProcessFailed is error type for "IMAGE_PROCESS_FAILED".
-const ErrImageProcessFailed = "IMAGE_PROCESS_FAILED"
 
 // IsImageProcessFailed reports whether err is IMAGE_PROCESS_FAILED.
 func IsImageProcessFailed(err error) bool {
 	return tgerr.Is(err, ErrImageProcessFailed)
 }
 
-// ErrInlineBotRequired is error type for "INLINE_BOT_REQUIRED".
-const ErrInlineBotRequired = "INLINE_BOT_REQUIRED"
-
 // IsInlineBotRequired reports whether err is INLINE_BOT_REQUIRED.
 func IsInlineBotRequired(err error) bool {
 	return tgerr.Is(err, ErrInlineBotRequired)
 }
-
-// ErrInlineResultExpired is error type for "INLINE_RESULT_EXPIRED".
-const ErrInlineResultExpired = "INLINE_RESULT_EXPIRED"
 
 // IsInlineResultExpired reports whether err is INLINE_RESULT_EXPIRED.
 func IsInlineResultExpired(err error) bool {
 	return tgerr.Is(err, ErrInlineResultExpired)
 }
 
-// ErrInputConstructorInvalid is error type for "INPUT_CONSTRUCTOR_INVALID".
-const ErrInputConstructorInvalid = "INPUT_CONSTRUCTOR_INVALID"
-
 // IsInputConstructorInvalid reports whether err is INPUT_CONSTRUCTOR_INVALID.
 func IsInputConstructorInvalid(err error) bool {
 	return tgerr.Is(err, ErrInputConstructorInvalid)
 }
-
-// ErrInputLayerInvalid is error type for "INPUT_LAYER_INVALID".
-const ErrInputLayerInvalid = "INPUT_LAYER_INVALID"
 
 // IsInputLayerInvalid reports whether err is INPUT_LAYER_INVALID.
 func IsInputLayerInvalid(err error) bool {
 	return tgerr.Is(err, ErrInputLayerInvalid)
 }
 
-// ErrInputMethodInvalid1192227 is error type for "INPUT_METHOD_INVALID_1192227".
-const ErrInputMethodInvalid1192227 = "INPUT_METHOD_INVALID_1192227"
-
 // IsInputMethodInvalid1192227 reports whether err is INPUT_METHOD_INVALID_1192227.
 func IsInputMethodInvalid1192227(err error) bool {
 	return tgerr.Is(err, ErrInputMethodInvalid1192227)
 }
-
-// ErrInputMethodInvalid1400137063 is error type for "INPUT_METHOD_INVALID_1400137063".
-const ErrInputMethodInvalid1400137063 = "INPUT_METHOD_INVALID_1400137063"
 
 // IsInputMethodInvalid1400137063 reports whether err is INPUT_METHOD_INVALID_1400137063.
 func IsInputMethodInvalid1400137063(err error) bool {
 	return tgerr.Is(err, ErrInputMethodInvalid1400137063)
 }
 
-// ErrInputMethodInvalid1604042050 is error type for "INPUT_METHOD_INVALID_1604042050".
-const ErrInputMethodInvalid1604042050 = "INPUT_METHOD_INVALID_1604042050"
-
 // IsInputMethodInvalid1604042050 reports whether err is INPUT_METHOD_INVALID_1604042050.
 func IsInputMethodInvalid1604042050(err error) bool {
 	return tgerr.Is(err, ErrInputMethodInvalid1604042050)
 }
-
-// ErrInputRequestTooLong is error type for "INPUT_REQUEST_TOO_LONG".
-const ErrInputRequestTooLong = "INPUT_REQUEST_TOO_LONG"
 
 // IsInputRequestTooLong reports whether err is INPUT_REQUEST_TOO_LONG.
 func IsInputRequestTooLong(err error) bool {
 	return tgerr.Is(err, ErrInputRequestTooLong)
 }
 
-// ErrInputUserDeactivated is error type for "INPUT_USER_DEACTIVATED".
-const ErrInputUserDeactivated = "INPUT_USER_DEACTIVATED"
-
 // IsInputUserDeactivated reports whether err is INPUT_USER_DEACTIVATED.
 func IsInputUserDeactivated(err error) bool {
 	return tgerr.Is(err, ErrInputUserDeactivated)
 }
-
-// ErrInviteHashEmpty is error type for "INVITE_HASH_EMPTY".
-const ErrInviteHashEmpty = "INVITE_HASH_EMPTY"
 
 // IsInviteHashEmpty reports whether err is INVITE_HASH_EMPTY.
 func IsInviteHashEmpty(err error) bool {
 	return tgerr.Is(err, ErrInviteHashEmpty)
 }
 
-// ErrInviteHashExpired is error type for "INVITE_HASH_EXPIRED".
-const ErrInviteHashExpired = "INVITE_HASH_EXPIRED"
-
 // IsInviteHashExpired reports whether err is INVITE_HASH_EXPIRED.
 func IsInviteHashExpired(err error) bool {
 	return tgerr.Is(err, ErrInviteHashExpired)
 }
-
-// ErrInviteHashInvalid is error type for "INVITE_HASH_INVALID".
-const ErrInviteHashInvalid = "INVITE_HASH_INVALID"
 
 // IsInviteHashInvalid reports whether err is INVITE_HASH_INVALID.
 func IsInviteHashInvalid(err error) bool {
 	return tgerr.Is(err, ErrInviteHashInvalid)
 }
 
-// ErrLangPackInvalid is error type for "LANG_PACK_INVALID".
-const ErrLangPackInvalid = "LANG_PACK_INVALID"
-
 // IsLangPackInvalid reports whether err is LANG_PACK_INVALID.
 func IsLangPackInvalid(err error) bool {
 	return tgerr.Is(err, ErrLangPackInvalid)
 }
-
-// ErrLastnameInvalid is error type for "LASTNAME_INVALID".
-const ErrLastnameInvalid = "LASTNAME_INVALID"
 
 // IsLastnameInvalid reports whether err is LASTNAME_INVALID.
 func IsLastnameInvalid(err error) bool {
 	return tgerr.Is(err, ErrLastnameInvalid)
 }
 
-// ErrLimitInvalid is error type for "LIMIT_INVALID".
-const ErrLimitInvalid = "LIMIT_INVALID"
-
 // IsLimitInvalid reports whether err is LIMIT_INVALID.
 func IsLimitInvalid(err error) bool {
 	return tgerr.Is(err, ErrLimitInvalid)
 }
-
-// ErrLinkNotModified is error type for "LINK_NOT_MODIFIED".
-const ErrLinkNotModified = "LINK_NOT_MODIFIED"
 
 // IsLinkNotModified reports whether err is LINK_NOT_MODIFIED.
 func IsLinkNotModified(err error) bool {
 	return tgerr.Is(err, ErrLinkNotModified)
 }
 
-// ErrLocationInvalid is error type for "LOCATION_INVALID".
-const ErrLocationInvalid = "LOCATION_INVALID"
-
 // IsLocationInvalid reports whether err is LOCATION_INVALID.
 func IsLocationInvalid(err error) bool {
 	return tgerr.Is(err, ErrLocationInvalid)
 }
-
-// ErrMaxIDInvalid is error type for "MAX_ID_INVALID".
-const ErrMaxIDInvalid = "MAX_ID_INVALID"
 
 // IsMaxIDInvalid reports whether err is MAX_ID_INVALID.
 func IsMaxIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrMaxIDInvalid)
 }
 
-// ErrMD5ChecksumInvalid is error type for "MD5_CHECKSUM_INVALID".
-const ErrMD5ChecksumInvalid = "MD5_CHECKSUM_INVALID"
-
 // IsMD5ChecksumInvalid reports whether err is MD5_CHECKSUM_INVALID.
 func IsMD5ChecksumInvalid(err error) bool {
 	return tgerr.Is(err, ErrMD5ChecksumInvalid)
 }
-
-// ErrMediaCaptionTooLong is error type for "MEDIA_CAPTION_TOO_LONG".
-const ErrMediaCaptionTooLong = "MEDIA_CAPTION_TOO_LONG"
 
 // IsMediaCaptionTooLong reports whether err is MEDIA_CAPTION_TOO_LONG.
 func IsMediaCaptionTooLong(err error) bool {
 	return tgerr.Is(err, ErrMediaCaptionTooLong)
 }
 
-// ErrMediaEmpty is error type for "MEDIA_EMPTY".
-const ErrMediaEmpty = "MEDIA_EMPTY"
-
 // IsMediaEmpty reports whether err is MEDIA_EMPTY.
 func IsMediaEmpty(err error) bool {
 	return tgerr.Is(err, ErrMediaEmpty)
 }
-
-// ErrMediaInvalid is error type for "MEDIA_INVALID".
-const ErrMediaInvalid = "MEDIA_INVALID"
 
 // IsMediaInvalid reports whether err is MEDIA_INVALID.
 func IsMediaInvalid(err error) bool {
 	return tgerr.Is(err, ErrMediaInvalid)
 }
 
-// ErrMediaPrevInvalid is error type for "MEDIA_PREV_INVALID".
-const ErrMediaPrevInvalid = "MEDIA_PREV_INVALID"
-
 // IsMediaPrevInvalid reports whether err is MEDIA_PREV_INVALID.
 func IsMediaPrevInvalid(err error) bool {
 	return tgerr.Is(err, ErrMediaPrevInvalid)
 }
-
-// ErrMegagroupIDInvalid is error type for "MEGAGROUP_ID_INVALID".
-const ErrMegagroupIDInvalid = "MEGAGROUP_ID_INVALID"
 
 // IsMegagroupIDInvalid reports whether err is MEGAGROUP_ID_INVALID.
 func IsMegagroupIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrMegagroupIDInvalid)
 }
 
-// ErrMegagroupRequired is error type for "MEGAGROUP_REQUIRED".
-const ErrMegagroupRequired = "MEGAGROUP_REQUIRED"
-
 // IsMegagroupRequired reports whether err is MEGAGROUP_REQUIRED.
 func IsMegagroupRequired(err error) bool {
 	return tgerr.Is(err, ErrMegagroupRequired)
 }
-
-// ErrMessageAuthorRequired is error type for "MESSAGE_AUTHOR_REQUIRED".
-const ErrMessageAuthorRequired = "MESSAGE_AUTHOR_REQUIRED"
 
 // IsMessageAuthorRequired reports whether err is MESSAGE_AUTHOR_REQUIRED.
 func IsMessageAuthorRequired(err error) bool {
 	return tgerr.Is(err, ErrMessageAuthorRequired)
 }
 
-// ErrMessageDeleteForbidden is error type for "MESSAGE_DELETE_FORBIDDEN".
-const ErrMessageDeleteForbidden = "MESSAGE_DELETE_FORBIDDEN"
-
 // IsMessageDeleteForbidden reports whether err is MESSAGE_DELETE_FORBIDDEN.
 func IsMessageDeleteForbidden(err error) bool {
 	return tgerr.Is(err, ErrMessageDeleteForbidden)
 }
-
-// ErrMessageEditTimeExpired is error type for "MESSAGE_EDIT_TIME_EXPIRED".
-const ErrMessageEditTimeExpired = "MESSAGE_EDIT_TIME_EXPIRED"
 
 // IsMessageEditTimeExpired reports whether err is MESSAGE_EDIT_TIME_EXPIRED.
 func IsMessageEditTimeExpired(err error) bool {
 	return tgerr.Is(err, ErrMessageEditTimeExpired)
 }
 
-// ErrMessageEmpty is error type for "MESSAGE_EMPTY".
-const ErrMessageEmpty = "MESSAGE_EMPTY"
-
 // IsMessageEmpty reports whether err is MESSAGE_EMPTY.
 func IsMessageEmpty(err error) bool {
 	return tgerr.Is(err, ErrMessageEmpty)
 }
-
-// ErrMessageIDsEmpty is error type for "MESSAGE_IDS_EMPTY".
-const ErrMessageIDsEmpty = "MESSAGE_IDS_EMPTY"
 
 // IsMessageIDsEmpty reports whether err is MESSAGE_IDS_EMPTY.
 func IsMessageIDsEmpty(err error) bool {
 	return tgerr.Is(err, ErrMessageIDsEmpty)
 }
 
-// ErrMessageIDInvalid is error type for "MESSAGE_ID_INVALID".
-const ErrMessageIDInvalid = "MESSAGE_ID_INVALID"
-
 // IsMessageIDInvalid reports whether err is MESSAGE_ID_INVALID.
 func IsMessageIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrMessageIDInvalid)
 }
-
-// ErrMessageNotModified is error type for "MESSAGE_NOT_MODIFIED".
-const ErrMessageNotModified = "MESSAGE_NOT_MODIFIED"
 
 // IsMessageNotModified reports whether err is MESSAGE_NOT_MODIFIED.
 func IsMessageNotModified(err error) bool {
 	return tgerr.Is(err, ErrMessageNotModified)
 }
 
-// ErrMessagePollClosed is error type for "MESSAGE_POLL_CLOSED".
-const ErrMessagePollClosed = "MESSAGE_POLL_CLOSED"
-
 // IsMessagePollClosed reports whether err is MESSAGE_POLL_CLOSED.
 func IsMessagePollClosed(err error) bool {
 	return tgerr.Is(err, ErrMessagePollClosed)
 }
-
-// ErrMessageTooLong is error type for "MESSAGE_TOO_LONG".
-const ErrMessageTooLong = "MESSAGE_TOO_LONG"
 
 // IsMessageTooLong reports whether err is MESSAGE_TOO_LONG.
 func IsMessageTooLong(err error) bool {
 	return tgerr.Is(err, ErrMessageTooLong)
 }
 
-// ErrMethodInvalid is error type for "METHOD_INVALID".
-const ErrMethodInvalid = "METHOD_INVALID"
-
 // IsMethodInvalid reports whether err is METHOD_INVALID.
 func IsMethodInvalid(err error) bool {
 	return tgerr.Is(err, ErrMethodInvalid)
 }
-
-// ErrMsgIDInvalid is error type for "MSG_ID_INVALID".
-const ErrMsgIDInvalid = "MSG_ID_INVALID"
 
 // IsMsgIDInvalid reports whether err is MSG_ID_INVALID.
 func IsMsgIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrMsgIDInvalid)
 }
 
-// ErrMsgWaitFailed is error type for "MSG_WAIT_FAILED".
-const ErrMsgWaitFailed = "MSG_WAIT_FAILED"
-
 // IsMsgWaitFailed reports whether err is MSG_WAIT_FAILED.
 func IsMsgWaitFailed(err error) bool {
 	return tgerr.Is(err, ErrMsgWaitFailed)
 }
-
-// ErrMultiMediaTooLong is error type for "MULTI_MEDIA_TOO_LONG".
-const ErrMultiMediaTooLong = "MULTI_MEDIA_TOO_LONG"
 
 // IsMultiMediaTooLong reports whether err is MULTI_MEDIA_TOO_LONG.
 func IsMultiMediaTooLong(err error) bool {
 	return tgerr.Is(err, ErrMultiMediaTooLong)
 }
 
-// ErrNetworkMigrate is error type for "NETWORK_MIGRATE".
-const ErrNetworkMigrate = "NETWORK_MIGRATE"
-
 // IsNetworkMigrate reports whether err is NETWORK_MIGRATE.
 func IsNetworkMigrate(err error) bool {
 	return tgerr.Is(err, ErrNetworkMigrate)
 }
-
-// ErrNewSaltInvalid is error type for "NEW_SALT_INVALID".
-const ErrNewSaltInvalid = "NEW_SALT_INVALID"
 
 // IsNewSaltInvalid reports whether err is NEW_SALT_INVALID.
 func IsNewSaltInvalid(err error) bool {
 	return tgerr.Is(err, ErrNewSaltInvalid)
 }
 
-// ErrNewSettingsInvalid is error type for "NEW_SETTINGS_INVALID".
-const ErrNewSettingsInvalid = "NEW_SETTINGS_INVALID"
-
 // IsNewSettingsInvalid reports whether err is NEW_SETTINGS_INVALID.
 func IsNewSettingsInvalid(err error) bool {
 	return tgerr.Is(err, ErrNewSettingsInvalid)
 }
-
-// ErrOffsetInvalid is error type for "OFFSET_INVALID".
-const ErrOffsetInvalid = "OFFSET_INVALID"
 
 // IsOffsetInvalid reports whether err is OFFSET_INVALID.
 func IsOffsetInvalid(err error) bool {
 	return tgerr.Is(err, ErrOffsetInvalid)
 }
 
-// ErrOffsetPeerIDInvalid is error type for "OFFSET_PEER_ID_INVALID".
-const ErrOffsetPeerIDInvalid = "OFFSET_PEER_ID_INVALID"
-
 // IsOffsetPeerIDInvalid reports whether err is OFFSET_PEER_ID_INVALID.
 func IsOffsetPeerIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrOffsetPeerIDInvalid)
 }
-
-// ErrOptionsTooMuch is error type for "OPTIONS_TOO_MUCH".
-const ErrOptionsTooMuch = "OPTIONS_TOO_MUCH"
 
 // IsOptionsTooMuch reports whether err is OPTIONS_TOO_MUCH.
 func IsOptionsTooMuch(err error) bool {
 	return tgerr.Is(err, ErrOptionsTooMuch)
 }
 
-// ErrOptionInvalid is error type for "OPTION_INVALID".
-const ErrOptionInvalid = "OPTION_INVALID"
-
 // IsOptionInvalid reports whether err is OPTION_INVALID.
 func IsOptionInvalid(err error) bool {
 	return tgerr.Is(err, ErrOptionInvalid)
 }
-
-// ErrP0nyFloodwait is error type for "P0NY_FLOODWAIT".
-const ErrP0nyFloodwait = "P0NY_FLOODWAIT"
 
 // IsP0nyFloodwait reports whether err is P0NY_FLOODWAIT.
 func IsP0nyFloodwait(err error) bool {
 	return tgerr.Is(err, ErrP0nyFloodwait)
 }
 
-// ErrPackShortNameInvalid is error type for "PACK_SHORT_NAME_INVALID".
-const ErrPackShortNameInvalid = "PACK_SHORT_NAME_INVALID"
-
 // IsPackShortNameInvalid reports whether err is PACK_SHORT_NAME_INVALID.
 func IsPackShortNameInvalid(err error) bool {
 	return tgerr.Is(err, ErrPackShortNameInvalid)
 }
-
-// ErrPackShortNameOccupied is error type for "PACK_SHORT_NAME_OCCUPIED".
-const ErrPackShortNameOccupied = "PACK_SHORT_NAME_OCCUPIED"
 
 // IsPackShortNameOccupied reports whether err is PACK_SHORT_NAME_OCCUPIED.
 func IsPackShortNameOccupied(err error) bool {
 	return tgerr.Is(err, ErrPackShortNameOccupied)
 }
 
-// ErrPackTitleInvalid is error type for "PACK_TITLE_INVALID".
-const ErrPackTitleInvalid = "PACK_TITLE_INVALID"
-
 // IsPackTitleInvalid reports whether err is PACK_TITLE_INVALID.
 func IsPackTitleInvalid(err error) bool {
 	return tgerr.Is(err, ErrPackTitleInvalid)
 }
-
-// ErrParticipantsTooFew is error type for "PARTICIPANTS_TOO_FEW".
-const ErrParticipantsTooFew = "PARTICIPANTS_TOO_FEW"
 
 // IsParticipantsTooFew reports whether err is PARTICIPANTS_TOO_FEW.
 func IsParticipantsTooFew(err error) bool {
 	return tgerr.Is(err, ErrParticipantsTooFew)
 }
 
-// ErrParticipantVersionOutdated is error type for "PARTICIPANT_VERSION_OUTDATED".
-const ErrParticipantVersionOutdated = "PARTICIPANT_VERSION_OUTDATED"
-
 // IsParticipantVersionOutdated reports whether err is PARTICIPANT_VERSION_OUTDATED.
 func IsParticipantVersionOutdated(err error) bool {
 	return tgerr.Is(err, ErrParticipantVersionOutdated)
 }
-
-// ErrPasswordEmpty is error type for "PASSWORD_EMPTY".
-const ErrPasswordEmpty = "PASSWORD_EMPTY"
 
 // IsPasswordEmpty reports whether err is PASSWORD_EMPTY.
 func IsPasswordEmpty(err error) bool {
 	return tgerr.Is(err, ErrPasswordEmpty)
 }
 
-// ErrPasswordHashInvalid is error type for "PASSWORD_HASH_INVALID".
-const ErrPasswordHashInvalid = "PASSWORD_HASH_INVALID"
-
 // IsPasswordHashInvalid reports whether err is PASSWORD_HASH_INVALID.
 func IsPasswordHashInvalid(err error) bool {
 	return tgerr.Is(err, ErrPasswordHashInvalid)
 }
-
-// ErrPasswordMissing is error type for "PASSWORD_MISSING".
-const ErrPasswordMissing = "PASSWORD_MISSING"
 
 // IsPasswordMissing reports whether err is PASSWORD_MISSING.
 func IsPasswordMissing(err error) bool {
 	return tgerr.Is(err, ErrPasswordMissing)
 }
 
-// ErrPasswordTooFresh is error type for "PASSWORD_TOO_FRESH".
-const ErrPasswordTooFresh = "PASSWORD_TOO_FRESH"
-
 // IsPasswordTooFresh reports whether err is PASSWORD_TOO_FRESH.
 func IsPasswordTooFresh(err error) bool {
 	return tgerr.Is(err, ErrPasswordTooFresh)
 }
-
-// ErrPeerIDInvalid is error type for "PEER_ID_INVALID".
-const ErrPeerIDInvalid = "PEER_ID_INVALID"
 
 // IsPeerIDInvalid reports whether err is PEER_ID_INVALID.
 func IsPeerIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrPeerIDInvalid)
 }
 
-// ErrPeerIDNotSupported is error type for "PEER_ID_NOT_SUPPORTED".
-const ErrPeerIDNotSupported = "PEER_ID_NOT_SUPPORTED"
-
 // IsPeerIDNotSupported reports whether err is PEER_ID_NOT_SUPPORTED.
 func IsPeerIDNotSupported(err error) bool {
 	return tgerr.Is(err, ErrPeerIDNotSupported)
 }
-
-// ErrPersistentTimestampEmpty is error type for "PERSISTENT_TIMESTAMP_EMPTY".
-const ErrPersistentTimestampEmpty = "PERSISTENT_TIMESTAMP_EMPTY"
 
 // IsPersistentTimestampEmpty reports whether err is PERSISTENT_TIMESTAMP_EMPTY.
 func IsPersistentTimestampEmpty(err error) bool {
 	return tgerr.Is(err, ErrPersistentTimestampEmpty)
 }
 
-// ErrPersistentTimestampInvalid is error type for "PERSISTENT_TIMESTAMP_INVALID".
-const ErrPersistentTimestampInvalid = "PERSISTENT_TIMESTAMP_INVALID"
-
 // IsPersistentTimestampInvalid reports whether err is PERSISTENT_TIMESTAMP_INVALID.
 func IsPersistentTimestampInvalid(err error) bool {
 	return tgerr.Is(err, ErrPersistentTimestampInvalid)
 }
-
-// ErrPhoneCodeEmpty is error type for "PHONE_CODE_EMPTY".
-const ErrPhoneCodeEmpty = "PHONE_CODE_EMPTY"
 
 // IsPhoneCodeEmpty reports whether err is PHONE_CODE_EMPTY.
 func IsPhoneCodeEmpty(err error) bool {
 	return tgerr.Is(err, ErrPhoneCodeEmpty)
 }
 
-// ErrPhoneCodeExpired is error type for "PHONE_CODE_EXPIRED".
-const ErrPhoneCodeExpired = "PHONE_CODE_EXPIRED"
-
 // IsPhoneCodeExpired reports whether err is PHONE_CODE_EXPIRED.
 func IsPhoneCodeExpired(err error) bool {
 	return tgerr.Is(err, ErrPhoneCodeExpired)
 }
-
-// ErrPhoneCodeHashEmpty is error type for "PHONE_CODE_HASH_EMPTY".
-const ErrPhoneCodeHashEmpty = "PHONE_CODE_HASH_EMPTY"
 
 // IsPhoneCodeHashEmpty reports whether err is PHONE_CODE_HASH_EMPTY.
 func IsPhoneCodeHashEmpty(err error) bool {
 	return tgerr.Is(err, ErrPhoneCodeHashEmpty)
 }
 
-// ErrPhoneCodeInvalid is error type for "PHONE_CODE_INVALID".
-const ErrPhoneCodeInvalid = "PHONE_CODE_INVALID"
-
 // IsPhoneCodeInvalid reports whether err is PHONE_CODE_INVALID.
 func IsPhoneCodeInvalid(err error) bool {
 	return tgerr.Is(err, ErrPhoneCodeInvalid)
 }
-
-// ErrPhoneMigrate is error type for "PHONE_MIGRATE".
-const ErrPhoneMigrate = "PHONE_MIGRATE"
 
 // IsPhoneMigrate reports whether err is PHONE_MIGRATE.
 func IsPhoneMigrate(err error) bool {
 	return tgerr.Is(err, ErrPhoneMigrate)
 }
 
-// ErrPhoneNumberAppSignupForbidden is error type for "PHONE_NUMBER_APP_SIGNUP_FORBIDDEN".
-const ErrPhoneNumberAppSignupForbidden = "PHONE_NUMBER_APP_SIGNUP_FORBIDDEN"
-
 // IsPhoneNumberAppSignupForbidden reports whether err is PHONE_NUMBER_APP_SIGNUP_FORBIDDEN.
 func IsPhoneNumberAppSignupForbidden(err error) bool {
 	return tgerr.Is(err, ErrPhoneNumberAppSignupForbidden)
 }
-
-// ErrPhoneNumberBanned is error type for "PHONE_NUMBER_BANNED".
-const ErrPhoneNumberBanned = "PHONE_NUMBER_BANNED"
 
 // IsPhoneNumberBanned reports whether err is PHONE_NUMBER_BANNED.
 func IsPhoneNumberBanned(err error) bool {
 	return tgerr.Is(err, ErrPhoneNumberBanned)
 }
 
-// ErrPhoneNumberFlood is error type for "PHONE_NUMBER_FLOOD".
-const ErrPhoneNumberFlood = "PHONE_NUMBER_FLOOD"
-
 // IsPhoneNumberFlood reports whether err is PHONE_NUMBER_FLOOD.
 func IsPhoneNumberFlood(err error) bool {
 	return tgerr.Is(err, ErrPhoneNumberFlood)
 }
-
-// ErrPhoneNumberInvalid is error type for "PHONE_NUMBER_INVALID".
-const ErrPhoneNumberInvalid = "PHONE_NUMBER_INVALID"
 
 // IsPhoneNumberInvalid reports whether err is PHONE_NUMBER_INVALID.
 func IsPhoneNumberInvalid(err error) bool {
 	return tgerr.Is(err, ErrPhoneNumberInvalid)
 }
 
-// ErrPhoneNumberOccupied is error type for "PHONE_NUMBER_OCCUPIED".
-const ErrPhoneNumberOccupied = "PHONE_NUMBER_OCCUPIED"
-
 // IsPhoneNumberOccupied reports whether err is PHONE_NUMBER_OCCUPIED.
 func IsPhoneNumberOccupied(err error) bool {
 	return tgerr.Is(err, ErrPhoneNumberOccupied)
 }
-
-// ErrPhoneNumberUnoccupied is error type for "PHONE_NUMBER_UNOCCUPIED".
-const ErrPhoneNumberUnoccupied = "PHONE_NUMBER_UNOCCUPIED"
 
 // IsPhoneNumberUnoccupied reports whether err is PHONE_NUMBER_UNOCCUPIED.
 func IsPhoneNumberUnoccupied(err error) bool {
 	return tgerr.Is(err, ErrPhoneNumberUnoccupied)
 }
 
-// ErrPhonePasswordFlood is error type for "PHONE_PASSWORD_FLOOD".
-const ErrPhonePasswordFlood = "PHONE_PASSWORD_FLOOD"
-
 // IsPhonePasswordFlood reports whether err is PHONE_PASSWORD_FLOOD.
 func IsPhonePasswordFlood(err error) bool {
 	return tgerr.Is(err, ErrPhonePasswordFlood)
 }
-
-// ErrPhonePasswordProtected is error type for "PHONE_PASSWORD_PROTECTED".
-const ErrPhonePasswordProtected = "PHONE_PASSWORD_PROTECTED"
 
 // IsPhonePasswordProtected reports whether err is PHONE_PASSWORD_PROTECTED.
 func IsPhonePasswordProtected(err error) bool {
 	return tgerr.Is(err, ErrPhonePasswordProtected)
 }
 
-// ErrPhotoContentTypeInvalid is error type for "PHOTO_CONTENT_TYPE_INVALID".
-const ErrPhotoContentTypeInvalid = "PHOTO_CONTENT_TYPE_INVALID"
-
 // IsPhotoContentTypeInvalid reports whether err is PHOTO_CONTENT_TYPE_INVALID.
 func IsPhotoContentTypeInvalid(err error) bool {
 	return tgerr.Is(err, ErrPhotoContentTypeInvalid)
 }
-
-// ErrPhotoContentURLEmpty is error type for "PHOTO_CONTENT_URL_EMPTY".
-const ErrPhotoContentURLEmpty = "PHOTO_CONTENT_URL_EMPTY"
 
 // IsPhotoContentURLEmpty reports whether err is PHOTO_CONTENT_URL_EMPTY.
 func IsPhotoContentURLEmpty(err error) bool {
 	return tgerr.Is(err, ErrPhotoContentURLEmpty)
 }
 
-// ErrPhotoCropFileMissing is error type for "PHOTO_CROP_FILE_MISSING".
-const ErrPhotoCropFileMissing = "PHOTO_CROP_FILE_MISSING"
-
 // IsPhotoCropFileMissing reports whether err is PHOTO_CROP_FILE_MISSING.
 func IsPhotoCropFileMissing(err error) bool {
 	return tgerr.Is(err, ErrPhotoCropFileMissing)
 }
-
-// ErrPhotoCropSizeSmall is error type for "PHOTO_CROP_SIZE_SMALL".
-const ErrPhotoCropSizeSmall = "PHOTO_CROP_SIZE_SMALL"
 
 // IsPhotoCropSizeSmall reports whether err is PHOTO_CROP_SIZE_SMALL.
 func IsPhotoCropSizeSmall(err error) bool {
 	return tgerr.Is(err, ErrPhotoCropSizeSmall)
 }
 
-// ErrPhotoExtInvalid is error type for "PHOTO_EXT_INVALID".
-const ErrPhotoExtInvalid = "PHOTO_EXT_INVALID"
-
 // IsPhotoExtInvalid reports whether err is PHOTO_EXT_INVALID.
 func IsPhotoExtInvalid(err error) bool {
 	return tgerr.Is(err, ErrPhotoExtInvalid)
 }
-
-// ErrPhotoFileMissing is error type for "PHOTO_FILE_MISSING".
-const ErrPhotoFileMissing = "PHOTO_FILE_MISSING"
 
 // IsPhotoFileMissing reports whether err is PHOTO_FILE_MISSING.
 func IsPhotoFileMissing(err error) bool {
 	return tgerr.Is(err, ErrPhotoFileMissing)
 }
 
-// ErrPhotoIDInvalid is error type for "PHOTO_ID_INVALID".
-const ErrPhotoIDInvalid = "PHOTO_ID_INVALID"
-
 // IsPhotoIDInvalid reports whether err is PHOTO_ID_INVALID.
 func IsPhotoIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrPhotoIDInvalid)
 }
-
-// ErrPhotoInvalid is error type for "PHOTO_INVALID".
-const ErrPhotoInvalid = "PHOTO_INVALID"
 
 // IsPhotoInvalid reports whether err is PHOTO_INVALID.
 func IsPhotoInvalid(err error) bool {
 	return tgerr.Is(err, ErrPhotoInvalid)
 }
 
-// ErrPhotoInvalidDimensions is error type for "PHOTO_INVALID_DIMENSIONS".
-const ErrPhotoInvalidDimensions = "PHOTO_INVALID_DIMENSIONS"
-
 // IsPhotoInvalidDimensions reports whether err is PHOTO_INVALID_DIMENSIONS.
 func IsPhotoInvalidDimensions(err error) bool {
 	return tgerr.Is(err, ErrPhotoInvalidDimensions)
 }
-
-// ErrPhotoSaveFileInvalid is error type for "PHOTO_SAVE_FILE_INVALID".
-const ErrPhotoSaveFileInvalid = "PHOTO_SAVE_FILE_INVALID"
 
 // IsPhotoSaveFileInvalid reports whether err is PHOTO_SAVE_FILE_INVALID.
 func IsPhotoSaveFileInvalid(err error) bool {
 	return tgerr.Is(err, ErrPhotoSaveFileInvalid)
 }
 
-// ErrPhotoThumbURLEmpty is error type for "PHOTO_THUMB_URL_EMPTY".
-const ErrPhotoThumbURLEmpty = "PHOTO_THUMB_URL_EMPTY"
-
 // IsPhotoThumbURLEmpty reports whether err is PHOTO_THUMB_URL_EMPTY.
 func IsPhotoThumbURLEmpty(err error) bool {
 	return tgerr.Is(err, ErrPhotoThumbURLEmpty)
 }
-
-// ErrPinnedDialogsTooMuch is error type for "PINNED_DIALOGS_TOO_MUCH".
-const ErrPinnedDialogsTooMuch = "PINNED_DIALOGS_TOO_MUCH"
 
 // IsPinnedDialogsTooMuch reports whether err is PINNED_DIALOGS_TOO_MUCH.
 func IsPinnedDialogsTooMuch(err error) bool {
 	return tgerr.Is(err, ErrPinnedDialogsTooMuch)
 }
 
-// ErrPinRestricted is error type for "PIN_RESTRICTED".
-const ErrPinRestricted = "PIN_RESTRICTED"
-
 // IsPinRestricted reports whether err is PIN_RESTRICTED.
 func IsPinRestricted(err error) bool {
 	return tgerr.Is(err, ErrPinRestricted)
 }
-
-// ErrPollAnswersInvalid is error type for "POLL_ANSWERS_INVALID".
-const ErrPollAnswersInvalid = "POLL_ANSWERS_INVALID"
 
 // IsPollAnswersInvalid reports whether err is POLL_ANSWERS_INVALID.
 func IsPollAnswersInvalid(err error) bool {
 	return tgerr.Is(err, ErrPollAnswersInvalid)
 }
 
-// ErrPollOptionDuplicate is error type for "POLL_OPTION_DUPLICATE".
-const ErrPollOptionDuplicate = "POLL_OPTION_DUPLICATE"
-
 // IsPollOptionDuplicate reports whether err is POLL_OPTION_DUPLICATE.
 func IsPollOptionDuplicate(err error) bool {
 	return tgerr.Is(err, ErrPollOptionDuplicate)
 }
-
-// ErrPollOptionInvalid is error type for "POLL_OPTION_INVALID".
-const ErrPollOptionInvalid = "POLL_OPTION_INVALID"
 
 // IsPollOptionInvalid reports whether err is POLL_OPTION_INVALID.
 func IsPollOptionInvalid(err error) bool {
 	return tgerr.Is(err, ErrPollOptionInvalid)
 }
 
-// ErrPollVoteRequired is error type for "POLL_VOTE_REQUIRED".
-const ErrPollVoteRequired = "POLL_VOTE_REQUIRED"
-
 // IsPollVoteRequired reports whether err is POLL_VOTE_REQUIRED.
 func IsPollVoteRequired(err error) bool {
 	return tgerr.Is(err, ErrPollVoteRequired)
 }
-
-// ErrPrivacyKeyInvalid is error type for "PRIVACY_KEY_INVALID".
-const ErrPrivacyKeyInvalid = "PRIVACY_KEY_INVALID"
 
 // IsPrivacyKeyInvalid reports whether err is PRIVACY_KEY_INVALID.
 func IsPrivacyKeyInvalid(err error) bool {
 	return tgerr.Is(err, ErrPrivacyKeyInvalid)
 }
 
-// ErrPrivacyValueInvalid is error type for "PRIVACY_VALUE_INVALID".
-const ErrPrivacyValueInvalid = "PRIVACY_VALUE_INVALID"
-
 // IsPrivacyValueInvalid reports whether err is PRIVACY_VALUE_INVALID.
 func IsPrivacyValueInvalid(err error) bool {
 	return tgerr.Is(err, ErrPrivacyValueInvalid)
 }
-
-// ErrQueryIDEmpty is error type for "QUERY_ID_EMPTY".
-const ErrQueryIDEmpty = "QUERY_ID_EMPTY"
 
 // IsQueryIDEmpty reports whether err is QUERY_ID_EMPTY.
 func IsQueryIDEmpty(err error) bool {
 	return tgerr.Is(err, ErrQueryIDEmpty)
 }
 
-// ErrQueryIDInvalid is error type for "QUERY_ID_INVALID".
-const ErrQueryIDInvalid = "QUERY_ID_INVALID"
-
 // IsQueryIDInvalid reports whether err is QUERY_ID_INVALID.
 func IsQueryIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrQueryIDInvalid)
 }
-
-// ErrQueryTooShort is error type for "QUERY_TOO_SHORT".
-const ErrQueryTooShort = "QUERY_TOO_SHORT"
 
 // IsQueryTooShort reports whether err is QUERY_TOO_SHORT.
 func IsQueryTooShort(err error) bool {
 	return tgerr.Is(err, ErrQueryTooShort)
 }
 
-// ErrQuizCorrectAnswersEmpty is error type for "QUIZ_CORRECT_ANSWERS_EMPTY".
-const ErrQuizCorrectAnswersEmpty = "QUIZ_CORRECT_ANSWERS_EMPTY"
-
 // IsQuizCorrectAnswersEmpty reports whether err is QUIZ_CORRECT_ANSWERS_EMPTY.
 func IsQuizCorrectAnswersEmpty(err error) bool {
 	return tgerr.Is(err, ErrQuizCorrectAnswersEmpty)
 }
-
-// ErrQuizCorrectAnswerInvalid is error type for "QUIZ_CORRECT_ANSWER_INVALID".
-const ErrQuizCorrectAnswerInvalid = "QUIZ_CORRECT_ANSWER_INVALID"
 
 // IsQuizCorrectAnswerInvalid reports whether err is QUIZ_CORRECT_ANSWER_INVALID.
 func IsQuizCorrectAnswerInvalid(err error) bool {
 	return tgerr.Is(err, ErrQuizCorrectAnswerInvalid)
 }
 
-// ErrRandomIDEmpty is error type for "RANDOM_ID_EMPTY".
-const ErrRandomIDEmpty = "RANDOM_ID_EMPTY"
-
 // IsRandomIDEmpty reports whether err is RANDOM_ID_EMPTY.
 func IsRandomIDEmpty(err error) bool {
 	return tgerr.Is(err, ErrRandomIDEmpty)
 }
-
-// ErrRandomIDInvalid is error type for "RANDOM_ID_INVALID".
-const ErrRandomIDInvalid = "RANDOM_ID_INVALID"
 
 // IsRandomIDInvalid reports whether err is RANDOM_ID_INVALID.
 func IsRandomIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrRandomIDInvalid)
 }
 
-// ErrRandomLengthInvalid is error type for "RANDOM_LENGTH_INVALID".
-const ErrRandomLengthInvalid = "RANDOM_LENGTH_INVALID"
-
 // IsRandomLengthInvalid reports whether err is RANDOM_LENGTH_INVALID.
 func IsRandomLengthInvalid(err error) bool {
 	return tgerr.Is(err, ErrRandomLengthInvalid)
 }
-
-// ErrRangesInvalid is error type for "RANGES_INVALID".
-const ErrRangesInvalid = "RANGES_INVALID"
 
 // IsRangesInvalid reports whether err is RANGES_INVALID.
 func IsRangesInvalid(err error) bool {
 	return tgerr.Is(err, ErrRangesInvalid)
 }
 
-// ErrReplyMarkupBuyEmpty is error type for "REPLY_MARKUP_BUY_EMPTY".
-const ErrReplyMarkupBuyEmpty = "REPLY_MARKUP_BUY_EMPTY"
-
 // IsReplyMarkupBuyEmpty reports whether err is REPLY_MARKUP_BUY_EMPTY.
 func IsReplyMarkupBuyEmpty(err error) bool {
 	return tgerr.Is(err, ErrReplyMarkupBuyEmpty)
 }
-
-// ErrReplyMarkupInvalid is error type for "REPLY_MARKUP_INVALID".
-const ErrReplyMarkupInvalid = "REPLY_MARKUP_INVALID"
 
 // IsReplyMarkupInvalid reports whether err is REPLY_MARKUP_INVALID.
 func IsReplyMarkupInvalid(err error) bool {
 	return tgerr.Is(err, ErrReplyMarkupInvalid)
 }
 
-// ErrResultsTooMuch is error type for "RESULTS_TOO_MUCH".
-const ErrResultsTooMuch = "RESULTS_TOO_MUCH"
-
 // IsResultsTooMuch reports whether err is RESULTS_TOO_MUCH.
 func IsResultsTooMuch(err error) bool {
 	return tgerr.Is(err, ErrResultsTooMuch)
 }
-
-// ErrResultIDDuplicate is error type for "RESULT_ID_DUPLICATE".
-const ErrResultIDDuplicate = "RESULT_ID_DUPLICATE"
 
 // IsResultIDDuplicate reports whether err is RESULT_ID_DUPLICATE.
 func IsResultIDDuplicate(err error) bool {
 	return tgerr.Is(err, ErrResultIDDuplicate)
 }
 
-// ErrResultIDEmpty is error type for "RESULT_ID_EMPTY".
-const ErrResultIDEmpty = "RESULT_ID_EMPTY"
-
 // IsResultIDEmpty reports whether err is RESULT_ID_EMPTY.
 func IsResultIDEmpty(err error) bool {
 	return tgerr.Is(err, ErrResultIDEmpty)
 }
-
-// ErrResultTypeInvalid is error type for "RESULT_TYPE_INVALID".
-const ErrResultTypeInvalid = "RESULT_TYPE_INVALID"
 
 // IsResultTypeInvalid reports whether err is RESULT_TYPE_INVALID.
 func IsResultTypeInvalid(err error) bool {
 	return tgerr.Is(err, ErrResultTypeInvalid)
 }
 
-// ErrRevoteNotAllowed is error type for "REVOTE_NOT_ALLOWED".
-const ErrRevoteNotAllowed = "REVOTE_NOT_ALLOWED"
-
 // IsRevoteNotAllowed reports whether err is REVOTE_NOT_ALLOWED.
 func IsRevoteNotAllowed(err error) bool {
 	return tgerr.Is(err, ErrRevoteNotAllowed)
 }
-
-// ErrRightForbidden is error type for "RIGHT_FORBIDDEN".
-const ErrRightForbidden = "RIGHT_FORBIDDEN"
 
 // IsRightForbidden reports whether err is RIGHT_FORBIDDEN.
 func IsRightForbidden(err error) bool {
 	return tgerr.Is(err, ErrRightForbidden)
 }
 
-// ErrRsaDecryptFailed is error type for "RSA_DECRYPT_FAILED".
-const ErrRsaDecryptFailed = "RSA_DECRYPT_FAILED"
-
 // IsRsaDecryptFailed reports whether err is RSA_DECRYPT_FAILED.
 func IsRsaDecryptFailed(err error) bool {
 	return tgerr.Is(err, ErrRsaDecryptFailed)
 }
-
-// ErrScheduleBotNotAllowed is error type for "SCHEDULE_BOT_NOT_ALLOWED".
-const ErrScheduleBotNotAllowed = "SCHEDULE_BOT_NOT_ALLOWED"
 
 // IsScheduleBotNotAllowed reports whether err is SCHEDULE_BOT_NOT_ALLOWED.
 func IsScheduleBotNotAllowed(err error) bool {
 	return tgerr.Is(err, ErrScheduleBotNotAllowed)
 }
 
-// ErrScheduleDateInvalid is error type for "SCHEDULE_DATE_INVALID".
-const ErrScheduleDateInvalid = "SCHEDULE_DATE_INVALID"
-
 // IsScheduleDateInvalid reports whether err is SCHEDULE_DATE_INVALID.
 func IsScheduleDateInvalid(err error) bool {
 	return tgerr.Is(err, ErrScheduleDateInvalid)
 }
-
-// ErrScheduleDateTooLate is error type for "SCHEDULE_DATE_TOO_LATE".
-const ErrScheduleDateTooLate = "SCHEDULE_DATE_TOO_LATE"
 
 // IsScheduleDateTooLate reports whether err is SCHEDULE_DATE_TOO_LATE.
 func IsScheduleDateTooLate(err error) bool {
 	return tgerr.Is(err, ErrScheduleDateTooLate)
 }
 
-// ErrScheduleTooMuch is error type for "SCHEDULE_TOO_MUCH".
-const ErrScheduleTooMuch = "SCHEDULE_TOO_MUCH"
-
 // IsScheduleTooMuch reports whether err is SCHEDULE_TOO_MUCH.
 func IsScheduleTooMuch(err error) bool {
 	return tgerr.Is(err, ErrScheduleTooMuch)
 }
-
-// ErrSearchQueryEmpty is error type for "SEARCH_QUERY_EMPTY".
-const ErrSearchQueryEmpty = "SEARCH_QUERY_EMPTY"
 
 // IsSearchQueryEmpty reports whether err is SEARCH_QUERY_EMPTY.
 func IsSearchQueryEmpty(err error) bool {
 	return tgerr.Is(err, ErrSearchQueryEmpty)
 }
 
-// ErrSecondsInvalid is error type for "SECONDS_INVALID".
-const ErrSecondsInvalid = "SECONDS_INVALID"
-
 // IsSecondsInvalid reports whether err is SECONDS_INVALID.
 func IsSecondsInvalid(err error) bool {
 	return tgerr.Is(err, ErrSecondsInvalid)
 }
-
-// ErrSendMessageMediaInvalid is error type for "SEND_MESSAGE_MEDIA_INVALID".
-const ErrSendMessageMediaInvalid = "SEND_MESSAGE_MEDIA_INVALID"
 
 // IsSendMessageMediaInvalid reports whether err is SEND_MESSAGE_MEDIA_INVALID.
 func IsSendMessageMediaInvalid(err error) bool {
 	return tgerr.Is(err, ErrSendMessageMediaInvalid)
 }
 
-// ErrSendMessageTypeInvalid is error type for "SEND_MESSAGE_TYPE_INVALID".
-const ErrSendMessageTypeInvalid = "SEND_MESSAGE_TYPE_INVALID"
-
 // IsSendMessageTypeInvalid reports whether err is SEND_MESSAGE_TYPE_INVALID.
 func IsSendMessageTypeInvalid(err error) bool {
 	return tgerr.Is(err, ErrSendMessageTypeInvalid)
 }
-
-// ErrSessionTooFresh is error type for "SESSION_TOO_FRESH".
-const ErrSessionTooFresh = "SESSION_TOO_FRESH"
 
 // IsSessionTooFresh reports whether err is SESSION_TOO_FRESH.
 func IsSessionTooFresh(err error) bool {
 	return tgerr.Is(err, ErrSessionTooFresh)
 }
 
-// ErrSettingsInvalid is error type for "SETTINGS_INVALID".
-const ErrSettingsInvalid = "SETTINGS_INVALID"
-
 // IsSettingsInvalid reports whether err is SETTINGS_INVALID.
 func IsSettingsInvalid(err error) bool {
 	return tgerr.Is(err, ErrSettingsInvalid)
 }
-
-// ErrSHA256HashInvalid is error type for "SHA256_HASH_INVALID".
-const ErrSHA256HashInvalid = "SHA256_HASH_INVALID"
 
 // IsSHA256HashInvalid reports whether err is SHA256_HASH_INVALID.
 func IsSHA256HashInvalid(err error) bool {
 	return tgerr.Is(err, ErrSHA256HashInvalid)
 }
 
-// ErrShortnameOccupyFailed is error type for "SHORTNAME_OCCUPY_FAILED".
-const ErrShortnameOccupyFailed = "SHORTNAME_OCCUPY_FAILED"
-
 // IsShortnameOccupyFailed reports whether err is SHORTNAME_OCCUPY_FAILED.
 func IsShortnameOccupyFailed(err error) bool {
 	return tgerr.Is(err, ErrShortnameOccupyFailed)
 }
-
-// ErrSlowmodeMultiMsgsDisabled is error type for "SLOWMODE_MULTI_MSGS_DISABLED".
-const ErrSlowmodeMultiMsgsDisabled = "SLOWMODE_MULTI_MSGS_DISABLED"
 
 // IsSlowmodeMultiMsgsDisabled reports whether err is SLOWMODE_MULTI_MSGS_DISABLED.
 func IsSlowmodeMultiMsgsDisabled(err error) bool {
 	return tgerr.Is(err, ErrSlowmodeMultiMsgsDisabled)
 }
 
-// ErrSlowmodeWait is error type for "SLOWMODE_WAIT".
-const ErrSlowmodeWait = "SLOWMODE_WAIT"
-
 // IsSlowmodeWait reports whether err is SLOWMODE_WAIT.
 func IsSlowmodeWait(err error) bool {
 	return tgerr.Is(err, ErrSlowmodeWait)
 }
-
-// ErrSMSCodeCreateFailed is error type for "SMS_CODE_CREATE_FAILED".
-const ErrSMSCodeCreateFailed = "SMS_CODE_CREATE_FAILED"
 
 // IsSMSCodeCreateFailed reports whether err is SMS_CODE_CREATE_FAILED.
 func IsSMSCodeCreateFailed(err error) bool {
 	return tgerr.Is(err, ErrSMSCodeCreateFailed)
 }
 
-// ErrSRPIDInvalid is error type for "SRP_ID_INVALID".
-const ErrSRPIDInvalid = "SRP_ID_INVALID"
-
 // IsSRPIDInvalid reports whether err is SRP_ID_INVALID.
 func IsSRPIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrSRPIDInvalid)
 }
-
-// ErrSRPPasswordChanged is error type for "SRP_PASSWORD_CHANGED".
-const ErrSRPPasswordChanged = "SRP_PASSWORD_CHANGED"
 
 // IsSRPPasswordChanged reports whether err is SRP_PASSWORD_CHANGED.
 func IsSRPPasswordChanged(err error) bool {
 	return tgerr.Is(err, ErrSRPPasswordChanged)
 }
 
-// ErrStartParamEmpty is error type for "START_PARAM_EMPTY".
-const ErrStartParamEmpty = "START_PARAM_EMPTY"
-
 // IsStartParamEmpty reports whether err is START_PARAM_EMPTY.
 func IsStartParamEmpty(err error) bool {
 	return tgerr.Is(err, ErrStartParamEmpty)
 }
-
-// ErrStartParamInvalid is error type for "START_PARAM_INVALID".
-const ErrStartParamInvalid = "START_PARAM_INVALID"
 
 // IsStartParamInvalid reports whether err is START_PARAM_INVALID.
 func IsStartParamInvalid(err error) bool {
 	return tgerr.Is(err, ErrStartParamInvalid)
 }
 
-// ErrStartParamTooLong is error type for "START_PARAM_TOO_LONG".
-const ErrStartParamTooLong = "START_PARAM_TOO_LONG"
-
 // IsStartParamTooLong reports whether err is START_PARAM_TOO_LONG.
 func IsStartParamTooLong(err error) bool {
 	return tgerr.Is(err, ErrStartParamTooLong)
 }
-
-// ErrStickersetInvalid is error type for "STICKERSET_INVALID".
-const ErrStickersetInvalid = "STICKERSET_INVALID"
 
 // IsStickersetInvalid reports whether err is STICKERSET_INVALID.
 func IsStickersetInvalid(err error) bool {
 	return tgerr.Is(err, ErrStickersetInvalid)
 }
 
-// ErrStickersEmpty is error type for "STICKERS_EMPTY".
-const ErrStickersEmpty = "STICKERS_EMPTY"
-
 // IsStickersEmpty reports whether err is STICKERS_EMPTY.
 func IsStickersEmpty(err error) bool {
 	return tgerr.Is(err, ErrStickersEmpty)
 }
-
-// ErrStickerEmojiInvalid is error type for "STICKER_EMOJI_INVALID".
-const ErrStickerEmojiInvalid = "STICKER_EMOJI_INVALID"
 
 // IsStickerEmojiInvalid reports whether err is STICKER_EMOJI_INVALID.
 func IsStickerEmojiInvalid(err error) bool {
 	return tgerr.Is(err, ErrStickerEmojiInvalid)
 }
 
-// ErrStickerFileInvalid is error type for "STICKER_FILE_INVALID".
-const ErrStickerFileInvalid = "STICKER_FILE_INVALID"
-
 // IsStickerFileInvalid reports whether err is STICKER_FILE_INVALID.
 func IsStickerFileInvalid(err error) bool {
 	return tgerr.Is(err, ErrStickerFileInvalid)
 }
-
-// ErrStickerIDInvalid is error type for "STICKER_ID_INVALID".
-const ErrStickerIDInvalid = "STICKER_ID_INVALID"
 
 // IsStickerIDInvalid reports whether err is STICKER_ID_INVALID.
 func IsStickerIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrStickerIDInvalid)
 }
 
-// ErrStickerInvalid is error type for "STICKER_INVALID".
-const ErrStickerInvalid = "STICKER_INVALID"
-
 // IsStickerInvalid reports whether err is STICKER_INVALID.
 func IsStickerInvalid(err error) bool {
 	return tgerr.Is(err, ErrStickerInvalid)
 }
-
-// ErrStickerPngDimensions is error type for "STICKER_PNG_DIMENSIONS".
-const ErrStickerPngDimensions = "STICKER_PNG_DIMENSIONS"
 
 // IsStickerPngDimensions reports whether err is STICKER_PNG_DIMENSIONS.
 func IsStickerPngDimensions(err error) bool {
 	return tgerr.Is(err, ErrStickerPngDimensions)
 }
 
-// ErrStickerPngNopng is error type for "STICKER_PNG_NOPNG".
-const ErrStickerPngNopng = "STICKER_PNG_NOPNG"
-
 // IsStickerPngNopng reports whether err is STICKER_PNG_NOPNG.
 func IsStickerPngNopng(err error) bool {
 	return tgerr.Is(err, ErrStickerPngNopng)
 }
-
-// ErrTakeoutInitDelay is error type for "TAKEOUT_INIT_DELAY".
-const ErrTakeoutInitDelay = "TAKEOUT_INIT_DELAY"
 
 // IsTakeoutInitDelay reports whether err is TAKEOUT_INIT_DELAY.
 func IsTakeoutInitDelay(err error) bool {
 	return tgerr.Is(err, ErrTakeoutInitDelay)
 }
 
-// ErrTakeoutRequired is error type for "TAKEOUT_REQUIRED".
-const ErrTakeoutRequired = "TAKEOUT_REQUIRED"
-
 // IsTakeoutRequired reports whether err is TAKEOUT_REQUIRED.
 func IsTakeoutRequired(err error) bool {
 	return tgerr.Is(err, ErrTakeoutRequired)
 }
-
-// ErrTempAuthKeyAlreadyBound is error type for "TEMP_AUTH_KEY_ALREADY_BOUND".
-const ErrTempAuthKeyAlreadyBound = "TEMP_AUTH_KEY_ALREADY_BOUND"
 
 // IsTempAuthKeyAlreadyBound reports whether err is TEMP_AUTH_KEY_ALREADY_BOUND.
 func IsTempAuthKeyAlreadyBound(err error) bool {
 	return tgerr.Is(err, ErrTempAuthKeyAlreadyBound)
 }
 
-// ErrTempAuthKeyEmpty is error type for "TEMP_AUTH_KEY_EMPTY".
-const ErrTempAuthKeyEmpty = "TEMP_AUTH_KEY_EMPTY"
-
 // IsTempAuthKeyEmpty reports whether err is TEMP_AUTH_KEY_EMPTY.
 func IsTempAuthKeyEmpty(err error) bool {
 	return tgerr.Is(err, ErrTempAuthKeyEmpty)
 }
-
-// ErrThemeFileInvalid is error type for "THEME_FILE_INVALID".
-const ErrThemeFileInvalid = "THEME_FILE_INVALID"
 
 // IsThemeFileInvalid reports whether err is THEME_FILE_INVALID.
 func IsThemeFileInvalid(err error) bool {
 	return tgerr.Is(err, ErrThemeFileInvalid)
 }
 
-// ErrThemeFormatInvalid is error type for "THEME_FORMAT_INVALID".
-const ErrThemeFormatInvalid = "THEME_FORMAT_INVALID"
-
 // IsThemeFormatInvalid reports whether err is THEME_FORMAT_INVALID.
 func IsThemeFormatInvalid(err error) bool {
 	return tgerr.Is(err, ErrThemeFormatInvalid)
 }
-
-// ErrThemeInvalid is error type for "THEME_INVALID".
-const ErrThemeInvalid = "THEME_INVALID"
 
 // IsThemeInvalid reports whether err is THEME_INVALID.
 func IsThemeInvalid(err error) bool {
 	return tgerr.Is(err, ErrThemeInvalid)
 }
 
-// ErrTmpPasswordDisabled is error type for "TMP_PASSWORD_DISABLED".
-const ErrTmpPasswordDisabled = "TMP_PASSWORD_DISABLED"
-
 // IsTmpPasswordDisabled reports whether err is TMP_PASSWORD_DISABLED.
 func IsTmpPasswordDisabled(err error) bool {
 	return tgerr.Is(err, ErrTmpPasswordDisabled)
 }
-
-// ErrTokenInvalid is error type for "TOKEN_INVALID".
-const ErrTokenInvalid = "TOKEN_INVALID"
 
 // IsTokenInvalid reports whether err is TOKEN_INVALID.
 func IsTokenInvalid(err error) bool {
 	return tgerr.Is(err, ErrTokenInvalid)
 }
 
-// ErrTTLDaysInvalid is error type for "TTL_DAYS_INVALID".
-const ErrTTLDaysInvalid = "TTL_DAYS_INVALID"
-
 // IsTTLDaysInvalid reports whether err is TTL_DAYS_INVALID.
 func IsTTLDaysInvalid(err error) bool {
 	return tgerr.Is(err, ErrTTLDaysInvalid)
 }
-
-// ErrTTLMediaInvalid is error type for "TTL_MEDIA_INVALID".
-const ErrTTLMediaInvalid = "TTL_MEDIA_INVALID"
 
 // IsTTLMediaInvalid reports whether err is TTL_MEDIA_INVALID.
 func IsTTLMediaInvalid(err error) bool {
 	return tgerr.Is(err, ErrTTLMediaInvalid)
 }
 
-// ErrTypesEmpty is error type for "TYPES_EMPTY".
-const ErrTypesEmpty = "TYPES_EMPTY"
-
 // IsTypesEmpty reports whether err is TYPES_EMPTY.
 func IsTypesEmpty(err error) bool {
 	return tgerr.Is(err, ErrTypesEmpty)
 }
-
-// ErrTimeout is error type for "Timeout".
-const ErrTimeout = "Timeout"
 
 // IsTimeout reports whether err is Timeout.
 func IsTimeout(err error) bool {
 	return tgerr.Is(err, ErrTimeout)
 }
 
-// ErrUntilDateInvalid is error type for "UNTIL_DATE_INVALID".
-const ErrUntilDateInvalid = "UNTIL_DATE_INVALID"
-
 // IsUntilDateInvalid reports whether err is UNTIL_DATE_INVALID.
 func IsUntilDateInvalid(err error) bool {
 	return tgerr.Is(err, ErrUntilDateInvalid)
 }
-
-// ErrURLInvalid is error type for "URL_INVALID".
-const ErrURLInvalid = "URL_INVALID"
 
 // IsURLInvalid reports whether err is URL_INVALID.
 func IsURLInvalid(err error) bool {
 	return tgerr.Is(err, ErrURLInvalid)
 }
 
-// ErrUsernameInvalid is error type for "USERNAME_INVALID".
-const ErrUsernameInvalid = "USERNAME_INVALID"
-
 // IsUsernameInvalid reports whether err is USERNAME_INVALID.
 func IsUsernameInvalid(err error) bool {
 	return tgerr.Is(err, ErrUsernameInvalid)
 }
-
-// ErrUsernameNotModified is error type for "USERNAME_NOT_MODIFIED".
-const ErrUsernameNotModified = "USERNAME_NOT_MODIFIED"
 
 // IsUsernameNotModified reports whether err is USERNAME_NOT_MODIFIED.
 func IsUsernameNotModified(err error) bool {
 	return tgerr.Is(err, ErrUsernameNotModified)
 }
 
-// ErrUsernameNotOccupied is error type for "USERNAME_NOT_OCCUPIED".
-const ErrUsernameNotOccupied = "USERNAME_NOT_OCCUPIED"
-
 // IsUsernameNotOccupied reports whether err is USERNAME_NOT_OCCUPIED.
 func IsUsernameNotOccupied(err error) bool {
 	return tgerr.Is(err, ErrUsernameNotOccupied)
 }
-
-// ErrUsernameOccupied is error type for "USERNAME_OCCUPIED".
-const ErrUsernameOccupied = "USERNAME_OCCUPIED"
 
 // IsUsernameOccupied reports whether err is USERNAME_OCCUPIED.
 func IsUsernameOccupied(err error) bool {
 	return tgerr.Is(err, ErrUsernameOccupied)
 }
 
-// ErrUserpicUploadRequired is error type for "USERPIC_UPLOAD_REQUIRED".
-const ErrUserpicUploadRequired = "USERPIC_UPLOAD_REQUIRED"
-
 // IsUserpicUploadRequired reports whether err is USERPIC_UPLOAD_REQUIRED.
 func IsUserpicUploadRequired(err error) bool {
 	return tgerr.Is(err, ErrUserpicUploadRequired)
 }
-
-// ErrUsersTooFew is error type for "USERS_TOO_FEW".
-const ErrUsersTooFew = "USERS_TOO_FEW"
 
 // IsUsersTooFew reports whether err is USERS_TOO_FEW.
 func IsUsersTooFew(err error) bool {
 	return tgerr.Is(err, ErrUsersTooFew)
 }
 
-// ErrUsersTooMuch is error type for "USERS_TOO_MUCH".
-const ErrUsersTooMuch = "USERS_TOO_MUCH"
-
 // IsUsersTooMuch reports whether err is USERS_TOO_MUCH.
 func IsUsersTooMuch(err error) bool {
 	return tgerr.Is(err, ErrUsersTooMuch)
 }
-
-// ErrUserAdminInvalid is error type for "USER_ADMIN_INVALID".
-const ErrUserAdminInvalid = "USER_ADMIN_INVALID"
 
 // IsUserAdminInvalid reports whether err is USER_ADMIN_INVALID.
 func IsUserAdminInvalid(err error) bool {
 	return tgerr.Is(err, ErrUserAdminInvalid)
 }
 
-// ErrUserAlreadyParticipant is error type for "USER_ALREADY_PARTICIPANT".
-const ErrUserAlreadyParticipant = "USER_ALREADY_PARTICIPANT"
-
 // IsUserAlreadyParticipant reports whether err is USER_ALREADY_PARTICIPANT.
 func IsUserAlreadyParticipant(err error) bool {
 	return tgerr.Is(err, ErrUserAlreadyParticipant)
 }
-
-// ErrUserBannedInChannel is error type for "USER_BANNED_IN_CHANNEL".
-const ErrUserBannedInChannel = "USER_BANNED_IN_CHANNEL"
 
 // IsUserBannedInChannel reports whether err is USER_BANNED_IN_CHANNEL.
 func IsUserBannedInChannel(err error) bool {
 	return tgerr.Is(err, ErrUserBannedInChannel)
 }
 
-// ErrUserBlocked is error type for "USER_BLOCKED".
-const ErrUserBlocked = "USER_BLOCKED"
-
 // IsUserBlocked reports whether err is USER_BLOCKED.
 func IsUserBlocked(err error) bool {
 	return tgerr.Is(err, ErrUserBlocked)
 }
-
-// ErrUserBot is error type for "USER_BOT".
-const ErrUserBot = "USER_BOT"
 
 // IsUserBot reports whether err is USER_BOT.
 func IsUserBot(err error) bool {
 	return tgerr.Is(err, ErrUserBot)
 }
 
-// ErrUserBotInvalid is error type for "USER_BOT_INVALID".
-const ErrUserBotInvalid = "USER_BOT_INVALID"
-
 // IsUserBotInvalid reports whether err is USER_BOT_INVALID.
 func IsUserBotInvalid(err error) bool {
 	return tgerr.Is(err, ErrUserBotInvalid)
 }
-
-// ErrUserBotRequired is error type for "USER_BOT_REQUIRED".
-const ErrUserBotRequired = "USER_BOT_REQUIRED"
 
 // IsUserBotRequired reports whether err is USER_BOT_REQUIRED.
 func IsUserBotRequired(err error) bool {
 	return tgerr.Is(err, ErrUserBotRequired)
 }
 
-// ErrUserChannelsTooMuch is error type for "USER_CHANNELS_TOO_MUCH".
-const ErrUserChannelsTooMuch = "USER_CHANNELS_TOO_MUCH"
-
 // IsUserChannelsTooMuch reports whether err is USER_CHANNELS_TOO_MUCH.
 func IsUserChannelsTooMuch(err error) bool {
 	return tgerr.Is(err, ErrUserChannelsTooMuch)
 }
-
-// ErrUserCreator is error type for "USER_CREATOR".
-const ErrUserCreator = "USER_CREATOR"
 
 // IsUserCreator reports whether err is USER_CREATOR.
 func IsUserCreator(err error) bool {
 	return tgerr.Is(err, ErrUserCreator)
 }
 
-// ErrUserIDInvalid is error type for "USER_ID_INVALID".
-const ErrUserIDInvalid = "USER_ID_INVALID"
-
 // IsUserIDInvalid reports whether err is USER_ID_INVALID.
 func IsUserIDInvalid(err error) bool {
 	return tgerr.Is(err, ErrUserIDInvalid)
 }
-
-// ErrUserInvalid is error type for "USER_INVALID".
-const ErrUserInvalid = "USER_INVALID"
 
 // IsUserInvalid reports whether err is USER_INVALID.
 func IsUserInvalid(err error) bool {
 	return tgerr.Is(err, ErrUserInvalid)
 }
 
-// ErrUserIsBlocked is error type for "USER_IS_BLOCKED".
-const ErrUserIsBlocked = "USER_IS_BLOCKED"
-
 // IsUserIsBlocked reports whether err is USER_IS_BLOCKED.
 func IsUserIsBlocked(err error) bool {
 	return tgerr.Is(err, ErrUserIsBlocked)
 }
-
-// ErrUserIsBot is error type for "USER_IS_BOT".
-const ErrUserIsBot = "USER_IS_BOT"
 
 // IsUserIsBot reports whether err is USER_IS_BOT.
 func IsUserIsBot(err error) bool {
 	return tgerr.Is(err, ErrUserIsBot)
 }
 
-// ErrUserKicked is error type for "USER_KICKED".
-const ErrUserKicked = "USER_KICKED"
-
 // IsUserKicked reports whether err is USER_KICKED.
 func IsUserKicked(err error) bool {
 	return tgerr.Is(err, ErrUserKicked)
 }
-
-// ErrUserNotMutualContact is error type for "USER_NOT_MUTUAL_CONTACT".
-const ErrUserNotMutualContact = "USER_NOT_MUTUAL_CONTACT"
 
 // IsUserNotMutualContact reports whether err is USER_NOT_MUTUAL_CONTACT.
 func IsUserNotMutualContact(err error) bool {
 	return tgerr.Is(err, ErrUserNotMutualContact)
 }
 
-// ErrUserNotParticipant is error type for "USER_NOT_PARTICIPANT".
-const ErrUserNotParticipant = "USER_NOT_PARTICIPANT"
-
 // IsUserNotParticipant reports whether err is USER_NOT_PARTICIPANT.
 func IsUserNotParticipant(err error) bool {
 	return tgerr.Is(err, ErrUserNotParticipant)
 }
-
-// ErrUserPrivacyRestricted is error type for "USER_PRIVACY_RESTRICTED".
-const ErrUserPrivacyRestricted = "USER_PRIVACY_RESTRICTED"
 
 // IsUserPrivacyRestricted reports whether err is USER_PRIVACY_RESTRICTED.
 func IsUserPrivacyRestricted(err error) bool {
 	return tgerr.Is(err, ErrUserPrivacyRestricted)
 }
 
-// ErrUserRestricted is error type for "USER_RESTRICTED".
-const ErrUserRestricted = "USER_RESTRICTED"
-
 // IsUserRestricted reports whether err is USER_RESTRICTED.
 func IsUserRestricted(err error) bool {
 	return tgerr.Is(err, ErrUserRestricted)
 }
-
-// ErrVideoFileInvalid is error type for "VIDEO_FILE_INVALID".
-const ErrVideoFileInvalid = "VIDEO_FILE_INVALID"
 
 // IsVideoFileInvalid reports whether err is VIDEO_FILE_INVALID.
 func IsVideoFileInvalid(err error) bool {
 	return tgerr.Is(err, ErrVideoFileInvalid)
 }
 
-// ErrWcConvertURLInvalid is error type for "WC_CONVERT_URL_INVALID".
-const ErrWcConvertURLInvalid = "WC_CONVERT_URL_INVALID"
-
 // IsWcConvertURLInvalid reports whether err is WC_CONVERT_URL_INVALID.
 func IsWcConvertURLInvalid(err error) bool {
 	return tgerr.Is(err, ErrWcConvertURLInvalid)
 }
-
-// ErrWebdocumentInvalid is error type for "WEBDOCUMENT_INVALID".
-const ErrWebdocumentInvalid = "WEBDOCUMENT_INVALID"
 
 // IsWebdocumentInvalid reports whether err is WEBDOCUMENT_INVALID.
 func IsWebdocumentInvalid(err error) bool {
 	return tgerr.Is(err, ErrWebdocumentInvalid)
 }
 
-// ErrWebdocumentMimeInvalid is error type for "WEBDOCUMENT_MIME_INVALID".
-const ErrWebdocumentMimeInvalid = "WEBDOCUMENT_MIME_INVALID"
-
 // IsWebdocumentMimeInvalid reports whether err is WEBDOCUMENT_MIME_INVALID.
 func IsWebdocumentMimeInvalid(err error) bool {
 	return tgerr.Is(err, ErrWebdocumentMimeInvalid)
 }
-
-// ErrWebdocumentSizeTooBig is error type for "WEBDOCUMENT_SIZE_TOO_BIG".
-const ErrWebdocumentSizeTooBig = "WEBDOCUMENT_SIZE_TOO_BIG"
 
 // IsWebdocumentSizeTooBig reports whether err is WEBDOCUMENT_SIZE_TOO_BIG.
 func IsWebdocumentSizeTooBig(err error) bool {
 	return tgerr.Is(err, ErrWebdocumentSizeTooBig)
 }
 
-// ErrWebpageCurlFailed is error type for "WEBPAGE_CURL_FAILED".
-const ErrWebpageCurlFailed = "WEBPAGE_CURL_FAILED"
-
 // IsWebpageCurlFailed reports whether err is WEBPAGE_CURL_FAILED.
 func IsWebpageCurlFailed(err error) bool {
 	return tgerr.Is(err, ErrWebpageCurlFailed)
 }
 
-// ErrWebpageMediaEmpty is error type for "WEBPAGE_MEDIA_EMPTY".
-const ErrWebpageMediaEmpty = "WEBPAGE_MEDIA_EMPTY"
-
 // IsWebpageMediaEmpty reports whether err is WEBPAGE_MEDIA_EMPTY.
 func IsWebpageMediaEmpty(err error) bool {
 	return tgerr.Is(err, ErrWebpageMediaEmpty)
 }
-
-// ErrYouBlockedUser is error type for "YOU_BLOCKED_USER".
-const ErrYouBlockedUser = "YOU_BLOCKED_USER"
 
 // IsYouBlockedUser reports whether err is YOU_BLOCKED_USER.
 func IsYouBlockedUser(err error) bool {
