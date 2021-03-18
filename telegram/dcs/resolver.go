@@ -15,7 +15,6 @@ import (
 // Resolver resolves DC and creates transport MTProto connection.
 type Resolver interface {
 	Primary(ctx context.Context, dc int, dcOptions []tg.DCOption) (transport.Conn, error)
-	Plain(ctx context.Context, dc int, dcOptions []tg.DCOption) (transport.Conn, error)
 	MediaOnly(ctx context.Context, dc int, dcOptions []tg.DCOption) (transport.Conn, error)
 	CDN(ctx context.Context, dc int, dcOptions []tg.DCOption) (transport.Conn, error)
 }
@@ -35,10 +34,6 @@ type plain struct {
 
 func (p plain) Primary(ctx context.Context, dc int, dcOptions []tg.DCOption) (transport.Conn, error) {
 	return p.connect(ctx, dc, FindPrimaryDCs(dcOptions, dc, p.preferIPv6))
-}
-
-func (p plain) Plain(ctx context.Context, dc int, dcOptions []tg.DCOption) (transport.Conn, error) {
-	return p.connect(ctx, dc, FindDCs(dcOptions, dc, p.preferIPv6))
 }
 
 func (p plain) MediaOnly(ctx context.Context, dc int, dcOptions []tg.DCOption) (transport.Conn, error) {

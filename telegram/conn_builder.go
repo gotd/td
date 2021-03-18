@@ -51,7 +51,7 @@ func defaultConstructor() connConstructor {
 	}
 }
 
-func (c *Client) dialerDC(dc int) mtproto.Dialer {
+func (c *Client) primaryDC(dc int) mtproto.Dialer {
 	return func(ctx context.Context) (transport.Conn, error) {
 		cfg := c.cfg.Load()
 		return c.resolver.Primary(ctx, dc, cfg.DCOptions)
@@ -73,7 +73,7 @@ func (c *Client) createConn(
 		zap.Int("dc_id", s.DC),
 	)
 	return c.create(
-		c.dialerDC(s.DC), mode, c.appID,
+		c.primaryDC(s.DC), mode, c.appID,
 		opts, manager.ConnOptions{
 			DC:      s.DC,
 			Device:  c.device,

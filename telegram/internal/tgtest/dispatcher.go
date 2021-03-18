@@ -66,7 +66,7 @@ func (d *Dispatcher) Result(id uint32, msg bin.Encoder) *Dispatcher {
 }
 
 // Vector sets constant Vector result for given TypeID.
-// NB: it uses rpc_result to pack generic vector with given encoders..
+// NB: it uses rpc_result to pack generic vector with given encoders.
 func (d *Dispatcher) Vector(id uint32, msgs ...bin.Encoder) *Dispatcher {
 	return d.HandleFunc(id, func(server *Server, req *Request) error {
 		return server.SendVector(req, msgs...)
