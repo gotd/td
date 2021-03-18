@@ -4,11 +4,14 @@
 {{ $pkg := $.Package }}
 {{ template "header" $ }}
 
+// Telegram API error types.
+const (
 {{- range $s := $.Errors }}
+  Err{{ $s.Name }} = "{{ $s.Type }}"
+{{- end }}
+)
 
-// Err{{ $s.Name }} is error type for "{{ $s.Type }}".
-const Err{{ $s.Name }} = "{{ $s.Type }}"
-
+{{- range $s := $.Errors }}
 // Is{{ $s.Name }} reports whether err is {{ $s.Type }}.
 func Is{{ $s.Name }}(err error) bool {
   return tgerr.Is(err, Err{{ $s.Name }})
