@@ -37,9 +37,7 @@ const (
 
 // Conn is a Telegram client connection.
 type Conn struct {
-	id int64
 	// Connection parameters.
-	addr string   // immutable
 	mode ConnMode // immutable
 	// MTProto connection.
 	proto protoConn // immutable
@@ -50,7 +48,7 @@ type Conn struct {
 
 	// setup is callback which called after initConnection, but before ready signaling.
 	// This is necessary to transfer auth from previous connection to another DC.
-	setup func(ctx context.Context, invoker tg.Invoker) error // nilable
+	setup SetupCallback // nilable
 
 	// Wrappers for external world, like logs or PRNG.
 	// Should be immutable.
@@ -86,7 +84,7 @@ func (c *Conn) OnSession(session mtproto.Session) error {
 	cfg := c.cfg
 	c.mux.Unlock()
 
-	return c.handler.OnSession(c.addr, cfg, session)
+	return c.handler.OnSession(cfg, session)
 }
 
 func (c *Conn) trackInvoke() func() {

@@ -3,23 +3,21 @@ package transport_test
 import (
 	"context"
 	"fmt"
-	"net"
 	"time"
 
 	"golang.org/x/net/proxy"
 
 	"github.com/gotd/td/telegram"
+	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/transport"
 )
 
 func ExampleDialFunc() {
-	trp := transport.Intermediate(transport.DialFunc(proxy.Dial))
-
 	// Creating connection.
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 	client := telegram.NewClient(1, "appHash", telegram.Options{
-		Transport: trp,
+		Resolver: dcs.PlainResolver(dcs.PlainOptions{Dialer: transport.DialFunc(proxy.Dial)}),
 	})
 
 	_ = client.Run(ctx, func(ctx context.Context) error {
@@ -35,16 +33,13 @@ func ExampleDialer() {
 		User:     "YOURUSERNAME",
 		Password: "YOURPASSWORD",
 	}, proxy.Direct)
-
-	dc := sock5.(interface {
-		DialContext(ctx context.Context, network, addr string) (net.Conn, error)
-	})
+	dc := sock5.(proxy.ContextDialer)
 
 	// Creating connection.
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 	client := telegram.NewClient(1, "appHash", telegram.Options{
-		Transport: transport.Intermediate(transport.DialFunc(dc.DialContext)),
+		Resolver: dcs.PlainResolver(dcs.PlainOptions{Dialer: dc}),
 	})
 
 	_ = client.Run(ctx, func(ctx context.Context) error {

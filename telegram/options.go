@@ -1,13 +1,9 @@
 package telegram
 
 import (
-	"context"
 	"crypto/rand"
 	"crypto/rsa"
 	"io"
-	"net"
-	"strconv"
-	"strings"
 	"time"
 
 	"github.com/cenkalti/backoff/v4"
@@ -16,14 +12,12 @@ import (
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/internal/mtproto"
 	"github.com/gotd/td/internal/proto"
-	"github.com/gotd/td/transport"
+	"github.com/gotd/td/telegram/dcs"
+	"github.com/gotd/td/tg"
 )
 
 // Transport is MTProto connection creator.
-type Transport interface {
-	Codec() transport.Codec
-	DialContext(ctx context.Context, network, address string) (transport.Conn, error)
-}
+type Transport = dcs.Transport
 
 // Options of Client.
 type Options struct {
@@ -32,23 +26,16 @@ type Options struct {
 	// If not provided, embedded public keys will be used.
 	PublicKeys []*rsa.PublicKey
 
-	// Addr to connect.
-	//
-	// If not provided, AddrProduction will be used by default.
-	Addr string
-
 	// DC ID to connect.
 	//
 	// If not provided, 2 will be used by default.
 	DC int
 
-	// Transport to use. Default dialer will be used if not provided.
-	Transport Transport
-	// Network to use. Defaults to tcp.
-	Network string
-	// PreferIPv6 gives IPv6 DCs higher precedence.
-	// Default is to prefer IPv4 DCs over IPv6.
-	PreferIPv6 bool
+	// DCList is initial list of addresses to connect.
+	DCList []tg.DCOption
+
+	// Resolver to use.
+	Resolver dcs.Resolver
 	// NoUpdates enables no updates mode.
 	NoUpdates bool
 	// ReconnectionBackoff configures and returns reconnection backoff object.
@@ -66,8 +53,7 @@ type Options struct {
 	// AckBatchSize is maximum ack-s to buffer.
 	AckBatchSize int
 	// AckInterval is maximum time to buffer ack.
-	AckInterval time.Duration
-
+	AckInterval   time.Duration
 	RetryInterval time.Duration
 	MaxRetries    int
 
@@ -79,18 +65,9 @@ type Options struct {
 	Clock     clock.Clock
 }
 
-func (opt *Options) normalizeAddr() {
-	if _, _, err := net.SplitHostPort(opt.Addr); err != nil && !strings.Contains(opt.Addr, ":") {
-		opt.Addr = net.JoinHostPort(opt.Addr, strconv.Itoa(Port))
-	}
-}
-
 func (opt *Options) setDefaults() {
-	if opt.Transport == nil {
-		opt.Transport = transport.Intermediate(nil)
-	}
-	if opt.Network == "" {
-		opt.Network = "tcp"
+	if opt.Resolver == nil {
+		opt.Resolver = dcs.PlainResolver(dcs.PlainOptions{})
 	}
 	if opt.Random == nil {
 		opt.Random = rand.Reader
@@ -98,11 +75,11 @@ func (opt *Options) setDefaults() {
 	if opt.Logger == nil {
 		opt.Logger = zap.NewNop()
 	}
-	if opt.Addr == "" {
-		opt.Addr = AddrProduction
-	}
 	if opt.DC == 0 {
 		opt.DC = 2
+	}
+	if len(opt.DCList) == 0 {
+		opt.DCList = dcs.ProdDCs()
 	}
 	if opt.AckBatchSize == 0 {
 		opt.AckBatchSize = 20
@@ -126,8 +103,6 @@ func (opt *Options) setDefaults() {
 	if opt.MessageID == nil {
 		opt.MessageID = proto.NewMessageIDGen(opt.Clock.Now, 100)
 	}
-
-	opt.normalizeAddr()
 }
 
 func defaultBackoff(c clock.Clock) func() backoff.BackOff {

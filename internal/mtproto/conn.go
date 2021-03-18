@@ -39,11 +39,13 @@ type Cipher interface {
 	Encrypt(key crypto.AuthKey, data crypto.EncryptedMessageData, b *bin.Buffer) error
 }
 
+// Dialer is a abstraction for MTProto transport connection creator.
+type Dialer func(ctx context.Context) (transport.Conn, error)
+
 // Conn represents a MTProto client to Telegram.
 type Conn struct {
-	transport     Transport
+	create        Dialer
 	conn          transport.Conn
-	addr          string
 	handler       Handler
 	rpc           *rpc.Engine
 	rsaPublicKeys []*rsa.PublicKey
@@ -99,13 +101,12 @@ type Conn struct {
 }
 
 // New creates new unstarted connection.
-func New(addr string, opt Options) *Conn {
+func New(create Dialer, opt Options) *Conn {
 	// Set default values, if user does not set.
 	opt.setDefaults()
 
 	conn := &Conn{
-		addr:         addr,
-		transport:    opt.Transport,
+		create:       create,
 		clock:        opt.Clock,
 		rand:         opt.Random,
 		cipher:       opt.Cipher,
@@ -212,11 +213,10 @@ func (c *Conn) connect(ctx context.Context) error {
 	ctx, cancel := context.WithTimeout(ctx, c.dialTimeout)
 	defer cancel()
 
-	conn, err := c.transport.DialContext(ctx, "tcp", c.addr)
+	conn, err := c.create(ctx)
 	if err != nil {
 		return xerrors.Errorf("dial failed: %w", err)
 	}
-	c.log.Info("Dialed transport", zap.String("addr", c.addr))
 	c.conn = conn
 
 	session := c.session()

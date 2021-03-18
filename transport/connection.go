@@ -11,6 +11,15 @@ import (
 	"github.com/gotd/td/bin"
 )
 
+// Conn is transport connection.
+type Conn interface {
+	Send(ctx context.Context, b *bin.Buffer) error
+	Recv(ctx context.Context, b *bin.Buffer) error
+	Close() error
+}
+
+var _ Conn = (*connection)(nil)
+
 // connection is MTProto connection.
 type connection struct {
 	conn  net.Conn

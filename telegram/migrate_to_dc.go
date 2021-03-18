@@ -2,8 +2,6 @@ package telegram
 
 import (
 	"context"
-	"net"
-	"strconv"
 
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
@@ -74,13 +72,16 @@ func (c *Client) invokeMigrate(ctx context.Context, dcID int, input bin.Encoder,
 }
 
 func (c *Client) migrateToDc(ctx context.Context, dcID int, transfer bool) error {
-	dc, err := dcs.FindPrimaryDC(c.cfg.Load(), dcID, c.opts.PreferIPv6)
-	if err != nil {
-		return err
+	cfg := c.cfg.Load()
+	dcList := dcs.FindPrimaryDCs(cfg.DCOptions, dcID, false)
+	if len(dcList) == 0 {
+		return xerrors.Errorf("DC %d not found", dcID)
 	}
 
-	addr := net.JoinHostPort(dc.IPAddress, strconv.Itoa(dc.Port))
-	c.log.Info("Selected new addr from config", zap.String("addr", addr))
+	c.log.Info("Selected new DC from config",
+		zap.Int("dc_id", dcID),
+		zap.Int("candidates", len(dcList)),
+	)
 
 	var export *tg.AuthExportedAuthorization
 	if transfer {
@@ -93,6 +94,6 @@ func (c *Client) migrateToDc(ctx context.Context, dcID int, transfer bool) error
 		}
 	}
 
-	c.session.Migrate(dcID, addr)
+	c.session.Migrate(dcID)
 	return c.ensureRestart(ctx, export)
 }

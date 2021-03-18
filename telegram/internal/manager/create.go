@@ -2,9 +2,6 @@ package manager
 
 import (
 	"context"
-	"strconv"
-
-	"go.uber.org/zap"
 
 	"github.com/gotd/td/internal/mtproto"
 	"github.com/gotd/td/internal/tdsync"
@@ -35,17 +32,14 @@ func (c *ConnOptions) SetDefaults() {
 
 // CreateConn creates new connection.
 func CreateConn(
-	id int64,
+	create mtproto.Dialer,
 	mode ConnMode,
 	appID int,
-	addr string,
 	opts mtproto.Options,
 	connOpts ConnOptions,
 ) *Conn {
 	connOpts.SetDefaults()
 	conn := &Conn{
-		id:          id,
-		addr:        addr,
 		mode:        mode,
 		appID:       appID,
 		device:      connOpts.Device,
@@ -57,13 +51,10 @@ func CreateConn(
 		setup:       connOpts.Setup,
 	}
 
-	conn.log = opts.Logger.Named("conn").With(
-		zap.Int64("conn_id", conn.id),
-		zap.Int("dc_id", connOpts.DC),
-	)
+	conn.log = opts.Logger
 	opts.Handler = conn
-	opts.Logger = conn.log.Named("mtproto").With(zap.String("addr", conn.addr))
-	conn.proto = mtproto.New(strconv.Itoa(connOpts.DC)+"|"+conn.addr, opts)
+	opts.Logger = conn.log.Named("mtproto")
+	conn.proto = mtproto.New(create, opts)
 
 	return conn
 }

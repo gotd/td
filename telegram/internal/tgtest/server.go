@@ -18,16 +18,17 @@ import (
 )
 
 type Server struct {
-	server *transport.Server
+	dcID   int
+	codec  func() transport.Codec // immutable
+	key    *rsa.PrivateKey        // immutable
+	cipher crypto.Cipher          // immutable
 
-	key        *rsa.PrivateKey
-	cipher     crypto.Cipher
 	dispatcher *Dispatcher
+	ctx        context.Context
 
-	ctx   context.Context
-	clock clock.Clock
-	log   *zap.Logger
-	msgID *proto.MessageIDGen
+	clock clock.Clock         // immutable
+	log   *zap.Logger         // immutable
+	msgID *proto.MessageIDGen // immutable
 
 	users *users
 }
@@ -36,46 +37,26 @@ func (s *Server) Key() *rsa.PublicKey {
 	return &s.key.PublicKey
 }
 
-func (s *Server) Addr() net.Addr {
-	return s.server.Addr()
-}
-
-func (s *Server) Serve() error {
-	return s.serve()
+func (s *Server) Serve(ctx context.Context, l net.Listener) error {
+	s.ctx = ctx
+	return s.serve(l)
 }
 
 func (s *Server) AddSession(key crypto.AuthKey) {
 	s.users.addSession(key)
 }
 
-func (s *Server) Start() {
-	go func() {
-		_ = s.Serve()
-	}()
-}
-
-func (s *Server) Close() {
-	_ = s.server.Close()
-}
-
-func NewServer(name string, suite Suite, codec func() transport.Codec) *Server {
-	s := NewUnstartedServer(name, suite, codec)
-	s.Start()
-	return s
-}
-
-func NewUnstartedServer(name string, suite Suite, codec func() transport.Codec) *Server {
+func NewUnstartedServer(dcID int, log *zap.Logger, codec func() transport.Codec) *Server {
 	k, err := rsa.GenerateKey(rand.Reader, 2048)
 	if err != nil {
 		panic(err)
 	}
-	log := suite.Log.Named(name)
 
 	s := &Server{
-		server:     transport.NewCustomServer(codec, newLocalListener(suite.Ctx)),
+		dcID:       dcID,
+		codec:      codec,
 		key:        k,
 		cipher:     crypto.NewServerCipher(rand.Reader),
-		ctx:        suite.Ctx,
 		clock:      clock.System,
 		log:        log,
 		dispatcher: NewDispatcher(),
@@ -89,17 +70,17 @@ func (s *Server) Dispatcher() *Dispatcher {
 	return s.dispatcher
 }
 
-func (s *Server) serve() error {
-	s.log.Info("Serving", zap.String("addr", s.Addr().String()))
+func (s *Server) serve(listener net.Listener) error {
+	s.log.Info("Serving")
 	defer func() {
-		l := s.log
-		if err := s.ctx.Err(); err != nil {
-			l = s.log.With(zap.Error(err))
-		}
-		l.Info("Stopping")
+		s.log.Info("Stopping")
 	}()
 
-	return s.server.Serve(s.ctx, func(ctx context.Context, conn transport.Conn) error {
+	server := transport.NewCustomServer(s.codec, listener)
+	defer func() {
+		_ = server.Close()
+	}()
+	return server.Serve(s.ctx, func(ctx context.Context, conn transport.Conn) error {
 		err := s.serveConn(ctx, conn)
 		if err != nil {
 			// Client disconnected.

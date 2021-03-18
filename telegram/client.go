@@ -24,6 +24,7 @@ import (
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/internal/tmap"
 	"github.com/gotd/td/session"
+	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/telegram/internal/manager"
 	"github.com/gotd/td/tg"
 )
@@ -61,9 +62,11 @@ type Client struct {
 	conn    clientConn
 	connMux sync.Mutex
 	// Connection factory fields.
-	create      connConstructor        // immutable
-	connBackoff func() backoff.BackOff // immutable
-	defaultMode manager.ConnMode       // immutable
+	create       connConstructor        // immutable
+	resolver     dcs.Resolver           // immutable
+	connBackoff  func() backoff.BackOff // immutable
+	defaultMode  manager.ConnMode       // immutable
+	connsCounter atomic.Int64
 
 	// Restart signal channel.
 	restart chan struct{} // immutable
@@ -95,8 +98,6 @@ type Client struct {
 	// Ready signal channel, sends signal when client connection is ready.
 	// Resets on reconnect.
 	ready *tdsync.ResetReady // immutable
-
-	connsCounter atomic.Int64
 
 	// Telegram updates handler.
 	updateHandler UpdateHandler // immutable
@@ -146,10 +147,13 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		appHash:       appHash,
 		updateHandler: opt.UpdateHandler,
 		session: pool.NewSyncSession(pool.Session{
-			Addr: opt.Addr,
-			DC:   opt.DC,
+			DC: opt.DC,
+		}),
+		cfg: manager.NewAtomicConfig(tg.Config{
+			DCOptions: opt.DCList,
 		}),
 		create:      defaultConstructor(),
+		resolver:    opt.Resolver,
 		defaultMode: mode,
 		connBackoff: opt.ReconnectionBackoff,
 		clock:       opt.Clock,
@@ -170,9 +174,6 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 
 	client.opts = mtproto.Options{
 		PublicKeys:    opt.PublicKeys,
-		Transport:     opt.Transport,
-		Network:       opt.Network,
-		PreferIPv6:    opt.PreferIPv6,
 		Random:        opt.Random,
 		Logger:        opt.Logger,
 		AckBatchSize:  opt.AckBatchSize,
@@ -188,14 +189,16 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 			proto.TypesMap(),
 		),
 	}
-	client.conn = client.createConn(0, client.defaultMode, nil)
+	client.conn = client.createPrimaryConn(nil)
 
 	return client
 }
 
 // init sets fields which needs explicit initialization, like maps or channels.
 func (c *Client) init() {
-	c.cfg = manager.NewAtomicConfig(tg.Config{})
+	if c.cfg == nil {
+		c.cfg = manager.NewAtomicConfig(tg.Config{})
+	}
 	c.ready = tdsync.NewResetReady()
 	c.restart = make(chan struct{})
 	c.migration = make(chan struct{}, 1)
@@ -236,11 +239,10 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 	c.connMux.Lock()
 	c.session.Store(pool.Session{
 		DC:      data.DC,
-		Addr:    data.Addr,
 		AuthKey: key,
 		Salt:    data.Salt,
 	})
-	c.conn = c.createConn(0, c.defaultMode, nil)
+	c.conn = c.createPrimaryConn(nil)
 	c.connMux.Unlock()
 
 	return nil
@@ -284,6 +286,7 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 	b := tdsync.SyncBackoff(c.connBackoff())
 
 	for {
+		b.Reset()
 		err := c.runUntilRestart(ctx)
 		if err == nil {
 			return nil
@@ -312,7 +315,7 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 				}
 				return nil
 			}
-			c.conn = c.createConn(0, c.defaultMode, setup)
+			c.conn = c.createPrimaryConn(setup)
 			c.connMux.Unlock()
 		}
 	}
@@ -362,6 +365,15 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) err
 	g.Go(func(ctx context.Context) error {
 		select {
 		case <-ctx.Done():
+			c.cancel()
+			return ctx.Err()
+		case <-c.ctx.Done():
+			return c.ctx.Err()
+		}
+	})
+	g.Go(func(ctx context.Context) error {
+		select {
+		case <-ctx.Done():
 			return ctx.Err()
 		case <-c.ready.Ready():
 			if err := f(ctx); err != nil {
@@ -381,7 +393,7 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) err
 	return nil
 }
 
-func (c *Client) saveSession(addr string, cfg tg.Config, s mtproto.Session) error {
+func (c *Client) saveSession(cfg tg.Config, s mtproto.Session) error {
 	if c.storage == nil {
 		return nil
 	}
@@ -401,7 +413,6 @@ func (c *Client) saveSession(addr string, cfg tg.Config, s mtproto.Session) erro
 	data.AuthKey = s.Key.Value[:]
 	data.AuthKeyID = s.Key.ID[:]
 	data.DC = cfg.ThisDC
-	data.Addr = addr
 	data.Salt = s.Salt
 
 	if err := c.storage.Save(c.ctx, data); err != nil {
@@ -414,11 +425,10 @@ func (c *Client) saveSession(addr string, cfg tg.Config, s mtproto.Session) erro
 	return nil
 }
 
-func (c *Client) onSession(addr string, cfg tg.Config, s mtproto.Session) error {
+func (c *Client) onSession(cfg tg.Config, s mtproto.Session) error {
 	c.sessionsMux.Lock()
 	c.sessions[cfg.ThisDC] = pool.NewSyncSession(pool.Session{
 		DC:      cfg.ThisDC,
-		Addr:    addr,
 		Salt:    s.Salt,
 		AuthKey: s.Key,
 	})
@@ -430,14 +440,13 @@ func (c *Client) onSession(addr string, cfg tg.Config, s mtproto.Session) error 
 		return nil
 	}
 
-	if err := c.saveSession(addr, cfg, s); err != nil {
+	if err := c.saveSession(cfg, s); err != nil {
 		return xerrors.Errorf("save: %w", err)
 	}
 
 	c.connMux.Lock()
 	c.session.Store(pool.Session{
 		DC:      cfg.ThisDC,
-		Addr:    addr,
 		Salt:    s.Salt,
 		AuthKey: s.Key,
 	})

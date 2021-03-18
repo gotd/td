@@ -28,37 +28,7 @@ func TestTransport_Pipe(t *testing.T) {
 		a.Equal(payload, b2.Buf)
 	}
 
-	c1, c2 := Intermediate(nil).Pipe()
+	c1, c2 := Intermediate().Pipe()
 	test(c1, c2)
 	test(c2, c1)
-}
-
-func Test_splitAddr(t *testing.T) {
-	tests := []struct {
-		name     string
-		input    string
-		wantDc   int
-		wantAddr string
-		wantErr  bool
-	}{
-		{"Empty", "", 0, "", true},
-		{"No delim", "1", 0, "", true},
-		{"No addr", "1|", 0, "", true},
-		{"No DC ID", "|1", 0, "", true},
-		{"OK", "2|127.0.0.1", 2, "127.0.0.1", false},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			a := require.New(t)
-
-			gotDc, gotAddr, err := splitAddr(tt.input, '|')
-			if tt.wantErr {
-				a.Error(err)
-				return
-			}
-
-			a.Equal(tt.wantDc, gotDc)
-			a.Equal(tt.wantAddr, gotAddr)
-		})
-	}
 }

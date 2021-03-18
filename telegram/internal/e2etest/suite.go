@@ -10,6 +10,7 @@ import (
 	"go.uber.org/zap"
 
 	"github.com/gotd/td/telegram"
+	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/telegram/internal/tgtest"
 )
 
@@ -18,7 +19,6 @@ type TestConfig struct {
 	AppID   int
 	AppHash string
 	DcID    int
-	Addr    string
 }
 
 // Suite is struct which contains external E2E test parameters.
@@ -44,7 +44,8 @@ func NewSuite(suite tgtest.Suite, config TestConfig, randomSource io.Reader) *Su
 // Client creates new *telegram.Client using this suite.
 func (s *Suite) Client(logger *zap.Logger, handler telegram.UpdateHandler) *telegram.Client {
 	return telegram.NewClient(s.AppID, s.AppHash, telegram.Options{
-		Addr:          s.Addr,
+		DC:            s.DcID,
+		DCList:        dcs.StagingDCs(),
 		Logger:        logger,
 		UpdateHandler: handler,
 	})

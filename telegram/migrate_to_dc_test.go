@@ -21,12 +21,11 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-type migrationTestHandler func(conn, id int64, dc int, body bin.Encoder) (bin.Encoder, error)
+type migrationTestHandler func(id int64, dc int, body bin.Encoder) (bin.Encoder, error)
 
 type migrateTestConn struct {
 	testConn
 	dc     int
-	addr   string
 	cfg    tg.Config
 	opts   mtproto.Options
 	client *Client
@@ -35,7 +34,7 @@ type migrateTestConn struct {
 func (c *migrateTestConn) Run(ctx context.Context) error {
 	cfg := c.cfg
 	cfg.ThisDC = c.dc
-	if err := c.client.onSession(c.addr, cfg, mtproto.Session{
+	if err := c.client.onSession(cfg, mtproto.Session{
 		ID:   10,
 		Key:  c.opts.Key,
 		Salt: 10,
@@ -64,17 +63,18 @@ func newMigrationClient(t *testing.T, h migrationTestHandler) *Client {
 
 	var client *Client
 	creator := func(
-		id int64,
+		create mtproto.Dialer,
 		mode manager.ConnMode,
-		appID int, addr string,
-		opts mtproto.Options, connOpts manager.ConnOptions,
+		appID int,
+		opts mtproto.Options,
+		connOpts manager.ConnOptions,
 	) pool.Conn {
 		var engine *rpc.Engine
 
 		ready := tdsync.NewReady()
 		ready.Signal()
 		engine = rpc.New(func(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error {
-			if response, err := h(id, msgID, connOpts.DC, in); err != nil {
+			if response, err := h(msgID, connOpts.DC, in); err != nil {
 				engine.NotifyError(msgID, err)
 			} else {
 				var b bin.Buffer
@@ -89,7 +89,6 @@ func newMigrationClient(t *testing.T, h migrationTestHandler) *Client {
 		return &migrateTestConn{
 			testConn: testConn{engine: engine, ready: ready},
 			dc:       connOpts.DC,
-			addr:     addr,
 			cfg:      cfg,
 			opts:     opts,
 			client:   client,
@@ -121,7 +120,7 @@ func TestMigration(t *testing.T) {
 	expected := &tg.BoolTrue{}
 	a := require.New(t)
 
-	client := newMigrationClient(t, func(conn, id int64, dc int, body bin.Encoder) (bin.Encoder, error) {
+	client := newMigrationClient(t, func(id int64, dc int, body bin.Encoder) (bin.Encoder, error) {
 		switch body.(type) {
 		case *tg.UsersGetUsersRequest:
 			return nil, tgerr.New(401, "AUTH_KEY_UNREGISTERED")

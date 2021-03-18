@@ -2,9 +2,7 @@ package telegram
 
 import (
 	"context"
-	"crypto/rsa"
 	"errors"
-	"net"
 	"testing"
 	"time"
 
@@ -12,125 +10,140 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zaptest"
-	"golang.org/x/sync/errgroup"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/mt"
+	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/session"
+	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/telegram/internal/tgtest"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
 )
 
-func fallbackHandler(dcOps *tg.Config) tgtest.HandlerFunc {
-	return func(srv *tgtest.Server, req *tgtest.Request) error {
-		id, err := req.Buf.PeekID()
-		if err != nil {
-			return err
-		}
+type quorumSetup struct {
+	TB     testing.TB
+	Quorum *tgtest.Quorum
+	Logger *zap.Logger
+}
 
-		switch id {
-		case tg.InvokeWithLayerRequestTypeID:
-			layerInvoke := tg.InvokeWithLayerRequest{
-				Query: &tg.InitConnectionRequest{
-					Query: &tg.HelpGetConfigRequest{},
+type clientSetup struct {
+	TB       testing.TB
+	Options  Options
+	Complete func()
+}
+
+func testQuorum(
+	trp Transport,
+	setup func(q quorumSetup),
+	run func(ctx context.Context, c clientSetup) error,
+) func(t *testing.T) {
+	return func(t *testing.T) {
+		log := zaptest.NewLogger(t)
+		defer func() { _ = log.Sync() }()
+
+		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
+		defer cancel()
+		grp := tdsync.NewCancellableGroup(ctx)
+
+		q := tgtest.NewQuorum(trp.Codec).WithLogger(log.Named("quorum"))
+		setup(quorumSetup{
+			TB:     t,
+			Quorum: q,
+			Logger: log,
+		})
+		grp.Go(q.Up)
+
+		grp.Go(func(ctx context.Context) error {
+			select {
+			// Await quorum readiness.
+			case <-q.Ready():
+			case <-ctx.Done():
+				return ctx.Err()
+			}
+
+			return run(ctx, clientSetup{
+				TB: t,
+				Options: Options{
+					PublicKeys:     q.Keys(),
+					Resolver:       dcs.PlainResolver(dcs.PlainOptions{Transport: trp}),
+					Logger:         log.Named("client"),
+					SessionStorage: &session.StorageMemory{},
+					DCList:         q.Config().DCOptions,
 				},
-			}
-
-			if err := layerInvoke.Decode(req.Buf); err != nil {
-				return err
-			}
-
-			return srv.SendResult(req, dcOps)
-		case tg.UsersGetUsersRequestTypeID:
-			return srv.SendVector(req, &tg.User{
-				ID:         10,
-				AccessHash: 10,
-				Username:   "jit_rs",
+				Complete: cancel,
 			})
-		case tg.HelpGetConfigRequestTypeID:
-			return srv.SendResult(req, dcOps)
-		default:
-			return xerrors.Errorf("unexpected TypeID %x call", id)
+		})
+
+		log.Debug("Waiting")
+		if err := grp.Wait(); !errors.Is(err, context.Canceled) {
+			require.NoError(t, err)
 		}
 	}
 }
 
 func testAllTransports(t *testing.T, test func(trp Transport) func(t *testing.T)) {
-	t.Run("Abridged", test(transport.Abridged(nil)))
-	t.Run("Intermediate", test(transport.Intermediate(nil)))
-	t.Run("PaddedIntermediate", test(transport.PaddedIntermediate(nil)))
-	t.Run("Full", test(transport.Full(nil)))
+	t.Run("Abridged", test(transport.Abridged()))
+	t.Run("Intermediate", test(transport.Intermediate()))
+	t.Run("PaddedIntermediate", test(transport.PaddedIntermediate()))
+	t.Run("Full", test(transport.Full()))
 }
 
 func testTransport(trp Transport) func(t *testing.T) {
-	return func(t *testing.T) {
-		log := zaptest.NewLogger(t)
+	testMessage := "ну че там с деньгами?"
 
-		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-		defer cancel()
-		g, gCtx := errgroup.WithContext(ctx)
+	return testQuorum(trp, func(s quorumSetup) {
+		q := s.Quorum
 
-		testMessage := "ну че там с деньгами?"
-		suite := tgtest.NewSuite(gCtx, t, log)
-		srv := tgtest.TestTransport(suite, testMessage, trp.Codec)
-		srv.Dispatcher().Fallback(fallbackHandler(&tg.Config{
-			ThisDC: 2,
-		}))
-
-		g.Go(func() error {
-			defer srv.Close()
-			return srv.Serve()
+		h := tgtest.TestTransport(s.TB, s.Logger.Named("handler"), testMessage)
+		q.Common().Vector(tg.UsersGetUsersRequestTypeID, &tg.User{
+			ID:         10,
+			AccessHash: 10,
+			Username:   "rustcocks",
 		})
-		g.Go(func() error {
-			dispatcher := tg.NewUpdateDispatcher()
-			logger := log.Named("client")
-			client := NewClient(1, "hash", Options{
-				PublicKeys:     []*rsa.PublicKey{srv.Key()},
-				Addr:           srv.Addr().String(),
-				Transport:      trp,
-				Logger:         logger,
-				UpdateHandler:  dispatcher,
-				AckBatchSize:   1,
-				AckInterval:    time.Millisecond * 50,
-				RetryInterval:  time.Millisecond * 50,
-				SessionStorage: &session.StorageMemory{},
-			})
+		q.Dispatch(2, "server").
+			Handle(tg.InvokeWithLayerRequestTypeID, h).
+			Handle(tg.MessagesSendMessageRequestTypeID, h)
+	}, func(ctx context.Context, c clientSetup) error {
+		opts := c.Options
+		opts.AckBatchSize = 1
+		opts.AckInterval = time.Millisecond * 50
+		opts.RetryInterval = time.Millisecond * 50
+		logger := opts.Logger
 
-			waitForMessage := make(chan struct{})
-			dispatcher.OnNewMessage(func(ctx tg.UpdateContext, update *tg.UpdateNewMessage) error {
-				message := update.Message.(*tg.Message).Message
-				logger.Info("Got message", zap.String("text", message))
-				assert.Equal(t, testMessage, message)
-				if err := client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
-					Peer:    &tg.InputPeerUser{},
-					Message: "какими деньгами?",
-				}); err != nil {
-					return err
-				}
-				logger.Info("Closing waitForMessage")
-				close(waitForMessage)
+		dispatcher := tg.NewUpdateDispatcher()
+		opts.UpdateHandler = dispatcher
+		client := NewClient(1, "hash", opts)
+
+		waitForMessage := make(chan struct{})
+		dispatcher.OnNewMessage(func(ctx tg.UpdateContext, update *tg.UpdateNewMessage) error {
+			message := update.Message.(*tg.Message).Message
+			logger.Info("Got message", zap.String("text", message))
+			assert.Equal(c.TB, testMessage, message)
+			if err := client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
+				Peer:    &tg.InputPeerUser{},
+				Message: "какими деньгами?",
+			}); err != nil {
+				return err
+			}
+
+			logger.Info("Closing waitForMessage")
+			close(waitForMessage)
+			return nil
+		})
+
+		return client.Run(ctx, func(ctx context.Context) error {
+			select {
+			case <-ctx.Done():
+				c.TB.Error("Failed to wait for message")
+				return ctx.Err()
+			case <-waitForMessage:
+				logger.Info("Returning")
+				c.Complete()
 				return nil
-			})
-
-			return client.Run(gCtx, func(ctx context.Context) error {
-				select {
-				case <-ctx.Done():
-					t.Error("Failed to wait for message")
-					return ctx.Err()
-				case <-waitForMessage:
-					logger.Info("Returning")
-					cancel()
-					return nil
-				}
-			})
+			}
 		})
-
-		log.Debug("Waiting")
-		if err := g.Wait(); !errors.Is(err, context.Canceled) {
-			require.NoError(t, err)
-		}
-	}
+	})
 }
 
 func TestClientE2E(t *testing.T) {
@@ -138,109 +151,63 @@ func TestClientE2E(t *testing.T) {
 }
 
 func testMigrate(trp Transport) func(t *testing.T) {
-	return func(t *testing.T) {
-		log := zaptest.NewLogger(t)
-		defer func() { _ = log.Sync() }()
-
-		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
-		defer cancel()
-		g, gCtx := errgroup.WithContext(ctx)
-		suite := tgtest.NewSuite(gCtx, t, log)
-
-		srv := tgtest.NewUnstartedServer("server", suite, trp.Codec)
-		migrate := tgtest.NewUnstartedServer("migrate", suite, trp.Codec)
-
-		srvAddr, ok := srv.Addr().(*net.TCPAddr)
-		require.Truef(t, ok, "unexpected type %T", srv.Addr())
-		migrateAddr, ok := migrate.Addr().(*net.TCPAddr)
-		require.Truef(t, ok, "unexpected type %T", migrate.Addr())
-		dcOps := &tg.Config{
-			DCOptions: []tg.DCOption{
-				{
-					ID:        1,
-					IPAddress: srvAddr.IP.String(),
-					Port:      srvAddr.Port,
-				},
-				{
-					ID:        2,
-					IPAddress: migrateAddr.IP.String(),
-					Port:      migrateAddr.Port,
-				},
-			},
-		}
-
-		wait := make(chan struct{})
-		srv.Dispatcher().HandleFunc(tg.MessagesSendMessageRequestTypeID,
-			func(server *tgtest.Server, req *tgtest.Request) error {
-				m := &tg.MessagesSendMessageRequest{}
-				if err := m.Decode(req.Buf); err != nil {
-					return err
-				}
-
-				wait <- struct{}{}
-				return srv.SendResult(req, &tg.Updates{})
-			},
-		).Fallback(fallbackHandler(dcOps))
-		g.Go(func() error {
-			defer srv.Close()
-			return srv.Serve()
+	wait := make(chan struct{}, 1)
+	return testQuorum(trp, func(s quorumSetup) {
+		q := s.Quorum
+		q.Common().Vector(tg.UsersGetUsersRequestTypeID, &tg.User{
+			ID:         10,
+			AccessHash: 10,
+			Username:   "rustcocks",
 		})
-
-		migrate.Dispatcher().HandleFunc(tg.MessagesSendMessageRequestTypeID,
+		q.Dispatch(1, "server").HandleFunc(tg.MessagesSendMessageRequestTypeID,
 			func(server *tgtest.Server, req *tgtest.Request) error {
 				m := &tg.MessagesSendMessageRequest{}
 				if err := m.Decode(req.Buf); err != nil {
 					return err
 				}
 
-				return migrate.SendResult(req, &mt.RPCError{
+				select {
+				case wait <- struct{}{}:
+				case <-req.RequestCtx.Done():
+					return req.RequestCtx.Err()
+				}
+				return server.SendResult(req, &tg.Updates{})
+			},
+		)
+		q.Dispatch(2, "migrate").HandleFunc(tg.MessagesSendMessageRequestTypeID,
+			func(server *tgtest.Server, req *tgtest.Request) error {
+				m := &tg.MessagesSendMessageRequest{}
+				if err := m.Decode(req.Buf); err != nil {
+					return err
+				}
+
+				return server.SendResult(req, &mt.RPCError{
 					ErrorCode:    303,
 					ErrorMessage: "NETWORK_MIGRATE_1",
 				})
-			}).Fallback(fallbackHandler(dcOps))
-		g.Go(func() error {
-			defer migrate.Close()
-			return migrate.Serve()
-		})
+			},
+		)
+	}, func(ctx context.Context, c clientSetup) error {
+		client := NewClient(1, "hash", c.Options)
+		return client.Run(ctx, func(ctx context.Context) error {
+			if err := client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
+				Peer:    &tg.InputPeerUser{},
+				Message: "abc",
+			}); err != nil {
+				return xerrors.Errorf("send: %w", err)
+			}
 
-		g.Go(func() error {
-			client := NewClient(1, "hash", Options{
-				PublicKeys:     []*rsa.PublicKey{migrate.Key(), srv.Key()},
-				Addr:           migrate.Addr().String(),
-				Transport:      trp,
-				Logger:         log.Named("client"),
-				SessionStorage: &session.StorageMemory{},
-			})
-
-			return client.Run(gCtx, func(ctx context.Context) error {
-				if err := client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
-					Peer:    &tg.InputPeerUser{},
-					Message: "abc",
-				}); err != nil {
-					return xerrors.Errorf("send: %w", err)
-				}
-
-				return nil
-			})
-		})
-		g.Go(func() error {
 			select {
 			case <-wait:
-				cancel()
-				return nil
-			case <-gCtx.Done():
-				t.Error("failed to wait")
-				return gCtx.Err()
+				c.Complete()
+			case <-ctx.Done():
+				return ctx.Err()
 			}
+			return nil
 		})
-
-		log.Debug("Waiting")
-		if err := g.Wait(); !errors.Is(err, context.Canceled) {
-			require.NoError(t, err)
-		}
-	}
+	})
 }
 
 func TestMigrate(t *testing.T) {
-	t.Run("Intermediate", testMigrate(transport.Intermediate(nil)))
+	t.Run("Intermediate", testMigrate(transport.Intermediate()))
 }

@@ -15,6 +15,7 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/telegram"
+	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
 )
@@ -47,11 +48,11 @@ func run(ctx context.Context) error {
 
 	dispatcher := tg.NewUpdateDispatcher()
 	client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
-		Addr:           telegram.AddrTest,
 		Logger:         logger,
 		SessionStorage: storage,
-		Transport:      transport.Intermediate(transport.DialFunc(proxy.Dial)),
+		Resolver:       dcs.PlainResolver(dcs.PlainOptions{Dialer: transport.DialFunc(proxy.Dial)}),
 		UpdateHandler:  dispatcher,
+		DCList:         dcs.StagingDCs(),
 	})
 
 	return client.Run(ctx, func(ctx context.Context) error {

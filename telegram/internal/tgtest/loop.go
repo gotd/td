@@ -48,7 +48,7 @@ func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
 		if !conn.didSentCreated() {
 			s.log.Debug("Send handleSessionCreated event")
 			salt := int64(binary.LittleEndian.Uint64(key.ID[:]))
-			if err := s.sendSessionCreated(session, salt); err != nil {
+			if err := s.sendSessionCreated(ctx, session, salt); err != nil {
 				return err
 			}
 			conn.sentCreated()
@@ -57,7 +57,13 @@ func (s *Server) rpcHandle(ctx context.Context, conn *connection) error {
 		// Buffer now contains plaintext message payload.
 		b.ResetTo(msg.Data())
 
-		if err := s.handle(&Request{Session: session, MsgID: msg.MessageID, Buf: &b}); err != nil {
+		if err := s.handle(&Request{
+			DC:         s.dcID,
+			Session:    session,
+			MsgID:      msg.MessageID,
+			Buf:        &b,
+			RequestCtx: ctx,
+		}); err != nil {
 			return xerrors.Errorf("handle: %w", err)
 		}
 	}
@@ -77,14 +83,14 @@ func (s *Server) handle(req *Request) error {
 			return err
 		}
 
-		return s.SendPong(req.Session, req.MsgID, pingReq.PingID)
+		return s.SendPong(req, pingReq.PingID)
 	case mt.PingRequestTypeID:
 		pingReq := mt.PingRequest{}
 		if err := pingReq.Decode(in); err != nil {
 			return err
 		}
 
-		return s.SendPong(req.Session, req.MsgID, pingReq.PingID)
+		return s.SendPong(req, pingReq.PingID)
 
 	case mt.GetFutureSaltsRequestTypeID:
 		saltsRequest := mt.GetFutureSaltsRequest{}
@@ -92,7 +98,7 @@ func (s *Server) handle(req *Request) error {
 			return err
 		}
 
-		return s.SendEternalSalt(req.Session, req.MsgID)
+		return s.SendEternalSalt(req)
 
 	case mt.RPCDropAnswerRequestTypeID:
 		drop := mt.RPCDropAnswerRequest{}

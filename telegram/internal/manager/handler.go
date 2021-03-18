@@ -8,7 +8,7 @@ import (
 
 // Handler abstracts updates and session handler.
 type Handler interface {
-	OnSession(addr string, cfg tg.Config, s mtproto.Session) error
+	OnSession(cfg tg.Config, s mtproto.Session) error
 	OnMessage(b *bin.Buffer) error
 }
 
@@ -16,7 +16,7 @@ type Handler interface {
 type NoopHandler struct{}
 
 // OnSession implements Handler.
-func (n NoopHandler) OnSession(addr string, cfg tg.Config, s mtproto.Session) error {
+func (n NoopHandler) OnSession(cfg tg.Config, s mtproto.Session) error {
 	return nil
 }
 

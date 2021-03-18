@@ -2,15 +2,14 @@ package tgtest
 
 import (
 	"context"
-	"fmt"
 	"net"
 )
 
-func newLocalListener(ctx context.Context) net.Listener {
+func newLocalListener(ctx context.Context) (net.Listener, error) {
 	conf := net.ListenConfig{}
 	l, err := conf.Listen(ctx, "tcp4", "127.0.0.1:0")
 	if err != nil {
-		panic(fmt.Sprintf("tgtest: failed to listen on a port: %v", err))
+		return nil, err
 	}
-	return l
+	return l, nil
 }

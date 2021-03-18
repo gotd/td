@@ -15,6 +15,7 @@ import (
 
 	"github.com/gotd/td/internal/testutil"
 	"github.com/gotd/td/telegram"
+	"github.com/gotd/td/telegram/dcs"
 )
 
 func askCode(code string, err error) telegram.CodeAuthenticatorFunc {
@@ -94,7 +95,8 @@ func ExampleTestAuth() {
 
 	ctx := context.Background()
 	client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
-		Addr: telegram.AddrTest,
+		DC:     dcID,
+		DCList: dcs.StagingDCs(),
 	})
 	if err := client.Run(ctx, func(ctx context.Context) error {
 		return telegram.NewAuth(

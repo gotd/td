@@ -1,7 +1,6 @@
 package mtproto
 
 import (
-	"context"
 	"crypto/rand"
 	"crypto/rsa"
 	"io"
@@ -18,14 +17,7 @@ import (
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/internal/rpc"
 	"github.com/gotd/td/internal/tmap"
-	"github.com/gotd/td/transport"
 )
-
-// Transport is MTProto connection creator.
-type Transport interface {
-	Codec() transport.Codec
-	DialContext(ctx context.Context, network, address string) (transport.Conn, error)
-}
 
 // Options of Conn.
 type Options struct {
@@ -33,13 +25,6 @@ type Options struct {
 	//
 	// If not provided, embedded public keys will be used.
 	PublicKeys []*rsa.PublicKey
-	// Transport to use. Default dialer will be used if not provided.
-	Transport Transport
-	// Network to use. Defaults to tcp.
-	Network string
-	// PreferIPv6 gives IPv6 DCs higher precedence.
-	// Default is to prefer IPv4 DCs over IPv6.
-	PreferIPv6 bool
 	// Random is random source. Defaults to crypto.
 	Random io.Reader
 	// Logger is instance of zap.Logger. No logs by default.
@@ -122,12 +107,6 @@ func (opt *Options) setDefaultConcurrency() {
 }
 
 func (opt *Options) setDefaults() {
-	if opt.Transport == nil {
-		opt.Transport = transport.Intermediate(nil)
-	}
-	if opt.Network == "" {
-		opt.Network = "tcp"
-	}
 	if opt.Random == nil {
 		opt.Random = rand.Reader
 	}

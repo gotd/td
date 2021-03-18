@@ -10,7 +10,6 @@ import (
 // Session represents DC session.
 type Session struct {
 	DC      int
-	Addr    string
 	AuthKey crypto.AuthKey
 	Salt    int64
 }
@@ -36,10 +35,9 @@ func (s *SyncSession) Store(data Session) {
 }
 
 // Migrate changes current DC and its addr, zeroes AuthKey and Salt.
-func (s *SyncSession) Migrate(dc int, addr string) {
+func (s *SyncSession) Migrate(dc int) {
 	s.mux.Lock()
 	s.data.DC = dc
-	s.data.Addr = addr
 	s.data.AuthKey = crypto.AuthKey{}
 	s.data.Salt = 0
 	s.mux.Unlock()

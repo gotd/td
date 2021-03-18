@@ -1,13 +1,17 @@
 package tgtest
 
 import (
+	"context"
+
 	"github.com/gotd/td/bin"
 )
 
 type Request struct {
-	Session Session
-	MsgID   int64
-	Buf     *bin.Buffer
+	DC         int
+	Session    Session
+	MsgID      int64
+	Buf        *bin.Buffer
+	RequestCtx context.Context
 }
 
 type Handler interface {
