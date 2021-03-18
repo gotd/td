@@ -55,9 +55,6 @@ type DC struct {
 	// free connection in 3rd acquire case.
 	stuck *tdsync.ResetReady
 
-	// Requests wait group.
-	ongoing sync.WaitGroup
-
 	closed atomic.Bool
 }
 
@@ -254,9 +251,6 @@ func (c *DC) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decode
 		return errDCIsClosed
 	}
 
-	c.ongoing.Add(1)
-	defer c.ongoing.Done()
-
 	for {
 		conn, err := c.acquire(ctx)
 		if err != nil {
@@ -281,20 +275,12 @@ func (c *DC) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decode
 
 // Close waits while all ongoing requests will be done or until given context is done.
 // Then, closes the DC.
-func (c *DC) Close(closeCtx context.Context) error {
+func (c *DC) Close() error {
 	if c.closed.Swap(true) {
 		return xerrors.New("DC already closed")
 	}
 	c.log.Debug("Closing DC")
 	defer c.log.Debug("DC closed")
-
-	closed, cancel := context.WithCancel(closeCtx)
-	go func() {
-		c.ongoing.Wait()
-		cancel()
-	}()
-
-	<-closed.Done()
 
 	c.cancel()
 	return c.grp.Wait()

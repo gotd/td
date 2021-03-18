@@ -17,7 +17,7 @@ import (
 // CloseInvoker is a closeable tg.Invoker.
 type CloseInvoker interface {
 	tg.Invoker
-	Close(ctx context.Context) error
+	Close() error
 }
 
 func (c *Client) createPool(dc int, max int64, creator func() pool.Conn) (*pool.DC, error) {
@@ -101,7 +101,7 @@ func (c *Client) dc(ctx context.Context, dcID int, max int64, dialer mtproto.Dia
 		}
 
 		// Kill pool if we got error.
-		_ = p.Close(ctx)
+		_ = p.Close()
 		return nil, xerrors.Errorf("transfer: %w", err)
 	}
 

@@ -4,6 +4,7 @@ import (
 	"context"
 	"math/rand"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/require"
 	"go.uber.org/zap/zaptest"
@@ -105,9 +106,10 @@ func newMigrationClient(t *testing.T, h migrationTestHandler) *Client {
 		session: pool.NewSyncSession(pool.Session{
 			DC: 2,
 		}),
-		connBackoff: defaultBackoff(clock.System),
-		ctx:         context.Background(),
-		cancel:      func() {},
+		connBackoff:      defaultBackoff(clock.System),
+		ctx:              context.Background(),
+		cancel:           func() {},
+		migrationTimeout: 10 * time.Second,
 	}
 	client.init()
 	client.conn = client.createConn(0, manager.ConnModeUpdates, nil)

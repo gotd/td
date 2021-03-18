@@ -58,8 +58,9 @@ func (c *Client) invokeMigrate(ctx context.Context, dcID int, input bin.Encoder,
 		return c.invokeRaw(ctx, input, output)
 	}
 
-	if err := c.migrateToDc(
-		c.ctx, dcID,
+	mctx, cancel := context.WithTimeout(ctx, c.migrationTimeout)
+	defer cancel()
+	if err := c.migrateToDc(mctx, dcID,
 		// TODO(tdakkota): Is it may be necessary to transfer auth
 		//  if error is not FILE_MIGRATE or STATS_MIGRATE?
 		false,
@@ -85,13 +86,11 @@ func (c *Client) migrateToDc(ctx context.Context, dcID int, transfer bool) error
 
 	var export *tg.AuthExportedAuthorization
 	if transfer {
-		var err error
-		export, err = c.exportAuth(ctx, dcID)
-		if err != nil {
-			if !unauthorized(err) {
-				c.log.Info("Export authorization failed", zap.Error(err))
-			}
+		exported, err := c.exportAuth(ctx, dcID)
+		if err != nil && !unauthorized(err) {
+			return xerrors.Errorf("export auth: %w", err)
 		}
+		export = exported
 	}
 
 	c.session.Migrate(dcID)

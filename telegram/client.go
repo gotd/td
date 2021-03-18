@@ -8,6 +8,7 @@ import (
 	"runtime/debug"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/cenkalti/backoff/v4"
 	"go.uber.org/atomic"
@@ -71,8 +72,9 @@ type Client struct {
 	// Restart signal channel.
 	restart chan struct{} // immutable
 	// Migration state.
-	exported  chan *tg.AuthExportedAuthorization // immutable
-	migration chan struct{}
+	exported         chan *tg.AuthExportedAuthorization // immutable
+	migrationTimeout time.Duration                      // immutable
+	migration        chan struct{}
 
 	// Connections to non-primary DC.
 	subConns    map[int]CloseInvoker
@@ -152,12 +154,13 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		cfg: manager.NewAtomicConfig(tg.Config{
 			DCOptions: opt.DCList,
 		}),
-		create:      defaultConstructor(),
-		resolver:    opt.Resolver,
-		defaultMode: mode,
-		connBackoff: opt.ReconnectionBackoff,
-		clock:       opt.Clock,
-		device:      opt.Device,
+		create:           defaultConstructor(),
+		resolver:         opt.Resolver,
+		defaultMode:      mode,
+		connBackoff:      opt.ReconnectionBackoff,
+		clock:            opt.Clock,
+		device:           opt.Device,
+		migrationTimeout: opt.MigrationTimeout,
 	}
 	client.init()
 
@@ -351,7 +354,7 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) err
 		defer c.subConnsMux.Unlock()
 
 		for _, conn := range c.subConns {
-			_ = conn.Close(c.ctx)
+			_ = conn.Close()
 		}
 	}()
 
