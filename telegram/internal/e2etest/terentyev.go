@@ -34,7 +34,7 @@ func NewUser(suite *Suite, text []string, username string) User {
 	}
 }
 
-func (u User) messageHandler(ctx tg.UpdateContext, update *tg.UpdateNewMessage) error {
+func (u User) messageHandler(ctx context.Context, entities tg.Entities, update *tg.UpdateNewMessage) error {
 	if filterMessage(update) {
 		return nil
 	}

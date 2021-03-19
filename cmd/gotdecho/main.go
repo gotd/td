@@ -25,13 +25,13 @@ func run(ctx context.Context) error {
 		UpdateHandler: dispatcher,
 	}, func(ctx context.Context, client *telegram.Client) error {
 		sender := message.NewSender(tg.NewClient(client))
-		dispatcher.OnNewMessage(func(ctx tg.UpdateContext, u *tg.UpdateNewMessage) error {
+		dispatcher.OnNewMessage(func(ctx context.Context, entities tg.Entities, u *tg.UpdateNewMessage) error {
 			m, ok := u.Message.(*tg.Message)
 			if !ok || m.Out {
 				return nil
 			}
 
-			_, err := sender.Reply(ctx, u).Text(ctx, m.Message)
+			_, err := sender.Reply(entities, u).Text(ctx, m.Message)
 			return err
 		})
 		return nil

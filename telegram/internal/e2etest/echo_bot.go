@@ -111,7 +111,7 @@ func (b EchoBot) handler(client *telegram.Client) tg.NewMessageHandler {
 
 	raw := tg.NewClient(client)
 	sender := message.NewSender(raw)
-	return func(ctx tg.UpdateContext, update *tg.UpdateNewMessage) error {
+	return func(ctx context.Context, entities tg.Entities, update *tg.UpdateNewMessage) error {
 		if filterMessage(update) {
 			return nil
 		}
@@ -139,7 +139,7 @@ func (b EchoBot) handler(client *telegram.Client) tg.NewMessageHandler {
 		case *tg.Message:
 			switch peer := m.PeerID.(type) {
 			case *tg.PeerUser:
-				user := ctx.Users[peer.UserID]
+				user := entities.Users[peer.UserID]
 				if user == nil {
 					user = dialogsUsers.get(peer.UserID)
 				}

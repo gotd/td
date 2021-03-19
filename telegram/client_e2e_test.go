@@ -116,7 +116,7 @@ func testTransport(trp Transport) func(t *testing.T) {
 		client := NewClient(1, "hash", opts)
 
 		waitForMessage := make(chan struct{})
-		dispatcher.OnNewMessage(func(ctx tg.UpdateContext, update *tg.UpdateNewMessage) error {
+		dispatcher.OnNewMessage(func(ctx context.Context, entities tg.Entities, update *tg.UpdateNewMessage) error {
 			message := update.Message.(*tg.Message).Message
 			logger.Info("Got message", zap.String("text", message))
 			assert.Equal(c.TB, testMessage, message)

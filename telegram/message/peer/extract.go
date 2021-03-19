@@ -39,7 +39,7 @@ func EntitiesFromResult(r EntitySearchResult) Entities {
 }
 
 // EntitiesFromUpdate fills Entities struct using given context.
-func EntitiesFromUpdate(uctx tg.UpdateContext) Entities {
+func EntitiesFromUpdate(uctx tg.Entities) Entities {
 	return NewEntities(
 		uctx.Users,
 		uctx.Chats,
@@ -55,7 +55,7 @@ func (ent Entities) FillFromResult(r EntitySearchResult) {
 }
 
 // FillFromUpdate adds and updates all entities from given updates.
-func (ent Entities) FillFromUpdate(uctx tg.UpdateContext) {
+func (ent Entities) FillFromUpdate(uctx tg.Entities) {
 	ent.Fill(
 		uctx.Users,
 		uctx.Chats,

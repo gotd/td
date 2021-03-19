@@ -56,7 +56,7 @@ func TestResolve(t *testing.T) {
 	check(s.ResolveDomain("@durov"), expected)
 	check(s.ResolveDeeplink("https://t.me/durov"), expected)
 
-	uctx := tg.UpdateContext{Users: map[int]*tg.User{
+	uctx := tg.Entities{Users: map[int]*tg.User{
 		expected.UserID: {ID: expected.UserID, AccessHash: expected.AccessHash, Username: "durov"},
 	}}
 	check(s.Answer(uctx, answerable{ID: 10, UserID: expected.UserID}), expected)
