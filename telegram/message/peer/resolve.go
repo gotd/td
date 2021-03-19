@@ -7,6 +7,7 @@ import (
 
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/internal/ascii"
 	"github.com/gotd/td/tg"
 )
 
@@ -71,20 +72,12 @@ func validateDomain(domain string) error {
 	return nil
 }
 
-func isLatinLetter(r rune) bool {
-	return (r >= 'a' && r <= 'z') || (r >= 'A' && r <= 'Z')
-}
-
-func isDigit(r rune) bool {
-	return r >= '0' && r <= '9'
-}
-
 // checkDomainSymbols check that domain contains only a-z, A-Z, 0-9 and '_'
 // symbols.
 func checkDomainSymbols(domain string) error {
 	last := len(domain) - 1
 	for i, r := range domain {
-		if isLatinLetter(r) {
+		if ascii.IsLatinLetter(r) {
 			continue
 		}
 
@@ -93,7 +86,7 @@ func checkDomainSymbols(domain string) error {
 			return xerrors.Errorf("domain should start with latin letter, got %c in %q", r, domain)
 		case i == last && r == '_':
 			return xerrors.Errorf("domain should end with latin letter or digit, got %c in %q", r, domain)
-		case !isDigit(r) && r != '_':
+		case !ascii.IsDigit(r) && r != '_':
 			return xerrors.Errorf("unexpected rune %[1]c (%[1]U) in %[2]q domain", r, domain)
 		}
 	}
