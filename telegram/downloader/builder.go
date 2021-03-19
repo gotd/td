@@ -7,6 +7,7 @@ import (
 	"path/filepath"
 	"runtime"
 
+	"go.uber.org/multierr"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/tg"
@@ -66,13 +67,13 @@ func (b *Builder) Parallel(ctx context.Context, output io.WriterAt) (tg.StorageF
 }
 
 // ToPath downloads file to given path.
-func (b *Builder) ToPath(ctx context.Context, path string) (tg.StorageFileTypeClass, error) {
+func (b *Builder) ToPath(ctx context.Context, path string) (_ tg.StorageFileTypeClass, err error) {
 	f, err := os.Create(filepath.Clean(path))
 	if err != nil {
 		return nil, xerrors.Errorf("create output file: %w", err)
 	}
 	defer func() {
-		_ = f.Close()
+		multierr.AppendInto(&err, f.Close())
 	}()
 
 	return b.Parallel(ctx, f)

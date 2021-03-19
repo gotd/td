@@ -55,13 +55,12 @@ func (u UpdateDispatcher) Handle(ctx context.Context, updates *Updates) error {
         Context:      ctx,
     }
 
-    for _, update := range updates.Updates {
+    var err error
+	for _, update := range updates.Updates {
         uctx.lazyInitFromUpdates(updates)
-        if err := u.dispatch(uctx, update); err != nil {
-            return err
-        }
-    }
-    return nil
+        multierr.AppendInto(&err, u.dispatch(uctx, update))
+	}
+	return nil
 }
 
 // HandleShort implements UpdateDispatcher.
