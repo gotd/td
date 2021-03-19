@@ -8,9 +8,11 @@ import (
 	"runtime/debug"
 	"strings"
 	"sync"
+	"time"
 
 	"github.com/cenkalti/backoff/v4"
 	"go.uber.org/atomic"
+	"go.uber.org/multierr"
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
@@ -71,8 +73,9 @@ type Client struct {
 	// Restart signal channel.
 	restart chan struct{} // immutable
 	// Migration state.
-	exported  chan *tg.AuthExportedAuthorization // immutable
-	migration chan struct{}
+	exported         chan *tg.AuthExportedAuthorization // immutable
+	migrationTimeout time.Duration                      // immutable
+	migration        chan struct{}
 
 	// Connections to non-primary DC.
 	subConns    map[int]CloseInvoker
@@ -152,12 +155,13 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		cfg: manager.NewAtomicConfig(tg.Config{
 			DCOptions: opt.DCList,
 		}),
-		create:      defaultConstructor(),
-		resolver:    opt.Resolver,
-		defaultMode: mode,
-		connBackoff: opt.ReconnectionBackoff,
-		clock:       opt.Clock,
-		device:      opt.Device,
+		create:           defaultConstructor(),
+		resolver:         opt.Resolver,
+		defaultMode:      mode,
+		connBackoff:      opt.ReconnectionBackoff,
+		clock:            opt.Clock,
+		device:           opt.Device,
+		migrationTimeout: opt.MigrationTimeout,
 	}
 	client.init()
 
@@ -213,12 +217,19 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 	if c.storage == nil {
 		return nil
 	}
+
 	data, err := c.storage.Load(ctx)
 	if errors.Is(err, session.ErrNotFound) {
 		return nil
 	}
 	if err != nil {
 		return xerrors.Errorf("load: %w", err)
+	}
+
+	// If file does not contain DC ID, so we use DC from options.
+	prev := c.session.Load()
+	if data.DC == 0 {
+		data.DC = prev.DC
 	}
 
 	// Restoring persisted auth key.
@@ -335,7 +346,7 @@ func (c *Client) resetReady() {
 // will return on f() result.
 //
 // Context of callback will be canceled if fatal error is detected.
-func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) error {
+func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) (err error) {
 	select {
 	case <-c.ctx.Done():
 		return xerrors.Errorf("client already closed: %w", c.ctx.Err())
@@ -351,7 +362,9 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) err
 		defer c.subConnsMux.Unlock()
 
 		for _, conn := range c.subConns {
-			_ = conn.Close(c.ctx)
+			if closeErr := conn.Close(); !xerrors.Is(closeErr, context.Canceled) {
+				multierr.AppendInto(&err, closeErr)
+			}
 		}
 	}()
 
@@ -434,9 +447,9 @@ func (c *Client) onSession(cfg tg.Config, s mtproto.Session) error {
 	})
 	c.sessionsMux.Unlock()
 
-	dc := c.session.Load().DC
+	primaryDC := c.session.Load().DC
 	// Do not save session for non-primary DC.
-	if cfg.ThisDC != 0 && dc != 0 && dc != cfg.ThisDC {
+	if cfg.ThisDC != 0 && primaryDC != 0 && primaryDC != cfg.ThisDC {
 		return nil
 	}
 

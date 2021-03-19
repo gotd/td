@@ -17,7 +17,7 @@ func (c *Client) invokeSub(ctx context.Context, dc int, input bin.Encoder, outpu
 		return conn.InvokeRaw(ctx, input, output)
 	}
 
-	conn, err := c.dc(ctx, dc, 1)
+	conn, err := c.dc(ctx, dc, 1, c.primaryDC(dc))
 	if err != nil {
 		c.subConnsMux.Unlock()
 		return xerrors.Errorf("create connection to DC %d: %w", dc, err)

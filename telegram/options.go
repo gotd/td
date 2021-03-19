@@ -40,6 +40,8 @@ type Options struct {
 	NoUpdates bool
 	// ReconnectionBackoff configures and returns reconnection backoff object.
 	ReconnectionBackoff func() backoff.BackOff
+	// MigrationTimeout configures migration timeout.
+	MigrationTimeout time.Duration
 	// Random is random source. Defaults to crypto.
 	Random io.Reader
 	// Logger is instance of zap.Logger. No logs by default.
@@ -89,6 +91,9 @@ func (opt *Options) setDefaults() {
 	}
 	if opt.RetryInterval == 0 {
 		opt.RetryInterval = time.Second * 5
+	}
+	if opt.MigrationTimeout == 0 {
+		opt.MigrationTimeout = time.Second * 15
 	}
 	if opt.MaxRetries == 0 {
 		opt.MaxRetries = 5

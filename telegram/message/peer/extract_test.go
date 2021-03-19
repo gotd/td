@@ -47,7 +47,7 @@ func TestEntities(t *testing.T) {
 		10: {ID: 10, AccessHash: 10},
 	}
 	ent := NewEntities(users, chats, channels)
-	ctx := tg.UpdateContext{
+	ctx := tg.Entities{
 		Users:    users,
 		Chats:    chats,
 		Channels: channels,

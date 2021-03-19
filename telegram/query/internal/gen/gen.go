@@ -12,6 +12,7 @@ import (
 	"os/signal"
 	"text/template"
 
+	"go.uber.org/multierr"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/gen"
@@ -50,7 +51,7 @@ func generate(ctx context.Context, out io.Writer, c *collector) error {
 	return err
 }
 
-func run(ctx context.Context) error {
+func run(ctx context.Context) (err error) {
 	var out io.Writer = os.Stdout
 
 	set := flag.NewFlagSet("gen", flag.ExitOnError)
@@ -67,7 +68,7 @@ func run(ctx context.Context) error {
 			return xerrors.Errorf("can't create file %q: %w", *output, err)
 		}
 		defer func() {
-			_ = f.Close()
+			multierr.AppendInto(&err, f.Close())
 		}()
 		out = f
 	}

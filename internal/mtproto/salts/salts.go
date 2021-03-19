@@ -28,7 +28,7 @@ func (s *Salts) Get(buffer time.Duration) (int64, bool) {
 
 	// Filter (in place) from SliceTricks.
 	n := 0
-	dedup := map[int64]struct{}{}
+	dedup := make(map[int64]struct{}, len(s.salts)+1)
 	// Check that the salt will be valid next 5 minute.
 	date := int(time.Now().Add(buffer).Unix())
 	for _, salt := range s.salts {

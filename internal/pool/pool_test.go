@@ -173,7 +173,7 @@ func runScript(open int64, s script) func(t *testing.T) {
 			Logger:             log.Named("dc"),
 			MaxOpenConnections: open,
 		})
-		defer dc.Close(ctx)
+		defer dc.Close()
 
 		wg := tdsync.NewCancellableGroup(ctx)
 		for _, action := range s {

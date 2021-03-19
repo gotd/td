@@ -114,7 +114,7 @@ type AnswerableMessageUpdate interface {
 }
 
 // Answer uses given message update to create message for same chat.
-func (s *Sender) Answer(uctx tg.UpdateContext, upd AnswerableMessageUpdate) *RequestBuilder {
+func (s *Sender) Answer(uctx tg.Entities, upd AnswerableMessageUpdate) *RequestBuilder {
 	entities := peer.EntitiesFromUpdate(uctx)
 	return s.builder(func(ctx context.Context) (tg.InputPeerClass, error) {
 		updMsg := upd.GetMessage()
@@ -142,6 +142,6 @@ func (s *Sender) Answer(uctx tg.UpdateContext, upd AnswerableMessageUpdate) *Req
 //
 // 	sender.Answer(uctx, upd).ReplyMsg(upd.GetMessage())
 //
-func (s *Sender) Reply(uctx tg.UpdateContext, upd AnswerableMessageUpdate) *Builder {
+func (s *Sender) Reply(uctx tg.Entities, upd AnswerableMessageUpdate) *Builder {
 	return s.Answer(uctx, upd).ReplyMsg(upd.GetMessage())
 }

@@ -33,13 +33,16 @@ type Quorum struct {
 
 // NewQuorum creates new Quorum.
 func NewQuorum(codec func() transport.Codec) *Quorum {
-	return &Quorum{
+	q := &Quorum{
 		servers: map[int]*Server{},
 		ready:   tdsync.NewReady(),
 		common:  NewDispatcher(),
 		log:     zap.NewNop(),
 		codec:   codec,
 	}
+	q.common.Fallback(q.fallback())
+
+	return q
 }
 
 // WithLogger sets logger.
@@ -68,7 +71,11 @@ func (q *Quorum) DC(id int, name string) *Server {
 	q.servers[id] = server
 	q.keys = append(q.keys, server.Key())
 
-	server.Dispatcher().Fallback(q.Common().Fallback(q.fallback()))
+	// We set server fallback handler to dispatch request in order
+	// 1) Explicit DC handler
+	// 2) Explicit common handler
+	// 3) Common fallback
+	server.Dispatcher().Fallback(q.Common())
 	return server
 }
 

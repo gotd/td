@@ -2,7 +2,7 @@
 {{ $pkg := $.Package }}
 {{ template "header" $ }}
 
-type handler = func(UpdateContext, UpdateClass) error
+type handler = func(context.Context, Entities, UpdateClass) error
 
 type UpdateDispatcher struct {
     handlers map[uint32]handler
@@ -14,9 +14,7 @@ func NewUpdateDispatcher() UpdateDispatcher {
     }
 }
 
-type UpdateContext struct {
-    context.Context
-
+type Entities struct {
     Short bool
     Users map[int]*User
     Chats map[int]*Chat
@@ -24,7 +22,7 @@ type UpdateContext struct {
     init bool
 }
 
-func (u *UpdateContext) lazyInitFromUpdates(updates *Updates) {
+func (u *Entities) lazyInitFromUpdates(updates *Updates) {
     if u.init {
         return
     }
@@ -36,13 +34,12 @@ func (u *UpdateContext) lazyInitFromUpdates(updates *Updates) {
     u.Channels = chats.ChannelToMap()
 }
 
-func (u *UpdateContext) short(ctx context.Context) {
+func (u *Entities) short() {
     if u.init {
         return
     }
     u.init = true
 
-    u.Context = ctx
     u.Short = true
     u.Users = make(map[int]*User, 0)
     u.Chats = make(map[int]*Chat, 0)
@@ -51,27 +48,24 @@ func (u *UpdateContext) short(ctx context.Context) {
 
 // Handle implements UpdateDispatcher.
 func (u UpdateDispatcher) Handle(ctx context.Context, updates *Updates) error {
-    uctx := UpdateContext{
-        Context:      ctx,
-    }
+    e := Entities{}
 
-    for _, update := range updates.Updates {
-        uctx.lazyInitFromUpdates(updates)
-        if err := u.dispatch(uctx, update); err != nil {
-            return err
-        }
-    }
-    return nil
+    var err error
+	for _, update := range updates.Updates {
+        e.lazyInitFromUpdates(updates)
+        multierr.AppendInto(&err, u.dispatch(ctx, e, update))
+	}
+	return nil
 }
 
 // HandleShort implements UpdateDispatcher.
 func (u UpdateDispatcher) HandleShort(ctx context.Context, short *UpdateShort) error {
-    uctx := UpdateContext{}
-    uctx.short(ctx)
-    return u.dispatch(uctx, short.Update)
+    e := Entities{}
+    e.short()
+    return u.dispatch(ctx, e, short.Update)
 }
 
-func (u UpdateDispatcher) dispatch(uctx UpdateContext, update UpdateClass) error {
+func (u UpdateDispatcher) dispatch(ctx context.Context, e Entities, update UpdateClass) error {
     if update == nil {
         return nil
     }
@@ -80,18 +74,18 @@ func (u UpdateDispatcher) dispatch(uctx UpdateContext, update UpdateClass) error
     if !ok {
         return nil
     }
-    return handler(uctx, update)
+    return handler(ctx, e, update)
 }
 
 {{- range $s := $.Structs }}{{ if eq $s.Interface "UpdateClass" }}
 {{ $eventName := trimPrefix $s.Name "Update"}}
 // {{ $eventName }}Handler is a {{ $eventName }} event handler.
-type {{ $eventName }}Handler func(ctx UpdateContext, update *{{ $s.Name }}) error
+type {{ $eventName }}Handler func(ctx context.Context, e Entities, update *{{ $s.Name }}) error
 
 // On{{ $eventName }} sets {{ $eventName }} handler.
 func (u UpdateDispatcher) On{{ $eventName }}(handler {{ $eventName }}Handler) {
-    u.handlers[{{ $s.Name }}TypeID] = func(ctx UpdateContext, update UpdateClass) error {
-        return handler(ctx, update.(*{{ $s.Name }}))
+    u.handlers[{{ $s.Name }}TypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+        return handler(ctx, e, update.(*{{ $s.Name }}))
     }
 }
 {{- end }}{{ end }}

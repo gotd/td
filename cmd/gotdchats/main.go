@@ -46,12 +46,10 @@ func run(ctx context.Context) error {
 		}
 	}
 
-	dispatcher := tg.NewUpdateDispatcher()
 	client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
 		Logger:         logger,
 		SessionStorage: storage,
 		Resolver:       dcs.PlainResolver(dcs.PlainOptions{Dialer: transport.DialFunc(proxy.Dial)}),
-		UpdateHandler:  dispatcher,
 		DCList:         dcs.StagingDCs(),
 	})
 

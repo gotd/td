@@ -25,11 +25,7 @@ type mtProxy struct {
 	rand   io.Reader
 }
 
-func (m mtProxy) Primary(ctx context.Context, dc int, opts []tg.DCOption) (transport.Conn, error) {
-	return m.Plain(ctx, dc, opts)
-}
-
-func (m mtProxy) Plain(ctx context.Context, dc int, _ []tg.DCOption) (transport.Conn, error) {
+func (m mtProxy) Primary(ctx context.Context, dc int, _ []tg.DCOption) (transport.Conn, error) {
 	return m.resolve(ctx, dc)
 }
 
@@ -37,8 +33,8 @@ func (m mtProxy) MediaOnly(ctx context.Context, dc int, _ []tg.DCOption) (transp
 	return m.resolve(ctx, dc+10000)
 }
 
-func (m mtProxy) CDN(ctx context.Context, dc int, opts []tg.DCOption) (transport.Conn, error) {
-	return m.Plain(ctx, dc, opts)
+func (m mtProxy) CDN(ctx context.Context, dc int, _ []tg.DCOption) (transport.Conn, error) {
+	return m.resolve(ctx, dc)
 }
 
 func (m mtProxy) resolve(ctx context.Context, dc int) (transport.Conn, error) {

@@ -6,15 +6,18 @@ import (
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/internal/mtproto"
 	"github.com/gotd/td/internal/pool"
+	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/telegram/internal/manager"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/transport"
 )
 
 // CloseInvoker is a closeable tg.Invoker.
 type CloseInvoker interface {
 	tg.Invoker
-	Close(ctx context.Context) error
+	Close() error
 }
 
 func (c *Client) createPool(dc int, max int64, creator func() pool.Conn) (*pool.DC, error) {
@@ -45,10 +48,20 @@ func (c *Client) Pool(max int64) (CloseInvoker, error) {
 	})
 }
 
-func (c *Client) dc(ctx context.Context, dcID int, max int64) (*pool.DC, error) {
+func (c *Client) dc(ctx context.Context, dcID int, max int64, dialer mtproto.Dialer) (*pool.DC, error) {
 	if max < 0 {
 		return nil, xerrors.Errorf("invalid max value %d", max)
 	}
+
+	dcList := dcs.FindDCs(c.cfg.Load().DCOptions, dcID, false)
+	if len(dcList) < 1 {
+		return nil, xerrors.Errorf("unknown DC %d", dcID)
+	}
+	c.log.Debug("Creating pool",
+		zap.Int("dc_id", dcID),
+		zap.Int64("max", max),
+		zap.Int("candidates", len(dcList)),
+	)
 
 	opts := c.opts
 	p, err := c.createPool(dcID, max, func() pool.Conn {
@@ -68,7 +81,7 @@ func (c *Client) dc(ctx context.Context, dcID int, max int64) (*pool.DC, error) 
 			zap.Int("dc_id", dcID),
 		)
 		return c.create(
-			c.dialerDC(dcID), manager.ConnModeData, c.appID,
+			dialer, manager.ConnModeData, c.appID,
 			options, manager.ConnOptions{
 				DC:      dcID,
 				Device:  c.device,
@@ -87,6 +100,8 @@ func (c *Client) dc(ctx context.Context, dcID int, max int64) (*pool.DC, error) 
 			return p, nil
 		}
 
+		// Kill pool if we got error.
+		_ = p.Close()
 		return nil, xerrors.Errorf("transfer: %w", err)
 	}
 
@@ -94,6 +109,15 @@ func (c *Client) dc(ctx context.Context, dcID int, max int64) (*pool.DC, error) 
 }
 
 // DC creates new multi-connection invoker to given DC.
-func (c *Client) DC(ctx context.Context, id int, max int64) (CloseInvoker, error) {
-	return c.dc(ctx, id, max)
+func (c *Client) DC(ctx context.Context, dc int, max int64) (CloseInvoker, error) {
+	return c.dc(ctx, dc, max, c.primaryDC(dc))
+}
+
+// MediaOnly creates new multi-connection invoker to given DC ID.
+// It connects to MediaOnly DCs.
+func (c *Client) MediaOnly(ctx context.Context, dc int, max int64) (CloseInvoker, error) {
+	return c.dc(ctx, dc, max, func(ctx context.Context) (transport.Conn, error) {
+		cfg := c.cfg.Load()
+		return c.resolver.MediaOnly(ctx, dc, cfg.DCOptions)
+	})
 }

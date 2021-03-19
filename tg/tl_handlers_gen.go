@@ -9,6 +9,8 @@ import (
 	"sort"
 	"strings"
 
+	"go.uber.org/multierr"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
@@ -21,12 +23,13 @@ var (
 	_ = fmt.Stringer(nil)
 	_ = strings.Builder{}
 	_ = errors.Is
+	_ = multierr.AppendInto
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
 )
 
-type handler = func(UpdateContext, UpdateClass) error
+type handler = func(context.Context, Entities, UpdateClass) error
 
 type UpdateDispatcher struct {
 	handlers map[uint32]handler
@@ -38,9 +41,7 @@ func NewUpdateDispatcher() UpdateDispatcher {
 	}
 }
 
-type UpdateContext struct {
-	context.Context
-
+type Entities struct {
 	Short    bool
 	Users    map[int]*User
 	Chats    map[int]*Chat
@@ -48,7 +49,7 @@ type UpdateContext struct {
 	init     bool
 }
 
-func (u *UpdateContext) lazyInitFromUpdates(updates *Updates) {
+func (u *Entities) lazyInitFromUpdates(updates *Updates) {
 	if u.init {
 		return
 	}
@@ -60,13 +61,12 @@ func (u *UpdateContext) lazyInitFromUpdates(updates *Updates) {
 	u.Channels = chats.ChannelToMap()
 }
 
-func (u *UpdateContext) short(ctx context.Context) {
+func (u *Entities) short() {
 	if u.init {
 		return
 	}
 	u.init = true
 
-	u.Context = ctx
 	u.Short = true
 	u.Users = make(map[int]*User, 0)
 	u.Chats = make(map[int]*Chat, 0)
@@ -75,27 +75,24 @@ func (u *UpdateContext) short(ctx context.Context) {
 
 // Handle implements UpdateDispatcher.
 func (u UpdateDispatcher) Handle(ctx context.Context, updates *Updates) error {
-	uctx := UpdateContext{
-		Context: ctx,
-	}
+	e := Entities{}
 
+	var err error
 	for _, update := range updates.Updates {
-		uctx.lazyInitFromUpdates(updates)
-		if err := u.dispatch(uctx, update); err != nil {
-			return err
-		}
+		e.lazyInitFromUpdates(updates)
+		multierr.AppendInto(&err, u.dispatch(ctx, e, update))
 	}
 	return nil
 }
 
 // HandleShort implements UpdateDispatcher.
 func (u UpdateDispatcher) HandleShort(ctx context.Context, short *UpdateShort) error {
-	uctx := UpdateContext{}
-	uctx.short(ctx)
-	return u.dispatch(uctx, short.Update)
+	e := Entities{}
+	e.short()
+	return u.dispatch(ctx, e, short.Update)
 }
 
-func (u UpdateDispatcher) dispatch(uctx UpdateContext, update UpdateClass) error {
+func (u UpdateDispatcher) dispatch(ctx context.Context, e Entities, update UpdateClass) error {
 	if update == nil {
 		return nil
 	}
@@ -104,915 +101,915 @@ func (u UpdateDispatcher) dispatch(uctx UpdateContext, update UpdateClass) error
 	if !ok {
 		return nil
 	}
-	return handler(uctx, update)
+	return handler(ctx, e, update)
 }
 
 // NewMessageHandler is a NewMessage event handler.
-type NewMessageHandler func(ctx UpdateContext, update *UpdateNewMessage) error
+type NewMessageHandler func(ctx context.Context, e Entities, update *UpdateNewMessage) error
 
 // OnNewMessage sets NewMessage handler.
 func (u UpdateDispatcher) OnNewMessage(handler NewMessageHandler) {
-	u.handlers[UpdateNewMessageTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateNewMessage))
+	u.handlers[UpdateNewMessageTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateNewMessage))
 	}
 }
 
 // MessageIDHandler is a MessageID event handler.
-type MessageIDHandler func(ctx UpdateContext, update *UpdateMessageID) error
+type MessageIDHandler func(ctx context.Context, e Entities, update *UpdateMessageID) error
 
 // OnMessageID sets MessageID handler.
 func (u UpdateDispatcher) OnMessageID(handler MessageIDHandler) {
-	u.handlers[UpdateMessageIDTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateMessageID))
+	u.handlers[UpdateMessageIDTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateMessageID))
 	}
 }
 
 // DeleteMessagesHandler is a DeleteMessages event handler.
-type DeleteMessagesHandler func(ctx UpdateContext, update *UpdateDeleteMessages) error
+type DeleteMessagesHandler func(ctx context.Context, e Entities, update *UpdateDeleteMessages) error
 
 // OnDeleteMessages sets DeleteMessages handler.
 func (u UpdateDispatcher) OnDeleteMessages(handler DeleteMessagesHandler) {
-	u.handlers[UpdateDeleteMessagesTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateDeleteMessages))
+	u.handlers[UpdateDeleteMessagesTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateDeleteMessages))
 	}
 }
 
 // UserTypingHandler is a UserTyping event handler.
-type UserTypingHandler func(ctx UpdateContext, update *UpdateUserTyping) error
+type UserTypingHandler func(ctx context.Context, e Entities, update *UpdateUserTyping) error
 
 // OnUserTyping sets UserTyping handler.
 func (u UpdateDispatcher) OnUserTyping(handler UserTypingHandler) {
-	u.handlers[UpdateUserTypingTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateUserTyping))
+	u.handlers[UpdateUserTypingTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateUserTyping))
 	}
 }
 
 // ChatUserTypingHandler is a ChatUserTyping event handler.
-type ChatUserTypingHandler func(ctx UpdateContext, update *UpdateChatUserTyping) error
+type ChatUserTypingHandler func(ctx context.Context, e Entities, update *UpdateChatUserTyping) error
 
 // OnChatUserTyping sets ChatUserTyping handler.
 func (u UpdateDispatcher) OnChatUserTyping(handler ChatUserTypingHandler) {
-	u.handlers[UpdateChatUserTypingTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateChatUserTyping))
+	u.handlers[UpdateChatUserTypingTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateChatUserTyping))
 	}
 }
 
 // ChatParticipantsHandler is a ChatParticipants event handler.
-type ChatParticipantsHandler func(ctx UpdateContext, update *UpdateChatParticipants) error
+type ChatParticipantsHandler func(ctx context.Context, e Entities, update *UpdateChatParticipants) error
 
 // OnChatParticipants sets ChatParticipants handler.
 func (u UpdateDispatcher) OnChatParticipants(handler ChatParticipantsHandler) {
-	u.handlers[UpdateChatParticipantsTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateChatParticipants))
+	u.handlers[UpdateChatParticipantsTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateChatParticipants))
 	}
 }
 
 // UserStatusHandler is a UserStatus event handler.
-type UserStatusHandler func(ctx UpdateContext, update *UpdateUserStatus) error
+type UserStatusHandler func(ctx context.Context, e Entities, update *UpdateUserStatus) error
 
 // OnUserStatus sets UserStatus handler.
 func (u UpdateDispatcher) OnUserStatus(handler UserStatusHandler) {
-	u.handlers[UpdateUserStatusTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateUserStatus))
+	u.handlers[UpdateUserStatusTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateUserStatus))
 	}
 }
 
 // UserNameHandler is a UserName event handler.
-type UserNameHandler func(ctx UpdateContext, update *UpdateUserName) error
+type UserNameHandler func(ctx context.Context, e Entities, update *UpdateUserName) error
 
 // OnUserName sets UserName handler.
 func (u UpdateDispatcher) OnUserName(handler UserNameHandler) {
-	u.handlers[UpdateUserNameTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateUserName))
+	u.handlers[UpdateUserNameTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateUserName))
 	}
 }
 
 // UserPhotoHandler is a UserPhoto event handler.
-type UserPhotoHandler func(ctx UpdateContext, update *UpdateUserPhoto) error
+type UserPhotoHandler func(ctx context.Context, e Entities, update *UpdateUserPhoto) error
 
 // OnUserPhoto sets UserPhoto handler.
 func (u UpdateDispatcher) OnUserPhoto(handler UserPhotoHandler) {
-	u.handlers[UpdateUserPhotoTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateUserPhoto))
+	u.handlers[UpdateUserPhotoTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateUserPhoto))
 	}
 }
 
 // NewEncryptedMessageHandler is a NewEncryptedMessage event handler.
-type NewEncryptedMessageHandler func(ctx UpdateContext, update *UpdateNewEncryptedMessage) error
+type NewEncryptedMessageHandler func(ctx context.Context, e Entities, update *UpdateNewEncryptedMessage) error
 
 // OnNewEncryptedMessage sets NewEncryptedMessage handler.
 func (u UpdateDispatcher) OnNewEncryptedMessage(handler NewEncryptedMessageHandler) {
-	u.handlers[UpdateNewEncryptedMessageTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateNewEncryptedMessage))
+	u.handlers[UpdateNewEncryptedMessageTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateNewEncryptedMessage))
 	}
 }
 
 // EncryptedChatTypingHandler is a EncryptedChatTyping event handler.
-type EncryptedChatTypingHandler func(ctx UpdateContext, update *UpdateEncryptedChatTyping) error
+type EncryptedChatTypingHandler func(ctx context.Context, e Entities, update *UpdateEncryptedChatTyping) error
 
 // OnEncryptedChatTyping sets EncryptedChatTyping handler.
 func (u UpdateDispatcher) OnEncryptedChatTyping(handler EncryptedChatTypingHandler) {
-	u.handlers[UpdateEncryptedChatTypingTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateEncryptedChatTyping))
+	u.handlers[UpdateEncryptedChatTypingTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateEncryptedChatTyping))
 	}
 }
 
 // EncryptionHandler is a Encryption event handler.
-type EncryptionHandler func(ctx UpdateContext, update *UpdateEncryption) error
+type EncryptionHandler func(ctx context.Context, e Entities, update *UpdateEncryption) error
 
 // OnEncryption sets Encryption handler.
 func (u UpdateDispatcher) OnEncryption(handler EncryptionHandler) {
-	u.handlers[UpdateEncryptionTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateEncryption))
+	u.handlers[UpdateEncryptionTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateEncryption))
 	}
 }
 
 // EncryptedMessagesReadHandler is a EncryptedMessagesRead event handler.
-type EncryptedMessagesReadHandler func(ctx UpdateContext, update *UpdateEncryptedMessagesRead) error
+type EncryptedMessagesReadHandler func(ctx context.Context, e Entities, update *UpdateEncryptedMessagesRead) error
 
 // OnEncryptedMessagesRead sets EncryptedMessagesRead handler.
 func (u UpdateDispatcher) OnEncryptedMessagesRead(handler EncryptedMessagesReadHandler) {
-	u.handlers[UpdateEncryptedMessagesReadTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateEncryptedMessagesRead))
+	u.handlers[UpdateEncryptedMessagesReadTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateEncryptedMessagesRead))
 	}
 }
 
 // ChatParticipantAddHandler is a ChatParticipantAdd event handler.
-type ChatParticipantAddHandler func(ctx UpdateContext, update *UpdateChatParticipantAdd) error
+type ChatParticipantAddHandler func(ctx context.Context, e Entities, update *UpdateChatParticipantAdd) error
 
 // OnChatParticipantAdd sets ChatParticipantAdd handler.
 func (u UpdateDispatcher) OnChatParticipantAdd(handler ChatParticipantAddHandler) {
-	u.handlers[UpdateChatParticipantAddTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateChatParticipantAdd))
+	u.handlers[UpdateChatParticipantAddTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateChatParticipantAdd))
 	}
 }
 
 // ChatParticipantDeleteHandler is a ChatParticipantDelete event handler.
-type ChatParticipantDeleteHandler func(ctx UpdateContext, update *UpdateChatParticipantDelete) error
+type ChatParticipantDeleteHandler func(ctx context.Context, e Entities, update *UpdateChatParticipantDelete) error
 
 // OnChatParticipantDelete sets ChatParticipantDelete handler.
 func (u UpdateDispatcher) OnChatParticipantDelete(handler ChatParticipantDeleteHandler) {
-	u.handlers[UpdateChatParticipantDeleteTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateChatParticipantDelete))
+	u.handlers[UpdateChatParticipantDeleteTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateChatParticipantDelete))
 	}
 }
 
 // DCOptionsHandler is a DCOptions event handler.
-type DCOptionsHandler func(ctx UpdateContext, update *UpdateDCOptions) error
+type DCOptionsHandler func(ctx context.Context, e Entities, update *UpdateDCOptions) error
 
 // OnDCOptions sets DCOptions handler.
 func (u UpdateDispatcher) OnDCOptions(handler DCOptionsHandler) {
-	u.handlers[UpdateDCOptionsTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateDCOptions))
+	u.handlers[UpdateDCOptionsTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateDCOptions))
 	}
 }
 
 // NotifySettingsHandler is a NotifySettings event handler.
-type NotifySettingsHandler func(ctx UpdateContext, update *UpdateNotifySettings) error
+type NotifySettingsHandler func(ctx context.Context, e Entities, update *UpdateNotifySettings) error
 
 // OnNotifySettings sets NotifySettings handler.
 func (u UpdateDispatcher) OnNotifySettings(handler NotifySettingsHandler) {
-	u.handlers[UpdateNotifySettingsTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateNotifySettings))
+	u.handlers[UpdateNotifySettingsTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateNotifySettings))
 	}
 }
 
 // ServiceNotificationHandler is a ServiceNotification event handler.
-type ServiceNotificationHandler func(ctx UpdateContext, update *UpdateServiceNotification) error
+type ServiceNotificationHandler func(ctx context.Context, e Entities, update *UpdateServiceNotification) error
 
 // OnServiceNotification sets ServiceNotification handler.
 func (u UpdateDispatcher) OnServiceNotification(handler ServiceNotificationHandler) {
-	u.handlers[UpdateServiceNotificationTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateServiceNotification))
+	u.handlers[UpdateServiceNotificationTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateServiceNotification))
 	}
 }
 
 // PrivacyHandler is a Privacy event handler.
-type PrivacyHandler func(ctx UpdateContext, update *UpdatePrivacy) error
+type PrivacyHandler func(ctx context.Context, e Entities, update *UpdatePrivacy) error
 
 // OnPrivacy sets Privacy handler.
 func (u UpdateDispatcher) OnPrivacy(handler PrivacyHandler) {
-	u.handlers[UpdatePrivacyTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdatePrivacy))
+	u.handlers[UpdatePrivacyTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdatePrivacy))
 	}
 }
 
 // UserPhoneHandler is a UserPhone event handler.
-type UserPhoneHandler func(ctx UpdateContext, update *UpdateUserPhone) error
+type UserPhoneHandler func(ctx context.Context, e Entities, update *UpdateUserPhone) error
 
 // OnUserPhone sets UserPhone handler.
 func (u UpdateDispatcher) OnUserPhone(handler UserPhoneHandler) {
-	u.handlers[UpdateUserPhoneTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateUserPhone))
+	u.handlers[UpdateUserPhoneTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateUserPhone))
 	}
 }
 
 // ReadHistoryInboxHandler is a ReadHistoryInbox event handler.
-type ReadHistoryInboxHandler func(ctx UpdateContext, update *UpdateReadHistoryInbox) error
+type ReadHistoryInboxHandler func(ctx context.Context, e Entities, update *UpdateReadHistoryInbox) error
 
 // OnReadHistoryInbox sets ReadHistoryInbox handler.
 func (u UpdateDispatcher) OnReadHistoryInbox(handler ReadHistoryInboxHandler) {
-	u.handlers[UpdateReadHistoryInboxTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateReadHistoryInbox))
+	u.handlers[UpdateReadHistoryInboxTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateReadHistoryInbox))
 	}
 }
 
 // ReadHistoryOutboxHandler is a ReadHistoryOutbox event handler.
-type ReadHistoryOutboxHandler func(ctx UpdateContext, update *UpdateReadHistoryOutbox) error
+type ReadHistoryOutboxHandler func(ctx context.Context, e Entities, update *UpdateReadHistoryOutbox) error
 
 // OnReadHistoryOutbox sets ReadHistoryOutbox handler.
 func (u UpdateDispatcher) OnReadHistoryOutbox(handler ReadHistoryOutboxHandler) {
-	u.handlers[UpdateReadHistoryOutboxTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateReadHistoryOutbox))
+	u.handlers[UpdateReadHistoryOutboxTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateReadHistoryOutbox))
 	}
 }
 
 // WebPageHandler is a WebPage event handler.
-type WebPageHandler func(ctx UpdateContext, update *UpdateWebPage) error
+type WebPageHandler func(ctx context.Context, e Entities, update *UpdateWebPage) error
 
 // OnWebPage sets WebPage handler.
 func (u UpdateDispatcher) OnWebPage(handler WebPageHandler) {
-	u.handlers[UpdateWebPageTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateWebPage))
+	u.handlers[UpdateWebPageTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateWebPage))
 	}
 }
 
 // ReadMessagesContentsHandler is a ReadMessagesContents event handler.
-type ReadMessagesContentsHandler func(ctx UpdateContext, update *UpdateReadMessagesContents) error
+type ReadMessagesContentsHandler func(ctx context.Context, e Entities, update *UpdateReadMessagesContents) error
 
 // OnReadMessagesContents sets ReadMessagesContents handler.
 func (u UpdateDispatcher) OnReadMessagesContents(handler ReadMessagesContentsHandler) {
-	u.handlers[UpdateReadMessagesContentsTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateReadMessagesContents))
+	u.handlers[UpdateReadMessagesContentsTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateReadMessagesContents))
 	}
 }
 
 // ChannelTooLongHandler is a ChannelTooLong event handler.
-type ChannelTooLongHandler func(ctx UpdateContext, update *UpdateChannelTooLong) error
+type ChannelTooLongHandler func(ctx context.Context, e Entities, update *UpdateChannelTooLong) error
 
 // OnChannelTooLong sets ChannelTooLong handler.
 func (u UpdateDispatcher) OnChannelTooLong(handler ChannelTooLongHandler) {
-	u.handlers[UpdateChannelTooLongTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateChannelTooLong))
+	u.handlers[UpdateChannelTooLongTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateChannelTooLong))
 	}
 }
 
 // ChannelHandler is a Channel event handler.
-type ChannelHandler func(ctx UpdateContext, update *UpdateChannel) error
+type ChannelHandler func(ctx context.Context, e Entities, update *UpdateChannel) error
 
 // OnChannel sets Channel handler.
 func (u UpdateDispatcher) OnChannel(handler ChannelHandler) {
-	u.handlers[UpdateChannelTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateChannel))
+	u.handlers[UpdateChannelTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateChannel))
 	}
 }
 
 // NewChannelMessageHandler is a NewChannelMessage event handler.
-type NewChannelMessageHandler func(ctx UpdateContext, update *UpdateNewChannelMessage) error
+type NewChannelMessageHandler func(ctx context.Context, e Entities, update *UpdateNewChannelMessage) error
 
 // OnNewChannelMessage sets NewChannelMessage handler.
 func (u UpdateDispatcher) OnNewChannelMessage(handler NewChannelMessageHandler) {
-	u.handlers[UpdateNewChannelMessageTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateNewChannelMessage))
+	u.handlers[UpdateNewChannelMessageTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateNewChannelMessage))
 	}
 }
 
 // ReadChannelInboxHandler is a ReadChannelInbox event handler.
-type ReadChannelInboxHandler func(ctx UpdateContext, update *UpdateReadChannelInbox) error
+type ReadChannelInboxHandler func(ctx context.Context, e Entities, update *UpdateReadChannelInbox) error
 
 // OnReadChannelInbox sets ReadChannelInbox handler.
 func (u UpdateDispatcher) OnReadChannelInbox(handler ReadChannelInboxHandler) {
-	u.handlers[UpdateReadChannelInboxTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateReadChannelInbox))
+	u.handlers[UpdateReadChannelInboxTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateReadChannelInbox))
 	}
 }
 
 // DeleteChannelMessagesHandler is a DeleteChannelMessages event handler.
-type DeleteChannelMessagesHandler func(ctx UpdateContext, update *UpdateDeleteChannelMessages) error
+type DeleteChannelMessagesHandler func(ctx context.Context, e Entities, update *UpdateDeleteChannelMessages) error
 
 // OnDeleteChannelMessages sets DeleteChannelMessages handler.
 func (u UpdateDispatcher) OnDeleteChannelMessages(handler DeleteChannelMessagesHandler) {
-	u.handlers[UpdateDeleteChannelMessagesTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateDeleteChannelMessages))
+	u.handlers[UpdateDeleteChannelMessagesTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateDeleteChannelMessages))
 	}
 }
 
 // ChannelMessageViewsHandler is a ChannelMessageViews event handler.
-type ChannelMessageViewsHandler func(ctx UpdateContext, update *UpdateChannelMessageViews) error
+type ChannelMessageViewsHandler func(ctx context.Context, e Entities, update *UpdateChannelMessageViews) error
 
 // OnChannelMessageViews sets ChannelMessageViews handler.
 func (u UpdateDispatcher) OnChannelMessageViews(handler ChannelMessageViewsHandler) {
-	u.handlers[UpdateChannelMessageViewsTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateChannelMessageViews))
+	u.handlers[UpdateChannelMessageViewsTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateChannelMessageViews))
 	}
 }
 
 // ChatParticipantAdminHandler is a ChatParticipantAdmin event handler.
-type ChatParticipantAdminHandler func(ctx UpdateContext, update *UpdateChatParticipantAdmin) error
+type ChatParticipantAdminHandler func(ctx context.Context, e Entities, update *UpdateChatParticipantAdmin) error
 
 // OnChatParticipantAdmin sets ChatParticipantAdmin handler.
 func (u UpdateDispatcher) OnChatParticipantAdmin(handler ChatParticipantAdminHandler) {
-	u.handlers[UpdateChatParticipantAdminTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateChatParticipantAdmin))
+	u.handlers[UpdateChatParticipantAdminTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateChatParticipantAdmin))
 	}
 }
 
 // NewStickerSetHandler is a NewStickerSet event handler.
-type NewStickerSetHandler func(ctx UpdateContext, update *UpdateNewStickerSet) error
+type NewStickerSetHandler func(ctx context.Context, e Entities, update *UpdateNewStickerSet) error
 
 // OnNewStickerSet sets NewStickerSet handler.
 func (u UpdateDispatcher) OnNewStickerSet(handler NewStickerSetHandler) {
-	u.handlers[UpdateNewStickerSetTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateNewStickerSet))
+	u.handlers[UpdateNewStickerSetTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateNewStickerSet))
 	}
 }
 
 // StickerSetsOrderHandler is a StickerSetsOrder event handler.
-type StickerSetsOrderHandler func(ctx UpdateContext, update *UpdateStickerSetsOrder) error
+type StickerSetsOrderHandler func(ctx context.Context, e Entities, update *UpdateStickerSetsOrder) error
 
 // OnStickerSetsOrder sets StickerSetsOrder handler.
 func (u UpdateDispatcher) OnStickerSetsOrder(handler StickerSetsOrderHandler) {
-	u.handlers[UpdateStickerSetsOrderTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateStickerSetsOrder))
+	u.handlers[UpdateStickerSetsOrderTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateStickerSetsOrder))
 	}
 }
 
 // StickerSetsHandler is a StickerSets event handler.
-type StickerSetsHandler func(ctx UpdateContext, update *UpdateStickerSets) error
+type StickerSetsHandler func(ctx context.Context, e Entities, update *UpdateStickerSets) error
 
 // OnStickerSets sets StickerSets handler.
 func (u UpdateDispatcher) OnStickerSets(handler StickerSetsHandler) {
-	u.handlers[UpdateStickerSetsTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateStickerSets))
+	u.handlers[UpdateStickerSetsTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateStickerSets))
 	}
 }
 
 // SavedGifsHandler is a SavedGifs event handler.
-type SavedGifsHandler func(ctx UpdateContext, update *UpdateSavedGifs) error
+type SavedGifsHandler func(ctx context.Context, e Entities, update *UpdateSavedGifs) error
 
 // OnSavedGifs sets SavedGifs handler.
 func (u UpdateDispatcher) OnSavedGifs(handler SavedGifsHandler) {
-	u.handlers[UpdateSavedGifsTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateSavedGifs))
+	u.handlers[UpdateSavedGifsTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateSavedGifs))
 	}
 }
 
 // BotInlineQueryHandler is a BotInlineQuery event handler.
-type BotInlineQueryHandler func(ctx UpdateContext, update *UpdateBotInlineQuery) error
+type BotInlineQueryHandler func(ctx context.Context, e Entities, update *UpdateBotInlineQuery) error
 
 // OnBotInlineQuery sets BotInlineQuery handler.
 func (u UpdateDispatcher) OnBotInlineQuery(handler BotInlineQueryHandler) {
-	u.handlers[UpdateBotInlineQueryTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateBotInlineQuery))
+	u.handlers[UpdateBotInlineQueryTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateBotInlineQuery))
 	}
 }
 
 // BotInlineSendHandler is a BotInlineSend event handler.
-type BotInlineSendHandler func(ctx UpdateContext, update *UpdateBotInlineSend) error
+type BotInlineSendHandler func(ctx context.Context, e Entities, update *UpdateBotInlineSend) error
 
 // OnBotInlineSend sets BotInlineSend handler.
 func (u UpdateDispatcher) OnBotInlineSend(handler BotInlineSendHandler) {
-	u.handlers[UpdateBotInlineSendTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateBotInlineSend))
+	u.handlers[UpdateBotInlineSendTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateBotInlineSend))
 	}
 }
 
 // EditChannelMessageHandler is a EditChannelMessage event handler.
-type EditChannelMessageHandler func(ctx UpdateContext, update *UpdateEditChannelMessage) error
+type EditChannelMessageHandler func(ctx context.Context, e Entities, update *UpdateEditChannelMessage) error
 
 // OnEditChannelMessage sets EditChannelMessage handler.
 func (u UpdateDispatcher) OnEditChannelMessage(handler EditChannelMessageHandler) {
-	u.handlers[UpdateEditChannelMessageTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateEditChannelMessage))
+	u.handlers[UpdateEditChannelMessageTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateEditChannelMessage))
 	}
 }
 
 // BotCallbackQueryHandler is a BotCallbackQuery event handler.
-type BotCallbackQueryHandler func(ctx UpdateContext, update *UpdateBotCallbackQuery) error
+type BotCallbackQueryHandler func(ctx context.Context, e Entities, update *UpdateBotCallbackQuery) error
 
 // OnBotCallbackQuery sets BotCallbackQuery handler.
 func (u UpdateDispatcher) OnBotCallbackQuery(handler BotCallbackQueryHandler) {
-	u.handlers[UpdateBotCallbackQueryTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateBotCallbackQuery))
+	u.handlers[UpdateBotCallbackQueryTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateBotCallbackQuery))
 	}
 }
 
 // EditMessageHandler is a EditMessage event handler.
-type EditMessageHandler func(ctx UpdateContext, update *UpdateEditMessage) error
+type EditMessageHandler func(ctx context.Context, e Entities, update *UpdateEditMessage) error
 
 // OnEditMessage sets EditMessage handler.
 func (u UpdateDispatcher) OnEditMessage(handler EditMessageHandler) {
-	u.handlers[UpdateEditMessageTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateEditMessage))
+	u.handlers[UpdateEditMessageTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateEditMessage))
 	}
 }
 
 // InlineBotCallbackQueryHandler is a InlineBotCallbackQuery event handler.
-type InlineBotCallbackQueryHandler func(ctx UpdateContext, update *UpdateInlineBotCallbackQuery) error
+type InlineBotCallbackQueryHandler func(ctx context.Context, e Entities, update *UpdateInlineBotCallbackQuery) error
 
 // OnInlineBotCallbackQuery sets InlineBotCallbackQuery handler.
 func (u UpdateDispatcher) OnInlineBotCallbackQuery(handler InlineBotCallbackQueryHandler) {
-	u.handlers[UpdateInlineBotCallbackQueryTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateInlineBotCallbackQuery))
+	u.handlers[UpdateInlineBotCallbackQueryTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateInlineBotCallbackQuery))
 	}
 }
 
 // ReadChannelOutboxHandler is a ReadChannelOutbox event handler.
-type ReadChannelOutboxHandler func(ctx UpdateContext, update *UpdateReadChannelOutbox) error
+type ReadChannelOutboxHandler func(ctx context.Context, e Entities, update *UpdateReadChannelOutbox) error
 
 // OnReadChannelOutbox sets ReadChannelOutbox handler.
 func (u UpdateDispatcher) OnReadChannelOutbox(handler ReadChannelOutboxHandler) {
-	u.handlers[UpdateReadChannelOutboxTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateReadChannelOutbox))
+	u.handlers[UpdateReadChannelOutboxTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateReadChannelOutbox))
 	}
 }
 
 // DraftMessageHandler is a DraftMessage event handler.
-type DraftMessageHandler func(ctx UpdateContext, update *UpdateDraftMessage) error
+type DraftMessageHandler func(ctx context.Context, e Entities, update *UpdateDraftMessage) error
 
 // OnDraftMessage sets DraftMessage handler.
 func (u UpdateDispatcher) OnDraftMessage(handler DraftMessageHandler) {
-	u.handlers[UpdateDraftMessageTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateDraftMessage))
+	u.handlers[UpdateDraftMessageTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateDraftMessage))
 	}
 }
 
 // ReadFeaturedStickersHandler is a ReadFeaturedStickers event handler.
-type ReadFeaturedStickersHandler func(ctx UpdateContext, update *UpdateReadFeaturedStickers) error
+type ReadFeaturedStickersHandler func(ctx context.Context, e Entities, update *UpdateReadFeaturedStickers) error
 
 // OnReadFeaturedStickers sets ReadFeaturedStickers handler.
 func (u UpdateDispatcher) OnReadFeaturedStickers(handler ReadFeaturedStickersHandler) {
-	u.handlers[UpdateReadFeaturedStickersTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateReadFeaturedStickers))
+	u.handlers[UpdateReadFeaturedStickersTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateReadFeaturedStickers))
 	}
 }
 
 // RecentStickersHandler is a RecentStickers event handler.
-type RecentStickersHandler func(ctx UpdateContext, update *UpdateRecentStickers) error
+type RecentStickersHandler func(ctx context.Context, e Entities, update *UpdateRecentStickers) error
 
 // OnRecentStickers sets RecentStickers handler.
 func (u UpdateDispatcher) OnRecentStickers(handler RecentStickersHandler) {
-	u.handlers[UpdateRecentStickersTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateRecentStickers))
+	u.handlers[UpdateRecentStickersTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateRecentStickers))
 	}
 }
 
 // ConfigHandler is a Config event handler.
-type ConfigHandler func(ctx UpdateContext, update *UpdateConfig) error
+type ConfigHandler func(ctx context.Context, e Entities, update *UpdateConfig) error
 
 // OnConfig sets Config handler.
 func (u UpdateDispatcher) OnConfig(handler ConfigHandler) {
-	u.handlers[UpdateConfigTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateConfig))
+	u.handlers[UpdateConfigTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateConfig))
 	}
 }
 
 // PtsChangedHandler is a PtsChanged event handler.
-type PtsChangedHandler func(ctx UpdateContext, update *UpdatePtsChanged) error
+type PtsChangedHandler func(ctx context.Context, e Entities, update *UpdatePtsChanged) error
 
 // OnPtsChanged sets PtsChanged handler.
 func (u UpdateDispatcher) OnPtsChanged(handler PtsChangedHandler) {
-	u.handlers[UpdatePtsChangedTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdatePtsChanged))
+	u.handlers[UpdatePtsChangedTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdatePtsChanged))
 	}
 }
 
 // ChannelWebPageHandler is a ChannelWebPage event handler.
-type ChannelWebPageHandler func(ctx UpdateContext, update *UpdateChannelWebPage) error
+type ChannelWebPageHandler func(ctx context.Context, e Entities, update *UpdateChannelWebPage) error
 
 // OnChannelWebPage sets ChannelWebPage handler.
 func (u UpdateDispatcher) OnChannelWebPage(handler ChannelWebPageHandler) {
-	u.handlers[UpdateChannelWebPageTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateChannelWebPage))
+	u.handlers[UpdateChannelWebPageTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateChannelWebPage))
 	}
 }
 
 // DialogPinnedHandler is a DialogPinned event handler.
-type DialogPinnedHandler func(ctx UpdateContext, update *UpdateDialogPinned) error
+type DialogPinnedHandler func(ctx context.Context, e Entities, update *UpdateDialogPinned) error
 
 // OnDialogPinned sets DialogPinned handler.
 func (u UpdateDispatcher) OnDialogPinned(handler DialogPinnedHandler) {
-	u.handlers[UpdateDialogPinnedTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateDialogPinned))
+	u.handlers[UpdateDialogPinnedTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateDialogPinned))
 	}
 }
 
 // PinnedDialogsHandler is a PinnedDialogs event handler.
-type PinnedDialogsHandler func(ctx UpdateContext, update *UpdatePinnedDialogs) error
+type PinnedDialogsHandler func(ctx context.Context, e Entities, update *UpdatePinnedDialogs) error
 
 // OnPinnedDialogs sets PinnedDialogs handler.
 func (u UpdateDispatcher) OnPinnedDialogs(handler PinnedDialogsHandler) {
-	u.handlers[UpdatePinnedDialogsTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdatePinnedDialogs))
+	u.handlers[UpdatePinnedDialogsTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdatePinnedDialogs))
 	}
 }
 
 // BotWebhookJSONHandler is a BotWebhookJSON event handler.
-type BotWebhookJSONHandler func(ctx UpdateContext, update *UpdateBotWebhookJSON) error
+type BotWebhookJSONHandler func(ctx context.Context, e Entities, update *UpdateBotWebhookJSON) error
 
 // OnBotWebhookJSON sets BotWebhookJSON handler.
 func (u UpdateDispatcher) OnBotWebhookJSON(handler BotWebhookJSONHandler) {
-	u.handlers[UpdateBotWebhookJSONTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateBotWebhookJSON))
+	u.handlers[UpdateBotWebhookJSONTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateBotWebhookJSON))
 	}
 }
 
 // BotWebhookJSONQueryHandler is a BotWebhookJSONQuery event handler.
-type BotWebhookJSONQueryHandler func(ctx UpdateContext, update *UpdateBotWebhookJSONQuery) error
+type BotWebhookJSONQueryHandler func(ctx context.Context, e Entities, update *UpdateBotWebhookJSONQuery) error
 
 // OnBotWebhookJSONQuery sets BotWebhookJSONQuery handler.
 func (u UpdateDispatcher) OnBotWebhookJSONQuery(handler BotWebhookJSONQueryHandler) {
-	u.handlers[UpdateBotWebhookJSONQueryTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateBotWebhookJSONQuery))
+	u.handlers[UpdateBotWebhookJSONQueryTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateBotWebhookJSONQuery))
 	}
 }
 
 // BotShippingQueryHandler is a BotShippingQuery event handler.
-type BotShippingQueryHandler func(ctx UpdateContext, update *UpdateBotShippingQuery) error
+type BotShippingQueryHandler func(ctx context.Context, e Entities, update *UpdateBotShippingQuery) error
 
 // OnBotShippingQuery sets BotShippingQuery handler.
 func (u UpdateDispatcher) OnBotShippingQuery(handler BotShippingQueryHandler) {
-	u.handlers[UpdateBotShippingQueryTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateBotShippingQuery))
+	u.handlers[UpdateBotShippingQueryTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateBotShippingQuery))
 	}
 }
 
 // BotPrecheckoutQueryHandler is a BotPrecheckoutQuery event handler.
-type BotPrecheckoutQueryHandler func(ctx UpdateContext, update *UpdateBotPrecheckoutQuery) error
+type BotPrecheckoutQueryHandler func(ctx context.Context, e Entities, update *UpdateBotPrecheckoutQuery) error
 
 // OnBotPrecheckoutQuery sets BotPrecheckoutQuery handler.
 func (u UpdateDispatcher) OnBotPrecheckoutQuery(handler BotPrecheckoutQueryHandler) {
-	u.handlers[UpdateBotPrecheckoutQueryTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateBotPrecheckoutQuery))
+	u.handlers[UpdateBotPrecheckoutQueryTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateBotPrecheckoutQuery))
 	}
 }
 
 // PhoneCallHandler is a PhoneCall event handler.
-type PhoneCallHandler func(ctx UpdateContext, update *UpdatePhoneCall) error
+type PhoneCallHandler func(ctx context.Context, e Entities, update *UpdatePhoneCall) error
 
 // OnPhoneCall sets PhoneCall handler.
 func (u UpdateDispatcher) OnPhoneCall(handler PhoneCallHandler) {
-	u.handlers[UpdatePhoneCallTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdatePhoneCall))
+	u.handlers[UpdatePhoneCallTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdatePhoneCall))
 	}
 }
 
 // LangPackTooLongHandler is a LangPackTooLong event handler.
-type LangPackTooLongHandler func(ctx UpdateContext, update *UpdateLangPackTooLong) error
+type LangPackTooLongHandler func(ctx context.Context, e Entities, update *UpdateLangPackTooLong) error
 
 // OnLangPackTooLong sets LangPackTooLong handler.
 func (u UpdateDispatcher) OnLangPackTooLong(handler LangPackTooLongHandler) {
-	u.handlers[UpdateLangPackTooLongTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateLangPackTooLong))
+	u.handlers[UpdateLangPackTooLongTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateLangPackTooLong))
 	}
 }
 
 // LangPackHandler is a LangPack event handler.
-type LangPackHandler func(ctx UpdateContext, update *UpdateLangPack) error
+type LangPackHandler func(ctx context.Context, e Entities, update *UpdateLangPack) error
 
 // OnLangPack sets LangPack handler.
 func (u UpdateDispatcher) OnLangPack(handler LangPackHandler) {
-	u.handlers[UpdateLangPackTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateLangPack))
+	u.handlers[UpdateLangPackTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateLangPack))
 	}
 }
 
 // FavedStickersHandler is a FavedStickers event handler.
-type FavedStickersHandler func(ctx UpdateContext, update *UpdateFavedStickers) error
+type FavedStickersHandler func(ctx context.Context, e Entities, update *UpdateFavedStickers) error
 
 // OnFavedStickers sets FavedStickers handler.
 func (u UpdateDispatcher) OnFavedStickers(handler FavedStickersHandler) {
-	u.handlers[UpdateFavedStickersTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateFavedStickers))
+	u.handlers[UpdateFavedStickersTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateFavedStickers))
 	}
 }
 
 // ChannelReadMessagesContentsHandler is a ChannelReadMessagesContents event handler.
-type ChannelReadMessagesContentsHandler func(ctx UpdateContext, update *UpdateChannelReadMessagesContents) error
+type ChannelReadMessagesContentsHandler func(ctx context.Context, e Entities, update *UpdateChannelReadMessagesContents) error
 
 // OnChannelReadMessagesContents sets ChannelReadMessagesContents handler.
 func (u UpdateDispatcher) OnChannelReadMessagesContents(handler ChannelReadMessagesContentsHandler) {
-	u.handlers[UpdateChannelReadMessagesContentsTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateChannelReadMessagesContents))
+	u.handlers[UpdateChannelReadMessagesContentsTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateChannelReadMessagesContents))
 	}
 }
 
 // ContactsResetHandler is a ContactsReset event handler.
-type ContactsResetHandler func(ctx UpdateContext, update *UpdateContactsReset) error
+type ContactsResetHandler func(ctx context.Context, e Entities, update *UpdateContactsReset) error
 
 // OnContactsReset sets ContactsReset handler.
 func (u UpdateDispatcher) OnContactsReset(handler ContactsResetHandler) {
-	u.handlers[UpdateContactsResetTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateContactsReset))
+	u.handlers[UpdateContactsResetTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateContactsReset))
 	}
 }
 
 // ChannelAvailableMessagesHandler is a ChannelAvailableMessages event handler.
-type ChannelAvailableMessagesHandler func(ctx UpdateContext, update *UpdateChannelAvailableMessages) error
+type ChannelAvailableMessagesHandler func(ctx context.Context, e Entities, update *UpdateChannelAvailableMessages) error
 
 // OnChannelAvailableMessages sets ChannelAvailableMessages handler.
 func (u UpdateDispatcher) OnChannelAvailableMessages(handler ChannelAvailableMessagesHandler) {
-	u.handlers[UpdateChannelAvailableMessagesTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateChannelAvailableMessages))
+	u.handlers[UpdateChannelAvailableMessagesTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateChannelAvailableMessages))
 	}
 }
 
 // DialogUnreadMarkHandler is a DialogUnreadMark event handler.
-type DialogUnreadMarkHandler func(ctx UpdateContext, update *UpdateDialogUnreadMark) error
+type DialogUnreadMarkHandler func(ctx context.Context, e Entities, update *UpdateDialogUnreadMark) error
 
 // OnDialogUnreadMark sets DialogUnreadMark handler.
 func (u UpdateDispatcher) OnDialogUnreadMark(handler DialogUnreadMarkHandler) {
-	u.handlers[UpdateDialogUnreadMarkTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateDialogUnreadMark))
+	u.handlers[UpdateDialogUnreadMarkTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateDialogUnreadMark))
 	}
 }
 
 // MessagePollHandler is a MessagePoll event handler.
-type MessagePollHandler func(ctx UpdateContext, update *UpdateMessagePoll) error
+type MessagePollHandler func(ctx context.Context, e Entities, update *UpdateMessagePoll) error
 
 // OnMessagePoll sets MessagePoll handler.
 func (u UpdateDispatcher) OnMessagePoll(handler MessagePollHandler) {
-	u.handlers[UpdateMessagePollTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateMessagePoll))
+	u.handlers[UpdateMessagePollTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateMessagePoll))
 	}
 }
 
 // ChatDefaultBannedRightsHandler is a ChatDefaultBannedRights event handler.
-type ChatDefaultBannedRightsHandler func(ctx UpdateContext, update *UpdateChatDefaultBannedRights) error
+type ChatDefaultBannedRightsHandler func(ctx context.Context, e Entities, update *UpdateChatDefaultBannedRights) error
 
 // OnChatDefaultBannedRights sets ChatDefaultBannedRights handler.
 func (u UpdateDispatcher) OnChatDefaultBannedRights(handler ChatDefaultBannedRightsHandler) {
-	u.handlers[UpdateChatDefaultBannedRightsTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateChatDefaultBannedRights))
+	u.handlers[UpdateChatDefaultBannedRightsTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateChatDefaultBannedRights))
 	}
 }
 
 // FolderPeersHandler is a FolderPeers event handler.
-type FolderPeersHandler func(ctx UpdateContext, update *UpdateFolderPeers) error
+type FolderPeersHandler func(ctx context.Context, e Entities, update *UpdateFolderPeers) error
 
 // OnFolderPeers sets FolderPeers handler.
 func (u UpdateDispatcher) OnFolderPeers(handler FolderPeersHandler) {
-	u.handlers[UpdateFolderPeersTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateFolderPeers))
+	u.handlers[UpdateFolderPeersTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateFolderPeers))
 	}
 }
 
 // PeerSettingsHandler is a PeerSettings event handler.
-type PeerSettingsHandler func(ctx UpdateContext, update *UpdatePeerSettings) error
+type PeerSettingsHandler func(ctx context.Context, e Entities, update *UpdatePeerSettings) error
 
 // OnPeerSettings sets PeerSettings handler.
 func (u UpdateDispatcher) OnPeerSettings(handler PeerSettingsHandler) {
-	u.handlers[UpdatePeerSettingsTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdatePeerSettings))
+	u.handlers[UpdatePeerSettingsTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdatePeerSettings))
 	}
 }
 
 // PeerLocatedHandler is a PeerLocated event handler.
-type PeerLocatedHandler func(ctx UpdateContext, update *UpdatePeerLocated) error
+type PeerLocatedHandler func(ctx context.Context, e Entities, update *UpdatePeerLocated) error
 
 // OnPeerLocated sets PeerLocated handler.
 func (u UpdateDispatcher) OnPeerLocated(handler PeerLocatedHandler) {
-	u.handlers[UpdatePeerLocatedTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdatePeerLocated))
+	u.handlers[UpdatePeerLocatedTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdatePeerLocated))
 	}
 }
 
 // NewScheduledMessageHandler is a NewScheduledMessage event handler.
-type NewScheduledMessageHandler func(ctx UpdateContext, update *UpdateNewScheduledMessage) error
+type NewScheduledMessageHandler func(ctx context.Context, e Entities, update *UpdateNewScheduledMessage) error
 
 // OnNewScheduledMessage sets NewScheduledMessage handler.
 func (u UpdateDispatcher) OnNewScheduledMessage(handler NewScheduledMessageHandler) {
-	u.handlers[UpdateNewScheduledMessageTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateNewScheduledMessage))
+	u.handlers[UpdateNewScheduledMessageTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateNewScheduledMessage))
 	}
 }
 
 // DeleteScheduledMessagesHandler is a DeleteScheduledMessages event handler.
-type DeleteScheduledMessagesHandler func(ctx UpdateContext, update *UpdateDeleteScheduledMessages) error
+type DeleteScheduledMessagesHandler func(ctx context.Context, e Entities, update *UpdateDeleteScheduledMessages) error
 
 // OnDeleteScheduledMessages sets DeleteScheduledMessages handler.
 func (u UpdateDispatcher) OnDeleteScheduledMessages(handler DeleteScheduledMessagesHandler) {
-	u.handlers[UpdateDeleteScheduledMessagesTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateDeleteScheduledMessages))
+	u.handlers[UpdateDeleteScheduledMessagesTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateDeleteScheduledMessages))
 	}
 }
 
 // ThemeHandler is a Theme event handler.
-type ThemeHandler func(ctx UpdateContext, update *UpdateTheme) error
+type ThemeHandler func(ctx context.Context, e Entities, update *UpdateTheme) error
 
 // OnTheme sets Theme handler.
 func (u UpdateDispatcher) OnTheme(handler ThemeHandler) {
-	u.handlers[UpdateThemeTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateTheme))
+	u.handlers[UpdateThemeTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateTheme))
 	}
 }
 
 // GeoLiveViewedHandler is a GeoLiveViewed event handler.
-type GeoLiveViewedHandler func(ctx UpdateContext, update *UpdateGeoLiveViewed) error
+type GeoLiveViewedHandler func(ctx context.Context, e Entities, update *UpdateGeoLiveViewed) error
 
 // OnGeoLiveViewed sets GeoLiveViewed handler.
 func (u UpdateDispatcher) OnGeoLiveViewed(handler GeoLiveViewedHandler) {
-	u.handlers[UpdateGeoLiveViewedTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateGeoLiveViewed))
+	u.handlers[UpdateGeoLiveViewedTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateGeoLiveViewed))
 	}
 }
 
 // LoginTokenHandler is a LoginToken event handler.
-type LoginTokenHandler func(ctx UpdateContext, update *UpdateLoginToken) error
+type LoginTokenHandler func(ctx context.Context, e Entities, update *UpdateLoginToken) error
 
 // OnLoginToken sets LoginToken handler.
 func (u UpdateDispatcher) OnLoginToken(handler LoginTokenHandler) {
-	u.handlers[UpdateLoginTokenTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateLoginToken))
+	u.handlers[UpdateLoginTokenTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateLoginToken))
 	}
 }
 
 // MessagePollVoteHandler is a MessagePollVote event handler.
-type MessagePollVoteHandler func(ctx UpdateContext, update *UpdateMessagePollVote) error
+type MessagePollVoteHandler func(ctx context.Context, e Entities, update *UpdateMessagePollVote) error
 
 // OnMessagePollVote sets MessagePollVote handler.
 func (u UpdateDispatcher) OnMessagePollVote(handler MessagePollVoteHandler) {
-	u.handlers[UpdateMessagePollVoteTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateMessagePollVote))
+	u.handlers[UpdateMessagePollVoteTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateMessagePollVote))
 	}
 }
 
 // DialogFilterHandler is a DialogFilter event handler.
-type DialogFilterHandler func(ctx UpdateContext, update *UpdateDialogFilter) error
+type DialogFilterHandler func(ctx context.Context, e Entities, update *UpdateDialogFilter) error
 
 // OnDialogFilter sets DialogFilter handler.
 func (u UpdateDispatcher) OnDialogFilter(handler DialogFilterHandler) {
-	u.handlers[UpdateDialogFilterTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateDialogFilter))
+	u.handlers[UpdateDialogFilterTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateDialogFilter))
 	}
 }
 
 // DialogFilterOrderHandler is a DialogFilterOrder event handler.
-type DialogFilterOrderHandler func(ctx UpdateContext, update *UpdateDialogFilterOrder) error
+type DialogFilterOrderHandler func(ctx context.Context, e Entities, update *UpdateDialogFilterOrder) error
 
 // OnDialogFilterOrder sets DialogFilterOrder handler.
 func (u UpdateDispatcher) OnDialogFilterOrder(handler DialogFilterOrderHandler) {
-	u.handlers[UpdateDialogFilterOrderTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateDialogFilterOrder))
+	u.handlers[UpdateDialogFilterOrderTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateDialogFilterOrder))
 	}
 }
 
 // DialogFiltersHandler is a DialogFilters event handler.
-type DialogFiltersHandler func(ctx UpdateContext, update *UpdateDialogFilters) error
+type DialogFiltersHandler func(ctx context.Context, e Entities, update *UpdateDialogFilters) error
 
 // OnDialogFilters sets DialogFilters handler.
 func (u UpdateDispatcher) OnDialogFilters(handler DialogFiltersHandler) {
-	u.handlers[UpdateDialogFiltersTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateDialogFilters))
+	u.handlers[UpdateDialogFiltersTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateDialogFilters))
 	}
 }
 
 // PhoneCallSignalingDataHandler is a PhoneCallSignalingData event handler.
-type PhoneCallSignalingDataHandler func(ctx UpdateContext, update *UpdatePhoneCallSignalingData) error
+type PhoneCallSignalingDataHandler func(ctx context.Context, e Entities, update *UpdatePhoneCallSignalingData) error
 
 // OnPhoneCallSignalingData sets PhoneCallSignalingData handler.
 func (u UpdateDispatcher) OnPhoneCallSignalingData(handler PhoneCallSignalingDataHandler) {
-	u.handlers[UpdatePhoneCallSignalingDataTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdatePhoneCallSignalingData))
+	u.handlers[UpdatePhoneCallSignalingDataTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdatePhoneCallSignalingData))
 	}
 }
 
 // ChannelMessageForwardsHandler is a ChannelMessageForwards event handler.
-type ChannelMessageForwardsHandler func(ctx UpdateContext, update *UpdateChannelMessageForwards) error
+type ChannelMessageForwardsHandler func(ctx context.Context, e Entities, update *UpdateChannelMessageForwards) error
 
 // OnChannelMessageForwards sets ChannelMessageForwards handler.
 func (u UpdateDispatcher) OnChannelMessageForwards(handler ChannelMessageForwardsHandler) {
-	u.handlers[UpdateChannelMessageForwardsTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateChannelMessageForwards))
+	u.handlers[UpdateChannelMessageForwardsTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateChannelMessageForwards))
 	}
 }
 
 // ReadChannelDiscussionInboxHandler is a ReadChannelDiscussionInbox event handler.
-type ReadChannelDiscussionInboxHandler func(ctx UpdateContext, update *UpdateReadChannelDiscussionInbox) error
+type ReadChannelDiscussionInboxHandler func(ctx context.Context, e Entities, update *UpdateReadChannelDiscussionInbox) error
 
 // OnReadChannelDiscussionInbox sets ReadChannelDiscussionInbox handler.
 func (u UpdateDispatcher) OnReadChannelDiscussionInbox(handler ReadChannelDiscussionInboxHandler) {
-	u.handlers[UpdateReadChannelDiscussionInboxTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateReadChannelDiscussionInbox))
+	u.handlers[UpdateReadChannelDiscussionInboxTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateReadChannelDiscussionInbox))
 	}
 }
 
 // ReadChannelDiscussionOutboxHandler is a ReadChannelDiscussionOutbox event handler.
-type ReadChannelDiscussionOutboxHandler func(ctx UpdateContext, update *UpdateReadChannelDiscussionOutbox) error
+type ReadChannelDiscussionOutboxHandler func(ctx context.Context, e Entities, update *UpdateReadChannelDiscussionOutbox) error
 
 // OnReadChannelDiscussionOutbox sets ReadChannelDiscussionOutbox handler.
 func (u UpdateDispatcher) OnReadChannelDiscussionOutbox(handler ReadChannelDiscussionOutboxHandler) {
-	u.handlers[UpdateReadChannelDiscussionOutboxTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateReadChannelDiscussionOutbox))
+	u.handlers[UpdateReadChannelDiscussionOutboxTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateReadChannelDiscussionOutbox))
 	}
 }
 
 // PeerBlockedHandler is a PeerBlocked event handler.
-type PeerBlockedHandler func(ctx UpdateContext, update *UpdatePeerBlocked) error
+type PeerBlockedHandler func(ctx context.Context, e Entities, update *UpdatePeerBlocked) error
 
 // OnPeerBlocked sets PeerBlocked handler.
 func (u UpdateDispatcher) OnPeerBlocked(handler PeerBlockedHandler) {
-	u.handlers[UpdatePeerBlockedTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdatePeerBlocked))
+	u.handlers[UpdatePeerBlockedTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdatePeerBlocked))
 	}
 }
 
 // ChannelUserTypingHandler is a ChannelUserTyping event handler.
-type ChannelUserTypingHandler func(ctx UpdateContext, update *UpdateChannelUserTyping) error
+type ChannelUserTypingHandler func(ctx context.Context, e Entities, update *UpdateChannelUserTyping) error
 
 // OnChannelUserTyping sets ChannelUserTyping handler.
 func (u UpdateDispatcher) OnChannelUserTyping(handler ChannelUserTypingHandler) {
-	u.handlers[UpdateChannelUserTypingTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateChannelUserTyping))
+	u.handlers[UpdateChannelUserTypingTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateChannelUserTyping))
 	}
 }
 
 // PinnedMessagesHandler is a PinnedMessages event handler.
-type PinnedMessagesHandler func(ctx UpdateContext, update *UpdatePinnedMessages) error
+type PinnedMessagesHandler func(ctx context.Context, e Entities, update *UpdatePinnedMessages) error
 
 // OnPinnedMessages sets PinnedMessages handler.
 func (u UpdateDispatcher) OnPinnedMessages(handler PinnedMessagesHandler) {
-	u.handlers[UpdatePinnedMessagesTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdatePinnedMessages))
+	u.handlers[UpdatePinnedMessagesTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdatePinnedMessages))
 	}
 }
 
 // PinnedChannelMessagesHandler is a PinnedChannelMessages event handler.
-type PinnedChannelMessagesHandler func(ctx UpdateContext, update *UpdatePinnedChannelMessages) error
+type PinnedChannelMessagesHandler func(ctx context.Context, e Entities, update *UpdatePinnedChannelMessages) error
 
 // OnPinnedChannelMessages sets PinnedChannelMessages handler.
 func (u UpdateDispatcher) OnPinnedChannelMessages(handler PinnedChannelMessagesHandler) {
-	u.handlers[UpdatePinnedChannelMessagesTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdatePinnedChannelMessages))
+	u.handlers[UpdatePinnedChannelMessagesTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdatePinnedChannelMessages))
 	}
 }
 
 // ChatHandler is a Chat event handler.
-type ChatHandler func(ctx UpdateContext, update *UpdateChat) error
+type ChatHandler func(ctx context.Context, e Entities, update *UpdateChat) error
 
 // OnChat sets Chat handler.
 func (u UpdateDispatcher) OnChat(handler ChatHandler) {
-	u.handlers[UpdateChatTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateChat))
+	u.handlers[UpdateChatTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateChat))
 	}
 }
 
 // GroupCallParticipantsHandler is a GroupCallParticipants event handler.
-type GroupCallParticipantsHandler func(ctx UpdateContext, update *UpdateGroupCallParticipants) error
+type GroupCallParticipantsHandler func(ctx context.Context, e Entities, update *UpdateGroupCallParticipants) error
 
 // OnGroupCallParticipants sets GroupCallParticipants handler.
 func (u UpdateDispatcher) OnGroupCallParticipants(handler GroupCallParticipantsHandler) {
-	u.handlers[UpdateGroupCallParticipantsTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateGroupCallParticipants))
+	u.handlers[UpdateGroupCallParticipantsTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateGroupCallParticipants))
 	}
 }
 
 // GroupCallHandler is a GroupCall event handler.
-type GroupCallHandler func(ctx UpdateContext, update *UpdateGroupCall) error
+type GroupCallHandler func(ctx context.Context, e Entities, update *UpdateGroupCall) error
 
 // OnGroupCall sets GroupCall handler.
 func (u UpdateDispatcher) OnGroupCall(handler GroupCallHandler) {
-	u.handlers[UpdateGroupCallTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateGroupCall))
+	u.handlers[UpdateGroupCallTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateGroupCall))
 	}
 }
 
 // PeerHistoryTTLHandler is a PeerHistoryTTL event handler.
-type PeerHistoryTTLHandler func(ctx UpdateContext, update *UpdatePeerHistoryTTL) error
+type PeerHistoryTTLHandler func(ctx context.Context, e Entities, update *UpdatePeerHistoryTTL) error
 
 // OnPeerHistoryTTL sets PeerHistoryTTL handler.
 func (u UpdateDispatcher) OnPeerHistoryTTL(handler PeerHistoryTTLHandler) {
-	u.handlers[UpdatePeerHistoryTTLTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdatePeerHistoryTTL))
+	u.handlers[UpdatePeerHistoryTTLTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdatePeerHistoryTTL))
 	}
 }
 
 // ChatParticipantHandler is a ChatParticipant event handler.
-type ChatParticipantHandler func(ctx UpdateContext, update *UpdateChatParticipant) error
+type ChatParticipantHandler func(ctx context.Context, e Entities, update *UpdateChatParticipant) error
 
 // OnChatParticipant sets ChatParticipant handler.
 func (u UpdateDispatcher) OnChatParticipant(handler ChatParticipantHandler) {
-	u.handlers[UpdateChatParticipantTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateChatParticipant))
+	u.handlers[UpdateChatParticipantTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateChatParticipant))
 	}
 }
 
 // ChannelParticipantHandler is a ChannelParticipant event handler.
-type ChannelParticipantHandler func(ctx UpdateContext, update *UpdateChannelParticipant) error
+type ChannelParticipantHandler func(ctx context.Context, e Entities, update *UpdateChannelParticipant) error
 
 // OnChannelParticipant sets ChannelParticipant handler.
 func (u UpdateDispatcher) OnChannelParticipant(handler ChannelParticipantHandler) {
-	u.handlers[UpdateChannelParticipantTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateChannelParticipant))
+	u.handlers[UpdateChannelParticipantTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateChannelParticipant))
 	}
 }
 
 // BotStoppedHandler is a BotStopped event handler.
-type BotStoppedHandler func(ctx UpdateContext, update *UpdateBotStopped) error
+type BotStoppedHandler func(ctx context.Context, e Entities, update *UpdateBotStopped) error
 
 // OnBotStopped sets BotStopped handler.
 func (u UpdateDispatcher) OnBotStopped(handler BotStoppedHandler) {
-	u.handlers[UpdateBotStoppedTypeID] = func(ctx UpdateContext, update UpdateClass) error {
-		return handler(ctx, update.(*UpdateBotStopped))
+	u.handlers[UpdateBotStoppedTypeID] = func(ctx context.Context, e Entities, update UpdateClass) error {
+		return handler(ctx, e, update.(*UpdateBotStopped))
 	}
 }
