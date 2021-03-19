@@ -6,7 +6,8 @@ import (
 	"fmt"
 	"strconv"
 	"strings"
-	"unicode"
+
+	"github.com/gotd/td/internal/ascii"
 )
 
 // Error represents RPC error returned as result to request.
@@ -89,7 +90,7 @@ func (e *Error) extractArgument() {
 Parts:
 	for _, part := range parts {
 		for _, r := range part {
-			if unicode.IsDigit(r) {
+			if ascii.IsDigit(r) {
 				continue
 			}
 
