@@ -2,6 +2,7 @@ package proto
 
 import (
 	"errors"
+	"fmt"
 
 	"golang.org/x/xerrors"
 
@@ -14,6 +15,18 @@ const MessageContainerTypeID = 0x73f1f8dc
 // MessageContainer contains slice of messages.
 type MessageContainer struct {
 	Messages []Message
+}
+
+// Encode implements bin.Decoder.
+func (m *MessageContainer) Encode(b *bin.Buffer) error {
+	b.PutID(MessageContainerTypeID)
+	b.PutInt(len(m.Messages))
+	for _, msg := range m.Messages {
+		if err := msg.Encode(b); err != nil {
+			return err
+		}
+	}
+	return nil
 }
 
 // Decode implements bin.Decoder.
@@ -41,6 +54,18 @@ type Message struct {
 	SeqNo int
 	Bytes int
 	Body  []byte
+}
+
+// Encode implements bin.Encoder.
+func (m *Message) Encode(b *bin.Buffer) error {
+	if m.Bytes < 0 || m.Bytes > 1024*1024 {
+		return fmt.Errorf("message length %d is invalid", m.Bytes)
+	}
+	b.PutLong(m.ID)
+	b.PutInt(m.SeqNo)
+	b.PutInt(m.Bytes)
+	b.Put(m.Body)
+	return nil
 }
 
 // Decode implements bin.Decoder.
