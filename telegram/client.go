@@ -12,6 +12,7 @@ import (
 
 	"github.com/cenkalti/backoff/v4"
 	"go.uber.org/atomic"
+	"go.uber.org/multierr"
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
@@ -345,7 +346,7 @@ func (c *Client) resetReady() {
 // will return on f() result.
 //
 // Context of callback will be canceled if fatal error is detected.
-func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) error {
+func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) (err error) {
 	select {
 	case <-c.ctx.Done():
 		return xerrors.Errorf("client already closed: %w", c.ctx.Err())
@@ -361,7 +362,9 @@ func (c *Client) Run(ctx context.Context, f func(ctx context.Context) error) err
 		defer c.subConnsMux.Unlock()
 
 		for _, conn := range c.subConns {
-			_ = conn.Close()
+			if closeErr := conn.Close(); !xerrors.Is(closeErr, context.Canceled) {
+				multierr.AppendInto(&err, closeErr)
+			}
 		}
 	}()
 

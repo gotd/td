@@ -8,6 +8,7 @@ import (
 	"os"
 	"path/filepath"
 
+	"go.uber.org/multierr"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/tg"
@@ -42,13 +43,13 @@ func (o osFS) Open(name string) (fs.File, error) {
 }
 
 // FromFS uploads file from fs using given path.
-func (u *Uploader) FromFS(ctx context.Context, filesystem fs.FS, path string) (tg.InputFileClass, error) {
+func (u *Uploader) FromFS(ctx context.Context, filesystem fs.FS, path string) (_ tg.InputFileClass, err error) {
 	f, err := filesystem.Open(path)
 	if err != nil {
 		return nil, xerrors.Errorf("open: %w", err)
 	}
 	defer func() {
-		_ = f.Close()
+		multierr.AppendInto(&err, f.Close())
 	}()
 
 	return u.FromFile(ctx, f)
