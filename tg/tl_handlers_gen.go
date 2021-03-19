@@ -9,6 +9,8 @@ import (
 	"sort"
 	"strings"
 
+	"go.uber.org/multierr"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
@@ -21,6 +23,7 @@ var (
 	_ = fmt.Stringer(nil)
 	_ = strings.Builder{}
 	_ = errors.Is
+	_ = multierr.AppendInto
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
@@ -79,11 +82,10 @@ func (u UpdateDispatcher) Handle(ctx context.Context, updates *Updates) error {
 		Context: ctx,
 	}
 
+	var err error
 	for _, update := range updates.Updates {
 		uctx.lazyInitFromUpdates(updates)
-		if err := u.dispatch(uctx, update); err != nil {
-			return err
-		}
+		multierr.AppendInto(&err, u.dispatch(uctx, update))
 	}
 	return nil
 }

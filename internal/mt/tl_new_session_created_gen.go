@@ -9,6 +9,8 @@ import (
 	"sort"
 	"strings"
 
+	"go.uber.org/multierr"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tgerr"
@@ -21,6 +23,7 @@ var (
 	_ = fmt.Stringer(nil)
 	_ = strings.Builder{}
 	_ = errors.Is
+	_ = multierr.AppendInto
 	_ = sort.Ints
 	_ = tdp.Format
 	_ = tgerr.Error{}
