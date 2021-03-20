@@ -32,17 +32,17 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-go-
 
+      # We run tidy after download because download and tidy produce different go.sum.
+      # See https://github.com/golang/go/issues/35832
+
       - name: Download dependencies
-        run: go mod download
+        run: go mod download && go mod tidy
 
       - name: Update schema
         run: make download_schema download_e2e_schema
 
       - name: Generate files
         run: make generate
-
-      - name: Mod tidy
-        run: go mod tidy
 
       - name: Create PR
         id: cpr
@@ -54,8 +54,8 @@ jobs:
           branch: feat/update-schema
           delete-branch: true
 
-          title: Update schema to latest layer
+          title: Update schema to the latest layer
           body: |
-            Update Telegram API schema to latest layer.
+            Update Telegram API schema to the latest layer.
           labels: |
             dependencies
