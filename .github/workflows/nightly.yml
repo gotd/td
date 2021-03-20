@@ -38,6 +38,10 @@ jobs:
       - name: Download dependencies
         run: go mod download && go mod tidy
 
+      - name: Download tools
+        run: go mod download && go mod tidy
+        working-directory: _tools
+
       - name: Update schema
         run: make download_schema download_e2e_schema
 
