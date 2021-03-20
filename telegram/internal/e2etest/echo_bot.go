@@ -78,7 +78,7 @@ func (b EchoBot) login(ctx context.Context, client *telegram.Client) (*tg.User, 
 	}
 
 	expectedUsername := "echobot" + strconv.Itoa(me.ID)
-	raw := tg.NewClient(client)
+	raw := tg.NewClient(waitInvoker{prev: client})
 	_, err = raw.AccountUpdateUsername(ctx, expectedUsername)
 	if err != nil {
 		var rpcErr *tgerr.Error
