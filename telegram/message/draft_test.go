@@ -4,6 +4,7 @@ import (
 	"context"
 	"testing"
 
+	"github.com/gotd/td/telegram/message/styling"
 	"github.com/gotd/td/tg"
 )
 
@@ -29,6 +30,6 @@ func TestDraft(t *testing.T) {
 	}).ThenTrue()
 
 	mock.NoError(sender.Self().SaveDraft(ctx, "text"))
-	mock.NoError(sender.Self().SaveStyledDraft(ctx, Bold("styled text")))
+	mock.NoError(sender.Self().SaveStyledDraft(ctx, styling.Bold("styled text")))
 	mock.NoError(sender.Self().ClearDraft(ctx))
 }

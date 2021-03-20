@@ -6,6 +6,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/gotd/td/internal/testutil"
+	"github.com/gotd/td/tg"
 )
 
 func Test_computeLength(t *testing.T) {
@@ -19,10 +20,32 @@ func Test_computeLength(t *testing.T) {
 	}
 	for _, tt := range tests {
 		testutil.ZeroAlloc(t, func() {
-			_ = computeLength(tt.s)
+			_ = ComputeLength(tt.s)
 		})
 		t.Run(tt.s, func(t *testing.T) {
-			require.Equal(t, tt.want, computeLength(tt.s))
+			require.Equal(t, tt.want, ComputeLength(tt.s))
 		})
 	}
+}
+
+func TestEnsureTrim(t *testing.T) {
+	a := require.New(t)
+
+	prefix := "pre"
+	expected := "abc\nabc"
+	b := Builder{}
+	b.Plain(prefix)
+	b.Format(expected+"\n\n\n", Bold(), Italic())
+
+	msg, ent := b.Complete()
+	a.Equal(prefix+expected, msg)
+	a.Len(ent, 2)
+	a.Equal(&tg.MessageEntityBold{
+		Offset: len(prefix),
+		Length: ComputeLength(expected),
+	}, ent[0])
+	a.Equal(&tg.MessageEntityItalic{
+		Offset: len(prefix),
+		Length: ComputeLength(expected),
+	}, ent[1])
 }

@@ -5,6 +5,8 @@ import (
 
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/telegram/message/entity"
+	"github.com/gotd/td/telegram/message/styling"
 	"github.com/gotd/td/tg"
 )
 
@@ -56,8 +58,10 @@ func (b *Builder) SaveStyledDraft(ctx context.Context, text StyledTextOption, te
 		return xerrors.Errorf("peer: %w", err)
 	}
 
-	tb := textBuilder{}
-	tb.Perform(text, texts...)
+	tb := entity.Builder{}
+	if err := styling.Perform(&tb, text, texts...); err != nil {
+		return err
+	}
 	msg, entities := tb.Complete()
 	return b.sender.saveDraft(ctx, b.saveDraftRequest(p, msg, entities))
 }

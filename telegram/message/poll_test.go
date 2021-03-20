@@ -5,6 +5,7 @@ import (
 	"testing"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/telegram/message/styling"
 	"github.com/gotd/td/tg"
 )
 
@@ -42,7 +43,8 @@ func TestPoll(t *testing.T) {
 		PollAnswer("Kuda?"),
 	).PublicVoters(true).
 		StyledExplanation(
-			Plain("See"), TextURL("https://youtu.be/PYzX7SDKhd0.", "https://youtu.be/PYzX7SDKhd0"),
+			styling.Plain("See"),
+			styling.TextURL("https://youtu.be/PYzX7SDKhd0.", "https://youtu.be/PYzX7SDKhd0"),
 		)
 
 	_, err := sender.Self().Media(ctx, poll)

@@ -5,16 +5,21 @@ import (
 
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/telegram/message/entity"
+	"github.com/gotd/td/telegram/message/styling"
 	"github.com/gotd/td/tg"
 )
 
-func performTextOptions(media *tg.InputSingleMedia, opts []StyledTextOption) {
+func performTextOptions(media *tg.InputSingleMedia, opts []StyledTextOption) error {
 	if len(opts) > 0 {
-		captionBuilder := textBuilder{}
-		captionBuilder.Perform(opts[0], opts[1:]...)
-
-		media.Message, media.Entities = captionBuilder.Complete()
+		tb := entity.Builder{}
+		if err := styling.Perform(&tb, opts[0], opts[1:]...); err != nil {
+			return err
+		}
+		media.Message, media.Entities = tb.Complete()
 	}
+
+	return nil
 }
 
 // Media adds given media attachment to message.
@@ -23,7 +28,9 @@ func Media(media tg.InputMediaClass, caption ...StyledTextOption) MediaOption {
 		singleMedia := tg.InputSingleMedia{
 			Media: media,
 		}
-		performTextOptions(&singleMedia, caption)
+		if err := performTextOptions(&singleMedia, caption); err != nil {
+			return err
+		}
 
 		b.media = append(b.media, singleMedia)
 		return nil

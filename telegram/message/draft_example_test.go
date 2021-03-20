@@ -10,6 +10,7 @@ import (
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/message"
+	"github.com/gotd/td/telegram/message/styling"
 	"github.com/gotd/td/tg"
 )
 
@@ -29,7 +30,7 @@ func saveDraft(ctx context.Context) error {
 		}
 
 		// Save styled draft message.
-		if err := r.SaveStyledDraft(ctx, message.Bold("Hi!")); err != nil {
+		if err := r.SaveStyledDraft(ctx, styling.Bold("Hi!")); err != nil {
 			return xerrors.Errorf("draft: %w", err)
 		}
 

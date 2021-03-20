@@ -11,7 +11,10 @@ import (
 // Builder builds message string and text entities.
 type Builder struct {
 	entities []tg.MessageEntityClass
-	message  strings.Builder
+	// We store index of first entity added at last Format call.
+	// It needed to trim space in all entities of last text block.
+	lastFormatIndex int
+	message         strings.Builder
 }
 
 // GrowText grows internal buffer capacity.
@@ -41,32 +44,46 @@ func (b *Builder) Complete() (string, []tg.MessageEntityClass) {
 	entities := b.entities
 	b.reset()
 
+	// If there are not entities, so we just return built message.
 	if len(entities) == 0 {
 		return msg, nil
 	}
 
-	if len(entities) >= 1 {
-		last := entities[len(entities)-1]
-		offset := last.GetOffset()
+	// Since Telegram client does not handle space after formatted message
+	// we should compute length of the last block to trim it.
+	// Get first entity of last text block.
+	entity := entities[len(entities)-1]
+	offset := entity.GetOffset()
+	// Get last text block.
+	lastBlock := msg[offset:]
+	// Trim this block.
+	trimmed := strings.TrimRightFunc(lastBlock, unicode.IsSpace)
 
-		entityText := msg[offset:]
-		trimmed := strings.TrimRightFunc(entityText, unicode.IsSpace)
-		if len(trimmed) != len(entityText) {
-			reflect.ValueOf(&entities[len(entities)-1]).
-				Elem().Elem().Elem().
-				FieldByName("Length").
-				SetInt(int64(computeLength(trimmed)))
+	// If there are a difference, we should change length of the all entities.
+	if len(trimmed) != len(lastBlock) {
+		length := ComputeLength(trimmed)
+		for idx := range entities[b.lastFormatIndex:] {
+			setLength(idx, length, entities)
 		}
+		return msg[:offset+len(trimmed)], entities
 	}
 
 	return msg, entities
 }
 
-// computeLength returns length of s encoded as UTF-16 string.
+// setLength sets Length field of entity.
+func setLength(index, value int, slice []tg.MessageEntityClass) {
+	reflect.ValueOf(&slice[index]).
+		Elem().Elem().Elem().
+		FieldByName("Length").
+		SetInt(int64(value))
+}
+
+// ComputeLength returns length of s encoded as UTF-16 string.
 //
 // While Telegram API docs state that they expect the number of UTF-8
 // code points, in fact they are talking about UTF-16 code units.
-func computeLength(s string) int {
+func ComputeLength(s string) int {
 	const (
 		surrSelf = 0x10000
 		maxRune  = '\U0010FFFF' // Maximum valid Unicode code point.
@@ -84,13 +101,26 @@ func computeLength(s string) int {
 	return n
 }
 
-type formatter func(offset, limit int) tg.MessageEntityClass
+// AddEntities adds given raw entities to the builder.
+// Use carefully.
+func (b *Builder) AddEntities(e ...tg.MessageEntityClass) *Builder {
+	b.entities = append(b.entities, e...)
+	return b
+}
 
-func (b *Builder) appendMessage(s string, format formatter) *Builder {
-	offset := b.message.Len()
-	length := computeLength(s)
+func (b *Builder) appendMessage(s string, formats ...Formatter) *Builder {
+	if s == "" {
+		return b
+	}
 
-	b.entities = append(b.entities, format(offset, length))
+	offset := ComputeLength(b.message.String())
+	length := ComputeLength(s)
+
+	b.lastFormatIndex = len(b.entities)
+	for i := range formats {
+		b.entities = append(b.entities, formats[i](offset, length))
+	}
+
 	b.message.WriteString(s)
 	return b
 }

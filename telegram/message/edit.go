@@ -5,6 +5,8 @@ import (
 
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/telegram/message/entity"
+	"github.com/gotd/td/telegram/message/styling"
 	"github.com/gotd/td/tg"
 )
 
@@ -55,8 +57,10 @@ func (b *EditMessageBuilder) StyledText(
 		return nil, xerrors.Errorf("peer: %w", err)
 	}
 
-	tb := textBuilder{}
-	tb.Perform(text, texts...)
+	tb := entity.Builder{}
+	if err := styling.Perform(&tb, text, texts...); err != nil {
+		return nil, err
+	}
 	msg, entities := tb.Complete()
 
 	upd, err := b.builder.sender.editMessage(ctx, b.editTextRequest(p, msg, entities))
