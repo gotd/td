@@ -110,11 +110,17 @@ func convertUpdateShortSentMessage(u *tg.UpdateShortSentMessage) *tg.UpdateShort
 }
 
 func (c *Client) updateInterceptor(updates ...tg.UpdateClass) {
+	updateCfg := false
+
 	for _, update := range updates {
 		switch update.(type) {
 		case *tg.UpdateConfig, *tg.UpdateDCOptions:
-			c.fetchConfig(c.ctx)
+			updateCfg = true
 		}
+	}
+
+	if updateCfg {
+		c.fetchConfig(c.ctx)
 	}
 }
 
@@ -126,6 +132,18 @@ func (c *Client) processUpdates(updates tg.UpdatesClass) error {
 			return nil
 		}
 		return c.updateHandler.Handle(c.ctx, u)
+	case *tg.UpdatesCombined:
+		c.updateInterceptor(u.Updates...)
+		if c.updateHandler == nil {
+			return nil
+		}
+		return c.updateHandler.Handle(c.ctx, &tg.Updates{
+			Updates: u.Updates,
+			Users:   u.Users,
+			Chats:   u.Chats,
+			Date:    u.Date,
+			Seq:     u.Seq,
+		})
 	case *tg.UpdateShort:
 		c.updateInterceptor(u.Update)
 		if c.updateHandler == nil {
@@ -138,9 +156,9 @@ func (c *Client) processUpdates(updates tg.UpdatesClass) error {
 		return c.processUpdates(convertUpdateShortChatMessage(u))
 	case *tg.UpdateShortSentMessage:
 		return c.processUpdates(convertUpdateShortSentMessage(u))
-	// TODO(ernado): handle UpdatesTooLong
-	// TODO(ernado): handle UpdatesCombined
 	default:
+		// We ignoring UpdatesTooLong because we should not receive it here.
+		// It used only in explicit update requests.
 		c.log.Warn("Ignoring update", zap.String("update_type", fmt.Sprintf("%T", u)))
 	}
 	return nil

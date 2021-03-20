@@ -74,4 +74,3 @@ func TestScheduledManager_Get(t *testing.T) {
 	_, err = sender.Self().Scheduled().Get(ctx, 10)
 	mock.Error(err)
 }
-
