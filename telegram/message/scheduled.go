@@ -74,7 +74,7 @@ func (m *ScheduledManager) Get(ctx context.Context, id int, ids ...int) (tg.Modi
 }
 
 // HistoryWithHash gets scheduled messages history.
-func (m *ScheduledManager) HistoryWithHash(ctx context.Context, hash int) (tg.ModifiedMessagesMessages, error) {
+func (m *ScheduledManager) HistoryWithHash(ctx context.Context, hash int) (tg.MessagesMessagesClass, error) {
 	p, err := m.peer(ctx)
 	if err != nil {
 		return nil, xerrors.Errorf("peer: %w", err)
@@ -88,17 +88,21 @@ func (m *ScheduledManager) HistoryWithHash(ctx context.Context, hash int) (tg.Mo
 		return nil, xerrors.Errorf("get scheduled messages history: %w", err)
 	}
 
-	modified, ok := msgs.AsModified()
-	if !ok {
-		return nil, xerrors.Errorf("unexpected type %T", msgs)
-	}
-
-	return modified, nil
+	return msgs, nil
 }
 
 // History gets scheduled messages history.
 func (m *ScheduledManager) History(ctx context.Context) (tg.ModifiedMessagesMessages, error) {
-	return m.HistoryWithHash(ctx, 0)
+	msgs, err := m.HistoryWithHash(ctx, 0)
+	if err != nil {
+		return nil, err
+	}
+
+	modified, ok := msgs.AsModified()
+	if !ok {
+		return nil, xerrors.Errorf("unexpected type %T", msgs)
+	}
+	return modified, nil
 }
 
 // Scheduled creates new ScheduledManager using resolved peer.
