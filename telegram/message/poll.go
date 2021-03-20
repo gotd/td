@@ -8,6 +8,8 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/crypto"
+	"github.com/gotd/td/telegram/message/entity"
+	"github.com/gotd/td/telegram/message/styling"
 	"github.com/gotd/td/tg"
 )
 
@@ -52,8 +54,10 @@ func CorrectPollAnswer(text string) PollAnswerOption {
 
 // PollBuilder is a Poll media option.
 type PollBuilder struct {
-	input tg.InputMediaPoll
-	opts  []PollAnswerOption
+	input   tg.InputMediaPoll
+	answers []PollAnswerOption
+	opt     StyledTextOption
+	opts    []StyledTextOption
 }
 
 // PollID return poll ID. If poll was not sent, will be zero.
@@ -115,10 +119,8 @@ func (p *PollBuilder) Explanation(msg string) *PollBuilder {
 
 // StyledExplanation sets styled explanation message.
 func (p *PollBuilder) StyledExplanation(text StyledTextOption, texts ...StyledTextOption) *PollBuilder {
-	captionBuilder := textBuilder{}
-	captionBuilder.Perform(text, texts...)
-
-	p.input.Solution, p.input.SolutionEntities = captionBuilder.Complete()
+	p.opt = text
+	p.opts = texts
 	return p
 }
 
@@ -132,8 +134,17 @@ func (p *PollBuilder) apply(ctx context.Context, b *multiMediaBuilder) error {
 		p.input.Poll.ID = id
 	}
 
+	// Check if p.opt is not zero.
+	if !p.opt.Zero() {
+		tb := entity.Builder{}
+		if err := styling.Perform(&tb, p.opt, p.opts...); err != nil {
+			return err
+		}
+		p.input.Solution, p.input.SolutionEntities =  tb.Complete()
+	}
+
 	pb := pollAnswerBuilder{input: &p.input}
-	for _, opt := range p.opts {
+	for _, opt := range p.answers {
 		opt(&pb)
 	}
 
@@ -148,7 +159,7 @@ func Poll(question string, a, b PollAnswerOption, answers ...PollAnswerOption) *
 				Question: question,
 			},
 		},
-		opts: append([]PollAnswerOption{a, b}, answers...),
+		answers: append([]PollAnswerOption{a, b}, answers...),
 	}
 }
 

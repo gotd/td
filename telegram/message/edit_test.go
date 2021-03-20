@@ -5,6 +5,7 @@ import (
 	"testing"
 	"unicode/utf8"
 
+	"github.com/gotd/td/telegram/message/styling"
 	"github.com/gotd/td/tg"
 )
 
@@ -48,7 +49,7 @@ func TestEditMessageBuilder_StyledText(t *testing.T) {
 		},
 	}).ThenResult(&tg.Updates{})
 
-	_, err := sender.Self().Edit(10).StyledText(ctx, Bold(msg))
+	_, err := sender.Self().Edit(10).StyledText(ctx, styling.Bold(msg))
 	mock.NoError(err)
 
 	mock.ExpectCall(&tg.MessagesEditMessageRequest{
@@ -62,7 +63,7 @@ func TestEditMessageBuilder_StyledText(t *testing.T) {
 		},
 	}).ThenRPCErr(testRPCError())
 
-	_, err = sender.Self().Edit(10).StyledText(ctx, Bold(msg))
+	_, err = sender.Self().Edit(10).StyledText(ctx,  styling.Bold(msg))
 	mock.Error(err)
 }
 
