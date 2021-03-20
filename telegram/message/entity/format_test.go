@@ -20,10 +20,10 @@ func Test_computeLength(t *testing.T) {
 	}
 	for _, tt := range tests {
 		testutil.ZeroAlloc(t, func() {
-			_ = computeLength(tt.s)
+			_ = ComputeLength(tt.s)
 		})
 		t.Run(tt.s, func(t *testing.T) {
-			require.Equal(t, tt.want, computeLength(tt.s))
+			require.Equal(t, tt.want, ComputeLength(tt.s))
 		})
 	}
 }
@@ -42,10 +42,10 @@ func TestEnsureTrim(t *testing.T) {
 	a.Len(ent, 2)
 	a.Equal(&tg.MessageEntityBold{
 		Offset: len(prefix),
-		Length: computeLength(expected),
+		Length: ComputeLength(expected),
 	}, ent[0])
 	a.Equal(&tg.MessageEntityItalic{
 		Offset: len(prefix),
-		Length: computeLength(expected),
+		Length: ComputeLength(expected),
 	}, ent[1])
 }
