@@ -37,7 +37,7 @@ func sendHTML(ctx context.Context) error {
 	})
 }
 
-func ExampleBuilder_HTML() {
+func ExampleString() {
 	ctx, cancel := signal.NotifyContext(context.Background(), os.Interrupt)
 	defer cancel()
 

@@ -4,7 +4,7 @@ import (
 	"github.com/gotd/td/telegram/message/entity"
 )
 
-// StyledTextOption is functional option for styling text.
+// StyledTextOption is a option for styling text.
 type StyledTextOption struct {
 	size    int
 	perform func(b *textBuilder) error

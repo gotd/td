@@ -36,7 +36,7 @@ func TestHTML(t *testing.T) {
 		{"<strike>strikethrough</strike>", "strikethrough", getEnities(Strike())},
 		{"<del>strikethrough</del>", "strikethrough", getEnities(Strike())},
 		{"<code>code</code>", "code", getEnities(Code())},
-		{"<pre>pre</pre>", "pre", getEnities(Code())},
+		{"<pre>abc</pre>", "abc", getEnities(Code())},
 		{`<a href="http://www.example.com/">inline URL</a>`, "inline URL",
 			getEnities(TextURL("http://www.example.com/"))},
 		{`<a href="tg://user?id=123456789">inline mention of a user</a>`, "inline mention of a user",
