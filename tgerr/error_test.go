@@ -11,6 +11,15 @@ import (
 	"github.com/gotd/td/tgerr"
 )
 
+func TestError(t *testing.T) {
+	t.Run("FLOOD_WAIT_0", func(t *testing.T) {
+		require.Equal(t, "rpc error code 420: FLOOD_WAIT (0)", tgerr.New(420, "FLOOD_WAIT_0").Error())
+	})
+	t.Run("FLOOD_WAIT", func(t *testing.T) {
+		require.Equal(t, "rpc error code 420: FLOOD_WAIT", tgerr.New(420, "FLOOD_WAIT").Error())
+	})
+}
+
 func TestErrorParse(t *testing.T) {
 	t.Run("FLOOD_WAIT", func(t *testing.T) {
 		require.Equal(t, &tgerr.Error{
@@ -19,6 +28,14 @@ func TestErrorParse(t *testing.T) {
 			Type:     "FLOOD_WAIT",
 			Argument: 359,
 		}, tgerr.New(420, "FLOOD_WAIT_359"))
+	})
+	t.Run("FLOOD_WAIT_0", func(t *testing.T) {
+		require.Equal(t, &tgerr.Error{
+			Code:     420,
+			Message:  "FLOOD_WAIT_0",
+			Type:     "FLOOD_WAIT",
+			Argument: 0,
+		}, tgerr.New(420, "FLOOD_WAIT_0"))
 	})
 	t.Run("Middle", func(t *testing.T) {
 		require.Equal(t, &tgerr.Error{

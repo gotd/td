@@ -112,7 +112,7 @@ Parts:
 }
 
 func (e *Error) Error() string {
-	if e.Argument != 0 {
+	if e.Type != e.Message {
 		return fmt.Sprintf("rpc error code %d: %s (%d)", e.Code, e.Type, e.Argument)
 	}
 	return fmt.Sprintf("rpc error code %d: %s", e.Code, e.Message)
