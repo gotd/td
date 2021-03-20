@@ -45,46 +45,46 @@ func TestBuilder_StyledText(t *testing.T) {
 		format  func(msg string) StyledTextOption
 		creator func(o int) tg.MessageEntityClass
 	}{
-		{"Mention",  styling.Mention, func(o int) tg.MessageEntityClass {
+		{"Mention", styling.Mention, func(o int) tg.MessageEntityClass {
 			return &tg.MessageEntityMention{Length: o}
 		}},
-		{"Hashtag",  styling.Hashtag, func(o int) tg.MessageEntityClass {
+		{"Hashtag", styling.Hashtag, func(o int) tg.MessageEntityClass {
 			return &tg.MessageEntityHashtag{Length: o}
 		}},
-		{"BotCommand",  styling.BotCommand, func(o int) tg.MessageEntityClass {
+		{"BotCommand", styling.BotCommand, func(o int) tg.MessageEntityClass {
 			return &tg.MessageEntityBotCommand{Length: o}
 		}},
-		{"URL",  styling.URL, func(o int) tg.MessageEntityClass {
+		{"URL", styling.URL, func(o int) tg.MessageEntityClass {
 			return &tg.MessageEntityURL{Length: o}
 		}},
-		{"Email",  styling.Email, func(o int) tg.MessageEntityClass {
+		{"Email", styling.Email, func(o int) tg.MessageEntityClass {
 			return &tg.MessageEntityEmail{Length: o}
 		}},
-		{"Bold",  styling.Bold, func(o int) tg.MessageEntityClass {
+		{"Bold", styling.Bold, func(o int) tg.MessageEntityClass {
 			return &tg.MessageEntityBold{Length: o}
 		}},
-		{"Italic",  styling.Italic, func(o int) tg.MessageEntityClass {
+		{"Italic", styling.Italic, func(o int) tg.MessageEntityClass {
 			return &tg.MessageEntityItalic{Length: o}
 		}},
-		{"Code",  styling.Code, func(o int) tg.MessageEntityClass {
+		{"Code", styling.Code, func(o int) tg.MessageEntityClass {
 			return &tg.MessageEntityCode{Length: o}
 		}},
-		{"Phone",  styling.Phone, func(o int) tg.MessageEntityClass {
+		{"Phone", styling.Phone, func(o int) tg.MessageEntityClass {
 			return &tg.MessageEntityPhone{Length: o}
 		}},
-		{"Cashtag",  styling.Cashtag, func(o int) tg.MessageEntityClass {
+		{"Cashtag", styling.Cashtag, func(o int) tg.MessageEntityClass {
 			return &tg.MessageEntityCashtag{Length: o}
 		}},
-		{"Underline",  styling.Underline, func(o int) tg.MessageEntityClass {
+		{"Underline", styling.Underline, func(o int) tg.MessageEntityClass {
 			return &tg.MessageEntityUnderline{Length: o}
 		}},
-		{"Strike",  styling.Strike, func(o int) tg.MessageEntityClass {
+		{"Strike", styling.Strike, func(o int) tg.MessageEntityClass {
 			return &tg.MessageEntityStrike{Length: o}
 		}},
-		{"Blockquote",  styling.Blockquote, func(o int) tg.MessageEntityClass {
+		{"Blockquote", styling.Blockquote, func(o int) tg.MessageEntityClass {
 			return &tg.MessageEntityBlockquote{Length: o}
 		}},
-		{"BankCard",  styling.BankCard, func(o int) tg.MessageEntityClass {
+		{"BankCard", styling.BankCard, func(o int) tg.MessageEntityClass {
 			return &tg.MessageEntityBankCard{Length: o}
 		}},
 	}

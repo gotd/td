@@ -63,7 +63,7 @@ func TestEditMessageBuilder_StyledText(t *testing.T) {
 		},
 	}).ThenRPCErr(testRPCError())
 
-	_, err = sender.Self().Edit(10).StyledText(ctx,  styling.Bold(msg))
+	_, err = sender.Self().Edit(10).StyledText(ctx, styling.Bold(msg))
 	mock.Error(err)
 }
 

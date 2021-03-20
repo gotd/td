@@ -140,7 +140,7 @@ func (p *PollBuilder) apply(ctx context.Context, b *multiMediaBuilder) error {
 		if err := styling.Perform(&tb, p.opt, p.opts...); err != nil {
 			return err
 		}
-		p.input.Solution, p.input.SolutionEntities =  tb.Complete()
+		p.input.Solution, p.input.SolutionEntities = tb.Complete()
 	}
 
 	pb := pollAnswerBuilder{input: &p.input}

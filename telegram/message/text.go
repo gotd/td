@@ -44,15 +44,20 @@ func (b *Builder) Text(ctx context.Context, msg string) (tg.UpdatesClass, error)
 	return upd, nil
 }
 
-// sendStyled is a generic styled text sender.
-func (b *Builder) sendStyled(
-	ctx context.Context,
-	msg string, entities ...tg.MessageEntityClass,
+// StyledText sends styled text message.
+func (b *Builder) StyledText(
+	ctx context.Context, text StyledTextOption, texts ...StyledTextOption,
 ) (tg.UpdatesClass, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
 		return nil, xerrors.Errorf("peer: %w", err)
 	}
+
+	tb := entity.Builder{}
+	if err := styling.Perform(&tb, text, texts...); err != nil {
+		return nil, err
+	}
+	msg, entities := tb.Complete()
 
 	upd, err := b.sender.sendMessage(ctx, b.sendRequest(p, msg, entities))
 	if err != nil {
@@ -60,17 +65,4 @@ func (b *Builder) sendStyled(
 	}
 
 	return upd, nil
-}
-
-// StyledText sends styled text message.
-func (b *Builder) StyledText(
-	ctx context.Context, text StyledTextOption, texts ...StyledTextOption,
-) (tg.UpdatesClass, error) {
-	tb := entity.Builder{}
-	if err := styling.Perform(&tb, text, texts...); err != nil {
-		return nil, err
-	}
-	msg, entities := tb.Complete()
-
-	return b.sendStyled(ctx, msg, entities...)
 }

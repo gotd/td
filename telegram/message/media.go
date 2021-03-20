@@ -16,7 +16,7 @@ func performTextOptions(media *tg.InputSingleMedia, opts []StyledTextOption) err
 		if err := styling.Perform(&tb, opts[0], opts[1:]...); err != nil {
 			return err
 		}
-		media.Message, media.Entities =  tb.Complete()
+		media.Message, media.Entities = tb.Complete()
 	}
 
 	return nil
