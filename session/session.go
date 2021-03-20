@@ -23,7 +23,7 @@ type Data struct {
 
 // Storage is secure persistent storage for client session.
 //
-// NB: Implementation security is important, attacker can use not only for
+// NB: Implementation security is important, attacker can abuse it not only for
 // connecting as authenticated user or bot, but even decrypting previous
 // messages in some situations.
 type Storage interface {
