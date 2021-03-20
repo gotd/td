@@ -8,8 +8,24 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-func TestFormat(t *testing.T) {
+func TestBuilder(t *testing.T) {
 	b := Builder{}
+	t.Run("Plain", func(t *testing.T) {
+		_, ent := b.Plain("abc").Complete()
+		require.Empty(t, ent)
+	})
+	t.Run("Format", func(t *testing.T) {
+		_, ent := b.Format("abc", Bold(), Italic()).Complete()
+		require.Len(t, ent, 2)
+		require.Equal(t, &tg.MessageEntityBold{
+			Offset: 0,
+			Length: len("abc"),
+		}, ent[0])
+		require.Equal(t, &tg.MessageEntityItalic{
+			Offset: 0,
+			Length: len("abc"),
+		}, ent[1])
+	})
 	t.Run("Mention", func(t *testing.T) {
 		_, ent := b.Mention("abc").Complete()
 		r := ent[0]
