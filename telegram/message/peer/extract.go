@@ -82,42 +82,54 @@ func (ent Entities) Fill(
 	}
 }
 
+// ExtractUser finds and creates InputPeerUser using given PeerUser.
+func (ent Entities) ExtractUser(p *tg.PeerUser) (*tg.InputPeerUser, error) {
+	dialog, ok := ent.users[p.UserID]
+	if !ok {
+		return nil, xerrors.Errorf("user %d not found", p.UserID)
+	}
+
+	return &tg.InputPeerUser{
+		UserID:     dialog.ID,
+		AccessHash: dialog.AccessHash,
+	}, nil
+}
+
+// ExtractChat finds and creates InputPeerChat using given PeerChat.
+func (ent Entities) ExtractChat(p *tg.PeerChat) (*tg.InputPeerChat, error) {
+	dialog, ok := ent.chats[p.ChatID]
+	if !ok {
+		return nil, xerrors.Errorf("chat %d not found", p.ChatID)
+	}
+
+	return &tg.InputPeerChat{
+		ChatID: dialog.ID,
+	}, nil
+}
+
+// ExtractChannel finds and creates InputPeerChannel using given PeerChannel.
+func (ent Entities) ExtractChannel(p *tg.PeerChannel) (*tg.InputPeerChannel, error) {
+	dialog, ok := ent.channels[p.ChannelID]
+	if !ok {
+		return nil, xerrors.Errorf("channel %d not found", p.ChannelID)
+	}
+
+	return &tg.InputPeerChannel{
+		ChannelID:  dialog.ID,
+		AccessHash: dialog.AccessHash,
+	}, nil
+}
+
 // ExtractPeer finds and creates InputPeerClass using given PeerClass.
 func (ent Entities) ExtractPeer(peerID tg.PeerClass) (tg.InputPeerClass, error) {
-	var peer tg.InputPeerClass
 	switch p := peerID.(type) {
 	case *tg.PeerUser: // peerUser#9db1bc6d
-		dialog, ok := ent.users[p.UserID]
-		if !ok {
-			return nil, xerrors.Errorf("user %d not found in Update", p.UserID)
-		}
-
-		peer = &tg.InputPeerUser{
-			UserID:     dialog.ID,
-			AccessHash: dialog.AccessHash,
-		}
+		return ent.ExtractUser(p)
 	case *tg.PeerChat: // peerChat#bad0e5bb
-		dialog, ok := ent.chats[p.ChatID]
-		if !ok {
-			return nil, xerrors.Errorf("chat %d not found in Update", p.ChatID)
-		}
-
-		peer = &tg.InputPeerChat{
-			ChatID: dialog.ID,
-		}
+		return ent.ExtractChat(p)
 	case *tg.PeerChannel: // peerChannel#bddde532
-		dialog, ok := ent.channels[p.ChannelID]
-		if !ok {
-			return nil, xerrors.Errorf("channel %d not found in Update", p.ChannelID)
-		}
-
-		peer = &tg.InputPeerChannel{
-			ChannelID:  dialog.ID,
-			AccessHash: dialog.AccessHash,
-		}
+		return ent.ExtractChannel(p)
 	default:
 		return nil, xerrors.Errorf("unexpected peer type %T", peerID)
 	}
-
-	return peer, nil
 }
