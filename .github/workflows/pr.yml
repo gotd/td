@@ -21,7 +21,7 @@ jobs:
       - name: Check go mod
         run: |
           go mod tidy
-          git diff --exit-code go.mod
+          git diff --exit-code go.mod go.sum
 
   golangci-lint:
     runs-on: ubuntu-latest
