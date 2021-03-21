@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// ChannelsGetParticipantRequest represents TL type `channels.getParticipant#546dd7a6`.
+// ChannelsGetParticipantRequest represents TL type `channels.getParticipant#a0ab6cc6`.
 // Get info about a channel/supergroup¹ participant
 //
 // Links:
@@ -39,12 +39,12 @@ var (
 type ChannelsGetParticipantRequest struct {
 	// Channel/supergroup
 	Channel InputChannelClass
-	// ID of participant to get info about
-	UserID InputUserClass
+	// Participant field of ChannelsGetParticipantRequest.
+	Participant InputPeerClass
 }
 
 // ChannelsGetParticipantRequestTypeID is TL type id of ChannelsGetParticipantRequest.
-const ChannelsGetParticipantRequestTypeID = 0x546dd7a6
+const ChannelsGetParticipantRequestTypeID = 0xa0ab6cc6
 
 func (g *ChannelsGetParticipantRequest) Zero() bool {
 	if g == nil {
@@ -53,7 +53,7 @@ func (g *ChannelsGetParticipantRequest) Zero() bool {
 	if !(g.Channel == nil) {
 		return false
 	}
-	if !(g.UserID == nil) {
+	if !(g.Participant == nil) {
 		return false
 	}
 
@@ -72,10 +72,10 @@ func (g *ChannelsGetParticipantRequest) String() string {
 // FillFrom fills ChannelsGetParticipantRequest from given interface.
 func (g *ChannelsGetParticipantRequest) FillFrom(from interface {
 	GetChannel() (value InputChannelClass)
-	GetUserID() (value InputUserClass)
+	GetParticipant() (value InputPeerClass)
 }) {
 	g.Channel = from.GetChannel()
-	g.UserID = from.GetUserID()
+	g.Participant = from.GetParticipant()
 }
 
 // TypeID returns type id in TL schema.
@@ -106,8 +106,8 @@ func (g *ChannelsGetParticipantRequest) TypeInfo() tdp.Type {
 			SchemaName: "channel",
 		},
 		{
-			Name:       "UserID",
-			SchemaName: "user_id",
+			Name:       "Participant",
+			SchemaName: "participant",
 		},
 	}
 	return typ
@@ -116,7 +116,7 @@ func (g *ChannelsGetParticipantRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (g *ChannelsGetParticipantRequest) Encode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode channels.getParticipant#546dd7a6 as nil")
+		return fmt.Errorf("can't encode channels.getParticipant#a0ab6cc6 as nil")
 	}
 	b.PutID(ChannelsGetParticipantRequestTypeID)
 	return g.EncodeBare(b)
@@ -125,19 +125,19 @@ func (g *ChannelsGetParticipantRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (g *ChannelsGetParticipantRequest) EncodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't encode channels.getParticipant#546dd7a6 as nil")
+		return fmt.Errorf("can't encode channels.getParticipant#a0ab6cc6 as nil")
 	}
 	if g.Channel == nil {
-		return fmt.Errorf("unable to encode channels.getParticipant#546dd7a6: field channel is nil")
+		return fmt.Errorf("unable to encode channels.getParticipant#a0ab6cc6: field channel is nil")
 	}
 	if err := g.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.getParticipant#546dd7a6: field channel: %w", err)
+		return fmt.Errorf("unable to encode channels.getParticipant#a0ab6cc6: field channel: %w", err)
 	}
-	if g.UserID == nil {
-		return fmt.Errorf("unable to encode channels.getParticipant#546dd7a6: field user_id is nil")
+	if g.Participant == nil {
+		return fmt.Errorf("unable to encode channels.getParticipant#a0ab6cc6: field participant is nil")
 	}
-	if err := g.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.getParticipant#546dd7a6: field user_id: %w", err)
+	if err := g.Participant.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channels.getParticipant#a0ab6cc6: field participant: %w", err)
 	}
 	return nil
 }
@@ -152,18 +152,18 @@ func (g *ChannelsGetParticipantRequest) GetChannelAsNotEmpty() (NotEmptyInputCha
 	return g.Channel.AsNotEmpty()
 }
 
-// GetUserID returns value of UserID field.
-func (g *ChannelsGetParticipantRequest) GetUserID() (value InputUserClass) {
-	return g.UserID
+// GetParticipant returns value of Participant field.
+func (g *ChannelsGetParticipantRequest) GetParticipant() (value InputPeerClass) {
+	return g.Participant
 }
 
 // Decode implements bin.Decoder.
 func (g *ChannelsGetParticipantRequest) Decode(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode channels.getParticipant#546dd7a6 to nil")
+		return fmt.Errorf("can't decode channels.getParticipant#a0ab6cc6 to nil")
 	}
 	if err := b.ConsumeID(ChannelsGetParticipantRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.getParticipant#546dd7a6: %w", err)
+		return fmt.Errorf("unable to decode channels.getParticipant#a0ab6cc6: %w", err)
 	}
 	return g.DecodeBare(b)
 }
@@ -171,21 +171,21 @@ func (g *ChannelsGetParticipantRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (g *ChannelsGetParticipantRequest) DecodeBare(b *bin.Buffer) error {
 	if g == nil {
-		return fmt.Errorf("can't decode channels.getParticipant#546dd7a6 to nil")
+		return fmt.Errorf("can't decode channels.getParticipant#a0ab6cc6 to nil")
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.getParticipant#546dd7a6: field channel: %w", err)
+			return fmt.Errorf("unable to decode channels.getParticipant#a0ab6cc6: field channel: %w", err)
 		}
 		g.Channel = value
 	}
 	{
-		value, err := DecodeInputUser(b)
+		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.getParticipant#546dd7a6: field user_id: %w", err)
+			return fmt.Errorf("unable to decode channels.getParticipant#a0ab6cc6: field participant: %w", err)
 		}
-		g.UserID = value
+		g.Participant = value
 	}
 	return nil
 }
@@ -198,7 +198,7 @@ var (
 	_ bin.BareDecoder = &ChannelsGetParticipantRequest{}
 )
 
-// ChannelsGetParticipant invokes method channels.getParticipant#546dd7a6 returning error if any.
+// ChannelsGetParticipant invokes method channels.getParticipant#a0ab6cc6 returning error if any.
 // Get info about a channel/supergroup¹ participant
 //
 // Links:

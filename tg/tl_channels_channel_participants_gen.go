@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// ChannelsChannelParticipants represents TL type `channels.channelParticipants#f56ee2a8`.
+// ChannelsChannelParticipants represents TL type `channels.channelParticipants#9ab0feaf`.
 // Represents multiple channel participants
 //
 // See https://core.telegram.org/constructor/channels.channelParticipants for reference.
@@ -38,12 +38,14 @@ type ChannelsChannelParticipants struct {
 	Count int
 	// Participants
 	Participants []ChannelParticipantClass
+	// Chats field of ChannelsChannelParticipants.
+	Chats []ChatClass
 	// Users mentioned in participant info
 	Users []UserClass
 }
 
 // ChannelsChannelParticipantsTypeID is TL type id of ChannelsChannelParticipants.
-const ChannelsChannelParticipantsTypeID = 0xf56ee2a8
+const ChannelsChannelParticipantsTypeID = 0x9ab0feaf
 
 func (c *ChannelsChannelParticipants) Zero() bool {
 	if c == nil {
@@ -53,6 +55,9 @@ func (c *ChannelsChannelParticipants) Zero() bool {
 		return false
 	}
 	if !(c.Participants == nil) {
+		return false
+	}
+	if !(c.Chats == nil) {
 		return false
 	}
 	if !(c.Users == nil) {
@@ -75,10 +80,12 @@ func (c *ChannelsChannelParticipants) String() string {
 func (c *ChannelsChannelParticipants) FillFrom(from interface {
 	GetCount() (value int)
 	GetParticipants() (value []ChannelParticipantClass)
+	GetChats() (value []ChatClass)
 	GetUsers() (value []UserClass)
 }) {
 	c.Count = from.GetCount()
 	c.Participants = from.GetParticipants()
+	c.Chats = from.GetChats()
 	c.Users = from.GetUsers()
 }
 
@@ -114,6 +121,10 @@ func (c *ChannelsChannelParticipants) TypeInfo() tdp.Type {
 			SchemaName: "participants",
 		},
 		{
+			Name:       "Chats",
+			SchemaName: "chats",
+		},
+		{
 			Name:       "Users",
 			SchemaName: "users",
 		},
@@ -124,7 +135,7 @@ func (c *ChannelsChannelParticipants) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChannelsChannelParticipants) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channels.channelParticipants#f56ee2a8 as nil")
+		return fmt.Errorf("can't encode channels.channelParticipants#9ab0feaf as nil")
 	}
 	b.PutID(ChannelsChannelParticipantsTypeID)
 	return c.EncodeBare(b)
@@ -133,25 +144,34 @@ func (c *ChannelsChannelParticipants) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChannelsChannelParticipants) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channels.channelParticipants#f56ee2a8 as nil")
+		return fmt.Errorf("can't encode channels.channelParticipants#9ab0feaf as nil")
 	}
 	b.PutInt(c.Count)
 	b.PutVectorHeader(len(c.Participants))
 	for idx, v := range c.Participants {
 		if v == nil {
-			return fmt.Errorf("unable to encode channels.channelParticipants#f56ee2a8: field participants element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode channels.channelParticipants#9ab0feaf: field participants element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode channels.channelParticipants#f56ee2a8: field participants element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode channels.channelParticipants#9ab0feaf: field participants element with index %d: %w", idx, err)
+		}
+	}
+	b.PutVectorHeader(len(c.Chats))
+	for idx, v := range c.Chats {
+		if v == nil {
+			return fmt.Errorf("unable to encode channels.channelParticipants#9ab0feaf: field chats element with index %d is nil", idx)
+		}
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode channels.channelParticipants#9ab0feaf: field chats element with index %d: %w", idx, err)
 		}
 	}
 	b.PutVectorHeader(len(c.Users))
 	for idx, v := range c.Users {
 		if v == nil {
-			return fmt.Errorf("unable to encode channels.channelParticipants#f56ee2a8: field users element with index %d is nil", idx)
+			return fmt.Errorf("unable to encode channels.channelParticipants#9ab0feaf: field users element with index %d is nil", idx)
 		}
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode channels.channelParticipants#f56ee2a8: field users element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode channels.channelParticipants#9ab0feaf: field users element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -172,6 +192,16 @@ func (c *ChannelsChannelParticipants) MapParticipants() (value ChannelParticipan
 	return ChannelParticipantClassArray(c.Participants)
 }
 
+// GetChats returns value of Chats field.
+func (c *ChannelsChannelParticipants) GetChats() (value []ChatClass) {
+	return c.Chats
+}
+
+// MapChats returns field Chats wrapped in ChatClassArray helper.
+func (c *ChannelsChannelParticipants) MapChats() (value ChatClassArray) {
+	return ChatClassArray(c.Chats)
+}
+
 // GetUsers returns value of Users field.
 func (c *ChannelsChannelParticipants) GetUsers() (value []UserClass) {
 	return c.Users
@@ -185,10 +215,10 @@ func (c *ChannelsChannelParticipants) MapUsers() (value UserClassArray) {
 // Decode implements bin.Decoder.
 func (c *ChannelsChannelParticipants) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channels.channelParticipants#f56ee2a8 to nil")
+		return fmt.Errorf("can't decode channels.channelParticipants#9ab0feaf to nil")
 	}
 	if err := b.ConsumeID(ChannelsChannelParticipantsTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.channelParticipants#f56ee2a8: %w", err)
+		return fmt.Errorf("unable to decode channels.channelParticipants#9ab0feaf: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -196,24 +226,24 @@ func (c *ChannelsChannelParticipants) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChannelsChannelParticipants) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channels.channelParticipants#f56ee2a8 to nil")
+		return fmt.Errorf("can't decode channels.channelParticipants#9ab0feaf to nil")
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.channelParticipants#f56ee2a8: field count: %w", err)
+			return fmt.Errorf("unable to decode channels.channelParticipants#9ab0feaf: field count: %w", err)
 		}
 		c.Count = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.channelParticipants#f56ee2a8: field participants: %w", err)
+			return fmt.Errorf("unable to decode channels.channelParticipants#9ab0feaf: field participants: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeChannelParticipant(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode channels.channelParticipants#f56ee2a8: field participants: %w", err)
+				return fmt.Errorf("unable to decode channels.channelParticipants#9ab0feaf: field participants: %w", err)
 			}
 			c.Participants = append(c.Participants, value)
 		}
@@ -221,12 +251,25 @@ func (c *ChannelsChannelParticipants) DecodeBare(b *bin.Buffer) error {
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.channelParticipants#f56ee2a8: field users: %w", err)
+			return fmt.Errorf("unable to decode channels.channelParticipants#9ab0feaf: field chats: %w", err)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := DecodeChat(b)
+			if err != nil {
+				return fmt.Errorf("unable to decode channels.channelParticipants#9ab0feaf: field chats: %w", err)
+			}
+			c.Chats = append(c.Chats, value)
+		}
+	}
+	{
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode channels.channelParticipants#9ab0feaf: field users: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			value, err := DecodeUser(b)
 			if err != nil {
-				return fmt.Errorf("unable to decode channels.channelParticipants#f56ee2a8: field users: %w", err)
+				return fmt.Errorf("unable to decode channels.channelParticipants#9ab0feaf: field users: %w", err)
 			}
 			c.Users = append(c.Users, value)
 		}
@@ -361,7 +404,7 @@ var (
 //      panic(err)
 //  }
 //  switch v := g.(type) {
-//  case *tg.ChannelsChannelParticipants: // channels.channelParticipants#f56ee2a8
+//  case *tg.ChannelsChannelParticipants: // channels.channelParticipants#9ab0feaf
 //  case *tg.ChannelsChannelParticipantsNotModified: // channels.channelParticipantsNotModified#f0173fe9
 //  default: panic(v)
 //  }
@@ -405,7 +448,7 @@ func DecodeChannelsChannelParticipants(buf *bin.Buffer) (ChannelsChannelParticip
 	}
 	switch id {
 	case ChannelsChannelParticipantsTypeID:
-		// Decoding channels.channelParticipants#f56ee2a8.
+		// Decoding channels.channelParticipants#9ab0feaf.
 		v := ChannelsChannelParticipants{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChannelsChannelParticipantsClass: %w", err)

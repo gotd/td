@@ -959,7 +959,7 @@ var (
 	_ ChannelParticipantClass = &ChannelParticipantAdmin{}
 )
 
-// ChannelParticipantBanned represents TL type `channelParticipantBanned#1c0facaf`.
+// ChannelParticipantBanned represents TL type `channelParticipantBanned#50a1dfd6`.
 // Banned/kicked user
 //
 // See https://core.telegram.org/constructor/channelParticipantBanned for reference.
@@ -971,8 +971,8 @@ type ChannelParticipantBanned struct {
 	Flags bin.Fields
 	// Whether the user has left the group
 	Left bool
-	// User ID
-	UserID int
+	// Peer field of ChannelParticipantBanned.
+	Peer PeerClass
 	// User was kicked by the specified admin
 	KickedBy int
 	// When did the user join the group
@@ -985,7 +985,7 @@ type ChannelParticipantBanned struct {
 }
 
 // ChannelParticipantBannedTypeID is TL type id of ChannelParticipantBanned.
-const ChannelParticipantBannedTypeID = 0x1c0facaf
+const ChannelParticipantBannedTypeID = 0x50a1dfd6
 
 func (c *ChannelParticipantBanned) Zero() bool {
 	if c == nil {
@@ -997,7 +997,7 @@ func (c *ChannelParticipantBanned) Zero() bool {
 	if !(c.Left == false) {
 		return false
 	}
-	if !(c.UserID == 0) {
+	if !(c.Peer == nil) {
 		return false
 	}
 	if !(c.KickedBy == 0) {
@@ -1025,13 +1025,13 @@ func (c *ChannelParticipantBanned) String() string {
 // FillFrom fills ChannelParticipantBanned from given interface.
 func (c *ChannelParticipantBanned) FillFrom(from interface {
 	GetLeft() (value bool)
-	GetUserID() (value int)
+	GetPeer() (value PeerClass)
 	GetKickedBy() (value int)
 	GetDate() (value int)
 	GetBannedRights() (value ChatBannedRights)
 }) {
 	c.Left = from.GetLeft()
-	c.UserID = from.GetUserID()
+	c.Peer = from.GetPeer()
 	c.KickedBy = from.GetKickedBy()
 	c.Date = from.GetDate()
 	c.BannedRights = from.GetBannedRights()
@@ -1066,8 +1066,8 @@ func (c *ChannelParticipantBanned) TypeInfo() tdp.Type {
 			Null:       !c.Flags.Has(0),
 		},
 		{
-			Name:       "UserID",
-			SchemaName: "user_id",
+			Name:       "Peer",
+			SchemaName: "peer",
 		},
 		{
 			Name:       "KickedBy",
@@ -1088,7 +1088,7 @@ func (c *ChannelParticipantBanned) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantBanned) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelParticipantBanned#1c0facaf as nil")
+		return fmt.Errorf("can't encode channelParticipantBanned#50a1dfd6 as nil")
 	}
 	b.PutID(ChannelParticipantBannedTypeID)
 	return c.EncodeBare(b)
@@ -1097,19 +1097,24 @@ func (c *ChannelParticipantBanned) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChannelParticipantBanned) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelParticipantBanned#1c0facaf as nil")
+		return fmt.Errorf("can't encode channelParticipantBanned#50a1dfd6 as nil")
 	}
 	if !(c.Left == false) {
 		c.Flags.Set(0)
 	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channelParticipantBanned#1c0facaf: field flags: %w", err)
+		return fmt.Errorf("unable to encode channelParticipantBanned#50a1dfd6: field flags: %w", err)
 	}
-	b.PutInt(c.UserID)
+	if c.Peer == nil {
+		return fmt.Errorf("unable to encode channelParticipantBanned#50a1dfd6: field peer is nil")
+	}
+	if err := c.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channelParticipantBanned#50a1dfd6: field peer: %w", err)
+	}
 	b.PutInt(c.KickedBy)
 	b.PutInt(c.Date)
 	if err := c.BannedRights.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channelParticipantBanned#1c0facaf: field banned_rights: %w", err)
+		return fmt.Errorf("unable to encode channelParticipantBanned#50a1dfd6: field banned_rights: %w", err)
 	}
 	return nil
 }
@@ -1130,9 +1135,9 @@ func (c *ChannelParticipantBanned) GetLeft() (value bool) {
 	return c.Flags.Has(0)
 }
 
-// GetUserID returns value of UserID field.
-func (c *ChannelParticipantBanned) GetUserID() (value int) {
-	return c.UserID
+// GetPeer returns value of Peer field.
+func (c *ChannelParticipantBanned) GetPeer() (value PeerClass) {
+	return c.Peer
 }
 
 // GetKickedBy returns value of KickedBy field.
@@ -1153,10 +1158,10 @@ func (c *ChannelParticipantBanned) GetBannedRights() (value ChatBannedRights) {
 // Decode implements bin.Decoder.
 func (c *ChannelParticipantBanned) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelParticipantBanned#1c0facaf to nil")
+		return fmt.Errorf("can't decode channelParticipantBanned#50a1dfd6 to nil")
 	}
 	if err := b.ConsumeID(ChannelParticipantBannedTypeID); err != nil {
-		return fmt.Errorf("unable to decode channelParticipantBanned#1c0facaf: %w", err)
+		return fmt.Errorf("unable to decode channelParticipantBanned#50a1dfd6: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -1164,38 +1169,38 @@ func (c *ChannelParticipantBanned) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChannelParticipantBanned) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelParticipantBanned#1c0facaf to nil")
+		return fmt.Errorf("can't decode channelParticipantBanned#50a1dfd6 to nil")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channelParticipantBanned#1c0facaf: field flags: %w", err)
+			return fmt.Errorf("unable to decode channelParticipantBanned#50a1dfd6: field flags: %w", err)
 		}
 	}
 	c.Left = c.Flags.Has(0)
 	{
-		value, err := b.Int()
+		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channelParticipantBanned#1c0facaf: field user_id: %w", err)
+			return fmt.Errorf("unable to decode channelParticipantBanned#50a1dfd6: field peer: %w", err)
 		}
-		c.UserID = value
+		c.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channelParticipantBanned#1c0facaf: field kicked_by: %w", err)
+			return fmt.Errorf("unable to decode channelParticipantBanned#50a1dfd6: field kicked_by: %w", err)
 		}
 		c.KickedBy = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode channelParticipantBanned#1c0facaf: field date: %w", err)
+			return fmt.Errorf("unable to decode channelParticipantBanned#50a1dfd6: field date: %w", err)
 		}
 		c.Date = value
 	}
 	{
 		if err := c.BannedRights.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channelParticipantBanned#1c0facaf: field banned_rights: %w", err)
+			return fmt.Errorf("unable to decode channelParticipantBanned#50a1dfd6: field banned_rights: %w", err)
 		}
 	}
 	return nil
@@ -1214,23 +1219,23 @@ var (
 	_ ChannelParticipantClass = &ChannelParticipantBanned{}
 )
 
-// ChannelParticipantLeft represents TL type `channelParticipantLeft#c3c6796b`.
+// ChannelParticipantLeft represents TL type `channelParticipantLeft#1b03f006`.
 // A participant that left the channel/supergroup
 //
 // See https://core.telegram.org/constructor/channelParticipantLeft for reference.
 type ChannelParticipantLeft struct {
-	// User ID
-	UserID int
+	// Peer field of ChannelParticipantLeft.
+	Peer PeerClass
 }
 
 // ChannelParticipantLeftTypeID is TL type id of ChannelParticipantLeft.
-const ChannelParticipantLeftTypeID = 0xc3c6796b
+const ChannelParticipantLeftTypeID = 0x1b03f006
 
 func (c *ChannelParticipantLeft) Zero() bool {
 	if c == nil {
 		return true
 	}
-	if !(c.UserID == 0) {
+	if !(c.Peer == nil) {
 		return false
 	}
 
@@ -1248,9 +1253,9 @@ func (c *ChannelParticipantLeft) String() string {
 
 // FillFrom fills ChannelParticipantLeft from given interface.
 func (c *ChannelParticipantLeft) FillFrom(from interface {
-	GetUserID() (value int)
+	GetPeer() (value PeerClass)
 }) {
-	c.UserID = from.GetUserID()
+	c.Peer = from.GetPeer()
 }
 
 // TypeID returns type id in TL schema.
@@ -1277,8 +1282,8 @@ func (c *ChannelParticipantLeft) TypeInfo() tdp.Type {
 	}
 	typ.Fields = []tdp.Field{
 		{
-			Name:       "UserID",
-			SchemaName: "user_id",
+			Name:       "Peer",
+			SchemaName: "peer",
 		},
 	}
 	return typ
@@ -1287,7 +1292,7 @@ func (c *ChannelParticipantLeft) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChannelParticipantLeft) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelParticipantLeft#c3c6796b as nil")
+		return fmt.Errorf("can't encode channelParticipantLeft#1b03f006 as nil")
 	}
 	b.PutID(ChannelParticipantLeftTypeID)
 	return c.EncodeBare(b)
@@ -1296,24 +1301,29 @@ func (c *ChannelParticipantLeft) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChannelParticipantLeft) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode channelParticipantLeft#c3c6796b as nil")
+		return fmt.Errorf("can't encode channelParticipantLeft#1b03f006 as nil")
 	}
-	b.PutInt(c.UserID)
+	if c.Peer == nil {
+		return fmt.Errorf("unable to encode channelParticipantLeft#1b03f006: field peer is nil")
+	}
+	if err := c.Peer.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channelParticipantLeft#1b03f006: field peer: %w", err)
+	}
 	return nil
 }
 
-// GetUserID returns value of UserID field.
-func (c *ChannelParticipantLeft) GetUserID() (value int) {
-	return c.UserID
+// GetPeer returns value of Peer field.
+func (c *ChannelParticipantLeft) GetPeer() (value PeerClass) {
+	return c.Peer
 }
 
 // Decode implements bin.Decoder.
 func (c *ChannelParticipantLeft) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelParticipantLeft#c3c6796b to nil")
+		return fmt.Errorf("can't decode channelParticipantLeft#1b03f006 to nil")
 	}
 	if err := b.ConsumeID(ChannelParticipantLeftTypeID); err != nil {
-		return fmt.Errorf("unable to decode channelParticipantLeft#c3c6796b: %w", err)
+		return fmt.Errorf("unable to decode channelParticipantLeft#1b03f006: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -1321,14 +1331,14 @@ func (c *ChannelParticipantLeft) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChannelParticipantLeft) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode channelParticipantLeft#c3c6796b to nil")
+		return fmt.Errorf("can't decode channelParticipantLeft#1b03f006 to nil")
 	}
 	{
-		value, err := b.Int()
+		value, err := DecodePeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channelParticipantLeft#c3c6796b: field user_id: %w", err)
+			return fmt.Errorf("unable to decode channelParticipantLeft#1b03f006: field peer: %w", err)
 		}
-		c.UserID = value
+		c.Peer = value
 	}
 	return nil
 }
@@ -1360,8 +1370,8 @@ var (
 //  case *tg.ChannelParticipantSelf: // channelParticipantSelf#a3289a6d
 //  case *tg.ChannelParticipantCreator: // channelParticipantCreator#447dca4b
 //  case *tg.ChannelParticipantAdmin: // channelParticipantAdmin#ccbebbaf
-//  case *tg.ChannelParticipantBanned: // channelParticipantBanned#1c0facaf
-//  case *tg.ChannelParticipantLeft: // channelParticipantLeft#c3c6796b
+//  case *tg.ChannelParticipantBanned: // channelParticipantBanned#50a1dfd6
+//  case *tg.ChannelParticipantLeft: // channelParticipantLeft#1b03f006
 //  default: panic(v)
 //  }
 type ChannelParticipantClass interface {
@@ -1381,9 +1391,6 @@ type ChannelParticipantClass interface {
 	String() string
 	// Zero returns true if current object has a zero value.
 	Zero() bool
-
-	// Pariticipant user ID
-	GetUserID() (value int)
 }
 
 // DecodeChannelParticipant implements binary de-serialization for ChannelParticipantClass.
@@ -1422,14 +1429,14 @@ func DecodeChannelParticipant(buf *bin.Buffer) (ChannelParticipantClass, error) 
 		}
 		return &v, nil
 	case ChannelParticipantBannedTypeID:
-		// Decoding channelParticipantBanned#1c0facaf.
+		// Decoding channelParticipantBanned#50a1dfd6.
 		v := ChannelParticipantBanned{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChannelParticipantClass: %w", err)
 		}
 		return &v, nil
 	case ChannelParticipantLeftTypeID:
-		// Decoding channelParticipantLeft#c3c6796b.
+		// Decoding channelParticipantLeft#1b03f006.
 		v := ChannelParticipantLeft{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChannelParticipantClass: %w", err)
