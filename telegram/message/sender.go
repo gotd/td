@@ -235,3 +235,11 @@ func (s *Sender) getScheduledMessages(
 ) (tg.MessagesMessagesClass, error) {
 	return s.raw.MessagesGetScheduledMessages(ctx, req)
 }
+
+// importChatInvite imports a chat invite and join a private chat/supergroup/channel.
+func (s *Sender) importChatInvite(
+	ctx context.Context,
+	hash string,
+) (tg.UpdatesClass, error) {
+	return s.raw.MessagesImportChatInvite(ctx, hash)
+}

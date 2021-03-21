@@ -2,12 +2,12 @@ package peer
 
 import (
 	"context"
-	"net/url"
 	"strings"
 
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/ascii"
+	"github.com/gotd/td/telegram/message/internal"
 	"github.com/gotd/td/tg"
 )
 
@@ -28,9 +28,7 @@ type Promise func(ctx context.Context) (tg.InputPeerClass, error)
 func Resolve(r Resolver, from string) Promise {
 	from = strings.TrimSpace(from)
 
-	if strings.HasPrefix(from, "tg:") ||
-		strings.HasPrefix(from, "t.me") ||
-		strings.HasPrefix(from, "https://") {
+	if internal.IsDeeplinkLike(from) {
 		return ResolveDeeplink(r, from)
 	}
 
@@ -106,10 +104,11 @@ func checkDomainSymbols(domain string) error {
 //
 func ResolveDeeplink(r Resolver, deeplink string) Promise {
 	return func(ctx context.Context) (tg.InputPeerClass, error) {
-		domain, err := parseDeeplink(deeplink)
+		link, err := internal.ExpectDeeplink(deeplink, internal.Resolve)
 		if err != nil {
 			return nil, err
 		}
+		domain := link.Args.Get("domain")
 
 		if err := validateDomain(domain); err != nil {
 			return nil, xerrors.Errorf("validate domain: %w", err)
@@ -117,37 +116,4 @@ func ResolveDeeplink(r Resolver, deeplink string) Promise {
 
 		return r.Resolve(ctx, domain)
 	}
-}
-
-func parseDeeplink(deeplink string) (string, error) {
-	switch {
-	// Normalize case like t.me/gotd.
-	case strings.HasPrefix(deeplink, "t.me"):
-		deeplink = "https://" + deeplink
-	// Normalize case like tg:resolve?domain=gotd.
-	case !strings.HasPrefix(deeplink, "tg://") && strings.HasPrefix(deeplink, "tg:"):
-		deeplink = "tg://" + strings.TrimPrefix(deeplink, "tg:")
-	}
-
-	u, err := url.Parse(deeplink)
-	if err != nil {
-		return "", xerrors.Errorf("invalid URL %q: %w", deeplink, err)
-	}
-
-	var domain string
-	switch {
-	case u.Scheme == "https" && u.Hostname() == "t.me":
-		domain = strings.TrimSuffix(u.Path, "/")
-		domain = strings.TrimPrefix(domain, "/")
-
-	case u.Scheme == "tg" && u.Hostname() == "resolve":
-		domain = u.Query().Get("domain")
-		if domain == "" {
-			return "", xerrors.Errorf("deeplink %q should have domain query parameter", deeplink)
-		}
-	default:
-		return "", xerrors.Errorf("invalid deeplink %q", deeplink)
-	}
-
-	return strings.TrimSpace(domain), nil
 }
