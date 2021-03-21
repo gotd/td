@@ -1,0 +1,67 @@
+name: Coverage
+on:
+  push:
+    tags:
+      - v*
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install Go
+        uses: actions/setup-go@v2.1.3
+        with:
+          go-version: 1.16
+
+      - name: Get Go environment
+        id: go-env
+        run: |
+          echo "::set-output name=cache::$(go env GOCACHE)"
+          echo "::set-output name=modcache::$(go env GOMODCACHE)"
+      - name: Set up cache
+        uses: actions/cache@v2.1.4
+        with:
+          path: |
+            ${{ steps.go-env.outputs.cache }}
+            ${{ steps.go-env.outputs.modcache }}
+          key: test-${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            test-${{ runner.os }}-go-
+
+      - name: Checkout code
+        uses: actions/checkout@v2.3.4
+
+      - name: Download dependencies
+        run: go mod download && go mod tidy
+
+      - name: Run tests with coverage
+        run: make coverage
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2.2.2
+        with:
+          name: coverage
+          path: profile.out
+          if-no-files-found: error
+          retention-days: 1
+
+  upload:
+    runs-on: ubuntu-latest
+    needs:
+      - test
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2.3.4
+
+      - name: Download artifact
+        uses: actions/download-artifact@v2.0.8
+        with:
+          name: coverage
+
+      - name: Send coverage
+        uses: codecov/codecov-action@v1.3.1
+        with:
+          file: profile.out

@@ -23,11 +23,11 @@ check_generated: generate
 .PHONY: check_generated
 
 fuzz_telegram:
-	go run github.com/dvyukov/go-fuzz/go-fuzz -bin mtproto/telegram-fuzz.zip -workdir _fuzz/handle_message
+	go run -modfile=_tools/go.mod github.com/dvyukov/go-fuzz/go-fuzz -bin mtproto/telegram-fuzz.zip -workdir _fuzz/handle_message
 .PHONY: fuzz_telegram
 
 fuzz_telegram_build:
-	cd mtproto && go run github.com/dvyukov/go-fuzz/go-fuzz-build -func FuzzHandleMessage -tags fuzz -o telegram-fuzz.zip
+	cd mtproto && go run -modfile=../_tools/go.mod github.com/dvyukov/go-fuzz/go-fuzz-build -func FuzzHandleMessage -tags fuzz -o telegram-fuzz.zip
 .PHONY: fuzz_telegram_build
 
 fuzz_telegram_clear:
@@ -36,11 +36,11 @@ fuzz_telegram_clear:
 .PHONY: fuzz_telegram_clear
 
 fuzz_rsa:
-	go run github.com/dvyukov/go-fuzz/go-fuzz -bin internal/crypto/rsa-fuzz.zip -workdir _fuzz/rsa
+	go run -modfile=_tools/go.mod github.com/dvyukov/go-fuzz/go-fuzz -bin internal/crypto/rsa-fuzz.zip -workdir _fuzz/rsa
 .PHONY: fuzz_rsa
 
 fuzz_rsa_build:
-	cd internal/crypto && go run github.com/dvyukov/go-fuzz/go-fuzz-build -func FuzzRSA -tags fuzz -o rsa-fuzz.zip
+	cd internal/crypto && go run -modfile=../../_tools/go.mod github.com/dvyukov/go-fuzz/go-fuzz-build -func FuzzRSA -tags fuzz -o rsa-fuzz.zip
 .PHONY: fuzz_rsa_build
 
 fuzz_rsa_clear:
@@ -49,11 +49,11 @@ fuzz_rsa_clear:
 .PHONY: fuzz_rsa_clear
 
 fuzz_flow:
-	go run github.com/dvyukov/go-fuzz/go-fuzz -bin internal/exchange/flow-fuzz.zip -workdir _fuzz/flow
+	go run -modfile=_tools/go.mod github.com/dvyukov/go-fuzz/go-fuzz -bin internal/exchange/flow-fuzz.zip -workdir _fuzz/flow
 .PHONY: fuzz_flow
 
 fuzz_flow_build:
-	cd internal/exchange && go run github.com/dvyukov/go-fuzz/go-fuzz-build -func FuzzFlow -tags fuzz -o flow-fuzz.zip
+	cd internal/exchange && go run -modfile=../../_tools/go.mod github.com/dvyukov/go-fuzz/go-fuzz-build -func FuzzFlow -tags fuzz -o flow-fuzz.zip
 .PHONY: fuzz_flow_build
 
 fuzz_flow_clear:

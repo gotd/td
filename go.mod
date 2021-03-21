@@ -4,8 +4,6 @@ go 1.16
 
 require (
 	github.com/cenkalti/backoff/v4 v4.1.0
-	github.com/dvyukov/go-fuzz v0.0.0-20201127111758-49e582c6c23d
-	github.com/elazarl/go-bindata-assetfs v1.0.1 // indirect
 	github.com/go-openapi/inflect v0.19.0
 	github.com/gotd/getdoc v0.6.1
 	github.com/gotd/ige v0.1.5
@@ -19,7 +17,6 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/quasilyte/go-ruleguard/dsl v0.3.1
 	github.com/sergi/go-diff v1.1.0 // indirect
-	github.com/stephens2424/writerset v1.0.2 // indirect
 	github.com/stretchr/testify v1.7.0
 	go.uber.org/atomic v1.7.0
 	go.uber.org/multierr v1.5.0
