@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// ChannelsEditBannedRequest represents TL type `channels.editBanned#72796912`.
+// ChannelsEditBannedRequest represents TL type `channels.editBanned#96e6cd81`.
 // Ban/unban/kick a user in a supergroup/channel¹.
 //
 // Links:
@@ -42,14 +42,14 @@ type ChannelsEditBannedRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	Channel InputChannelClass
-	// The ID of the user whose banned rights should be modified
-	UserID InputUserClass
+	// Participant field of ChannelsEditBannedRequest.
+	Participant InputPeerClass
 	// The banned rights
 	BannedRights ChatBannedRights
 }
 
 // ChannelsEditBannedRequestTypeID is TL type id of ChannelsEditBannedRequest.
-const ChannelsEditBannedRequestTypeID = 0x72796912
+const ChannelsEditBannedRequestTypeID = 0x96e6cd81
 
 func (e *ChannelsEditBannedRequest) Zero() bool {
 	if e == nil {
@@ -58,7 +58,7 @@ func (e *ChannelsEditBannedRequest) Zero() bool {
 	if !(e.Channel == nil) {
 		return false
 	}
-	if !(e.UserID == nil) {
+	if !(e.Participant == nil) {
 		return false
 	}
 	if !(e.BannedRights.Zero()) {
@@ -80,11 +80,11 @@ func (e *ChannelsEditBannedRequest) String() string {
 // FillFrom fills ChannelsEditBannedRequest from given interface.
 func (e *ChannelsEditBannedRequest) FillFrom(from interface {
 	GetChannel() (value InputChannelClass)
-	GetUserID() (value InputUserClass)
+	GetParticipant() (value InputPeerClass)
 	GetBannedRights() (value ChatBannedRights)
 }) {
 	e.Channel = from.GetChannel()
-	e.UserID = from.GetUserID()
+	e.Participant = from.GetParticipant()
 	e.BannedRights = from.GetBannedRights()
 }
 
@@ -116,8 +116,8 @@ func (e *ChannelsEditBannedRequest) TypeInfo() tdp.Type {
 			SchemaName: "channel",
 		},
 		{
-			Name:       "UserID",
-			SchemaName: "user_id",
+			Name:       "Participant",
+			SchemaName: "participant",
 		},
 		{
 			Name:       "BannedRights",
@@ -130,7 +130,7 @@ func (e *ChannelsEditBannedRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (e *ChannelsEditBannedRequest) Encode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode channels.editBanned#72796912 as nil")
+		return fmt.Errorf("can't encode channels.editBanned#96e6cd81 as nil")
 	}
 	b.PutID(ChannelsEditBannedRequestTypeID)
 	return e.EncodeBare(b)
@@ -139,22 +139,22 @@ func (e *ChannelsEditBannedRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (e *ChannelsEditBannedRequest) EncodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't encode channels.editBanned#72796912 as nil")
+		return fmt.Errorf("can't encode channels.editBanned#96e6cd81 as nil")
 	}
 	if e.Channel == nil {
-		return fmt.Errorf("unable to encode channels.editBanned#72796912: field channel is nil")
+		return fmt.Errorf("unable to encode channels.editBanned#96e6cd81: field channel is nil")
 	}
 	if err := e.Channel.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.editBanned#72796912: field channel: %w", err)
+		return fmt.Errorf("unable to encode channels.editBanned#96e6cd81: field channel: %w", err)
 	}
-	if e.UserID == nil {
-		return fmt.Errorf("unable to encode channels.editBanned#72796912: field user_id is nil")
+	if e.Participant == nil {
+		return fmt.Errorf("unable to encode channels.editBanned#96e6cd81: field participant is nil")
 	}
-	if err := e.UserID.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.editBanned#72796912: field user_id: %w", err)
+	if err := e.Participant.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode channels.editBanned#96e6cd81: field participant: %w", err)
 	}
 	if err := e.BannedRights.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode channels.editBanned#72796912: field banned_rights: %w", err)
+		return fmt.Errorf("unable to encode channels.editBanned#96e6cd81: field banned_rights: %w", err)
 	}
 	return nil
 }
@@ -169,9 +169,9 @@ func (e *ChannelsEditBannedRequest) GetChannelAsNotEmpty() (NotEmptyInputChannel
 	return e.Channel.AsNotEmpty()
 }
 
-// GetUserID returns value of UserID field.
-func (e *ChannelsEditBannedRequest) GetUserID() (value InputUserClass) {
-	return e.UserID
+// GetParticipant returns value of Participant field.
+func (e *ChannelsEditBannedRequest) GetParticipant() (value InputPeerClass) {
+	return e.Participant
 }
 
 // GetBannedRights returns value of BannedRights field.
@@ -182,10 +182,10 @@ func (e *ChannelsEditBannedRequest) GetBannedRights() (value ChatBannedRights) {
 // Decode implements bin.Decoder.
 func (e *ChannelsEditBannedRequest) Decode(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode channels.editBanned#72796912 to nil")
+		return fmt.Errorf("can't decode channels.editBanned#96e6cd81 to nil")
 	}
 	if err := b.ConsumeID(ChannelsEditBannedRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode channels.editBanned#72796912: %w", err)
+		return fmt.Errorf("unable to decode channels.editBanned#96e6cd81: %w", err)
 	}
 	return e.DecodeBare(b)
 }
@@ -193,25 +193,25 @@ func (e *ChannelsEditBannedRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (e *ChannelsEditBannedRequest) DecodeBare(b *bin.Buffer) error {
 	if e == nil {
-		return fmt.Errorf("can't decode channels.editBanned#72796912 to nil")
+		return fmt.Errorf("can't decode channels.editBanned#96e6cd81 to nil")
 	}
 	{
 		value, err := DecodeInputChannel(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editBanned#72796912: field channel: %w", err)
+			return fmt.Errorf("unable to decode channels.editBanned#96e6cd81: field channel: %w", err)
 		}
 		e.Channel = value
 	}
 	{
-		value, err := DecodeInputUser(b)
+		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode channels.editBanned#72796912: field user_id: %w", err)
+			return fmt.Errorf("unable to decode channels.editBanned#96e6cd81: field participant: %w", err)
 		}
-		e.UserID = value
+		e.Participant = value
 	}
 	{
 		if err := e.BannedRights.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode channels.editBanned#72796912: field banned_rights: %w", err)
+			return fmt.Errorf("unable to decode channels.editBanned#96e6cd81: field banned_rights: %w", err)
 		}
 	}
 	return nil
@@ -225,7 +225,7 @@ var (
 	_ bin.BareDecoder = &ChannelsEditBannedRequest{}
 )
 
-// ChannelsEditBanned invokes method channels.editBanned#72796912 returning error if any.
+// ChannelsEditBanned invokes method channels.editBanned#96e6cd81 returning error if any.
 // Ban/unban/kick a user in a supergroup/channel¹.
 //
 // Links:
