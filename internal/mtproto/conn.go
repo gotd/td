@@ -44,7 +44,7 @@ type Dialer func(ctx context.Context) (transport.Conn, error)
 
 // Conn represents a MTProto client to Telegram.
 type Conn struct {
-	create        Dialer
+	dialer        Dialer
 	conn          transport.Conn
 	handler       Handler
 	rpc           *rpc.Engine
@@ -101,12 +101,12 @@ type Conn struct {
 }
 
 // New creates new unstarted connection.
-func New(create Dialer, opt Options) *Conn {
+func New(dialer Dialer, opt Options) *Conn {
 	// Set default values, if user does not set.
 	opt.setDefaults()
 
 	conn := &Conn{
-		create:       create,
+		dialer:       dialer,
 		clock:        opt.Clock,
 		rand:         opt.Random,
 		cipher:       opt.Cipher,
@@ -213,7 +213,7 @@ func (c *Conn) connect(ctx context.Context) error {
 	ctx, cancel := context.WithTimeout(ctx, c.dialTimeout)
 	defer cancel()
 
-	conn, err := c.create(ctx)
+	conn, err := c.dialer(ctx)
 	if err != nil {
 		return xerrors.Errorf("dial failed: %w", err)
 	}
