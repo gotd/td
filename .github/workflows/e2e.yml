@@ -13,21 +13,14 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
-    env:
-      # We modify the modcache before restoring it using action,
-      # and the latter is a bit dumb with default modcache permissions.
-      GOFLAGS: '-modcacherw'
     steps:
+      - name: Checkout latest code
+        uses: actions/checkout@v2.3.4
+
       - name: Install Go
         uses: actions/setup-go@v2.1.3
         with:
           go-version: 1.16
-
-      - name: Install latest mtg proxy
-        run: go get github.com/gotd/mtg@master
-
-      - name: Checkout latest code
-        uses: actions/checkout@v2.3.4
 
       # Note that we deliberately don’t restore GOCACHE.
       # That is, we must not cache e2e test results.
@@ -41,6 +34,9 @@ jobs:
           key: e2e-${{ runner.os }}-go-${{ hashFiles('**/go.sum') }}
           restore-keys: |
             e2e-${{ runner.os }}-go-
+
+      - name: Install latest mtg proxy
+        run: go install github.com/gotd/mtg@master
 
       - name: Download dependencies
         run: go mod download && go mod tidy
