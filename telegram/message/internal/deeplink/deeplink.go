@@ -1,4 +1,5 @@
-package internal
+// Package deeplink contains deeplink parsing helpers.
+package deeplink
 
 import (
 	"net/url"
@@ -8,26 +9,32 @@ import (
 	"golang.org/x/xerrors"
 )
 
-// DeepLinkType is a enum type of Telegram deeplinks types.
-type DeepLinkType string
+// Type is a enum type of Telegram deeplinks types.
+type Type string
 
 const (
-	// tg:resolve?domain={domain}
-	// tg://resolve?domain={domain}
-	// https://t.me/{domain}
-	// https://telegram.me/{domain}
-	Resolve DeepLinkType = "resolve"
+	// Resolve is deeplink like
+	//
+	// 	tg:resolve?domain={domain}
+	// 	tg://resolve?domain={domain}
+	// 	https://t.me/{domain}
+	// 	https://telegram.me/{domain}
+	//
+	Resolve Type = "resolve"
 
-	// tg:join?invite={hash}
-	// tg://join?invite={hash}
-	// https://t.me/joinchat/{hash}
-	// https://telegram.me/joinchat/{hash}
-	Join DeepLinkType = "join"
+	// Join is deeplink like
+	//
+	// 	tg:join?invite={hash}
+	// 	tg://join?invite={hash}
+	// 	https://t.me/joinchat/{hash}
+	// 	https://telegram.me/joinchat/{hash}
+	//
+	Join Type = "join"
 )
 
 // DeepLink represents Telegram deeplink.
 type DeepLink struct {
-	Type DeepLinkType
+	Type Type
 	Args url.Values
 }
 
@@ -38,7 +45,7 @@ func ensureParam(query url.Values, key string) error {
 	return nil
 }
 
-func (d DeepLink) Validate() error {
+func (d DeepLink) validate() error {
 	switch d.Type {
 	case Resolve:
 		return ensureParam(d.Args, "domain")
@@ -51,7 +58,7 @@ func (d DeepLink) Validate() error {
 
 func parseTg(u *url.URL) (DeepLink, error) {
 	query := u.Query()
-	switch DeepLinkType(u.Hostname()) {
+	switch Type(u.Hostname()) {
 	case Resolve:
 		return DeepLink{
 			Type: Resolve,
@@ -67,7 +74,7 @@ func parseTg(u *url.URL) (DeepLink, error) {
 	return DeepLink{}, xerrors.Errorf("unsupported deeplink %q", u.String())
 }
 
-func parseHttps(u *url.URL) (DeepLink, error) {
+func parseHTTPS(u *url.URL) (DeepLink, error) {
 	query := u.Query()
 	root, base := path.Split(path.Clean(u.Path))
 	root = strings.TrimPrefix(root, "/")
@@ -98,8 +105,8 @@ func IsDeeplinkLike(link string) bool {
 		strings.HasPrefix(link, "https://")
 }
 
-// ParseDeeplink parses and returns deeplink.
-func ParseDeeplink(link string) (DeepLink, error) {
+// Parse parses and returns deeplink.
+func Parse(link string) (DeepLink, error) {
 	switch {
 	// Normalize case like t.me/gotd.
 	case strings.HasPrefix(link, "t.me"):
@@ -117,7 +124,7 @@ func ParseDeeplink(link string) (DeepLink, error) {
 	var d DeepLink
 	switch {
 	case u.Scheme == "https" && u.Hostname() == "t.me":
-		d, err = parseHttps(u)
+		d, err = parseHTTPS(u)
 	case u.Scheme == "tg":
 		d, err = parseTg(u)
 	default:
@@ -126,16 +133,16 @@ func ParseDeeplink(link string) (DeepLink, error) {
 	if err != nil {
 		return DeepLink{}, err
 	}
-	if err := d.Validate(); err != nil {
+	if err := d.validate(); err != nil {
 		return DeepLink{}, err
 	}
 
 	return d, nil
 }
 
-// ExpectDeeplink parses deeplink and check type its type.
-func ExpectDeeplink(link string, typ DeepLinkType) (DeepLink, error) {
-	l, err := ParseDeeplink(link)
+// Expect parses deeplink and check type its type.
+func Expect(link string, typ Type) (DeepLink, error) {
+	l, err := Parse(link)
 	if err != nil {
 		return l, err
 	}

@@ -7,7 +7,7 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/ascii"
-	"github.com/gotd/td/telegram/message/internal"
+	"github.com/gotd/td/telegram/message/internal/deeplink"
 	"github.com/gotd/td/tg"
 )
 
@@ -28,7 +28,7 @@ type Promise func(ctx context.Context) (tg.InputPeerClass, error)
 func Resolve(r Resolver, from string) Promise {
 	from = strings.TrimSpace(from)
 
-	if internal.IsDeeplinkLike(from) {
+	if deeplink.IsDeeplinkLike(from) {
 		return ResolveDeeplink(r, from)
 	}
 
@@ -102,9 +102,9 @@ func checkDomainSymbols(domain string) error {
 //	tg:resolve?domain=telegram
 //	tg://resolve?domain=telegram
 //
-func ResolveDeeplink(r Resolver, deeplink string) Promise {
+func ResolveDeeplink(r Resolver, u string) Promise {
 	return func(ctx context.Context) (tg.InputPeerClass, error) {
-		link, err := internal.ExpectDeeplink(deeplink, internal.Resolve)
+		link, err := deeplink.Expect(u, deeplink.Resolve)
 		if err != nil {
 			return nil, err
 		}

@@ -243,3 +243,19 @@ func (s *Sender) importChatInvite(
 ) (tg.UpdatesClass, error) {
 	return s.raw.MessagesImportChatInvite(ctx, hash)
 }
+
+// joinChannel joins a channel/supergroup.
+func (s *Sender) joinChannel(
+	ctx context.Context,
+	input tg.InputChannelClass,
+) (tg.UpdatesClass, error) {
+	return s.raw.ChannelsJoinChannel(ctx, input)
+}
+
+// leaveChannel leaves a channel/supergroup.
+func (s *Sender) leaveChannel(
+	ctx context.Context,
+	input tg.InputChannelClass,
+) (tg.UpdatesClass, error) {
+	return s.raw.ChannelsLeaveChannel(ctx, input)
+}

@@ -1,4 +1,4 @@
-package internal
+package deeplink
 
 import (
 	"testing"
@@ -32,7 +32,7 @@ func TestParseDeeplink(t *testing.T) {
 	for _, test := range tests {
 		t.Run(test.input, func(t *testing.T) {
 			a := require.New(t)
-			d, err := ParseDeeplink(test.input)
+			d, err := Parse(test.input)
 
 			if test.wantErr {
 				a.Error(err)
@@ -42,5 +42,4 @@ func TestParseDeeplink(t *testing.T) {
 			}
 		})
 	}
-
 }
