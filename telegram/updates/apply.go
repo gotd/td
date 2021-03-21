@@ -66,7 +66,6 @@ func (m *Manager) apply(ctx context.Context, u *tg.Updates) {
 func (m *Manager) applyUpdates(ctx context.Context, upds *tg.Updates) error { // nolint:gocognit
 	type ptsUpdate interface {
 		GetPts() int
-		GetPtsCount() int
 	}
 
 	gapDetected := false
@@ -82,15 +81,28 @@ func (m *Manager) applyUpdates(ctx context.Context, upds *tg.Updates) error { //
 
 		// Filter from SliceTricks.
 		b := upds.Updates[:0]
-		var smallestPts ptsUpdate
+		var (
+			smallestPts      = -1
+			smallestPtsCount int
+		)
 		for _, x := range upds.Updates {
 			upd, ok := x.(ptsUpdate)
 			if !ok {
 				b = append(b, x)
 				continue
 			}
+
 			pts := upd.GetPts()
-			ptsCount := upd.GetPtsCount()
+			var ptsCount int
+			switch v := upd.(type) {
+			case interface{ GetPtsCount() int }:
+				ptsCount = v.GetPtsCount()
+			case *tg.UpdateReadChannelInbox:
+				ptsCount = 0
+			default:
+				b = append(b, x)
+				continue
+			}
 
 			channelID := -1
 			switch upd := x.(type) {
@@ -119,8 +131,9 @@ func (m *Manager) applyUpdates(ctx context.Context, upds *tg.Updates) error { //
 					continue
 				}
 
-				if smallestPts == nil || smallestPts.GetPts() > pts {
-					smallestPts = upd
+				if smallestPts == -1 || smallestPts > pts {
+					smallestPts = pts
+					smallestPtsCount = ptsCount
 				}
 			}
 
@@ -128,8 +141,8 @@ func (m *Manager) applyUpdates(ctx context.Context, upds *tg.Updates) error { //
 		}
 
 		upds.Updates = b
-		if smallestPts != nil {
-			gapDetected = local+smallestPts.GetPtsCount() < smallestPts.GetPts()
+		if smallestPts != -1 {
+			gapDetected = local+smallestPtsCount < smallestPts
 		}
 
 		return nil

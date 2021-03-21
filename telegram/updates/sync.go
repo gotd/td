@@ -80,11 +80,13 @@ func (m *Manager) syncChannel(ctx context.Context, channel *tg.InputChannel, rem
 				return xerrors.Errorf("get local state: %w", err)
 			}
 
-			switch {
-			case local == 0: // Initial state.
-				return box.Commit(ctx, remote)
-			case local >= remote: // Already synced.
-				return nil
+			if remote > 0 {
+				switch {
+				case local == 0: // Initial state.
+					return box.Commit(ctx, remote)
+				case local >= remote: // Already synced.
+					return nil
+				}
 			}
 
 			diff, err := m.raw.UpdatesGetChannelDifference(ctx, &tg.UpdatesGetChannelDifferenceRequest{
@@ -101,6 +103,15 @@ func (m *Manager) syncChannel(ctx context.Context, channel *tg.InputChannel, rem
 				m.applyDiff(ctx, d)
 				if err := box.Commit(ctx, d.Pts); err != nil {
 					return xerrors.Errorf("commit channel %d pts: %w", channel.ChannelID, err)
+				}
+				remote = d.Pts
+
+				if d.Timeout > 0 {
+					select {
+					case <-ctx.Done():
+						return ctx.Err()
+					case <-time.After(time.Duration(d.Timeout) * time.Second):
+					}
 				}
 
 				if d.Final {
