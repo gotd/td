@@ -3,4 +3,4 @@ package gen
 // This file defines how to generate templates and example
 // generated files.
 
-//go:generate go run -mod=readonly github.com/gotd/td/cmd/gotdgen --doc "https://localhost:80/doc" --clean --package td --target example --schema _testdata/example.tl
+//go:generate go run github.com/gotd/td/cmd/gotdgen --doc "https://localhost:80/doc" --clean --package td --target example --schema _testdata/example.tl

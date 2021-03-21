@@ -21,7 +21,7 @@ type protoConn interface {
 	Run(ctx context.Context, f func(ctx context.Context) error) error
 }
 
-//go:generate go run -mod=readonly -modfile=../../../_tools/go.mod golang.org/x/tools/cmd/stringer -type=ConnMode
+//go:generate go run -modfile=../../../_tools/go.mod golang.org/x/tools/cmd/stringer -type=ConnMode
 
 // ConnMode represents connection mode.
 type ConnMode byte
