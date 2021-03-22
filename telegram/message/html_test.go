@@ -28,7 +28,7 @@ func TestHTMLBuilder_String(t *testing.T) {
 		}, req.Entities[0])
 	}).ThenResult(&tg.Updates{})
 
-	_, err := sender.Self().StyledText(ctx, html.String(send))
+	_, err := sender.Self().StyledText(ctx, html.Format("<b>%s</b>", msg))
 	mock.NoError(err)
 
 	mock.ExpectFunc(func(b bin.Encoder) {

@@ -32,7 +32,7 @@ func (b *EditMessageBuilder) editTextRequest(
 	}
 }
 
-// Text edits message using given message.
+// Text edits message.
 func (b *EditMessageBuilder) Text(ctx context.Context, msg string) (tg.UpdatesClass, error) {
 	p, err := b.builder.peer(ctx)
 	if err != nil {
@@ -45,6 +45,11 @@ func (b *EditMessageBuilder) Text(ctx context.Context, msg string) (tg.UpdatesCl
 	}
 
 	return upd, nil
+}
+
+// Textf formats and edits message .
+func (b *EditMessageBuilder) Textf(ctx context.Context, format string, args ...interface{}) (tg.UpdatesClass, error) {
+	return b.Text(ctx, formatMessage(format, args...))
 }
 
 // StyledText edits message using given message.

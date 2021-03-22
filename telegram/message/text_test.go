@@ -22,7 +22,7 @@ func TestBuilder_Text(t *testing.T) {
 		mock.Equal(msg, req.Message)
 	}).ThenResult(&tg.Updates{})
 
-	_, err := sender.Self().Text(ctx, msg)
+	_, err := sender.Self().Textf(ctx, "%s", msg)
 	mock.NoError(err)
 
 	mock.ExpectFunc(func(b bin.Encoder) {
@@ -32,7 +32,7 @@ func TestBuilder_Text(t *testing.T) {
 		mock.Equal(msg, req.Message)
 	}).ThenRPCErr(testRPCError())
 
-	_, err = sender.Self().Text(ctx, msg)
+	_, err = sender.Self().Textf(ctx, "%s", msg)
 	mock.Error(err)
 }
 

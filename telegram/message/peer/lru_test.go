@@ -57,6 +57,44 @@ func TestLRU(t *testing.T) {
 	a.False(lru.delete(strconv.Itoa(10)))
 }
 
+type mockResolver struct {
+	counter       int
+	returnErr     bool
+	domain, phone string
+	peer          tg.InputPeerClass
+	t             testing.TB
+}
+
+func (m *mockResolver) Resolve(ctx context.Context, domain string) (tg.InputPeerClass, error) {
+	m.counter++
+
+	if m.returnErr && m.counter == 1 {
+		return nil, fmt.Errorf("test error: %q", m.phone)
+	}
+
+	if domain != m.domain {
+		err := fmt.Errorf("expected domain %q, got %q", m.domain, domain)
+		m.t.Error(err)
+		return nil, err
+	}
+	return m.peer, nil
+}
+
+func (m *mockResolver) ResolvePhone(ctx context.Context, phone string) (tg.InputPeerClass, error) {
+	m.counter++
+
+	if m.returnErr && m.counter == 1 {
+		return nil, fmt.Errorf("test error: %q", m.phone)
+	}
+
+	if phone != m.phone {
+		err := fmt.Errorf("expected phone %q, got %q", m.phone, phone)
+		m.t.Error(err)
+		return nil, err
+	}
+	return m.peer, nil
+}
+
 func TestLRUResolver_Resolve(t *testing.T) {
 	ctx := context.Background()
 	expectedDomain := "telegram"
@@ -66,18 +104,13 @@ func TestLRUResolver_Resolve(t *testing.T) {
 
 	t.Run("Cache", func(t *testing.T) {
 		a := require.New(t)
-		counter := 0
-		resolver := func(ctx context.Context, domain string) (tg.InputPeerClass, error) {
-			counter++
-			if domain != expectedDomain {
-				err := fmt.Errorf("expected domain %q, got %q", expectedDomain, domain)
-				t.Error(err)
-				return nil, err
-			}
-			return expected, nil
+		resolver := &mockResolver{
+			domain: expectedDomain,
+			peer:   expected,
+			t:      t,
 		}
 
-		lru := NewLRUResolver(ResolverFunc(resolver), 10)
+		lru := NewLRUResolver(resolver, 10)
 
 		r, err := lru.Resolve(ctx, expectedDomain)
 		a.NoError(err)
@@ -87,28 +120,19 @@ func TestLRUResolver_Resolve(t *testing.T) {
 		a.NoError(err)
 		a.Equal(expected, r2)
 
-		a.Equalf(1, counter, "RPC call was not cached")
+		a.Equalf(1, resolver.counter, "RPC call was not cached")
 	})
 
 	t.Run("Error", func(t *testing.T) {
 		a := require.New(t)
-		counter := 0
-		resolver := func(ctx context.Context, domain string) (tg.InputPeerClass, error) {
-			counter++
-
-			if counter == 1 {
-				return nil, fmt.Errorf("test error: %q", domain)
-			}
-
-			if domain != expectedDomain {
-				err := fmt.Errorf("expected domain %q, got %q", expectedDomain, domain)
-				t.Error(err)
-				return nil, err
-			}
-			return expected, nil
+		resolver := &mockResolver{
+			returnErr: true,
+			domain:    expectedDomain,
+			peer:      expected,
+			t:         t,
 		}
 
-		lru := NewLRUResolver(ResolverFunc(resolver), 10)
+		lru := NewLRUResolver(resolver, 10)
 
 		_, err := lru.Resolve(ctx, expectedDomain)
 		a.Error(err)
@@ -117,6 +141,6 @@ func TestLRUResolver_Resolve(t *testing.T) {
 		a.NoError(err)
 		a.Equal(expected, r2)
 
-		a.Equalf(2, counter, "RPC call error was cached")
+		a.Equalf(2, resolver.counter, "RPC call error was cached")
 	})
 }

@@ -3,6 +3,7 @@ package peer
 import (
 	"context"
 	"fmt"
+	"strconv"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -10,14 +11,11 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-func resolver(t *testing.T, expectedDomain string, expected tg.InputPeerClass) ResolverFunc {
-	return func(ctx context.Context, domain string) (tg.InputPeerClass, error) {
-		if domain != expectedDomain {
-			err := fmt.Errorf("expected domain %q, got %q", expectedDomain, domain)
-			t.Error(err)
-			return nil, err
-		}
-		return expected, nil
+func resolver(t *testing.T, expectedDomain string, expected tg.InputPeerClass) Resolver {
+	return &mockResolver{
+		domain: expectedDomain,
+		peer:   expected,
+		t:      t,
 	}
 }
 
@@ -85,6 +83,25 @@ func TestSender_Resolve(t *testing.T) {
 					a.Equal(expected, p)
 				})
 			}
+		})
+	}
+}
+
+func Test_cleanupPhone(t *testing.T) {
+	tests := []struct {
+		phone string
+		want  string
+	}{
+		{"+13115552368", "13115552368"},
+		{"+1 (311) 555-0123", "13115550123"},
+		{"+1 311 555-6162", "13115556162"},
+	}
+	for _, tt := range tests {
+		t.Run(tt.phone, func(t *testing.T) {
+			r := cleanupPhone(tt.phone)
+			require.Equal(t, tt.want, r)
+			_, err := strconv.Atoi(r)
+			require.NoError(t, err)
 		})
 	}
 }

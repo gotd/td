@@ -44,6 +44,11 @@ func (b *Builder) Text(ctx context.Context, msg string) (tg.UpdatesClass, error)
 	return upd, nil
 }
 
+// Textf formats and sends text message.
+func (b *Builder) Textf(ctx context.Context, format string, args ...interface{}) (tg.UpdatesClass, error) {
+	return b.Text(ctx, formatMessage(format, args...))
+}
+
 // StyledText sends styled text message.
 func (b *Builder) StyledText(
 	ctx context.Context, text StyledTextOption, texts ...StyledTextOption,

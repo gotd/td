@@ -12,7 +12,7 @@ import (
 )
 
 func resolver(t *testing.T, expectedDomain string, expected tg.InputPeerClass) peer.ResolverFunc {
-	return func(ctx context.Context, domain string) (tg.InputPeerClass, error) {
+	return func(ctx context.Context, _ bool, domain string) (tg.InputPeerClass, error) {
 		if domain != expectedDomain {
 			err := fmt.Errorf("expected domain %q, got %q", expectedDomain, domain)
 			t.Error(err)
@@ -60,4 +60,24 @@ func TestResolve(t *testing.T) {
 		expected.UserID: {ID: expected.UserID, AccessHash: expected.AccessHash, Username: "durov"},
 	}}
 	check(s.Answer(uctx, answerable{ID: 10, UserID: expected.UserID}), expected)
+}
+
+func TestSender_ResolvePhone(t *testing.T) {
+	a := require.New(t)
+	ctx := context.Background()
+	expected := &tg.InputPeerChannel{ChannelID: 10, AccessHash: 10}
+	s := NewSender(nil).WithResolver(resolver(t, "13115552368", expected))
+
+	check := func(req *RequestBuilder, expected tg.InputPeerClass) {
+		p, err := req.AsInputPeer(ctx)
+		a.NoError(err)
+		a.Equal(expected, p)
+	}
+
+	// If there's somethin' strange
+	// in your neighborhood
+	check(s.Resolve("+13115552368"), expected)
+	// Who ya gonna call
+	// Ghostb...!
+	check(s.Resolve("+1 (311) 555-2368"), expected)
 }

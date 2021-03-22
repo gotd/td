@@ -235,3 +235,27 @@ func (s *Sender) getScheduledMessages(
 ) (tg.MessagesMessagesClass, error) {
 	return s.raw.MessagesGetScheduledMessages(ctx, req)
 }
+
+// importChatInvite imports a chat invite and join a private chat/supergroup/channel.
+func (s *Sender) importChatInvite(
+	ctx context.Context,
+	hash string,
+) (tg.UpdatesClass, error) {
+	return s.raw.MessagesImportChatInvite(ctx, hash)
+}
+
+// joinChannel joins a channel/supergroup.
+func (s *Sender) joinChannel(
+	ctx context.Context,
+	input tg.InputChannelClass,
+) (tg.UpdatesClass, error) {
+	return s.raw.ChannelsJoinChannel(ctx, input)
+}
+
+// leaveChannel leaves a channel/supergroup.
+func (s *Sender) leaveChannel(
+	ctx context.Context,
+	input tg.InputChannelClass,
+) (tg.UpdatesClass, error) {
+	return s.raw.ChannelsLeaveChannel(ctx, input)
+}
