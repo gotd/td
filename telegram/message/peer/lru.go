@@ -48,7 +48,17 @@ func (l *LRUResolver) ResolveDomain(ctx context.Context, domain string) (tg.Inpu
 
 // ResolvePhone implements Resolver.
 func (l *LRUResolver) ResolvePhone(ctx context.Context, phone string) (tg.InputPeerClass, error) {
-	return l.next.ResolvePhone(ctx, phone)
+	if v, ok := l.get(phone); ok {
+		return v, nil
+	}
+
+	r, err := l.next.ResolvePhone(ctx, phone)
+	if err != nil {
+		return nil, err
+	}
+
+	l.put(phone, r)
+	return r, nil
 }
 
 func (l *LRUResolver) get(key string) (v tg.InputPeerClass, ok bool) {

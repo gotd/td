@@ -2,13 +2,9 @@ package peer
 
 import (
 	"context"
-	"sort"
-	"sync"
 
-	"go.uber.org/atomic"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/telegram/query/hasher"
 	"github.com/gotd/td/tg"
 )
 
@@ -25,10 +21,6 @@ func DefaultResolver(raw *tg.Client) Resolver {
 
 type plainResolver struct {
 	raw *tg.Client
-
-	contactsMux  sync.Mutex
-	contacts     *tg.ContactsContacts
-	contactsHash atomic.Int32
 }
 
 func (p *plainResolver) ResolveDomain(ctx context.Context, domain string) (tg.InputPeerClass, error) {
@@ -41,49 +33,25 @@ func (p *plainResolver) ResolveDomain(ctx context.Context, domain string) (tg.In
 }
 
 func (p *plainResolver) ResolvePhone(ctx context.Context, phone string) (tg.InputPeerClass, error) {
-	r, err := p.raw.ContactsGetContacts(ctx, int(p.contactsHash.Load()))
+	r, err := p.raw.ContactsGetContacts(ctx, 0)
 	if err != nil {
 		return nil, xerrors.Errorf("get contacts: %w", err)
 	}
 
-	p.contactsMux.Lock()
-	defer p.contactsMux.Unlock()
-
 	switch c := r.(type) {
 	case *tg.ContactsContacts:
-		p.contacts = c
-		cts := c.Contacts
-
-		sort.SliceStable(cts, func(i, j int) bool {
-			return cts[i].UserID < cts[j].UserID
-		})
-		h := hasher.Hasher{}
-		for _, contact := range cts {
-			h.Update(uint32(contact.UserID))
+		for _, u := range c.Users {
+			user, ok := u.AsNotEmpty()
+			if !ok {
+				continue
+			}
+			if user.Phone == phone {
+				return user.AsInputPeer(), nil
+			}
 		}
 
-		p.contactsHash.Store(h.Sum())
-	case *tg.ContactsContactsNotModified:
-		if p.contacts == nil {
-			return nil, xerrors.Errorf("got unexpected %T result", r)
-		}
+		return nil, xerrors.Errorf("can't resolve phone %q", phone)
 	default:
 		return nil, xerrors.Errorf("unexpected type %T", r)
 	}
-
-	for _, u := range p.contacts.Users {
-		user, ok := u.AsNotEmpty()
-		if !ok {
-			continue
-		}
-
-		if user.Phone == phone {
-			return &tg.InputPeerUser{
-				UserID:     user.ID,
-				AccessHash: user.AccessHash,
-			}, nil
-		}
-	}
-
-	return nil, xerrors.Errorf("can't resolve phone %q", phone)
 }
