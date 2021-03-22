@@ -60,6 +60,14 @@ func (s *Server) SendResult(req *Request, msg bin.Encoder) error {
 	return nil
 }
 
+func (s *Server) SendBool(req *Request, r bool) error {
+	var msg tg.BoolClass = &tg.BoolTrue{}
+	if !r {
+		msg = &tg.BoolFalse{}
+	}
+	return s.SendResult(req, msg)
+}
+
 func (s *Server) SendVector(req *Request, msgs ...bin.Encoder) error {
 	return s.SendResult(req, &genericVector{Elems: msgs})
 }

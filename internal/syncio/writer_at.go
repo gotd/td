@@ -59,10 +59,10 @@ func (b *BufWriterAt) ReadAt(p []byte, off int64) (n int, err error) {
 	defer b.mux.RUnlock()
 
 	l := int64(len(b.buf))
-	switch  {
+	switch {
 	case off >= l:
 		return 0, nil
-	case off + int64(len(p)) >= l:
+	case off+int64(len(p)) >= l:
 		r := b.buf[off:]
 		copy(p, r)
 		return len(r), nil

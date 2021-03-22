@@ -24,7 +24,7 @@ import (
 	"github.com/gotd/td/transport"
 )
 
-func testTransport(trp telegram.Transport, storage session.Storage) func(t *testing.T) {
+func testTransportExternal(trp telegram.Transport, storage session.Storage) func(t *testing.T) {
 	return func(t *testing.T) {
 		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 		defer cancel()
@@ -55,10 +55,10 @@ func TestExternalE2EConnect(t *testing.T) {
 
 	// To re-use session.
 	storage := &session.StorageMemory{}
-	t.Run("Abridged", testTransport(transport.Abridged(), storage))
-	t.Run("Intermediate", testTransport(transport.Intermediate(), storage))
-	t.Run("PaddedIntermediate", testTransport(transport.PaddedIntermediate(), storage))
-	t.Run("Full", testTransport(transport.Full(), storage))
+	t.Run("Abridged", testTransportExternal(transport.Abridged(), storage))
+	t.Run("Intermediate", testTransportExternal(transport.Intermediate(), storage))
+	t.Run("PaddedIntermediate", testTransportExternal(transport.PaddedIntermediate(), storage))
+	t.Run("Full", testTransportExternal(transport.Full(), storage))
 }
 
 const dialog = `— Да?

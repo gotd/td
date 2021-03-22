@@ -34,7 +34,7 @@ func newMockClient(err bool) *mockClient {
 	return &mockClient{
 		err:   err,
 		buf:   &syncio.BufWriterAt{},
-		parts: make([]atomic.Int64, partsLimit + 1),
+		parts: make([]atomic.Int64, partsLimit+1),
 	}
 }
 

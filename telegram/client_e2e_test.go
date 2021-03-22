@@ -1,8 +1,9 @@
-package telegram
+package telegram_test
 
 import (
 	"context"
 	"errors"
+	"strings"
 	"testing"
 	"time"
 
@@ -15,8 +16,12 @@ import (
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/session"
+	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/dcs"
+	"github.com/gotd/td/telegram/downloader"
 	"github.com/gotd/td/telegram/internal/tgtest"
+	"github.com/gotd/td/telegram/internal/tgtest/services/file"
+	"github.com/gotd/td/telegram/uploader"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
 )
@@ -29,12 +34,12 @@ type quorumSetup struct {
 
 type clientSetup struct {
 	TB       testing.TB
-	Options  Options
+	Options  telegram.Options
 	Complete func()
 }
 
 func testQuorum(
-	trp Transport,
+	trp telegram.Transport,
 	setup func(q quorumSetup),
 	run func(ctx context.Context, c clientSetup) error,
 ) func(t *testing.T) {
@@ -64,7 +69,7 @@ func testQuorum(
 
 			return run(ctx, clientSetup{
 				TB: t,
-				Options: Options{
+				Options: telegram.Options{
 					PublicKeys:     q.Keys(),
 					Resolver:       dcs.PlainResolver(dcs.PlainOptions{Transport: trp}),
 					Logger:         log.Named("client"),
@@ -82,14 +87,14 @@ func testQuorum(
 	}
 }
 
-func testAllTransports(t *testing.T, test func(trp Transport) func(t *testing.T)) {
+func testAllTransports(t *testing.T, test func(trp telegram.Transport) func(t *testing.T)) {
 	t.Run("Abridged", test(transport.Abridged()))
 	t.Run("Intermediate", test(transport.Intermediate()))
 	t.Run("PaddedIntermediate", test(transport.PaddedIntermediate()))
 	t.Run("Full", test(transport.Full()))
 }
 
-func testTransport(trp Transport) func(t *testing.T) {
+func testTransport(trp telegram.Transport) func(t *testing.T) {
 	testMessage := "ну че там с деньгами?"
 
 	return testQuorum(trp, func(s quorumSetup) {
@@ -113,7 +118,7 @@ func testTransport(trp Transport) func(t *testing.T) {
 
 		dispatcher := tg.NewUpdateDispatcher()
 		opts.UpdateHandler = dispatcher
-		client := NewClient(1, "hash", opts)
+		client := telegram.NewClient(1, "hash", opts)
 
 		waitForMessage := make(chan struct{})
 		dispatcher.OnNewMessage(func(ctx context.Context, entities tg.Entities, update *tg.UpdateNewMessage) error {
@@ -150,7 +155,7 @@ func TestClientE2E(t *testing.T) {
 	testAllTransports(t, testTransport)
 }
 
-func testMigrate(trp Transport) func(t *testing.T) {
+func testMigrate(trp telegram.Transport) func(t *testing.T) {
 	wait := make(chan struct{}, 1)
 	return testQuorum(trp, func(s quorumSetup) {
 		q := s.Quorum
@@ -188,7 +193,7 @@ func testMigrate(trp Transport) func(t *testing.T) {
 			},
 		)
 	}, func(ctx context.Context, c clientSetup) error {
-		client := NewClient(1, "hash", c.Options)
+		client := telegram.NewClient(1, "hash", c.Options)
 		return client.Run(ctx, func(ctx context.Context) error {
 			if err := client.SendMessage(ctx, &tg.MessagesSendMessageRequest{
 				Peer:    &tg.InputPeerUser{},
@@ -210,4 +215,39 @@ func testMigrate(trp Transport) func(t *testing.T) {
 
 func TestMigrate(t *testing.T) {
 	t.Run("Intermediate", testMigrate(transport.Intermediate()))
+}
+
+func testFiles(trp telegram.Transport) func(t *testing.T) {
+	return testQuorum(trp, func(s quorumSetup) {
+		q := s.Quorum
+		q.Common().Vector(tg.UsersGetUsersRequestTypeID, &tg.User{
+			ID:         10,
+			AccessHash: 10,
+			Username:   "rustcocks",
+		})
+		f := file.NewService(file.NewInMemory())
+		f.Register(q.DC(2, "DC").Dispatcher())
+	}, func(ctx context.Context, c clientSetup) error {
+		client := telegram.NewClient(1, "hash", c.Options)
+		defer c.Complete()
+		return client.Run(ctx, func(ctx context.Context) error {
+			raw := tg.NewClient(client)
+			f, err := uploader.NewUploader(raw).FromBytes(ctx, "10.jpg", []byte("data"))
+			if err != nil {
+				return err
+			}
+
+			var b strings.Builder
+			_, err = downloader.NewDownloader().Download(raw, &tg.InputFileLocation{
+				VolumeID: f.GetID(),
+				LocalID:  10,
+			}).Stream(ctx, &b)
+			require.Equal(c.TB, "data", b.String())
+			return err
+		})
+	})
+}
+
+func TestFiles(t *testing.T) {
+	t.Run("Intermediate", testFiles(transport.Intermediate()))
 }
