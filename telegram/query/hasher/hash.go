@@ -1,4 +1,4 @@
-package query
+package hasher
 
 // Hasher implements Telegram pagination hash counting.
 //
