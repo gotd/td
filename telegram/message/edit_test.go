@@ -29,7 +29,7 @@ func TestEditMessageBuilder_Text(t *testing.T) {
 		Message: msg,
 	}).ThenRPCErr(testRPCError())
 
-	_, err = sender.Self().Edit(10).Text(ctx, msg)
+	_, err = sender.Self().Edit(10).Textf(ctx, "%s", msg)
 	mock.Error(err)
 }
 

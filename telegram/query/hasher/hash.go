@@ -1,3 +1,4 @@
+// Package hasher contains Telegram pagination hash implementation.
 package hasher
 
 // Hasher implements Telegram pagination hash counting.
