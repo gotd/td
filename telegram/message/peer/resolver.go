@@ -14,7 +14,7 @@ import (
 
 // Resolver is a abstraction to resolve domains and Telegram deeplinks.
 type Resolver interface {
-	Resolve(ctx context.Context, domain string) (tg.InputPeerClass, error)
+	ResolveDomain(ctx context.Context, domain string) (tg.InputPeerClass, error)
 	ResolvePhone(ctx context.Context, phone string) (tg.InputPeerClass, error)
 }
 
@@ -31,7 +31,7 @@ type plainResolver struct {
 	contactsHash atomic.Int32
 }
 
-func (p *plainResolver) Resolve(ctx context.Context, domain string) (tg.InputPeerClass, error) {
+func (p *plainResolver) ResolveDomain(ctx context.Context, domain string) (tg.InputPeerClass, error) {
 	peer, err := p.raw.ContactsResolveUsername(ctx, domain)
 	if err != nil {
 		return nil, xerrors.Errorf("resolve: %w", err)

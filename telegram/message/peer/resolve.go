@@ -97,7 +97,7 @@ func ResolveDomain(r Resolver, domain string) Promise {
 			return nil, xerrors.Errorf("validate domain: %w", err)
 		}
 
-		return r.Resolve(ctx, domain)
+		return r.ResolveDomain(ctx, domain)
 	}
 }
 
@@ -158,6 +158,6 @@ func ResolveDeeplink(r Resolver, u string) Promise {
 			return nil, xerrors.Errorf("validate domain: %w", err)
 		}
 
-		return r.Resolve(ctx, domain)
+		return r.ResolveDomain(ctx, domain)
 	}
 }

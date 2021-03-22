@@ -29,15 +29,15 @@ func NewLRUResolver(next Resolver, capacity int) *LRUResolver {
 	}
 }
 
-// Resolve implements Resolver.
-func (l *LRUResolver) Resolve(ctx context.Context, domain string) (tg.InputPeerClass, error) {
+// ResolveDomain implements Resolver.
+func (l *LRUResolver) ResolveDomain(ctx context.Context, domain string) (tg.InputPeerClass, error) {
 	// TODO(tdakkota): expiration support
 	// TODO(tdakkota): resolve race conditions in case when two and more goroutines tries to fetch same domain.
 	if v, ok := l.get(domain); ok {
 		return v, nil
 	}
 
-	r, err := l.next.Resolve(ctx, domain)
+	r, err := l.next.ResolveDomain(ctx, domain)
 	if err != nil {
 		return nil, err
 	}
