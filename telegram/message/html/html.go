@@ -3,6 +3,7 @@ package html
 
 import (
 	"bytes"
+	"fmt"
 	"io"
 	"strings"
 
@@ -20,6 +21,12 @@ func Bytes(b []byte) styling.StyledTextOption {
 // to build styled text block.
 func String(s string) styling.StyledTextOption {
 	return Reader(strings.NewReader(s))
+}
+
+// Format formats string using fmt, parses HTML from formatted string and returns styling option
+// to build styled text block.
+func Format(format string, args ...interface{}) styling.StyledTextOption {
+	return String(fmt.Sprintf(format, args...))
 }
 
 // Reader reads HTML from given reader and returns styling option

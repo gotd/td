@@ -78,7 +78,7 @@ func (b *RequestBuilder) AsInputPeer(ctx context.Context) (tg.InputPeerClass, er
 //	tg://resolve?domain=telegram
 //	+13115552368
 //	+1 (311) 555-0123
-//  +1 311 555-6162
+//	+1 311 555-6162
 //
 func (s *Sender) Resolve(from string) *RequestBuilder {
 	return s.builder(peer.Resolve(s.resolver, from))
@@ -88,9 +88,9 @@ func (s *Sender) Resolve(from string) *RequestBuilder {
 // It resolves peer of message using given Resolver.
 // Input example:
 //
-//	+13115552368
-//	+1 (311) 555-0123
-//  +1 311 555-6162
+// 	+13115552368
+// 	+1 (311) 555-0123
+// 	+1 311 555-6162
 //
 // NB: ResolvePhone just deletes any non-digit symbols from phone argument.
 // For now, Telegram sends contact number as string like "13115552368".
