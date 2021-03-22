@@ -18,19 +18,6 @@ type Resolver interface {
 	ResolvePhone(ctx context.Context, phone string) (tg.InputPeerClass, error)
 }
 
-// ResolverFunc is functional adapter for Resolver.
-type ResolverFunc func(ctx context.Context, phone bool, s string) (tg.InputPeerClass, error)
-
-// Resolve implements Resolver.
-func (r ResolverFunc) Resolve(ctx context.Context, domain string) (tg.InputPeerClass, error) {
-	return r(ctx, false, domain)
-}
-
-// ResolvePhone implements Resolver.
-func (r ResolverFunc) ResolvePhone(ctx context.Context, phone string) (tg.InputPeerClass, error) {
-	return r(ctx, false, phone)
-}
-
 // DefaultResolver creates and returns default resolver.
 func DefaultResolver(raw *tg.Client) Resolver {
 	return NewLRUResolver(&plainResolver{raw: raw}, 10)
