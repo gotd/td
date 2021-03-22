@@ -5,7 +5,7 @@ go 1.16
 require (
 	github.com/cenkalti/backoff/v4 v4.1.0
 	github.com/go-openapi/inflect v0.19.0
-	github.com/gotd/getdoc v0.6.1
+	github.com/gotd/getdoc v0.6.2
 	github.com/gotd/ige v0.1.5
 	github.com/gotd/neo v0.1.1
 	github.com/gotd/tl v0.4.0
