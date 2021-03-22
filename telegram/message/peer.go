@@ -21,9 +21,12 @@ func (r *resolvedCache) Load() (result tg.InputPeerClass, ok bool) {
 	return
 }
 
-func (s *Sender) builder(promise peer.Promise) *RequestBuilder {
+func (s *Sender) builder(promise peer.Promise, decorators []peer.PromiseDecorator) *RequestBuilder {
 	once := &resolvedCache{}
 
+	for _, decorator := range decorators {
+		promise = decorator(promise)
+	}
 	return &RequestBuilder{
 		Builder: Builder{
 			sender: s,
@@ -45,7 +48,7 @@ func (s *Sender) builder(promise peer.Promise) *RequestBuilder {
 
 // PeerPromise uses given peer promise to create new message builder.
 func (s *Sender) PeerPromise(p peer.Promise) *RequestBuilder {
-	return s.builder(p)
+	return s.builder(p, nil)
 }
 
 // Peer uses given peer to create new message builder.
@@ -80,8 +83,8 @@ func (b *RequestBuilder) AsInputPeer(ctx context.Context) (tg.InputPeerClass, er
 //	+1 (311) 555-0123
 //	+1 311 555-6162
 //
-func (s *Sender) Resolve(from string) *RequestBuilder {
-	return s.builder(peer.Resolve(s.resolver, from))
+func (s *Sender) Resolve(from string, decorators ...peer.PromiseDecorator) *RequestBuilder {
+	return s.builder(peer.Resolve(s.resolver, from), decorators)
 }
 
 // ResolvePhone uses given phone to create new peer promise.
@@ -94,8 +97,8 @@ func (s *Sender) Resolve(from string) *RequestBuilder {
 //
 // NB: ResolvePhone just deletes any non-digit symbols from phone argument.
 // For now, Telegram sends contact number as string like "13115552368".
-func (s *Sender) ResolvePhone(phone string) *RequestBuilder {
-	return s.builder(peer.ResolvePhone(s.resolver, phone))
+func (s *Sender) ResolvePhone(phone string, decorators ...peer.PromiseDecorator) *RequestBuilder {
+	return s.builder(peer.ResolvePhone(s.resolver, phone), decorators)
 }
 
 // ResolveDomain uses given domain to create new message builder.
@@ -106,8 +109,8 @@ func (s *Sender) ResolvePhone(phone string) *RequestBuilder {
 //	@telegram
 //	telegram
 //
-func (s *Sender) ResolveDomain(domain string) *RequestBuilder {
-	return s.builder(peer.ResolveDomain(s.resolver, domain))
+func (s *Sender) ResolveDomain(domain string, decorators ...peer.PromiseDecorator) *RequestBuilder {
+	return s.builder(peer.ResolveDomain(s.resolver, domain), decorators)
 }
 
 // ResolveDeeplink uses given deeplink to create new message builder.
@@ -120,8 +123,8 @@ func (s *Sender) ResolveDomain(domain string) *RequestBuilder {
 //	tg:resolve?domain=telegram
 //	tg://resolve?domain=telegram
 //
-func (s *Sender) ResolveDeeplink(deeplink string) *RequestBuilder {
-	return s.builder(peer.ResolveDeeplink(s.resolver, deeplink))
+func (s *Sender) ResolveDeeplink(link string, decorators ...peer.PromiseDecorator) *RequestBuilder {
+	return s.builder(peer.ResolveDeeplink(s.resolver, link), decorators)
 }
 
 // AnswerableMessageUpdate represents update which can be used to answer.
@@ -151,7 +154,7 @@ func (s *Sender) Answer(uctx tg.Entities, upd AnswerableMessageUpdate) *RequestB
 		}
 
 		return entities.ExtractPeer(msg.GetPeerID())
-	})
+	}, nil)
 }
 
 // Reply uses given message update to create message for same chat and create a reply.
