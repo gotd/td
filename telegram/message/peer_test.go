@@ -11,15 +11,32 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-func resolver(t *testing.T, expectedDomain string, expected tg.InputPeerClass) peer.ResolverFunc {
-	return func(ctx context.Context, _ bool, domain string) (tg.InputPeerClass, error) {
-		if domain != expectedDomain {
-			err := fmt.Errorf("expected domain %q, got %q", expectedDomain, domain)
-			t.Error(err)
-			return nil, err
-		}
-		return expected, nil
+type testResolver struct {
+	t *testing.T
+
+	expectedDomain string
+	expected       tg.InputPeerClass
+}
+
+func (r *testResolver) ResolveDomain(ctx context.Context, domain string) (tg.InputPeerClass, error) {
+	return r.expectResolve(ctx, domain)
+}
+
+func (r *testResolver) ResolvePhone(ctx context.Context, phone string) (tg.InputPeerClass, error) {
+	return r.expectResolve(ctx, phone)
+}
+
+func (r *testResolver) expectResolve(_ context.Context, domain string) (tg.InputPeerClass, error) {
+	if domain != r.expectedDomain {
+		err := fmt.Errorf("expected domain %q, got %q", r.expectedDomain, domain)
+		r.t.Error(err)
+		return nil, err
 	}
+	return r.expected, nil
+}
+
+func resolver(t *testing.T, expectedDomain string, expected tg.InputPeerClass) peer.Resolver {
+	return &testResolver{t, expectedDomain, expected}
 }
 
 type answerable struct {

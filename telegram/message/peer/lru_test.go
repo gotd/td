@@ -65,7 +65,7 @@ type mockResolver struct {
 	t             testing.TB
 }
 
-func (m *mockResolver) Resolve(ctx context.Context, domain string) (tg.InputPeerClass, error) {
+func (m *mockResolver) ResolveDomain(ctx context.Context, domain string) (tg.InputPeerClass, error) {
 	m.counter++
 
 	if m.returnErr && m.counter == 1 {
@@ -112,11 +112,11 @@ func TestLRUResolver_Resolve(t *testing.T) {
 
 		lru := NewLRUResolver(resolver, 10)
 
-		r, err := lru.Resolve(ctx, expectedDomain)
+		r, err := lru.ResolveDomain(ctx, expectedDomain)
 		a.NoError(err)
 		a.Equal(expected, r)
 
-		r2, err := lru.Resolve(ctx, expectedDomain)
+		r2, err := lru.ResolveDomain(ctx, expectedDomain)
 		a.NoError(err)
 		a.Equal(expected, r2)
 
@@ -134,10 +134,10 @@ func TestLRUResolver_Resolve(t *testing.T) {
 
 		lru := NewLRUResolver(resolver, 10)
 
-		_, err := lru.Resolve(ctx, expectedDomain)
+		_, err := lru.ResolveDomain(ctx, expectedDomain)
 		a.Error(err)
 
-		r2, err := lru.Resolve(ctx, expectedDomain)
+		r2, err := lru.ResolveDomain(ctx, expectedDomain)
 		a.NoError(err)
 		a.Equal(expected, r2)
 

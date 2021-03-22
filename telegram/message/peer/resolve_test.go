@@ -50,7 +50,6 @@ func TestSender_Resolve(t *testing.T) {
 		{"Bad", "gotd", true},
 		{"Bad", "_gotd_test", true},
 		{"Bad", "gotd_test_", true},
-		{"Bad", "123gotd_test", true},
 		{"Bad", "_gotd_test123", true},
 		{"Bad", "gotd.test", true},
 		{"Bad", "gotd/test", true},
@@ -95,6 +94,8 @@ func Test_cleanupPhone(t *testing.T) {
 		{"+13115552368", "13115552368"},
 		{"+1 (311) 555-0123", "13115550123"},
 		{"+1 311 555-6162", "13115556162"},
+		{"13115556162", "13115556162"},
+		{"123gotd_test", "123"},
 	}
 	for _, tt := range tests {
 		t.Run(tt.phone, func(t *testing.T) {

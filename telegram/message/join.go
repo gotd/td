@@ -13,7 +13,7 @@ import (
 // Input examples:
 //
 //  t.me/joinchat/AAAAAAAAAAAAAAAA
-//	https://t.me/joinchat/AAAAAAAAAAAAAAAA
+//  https://t.me/joinchat/AAAAAAAAAAAAAAAA
 //  tg:join?invite=AAAAAAAAAAAAAAAA
 //  tg://join?invite=AAAAAAAAAAAAAAAA
 //

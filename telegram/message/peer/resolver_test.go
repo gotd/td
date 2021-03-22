@@ -34,12 +34,12 @@ func Test_plainResolver_Resolve(t *testing.T) {
 	ctx := context.Background()
 	resolver := plainResolver{raw: raw}
 
-	r, err := resolver.Resolve(ctx, domain)
+	r, err := resolver.ResolveDomain(ctx, domain)
 	mock.IsType(&tg.InputPeerUser{}, r)
 	mock.Equal(10, r.(*tg.InputPeerUser).UserID)
 	mock.NoError(err)
 
-	_, err = resolver.Resolve(ctx, domain)
+	_, err = resolver.ResolveDomain(ctx, domain)
 	mock.Error(err)
 }
 
