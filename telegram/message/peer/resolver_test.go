@@ -42,3 +42,37 @@ func Test_plainResolver_Resolve(t *testing.T) {
 	_, err = resolver.Resolve(ctx, domain)
 	mock.Error(err)
 }
+
+func Test_plainResolver_ResolvePhone(t *testing.T) {
+	mock := rpcmock.NewMock(t, require.New(t))
+	raw := tg.NewClient(mock)
+
+	phone := "adcd"
+	mock.ExpectCall(&tg.ContactsGetContactsRequest{
+		Hash: 0,
+	}).ThenResult(&tg.ContactsContacts{
+		Contacts: []tg.Contact{{
+			UserID: 10,
+			Mutual: false,
+		}},
+		SavedCount: 1,
+		Users: []tg.UserClass{
+			&tg.User{ID: 10, AccessHash: 10, Username: "rustmustdie", Phone: phone},
+		},
+	}).Expect().ThenRPCErr(&tgerr.Error{
+		Code:    1337,
+		Message: "TEST_ERROR",
+		Type:    "TEST_ERROR",
+	})
+
+	ctx := context.Background()
+	resolver := plainResolver{raw: raw}
+
+	r, err := resolver.ResolvePhone(ctx, phone)
+	mock.NoError(err)
+	mock.IsType(&tg.InputPeerUser{}, r)
+	mock.Equal(10, r.(*tg.InputPeerUser).UserID)
+
+	_, err = resolver.ResolvePhone(ctx, phone)
+	mock.Error(err)
+}

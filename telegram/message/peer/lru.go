@@ -46,6 +46,11 @@ func (l *LRUResolver) Resolve(ctx context.Context, domain string) (tg.InputPeerC
 	return r, nil
 }
 
+// ResolvePhone implements Resolver.
+func (l *LRUResolver) ResolvePhone(ctx context.Context, phone string) (tg.InputPeerClass, error) {
+	return l.next.ResolvePhone(ctx, phone)
+}
+
 func (l *LRUResolver) get(key string) (v tg.InputPeerClass, ok bool) {
 	l.mux.Lock()
 	defer l.mux.Unlock()

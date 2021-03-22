@@ -14,8 +14,8 @@ import (
 // Promise is a peer promise.
 type Promise func(ctx context.Context) (tg.InputPeerClass, error)
 
-// Resolve uses given text to create new message builder.
-// It resolves peer of message using Sender's PeerResolver.
+// Resolve uses given string to create new peer promise.
+// It resolves peer of message using given Resolver.
 // Input examples:
 //
 //	@telegram
@@ -24,19 +24,55 @@ type Promise func(ctx context.Context) (tg.InputPeerClass, error)
 //	https://t.me/telegram
 //	tg:resolve?domain=telegram
 //	tg://resolve?domain=telegram
+//	+13115552368
+//	+1 (311) 555-0123
+//  +1 311 555-6162
 //
+// NB: phone number must has prefix "+".
 func Resolve(r Resolver, from string) Promise {
 	from = strings.TrimSpace(from)
 
 	if deeplink.IsDeeplinkLike(from) {
 		return ResolveDeeplink(r, from)
 	}
+	if len(from) > 0 && from[0] == '+' {
+		return ResolvePhone(r, from)
+	}
 
 	return ResolveDomain(r, from)
 }
 
-// ResolveDomain uses given domain to create new message builder.
-// It resolves peer of message using Sender's PeerResolver.
+func cleanupPhone(phone string) string {
+	clean := strings.Builder{}
+	clean.Grow(len(phone) + 1)
+
+	for _, ch := range phone {
+		if ascii.IsDigit(ch) {
+			clean.WriteRune(ch)
+		}
+	}
+
+	return clean.String()
+}
+
+// ResolvePhone uses given phone to create new peer promise.
+// It resolves peer of message using given Resolver.
+// Input example:
+//
+//	+13115552368
+//	+1 (311) 555-0123
+//  +1 311 555-6162
+//
+// NB: ResolvePhone just deletes any non-digit symbols from phone argument.
+// For now, Telegram sends contact number as string like "13115552368".
+func ResolvePhone(r Resolver, phone string) Promise {
+	return func(ctx context.Context) (tg.InputPeerClass, error) {
+		return r.ResolvePhone(ctx, cleanupPhone(phone))
+	}
+}
+
+// ResolveDomain uses given domain to create new peer promise.
+// It resolves peer of message using given Resolver.
 // Can has prefix with @ or not.
 // Input examples:
 //
@@ -44,11 +80,9 @@ func Resolve(r Resolver, from string) Promise {
 //	telegram
 //
 func ResolveDomain(r Resolver, domain string) Promise {
-	if strings.HasPrefix(domain, "@") {
-		domain = strings.TrimPrefix(domain, "@")
-	}
-
 	return func(ctx context.Context) (tg.InputPeerClass, error) {
+		domain = strings.TrimPrefix(domain, "@")
+
 		if err := validateDomain(domain); err != nil {
 			return nil, xerrors.Errorf("validate domain: %w", err)
 		}
@@ -92,9 +126,9 @@ func checkDomainSymbols(domain string) error {
 	return nil
 }
 
-// ResolveDeeplink uses given deeplink to create new message builder.
+// ResolveDeeplink uses given deeplink to create new peer promise.
 // Deeplink is a URL like https://t.me/telegram.
-// It resolves peer of message using Sender's PeerResolver.
+// It resolves peer of message using given Resolver.
 // Input examples:
 //
 //	t.me/telegram
