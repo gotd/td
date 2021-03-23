@@ -8,25 +8,38 @@ import (
 )
 
 const (
-	rsaBegin    = `-----BEGIN RSA PUBLIC KEY-----`
-	rsaEnd      = `-----END RSA PUBLIC KEY-----`
-	rsaBeginKey = "BEGIN"
-	rsaEndKey   = "END"
-	rsaSep      = "-----"
+	rsaBegin = "BEGIN"
+	rsaEnd   = "END"
+	rsaSep   = "-----"
 )
 
 func isBegin(s string) bool {
 	if !strings.Contains(s, rsaSep) {
 		return false
 	}
-	return strings.Contains(s, rsaBeginKey)
+	return strings.Contains(s, rsaBegin)
 }
 
 func isEnd(s string) bool {
 	if !strings.Contains(s, rsaSep) {
 		return false
 	}
-	return strings.Contains(s, rsaEndKey)
+	return strings.Contains(s, rsaEnd)
+}
+
+// cleanHeader cleans out any suffix from header.
+//
+// If s is not header, s is returned unchanged.
+func cleanHeader(s string) string {
+	if !strings.HasPrefix(s, rsaSep) {
+		return s
+	}
+	idx := strings.LastIndex(s, rsaSep)
+	if idx <= 0 {
+		return s
+	}
+
+	return s[:idx+len(rsaSep)]
 }
 
 // Extract public keys from C++ code in r to w.
@@ -44,18 +57,9 @@ func Extract(r io.Reader, w io.Writer) error {
 			strings.TrimSpace(s.Text()), `\n\`,
 		)
 
-		// Telegram uses both variants:
-		// * BEGIN RSA PUBLIC KEY
-		// * BEGIN PUBLIC KEY
-		// Just normalize to first one for convenience.
-		switch {
-		case isBegin(text):
-			text = rsaBegin
-		case isEnd(text):
-			text = rsaEnd
-		}
+		text = cleanHeader(text)
 
-		if text == rsaBegin {
+		if isBegin(text) {
 			// Public key started.
 			body = true
 		}
@@ -64,7 +68,7 @@ func Extract(r io.Reader, w io.Writer) error {
 			parts = append(parts, text)
 		}
 
-		if text == rsaEnd {
+		if isEnd(text) {
 			// Public key completed.
 			// Writing single public key to w.
 			for _, part := range parts {
