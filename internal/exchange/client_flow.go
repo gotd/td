@@ -165,7 +165,7 @@ Loop:
 		gA := big.NewInt(0).SetBytes(innerData.GA)
 
 		// 6. Random number b is computed:
-		randMax := big.NewInt(0).SetBit(big.NewInt(0), 2048, 1)
+		randMax := big.NewInt(0).SetBit(big.NewInt(0), crypto.RSAKeyBits, 1)
 		bParam, err := rand.Int(c.rand, randMax)
 		if err != nil {
 			return ClientExchangeResult{}, xerrors.Errorf("number b generation: %w", err)

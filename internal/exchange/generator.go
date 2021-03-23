@@ -51,10 +51,10 @@ func (s TestServerRNG) GA(g int, dhPrime *big.Int) (a, ga *big.Int, err error) {
 	one := big.NewInt(1)
 	dhPrimeMinusOne := big.NewInt(0).Sub(dhPrime, one)
 
-	safetyRangeMin := big.NewInt(0).Exp(big.NewInt(2), big.NewInt(2048-64), nil)
+	safetyRangeMin := big.NewInt(0).Exp(big.NewInt(2), big.NewInt(crypto.RSAKeyBits-64), nil)
 	safetyRangeMax := big.NewInt(0).Sub(dhPrime, safetyRangeMin)
 
-	randMax := big.NewInt(0).SetBit(big.NewInt(0), 2048, 1)
+	randMax := big.NewInt(0).SetBit(big.NewInt(0), crypto.RSAKeyBits, 1)
 	for {
 		a, err = rand.Int(s.rand, randMax)
 		if err != nil {

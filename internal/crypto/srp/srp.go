@@ -181,7 +181,7 @@ func (s SRP) checkGP(g int, pBytes []byte) error {
 
 	// The client is expected to check whether p is a safe 2048-bit prime
 	// (meaning that both p and (p-1)/2 are prime, and that 2^2047 < p < 2^2048)
-	if p.BitLen() != 2048 {
+	if p.BitLen() != crypto.RSAKeyBits {
 		return xerrors.New("p should be 2^2047 < p < 2^2048")
 	}
 

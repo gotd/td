@@ -28,7 +28,7 @@ func CheckDHParams(dhPrime, g, gA, gB *big.Int) error {
 	// dh_prime - 2^{2048-64} as well.
 
 	// 2^{2048-64}
-	safetyRangeMin := big.NewInt(0).Exp(big.NewInt(2), big.NewInt(2048-64), nil)
+	safetyRangeMin := big.NewInt(0).Exp(big.NewInt(2), big.NewInt(RSAKeyBits-64), nil)
 	safetyRangeMax := big.NewInt(0).Sub(dhPrime, safetyRangeMin)
 	if !InRange(gA, safetyRangeMin, safetyRangeMax) {
 		return errors.New("kex: bad g_a, g_a must be 2^{2048-64} < g_a < dh_prime - 2^{2048-64}")

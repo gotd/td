@@ -20,7 +20,7 @@ import (
 //	gB is g_b
 //	gAB is gab.
 func genGAB(dhPrime, g, gA *big.Int, randSource io.Reader) (b, gB, gAB *big.Int, err error) {
-	randMax := big.NewInt(0).SetBit(big.NewInt(0), 2048, 1)
+	randMax := big.NewInt(0).SetBit(big.NewInt(0), RSAKeyBits, 1)
 	// 6. Random number b is computed:
 	if b, err = rand.Int(randSource, randMax); err != nil {
 		return nil, nil, nil, err

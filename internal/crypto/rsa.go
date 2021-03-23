@@ -15,6 +15,11 @@ import (
 	"crypto/sha1"
 )
 
+// RSAKeyBits is RSA key size.
+//
+// Can be used as rsa.GenerateKey(src, RSAKeyBits).
+const RSAKeyBits = 2048
+
 const (
 	rsaLen         = 256
 	rsaWithHashLen = 255

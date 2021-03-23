@@ -51,7 +51,7 @@ func (s *Server) AddSession(key crypto.AuthKey) {
 }
 
 func NewUnstartedServer(dcID int, log *zap.Logger, codec func() transport.Codec) *Server {
-	k, err := rsa.GenerateKey(rand.Reader, 2048)
+	k, err := rsa.GenerateKey(rand.Reader, crypto.RSAKeyBits)
 	if err != nil {
 		panic(err)
 	}

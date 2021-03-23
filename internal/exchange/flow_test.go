@@ -12,6 +12,7 @@ import (
 	"go.uber.org/zap/zaptest"
 	"golang.org/x/sync/errgroup"
 
+	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/internal/testutil"
 	"github.com/gotd/td/transport"
@@ -21,7 +22,7 @@ func TestExchange(t *testing.T) {
 	a := require.New(t)
 
 	reader := rand.New(rand.NewSource(1))
-	key, err := rsa.GenerateKey(reader, 2048)
+	key, err := rsa.GenerateKey(reader, crypto.RSAKeyBits)
 	a.NoError(err)
 	log := zaptest.NewLogger(t)
 

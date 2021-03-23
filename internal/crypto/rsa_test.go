@@ -46,7 +46,7 @@ BSqi+FEREW/2aWSgSwIDAQAB
 func TestRSADecryptHashed(t *testing.T) {
 	a := require.New(t)
 	src := rand.Reader
-	k, err := rsa.GenerateKey(src, 2048)
+	k, err := rsa.GenerateKey(src, RSAKeyBits)
 	a.NoError(err)
 
 	plaintext := []byte("abcd")
@@ -59,7 +59,7 @@ func TestRSADecryptHashed(t *testing.T) {
 
 func TestRSAEncryptHashedCorpus(t *testing.T) {
 	reader := mathrand.New(mathrand.NewSource(0))
-	k, err := rsa.GenerateKey(reader, 2048)
+	k, err := rsa.GenerateKey(reader, RSAKeyBits)
 	require.NoError(t, err)
 
 	for _, s := range []string{
@@ -80,7 +80,7 @@ func TestRSAEncryptHashedCorpus(t *testing.T) {
 
 func TestRSAEncryptHashedFuzz(t *testing.T) {
 	src := mathrand.New(mathrand.NewSource(1))
-	k, err := rsa.GenerateKey(src, 2048)
+	k, err := rsa.GenerateKey(src, RSAKeyBits)
 	require.NoError(t, err)
 
 	for i := 0; i < 100; i++ {
