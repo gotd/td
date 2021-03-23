@@ -44,9 +44,10 @@ func (b *Builder) Complete() (string, []tg.MessageEntityClass) {
 	entities := b.entities
 	b.reset()
 
-	// If there are not entities, so we just return built message.
-	if len(entities) == 0 {
-		return msg, nil
+	// If there are not entities or last text block does not have entities
+	// so we just return built message.
+	if len(entities) == 0 || b.lastFormatIndex >= len(entities) {
+		return msg, entities
 	}
 
 	// Since Telegram client does not handle space after formatted message
@@ -63,7 +64,7 @@ func (b *Builder) Complete() (string, []tg.MessageEntityClass) {
 	if len(trimmed) != len(lastBlock) {
 		length := ComputeLength(trimmed)
 		for idx := range entities[b.lastFormatIndex:] {
-			setLength(idx, length, entities)
+			setLength(idx, length, entities[b.lastFormatIndex:])
 		}
 		return msg[:offset+len(trimmed)], entities
 	}
