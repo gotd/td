@@ -1,9 +1,9 @@
 package telegram_test
 
 import (
+	"bytes"
 	"context"
 	"errors"
-	"strings"
 	"testing"
 	"time"
 
@@ -225,25 +225,42 @@ func testFiles(trp telegram.Transport) func(t *testing.T) {
 			AccessHash: 10,
 			Username:   "rustcocks",
 		})
-		f := file.NewService(file.NewInMemory())
+		f := file.NewService(file.NewInMemory()).WitHashPartSize(128)
 		f.Register(q.DC(2, "DC").Dispatcher())
 	}, func(ctx context.Context, c clientSetup) error {
 		client := telegram.NewClient(1, "hash", c.Options)
 		defer c.Complete()
 		return client.Run(ctx, func(ctx context.Context) error {
 			raw := tg.NewClient(client)
-			f, err := uploader.NewUploader(raw).FromBytes(ctx, "10.jpg", []byte("data"))
-			if err != nil {
-				return err
+			upd := uploader.NewUploader(raw)
+			dwn := downloader.NewDownloader()
+
+			payloads := [][]byte{
+				[]byte("data"),
+				bytes.Repeat([]byte{10}, 1337),
+				bytes.Repeat([]byte{42}, 16384),
 			}
 
-			var b strings.Builder
-			_, err = downloader.NewDownloader().Download(raw, &tg.InputFileLocation{
-				VolumeID: f.GetID(),
-				LocalID:  10,
-			}).Stream(ctx, &b)
-			require.Equal(c.TB, "data", b.String())
-			return err
+			for _, payload := range payloads {
+				f, err := upd.FromBytes(ctx, "10.jpg", payload)
+				if err != nil {
+					return err
+				}
+
+				var b bytes.Buffer
+				_, err = dwn.Download(raw, &tg.InputFileLocation{
+					VolumeID: f.GetID(),
+					LocalID:  10,
+				}).WithVerify(true).Stream(ctx, &b)
+				if err != nil {
+					return err
+				}
+
+				if !bytes.Equal(payload, b.Bytes()) {
+					c.TB.Error("must be equal")
+				}
+			}
+			return nil
 		})
 	})
 }

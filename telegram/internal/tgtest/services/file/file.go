@@ -31,7 +31,7 @@ func (m *Service) WitHashPartSize(hashPartSize int) *Service {
 	return m
 }
 
-// WitHashPartSize sets size of range to return in upload.getFileHashes.
+// WitHashRangeSize sets size of range to return in upload.getFileHashes.
 func (m *Service) WitHashRangeSize(hashRangeSize int) *Service {
 	m.hashRangeSize = hashRangeSize
 	return m
