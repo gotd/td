@@ -47,8 +47,8 @@ func (s *Sender) builder(promise peer.Promise, decorators []peer.PromiseDecorato
 }
 
 // PeerPromise uses given peer promise to create new message builder.
-func (s *Sender) PeerPromise(p peer.Promise) *RequestBuilder {
-	return s.builder(p, nil)
+func (s *Sender) PeerPromise(p peer.Promise, decorators ...peer.PromiseDecorator) *RequestBuilder {
+	return s.builder(p, decorators)
 }
 
 // Peer uses given peer to create new message builder.

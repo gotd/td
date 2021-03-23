@@ -13,7 +13,10 @@ import (
 
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/internal/crypto"
+	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
+	"github.com/gotd/td/internal/tmap"
+	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
 )
 
@@ -31,6 +34,7 @@ type Server struct {
 	msgID *proto.MessageIDGen // immutable
 
 	users *users
+	types *tmap.Map
 }
 
 func (s *Server) Key() *rsa.PublicKey {
@@ -62,6 +66,11 @@ func NewUnstartedServer(dcID int, log *zap.Logger, codec func() transport.Codec)
 		dispatcher: NewDispatcher(),
 		users:      newUsers(),
 		msgID:      proto.NewMessageIDGen(clock.System.Now, 100),
+		types: tmap.New(
+			tg.TypesMap(),
+			mt.TypesMap(),
+			proto.TypesMap(),
+		),
 	}
 	return s
 }

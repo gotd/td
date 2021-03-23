@@ -74,7 +74,7 @@ func (u *Uploader) bigLoop(ctx context.Context, threads int, upload *Upload) err
 
 			buf.Buf = buf.Buf[:n]
 			nextPart := part{
-				id:     int(upload.sentParts.Load()) % partsLimit,
+				id:     int(upload.sentParts.Load()),
 				buf:    buf,
 				upload: upload,
 			}

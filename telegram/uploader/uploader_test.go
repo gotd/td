@@ -34,7 +34,7 @@ func newMockClient(err bool) *mockClient {
 	return &mockClient{
 		err:   err,
 		buf:   &syncio.BufWriterAt{},
-		parts: make([]atomic.Int64, 3000),
+		parts: make([]atomic.Int64, partsLimit+1),
 	}
 }
 
@@ -56,7 +56,7 @@ func (m *mockClient) write(part int, data []byte) error {
 	m.partSizeMux.Unlock()
 
 	// Every part have ID which is offset in partSize from start of file.
-	// But maximal ID is 2999, so part ID for big files can overflow.
+	// But maximal ID is 3999, so part ID for big files can overflow.
 	// We use parts array to count received parts by ID to compute the offset.
 	rangeOffset := int(m.parts[part].Inc() - 1)
 

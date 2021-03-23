@@ -14,7 +14,7 @@ func TestUploader_checkPartSize(t *testing.T) {
 	}{
 		{"Zero", 0, true},
 		{"Not divisible by 1024", 1023, true},
-		{"524288 not divisible by part", 524288 + 1024, true},
+		{"Max not divisible by part", MaximumPartSize + 1024, true},
 		{"Default", defaultPartSize, false},
 	}
 	for _, tt := range tests {

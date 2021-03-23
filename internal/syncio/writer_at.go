@@ -3,6 +3,8 @@ package syncio
 import (
 	"io"
 	"sync"
+
+	"golang.org/x/xerrors"
 )
 
 // WriterAt is synchronized io.WriterAt.
@@ -39,8 +41,45 @@ func (b *BufWriterAt) Bytes() (r []byte) {
 	return append(make([]byte, 0, len(b.buf)), b.buf...)
 }
 
+// Len returns buffer available data size.
+func (b *BufWriterAt) Len() int {
+	b.mux.RLock()
+	defer b.mux.RUnlock()
+
+	return len(b.buf)
+}
+
+// ReadAt implements io.ReaderAt.
+func (b *BufWriterAt) ReadAt(p []byte, off int64) (n int, err error) {
+	if off < 0 {
+		return 0, xerrors.Errorf("invalid offset %d", off)
+	}
+
+	b.mux.RLock()
+	defer b.mux.RUnlock()
+
+	l := int64(len(b.buf))
+	switch {
+	case off >= l:
+		return 0, nil
+	case off+int64(len(p)) >= l:
+		r := b.buf[off:]
+		copy(p, r)
+		return len(r), nil
+	}
+
+	from := off
+	to := off + int64(len(p))
+	copy(p, b.buf[from:to])
+	return len(p), nil
+}
+
 // WriteAt implements io.WriterAt.
 func (b *BufWriterAt) WriteAt(p []byte, off int64) (n int, err error) {
+	if off < 0 {
+		return 0, xerrors.Errorf("invalid offset %d", off)
+	}
+
 	b.mux.Lock()
 	defer b.mux.Unlock()
 
@@ -54,5 +93,5 @@ func (b *BufWriterAt) WriteAt(p []byte, off int64) (n int, err error) {
 	from := off
 	to := off + int64(len(p))
 	copy(b.buf[from:to], p)
-	return len(b.buf), nil
+	return len(p), nil
 }

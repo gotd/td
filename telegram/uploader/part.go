@@ -1,24 +1,28 @@
 package uploader
 
-import "golang.org/x/xerrors"
+import (
+	"golang.org/x/xerrors"
+
+	"github.com/gotd/td/telegram/internal/helpers"
+)
 
 // https://core.telegram.org/api/files#uploading-files
 const (
 	// Use upload.saveBigFilePart in case the full size of the file is more than 10 MB
 	// and upload.saveFilePart for smaller files
-	bigFileLimit = 10 * 1024 * 1024 // 10 MB
+	bigFileLimit = helpers.BigFileLimit // 10 MB
 
-	// Each part should have a sequence number, file_part, with a value ranging from 0 to 2,999.
-	partsLimit = 2999
+	// Each part should have a sequence number, file_part, with a value ranging from 0 to 3,999.
+	partsLimit = helpers.PartsLimit
 
 	defaultPartSize = 128 * 1024 // 128 KB
 	// The file’s binary content is then split into parts. All parts must have the same size (part_size)
 	// and the following conditions must be met:
 
 	// `part_size % 1024 = 0` (divisible by 1KB)
-	paddingPartSize = 1024
+	paddingPartSize = helpers.PaddingPartSize
 	// `524288 % part_size = 0` (512KB must be evenly divisible by part_size)
-	MaximumPartSize = 524288
+	MaximumPartSize = helpers.MaximumPartSize
 )
 
 func checkPartSize(partSize int) error {
@@ -26,9 +30,9 @@ func checkPartSize(partSize int) error {
 	case partSize == 0:
 		return xerrors.New("is equal to zero")
 	case partSize%paddingPartSize != 0:
-		return xerrors.Errorf("%d is not divisible by 1024", partSize)
+		return xerrors.Errorf("%d is not divisible by %d", partSize, paddingPartSize)
 	case MaximumPartSize%partSize != 0:
-		return xerrors.Errorf("524288 is not divisible by %d", partSize)
+		return xerrors.Errorf("%d is not divisible by %d", MaximumPartSize, partSize)
 	}
 
 	return nil
