@@ -55,7 +55,7 @@ func (u UpdateDispatcher) Handle(ctx context.Context, updates *Updates) error {
         e.lazyInitFromUpdates(updates)
         multierr.AppendInto(&err, u.dispatch(ctx, e, update))
 	}
-	return nil
+	return err
 }
 
 // HandleShort implements UpdateDispatcher.
