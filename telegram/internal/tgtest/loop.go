@@ -9,6 +9,7 @@ import (
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/crypto"
 	"github.com/gotd/td/internal/mt"
+	"github.com/gotd/td/tgerr"
 	"github.com/gotd/td/transport"
 )
 
@@ -112,6 +113,10 @@ func (s *Server) handle(req *Request) error {
 	}
 
 	if err := s.dispatcher.OnMessage(s, req); err != nil {
+		var rpcErr *tgerr.Error
+		if xerrors.As(err, &rpcErr) {
+			return s.SendErr(req, rpcErr)
+		}
 		return xerrors.Errorf("failed to call handler: %w", err)
 	}
 

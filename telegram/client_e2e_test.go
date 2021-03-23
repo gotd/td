@@ -225,7 +225,7 @@ func testFiles(trp telegram.Transport) func(t *testing.T) {
 			AccessHash: 10,
 			Username:   "rustcocks",
 		})
-		f := file.NewService(file.NewInMemory()).WitHashPartSize(128)
+		f := file.NewService(file.NewInMemory()).WitHashPartSize(1024)
 		f.Register(q.DC(2, "DC").Dispatcher())
 	}, func(ctx context.Context, c clientSetup) error {
 		client := telegram.NewClient(1, "hash", c.Options)

@@ -26,6 +26,7 @@ func NewService(storage Storage) *Service {
 }
 
 // WitHashPartSize sets size of part to use in tg.FileHash.
+// Must be valid part size.
 func (m *Service) WitHashPartSize(hashPartSize int) *Service {
 	m.hashPartSize = hashPartSize
 	return m

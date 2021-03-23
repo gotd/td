@@ -11,6 +11,7 @@ import (
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 )
 
 func (s *Server) Send(ctx context.Context, k Session, t proto.MessageType, encoder bin.Encoder) error {
@@ -58,6 +59,13 @@ func (s *Server) SendResult(req *Request, msg bin.Encoder) error {
 	}
 
 	return nil
+}
+
+func (s *Server) SendErr(req *Request, e *tgerr.Error) error {
+	return s.SendResult(req, &mt.RPCError{
+		ErrorCode:    e.Code,
+		ErrorMessage: e.Message,
+	})
 }
 
 func (s *Server) SendBool(req *Request, r bool) error {

@@ -27,10 +27,18 @@ func validatePartSize(got, stored int) *tgerr.Error {
 		return tgerr.New(400, tg.ErrFilePartEmpty)
 	case got > helpers.MaximumPartSize:
 		return tgerr.New(400, tg.ErrFilePartTooBig)
-	case helpers.MaximumPartSize%got != 0:
-		return tgerr.New(400, tg.ErrFilePartSizeInvalid)
-	case stored != 0 && got != stored:
+	}
+
+	if stored == 0 {
+		return nil
+	}
+
+	switch {
+	case got != stored:
 		return tgerr.New(400, tg.ErrFilePartSizeChanged)
+	case helpers.MaximumPartSize%got != 0,
+		got%helpers.PaddingPartSize != 0:
+		return tgerr.New(400, tg.ErrFilePartSizeInvalid)
 	default:
 		return nil
 	}
