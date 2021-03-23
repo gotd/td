@@ -14,6 +14,10 @@ download_schema:
 	go run ./cmd/dltl -f api.tl -o _schema/telegram.tl
 .PHONY: download_schema
 
+download_public_keys:
+	go run ./cmd/dlkey -o internal/mtproto/_data/public_keys.pem
+.PHONY: download_public_keys
+
 download_e2e_schema:
 	go run ./cmd/dltl -base https://raw.githubusercontent.com/tdlib/td -branch master -dir td/generate/scheme -f secret_api.tl -o _schema/encrypted.tl
 .PHONY: download_e2e_schema
