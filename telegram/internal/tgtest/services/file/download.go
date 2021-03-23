@@ -65,7 +65,7 @@ func (m *Service) UploadGetFile(ctx context.Context, request *tg.UploadGetFileRe
 	}, nil
 }
 
-func countHashes(data []byte, partSize int) []tg.FileHash {
+func countHashes(data []byte, offset, partSize int) []tg.FileHash {
 	actions := data
 	batchSize := partSize
 	batches := make([][]byte, 0, (len(actions)+batchSize-1)/batchSize)
@@ -76,7 +76,6 @@ func countHashes(data []byte, partSize int) []tg.FileHash {
 	batches = append(batches, actions)
 
 	currentRange := make([]tg.FileHash, 0, 10)
-	offset := 0
 	for _, batch := range batches {
 		currentRange = append(currentRange, tg.FileHash{
 			Offset: offset,
@@ -98,17 +97,10 @@ func divAndCeil(a, b int) int {
 }
 
 // computeBatch computes hash range number for given offset.
-// Illustration:
-//
-// 	Bytes
-// 	[0 1 2 3 4 5 6 7 8 9 10 11 ... 111 122 123 124 125 126 127]
-//	Parts of bytes (in partSize)
-//  [		0			1			2			3			4 ]
-// 	Hash range for multiple parts (in rangeSize)
-//	[					1					2				  ]
-//
 func computeBatch(offset, rangeSize, partSize int) int {
+	// Compute number of parts in partSize from offset.
 	parts := divAndCeil(offset+1, partSize)
+	// Compute number of hash ranges in rangeSize.
 	batches := divAndCeil(parts, rangeSize)
 
 	return batches
@@ -126,19 +118,19 @@ func (m *Service) UploadGetFileHashes(
 	if request.Offset >= f.Size() {
 		return nil, nil
 	}
-	// Telegram usually uses this values.
-	partSize := 131072
-	rangeSize := 10
+	partSize := m.hashPartSize
+	rangeSize := m.hashRangeSize
 	batch := computeBatch(request.Offset, rangeSize, partSize)
 
 	low := (batch - 1) * rangeSize * partSize
 	high := batch * rangeSize * partSize
 
 	r := make([]byte, high-low)
-	_, err = f.ReadAt(r, int64(low))
+	n, err := f.ReadAt(r, int64(low))
 	if err != nil {
 		return nil, err
 	}
+	r = r[:n]
 
-	return countHashes(r, partSize), nil
+	return countHashes(r, low, partSize), nil
 }

@@ -9,11 +9,32 @@ import (
 // Service is a Telegram file service.
 type Service struct {
 	storage Storage
+	// Size of part to use in tg.FileHash.
+	hashPartSize int
+	// Size of range to return in upload.getFileHashes.
+	hashRangeSize int
 }
 
 // NewService creates new file Service.
-func NewService(storage Storage) Service {
-	return Service{storage: storage}
+func NewService(storage Storage) *Service {
+	return &Service{
+		storage: storage,
+		// Telegram usually uses this values.
+		hashPartSize:  131072,
+		hashRangeSize: 10,
+	}
+}
+
+// WitHashPartSize sets size of part to use in tg.FileHash.
+func (m *Service) WitHashPartSize(hashPartSize int) *Service {
+	m.hashPartSize = hashPartSize
+	return m
+}
+
+// WitHashPartSize sets size of range to return in upload.getFileHashes.
+func (m *Service) WitHashRangeSize(hashRangeSize int) *Service {
+	m.hashRangeSize = hashRangeSize
+	return m
 }
 
 // OnMessage implements tgtest.Handler.
