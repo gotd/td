@@ -44,15 +44,12 @@ var funcs = template.FuncMap{
 	},
 }
 
-func init() {
-	log.SetFlags(log.Llongfile)
-}
-
 func main() {
 	os.Exit(main1())
 }
 
 func main1() int {
+	log.SetFlags(log.Llongfile)
 	var (
 		inPath       = ""
 		outPath      = ""
