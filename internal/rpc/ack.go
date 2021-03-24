@@ -12,7 +12,7 @@ func (e *Engine) NotifyAcks(ids []int64) {
 	for _, id := range ids {
 		ch, ok := e.ack[id]
 		if !ok {
-			e.log.Debug("Acknowledge callback not set", zap.Int64("msg_id", id))
+			e.log.Debug("Acknowledge callback not set", zap.Int64("req_id", id))
 			continue
 		}
 
