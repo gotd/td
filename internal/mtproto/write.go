@@ -17,8 +17,6 @@ func (c *Conn) writeServiceMessage(ctx context.Context, message bin.Encoder) err
 
 func (c *Conn) write(ctx context.Context, reqID int64, content bool, message bin.Encoder) error {
 	c.reqMux.Lock()
-	defer c.reqMux.Unlock()
-
 	// Note that reqID is internal RPC request id that can be only used for
 	// tracing and has no relation to telegram server or protocol.
 	msgID, ok := c.reqToMsg[reqID]
@@ -33,11 +31,6 @@ func (c *Conn) write(ctx context.Context, reqID int64, content bool, message bin
 		c.msgToReq[msgID] = reqID
 	}
 
-	cleanup := func() {
-		delete(c.reqToMsg, reqID)
-		delete(c.msgToReq, msgID)
-	}
-
 	// Computing current sequence number (seqno).
 	// This should be serialized with new message id generation.
 	//
@@ -46,6 +39,16 @@ func (c *Conn) write(ctx context.Context, reqID int64, content bool, message bin
 	if content {
 		seq++
 		c.sentContentMessages++
+	}
+	// It is not required to serialize on-the-wire writes (at least for now),
+	// so we can release mutex here.
+	c.reqMux.Unlock()
+
+	cleanup := func() {
+		c.reqMux.Lock()
+		delete(c.reqToMsg, reqID)
+		delete(c.msgToReq, msgID)
+		c.reqMux.Unlock()
 	}
 
 	b := new(bin.Buffer)
