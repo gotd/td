@@ -16,7 +16,7 @@ import (
 	"github.com/gotd/tl"
 )
 
-func mergeSchema(target *tl.Schema, s *tl.Schema) {
+func mergeSchema(target, s *tl.Schema) {
 Definitions:
 	for _, d := range s.Definitions {
 		for _, targetD := range target.Definitions {
