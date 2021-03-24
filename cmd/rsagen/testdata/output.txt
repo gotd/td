@@ -8,4 +8,4 @@ grep '\[]\*rsa.PublicKey\{}' out.go
 mkdir dir
 ! rsagen -o dir
 ! stdout .
-stderr 'open dir: is a directory'
+stderr 'write output: '

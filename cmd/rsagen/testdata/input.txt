@@ -7,7 +7,7 @@ stdout '// Fingerprint: c3b42b026ce86b21'
 # Error on non-existent file
 ! rsagen -f missing.pem
 ! stdout .
-stderr 'open missing.pem: no such file or directory'
+stderr 'read input: '
 
 -- input.pem --
 -----BEGIN RSA PUBLIC KEY-----
