@@ -17,7 +17,7 @@ type Salts struct {
 }
 
 // Get returns next valid salt.
-func (s *Salts) Get(buffer time.Duration) (int64, bool) {
+func (s *Salts) Get(deadline time.Time) (int64, bool) {
 	s.saltsMux.Lock()
 	defer s.saltsMux.Unlock()
 
@@ -29,8 +29,9 @@ func (s *Salts) Get(buffer time.Duration) (int64, bool) {
 	// Filter (in place) from SliceTricks.
 	n := 0
 	dedup := make(map[int64]struct{}, len(s.salts)+1)
-	// Check that the salt will be valid next 5 minute.
-	date := int(time.Now().Add(buffer).Unix())
+
+	// Check that the salt will be valid until deadline.
+	date := int(deadline.Unix())
 	for _, salt := range s.salts {
 		// Filter expired salts.
 		if _, ok := dedup[salt.Salt]; !ok && salt.ValidUntil > date {

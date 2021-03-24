@@ -16,7 +16,7 @@ func (c *Conn) storeSalt(salt int64) {
 }
 
 func (c *Conn) updateSalt() {
-	salt, ok := c.salts.Get(5 * time.Minute)
+	salt, ok := c.salts.Get(c.clock.Now().Add(time.Minute * 5))
 	if !ok {
 		return
 	}
