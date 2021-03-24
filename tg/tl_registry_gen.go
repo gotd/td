@@ -1313,6 +1313,10 @@ func TypesMap() map[uint32]string {
 		0xdcdf8607: "stats.getMegagroupStats#dcdf8607",
 		0x5630281b: "stats.getMessagePublicForwards#5630281b",
 		0xb6e0a3f5: "stats.getMessageStats#b6e0a3f5",
+		0xd433ad73: "ipPort#d433ad73",
+		0x37982646: "ipPortSecret#37982646",
+		0x4679b65f: "accessPointRule#4679b65f",
+		0x5a592a6c: "help.configSimple#5a592a6c",
 	}
 }
 
@@ -2597,6 +2601,10 @@ func NamesMap() map[string]uint32 {
 		"stats.getMegagroupStats":                                           0xdcdf8607,
 		"stats.getMessagePublicForwards":                                    0x5630281b,
 		"stats.getMessageStats":                                             0xb6e0a3f5,
+		"ipPort":                                                            0xd433ad73,
+		"ipPortSecret":                                                      0x37982646,
+		"accessPointRule":                                                   0x4679b65f,
+		"help.configSimple":                                                 0x5a592a6c,
 	}
 }
 
@@ -3881,5 +3889,9 @@ func TypesConstructorMap() map[uint32]func() bin.Object {
 		0xdcdf8607: func() bin.Object { return &StatsGetMegagroupStatsRequest{} },
 		0x5630281b: func() bin.Object { return &StatsGetMessagePublicForwardsRequest{} },
 		0xb6e0a3f5: func() bin.Object { return &StatsGetMessageStatsRequest{} },
+		0xd433ad73: func() bin.Object { return &IPPort{} },
+		0x37982646: func() bin.Object { return &IPPortSecret{} },
+		0x4679b65f: func() bin.Object { return &AccessPointRule{} },
+		0x5a592a6c: func() bin.Object { return &HelpConfigSimple{} },
 	}
 }

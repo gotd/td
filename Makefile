@@ -11,7 +11,7 @@ generate:
 .PHONY: generate
 
 download_schema:
-	go run ./cmd/dltl -f api.tl -o _schema/telegram.tl
+	go run ./cmd/dltl -f api.tl -o _schema/telegram.tl -merge _schema/help_config_simple.tl
 .PHONY: download_schema
 
 download_public_keys:
