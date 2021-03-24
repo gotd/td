@@ -20,7 +20,7 @@
 {{- end }}
 type {{ $s.Name }} struct {
 {{- range $f := $s.Fields }}
-// {{ $f.Comment }}
+{{- template "print_comment" $f }}
 {{- if $f.Links}}
     {{- template "print_links" $f.Links }}
 {{- end }}

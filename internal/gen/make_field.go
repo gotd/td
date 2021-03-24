@@ -15,7 +15,7 @@ type fieldDef struct {
 	// Name of field. Should be in camel case.
 	Name string
 	// Comment for field. Currently only one-line.
-	Comment string
+	Comment []string
 	// Type is go type for field.
 	Type string
 	// Func is name for bin.* functions, e.g. String will render
@@ -115,7 +115,9 @@ func (g *Generator) makeField(param tl.Parameter, annotations []tl.Annotation) (
 	baseType := param.Type
 	for _, a := range annotations {
 		if a.Name == param.Name {
-			f.Comment = a.Value
+			if a.Value != "" {
+				f.Comment = []string{a.Value}
+			}
 		}
 	}
 	if baseType.Name == bareVectorName || baseType.Name == "Vector" {

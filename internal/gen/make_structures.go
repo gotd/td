@@ -141,6 +141,7 @@ func (g *Generator) makeStructures() error {
 			// Assuming constructor by default.
 			s.URL = g.docURL("constructor", typeKey)
 		}
+		s.Docs = splitLines(s.Docs, g.docLineLimit)
 
 		// Selecting receiver based on non-namespaced type.
 		s.Receiver = strings.ToLower(d.Name[:1])
@@ -173,15 +174,19 @@ func (g *Generator) makeStructures() error {
 				allFieldRequired = false
 			}
 
-			if f.Comment == "" {
-				f.Comment = docMethod.Parameters[param.Name].Description
+			if len(f.Comment) < 1 || f.Comment[0] == "" {
+				comment := docMethod.Parameters[param.Name].Description
+				if comment == "" {
+					comment = docStruct.Fields[param.Name].Description
+				}
+				if comment == "" {
+					comment = fmt.Sprintf("%s field of %s.", f.Name, s.Name)
+				}
+
+				f.Comment = []string{comment}
 			}
-			if f.Comment == "" {
-				f.Comment = docStruct.Fields[param.Name].Description
-			}
-			if f.Comment == "" {
-				f.Comment = fmt.Sprintf("%s field of %s.", f.Name, s.Name)
-			}
+
+			f.Comment = splitLines(f.Comment, g.docLineLimit)
 			s.Fields = append(s.Fields, f)
 		}
 
