@@ -33,7 +33,7 @@ func (c *Conn) getSalts(ctx context.Context) error {
 	ctx, cancel := context.WithTimeout(ctx, c.getTimeout(request.TypeID()))
 	defer cancel()
 
-	if err := c.write(ctx, c.newMessageID(), c.seqNo(false), request); err != nil {
+	if err := c.writeServiceMessage(ctx, request); err != nil {
 		return xerrors.Errorf("request salts: %w", err)
 	}
 

@@ -74,15 +74,15 @@ func newMigrationClient(t *testing.T, h migrationTestHandler) *Client {
 
 		ready := tdsync.NewReady()
 		ready.Signal()
-		engine = rpc.New(func(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error {
-			if response, err := h(msgID, connOpts.DC, in); err != nil {
-				engine.NotifyError(msgID, err)
+		engine = rpc.New(func(ctx context.Context, reqID int64, in bin.Encoder) error {
+			if response, err := h(reqID, connOpts.DC, in); err != nil {
+				engine.NotifyError(reqID, err)
 			} else {
 				var b bin.Buffer
 				if err := b.Encode(response); err != nil {
 					return err
 				}
-				return engine.NotifyResult(msgID, &b)
+				return engine.NotifyResult(reqID, &b)
 			}
 			return nil
 		}, rpc.Options{})

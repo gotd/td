@@ -40,10 +40,9 @@ func (t *testConn) Ready() <-chan struct{} {
 func (t *testConn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	id := t.id.Inc() - 1
 	return t.engine.Do(ctx, rpc.Request{
-		Input:    input,
-		Output:   output,
-		ID:       id,
-		Sequence: int32(id),
+		Input:  input,
+		Output: output,
+		ID:     id,
 	})
 }
 
@@ -52,15 +51,15 @@ func (testConn) Run(ctx context.Context) error { return nil }
 func newTestClient(h testHandler) *Client {
 	var engine *rpc.Engine
 
-	engine = rpc.New(func(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error {
-		if response, err := h(msgID, in); err != nil {
-			engine.NotifyError(msgID, err)
+	engine = rpc.New(func(ctx context.Context, reqID int64, in bin.Encoder) error {
+		if response, err := h(reqID, in); err != nil {
+			engine.NotifyError(reqID, err)
 		} else {
 			var b bin.Buffer
 			if err := b.Encode(response); err != nil {
 				return err
 			}
-			return engine.NotifyResult(msgID, &b)
+			return engine.NotifyResult(reqID, &b)
 		}
 		return nil
 	}, rpc.Options{})

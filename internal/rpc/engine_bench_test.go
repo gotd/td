@@ -32,8 +32,8 @@ func BenchmarkEngine_Do(b *testing.B) {
 	ids := make(chan int64, 100)
 	defer close(ids)
 
-	e := New(func(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error {
-		ids <- msgID
+	e := New(func(ctx context.Context, reqID int64, in bin.Encoder) error {
+		ids <- reqID
 		return nil
 	}, Options{})
 
@@ -62,10 +62,9 @@ func BenchmarkEngine_Do(b *testing.B) {
 		for pb.Next() {
 			nextID := atomic.AddInt64(&id, 1)
 			if err := e.Do(ctx, Request{
-				ID:       nextID,
-				Sequence: int32(nextID),
-				Input:    obj,
-				Output:   obj,
+				ID:     nextID,
+				Input:  obj,
+				Output: obj,
 			}); err != nil {
 				b.Fatal(err)
 			}

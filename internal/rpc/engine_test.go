@@ -68,8 +68,7 @@ func TestRPCError(t *testing.T) {
 
 		log.Info("Sending ping request")
 		err := e.Do(context.TODO(), Request{
-			ID:       reqID,
-			Sequence: seqNo,
+			ID: reqID,
 			Input: &mt.PingRequest{
 				PingID: pingID,
 			},
@@ -130,10 +129,9 @@ func TestRPCResult(t *testing.T) {
 		log.Info("Sending ping request")
 		var out mt.Pong
 		require.NoError(t, e.Do(context.TODO(), Request{
-			ID:       reqID,
-			Sequence: seqNo,
-			Input:    &mt.PingRequest{PingID: pingID},
-			Output:   &out,
+			ID:     reqID,
+			Input:  &mt.PingRequest{PingID: pingID},
+			Output: &out,
 		}))
 
 		log.Info("Got pong response")
@@ -199,10 +197,9 @@ func TestRPCAckThenResult(t *testing.T) {
 		log.Info("Sending ping request")
 		var out mt.Pong
 		require.NoError(t, e.Do(context.TODO(), Request{
-			ID:       reqID,
-			Sequence: seqNo,
-			Input:    &mt.PingRequest{PingID: pingID},
-			Output:   &out,
+			ID:     reqID,
+			Input:  &mt.PingRequest{PingID: pingID},
+			Output: &out,
 		}))
 
 		log.Info("Got pong response")
@@ -271,10 +268,9 @@ func TestRPCWithRetryResult(t *testing.T) {
 		log.Info("Sending ping request")
 		var out mt.Pong
 		require.NoError(t, e.Do(context.TODO(), Request{
-			ID:       1,
-			Sequence: 1,
-			Input:    &mt.PingRequest{PingID: pingID},
-			Output:   &out,
+			ID:     1,
+			Input:  &mt.PingRequest{PingID: pingID},
+			Output: &out,
 		}))
 
 		log.Info("Got pong response")
@@ -328,24 +324,19 @@ func TestEngineGracefulShutdown(t *testing.T) {
 	}
 
 	client := func(t *testing.T, e *Engine) error {
-		var (
-			currMsgID int64
-			currSeqNo int32
-		)
+		var currMsgID int64
 
 		for i := 0; i < requestsCount; i++ {
-			go func(t *testing.T, msgID int64, seqNo int32) {
+			go func(t *testing.T, reqID int64) {
 				var out mt.Pong
 				require.Equal(t, e.Do(context.TODO(), Request{
-					ID:       msgID,
-					Sequence: seqNo,
-					Input:    &mt.PingRequest{PingID: pingID},
-					Output:   &out,
+					ID:     reqID,
+					Input:  &mt.PingRequest{PingID: pingID},
+					Output: &out,
 				}), expectedErr)
-			}(t, currMsgID, currSeqNo)
+			}(t, currMsgID)
 
 			currMsgID++
-			currSeqNo++
 		}
 
 		// wait until server receive all requests
@@ -406,10 +397,9 @@ func TestDropRPC(t *testing.T) {
 		}()
 
 		require.ErrorIs(t, e.Do(ctx, Request{
-			ID:       reqID,
-			Sequence: seqNo,
-			Input:    &mt.PingRequest{PingID: pingID},
-			Output:   &mt.Pong{},
+			ID:     reqID,
+			Input:  &mt.PingRequest{PingID: pingID},
+			Output: &mt.Pong{},
 		}), context.Canceled)
 
 		return nil
@@ -436,9 +426,9 @@ func runTest(
 	requests := make(chan request)
 	defer close(requests)
 
-	e := New(func(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error {
+	e := New(func(ctx context.Context, reqID int64, in bin.Encoder) error {
 		req := request{
-			MsgID: msgID,
+			MsgID: reqID,
 			SeqNo: seqNo,
 			Input: in,
 		}
