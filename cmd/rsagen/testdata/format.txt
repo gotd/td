@@ -1,0 +1,12 @@
+# Shows format error
+! rsagen -templates template
+! stdout .
+stderr 'format output: '
+
+# Disables formatting
+rsagen -format=false -templates template
+cmp stdout template/main.tmpl
+! stderr .
+
+-- template/main.tmpl --
+/* unclosed comment

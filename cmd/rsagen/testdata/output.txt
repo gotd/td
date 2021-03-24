@@ -1,0 +1,11 @@
+# Can output to filesystem
+rsagen -o out.go
+! stderr .
+! stdout .
+grep '\[]\*rsa.PublicKey\{}' out.go
+
+# Error on writing to directory
+mkdir dir
+! rsagen -o dir
+! stdout .
+stderr 'open dir: is a directory'
