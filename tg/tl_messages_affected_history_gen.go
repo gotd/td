@@ -38,7 +38,9 @@ type MessagesAffectedHistory struct {
 	Pts int
 	// Number of affected events
 	PtsCount int
-	// If a parameter contains positive value, it is necessary to repeat the method call using the given value; during the proceeding of all the history the value itself shall gradually decrease
+	// If a parameter contains positive value, it is necessary to repeat the method call
+	// using the given value; during the proceeding of all the history the value itself shall
+	// gradually decrease
 	Offset int
 }
 

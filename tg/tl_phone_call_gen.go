@@ -1996,6 +1996,7 @@ type PhoneCallClass interface {
 
 	// Call ID
 	GetID() (value int64)
+
 	// AsNotEmpty tries to map PhoneCallClass to NotEmptyPhoneCall.
 	AsNotEmpty() (NotEmptyPhoneCall, bool)
 }
@@ -2030,6 +2031,7 @@ type NotEmptyPhoneCall interface {
 
 	// Is this a video call
 	GetVideo() (value bool)
+
 	// Call ID
 	GetID() (value int64)
 }

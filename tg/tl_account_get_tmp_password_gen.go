@@ -36,7 +36,8 @@ var (
 type AccountGetTmpPasswordRequest struct {
 	// SRP password parameters
 	Password InputCheckPasswordSRPClass
-	// Time during which the temporary password will be valid, in seconds; should be between 60 and 86400
+	// Time during which the temporary password will be valid, in seconds; should be between
+	// 60 and 86400
 	Period int
 }
 

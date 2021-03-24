@@ -44,9 +44,11 @@ type MessagesGetHistoryRequest struct {
 	AddOffset int
 	// Number of results to return
 	Limit int
-	// If a positive value was transferred, the method will return only messages with IDs less than max_id
+	// If a positive value was transferred, the method will return only messages with IDs
+	// less than max_id
 	MaxID int
-	// If a positive value was transferred, the method will return only messages with IDs more than min_id
+	// If a positive value was transferred, the method will return only messages with IDs
+	// more than min_id
 	MinID int
 	// Result hash¹
 	//

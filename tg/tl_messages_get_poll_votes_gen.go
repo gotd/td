@@ -47,7 +47,10 @@ type MessagesGetPollVotesRequest struct {
 	//
 	// Use SetOption and GetOption helpers.
 	Option []byte
-	// Offset for results, taken from the next_offset field of messages.votesList¹, initially an empty string. Note: if no more results are available, the method call will return an empty next_offset; thus, avoid providing the next_offset returned in messages.votesList² if it is empty, to avoid an infinite loop.
+	// Offset for results, taken from the next_offset field of messages.votesList¹,
+	// initially an empty string. Note: if no more results are available, the method call
+	// will return an empty next_offset; thus, avoid providing the next_offset returned in
+	// messages.votesList² if it is empty, to avoid an infinite loop.
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/messages.votesList

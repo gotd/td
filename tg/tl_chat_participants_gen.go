@@ -460,6 +460,7 @@ type ChatParticipantsClass interface {
 
 	// Group ID
 	GetChatID() (value int)
+
 	// AsNotForbidden tries to map ChatParticipantsClass to ChatParticipants.
 	AsNotForbidden() (*ChatParticipants, bool)
 }

@@ -41,7 +41,8 @@ type PaymentsPaymentForm struct {
 	Flags bin.Fields
 	// Whether the user can choose to save credentials.
 	CanSaveCredentials bool
-	// Indicates that the user can save payment credentials, but only after setting up a 2FA password¹ (currently the account doesn't have a 2FA password²)
+	// Indicates that the user can save payment credentials, but only after setting up a 2FA
+	// password¹ (currently the account doesn't have a 2FA password²)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
@@ -59,7 +60,14 @@ type PaymentsPaymentForm struct {
 	//
 	// Use SetNativeProvider and GetNativeProvider helpers.
 	NativeProvider string
-	// Contains information about the payment provider, if available, to support it natively without the need for opening the URL.A JSON object that can contain the following fields:- publishable_key: Stripe API publishable key- apple_pay_merchant_id: Apple Pay merchant ID- android_pay_public_key: Android Pay public key- android_pay_bgcolor: Android Pay form background color- android_pay_inverse: Whether to use the dark theme in the Android Pay form- need_country: True, if the user country must be provided,- need_zip: True, if the user ZIP/postal code must be provided,- need_cardholder_name: True, if the cardholder name must be provided
+	// Contains information about the payment provider, if available, to support it natively
+	// without the need for opening the URL.A JSON object that can contain the following
+	// fields:- publishable_key: Stripe API publishable key- apple_pay_merchant_id: Apple Pay
+	// merchant ID- android_pay_public_key: Android Pay public key- android_pay_bgcolor:
+	// Android Pay form background color- android_pay_inverse: Whether to use the dark theme
+	// in the Android Pay form- need_country: True, if the user country must be provided,-
+	// need_zip: True, if the user ZIP/postal code must be provided,- need_cardholder_name:
+	// True, if the cardholder name must be provided
 	//
 	// Use SetNativeParams and GetNativeParams helpers.
 	NativeParams DataJSON

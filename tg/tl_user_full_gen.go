@@ -45,7 +45,8 @@ type UserFull struct {
 	PhoneCallsAvailable bool
 	// Whether this user's privacy settings allow you to call him
 	PhoneCallsPrivate bool
-	// Whether you can pin messages in the chat with this user, you can do this only for a chat with yourself
+	// Whether you can pin messages in the chat with this user, you can do this only for a
+	// chat with yourself
 	CanPinMessage bool
 	// Whether scheduled messages¹ are available
 	//

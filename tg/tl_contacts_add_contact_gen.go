@@ -31,7 +31,8 @@ var (
 
 // ContactsAddContactRequest represents TL type `contacts.addContact#e8f463d0`.
 // Add an existing telegram user as contact.
-// Use contacts.importContacts¹ to add contacts by phone number, without knowing their Telegram ID.
+// Use contacts.importContacts¹ to add contacts by phone number, without knowing their
+// Telegram ID.
 //
 // Links:
 //  1) https://core.telegram.org/method/contacts.importContacts
@@ -287,7 +288,8 @@ var (
 
 // ContactsAddContact invokes method contacts.addContact#e8f463d0 returning error if any.
 // Add an existing telegram user as contact.
-// Use contacts.importContacts¹ to add contacts by phone number, without knowing their Telegram ID.
+// Use contacts.importContacts¹ to add contacts by phone number, without knowing their
+// Telegram ID.
 //
 // Links:
 //  1) https://core.telegram.org/method/contacts.importContacts

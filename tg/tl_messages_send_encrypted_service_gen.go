@@ -38,7 +38,8 @@ type MessagesSendEncryptedServiceRequest struct {
 	Peer InputEncryptedChat
 	// Unique client message ID required to prevent message resending
 	RandomID int64
-	// TL-serialization of  DecryptedMessage¹ type, encrypted with a key generated during chat initialization
+	// TL-serialization of  DecryptedMessage¹ type, encrypted with a key generated during
+	// chat initialization
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/DecryptedMessage

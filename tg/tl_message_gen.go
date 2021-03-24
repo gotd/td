@@ -254,7 +254,8 @@ type Message struct {
 	FromScheduled bool
 	// This is a legacy message: it has to be refetched with the new layer
 	Legacy bool
-	// Whether the message should be shown as not modified to the user, even if an edit date is present
+	// Whether the message should be shown as not modified to the user, even if an edit date
+	// is present
 	EditHide bool
 	// Whether this message is pinned¹
 	//
@@ -323,7 +324,8 @@ type Message struct {
 	//
 	// Use SetPostAuthor and GetPostAuthor helpers.
 	PostAuthor string
-	// Multiple media messages sent using messages.sendMultiMedia¹ with the same grouped ID indicate an album or media group²
+	// Multiple media messages sent using messages.sendMultiMedia¹ with the same grouped ID
+	// indicate an album or media group²
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.sendMultiMedia
@@ -2076,6 +2078,7 @@ type MessageClass interface {
 
 	// Message identifier
 	GetID() (value int)
+
 	// AsNotEmpty tries to map MessageClass to NotEmptyMessage.
 	AsNotEmpty() (NotEmptyMessage, bool)
 }
@@ -2117,29 +2120,40 @@ type NotEmptyMessage interface {
 
 	// Is this an outgoing message
 	GetOut() (value bool)
+
 	// Whether we were mentioned¹ in this message
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/mentions
 	GetMentioned() (value bool)
+
 	// Whether there are unread media attachments in this message
 	GetMediaUnread() (value bool)
+
 	// Whether this is a silent message (no notification triggered)
 	GetSilent() (value bool)
+
 	// Whether this is a channel post
 	GetPost() (value bool)
+
 	// This is a legacy message: it has to be refetched with the new layer
 	GetLegacy() (value bool)
+
 	// ID of the message
 	GetID() (value int)
+
 	// ID of the sender of the message
 	GetFromID() (value PeerClass, ok bool)
+
 	// Peer ID, the chat where this message was sent
 	GetPeerID() (value PeerClass)
+
 	// Reply information
 	GetReplyTo() (value MessageReplyHeader, ok bool)
+
 	// Date of the message
 	GetDate() (value int)
+
 	// TTLPeriod field of Message.
 	GetTTLPeriod() (value int, ok bool)
 }
@@ -2346,7 +2360,9 @@ func (s MessageClassArray) AsMessageEmpty() (to MessageEmptyArray) {
 	}
 
 	return to
-} // FillMessageMap fills only Message constructors to given map.
+}
+
+// FillMessageMap fills only Message constructors to given map.
 func (s MessageClassArray) FillMessageMap(to map[int]*Message) {
 	for _, elem := range s {
 		value, ok := elem.(*Message)
@@ -2375,7 +2391,9 @@ func (s MessageClassArray) AsMessage() (to MessageArray) {
 	}
 
 	return to
-} // FillMessageServiceMap fills only MessageService constructors to given map.
+}
+
+// FillMessageServiceMap fills only MessageService constructors to given map.
 func (s MessageClassArray) FillMessageServiceMap(to map[int]*MessageService) {
 	for _, elem := range s {
 		value, ok := elem.(*MessageService)

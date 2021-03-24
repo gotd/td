@@ -41,9 +41,15 @@ type StatsBroadcastStats struct {
 	Period StatsDateRangeDays
 	// Follower count change for period in consideration
 	Followers StatsAbsValueAndPrev
-	// total_viewcount/postcount, for posts posted during the period in consideration (views_per_post). Note that in this case, current refers to the period in consideration (min_date till max_date), and prev refers to the previous period ((min_date - (max_date - min_date)) till min_date).
+	// total_viewcount/postcount, for posts posted during the period in consideration
+	// (views_per_post). Note that in this case, current refers to the period in
+	// consideration (min_date till max_date), and prev refers to the previous period
+	// ((min_date - (max_date - min_date)) till min_date).
 	ViewsPerPost StatsAbsValueAndPrev
-	// total_viewcount/postcount, for posts posted during the period in consideration (views_per_post). Note that in this case, current refers to the period in consideration (min_date till max_date), and prev refers to the previous period ((min_date - (max_date - min_date)) till min_date)
+	// total_viewcount/postcount, for posts posted during the period in consideration
+	// (views_per_post). Note that in this case, current refers to the period in
+	// consideration (min_date till max_date), and prev refers to the previous period
+	// ((min_date - (max_date - min_date)) till min_date)
 	SharesPerPost StatsAbsValueAndPrev
 	// Percentage of subscribers with enabled notifications
 	EnabledNotifications StatsPercentValue

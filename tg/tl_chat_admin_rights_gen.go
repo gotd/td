@@ -77,7 +77,8 @@ type ChatAdminRights struct {
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	PinMessages bool
-	// If set, allows the admin to add other admins with the same (or more limited) permissions in the channel/supergroup¹
+	// If set, allows the admin to add other admins with the same (or more limited)
+	// permissions in the channel/supergroup¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel

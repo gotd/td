@@ -39,7 +39,8 @@ type MessagesSearchRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// User or chat, histories with which are searched, or (inputPeerEmpty)¹ constructor for global search
+	// User or chat, histories with which are searched, or (inputPeerEmpty)¹ constructor for
+	// global search
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/inputPeerEmpty
@@ -59,9 +60,11 @@ type MessagesSearchRequest struct {
 	TopMsgID int
 	// Filter to return only specified message types
 	Filter MessagesFilterClass
-	// If a positive value was transferred, only messages with a sending date bigger than the transferred one will be returned
+	// If a positive value was transferred, only messages with a sending date bigger than the
+	// transferred one will be returned
 	MinDate int
-	// If a positive value was transferred, only messages with a sending date smaller than the transferred one will be returned
+	// If a positive value was transferred, only messages with a sending date smaller than
+	// the transferred one will be returned
 	MaxDate int
 	// Only return messages starting from the specified message ID
 	OffsetID int

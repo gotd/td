@@ -44,7 +44,9 @@ type URLAuthResultRequest struct {
 	Flags bin.Fields
 	// Whether the bot would like to send messages to the user
 	RequestWriteAccess bool
-	// Username of a bot, which will be used for user authorization. If not specified, the current bot's username will be assumed. The url's domain must be the same as the domain linked with the bot. See Linking your domain to the bot¹ for more details.
+	// Username of a bot, which will be used for user authorization. If not specified, the
+	// current bot's username will be assumed. The url's domain must be the same as the
+	// domain linked with the bot. See Linking your domain to the bot¹ for more details.
 	//
 	// Links:
 	//  1) https://core.telegram.org/widgets/login#linking-your-domain-to-the-bot

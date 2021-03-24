@@ -50,9 +50,11 @@ type MessagesSearchGlobalRequest struct {
 	Q string
 	// Global search filter
 	Filter MessagesFilterClass
-	// If a positive value was specified, the method will return only messages with date bigger than min_date
+	// If a positive value was specified, the method will return only messages with date
+	// bigger than min_date
 	MinDate int
-	// If a positive value was transferred, the method will return only messages with date smaller than max_date
+	// If a positive value was transferred, the method will return only messages with date
+	// smaller than max_date
 	MaxDate int
 	// Initially 0, then set to the next_rate parameter of messages.messagesSlice¹
 	//

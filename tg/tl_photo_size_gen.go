@@ -792,7 +792,8 @@ type PhotoSizeProgressive struct {
 	W int
 	// Photo height
 	H int
-	// Sizes of progressive JPEG file prefixes, which can be used to preliminarily show the image.
+	// Sizes of progressive JPEG file prefixes, which can be used to preliminarily show the
+	// image.
 	Sizes []int
 }
 
@@ -1017,7 +1018,8 @@ var (
 )
 
 // PhotoPathSize represents TL type `photoPathSize#d8214d41`.
-// Messages with animated stickers can have a compressed svg (< 300 bytes) to show the outline of the sticker before fetching the actual lottie animation.
+// Messages with animated stickers can have a compressed svg (< 300 bytes) to show the
+// outline of the sticker before fetching the actual lottie animation.
 //
 // See https://core.telegram.org/constructor/photoPathSize for reference.
 type PhotoPathSize struct {
@@ -1216,6 +1218,7 @@ type PhotoSizeClass interface {
 	// Links:
 	//  1) https://core.telegram.org/constructor/photoSize
 	GetType() (value string)
+
 	// AsNotEmpty tries to map PhotoSizeClass to NotEmptyPhotoSize.
 	AsNotEmpty() (NotEmptyPhotoSize, bool)
 }

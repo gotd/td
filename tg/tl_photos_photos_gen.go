@@ -476,7 +476,8 @@ type PhotosPhotosClass interface {
 	// List of photos
 	GetPhotos() (value []PhotoClass)
 	// List of photos
-	MapPhotos() (value PhotoClassArray) // List of mentioned users
+	MapPhotos() (value PhotoClassArray)
+	// List of mentioned users
 	GetUsers() (value []UserClass)
 	// List of mentioned users
 	MapUsers() (value UserClassArray)

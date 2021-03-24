@@ -60,7 +60,8 @@ type InitConnectionRequest struct {
 	//
 	// Use SetProxy and GetProxy helpers.
 	Proxy InputClientProxy
-	// Additional initConnection parameters. For now, only the tz_offset field is supported, for specifying timezone offset in seconds.
+	// Additional initConnection parameters. For now, only the tz_offset field is supported,
+	// for specifying timezone offset in seconds.
 	//
 	// Use SetParams and GetParams helpers.
 	Params JSONValueClass

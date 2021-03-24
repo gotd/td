@@ -46,7 +46,8 @@ type UpdatesChannelDifferenceEmpty struct {
 	// Links:
 	//  1) https://core.telegram.org/api/updates
 	Pts int
-	// Clients are supposed to refetch the channel difference after timeout seconds have elapsed
+	// Clients are supposed to refetch the channel difference after timeout seconds have
+	// elapsed
 	//
 	// Use SetTimeout and GetTimeout helpers.
 	Timeout int
@@ -258,7 +259,9 @@ var (
 )
 
 // UpdatesChannelDifferenceTooLong represents TL type `updates.channelDifferenceTooLong#a4bcc6fe`.
-// The provided pts + limit < remote pts. Simply, there are too many updates to be fetched (more than limit), the client has to resolve the update gap in one of the following ways:
+// The provided pts + limit < remote pts. Simply, there are too many updates to be
+// fetched (more than limit), the client has to resolve the update gap in one of the
+// following ways:
 //
 // See https://core.telegram.org/constructor/updates.channelDifferenceTooLong for reference.
 type UpdatesChannelDifferenceTooLong struct {
@@ -269,7 +272,8 @@ type UpdatesChannelDifferenceTooLong struct {
 	Flags bin.Fields
 	// Whether there are more updates that must be fetched (always false)
 	Final bool
-	// Clients are supposed to refetch the channel difference after timeout seconds have elapsed
+	// Clients are supposed to refetch the channel difference after timeout seconds have
+	// elapsed
 	//
 	// Use SetTimeout and GetTimeout helpers.
 	Timeout int
@@ -629,14 +633,16 @@ type UpdatesChannelDifference struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether there are more updates to be fetched using getDifference, starting from the provided pts
+	// Whether there are more updates to be fetched using getDifference, starting from the
+	// provided pts
 	Final bool
 	// The PTS¹ from which to start getting updates the next time
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/updates
 	Pts int
-	// Clients are supposed to refetch the channel difference after timeout seconds have elapsed
+	// Clients are supposed to refetch the channel difference after timeout seconds have
+	// elapsed
 	//
 	// Use SetTimeout and GetTimeout helpers.
 	Timeout int
@@ -1054,8 +1060,11 @@ type UpdatesChannelDifferenceClass interface {
 
 	// Whether there are more updates that must be fetched (always false)
 	GetFinal() (value bool)
-	// Clients are supposed to refetch the channel difference after timeout seconds have elapsed
+
+	// Clients are supposed to refetch the channel difference after timeout seconds have
+	// elapsed
 	GetTimeout() (value int, ok bool)
+
 	// AsNotEmpty tries to map UpdatesChannelDifferenceClass to NotEmptyUpdatesChannelDifference.
 	AsNotEmpty() (NotEmptyUpdatesChannelDifference, bool)
 }
@@ -1081,10 +1090,14 @@ type NotEmptyUpdatesChannelDifference interface {
 
 	// Whether there are more updates that must be fetched (always false)
 	GetFinal() (value bool)
-	// Clients are supposed to refetch the channel difference after timeout seconds have elapsed
+
+	// Clients are supposed to refetch the channel difference after timeout seconds have
+	// elapsed
 	GetTimeout() (value int, ok bool)
+
 	// Chats from messages
 	GetChats() (value []ChatClass)
+
 	// Users from messages
 	GetUsers() (value []UserClass)
 }

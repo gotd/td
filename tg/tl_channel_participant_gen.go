@@ -379,7 +379,8 @@ type ChannelParticipantCreator struct {
 	UserID int
 	// Creator admin rights
 	AdminRights ChatAdminRights
-	// The role (rank) of the group creator in the group: just an arbitrary string, admin by default
+	// The role (rank) of the group creator in the group: just an arbitrary string, admin by
+	// default
 	//
 	// Use SetRank and GetRank helpers.
 	Rank string

@@ -30,7 +30,8 @@ var (
 )
 
 // InvokeWithoutUpdatesRequest represents TL type `invokeWithoutUpdates#bf9459b7`.
-// Invoke a request without subscribing the used connection for updates¹ (this is enabled by default for file queries²).
+// Invoke a request without subscribing the used connection for updates¹ (this is
+// enabled by default for file queries²).
 //
 // Links:
 //  1) https://core.telegram.org/api/updates

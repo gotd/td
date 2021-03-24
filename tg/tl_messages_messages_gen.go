@@ -287,7 +287,10 @@ type MessagesMessagesSlice struct {
 	//
 	// Use SetNextRate and GetNextRate helpers.
 	NextRate int
-	// Indicates the absolute position of messages[0] within the total result set with count count. This is useful, for example, if the result was fetched using offset_id, and we need to display a progress/total counter (like photo 134 of 200, for all media in a chat, we could simply use photo ${offset_id_offset} of ${count}.
+	// Indicates the absolute position of messages[0] within the total result set with count
+	// count. This is useful, for example, if the result was fetched using offset_id, and we
+	// need to display a progress/total counter (like photo 134 of 200, for all media in a
+	// chat, we could simply use photo ${offset_id_offset} of ${count}.
 	//
 	// Use SetOffsetIDOffset and GetOffsetIDOffset helpers.
 	OffsetIDOffset int
@@ -687,7 +690,10 @@ type MessagesChannelMessages struct {
 	Pts int
 	// Total number of results were found server-side (may not be all included here)
 	Count int
-	// Indicates the absolute position of messages[0] within the total result set with count count. This is useful, for example, if the result was fetched using offset_id, and we need to display a progress/total counter (like photo 134 of 200, for all media in a chat, we could simply use photo ${offset_id_offset} of ${count}.
+	// Indicates the absolute position of messages[0] within the total result set with count
+	// count. This is useful, for example, if the result was fetched using offset_id, and we
+	// need to display a progress/total counter (like photo 134 of 200, for all media in a
+	// chat, we could simply use photo ${offset_id_offset} of ${count}.
 	//
 	// Use SetOffsetIDOffset and GetOffsetIDOffset helpers.
 	OffsetIDOffset int
@@ -1240,8 +1246,10 @@ type ModifiedMessagesMessages interface {
 
 	// List of messages
 	GetMessages() (value []MessageClass)
+
 	// List of chats mentioned in dialogs
 	GetChats() (value []ChatClass)
+
 	// List of users mentioned in messages and chats
 	GetUsers() (value []UserClass)
 }

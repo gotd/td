@@ -668,6 +668,7 @@ type PhotoSizeClass interface {
 	// Links:
 	//  1) https://core.telegram.org/constructor/photoSize
 	GetType() (value string)
+
 	// AsNotEmpty tries to map PhotoSizeClass to NotEmptyPhotoSize.
 	AsNotEmpty() (NotEmptyPhotoSize, bool)
 }
@@ -693,10 +694,13 @@ type NotEmptyPhotoSize interface {
 
 	// Thumbnail type
 	GetType() (value string)
+
 	// File location
 	GetLocation() (value FileLocationClass)
+
 	// Image width
 	GetW() (value int)
+
 	// Image height
 	GetH() (value int)
 }

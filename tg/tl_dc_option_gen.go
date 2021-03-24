@@ -64,7 +64,8 @@ type DCOption struct {
 	IPAddress string
 	// Port
 	Port int
-	// If the tcpo_only flag is set, specifies the secret to use when connecting using transport obfuscation¹
+	// If the tcpo_only flag is set, specifies the secret to use when connecting using
+	// transport obfuscation¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/mtproto/mtproto-transports#transport-obfuscation

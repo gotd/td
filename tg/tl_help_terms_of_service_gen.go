@@ -50,7 +50,8 @@ type HelpTermsOfService struct {
 	// Links:
 	//  1) https://core.telegram.org/api/entities
 	Entities []MessageEntityClass
-	// Minimum age required to sign up to telegram, the user must confirm that they is older than the minimum age.
+	// Minimum age required to sign up to telegram, the user must confirm that they is older
+	// than the minimum age.
 	//
 	// Use SetMinAgeConfirm and GetMinAgeConfirm helpers.
 	MinAgeConfirm int

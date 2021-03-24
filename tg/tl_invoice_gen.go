@@ -60,7 +60,8 @@ type Invoice struct {
 	// Links:
 	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
-	// Price breakdown, a list of components (e.g. product price, tax, discount, delivery cost, delivery tax, bonus, etc.)
+	// Price breakdown, a list of components (e.g. product price, tax, discount, delivery
+	// cost, delivery tax, bonus, etc.)
 	Prices []LabeledPrice
 }
 

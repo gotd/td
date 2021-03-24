@@ -593,6 +593,7 @@ type SetClientDHParamsAnswerClass interface {
 
 	// Nonce field of DhGenOk.
 	GetNonce() (value bin.Int128)
+
 	// ServerNonce field of DhGenOk.
 	GetServerNonce() (value bin.Int128)
 }

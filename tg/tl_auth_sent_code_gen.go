@@ -46,7 +46,8 @@ type AuthSentCode struct {
 	// Links:
 	//  1) https://core.telegram.org/method/auth.signIn
 	PhoneCodeHash string
-	// Phone code type that will be sent next, if the phone code is not received within timeout seconds: to send it use auth.resendCode¹
+	// Phone code type that will be sent next, if the phone code is not received within
+	// timeout seconds: to send it use auth.resendCode¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/auth.resendCode

@@ -30,7 +30,8 @@ var (
 )
 
 // AuthResendCodeRequest represents TL type `auth.resendCode#3ef1a9bf`.
-// Resend the login code via another medium, the phone code type is determined by the return value of the previous auth.sendCode/auth.resendCode: see login¹ for more info.
+// Resend the login code via another medium, the phone code type is determined by the
+// return value of the previous auth.sendCode/auth.resendCode: see login¹ for more info.
 //
 // Links:
 //  1) https://core.telegram.org/api/auth
@@ -187,7 +188,8 @@ var (
 )
 
 // AuthResendCode invokes method auth.resendCode#3ef1a9bf returning error if any.
-// Resend the login code via another medium, the phone code type is determined by the return value of the previous auth.sendCode/auth.resendCode: see login¹ for more info.
+// Resend the login code via another medium, the phone code type is determined by the
+// return value of the previous auth.sendCode/auth.resendCode: see login¹ for more info.
 //
 // Links:
 //  1) https://core.telegram.org/api/auth

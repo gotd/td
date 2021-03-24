@@ -30,7 +30,8 @@ var (
 )
 
 // StatsGraphAsync represents TL type `statsGraphAsync#4a27eb2d`.
-// This channel statistics graph¹ must be generated asynchronously using stats.loadAsyncGraph² to reduce server load
+// This channel statistics graph¹ must be generated asynchronously using stats
+// loadAsyncGraph² to reduce server load
 //
 // Links:
 //  1) https://core.telegram.org/api/stats

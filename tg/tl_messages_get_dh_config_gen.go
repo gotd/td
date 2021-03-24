@@ -30,7 +30,8 @@ var (
 )
 
 // MessagesGetDhConfigRequest represents TL type `messages.getDhConfig#26cf8950`.
-// Returns configuration parameters for Diffie-Hellman key generation. Can also return a random sequence of bytes of required length.
+// Returns configuration parameters for Diffie-Hellman key generation. Can also return a
+// random sequence of bytes of required length.
 //
 // See https://core.telegram.org/method/messages.getDhConfig for reference.
 type MessagesGetDhConfigRequest struct {
@@ -184,7 +185,8 @@ var (
 )
 
 // MessagesGetDhConfig invokes method messages.getDhConfig#26cf8950 returning error if any.
-// Returns configuration parameters for Diffie-Hellman key generation. Can also return a random sequence of bytes of required length.
+// Returns configuration parameters for Diffie-Hellman key generation. Can also return a
+// random sequence of bytes of required length.
 //
 // Possible errors:
 //  400 RANDOM_LENGTH_INVALID: Random length invalid

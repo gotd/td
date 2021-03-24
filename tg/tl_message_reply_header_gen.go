@@ -44,7 +44,8 @@ type MessageReplyHeader struct {
 	Flags bin.Fields
 	// ID of message to which this message is replying
 	ReplyToMsgID int
-	// For replies sent in channel discussion threads¹ of which the current user is not a member, the discussion group ID
+	// For replies sent in channel discussion threads¹ of which the current user is not a
+	// member, the discussion group ID
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads

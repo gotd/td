@@ -39,7 +39,9 @@ type PollResults struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Similar to min¹ objects, used for poll constructors that are the same for all users so they don't have option chosen by the current user (you can use messages.getPollResults² to get the full poll results).
+	// Similar to min¹ objects, used for poll constructors that are the same for all users
+	// so they don't have option chosen by the current user (you can use messages
+	// getPollResults² to get the full poll results).
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/min

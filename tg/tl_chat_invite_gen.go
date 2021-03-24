@@ -576,7 +576,8 @@ var (
 )
 
 // ChatInvitePeek represents TL type `chatInvitePeek#61695cb0`.
-// A chat invitation that also allows peeking into the group to read messages without joining it.
+// A chat invitation that also allows peeking into the group to read messages without
+// joining it.
 //
 // See https://core.telegram.org/constructor/chatInvitePeek for reference.
 type ChatInvitePeek struct {

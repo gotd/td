@@ -439,8 +439,10 @@ type BadMsgNotificationClass interface {
 
 	// BadMsgID field of BadMsgNotification.
 	GetBadMsgID() (value int64)
+
 	// BadMsgSeqno field of BadMsgNotification.
 	GetBadMsgSeqno() (value int)
+
 	// ErrorCode field of BadMsgNotification.
 	GetErrorCode() (value int)
 }

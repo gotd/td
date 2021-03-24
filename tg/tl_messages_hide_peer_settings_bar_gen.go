@@ -30,7 +30,9 @@ var (
 )
 
 // MessagesHidePeerSettingsBarRequest represents TL type `messages.hidePeerSettingsBar#4facb138`.
-// Should be called after the user hides the report spam/add as contact bar of a new chat, effectively prevents the user from executing the actions specified in the peer's settings¹.
+// Should be called after the user hides the report spam/add as contact bar of a new chat
+// effectively prevents the user from executing the actions specified in the peer's
+// settings¹.
 //
 // Links:
 //  1) https://core.telegram.org/constructor/peerSettings
@@ -165,7 +167,9 @@ var (
 )
 
 // MessagesHidePeerSettingsBar invokes method messages.hidePeerSettingsBar#4facb138 returning error if any.
-// Should be called after the user hides the report spam/add as contact bar of a new chat, effectively prevents the user from executing the actions specified in the peer's settings¹.
+// Should be called after the user hides the report spam/add as contact bar of a new chat
+// effectively prevents the user from executing the actions specified in the peer's
+// settings¹.
 //
 // Links:
 //  1) https://core.telegram.org/constructor/peerSettings

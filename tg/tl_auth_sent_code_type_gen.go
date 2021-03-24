@@ -294,7 +294,8 @@ var (
 )
 
 // AuthSentCodeTypeCall represents TL type `auth.sentCodeTypeCall#5353e5a7`.
-// The code will be sent via a phone call: a synthesized voice will tell the user which verification code to input.
+// The code will be sent via a phone call: a synthesized voice will tell the user which
+// verification code to input.
 //
 // See https://core.telegram.org/constructor/auth.sentCodeTypeCall for reference.
 type AuthSentCodeTypeCall struct {
@@ -426,7 +427,9 @@ var (
 )
 
 // AuthSentCodeTypeFlashCall represents TL type `auth.sentCodeTypeFlashCall#ab03c6d9`.
-// The code will be sent via a flash phone call, that will be closed immediately. The phone code will then be the phone number itself, just make sure that the phone number matches the specified pattern.
+// The code will be sent via a flash phone call, that will be closed immediately. The
+// phone code will then be the phone number itself, just make sure that the phone number
+// matches the specified pattern.
 //
 // See https://core.telegram.org/constructor/auth.sentCodeTypeFlashCall for reference.
 type AuthSentCodeTypeFlashCall struct {

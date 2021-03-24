@@ -30,7 +30,8 @@ var (
 )
 
 // MessagesGetStatsURLRequest represents TL type `messages.getStatsURL#812c2ae6`.
-// Returns URL with the chat statistics. Currently this method can be used only for channels
+// Returns URL with the chat statistics. Currently this method can be used only for
+// channels
 //
 // See https://core.telegram.org/method/messages.getStatsURL for reference.
 type MessagesGetStatsURLRequest struct {
@@ -234,7 +235,8 @@ var (
 )
 
 // MessagesGetStatsURL invokes method messages.getStatsURL#812c2ae6 returning error if any.
-// Returns URL with the chat statistics. Currently this method can be used only for channels
+// Returns URL with the chat statistics. Currently this method can be used only for
+// channels
 //
 // Possible errors:
 //  400 PEER_ID_INVALID: The provided peer id is invalid

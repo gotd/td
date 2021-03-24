@@ -30,7 +30,8 @@ var (
 )
 
 // AccountAcceptAuthorizationRequest represents TL type `account.acceptAuthorization#e7027c94`.
-// Sends a Telegram Passport authorization form, effectively sharing data with the service
+// Sends a Telegram Passport authorization form, effectively sharing data with the
+// service
 //
 // See https://core.telegram.org/method/account.acceptAuthorization for reference.
 type AccountAcceptAuthorizationRequest struct {
@@ -264,7 +265,8 @@ var (
 )
 
 // AccountAcceptAuthorization invokes method account.acceptAuthorization#e7027c94 returning error if any.
-// Sends a Telegram Passport authorization form, effectively sharing data with the service
+// Sends a Telegram Passport authorization form, effectively sharing data with the
+// service
 //
 // See https://core.telegram.org/method/account.acceptAuthorization for reference.
 func (c *Client) AccountAcceptAuthorization(ctx context.Context, request *AccountAcceptAuthorizationRequest) (bool, error) {

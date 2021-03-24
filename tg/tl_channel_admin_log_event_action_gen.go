@@ -1378,7 +1378,8 @@ var (
 )
 
 // ChannelAdminLogEventActionParticipantJoin represents TL type `channelAdminLogEventActionParticipantJoin#183040d3`.
-// A user has joined the group (in the case of big groups, info of the user that has joined isn't shown)
+// A user has joined the group (in the case of big groups, info of the user that has
+// joined isn't shown)
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantJoin for reference.
 type ChannelAdminLogEventActionParticipantJoin struct {
@@ -1482,7 +1483,8 @@ var (
 )
 
 // ChannelAdminLogEventActionParticipantLeave represents TL type `channelAdminLogEventActionParticipantLeave#f89777f2`.
-// A user left the channel/supergroup (in the case of big groups, info of the user that has joined isn't shown)
+// A user left the channel/supergroup (in the case of big groups, info of the user that
+// has joined isn't shown)
 //
 // See https://core.telegram.org/constructor/channelAdminLogEventActionParticipantLeave for reference.
 type ChannelAdminLogEventActionParticipantLeave struct {

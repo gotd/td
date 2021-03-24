@@ -33,7 +33,8 @@ var (
 //
 // See https://localhost:80/doc/constructor/error for reference.
 type Error struct {
-	// Error code; subject to future changes. If the error code is 406, the error message must not be processed in any way and must not be displayed to the user
+	// Error code; subject to future changes. If the error code is 406, the error message
+	// must not be processed in any way and must not be displayed to the user
 	Code int32
 	// Error message; subject to future changes
 	Message string

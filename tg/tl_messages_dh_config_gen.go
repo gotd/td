@@ -404,7 +404,8 @@ type MessagesDhConfigClass interface {
 	Zero() bool
 
 	// Random sequence of bytes of assigned length
-	GetRandom() (value []byte) // AsModified tries to map MessagesDhConfigClass to MessagesDhConfig.
+	GetRandom() (value []byte)
+	// AsModified tries to map MessagesDhConfigClass to MessagesDhConfig.
 	AsModified() (*MessagesDhConfig, bool)
 }
 

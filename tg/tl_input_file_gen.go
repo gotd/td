@@ -43,7 +43,8 @@ type InputFile struct {
 	Parts int
 	// Full name of the file
 	Name string
-	// In case the file's md5-hash¹ was passed, contents of the file will be checked prior to use
+	// In case the file's md5-hash¹ was passed, contents of the file will be checked prior
+	// to use
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/MD5#MD5_hashes
@@ -240,7 +241,8 @@ var (
 )
 
 // InputFileBig represents TL type `inputFileBig#fa4f0bb5`.
-// Assigns a big file (over 10Mb in size), saved in part using the method upload.saveBigFilePart¹.
+// Assigns a big file (over 10Mb in size), saved in part using the method upload
+// saveBigFilePart¹.
 //
 // Links:
 //  1) https://core.telegram.org/method/upload.saveBigFilePart
@@ -456,8 +458,10 @@ type InputFileClass interface {
 
 	// Random file identifier created by the client
 	GetID() (value int64)
+
 	// Number of parts saved
 	GetParts() (value int)
+
 	// Full name of the file
 	GetName() (value string)
 }

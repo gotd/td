@@ -30,7 +30,8 @@ var (
 )
 
 // MessagesRequestURLAuthRequest represents TL type `messages.requestUrlAuth#198fb446`.
-// Get more info about a Seamless Telegram Login authorization request, for more info click here »¹
+// Get more info about a Seamless Telegram Login authorization request, for more info
+// click here »¹
 //
 // Links:
 //  1) https://core.telegram.org/api/url-authorization
@@ -334,7 +335,8 @@ var (
 )
 
 // MessagesRequestURLAuth invokes method messages.requestUrlAuth#198fb446 returning error if any.
-// Get more info about a Seamless Telegram Login authorization request, for more info click here »¹
+// Get more info about a Seamless Telegram Login authorization request, for more info
+// click here »¹
 //
 // Links:
 //  1) https://core.telegram.org/api/url-authorization

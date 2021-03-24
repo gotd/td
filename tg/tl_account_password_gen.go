@@ -73,7 +73,8 @@ type AccountPassword struct {
 	//
 	// Use SetHint and GetHint helpers.
 	Hint string
-	// A password recovery email¹ with the specified pattern² is still awaiting verification
+	// A password recovery email¹ with the specified pattern² is still awaiting
+	// verification
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp#email-verification
@@ -81,7 +82,8 @@ type AccountPassword struct {
 	//
 	// Use SetEmailUnconfirmedPattern and GetEmailUnconfirmedPattern helpers.
 	EmailUnconfirmedPattern string
-	// The KDF algorithm for SRP two-factor authentication¹ to use when creating new passwords
+	// The KDF algorithm for SRP two-factor authentication¹ to use when creating new
+	// passwords
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp

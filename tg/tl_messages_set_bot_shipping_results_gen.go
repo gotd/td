@@ -30,7 +30,9 @@ var (
 )
 
 // MessagesSetBotShippingResultsRequest represents TL type `messages.setBotShippingResults#e5f672fa`.
-// If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the bot will receive an updateBotShippingQuery¹ update. Use this method to reply to shipping queries.
+// If you sent an invoice requesting a shipping address and the parameter is_flexible was
+// specified, the bot will receive an updateBotShippingQuery¹ update. Use this method to
+// reply to shipping queries.
 //
 // Links:
 //  1) https://core.telegram.org/constructor/updateBotShippingQuery
@@ -44,7 +46,9 @@ type MessagesSetBotShippingResultsRequest struct {
 	Flags bin.Fields
 	// Unique identifier for the query to be answered
 	QueryID int64
-	// Error message in human readable form that explains why it is impossible to complete the order (e.g. "Sorry, delivery to your desired address is unavailable'). Telegram will display this message to the user.
+	// Error message in human readable form that explains why it is impossible to complete
+	// the order (e.g. "Sorry, delivery to your desired address is unavailable'). Telegram
+	// will display this message to the user.
 	//
 	// Use SetError and GetError helpers.
 	Error string
@@ -277,7 +281,9 @@ var (
 )
 
 // MessagesSetBotShippingResults invokes method messages.setBotShippingResults#e5f672fa returning error if any.
-// If you sent an invoice requesting a shipping address and the parameter is_flexible was specified, the bot will receive an updateBotShippingQuery¹ update. Use this method to reply to shipping queries.
+// If you sent an invoice requesting a shipping address and the parameter is_flexible was
+// specified, the bot will receive an updateBotShippingQuery¹ update. Use this method to
+// reply to shipping queries.
 //
 // Links:
 //  1) https://core.telegram.org/constructor/updateBotShippingQuery

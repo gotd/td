@@ -948,7 +948,8 @@ type InputMediaUploadedDocument struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether the specified document is a video file with no audio tracks (a GIF animation (even as MPEG4), for example)
+	// Whether the specified document is a video file with no audio tracks (a GIF animation
+	// (even as MPEG4), for example)
 	NosoundVideo bool
 	// Force the media file to be uploaded as document
 	ForceFile bool
@@ -2427,20 +2428,23 @@ type InputMediaInvoice struct {
 	Title string
 	// Product description, 1-255 characters
 	Description string
-	// URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for.
+	// URL of the product photo for the invoice. Can be a photo of the goods or a marketing
+	// image for a service. People like it better when they see what they are paying for.
 	//
 	// Use SetPhoto and GetPhoto helpers.
 	Photo InputWebDocument
 	// The actual invoice
 	Invoice Invoice
-	// Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use for your internal processes.
+	// Bot-defined invoice payload, 1-128 bytes. This will not be displayed to the user, use
+	// for your internal processes.
 	Payload []byte
 	// Payments provider token, obtained via Botfather¹
 	//
 	// Links:
 	//  1) https://t.me/botfather
 	Provider string
-	// JSON-encoded data about the invoice, which will be shared with the payment provider. A detailed description of required fields should be provided by the payment provider.
+	// JSON-encoded data about the invoice, which will be shared with the payment provider. A
+	// detailed description of required fields should be provided by the payment provider.
 	ProviderData DataJSON
 	// Start parameter
 	StartParam string
@@ -2781,7 +2785,8 @@ type InputMediaGeoLive struct {
 	//
 	// Use SetPeriod and GetPeriod helpers.
 	Period int
-	// For live locations¹, a maximum distance to another chat member for proximity alerts, in meters (0-100000)
+	// For live locations¹, a maximum distance to another chat member for proximity alerts,
+	// in meters (0-100000)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/live-location

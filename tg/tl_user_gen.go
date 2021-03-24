@@ -1345,6 +1345,7 @@ type UserClass interface {
 
 	// User identifier or 0
 	GetID() (value int)
+
 	// AsNotEmpty tries to map UserClass to User.
 	AsNotEmpty() (*User, bool)
 }
@@ -1558,7 +1559,9 @@ func (s UserClassArray) AsUserEmpty() (to UserEmptyArray) {
 	}
 
 	return to
-} // FillUserMap fills only User constructors to given map.
+}
+
+// FillUserMap fills only User constructors to given map.
 func (s UserClassArray) FillUserMap(to map[int]*User) {
 	for _, elem := range s {
 		value, ok := elem.(*User)

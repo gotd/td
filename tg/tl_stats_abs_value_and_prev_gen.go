@@ -30,7 +30,8 @@ var (
 )
 
 // StatsAbsValueAndPrev represents TL type `statsAbsValueAndPrev#cb43acde`.
-// Statistics value couple; intial and final value for period of time currently in consideration
+// Statistics value couple; intial and final value for period of time currently in
+// consideration
 //
 // See https://core.telegram.org/constructor/statsAbsValueAndPrev for reference.
 type StatsAbsValueAndPrev struct {

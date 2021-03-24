@@ -47,7 +47,8 @@ type StickersCreateStickerSetRequest struct {
 	UserID InputUserClass
 	// Stickerset name, 1-64 chars
 	Title string
-	// Sticker set name. Can contain only English letters, digits and underscores. Must end with "by" ( is case insensitive); 1-64 characters
+	// Sticker set name. Can contain only English letters, digits and underscores. Must end
+	// with "by" ( is case insensitive); 1-64 characters
 	ShortName string
 	// Thumbnail
 	//

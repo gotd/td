@@ -30,7 +30,8 @@ var (
 )
 
 // ChannelsToggleSlowModeRequest represents TL type `channels.toggleSlowMode#edd49ef0`.
-// Toggle supergroup slow mode: if enabled, users will only be able to send one message every seconds seconds
+// Toggle supergroup slow mode: if enabled, users will only be able to send one message
+// every seconds seconds
 //
 // See https://core.telegram.org/method/channels.toggleSlowMode for reference.
 type ChannelsToggleSlowModeRequest struct {
@@ -39,7 +40,8 @@ type ChannelsToggleSlowModeRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	Channel InputChannelClass
-	// Users will only be able to send one message every seconds seconds, 0 to disable the limitation
+	// Users will only be able to send one message every seconds seconds, 0 to disable the
+	// limitation
 	Seconds int
 }
 
@@ -194,7 +196,8 @@ var (
 )
 
 // ChannelsToggleSlowMode invokes method channels.toggleSlowMode#edd49ef0 returning error if any.
-// Toggle supergroup slow mode: if enabled, users will only be able to send one message every seconds seconds
+// Toggle supergroup slow mode: if enabled, users will only be able to send one message
+// every seconds seconds
 //
 // Possible errors:
 //  400 CHAT_ADMIN_REQUIRED: You must be an admin in this chat to do this

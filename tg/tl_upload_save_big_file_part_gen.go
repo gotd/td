@@ -30,7 +30,8 @@ var (
 )
 
 // UploadSaveBigFilePartRequest represents TL type `upload.saveBigFilePart#de7b673d`.
-// Saves a part of a large file (over 10Mb in size) to be later passed to one of the methods.
+// Saves a part of a large file (over 10Mb in size) to be later passed to one of the
+// methods.
 //
 // See https://core.telegram.org/method/upload.saveBigFilePart for reference.
 type UploadSaveBigFilePartRequest struct {
@@ -229,7 +230,8 @@ var (
 )
 
 // UploadSaveBigFilePart invokes method upload.saveBigFilePart#de7b673d returning error if any.
-// Saves a part of a large file (over 10Mb in size) to be later passed to one of the methods.
+// Saves a part of a large file (over 10Mb in size) to be later passed to one of the
+// methods.
 //
 // Possible errors:
 //  400 FILE_PARTS_INVALID: The number of file parts is invalid

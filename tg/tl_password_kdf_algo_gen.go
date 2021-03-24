@@ -30,7 +30,8 @@ var (
 )
 
 // PasswordKdfAlgoUnknown represents TL type `passwordKdfAlgoUnknown#d45ab096`.
-// Unknown KDF (most likely, the client is outdated and does not support the specified KDF algorithm)
+// Unknown KDF (most likely, the client is outdated and does not support the specified
+// KDF algorithm)
 //
 // See https://core.telegram.org/constructor/passwordKdfAlgoUnknown for reference.
 type PasswordKdfAlgoUnknown struct {

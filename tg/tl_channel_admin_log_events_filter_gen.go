@@ -84,7 +84,8 @@ type ChannelAdminLogEventsFilter struct {
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionParticipantToggleAdmin
 	Demote bool
-	// Info change events (when about¹, linked chat², location³, photo⁴, stickerset⁵, title⁶ or username⁷ data of a channel gets modified)
+	// Info change events (when about¹, linked chat², location³, photo⁴, stickerset⁵,
+	// title⁶ or username⁷ data of a channel gets modified)
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionChangeAbout
@@ -95,7 +96,8 @@ type ChannelAdminLogEventsFilter struct {
 	//  6) https://core.telegram.org/constructor/channelAdminLogEventActionChangeTitle
 	//  7) https://core.telegram.org/constructor/channelAdminLogEventActionChangeUsername
 	Info bool
-	// Settings change events (invites¹, hidden prehistory², signatures³, default banned rights⁴)
+	// Settings change events (invites¹, hidden prehistory², signatures³, default banned
+	// rights⁴)
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/channelAdminLogEventActionToggleInvites

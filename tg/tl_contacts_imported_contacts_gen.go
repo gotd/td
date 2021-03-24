@@ -38,7 +38,8 @@ type ContactsImportedContacts struct {
 	Imported []ImportedContact
 	// Popular contacts
 	PopularInvites []PopularContact
-	// List of contact ids that could not be imported due to system limitation and will need to be imported at a later date.Parameter added in Layer 13¹
+	// List of contact ids that could not be imported due to system limitation and will need
+	// to be imported at a later date.Parameter added in Layer 13¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/layers#layer-13

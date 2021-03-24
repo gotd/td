@@ -779,7 +779,8 @@ var (
 )
 
 // ChatForbidden represents TL type `chatForbidden#7328bdb`.
-// A group to which the user has no access. E.g., because the user was kicked from the group.
+// A group to which the user has no access. E.g., because the user was kicked from the
+// group.
 //
 // See https://core.telegram.org/constructor/chatForbidden for reference.
 type ChatForbidden struct {
@@ -993,7 +994,8 @@ type Channel struct {
 	Username string
 	// Profile photo
 	Photo ChatPhotoClass
-	// Date when the user joined the supergroup/channel, or if the user isn't a member, its creation date
+	// Date when the user joined the supergroup/channel, or if the user isn't a member, its
+	// creation date
 	Date int
 	// Version of the channel (always 0)
 	Version int
@@ -2034,7 +2036,8 @@ var (
 )
 
 // ChannelForbidden represents TL type `channelForbidden#289da732`.
-// Indicates a channel/supergroup we can't access because we were banned, or for some other reason.
+// Indicates a channel/supergroup we can't access because we were banned, or for some
+// other reason.
 //
 // See https://core.telegram.org/constructor/channelForbidden for reference.
 type ChannelForbidden struct {
@@ -2375,6 +2378,7 @@ type ChatClass interface {
 
 	// Group identifier
 	GetID() (value int)
+
 	// AsNotEmpty tries to map ChatClass to NotEmptyChat.
 	AsNotEmpty() (NotEmptyChat, bool)
 	// AsNotForbidden tries to map ChatClass to NotForbiddenChat.
@@ -2434,6 +2438,7 @@ type NotEmptyChat interface {
 
 	// ID of the group
 	GetID() (value int)
+
 	// Title
 	GetTitle() (value string)
 }
@@ -2542,27 +2547,37 @@ type FullChat interface {
 
 	// Whether the current user is the creator of the group
 	GetCreator() (value bool)
+
 	// Whether the current user has left the group
 	GetLeft() (value bool)
+
 	// CallActive field of Chat.
 	GetCallActive() (value bool)
+
 	// CallNotEmpty field of Chat.
 	GetCallNotEmpty() (value bool)
+
 	// ID of the group
 	GetID() (value int)
+
 	// Title
 	GetTitle() (value string)
+
 	// Chat photo
 	GetPhoto() (value ChatPhotoClass)
+
 	// Date of creation of the group
 	GetDate() (value int)
+
 	// Used in basic groups to reorder updates and make sure that all of them were received.
 	GetVersion() (value int)
+
 	// Admin rights¹ of the user in the group
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/rights
 	GetAdminRights() (value ChatAdminRights, ok bool)
+
 	// Default banned rights¹ of all users in the group
 	//
 	// Links:
@@ -2798,7 +2813,9 @@ func (s ChatClassArray) AsChatEmpty() (to ChatEmptyArray) {
 	}
 
 	return to
-} // FillChatMap fills only Chat constructors to given map.
+}
+
+// FillChatMap fills only Chat constructors to given map.
 func (s ChatClassArray) FillChatMap(to map[int]*Chat) {
 	for _, elem := range s {
 		value, ok := elem.(*Chat)
@@ -2827,7 +2844,9 @@ func (s ChatClassArray) AsChat() (to ChatArray) {
 	}
 
 	return to
-} // FillChatForbiddenMap fills only ChatForbidden constructors to given map.
+}
+
+// FillChatForbiddenMap fills only ChatForbidden constructors to given map.
 func (s ChatClassArray) FillChatForbiddenMap(to map[int]*ChatForbidden) {
 	for _, elem := range s {
 		value, ok := elem.(*ChatForbidden)
@@ -2856,7 +2875,9 @@ func (s ChatClassArray) AsChatForbidden() (to ChatForbiddenArray) {
 	}
 
 	return to
-} // FillChannelMap fills only Channel constructors to given map.
+}
+
+// FillChannelMap fills only Channel constructors to given map.
 func (s ChatClassArray) FillChannelMap(to map[int]*Channel) {
 	for _, elem := range s {
 		value, ok := elem.(*Channel)
@@ -2885,7 +2906,9 @@ func (s ChatClassArray) AsChannel() (to ChannelArray) {
 	}
 
 	return to
-} // FillChannelForbiddenMap fills only ChannelForbidden constructors to given map.
+}
+
+// FillChannelForbiddenMap fills only ChannelForbidden constructors to given map.
 func (s ChatClassArray) FillChannelForbiddenMap(to map[int]*ChannelForbidden) {
 	for _, elem := range s {
 		value, ok := elem.(*ChannelForbidden)
@@ -2987,7 +3010,9 @@ func (s *ChatClassArray) PopAsNotEmpty() (v NotEmptyChat, ok bool) {
 		return
 	}
 	return value.AsNotEmpty()
-} // FillNotForbiddenMap fills only NotForbidden constructors to given map.
+}
+
+// FillNotForbiddenMap fills only NotForbidden constructors to given map.
 func (s ChatClassArray) FillNotForbiddenMap(to map[int]NotForbiddenChat) {
 	for _, elem := range s {
 		value, ok := elem.AsNotForbidden()
@@ -3058,7 +3083,9 @@ func (s *ChatClassArray) PopAsNotForbidden() (v NotForbiddenChat, ok bool) {
 		return
 	}
 	return value.AsNotForbidden()
-} // FillFullMap fills only Full constructors to given map.
+}
+
+// FillFullMap fills only Full constructors to given map.
 func (s ChatClassArray) FillFullMap(to map[int]FullChat) {
 	for _, elem := range s {
 		value, ok := elem.AsFull()

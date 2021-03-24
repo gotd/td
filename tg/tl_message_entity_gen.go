@@ -657,7 +657,8 @@ var (
 )
 
 // MessageEntityURL represents TL type `messageEntityUrl#6ed02538`.
-// Message entity representing an in-text url: https://google.com¹; for text urls², use messageEntityTextUrl³.
+// Message entity representing an in-text url: https://google.com¹; for text urls², use
+// messageEntityTextUrl³.
 //
 // Links:
 //  1) https://google.com
@@ -1445,7 +1446,8 @@ var (
 )
 
 // MessageEntityPre represents TL type `messageEntityPre#73924be0`.
-// Message entity representing a preformatted codeblock, allowing the user to specify a programming language for the codeblock.
+// Message entity representing a preformatted codeblock, allowing the user to specify a
+// programming language for the codeblock.
 //
 // See https://core.telegram.org/constructor/messageEntityPre for reference.
 type MessageEntityPre struct {
@@ -1625,7 +1627,8 @@ var (
 )
 
 // MessageEntityTextURL represents TL type `messageEntityTextUrl#76a6d327`.
-// Message entity representing a text url¹: for in-text urls like https://google.com² use messageEntityUrl³.
+// Message entity representing a text url¹: for in-text urls like https://google.com²
+// use messageEntityUrl³.
 //
 // Links:
 //  1) https://google.com
@@ -1810,7 +1813,8 @@ var (
 )
 
 // MessageEntityMentionName represents TL type `messageEntityMentionName#352dca58`.
-// Message entity representing a user mention¹: for creating a mention use inputMessageEntityMentionName².
+// Message entity representing a user mention¹: for creating a mention use
+// inputMessageEntityMentionName².
 //
 // Links:
 //  1) https://core.telegram.org/api/mentions
@@ -1994,7 +1998,8 @@ var (
 )
 
 // InputMessageEntityMentionName represents TL type `inputMessageEntityMentionName#208e68c9`.
-// Message entity that can be used to create a user user mention¹: received mentions use the messageEntityMentionName² constructor, instead.
+// Message entity that can be used to create a user user mention¹: received mentions use
+// the messageEntityMentionName² constructor, instead.
 //
 // Links:
 //  1) https://core.telegram.org/api/mentions
@@ -3169,6 +3174,7 @@ type MessageEntityClass interface {
 
 	// Offset of message entity within message (in UTF-8 codepoints)
 	GetOffset() (value int)
+
 	// Length of message entity within message (in UTF-8 codepoints)
 	GetLength() (value int)
 }

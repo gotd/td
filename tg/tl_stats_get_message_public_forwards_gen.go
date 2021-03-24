@@ -30,8 +30,10 @@ var (
 )
 
 // StatsGetMessagePublicForwardsRequest represents TL type `stats.getMessagePublicForwards#5630281b`.
-// Obtains a list of messages, indicating to which other public channels was a channel message forwarded.
-// Will return a list of messages¹ with peer_id equal to the public channel to which this message was forwarded.
+// Obtains a list of messages, indicating to which other public channels was a channel
+// message forwarded.
+// Will return a list of messages¹ with peer_id equal to the public channel to which
+// this message was forwarded.
 //
 // Links:
 //  1) https://core.telegram.org/constructor/message
@@ -308,8 +310,10 @@ var (
 )
 
 // StatsGetMessagePublicForwards invokes method stats.getMessagePublicForwards#5630281b returning error if any.
-// Obtains a list of messages, indicating to which other public channels was a channel message forwarded.
-// Will return a list of messages¹ with peer_id equal to the public channel to which this message was forwarded.
+// Obtains a list of messages, indicating to which other public channels was a channel
+// message forwarded.
+// Will return a list of messages¹ with peer_id equal to the public channel to which
+// this message was forwarded.
 //
 // Links:
 //  1) https://core.telegram.org/constructor/message

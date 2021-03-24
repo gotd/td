@@ -34,7 +34,8 @@ var (
 //
 // See https://core.telegram.org/constructor/help.termsOfServiceUpdateEmpty for reference.
 type HelpTermsOfServiceUpdateEmpty struct {
-	// New TOS updates will have to be queried using help.getTermsOfServiceUpdate¹ in expires seconds
+	// New TOS updates will have to be queried using help.getTermsOfServiceUpdate¹ in
+	// expires seconds
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/help.getTermsOfServiceUpdate
@@ -165,14 +166,17 @@ var (
 )
 
 // HelpTermsOfServiceUpdate represents TL type `help.termsOfServiceUpdate#28ecf961`.
-// Info about an update of telegram's terms of service. If the terms of service are declined, then the account.deleteAccount¹ method should be called with the reason "Decline ToS update"
+// Info about an update of telegram's terms of service. If the terms of service are
+// declined, then the account.deleteAccount¹ method should be called with the reason
+// "Decline ToS update"
 //
 // Links:
 //  1) https://core.telegram.org/method/account.deleteAccount
 //
 // See https://core.telegram.org/constructor/help.termsOfServiceUpdate for reference.
 type HelpTermsOfServiceUpdate struct {
-	// New TOS updates will have to be queried using help.getTermsOfServiceUpdate¹ in expires seconds
+	// New TOS updates will have to be queried using help.getTermsOfServiceUpdate¹ in
+	// expires seconds
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/help.getTermsOfServiceUpdate
@@ -358,11 +362,13 @@ type HelpTermsOfServiceUpdateClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// New TOS updates will have to be queried using help.getTermsOfServiceUpdate¹ in expires seconds
+	// New TOS updates will have to be queried using help.getTermsOfServiceUpdate¹ in
+	// expires seconds
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/help.getTermsOfServiceUpdate
 	GetExpires() (value int)
+
 	// AsNotEmpty tries to map HelpTermsOfServiceUpdateClass to HelpTermsOfServiceUpdate.
 	AsNotEmpty() (*HelpTermsOfServiceUpdate, bool)
 }

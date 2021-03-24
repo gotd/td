@@ -30,7 +30,9 @@ var (
 )
 
 // MessagesGetEmojiURLRequest represents TL type `messages.getEmojiURL#d5b10c26`.
-// Returns an HTTP URL which can be used to automatically log in into translation platform and suggest new emoji replacements. The URL will be valid for 30 seconds after generation
+// Returns an HTTP URL which can be used to automatically log in into translation
+// platform and suggest new emoji replacements. The URL will be valid for 30 seconds
+// after generation
 //
 // See https://core.telegram.org/method/messages.getEmojiURL for reference.
 type MessagesGetEmojiURLRequest struct {
@@ -157,7 +159,9 @@ var (
 )
 
 // MessagesGetEmojiURL invokes method messages.getEmojiURL#d5b10c26 returning error if any.
-// Returns an HTTP URL which can be used to automatically log in into translation platform and suggest new emoji replacements. The URL will be valid for 30 seconds after generation
+// Returns an HTTP URL which can be used to automatically log in into translation
+// platform and suggest new emoji replacements. The URL will be valid for 30 seconds
+// after generation
 //
 // See https://core.telegram.org/method/messages.getEmojiURL for reference.
 func (c *Client) MessagesGetEmojiURL(ctx context.Context, langcode string) (*EmojiURL, error) {

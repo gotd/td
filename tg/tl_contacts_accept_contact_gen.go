@@ -30,7 +30,8 @@ var (
 )
 
 // ContactsAcceptContactRequest represents TL type `contacts.acceptContact#f831a20f`.
-// If the peer settings¹ of a new user allow us to add him as contact, add that user as contact
+// If the peer settings¹ of a new user allow us to add him as contact, add that user as
+// contact
 //
 // Links:
 //  1) https://core.telegram.org/constructor/peerSettings
@@ -165,7 +166,8 @@ var (
 )
 
 // ContactsAcceptContact invokes method contacts.acceptContact#f831a20f returning error if any.
-// If the peer settings¹ of a new user allow us to add him as contact, add that user as contact
+// If the peer settings¹ of a new user allow us to add him as contact, add that user as
+// contact
 //
 // Links:
 //  1) https://core.telegram.org/constructor/peerSettings

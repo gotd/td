@@ -30,7 +30,8 @@ var (
 )
 
 // AccountGetPasswordSettingsRequest represents TL type `account.getPasswordSettings#9cd4eaf9`.
-// Get private info associated to the password info (recovery email, telegram passport¹ info & so on)
+// Get private info associated to the password info (recovery email, telegram passport¹
+// info & so on)
 //
 // Links:
 //  1) https://core.telegram.org/passport
@@ -173,7 +174,8 @@ var (
 )
 
 // AccountGetPasswordSettings invokes method account.getPasswordSettings#9cd4eaf9 returning error if any.
-// Get private info associated to the password info (recovery email, telegram passport¹ info & so on)
+// Get private info associated to the password info (recovery email, telegram passport¹
+// info & so on)
 //
 // Links:
 //  1) https://core.telegram.org/passport

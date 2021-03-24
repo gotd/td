@@ -31,7 +31,8 @@ var (
 
 // HelpGetAppChangelogRequest represents TL type `help.getAppChangelog#9010ef6f`.
 // Get changelog of current app.
-// Typically, an updates¹ constructor will be returned, containing one or more updateServiceNotification² updates with app-specific changelogs.
+// Typically, an updates¹ constructor will be returned, containing one or more
+// updateServiceNotification² updates with app-specific changelogs.
 //
 // Links:
 //  1) https://core.telegram.org/constructor/updates
@@ -163,7 +164,8 @@ var (
 
 // HelpGetAppChangelog invokes method help.getAppChangelog#9010ef6f returning error if any.
 // Get changelog of current app.
-// Typically, an updates¹ constructor will be returned, containing one or more updateServiceNotification² updates with app-specific changelogs.
+// Typically, an updates¹ constructor will be returned, containing one or more
+// updateServiceNotification² updates with app-specific changelogs.
 //
 // Links:
 //  1) https://core.telegram.org/constructor/updates

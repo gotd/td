@@ -445,10 +445,13 @@ type FileLocationClass interface {
 
 	// VolumeID field of FileLocationUnavailable.
 	GetVolumeID() (value int64)
+
 	// LocalID field of FileLocationUnavailable.
 	GetLocalID() (value int)
+
 	// Secret field of FileLocationUnavailable.
 	GetSecret() (value int64)
+
 	// AsAvailable tries to map FileLocationClass to FileLocation.
 	AsAvailable() (*FileLocation, bool)
 }

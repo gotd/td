@@ -30,8 +30,10 @@ var (
 )
 
 // ContactsImportContactsRequest represents TL type `contacts.importContacts#2c800be5`.
-// Imports contacts: saves a full list on the server, adds already registered contacts to the contact list, returns added contacts and their info.
-// Use contacts.addContact¹ to add Telegram contacts without actually using their phone number.
+// Imports contacts: saves a full list on the server, adds already registered contacts to
+// the contact list, returns added contacts and their info.
+// Use contacts.addContact¹ to add Telegram contacts without actually using their phone
+// number.
 //
 // Links:
 //  1) https://core.telegram.org/method/contacts.addContact
@@ -172,8 +174,10 @@ var (
 )
 
 // ContactsImportContacts invokes method contacts.importContacts#2c800be5 returning error if any.
-// Imports contacts: saves a full list on the server, adds already registered contacts to the contact list, returns added contacts and their info.
-// Use contacts.addContact¹ to add Telegram contacts without actually using their phone number.
+// Imports contacts: saves a full list on the server, adds already registered contacts to
+// the contact list, returns added contacts and their info.
+// Use contacts.addContact¹ to add Telegram contacts without actually using their phone
+// number.
 //
 // Links:
 //  1) https://core.telegram.org/method/contacts.addContact

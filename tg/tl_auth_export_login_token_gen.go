@@ -31,7 +31,8 @@ var (
 
 // AuthExportLoginTokenRequest represents TL type `auth.exportLoginToken#b1b41517`.
 // Generate a login token, for login via QR code¹.
-// The generated login token should be encoded using base64url, then shown as a tg://login?token=base64encodedtoken URL in the QR code.
+// The generated login token should be encoded using base64url, then shown as a
+// tg://login?token=base64encodedtoken URL in the QR code.
 // For more info, see login via QR code¹.
 //
 // Links:
@@ -227,7 +228,8 @@ var (
 
 // AuthExportLoginToken invokes method auth.exportLoginToken#b1b41517 returning error if any.
 // Generate a login token, for login via QR code¹.
-// The generated login token should be encoded using base64url, then shown as a tg://login?token=base64encodedtoken URL in the QR code.
+// The generated login token should be encoded using base64url, then shown as a
+// tg://login?token=base64encodedtoken URL in the QR code.
 // For more info, see login via QR code¹.
 //
 // Links:

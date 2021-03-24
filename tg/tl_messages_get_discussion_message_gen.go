@@ -30,7 +30,8 @@ var (
 )
 
 // MessagesGetDiscussionMessageRequest represents TL type `messages.getDiscussionMessage#446972fd`.
-// Get discussion message¹ from the associated discussion group² of a channel to show it on top of the comment section, without actually joining the group
+// Get discussion message¹ from the associated discussion group² of a channel to show
+// it on top of the comment section, without actually joining the group
 //
 // Links:
 //  1) https://core.telegram.org/api/threads
@@ -193,7 +194,8 @@ var (
 )
 
 // MessagesGetDiscussionMessage invokes method messages.getDiscussionMessage#446972fd returning error if any.
-// Get discussion message¹ from the associated discussion group² of a channel to show it on top of the comment section, without actually joining the group
+// Get discussion message¹ from the associated discussion group² of a channel to show
+// it on top of the comment section, without actually joining the group
 //
 // Links:
 //  1) https://core.telegram.org/api/threads

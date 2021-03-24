@@ -536,10 +536,13 @@ type WebDocumentClass interface {
 
 	// Document URL
 	GetURL() (value string)
+
 	// File size
 	GetSize() (value int)
+
 	// MIME type
 	GetMimeType() (value string)
+
 	// Attributes for media types
 	GetAttributes() (value []DocumentAttributeClass)
 	// Attributes for media types

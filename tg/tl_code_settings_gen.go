@@ -49,9 +49,11 @@ type CodeSettings struct {
 	// Links:
 	//  1) https://core.telegram.org/api/auth
 	AllowFlashcall bool
-	// Pass true if the phone number is used on the current device. Ignored if allow_flashcall is not set.
+	// Pass true if the phone number is used on the current device. Ignored if
+	// allow_flashcall is not set.
 	CurrentNumber bool
-	// If a token that will be included in eventually sent SMSs is required: required in newer versions of android, to use the android SMS receiver APIs¹
+	// If a token that will be included in eventually sent SMSs is required: required in
+	// newer versions of android, to use the android SMS receiver APIs¹
 	//
 	// Links:
 	//  1) https://developers.google.com/identity/sms-retriever/overview

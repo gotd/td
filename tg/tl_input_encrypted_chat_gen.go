@@ -36,7 +36,8 @@ var (
 type InputEncryptedChat struct {
 	// Chat ID
 	ChatID int
-	// Checking sum from constructor encryptedChat¹, encryptedChatWaiting² or encryptedChatRequested³
+	// Checking sum from constructor encryptedChat¹, encryptedChatWaiting² or
+	// encryptedChatRequested³
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/encryptedChat

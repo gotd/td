@@ -30,7 +30,8 @@ var (
 )
 
 // AccountUpdateDeviceLockedRequest represents TL type `account.updateDeviceLocked#38df3532`.
-// When client-side passcode lock feature is enabled, will not show message texts in incoming PUSH notifications¹.
+// When client-side passcode lock feature is enabled, will not show message texts in
+// incoming PUSH notifications¹.
 //
 // Links:
 //  1) https://core.telegram.org/api/push-updates
@@ -163,7 +164,8 @@ var (
 )
 
 // AccountUpdateDeviceLocked invokes method account.updateDeviceLocked#38df3532 returning error if any.
-// When client-side passcode lock feature is enabled, will not show message texts in incoming PUSH notifications¹.
+// When client-side passcode lock feature is enabled, will not show message texts in
+// incoming PUSH notifications¹.
 //
 // Links:
 //  1) https://core.telegram.org/api/push-updates

@@ -42,7 +42,8 @@ type Page struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Indicates that not full page preview is available to the client and it will need to fetch full Instant View from the server using messages.getWebPagePreview¹.
+	// Indicates that not full page preview is available to the client and it will need to
+	// fetch full Instant View from the server using messages.getWebPagePreview¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.getWebPagePreview

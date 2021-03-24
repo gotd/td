@@ -37,7 +37,9 @@ var (
 //
 // See https://core.telegram.org/constructor/secureCredentialsEncrypted for reference.
 type SecureCredentialsEncrypted struct {
-	// Encrypted JSON-serialized data with unique user's payload, data hashes and secrets required for EncryptedPassportElement decryption and authentication, as described in decrypting data »¹
+	// Encrypted JSON-serialized data with unique user's payload, data hashes and secrets
+	// required for EncryptedPassportElement decryption and authentication, as described in
+	// decrypting data »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport#decrypting-data
@@ -47,7 +49,8 @@ type SecureCredentialsEncrypted struct {
 	// Links:
 	//  1) https://core.telegram.org/passport#decrypting-data
 	Hash []byte
-	// Secret, encrypted with the bot's public RSA key, required for data decryption as described in decrypting data »¹
+	// Secret, encrypted with the bot's public RSA key, required for data decryption as
+	// described in decrypting data »¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/passport#decrypting-data

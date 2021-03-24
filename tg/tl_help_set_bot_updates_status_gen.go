@@ -30,7 +30,8 @@ var (
 )
 
 // HelpSetBotUpdatesStatusRequest represents TL type `help.setBotUpdatesStatus#ec22cfcd`.
-// Informs the server about the number of pending bot updates if they haven't been processed for a long time; for bots only
+// Informs the server about the number of pending bot updates if they haven't been
+// processed for a long time; for bots only
 //
 // See https://core.telegram.org/method/help.setBotUpdatesStatus for reference.
 type HelpSetBotUpdatesStatusRequest struct {
@@ -181,7 +182,8 @@ var (
 )
 
 // HelpSetBotUpdatesStatus invokes method help.setBotUpdatesStatus#ec22cfcd returning error if any.
-// Informs the server about the number of pending bot updates if they haven't been processed for a long time; for bots only
+// Informs the server about the number of pending bot updates if they haven't been
+// processed for a long time; for bots only
 //
 // See https://core.telegram.org/method/help.setBotUpdatesStatus for reference.
 // Can be used by bots.

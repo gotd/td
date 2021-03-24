@@ -134,7 +134,8 @@ var (
 )
 
 // MessagesStickerSetInstallResultArchive represents TL type `messages.stickerSetInstallResultArchive#35e410a8`.
-// The stickerset was installed, but since there are too many stickersets some were archived
+// The stickerset was installed, but since there are too many stickersets some were
+// archived
 //
 // See https://core.telegram.org/constructor/messages.stickerSetInstallResultArchive for reference.
 type MessagesStickerSetInstallResultArchive struct {

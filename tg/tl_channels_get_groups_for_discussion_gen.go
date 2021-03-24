@@ -31,8 +31,10 @@ var (
 
 // ChannelsGetGroupsForDiscussionRequest represents TL type `channels.getGroupsForDiscussion#f5dad378`.
 // Get all groups that can be used as discussion groups¹.
-// Returned legacy group chats¹ must be first upgraded to supergroups² before they can be set as a discussion group.
-// To set a returned supergroup as a discussion group, access to its old messages must be enabled using channels.togglePreHistoryHidden³, first.
+// Returned legacy group chats¹ must be first upgraded to supergroups² before they can
+// be set as a discussion group.
+// To set a returned supergroup as a discussion group, access to its old messages must be
+// enabled using channels.togglePreHistoryHidden³, first.
 //
 // Links:
 //  1) https://core.telegram.org/api/discussion
@@ -136,8 +138,10 @@ var (
 
 // ChannelsGetGroupsForDiscussion invokes method channels.getGroupsForDiscussion#f5dad378 returning error if any.
 // Get all groups that can be used as discussion groups¹.
-// Returned legacy group chats¹ must be first upgraded to supergroups² before they can be set as a discussion group.
-// To set a returned supergroup as a discussion group, access to its old messages must be enabled using channels.togglePreHistoryHidden³, first.
+// Returned legacy group chats¹ must be first upgraded to supergroups² before they can
+// be set as a discussion group.
+// To set a returned supergroup as a discussion group, access to its old messages must be
+// enabled using channels.togglePreHistoryHidden³, first.
 //
 // Links:
 //  1) https://core.telegram.org/api/discussion

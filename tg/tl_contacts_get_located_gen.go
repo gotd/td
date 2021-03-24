@@ -39,11 +39,16 @@ type ContactsGetLocatedRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// While the geolocation of the current user is public, clients should update it in the background every half-an-hour or so, while setting this flag. Do this only if the new location is more than 1 KM away from the previous one, or if the previous location is unknown.
+	// While the geolocation of the current user is public, clients should update it in the
+	// background every half-an-hour or so, while setting this flag. Do this only if the new
+	// location is more than 1 KM away from the previous one, or if the previous location is
+	// unknown.
 	Background bool
 	// Geolocation
 	GeoPoint InputGeoPointClass
-	// If set, the geolocation of the current user will be public for the specified number of seconds; pass 0x7fffffff to disable expiry, 0 to make the current geolocation private; if the flag isn't set, no changes will be applied.
+	// If set, the geolocation of the current user will be public for the specified number of
+	// seconds; pass 0x7fffffff to disable expiry, 0 to make the current geolocation private;
+	// if the flag isn't set, no changes will be applied.
 	//
 	// Use SetSelfExpires and GetSelfExpires helpers.
 	SelfExpires int

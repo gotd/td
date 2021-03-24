@@ -694,8 +694,10 @@ type WallPaperClass interface {
 
 	// Whether this is the default wallpaper
 	GetDefault() (value bool)
+
 	// Dark mode
 	GetDark() (value bool)
+
 	// Wallpaper settings
 	GetSettings() (value WallPaperSettings, ok bool)
 }

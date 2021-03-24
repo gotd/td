@@ -39,7 +39,8 @@ type MessagesVotesList struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Total number of votes for all options (or only for the chosen option, if provided to messages.getPollVotes¹)
+	// Total number of votes for all options (or only for the chosen option, if provided to
+	// messages.getPollVotes¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.getPollVotes
@@ -48,7 +49,8 @@ type MessagesVotesList struct {
 	Votes []MessageUserVoteClass
 	// Info about users that voted in the poll
 	Users []UserClass
-	// Offset to use with the next messages.getPollVotes¹ request, empty string if no more results are available.
+	// Offset to use with the next messages.getPollVotes¹ request, empty string if no more
+	// results are available.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.getPollVotes

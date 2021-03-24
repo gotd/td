@@ -656,6 +656,7 @@ type DocumentClass interface {
 
 	// Document ID or 0
 	GetID() (value int64)
+
 	// AsNotEmpty tries to map DocumentClass to Document.
 	AsNotEmpty() (*Document, bool)
 }

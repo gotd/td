@@ -42,7 +42,8 @@ type MessageReplies struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether this constructor contains information about the comment section of a channel post, or a simple message thread¹
+	// Whether this constructor contains information about the comment section of a channel
+	// post, or a simple message thread¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/threads
@@ -54,7 +55,9 @@ type MessageReplies struct {
 	// Links:
 	//  1) https://core.telegram.org/api/updates
 	RepliesPts int
-	// For channel post comments, contains information about the last few comment posters for a specific thread, to show a small list of commenter profile pictures in client previews.
+	// For channel post comments, contains information about the last few comment posters for
+	// a specific thread, to show a small list of commenter profile pictures in client
+	// previews.
 	//
 	// Use SetRecentRepliers and GetRecentRepliers helpers.
 	RecentRepliers []PeerClass
