@@ -7,10 +7,10 @@
 {{ end }}
 
 {{ range $s := $f.Constructors }}{{ if $s.Fields }}
-{{- range $field := mapCollectableFields ($f.SharedFields.Common) }}
-{{- /*gotype: github.com/gotd/td/internal/gen.fieldDef*/ -}}
+{{ range $field := mapCollectableFields ($f.SharedFields.Common) }}
 {{ template "slice_collect_to_map" concat ($f) ($field) ($s.Name) }}
 {{ end }}
+
 // As{{ $s.Name }} returns copy with only {{ $s.Name }} constructors.
 func (s {{ template "slice_name" $f }}) As{{ $s.Name }}() (to {{ template "slice_name" $s }}) {
     for _, elem := range s {
@@ -87,7 +87,7 @@ func (s *{{ template "slice_name" $f }}) {{ $method }}As{{ $mapping.MapperName }
     }
     return value.As{{ $mapping.MapperName }}()
 }
-{{- end }}
+{{ end }}
 
 {{- end }}{{- end }}
 

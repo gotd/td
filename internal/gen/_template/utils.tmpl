@@ -43,7 +43,7 @@ Get{{$.Name}}() (value {{ template "print_type" $ }}{{ if and ($.Conditional) (n
 {{- end }}
 
 {{ define "print_comment" }}
-{{- range $line := .Comment }}
+{{- range $line := . }}
 // {{ trim $line }}
 {{- end }}
 {{- end }}
