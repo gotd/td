@@ -34,7 +34,6 @@ var _ = (*big.Int)(nil)
 
 {{ define "pubkey" -}}
 	&rsa.PublicKey{
-		// Fingerprint: {{ fingerprint . }}
 		E: {{ .E }},
 		N: {{ template "bigint" .N }},
 	}
@@ -43,9 +42,9 @@ var _ = (*big.Int)(nil)
 {{ if not .Single }}
 	var {{ .Variable }} = []*rsa.PublicKey{
 		{{- range .Keys }}
-			{{ template "pubkey" . }},
+			{{ template "pubkey" . }}, // Fingerprint: {{ fingerprint . }}
 		{{- end }}
 	}
 {{ else }}
-	var {{ .Variable }} = {{ template "pubkey" (single .Keys) }}
+	var {{ .Variable }} = {{ template "pubkey" (single .Keys) }} // Fingerprint: {{ single .Keys | fingerprint }}
 {{ end }}

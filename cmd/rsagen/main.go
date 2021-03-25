@@ -62,8 +62,13 @@ func run() error {
 		varName      = flag.String("var", "PK", "variable name")
 		singleMode   = flag.Bool("single", false, "emit single key instead of slice")
 		formatOutput = flag.Bool("format", true, "run gofmt on output")
+		testFunc     = flag.String("test", "", "test function name")
 	)
 	flag.Parse()
+
+	if *testFunc == "" {
+		*testFunc = "TestFingerprint" + *varName
+	}
 
 	var err error
 
@@ -112,6 +117,7 @@ func run() error {
 		"Keys":       keys,
 		"Single":     *singleMode,
 		"InputLines": inLines,
+		"TestFunc":   *testFunc,
 	}); err != nil {
 		log.Printf("execute template: %v", err)
 		return err
