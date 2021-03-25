@@ -159,8 +159,13 @@ func (b *Builder) UploadMedia(ctx context.Context, media MediaOption) (tg.Messag
 		return nil, err
 	}
 
-	return b.sender.uploadMedia(ctx, &tg.MessagesUploadMediaRequest{
+	r, err := b.sender.uploadMedia(ctx, &tg.MessagesUploadMediaRequest{
 		Peer:  p,
 		Media: attachment.Media,
 	})
+	if err != nil {
+		return nil, xerrors.Errorf("upload media: %w", err)
+	}
+
+	return r, nil
 }

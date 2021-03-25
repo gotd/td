@@ -23,7 +23,7 @@ func (b *textBuilder) Perform(text StyledTextOption, texts ...StyledTextOption) 
 	}
 	for idx, opt := range texts {
 		if err := opt.perform(b); err != nil {
-			return xerrors.Errorf("perform %d styling option: %w", idx, err)
+			return xerrors.Errorf("perform %d styling option: %w", idx+2, err)
 		}
 	}
 
