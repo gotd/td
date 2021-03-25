@@ -9,7 +9,12 @@ import (
 
 func TestMain(m *testing.M) {
 	os.Exit(testscript.RunMain(m, map[string]func() int{
-		"rsagen": main1,
+		"rsagen": func() int {
+			if err := run(); err != nil {
+				return 1
+			}
+			return 0
+		},
 	}))
 }
 

@@ -45,10 +45,12 @@ var funcs = template.FuncMap{
 }
 
 func main() {
-	os.Exit(main1())
+	if err := run(); err != nil {
+		os.Exit(1)
+	}
 }
 
-func main1() int {
+func run() error {
 	log.SetFlags(log.Llongfile)
 	var (
 		inPath       = ""
@@ -104,13 +106,13 @@ func main1() int {
 	}
 	if err != nil {
 		log.Printf("read input: %v", err)
-		return 1
+		return err
 	}
 
 	keys, err := crypto.ParseRSAPublicKeys(in)
 	if err != nil {
 		log.Printf("parse public keys: %v", err)
-		return 1
+		return err
 	}
 
 	fsys, _ := fs.Sub(embedFS, "_template")
@@ -121,7 +123,7 @@ func main1() int {
 	tpl, err := template.New("").Funcs(funcs).ParseFS(fsys, "*.tmpl")
 	if err != nil {
 		log.Printf("parse templates: %v", err)
-		return 1
+		return err
 	}
 
 	buf := bytes.NewBuffer(nil)
@@ -132,14 +134,14 @@ func main1() int {
 		"Single":   singleMode,
 	}); err != nil {
 		log.Printf("execute template: %v", err)
-		return 1
+		return err
 	}
 
 	if formatOutput {
 		p, err := format.Source(buf.Bytes())
 		if err != nil {
 			log.Printf("format output: %v", err)
-			return 1
+			return err
 		}
 		buf = bytes.NewBuffer(p)
 	}
@@ -151,7 +153,7 @@ func main1() int {
 	}
 	if err != nil {
 		log.Printf("write output: %v", err)
-		return 1
+		return err
 	}
-	return 0
+	return nil
 }
