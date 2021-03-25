@@ -24,7 +24,7 @@ func {{ .TestFunc }}(t *testing.T) {
 				{{ fingerprint . | printf "%q" }},
 			{{- end }}
 		}
-		assert.Equal(t, len(expected), len({{ .Variable }}))
+		assert.Len(t, {{ .Variable }}, len(expected))
 		for i, pubkey := range {{ .Variable }} {
 			assert.Equal(t, expected[i], fingerprint(pubkey))
 		}
