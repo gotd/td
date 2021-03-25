@@ -3,6 +3,7 @@
 package main
 
 import (
+	"bufio"
 	"bytes"
 	"crypto/rsa"
 	"embed"
@@ -94,12 +95,23 @@ func run() error {
 		return err
 	}
 
+	var inLines [][]byte
+	for sc := bufio.NewScanner(bytes.NewReader(in)); sc.Scan(); {
+		line := sc.Bytes()
+		line = bytes.TrimSpace(line)
+		if len(line) == 0 {
+			continue
+		}
+		inLines = append(inLines, line)
+	}
+
 	buf := bytes.NewBuffer(nil)
 	if err := tpl.ExecuteTemplate(buf, *tplName, map[string]interface{}{
-		"Package":  *pkgName,
-		"Variable": *varName,
-		"Keys":     keys,
-		"Single":   *singleMode,
+		"Package":    *pkgName,
+		"Variable":   *varName,
+		"Keys":       keys,
+		"Single":     *singleMode,
+		"InputLines": inLines,
 	}); err != nil {
 		log.Printf("execute template: %v", err)
 		return err
