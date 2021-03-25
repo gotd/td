@@ -3,6 +3,7 @@ package mtproto
 import (
 	"context"
 	"errors"
+	"sync/atomic"
 
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
@@ -17,15 +18,13 @@ import (
 // NOTE: Assuming that call contains content message (seqno increment).
 func (c *Conn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
 	req := rpc.Request{
-		ID:       c.newMessageID(),
-		Sequence: c.seqNo(true),
-		Input:    input,
-		Output:   output,
+		ID:     atomic.AddInt64(&c.reqID, 1),
+		Input:  input,
+		Output: output,
 	}
 
 	log := c.log.With(
-		zap.Bool("content_msg", true),
-		zap.Int64("msg_id", req.ID),
+		zap.Int64("req_id", req.ID),
 	)
 	log.Debug("Invoke start")
 	defer log.Debug("Invoke end")
@@ -39,7 +38,7 @@ func (c *Conn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Deco
 			c.storeSalt(badMsgErr.NewSalt)
 			// Reset saved salts to fetch new.
 			c.salts.Reset()
-			c.log.Info("Retrying request after basMsgErr", zap.Int64("msg_id", req.ID))
+			c.log.Info("Retrying request after basMsgErr", zap.Int64("req_id", req.ID))
 			return c.rpc.Do(ctx, req)
 		}
 		return xerrors.Errorf("rpcDoRequest: %w", err)

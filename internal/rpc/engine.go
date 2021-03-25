@@ -37,10 +37,10 @@ type Engine struct {
 }
 
 // Send is a function that sends requests to the server.
-type Send func(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error
+type Send func(ctx context.Context, reqID int64, in bin.Encoder) error
 
 // NopSend does nothing.
-func NopSend(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error { return nil }
+func NopSend(ctx context.Context, reqID int64, in bin.Encoder) error { return nil }
 
 // DropHandler handles drop rpc requests.
 type DropHandler func(req Request) error
@@ -74,10 +74,9 @@ func New(send Send, cfg Options) *Engine {
 
 // Request represents client RPC request.
 type Request struct {
-	ID       int64
-	Sequence int32
-	Input    bin.Encoder
-	Output   bin.Decoder
+	ID     int64
+	Input  bin.Encoder
+	Output bin.Decoder
 }
 
 // Do sends request to server and blocks until response is received, performing
@@ -93,7 +92,7 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 	retryCtx, retryClose := context.WithCancel(ctx)
 	defer retryClose()
 
-	log := e.log.With(zap.Int64("msg_id", req.ID))
+	log := e.log.With(zap.Int64("req_id", req.ID))
 	log.Debug("Do called")
 
 	done := make(chan struct{})
@@ -180,13 +179,13 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) (sent bool, err
 	var (
 		ackChan = e.waitAck(req.ID)
 		retries = 0
-		log     = e.log.Named("retry").With(zap.Int64("msg_id", req.ID))
+		log     = e.log.Named("retry").With(zap.Int64("req_id", req.ID))
 	)
 
 	defer e.removeAck(req.ID)
 
 	// Encoding request.
-	if err := e.send(ctx, req.ID, req.Sequence, req.Input); err != nil {
+	if err := e.send(ctx, req.ID, req.Input); err != nil {
 		return false, xerrors.Errorf("send: %w", err)
 	}
 
@@ -202,7 +201,7 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) (sent bool, err
 				return nil
 			case <-e.clock.After(e.retryInterval):
 				log.Debug("Acknowledge timed out, performing retry")
-				if err := e.send(ctx, req.ID, req.Sequence, req.Input); err != nil {
+				if err := e.send(ctx, req.ID, req.Input); err != nil {
 					if errors.Is(err, context.Canceled) {
 						return nil
 					}
@@ -213,7 +212,7 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) (sent bool, err
 
 				retries++
 				if retries >= e.maxRetries {
-					log.Error("Retry limit reached", zap.Int64("msg_id", req.ID))
+					log.Error("Retry limit reached", zap.Int64("req_id", req.ID))
 					return &RetryLimitReachedErr{
 						Retries: retries,
 					}
@@ -226,12 +225,12 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) (sent bool, err
 }
 
 // NotifyResult notifies engine about received RPC response.
-func (e *Engine) NotifyResult(msgID int64, b *bin.Buffer) error {
+func (e *Engine) NotifyResult(reqID int64, b *bin.Buffer) error {
 	e.mux.Lock()
-	fn, ok := e.rpc[msgID]
+	fn, ok := e.rpc[reqID]
 	e.mux.Unlock()
 	if !ok {
-		e.log.Warn("rpc callback not set", zap.Int64("msg_id", msgID))
+		e.log.Warn("rpc callback not set", zap.Int64("req_id", reqID))
 		return nil
 	}
 
@@ -239,12 +238,12 @@ func (e *Engine) NotifyResult(msgID int64, b *bin.Buffer) error {
 }
 
 // NotifyError notifies engine about received RPC error.
-func (e *Engine) NotifyError(msgID int64, rpcErr error) {
+func (e *Engine) NotifyError(reqID int64, rpcErr error) {
 	e.mux.Lock()
-	fn, ok := e.rpc[msgID]
+	fn, ok := e.rpc[reqID]
 	e.mux.Unlock()
 	if !ok {
-		e.log.Warn("rpc callback not set", zap.Int64("msg_id", msgID))
+		e.log.Warn("rpc callback not set", zap.Int64("req_id", reqID))
 		return
 	}
 

@@ -71,8 +71,12 @@ type Conn struct {
 
 	// sentContentMessages is count of created content messages, used to
 	// compute sequence number within session.
-	sentContentMessages    int32
-	sentContentMessagesMux sync.Mutex
+	sentContentMessages int32
+	msgToReq            map[int64]int64
+	reqToMsg            map[int64]int64
+	reqMux              sync.Mutex
+
+	reqID int64 // atomic
 
 	// ackSendChan is queue for outgoing message id's that require waiting for
 	// ack from server.
@@ -125,6 +129,9 @@ func New(dialer Dialer, opt Options) *Conn {
 		authKey: opt.Key,
 		salt:    opt.Salt,
 
+		reqToMsg: map[int64]int64{},
+		msgToReq: map[int64]int64{},
+
 		ping:         map[int64]chan struct{}{},
 		pingTimeout:  opt.PingTimeout,
 		pingInterval: opt.PingInterval,
@@ -140,7 +147,7 @@ func New(dialer Dialer, opt Options) *Conn {
 		getTimeout:        opt.RequestTimeout,
 	}
 	if conn.rpc == nil {
-		conn.rpc = rpc.New(conn.write, rpc.Options{
+		conn.rpc = rpc.New(conn.writeContentMessage, rpc.Options{
 			Logger:        opt.Logger.Named("rpc"),
 			RetryInterval: opt.RetryInterval,
 			MaxRetries:    opt.MaxRetries,
