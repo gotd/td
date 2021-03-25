@@ -37,6 +37,8 @@ type fieldDef struct {
 	Slice bool
 	// DoubleSlice denotes whether double slicing should be used, e.g. [][]bytes.
 	DoubleSlice bool
+	// BareEncoder denotes whether field type should use bare encoder.
+	BareEncoder bool
 	// Interface is name of interface type if field type is constructor.
 	Interface string
 	// InterfaceFunc is encoding func postfix if Interface is set.
@@ -163,6 +165,8 @@ func (g *Generator) makeField(param tl.Parameter, annotations []tl.Annotation) (
 		f.Slice = true
 	default:
 		f.Encoder = true
+		f.BareEncoder = f.BareVector
+
 		if param.Flags {
 			f.Type = flagsType
 			break
@@ -188,6 +192,9 @@ func (g *Generator) makeField(param tl.Parameter, annotations []tl.Annotation) (
 				return fieldDef{}, xerrors.Errorf("classes[%s] not found", baseType)
 			}
 			f.Type = t.Name
+			if !baseType.Percent && t.Singular && !param.Type.GenericRef {
+				f.BareEncoder = false
+			}
 			if !t.Singular && !param.Type.GenericRef {
 				f.Interface = t.Name
 				f.InterfaceFunc = t.Func

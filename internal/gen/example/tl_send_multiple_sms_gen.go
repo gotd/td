@@ -114,8 +114,8 @@ func (s *SendMultipleSMSRequest) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutInt(len(s.Messages))
 	for idx, v := range s.Messages {
-		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare sendMultipleSMS#df18e5ca: field messages element with index %d: %w", idx, err)
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode sendMultipleSMS#df18e5ca: field messages element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -149,8 +149,8 @@ func (s *SendMultipleSMSRequest) DecodeBare(b *bin.Buffer) error {
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value SMS
-			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare sendMultipleSMS#df18e5ca: field messages: %w", err)
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode sendMultipleSMS#df18e5ca: field messages: %w", err)
 			}
 			s.Messages = append(s.Messages, value)
 		}
