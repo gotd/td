@@ -210,7 +210,8 @@ var (
 )
 
 // MessageUserVoteInputOption represents TL type `messageUserVoteInputOption#36377430`.
-// How a user voted in a poll (reduced constructor, returned if an option was provided to messages.getPollVotes¹)
+// How a user voted in a poll (reduced constructor, returned if an option was provided to
+// messages.getPollVotes¹)
 //
 // Links:
 //  1) https://core.telegram.org/method/messages.getPollVotes
@@ -592,6 +593,7 @@ type MessageUserVoteClass interface {
 
 	// User ID
 	GetUserID() (value int)
+
 	// When did the user cast the vote
 	GetDate() (value int)
 }

@@ -338,7 +338,8 @@ type WebPage struct {
 	// Links:
 	//  1) https://core.telegram.org/api/offsets#hash-generation
 	Hash int
-	// Type of the web page. Can be: article, photo, audio, video, document, profile, app, or something else
+	// Type of the web page. Can be: article, photo, audio, video, document, profile, app, or
+	// something else
 	//
 	// Use SetType and GetType helpers.
 	Type string

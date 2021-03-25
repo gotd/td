@@ -34,7 +34,13 @@ var (
 //
 // See https://core.telegram.org/method/account.unregisterDevice for reference.
 type AccountUnregisterDeviceRequest struct {
-	// Device token type.Possible values:1 - APNS (device token for apple push)2 - FCM (firebase token for google firebase)3 - MPNS (channel URI for microsoft push)4 - Simple push (endpoint for firefox's simple push API)5 - Ubuntu phone (token for ubuntu push)6 - Blackberry (token for blackberry push)7 - Unused8 - WNS (windows push)9 - APNS VoIP (token for apple push VoIP)10 - Web push (web push, see below)11 - MPNS VoIP (token for microsoft push VoIP)12 - Tizen (token for tizen push)For 10 web push, the token must be a JSON-encoded object containing the keys described in PUSH updates¹
+	// Device token type.Possible values:1 - APNS (device token for apple push)2 - FCM
+	// (firebase token for google firebase)3 - MPNS (channel URI for microsoft push)4 -
+	// Simple push (endpoint for firefox's simple push API)5 - Ubuntu phone (token for ubuntu
+	// push)6 - Blackberry (token for blackberry push)7 - Unused8 - WNS (windows push)9 -
+	// APNS VoIP (token for apple push VoIP)10 - Web push (web push, see below)11 - MPNS VoIP
+	// (token for microsoft push VoIP)12 - Tizen (token for tizen push)For 10 web push, the
+	// token must be a JSON-encoded object containing the keys described in PUSH updates¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/push-updates

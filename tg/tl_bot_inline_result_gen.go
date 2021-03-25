@@ -501,7 +501,8 @@ type BotInlineMediaResult struct {
 	//
 	// Use SetDescription and GetDescription helpers.
 	Description string
-	// Depending on the type and on the constructor¹, contains the caption of the media or the content of the message to be sent instead of the media
+	// Depending on the type and on the constructor¹, contains the caption of the media or
+	// the content of the message to be sent instead of the media
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/BotInlineMessage
@@ -899,15 +900,19 @@ type BotInlineResultClass interface {
 
 	// Result ID
 	GetID() (value string)
+
 	// Result type (see bot API docs¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/api#inlinequeryresult
 	GetType() (value string)
+
 	// Result title
 	GetTitle() (value string, ok bool)
+
 	// Result description
 	GetDescription() (value string, ok bool)
+
 	// Message to send
 	GetSendMessage() (value BotInlineMessageClass)
 }

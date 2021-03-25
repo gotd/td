@@ -6,7 +6,6 @@ import (
 	"strconv"
 	"sync"
 
-	"github.com/cenkalti/backoff/v4"
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
@@ -72,14 +71,17 @@ func (b EchoBot) login(ctx context.Context, client *telegram.Client) (*tg.User, 
 		return nil, xerrors.Errorf("authenticate: %w", err)
 	}
 
-	me, err := client.Self(ctx)
-	if err != nil {
-		return nil, xerrors.Errorf("get self: %w", err)
+	var me *tg.User
+	if err := retryFloodWait(ctx, func() (err error) {
+		me, err = client.Self(ctx)
+		return err
+	}); err != nil {
+		return nil, err
 	}
 
 	expectedUsername := "echobot" + strconv.Itoa(me.ID)
 	raw := tg.NewClient(waitInvoker{prev: client})
-	_, err = raw.AccountUpdateUsername(ctx, expectedUsername)
+	_, err := raw.AccountUpdateUsername(ctx, expectedUsername)
 	if err != nil {
 		var rpcErr *tgerr.Error
 		if !errors.As(err, &rpcErr) || rpcErr.Message != "USERNAME_NOT_MODIFIED" {
@@ -87,10 +89,10 @@ func (b EchoBot) login(ctx context.Context, client *telegram.Client) (*tg.User, 
 		}
 	}
 
-	err = backoff.Retry(func() error {
+	if err := retryFloodWait(ctx, func() (err error) {
 		me, err = client.Self(ctx)
 		if err != nil {
-			return backoff.Permanent(xerrors.Errorf("get self: %w", err))
+			return xerrors.Errorf("get self: %w", err)
 		}
 
 		if me.Username != expectedUsername {
@@ -98,8 +100,7 @@ func (b EchoBot) login(ctx context.Context, client *telegram.Client) (*tg.User, 
 		}
 
 		return nil
-	}, backoff.WithContext(backoff.NewExponentialBackOff(), ctx))
-	if err != nil {
+	}); err != nil {
 		return nil, err
 	}
 
@@ -151,7 +152,7 @@ func (b EchoBot) handler(client *telegram.Client) tg.NewMessageHandler {
 					zap.String("username", user.Username),
 				)
 
-				if _, err := sender.Peer(user.AsInputPeer()).Text(ctx, m.Message); err != nil {
+				if _, err := sender.To(user.AsInputPeer()).Text(ctx, m.Message); err != nil {
 					return xerrors.Errorf("send message: %w", err)
 				}
 				return nil

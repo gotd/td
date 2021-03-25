@@ -30,11 +30,15 @@ var (
 )
 
 // SecureValueErrorData represents TL type `secureValueErrorData#e8a40bd9`.
-// Represents an issue in one of the data fields that was provided by the user. The error is considered resolved when the field's value changes.
+// Represents an issue in one of the data fields that was provided by the user. The error
+// is considered resolved when the field's value changes.
 //
 // See https://core.telegram.org/constructor/secureValueErrorData for reference.
 type SecureValueErrorData struct {
-	// The section of the user's Telegram Passport which has the error, one of secureValueTypePersonalDetails¹, secureValueTypePassport², secureValueTypeDriverLicense³, secureValueTypeIdentityCard⁴, secureValueTypeInternalPassport⁵, secureValueTypeAddress⁶
+	// The section of the user's Telegram Passport which has the error, one of
+	// secureValueTypePersonalDetails¹, secureValueTypePassport²,
+	// secureValueTypeDriverLicense³, secureValueTypeIdentityCard⁴,
+	// secureValueTypeInternalPassport⁵, secureValueTypeAddress⁶
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/secureValueTypePersonalDetails
@@ -247,11 +251,13 @@ var (
 )
 
 // SecureValueErrorFrontSide represents TL type `secureValueErrorFrontSide#be3dfa`.
-// Represents an issue with the front side of a document. The error is considered resolved when the file with the front side of the document changes.
+// Represents an issue with the front side of a document. The error is considered
+// resolved when the file with the front side of the document changes.
 //
 // See https://core.telegram.org/constructor/secureValueErrorFrontSide for reference.
 type SecureValueErrorFrontSide struct {
-	// One of secureValueTypePassport¹, secureValueTypeDriverLicense², secureValueTypeIdentityCard³, secureValueTypeInternalPassport⁴
+	// One of secureValueTypePassport¹, secureValueTypeDriverLicense²,
+	// secureValueTypeIdentityCard³, secureValueTypeInternalPassport⁴
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/secureValueTypePassport
@@ -438,7 +444,8 @@ var (
 )
 
 // SecureValueErrorReverseSide represents TL type `secureValueErrorReverseSide#868a2aa5`.
-// Represents an issue with the reverse side of a document. The error is considered resolved when the file with reverse side of the document changes.
+// Represents an issue with the reverse side of a document. The error is considered
+// resolved when the file with reverse side of the document changes.
 //
 // See https://core.telegram.org/constructor/secureValueErrorReverseSide for reference.
 type SecureValueErrorReverseSide struct {
@@ -627,11 +634,13 @@ var (
 )
 
 // SecureValueErrorSelfie represents TL type `secureValueErrorSelfie#e537ced6`.
-// Represents an issue with the selfie with a document. The error is considered resolved when the file with the selfie changes.
+// Represents an issue with the selfie with a document. The error is considered resolved
+// when the file with the selfie changes.
 //
 // See https://core.telegram.org/constructor/secureValueErrorSelfie for reference.
 type SecureValueErrorSelfie struct {
-	// One of secureValueTypePassport¹, secureValueTypeDriverLicense², secureValueTypeIdentityCard³, secureValueTypeInternalPassport⁴
+	// One of secureValueTypePassport¹, secureValueTypeDriverLicense²,
+	// secureValueTypeIdentityCard³, secureValueTypeInternalPassport⁴
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/secureValueTypePassport
@@ -818,11 +827,14 @@ var (
 )
 
 // SecureValueErrorFile represents TL type `secureValueErrorFile#7a700873`.
-// Represents an issue with a document scan. The error is considered resolved when the file with the document scan changes.
+// Represents an issue with a document scan. The error is considered resolved when the
+// file with the document scan changes.
 //
 // See https://core.telegram.org/constructor/secureValueErrorFile for reference.
 type SecureValueErrorFile struct {
-	// One of secureValueTypeUtilityBill¹, secureValueTypeBankStatement², secureValueTypeRentalAgreement³, secureValueTypePassportRegistration⁴, secureValueTypeTemporaryRegistration⁵
+	// One of secureValueTypeUtilityBill¹, secureValueTypeBankStatement²,
+	// secureValueTypeRentalAgreement³, secureValueTypePassportRegistration⁴,
+	// secureValueTypeTemporaryRegistration⁵
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/secureValueTypeUtilityBill
@@ -1010,11 +1022,14 @@ var (
 )
 
 // SecureValueErrorFiles represents TL type `secureValueErrorFiles#666220e9`.
-// Represents an issue with a list of scans. The error is considered resolved when the list of files containing the scans changes.
+// Represents an issue with a list of scans. The error is considered resolved when the
+// list of files containing the scans changes.
 //
 // See https://core.telegram.org/constructor/secureValueErrorFiles for reference.
 type SecureValueErrorFiles struct {
-	// One of secureValueTypeUtilityBill¹, secureValueTypeBankStatement², secureValueTypeRentalAgreement³, secureValueTypePassportRegistration⁴, secureValueTypeTemporaryRegistration⁵
+	// One of secureValueTypeUtilityBill¹, secureValueTypeBankStatement²,
+	// secureValueTypeRentalAgreement³, secureValueTypePassportRegistration⁴,
+	// secureValueTypeTemporaryRegistration⁵
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/secureValueTypeUtilityBill
@@ -1396,11 +1411,16 @@ var (
 )
 
 // SecureValueErrorTranslationFile represents TL type `secureValueErrorTranslationFile#a1144770`.
-// Represents an issue with one of the files that constitute the translation of a document. The error is considered resolved when the file changes.
+// Represents an issue with one of the files that constitute the translation of a
+// document. The error is considered resolved when the file changes.
 //
 // See https://core.telegram.org/constructor/secureValueErrorTranslationFile for reference.
 type SecureValueErrorTranslationFile struct {
-	// One of secureValueTypePersonalDetails¹, secureValueTypePassport², secureValueTypeDriverLicense³, secureValueTypeIdentityCard⁴, secureValueTypeInternalPassport⁵, secureValueTypeUtilityBill⁶, secureValueTypeBankStatement⁷, secureValueTypeRentalAgreement⁸, secureValueTypePassportRegistration⁹, secureValueTypeTemporaryRegistration¹⁰
+	// One of secureValueTypePersonalDetails¹, secureValueTypePassport²,
+	// secureValueTypeDriverLicense³, secureValueTypeIdentityCard⁴,
+	// secureValueTypeInternalPassport⁵, secureValueTypeUtilityBill⁶,
+	// secureValueTypeBankStatement⁷, secureValueTypeRentalAgreement⁸,
+	// secureValueTypePassportRegistration⁹, secureValueTypeTemporaryRegistration¹⁰
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/secureValueTypePersonalDetails
@@ -1593,11 +1613,16 @@ var (
 )
 
 // SecureValueErrorTranslationFiles represents TL type `secureValueErrorTranslationFiles#34636dd8`.
-// Represents an issue with the translated version of a document. The error is considered resolved when a file with the document translation changes.
+// Represents an issue with the translated version of a document. The error is considered
+// resolved when a file with the document translation changes.
 //
 // See https://core.telegram.org/constructor/secureValueErrorTranslationFiles for reference.
 type SecureValueErrorTranslationFiles struct {
-	// One of secureValueTypePersonalDetails¹, secureValueTypePassport², secureValueTypeDriverLicense³, secureValueTypeIdentityCard⁴, secureValueTypeInternalPassport⁵, secureValueTypeUtilityBill⁶, secureValueTypeBankStatement⁷, secureValueTypeRentalAgreement⁸, secureValueTypePassportRegistration⁹, secureValueTypeTemporaryRegistration¹⁰
+	// One of secureValueTypePersonalDetails¹, secureValueTypePassport²,
+	// secureValueTypeDriverLicense³, secureValueTypeIdentityCard⁴,
+	// secureValueTypeInternalPassport⁵, secureValueTypeUtilityBill⁶,
+	// secureValueTypeBankStatement⁷, secureValueTypeRentalAgreement⁸,
+	// secureValueTypePassportRegistration⁹, secureValueTypeTemporaryRegistration¹⁰
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/secureValueTypePersonalDetails
@@ -1837,7 +1862,10 @@ type SecureValueErrorClass interface {
 	// Zero returns true if current object has a zero value.
 	Zero() bool
 
-	// The section of the user's Telegram Passport which has the error, one of secureValueTypePersonalDetails¹, secureValueTypePassport², secureValueTypeDriverLicense³, secureValueTypeIdentityCard⁴, secureValueTypeInternalPassport⁵, secureValueTypeAddress⁶
+	// The section of the user's Telegram Passport which has the error, one of
+	// secureValueTypePersonalDetails¹, secureValueTypePassport²,
+	// secureValueTypeDriverLicense³, secureValueTypeIdentityCard⁴,
+	// secureValueTypeInternalPassport⁵, secureValueTypeAddress⁶
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/secureValueTypePersonalDetails
@@ -1847,6 +1875,7 @@ type SecureValueErrorClass interface {
 	//  5) https://core.telegram.org/constructor/secureValueTypeInternalPassport
 	//  6) https://core.telegram.org/constructor/secureValueTypeAddress
 	GetType() (value SecureValueTypeClass)
+
 	// Error message
 	GetText() (value string)
 }

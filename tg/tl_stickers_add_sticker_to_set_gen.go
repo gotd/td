@@ -30,7 +30,8 @@ var (
 )
 
 // StickersAddStickerToSetRequest represents TL type `stickers.addStickerToSet#8653febe`.
-// Add a sticker to a stickerset, bots only. The sticker set must have been created by the bot.
+// Add a sticker to a stickerset, bots only. The sticker set must have been created by
+// the bot.
 //
 // See https://core.telegram.org/method/stickers.addStickerToSet for reference.
 type StickersAddStickerToSetRequest struct {
@@ -186,7 +187,8 @@ var (
 )
 
 // StickersAddStickerToSet invokes method stickers.addStickerToSet#8653febe returning error if any.
-// Add a sticker to a stickerset, bots only. The sticker set must have been created by the bot.
+// Add a sticker to a stickerset, bots only. The sticker set must have been created by
+// the bot.
 //
 // Possible errors:
 //  400 BOT_MISSING: This method can only be run by a bot

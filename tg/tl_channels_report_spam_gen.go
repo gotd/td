@@ -30,7 +30,8 @@ var (
 )
 
 // ChannelsReportSpamRequest represents TL type `channels.reportSpam#fe087810`.
-// Reports some messages from a user in a supergroup as spam; requires administrator rights in the supergroup
+// Reports some messages from a user in a supergroup as spam; requires administrator
+// rights in the supergroup
 //
 // See https://core.telegram.org/method/channels.reportSpam for reference.
 type ChannelsReportSpamRequest struct {
@@ -229,7 +230,8 @@ var (
 )
 
 // ChannelsReportSpam invokes method channels.reportSpam#fe087810 returning error if any.
-// Reports some messages from a user in a supergroup as spam; requires administrator rights in the supergroup
+// Reports some messages from a user in a supergroup as spam; requires administrator
+// rights in the supergroup
 //
 // Possible errors:
 //  400 CHANNEL_INVALID: The provided channel is invalid

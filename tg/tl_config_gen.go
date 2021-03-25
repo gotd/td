@@ -61,7 +61,8 @@ type Config struct {
 	PFSEnabled bool
 	// Current date at the server
 	Date int
-	// Expiration date of this config: when it expires it'll have to be refetched using help.getConfig¹
+	// Expiration date of this config: when it expires it'll have to be refetched using help
+	// getConfig¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/help.getConfig
@@ -84,7 +85,8 @@ type Config struct {
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	MegagroupSizeMax int
-	// Maximum number of messages that can be forwarded at once using messages.forwardMessages¹.
+	// Maximum number of messages that can be forwarded at once using messages
+	// forwardMessages¹.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/messages.forwardMessages
@@ -98,11 +100,15 @@ type Config struct {
 	OfflineBlurTimeoutMs int
 	// Time without any user activity after which it should be treated offline
 	OfflineIdleTimeoutMs int
-	// If we are offline, but were online from some other client in last online_cloud_timeout_ms milliseconds after we had gone offline, then delay offline notification for notify_cloud_delay_ms milliseconds.
+	// If we are offline, but were online from some other client in last
+	// online_cloud_timeout_ms milliseconds after we had gone offline, then delay offline
+	// notification for notify_cloud_delay_ms milliseconds.
 	OnlineCloudTimeoutMs int
-	// If we are offline, but online from some other client then delay sending the offline notification for notify_cloud_delay_ms milliseconds.
+	// If we are offline, but online from some other client then delay sending the offline
+	// notification for notify_cloud_delay_ms milliseconds.
 	NotifyCloudDelayMs int
-	// If some other client is online, then delay notification for notification_default_delay_ms milliseconds
+	// If some other client is online, then delay notification for
+	// notification_default_delay_ms milliseconds
 	NotifyDefaultDelayMs int
 	// Not for client use
 	PushChatPeriodMs int
@@ -125,7 +131,8 @@ type Config struct {
 	StickersRecentLimit int
 	// Maximum number of faved stickers
 	StickersFavedLimit int
-	// Indicates that round videos (video notes) and voice messages sent in channels and older than the specified period must be marked as read
+	// Indicates that round videos (video notes) and voice messages sent in channels and
+	// older than the specified period must be marked as read
 	ChannelsReadMediaPeriod int
 	// Temporary passport¹ sessions
 	//
@@ -138,15 +145,22 @@ type Config struct {
 	PinnedDialogsCountMax int
 	// Maximum count of dialogs per folder
 	PinnedInfolderCountMax int
-	// Maximum allowed outgoing ring time in VoIP calls: if the user we're calling doesn't reply within the specified time (in milliseconds), we should hang up the call
+	// Maximum allowed outgoing ring time in VoIP calls: if the user we're calling doesn't
+	// reply within the specified time (in milliseconds), we should hang up the call
 	CallReceiveTimeoutMs int
-	// Maximum allowed incoming ring time in VoIP calls: if the current user doesn't reply within the specified time (in milliseconds), the call will be automatically refused
+	// Maximum allowed incoming ring time in VoIP calls: if the current user doesn't reply
+	// within the specified time (in milliseconds), the call will be automatically refused
 	CallRingTimeoutMs int
-	// VoIP connection timeout: if the instance of libtgvoip on the other side of the call doesn't connect to our instance of libtgvoip within the specified time (in milliseconds), the call must be aborted
+	// VoIP connection timeout: if the instance of libtgvoip on the other side of the call
+	// doesn't connect to our instance of libtgvoip within the specified time (in
+	// milliseconds), the call must be aborted
 	CallConnectTimeoutMs int
-	// If during a VoIP call a packet isn't received for the specified period of time, the call must be aborted
+	// If during a VoIP call a packet isn't received for the specified period of time, the
+	// call must be aborted
 	CallPacketTimeoutMs int
-	// The domain to use to parse in-app links.For example t.me indicates that t.me/username links should parsed to @username, t.me/addsticker/name should be parsed to the appropriate stickerset and so on...
+	// The domain to use to parse in-app links.For example t.me indicates that t.me/username
+	// links should parsed to @username, t.me/addsticker/name should be parsed to the
+	// appropriate stickerset and so on...
 	MeURLPrefix string
 	// URL to use to auto-update the current app
 	//

@@ -59,11 +59,13 @@ type MessageFwdHeader struct {
 	//
 	// Use SetPostAuthor and GetPostAuthor helpers.
 	PostAuthor string
-	// Only for messages forwarded to the current user (inputPeerSelf), full info about the user/channel that originally sent the message
+	// Only for messages forwarded to the current user (inputPeerSelf), full info about the
+	// user/channel that originally sent the message
 	//
 	// Use SetSavedFromPeer and GetSavedFromPeer helpers.
 	SavedFromPeer PeerClass
-	// Only for messages forwarded to the current user (inputPeerSelf), ID of the message that was forwarded from the original user/channel
+	// Only for messages forwarded to the current user (inputPeerSelf), ID of the message
+	// that was forwarded from the original user/channel
 	//
 	// Use SetSavedFromMsgID and GetSavedFromMsgID helpers.
 	SavedFromMsgID int

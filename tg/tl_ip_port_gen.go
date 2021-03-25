@@ -397,6 +397,7 @@ type IPPortClass interface {
 
 	// Ipv4 field of IPPort.
 	GetIpv4() (value int)
+
 	// Port field of IPPort.
 	GetPort() (value int)
 }

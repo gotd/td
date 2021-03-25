@@ -415,6 +415,7 @@ type ServerDHParamsClass interface {
 
 	// Nonce field of ServerDHParamsFail.
 	GetNonce() (value bin.Int128)
+
 	// ServerNonce field of ServerDHParamsFail.
 	GetServerNonce() (value bin.Int128)
 }

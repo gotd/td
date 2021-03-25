@@ -39,7 +39,8 @@ type StickerSet struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether this stickerset was archived (due to too many saved stickers in the current account)
+	// Whether this stickerset was archived (due to too many saved stickers in the current
+	// account)
 	Archived bool
 	// Is this stickerset official
 	Official bool

@@ -132,7 +132,8 @@ var (
 )
 
 // SendMessageCancelAction represents TL type `sendMessageCancelAction#fd5ec8f5`.
-// Invalidate all previous action updates. E.g. when user deletes entered text or aborts a video upload.
+// Invalidate all previous action updates. E.g. when user deletes entered text or aborts
+// a video upload.
 //
 // See https://core.telegram.org/constructor/sendMessageCancelAction for reference.
 type SendMessageCancelAction struct {

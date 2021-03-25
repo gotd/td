@@ -15,9 +15,9 @@ type waitInvoker struct {
 	prev tg.Invoker
 }
 
-func (w waitInvoker) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+func retryFloodWait(ctx context.Context, cb func() error) error {
 	return backoff.Retry(func() error {
-		if err := w.prev.InvokeRaw(ctx, input, output); err != nil {
+		if err := cb(); err != nil {
 			if timeout, ok := telegram.AsFloodWait(err); ok {
 				select {
 				case <-ctx.Done():
@@ -32,4 +32,10 @@ func (w waitInvoker) InvokeRaw(ctx context.Context, input bin.Encoder, output bi
 
 		return nil
 	}, backoff.WithContext(backoff.NewExponentialBackOff(), ctx))
+}
+
+func (w waitInvoker) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+	return retryFloodWait(ctx, func() error {
+		return w.prev.InvokeRaw(ctx, input, output)
+	})
 }

@@ -1873,7 +1873,10 @@ type MessageActionPaymentSentMe struct {
 	// Links:
 	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
-	// Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json¹, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+	// Price of the product in the smallest units of the currency (integer, not float/double)
+	// For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in
+	// currencies.json¹, it shows the number of digits past the decimal point for each
+	// currency (2 for the majority of currencies).
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments/currencies.json
@@ -2184,7 +2187,10 @@ type MessageActionPaymentSent struct {
 	// Links:
 	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
-	// Price of the product in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json¹, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+	// Price of the product in the smallest units of the currency (integer, not float/double)
+	// For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in
+	// currencies.json¹, it shows the number of digits past the decimal point for each
+	// currency (2 for the majority of currencies).
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments/currencies.json
@@ -2714,7 +2720,8 @@ var (
 )
 
 // MessageActionCustomAction represents TL type `messageActionCustomAction#fae69f56`.
-// Custom action (most likely not supported by the current layer, an upgrade might be needed)
+// Custom action (most likely not supported by the current layer, an upgrade might be
+// needed)
 //
 // See https://core.telegram.org/constructor/messageActionCustomAction for reference.
 type MessageActionCustomAction struct {
@@ -2846,7 +2853,8 @@ var (
 )
 
 // MessageActionBotAllowed represents TL type `messageActionBotAllowed#abe9affe`.
-// The domain name of the website on which the user has logged in. More about Telegram Login »¹
+// The domain name of the website on which the user has logged in. More about Telegram
+// Login »¹
 //
 // Links:
 //  1) https://core.telegram.org/widgets/login
@@ -2988,7 +2996,8 @@ var (
 //
 // See https://core.telegram.org/constructor/messageActionSecureValuesSentMe for reference.
 type MessageActionSecureValuesSentMe struct {
-	// Vector with information about documents and other Telegram Passport elements that were shared with the bot
+	// Vector with information about documents and other Telegram Passport elements that were
+	// shared with the bot
 	Values []SecureValue
 	// Encrypted credentials required to decrypt the data
 	Credentials SecureCredentialsEncrypted

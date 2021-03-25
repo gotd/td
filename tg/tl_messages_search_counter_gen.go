@@ -30,7 +30,8 @@ var (
 )
 
 // MessagesSearchCounter represents TL type `messages.searchCounter#e844ebff`.
-// Indicates how many results would be found by a messages.search¹ call with the same parameters
+// Indicates how many results would be found by a messages.search¹ call with the same
+// parameters
 //
 // Links:
 //  1) https://core.telegram.org/method/messages.search

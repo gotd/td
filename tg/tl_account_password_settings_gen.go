@@ -30,7 +30,8 @@ var (
 )
 
 // AccountPasswordSettings represents TL type `account.passwordSettings#9a5c33e5`.
-// Private info associated to the password info (recovery email, telegram passport¹ info & so on)
+// Private info associated to the password info (recovery email, telegram passport¹ info
+// & so on)
 //
 // Links:
 //  1) https://core.telegram.org/passport

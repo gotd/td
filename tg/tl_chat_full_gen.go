@@ -741,7 +741,8 @@ type ChannelFull struct {
 	// Links:
 	//  1) https://core.telegram.org/api/stats
 	CanViewStats bool
-	// Whether any anonymous admin of this supergroup was blocked: if set, you won't receive messages from anonymous group admins in discussion replies via @replies¹
+	// Whether any anonymous admin of this supergroup was blocked: if set, you won't receive
+	// messages from anonymous group admins in discussion replies via @replies¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/discussion
@@ -839,11 +840,13 @@ type ChannelFull struct {
 	//
 	// Use SetLocation and GetLocation helpers.
 	Location ChannelLocationClass
-	// If specified, users in supergroups will only be able to send one message every slowmode_seconds seconds
+	// If specified, users in supergroups will only be able to send one message every
+	// slowmode_seconds seconds
 	//
 	// Use SetSlowmodeSeconds and GetSlowmodeSeconds helpers.
 	SlowmodeSeconds int
-	// Indicates when the user will be allowed to send another message in the supergroup (unixdate)
+	// Indicates when the user will be allowed to send another message in the supergroup
+	// (unixdate)
 	//
 	// Use SetSlowmodeNextSendDate and GetSlowmodeNextSendDate helpers.
 	SlowmodeNextSendDate int
@@ -2354,33 +2357,43 @@ type ChatFullClass interface {
 
 	// Can we change the username of this chat
 	GetCanSetUsername() (value bool)
+
 	// Whether scheduled messages¹ are available
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/scheduled-messages
 	GetHasScheduled() (value bool)
+
 	// ID of the chat
 	GetID() (value int)
+
 	// About string for this chat
 	GetAbout() (value string)
+
 	// Notification settings
 	GetNotifySettings() (value PeerNotifySettings)
+
 	// Chat invite
 	GetExportedInvite() (value ChatInviteExported, ok bool)
+
 	// Message ID of the last pinned message¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/pin
 	GetPinnedMsgID() (value int, ok bool)
+
 	// Peer folder ID, for more info click here¹
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/folders#peer-folders
 	GetFolderID() (value int, ok bool)
+
 	// Call field of ChatFull.
 	GetCall() (value InputGroupCall, ok bool)
+
 	// TTLPeriod field of ChatFull.
 	GetTTLPeriod() (value int, ok bool)
+
 	// GroupcallDefaultJoinAs field of ChatFull.
 	GetGroupcallDefaultJoinAs() (value PeerClass, ok bool)
 }
@@ -2562,7 +2575,9 @@ func (s ChatFullClassArray) AsChatFull() (to ChatFullArray) {
 	}
 
 	return to
-} // FillChannelFullMap fills only ChannelFull constructors to given map.
+}
+
+// FillChannelFullMap fills only ChannelFull constructors to given map.
 func (s ChatFullClassArray) FillChannelFullMap(to map[int]*ChannelFull) {
 	for _, elem := range s {
 		value, ok := elem.(*ChannelFull)

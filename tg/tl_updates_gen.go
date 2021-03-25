@@ -2226,7 +2226,8 @@ var (
 )
 
 // UpdateShortSentMessage represents TL type `updateShortSentMessage#9015e101`.
-// Shortened constructor containing info on one outgoing message to a contact (the destination chat has to be extracted from the method call that returned this object).
+// Shortened constructor containing info on one outgoing message to a contact (the
+// destination chat has to be extracted from the method call that returned this object).
 //
 // See https://core.telegram.org/constructor/updateShortSentMessage for reference.
 type UpdateShortSentMessage struct {

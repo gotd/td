@@ -58,9 +58,11 @@ type MessagesGetRepliesRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/offsets
 	Limit int
-	// If a positive value was transferred, the method will return only messages with ID smaller than max_id
+	// If a positive value was transferred, the method will return only messages with ID
+	// smaller than max_id
 	MaxID int
-	// If a positive value was transferred, the method will return only messages with ID bigger than min_id
+	// If a positive value was transferred, the method will return only messages with ID
+	// bigger than min_id
 	MinID int
 	// Hash for pagination, for more info click here¹
 	//

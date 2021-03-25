@@ -47,7 +47,10 @@ type UpdatesGetDifferenceRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/updates
 	Pts int
-	// For fast updating: if provided and pts + pts_total_limit < remote pts, updates.differenceTooLong¹ will be returned.Simply tells the server to not return the difference if it is bigger than pts_total_limitIf the remote pts is too big (> ~4000000), this field will default to 1000000
+	// For fast updating: if provided and pts + pts_total_limit < remote pts, updates
+	// differenceTooLong¹ will be returned.Simply tells the server to not return the
+	// difference if it is bigger than pts_total_limitIf the remote pts is too big (>
+	// ~4000000), this field will default to 1000000
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/updates.differenceTooLong

@@ -393,6 +393,7 @@ type EmojiKeywordClass interface {
 
 	// Keyword
 	GetKeyword() (value string)
+
 	// Emojis associated to keyword
 	GetEmoticons() (value []string)
 }

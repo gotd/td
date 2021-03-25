@@ -39,7 +39,8 @@ type MessagesForwardMessagesRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether to send messages silently (no notification will be triggered on the destination clients)
+	// Whether to send messages silently (no notification will be triggered on the
+	// destination clients)
 	Silent bool
 	// Whether to send the message in background
 	Background bool

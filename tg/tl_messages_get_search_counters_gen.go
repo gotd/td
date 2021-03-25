@@ -30,7 +30,8 @@ var (
 )
 
 // MessagesGetSearchCountersRequest represents TL type `messages.getSearchCounters#732eef00`.
-// Get the number of results that would be found by a messages.search¹ call with the same parameters
+// Get the number of results that would be found by a messages.search¹ call with the
+// same parameters
 //
 // Links:
 //  1) https://core.telegram.org/method/messages.search
@@ -208,7 +209,8 @@ var (
 )
 
 // MessagesGetSearchCounters invokes method messages.getSearchCounters#732eef00 returning error if any.
-// Get the number of results that would be found by a messages.search¹ call with the same parameters
+// Get the number of results that would be found by a messages.search¹ call with the
+// same parameters
 //
 // Links:
 //  1) https://core.telegram.org/method/messages.search

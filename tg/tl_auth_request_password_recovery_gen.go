@@ -30,7 +30,8 @@ var (
 )
 
 // AuthRequestPasswordRecoveryRequest represents TL type `auth.requestPasswordRecovery#d897bc66`.
-// Request recovery code of a 2FA password¹, only for accounts with a recovery email configured².
+// Request recovery code of a 2FA password¹, only for accounts with a recovery email
+// configured².
 //
 // Links:
 //  1) https://core.telegram.org/api/srp
@@ -131,7 +132,8 @@ var (
 )
 
 // AuthRequestPasswordRecovery invokes method auth.requestPasswordRecovery#d897bc66 returning error if any.
-// Request recovery code of a 2FA password¹, only for accounts with a recovery email configured².
+// Request recovery code of a 2FA password¹, only for accounts with a recovery email
+// configured².
 //
 // Links:
 //  1) https://core.telegram.org/api/srp

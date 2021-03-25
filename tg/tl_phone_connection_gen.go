@@ -623,10 +623,13 @@ type PhoneConnectionClass interface {
 
 	// Endpoint ID
 	GetID() (value int64)
+
 	// IP address of endpoint
 	GetIP() (value string)
+
 	// IPv6 address of endpoint
 	GetIpv6() (value string)
+
 	// Port ID
 	GetPort() (value int)
 }

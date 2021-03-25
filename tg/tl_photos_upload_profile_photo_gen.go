@@ -53,7 +53,8 @@ type PhotosUploadProfilePhotoRequest struct {
 	//
 	// Use SetVideo and GetVideo helpers.
 	Video InputFileClass
-	// Floating point UNIX timestamp in seconds, indicating the frame of the video that should be used as static preview.
+	// Floating point UNIX timestamp in seconds, indicating the frame of the video that
+	// should be used as static preview.
 	//
 	// Use SetVideoStartTs and GetVideoStartTs helpers.
 	VideoStartTs float64

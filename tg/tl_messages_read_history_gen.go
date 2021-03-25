@@ -36,7 +36,8 @@ var (
 type MessagesReadHistoryRequest struct {
 	// Target user or group
 	Peer InputPeerClass
-	// If a positive value is passed, only messages with identifiers less or equal than the given one will be read
+	// If a positive value is passed, only messages with identifiers less or equal than the
+	// given one will be read
 	MaxID int
 }
 

@@ -34,7 +34,8 @@ var (
 //
 // See https://core.telegram.org/constructor/inlineBotSwitchPM for reference.
 type InlineBotSwitchPM struct {
-	// Text for the button that switches the user to a private chat with the bot and sends the bot a start message with the parameter start_parameter (can be empty)
+	// Text for the button that switches the user to a private chat with the bot and sends
+	// the bot a start message with the parameter start_parameter (can be empty)
 	Text string
 	// The parameter for the /start parameter
 	StartParam string

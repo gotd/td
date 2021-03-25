@@ -41,8 +41,9 @@ type Generator struct {
 	registry []bindingDef
 
 	// docBase is base url for documentation.
-	docBase *url.URL
-	doc     *getdoc.Doc
+	docBase      *url.URL
+	doc          *getdoc.Doc
+	docLineLimit int
 }
 
 // NewGenerator initializes and returns new Generator from tl.Schema.
@@ -52,10 +53,11 @@ type Generator struct {
 // If blank string provided, no documentation links are generated.
 func NewGenerator(s *tl.Schema, docBase string) (*Generator, error) {
 	g := &Generator{
-		schema:   s,
-		classes:  map[string]classBinding{},
-		types:    map[string]typeBinding{},
-		mappings: map[string][]constructorMapping{},
+		schema:       s,
+		classes:      map[string]classBinding{},
+		types:        map[string]typeBinding{},
+		mappings:     map[string][]constructorMapping{},
+		docLineLimit: 87,
 	}
 	if docBase != "" {
 		u, err := url.Parse(docBase)

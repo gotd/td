@@ -39,7 +39,8 @@ type UploadGetFileRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Disable some checks on limit and offset values, useful for example to stream videos by keyframes
+	// Disable some checks on limit and offset values, useful for example to stream videos by
+	// keyframes
 	Precise bool
 	// Whether the current client supports CDN downloads¹
 	//

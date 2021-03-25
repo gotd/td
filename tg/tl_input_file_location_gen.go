@@ -898,7 +898,8 @@ type InputPhotoFileLocation struct {
 	// Links:
 	//  1) https://core.telegram.org/api/file_reference
 	FileReference []byte
-	// The PhotoSize¹ to download: must be set to the type field of the desired PhotoSize object of the photo²
+	// The PhotoSize¹ to download: must be set to the type field of the desired PhotoSize
+	// object of the photo²
 	//
 	// Links:
 	//  1) https://core.telegram.org/type/PhotoSize

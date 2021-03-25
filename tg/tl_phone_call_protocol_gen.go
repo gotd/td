@@ -47,7 +47,10 @@ type PhoneCallProtocol struct {
 	MinLayer int
 	// Maximum layer for remote libtgvoip
 	MaxLayer int
-	// When using phone.requestCall¹ and phone.acceptCall², specify all library versions supported by the client. The server will merge and choose the best library version supported by both peers, returning only the best value in the result of the callee's phone.acceptCall³ and in the phoneCallAccepted⁴ update received by the caller.
+	// When using phone.requestCall¹ and phone.acceptCall², specify all library versions
+	// supported by the client. The server will merge and choose the best library version
+	// supported by both peers, returning only the best value in the result of the callee's
+	// phone.acceptCall³ and in the phoneCallAccepted⁴ update received by the caller.
 	//
 	// Links:
 	//  1) https://core.telegram.org/method/phone.requestCall

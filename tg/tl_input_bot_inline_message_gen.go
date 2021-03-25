@@ -620,7 +620,8 @@ type InputBotInlineMessageMediaGeo struct {
 	//
 	// Use SetPeriod and GetPeriod helpers.
 	Period int
-	// For live locations¹, a maximum distance to another chat member for proximity alerts, in meters (0-100000)
+	// For live locations¹, a maximum distance to another chat member for proximity alerts,
+	// in meters (0-100000)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/live-location

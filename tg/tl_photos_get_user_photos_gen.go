@@ -38,7 +38,8 @@ type PhotosGetUserPhotosRequest struct {
 	UserID InputUserClass
 	// Number of list elements to be skipped
 	Offset int
-	// If a positive value was transferred, the method will return only photos with IDs less than the set one
+	// If a positive value was transferred, the method will return only photos with IDs less
+	// than the set one
 	MaxID int64
 	// Number of list elements to be returned
 	Limit int

@@ -1580,11 +1580,14 @@ type MessageMediaInvoice struct {
 	Title string
 	// Product description, 1-255 characters
 	Description string
-	// URL of the product photo for the invoice. Can be a photo of the goods or a marketing image for a service. People like it better when they see what they are paying for.
+	// URL of the product photo for the invoice. Can be a photo of the goods or a marketing
+	// image for a service. People like it better when they see what they are paying for.
 	//
 	// Use SetPhoto and GetPhoto helpers.
 	Photo WebDocumentClass
-	// Message ID of receipt: if set, clients should change the text of the first keyboardButtonBuy¹ button always attached to the message² to a localized version of the word Receipt
+	// Message ID of receipt: if set, clients should change the text of the first
+	// keyboardButtonBuy¹ button always attached to the message² to a localized version of
+	// the word Receipt
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/keyboardButtonBuy
@@ -1597,7 +1600,10 @@ type MessageMediaInvoice struct {
 	// Links:
 	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
-	// Total price in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json¹, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+	// Total price in the smallest units of the currency (integer, not float/double). For
+	// example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in
+	// currencies.json¹, it shows the number of digits past the decimal point for each
+	// currency (2 for the majority of currencies).
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments/currencies.json
@@ -1999,7 +2005,8 @@ type MessageMediaGeoLive struct {
 	Heading int
 	// Validity period of provided geolocation
 	Period int
-	// For live locations¹, a maximum distance to another chat member for proximity alerts, in meters (0-100000).
+	// For live locations¹, a maximum distance to another chat member for proximity alerts,
+	// in meters (0-100000).
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/live-location

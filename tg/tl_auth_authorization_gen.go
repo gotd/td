@@ -231,7 +231,8 @@ var (
 )
 
 // AuthAuthorizationSignUpRequired represents TL type `auth.authorizationSignUpRequired#44747e9a`.
-// An account with this phone number doesn't exist on telegram: the user has to enter basic information and sign up¹
+// An account with this phone number doesn't exist on telegram: the user has to enter
+// basic information and sign up¹
 //
 // Links:
 //  1) https://core.telegram.org/api/auth
@@ -243,7 +244,8 @@ type AuthAuthorizationSignUpRequired struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Telegram's terms of service: the user must read and accept the terms of service before signing up to telegram
+	// Telegram's terms of service: the user must read and accept the terms of service before
+	// signing up to telegram
 	//
 	// Use SetTermsOfService and GetTermsOfService helpers.
 	TermsOfService HelpTermsOfService

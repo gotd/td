@@ -30,7 +30,8 @@ var (
 )
 
 // UpdatesGetChannelDifferenceRequest represents TL type `updates.getChannelDifference#3173d78`.
-// Returns the difference between the current state of updates of a certain channel and transmitted.
+// Returns the difference between the current state of updates of a certain channel and
+// transmitted.
 //
 // See https://core.telegram.org/method/updates.getChannelDifference for reference.
 type UpdatesGetChannelDifferenceRequest struct {
@@ -50,7 +51,8 @@ type UpdatesGetChannelDifferenceRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/updates
 	Pts int
-	// How many updates to fetch, max 100000Ordinary (non-bot) users are supposed to pass 10-100
+	// How many updates to fetch, max 100000Ordinary (non-bot) users are supposed to pass
+	// 10-100
 	Limit int
 }
 
@@ -300,7 +302,8 @@ var (
 )
 
 // UpdatesGetChannelDifference invokes method updates.getChannelDifference#3173d78 returning error if any.
-// Returns the difference between the current state of updates of a certain channel and transmitted.
+// Returns the difference between the current state of updates of a certain channel and
+// transmitted.
 //
 // Possible errors:
 //  400 CHANNEL_INVALID: The provided channel is invalid

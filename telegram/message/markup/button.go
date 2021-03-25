@@ -25,11 +25,10 @@ func URL(text, url string) *tg.KeyboardButtonURL {
 }
 
 // Callback creates new callback button.
-func Callback(text string, data []byte, requiresPassword bool) *tg.KeyboardButtonCallback {
+func Callback(text string, data []byte) *tg.KeyboardButtonCallback {
 	return &tg.KeyboardButtonCallback{
-		RequiresPassword: requiresPassword,
-		Text:             text,
-		Data:             data,
+		Text: text,
+		Data: data,
 	}
 }
 

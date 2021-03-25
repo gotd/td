@@ -430,6 +430,7 @@ type MessagesFeaturedStickersClass interface {
 
 	// Total number of featured stickers
 	GetCount() (value int)
+
 	// AsModified tries to map MessagesFeaturedStickersClass to MessagesFeaturedStickers.
 	AsModified() (*MessagesFeaturedStickers, bool)
 }

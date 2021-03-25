@@ -7,9 +7,7 @@
 {{ range $s:= $.Structs }}
 // {{ $s.Comment }}
 {{- if $s.Docs }}
-{{- range $d:= $s.Docs }}
-// {{ trim $d }}
-{{- end }}
+{{- template "print_comment"  $s.Docs }}
 {{- end }}
 {{- if $s.Links }}
     {{- template "print_links" $s.Links }}
@@ -20,7 +18,7 @@
 {{- end }}
 type {{ $s.Name }} struct {
 {{- range $f := $s.Fields }}
-// {{ $f.Comment }}
+{{- template "print_comment" $f.Comment }}
 {{- if $f.Links}}
     {{- template "print_links" $f.Links }}
 {{- end }}
@@ -422,7 +420,7 @@ type {{ $f.Name }} interface {
 {{ template  "class_interface_header" $f }}
 
 {{ range $field := $f.SharedFields.Common -}}
-    // {{ $field.Comment }}
+    {{- template "print_comment" $field.Comment }}
     {{- if $field.Links }}
         {{- template "print_links" $field.Links }}
     {{- end }}
@@ -432,17 +430,17 @@ type {{ $f.Name }} interface {
     {{- if not $field.Slice }}
     {{- $mappings := index ($.Mappings) ($field.Type) -}}
     {{- range $mapping := $mappings -}}
-    // {{ $field.Comment }}
+    {{- template "print_comment" $field.Comment }}
     Get{{ $field.Name }}As{{ $mapping.MapperName }}() ({{ template "print_mapper_type" $mapping }}, bool)
     {{- end }}
     {{ else }}{{- if $field.Interface }}
-    // {{ $field.Comment }}
+    {{- template "print_comment" $field.Comment }}
     Map{{ $field.Name }}() (value {{ template "slice_field_name" $field }}{{ if $field.Conditional }}, ok bool{{ end }})
     {{- end }}{{- end }}
 
     {{- end }}
 {{- end }}
-{{- range $mapping := $f.Mappings -}}{{- if not $mapping.Constructor -}}
+{{ range $mapping := $f.Mappings -}}{{- if not $mapping.Constructor -}}
     // As{{ $mapping.MapperName }} tries to map {{ $f.Name }} to {{ $mapping.Name }}.
     {{ template "mapper_func_type" $mapping }}
 {{ end }}{{ end }}
@@ -454,7 +452,7 @@ type {{ $mapping.Name }} interface {
 {{ template  "class_interface_header" $f }}
 
 {{ range $field := index ($f.SharedFields) ($mapping.MapperName) -}}{{- /*gotype: github.com/gotd/td/internal/gen.fieldDef*/ -}}
-    // {{ $field.Comment }}
+    {{- template "print_comment" $field.Comment }}
     {{- if $field.Links }}
         {{- template "print_links" $field.Links }}
     {{- end }}

@@ -580,6 +580,7 @@ type HelpPromoDataClass interface {
 
 	// Re-fetch PSA/MTProxy info after the specified number of seconds
 	GetExpires() (value int)
+
 	// AsNotEmpty tries to map HelpPromoDataClass to HelpPromoData.
 	AsNotEmpty() (*HelpPromoData, bool)
 }

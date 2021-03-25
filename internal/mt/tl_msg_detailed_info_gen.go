@@ -439,8 +439,10 @@ type MsgDetailedInfoClass interface {
 
 	// AnswerMsgID field of MsgDetailedInfo.
 	GetAnswerMsgID() (value int64)
+
 	// Bytes field of MsgDetailedInfo.
 	GetBytes() (value int)
+
 	// Status field of MsgDetailedInfo.
 	GetStatus() (value int)
 }

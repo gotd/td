@@ -576,6 +576,7 @@ type PhotoClass interface {
 
 	// Photo identifier
 	GetID() (value int64)
+
 	// AsNotEmpty tries to map PhotoClass to Photo.
 	AsNotEmpty() (*Photo, bool)
 }

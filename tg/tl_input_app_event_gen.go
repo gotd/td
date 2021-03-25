@@ -38,7 +38,8 @@ type InputAppEvent struct {
 	Time float64
 	// Type of event
 	Type string
-	// Arbitrary numeric value for more convenient selection of certain event types, or events referring to a certain object
+	// Arbitrary numeric value for more convenient selection of certain event types, or
+	// events referring to a certain object
 	Peer int64
 	// Details of the event
 	Data JSONValueClass

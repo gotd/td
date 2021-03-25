@@ -51,8 +51,8 @@ func (s *Sender) PeerPromise(p peer.Promise, decorators ...peer.PromiseDecorator
 	return s.builder(p, decorators)
 }
 
-// Peer uses given peer to create new message builder.
-func (s *Sender) Peer(p tg.InputPeerClass) *RequestBuilder {
+// To uses given peer to create new message builder.
+func (s *Sender) To(p tg.InputPeerClass) *RequestBuilder {
 	return s.PeerPromise(func(ctx context.Context) (tg.InputPeerClass, error) {
 		return p, nil
 	})
@@ -61,7 +61,7 @@ func (s *Sender) Peer(p tg.InputPeerClass) *RequestBuilder {
 // Self creates a new message builder to send it to yourself.
 // It means that message will be sent to your Saved Messages folder.
 func (s *Sender) Self() *RequestBuilder {
-	return s.Peer(&tg.InputPeerSelf{})
+	return s.To(&tg.InputPeerSelf{})
 }
 
 // AsInputPeer returns resolve result as InputPeerClass.
@@ -127,14 +127,30 @@ func (s *Sender) ResolveDeeplink(link string, decorators ...peer.PromiseDecorato
 	return s.builder(peer.ResolveDeeplink(s.resolver, link), decorators)
 }
 
+// PeerUpdate represents update which can be used to answer.
+type PeerUpdate interface {
+	GetPeer() tg.PeerClass
+}
+
+// Peer uses given peer update to create message for same chat.
+func (s *Sender) Peer(uctx tg.Entities, upd PeerUpdate, decorators ...peer.PromiseDecorator) *RequestBuilder {
+	entities := peer.EntitiesFromUpdate(uctx)
+	return s.builder(func(ctx context.Context) (tg.InputPeerClass, error) {
+		return entities.ExtractPeer(upd.GetPeer())
+	}, decorators)
+}
+
 // AnswerableMessageUpdate represents update which can be used to answer.
 type AnswerableMessageUpdate interface {
 	GetMessage() tg.MessageClass
-	GetPts() int
 }
 
 // Answer uses given message update to create message for same chat.
-func (s *Sender) Answer(uctx tg.Entities, upd AnswerableMessageUpdate) *RequestBuilder {
+func (s *Sender) Answer(
+	uctx tg.Entities,
+	upd AnswerableMessageUpdate,
+	decorators ...peer.PromiseDecorator,
+) *RequestBuilder {
 	entities := peer.EntitiesFromUpdate(uctx)
 	return s.builder(func(ctx context.Context) (tg.InputPeerClass, error) {
 		updMsg := upd.GetMessage()
@@ -154,7 +170,7 @@ func (s *Sender) Answer(uctx tg.Entities, upd AnswerableMessageUpdate) *RequestB
 		}
 
 		return entities.ExtractPeer(msg.GetPeerID())
-	}, nil)
+	}, decorators)
 }
 
 // Reply uses given message update to create message for same chat and create a reply.
@@ -162,6 +178,6 @@ func (s *Sender) Answer(uctx tg.Entities, upd AnswerableMessageUpdate) *RequestB
 //
 // 	sender.Answer(uctx, upd).ReplyMsg(upd.GetMessage())
 //
-func (s *Sender) Reply(uctx tg.Entities, upd AnswerableMessageUpdate) *Builder {
-	return s.Answer(uctx, upd).ReplyMsg(upd.GetMessage())
+func (s *Sender) Reply(uctx tg.Entities, upd AnswerableMessageUpdate, decorators ...peer.PromiseDecorator) *Builder {
+	return s.Answer(uctx, upd, decorators...).ReplyMsg(upd.GetMessage())
 }

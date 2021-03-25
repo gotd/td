@@ -36,7 +36,8 @@ var (
 type MessagesRequestEncryptionRequest struct {
 	// User ID
 	UserID InputUserClass
-	// Unique client request ID required to prevent resending. This also doubles as the chat ID.
+	// Unique client request ID required to prevent resending. This also doubles as the chat
+	// ID.
 	RandomID int
 	// A = g ^ a mod p, see Wikipedia¹
 	//

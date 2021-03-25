@@ -30,7 +30,8 @@ var (
 )
 
 // MessagesSetInlineGameScoreRequest represents TL type `messages.setInlineGameScore#15ad9f64`.
-// Use this method to set the score of the specified user in a game sent as an inline message (bots only).
+// Use this method to set the score of the specified user in a game sent as an inline
+// message (bots only).
 //
 // See https://core.telegram.org/method/messages.setInlineGameScore for reference.
 type MessagesSetInlineGameScoreRequest struct {
@@ -39,9 +40,11 @@ type MessagesSetInlineGameScoreRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Set this flag if the game message should be automatically edited to include the current scoreboard
+	// Set this flag if the game message should be automatically edited to include the
+	// current scoreboard
 	EditMessage bool
-	// Set this flag if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters
+	// Set this flag if the high score is allowed to decrease. This can be useful when fixing
+	// mistakes or banning cheaters
 	Force bool
 	// ID of the inline message
 	ID InputBotInlineMessageID
@@ -290,7 +293,8 @@ var (
 )
 
 // MessagesSetInlineGameScore invokes method messages.setInlineGameScore#15ad9f64 returning error if any.
-// Use this method to set the score of the specified user in a game sent as an inline message (bots only).
+// Use this method to set the score of the specified user in a game sent as an inline
+// message (bots only).
 //
 // Possible errors:
 //  400 MESSAGE_ID_INVALID: The provided message id is invalid

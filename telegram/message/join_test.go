@@ -69,7 +69,7 @@ func TestRequestBuilder_Join(t *testing.T) {
 			AccessHash: 10,
 		},
 	}).ThenResult(&tg.Updates{})
-	_, err := sender.Peer(peer).Join(ctx)
+	_, err := sender.To(peer).Join(ctx)
 	mock.NoError(err)
 
 	mock.ExpectCall(&tg.ChannelsJoinChannelRequest{
@@ -78,7 +78,7 @@ func TestRequestBuilder_Join(t *testing.T) {
 			AccessHash: 10,
 		},
 	}).ThenRPCErr(testRPCError())
-	_, err = sender.Peer(peer).Join(ctx)
+	_, err = sender.To(peer).Join(ctx)
 	mock.Error(err)
 }
 
@@ -96,7 +96,7 @@ func TestRequestBuilder_Leave(t *testing.T) {
 			AccessHash: 10,
 		},
 	}).ThenResult(&tg.Updates{})
-	_, err := sender.Peer(peer).Leave(ctx)
+	_, err := sender.To(peer).Leave(ctx)
 	mock.NoError(err)
 
 	mock.ExpectCall(&tg.ChannelsLeaveChannelRequest{
@@ -105,7 +105,7 @@ func TestRequestBuilder_Leave(t *testing.T) {
 			AccessHash: 10,
 		},
 	}).ThenRPCErr(testRPCError())
-	_, err = sender.Peer(peer).Leave(ctx)
+	_, err = sender.To(peer).Leave(ctx)
 	mock.Error(err)
 }
 

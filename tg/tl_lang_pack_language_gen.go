@@ -51,11 +51,14 @@ type LangPackLanguage struct {
 	NativeName string
 	// Language code (pack identifier)
 	LangCode string
-	// Identifier of a base language pack; may be empty. If a string is missed in the language pack, then it should be fetched from base language pack. Unsupported in custom language packs
+	// Identifier of a base language pack; may be empty. If a string is missed in the
+	// language pack, then it should be fetched from base language pack. Unsupported in
+	// custom language packs
 	//
 	// Use SetBaseLangCode and GetBaseLangCode helpers.
 	BaseLangCode string
-	// A language code to be used to apply plural forms. See https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html¹ for more info
+	// A language code to be used to apply plural forms. See https://www.unicode
+	// org/cldr/charts/latest/supplemental/language_plural_rules.html¹ for more info
 	//
 	// Links:
 	//  1) https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html

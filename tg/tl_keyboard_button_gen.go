@@ -327,7 +327,11 @@ type KeyboardButtonCallback struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether the user should verify his identity by entering his 2FA SRP parameters¹ to the messages.getBotCallbackAnswer² method. NOTE: telegram and the bot WILL NOT have access to the plaintext password, thanks to SRP³. This button is mainly used by the official @botfather⁴ bot, for verifying the user's identity before transferring ownership of a bot to another user.
+	// Whether the user should verify his identity by entering his 2FA SRP parameters¹ to
+	// the messages.getBotCallbackAnswer² method. NOTE: telegram and the bot WILL NOT have
+	// access to the plaintext password, thanks to SRP³. This button is mainly used by the
+	// official @botfather⁴ bot, for verifying the user's identity before transferring
+	// ownership of a bot to another user.
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/srp
@@ -792,7 +796,9 @@ var (
 )
 
 // KeyboardButtonSwitchInline represents TL type `keyboardButtonSwitchInline#568a748`.
-// Button to force a user to switch to inline mode Pressing the button will prompt the user to select one of their chats, open that chat and insert the bot‘s username and the specified inline query in the input field.
+// Button to force a user to switch to inline mode Pressing the button will prompt the
+// user to select one of their chats, open that chat and insert the bot‘s username and
+// the specified inline query in the input field.
 //
 // See https://core.telegram.org/constructor/keyboardButtonSwitchInline for reference.
 type KeyboardButtonSwitchInline struct {
@@ -801,7 +807,8 @@ type KeyboardButtonSwitchInline struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// If set, pressing the button will insert the bot‘s username and the specified inline query in the current chat's input field.
+	// If set, pressing the button will insert the bot‘s username and the specified inline
+	// query in the current chat's input field.
 	SamePeer bool
 	// Button label
 	Text string
@@ -1260,7 +1267,17 @@ var (
 )
 
 // KeyboardButtonURLAuth represents TL type `keyboardButtonUrlAuth#10b78d29`.
-// Button to request a user to authorize via URL using Seamless Telegram Login¹. When the user clicks on such a button, messages.requestUrlAuth² should be called, providing the button_id and the ID of the container message. The returned urlAuthResultRequest³ object will contain more details about the authorization request (request_write_access if the bot would like to send messages to the user along with the username of the bot which will be used for user authorization). Finally, the user can choose to call messages.acceptUrlAuth⁴ to get a urlAuthResultAccepted⁵ with the URL to open instead of the url of this constructor, or a urlAuthResultDefault⁶, in which case the url of this constructor must be opened, instead. If the user refuses the authorization request but still wants to open the link, the url of this constructor must be used.
+// Button to request a user to authorize via URL using Seamless Telegram Login¹. When
+// the user clicks on such a button, messages.requestUrlAuth² should be called,
+// providing the button_id and the ID of the container message. The returned
+// urlAuthResultRequest³ object will contain more details about the authorization
+// request (request_write_access if the bot would like to send messages to the user along
+// with the username of the bot which will be used for user authorization). Finally, the
+// user can choose to call messages.acceptUrlAuth⁴ to get a urlAuthResultAccepted⁵
+// with the URL to open instead of the url of this constructor, or a
+// urlAuthResultDefault⁶, in which case the url of this constructor must be opened,
+// instead. If the user refuses the authorization request but still wants to open the
+// link, the url of this constructor must be used.
 //
 // Links:
 //  1) https://telegram.org/blog/privacy-discussions-web-bots#meet-seamless-web-bots
@@ -1283,7 +1300,12 @@ type KeyboardButtonURLAuth struct {
 	//
 	// Use SetFwdText and GetFwdText helpers.
 	FwdText string
-	// An HTTP URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in Receiving authorization data¹.NOTE: Services must always check the hash of the received data to verify the authentication and the integrity of the data as described in Checking authorization².
+	// An HTTP URL to be opened with user authorization data added to the query string when
+	// the button is pressed. If the user refuses to provide authorization data, the original
+	// URL without information about the user will be opened. The data added is the same as
+	// described in Receiving authorization data¹.NOTE: Services must always check the hash
+	// of the received data to verify the authentication and the integrity of the data as
+	// described in Checking authorization².
 	//
 	// Links:
 	//  1) https://core.telegram.org/widgets/login#receiving-authorization-data
@@ -1537,13 +1559,21 @@ type InputKeyboardButtonURLAuth struct {
 	//
 	// Use SetFwdText and GetFwdText helpers.
 	FwdText string
-	// An HTTP URL to be opened with user authorization data added to the query string when the button is pressed. If the user refuses to provide authorization data, the original URL without information about the user will be opened. The data added is the same as described in Receiving authorization data¹.NOTE: You must always check the hash of the received data to verify the authentication and the integrity of the data as described in Checking authorization².
+	// An HTTP URL to be opened with user authorization data added to the query string when
+	// the button is pressed. If the user refuses to provide authorization data, the original
+	// URL without information about the user will be opened. The data added is the same as
+	// described in Receiving authorization data¹.NOTE: You must always check the hash of
+	// the received data to verify the authentication and the integrity of the data as
+	// described in Checking authorization².
 	//
 	// Links:
 	//  1) https://core.telegram.org/widgets/login#receiving-authorization-data
 	//  2) https://core.telegram.org/widgets/login#checking-authorization
 	URL string
-	// Username of a bot, which will be used for user authorization. See Setting up a bot¹ for more details. If not specified, the current bot's username will be assumed. The url's domain must be the same as the domain linked with the bot. See Linking your domain to the bot² for more details.
+	// Username of a bot, which will be used for user authorization. See Setting up a bot¹
+	// for more details. If not specified, the current bot's username will be assumed. The
+	// url's domain must be the same as the domain linked with the bot. See Linking your
+	// domain to the bot² for more details.
 	//
 	// Links:
 	//  1) https://core.telegram.org/widgets/login#setting-up-a-bot
@@ -1806,7 +1836,8 @@ var (
 )
 
 // KeyboardButtonRequestPoll represents TL type `keyboardButtonRequestPoll#bbc7515d`.
-// A button that allows the user to create and send a poll when pressed; available only in private
+// A button that allows the user to create and send a poll when pressed; available only
+// in private
 //
 // See https://core.telegram.org/constructor/keyboardButtonRequestPoll for reference.
 type KeyboardButtonRequestPoll struct {

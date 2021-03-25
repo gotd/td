@@ -435,6 +435,7 @@ type MessagesExportedChatInviteClass interface {
 
 	// Invite field of MessagesExportedChatInvite.
 	GetInvite() (value ChatInviteExported)
+
 	// Users field of MessagesExportedChatInvite.
 	GetUsers() (value []UserClass)
 	// Users field of MessagesExportedChatInvite.

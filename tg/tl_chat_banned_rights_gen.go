@@ -30,7 +30,8 @@ var (
 )
 
 // ChatBannedRights represents TL type `chatBannedRights#9f120418`.
-// Represents the rights of a normal user in a supergroup/channel/chat¹. In this case, the flags are inverted: if set, a flag does not allow a user to do X.
+// Represents the rights of a normal user in a supergroup/channel/chat¹. In this case,
+// the flags are inverted: if set, a flag does not allow a user to do X.
 //
 // Links:
 //  1) https://core.telegram.org/api/channel
@@ -102,7 +103,8 @@ type ChatBannedRights struct {
 	// Links:
 	//  1) https://core.telegram.org/api/channel
 	PinMessages bool
-	// Validity of said permissions (it is considered forever any value less then 30 seconds or more then 366 days).
+	// Validity of said permissions (it is considered forever any value less then 30 seconds
+	// or more then 366 days).
 	UntilDate int
 }
 

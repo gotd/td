@@ -723,7 +723,8 @@ type EncryptedChat struct {
 	AdminID int
 	// ID of the second chat participant
 	ParticipantID int
-	// B = g ^ b mod p, if the currently authorized user is the chat's creator,or A = g ^ a mod p otherwiseSee Wikipedia¹ for more info
+	// B = g ^ b mod p, if the currently authorized user is the chat's creator,or A = g ^ a
+	// mod p otherwiseSee Wikipedia¹ for more info
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/Diffie%E2%80%93Hellman_key_exchange
@@ -1201,6 +1202,7 @@ type EncryptedChatClass interface {
 
 	// Chat ID
 	GetID() (value int)
+
 	// AsNotEmpty tries to map EncryptedChatClass to NotEmptyEncryptedChat.
 	AsNotEmpty() (NotEmptyEncryptedChat, bool)
 }
@@ -1465,7 +1467,9 @@ func (s EncryptedChatClassArray) AsEncryptedChatEmpty() (to EncryptedChatEmptyAr
 	}
 
 	return to
-} // FillEncryptedChatWaitingMap fills only EncryptedChatWaiting constructors to given map.
+}
+
+// FillEncryptedChatWaitingMap fills only EncryptedChatWaiting constructors to given map.
 func (s EncryptedChatClassArray) FillEncryptedChatWaitingMap(to map[int]*EncryptedChatWaiting) {
 	for _, elem := range s {
 		value, ok := elem.(*EncryptedChatWaiting)
@@ -1494,7 +1498,9 @@ func (s EncryptedChatClassArray) AsEncryptedChatWaiting() (to EncryptedChatWaiti
 	}
 
 	return to
-} // FillEncryptedChatRequestedMap fills only EncryptedChatRequested constructors to given map.
+}
+
+// FillEncryptedChatRequestedMap fills only EncryptedChatRequested constructors to given map.
 func (s EncryptedChatClassArray) FillEncryptedChatRequestedMap(to map[int]*EncryptedChatRequested) {
 	for _, elem := range s {
 		value, ok := elem.(*EncryptedChatRequested)
@@ -1523,7 +1529,9 @@ func (s EncryptedChatClassArray) AsEncryptedChatRequested() (to EncryptedChatReq
 	}
 
 	return to
-} // FillEncryptedChatMap fills only EncryptedChat constructors to given map.
+}
+
+// FillEncryptedChatMap fills only EncryptedChat constructors to given map.
 func (s EncryptedChatClassArray) FillEncryptedChatMap(to map[int]*EncryptedChat) {
 	for _, elem := range s {
 		value, ok := elem.(*EncryptedChat)
@@ -1552,7 +1560,9 @@ func (s EncryptedChatClassArray) AsEncryptedChat() (to EncryptedChatArray) {
 	}
 
 	return to
-} // FillEncryptedChatDiscardedMap fills only EncryptedChatDiscarded constructors to given map.
+}
+
+// FillEncryptedChatDiscardedMap fills only EncryptedChatDiscarded constructors to given map.
 func (s EncryptedChatClassArray) FillEncryptedChatDiscardedMap(to map[int]*EncryptedChatDiscarded) {
 	for _, elem := range s {
 		value, ok := elem.(*EncryptedChatDiscarded)

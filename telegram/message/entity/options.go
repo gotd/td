@@ -3,6 +3,7 @@ package entity
 // Plain formats message as plain text.
 func (b *Builder) Plain(s string) *Builder {
 	b.message.WriteString(s)
+	b.lastFormatIndex = len(b.entities)
 	return b
 }
 

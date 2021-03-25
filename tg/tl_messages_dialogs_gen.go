@@ -803,10 +803,13 @@ type ModifiedMessagesDialogs interface {
 
 	// List of chats
 	GetDialogs() (value []DialogClass)
+
 	// List of last messages from each chat
 	GetMessages() (value []MessageClass)
+
 	// List of groups mentioned in the chats
 	GetChats() (value []ChatClass)
+
 	// List of users mentioned in messages and groups
 	GetUsers() (value []UserClass)
 }

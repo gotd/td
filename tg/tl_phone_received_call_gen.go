@@ -30,7 +30,8 @@ var (
 )
 
 // PhoneReceivedCallRequest represents TL type `phone.receivedCall#17d54f61`.
-// Optional: notify the server that the user is currently busy in a call: this will automatically refuse all incoming phone calls until the current phone call is ended.
+// Optional: notify the server that the user is currently busy in a call: this will
+// automatically refuse all incoming phone calls until the current phone call is ended.
 //
 // See https://core.telegram.org/method/phone.receivedCall for reference.
 type PhoneReceivedCallRequest struct {
@@ -157,7 +158,8 @@ var (
 )
 
 // PhoneReceivedCall invokes method phone.receivedCall#17d54f61 returning error if any.
-// Optional: notify the server that the user is currently busy in a call: this will automatically refuse all incoming phone calls until the current phone call is ended.
+// Optional: notify the server that the user is currently busy in a call: this will
+// automatically refuse all incoming phone calls until the current phone call is ended.
 //
 // Possible errors:
 //  400 CALL_ALREADY_DECLINED: The call was already declined

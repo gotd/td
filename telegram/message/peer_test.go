@@ -44,15 +44,15 @@ type answerable struct {
 	UserID int
 }
 
+func (a answerable) GetPeer() tg.PeerClass {
+	return &tg.PeerUser{UserID: a.UserID}
+}
+
 func (a answerable) GetMessage() tg.MessageClass {
 	return &tg.Message{
 		ID:     a.ID,
-		PeerID: &tg.PeerUser{UserID: a.UserID},
+		PeerID: a.GetPeer(),
 	}
-}
-
-func (a answerable) GetPts() int {
-	return -1
 }
 
 func TestResolve(t *testing.T) {
@@ -68,7 +68,7 @@ func TestResolve(t *testing.T) {
 	}
 
 	check(s.Self(), &tg.InputPeerSelf{})
-	check(s.Peer(expected), expected)
+	check(s.To(expected), expected)
 	check(s.Resolve("durov"), expected)
 	check(s.ResolveDomain("@durov"), expected)
 	check(s.ResolveDeeplink("https://t.me/durov"), expected)
@@ -76,7 +76,9 @@ func TestResolve(t *testing.T) {
 	uctx := tg.Entities{Users: map[int]*tg.User{
 		expected.UserID: {ID: expected.UserID, AccessHash: expected.AccessHash, Username: "durov"},
 	}}
-	check(s.Answer(uctx, answerable{ID: 10, UserID: expected.UserID}), expected)
+	ans := answerable{ID: 10, UserID: expected.UserID}
+	check(s.Peer(uctx, ans), expected)
+	check(s.Answer(uctx, ans), expected)
 }
 
 func TestSender_ResolvePhone(t *testing.T) {

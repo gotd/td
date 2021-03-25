@@ -49,7 +49,8 @@ type MessagesGetBotCallbackAnswerRequest struct {
 	//
 	// Use SetData and GetData helpers.
 	Data []byte
-	// For buttons requiring you to verify your identity with your 2FA password¹, the SRP payload generated using SRP².
+	// For buttons requiring you to verify your identity with your 2FA password¹, the SRP
+	// payload generated using SRP².
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/keyboardButtonCallback

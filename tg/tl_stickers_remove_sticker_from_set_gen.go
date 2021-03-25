@@ -30,7 +30,8 @@ var (
 )
 
 // StickersRemoveStickerFromSetRequest represents TL type `stickers.removeStickerFromSet#f7760f51`.
-// Remove a sticker from the set where it belongs, bots only. The sticker set must have been created by the bot.
+// Remove a sticker from the set where it belongs, bots only. The sticker set must have
+// been created by the bot.
 //
 // See https://core.telegram.org/method/stickers.removeStickerFromSet for reference.
 type StickersRemoveStickerFromSetRequest struct {
@@ -167,7 +168,8 @@ var (
 )
 
 // StickersRemoveStickerFromSet invokes method stickers.removeStickerFromSet#f7760f51 returning error if any.
-// Remove a sticker from the set where it belongs, bots only. The sticker set must have been created by the bot.
+// Remove a sticker from the set where it belongs, bots only. The sticker set must have
+// been created by the bot.
 //
 // Possible errors:
 //  400 BOT_MISSING: This method can only be run by a bot

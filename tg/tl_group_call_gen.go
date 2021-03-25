@@ -734,6 +734,7 @@ type GroupCallClass interface {
 
 	// ID field of GroupCallDiscarded.
 	GetID() (value int64)
+
 	// AccessHash field of GroupCallDiscarded.
 	GetAccessHash() (value int64)
 }

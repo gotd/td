@@ -30,7 +30,8 @@ var (
 )
 
 // UploadWebFile represents TL type `upload.webFile#21e753bc`.
-// Represents a chunk of an HTTP webfile¹ downloaded through telegram's secure MTProto servers
+// Represents a chunk of an HTTP webfile¹ downloaded through telegram's secure MTProto
+// servers
 //
 // Links:
 //  1) https://core.telegram.org/api/files

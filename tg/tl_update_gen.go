@@ -569,7 +569,9 @@ var (
 )
 
 // UpdateUserTyping represents TL type `updateUserTyping#5c486927`.
-// The user is preparing a message; typing, recording, uploading, etc. This update is valid for 6 seconds. If no repeated update received after 6 seconds, it should be considered that the user stopped doing whatever he's been doing.
+// The user is preparing a message; typing, recording, uploading, etc. This update is
+// valid for 6 seconds. If no repeated update received after 6 seconds, it should be
+// considered that the user stopped doing whatever he's been doing.
 //
 // See https://core.telegram.org/constructor/updateUserTyping for reference.
 type UpdateUserTyping struct {
@@ -733,7 +735,9 @@ var (
 )
 
 // UpdateChatUserTyping represents TL type `updateChatUserTyping#86cadb6c`.
-// The user is preparing a message in a group; typing, recording, uploading, etc. This update is valid for 6 seconds. If no repeated update received after 6 seconds, it should be considered that the user stopped doing whatever he's been doing.
+// The user is preparing a message in a group; typing, recording, uploading, etc. This
+// update is valid for 6 seconds. If no repeated update received after 6 seconds, it
+// should be considered that the user stopped doing whatever he's been doing.
 //
 // See https://core.telegram.org/constructor/updateChatUserTyping for reference.
 type UpdateChatUserTyping struct {
@@ -1230,12 +1234,14 @@ var (
 type UpdateUserName struct {
 	// User identifier
 	UserID int
-	// New first name. Corresponds to the new value of real_first_name field of the userFull¹ constructor.
+	// New first name. Corresponds to the new value of real_first_name field of the
+	// userFull¹ constructor.
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/userFull
 	FirstName string
-	// New last name. Corresponds to the new value of real_last_name field of the userFull¹ constructor.
+	// New last name. Corresponds to the new value of real_last_name field of the userFull¹
+	// constructor.
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/userFull
@@ -1810,7 +1816,9 @@ var (
 )
 
 // UpdateEncryptedChatTyping represents TL type `updateEncryptedChatTyping#1710f156`.
-// Interlocutor is typing a message in an encrypted chat. Update period is 6 second. If upon this time there is no repeated update, it shall be considered that the interlocutor stopped typing.
+// Interlocutor is typing a message in an encrypted chat. Update period is 6 second. If
+// upon this time there is no repeated update, it shall be considered that the
+// interlocutor stopped typing.
 //
 // See https://core.telegram.org/constructor/updateEncryptedChatTyping for reference.
 type UpdateEncryptedChatTyping struct {
@@ -2996,7 +3004,12 @@ var (
 
 // UpdateServiceNotification represents TL type `updateServiceNotification#ebe46819`.
 // A service message for the user.
-// The app must show the message to the user upon receiving this update. In case the popup parameter was passed, the text message must be displayed in a popup alert immediately upon receipt. It is recommended to handle the text as you would an ordinary message in terms of highlighting links, etc. The message must also be stored locally as part of the message history with the user id 777000 (Telegram Notifications).
+// The app must show the message to the user upon receiving this update. In case the
+// popup parameter was passed, the text message must be displayed in a popup alert
+// immediately upon receipt. It is recommended to handle the text as you would an
+// ordinary message in terms of highlighting links, etc. The message must also be stored
+// locally as part of the message history with the user id 777000 (Telegram
+// Notifications).
 //
 // See https://core.telegram.org/constructor/updateServiceNotification for reference.
 type UpdateServiceNotification struct {
@@ -3007,11 +3020,14 @@ type UpdateServiceNotification struct {
 	Flags bin.Fields
 	// (boolTrue) if the message must be displayed in a popup.
 	Popup bool
-	// When was the notification receivedThe message must also be stored locally as part of the message history with the user id 777000 (Telegram Notifications).
+	// When was the notification receivedThe message must also be stored locally as part of
+	// the message history with the user id 777000 (Telegram Notifications).
 	//
 	// Use SetInboxDate and GetInboxDate helpers.
 	InboxDate int
-	// String, identical in format and contents to the type¹ field in API errors. Describes type of service message. It is acceptable to ignore repeated messages of the same type within a short period of time (15 minutes).
+	// String, identical in format and contents to the type¹ field in API errors. Describes
+	// type of service message. It is acceptable to ignore repeated messages of the same type
+	// within a short period of time (15 minutes).
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/errors#error-type
@@ -4570,7 +4586,8 @@ var (
 
 // UpdateChannelTooLong represents TL type `updateChannelTooLong#eb0467fb`.
 // There are new updates in the specified channel, the client must fetch them.
-// If the difference is too long or if the channel isn't currently in the states, start fetching from the specified pts.
+// If the difference is too long or if the channel isn't currently in the states, start
+// fetching from the specified pts.
 //
 // See https://core.telegram.org/constructor/updateChannelTooLong for reference.
 type UpdateChannelTooLong struct {
@@ -6296,7 +6313,8 @@ var (
 )
 
 // UpdateStickerSets represents TL type `updateStickerSets#43ae3dec`.
-// Installed stickersets have changed, the client should refetch them using messages.getAllStickers¹
+// Installed stickersets have changed, the client should refetch them using messages
+// getAllStickers¹
 //
 // Links:
 //  1) https://core.telegram.org/method/messages.getAllStickers
@@ -6401,7 +6419,8 @@ var (
 )
 
 // UpdateSavedGifs represents TL type `updateSavedGifs#9375341e`.
-// The saved gif list has changed, the client should refetch it using messages.getSavedGifs¹
+// The saved gif list has changed, the client should refetch it using messages
+// getSavedGifs¹
 //
 // Links:
 //  1) https://core.telegram.org/method/messages.getSavedGifs
@@ -6826,7 +6845,9 @@ var (
 )
 
 // UpdateBotInlineSend represents TL type `updateBotInlineSend#e48f964`.
-// The result of an inline query that was chosen by a user and sent to their chat partner. Please see our documentation on the feedback collecting¹ for details on how to enable these updates for your bot.
+// The result of an inline query that was chosen by a user and sent to their chat partner
+// Please see our documentation on the feedback collecting¹ for details on how to
+// enable these updates for your bot.
 //
 // Links:
 //  1) https://core.telegram.org/bots/inline#collecting-feedback
@@ -6848,7 +6869,9 @@ type UpdateBotInlineSend struct {
 	Geo GeoPointClass
 	// The unique identifier for the result that was chosen
 	ID string
-	// Identifier of the sent inline message. Available only if there is an inline keyboard attached to the message. Will be also received in callback queries and can be used to edit the message.
+	// Identifier of the sent inline message. Available only if there is an inline keyboard
+	// attached to the message. Will be also received in callback queries and can be used to
+	// edit the message.
 	//
 	// Use SetMsgID and GetMsgID helpers.
 	MsgID InputBotInlineMessageID
@@ -7314,7 +7337,8 @@ var (
 )
 
 // UpdateBotCallbackQuery represents TL type `updateBotCallbackQuery#e73547e1`.
-// A callback button was pressed, and the button data was sent to the bot that created the button
+// A callback button was pressed, and the button data was sent to the bot that created
+// the button
 //
 // See https://core.telegram.org/constructor/updateBotCallbackQuery for reference.
 type UpdateBotCallbackQuery struct {
@@ -7331,7 +7355,8 @@ type UpdateBotCallbackQuery struct {
 	Peer PeerClass
 	// Message ID
 	MsgID int
-	// Global identifier, uniquely corresponding to the chat to which the message with the callback button was sent. Useful for high scores in games.
+	// Global identifier, uniquely corresponding to the chat to which the message with the
+	// callback button was sent. Useful for high scores in games.
 	ChatInstance int64
 	// Callback data
 	//
@@ -7859,9 +7884,11 @@ type UpdateInlineBotCallbackQuery struct {
 	UserID int
 	// ID of the inline message with the button
 	MsgID InputBotInlineMessageID
-	// Global identifier, uniquely corresponding to the chat to which the message with the callback button was sent. Useful for high scores in games.
+	// Global identifier, uniquely corresponding to the chat to which the message with the
+	// callback button was sent. Useful for high scores in games.
 	ChatInstance int64
-	// Data associated with the callback button. Be aware that a bad client can send arbitrary data in this field.
+	// Data associated with the callback button. Be aware that a bad client can send
+	// arbitrary data in this field.
 	//
 	// Use SetData and GetData helpers.
 	Data []byte
@@ -8686,7 +8713,8 @@ var (
 )
 
 // UpdateConfig represents TL type `updateConfig#a229dd06`.
-// The server-side configuration has changed; the client should re-fetch the config using help.getConfig¹
+// The server-side configuration has changed; the client should re-fetch the config using
+// help.getConfig¹
 //
 // Links:
 //  1) https://core.telegram.org/method/help.getConfig
@@ -8791,7 +8819,8 @@ var (
 )
 
 // UpdatePtsChanged represents TL type `updatePtsChanged#3354678f`.
-// Common message box sequence PTS¹ has changed, state has to be refetched using updates.getState²
+// Common message box sequence PTS¹ has changed, state has to be refetched using updates
+// getState²
 //
 // Links:
 //  1) https://core.telegram.org/api/updates
@@ -10134,7 +10163,10 @@ type UpdateBotPrecheckoutQuery struct {
 	// Links:
 	//  1) https://core.telegram.org/bots/payments#supported-currencies
 	Currency string
-	// Total amount in the smallest units of the currency (integer, not float/double). For example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in currencies.json¹, it shows the number of digits past the decimal point for each currency (2 for the majority of currencies).
+	// Total amount in the smallest units of the currency (integer, not float/double). For
+	// example, for a price of US$ 1.45 pass amount = 145. See the exp parameter in
+	// currencies.json¹, it shows the number of digits past the decimal point for each
+	// currency (2 for the majority of currencies).
 	//
 	// Links:
 	//  1) https://core.telegram.org/bots/payments/currencies.json
@@ -10583,7 +10615,8 @@ var (
 )
 
 // UpdateLangPackTooLong represents TL type `updateLangPackTooLong#46560264`.
-// A language pack has changed, the client should manually fetch the changed strings using langpack.getDifference¹
+// A language pack has changed, the client should manually fetch the changed strings
+// using langpack.getDifference¹
 //
 // Links:
 //  1) https://core.telegram.org/method/langpack.getDifference
@@ -10850,7 +10883,8 @@ var (
 )
 
 // UpdateFavedStickers represents TL type `updateFavedStickers#e511996d`.
-// The list of favorited stickers was changed, the client should call messages.getFavedStickers¹ to refetch the new list
+// The list of favorited stickers was changed, the client should call messages
+// getFavedStickers¹ to refetch the new list
 //
 // Links:
 //  1) https://core.telegram.org/method/messages.getFavedStickers
@@ -14203,7 +14237,8 @@ type UpdateReadChannelDiscussionInbox struct {
 	// Links:
 	//  1) https://core.telegram.org/api/threads
 	ReadMaxID int
-	// If set, contains the ID of the channel¹ that contains the post that started the comment thread² in the discussion group (channel_id)
+	// If set, contains the ID of the channel¹ that contains the post that started the
+	// comment thread² in the discussion group (channel_id)
 	//
 	// Links:
 	//  1) https://core.telegram.org/api/channel

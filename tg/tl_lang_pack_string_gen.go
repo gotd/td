@@ -186,7 +186,9 @@ var (
 )
 
 // LangPackStringPluralized represents TL type `langPackStringPluralized#6c47ac9f`.
-// A language pack string which has different forms based on the number of some object it mentions. See https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html¹ for more info
+// A language pack string which has different forms based on the number of some object it
+// mentions. See https://www.unicode
+// org/cldr/charts/latest/supplemental/language_plural_rules.html¹ for more info
 //
 // Links:
 //  1) https://www.unicode.org/cldr/charts/latest/supplemental/language_plural_rules.html

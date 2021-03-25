@@ -30,7 +30,8 @@ var (
 )
 
 // MessagesSetTypingRequest represents TL type `messages.setTyping#58943ee2`.
-// Sends a current user typing event (see SendMessageAction¹ for all event types) to a conversation partner or group.
+// Sends a current user typing event (see SendMessageAction¹ for all event types) to a
+// conversation partner or group.
 //
 // Links:
 //  1) https://core.telegram.org/type/SendMessageAction
@@ -261,7 +262,8 @@ var (
 )
 
 // MessagesSetTyping invokes method messages.setTyping#58943ee2 returning error if any.
-// Sends a current user typing event (see SendMessageAction¹ for all event types) to a conversation partner or group.
+// Sends a current user typing event (see SendMessageAction¹ for all event types) to a
+// conversation partner or group.
 //
 // Links:
 //  1) https://core.telegram.org/type/SendMessageAction

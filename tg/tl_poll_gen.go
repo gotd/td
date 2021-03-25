@@ -47,7 +47,8 @@ type Poll struct {
 	PublicVoters bool
 	// Whether multiple options can be chosen as answer
 	MultipleChoice bool
-	// Whether this is a quiz (with wrong and correct answers, results shown in the return type)
+	// Whether this is a quiz (with wrong and correct answers, results shown in the return
+	// type)
 	Quiz bool
 	// The question of the poll
 	Question string
@@ -56,11 +57,14 @@ type Poll struct {
 	// Links:
 	//  1) https://core.telegram.org/method/messages.sendVote
 	Answers []PollAnswer
-	// Amount of time in seconds the poll will be active after creation, 5-600. Can't be used together with close_date.
+	// Amount of time in seconds the poll will be active after creation, 5-600. Can't be used
+	// together with close_date.
 	//
 	// Use SetClosePeriod and GetClosePeriod helpers.
 	ClosePeriod int
-	// Point in time (Unix timestamp) when the poll will be automatically closed. Must be at least 5 and no more than 600 seconds in the future; can't be used together with close_period.
+	// Point in time (Unix timestamp) when the poll will be automatically closed. Must be at
+	// least 5 and no more than 600 seconds in the future; can't be used together with
+	// close_period.
 	//
 	// Use SetCloseDate and GetCloseDate helpers.
 	CloseDate int

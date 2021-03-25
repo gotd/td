@@ -30,7 +30,8 @@ var (
 )
 
 // AuthRecoverPasswordRequest represents TL type `auth.recoverPassword#4ea56e92`.
-// Reset the 2FA password¹ using the recovery code sent using auth.requestPasswordRecovery².
+// Reset the 2FA password¹ using the recovery code sent using auth
+// requestPasswordRecovery².
 //
 // Links:
 //  1) https://core.telegram.org/api/srp
@@ -161,7 +162,8 @@ var (
 )
 
 // AuthRecoverPassword invokes method auth.recoverPassword#4ea56e92 returning error if any.
-// Reset the 2FA password¹ using the recovery code sent using auth.requestPasswordRecovery².
+// Reset the 2FA password¹ using the recovery code sent using auth
+// requestPasswordRecovery².
 //
 // Links:
 //  1) https://core.telegram.org/api/srp

@@ -140,7 +140,8 @@ type InputEncryptedFileUploaded struct {
 	ID int64
 	// Number of saved parts
 	Parts int
-	// In case md5-HASH¹ of the (already encrypted) file was transmitted, file content will be checked prior to use
+	// In case md5-HASH¹ of the (already encrypted) file was transmitted, file content will
+	// be checked prior to use
 	//
 	// Links:
 	//  1) https://en.wikipedia.org/wiki/MD5
@@ -501,7 +502,8 @@ var (
 )
 
 // InputEncryptedFileBigUploaded represents TL type `inputEncryptedFileBigUploaded#2dc173c8`.
-// Assigns a new big encrypted file (over 10Mb in size), saved in parts using the method upload.saveBigFilePart¹.
+// Assigns a new big encrypted file (over 10Mb in size), saved in parts using the method
+// upload.saveBigFilePart¹.
 //
 // Links:
 //  1) https://core.telegram.org/method/upload.saveBigFilePart

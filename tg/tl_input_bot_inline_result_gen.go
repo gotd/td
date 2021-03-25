@@ -1219,6 +1219,7 @@ type InputBotInlineResultClass interface {
 
 	// ID of result
 	GetID() (value string)
+
 	// Message to send when the result is selected
 	GetSendMessage() (value InputBotInlineMessageClass)
 }

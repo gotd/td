@@ -41,19 +41,24 @@ type MessagesSetInlineBotResultsRequest struct {
 	Flags bin.Fields
 	// Set this flag if the results are composed of media files
 	Gallery bool
-	// Set this flag if results may be cached on the server side only for the user that sent the query. By default, results may be returned to any user who sends the same query
+	// Set this flag if results may be cached on the server side only for the user that sent
+	// the query. By default, results may be returned to any user who sends the same query
 	Private bool
 	// Unique identifier for the answered query
 	QueryID int64
 	// Vector of results for the inline query
 	Results []InputBotInlineResultClass
-	// The maximum amount of time in seconds that the result of the inline query may be cached on the server. Defaults to 300.
+	// The maximum amount of time in seconds that the result of the inline query may be
+	// cached on the server. Defaults to 300.
 	CacheTime int
-	// Pass the offset that a client should send in the next query with the same text to receive more results. Pass an empty string if there are no more results or if you don‘t support pagination. Offset length can’t exceed 64 bytes.
+	// Pass the offset that a client should send in the next query with the same text to
+	// receive more results. Pass an empty string if there are no more results or if you
+	// don‘t support pagination. Offset length can’t exceed 64 bytes.
 	//
 	// Use SetNextOffset and GetNextOffset helpers.
 	NextOffset string
-	// If passed, clients will display a button with specified text that switches the user to a private chat with the bot and sends the bot a start message with a certain parameter.
+	// If passed, clients will display a button with specified text that switches the user to
+	// a private chat with the bot and sends the bot a start message with a certain parameter.
 	//
 	// Use SetSwitchPm and GetSwitchPm helpers.
 	SwitchPm InlineBotSwitchPM

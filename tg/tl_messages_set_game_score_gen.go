@@ -30,7 +30,8 @@ var (
 )
 
 // MessagesSetGameScoreRequest represents TL type `messages.setGameScore#8ef8ecc0`.
-// Use this method to set the score of the specified user in a game sent as a normal message (bots only).
+// Use this method to set the score of the specified user in a game sent as a normal
+// message (bots only).
 //
 // See https://core.telegram.org/method/messages.setGameScore for reference.
 type MessagesSetGameScoreRequest struct {
@@ -39,9 +40,11 @@ type MessagesSetGameScoreRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Set this flag if the game message should be automatically edited to include the current scoreboard
+	// Set this flag if the game message should be automatically edited to include the
+	// current scoreboard
 	EditMessage bool
-	// Set this flag if the high score is allowed to decrease. This can be useful when fixing mistakes or banning cheaters
+	// Set this flag if the high score is allowed to decrease. This can be useful when fixing
+	// mistakes or banning cheaters
 	Force bool
 	// Unique identifier of target chat
 	Peer InputPeerClass
@@ -319,7 +322,8 @@ var (
 )
 
 // MessagesSetGameScore invokes method messages.setGameScore#8ef8ecc0 returning error if any.
-// Use this method to set the score of the specified user in a game sent as a normal message (bots only).
+// Use this method to set the score of the specified user in a game sent as a normal
+// message (bots only).
 //
 // Possible errors:
 //  400 MESSAGE_ID_INVALID: The provided message id is invalid

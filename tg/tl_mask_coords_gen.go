@@ -37,9 +37,13 @@ var (
 type MaskCoords struct {
 	// Part of the face, relative to which the mask should be placed
 	N int
-	// Shift by X-axis measured in widths of the mask scaled to the face size, from left to right. (For example, -1.0 will place the mask just to the left of the default mask position)
+	// Shift by X-axis measured in widths of the mask scaled to the face size, from left to
+	// right. (For example, -1.0 will place the mask just to the left of the default mask
+	// position)
 	X float64
-	// Shift by Y-axis measured in widths of the mask scaled to the face size, from left to right. (For example, -1.0 will place the mask just to the left of the default mask position)
+	// Shift by Y-axis measured in widths of the mask scaled to the face size, from left to
+	// right. (For example, -1.0 will place the mask just to the left of the default mask
+	// position)
 	Y float64
 	// Mask scaling coefficient. (For example, 2.0 means a doubled size)
 	Zoom float64

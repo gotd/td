@@ -30,7 +30,8 @@ var (
 )
 
 // AuthImportLoginTokenRequest represents TL type `auth.importLoginToken#95ac5ce4`.
-// Login using a redirected login token, generated in case of DC mismatch during QR code login¹.
+// Login using a redirected login token, generated in case of DC mismatch during QR code
+// login¹.
 // For more info, see login via QR code¹.
 //
 // Links:
@@ -162,7 +163,8 @@ var (
 )
 
 // AuthImportLoginToken invokes method auth.importLoginToken#95ac5ce4 returning error if any.
-// Login using a redirected login token, generated in case of DC mismatch during QR code login¹.
+// Login using a redirected login token, generated in case of DC mismatch during QR code
+// login¹.
 // For more info, see login via QR code¹.
 //
 // Links:

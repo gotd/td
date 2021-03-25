@@ -30,7 +30,9 @@ var (
 )
 
 // AuthBindTempAuthKeyRequest represents TL type `auth.bindTempAuthKey#cdd42a05`.
-// Binds a temporary authorization key temp_auth_key_id to the permanent authorization key perm_auth_key_id. Each permanent key may only be bound to one temporary key at a time, binding a new temporary key overwrites the previous one.
+// Binds a temporary authorization key temp_auth_key_id to the permanent authorization
+// key perm_auth_key_id. Each permanent key may only be bound to one temporary key at a
+// time, binding a new temporary key overwrites the previous one.
 // For more information, see Perfect Forward Secrecy¹.
 //
 // Links:
@@ -242,7 +244,9 @@ var (
 )
 
 // AuthBindTempAuthKey invokes method auth.bindTempAuthKey#cdd42a05 returning error if any.
-// Binds a temporary authorization key temp_auth_key_id to the permanent authorization key perm_auth_key_id. Each permanent key may only be bound to one temporary key at a time, binding a new temporary key overwrites the previous one.
+// Binds a temporary authorization key temp_auth_key_id to the permanent authorization
+// key perm_auth_key_id. Each permanent key may only be bound to one temporary key at a
+// time, binding a new temporary key overwrites the previous one.
 // For more information, see Perfect Forward Secrecy¹.
 //
 // Links:

@@ -42,7 +42,8 @@ type MessagesSendInlineBotResultRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
-	// Whether to send the message silently (no notification will be triggered on the other client)
+	// Whether to send the message silently (no notification will be triggered on the other
+	// client)
 	Silent bool
 	// Whether to send the message in background
 	Background bool
@@ -51,7 +52,8 @@ type MessagesSendInlineBotResultRequest struct {
 	// Links:
 	//  1) https://core.telegram.org/api/drafts
 	ClearDraft bool
-	// Whether to hide the via @botname in the resulting message (only for bot usernames encountered in the config¹)
+	// Whether to hide the via @botname in the resulting message (only for bot usernames
+	// encountered in the config¹)
 	//
 	// Links:
 	//  1) https://core.telegram.org/constructor/config

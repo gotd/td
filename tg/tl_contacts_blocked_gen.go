@@ -544,10 +544,12 @@ type ContactsBlockedClass interface {
 	Zero() bool
 
 	// List of blocked users
-	GetBlocked() (value []PeerBlocked) // Blocked chats
+	GetBlocked() (value []PeerBlocked)
+	// Blocked chats
 	GetChats() (value []ChatClass)
 	// Blocked chats
-	MapChats() (value ChatClassArray) // List of users
+	MapChats() (value ChatClassArray)
+	// List of users
 	GetUsers() (value []UserClass)
 	// List of users
 	MapUsers() (value UserClassArray)

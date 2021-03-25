@@ -30,7 +30,8 @@ var (
 )
 
 // AuthPasswordRecovery represents TL type `auth.passwordRecovery#137948a5`.
-// Recovery info of a 2FA password¹, only for accounts with a recovery email configured².
+// Recovery info of a 2FA password¹, only for accounts with a recovery email
+// configured².
 //
 // Links:
 //  1) https://core.telegram.org/api/srp

@@ -31,7 +31,8 @@ var (
 
 // AuthResetAuthorizationsRequest represents TL type `auth.resetAuthorizations#9fab0d1a`.
 // Terminates all user's authorized sessions except for the current one.
-// After calling this method it is necessary to reregister the current device using the method account.registerDevice¹
+// After calling this method it is necessary to reregister the current device using the
+// method account.registerDevice¹
 //
 // Links:
 //  1) https://core.telegram.org/method/account.registerDevice
@@ -132,7 +133,8 @@ var (
 
 // AuthResetAuthorizations invokes method auth.resetAuthorizations#9fab0d1a returning error if any.
 // Terminates all user's authorized sessions except for the current one.
-// After calling this method it is necessary to reregister the current device using the method account.registerDevice¹
+// After calling this method it is necessary to reregister the current device using the
+// method account.registerDevice¹
 //
 // Links:
 //  1) https://core.telegram.org/method/account.registerDevice

@@ -865,7 +865,9 @@ var (
 
 // ChannelParticipantsMentions represents TL type `channelParticipantsMentions#e04b5ceb`.
 // This filter is used when looking for supergroup members to mention.
-// This filter will automatically remove anonymous admins, and return even non-participant users that replied to a specific thread¹ through the comment section² of a channel.
+// This filter will automatically remove anonymous admins, and return even
+// non-participant users that replied to a specific thread¹ through the comment
+// section² of a channel.
 //
 // Links:
 //  1) https://core.telegram.org/api/threads

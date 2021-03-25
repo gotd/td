@@ -902,8 +902,10 @@ type DialogClass interface {
 
 	// Is the dialog pinned
 	GetPinned() (value bool)
+
 	// The chat
 	GetPeer() (value PeerClass)
+
 	// The latest message ID
 	GetTopMessage() (value int)
 }

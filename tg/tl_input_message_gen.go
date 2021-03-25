@@ -396,7 +396,8 @@ var (
 )
 
 // InputMessageCallbackQuery represents TL type `inputMessageCallbackQuery#acfa1a7e`.
-// Used by bots for fetching information about the message that originated a callback query
+// Used by bots for fetching information about the message that originated a callback
+// query
 //
 // See https://core.telegram.org/constructor/inputMessageCallbackQuery for reference.
 type InputMessageCallbackQuery struct {
