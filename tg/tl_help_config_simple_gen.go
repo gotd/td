@@ -138,8 +138,8 @@ func (c *HelpConfigSimple) EncodeBare(b *bin.Buffer) error {
 	b.PutInt(c.Expires)
 	b.PutInt(len(c.Rules))
 	for idx, v := range c.Rules {
-		if err := v.EncodeBare(b); err != nil {
-			return fmt.Errorf("unable to encode bare help.configSimple#5a592a6c: field rules element with index %d: %w", idx, err)
+		if err := v.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode help.configSimple#5a592a6c: field rules element with index %d: %w", idx, err)
 		}
 	}
 	return nil
@@ -197,8 +197,8 @@ func (c *HelpConfigSimple) DecodeBare(b *bin.Buffer) error {
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value AccessPointRule
-			if err := value.DecodeBare(b); err != nil {
-				return fmt.Errorf("unable to decode bare help.configSimple#5a592a6c: field rules: %w", err)
+			if err := value.Decode(b); err != nil {
+				return fmt.Errorf("unable to decode help.configSimple#5a592a6c: field rules: %w", err)
 			}
 			c.Rules = append(c.Rules, value)
 		}
