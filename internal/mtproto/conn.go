@@ -73,6 +73,7 @@ type Conn struct {
 	// compute sequence number within session.
 	sentContentMessages int32
 	msgToReq            map[int64]int64
+	reqToSeq            map[int64]int32
 	reqToMsg            map[int64]int64
 	reqMux              sync.Mutex
 
@@ -130,6 +131,7 @@ func New(dialer Dialer, opt Options) *Conn {
 		salt:    opt.Salt,
 
 		reqToMsg: map[int64]int64{},
+		reqToSeq: map[int64]int32{},
 		msgToReq: map[int64]int64{},
 
 		ping:         map[int64]chan struct{}{},
