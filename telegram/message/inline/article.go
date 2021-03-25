@@ -37,33 +37,33 @@ func (b *ArticleResultBuilder) ID(id string) *ArticleResultBuilder {
 	return b
 }
 
-// Type sets Result type (see bot API docs¹).
-func (b *ArticleResultBuilder) Type(typ string) *ArticleResultBuilder {
-	b.result.Type = typ
+// Title sets Result description.
+func (b *ArticleResultBuilder) Title(title string) *ArticleResultBuilder {
+	b.result.SetTitle(title)
 	return b
 }
 
 // Description sets Result description.
 func (b *ArticleResultBuilder) Description(description string) *ArticleResultBuilder {
-	b.result.Description = description
+	b.result.SetDescription(description)
 	return b
 }
 
 // URL sets URL of result.
 func (b *ArticleResultBuilder) URL(url string) *ArticleResultBuilder {
-	b.result.URL = url
+	b.result.SetURL(url)
 	return b
 }
 
 // Thumb sets Thumbnail for result.
 func (b *ArticleResultBuilder) Thumb(thumb tg.InputWebDocument) *ArticleResultBuilder {
-	b.result.Thumb = thumb
+	b.result.SetThumb(thumb)
 	return b
 }
 
 // Content sets Result contents.
 func (b *ArticleResultBuilder) Content(content tg.InputWebDocument) *ArticleResultBuilder {
-	b.result.Content = content
+	b.result.SetContent(content)
 	return b
 }
 
