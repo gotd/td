@@ -23,7 +23,7 @@ func TestFingerprintManyPK(t *testing.T) {
 		"aeae98e13cd7f94f",
 		"5a181b2235057d98",
 	}
-	assert.Equal(t, len(expected), len(ManyPK))
+	assert.Len(t, ManyPK, len(expected))
 	for i, pubkey := range ManyPK {
 		assert.Equal(t, expected[i], fingerprint(pubkey))
 	}

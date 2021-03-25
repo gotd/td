@@ -17,7 +17,7 @@ func TestFingerprintEmptyPK(t *testing.T) {
 		return fmt.Sprintf("%08x", uint64(crypto.RSAFingerprint(pubkey)))
 	}
 	expected := []string{}
-	assert.Equal(t, len(expected), len(EmptyPK))
+	assert.Len(t, EmptyPK, len(expected))
 	for i, pubkey := range EmptyPK {
 		assert.Equal(t, expected[i], fingerprint(pubkey))
 	}
