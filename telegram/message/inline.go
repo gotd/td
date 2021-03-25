@@ -5,10 +5,11 @@ import (
 
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/telegram/message/inline"
 	"github.com/gotd/td/tg"
 )
 
-// InlineResult sends inline query result message.
+// InlineResult is a user method to send bot inline query result message.
 func (b *Builder) InlineResult(ctx context.Context, id string, queryID int64, hideVia bool) (tg.UpdatesClass, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
@@ -31,4 +32,14 @@ func (b *Builder) InlineResult(ctx context.Context, id string, queryID int64, hi
 	}
 
 	return upd, nil
+}
+
+// InlineUpdate is a abstraction for
+type InlineUpdate interface {
+	GetQueryID() int64
+}
+
+// Inline creates new inline.ResultBuilder using given update.
+func (s *Sender) Inline(upd InlineUpdate) *inline.ResultBuilder {
+	return inline.New(s.raw, s.rand, upd.GetQueryID())
 }
