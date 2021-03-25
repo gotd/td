@@ -53,54 +53,22 @@ func main() {
 func run() error {
 	log.SetFlags(log.Llongfile)
 	var (
-		inPath       = ""
-		outPath      = ""
-		tplPath      = ""
-		tplName      = "main.tmpl"
-		pkgName      = "main"
-		varName      = "PK"
-		singleMode   = false
-		formatOutput = true
-	)
-	flag.StringVar(
-		&inPath, "f", inPath,
-		"input path (defaults to stdin)",
-	)
-	flag.StringVar(
-		&outPath, "o", outPath,
-		"output path (defaults to stdout)",
-	)
-	flag.StringVar(
-		&tplPath, "templates", tplPath,
-		"templates directory (defaults to embed)",
-	)
-	flag.StringVar(
-		&tplName, "exec", tplName,
-		"template name",
-	)
-	flag.StringVar(
-		&pkgName, "pkg", pkgName,
-		"package name",
-	)
-	flag.StringVar(
-		&varName, "var", varName,
-		"variable name",
-	)
-	flag.BoolVar(
-		&singleMode, "single", singleMode,
-		"emit single key instead of slice",
-	)
-	flag.BoolVar(
-		&formatOutput, "format", formatOutput,
-		"run gofmt on output",
+		inPath       = flag.String("f", "", "input path (defaults to stdin)")
+		outPath      = flag.String("o", "", "output path (defaults to stdout)")
+		tplPath      = flag.String("templates", "", "templates directory (defaults to embed)")
+		tplName      = flag.String("exec", "main.tmpl", "template name")
+		pkgName      = flag.String("pkg", "main", "package name")
+		varName      = flag.String("var", "PK", "variable name")
+		singleMode   = flag.Bool("single", false, "emit single key instead of slice")
+		formatOutput = flag.Bool("format", true, "run gofmt on output")
 	)
 	flag.Parse()
 
 	var err error
 
 	var in []byte
-	if inPath != "" {
-		in, err = os.ReadFile(inPath)
+	if *inPath != "" {
+		in, err = os.ReadFile(*inPath)
 	} else {
 		in, err = io.ReadAll(os.Stdin)
 	}
@@ -116,8 +84,8 @@ func run() error {
 	}
 
 	fsys, _ := fs.Sub(embedFS, "_template")
-	if tplPath != "" {
-		fsys = os.DirFS(tplPath)
+	if *tplPath != "" {
+		fsys = os.DirFS(*tplPath)
 	}
 
 	tpl, err := template.New("").Funcs(funcs).ParseFS(fsys, "*.tmpl")
@@ -127,17 +95,17 @@ func run() error {
 	}
 
 	buf := bytes.NewBuffer(nil)
-	if err := tpl.ExecuteTemplate(buf, tplName, map[string]interface{}{
-		"Package":  pkgName,
-		"Variable": varName,
+	if err := tpl.ExecuteTemplate(buf, *tplName, map[string]interface{}{
+		"Package":  *pkgName,
+		"Variable": *varName,
 		"Keys":     keys,
-		"Single":   singleMode,
+		"Single":   *singleMode,
 	}); err != nil {
 		log.Printf("execute template: %v", err)
 		return err
 	}
 
-	if formatOutput {
+	if *formatOutput {
 		p, err := format.Source(buf.Bytes())
 		if err != nil {
 			log.Printf("format output: %v", err)
@@ -146,8 +114,8 @@ func run() error {
 		buf = bytes.NewBuffer(p)
 	}
 
-	if outPath != "" {
-		err = os.WriteFile(outPath, buf.Bytes(), 0o744)
+	if *outPath != "" {
+		err = os.WriteFile(*outPath, buf.Bytes(), 0o744)
 	} else {
 		_, err = buf.WriteTo(os.Stdout)
 	}
