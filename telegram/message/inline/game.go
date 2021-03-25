@@ -1,8 +1,6 @@
 package inline
 
 import (
-	"context"
-
 	"github.com/gotd/td/tg"
 )
 
@@ -12,7 +10,7 @@ type GameResultBuilder struct {
 	msg    MessageOption
 }
 
-func (b *GameResultBuilder) apply(ctx context.Context, r *resultPageBuilder) error {
+func (b *GameResultBuilder) apply(r *resultPageBuilder) error {
 	m, err := b.msg.apply()
 	if err != nil {
 		return err

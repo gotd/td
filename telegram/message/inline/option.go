@@ -1,7 +1,6 @@
 package inline
 
 import (
-	"context"
 	"io"
 	"strconv"
 
@@ -25,7 +24,7 @@ func (r *resultPageBuilder) generateID() (string, error) {
 
 // ResultOption is a option of inline result.
 type ResultOption interface {
-	apply(ctx context.Context, r *resultPageBuilder) error
+	apply(r *resultPageBuilder) error
 }
 
 // MessageOption is a option of inline result message.

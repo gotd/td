@@ -10,6 +10,7 @@ type MessageGameBuilder struct {
 	message *tg.InputBotInlineMessageGame
 }
 
+// nolint:unparam
 func (b *MessageGameBuilder) apply() (tg.InputBotInlineMessageClass, error) {
 	r := *b.message
 	return &r, nil

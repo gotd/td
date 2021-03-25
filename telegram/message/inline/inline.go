@@ -38,6 +38,12 @@ func New(raw *tg.Client, random io.Reader, queryID int64) *ResultBuilder {
 	return &ResultBuilder{raw: raw, random: random, queryID: queryID}
 }
 
+// Gallery sets flag if the results are composed of media files.
+func (r *ResultBuilder) Gallery(gallery bool) *ResultBuilder {
+	r.gallery = gallery
+	return r
+}
+
 // Private sets flag if results may be cached on the server side only for the user that sent
 // the query. By default, results may be returned to any user who sends the same query.
 func (r *ResultBuilder) Private(private bool) *ResultBuilder {
@@ -85,11 +91,11 @@ func (r *ResultBuilder) Set(ctx context.Context, opt ResultOption, opts ...Resul
 		random:  r.random,
 	}
 
-	if err := opt.apply(ctx, &res); err != nil {
+	if err := opt.apply(&res); err != nil {
 		return false, xerrors.Errorf("apply first option: %w", err)
 	}
 	for idx, opt := range opts {
-		if err := opt.apply(ctx, &res); err != nil {
+		if err := opt.apply(&res); err != nil {
 			return false, xerrors.Errorf("apply %d option: %w", idx+2, err)
 		}
 	}

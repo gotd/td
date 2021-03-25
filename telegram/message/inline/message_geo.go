@@ -12,6 +12,7 @@ type MessageMediaGeoBuilder struct {
 	message *tg.InputBotInlineMessageMediaGeo
 }
 
+// nolint:unparam
 func (b *MessageMediaGeoBuilder) apply() (tg.InputBotInlineMessageClass, error) {
 	r := *b.message
 	return &r, nil
