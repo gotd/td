@@ -116,8 +116,8 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) EncodeBare({{ $s.BufArg }} *bin.Buffer) 
             return fmt.Errorf("unable to encode {{ $s.RawType }}: field {{ $f.RawName }} element with index %d is nil", idx)
             }
         {{- end}}
-        if err := v.Encode{{ if $f.BareVector }}Bare{{ end }}({{ $s.BufArg }}); err != nil {
-            return fmt.Errorf("unable to encode{{ if $f.BareVector }} bare{{ end }} {{ $s.RawType }}: field {{ $f.RawName }} element with index %d: %w", idx, err)
+        if err := v.Encode{{ if and $f.BareEncoder $f.BareVector }}Bare{{ end }}({{ $s.BufArg }}); err != nil {
+            return fmt.Errorf("unable to encode{{ if and $f.BareEncoder $f.BareVector }} bare{{ end }} {{ $s.RawType }}: field {{ $f.RawName }} element with index %d: %w", idx, err)
         }
     {{- else }}
         {{ $s.BufArg }}.Put{{ $f.Func }}(v)
@@ -280,8 +280,8 @@ func ({{ $s.Receiver }} *{{ $s.Name }}) DecodeBare({{ $s.BufArg }} *bin.Buffer) 
                 }
             {{- else if $f.Encoder }}
                 var value {{ $f.Type }}
-                if err := value.Decode{{ if $f.BareVector }}Bare{{ end }}({{ $s.BufArg }}); err != nil {
-                    return fmt.Errorf("unable to decode{{ if $f.BareVector }} bare{{ end }} {{ $s.RawType }}: field {{ $f.RawName }}: %w", err)
+                if err := value.Decode{{ if and $f.BareEncoder $f.BareVector }}Bare{{ end }}({{ $s.BufArg }}); err != nil {
+                    return fmt.Errorf("unable to decode{{ if and $f.BareEncoder $f.BareVector }} bare{{ end }} {{ $s.RawType }}: field {{ $f.RawName }}: %w", err)
                 }
             {{- else}}
                 value, err := {{ $s.BufArg }}.{{ $f.Func }}()
