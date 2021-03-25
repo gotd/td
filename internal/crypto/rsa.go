@@ -26,6 +26,23 @@ const (
 	rsaDataLen     = rsaWithHashLen - sha1.Size
 )
 
+// RSAPublicDecrypt recovers the message digest from the raw signature
+// using the signer’s RSA public key.
+//
+// See also OpenSSL’s RSA_public_decrypt with RSA_NO_PADDING.
+func RSAPublicDecrypt(pub *rsa.PublicKey, sig []byte) ([]byte, error) {
+	k := pub.Size()
+	if k < 11 || k != len(sig) {
+		return nil, rsa.ErrVerification
+	}
+
+	c := new(big.Int).SetBytes(sig)
+	e := big.NewInt(int64(pub.E))
+	m := new(big.Int).Exp(c, e, pub.N)
+
+	return m.Bytes(), nil
+}
+
 // RSAEncryptHashed encrypts given data with RSA, prefixing with a hash.
 func RSAEncryptHashed(data []byte, key *rsa.PublicKey, randomSource io.Reader) ([]byte, error) {
 	// Preparing `data_with_hash`.
