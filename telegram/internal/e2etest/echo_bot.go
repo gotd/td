@@ -151,7 +151,7 @@ func (b EchoBot) handler(client *telegram.Client) tg.NewMessageHandler {
 					zap.String("username", user.Username),
 				)
 
-				if _, err := sender.Peer(user.AsInputPeer()).Text(ctx, m.Message); err != nil {
+				if _, err := sender.To(user.AsInputPeer()).Text(ctx, m.Message); err != nil {
 					return xerrors.Errorf("send message: %w", err)
 				}
 				return nil

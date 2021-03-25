@@ -88,7 +88,7 @@ func TestRequestBuilder_StartBot(t *testing.T) {
 		mock.Equal("abc", req.StartParam)
 		mock.NotZero(req.RandomID)
 	}).ThenResult(&tg.Updates{})
-	_, err := sender.Peer(peer).StartBot(ctx, StartBotParam("abc"))
+	_, err := sender.To(peer).StartBot(ctx, StartBotParam("abc"))
 	mock.NoError(err)
 
 	inputUser := &tg.InputUserEmpty{}
@@ -99,7 +99,7 @@ func TestRequestBuilder_StartBot(t *testing.T) {
 		mock.Equal(inputUser, req.Bot)
 		mock.NotZero(req.RandomID)
 	}).ThenResult(&tg.Updates{})
-	_, err = sender.Peer(peer).StartBot(ctx, StartBotInputUser(inputUser))
+	_, err = sender.To(peer).StartBot(ctx, StartBotInputUser(inputUser))
 	mock.NoError(err)
 
 	// Should not make RPC calls.
@@ -123,6 +123,6 @@ func TestRequestBuilder_StartBot(t *testing.T) {
 		mock.NotZero(req.RandomID)
 	}).ThenRPCErr(testRPCError())
 
-	_, err = sender.Peer(peerFromMsg).StartBot(ctx)
+	_, err = sender.To(peerFromMsg).StartBot(ctx)
 	mock.Error(err)
 }
