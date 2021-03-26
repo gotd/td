@@ -6,6 +6,7 @@ import (
 	"io"
 	"net"
 
+	"go.uber.org/multierr"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/mtproxy"
@@ -45,7 +46,8 @@ func (m mtProxy) resolve(ctx context.Context, dc int) (transport.Conn, error) {
 
 	conn, err := m.handshake(c, dc)
 	if err != nil {
-		return nil, err
+		err = xerrors.Errorf("handshake: %w", err)
+		return nil, multierr.Combine(err, c.Close())
 	}
 
 	return conn, nil
@@ -53,23 +55,28 @@ func (m mtProxy) resolve(ctx context.Context, dc int) (transport.Conn, error) {
 
 // handshake inits given net.Conn as MTProto connection.
 func (m mtProxy) handshake(c net.Conn, dc int) (transport.Conn, error) {
-	var conn *obfuscator.Conn
+	var obsConn *obfuscator.Conn
 	switch m.secret.Type {
 	case mtproxy.Simple, mtproxy.Secured:
-		conn = obfuscator.Obfuscated2(m.rand, c)
+		obsConn = obfuscator.Obfuscated2(m.rand, c)
 	case mtproxy.TLS:
-		conn = obfuscator.FakeTLS(m.rand, c)
+		obsConn = obfuscator.FakeTLS(m.rand, c)
 	default:
 		return nil, xerrors.Errorf("unknown MTProxy secret type: %d", m.secret.Type)
 	}
 
 	secret := m.secret
 	secret.DC = dc
-	if err := conn.Handshake(m.tag, secret); err != nil {
+	if err := obsConn.Handshake(m.tag, secret); err != nil {
 		return nil, xerrors.Errorf("MTProxy handshake: %w", err)
 	}
 
-	return m.transport.Handshake(conn)
+	transportConn, err := m.transport.Handshake(obsConn)
+	if err != nil {
+		return nil, xerrors.Errorf("transport handshake: %w", err)
+	}
+
+	return transportConn, nil
 }
 
 // MTProxyOptions is MTProxy resolver creation options.

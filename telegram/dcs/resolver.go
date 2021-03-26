@@ -6,6 +6,7 @@ import (
 	"net"
 	"strconv"
 
+	"go.uber.org/multierr"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/tg"
@@ -78,7 +79,13 @@ func (p plain) connect(ctx context.Context, dc int, dcOptions []tg.DCOption) (tr
 			return nil, err
 		}
 
-		return p.transport.Handshake(conn)
+		transportConn, err := p.transport.Handshake(conn)
+		if err != nil {
+			err = xerrors.Errorf("transport handshake: %w", err)
+			return nil, multierr.Combine(err, conn.Close())
+		}
+
+		return transportConn, nil
 	}
 
 	return nil, xerrors.Errorf("no addresses for DC %d", dc)
