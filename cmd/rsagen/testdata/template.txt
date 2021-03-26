@@ -1,0 +1,25 @@
+# Accepts custom templates
+rsagen -format=false -templates good
+stdout sentinel
+! stderr .
+
+# Parse error on invalid template
+! rsagen -format=false -templates bad
+! stdout .
+stderr 'parse templates: '
+
+# Accepts root template name
+rsagen -format=false -templates root -exec root
+stdout tutturu
+! stderr .
+
+-- good/main.tmpl --
+sentinel
+
+-- bad/main.tmpl --
+{{ undefined }}
+
+-- root/root.tmpl --
+{{- define "root" -}}
+tutturu
+{{- end -}}

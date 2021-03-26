@@ -1,0 +1,13 @@
+! rsagen -f shirou.pem
+! stdout .
+stderr 'parse public keys: '
+
+-- shirou.pem --
+-----BEGIN RSA PUBLIC KEY-----
+SSBhbSB0aGUgYm9uZSBvZiBteSBzd29yZC4KU3RlZWwgaXMgbXkgYm9keSBhbmQg
+ZmlyZSBpcyBteSBibG9vZC4KSSBoYXZlIGNyZWF0ZWQgb3ZlciBhIHRob3VzYW5k
+IGJsYWRlcy4KVW5hd2FyZSBvZiBsb3NzLApOb3IgYXdhcmUgb2YgZ2Fpbi4KV2l0
+aHN0b29kIHBhaW4gdG8gY3JlYXRlIHdlYXBvbnMsIHdhaXRpbmcgZm9yIG9uZeKA
+mXMgYXJyaXZhbC4KSSBoYXZlIG5vIHJlZ3JldHMuIFRoaXMgaXMgdGhlIG9ubHkg
+cGF0aC4KTXkgd2hvbGUgbGlmZSB3YXMgVW5saW1pdGVkIEJsYWRlIFdvcmtzLgo=
+-----END RSA PUBLIC KEY-----
