@@ -5,7 +5,6 @@ import (
 	"io"
 	"os"
 	"path/filepath"
-	"runtime"
 
 	"go.uber.org/multierr"
 	"golang.org/x/xerrors"
@@ -26,7 +25,7 @@ type Builder struct {
 func newBuilder(downloader *Downloader, schema schema) *Builder {
 	return &Builder{
 		schema:     schema,
-		threads:    runtime.GOMAXPROCS(0) * 2,
+		threads:    1,
 		downloader: downloader,
 	}
 }
