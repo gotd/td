@@ -12,7 +12,10 @@ func (c *Conn) writeContentMessage(ctx context.Context, id int64, message bin.En
 }
 
 func (c *Conn) writeServiceMessage(ctx context.Context, message bin.Encoder) error {
-	return c.write(ctx, atomic.AddInt64(&c.reqID, 1), false, message)
+	reqID := atomic.AddInt64(&c.reqID, 1)
+	defer c.cleanup(reqID)
+
+	return c.write(ctx, reqID, false, message)
 }
 
 func (c *Conn) write(ctx context.Context, reqID int64, content bool, message bin.Encoder) error {
@@ -36,9 +39,6 @@ func (c *Conn) write(ctx context.Context, reqID int64, content bool, message bin
 		}
 
 		// Saving mapping of internal to external id.
-		//
-		// This will OOM eventually.
-		// TODO(ernado): cleanup by callback from rpc engine
 		c.reqToMsg[reqID] = msgID
 		c.msgToReq[msgID] = reqID
 
@@ -50,23 +50,25 @@ func (c *Conn) write(ctx context.Context, reqID int64, content bool, message bin
 	// so we can release mutex here.
 	c.reqMux.Unlock()
 
-	cleanup := func() {
-		c.reqMux.Lock()
-		delete(c.reqToMsg, reqID)
-		delete(c.reqToSeq, reqID)
-		delete(c.msgToReq, msgID)
-		c.reqMux.Unlock()
-	}
-
 	b := new(bin.Buffer)
 	if err := c.newEncryptedMessage(msgID, seq, message, b); err != nil {
-		cleanup()
 		return err
 	}
 	if err := c.conn.Send(ctx, b); err != nil {
-		cleanup()
 		return err
 	}
 
 	return nil
+}
+
+func (c *Conn) cleanup(reqID int64) {
+	c.reqMux.Lock()
+	defer c.reqMux.Unlock()
+
+	msgID, ok := c.reqToMsg[reqID]
+	delete(c.reqToMsg, reqID)
+	delete(c.reqToSeq, reqID)
+	if ok {
+		delete(c.msgToReq, msgID)
+	}
 }

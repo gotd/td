@@ -29,6 +29,8 @@ func (c *Conn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Deco
 	log.Debug("Invoke start")
 	defer log.Debug("Invoke end")
 
+	defer c.cleanup(req.ID)
+
 	if err := c.rpc.Do(ctx, req); err != nil {
 		var badMsgErr *badMessageError
 		if errors.As(err, &badMsgErr) && badMsgErr.Code == codeIncorrectServerSalt {
