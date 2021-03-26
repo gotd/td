@@ -5,7 +5,9 @@ import (
 	"errors"
 	"strconv"
 	"sync"
+	"time"
 
+	"github.com/cenkalti/backoff/v4"
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
@@ -89,10 +91,19 @@ func (b EchoBot) login(ctx context.Context, client *telegram.Client) (*tg.User, 
 		}
 	}
 
-	if err := retryFloodWait(ctx, func() (err error) {
+	if err := backoff.Retry(func() error {
 		me, err = client.Self(ctx)
 		if err != nil {
-			return xerrors.Errorf("get self: %w", err)
+			if timeout, ok := telegram.AsFloodWait(err); ok {
+				select {
+				case <-ctx.Done():
+					return ctx.Err()
+				case <-time.After(timeout + 1*time.Second):
+					return err
+				}
+			}
+
+			return backoff.Permanent(xerrors.Errorf("get self: %w", err))
 		}
 
 		if me.Username != expectedUsername {
@@ -100,7 +111,7 @@ func (b EchoBot) login(ctx context.Context, client *telegram.Client) (*tg.User, 
 		}
 
 		return nil
-	}); err != nil {
+	}, backoff.WithContext(backoff.NewExponentialBackOff(), ctx)); err != nil {
 		return nil, err
 	}
 
