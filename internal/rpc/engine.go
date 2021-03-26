@@ -101,13 +101,13 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 		// Handler result.
 		resultErr error
 		// Needed to prevent multiple handler calls.
-		handlerCalls uint32
+		handlerCalled uint32
 	)
 
 	handler := func(rpcBuff *bin.Buffer, rpcErr error) error {
 		log.Debug("Handler called")
 
-		if calls := atomic.AddUint32(&handlerCalls, 1); calls > 1 {
+		if ok := atomic.CompareAndSwapUint32(&handlerCalled, 0, 1); !ok {
 			log.Warn("Handler already called")
 
 			return xerrors.Errorf("handler already called")
