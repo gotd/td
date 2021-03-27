@@ -11,6 +11,13 @@ import (
 	"github.com/gotd/td/tgerr"
 )
 
+// ErrPasswordInvalid means that password provided to AuthPassword is invalid.
+//
+// Note that telegram does not trim whitespace characters by default, check
+// that provided password is expected and clean whitespaces if needed.
+// You can use strings.TrimSpace(password) for this.
+var ErrPasswordInvalid = errors.New("invalid password")
+
 // AuthPassword performs login via secure remote password (aka 2FA).
 //
 // Method can be called after AuthSignIn to provide password if requested.
@@ -36,6 +43,9 @@ func (c *Client) AuthPassword(ctx context.Context, password string) error {
 		A:     a.A,
 		M1:    a.M1,
 	})
+	if tg.IsPasswordHashInvalid(err) {
+		return ErrPasswordInvalid
+	}
 	if err != nil {
 		return xerrors.Errorf("check password: %w", err)
 	}
