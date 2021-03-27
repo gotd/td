@@ -50,17 +50,22 @@ func (c *Conn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Deco
 }
 
 func (c *Conn) dropRPC(req rpc.Request) error {
-	var resp mt.RPCDropAnswerBox
-
-	dropReq := &mt.RPCDropAnswerRequest{
-		ReqMsgID: req.ID,
+	c.reqMux.Lock()
+	msgID, ok := c.reqToMsg[req.ID]
+	c.reqMux.Unlock()
+	if !ok {
+		return xerrors.Errorf("msgID not found for provided reqID: %d", req.ID)
 	}
+
 	ctx, cancel := context.WithTimeout(context.Background(),
-		c.getTimeout(dropReq.TypeID()),
+		c.getTimeout(mt.RPCDropAnswerRequestTypeID),
 	)
 	defer cancel()
 
-	if err := c.InvokeRaw(ctx, dropReq, &resp); err != nil {
+	var resp mt.RPCDropAnswerBox
+	if err := c.InvokeRaw(ctx, &mt.RPCDropAnswerRequest{
+		ReqMsgID: msgID,
+	}, &resp); err != nil {
 		return err
 	}
 
@@ -68,7 +73,7 @@ func (c *Conn) dropRPC(req rpc.Request) error {
 	case *mt.RPCAnswerDropped, *mt.RPCAnswerDroppedRunning:
 		return nil
 	case *mt.RPCAnswerUnknown:
-		return xerrors.Errorf("unknown request id")
+		return xerrors.Errorf("answer unknown")
 	default:
 		return xerrors.Errorf("unexpected response type: %T", resp.RpcDropAnswer)
 	}
