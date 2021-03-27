@@ -152,14 +152,26 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 
 	select {
 	case <-ctx.Done():
-		if sent {
-			if err := e.drop(req); err != nil {
-				log.Warn("Failed to drop request", zap.Error(err))
-			} else {
-				log.Debug("Request dropped")
-			}
+		if !sent {
+			return ctx.Err()
 		}
 
+		// Set nop callback because server will respond with 'RpcDropAnswer' instead of expected result.
+		//
+		// NOTE(ccln): We can decode 'RpcDropAnswer' here but I see no reason to do this
+		// because it will also come as a response to 'RPCDropAnswerRequest'.
+		//
+		// https://core.telegram.org/mtproto/service_messages#cancellation-of-an-rpc-query
+		e.mux.Lock()
+		e.rpc[req.ID] = func(b *bin.Buffer, e error) error { return nil }
+		e.mux.Unlock()
+
+		if err := e.drop(req); err != nil {
+			log.Warn("Failed to drop request", zap.Error(err))
+			return ctx.Err()
+		}
+
+		log.Debug("Request dropped")
 		return ctx.Err()
 	case <-e.reqCtx.Done():
 		return xerrors.Errorf("engine forcibly closed: %w", e.reqCtx.Err())
