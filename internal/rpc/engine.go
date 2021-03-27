@@ -37,10 +37,10 @@ type Engine struct {
 }
 
 // Send is a function that sends requests to the server.
-type Send func(ctx context.Context, reqID int64, in bin.Encoder) error
+type Send func(ctx context.Context, reqID int64, seqNo int32, in bin.Encoder) error
 
 // NopSend does nothing.
-func NopSend(ctx context.Context, reqID int64, in bin.Encoder) error { return nil }
+func NopSend(ctx context.Context, reqID int64, seqNo int32, in bin.Encoder) error { return nil }
 
 // DropHandler handles drop rpc requests.
 type DropHandler func(req Request) error
@@ -74,7 +74,8 @@ func New(send Send, cfg Options) *Engine {
 
 // Request represents client RPC request.
 type Request struct {
-	ID     int64
+	MsgID  int64
+	SeqNo  int32
 	Input  bin.Encoder
 	Output bin.Decoder
 }
@@ -92,7 +93,7 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 	retryCtx, retryClose := context.WithCancel(ctx)
 	defer retryClose()
 
-	log := e.log.With(zap.Int64("req_id", req.ID))
+	log := e.log.With(zap.Int64("msg_id", req.MsgID))
 	log.Debug("Do called")
 
 	done := make(chan struct{})
@@ -127,13 +128,13 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 
 	// Setting callback that will be called if message is received.
 	e.mux.Lock()
-	e.rpc[req.ID] = handler
+	e.rpc[req.MsgID] = handler
 	e.mux.Unlock()
 
 	defer func() {
 		// Ensuring that callback can't be called after function return.
 		e.mux.Lock()
-		delete(e.rpc, req.ID)
+		delete(e.rpc, req.MsgID)
 		e.mux.Unlock()
 	}()
 
@@ -163,7 +164,7 @@ func (e *Engine) Do(ctx context.Context, req Request) error {
 		//
 		// https://core.telegram.org/mtproto/service_messages#cancellation-of-an-rpc-query
 		e.mux.Lock()
-		e.rpc[req.ID] = func(b *bin.Buffer, e error) error { return nil }
+		e.rpc[req.MsgID] = func(b *bin.Buffer, e error) error { return nil }
 		e.mux.Unlock()
 
 		if err := e.drop(req); err != nil {
@@ -189,15 +190,15 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) (sent bool, err
 	defer cancel()
 
 	var (
-		ackChan = e.waitAck(req.ID)
+		ackChan = e.waitAck(req.MsgID)
 		retries = 0
-		log     = e.log.Named("retry").With(zap.Int64("req_id", req.ID))
+		log     = e.log.Named("retry").With(zap.Int64("msg_id", req.MsgID))
 	)
 
-	defer e.removeAck(req.ID)
+	defer e.removeAck(req.MsgID)
 
 	// Encoding request.
-	if err := e.send(ctx, req.ID, req.Input); err != nil {
+	if err := e.send(ctx, req.MsgID, req.SeqNo, req.Input); err != nil {
 		return false, xerrors.Errorf("send: %w", err)
 	}
 
@@ -213,7 +214,7 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) (sent bool, err
 				return nil
 			case <-e.clock.After(e.retryInterval):
 				log.Debug("Acknowledge timed out, performing retry")
-				if err := e.send(ctx, req.ID, req.Input); err != nil {
+				if err := e.send(ctx, req.MsgID, req.SeqNo, req.Input); err != nil {
 					if errors.Is(err, context.Canceled) {
 						return nil
 					}
@@ -224,7 +225,7 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) (sent bool, err
 
 				retries++
 				if retries >= e.maxRetries {
-					log.Error("Retry limit reached", zap.Int64("req_id", req.ID))
+					log.Error("Retry limit reached", zap.Int64("msg_id", req.MsgID))
 					return &RetryLimitReachedErr{
 						Retries: retries,
 					}
@@ -237,12 +238,12 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) (sent bool, err
 }
 
 // NotifyResult notifies engine about received RPC response.
-func (e *Engine) NotifyResult(reqID int64, b *bin.Buffer) error {
+func (e *Engine) NotifyResult(msgID int64, b *bin.Buffer) error {
 	e.mux.Lock()
-	fn, ok := e.rpc[reqID]
+	fn, ok := e.rpc[msgID]
 	e.mux.Unlock()
 	if !ok {
-		e.log.Warn("rpc callback not set", zap.Int64("req_id", reqID))
+		e.log.Warn("rpc callback not set", zap.Int64("msg_id", msgID))
 		return nil
 	}
 
@@ -250,12 +251,12 @@ func (e *Engine) NotifyResult(reqID int64, b *bin.Buffer) error {
 }
 
 // NotifyError notifies engine about received RPC error.
-func (e *Engine) NotifyError(reqID int64, rpcErr error) {
+func (e *Engine) NotifyError(msgID int64, rpcErr error) {
 	e.mux.Lock()
-	fn, ok := e.rpc[reqID]
+	fn, ok := e.rpc[msgID]
 	e.mux.Unlock()
 	if !ok {
-		e.log.Warn("rpc callback not set", zap.Int64("req_id", reqID))
+		e.log.Warn("rpc callback not set", zap.Int64("msg_id", msgID))
 		return
 	}
 
