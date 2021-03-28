@@ -23,20 +23,20 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-type testHandler func(id int64, body bin.Encoder) (bin.Encoder, error)
+type testHandler func(msgID int64, seqNo int32, body bin.Encoder) (bin.Encoder, error)
 
 func newTestClient(h testHandler) *Conn {
 	var engine *rpc.Engine
 
-	engine = rpc.New(func(ctx context.Context, reqID int64, in bin.Encoder) error {
-		if response, err := h(reqID, in); err != nil {
-			engine.NotifyError(reqID, err)
+	engine = rpc.New(func(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error {
+		if response, err := h(msgID, seqNo, in); err != nil {
+			engine.NotifyError(msgID, err)
 		} else {
 			var b bin.Buffer
 			if err := b.Encode(response); err != nil {
 				return err
 			}
-			return engine.NotifyResult(reqID, &b)
+			return engine.NotifyResult(msgID, &b)
 		}
 		return nil
 	}, rpc.Options{})

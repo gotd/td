@@ -27,7 +27,7 @@ type request struct {
 var defaultNow = testutil.Date()
 
 const (
-	reqID  int64 = 1
+	msgID  int64 = 1
 	pingID int64 = 1337
 	seqNo  int32 = 1
 )
@@ -43,7 +43,7 @@ func TestRPCError(t *testing.T) {
 
 		log.Info("Waiting ping request")
 		require.Equal(t, request{
-			MsgID: reqID,
+			MsgID: msgID,
 			SeqNo: seqNo,
 			Input: &mt.PingRequest{PingID: pingID},
 		}, <-incoming)
@@ -58,7 +58,7 @@ func TestRPCError(t *testing.T) {
 		clock.Travel(time.Second)
 
 		log.Info("Sending RPC error")
-		e.NotifyError(reqID, expectedErr)
+		e.NotifyError(msgID, expectedErr)
 
 		return nil
 	}
@@ -68,7 +68,8 @@ func TestRPCError(t *testing.T) {
 
 		log.Info("Sending ping request")
 		err := e.Do(context.TODO(), Request{
-			ID: reqID,
+			MsgID: msgID,
+			SeqNo: seqNo,
 			Input: &mt.PingRequest{
 				PingID: pingID,
 			},
@@ -98,7 +99,7 @@ func TestRPCResult(t *testing.T) {
 
 		log.Info("Waiting ping request")
 		require.Equal(t, request{
-			MsgID: reqID,
+			MsgID: msgID,
 			SeqNo: seqNo,
 			Input: &mt.PingRequest{PingID: pingID},
 		}, <-incoming)
@@ -113,14 +114,14 @@ func TestRPCResult(t *testing.T) {
 
 		var b bin.Buffer
 		if err := b.Encode(&mt.Pong{
-			MsgID:  reqID,
+			MsgID:  msgID,
 			PingID: pingID,
 		}); err != nil {
 			return err
 		}
 
 		log.Info("Sending pong response")
-		return e.NotifyResult(reqID, &b)
+		return e.NotifyResult(msgID, &b)
 	}
 
 	client := func(t *testing.T, e *Engine) error {
@@ -129,14 +130,15 @@ func TestRPCResult(t *testing.T) {
 		log.Info("Sending ping request")
 		var out mt.Pong
 		require.NoError(t, e.Do(context.TODO(), Request{
-			ID:     reqID,
+			MsgID:  msgID,
+			SeqNo:  seqNo,
 			Input:  &mt.PingRequest{PingID: pingID},
 			Output: &out,
 		}))
 
 		log.Info("Got pong response")
 		require.Equal(t, mt.Pong{
-			MsgID:  reqID,
+			MsgID:  msgID,
 			PingID: pingID,
 		}, out)
 
@@ -161,7 +163,7 @@ func TestRPCAckThenResult(t *testing.T) {
 
 		log.Info("Waiting ping request")
 		require.Equal(t, request{
-			MsgID: reqID,
+			MsgID: msgID,
 			SeqNo: seqNo,
 			Input: &mt.PingRequest{PingID: pingID},
 		}, <-incoming)
@@ -174,21 +176,21 @@ func TestRPCAckThenResult(t *testing.T) {
 		clock.Travel(time.Second * 2)
 
 		log.Info("Sending ACK")
-		e.NotifyAcks([]int64{reqID})
+		e.NotifyAcks([]int64{msgID})
 
 		log.Info("Traveling into the future for 6 seconds (simulate request processing)")
 		clock.Travel(time.Second * 6)
 
 		var b bin.Buffer
 		if err := b.Encode(&mt.Pong{
-			MsgID:  reqID,
+			MsgID:  msgID,
 			PingID: pingID,
 		}); err != nil {
 			return err
 		}
 
 		log.Info("Sending response")
-		return e.NotifyResult(reqID, &b)
+		return e.NotifyResult(msgID, &b)
 	}
 
 	client := func(t *testing.T, e *Engine) error {
@@ -197,14 +199,15 @@ func TestRPCAckThenResult(t *testing.T) {
 		log.Info("Sending ping request")
 		var out mt.Pong
 		require.NoError(t, e.Do(context.TODO(), Request{
-			ID:     reqID,
+			MsgID:  msgID,
+			SeqNo:  seqNo,
 			Input:  &mt.PingRequest{PingID: pingID},
 			Output: &out,
 		}))
 
 		log.Info("Got pong response")
 		require.Equal(t, mt.Pong{
-			MsgID:  reqID,
+			MsgID:  msgID,
 			PingID: pingID,
 		}, out)
 
@@ -229,7 +232,7 @@ func TestRPCWithRetryResult(t *testing.T) {
 
 		log.Info("Waiting ping request")
 		require.Equal(t, request{
-			MsgID: reqID,
+			MsgID: msgID,
 			SeqNo: seqNo,
 			Input: &mt.PingRequest{PingID: pingID},
 		}, <-incoming)
@@ -244,7 +247,7 @@ func TestRPCWithRetryResult(t *testing.T) {
 
 		log.Info("Waiting re-sending request")
 		require.Equal(t, request{
-			MsgID: reqID,
+			MsgID: msgID,
 			SeqNo: seqNo,
 			Input: &mt.PingRequest{PingID: pingID},
 		}, <-incoming)
@@ -252,14 +255,14 @@ func TestRPCWithRetryResult(t *testing.T) {
 
 		var b bin.Buffer
 		if err := b.Encode(&mt.Pong{
-			MsgID:  reqID,
+			MsgID:  msgID,
 			PingID: pingID,
 		}); err != nil {
 			return err
 		}
 
 		log.Info("Send pong response")
-		return e.NotifyResult(reqID, &b)
+		return e.NotifyResult(msgID, &b)
 	}
 
 	client := func(t *testing.T, e *Engine) error {
@@ -268,14 +271,15 @@ func TestRPCWithRetryResult(t *testing.T) {
 		log.Info("Sending ping request")
 		var out mt.Pong
 		require.NoError(t, e.Do(context.TODO(), Request{
-			ID:     1,
+			MsgID:  1,
+			SeqNo:  seqNo,
 			Input:  &mt.PingRequest{PingID: pingID},
 			Output: &out,
 		}))
 
 		log.Info("Got pong response")
 		require.Equal(t, mt.Pong{
-			MsgID:  reqID,
+			MsgID:  msgID,
 			PingID: pingID,
 		}, out)
 
@@ -327,10 +331,11 @@ func TestEngineGracefulShutdown(t *testing.T) {
 		var currMsgID int64
 
 		for i := 0; i < requestsCount; i++ {
-			go func(t *testing.T, reqID int64) {
+			go func(t *testing.T, msgID int64) {
 				var out mt.Pong
 				require.Equal(t, e.Do(context.TODO(), Request{
-					ID:     reqID,
+					MsgID:  msgID,
+					SeqNo:  seqNo,
 					Input:  &mt.PingRequest{PingID: pingID},
 					Output: &out,
 				}), expectedErr)
@@ -368,7 +373,7 @@ func TestDropRPC(t *testing.T) {
 
 		log.Info("Waiting ping request")
 		require.Equal(t, request{
-			MsgID: reqID,
+			MsgID: msgID,
 			SeqNo: seqNo,
 			Input: &mt.PingRequest{PingID: pingID},
 		}, <-incoming)
@@ -377,7 +382,7 @@ func TestDropRPC(t *testing.T) {
 		<-clientCancelledCtx
 
 		log.Info("Waiting drop request")
-		require.Equal(t, reqID, (<-dropChan).ID)
+		require.Equal(t, msgID, (<-dropChan).MsgID)
 		return nil
 	}
 
@@ -397,7 +402,8 @@ func TestDropRPC(t *testing.T) {
 		}()
 
 		require.ErrorIs(t, e.Do(ctx, Request{
-			ID:     reqID,
+			MsgID:  msgID,
+			SeqNo:  seqNo,
 			Input:  &mt.PingRequest{PingID: pingID},
 			Output: &mt.Pong{},
 		}), context.Canceled)
@@ -426,9 +432,9 @@ func runTest(
 	requests := make(chan request)
 	defer close(requests)
 
-	e := New(func(ctx context.Context, reqID int64, in bin.Encoder) error {
+	e := New(func(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error {
 		req := request{
-			MsgID: reqID,
+			MsgID: msgID,
 			SeqNo: seqNo,
 			Input: in,
 		}

@@ -17,13 +17,8 @@ func (c *Conn) handleResult(b *bin.Buffer) error {
 		return xerrors.Errorf("decode: %x", err)
 	}
 
-	c.reqMux.Lock()
-	reqID := c.msgToReq[res.RequestMessageID]
-	c.reqMux.Unlock()
-
 	c.logWithType(b).Debug("Handle result",
 		zap.Int64("msg_id", res.RequestMessageID),
-		zap.Int64("req_id", reqID),
 	)
 
 	// Handling gzipped results.
@@ -41,7 +36,6 @@ func (c *Conn) handleResult(b *bin.Buffer) error {
 		b = content
 		c.logWithType(b).Debug("Decompressed",
 			zap.Int64("msg_id", res.RequestMessageID),
-			zap.Int64("req_id", reqID),
 		)
 
 		// Replacing id with inner id if error is compressed for any reason.
@@ -55,7 +49,7 @@ func (c *Conn) handleResult(b *bin.Buffer) error {
 		if err := rpcErr.Decode(b); err != nil {
 			return xerrors.Errorf("error decode: %w", err)
 		}
-		c.rpc.NotifyError(reqID, tgerr.New(rpcErr.ErrorCode, rpcErr.ErrorMessage))
+		c.rpc.NotifyError(res.RequestMessageID, tgerr.New(rpcErr.ErrorCode, rpcErr.ErrorMessage))
 
 		return nil
 	}
@@ -63,5 +57,5 @@ func (c *Conn) handleResult(b *bin.Buffer) error {
 		return c.handlePong(b)
 	}
 
-	return c.rpc.NotifyResult(reqID, b)
+	return c.rpc.NotifyResult(res.RequestMessageID, b)
 }

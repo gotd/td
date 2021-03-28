@@ -3,7 +3,6 @@ package mtproto
 import (
 	"context"
 	"errors"
-	"sync/atomic"
 
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
@@ -17,19 +16,19 @@ import (
 //
 // NOTE: Assuming that call contains content message (seqno increment).
 func (c *Conn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Decoder) error {
+	msgID, seqNo := c.nextMsgSeq(true)
 	req := rpc.Request{
-		ID:     atomic.AddInt64(&c.reqID, 1),
+		MsgID:  msgID,
+		SeqNo:  seqNo,
 		Input:  input,
 		Output: output,
 	}
 
 	log := c.log.With(
-		zap.Int64("req_id", req.ID),
+		zap.Int64("msg_id", req.MsgID),
 	)
 	log.Debug("Invoke start")
 	defer log.Debug("Invoke end")
-
-	defer c.cleanup(req.ID)
 
 	if err := c.rpc.Do(ctx, req); err != nil {
 		var badMsgErr *badMessageError
@@ -40,7 +39,7 @@ func (c *Conn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Deco
 			c.storeSalt(badMsgErr.NewSalt)
 			// Reset saved salts to fetch new.
 			c.salts.Reset()
-			c.log.Info("Retrying request after basMsgErr", zap.Int64("req_id", req.ID))
+			c.log.Info("Retrying request after basMsgErr", zap.Int64("msg_id", req.MsgID))
 			return c.rpc.Do(ctx, req)
 		}
 		return xerrors.Errorf("rpcDoRequest: %w", err)
@@ -50,13 +49,6 @@ func (c *Conn) InvokeRaw(ctx context.Context, input bin.Encoder, output bin.Deco
 }
 
 func (c *Conn) dropRPC(req rpc.Request) error {
-	c.reqMux.Lock()
-	msgID, ok := c.reqToMsg[req.ID]
-	c.reqMux.Unlock()
-	if !ok {
-		return xerrors.Errorf("msgID not found for provided reqID: %d", req.ID)
-	}
-
 	ctx, cancel := context.WithTimeout(context.Background(),
 		c.getTimeout(mt.RPCDropAnswerRequestTypeID),
 	)
@@ -64,7 +56,7 @@ func (c *Conn) dropRPC(req rpc.Request) error {
 
 	var resp mt.RPCDropAnswerBox
 	if err := c.InvokeRaw(ctx, &mt.RPCDropAnswerRequest{
-		ReqMsgID: msgID,
+		ReqMsgID: req.MsgID,
 	}, &resp); err != nil {
 		return err
 	}

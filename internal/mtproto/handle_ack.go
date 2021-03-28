@@ -15,16 +15,7 @@ func (c *Conn) handleAck(b *bin.Buffer) error {
 	}
 
 	c.log.Debug("Received ack", zap.Int64s("msg_ids", ack.MsgIDs))
-
-	var reqIDs []int64
-	c.reqMux.Lock()
-	for _, id := range ack.MsgIDs {
-		if reqID, ok := c.msgToReq[id]; ok {
-			reqIDs = append(reqIDs, reqID)
-		}
-	}
-	c.reqMux.Unlock()
-	c.rpc.NotifyAcks(reqIDs)
+	c.rpc.NotifyAcks(ack.MsgIDs)
 
 	return nil
 }
