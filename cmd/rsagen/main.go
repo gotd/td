@@ -133,7 +133,7 @@ func run() error {
 	}
 
 	if *outPath != "" {
-		err = os.WriteFile(*outPath, buf.Bytes(), 0o744)
+		err = os.WriteFile(*outPath, buf.Bytes(), 0o600)
 	} else {
 		_, err = buf.WriteTo(os.Stdout)
 	}
