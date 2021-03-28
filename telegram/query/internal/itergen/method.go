@@ -5,7 +5,7 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/gotd/td/telegram/query/internal/typeutil"
+	"github.com/gotd/td/telegram/query/internal/genutil"
 )
 
 // Param represents request parameter.
@@ -24,7 +24,7 @@ func varToParam(field *types.Var) Param {
 	return Param{
 		Name:         fieldName,
 		OriginalName: field.Name(),
-		Type:         typeutil.PrintType(field.Type()),
+		Type:         genutil.PrintType(field.Type()),
 	}
 }
 

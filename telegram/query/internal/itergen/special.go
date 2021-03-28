@@ -7,7 +7,7 @@ import (
 
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/telegram/query/internal/typeutil"
+	"github.com/gotd/td/telegram/query/internal/genutil"
 )
 
 func (c *collector) unpackClass(
@@ -28,7 +28,7 @@ func (c *collector) unpackClass(
 
 			cse := SpecialCaseChain{
 				ConstructorName: strings.TrimPrefix(impl.Obj().Name(), trimPrefix),
-				ConstructorType: typeutil.PrintType(impl),
+				ConstructorType: genutil.PrintType(impl),
 				Field:           field,
 			}
 

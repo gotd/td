@@ -10,7 +10,7 @@ import (
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/telegram/query/internal/typeutil"
+	"github.com/gotd/td/telegram/query/internal/genutil"
 )
 
 type method struct {
@@ -31,7 +31,7 @@ type collector struct {
 	required           map[string]string
 
 	pkg    *packages.Package
-	ifaces *typeutil.Interfaces
+	ifaces *genutil.Interfaces
 
 	iface          *types.Interface
 	resultTypeName string
@@ -99,7 +99,7 @@ func newCollector(pkg *packages.Package, cfg collectorConfig) *collector {
 		canFillFromRequest: canFillFromRequest,
 		requiredByIter:     requiredByIter,
 		required:           required,
-		ifaces:             typeutil.NewInterfaces(pkg),
+		ifaces:             genutil.NewInterfaces(pkg),
 		pkg:                pkg,
 		iface:              match,
 		resultTypeName:     cfg.ResultName,
@@ -112,26 +112,11 @@ func newCollector(pkg *packages.Package, cfg collectorConfig) *collector {
 func (c *collector) methods() ([]method, error) { // nolint:gocognit
 	var result []method
 
-	for _, def := range c.pkg.TypesInfo.Defs {
-		if def == nil {
-			continue
-		}
-
-		f, ok := def.(*types.Func)
-		if !ok {
-			continue
-		}
-
-		sig, ok := f.Type().(*types.Signature)
-		if !ok {
-			continue
-		}
-
-		args := sig.Params()
-		results := sig.Results()
-		if args.Len() != 2 || results.Len() != 2 {
-			continue
-		}
+	for _, def := range genutil.Funcs(c.pkg, func(f genutil.Func) bool {
+		return f.Args().Len() == 2 && f.Results().Len() == 2
+	}) {
+		args := def.Args()
+		results := def.Results()
 
 		ptr, ok := args.At(1).Type().(*types.Pointer)
 		if !ok || !types.Implements(ptr, c.iface) {
@@ -147,12 +132,12 @@ func (c *collector) methods() ([]method, error) { // nolint:gocognit
 		if resultType.Obj().Name() != c.resultTypeName {
 			continue
 		}
-		name := strings.TrimPrefix(f.Name(), c.prefix)
+		name := strings.TrimPrefix(def.Decl.Name(), c.prefix)
 
 		m := method{
 			name:       name,
-			f:          f,
-			sig:        sig,
+			f:          def.Decl,
+			sig:        def.Sig,
 			reqType:    reqType,
 			resultType: resultType,
 		}
@@ -239,8 +224,8 @@ func (c *collector) collect() ([]Method, error) {
 		m := Method{
 			Name:              method.name,
 			OriginalName:      method.f.Name(),
-			RequestName:       typeutil.PrintType(method.reqType),
-			ResultName:        typeutil.PrintType(method.resultType),
+			RequestName:       genutil.PrintType(method.reqType),
+			ResultName:        genutil.PrintType(method.resultType),
 			AdditionalMapping: mapping,
 			AdditionalParams:  sortParams(method.params),
 			IteratorName:      "Iterator",

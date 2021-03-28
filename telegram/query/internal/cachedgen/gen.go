@@ -18,19 +18,16 @@ import (
 //go:embed _template/*.tmpl
 var templates embed.FS // nolint:gochecknoglobals
 
-func generate(ctx context.Context, out io.Writer, cfg collectorConfig) error {
+func generate(ctx context.Context, out io.Writer, pkgName string) error {
 	pkg, err := genutil.Load(ctx, "github.com/gotd/td/tg")
 	if err != nil {
 		return xerrors.Errorf("load: %w", err)
 	}
 
-	c := newCollector(pkg, cfg)
-	config, err := c.Config()
-	if err != nil {
-		return xerrors.Errorf("collect: %w", err)
-	}
-
-	return genutil.WriteTemplate(templates, out, "header", config)
+	return genutil.WriteTemplate(templates, out, "header", Config{
+		Queries: collect(pkg),
+		Package: pkgName,
+	})
 }
 
 func run(ctx context.Context) (err error) {
@@ -38,8 +35,7 @@ func run(ctx context.Context) (err error) {
 
 	set := flag.NewFlagSet("gen", flag.ExitOnError)
 	output := set.String("out", "", "output file")
-	cfg := collectorConfig{}
-	cfg.fromFlags(set)
+	pkgName := set.String("package", "cached", "name of package name to generate")
 	if err := set.Parse(os.Args[1:]); err != nil {
 		return xerrors.Errorf("parse flags: %w", err)
 	}
@@ -55,7 +51,7 @@ func run(ctx context.Context) (err error) {
 		out = f
 	}
 
-	return generate(ctx, out, cfg)
+	return generate(ctx, out, *pkgName)
 }
 
 func main() {

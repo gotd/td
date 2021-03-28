@@ -1,4 +1,4 @@
-package typeutil
+package genutil
 
 import (
 	"go/types"
