@@ -7,7 +7,7 @@ on:
         description: 'Base64-encoded JSON payload from gotd/bot'
 
 jobs:
-  debug:
+  process:
     runs-on: ubuntu-latest
     steps:
       - name: Run script
@@ -16,4 +16,39 @@ jobs:
           script: |
             const { inputs } = context.payload
             const telegram = JSON.parse(Buffer.from(inputs.telegram, 'base64').toString('utf-8'))
+
+            core.startGroup('debug')
             console.log(JSON.stringify(telegram))
+            core.endGroup()
+
+            const {
+              message,
+              reply_to,
+            } = telegram
+
+            let command = message.Message.trim().replace(/^\/\w+(@\w+)?\s+/, '') // trim /cmd[@bot]
+            switch (command) {
+            case 'issue':
+              const endl2 = '\n\n'
+              const m = reply_to.Message
+
+              const i = m.indexOf(endl2)
+              if (i <= 0) {
+                core.setFailed('title should be separated from body with empty line')
+                return
+              }
+              const [title, rest] = [m.slice(0, i), m.slice(i+2)]
+
+              // TODO we need channel name to reference message.
+              //const body = `${rest}${endl2}See https://t.me/${channelName}/${reply_to.ID}`
+              const body = rest
+
+              await github.issues.create({
+                ...context.repo,
+                title, body,
+              })
+              break
+            default:
+              core.setFailed(`unknown command: ${command}`)
+              return
+            }
