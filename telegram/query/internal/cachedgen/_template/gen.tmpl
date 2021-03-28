@@ -25,27 +25,21 @@ type inner{{ $query.Name }} struct {
 }
 
 type {{ $query.Name }} struct {
-    // Additional parameters, must be immutable.
-{{- range $param := $query.RequestParams }}
-    param{{ $param.OriginalName }} {{ $param.Type }}
-{{- end }}
-
-    // Helper state.
+    {{- if $query.RequestParams }}
+    // Query to send.
+    req *tg.{{ $query.RequestName }}{{ end }}
+    // Result state.
     last atomic.Value
-    // Request state.
-    acquire chan struct{}
 
     // Reference to RPC client to make requests.
 	raw *tg.Client
 }
 
 // New{{ $query.Name }} creates new {{ $query.Name }}.
-func New{{ $query.Name }}(raw *tg.Client, {{- range $param := $query.RequestParams }}param{{ $param.OriginalName }} {{ $param.Type }},{{- end }}) *{{ $query.Name }} {
+func New{{ $query.Name }}(raw *tg.Client, {{- if $query.RequestParams }}initial *tg.{{ $query.RequestName }}{{- end }}) *{{ $query.Name }} {
     q := &{{ $query.Name }}{
-        {{- range $param := $query.RequestParams }}
-        param{{ $param.OriginalName }}: param{{ $param.OriginalName }},
-        {{- end }}
-        acquire: make(chan struct{}, 1),
+        {{- if $query.RequestParams }}
+        req: initial,{{ end }}
         raw: raw,
     }
 
@@ -74,27 +68,22 @@ func (s *{{ $query.Name }}) Hash() int {
     return inner.hash
 }
 
-// Fetch updates data if needed. Returns true if data updated.
-func (s *{{ $query.Name }}) Fetch(ctx context.Context) (bool, error) {
-    // Try acquire.
-	select {
-    case <-ctx.Done():
-        return false, xerrors.Errorf("acquire: %w", ctx.Err())
-    case s.acquire <- struct{}{}:
+// Get updates data if needed and returns it.
+func (s *{{ $query.Name }}) Get(ctx context.Context) (*tg.{{ $query.ResultName }}, error) {
+    if _, err := s.Fetch(ctx); err != nil {
+        return nil, err
     }
-    // Defer release.
-    defer func() {
-        <-s.acquire
-    }()
 
+    return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *{{ $query.Name }}) Fetch(ctx context.Context) (bool, error) {
     lastHash := s.Hash()
+
     {{ if $query.RequestParams -}}
-    req := &tg.{{ $query.RequestName }}{
-        {{- range $param := $query.RequestParams }}
-        {{ $param.OriginalName }}: s.param{{ $param.OriginalName }},
-        {{- end }}
-        Hash: lastHash,
-    }
+    req := s.req
+    req.Hash = lastHash
     {{- else -}}
     req := lastHash
     {{- end }}
