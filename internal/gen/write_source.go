@@ -72,7 +72,7 @@ func (w *writer) Generate(templateName, fileName string, cfg config) error {
 		return xerrors.Errorf("failed to execute template %s for %s: %w", templateName, fileName, err)
 	}
 	if err := w.fs.WriteFile(fileName, w.buf.Bytes()); err != nil {
-		_ = os.WriteFile(fileName+".dump", w.buf.Bytes(), 0755)
+		_ = os.WriteFile(fileName+".dump", w.buf.Bytes(), 0600)
 		return xerrors.Errorf("failed to write file %s: %w", fileName, err)
 	}
 	w.wrote[fileName] = true
