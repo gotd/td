@@ -33,7 +33,7 @@ func sendStyledText(ctx context.Context) error {
 			styling.Underline("underline"), styling.Plain("\n\n"),
 			styling.Strike("strike"), styling.Plain("\n\n"),
 			styling.Code("fmt.Println(`Hello, World!`)"), styling.Plain("\n\n"),
-			styling.Pre("fmt.Println(`Hello, World!`)", "Go"), styling.Plain("\n\n"),
+			styling.PreLang("fmt.Println(`Hello, World!`)", "Go"), styling.Plain("\n\n"),
 			styling.TextURL("clickme", "https://google.com"), styling.Plain("\n\n"),
 			styling.Phone("+71234567891"), styling.Plain("\n\n"),
 			styling.Cashtag("$CASHTAG"), styling.Plain("\n\n"),
