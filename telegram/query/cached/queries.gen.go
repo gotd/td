@@ -22,24 +22,20 @@ type innerAccountGetThemes struct {
 }
 
 type AccountGetThemes struct {
-	// Additional parameters, must be immutable.
-	paramFormat string
-
-	// Helper state.
+	// Query to send.
+	req *tg.AccountGetThemesRequest
+	// Result state.
 	last atomic.Value
-	// Request state.
-	acquire chan struct{}
 
 	// Reference to RPC client to make requests.
 	raw *tg.Client
 }
 
 // NewAccountGetThemes creates new AccountGetThemes.
-func NewAccountGetThemes(raw *tg.Client, paramFormat string) *AccountGetThemes {
+func NewAccountGetThemes(raw *tg.Client, initial *tg.AccountGetThemesRequest) *AccountGetThemes {
 	q := &AccountGetThemes{
-		paramFormat: paramFormat,
-		acquire:     make(chan struct{}, 1),
-		raw:         raw,
+		req: initial,
+		raw: raw,
 	}
 
 	return q
@@ -67,24 +63,21 @@ func (s *AccountGetThemes) Hash() int {
 	return inner.hash
 }
 
-// Fetch updates data if needed. Returns true if data updated.
-func (s *AccountGetThemes) Fetch(ctx context.Context) (bool, error) {
-	// Try acquire.
-	select {
-	case <-ctx.Done():
-		return false, xerrors.Errorf("acquire: %w", ctx.Err())
-	case s.acquire <- struct{}{}:
+// Get updates data if needed and returns it.
+func (s *AccountGetThemes) Get(ctx context.Context) (*tg.AccountThemes, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
 	}
-	// Defer release.
-	defer func() {
-		<-s.acquire
-	}()
 
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *AccountGetThemes) Fetch(ctx context.Context) (bool, error) {
 	lastHash := s.Hash()
-	req := &tg.AccountGetThemesRequest{
-		Format: s.paramFormat,
-		Hash:   lastHash,
-	}
+
+	req := s.req
+	req.Hash = lastHash
 	result, err := s.raw.AccountGetThemes(ctx, req)
 	if err != nil {
 		return false, xerrors.Errorf("execute AccountGetThemes: %w", err)
@@ -117,12 +110,8 @@ type innerAccountGetWallPapers struct {
 }
 
 type AccountGetWallPapers struct {
-	// Additional parameters, must be immutable.
-
-	// Helper state.
+	// Result state.
 	last atomic.Value
-	// Request state.
-	acquire chan struct{}
 
 	// Reference to RPC client to make requests.
 	raw *tg.Client
@@ -131,8 +120,7 @@ type AccountGetWallPapers struct {
 // NewAccountGetWallPapers creates new AccountGetWallPapers.
 func NewAccountGetWallPapers(raw *tg.Client) *AccountGetWallPapers {
 	q := &AccountGetWallPapers{
-		acquire: make(chan struct{}, 1),
-		raw:     raw,
+		raw: raw,
 	}
 
 	return q
@@ -160,20 +148,19 @@ func (s *AccountGetWallPapers) Hash() int {
 	return inner.hash
 }
 
-// Fetch updates data if needed. Returns true if data updated.
-func (s *AccountGetWallPapers) Fetch(ctx context.Context) (bool, error) {
-	// Try acquire.
-	select {
-	case <-ctx.Done():
-		return false, xerrors.Errorf("acquire: %w", ctx.Err())
-	case s.acquire <- struct{}{}:
+// Get updates data if needed and returns it.
+func (s *AccountGetWallPapers) Get(ctx context.Context) (*tg.AccountWallPapers, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
 	}
-	// Defer release.
-	defer func() {
-		<-s.acquire
-	}()
 
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *AccountGetWallPapers) Fetch(ctx context.Context) (bool, error) {
 	lastHash := s.Hash()
+
 	req := lastHash
 	result, err := s.raw.AccountGetWallPapers(ctx, req)
 	if err != nil {
@@ -207,12 +194,8 @@ type innerContactsGetContacts struct {
 }
 
 type ContactsGetContacts struct {
-	// Additional parameters, must be immutable.
-
-	// Helper state.
+	// Result state.
 	last atomic.Value
-	// Request state.
-	acquire chan struct{}
 
 	// Reference to RPC client to make requests.
 	raw *tg.Client
@@ -221,8 +204,7 @@ type ContactsGetContacts struct {
 // NewContactsGetContacts creates new ContactsGetContacts.
 func NewContactsGetContacts(raw *tg.Client) *ContactsGetContacts {
 	q := &ContactsGetContacts{
-		acquire: make(chan struct{}, 1),
-		raw:     raw,
+		raw: raw,
 	}
 
 	return q
@@ -250,20 +232,19 @@ func (s *ContactsGetContacts) Hash() int {
 	return inner.hash
 }
 
-// Fetch updates data if needed. Returns true if data updated.
-func (s *ContactsGetContacts) Fetch(ctx context.Context) (bool, error) {
-	// Try acquire.
-	select {
-	case <-ctx.Done():
-		return false, xerrors.Errorf("acquire: %w", ctx.Err())
-	case s.acquire <- struct{}{}:
+// Get updates data if needed and returns it.
+func (s *ContactsGetContacts) Get(ctx context.Context) (*tg.ContactsContacts, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
 	}
-	// Defer release.
-	defer func() {
-		<-s.acquire
-	}()
 
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *ContactsGetContacts) Fetch(ctx context.Context) (bool, error) {
 	lastHash := s.Hash()
+
 	req := lastHash
 	result, err := s.raw.ContactsGetContacts(ctx, req)
 	if err != nil {
@@ -297,24 +278,20 @@ type innerHelpGetCountriesList struct {
 }
 
 type HelpGetCountriesList struct {
-	// Additional parameters, must be immutable.
-	paramLangCode string
-
-	// Helper state.
+	// Query to send.
+	req *tg.HelpGetCountriesListRequest
+	// Result state.
 	last atomic.Value
-	// Request state.
-	acquire chan struct{}
 
 	// Reference to RPC client to make requests.
 	raw *tg.Client
 }
 
 // NewHelpGetCountriesList creates new HelpGetCountriesList.
-func NewHelpGetCountriesList(raw *tg.Client, paramLangCode string) *HelpGetCountriesList {
+func NewHelpGetCountriesList(raw *tg.Client, initial *tg.HelpGetCountriesListRequest) *HelpGetCountriesList {
 	q := &HelpGetCountriesList{
-		paramLangCode: paramLangCode,
-		acquire:       make(chan struct{}, 1),
-		raw:           raw,
+		req: initial,
+		raw: raw,
 	}
 
 	return q
@@ -342,24 +319,21 @@ func (s *HelpGetCountriesList) Hash() int {
 	return inner.hash
 }
 
-// Fetch updates data if needed. Returns true if data updated.
-func (s *HelpGetCountriesList) Fetch(ctx context.Context) (bool, error) {
-	// Try acquire.
-	select {
-	case <-ctx.Done():
-		return false, xerrors.Errorf("acquire: %w", ctx.Err())
-	case s.acquire <- struct{}{}:
+// Get updates data if needed and returns it.
+func (s *HelpGetCountriesList) Get(ctx context.Context) (*tg.HelpCountriesList, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
 	}
-	// Defer release.
-	defer func() {
-		<-s.acquire
-	}()
 
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *HelpGetCountriesList) Fetch(ctx context.Context) (bool, error) {
 	lastHash := s.Hash()
-	req := &tg.HelpGetCountriesListRequest{
-		LangCode: s.paramLangCode,
-		Hash:     lastHash,
-	}
+
+	req := s.req
+	req.Hash = lastHash
 	result, err := s.raw.HelpGetCountriesList(ctx, req)
 	if err != nil {
 		return false, xerrors.Errorf("execute HelpGetCountriesList: %w", err)
@@ -392,12 +366,8 @@ type innerHelpGetPassportConfig struct {
 }
 
 type HelpGetPassportConfig struct {
-	// Additional parameters, must be immutable.
-
-	// Helper state.
+	// Result state.
 	last atomic.Value
-	// Request state.
-	acquire chan struct{}
 
 	// Reference to RPC client to make requests.
 	raw *tg.Client
@@ -406,8 +376,7 @@ type HelpGetPassportConfig struct {
 // NewHelpGetPassportConfig creates new HelpGetPassportConfig.
 func NewHelpGetPassportConfig(raw *tg.Client) *HelpGetPassportConfig {
 	q := &HelpGetPassportConfig{
-		acquire: make(chan struct{}, 1),
-		raw:     raw,
+		raw: raw,
 	}
 
 	return q
@@ -435,20 +404,19 @@ func (s *HelpGetPassportConfig) Hash() int {
 	return inner.hash
 }
 
-// Fetch updates data if needed. Returns true if data updated.
-func (s *HelpGetPassportConfig) Fetch(ctx context.Context) (bool, error) {
-	// Try acquire.
-	select {
-	case <-ctx.Done():
-		return false, xerrors.Errorf("acquire: %w", ctx.Err())
-	case s.acquire <- struct{}{}:
+// Get updates data if needed and returns it.
+func (s *HelpGetPassportConfig) Get(ctx context.Context) (*tg.HelpPassportConfig, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
 	}
-	// Defer release.
-	defer func() {
-		<-s.acquire
-	}()
 
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *HelpGetPassportConfig) Fetch(ctx context.Context) (bool, error) {
 	lastHash := s.Hash()
+
 	req := lastHash
 	result, err := s.raw.HelpGetPassportConfig(ctx, req)
 	if err != nil {
@@ -482,12 +450,8 @@ type innerMessagesGetAllStickers struct {
 }
 
 type MessagesGetAllStickers struct {
-	// Additional parameters, must be immutable.
-
-	// Helper state.
+	// Result state.
 	last atomic.Value
-	// Request state.
-	acquire chan struct{}
 
 	// Reference to RPC client to make requests.
 	raw *tg.Client
@@ -496,8 +460,7 @@ type MessagesGetAllStickers struct {
 // NewMessagesGetAllStickers creates new MessagesGetAllStickers.
 func NewMessagesGetAllStickers(raw *tg.Client) *MessagesGetAllStickers {
 	q := &MessagesGetAllStickers{
-		acquire: make(chan struct{}, 1),
-		raw:     raw,
+		raw: raw,
 	}
 
 	return q
@@ -525,20 +488,19 @@ func (s *MessagesGetAllStickers) Hash() int {
 	return inner.hash
 }
 
-// Fetch updates data if needed. Returns true if data updated.
-func (s *MessagesGetAllStickers) Fetch(ctx context.Context) (bool, error) {
-	// Try acquire.
-	select {
-	case <-ctx.Done():
-		return false, xerrors.Errorf("acquire: %w", ctx.Err())
-	case s.acquire <- struct{}{}:
+// Get updates data if needed and returns it.
+func (s *MessagesGetAllStickers) Get(ctx context.Context) (*tg.MessagesAllStickers, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
 	}
-	// Defer release.
-	defer func() {
-		<-s.acquire
-	}()
 
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *MessagesGetAllStickers) Fetch(ctx context.Context) (bool, error) {
 	lastHash := s.Hash()
+
 	req := lastHash
 	result, err := s.raw.MessagesGetAllStickers(ctx, req)
 	if err != nil {
@@ -572,12 +534,8 @@ type innerMessagesGetFavedStickers struct {
 }
 
 type MessagesGetFavedStickers struct {
-	// Additional parameters, must be immutable.
-
-	// Helper state.
+	// Result state.
 	last atomic.Value
-	// Request state.
-	acquire chan struct{}
 
 	// Reference to RPC client to make requests.
 	raw *tg.Client
@@ -586,8 +544,7 @@ type MessagesGetFavedStickers struct {
 // NewMessagesGetFavedStickers creates new MessagesGetFavedStickers.
 func NewMessagesGetFavedStickers(raw *tg.Client) *MessagesGetFavedStickers {
 	q := &MessagesGetFavedStickers{
-		acquire: make(chan struct{}, 1),
-		raw:     raw,
+		raw: raw,
 	}
 
 	return q
@@ -615,20 +572,19 @@ func (s *MessagesGetFavedStickers) Hash() int {
 	return inner.hash
 }
 
-// Fetch updates data if needed. Returns true if data updated.
-func (s *MessagesGetFavedStickers) Fetch(ctx context.Context) (bool, error) {
-	// Try acquire.
-	select {
-	case <-ctx.Done():
-		return false, xerrors.Errorf("acquire: %w", ctx.Err())
-	case s.acquire <- struct{}{}:
+// Get updates data if needed and returns it.
+func (s *MessagesGetFavedStickers) Get(ctx context.Context) (*tg.MessagesFavedStickers, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
 	}
-	// Defer release.
-	defer func() {
-		<-s.acquire
-	}()
 
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *MessagesGetFavedStickers) Fetch(ctx context.Context) (bool, error) {
 	lastHash := s.Hash()
+
 	req := lastHash
 	result, err := s.raw.MessagesGetFavedStickers(ctx, req)
 	if err != nil {
@@ -662,12 +618,8 @@ type innerMessagesGetFeaturedStickers struct {
 }
 
 type MessagesGetFeaturedStickers struct {
-	// Additional parameters, must be immutable.
-
-	// Helper state.
+	// Result state.
 	last atomic.Value
-	// Request state.
-	acquire chan struct{}
 
 	// Reference to RPC client to make requests.
 	raw *tg.Client
@@ -676,8 +628,7 @@ type MessagesGetFeaturedStickers struct {
 // NewMessagesGetFeaturedStickers creates new MessagesGetFeaturedStickers.
 func NewMessagesGetFeaturedStickers(raw *tg.Client) *MessagesGetFeaturedStickers {
 	q := &MessagesGetFeaturedStickers{
-		acquire: make(chan struct{}, 1),
-		raw:     raw,
+		raw: raw,
 	}
 
 	return q
@@ -705,20 +656,19 @@ func (s *MessagesGetFeaturedStickers) Hash() int {
 	return inner.hash
 }
 
-// Fetch updates data if needed. Returns true if data updated.
-func (s *MessagesGetFeaturedStickers) Fetch(ctx context.Context) (bool, error) {
-	// Try acquire.
-	select {
-	case <-ctx.Done():
-		return false, xerrors.Errorf("acquire: %w", ctx.Err())
-	case s.acquire <- struct{}{}:
+// Get updates data if needed and returns it.
+func (s *MessagesGetFeaturedStickers) Get(ctx context.Context) (*tg.MessagesFeaturedStickers, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
 	}
-	// Defer release.
-	defer func() {
-		<-s.acquire
-	}()
 
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *MessagesGetFeaturedStickers) Fetch(ctx context.Context) (bool, error) {
 	lastHash := s.Hash()
+
 	req := lastHash
 	result, err := s.raw.MessagesGetFeaturedStickers(ctx, req)
 	if err != nil {
@@ -752,12 +702,8 @@ type innerMessagesGetMaskStickers struct {
 }
 
 type MessagesGetMaskStickers struct {
-	// Additional parameters, must be immutable.
-
-	// Helper state.
+	// Result state.
 	last atomic.Value
-	// Request state.
-	acquire chan struct{}
 
 	// Reference to RPC client to make requests.
 	raw *tg.Client
@@ -766,8 +712,7 @@ type MessagesGetMaskStickers struct {
 // NewMessagesGetMaskStickers creates new MessagesGetMaskStickers.
 func NewMessagesGetMaskStickers(raw *tg.Client) *MessagesGetMaskStickers {
 	q := &MessagesGetMaskStickers{
-		acquire: make(chan struct{}, 1),
-		raw:     raw,
+		raw: raw,
 	}
 
 	return q
@@ -795,20 +740,19 @@ func (s *MessagesGetMaskStickers) Hash() int {
 	return inner.hash
 }
 
-// Fetch updates data if needed. Returns true if data updated.
-func (s *MessagesGetMaskStickers) Fetch(ctx context.Context) (bool, error) {
-	// Try acquire.
-	select {
-	case <-ctx.Done():
-		return false, xerrors.Errorf("acquire: %w", ctx.Err())
-	case s.acquire <- struct{}{}:
+// Get updates data if needed and returns it.
+func (s *MessagesGetMaskStickers) Get(ctx context.Context) (*tg.MessagesAllStickers, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
 	}
-	// Defer release.
-	defer func() {
-		<-s.acquire
-	}()
 
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *MessagesGetMaskStickers) Fetch(ctx context.Context) (bool, error) {
 	lastHash := s.Hash()
+
 	req := lastHash
 	result, err := s.raw.MessagesGetMaskStickers(ctx, req)
 	if err != nil {
@@ -842,24 +786,20 @@ type innerMessagesGetRecentStickers struct {
 }
 
 type MessagesGetRecentStickers struct {
-	// Additional parameters, must be immutable.
-	paramAttached bool
-
-	// Helper state.
+	// Query to send.
+	req *tg.MessagesGetRecentStickersRequest
+	// Result state.
 	last atomic.Value
-	// Request state.
-	acquire chan struct{}
 
 	// Reference to RPC client to make requests.
 	raw *tg.Client
 }
 
 // NewMessagesGetRecentStickers creates new MessagesGetRecentStickers.
-func NewMessagesGetRecentStickers(raw *tg.Client, paramAttached bool) *MessagesGetRecentStickers {
+func NewMessagesGetRecentStickers(raw *tg.Client, initial *tg.MessagesGetRecentStickersRequest) *MessagesGetRecentStickers {
 	q := &MessagesGetRecentStickers{
-		paramAttached: paramAttached,
-		acquire:       make(chan struct{}, 1),
-		raw:           raw,
+		req: initial,
+		raw: raw,
 	}
 
 	return q
@@ -887,24 +827,21 @@ func (s *MessagesGetRecentStickers) Hash() int {
 	return inner.hash
 }
 
-// Fetch updates data if needed. Returns true if data updated.
-func (s *MessagesGetRecentStickers) Fetch(ctx context.Context) (bool, error) {
-	// Try acquire.
-	select {
-	case <-ctx.Done():
-		return false, xerrors.Errorf("acquire: %w", ctx.Err())
-	case s.acquire <- struct{}{}:
+// Get updates data if needed and returns it.
+func (s *MessagesGetRecentStickers) Get(ctx context.Context) (*tg.MessagesRecentStickers, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
 	}
-	// Defer release.
-	defer func() {
-		<-s.acquire
-	}()
 
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *MessagesGetRecentStickers) Fetch(ctx context.Context) (bool, error) {
 	lastHash := s.Hash()
-	req := &tg.MessagesGetRecentStickersRequest{
-		Attached: s.paramAttached,
-		Hash:     lastHash,
-	}
+
+	req := s.req
+	req.Hash = lastHash
 	result, err := s.raw.MessagesGetRecentStickers(ctx, req)
 	if err != nil {
 		return false, xerrors.Errorf("execute MessagesGetRecentStickers: %w", err)
@@ -937,12 +874,8 @@ type innerMessagesGetSavedGifs struct {
 }
 
 type MessagesGetSavedGifs struct {
-	// Additional parameters, must be immutable.
-
-	// Helper state.
+	// Result state.
 	last atomic.Value
-	// Request state.
-	acquire chan struct{}
 
 	// Reference to RPC client to make requests.
 	raw *tg.Client
@@ -951,8 +884,7 @@ type MessagesGetSavedGifs struct {
 // NewMessagesGetSavedGifs creates new MessagesGetSavedGifs.
 func NewMessagesGetSavedGifs(raw *tg.Client) *MessagesGetSavedGifs {
 	q := &MessagesGetSavedGifs{
-		acquire: make(chan struct{}, 1),
-		raw:     raw,
+		raw: raw,
 	}
 
 	return q
@@ -980,20 +912,19 @@ func (s *MessagesGetSavedGifs) Hash() int {
 	return inner.hash
 }
 
-// Fetch updates data if needed. Returns true if data updated.
-func (s *MessagesGetSavedGifs) Fetch(ctx context.Context) (bool, error) {
-	// Try acquire.
-	select {
-	case <-ctx.Done():
-		return false, xerrors.Errorf("acquire: %w", ctx.Err())
-	case s.acquire <- struct{}{}:
+// Get updates data if needed and returns it.
+func (s *MessagesGetSavedGifs) Get(ctx context.Context) (*tg.MessagesSavedGifs, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
 	}
-	// Defer release.
-	defer func() {
-		<-s.acquire
-	}()
 
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *MessagesGetSavedGifs) Fetch(ctx context.Context) (bool, error) {
 	lastHash := s.Hash()
+
 	req := lastHash
 	result, err := s.raw.MessagesGetSavedGifs(ctx, req)
 	if err != nil {
@@ -1027,24 +958,20 @@ type innerMessagesGetStickers struct {
 }
 
 type MessagesGetStickers struct {
-	// Additional parameters, must be immutable.
-	paramEmoticon string
-
-	// Helper state.
+	// Query to send.
+	req *tg.MessagesGetStickersRequest
+	// Result state.
 	last atomic.Value
-	// Request state.
-	acquire chan struct{}
 
 	// Reference to RPC client to make requests.
 	raw *tg.Client
 }
 
 // NewMessagesGetStickers creates new MessagesGetStickers.
-func NewMessagesGetStickers(raw *tg.Client, paramEmoticon string) *MessagesGetStickers {
+func NewMessagesGetStickers(raw *tg.Client, initial *tg.MessagesGetStickersRequest) *MessagesGetStickers {
 	q := &MessagesGetStickers{
-		paramEmoticon: paramEmoticon,
-		acquire:       make(chan struct{}, 1),
-		raw:           raw,
+		req: initial,
+		raw: raw,
 	}
 
 	return q
@@ -1072,24 +999,21 @@ func (s *MessagesGetStickers) Hash() int {
 	return inner.hash
 }
 
-// Fetch updates data if needed. Returns true if data updated.
-func (s *MessagesGetStickers) Fetch(ctx context.Context) (bool, error) {
-	// Try acquire.
-	select {
-	case <-ctx.Done():
-		return false, xerrors.Errorf("acquire: %w", ctx.Err())
-	case s.acquire <- struct{}{}:
+// Get updates data if needed and returns it.
+func (s *MessagesGetStickers) Get(ctx context.Context) (*tg.MessagesStickers, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
 	}
-	// Defer release.
-	defer func() {
-		<-s.acquire
-	}()
 
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *MessagesGetStickers) Fetch(ctx context.Context) (bool, error) {
 	lastHash := s.Hash()
-	req := &tg.MessagesGetStickersRequest{
-		Emoticon: s.paramEmoticon,
-		Hash:     lastHash,
-	}
+
+	req := s.req
+	req.Hash = lastHash
 	result, err := s.raw.MessagesGetStickers(ctx, req)
 	if err != nil {
 		return false, xerrors.Errorf("execute MessagesGetStickers: %w", err)
@@ -1122,26 +1046,20 @@ type innerMessagesSearchStickerSets struct {
 }
 
 type MessagesSearchStickerSets struct {
-	// Additional parameters, must be immutable.
-	paramExcludeFeatured bool
-	paramQ               string
-
-	// Helper state.
+	// Query to send.
+	req *tg.MessagesSearchStickerSetsRequest
+	// Result state.
 	last atomic.Value
-	// Request state.
-	acquire chan struct{}
 
 	// Reference to RPC client to make requests.
 	raw *tg.Client
 }
 
 // NewMessagesSearchStickerSets creates new MessagesSearchStickerSets.
-func NewMessagesSearchStickerSets(raw *tg.Client, paramExcludeFeatured bool, paramQ string) *MessagesSearchStickerSets {
+func NewMessagesSearchStickerSets(raw *tg.Client, initial *tg.MessagesSearchStickerSetsRequest) *MessagesSearchStickerSets {
 	q := &MessagesSearchStickerSets{
-		paramExcludeFeatured: paramExcludeFeatured,
-		paramQ:               paramQ,
-		acquire:              make(chan struct{}, 1),
-		raw:                  raw,
+		req: initial,
+		raw: raw,
 	}
 
 	return q
@@ -1169,25 +1087,21 @@ func (s *MessagesSearchStickerSets) Hash() int {
 	return inner.hash
 }
 
-// Fetch updates data if needed. Returns true if data updated.
-func (s *MessagesSearchStickerSets) Fetch(ctx context.Context) (bool, error) {
-	// Try acquire.
-	select {
-	case <-ctx.Done():
-		return false, xerrors.Errorf("acquire: %w", ctx.Err())
-	case s.acquire <- struct{}{}:
+// Get updates data if needed and returns it.
+func (s *MessagesSearchStickerSets) Get(ctx context.Context) (*tg.MessagesFoundStickerSets, error) {
+	if _, err := s.Fetch(ctx); err != nil {
+		return nil, err
 	}
-	// Defer release.
-	defer func() {
-		<-s.acquire
-	}()
 
+	return s.Value(), nil
+}
+
+// Fetch updates data if needed and returns true if data was modified.
+func (s *MessagesSearchStickerSets) Fetch(ctx context.Context) (bool, error) {
 	lastHash := s.Hash()
-	req := &tg.MessagesSearchStickerSetsRequest{
-		ExcludeFeatured: s.paramExcludeFeatured,
-		Q:               s.paramQ,
-		Hash:            lastHash,
-	}
+
+	req := s.req
+	req.Hash = lastHash
 	result, err := s.raw.MessagesSearchStickerSets(ctx, req)
 	if err != nil {
 		return false, xerrors.Errorf("execute MessagesSearchStickerSets: %w", err)
