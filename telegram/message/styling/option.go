@@ -120,7 +120,7 @@ func Pre(s string) StyledTextOption {
 	return PreLang(s, "")
 }
 
-// Pre formats text as Pre entity with language.
+// PreLang formats text as Pre entity with language.
 // See https://core.telegram.org/constructor/messageEntityPre.
 func PreLang(s, lang string) StyledTextOption {
 	return styledTextOption(s, func(b *textBuilder) error {
