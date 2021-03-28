@@ -3,9 +3,8 @@ on:
   workflow_dispatch:
     inputs:
       telegram:
-        description: 'Indicates that the event was sent by Telegram bot'
-      message:
-        description: 'JSON message payload from Telegram'
+        required: true
+        description: 'Base64-encoded json payload of command'
 
 jobs:
   debug:
