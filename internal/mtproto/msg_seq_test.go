@@ -76,25 +76,28 @@ func TestMsgSeq(t *testing.T) {
 		return false
 	}
 
-	for _, recv := range records {
-		if contains(recv.msgID) {
+	for _, current := range records {
+		if contains(current.msgID) {
+			// Ignore duplicates.
 			continue
 		}
 
-		less(recv.msgID, func(r record) {
-			seq := r.seqNo
-			if seq >= recv.seqNo && seq%2 == 1 {
+		less(current.msgID, func(less record) {
+			// The server has already received a message with a lower msg_id
+			// but with either a higher or an equal and odd seqno.
+			if less.seqNo >= current.seqNo && less.seqNo%2 == 1 {
 				t.Fatal("seqNo too low")
 			}
 		})
 
-		greater(recv.msgID, func(r record) {
-			seq := r.seqNo
-			if seq <= recv.seqNo && seq%2 == 1 {
+		greater(current.msgID, func(greater record) {
+			// Similarly, there is a message with a higher msg_id
+			// but with either a lower or an equal and odd seqno.
+			if greater.seqNo <= current.seqNo && greater.seqNo%2 == 1 {
 				t.Fatal("seqNo too high")
 			}
 		})
 
-		received = append(received, recv)
+		received = append(received, current)
 	}
 }
