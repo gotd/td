@@ -4,7 +4,7 @@ on:
     inputs:
       telegram:
         required: true
-        description: 'Base64-encoded json payload of command'
+        description: 'Base64-encoded JSON payload from gotd/bot'
 
 jobs:
   debug:
@@ -14,4 +14,6 @@ jobs:
         uses: actions/github-script@v3.1.0
         with:
           script: |
-            console.log(JSON.stringify(context.payload.inputs))
+            const { inputs } = context.payload
+            const telegram = JSON.parse(Buffer.from(inputs.telegram, 'base64').toString('utf-8'))
+            console.log(JSON.stringify(telegram))
