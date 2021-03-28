@@ -16,18 +16,20 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/gen"
+	"github.com/gotd/td/telegram/query/internal/typeutil"
 )
 
 //go:embed _template/*.tmpl
 var templates embed.FS // nolint:gochecknoglobals
 
-func generate(ctx context.Context, out io.Writer, c *collector) error {
-	pkg, err := load(ctx, "github.com/gotd/td/tg")
+func generate(ctx context.Context, out io.Writer, cfg collectorConfig) error {
+	pkg, err := typeutil.Load(ctx, "github.com/gotd/td/tg")
 	if err != nil {
 		return xerrors.Errorf("load: %w", err)
 	}
 
-	config, err := c.Config(pkg)
+	c := newCollector(pkg, cfg)
+	config, err := c.Config()
 	if err != nil {
 		return xerrors.Errorf("collect: %w", err)
 	}
@@ -73,8 +75,7 @@ func run(ctx context.Context) (err error) {
 		out = f
 	}
 
-	c := newCollector(cfg)
-	return generate(ctx, out, c)
+	return generate(ctx, out, cfg)
 }
 
 func main() {
