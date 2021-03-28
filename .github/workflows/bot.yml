@@ -1,0 +1,18 @@
+name: Bot
+on:
+  workflow_dispatch:
+    inputs:
+      telegram:
+        description: 'Indicates that the event was sent by Telegram bot'
+      message:
+        description: 'JSON message payload from Telegram'
+
+jobs:
+  debug:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run script
+        uses: actions/github-script@v3.1.0
+        with:
+          script: |
+            console.log(JSON.stringify(context.payload.inputs))
