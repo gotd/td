@@ -1,0 +1,13 @@
+contact_links:
+  - name: Ask on Telegram (Russian)
+    url: https://t.me/gotd_ru
+    about: You can ask for help in Russian here!
+  - name: Ask on Telegram (English)
+    url: https://t.me/gotd_en
+    about: You can ask for help in English here!
+  - name: Ask on GitHub
+    url: https://github.com/gotd/td/discussions/new?category=q-a
+    about: You can ask for help without using Telegram too!
+  - name: Want to contribute to gotd?
+    url: https://github.com/gotd/td/blob/main/CONTRIBUTING.md
+    about: Be sure to read contributing guidelines!
