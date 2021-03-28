@@ -37,10 +37,10 @@ type Engine struct {
 }
 
 // Send is a function that sends requests to the server.
-type Send func(ctx context.Context, reqID int64, seqNo int32, in bin.Encoder) error
+type Send func(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error
 
 // NopSend does nothing.
-func NopSend(ctx context.Context, reqID int64, seqNo int32, in bin.Encoder) error { return nil }
+func NopSend(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error { return nil }
 
 // DropHandler handles drop rpc requests.
 type DropHandler func(req Request) error
