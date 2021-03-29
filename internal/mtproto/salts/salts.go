@@ -21,21 +21,13 @@ func (s *Salts) Get(deadline time.Time) (int64, bool) {
 	s.saltsMux.Lock()
 	defer s.saltsMux.Unlock()
 
-	// Sort slice by valid until.
-	sort.SliceStable(s.salts, func(i, j int) bool {
-		return s.salts[i].ValidUntil < s.salts[j].ValidUntil
-	})
-
 	// Filter (in place) from SliceTricks.
 	n := 0
-	dedup := make(map[int64]struct{}, len(s.salts)+1)
-
 	// Check that the salt will be valid until deadline.
 	date := int(deadline.Unix())
 	for _, salt := range s.salts {
 		// Filter expired salts.
-		if _, ok := dedup[salt.Salt]; !ok && salt.ValidUntil > date {
-			dedup[salt.Salt] = struct{}{}
+		if salt.ValidUntil > date {
 			s.salts[n] = salt
 			n++
 		}
@@ -51,8 +43,25 @@ func (s *Salts) Get(deadline time.Time) (int64, bool) {
 // Store stores all given salts.
 func (s *Salts) Store(salts []mt.FutureSalt) {
 	s.saltsMux.Lock()
+	defer s.saltsMux.Unlock()
+
 	s.salts = append(s.salts, salts...)
-	s.saltsMux.Unlock()
+	// Sort slice by valid until.
+	sort.SliceStable(s.salts, func(i, j int) bool {
+		return s.salts[i].ValidUntil < s.salts[j].ValidUntil
+	})
+
+	// Filter duplicates.
+	n := 0
+	dedup := make(map[int64]struct{}, len(s.salts)+1)
+	for _, salt := range s.salts {
+		if _, ok := dedup[salt.Salt]; !ok {
+			dedup[salt.Salt] = struct{}{}
+			s.salts[n] = salt
+			n++
+		}
+	}
+	s.salts = s.salts[:n]
 }
 
 // Reset deletes all stored salts.
