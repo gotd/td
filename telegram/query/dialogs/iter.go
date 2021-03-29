@@ -13,6 +13,7 @@ import (
 // Elem is a dialog iterator element.
 type Elem struct {
 	Dialog   tg.DialogClass
+	Peer     tg.InputPeerClass
 	Last     tg.NotEmptyMessage
 	Entities peer.Entities
 }
@@ -136,8 +137,14 @@ func (m *Iterator) apply(r tg.MessagesDialogsClass) error {
 			last = msgMap[key]
 		}
 
+		p, err := entities.ExtractPeer(dlg.GetPeer())
+		if err != nil {
+			p = &tg.InputPeerEmpty{}
+		}
+
 		m.buf = append(m.buf, Elem{
 			Dialog:   dlg,
+			Peer:     p,
 			Last:     last,
 			Entities: entities,
 		})
