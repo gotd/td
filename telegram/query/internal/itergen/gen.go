@@ -1,54 +1,36 @@
 package main
 
 import (
-	"bytes"
 	"context"
 	"embed"
 	"flag"
 	"fmt"
-	"go/format"
 	"io"
 	"os"
 	"os/signal"
-	"text/template"
 
 	"go.uber.org/multierr"
 	"golang.org/x/xerrors"
 
-	"github.com/gotd/td/internal/gen"
+	"github.com/gotd/td/telegram/query/internal/genutil"
 )
 
 //go:embed _template/*.tmpl
 var templates embed.FS // nolint:gochecknoglobals
 
-func generate(ctx context.Context, out io.Writer, c *collector) error {
-	pkg, err := load(ctx, "github.com/gotd/td/tg")
+func generate(ctx context.Context, out io.Writer, cfg collectorConfig) error {
+	pkg, err := genutil.Load(ctx, "github.com/gotd/td/tg")
 	if err != nil {
 		return xerrors.Errorf("load: %w", err)
 	}
 
-	config, err := c.Config(pkg)
+	c := newCollector(pkg, cfg)
+	config, err := c.Config()
 	if err != nil {
 		return xerrors.Errorf("collect: %w", err)
 	}
 
-	tmpl := template.New("templates").Funcs(gen.Funcs())
-	tmpl = template.Must(tmpl.ParseFS(templates, "_template/*.tmpl"))
-	var buf bytes.Buffer
-	if err := tmpl.ExecuteTemplate(&buf, "header", config); err != nil {
-		return xerrors.Errorf("template: %w", err)
-	}
-
-	formatted, err := format.Source(buf.Bytes())
-	if err != nil {
-		if _, cpyErr := io.Copy(os.Stdout, &buf); cpyErr != nil {
-			return xerrors.Errorf("dump generated: %w, (original error: %s)", cpyErr, err.Error())
-		}
-		return xerrors.Errorf("format: %w", err)
-	}
-
-	_, err = out.Write(formatted)
-	return err
+	return genutil.WriteTemplate(templates, out, "header", config)
 }
 
 func run(ctx context.Context) (err error) {
@@ -73,8 +55,7 @@ func run(ctx context.Context) (err error) {
 		out = f
 	}
 
-	c := newCollector(cfg)
-	return generate(ctx, out, c)
+	return generate(ctx, out, cfg)
 }
 
 func main() {

@@ -5,7 +5,6 @@ import (
 	"crypto/md5" // nolint: gosec
 	"crypto/rand"
 	"encoding/hex"
-	"runtime"
 
 	"golang.org/x/xerrors"
 
@@ -26,13 +25,12 @@ type Uploader struct {
 
 // NewUploader creates new Uploader.
 func NewUploader(rpc Client) *Uploader {
-	procs := runtime.GOMAXPROCS(0) * 2
 	return (&Uploader{
 		rpc: rpc,
 		id: func() (int64, error) {
 			return crypto.RandInt64(rand.Reader)
 		},
-		threads: procs,
+		threads: 1,
 	}).WithPartSize(defaultPartSize)
 }
 

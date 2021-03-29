@@ -5,17 +5,18 @@ import (
 	"sort"
 	"strings"
 
-	"golang.org/x/tools/go/packages"
 	"golang.org/x/xerrors"
+
+	"github.com/gotd/td/telegram/query/internal/genutil"
 )
 
 func (c *collector) unpackClass(
-	pkg *packages.Package, field Param,
+	field Param,
 	typeName, trimPrefix string,
 ) ([]SpecialCaseChain, error) {
 	var r []SpecialCaseChain
 	if field.Type == "tg."+typeName {
-		impls, err := c.findImplementations(pkg, typeName)
+		impls, err := c.ifaces.Implementations(typeName)
 		if err != nil {
 			return nil, xerrors.Errorf("find %q constructors: %w", typeName, err)
 		}
@@ -27,7 +28,7 @@ func (c *collector) unpackClass(
 
 			cse := SpecialCaseChain{
 				ConstructorName: strings.TrimPrefix(impl.Obj().Name(), trimPrefix),
-				ConstructorType: printType(impl),
+				ConstructorType: genutil.PrintType(impl),
 				Field:           field,
 			}
 
@@ -53,12 +54,12 @@ func (c *collector) unpackClass(
 }
 
 func (c *collector) unpackClasses(
-	pkg *packages.Package, field Param,
+	field Param,
 	classes ...[2]string,
 ) ([]SpecialCaseChain, error) {
 	var r []SpecialCaseChain
 	for _, class := range classes {
-		cases, err := c.unpackClass(pkg, field, class[0], class[1])
+		cases, err := c.unpackClass(field, class[0], class[1])
 		if err != nil {
 			return nil, xerrors.Errorf("unpack %q: %w", class[0], err)
 		}
@@ -68,10 +69,10 @@ func (c *collector) unpackClasses(
 	return r, nil
 }
 
-func (c *collector) collectSpecial(pkg *packages.Package, m Method) ([]SpecialCaseChain, error) {
+func (c *collector) collectSpecial(m Method) ([]SpecialCaseChain, error) {
 	var r []SpecialCaseChain
 	for _, field := range m.AdditionalParams {
-		cases, err := c.unpackClasses(pkg, field, [][2]string{
+		cases, err := c.unpackClasses(field, [][2]string{
 			{"MessagesFilterClass", "InputMessagesFilter"},
 			{"ChannelParticipantsFilterClass", "ChannelParticipants"},
 		}...)

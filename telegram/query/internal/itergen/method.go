@@ -1,5 +1,13 @@
 package main
 
+import (
+	"go/types"
+	"sort"
+	"strings"
+
+	"github.com/gotd/td/telegram/query/internal/genutil"
+)
+
 // Param represents request parameter.
 type Param struct {
 	// Name to use in function declaration.
@@ -8,6 +16,24 @@ type Param struct {
 	OriginalName string
 	// Go type.
 	Type string
+}
+
+func varToParam(field *types.Var) Param {
+	fieldName := field.Name()
+	fieldName = strings.ToLower(fieldName[:1]) + fieldName[1:]
+	return Param{
+		Name:         fieldName,
+		OriginalName: field.Name(),
+		Type:         genutil.PrintType(field.Type()),
+	}
+}
+
+func sortParams(p []Param) []Param {
+	sort.SliceStable(p, func(i, j int) bool {
+		return p[i].Name < p[j].Name
+	})
+
+	return p
 }
 
 // SpecialCaseChain represents special request parameter setter.

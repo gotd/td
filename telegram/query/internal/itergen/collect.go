@@ -9,6 +9,8 @@ import (
 
 	"golang.org/x/tools/go/packages"
 	"golang.org/x/xerrors"
+
+	"github.com/gotd/td/telegram/query/internal/genutil"
 )
 
 type method struct {
@@ -28,7 +30,8 @@ type collector struct {
 	requiredByIter     []string
 	required           map[string]string
 
-	implsCache map[string][]*types.Named
+	pkg    *packages.Package
+	ifaces *genutil.Interfaces
 
 	iface          *types.Interface
 	resultTypeName string
@@ -52,7 +55,7 @@ func (c *collectorConfig) fromFlags(set *flag.FlagSet) {
 	set.StringVar(&c.PkgName, "package", "messages", "name of package name to generate")
 }
 
-func newCollector(cfg collectorConfig) *collector {
+func newCollector(pkg *packages.Package, cfg collectorConfig) *collector {
 	intGetter := types.NewSignature(nil, nil,
 		types.NewTuple(types.NewVar(0, nil, "", types.Typ[types.Int])), false) // func() int
 	methods := []*types.Func{
@@ -96,7 +99,8 @@ func newCollector(cfg collectorConfig) *collector {
 		canFillFromRequest: canFillFromRequest,
 		requiredByIter:     requiredByIter,
 		required:           required,
-		implsCache:         map[string][]*types.Named{},
+		ifaces:             genutil.NewInterfaces(pkg),
+		pkg:                pkg,
 		iface:              match,
 		resultTypeName:     cfg.ResultName,
 		elemName:           cfg.ElemName,
@@ -105,29 +109,14 @@ func newCollector(cfg collectorConfig) *collector {
 	}
 }
 
-func (c *collector) methods(pkg *packages.Package) ([]method, error) { // nolint:gocognit
+func (c *collector) methods() ([]method, error) { // nolint:gocognit
 	var result []method
 
-	for _, def := range pkg.TypesInfo.Defs {
-		if def == nil {
-			continue
-		}
-
-		f, ok := def.(*types.Func)
-		if !ok {
-			continue
-		}
-
-		sig, ok := f.Type().(*types.Signature)
-		if !ok {
-			continue
-		}
-
-		args := sig.Params()
-		results := sig.Results()
-		if args.Len() != 2 || results.Len() != 2 {
-			continue
-		}
+	for _, def := range genutil.Funcs(c.pkg, func(f genutil.Func) bool {
+		return f.Args().Len() == 2 && f.Results().Len() == 2
+	}) {
+		args := def.Args()
+		results := def.Results()
 
 		ptr, ok := args.At(1).Type().(*types.Pointer)
 		if !ok || !types.Implements(ptr, c.iface) {
@@ -143,12 +132,12 @@ func (c *collector) methods(pkg *packages.Package) ([]method, error) { // nolint
 		if resultType.Obj().Name() != c.resultTypeName {
 			continue
 		}
-		name := strings.TrimPrefix(f.Name(), c.prefix)
+		name := strings.TrimPrefix(def.Decl.Name(), c.prefix)
 
 		m := method{
 			name:       name,
-			f:          f,
-			sig:        sig,
+			f:          def.Decl,
+			sig:        def.Sig,
 			reqType:    reqType,
 			resultType: resultType,
 		}
@@ -205,16 +194,8 @@ func (c *collector) methods(pkg *packages.Package) ([]method, error) { // nolint
 	return result, nil
 }
 
-func sortParams(p []Param) []Param {
-	sort.SliceStable(p, func(i, j int) bool {
-		return p[i].Name < p[j].Name
-	})
-
-	return p
-}
-
-func (c *collector) Config(pkg *packages.Package) (Config, error) {
-	methods, err := c.collect(pkg)
+func (c *collector) Config() (Config, error) {
+	methods, err := c.collect()
 	if err != nil {
 		return Config{}, xerrors.Errorf("collect: %w", err)
 	}
@@ -227,8 +208,8 @@ func (c *collector) Config(pkg *packages.Package) (Config, error) {
 	}, nil
 }
 
-func (c *collector) collect(pkg *packages.Package) ([]Method, error) {
-	methods, err := c.methods(pkg)
+func (c *collector) collect() ([]Method, error) {
+	methods, err := c.methods()
 	if err != nil {
 		return nil, xerrors.Errorf("collect types: %w", err)
 	}
@@ -243,8 +224,8 @@ func (c *collector) collect(pkg *packages.Package) ([]Method, error) {
 		m := Method{
 			Name:              method.name,
 			OriginalName:      method.f.Name(),
-			RequestName:       printType(method.reqType),
-			ResultName:        printType(method.resultType),
+			RequestName:       genutil.PrintType(method.reqType),
+			ResultName:        genutil.PrintType(method.resultType),
 			AdditionalMapping: mapping,
 			AdditionalParams:  sortParams(method.params),
 			IteratorName:      "Iterator",
@@ -258,7 +239,7 @@ func (c *collector) collect(pkg *packages.Package) ([]Method, error) {
 		}
 		m.RequiredParams = sortParams(m.RequiredParams)
 
-		cases, err := c.collectSpecial(pkg, m)
+		cases, err := c.collectSpecial(m)
 		if err != nil {
 			return nil, xerrors.Errorf("collect special: %w", err)
 		}
