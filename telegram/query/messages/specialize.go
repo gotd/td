@@ -45,20 +45,22 @@ type File struct {
 	Location tg.InputFileLocationClass
 }
 
+const dateLayout = "2006-01-02_15-04-05"
+
 func getDocFilename(doc *tg.Document) string {
 	var filename, ext string
 	for _, attr := range doc.Attributes {
 		switch v := attr.(type) {
 		case *tg.DocumentAttributeImageSize:
 			switch doc.MimeType {
-			case "image/jpeg", "image/pjpeg":
-				ext = ".jpg"
+			case "image/png":
+				ext = ".png"
 			case "image/webp":
 				ext = ".webp"
 			case "image/tiff":
 				ext = ".tif"
 			default:
-				ext = ".png"
+				ext = ".jpg"
 			}
 		case *tg.DocumentAttributeAnimated:
 			ext = ".gif"
@@ -94,7 +96,7 @@ func getDocFilename(doc *tg.Document) string {
 	if filename == "" {
 		filename = fmt.Sprintf(
 			"doc%d_%s%s", doc.GetID(),
-			time.Unix(int64(doc.Date), 0).Format("2006-01-02_15-04-05"),
+			time.Unix(int64(doc.Date), 0).Format(dateLayout),
 			ext,
 		)
 	}
@@ -118,7 +120,7 @@ func (e Elem) File() (File, bool) {
 
 		filename := fmt.Sprintf(
 			"photo%d_%s.jpg", photo.GetID(),
-			time.Unix(int64(photo.Date), 0).Format("2006-01-02_15-04-05"),
+			time.Unix(int64(photo.Date), 0).Format(dateLayout),
 		)
 		return File{
 			Name:     filename,

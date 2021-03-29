@@ -1,6 +1,18 @@
 package participants
 
-import "github.com/gotd/td/tg"
+import (
+	"github.com/gotd/td/telegram/query/photos"
+	"github.com/gotd/td/tg"
+)
+
+// UserPhotos returns new user photo query builder for participant.
+func (e Elem) UserPhotos(raw *tg.Client) (*photos.GetUserPhotosQueryBuilder, bool) {
+	user, ok := e.User()
+	if !ok {
+		return nil, false
+	}
+	return photos.NewQueryBuilder(raw).GetUserPhotos(user.AsInput()), true
+}
 
 // User tries to get participant user object.
 func (e Elem) User() (*tg.User, bool) {
