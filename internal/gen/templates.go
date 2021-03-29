@@ -29,7 +29,7 @@ func Funcs() template.FuncMap {
 }
 
 //go:embed _template/*.tmpl
-var templates embed.FS // nolint:gochecknoglobals
+var templates embed.FS
 
 // Template parses and returns vendored code generation templates.
 func Template() *template.Template {

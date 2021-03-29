@@ -94,6 +94,10 @@ issues:
     - path: codec
       linters: [gochecknoglobals]
 
+    # Allow embed globals
+    - source: "embed\\.FS"
+      linters: [gochecknoglobals]
+
     # Exclude go:generate from lll
     - source: "//go:generate"
       linters: [lll]

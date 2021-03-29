@@ -16,7 +16,7 @@ import (
 )
 
 //go:embed _template/*.tmpl
-var templates embed.FS // nolint:gochecknoglobals
+var templates embed.FS
 
 func generate(ctx context.Context, out io.Writer, cfg collectorConfig) error {
 	pkg, err := genutil.Load(ctx, "github.com/gotd/td/tg")
