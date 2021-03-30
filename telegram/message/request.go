@@ -5,6 +5,7 @@ import (
 
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/telegram/message/peer"
 	"github.com/gotd/td/tg"
 )
 
@@ -82,18 +83,11 @@ func (b *RequestBuilder) StartBot(ctx context.Context, opts ...StartBotOption) (
 	}
 
 	if sb.bot == nil {
-		switch u := p.(type) {
-		case *tg.InputPeerUser:
-			v := new(tg.InputUser)
-			v.FillFrom(u)
-			sb.bot = v
-		case *tg.InputPeerUserFromMessage:
-			v := new(tg.InputUserFromMessage)
-			v.FillFrom(u)
-			sb.bot = v
-		default:
+		user, ok := peer.ToInputUser(p)
+		if !ok {
 			return nil, xerrors.Errorf("unexpected peer type %T, try to pass input user manually", p)
 		}
+		sb.bot = user
 	}
 
 	upd, err := b.sender.startBot(ctx, &tg.MessagesStartBotRequest{

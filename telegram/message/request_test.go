@@ -103,7 +103,7 @@ func TestRequestBuilder_StartBot(t *testing.T) {
 	mock.NoError(err)
 
 	// Should not make RPC calls.
-	_, err = sender.Self().StartBot(ctx)
+	_, err = sender.To(&tg.InputPeerChannel{}).StartBot(ctx)
 	mock.Error(err)
 
 	peerFromMsg := &tg.InputPeerUserFromMessage{

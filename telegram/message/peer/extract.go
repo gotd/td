@@ -121,3 +121,21 @@ func (ent Entities) ExtractPeer(peerID tg.PeerClass) (tg.InputPeerClass, error) 
 
 	return peer, nil
 }
+
+// User finds user by given ID.
+func (ent Entities) User(id int) (*tg.User, bool) {
+	v, ok := ent.users[id]
+	return v, ok
+}
+
+// Chat finds chat by given ID.
+func (ent Entities) Chat(id int) (*tg.Chat, bool) {
+	v, ok := ent.chats[id]
+	return v, ok
+}
+
+// Channel finds channel by given ID.
+func (ent Entities) Channel(id int) (*tg.Channel, bool) {
+	v, ok := ent.channels[id]
+	return v, ok
+}

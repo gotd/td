@@ -12,7 +12,8 @@ import (
 
 // Elem is a message iterator element.
 type Elem struct {
-	Msg      tg.MessageClass
+	Msg      tg.NotEmptyMessage
+	Peer     tg.InputPeerClass
 	Entities peer.Entities
 }
 
@@ -155,8 +156,22 @@ func (m *Iterator) apply(r tg.MessagesMessagesClass) error {
 
 	m.bufCur = -1
 	m.buf = m.buf[:0]
-	for i := range messages {
-		m.buf = append(m.buf, Elem{Msg: messages[i], Entities: entities})
+	for _, msg := range messages {
+		nonEmpty, ok := msg.AsNotEmpty()
+		if !ok {
+			continue
+		}
+
+		msgPeer, err := entities.ExtractPeer(nonEmpty.GetPeerID())
+		if err != nil {
+			msgPeer = &tg.InputPeerEmpty{}
+		}
+
+		m.buf = append(m.buf, Elem{
+			Msg:      nonEmpty,
+			Peer:     msgPeer,
+			Entities: entities,
+		})
 	}
 
 	return nil
