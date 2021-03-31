@@ -1,6 +1,9 @@
 package mtproto
 
 import (
+	"time"
+
+	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
@@ -15,5 +18,8 @@ func (c *Conn) handleFutureSalts(b *bin.Buffer) error {
 	}
 
 	c.salts.Store(res.Salts)
+
+	serverTime := time.Unix(int64(res.Now), 0)
+	c.log.Debug("Got future salts", zap.Time("server_time", serverTime))
 	return nil
 }

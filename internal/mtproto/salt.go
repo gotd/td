@@ -4,6 +4,7 @@ import (
 	"context"
 	"time"
 
+	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/internal/mt"
@@ -11,8 +12,14 @@ import (
 
 func (c *Conn) storeSalt(salt int64) {
 	c.sessionMux.Lock()
+	// Copy to log.
+	oldSalt := c.salt
 	c.salt = salt
 	c.sessionMux.Unlock()
+
+	if salt != oldSalt {
+		c.log.Info("Salt updated", zap.Int64("old", oldSalt), zap.Int64("new", salt))
+	}
 }
 
 func (c *Conn) updateSalt() {
