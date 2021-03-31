@@ -259,3 +259,27 @@ func (s *Sender) leaveChannel(
 ) (tg.UpdatesClass, error) {
 	return s.raw.ChannelsLeaveChannel(ctx, input)
 }
+
+// deleteChatUser delete user from chat.
+func (s *Sender) deleteChatUser(
+	ctx context.Context,
+	req *tg.MessagesDeleteChatUserRequest,
+) (tg.UpdatesClass, error) {
+	return s.raw.MessagesDeleteChatUser(ctx, req)
+}
+
+// deleteChannelMessages deletes messages in channel.
+func (s *Sender) deleteChannelMessages(
+	ctx context.Context,
+	req *tg.ChannelsDeleteMessagesRequest,
+) (*tg.MessagesAffectedMessages, error) {
+	return s.raw.ChannelsDeleteMessages(ctx, req)
+}
+
+// deleteMessages deletes messages in chat.
+func (s *Sender) deleteMessages(
+	ctx context.Context,
+	req *tg.MessagesDeleteMessagesRequest,
+) (*tg.MessagesAffectedMessages, error) {
+	return s.raw.MessagesDeleteMessages(ctx, req)
+}
