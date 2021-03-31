@@ -5,8 +5,6 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/stretchr/testify/require"
-
 	"github.com/gotd/td/tg"
 )
 
@@ -89,59 +87,20 @@ func TestRequestBuilder_Leave(t *testing.T) {
 		ChannelID:  10,
 		AccessHash: 10,
 	}
+	ch := &tg.InputChannel{
+		ChannelID:  peer.ChannelID,
+		AccessHash: peer.AccessHash,
+	}
 
 	mock.ExpectCall(&tg.ChannelsLeaveChannelRequest{
-		Channel: &tg.InputChannel{
-			ChannelID:  10,
-			AccessHash: 10,
-		},
+		Channel: ch,
 	}).ThenResult(&tg.Updates{})
 	_, err := sender.To(peer).Leave(ctx)
 	mock.NoError(err)
 
 	mock.ExpectCall(&tg.ChannelsLeaveChannelRequest{
-		Channel: &tg.InputChannel{
-			ChannelID:  10,
-			AccessHash: 10,
-		},
+		Channel: ch,
 	}).ThenRPCErr(testRPCError())
 	_, err = sender.To(peer).Leave(ctx)
 	mock.Error(err)
-}
-
-func Test_inputChannel(t *testing.T) {
-	tests := []struct {
-		input   tg.InputPeerClass
-		output  tg.InputChannelClass
-		wantErr bool
-	}{
-		{&tg.InputPeerChannel{
-			ChannelID:  10,
-			AccessHash: 10,
-		}, &tg.InputChannel{
-			ChannelID:  10,
-			AccessHash: 10,
-		}, false},
-		{&tg.InputPeerChannelFromMessage{
-			Peer:      &tg.InputPeerSelf{},
-			MsgID:     10,
-			ChannelID: 10,
-		}, &tg.InputChannelFromMessage{
-			Peer:      &tg.InputPeerSelf{},
-			MsgID:     10,
-			ChannelID: 10,
-		}, false},
-		{&tg.InputPeerChat{ChatID: 10}, nil, true},
-	}
-
-	a := require.New(t)
-	for _, test := range tests {
-		ch, err := inputChannel(test.input)
-		if test.wantErr {
-			a.Error(err)
-		} else {
-			a.NoError(err)
-			a.Equal(test.output, ch)
-		}
-	}
 }

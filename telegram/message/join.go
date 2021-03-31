@@ -6,7 +6,9 @@ import (
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/telegram/message/internal/deeplink"
+	"github.com/gotd/td/telegram/message/peer"
 	"github.com/gotd/td/tg"
+	"github.com/gotd/td/tgerr"
 )
 
 // JoinLink joins to private chat using given link or hash.
@@ -36,27 +38,6 @@ func (s *Sender) JoinHash(ctx context.Context, hash string) (tg.UpdatesClass, er
 	return s.importChatInvite(ctx, hash)
 }
 
-func inputChannel(p tg.InputPeerClass) (tg.InputChannelClass, error) {
-	var input tg.InputChannelClass
-	switch ch := p.(type) {
-	case *tg.InputPeerChannel:
-		input = &tg.InputChannel{
-			ChannelID:  ch.ChannelID,
-			AccessHash: ch.AccessHash,
-		}
-	case *tg.InputPeerChannelFromMessage:
-		input = &tg.InputChannelFromMessage{
-			Peer:      ch.Peer,
-			MsgID:     ch.MsgID,
-			ChannelID: ch.ChannelID,
-		}
-	default:
-		return nil, xerrors.Errorf("unexpected peer type %T", ch)
-	}
-
-	return input, nil
-}
-
 // Join joins resolved channel.
 // NB: if resolved peer is not a channel, error will be returned.
 func (b *RequestBuilder) Join(ctx context.Context) (tg.UpdatesClass, error) {
@@ -65,26 +46,52 @@ func (b *RequestBuilder) Join(ctx context.Context) (tg.UpdatesClass, error) {
 		return nil, xerrors.Errorf("peer: %w", err)
 	}
 
-	input, err := inputChannel(p)
-	if err != nil {
-		return nil, err
+	input, ok := peer.ToInputChannel(p)
+	if !ok {
+		return nil, xerrors.Errorf("unexpected type %T", p)
 	}
 
 	return b.sender.joinChannel(ctx, input)
 }
 
-// Leave leaves resolved channel.
-// NB: if resolved peer is not a channel, error will be returned.
-func (b *RequestBuilder) Leave(ctx context.Context) (tg.UpdatesClass, error) {
+func (b *RequestBuilder) leave(ctx context.Context, revoke bool) (tg.UpdatesClass, error) {
 	p, err := b.peer(ctx)
 	if err != nil {
 		return nil, xerrors.Errorf("peer: %w", err)
 	}
 
-	input, err := inputChannel(p)
-	if err != nil {
-		return nil, err
+	input, ok := peer.ToInputChannel(p)
+	if ok {
+		r, err := b.sender.leaveChannel(ctx, input)
+		if err != nil {
+			return nil, xerrors.Errorf("leave channel: %w", err)
+		}
+		return r, nil
 	}
 
-	return b.sender.leaveChannel(ctx, input)
+	chat, ok := p.(*tg.InputPeerChat)
+	if !ok {
+		return &tg.Updates{}, nil
+	}
+
+	r, err := b.sender.deleteChatUser(ctx, &tg.MessagesDeleteChatUserRequest{
+		RevokeHistory: revoke,
+		ChatID:        chat.ChatID,
+		UserID:        &tg.InputUserSelf{},
+	})
+	if err != nil {
+		// Happens if chat was deactivated.
+		if tgerr.Is(err, tg.ErrPeerIDInvalid) {
+			return &tg.Updates{}, nil
+		}
+		return nil, xerrors.Errorf("leave chat: %w", err)
+	}
+	return r, nil
+}
+
+// Leave leaves resolved peer.
+//
+// NB: if resolved peer is not a channel or chat, or chat is deactivated, empty *tg.Updates will be returned.
+func (b *RequestBuilder) Leave(ctx context.Context) (tg.UpdatesClass, error) {
+	return b.leave(ctx, false)
 }
