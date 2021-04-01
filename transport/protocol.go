@@ -8,61 +8,65 @@ import (
 	"github.com/gotd/td/internal/proto/codec"
 )
 
-// NewTransport creates transport using user Codec constructor.
-func NewTransport(getCodec func() Codec) *Transport {
-	return &Transport{
+// NewProtocol creates transport protocol using user Codec constructor.
+//
+// See https://core.telegram.org/mtproto/mtproto-transports
+func NewProtocol(getCodec func() Codec) *Protocol {
+	return &Protocol{
 		codec: getCodec,
 	}
 }
 
-// Abridged creates Abridged transport.
+// Abridged creates Abridged transport protocol.
 //
 // See https://core.telegram.org/mtproto/mtproto-transports#abridged
-func Abridged() *Transport {
-	return NewTransport(func() Codec {
+func Abridged() *Protocol {
+	return NewProtocol(func() Codec {
 		return codec.Abridged{}
 	})
 }
 
-// Intermediate creates Intermediate transport.
+// Intermediate creates Intermediate transport protocol.
 //
 // See https://core.telegram.org/mtproto/mtproto-transports#intermediate
-func Intermediate() *Transport {
-	return NewTransport(func() Codec {
+func Intermediate() *Protocol {
+	return NewProtocol(func() Codec {
 		return codec.Intermediate{}
 	})
 }
 
-// PaddedIntermediate creates Padded intermediate transport.
+// PaddedIntermediate creates Padded intermediate transport protocol.
 //
 // See https://core.telegram.org/mtproto/mtproto-transports#padded-intermediate
-func PaddedIntermediate() *Transport {
-	return NewTransport(func() Codec {
+func PaddedIntermediate() *Protocol {
+	return NewProtocol(func() Codec {
 		return codec.PaddedIntermediate{}
 	})
 }
 
-// Full creates Full transport.
+// Full creates Full transport protocol.
 //
 // See https://core.telegram.org/mtproto/mtproto-transports#full
-func Full() *Transport {
-	return NewTransport(func() Codec {
+func Full() *Protocol {
+	return NewProtocol(func() Codec {
 		return &codec.Full{}
 	})
 }
 
-// Transport is MTProto connection creator.
-type Transport struct {
+// Protocol is MTProto transport protocol.
+//
+// See https://core.telegram.org/mtproto/mtproto-transports
+type Protocol struct {
 	codec func() Codec
 }
 
-// Codec creates new codec using transport settings.
-func (t *Transport) Codec() Codec {
+// Codec creates new codec using protocol settings.
+func (t *Protocol) Codec() Codec {
 	return t.codec()
 }
 
 // Handshake inits given net.Conn as MTProto connection.
-func (t *Transport) Handshake(conn net.Conn) (Conn, error) {
+func (t *Protocol) Handshake(conn net.Conn) (Conn, error) {
 	connCodec := t.codec()
 	if err := connCodec.WriteHeader(conn); err != nil {
 		return nil, xerrors.Errorf("write header: %w", err)
@@ -75,7 +79,7 @@ func (t *Transport) Handshake(conn net.Conn) (Conn, error) {
 }
 
 // Pipe creates a in-memory MTProto connection.
-func (t *Transport) Pipe() (a, b Conn) {
+func (t *Protocol) Pipe() (a, b Conn) {
 	p1, p2 := net.Pipe()
 
 	return &connection{

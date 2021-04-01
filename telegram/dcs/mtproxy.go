@@ -18,7 +18,7 @@ import (
 
 type mtProxy struct {
 	dialer        transport.Dialer
-	transport     *transport.Transport
+	protocol      *transport.Protocol
 	addr, network string
 
 	secret mtproxy.Secret
@@ -44,7 +44,7 @@ func (m mtProxy) resolve(ctx context.Context, dc int) (transport.Conn, error) {
 		return nil, xerrors.Errorf("connect to the MTProxy %q: %w", m.addr, err)
 	}
 
-	conn, err := m.handshake(c, dc)
+	conn, err := m.handshakeConn(c, dc)
 	if err != nil {
 		err = xerrors.Errorf("handshake: %w", err)
 		return nil, multierr.Combine(err, c.Close())
@@ -53,8 +53,8 @@ func (m mtProxy) resolve(ctx context.Context, dc int) (transport.Conn, error) {
 	return conn, nil
 }
 
-// handshake inits given net.Conn as MTProto connection.
-func (m mtProxy) handshake(c net.Conn, dc int) (transport.Conn, error) {
+// handshakeConn inits given net.Conn as MTProto connection.
+func (m mtProxy) handshakeConn(c net.Conn, dc int) (transport.Conn, error) {
 	var obsConn *obfuscator.Conn
 	switch m.secret.Type {
 	case mtproxy.Simple, mtproxy.Secured:
@@ -71,7 +71,7 @@ func (m mtProxy) handshake(c net.Conn, dc int) (transport.Conn, error) {
 		return nil, xerrors.Errorf("MTProxy handshake: %w", err)
 	}
 
-	transportConn, err := m.transport.Handshake(obsConn)
+	transportConn, err := m.protocol.Handshake(obsConn)
 	if err != nil {
 		return nil, xerrors.Errorf("transport handshake: %w", err)
 	}
@@ -116,7 +116,7 @@ func MTProxyResolver(addr string, secret []byte, opts MTProxyOptions) (Resolver,
 		dialer:  opts.Dialer,
 		addr:    addr,
 		network: opts.Network,
-		transport: transport.NewTransport(func() transport.Codec {
+		protocol: transport.NewProtocol(func() transport.Codec {
 			return codec.NoHeader{Codec: cdc}
 		}),
 		secret: s,

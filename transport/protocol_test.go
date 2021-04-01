@@ -10,7 +10,7 @@ import (
 	"github.com/gotd/td/bin"
 )
 
-func TestTransport_Pipe(t *testing.T) {
+func TestProtocol_Pipe(t *testing.T) {
 	a := require.New(t)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)

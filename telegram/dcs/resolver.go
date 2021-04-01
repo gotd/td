@@ -20,15 +20,17 @@ type Resolver interface {
 	CDN(ctx context.Context, dc int, dcOptions []tg.DCOption) (transport.Conn, error)
 }
 
-// Transport is MTProto connection creator.
-type Transport interface {
+// Protocol is MTProto transport protocol.
+//
+// See https://core.telegram.org/mtproto/mtproto-transports
+type Protocol interface {
 	Codec() transport.Codec
 	Handshake(conn net.Conn) (transport.Conn, error)
 }
 
 type plain struct {
 	dialer     transport.Dialer
-	transport  Transport
+	protocol   Protocol
 	network    string
 	preferIPv6 bool
 }
@@ -79,7 +81,7 @@ func (p plain) connect(ctx context.Context, dc int, dcOptions []tg.DCOption) (tr
 			return nil, err
 		}
 
-		transportConn, err := p.transport.Handshake(conn)
+		transportConn, err := p.protocol.Handshake(conn)
 		if err != nil {
 			err = xerrors.Errorf("transport handshake: %w", err)
 			return nil, multierr.Combine(err, conn.Close())
@@ -93,8 +95,8 @@ func (p plain) connect(ctx context.Context, dc int, dcOptions []tg.DCOption) (tr
 
 // PlainOptions is plain resolver creation options.
 type PlainOptions struct {
-	// Transport to use.
-	Transport Transport
+	// Protocol to use.
+	Protocol Protocol
 	// Dialer to use. Default net.Dialer will be used by default.
 	Dialer transport.Dialer
 	// Network to use.
@@ -105,8 +107,8 @@ type PlainOptions struct {
 }
 
 func (m *PlainOptions) setDefaults() {
-	if m.Transport == nil {
-		m.Transport = transport.Intermediate()
+	if m.Protocol == nil {
+		m.Protocol = transport.Intermediate()
 	}
 	if m.Dialer == nil {
 		m.Dialer = &net.Dialer{}
@@ -120,7 +122,7 @@ func (m *PlainOptions) setDefaults() {
 func PlainResolver(opts PlainOptions) Resolver {
 	opts.setDefaults()
 	return plain{
-		transport:  opts.Transport,
+		protocol:   opts.Protocol,
 		dialer:     opts.Dialer,
 		network:    opts.Network,
 		preferIPv6: opts.PreferIPv6,

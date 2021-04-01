@@ -16,9 +16,6 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-// Transport is MTProto connection creator.
-type Transport = dcs.Transport
-
 // Options of Client.
 type Options struct {
 	// PublicKeys of telegram.
