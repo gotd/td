@@ -14,7 +14,9 @@ func (u *UploadedDocumentBuilder) UploadedSticker() *UploadedStickerBuilder {
 	}
 	return &UploadedStickerBuilder{
 		doc:  b,
-		attr: tg.DocumentAttributeSticker{},
+		attr: tg.DocumentAttributeSticker{
+			Stickerset: &tg.InputStickerSetEmpty{},
+		},
 	}
 }
 
