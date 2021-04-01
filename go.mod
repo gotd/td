@@ -10,10 +10,7 @@ require (
 	github.com/gotd/neo v0.1.2
 	github.com/gotd/tl v0.4.0
 	github.com/gotd/xor v0.1.1
-	github.com/k0kubun/colorstring v0.0.0-20150214042306-9440f1994b88 // indirect
-	github.com/k0kubun/pp v2.4.0+incompatible
-	github.com/mattn/go-colorable v0.1.2 // indirect
-	github.com/mattn/go-isatty v0.0.9 // indirect
+	github.com/k0kubun/pp/v3 v3.0.7
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/quasilyte/go-ruleguard/dsl v0.3.2
 	github.com/rogpeppe/go-internal v1.8.0
