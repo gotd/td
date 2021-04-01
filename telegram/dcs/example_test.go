@@ -1,4 +1,4 @@
-package transport_test
+package dcs_test
 
 import (
 	"context"
@@ -9,7 +9,6 @@ import (
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/dcs"
-	"github.com/gotd/td/transport"
 )
 
 func ExampleDialFunc() {
@@ -17,7 +16,7 @@ func ExampleDialFunc() {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 	client := telegram.NewClient(1, "appHash", telegram.Options{
-		Resolver: dcs.PlainResolver(dcs.PlainOptions{Dialer: transport.DialFunc(proxy.Dial)}),
+		Resolver: dcs.PlainResolver(dcs.PlainOptions{DialContext: proxy.Dial}),
 	})
 
 	_ = client.Run(ctx, func(ctx context.Context) error {
@@ -39,7 +38,7 @@ func ExampleDialer() {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 	client := telegram.NewClient(1, "appHash", telegram.Options{
-		Resolver: dcs.PlainResolver(dcs.PlainOptions{Dialer: dc}),
+		Resolver: dcs.PlainResolver(dcs.PlainOptions{DialContext: dc.DialContext}),
 	})
 
 	_ = client.Run(ctx, func(ctx context.Context) error {

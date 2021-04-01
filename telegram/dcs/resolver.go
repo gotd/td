@@ -20,6 +20,9 @@ type Resolver interface {
 	CDN(ctx context.Context, dc int, dcOptions []tg.DCOption) (transport.Conn, error)
 }
 
+// DialFunc connects to the address on the named network.
+type DialFunc func(ctx context.Context, network, addr string) (net.Conn, error)
+
 // Protocol is MTProto transport protocol.
 //
 // See https://core.telegram.org/mtproto/mtproto-transports
@@ -29,7 +32,7 @@ type Protocol interface {
 }
 
 type plain struct {
-	dialer     transport.Dialer
+	dial       DialFunc
 	protocol   Protocol
 	network    string
 	preferIPv6 bool
@@ -68,7 +71,7 @@ func (p plain) CDN(ctx context.Context, dc int, dcOptions []tg.DCOption) (transp
 func (p plain) connect(ctx context.Context, dc int, dcOptions []tg.DCOption) (transport.Conn, error) {
 	for _, dc := range dcOptions {
 		addr := net.JoinHostPort(dc.IPAddress, strconv.Itoa(dc.Port))
-		conn, err := p.dialer.DialContext(ctx, p.network, addr)
+		conn, err := p.dial(ctx, p.network, addr)
 		if err != nil {
 			var netErr net.Error
 			if errors.As(err, &netErr) && (netErr.Timeout() || netErr.Temporary()) {
@@ -95,11 +98,12 @@ func (p plain) connect(ctx context.Context, dc int, dcOptions []tg.DCOption) (tr
 
 // PlainOptions is plain resolver creation options.
 type PlainOptions struct {
-	// Protocol to use.
+	// Protocol is the transport protocol to use. Defaults to intermediate.
 	Protocol Protocol
-	// Dialer to use. Default net.Dialer will be used by default.
-	Dialer transport.Dialer
-	// Network to use.
+	// DialContext specifies the dial function for creating unencrypted TCP connections.
+	// If DialContext is nil, then the resolver dials using package net.
+	DialContext DialFunc
+	// Network to use. Defaults to "tcp".
 	Network string
 	// PreferIPv6 gives IPv6 DCs higher precedence.
 	// Default is to prefer IPv4 DCs over IPv6.
@@ -110,8 +114,9 @@ func (m *PlainOptions) setDefaults() {
 	if m.Protocol == nil {
 		m.Protocol = transport.Intermediate()
 	}
-	if m.Dialer == nil {
-		m.Dialer = &net.Dialer{}
+	if m.DialContext == nil {
+		var d net.Dialer
+		m.DialContext = d.DialContext
 	}
 	if m.Network == "" {
 		m.Network = "tcp"
@@ -123,7 +128,7 @@ func PlainResolver(opts PlainOptions) Resolver {
 	opts.setDefaults()
 	return plain{
 		protocol:   opts.Protocol,
-		dialer:     opts.Dialer,
+		dial:       opts.DialContext,
 		network:    opts.Network,
 		preferIPv6: opts.PreferIPv6,
 	}

@@ -18,7 +18,6 @@ import (
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/tgerr"
-	"github.com/gotd/td/transport"
 )
 
 func sessionDir() (string, error) {
@@ -66,7 +65,7 @@ func OptionsFromEnvironment(opts Options) (Options, error) {
 
 	if opts.Resolver == nil {
 		opts.Resolver = dcs.PlainResolver(dcs.PlainOptions{
-			Dialer: transport.DialFunc(proxy.Dial),
+			DialContext: proxy.Dial,
 		})
 	}
 
