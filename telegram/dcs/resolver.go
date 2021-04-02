@@ -112,7 +112,7 @@ type PlainOptions struct {
 
 func (m *PlainOptions) setDefaults() {
 	if m.Protocol == nil {
-		m.Protocol = transport.Intermediate()
+		m.Protocol = transport.Intermediate
 	}
 	if m.DialContext == nil {
 		var d net.Dialer

@@ -24,7 +24,7 @@ func TestExchangeTimeout(t *testing.T) {
 	a.NoError(err)
 	log := zaptest.NewLogger(t)
 
-	i := transport.Intermediate()
+	i := transport.Intermediate
 	client, _ := i.Pipe()
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)

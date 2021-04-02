@@ -55,10 +55,10 @@ func TestExternalE2EConnect(t *testing.T) {
 
 	// To re-use session.
 	storage := &session.StorageMemory{}
-	t.Run("Abridged", testTransportExternal(transport.Abridged(), storage))
-	t.Run("Intermediate", testTransportExternal(transport.Intermediate(), storage))
-	t.Run("PaddedIntermediate", testTransportExternal(transport.PaddedIntermediate(), storage))
-	t.Run("Full", testTransportExternal(transport.Full(), storage))
+	t.Run("Abridged", testTransportExternal(transport.Abridged, storage))
+	t.Run("Intermediate", testTransportExternal(transport.Intermediate, storage))
+	t.Run("PaddedIntermediate", testTransportExternal(transport.PaddedIntermediate, storage))
+	t.Run("Full", testTransportExternal(transport.Full, storage))
 }
 
 const dialog = `— Да?

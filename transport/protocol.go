@@ -8,7 +8,14 @@ import (
 	"github.com/gotd/td/internal/proto/codec"
 )
 
-// NewProtocol creates transport protocol using user Codec constructor.
+// Protocol is MTProto transport protocol.
+//
+// See https://core.telegram.org/mtproto/mtproto-transports
+type Protocol struct {
+	codec func() Codec
+}
+
+// NewProtocol creates new transport protocol using user Codec constructor.
 //
 // See https://core.telegram.org/mtproto/mtproto-transports
 func NewProtocol(getCodec func() Codec) *Protocol {
@@ -17,48 +24,38 @@ func NewProtocol(getCodec func() Codec) *Protocol {
 	}
 }
 
-// Abridged creates Abridged transport protocol.
-//
-// See https://core.telegram.org/mtproto/mtproto-transports#abridged
-func Abridged() *Protocol {
-	return NewProtocol(func() Codec {
-		return codec.Abridged{}
-	})
-}
-
-// Intermediate creates Intermediate transport protocol.
-//
-// See https://core.telegram.org/mtproto/mtproto-transports#intermediate
-func Intermediate() *Protocol {
-	return NewProtocol(func() Codec {
-		return codec.Intermediate{}
-	})
-}
-
-// PaddedIntermediate creates Padded intermediate transport protocol.
-//
-// See https://core.telegram.org/mtproto/mtproto-transports#padded-intermediate
-func PaddedIntermediate() *Protocol {
-	return NewProtocol(func() Codec {
-		return codec.PaddedIntermediate{}
-	})
-}
-
-// Full creates Full transport protocol.
-//
-// See https://core.telegram.org/mtproto/mtproto-transports#full
-func Full() *Protocol {
-	return NewProtocol(func() Codec {
-		return &codec.Full{}
-	})
-}
-
-// Protocol is MTProto transport protocol.
+// Telegram transport protocols.
 //
 // See https://core.telegram.org/mtproto/mtproto-transports
-type Protocol struct {
-	codec func() Codec
-}
+var (
+	// Abridged is abridged transport protocol.
+	//
+	// See https://core.telegram.org/mtproto/mtproto-transports#abridged
+	Abridged = NewProtocol(func() Codec {
+		return codec.Abridged{}
+	})
+
+	// Intermediate is intermediate transport protocol.
+	//
+	// See https://core.telegram.org/mtproto/mtproto-transports#intermediate
+	Intermediate = NewProtocol(func() Codec {
+		return codec.Intermediate{}
+	})
+
+	// PaddedIntermediate is padded intermediate transport protocol.
+	//
+	// See https://core.telegram.org/mtproto/mtproto-transports#padded-intermediate
+	PaddedIntermediate = NewProtocol(func() Codec {
+		return codec.PaddedIntermediate{}
+	})
+
+	// Full is full transport protocol.
+	//
+	// See https://core.telegram.org/mtproto/mtproto-transports#full
+	Full = NewProtocol(func() Codec {
+		return &codec.Full{}
+	})
+)
 
 // Codec creates new codec using protocol settings.
 func (t *Protocol) Codec() Codec {

@@ -28,7 +28,7 @@ func TestProtocol_Pipe(t *testing.T) {
 		a.Equal(payload, b2.Buf)
 	}
 
-	c1, c2 := Intermediate().Pipe()
+	c1, c2 := Intermediate.Pipe()
 	test(c1, c2)
 	test(c2, c1)
 }

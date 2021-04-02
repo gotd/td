@@ -88,10 +88,10 @@ func testQuorum(
 }
 
 func testAllTransports(t *testing.T, test func(trp *transport.Protocol) func(t *testing.T)) {
-	t.Run("Abridged", test(transport.Abridged()))
-	t.Run("Intermediate", test(transport.Intermediate()))
-	t.Run("PaddedIntermediate", test(transport.PaddedIntermediate()))
-	t.Run("Full", test(transport.Full()))
+	t.Run("Abridged", test(transport.Abridged))
+	t.Run("Intermediate", test(transport.Intermediate))
+	t.Run("PaddedIntermediate", test(transport.PaddedIntermediate))
+	t.Run("Full", test(transport.Full))
 }
 
 func testTransport(trp *transport.Protocol) func(t *testing.T) {
@@ -214,7 +214,7 @@ func testMigrate(trp *transport.Protocol) func(t *testing.T) {
 }
 
 func TestMigrate(t *testing.T) {
-	t.Run("Intermediate", testMigrate(transport.Intermediate()))
+	t.Run("Intermediate", testMigrate(transport.Intermediate))
 }
 
 func testFiles(trp *transport.Protocol) func(t *testing.T) {
@@ -266,5 +266,5 @@ func testFiles(trp *transport.Protocol) func(t *testing.T) {
 }
 
 func TestFiles(t *testing.T) {
-	t.Run("Intermediate", testFiles(transport.Intermediate()))
+	t.Run("Intermediate", testFiles(transport.Intermediate))
 }
