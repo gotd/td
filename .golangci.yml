@@ -87,6 +87,10 @@ issues:
     - path: tlstypes
       linters: [gochecknoglobals, gosec, golint]
 
+    # default transport protocols are stateless const-like vars.
+    - path: transport
+      linters: [gochecknoglobals]
+
     - linters: [gocritic]
       text: "commentedOutCode"
       source: "SHA1"
