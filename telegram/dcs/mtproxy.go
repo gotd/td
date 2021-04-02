@@ -81,19 +81,19 @@ func (m mtProxy) handshakeConn(c net.Conn, dc int) (transport.Conn, error) {
 
 // MTProxyOptions is MTProxy resolver creation options.
 type MTProxyOptions struct {
-	// DialContext specifies the dial function for creating unencrypted TCP connections.
-	// If DialContext is nil, then the resolver dials using package net.
-	DialContext DialFunc
-	// Network to use.
+	// Dial specifies the dial function for creating unencrypted TCP connections.
+	// If Dial is nil, then the resolver dials using package net.
+	Dial DialFunc
+	// Network to use. Defaults to "tcp"
 	Network string
 	// Random source for MTProxy obfuscator.
 	Rand io.Reader
 }
 
 func (m *MTProxyOptions) setDefaults() {
-	if m.DialContext == nil {
+	if m.Dial == nil {
 		var d net.Dialer
-		m.DialContext = d.DialContext
+		m.Dial = d.DialContext
 	}
 	if m.Network == "" {
 		m.Network = "tcp"
@@ -115,7 +115,7 @@ func MTProxyResolver(addr string, secret []byte, opts MTProxyOptions) (Resolver,
 	cdc := codec.PaddedIntermediate{}
 	opts.setDefaults()
 	return mtProxy{
-		dial:    opts.DialContext,
+		dial:    opts.Dial,
 		addr:    addr,
 		network: opts.Network,
 		protocol: transport.NewProtocol(func() transport.Codec {

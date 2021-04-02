@@ -100,9 +100,9 @@ func (p plain) connect(ctx context.Context, dc int, dcOptions []tg.DCOption) (tr
 type PlainOptions struct {
 	// Protocol is the transport protocol to use. Defaults to intermediate.
 	Protocol Protocol
-	// DialContext specifies the dial function for creating unencrypted TCP connections.
-	// If DialContext is nil, then the resolver dials using package net.
-	DialContext DialFunc
+	// Dial specifies the dial function for creating unencrypted TCP connections.
+	// If Dial is nil, then the resolver dials using package net.
+	Dial DialFunc
 	// Network to use. Defaults to "tcp".
 	Network string
 	// PreferIPv6 gives IPv6 DCs higher precedence.
@@ -114,9 +114,9 @@ func (m *PlainOptions) setDefaults() {
 	if m.Protocol == nil {
 		m.Protocol = transport.Intermediate
 	}
-	if m.DialContext == nil {
+	if m.Dial == nil {
 		var d net.Dialer
-		m.DialContext = d.DialContext
+		m.Dial = d.DialContext
 	}
 	if m.Network == "" {
 		m.Network = "tcp"
@@ -128,7 +128,7 @@ func PlainResolver(opts PlainOptions) Resolver {
 	opts.setDefaults()
 	return plain{
 		protocol:   opts.Protocol,
-		dial:       opts.DialContext,
+		dial:       opts.Dial,
 		network:    opts.Network,
 		preferIPv6: opts.PreferIPv6,
 	}

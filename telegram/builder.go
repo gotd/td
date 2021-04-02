@@ -65,7 +65,7 @@ func OptionsFromEnvironment(opts Options) (Options, error) {
 
 	if opts.Resolver == nil {
 		opts.Resolver = dcs.PlainResolver(dcs.PlainOptions{
-			DialContext: proxy.Dial,
+			Dial: proxy.Dial,
 		})
 	}
 

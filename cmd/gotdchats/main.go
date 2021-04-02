@@ -48,7 +48,7 @@ func run(ctx context.Context) error {
 	client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
 		Logger:         logger,
 		SessionStorage: storage,
-		Resolver:       dcs.PlainResolver(dcs.PlainOptions{DialContext: proxy.Dial}),
+		Resolver:       dcs.PlainResolver(dcs.PlainOptions{Dial: proxy.Dial}),
 		DCList:         dcs.StagingDCs(),
 	})
 
