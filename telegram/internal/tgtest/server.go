@@ -65,7 +65,7 @@ func NewUnstartedServer(dcID int, log *zap.Logger, codec func() transport.Codec)
 		log:        log,
 		dispatcher: NewDispatcher(),
 		users:      newUsers(),
-		msgID:      proto.NewMessageIDGen(clock.System.Now, 100),
+		msgID:      proto.NewMessageIDGen(clock.System.Now),
 		types: tmap.New(
 			tg.TypesMap(),
 			mt.TypesMap(),

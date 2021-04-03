@@ -47,7 +47,7 @@ func newTestClient(h testHandler, opts ...testClientOption) *Conn {
 		Logger:    zap.NewNop(),
 		Random:    rand.New(rand.NewSource(1)),
 		Key:       crypto.Key{}.WithID(),
-		MessageID: proto.NewMessageIDGen(time.Now, 100),
+		MessageID: proto.NewMessageIDGen(time.Now),
 
 		engine: engine,
 	}

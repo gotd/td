@@ -149,7 +149,7 @@ func (opt *Options) setDefaults() {
 		opt.Clock = clock.System
 	}
 	if opt.MessageID == nil {
-		opt.MessageID = proto.NewMessageIDGen(opt.Clock.Now, 100)
+		opt.MessageID = proto.NewMessageIDGen(opt.Clock.Now)
 	}
 	if len(opt.PublicKeys) == 0 {
 		opt.setDefaultPublicKeys()

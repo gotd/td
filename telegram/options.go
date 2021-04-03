@@ -103,7 +103,7 @@ func (opt *Options) setDefaults() {
 		opt.ReconnectionBackoff = defaultBackoff(opt.Clock)
 	}
 	if opt.MessageID == nil {
-		opt.MessageID = proto.NewMessageIDGen(opt.Clock.Now, 100)
+		opt.MessageID = proto.NewMessageIDGen(opt.Clock.Now)
 	}
 }
 

@@ -18,10 +18,9 @@ const (
 	messageIDModulo = 4
 )
 
-func newMessageID(now time.Time, yield int) int64 {
+func newMessageID(nowNano int64, yield int) int64 {
 	const nano = 1e9
 	// Must approximately equal unixtime*2^32.
-	nowNano := now.UnixNano()
 
 	// Important: to counter replay-attacks the lower 32 bits of msg_id
 	// passed by the client must not be empty and must present a
@@ -103,6 +102,12 @@ func (id MessageID) Type() MessageType {
 
 // NewMessageID returns new message id for provided time and type.
 func NewMessageID(now time.Time, typ MessageType) MessageID {
+	return NewMessageIDNano(now.UnixNano(), typ)
+}
+
+// NewMessageIDNano returns new message id for provided current unix
+// nanoseconds and type.
+func NewMessageIDNano(nano int64, typ MessageType) MessageID {
 	var yield int
 	switch typ {
 	case MessageFromClient:
@@ -114,7 +119,7 @@ func NewMessageID(now time.Time, typ MessageType) MessageID {
 	default:
 		yield = yieldClient
 	}
-	return MessageID(newMessageID(now, yield))
+	return MessageID(newMessageID(nano, yield))
 }
 
 // MessageIDGen is message id generator that provides collision prevention.
@@ -122,37 +127,9 @@ func NewMessageID(now time.Time, typ MessageType) MessageID {
 // The main reason of such structure is that now() can return same time during
 // multiple calls and that leads to duplicate message id.
 type MessageIDGen struct {
-	// mux protects buf and cursor, which is ring buffer for
-	// recent generated message ids.
-	mux    sync.Mutex
-	buf    []int64
-	cursor int
-
-	now func() time.Time
-}
-
-// contains returns true if id was generated previously or false
-// if (probably) not generated.
-//
-// Assumes mux locked.
-func (g *MessageIDGen) contains(id int64) bool {
-	for i := range g.buf {
-		if g.buf[i] == id {
-			return true
-		}
-	}
-	return false
-}
-
-// add saves id as already generated.
-//
-// Assumes mux locked.
-func (g *MessageIDGen) add(id int64) {
-	if g.cursor >= len(g.buf) {
-		g.cursor = 0
-	}
-	g.buf[g.cursor] = id
-	g.cursor++
+	mux  sync.Mutex
+	nano int64
+	now  func() time.Time
 }
 
 // New generates new message id for provided type, protecting from collisions
@@ -161,35 +138,31 @@ func (g *MessageIDGen) New(t MessageType) int64 {
 	g.mux.Lock()
 	defer g.mux.Unlock()
 
-	now := g.now()
-	id := int64(NewMessageID(now, t))
+	// Minimum resolution is required because id is only approximately
+	// equal to unix nano time, some part is replaced by message type.
+	const minResolutionNanos = 10
 
-	const resolution = time.Nanosecond * 5
-
-	for g.contains(id) {
-		now = now.Add(resolution)
-		id = int64(NewMessageID(now, t))
+	nano := g.now().UnixNano()
+	if nano > g.nano {
+		g.nano = nano
+	} else {
+		g.nano += minResolutionNanos
 	}
 
-	g.add(id)
-
-	return id
+	return int64(NewMessageIDNano(g.nano, t))
 }
 
 // NewMessageIDGen creates new message id generator.
 //
 // Current time will be provided by now() function.
-// The n parameter configures capacity of message id history, bigger n results
-// in bigger memory consumption.
 //
-// This generator compensates time resolution problem via storing last N
-// generated IDs in memory, reducing probability of id collision.
+// This generator compensates time resolution problem removing
+// probability of id collision.
 //
 // Such problem can be observed for relatively high RPS, sequential calls to
 // time.Now() will return same time which leads to equal ids.
-func NewMessageIDGen(now func() time.Time, n int) *MessageIDGen {
+func NewMessageIDGen(now func() time.Time) *MessageIDGen {
 	return &MessageIDGen{
-		buf: make([]int64, n),
 		now: now,
 	}
 }

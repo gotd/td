@@ -69,7 +69,7 @@ func init() {
 		rand:      Zero{},
 		rpc:       rpc.New(rpc.NopSend, rpc.Options{}),
 		log:       zap.NewNop(),
-		messageID: proto.NewMessageIDGen(time.Now, 1),
+		messageID: proto.NewMessageIDGen(time.Now),
 		handler:   handler,
 	}
 

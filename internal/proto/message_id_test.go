@@ -13,7 +13,7 @@ import (
 
 func TestMessageID(t *testing.T) {
 	now := time.Date(2018, 10, 10, 23, 42, 6, 13600, time.UTC)
-	id := MessageID(newMessageID(now, 0))
+	id := MessageID(newMessageID(now.UnixNano(), 0))
 	if id.Type() != MessageFromClient {
 		t.Fatal("invalid type")
 	}
@@ -55,7 +55,7 @@ func TestMessageIDGen(t *testing.T) {
 	date := testutil.Date()
 	clock := neo.NewTime(date)
 
-	gen := NewMessageIDGen(clock.Now, 10)
+	gen := NewMessageIDGen(clock.Now)
 	met := make(map[int64]bool)
 
 	for i := 0; i < 1000; i++ {
@@ -84,7 +84,7 @@ func BenchmarkMsgIDGen_New(b *testing.B) {
 		return date
 	}
 
-	gen := NewMessageIDGen(now, 100)
+	gen := NewMessageIDGen(now)
 
 	for i := 0; i < b.N; i++ {
 		_ = gen.New(MessageFromServer)

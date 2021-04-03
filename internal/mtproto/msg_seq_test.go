@@ -4,12 +4,10 @@ import (
 	"context"
 	"sync"
 	"testing"
-	"time"
 
 	"github.com/stretchr/testify/require"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/tg"
 )
 
@@ -33,12 +31,6 @@ func TestMsgSeq(t *testing.T) {
 		records = append(records, record{msgID, seqNo})
 		mux.Unlock()
 		return &tg.Config{}, nil
-	}, func(o Options) {
-		// Increasing N of message id generator to mitigate time resolution
-		// side-effect.
-		//
-		// This should prevent test from failing on id collision problem.
-		o.MessageID = proto.NewMessageIDGen(time.Now, workers*requestsPerWorker)
 	})
 
 	{
