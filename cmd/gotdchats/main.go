@@ -17,7 +17,6 @@ import (
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/tg"
-	"github.com/gotd/td/transport"
 )
 
 func run(ctx context.Context) error {
@@ -49,7 +48,7 @@ func run(ctx context.Context) error {
 	client := telegram.NewClient(telegram.TestAppID, telegram.TestAppHash, telegram.Options{
 		Logger:         logger,
 		SessionStorage: storage,
-		Resolver:       dcs.PlainResolver(dcs.PlainOptions{Dialer: transport.DialFunc(proxy.Dial)}),
+		Resolver:       dcs.PlainResolver(dcs.PlainOptions{Dial: proxy.Dial}),
 		DCList:         dcs.StagingDCs(),
 	})
 

@@ -10,7 +10,7 @@ import (
 	"github.com/gotd/td/bin"
 )
 
-func TestTransport_Pipe(t *testing.T) {
+func TestProtocol_Pipe(t *testing.T) {
 	a := require.New(t)
 
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
@@ -28,7 +28,7 @@ func TestTransport_Pipe(t *testing.T) {
 		a.Equal(payload, b2.Buf)
 	}
 
-	c1, c2 := Intermediate().Pipe()
+	c1, c2 := Intermediate.Pipe()
 	test(c1, c2)
 	test(c2, c1)
 }

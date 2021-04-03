@@ -16,7 +16,7 @@ func TestBufferedConn(t *testing.T) {
 	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
 	defer cancel()
 
-	i := transport.Intermediate()
+	i := transport.Intermediate
 	c1, c2 := i.Pipe()
 
 	payload := []byte("abcdabcd")

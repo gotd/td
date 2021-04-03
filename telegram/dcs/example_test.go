@@ -1,4 +1,4 @@
-package transport_test
+package dcs_test
 
 import (
 	"context"
@@ -9,15 +9,16 @@ import (
 
 	"github.com/gotd/td/telegram"
 	"github.com/gotd/td/telegram/dcs"
-	"github.com/gotd/td/transport"
 )
 
 func ExampleDialFunc() {
+	// Dial using proxy from environment.
+
 	// Creating connection.
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 	client := telegram.NewClient(1, "appHash", telegram.Options{
-		Resolver: dcs.PlainResolver(dcs.PlainOptions{Dialer: transport.DialFunc(proxy.Dial)}),
+		Resolver: dcs.PlainResolver(dcs.PlainOptions{Dial: proxy.Dial}),
 	})
 
 	_ = client.Run(ctx, func(ctx context.Context) error {
@@ -26,9 +27,9 @@ func ExampleDialFunc() {
 	})
 }
 
-// ExampleDialer for socks5. Methods form https://stackoverflow.com/questions/59456936/socks5-proxy-client-with-context-support
-func ExampleDialer() {
-	// No error would be return.
+func ExampleDialFunc_dialer() {
+	// Dial using SOCKS5 proxy.
+
 	sock5, _ := proxy.SOCKS5("tcp", "IP:PORT", &proxy.Auth{
 		User:     "YOURUSERNAME",
 		Password: "YOURPASSWORD",
@@ -39,7 +40,9 @@ func ExampleDialer() {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second*5)
 	defer cancel()
 	client := telegram.NewClient(1, "appHash", telegram.Options{
-		Resolver: dcs.PlainResolver(dcs.PlainOptions{Dialer: dc}),
+		Resolver: dcs.PlainResolver(dcs.PlainOptions{
+			Dial: dc.DialContext,
+		}),
 	})
 
 	_ = client.Run(ctx, func(ctx context.Context) error {

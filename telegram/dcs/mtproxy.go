@@ -17,8 +17,8 @@ import (
 )
 
 type mtProxy struct {
-	dialer        transport.Dialer
-	transport     *transport.Transport
+	dial          DialFunc
+	protocol      *transport.Protocol
 	addr, network string
 
 	secret mtproxy.Secret
@@ -39,12 +39,12 @@ func (m mtProxy) CDN(ctx context.Context, dc int, _ []tg.DCOption) (transport.Co
 }
 
 func (m mtProxy) resolve(ctx context.Context, dc int) (transport.Conn, error) {
-	c, err := m.dialer.DialContext(ctx, m.network, m.addr)
+	c, err := m.dial(ctx, m.network, m.addr)
 	if err != nil {
 		return nil, xerrors.Errorf("connect to the MTProxy %q: %w", m.addr, err)
 	}
 
-	conn, err := m.handshake(c, dc)
+	conn, err := m.handshakeConn(c, dc)
 	if err != nil {
 		err = xerrors.Errorf("handshake: %w", err)
 		return nil, multierr.Combine(err, c.Close())
@@ -53,8 +53,8 @@ func (m mtProxy) resolve(ctx context.Context, dc int) (transport.Conn, error) {
 	return conn, nil
 }
 
-// handshake inits given net.Conn as MTProto connection.
-func (m mtProxy) handshake(c net.Conn, dc int) (transport.Conn, error) {
+// handshakeConn inits given net.Conn as MTProto connection.
+func (m mtProxy) handshakeConn(c net.Conn, dc int) (transport.Conn, error) {
 	var obsConn *obfuscator.Conn
 	switch m.secret.Type {
 	case mtproxy.Simple, mtproxy.Secured:
@@ -71,7 +71,7 @@ func (m mtProxy) handshake(c net.Conn, dc int) (transport.Conn, error) {
 		return nil, xerrors.Errorf("MTProxy handshake: %w", err)
 	}
 
-	transportConn, err := m.transport.Handshake(obsConn)
+	transportConn, err := m.protocol.Handshake(obsConn)
 	if err != nil {
 		return nil, xerrors.Errorf("transport handshake: %w", err)
 	}
@@ -81,17 +81,19 @@ func (m mtProxy) handshake(c net.Conn, dc int) (transport.Conn, error) {
 
 // MTProxyOptions is MTProxy resolver creation options.
 type MTProxyOptions struct {
-	// Dialer to use. net.Dialer will be used by default.
-	Dialer transport.Dialer
-	// Network to use.
+	// Dial specifies the dial function for creating unencrypted TCP connections.
+	// If Dial is nil, then the resolver dials using package net.
+	Dial DialFunc
+	// Network to use. Defaults to "tcp"
 	Network string
 	// Random source for MTProxy obfuscator.
 	Rand io.Reader
 }
 
 func (m *MTProxyOptions) setDefaults() {
-	if m.Dialer == nil {
-		m.Dialer = &net.Dialer{}
+	if m.Dial == nil {
+		var d net.Dialer
+		m.Dial = d.DialContext
 	}
 	if m.Network == "" {
 		m.Network = "tcp"
@@ -113,10 +115,10 @@ func MTProxyResolver(addr string, secret []byte, opts MTProxyOptions) (Resolver,
 	cdc := codec.PaddedIntermediate{}
 	opts.setDefaults()
 	return mtProxy{
-		dialer:  opts.Dialer,
+		dial:    opts.Dial,
 		addr:    addr,
 		network: opts.Network,
-		transport: transport.NewTransport(func() transport.Codec {
+		protocol: transport.NewProtocol(func() transport.Codec {
 			return codec.NoHeader{Codec: cdc}
 		}),
 		secret: s,
