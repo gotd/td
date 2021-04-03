@@ -4,10 +4,12 @@ import (
 	"context"
 	"sync"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/require"
 
 	"github.com/gotd/td/bin"
+	"github.com/gotd/td/internal/proto"
 	"github.com/gotd/td/tg"
 )
 
@@ -22,32 +24,39 @@ func TestMsgSeq(t *testing.T) {
 		mux     sync.Mutex
 	)
 
-	conn := newTestClient(func(msgID int64, seqNo int32, body bin.Encoder) (bin.Encoder, error) {
-		mux.Lock()
-		records = append(records, record{msgID, seqNo})
-		mux.Unlock()
-		return &tg.Config{}, nil
-	})
-
 	const (
 		workers           = 32
 		requestsPerWorker = 200
 	)
+	client := newTestClient(func(msgID int64, seqNo int32, body bin.Encoder) (bin.Encoder, error) {
+		mux.Lock()
+		records = append(records, record{msgID, seqNo})
+		mux.Unlock()
+		return &tg.Config{}, nil
+	}, func(o Options) {
+		// Increasing N of message id generator to mitigate time resolution
+		// side-effect.
+		//
+		// This should prevent test from failing on id collision problem.
+		o.MessageID = proto.NewMessageIDGen(time.Now, workers*requestsPerWorker)
+	})
 
-	var wg sync.WaitGroup
-	wg.Add(workers)
-	for i := 0; i < workers; i++ {
-		go func(t *testing.T) {
-			defer wg.Done()
+	{
+		var wg sync.WaitGroup
+		wg.Add(workers)
+		for i := 0; i < workers; i++ {
+			go func(t *testing.T) {
+				defer wg.Done()
 
-			for i := 0; i < requestsPerWorker; i++ {
-				err := conn.InvokeRaw(context.Background(), &tg.Config{}, &tg.Config{})
-				require.NoError(t, err)
-			}
-		}(t)
+				for i := 0; i < requestsPerWorker; i++ {
+					err := client.InvokeRaw(context.Background(), &tg.Config{}, &tg.Config{})
+					require.NoError(t, err)
+				}
+			}(t)
+		}
+
+		wg.Wait()
 	}
-
-	wg.Wait()
 
 	var received []record
 	less := func(msgID int64, f func(r record)) {

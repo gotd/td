@@ -25,7 +25,9 @@ import (
 
 type testHandler func(msgID int64, seqNo int32, body bin.Encoder) (bin.Encoder, error)
 
-func newTestClient(h testHandler) *Conn {
+type testClientOption func(o Options)
+
+func newTestClient(h testHandler, opts ...testClientOption) *Conn {
 	var engine *rpc.Engine
 
 	engine = rpc.New(func(ctx context.Context, msgID int64, seqNo int32, in bin.Encoder) error {
@@ -41,16 +43,19 @@ func newTestClient(h testHandler) *Conn {
 		return nil
 	}, rpc.Options{})
 
-	client := New(nil, Options{
+	opt := Options{
 		Logger:    zap.NewNop(),
 		Random:    rand.New(rand.NewSource(1)),
 		Key:       crypto.Key{}.WithID(),
 		MessageID: proto.NewMessageIDGen(time.Now, 100),
 
 		engine: engine,
-	})
+	}
+	for _, o := range opts {
+		o(opt)
+	}
 
-	return client
+	return New(nil, opt)
 }
 
 // newCorpusTracer will save incoming messages to corpus folder.

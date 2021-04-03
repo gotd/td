@@ -181,6 +181,12 @@ func (g *MessageIDGen) New(t MessageType) int64 {
 // Current time will be provided by now() function.
 // The n parameter configures capacity of message id history, bigger n results
 // in bigger memory consumption.
+//
+// This generator compensates time resolution problem via soring last N
+// generated IDs in memory, reducing probability of id collision.
+//
+// Such problem can be observed for relatively high RPS, sequential calls to
+// time.Now() will return same time which leads to equal ids.
 func NewMessageIDGen(now func() time.Time, n int) *MessageIDGen {
 	return &MessageIDGen{
 		buf: make([]int64, n),
