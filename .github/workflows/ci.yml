@@ -46,4 +46,8 @@ jobs:
         run: go mod download && go mod tidy
 
       - name: Run tests
-        run: make test
+        run: go test --timeout 5m ./...
+
+      - name: Run tests with race
+        if: ${{ matrix.runner == 'ubuntu-latest' }}
+        run: go test --timeout 5m --race ./...
