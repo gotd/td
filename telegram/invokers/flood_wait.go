@@ -55,7 +55,7 @@ func NewWaiter(prev tg.Invoker) *Waiter {
 	return &Waiter{
 		prev:       prev,
 		waiters:    map[uint32]*request{},
-		retryLimit: 3,
+		retryLimit: 5,
 		waitLimit:  60 * time.Second,
 	}
 }
