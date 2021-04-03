@@ -182,7 +182,7 @@ func (g *MessageIDGen) New(t MessageType) int64 {
 // The n parameter configures capacity of message id history, bigger n results
 // in bigger memory consumption.
 //
-// This generator compensates time resolution problem via soring last N
+// This generator compensates time resolution problem via storing last N
 // generated IDs in memory, reducing probability of id collision.
 //
 // Such problem can be observed for relatively high RPS, sequential calls to
