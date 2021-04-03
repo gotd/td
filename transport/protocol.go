@@ -18,8 +18,8 @@ type Protocol struct {
 // NewProtocol creates new transport protocol using user Codec constructor.
 //
 // See https://core.telegram.org/mtproto/mtproto-transports
-func NewProtocol(getCodec func() Codec) *Protocol {
-	return &Protocol{
+func NewProtocol(getCodec func() Codec) Protocol {
+	return Protocol{
 		codec: getCodec,
 	}
 }
@@ -31,40 +31,32 @@ var (
 	// Abridged is abridged transport protocol.
 	//
 	// See https://core.telegram.org/mtproto/mtproto-transports#abridged
-	Abridged = NewProtocol(func() Codec {
-		return codec.Abridged{}
-	})
+	Abridged = NewProtocol(func() Codec { return codec.Abridged{} })
 
 	// Intermediate is intermediate transport protocol.
 	//
 	// See https://core.telegram.org/mtproto/mtproto-transports#intermediate
-	Intermediate = NewProtocol(func() Codec {
-		return codec.Intermediate{}
-	})
+	Intermediate = NewProtocol(func() Codec { return codec.Intermediate{} })
 
 	// PaddedIntermediate is padded intermediate transport protocol.
 	//
 	// See https://core.telegram.org/mtproto/mtproto-transports#padded-intermediate
-	PaddedIntermediate = NewProtocol(func() Codec {
-		return codec.PaddedIntermediate{}
-	})
+	PaddedIntermediate = NewProtocol(func() Codec { return codec.PaddedIntermediate{} })
 
 	// Full is full transport protocol.
 	//
 	// See https://core.telegram.org/mtproto/mtproto-transports#full
-	Full = NewProtocol(func() Codec {
-		return &codec.Full{}
-	})
+	Full = NewProtocol(func() Codec { return &codec.Full{} })
 )
 
 // Codec creates new codec using protocol settings.
-func (t *Protocol) Codec() Codec {
-	return t.codec()
+func (p Protocol) Codec() Codec {
+	return p.codec()
 }
 
 // Handshake inits given net.Conn as MTProto connection.
-func (t *Protocol) Handshake(conn net.Conn) (Conn, error) {
-	connCodec := t.codec()
+func (p Protocol) Handshake(conn net.Conn) (Conn, error) {
+	connCodec := p.codec()
 	if err := connCodec.WriteHeader(conn); err != nil {
 		return nil, xerrors.Errorf("write header: %w", err)
 	}
@@ -76,14 +68,14 @@ func (t *Protocol) Handshake(conn net.Conn) (Conn, error) {
 }
 
 // Pipe creates a in-memory MTProto connection.
-func (t *Protocol) Pipe() (a, b Conn) {
+func (p Protocol) Pipe() (a, b Conn) {
 	p1, p2 := net.Pipe()
 
 	return &connection{
 			conn:  p1,
-			codec: t.codec(),
+			codec: p.codec(),
 		}, &connection{
 			conn:  p2,
-			codec: t.codec(),
+			codec: p.codec(),
 		}
 }

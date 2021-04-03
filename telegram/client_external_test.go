@@ -24,7 +24,7 @@ import (
 	"github.com/gotd/td/transport"
 )
 
-func testTransportExternal(trp *transport.Protocol, storage session.Storage) func(t *testing.T) {
+func testTransportExternal(p dcs.Protocol, storage session.Storage) func(t *testing.T) {
 	return func(t *testing.T) {
 		ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
 		defer cancel()
@@ -35,9 +35,7 @@ func testTransportExternal(trp *transport.Protocol, storage session.Storage) fun
 		err := telegram.TestClient(ctx, telegram.Options{
 			Logger:         log.Named("client"),
 			SessionStorage: storage,
-			Resolver: dcs.PlainResolver(dcs.PlainOptions{
-				Protocol: trp,
-			}),
+			Resolver:       dcs.PlainResolver(dcs.PlainOptions{Protocol: p}),
 		}, func(ctx context.Context, client *telegram.Client) error {
 			if _, err := client.Self(ctx); err != nil {
 				return xerrors.Errorf("self: %w", err)

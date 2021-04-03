@@ -39,7 +39,7 @@ type clientSetup struct {
 }
 
 func testQuorum(
-	trp *transport.Protocol,
+	p dcs.Protocol,
 	setup func(q quorumSetup),
 	run func(ctx context.Context, c clientSetup) error,
 ) func(t *testing.T) {
@@ -51,7 +51,7 @@ func testQuorum(
 		defer cancel()
 		grp := tdsync.NewCancellableGroup(ctx)
 
-		q := tgtest.NewQuorum(trp.Codec).WithLogger(log.Named("quorum"))
+		q := tgtest.NewQuorum(p.Codec).WithLogger(log.Named("quorum"))
 		setup(quorumSetup{
 			TB:     t,
 			Quorum: q,
@@ -71,7 +71,7 @@ func testQuorum(
 				TB: t,
 				Options: telegram.Options{
 					PublicKeys:     q.Keys(),
-					Resolver:       dcs.PlainResolver(dcs.PlainOptions{Protocol: trp}),
+					Resolver:       dcs.PlainResolver(dcs.PlainOptions{Protocol: p}),
 					Logger:         log.Named("client"),
 					SessionStorage: &session.StorageMemory{},
 					DCList:         q.Config().DCOptions,
@@ -87,17 +87,17 @@ func testQuorum(
 	}
 }
 
-func testAllTransports(t *testing.T, test func(trp *transport.Protocol) func(t *testing.T)) {
+func testAllTransports(t *testing.T, test func(p dcs.Protocol) func(t *testing.T)) {
 	t.Run("Abridged", test(transport.Abridged))
 	t.Run("Intermediate", test(transport.Intermediate))
 	t.Run("PaddedIntermediate", test(transport.PaddedIntermediate))
 	t.Run("Full", test(transport.Full))
 }
 
-func testTransport(trp *transport.Protocol) func(t *testing.T) {
+func testTransport(p dcs.Protocol) func(t *testing.T) {
 	testMessage := "ну че там с деньгами?"
 
-	return testQuorum(trp, func(s quorumSetup) {
+	return testQuorum(p, func(s quorumSetup) {
 		q := s.Quorum
 
 		h := tgtest.TestTransport(s.TB, s.Logger.Named("handler"), testMessage)
@@ -155,9 +155,9 @@ func TestClientE2E(t *testing.T) {
 	testAllTransports(t, testTransport)
 }
 
-func testMigrate(trp *transport.Protocol) func(t *testing.T) {
+func testMigrate(p dcs.Protocol) func(t *testing.T) {
 	wait := make(chan struct{}, 1)
-	return testQuorum(trp, func(s quorumSetup) {
+	return testQuorum(p, func(s quorumSetup) {
 		q := s.Quorum
 		q.Common().Vector(tg.UsersGetUsersRequestTypeID, &tg.User{
 			ID:         10,
@@ -217,8 +217,8 @@ func TestMigrate(t *testing.T) {
 	t.Run("Intermediate", testMigrate(transport.Intermediate))
 }
 
-func testFiles(trp *transport.Protocol) func(t *testing.T) {
-	return testQuorum(trp, func(s quorumSetup) {
+func testFiles(p dcs.Protocol) func(t *testing.T) {
+	return testQuorum(p, func(s quorumSetup) {
 		q := s.Quorum
 		q.Common().Vector(tg.UsersGetUsersRequestTypeID, &tg.User{
 			ID:         10,

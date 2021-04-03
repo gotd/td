@@ -16,9 +16,13 @@ import (
 	"github.com/gotd/td/transport"
 )
 
+type protocol interface {
+	Handshake(conn net.Conn) (transport.Conn, error)
+}
+
 type mtProxy struct {
 	dial          DialFunc
-	protocol      *transport.Protocol
+	protocol      protocol
 	addr, network string
 
 	secret mtproxy.Secret
@@ -115,14 +119,12 @@ func MTProxyResolver(addr string, secret []byte, opts MTProxyOptions) (Resolver,
 	cdc := codec.PaddedIntermediate{}
 	opts.setDefaults()
 	return mtProxy{
-		dial:    opts.Dial,
-		addr:    addr,
-		network: opts.Network,
-		protocol: transport.NewProtocol(func() transport.Codec {
-			return codec.NoHeader{Codec: cdc}
-		}),
-		secret: s,
-		tag:    cdc.ObfuscatedTag(),
-		rand:   opts.Rand,
+		dial:     opts.Dial,
+		addr:     addr,
+		network:  opts.Network,
+		protocol: transport.NewProtocol(func() transport.Codec { return codec.NoHeader{Codec: cdc} }),
+		secret:   s,
+		tag:      cdc.ObfuscatedTag(),
+		rand:     opts.Rand,
 	}, nil
 }
