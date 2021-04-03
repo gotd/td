@@ -52,8 +52,7 @@ func formats(name string) Formatter {
 		})
 	case "tdp":
 		return FormatterFunc(func(w io.Writer, i Object) error {
-
-			_, err := io.WriteString(w, tdp.Format(i, ))
+			_, err := io.WriteString(w, tdp.Format(i))
 			return err
 		})
 	default: // "go" format

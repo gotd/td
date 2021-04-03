@@ -28,7 +28,7 @@ func (b *RequestBuilder) AsInputUserClass(ctx context.Context) (tg.InputUserClas
 	return user, nil
 }
 
-// AsInputUserID returns resolve result as InputUser.
+// AsInputUser returns resolve result as InputUser.
 func (b *RequestBuilder) AsInputUser(ctx context.Context) (*tg.InputUser, error) {
 	user, err := b.AsInputUserClass(ctx)
 	if err != nil {
