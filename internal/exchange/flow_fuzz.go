@@ -25,7 +25,7 @@ func FuzzFlow(data []byte) int {
 		panic(err)
 	}
 
-	i := transport.Intermediate(nil)
+	i := transport.Intermediate
 	client, server := i.Pipe()
 
 	ctx, cancel := context.WithTimeout(context.Background(), time.Minute)
