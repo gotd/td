@@ -3,6 +3,7 @@ package invokers
 import (
 	"context"
 	"testing"
+	"time"
 
 	"github.com/stretchr/testify/require"
 
@@ -17,11 +18,24 @@ func TestWaiter(t *testing.T) {
 	waiter := NewWaiter(mock)
 	raw := tg.NewClient(waiter)
 
+	start := time.Now()
 	mock.Expect().N(2).ThenFlood(3)
 	mock.Expect().ThenResult(&tg.Config{})
+
+	_, err := raw.HelpGetConfig(ctx)
+	mock.NoError(err)
+	mock.GreaterOrEqualf(time.Since(start), 6*time.Second, "waiter does not wait enough")
+
+	start = time.Now()
 	mock.Expect().ThenResult(&tg.Config{})
 	mock.Expect().ThenResult(&tg.Config{})
 	mock.Expect().ThenResult(&tg.Config{})
+	for range [3]struct{}{} {
+		_, err = raw.HelpGetConfig(ctx)
+		mock.NoError(err)
+	}
+	mock.Lessf(time.Since(start), 9*time.Second, "timer does not decrease")
+
 	mock.Expect().N(1).ThenFlood(3)
 	mock.Expect().ThenResult(&tg.Config{})
 	mock.Expect().ThenResult(&tg.Config{})

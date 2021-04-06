@@ -46,8 +46,9 @@ type Waiter struct {
 	waiters    map[uint32]*request
 	waitersMux sync.RWMutex
 
-	retryLimit int           // immutable
-	waitLimit  time.Duration // immutable
+	retryLimit int
+	waitLimit  time.Duration
+	coolDown   time.Duration
 }
 
 // NewWaiter creates new Waiter invoker middleware.
@@ -57,6 +58,7 @@ func NewWaiter(prev tg.Invoker) *Waiter {
 		waiters:    map[uint32]*request{},
 		retryLimit: 5,
 		waitLimit:  60 * time.Second,
+		coolDown:   time.Second,
 	}
 }
 
@@ -69,6 +71,12 @@ func (w *Waiter) WithRetryLimit(retryLimit int) *Waiter {
 // WithWaitLimit sets wait limit for Waiter.
 func (w *Waiter) WithWaitLimit(waitLimit time.Duration) *Waiter {
 	w.waitLimit = waitLimit
+	return w
+}
+
+// WithCoolDown sets timer cool down for Waiter.
+func (w *Waiter) WithCoolDown(coolDown time.Duration) *Waiter {
+	w.coolDown = coolDown
 	return w
 }
 
@@ -138,7 +146,7 @@ func (w *Waiter) try(ctx context.Context, input bin.Encoder, output bin.Decoder,
 
 		// If result is not a FLOOD_WAIT, decrease timeout and return result.
 		if !ok {
-			if !req.decrementTimer(time.Second) {
+			if !req.decrementTimer(w.coolDown) {
 				// If timeout too small, delete timer.
 				w.waitersMux.Lock()
 				delete(w.waiters, typeID)
