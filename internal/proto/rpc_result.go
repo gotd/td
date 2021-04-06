@@ -33,6 +33,9 @@ func (r *Result) Decode(b *bin.Buffer) error {
 		}
 		r.RequestMessageID = v
 	}
+
 	r.Result = append(r.Result[:0], b.Buf...)
+	b.Skip(len(b.Buf))
+
 	return nil
 }
