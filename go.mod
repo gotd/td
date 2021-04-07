@@ -15,7 +15,7 @@ require (
 	github.com/mattn/go-colorable v0.1.2 // indirect
 	github.com/mattn/go-isatty v0.0.9 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
-	github.com/quasilyte/go-ruleguard/dsl v0.3.1
+	github.com/quasilyte/go-ruleguard/dsl v0.3.2
 	github.com/rogpeppe/go-internal v1.8.0
 	github.com/sergi/go-diff v1.1.0 // indirect
 	github.com/stretchr/testify v1.7.0
