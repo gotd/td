@@ -203,6 +203,9 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) (sent bool, err
 	}
 
 	loop := func() error {
+		timer := e.clock.Timer(e.retryInterval)
+		defer clock.StopTimer(timer)
+
 		for {
 			select {
 			case <-ctx.Done():
@@ -212,7 +215,9 @@ func (e *Engine) retryUntilAck(ctx context.Context, req Request) (sent bool, err
 			case <-ackChan:
 				log.Debug("Acknowledged")
 				return nil
-			case <-e.clock.After(e.retryInterval):
+			case <-timer.C():
+				timer.Reset(e.retryInterval)
+
 				log.Debug("Acknowledge timed out, performing retry")
 				if err := e.send(ctx, req.MsgID, req.SeqNo, req.Input); err != nil {
 					if errors.Is(err, context.Canceled) {

@@ -4,6 +4,7 @@ import (
 	"context"
 	"time"
 
+	"github.com/gotd/td/clock"
 	"github.com/gotd/td/telegram"
 )
 
@@ -11,8 +12,11 @@ import (
 // or false and context or original error otherwise.
 func FloodWait(ctx context.Context, err error) (bool, error) {
 	if d, ok := telegram.AsFloodWait(err); ok {
+		timer := clock.System.Timer(d + 1*time.Second)
+		defer clock.StopTimer(timer)
+
 		select {
-		case <-time.After(d + 1*time.Second):
+		case <-timer.C():
 			return true, err
 		case <-ctx.Done():
 			return false, ctx.Err()

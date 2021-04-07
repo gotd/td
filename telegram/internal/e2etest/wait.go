@@ -2,12 +2,11 @@ package e2etest
 
 import (
 	"context"
-	"time"
 
 	"github.com/cenkalti/backoff/v4"
 
 	"github.com/gotd/td/bin"
-	"github.com/gotd/td/telegram"
+	"github.com/gotd/td/telegram/internal/helpers"
 	"github.com/gotd/td/tg"
 )
 
@@ -18,13 +17,8 @@ type waitInvoker struct {
 func retryFloodWait(ctx context.Context, cb func() error) error {
 	return backoff.Retry(func() error {
 		if err := cb(); err != nil {
-			if timeout, ok := telegram.AsFloodWait(err); ok {
-				select {
-				case <-ctx.Done():
-					return ctx.Err()
-				case <-time.After(timeout + 1*time.Second):
-					return err
-				}
+			if ok, err := helpers.FloodWait(ctx, err); ok {
+				return err
 			}
 
 			return backoff.Permanent(err)
