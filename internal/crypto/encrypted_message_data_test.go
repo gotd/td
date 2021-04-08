@@ -9,6 +9,12 @@ import (
 )
 
 func TestEncryptedMessageData_Encode(t *testing.T) {
+	const padding = 16
+
+	paddingRequired := func(l int) int {
+		return padding + (padding - (l % padding))
+	}
+
 	d := EncryptedMessageData{
 		Salt:                   1034,
 		SeqNo:                  1,
