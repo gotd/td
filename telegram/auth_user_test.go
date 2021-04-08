@@ -143,7 +143,7 @@ func TestClientTestAuth(t *testing.T) {
 			assert.Equal(t, &tg.AuthSignInRequest{
 				PhoneNumber:   req.PhoneNumber,
 				PhoneCodeHash: codeHash,
-				PhoneCode:     strings.Repeat(dcPart, 5),
+				PhoneCode:     strings.Repeat(dcPart, 6),
 			}, req)
 			return &tg.AuthAuthorization{
 				User: &tg.User{ID: 1},
@@ -198,7 +198,7 @@ func TestClientTestSignUp(t *testing.T) {
 			assert.Equal(t, &tg.AuthSignInRequest{
 				PhoneNumber:   req.PhoneNumber,
 				PhoneCodeHash: codeHash,
-				PhoneCode:     strings.Repeat(dcPart, 5),
+				PhoneCode:     strings.Repeat(dcPart, 6),
 			}, req)
 
 			res := &tg.AuthAuthorizationSignUpRequired{}
