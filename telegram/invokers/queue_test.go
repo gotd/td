@@ -23,8 +23,8 @@ func TestQueue(t *testing.T) {
 	a.Len(q.gather(now.Add(1*time.Millisecond), nil), 1)
 	a.Equal(9, q.len())
 
-	now = now.Add(10*time.Second)
-	q.move(5, now, 10 * time.Second)
+	now = now.Add(10 * time.Second)
+	q.move(5, now, 10*time.Second)
 
 	a.Len(q.gather(now, nil), 8)
 	a.Equal(1, q.len())

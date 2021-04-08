@@ -9,25 +9,6 @@ import (
 	"github.com/gotd/td/clock"
 )
 
-type key uint64
-
-func (k *key) fromEncoder(encoder bin.Encoder) {
-	obj, ok := encoder.(Object)
-	if !ok {
-		return
-	}
-	*k = key(obj.TypeID())
-}
-
-type request struct {
-	ctx    context.Context
-	input  bin.Encoder
-	output bin.Decoder
-	key    key
-
-	result chan error
-}
-
 type scheduler struct {
 	state map[key]time.Duration
 	mux   sync.Mutex
@@ -38,9 +19,11 @@ type scheduler struct {
 }
 
 func newScheduler(c clock.Clock, dec time.Duration) *scheduler {
+	const initialCapacity = 16
+
 	return &scheduler{
-		state: map[key]time.Duration{},
-		queue: newQueue(16),
+		state: make(map[key]time.Duration, initialCapacity),
+		queue: newQueue(initialCapacity),
 		clock: c,
 		dec:   dec,
 	}
@@ -85,6 +68,8 @@ func (s *scheduler) nice(k key) {
 	s.mux.Lock()
 	if state, ok := s.state[k]; ok && state-s.dec > 0 {
 		s.state[k] = state - s.dec
+	} else {
+		delete(s.state, k)
 	}
 	s.mux.Unlock()
 }
@@ -93,11 +78,12 @@ func (s *scheduler) flood(req request, d time.Duration) {
 	k := req.key
 
 	s.mux.Lock()
+	now := s.clock.Now()
 	if state, ok := s.state[k]; !ok || state < d {
 		s.state[k] = d
 	}
-	s.queue.add(req, s.clock.Now().Add(d))
+	s.queue.add(req, now.Add(d))
 	s.mux.Unlock()
 
-	s.queue.move(k, d)
+	s.queue.move(k, now, d)
 }
