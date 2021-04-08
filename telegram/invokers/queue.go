@@ -18,7 +18,7 @@ type scheduledHeap []scheduled
 func (r scheduledHeap) Len() int { return len(r) }
 
 func (r scheduledHeap) Less(i, j int) bool {
-	return r[i].sendTime.Before(r[j].sendTime)
+	return r[i].sendTime.UnixNano() < r[j].sendTime.UnixNano()
 }
 
 func (r scheduledHeap) Swap(i, j int) {
@@ -43,49 +43,49 @@ func (r *scheduledHeap) Pop() interface{} {
 	return item
 }
 
-func (r *scheduledHeap) Peek() (scheduled, bool) {
-	old := *r
-	n := len(old)
-	if n < 1 {
-		return scheduled{}, false
-	}
-	x := old[n-1]
-	return x, true
-}
-
 type queue struct {
-	requests    *scheduledHeap
+	requests    scheduledHeap
 	requestsMux sync.Mutex
 }
 
 func newQueue(initialCapacity int) *queue {
 	r := make(scheduledHeap, 0, initialCapacity)
-	return &queue{requests: &r}
+	return &queue{requests: r}
 }
 
 func (q *queue) add(r request, t time.Time) {
 	q.requestsMux.Lock()
 	defer q.requestsMux.Unlock()
-	heap.Push(q.requests, scheduled{
+
+	heap.Push(&q.requests, scheduled{
 		request:  r,
 		sendTime: t,
 	})
 }
 
-func (q *queue) move(k key, dur time.Duration) {
+func (q *queue) len() int {
+	q.requestsMux.Lock()
+	r := len(q.requests)
+	q.requestsMux.Unlock()
+	return r
+}
+
+func (q *queue) move(k key, now time.Time, dur time.Duration) {
 	q.requestsMux.Lock()
 	defer q.requestsMux.Unlock()
 
-	old := *q.requests
-	for idx := range old {
-		if old[idx].key != k {
+	for idx, s := range q.requests {
+		if s.key != k {
 			continue
 		}
 
-		t := old[idx].sendTime
-		old[idx].sendTime = t.Add(dur)
-		heap.Fix(q.requests, idx)
+		t := s.sendTime
+		if t.Sub(now) > dur {
+			break
+		}
+		q.requests[idx].sendTime = t.Add(dur)
 	}
+	heap.Init(&q.requests)
 }
 
 func (q *queue) gather(now time.Time, req []scheduled) []scheduled {
@@ -93,19 +93,15 @@ func (q *queue) gather(now time.Time, req []scheduled) []scheduled {
 	defer q.requestsMux.Unlock()
 
 	for {
-		next, ok := q.requests.Peek()
-		if !ok {
+		if q.requests.Len() < 1 {
 			return req
 		}
 
-		switch {
-		case !ok:
+		next := heap.Pop(&q.requests).(scheduled)
+		if now.Before(next.sendTime) {
+			heap.Push(&q.requests, next)
 			return req
-		case now.Before(next.sendTime):
-			return req
-		default:
-			heap.Pop(q.requests)
-			req = append(req, next)
 		}
+		req = append(req, next)
 	}
 }
