@@ -2,7 +2,6 @@ package e2etest
 
 import (
 	"context"
-	"errors"
 	"strconv"
 	"sync"
 
@@ -85,8 +84,7 @@ func (b EchoBot) login(ctx context.Context, client *telegram.Client) (*tg.User, 
 	raw := tg.NewClient(waitInvoker{prev: client})
 	_, err := raw.AccountUpdateUsername(ctx, expectedUsername)
 	if err != nil {
-		var rpcErr *tgerr.Error
-		if !errors.As(err, &rpcErr) || rpcErr.Message != "USERNAME_NOT_MODIFIED" {
+		if !tgerr.Is(err, tg.ErrUsernameNotModified) {
 			return nil, xerrors.Errorf("update username: %w", err)
 		}
 	}
