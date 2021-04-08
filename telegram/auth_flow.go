@@ -251,7 +251,7 @@ func TestAuth(randReader io.Reader, dc int) UserAuthenticator {
 	if err != nil {
 		panic(err)
 	}
-	code := strings.Repeat(strconv.Itoa(dc), 5)
+	code := strings.Repeat(strconv.Itoa(dc), 6)
 	phone := fmt.Sprintf("99966%d%04d", dc, n)
 
 	return testAuth{
