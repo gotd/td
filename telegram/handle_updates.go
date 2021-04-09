@@ -56,6 +56,7 @@ func convertUpdateShortMessage(u *tg.UpdateShortMessage) *tg.UpdateShort {
 		FromID:      &tg.PeerUser{UserID: u.UserID},
 		PeerID:      &tg.PeerUser{UserID: u.UserID},
 		Message:     u.Message,
+		Date:        u.Date,
 	}
 	convertOptional(msg, u)
 
@@ -79,6 +80,7 @@ func convertUpdateShortChatMessage(u *tg.UpdateShortChatMessage) *tg.UpdateShort
 		FromID:      &tg.PeerUser{UserID: u.FromID},
 		PeerID:      &tg.PeerChat{ChatID: u.ChatID},
 		Message:     u.Message,
+		Date:        u.Date,
 	}
 	convertOptional(msg, u)
 
@@ -94,8 +96,9 @@ func convertUpdateShortChatMessage(u *tg.UpdateShortChatMessage) *tg.UpdateShort
 
 func convertUpdateShortSentMessage(u *tg.UpdateShortSentMessage) *tg.UpdateShort {
 	msg := &tg.Message{
-		Out: u.Out,
-		ID:  u.ID,
+		Out:  u.Out,
+		ID:   u.ID,
+		Date: u.Date,
 	}
 	convertOptional(msg, u)
 
