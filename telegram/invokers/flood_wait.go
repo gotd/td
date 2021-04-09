@@ -4,6 +4,8 @@ import (
 	"context"
 	"time"
 
+	"golang.org/x/xerrors"
+
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/clock"
 	"github.com/gotd/td/tg"
@@ -16,18 +18,20 @@ type Waiter struct {
 	clock clock.Clock
 	sch   *scheduler
 
-	tick      time.Duration
-	waitLimit int
+	tick       time.Duration
+	waitLimit  int
+	retryLimit int
 }
 
 // NewWaiter creates new Waiter invoker middleware.
 func NewWaiter(prev tg.Invoker) *Waiter {
 	return &Waiter{
-		prev:      prev,
-		clock:     clock.System,
-		sch:       newScheduler(clock.System, time.Second),
-		tick:      1 * time.Millisecond,
-		waitLimit: 60,
+		prev:       prev,
+		clock:      clock.System,
+		sch:        newScheduler(clock.System, time.Second),
+		tick:       1 * time.Millisecond,
+		waitLimit:  60,
+		retryLimit: 5,
 	}
 }
 
@@ -39,8 +43,16 @@ func (w *Waiter) WithClock(c clock.Clock) *Waiter {
 
 // WithWaitLimit sets wait limit to use.
 func (w *Waiter) WithWaitLimit(waitLimit int) *Waiter {
-	if w.waitLimit >= 0 {
+	if waitLimit >= 0 {
 		w.waitLimit = waitLimit
+	}
+	return w
+}
+
+// WithRetryLimit sets retry limit to use.
+func (w *Waiter) WithRetryLimit(retryLimit int) *Waiter {
+	if retryLimit >= 0 {
+		w.retryLimit = retryLimit
 	}
 	return w
 }
@@ -68,19 +80,8 @@ func (w *Waiter) Run(ctx context.Context) error {
 			}
 
 			for _, s := range requests {
-				err := w.prev.InvokeRaw(ctx, s.input, s.output)
-
-				floodWait, ok := tgerr.AsType(err, ErrFloodWait)
-				if ok && floodWait.Argument < w.waitLimit {
-					w.sch.flood(s.request, time.Duration(floodWait.Argument)*time.Second)
-					continue
-				}
-
-				if !ok {
-					w.sch.nice(s.key)
-				}
 				select {
-				case s.result <- err:
+				case s.request.result <- w.send(s):
 				default:
 				}
 			}
@@ -88,6 +89,25 @@ func (w *Waiter) Run(ctx context.Context) error {
 			return ctx.Err()
 		}
 	}
+}
+
+func (w *Waiter) send(s scheduled) error {
+	err := w.prev.InvokeRaw(s.request.ctx, s.request.input, s.request.output)
+
+	floodWait, ok := tgerr.AsType(err, ErrFloodWait)
+	switch {
+	case !ok:
+		w.sch.nice(s.request.key)
+		return err
+	case floodWait.Argument >= w.waitLimit:
+		return xerrors.Errorf("FLOOD_WAIT argument is too big (%d >= %d)", floodWait.Argument, w.waitLimit)
+	case s.request.retry >= w.retryLimit:
+		return xerrors.Errorf("Retry limit exceeded (%d >= %d)", s.request.retry, w.retryLimit)
+	}
+
+	s.request.retry++
+	w.sch.flood(s.request, time.Duration(floodWait.Argument)*time.Second)
+	return nil
 }
 
 // Object is a abstraction for Telegram API object with TypeID.

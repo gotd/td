@@ -7,8 +7,7 @@ import (
 )
 
 type scheduled struct {
-	request
-
+	request  request
 	sendTime time.Time
 	index    int
 }
@@ -75,7 +74,7 @@ func (q *queue) move(k key, now time.Time, dur time.Duration) {
 	defer q.requestsMux.Unlock()
 
 	for idx, s := range q.requests {
-		if s.key != k {
+		if s.request.key != k {
 			continue
 		}
 

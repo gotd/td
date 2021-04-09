@@ -22,5 +22,6 @@ type request struct {
 	output bin.Decoder
 	key    key
 
+	retry  int
 	result chan error
 }
