@@ -294,42 +294,37 @@ func (c *Client) runUntilRestart(ctx context.Context) error {
 func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 	// Note that we currently have no timeout on connection, so this is
 	// potentially eternal.
-	b := tdsync.SyncBackoff(c.connBackoff())
+	b := tdsync.SyncBackoff(backoff.WithContext(c.connBackoff(), ctx))
 
-	for {
-		b.Reset()
+	return backoff.Retry(func() error {
 		err := c.runUntilRestart(ctx)
 		if err == nil {
 			return nil
 		}
-		select {
-		case <-ctx.Done():
-			return ctx.Err()
-		case <-c.clock.After(b.NextBackOff()):
-			c.log.Info("Restarting connection", zap.Error(err))
+		c.log.Info("Restarting connection", zap.Error(err))
 
-			c.connMux.Lock()
-			setup := func(ctx context.Context, invoker tg.Invoker) error {
-				// Setup function call means successful connection
-				// initialization, so we can reset backoff.
-				b.Reset()
+		c.connMux.Lock()
+		setup := func(ctx context.Context, invoker tg.Invoker) error {
+			// Setup function call means successful connection
+			// initialization, so we can reset backoff.
+			b.Reset()
 
-				raw := tg.NewClient(invoker)
-				select {
-				case export := <-c.exported:
-					_, err := raw.AuthImportAuthorization(ctx, &tg.AuthImportAuthorizationRequest{
-						ID:    export.ID,
-						Bytes: export.Bytes,
-					})
-					return err
-				default:
-				}
-				return nil
+			raw := tg.NewClient(invoker)
+			select {
+			case export := <-c.exported:
+				_, err := raw.AuthImportAuthorization(ctx, &tg.AuthImportAuthorizationRequest{
+					ID:    export.ID,
+					Bytes: export.Bytes,
+				})
+				return err
+			default:
 			}
-			c.conn = c.createPrimaryConn(setup)
-			c.connMux.Unlock()
+			return nil
 		}
-	}
+		c.conn = c.createPrimaryConn(setup)
+		c.connMux.Unlock()
+		return err
+	}, b)
 }
 
 func (c *Client) onReady() {

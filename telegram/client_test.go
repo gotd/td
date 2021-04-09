@@ -5,15 +5,19 @@ import (
 	"crypto/md5"
 	"fmt"
 	"math/rand"
+	"net"
 	"os"
 	"path/filepath"
 	"strings"
 	"testing"
+	"time"
 
+	"github.com/cenkalti/backoff/v4"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/atomic"
 	"go.uber.org/zap"
+	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mt"
@@ -21,6 +25,7 @@ import (
 	"github.com/gotd/td/internal/rpc"
 	"github.com/gotd/td/internal/tdsync"
 	"github.com/gotd/td/internal/tmap"
+	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/telegram/internal/rpcmock"
 	"github.com/gotd/td/tg"
 )
@@ -89,6 +94,25 @@ func mockClient(cb func(mock *rpcmock.Mock, client *Client)) func(t *testing.T) 
 		client := newTestClient(testHandler(mock.Handler()))
 		cb(mock, client)
 	}
+}
+
+func TestEnsureErrorIfCantConnect(t *testing.T) {
+	testErr := xerrors.New("test error")
+	dialer := func(ctx context.Context, network, addr string) (net.Conn, error) {
+		return nil, testErr
+	}
+	opts := Options{
+		Resolver: dcs.PlainResolver(dcs.PlainOptions{Dial: dialer}),
+		ReconnectionBackoff: func() backoff.BackOff {
+			return backoff.WithMaxRetries(backoff.NewConstantBackOff(time.Nanosecond), 2)
+		},
+	}
+
+	err := NewClient(1, "hash", opts).Run(context.Background(),
+		func(ctx context.Context) error {
+			return nil
+		})
+	require.ErrorIs(t, err, testErr)
 }
 
 // newCorpusTracer will save incoming messages to corpus folder.
