@@ -73,7 +73,7 @@ codePrompt := func(ctx context.Context) (string, error) {
 // This will setup and perform authentication flow.
 // If account does not require 2FA password, use telegram.CodeOnlyAuth
 // instead of telegram.ConstantAuth.
-if err := telegram.NewAuth(
+if _, err := telegram.NewAuth(
     telegram.ConstantAuth(phone, password, telegram.CodeAuthenticatorFunc(codePrompt)),
     telegram.SendCodeOptions{},
 ).Run(ctx, client); err != nil {
