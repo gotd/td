@@ -3,6 +3,8 @@ package telegram
 import (
 	"context"
 
+	"golang.org/x/xerrors"
+
 	"github.com/gotd/td/tg"
 )
 
@@ -16,5 +18,9 @@ func (c *Client) AuthBot(ctx context.Context, token string) (*tg.User, error) {
 	if err != nil {
 		return nil, err
 	}
-	return checkAuthResult(auth)
+	user, err := checkAuthResult(auth)
+	if err != nil {
+		return nil, xerrors.Errorf("check: %w", err)
+	}
+	return user, nil
 }
