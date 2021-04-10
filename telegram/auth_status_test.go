@@ -54,8 +54,6 @@ func TestClient_AuthIfNecessary(t *testing.T) {
 		a.Expect().ThenResult(&tg.UserClassVector{Elems: []tg.UserClass{testUser}})
 
 		// Pass empty AuthFlow because it should not be called anyway.
-		user, err := client.AuthIfNecessary(ctx, AuthFlow{})
-		a.NoError(err)
-		a.Equal(testUser, user)
+		a.NoError(client.AuthIfNecessary(ctx, AuthFlow{}))
 	}))
 }

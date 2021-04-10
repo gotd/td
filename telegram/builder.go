@@ -155,12 +155,13 @@ func TestClient(ctx context.Context, opts Options, cb func(ctx context.Context, 
 	return retry(ctx, logger, func(retryCtx context.Context) error {
 		client := NewClient(TestAppID, TestAppHash, opts)
 		return client.Run(retryCtx, func(runCtx context.Context) error {
-			if _, err := client.AuthIfNecessary(runCtx, NewAuth(
+			if err := client.AuthIfNecessary(runCtx, NewAuth(
 				TestAuth(rand.Reader, opts.DC),
 				SendCodeOptions{},
 			)); err != nil {
 				return xerrors.Errorf("auth flow: %w", err)
 			}
+
 			return cb(runCtx, client)
 		})
 	})

@@ -70,11 +70,10 @@ func (s *Suite) Authenticate(ctx context.Context, client *telegram.Client) error
 		s.usedMux.Unlock()
 	}
 
-	_, err := telegram.NewAuth(
+	return telegram.NewAuth(
 		auth,
 		telegram.SendCodeOptions{},
 	).Run(ctx, client)
-	return err
 }
 
 // RetryAuthenticate authenticates client on test server.

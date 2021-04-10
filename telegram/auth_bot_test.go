@@ -21,9 +21,9 @@ func TestClient_AuthBot(t *testing.T) {
 			APIHash:      TestAppHash,
 		}).ThenResult(&tg.AuthAuthorization{User: testUser})
 
-		user, err := client.AuthBot(context.Background(), token)
+		result, err := client.AuthBot(context.Background(), token)
 		a.NoError(err)
-		a.Equal(testUser, user)
+		a.Equal(testUser, result.User)
 	}))
 
 	t.Run("AuthAuthorizationSignUpRequired", mockClient(func(a *rpcmock.Mock, client *Client) {
@@ -33,8 +33,8 @@ func TestClient_AuthBot(t *testing.T) {
 			APIHash:      TestAppHash,
 		}).ThenResult(&tg.AuthAuthorizationSignUpRequired{})
 
-		user, err := client.AuthBot(context.Background(), token)
+		result, err := client.AuthBot(context.Background(), token)
 		a.Error(err)
-		a.Nil(user)
+		a.Nil(result)
 	}))
 }
