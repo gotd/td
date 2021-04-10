@@ -21,21 +21,21 @@ var ErrPasswordInvalid = errors.New("invalid password")
 // AuthPassword performs login via secure remote password (aka 2FA).
 //
 // Method can be called after AuthSignIn to provide password if requested.
-func (c *Client) AuthPassword(ctx context.Context, password string) error {
+func (c *Client) AuthPassword(ctx context.Context, password string) (*tg.User, error) {
 	p, err := c.tg.AccountGetPassword(ctx)
 	if err != nil {
-		return xerrors.Errorf("get SRP parameters: %w", err)
+		return nil, xerrors.Errorf("get SRP parameters: %w", err)
 	}
 
 	algo, ok := p.CurrentAlgo.(*tg.PasswordKdfAlgoSHA256SHA256PBKDF2HMACSHA512iter100000SHA256ModPow)
 	if !ok {
-		return xerrors.Errorf("unsupported algo: %T", p.CurrentAlgo)
+		return nil, xerrors.Errorf("unsupported algo: %T", p.CurrentAlgo)
 	}
 
 	s := srp.NewSRP(c.rand)
 	a, err := s.Hash([]byte(password), p.SRPB, p.SecureRandom, srp.Input(*algo))
 	if err != nil {
-		return xerrors.Errorf("create SRP answer: %w", err)
+		return nil, xerrors.Errorf("create SRP answer: %w", err)
 	}
 
 	auth, err := c.tg.AuthCheckPassword(ctx, &tg.InputCheckPasswordSRP{
@@ -44,16 +44,16 @@ func (c *Client) AuthPassword(ctx context.Context, password string) error {
 		M1:    a.M1,
 	})
 	if tg.IsPasswordHashInvalid(err) {
-		return ErrPasswordInvalid
+		return nil, ErrPasswordInvalid
 	}
 	if err != nil {
-		return xerrors.Errorf("check password: %w", err)
+		return nil, xerrors.Errorf("check password: %w", err)
 	}
-	if err := c.checkAuthResult(auth); err != nil {
-		return xerrors.Errorf("check: %w", err)
+	user, err := checkAuthResult(auth)
+	if err != nil {
+		return nil, xerrors.Errorf("check: %w", err)
 	}
-
-	return nil
+	return user, nil
 }
 
 // SendCodeOptions defines how to send auth code to user.
@@ -107,23 +107,23 @@ var ErrPasswordAuthNeeded = errors.New("2FA required")
 // password.
 //
 // To obtain codeHash, use AuthSendCode.
-func (c *Client) AuthSignIn(ctx context.Context, phone, code, codeHash string) error {
-	a, err := c.tg.AuthSignIn(ctx, &tg.AuthSignInRequest{
+func (c *Client) AuthSignIn(ctx context.Context, phone, code, codeHash string) (*tg.User, error) {
+	auth, err := c.tg.AuthSignIn(ctx, &tg.AuthSignInRequest{
 		PhoneNumber:   phone,
 		PhoneCodeHash: codeHash,
 		PhoneCode:     code,
 	})
 	if tgerr.Is(err, "SESSION_PASSWORD_NEEDED") {
-		return ErrPasswordAuthNeeded
+		return nil, ErrPasswordAuthNeeded
 	}
 	if err != nil {
-		return xerrors.Errorf("sign in: %w", err)
+		return nil, xerrors.Errorf("sign in: %w", err)
 	}
-	if err := c.checkAuthResult(a); err != nil {
-		return xerrors.Errorf("check: %w", err)
+	user, err := checkAuthResult(auth)
+	if err != nil {
+		return nil, xerrors.Errorf("check: %w", err)
 	}
-
-	return nil
+	return user, nil
 }
 
 // AuthAcceptTOS accepts version of Terms Of Service.
@@ -144,7 +144,7 @@ type SignUp struct {
 //
 // To obtain codeHash, use AuthSendCode.
 // Use AuthFlow helper to handle authentication flow.
-func (c *Client) AuthSignUp(ctx context.Context, s SignUp) error {
+func (c *Client) AuthSignUp(ctx context.Context, s SignUp) (*tg.User, error) {
 	auth, err := c.tg.AuthSignUp(ctx, &tg.AuthSignUpRequest{
 		LastName:      s.LastName,
 		PhoneCodeHash: s.PhoneCodeHash,
@@ -152,10 +152,11 @@ func (c *Client) AuthSignUp(ctx context.Context, s SignUp) error {
 		FirstName:     s.FirstName,
 	})
 	if err != nil {
-		return xerrors.Errorf("request: %w", err)
+		return nil, xerrors.Errorf("request: %w", err)
 	}
-	if err := c.checkAuthResult(auth); err != nil {
-		return xerrors.Errorf("check: %w", err)
+	user, err := checkAuthResult(auth)
+	if err != nil {
+		return nil, xerrors.Errorf("check: %w", err)
 	}
-	return nil
+	return user, nil
 }

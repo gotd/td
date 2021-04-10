@@ -41,7 +41,7 @@ func BotFromEnvironment(
 		}
 
 		if !status.Authorized {
-			if err := client.AuthBot(ctx, os.Getenv("BOT_TOKEN")); err != nil {
+			if _, err := client.AuthBot(ctx, os.Getenv("BOT_TOKEN")); err != nil {
 				return xerrors.Errorf("login: %w", err)
 			}
 		}

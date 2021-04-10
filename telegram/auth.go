@@ -22,17 +22,28 @@ func (s *SignUpRequired) Error() string {
 	return "account with provided number does not exist (sign up required)"
 }
 
-// checkAuthResult checks that a is *tg.AuthAuthorization.
-func (c *Client) checkAuthResult(a tg.AuthAuthorizationClass) error {
-	switch v := a.(type) {
+// checkAuthResult checks that a is *tg.AuthAuthorization and returns user authorization info.
+func checkAuthResult(a tg.AuthAuthorizationClass) (*tg.User, error) {
+	switch a := a.(type) {
 	case *tg.AuthAuthorization:
-		// Ok.
-		return nil
+		switch u := a.User.(type) {
+		case *tg.User:
+			return u, nil // ok
+		case *tg.UserEmpty:
+			// Should be unreachable, but just in case
+			// map empty user to full user.
+			return &tg.User{
+				ID:   u.ID,
+				Self: u.ID != 0,
+			}, nil
+		default:
+			return nil, xerrors.Errorf("got unexpected user type %T", a)
+		}
 	case *tg.AuthAuthorizationSignUpRequired:
-		return &SignUpRequired{
-			TermsOfService: v.TermsOfService,
+		return nil, &SignUpRequired{
+			TermsOfService: a.TermsOfService,
 		}
 	default:
-		return xerrors.Errorf("got unexpected response %T", a)
+		return nil, xerrors.Errorf("got unexpected response %T", a)
 	}
 }

@@ -30,71 +30,71 @@ type AuthFlow struct {
 }
 
 // Run starts authentication flow on client.
-func (f AuthFlow) Run(ctx context.Context, client AuthFlowClient) error {
+func (f AuthFlow) Run(ctx context.Context, client AuthFlowClient) (*tg.User, error) {
 	if f.Auth == nil {
-		return xerrors.New("no UserAuthenticator provided")
+		return nil, xerrors.New("no UserAuthenticator provided")
 	}
 	phone, err := f.Auth.Phone(ctx)
 	if err != nil {
-		return xerrors.Errorf("get phone: %w", err)
+		return nil, xerrors.Errorf("get phone: %w", err)
 	}
 	hash, err := client.AuthSendCode(ctx, phone, f.Options)
 	if err != nil {
-		return xerrors.Errorf("send code: %w", err)
+		return nil, xerrors.Errorf("send code: %w", err)
 	}
 	code, err := f.Auth.Code(ctx)
 	if err != nil {
-		return xerrors.Errorf("get code: %w", err)
+		return nil, xerrors.Errorf("get code: %w", err)
 	}
 
-	signInErr := client.AuthSignIn(ctx, phone, code, hash)
+	user, signInErr := client.AuthSignIn(ctx, phone, code, hash)
 
 	if errors.Is(signInErr, ErrPasswordAuthNeeded) {
 		password, err := f.Auth.Password(ctx)
 		if err != nil {
-			return xerrors.Errorf("get password: %w", err)
+			return nil, xerrors.Errorf("get password: %w", err)
 		}
-		if err := client.AuthPassword(ctx, password); err != nil {
-			return xerrors.Errorf("sign in with password: %w", err)
+		user, err := client.AuthPassword(ctx, password)
+		if err != nil {
+			return nil, xerrors.Errorf("sign in with password: %w", err)
 		}
-
-		return nil
+		return user, nil
 	}
 
 	var signUpRequired *SignUpRequired
 	if errors.As(signInErr, &signUpRequired) {
 		if err := f.Auth.AcceptTermsOfService(ctx, signUpRequired.TermsOfService); err != nil {
-			return xerrors.Errorf("confirm TOS: %w", err)
+			return nil, xerrors.Errorf("confirm TOS: %w", err)
 		}
 		info, err := f.Auth.SignUp(ctx)
 		if err != nil {
-			return xerrors.Errorf("sign up info not provided: %w", err)
+			return nil, xerrors.Errorf("sign up info not provided: %w", err)
 		}
-		if err := client.AuthSignUp(ctx, SignUp{
+		user, err := client.AuthSignUp(ctx, SignUp{
 			PhoneNumber:   phone,
 			PhoneCodeHash: hash,
 			FirstName:     info.FirstName,
 			LastName:      info.LastName,
-		}); err != nil {
-			return xerrors.Errorf("sign up: %w", err)
+		})
+		if err != nil {
+			return nil, xerrors.Errorf("sign up: %w", err)
 		}
-
-		return nil
+		return user, nil
 	}
 
 	if signInErr != nil {
-		return xerrors.Errorf("sign in: %w", signInErr)
+		return nil, xerrors.Errorf("sign in: %w", signInErr)
 	}
 
-	return nil
+	return user, nil
 }
 
 // AuthFlowClient abstracts telegram client for AuthFlow.
 type AuthFlowClient interface {
-	AuthSignIn(ctx context.Context, phone, code, codeHash string) error
+	AuthSignIn(ctx context.Context, phone, code, codeHash string) (*tg.User, error)
 	AuthSendCode(ctx context.Context, phone string, options SendCodeOptions) (codeHash string, err error)
-	AuthPassword(ctx context.Context, password string) error
-	AuthSignUp(ctx context.Context, s SignUp) error
+	AuthPassword(ctx context.Context, password string) (*tg.User, error)
+	AuthSignUp(ctx context.Context, s SignUp) (*tg.User, error)
 }
 
 // CodeAuthenticator asks user for received authentication code.
