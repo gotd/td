@@ -34,14 +34,18 @@ func (f AuthFlow) Run(ctx context.Context, client AuthFlowClient) error {
 	if f.Auth == nil {
 		return xerrors.New("no UserAuthenticator provided")
 	}
+
 	phone, err := f.Auth.Phone(ctx)
 	if err != nil {
 		return xerrors.Errorf("get phone: %w", err)
 	}
-	hash, err := client.AuthSendCode(ctx, phone, f.Options)
+
+	sentCode, err := client.AuthSendCode(ctx, phone, f.Options)
 	if err != nil {
 		return xerrors.Errorf("send code: %w", err)
 	}
+	hash := sentCode.PhoneCodeHash
+
 	code, err := f.Auth.Code(ctx)
 	if err != nil {
 		return xerrors.Errorf("get code: %w", err)
@@ -90,7 +94,7 @@ func (f AuthFlow) Run(ctx context.Context, client AuthFlowClient) error {
 // AuthFlowClient abstracts telegram client for AuthFlow.
 type AuthFlowClient interface {
 	AuthSignIn(ctx context.Context, phone, code, codeHash string) (*tg.AuthAuthorization, error)
-	AuthSendCode(ctx context.Context, phone string, options SendCodeOptions) (codeHash string, err error)
+	AuthSendCode(ctx context.Context, phone string, options SendCodeOptions) (*tg.AuthSentCode, error)
 	AuthPassword(ctx context.Context, password string) (*tg.AuthAuthorization, error)
 	AuthSignUp(ctx context.Context, s SignUp) (*tg.AuthAuthorization, error)
 }

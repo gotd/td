@@ -95,8 +95,9 @@ func TestClient_AuthSignIn(t *testing.T) {
 
 	t.Run("Manual", func(t *testing.T) {
 		// 1. Request code from server to device.
-		h, err := client.AuthSendCode(ctx, phone, SendCodeOptions{CurrentNumber: true})
+		sentCode, err := client.AuthSendCode(ctx, phone, SendCodeOptions{CurrentNumber: true})
 		require.NoError(t, err)
+		h := sentCode.PhoneCodeHash
 		require.Equal(t, codeHash, h)
 
 		// 2. Send code from device to server.

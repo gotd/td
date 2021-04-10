@@ -72,7 +72,7 @@ type SendCodeOptions struct {
 // and error if any. Use AuthFlow to reduce boilerplate.
 //
 // This method should be called first in user authentication flow.
-func (c *Client) AuthSendCode(ctx context.Context, phone string, options SendCodeOptions) (codeHash string, err error) {
+func (c *Client) AuthSendCode(ctx context.Context, phone string, options SendCodeOptions) (*tg.AuthSentCode, error) {
 	var settings tg.CodeSettings
 	if options.AllowAppHash {
 		settings.SetAllowAppHash(true)
@@ -91,9 +91,9 @@ func (c *Client) AuthSendCode(ctx context.Context, phone string, options SendCod
 		Settings:    settings,
 	})
 	if err != nil {
-		return "", xerrors.Errorf("send code: %w", err)
+		return nil, xerrors.Errorf("send code: %w", err)
 	}
-	return sentCode.PhoneCodeHash, nil
+	return sentCode, nil
 }
 
 // ErrPasswordAuthNeeded means that 2FA auth is required.
