@@ -33,6 +33,7 @@ func TestClient_AuthSignIn(t *testing.T) {
 		codeHash = "hash"
 	)
 	ctx := context.Background()
+	testUser := &tg.User{ID: 1}
 	client := newTestClient(func(id int64, body bin.Encoder) (bin.Encoder, error) {
 		switch req := body.(type) {
 		case *tg.AuthSendCodeRequest:
@@ -86,7 +87,7 @@ func TestClient_AuthSignIn(t *testing.T) {
 				t.Errorf("unexpectd pwd type %T", pwd)
 			}
 			return &tg.AuthAuthorization{
-				User: &tg.User{ID: 1},
+				User: testUser,
 			}, nil
 		}
 		return nil, xerrors.New("unexpected")
@@ -100,18 +101,22 @@ func TestClient_AuthSignIn(t *testing.T) {
 
 		// 2. Send code from device to server.
 		// Server is responding with 2FA password prompt.
-		signInErr := client.AuthSignIn(ctx, phone, code, h)
+		_, signInErr := client.AuthSignIn(ctx, phone, code, h)
 		require.ErrorIs(t, signInErr, ErrPasswordAuthNeeded)
 
 		// 3. Provide 2FA password.
-		require.NoError(t, client.AuthPassword(ctx, password))
+		user, err := client.AuthPassword(ctx, password)
+		require.NoError(t, err)
+		require.Equal(t, testUser, user)
 	})
 	t.Run("AuthFlow", func(t *testing.T) {
 		// Using flow helper.
 		u := ConstantAuth(phone, password, CodeAuthenticatorFunc(func(ctx context.Context) (string, error) {
 			return code, nil
 		}))
-		require.NoError(t, NewAuth(u, SendCodeOptions{CurrentNumber: true}).Run(ctx, client))
+		user, err := NewAuth(u, SendCodeOptions{CurrentNumber: true}).Run(ctx, client)
+		require.NoError(t, err)
+		require.Equal(t, testUser, user)
 	})
 }
 
@@ -121,6 +126,7 @@ func TestClientTestAuth(t *testing.T) {
 		dcID     = 2
 	)
 	ctx := context.Background()
+	testUser := &tg.User{ID: 1}
 	client := newTestClient(func(id int64, body bin.Encoder) (bin.Encoder, error) {
 		switch req := body.(type) {
 		case *tg.AuthSendCodeRequest:
@@ -146,15 +152,17 @@ func TestClientTestAuth(t *testing.T) {
 				PhoneCode:     strings.Repeat(dcPart, 6),
 			}, req)
 			return &tg.AuthAuthorization{
-				User: &tg.User{ID: 1},
+				User: testUser,
 			}, nil
 		}
 		return nil, xerrors.New("unexpected")
 	})
-	require.NoError(t, NewAuth(
+	user, err := NewAuth(
 		TestAuth(rand.New(rand.NewSource(1)), dcID),
 		SendCodeOptions{},
-	).Run(ctx, client))
+	).Run(ctx, client)
+	require.NoError(t, err)
+	require.Equal(t, testUser, user)
 }
 
 func TestClientTestSignUp(t *testing.T) {
@@ -164,6 +172,7 @@ func TestClientTestSignUp(t *testing.T) {
 		tosID    = "foo"
 	)
 	ctx := context.Background()
+	testUser := &tg.User{ID: 1}
 	client := newTestClient(func(id int64, body bin.Encoder) (bin.Encoder, error) {
 		switch req := body.(type) {
 		case *tg.AuthSendCodeRequest:
@@ -185,7 +194,7 @@ func TestClientTestSignUp(t *testing.T) {
 				LastName:      "User",
 			}, req)
 			return &tg.AuthAuthorization{
-				User: &tg.User{ID: 1},
+				User: testUser,
 			}, nil
 		case *tg.HelpAcceptTermsOfServiceRequest:
 			return &tg.BoolTrue{}, nil
@@ -208,8 +217,10 @@ func TestClientTestSignUp(t *testing.T) {
 		}
 		return nil, xerrors.New("unexpected")
 	})
-	require.NoError(t, NewAuth(
+	user, err := NewAuth(
 		TestAuth(rand.New(rand.NewSource(1)), dcID),
 		SendCodeOptions{},
-	).Run(ctx, client))
+	).Run(ctx, client)
+	require.NoError(t, err)
+	require.Equal(t, testUser, user)
 }

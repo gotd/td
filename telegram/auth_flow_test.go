@@ -99,10 +99,11 @@ func ExampleTestAuth() {
 		DCList: dcs.StagingDCs(),
 	})
 	if err := client.Run(ctx, func(ctx context.Context) error {
-		return telegram.NewAuth(
+		_, err := telegram.NewAuth(
 			telegram.TestAuth(rand.Reader, dcID),
 			telegram.SendCodeOptions{},
 		).Run(ctx, client)
+		return err
 	}); err != nil {
 		panic(err)
 	}
@@ -141,9 +142,10 @@ func ExampleAuthFlow_Run() {
 	}
 
 	check(client.Run(ctx, func(ctx context.Context) error {
-		return telegram.NewAuth(
+		_, err := telegram.NewAuth(
 			telegram.ConstantAuth(phone, pass, telegram.CodeAuthenticatorFunc(codeAsk)),
 			telegram.SendCodeOptions{},
 		).Run(ctx, client)
+		return err
 	}))
 }

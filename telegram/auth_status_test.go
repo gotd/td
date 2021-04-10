@@ -48,13 +48,14 @@ func TestClient_AuthIfNecessary(t *testing.T) {
 	ctx := context.Background()
 
 	t.Run("Authorized", mockClient(func(a *rpcmock.Mock, client *Client) {
-		user := &tg.User{
+		testUser := &tg.User{
 			Username: "user",
 		}
-		a.Expect().ThenResult(&tg.UserClassVector{Elems: []tg.UserClass{user}})
+		a.Expect().ThenResult(&tg.UserClassVector{Elems: []tg.UserClass{testUser}})
 
 		// Pass empty AuthFlow because it should not be called anyway.
-		err := client.AuthIfNecessary(ctx, AuthFlow{})
+		user, err := client.AuthIfNecessary(ctx, AuthFlow{})
 		a.NoError(err)
+		a.Equal(testUser, user)
 	}))
 }
