@@ -54,11 +54,11 @@ func (f AuthFlow) Run(ctx context.Context, client AuthFlowClient) (*tg.User, err
 		if err != nil {
 			return nil, xerrors.Errorf("get password: %w", err)
 		}
-		user, err := client.AuthPassword(ctx, password)
+		u, err := client.AuthPassword(ctx, password)
 		if err != nil {
 			return nil, xerrors.Errorf("sign in with password: %w", err)
 		}
-		return user, nil
+		return u, nil
 	}
 
 	var signUpRequired *SignUpRequired
@@ -70,7 +70,7 @@ func (f AuthFlow) Run(ctx context.Context, client AuthFlowClient) (*tg.User, err
 		if err != nil {
 			return nil, xerrors.Errorf("sign up info not provided: %w", err)
 		}
-		user, err := client.AuthSignUp(ctx, SignUp{
+		u, err := client.AuthSignUp(ctx, SignUp{
 			PhoneNumber:   phone,
 			PhoneCodeHash: hash,
 			FirstName:     info.FirstName,
@@ -79,7 +79,7 @@ func (f AuthFlow) Run(ctx context.Context, client AuthFlowClient) (*tg.User, err
 		if err != nil {
 			return nil, xerrors.Errorf("sign up: %w", err)
 		}
-		return user, nil
+		return u, nil
 	}
 
 	if signInErr != nil {
