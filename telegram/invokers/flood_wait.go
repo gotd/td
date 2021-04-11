@@ -80,9 +80,12 @@ func (w *Waiter) Run(ctx context.Context) error {
 			}
 
 			for _, s := range requests {
-				select {
-				case s.request.result <- w.send(s):
-				default:
+				ret, err := w.send(s)
+				if ret {
+					select {
+					case s.request.result <- err:
+					default:
+					}
 				}
 			}
 		case <-ctx.Done():
@@ -91,23 +94,23 @@ func (w *Waiter) Run(ctx context.Context) error {
 	}
 }
 
-func (w *Waiter) send(s scheduled) error {
+func (w *Waiter) send(s scheduled) (bool, error) {
 	err := w.prev.InvokeRaw(s.request.ctx, s.request.input, s.request.output)
 
 	floodWait, ok := tgerr.AsType(err, ErrFloodWait)
 	switch {
 	case !ok:
 		w.sch.nice(s.request.key)
-		return err
+		return true, err
 	case floodWait.Argument >= w.waitLimit:
-		return xerrors.Errorf("FLOOD_WAIT argument is too big (%d >= %d)", floodWait.Argument, w.waitLimit)
+		return true, xerrors.Errorf("FLOOD_WAIT argument is too big (%d >= %d)", floodWait.Argument, w.waitLimit)
 	case s.request.retry >= w.retryLimit:
-		return xerrors.Errorf("Retry limit exceeded (%d >= %d)", s.request.retry, w.retryLimit)
+		return true, xerrors.Errorf("Retry limit exceeded (%d >= %d)", s.request.retry, w.retryLimit)
 	}
 
 	s.request.retry++
 	w.sch.flood(s.request, time.Duration(floodWait.Argument)*time.Second)
-	return nil
+	return false, nil
 }
 
 // Object is a abstraction for Telegram API object with TypeID.

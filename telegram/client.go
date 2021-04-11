@@ -296,12 +296,10 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 	// potentially eternal.
 	b := tdsync.SyncBackoff(backoff.WithContext(c.connBackoff(), ctx))
 
-	return backoff.Retry(func() error {
-		err := c.runUntilRestart(ctx)
-		if err == nil {
-			return nil
-		}
-		c.log.Info("Restarting connection", zap.Error(err))
+	return backoff.RetryNotify(func() error {
+		return c.runUntilRestart(ctx)
+	}, b, func(err error, timeout time.Duration) {
+		c.log.Info("Restarting connection", zap.Error(err), zap.Duration("backoff", timeout))
 
 		c.connMux.Lock()
 		setup := func(ctx context.Context, invoker tg.Invoker) error {
@@ -323,8 +321,7 @@ func (c *Client) reconnectUntilClosed(ctx context.Context) error {
 		}
 		c.conn = c.createPrimaryConn(setup)
 		c.connMux.Unlock()
-		return err
-	}, b)
+	})
 }
 
 func (c *Client) onReady() {
