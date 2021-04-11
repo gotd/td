@@ -14,7 +14,7 @@ func (c *Conn) handleResult(b *bin.Buffer) error {
 	// Response to an RPC query.
 	var res proto.Result
 	if err := res.Decode(b); err != nil {
-		return xerrors.Errorf("decode: %x", err)
+		return xerrors.Errorf("decode: %w", err)
 	}
 
 	// Now b contains result message.
