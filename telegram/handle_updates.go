@@ -53,10 +53,12 @@ func convertUpdateShortMessage(u *tg.UpdateShortMessage) *tg.UpdateShort {
 		MediaUnread: u.MediaUnread,
 		Silent:      u.Silent,
 		ID:          u.ID,
-		FromID:      &tg.PeerUser{UserID: u.UserID},
 		PeerID:      &tg.PeerUser{UserID: u.UserID},
 		Message:     u.Message,
 		Date:        u.Date,
+	}
+	if !u.Out {
+		msg.SetFromID(&tg.PeerUser{UserID: u.UserID})
 	}
 	convertOptional(msg, u)
 
