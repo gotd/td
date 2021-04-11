@@ -34,30 +34,33 @@ func (f AuthFlow) Run(ctx context.Context, client AuthFlowClient) error {
 	if f.Auth == nil {
 		return xerrors.New("no UserAuthenticator provided")
 	}
+
 	phone, err := f.Auth.Phone(ctx)
 	if err != nil {
 		return xerrors.Errorf("get phone: %w", err)
 	}
-	hash, err := client.AuthSendCode(ctx, phone, f.Options)
+
+	sentCode, err := client.AuthSendCode(ctx, phone, f.Options)
 	if err != nil {
 		return xerrors.Errorf("send code: %w", err)
 	}
+	hash := sentCode.PhoneCodeHash
+
 	code, err := f.Auth.Code(ctx)
 	if err != nil {
 		return xerrors.Errorf("get code: %w", err)
 	}
 
-	signInErr := client.AuthSignIn(ctx, phone, code, hash)
+	_, signInErr := client.AuthSignIn(ctx, phone, code, hash)
 
 	if errors.Is(signInErr, ErrPasswordAuthNeeded) {
 		password, err := f.Auth.Password(ctx)
 		if err != nil {
 			return xerrors.Errorf("get password: %w", err)
 		}
-		if err := client.AuthPassword(ctx, password); err != nil {
+		if _, err := client.AuthPassword(ctx, password); err != nil {
 			return xerrors.Errorf("sign in with password: %w", err)
 		}
-
 		return nil
 	}
 
@@ -70,7 +73,7 @@ func (f AuthFlow) Run(ctx context.Context, client AuthFlowClient) error {
 		if err != nil {
 			return xerrors.Errorf("sign up info not provided: %w", err)
 		}
-		if err := client.AuthSignUp(ctx, SignUp{
+		if _, err := client.AuthSignUp(ctx, SignUp{
 			PhoneNumber:   phone,
 			PhoneCodeHash: hash,
 			FirstName:     info.FirstName,
@@ -78,7 +81,6 @@ func (f AuthFlow) Run(ctx context.Context, client AuthFlowClient) error {
 		}); err != nil {
 			return xerrors.Errorf("sign up: %w", err)
 		}
-
 		return nil
 	}
 
@@ -91,10 +93,10 @@ func (f AuthFlow) Run(ctx context.Context, client AuthFlowClient) error {
 
 // AuthFlowClient abstracts telegram client for AuthFlow.
 type AuthFlowClient interface {
-	AuthSignIn(ctx context.Context, phone, code, codeHash string) error
-	AuthSendCode(ctx context.Context, phone string, options SendCodeOptions) (codeHash string, err error)
-	AuthPassword(ctx context.Context, password string) error
-	AuthSignUp(ctx context.Context, s SignUp) error
+	AuthSignIn(ctx context.Context, phone, code, codeHash string) (*tg.AuthAuthorization, error)
+	AuthSendCode(ctx context.Context, phone string, options SendCodeOptions) (*tg.AuthSentCode, error)
+	AuthPassword(ctx context.Context, password string) (*tg.AuthAuthorization, error)
+	AuthSignUp(ctx context.Context, s SignUp) (*tg.AuthAuthorization, error)
 }
 
 // CodeAuthenticator asks user for received authentication code.
@@ -245,7 +247,7 @@ func (t testAuth) SignUp(ctx context.Context) (UserInfo, error) {
 // Can be used only with testing server. Will perform sign up if test user is
 // not registered.
 func TestAuth(randReader io.Reader, dc int) UserAuthenticator {
-	// 99966XYYYY, X = dc_id, Y = random numbers, code = X repeat 5.
+	// 99966XYYYY, X = dc_id, Y = random numbers, code = X repeat 6.
 	// The n value is from 0000 to 9999.
 	n, err := crypto.RandInt64n(randReader, 1000)
 	if err != nil {

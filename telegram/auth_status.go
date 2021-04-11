@@ -44,12 +44,11 @@ func (c *Client) AuthIfNecessary(ctx context.Context, flow AuthFlow) error {
 	if err != nil {
 		return xerrors.Errorf("get auth status: %w", err)
 	}
-
-	if !auth.Authorized {
-		if err := flow.Run(ctx, c); err != nil {
-			return xerrors.Errorf("auth flow: %w", err)
-		}
+	if auth.Authorized {
+		return nil
 	}
-
+	if err := flow.Run(ctx, c); err != nil {
+		return xerrors.Errorf("auth flow: %w", err)
+	}
 	return nil
 }

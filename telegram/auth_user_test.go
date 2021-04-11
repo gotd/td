@@ -33,6 +33,7 @@ func TestClient_AuthSignIn(t *testing.T) {
 		codeHash = "hash"
 	)
 	ctx := context.Background()
+	testUser := &tg.User{ID: 1}
 	client := newTestClient(func(id int64, body bin.Encoder) (bin.Encoder, error) {
 		switch req := body.(type) {
 		case *tg.AuthSendCodeRequest:
@@ -86,7 +87,7 @@ func TestClient_AuthSignIn(t *testing.T) {
 				t.Errorf("unexpectd pwd type %T", pwd)
 			}
 			return &tg.AuthAuthorization{
-				User: &tg.User{ID: 1},
+				User: testUser,
 			}, nil
 		}
 		return nil, xerrors.New("unexpected")
@@ -94,17 +95,20 @@ func TestClient_AuthSignIn(t *testing.T) {
 
 	t.Run("Manual", func(t *testing.T) {
 		// 1. Request code from server to device.
-		h, err := client.AuthSendCode(ctx, phone, SendCodeOptions{CurrentNumber: true})
+		sentCode, err := client.AuthSendCode(ctx, phone, SendCodeOptions{CurrentNumber: true})
 		require.NoError(t, err)
+		h := sentCode.PhoneCodeHash
 		require.Equal(t, codeHash, h)
 
 		// 2. Send code from device to server.
 		// Server is responding with 2FA password prompt.
-		signInErr := client.AuthSignIn(ctx, phone, code, h)
+		_, signInErr := client.AuthSignIn(ctx, phone, code, h)
 		require.ErrorIs(t, signInErr, ErrPasswordAuthNeeded)
 
 		// 3. Provide 2FA password.
-		require.NoError(t, client.AuthPassword(ctx, password))
+		result, err := client.AuthPassword(ctx, password)
+		require.NoError(t, err)
+		require.Equal(t, testUser, result.User)
 	})
 	t.Run("AuthFlow", func(t *testing.T) {
 		// Using flow helper.

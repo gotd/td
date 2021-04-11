@@ -9,17 +9,18 @@ import (
 )
 
 // AuthBot performs bot authentication request.
-func (c *Client) AuthBot(ctx context.Context, token string) error {
+func (c *Client) AuthBot(ctx context.Context, token string) (*tg.AuthAuthorization, error) {
 	auth, err := c.tg.AuthImportBotAuthorization(ctx, &tg.AuthImportBotAuthorizationRequest{
 		APIID:        c.appID,
 		APIHash:      c.appHash,
 		BotAuthToken: token,
 	})
 	if err != nil {
-		return err
+		return nil, err
 	}
-	if err := c.checkAuthResult(auth); err != nil {
-		return xerrors.Errorf("check: %w", err)
+	result, err := checkAuthResult(auth)
+	if err != nil {
+		return nil, xerrors.Errorf("check: %w", err)
 	}
-	return nil
+	return result, nil
 }
