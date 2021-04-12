@@ -59,9 +59,11 @@ func (c *Conn) saltLoop(ctx context.Context) error {
 		return err
 	}
 
+	ticker := c.clock.Ticker(c.saltFetchInterval)
+	defer ticker.Stop()
 	for {
 		select {
-		case <-c.clock.After(c.saltFetchInterval):
+		case <-ticker.C():
 			if err := c.getSalts(ctx); err != nil {
 				return err
 			}

@@ -13,8 +13,10 @@ func (u *UploadedDocumentBuilder) UploadedSticker() *UploadedStickerBuilder {
 		b = u.MIME(DefaultStickerMIME)
 	}
 	return &UploadedStickerBuilder{
-		doc:  b,
-		attr: tg.DocumentAttributeSticker{},
+		doc: b,
+		attr: tg.DocumentAttributeSticker{
+			Stickerset: &tg.InputStickerSetEmpty{},
+		},
 	}
 }
 

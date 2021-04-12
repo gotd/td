@@ -64,11 +64,6 @@ func (s *Sender) Self() *RequestBuilder {
 	return s.To(&tg.InputPeerSelf{})
 }
 
-// AsInputPeer returns resolve result as InputPeerClass.
-func (b *RequestBuilder) AsInputPeer(ctx context.Context) (tg.InputPeerClass, error) {
-	return b.peer(ctx)
-}
-
 // Resolve uses given text to create new message builder.
 // It resolves peer of message using Sender's PeerResolver.
 // Input examples:

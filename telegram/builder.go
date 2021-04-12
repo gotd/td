@@ -15,6 +15,7 @@ import (
 	"golang.org/x/net/proxy"
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/clock"
 	"github.com/gotd/td/session"
 	"github.com/gotd/td/telegram/dcs"
 	"github.com/gotd/td/tgerr"
@@ -114,9 +115,12 @@ func retry(ctx context.Context, logger *zap.Logger, cb func(ctx context.Context)
 			if tgerr.Is(err, retryableErrors...) {
 				return err
 			}
-			if d, ok := AsFloodWait(err); ok {
+			if timeout, ok := AsFloodWait(err); ok {
+				timer := clock.System.Timer(timeout + 1*time.Second)
+				defer clock.StopTimer(timer)
+
 				select {
-				case <-time.After(d + time.Second):
+				case <-timer.C():
 					return err
 				case <-ctx.Done():
 					return ctx.Err()

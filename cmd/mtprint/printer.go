@@ -6,45 +6,57 @@ import (
 	"fmt"
 	"io"
 
-	"github.com/k0kubun/pp"
+	"github.com/k0kubun/pp/v3"
 	"golang.org/x/xerrors"
 
 	"github.com/gotd/td/bin"
 	"github.com/gotd/td/internal/mt"
 	"github.com/gotd/td/internal/proto/codec"
 	"github.com/gotd/td/internal/tmap"
+	"github.com/gotd/td/tdp"
 	"github.com/gotd/td/tg"
 	"github.com/gotd/td/transport"
 )
 
+// Object is abstraction for TL schema object.
+type Object interface {
+	bin.Object
+	tdp.Object
+}
+
 // Formatter formats given bin.Object and prints it to io.Writer.
 type Formatter interface {
-	Format(w io.Writer, i bin.Object) error
+	Format(w io.Writer, i Object) error
 }
 
 // FormatterFunc is functional adapter for Formatter.
-type FormatterFunc func(w io.Writer, i bin.Object) error
+type FormatterFunc func(w io.Writer, i Object) error
 
 // Format implements Formatter.
-func (f FormatterFunc) Format(w io.Writer, i bin.Object) error {
+func (f FormatterFunc) Format(w io.Writer, i Object) error {
 	return f(w, i)
 }
 
 func formats(name string) Formatter {
 	switch name {
 	case "json":
-		return FormatterFunc(func(w io.Writer, i bin.Object) error {
+		return FormatterFunc(func(w io.Writer, i Object) error {
 			e := json.NewEncoder(w)
 			e.SetIndent("", "\t")
 			return e.Encode(i)
 		})
 	case "pp":
-		return FormatterFunc(func(w io.Writer, i bin.Object) error {
+		return FormatterFunc(func(w io.Writer, i Object) error {
 			_, err := pp.Fprintln(w, i)
 			return err
 		})
+	case "tdp":
+		return FormatterFunc(func(w io.Writer, i Object) error {
+			_, err := io.WriteString(w, tdp.Format(i))
+			return err
+		})
 	default: // "go" format
-		return FormatterFunc(func(w io.Writer, i bin.Object) error {
+		return FormatterFunc(func(w io.Writer, i Object) error {
 			_, err := fmt.Fprintln(w, i)
 			return err
 		})
@@ -98,9 +110,14 @@ func (p Printer) Print(output io.Writer) error {
 			return err
 		}
 
-		v := m.New(id)
-		if v == nil {
+		obj := m.New(id)
+		if obj == nil {
 			return xerrors.Errorf("failed to find type 0x%x", id)
+		}
+
+		v, ok := obj.(Object)
+		if !ok {
+			return xerrors.Errorf("unexpected type %T", obj)
 		}
 
 		if err := v.Decode(b); err != nil {

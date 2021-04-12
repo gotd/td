@@ -2,15 +2,14 @@ package e2etest
 
 import (
 	"context"
-	"errors"
 	"strconv"
 	"sync"
-	"time"
 
 	"github.com/cenkalti/backoff/v4"
 	"go.uber.org/zap"
 	"golang.org/x/xerrors"
 
+	"github.com/gotd/td/telegram/internal/helpers"
 	"github.com/gotd/td/tgerr"
 
 	"github.com/gotd/td/telegram"
@@ -85,8 +84,7 @@ func (b EchoBot) login(ctx context.Context, client *telegram.Client) (*tg.User, 
 	raw := tg.NewClient(waitInvoker{prev: client})
 	_, err := raw.AccountUpdateUsername(ctx, expectedUsername)
 	if err != nil {
-		var rpcErr *tgerr.Error
-		if !errors.As(err, &rpcErr) || rpcErr.Message != "USERNAME_NOT_MODIFIED" {
+		if !tgerr.Is(err, tg.ErrUsernameNotModified) {
 			return nil, xerrors.Errorf("update username: %w", err)
 		}
 	}
@@ -94,13 +92,8 @@ func (b EchoBot) login(ctx context.Context, client *telegram.Client) (*tg.User, 
 	if err := backoff.Retry(func() error {
 		me, err = client.Self(ctx)
 		if err != nil {
-			if timeout, ok := telegram.AsFloodWait(err); ok {
-				select {
-				case <-ctx.Done():
-					return ctx.Err()
-				case <-time.After(timeout + 1*time.Second):
-					return err
-				}
+			if ok, err := helpers.FloodWait(ctx, err); ok {
+				return err
 			}
 
 			return backoff.Permanent(xerrors.Errorf("get self: %w", err))
