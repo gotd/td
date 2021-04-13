@@ -10,13 +10,12 @@ import (
 // MessageTextBuilder is a builder of inline result text message.
 type MessageTextBuilder struct {
 	message *tg.InputBotInlineMessageText
-	option  styling.StyledTextOption
 	options []styling.StyledTextOption
 }
 
 func (b *MessageTextBuilder) apply() (tg.InputBotInlineMessageClass, error) {
 	tb := entity.Builder{}
-	if err := styling.Perform(&tb, b.option, b.options...); err != nil {
+	if err := styling.Perform(&tb, b.options...); err != nil {
 		return nil, err
 	}
 	msg, entities := tb.Complete()
@@ -33,10 +32,9 @@ func MessageText(msg string) *MessageTextBuilder {
 }
 
 // MessageStyledText creates new message text option builder.
-func MessageStyledText(text styling.StyledTextOption, texts ...styling.StyledTextOption) *MessageTextBuilder {
+func MessageStyledText(texts ...styling.StyledTextOption) *MessageTextBuilder {
 	return &MessageTextBuilder{
 		message: &tg.InputBotInlineMessageText{},
-		option:  text,
 		options: texts,
 	}
 }

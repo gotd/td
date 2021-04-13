@@ -42,7 +42,7 @@ func sendStyledText(ctx context.Context) error {
 		}
 
 		_, err := message.NewSender(tg.NewClient(client)).
-			Self().StyledText(ctx, formats[0], formats[1:]...)
+			Self().StyledText(ctx, formats...)
 		return err
 	})
 }

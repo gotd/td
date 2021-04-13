@@ -10,13 +10,12 @@ import (
 // MessageMediaAutoBuilder is a builder of inline result text message.
 type MessageMediaAutoBuilder struct {
 	message *tg.InputBotInlineMessageMediaAuto
-	option  styling.StyledTextOption
 	options []styling.StyledTextOption
 }
 
 func (b *MessageMediaAutoBuilder) apply() (tg.InputBotInlineMessageClass, error) {
 	tb := entity.Builder{}
-	if err := styling.Perform(&tb, b.option, b.options...); err != nil {
+	if err := styling.Perform(&tb, b.options...); err != nil {
 		return nil, err
 	}
 	msg, entities := tb.Complete()
@@ -33,10 +32,9 @@ func MediaAuto(msg string) *MessageMediaAutoBuilder {
 }
 
 // MediaAutoStyled creates new message text option builder.
-func MediaAutoStyled(text styling.StyledTextOption, texts ...styling.StyledTextOption) *MessageMediaAutoBuilder {
+func MediaAutoStyled(texts ...styling.StyledTextOption) *MessageMediaAutoBuilder {
 	return &MessageMediaAutoBuilder{
 		message: &tg.InputBotInlineMessageMediaAuto{},
-		option:  text,
 		options: texts,
 	}
 }

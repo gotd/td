@@ -56,7 +56,6 @@ func CorrectPollAnswer(text string) PollAnswerOption {
 type PollBuilder struct {
 	input   tg.InputMediaPoll
 	answers []PollAnswerOption
-	opt     StyledTextOption
 	opts    []StyledTextOption
 }
 
@@ -118,8 +117,7 @@ func (p *PollBuilder) Explanation(msg string) *PollBuilder {
 }
 
 // StyledExplanation sets styled explanation message.
-func (p *PollBuilder) StyledExplanation(text StyledTextOption, texts ...StyledTextOption) *PollBuilder {
-	p.opt = text
+func (p *PollBuilder) StyledExplanation(texts ...StyledTextOption) *PollBuilder {
 	p.opts = texts
 	return p
 }
@@ -134,10 +132,9 @@ func (p *PollBuilder) apply(ctx context.Context, b *multiMediaBuilder) error {
 		p.input.Poll.ID = id
 	}
 
-	// Check if p.opt is not zero.
-	if !p.opt.Zero() {
+	if len(p.opts) > 0 {
 		tb := entity.Builder{}
-		if err := styling.Perform(&tb, p.opt, p.opts...); err != nil {
+		if err := styling.Perform(&tb, p.opts...); err != nil {
 			return err
 		}
 		p.input.Solution, p.input.SolutionEntities = tb.Complete()

@@ -52,14 +52,14 @@ func (b *Builder) SaveDraft(ctx context.Context, msg string) error {
 // SaveStyledDraft saves given styled message as draft.
 //
 // See https://core.telegram.org/api/drafts#saving-drafts.
-func (b *Builder) SaveStyledDraft(ctx context.Context, text StyledTextOption, texts ...StyledTextOption) error {
+func (b *Builder) SaveStyledDraft(ctx context.Context, texts ...StyledTextOption) error {
 	p, err := b.peer(ctx)
 	if err != nil {
 		return xerrors.Errorf("peer: %w", err)
 	}
 
 	tb := entity.Builder{}
-	if err := styling.Perform(&tb, text, texts...); err != nil {
+	if err := styling.Perform(&tb, texts...); err != nil {
 		return err
 	}
 	msg, entities := tb.Complete()

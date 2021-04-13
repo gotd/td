@@ -53,17 +53,14 @@ func (b *EditMessageBuilder) Textf(ctx context.Context, format string, args ...i
 }
 
 // StyledText edits message using given message.
-func (b *EditMessageBuilder) StyledText(
-	ctx context.Context,
-	text StyledTextOption, texts ...StyledTextOption,
-) (tg.UpdatesClass, error) {
+func (b *EditMessageBuilder) StyledText(ctx context.Context, texts ...StyledTextOption) (tg.UpdatesClass, error) {
 	p, err := b.builder.peer(ctx)
 	if err != nil {
 		return nil, xerrors.Errorf("peer: %w", err)
 	}
 
 	tb := entity.Builder{}
-	if err := styling.Perform(&tb, text, texts...); err != nil {
+	if err := styling.Perform(&tb, texts...); err != nil {
 		return nil, err
 	}
 	msg, entities := tb.Complete()
