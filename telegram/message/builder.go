@@ -10,6 +10,11 @@ import (
 
 type peerPromise = peer.Promise
 
+// Send returns copy of message Builder inside RequestBuilder.
+func (b *RequestBuilder) Send() *Builder {
+	return b.Builder.copy()
+}
+
 // Builder is a message builder.
 type Builder struct {
 	// Sender to use.
