@@ -1,10 +1,15 @@
 package peer
 
-import "github.com/gotd/td/tg"
+import (
+	"time"
+
+	"github.com/gotd/td/tg"
+)
 
 type nodeData struct {
-	key   string
-	value tg.InputPeerClass
+	key       string
+	value     tg.InputPeerClass
+	expiresAt time.Time
 }
 
 type linkedNode struct {

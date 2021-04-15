@@ -5,7 +5,9 @@ import (
 	"fmt"
 	"strconv"
 	"testing"
+	"time"
 
+	"github.com/gotd/neo"
 	"github.com/stretchr/testify/require"
 
 	"github.com/gotd/td/tg"
@@ -13,7 +15,8 @@ import (
 
 func TestLRU(t *testing.T) {
 	a := require.New(t)
-	lru := NewLRUResolver(nil, 4)
+	c := neo.NewTime(time.Now())
+	lru := NewLRUResolver(nil, 4).WithClock(c).WithExpiration(1 * time.Second)
 
 	// Add 5 entries.
 	// State: [4 3 2 1]
@@ -54,7 +57,14 @@ func TestLRU(t *testing.T) {
 
 	// Delete key which does not exist.
 	// State: [4 6 2 3]
-	a.False(lru.delete(strconv.Itoa(10)))
+	_, ok = lru.Evict(strconv.Itoa(10))
+	a.False(ok)
+
+	c.Travel(time.Hour)
+	// Delete expired key.
+	// State: [6 2 3]
+	_, ok = lru.get("4")
+	a.False(ok)
 }
 
 type mockResolver struct {
