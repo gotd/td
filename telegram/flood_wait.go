@@ -12,4 +12,4 @@ const ErrFloodWait = helpers.ErrFloodWait
 //
 // Client should wait for that duration before issuing new requests with
 // same method.
-var AsFloodWait = helpers.AsFloodWait
+var AsFloodWait = helpers.AsFloodWait // nolint:gochecknoglobals
