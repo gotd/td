@@ -108,4 +108,3 @@ func ConvertUpdateShortSentMessage(u *tg.UpdateShortSentMessage) *tg.UpdateShort
 		Date: u.Date,
 	}
 }
-
