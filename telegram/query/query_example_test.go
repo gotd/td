@@ -44,7 +44,7 @@ func ExampleQuery_iterAllMessages() {
 			})
 		}
 
-		return query.NewQuery(raw).Dialogs().GetDialogs().ForEach(ctx, cb)
+		return query.GetDialogs(raw).ForEach(ctx, cb)
 	}); err != nil {
 		panic(err)
 	}
@@ -64,7 +64,7 @@ func ExampleQuery_downloadSaved() {
 	if err := client.Run(ctx, func(ctx context.Context) error {
 		raw := tg.NewClient(client)
 		d := downloader.NewDownloader()
-		return query.NewQuery(raw).Messages().GetHistory(&tg.InputPeerSelf{}).ForEach(ctx,
+		return query.Messages(raw).GetHistory(&tg.InputPeerSelf{}).ForEach(ctx,
 			func(ctx context.Context, elem messages.Elem) error {
 				f, ok := elem.File()
 				if !ok {
@@ -146,7 +146,7 @@ func ExampleQuery_getAdmins() {
 			})
 		}
 
-		return query.NewQuery(raw).Dialogs().GetDialogs().ForEach(ctx, cb)
+		return query.GetDialogs(raw).ForEach(ctx, cb)
 	}); err != nil {
 		panic(err)
 	}
