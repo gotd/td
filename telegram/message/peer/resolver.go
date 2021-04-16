@@ -16,14 +16,19 @@ type Resolver interface {
 
 // DefaultResolver creates and returns default resolver.
 func DefaultResolver(raw *tg.Client) Resolver {
-	return NewLRUResolver(&plainResolver{raw: raw}, 10)
+	return NewLRUResolver(Plain(raw), 10)
+}
+
+// Plain creates plain resolver.
+func Plain(raw *tg.Client) Resolver {
+	return plainResolver{raw: raw}
 }
 
 type plainResolver struct {
 	raw *tg.Client
 }
 
-func (p *plainResolver) ResolveDomain(ctx context.Context, domain string) (tg.InputPeerClass, error) {
+func (p plainResolver) ResolveDomain(ctx context.Context, domain string) (tg.InputPeerClass, error) {
 	peer, err := p.raw.ContactsResolveUsername(ctx, domain)
 	if err != nil {
 		return nil, xerrors.Errorf("resolve: %w", err)
@@ -32,7 +37,7 @@ func (p *plainResolver) ResolveDomain(ctx context.Context, domain string) (tg.In
 	return EntitiesFromResult(peer).ExtractPeer(peer.Peer)
 }
 
-func (p *plainResolver) ResolvePhone(ctx context.Context, phone string) (tg.InputPeerClass, error) {
+func (p plainResolver) ResolvePhone(ctx context.Context, phone string) (tg.InputPeerClass, error) {
 	r, err := p.raw.ContactsGetContacts(ctx, 0)
 	if err != nil {
 		return nil, xerrors.Errorf("get contacts: %w", err)

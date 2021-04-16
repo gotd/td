@@ -104,6 +104,8 @@ type Client struct {
 
 	// Telegram updates handler.
 	updateHandler UpdateHandler // immutable
+	// Denotes that no update mode is enabled.
+	noUpdatesMode bool // immutable
 }
 
 func (c *Client) onMessage(b *bin.Buffer) error {
@@ -162,6 +164,7 @@ func NewClient(appID int, appHash string, opt Options) *Client {
 		clock:            opt.Clock,
 		device:           opt.Device,
 		migrationTimeout: opt.MigrationTimeout,
+		noUpdatesMode:    opt.NoUpdates,
 	}
 	client.init()
 
@@ -262,19 +265,26 @@ func (c *Client) restoreConnection(ctx context.Context) error {
 func (c *Client) runUntilRestart(ctx context.Context) error {
 	g := tdsync.NewCancellableGroup(ctx)
 	g.Go(c.conn.Run)
-	g.Go(func(ctx context.Context) error {
-		self, err := c.Self(ctx)
-		if err != nil {
-			// Ignore unauthorized errors.
-			if !unauthorized(err) {
-				c.log.Warn("Got error on self", zap.Error(err))
-			}
-			return nil
-		}
 
-		c.log.Info("Got self", zap.String("username", self.Username))
-		return nil
-	})
+	// If don't need updates, so there is no reason to subscribe for it.
+	if !c.noUpdatesMode {
+		g.Go(func(ctx context.Context) error {
+			// Call method which requires authorization, to subscribe for updates.
+			// See https://core.telegram.org/api/updates#subscribing-to-updates.
+			self, err := c.Self(ctx)
+			if err != nil {
+				// Ignore unauthorized errors.
+				if !unauthorized(err) {
+					c.log.Warn("Got error on self", zap.Error(err))
+				}
+				return nil
+			}
+
+			c.log.Info("Got self", zap.String("username", self.Username))
+			return nil
+		})
+	}
+
 	g.Go(func(ctx context.Context) error {
 		select {
 		case <-ctx.Done():
