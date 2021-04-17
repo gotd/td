@@ -11,8 +11,7 @@ import (
 	"github.com/gotd/td/tg"
 )
 
-// LRUResolver is simple decorator for Resolver
-// to cache result in LRU.
+// LRUResolver is simple decorator for Resolver to cache result in LRU.
 type LRUResolver struct {
 	next  Resolver
 	clock clock.Clock
@@ -66,22 +65,13 @@ func (l *LRUResolver) ResolveDomain(ctx context.Context, domain string) (tg.Inpu
 		return v, nil
 	}
 
-	ch := l.sg.DoChan(domain, func() (interface{}, error) {
-		return l.next.ResolveDomain(ctx, domain)
-	})
-
-	select {
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	case r := <-ch:
-		if r.Err != nil {
-			return nil, r.Err
-		}
-
-		v := r.Val.(tg.InputPeerClass)
-		l.put(domain, v)
-		return v, nil
+	r, err := l.next.ResolveDomain(ctx, domain)
+	if err != nil {
+		return nil, err
 	}
+
+	l.put(domain, r)
+	return r, nil
 }
 
 // ResolvePhone implements Resolver.
@@ -90,22 +80,13 @@ func (l *LRUResolver) ResolvePhone(ctx context.Context, phone string) (tg.InputP
 		return v, nil
 	}
 
-	ch := l.sg.DoChan(phone, func() (interface{}, error) {
-		return l.next.ResolvePhone(ctx, phone)
-	})
-
-	select {
-	case <-ctx.Done():
-		return nil, ctx.Err()
-	case r := <-ch:
-		if r.Err != nil {
-			return nil, r.Err
-		}
-
-		v := r.Val.(tg.InputPeerClass)
-		l.put(phone, v)
-		return v, nil
+	r, err := l.next.ResolvePhone(ctx, phone)
+	if err != nil {
+		return nil, err
 	}
+
+	l.put(phone, r)
+	return r, nil
 }
 
 func (l *LRUResolver) get(key string) (v tg.InputPeerClass, ok bool) {

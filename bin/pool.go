@@ -15,7 +15,7 @@ func NewPool(length int) *Pool {
 			New: func() interface{} {
 				var r []byte
 				if length > 0 {
-					r = make([]byte, length)
+					r = make([]byte, 0, length)
 				}
 				return &Buffer{Buf: r}
 			},
@@ -25,6 +25,7 @@ func NewPool(length int) *Pool {
 
 // Put returns buffer to pool.
 func (b *Pool) Put(buf *Buffer) {
+	buf.Reset()
 	b.pool.Put(buf)
 }
 

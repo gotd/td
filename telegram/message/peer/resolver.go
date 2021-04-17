@@ -16,7 +16,7 @@ type Resolver interface {
 
 // DefaultResolver creates and returns default resolver.
 func DefaultResolver(raw *tg.Client) Resolver {
-	return NewLRUResolver(Plain(raw), 10)
+	return NewLRUResolver(SingleflightResolver(Plain(raw)), 10)
 }
 
 // Plain creates plain resolver.
