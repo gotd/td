@@ -20,6 +20,8 @@ func TestParseDeeplink(t *testing.T) {
 	}{
 		{expect, `t.me/joinchat/AAAAAAAAAAAAAAAAAA`, false},
 		{expect, `t.me/joinchat/AAAAAAAAAAAAAAAAAA/`, false},
+		{expect, `t.me/+AAAAAAAAAAAAAAAAAA`, false},
+		{expect, `t.me/+AAAAAAAAAAAAAAAAAA/`, false},
 		{expect, `https://t.me/joinchat/AAAAAAAAAAAAAAAAAA`, false},
 		{expect, `https://t.me/joinchat/AAAAAAAAAAAAAAAAAA/`, false},
 		{expect, `tg:join?invite=AAAAAAAAAAAAAAAAAA`, false},

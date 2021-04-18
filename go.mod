@@ -7,7 +7,7 @@ require (
 	github.com/go-openapi/inflect v0.19.0
 	github.com/gotd/getdoc v0.6.2
 	github.com/gotd/ige v0.1.5
-	github.com/gotd/neo v0.1.2
+	github.com/gotd/neo v0.1.3
 	github.com/gotd/tl v0.4.0
 	github.com/gotd/xor v0.1.1
 	github.com/k0kubun/pp/v3 v3.0.7
