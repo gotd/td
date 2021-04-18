@@ -82,6 +82,13 @@ func parseHTTPS(u *url.URL) (DeepLink, error) {
 
 	switch root {
 	case "":
+		if len(base) > 0 && base[0] == '+' {
+			query.Set("invite", base[1:])
+			return DeepLink{
+				Type: Join,
+				Args: query,
+			}, nil
+		}
 		query.Set("domain", base)
 		return DeepLink{
 			Type: Resolve,
