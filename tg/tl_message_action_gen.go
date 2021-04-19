@@ -4092,6 +4092,161 @@ var (
 	_ MessageActionClass = &MessageActionSetMessagesTTL{}
 )
 
+// MessageActionGroupCallScheduled represents TL type `messageActionGroupCallScheduled#b3a07661`.
+//
+// See https://core.telegram.org/constructor/messageActionGroupCallScheduled for reference.
+type MessageActionGroupCallScheduled struct {
+	// Call field of MessageActionGroupCallScheduled.
+	Call InputGroupCall
+	// ScheduleDate field of MessageActionGroupCallScheduled.
+	ScheduleDate int
+}
+
+// MessageActionGroupCallScheduledTypeID is TL type id of MessageActionGroupCallScheduled.
+const MessageActionGroupCallScheduledTypeID = 0xb3a07661
+
+func (m *MessageActionGroupCallScheduled) Zero() bool {
+	if m == nil {
+		return true
+	}
+	if !(m.Call.Zero()) {
+		return false
+	}
+	if !(m.ScheduleDate == 0) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (m *MessageActionGroupCallScheduled) String() string {
+	if m == nil {
+		return "MessageActionGroupCallScheduled(nil)"
+	}
+	type Alias MessageActionGroupCallScheduled
+	return fmt.Sprintf("MessageActionGroupCallScheduled%+v", Alias(*m))
+}
+
+// FillFrom fills MessageActionGroupCallScheduled from given interface.
+func (m *MessageActionGroupCallScheduled) FillFrom(from interface {
+	GetCall() (value InputGroupCall)
+	GetScheduleDate() (value int)
+}) {
+	m.Call = from.GetCall()
+	m.ScheduleDate = from.GetScheduleDate()
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*MessageActionGroupCallScheduled) TypeID() uint32 {
+	return MessageActionGroupCallScheduledTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*MessageActionGroupCallScheduled) TypeName() string {
+	return "messageActionGroupCallScheduled"
+}
+
+// TypeInfo returns info about TL type.
+func (m *MessageActionGroupCallScheduled) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "messageActionGroupCallScheduled",
+		ID:   MessageActionGroupCallScheduledTypeID,
+	}
+	if m == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "Call",
+			SchemaName: "call",
+		},
+		{
+			Name:       "ScheduleDate",
+			SchemaName: "schedule_date",
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (m *MessageActionGroupCallScheduled) Encode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionGroupCallScheduled#b3a07661 as nil")
+	}
+	b.PutID(MessageActionGroupCallScheduledTypeID)
+	return m.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (m *MessageActionGroupCallScheduled) EncodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't encode messageActionGroupCallScheduled#b3a07661 as nil")
+	}
+	if err := m.Call.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode messageActionGroupCallScheduled#b3a07661: field call: %w", err)
+	}
+	b.PutInt(m.ScheduleDate)
+	return nil
+}
+
+// GetCall returns value of Call field.
+func (m *MessageActionGroupCallScheduled) GetCall() (value InputGroupCall) {
+	return m.Call
+}
+
+// GetScheduleDate returns value of ScheduleDate field.
+func (m *MessageActionGroupCallScheduled) GetScheduleDate() (value int) {
+	return m.ScheduleDate
+}
+
+// Decode implements bin.Decoder.
+func (m *MessageActionGroupCallScheduled) Decode(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionGroupCallScheduled#b3a07661 to nil")
+	}
+	if err := b.ConsumeID(MessageActionGroupCallScheduledTypeID); err != nil {
+		return fmt.Errorf("unable to decode messageActionGroupCallScheduled#b3a07661: %w", err)
+	}
+	return m.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (m *MessageActionGroupCallScheduled) DecodeBare(b *bin.Buffer) error {
+	if m == nil {
+		return fmt.Errorf("can't decode messageActionGroupCallScheduled#b3a07661 to nil")
+	}
+	{
+		if err := m.Call.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode messageActionGroupCallScheduled#b3a07661: field call: %w", err)
+		}
+	}
+	{
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode messageActionGroupCallScheduled#b3a07661: field schedule_date: %w", err)
+		}
+		m.ScheduleDate = value
+	}
+	return nil
+}
+
+// construct implements constructor of MessageActionClass.
+func (m MessageActionGroupCallScheduled) construct() MessageActionClass { return &m }
+
+// Ensuring interfaces in compile-time for MessageActionGroupCallScheduled.
+var (
+	_ bin.Encoder     = &MessageActionGroupCallScheduled{}
+	_ bin.Decoder     = &MessageActionGroupCallScheduled{}
+	_ bin.BareEncoder = &MessageActionGroupCallScheduled{}
+	_ bin.BareDecoder = &MessageActionGroupCallScheduled{}
+
+	_ MessageActionClass = &MessageActionGroupCallScheduled{}
+)
+
 // MessageActionClass represents MessageAction generic type.
 //
 // See https://core.telegram.org/type/MessageAction for reference.
@@ -4129,6 +4284,7 @@ var (
 //  case *tg.MessageActionGroupCall: // messageActionGroupCall#7a0d7f42
 //  case *tg.MessageActionInviteToGroupCall: // messageActionInviteToGroupCall#76b9f11a
 //  case *tg.MessageActionSetMessagesTTL: // messageActionSetMessagesTTL#aa1afbfd
+//  case *tg.MessageActionGroupCallScheduled: // messageActionGroupCallScheduled#b3a07661
 //  default: panic(v)
 //  }
 type MessageActionClass interface {
@@ -4342,6 +4498,13 @@ func DecodeMessageAction(buf *bin.Buffer) (MessageActionClass, error) {
 	case MessageActionSetMessagesTTLTypeID:
 		// Decoding messageActionSetMessagesTTL#aa1afbfd.
 		v := MessageActionSetMessagesTTL{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
+		}
+		return &v, nil
+	case MessageActionGroupCallScheduledTypeID:
+		// Decoding messageActionGroupCallScheduled#b3a07661.
+		v := MessageActionGroupCallScheduled{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode MessageActionClass: %w", err)
 		}
@@ -4723,6 +4886,19 @@ func (s MessageActionClassArray) AsMessageActionInviteToGroupCall() (to MessageA
 func (s MessageActionClassArray) AsMessageActionSetMessagesTTL() (to MessageActionSetMessagesTTLArray) {
 	for _, elem := range s {
 		value, ok := elem.(*MessageActionSetMessagesTTL)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsMessageActionGroupCallScheduled returns copy with only MessageActionGroupCallScheduled constructors.
+func (s MessageActionClassArray) AsMessageActionGroupCallScheduled() (to MessageActionGroupCallScheduledArray) {
+	for _, elem := range s {
+		value, ok := elem.(*MessageActionGroupCallScheduled)
 		if !ok {
 			continue
 		}
@@ -6442,6 +6618,88 @@ func (s *MessageActionSetMessagesTTLArray) PopFirst() (v MessageActionSetMessage
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *MessageActionSetMessagesTTLArray) Pop() (v MessageActionSetMessagesTTL, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// MessageActionGroupCallScheduledArray is adapter for slice of MessageActionGroupCallScheduled.
+type MessageActionGroupCallScheduledArray []MessageActionGroupCallScheduled
+
+// Sort sorts slice of MessageActionGroupCallScheduled.
+func (s MessageActionGroupCallScheduledArray) Sort(less func(a, b MessageActionGroupCallScheduled) bool) MessageActionGroupCallScheduledArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of MessageActionGroupCallScheduled.
+func (s MessageActionGroupCallScheduledArray) SortStable(less func(a, b MessageActionGroupCallScheduled) bool) MessageActionGroupCallScheduledArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of MessageActionGroupCallScheduled.
+func (s MessageActionGroupCallScheduledArray) Retain(keep func(x MessageActionGroupCallScheduled) bool) MessageActionGroupCallScheduledArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s MessageActionGroupCallScheduledArray) First() (v MessageActionGroupCallScheduled, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s MessageActionGroupCallScheduledArray) Last() (v MessageActionGroupCallScheduled, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *MessageActionGroupCallScheduledArray) PopFirst() (v MessageActionGroupCallScheduled, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero MessageActionGroupCallScheduled
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *MessageActionGroupCallScheduledArray) Pop() (v MessageActionGroupCallScheduled, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

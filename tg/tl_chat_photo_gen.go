@@ -131,7 +131,7 @@ var (
 	_ ChatPhotoClass = &ChatPhotoEmpty{}
 )
 
-// ChatPhoto represents TL type `chatPhoto#d20b9f3c`.
+// ChatPhoto represents TL type `chatPhoto#1c6e1c11`.
 // Group profile photo.
 //
 // See https://core.telegram.org/constructor/chatPhoto for reference.
@@ -143,16 +143,18 @@ type ChatPhoto struct {
 	Flags bin.Fields
 	// Whether the user has an animated profile picture
 	HasVideo bool
-	// Location of the file corresponding to the small thumbnail for group profile photo
-	PhotoSmall FileLocationToBeDeprecated
-	// Location of the file corresponding to the small thumbnail for group profile photo
-	PhotoBig FileLocationToBeDeprecated
+	// PhotoID field of ChatPhoto.
+	PhotoID int64
+	// StrippedThumb field of ChatPhoto.
+	//
+	// Use SetStrippedThumb and GetStrippedThumb helpers.
+	StrippedThumb []byte
 	// DC where this photo is stored
 	DCID int
 }
 
 // ChatPhotoTypeID is TL type id of ChatPhoto.
-const ChatPhotoTypeID = 0xd20b9f3c
+const ChatPhotoTypeID = 0x1c6e1c11
 
 func (c *ChatPhoto) Zero() bool {
 	if c == nil {
@@ -164,10 +166,10 @@ func (c *ChatPhoto) Zero() bool {
 	if !(c.HasVideo == false) {
 		return false
 	}
-	if !(c.PhotoSmall.Zero()) {
+	if !(c.PhotoID == 0) {
 		return false
 	}
-	if !(c.PhotoBig.Zero()) {
+	if !(c.StrippedThumb == nil) {
 		return false
 	}
 	if !(c.DCID == 0) {
@@ -189,13 +191,16 @@ func (c *ChatPhoto) String() string {
 // FillFrom fills ChatPhoto from given interface.
 func (c *ChatPhoto) FillFrom(from interface {
 	GetHasVideo() (value bool)
-	GetPhotoSmall() (value FileLocationToBeDeprecated)
-	GetPhotoBig() (value FileLocationToBeDeprecated)
+	GetPhotoID() (value int64)
+	GetStrippedThumb() (value []byte, ok bool)
 	GetDCID() (value int)
 }) {
 	c.HasVideo = from.GetHasVideo()
-	c.PhotoSmall = from.GetPhotoSmall()
-	c.PhotoBig = from.GetPhotoBig()
+	c.PhotoID = from.GetPhotoID()
+	if val, ok := from.GetStrippedThumb(); ok {
+		c.StrippedThumb = val
+	}
+
 	c.DCID = from.GetDCID()
 }
 
@@ -228,12 +233,13 @@ func (c *ChatPhoto) TypeInfo() tdp.Type {
 			Null:       !c.Flags.Has(0),
 		},
 		{
-			Name:       "PhotoSmall",
-			SchemaName: "photo_small",
+			Name:       "PhotoID",
+			SchemaName: "photo_id",
 		},
 		{
-			Name:       "PhotoBig",
-			SchemaName: "photo_big",
+			Name:       "StrippedThumb",
+			SchemaName: "stripped_thumb",
+			Null:       !c.Flags.Has(1),
 		},
 		{
 			Name:       "DCID",
@@ -246,7 +252,7 @@ func (c *ChatPhoto) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *ChatPhoto) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatPhoto#d20b9f3c as nil")
+		return fmt.Errorf("can't encode chatPhoto#1c6e1c11 as nil")
 	}
 	b.PutID(ChatPhotoTypeID)
 	return c.EncodeBare(b)
@@ -255,19 +261,20 @@ func (c *ChatPhoto) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *ChatPhoto) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode chatPhoto#d20b9f3c as nil")
+		return fmt.Errorf("can't encode chatPhoto#1c6e1c11 as nil")
 	}
 	if !(c.HasVideo == false) {
 		c.Flags.Set(0)
 	}
+	if !(c.StrippedThumb == nil) {
+		c.Flags.Set(1)
+	}
 	if err := c.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatPhoto#d20b9f3c: field flags: %w", err)
+		return fmt.Errorf("unable to encode chatPhoto#1c6e1c11: field flags: %w", err)
 	}
-	if err := c.PhotoSmall.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatPhoto#d20b9f3c: field photo_small: %w", err)
-	}
-	if err := c.PhotoBig.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode chatPhoto#d20b9f3c: field photo_big: %w", err)
+	b.PutLong(c.PhotoID)
+	if c.Flags.Has(1) {
+		b.PutBytes(c.StrippedThumb)
 	}
 	b.PutInt(c.DCID)
 	return nil
@@ -289,14 +296,24 @@ func (c *ChatPhoto) GetHasVideo() (value bool) {
 	return c.Flags.Has(0)
 }
 
-// GetPhotoSmall returns value of PhotoSmall field.
-func (c *ChatPhoto) GetPhotoSmall() (value FileLocationToBeDeprecated) {
-	return c.PhotoSmall
+// GetPhotoID returns value of PhotoID field.
+func (c *ChatPhoto) GetPhotoID() (value int64) {
+	return c.PhotoID
 }
 
-// GetPhotoBig returns value of PhotoBig field.
-func (c *ChatPhoto) GetPhotoBig() (value FileLocationToBeDeprecated) {
-	return c.PhotoBig
+// SetStrippedThumb sets value of StrippedThumb conditional field.
+func (c *ChatPhoto) SetStrippedThumb(value []byte) {
+	c.Flags.Set(1)
+	c.StrippedThumb = value
+}
+
+// GetStrippedThumb returns value of StrippedThumb conditional field and
+// boolean which is true if field was set.
+func (c *ChatPhoto) GetStrippedThumb() (value []byte, ok bool) {
+	if !c.Flags.Has(1) {
+		return value, false
+	}
+	return c.StrippedThumb, true
 }
 
 // GetDCID returns value of DCID field.
@@ -307,10 +324,10 @@ func (c *ChatPhoto) GetDCID() (value int) {
 // Decode implements bin.Decoder.
 func (c *ChatPhoto) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatPhoto#d20b9f3c to nil")
+		return fmt.Errorf("can't decode chatPhoto#1c6e1c11 to nil")
 	}
 	if err := b.ConsumeID(ChatPhotoTypeID); err != nil {
-		return fmt.Errorf("unable to decode chatPhoto#d20b9f3c: %w", err)
+		return fmt.Errorf("unable to decode chatPhoto#1c6e1c11: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -318,28 +335,32 @@ func (c *ChatPhoto) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *ChatPhoto) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode chatPhoto#d20b9f3c to nil")
+		return fmt.Errorf("can't decode chatPhoto#1c6e1c11 to nil")
 	}
 	{
 		if err := c.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatPhoto#d20b9f3c: field flags: %w", err)
+			return fmt.Errorf("unable to decode chatPhoto#1c6e1c11: field flags: %w", err)
 		}
 	}
 	c.HasVideo = c.Flags.Has(0)
 	{
-		if err := c.PhotoSmall.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatPhoto#d20b9f3c: field photo_small: %w", err)
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatPhoto#1c6e1c11: field photo_id: %w", err)
 		}
+		c.PhotoID = value
 	}
-	{
-		if err := c.PhotoBig.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode chatPhoto#d20b9f3c: field photo_big: %w", err)
+	if c.Flags.Has(1) {
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode chatPhoto#1c6e1c11: field stripped_thumb: %w", err)
 		}
+		c.StrippedThumb = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode chatPhoto#d20b9f3c: field dc_id: %w", err)
+			return fmt.Errorf("unable to decode chatPhoto#1c6e1c11: field dc_id: %w", err)
 		}
 		c.DCID = value
 	}
@@ -370,7 +391,7 @@ var (
 //  }
 //  switch v := g.(type) {
 //  case *tg.ChatPhotoEmpty: // chatPhotoEmpty#37c1011c
-//  case *tg.ChatPhoto: // chatPhoto#d20b9f3c
+//  case *tg.ChatPhoto: // chatPhoto#1c6e1c11
 //  default: panic(v)
 //  }
 type ChatPhotoClass interface {
@@ -420,7 +441,7 @@ func DecodeChatPhoto(buf *bin.Buffer) (ChatPhotoClass, error) {
 		}
 		return &v, nil
 	case ChatPhotoTypeID:
-		// Decoding chatPhoto#d20b9f3c.
+		// Decoding chatPhoto#1c6e1c11.
 		v := ChatPhoto{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode ChatPhotoClass: %w", err)

@@ -1709,6 +1709,453 @@ var (
 	_ InputBotInlineMessageClass = &InputBotInlineMessageGame{}
 )
 
+// InputBotInlineMessageMediaInvoice represents TL type `inputBotInlineMessageMediaInvoice#d5348d85`.
+//
+// See https://core.telegram.org/constructor/inputBotInlineMessageMediaInvoice for reference.
+type InputBotInlineMessageMediaInvoice struct {
+	// Flags field of InputBotInlineMessageMediaInvoice.
+	Flags bin.Fields
+	// MultipleAllowed field of InputBotInlineMessageMediaInvoice.
+	MultipleAllowed bool
+	// CanForward field of InputBotInlineMessageMediaInvoice.
+	CanForward bool
+	// Title field of InputBotInlineMessageMediaInvoice.
+	Title string
+	// Description field of InputBotInlineMessageMediaInvoice.
+	Description string
+	// Photo field of InputBotInlineMessageMediaInvoice.
+	//
+	// Use SetPhoto and GetPhoto helpers.
+	Photo InputWebDocument
+	// Invoice field of InputBotInlineMessageMediaInvoice.
+	Invoice Invoice
+	// Payload field of InputBotInlineMessageMediaInvoice.
+	Payload []byte
+	// Provider field of InputBotInlineMessageMediaInvoice.
+	Provider string
+	// ProviderData field of InputBotInlineMessageMediaInvoice.
+	ProviderData DataJSON
+	// StartParam field of InputBotInlineMessageMediaInvoice.
+	StartParam string
+	// ReplyMarkup field of InputBotInlineMessageMediaInvoice.
+	//
+	// Use SetReplyMarkup and GetReplyMarkup helpers.
+	ReplyMarkup ReplyMarkupClass
+}
+
+// InputBotInlineMessageMediaInvoiceTypeID is TL type id of InputBotInlineMessageMediaInvoice.
+const InputBotInlineMessageMediaInvoiceTypeID = 0xd5348d85
+
+func (i *InputBotInlineMessageMediaInvoice) Zero() bool {
+	if i == nil {
+		return true
+	}
+	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.MultipleAllowed == false) {
+		return false
+	}
+	if !(i.CanForward == false) {
+		return false
+	}
+	if !(i.Title == "") {
+		return false
+	}
+	if !(i.Description == "") {
+		return false
+	}
+	if !(i.Photo.Zero()) {
+		return false
+	}
+	if !(i.Invoice.Zero()) {
+		return false
+	}
+	if !(i.Payload == nil) {
+		return false
+	}
+	if !(i.Provider == "") {
+		return false
+	}
+	if !(i.ProviderData.Zero()) {
+		return false
+	}
+	if !(i.StartParam == "") {
+		return false
+	}
+	if !(i.ReplyMarkup == nil) {
+		return false
+	}
+
+	return true
+}
+
+// String implements fmt.Stringer.
+func (i *InputBotInlineMessageMediaInvoice) String() string {
+	if i == nil {
+		return "InputBotInlineMessageMediaInvoice(nil)"
+	}
+	type Alias InputBotInlineMessageMediaInvoice
+	return fmt.Sprintf("InputBotInlineMessageMediaInvoice%+v", Alias(*i))
+}
+
+// FillFrom fills InputBotInlineMessageMediaInvoice from given interface.
+func (i *InputBotInlineMessageMediaInvoice) FillFrom(from interface {
+	GetMultipleAllowed() (value bool)
+	GetCanForward() (value bool)
+	GetTitle() (value string)
+	GetDescription() (value string)
+	GetPhoto() (value InputWebDocument, ok bool)
+	GetInvoice() (value Invoice)
+	GetPayload() (value []byte)
+	GetProvider() (value string)
+	GetProviderData() (value DataJSON)
+	GetStartParam() (value string)
+	GetReplyMarkup() (value ReplyMarkupClass, ok bool)
+}) {
+	i.MultipleAllowed = from.GetMultipleAllowed()
+	i.CanForward = from.GetCanForward()
+	i.Title = from.GetTitle()
+	i.Description = from.GetDescription()
+	if val, ok := from.GetPhoto(); ok {
+		i.Photo = val
+	}
+
+	i.Invoice = from.GetInvoice()
+	i.Payload = from.GetPayload()
+	i.Provider = from.GetProvider()
+	i.ProviderData = from.GetProviderData()
+	i.StartParam = from.GetStartParam()
+	if val, ok := from.GetReplyMarkup(); ok {
+		i.ReplyMarkup = val
+	}
+
+}
+
+// TypeID returns type id in TL schema.
+//
+// See https://core.telegram.org/mtproto/TL-tl#remarks.
+func (*InputBotInlineMessageMediaInvoice) TypeID() uint32 {
+	return InputBotInlineMessageMediaInvoiceTypeID
+}
+
+// TypeName returns name of type in TL schema.
+func (*InputBotInlineMessageMediaInvoice) TypeName() string {
+	return "inputBotInlineMessageMediaInvoice"
+}
+
+// TypeInfo returns info about TL type.
+func (i *InputBotInlineMessageMediaInvoice) TypeInfo() tdp.Type {
+	typ := tdp.Type{
+		Name: "inputBotInlineMessageMediaInvoice",
+		ID:   InputBotInlineMessageMediaInvoiceTypeID,
+	}
+	if i == nil {
+		typ.Null = true
+		return typ
+	}
+	typ.Fields = []tdp.Field{
+		{
+			Name:       "MultipleAllowed",
+			SchemaName: "multiple_allowed",
+			Null:       !i.Flags.Has(1),
+		},
+		{
+			Name:       "CanForward",
+			SchemaName: "can_forward",
+			Null:       !i.Flags.Has(3),
+		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+		},
+		{
+			Name:       "Description",
+			SchemaName: "description",
+		},
+		{
+			Name:       "Photo",
+			SchemaName: "photo",
+			Null:       !i.Flags.Has(0),
+		},
+		{
+			Name:       "Invoice",
+			SchemaName: "invoice",
+		},
+		{
+			Name:       "Payload",
+			SchemaName: "payload",
+		},
+		{
+			Name:       "Provider",
+			SchemaName: "provider",
+		},
+		{
+			Name:       "ProviderData",
+			SchemaName: "provider_data",
+		},
+		{
+			Name:       "StartParam",
+			SchemaName: "start_param",
+		},
+		{
+			Name:       "ReplyMarkup",
+			SchemaName: "reply_markup",
+			Null:       !i.Flags.Has(2),
+		},
+	}
+	return typ
+}
+
+// Encode implements bin.Encoder.
+func (i *InputBotInlineMessageMediaInvoice) Encode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputBotInlineMessageMediaInvoice#d5348d85 as nil")
+	}
+	b.PutID(InputBotInlineMessageMediaInvoiceTypeID)
+	return i.EncodeBare(b)
+}
+
+// EncodeBare implements bin.BareEncoder.
+func (i *InputBotInlineMessageMediaInvoice) EncodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't encode inputBotInlineMessageMediaInvoice#d5348d85 as nil")
+	}
+	if !(i.MultipleAllowed == false) {
+		i.Flags.Set(1)
+	}
+	if !(i.CanForward == false) {
+		i.Flags.Set(3)
+	}
+	if !(i.Photo.Zero()) {
+		i.Flags.Set(0)
+	}
+	if !(i.ReplyMarkup == nil) {
+		i.Flags.Set(2)
+	}
+	if err := i.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputBotInlineMessageMediaInvoice#d5348d85: field flags: %w", err)
+	}
+	b.PutString(i.Title)
+	b.PutString(i.Description)
+	if i.Flags.Has(0) {
+		if err := i.Photo.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode inputBotInlineMessageMediaInvoice#d5348d85: field photo: %w", err)
+		}
+	}
+	if err := i.Invoice.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputBotInlineMessageMediaInvoice#d5348d85: field invoice: %w", err)
+	}
+	b.PutBytes(i.Payload)
+	b.PutString(i.Provider)
+	if err := i.ProviderData.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode inputBotInlineMessageMediaInvoice#d5348d85: field provider_data: %w", err)
+	}
+	b.PutString(i.StartParam)
+	if i.Flags.Has(2) {
+		if i.ReplyMarkup == nil {
+			return fmt.Errorf("unable to encode inputBotInlineMessageMediaInvoice#d5348d85: field reply_markup is nil")
+		}
+		if err := i.ReplyMarkup.Encode(b); err != nil {
+			return fmt.Errorf("unable to encode inputBotInlineMessageMediaInvoice#d5348d85: field reply_markup: %w", err)
+		}
+	}
+	return nil
+}
+
+// SetMultipleAllowed sets value of MultipleAllowed conditional field.
+func (i *InputBotInlineMessageMediaInvoice) SetMultipleAllowed(value bool) {
+	if value {
+		i.Flags.Set(1)
+		i.MultipleAllowed = true
+	} else {
+		i.Flags.Unset(1)
+		i.MultipleAllowed = false
+	}
+}
+
+// GetMultipleAllowed returns value of MultipleAllowed conditional field.
+func (i *InputBotInlineMessageMediaInvoice) GetMultipleAllowed() (value bool) {
+	return i.Flags.Has(1)
+}
+
+// SetCanForward sets value of CanForward conditional field.
+func (i *InputBotInlineMessageMediaInvoice) SetCanForward(value bool) {
+	if value {
+		i.Flags.Set(3)
+		i.CanForward = true
+	} else {
+		i.Flags.Unset(3)
+		i.CanForward = false
+	}
+}
+
+// GetCanForward returns value of CanForward conditional field.
+func (i *InputBotInlineMessageMediaInvoice) GetCanForward() (value bool) {
+	return i.Flags.Has(3)
+}
+
+// GetTitle returns value of Title field.
+func (i *InputBotInlineMessageMediaInvoice) GetTitle() (value string) {
+	return i.Title
+}
+
+// GetDescription returns value of Description field.
+func (i *InputBotInlineMessageMediaInvoice) GetDescription() (value string) {
+	return i.Description
+}
+
+// SetPhoto sets value of Photo conditional field.
+func (i *InputBotInlineMessageMediaInvoice) SetPhoto(value InputWebDocument) {
+	i.Flags.Set(0)
+	i.Photo = value
+}
+
+// GetPhoto returns value of Photo conditional field and
+// boolean which is true if field was set.
+func (i *InputBotInlineMessageMediaInvoice) GetPhoto() (value InputWebDocument, ok bool) {
+	if !i.Flags.Has(0) {
+		return value, false
+	}
+	return i.Photo, true
+}
+
+// GetInvoice returns value of Invoice field.
+func (i *InputBotInlineMessageMediaInvoice) GetInvoice() (value Invoice) {
+	return i.Invoice
+}
+
+// GetPayload returns value of Payload field.
+func (i *InputBotInlineMessageMediaInvoice) GetPayload() (value []byte) {
+	return i.Payload
+}
+
+// GetProvider returns value of Provider field.
+func (i *InputBotInlineMessageMediaInvoice) GetProvider() (value string) {
+	return i.Provider
+}
+
+// GetProviderData returns value of ProviderData field.
+func (i *InputBotInlineMessageMediaInvoice) GetProviderData() (value DataJSON) {
+	return i.ProviderData
+}
+
+// GetStartParam returns value of StartParam field.
+func (i *InputBotInlineMessageMediaInvoice) GetStartParam() (value string) {
+	return i.StartParam
+}
+
+// SetReplyMarkup sets value of ReplyMarkup conditional field.
+func (i *InputBotInlineMessageMediaInvoice) SetReplyMarkup(value ReplyMarkupClass) {
+	i.Flags.Set(2)
+	i.ReplyMarkup = value
+}
+
+// GetReplyMarkup returns value of ReplyMarkup conditional field and
+// boolean which is true if field was set.
+func (i *InputBotInlineMessageMediaInvoice) GetReplyMarkup() (value ReplyMarkupClass, ok bool) {
+	if !i.Flags.Has(2) {
+		return value, false
+	}
+	return i.ReplyMarkup, true
+}
+
+// Decode implements bin.Decoder.
+func (i *InputBotInlineMessageMediaInvoice) Decode(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputBotInlineMessageMediaInvoice#d5348d85 to nil")
+	}
+	if err := b.ConsumeID(InputBotInlineMessageMediaInvoiceTypeID); err != nil {
+		return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d5348d85: %w", err)
+	}
+	return i.DecodeBare(b)
+}
+
+// DecodeBare implements bin.BareDecoder.
+func (i *InputBotInlineMessageMediaInvoice) DecodeBare(b *bin.Buffer) error {
+	if i == nil {
+		return fmt.Errorf("can't decode inputBotInlineMessageMediaInvoice#d5348d85 to nil")
+	}
+	{
+		if err := i.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d5348d85: field flags: %w", err)
+		}
+	}
+	i.MultipleAllowed = i.Flags.Has(1)
+	i.CanForward = i.Flags.Has(3)
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d5348d85: field title: %w", err)
+		}
+		i.Title = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d5348d85: field description: %w", err)
+		}
+		i.Description = value
+	}
+	if i.Flags.Has(0) {
+		if err := i.Photo.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d5348d85: field photo: %w", err)
+		}
+	}
+	{
+		if err := i.Invoice.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d5348d85: field invoice: %w", err)
+		}
+	}
+	{
+		value, err := b.Bytes()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d5348d85: field payload: %w", err)
+		}
+		i.Payload = value
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d5348d85: field provider: %w", err)
+		}
+		i.Provider = value
+	}
+	{
+		if err := i.ProviderData.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d5348d85: field provider_data: %w", err)
+		}
+	}
+	{
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d5348d85: field start_param: %w", err)
+		}
+		i.StartParam = value
+	}
+	if i.Flags.Has(2) {
+		value, err := DecodeReplyMarkup(b)
+		if err != nil {
+			return fmt.Errorf("unable to decode inputBotInlineMessageMediaInvoice#d5348d85: field reply_markup: %w", err)
+		}
+		i.ReplyMarkup = value
+	}
+	return nil
+}
+
+// construct implements constructor of InputBotInlineMessageClass.
+func (i InputBotInlineMessageMediaInvoice) construct() InputBotInlineMessageClass { return &i }
+
+// Ensuring interfaces in compile-time for InputBotInlineMessageMediaInvoice.
+var (
+	_ bin.Encoder     = &InputBotInlineMessageMediaInvoice{}
+	_ bin.Decoder     = &InputBotInlineMessageMediaInvoice{}
+	_ bin.BareEncoder = &InputBotInlineMessageMediaInvoice{}
+	_ bin.BareDecoder = &InputBotInlineMessageMediaInvoice{}
+
+	_ InputBotInlineMessageClass = &InputBotInlineMessageMediaInvoice{}
+)
+
 // InputBotInlineMessageClass represents InputBotInlineMessage generic type.
 //
 // See https://core.telegram.org/type/InputBotInlineMessage for reference.
@@ -1725,6 +2172,7 @@ var (
 //  case *tg.InputBotInlineMessageMediaVenue: // inputBotInlineMessageMediaVenue#417bbf11
 //  case *tg.InputBotInlineMessageMediaContact: // inputBotInlineMessageMediaContact#a6edbffd
 //  case *tg.InputBotInlineMessageGame: // inputBotInlineMessageGame#4b425864
+//  case *tg.InputBotInlineMessageMediaInvoice: // inputBotInlineMessageMediaInvoice#d5348d85
 //  default: panic(v)
 //  }
 type InputBotInlineMessageClass interface {
@@ -1794,6 +2242,13 @@ func DecodeInputBotInlineMessage(buf *bin.Buffer) (InputBotInlineMessageClass, e
 	case InputBotInlineMessageGameTypeID:
 		// Decoding inputBotInlineMessageGame#4b425864.
 		v := InputBotInlineMessageGame{}
+		if err := v.Decode(buf); err != nil {
+			return nil, fmt.Errorf("unable to decode InputBotInlineMessageClass: %w", err)
+		}
+		return &v, nil
+	case InputBotInlineMessageMediaInvoiceTypeID:
+		// Decoding inputBotInlineMessageMediaInvoice#d5348d85.
+		v := InputBotInlineMessageMediaInvoice{}
 		if err := v.Decode(buf); err != nil {
 			return nil, fmt.Errorf("unable to decode InputBotInlineMessageClass: %w", err)
 		}
@@ -1980,6 +2435,19 @@ func (s InputBotInlineMessageClassArray) AsInputBotInlineMessageMediaContact() (
 func (s InputBotInlineMessageClassArray) AsInputBotInlineMessageGame() (to InputBotInlineMessageGameArray) {
 	for _, elem := range s {
 		value, ok := elem.(*InputBotInlineMessageGame)
+		if !ok {
+			continue
+		}
+		to = append(to, *value)
+	}
+
+	return to
+}
+
+// AsInputBotInlineMessageMediaInvoice returns copy with only InputBotInlineMessageMediaInvoice constructors.
+func (s InputBotInlineMessageClassArray) AsInputBotInlineMessageMediaInvoice() (to InputBotInlineMessageMediaInvoiceArray) {
+	for _, elem := range s {
+		value, ok := elem.(*InputBotInlineMessageMediaInvoice)
 		if !ok {
 			continue
 		}
@@ -2469,6 +2937,88 @@ func (s *InputBotInlineMessageGameArray) PopFirst() (v InputBotInlineMessageGame
 
 // Pop returns last element of slice (if exists) and deletes it.
 func (s *InputBotInlineMessageGameArray) Pop() (v InputBotInlineMessageGame, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[len(a)-1]
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// InputBotInlineMessageMediaInvoiceArray is adapter for slice of InputBotInlineMessageMediaInvoice.
+type InputBotInlineMessageMediaInvoiceArray []InputBotInlineMessageMediaInvoice
+
+// Sort sorts slice of InputBotInlineMessageMediaInvoice.
+func (s InputBotInlineMessageMediaInvoiceArray) Sort(less func(a, b InputBotInlineMessageMediaInvoice) bool) InputBotInlineMessageMediaInvoiceArray {
+	sort.Slice(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// SortStable sorts slice of InputBotInlineMessageMediaInvoice.
+func (s InputBotInlineMessageMediaInvoiceArray) SortStable(less func(a, b InputBotInlineMessageMediaInvoice) bool) InputBotInlineMessageMediaInvoiceArray {
+	sort.SliceStable(s, func(i, j int) bool {
+		return less(s[i], s[j])
+	})
+	return s
+}
+
+// Retain filters in-place slice of InputBotInlineMessageMediaInvoice.
+func (s InputBotInlineMessageMediaInvoiceArray) Retain(keep func(x InputBotInlineMessageMediaInvoice) bool) InputBotInlineMessageMediaInvoiceArray {
+	n := 0
+	for _, x := range s {
+		if keep(x) {
+			s[n] = x
+			n++
+		}
+	}
+	s = s[:n]
+
+	return s
+}
+
+// First returns first element of slice (if exists).
+func (s InputBotInlineMessageMediaInvoiceArray) First() (v InputBotInlineMessageMediaInvoice, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[0], true
+}
+
+// Last returns last element of slice (if exists).
+func (s InputBotInlineMessageMediaInvoiceArray) Last() (v InputBotInlineMessageMediaInvoice, ok bool) {
+	if len(s) < 1 {
+		return
+	}
+	return s[len(s)-1], true
+}
+
+// PopFirst returns first element of slice (if exists) and deletes it.
+func (s *InputBotInlineMessageMediaInvoiceArray) PopFirst() (v InputBotInlineMessageMediaInvoice, ok bool) {
+	if s == nil || len(*s) < 1 {
+		return
+	}
+
+	a := *s
+	v = a[0]
+
+	// Delete by index from SliceTricks.
+	copy(a[0:], a[1:])
+	var zero InputBotInlineMessageMediaInvoice
+	a[len(a)-1] = zero
+	a = a[:len(a)-1]
+	*s = a
+
+	return v, true
+}
+
+// Pop returns last element of slice (if exists) and deletes it.
+func (s *InputBotInlineMessageMediaInvoiceArray) Pop() (v InputBotInlineMessageMediaInvoice, ok bool) {
 	if s == nil || len(*s) < 1 {
 		return
 	}

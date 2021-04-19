@@ -2424,6 +2424,10 @@ type InputMediaInvoice struct {
 	// Links:
 	//  1) https://core.telegram.org/mtproto/TL-combinators#conditional-fields
 	Flags bin.Fields
+	// MultipleAllowed field of InputMediaInvoice.
+	MultipleAllowed bool
+	// CanForward field of InputMediaInvoice.
+	CanForward bool
 	// Product name, 1-32 characters
 	Title string
 	// Product description, 1-255 characters
@@ -2458,6 +2462,12 @@ func (i *InputMediaInvoice) Zero() bool {
 		return true
 	}
 	if !(i.Flags.Zero()) {
+		return false
+	}
+	if !(i.MultipleAllowed == false) {
+		return false
+	}
+	if !(i.CanForward == false) {
 		return false
 	}
 	if !(i.Title == "") {
@@ -2499,6 +2509,8 @@ func (i *InputMediaInvoice) String() string {
 
 // FillFrom fills InputMediaInvoice from given interface.
 func (i *InputMediaInvoice) FillFrom(from interface {
+	GetMultipleAllowed() (value bool)
+	GetCanForward() (value bool)
 	GetTitle() (value string)
 	GetDescription() (value string)
 	GetPhoto() (value InputWebDocument, ok bool)
@@ -2508,6 +2520,8 @@ func (i *InputMediaInvoice) FillFrom(from interface {
 	GetProviderData() (value DataJSON)
 	GetStartParam() (value string)
 }) {
+	i.MultipleAllowed = from.GetMultipleAllowed()
+	i.CanForward = from.GetCanForward()
 	i.Title = from.GetTitle()
 	i.Description = from.GetDescription()
 	if val, ok := from.GetPhoto(); ok {
@@ -2544,6 +2558,16 @@ func (i *InputMediaInvoice) TypeInfo() tdp.Type {
 		return typ
 	}
 	typ.Fields = []tdp.Field{
+		{
+			Name:       "MultipleAllowed",
+			SchemaName: "multiple_allowed",
+			Null:       !i.Flags.Has(1),
+		},
+		{
+			Name:       "CanForward",
+			SchemaName: "can_forward",
+			Null:       !i.Flags.Has(2),
+		},
 		{
 			Name:       "Title",
 			SchemaName: "title",
@@ -2595,6 +2619,12 @@ func (i *InputMediaInvoice) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
 		return fmt.Errorf("can't encode inputMediaInvoice#f4e096c3 as nil")
 	}
+	if !(i.MultipleAllowed == false) {
+		i.Flags.Set(1)
+	}
+	if !(i.CanForward == false) {
+		i.Flags.Set(2)
+	}
 	if !(i.Photo.Zero()) {
 		i.Flags.Set(0)
 	}
@@ -2618,6 +2648,38 @@ func (i *InputMediaInvoice) EncodeBare(b *bin.Buffer) error {
 	}
 	b.PutString(i.StartParam)
 	return nil
+}
+
+// SetMultipleAllowed sets value of MultipleAllowed conditional field.
+func (i *InputMediaInvoice) SetMultipleAllowed(value bool) {
+	if value {
+		i.Flags.Set(1)
+		i.MultipleAllowed = true
+	} else {
+		i.Flags.Unset(1)
+		i.MultipleAllowed = false
+	}
+}
+
+// GetMultipleAllowed returns value of MultipleAllowed conditional field.
+func (i *InputMediaInvoice) GetMultipleAllowed() (value bool) {
+	return i.Flags.Has(1)
+}
+
+// SetCanForward sets value of CanForward conditional field.
+func (i *InputMediaInvoice) SetCanForward(value bool) {
+	if value {
+		i.Flags.Set(2)
+		i.CanForward = true
+	} else {
+		i.Flags.Unset(2)
+		i.CanForward = false
+	}
+}
+
+// GetCanForward returns value of CanForward conditional field.
+func (i *InputMediaInvoice) GetCanForward() (value bool) {
+	return i.Flags.Has(2)
 }
 
 // GetTitle returns value of Title field.
@@ -2691,6 +2753,8 @@ func (i *InputMediaInvoice) DecodeBare(b *bin.Buffer) error {
 			return fmt.Errorf("unable to decode inputMediaInvoice#f4e096c3: field flags: %w", err)
 		}
 	}
+	i.MultipleAllowed = i.Flags.Has(1)
+	i.CanForward = i.Flags.Has(2)
 	{
 		value, err := b.String()
 		if err != nil {

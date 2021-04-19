@@ -29,7 +29,7 @@ var (
 	_ = tgerr.Error{}
 )
 
-// Invoice represents TL type `invoice#c30aa358`.
+// Invoice represents TL type `invoice#cd886e0`.
 // Invoice
 //
 // See https://core.telegram.org/constructor/invoice for reference.
@@ -63,10 +63,18 @@ type Invoice struct {
 	// Price breakdown, a list of components (e.g. product price, tax, discount, delivery
 	// cost, delivery tax, bonus, etc.)
 	Prices []LabeledPrice
+	// MaxTipAmount field of Invoice.
+	//
+	// Use SetMaxTipAmount and GetMaxTipAmount helpers.
+	MaxTipAmount int64
+	// SuggestedTipAmounts field of Invoice.
+	//
+	// Use SetSuggestedTipAmounts and GetSuggestedTipAmounts helpers.
+	SuggestedTipAmounts []int64
 }
 
 // InvoiceTypeID is TL type id of Invoice.
-const InvoiceTypeID = 0xc30aa358
+const InvoiceTypeID = 0xcd886e0
 
 func (i *Invoice) Zero() bool {
 	if i == nil {
@@ -105,6 +113,12 @@ func (i *Invoice) Zero() bool {
 	if !(i.Prices == nil) {
 		return false
 	}
+	if !(i.MaxTipAmount == 0) {
+		return false
+	}
+	if !(i.SuggestedTipAmounts == nil) {
+		return false
+	}
 
 	return true
 }
@@ -130,6 +144,8 @@ func (i *Invoice) FillFrom(from interface {
 	GetEmailToProvider() (value bool)
 	GetCurrency() (value string)
 	GetPrices() (value []LabeledPrice)
+	GetMaxTipAmount() (value int64, ok bool)
+	GetSuggestedTipAmounts() (value []int64, ok bool)
 }) {
 	i.Test = from.GetTest()
 	i.NameRequested = from.GetNameRequested()
@@ -141,6 +157,14 @@ func (i *Invoice) FillFrom(from interface {
 	i.EmailToProvider = from.GetEmailToProvider()
 	i.Currency = from.GetCurrency()
 	i.Prices = from.GetPrices()
+	if val, ok := from.GetMaxTipAmount(); ok {
+		i.MaxTipAmount = val
+	}
+
+	if val, ok := from.GetSuggestedTipAmounts(); ok {
+		i.SuggestedTipAmounts = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -214,6 +238,16 @@ func (i *Invoice) TypeInfo() tdp.Type {
 			Name:       "Prices",
 			SchemaName: "prices",
 		},
+		{
+			Name:       "MaxTipAmount",
+			SchemaName: "max_tip_amount",
+			Null:       !i.Flags.Has(8),
+		},
+		{
+			Name:       "SuggestedTipAmounts",
+			SchemaName: "suggested_tip_amounts",
+			Null:       !i.Flags.Has(8),
+		},
 	}
 	return typ
 }
@@ -221,7 +255,7 @@ func (i *Invoice) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (i *Invoice) Encode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode invoice#c30aa358 as nil")
+		return fmt.Errorf("can't encode invoice#cd886e0 as nil")
 	}
 	b.PutID(InvoiceTypeID)
 	return i.EncodeBare(b)
@@ -230,7 +264,7 @@ func (i *Invoice) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (i *Invoice) EncodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't encode invoice#c30aa358 as nil")
+		return fmt.Errorf("can't encode invoice#cd886e0 as nil")
 	}
 	if !(i.Test == false) {
 		i.Flags.Set(0)
@@ -256,14 +290,29 @@ func (i *Invoice) EncodeBare(b *bin.Buffer) error {
 	if !(i.EmailToProvider == false) {
 		i.Flags.Set(7)
 	}
+	if !(i.MaxTipAmount == 0) {
+		i.Flags.Set(8)
+	}
+	if !(i.SuggestedTipAmounts == nil) {
+		i.Flags.Set(8)
+	}
 	if err := i.Flags.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode invoice#c30aa358: field flags: %w", err)
+		return fmt.Errorf("unable to encode invoice#cd886e0: field flags: %w", err)
 	}
 	b.PutString(i.Currency)
 	b.PutVectorHeader(len(i.Prices))
 	for idx, v := range i.Prices {
 		if err := v.Encode(b); err != nil {
-			return fmt.Errorf("unable to encode invoice#c30aa358: field prices element with index %d: %w", idx, err)
+			return fmt.Errorf("unable to encode invoice#cd886e0: field prices element with index %d: %w", idx, err)
+		}
+	}
+	if i.Flags.Has(8) {
+		b.PutLong(i.MaxTipAmount)
+	}
+	if i.Flags.Has(8) {
+		b.PutVectorHeader(len(i.SuggestedTipAmounts))
+		for _, v := range i.SuggestedTipAmounts {
+			b.PutLong(v)
 		}
 	}
 	return nil
@@ -407,13 +456,43 @@ func (i *Invoice) GetPrices() (value []LabeledPrice) {
 	return i.Prices
 }
 
+// SetMaxTipAmount sets value of MaxTipAmount conditional field.
+func (i *Invoice) SetMaxTipAmount(value int64) {
+	i.Flags.Set(8)
+	i.MaxTipAmount = value
+}
+
+// GetMaxTipAmount returns value of MaxTipAmount conditional field and
+// boolean which is true if field was set.
+func (i *Invoice) GetMaxTipAmount() (value int64, ok bool) {
+	if !i.Flags.Has(8) {
+		return value, false
+	}
+	return i.MaxTipAmount, true
+}
+
+// SetSuggestedTipAmounts sets value of SuggestedTipAmounts conditional field.
+func (i *Invoice) SetSuggestedTipAmounts(value []int64) {
+	i.Flags.Set(8)
+	i.SuggestedTipAmounts = value
+}
+
+// GetSuggestedTipAmounts returns value of SuggestedTipAmounts conditional field and
+// boolean which is true if field was set.
+func (i *Invoice) GetSuggestedTipAmounts() (value []int64, ok bool) {
+	if !i.Flags.Has(8) {
+		return value, false
+	}
+	return i.SuggestedTipAmounts, true
+}
+
 // Decode implements bin.Decoder.
 func (i *Invoice) Decode(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode invoice#c30aa358 to nil")
+		return fmt.Errorf("can't decode invoice#cd886e0 to nil")
 	}
 	if err := b.ConsumeID(InvoiceTypeID); err != nil {
-		return fmt.Errorf("unable to decode invoice#c30aa358: %w", err)
+		return fmt.Errorf("unable to decode invoice#cd886e0: %w", err)
 	}
 	return i.DecodeBare(b)
 }
@@ -421,11 +500,11 @@ func (i *Invoice) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (i *Invoice) DecodeBare(b *bin.Buffer) error {
 	if i == nil {
-		return fmt.Errorf("can't decode invoice#c30aa358 to nil")
+		return fmt.Errorf("can't decode invoice#cd886e0 to nil")
 	}
 	{
 		if err := i.Flags.Decode(b); err != nil {
-			return fmt.Errorf("unable to decode invoice#c30aa358: field flags: %w", err)
+			return fmt.Errorf("unable to decode invoice#cd886e0: field flags: %w", err)
 		}
 	}
 	i.Test = i.Flags.Has(0)
@@ -439,21 +518,41 @@ func (i *Invoice) DecodeBare(b *bin.Buffer) error {
 	{
 		value, err := b.String()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#c30aa358: field currency: %w", err)
+			return fmt.Errorf("unable to decode invoice#cd886e0: field currency: %w", err)
 		}
 		i.Currency = value
 	}
 	{
 		headerLen, err := b.VectorHeader()
 		if err != nil {
-			return fmt.Errorf("unable to decode invoice#c30aa358: field prices: %w", err)
+			return fmt.Errorf("unable to decode invoice#cd886e0: field prices: %w", err)
 		}
 		for idx := 0; idx < headerLen; idx++ {
 			var value LabeledPrice
 			if err := value.Decode(b); err != nil {
-				return fmt.Errorf("unable to decode invoice#c30aa358: field prices: %w", err)
+				return fmt.Errorf("unable to decode invoice#cd886e0: field prices: %w", err)
 			}
 			i.Prices = append(i.Prices, value)
+		}
+	}
+	if i.Flags.Has(8) {
+		value, err := b.Long()
+		if err != nil {
+			return fmt.Errorf("unable to decode invoice#cd886e0: field max_tip_amount: %w", err)
+		}
+		i.MaxTipAmount = value
+	}
+	if i.Flags.Has(8) {
+		headerLen, err := b.VectorHeader()
+		if err != nil {
+			return fmt.Errorf("unable to decode invoice#cd886e0: field suggested_tip_amounts: %w", err)
+		}
+		for idx := 0; idx < headerLen; idx++ {
+			value, err := b.Long()
+			if err != nil {
+				return fmt.Errorf("unable to decode invoice#cd886e0: field suggested_tip_amounts: %w", err)
+			}
+			i.SuggestedTipAmounts = append(i.SuggestedTipAmounts, value)
 		}
 	}
 	return nil

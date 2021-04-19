@@ -29,27 +29,46 @@ var (
 	_ = tgerr.Error{}
 )
 
-// PhoneCreateGroupCallRequest represents TL type `phone.createGroupCall#bd3dabe0`.
+// PhoneCreateGroupCallRequest represents TL type `phone.createGroupCall#48cdc6d8`.
 //
 // See https://core.telegram.org/method/phone.createGroupCall for reference.
 type PhoneCreateGroupCallRequest struct {
+	// Flags field of PhoneCreateGroupCallRequest.
+	Flags bin.Fields
 	// Peer field of PhoneCreateGroupCallRequest.
 	Peer InputPeerClass
 	// RandomID field of PhoneCreateGroupCallRequest.
 	RandomID int
+	// Title field of PhoneCreateGroupCallRequest.
+	//
+	// Use SetTitle and GetTitle helpers.
+	Title string
+	// ScheduleDate field of PhoneCreateGroupCallRequest.
+	//
+	// Use SetScheduleDate and GetScheduleDate helpers.
+	ScheduleDate int
 }
 
 // PhoneCreateGroupCallRequestTypeID is TL type id of PhoneCreateGroupCallRequest.
-const PhoneCreateGroupCallRequestTypeID = 0xbd3dabe0
+const PhoneCreateGroupCallRequestTypeID = 0x48cdc6d8
 
 func (c *PhoneCreateGroupCallRequest) Zero() bool {
 	if c == nil {
 		return true
 	}
+	if !(c.Flags.Zero()) {
+		return false
+	}
 	if !(c.Peer == nil) {
 		return false
 	}
 	if !(c.RandomID == 0) {
+		return false
+	}
+	if !(c.Title == "") {
+		return false
+	}
+	if !(c.ScheduleDate == 0) {
 		return false
 	}
 
@@ -69,9 +88,19 @@ func (c *PhoneCreateGroupCallRequest) String() string {
 func (c *PhoneCreateGroupCallRequest) FillFrom(from interface {
 	GetPeer() (value InputPeerClass)
 	GetRandomID() (value int)
+	GetTitle() (value string, ok bool)
+	GetScheduleDate() (value int, ok bool)
 }) {
 	c.Peer = from.GetPeer()
 	c.RandomID = from.GetRandomID()
+	if val, ok := from.GetTitle(); ok {
+		c.Title = val
+	}
+
+	if val, ok := from.GetScheduleDate(); ok {
+		c.ScheduleDate = val
+	}
+
 }
 
 // TypeID returns type id in TL schema.
@@ -105,6 +134,16 @@ func (c *PhoneCreateGroupCallRequest) TypeInfo() tdp.Type {
 			Name:       "RandomID",
 			SchemaName: "random_id",
 		},
+		{
+			Name:       "Title",
+			SchemaName: "title",
+			Null:       !c.Flags.Has(0),
+		},
+		{
+			Name:       "ScheduleDate",
+			SchemaName: "schedule_date",
+			Null:       !c.Flags.Has(1),
+		},
 	}
 	return typ
 }
@@ -112,7 +151,7 @@ func (c *PhoneCreateGroupCallRequest) TypeInfo() tdp.Type {
 // Encode implements bin.Encoder.
 func (c *PhoneCreateGroupCallRequest) Encode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode phone.createGroupCall#bd3dabe0 as nil")
+		return fmt.Errorf("can't encode phone.createGroupCall#48cdc6d8 as nil")
 	}
 	b.PutID(PhoneCreateGroupCallRequestTypeID)
 	return c.EncodeBare(b)
@@ -121,15 +160,30 @@ func (c *PhoneCreateGroupCallRequest) Encode(b *bin.Buffer) error {
 // EncodeBare implements bin.BareEncoder.
 func (c *PhoneCreateGroupCallRequest) EncodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't encode phone.createGroupCall#bd3dabe0 as nil")
+		return fmt.Errorf("can't encode phone.createGroupCall#48cdc6d8 as nil")
+	}
+	if !(c.Title == "") {
+		c.Flags.Set(0)
+	}
+	if !(c.ScheduleDate == 0) {
+		c.Flags.Set(1)
+	}
+	if err := c.Flags.Encode(b); err != nil {
+		return fmt.Errorf("unable to encode phone.createGroupCall#48cdc6d8: field flags: %w", err)
 	}
 	if c.Peer == nil {
-		return fmt.Errorf("unable to encode phone.createGroupCall#bd3dabe0: field peer is nil")
+		return fmt.Errorf("unable to encode phone.createGroupCall#48cdc6d8: field peer is nil")
 	}
 	if err := c.Peer.Encode(b); err != nil {
-		return fmt.Errorf("unable to encode phone.createGroupCall#bd3dabe0: field peer: %w", err)
+		return fmt.Errorf("unable to encode phone.createGroupCall#48cdc6d8: field peer: %w", err)
 	}
 	b.PutInt(c.RandomID)
+	if c.Flags.Has(0) {
+		b.PutString(c.Title)
+	}
+	if c.Flags.Has(1) {
+		b.PutInt(c.ScheduleDate)
+	}
 	return nil
 }
 
@@ -143,13 +197,43 @@ func (c *PhoneCreateGroupCallRequest) GetRandomID() (value int) {
 	return c.RandomID
 }
 
+// SetTitle sets value of Title conditional field.
+func (c *PhoneCreateGroupCallRequest) SetTitle(value string) {
+	c.Flags.Set(0)
+	c.Title = value
+}
+
+// GetTitle returns value of Title conditional field and
+// boolean which is true if field was set.
+func (c *PhoneCreateGroupCallRequest) GetTitle() (value string, ok bool) {
+	if !c.Flags.Has(0) {
+		return value, false
+	}
+	return c.Title, true
+}
+
+// SetScheduleDate sets value of ScheduleDate conditional field.
+func (c *PhoneCreateGroupCallRequest) SetScheduleDate(value int) {
+	c.Flags.Set(1)
+	c.ScheduleDate = value
+}
+
+// GetScheduleDate returns value of ScheduleDate conditional field and
+// boolean which is true if field was set.
+func (c *PhoneCreateGroupCallRequest) GetScheduleDate() (value int, ok bool) {
+	if !c.Flags.Has(1) {
+		return value, false
+	}
+	return c.ScheduleDate, true
+}
+
 // Decode implements bin.Decoder.
 func (c *PhoneCreateGroupCallRequest) Decode(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode phone.createGroupCall#bd3dabe0 to nil")
+		return fmt.Errorf("can't decode phone.createGroupCall#48cdc6d8 to nil")
 	}
 	if err := b.ConsumeID(PhoneCreateGroupCallRequestTypeID); err != nil {
-		return fmt.Errorf("unable to decode phone.createGroupCall#bd3dabe0: %w", err)
+		return fmt.Errorf("unable to decode phone.createGroupCall#48cdc6d8: %w", err)
 	}
 	return c.DecodeBare(b)
 }
@@ -157,21 +241,40 @@ func (c *PhoneCreateGroupCallRequest) Decode(b *bin.Buffer) error {
 // DecodeBare implements bin.BareDecoder.
 func (c *PhoneCreateGroupCallRequest) DecodeBare(b *bin.Buffer) error {
 	if c == nil {
-		return fmt.Errorf("can't decode phone.createGroupCall#bd3dabe0 to nil")
+		return fmt.Errorf("can't decode phone.createGroupCall#48cdc6d8 to nil")
+	}
+	{
+		if err := c.Flags.Decode(b); err != nil {
+			return fmt.Errorf("unable to decode phone.createGroupCall#48cdc6d8: field flags: %w", err)
+		}
 	}
 	{
 		value, err := DecodeInputPeer(b)
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.createGroupCall#bd3dabe0: field peer: %w", err)
+			return fmt.Errorf("unable to decode phone.createGroupCall#48cdc6d8: field peer: %w", err)
 		}
 		c.Peer = value
 	}
 	{
 		value, err := b.Int()
 		if err != nil {
-			return fmt.Errorf("unable to decode phone.createGroupCall#bd3dabe0: field random_id: %w", err)
+			return fmt.Errorf("unable to decode phone.createGroupCall#48cdc6d8: field random_id: %w", err)
 		}
 		c.RandomID = value
+	}
+	if c.Flags.Has(0) {
+		value, err := b.String()
+		if err != nil {
+			return fmt.Errorf("unable to decode phone.createGroupCall#48cdc6d8: field title: %w", err)
+		}
+		c.Title = value
+	}
+	if c.Flags.Has(1) {
+		value, err := b.Int()
+		if err != nil {
+			return fmt.Errorf("unable to decode phone.createGroupCall#48cdc6d8: field schedule_date: %w", err)
+		}
+		c.ScheduleDate = value
 	}
 	return nil
 }
@@ -184,7 +287,7 @@ var (
 	_ bin.BareDecoder = &PhoneCreateGroupCallRequest{}
 )
 
-// PhoneCreateGroupCall invokes method phone.createGroupCall#bd3dabe0 returning error if any.
+// PhoneCreateGroupCall invokes method phone.createGroupCall#48cdc6d8 returning error if any.
 //
 // See https://core.telegram.org/method/phone.createGroupCall for reference.
 func (c *Client) PhoneCreateGroupCall(ctx context.Context, request *PhoneCreateGroupCallRequest) (UpdatesClass, error) {

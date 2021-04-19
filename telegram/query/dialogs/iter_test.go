@@ -38,14 +38,7 @@ func result(r []tg.DialogClass, count int) tg.MessagesDialogsClass {
 			ID:         id,
 			AccessHash: 10,
 			Photo: &tg.ChatPhoto{
-				PhotoSmall: tg.FileLocationToBeDeprecated{
-					VolumeID: int64(i),
-					LocalID:  i,
-				},
-				PhotoBig: tg.FileLocationToBeDeprecated{
-					VolumeID: int64(i),
-					LocalID:  i,
-				},
+				PhotoID: int64(i),
 			},
 		})
 	}
