@@ -7,6 +7,7 @@ coverage:
 .PHONY: coverage
 
 generate:
+	go generate
 	go generate ./...
 .PHONY: generate
 
